@@ -379,6 +379,7 @@ anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
   int numReactions = Model_getNumReactions(m);
   int i, j;
 
+
   for (i = 0; i < numReactions; i++)
   {
     Reaction_t *r = Model_getReaction(m, i);
@@ -388,8 +389,8 @@ anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
     for (j = 0; j < numReactants; j++)
     {
       SpeciesReference_t *sr = Reaction_getReactant(r, j);
-
       const char *referenceId = SpeciesReference_getSpecies(sr);
+
       if (streq(speciesId, referenceId))
       {
         return 1;
@@ -401,8 +402,8 @@ anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
     for (j = 0; j < numProducts; j++)
     {
       SpeciesReference_t *sr = Reaction_getProduct(r, j);
-
       const char *referenceId = SpeciesReference_getSpecies(sr);
+
       if (streq(speciesId, referenceId))
       {
         return 1;
@@ -414,8 +415,8 @@ anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
     for (j = 0; j < numModifiers; j++)
     {
       ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
-
       const char *referenceId = ModifierSpeciesReference_getSpecies(msr);
+
       if (streq(speciesId, referenceId))
       {
         return 1;
@@ -424,6 +425,42 @@ anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
   }
 
   return 0;
+}
+
+
+static
+BOOLEAN
+anyRuleVariableIs(const Model_t *m, const char *variableName)
+{
+  int numRules = Model_getNumRules(m);
+  int i;
+
+
+  for (i = 0; i < numRules; i++)
+  {
+    Rule_t *rule = Model_getRule(m, i);
+    AssignmentRule_t *ar = (AssignmentRule_t *) rule;
+    RateRule_t *rr = (RateRule_t *) rule;
+
+    switch (rule->typecode)
+    {
+    case SBML_ASSIGNMENT_RULE:
+      if (streq(AssignmentRule_getVariable(ar), variableName))
+      {
+        return TRUE;
+      }
+      break;
+
+    case SBML_RATE_RULE:
+      if (streq(RateRule_getVariable(ar), variableName))
+      {
+        return TRUE;
+      }
+      break;
+    }
+  }
+
+  return FALSE;
 }
 
 
@@ -1040,7 +1077,8 @@ RULE (species_speciesReference)
     Species_getConstant(s)
     &&
     !Species_getBoundaryCondition(s)
-  ) {
+  )
+  {
     if (anySpeciesReferenceIsTo(d->model, speciesId))
     {
       LOG_MESSAGE(msg);
@@ -1049,6 +1087,45 @@ RULE (species_speciesReference)
   }
 
   return passed;
+}
+
+
+/**
+ * Consider a species element that has a boundaryCondition attribute of false
+ * and there exists a species attribute on a speciesReference element which
+ * contains the value of the species element's id attribute. (The species
+ * concentration is determined by a reaction.) In this case there must not
+ * exist a variable attribute of a rule element that contains the id attribute
+ * value on the species element. (A species can't be determined by rules and
+ * reactions at the same time).
+ */
+/* TODO: add a test case for AlgebraicRule */
+RULE (species_ruleAndReaction)
+{
+  static const char msg[] =
+    "A species may not participate in both a rule and a reaction.";
+  unsigned int passed = 1;
+
+  Species_t *s = (Species_t *) obj;
+  const char *speciesId = Species_getId(s);
+  
+  
+  if (
+    !Species_getConstant(s)
+    &&
+    !Species_getBoundaryCondition(s)
+  )
+  {
+    if (
+      anySpeciesReferenceIsTo(d->model, speciesId)
+      &&
+      anyRuleVariableIs(d->model, speciesId)
+    )
+    {
+      LOG_MESSAGE(msg);
+      passed = 0;
+    }
+  }
 }
 
 
@@ -1090,4 +1167,5 @@ Validator_addDefaultRules (Validator_t *v)
                                                        SBML_SPECIES         );
   */
   Validator_addRule( v, species_speciesReference,      SBML_SPECIES         );
+  Validator_addRule( v, species_ruleAndReaction,       SBML_SPECIES         );
 }
