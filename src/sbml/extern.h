@@ -83,6 +83,16 @@
  */
 #pragma warning(disable: 4291)
 
+/**
+ * Disable MSVC++ warning C4099: type seen using 'class' now using 'struct'.
+ */
+#pragma warning(disable: 4099)
+
+/**
+ * Disable MSVC++ warning C4018: signed/unsigned mismatch.
+ */
+#pragma warning(disable: 4018)
+
 #else
 
 #define LIBSBML_EXTERN
