@@ -551,7 +551,6 @@ ASTNode_t *
 FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
 {
   ASTNode_t *result, *lexpr, *rexpr, *operator;
-  List_t    *children;
 
 
   /**
@@ -617,15 +616,23 @@ FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
      * the numeric value.  Otheriwse, a (unary) AST_MINUS node should be
      * returned.
      */
-    if (lexpr->type == AST_INTEGER)
+    if (ASTNode_getType(lexpr) == AST_INTEGER)
     {
-      lexpr->value.integer = - lexpr->value.integer;
+      ASTNode_setInteger(lexpr, - ASTNode_getInteger(lexpr));
       ASTNode_free(operator);
       result = lexpr;
     }
-    else if (lexpr->type == AST_REAL || lexpr->type == AST_REAL_E)
+    else if ( ASTNode_getType(lexpr) == AST_REAL)
     {
-      lexpr->value.real = - lexpr->value.real;
+      ASTNode_setReal(lexpr, - ASTNode_getReal(lexpr));
+      ASTNode_free(operator);
+      result = lexpr;
+    }
+    else if (ASTNode_getType(lexpr) == AST_REAL_E)
+    {
+      ASTNode_setRealWithExponent( lexpr,
+                                   - ASTNode_getMantissa(lexpr),
+                                     ASTNode_getExponent(lexpr) );
       ASTNode_free(operator);
       result = lexpr;
     }
@@ -666,8 +673,8 @@ FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
     ASTNode_free( Stack_pop(stack) );
 
     Stack_pop(stack);
-    result       = Stack_pop(stack);
-    result->type = AST_FUNCTION;
+    result = Stack_pop(stack);
+    ASTNode_setType(result, AST_FUNCTION);
 
     if (lexpr != NULL)
     {
@@ -678,10 +685,7 @@ FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
        *
        * After this, OptArgs (lexpr) is no longer needed.
        */
-      children         = lexpr->children;
-      lexpr->children  = result->children;
-      result->children = children;
-
+      ASTNode_swapChildren(lexpr, result);
       ASTNode_free(lexpr);
     }
 
