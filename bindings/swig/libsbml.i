@@ -79,6 +79,10 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %ignore ListOf::countIf;
 
 
+%newobject SBMLReader::readSBMLFromString;
+%newobject SBMLReader::readSBML;
+
+
 %include "std_string.i"
 
 %import  sbml/extern.h
@@ -118,10 +122,13 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include sbml/XMLSchemaValidation.h
 
 
+%typemap(newfree) char * "free($1);";
+
 LIBSBML_EXTERN
 int
 writeSBML (SBMLDocument* d, const char *filename);
 
+%newobject writeSBMLToString;
 LIBSBML_EXTERN
 char *
 writeSBMLToString (SBMLDocument* d);
@@ -137,10 +144,12 @@ writeSBMLToString (SBMLDocument* d);
 %typemap(javain) ASTNode * "ASTNode.getCPtr($javainput)";
 #endif
 
+%newobject SBML_formulaToString;
 LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode* tree);
 
+%newobject SBML_parseFormula;
 LIBSBML_EXTERN
 ASTNode*
 SBML_parseFormula (const char *formula);
@@ -153,6 +162,17 @@ LIBSBML_EXTERN
 int
 writeMathML (MathMLDocument* d, const char *filename);
 
+%newobject writeMathMLToString;
 LIBSBML_EXTERN
 char *
 writeMathMLToString (MathMLDocument* d);
+
+%newobject readSBML(const char *);
+LIBSBML_EXTERN
+SBMLDocument*
+readSBML(const char*);
+
+%newobject readSBMLFromString(const char *);
+LIBSBML_EXTERN
+SBMLDocument*
+readSBMLFromString(const char*);
