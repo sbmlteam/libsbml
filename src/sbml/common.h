@@ -54,12 +54,34 @@
 #define SBML_COMMON_H 1
 
 
-#if WIN32
-#  define HAVE_CONFIG_H 1
+#if HAVE_CONFIG_H || WIN32
+#  include "config.h"
 #endif
 
-#if HAVE_CONFIG_H
-#  include "config.h"
+#include <stdio.h>
+#include <sys/types.h>
+
+#if STDC_HEADERS
+#  include <errno.h>
+#  include <float.h>
+#  include <stdlib.h>
+#  include <string.h>
+#endif
+
+#if HAVE_MATH_H
+#  include <math.h>
+#endif
+
+#if HAVE_IEEFP_H
+#  include <ieeefp.h>
+#endif
+
+#ifndef errno
+  extern int errno;
+#endif
+
+#if HAVE_LIBCHECK
+#  include <check.h>
 #endif
 
 
@@ -103,35 +125,6 @@
 #define LIBSBML_EXTERN
 
 #endif  /* WIN32 */
-
-
-
-#include <stdio.h>
-#include <sys/types.h>
-
-#if STDC_HEADERS
-#  include <errno.h>
-#  include <float.h>
-#  include <stdlib.h>
-#  include <string.h>
-#endif
-
-#if HAVE_MATH_H
-#  include <math.h>
-#endif
-
-#if HAVE_IEEFP_H
-#  include <ieeefp.h>
-#endif
-
-
-#ifndef errno
-  extern int errno;
-#endif
-
-#if HAVE_LIBCHECK
-#  include <check.h>
-#endif
 
 
 #include "memory.h"
