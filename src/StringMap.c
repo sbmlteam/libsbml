@@ -278,7 +278,7 @@ StringMap_grow (StringMap_t *map)
 
 
   map->capacity *= 10;
-  map->itemLists = (List_t **) safe_calloc(map->capacity, sizeof(List_t));
+  map->itemLists = (List_t **) safe_calloc(map->capacity, sizeof(List_t*));
 
   /* rehash all the old items into the new, larger hash */
 
