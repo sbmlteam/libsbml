@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/common.h"
+
 #include "sbml/ASTNode.h"
 #include "sbml/FormulaParser.h"
 

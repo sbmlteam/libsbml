@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/common.h"
+
 #include "sbml/FormulaFormatter.h"
 #include "sbml/FormulaParser.h"
 
