@@ -45,7 +45,7 @@
 #     Pasadena, CA, 91125, USA
 #
 #     http://sbml.org
-#     mailto:sysbio-team@caltech.edu
+#     mailto:sbml-team@caltech.edu
 #
 # Contributor(s):
 #
