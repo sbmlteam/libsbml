@@ -50,7 +50,6 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/AssignmentRule.h"
 #include "sbml/SpeciesConcentrationRule.h"
 
