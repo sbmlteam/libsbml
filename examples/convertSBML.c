@@ -50,12 +50,12 @@
  */
 
 
-#include "sbml/common.h"
+#include "common/common.h"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLWriter.h"
 #include "sbml/SBMLTypes.h"
 
-#include "util.h"
+#include "util/util.h"
 
 
 int
