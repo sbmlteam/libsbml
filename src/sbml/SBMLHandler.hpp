@@ -47,22 +47,31 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#ifndef SBMLHandler_hh
-#define SBMLHandler_hh
+#ifndef SBMLHandler_hpp
+#define SBMLHandler_hpp
 
 
-#include <xercesc/sax/Locator.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
+#include "common.hpp"
+
+
+#ifdef USE_EXPAT
+#  include "Expat.hpp"
+#  include "ExpatAttributes.hpp"
+#else
+#  include <xercesc/sax/Locator.hpp>
+#  include <xercesc/sax2/DefaultHandler.hpp>
+#endif  // USE_EXPAT
+
 
 #include "MathMLDocument.h"
 #include "ParseMessage.h"
 #include "Stack.h"
 #include "SBMLTypes.h"
 
-#include "common.hpp"
 #include "SBMLTagCodes.hpp"
 #include "MathMLHandler.hpp"
 #include "XMLStringFormatter.hpp"
@@ -78,6 +87,11 @@ typedef SBase_t* (SBMLHandler::*TagHandler_t)(const Attributes& attrs);
  * This XML document handler is responsible for constructing an
  * SBMLDocument from SAX2 events deliverd by a SAX2XMLReader.
  */
+#ifdef USE_EXPAT
+typedef Expat DefaultHandler;
+#endif  // USE_EXPAT
+
+
 class SBMLHandler : public DefaultHandler
 {
 
@@ -97,6 +111,16 @@ public:
   ~SBMLHandler ();
 
 
+#ifdef USE_EXPAT
+  virtual void onStartElement(const XML_Char *pszName,
+                              const XML_Char **papszAttrs);
+
+  virtual void onEndElement(const XML_Char *pszName);
+
+  void onCharacterData(const XML_Char *chars, int length);
+
+#else
+
   void startElement
   (
     const XMLCh* const  uri,
@@ -114,6 +138,8 @@ public:
 
   void characters(const XMLCh* const chars, const unsigned int length);
 
+#endif  // USE_EXPAT
+
   void ignorableWhitespace
   (
     const XMLCh* const  chars,
@@ -122,16 +148,19 @@ public:
 
   void setDocumentLocator (const Locator *const locator);
 
+#ifndef USE_EXPAT
   inline void warning    (const SAXParseException&);
   inline void error      (const SAXParseException&);
   inline void fatalError (const SAXParseException&);
+
+  inline ParseMessage_t* ParseMessage_createFrom (const SAXParseException& e);
+#endif  // !USE_EXPAT
 
   inline void warning    (const char* message);
   inline void error      (const char* message);
   inline void fatalError (const char* message);
 
   inline ParseMessage_t* ParseMessage_createFrom (const char* message);
-         ParseMessage_t* ParseMessage_createFrom (const SAXParseException& e);
 
 
 private:
@@ -235,4 +264,4 @@ private:
 };
 
 
-#endif  // SBMLHandler_hh
+#endif  // SBMLHandler_hpp

@@ -50,6 +50,9 @@
  */
 
 
+#include <iostream>
+#include <check.h>
+
 #include "sbml/common.h"
 
 #include "sbml/ASTNode.h"
@@ -64,7 +67,7 @@
 BEGIN_C_DECLS
 
 
-#define XML_HEADER    "<?xml version='1.0' encoding='ascii'?>\n"
+#define XML_HEADER    "<?xml version='1.0' encoding='UTF-8'?>\n"
 #define SBML_HEADER   "<sbml level='1' version='1'> <model name='testModel'>\n"
 #define SBML_HEADER2  "<sbml level='2' version='1'> <model name='testModel'>\n"
 #define SBML_FOOTER   "</model> </sbml>"
@@ -1943,6 +1946,25 @@ START_TEST (test_element_notes_xmlns)
 END_TEST
 
 
+START_TEST (test_element_notes_entity_reference)
+{
+  const char* n =
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... </body>";
+
+  const char* s = wrapSBML
+  (
+    "<notes>"
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#160;text... </body>"
+    "</notes>"
+  );
+
+
+  D = readSBMLFromString(s);
+  fail_unless(!strcmp(D->model->notes, n), NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_notes_nested)
 {
   Reaction_t*   r;
@@ -2423,6 +2445,7 @@ create_suite_SBMLHandler (void)
   tcase_add_test( tcase, test_element_notes                                );
   tcase_add_test( tcase, test_element_notes_after                          );
   tcase_add_test( tcase, test_element_notes_xmlns                          );
+  tcase_add_test( tcase, test_element_notes_entity_reference               );
   tcase_add_test( tcase, test_element_notes_nested                         );
   tcase_add_test( tcase, test_element_notes_sbml                           );
   tcase_add_test( tcase, test_element_notes_ListOf                         );

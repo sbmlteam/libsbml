@@ -47,6 +47,7 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
@@ -55,8 +56,15 @@
 #include "sbml/common.h"
 #include "sbml/List.h"
 
-#include <xercesc/sax2/Attributes.hpp>
-#include <xercesc/util/XMLString.hpp>
+
+#ifdef USE_EXPAT
+#  include <expat.h>
+#  include "ExpatXMLString.hpp"
+#else
+#  include <xercesc/sax2/Attributes.hpp>
+#  include <xercesc/util/XMLString.hpp>
+#endif  // USE_EXPAT
+
 
 #include "sbml/FormulaFormatter.h"
 
@@ -65,6 +73,7 @@
 #include "sbml/XMLUtil.hpp"
 
 #include "sbml/SBMLHandler.hpp"
+#include "sbml/ParseMessage.h"
 
 
 const TagHandler_t
@@ -125,11 +134,16 @@ SBMLHandler::TagHandler[] =
  */
 SBMLHandler::SBMLHandler (SBMLDocument_t *d) : fDocument(d)
 {
+
+#ifdef USE_EXPAT
+   create();
+#endif  // USE_EXPAT
+
   //
   // An XMLStringFormatter is used to reconstruct <notes> and <annotation>
   // sections from SAX2 events.
   //
-  fFormatter = new XMLStringFormatter("UTF-8");
+  fFormatter = new XMLStringFormatter("ASCII");
 
   //
   // MathML is parsed by delegating SAX2 events recieved by this handler to
@@ -191,12 +205,24 @@ SBMLHandler::~SBMLHandler ()
 /**
  * startElement
  */
+#ifdef USE_EXPAT
+void SBMLHandler::onStartElement(const XML_Char *localname,
+                                 const XML_Char **papszAttrs)
+#else
 void
 SBMLHandler::startElement (const XMLCh* const  uri,
                            const XMLCh* const  localname,
                            const XMLCh* const  qname,
                            const Attributes&   attrs)
+#endif  // USE_EXPAT
 {
+
+#ifdef USE_EXPAT
+  XMLCh*              uri = NULL;
+  Attributes          attrs(papszAttrs);
+  const XMLCh* const  qname = localname;
+#endif  // USE_EXPAT
+
   SBase_t*      obj = NULL;
   SBMLTagCode_t tag = getTagCode(uri, localname);
 
@@ -210,7 +236,7 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   if (inAnnotation)
   {
     fFormatter->startElement(qname, attrs);
- 
+
     //
     // Track nested <annotation> tags.
     //
@@ -235,7 +261,11 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   }
   else if (inMath)
   {
+#ifdef USE_EXPAT
+    fMathHandler->onStartElement(localname, papszAttrs);
+#else
     fMathHandler->startElement(uri, localname, qname, attrs);
+#endif  // USE_EXPAT
   }
 
   //
@@ -244,18 +274,36 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   //
   else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
   {
-    inAnnotation++;
+#ifdef USE_EXPAT
+    if (!inAnnotation) enableCharacterDataHandler();
+#endif  // USE_EXPAT
     fFormatter->startElement(qname, attrs);
+
+    inAnnotation++;
   }
   else if (tag == TAG_NOTES)
   {
+#ifdef USE_EXPAT
+    if (!inNotes) enableCharacterDataHandler();
+#endif  // USE_EXPAT
+
     inNotes++;
   }
   else if (tag == TAG_MATH)
   {
-    inMath++;
-    fMathHandler->startDocument();
+#ifdef USE_EXPAT
+    if (!inMath) enableCharacterDataHandler();
+#endif  // USE_EXPAT
+
+     fMathHandler->startDocument();
+
+#ifdef USE_EXPAT
+    fMathHandler->onStartElement(localname, papszAttrs);
+#else
     fMathHandler->startElement(uri, localname, qname, attrs);
+#endif  // USE_EXPAT
+
+    inMath++;
   }
 
   //
@@ -283,11 +331,21 @@ SBMLHandler::startElement (const XMLCh* const  uri,
 /**
  * endElement()
  */
+#ifdef USE_EXPAT
+void SBMLHandler::onEndElement(const XML_Char *localname)
+#else
 void
 SBMLHandler::endElement (const XMLCh* const  uri,
                          const XMLCh* const  localname,
                          const XMLCh* const  qname)
+#endif  // USE_EXPAT
 {
+
+#ifdef USE_EXPAT
+  XMLCh*              uri   = NULL;
+  const XMLCh* const  qname = localname;
+#endif  // USE_EXPAT
+
   static const char ERRMSG_NO_SBML_NOTE[] =
     "The <sbml> element cannot contain a <note>.  "
     "Use the <model> element instead.";
@@ -322,6 +380,10 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     }
 
     inNotes--;
+
+#ifdef USE_EXPAT
+    if (!inNotes) enableCharacterDataHandler(false);
+#endif  // USE_EXPAT
   }
 
   //
@@ -343,6 +405,10 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     }
 
     inAnnotation--;
+
+#ifdef USE_EXPAT
+    if (!inAnnotation) enableCharacterDataHandler(false);
+#endif  // USE_EXPAT
   }
 
   //
@@ -350,12 +416,21 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   //
   else if (tag == TAG_MATH)
   {
+#ifdef USE_EXPAT
+    fMathHandler->onEndElement(localname);
+#else
     fMathHandler->endElement(uri, localname, qname);
-    fMathHandler->endDocument();
-    inMath--;
+#endif  // USE_EXPAT
 
+    fMathHandler->endDocument();
     setMath(fMathDocument->math);
     fMathDocument->math = NULL;
+
+    inMath--;
+
+#ifdef USE_EXPAT
+    if (!inMath) enableCharacterDataHandler(false);
+#endif  // USE_EXPAT
   }
 
   else if (inNotes || inAnnotation)
@@ -364,7 +439,11 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   }
   else if (inMath)
   {
+#ifdef USE_EXPAT
+    fMathHandler->onEndElement(localname);
+#else
     fMathHandler->endElement(uri, localname, qname);
+#endif  // !USE_EXPAT
   }
   else if (tag != TAG_UNKNOWN)
   {
@@ -378,9 +457,13 @@ SBMLHandler::endElement (const XMLCh* const  uri,
  * Characters are either part of <notes>, <annotation> or MathML <cn> and
  * <ci> elements.  Everything else is ignored.
  */
+#ifdef USE_EXPAT
+void SBMLHandler::onCharacterData(const XML_Char *chars, int length)
+#else
 void
 SBMLHandler::characters (const XMLCh* const  chars,
                          const unsigned int  length)
+#endif  // USE_EXPAT
 {
   if (inNotes || inAnnotation)
   {
@@ -388,7 +471,11 @@ SBMLHandler::characters (const XMLCh* const  chars,
   }
   else if (inMath)
   {
+#ifdef USE_EXPAT
+    fMathHandler->onCharacterData(chars, length);
+#else
     fMathHandler->characters(chars, length);
+#endif  // USE_EXPAT
   }
 }
 
@@ -426,6 +513,7 @@ SBMLHandler::setDocumentLocator (const Locator *const locator)
  */
 
 
+#ifndef USE_EXPAT
 void
 SBMLHandler::warning (const SAXParseException& e)
 {
@@ -445,6 +533,7 @@ SBMLHandler::fatalError (const SAXParseException& e)
 {
   List_add( fDocument->fatal, ParseMessage_createFrom(e) );
 }
+#endif  // !USE_EXPAT
 
 
 /* ----------------------------------------------------------------------
@@ -485,13 +574,19 @@ ParseMessage_t*
 SBMLHandler::ParseMessage_createFrom (const char* message)
 {
   return
+#ifdef USE_EXPAT
+    ParseMessage_createWith( message, 
+                             getCurrentLineNumber(),
+                             getCurrentColumnNumber() );
+#else
     ParseMessage_createWith( message, 
                              (unsigned int) fLocator->getLineNumber(),
                              (unsigned int) fLocator->getColumnNumber() );
+#endif  // USE_EXPAT
 }
 
 
-
+#ifndef USE_EXPAT
 /**
  * Creates a new ParseMessage from the given SAXException and returns a
  * pointer to it.
@@ -517,6 +612,7 @@ SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
 
   return pm;
 }
+#endif  // !USE_EXPAT
 
 
 /* ----------------------------------------------------------------------
