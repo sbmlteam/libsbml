@@ -60,8 +60,11 @@
 
 #include "SBase.hpp"
 #include "ListOf.hpp"
-#include "Parameter.hpp"
-#include "ASTNode.hpp"
+
+
+class ASTNode;
+class Parameter;
+class SBMLVisitor;
 
 
 class KineticLaw : public SBase
@@ -85,6 +88,12 @@ public:
 
 
   /**
+   * Accepts the given SBMLVisitor.
+   */
+  LIBSBML_EXTERN
+  void accept (SBMLVisitor& v) const;
+
+  /**
    * @return the formula of this KineticLaw.
    */
   LIBSBML_EXTERN
@@ -101,6 +110,12 @@ public:
    */
   LIBSBML_EXTERN
   ListOf& getListOfParameters ();
+
+  /**
+   * @return the list of Parameters for this KineticLaw.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfParameters () const;
 
   /**
    * @return the timeUnits of this KineticLaw.

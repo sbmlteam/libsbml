@@ -53,6 +53,9 @@
 #include "sbml/common.h"
 #include "sbml/FormulaFormatter.h"
 #include "sbml/FormulaParser.h"
+#include "sbml/Parameter.hpp"
+#include "sbml/ASTNode.hpp"
+#include "sbml/SBMLVisitor.hpp"
 
 #include "sbml/KineticLaw.h"
 #include "sbml/KineticLaw.hpp"
@@ -87,6 +90,36 @@ KineticLaw::~KineticLaw ()
 
 
 /**
+ * Accepts the given SBMLVisitor.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw::accept (SBMLVisitor& v) const
+{
+  unsigned int n;
+  bool next;
+
+
+  v.visit(*this);
+
+  //
+  // Parameter
+  //
+
+  getListOfParameters().accept(v, SBML_PARAMETER);
+
+  for (n = 0, next = true; n < getNumParameters() && next; n++)
+  {
+    next = getParameter(n)->accept(v);
+  }
+
+  v.leave(getListOfParameters(), SBML_PARAMETER);
+
+  v.leave(*this);
+}
+
+
+/**
  * @return the formula of this KineticLaw.
  */
 LIBSBML_EXTERN
@@ -114,6 +147,17 @@ KineticLaw::getMath () const
 LIBSBML_EXTERN
 ListOf&
 KineticLaw::getListOfParameters ()
+{
+  return parameter;
+}
+
+
+/**
+ * @return the list of Parameters for this KineticLaw.
+ */
+LIBSBML_EXTERN
+const ListOf&
+KineticLaw::getListOfParameters () const
 {
   return parameter;
 }

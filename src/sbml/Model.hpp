@@ -57,23 +57,30 @@
 #include <string>
 
 #include "extern.h"
-
 #include "SBase.hpp"
 #include "ListOf.hpp"
-#include "FunctionDefinition.hpp"
-#include "UnitDefinition.hpp"
-#include "Compartment.hpp"
-#include "Species.hpp"
-#include "Parameter.hpp"
-#include "Rule.hpp"
-#include "AssignmentRule.hpp"
-#include "RateRule.hpp"
-#include "AlgebraicRule.hpp"
-#include "CompartmentVolumeRule.hpp"
-#include "ParameterRule.hpp"
-#include "SpeciesConcentrationRule.hpp"
-#include "Reaction.hpp"
-#include "Event.hpp"
+
+
+class FunctionDefinition;
+class UnitDefinition;
+class Unit;
+class Compartment;
+class Species;
+class Parameter;
+class Rule;
+class AssignmentRule;
+class RateRule;
+class AlgebraicRule;
+class CompartmentVolumeRule;
+class ParameterRule;
+class SpeciesConcentrationRule;
+class Reaction;
+class SpeciesReference;
+class ModifierSpeciesReference;
+class KineticLaw;
+class Event;
+class EventAssignment;
+class SBMLVisitor;
 
 
 class Model : public SBase
@@ -91,6 +98,13 @@ public:
    */
   LIBSBML_EXTERN
   virtual ~Model ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  LIBSBML_EXTERN
+  void accept (SBMLVisitor& v) const;
 
   /**
    * @return the id of this Model.
@@ -429,10 +443,22 @@ public:
   ListOf& getListOfFunctionDefinitions ();
 
   /**
+   * @return the list of FunctionDefinitions for this Model.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfFunctionDefinitions () const;
+
+  /**
    * @return the list of UnitDefinitions for this Model.
    */
   LIBSBML_EXTERN
   ListOf& getListOfUnitDefinitions ();
+
+  /**
+   * @return the list of UnitDefinitions for this Model.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfUnitDefinitions () const;
 
   /**
    * @return the list of Compartments for this Model.
@@ -441,16 +467,34 @@ public:
   ListOf& getListOfCompartments ();
 
   /**
+   * @return the list of Compartments for this Model.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfCompartments () const;
+
+  /**
    * @return the list of Species for this Model.
    */
   LIBSBML_EXTERN
   ListOf& getListOfSpecies ();
 
   /**
+   * @return the list of Species for this Model.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfSpecies () const;
+
+  /**
    * @return the list of Parameters for this Model.
    */
   LIBSBML_EXTERN
   ListOf& getListOfParameters ();
+
+  /**
+   * @return the list of Parameters for this Model.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfParameters () const;
 
   /**
    * @return the list of Rules for this Model.
@@ -462,13 +506,31 @@ public:
    * @return the list of Rules for this Model.
    */
   LIBSBML_EXTERN
+  const ListOf& getListOfRules () const;
+
+  /**
+   * @return the list of Rules for this Model.
+   */
+  LIBSBML_EXTERN
   ListOf& getListOfReactions ();
 
   /**
    * @return the list of Rules for this Model.
    */
   LIBSBML_EXTERN
+  const ListOf& getListOfReactions () const;
+
+  /**
+   * @return the list of Rules for this Model.
+   */
+  LIBSBML_EXTERN
   ListOf& getListOfEvents ();
+
+  /**
+   * @return the list of Rules for this Model.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfEvents () const;
 
   /**
    * @return the list of items of the given type for this Model.  If the

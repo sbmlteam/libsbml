@@ -57,11 +57,13 @@
 #include <string>
 
 #include "extern.h"
-
 #include "SBase.hpp"
-#include "ASTNode.hpp"
 #include "ListOf.hpp"
-#include "EventAssignment.hpp"
+
+
+class ASTNode;
+class EventAssignment;
+class SBMLVisitor;
 
 
 class Event : public SBase
@@ -92,6 +94,17 @@ public:
    */
   LIBSBML_EXTERN
   virtual ~Event ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Event
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
 
   /**
    * @return the id of this Event.
@@ -228,6 +241,12 @@ public:
    */
   LIBSBML_EXTERN
   ListOf& getListOfEventAssignments ();
+
+  /**
+   * @return the list of EventAssignments for this Event.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfEventAssignments () const;
 
   /**
    * @return the nth EventAssignment of this Event.

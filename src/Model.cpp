@@ -50,6 +50,26 @@
  */
 
 
+#include "sbml/FunctionDefinition.hpp"
+#include "sbml/UnitDefinition.hpp"
+#include "sbml/Unit.hpp"
+#include "sbml/Compartment.hpp"
+#include "sbml/Species.hpp"
+#include "sbml/Parameter.hpp"
+#include "sbml/AssignmentRule.hpp"
+#include "sbml/RateRule.hpp"
+#include "sbml/AlgebraicRule.hpp"
+#include "sbml/CompartmentVolumeRule.hpp"
+#include "sbml/ParameterRule.hpp"
+#include "sbml/SpeciesConcentrationRule.hpp"
+#include "sbml/Reaction.hpp"
+#include "sbml/SpeciesReference.hpp"
+#include "sbml/ModifierSpeciesReference.hpp"
+#include "sbml/KineticLaw.hpp"
+#include "sbml/Event.hpp"
+#include "sbml/EventAssignment.hpp"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/Model.h"
 #include "sbml/Model.hpp"
 
@@ -73,6 +93,134 @@ Model::Model (const std::string& id, const std::string& name) :
 LIBSBML_EXTERN
 Model::~Model ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ */
+LIBSBML_EXTERN
+void
+Model::accept (SBMLVisitor& v) const
+{
+  unsigned int n;
+  bool next;
+
+
+  v.visit(*this);
+
+  //
+  // FunctionDefinition
+  //
+
+  getListOfFunctionDefinitions().accept(v, SBML_FUNCTION_DEFINITION);
+
+  for (n = 0, next = true; n < getNumFunctionDefinitions() && next; n++)
+  {
+    next = getFunctionDefinition(n)->accept(v);
+  }
+
+  v.leave(getListOfFunctionDefinitions(), SBML_FUNCTION_DEFINITION);
+
+
+  //
+  // UnitDefinition
+  //
+
+  getListOfUnitDefinitions().accept(v, SBML_UNIT_DEFINITION);
+
+  for (n = 0, next = true; n < getNumUnitDefinitions()  && next; n++)
+  {
+    next = getUnitDefinition(n)->accept(v);
+  }
+
+  v.leave(getListOfUnitDefinitions(), SBML_UNIT_DEFINITION);
+
+
+  //
+  // Compartment
+  //
+
+  getListOfCompartments().accept(v, SBML_COMPARTMENT);
+
+  for (n = 0, next = true; n < getNumCompartments() && next; n++)
+  {
+    next = getCompartment(n)->accept(v);
+  }
+
+  v.leave(getListOfCompartments(), SBML_COMPARTMENT);
+
+
+  //
+  // Species
+  //
+
+  getListOfSpecies().accept(v, SBML_SPECIES);
+
+  for (n = 0, next = true; n < getNumSpecies() && next; n++)
+  {
+    next = getSpecies(n)->accept(v);
+  }
+
+  v.leave(getListOfSpecies(), SBML_SPECIES);
+
+
+  //
+  // Parameter
+  //
+
+  getListOfParameters().accept(v, SBML_PARAMETER);
+
+  for (n = 0, next = true; n < getNumParameters() && next; n++)
+  {
+    next = getParameter(n)->accept(v);
+  }
+
+  v.leave(getListOfParameters(), SBML_PARAMETER);
+
+
+  //
+  // Rule
+  //
+
+  getListOfRules().accept(v, SBML_ALGEBRAIC_RULE);
+
+  for (n = 0, next = true; n < getNumRules() && next; n++)
+  {
+    next = getRule(n)->accept(v);
+  }
+
+  v.leave(getListOfRules(), SBML_ALGEBRAIC_RULE);
+
+
+  //
+  // Reaction
+  //
+
+  getListOfReactions().accept(v, SBML_REACTION);
+
+  for (n = 0, next = true; n < getNumReactions() && next; n++)
+  {
+    next = getReaction(n)->accept(v);
+  }
+
+  v.leave(getListOfReactions(), SBML_REACTION);
+
+
+  //
+  // Event
+  //
+
+  getListOfEvents().accept(v, SBML_EVENT);
+
+  for (n = 0, next = true; n < getNumEvents() && next; n++)
+  {
+    next = getEvent(n)->accept(v);
+  }
+
+  v.leave(getListOfEvents(), SBML_EVENT);
+
+  v.leave(*this);
 }
 
 
@@ -818,11 +966,33 @@ Model::getListOfFunctionDefinitions ()
 
 
 /**
+ * @return the list of FunctionDefinitions for this Model.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Model::getListOfFunctionDefinitions () const
+{
+  return functionDefinition;
+}
+
+
+/**
  * @return the list of UnitDefinitions for this Model.
  */
 LIBSBML_EXTERN
 ListOf&
 Model::getListOfUnitDefinitions ()
+{
+  return unitDefinition;
+}
+
+
+/**
+ * @return the list of UnitDefinitions for this Model.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Model::getListOfUnitDefinitions () const
 {
   return unitDefinition;
 }
@@ -840,6 +1010,17 @@ Model::getListOfCompartments ()
 
 
 /**
+ * @return the list of Compartments for this Model.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Model::getListOfCompartments () const
+{
+  return compartment;
+}
+
+
+/**
  * @return the list of Species for this Model.
  */
 LIBSBML_EXTERN
@@ -851,11 +1032,33 @@ Model::getListOfSpecies ()
 
 
 /**
+ * @return the list of Species for this Model.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Model::getListOfSpecies () const
+{
+  return species;
+}
+
+
+/**
  * @return the list of Parameters for this Model.
  */
 LIBSBML_EXTERN
 ListOf&
 Model::getListOfParameters ()
+{
+  return parameter;
+}
+
+
+/**
+ * @return the list of Parameters for this Model.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Model::getListOfParameters () const
 {
   return parameter;
 }
@@ -876,6 +1079,17 @@ Model::getListOfRules ()
  * @return the list of Rules for this Model.
  */
 LIBSBML_EXTERN
+const ListOf&
+Model::getListOfRules () const
+{
+  return rule;
+}
+
+
+/**
+ * @return the list of Rules for this Model.
+ */
+LIBSBML_EXTERN
 ListOf&
 Model::getListOfReactions ()
 {
@@ -887,8 +1101,30 @@ Model::getListOfReactions ()
  * @return the list of Rules for this Model.
  */
 LIBSBML_EXTERN
+const ListOf&
+Model::getListOfReactions () const
+{
+  return reaction;
+}
+
+
+/**
+ * @return the list of Rules for this Model.
+ */
+LIBSBML_EXTERN
 ListOf&
 Model::getListOfEvents ()
+{
+  return event;
+}
+
+
+/**
+ * @return the list of Rules for this Model.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Model::getListOfEvents () const
 {
   return event;
 }

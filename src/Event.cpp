@@ -51,6 +51,9 @@
 
 
 #include "sbml/FormulaParser.h"
+#include "sbml/ASTNode.hpp"
+#include "sbml/EventAssignment.hpp"
+#include "sbml/SBMLVisitor.hpp"
 
 #include "sbml/Event.h"
 #include "sbml/Event.hpp"
@@ -109,6 +112,40 @@ Event::~Event ()
 {
   delete trigger;
   delete delay;
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next Event
+ * (if available).
+ */
+LIBSBML_EXTERN
+bool
+Event::accept (SBMLVisitor& v) const
+{
+  unsigned int n;
+  bool next, result;
+
+
+  result = v.visit(*this);
+
+  //
+  // EventAssignment
+  //
+
+  getListOfEventAssignments().accept(v, SBML_EVENT_ASSIGNMENT);
+
+  for (n = 0, next = true; n < getNumEventAssignments() && next; n++)
+  {
+    next = getEventAssignment(n)->accept(v);
+  }
+
+  v.leave(getListOfEventAssignments(), SBML_EVENT_ASSIGNMENT);
+
+  return result;
 }
 
 
@@ -358,6 +395,17 @@ Event::addEventAssignment (EventAssignment& ea)
 LIBSBML_EXTERN
 ListOf&
 Event::getListOfEventAssignments ()
+{
+  return eventAssignment;
+}
+
+
+/**
+ * @return the list of EventAssignments for this Event.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Event::getListOfEventAssignments () const
 {
   return eventAssignment;
 }
