@@ -1,13 +1,12 @@
 /**
- * Filename    : FunctionDefinition.h
- * Description : SBML FunctionDefinition
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-03
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    FunctionDefinition.h
+ * \brief   SBML FunctionDefinition
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,14 +55,145 @@
 
 #include "extern.h"
 
-#include "ASTNode.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SBase.h"
+
+
+class ASTNode;
+class SBMLVisitor;
+
+
+class FunctionDefinition : public SBase
+{
+public:
+
+  /**
+   * Creates a new FunctionDefinition, optionally with its id and math
+   * attributes set.
+   */
+  LIBSBML_EXTERN
+  FunctionDefinition (   const std::string& id
+                       , ASTNode*           math );
+  /**
+   * Creates a new FunctionDefinition, optionally with its id and math (via
+   * an infix formula string) attributes set.
+   */
+  LIBSBML_EXTERN
+  FunctionDefinition (   const std::string& id      = ""
+                       , const std::string& formula = "" );
+
+  /**
+   * Destroys this FunctionDefinition.
+   */
+  LIBSBML_EXTERN
+  virtual ~FunctionDefinition ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next
+   * FunctionDefinition (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the id of this FunctionDefinition.
+   */
+  LIBSBML_EXTERN
+  const std::string& getId () const;
+
+  /**
+   * @return the name of this FunctionDefinition.
+   */
+  LIBSBML_EXTERN
+  const std::string& getName () const;
+
+  /**
+   * @return the math of this FunctionDefinition.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getMath () const;
+
+  /**
+   * @return true if the id of this FunctionDefinition has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetId () const;
+
+  /**
+   * @return true if the name of this FunctionDefinition has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetName () const;
+
+  /**
+   * @return true if the math of this FunctionDefinition has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetMath () const;
+
+  /**
+   * Sets the id of this FunctionDefinition to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setId (const std::string& sid);
+
+  /**
+   * Sets the name of this FunctionDefinition to a copy of string.
+   */
+  LIBSBML_EXTERN
+  void setName (const std::string& str);
+
+  /**
+   * Sets the math of this FunctionDefinition to the given ASTNode.
+   *
+   * The node <b>is not copied</b> and this FunctionDefinition <b>takes
+   * ownership</b> of it; i.e. subsequent calls to this function or a call
+   * to FunctionDefinition_free() will free the ASTNode (and any child
+   * nodes).
+   */
+  LIBSBML_EXTERN
+  void setMath (ASTNode* math);
+
+  /**
+   * Unsets the name of this FunctionDefinition.
+   */
+  LIBSBML_EXTERN
+  void unsetName ();
+
+
+protected:
+
+  std::string id;
+  std::string name;
+  ASTNode*    math;
+
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void FunctionDefinition_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -190,4 +320,5 @@ FunctionDefinitionIdCmp (const char *sid, const FunctionDefinition_t *fd);
 END_C_DECLS
 
 
-#endif  /** FunctionDefinition_h **/
+#endif  /* !SWIG */
+#endif  /* FunctionDefinition_h */

@@ -1,13 +1,12 @@
 /**
- * Filename    : EventAssignment.h
- * Description : SBML EventAssignment
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-03
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    EventAssignment.h
+ * \brief   SBML EventAssignment
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,14 +55,118 @@
 
 #include "extern.h"
 
-#include "ASTNode.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SBase.h"
+
+
+class ASTNode;
+class SBMLVisitor;
+
+
+class EventAssignment : public SBase
+{
+public:
+
+  /**
+   * Creates a new EventAssignment, optionally with its variable and math
+   * (via infix formula string) attributes set.
+   */
+  LIBSBML_EXTERN
+  EventAssignment (   const std::string& variable = ""
+                    , const std::string& formula  = "" );
+  /**
+   * Creates a new EventAssignment with its variable and math attributes
+   * set.
+   */
+  LIBSBML_EXTERN
+  EventAssignment (   const std::string& variable
+                    , ASTNode*           math     );
+
+  /**
+   * Destroys this EventAssignment.
+   */
+  LIBSBML_EXTERN
+  virtual ~EventAssignment ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Event's next
+   * EventAssignment (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the variable of this EventAssignment.
+   */
+  LIBSBML_EXTERN
+  const std::string& getVariable () const;
+
+  /**
+   * @return the math of this EventAssignment.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getMath () const;
+
+  /**
+   * @return true if the variable of this EventAssignment has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetVariable () const;
+
+  /**
+   * @return true if the math of this EventAssignment has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetMath () const;
+
+  /**
+   * Sets the variable of this EventAssignment to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setVariable (const std::string& sid);
+
+  /**
+   * Sets the math of this EventAssignment to the given ASTNode.
+   *
+   * The node <b>is not copied</b> and this EventAssignment <b>takes
+   * ownership</b> of it; i.e. subsequent calls to this function or a call
+   * to EventAssignment_free() will free the ASTNode (and any child nodes).
+   */
+  LIBSBML_EXTERN
+  void setMath (ASTNode* math);
+
+
+protected:
+
+  std::string variable;
+  ASTNode*    math;
+
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void EventAssignment_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -147,4 +250,5 @@ EventAssignment_setMath (EventAssignment_t *ea, ASTNode_t *math);
 END_C_DECLS
 
 
-#endif  /** EventAssignment_h **/
+#endif  /* !SWIG */
+#endif  /* EventAssignment_h */

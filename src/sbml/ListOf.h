@@ -1,13 +1,12 @@
 /**
- * Filename    : ListOf.h
- * Description : Wraps List_t and "inherits" from SBase
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-04-28
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    ListOf.h
+ * \author  Wraps List and inherits from SBase
+ * \author  SBML Development Group <sbml-team@caltech.edu>
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,15 +54,127 @@
 
 
 #include "extern.h"
-
 #include "List.h"
+
+
+#ifdef __cplusplus
+
+
+#include "SBMLTypeCodes.h"
 #include "SBase.h"
+
+
+class SBMLVisitor;
+
+
+class ListOf : public SBase
+{
+public:
+
+  /**
+   * Creates a new ListOf.
+   */
+  LIBSBML_EXTERN
+  ListOf ();
+
+  /**
+   * Destroys the given ListOf and its constituent items.
+   */
+  LIBSBML_EXTERN
+  virtual ~ListOf ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  LIBSBML_EXTERN
+  void accept (SBMLVisitor& v, SBMLTypeCode_t type) const;
+
+  /**
+   * Adds item to the end of this List.
+   */
+  LIBSBML_EXTERN
+  void append (SBase* item);
+
+  /**
+   * @return the number of items in this List for which predicate(item)
+   * returns true.
+   *
+   * The typedef for ListItemPredicate is:
+   *
+   *   int (*ListItemPredicate) (const void *item);
+   *
+   * where a return value of non-zero represents true and zero represents
+   * false.
+   */
+  LIBSBML_EXTERN
+  unsigned int countIf (ListItemPredicate predicate) const;
+
+  /**
+   * @return the first occurrence of item1 in this List or NULL if item was
+   * not found.  ListItemComparator is a pointer to a function used to find
+   * item.  The typedef for ListItemComparator is:
+   *
+   *   int (*ListItemComparator) (const void *item1, const void *item2);
+   *
+   * The return value semantics are the same as for strcmp:
+   *
+   *   -1    item1 <  item2,
+   *    0    item1 == item 2
+   *    1    item1 >  item2
+   */
+  LIBSBML_EXTERN
+  void* find (const void *item1, ListItemComparator comparator) const;
+
+  /**
+   * Removes and deletes each item in this List.
+   */
+  void
+  freeItems ();
+
+  /**
+   * @return the nth item in this List.  If n > ListOf.getNumItems()
+   * returns 0.
+   */
+  LIBSBML_EXTERN
+  SBase* get (unsigned int n) const;
+
+  /**
+   * @return the number of items in this List.
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumItems () const;
+
+  /**
+   * Adds item to the beginning of this ListOf.
+   */
+  LIBSBML_EXTERN
+  void prepend (SBase* item);
+
+  /**
+   * Removes the nth item from this List and returns a pointer to it.  If n
+   * > ListOf.getNumItems() returns 0.
+   */
+  LIBSBML_EXTERN
+  SBase* remove (unsigned int n);
+
+
+protected:
+
+  List items;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void ListOf_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -155,4 +266,5 @@ ListOf_remove (ListOf_t *lo, unsigned int n);
 END_C_DECLS
 
 
-#endif  /** ListOf_h **/
+#endif  /* !SWIG */
+#endif  /* ListOf_h */

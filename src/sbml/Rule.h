@@ -1,13 +1,12 @@
 /**
- * Filename    : Rule.h
- * Description : SBML Rule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Rule.h
+ * \brief   SBML Rule
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,14 +55,137 @@
 
 #include "extern.h"
 
-#include "ASTNode.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SBase.h"
+
+
+class ASTNode;
+class SBMLVisitor;
+
+
+class Rule : public SBase
+{
+public:
+
+  /**
+   * Creates a new Rule, optionally with its formula attribute set.
+   */
+  LIBSBML_EXTERN
+  Rule (const std::string& formula = "");
+
+  /**
+   * Creates a new Rule with its math attribute set.
+   */
+  LIBSBML_EXTERN
+  Rule (ASTNode* math);
+
+  /**
+   * Destroys this Rule.
+   */
+  LIBSBML_EXTERN
+  virtual ~Rule ();
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the formula for this Rule.
+   */
+  LIBSBML_EXTERN
+  const std::string& getFormula () const;
+
+  /**
+   * @return the math for this Rule.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getMath () const;
+
+  /**
+   * @return true if the formula for this Rule has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetFormula () const;
+
+  /**
+   * @return true if the math for this Rule has been set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetMath () const;
+
+  /**
+   * Sets the formula of this Rule to a copy of string.
+   */
+  LIBSBML_EXTERN
+  void setFormula (const std::string& str);
+
+  /**
+   * Sets the formula of this Rule based on the current value of its math
+   * field.  This convenience method is equivalent to:
+   *
+   *   setFormula( SBML_formulaToString( getMath() ))
+   *
+   * except you do not need to track and free the value returned by
+   * SBML_formulaToString().
+   *
+   * If !isSetMath(r), this method has no effect.
+   */
+  LIBSBML_EXTERN
+  void setFormulaFromMath ();
+
+  /**
+   * Sets the math of this Rule to the given ASTNode.
+   *
+   * The node <b>is not copied</b> and this Rule <b>takes ownership</b> of
+   * it; i.e. subsequent calls to this method or deleting this Rule will
+   * delete the ASTNode (and any child nodes).
+   */
+  LIBSBML_EXTERN
+  void setMath (ASTNode *math);
+
+  /**
+   * Sets the math of this Rule from its current formula string.  This
+   * convenience method is equivalent to:
+   *
+   *   setMath( SBML_parseFormula( getFormula() ))
+   *
+   * If !isSetFormula(), this method has no effect.
+   */
+  LIBSBML_EXTERN
+  void setMathFromFormula ();
+
+
+protected:
+
+  std::string formula;
+  ASTNode*    math;
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void Rule_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -145,4 +267,5 @@ Rule_setMathFromFormula (Rule_t *r);
 END_C_DECLS
 
 
-#endif  /** Rule_h **/
+#endif  /* !SWIG  */
+#endif  /* Rule_h */

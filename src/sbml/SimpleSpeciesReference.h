@@ -1,13 +1,12 @@
 /**
- * Filename    : SimpleSpeciesReference.h
- * Description : SBML SimpleSpeciesReference
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-04-29
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SimpleSpeciesReference.h
+ * \brief   SBML SimpleSpeciesReference
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,14 +55,84 @@
 
 #include "extern.h"
 
-#include "ASTNode.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SBase.h"
+
+
+class SBMLVisitor;
+
+
+class SimpleSpeciesReference : public SBase
+{
+public:
+
+  /**
+   * Creates a new SimpleSpeciesReference, optionally with its species
+   * attribute set.
+   */
+  LIBSBML_EXTERN
+  SimpleSpeciesReference (const std::string& species = "");
+
+  /**
+   * Destroys this SimpleSpeciesReference.
+   */
+  LIBSBML_EXTERN
+  virtual ~SimpleSpeciesReference() { }
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the species for this SimpleSpeciesReference.
+   */
+  LIBSBML_EXTERN
+  const std::string& getSpecies () const;
+
+  /**
+   * @return true if the species for this SimpleSpeciesReference has been
+   * set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetSpecies () const;
+
+  /**
+   * Sets the species of this SimpleSpeciesReference to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setSpecies (const std::string& sid);
+
+
+protected:
+
+  std::string species;
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void SimpleSpeciesReference_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -107,4 +176,5 @@ SimpleSpeciesReferenceCmp ( const char *sid,
 END_C_DECLS
 
 
-#endif  /** SimpleSpeciesReference_h **/
+#endif  /* !SWIG */
+#endif  /* SimpleSpeciesReference_h */

@@ -1,13 +1,12 @@
 /**
- * Filename    : SpeciesConcentrationRule.h
- * Description : SBML SpeciesConcentrationRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SpeciesConcentrationRule.h
+ * \brief   SBML SpeciesConcentrationRule
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,15 +55,93 @@
 
 #include "extern.h"
 
-#include "SBase.h"
-#include "Rule.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "AssignmentRule.h"
+
+
+class SBMLVisitor;
+
+
+class SpeciesConcentrationRule : public AssignmentRule
+{
+public:
+
+  /**
+   * Creates a new SpeciesConcentrationRule.
+   */
+  LIBSBML_EXTERN
+  SpeciesConcentrationRule ();
+
+  /**
+   * Creates a new SpeciesConcentrationRule with its species, formula and
+   * (optionally) type attributes set.
+   */
+  LIBSBML_EXTERN
+  SpeciesConcentrationRule
+  (
+      const std::string&  species
+    , const std::string&  formula 
+    , RuleType_t          type = RULE_TYPE_SCALAR
+  );
+
+  /**
+   * Destroys this SpeciesConcentrationRule.
+   */
+  LIBSBML_EXTERN
+  virtual ~SpeciesConcentrationRule ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the species of this SpeciesConcentrationRule.
+   */
+  LIBSBML_EXTERN
+  const std::string& getSpecies () const;
+
+  /**
+   * @return true if the species of this SpeciesConcentrationRule has been
+   * set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetSpecies () const;
+
+  /**
+   * Sets the species of this SpeciesConcentrationRule to a copy of sname.
+   */
+  LIBSBML_EXTERN
+  void setSpecies (const std::string& sname);
+
+
+protected:
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void SpeciesConcentrationRule_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -125,4 +202,5 @@ SpeciesConcentrationRule_setSpecies ( SpeciesConcentrationRule_t *scr,
 END_C_DECLS
 
 
-#endif  /** SpeciesConcentrationRule_h **/
+#endif  /* !SWIG */
+#endif  /* SpeciesConcentrationRule_h */

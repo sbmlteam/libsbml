@@ -1,13 +1,12 @@
 /**
- * Filename    : SpeciesReference.h
- * Description : SBML SpeciesReference
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SpeciesReference.h
+ * \brief   SBML SpeciesReference
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,15 +55,136 @@
 
 #include "extern.h"
 
-#include "ASTNode.h"
-#include "SBase.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SimpleSpeciesReference.h"
+
+
+class ASTNode;
+class SBMLVisitor;
+
+
+class SpeciesReference : public SimpleSpeciesReference
+{
+public:
+
+  /**
+   * Creates a new SpeciesReference, optionally with its species,
+   * stoichiometry, and denominator attributes set.
+   */
+  LIBSBML_EXTERN
+  SpeciesReference (   const std::string& species       = ""
+                     , double             stoichiometry = 1.0
+                     , int                denominator   = 1   );
+
+  /**
+   * Destroys this SpeciesReference.
+   */
+  LIBSBML_EXTERN
+  virtual ~SpeciesReference ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * Initializes the fields of this SpeciesReference to their defaults:
+   *
+   *   - stoichiometry = 1
+   *   - denominator   = 1
+   */
+  LIBSBML_EXTERN
+  void initDefaults ();
+
+  /**
+   * @return the stoichiometry of this SpeciesReference.
+   */
+  LIBSBML_EXTERN
+  double getStoichiometry () const;
+
+  /**
+   * @return the stoichiometryMath of this SpeciesReference.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getStoichiometryMath () const;
+
+  /**
+   * @return the denominator of this SpeciesReference.
+   */
+  LIBSBML_EXTERN
+  int getDenominator () const;
+
+  /**
+   * @return true if the stoichiometryMath of this SpeciesReference has
+   * been set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetStoichiometryMath () const;
+
+  /**
+   * Sets the stoichiometry of this SpeciesReference to value.
+   */
+  LIBSBML_EXTERN
+  void setStoichiometry (double value);
+
+  /**
+   * Sets the stoichiometryMath of this SpeciesReference to the given
+   * ASTNode.
+   *
+   * The node <b>is not copied</b> and this SpeciesReference <b>takes
+   * ownership</b> of it; i.e. subsequent calls to this function or a call
+   * to SpeciesReference_free() will free the ASTNode (and any child
+   * nodes).
+   */
+  LIBSBML_EXTERN
+  void setStoichiometryMath (ASTNode* math);
+
+  /**
+   * Sets the stoichiometryMath of this SpeciesReference to the given
+   * formula string.
+   */
+  LIBSBML_EXTERN
+  void setStoichiometryMath (const std::string& formula);
+
+  /**
+   * Sets the denominator of this SpeciesReference to value.
+   */
+  LIBSBML_EXTERN
+  void setDenominator (int value);
+
+
+protected:
+
+  double    stoichiometry;
+  int       denominator;
+  ASTNode*  stoichiometryMath;
+
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void SpeciesReference_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -191,4 +311,5 @@ SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
 END_C_DECLS
 
 
-#endif  /** SpeciesReference_h **/
+#endif  /* !SWIG */
+#endif  /* SpeciesReference_h */

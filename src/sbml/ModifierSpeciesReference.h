@@ -1,13 +1,12 @@
 /**
- * Filename    : ModifierSpeciesReference.h
- * Description : SBML ModifierSpeciesReference
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-04-29
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    ModifierSpeciesReference.h
+ * \brief   SBML ModifierSpeciesReference
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,15 +55,63 @@
 
 #include "extern.h"
 
-#include "ASTNode.h"
-#include "SBase.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SimpleSpeciesReference.h"
+
+
+class SBMLVisitor;
+
+
+class ModifierSpeciesReference : public SimpleSpeciesReference
+{
+public:
+
+  /**
+   * Creates a new ModifierSpeciesReference, optionally with its species
+   * attribute set.
+   */
+  LIBSBML_EXTERN
+  ModifierSpeciesReference (const std::string& species = "");
+
+  /**
+   * Destroys this ModifierSpeciesReference.
+   */
+  LIBSBML_EXTERN
+  virtual ~ModifierSpeciesReference();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+
+protected:
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void ModifierSpeciesReference_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -121,4 +168,5 @@ ModifierSpeciesReference_setSpecies ( ModifierSpeciesReference_t *msr,
 END_C_DECLS
 
 
-#endif  /** ModifierSpeciesReference_h **/
+#endif  /* !SWIG */
+#endif  /* ModifierSpeciesReference_h */

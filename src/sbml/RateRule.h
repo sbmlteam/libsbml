@@ -1,13 +1,12 @@
 /**
- * Filename    : RateRule.h
- * Description : SBML RateRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-04-29
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    RateRule.h
+ * \brief   SBML RateRule
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,14 +55,91 @@
 
 #include "extern.h"
 
-#include "SBase.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "Rule.h"
+
+
+class SBMLVisitor;
+
+
+class RateRule : public Rule
+{
+public:
+
+  /**
+   * Creates a new RateRule, optionally with its variable and math (via
+   * an infix formula string) attributes set.
+   */
+  LIBSBML_EXTERN
+  RateRule (const std::string& variable = "", const std::string& formula = "");
+
+
+  /**
+   * Creates a new RateRule with its variable and math attributes set.
+   */
+  LIBSBML_EXTERN
+  RateRule (const std::string& variable, ASTNode* math);
+
+  /**
+   * Destroys this RateRule.
+   */
+  LIBSBML_EXTERN
+  virtual ~RateRule ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the variable for this RateRule.
+   */
+  LIBSBML_EXTERN
+  const std::string& getVariable () const;
+
+  /**
+   * @return true if the variable of this RateRule has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetVariable () const;
+
+  /**
+   * Sets the variable of this RateRule to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setVariable (const std::string& sid);
+
+
+protected:
+
+  std::string variable;
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void RateRule_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -118,4 +194,5 @@ RateRule_setVariable (RateRule_t *rr, const char *sid);
 END_C_DECLS
 
 
-#endif  /** RateRule_h **/
+#endif  /* !SWIG */
+#endif  /* RateRule_h */

@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLConvert.h
- * Description : Top-level container for all things SBML
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-07-27
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLConvert.h
+ * \brief   Top-level container for all things SBML
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it

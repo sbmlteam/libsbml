@@ -1,13 +1,12 @@
 /**
- * Filename    : SBase.h
- * Description : Base object of all SBML objects
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-13
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBase.h
+ * \brief   Base object of all SBML objects
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,13 +54,137 @@
 
 
 #include "extern.h"
+
+
+#ifdef __cplusplus
+
+
+#include <string>
+
+#include "XMLNamespaceList.h"
 #include "SBMLTypeCodes.h"
+
+
+extern "C" void SBaseTest_setup (void);
+
+
+class SBase
+{
+public:
+
+  virtual ~SBase ();
+
+  /**
+   * SBase "objects" are abstract, i.e., they are not created.  Rather,
+   * specific "subclasses" are created (e.g., Model) and their SBASE_FIELDS
+   * are initialized with this function.  The type of the specific
+   * "subclass" is indicated by the given SBMLTypeCode.
+   */
+  LIBSBML_EXTERN
+  void init (SBMLTypeCode_t tc);
+
+  LIBSBML_EXTERN
+  SBMLTypeCode_t getTypeCode () const;
+
+  LIBSBML_EXTERN
+  unsigned int getColumn () const;
+
+  LIBSBML_EXTERN
+  unsigned int getLine () const;
+
+  LIBSBML_EXTERN
+  const std::string& getMetaId () const;
+
+  LIBSBML_EXTERN
+  const std::string& getNotes () const;
+
+  LIBSBML_EXTERN
+  const std::string& getAnnotation () const;
+
+  /**
+   * @return a list of XML namespaces defined on this SBML object.
+   */
+  LIBSBML_EXTERN
+  XMLNamespaceList& getNamespaces ();
+
+  /**
+   * @return true if this SBML object has any XML namespaces defined on it,
+   * false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool hasNamespaces () const;
+
+  LIBSBML_EXTERN
+  bool isSetMetaId () const;
+
+  LIBSBML_EXTERN
+  bool isSetNotes () const;
+
+  LIBSBML_EXTERN
+  bool isSetAnnotation () const;
+
+  LIBSBML_EXTERN
+  void setMetaId (const std::string& id);
+
+  LIBSBML_EXTERN
+  void setNotes (const std::string& xhtml);
+
+  LIBSBML_EXTERN
+  void setAnnotation (const std::string& xml);
+
+  /**
+   * @return the partial SBML that describes this SBML object.
+   */
+  LIBSBML_EXTERN
+  char*
+  toSBML (unsigned int level = 2, unsigned int version = 1);
+
+  LIBSBML_EXTERN
+  void unsetMetaId ();
+
+  LIBSBML_EXTERN
+  void unsetNotes ();
+
+  LIBSBML_EXTERN
+  void unsetAnnotation ();
+
+
+
+protected:
+
+  SBase ();
+
+
+  SBMLTypeCode_t typecode;
+
+  unsigned int line;
+  unsigned int column;
+
+  std::string metaid;
+  std::string notes;
+  std::string annotation;
+
+  XMLNamespaceList *mNamespaces;
+
+  friend void SBaseTest_setup ();
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+typedef SBase SBase_t;
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void SBase_t;
+#include "sbmlfwd.h"
+#include "SBMLTypeCodes.h"
 
 
 /**
@@ -203,4 +326,5 @@ SBase_unsetAnnotation (SBase_t *sb);
 END_C_DECLS
 
 
-#endif  /** SBase_h **/
+#endif  /* !SWIG   */
+#endif  /* SBase_h */

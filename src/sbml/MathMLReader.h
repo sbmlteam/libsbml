@@ -1,13 +1,12 @@
 /**
- * Filename    : MathMLReader.h
- * Description : Reads a MathML string into an abstract syntax tree
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLReader.h
+ * \brief   Reads a MathML string into an abstract syntax tree
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it

@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLDocument.h
- * Description : Top-level container for all things SBML
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-14
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLDocument.h
+ * \brief   Top-level container for all things SBML
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,18 +55,226 @@
 
 #include "extern.h"
 
-#include "List.h"
-#include "ParseMessage.h"
-#include "SBase.h"
-#include "Model.h"
 
-#include <stdio.h>
+#ifdef __cplusplus
+
+
+#include <iosfwd>
+
+#include "SBase.h"
+#include "List.h"
+
+
+class Model;
+class ParseMessage;
+class SBMLVisitor;
+
+
+class SBMLDocument: public SBase
+{
+public:
+
+  /**
+   * Creates a new SBMLDocument.  The SBML level defaults to 2 and version
+   * defaults to 1.
+   */
+  LIBSBML_EXTERN
+  SBMLDocument (unsigned int level = 2, unsigned int version = 1);
+
+  /**
+   * Destroys this SBMLDocument.
+   */
+  LIBSBML_EXTERN
+  virtual ~SBMLDocument ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  LIBSBML_EXTERN
+  void accept (SBMLVisitor& v) const;
+
+  /**
+   * Creates a new Model (optionally with its Id attribute set) inside this
+   * SBMLDocument and returns it.  This covenience method is equivalent to:
+   *
+   *   setModel( Model() );
+   */
+  LIBSBML_EXTERN
+  Model& createModel (const std::string& sid = "");
+
+  /**
+   * @return the level of this SBMLDocument.
+   */
+  LIBSBML_EXTERN
+  unsigned int getLevel () const;
+
+  /**
+   * @return the version of this SBMLDocument.
+   */
+  LIBSBML_EXTERN
+  unsigned int getVersion () const;
+
+  /**
+   * @return the Model associated with this SBMLDocument.
+   */
+  LIBSBML_EXTERN
+  Model* getModel ();
+
+  /**
+   * @return the nth warning encountered during the parse of this
+   * SBMLDocument or NULL if n > getNumWarnings() - 1.
+   */
+  LIBSBML_EXTERN
+  ParseMessage* getWarning (unsigned int n);
+
+  /**
+   * @return the nth error encountered during the parse of this
+   * SBMLDocument or NULL if n > getNumErrors() - 1.
+   */
+  LIBSBML_EXTERN
+  ParseMessage* getError (unsigned int n);
+
+  /**
+   * @return the nth fatal error encountered during the parse of this
+   * SBMLDocument or NULL if n > getNumFatals() - 1.
+   */
+  LIBSBML_EXTERN
+  ParseMessage* getFatal (unsigned int n);
+
+  /**
+   * @return the number of warnings encountered during the parse of this
+   * SBMLDocument.
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumWarnings () const;
+
+  /**
+   * @return the number of errors encountered during the parse of this
+   * SBMLDocument.
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumErrors () const;
+
+  /**
+   * @return the number of fatal errors encountered during the parse of
+   * this SBMLDocument.
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumFatals () const;
+
+  /**
+   * Prints all warnings encountered during the parse of this SBMLDocument
+   * to the given stream.  If no warnings have occurred, i.e.
+   * getNumWarnings() == 0, no output will be sent to stream. The format of
+   * the output is:
+   *
+   *   %d Warning(s):
+   *     Line %d, Col %d: %s
+   *     ...
+   *
+   * This is a convenience method to aid in debugging.  For example:
+   * printWarnings(cout).
+   */
+  LIBSBML_EXTERN
+  void printWarnings (std::ostream& stream);
+
+  /**
+   * Prints all errors encountered during the parse of this SBMLDocument to
+   * the given stream.  If no errors have occurred, i.e.  getNumErrors() ==
+   * 0, no output will be sent to stream. The format of the output is:
+   *
+   *   %d Error(s):
+   *     Line %d, Col %d: %s
+   *     ...
+   *
+   * This is a convenience method to aid in debugging.  For example:
+   * printErrors(cout).
+   */
+  LIBSBML_EXTERN
+  void printErrors (std::ostream& stream);
+
+  /**
+   * Prints all fatals encountered during the parse of this SBMLDocument to
+   * the given stream.  If no fatals have occurred, i.e.  getNumFatals() ==
+   * 0, no output will be sent to stream. The format of the output is:
+   *
+   *   %d Fatal(s):
+   *     Line %d, Col %d: %s
+   *     ...
+   *
+   * This is a convenience method to aid in debugging.  For example:
+   * printFatals(d, cout).
+   */
+  LIBSBML_EXTERN
+  void printFatals (std::ostream& stream);
+
+  /**
+   * Sets the level of this SBMLDocument to the given level number.  Valid
+   * levels are currently 1 and 2.
+   */
+  LIBSBML_EXTERN
+  void setLevel (unsigned int level);
+
+  /**
+   * Sets the version of this SBMLDocument to the given version number.
+   * Valid versions are currently 1 and 2 for SBML L1 and 1 for SBML L2.
+   */
+  LIBSBML_EXTERN
+  void setVersion (unsigned int version);
+
+  /**
+   * Sets the Model of this SBMLDocument to the given Model.
+   * Any previously defined model is unset and freed.
+   */
+  LIBSBML_EXTERN
+  void setModel (Model* m);
+
+  /**
+   * Performs a set of semantic consistency checks on the document.  Query
+   * the results by calling getWarning(), getNumError(),and getNumFatal().
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  LIBSBML_EXTERN
+  unsigned int checkConsistency ();
+
+  /**
+   * @deprecated use checkConsistency() instead.
+   */
+  LIBSBML_EXTERN
+  unsigned int validate ();
+
+
+protected:
+
+  unsigned int level;
+  unsigned int version;
+
+  List error;
+  List fatal;
+  List warning;
+
+  Model* model;
+
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+  friend class SBMLReader;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void SBMLDocument_t;
+#include <stdio.h>
+#include "sbmlfwd.h"
 
 
 /**
@@ -277,4 +484,5 @@ SBMLDocument_validate (SBMLDocument_t *d);
 END_C_DECLS
 
 
-#endif  /** SBMLDocument_h **/
+#endif  /* !SWIG */
+#endif  /* SBMLDocument_h */

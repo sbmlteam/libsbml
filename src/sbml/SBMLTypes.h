@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLTypes.h
- * Description : Include all SBML types in a single header file.
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLTypes.h
+ * \brief   Include all SBML types in a single header file.
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -99,4 +98,5 @@
 #include "MathMLReader.h"
 #include "MathMLWriter.h"
 
-#endif  /** SBMLTypes_h **/
+
+#endif  /* SBMLTypes_h */

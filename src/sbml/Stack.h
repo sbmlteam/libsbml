@@ -1,13 +1,12 @@
 /**
- * Filename    : Stack.h
- * Description : Generic (void *) Stack for C structs on the heap
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-21
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Stack.h
+ * \brief   Generic (void *) Stack for C structs on the heap
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it

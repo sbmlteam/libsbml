@@ -1,13 +1,12 @@
 /**
- * Filename    : ParameterRule.h
- * Description : SBML ParameterRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    ParameterRule.h
+ * \brief   SBML ParameterRule
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,16 +54,122 @@
 
 
 #include "extern.h"
+#include "RuleType.h"
 
-#include "SBase.h"
-#include "Rule.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "AssignmentRule.h"
+
+
+class SBMLVisitor;
+
+
+class ParameterRule : public AssignmentRule
+{
+public:
+
+  /**
+   * Creates a new ParameterRule.
+   */
+  LIBSBML_EXTERN
+  ParameterRule ();
+
+  /**
+   * Creates a new ParameterRule with its name, formula and (optionally)
+   * type attributes set.
+   */
+  LIBSBML_EXTERN
+  ParameterRule
+  (
+      const std::string&  name
+    , const std::string&  formula 
+    , RuleType_t          type = RULE_TYPE_SCALAR
+  );
+
+  /**
+   * Destroys this ParameterRule.
+   */
+  LIBSBML_EXTERN
+  virtual ~ParameterRule ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the (Parameter) name for this ParameterRule.
+   */
+  LIBSBML_EXTERN
+  const std::string& getName () const;
+
+  /**
+   * @return the units for this ParameterRule.
+   */
+  LIBSBML_EXTERN
+  const std::string& getUnits () const;
+
+  /**
+   * @return true if the (Parameter) name for this ParameterRule has been
+   * set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetName () const;
+
+  /**
+   * @return true if the units for this ParameterRule has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetUnits () const;
+
+  /**
+   * Sets the (Parameter) name for this ParameterRule to a copy of sname.
+   */
+  LIBSBML_EXTERN
+  void setName (const std::string& sname);
+
+  /**
+   * Sets the units for this ParameterRule to a copy of sname.
+   */
+  LIBSBML_EXTERN
+  void setUnits (const std::string& sname);
+
+  /**
+   * Unsets the units for this ParameterRule.
+   */
+  LIBSBML_EXTERN
+  void unsetUnits ();
+
+
+protected:
+
+  std::string units;
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void ParameterRule_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -155,4 +260,5 @@ ParameterRule_unsetUnits (ParameterRule_t *pr);
 END_C_DECLS
 
 
-#endif  /** ParameterRule_h **/
+#endif  /* !SWIG */
+#endif  /* ParameterRule_h */

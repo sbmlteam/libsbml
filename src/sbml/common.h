@@ -1,13 +1,12 @@
 /**
- * Filename    : common.h
- * Description : Common functions and macros for C and C++
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-02-10
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    common.h
+ * \brief   Common functions and macros for C and C++
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it

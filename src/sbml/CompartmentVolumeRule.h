@@ -1,13 +1,12 @@
 /**
- * Filename    : CompartmentVolumeRule.h
- * Description : SBML CompartmentVolumeRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    CompartmentVolumeRule.h
+ * \brief   SBML CompartmentVolumeRule
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,16 +54,95 @@
 
 
 #include "extern.h"
+#include "RuleType.h"
 
-#include "SBase.h"
-#include "Rule.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "AssignmentRule.h"
+
+
+class SBMLVisitor;
+
+
+class CompartmentVolumeRule : public AssignmentRule
+{
+public:
+
+  /**
+   * Creates a new CompartmentVolumeRule.
+   */
+  LIBSBML_EXTERN
+  CompartmentVolumeRule ();
+
+  /**
+   * Creates a new CompartmentVolumeRule with its compartment, formula and
+   * (optionally) type attributes set.
+   */
+  LIBSBML_EXTERN
+  CompartmentVolumeRule
+  (
+      const std::string&  compartment
+    , const std::string&  formula 
+    , RuleType_t          type = RULE_TYPE_SCALAR
+  );
+
+  /**
+   * Destroys this CompartmentVolumeRule.
+   */
+  LIBSBML_EXTERN
+  virtual ~CompartmentVolumeRule ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the compartment of this CompartmentVolumeRule.
+   */
+  LIBSBML_EXTERN
+  const std::string& getCompartment () const;
+
+  /**
+   * @return true if the compartment of this CompartmentVolumeRule has been
+   * set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetCompartment () const;
+
+  /**
+   * Sets the compartment of this CompartmentVolumeRule to a copy of sname.
+   */
+  LIBSBML_EXTERN
+  void setCompartment (const std::string& sname);
+
+
+protected:
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void CompartmentVolumeRule_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -125,4 +203,5 @@ CompartmentVolumeRule_setCompartment ( CompartmentVolumeRule_t *cvr,
 END_C_DECLS
 
 
-#endif  /** CompartmentVolumeRule_h **/
+#endif  /* !SWIG */
+#endif  /* CompartmentVolumeRule_h */

@@ -1,13 +1,12 @@
 /**
- * Filename    : Parameter.h
- * Description : SBML Parameter
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-21
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Parameter.h
+ * \brief   SBML Parameter
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,13 +54,229 @@
 
 
 #include "extern.h"
+
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SBase.h"
+
+
+class SBMLVisitor;
+
+
+class Parameter : public SBase
+{
+public:
+
+  /**
+   * Creates a new Parameter, optionally with its id attribute set.
+   */
+  LIBSBML_EXTERN
+  Parameter (const std::string& id = "");
+
+  /**
+   * Creates a new Parameter, with its id and value attributes set and
+   * optionally its units and constant attributes.
+   */
+  LIBSBML_EXTERN
+  Parameter (   const std::string&  id
+              , double              value
+              , const std::string&  units    = ""
+              , bool                constant = true );
+
+  /**
+   * Destroys this Parameter.
+   */
+  LIBSBML_EXTERN
+  virtual ~Parameter ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the parent Model's or
+   * KineticLaw's next Parameter (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
+
+  /**
+   * Initializes the fields of this Parameter to their defaults:
+   *
+   *   - constant = true  (L2 only)
+   */
+  LIBSBML_EXTERN
+  void initDefaults ();
+
+  /**
+   * @return the id of this Parameter
+   */
+  LIBSBML_EXTERN
+  const std::string& getId () const;
+
+  /**
+   * @return the name of this Parameter.
+   */
+  LIBSBML_EXTERN
+  const std::string& getName () const;
+
+  /**
+   * @return the value of this Parameter.
+   */
+  LIBSBML_EXTERN
+  double getValue () const;
+
+  /**
+   * @return the units of this Parameter.
+   */
+  LIBSBML_EXTERN
+  const std::string& getUnits () const;
+
+  /**
+   * @return true if this Parameter is constant, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool getConstant () const;
+
+  /**
+   * @return true if the id of this Parameter has been set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetId () const;
+
+  /**
+   * @return true if the name of this Parameter has been set, false
+   * otherwise.
+   *
+   * In SBML L1, a Parameter name is required and therefore <b>should always
+   * be set</b>.  In L2, name is optional and as such may or may not be
+   * set.
+   */
+  LIBSBML_EXTERN
+  bool isSetName () const;
+
+  /**
+   * @return true if the value of this Parameter has been set, false
+   * otherwise.
+   *
+   * In SBML L1v1, a Parameter value is required and therefore <b>should
+   * always be set</b>.  In L1v2 and beyond, a value is optional and as
+   * such may or may not be set.
+   */
+  LIBSBML_EXTERN
+  bool isSetValue () const;
+
+  /**
+   * @return true if the units of this Parameter has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetUnits () const;
+
+  /**
+   * Moves the id field of this Parameter to its name field (iff name is
+   * not already set).  This method is used for converting from L2 to L1.
+   */
+  LIBSBML_EXTERN
+  void moveIdToName ();
+
+  /**
+   * Moves the name field of this Parameter to its id field (iff id is
+   * not already set).  This method is used for converting from L1 to L2.
+   */
+  LIBSBML_EXTERN
+  void moveNameToId ();
+
+  /**
+   * Sets the id of this Parameter to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setId (const std::string& sid);
+
+  /**
+   * Sets the name of this Parameter to a copy of string (SName in L1).
+   */
+  LIBSBML_EXTERN
+  void setName (const std::string& str);
+
+  /**
+   * Sets the initialAmount of this Parameter to value and marks the field
+   * as set.
+   */
+  LIBSBML_EXTERN
+  void setValue (double value);
+
+  /**
+   * Sets the units of this Parameter to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setUnits (const std::string& sname);
+
+  /**
+   * Sets the constant field of this Parameter to value.
+   */
+  LIBSBML_EXTERN
+  void setConstant (bool value);
+
+  /**
+   * Unsets the name of this Parameter.
+   *
+   * In SBML L1, a Parameter name is required and therefore <b>should
+   * always be set</b>.  In L2, name is optional and as such may or may not
+   * be set.
+   */
+  LIBSBML_EXTERN
+  void unsetName ();
+
+  /**
+   * Unsets the value of this Parameter.
+   *
+   * In SBML L1v1, a Parameter value is required and therefore <b>should
+   * always be set</b>.  In L1v2 and beyond, a value is optional and as
+   * such may or may not be set.
+   */
+  LIBSBML_EXTERN
+  void unsetValue ();
+
+  /**
+   * Unsets the units of this Parameter.
+   */
+  LIBSBML_EXTERN
+  void unsetUnits ();
+
+
+protected:
+
+  std::string id;
+  std::string name;
+  double      value;
+  std::string units;
+  bool        constant;
+
+  struct
+  {
+    unsigned int value:1;
+  } isSet;
+
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void Parameter_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -273,4 +488,6 @@ ParameterIdCmp (const char *sid, const Parameter_t *p);
 END_C_DECLS
 
 
-#endif  /** Parameter_h **/
+#endif  /* !SWIG */
+#endif  /* Parameter_h */
+

@@ -1,13 +1,12 @@
 /**
- * Filename    : MathMLWriter.h
- * Description : Writes a MathML Document to file or in-memory string
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-07-30
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLWriter.h
+ * \brief   Writes a MathML Document to file or in-memory string
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -54,7 +53,30 @@
 #define MathMLWriter_h
 
 
-#include "MathMLDocument.h"
+#include "extern.h"
+#include "sbmlfwd.h"
+
+
+#ifndef SWIG
+
+
+#ifdef __cplusplus
+
+
+#include <iosfwd>
+
+
+/**
+ * Writes the given MathML document to an ostream.
+ *
+ * @return 1 on success and 0 on failure
+ */
+LIBSBML_EXTERN
+int
+writeMathMLToStream (MathMLDocument_t *d, std::ostream & o);
+
+
+#endif  /* __cplusplus */
 
 
 BEGIN_C_DECLS
@@ -86,4 +108,5 @@ writeMathMLToString (MathMLDocument_t *d);
 END_C_DECLS
 
 
-#endif  /** MathMLWriter_h **/
+#endif  /* !SWIG */
+#endif  /* MathMLWriter_h */

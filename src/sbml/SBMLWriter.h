@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLWriter.h
- * Description : Writes an SBML Document to file or in-memory string
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-03-07
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLWriter.h
+ * \brief   Writes an SBML Document to file or in-memory string
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,10 +54,7 @@
 
 
 #include "extern.h"
-#include "SBMLDocument.h"
-
-
-BEGIN_C_DECLS
+#include "sbmlfwd.h"
 
 
 /**
@@ -84,6 +80,36 @@ typedef struct
   char * programName;
   char * programVersion;
 } SBMLWriter_t;
+
+
+#if defined(__cplusplus) && !defined(SWIG)
+
+
+#include <iosfwd>
+
+
+class SBMLDocument;
+
+/**
+ * Writes the given SBML document to ostream (with the settings provided
+ * by this SBMLWriter).
+ *
+ * @return 1 on success and 0 on failure (e.g., if filename could not be
+ * opened for writing or the SBMLWriter character encoding is invalid).*
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_writeSBMLToStream ( SBMLWriter_t   *sw,
+                               SBMLDocument_t *d,
+                               std::ostream   &o);
+
+#endif  /* __cplusplus && !SWIG */
+
+
+#ifndef SWIG
+
+
+BEGIN_C_DECLS
 
 
 /**
@@ -160,6 +186,7 @@ LIBSBML_EXTERN
 char *
 SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, SBMLDocument_t *d);
 
+
 /**
  * Writes the given SBML document to filename with the settings provided by
  * this SBMLWriter.  This convenience function is functionally equivalent
@@ -193,4 +220,5 @@ writeSBMLToString (SBMLDocument_t *d);
 END_C_DECLS
 
 
-#endif  /** SBMLWriter_h **/
+#endif  /* !SWIG */
+#endif  /* SBMLWriter_h */

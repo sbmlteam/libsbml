@@ -1,13 +1,12 @@
 /**
- * Filename    : ParseMessage.h
- * Description : Stores error message encountered during an SBML parse
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-04-16
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    ParseMessage.h
+ * \brief   Stores error message encountered during an SBML parse
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -57,23 +56,97 @@
 #include "extern.h"
 
 
+#ifdef __cplusplus
+
+
+#include <iosfwd>
+#include <string>
+
+
+class ParseMessage
+{
+public:
+
+  /**
+   * Creates a new ParseMessage reporting that message occurred at the given
+   * line and column.  Each ParseMessage has an identification number
+   * associated with it.
+   */
+  LIBSBML_EXTERN
+  ParseMessage
+  (
+      unsigned int       id      = 0
+    , const std::string& message = ""
+    , unsigned int       line    = 0
+    , unsigned int       col     = 0
+  );
+
+  /**
+   * Destroys this ParseMessage.
+   */
+  virtual ~ParseMessage ();
+
+
+  /**
+   * @return the id of this ParseMessage.
+   */
+  LIBSBML_EXTERN
+  unsigned int getId () const;
+
+  /**
+   * @return the message text of this ParseMessage.
+   */
+  LIBSBML_EXTERN
+  const std::string& getMessage () const;
+
+  /**
+   * @return the line number where this ParseMessage ocurred.
+   */
+  LIBSBML_EXTERN
+  unsigned int getLine () const;
+
+  /**
+   * @return the column number where this ParseMessage occurred.
+   */
+  LIBSBML_EXTERN
+  unsigned int getColumn () const;
+
+
+#ifndef SWIG
+
+  /**
+   * Outputs this ParseMessage to stream in the following format (and
+   * followed by a newline):
+   *
+   *   line:col:(id) message
+   */
+  friend
+  std::ostream& operator<< (std::ostream& stream, const ParseMessage& pm);
+
+#endif  /* !SWIG */
+
+
+protected:
+
+  unsigned int mId;
+
+  std::string  mMessage;
+
+  unsigned int mLine;
+  unsigned int mColumn;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
+
+
 BEGIN_C_DECLS
 
 
-/**
- * SBMLDocuments contain three Lists of ParseMessages, one for each class
- * of messages that could be triggered during an XML parse: Warnings,
- * Errors and Fatal Errors.
- *
- * Each ParseMessage contains the message itself and the line and column
- * numbers of the XML entity that triggered the message.  If line or column
- * information is unavailable, 0 is used.
- *
- * Client programs using libsbml may not (currently) create, destroy or
- * modify a ParseMessage or its contents through the public APIs (tagged
- * with LIBSBML_EXTERN).
- */
-typedef void ParseMessage_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -131,4 +204,5 @@ ParseMessage_getColumn (const ParseMessage_t *pm);
 END_C_DECLS
 
 
-#endif  /** ParseMessage_h **/
+#endif  /* !SWIG */
+#endif  /* ParseMessage_h */

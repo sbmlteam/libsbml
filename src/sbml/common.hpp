@@ -88,9 +88,9 @@
 // XercesVersion.hpp.  XERCES_CPP_NAMESPACE_USE is defined in
 // XercesDefs.hpp.
 //
-#if _XERCES_VERSION >= 20200
-XERCES_CPP_NAMESPACE_USE
-#endif
+// #if _XERCES_VERSION >= 20200
+// XERCES_CPP_NAMESPACE_USE
+// #endif
 
 
 #endif  // LIBSBML_COMMON_HPP

@@ -1,13 +1,12 @@
 /**
- * Filename    : StringMap.h
- * Description : Generic (void *) StringMap
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-20
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    StringMap.h
+ * \brief   Generic (void *) StringMap
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it

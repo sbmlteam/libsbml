@@ -1,13 +1,12 @@
 /**
- * Filename    : Species.h
- * Description : SBML Species
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-21
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Species.h
+ * \brief   SBML Species
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,13 +54,375 @@
 
 
 #include "extern.h"
+
+
+#ifdef __cplusplus
+
+
+#include <string>
 #include "SBase.h"
+
+
+class SBMLVisitor;
+
+
+class Species : public SBase
+{
+public:
+
+  /**
+   * Creates a new Species, optionally with its id attribute set.
+   */
+  LIBSBML_EXTERN
+  Species (const std::string& id = "");
+
+  /**
+   * Destroys this Species.
+   */
+  LIBSBML_EXTERN
+  virtual ~Species ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next
+   * Species (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
+
+  /**
+   * Initializes the fields of this Species to their defaults:
+   *
+   *   - boundaryCondition = false
+   *   - constant          = false  (L2 only)
+   */
+  LIBSBML_EXTERN
+  void initDefaults ();
+
+  /**
+   * @return the id of this Species
+   */
+  LIBSBML_EXTERN
+  const std::string& getId () const;
+
+  /**
+   * @return the name of this Species.
+   */
+  LIBSBML_EXTERN
+  const std::string& getName () const;
+
+  /**
+   * @return the compartment of this Species.
+   */
+  LIBSBML_EXTERN
+  const std::string& getCompartment () const;
+
+  /**
+   * @return the initialAmount of this Species.
+   */
+  LIBSBML_EXTERN
+  double getInitialAmount () const;
+
+  /**
+   * @return the initialConcentration of this Species.
+   */
+  LIBSBML_EXTERN
+  double getInitialConcentration () const;
+
+  /**
+   * @return the substanceUnits of this Species.
+   */
+  LIBSBML_EXTERN
+  const std::string& getSubstanceUnits () const;
+
+  /**
+   * @return the spatialSizeUnits of this Species.
+   */
+  LIBSBML_EXTERN
+  const std::string& getSpatialSizeUnits () const;
+
+  /**
+   * @return the units of this Species (L1 only).
+   */
+  LIBSBML_EXTERN
+  const std::string& getUnits () const;
+
+  /**
+   * @return true if this Species hasOnlySubstanceUnits, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool getHasOnlySubstanceUnits () const;
+
+  /**
+   * @return the boundaryCondition of this Species.
+   */
+  LIBSBML_EXTERN
+  bool getBoundaryCondition () const;
+
+  /**
+   * @return the charge of this Species.
+   */
+  LIBSBML_EXTERN
+  int getCharge () const;
+
+  /**
+   * @return true if this Species is constant, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool getConstant () const;
+
+  /**
+   * @return true if the id of this Species has been set, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetId () const;
+
+  /**
+   * @return true if the name of this Species has been set, false
+   * otherwise.
+   *
+   * In SBML L1, a Species name is required and therefore <b>should always
+   * be set</b>.  In L2, name is optional and as such may or may not be
+   * set.
+   */
+  LIBSBML_EXTERN
+  bool isSetName () const;
+
+  /**
+   * @return true if the compartment of this Species has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetCompartment () const;
+
+  /**
+   * @return true if the initialAmount of this Species has been set, false
+   * otherwise.
+   *
+   * In SBML L1, a Species initialAmount is required and therefore
+   * <b>should always be set</b>.  In L2, initialAmount is optional and as
+   * such may or may not be set.
+   */
+  LIBSBML_EXTERN
+  bool isSetInitialAmount () const;
+
+  /**
+   * @return true if the initialConcentration of this Species has been set,
+   * false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetInitialConcentration () const;
+
+  /**
+   * @return true if the substanceUnits of this Species has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetSubstanceUnits () const;
+
+  /**
+   * @return true if the spatialSizeUnits of this Species has been set,
+   * false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetSpatialSizeUnits () const;
+
+  /**
+   * @return true if the units of this Species has been set, false
+   * otherwise (L1 only).
+   */
+  LIBSBML_EXTERN
+  bool isSetUnits () const;
+
+  /**
+   * @return true if the charge of this Species has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetCharge () const;
+
+  /**
+   * Moves the id field of this Species to its name field (iff name is not
+   * already set).  This method is used for converting from L2 to L1.
+   */
+  LIBSBML_EXTERN
+  void moveIdToName ();
+
+  /**
+   * Moves the name field of this Species to its id field (iff id is not
+   * already set).  This method is used for converting from L1 to L2.
+   */
+  LIBSBML_EXTERN
+  void moveNameToId ();
+
+  /**
+   * Sets the id of this Species to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setId (const std::string& sid);
+
+  /**
+   * Sets the name of this Species to a copy of string (SName in L1).
+   */
+  LIBSBML_EXTERN
+  void setName (const std::string& str);
+
+  /**
+   * Sets the compartment of this Species to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setCompartment (const std::string& sid);
+
+  /**
+   * Sets the initialAmount of this Species to value and marks the field as
+   * set.  This method also unsets the initialConentration field.
+   */
+  LIBSBML_EXTERN
+  void setInitialAmount (double value);
+
+  /**
+   * Sets the initialConcentration of this Species to value and marks the
+   * field as set.  This method also unsets the initialAmount field.
+   */
+  LIBSBML_EXTERN
+  void setInitialConcentration (double value);
+
+  /**
+   * Sets the substanceUnits of this Species to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setSubstanceUnits (const std::string& sid);
+
+  /**
+   * Sets the spatialSizeUnits of this Species to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setSpatialSizeUnits (const std::string& sid);
+
+  /**
+   * Sets the units of this Species to a copy of sname (L1 only).
+   */
+  LIBSBML_EXTERN
+  void setUnits (const std::string& sname);
+
+  /**
+   * Sets the hasOnlySubstanceUnits field of this Species to value.
+   */
+  LIBSBML_EXTERN
+  void setHasOnlySubstanceUnits (bool value);
+
+  /**
+   * Sets the boundaryCondition of this Species to value.
+   */
+  LIBSBML_EXTERN
+  void setBoundaryCondition (bool value);
+
+  /**
+   * Sets the charge of this Species to value and marks the field as set.
+   */
+  LIBSBML_EXTERN
+  void setCharge (int value);
+
+  /**
+   * Sets the constant field of this Species to value.
+   */
+  LIBSBML_EXTERN
+  void setConstant (bool value);
+
+  /**
+   * Unsets the name of this Species.
+   *
+   * In SBML L1, a Species name is required and therefore <b>should always
+   * be set</b>.  In L2, name is optional and as such may or may not be
+   * set.
+   */
+  LIBSBML_EXTERN
+  void unsetName ();
+
+  /**
+   * Marks the initialAmount of this Species as unset.
+   */
+  LIBSBML_EXTERN
+  void unsetInitialAmount ();
+
+  /**
+   * Unsets the initialConcentration of this Species.
+   */
+  LIBSBML_EXTERN
+  void unsetInitialConcentration ();
+
+  /**
+   * Unsets the substanceUnits of this Species.
+   */
+  LIBSBML_EXTERN
+  void unsetSubstanceUnits ();
+
+  /**
+   * Unsets the spatialSizeUnits of this Species.
+   */
+  LIBSBML_EXTERN
+  void unsetSpatialSizeUnits ();
+
+  /**
+   * Unsets the units of this Species (L1 only).
+   */
+  LIBSBML_EXTERN
+  void unsetUnits ();
+
+  /**
+   * Unsets the charge of this Species.
+   */
+  LIBSBML_EXTERN
+  void unsetCharge ();
+
+
+protected:
+
+  std::string id;
+  std::string name;
+  std::string compartment;
+
+  union
+  {
+    double Amount;
+    double Concentration;
+  } initial;
+
+
+  std::string substanceUnits;
+  std::string spatialSizeUnits;
+
+  bool hasOnlySubstanceUnits;
+  bool boundaryCondition;
+  int  charge;
+  bool constant;
+
+  struct
+  {
+    unsigned int initialAmount       :1;
+    unsigned int initialConcentration:1;
+    unsigned int charge              :1;
+  } isSet;
+
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void Species_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -448,4 +809,5 @@ SpeciesIdCmp (const char *sid, const Species_t *s);
 END_C_DECLS
 
 
-#endif  /** Species_h **/
+#endif  /* !SWIG */
+#endif  /* Species_h */

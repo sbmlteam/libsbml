@@ -1,13 +1,12 @@
 /**
- * Filename    : AlgebraicRule.h
- * Description : SBML AlgebraicRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    AlgebraicRule.h
+ * \brief   SBML AlgebraicRule
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,14 +55,68 @@
 
 #include "extern.h"
 
-#include "SBase.h"
+
+#ifdef __cplusplus
+
+
 #include "Rule.h"
+
+
+class SBMLVisitor;
+
+
+class AlgebraicRule : public Rule
+{
+public:
+
+  /**
+   * Creates a new AlgebraicRule, optionally with its formula attribute
+   * set.
+   */
+  LIBSBML_EXTERN
+  AlgebraicRule (const std::string& formula = "");
+
+  /**
+   * Creates a new AlgebraicRule with its math attribute set.
+   */
+  LIBSBML_EXTERN
+  AlgebraicRule (ASTNode* math);
+
+  /**
+   * Destroys this AlgebraicRule.
+   */
+  LIBSBML_EXTERN
+  virtual ~AlgebraicRule ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
+
+
+protected:
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void AlgebraicRule_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -110,4 +163,5 @@ AlgebraicRule_free (AlgebraicRule_t *ar);
 END_C_DECLS
 
 
-#endif  /** AlgebraicRule_h **/
+#endif  /* !SWIG */
+#endif  /* AlgebraicRule_h */

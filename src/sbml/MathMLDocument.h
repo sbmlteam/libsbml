@@ -1,13 +1,12 @@
 /**
- * Filename    : MathMLDocument.h
- * Description : Top-level container for all things MathML
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLDocument.h
+ * \brief   Top-level container for all things MathML
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,14 +55,74 @@
 
 #include "extern.h"
 
-#include "List.h"
-#include "ASTNode.h"
+
+#ifdef __cplusplus
+
+
+class ASTNode;
+
+
+class MathMLDocument
+{
+public:
+
+  /**
+   * Creates a new MathMLDocument.
+   */
+  LIBSBML_EXTERN
+  MathMLDocument ();
+
+  /**
+   * Destroys this MathMLDocument.
+   */
+  LIBSBML_EXTERN
+  virtual ~MathMLDocument ();
+
+
+  /**
+   * @return the an abstract syntax tree (AST) representation of the math
+   * in this MathMLDocument.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getMath () const;
+
+  /**
+   * @return true if the math of this MathMLDocument has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetMath () const;
+
+  /**
+   * Sets the math of this MathMLDocument to the given ASTNode.
+   *
+   * The node <b>is not copied</b> and this MathMLDocument <b>takes
+   * ownership</b> of it; i.e. subsequent calls to this function or a call
+   * to MathMLDocument_free() will free the ASTNode (and any child nodes).
+   */
+  LIBSBML_EXTERN
+  void setMath (ASTNode* math);
+
+
+protected:
+
+  ASTNode* math;
+
+
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void MathMLDocument_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -111,4 +170,5 @@ MathMLDocument_setMath (MathMLDocument_t *d, ASTNode_t *math);
 END_C_DECLS
 
 
-#endif  /** MathMLDocument_h **/
+#endif  /* !SWIG */
+#endif  /* MathMLDocument_h */

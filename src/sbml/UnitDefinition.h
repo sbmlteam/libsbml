@@ -1,13 +1,12 @@
 /**
- * Filename    : UnitDefinition.h
- * Description : SBML UnitDefinition
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-22
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    UnitDefinition.h
+ * \brief   SBML UnitDefinition
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,15 +55,210 @@
 
 #include "extern.h"
 
-#include "ListOf.h"
+
+#ifdef __cplusplus
+
+
+#include <string>
+
 #include "SBase.h"
-#include "Unit.h"
+#include "ListOf.h"
+
+
+class Unit;
+class SBMLVisitor;
+
+
+class UnitDefinition : public SBase
+{
+public:
+
+  /**
+   * Creates a new UnitDefinition, optionally with its id and name
+   * attributes set.
+   */
+  LIBSBML_EXTERN
+  UnitDefinition (const std::string& id = "", const std::string& name = "");
+
+  /**
+   * Destroys this UnitDefinition.
+   */
+  LIBSBML_EXTERN
+  virtual ~UnitDefinition ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next
+   * UnitDefinition (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the id of this UnitDefinition.
+   */
+  LIBSBML_EXTERN
+  const std::string& getId () const;
+
+  /**
+   * @return the name of this UnitDefinition.
+   */
+  LIBSBML_EXTERN
+  const std::string& getName () const;
+
+  /**
+   * @return true if the id of this UnitDefinition has been set, false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSetId () const;
+
+  /**
+   * @return true if the name of this UnitDefinition has been set, false
+   * otherwise.
+   *
+   * In SBML L1, a UnitDefinition name is required and therefore <b>should
+   * always be set</b>.  In L2, name is optional and as such may or may not
+   * be set.
+   */
+  LIBSBML_EXTERN
+  bool isSetName () const;
+
+  /**
+   * @return true if this UnitDefinition is a variant of the builtin type
+   * area, i.e. square metres with only abritrary variations in scale,
+   * multiplier, or offset values, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isVariantOfArea () const;
+
+  /**
+   * @return true if this UnitDefinition is a variant of the builtin type
+   * length, i.e. metres with only abritrary variations in scale,
+   * multiplier, or offset values, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isVariantOfLength () const;
+
+  /**
+   * @return true if this UnitDefinition is a variant of the builtin type
+   * substance, i.e. moles or items with only abritrary variations in
+   * scale, multiplier, or offset values, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isVariantOfSubstance () const;
+
+  /**
+   * @return true if this UnitDefinition is a variant of the builtin type
+   * time, i.e. seconds with only abritrary variations in scale,
+   * multiplier, or offset values, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isVariantOfTime () const;
+
+  /**
+   * @return true if this UnitDefinition is a variant of the builtin type
+   * volume, i.e. litre or cubic metre with only abritrary variations in
+   * scale, multiplier, or offset values, false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isVariantOfVolume () const;
+
+  /**
+   * Moves the id field of this UnitDefinition to its name field (iff name
+   * is not already set).  This method is used for converting from L2 to
+   * L1.
+   */
+  LIBSBML_EXTERN
+  void moveIdToName ();
+
+  /**
+   * Moves the name field of this UnitDefinition to its id field (iff id is
+   * not already set).  This method is used for converting from L1 to L2.
+   */
+  LIBSBML_EXTERN
+  void moveNameToId ();
+
+  /**
+   * Sets the id of this UnitDefinition to a copy of sid.
+   */
+  LIBSBML_EXTERN
+  void setId (const std::string& sid);
+
+  /**
+   * Sets the name of this UnitDefinition to a copy of string (SName in
+   * L1).
+   */
+  LIBSBML_EXTERN
+  void setName (const std::string& str);
+
+  /**
+   * Unsets the name of this UnitDefinition.
+   *
+   * In SBML L1, a UnitDefinition name is required and therefore <b>should
+   * always be set</b>.  In L2, name is optional and as such may or may not
+   * be set.
+   */
+  LIBSBML_EXTERN
+  void unsetName ();
+
+  /**
+   * Adds the given Unit to this UnitDefinition.
+   */
+  LIBSBML_EXTERN
+  void addUnit (Unit& u);
+
+  /**
+   * @return the list of Units for this UnitDefinition.
+   */
+  LIBSBML_EXTERN
+  ListOf& getListOfUnits ();
+
+  /**
+   * @return the list of Units for this UnitDefinition.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfUnits () const;
+
+
+  /**
+   * @return the nth Unit of this UnitDefinition
+   */
+  LIBSBML_EXTERN
+  Unit* getUnit (unsigned int n) const;
+
+  /**
+   * @return the number of Units in this UnitDefinition.
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumUnits () const;
+
+
+protected:
+
+  std::string id;
+  std::string name;
+  ListOf      unit;
+
+
+  friend class SBMLFormatter;
+  friend class SBMLHandler;
+};
+
+
+#endif  /* __cplusplus */
+
+
+#ifndef SWIG
 
 
 BEGIN_C_DECLS
 
 
-typedef void UnitDefinition_t;
+#include "sbmlfwd.h"
 
 
 /**
@@ -273,4 +467,5 @@ UnitDefinitionIdCmp (const char *sid, const UnitDefinition_t *ud);
 END_C_DECLS
 
 
-#endif  /** UnitDefinition_h **/
+#endif  /* !SWIG */
+#endif  /* UnitDefinition_h */
