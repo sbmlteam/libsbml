@@ -59,17 +59,23 @@ nobase_include_HEADERS =          \
   sbml/ASTNode.h                  \
   sbml/Compartment.h              \
   sbml/CompartmentVolumeRule.h    \
+  sbml/Event.h                    \
+  sbml/EventAssignment.h          \
   sbml/FormulaFormatter.h         \
   sbml/FormulaParser.h            \
   sbml/FormulaTokenizer.h         \
+  sbml/FunctionDefinition.h       \
   sbml/KineticLaw.h               \
   sbml/List.h                     \
+  sbml/ListOf.h                   \
   sbml/MathMLDocument.h           \
   sbml/MathMLReader.h             \
   sbml/Model.h                    \
+  sbml/ModifierSpeciesReference.h \
   sbml/Parameter.h                \
   sbml/ParameterRule.h            \
   sbml/ParseMessage.h             \
+  sbml/RateRule.h                 \
   sbml/Reaction.h                 \
   sbml/Rule.h                     \
   sbml/RuleType.h                 \
@@ -79,6 +85,7 @@ nobase_include_HEADERS =          \
   sbml/SBMLTypeCodes.h            \
   sbml/SBMLTypes.h                \
   sbml/SBMLWriter.h               \
+  sbml/SimpleSpeciesReference.h   \
   sbml/Species.h                  \
   sbml/SpeciesConcentrationRule.h \
   sbml/SpeciesReference.h         \
@@ -119,20 +126,27 @@ libsbml_la_SOURCES =              \
   ASTNode.c                       \
   Compartment.c                   \
   CompartmentVolumeRule.c         \
+  Event.c                         \
+  EventAssignment.c               \
   FormulaFormatter.c              \
   FormulaParser.c                 \
   FormulaTokenizer.c              \
+  FunctionDefinition.c            \
   KineticLaw.c                    \
   List.c                          \
+  ListOf.c                        \
   Model.c                         \
+  ModifierSpeciesReference.c      \
   Parameter.c                     \
   ParameterRule.c                 \
   ParseMessage.c                  \
+  RateRule.c                      \
   Reaction.c                      \
   Rule.c                          \
   RuleType.c                      \
   SBase.c                         \
   SBMLDocument.c                  \
+  SimpleSpeciesReference.c        \
   Species.c                       \
   SpeciesConcentrationRule.c      \
   SpeciesReference.c              \
@@ -147,52 +161,59 @@ libsbml_la_SOURCES =              \
 
 if LIBCHECK_ENABLED
 
-TestRunner_SOURCES =             \
-  test-data                      \
-  sbml/SAX2AttributesMock.hpp    \
-  SAX2AttributesMock.cpp         \
-  TestMathMLHandler.cpp          \
-  TestSAX2AttributesMock.cpp     \
-  TestSBMLFormatter.cpp          \
-  TestSBMLHandler.cpp            \
-  TestXMLStringFormatter.cpp     \
-  TestXMLUtil.cpp                \
-  TestAlgebraicRule.c            \
-  TestAssignmentRule.c           \
-  TestASTNode.c                  \
-  TestCompartment.c              \
-  TestCompartmentVolumeRule.c    \
-  TestFormulaFormatter.c         \
-  TestFormulaParser.c            \
-  TestFormulaTokenizer.c         \
-  TestKineticLaw.c               \
-  TestList.c                     \
-  TestMathMLDocument.c           \
-  TestMemory.c                   \
-  TestModel.c                    \
-  TestParameter.c                \
-  TestParameterRule.c            \
-  TestParseMessage.c             \
-  TestReaction.c                 \
-  TestRule.c                     \
-  TestRuleType.c                 \
-  TestSBase.c                    \
-  TestSBMLDocument.c             \
-  TestSBMLReader.c               \
-  TestSBMLWriter.c               \
-  TestSpecies.c                  \
-  TestSpeciesConcentrationRule.c \
-  TestSpeciesReference.c         \
-  TestStack.c                    \
-  TestStringBuffer.c             \
-  TestReadFromFile1.c            \
-  TestReadFromFile2.c            \
-  TestReadFromFile3.c            \
-  TestReadFromFile4.c            \
-  TestRunner.c                   \
-  TestUnitDefinition.c           \
-  TestUnitKind.c                 \
-  TestUnit.c                     \
+TestRunner_SOURCES =              \
+  test-data                       \
+  sbml/SAX2AttributesMock.hpp     \
+  SAX2AttributesMock.cpp          \
+  TestMathMLHandler.cpp           \
+  TestSAX2AttributesMock.cpp      \
+  TestSBMLFormatter.cpp           \
+  TestSBMLHandler.cpp             \
+  TestXMLStringFormatter.cpp      \
+  TestXMLUtil.cpp                 \
+  TestAlgebraicRule.c             \
+  TestAssignmentRule.c            \
+  TestASTNode.c                   \
+  TestCompartment.c               \
+  TestCompartmentVolumeRule.c     \
+  TestEvent.c                     \
+  TestEventAssignment.c           \
+  TestFormulaFormatter.c          \
+  TestFormulaParser.c             \
+  TestFormulaTokenizer.c          \
+  TestFunctionDefinition.c        \
+  TestKineticLaw.c                \
+  TestList.c                      \
+  TestListOf.c                    \
+  TestMathMLDocument.c            \
+  TestMemory.c                    \
+  TestModel.c                     \
+  TestModifierSpeciesReference.c  \
+  TestParameter.c                 \
+  TestParameterRule.c             \
+  TestParseMessage.c              \
+  TestRateRule.c                  \
+  TestReaction.c                  \
+  TestRule.c                      \
+  TestRuleType.c                  \
+  TestSBase.c                     \
+  TestSBMLDocument.c              \
+  TestSBMLReader.c                \
+  TestSBMLWriter.c                \
+  TestSimpleSpeciesReference.c    \
+  TestSpecies.c                   \
+  TestSpeciesConcentrationRule.c  \
+  TestSpeciesReference.c          \
+  TestStack.c                     \
+  TestStringBuffer.c              \
+  TestReadFromFile1.c             \
+  TestReadFromFile2.c             \
+  TestReadFromFile3.c             \
+  TestReadFromFile4.c             \
+  TestRunner.c                    \
+  TestUnitDefinition.c            \
+  TestUnitKind.c                  \
+  TestUnit.c                      \
   TestUtil.c
 
 TestRunner_LDADD = libsbml.la
