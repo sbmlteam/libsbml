@@ -50,8 +50,8 @@
  */
 
 
+#include "sbml/common.h"
 #include "sbml/ModifierSpeciesReference.h"
-
 
 
 /**

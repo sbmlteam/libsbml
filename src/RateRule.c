@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/common.h"
+
 #include "sbml/Rule.h"
 #include "sbml/RateRule.h"
 

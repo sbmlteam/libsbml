@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/common.h"
+
 #include "sbml/SBMLConvert.h"
 #include "sbml/SBMLDocument.h"
 

@@ -51,6 +51,8 @@
 
 
 #include <ctype.h>
+
+#include "sbml/common.h"
 #include "sbml/FormulaTokenizer.h"
 
 

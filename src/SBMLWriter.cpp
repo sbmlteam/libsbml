@@ -54,7 +54,9 @@
 #include <xercesc/framework/MemBufFormatTarget.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 
+#include "sbml/common.h"
 #include "sbml/SBMLFormatter.hpp"
+
 #include "sbml/SBMLWriter.h"
 
 

@@ -50,6 +50,7 @@
  */
 
 
+#include "sbml/common.h"
 #include "sbml/EventAssignment.h"
 
 

@@ -50,8 +50,10 @@
  */
 
 
-#include "sbml/ListOf.h"
+#include "sbml/common.h"
+
 #include "sbml/SBMLTypes.h"
+#include "sbml/ListOf.h"
 
 
 void ListOf_freeItems (ListOf_t *lo);

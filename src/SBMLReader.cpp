@@ -52,8 +52,6 @@
 
 #include <iostream>
 
-#include "sbml/List.h"
-
 #include <xercesc/framework/MemBufInputSource.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
@@ -61,7 +59,10 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/XMLString.hpp>
 
+#include "sbml/common.h"
 #include "sbml/SBMLHandler.hpp"
+
+#include "sbml/List.h"
 #include "sbml/SBMLDocument.h"
 #include "sbml/SBMLReader.h"
 
