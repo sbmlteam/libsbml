@@ -89,12 +89,11 @@ START_TEST (test_Species_create)
   fail_unless( S->boundaryCondition == 0   , NULL );
   fail_unless( S->charge            == 0   , NULL );
 
-  fail_unless( !Species_isSetName(S)            , NULL );
-  fail_unless( !Species_isSetCompartment(S)     , NULL );
-  fail_unless( !Species_isSetUnits(S)           , NULL );
-  fail_unless( !Species_isSetInitialAmount(S)   , NULL );
-  fail_unless( !Species_isSetCharge(S)          , NULL );
-  fail_unless( Species_isSetBoundaryCondition(S), NULL );
+  fail_unless( !Species_isSetName(S)         , NULL );
+  fail_unless( !Species_isSetCompartment(S)  , NULL );
+  fail_unless( !Species_isSetUnits(S)        , NULL );
+  fail_unless( !Species_isSetInitialAmount(S), NULL );
+  fail_unless( !Species_isSetCharge(S)       , NULL );
 }
 END_TEST
 
@@ -116,12 +115,11 @@ START_TEST (test_Species_createWith)
   fail_unless( s->boundaryCondition == 1   , NULL );
   fail_unless( s->charge            == 1   , NULL );
 
-  fail_unless( Species_isSetName(s)             , NULL );
-  fail_unless( Species_isSetCompartment(s)      , NULL );
-  fail_unless( Species_isSetUnits(s)            , NULL );
-  fail_unless( Species_isSetInitialAmount(s)    , NULL );
-  fail_unless( Species_isSetBoundaryCondition(s), NULL );
-  fail_unless( Species_isSetCharge(s)           , NULL );
+  fail_unless( Species_isSetName(s)         , NULL );
+  fail_unless( Species_isSetCompartment(s)  , NULL );
+  fail_unless( Species_isSetUnits(s)        , NULL );
+  fail_unless( Species_isSetInitialAmount(s), NULL );
+  fail_unless( Species_isSetCharge(s)       , NULL );
 
   Species_free(s);
 }

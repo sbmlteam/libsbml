@@ -279,9 +279,8 @@ START_TEST (test_element_Specie)
   fail_unless( sp->boundaryCondition == 0  , NULL );
   fail_unless( sp->charge            == 6  , NULL );
 
-  fail_unless( sp->isSet.initialAmount     == 1, NULL );
-  fail_unless( sp->isSet.boundaryCondition == 1, NULL );
-  fail_unless( sp->isSet.charge            == 1, NULL );
+  fail_unless( sp->isSet.initialAmount == 1, NULL );
+  fail_unless( sp->isSet.charge        == 1, NULL );
 }
 END_TEST
 
@@ -308,9 +307,8 @@ START_TEST (test_element_Specie_defaults)
   fail_unless( sp->initialAmount     == 1.0, NULL );
   fail_unless( sp->boundaryCondition == 0  , NULL );
 
-  fail_unless( sp->isSet.initialAmount     == 1, NULL );
-  fail_unless( sp->isSet.boundaryCondition == 1, NULL );
-  fail_unless( sp->isSet.charge            == 0, NULL );
+  fail_unless( sp->isSet.initialAmount == 1, NULL );
+  fail_unless( sp->isSet.charge        == 0, NULL );
 }
 END_TEST
 
@@ -340,9 +338,8 @@ START_TEST (test_element_Species)
   fail_unless( sp->boundaryCondition == 0  , NULL );
   fail_unless( sp->charge            == 6  , NULL );
 
-  fail_unless( sp->isSet.initialAmount     == 1, NULL );
-  fail_unless( sp->isSet.boundaryCondition == 1, NULL );
-  fail_unless( sp->isSet.charge            == 1, NULL );
+  fail_unless( sp->isSet.initialAmount == 1, NULL );
+  fail_unless( sp->isSet.charge        == 1, NULL );
 }
 END_TEST
 

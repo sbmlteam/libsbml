@@ -405,15 +405,14 @@ SBMLFormatter::operator<< (const Species_t* s)
   attribute(ATTR_NAME, s->name);
 
   //
-  // FIXME:
-  // compartment  { use="required" }  (L1v1, L2v1)
-  // compartment  { use="optional" }  (L1v2)
+  // 
+  // compartment  { use="required" }  (L1v1, L2v1, L2v1)
   //
-  if (s->compartment != NULL)
-  {
-    attribute(ATTR_COMPARTMENT, s->compartment);
-  }
+  attribute(ATTR_COMPARTMENT, s->compartment);
 
+  //
+  // initialAmount  { use="required" }  (L1v1, L1v2)
+  //
   attribute(ATTR_INITIAL_AMOUNT, s->initialAmount);
 
   //
@@ -429,7 +428,7 @@ SBMLFormatter::operator<< (const Species_t* s)
   // { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
   // 
   //
-  if (s->isSet.boundaryCondition && s->boundaryCondition != 0)
+  if (s->boundaryCondition != 0)
   {
     attribute(ATTR_BOUNDARY_CONDITION, (bool) s->boundaryCondition);
   }

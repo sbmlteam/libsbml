@@ -199,8 +199,12 @@ Species_getCharge (const Species_t *s)
   return s->charge;
 }
 
+
 /**
  * @return 1 if the name of this Species has been set, 0 otherwise.
+ *
+ * In SBML L1, a Species name is required and therefore <b>should always be
+ * set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -225,6 +229,10 @@ Species_isSetCompartment (const Species_t *s)
 /**
  * @return 1 if the initialAmount of this Species has been set, 0
  * otherwise.
+ *
+ * In SBML L1, a Species initialAmount is required and therefore <b>should
+ * always be set</b>.  In L2, initialAmount is optional and as such may or
+ * may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -242,18 +250,6 @@ int
 Species_isSetUnits (const Species_t *s)
 {
   return (s->units != NULL);
-}
-
-
-/**
- * @return 1 if the boundaryCondition of this Species has been set, 0
- * otherwise.
- */
-LIBSBML_EXTERN
-int
-Species_isSetBoundaryCondition (const Species_t *s)
-{
-  return s->isSet.boundaryCondition;
 }
 
 
@@ -338,8 +334,7 @@ LIBSBML_EXTERN
 void
 Species_setBoundaryCondition (Species_t *s, int value)
 {
-  s->boundaryCondition       = value;
-  s->isSet.boundaryCondition = 1;
+  s->boundaryCondition = value;
 }
 
 
@@ -356,6 +351,22 @@ Species_setCharge (Species_t *s, int value)
 
 
 /**
+ * Unsets the name of this Species.  This is equivalent to:
+ * safe_free(s->name); s->name = NULL;
+ *
+ * In SBML L1, a Species name is required and therefore <b>should always be
+ * set</b>.  In L2, name is optional and as such may or may not be set.
+ */
+LIBSBML_EXTERN
+void
+Species_unsetName (Species_t *s)
+{
+  safe_free(s->name);
+  s->name = NULL;
+}
+
+
+/**
  * Marks the initialAmount of this Species as unset.
  */
 LIBSBML_EXTERN
@@ -367,13 +378,15 @@ Species_unsetInitialAmount (Species_t *s)
 
 
 /**
- * Marks the boundaryCondition of this Species as unset.
+ * Unsets the units of this Species.  This is equivalent to:
+ * safe_free(s->units); s->units = NULL;
  */
 LIBSBML_EXTERN
 void
-Species_unsetBoundaryCondition (Species_t *s)
+Species_unsetUnits (Species_t *s)
 {
-  s->isSet.boundaryCondition = 0;
+  safe_free(s->units);
+  s->units = NULL;
 }
 
 
