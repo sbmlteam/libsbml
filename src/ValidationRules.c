@@ -199,11 +199,63 @@ isKindOfArea(const char *unitsName)
 
 static
 unsigned int
+isKindOfVolume(const char *unitsName)
+{
+  return
+    unitsName != NULL
+    && (
+      streq(unitsName, "volume")
+      ||
+      streq(unitsName, "litre")
+      ||
+      streq(unitsName, "liter")
+    );
+}
+
+
+static
+unsigned int
+isCubicMeters(UnitDefinition_t *ud)
+{
+  static const PFI meterKinds[] = { isMeter, NULL };
+
+
+  return
+    ud != NULL
+    &&
+    isOneOfTheseKinds(ud, meterKinds)
+    &&
+    _hasSingleKind(ud)
+    &&
+    _hasExponent(ud, 3);
+}
+
+
+static
+unsigned int
+isLiters(UnitDefinition_t *ud)
+{
+  static const PFI literKinds[] = { isLiter, NULL };
+
+
+  return
+    ud != NULL
+    &&
+    isOneOfTheseKinds(ud, literKinds)
+    &&
+    _hasSingleKind(ud)
+    &&
+    _hasExponent(ud, 1);
+}
+
+
+static
+unsigned int
 unitDefinitionIsKindOfLength(
   const Model_t *m,
   const char *spatialSizeUnits)
 {
-  static const PFI acceptableKinds[] = { isMeter };
+  static const PFI acceptableKinds[] = { isMeter, NULL };
 
   UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
 
@@ -225,7 +277,7 @@ unitDefinitionIsKindOfArea(
   const Model_t *m,
   const char *spatialSizeUnits)
 {
-  static const PFI acceptableKinds[] = { isMeter };
+  static const PFI acceptableKinds[] = { isMeter, NULL };
 
   UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
 
@@ -238,6 +290,21 @@ unitDefinitionIsKindOfArea(
     _hasSingleKind(ud)
     &&
     _hasExponent(ud, 2);
+}
+
+
+static
+unsigned int
+unitDefinitionIsKindOfVolume(
+  const Model_t *m,
+  const char *spatialSizeUnits)
+{
+  static const PFI literKinds[] = { isLiter, NULL };
+
+  UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
+
+
+  return isCubicMeters(ud) || isLiters(ud);
 }
 
 
@@ -714,6 +781,43 @@ RULE (species_spatialDimensions2)
 
 
 /**
+ * spatialSizeUnits for spatialDimensions of 3.
+ */
+RULE (species_spatialDimensions3)
+{
+  static const char msg[] =
+    "A species whose compartment has spatialDimensions=3 must have "
+    "spatialSizeUnits of 'volume' or 'litre' or the id of a unitDefinition "
+    "that defines a variant of 'metre' with exponent=3 or a variant of "
+    "'litre'.";
+  const char *compartmentId;
+  unsigned int passed = 1;
+
+
+  Species_t *s = (Species_t *) obj;
+  compartmentId = Species_getCompartment(s);
+  if (compartmentId)
+  {
+    Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
+    if (c && Compartment_getSpatialDimensions(c) == 3)
+    {
+      const char *spatialSizeUnits = Species_getSpatialSizeUnits(s);
+      if (
+        !isKindOfVolume(spatialSizeUnits)
+        &&
+        !unitDefinitionIsKindOfVolume(d->model, spatialSizeUnits)
+      ) {
+        LOG_MESSAGE(msg);
+        passed = 0;
+      }
+    }
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -740,4 +844,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_zeroSpatialDimensions, SBML_SPECIES        );
   Validator_addRule( v, species_spatialDimensions1,    SBML_SPECIES        );
   Validator_addRule( v, species_spatialDimensions2,    SBML_SPECIES        );
+  Validator_addRule( v, species_spatialDimensions3,    SBML_SPECIES        );
 }
