@@ -35,6 +35,19 @@ AC_DEFUN(CONFIG_LIB_LIBCHECK,
     if test $with_libcheck != yes; then
       LIBCHECK_CPPFLAGS="-I$with_libcheck/include"
       LIBCHECK_LDFLAGS="-L$with_libcheck/lib"
+    else
+      dnl On the Macs, if the user has installed libcheck via Fink and they
+      dnl used the default Fink install path of /sw, the following should
+      dnl catch it.  We do this so that Mac users are more likely to find
+      dnl success even if they only type --with-expat.
+
+      case $host in
+      *darwin*) 
+        LIBCHECK_CPPFLAGS="-I/sw/include -I\$(top_srcdir)/expat"
+        LIBCHECK_LDFLAGS="-L/sw/lib"
+	;;
+      esac    
+
     fi
 
     AC_LANG_PUSH(C)
@@ -47,7 +60,7 @@ AC_DEFUN(CONFIG_LIB_LIBCHECK,
 
     AC_CHECK_HEADERS([check.h], [libcheck_found=yes], [libcheck_found=no])
 
-    if test $libcheck_found = yes; then
+    if test $libcheck_found = no; then
       AC_CHECK_LIB([check], [srunner_create],
         [libcheck_found=yes],
         [libcheck_found=no])
