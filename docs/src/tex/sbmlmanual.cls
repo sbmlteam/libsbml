@@ -687,15 +687,11 @@
 % Additional new commands.
 
 \newcommand{\class}[1]{\texttt{#1}}
+\newcommand{\method}[1]{\texttt{#1}}
+\newcommand{\variable}[1]{\texttt{#1}}
 \newcommand{\attrib}[1]{\texttt{#1}}
 \newcommand{\attribtype}[1]{\texttt{#1}}
 \newcommand{\attribvalue}[1]{\texttt{#1}}
-
-\newcommand{\method}[1]{\texttt{#1}}
-\newcommand{\variable}[1]{\texttt{#1}}
-
-\newcommand{\shell}[1]{\texttt{#1}}
-\newcommand{\code}[1]{\texttt{#1}}
 
 % New environment for formatting function/method definitions.
 
@@ -756,80 +752,82 @@
 % If any additional arguments needed to be passed to the environment,
 % put them after the language name separated by a comma.  Here's an example:
 %
-% \begin{exampleFigure}
-%   \begin{codeVerbatim}[Java,first=20]
+% \begin{figure}
+%   \begin{boxedCodeVerbatim}[first=20]
 
-\lstnewenvironment{codeVerbatim}[1][C]{%
+\lstnewenvironment{boxedCodeVerbatim}[1][C]{%
   \lstset{escapechar=|,%
     basicstyle=\small\ttfamily,%
-    labelstep=1,%
-    labelsep=9pt,%
-    labelstyle=\footnotesize,%
-    stringtest=false,%
+    numbers=left,%
+    stepnumber=1,%
+    numberfirstline=true,%
+    numbersep=9pt,%
+    numberstyle=\footnotesize,%
     belowskip=5pt,%
     frame=tlrb,%
-    frametextsep=4pt,%
-    framerulewidth=0.5pt,%
+    framesep=4pt,%
+    framerule=0.5pt,%
+    frameround=rrrr,%
+    rulecolor=\color{sbmlblue},
+    flexiblecolumns=true,%
     commentstyle=\footnotesize\itshape,%
-    stringspaces=false,%
+    showstringspaces=false,%
     tabsize=2,%x
     keywordstyle=\ttfamily,%
-    framerulecolor=sbmlblue,
     language=#1}%
   \examplespacing \csname lst@SetFirstLabel\endcsname}
 {\regularspacing \csname lst@SaveFirstLabel\endcsname}
 
 \newcommand{\codenote}[1]{\marginpar{\footnotesize\textcolor{sbmlblue}{\emph{#1}}}}
 
-\lstnewenvironment{example}[1][C]{%
-  \lstset{escapechar=|,%
-    basicstyle=\small\ttfamily,%
-    aboveskip=0.75\baselineskip,%
-    belowskip=0.4\baselineskip,%
-    stringtest=false,%
-    indent=4ex,%
-    commentstyle=\footnotesize\itshape,%
-    stringspaces=false,%
-    tabsize=2,%x
-    keywordstyle=\ttfamily,
-    language=#1}%
-  \examplespacing \csname lst@SetFirstLabel\endcsname}
-{\regularspacing \csname lst@SaveFirstLabel\endcsname}
+% 2004-09-22 <mhucka@caltech.edu> Turns out that getting verbatim-style
+% environments handled properly in latex2html is incredibly hard, because
+% latex2html handles 'verbatim' using internal hooks that are not easily
+% accessed through the normal latex2html Perl extension mechanism.  I spent
+% hours trying to make our original 'example' environment work.  That
+% environment used arguments to indicate the language in use.  I've given
+% up.  Instead, the following ugly but working solution is to have a
+% separate environment for separate languages, and avoid using [csh]
+% etc. to indicate the language (or any argument at all).
 
-\lstnewenvironment{exampleTight}[1][C]{%
-  \lstset{escapechar=|,%
-    basicstyle=\small\ttfamily,%
-    aboveskip=0.75\baselineskip,%
-    belowskip=0.4\baselineskip,%
-    stringtest=false,%
-    indent=4ex,%
-    commentstyle=\footnotesize\itshape,%
-    stringspaces=false,%
-    tabsize=2,%x
-    keywordstyle=\ttfamily,
-    language=#1}%
-  \tightspacing \csname lst@SetFirstLabel\endcsname}
-{\regularspacing \csname lst@SaveFirstLabel\endcsname}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\shell}[1]{\texttt{#1}}
 
-%\newenvironment{example}{%
-%  \begin{quote}%
-%    \begin{small}%
-%      \examplespacing%
-%      \begin{alltt}}
-%    {\end{alltt}%
-%  \end{small}%
-%\end{quote}}
+\newcommand{\newVerbatimEnv}[2]{%
+  \lstnewenvironment{#1}{%
+    \lstset{escapechar=|,%
+      basicstyle=\small\ttfamily,%
+      aboveskip=0.75\baselineskip,%
+      belowskip=0.4\baselineskip,%
+      xleftmargin=4ex,%
+      commentstyle=\footnotesize\itshape,%
+      flexiblecolumns=true,%
+      showstringspaces=false,%
+      tabsize=2,%x
+      keywordstyle=\ttfamily,
+      language=#2}%
+    \examplespacing \csname lst@SetFirstLabel\endcsname}
+  {\regularspacing \csname lst@SaveFirstLabel\endcsname}}
 
-%\newenvironment{exampleTight}{%
-%  \begin{quote}%
-%    \begin{small}%
-%      \tightspacing%
-%      \renewcommand{\baselinestretch}{0.7}%
-%      \begin{alltt}}
-%    {\end{alltt}%
-%  \end{small}%
-%\end{quote}}
-
+\newVerbatimEnv{cppVerbatim}{[ANSI]C++}
+\newVerbatimEnv{cVerbatim}{[ANSI]C}
+\newVerbatimEnv{delphiVerbatim}{Delphi}
+\newVerbatimEnv{fortranVerbatim}{[90]Fortran}
+\newVerbatimEnv{htmlVerbatim}{HTML}
+\newVerbatimEnv{javaVerbatim}{Java}
+\newVerbatimEnv{latexVerbatim}{LaTeX}
+\newVerbatimEnv{lispVerbatim}{Lisp}
+\newVerbatimEnv{mathematicaVerbatim}{Mathematica}
+\newVerbatimEnv{matlabVerbatim}{Matlab}
+\newVerbatimEnv{pascalVerbatim}{Pascal}
+\newVerbatimEnv{perlVerbatim}{Perl}
+\newVerbatimEnv{pythonVerbatim}{Python}
+\newVerbatimEnv{rVerbatim}{R}
+\newVerbatimEnv{sqlVerbatim}{SQL}
+\newVerbatimEnv{shellVerbatim}{csh}
+\newVerbatimEnv{tcltkVerbatim}{[Tk]Tcl}
+\newVerbatimEnv{texVerbatim}{[plain]TeX}
+\newVerbatimEnv{xmlVerbatim}{XML}
 
 % Lists.
 

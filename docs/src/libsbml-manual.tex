@@ -55,41 +55,41 @@ your Linux, MacOS~X or Solaris command prompt, unpack the distribution,
 \shell{libsbml-2.1.0/}), and type the following command to configure
 \libsbml{} for your system:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure
-\end{example}
+\end{shellVerbatim}
 
 To specify Expat explicitly rather than the \libsbml{} default of Xerces,
 use a command such as the following instead (and make sure to read about
 the limitations surrounding the use of Expat explained in
 Section~\ref{sec:installation}):
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-expat
-\end{example}
+\end{shellVerbatim}
 
 By default, \libsbml{} only builds the C and C++ API library.  If you want
 to configure \libsbml{} to build the Java, Python and/or MATLAB API
 libraries as well, add the flags \shell{--with-java}, \shell{--with-python}
 and/or \shell{--with-matlab} to the configure command.  For example,
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-expat --with-java --with-python
-\end{example}
+\end{shellVerbatim}
 
 Next, compile and install the \libsbml{} library using the following command:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   make
   make install
-\end{example}
+\end{shellVerbatim}
 
 To compile programs that use \libsbml{} with GCC (for an example, see
 Section~\ref{sec:read-example}):
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   gcc -o myapp.c myapp.c -lsbml
-\end{example}
+\end{shellVerbatim}
 
 
 %-----------------------------------------------------------------------------
@@ -233,8 +233,7 @@ Expat, some syntactic errors in SBML inputs may go undetected; examples
 include identifiers not using the correct character set, and missing
 required attributes.  (However, the \libsbml{} consistency checks described
 in Section~\ref{sec:consistency-checking} can still be performed.)  The
-tradeoff is that Expat can be noticeably faster than Xerces at parsing
-large models.
+tradeoff is that Expat may be faster than Xerces at parsing large models.
 
 Unless instructed otherwise, the \libsbml{} build process will
 \textbf{default to using Xerces}.  A good way to determine whether
@@ -253,29 +252,29 @@ After obtaining, uncompressing and unpacking the \libsbml{} distribution,
 configure the package by typing the following command at your Linux,
 MacOS~X or Solaris command prompt:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure
-\end{example}
+\end{shellVerbatim}
 
 To specify Expat explicitly rather than the \libsbml{} default of Xerces,
 use a command such as the following instead:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-expat
-\end{example}
+\end{shellVerbatim}
 
 If either Expat or Xerces is installed in a non-standard location on your
 computer system (e.g., a home directory), \shell{configure} will not be
 able to detect it.  In this case, \shell{configure} needs to be told
 explicitly where to find the libraries.  Use the following forms:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-expat="DIR"
-\end{example}
+\end{shellVerbatim}
 or
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-xerces="DIR"
-\end{example}
+\end{shellVerbatim}
 
 where \code{DIR} is the \textbf{parent} directory of where the
 \code{include} and \code{lib} directories of Xerces or Expat (whichever one
@@ -283,9 +282,9 @@ you are trying to use) is located.  For example, on MacOS~X, if you used
 Fink to install Expat in Fink's default software tree, you would configure
 \libsbml{} using the following:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-xerces="/sw"
-\end{example}
+\end{shellVerbatim}
 
 During the installation phase (i.e., during \shell{make install}, discussed
 below), the default \libsbml{} installation commands will copy header files
@@ -295,9 +294,9 @@ to \shell{/usr/local/lib}, and documentation files in various formats to
 specify a different installation location, use the \shell{--prefix}
 argument to \shell{configure}.  For example,
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --prefix="/my/favorite/path"
-\end{example}
+\end{shellVerbatim}
 
 Of course, you can combine the flags to \shell{configure}, giving both
 \shell{--prefix} and \shell{--with-expat} or \shell{--with-xerces} to set
@@ -310,10 +309,10 @@ of other options described below.
 Once configured, building should be very easy.  Simply execute the
 following commands at your Linux, MacOS~X or Solaris command prompt:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   make
   make install
-\end{example}
+\end{shellVerbatim}
 
 Note that you will probably have to perform the \shell{make install}
 command as the user 'root' on your system if you used the default
@@ -347,16 +346,16 @@ supply additional options to configure.  These options are
 with other configure options, these three take an optional prefix
 argument; for example,
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-java="DIR"
-\end{example}
+\end{shellVerbatim}
 
 If you want to build multiple language bindings for \libsbml{}, combine
 multiple flags together as in the following example:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-java --with-python
-\end{example}
+\end{shellVerbatim}
 
 The \libsbml{} distribution ships with certain interface files provided, so
 that you do not need to have the software necessary to recreate them.
@@ -371,9 +370,9 @@ use the \shell{--with-swig} option to configure.  If your copy of SWIG is
 installed in a non-standard location, you can specify it on the
 \shell{configure} command line like this:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-swig="DIR"
-\end{example}
+\end{shellVerbatim}
 
 As with Expat and Xerces, the \shell{/sw} directory is what you would
 specify if you were running on MacOS~X and you used Fink to install SWIG,
@@ -394,16 +393,16 @@ and once installed, it consists of only two files: \shell{libcheck.a} and
 To enable the unit testing facilities in \libsbml{}, add the
 \shell{--with-check} flag during configuration:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --with-check
-\end{example}
+\end{shellVerbatim}
 
 Following this, you must build \libsbml{} and then you can run the tests:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   make
   make check
-\end{example}
+\end{shellVerbatim}
 
 The \shell{make check} step is optional and will build and run an extensive
 suite of unit tests to verify all facets of the library.  These tests are
@@ -420,16 +419,16 @@ In addition to the unit tests, a custom memory tracing facility is
 available.  It is disabled by default and must be enabled explicitly
 at build time, either as an argument to configure:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --enable-memory-tracing
-\end{example}
+\end{shellVerbatim}
 
 or, in your own projects, by defining the C preprocessor symbol
 \code{TRACE\_MEMORY}:
 
-\begin{example}[c]
+\begin{cVerbatim}
   #define TRACE_MEMORY
-\end{example}
+\end{cVerbatim}
 
 With memory tracing turned on, every piece of memory in both the library
 and all test suites is tracked.  At the end of the test run, statistics are
@@ -442,9 +441,9 @@ For performance reasons, memory tracing should be disabled in production
 environments.  It is disabled by default in \libsbml{}, but if enabled it,
 you can reconfigure and disable it as follows:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./configure --disable-memory-tracing
-\end{example}
+\end{shellVerbatim}
 
 After doing this, make sure to rebuild and reinstall the \libsbml{} library.
 
@@ -532,9 +531,9 @@ few simple stylistic conventions:
   argument.  For example, the function prototype for the
   \method{addCompartment()} method of a \class{Model} is:
 
-    \begin{example}[c]
+    \begin{cVerbatim}
     void Model_addCompartment(Model_t *m, Compartment_t *c);
-    \end{example}
+    \end{cVerbatim}
 
   \item Constructor and destructor names are similar to method names,
   but end in \method{\_create()} and \method{\_free()}, respectively.
@@ -638,10 +637,10 @@ rules for primitive types:
 \end{enumerate}
 
 \begin{figure}[bht]
-  \begin{tabular}{m{8.5cm}c}
+  \begin{tabular}{m{8.7cm}c}
     \includegraphics[scale=0.67]{graphics/species}
     &
-    \begin{example}[c]
+    \begin{cVerbatim}
 typedef struct
 {
   SBASE_FIELDS;
@@ -660,7 +659,7 @@ typedef struct
   int     charge;
   int     constant;
 } Species_t;
-    \end{example}\\
+    \end{cVerbatim}\\
   \end{tabular}
   \caption{Example: the definition of SBML's Species in UML (left) and the
     corresponding \class{Species\_t} C struct (right) in \libsbml{}.
@@ -707,10 +706,10 @@ the \libsbml{} API Reference Manual.)
   \variable{substanceUnits}, \variable{boundaryCondition} and
   \variable{charge} and returns a pointer to it.  This convenience function
   is functionally equivalent to the following:
-  \begin{example}[c]
+  \begin{cVerbatim}
 Species_t *s = Species_create();
 Species_setId(s, id); Species_setCompartment(s, compartment); ...;
-  \end{example}
+  \end{cVerbatim}
 \end{methoddef}
 
 \begin{methoddef}{void Species\_free (Species\_t *s)}
@@ -826,7 +825,7 @@ elaborated in the discussion of setters in the next section.
 Figure~\vref{fig:print-species} provides an example of using getters. 
 
 \begin{figure}[thb]
-  \begin{codeVerbatim}
+  \begin{boxedCodeVerbatim}
 /** 
  * Prints some basic information about an SBML Level 2 Species.
  */
@@ -848,7 +847,7 @@ myPrintSpecies (Species_t *s, FILE *stream)
   fprintf(stream, "             name: %s\n", name != NULL ? name : none);
   fprintf(stream, "compartment id: %s\n", comp != NULL ? comp : none);
 }
-  \end{codeVerbatim}
+  \end{boxedCodeVerbatim}
   \caption{Demonstrates accessing the fields of an SBML Level~2 object
   (in this case, \class{Species\_t}) using getter methods.}
   \label{fig:print-species}
@@ -953,9 +952,9 @@ called, all strings are freed.
 For example, to set the compartment of a Species object stored in variable
 \code{s} to the string \code{"cell"}, you could do the following:
 
-\begin{example}[c]
+\begin{cVerbatim}
   Species_setCompartment(s, "cell");
-\end{example}
+\end{cVerbatim}
 
 The effect of passing a \code{NULL} pointer as the string argument
 is to free the previously stored string and mark the field as unset.
@@ -967,9 +966,9 @@ Section~\ref{sec:field-states}).
 %prevents string fields (or any other field type for that matter) from
 %being set directly, as in:
 
-%\begin{example}[c]
+%\begin{cVerbatim}
 %s->name = "s2";
-%\end{example}
+%\end{cVerbatim}
 
 %But to do so would likely cause a memory leak if \code{s->name} was
 %already assigned to another string.  Using the setter methods is much
@@ -1179,7 +1178,7 @@ UnitDefinition\_t *ud)}
 Furthering the example, creating the \class{UnitDefinition} \emph{mmol/l/s}
 with an identifer of ``\code{mmls}'', corresponding to the following SBML,
 
-\begin{example}
+\begin{xmlVerbatim}
   <listOfUnitDefinitions>
     <unitDefinition id="mmls">
       <listOfUnits>
@@ -1189,18 +1188,18 @@ with an identifer of ``\code{mmls}'', corresponding to the following SBML,
       </listOfUnits>
     </unitDefinition>
   </listOfUnitDefinitions>
-\end{example}
+\end{xmlVerbatim}
 
 
 could be accomplished with the following C:
 
-\begin{example}[c]
+\begin{cVerbatim}
   UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
 
   UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
   UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
   UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
-\end{example}
+\end{cVerbatim}
 
 List items are numbered starting at zero.  For the case above, 
 \method{UnitDefinition\_getNumUnits(\variable{ud})} would return 3 and
@@ -1216,7 +1215,7 @@ the above \class{UnitDefinition\_t} object, but this time inside a
 \class{Model\_t}, is:
 
 
-\begin{example}[c]
+\begin{cVerbatim}
   Model_t            *m  = Model_createWith("MyModel");
   UnitDefinition_t   *ud = Model_createUnitDefinition(m);
 
@@ -1225,7 +1224,7 @@ the above \class{UnitDefinition\_t} object, but this time inside a
   Model_createUnit(m, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
   Model_createUnit(m, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
   Model_createUnit(m, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
-\end{example}
+\end{cVerbatim}
 
 
 \method{Model\_createUnit()} creates a new Unit inside the Model
@@ -1253,7 +1252,7 @@ SBML Level~1).  These translate directly to C \texttt{enum}s with a few
 support functions for equality testing and converting to and from strings.
 
 
-\begin{example}[c]
+\begin{cVerbatim}
   typedef enum
   {
       UNIT_KIND_AMPERE
@@ -1264,7 +1263,7 @@ support functions for equality testing and converting to and from strings.
     , UNIT_KIND_WEBER
     , UNIT_KIND_INVALID
   } UnitKind_t;
-  \end{example}
+  \end{cVerbatim}
 
 The following are the methods available for UnitKind:
 
@@ -1325,6 +1324,7 @@ listed in Table~\vref{tab:sbml-abstract-classes}.
 \begin{table}[bth]
   \small
   \centering
+  \vspace*{5pt}
   \begin{tabular}{lll}
     \toprule
     \textbf{SBML Class}           & \textbf{C Class (typedef struct)} & \textbf{SBML Level}\\
@@ -1367,7 +1367,7 @@ need to worry about the create and free operations on these classes.
 %\texttt{SBase.h} defines:
 
 
-%\begin{example}[c]
+%\begin{cVerbatim}
 %/**
 % * As shown below, put SBASE_FIELDS as the *first* item of any struct
 % * which "is a(n)" SBML object.
@@ -1379,12 +1379,12 @@ need to worry about the create and free operations on these classes.
 %  char           *metaid;  \
 %  char           *notes;   \
 %  char           *annotation
-%\end{example}
+%\end{cVerbatim}
 
 %The beginning of the definition of \class{Species\_t}, covering both SBML
 %Level~1 and Level~2 is
 
-%\begin{example}[c]
+%\begin{cVerbatim}
 %typedef struct
 %{
 %  SBASE_FIELDS;
@@ -1395,7 +1395,7 @@ need to worry about the create and free operations on these classes.
 %  int     boundaryCondition;
 %  int     charge;
 %} Species_t;
-%\end{example}
+%\end{cVerbatim}
 
 %The effect is that when the library source is compiled, the first
 %three fields of \class{Species} are \variable{typecode},
@@ -1405,13 +1405,13 @@ need to worry about the create and free operations on these classes.
 %\class{Species\_t} \variable{*s}, or any other SBML object, is the
 %same as for other fields.  For example:
 
-%\begin{example}[c]
+%\begin{cVerbatim}
 %if (s->notes != NULL)
 %{
 %  printf("Notes for Species %s:\n", (s->name == NULL) ? "(null)" : s->name);
 %  printf("%s", s->notes);
 %}
-%\end{example}
+%\end{cVerbatim}
 
 %Setting string fields requires special care to guard against memory
 %leaks.  The \method{XXX\_setYYY()} methods must be used.  But,
@@ -1546,9 +1546,9 @@ functions.  Beware, however, that a cast is required.  For example, to set
 the notes field of some \class{Species} held in variable \variable{s}, cast
 the variable to type \class{SBase\_t}:
 
-\begin{example}[c]
+\begin{cVerbatim}
   SBase_setNotes( (SBase_t *) s, "My Favorite Species" );
-\end{example}
+\end{cVerbatim}
 
 The same applies to all other SBML objects.
 
@@ -1560,12 +1560,12 @@ This is useful when reading SBML model files because it gives access to any
 XML namespaces defined on the annotation element.  For example, if a model
 had the following on a structure,
 
-\begin{example}[html]
+\begin{xmlVerbatim}
   <annotation xmlns:mstb="http://www.sbml.org/2001/ns/matlab-sbmltoolbox">
     <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>
     <mstb:message>These are my annotations</mstb:message>
   </annotation>
-\end{example}
+\end{xmlVerbatim}
 
 then \method{SBase\_getAnnotation()} would return all of the above as one
 string.  (In other words, it would not return simply what is being the
@@ -1575,7 +1575,7 @@ the opening \texttt{<annotation>} element to
 \method{SBase\_setAnnotation()}.  Here is an example C program setting the
 same annotation string as in the example above:
 
-\begin{example}[c]
+\begin{cVerbatim}
   const char *annotation =
       "<annotation xmlns:mstb=\"http://www.sbml.org/2001/ns/matlab-sbmltoolbox\">"
       "  <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>\n"
@@ -1583,7 +1583,7 @@ same annotation string as in the example above:
       "</annotation>";
   
   SBase_setAnnotation(model, annotation);
-\end{example}
+\end{cVerbatim}
 
 
 
@@ -1598,7 +1598,7 @@ enumeration, defined in \shell{SBMLTypeCodes.h} (which is included by the
 main \libsbml{} include file, \shell{SBMLTypes.h}, so client code does not
 need to include it separately):
 
-\begin{example}[c]
+\begin{cVerbatim}
   /**
    * An enumeration of SBML Level 2 types to help identify SBML objects at runtime.
    * Abstract types do not have a typecode since they cannot be instantiated.
@@ -1627,7 +1627,7 @@ need to include it separately):
     , SBML_COMPARTMENT_VOLUME_RULE
     , SBML_PARAMETER_RULE
   } SBMLTypeCode_t;
-\end{example}
+\end{cVerbatim}
 
 The primary reason for the \variable{typecode} is distinguish specific
 types of rules in a Model.  A \class{Model\_t} contains a list of rules,
@@ -1656,9 +1656,9 @@ SBMLDocument.  \libsbml{} defines two basic read functions:
   to it.
   The XML string must be complete and legal XML document.  Among other
   things, it must start with an XML processing instruction.  For example,
-  \begin{example}
+  \begin{xmlVerbatim}
     <?xml version='1.0' encoding='UTF-8'?>
-  \end{example}
+  \end{xmlVerbatim}
 \end{methoddef}
 
 
@@ -1743,11 +1743,11 @@ FILE *stream)}
   the given \variable{stream}.  If no warnings have occurred, i.e.
   \code{SBMLDocument\_getNumWarnings(d) == 0}, no output will be sent to
   \variable{stream}. The format of the output is:
-  \begin{example}
+  \begin{cVerbatim}
     %d Warning(s):
       Line %d, Col %d: %s
       ...
-  \end{example}
+  \end{cVerbatim}
   This is a convenience function to aid in debugging.  For example:\\
   \code{SBMLDocument\_printWarnings(d, stdout)}.
  \end{methoddef}
@@ -1759,11 +1759,11 @@ FILE *stream)}
   to the given \variable{stream}.  If no errors have occurred, that is, if 
   \code{SBMLDocument\_getNumErrors(d) == 0}, no output will be sent
   to \variable{stream}. The format of the output is:
-  \begin{example}
+  \begin{cVerbatim}
     %d Error(s):
       Line %d, Col %d: %s
       ...
-  \end{example}
+  \end{cVerbatim}
   This is a convenience function to aid in debugging.  For example:\\
   \code{SBMLDocument\_printErrors(d, stdout)}.
  \end{methoddef}
@@ -1775,11 +1775,11 @@ FILE *stream)}
   to the given \variable{stream}.  If no fatals have occurred, that is, if
   \code{SBMLDocument\_getNumFatals(d) == 0}, no output will be sent
   to \variable{stream}. The format of the output is:
-  \begin{example}
+  \begin{cVerbatim}
     %d Fatal(s):
       Line %d, Col %d: %s
       ...
-  \end{example}
+  \end{cVerbatim}
   This is a convenience function to aid in debugging.  For example:\\
   \code{SBMLDocument\_printFatals(d, stdout)}.
  \end{methoddef}
@@ -1801,9 +1801,9 @@ the \shell{examples} subdirectory that can be used to build
 installed, you should be able to compile the examples by simply typing the
 following command in the \shell{examples} directory:
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   make
-\end{example}
+\end{shellVerbatim}
 
 The \shell{readSBML} program takes a single command-line argument, the name
 of an SBML file, reads it into memory and reports some basic information
@@ -1813,18 +1813,18 @@ SBML files provided in the \shell{src/test-data} subdirectory of the
 \libsbml{} distribution.  In this example, the current directory is assumed
 to be \shell{examples}.
 
-\begin{example}[csh]
+\begin{shellVerbatim}
   ./readSBML ../src/test-data/l1v1-branch.xml
   ./readSBML ../src/test-data/l1v1-minimal.xml
   ./readSBML ../src/test-data/l1v1-rules.xml
   # etc...
-\end{example}
+\end{shellVerbatim}
 
 
 The complete text of \shell{readSBML} is shown in Figure~\vref{fig:printsbml}.
 
 \begin{figure}
-\begin{codeVerbatim}
+\begin{boxedCodeVerbatim}
 #include <stdio.h>
 
 #include "sbml/SBMLTypes.h"
@@ -1880,7 +1880,7 @@ main (int argc, char *argv[])
   SBMLDocument_free(d);
   return 0;
 }
-\end{codeVerbatim}
+\end{boxedCodeVerbatim}
 \caption{The text of the program \shell{printSBML.c} provided in the
   \shell{examples} subdirectory of the \libsbml{} distribution.}
 \label{fig:printsbml}
@@ -1979,9 +1979,9 @@ argument \variable{sr} from the character string passed in variable
 \variable{xml} and returns a pointer to it.  The XML string in
 \variable{xml} must be complete and legal XML document.  Among other
 things, it must start with an XML processing instruction, i.e.,
-  \begin{example}
+  \begin{xmlVerbatim}
     <?xml version='1.0' encoding='UTF-8'?>
-  \end{example}
+  \end{xmlVerbatim}
 \end{methoddef}
 
 
@@ -2074,7 +2074,7 @@ formula generator and comparing the strings to make sure they matched.
 (This is not something a real application would ever need to do, but it
 does simply illustrate the use of these two methods.)
 
-\begin{example}[c]
+\begin{cVerbatim}
   const char *formulae[] =
   {
     "1",
@@ -2113,7 +2113,7 @@ does simply illustrate the use of these two methods.)
     ASTNode_free(n);
     free(s);
   }
-\end{example}
+\end{cVerbatim}
 
 Section~\ref{sec:mathml-special-cases} describes some additional points
 that are worth knowing about the mathematical formula handling in
@@ -2144,7 +2144,7 @@ documents containing only MathML; in some ways it mirrors the SBMLDocument
 class, which acts as a container for XML documents containing SBML.  The
 definition of \class{MathMLDocument\_t} is as follows:
  
-\begin{example}[c]
+\begin{cVerbatim}
   /**
    * The MathMLDocument
    */
@@ -2152,7 +2152,7 @@ definition of \class{MathMLDocument\_t} is as follows:
   {
     ASTNode_t *math;
   } MathMLDocument_t;
-\end{example}  
+\end{cVerbatim}  
 
 The following are the functions defined for the MathMLDocument class:
 
@@ -2187,7 +2187,7 @@ handed to an XML parser, the string given as argument must be a complete
 XML (though not necessarily SBML) document.  The following example
 illustrates the use of this function with a valid MathML input.
 
-\begin{example}[c]
+\begin{cVerbatim}
   MathMLDocument_t *doc;
   ASTNode_t          *ast;
   char               *result;
@@ -2199,7 +2199,7 @@ illustrates the use of this function with a valid MathML input.
   
   doc    = readMathMLFromString(s);
   ast    = MathMLDocument_getMath(doc);
-\end{example}
+\end{cVerbatim}
 
 The code above would create an AST structure stored in the variable
 \code{ast}.  This tree structure could then be inspected using the AST node
@@ -2290,7 +2290,7 @@ the mathematical expressions.
 
 
 \begin{figure}[b]
-  \begin{codeVerbatim}
+  \begin{boxedCodeVerbatim}
 #include <stdio.h>
 #include <string.h>
 #include "sbml/SBMLTypes.h"
@@ -2337,7 +2337,7 @@ main (int argc, char *argv[])
 
     return 0;
 }
-  \end{codeVerbatim}
+  \end{boxedCodeVerbatim}
   \caption{Short program to translate MathML into a formula string and back.}
   \label{fig:eg-round-trip}
 \end{figure}
@@ -2402,7 +2402,7 @@ object names are converted to \attrib{id}'s (which do not exist in
 Level~1).
 
 \begin{figure}[bth]
-  \begin{codeVerbatim}
+  \begin{boxedCodeVerbatim}
 #include <stdio.h>
 #include "sbml/SBMLTypes.h"
 
@@ -2442,7 +2442,7 @@ main (int argc, char *argv[])
   SBMLDocument_free(d);
   return errors;
 }
-  \end{codeVerbatim}
+  \end{boxedCodeVerbatim}
   \caption{The text of the example C program \shell{convertSBML.c}.}
   \label{fig:convert-sbml}
 \end{figure}
@@ -2642,13 +2642,13 @@ Since UnitDefinitions maintains a list of Units, the UnitDefinition
 example presented in Section~\ref{sec:lists} could also be written as:
 
 
-\begin{example}[c]
+\begin{cVerbatim}
   UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
   
   UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
   UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
   UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
-\end{example}
+\end{cVerbatim}
 
 
 However, this approach is not the preferred one.  The best reason to use
@@ -2737,9 +2737,9 @@ AST nodes and their children structures:
   Returns the right child of this AST node or NULL if this node has no
   right child.  If \method{ASTNode\_getNumChildren(node)} $>$ 1, then this is
   equivalent to:
-  \begin{example}[c]
+  \begin{cVerbatim}
     ASTNode_getChild(node, ASTNode_getNumChildren(node) - 1);
-  \end{example}
+  \end{cVerbatim}
 \end{methoddef}
 
 
@@ -3004,9 +3004,9 @@ the values of AST nodes.
 \begin{methoddef}{void ASTNode\_setReal (ASTNode\_t *node, double value)}
   Sets the value of this AST node to the given real (double) and sets the
   node type to \class{AST\_REAL}.  This is functionally equivalent to:
-  \begin{example}[c]
+  \begin{cVerbatim}
     ASTNode_setRealWithExponent(node, value, 0);
-  \end{example}
+  \end{cVerbatim}
 \end{methoddef}
 
 

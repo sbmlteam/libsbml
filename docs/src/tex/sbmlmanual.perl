@@ -10,17 +10,20 @@
 
 package main;
 
-&do_require_package('article');
-&do_require_package('array');
 &do_require_package('alltt');
+&do_require_package('amsmath');
+&do_require_package('array');
+&do_require_package('article');
 &do_require_package('booktabs');
-&do_require_package('verbatim');
 &do_require_package('color');
 &do_require_package('graphicx');
 &do_require_package('html');
 &do_require_package('hyperref');
-&do_require_package('natbib');
 &do_require_package('listings');
+&do_require_package('multicol');
+&do_require_package('natbib');
+&do_require_package('verbatim');
+&do_require_package('wrapfig');
 
 #-----------------------------------------------------------------------------
 # Stuff from basic article.perl/article.cls.
@@ -346,22 +349,9 @@ sub process_smallcaps {
     $scstr;
 }
 
-# Ideas taken from alltt.perl.  This doesn't work very well though.
-
-sub do_env_example {
-    local ($_) = @_;
-    &get_next_optional_argument;
-    $example_start = "\n<PRE>\n";
-    $example_end = "\n</PRE>\n";
-
-    do {
-	s/\n/\n<BR>/g;	# preserve end-of-lines --- cannot have <P>s
-	s/\\par//g;
-	$_ = join('', $example_start, $_ , $example_end);
-    };
-
-    $_;
-}
+&process_commands_wrap_deferred(<<_RAW_ARG_CMDS_);
+boxedCodeVerbatim # []
+_RAW_ARG_CMDS_
 
 
 #-----------------------------------------------------------------------------
