@@ -1,3 +1,22 @@
+2003-03-14  Ben Bornstein  <bornstei@caltech.edu>
+
+	* memory.c (MemTrace_getMaxBytes): New function
+	readSBML.c: Calls memory usage through MemTrace_getMaxBytes()
+	
+	* config/xercesc.m4 (SBML_CHECK_LIB_XERCESC)
+	[XERCES_HAS_CPP_NAMESPACE]: If Xerces-C++ (>= 2.2.0) was compiled
+	with namespace support, use it.
+
+	* common.hpp [_XERCES_VERSION]: If >= 2.2.0 use namespace
+	XERCES_CPP_NAMESPACE_USE (e.g., using namespace xercesc::)
+
+	* SAX2SBMLHandler.hpp, SBMLFormatter.hpp, SBMLHashCodes.hpp,
+	SBMLUnicodeConstants.hpp, XMLStringFormatter.hpp, XMLUtil.hpp:
+	Includes common.hpp.
+
+        * memory.c (MemTrace_getMaxBytes): Added
+
+
 2003-02-10  Ben Bornstein  <bornstei@caltech.edu>
 
 	* This is an example ChangeLog entry.
