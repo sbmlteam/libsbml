@@ -54,7 +54,8 @@ public class Test
 {
   public static void main (String args[])
   {
-    testDowncast();
+    testImplicitDowncastRule();
+    testImplicitDowncastSBase();
     testReadFromFile1();
 
     System.gc();
@@ -67,7 +68,22 @@ public class Test
   /**
    * If all goes well, this method will not throw a ClassCastException.
    */
-  static void testDowncast()
+  static void testImplicitDowncastRule()
+  {
+    Model m = new Model("m", "MyModel");
+    
+
+
+    m.addRule( new AssignmentRule("x", "1 + 1", libsbml.RULE_TYPE_SCALAR) );
+    //Assert( m.getNumRules() == 1 );
+    //Assert( m.getRule(0) instanceof AssignmentRule );
+  }
+    
+
+  /**
+   * If all goes well, this method will not throw a ClassCastException.
+   */
+  static void testImplicitDowncastSBase()
   {
     Compartment c = new Compartment("c");
     Species     s = new Species("s");
@@ -108,8 +124,8 @@ public class Test
     Species          s;
     SpeciesReference sr;
 
-    SBMLReader reader   = new SBMLReader(); 
-    String     filename = "l1v1-branch.xml";
+    SBMLReader reader   = new SBMLReader(libsbml.XML_SCHEMA_VALIDATION_NONE);
+    String     filename = "/home/bornstei/checkout/libsbml/src/test-data/l1v1-branch.xml";
 
     String xml =
         "<?xml version='1.0' encoding='UTF-8'?>"
@@ -117,8 +133,8 @@ public class Test
       + "<model name='Branch'/>"
       + "</sbml>";
 
-    // d = reader.readSBML(filename);
-    d = reader.readSBMLFromString(xml);
+    d = reader.readSBML(filename);
+    // d = reader.readSBMLFromString(xml);
     
     if (d == null)
     {

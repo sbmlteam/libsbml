@@ -220,6 +220,91 @@
 %}
 
 
+%javamethodmodifiers      SBMLDocument::setModel "private";
+%rename(setModelInternal) SBMLDocument::setModel;
+
+%typemap("javacode") SBMLDocument
+%{
+  public void setModel (Model m)
+  {
+    libsbmlJNI.SBMLDocument_setModelInternal(swigCPtr, Model.getCPtr(m));
+    m.swigCMemOwn = false;
+  }
+%}
+
+
+%javamethodmodifiers Model::addFunctionDefinition "private";
+%javamethodmodifiers Model::addUnitDefinition     "private";
+%javamethodmodifiers Model::addCompartment        "private";
+%javamethodmodifiers Model::addSpecies            "private";
+%javamethodmodifiers Model::addParameter          "private";
+%javamethodmodifiers Model::addRule               "private";
+%javamethodmodifiers Model::addReaction           "private";
+%javamethodmodifiers Model::addEvent              "private";
+
+%rename(addFunctionDefinitionInternal) Model::addFunctionDefinition;
+%rename(addUnitDefinitionInternal)     Model::addUnitDefinition;
+%rename(addCompartmentInternal)        Model::addCompartment;
+%rename(addSpeciesInternal)            Model::addSpecies;
+%rename(addParameterInternal)          Model::addParameter;
+%rename(addRuleInternal)               Model::addRule;
+%rename(addReactionInternal)           Model::addReaction;
+%rename(addEventInternal)              Model::addEvent;
+
+%typemap("javacode") Model
+%{
+  public void addFunctionDefinition (FunctionDefinition fd)
+  {
+    libsbmlJNI.Model_addFunctionDefinitionInternal
+      (swigCPtr, FunctionDefinition.getCPtr(fd));
+    fd.swigCMemOwn = false;
+  }
+
+  public void addUnitDefinition (UnitDefinition ud)
+  {
+    libsbmlJNI.Model_addUnitDefinitionInternal
+      (swigCPtr, UnitDefinition.getCPtr(ud));
+    ud.swigCMemOwn = false;
+  }
+
+  public void addCompartment (Compartment c)
+  {
+    libsbmlJNI.Model_addCompartmentInternal(swigCPtr, Compartment.getCPtr(c));
+    c.swigCMemOwn = false;
+  }
+
+  public void addSpecies (Species s)
+  {
+    libsbmlJNI.Model_addSpeciesInternal(swigCPtr, Species.getCPtr(s));
+    s.swigCMemOwn = false;
+  }
+
+  public void addParameter (Parameter p)
+  {
+    libsbmlJNI.Model_addParameterInternal(swigCPtr, Parameter.getCPtr(p));
+    p.swigCMemOwn = false;
+  }
+
+  public void addRule (Rule r)
+  {
+    libsbmlJNI.Model_addRuleInternal(swigCPtr, Rule.getCPtr(r));
+    r.swigCMemOwn = false;
+  }
+
+  public void addReaction (Reaction r)
+  {
+    libsbmlJNI.Model_addReactionInternal(swigCPtr, Reaction.getCPtr(r));
+    r.swigCMemOwn = false;
+  }
+
+  public void addEvent (Event e)
+  {
+    libsbmlJNI.Model_addEventInternal(swigCPtr, Event.getCPtr(e));
+    e.swigCMemOwn = false;
+  }
+%}
+
+
 %javamethodmodifiers     FunctionDefinition::setMath "private";
 %rename(setMathInternal) FunctionDefinition::setMath;
 
@@ -260,8 +345,15 @@
 %}
 
 
-%javamethodmodifiers         Reaction::addReactant "private";
-%rename(addReactantInternal) Reaction::addReactant;
+%javamethodmodifiers Reaction::addReactant   "private";
+%javamethodmodifiers Reaction::addProduct    "private";
+%javamethodmodifiers Reaction::addModifier   "private";
+%javamethodmodifiers Reaction::setKineticLaw "private";
+
+%rename(addReactantInternal)   Reaction::addReactant;
+%rename(addProductInternal)    Reaction::addProduct;
+%rename(addModifierInternal)   Reaction::addModifier;
+%rename(setKineticLawInternal) Reaction::setKineticLaw;
 
 %typemap("javacode") Reaction
 %{
@@ -271,43 +363,21 @@
       Reaction_addReactantInternal(swigCPtr, SpeciesReference.getCPtr(sr));
     sr.swigCMemOwn = false;
   }
-%}
 
-
-%javamethodmodifiers        Reaction::addProduct "private";
-%rename(addProductInternal) Reaction::addProduct;
-
-%typemap("javacode") Reaction
-%{
   public void addProduct (SpeciesReference sr)
   {
     libsbmlJNI.
       Reaction_addProductInternal(swigCPtr, SpeciesReference.getCPtr(sr));
     sr.swigCMemOwn = false;
   }
-%}
 
-
-%javamethodmodifiers         Reaction::addModifier "private";
-%rename(addModifierInternal) Reaction::addModifier;
-
-%typemap("javacode") Reaction
-%{
   public void addModifier (SpeciesReference sr)
   {
     libsbmlJNI.
       Reaction_addModifierInternal(swigCPtr, SpeciesReference.getCPtr(sr));
     sr.swigCMemOwn = false;
   }
-%}
 
-
-
-%javamethodmodifiers           Reaction::setKineticLaw "private";
-%rename(setKineticLawInternal) Reaction::setKineticLaw;
-
-%typemap("javacode") Reaction
-%{
   public void setKineticLaw (KineticLaw kl)
   {
     libsbmlJNI.
@@ -331,8 +401,14 @@
 %}
 
 
-%javamethodmodifiers        Event::setTrigger "private";
-%rename(setTriggerInternal) Event::setTrigger;
+%javamethodmodifiers Event::setTrigger         "private";
+%javamethodmodifiers Event::setDelay           "private";
+%javamethodmodifiers Event::addEventAssignment "private";
+
+%rename(setTriggerInternal)         Event::setTrigger;
+%rename(setDelayInternal)           Event::setDelay;
+%rename(addEventAssignmentInternal) Event::addEventAssignment;
+
 
 %typemap("javacode") Event
 %{
@@ -341,27 +417,13 @@
     libsbmlJNI.Event_setTriggerInternal(swigCPtr, ASTNode.getCPtr(math));
     math.swigCMemOwn = false;
   }
-%}
 
-
-%javamethodmodifiers      Event::setDelay "private";
-%rename(setDelayInternal) Event::setDelay;
-
-%typemap("javacode") Event
-%{
   public void setDelay (ASTNode math)
   {
     libsbmlJNI.Event_setDelayInternal(swigCPtr, ASTNode.getCPtr(math));
     math.swigCMemOwn = false;
   }
-%}
 
-
-%javamethodmodifiers                Event::addEventAssignment "private";
-%rename(addEventAssignmentInternal) Event::addEventAssignment;
-
-%typemap("javacode") Event
-%{
   public void addEventAssignment (EventAssignment ea)
   {
     libsbmlJNI.Event_addEventAssignmentInternal
