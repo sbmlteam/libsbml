@@ -68,14 +68,25 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir    = @srcdir@
 thisdir   = docs/formatted
 
-docs      = \
-	java.txt \
-	python.txt \
-	$(wildcard *.pdf) \
-	$(wildcard *.ps) \
-	$(wildcard libsbml-manual)
+# In order to be able to create distributions with ready-to-read docs, we
+# have a separate directory for formatted docs and their sources.  This
+# creates a different situation than the case of other make rules in
+# libsbml.  The current makefile only knows how to install the docs
+# and create distributions; the makefile in ../src only knows how to create
+# the docs.
 
-distfiles = $(docs) Makefile.in
+doc_src_dir     = ../src
+
+plain_text_docs = java.txt python.txt
+manual_docs     = libsbml-manual.pdf libsbml-manual.ps
+manual_dirs     = libsbml-manual
+api_ref_docs    = libsbml-api-ref.pdf libsbml-api-ref.ps
+
+docs            = $(plain_text_docs) $(manual_docs) $(manual_dirs) $(api_ref_docs)
+
+distfiles       = $(docs) Makefile.in
+
+extra_clean     = $(manual_docs) $(manual_dirs) $(api_ref_docs)
 
 
 # -----------------------------------------------------------------------------
@@ -86,7 +97,28 @@ distfiles = $(docs) Makefile.in
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: 
+all: $(docs)
+
+%.pdf: $(doc_src_dir)/%.tex
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -C $(doc_src_dir) -$(MAKEFLAGS) $@
+else
+	$(MAKE) -w -C $(doc_src_dir) $@
+endif
+
+%.ps: $(doc_src_dir)/%.tex
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -C $(doc_src_dir) -$(MAKEFLAGS) $@
+else
+	$(MAKE) -w -C $(doc_src_dir) $@
+endif
+
+$(manual_dirs): $(doc_src_dir)/$@
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -C $(doc_src_dir) -$(MAKEFLAGS) $@
+else
+	$(MAKE) -w -C $(doc_src_dir) $@
+endif
 
 
 # -----------------------------------------------------------------------------
