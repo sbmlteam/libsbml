@@ -52,8 +52,6 @@
 
 #include "sbml/common.h"
 
-#include <math.h>
-
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 
@@ -496,10 +494,10 @@ START_TEST (test_scanAttr_double_inf)
   attrs.add("volume", "-Inf");
 
   fail_unless( XMLUtil::scanAttr(attrs, ATTR_VALUE, &value) == true, NULL );
-  fail_unless( isinf(value) == 1, NULL );
+  fail_unless( value == strtod("+Inf", NULL), NULL );
 
   fail_unless( XMLUtil::scanAttr(attrs, ATTR_VOLUME, &volume) == true, NULL );
-  fail_unless( isinf(volume) == -1, NULL );
+  fail_unless( volume == strtod("-Inf", NULL), NULL );
 }
 END_TEST
 
@@ -513,7 +511,7 @@ START_TEST (test_scanAttr_double_nan)
   attrs.add("volume", "NaN");
 
   fail_unless( XMLUtil::scanAttr(attrs, ATTR_VOLUME, &volume) == true, NULL );
-  fail_unless( isnan(volume), NULL );
+  fail_unless( volume != volume, NULL );
 }
 END_TEST
 
