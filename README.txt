@@ -7,11 +7,8 @@
                 and many others in the SBML community.
 
          For more information about SBML or libSBML, contact:
-                            The SBML Team
-               Control and Dynamical Systems, MC 107-81
-                  California Institute of Technology
-                       Pasadena, CA, 91125, USA
 
+                            The SBML Team
                          http://www.sbml.org/
                      mailto:sbml-team@caltech.edu
 
