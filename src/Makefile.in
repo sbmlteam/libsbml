@@ -384,7 +384,7 @@ endif
 $(check_programs): $(test_objfiles) $(libraries)
 	$(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
 	  $(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) \
-	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) \
+	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) $(LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
 
 run-checks:: $(check_programs)
