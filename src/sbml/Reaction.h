@@ -146,13 +146,13 @@ Reaction_getProduct(Reaction_t *r, unsigned int n);
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
 unsigned int
-Reaction_getNumReactants(Reaction_t *r);
+Reaction_getNumReactants(const Reaction_t *r);
 
 /**
  * @return the number of products (SpeciesReferences) in this Reaction.
  */
 unsigned int
-Reaction_getNumProducts(Reaction_t *r);
+Reaction_getNumProducts(const Reaction_t *r);
 
 
 #ifdef __cplusplus

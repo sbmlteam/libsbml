@@ -601,7 +601,7 @@ Model_getReaction (Model_t *m, unsigned int n)
  * @return the number of UnitDefinitions in this Model.
  */
 unsigned int
-Model_getNumUnitDefinitions (Model_t *m)
+Model_getNumUnitDefinitions (const Model_t *m)
 {
   return List_size(m->unitDefinition);
 }
@@ -611,7 +611,7 @@ Model_getNumUnitDefinitions (Model_t *m)
  * @return the number of Compartments in this Model.
  */
 unsigned int
-Model_getNumCompartments (Model_t *m)
+Model_getNumCompartments (const Model_t *m)
 {
   return List_size(m->compartment);
 }
@@ -621,7 +621,7 @@ Model_getNumCompartments (Model_t *m)
  * @return the number of Species in this Model.
  */
 unsigned int
-Model_getNumSpecies (Model_t *m)
+Model_getNumSpecies (const Model_t *m)
 {
   return List_size(m->species);
 }
@@ -632,7 +632,7 @@ Model_getNumSpecies (Model_t *m)
  * KineticLaws are not included.
  */
 unsigned int
-Model_getNumParameters (Model_t *m)
+Model_getNumParameters (const Model_t *m)
 {
   return List_size(m->parameter);
 }
@@ -642,7 +642,7 @@ Model_getNumParameters (Model_t *m)
  * @return the number of Rules in this Model.
  */
 unsigned int
-Model_getNumRules (Model_t *m)
+Model_getNumRules (const Model_t *m)
 {
   return List_size(m->rule);
 }
@@ -652,7 +652,7 @@ Model_getNumRules (Model_t *m)
  * @return the number of Reactions in this Model.
  */
 unsigned int
-Model_getNumReactions (Model_t *m)
+Model_getNumReactions (const Model_t *m)
 {
   return List_size(m->reaction);
 }

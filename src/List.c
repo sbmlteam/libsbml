@@ -266,7 +266,7 @@ List_remove (List_t *list, unsigned int n)
  * Returns the number of elements in this List.
  */
 unsigned int
-List_size (List_t *list)
+List_size (const List_t *list)
 {
   return list->size;
 }

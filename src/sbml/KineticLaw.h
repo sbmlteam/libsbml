@@ -129,13 +129,13 @@ KineticLaw_addParameter(KineticLaw_t *kl, Parameter_t *p);
  * @return the nth Parameter of this KineticLaw.
  */
 Parameter_t *
-KineticLaw_getParameter(KineticLaw_t *kl, unsigned int n);
+KineticLaw_getParameter(const KineticLaw_t *kl, unsigned int n);
 
 /**
  * @return the number of Parameters in this KineticLaw.
  */
 unsigned int
-KineticLaw_getNumParameters(KineticLaw_t *kl);
+KineticLaw_getNumParameters(const KineticLaw_t *kl);
 
 
 #ifdef __cplusplus
