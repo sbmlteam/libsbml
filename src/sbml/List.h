@@ -54,7 +54,7 @@
 #define List_h
 
 
-#include "sbml/common.h"
+#include "common.h"
 
 
 BEGIN_C_DECLS
