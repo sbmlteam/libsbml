@@ -139,6 +139,18 @@ SBMLWriter_initDefaults (SBMLWriter_t *sw)
 
 
 /**
+ * Sets the character encoding for this SBMLWriter to the given
+ * CharacterEncoding type.
+ */
+LIBSBML_EXTERN
+void
+SBMLWriter_setEncoding (SBMLWriter_t *sw, CharacterEncoding_t encoding)
+{
+  sw->encoding = encoding;
+}
+
+
+/**
  * Writes the given SBML document to filename (with the settings provided
  * by this SBMLWriter).
  *
