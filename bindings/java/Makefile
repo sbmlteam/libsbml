@@ -78,16 +78,16 @@
 ##   Makefile.
 ##
 
+JAVAPACKAGE = libsbml
 
 CC  = gcc
 CXX = g++
-
 
 ##
 ## Linux
 ##
 JDK       = /usr/local/java/jdk1.4.1_01
-SWIGFLAGS = $(CPPFLAGS)
+SWIGFLAGS = $(CPPFLAGS) -c++ -java -package $(JAVAPACKAGE) -outdir src
 XCPPFLAGS = $(CPPFLAGS) -I../swig -I$(JDK)/include -I$(JDK)/include/linux
 XCFLAGS   = $(CFLAGS) -fpic -shared
 XLDFLAGS  = $(LDFLAGS)
@@ -100,7 +100,7 @@ libsbmlj.so: libsbml_wrap.cpp
 	$(CXX) $(XCPPFLAGS) $(XCFLAGS) $(XLDFLAGS) $< -o $@ $(LIBS)
 
 libsbml_wrap.cpp: libsbml.i
-	swig $(SWIGFLAGS) -outdir src -c++ -java -o libsbml_wrap.cpp libsbml.i
+	swig $(SWIGFLAGS) -o libsbml_wrap.cpp libsbml.i
 	javac -d classes src/*.java
 
 test: libsbmlj.so
