@@ -225,11 +225,19 @@ html: html-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: install-recursive install-docs-recursive install-docs
+install: install-recursive install-docs-recursive install-docs install-warnings
 
 uninstall: uninstall-recursive
 
 installcheck: installcheck-recursive
+
+install-warnings:
+ifneq "$(HOST_TYPE)" "darwin"
+	@echo ""
+	@echo "You may need to run 'ldconfig' or set your LD_LIBRARY_PATH"
+	@echo "environment variable."
+	@echo ""
+endif
 
 
 # -----------------------------------------------------------------------------
