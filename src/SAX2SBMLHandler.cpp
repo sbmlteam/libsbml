@@ -463,10 +463,18 @@ SAX2SBMLHandler::handleUnit (const Attributes& a)
 {
   Unit_t* u    = Model_createUnit(fModel);
   char*   kind = XMLString::transcode( a.getValue(ATTR_KIND) ); 
+  int     value;
 
 
-  XMLUtil::scanAttr( a, ATTR_EXPONENT, &(u->exponent) );
-  XMLUtil::scanAttr( a, ATTR_SCALE   , &(u->scale)    );
+  if (XMLUtil::scanAttr(a, ATTR_EXPONENT, &value) == true)
+  {
+    Unit_setExponent(u, value);
+  }
+
+  if (XMLUtil::scanAttr(a, ATTR_SCALE, &value) == true)
+  {
+    Unit_setScale(u, value);
+  }
 
   u->kind = UnitKind_forName(kind);
 

@@ -163,6 +163,10 @@ START_TEST (test_element_Unit)
   fail_unless( u->kind     == UNIT_KIND_MOLE, NULL );
   fail_unless( u->exponent ==  1, NULL );
   fail_unless( u->scale    == -3, NULL );
+
+  fail_unless( Unit_isSetKind(u)    , NULL );
+  fail_unless( Unit_isSetExponent(u), NULL );
+  fail_unless( Unit_isSetScale(u)   , NULL );
 }
 END_TEST
 
@@ -195,6 +199,10 @@ START_TEST (test_element_Unit_defaults)
   fail_unless( u->kind     == UNIT_KIND_SECOND, NULL );
   fail_unless( u->exponent == 1, NULL );
   fail_unless( u->scale    == 0, NULL );
+
+  fail_unless( Unit_isSetKind(u)    , NULL );
+  fail_unless( Unit_isSetExponent(u), NULL );
+  fail_unless( Unit_isSetScale(u)   , NULL );
 }
 END_TEST
 

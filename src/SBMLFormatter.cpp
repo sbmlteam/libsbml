@@ -291,17 +291,17 @@ SBMLFormatter::operator<< (const Unit_t* u)
   attribute(ATTR_KIND, UnitKind_toString(u->kind));
 
   //
-  // In SBML L1, exponent="1" is the default.
+  // { use="default" value="1" } (L1v1, L1v2)
   //
-  if (fLevel != 1 || u->exponent != 1)
+  if (u->exponent != 1)
   {
     attribute(ATTR_EXPONENT, u->exponent);
   }
 
   //
-  // In SBML L1, scale="0" is the default.
+  // { use="default" value="0" } (L1v1, L1v2)
   //
-  if (fLevel != 1 || u->scale != 0)
+  if (u->scale != 0)
   {
     attribute(ATTR_SCALE, u->scale);
   }

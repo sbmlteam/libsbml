@@ -54,27 +54,35 @@
 #define Unit_h
 
 
+#include "common.h"
 #include "SBase.h"
 #include "UnitKind.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
 {
   SBASE_FIELDS;
+
   UnitKind_t kind;
   int        exponent;
   int        scale;
+
+  struct
+  {
+    unsigned int exponent:1;
+    unsigned int scale   :1;
+  } isSet;
+
 } Unit_t;
 
 
 /**
  * Creates a new Unit and returns a pointer to it.
  */
+LIBSBML_EXTERN
 Unit_t *
 Unit_create (void);
 
@@ -83,14 +91,16 @@ Unit_create (void);
  * pointer to it.  This convenience function is functionally equivalent to:
  *
  *   Unit_t *u = Unit_create();
- *   u->kind = kind; u->exponent = exponent; ... ;
+ *   Unit_setKind(kind); Unit_setExponent(exponent); ...;
  */
+LIBSBML_EXTERN
 Unit_t *
-Unit_createWith(UnitKind_t kind, int exponent, int scale);
+Unit_createWith (UnitKind_t kind, int exponent, int scale);
 
 /**
  * Frees the given Unit.
  */
+LIBSBML_EXTERN
 void
 Unit_free (Unit_t *u);
 
@@ -100,13 +110,94 @@ Unit_free (Unit_t *u);
  *   - exponent = 1
  *   - scale    = 0
  */
+LIBSBML_EXTERN
 void
 Unit_initDefaults (Unit_t *u);
 
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * @return the kind of this Unit.
+ */
+LIBSBML_EXTERN
+UnitKind_t
+Unit_getKind (Unit_t *u);
+
+/**
+ * @return the exponent of this Unit.
+ */
+LIBSBML_EXTERN
+int
+Unit_getExponent (Unit_t *u);
+
+/**
+ * @return the scale of this Unit.
+ */
+LIBSBML_EXTERN
+int
+Unit_getScale (Unit_t *u);
+
+
+/**
+ * @return 1 if the kind of this Unit has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+UnitKind_t
+Unit_isSetKind (Unit_t *u);
+
+/**
+ * @return 1 if the exponent of this Unit has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSetExponent (Unit_t *u);
+
+/**
+ * @return 1 if the scale of this Unit has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSetScale (Unit_t *u);
+
+
+/**
+ * Sets the kind of this Unit to the given UnitKind.
+ */
+LIBSBML_EXTERN
+void
+Unit_setKind (Unit_t *u, UnitKind_t kind);
+
+/**
+ * Sets the exponent field of this Unit to value and marks the field as
+ * set.
+ */
+LIBSBML_EXTERN
+int
+Unit_setExponent (Unit_t *u, int value);
+
+/**
+ * Sets the scale field of this Unit to value and marks the field as set.
+ */
+LIBSBML_EXTERN
+int
+Unit_setScale (Unit_t *u, int value);
+
+
+/**
+ * Marks the exponent field of this Unit as unset.
+ */
+LIBSBML_EXTERN
+int
+Unit_unsetExponent (Unit_t *u);
+
+/**
+ * Marks the scale field of this Unit as unset.
+ */
+LIBSBML_EXTERN
+int
+Unit_unsetScale (Unit_t *u);
+
+
+END_C_DECLS
 
 
 #endif  /** Unit_h **/
