@@ -81,6 +81,8 @@ typedef enum
 typedef struct
 {
   CharacterEncoding_t encoding;
+  char * programName;
+  char * programVersion;
 } SBMLWriter_t;
 
 
@@ -117,6 +119,20 @@ SBMLWriter_initDefaults (SBMLWriter_t *sw);
 LIBSBML_EXTERN
 void
 SBMLWriter_setEncoding (SBMLWriter_t *sw, CharacterEncoding_t encoding);
+
+/**
+ * Sets the program name of the writing program.
+ */
+LIBSBML_EXTERN
+void
+SBMLWriter_setProgramName (SBMLWriter_t *sw, const char * programName);
+
+/**
+ * Sets the program version of the writing program.
+ */
+LIBSBML_EXTERN
+void
+SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char * programVersion);
 
 /**
  * Writes the given SBML document to filename (with the settings provided

@@ -131,6 +131,18 @@ LIBSBML_EXTERN
 void
 SBMLWriter_free (SBMLWriter_t *sw)
 {
+  if (sw->programName) 
+    {
+      safe_free(sw->programName);
+      sw->programName = NULL;
+    }
+
+  if (sw->programVersion) 
+    {
+      safe_free(sw->programVersion);
+      sw->programVersion = NULL;
+    }
+
   safe_free(sw);
 }
 
@@ -145,6 +157,8 @@ void
 SBMLWriter_initDefaults (SBMLWriter_t *sw)
 {
   sw->encoding = CHARACTER_ENCODING_UTF_8;
+  sw->programName = NULL;
+  sw->programVersion = NULL;
 }
 
 
@@ -157,6 +171,27 @@ void
 SBMLWriter_setEncoding (SBMLWriter_t *sw, CharacterEncoding_t encoding)
 {
   sw->encoding = encoding;
+}
+
+
+/**
+ * Sets the program name of the writing program.
+ */
+LIBSBML_EXTERN
+void
+SBMLWriter_setProgramName (SBMLWriter_t *sw, const char * programName)
+{
+  sw->programName = safe_strdup(programName);
+}
+
+/**
+ * Sets the program version of the writing program.
+ */
+LIBSBML_EXTERN
+void
+SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char * programVersion)
+{
+  sw->programVersion = safe_strdup(programVersion);
 }
 
 
@@ -191,6 +226,9 @@ SBMLWriter_writeSBML ( SBMLWriter_t   *sw,
       encoding  = CharacterEncoding_toString(sw->encoding);
       target    = new LocalFileFormatTarget(filename);
       formatter = new SBMLFormatter(encoding, target);
+
+      if (sw->programName && sw->programVersion)
+        formatter->writeComment(sw->programName, sw->programVersion);
 
       *formatter << * static_cast<SBMLDocument*>(d);
       result = 1;
