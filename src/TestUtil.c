@@ -137,6 +137,19 @@ START_TEST (test_util_NegZero)
 END_TEST
 
 
+START_TEST (test_util_isInf)
+{
+  fail_unless( util_isInf( util_PosInf()  ) ==  1, NULL );
+  fail_unless( util_isInf( util_NegInf()  ) == -1, NULL );
+  fail_unless( util_isInf( util_NaN()     ) ==  0, NULL );
+  fail_unless( util_isInf( util_NegZero() ) ==  0, NULL );
+
+  fail_unless( util_isInf(0.0) == 0, NULL );
+  fail_unless( util_isInf(1.2) == 0, NULL );
+}
+END_TEST
+
+
 Suite *
 create_suite_util (void) 
 { 
@@ -150,6 +163,7 @@ create_suite_util (void)
   tcase_add_test( tcase, test_util_NegInf             );
   tcase_add_test( tcase, test_util_PosInf             );
   tcase_add_test( tcase, test_util_NegZero            );
+  tcase_add_test( tcase, test_util_isInf              );
 
   suite_add_tcase(suite, tcase);
 

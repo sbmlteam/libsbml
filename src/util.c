@@ -194,6 +194,22 @@ util_NegZero (void)
 
 
 /**
+ * @return -1 if d represents negative infinity, 1 if d represents positive
+ * infinity and 0 otherwise.
+ */
+int
+util_isInf (double d)
+{
+  if ( !(finite(d) || isnan(d)) )
+  {
+    return (d < 0) ? -1 : 1;
+  }
+
+  return 0;
+}
+
+
+/**
  * @return true (1) if d is an IEEE-754 negative zero, false (0) otherwise.
  */
 int
