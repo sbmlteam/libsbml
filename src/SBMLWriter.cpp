@@ -131,17 +131,20 @@ LIBSBML_EXTERN
 void
 SBMLWriter_free (SBMLWriter_t *sw)
 {
+  if (sw == NULL) return;
+
+
   if (sw->programName) 
-    {
+  {
       safe_free(sw->programName);
       sw->programName = NULL;
-    }
+  }
 
   if (sw->programVersion) 
-    {
+  {
       safe_free(sw->programVersion);
       sw->programVersion = NULL;
-    }
+  }
 
   safe_free(sw);
 }
