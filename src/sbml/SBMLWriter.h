@@ -55,6 +55,7 @@
 
 
 #include "extern.h"
+#include "SBMLDocument.h"
 
 
 BEGIN_C_DECLS
