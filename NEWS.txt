@@ -1,6 +1,21 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.x.y ===
+
+* Bug Fixes:
+
+    - A <rateRule> element would be written without the closing angle
+      bracket (!) if it had a note and/or annotation associated with
+      it.  Thanks to Konstantin Kozlov for reporting this bug and
+      providing a fix.
+
+
+* Released April xx, 2004
+
+
+
+
 === Version 2.0.3 ===
 
 * Major New Features:
