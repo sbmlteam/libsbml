@@ -159,6 +159,8 @@ headers = \
   sbml/UnitDefinition.hpp           \
   sbml/UnitKind.h                   \
   sbml/Validator.h                  \
+  sbml/XMLNamespace.hpp             \
+  sbml/XMLNamespaceList.hpp         \
   sbml/XMLSchemaValidation.h        \
   sbml/XMLStringFormatter.hpp       \
   sbml/XMLUnicodeConstants.hpp      \
@@ -219,6 +221,8 @@ sources = \
   UnitKind.c                      \
   ValidationRules.c               \
   Validator.c                     \
+  XMLNamespace.cpp                \
+  XMLNamespaceList.cpp            \
   XMLStringFormatter.cpp          \
   XMLUtil.cpp                     \
   memory.c                        \
@@ -232,6 +236,8 @@ test_sources = \
   TestMathMLFormatter.cpp         \
   TestMathMLHandler.cpp           \
   TestSAX2AttributesMock.cpp      \
+  TestXMLNamespace.cpp            \
+  TestXMLNamespaceList.cpp        \
   TestXMLStringFormatter.cpp      \
   TestXMLUtil.cpp                 \
   TestAlgebraicRule.c             \
