@@ -247,6 +247,13 @@ START_TEST (test_UnitKind_toString)
 END_TEST
 
 
+START_TEST (test_UnitKind_isValidUnitKindString)
+
+  fail_unless(!UnitKind_isValidUnitKindString("fun-foam-unit for kids!"), NULL);
+
+END_TEST
+
+
 Suite *
 create_suite_UnitKind (void) 
 { 
@@ -257,6 +264,7 @@ create_suite_UnitKind (void)
   tcase_add_test( tcase, test_UnitKind_equals   );
   tcase_add_test( tcase, test_UnitKind_forName  );
   tcase_add_test( tcase, test_UnitKind_toString );
+  tcase_add_test( tcase, test_UnitKind_isValidUnitKindString );
 
   suite_add_tcase(suite, tcase);
 

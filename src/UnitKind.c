@@ -151,3 +151,14 @@ UnitKind_toString (UnitKind_t uk)
 
   return UNIT_KIND_STRINGS[uk];
 }
+
+
+/**
+ * Returns nonzero if string is the name of a valid unitKind.
+ */
+LIBSBML_EXTERN
+int
+UnitKind_isValidUnitKindString( const char *string )
+{
+  return UnitKind_forName(string) != UNIT_KIND_INVALID;
+}
