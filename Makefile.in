@@ -169,6 +169,7 @@ distfiles = \
         config/install-sh                                    \
         config/java.m4                                       \
         config/libcheck.m4                                   \
+        config/lisp.m4                                       \
         config/makefile-common-actions.mk                    \
         config/makefile-common-vars.mk.in                    \
         config/matlab.m4                                     \
