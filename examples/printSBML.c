@@ -51,7 +51,6 @@
 
 
 #include <stdio.h>
-#include <sys/timeb.h>
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
