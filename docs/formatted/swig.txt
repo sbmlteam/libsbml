@@ -477,7 +477,7 @@
    copying the pointers to the same underlying C++ object.
 
 
-4.0 JAVA TUTORIAL
+3.0 JAVA TUTORIAL
 
    To run Java programs that access libSBML, you must set up
    the following environment variables.
@@ -511,7 +511,7 @@
             DYLD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
 
 
-4.1 A SIMPLE JAVA LIBSBML PROGRAM
+3.1 A SIMPLE JAVA LIBSBML PROGRAM
 
    Here is a very simple program that reads in an SBML model
 
@@ -598,7 +598,7 @@
          @@how about calling .size()?
 
 
-4.2 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
+3.2 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
 
    Now that we know how to read SBML in from a file, let's do
    something useful: let's convert l1v1-rules.xml from level 1
