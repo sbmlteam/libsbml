@@ -708,6 +708,22 @@ START_TEST (test_SBMLFormatter_KineticLaw)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_KineticLaw_skipOptional)
+{
+  KineticLaw_t *kl = KineticLaw_create();
+  const char   *s  = wrapXML("<kineticLaw formula=\"k * e\"/>\n");
+
+
+  KineticLaw_setFormula(kl, "k * e");
+  *formatter << kl;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  KineticLaw_free(kl);
+}
+END_TEST
+
+
 START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters)
 {
   KineticLaw_t *kl = KineticLaw_createWith("nk * e", "seconds", "item");
@@ -805,6 +821,7 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesReference_L1v1             );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesReference_defaults         );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw                        );
+  tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_skipOptional           );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_ListOfParameters       );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_ListOfParameters_notes );
 

@@ -54,14 +54,13 @@
 #define KineticLaw_h
 
 
+#include "common.h"
 #include "List.h"
 #include "SBase.h"
 #include "Parameter.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -77,6 +76,7 @@ typedef struct
 /**
  * Creates a new KineticLaw and returns a pointer to it.
  */
+LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_create (void);
 
@@ -90,6 +90,7 @@ KineticLaw_create (void);
  *   KineticLaw_setTimeUnits(kl, timeUnits);
  *   ...;
  */
+LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_createWith ( const char *formula,
                         const char *timeUnits,
@@ -98,49 +99,126 @@ KineticLaw_createWith ( const char *formula,
 /**
  * Frees the given KineticLaw.
  */
+LIBSBML_EXTERN
 void
 KineticLaw_free (KineticLaw_t *kl);
 
-/**
- * Sets the formula field of this KineticLaw to a copy of string.
- */
-void
-KineticLaw_setFormula(KineticLaw_t *kl, const char *string);
 
 /**
- * Sets the timeUnits field of this KineticLaw to a copy of sname.
+ * @return the formula of this KineticLaw.
  */
-void
-KineticLaw_setTimeUnits(KineticLaw_t *kl, const char *sname);
+LIBSBML_EXTERN
+const char *
+KineticLaw_getFormula (const KineticLaw_t *kl);
 
 /**
- * Sets the substanceUnits field of this KineticLaw to a copy of sname.
+ * @return the timeUnits of this KineticLaw.
  */
+LIBSBML_EXTERN
+const char *
+KineticLaw_getTimeUnits (const KineticLaw_t *kl);
+
+/**
+ * @return the substanceUnits of this KineticLaw.
+ */
+LIBSBML_EXTERN
+const char *
+KineticLaw_getSubstanceUnits (const KineticLaw_t *kl);
+
+
+/**
+ * @return 1 if the formula of this KineticLaw has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+KineticLaw_isSetFormula (const KineticLaw_t *kl);
+
+/**
+ * @return 1 if the timeUnits of this KineticLaw has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+KineticLaw_isSetTimeUnits (const KineticLaw_t *kl);
+
+/**
+ * @return 1 if the substanceUnits of this KineticLaw has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl);
+
+
+/**
+ * Sets the formula of this KineticLaw to a copy of string.
+ */
+LIBSBML_EXTERN
 void
-KineticLaw_setSubstanceUnits(KineticLaw_t *kl, const char *sname);
+KineticLaw_setFormula (KineticLaw_t *kl, const char *string);
+
+/**
+ * Sets the timeUnits of this KineticLaw to a copy of sname.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sname);
+
+/**
+ * Sets the substanceUnits of this KineticLaw to a copy of sname.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sname);
+
 
 /**
  * Adds the given Parameter to this KineticLaw.
  */
+LIBSBML_EXTERN
 void
-KineticLaw_addParameter(KineticLaw_t *kl, Parameter_t *p);
+KineticLaw_addParameter (KineticLaw_t *kl, Parameter_t *p);
 
 /**
  * @return the nth Parameter of this KineticLaw.
  */
+LIBSBML_EXTERN
 Parameter_t *
-KineticLaw_getParameter(const KineticLaw_t *kl, unsigned int n);
+KineticLaw_getParameter (const KineticLaw_t *kl, unsigned int n);
 
 /**
  * @return the number of Parameters in this KineticLaw.
  */
+LIBSBML_EXTERN
 unsigned int
-KineticLaw_getNumParameters(const KineticLaw_t *kl);
+KineticLaw_getNumParameters (const KineticLaw_t *kl);
 
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * Unsets the formula of this KineticLaw.  This is equivalent to:
+ * safe_free(kl->formula); kl->formula = NULL;
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_unsetFormula (KineticLaw_t *kl);
+
+/**
+ * Unsets the timeUnits of this KineticLaw.  This is equivalent to:
+ * safe_free(kl->timeUnits); kl->timeUnits = NULL;
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_unsetTimeUnits (KineticLaw_t *kl);
+
+/**
+ * Unsets the substanceUnits of this KineticLaw.  This is equivalent to:
+ * safe_free(kl->substanceUnits); kl->substanceUnits = NULL;
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl);
+
+
+END_C_DECLS
 
 
 #endif  /** KineticLaw_h **/

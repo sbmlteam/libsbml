@@ -763,9 +763,23 @@ SBMLFormatter::operator<< (const KineticLaw_t* kl)
 
   openStartElement(ELEM_KINETIC_LAW);
 
-  attribute( ATTR_FORMULA        , kl->formula        );
-  attribute( ATTR_TIME_UNITS     , kl->timeUnits      );
-  attribute( ATTR_SUBSTANCE_UNITS, kl->substanceUnits );
+  attribute(ATTR_FORMULA, kl->formula);
+
+  //
+  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  if (kl->timeUnits != NULL)
+  {
+    attribute(ATTR_TIME_UNITS, kl->timeUnits);
+  }
+
+  //
+  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  if (kl->substanceUnits != NULL)
+  {
+    attribute(ATTR_SUBSTANCE_UNITS, kl->substanceUnits);
+  }
 
   if ( isEmpty(kl) )
   {

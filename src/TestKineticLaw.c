@@ -86,6 +86,10 @@ START_TEST (test_KineticLaw_create)
   fail_unless( KL->timeUnits      == NULL, NULL );
   fail_unless( KL->substanceUnits == NULL, NULL );
 
+  fail_unless( !KineticLaw_isSetFormula       (KL), NULL );
+  fail_unless( !KineticLaw_isSetTimeUnits     (KL), NULL );
+  fail_unless( !KineticLaw_isSetSubstanceUnits(KL), NULL );
+
   fail_unless(KineticLaw_getNumParameters(KL) == 0, NULL);
 }
 END_TEST
@@ -103,7 +107,11 @@ START_TEST (test_KineticLaw_createWith)
   fail_unless( !strcmp( kl->timeUnits     , "seconds"), NULL );
   fail_unless( !strcmp( kl->substanceUnits, "ug"     ), NULL );
 
-  fail_unless(KineticLaw_getNumParameters(KL) == 0, NULL);
+  fail_unless( KineticLaw_isSetFormula       (kl), NULL );
+  fail_unless( KineticLaw_isSetTimeUnits     (kl), NULL );
+  fail_unless( KineticLaw_isSetSubstanceUnits(kl), NULL );
+
+  fail_unless(KineticLaw_getNumParameters(kl) == 0, NULL);
 
   KineticLaw_free(kl);
 }
@@ -125,6 +133,7 @@ START_TEST (test_KineticLaw_setFormula)
   KineticLaw_setFormula(KL, formula);
 
   fail_unless( !strcmp(KL->formula, formula), NULL );
+  fail_unless( KineticLaw_isSetFormula(KL)  , NULL );
 
   if (KL->formula == formula)
   {
@@ -132,6 +141,7 @@ START_TEST (test_KineticLaw_setFormula)
   }
 
   KineticLaw_setFormula(KL, NULL);
+  fail_unless( !KineticLaw_isSetFormula(KL), NULL );
 
   if (KL->formula != NULL)
   {
@@ -149,6 +159,7 @@ START_TEST (test_KineticLaw_setTimeUnits)
   KineticLaw_setTimeUnits(KL, units);
 
   fail_unless( !strcmp(KL->timeUnits, units), NULL );
+  fail_unless( KineticLaw_isSetTimeUnits(KL), NULL );
 
   if (KL->timeUnits == units)
   {
@@ -156,6 +167,7 @@ START_TEST (test_KineticLaw_setTimeUnits)
   }
 
   KineticLaw_setTimeUnits(KL, NULL);
+  fail_unless( !KineticLaw_isSetTimeUnits(KL), NULL );
 
   if (KL->timeUnits != NULL)
   {
@@ -173,6 +185,7 @@ START_TEST (test_KineticLaw_setSubstanceUnits)
   KineticLaw_setSubstanceUnits(KL, units);
 
   fail_unless( !strcmp(KL->substanceUnits, units), NULL );
+  fail_unless( KineticLaw_isSetSubstanceUnits(KL), NULL );
 
   if (KL->substanceUnits == units)
   {
@@ -180,6 +193,7 @@ START_TEST (test_KineticLaw_setSubstanceUnits)
   }
 
   KineticLaw_setSubstanceUnits(KL, NULL);
+  fail_unless( !KineticLaw_isSetSubstanceUnits(KL), NULL );
 
   if (KL->substanceUnits != NULL)
   {
