@@ -446,7 +446,7 @@ $(TOP_SRCDIR)/config/makefile-common-vars.mk: \
 	     $(TOP_SRCDIR)/configure
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status config/makefile-common-vars.mk
 
-$(TOP_SRCDIR)/config.status: $(TOP_SRCDIR)/configure
+$(TOP_SRCDIR)/config.status: $(TOP_SRCDIR)/configure $(TOP_SRCDIR)/VERSION.txt
 	$(SHELL) ./config.status --recheck
 
 $(TOP_SRCDIR)/configure: $(TOP_SRCDIR)/configure.ac $(ACLOCAL_M4)
