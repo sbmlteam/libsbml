@@ -274,11 +274,11 @@ MemTrace_printStatistics (FILE *stream)
 
   if (allocs == frees)
   {
-    fprintf(stream, "100%: ");
+    fprintf(stream, "100%%: ");
   }
   else if (allocs == 0)
   {
-    fprintf(stream, "0%: ");
+    fprintf(stream, "0%%: ");
   }
   else
   {
@@ -291,7 +291,7 @@ MemTrace_printStatistics (FILE *stream)
       percent = ((float) allocs/ frees) * 100;
     }
 
-    fprintf(stream, "%4.1f%: ", percent);
+    fprintf(stream, "%4.1f%%: ", percent);
   }
 
   fprintf(stream, "Allocs: %d, Frees: %d, Leaks: %d, ", allocs, frees, leaks);
