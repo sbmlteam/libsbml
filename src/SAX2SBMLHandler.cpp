@@ -502,10 +502,7 @@ SAX2SBMLHandler::handleCompartment (const Attributes& a)
   //
   // volume  { use="optional" default="1.0" }  (L1v1, L1v2)
   //
-  if (XMLUtil::scanAttr(a, ATTR_VOLUME, &value) == true)
-  {
-    Compartment_setVolume(c, value);
-  }
+  XMLUtil::scanAttr(a, ATTR_VOLUME, &(c->volume));
 
   XMLUtil::scanAttrCStr( a, ATTR_UNITS  , &(c->units)   );
   XMLUtil::scanAttrCStr( a, ATTR_OUTSIDE, &(c->outside) );

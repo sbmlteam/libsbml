@@ -206,6 +206,18 @@ START_TEST (test_Compartment_setOutside)
 END_TEST
 
 
+START_TEST (test_Compartment_unsetVolume)
+{
+  fail_unless( C->volume == 1.0          , NULL );
+  fail_unless( Compartment_isSetVolume(C), NULL );
+
+  Compartment_unsetVolume(C);
+
+  fail_unless( !Compartment_isSetVolume(C), NULL );
+}
+END_TEST
+
+
 Suite *
 create_suite_Compartment (void)
 {
@@ -217,12 +229,13 @@ create_suite_Compartment (void)
                              CompartmentTest_setup,
                              CompartmentTest_teardown );
 
-  tcase_add_test( tcase, test_Compartment_create     );
-  tcase_add_test( tcase, test_Compartment_createWith );
-  tcase_add_test( tcase, test_Compartment_free_NULL  );
-  tcase_add_test( tcase, test_Compartment_setName    );
-  tcase_add_test( tcase, test_Compartment_setUnits   );
-  tcase_add_test( tcase, test_Compartment_setOutside );
+  tcase_add_test( tcase, test_Compartment_create      );
+  tcase_add_test( tcase, test_Compartment_createWith  );
+  tcase_add_test( tcase, test_Compartment_free_NULL   );
+  tcase_add_test( tcase, test_Compartment_setName     );
+  tcase_add_test( tcase, test_Compartment_setUnits    );
+  tcase_add_test( tcase, test_Compartment_setOutside  );
+  tcase_add_test( tcase, test_Compartment_unsetVolume );
 
   suite_add_tcase(suite, tcase);
 

@@ -89,9 +89,10 @@ Compartment_createWith ( const char *name,  double volume,
 
 
   Compartment_setName   ( c, name    );
-  Compartment_setVolume ( c, volume  );
   Compartment_setUnits  ( c, units   );
   Compartment_setOutside( c, outside );
+
+  c->volume = volume;
 
   return c;
 }
@@ -124,7 +125,7 @@ LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c)
 {
-  Compartment_setVolume(c, 1.0);
+  c->volume = 1.0;
 }
 
 
@@ -189,7 +190,11 @@ LIBSBML_EXTERN
 int
 Compartment_isSetVolume (const Compartment_t *c)
 {
-  return c->isSet.volume;
+  /**
+   * The unset value for doubles is NaN.  NaN is peculiar in that
+   * NaN == NaN is false.
+   */
+  return (c->volume == c->volume);
 }
 
 
@@ -216,7 +221,7 @@ Compartment_isSetOutside (const Compartment_t *c)
 
 
 /**
- * Sets the name field of this Compartment to a copy of sname.
+ * Sets the name of this Compartment to a copy of sname.
  */
 LIBSBML_EXTERN
 void
@@ -232,19 +237,18 @@ Compartment_setName (Compartment_t *c, const char *sname)
 
 
 /**
- * Sets the volume of this Compartment to value and marks the field as set.
+ * Sets the volume of this Compartment to value.
  */
 LIBSBML_EXTERN
 void
 Compartment_setVolume (Compartment_t *c, double value)
 {
-  c->volume       = value;
-  c->isSet.volume = 1;
+  c->volume = value;
 }
 
 
 /**
- * Sets the units field of this Compartment to a copy of sname.
+ * Sets the units of this Compartment to a copy of sname.
  */
 LIBSBML_EXTERN
 void
@@ -260,7 +264,7 @@ Compartment_setUnits (Compartment_t *c, const char *sname)
 
 
 /**
- * Sets the outside field of this Compartment to a copy of sname.
+ * Sets the outside of this Compartment to a copy of sname.
  */
 LIBSBML_EXTERN
 void
@@ -276,11 +280,51 @@ Compartment_setOutside (Compartment_t *c, const char *sname)
 
 
 /**
- * Marks the volume of this Compartment as unset.
+ * Unsets the name of this Compartment.  This is equivalent to:
+ * safe_free(c->name); c->name = NULL;
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetName (Compartment_t *c)
+{
+  safe_free(c->name);
+  c->name = NULL;
+}
+
+
+/**
+ * Unsets the volume of this Compartment.  This is equivalent to:
+ * c->volume = NaN;
  */
 LIBSBML_EXTERN
 void
 Compartment_unsetVolume (Compartment_t *c)
 {
-  c->isSet.volume = 0;
+  c->volume = 0. / 0;
+}
+
+
+/**
+ * Unsets the units of this Compartment.  This is equivalent to:
+ * safe_free(c->units); c->units = NULL;
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetUnits (Compartment_t *c)
+{
+  safe_free(c->units);
+  c->units = NULL;
+}
+
+
+/**
+ * Unsets the outside of this Compartment.  This is equivalent to:
+ * safe_free(c->outside); c->outside = NULL;
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetOutside (Compartment_t *c)
+{
+  safe_free(c->outside);
+  c->outside = NULL;
 }

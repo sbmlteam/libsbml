@@ -64,17 +64,10 @@ BEGIN_C_DECLS
 typedef struct
 {
   SBASE_FIELDS;
-
   char   *name;
   double  volume;
   char   *units;
   char   *outside;
-
-  struct
-  {
-    unsigned int volume:1;
-  } isSet;
-
 } Compartment_t;
 
 
@@ -181,7 +174,7 @@ void
 Compartment_setName (Compartment_t *c, const char *sname);
 
 /**
- * Sets the volume of this Compartment to value and marks the field as set.
+ * Sets the volume of this Compartment to value.
  */
 LIBSBML_EXTERN
 void
@@ -203,11 +196,36 @@ Compartment_setOutside (Compartment_t *c, const char *sname);
 
 
 /**
- * Marks the volume of this Compartment as unset.
+ * Unsets the name of this Compartment.  This is equivalent to:
+ * safe_free(c->name); c->name = NULL;
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetName (Compartment_t *c);
+
+/**
+ * Unsets the volume of this Compartment.  This is equivalent to:
+ * c->volume = NaN;
  */
 LIBSBML_EXTERN
 void
 Compartment_unsetVolume (Compartment_t *c);
+
+/**
+ * Unsets the units of this Compartment.  This is equivalent to:
+ * safe_free(c->units); c->units = NULL;
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetUnits (Compartment_t *c);
+
+/**
+ * Unsets the outside of this Compartment.  This is equivalent to:
+ * safe_free(c->outside); c->outside = NULL;
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetOutside (Compartment_t *c);
 
 
 END_C_DECLS

@@ -343,7 +343,7 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   // However, do not output if unset.
   //
   //
-  if (c->isSet.volume)
+  if (Compartment_isSetVolume(c))
   {
     attribute(ATTR_VOLUME, c->volume);
   }
