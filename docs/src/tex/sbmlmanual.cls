@@ -136,24 +136,46 @@
 % Important: do not load "C"; it causes the package to crash on first use.
 \lstloadlanguages{Java,[Visual]C++,csh,Delphi,Matlab,make,Perl,Python}
 
-% Switch on whether pdflatex is being used or not, so that we can
-% set the proper switches.
+% Get the color package, testing whether pdflatex is being used or not,
+% so that we can set the proper switches.
 \@ifundefined{pdfoutput}{%
-  \RequirePackage{graphicx}
-  % Test whether we're being run from latex or latex2html
-  \latexhtml{
-    % For latex.
-    \RequirePackage[breaklinks]{hyperref}
-  }{
-    % For latex2html.
-    \RequirePackage[latex2html,breaklinks]{hyperref}
-  }
-
   \if@xdvi
     \RequirePackage[xdvi,usenames]{color}
   \else
     \RequirePackage[dvips,usenames]{color}
   \fi
+}{%
+  \RequirePackage[pdftex,usenames]{color}
+}
+
+% Local color definitions.
+
+\definecolor{sbmlblue}{cmyk}{1.0,0.7,0,0}
+\definecolor{sbmlorange}{cmyk}{0,0.75,1,0.24}
+\definecolor{verylightgray}{gray}{0.9}
+\definecolor{lightgray}{gray}{0.8}
+\definecolor{mediumgray}{gray}{0.5}
+\definecolor{lightyellow}{rgb}{0.995,0.97,0.93}
+\definecolor{darkblue}{rgb}{0.1,0.4,0.55}
+
+% Get the graphicx and hyperref packages, testing whether pdflatex is being
+% used or not, so that we can set the proper switches.
+\@ifundefined{pdfoutput}{%
+  \RequirePackage{graphicx}
+  % Test whether we're being run from latex or latex2html
+  \latexhtml{
+    % For latex.
+    \RequirePackage[breaklinks=true,colorlinks=true,
+    bookmarks=true,bookmarksopen=true,bookmarksopenlevel=2,
+    pdfhighlight=/O,linkcolor={sbmlorange},citecolor={sbmlorange},
+    pagecolor={sbmlorange},urlcolor={sbmlorange}]{hyperref}
+  }{
+    % For latex2html.
+    \RequirePackage[latex2html,breaklinks=true,colorlinks=true,
+    bookmarks=true,bookmarksopen=true,bookmarksopenlevel=2,
+    pdfhighlight=/O,linkcolor={sbmlorange},citecolor={sbmlorange},
+    pagecolor={sbmlorange},urlcolor={sbmlorange}]{hyperref}
+  }
 }{%
   \RequirePackage[pdftex]{graphicx}
   % 2001-05-25 <mhucka@caltech.edu> Note about hyperref: I have spent hours
@@ -176,11 +198,8 @@
   % using colorlinks=true.
   \RequirePackage[pdftex,breaklinks=true,colorlinks=true,
   bookmarks=true,bookmarksopen=true,bookmarksopenlevel=2,
-  pdfhighlight=/O,linkcolor={Bittersweet},citecolor={Bittersweet},
-  pagecolor={Bittersweet},urlcolor={Bittersweet}]{hyperref}
-
-  \RequirePackage[pdftex,usenames]{color}
-  \definecolor{MidnightBlue}{cmyk}{1.0,0.7,0,0}
+  pdfhighlight=/O,linkcolor={sbmlorange},citecolor={sbmlorange},
+  pagecolor={sbmlorange},urlcolor={sbmlorange}]{hyperref}
 }
 
 \RequirePackage{colortbl}
@@ -244,16 +263,7 @@
 \renewcommand\textfraction{0.0}
 \renewcommand\floatpagefraction{0.9}
 
-% Color definitions.
-
-\definecolor{verylightgray}{gray}{0.9}
-\definecolor{lightgray}{gray}{0.8}
-\definecolor{mediumgray}{gray}{0.5}
-\definecolor{lightyellow}{rgb}{0.995,0.97,0.93}
-\definecolor{darkblue}{rgb}{0.1,0.4,0.55}
-
-% If we have to go to cymk for the colors above:
-%   lightyellow:  \definecolor{lightyellow}{cmyk}{0,0,0.3,0}
+% Table colors.
 
 \newcommand{\grayrow}{\rowcolor[gray]{0.91}}
 \newcommand{\greyrow}{\grayrow}
@@ -277,7 +287,7 @@
 
 \def\@puttitle{%
   \scalebox{1}[0.9]{%
-    \fcolorbox{black}{MidnightBlue}{%
+    \fcolorbox{black}{sbmlblue}{%
       \begin{minipage}{\textwidth}%
         \vspace*{9pt}%
         \centering%
@@ -509,7 +519,7 @@
   {\parindent \z@ \raggedright \normalfont
     \ifnum \c@secnumdepth >\m@ne
       \if@mainmatter
-        \hspace*{-20pt}\Huge\sffamily\bfseries \color{MidnightBlue}{\@chapapp\space \thechapter}
+        \hspace*{-20pt}\Huge\sffamily\bfseries \color{sbmlblue}{\@chapapp\space \thechapter}
         \par\nobreak
         \vskip 20\p@
       \fi
@@ -525,17 +535,17 @@
 
 \renewcommand{\section}{\@startsection%
   {section}{1}{0pt}{-1.8ex \@plus -1ex \@minus -.2ex}%
-  {0.8ex}{\hspace*{-35pt}\color{MidnightBlue}{\rule{\headingwidth}{0.75pt}}\nopagebreak\\[-2.9pt]%
-    \hspace*{-69.6pt}\colorbox{MidnightBlue}{\rule{0pt}{12.5pt}\hspace*{10pt}}%
+  {0.8ex}{\hspace*{-35pt}\color{sbmlblue}{\rule{\headingwidth}{0.75pt}}\nopagebreak\\[-2.9pt]%
+    \hspace*{-69.6pt}\colorbox{sbmlblue}{\rule{0pt}{12.5pt}\hspace*{10pt}}%
     \hspace*{5pt}\normalfont\Large\bfseries\sffamily}}
 
 \renewcommand{\subsection}{\@startsection%
   {subsection}{2}{0pt}{-2ex \@plus 1ex \@minus -.2ex}%
-  {0.8ex}{\large\bfseries\sffamily\color{MidnightBlue}}}
+  {0.8ex}{\large\bfseries\sffamily\color{sbmlblue}}}
 
 \renewcommand{\subsubsection}{\@startsection%
   {subsubsection}{3}{0pt}{-1.5ex \@plus 1ex \@minus -.2ex}%
-  {0.5ex}{\color{MidnightBlue}\normalsize\bfseries\sffamily\slshape}}
+  {0.5ex}{\color{sbmlblue}\normalsize\bfseries\sffamily\slshape}}
 
 \renewcommand{\paragraph}{\@startsection%
   {paragraph}{4}{0pt}{\baselineskip}%
@@ -568,8 +578,8 @@
 
 \newcommand{\sectionspecial}{\@startsection%
   {section}{1}{0pt}{-1.8ex \@plus -1ex \@minus -.2ex}%
-  {0.8ex}{\hspace*{-36pt}\color{MidnightBlue}{\rule{\headingwidth}{0.75pt}}\\[-2.95pt]%
-    \hspace*{-39pt}\colorbox{MidnightBlue}{\rule{0pt}{12.5pt}\hspace*{10pt}}%
+  {0.8ex}{\hspace*{-36pt}\color{sbmlblue}{\rule{\headingwidth}{0.75pt}}\\[-2.95pt]%
+    \hspace*{-39pt}\colorbox{sbmlblue}{\rule{0pt}{12.5pt}\hspace*{10pt}}%
     \hspace*{5pt}\normalfont\Large\bfseries\sffamily}}
 
 
@@ -767,12 +777,12 @@
     stringspaces=false,%
     tabsize=2,%x
     keywordstyle=\ttfamily,%
-    framerulecolor=MidnightBlue,
+    framerulecolor=sbmlblue,
     language=#1}%
   \examplespacing \csname lst@SetFirstLabel\endcsname}
 {\regularspacing \csname lst@SaveFirstLabel\endcsname}
 
-\newcommand{\codenote}[1]{\marginpar{\footnotesize\textcolor{MidnightBlue}{\emph{#1}}}}
+\newcommand{\codenote}[1]{\marginpar{\footnotesize\textcolor{sbmlblue}{\emph{#1}}}}
 
 \lstnewenvironment{example}[1][Java]{%
   \lstset{escapechar=|,%
