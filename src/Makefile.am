@@ -71,6 +71,7 @@ nobase_include_HEADERS =          \
   sbml/SBMLReader.h               \
   sbml/SBMLTypeCodes.h            \
   sbml/SBMLTypes.h                \
+  sbml/SBMLWriter.h               \
   sbml/Species.h                  \
   sbml/SpeciesConcentrationRule.h \
   sbml/SpeciesReference.h         \
@@ -95,6 +96,7 @@ libsbml_la_SOURCES =            \
   SBMLFormatter.cpp             \
   SBMLHashCodes.cpp             \
   SBMLReader.cpp                \
+  SBMLWriter.cpp                \
   XMLStringFormatter.cpp        \
   XMLUtil.cpp                   \
   AlgebraicRule.c               \
@@ -146,6 +148,7 @@ TestRunner_SOURCES =             \
   TestSBase.c                    \
   TestSBMLDocument.c             \
   TestSBMLReader.c               \
+  TestSBMLWriter.c               \
   TestSpecies.c                  \
   TestSpeciesConcentrationRule.c \
   TestSpeciesReference.c         \

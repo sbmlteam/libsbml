@@ -144,6 +144,7 @@ nobase_include_HEADERS = \
   sbml/SBMLReader.h               \
   sbml/SBMLTypeCodes.h            \
   sbml/SBMLTypes.h                \
+  sbml/SBMLWriter.h               \
   sbml/Species.h                  \
   sbml/SpeciesConcentrationRule.h \
   sbml/SpeciesReference.h         \
@@ -169,6 +170,7 @@ libsbml_la_SOURCES = \
   SBMLFormatter.cpp             \
   SBMLHashCodes.cpp             \
   SBMLReader.cpp                \
+  SBMLWriter.cpp                \
   XMLStringFormatter.cpp        \
   XMLUtil.cpp                   \
   AlgebraicRule.c               \
@@ -221,6 +223,7 @@ TestRunner_SOURCES = \
   TestSBase.c                    \
   TestSBMLDocument.c             \
   TestSBMLReader.c               \
+  TestSBMLWriter.c               \
   TestSpecies.c                  \
   TestSpeciesConcentrationRule.c \
   TestSpeciesReference.c         \
@@ -253,13 +256,14 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 
 libsbml_la_LIBADD =
 am_libsbml_la_OBJECTS = SAX2SBMLHandler.lo SBMLFormatter.lo \
-	SBMLHashCodes.lo SBMLReader.lo XMLStringFormatter.lo XMLUtil.lo \
-	AlgebraicRule.lo AssignmentRule.lo Compartment.lo \
-	CompartmentVolumeRule.lo KineticLaw.lo List.lo Model.lo \
-	Parameter.lo ParameterRule.lo Reaction.lo Rule.lo RuleType.lo \
-	SBase.lo SBMLDocument.lo Species.lo SpeciesConcentrationRule.lo \
-	SpeciesReference.lo Stack.lo Unit.lo UnitDefinition.lo \
-	UnitKind.lo memory.lo util.lo
+	SBMLHashCodes.lo SBMLReader.lo SBMLWriter.lo \
+	XMLStringFormatter.lo XMLUtil.lo AlgebraicRule.lo \
+	AssignmentRule.lo Compartment.lo CompartmentVolumeRule.lo \
+	KineticLaw.lo List.lo Model.lo Parameter.lo ParameterRule.lo \
+	Reaction.lo Rule.lo RuleType.lo SBase.lo SBMLDocument.lo \
+	Species.lo SpeciesConcentrationRule.lo SpeciesReference.lo \
+	Stack.lo Unit.lo UnitDefinition.lo UnitKind.lo memory.lo \
+	util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
 check_PROGRAMS = TestRunner$(EXEEXT)
 noinst_PROGRAMS = readSBML$(EXEEXT)
@@ -276,7 +280,8 @@ am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
 	TestReaction.$(OBJEXT) TestRule.$(OBJEXT) \
 	TestRuleType.$(OBJEXT) TestSBase.$(OBJEXT) \
 	TestSBMLDocument.$(OBJEXT) TestSBMLReader.$(OBJEXT) \
-	TestSpecies.$(OBJEXT) TestSpeciesConcentrationRule.$(OBJEXT) \
+	TestSBMLWriter.$(OBJEXT) TestSpecies.$(OBJEXT) \
+	TestSpeciesConcentrationRule.$(OBJEXT) \
 	TestSpeciesReference.$(OBJEXT) TestStack.$(OBJEXT) \
 	TestReadFromFile1.$(OBJEXT) TestReadFromFile2.$(OBJEXT) \
 	TestReadFromFile3.$(OBJEXT) TestReadFromFile4.$(OBJEXT) \
@@ -307,7 +312,8 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLDocument.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLFormatter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLHashCodes.Plo \
-@AMDEP_TRUE@	./$(DEPDIR)/SBMLReader.Plo ./$(DEPDIR)/SBase.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/SBMLReader.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/SBMLWriter.Plo ./$(DEPDIR)/SBase.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Species.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SpeciesConcentrationRule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SpeciesReference.Plo \
@@ -333,6 +339,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLDocument.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLFormatter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLReader.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestSBMLWriter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBase.Po ./$(DEPDIR)/TestSpecies.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSpeciesConcentrationRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSpeciesReference.Po \
@@ -452,6 +459,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLFormatter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLHashCodes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLReader.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLWriter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBase.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Species.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpeciesConcentrationRule.Plo@am__quote@
@@ -480,6 +488,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLDocument.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLFormatter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLReader.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLWriter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBase.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSpecies.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSpeciesConcentrationRule.Po@am__quote@
