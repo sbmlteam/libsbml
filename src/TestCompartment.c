@@ -90,15 +90,14 @@ START_TEST (test_Compartment_create)
 
   fail_unless( C->spatialDimensions == 3, NULL );
 
-  fail_unless( C->size == 1.0, NULL );
   fail_unless( Compartment_getVolume(C) == 1.0, NULL );
 
   fail_unless( C->constant == 1, NULL );
 
   fail_unless( !Compartment_isSetId     (C), NULL );
   fail_unless( !Compartment_isSetName   (C), NULL );
-  fail_unless( Compartment_isSetSize    (C), NULL );
-  fail_unless( Compartment_isSetVolume  (C), NULL );
+  fail_unless( !Compartment_isSetSize   (C), NULL );
+  fail_unless(  Compartment_isSetVolume (C), NULL );
   fail_unless( !Compartment_isSetUnits  (C), NULL );
   fail_unless( !Compartment_isSetOutside(C), NULL );
 }
@@ -266,7 +265,9 @@ END_TEST
 
 START_TEST (test_Compartment_unsetSize)
 {
-  fail_unless( C->size == 1.0, NULL );
+  Compartment_setSize(C, 0.2);
+
+  fail_unless( Compartment_getSize(C) == 0.2, NULL );
   fail_unless( Compartment_isSetSize(C), NULL );
 
   Compartment_unsetSize(C);
