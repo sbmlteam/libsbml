@@ -494,10 +494,10 @@ START_TEST (test_scanAttr_double_inf)
   attrs.add("volume", "-Inf");
 
   fail_unless( XMLUtil::scanAttr(attrs, ATTR_VALUE, &value) == true, NULL );
-  fail_unless( value == strtod("+Inf", NULL), NULL );
+  fail_unless( util_isInf(value) == 1, NULL );
 
   fail_unless( XMLUtil::scanAttr(attrs, ATTR_VOLUME, &volume) == true, NULL );
-  fail_unless( volume == strtod("-Inf", NULL), NULL );
+  fail_unless( util_isInf(volume) == -1, NULL );
 }
 END_TEST
 
