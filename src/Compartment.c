@@ -194,12 +194,6 @@ LIBSBML_EXTERN
 int
 Compartment_isSetVolume (const Compartment_t *c)
 {
-  /**
-   * The unset value for doubles is NaN.  NaN is peculiar in that
-   * NaN == NaN is false.
-   */
-  /* return (c->volume == c->volume); */
-
   return c->isSet.volume;
 }
 
@@ -319,7 +313,7 @@ LIBSBML_EXTERN
 void
 Compartment_unsetVolume (Compartment_t *c)
 {
-  c->volume       = strtod("NaN", NULL);
+  c->volume       = util_NaN();
   c->isSet.volume = 0;
 }
 
