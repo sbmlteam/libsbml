@@ -167,9 +167,9 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
   unsigned int exppos = 0;
   unsigned int endpos = 0;
 
-  int seendot = 0;
-  int seenexp = 0;
-  int seensgn = 0;
+  unsigned int seendot = 0;
+  unsigned int seenexp = 0;
+  unsigned int seensgn = 0;
 
 
   start = ft->pos;
