@@ -838,6 +838,66 @@ START_TEST (test_SBMLFormatter_unset_required)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_NaN)
+{
+  Parameter_t *p = Parameter_createWith("p", util_NaN(), NULL);
+  const char  *s = wrapXML("<parameter name=\"p\" value=\"NaN\"/>\n");
+
+
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_INF)
+{
+  Parameter_t *p = Parameter_createWith("p", util_PosInf(), NULL);
+  const char  *s = wrapXML("<parameter name=\"p\" value=\"INF\"/>\n");
+
+
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_NegINF)
+{
+  Parameter_t *p = Parameter_createWith("p", util_NegInf(), NULL);
+  const char  *s = wrapXML("<parameter name=\"p\" value=\"-INF\"/>\n");
+
+
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_NegZero)
+{
+  Parameter_t *p = Parameter_createWith("p", util_NegZero(), NULL);
+  const char  *s = wrapXML("<parameter name=\"p\" value=\"-0\"/>\n");
+
+
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLFormatter (void)
 {
@@ -886,6 +946,10 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_ListOfParameters       );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_ListOfParameters_notes );
   tcase_add_test( tcase, test_SBMLFormatter_unset_required                    );
+  tcase_add_test( tcase, test_SBMLFormatter_NaN                               );
+  tcase_add_test( tcase, test_SBMLFormatter_INF                               );
+  tcase_add_test( tcase, test_SBMLFormatter_NegINF                            );
+  tcase_add_test( tcase, test_SBMLFormatter_NegZero                           );
 
   suite_add_tcase(suite, tcase);
 

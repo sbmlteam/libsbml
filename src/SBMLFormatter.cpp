@@ -52,6 +52,7 @@
 
 #include "sbml/common.h"
 #include "sbml/SBMLFormatter.hpp"
+#include "sbml/SBMLUnicodeConstants.hpp"
 
 
 //
@@ -1147,12 +1148,21 @@ SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 void
 SBMLFormatter::attribute (const XMLCh* name, double value)
 {
-  static const XMLCh NaN[] = { chLatin_N, chLatin_a, chLatin_N, chNull };
-
-
-  if (value != value)
+  if ( isnan(value) )
   {
-    attribute(name, NaN);
+    attribute(name, VAL_NAN);
+  }
+  else if ( util_isInf(value) == 1)
+  {
+    attribute(name, VAL_INF);
+  }
+  else if ( util_isInf(value) == -1)
+  {
+    attribute(name, VAL_NEG_INF);
+  }
+  else if ( util_isNegZero(value) )
+  {
+    attribute(name, VAL_NEG_ZERO);
   }
   else
   {
