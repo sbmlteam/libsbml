@@ -92,15 +92,7 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\src\AlgebraicRule.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\AlgebraicRule.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\AssignmentRule.c
 # End Source File
 # Begin Source File
 
@@ -108,15 +100,7 @@ SOURCE=..\src\AssignmentRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ASTNode.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\ASTNode.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\Compartment.c
 # End Source File
 # Begin Source File
 
@@ -124,23 +108,11 @@ SOURCE=..\src\Compartment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\CompartmentVolumeRule.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\CompartmentVolumeRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Event.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\Event.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\EventAssignment.c
 # End Source File
 # Begin Source File
 
@@ -160,15 +132,7 @@ SOURCE=..\src\FormulaTokenizer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\FunctionDefinition.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\FunctionDefinition.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\KineticLaw.c
 # End Source File
 # Begin Source File
 
@@ -176,23 +140,11 @@ SOURCE=..\src\KineticLaw.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\List.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\List.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ListOf.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\ListOf.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\MathMLDocument.c
 # End Source File
 # Begin Source File
 
@@ -224,15 +176,7 @@ SOURCE=..\src\memory.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Model.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\Model.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ModifierSpeciesReference.c
 # End Source File
 # Begin Source File
 
@@ -240,15 +184,7 @@ SOURCE=..\src\ModifierSpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Parameter.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\Parameter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ParameterRule.c
 # End Source File
 # Begin Source File
 
@@ -256,15 +192,7 @@ SOURCE=..\src\ParameterRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ParseMessage.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\ParseMessage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\RateRule.c
 # End Source File
 # Begin Source File
 
@@ -272,15 +200,7 @@ SOURCE=..\src\RateRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Reaction.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\Reaction.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\Rule.c
 # End Source File
 # Begin Source File
 
@@ -296,19 +216,11 @@ SOURCE=..\src\SAX2AttributesMock.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBase.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\SBase.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\src\SBMLConvert.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\SBMLDocument.c
 # End Source File
 # Begin Source File
 
@@ -336,15 +248,7 @@ SOURCE=..\src\SBMLWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SimpleSpeciesReference.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\SimpleSpeciesReference.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\Species.c
 # End Source File
 # Begin Source File
 
@@ -352,15 +256,7 @@ SOURCE=..\src\Species.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SpeciesConcentrationRule.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\SpeciesConcentrationRule.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\SpeciesReference.c
 # End Source File
 # Begin Source File
 
@@ -380,239 +276,7 @@ SOURCE=..\src\StringMap.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\TestAlgebraicRule.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestAssignmentRule.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestASTNode.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestCompartment.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestCompartmentVolumeRule.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestConsistencyChecks.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestEvent.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestEventAssignment.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestFormulaFormatter.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestFormulaParser.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestFormulaTokenizer.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestFunctionDefinition.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestKineticLaw.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestList.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestListOf.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestMathMLDocument.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestMathMLFormatter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestMathMLHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestMathMLWriter.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestMemory.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestModel.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestModifierSpeciesReference.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestParameter.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestParameterRule.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestParseMessage.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestRateRule.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestReaction.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestReadFromFile1.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestReadFromFile2.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestReadFromFile3.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestReadFromFile4.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestRule.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestRuleType.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestRunner.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSAX2AttributesMock.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSBase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSBMLConvert.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSBMLDocument.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSBMLFormatter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSBMLHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSBMLReader.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSBMLWriter.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSimpleSpeciesReference.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSpecies.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSpeciesConcentrationRule.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestSpeciesReference.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestStack.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestStringBuffer.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestStringMap.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestUnit.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestUnitDefinition.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestUnitKind.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestUtil.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestValidator.c
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestXMLStringFormatter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\TestXMLUtil.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\Unit.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\Unit.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\UnitDefinition.c
 # End Source File
 # Begin Source File
 
