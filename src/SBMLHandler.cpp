@@ -337,21 +337,21 @@ SBMLHandler::setDocumentLocator (const Locator *const locator)
 void
 SBMLHandler::warning (const SAXParseException& e)
 {
-  List_add( fDocument->warning, createParseMessage(e) );
+  List_add( fDocument->warning, ParseMessage_createFrom(e) );
 }
 
 
 void
 SBMLHandler::error (const SAXParseException& e)
 {
-  List_add( fDocument->error, createParseMessage(e) );
+  List_add( fDocument->error, ParseMessage_createFrom(e) );
 }
 
 
 void
 SBMLHandler::fatalError (const SAXParseException& e)
 {
-  List_add( fDocument->fatal, createParseMessage(e) );
+  List_add( fDocument->fatal, ParseMessage_createFrom(e) );
 }
 
 
@@ -364,55 +364,48 @@ SBMLHandler::fatalError (const SAXParseException& e)
 void
 SBMLHandler::warning (const char* message)
 {
-  List_add( fDocument->warning, createParseMessage(message) );
+  List_add( fDocument->warning, ParseMessage_createFrom(message) );
 }
 
 
 void
 SBMLHandler::error (const char* message)
 {
-  List_add( fDocument->error, createParseMessage(message) );
+  List_add( fDocument->error, ParseMessage_createFrom(message) );
 }
 
 
 void
 SBMLHandler::fatalError (const char* message)
 {
-  List_add( fDocument->fatal, createParseMessage(message) );
+  List_add( fDocument->fatal, ParseMessage_createFrom(message) );
 }
 
 
 ParseMessage_t*
-SBMLHandler::createParseMessage (const char* message)
+SBMLHandler::ParseMessage_createFrom (const char* message)
 {
-  ParseMessage_t* pm;
-
-
-  pm = (ParseMessage_t *) safe_calloc(1, sizeof(ParseMessage_t));
-
-  pm->message = safe_strdup(message);
-  pm->line    = (unsigned int) fLocator->getLineNumber();
-  pm->column  = (unsigned int) fLocator->getColumnNumber();
-
-  return pm;
+  return
+    ParseMessage_createWith( message, 
+                             (unsigned int) fLocator->getLineNumber(),
+                             (unsigned int) fLocator->getColumnNumber() );
 }
 
 
 ParseMessage_t*
-SBMLHandler::createParseMessage (const SAXParseException& e)
+SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
 {
-  char*           msg;
+  char*           message;
   ParseMessage_t* pm;
 
 
-  msg = XMLString::transcode( e.getMessage() );
-  pm  = (ParseMessage_t *) safe_calloc(1, sizeof(ParseMessage_t));
+  message = XMLString::transcode( e.getMessage() );
 
-  pm->message = safe_strdup(msg);
-  pm->line    = (unsigned int) e.getLineNumber();
-  pm->column  = (unsigned int) e.getColumnNumber();
+  pm = ParseMessage_createWith( message, 
+                                (unsigned int) e.getLineNumber(),
+                                (unsigned int) e.getColumnNumber() );
 
-  delete [] msg;
+  delete [] message;
 
   return pm;
 }

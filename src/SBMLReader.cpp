@@ -70,9 +70,7 @@
  * These functions are "private", i.e. they are used only by other
  * functions in this file.
  */
-ParseMessage_t* createParseMessage (const char* msg);
-ParseMessage_t* createParseMessage (const XMLException& e);
-ParseMessage_t* createParseMessage (const SAXParseException& e);
+ParseMessage_t* ParseMessage_createFrom (const XMLException& e);
 
 SBMLDocument_t*
 SBMLReader_readSBML_internal ( SBMLReader_t* sr,
@@ -215,7 +213,7 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (const XMLException& e)
   {
-    List_add(d->fatal, createParseMessage(e));
+    List_add(d->fatal, ParseMessage_createFrom(e));
     return d;
   }
 
@@ -277,15 +275,11 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (const XMLException& e)
   {
-    List_add(d->fatal, createParseMessage(e));
-  }
-  catch (const SAXParseException& e)
-  {
-    List_add(d->fatal, createParseMessage(e));
+    List_add(d->fatal, ParseMessage_createFrom(e));
   }
   catch (...)
   {
-    List_add(d->fatal, createParseMessage("Unexcepted Exception"));
+    List_add(d->fatal, ParseMessage_createWith("Unexcepted Exception", 0, 0));
   }
 
   if (input != NULL)
@@ -301,57 +295,17 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
 
 
 /**
- * Creates a new ParseMessage with the given message and returns a pointer
- * to it.
- */
-ParseMessage_t*
-createParseMessage (const char* msg)
-{
-  ParseMessage_t* pm;
-
-
-  pm = (ParseMessage_t *) safe_calloc(1, sizeof(ParseMessage_t));
-
-  pm->message = safe_strdup(msg);
-  pm->line    = -1;
-  pm->column  = -1;
-
-  return pm;
-}
-
-
-/**
  * Creates a new ParseMessage from the given XMLException and returns a
  * pointer to it.
  */
 ParseMessage_t*
-createParseMessage (const XMLException& e)
+ParseMessage_createFrom (const XMLException& e)
 {
   char*           msg = XMLString::transcode( e.getMessage() );
-  ParseMessage_t* pm  = createParseMessage(msg);
+  ParseMessage_t* pm;
 
 
-  pm->line = (unsigned int) e.getSrcLine();
-
-  delete [] msg;
-
-  return pm;
-}
-
-
-/**
- * Creates a new ParseMessage from the given SAXException and returns a
- * pointer to it.
- */
-ParseMessage_t*
-createParseMessage (const SAXParseException& e)
-{
-  char*           msg = XMLString::transcode( e.getMessage() );
-  ParseMessage_t* pm  = createParseMessage(msg);
-
-
-  pm->line   = (unsigned int) e.getLineNumber();
-  pm->column = (unsigned int) e.getColumnNumber();
+  pm = ParseMessage_createWith(msg, e.getSrcLine(), 0);
 
   delete [] msg;
 
