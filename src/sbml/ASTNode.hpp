@@ -414,7 +414,7 @@ public:
    */
   LIBSBML_EXTERN
   void
-  ASTNode::setValue (int value);
+  setValue (int value);
 
   /**
    * Sets the value of this ASTNode to the given (long) integer and sets
@@ -439,7 +439,7 @@ public:
    *   setValue(value, 0);
    */
   LIBSBML_EXTERN
-  void ASTNode::setValue (double value);
+  void setValue (double value);
 
   /**
    * Sets the value of this ASTNode to the given real (double) in two
@@ -447,7 +447,7 @@ public:
    * AST_REAL_E.
    */
   LIBSBML_EXTERN
-  void ASTNode::setValue (double mantissa, long exponent);
+  void setValue (double mantissa, long exponent);
 
   /**
    * Sets the type of this ASTNode to the given ASTNodeType.

@@ -74,8 +74,8 @@ AssignmentRule::AssignmentRule (   const std::string&  variable
                                  , const std::string&  formula
                                  , RuleType_t          type     ) :
     Rule    ( formula  )
-  , variable( variable )
   , type    ( type     )
+  , variable( variable )
 {
   init(SBML_ASSIGNMENT_RULE);
 }
@@ -90,8 +90,8 @@ AssignmentRule::AssignmentRule (   const std::string&  variable
                                  , ASTNode*            math
                                  , RuleType_t          type     ) :
     Rule    ( math     )
-  , variable( variable )
   , type    ( type     )
+  , variable( variable )
 {
   init(SBML_ASSIGNMENT_RULE);
 }

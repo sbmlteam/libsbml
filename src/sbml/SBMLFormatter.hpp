@@ -300,8 +300,8 @@ private:
    */
   void indent ();
 
-  inline void SBMLFormatter::upIndent   () { fIndentLevel++; }
-  inline void SBMLFormatter::downIndent () { fIndentLevel--; }
+  inline void upIndent   () { fIndentLevel++; }
+  inline void downIndent () { fIndentLevel--; }
 
 
   unsigned int fLevel;

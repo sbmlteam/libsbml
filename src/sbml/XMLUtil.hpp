@@ -153,7 +153,7 @@ public:
    *
    * Returns true if the last argument was assigned, false otherwise.
    */
-  static bool XMLUtil::scanAttr
+  static bool scanAttr
   ( 
      const Attributes&  attrs
    , const unsigned int index
@@ -167,7 +167,7 @@ public:
    *
    * Returns true if the last argument was assigned, false otherwise.
    */
-  static bool XMLUtil::scanAttr
+  static bool scanAttr
   (
      const Attributes& attrs
    , const XMLCh*      name

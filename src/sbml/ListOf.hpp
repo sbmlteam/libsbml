@@ -117,7 +117,7 @@ public:
    * Removes and deletes each item in this List.
    */
   void
-  ListOf::freeItems ();
+  freeItems ();
 
   /**
    * @return the nth item in this List.  If n > ListOf.getNumItems()

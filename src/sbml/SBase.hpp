@@ -117,7 +117,7 @@ public:
    */
   LIBSBML_EXTERN
   char*
-  SBase::toSBML (unsigned int level = 2, unsigned int version = 1);
+  toSBML (unsigned int level = 2, unsigned int version = 1);
 
   LIBSBML_EXTERN
   void unsetMetaId ();
