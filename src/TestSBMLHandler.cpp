@@ -793,7 +793,7 @@ START_TEST (test_element_Reaction_L2)
 
   fail_unless(  Reaction_isSetId  (r), NULL );
   fail_unless( !Reaction_isSetName(r), NULL );
-  /* FIXME: fail_unless( Reaaction_isSetFast(r), NULL ); */
+  fail_unless(  Reaction_isSetFast(r), NULL );
 
   fail_unless( !strcmp( Reaction_getId(r), "r1"), NULL );
   fail_unless( Reaction_getReversible(r) == 0, NULL );
@@ -816,7 +816,7 @@ START_TEST (test_element_Reaction_L2_defaults)
 
   fail_unless(  Reaction_isSetId  (r), NULL );
   fail_unless( !Reaction_isSetName(r), NULL );
-  /* FIXME: fail_unless( !Reaaction_isSetFast(r), NULL ); */
+  fail_unless( !Reaction_isSetFast(r), NULL );
 
   fail_unless( !strcmp( Reaction_getId(r), "r1"), NULL );
   fail_unless( Reaction_getReversible(r) == 1, NULL );
