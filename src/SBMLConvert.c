@@ -281,7 +281,7 @@ SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m)
    */
   if ( !KineticLaw_isSetMath(kl) )
   {
-    KineticLaw_setMath(kl, SBML_parseFormula( KineticLaw_getFormula(kl) ));
+    KineticLaw_setMathFromFormula(kl);
   }
 
   /**
