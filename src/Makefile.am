@@ -51,7 +51,7 @@
 
 
 lib_LTLIBRARIES    = libsbml.la
-libsbml_la_LDFLAGS = -version-info 1:0:0
+libsbml_la_LDFLAGS = -version-info 2:0:1
 
 nobase_include_HEADERS =          \
   sbml/AlgebraicRule.h            \
