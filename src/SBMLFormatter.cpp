@@ -251,14 +251,14 @@ SBMLFormatter::operator<< (const Model_t* m)
 
     notesAndAnnotation( (SBase_t*) m );
 
-    listOfUnitDefinitions( m->functionDefinition );
-    listOfUnitDefinitions( m->unitDefinition     );
-    listOfCompartments   ( m->compartment        );
-    listOfSpecies        ( m->species            );
-    listOfParameters     ( m->parameter          );
-    listOfRules          ( m->rule               );
-    listOfReactions      ( m->reaction           );
-    listOfEvents         ( m->event              );
+    listOfFunctionDefinitions( m->functionDefinition );
+    listOfUnitDefinitions    ( m->unitDefinition     );
+    listOfCompartments       ( m->compartment        );
+    listOfSpecies            ( m->species            );
+    listOfParameters         ( m->parameter          );
+    listOfRules              ( m->rule               );
+    listOfReactions          ( m->reaction           );
+    listOfEvents             ( m->event              );
     
     downIndent();
 
