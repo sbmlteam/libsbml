@@ -211,7 +211,7 @@ Doxyfile: $(TOP_SRCDIR)/VERSION.txt Doxyfile.in
 libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	$(latex-env) pdflatex libsbml-manual
-	-bibtex libsbml-manual
+	$(latex-env) bibtex libsbml-manual
 	$(latex-env) pdflatex libsbml-manual
 	$(latex-env) pdflatex libsbml-manual
 	$(latex-env) pdflatex libsbml-manual
@@ -220,13 +220,13 @@ libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
 libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	$(latex-env) latex libsbml-manual
-	-bibtex libsbml-manual
+	$(latex-env) bibtex libsbml-manual
 	$(latex-env) latex libsbml-manual
 	$(latex-env) latex libsbml-manual
 	$(latex-env) latex libsbml-manual
 
 libsbml-manual.ps: libsbml-manual.dvi
-	dvips -o libsbml-manual.ps libsbml-manual
+	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
 
 libsbml-manual: libsbml-manual.tex libsbml-manual.dvi
 	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
@@ -263,7 +263,7 @@ ifeq "$(api-tex-files)" ""
 endif
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	$(latex-env) pdflatex libsbml-api-ref
-	-bibtex libsbml-api-ref
+	$(latex-env) bibtex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
@@ -275,13 +275,13 @@ ifeq "$(api-tex-files)" ""
 endif
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	$(latex-env) latex libsbml-api-ref
-	-bibtex libsbml-api-ref
+	$(latex-env) bibtex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
 
 libsbml-api-ref.ps:  libsbml-api-ref.dvi
-	dvips -o libsbml-api-ref.ps libsbml-api-ref
+	$(latex-env) dvips -o libsbml-api-ref.ps libsbml-api-ref
 
 doxygen-output-dir = libsbml-api-ref
 
