@@ -92,223 +92,231 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\src\AlgebraicRule.cpp
+SOURCE=..\src\sbml\AlgebraicRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\AssignmentRule.cpp
+SOURCE=..\src\sbml\AssignmentRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ASTNode.cpp
+SOURCE=..\src\math\ASTNode.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Compartment.cpp
+SOURCE=..\src\sbml\Compartment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\CompartmentVolumeRule.cpp
+SOURCE=..\src\sbml\CompartmentVolumeRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Event.cpp
+SOURCE=..\src\sbml\Event.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\EventAssignment.cpp
+SOURCE=..\src\sbml\EventAssignment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\FormulaFormatter.c
+SOURCE=..\src\math\FormulaFormatter.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\FormulaParser.c
+SOURCE=..\src\math\FormulaParser.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\FormulaTokenizer.c
+SOURCE=..\src\math\FormulaTokenizer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\FunctionDefinition.cpp
+SOURCE=..\src\sbml\FunctionDefinition.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\KineticLaw.cpp
+SOURCE=..\src\sbml\KineticLaw.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\List.cpp
+SOURCE=..\src\util\List.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ListOf.cpp
+SOURCE=..\src\sbml\ListOf.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\MathMLDocument.cpp
+SOURCE=..\src\math\MathMLDocument.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\MathMLFormatter.cpp
+SOURCE=..\src\math\MathMLFormatter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\MathMLHandler.cpp
+SOURCE=..\src\math\MathMLHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\MathMLReader.cpp
+SOURCE=..\src\math\MathMLReader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\MathMLTagCodes.cpp
+SOURCE=..\src\math\MathMLTagCodes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\MathMLWriter.cpp
+SOURCE=..\src\math\MathMLWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\memory.c
+SOURCE=..\src\util\memory.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Model.cpp
+SOURCE=..\src\sbml\Model.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ModifierSpeciesReference.cpp
+SOURCE=..\src\sbml\ModifierSpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Parameter.cpp
+SOURCE=..\src\sbml\Parameter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ParameterRule.cpp
+SOURCE=..\src\sbml\ParameterRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ParseMessage.cpp
+SOURCE=..\src\xml\ParseMessage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\RateRule.cpp
+SOURCE=..\src\sbml\RateRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Reaction.cpp
+SOURCE=..\src\sbml\Reaction.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Rule.cpp
+SOURCE=..\src\sbml\Rule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\RuleType.c
+SOURCE=..\src\sbml\RuleType.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBase.cpp
+SOURCE=..\src\sbml\SBase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBMLConvert.c
+SOURCE=..\src\sbml\SBMLConvert.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBMLDocument.cpp
+SOURCE=..\src\sbml\SBMLDocument.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBMLFormatter.cpp
+SOURCE=..\src\sbml\SBMLFormatter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBMLHandler.cpp
+SOURCE=..\src\sbml\SBMLHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBMLReader.cpp
+SOURCE=..\src\sbml\SBMLReader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBMLTagCodes.cpp
+SOURCE=..\src\sbml\SBMLTagCodes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SBMLWriter.cpp
+SOURCE=..\src\sbml\SBMLVisitor.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SimpleSpeciesReference.cpp
+SOURCE=..\src\sbml\SBMLWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Species.cpp
+SOURCE=..\src\sbml\SimpleSpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SpeciesConcentrationRule.cpp
+SOURCE=..\src\sbml\Species.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SpeciesReference.cpp
+SOURCE=..\src\sbml\SpeciesConcentrationRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Stack.c
+SOURCE=..\src\sbml\SpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\StringBuffer.c
+SOURCE=..\src\util\Stack.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\StringMap.c
+SOURCE=..\src\xml\StreamFormatTarget.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Unit.cpp
+SOURCE=..\src\util\StringBuffer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\UnitDefinition.cpp
+SOURCE=..\src\util\StringMap.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\UnitKind.c
+SOURCE=..\src\sbml\Unit.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\util.c
+SOURCE=..\src\sbml\UnitDefinition.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\ValidationRules.c
+SOURCE=..\src\sbml\UnitKind.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\Validator.c
+SOURCE=..\src\util\util.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\XMLNamespace.cpp
+SOURCE=..\src\validator\ValidationRules.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\XMLNamespaceList.cpp
+SOURCE=..\src\validator\Validator.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\XMLStringFormatter.cpp
+SOURCE=..\src\xml\XMLNamespace.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\XMLUtil.cpp
+SOURCE=..\src\xml\XMLNamespaceList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLStringFormatter.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLUtil.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -341,10 +349,6 @@ SOURCE=..\src\sbml\ASTNode.hpp
 # Begin Source File
 
 SOURCE=..\src\sbml\ASTNodeType.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\sbml\common.h
 # End Source File
 # Begin Source File
 
