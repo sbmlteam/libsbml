@@ -3,3 +3,4 @@
 *.dylib
 *.jnilib
 *.jar
+Makefile
