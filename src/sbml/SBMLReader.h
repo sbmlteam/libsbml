@@ -54,12 +54,11 @@
 #define SBMLReader_h
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
+#include "common.h"
 #include "SBMLDocument.h"
+
+
+BEGIN_C_DECLS
 
 
 /**
@@ -103,12 +102,14 @@ typedef struct
  * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE) and
  * schemaFilename is NULL.
  */
+LIBSBML_EXTERN
 SBMLReader_t *
 SBMLReader_create (void);
 
 /**
  * Frees the given SBMLReader.
  */
+LIBSBML_EXTERN
 void
 SBMLReader_free (SBMLReader_t *sr);
 
@@ -118,12 +119,14 @@ SBMLReader_free (SBMLReader_t *sr);
  * The filename should be either i) an absolute path or ii) relative to the
  * directory contain the SBML file(s) to be read.
  */
+LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilename (SBMLReader_t *sr, const char *filename);
 
 /**
  * Reads the SBML document from the given file and returns a pointer to it.
  */
+LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBML (SBMLReader_t *sr, const char *filename);
 
@@ -136,6 +139,7 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename);
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
  */
+LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
 
@@ -146,6 +150,7 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
  *
  *   SBMLReader_readSBML(SBMLReader_create(), filename);
  */
+LIBSBML_EXTERN
 SBMLDocument_t *
 readSBML (const char *filename);
 
@@ -155,13 +160,12 @@ readSBML (const char *filename);
  *
  *   SBMLReader_readSBMLFromString(SBMLReader_create(), filename);
  */
+LIBSBML_EXTERN
 SBMLDocument_t *
 readSBMLFromString (const char *xml);
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** SBMLReader_h **/
