@@ -55,7 +55,7 @@
 
 
 #if WIN32
-#  define HAVE_CONFIG_H
+#  define HAVE_CONFIG_H 1
 #endif
 
 #if HAVE_CONFIG_H
