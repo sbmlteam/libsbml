@@ -524,10 +524,61 @@ RULE (compartment_spatialDimensions1)
   Compartment_t *c = (Compartment_t *) obj;
   unsigned int passed = TRUE;
 
+
   if (Compartment_getSpatialDimensions(c) == 1)
   {
     const char *units = Compartment_getUnits(c);
     if (units && !isOneDimensional(d->model, units))
+    {
+      LOG_MESSAGE(msg);
+      passed = FALSE;
+    }
+  }
+
+  return passed;
+}
+
+
+RULE (compartment_spatialDimensions2)
+{
+  static const char msg[] =
+    "A compartment with spatialDimensions=2 must have units of 'area' "
+    "or the id of a unitDefinition that defines a variant of 'metre' "
+    "with exponent=2.";
+
+  Compartment_t *c = (Compartment_t *) obj;
+  unsigned int passed = TRUE;
+
+
+  if (Compartment_getSpatialDimensions(c) == 2)
+  {
+    const char *units = Compartment_getUnits(c);
+    if (units && !isTwoDimensional(d->model, units))
+    {
+      LOG_MESSAGE(msg);
+      passed = FALSE;
+    }
+  }
+
+  return passed;
+}
+
+
+RULE (compartment_spatialDimensions3)
+{
+  static const char msg[] =
+    "A compartment with spatialDimensions=3 must have units of 'volume', "
+    "'litre', or the id of a unitDefinition that defines a variant of "
+    "'metre' with exponent=3.";
+
+  Compartment_t *c = (Compartment_t *) obj;
+  unsigned int passed = TRUE;
+
+
+  if (Compartment_getSpatialDimensions(c) == 3)
+  {
+    const char *units = Compartment_getUnits(c);
+    if (units && !isThreeDimensional(d->model, units))
     {
       LOG_MESSAGE(msg);
       passed = FALSE;
@@ -1185,37 +1236,39 @@ void
 Validator_addDefaultRules (Validator_t *v)
 {
   Validator_addRule( v, compartment_spatialDimensions1, SBML_COMPARTMENT     );
-  Validator_addRule( v, compartment_size_dimensions,   SBML_COMPARTMENT     );
-  Validator_addRule( v, kineticLaw_substanceUnits  ,   SBML_REACTION        );
+  Validator_addRule( v, compartment_spatialDimensions2, SBML_COMPARTMENT     );
+  Validator_addRule( v, compartment_spatialDimensions3, SBML_COMPARTMENT     );
+  Validator_addRule( v, compartment_size_dimensions,    SBML_COMPARTMENT     );
+  Validator_addRule( v, kineticLaw_substanceUnits  ,    SBML_REACTION        );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
-                                                       SBML_UNIT_DEFINITION );
+                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
-                                                       SBML_UNIT_DEFINITION );
+                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_substanceKinds,
-                                                       SBML_UNIT_DEFINITION );
+                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_volumeKinds,
-                                                       SBML_UNIT_DEFINITION );
+                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_areaKinds,
-                                                       SBML_UNIT_DEFINITION );
+                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_lengthKinds,
-                                                       SBML_UNIT_DEFINITION );
+                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_timeKinds,
-                                                       SBML_UNIT_DEFINITION );
-  Validator_addRule( v, species_compartmentIsDefined,  SBML_SPECIES         );
-  Validator_addRule( v, species_hasOnlySubstanceUnits, SBML_SPECIES         );
-  Validator_addRule( v, species_zeroSpatialDimensions, SBML_SPECIES         );
-  Validator_addRule( v, species_spatialDimensions1,    SBML_SPECIES         );
-  Validator_addRule( v, species_spatialDimensions2,    SBML_SPECIES         );
-  Validator_addRule( v, species_spatialDimensions3,    SBML_SPECIES         );
-  Validator_addRule( v, species_substanceUnits,        SBML_SPECIES         );
+                                                        SBML_UNIT_DEFINITION );
+  Validator_addRule( v, species_compartmentIsDefined,   SBML_SPECIES         );
+  Validator_addRule( v, species_hasOnlySubstanceUnits,  SBML_SPECIES         );
+  Validator_addRule( v, species_zeroSpatialDimensions,  SBML_SPECIES         );
+  Validator_addRule( v, species_spatialDimensions1,     SBML_SPECIES         );
+  Validator_addRule( v, species_spatialDimensions2,     SBML_SPECIES         );
+  Validator_addRule( v, species_spatialDimensions3,     SBML_SPECIES         );
+  Validator_addRule( v, species_substanceUnits,         SBML_SPECIES         );
   Validator_addRule( v, species_initialConcentrationSubstanceUnits,
-                                                       SBML_SPECIES         );
+                                                        SBML_SPECIES         );
   Validator_addRule( v, species_initialConcentrationZeroSpatialDimensions,
-                                                       SBML_SPECIES         );
+                                                        SBML_SPECIES         );
   /*
   Validator_addRule( v, species_initialConcentrationInitialAmount,
-                                                       SBML_SPECIES         );
+                                                        SBML_SPECIES         );
   */
-  Validator_addRule( v, species_speciesReference,      SBML_SPECIES         );
-  Validator_addRule( v, species_ruleAndReaction,       SBML_SPECIES         );
+  Validator_addRule( v, species_speciesReference,       SBML_SPECIES         );
+  Validator_addRule( v, species_ruleAndReaction,        SBML_SPECIES         );
 }
