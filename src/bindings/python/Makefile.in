@@ -66,7 +66,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some make actions will fail.
 
 srcdir  = @srcdir@
-thisdir = bindings/python
+thisdir = src/bindings/python
 
 # `sources' are used by the default rules to determine what needs to be
 # compiled.
@@ -83,7 +83,7 @@ libraries = _libsbml.so
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CPPFLAGS = $(PYTHON_CPPFLAGS) -I../swig -I../../src
+extra_CPPFLAGS = $(PYTHON_CPPFLAGS) -I../swig -I../..
 SWIGFLAGS += $(PYTHON_CPPFLAGS) -I../swig
 
 # On MacOS X, compilation generates a warning about `long double'.
@@ -93,11 +93,11 @@ ifeq "$(HOST_TYPE)" "darwin"
 endif
 
 extra_LDFLAGS  = $(PYTHON_LDFLAGS)
-extra_LIBS     = -L../../src -lsbml $(PYTHON_LIBS)
+extra_LIBS     = -L../.. -lsbml $(PYTHON_LIBS)
 
 ifeq "$(USE_EXPAT)" "1"
   extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS  += $(EXPAT_LDFLAGS) -L../../expat
+  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
   extra_LIBS     += $(EXPAT_LIBS)
 else
   extra_CPPFLAGS += $(XERCES_CPPFLAGS)
@@ -105,9 +105,9 @@ else
   extra_LIBS     += $(XERCES_LIBS)
 endif
 
-# `check_programs' is used for running tests.
+# `check_driver' is used for running tests.
 
-check_programs = accept.py
+check_driver = accept.py
 
 # For Linux/Unix LD_LIBRARY_PATH *may* need to contain one or more library
 # paths to libsbml.so, libxerces-c.so and/or libexpat.so and/or the
@@ -143,6 +143,7 @@ extra_distclean = libsbml.pyc setup.py
 .SUFFIXES: .i .cpp .py .pyc .pyo .o .obj
 
 objfiles = libsbml_wrap.$(OBJEXT)
+test_objfiles = $(objfiles)
 
 # The default action is to remake everything.
 
@@ -164,16 +165,15 @@ endif
 # --with-swig flag.
 
 swig_sources = \
-	  ../swig/libsbml.hpp \
+	  ../swig/libsbml.h \
 	  ../swig/libsbml.i
 
-libsbml_wrap.cpp libsbml.py: $(swig_sources) ../../src/sbml/*.hpp
+libsbml_wrap.cpp libsbml.py: $(swig_sources) ../../*/*.h
 ifndef USE_SWIG
 	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
 	exit 1
 else
-	$(SWIG) $(SWIGFLAGS) -I../../src \
-	  -c++ -python -o libsbml_wrap.cpp libsbml.i
+	$(SWIG) $(SWIGFLAGS) -I../.. -c++ -python -o libsbml_wrap.cpp libsbml.i
 	perl -pi -e "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
 		libsbml.py
 endif
@@ -187,17 +187,17 @@ setup.py: setup.py.in
 # -----------------------------------------------------------------------------
 
 ifdef USE_LIBCHECK
-  check: all run-checks
+  check: $(libraries)
+	@echo
+	@echo
+	@echo Running Tests in $(thisdir)
+	@echo -----------------------------------------------------------------
+	$(call libsbmlrun,$(PYTHON) accept.py)
+	@echo -----------------------------------------------------------------
+	@echo
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
-
-run-checks: $(libraries)
-	@echo
-	@echo Running test: $@
-	@echo -------------
-	$(call libsbmlrun,$(PYTHON) accept.py)
-	@echo
 
 
 # -----------------------------------------------------------------------------
