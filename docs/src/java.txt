@@ -1,0 +1,272 @@
+
+
+               The libSBML Java Library -- Tutorial
+
+                           12-Jul-2004
+
+             for libSBML v2.0.3   document revision 0.1
+
+
+1  SETTING UP
+
+   To run Java programs that access libSBML, you must set up
+   the following environment variables.
+
+   On Linux:
+
+      CLASSPATH
+         must include the "libsbmlj.jar" file from the libSBML
+	 java bindings directory.  For example:
+
+            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
+
+      LD_LIBRARY_PATH
+         must include the directory that contains the
+         libsbmlj.so file.  For example:
+
+            LD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
+
+   On Mac OS X:
+
+      CLASSPATH
+         must include the "libsbmlj.jar" file from the libSBML
+	 java bindings directory.  For example:
+
+            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
+
+      DYLD_LIBRARY_PATH
+         must include the directory that contains the
+         libsbmlj.jnilib file.  For example:
+
+            DYLD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
+
+  On Windows:
+
+     CLASSPATH
+         must include the "sbmlj.jar" file in the Java SWIG
+         bindings directory.  For example:
+
+            CLASSPATH C:\libsbml\bindings\java\sbmlj.jar
+
+         NOTE: To set an environmental variable in Windows use the
+         System option on the Control Panel.
+      
+     The sbmlj.dll file must be on the system path. The easiest way to
+     achieve this is to copy this file to the windows system
+     directory. For example
+
+	   C:\WINDOWS\SYSTEM32
+     
+
+
+2  A SIMPLE JAVA LIBSBML PROGRAM
+
+   Here is a very simple program that reads in an SBML model:
+
+      import org.sbml.libsbml.*;
+
+      public class Demo1
+      {
+         public static void main(String args[])
+         {
+            System.loadLibrary("sbmlj");
+
+            SBMLReader reader = new SBMLReader();
+            SBMLDocument document = reader.readSBML(
+               "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+            Model model = document.getModel();
+            ListOf listOfSpecies = model.getListOfSpecies();
+
+            for (int i = 0; i < model.getNumSpecies(); i++) {
+               Species species = (Species)listOfSpecies.get(i);
+               System.out.println(
+                  species.getName() + "  " +
+                  species.getCompartment() + "  " +
+                  species.getInitialAmount()
+               );
+            }
+         }
+      }
+
+   Here is the output of the program:
+
+      s1  cell  4.0
+      s2  cell  2.0
+      x0  cell  1.0
+      x1  cell  0.0
+
+   Key libSBML-related elements:
+
+      import org.sbml.libsbml.*;
+
+         Brings all the libSBML classes and constants into the
+         present namespace.
+
+      System.loadLibrary("sbmlj");
+
+         Loads libSBML and its Java SWIG binding into memory.
+
+      SBMLReader reader = new SBMLReader();
+
+         Creates the object that will read in an SBML document.
+
+      SBMLDocument document = reader.readSBML(
+         "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+
+         Reads in the SBML document.  See section 2.1 for the
+         full text of the document.
+
+      Model model = document.getModel();
+
+         Extracts the model from the document.
+
+      ListOf listOfSpecies = model.getListOfSpecies();
+
+         Gets a ListOf object that holds references to all the
+         species in the model.  A ListOf object does not operate
+         the same way as a Java List.  You need to call it with
+         the same method names as the C/C++ ListOf class in the
+         libSBML library.
+
+      for (int i = 0; i < model.getNumSpecies(); i++) {
+         Species species = (Species)listOfSpecies.get(i);
+         System.out.println(
+            species.getName() + "  " +
+            species.getCompartment() + "  " +
+            species.getInitialAmount()
+         );
+      }
+
+         Notice the (Species) cast on the object returned by
+         listOfSpecies.get().  As usual in Java, when extracting
+         items from a list that can hold objects of a variety of
+         classes, we must know the class of the object we're
+         extracting so we can make the cast.
+
+   Here's the raw XML of the model:
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
+        <model>
+          <listOfCompartments>
+            <compartment name="cell" volume="1"/>
+          </listOfCompartments>
+          <listOfSpecies>
+            <specie name="s1" compartment="cell" initialAmount="4"/>
+            <specie name="s2" compartment="cell" initialAmount="2"/>
+            <specie name="x0" compartment="cell" initialAmount="1"/>
+            <specie name="x1" compartment="cell" initialAmount="0"/>
+          </listOfSpecies>
+          <listOfParameters>
+            <parameter name="k1" value="1.2"/>
+            <parameter name="k2" value="1000"/>
+            <parameter name="k3" value="3000"/>
+            <parameter name="k4" value="4.5"/>
+          </listOfParameters>
+          <listOfRules>
+            <parameterRule name="t" formula="s1 + s2"/>
+            <parameterRule name="k" formula="k3/k2"/>
+            <specieConcentrationRule specie="s2" formula="k * t/(1 + k)"/>
+            <specieConcentrationRule specie="s1" formula="t - s2"/>
+          </listOfRules>
+          <listOfReactions>
+            <reaction name="j1">
+              <listOfReactants>
+                <specieReference specie="x0"/>
+              </listOfReactants>
+              <listOfProducts>
+                <specieReference specie="s1"/>
+              </listOfProducts>
+              <kineticLaw formula="k1 * x0"/>
+            </reaction>
+            <reaction name="j3">
+              <listOfReactants>
+                <specieReference specie="s2"/>
+              </listOfReactants>
+              <listOfProducts>
+                <specieReference specie="x1"/>
+              </listOfProducts>
+              <kineticLaw formula="k4 * s2"/>
+            </reaction>
+          </listOfReactions>
+        </model>
+      </sbml>
+
+
+3  CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
+
+   Now that we know how to read SBML in from a file, let's do
+   something useful: let's convert l1v1-rules.xml from Level 1
+   to Level 2.
+
+   To do this, we only need to know two more things: how to
+   modify an SBase object, and how to write an SBML document to
+   disk.  Here is the complete program:
+
+      import org.sbml.libsbml.*;
+
+      public class Demo
+      {
+         public static void main(String args[])
+         {
+            System.loadLibrary("sbmlj");
+            SBMLReader reader   = new SBMLReader();
+            SBMLDocument document = reader.readSBML(
+               "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+
+            document.setLevel(2);
+            libsbml.writeSBML(document, "l2v1-rules.xml");
+         }
+      }
+
+   That's all there is to it!  We changed the level of the SBML
+   document by calling its setLevel() method.  All libSBML
+   objects that inherit from SBase--that is, all libSBML objects
+   that represent entities in an SBML document--are modified by
+   a "setter" function whose name is "setXxxx", where Xxxx is
+   the name of the data element (with the first letter
+   capitalized).
+   
+   Then we wrote the document to a new file by calling the
+   static function libsbml.writeSBML().
+
+   This works because, internally, libSBML stores the model as a
+   data structure that represents the information in the model
+   without regard to the format in which the model is stored on
+   disk.  The SBMLDocument's "level" data member just tells
+   writeSBML() the format in which to save the model.
+
+   The Level 2 version of the model is longer than the Level 1
+   version, so we'll only show the beginning here.  Notice that
+   "specie" got changed to "species" and the parameterRules are
+   now expressed in MathML inside assignmentRules:
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+        <model>
+          <listOfCompartments>
+            <compartment id="cell" size="1"/>
+          </listOfCompartments>
+          <listOfSpecies>
+            <species id="s1" compartment="cell" initialAmount="4"/>
+            <species id="s2" compartment="cell" initialAmount="2"/>
+            <species id="x0" compartment="cell" initialAmount="1"/>
+            <species id="x1" compartment="cell" initialAmount="0"/>
+          </listOfSpecies>
+          <listOfParameters>
+            <parameter id="k1" value="1.2"/>
+            <parameter id="k2" value="1000"/>
+            <parameter id="k3" value="3000"/>
+            <parameter id="k4" value="4.5"/>
+          </listOfParameters>
+          <listOfRules>
+            <assignmentRule variable="t">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <apply>
+                  <plus/>
+                  <ci> s1 </ci>
+                  <ci> s2 </ci>
+                </apply>
+              </math>
+            </assignmentRule>
+            . . .
