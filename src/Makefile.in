@@ -361,26 +361,16 @@ distfiles_exclude = sbml/config.h
 
 all: Makefile $(libraries)
 
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
+
 ifdef USE_LIBCHECK
   check: all run-checks
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
-
-dvi:
-
-pdf:
-
-ps:
-
-info:
-
-html:
-
-
-# -----------------------------------------------------------------------------
-# Targets for checking/testing.
-# -----------------------------------------------------------------------------
 
 # The makefile directives for check tend to have to be specific to each source
 # directory and not abstracted into `makefile-common-actions.mk'.
@@ -407,6 +397,21 @@ run-checks:: $(check_programs)
 	  ./$$test; \
 	  echo ""; \
 	done;
+
+
+# -----------------------------------------------------------------------------
+# Formatting documentation.
+# -----------------------------------------------------------------------------
+
+dvi:
+
+pdf:
+
+ps:
+
+info:
+
+html:
 
 
 # -----------------------------------------------------------------------------

@@ -176,13 +176,28 @@ else
 	  -c++ -python -o libsbml_wrap.cpp libsbml.i
 endif
 
-# Additional standard targets.
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
 
-ifeq "$(USE_LIBCHECK)" "1"
+ifdef USE_LIBCHECK
   check: all run-checks
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
+
+run-checks: $(libraries)
+	@echo
+	@echo Running test: $@
+	@echo -------------
+	$(call libsbmlrun,$(PYTHON) accept.py)
+	@echo
+
+
+# -----------------------------------------------------------------------------
+# Formatting documentation.
+# -----------------------------------------------------------------------------
 
 dvi:
 
@@ -193,18 +208,6 @@ ps:
 info:
 
 html:
-
-
-# -----------------------------------------------------------------------------
-# Targets for checking/testing.
-# -----------------------------------------------------------------------------
-
-run-checks: $(libraries)
-	@echo
-	@echo Running test: $@
-	@echo -------------
-	$(call libsbmlrun,$(PYTHON) accept.py)
-	@echo
 
 
 # -----------------------------------------------------------------------------
