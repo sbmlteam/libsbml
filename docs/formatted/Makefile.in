@@ -73,7 +73,7 @@ docs      = \
 	python.txt \
 	$(wildcard *.pdf) \
 	$(wildcard *.ps) \
-	libsbml-manual
+	$(wildcard libsbml-manual)
 
 distfiles = $(docs) Makefile.in
 
