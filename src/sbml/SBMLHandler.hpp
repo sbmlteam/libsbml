@@ -117,16 +117,16 @@ public:
 
   void setDocumentLocator (const Locator *const locator);
 
-  void warning    (const SAXParseException&);
-  void error      (const SAXParseException&);
-  void fatalError (const SAXParseException&);
+  inline void warning    (const SAXParseException&);
+  inline void error      (const SAXParseException&);
+  inline void fatalError (const SAXParseException&);
 
-  void warning    (const char* message);
-  void error      (const char* message);
-  void fatalError (const char* message);
+  inline void warning    (const char* message);
+  inline void error      (const char* message);
+  inline void fatalError (const char* message);
 
-  ParseMessage_t* createParseMessage (const char* message);
-  ParseMessage_t* createParseMessage (const SAXParseException& e);
+  inline ParseMessage_t* ParseMessage_createFrom (const char* message);
+         ParseMessage_t* ParseMessage_createFrom (const SAXParseException& e);
 
 
 private:
