@@ -147,7 +147,7 @@ docs = \
 # latter are the object of `make subdist' and the files that are collected
 # are under the control of the makefiles in the subdirectories.
 
-dist_subdirs = expat src bindings docs
+dist_subdirs = expat src bindings docs win32
 
 distfiles = \
         AUTHORS.txt                                          \
