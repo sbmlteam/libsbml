@@ -1,4 +1,77 @@
+2003-03-31  Ben Bornstein  <bornstei@caltech.edu>
+
+	* memory.c (MemTrace_printStatistics): Fixed unescaped %'s in printf() calls.
+
+	* Model.c (Model_createKineticLaw): Correctly returns NULL if a
+	kineticLaw already exists for the last Reaction in the Model.
+	TestModel.c (test_Model_createKineticLaw_alreadyExists): Added
+
+	* SBMLDocument.h (SBMLDocument_t):      Added SBASE_FIELDS
+	SBMLDocument.c   (SBMLDocument_create): Added call to SBase_init()
+	SBMLTypeCodes.h  (SBMLTypeCodes_t):     Added SBML_DOCUMENT
+	TestSBMLDocument.c: Tests for SBASE_FIELDS
+
+	* SAX2SBMLHandler.cpp (endElement): Logs error if the notes or
+	annotation field of the SBMLDocument is set.
+	TestSAX2SBMLHandler.cpp (test_element_notes_sbml,
+	test_element_annotation_sbml): Added
+
+	* SAX2SBMLHandler.cpp (endElement): Logs error if a nested <notes>
+	element is detected.
+	TestSAX2SBMLHandler.cpp (test_element_notes_nested): Added check for
+	logged error
+
+	* SAX2SBMLHandler.cpp (warning, error, fatalError,
+	createParseMessage): Added versions of these functions that take
+	(char *) so the handler can log errors internally.
+
+	* SBMLUnicodeConstants.hpp:        Added ELEM_ANNOTATIONS
+	SBMLHashCodes.hpp (HashCode_t):    Added HASH_ANNOTATIONS
+	SBMLHashCodes.cpp (SBML_ELEMENTS): Added ELEM_ANNOTATIONS
+	SAX2SBMLHandler.cpp (startElement, endElement): Recognizes both
+	HASH_ANNOTATION and HASH_ANNOTATIONS
+	TestSAX2SBMLHandler.cpp (test_element_annotations): Added
+
+	SBMLHashCodes.cpp (HashCode_forElement): Uncommented
+	SAX2SBMLHandler.cpp (startElement, endElement): Replaced
+	call to XMLString::HashCode() with HashCode_forElement().
+
+	* SBMLUnicodeConstants.hpp: Added XMLNS_SBML_L1
+	SAX2SBMLHandler.cpp (startElement, endElement): Correctly handles
+	SBML (XML) namespace.
+
+
 2003-03-24  Ben Bornstein  <bornstei@caltech.edu>
+
+	* SAX2SBMLHandler.cpp (handleSpecies, handleReaction):
+	XMLUtil::scanAttr(..., bool*) no longers passes a pointer to an int
+	instead of a bool.  This broke several tests when building on
+	Solaris, probably because of the incorrect implicit assumption that
+	sizeof(int) == sizeof(bool).
+
+	* TestSBMLReader.cpp, test-data/sbml-l1v1.xsd,
+	test-data/l1v1-branch-schema-error.xml: New files
+
+	* SBMLReader.cpp (SBMLReader_create, SBMLReader_free,
+	SBMLReader_setSchemaFilename, SBMLReader_readSBML,
+	SBMLReader_readSBMLFromString): New functions
+
+	* SBMLReader.cpp (readSBML_internal, SBMLReader_readSBML_internal):
+	Former function replaced by latter.  SBMLReader_readSBML_internal
+	now turns on Xerces Schema validation as appropriate.
+
+	* SBMLReader.cpp (readSBML, readSBMLFromString): Now simple wrappers
+	around SBMLReader_readSBML and SBMLReader_readSBMLFromString,
+	respectively.
+
+	* SBMLDocument.c (SBMLDocument_printWarnings,
+	SBMLDocument_printErrors, SBMLDocument_printFatals): New functions
+	readSBML.c (reportErrors) replaced with calls to to above new
+	functions.
+
+	* test-data/sbml.xsd: Removed.  Replaced with sbml-l1v1.xsd.  New
+	file is a more correct SBML L1v1 schema (e.g. default Units scale is
+	0 not 1).
 
 	* SBMLDocument.c (ParseMessage_free): Replace free() with safe_free().
 
