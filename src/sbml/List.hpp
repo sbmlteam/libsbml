@@ -78,6 +78,7 @@ public:
   /**
    * Creates a new List.
    */
+  LIBSBML_EXTERN
   List ();
 
   /**
@@ -91,6 +92,7 @@ public:
    * longer or ii) the list has no items (List.size() == 0).  If neither
    * are true, try List_freeItems() instead.
    */
+  LIBSBML_EXTERN
   virtual ~List ();
 
 
