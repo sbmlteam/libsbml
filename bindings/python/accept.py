@@ -274,14 +274,20 @@ def testEventAssignment():
 
 
 def testRule():
-   rule = libsbml.AssignmentRule()
-   assert rule
+   rules = [
+      libsbml.AssignmentRule(),
+      libsbml.AlgebraicRule(),
+      libsbml.RateRule()
+   ]
 
-   formula = libsbml.parseFormula("11 + 11")
-   assert formula.thisown == 1
+   for rule in rules:
+      assert rule
 
-   rule.setMath(formula)
-   assert formula.thisown == 0
+      formula = libsbml.parseFormula("11 + 11")
+      assert formula.thisown == 1
+
+      rule.setMath(formula)
+      assert formula.thisown == 0
 
 
 def testListOf():
@@ -292,6 +298,8 @@ def testListOf():
    compartment = libsbml.Compartment()
    assert compartment
    assert compartment.thisown == 1
+
+   # append()
 
    lo.append(compartment)
    assert lo.getNumItems() == 1
@@ -306,7 +314,140 @@ def testListOf():
    # Theoretically, having thisown==1 on only one object ensures that the
    # underlying libsbml object gets freed only once.
 
+   # prepend()
+
+   compartment2 = libsbml.Compartment("compartment2")
+   assert compartment2
+   assert compartment2.thisown == 1
+
+   lo.prepend(compartment2)
+   assert lo.getNumItems() == 1
+   assert compartment2.thisown == 0
+
+
+def testModel():
+   model = libsbml.Model()
+   assert model
+
+   # addFunctionDefinition()
+
+   functionDefinition = libsbml.FunctionDefinition()
+   assert functionDefinition
+   functionDefinition.setMath(libsbml.parseFormula("15 + 15"))
+   assert functionDefinition.thisown == 1
+
+   model.addFunctionDefinition(functionDefinition)
+   assert functionDefinition.thisown == 0
+
+   # addUnitDefinition()
+
+   unitDefinition = libsbml.UnitDefinition()
+   assert unitDefinition
+   assert unitDefinition.thisown == 1
+
+   unit = libsbml.Unit(libsbml.UNIT_KIND_KILOGRAM, 1, 1000, 1, 0)
+   unitDefinition.addUnit(unit);
+
+   model.addUnitDefinition(unitDefinition)
+   assert unitDefinition.thisown == 0
+
+   # addCompartment()
+
+   compartment = libsbml.Compartment()
+   assert compartment
+   assert compartment.thisown == 1
+
+   model.addCompartment(compartment)
+   assert compartment.thisown == 0
+
+   # addSpecies()
+
+   species = libsbml.Species()
+   assert species and species.thisown == 1
+   species.setMetaId('foo')
+   assert species.getMetaId() == 'foo'
+
+   model.addSpecies(species)
+   assert species.thisown == 0
+
+   # addParameter()
+
+   parameter = libsbml.Parameter("paramId")
+   assert parameter
+   assert parameter.thisown == 1
+
+   model.addParameter(parameter)
+   assert parameter.thisown == 0
+
+   # addReaction()
+
+   reaction = libsbml.Reaction("R", libsbml.KineticLaw("1 + 1"))
+   assert reaction
+   assert reaction.getKineticLaw().thisown == 0
+
+   model.addReaction(reaction)
+   assert reaction.thisown == 0
+
+   # addEvent()
+
+   event = libsbml.Event()
+   assert event
+   assert event.thisown == 1
+   event.setTrigger(libsbml.parseFormula("3 + 3"))
+
+   model.addEvent(event)
+   assert event.thisown == 0
+
+
+def testKineticLaw():
+   kineticLaw = libsbml.KineticLaw("1 + 1")
+   assert kineticLaw and kineticLaw.thisown == 1
+   assert kineticLaw.getFormula() == "1 + 1"
+
+   # setMath()
+
+   formula = libsbml.parseFormula("15 + 15")
+   assert formula.thisown == 1
+
+   kineticLaw.setMath(formula)
+   assert formula.thisown == 0
+
+   # addParameter()
+
+   parameter = libsbml.Parameter("paramId")
+   assert parameter
+   assert parameter.thisown == 1
+
+   kineticLaw.addParameter(parameter)
+   assert parameter.thisown == 0
+
    
+def testASTNode():
+   astNode = libsbml.ASTNode(libsbml.AST_PLUS)
+   assert astNode
+
+   leftNode = libsbml.parseFormula("200")
+   assert leftNode.thisown == 1
+   rightNode = libsbml.parseFormula("2000")
+   assert rightNode.thisown == 1
+
+   astNode.prependChild(leftNode)
+   assert leftNode.thisown == 0
+   astNode.addChild(rightNode)
+   assert rightNode.thisown == 0
+
+
+def testMathMLDocument():
+   doc = libsbml.MathMLDocument()
+   assert doc
+
+   formula = libsbml.parseFormula("16 + 16")
+   assert formula.thisown == 1
+
+   doc.setMath(formula)
+   assert formula.thisown == 0
+
+
 class TestRunner:
 
    def __init__(self):

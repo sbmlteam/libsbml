@@ -134,11 +134,20 @@
     return _libsbml.SpeciesReference_setStoichiometryMath(*args)
 %}
 
+
 %feature("shadow") ListOf::append(SBase*)
 %{
   def append(*args):
     if args[1] is not None: args[1].thisown = 0
     return _libsbml.ListOf_append(*args)
+%}
+
+
+%feature("shadow") ListOf::prepend(SBase*)
+%{
+  def prepend(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.ListOf_prepend(*args)
 %}
 
 
@@ -223,6 +232,78 @@
 %}
 
 
+%feature("shadow") Model::addFunctionDefinition(FunctionDefinition&)
+%{
+  def addFunctionDefinition(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Model_addFunctionDefinition(*args)
+%}
+
+
+%feature("shadow") Model::addUnitDefinition(UnitDefinition&)
+%{
+  def addUnitDefinition(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Model_addUnitDefinition(*args)
+%}
+
+
+%feature("shadow") Model::addCompartment(Compartment&)
+%{
+  def addCompartment(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Model_addCompartment(*args)
+%}
+
+
+%feature("shadow") Model::addSpecies(Species&)
+%{
+  def addSpecies(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Model_addSpecies(*args)
+%}
+
+
+%feature("shadow") Model::addParameter(Parameter&)
+%{
+  def addParameter(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Model_addParameter(*args)
+%}
+
+
+%feature("shadow") Model::addReaction(Reaction&)
+%{
+  def addReaction(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Model_addReaction(*args)
+%}
+
+
+%feature("shadow") Model::addEvent(Event&)
+%{
+  def addEvent(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Model_addEvent(*args)
+%}
+
+
+%feature("shadow") KineticLaw::setMath(ASTNode*)
+%{
+  def setMath(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.KineticLaw_setMath(*args)
+%}
+
+
+%feature("shadow") KineticLaw::addParameter(Parameter&)
+%{
+  def addParameter(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.KineticLaw_addParameter(*args)
+%}
+
+
 %feature("shadow") Reaction::Reaction(const std::string&, KineticLaw*, bool)
 %{
   def __init__(self, *args):
@@ -263,4 +344,28 @@
     if args[1] is not None:
       args[1].thisown = 0
     return _libsbml.Reaction_addModifier(*args)
+%}
+
+
+%feature("shadow") ASTNode::addChild(ASTNode*)
+%{
+  def addChild(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.ASTNode_addChild(*args)
+%}
+
+
+%feature("shadow") ASTNode::prependChild(ASTNode*)
+%{
+  def prependChild(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.ASTNode_prependChild(*args)
+%}
+
+
+%feature("shadow") MathMLDocument::setMath(ASTNode*)
+%{
+  def setMath(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.MathMLDocument_setMath(*args)
 %}
