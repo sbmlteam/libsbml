@@ -156,6 +156,7 @@ distfiles = \
         ChangeLog.txt                                        \
         COPYING.html                                         \
         COPYING.txt                                          \
+        FUNDING.txt                                          \
         NEWS.txt                                             \
         README.txt                                           \
         VERSION.txt                                          \
