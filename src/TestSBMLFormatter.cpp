@@ -92,7 +92,27 @@ TestSBMLFormatter_teardown (void)
 }
 
 
-START_TEST (test_SBMLFormatter_SBMLDocument)
+START_TEST (test_SBMLFormatter_SBMLDocument_L1v1)
+{
+  SBMLDocument_t *d = SBMLDocument_createWith(1, 1);
+
+  const char *s = wrapXML
+  (
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
+    "level=\"1\" version=\"1\"/>\n"
+  );
+
+
+  *formatter << d;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_SBMLDocument_L1v2)
 {
   SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
 
@@ -103,7 +123,6 @@ START_TEST (test_SBMLFormatter_SBMLDocument)
   );
 
 
-  *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << d;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
@@ -124,7 +143,6 @@ START_TEST (test_SBMLFormatter_SBMLDocument_L2v1)
   );
 
 
-  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << d;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
@@ -1781,7 +1799,8 @@ create_suite_SBMLFormatter (void)
  
 
   /** SBMLDocument **/
-  tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument      );
+  tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument_L1v1 );
+  tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument_L1v2 );
   tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument_L2v1 );
 
 

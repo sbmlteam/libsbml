@@ -132,9 +132,6 @@ SBMLFormatter::operator<< (const SBMLVersion_t version)
 SBMLFormatter&
 SBMLFormatter::operator<< (const SBMLDocument_t* d)
 {
-  const XMLCh* xmlns = (fLevel == 1) ? XMLNS_SBML_L1 : XMLNS_SBML_L2;
-
-
   fLevel   = d->level;
   fVersion = d->version;
 
@@ -149,7 +146,7 @@ SBMLFormatter::operator<< (const SBMLDocument_t* d)
   // xmlns="http://www.sbml.org/level1"  (L1v1, L1v2)
   // xmlns="http://www.sbml.org/level2"  (L2v1)
   //
-  attribute(ATTR_XMLNS, xmlns);
+  attribute(ATTR_XMLNS, (fLevel == 1) ? XMLNS_SBML_L1 : XMLNS_SBML_L2);
 
   //
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
