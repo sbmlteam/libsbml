@@ -1,0 +1,8 @@
+(setf (logical-pathname-translations "cparse")
+  '(
+    ("cparse:utilities;*.*" "@lisputils@/*.*")
+    ("cparse:**;*" "@cparse@/**/*")
+    ("cparse:**;*.*" "@cparse@/**/*.*")
+    ("cparse:**;*.*.*" "@cparse@/**/*.*.*")
+    ))
+

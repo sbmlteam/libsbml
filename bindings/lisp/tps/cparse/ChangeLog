@@ -1,0 +1,78 @@
+2004-08-26  Martin Ginkel <martin.ginkel@epost.de>
+        * added some support for ACL acl-ffi.lisp: functions and enums
+        * the same thing for uffi uffi.lisp
+	* added asdf.lisp with classes to use c-headers with uffi-translation in asdf
+        * added cparse.asd
+
+2002-03-19  Tim Moore  <moore@ariel.bricoworks.com>
+
+	* cparse.lisp (%peek-character): No optional defaults in
+	defgeneric form.
+	* ctype.lisp (print-object): conditionalize on PCL.
+	(*cparse-version*): Bump.
+
+2002-03-18  Tim Moore  <moore@ariel.bricoworks.com>
+
+	* cparse.lisp (%read-char, %read-line, get-integer-base,
+	cparse-stream, def-expr-expression): clisp fixes from
+	dan.stanger@ieee.org.
+	(*cparse-version*):Bump version.
+
+2002-03-18  Tim Moore  <moore@bricoworks.com>
+
+	* cparse.lisp ((sizeof array-type)): Access the value of the constant 
+	length.
+
+2001-09-27  Tim Moore  <moore@bricoworks.com>
+
+	* cparse.lisp (parse-function): Don't return any function
+	arguments if single argument is void.
+
+2001-09-26  Tim Moore  <moore@bricoworks.com>
+
+	* cparse.lisp (defc): Don't wrap in eval-when.
+	* cmu-alien.lisp (do-type-declarator array-type): Don't barf on
+	nil array length. 
+
+2001-09-08  Tim Moore  <moore@roscoe.bricoworks.com>
+
+	* cparse.lisp: Support for sizeof and alignof for compound types.
+	(compound-type): Add size and alignment slots.
+	(%copy-type :after compound-type t): copy those slots.
+	(parse-struct-union): Calculate size and alignment.
+	(add-elems-to-lists, round-to-alignment): New functions.
+	(compute-compound-size): New generic function and methods.
+	(alignof): new generic function and methods.
+	(sizeof): new methods for compound types and arrays.
+	* ctype.lisp (type-width impl-32bit cfloat, 
+	type-width impl-32bit double): New methods.
+	(pointer-width, pointer-alignment, type-alignment): New generic
+	functions and methods.
+
+2001-06-02  Tim Moore  <moore@roscoe.bricoworks.com>
+
+	* cparse-package.lisp (long-long, unsigned-long-long): Export from
+	CPARSE package.
+	* cparse.lisp (unsigned): Delete this class; use class in
+	ctype.lisp.
+	(unsigned-object): Change cpl.
+	(make-int-const-w/type): New function.
+	(make-float-const, parse-number): Return consts instead of number
+	objects; use make-int-const-w/type.
+	(make-prim-type): Instantiate classes that actually exist for long
+	long et al.
+	(parse-primary-expression): Expect numeric constants from parsing
+	machinery, not "objects."
+	* cmu-alien-package.lisp: New file for CMU-ALIEN defpackage.
+	* cmu-alien.lisp: Use it.
+
+2001-05-13  Tim Moore  <moore@roscoe.bricoworks.com>
+
+	* ctype.lisp (long-long, unsigned-long-long): New numeric types.
+	(type-width, +type-precedence+, convert-operands): Add methods,
+	precedence for those types.
+	
+2001-05-03  Tim Moore  <moore@ariel.bricoworks.com>
+
+	* Version 0.1.1 released.
+

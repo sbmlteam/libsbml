@@ -1,0 +1,12 @@
+Kevin M. Rosenberg <kevin@rosenberg.net>
+  Primary author
+
+John Desoi <desoi@mac.com>
+  Contributed MCL & OpenMCL support
+
+Reini Urban <rurban@x-ray.at>
+  Contributed initial Corman support
+
+Edi Weitz <edi@weitz.de>
+  Contributed with-cast-pointer and def-foreign-var along with
+  documentation

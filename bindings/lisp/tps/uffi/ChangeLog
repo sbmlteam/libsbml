@@ -1,0 +1,229 @@
+2004-04-15 Kevin Rosenberg (kevin@rosenberg.net)
+	* src/objects.lisp: Add new functions:
+	MAKE-POINTER and POINTER-ADDRESS
+
+2004-04-13 Kevin Rosenberg (kevin@rosenberg.net)
+	* src/string.lisp: Add new FOREIGN-STRING-LENGTH
+
+2003-08-15 Kevin Rosenberg (kevin@rosenberg.net)
+	* Added with-cast-pointer and def-foreign-var (patches submitted
+	by Edi Weitz). 
+	* Added many new tests
+	
+2002-10-16 Kevin Rosenberg (kevin@rosenberg.net)
+        * Added support for SBCL and SCL
+	
+2002-09-29 Kevin Rosenberg (kevin@rosenberg.net)
+	* Numerous changes in openmcl support (uffi now supports
+	clsql on openmcl)
+	
+2002-09-19 Kevin Rosenberg (kevin@rosenberg.net)
+        - Integrate John Desoi's OpenMCL support into src-mcl
+	* examples/Makefile: add section for building on MacOS X (John Desoi)
+	* examples/test-examples: changed from mk: to asdf: package loading (KMR)
+	* examples/run-examples: changed from mk: to asdf: package loading (KMR), 
+	add conditional loading if UFFI not loaded (John Desoi)
+	* examples/compress.cl: Add dylib to library types for MacOSX (John Desoi),
+	converted compressed output to hexidecimal display (KMR)
+	* examples/union.cl: Rework the tests (KMR)
+	* src-main/libraries.cl: add dylib as default library type on MacOSX (John Desoi)
+	* src-main/aggregates.cl: convert from uffi type in deref-array (John Desoi)
+	
+2002-09-16 Kevin Rosenberg (kevin@rosenberg.net)
+	- Restructure directories to move to a asdf definition file
+	without pathnames.
+	
+2002-08-25 Kevin Rosenberg (kevin@rosenberg.net)
+       - Restructure directories to attempt to properly handle both
+	Common Lisp Controller and non-CLC systems
+	
+2002-08-17 Kevin Rosenberg (kevin@rosenberg.net)
+
+	- add uffi.asd for ASDF users
+
+2002-08-01 Kevin Rosenberg (kevin@rosenberg.net)
+	- Restructure directories to improve Common Lisp Controller v3
+	compatibility
+	
+2002-07-25 Kevin Rosenberg (kevin@rosenberg.net)
+
+	- Rework handling of logical pathnames.
+	- Move run-examples.cl to examples directory.
+	
+2002-06-28 Kevin Rosenberg (kevin@rosenberg.net)
+
+	- Added size-of-foreign-type function.
+	
+2002-06-26 Kevin Rosenberg (kevin@rosenberg.net)
+
+	- Fix bug in Lispworks allocate-foreign-object
+	- Added new :unsigned-byte type. Made :byte signed. 
+	
+2002-04-27 Kevin Rosenberg (kevin@rosenberg.net)
+	- misc files
+	First debian version
+	
+2002-04-23 Kevin Rosenberg (kevin@rosenberg.net)
+	- doc/*
+	Updated to debian docbook catalog
+	
+2002-04-23 John DeSoi (desoi@mac.com)
+	* src/mcl/*
+	Improved MCL support
+
+2002-04-06 Kevin Rosenberg (kevin@rosenberg.net)
+	* src/mcl/libraries.cl:
+	Removed unnecessary function and added find-foreign-library
+	* src/mcl/*.cl:
+	Added authorship for John DeSoi
+	* doc/ref.sgml:
+	Added documentation for find-foreign-library
+	* uffi.system:
+	Simplied logical pathnames and MCL loading
+	
+2002-04-04 John DeSoi (desoi@mac.com)
+	* src/mcl/*.cl
+	Added initial support for MCL
+
+2002-04-02 Kevin Rosenberg (kevin@rosenberg.net)
+	* src/libraries.cl:
+	Added test for .so libraries on CMUCL and use sys::load-object-file instead
+	of alien:load-library-file
+	* examples/Makefile:
+	Updated defaults so library is created correctly on Linux, FreeBSD, and Solaris
+
+2002-04-02 Kevin Rosenberg (kevin@rosenberg.net)
+	* examples/compress.cl:
+	Fixed missing '/'
+	* examples/union.cl:
+	Added support for SPARC big-endian
+	* test-examples.cl:
+	Automated testing suite
+	
+2002-04-01 Kevin Rosenberg (kevin@rosenberg.net)
+	* src/libraries.cl:
+	* examples/Makefile:
+	Changed default type for FreeBSD and updated Makefile for
+	FreeBSD and Solaris. Enhanced find-foreign-library to
+	take a list of types to search.
+	* examples/compress.cl:
+	Add support to use find-foreign-library
+
+2002-03-31  Kevin Rosenberg (kevin@rosenberg.net)
+	* src/strings.cl:
+	Fixed bug in with-foreign-string (Thanks Harald Hanche-Olsen)
+	* examples/Makefile:
+	Create a .a library file for FreeBSD
+	* src/libraries.cl:
+	Added default type and find-foreign-library functions
+	
+2002-03-29  Kevin Rosenberg (kevin@rosenberg.net)
+	* src/objects.cl: 
+	Fixed bug in deref-pointer (Thanks John Desoi!)
+
+2002-03-22  Kevin Rosenberg (kevin@rosenberg.net)
+	* src/aggregates.cl: 
+	Changed name and implementation of def-array to more appropriate
+	def-array-pointer
+	* src/ref.sgml:
+	Updated def-array-pointer documentation
+	* src/primitives.cl:
+	Made results of def-constant equal those of cl:defconstant
+	* src/objects.cl:
+	Made type be evaluated for with-foreign-object and allocate-foreign-object
+	* VERSION:
+	Increase to 0.3.0 to coincide with the release of CLSQL.
+	
+21 Mar 2002
+	* Fixed problem with NULL foreign-strings with CMUCL
+	* Added c-test-fns to examples for allow more specific testing
+	of UFFI. Builds on UNIX and Win32 platforms.
+	* Added def-union function, added union.cl example
+	* Fixed error with ensure-char-[character|integer]
+	* Added 2-d array example to examples/arrays.cl	
+	* Fixed documentation error on gethostname
+	* Added ensure-char-* and def-union to documentation
+	* Added double-float vector example to c-test-fns
+	* Reworked cstring on Lispworks to have LW handle string conversion
+	* First pass at with-foreign-object -- unoptimized
+	* Added gethostname2 example which uses with-foreign-object
+	* Added char-array-to-pointer function to encapsulate
+	converting a char array	to a char pointer
+	* Converted with-foreign-object to use stack allocation on CMUCL and LW
+	* Added benchmark code, first file is for allocation
+	
+20 Mar 2002
+	* Updated strings.cl so that foreign-strings are always unsigned.
+	Fixes a problem with strtol example.
+	* Added ensure-char-character and ensure-char-integer to handle
+	differences in implementations dereferencing of (* :char).
+	* Added section on design priorities for UFFI
+	* Added section in TODO on splitting implementation-dependent code
+	
+19 Mar 2002
+	* Added size parameter to allocate-foreign-object. Creates an array
+	of dimensions size.
+	* Got array-2d example working with a 1-d array.
+	* Cleaned strtol example
+	* Added TODO file
+	
+18 Mar 2002
+	* Documentation fixes (Erik Winkels)
+	* Fixed missing '.' in CMUCL type declarations (Erik Winkels)
+	
+17 Mar 2002
+	* Changed deref-pointer so it always returns a character when
+	called with a :char or :unsigned-char type
+	* Removed function ensure-char as no longer needed
+	* Added missing :byte specifier to Lispworks
+	* Changed default string type in Lispworks to :unsigned-char
+	which is the native type for Lispworks foreign-strings.
+	* Reworked strtol to handle new character pointing method
+	
+16 Mar 2002
+	* Fixed return value in load-foreign-library (Thanks Erik Winkels),
+	modified routine to accept pathnames as well as strings.
+	* Fix documention with :pointer-void (Again, Erik Winkels)
+	* Added missing type specifiers for CMUCL (Thanks a bunch, Erik!)
+	
+15 Mar 2002
+	* Finished basic skeleton of documentation.
+	
+14 Mar 2002
+	* Changed license to more liberal Lisp Lessor GNU Public License
+	* Fixed problem with uffi.system absent from in distribution 
+	(Thanks John DeSoi)
+	* Fixed compiler warnings
+	
+
+11 Mar 2002
+	* Changed def-type to def-foreign-type
+	* Created new macro def-type to generate cl:deftype forms. Removed
+	uffi-declare and uffi-slot-type as they are no longer necessary.
+	 
+10 Mar 2002
+	* Modified input parameters to load-foreign-library
+	* Added to documention
+	* Changed parameter order in get-slot-value and deref-array 
+	
+9 Mar 2002
+	* Added to documentation
+	* Made Allegro CL array access more efficient
+	* Changed def-routine name to def-function
+	* Fixed bug in def-function for Lispworks]
+	* Fixed error in +null-c-string-pointer+ name
+	* Fixed error in (make-null-pointer) for Lispworks
+	* Reworked Lispwork c-strings to be (* :char) rather than the
+	implementation default of (* (:unsigned :char)) to be consistent
+	with CMUCL. Bumped version to 0.2.0 because of change this change.
+	* Renamed c-string to cstring to emphasize it as a basic type
+	* Modified getenv.cl example to avoid name collison with LW
+	* Modified compress.cl to setup output buffer as :unsigned*char
+	* Added test-all-examples function. All routines tested okay with
+	ACL, LW, and CMUCL
+	
+8 Mar 2002
+	* Added ZIP file output with LF->CRLF translations to distribution
+	* Modified def-enum to use uffi:def-constant rather than
+	cl:defconstant
+	
