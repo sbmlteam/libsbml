@@ -395,7 +395,35 @@ you can reconfigure and disable it as follows:
 \end{example}
 
 
+\subsubsection{Interfaces to Java and Python}
 
+\libsbml{} includes language bindings for Java and Python, enabling you to
+write Java and Python programs that call \libsbml{} subroutines, or work
+with \libsbml{} through the Python's interactive mode.  Tutorials for how
+to operate these bindings are in the directory \shell{docs/formatted}.
+
+To compile them, you will need SWIG, the Simplified Wrapper and Interface
+Generator.  SWIG is available from \shell{http://www.swig.org}.
+
+If you install SWIG in a non-standard location, you can specify it on the
+\shell{configure} command line like this:
+
+\begin{example}[csh]
+  ./configure --with-swig=/sw
+\end{example}
+
+Here are the command-line switches to generate the language bindings for
+Java and Python:
+
+\begin{example}[csh]
+  ./configure --with-java=/sw
+
+  ./configure --with-python=/sw
+\end{example}
+
+As with Expat and Xerces, the \shell{/sw} directory is what you would
+specify if you were running on MacOS X and you used Fink to install
+SWIG, Python, etc.
 
 %=============================================================================
 \section{SBML Classes in C}
