@@ -68,7 +68,7 @@ AC_REVISION($Revision$)
 AC_PREREQ(2.57)
 
 
-AC_CONFIG_SRCDIR(src/SBase.c)
+AC_CONFIG_SRCDIR(src/util.c)
 
 
 AC_CONFIG_HEADERS(src/sbml/config.h)
