@@ -25,16 +25,12 @@
         <listOfRules>
             <rateRule variable="X0">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <apply>
-                        <ci> Kin </ci>
-                    </apply>
+                  <ci> Kin </ci>
                 </math>
             </rateRule>
             <rateRule variable="V1">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <apply>
-                        <ci> Kv </ci>
-                    </apply>
+                  <ci> Kv </ci>
                 </math>
             </rateRule>
         </listOfRules>
