@@ -62,11 +62,11 @@ static SBase_t *S;
 void
 SBaseTest_setup (void)
 {
-  S = (SBase_t *) safe_calloc(1, sizeof(SBase_t));
+  S = (SBase_t *) safe_malloc(sizeof(SBase_t));
 
   if (S == NULL)
   {
-    fail("safe_calloc(1, sizeof(SBase_t)) returned a NULL pointer.");
+    fail("safe_malloc(sizeof(SBase_t)) returned a NULL pointer.");
   }
 
   /**
@@ -89,6 +89,8 @@ SBaseTest_teardown (void)
 START_TEST (test_SBase_init)
 {
   fail_unless(S->typecode   == SBML_MODEL, NULL);
+  fail_unless(S->line       == 0   , NULL);
+  fail_unless(S->column     == 0   , NULL);
   fail_unless(S->metaid     == NULL, NULL);
   fail_unless(S->notes      == NULL, NULL);
   fail_unless(S->annotation == NULL, NULL);

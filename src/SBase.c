@@ -65,6 +65,8 @@ void
 SBase_init (SBase_t *sb, SBMLTypeCode_t tc)
 {
   sb->typecode   = tc;
+  sb->line       = 0;
+  sb->column     = 0;
   sb->metaid     = NULL;
   sb->notes      = NULL;
   sb->annotation = NULL;
@@ -98,6 +100,28 @@ SBase_getTypeCode (const SBase_t *sb)
 
 
 /**
+ * @return the column number for this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getColumn (const SBase_t *sb)
+{
+  return sb->column;
+}
+
+
+/**
+ * @return the line number for this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getLine (const SBase_t *sb)
+{
+  return sb->line;
+}
+
+
+/**
  * @return the metaid for this SBML object.
  */
 LIBSBML_EXTERN
@@ -127,28 +151,6 @@ const char *
 SBase_getAnnotation (const SBase_t *sb)
 {
   return sb->annotation;
-}
-
-
-/**
- * @return the column number for this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase_getColumn (const SBase_t *sb)
-{
-  return 0;
-}
-
-
-/**
- * @return the line number for this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase_getLine (const SBase_t *sb)
-{
-  return 0;
 }
 
 

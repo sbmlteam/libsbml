@@ -316,6 +316,8 @@ SBMLHandler::startElement (const XMLCh* const  uri,
 
     if (obj != NULL)
     {
+      setLineAndColumn(obj);
+
       //
       // metaid: ID  { use="optional" }  (L2v1)
       //
@@ -1683,6 +1685,45 @@ SBMLHandler::getTagCode (const XMLCh *uri, const XMLCh* localname)
   }
 
   return tag;
+}
+
+
+/**
+ * Sets the line and column number of the given SBase object to the current
+ * position in the SBML document.  If the line and column number of the
+ * document are not available, this method does nothing.
+ */
+void
+SBMLHandler::setLineAndColumn (SBase_t* sb)
+{
+  int line   = 0;
+  int column = 0;
+
+
+#ifdef USE_EXPAT
+
+  line   = getCurrentLineNumber  ();
+  column = getCurrentColumnNumber();
+
+#else
+
+  if (fLocator != 0)
+  {
+    line   = fLocator->getLineNumber  ();
+    column = fLocator->getColumnNumber();
+  }
+
+#endif  // USE_EXPAT
+
+  if (line > 0)
+  {
+    sb->line = line;
+  }
+
+  if (column > 0)
+  {
+    sb->column = column;
+  }
 }
 
 

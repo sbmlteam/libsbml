@@ -204,8 +204,9 @@ private:
 
   SBMLTagCode_t getTagCode (const XMLCh *uri, const XMLCh* localname);
 
-  void setMath(ASTNode_t* math);
-  void setStoichiometryMath(SpeciesReference_t* sr, ASTNode_t* math);
+  void setLineAndColumn     (SBase_t *sb);
+  void setMath              (ASTNode_t* math);
+  void setStoichiometryMath (SpeciesReference_t* sr, ASTNode_t* math);
 
   /*
   void debugPrintStartElement

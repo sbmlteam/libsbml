@@ -2434,6 +2434,73 @@ START_TEST (test_element_annotation_sbml_L2)
 END_TEST
 
 
+START_TEST (test_element_line_col_numbers)
+{
+  SBase_t*  sb;
+
+  const char* s =
+    "<?xml version='1.0' encoding='UTF-8'?>\n"
+    "<sbml level='1' version='1'>\n"
+    "  <model name='testModel'>\n"
+    "    <listOfReactions> <reaction/> </listOfReactions>\n"
+    "  </model>\n"
+    "</sbml>\n";
+
+  /*          1         2         3         4         5         6 */
+  /* 123456789012345678901234567890123456789012345678901234567890 */
+
+  D = readSBMLFromString(s);
+  fail_unless( D->model != NULL, NULL );
+
+  /**
+   * Xerces-C++ and Expat report line and column numbers differently.
+   *
+   * Expat reports the line and column numbers at the start of a token
+   * (like every other parser program in the world) while Xerces reports
+   * the end of a token (!?).
+   *
+   * I thought turning source offset calculation on would fix this, e.g.:
+   *
+   *   XMLReader.setFeature( XMLUni::fgXercesCalculateSrcOfs, true );
+   *
+   * but it has no effect.  Perhaps I misunderstood its meaning. :(
+   */
+
+  sb = (SBase_t *) D->model;
+
+#if USE_EXPAT
+  fail_unless ( SBase_getLine  (sb) == 3, NULL );
+  fail_unless ( SBase_getColumn(sb) == 2, NULL );
+#else
+  fail_unless ( SBase_getLine  (sb) ==  3, NULL );
+  fail_unless ( SBase_getColumn(sb) == 27, NULL );
+#endif
+
+
+  sb = (SBase_t *) Model_getListOfReactions(D->model);
+
+#if USE_EXPAT
+  fail_unless ( SBase_getLine  (sb) == 4, NULL );
+  fail_unless ( SBase_getColumn(sb) == 4, NULL );
+#else
+  fail_unless ( SBase_getLine  (sb) ==  4, NULL );
+  fail_unless ( SBase_getColumn(sb) == 22, NULL );
+#endif
+
+
+  sb = (SBase_t *) Model_getReaction(D->model, 0);
+
+#if USE_EXPAT
+  fail_unless ( SBase_getLine  (sb) ==  4, NULL );
+  fail_unless ( SBase_getColumn(sb) == 22, NULL );
+#else
+  fail_unless ( SBase_getLine  (sb) ==  4, NULL );
+  fail_unless ( SBase_getColumn(sb) == 34, NULL );
+#endif
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLHandler (void)
 {
@@ -2515,6 +2582,7 @@ create_suite_SBMLHandler (void)
   tcase_add_test( tcase, test_element_annotation_nested                    );
   tcase_add_test( tcase, test_element_annotation_sbml                      );
   tcase_add_test( tcase, test_element_annotation_sbml_L2                   );
+  tcase_add_test( tcase, test_element_line_col_numbers                     );
 
   suite_add_tcase(suite, tcase);
 
