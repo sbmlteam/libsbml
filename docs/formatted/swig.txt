@@ -1,7 +1,7 @@
 
                   Using the libSBML SWIG bindings
 
-                            30-Jun-2004
+                            7-Jul-2004
 
              for libSBML v2.0.3   document revision 0.1
 
@@ -14,7 +14,7 @@
    and Java.
 
    SWIG is the "Simplified Wrapper Interface Generator".  SWIG
-   generates "wrapper code" to allow subroutine C and C++
+   generates "wrapper code" to allow subroutines in C and C++
    programs to be called from other languages.  The SWIG project
    was started and is run by David Beazley at http://www.swig.org.
 
@@ -47,6 +47,8 @@
    the libSBML library.  For example:
 
    $ export PYTHONPATH=/home/bkovitz/libsbml/bindings/python
+
+   @@also need a path variable to point to the other libraries
 
    To get started, we'll run Python in interactive mode:
 
@@ -371,8 +373,8 @@
       is a Python idiom for "iterate the variable 'item' through
       all the elements of the list 'items'."  libsbml's ListOf
       objects, like the object returned by
-      Model.getListOfParameters() in hasTauParameter(), are
-      compatible with this syntax.
+      Model.getListOfParameters(), are compatible with this
+      syntax.
 
    *  The program code does not care if the models are level 1 or
       level 2.  The directory can contain both kinds of models
@@ -429,11 +431,11 @@
 
 
       modelId = 1
+      doc = libsbml.SBMLDocument()
       for k1 in [ 0.0, 0.25, 1.5 ]:
          for k2 in [ 0.0, 0.25, 1.5 ]:
             for s1Boundary in [ False, True ]:
                for s2Boundary in [ False, True ]:
-                  doc = libsbml.SBMLDocument()
                   doc.setModel(CreatedModel(k1, k2, s1Boundary, s2Boundary))
                   libsbml.writeSBML(doc, "model%d.xml" % modelId)
                   modelId += 1
@@ -466,6 +468,145 @@
    copying the pointers to the same underlying C++ object.
 
 
-4.0 BUILDING THE PYTHON SWIG BINDING
+4.0 JAVA TUTORIAL
 
-   @@will this be fully automated in this release?
+   @@What path variables need to be set up?
+   CLASSPATH
+   LD_LIBRARY_PATH
+   more?
+
+   OS X:
+   @@aha, the DYLD_LIBRARY_PATH must contain directory
+   containing libsbmlj.jnilib
+
+
+4.1 A SIMPLE JAVA LIBSBML PROGRAM
+
+   Here is a very simple program that reads in an SBML model
+
+      import libsbml.*;
+
+      public class Demo1
+      {
+         public static void main(String args[])
+         {
+            System.loadLibrary("sbmlj");
+
+            SBMLReader reader = new SBMLReader();
+            SBMLDocument document = reader.readSBML(
+               "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+            Model model = document.getModel();
+            ListOf listOfSpecies = model.getListOfSpecies();
+
+            for (int i = 0; i < model.getNumSpecies(); i++) {
+               Species species = (Species)listOfSpecies.get(i);
+               System.out.println(
+                  species.getName() + "  " +
+                  species.getCompartment() + "  " +
+                  species.getInitialAmount()
+               );
+            }
+         }
+      }
+
+   Here is the output of the program:
+
+      s1  cell  4.0
+      s2  cell  2.0
+      x0  cell  1.0
+      x1  cell  0.0
+
+   Key libSBML-related elements:
+
+      import libsbml.*;
+
+         Brings all the libSBML classes and constants into the
+         present namespace.
+
+      System.loadLibrary("sbmlj");
+
+         Loads libSBML and its Java SWIG binding into memory.
+
+      SBMLReader reader = new SBMLReader();
+
+         Creates the object that will read in an SBML document.
+
+      SBMLDocument document = reader.readSBML(
+         "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+
+         Reads in the SBML document.  See section 2.1 for the
+         full text of the document.
+
+      Model model = document.getModel();
+
+         Extracts the model from the document.
+
+      ListOf listOfSpecies = model.getListOfSpecies();
+
+         Gets a ListOf object that holds references to all the
+         species in the model.  A ListOf object does not operate
+         the same way as a Java List.  You need to call it with
+         the same method names as the C/C++ ListOf class in the
+         libSBML library.
+
+      for (int i = 0; i < model.getNumSpecies(); i++) {
+         Species species = (Species)listOfSpecies.get(i);
+         System.out.println(
+            species.getName() + "  " +
+            species.getCompartment() + "  " +
+            species.getInitialAmount()
+         );
+      }
+
+         Notice the (Species) cast on the object returned by
+         listOfSpecies.get().  As usual in Java, when extracting
+         items from a list that can hold objects of a variety of
+         classes, we must know the class of the object we're
+         extracting so we can make the cast.
+
+         @@how about calling .size()?
+
+
+4.2 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
+
+   Now that we know how to read SBML in from a file, let's do
+   something useful: let's convert l1v1-rules.xml from level 1
+   to level 2.
+
+   To do this, we only need to know two more things: how to
+   modify an SBase object, and how to write an SBML document to
+   disk.  Here is the complete program:
+
+      import libsbml.*;
+
+      public class Demo
+      {
+         public static void main(String args[])
+         {
+            System.loadLibrary("sbmlj");
+            SBMLReader reader   = new SBMLReader();
+            SBMLDocument document = reader.readSBML(
+               "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+
+            document.setLevel(2);
+            libsbml.writeSBML(document, "l2v1-rules.xml");
+         }
+      }
+
+   That's all there is to it!  We changed the level of the SBML
+   document by calling its setLevel() method.  All libSBML
+   objects that inherit from SBase--that is, all libSBML objects
+   that represent entities in an SBML document--are modified by
+   "setter" function whose name is "setXxxx", where Xxxx is the
+   name of the data element (with the first letter capitalized).
+   
+   Then we wrote it to a new file by calling the static function
+   libsbml.writeSBML().
+
+   This works because, internally, libsbml stores the model as a
+   data structure that represents the information in the model
+   without regard to the format in which the model is stored on
+   disk.  The SBMLDocument's "level" data member just tells
+   writeSBML() the format in which to save the model.
+
+   To see part of the generated model, see section 2.5.
