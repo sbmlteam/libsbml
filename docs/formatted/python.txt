@@ -1,68 +1,46 @@
 
-                  Using the libSBML SWIG bindings
+              The libSBML Python Library -- Tutorial
 
-                            7-Jul-2004
+                           12-Jul-2004
 
              for libSBML v2.0.3   document revision 0.1
 
 
-1.0 OVERVIEW
-
-   libSBML is written in C and C++, but thanks to the "SWIG
-   bindings", you can write programs in other languages that call
-   upon libSBML.  Currently there are SWIG bindings for Python
-   and Java.
-
-   Fortunately, you don't need to know anything about SWIG to
-   use the libSBML SWIG bindings.  The rest of this document
-   shows you how to write programs in Python and Java that use
-   the features of libSBML.  You will need to know only the very
-   basics of Python or Java, whichever you prefer to use.
-
-   Skip the next section if you don't even want basic background
-   info about SWIG.
-
-
-1.1 SWIG BACKGROUND
-
-   SWIG is the "Simplified Wrapper Interface Generator".  SWIG
-   generates "wrapper code" to allow subroutines in C and C++
-   programs to be called from other languages.  The SWIG project
-   was started and is run by David Beazley at http://www.swig.org.
-
-   A "SWIG binding" is a machine-readable set of descriptions
-   that tells SWIG how to build the bridge between some C/C++
-   code and other languages that want to call it.
-
-
-2.0 PYTHON TUTORIAL
+1  SETTING UP
 
    For this tutorial, we'll assume that you're running on some
    variant of Unix.  (That includes Linux and Mac OS X.)  On
    Windows, you may need to use backslashes in place of forward
    slashes, or use a Unix-like shell such as Cygwin.
 
-   When you installed libSBML, you already installed the SWIG
-   bindings.  
+   When you installed libSBML, you already installed the Python
+   interface.
    
+   First, set your PYTHONPATH environment variable to include
+   the libSBML Python directory.  For example:
+
+   $ export PYTHONPATH=/home/bkovitz/libsbml/bindings/python
+
+   The relevant file is named libsbml.py.
+
+   You'll also need to be sure that your LD_LIBRARY_PATH
+   (DYLD_LIBRARY_PATH on Mac OS X) includes both the main
+   libSBML library (libsbml.so) and the _libsbml.so library that
+   contains the interface code for Python.  For example:
+
+   $ export LD_LIBRARY_PATH=/home/bkovitz/software/libsbml:/home/bkovitz/libsbml/bindings/python
+
    If you have trouble running the examples below, then most
    likely there is a problem with your installation or one or
    more of your environment variables needs to be set
-   differently.  See the next section for info about nevironment
-   variables.  If that doesn't work, try reinstalling libSBML.
-   If that doesn't work, try the libSBML discussion list:
+   differently.  If you still have troubles, try reinstalling
+   libSBML.  If that doesn't work, try the libSBML discussion
+   list:
 
       https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
 
 
-2.1 PYTHON IN INTERACTIVE MODE
-
-   First, set your PYTHONPATH environment variable to include
-   the libSBML library.  For example:
-
-   $ export PYTHONPATH=/home/bkovitz/libsbml/bindings/python
-
-   @@also need a path variable to point to the other libraries
+2  PYTHON IN INTERACTIVE MODE
 
    To get started, we'll run Python in interactive mode:
 
@@ -149,7 +127,7 @@
       </sbml>
 
 
-2.2 LOOKING INSIDE AN SBASE OBJECT
+3  LOOKING INSIDE AN SBASE OBJECT
 
    Now, to look inside the document, we just print it:
 
@@ -205,7 +183,7 @@
          numUnitDefinitions:               0
 
 
-2.3 MODIFYING AN SBASE OBJECT
+4  MODIFYING AN SBASE OBJECT
 
    For many "getters", there is a "setter".  By calling a
    "setter", you can change an attribute of an SBase object.
@@ -240,7 +218,7 @@
    Reference Manual (http://www.sbml.org/software/libsbml/libsbml-api-ref.pdf).
 
 
-2.4 THE LISTOF CLASS
+5  THE LISTOF CLASS
 
    Several of the data members of a Model are objects of class
    ListOf.  A ListOf is libSBML's internal equivalent of a
@@ -292,7 +270,7 @@
          units:                  ''
 
 
-2.5 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
+6  CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
 
    Now that we know how to read SBML in from a file, and how to
    inspect and modify libSBML objects, let's do something
@@ -353,7 +331,7 @@
             . . .
 
 
-2.6 WRITING A PYTHON PROGRAM THAT CALLS LIBSBML
+7  WRITING A PYTHON PROGRAM THAT CALLS LIBSBML
 
    The Python SWIG binding enables you to exploit Python's
    syntax to do some sophisticated processing of SBML models in
@@ -467,7 +445,7 @@
    modifications according to its arguments.
 
 
-2.7 KNOWN BUGS
+8  KNOWN BUGS
 
    You can't copy a libSBML object in either of the usual Python
    ways: obj[:] or copy.copy(obj).  The reason is that each
@@ -475,170 +453,3 @@
    libSBML object that's managed by the underlying C++ code.
    When you copy the object in Python, you are actually just
    copying the pointers to the same underlying C++ object.
-
-
-3.0 JAVA TUTORIAL
-
-   To run Java programs that access libSBML, you must set up
-   the following environment variables.
-
-   On Linux:
-
-      CLASSPATH
-         must include the "classes" directory in the Java SWIG
-         bindings directory.  For example:
-
-            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/classes
-
-      LD_LIBRARY_PATH
-         must include the directory that contains the
-         libsbmlj.so file.  For example:
-
-            LD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
-
-   On Mac OS X:
-
-      CLASSPATH
-         must include the "classes" directory in the Java SWIG
-         bindings directory.  For example:
-
-            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/classes
-
-      DYLD_LIBRARY_PATH
-         must include the directory that contains the
-         libsbmlj.jnilib file.  For example:
-
-            DYLD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
-
-
-3.1 A SIMPLE JAVA LIBSBML PROGRAM
-
-   Here is a very simple program that reads in an SBML model
-
-      import libsbml.*;
-
-      public class Demo1
-      {
-         public static void main(String args[])
-         {
-            System.loadLibrary("sbmlj");
-
-            SBMLReader reader = new SBMLReader();
-            SBMLDocument document = reader.readSBML(
-               "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
-            Model model = document.getModel();
-            ListOf listOfSpecies = model.getListOfSpecies();
-
-            for (int i = 0; i < model.getNumSpecies(); i++) {
-               Species species = (Species)listOfSpecies.get(i);
-               System.out.println(
-                  species.getName() + "  " +
-                  species.getCompartment() + "  " +
-                  species.getInitialAmount()
-               );
-            }
-         }
-      }
-
-   Here is the output of the program:
-
-      s1  cell  4.0
-      s2  cell  2.0
-      x0  cell  1.0
-      x1  cell  0.0
-
-   Key libSBML-related elements:
-
-      import libsbml.*;
-
-         Brings all the libSBML classes and constants into the
-         present namespace.
-
-      System.loadLibrary("sbmlj");
-
-         Loads libSBML and its Java SWIG binding into memory.
-
-      SBMLReader reader = new SBMLReader();
-
-         Creates the object that will read in an SBML document.
-
-      SBMLDocument document = reader.readSBML(
-         "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
-
-         Reads in the SBML document.  See section 2.1 for the
-         full text of the document.
-
-      Model model = document.getModel();
-
-         Extracts the model from the document.
-
-      ListOf listOfSpecies = model.getListOfSpecies();
-
-         Gets a ListOf object that holds references to all the
-         species in the model.  A ListOf object does not operate
-         the same way as a Java List.  You need to call it with
-         the same method names as the C/C++ ListOf class in the
-         libSBML library.
-
-      for (int i = 0; i < model.getNumSpecies(); i++) {
-         Species species = (Species)listOfSpecies.get(i);
-         System.out.println(
-            species.getName() + "  " +
-            species.getCompartment() + "  " +
-            species.getInitialAmount()
-         );
-      }
-
-         Notice the (Species) cast on the object returned by
-         listOfSpecies.get().  As usual in Java, when extracting
-         items from a list that can hold objects of a variety of
-         classes, we must know the class of the object we're
-         extracting so we can make the cast.
-
-         @@how about calling .size()?
-
-
-3.2 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
-
-   Now that we know how to read SBML in from a file, let's do
-   something useful: let's convert l1v1-rules.xml from Level 1
-   to Level 2.
-
-   To do this, we only need to know two more things: how to
-   modify an SBase object, and how to write an SBML document to
-   disk.  Here is the complete program:
-
-      import libsbml.*;
-
-      public class Demo
-      {
-         public static void main(String args[])
-         {
-            System.loadLibrary("sbmlj");
-            SBMLReader reader   = new SBMLReader();
-            SBMLDocument document = reader.readSBML(
-               "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
-
-            document.setLevel(2);
-            libsbml.writeSBML(document, "l2v1-rules.xml");
-         }
-      }
-
-   That's all there is to it!  We changed the level of the SBML
-   document by calling its setLevel() method.  All libSBML
-   objects that inherit from SBase--that is, all libSBML objects
-   that represent entities in an SBML document--are modified by
-   a "setter" function whose name is "setXxxx", where Xxxx is
-   the name of the data element (with the first letter
-   capitalized).
-   
-   Then we wrote the document to a new file by calling the
-   static function libsbml.writeSBML().
-
-   This works because, internally, libSBML stores the model as a
-   data structure that represents the information in the model
-   without regard to the format in which the model is stored on
-   disk.  The SBMLDocument's "level" data member just tells
-   writeSBML() the format in which to save the model.
-
-   To see part of the generated model, see section 2.5.
