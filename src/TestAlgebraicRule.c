@@ -109,8 +109,8 @@ END_TEST
 
 START_TEST (test_AlgebraicRule_createWithMath)
 {
-  AlgebraicRule_t *ar   = AlgebraicRule_create();
   ASTNode_t       *math = SBML_parseFormula("1 + 1");
+  AlgebraicRule_t *ar   = AlgebraicRule_createWithMath(math);
 
 
   fail_unless( ar->typecode   == SBML_ALGEBRAIC_RULE, NULL );
@@ -144,9 +144,10 @@ create_suite_AlgebraicRule (void)
                              AlgebraicRuleTest_setup,
                              AlgebraicRuleTest_teardown );
 
-  tcase_add_test( tcase, test_AlgebraicRule_create     );
-  tcase_add_test( tcase, test_AlgebraicRule_createWith );
-  tcase_add_test( tcase, test_AlgebraicRule_free_NULL  );
+  tcase_add_test( tcase, test_AlgebraicRule_create         );
+  tcase_add_test( tcase, test_AlgebraicRule_createWith     );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithMath );
+  tcase_add_test( tcase, test_AlgebraicRule_free_NULL      );
 
   suite_add_tcase(suite, tcase);
 
