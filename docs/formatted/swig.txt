@@ -13,6 +13,18 @@
    upon libSBML.  Currently there are SWIG bindings for Python
    and Java.
 
+   Fortunately, you don't need to know anything about SWIG to
+   use the libSBML SWIG bindings.  The rest of this document
+   shows you how to write programs in Python and Java that use
+   the features of libSBML.  You will need to know only the very
+   basics of Python or Java, whichever you prefer to use.
+
+   Skip the next section if you don't even want basic background
+   info about SWIG.
+
+
+1.1 SWIG BACKGROUND
+
    SWIG is the "Simplified Wrapper Interface Generator".  SWIG
    generates "wrapper code" to allow subroutines in C and C++
    programs to be called from other languages.  The SWIG project
@@ -22,23 +34,25 @@
    that tells SWIG how to build the bridge between some C/C++
    code and other languages that want to call it.
 
-   Fortunately, you don't need to know anything about SWIG to
-   use the libSBML SWIG bindings.  The rest of this document
-   shows you how to write programs in Python and Java that use
-   the features of libSBML.  You will need to know only the very
-   basics of Python or Java, whichever you prefer to use.
-
 
 2.0 PYTHON TUTORIAL
 
    For this tutorial, we'll assume that you're running on some
    variant of Unix.  (That includes Linux and Mac OS X.)  On
    Windows, you may need to use backslashes in place of forward
-   slashes, or use a Unix-like shell such as CygWin.
+   slashes, or use a Unix-like shell such as Cygwin.
 
    When you installed libSBML, you already installed the SWIG
-   bindings.  If you have trouble running the examples below,
-   see the section in this manual on building the SWIG bindings.
+   bindings.  
+   
+   If you have trouble running the examples below, then most
+   likely there is a problem with your installation of you don't
+   have one of your environment variables set correctly.  See
+   the next section for info about nevironment variables.  If
+   that doesn't work, try reinstalling libSBML.  If that doesn't
+   work, try the libSBML discussion list:
+
+      https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
 
 
 2.1 PYTHON IN INTERACTIVE MODE
@@ -71,8 +85,8 @@
       >>> from libsbml import *
 
    imported the names of all the classes and public functions
-   from the libsbml library into the Python namespace.  That
-   means that we can now call anything in libsbml just by
+   from the libSBML library into the Python namespace.  That
+   means that we can now call anything in libSBML just by
    typing its name.
 
    This command:
@@ -159,13 +173,13 @@
       >>> d.getVersion()
       1
 
-   Most of the classes in libsbml that represent SBML documents
+   Most of the classes in libSBML that represent SBML documents
    or parts of SBML documents are descendants of a class called
    SBase.  You can "print" any SBase object and "get" the data
-   members of any SBase object following this same patter.
+   members of any SBase object following this same pattern.
 
    The "model" data member of an SBMLDocument is itself another
-   libsbml object.  Now we'll "get" the model and look inside:
+   libSBML object.  Now we'll "get" the model and look inside:
 
       >>> m = d.getModel()
       >>> print m
@@ -229,7 +243,7 @@
 2.4 THE LISTOF CLASS
 
    Several of the data members of a Model are objects of class
-   ListOf.  A ListOf is libsbml's internal equivalent of a
+   ListOf.  A ListOf is libSBML's internal equivalent of a
    Python list.  We can treat it pretty much the same as a
    Python list.  For example:
 
@@ -256,7 +270,7 @@
          units:                  ''
             
    You can also access a ListOf using the same methods that are
-   defined in the libsbml API:
+   defined in the libSBML API:
 
       >>> lsp.getNumItems()
       4
@@ -281,7 +295,7 @@
 2.5 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
 
    Now that we know how to read SBML in from a file, and how to
-   inspect and modify libsbml objects, let's do something
+   inspect and modify libSBML objects, let's do something
    useful: let's convert l1v1-rules.xml from level 1 to level 2.
 
    To do this, we only need to know one more thing: how to write
@@ -297,7 +311,7 @@
    the value returned by writeSBML().  A nonzero value indicates
    success.
 
-   This works because internally, libsbml stores the model as a
+   This works because internally, libSBML stores the model as a
    data structure that represents the information in the model
    and not the format in which the model is stored.  The "level"
    data member just tells writeSBML() the format in which to
@@ -371,7 +385,7 @@
          for item in items:
 
       is a Python idiom for "iterate the variable 'item' through
-      all the elements of the list 'items'."  libsbml's ListOf
+      all the elements of the list 'items'."  libSBML's ListOf
       objects, like the object returned by
       Model.getListOfParameters(), are compatible with this
       syntax.
@@ -383,7 +397,7 @@
    *  The program did an "import libsbml" rather than "from
       libsbml import *".  This is standard good form in Python,
       since it's faster and can't lead to surprising name
-      clashes.  It requires us, however, to refer to libsbml
+      clashes.  It requires us, however, to refer to libSBML
       classes by prefixing them with "libsbml."  Notice the line
       in the program where the variable "reader" is set.
 
@@ -460,10 +474,10 @@
 
 3.1 KNOWN BUGS
 
-   You can't copy a libsbml object in either of the usual Python
+   You can't copy a libSBML object in either of the usual Python
    ways: obj[:] or copy.copy(obj).  The reason is that each
-   libsbml object in Python actually just holds a pointer to the
-   libsbml object that's managed by the underlying C++ code.
+   libSBML object in Python actually just holds a pointer to the
+   libSBML object that's managed by the underlying C++ code.
    When you copy the object in Python, you are actually just
    copying the pointers to the same underlying C++ object.
 
@@ -619,13 +633,14 @@
    document by calling its setLevel() method.  All libSBML
    objects that inherit from SBase--that is, all libSBML objects
    that represent entities in an SBML document--are modified by
-   "setter" function whose name is "setXxxx", where Xxxx is the
-   name of the data element (with the first letter capitalized).
+   a "setter" function whose name is "setXxxx", where Xxxx is
+   the name of the data element (with the first letter
+   capitalized).
    
-   Then we wrote it to a new file by calling the static function
-   libsbml.writeSBML().
+   Then we wrote the document to a new file by calling the
+   static function libsbml.writeSBML().
 
-   This works because, internally, libsbml stores the model as a
+   This works because, internally, libSBML stores the model as a
    data structure that represents the information in the model
    without regard to the format in which the model is stored on
    disk.  The SBMLDocument's "level" data member just tells
