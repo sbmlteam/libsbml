@@ -163,6 +163,17 @@ Event_getDelay (const Event_t *e)
 
 
 /**
+ * @return the timeUnits of this Event
+ */
+LIBSBML_EXTERN
+const char *
+Event_getTimeUnits (const Event_t *e)
+{
+  return e->timeUnits;
+}
+
+
+/**
  * @return 1 if the id of this Event has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
