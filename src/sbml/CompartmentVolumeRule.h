@@ -119,8 +119,7 @@ int
 CompartmentVolumeRule_isSetCompartment (const CompartmentVolumeRule_t *cvr);
 
 /**
- * Sets the compartment field of this CompartmentVolumeRule to a copy of
- * sname.
+ * Sets the compartment of this CompartmentVolumeRule to a copy of sname.
  */
 LIBSBML_EXTERN
 void
