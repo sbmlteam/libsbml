@@ -50,8 +50,8 @@
  */
 
 
-#ifndef SBMLTagCode_hpp
-#define SBMLTagCode_hpp
+#ifndef SBMLTagCodes_hpp
+#define SBMLTagCodes_hpp
 
 
 #include "common.hpp"
@@ -99,4 +99,4 @@ SBMLTagCode_t
 SBMLTagCode_forElement (const XMLCh* name);
 
 
-#endif  // SBMLTagCode_hpp
+#endif  // SBMLTagCodes_hpp
