@@ -54,7 +54,7 @@ dnl Check --with-expat[=PREFIX] is specified and Expat 1.95.0 or greater
 dnl is installed.
 dnl
 
-AC_DEFUN(CONFIG_LIB_EXPAT,
+AC_DEFUN([CONFIG_LIB_EXPAT],
 [
   AC_ARG_WITH([expat],
     AC_HELP_STRING([--with-expat=PREFIX],

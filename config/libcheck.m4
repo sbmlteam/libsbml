@@ -16,7 +16,7 @@ dnl
 dnl Check --with-check[=PREFIX] is specified and libcheck is installed.
 dnl
 
-AC_DEFUN(CONFIG_LIB_LIBCHECK,
+AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
   AC_ARG_WITH([check],
     AC_HELP_STRING([--with-check=PREFIX],

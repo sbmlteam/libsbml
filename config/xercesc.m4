@@ -53,7 +53,7 @@ dnl
 dnl Check --with-xerces[=PREFIX] is specified and Xerces-C++ is installed.
 dnl
 
-AC_DEFUN(CONFIG_LIB_XERCES,
+AC_DEFUN([CONFIG_LIB_XERCES],
 [
   AC_ARG_WITH([xerces],
     AC_HELP_STRING([--with-xerces=PREFIX],

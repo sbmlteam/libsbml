@@ -47,7 +47,7 @@ dnl
 dnl Contributor(s):
 dnl
 
-AC_DEFUN(CONFIG_PROG_MATLAB,
+AC_DEFUN([CONFIG_PROG_MATLAB],
 [
   AC_ARG_WITH([matlab],
     AC_HELP_STRING([--with-matlab=PREFIX],

@@ -48,7 +48,7 @@ dnl
 dnl Contributor(s):
 dnl
 
-AC_DEFUN(CONFIG_PROG_JAVA,
+AC_DEFUN([CONFIG_PROG_JAVA],
 [
   AC_ARG_WITH([java],
     AC_HELP_STRING([--with-java=PREFIX],
