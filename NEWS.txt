@@ -7,7 +7,7 @@
   demonstrate how libsbml may be used.
 
 * IEEE-754 NaN, +Inf, -Inf and -0.0 are handled correctly and
-  consistenly on all supported platforms.  In previous versions, these
+  consistently on all supported platforms.  In previous versions, these
   values were not represented, read or written correctly on native
   Windows and under Cygwin.
 
@@ -16,13 +16,33 @@
   "-INF" and "-0".
 
 * The build platform was upgraded to Libtool 1.5.  This means dynamic
-  libraries should build correctly on all platforms: Cygwin (.DLL),
-  Linux (.so) and MacOS X (.dylib).
+  libraries will build correctly on all platforms: Linux (.so),
+  Solaris (.so), Cygwin (.DLL) and MacOS X (.dylib).
 
-* SBMLWriter now defaults to an ouput encoding of UTF-8.
+* SBMLWriter now defaults to an output encoding of UTF-8.
+
+* SBML_parseFormula() now returns NULL if the formula contains an
+  error.  The next version of libsbml will return the position of the
+  syntax error.
+
+* Added method: SBMLDocument_setModel().
+
+* To build and run the libsbml test suite now requires an explicit
+  configure option:
+
+    ./configure  --enable-check
+
+  In addition, 'check' needs to be installed (http://check.sf.net/).
+  Under Cygwin ONLY, due to a limitation of Libtool, if libsbml is
+  built with --check-enabled, a DLL cannot be built.  So, after
+  testing, re-run configure without enabling check then 'make' and
+  'make install' as usual.
+
+  Running the test suite on any platform is completely optional.
+  Libsbml is tested on all supported platforms before it is released.
 
 
-* Released June 5, 2003
+* Released June 6, 2003
 
 
 
