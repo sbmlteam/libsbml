@@ -56,8 +56,11 @@ libsbml_la_LDFLAGS = -version-info 2:0:1
 nobase_include_HEADERS =          \
   sbml/AlgebraicRule.h            \
   sbml/AssignmentRule.h           \
+  sbml/ASTNode.h                  \
   sbml/Compartment.h              \
   sbml/CompartmentVolumeRule.h    \
+  sbml/FormulaParser.h            \
+  sbml/FormulaTokenizer.h         \
   sbml/KineticLaw.h               \
   sbml/List.h                     \
   sbml/Model.h                    \
@@ -102,8 +105,11 @@ libsbml_la_SOURCES =            \
   XMLUtil.cpp                   \
   AlgebraicRule.c               \
   AssignmentRule.c              \
+  ASTNode.c                     \
   Compartment.c                 \
   CompartmentVolumeRule.c       \
+  FormulaParser.c               \
+  FormulaTokenizer.c            \
   KineticLaw.c                  \
   List.c                        \
   Model.c                       \
@@ -136,8 +142,11 @@ TestRunner_SOURCES =             \
   TestXMLUtil.cpp                \
   TestAlgebraicRule.c            \
   TestAssignmentRule.c           \
+  TestASTNode.c                  \
   TestCompartment.c              \
   TestCompartmentVolumeRule.c    \
+  TestFormulaParser.c            \
+  TestFormulaTokenizer.c         \
   TestKineticLaw.c               \
   TestList.c                     \
   TestMemory.c                   \

@@ -129,8 +129,11 @@ libsbml_la_LDFLAGS = -version-info 2:0:1
 nobase_include_HEADERS = \
   sbml/AlgebraicRule.h            \
   sbml/AssignmentRule.h           \
+  sbml/ASTNode.h                  \
   sbml/Compartment.h              \
   sbml/CompartmentVolumeRule.h    \
+  sbml/FormulaParser.h            \
+  sbml/FormulaTokenizer.h         \
   sbml/KineticLaw.h               \
   sbml/List.h                     \
   sbml/Model.h                    \
@@ -176,8 +179,11 @@ libsbml_la_SOURCES = \
   XMLUtil.cpp                   \
   AlgebraicRule.c               \
   AssignmentRule.c              \
+  ASTNode.c                     \
   Compartment.c                 \
   CompartmentVolumeRule.c       \
+  FormulaParser.c               \
+  FormulaTokenizer.c            \
   KineticLaw.c                  \
   List.c                        \
   Model.c                       \
@@ -211,8 +217,11 @@ TestRunner_SOURCES = \
   TestXMLUtil.cpp                \
   TestAlgebraicRule.c            \
   TestAssignmentRule.c           \
+  TestASTNode.c                  \
   TestCompartment.c              \
   TestCompartmentVolumeRule.c    \
+  TestFormulaParser.c            \
+  TestFormulaTokenizer.c         \
   TestKineticLaw.c               \
   TestList.c                     \
   TestMemory.c                   \
@@ -260,12 +269,13 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libsbml_la_LIBADD =
 am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLHashCodes.lo \
 	SBMLReader.lo SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo \
-	AlgebraicRule.lo AssignmentRule.lo Compartment.lo \
-	CompartmentVolumeRule.lo KineticLaw.lo List.lo Model.lo \
-	Parameter.lo ParameterRule.lo ParseMessage.lo Reaction.lo \
-	Rule.lo RuleType.lo SBase.lo SBMLDocument.lo Species.lo \
-	SpeciesConcentrationRule.lo SpeciesReference.lo Stack.lo \
-	Unit.lo UnitDefinition.lo UnitKind.lo memory.lo util.lo
+	AlgebraicRule.lo AssignmentRule.lo ASTNode.lo Compartment.lo \
+	CompartmentVolumeRule.lo FormulaParser.lo FormulaTokenizer.lo \
+	KineticLaw.lo List.lo Model.lo Parameter.lo ParameterRule.lo \
+	ParseMessage.lo Reaction.lo Rule.lo RuleType.lo SBase.lo \
+	SBMLDocument.lo Species.lo SpeciesConcentrationRule.lo \
+	SpeciesReference.lo Stack.lo Unit.lo UnitDefinition.lo \
+	UnitKind.lo memory.lo util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
 check_PROGRAMS = TestRunner$(EXEEXT)
 noinst_PROGRAMS = readSBML$(EXEEXT)
@@ -275,9 +285,11 @@ am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
 	TestSAX2AttributesMock.$(OBJEXT) TestSBMLFormatter.$(OBJEXT) \
 	TestSBMLHandler.$(OBJEXT) TestXMLStringFormatter.$(OBJEXT) \
 	TestXMLUtil.$(OBJEXT) TestAlgebraicRule.$(OBJEXT) \
-	TestAssignmentRule.$(OBJEXT) TestCompartment.$(OBJEXT) \
-	TestCompartmentVolumeRule.$(OBJEXT) TestKineticLaw.$(OBJEXT) \
-	TestList.$(OBJEXT) TestMemory.$(OBJEXT) TestModel.$(OBJEXT) \
+	TestAssignmentRule.$(OBJEXT) TestASTNode.$(OBJEXT) \
+	TestCompartment.$(OBJEXT) TestCompartmentVolumeRule.$(OBJEXT) \
+	TestFormulaParser.$(OBJEXT) TestFormulaTokenizer.$(OBJEXT) \
+	TestKineticLaw.$(OBJEXT) TestList.$(OBJEXT) \
+	TestMemory.$(OBJEXT) TestModel.$(OBJEXT) \
 	TestParameter.$(OBJEXT) TestParameterRule.$(OBJEXT) \
 	TestParseMessage.$(OBJEXT) TestReaction.$(OBJEXT) \
 	TestRule.$(OBJEXT) TestRuleType.$(OBJEXT) TestSBase.$(OBJEXT) \
@@ -300,10 +312,13 @@ readSBML_LDFLAGS =
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/src/sbml
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__depfiles_maybe = depfiles
-@AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/AlgebraicRule.Plo \
+@AMDEP_TRUE@DEP_FILES = ./$(DEPDIR)/ASTNode.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/AlgebraicRule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/AssignmentRule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Compartment.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/CompartmentVolumeRule.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/FormulaParser.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/FormulaTokenizer.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/KineticLaw.Plo ./$(DEPDIR)/List.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Model.Plo ./$(DEPDIR)/Parameter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/ParameterRule.Plo \
@@ -320,11 +335,13 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/Species.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SpeciesConcentrationRule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SpeciesReference.Plo \
-@AMDEP_TRUE@	./$(DEPDIR)/Stack.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/Stack.Plo ./$(DEPDIR)/TestASTNode.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestAlgebraicRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestAssignmentRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestCompartment.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestCompartmentVolumeRule.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestFormulaParser.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestFormulaTokenizer.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestKineticLaw.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestList.Po ./$(DEPDIR)/TestMemory.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestModel.Po \
@@ -445,10 +462,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ASTNode.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/AlgebraicRule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/AssignmentRule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Compartment.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CompartmentVolumeRule.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FormulaParser.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FormulaTokenizer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/KineticLaw.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/List.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Model.Plo@am__quote@
@@ -470,10 +490,13 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpeciesConcentrationRule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpeciesReference.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Stack.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestASTNode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestAlgebraicRule.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestAssignmentRule.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestCompartment.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestCompartmentVolumeRule.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestFormulaParser.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestFormulaTokenizer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestKineticLaw.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestList.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMemory.Po@am__quote@
