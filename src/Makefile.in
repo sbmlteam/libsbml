@@ -319,8 +319,12 @@ libraries = $(PACKAGE).a $(PACKAGE).$(SHAREDLIBEXT)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS) -I../expat
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS) -L../expat
-  extra_LIBS      += $(EXPAT_LIBS) -lexpat-compat
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
+
+  # Redefine $(objfiles) to contain the expat compatibility code from ../expat.
+  srclist ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
+  objfiles = $(filter %.$(OBJEXT),$(srclist)) ../expat/*.$(OBJEXT)
 else
   extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
   extra_LDFLAGS   += $(XERCES_LDFLAGS)
