@@ -130,20 +130,6 @@ SBMLDocument_createModelWith (SBMLDocument_t *d, const char *sname)
 
 
 /**
- * Frees the given ParseMessage.
- */
-LIBSBML_EXTERN
-void
-ParseMessage_free (ParseMessage_t *pm)
-{
-  if (pm == NULL) return;
-
-  safe_free(pm->message);
-  safe_free(pm);
-}
-
-
-/**
  * Frees the given SBMLDocument.
  */
 LIBSBML_EXTERN
