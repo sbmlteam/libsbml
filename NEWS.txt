@@ -1,6 +1,32 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 1.1.2 ===
+
+* A new subdirectory, examples, contains a few small programs that
+  demonstrate how libsbml may be used.
+
+* IEEE-754 NaN, +Inf, -Inf and -0.0 are handled correctly and
+  consistenly on all supported platforms.  In previous versions, these
+  values were not represented, read or written correctly on native
+  Windows and under Cygwin.
+
+  When writing these values to XML, libsbml now strictly adheres to the
+  XML Schema specification for doubles, namely exactly: "NaN", "INF",
+  "-INF" and "-0".
+
+* The build platform was upgraded to Libtool 1.5.  This means dynamic
+  libraries should build correctly on all platforms: Cygwin (.DLL),
+  Linux (.so) and MacOS X (.dylib).
+
+* SBMLWriter now defaults to an ouput encoding of UTF-8.
+
+
+* Released June 5, 2003
+
+
+
+
 === Version 1.1.0 ====
 
 * A Developer's Manual (DRAFT) is available in docs/formatted/.
