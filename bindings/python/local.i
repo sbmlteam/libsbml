@@ -198,3 +198,12 @@
       args[1].thisown = 0
     return _libsbml.Reaction_addProduct(*args)
 %}
+
+
+%feature("shadow") Reaction::addModifier(ModifierSpeciesReference& sr)
+%{
+  def addModifier(*args):
+    if args[1] is not None:
+      args[1].thisown = 0
+    return _libsbml.Reaction_addModifier(*args)
+%}

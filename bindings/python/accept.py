@@ -161,6 +161,7 @@ def testReaction():
 
    productReference = libsbml.SpeciesReference("product")
    assert productReference
+   assert productReference.thisown == 1
 
    reaction.addProduct(productReference)
    assert productReference.thisown == 0
@@ -170,7 +171,19 @@ def testReaction():
    theSameSpeciesReference = reaction.getProduct(0)
    assert theSameSpeciesReference.getSpecies() == productReference.getSpecies()
 
-   assert productReference.thisown == 0
+   # Modifier
+
+   modifierReference = libsbml.ModifierSpeciesReference("modifier")
+   assert modifierReference
+   assert modifierReference.thisown == 1
+
+   reaction.addModifier(modifierReference)
+   assert modifierReference.thisown == 0
+
+   assert reaction.getNumModifiers() == 1
+
+   theSameSpeciesReference = reaction.getModifier(0)
+   assert theSameSpeciesReference.getSpecies() == modifierReference.getSpecies()
 
 
 def testDocument():
