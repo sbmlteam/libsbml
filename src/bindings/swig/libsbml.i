@@ -1,12 +1,12 @@
 /**
- * Filename    : libsbml.i
- * Description : Language-independent SWIG directives for wrapping libSBML
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Created     : 2004-04-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    libsbml.i
+ * \brief   Language-independent SWIG directives for wrapping libSBML
+ * \author  Ben Bornstein and Ben Kovitz
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,7 +53,7 @@
 
 
 %{
-#include "libsbml.hpp"
+#include "libsbml.h"
 #include "local.cpp"
 
 void SBaseTest_setup() { /* empty, but required to link. */ }
@@ -91,44 +91,47 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 
 %include "std_string.i"
 
-%import  sbml/extern.h
-%include sbml/ASTNodeType.h
-%include sbml/ASTNode.h
-%include sbml/ASTNode.hpp
-%include sbml/MathMLDocument.hpp
+%import  common/extern.h
+
+%include sbml/SBMLReader.h
+%include sbml/SBMLWriter.h
+
 %include sbml/SBMLTypeCodes.h
-%include sbml/SBase.hpp
-%include sbml/ListOf.hpp
-%include sbml/Model.hpp
-%include sbml/SBMLDocument.hpp
-%include sbml/FunctionDefinition.hpp
-%include sbml/Unit.hpp
-%include sbml/UnitDefinition.hpp
-%include sbml/Compartment.hpp
-%include sbml/Species.hpp
-%include sbml/Parameter.hpp
-%include sbml/Rule.hpp
-%include sbml/AlgebraicRule.hpp
-%include sbml/AssignmentRule.hpp
-%include sbml/RateRule.hpp
-%include sbml/SpeciesConcentrationRule.hpp
-%include sbml/CompartmentVolumeRule.hpp
-%include sbml/ParameterRule.hpp
-%include sbml/Reaction.hpp
-%include sbml/KineticLaw.hpp
-%include sbml/SimpleSpeciesReference.hpp
-%include sbml/SpeciesReference.hpp
-%include sbml/ModifierSpeciesReference.hpp
-%include sbml/Event.hpp
-%include sbml/EventAssignment.hpp
+%include sbml/SBase.h
+%include sbml/ListOf.h
+%include sbml/Model.h
+%include sbml/SBMLDocument.h
+%include sbml/FunctionDefinition.h
+%include sbml/Unit.h
+%include sbml/UnitDefinition.h
+%include sbml/Compartment.h
+%include sbml/Species.h
+%include sbml/Parameter.h
+%include sbml/Rule.h
+%include sbml/AlgebraicRule.h
+%include sbml/AssignmentRule.h
+%include sbml/RateRule.h
+%include sbml/SpeciesConcentrationRule.h
+%include sbml/CompartmentVolumeRule.h
+%include sbml/ParameterRule.h
+%include sbml/Reaction.h
+%include sbml/KineticLaw.h
+%include sbml/SimpleSpeciesReference.h
+%include sbml/SpeciesReference.h
+%include sbml/ModifierSpeciesReference.h
+%include sbml/Event.h
+%include sbml/EventAssignment.h
 %include sbml/UnitKind.h
 %include sbml/RuleType.h
-%include sbml/ParseMessage.hpp
-%include sbml/SBMLReader.hpp
-%include sbml/SBMLWriter.hpp
-%include sbml/XMLNamespace.hpp
-%include sbml/XMLNamespaceList.hpp
-%include sbml/XMLSchemaValidation.h
+
+%include math/ASTNode.h
+%include math/ASTNodeType.h
+%include math/MathMLDocument.h
+
+%include xml/ParseMessage.h
+%include xml/XMLNamespace.h
+%include xml/XMLNamespaceList.h
+%include xml/XMLSchemaValidation.h
 
 
 %typemap(newfree) char * "free($1);";
