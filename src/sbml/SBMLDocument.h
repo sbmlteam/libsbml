@@ -85,7 +85,7 @@ typedef struct
 /**
  * Creates a new SBMLDocument and returns a pointer to it.
  *
- * The SBML document level and version are both 1.
+ * The SBML level defaults to 2 and version defaults to 1.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *

@@ -54,7 +54,7 @@
 #include "sbml/Species.h"
 
 
-Species_t *S;
+static Species_t *S;
 
 
 void
@@ -79,21 +79,31 @@ SpeciesTest_teardown (void)
 START_TEST (test_Species_create)
 {
   fail_unless( S->typecode   == SBML_SPECIES, NULL );
+  fail_unless( S->metaid     == NULL, NULL );
   fail_unless( S->notes      == NULL, NULL );
   fail_unless( S->annotation == NULL, NULL );
 
-  fail_unless( S->name              == NULL, NULL );
-  fail_unless( S->compartment       == NULL, NULL );
-  fail_unless( S->units             == NULL, NULL );
-  fail_unless( S->initialAmount     == 0.0 , NULL );
-  fail_unless( S->boundaryCondition == 0   , NULL );
-  fail_unless( S->charge            == 0   , NULL );
+  fail_unless( S->id                    == NULL, NULL );
+  fail_unless( S->name                  == NULL, NULL );
+  fail_unless( S->compartment           == NULL, NULL );
+  fail_unless( S->initial.Amount        == 0.0 , NULL );
+  fail_unless( S->initial.Concentration == 0.0 , NULL );
+  fail_unless( S->substanceUnits        == NULL, NULL );
+  fail_unless( S->spatialSizeUnits      == NULL, NULL );
+  fail_unless( S->hasOnlySubstanceUnits == 0   , NULL );
+  fail_unless( S->boundaryCondition     == 0   , NULL );
+  fail_unless( S->charge                == 0   , NULL );
+  fail_unless( S->constant              == 0   , NULL );
 
-  fail_unless( !Species_isSetName(S)         , NULL );
-  fail_unless( !Species_isSetCompartment(S)  , NULL );
-  fail_unless( !Species_isSetUnits(S)        , NULL );
-  fail_unless( !Species_isSetInitialAmount(S), NULL );
-  fail_unless( !Species_isSetCharge(S)       , NULL );
+  fail_unless( !Species_isSetId                  (S), NULL );
+  fail_unless( !Species_isSetName                (S), NULL );
+  fail_unless( !Species_isSetCompartment         (S), NULL );
+  fail_unless( !Species_isSetInitialAmount       (S), NULL );
+  fail_unless( !Species_isSetInitialConcentration(S), NULL );
+  fail_unless( !Species_isSetSubstanceUnits      (S), NULL );
+  fail_unless( !Species_isSetSpatialSizeUnits    (S), NULL );
+  fail_unless( !Species_isSetUnits               (S), NULL );
+  fail_unless( !Species_isSetCharge              (S), NULL );
 }
 END_TEST
 
@@ -104,22 +114,32 @@ START_TEST (test_Species_createWith)
 
 
   fail_unless( s->typecode   == SBML_SPECIES, NULL );
+  fail_unless( s->metaid     == NULL, NULL );
   fail_unless( s->notes      == NULL, NULL );
   fail_unless( s->annotation == NULL, NULL );
 
-  fail_unless( !strcmp(s->name       , "Ca"  ), NULL );
-  fail_unless( !strcmp(s->compartment, "cell"), NULL );
-  fail_unless( !strcmp(s->units      , "mole"), NULL );
+  fail_unless( s->name                  == NULL, NULL );
+  fail_unless( s->spatialSizeUnits      == NULL, NULL );
+  fail_unless( s->hasOnlySubstanceUnits == 0, NULL );
+  fail_unless( s->constant              == 0, NULL );
 
-  fail_unless( s->initialAmount     == 5.7 , NULL );
+  fail_unless( !strcmp(s->id            , "Ca"  ), NULL );
+  fail_unless( !strcmp(s->compartment   , "cell"), NULL );
+  fail_unless( !strcmp(s->substanceUnits, "mole"), NULL );
+
+  fail_unless( s->initial.Amount    == 5.7 , NULL );
   fail_unless( s->boundaryCondition == 1   , NULL );
   fail_unless( s->charge            == 1   , NULL );
 
-  fail_unless( Species_isSetName(s)         , NULL );
-  fail_unless( Species_isSetCompartment(s)  , NULL );
-  fail_unless( Species_isSetUnits(s)        , NULL );
-  fail_unless( Species_isSetInitialAmount(s), NULL );
-  fail_unless( Species_isSetCharge(s)       , NULL );
+  fail_unless(   Species_isSetId                   (s), NULL );
+  fail_unless( ! Species_isSetName                 (s), NULL );
+  fail_unless(   Species_isSetCompartment          (s), NULL );
+  fail_unless(   Species_isSetSubstanceUnits       (s), NULL );
+  fail_unless( ! Species_isSetSpatialSizeUnits     (s), NULL );
+  fail_unless(   Species_isSetUnits                (s), NULL );
+  fail_unless(   Species_isSetInitialAmount        (s), NULL );
+  fail_unless( ! Species_isSetInitialConcentration (s), NULL );
+  fail_unless(   Species_isSetCharge               (s), NULL );
 
   Species_free(s);
 }
@@ -133,9 +153,39 @@ START_TEST (test_Species_free_NULL)
 END_TEST
 
 
+START_TEST (test_Species_setId)
+{
+  char *id = "Glucose";
+
+
+  Species_setId(S, id);
+
+  fail_unless( !strcmp(S->id, id), NULL );
+  fail_unless( Species_isSetId(S)  , NULL );
+
+  if (S->id == id)
+  {
+    fail("Species_setId(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  Species_setId(S, S->id);
+  fail_unless( !strcmp(S->id, id), NULL );
+
+  Species_setId(S, NULL);
+  fail_unless( !Species_isSetId(S), NULL );
+
+  if (S->id != NULL)
+  {
+    fail("Species_setId(S, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_Species_setName)
 {
-  char *name = "Glucose";
+  char *name = "So Sweet";
 
 
   Species_setName(S, name);
@@ -193,29 +243,89 @@ START_TEST (test_Species_setCompartment)
 END_TEST
 
 
-START_TEST (test_Species_setUnits)
+START_TEST (test_Species_setSubstanceUnits)
+{
+  char *units = "item";
+
+
+  Species_setSubstanceUnits(S, units);
+
+  fail_unless( !strcmp(S->substanceUnits, units), NULL );
+  fail_unless( Species_isSetSubstanceUnits(S), NULL );
+
+  if (S->substanceUnits == units)
+  {
+    fail("Species_setSubstanceUnits(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  Species_setSubstanceUnits(S, S->substanceUnits);
+  fail_unless( !strcmp(S->substanceUnits, units), NULL );
+
+  Species_setSubstanceUnits(S, NULL);
+  fail_unless( !Species_isSetSubstanceUnits(S), NULL );
+
+  if (S->substanceUnits != NULL)
+  {
+    fail("Species_setSubstanceUnits(S, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
+START_TEST (test_Species_setSpatialSizeUnits)
 {
   char *units = "volume";
 
 
+  Species_setSpatialSizeUnits(S, units);
+
+  fail_unless( !strcmp(S->spatialSizeUnits, units), NULL );
+  fail_unless( Species_isSetSpatialSizeUnits(S), NULL );
+
+  if (S->spatialSizeUnits == units)
+  {
+    fail("Species_setSpatialSizeUnits(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  Species_setSpatialSizeUnits(S, S->spatialSizeUnits);
+  fail_unless( !strcmp(S->spatialSizeUnits, units), NULL );
+
+  Species_setSpatialSizeUnits(S, NULL);
+  fail_unless( !Species_isSetSpatialSizeUnits(S), NULL );
+
+  if (S->spatialSizeUnits != NULL)
+  {
+    fail("Species_setSpatialSizeUnits(S, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
+START_TEST (test_Species_setUnits)
+{
+  char *units = "mole";
+
+
   Species_setUnits(S, units);
 
-  fail_unless( !strcmp(S->units, units), NULL );
+  fail_unless( !strcmp(Species_getUnits(S), units), NULL );
   fail_unless( Species_isSetUnits(S), NULL );
 
-  if (S->units == units)
+  if (S->substanceUnits == units)
   {
     fail("Species_setUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setUnits(S, S->units);
-  fail_unless( !strcmp(S->units, units), NULL );
+  Species_setUnits(S, S->substanceUnits);
+  fail_unless( !strcmp(Species_getUnits(S), units), NULL );
 
   Species_setUnits(S, NULL);
   fail_unless( !Species_isSetUnits(S), NULL );
 
-  if (S->units != NULL)
+  if (S->substanceUnits != NULL)
   {
     fail("Species_setUnits(S, NULL) did not clear string.");
   }
@@ -234,12 +344,15 @@ create_suite_Species (void)
                              SpeciesTest_setup,
                              SpeciesTest_teardown );
 
-  tcase_add_test( tcase, test_Species_create         );
-  tcase_add_test( tcase, test_Species_createWith     );
-  tcase_add_test( tcase, test_Species_free_NULL      );
-  tcase_add_test( tcase, test_Species_setName        );
-  tcase_add_test( tcase, test_Species_setCompartment );
-  tcase_add_test( tcase, test_Species_setUnits       );
+  tcase_add_test( tcase, test_Species_create              );
+  tcase_add_test( tcase, test_Species_createWith          );
+  tcase_add_test( tcase, test_Species_free_NULL           );
+  tcase_add_test( tcase, test_Species_setId               );
+  tcase_add_test( tcase, test_Species_setName             );
+  tcase_add_test( tcase, test_Species_setCompartment      );
+  tcase_add_test( tcase, test_Species_setSubstanceUnits   );
+  tcase_add_test( tcase, test_Species_setSpatialSizeUnits );
+  tcase_add_test( tcase, test_Species_setUnits            );
 
   suite_add_tcase(suite, tcase);
 

@@ -55,14 +55,94 @@
 
 
 /**
- * AssignmentRule "objects" are abstract, i.e. they are not created.
+ * Creates a new AssignmentRule and returns a pointer to it.
+ *
+ * In L1 AssignmentRule is an abstract class.  It exists soley to provide
+ * fields to its subclasess: CompartmentVolumeRule, ParameterRule and
+ * SpeciesConcentrationRule.
+ *
+ * In L2 the three subclasses are gone and AssigmentRule is concrete;
+ * i.e. it may be created, used and destroyed directly.
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_create (void)
+{
+  AssignmentRule_t *ar;
+
+
+  ar = (AssignmentRule_t *) safe_calloc(1, sizeof(AssignmentRule_t));
+  AssignmentRule_init(ar, SBML_ASSIGNMENT_RULE);
+
+  return ar;
+}
+
+
+/**
+ * Creates a new AssignmentRule with the given variable and math and
+ * returns a pointer to it.  This convenience function is functionally
+ * equivalent to:
+ *
+ *   ar = AssignmentRule_create();
+ *   AssignmentRule_setVariable(ar, variable);
+ *   Rule_setMath((Rule_t *) ar, math);
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_createWith (const char *variable, ASTNode_t *math)
+{
+  AssignmentRule_t *ar = AssignmentRule_create();
+
+
+  AssignmentRule_setVariable( ar, variable );
+  Rule_setMath( (Rule_t *) ar, math );
+
+  return ar;
+}
+
+
+/**
+ * Frees the given AssignmentRule.
+ */
+LIBSBML_EXTERN
+void
+AssignmentRule_free (AssignmentRule_t *ar)
+{
+  if (ar == NULL) return;
+
+
+  AssignmentRule_clear(ar);
+  safe_free(ar);
+}
+
+
+/**
+ * The function is kept for backward compatibility with the SBML L1 API.
+ *
+ * Clears (frees) ASSIGNMENT_RULE_FIELDS of this AssignmentRule "subclass".
+ * This function also calls its "parent", Rule_clear().
+ */
+void
+AssignmentRule_clear (AssignmentRule_t *ar)
+{
+  if (ar == NULL) return;
+
+
+  safe_free(ar->variable);
+  Rule_clear((Rule_t *) ar);
+}
+
+
+/**
+ * The function is kept for backward compatibility with the SBML L1 API.
+ *
+ * In L1 AssignmentRule "objects" are abstract, i.e. they are not created.
  * Rather, specific "subclasses" are created (e.g. ParameterRule) and their
  * ASSIGNMENT_RULE_FIELDS are initialized with this function.  The type of
  * the specific "subclass" is indicated by the given SBMLTypeCode.
  *
  * This function also calls its "parent", Rule_init().
  */
-LIBSBML_EXTERN
 void
 AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc)
 {
@@ -72,20 +152,8 @@ AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc)
 
 
 /**
- * Clears (frees) ASSIGNMENT_RULE_FIELDS of this AssignmentRule "subclass".
- * This function also calls its "parent", Rule_clear().
- */
-LIBSBML_EXTERN
-void
-AssignmentRule_clear (AssignmentRule_t *ar)
-{
-  if (ar == NULL) return;
-
-  Rule_clear((Rule_t *) ar);
-}
-
-
-/**
+ * The function is kept for backward compatibility with the SBML L1 API.
+ *
  * Initializes the fields of this AssignmentRule to their defaults:
  *
  *   - type = RULE_TYPE_SCALAR
@@ -94,7 +162,7 @@ LIBSBML_EXTERN
 void
 AssignmentRule_initDefaults (AssignmentRule_t *ar)
 {
-  ar->type = RULE_TYPE_SCALAR;
+  AssignmentRule_setType(ar, RULE_TYPE_SCALAR);
 }
 
 
@@ -110,6 +178,29 @@ AssignmentRule_getType (const AssignmentRule_t *ar)
 
 
 /**
+ * @return the variable for this AssignmentRule.
+ */
+LIBSBML_EXTERN
+const char *
+AssignmentRule_getVariable (const AssignmentRule_t *ar)
+{
+  return ar->variable;
+}
+
+
+/**
+ * @return 1 if the variable of this AssignmentRule has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetVariable (const AssignmentRule_t *ar)
+{
+  return (ar->variable != NULL);
+}
+
+
+/**
  * Sets the type of this Rule to the given RuleType.
  */
 LIBSBML_EXTERN
@@ -117,4 +208,23 @@ void
 AssignmentRule_setType (AssignmentRule_t *ar, RuleType_t rt)
 {
   ar->type = rt;
+}
+
+
+/**
+ * Sets the variable of this AssignmentRule to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+AssignmentRule_setVariable (AssignmentRule_t *ar, const char *sid)
+{
+  if (ar->variable == sid) return;
+
+
+  if (ar->variable != NULL)
+  {
+    safe_free(ar->variable);
+  }
+
+  ar->variable = (sid == NULL) ? NULL : safe_strdup(sid);
 }

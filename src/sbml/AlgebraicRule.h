@@ -88,6 +88,21 @@ AlgebraicRule_t *
 AlgebraicRule_createWith (const char *formula);
 
 /**
+ * Creates a new AlgebraicRule with the given math and returns a pointer
+ * to it.  This convenience function is functionally equivalent to:
+ *
+ *   AlgebraicRule_t *ar = AlgebraicRule_create();
+ *   Rule_setMath((Rule_t *) ar, math);
+ *
+ * The node <b>is not copied</b> and this AlgebraicRule <b>takes
+ * ownership</b> of it; i.e. subsequent calls to this function or a call to
+ * AlgebraicRule_free() will free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+AlgebraicRule_t *
+AlgebraicRule_createWithMath (ASTNode_t *math);
+
+/**
  * Frees the given AlgebraicRule.
  */
 LIBSBML_EXTERN

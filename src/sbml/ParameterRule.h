@@ -63,12 +63,23 @@
 BEGIN_C_DECLS
 
 
+/**
+ * IMPORTANT NOTICE
+ * ================
+ *
+ * As of libsbml version 2, the name field of ParameterRule has been
+ * replaced by the field variable defined in ASSIGNMENT_RULE_FIELDS.
+ *
+ * This will only effect your code if you reference the field directly.
+ * The name getter and setter remain for backward compatibility.
+ */
+
+
 typedef struct
 {
   SBASE_FIELDS;
   RULE_FIELDS;
   ASSIGNMENT_RULE_FIELDS;
-  char *name;
   char *units;
 } ParameterRule_t;
 

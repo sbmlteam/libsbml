@@ -113,15 +113,19 @@ Unit_free (Unit_t *u)
 /**
  * Initializes the fields of this Unit to their defaults:
  *
- *   - exponent = 1
- *   - scale    = 0
+ *   - exponent   = 1
+ *   - scale      = 0
+ *   - multiplier = 1.0
+ *   - offset     = 0.0
  */
 LIBSBML_EXTERN
 void
 Unit_initDefaults (Unit_t *u)
 {
-  u->exponent = 1;
-  u->scale    = 0;
+  Unit_setExponent  ( u, 1   );
+  Unit_setScale     ( u, 0   );
+  Unit_setMultiplier( u, 1.0 );
+  Unit_setOffset    ( u, 0.0 );
 }
 
 
@@ -159,6 +163,28 @@ Unit_getScale (const Unit_t *u)
 
 
 /**
+ * @return the multiplier of this Unit.
+ */
+LIBSBML_EXTERN
+double
+Unit_getMultiplier (const Unit_t *u)
+{
+  return u->multiplier;
+}
+
+
+/**
+ * @return the offset of this Unit.
+ */
+LIBSBML_EXTERN
+double
+Unit_getOffset (const Unit_t *u)
+{
+  return u->offset;
+}
+
+
+/**
  * @return 1 if the kind of this Unit has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -181,7 +207,7 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
 
 
 /**
- * Sets the exponent of this Unit to value and marks the field as set.
+ * Sets the exponent of this Unit to the given value.
  */
 LIBSBML_EXTERN
 void
@@ -192,11 +218,33 @@ Unit_setExponent (Unit_t *u, int value)
 
 
 /**
- * Sets the scale of this Unit to value and marks the field as set.
+ * Sets the scale of this Unit to the given value.
  */
 LIBSBML_EXTERN
 void
 Unit_setScale (Unit_t *u, int value)
 {
   u->scale = value;
+}
+
+
+/**
+ * Sets the multiplier of this Unit to the given value.
+ */
+LIBSBML_EXTERN
+void
+Unit_setMultiplier (Unit_t *u, double value)
+{
+  u->multiplier = value;
+}
+
+
+/**
+ * Sets the offset of this Unit to the given value.
+ */
+LIBSBML_EXTERN
+void
+Unit_setOffset (Unit_t *u, double value)
+{
+  u->offset = value;
 }

@@ -79,19 +79,23 @@ ReactionTest_teardown (void)
 START_TEST (test_Reaction_create)
 {
   fail_unless( R->typecode   == SBML_REACTION, NULL );
+  fail_unless( R->metaid     == NULL, NULL );
   fail_unless( R->notes      == NULL, NULL );
   fail_unless( R->annotation == NULL, NULL );
 
+  fail_unless( R->id         == NULL, NULL );
   fail_unless( R->name       == NULL, NULL );
   fail_unless( R->kineticLaw == NULL, NULL );
   fail_unless( R->reversible != 0   , NULL );
   fail_unless( R->fast       == 0   , NULL );
 
+  fail_unless( !Reaction_isSetId        (R), NULL );
   fail_unless( !Reaction_isSetName      (R), NULL );
   fail_unless( !Reaction_isSetKineticLaw(R), NULL );
 
   fail_unless( Reaction_getNumReactants(R) == 0, NULL );
-  fail_unless( Reaction_getNumProducts(R)  == 0, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 0, NULL );
 }
 END_TEST
 
@@ -103,20 +107,24 @@ START_TEST (test_Reaction_createWith)
 
 
   fail_unless( r->typecode   == SBML_REACTION, NULL );
+  fail_unless( r->metaid     == NULL, NULL );
   fail_unless( r->notes      == NULL, NULL );
   fail_unless( r->annotation == NULL, NULL );
+  fail_unless( r->name       == NULL, NULL );
 
-  fail_unless( !strcmp(r->name, "r1"), NULL );
+  fail_unless( !strcmp(r->id, "r1"), NULL );
 
   fail_unless( r->kineticLaw == kl, NULL );
   fail_unless( r->reversible ==  0, NULL );
   fail_unless( r->fast       ==  1, NULL );
 
-  fail_unless( Reaction_isSetName      (r), NULL );
+  fail_unless( Reaction_isSetId        (r), NULL );
+  fail_unless( !Reaction_isSetName     (r), NULL );
   fail_unless( Reaction_isSetKineticLaw(r), NULL );
 
   fail_unless( Reaction_getNumReactants(r) == 0, NULL );
-  fail_unless( Reaction_getNumProducts(r)  == 0, NULL );
+  fail_unless( Reaction_getNumProducts (r) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(r) == 0, NULL );
 
   Reaction_free(r);
 }
@@ -130,9 +138,39 @@ START_TEST (test_Reaction_free_NULL)
 END_TEST
 
 
+START_TEST (test_Reaction_setId)
+{
+  char *id = "J1";
+
+
+  Reaction_setId(R, id);
+
+  fail_unless( !strcmp(R->id, id) , NULL );
+  fail_unless( Reaction_isSetId(R), NULL );
+
+  if (R->id == id)
+  {
+    fail("Reaction_setId(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  Reaction_setId(R, R->id);
+  fail_unless( !strcmp(R->id, id), NULL );
+
+  Reaction_setId(R, NULL);
+  fail_unless( !Reaction_isSetId(R), NULL );
+
+  if (R->id != NULL)
+  {
+    fail("Reaction_setId(R, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_Reaction_setName)
 {
-  char *name = "J1";
+  char *name = "MapK Cascade";
 
 
   Reaction_setName(R, name);
@@ -165,7 +203,8 @@ START_TEST (test_Reaction_addReactant)
   Reaction_addReactant(R, SpeciesReference_create());
 
   fail_unless( Reaction_getNumReactants(R) == 1, NULL );
-  fail_unless( Reaction_getNumProducts(R)  == 0, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 0, NULL );
 }
 END_TEST
 
@@ -175,7 +214,19 @@ START_TEST (test_Reaction_addProduct)
   Reaction_addProduct(R, SpeciesReference_create());
 
   fail_unless( Reaction_getNumReactants(R) == 0, NULL );
-  fail_unless( Reaction_getNumProducts(R)  == 1, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 1, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 0, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Reaction_addModifier)
+{
+  Reaction_addModifier(R, ModifierSpeciesReference_create());
+
+  fail_unless( Reaction_getNumReactants(R) == 0, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 1, NULL );
 }
 END_TEST
 
@@ -193,7 +244,8 @@ START_TEST (test_Reaction_getReactant)
   Reaction_addReactant(R, sr2);
 
   fail_unless( Reaction_getNumReactants(R) == 2, NULL );
-  fail_unless( Reaction_getNumProducts(R)  == 0, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 0, NULL );
 
   sr1 = Reaction_getReactant(R, 0);
   sr2 = Reaction_getReactant(R, 1);
@@ -218,13 +270,39 @@ START_TEST (test_Reaction_getProduct)
   Reaction_addProduct(R, sr2);
 
   fail_unless( Reaction_getNumReactants(R) == 0, NULL );
-  fail_unless( Reaction_getNumProducts(R)  == 2, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 2, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 0, NULL );
 
   sr1 = Reaction_getProduct(R, 0);
   sr2 = Reaction_getProduct(R, 1);
 
   fail_unless( !strcmp(sr1->species, "P1"), NULL );
   fail_unless( !strcmp(sr2->species, "P2"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_Reaction_getModifier)
+{
+  ModifierSpeciesReference_t *msr1 = ModifierSpeciesReference_create();
+  ModifierSpeciesReference_t *msr2 = ModifierSpeciesReference_create();
+
+
+  ModifierSpeciesReference_setSpecies(msr1, "M1");
+  ModifierSpeciesReference_setSpecies(msr2, "M2");
+
+  Reaction_addModifier(R, msr1);
+  Reaction_addModifier(R, msr2);
+
+  fail_unless( Reaction_getNumReactants(R) == 0, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 2, NULL );
+
+  msr1 = Reaction_getModifier(R, 0);
+  msr2 = Reaction_getModifier(R, 1);
+
+  fail_unless( !strcmp(msr1->species, "M1"), NULL );
+  fail_unless( !strcmp(msr2->species, "M2"), NULL );
 }
 END_TEST
 
@@ -241,11 +319,14 @@ create_suite_Reaction (void)
   tcase_add_test( tcase, test_Reaction_create      );
   tcase_add_test( tcase, test_Reaction_createWith  );
   tcase_add_test( tcase, test_Reaction_free_NULL   );
+  tcase_add_test( tcase, test_Reaction_setId       );
   tcase_add_test( tcase, test_Reaction_setName     );
   tcase_add_test( tcase, test_Reaction_addReactant );
   tcase_add_test( tcase, test_Reaction_addProduct  );
+  tcase_add_test( tcase, test_Reaction_addModifier );
   tcase_add_test( tcase, test_Reaction_getReactant );
   tcase_add_test( tcase, test_Reaction_getProduct  );
+  tcase_add_test( tcase, test_Reaction_getModifier );
 
   suite_add_tcase(suite, tcase);
 

@@ -51,6 +51,7 @@
 
 
 #include "sbml/common.h"
+#include "sbml/FormulaParser.h"
 #include "sbml/Rule.h"
 
 
@@ -87,9 +88,11 @@ RuleTest_teardown (void)
 START_TEST (test_Rule_init)
 {
   fail_unless( R->typecode   == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( R->metaid     == NULL, NULL );
   fail_unless( R->notes      == NULL, NULL );
   fail_unless( R->annotation == NULL, NULL );
   fail_unless( R->formula    == NULL, NULL );
+  fail_unless( R->math       == NULL, NULL );
 }
 END_TEST
 
@@ -131,6 +134,31 @@ START_TEST (test_Rule_setFormula)
 END_TEST
 
 
+START_TEST (test_Rule_setMath)
+{
+  ASTNode_t *math = SBML_parseFormula("1 + 1");
+
+
+  Rule_setMath(R, math);
+
+  fail_unless( R->math == math, NULL );
+  fail_unless( Rule_isSetMath(R), NULL );
+
+  /* Reflexive case (pathological) */
+  Rule_setMath(R, R->math);
+  fail_unless( R->math == math, NULL );
+
+  Rule_setMath(R, NULL);
+  fail_unless( !Rule_isSetMath(R), NULL );
+
+  if (R->math != NULL)
+  {
+    fail("Rule_setMath(R, NULL) did not clear ASTNode.");
+  }
+}
+END_TEST
+
+
 Suite *
 create_suite_Rule (void)
 {
@@ -143,6 +171,7 @@ create_suite_Rule (void)
   tcase_add_test( tcase, test_Rule_init       );
   tcase_add_test( tcase, test_Rule_clear_NULL );
   tcase_add_test( tcase, test_Rule_setFormula );
+  tcase_add_test( tcase, test_Rule_setMath    );
 
   suite_add_tcase(suite, tcase);
 

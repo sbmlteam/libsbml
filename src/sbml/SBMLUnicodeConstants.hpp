@@ -111,6 +111,23 @@ static const XMLCh ELEM_COMPARTMENT_VOLUME_RULE[] =
   chLatin_u, chLatin_l, chLatin_e, chNull
 };
 
+static const XMLCh ELEM_DELAY[] =
+{
+  chLatin_d, chLatin_e, chLatin_l, chLatin_a, chLatin_y, chNull
+};
+
+static const XMLCh ELEM_EVENT[] =
+{
+  chLatin_e, chLatin_v, chLatin_e, chLatin_n, chLatin_t, chNull
+};
+
+static const XMLCh ELEM_EVENT_ASSIGNMENT[] =
+{
+  chLatin_e, chLatin_v, chLatin_e, chLatin_n, chLatin_t, chLatin_A,
+  chLatin_s, chLatin_s, chLatin_i, chLatin_g, chLatin_n, chLatin_m,
+  chLatin_e, chLatin_n, chLatin_t, chNull
+};
+
 static const XMLCh ELEM_KINETIC_LAW[] =
 {
   chLatin_k, chLatin_i, chLatin_n, chLatin_e, chLatin_t, chLatin_i,
@@ -123,6 +140,37 @@ static const XMLCh ELEM_LIST_OF_COMPARTMENTS[] =
   chLatin_C, chLatin_o, chLatin_m, chLatin_p, chLatin_a, chLatin_r,
   chLatin_t, chLatin_m, chLatin_e, chLatin_n, chLatin_t, chLatin_s,
   chNull
+};
+
+static const XMLCh ELEM_LIST_OF_EVENT_ASSIGNMENTS[] =
+{
+  chLatin_l, chLatin_i, chLatin_s, chLatin_t, chLatin_O, chLatin_f,
+  chLatin_E, chLatin_v, chLatin_e, chLatin_n, chLatin_t, chLatin_A,
+  chLatin_s, chLatin_s, chLatin_i, chLatin_g, chLatin_n, chLatin_m,
+  chLatin_e, chLatin_n, chLatin_t, chLatin_s, chNull
+};
+
+static const XMLCh ELEM_LIST_OF_FUNCTION_DEFINITIONS[] =
+{
+  chLatin_l, chLatin_i, chLatin_s, chLatin_t, chLatin_O, chLatin_f,
+  chLatin_F, chLatin_u, chLatin_n, chLatin_c, chLatin_t, chLatin_i,
+  chLatin_o, chLatin_n, chLatin_D, chLatin_e, chLatin_f, chLatin_i,
+  chLatin_n, chLatin_i, chLatin_t, chLatin_i, chLatin_o, chLatin_n,
+  chLatin_s, chNull
+};
+
+static const XMLCh ELEM_LIST_OF_EVENTS[] =
+{
+  chLatin_l, chLatin_i, chLatin_s, chLatin_t, chLatin_O, chLatin_f,
+  chLatin_E, chLatin_v, chLatin_e, chLatin_n, chLatin_t, chLatin_s,
+  chNull
+};
+
+static const XMLCh ELEM_LIST_OF_MODIFIERS[] =
+{
+  chLatin_l, chLatin_i, chLatin_s, chLatin_t, chLatin_O, chLatin_f,
+  chLatin_M, chLatin_o, chLatin_d, chLatin_i, chLatin_f, chLatin_i,
+  chLatin_e, chLatin_r, chLatin_s, chNull
 };
 
 static const XMLCh ELEM_LIST_OF_PARAMETERS[] =
@@ -180,10 +228,18 @@ static const XMLCh ELEM_LIST_OF_UNITS[] =
   chLatin_U, chLatin_n, chLatin_i, chLatin_t, chLatin_s, chNull
 };
 
-
 static const XMLCh ELEM_MODEL[] =
 {
   chLatin_m, chLatin_o, chLatin_d, chLatin_e, chLatin_l, chNull
+};
+
+static const XMLCh ELEM_MODIFIER_SPECIES_REFERENCE[] =
+{
+  chLatin_m, chLatin_o, chLatin_d, chLatin_i, chLatin_f, chLatin_i,
+  chLatin_e, chLatin_r, chLatin_S, chLatin_p, chLatin_e, chLatin_c,
+  chLatin_i, chLatin_e, chLatin_s, chLatin_R, chLatin_e, chLatin_f,
+  chLatin_e, chLatin_r, chLatin_e, chLatin_n, chLatin_c, chLatin_e,
+  chNull
 };
 
 static const XMLCh ELEM_NOTES[] =
@@ -202,6 +258,12 @@ static const XMLCh ELEM_PARAMETER_RULE[] =
   chLatin_p, chLatin_a, chLatin_r, chLatin_a, chLatin_m, chLatin_e,
   chLatin_t, chLatin_e, chLatin_r, chLatin_R, chLatin_u, chLatin_l,
   chLatin_e, chNull
+};
+
+static const XMLCh ELEM_RATE_RULE[] =
+{
+  chLatin_r, chLatin_a, chLatin_t, chLatin_e, chLatin_R, chLatin_u,
+  chLatin_l, chLatin_e, chNull
 };
 
 static const XMLCh ELEM_REACTION[] =
@@ -257,6 +319,19 @@ static const XMLCh ELEM_SPECIES_REFERENCE[] =
   chLatin_e, chLatin_n, chLatin_c, chLatin_e, chNull
 };
 
+static const XMLCh ELEM_STOICHIOMETRY_MATH[] =
+{
+  chLatin_s, chLatin_t, chLatin_o, chLatin_i, chLatin_c, chLatin_h,
+  chLatin_i, chLatin_o, chLatin_m, chLatin_e, chLatin_t, chLatin_r,
+  chLatin_y, chLatin_M, chLatin_a, chLatin_t, chLatin_h, chNull
+};
+
+static const XMLCh ELEM_TRIGGER[] =
+{
+  chLatin_t, chLatin_r, chLatin_i, chLatin_g, chLatin_g, chLatin_e,
+  chLatin_r, chNull
+};
+
 static const XMLCh ELEM_UNIT[] =
 {
   chLatin_u, chLatin_n, chLatin_i, chLatin_t, chNull
@@ -288,6 +363,12 @@ static const XMLCh ATTR_COMPARTMENT[] =
   chLatin_t, chLatin_m, chLatin_e, chLatin_n, chLatin_t, chNull
 };
 
+static const XMLCh ATTR_CONSTANT[] =
+{
+  chLatin_c, chLatin_o, chLatin_n, chLatin_s, chLatin_t, chLatin_a,
+  chLatin_n, chLatin_t, chNull
+};
+
 static const XMLCh ATTR_DENOMINATOR[] =
 {
   chLatin_d, chLatin_e, chLatin_n, chLatin_o, chLatin_m, chLatin_i,
@@ -311,11 +392,32 @@ static const XMLCh ATTR_FORMULA[] =
   chLatin_a, chNull
 };
 
+static const XMLCh ATTR_HAS_ONLY_SUBSTANCE_UNITS[] =
+{
+  chLatin_h, chLatin_a, chLatin_s, chLatin_O, chLatin_n, chLatin_l,
+  chLatin_y, chLatin_S, chLatin_u, chLatin_b, chLatin_s, chLatin_t,
+  chLatin_a, chLatin_n, chLatin_c, chLatin_e, chLatin_U, chLatin_n,
+  chLatin_i, chLatin_t, chLatin_s, chNull
+};
+
+static const XMLCh ATTR_ID[] =
+{
+  chLatin_i, chLatin_d, chNull
+};
+
 static const XMLCh ATTR_INITIAL_AMOUNT[] =
 {
   chLatin_i, chLatin_n, chLatin_i, chLatin_t, chLatin_i, chLatin_a,
   chLatin_l, chLatin_A, chLatin_m, chLatin_o, chLatin_u, chLatin_n,
   chLatin_t, chNull
+};
+
+static const XMLCh ATTR_INITIAL_CONCENTRATION[] =
+{
+  chLatin_i, chLatin_n, chLatin_i, chLatin_t, chLatin_i, chLatin_a,
+  chLatin_l, chLatin_C, chLatin_o, chLatin_n, chLatin_c, chLatin_e,
+  chLatin_n, chLatin_t, chLatin_r, chLatin_a, chLatin_t, chLatin_i,
+  chLatin_o, chLatin_n, chNull
 };
 
 static const XMLCh ATTR_KIND[] =
@@ -328,9 +430,27 @@ static const XMLCh ATTR_LEVEL[] =
   chLatin_l, chLatin_e, chLatin_v, chLatin_e, chLatin_l, chNull
 };
 
+static const XMLCh ATTR_META_ID[] =
+{
+  chLatin_m, chLatin_e, chLatin_t, chLatin_a, chLatin_i, chLatin_d,
+  chNull
+};
+
+static const XMLCh ATTR_MULTIPLIER[] =
+{
+  chLatin_m, chLatin_u, chLatin_l, chLatin_t, chLatin_i, chLatin_p,
+  chLatin_l, chLatin_i, chLatin_e, chLatin_r, chNull
+};
+
 static const XMLCh ATTR_NAME[] =
 {
   chLatin_n, chLatin_a, chLatin_m, chLatin_e, chNull
+};
+
+static const XMLCh ATTR_OFFSET[] =
+{
+  chLatin_o, chLatin_f, chLatin_f, chLatin_s, chLatin_e, chLatin_t,
+  chNull
 };
 
 static const XMLCh ATTR_OUTSIDE[] =
@@ -348,6 +468,25 @@ static const XMLCh ATTR_REVERSIBLE[] =
 static const XMLCh ATTR_SCALE[] =
 {
   chLatin_s, chLatin_c, chLatin_a, chLatin_l, chLatin_e, chNull
+};
+
+static const XMLCh ATTR_SIZE[] =
+{
+  chLatin_s, chLatin_i, chLatin_z, chLatin_e, chNull
+};
+
+static const XMLCh ATTR_SPATIAL_DIMENSIONS[] =
+{
+  chLatin_s, chLatin_p, chLatin_a, chLatin_t, chLatin_i, chLatin_a,
+  chLatin_l, chLatin_D, chLatin_i, chLatin_m, chLatin_e, chLatin_n,
+  chLatin_s, chLatin_i, chLatin_o, chLatin_n, chLatin_s, chNull
+};
+
+static const XMLCh ATTR_SPATIAL_SIZE_UNITS[] =
+{
+  chLatin_s, chLatin_p, chLatin_a, chLatin_t, chLatin_i, chLatin_a,
+  chLatin_l, chLatin_S, chLatin_i, chLatin_z, chLatin_e, chLatin_U,
+  chLatin_n, chLatin_i, chLatin_t, chLatin_s, chNull
 };
 
 static const XMLCh ATTR_SPECIE[] =
@@ -400,6 +539,12 @@ static const XMLCh ATTR_VERSION[] =
 static const XMLCh ATTR_VALUE[] =
 {
   chLatin_v, chLatin_a, chLatin_l, chLatin_u, chLatin_e, chNull
+};
+
+static const XMLCh ATTR_VARIABLE[] =
+{
+  chLatin_v, chLatin_a, chLatin_r, chLatin_i, chLatin_a, chLatin_b,
+  chLatin_l, chLatin_e, chNull
 };
 
 static const XMLCh ATTR_VOLUME[] =

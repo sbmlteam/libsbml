@@ -54,7 +54,7 @@
 #include "sbml/UnitDefinition.h"
 
 
-UnitDefinition_t *UD;
+static UnitDefinition_t *UD;
 
 
 void
@@ -79,10 +79,13 @@ UnitDefinitionTest_teardown (void)
 START_TEST (test_UnitDefinition_create)
 {
   fail_unless( UD->typecode   == SBML_UNIT_DEFINITION, NULL );
+  fail_unless( UD->metaid     == NULL, NULL );
   fail_unless( UD->notes      == NULL, NULL );
   fail_unless( UD->annotation == NULL, NULL );
+  fail_unless( UD->id         == NULL, NULL );
   fail_unless( UD->name       == NULL, NULL );
 
+  fail_unless( !UnitDefinition_isSetId  (UD), NULL );
   fail_unless( !UnitDefinition_isSetName(UD), NULL );
 
   fail_unless(UnitDefinition_getNumUnits(UD) == 0, NULL);
@@ -96,11 +99,33 @@ START_TEST (test_UnitDefinition_createWith)
 
 
   fail_unless( ud->typecode   == SBML_UNIT_DEFINITION, NULL );
+  fail_unless( ud->metaid     == NULL, NULL );
   fail_unless( ud->notes      == NULL, NULL );
   fail_unless( ud->annotation == NULL, NULL );
+  fail_unless( ud->name       == NULL, NULL );
 
-  fail_unless( !strcmp(ud->name, "mmls"), NULL );
+  fail_unless( !strcmp(ud->id, "mmls"), NULL );
+  fail_unless(UnitDefinition_isSetId(ud), NULL);
 
+  fail_unless(UnitDefinition_getNumUnits(ud) == 0, NULL);
+
+  UnitDefinition_free(ud);
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_createWithName)
+{
+  UnitDefinition_t *ud = UnitDefinition_createWithName("mmol liter^-1 sec^-1");
+
+
+  fail_unless( ud->typecode   == SBML_UNIT_DEFINITION, NULL );
+  fail_unless( ud->metaid     == NULL, NULL );
+  fail_unless( ud->notes      == NULL, NULL );
+  fail_unless( ud->annotation == NULL, NULL );
+  fail_unless( ud->id         == NULL, NULL );
+
+  fail_unless( !strcmp(ud->name, "mmol liter^-1 sec^-1"), NULL );
   fail_unless(UnitDefinition_isSetName(ud), NULL);
 
   fail_unless(UnitDefinition_getNumUnits(ud) == 0, NULL);
@@ -117,9 +142,39 @@ START_TEST (test_UnitDefinition_free_NULL)
 END_TEST
 
 
+START_TEST (test_UnitDefinition_setId)
+{
+  char *id = "mmls";
+
+
+  UnitDefinition_setId(UD, id);
+
+  fail_unless( !strcmp(UD->id, id)       , NULL );
+  fail_unless( UnitDefinition_isSetId(UD), NULL );
+
+  if (UD->id == id)
+  {
+    fail("UnitDefinition_setId(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  UnitDefinition_setId(UD, UD->id);
+  fail_unless( !strcmp(UD->id, id), NULL );
+
+  UnitDefinition_setId(UD, NULL);
+  fail_unless( !UnitDefinition_isSetId(UD), NULL );
+
+  if (UD->id != NULL)
+  {
+    fail("UnitDefinition_setId(R, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_UnitDefinition_setName)
 {
-  char *name = "mmls";
+  char *name = "mmol liter^-1 sec^-1";
 
 
   UnitDefinition_setName(UD, name);
@@ -203,12 +258,14 @@ create_suite_UnitDefinition (void)
                              UnitDefinitionTest_setup,
                              UnitDefinitionTest_teardown );
 
-  tcase_add_test( tcase, test_UnitDefinition_create     );
-  tcase_add_test( tcase, test_UnitDefinition_createWith );
-  tcase_add_test( tcase, test_UnitDefinition_free_NULL  );
-  tcase_add_test( tcase, test_UnitDefinition_setName    );
-  tcase_add_test( tcase, test_UnitDefinition_addUnit    );
-  tcase_add_test( tcase, test_UnitDefinition_getUnit    );
+  tcase_add_test( tcase, test_UnitDefinition_create         );
+  tcase_add_test( tcase, test_UnitDefinition_createWith     );
+  tcase_add_test( tcase, test_UnitDefinition_createWithName );
+  tcase_add_test( tcase, test_UnitDefinition_free_NULL      );
+  tcase_add_test( tcase, test_UnitDefinition_setId          );
+  tcase_add_test( tcase, test_UnitDefinition_setName        );
+  tcase_add_test( tcase, test_UnitDefinition_addUnit        );
+  tcase_add_test( tcase, test_UnitDefinition_getUnit        );
 
   suite_add_tcase(suite, tcase);
 

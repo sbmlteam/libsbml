@@ -55,7 +55,9 @@
 
 
 #include "common.h"
+#include "ASTNode.h"
 #include "SBase.h"
+#include "SimpleSpeciesReference.h"
 
 
 BEGIN_C_DECLS
@@ -64,9 +66,10 @@ BEGIN_C_DECLS
 typedef struct
 {
   SBASE_FIELDS;
-  char   *species;
-  int     stoichiometry;
-  int     denominator;
+  SIMPLE_SPECIES_REFERENCE_FIELDS;
+  int       stoichiometry;
+  int       denominator;
+  ASTNode_t *stoichiometryMath;
 } SpeciesReference_t;
 
 
@@ -126,6 +129,13 @@ int
 SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
 
 /**
+ * @return the stoichiometryMath of this SpeciesReference.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr);
+
+/**
  * @return the denominator of this SpeciesReference.
  */
 LIBSBML_EXTERN
@@ -141,6 +151,14 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
 
+/**
+ * @return 1 if the stoichiometryMath of this SpeciesReference has been
+ * set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr);
+
 
 /**
  * Sets the species of this SpeciesReference to a copy of sname.
@@ -155,6 +173,18 @@ SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sname);
 LIBSBML_EXTERN
 void
 SpeciesReference_setStoichiometry (SpeciesReference_t *sr, int value);
+
+/**
+ * Sets the stoichiometryMath of this SpeciesReference to the given
+ * ASTNode.
+ *
+ * The node <b>is not copied</b> and this SpeciesReference <b>takes
+ * ownership</b> of it; i.e. subsequent calls to this function or a call to
+ * SpeciesReference_free() will free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_setStoichiometryMath (SpeciesReference_t *sr, ASTNode_t *math);
 
 /**
  * Sets the denominator of this SpeciesReference to value.

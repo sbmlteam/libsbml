@@ -65,9 +65,11 @@ typedef struct
 {
   SBASE_FIELDS;
 
+  char   *id;
   char   *name;
   double  value;
   char   *units;
+  int    constant;
 
   struct
   {
@@ -85,16 +87,16 @@ Parameter_t *
 Parameter_create (void);
 
 /**
- * Creates a new Parameter with the given name, value and units and returns
+ * Creates a new Parameter with the given id, value and units and returns
  * a pointer to it.  This convenience function is functionally equivalent
  * to:
  *
  *   Parameter_t *p = Parameter_create();
- *   Parameter_setName(p, name); Parameter_setValue(p, value); ... ;
+ *   Parameter_setId(p, id); Parameter_setValue(p, value); ... ;
  */
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_createWith (const char *name, double value, const char *units);
+Parameter_createWith (const char *sid, double value, const char *units);
 
 /**
  * Frees the given Parameter.
@@ -103,6 +105,22 @@ LIBSBML_EXTERN
 void
 Parameter_free (Parameter_t *p);
 
+/**
+ * Initializes the fields of this Parameter to their defaults:
+ *
+ *   - constant = 1  (true)  (L2 only)
+ */
+LIBSBML_EXTERN
+void
+Parameter_initDefaults (Parameter_t *p);
+
+
+/**
+ * @return the id of this Parameter.
+ */
+LIBSBML_EXTERN
+const char *
+Parameter_getId (const Parameter_t *p);
 
 /**
  * @return the name of this Parameter.
@@ -125,6 +143,21 @@ LIBSBML_EXTERN
 const char *
 Parameter_getUnits (const Parameter_t *p);
 
+/**
+ * @return true (non-zero) if this Parameter is constant, false (0)
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_getConstant (const Parameter_t *p);
+
+
+/**
+ * @return 1 if the id of this Parameter has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_isSetId (const Parameter_t *p);
 
 /**
  * @return 1 if the name of this Parameter has been set, 0 otherwise.
@@ -156,11 +189,19 @@ Parameter_isSetUnits (const Parameter_t *p);
 
 
 /**
- * Sets the name of this Parameter to a copy of sname.
+ * Sets the id of this Parameter to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Parameter_setName (Parameter_t *p, const char *sname);
+Parameter_setId (Parameter_t *p, const char *sid);
+
+
+/**
+ * Sets the name of this Parameter to a copy of string (SName in L1).
+ */
+LIBSBML_EXTERN
+void
+Parameter_setName (Parameter_t *p, const char *string);
 
 /**
  * Sets the value of this Parameter to value and marks the field as set.
@@ -170,11 +211,18 @@ void
 Parameter_setValue (Parameter_t *p, double value);
 
 /**
- * Sets the units of this Parameter to a copy of sname.
+ * Sets the units of this Parameter to a copy of sid.
  */
 LIBSBML_EXTERN
 void
 Parameter_setUnits (Parameter_t *p, const char *sname);
+
+/**
+ * Sets the constant of this Parameter to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Parameter_setConstant (Parameter_t *p, int value);
 
 
 /**

@@ -111,10 +111,10 @@ START_TEST (test_read_l1v1_minimal)
   fail_unless( Model_getNumSpecies(m) == 1, NULL );
 
   s = Model_getSpecies(m, 0);
-  fail_unless( !strcmp( s->name       , "y" ), NULL );
-  fail_unless( !strcmp( s->compartment, "x" ), NULL );
-  fail_unless( s->initialAmount     == 1, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( !strcmp( s->name       , "y" )  , NULL );
+  fail_unless( !strcmp( s->compartment, "x" )  , NULL );
+  fail_unless( Species_getInitialAmount(s) == 1, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
 
   /**

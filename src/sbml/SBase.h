@@ -67,6 +67,7 @@ BEGIN_C_DECLS
  */
 #define SBASE_FIELDS       \
   SBMLTypeCode_t typecode; \
+  char           *metaid;  \
   char           *notes;   \
   char           *annotation
 
@@ -106,6 +107,13 @@ SBMLTypeCode_t
 SBase_getTypeCode (const SBase_t *sb);
 
 /**
+ * @return the metaid for this SBML object.
+ */
+LIBSBML_EXTERN
+const char *
+SBase_getMetaId (const SBase_t *sb);
+
+/**
  * @return the notes for this SBML object.
  */
 LIBSBML_EXTERN
@@ -119,6 +127,13 @@ LIBSBML_EXTERN
 const char *
 SBase_getAnnotation (const SBase_t *sb);
 
+
+/**
+ * @return 1 if the metaid for this SBML object has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBase_isSetMetaId (const SBase_t *sb);
 
 /**
  * @return 1 if the notes for this SBML object has been set, 0 otherwise.
@@ -135,6 +150,15 @@ LIBSBML_EXTERN
 int
 SBase_isSetAnnotation (const SBase_t *sb);
 
+
+/**
+ * Sets the metaid field of the given SBML object to a copy of metaid.  If
+ * object already has a metaid, the existing string is freed before the new
+ * one is copied.
+ */
+LIBSBML_EXTERN
+void
+SBase_setMetaId (SBase_t *sb, const char *metaid);
 
 /**
  * Sets the notes field of the given SBML object to a copy of notes.  If
@@ -154,6 +178,14 @@ LIBSBML_EXTERN
 void
 SBase_setAnnotation (SBase_t *sb, const char *annotation);
 
+
+/**
+ * Unsets the metaid for this SBML object.  This is equivalent to:
+ * safe_free(sb->metaid); s->metaid = NULL;
+ */
+LIBSBML_EXTERN
+void
+SBase_unsetMetaId (SBase_t *sb);
 
 /**
  * Unsets the notes for this SBML object.  This is equivalent to:

@@ -80,11 +80,14 @@ ModelTest_teardown (void)
 START_TEST (test_Model_create)
 {
   fail_unless( M->typecode   == SBML_MODEL, NULL );
+  fail_unless( M->metaid     == NULL, NULL );
   fail_unless( M->notes      == NULL, NULL );
   fail_unless( M->annotation == NULL, NULL );
 
+  fail_unless( M->id   == NULL, NULL );
   fail_unless( M->name == NULL, NULL );
 
+  fail_unless( !Model_isSetId(M)  , NULL );
   fail_unless( !Model_isSetName(M), NULL );
 
   fail_unless( Model_getNumUnitDefinitions(M) == 0, NULL );
@@ -109,10 +112,37 @@ START_TEST (test_Model_createWith)
 
 
   fail_unless( m->typecode   == SBML_MODEL, NULL );  
+  fail_unless( m->metaid     == NULL, NULL );
   fail_unless( m->notes      == NULL, NULL );
   fail_unless( m->annotation == NULL, NULL );
+  fail_unless( m->name       == NULL, NULL );
 
-  fail_unless( !strcmp(m->name, "repressilator"), NULL );
+  fail_unless( !strcmp(m->id, "repressilator"), NULL );
+  fail_unless( Model_isSetId(m), NULL );
+
+  fail_unless( Model_getNumUnitDefinitions(m) == 0, NULL );
+  fail_unless( Model_getNumCompartments   (m) == 0, NULL );
+  fail_unless( Model_getNumSpecies        (m) == 0, NULL );
+  fail_unless( Model_getNumParameters     (m) == 0, NULL );
+  fail_unless( Model_getNumReactions      (m) == 0, NULL );
+
+  Model_free(m);
+}
+END_TEST
+
+
+START_TEST (test_Model_createWithName)
+{
+  Model_t *m = Model_createWithName("The Repressilator Model");
+
+
+  fail_unless( m->typecode   == SBML_MODEL, NULL );  
+  fail_unless( m->metaid     == NULL, NULL );
+  fail_unless( m->notes      == NULL, NULL );
+  fail_unless( m->annotation == NULL, NULL );
+  fail_unless( m->id         == NULL, NULL );
+
+  fail_unless( !strcmp(m->name, "The Repressilator Model"), NULL );
   fail_unless( Model_isSetName(m), NULL );
 
   fail_unless( Model_getNumUnitDefinitions(m) == 0, NULL );
@@ -126,9 +156,39 @@ START_TEST (test_Model_createWith)
 END_TEST
 
 
+START_TEST (test_Model_setId)
+{
+  char *id = "Branch";
+
+
+  Model_setId(M, id);
+
+  fail_unless( !strcmp(M->id, id), NULL );
+  fail_unless( Model_isSetId(M)  , NULL );
+
+  if (M->id == id)
+  {
+    fail("Model_setId(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  Model_setId(M, M->id);
+  fail_unless( !strcmp(M->id, id), NULL );
+
+  Model_setId(M, NULL);
+  fail_unless( !Model_isSetId(M), NULL );
+
+  if (M->id != NULL)
+  {
+    fail("Model_setId(M, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_Model_setName)
 {
-  char *name = "Branch";
+  char *name = "My Branch Model";
 
 
   Model_setName(M, name);
@@ -674,10 +734,12 @@ create_suite_Model (void)
 
   tcase_add_checked_fixture(t, ModelTest_setup, ModelTest_teardown);
 
-  tcase_add_test( t, test_Model_create     );
-  tcase_add_test( t, test_Model_free_NULL  );
-  tcase_add_test( t, test_Model_createWith );
-  tcase_add_test( t, test_Model_setName    );
+  tcase_add_test( t, test_Model_create         );
+  tcase_add_test( t, test_Model_free_NULL      );
+  tcase_add_test( t, test_Model_createWith     );
+  tcase_add_test( t, test_Model_createWithName );
+  tcase_add_test( t, test_Model_setId          );
+  tcase_add_test( t, test_Model_setName        );
 
   /**
    * Model_createXXX() methods

@@ -65,7 +65,9 @@ SpeciesReference_create (void)
 
   sr = (SpeciesReference_t *) safe_calloc(1, sizeof(SpeciesReference_t));  
 
-  SBase_init((SBase_t *) sr, SBML_SPECIES_REFERENCE);
+  SimpleSpeciesReference_init( (SimpleSpeciesReference_t *) sr,
+                               SBML_SPECIES_REFERENCE );
+
   SpeciesReference_initDefaults(sr);
 
   return sr;
@@ -109,9 +111,8 @@ SpeciesReference_free (SpeciesReference_t *sr)
 {
   if (sr == NULL) return;
 
-  SBase_clear((SBase_t *) sr);
 
-  safe_free(sr->species);
+  SimpleSpeciesReference_clear((SimpleSpeciesReference_t *) sr);
   safe_free(sr);
 }
 
@@ -126,8 +127,8 @@ LIBSBML_EXTERN
 void
 SpeciesReference_initDefaults (SpeciesReference_t *sr)
 {
-  sr->stoichiometry = 1;
-  sr->denominator   = 1;
+  SpeciesReference_setStoichiometry(sr, 1);
+  SpeciesReference_setDenominator  (sr, 1);
 }
 
 
@@ -138,7 +139,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesReference_getSpecies (const SpeciesReference_t *sr)
 {
-  return sr->species;
+  return SimpleSpeciesReference_getSpecies((SimpleSpeciesReference_t *) sr);
 }
 
 
@@ -150,6 +151,17 @@ int
 SpeciesReference_getStoichiometry (const SpeciesReference_t *sr)
 {
   return sr->stoichiometry;
+}
+
+
+/**
+ * @return the stoichiometryMath of this SpeciesReference.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr)
+{
+  return sr->stoichiometryMath;
 }
 
 
@@ -172,7 +184,19 @@ LIBSBML_EXTERN
 int
 SpeciesReference_isSetSpecies (const SpeciesReference_t *sr)
 {
-  return (sr->species != NULL);
+  return SimpleSpeciesReference_isSetSpecies((SimpleSpeciesReference_t *) sr);
+}
+
+
+/**
+ * @return 1 if the stoichiometryMath of this SpeciesReference has been
+ * set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr)
+{
+  return (sr->stoichiometryMath != NULL);
 }
 
 
@@ -183,15 +207,7 @@ LIBSBML_EXTERN
 void
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sname)
 {
-  if (sr->species == sname) return;
-
-
-  if (sr->species != NULL)
-  {
-    safe_free(sr->species);
-  }
-
-  sr->species = (sname == NULL) ? NULL : safe_strdup(sname);
+  SimpleSpeciesReference_setSpecies((SimpleSpeciesReference_t *) sr, sname);
 }
 
 
@@ -203,6 +219,30 @@ void
 SpeciesReference_setStoichiometry (SpeciesReference_t *sr, int value)
 {
   sr->stoichiometry = value;
+}
+
+
+/**
+ * Sets the stoichiometryMath of this SpeciesReference to the given
+ * ASTNode.
+ *
+ * The node <b>is not copied</b> and this SpeciesReference <b>takes
+ * ownership</b> of it; i.e. subsequent calls to this function or a call to
+ * SpeciesReference_free() will free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_setStoichiometryMath (SpeciesReference_t *sr, ASTNode_t *math)
+{
+  if (sr->stoichiometryMath == math) return;
+
+
+  if (sr->stoichiometryMath != NULL)
+  {
+    ASTNode_free(sr->stoichiometryMath);
+  }
+
+  sr->stoichiometryMath = math;
 }
 
 

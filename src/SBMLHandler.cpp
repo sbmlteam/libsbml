@@ -145,7 +145,6 @@ SBMLHandler::startElement (const XMLCh* const  uri,
     tag = SBMLTagCode_forElement(localname);
   }
 
-
   if (tag == TAG_NOTES)
   {
     //
@@ -518,9 +517,9 @@ SBMLHandler::handleSpecies (const Attributes& a)
   XMLUtil::scanAttrCStr(a, ATTR_COMPARTMENT, &(s->compartment) );
 
   s->isSet.initialAmount =
-    XMLUtil::scanAttr(a, ATTR_INITIAL_AMOUNT, &(s->initialAmount));
+    XMLUtil::scanAttr(a, ATTR_INITIAL_AMOUNT, &(s->initial.Amount));
 
-  XMLUtil::scanAttrCStr(a, ATTR_UNITS, &(s->units));
+  XMLUtil::scanAttrCStr(a, ATTR_UNITS, &(s->substanceUnits));
 
   //
   // boundaryCondition
@@ -669,8 +668,8 @@ SBMLHandler::handleCompartmentVolumeRule (const Attributes& a)
   char*                    type = XMLString::transcode( a.getValue(ATTR_TYPE) );
 
 
-  XMLUtil::scanAttrCStr( a, ATTR_FORMULA    , &(cvr->formula)     );
-  XMLUtil::scanAttrCStr( a, ATTR_COMPARTMENT, &(cvr->compartment) );
+  XMLUtil::scanAttrCStr( a, ATTR_FORMULA    , &(cvr->formula)  );
+  XMLUtil::scanAttrCStr( a, ATTR_COMPARTMENT, &(cvr->variable) );
 
   //
   // type { use="optional" default="scalar" )  (L1v1, L1v2)
@@ -692,9 +691,9 @@ SBMLHandler::handleParameterRule (const Attributes& a)
   char*            type = XMLString::transcode( a.getValue(ATTR_TYPE) );
 
 
-  XMLUtil::scanAttrCStr( a, ATTR_FORMULA, &(pr->formula) );
-  XMLUtil::scanAttrCStr( a, ATTR_NAME   , &(pr->name)    );
-  XMLUtil::scanAttrCStr( a, ATTR_UNITS  , &(pr->units)   );
+  XMLUtil::scanAttrCStr( a, ATTR_FORMULA, &(pr->formula)  );
+  XMLUtil::scanAttrCStr( a, ATTR_NAME   , &(pr->variable) );
+  XMLUtil::scanAttrCStr( a, ATTR_UNITS  , &(pr->units)    );
 
   //
   // type { use="optional" value="scalar" }  (L1v1, L1v2)
@@ -738,11 +737,11 @@ SBMLHandler::handleSpeciesConcentrationRule (const Attributes& a)
   index = a.getIndex(ATTR_SPECIES);
   if (index >= 0)
   {
-    XMLUtil::scanAttrCStr(a, index, &(scr->species));
+    XMLUtil::scanAttrCStr(a, index, &(scr->variable));
   }
   else
   {
-    XMLUtil::scanAttrCStr(a, ATTR_SPECIE, &(scr->species));
+    XMLUtil::scanAttrCStr(a, ATTR_SPECIE, &(scr->variable));
   }
 
   return (SBase_t*) scr;

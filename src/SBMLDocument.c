@@ -56,7 +56,7 @@
 /**
  * Creates a new SBMLDocument and returns a pointer to it.
  *
- * The SBML document level and version are both 1.
+ * The SBML level defaults to 2 and version defaults to 1.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -69,7 +69,7 @@ SBMLDocument_create (void)
 
   SBase_init((SBase_t *) d, SBML_DOCUMENT);
 
-  d->level   = 1;
+  d->level   = 2;
   d->version = 1;
 
   d->warning = List_create();

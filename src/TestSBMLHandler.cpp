@@ -219,7 +219,7 @@ START_TEST (test_element_Compartment)
   fail_unless( !strcmp( c->name   , "mitochondria" ), NULL );
   fail_unless( !strcmp( c->units  , "milliliters"  ), NULL );
   fail_unless( !strcmp( c->outside, "cell"         ), NULL );
-  fail_unless( c->volume == .0001, NULL );
+  fail_unless( Compartment_getVolume(c) == .0001, NULL );
 
   fail_unless( Compartment_isSetVolume(c), NULL );
 }
@@ -243,7 +243,7 @@ START_TEST (test_element_Compartment_defaults)
   c = Model_getCompartment(D->model, 0);
 
   fail_unless( !strcmp( c->name, "cell" ), NULL );
-  fail_unless( c->volume  == 1.0 , NULL );
+  fail_unless( Compartment_getVolume(c) == 1.0 , NULL );
   fail_unless( c->units   == NULL, NULL );
   fail_unless( c->outside == NULL, NULL );
 
@@ -269,13 +269,13 @@ START_TEST (test_element_Specie)
 
   sp = Model_getSpecies(D->model, 0);
 
-  fail_unless( !strcmp( sp->name       , "Glucose" ), NULL );
-  fail_unless( !strcmp( sp->compartment, "cell"    ), NULL );
-  fail_unless( !strcmp( sp->units      , "volume"  ), NULL );
+  fail_unless( !strcmp( sp->name            , "Glucose" ), NULL );
+  fail_unless( !strcmp( sp->compartment     , "cell"    ), NULL );
+  fail_unless( !strcmp( Species_getUnits(sp), "volume"  ), NULL );
 
-  fail_unless( sp->initialAmount     == 4.1, NULL );
-  fail_unless( sp->boundaryCondition == 0  , NULL );
-  fail_unless( sp->charge            == 6  , NULL );
+  fail_unless( Species_getInitialAmount(sp) == 4.1, NULL );
+  fail_unless( sp->boundaryCondition        == 0  , NULL );
+  fail_unless( sp->charge                   == 6  , NULL );
 
   fail_unless( sp->isSet.initialAmount == 1, NULL );
   fail_unless( sp->isSet.charge        == 1, NULL );
@@ -302,8 +302,8 @@ START_TEST (test_element_Specie_defaults)
   fail_unless( !strcmp( sp->name       , "Glucose" ), NULL );
   fail_unless( !strcmp( sp->compartment, "cell"    ), NULL );
 
-  fail_unless( sp->initialAmount     == 1.0, NULL );
-  fail_unless( sp->boundaryCondition == 0  , NULL );
+  fail_unless( Species_getInitialAmount(sp) == 1.0, NULL );
+  fail_unless( sp->boundaryCondition        == 0  , NULL );
 
   fail_unless( sp->isSet.initialAmount == 1, NULL );
   fail_unless( sp->isSet.charge        == 0, NULL );
@@ -328,13 +328,13 @@ START_TEST (test_element_Species)
 
   sp = Model_getSpecies(D->model, 0);
 
-  fail_unless( !strcmp( sp->name       , "Glucose" ), NULL );
-  fail_unless( !strcmp( sp->compartment, "cell"    ), NULL );
-  fail_unless( !strcmp( sp->units      , "volume"  ), NULL );
+  fail_unless( !strcmp( sp->name            , "Glucose" ), NULL );
+  fail_unless( !strcmp( sp->compartment     , "cell"    ), NULL );
+  fail_unless( !strcmp( Species_getUnits(sp), "volume"  ), NULL );
 
-  fail_unless( sp->initialAmount     == 4.1, NULL );
-  fail_unless( sp->boundaryCondition == 0  , NULL );
-  fail_unless( sp->charge            == 6  , NULL );
+  fail_unless( Species_getInitialAmount(sp) == 4.1, NULL );
+  fail_unless( sp->boundaryCondition        == 0  , NULL );
+  fail_unless( sp->charge                   == 6  , NULL );
 
   fail_unless( sp->isSet.initialAmount == 1, NULL );
   fail_unless( sp->isSet.charge        == 1, NULL );
@@ -641,8 +641,9 @@ START_TEST (test_element_CompartmentVolumeRule)
 
   cvr = (CompartmentVolumeRule_t *) Model_getRule(D->model, 0);
 
-  fail_unless( !strcmp( cvr->compartment, "A"        ), NULL );
-  fail_unless( !strcmp( cvr->formula    , "0.10 * t" ), NULL );
+  fail_unless( !strcmp( CompartmentVolumeRule_getCompartment(cvr), "A"), NULL );
+  fail_unless( !strcmp( cvr->formula, "0.10 * t" ), NULL );
+
   fail_unless( cvr->type == RULE_TYPE_SCALAR, NULL );
 }
 END_TEST
@@ -664,7 +665,7 @@ START_TEST (test_element_ParameterRule)
 
   pr = (ParameterRule_t *) Model_getRule(D->model, 0);
 
-  fail_unless( !strcmp( pr->name   , "k"     ), NULL );
+  fail_unless( !strcmp( ParameterRule_getName(pr), "k"), NULL );
   fail_unless( !strcmp( pr->formula, "k3/k2" ), NULL );
   fail_unless( pr->type == RULE_TYPE_SCALAR, NULL );
 }
@@ -687,7 +688,7 @@ START_TEST (test_element_SpecieConcentrationRule)
 
   scr = (SpeciesConcentrationRule_t *) Model_getRule(D->model, 0);
 
-  fail_unless( !strcmp( scr->species, "s2"            ), NULL );
+  fail_unless( !strcmp( SpeciesConcentrationRule_getSpecies(scr), "s2"), NULL );
   fail_unless( !strcmp( scr->formula, "k * t/(1 + k)" ), NULL );
   fail_unless( scr->type == RULE_TYPE_SCALAR, NULL );
 }
@@ -710,7 +711,7 @@ START_TEST (test_element_SpecieConcentrationRule_rate)
 
   scr = (SpeciesConcentrationRule_t *) Model_getRule(D->model, 0);
 
-  fail_unless( !strcmp( scr->species, "s2"            ), NULL );
+  fail_unless( !strcmp( SpeciesConcentrationRule_getSpecies(scr), "s2"), NULL );
   fail_unless( !strcmp( scr->formula, "k * t/(1 + k)" ), NULL );
   fail_unless( scr->type == RULE_TYPE_RATE, NULL );
 }
@@ -733,7 +734,7 @@ START_TEST (test_element_SpeciesConcentrationRule)
 
   scr = (SpeciesConcentrationRule_t *) Model_getRule(D->model, 0);
 
-  fail_unless( !strcmp( scr->species, "s2"            ), NULL );
+  fail_unless( !strcmp( SpeciesConcentrationRule_getSpecies(scr), "s2"), NULL );
   fail_unless( !strcmp( scr->formula, "k * t/(1 + k)" ), NULL );
   fail_unless( scr->type == RULE_TYPE_SCALAR, NULL );
 }

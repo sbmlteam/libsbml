@@ -73,26 +73,25 @@ Compartment_create (void)
 
 
 /**
- * Creates a new Compartment with the given name, volume, units and outside
- * and returns a pointer to it.  This convenience function is functionally
- * equivalent to:
+ * Creates a new Compartment with the  given id, size (volume in L1), units
+ * and outside and  returns a pointer to it.   This convenience function is
+ * functionally equivalent to:
  *
  *   Compartment_t *c = Compartment_create();
- *   Compartment_setName(c, name); Compartment_setVolume(c, volume); ... ;
+ *   Compartment_setId(c, sid); Compartment_setSize(c, size); ... ;
  */
 LIBSBML_EXTERN
 Compartment_t *
-Compartment_createWith ( const char *name,  double volume,
+Compartment_createWith ( const char *sid  , double     size,
                          const char *units, const char *outside )
 {
   Compartment_t *c = Compartment_create();
 
 
-  Compartment_setName   ( c, name    );
+  Compartment_setId     ( c, sid     );
+  Compartment_setSize   ( c, size    );
   Compartment_setUnits  ( c, units   );
   Compartment_setOutside( c, outside );
-
-  c->volume = volume;
 
   return c;
 }
@@ -109,6 +108,7 @@ Compartment_free (Compartment_t *c)
 
   SBase_clear((SBase_t *) c);
 
+  safe_free(c->id);
   safe_free(c->name);
   safe_free(c->units);
   safe_free(c->outside);
@@ -119,13 +119,28 @@ Compartment_free (Compartment_t *c)
 /**
  * Initializes the fields of this Compartment to their defaults:
  *
- *   - volume = 1.0
+ *   - volume            = 1.0          (L1 only)
+ *   - spatialDimensions = 3            (L2 only)
+ *   - constant          = 1    (true)  (L2 only)
  */
 LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c)
 {
-  Compartment_setVolume(c, 1.0);
+  Compartment_setVolume           ( c, 1.0 );
+  Compartment_setSpatialDimensions( c, 3   );
+  Compartment_setConstant         ( c, 1   );
+}
+
+
+/**
+ * @return the id of this Compartment.
+ */
+LIBSBML_EXTERN
+const char *
+Compartment_getId (const Compartment_t *c)
+{
+  return c->id;
 }
 
 
@@ -141,14 +156,37 @@ Compartment_getName (const Compartment_t *c)
 
 
 /**
- * @return the volume of this Compartment.
+ * @return the spatialDimensions of this Compartment.
+ */
+LIBSBML_EXTERN
+unsigned int
+Compartment_getSpatialDimensions (const Compartment_t *c)
+{
+  return c->spatialDimensions;
+}
+
+
+/**
+ * @return the size (volume in L1) of this Compartment.
+ */
+LIBSBML_EXTERN
+double
+Compartment_getSize (const Compartment_t *c)
+{
+  return c->size;
+}
+
+
+/**
+ * @return the volume (size in L2) of this Compartment.
  */
 LIBSBML_EXTERN
 double
 Compartment_getVolume (const Compartment_t *c)
 {
-  return c->volume;
+  return Compartment_getSize(c);
 }
+
 
 /**
  * @return the units of this Compartment.
@@ -173,7 +211,34 @@ Compartment_getOutside (const Compartment_t *c)
 
 
 /**
+ * @return true (non-zero) if this Compartment is constant, false (0)
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_getConstant (const Compartment_t *c)
+{
+  return c->constant;
+}
+
+
+/**
+ * @return 1 if the id of this Compartment has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetId (const Compartment_t *c)
+{
+  return (c->id != NULL);
+}
+
+
+/**
  * @return 1 if the name of this Compartment has been set, 0 otherwise.
+ *
+ * In SBML L1, a Compartment name is required and therefore <b>should
+ * always be set</b>.  In L2, name is optional and as such may or may not
+ * be set.
  */
 LIBSBML_EXTERN
 int
@@ -184,17 +249,30 @@ Compartment_isSetName (const Compartment_t *c)
 
 
 /**
- * @return 1 if the volume of this Compartment has been set, 0 otherwise.
+ * @return 1 if the size (volume in L1) of this Compartment has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetSize (const Compartment_t *c)
+{
+  return c->isSet.size;
+}
+
+
+/**
+ * @return 1 if the volume (size in L2) of this Compartment has been set, 0
+ * otherwise.
  *
  * In SBML L1, a Compartment volume has a default value (1.0) and therefore
- * <b>should always be set</b>.  In L2, volume is optional with no default
- * value and as such may or may not be set.
+ * <b>should always be set</b>.  In L2, volume (size) is optional with no
+ * default value and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
 Compartment_isSetVolume (const Compartment_t *c)
 {
-  return c->isSet.volume;
+  return Compartment_isSetSize(c);
 }
 
 
@@ -221,13 +299,32 @@ Compartment_isSetOutside (const Compartment_t *c)
 
 
 /**
- * Sets the name of this Compartment to a copy of sname.
+ * Sets the id of this Compartment to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Compartment_setName (Compartment_t *c, const char *sname)
+Compartment_setId (Compartment_t *c, const char *sid)
 {
-  if (c->name == sname) return;
+  if (c->id == sid) return;
+
+
+  if (c->id != NULL)
+  {
+    safe_free(c->id);
+  }
+
+  c->id = (sid == NULL) ? NULL : safe_strdup(sid);
+}
+
+
+/**
+ * Sets the name of this Compartment to a copy of string (SName in L1).
+ */
+LIBSBML_EXTERN
+void
+Compartment_setName (Compartment_t *c, const char *string)
+{
+  if (c->name == string) return;
 
 
   if (c->name != NULL)
@@ -235,30 +332,58 @@ Compartment_setName (Compartment_t *c, const char *sname)
     safe_free(c->name);
   }
 
-  c->name = (sname == NULL) ? NULL : safe_strdup(sname);
+  c->name = (string == NULL) ? NULL : safe_strdup(string);
 }
 
 
 /**
- * Sets the volume of this Compartment to value.
+ * Sets the spatialDimensions of this Compartment to value.
+ *
+ * If value is not one of [0, 1, 2, 3] the function will have no effect
+ * (i.e. spatialDimensions will not be set).
+ */
+LIBSBML_EXTERN
+void
+Compartment_setSpatialDimensions (Compartment_t *c, unsigned int value)
+{
+  if (value >= 0 && value <= 3)
+  {
+    c->spatialDimensions = value;
+  }
+}
+
+
+/**
+ * Sets the size (volume in L1) of this Compartment to value.
+ */
+LIBSBML_EXTERN
+void
+Compartment_setSize (Compartment_t *c, double value)
+{
+  c->size       = value;
+  c->isSet.size = 1;
+}
+
+
+/**
+ * Sets the volume (size in L2) of this Compartment to value.
  */
 LIBSBML_EXTERN
 void
 Compartment_setVolume (Compartment_t *c, double value)
 {
-  c->volume       = value;
-  c->isSet.volume = 1;
+  Compartment_setSize(c, value);
 }
 
 
 /**
- * Sets the units of this Compartment to a copy of sname.
+ * Sets the units of this Compartment to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Compartment_setUnits (Compartment_t *c, const char *sname)
+Compartment_setUnits (Compartment_t *c, const char *sid)
 {
-  if (c->units == sname) return;
+  if (c->units == sid) return;
 
 
   if (c->units != NULL)
@@ -266,18 +391,18 @@ Compartment_setUnits (Compartment_t *c, const char *sname)
     safe_free(c->units);
   }
 
-  c->units = (sname == NULL) ? NULL : safe_strdup(sname);
+  c->units = (sid == NULL) ? NULL : safe_strdup(sid);
 }
 
 
 /**
- * Sets the outside of this Compartment to a copy of sname.
+ * Sets the outside of this Compartment to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Compartment_setOutside (Compartment_t *c, const char *sname)
+Compartment_setOutside (Compartment_t *c, const char *sid)
 {
-  if (c->outside == sname) return;
+  if (c->outside == sid) return;
 
 
   if (c->outside != NULL)
@@ -285,7 +410,18 @@ Compartment_setOutside (Compartment_t *c, const char *sname)
     safe_free(c->outside);
   }
 
-  c->outside = (sname == NULL) ? NULL : safe_strdup(sname);
+  c->outside = (sid == NULL) ? NULL : safe_strdup(sid);
+}
+
+
+/**
+ * Sets the constant field of this Compartment to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Compartment_setConstant (Compartment_t *c, int value)
+{
+  c->constant = value;
 }
 
 
@@ -303,7 +439,19 @@ Compartment_unsetName (Compartment_t *c)
 
 
 /**
- * Unsets the volume of this Compartment.
+ * Unsets the size (volume in L1) of this Compartment.
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetSize (Compartment_t *c)
+{
+  c->size       = util_NaN();
+  c->isSet.size = 0;
+}
+
+
+/**
+ * Unsets the volume (size in L2) of this Compartment.
  *
  * In SBML L1, a Compartment volume has a default value (1.0) and therefore
  * <b>should always be set</b>.  In L2, volume is optional with no default
@@ -313,8 +461,7 @@ LIBSBML_EXTERN
 void
 Compartment_unsetVolume (Compartment_t *c)
 {
-  c->volume       = util_NaN();
-  c->isSet.volume = 0;
+  Compartment_unsetSize(c);
 }
 
 

@@ -66,7 +66,7 @@ KineticLaw_create (void)
   kl = (KineticLaw_t *) safe_calloc(1, sizeof(KineticLaw_t));
   SBase_init((SBase_t *) kl, SBML_KINETIC_LAW);
 
-  kl->parameter = (List_t *) List_create();
+  kl->parameter = (ListOf_t *) ListOf_create();
 
   return kl;
 }
@@ -108,10 +108,10 @@ KineticLaw_free (KineticLaw_t *kl)
 {
   if (kl == NULL) return;
 
+
   SBase_clear((SBase_t *) kl);
 
-  List_freeItems(kl->parameter, Parameter_free, Parameter_t);
-  List_free(kl->parameter);
+  ListOf_free(kl->parameter);
 
   safe_free(kl->formula);
   safe_free(kl->timeUnits);
@@ -128,6 +128,17 @@ const char *
 KineticLaw_getFormula (const KineticLaw_t *kl)
 {
   return kl->formula;
+}
+
+
+/**
+ * @return the math of this KineticLaw.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+KineticLaw_getMath (const KineticLaw_t *kl)
+{
+  return kl->math;
 }
 
 
@@ -161,6 +172,17 @@ int
 KineticLaw_isSetFormula (const KineticLaw_t *kl)
 {
   return (kl->formula != NULL);
+}
+
+
+/**
+ * @return 1 if the math of this KineticLaw has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+KineticLaw_isSetMath (const KineticLaw_t *kl)
+{
+  return (kl->math != NULL);
 }
 
 
@@ -203,6 +225,29 @@ KineticLaw_setFormula (KineticLaw_t *kl, const char *string)
   }
 
   kl->formula = (string == NULL) ? NULL : safe_strdup(string);
+}
+
+
+/**
+ * Sets the math of this KineticLaw to the given ASTNode.
+ *
+ * The node <b>is not copied</b> and this KineticLaw <b>takes ownership</b>
+ * of it; i.e. subsequent calls to this function or a call to
+ * KineticLaw_free() will free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setMath (KineticLaw_t *kl, ASTNode_t *math)
+{
+  if (kl->math == math) return;
+
+
+  if (kl->math != NULL)
+  {
+    ASTNode_free(kl->math);
+  }
+
+  kl->math = math;
 }
 
 
@@ -251,7 +296,7 @@ LIBSBML_EXTERN
 void
 KineticLaw_addParameter (KineticLaw_t *kl, Parameter_t *p)
 {
-  List_add(kl->parameter, p);
+  ListOf_append(kl->parameter, p);
 }
 
 
@@ -262,7 +307,7 @@ LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameter (const KineticLaw_t *kl, unsigned int n)
 {
-  return (Parameter_t *) List_get(kl->parameter, n);
+  return (Parameter_t *) ListOf_get(kl->parameter, n);
 }
 
 
@@ -273,7 +318,7 @@ LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl)
 {
-  return List_size(kl->parameter);
+  return ListOf_getNumItems(kl->parameter);
 }
 
 

@@ -54,26 +54,43 @@
 #define SBMLTypes_h
 
 
-#include "SBase.h"
-
-#include "AlgebraicRule.h"
-#include "AssignmentRule.h"
-#include "Compartment.h"
-#include "CompartmentVolumeRule.h"
-#include "KineticLaw.h"
-#include "Model.h"
-#include "Parameter.h"
-#include "ParameterRule.h"
-#include "Reaction.h"
-#include "Rule.h"
-#include "RuleType.h"
 #include "SBMLDocument.h"
-#include "Species.h"
-#include "SpeciesConcentrationRule.h"
-#include "SpeciesReference.h"
-#include "UnitDefinition.h"
+
+#include "SBase.h"
+#include "ListOf.h"
+
+#include "Model.h"
+
+#include "FunctionDefinition.h"
+
 #include "UnitKind.h"
 #include "Unit.h"
+#include "UnitDefinition.h"
+
+#include "Compartment.h"
+#include "Species.h"
+#include "Parameter.h"
+
+#include "Reaction.h"
+#include "KineticLaw.h"
+#include "SimpleSpeciesReference.h"
+#include "ModifierSpeciesReference.h"
+#include "SpeciesReference.h"
+
+#include "RuleType.h"
+#include "Rule.h"
+#include "AssignmentRule.h"
+#include "AlgebraicRule.h"
+#include "RateRule.h"
+#include "CompartmentVolumeRule.h"
+#include "ParameterRule.h"
+#include "SpeciesConcentrationRule.h"
+
+#include "Event.h"
+#include "EventAssignment.h"
+
+#include "FormulaParser.h"
+#include "FormulaFormatter.h"
 
 
 #endif  /** SBMLTypes_h **/

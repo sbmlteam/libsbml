@@ -51,6 +51,7 @@
 
 
 #include "sbml/common.h"
+#include "sbml/FormulaParser.h"
 #include "sbml/KineticLaw.h"
 
 
@@ -79,14 +80,17 @@ KineticLawTest_teardown (void)
 START_TEST (test_KineticLaw_create)
 {
   fail_unless( KL->typecode   == SBML_KINETIC_LAW, NULL );
+  fail_unless( KL->metaid     == NULL, NULL );
   fail_unless( KL->notes      == NULL, NULL );
   fail_unless( KL->annotation == NULL, NULL );
 
   fail_unless( KL->formula        == NULL, NULL );
+  fail_unless( KL->math           == NULL, NULL );
   fail_unless( KL->timeUnits      == NULL, NULL );
   fail_unless( KL->substanceUnits == NULL, NULL );
 
   fail_unless( !KineticLaw_isSetFormula       (KL), NULL );
+  fail_unless( !KineticLaw_isSetMath          (KL), NULL );
   fail_unless( !KineticLaw_isSetTimeUnits     (KL), NULL );
   fail_unless( !KineticLaw_isSetSubstanceUnits(KL), NULL );
 
@@ -99,14 +103,18 @@ START_TEST (test_KineticLaw_createWith)
 {
   KineticLaw_t *kl = KineticLaw_createWith("k1*X0", "seconds", "ug");
 
+
   fail_unless( kl->typecode   == SBML_KINETIC_LAW, NULL );
+  fail_unless( kl->metaid     == NULL, NULL );
   fail_unless( kl->notes      == NULL, NULL );
   fail_unless( kl->annotation == NULL, NULL );
+  fail_unless( kl->math       == NULL, NULL );
 
   fail_unless( !strcmp( kl->formula       , "k1*X0"  ), NULL );
   fail_unless( !strcmp( kl->timeUnits     , "seconds"), NULL );
   fail_unless( !strcmp( kl->substanceUnits, "ug"     ), NULL );
 
+  fail_unless( !KineticLaw_isSetMath         (kl), NULL );
   fail_unless( KineticLaw_isSetFormula       (kl), NULL );
   fail_unless( KineticLaw_isSetTimeUnits     (kl), NULL );
   fail_unless( KineticLaw_isSetSubstanceUnits(kl), NULL );
@@ -150,6 +158,31 @@ START_TEST (test_KineticLaw_setFormula)
   if (KL->formula != NULL)
   {
     fail("KineticLaw_setFormula(KL, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
+START_TEST (test_KineticLaw_setMath)
+{
+  ASTNode_t *math = SBML_parseFormula("k3 / k2");
+
+
+  KineticLaw_setMath(KL, math);
+
+  fail_unless( KL->math == math, NULL );
+  fail_unless( KineticLaw_isSetMath(KL), NULL );
+
+  /* Reflexive case (pathological) */
+  KineticLaw_setMath(KL, KL->math);
+  fail_unless( KL->math == math, NULL );
+
+  KineticLaw_setMath(KL, NULL);
+  fail_unless( !KineticLaw_isSetMath(KL), NULL );
+
+  if (KL->math != NULL)
+  {
+    fail( "KineticLaw_setMath(KL, NULL) did not clear ASTNode." );
   }
 }
 END_TEST
@@ -266,6 +299,7 @@ create_suite_KineticLaw (void)
   tcase_add_test( tcase, test_KineticLaw_createWith        );
   tcase_add_test( tcase, test_KineticLaw_free_NULL         );
   tcase_add_test( tcase, test_KineticLaw_setFormula        );
+  tcase_add_test( tcase, test_KineticLaw_setMath           );
   tcase_add_test( tcase, test_KineticLaw_setTimeUnits      );
   tcase_add_test( tcase, test_KineticLaw_setSubstanceUnits );
   tcase_add_test( tcase, test_KineticLaw_addParameter      );

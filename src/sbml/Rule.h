@@ -55,6 +55,7 @@
 
 
 #include "common.h"
+#include "ASTNode.h"
 #include "SBase.h"
 
 
@@ -65,7 +66,9 @@ BEGIN_C_DECLS
  * As shown below, put RULE_FIELDS as the *second* item (SBASE_FIELDS is
  * first) of any struct which "is a(n)" SBML Rule object.
  */
-#define RULE_FIELDS char *formula
+#define RULE_FIELDS   \
+  char      *formula; \
+  ASTNode_t *math
 
 
 typedef struct
@@ -104,6 +107,14 @@ const char *
 Rule_getFormula (const Rule_t *r);
 
 /**
+ * @return the math for this Rule.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+Rule_getMath (const Rule_t *r);
+
+
+/**
  * @return 1 if the formula for this Rule has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -111,11 +122,30 @@ int
 Rule_isSetFormula (const Rule_t *r);
 
 /**
+ * @return 1 if the math for this Rule has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Rule_isSetMath (const Rule_t *r);
+
+
+/**
  * Sets the formula of this Rule to a copy of string.
  */
 LIBSBML_EXTERN
 void
 Rule_setFormula (Rule_t *r, const char *string);
+
+/**
+ * Sets the math of this Rule to the given ASTNode.
+ *
+ * The node <b>is not copied</b> and this Rule <b>takes ownership</b> of
+ * it; i.e. subsequent calls to this function or a call to Rule_free() will
+ * free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+void
+Rule_setMath (Rule_t *r, ASTNode_t *math);
 
 
 END_C_DECLS

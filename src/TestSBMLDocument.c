@@ -63,7 +63,7 @@ START_TEST (test_SBMLDocument_create)
   fail_unless( d->notes      == NULL, NULL );
   fail_unless( d->annotation == NULL, NULL );
 
-  fail_unless(d->level   == 1, NULL);
+  fail_unless(d->level   == 2, NULL);
   fail_unless(d->version == 1, NULL);
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );

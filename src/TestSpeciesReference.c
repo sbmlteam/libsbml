@@ -51,6 +51,7 @@
 
 
 #include "sbml/common.h"
+#include "sbml/MathMLReader.h"
 #include "sbml/SpeciesReference.h"
 
 
@@ -79,14 +80,17 @@ SpeciesReferenceTest_teardown (void)
 START_TEST (test_SpeciesReference_create)
 {
   fail_unless( SR->typecode   == SBML_SPECIES_REFERENCE, NULL );
+  fail_unless( SR->metaid     == NULL, NULL );
   fail_unless( SR->notes      == NULL, NULL );
   fail_unless( SR->annotation == NULL, NULL );
 
-  fail_unless( SR->species       == NULL, NULL );
-  fail_unless( SR->stoichiometry == 1   , NULL );
-  fail_unless( SR->denominator   == 1   , NULL );
+  fail_unless( SR->species           == NULL, NULL );
+  fail_unless( SR->stoichiometry     == 1   , NULL );
+  fail_unless( SR->stoichiometryMath == NULL, NULL );
+  fail_unless( SR->denominator       == 1   , NULL );
 
   fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
+  fail_unless( !SpeciesReference_isSetStoichiometryMath(SR), NULL );
 }
 END_TEST
 
@@ -149,6 +153,37 @@ START_TEST (test_SpeciesReference_setSpecies)
 END_TEST
 
 
+START_TEST (test_SpeciesReference_setStoichiometryMath)
+{
+  MathMLDocument_t *d;
+
+
+  d = readMathMLFromString("<cn type='rational'>1<sep/>2</cn>");
+
+  SpeciesReference_setStoichiometryMath(SR, d->math);
+
+  fail_unless( SR->stoichiometryMath == d->math, NULL );
+  fail_unless( SpeciesReference_isSetStoichiometryMath(SR), NULL );
+
+  /* Reflexive case (pathological) */
+  SpeciesReference_setStoichiometryMath(SR, SR->stoichiometryMath);
+  fail_unless( SR->stoichiometryMath == d->math, NULL );
+
+  SpeciesReference_setStoichiometryMath(SR, NULL);
+  fail_unless( !SpeciesReference_isSetStoichiometryMath(SR), NULL );
+
+  if (SR->stoichiometryMath != NULL)
+  {
+    fail( "SpeciesReference_setStoichiometryMath(SR, NULL) "
+          "did not clear ASTNode." );
+  }
+
+  d->math = NULL;
+  MathMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_SpeciesReference (void)
 {
@@ -160,10 +195,11 @@ create_suite_SpeciesReference (void)
                              SpeciesReferenceTest_setup,
                              SpeciesReferenceTest_teardown );
 
-  tcase_add_test( tcase, test_SpeciesReference_create     );
-  tcase_add_test( tcase, test_SpeciesReference_createWith );
-  tcase_add_test( tcase, test_SpeciesReference_free_NULL  );
-  tcase_add_test( tcase, test_SpeciesReference_setSpecies );
+  tcase_add_test( tcase, test_SpeciesReference_create               );
+  tcase_add_test( tcase, test_SpeciesReference_createWith           );
+  tcase_add_test( tcase, test_SpeciesReference_free_NULL            );
+  tcase_add_test( tcase, test_SpeciesReference_setSpecies           );
+  tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath );
 
   suite_add_tcase(suite, tcase);
 

@@ -55,9 +55,10 @@
 
 
 #include "common.h"
-#include "List.h"
+#include "ListOf.h"
 #include "SBase.h"
 #include "KineticLaw.h"
+#include "ModifierSpeciesReference.h"
 #include "SpeciesReference.h"
 
 
@@ -67,9 +68,11 @@ BEGIN_C_DECLS
 typedef struct
 {
   SBASE_FIELDS;
+  char         *id;
   char         *name;
-  List_t       *reactant;
-  List_t       *product;
+  ListOf_t     *reactant;
+  ListOf_t     *product;
+  ListOf_t     *modifier;
   KineticLaw_t *kineticLaw;
   int           reversible;
   int           fast;
@@ -84,16 +87,16 @@ Reaction_t *
 Reaction_create (void);
 
 /**
- * Creates a new Reaction with the given name, KineticLaw, reversible and
+ * Creates a new Reaction with the given id, KineticLaw, reversible and
  * fast and returns a pointer to it.  This convenience function is
  * functionally equivalent to:
  *
  *   Reaction_t *r = Reaction_create();
- *   Reaction_setName(r, name); Reaction_setKineticLaw(r, kl); ...;
+ *   Reaction_setId(r, sid); Reaction_setKineticLaw(r, kl); ...;
  */
 LIBSBML_EXTERN
 Reaction_t *
-Reaction_createWith ( const char   *name,
+Reaction_createWith ( const char   *sid,
                       KineticLaw_t *kl,
                       int          reversible,
                       int          fast );
@@ -115,6 +118,13 @@ LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r);
 
+
+/**
+ * @return the id of this Reaction.
+ */
+LIBSBML_EXTERN
+const char *
+Reaction_getId (const Reaction_t *r);
 
 /**
  * @return the name of this Reaction.
@@ -146,6 +156,13 @@ Reaction_getFast (const Reaction_t *r);
 
 
 /**
+ * @return 1 if the id of this Reaction has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetId (const Reaction_t *r);
+
+/**
  * @return 1 if the name of this Reaction has been set, 0 otherwise.
  *
  * In SBML L1, a Reaction name is required and therefore <b>should always
@@ -164,11 +181,18 @@ Reaction_isSetKineticLaw (const Reaction_t *r);
 
 
 /**
- * Sets the name of this Reaction to a copy of sname.
+ * Sets the id of this Reaction to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Reaction_setName (Reaction_t *r, const char *sname);
+Reaction_setId (Reaction_t *r, const char *sid);
+
+/**
+ * Sets the name of this Reaction to a copy of string (SName in L1).
+ */
+LIBSBML_EXTERN
+void
+Reaction_setName (Reaction_t *r, const char *string);
 
 /**
  * Sets the KineticLaw of this Reaction to the given KineticLaw.
@@ -207,6 +231,14 @@ void
 Reaction_addProduct (Reaction_t *r, SpeciesReference_t *sr);
 
 /**
+ * Adds the given modifier (ModifierSpeciesReference) to this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_addModifier (Reaction_t *r, ModifierSpeciesReference_t *msr);
+
+
+/**
  * @return the nth reactant (SpeciesReference) of this Reaction.
  */
 LIBSBML_EXTERN
@@ -221,6 +253,14 @@ SpeciesReference_t *
 Reaction_getProduct (const Reaction_t *r, unsigned int n);
 
 /**
+ * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
+ */
+LIBSBML_EXTERN
+ModifierSpeciesReference_t *
+Reaction_getModifier (const Reaction_t *r, unsigned int n);
+
+
+/**
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
 LIBSBML_EXTERN
@@ -233,6 +273,14 @@ Reaction_getNumReactants (const Reaction_t *r);
 LIBSBML_EXTERN
 unsigned int
 Reaction_getNumProducts (const Reaction_t *r);
+
+/**
+ * @return the number of modifiers (ModifierSpeciesReferences) in this
+ * Reaction.
+ */
+LIBSBML_EXTERN
+unsigned int
+Reaction_getNumModifiers (const Reaction_t *r);
 
 
 /**

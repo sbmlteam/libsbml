@@ -90,10 +90,10 @@ ParameterRule_createWith ( const char *formula,
   ParameterRule_t *pr = ParameterRule_create();
 
 
-  Rule_setFormula((Rule_t *) pr, formula);
-  ParameterRule_setName(pr, name);
+  Rule_setFormula       ( (Rule_t *)           pr, formula );
+  AssignmentRule_setType( (AssignmentRule_t *) pr, type    );
 
-  pr->type = type;
+  ParameterRule_setName(pr, name);
 
   return pr;
 }
@@ -110,7 +110,6 @@ ParameterRule_free (ParameterRule_t *pr)
 
   AssignmentRule_clear((AssignmentRule_t *) pr);
 
-  safe_free(pr->name);
   safe_free(pr->units);
   safe_free(pr);
 }
@@ -123,7 +122,7 @@ LIBSBML_EXTERN
 const char *
 ParameterRule_getName (const ParameterRule_t *pr)
 {
-  return pr->name;
+  return AssignmentRule_getVariable( (AssignmentRule_t *) pr );
 }
 
 
@@ -146,7 +145,7 @@ LIBSBML_EXTERN
 int
 ParameterRule_isSetName (const ParameterRule_t *pr)
 {
-  return (pr->name != NULL);
+  return AssignmentRule_isSetVariable( (AssignmentRule_t *) pr );
 }
 
 
@@ -169,15 +168,7 @@ LIBSBML_EXTERN
 void
 ParameterRule_setName (ParameterRule_t *pr, const char *sname)
 {
-  if (pr->name == sname) return;
-
-
-  if (pr->name != NULL)
-  {
-    safe_free(pr->name);
-  }
-
-  pr->name = (sname == NULL) ? NULL : safe_strdup(sname);
+  AssignmentRule_setVariable( (AssignmentRule_t *) pr, sname );
 }
 
 

@@ -105,7 +105,7 @@ START_TEST (test_read_l1v1_rules)
 
   c = Model_getCompartment(m, 0);
   fail_unless( !strcmp(c->name, "cell"), NULL );
-  fail_unless( c->volume == 1, NULL );
+  fail_unless( Compartment_getVolume(c) == 1, NULL );
 
 
   /**
@@ -121,26 +121,26 @@ START_TEST (test_read_l1v1_rules)
   s = Model_getSpecies(m, 0);
   fail_unless( !strcmp( s->name       , "s1"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 4, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 4, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
   s = Model_getSpecies(m, 1);
   fail_unless( !strcmp( s->name       , "s2"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 2, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 2, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
   s = Model_getSpecies(m, 2);
   fail_unless( !strcmp( s->name       , "x0"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 1, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 1, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
   s = Model_getSpecies(m, 3);
   fail_unless( !strcmp( s->name       , "x1"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 0, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 0, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
 
   /**
@@ -181,19 +181,19 @@ START_TEST (test_read_l1v1_rules)
   fail_unless( Model_getNumRules(m) == 4, NULL );
 
   pr = (ParameterRule_t *) Model_getRule(m, 0);
-  fail_unless( !strcmp(pr->name   , "t"      ), NULL );
+  fail_unless( !strcmp(ParameterRule_getName(pr), "t"), NULL );
   fail_unless( !strcmp(pr->formula, "s1 + s2"), NULL );
 
   pr = (ParameterRule_t *) Model_getRule(m, 1);
-  fail_unless( !strcmp(pr->name   , "k"    ), NULL );
+  fail_unless( !strcmp(ParameterRule_getName(pr), "k"), NULL );
   fail_unless( !strcmp(pr->formula, "k3/k2"), NULL );
 
   scr = (SpeciesConcentrationRule_t *) Model_getRule(m, 2);
-  fail_unless( !strcmp(scr->species, "s2"           ), NULL );
+  fail_unless( !strcmp(SpeciesConcentrationRule_getSpecies(scr), "s2"), NULL );
   fail_unless( !strcmp(scr->formula, "k * t/(1 + k)"), NULL );
 
   scr = (SpeciesConcentrationRule_t *) Model_getRule(m, 3);
-  fail_unless( !strcmp(scr->species, "s1"    ), NULL );
+  fail_unless( !strcmp(SpeciesConcentrationRule_getSpecies(scr), "s1"), NULL );
   fail_unless( !strcmp(scr->formula, "t - s2"), NULL );
 
 

@@ -55,7 +55,8 @@
 
 
 #include "common.h"
-#include "List.h"
+#include "ASTNode.h"
+#include "ListOf.h"
 #include "SBase.h"
 #include "Parameter.h"
 
@@ -66,10 +67,11 @@ BEGIN_C_DECLS
 typedef struct
 {
   SBASE_FIELDS;
-  char   *formula;
-  List_t *parameter;
-  char   *timeUnits;
-  char   *substanceUnits;
+  char      *formula;
+  ASTNode_t *math;
+  ListOf_t  *parameter;
+  char      *timeUnits;
+  char      *substanceUnits;
 } KineticLaw_t;
 
 
@@ -112,6 +114,14 @@ const char *
 KineticLaw_getFormula (const KineticLaw_t *kl);
 
 /**
+ * @return the math of this KineticLaw.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+KineticLaw_getMath (const KineticLaw_t *kl);
+
+
+/**
  * @return the timeUnits of this KineticLaw.
  */
 LIBSBML_EXTERN
@@ -132,6 +142,13 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl);
 LIBSBML_EXTERN
 int
 KineticLaw_isSetFormula (const KineticLaw_t *kl);
+
+/**
+ * @return 1 if the math of this KineticLaw has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+KineticLaw_isSetMath (const KineticLaw_t *kl);
 
 /**
  * @return 1 if the timeUnits of this KineticLaw has been set, 0 otherwise.
@@ -155,6 +172,17 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl);
 LIBSBML_EXTERN
 void
 KineticLaw_setFormula (KineticLaw_t *kl, const char *string);
+
+/**
+ * Sets the math of this KineticLaw to the given ASTNode.
+ *
+ * The node <b>is not copied</b> and this KineticLaw <b>takes ownership</b>
+ * of it; i.e. subsequent calls to this function or a call to
+ * KineticLaw_free() will free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setMath (KineticLaw_t *kl, ASTNode_t *math);
 
 /**
  * Sets the timeUnits of this KineticLaw to a copy of sname.

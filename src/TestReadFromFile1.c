@@ -118,7 +118,7 @@ START_TEST (test_read_l1v1_branch)
 
   c = Model_getCompartment(m, 0);
   fail_unless( !strcmp(c->name, "compartmentOne"), NULL );
-  fail_unless( c->volume == 1, NULL );
+  fail_unless( Compartment_getVolume(c) == 1, NULL );
 
 
   /**
@@ -138,26 +138,26 @@ START_TEST (test_read_l1v1_branch)
   s = Model_getSpecies(m, 0);
   fail_unless( !strcmp( s->name       , "S1"             ), NULL );
   fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( s->initialAmount     == 0, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 0, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
   s = Model_getSpecies(m, 1);
   fail_unless( !strcmp( s->name       , "X0"             ), NULL );
   fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( s->initialAmount     == 0, NULL );
-  fail_unless( s->boundaryCondition == 1, NULL );
+  fail_unless( Species_getInitialAmount(s) == 0, NULL );
+  fail_unless( s->boundaryCondition        == 1, NULL );
 
   s = Model_getSpecies(m, 2);
   fail_unless( !strcmp( s->name       , "X1"             ), NULL );
   fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( s->initialAmount     == 0, NULL );
-  fail_unless( s->boundaryCondition == 1, NULL );
+  fail_unless( Species_getInitialAmount(s) == 0, NULL );
+  fail_unless( s->boundaryCondition        == 1, NULL );
 
   s = Model_getSpecies(m, 3);
   fail_unless( !strcmp( s->name       , "X2"             ), NULL );
   fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( s->initialAmount     == 0, NULL );
-  fail_unless( s->boundaryCondition == 1, NULL );
+  fail_unless( Species_getInitialAmount(s) == 0, NULL );
+  fail_unless( s->boundaryCondition        == 1, NULL );
 
 
   /**

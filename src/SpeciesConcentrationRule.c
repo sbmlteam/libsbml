@@ -93,10 +93,10 @@ SpeciesConcentrationRule_createWith ( const char *formula,
   SpeciesConcentrationRule_t *scr = SpeciesConcentrationRule_create();
 
 
-  Rule_setFormula((Rule_t *) scr, formula);
-  SpeciesConcentrationRule_setSpecies(scr, species);
+  Rule_setFormula       ( (Rule_t *)           scr, formula );
+  AssignmentRule_setType( (AssignmentRule_t *) scr, type    );
 
-  scr->type = type;
+  SpeciesConcentrationRule_setSpecies(scr, species);
 
   return scr;
 }
@@ -109,12 +109,7 @@ LIBSBML_EXTERN
 void
 SpeciesConcentrationRule_free (SpeciesConcentrationRule_t *scr)
 {
-  if (scr == NULL) return;
-
-  AssignmentRule_clear((AssignmentRule_t *) scr);
-
-  safe_free(scr->species);
-  safe_free(scr);
+  AssignmentRule_free( (AssignmentRule_t *) scr );
 }
 
 
@@ -125,7 +120,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesConcentrationRule_getSpecies (const SpeciesConcentrationRule_t *scr)
 {
-  return scr->species;
+  return AssignmentRule_getVariable( (AssignmentRule_t *) scr );
 }
 
 
@@ -137,7 +132,7 @@ LIBSBML_EXTERN
 int
 SpeciesConcentrationRule_isSetSpecies (const SpeciesConcentrationRule_t *scr)
 {
-  return (scr->species != NULL);
+  return AssignmentRule_isSetVariable( (AssignmentRule_t *) scr );
 }
 
 
@@ -149,13 +144,5 @@ void
 SpeciesConcentrationRule_setSpecies ( SpeciesConcentrationRule_t *scr,
                                       const char *sname )
 {
-  if (scr->species == sname) return;
-
-
-  if (scr->species != NULL)
-  {
-    safe_free(scr->species);
-  }
-
-  scr->species = (sname == NULL) ? NULL : safe_strdup(sname);
+  AssignmentRule_setVariable( (AssignmentRule_t *) scr, sname );
 }

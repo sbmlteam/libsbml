@@ -55,7 +55,7 @@
 
 
 #include "common.h"
-#include "List.h"
+#include "ListOf.h"
 #include "SBase.h"
 #include "UnitDefinition.h"
 #include "Compartment.h"
@@ -75,13 +75,14 @@ BEGIN_C_DECLS
 typedef struct
 {
   SBASE_FIELDS;
-  char   *name;
-  List_t *unitDefinition;
-  List_t *compartment;
-  List_t *species;
-  List_t *parameter;
-  List_t *rule;
-  List_t *reaction;
+  char     *id;
+  char     *name;
+  ListOf_t *unitDefinition;
+  ListOf_t *compartment;
+  ListOf_t *species;
+  ListOf_t *parameter;
+  ListOf_t *rule;
+  ListOf_t *reaction;
 } Model_t;
 
 
@@ -93,14 +94,24 @@ Model_t *
 Model_create (void);
 
 /**
- * Creates a new Model with the given name and returns a pointer to it.
+ * Creates a new Model with the given id and returns a pointer to it.
  * This convenience function is functionally equivalent to:
  *
- *   Model_setName(Model_create(), sname);
+ *   Model_setId(Model_create(), sid);
  */
 LIBSBML_EXTERN
 Model_t *
-Model_createWith (const char *sname);
+Model_createWith (const char *sid);
+
+/**
+ * Creates a new Model with the given name and returns a pointer to it.
+ * This convenience function is functionally equivalent to:
+ *
+ *   Model_setName(Model_create(), string);
+ */
+LIBSBML_EXTERN
+Model_t *
+Model_createWithName (const char *string);
 
 /**
  * Frees the given Model.
@@ -111,25 +122,57 @@ Model_free (Model_t *m);
 
 
 /**
+ * @return the id of this Model.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getId (const Model_t *m);
+
+/**
  * @return the name of this Model.
  */
 LIBSBML_EXTERN
 const char *
 Model_getName (const Model_t *m);
 
+
 /**
- * @return 1 if the name of Model has been set, 0 otherwise.
+ * @return 1 if the id of this Model has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetId (const Model_t *m);
+
+/**
+ * @return 1 if the name of this Model has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
 int
 Model_isSetName (const Model_t *m);
 
+
 /**
- * Sets the name of this Model to a copy of sname.
+ * Sets the id of this Model to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Model_setName (Model_t *m, const char *sname);
+Model_setId (Model_t *m, const char *sid);
+
+/**
+ * Sets the name of this Model to a copy of string (SName in L1).
+ */
+LIBSBML_EXTERN
+void
+Model_setName (Model_t *m, const char *string);
+
+
+/**
+ * Unsets the id of this Model.  This is equivalent to:
+ * safe_free(m->id); m->id = NULL;
+ */
+LIBSBML_EXTERN
+void
+Model_unsetId (Model_t *m);
 
 /**
  * Unsets the name of this Model.  This is equivalent to:
@@ -294,105 +337,105 @@ Model_createKineticLawParameter (Model_t *m);
  */
 LIBSBML_EXTERN
 void
-Model_addUnitDefinition(Model_t *m, UnitDefinition_t *ud);
+Model_addUnitDefinition (Model_t *m, UnitDefinition_t *ud);
 
 /**
  * Adds the given Compartment to this Model.
  */
 LIBSBML_EXTERN
 void
-Model_addCompartment(Model_t *m, Compartment_t *c);
+Model_addCompartment (Model_t *m, Compartment_t *c);
 
 /**
  * Adds the given Species to this Model.
  */
 LIBSBML_EXTERN
 void
-Model_addSpecies(Model_t *m, Species_t *s);
+Model_addSpecies (Model_t *m, Species_t *s);
 
 /**
  * Adds the given Parameter to this Model.
  */
 LIBSBML_EXTERN
 void
-Model_addParameter(Model_t *m, Parameter_t *p);
+Model_addParameter (Model_t *m, Parameter_t *p);
 
 /**
  * Adds the given Rule to this Model.
  */
 LIBSBML_EXTERN
 void
-Model_addRule(Model_t *m, Rule_t *r);
+Model_addRule (Model_t *m, Rule_t *r);
 
 /**
  * Adds the given Reaction to this Model.
  */
 LIBSBML_EXTERN
 void
-Model_addReaction(Model_t *m, Reaction_t *r);
+Model_addReaction (Model_t *m, Reaction_t *r);
 
 /**
  * @return the nth UnitDefinition of this Model.
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
-Model_getUnitDefinition(Model_t *m, unsigned int n);
+Model_getUnitDefinition (Model_t *m, unsigned int n);
 
 /**
  * @return the nth Compartment of this Model.
  */
 LIBSBML_EXTERN
 Compartment_t *
-Model_getCompartment(Model_t *m, unsigned int n);
+Model_getCompartment (Model_t *m, unsigned int n);
 
 /**
  * @return the nth Species of this Model.
  */
 LIBSBML_EXTERN
 Species_t *
-Model_getSpecies(Model_t *m, unsigned int n);
+Model_getSpecies (Model_t *m, unsigned int n);
 
 /**
  * @return the nth Parameter of this Model.
  */
 LIBSBML_EXTERN
 Parameter_t *
-Model_getParameter(Model_t *m, unsigned int n);
+Model_getParameter (Model_t *m, unsigned int n);
 
 /**
  * @return the nth Rule of this Model.
  */
 LIBSBML_EXTERN
 Rule_t *
-Model_getRule(Model_t *m, unsigned int n);
+Model_getRule (Model_t *m, unsigned int n);
 
 /**
  * @return the nth Reaction of this Model.
  */
 LIBSBML_EXTERN
 Reaction_t *
-Model_getReaction(Model_t *m, unsigned int n);
+Model_getReaction (Model_t *m, unsigned int n);
 
 /**
  * @return the number of UnitDefinitions in this Model.
  */
 LIBSBML_EXTERN
 unsigned int
-Model_getNumUnitDefinitions(const Model_t *m);
+Model_getNumUnitDefinitions (const Model_t *m);
 
 /**
  * @return the number of Compartments in this Model.
  */
 LIBSBML_EXTERN
 unsigned int
-Model_getNumCompartments(const Model_t *m);
+Model_getNumCompartments (const Model_t *m);
 
 /**
  * @return the number of Species in this Model.
  */
 LIBSBML_EXTERN
 unsigned int
-Model_getNumSpecies(const Model_t *m);
+Model_getNumSpecies (const Model_t *m);
 
 /**
  * @return the number of Parameters in this Model.  Parameters defined in
@@ -400,21 +443,21 @@ Model_getNumSpecies(const Model_t *m);
  */
 LIBSBML_EXTERN
 unsigned int
-Model_getNumParameters(const Model_t *m);
+Model_getNumParameters (const Model_t *m);
 
 /**
  * @return the number of Rules in this Model.
  */
 LIBSBML_EXTERN
 unsigned int
-Model_getNumRules(const Model_t *m);
+Model_getNumRules (const Model_t *m);
 
 /**
  * @return the number of Reactions in this Model.
  */
 LIBSBML_EXTERN
 unsigned int
-Model_getNumReactions(const Model_t *m);
+Model_getNumReactions (const Model_t *m);
 
 
 END_C_DECLS

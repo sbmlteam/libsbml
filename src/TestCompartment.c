@@ -54,7 +54,7 @@
 #include "sbml/Compartment.h"
 
 
-Compartment_t *C;
+static Compartment_t *C;
 
 
 void
@@ -79,16 +79,25 @@ CompartmentTest_teardown (void)
 START_TEST (test_Compartment_create)
 {
   fail_unless( C->typecode   == SBML_COMPARTMENT, NULL );
+  fail_unless( C->metaid     == NULL, NULL );
   fail_unless( C->notes      == NULL, NULL );
   fail_unless( C->annotation == NULL, NULL );
 
+  fail_unless( C->id      == NULL, NULL );
   fail_unless( C->name    == NULL, NULL );
   fail_unless( C->units   == NULL, NULL );
   fail_unless( C->outside == NULL, NULL );
 
-  fail_unless( C->volume == 1.0, NULL );
+  fail_unless( C->spatialDimensions == 3, NULL );
 
+  fail_unless( C->size == 1.0, NULL );
+  fail_unless( Compartment_getVolume(C) == 1.0, NULL );
+
+  fail_unless( C->constant == 1, NULL );
+
+  fail_unless( !Compartment_isSetId     (C), NULL );
   fail_unless( !Compartment_isSetName   (C), NULL );
+  fail_unless( Compartment_isSetSize    (C), NULL );
   fail_unless( Compartment_isSetVolume  (C), NULL );
   fail_unless( !Compartment_isSetUnits  (C), NULL );
   fail_unless( !Compartment_isSetOutside(C), NULL );
@@ -102,16 +111,23 @@ START_TEST (test_Compartment_createWith)
 
 
   fail_unless( c->typecode   == SBML_COMPARTMENT, NULL );
+  fail_unless( c->metaid     == NULL, NULL );
   fail_unless( c->notes      == NULL, NULL );
   fail_unless( c->annotation == NULL, NULL );
 
-  fail_unless( !strcmp( c->name   , "A"     ), NULL );
+  fail_unless( c->name == NULL, NULL );
+  fail_unless( c->spatialDimensions == 3, NULL );
+
+  fail_unless( !strcmp( c->id     , "A"     ), NULL );
   fail_unless( !strcmp( c->units  , "liter" ), NULL );
   fail_unless( !strcmp( c->outside, "B"     ), NULL );
 
-  fail_unless( c->volume == 3.6, NULL );
+  fail_unless( c->size     == 3.6, NULL );
+  fail_unless( c->constant == 1  , NULL );
 
-  fail_unless( Compartment_isSetName   (c), NULL );
+  fail_unless( Compartment_isSetId     (c), NULL );
+  fail_unless( !Compartment_isSetName  (c), NULL );
+  fail_unless( Compartment_isSetSize   (c), NULL );
   fail_unless( Compartment_isSetVolume (c), NULL );
   fail_unless( Compartment_isSetUnits  (c), NULL );
   fail_unless( Compartment_isSetOutside(c), NULL );
@@ -128,9 +144,39 @@ START_TEST (test_Compartment_free_NULL)
 END_TEST
 
 
+START_TEST (test_Compartment_setId)
+{
+  char *id = "mitochondria";
+
+
+  Compartment_setId(C, id);
+
+  fail_unless( !strcmp(C->id, id)    , NULL );
+  fail_unless( Compartment_isSetId(C), NULL );
+
+  if (C->id == id)
+  {
+    fail("Compartment_setId(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  Compartment_setId(C, C->id);
+  fail_unless( !strcmp(C->id, id), NULL );
+
+  Compartment_setId(C, NULL);
+  fail_unless( !Compartment_isSetId(C), NULL );
+
+  if (C->id != NULL)
+  {
+    fail("Compartment_setId(C, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_Compartment_setName)
 {
-  char *name = "mitochondria";
+  char *name = "My Favorite Factory";
 
 
   Compartment_setName(C, name);
@@ -218,9 +264,21 @@ START_TEST (test_Compartment_setOutside)
 END_TEST
 
 
+START_TEST (test_Compartment_unsetSize)
+{
+  fail_unless( C->size == 1.0, NULL );
+  fail_unless( Compartment_isSetSize(C), NULL );
+
+  Compartment_unsetSize(C);
+
+  fail_unless( !Compartment_isSetSize(C), NULL );
+}
+END_TEST
+
+
 START_TEST (test_Compartment_unsetVolume)
 {
-  fail_unless( C->volume == 1.0          , NULL );
+  fail_unless( Compartment_getVolume(C) == 1.0, NULL );
   fail_unless( Compartment_isSetVolume(C), NULL );
 
   Compartment_unsetVolume(C);
@@ -244,9 +302,11 @@ create_suite_Compartment (void)
   tcase_add_test( tcase, test_Compartment_create      );
   tcase_add_test( tcase, test_Compartment_createWith  );
   tcase_add_test( tcase, test_Compartment_free_NULL   );
+  tcase_add_test( tcase, test_Compartment_setId       );
   tcase_add_test( tcase, test_Compartment_setName     );
   tcase_add_test( tcase, test_Compartment_setUnits    );
   tcase_add_test( tcase, test_Compartment_setOutside  );
+  tcase_add_test( tcase, test_Compartment_unsetSize   );
   tcase_add_test( tcase, test_Compartment_unsetVolume );
 
   suite_add_tcase(suite, tcase);

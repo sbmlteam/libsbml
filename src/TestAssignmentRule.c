@@ -51,6 +51,7 @@
 
 
 #include "sbml/common.h"
+#include "sbml/FormulaParser.h"
 #include "sbml/AssignmentRule.h"
 
 
@@ -60,38 +61,91 @@ AssignmentRule_t *AR;
 void
 AssignmentRuleTest_setup (void)
 {
-  AR = (AssignmentRule_t *) safe_calloc(1, sizeof(AssignmentRule_t));
+  AR = AssignmentRule_create();
 
   if (AR == NULL)
   {
-    fail("safe_calloc(1, sizeof(AssignmentRule_t)) returned a NULL pointer.");
+    fail("AssignmentRule_create() returned a NULL pointer.");
   }
-
-  /**
-   * AssignmentRule_init() requires an SBMLTypeCode_t as its second
-   * argument.  Which one doesn't really matter for the purposes of these
-   * tests, so one was picked at random.
-   */
-  AssignmentRule_init(AR, SBML_PARAMETER_RULE);
 }
 
 
 void
 AssignmentRuleTest_teardown (void)
 {
-  AssignmentRule_clear(AR);
-  safe_free(AR);
+  AssignmentRule_free(AR);
 }
 
-
-START_TEST (test_AssignmentRule_init)
+START_TEST (test_AssignmentRule_L2_create)
 {
-  fail_unless( AR->typecode   == SBML_PARAMETER_RULE, NULL );
+  fail_unless( AR->typecode   == SBML_ASSIGNMENT_RULE, NULL );
+  fail_unless( AR->metaid     == NULL, NULL );
   fail_unless( AR->notes      == NULL, NULL );
   fail_unless( AR->annotation == NULL, NULL );
   fail_unless( AR->formula    == NULL, NULL );
+  fail_unless( AR->math       == NULL, NULL );
+  fail_unless( AR->variable   == NULL, NULL );
 
   fail_unless( AR->type == RULE_TYPE_SCALAR, NULL );
+}
+END_TEST
+
+
+START_TEST (test_AssignmentRule_L2_createWith)
+{
+  ASTNode_t        *math = SBML_parseFormula("y + 1");
+  AssignmentRule_t *ar   = AssignmentRule_createWith("x", math);
+
+
+  fail_unless( ar->typecode   == SBML_ASSIGNMENT_RULE, NULL );
+  fail_unless( ar->metaid     == NULL, NULL );
+  fail_unless( ar->notes      == NULL, NULL );
+  fail_unless( ar->annotation == NULL, NULL );
+  fail_unless( ar->formula    == NULL, NULL );
+
+  fail_unless( ar->math == math, NULL );
+  fail_unless( !strcmp(ar->variable, "x"), NULL );
+
+  fail_unless( ar->type == RULE_TYPE_SCALAR, NULL );
+
+  AssignmentRule_free(ar);
+}
+END_TEST
+
+
+START_TEST (test_AssignmentRule_L1_init)
+{
+  AssignmentRule_t *ar;
+
+
+  ar = (AssignmentRule_t *) safe_calloc(1, sizeof(AssignmentRule_t));
+
+  if (ar == NULL)
+  {
+    fail("safe_calloc(1, sizeof(AssignmentRule_t)) returned a NULL pointer.");
+  }
+
+  AssignmentRule_init(ar, SBML_ASSIGNMENT_RULE);
+
+  fail_unless( ar->typecode   == SBML_ASSIGNMENT_RULE, NULL );
+  fail_unless( ar->metaid     == NULL, NULL );
+  fail_unless( ar->notes      == NULL, NULL );
+  fail_unless( ar->annotation == NULL, NULL );
+  fail_unless( ar->formula    == NULL, NULL );
+  fail_unless( ar->math       == NULL, NULL );
+  fail_unless( ar->variable   == NULL, NULL );
+
+  fail_unless( ar->type == RULE_TYPE_SCALAR, NULL );
+
+  AssignmentRule_clear(ar);
+  safe_free(ar);
+}
+END_TEST
+
+
+START_TEST (test_AssignmentRule_free_NULL)
+{
+  AssignmentRule_free(NULL);
 }
 END_TEST
 
@@ -99,6 +153,36 @@ END_TEST
 START_TEST (test_AssignmentRule_clear_NULL)
 {
   AssignmentRule_clear(NULL);
+}
+END_TEST
+
+
+START_TEST (test_AssignmentRule_setVariable)
+{
+  char *variable = "x";
+
+
+  AssignmentRule_setVariable(AR, variable);
+
+  fail_unless( !strcmp(AR->variable, variable), NULL );
+  fail_unless( AssignmentRule_isSetVariable(AR), NULL );
+
+  if (AR->variable == variable)
+  {
+    fail("AssignmentRule_setVariable(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  AssignmentRule_setVariable(AR, AR->variable);
+  fail_unless( !strcmp(AR->variable, variable), NULL );
+
+  AssignmentRule_setVariable(AR, NULL);
+  fail_unless( !AssignmentRule_isSetVariable(AR), NULL );
+
+  if (AR->variable != NULL)
+  {
+    fail("AssignmentRule_setVariable(AR, NULL) did not clear string.");
+  }
 }
 END_TEST
 
@@ -114,8 +198,12 @@ create_suite_AssignmentRule (void)
                              AssignmentRuleTest_setup,
                              AssignmentRuleTest_teardown );
 
-  tcase_add_test( tcase, test_AssignmentRule_init       );
-  tcase_add_test( tcase, test_AssignmentRule_clear_NULL );
+  tcase_add_test( tcase, test_AssignmentRule_L2_create     );
+  tcase_add_test( tcase, test_AssignmentRule_L2_createWith );
+  tcase_add_test( tcase, test_AssignmentRule_L1_init       );
+  tcase_add_test( tcase, test_AssignmentRule_free_NULL     );
+  tcase_add_test( tcase, test_AssignmentRule_clear_NULL    );
+  tcase_add_test( tcase, test_AssignmentRule_setVariable   );
 
   suite_add_tcase(suite, tcase);
 

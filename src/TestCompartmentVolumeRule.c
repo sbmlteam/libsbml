@@ -83,9 +83,9 @@ START_TEST (test_CompartmentVolumeRule_create)
   fail_unless( CVR->annotation == NULL, NULL );
   fail_unless( CVR->formula    == NULL, NULL );
 
-  fail_unless( CVR->type        == RULE_TYPE_SCALAR, NULL );
-  fail_unless( CVR->compartment == NULL, NULL );
+  fail_unless( CVR->type == RULE_TYPE_SCALAR, NULL );
 
+  fail_unless( CompartmentVolumeRule_getCompartment(CVR) == NULL, NULL );
   fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 }
 END_TEST
@@ -103,8 +103,8 @@ START_TEST (test_CompartmentVolumeRule_createWith)
   fail_unless( cvr->annotation == NULL, NULL );
 
 
-  fail_unless( !strcmp(cvr->formula    , "v + 1"), NULL );
-  fail_unless( !strcmp(cvr->compartment, "c"    ), NULL );
+  fail_unless( !strcmp(cvr->formula , "v + 1"), NULL );
+  fail_unless( !strcmp(CompartmentVolumeRule_getCompartment(cvr), "c"), NULL );
 
   fail_unless( cvr->type == RULE_TYPE_RATE, NULL );
 
@@ -129,23 +129,23 @@ START_TEST (test_CompartmentVolumeRule_setCompartment)
 
   CompartmentVolumeRule_setCompartment(CVR, compartment);
 
-  fail_unless( !strcmp(CVR->compartment, compartment)     , NULL );
+  fail_unless( !strcmp(CVR->variable, compartment), NULL );
   fail_unless( CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 
-  if (CVR->compartment == compartment)
+  if (CVR->variable == compartment)
   {
     fail( "CompartmentVolumeRule_setCompartment(...)"
           " did not make a copy of string." );
   }
 
   /* Reflexive case (pathological) */
-  CompartmentVolumeRule_setCompartment(CVR, CVR->compartment);
-  fail_unless( !strcmp(CVR->compartment, compartment), NULL );
+  CompartmentVolumeRule_setCompartment(CVR, CVR->variable);
+  fail_unless( !strcmp(CVR->variable, compartment), NULL );
 
   CompartmentVolumeRule_setCompartment(CVR, NULL);
   fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 
-  if (CVR->compartment != NULL)
+  if (CVR->variable != NULL)
   {
     fail( "CompartmentVolumeRule_setCompartment(CVR, NULL)"
           " did not clear string." );

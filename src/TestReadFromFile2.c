@@ -175,26 +175,26 @@ START_TEST (test_read_l1v1_units)
   s = Model_getSpecies(m, 0);
   fail_unless( !strcmp( s->name       , "x0"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 1, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 1, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
   
   s = Model_getSpecies(m, 1);
   fail_unless( !strcmp( s->name       , "x1"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 1, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 1, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
   s = Model_getSpecies(m, 2);
   fail_unless( !strcmp( s->name       , "s1"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 1, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 1, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
   s = Model_getSpecies(m, 3);
   fail_unless( !strcmp( s->name       , "s2"   ), NULL );
   fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( s->initialAmount     == 1, NULL );
-  fail_unless( s->boundaryCondition == 0, NULL );
+  fail_unless( Species_getInitialAmount(s) == 1, NULL );
+  fail_unless( s->boundaryCondition        == 0, NULL );
 
 
   /**
@@ -413,22 +413,22 @@ START_TEST (test_create_l1v1_units)
   s = Model_createSpecies(m);
   Species_setName(s, "x0");
   Species_setCompartment(s, "cell");
-  s->initialAmount = 1;
+  Species_setInitialAmount(s, 1);
 
   s = Model_createSpecies(m);
   Species_setName(s, "x1");
   Species_setCompartment(s, "cell");
-  s->initialAmount = 1;
+  Species_setInitialAmount(s, 1);
 
   s = Model_createSpecies(m);
   Species_setName(s, "s1");
   Species_setCompartment(s, "cell");
-  s->initialAmount = 1;
+  Species_setInitialAmount(s, 1);
 
   s = Model_createSpecies(m);
   Species_setName(s, "s2");
-  Species_setCompartment(s, "cell");
-  s->initialAmount = 1;
+  Species_setCompartment(s, "cell"); 
+  Species_setInitialAmount(s, 1);
 
   /**
    * <listOfParameters>

@@ -68,7 +68,9 @@ BEGIN_C_DECLS
  * first, RULE_FIELDS is second) of any struct which "is a(n)" SBML
  * AssignemtnRule object.
  */
-#define ASSIGNMENT_RULE_FIELDS RuleType_t type
+#define ASSIGNMENT_RULE_FIELDS \
+  RuleType_t  type;            \
+  char       *variable
 
 
 typedef struct
@@ -80,26 +82,65 @@ typedef struct
 
 
 /**
- * AssignmentRule "objects" are abstract, i.e. they are not created.
+ * Creates a new AssignmentRule and returns a pointer to it.
+ *
+ * In L1 AssignmentRule is an abstract class.  It exists soley to provide
+ * fields to its subclasess: CompartmentVolumeRule, ParameterRule and
+ * SpeciesConcentrationRule.
+ *
+ * In L2 the three subclasses are gone and AssigmentRule is concrete;
+ * i.e. it may be created, used and destroyed directly.
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_create (void);
+
+/**
+ * Creates a new AssignmentRule with the given variable and math and
+ * returns a pointer to it.  This convenience function is functionally
+ * equivalent to:
+ *
+ *   ar = AssignmentRule_create();
+ *   AssignmentRule_setVariable(ar, variable);
+ *   Rule_setMath((Rule_t *) ar, math);
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+AssignmentRule_createWith (const char *variable, ASTNode_t *math);
+
+/**
+ * Frees the given AssignmentRule.
+ */
+LIBSBML_EXTERN
+void
+AssignmentRule_free (AssignmentRule_t *ar);
+
+/**
+ * The function is kept for backward compatibility with the SBML L1 API.
+ * 
+ * Clears (frees) ASSIGNMENT_RULE_FIELDS of this AssignmentRule "subclass".
+ * This function also calls its "parent", Rule_clear().
+ */
+void
+AssignmentRule_clear (AssignmentRule_t *ar);
+
+
+/**
+ * The function is kept for backward compatibility with the SBML L1 API.
+ *
+ * In L1 AssignmentRule "objects" are abstract, i.e. they are not created.
  * Rather, specific "subclasses" are created (e.g. ParameterRule) and their
  * ASSIGNMENT_RULE_FIELDS are initialized with this function.  The type of
  * the specific "subclass" is indicated by the given SBMLTypeCode.
  *
  * This function also calls its "parent", Rule_init().
  */
-LIBSBML_EXTERN
 void
 AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc);
 
 /**
- * Clears (frees) ASSIGNMENT_RULE_FIELDS of this AssignmentRule "subclass".
- * This function also calls its "parent", Rule_clear().
- */
-LIBSBML_EXTERN
-void
-AssignmentRule_clear (AssignmentRule_t *ar);
-
-/**
+ * The function is kept for backward compatibility with the SBML L1 API.
+ *
  * Initializes the fields of this AssignmentRule to their defaults:
  *
  *   - type = RULE_TYPE_SCALAR
@@ -117,11 +158,35 @@ RuleType_t
 AssignmentRule_getType (const AssignmentRule_t *ar);
 
 /**
+ * @return the variable for this AssignmentRule.
+ */
+LIBSBML_EXTERN
+const char *
+AssignmentRule_getVariable (const AssignmentRule_t *ar);
+
+
+/**
+ * @return 1 if the variable of this AssignmentRule has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+AssignmentRule_isSetVariable (const AssignmentRule_t *ar);
+
+
+/**
  * Sets the type of this Rule to the given RuleType.
  */
 LIBSBML_EXTERN
 void
 AssignmentRule_setType (AssignmentRule_t *ar, RuleType_t rt);
+
+/**
+ * Sets the variable of this AssignmentRule to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+AssignmentRule_setVariable (AssignmentRule_t *ar, const char *sid);
 
 
 END_C_DECLS

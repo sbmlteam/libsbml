@@ -206,13 +206,44 @@ SBMLFormatter::operator<< (const Model_t* m)
 
   openStartElement(ELEM_MODEL);
 
+
   //
-  // name  { use="optional" }  (L1v1, L1v2, L2v1)
+  // id  { use="optional" }  (L2v1)
   //
-  if (m->name != NULL)
+  if (fLevel == 2)
   {
-    attribute(ATTR_NAME, m->name);
+    if (Model_isSetId(m))
+    {
+      attribute(ATTR_ID, m->id);
+    }
   }
+
+  //
+  // name: SName   { use="optional" }  (L1v1, L1v2)
+  // name: string  { use="optional" }  (L1v2)
+  //
+  // For the sake of robustness, if outputting L1 and name is not set,
+  // substitute the value of id.
+  //
+  if (fLevel == 1)
+  {
+    if ( Model_isSetName(m) )
+    {
+      attribute(ATTR_NAME, m->name);
+    }
+    else if ( Model_isSetId(m) )
+    {
+      attribute(ATTR_NAME, m->id);
+    }
+  }
+  else
+  {
+    if (Model_isSetName(m))
+    {
+      attribute(ATTR_NAME, m->name);
+    }
+  }
+
 
   if ( isEmpty(m) )
   {
@@ -253,7 +284,29 @@ SBMLFormatter::operator<< (const UnitDefinition_t* ud)
 
   openStartElement(ELEM_UNIT_DEFINITION);
 
-  attribute(ATTR_NAME, ud->name);
+  //
+  // id  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    attribute(ATTR_ID, ud->id);
+  }
+
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  // name: string  { use="optional" }  (L2v1)
+  //
+  // For the sake of robustness, if outputting L1 and name is not set,
+  // substitute the value of id.
+  //
+  if ( UnitDefinition_isSetName(ud) )
+  {
+    attribute(ATTR_NAME, ud->name);
+  }
+  else if (fLevel == 1)
+  {
+    attribute(ATTR_NAME, ud->id);    
+  }
 
 
   if ( isEmpty(ud) )
@@ -307,6 +360,23 @@ SBMLFormatter::operator<< (const Unit_t* u)
     attribute(ATTR_SCALE, u->scale);
   }
 
+  //
+  // multiplier  { use="optional" default="1" }  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    attribute(ATTR_MULTIPLIER, u->multiplier);
+  }
+
+  //
+  // offset  { use="optional" default="0" }  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    attribute(ATTR_OFFSET, u->offset);
+  }
+
+
   if ( isEmpty(u) )
   {
     slashCloseStartElement();
@@ -331,11 +401,44 @@ SBMLFormatter::operator<< (const Compartment_t* c)
 
   openStartElement(ELEM_COMPARTMENT);
 
-  attribute(ATTR_NAME, c->name);
+  //
+  // id  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    attribute(ATTR_ID, c->id);
+  }
 
   //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  // name: string  { use="optional" }  (L2v1)
+  //
+  // For the sake of robustness, if outputting L1 and name is not set,
+  // substitute the value of id.
+  //
+  if ( Compartment_isSetName(c) )
+  {
+    attribute(ATTR_NAME, c->name);
+  }
+  else if (fLevel == 1)
+  {
+    attribute(ATTR_NAME, c->id);    
+  }
+
+  //
+  // spatialDimensions  { use="optional" default="3" }  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    if (c->spatialDimensions != 3)
+    {
+      attribute(ATTR_SPATIAL_DIMENSIONS, c->spatialDimensions);
+    }
+  }
+
   //
   // volume  { use="optional" default="1" }  (L1v1, L1v2)
+  // size    { use="optional" }  (L2v1)
   //
   // Although compartment has a default volume of 1 in SBML L1, IEEE 754
   // doubles (or floats) cannot be reliably compared for equality.  To be
@@ -343,10 +446,19 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   //
   // However, do not output if unset.
   //
-  //
-  if (Compartment_isSetVolume(c))
+  if (fLevel == 1)
   {
-    attribute(ATTR_VOLUME, c->volume);
+    if ( Compartment_isSetVolume(c) )
+    {
+      attribute(ATTR_VOLUME, Compartment_getVolume(c));
+    }
+  }
+  else
+  {
+    if ( Compartment_isSetSize(c) )
+    {
+      attribute(ATTR_SIZE, Compartment_getSize(c));
+    }
   }
 
   //
@@ -364,6 +476,18 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   {
     attribute(ATTR_OUTSIDE, c->outside);
   }
+
+  //
+  // constant  { use="optional" default="true" }  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    if (c->constant != 1)
+    {
+      attribute(ATTR_CONSTANT, (bool) c->constant);
+    }
+  }
+
 
   if ( isEmpty(c) )
   {
@@ -397,7 +521,21 @@ SBMLFormatter::operator<< (const Species_t* s)
 
   openStartElement(elem);
 
-  attribute(ATTR_NAME, s->name);
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  // name: string  { use="optional" }  (L2v1)
+  //
+  // For the sake of robustness, if outputting L1 and name is not set,
+  // substitute the value of id.
+  //
+  if ( Species_isSetName(s) )
+  {
+    attribute(ATTR_NAME, s->name);
+  }
+  else if (fLevel == 1)
+  {
+    attribute(ATTR_NAME, s->id);    
+  }
 
   //
   // 
@@ -408,14 +546,14 @@ SBMLFormatter::operator<< (const Species_t* s)
   //
   // initialAmount  { use="required" }  (L1v1, L1v2)
   //
-  attribute(ATTR_INITIAL_AMOUNT, s->initialAmount);
+  attribute(ATTR_INITIAL_AMOUNT, Species_getInitialAmount(s));
 
   //
   // units  { use="optional" }  (L1v1, L1v2, L2v1)
   //
-  if (s->units != NULL)
+  if ( Species_isSetUnits(s) )
   {
-    attribute(ATTR_UNITS, s->units);
+    attribute(ATTR_UNITS, Species_getUnits(s));
   }
 
   //
@@ -460,13 +598,35 @@ SBMLFormatter::operator<< (const Parameter_t* p)
 
   openStartElement(ELEM_PARAMETER);
 
-  attribute(ATTR_NAME, p->name);
+  //
+  // id  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    attribute(ATTR_ID, p->id);
+  }
+
+  //
+  // name: SName  { use="required" }  (L1v1, L1v2)
+  // name  { use="optional" }  (L2v1)
+  //
+  // For the sake of robustness, if outputting L1 and name is not set,
+  // substitute the value of id.
+  //
+  if (Parameter_isSetName(p))
+  {
+    attribute(ATTR_NAME, p->name);
+  }
+  else if (fLevel == 1)
+  {
+    attribute(ATTR_NAME, p->id);    
+  }
 
   //
   // value  { use="required" }  (L1v2)
   // value  { use="optional" }  (L1v2, L2v1)
   //
-  if ((fLevel == 1 && fVersion == 1) || p->isSet.value)
+  if ((fLevel == 1 && fVersion == 1) || Parameter_isSetValue(p))
   {
     attribute(ATTR_VALUE, p->value);
   }
@@ -478,6 +638,18 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   {
     attribute(ATTR_UNITS, p->units);
   }
+
+  //
+  // constant  { use="optional" default="true" }  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    if (p->constant != 1)
+    {
+      attribute(ATTR_CONSTANT, (bool) p->constant);
+    }
+  }
+
 
   if ( isEmpty(p) )
   {
@@ -576,7 +748,7 @@ SBMLFormatter::operator<< (const SpeciesConcentrationRule_t* scr)
 
   attribute(ATTR_FORMULA, scr->formula);
   ruleType(scr->type);
-  attribute(attr, scr->species);
+  attribute(attr, SpeciesConcentrationRule_getSpecies(scr));
 
   if ( isEmpty(scr) )
   {
@@ -603,7 +775,7 @@ SBMLFormatter::operator<< (const CompartmentVolumeRule_t* cvr)
 
   attribute(ATTR_FORMULA, cvr->formula);
   ruleType(cvr->type);
-  attribute(ATTR_COMPARTMENT, cvr->compartment);
+  attribute(ATTR_COMPARTMENT, CompartmentVolumeRule_getCompartment(cvr));
 
   if ( isEmpty(cvr) )
   {
@@ -632,7 +804,7 @@ SBMLFormatter::operator<< (const ParameterRule_t* pr)
   attribute(ATTR_FORMULA, pr->formula);
   ruleType(pr->type);
 
-  attribute(ATTR_NAME, pr->name);
+  attribute( ATTR_NAME, ParameterRule_getName(pr) );
 
   //
   // units  { use="optional" }  (L1v1, L1v2);
@@ -666,7 +838,29 @@ SBMLFormatter::operator<< (const Reaction_t* r)
 
   openStartElement(ELEM_REACTION);
 
-  attribute(ATTR_NAME, r->name);
+  //
+  // id  (L2v1)
+  //
+  if (fLevel == 2)
+  {
+    attribute(ATTR_ID, r->id);
+  }
+
+  //
+  // name  { use="required" }  (L1v1, L1v2)
+  // name  { use="optional" }  (L2v1)
+  //
+  // For the sake of robustness, if outputting L1 and name is not set,
+  // substitute the value of id.
+  //
+  if (Reaction_isSetName(r))
+  {
+    attribute(ATTR_NAME, r->name);
+  }
+  else if (fLevel == 1)
+  {
+    attribute(ATTR_NAME, r->id);    
+  }
 
   //
   // reversible  { use="optional"  default="true" (1) }  (L1v1, L1v2, L2v1)
@@ -828,28 +1022,28 @@ SBMLFormatter::operator<< (const KineticLaw_t* kl)
 // This #define macro provides a template which is used to create each
 // specific function.  Think, C++ templates without all the added baggage.
 //
-#define makeFn(name, element, type)          \
-void                                         \
-SBMLFormatter::name (List_t* list)           \
-{                                            \
-  unsigned int size = List_size(list);       \
-                                             \
-                                             \
-  if (size > 0)                              \
-  {                                          \
-    startElement( element );                 \
-                                             \
-    upIndent();                              \
-                                             \
-    for (unsigned int n = 0; n < size; n++)  \
-    {                                        \
-      *this << ( type * ) List_get(list, n); \
-    }                                        \
-                                             \
-    downIndent();                            \
-                                             \
-    endElement( element );                   \
-  }                                          \
+#define makeFn(name, element, type)             \
+void                                            \
+SBMLFormatter::name (ListOf_t* list)            \
+{                                               \
+  unsigned int size = ListOf_getNumItems(list); \
+                                                \
+                                                \
+  if (size > 0)                                 \
+  {                                             \
+    startElement( element );                    \
+                                                \
+    upIndent();                                 \
+                                                \
+    for (unsigned int n = 0; n < size; n++)     \
+    {                                           \
+      *this << ( type * ) ListOf_get(list, n);  \
+    }                                           \
+                                                \
+    downIndent();                               \
+                                                \
+    endElement( element );                      \
+  }                                             \
 }
 
 makeFn( listOfUnitDefinitions, ELEM_LIST_OF_UNIT_DEFINITIONS, UnitDefinition_t )

@@ -92,10 +92,10 @@ CompartmentVolumeRule_createWith ( const char *formula,
   CompartmentVolumeRule_t *cvr = CompartmentVolumeRule_create();
 
 
-  Rule_setFormula((Rule_t *) cvr, formula);
-  CompartmentVolumeRule_setCompartment(cvr, compartment);
+  Rule_setFormula       ( (Rule_t *)           cvr, formula );
+  AssignmentRule_setType( (AssignmentRule_t *) cvr, type    );
 
-  cvr->type = type;
+  CompartmentVolumeRule_setCompartment(cvr, compartment);
 
   return cvr;
 }
@@ -108,12 +108,7 @@ LIBSBML_EXTERN
 void
 CompartmentVolumeRule_free (CompartmentVolumeRule_t *cvr)
 {
-  if (cvr == NULL) return;
-
-  AssignmentRule_clear((AssignmentRule_t *) cvr);
-
-  safe_free(cvr->compartment);
-  safe_free(cvr);
+  AssignmentRule_free( (AssignmentRule_t *) cvr );
 }
 
 
@@ -124,7 +119,7 @@ LIBSBML_EXTERN
 const char *
 CompartmentVolumeRule_getCompartment (const CompartmentVolumeRule_t *cvr)
 {
-  return cvr->compartment;
+  return AssignmentRule_getVariable( (AssignmentRule_t *) cvr );
 }
 
 
@@ -136,7 +131,7 @@ LIBSBML_EXTERN
 int
 CompartmentVolumeRule_isSetCompartment (const CompartmentVolumeRule_t *cvr)
 {
-  return (cvr->compartment != NULL);
+  return AssignmentRule_isSetVariable( (AssignmentRule_t *) cvr );
 }
 
 
@@ -148,13 +143,5 @@ void
 CompartmentVolumeRule_setCompartment ( CompartmentVolumeRule_t *cvr,
                                        const char *sname )
 {
-  if (cvr->compartment == sname) return;
-
-
-  if (cvr->compartment != NULL)
-  {
-    safe_free(cvr->compartment);
-  }
-
-  cvr->compartment = (sname == NULL) ? NULL : safe_strdup(sname);
+  AssignmentRule_setVariable( (AssignmentRule_t *) cvr, sname );
 }

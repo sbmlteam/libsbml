@@ -133,6 +133,38 @@ START_TEST (test_SBMLFormatter_Model_skipOptional)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_Model_L2v1)
+{
+  Model_t    *m = Model_createWith("Branch");
+  const char *s = wrapXML("<model id=\"Branch\"/>\n");
+
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << m;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Model_free(m);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Model_L2v1_skipOptional)
+{
+  Model_t    *m = Model_create();
+  const char *s = wrapXML("<model/>\n");
+
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << m;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Model_free(m);
+}
+END_TEST
+
+
 START_TEST (test_SBMLFormatter_Unit)
 {
   Unit_t *u = Unit_createWith(UNIT_KIND_KILOGRAM, 2, -3);
@@ -158,6 +190,29 @@ START_TEST (test_SBMLFormatter_Unit_defaults)
   const char *s = wrapXML("<unit kind=\"kilogram\"/>\n");
 
 
+  *formatter << u;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  Unit_free(u);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Unit_L2v1)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_CELSIUS, 1, 0);
+
+  const char *s = wrapXML
+  (
+    "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n"
+  );
+
+
+  Unit_setMultiplier(u, 1.8);
+  Unit_setOffset(u, 32);
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << u;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
@@ -211,6 +266,53 @@ START_TEST (test_SBMLFormatter_UnitDefinition_full)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_UnitDefinition_L2v1)
+{
+  UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
+  const char       *s  = wrapXML("<unitDefinition id=\"mmls\"/>\n");
+
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << ud;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  UnitDefinition_free(ud);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_UnitDefinition_L2v1_full)
+{
+  UnitDefinition_t *ud = UnitDefinition_createWith("Fahrenheit");
+  Unit_t           *u  = Unit_create();
+
+  const char *s  = wrapXML
+  (
+    "<unitDefinition id=\"Fahrenheit\">\n"
+    "  <listOfUnits>\n"
+    "    <unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n"
+    "  </listOfUnits>\n"
+    "</unitDefinition>\n"
+  );
+
+
+  Unit_setKind      (u, UNIT_KIND_CELSIUS);
+  Unit_setMultiplier(u, 1.8);
+  Unit_setOffset    (u, 32);
+
+  UnitDefinition_addUnit(ud, u);
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << ud;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  UnitDefinition_free(ud);
+}
+END_TEST
+
+
 START_TEST (test_SBMLFormatter_Compartment)
 {
   Compartment_t *c = Compartment_createWith("A", 2.1, NULL, "B");
@@ -222,7 +324,6 @@ START_TEST (test_SBMLFormatter_Compartment)
 
 
   *formatter << c;
-
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
 
   Compartment_free(c);
@@ -242,29 +343,6 @@ START_TEST (test_SBMLFormatter_Compartment_skipOptional)
 
 
   Compartment_setName(c, "A");
-  *formatter << c;
-
-  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
-}
-END_TEST
-
-
-/**
- * See test test_SBMLFormatter_Compartment_skipOptional (above).
- *
- * ...  However, do not output if unset.
- */
-START_TEST (test_SBMLFormatter_Compartment_L2v1_unsetVolume)
-{
-  Compartment_t *c = Compartment_create();
-  const char    *s = wrapXML("<compartment name=\"A\"/>\n");
-
-
-  Compartment_setName(c, "A");
-  Compartment_unsetVolume(c);
-
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
@@ -296,6 +374,71 @@ START_TEST (test_SBMLFormatter_Compartment_annotation)
 
 
   SBase_setAnnotation((SBase_t *) c, a);
+  *formatter << c;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  Compartment_free(c);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Compartment_L2v1)
+{
+  Compartment_t *c = Compartment_createWith("M", 2.5, NULL, NULL);
+  const char    *s = wrapXML
+  (
+    "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>\n"
+  );
+
+
+  Compartment_setSpatialDimensions(c, 2);
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << c;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  Compartment_free(c);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Compartment_L2v1_constant)
+{
+  Compartment_t *c = Compartment_createWith("cell", 1.2, NULL, NULL);
+  const char    *s = wrapXML
+  (
+    "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>\n"
+  );
+
+
+  Compartment_setConstant(c, 0);
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << c;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  Compartment_free(c);
+}
+END_TEST
+
+
+/**
+ * See test test_SBMLFormatter_Compartment_skipOptional (above).
+ *
+ * ...  However, do not output (size / volume) if unset.
+ */
+START_TEST (test_SBMLFormatter_Compartment_L2v1_unsetSize)
+{
+  Compartment_t *c = Compartment_create();
+  const char    *s = wrapXML("<compartment name=\"A\"/>\n");
+
+
+  Compartment_setName(c, "A");
+  Compartment_unsetSize(c);
+
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
@@ -431,6 +574,65 @@ START_TEST (test_SBMLFormatter_Parameter_L1v2_skipOptional)
   Parameter_setName(p, "Km1");
   Parameter_unsetValue(p);
 
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Parameter_L2v1)
+{
+  Parameter_t *p = Parameter_createWith("Km1", 2.3, "second");
+
+  const char *s = wrapXML
+  (
+    "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>\n"
+  );
+
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Parameter_L2v1_skipOptional)
+{
+  Parameter_t *p = Parameter_create();
+  const char  *s = wrapXML("<parameter id=\"Km1\"/>\n");
+
+
+  Parameter_setId(p, "Km1");
+  Parameter_unsetValue(p);
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Parameter_L2v1_constant)
+{
+  Parameter_t *p = Parameter_create();
+  const char  *s = wrapXML("<parameter id=\"x\" constant=\"false\"/>\n");
+
+
+  Parameter_setId      ( p, "x" );
+  Parameter_setConstant( p, 0   );
+  Parameter_unsetValue ( p      );
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
@@ -909,24 +1111,54 @@ create_suite_SBMLFormatter (void)
                             TestSBMLFormatter_setup,
                             TestSBMLFormatter_teardown);
  
-  tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument                      );
-  tcase_add_test( tcase, test_SBMLFormatter_Model                             );
-  tcase_add_test( tcase, test_SBMLFormatter_Model_skipOptional                );
-  tcase_add_test( tcase, test_SBMLFormatter_Unit                              );
-  tcase_add_test( tcase, test_SBMLFormatter_Unit_defaults                     );
-  tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition                    );
-  tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition_full               );
-  tcase_add_test( tcase, test_SBMLFormatter_Compartment                       );
-  tcase_add_test( tcase, test_SBMLFormatter_Compartment_skipOptional          );
-  tcase_add_test( tcase, test_SBMLFormatter_Compartment_L2v1_unsetVolume      );
-  tcase_add_test( tcase, test_SBMLFormatter_Compartment_annotation            );
+
+  /** SBMLDocument **/
+  tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument );
+
+
+  /** Model **/
+  tcase_add_test( tcase, test_SBMLFormatter_Model                   );
+  tcase_add_test( tcase, test_SBMLFormatter_Model_skipOptional      );
+  tcase_add_test( tcase, test_SBMLFormatter_Model_L2v1              );
+  tcase_add_test( tcase, test_SBMLFormatter_Model_L2v1_skipOptional );
+
+
+  /** Unit **/
+  tcase_add_test( tcase, test_SBMLFormatter_Unit          );
+  tcase_add_test( tcase, test_SBMLFormatter_Unit_defaults );
+  tcase_add_test( tcase, test_SBMLFormatter_Unit_L2v1     );
+
+
+  /** UnitDefinition **/
+  tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition           );
+  tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition_full      );  
+  tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition_L2v1      );
+  tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition_L2v1_full );
+
+
+  /** Compartment **/
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment                );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_skipOptional   );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_annotation     );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_L2v1           );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_L2v1_constant  );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_L2v1_unsetSize );
+
+
+  /** Species **/
   tcase_add_test( tcase, test_SBMLFormatter_Species                           );
   tcase_add_test( tcase, test_SBMLFormatter_Species_L1v1                      );
   tcase_add_test( tcase, test_SBMLFormatter_Species_defaults                  );
   tcase_add_test( tcase, test_SBMLFormatter_Species_skipOptional              );
-  tcase_add_test( tcase, test_SBMLFormatter_Parameter                         );
-  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L1v1_required           );
-  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L1v2_skipOptional       );
+
+  /** Parameter **/
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter                   );
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L1v1_required     );
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L1v2_skipOptional );
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L2v1              );
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L2v1_skipOptional );
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L2v1_constant     );
+
   tcase_add_test( tcase, test_SBMLFormatter_AlgebraicRule                     );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesConcentrationRule          );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesConcentrationRule_defaults );

@@ -64,28 +64,29 @@ Parameter_create (void)
 
 
   p = (Parameter_t *) safe_calloc(1, sizeof(Parameter_t));
+
   SBase_init((SBase_t *) p, SBML_PARAMETER);
+  Parameter_initDefaults(p);
 
   return p;
 }
 
 
 /**
- * Creates a new Parameter with the given name, value and units and returns
- * a pointer to it.  This convenience function is functionally equivalent
- * to:
+ * Creates a new Parameter with the given id, value and units and returns a
+ * pointer to it.  This convenience function is functionally equivalent to:
  *
  *   Parameter_t *p = Parameter_create();
- *   Parameter_setName(p, name); Parameter_setValue(p, value); ... ;
+ *   Parameter_setName(p, id); Parameter_setValue(p, value); ... ;
  */
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_createWith (const char *name, double value, const char *units)
+Parameter_createWith (const char *sid, double value, const char *units)
 {
   Parameter_t *p = Parameter_create();
 
 
-  Parameter_setName ( p, name  );
+  Parameter_setId   ( p, sid   );
   Parameter_setValue( p, value );
   Parameter_setUnits( p, units );
 
@@ -104,9 +105,34 @@ Parameter_free (Parameter_t *p)
 
   SBase_clear((SBase_t *) p);
 
+  safe_free(p->id);
   safe_free(p->name);
   safe_free(p->units);
   safe_free(p);
+}
+
+
+/**
+ * Initializes the fields of this Parameter to their defaults:
+ *
+ *   - constant = 1  (true)  (L2 only)
+ */
+LIBSBML_EXTERN
+void
+Parameter_initDefaults (Parameter_t *p)
+{
+  Parameter_setConstant(p, 1);
+}
+
+
+/**
+ * @return the id of this Parameter.
+ */
+LIBSBML_EXTERN
+const char *
+Parameter_getId (const Parameter_t *p)
+{
+  return p->id;
 }
 
 
@@ -140,6 +166,29 @@ const char *
 Parameter_getUnits (const Parameter_t *p)
 {
   return p->units;
+}
+
+
+/**
+ * @return true (non-zero) if this Parameter is constant, false (0)
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_getConstant (const Parameter_t *p)
+{
+  return p->constant;
+}
+
+
+/**
+ * @return 1 if the id of this Parameter has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_isSetId (const Parameter_t *p)
+{
+  return (p->id != NULL);
 }
 
 
@@ -184,13 +233,32 @@ Parameter_isSetUnits (const Parameter_t *p)
 
 
 /**
- * Sets the name field of this Parameter to a copy of sname.
+ * Sets the id of this Parameter to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Parameter_setName (Parameter_t *p, const char *sname)
+Parameter_setId (Parameter_t *p, const char *sid)
 {
-  if (p->name == sname) return;
+  if (p->id == sid) return;
+
+
+  if (p->id != NULL)
+  {
+    safe_free(p->id);
+  }
+
+  p->id = (sid == NULL) ? NULL : safe_strdup(sid);
+}
+
+
+/**
+ * Sets the name field of this Parameter to a copy of string (SName in L1).
+ */
+LIBSBML_EXTERN
+void
+Parameter_setName (Parameter_t *p, const char *string)
+{
+  if (p->name == string) return;
 
 
   if (p->name != NULL)
@@ -198,7 +266,7 @@ Parameter_setName (Parameter_t *p, const char *sname)
     safe_free(p->name);
   }
 
-  p->name = (sname == NULL) ? NULL : safe_strdup(sname);
+  p->name = (string == NULL) ? NULL : safe_strdup(string);
 }
 
 
@@ -215,13 +283,13 @@ Parameter_setValue (Parameter_t *p, double value)
 
 
 /**
- * Sets the units field of this Parameter to a copy of sname.
+ * Sets the units field of this Parameter to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Parameter_setUnits (Parameter_t *p, const char *sname)
+Parameter_setUnits (Parameter_t *p, const char *sid)
 {
-  if (p->units == sname) return;
+  if (p->units == sid) return;
 
 
   if (p->units != NULL)
@@ -229,7 +297,18 @@ Parameter_setUnits (Parameter_t *p, const char *sname)
     safe_free(p->units);
   }
 
-  p->units = (sname == NULL) ? NULL : safe_strdup(sname);
+  p->units = (sid == NULL) ? NULL : safe_strdup(sid);
+}
+
+
+/**
+ * Sets the constant of this Parameter to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Parameter_setConstant (Parameter_t *p, int value)
+{
+  p->constant = value;
 }
 
 

@@ -54,7 +54,7 @@
 #include "sbml/SBase.h"
 
 
-SBase_t *S;
+static SBase_t *S;
 
 
 void
@@ -87,9 +87,11 @@ SBaseTest_teardown (void)
 START_TEST (test_SBase_init)
 {
   fail_unless(S->typecode   == SBML_MODEL, NULL);
+  fail_unless(S->metaid     == NULL, NULL);
   fail_unless(S->notes      == NULL, NULL);
   fail_unless(S->annotation == NULL, NULL);
 
+  fail_unless( !SBase_isSetMetaId    (S), NULL );
   fail_unless( !SBase_isSetNotes     (S), NULL );
   fail_unless( !SBase_isSetAnnotation(S), NULL );
 }
@@ -99,6 +101,36 @@ END_TEST
 START_TEST (test_SBase_clear_NULL)
 {
   SBase_clear(NULL);
+}
+END_TEST
+
+
+START_TEST (test_SBase_setMetaId)
+{
+  char *metaid = "x12345";
+
+
+  SBase_setMetaId(S, metaid);
+
+  fail_unless( !strcmp(S->metaid, metaid), NULL );
+  fail_unless( SBase_isSetMetaId(S)      , NULL );
+
+  if (S->metaid == metaid)
+  {
+    fail("SBase_setMetaId(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  SBase_setMetaId(S, S->metaid);
+  fail_unless( !strcmp(S->metaid, metaid), NULL );
+
+  SBase_setMetaId(S, NULL);
+  fail_unless( !SBase_isSetMetaId(S), NULL );
+
+  if (S->metaid != NULL)
+  {
+    fail("SBase_setMetaId(S, NULL) did not clear string.");
+  }
 }
 END_TEST
 
@@ -117,6 +149,10 @@ START_TEST (test_SBase_setNotes)
   {
     fail("SBase_setNotes(...) did not make a copy of string.");
   }
+
+  /* Reflexive case (pathological) */
+  SBase_setNotes(S, S->notes);
+  fail_unless( !strcmp(S->notes, notes), NULL );
 
   SBase_setNotes(S, NULL);
   fail_unless( !SBase_isSetNotes(S), NULL );
@@ -144,6 +180,10 @@ START_TEST (test_SBase_setAnnotation)
     fail("SBase_setAnnotation(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  SBase_setAnnotation(S, S->annotation);
+  fail_unless( !strcmp(S->annotation, annotation), NULL );
+
   SBase_setAnnotation(S, NULL);
   fail_unless( !SBase_isSetAnnotation(S), NULL );
 
@@ -166,6 +206,7 @@ create_suite_SBase (void)
 
   tcase_add_test(tcase, test_SBase_init          );
   tcase_add_test(tcase, test_SBase_clear_NULL    );
+  tcase_add_test(tcase, test_SBase_setMetaId     );
   tcase_add_test(tcase, test_SBase_setNotes      );
   tcase_add_test(tcase, test_SBase_setAnnotation );
 

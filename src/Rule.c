@@ -80,8 +80,11 @@ Rule_clear (Rule_t *r)
 {
   if (r == NULL) return;
 
+
   SBase_clear((SBase_t *) r);
+
   safe_free(r->formula);
+  ASTNode_free(r->math);
 }
 
 
@@ -97,6 +100,17 @@ Rule_getFormula (const Rule_t *r)
 
 
 /**
+ * @return the math for this Rule.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+Rule_getMath (const Rule_t *r)
+{
+  return r->math;
+}
+
+
+/**
  * @return 1 if the formula for this Rule has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -104,6 +118,17 @@ int
 Rule_isSetFormula (const Rule_t *r)
 {
   return (r->formula != NULL);
+}
+
+
+/**
+ * @return 1 if the math for this Rule has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Rule_isSetMath (const Rule_t *r)
+{
+  return (r->math != NULL);
 }
 
 
@@ -123,4 +148,27 @@ Rule_setFormula (Rule_t *r, const char *string)
   }
 
   r->formula = (string == NULL) ? NULL : safe_strdup(string);
+}
+
+
+/**
+ * Sets the math of this Rule to the given ASTNode.
+ *
+ * The node <b>is not copied</b> and this Rule <b>takes ownership</b> of
+ * it; i.e. subsequent calls to this function or a call to Rule_free() will
+ * free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+void
+Rule_setMath (Rule_t *r, ASTNode_t *math)
+{
+  if (r->math == math) return;
+
+
+  if (r->math != NULL)
+  {
+    ASTNode_free(r->math);
+  }
+
+  r->math = math;
 }

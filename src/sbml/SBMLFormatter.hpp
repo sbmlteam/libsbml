@@ -104,7 +104,7 @@ public:
   ~SBMLFormatter ();
 
 
-  enum SBMLLevel_t   { Level1   = 1 };
+  enum SBMLLevel_t   { Level1   = 1, Level2 = 2 };
   enum SBMLVersion_t { Version1 = 1, Version2 = 2 };
 
   /**
@@ -140,15 +140,15 @@ public:
 
 private:
 
-  void listOfUnitDefinitions ( List_t* list );
-  void listOfUnits           ( List_t* list );
-  void listOfCompartments    ( List_t* list );
-  void listOfSpecies         ( List_t* list );
-  void listOfParameters      ( List_t* list );
-  void listOfRules           ( List_t* list );
-  void listOfReactions       ( List_t* list );
-  void listOfReactants       ( List_t* list );
-  void listOfProducts        ( List_t* list );
+  void listOfUnitDefinitions ( ListOf_t* list );
+  void listOfUnits           ( ListOf_t* list );
+  void listOfCompartments    ( ListOf_t* list );
+  void listOfSpecies         ( ListOf_t* list );
+  void listOfParameters      ( ListOf_t* list );
+  void listOfRules           ( ListOf_t* list );
+  void listOfReactions       ( ListOf_t* list );
+  void listOfReactants       ( ListOf_t* list );
+  void listOfProducts        ( ListOf_t* list );
 
   void annotation (const char* s);
   void notes      (const char* s);

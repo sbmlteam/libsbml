@@ -68,6 +68,9 @@ typedef struct
   UnitKind_t kind;
   int        exponent;
   int        scale;
+  double     multiplier;
+  double     offset;
+
 } Unit_t;
 
 
@@ -99,8 +102,10 @@ Unit_free (Unit_t *u);
 /**
  * Initializes the fields of this Unit to their defaults:
  *
- *   - exponent = 1
- *   - scale    = 0
+ *   - exponent   = 1
+ *   - scale      = 0
+ *   - multiplier = 1.0
+ *   - offset     = 0.0
  */
 LIBSBML_EXTERN
 void
@@ -128,6 +133,20 @@ LIBSBML_EXTERN
 int
 Unit_getScale (const Unit_t *u);
 
+/**
+ * @return the multiplier of this Unit.
+ */
+LIBSBML_EXTERN
+double
+Unit_getMultiplier (const Unit_t *u);
+
+/**
+ * @return the offset of this Unit.
+ */
+LIBSBML_EXTERN
+double
+Unit_getOffset (const Unit_t *u);
+
 
 /**
  * @return 1 if the kind of this Unit has been set, 0 otherwise.
@@ -145,18 +164,32 @@ void
 Unit_setKind (Unit_t *u, UnitKind_t kind);
 
 /**
- * Sets the exponent of this Unit to value and marks the field as set.
+ * Sets the exponent of this Unit to the given value.
  */
 LIBSBML_EXTERN
 void
 Unit_setExponent (Unit_t *u, int value);
 
 /**
- * Sets the scale of this Unit to value and marks the field as set.
+ * Sets the scale of this Unit to the given value.
  */
 LIBSBML_EXTERN
 void
 Unit_setScale (Unit_t *u, int value);
+
+/**
+ * Sets the multiplier of this Unit to the given value.
+ */
+LIBSBML_EXTERN
+void
+Unit_setMultiplier (Unit_t *u, double value);
+
+/**
+ * Sets the offset of this Unit to the given value.
+ */
+LIBSBML_EXTERN
+void
+Unit_setOffset (Unit_t *u, double value);
 
 
 END_C_DECLS

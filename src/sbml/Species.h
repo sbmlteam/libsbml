@@ -65,17 +65,29 @@ typedef struct
 {
   SBASE_FIELDS;
 
+  char   *id;
   char   *name;
   char   *compartment;
-  double  initialAmount;
-  char   *units;
-  int     boundaryCondition;
-  int     charge;
 
   struct
   {
-    unsigned int initialAmount:1;
-    unsigned int charge       :1;
+    double Amount;
+    double Concentration;
+  } initial;
+
+
+  char   *substanceUnits;
+  char   *spatialSizeUnits;
+  int     hasOnlySubstanceUnits;
+  int     boundaryCondition;
+  int     charge;
+  int     constant;
+
+  struct
+  {
+    unsigned int initialAmount       :1;
+    unsigned int initialConcentration:1;
+    unsigned int charge              :1;
   } isSet;
 
 } Species_t;
@@ -89,21 +101,21 @@ Species_t *
 Species_create (void);
 
 /**
- * Creates a new Species with the given name, compartment, initialAmount,
- * units, boundaryCondition and charge and returns a pointer to it.  This
- * convenience function is functionally equivalent to:
+ * Creates a new Species with the given id, compartment, initialAmount,
+ * substanceUnits, boundaryCondition and charge and returns a pointer to
+ * it.  This convenience function is functionally equivalent to:
  *
  *   Species_t *s = Species_create();
- *   Species_setName(s, name); Species_setCompartment(s, compartment); ...;
+ *   Species_setId(s, sid); Species_setCompartment(s, compartment); ...;
  */
 LIBSBML_EXTERN
 Species_t *
-Species_createWith( const char *sname,
+Species_createWith( const char *sid,
                     const char *compartment,
-                    double     initialAmount,
-                    const char *units,
-                    int        boundaryCondition,
-                    int        charge );
+                    double      initialAmount,
+                    const char *substanceUnits,
+                    int         boundaryCondition,
+                    int         charge );
 
 /**
  * Frees the given Species.
@@ -115,12 +127,20 @@ Species_free (Species_t *s);
 /**
  * Initializes the fields of this Species to their defaults:
  *
- *   - boundaryCondition = 0 (false)
+ *   - boundaryCondition = 0  (false)
+ *   - constant          = 0  (false)  (L2 only)
  */
 LIBSBML_EXTERN
 void
 Species_initDefaults (Species_t *s);
 
+
+/**
+ * @return the id of this Species
+ */
+LIBSBML_EXTERN
+const char *
+Species_getId (const Species_t *s);
 
 /**
  * @return the name of this Species.
@@ -144,11 +164,40 @@ double
 Species_getInitialAmount (const Species_t *s);
 
 /**
- * @return the units of this Species.
+ * @return the initialConcentration of this Species.
+ */
+LIBSBML_EXTERN
+double
+Species_getInitialConcentration (const Species_t *s);
+
+/**
+ * @return the substanceUnits of this Species.
+ */
+LIBSBML_EXTERN
+const char *
+Species_getSubstanceUnits (const Species_t *s);
+
+/**
+ * @return the spatialSizeUnits of this Species.
+ */
+LIBSBML_EXTERN
+const char *
+Species_getSpatialSizeUnits (const Species_t *s);
+
+/**
+ * @return the units of this Species (L1 only).
  */
 LIBSBML_EXTERN
 const char *
 Species_getUnits (const Species_t *s);
+
+/**
+ * @return true (non-zero) if this Species hasOnlySubstanceUnits, false (0)
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_getHasOnlySubstanceUnits (const Species_t *s);
 
 /**
  * @return the boundaryCondition of this Species.
@@ -164,6 +213,21 @@ LIBSBML_EXTERN
 int
 Species_getCharge (const Species_t *s);
 
+/**
+ * @return true (non-zero) if this Species is constant, false (0)
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_getConstant (const Species_t *s);
+
+
+/**
+ * @return 1 if the id of this Species has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetId (const Species_t *s);
 
 /**
  * @return 1 if the name of this Species has been set, 0 otherwise.
@@ -195,7 +259,32 @@ int
 Species_isSetInitialAmount (const Species_t *s);
 
 /**
- * @return 1 if the units of this Species has been set, 0 otherwise.
+ * @return 1 if the initialConcentration of this Species has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetInitialConcentration (const Species_t *s);
+
+/**
+ * @return 1 if the substanceUnits of this Species has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetSubstanceUnits (const Species_t *s);
+
+/**
+ * @return 1 if the spatialSizeUnits of this Species has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetSpatialSizeUnits (const Species_t *s);
+
+/**
+ * @return 1 if the units of this Species has been set, 0 otherwise
+ * (L1 only).
  */
 LIBSBML_EXTERN
 int
@@ -210,37 +299,72 @@ Species_isSetCharge (const Species_t *s);
 
 
 /**
- * Sets the name of this Species to a copy of sname.
+ * Sets the id of this Species to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Species_setName (Species_t *s, const char *sname);
+Species_setId (Species_t *s, const char *sid);
 
 /**
- * Sets the compartment of this Species to a copy of sname.
+ * Sets the name of this Species to a copy of string (SName in L1).
  */
 LIBSBML_EXTERN
 void
-Species_setCompartment (Species_t *s, const char *sname);
+Species_setName (Species_t *s, const char *string);
 
 /**
- * Sets the initialAmount of this Species to value and marks the
- * field as set.
+ * Sets the compartment of this Species to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+Species_setCompartment (Species_t *s, const char *sid);
+
+/**
+ * Sets the initialAmount of this Species to value and marks the field as
+ * set.  This method also unsets the initialConentration field.
  */
 LIBSBML_EXTERN
 void
 Species_setInitialAmount (Species_t *s, double value);
 
 /**
- * Sets the units of this Species to a copy of sname.
+ * Sets the initialConcentration of this Species to value and marks the
+ * field as set.  This method also unsets the initialAmount field.
+ */
+LIBSBML_EXTERN
+void
+Species_setInitialConcentration (Species_t *s, double value);
+
+/**
+ * Sets the substanceUnits of this Species to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+Species_setSubstanceUnits (Species_t *s, const char *sid);
+
+/**
+ * Sets the spatialSizeUnits of this Species to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+Species_setSpatialSizeUnits (Species_t *s, const char *sid);
+
+/**
+ * Sets the units of this Species to a copy of sname (L1 only).
  */
 LIBSBML_EXTERN
 void
 Species_setUnits (Species_t *s, const char *sname);
 
 /**
- * Sets the boundaryCondition of this Species to value (boolean) and marks
- * the field as set.
+ * Sets the hasOnlySubstanceUnits field of this Species to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Species_setHasOnlySubstanceUnits (Species_t *s, int value);
+
+/**
+ * Sets the boundaryCondition of this Species to value (boolean).
  */
 LIBSBML_EXTERN
 void
@@ -252,6 +376,13 @@ Species_setBoundaryCondition (Species_t *s, int value);
 LIBSBML_EXTERN
 void
 Species_setCharge (Species_t *s, int value);
+
+/**
+ * Sets the constant field of this Species to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Species_setConstant (Species_t *s, int value);
 
 
 /**
@@ -277,8 +408,30 @@ void
 Species_unsetInitialAmount (Species_t *s);
 
 /**
- * Unsets the units of this Species.  This is equivalent to:
- * safe_free(s->units); s->units = NULL;
+ * Unsets the initialConcentration of this Species.
+ */
+LIBSBML_EXTERN
+void
+Species_unsetInitialConcentration (Species_t *s);
+
+/**
+ * Unsets the substanceUnits of this Species.  This is equivalent to:
+ * safe_free(s->substanceUnits); s->substanceUnits = NULL;
+ */
+LIBSBML_EXTERN
+void
+Species_unsetSubstanceUnits (Species_t *s);
+
+/**
+ * Unsets the spatialSizeUnits of this Species.  This is equivalent to:
+ * safe_free(s->spatialSizeUnits); s->spatialSizeUnits = NULL;
+ */
+LIBSBML_EXTERN
+void
+Species_unsetSpatialSizeUnits (Species_t *s);
+
+/**
+ * Unsets the units of this Species (L1 only).
  */
 LIBSBML_EXTERN
 void

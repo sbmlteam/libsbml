@@ -78,12 +78,16 @@ ParameterTest_teardown (void)
 START_TEST (test_Parameter_create)
 {
   fail_unless( P->typecode   == SBML_PARAMETER, NULL );
+  fail_unless( P->metaid     == NULL, NULL );
   fail_unless( P->notes      == NULL, NULL );
   fail_unless( P->annotation == NULL, NULL );
 
-  fail_unless( P->name  == NULL, NULL );
-  fail_unless( P->units == NULL, NULL );
+  fail_unless( P->id       == NULL, NULL );
+  fail_unless( P->name     == NULL, NULL );
+  fail_unless( P->units    == NULL, NULL );
+  fail_unless( P->constant == 1   , NULL );
 
+  fail_unless( !Parameter_isSetId   (P), NULL );
   fail_unless( !Parameter_isSetName (P), NULL );
   fail_unless( !Parameter_isSetValue(P), NULL );
   fail_unless( !Parameter_isSetUnits(P), NULL );
@@ -97,15 +101,19 @@ START_TEST (test_Parameter_createWith)
 
 
   fail_unless( p->typecode   == SBML_PARAMETER, NULL );
+  fail_unless( p->metaid     == NULL, NULL );
   fail_unless( p->notes      == NULL, NULL );
   fail_unless( p->annotation == NULL, NULL );
 
-  fail_unless( !strcmp(p->name , "delay" ), NULL );
+  fail_unless( !strcmp(p->id   , "delay" ), NULL );
   fail_unless( !strcmp(p->units, "second"), NULL );
 
-  fail_unless( p->value == 6.2, NULL );
+  fail_unless( p->name     == NULL, NULL );
+  fail_unless( p->value    == 6.2, NULL );
+  fail_unless( p->constant == 1  , NULL );
 
-  fail_unless( Parameter_isSetName (p), NULL );
+  fail_unless( Parameter_isSetId   (p), NULL );
+  fail_unless( !Parameter_isSetName(p), NULL );
   fail_unless( Parameter_isSetValue(p), NULL );
   fail_unless( Parameter_isSetUnits(p), NULL );
 
@@ -121,9 +129,39 @@ START_TEST (test_Parameter_free_NULL)
 END_TEST
 
 
+START_TEST (test_Parameter_setId)
+{
+  char *id = "Km1";
+
+
+  Parameter_setId(P, id);
+
+  fail_unless( !strcmp(P->id, id)  , NULL );
+  fail_unless( Parameter_isSetId(P), NULL );
+
+  if (P->id == id)
+  {
+    fail("Parameter_setId(...) did not make a copy of string.");
+  }
+
+  /* Reflexive case (pathological) */
+  Parameter_setId(P, P->id);
+  fail_unless( !strcmp(P->id, id), NULL );
+
+  Parameter_setId(P, NULL);
+  fail_unless( !Parameter_isSetId(P), NULL );
+
+  if (P->id != NULL)
+  {
+    fail("Parameter_setId(P, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
 START_TEST (test_Parameter_setName)
 {
-  char *name = "Km1";
+  char *name = "Forward Michaelis-Menten Constant";
 
 
   Parameter_setName(P, name);
@@ -195,6 +233,7 @@ create_suite_Parameter (void)
   tcase_add_test( tcase, test_Parameter_create     );
   tcase_add_test( tcase, test_Parameter_createWith );
   tcase_add_test( tcase, test_Parameter_free_NULL  );
+  tcase_add_test( tcase, test_Parameter_setId      );
   tcase_add_test( tcase, test_Parameter_setName    );
   tcase_add_test( tcase, test_Parameter_setUnits   );
 

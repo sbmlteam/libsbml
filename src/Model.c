@@ -67,12 +67,31 @@ Model_create (void)
 
   SBase_init((SBase_t *) m, SBML_MODEL);
 
-  m->unitDefinition = (List_t *) List_create();
-  m->compartment    = (List_t *) List_create();
-  m->species        = (List_t *) List_create();
-  m->parameter      = (List_t *) List_create();
-  m->rule           = (List_t *) List_create();
-  m->reaction       = (List_t *) List_create();
+  m->unitDefinition = (ListOf_t *) ListOf_create();
+  m->compartment    = (ListOf_t *) ListOf_create();
+  m->species        = (ListOf_t *) ListOf_create();
+  m->parameter      = (ListOf_t *) ListOf_create();
+  m->rule           = (ListOf_t *) ListOf_create();
+  m->reaction       = (ListOf_t *) ListOf_create();
+
+  return m;
+}
+
+
+/**
+ * Creates a new Model with the given id and returns a pointer to it.
+ * This convenience function is functionally equivalent to:
+ *
+ *   Model_setId(Model_create(), sid);
+ */
+LIBSBML_EXTERN
+Model_t *
+Model_createWith (const char *sid)
+{
+  Model_t *m = Model_create();
+
+
+  Model_setId(m, sid);
 
   return m;
 }
@@ -82,16 +101,16 @@ Model_create (void)
  * Creates a new Model with the given name and returns a pointer to it.
  * This convenience function is functionally equivalent to:
  *
- *   Model_setName(Model_create(), sname);
+ *   Model_setName(Model_create(), string);
  */
 LIBSBML_EXTERN
 Model_t *
-Model_createWith (const char *sname)
+Model_createWithName (const char *string)
 {
   Model_t *m = Model_create();
 
 
-  Model_setName(m, sname);
+  Model_setName(m, string);
 
   return m;
 }
@@ -104,58 +123,32 @@ LIBSBML_EXTERN
 void
 Model_free (Model_t *m)
 {
-  unsigned int size;
-  Rule_t       *rule;
-
-
   if (m == NULL) return;
 
-  List_freeItems( m->unitDefinition, UnitDefinition_free, UnitDefinition_t );
-  List_freeItems( m->compartment   , Compartment_free   , Compartment_t    );
-  List_freeItems( m->species       , Species_free       , Species_t        );
-  List_freeItems( m->parameter     , Parameter_free     , Parameter_t      );
-  List_freeItems( m->reaction      , Reaction_free      , Reaction_t       );
 
-  size = List_size(m->rule);
-
-  while (size--)
-  {
-    rule = (Rule_t *) List_remove(m->rule, 0);
-
-    /**
-     * If I use a switch statement here (which I would prefer) 'gcc -Wall'
-     * warns me that not all values of the enumeration are covered in
-     * case statements.  How clever!  Grumble, grumble... :(
-     */
-    if (rule->typecode == SBML_ALGEBRAIC_RULE)
-    {
-      AlgebraicRule_free((AlgebraicRule_t *) rule);
-    }
-    else if (rule->typecode == SBML_COMPARTMENT_VOLUME_RULE)
-    {
-      CompartmentVolumeRule_free((CompartmentVolumeRule_t *) rule);
-    }
-    else if (rule->typecode == SBML_PARAMETER_RULE)
-    {
-      ParameterRule_free((ParameterRule_t *) rule);
-    }
-    else if (rule->typecode == SBML_SPECIES_CONCENTRATION_RULE)
-    {
-      SpeciesConcentrationRule_free((SpeciesConcentrationRule_t *) rule);
-    }
-  }
-
-  List_free( m->unitDefinition );
-  List_free( m->compartment    );
-  List_free( m->species        );
-  List_free( m->parameter      );
-  List_free( m->reaction       );
-  List_free( m->rule           );
+  ListOf_free( m->unitDefinition );
+  ListOf_free( m->compartment    );
+  ListOf_free( m->species        );
+  ListOf_free( m->parameter      );
+  ListOf_free( m->reaction       );
+  ListOf_free( m->rule          );
 
   SBase_clear((SBase_t *) m);
 
+  safe_free(m->id);
   safe_free(m->name);
   safe_free(m);
+}
+
+
+/**
+ * @return the id of this Model.
+ */
+LIBSBML_EXTERN
+const char *
+Model_getId (const Model_t *m)
+{
+  return m->id;
 }
 
 
@@ -171,7 +164,18 @@ Model_getName (const Model_t *m)
 
 
 /**
- * @return 1 if the name of Model has been set, 0 otherwise.
+ * @return 1 if the id of this Model has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Model_isSetId (const Model_t *m)
+{
+  return (m->id != NULL);
+}
+
+
+/**
+ * @return 1 if the name of this Model has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -182,13 +186,32 @@ Model_isSetName (const Model_t *m)
 
 
 /**
- * Sets the name of this Model to a copy of sname.
+ * Sets the id of this Model to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-Model_setName (Model_t *m, const char *sname)
+Model_setId (Model_t *m, const char *sid)
 {
-  if (m->name == sname) return;
+  if (m->id == sid) return;
+
+
+  if (m->id != NULL)
+  {
+    safe_free(m->id);
+  }
+
+  m->id = (sid == NULL) ? NULL : safe_strdup(sid);
+}
+
+
+/**
+ * Sets the name of this Model to a copy of string (SName in L1).
+ */
+LIBSBML_EXTERN
+void
+Model_setName (Model_t *m, const char *string)
+{
+  if (m->name == string) return;
 
 
   if (m->name != NULL)
@@ -196,7 +219,20 @@ Model_setName (Model_t *m, const char *sname)
     safe_free(m->name);
   }
 
-  m->name = (sname == NULL) ? NULL : safe_strdup(sname);
+  m->name = (string == NULL) ? NULL : safe_strdup(string);
+}
+
+
+/**
+ * Unsets the id of this Model.  This is equivalent to:
+ * safe_free(m->id); m->id = NULL;
+ */
+LIBSBML_EXTERN
+void
+Model_unsetId (Model_t *m)
+{
+  safe_free(m->id);
+  m->id = NULL;
 }
 
 
@@ -539,7 +575,7 @@ LIBSBML_EXTERN
 void
 Model_addUnitDefinition (Model_t *m, UnitDefinition_t *ud)
 {
-  List_add(m->unitDefinition, ud);
+  ListOf_append(m->unitDefinition, ud);
 }
 
 
@@ -550,7 +586,7 @@ LIBSBML_EXTERN
 void
 Model_addCompartment (Model_t *m, Compartment_t *c)
 {
-  List_add(m->compartment, c);
+  ListOf_append(m->compartment, c);
 }
 
 
@@ -561,7 +597,7 @@ LIBSBML_EXTERN
 void
 Model_addSpecies (Model_t *m, Species_t *s)
 {
-  List_add(m->species, s);
+  ListOf_append(m->species, s);
 }
 
 
@@ -570,9 +606,9 @@ Model_addSpecies (Model_t *m, Species_t *s)
  */
 LIBSBML_EXTERN
 void
-Model_addParameter (Model_t *m, Parameter_t *c)
+Model_addParameter (Model_t *m, Parameter_t *p)
 {
-  List_add(m->parameter, c);
+  ListOf_append(m->parameter, p);
 }
 
 
@@ -583,7 +619,7 @@ LIBSBML_EXTERN
 void
 Model_addRule (Model_t *m, Rule_t *r)
 {
-  List_add(m->rule, r);
+  ListOf_append(m->rule, r);
 }
 
 
@@ -594,7 +630,7 @@ LIBSBML_EXTERN
 void
 Model_addReaction (Model_t *m, Reaction_t *r)
 {
-  List_add(m->reaction, r);
+  ListOf_append(m->reaction, r);
 }
 
 
@@ -605,7 +641,7 @@ LIBSBML_EXTERN
 UnitDefinition_t *
 Model_getUnitDefinition (Model_t *m, unsigned int n)
 {
-  return (UnitDefinition_t *) List_get(m->unitDefinition, n);
+  return (UnitDefinition_t *) ListOf_get(m->unitDefinition, n);
 }
 
 
@@ -616,7 +652,7 @@ LIBSBML_EXTERN
 Compartment_t *
 Model_getCompartment (Model_t *m, unsigned int n)
 {
-  return (Compartment_t *) List_get(m->compartment, n);
+  return (Compartment_t *) ListOf_get(m->compartment, n);
 }
 
 
@@ -627,7 +663,7 @@ LIBSBML_EXTERN
 Species_t *
 Model_getSpecies (Model_t *m, unsigned int n)
 {
-  return (Species_t *) List_get(m->species, n);
+  return (Species_t *) ListOf_get(m->species, n);
 }
 
 
@@ -638,7 +674,7 @@ LIBSBML_EXTERN
 Parameter_t *
 Model_getParameter (Model_t *m, unsigned int n)
 {
-  return (Parameter_t *) List_get(m->parameter, n);
+  return (Parameter_t *) ListOf_get(m->parameter, n);
 }
 
 
@@ -649,7 +685,7 @@ LIBSBML_EXTERN
 Rule_t *
 Model_getRule (Model_t *m, unsigned int n)
 {
-  return (Rule_t *) List_get(m->rule, n);
+  return (Rule_t *) ListOf_get(m->rule, n);
 }
 
 
@@ -660,7 +696,7 @@ LIBSBML_EXTERN
 Reaction_t *
 Model_getReaction (Model_t *m, unsigned int n)
 {
-  return (Reaction_t *) List_get(m->reaction, n);
+  return (Reaction_t *) ListOf_get(m->reaction, n);
 }
 
 
@@ -671,7 +707,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumUnitDefinitions (const Model_t *m)
 {
-  return List_size(m->unitDefinition);
+  return ListOf_getNumItems(m->unitDefinition);
 }
 
 
@@ -682,7 +718,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumCompartments (const Model_t *m)
 {
-  return List_size(m->compartment);
+  return ListOf_getNumItems(m->compartment);
 }
 
 
@@ -693,7 +729,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumSpecies (const Model_t *m)
 {
-  return List_size(m->species);
+  return ListOf_getNumItems(m->species);
 }
 
 
@@ -705,7 +741,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumParameters (const Model_t *m)
 {
-  return List_size(m->parameter);
+  return ListOf_getNumItems(m->parameter);
 }
 
 
@@ -716,7 +752,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumRules (const Model_t *m)
 {
-  return List_size(m->rule);
+  return ListOf_getNumItems(m->rule);
 }
 
 
@@ -727,5 +763,5 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumReactions (const Model_t *m)
 {
-  return List_size(m->reaction);
+  return ListOf_getNumItems(m->reaction);
 }

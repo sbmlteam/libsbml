@@ -51,6 +51,7 @@
 
 
 #include "sbml/common.h"
+#include "sbml/FormulaParser.h"
 #include "sbml/AlgebraicRule.h"
 
 
@@ -79,9 +80,11 @@ AlgebraicRuleTest_teardown (void)
 START_TEST (test_AlgebraicRule_create)
 {
   fail_unless( AR->typecode   == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( AR->metaid     == NULL, NULL );
   fail_unless( AR->notes      == NULL, NULL );
   fail_unless( AR->annotation == NULL, NULL );
   fail_unless( AR->formula    == NULL, NULL );
+  fail_unless( AR->math       == NULL, NULL );
 }
 END_TEST
 
@@ -92,10 +95,31 @@ START_TEST (test_AlgebraicRule_createWith)
 
 
   fail_unless( ar->typecode   == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( ar->metaid     == NULL, NULL );
   fail_unless( ar->notes      == NULL, NULL );
   fail_unless( ar->annotation == NULL, NULL );
+  fail_unless( ar->math       == NULL, NULL );
 
   fail_unless( !strcmp(ar->formula, "1 + 1"), NULL );
+
+  AlgebraicRule_free(ar);
+}
+END_TEST
+
+
+START_TEST (test_AlgebraicRule_createWithMath)
+{
+  AlgebraicRule_t *ar   = AlgebraicRule_create();
+  ASTNode_t       *math = SBML_parseFormula("1 + 1");
+
+
+  fail_unless( ar->typecode   == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( ar->metaid     == NULL, NULL );
+  fail_unless( ar->notes      == NULL, NULL );
+  fail_unless( ar->annotation == NULL, NULL );
+  fail_unless( ar->formula    == NULL, NULL );
+
+  fail_unless( ar->math == math, NULL );
 
   AlgebraicRule_free(ar);
 }
