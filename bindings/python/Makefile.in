@@ -212,7 +212,7 @@ html:
 # -----------------------------------------------------------------------------
 
 install:
-	$(PYTHON) setup.py install --skip-build 
+	$(PYTHON) setup.py install --skip-build --prefix=$(prefix)
 
 uninstall:
 
