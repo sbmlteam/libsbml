@@ -287,25 +287,28 @@ endif
 
 libraries = $(PACKAGE).a $(PACKAGE).$(SHAREDLIBEXT)
 
-ifeq "$(USE_LIBCHECK)" "1"
-  check_programs   = TestRunner
-  extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
-  extra_CXXFLAGS  += $(LIBCHECK_CPPFLAGS)
-  extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
-  extra_LIBS      += $(LIBCHECK_LIBS)
-  extra_clean     += $(check_programs)
-endif
-
 ifeq "$(USE_EXPAT)" "1"
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS) -I../expat
-  extra_CXXFLAGS  += $(EXPAT_CPPFLAGS) -I../expat
   extra_LDFLAGS   += $(EXPAT_LDFLAGS) -L../expat
   extra_LIBS      += $(EXPAT_LIBS) -lexpat-compat
 else
   extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_CXXFLAGS  += $(XERCES_CPPFLAGS)
   extra_LDFLAGS   += $(XERCES_LDFLAGS)
   extra_LIBS      += $(XERCES_LIBS)
+endif
+
+ifeq "$(USE_LIBCHECK)" "1"
+  check_programs   = TestRunner
+  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
+    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
+    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
+    extra_LIBS      += $(LIBCHECK_LIBS)
+  endif
+  extra_clean     += $(check_programs)
 endif
 
 # `distfiles' determines the files and directories included in a distribution.
@@ -329,7 +332,11 @@ distfiles_exclude = sbml/config.h
 
 all: Makefile $(libraries)
 
-check: all run-checks
+ifeq "$(USE_LIBCHECK)" "1"
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
 
 dvi:
 
