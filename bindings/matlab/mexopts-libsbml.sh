@@ -1,6 +1,5 @@
-## @configure_input@
 ##
-## Filename    : mexopts-libsbml.in
+## Filename    : mexopts-libsbml.sh
 ## Description : mexopts file for libsbml.
 ## Author(s)   : Michael Hucka <mhucka@caltech.edu>
 ## Organization: California Institute of Technology
