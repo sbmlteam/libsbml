@@ -58,7 +58,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/util/XMLString.hpp>
 
-#include "sbml/SBMLHashCodes.hpp"
+#include "sbml/SBMLTagCode.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"
 #include "sbml/XMLStringFormatter.hpp"
 #include "sbml/XMLUtil.hpp"
@@ -122,12 +122,12 @@ SBMLHandler::startDocument ()
 
 void
 SBMLHandler::startElement (const XMLCh* const  uri,
-                               const XMLCh* const  localname,
-                               const XMLCh* const  qname,
-                               const Attributes&   attrs)
+                           const XMLCh* const  localname,
+                           const XMLCh* const  qname,
+                           const Attributes&   attrs)
 {
-  SBase_t*   obj = NULL;
-  HashCode_t tag = HASH_UNKNOWN;
+  SBase_t*      obj = NULL;
+  SBMLTagCode_t tag = TAG_UNKNOWN;
 
 /*
   cout << "startElement(...): " << endl;
@@ -142,11 +142,11 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   if ( (XMLString::stringLen(uri) == 0) ||
        (XMLString::compareString(XMLNS_SBML_L1, uri) == 0) )
   {
-    tag = HashCode_forElement(localname);
+    tag = SBMLTagCode_forElement(localname);
   }
 
 
-  if (tag == HASH_NOTES)
+  if (tag == TAG_NOTES)
   {
     //
     // Technically, a note like:
@@ -166,7 +166,7 @@ SBMLHandler::startElement (const XMLCh* const  uri,
 
     inNotes++;
   }
-  else if (tag == HASH_ANNOTATION || tag == HASH_ANNOTATIONS)
+  else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
   {
     inAnnotation++;
     fFormatter->startElement(qname, attrs);
@@ -175,37 +175,37 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   {
     fFormatter->startElement(qname, attrs);
   }
-  else if (tag != HASH_UNKNOWN)
+  else if (tag != TAG_UNKNOWN)
   {
     switch (tag)
     {
-      case HASH_SBML:             obj = handleSBML            (attrs); break;
-      case HASH_MODEL:            obj = handleModel           (attrs); break;
-      case HASH_UNIT_DEFINITION:  obj = handleUnitDefinition  (attrs); break;
-      case HASH_UNIT:             obj = handleUnit            (attrs); break;
-      case HASH_COMPARTMENT:      obj = handleCompartment     (attrs); break;
-      case HASH_PARAMETER:        obj = handleParameter       (attrs); break;
-      case HASH_REACTION:         obj = handleReaction        (attrs); break;
-      case HASH_KINETIC_LAW:      obj = handleKineticLaw      (attrs); break;
-      case HASH_ALGEBRAIC_RULE:   obj = handleAlgebraicRule   (attrs); break;
-      case HASH_PARAMETER_RULE:   obj = handleParameterRule   (attrs); break;
+      case TAG_SBML:             obj = handleSBML            (attrs); break;
+      case TAG_MODEL:            obj = handleModel           (attrs); break;
+      case TAG_UNIT_DEFINITION:  obj = handleUnitDefinition  (attrs); break;
+      case TAG_UNIT:             obj = handleUnit            (attrs); break;
+      case TAG_COMPARTMENT:      obj = handleCompartment     (attrs); break;
+      case TAG_PARAMETER:        obj = handleParameter       (attrs); break;
+      case TAG_REACTION:         obj = handleReaction        (attrs); break;
+      case TAG_KINETIC_LAW:      obj = handleKineticLaw      (attrs); break;
+      case TAG_ALGEBRAIC_RULE:   obj = handleAlgebraicRule   (attrs); break;
+      case TAG_PARAMETER_RULE:   obj = handleParameterRule   (attrs); break;
 
-      case HASH_SPECIE:
-      case HASH_SPECIES:
+      case TAG_SPECIE:
+      case TAG_SPECIES:
         obj = handleSpecies(attrs);
         break;
 
-      case HASH_SPECIE_REFERENCE:
-      case HASH_SPECIES_REFERENCE:
+      case TAG_SPECIE_REFERENCE:
+      case TAG_SPECIES_REFERENCE:
         obj = handleSpeciesReference(attrs);
         break;
 
-      case HASH_COMPARTMENT_VOLUME_RULE:
+      case TAG_COMPARTMENT_VOLUME_RULE:
         obj = handleCompartmentVolumeRule(attrs);
         break;
 
-      case HASH_SPECIE_CONCENTRATION_RULE:
-      case HASH_SPECIES_CONCENTRATION_RULE:
+      case TAG_SPECIE_CONCENTRATION_RULE:
+      case TAG_SPECIES_CONCENTRATION_RULE:
         obj = handleSpeciesConcentrationRule(attrs);
         break;
 
@@ -221,8 +221,8 @@ SBMLHandler::startElement (const XMLCh* const  uri,
 
 void
 SBMLHandler::endElement (const XMLCh* const  uri,
-                             const XMLCh* const  localname,
-                             const XMLCh* const  qname)
+                         const XMLCh* const  localname,
+                         const XMLCh* const  qname)
 {
   static const char ERRMSG_NO_SBML_NOTE[] =
     "The <sbml> element cannot contain a <note>.  "
@@ -233,21 +233,21 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     "Use the <model> element instead.";
 
 
-  SBase_t*   obj = (SBase_t*) Stack_peek(fObjStack);
-  HashCode_t tag = HASH_UNKNOWN;
+  SBase_t*      obj = (SBase_t*) Stack_peek(fObjStack);
+  SBMLTagCode_t tag = TAG_UNKNOWN;
 
 
   if ( (XMLString::stringLen(uri) == 0) ||
        (XMLString::compareString(XMLNS_SBML_L1, uri) == 0) )
   {
-    tag = HashCode_forElement(localname);
+    tag = SBMLTagCode_forElement(localname);
   }
 
 
   //
   // Notes
   //
-  if (tag == HASH_NOTES)
+  if (tag == TAG_NOTES)
   {
     if (inNotes > 1)
     {
@@ -270,7 +270,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   //
   // Annotation
   //
-  else if (tag == HASH_ANNOTATION || tag == HASH_ANNOTATIONS)
+  else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
   {
     fFormatter->endElement(qname);
 
@@ -291,7 +291,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   {
     fFormatter->endElement(qname);
   }
-  else if (tag != HASH_UNKNOWN)
+  else if (tag != TAG_UNKNOWN)
   {
     Stack_pop(fTagStack);
     Stack_pop(fObjStack);
@@ -301,7 +301,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
 
 void
 SBMLHandler::characters (const XMLCh* const  chars,
-                             const unsigned int  length)
+                         const unsigned int  length)
 {
   if (inNotes || inAnnotation)
   {
@@ -312,7 +312,7 @@ SBMLHandler::characters (const XMLCh* const  chars,
 
 void
 SBMLHandler::ignorableWhitespace (const XMLCh* const  chars,
-                                      const unsigned int  length)
+                                  const unsigned int  length)
 {
   if (inNotes || inAnnotation)
   {
@@ -541,11 +541,11 @@ SBMLHandler::handleSpecies (const Attributes& a)
 SBase_t*
 SBMLHandler::handleParameter (const Attributes& a)
 {
-  Parameter_t* p  = NULL;
-  HashCode_t tag  = (HashCode_t) Stack_peekAt(fTagStack, 1);
+  Parameter_t*  p   = NULL;
+  SBMLTagCode_t tag = (SBMLTagCode_t) Stack_peekAt(fTagStack, 1);
 
 
-  if (tag == HASH_KINETIC_LAW)
+  if (tag == TAG_KINETIC_LAW)
   {
     p = Model_createKineticLawParameter(fModel);
   }
@@ -557,7 +557,7 @@ SBMLHandler::handleParameter (const Attributes& a)
   XMLUtil::scanAttrCStr( a, ATTR_NAME , &(p->name)  );
   XMLUtil::scanAttrCStr( a, ATTR_UNITS, &(p->units) );
 
-  //
+  //`
   // value  { use="required" }  (L1v1)
   // value  { use="optional" }  (L1v2, L2v1)
   //
@@ -601,15 +601,15 @@ SBase_t*
 SBMLHandler::handleSpeciesReference (const Attributes& a)
 {
   SpeciesReference_t* sr    = NULL;
-  HashCode_t          tag   = (HashCode_t) Stack_peek(fTagStack);
+  SBMLTagCode_t       tag   = (SBMLTagCode_t) Stack_peek(fTagStack);
   int                 index = 0;
 
 
-  if (tag == HASH_LIST_OF_REACTANTS)
+  if (tag == TAG_LIST_OF_REACTANTS)
   {
     sr = Model_createReactant(fModel);
   }
-  else if (tag == HASH_LIST_OF_PRODUCTS)
+  else if (tag == TAG_LIST_OF_PRODUCTS)
   {
     sr = Model_createProduct(fModel);
   }
@@ -640,7 +640,7 @@ SBMLHandler::handleKineticLaw (const Attributes& a)
 {
   KineticLaw_t* kl = Model_createKineticLaw(fModel);
 
-  // If tag != HASH_REACTION -> Creation outside a reaction
+  // If tag != TAG_REACTION  -> Creation outside a reaction
   // If kl == NULL           -> KineticLaw already exists
   XMLUtil::scanAttrCStr( a, ATTR_FORMULA        , &(kl->formula)        );
   XMLUtil::scanAttrCStr( a, ATTR_TIME_UNITS     , &(kl->timeUnits)      );
