@@ -1,12 +1,10 @@
 dnl
 dnl Filename    : swig.m4
 dnl Description : Autoconf macro to check for SWIG
-dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
-dnl Organization: California Institute of Technology
+dnl Author(s)   : Michael Hucka <mhucka@caltech.edu>
 dnl Created     : 2004-06-18
 dnl Revision    : $Id$
 dnl Source      : $Source$
-dnl
 dnl
 dnl This code originally came from the Autoconf Macro archive
 dnl (ac-archive.sf.net) on 2004-06-18.  It has been modified somewhat in

@@ -1,7 +1,7 @@
 REM
 REM Filename    : make.bat
 REM Description : installs the libsbml Matlab interface under windows
-REM Author(s)   : SBML Development Group <sbml-team@caltech.edu>
+REM Author(s)   : Sarah Keating
 REM Organization: University of Hertfordshire STRC
 REM Created     : 2003-10-24
 REM Revision    : $Id$
@@ -42,8 +42,8 @@ REM    University of Hertfordshire
 REM    Hatfield, AL10 9AB
 REM    United Kingdom
 REM
-REM     http://www.cds.caltech.edu/erato
-REM     mailto:sysbio-team@caltech.edu
+REM    http://sbml.org
+REM    mailto:sbml-team@caltech.edu
 REM
 REM Contributor(s):
 

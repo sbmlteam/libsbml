@@ -1,8 +1,7 @@
 ##
 ## Filename    : setup.py
 ## Description : Python distutils code for libSBML Python module
-## Author(s)   : SBML Development Group <sbml-team@caltech.edu>
-## Organization: JST ERATO Kitano Symbiotic Systems Project
+## Author(s)   : Michael Hucka, Ben Bornstein, Ben Kovitz
 ## Created     : 2004-04-02
 ## Revision    : $Id$
 ## Source      : $Source$
@@ -36,15 +35,15 @@
 ##
 ## The original code contained here was initially developed by:
 ##
-##     Ben Bornstein and Ben Kovitz
-##     The Systems Biology Markup Language Development Group
-##     ERATO Kitano Symbiotic Systems Project
+##     Michael Hucka, Ben Bornstein and Ben Kovitz
+##     
+##     The SBML Team
 ##     Control and Dynamical Systems, MC 107-81
 ##     California Institute of Technology
 ##     Pasadena, CA, 91125, USA
 ##
-##     http://www.cds.caltech.edu/erato
-##     mailto:sysbio-team@caltech.edu
+##     http://sbml.org
+##     mailto:sbml-team@caltech.edu
 ##
 ## Contributor(s):
 ##   Michael Hucka <mhucka@caltech.edu> Rewrote this to use it for installation

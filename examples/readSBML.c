@@ -1,8 +1,8 @@
 /**
  * Filename    : readSBML.c
  * Description : Similar to validateSBML, but without the validation
- * Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
+ * Author(s)   : The SBML Team <sbml-team@caltech.edu>
+ * Organization: The SBML Team <sbml-team@caltech.edu>
  * Created     : 2002-12-05
  * Revision    : $Id$
  * Source      : $Source$
@@ -43,7 +43,7 @@
  *     California Institute of Technology
  *     Pasadena, CA, 91125, USA
  *
- *     http://www.cds.caltech.edu/erato
+ *     http://sbml.org
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):

@@ -1,8 +1,7 @@
 dnl
 dnl Filename    : expat.m4
 dnl Description : Autoconf macro to check for existence of Expat library
-dnl Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
-dnl Organization: JST ERATO Kitano Symbiotic Systems Project
+dnl Author(s)   : Stephan Hoops, Ben Bornstein, Mike Hucka
 dnl Created     : 2003-11-05
 dnl Revision    : $Id$
 dnl Source      : $Source$
@@ -36,15 +35,15 @@ dnl Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 dnl
 dnl The original code contained here was initially developed by:
 dnl
-dnl     Ben Bornstein
-dnl     The Systems Biology Markup Language Development Group
-dnl     ERATO Kitano Symbiotic Systems Project
+dnl     Stephan Hoops, Ben Bornstein, Mike Hucka
+dnl
+dnl     The SBML Team
 dnl     Control and Dynamical Systems, MC 107-81
 dnl     California Institute of Technology
 dnl     Pasadena, CA, 91125, USA
 dnl
-dnl     http://www.cds.caltech.edu/erato
-dnl     mailto:sysbio-team@caltech.edu
+dnl     http://sbml.org
+dnl     mailto:sbml-team@caltech.edu
 dnl
 dnl Contributor(s):
 dnl   Stephan Hoops

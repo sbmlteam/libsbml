@@ -1,8 +1,7 @@
 @rem
 @rem Filename    : makedist.bat
 @rem Description : A portable alternative to DOS deltree
-@rem Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
-@rem Organization: JST ERATO Kitano Symbiotic Systems Project
+@rem Author(s)   : The SBML Team <sbml-team@caltech.edu>
 @rem Created     : 2003-07-30
 @rem Revision    : $Id$
 @rem Source      : $Source$
@@ -37,14 +36,14 @@
 @rem The original code contained here was initially developed by:
 @rem
 @rem     Andrew Finney, Ben Bornstein
-@rem     The Systems Biology Markup Language Development Group
-@rem     ERATO Kitano Symbiotic Systems Project
+@rem
+@rem     The SBML Team
 @rem     Control and Dynamical Systems, MC 107-81
 @rem     California Institute of Technology
 @rem     Pasadena, CA, 91125, USA
 @rem
-@rem     http://www.cds.caltech.edu/erato
-@rem     mailto:sysbio-team@caltech.edu
+@rem     http://sbml.org
+@rem     mailto:sbml-team@caltech.edu
 @rem
 @rem Contributor(s):
 @rem

@@ -1,14 +1,12 @@
 dnl
 dnl Filename    : Makefile.am
-dnl Description : Process this file with autoconf (2.57) to produce a
-dnl Description : configure script.
+dnl Description : Run this file through autoconf to produce `configure'
 dnl Author(s)   : SBML Development Group <sbml-team@caltech.edu>
-dnl Organization: JST ERATO Kitano Symbiotic Systems Project
 dnl Created     : 2003-02-13
 dnl Revision    : $Id$
 dnl Source      : $Source$
 dnl
-dnl Copyright 2002 California Institute of Technology and
+dnl Copyright 2002-2004 California Institute of Technology and
 dnl Japan Science and Technology Corporation.
 dnl
 dnl This library is free software; you can redistribute it and/or modify it
@@ -37,14 +35,14 @@ dnl Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 dnl
 dnl The original code contained here was initially developed by:
 dnl
-dnl     Ben Bornstein
-dnl     The Systems Biology Markup Language Development Group
-dnl     ERATO Kitano Symbiotic Systems Project
+dnl     Ben Bornstein and Michael Hucka
+dnl
+dnl     The SBML Team
 dnl     Control and Dynamical Systems, MC 107-81
 dnl     California Institute of Technology
 dnl     Pasadena, CA, 91125, USA
 dnl
-dnl     http://www.cds.caltech.edu/erato
+dnl     http://sbml.org
 dnl     mailto:sbml-team@caltech.edu
 dnl
 dnl Contributor(s):

@@ -2,8 +2,7 @@
 #
 # Filename    : createAPISections.sh
 # Description : Calls createAPISection.py for a set of files.
-# Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
-# Organization: JST ERATO Kitano Symbiotic Systems Project
+# Author(s)   : The SBML Team <sbml-team@caltech.edu>
 # Created     : 2003-07-16
 # Revision    : $Id$
 # Source      : $Source$
@@ -38,13 +37,13 @@
 # The original code contained here was initially developed by:
 #
 #     Ben Bornstein
-#     The Systems Biology Markup Language Development Group
-#     ERATO Kitano Symbiotic Systems Project
+#     
+#     The SBML Team
 #     Control and Dynamical Systems, MC 107-81
 #     California Institute of Technology
 #     Pasadena, CA, 91125, USA
 #
-#     http://www.cds.caltech.edu/erato
+#     http://sbml.org
 #     mailto:sysbio-team@caltech.edu
 #
 # Contributor(s):
