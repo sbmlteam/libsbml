@@ -820,7 +820,7 @@ ASTNode_getDenominator (const ASTNode_t *node)
  * should be called only when ASTNode_isReal(node) != 0.
  *
  * This function performs the necessary arithmetic if the node type is
- * AST_REAL_E (mantissa * 10^exponent) or AST_RATIONAL
+ * AST_REAL_E (mantissa * $10^exponent$) or AST_RATIONAL
  * (numerator / denominator).
  */
 LIBSBML_EXTERN
@@ -1045,7 +1045,7 @@ ASTNode_isNumber (const ASTNode_t *node)
 
 /**
  * @return true (non-zero) if this ASTNode is an operator, false (0)
- * otherwise.  Operators are: +, -, *, / and ^ (power).
+ * otherwise.  Operators are: +, -, *, / and \^ (power).
  */
 LIBSBML_EXTERN
 int
@@ -1171,7 +1171,7 @@ ASTNode_isUnknown (const ASTNode_t *node)
 
 /**
  * Sets the value of this ASTNode to the given character.  If character is
- * one of '+', '-', '*', '/' or '^', the node type will be set accordingly.
+ * one of '+', '-', '*', '/' or '\^', the node type will be set accordingly.
  * For all other characters, the node type will be set to AST_UNKNOWN.
  */
 LIBSBML_EXTERN
