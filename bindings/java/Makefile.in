@@ -127,6 +127,8 @@ endif
 
 distfiles = $(sources) $(extra_sources) Makefile.in $(java_files)
 
+maintainer_clean = libsbml_wrap.cpp java-files
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions

@@ -70,7 +70,7 @@ thisdir   = docs/formatted
 
 docs      = java.txt python.txt
 
-distfiles = $(docs)
+distfiles = $(docs) Makefile.in
 
 
 # -----------------------------------------------------------------------------
