@@ -134,6 +134,40 @@ START_TEST (test_Validator_KineticLaw_substanceUnits)
 END_TEST
 
 
+START_TEST (test_Validator_multipleValidationRulesOnSameEntityType)
+{
+  const char *s = wrapSBML
+  (
+    "<listOfUnitDefinitions>"
+    "   <unitDefinition id=\"litre\">"  /* error: litre is illegal */
+    "       <listOfUnits>"
+    "           <unit kind=\"volume\" exponent=\"-1\"/>"
+    "       </listOfUnits>"
+    "   </unitDefinition>"
+    "  <unitDefinition id=\"substance\">"  /* error: 'substance' non-unique */
+    "      <listOfUnits>"
+    "          <unit kind=\"mole\" scale=\"-3\"/>"
+    "      </listOfUnits>"
+    "  </unitDefinition>"
+    "  <unitDefinition id=\"substance\">"
+    "      <listOfUnits>"
+    "          <unit kind=\"mole\" scale=\"-3\"/>"
+    "      </listOfUnits>"
+    "  </unitDefinition>"
+    "</listOfUnitDefinitions>"
+  );
+
+  D = readSBMLFromString(s);
+
+  SBMLDocument_validate(D);
+
+  fail_unless(SBMLDocument_getNumErrors(D) == 2, NULL);
+
+  SBMLDocument_free(D);
+}
+END_TEST
+
+
 Suite *
 create_suite_Validator (void) 
 { 
@@ -145,6 +179,7 @@ create_suite_Validator (void)
   tcase_add_test(tcase, test_Validator_free_NULL                   );
   tcase_add_test(tcase, test_Validator_compartment_size_dimensions );
   tcase_add_test(tcase, test_Validator_KineticLaw_substanceUnits   );
+  tcase_add_test(tcase, test_Validator_multipleValidationRulesOnSameEntityType);
 
   suite_add_tcase(suite, tcase);
 

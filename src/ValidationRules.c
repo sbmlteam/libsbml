@@ -134,6 +134,27 @@ RULE (kineticLaw_substanceUnits)
 }
 
 
+RULE (unitDefinition_idsMustBeUnique)
+{
+  unsigned int passed = 1;
+
+  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
+  const char *id = UnitDefinition_getId(ud);
+
+  static const char msg[] =
+    "No two unitDefinitions may have the same id.";
+
+  UnitDefinition_t *got = Model_getUnitDefinitionById(d->model, id);
+  if (got != ud)
+  {
+    passed = 0;
+    LOG_MESSAGE(msg);
+  }
+
+  return passed;
+}
+
+
 RULE (unitDefinition_idCantBePredefinedUnit)
 {
   unsigned int passed = 1;
@@ -162,6 +183,8 @@ Validator_addDefaultRules (Validator_t *v)
 {
   Validator_addRule( v, compartment_size_dimensions, SBML_COMPARTMENT    );
   Validator_addRule( v, kineticLaw_substanceUnits  , SBML_REACTION       );
+  Validator_addRule( v, unitDefinition_idsMustBeUnique,
+                                                     SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
                                                      SBML_UNIT_DEFINITION );
 }

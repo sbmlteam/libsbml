@@ -964,6 +964,21 @@ Model_getUnitDefinition (const Model_t *m, unsigned int n)
 
 
 /**
+ * @return the UnitDefinition in this Model with the given id or NULL if no
+ * such UnitDefinition exists.
+ */
+LIBSBML_EXTERN
+Species_t *
+Model_getUnitDefinitionById (const Model_t *m, const char *sid)
+{
+  return (UnitDefinition_t *)
+         ListOf_find(
+            m->unitDefinition, sid, (ListItemComparator) UnitDefinitionIdCmp
+         );
+}
+
+
+/**
  * @return the nth Compartment of this Model.
  */
 LIBSBML_EXTERN

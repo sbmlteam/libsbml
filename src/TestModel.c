@@ -747,6 +747,26 @@ START_TEST (test_Model_getUnitDefinition)
 END_TEST
 
 
+START_TEST (test_Model_getUnitDefinitionById)
+{
+  UnitDefinition_t *ud1 = UnitDefinition_create();
+  UnitDefinition_t *ud2 = UnitDefinition_create();
+
+  UnitDefinition_setId( ud1, "mmls"   );
+  UnitDefinition_setId( ud2, "volume" );
+
+  Model_addUnitDefinition(M, ud1);
+  Model_addUnitDefinition(M, ud2);
+
+  fail_unless( Model_getNumUnitDefinitions(M) == 2, NULL );
+
+  fail_unless( Model_getUnitDefinitionById(M, "mmls"       ) == ud1 , NULL );
+  fail_unless( Model_getUnitDefinitionById(M, "volume"     ) == ud2 , NULL );
+  fail_unless( Model_getUnitDefinitionById(M, "rototillers") == NULL, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Model_getCompartment)
 {
   Compartment_t *c1 = Compartment_create();
@@ -983,13 +1003,14 @@ create_suite_Model (void)
   /**
    * Model_getXXX() methods
    */
-  tcase_add_test( t, test_Model_getUnitDefinition );
-  tcase_add_test( t, test_Model_getCompartment    );
-  tcase_add_test( t, test_Model_getSpecies        );
-  tcase_add_test( t, test_Model_getSpeciesById    );
-  tcase_add_test( t, test_Model_getParameter      );
-  tcase_add_test( t, test_Model_getRules          );
-  tcase_add_test( t, test_Model_getReaction       );
+  tcase_add_test( t, test_Model_getUnitDefinition     );
+  tcase_add_test( t, test_Model_getUnitDefinitionById );
+  tcase_add_test( t, test_Model_getCompartment        );
+  tcase_add_test( t, test_Model_getSpecies            );
+  tcase_add_test( t, test_Model_getSpeciesById        );
+  tcase_add_test( t, test_Model_getParameter          );
+  tcase_add_test( t, test_Model_getRules              );
+  tcase_add_test( t, test_Model_getReaction           );
 
   tcase_add_test( t, test_Model_getNumSpeciesWithBoundaryCondition );
 

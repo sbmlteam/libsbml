@@ -201,5 +201,15 @@ UnitDefinition_getNumUnits (const UnitDefinition_t *ud);
 
 END_C_DECLS
 
+/**
+ * The UnitDefinitionIdCmp function compares the string sid to ud->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than ud->id.
+ * Returns -1 if either sid or ud->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinitionIdCmp (const char *sid, const UnitDefinition_t *ud);
 
 #endif  /** UnitDefinition_h **/

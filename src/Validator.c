@@ -265,12 +265,12 @@ Validator_runRules (   const Validator_t    * v
     rules = Validator_getRulesOfType(v, type);
 
     rnode = rules->head;
-    onode = objects->items->head;
 
     while (rnode != NULL)
     {
       rule = (ValidationRule) rnode->item;
 
+      onode = objects->items->head;
       while (onode != NULL)
       {
         obj    = (SBase_t *) onode->item;
