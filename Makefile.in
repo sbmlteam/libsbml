@@ -142,6 +142,7 @@ docs = \
         NEWS.txt                                             \
         README.txt                                           \
         VERSION.txt                                          \
+        FUNDING.txt                                          \
 	$(examples)                                          \
 	$(xml-schemas)
 
