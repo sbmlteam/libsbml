@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml level="1" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
     <model>
         <listOfUnitDefinitions>
             <unitDefinition name="substance">
