@@ -3469,11 +3469,6 @@ echo "${ECHO_T}$PYTHON_PREFIX" >&6
 
 
     case $host in
-    *cygwin* | *mingw*)
-	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
-	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}"
-        PYTHON_LIBS="-l${PYTHON_NAME}"
-	;;
     *darwin*)
 
 	if test `expr ${PYTHON} ':' '/usr/bin/.*'` -ne 0; then
@@ -3484,9 +3479,14 @@ echo "${ECHO_T}$PYTHON_PREFIX" >&6
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
 	fi
 	;;
+    *cygwin* | *mingw*)
+	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
+	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
+        PYTHON_LIBS="-l${PYTHON_NAME}"
+	;;
     *)
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}"
+        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
 	;;
     esac
@@ -3965,6 +3965,9 @@ else
 fi;
 
   if test $with_matlab != no; then
+
+
+
 
 
 cat >>confdefs.h <<\_ACEOF
