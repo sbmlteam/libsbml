@@ -88,9 +88,9 @@ Unit_createWith (UnitKind_t kind, int exponent, int scale)
   Unit_t *u = Unit_create();
 
 
-  Unit_setKind    ( u, kind     );
-  Unit_setExponent( u, exponent );
-  Unit_setScale   ( u, scale    );
+  u->kind     = kind;
+  u->exponent = exponent;
+  u->scale    = scale;
 
   return u;
 }
@@ -120,8 +120,8 @@ LIBSBML_EXTERN
 void
 Unit_initDefaults (Unit_t *u)
 {
-  Unit_setExponent( u, 1 );
-  Unit_setScale   ( u, 0 );
+  u->exponent = 1;
+  u->scale    = 0;
 }
 
 
@@ -170,28 +170,6 @@ Unit_isSetKind (const Unit_t *u)
 
 
 /**
- * @return 1 if the exponent of this Unit has been set, 0 otherwise.
- */
-LIBSBML_EXTERN
-int
-Unit_isSetExponent (const Unit_t *u)
-{
-  return u->isSet.exponent;
-}
-
-
-/**
- * @return 1 if the scale of this Unit has been set, 0 otherwise.
- */
-LIBSBML_EXTERN
-int
-Unit_isSetScale (const Unit_t *u)
-{
-  return u->isSet.scale;
-}
-
-
-/**
  * Sets the kind of this Unit to the given UnitKind.
  */
 LIBSBML_EXTERN
@@ -209,8 +187,7 @@ LIBSBML_EXTERN
 int
 Unit_setExponent (Unit_t *u, int value)
 {
-  u->exponent       = value;
-  u->isSet.exponent = 1;
+  u->exponent = value;
 }
 
 
@@ -221,28 +198,5 @@ LIBSBML_EXTERN
 int
 Unit_setScale (Unit_t *u, int value)
 {
-  u->scale       = value;
-  u->isSet.scale = 1;
-}
-
-
-/**
- * Marks the exponent of this Unit as unset.
- */
-LIBSBML_EXTERN
-int
-Unit_unsetExponent (Unit_t *u)
-{
-  u->isSet.exponent = 0;
-}
-
-
-/**
- * Marks the scale of this Unit as unset.
- */
-LIBSBML_EXTERN
-int
-Unit_unsetScale (Unit_t *u)
-{
-  u->isSet.scale = 0;
+  u->scale = value;
 }

@@ -65,17 +65,9 @@ BEGIN_C_DECLS
 typedef struct
 {
   SBASE_FIELDS;
-
   UnitKind_t kind;
   int        exponent;
   int        scale;
-
-  struct
-  {
-    unsigned int exponent:1;
-    unsigned int scale   :1;
-  } isSet;
-
 } Unit_t;
 
 
@@ -144,20 +136,6 @@ LIBSBML_EXTERN
 UnitKind_t
 Unit_isSetKind (const Unit_t *u);
 
-/**
- * @return 1 if the exponent of this Unit has been set, 0 otherwise.
- */
-LIBSBML_EXTERN
-int
-Unit_isSetExponent (const Unit_t *u);
-
-/**
- * @return 1 if the scale of this Unit has been set, 0 otherwise.
- */
-LIBSBML_EXTERN
-int
-Unit_isSetScale (const Unit_t *u);
-
 
 /**
  * Sets the kind of this Unit to the given UnitKind.
@@ -179,21 +157,6 @@ Unit_setExponent (Unit_t *u, int value);
 LIBSBML_EXTERN
 int
 Unit_setScale (Unit_t *u, int value);
-
-
-/**
- * Marks the exponent of this Unit as unset.
- */
-LIBSBML_EXTERN
-int
-Unit_unsetExponent (Unit_t *u);
-
-/**
- * Marks the scale of this Unit as unset.
- */
-LIBSBML_EXTERN
-int
-Unit_unsetScale (Unit_t *u);
 
 
 END_C_DECLS

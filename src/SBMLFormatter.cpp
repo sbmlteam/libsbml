@@ -293,7 +293,7 @@ SBMLFormatter::operator<< (const Unit_t* u)
   //
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
   //
-  if (u->isSet.exponent && u->exponent != 1)
+  if (u->exponent != 1)
   {
     attribute(ATTR_EXPONENT, u->exponent);
   }
@@ -301,7 +301,7 @@ SBMLFormatter::operator<< (const Unit_t* u)
   //
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1)
   //
-  if (u->isSet.scale &&  u->scale != 0)
+  if (u->scale != 0)
   {
     attribute(ATTR_SCALE, u->scale);
   }

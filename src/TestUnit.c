@@ -85,9 +85,7 @@ START_TEST (test_Unit_create)
   fail_unless( U->exponent == 1, NULL );
   fail_unless( U->scale    == 0, NULL );
 
-  fail_unless( !Unit_isSetKind(U)   , NULL );
-  fail_unless( Unit_isSetExponent(U), NULL );
-  fail_unless( Unit_isSetScale(U)   , NULL );
+  fail_unless( !Unit_isSetKind(U), NULL );
 }
 END_TEST
 
@@ -104,9 +102,7 @@ START_TEST (test_Unit_createWith)
   fail_unless( u->exponent == -2, NULL );
   fail_unless( u->scale    ==  1, NULL );
 
-  fail_unless( Unit_isSetKind(u)    , NULL );
-  fail_unless( Unit_isSetExponent(u), NULL );
-  fail_unless( Unit_isSetScale(u)   , NULL );
+  fail_unless( Unit_isSetKind(u), NULL );
 
   Unit_free(u);
 }
