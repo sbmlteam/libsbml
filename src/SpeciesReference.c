@@ -183,6 +183,9 @@ LIBSBML_EXTERN
 void
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sname)
 {
+  if (sr->species == sname) return;
+
+
   if (sr->species != NULL)
   {
     safe_free(sr->species);

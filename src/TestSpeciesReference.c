@@ -134,6 +134,10 @@ START_TEST (test_SpeciesReference_setSpecies)
     fail("SpeciesReference_setSpecies(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  SpeciesReference_setSpecies(SR, SR->species);
+  fail_unless( !strcmp(SR->species, species), NULL );
+
   SpeciesReference_setSpecies(SR, NULL);
   fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
 
