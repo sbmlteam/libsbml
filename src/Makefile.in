@@ -418,7 +418,7 @@ html:
 # Installation
 # -----------------------------------------------------------------------------
 
-install: install-libraries
+install: install-libraries install-headers
 
 uninstall: uninstall-libraries
 
