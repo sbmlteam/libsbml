@@ -139,6 +139,13 @@ unsigned int
 MemTrace_getNumUnmatchedFrees (void);
 
 /**
+ * @return the maximum number of bytes allocated in this program up to this
+ * point.
+ */
+unsigned int
+MemTrace_getMaxBytes (void);
+
+/**
  * Prints the current memory trace statistics to the given stream.
  */
 void

@@ -79,6 +79,10 @@ main (int argc, char *argv[])
     return 1;
   }
 
+#ifdef TRACE_MEMORY
+  MemTrace_init();
+#endif
+
   start = getCurrentMillis();
   d     = readSBML(argv[1]);
   stop  = getCurrentMillis();
@@ -99,6 +103,9 @@ main (int argc, char *argv[])
 
   printf( "Total Read Time (ms): %lu\n", stop - start);
 
+#ifdef TRACE_MEMORY
+  printf( "         Total Bytes: %lu\n", MemTrace_getMaxBytes());
+#endif
 
   SBMLDocument_free(d);
   return 0;

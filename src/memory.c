@@ -149,6 +149,9 @@ int MemTrace_initialized = 0;
 unsigned int MemTrace_NumAllocs;
 unsigned int MemTrace_NumFrees;
 
+unsigned int MemTrace_CurrentBytes;
+unsigned int MemTrace_MaxBytes;
+
 MemInfoList_t *MemTrace_AllocList;
 MemInfoList_t *MemTrace_FreeList;
 MemInfoList_t *MemTrace_UnmatchedFreeList;
@@ -165,6 +168,9 @@ MemTrace_init (void)
   {
     MemTrace_NumAllocs = 0;
     MemTrace_NumFrees  = 0;
+
+    MemTrace_CurrentBytes  = 0;
+    MemTrace_MaxBytes      = 0;
 
     MemTrace_AllocList         = MemTrace_MemInfoList_create();
     MemTrace_FreeList          = MemTrace_MemInfoList_create();
@@ -236,6 +242,17 @@ unsigned int
 MemTrace_getNumUnmatchedFrees (void)
 {
   return MemTrace_UnmatchedFreeList->size;
+}
+
+
+/**
+ * @return the maximum number of bytes allocated in this program up to this
+ * point.
+ */
+unsigned int
+MemTrace_getMaxBytes (void)
+{
+  return MemTrace_MaxBytes;
 }
 
 
@@ -352,6 +369,13 @@ MemTrace_alloc ( void       *address,  size_t       size,
 
     MemTrace_MemInfoList_append(MemTrace_AllocList, node);
     MemTrace_NumAllocs++;
+
+    MemTrace_CurrentBytes += size;
+
+    if (MemTrace_CurrentBytes > MemTrace_MaxBytes)
+    {
+      MemTrace_MaxBytes = MemTrace_CurrentBytes;
+    }
   }
 
   return address;
@@ -392,6 +416,7 @@ MemTrace_free (void *address, const char *filename, unsigned int line)
     if (node != NULL)
     {
       MemTrace_MemInfoList_append(MemTrace_FreeList, node);
+      MemTrace_CurrentBytes -= node->size;
     }
     else
     {
