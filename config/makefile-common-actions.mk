@@ -283,7 +283,10 @@ mostlyclean-libtool:
 	-rm -f *.lo
 
 distclean: clean distclean-compile distclean-depend distclean-generic \
-	distclean-tags distclean-libtool
+	distclean-tags distclean-libtool distclean-hdr
+
+distclean-hdr:
+	-rm -f src/sbml/config.h src/sbml/stamp-h1
 
 distclean-compile:
 	-rm -f *.tab.c
