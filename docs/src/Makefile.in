@@ -76,9 +76,14 @@ formatted              = ../formatted
 
 preformatted_files     = java.txt python.txt
 
-generated_manual_files = libsbml-manual.pdf libsbml-manual.ps libsbml-manual
-generated_apiref_files = libsbml-api-ref.pdf libsbml-api-ref.ps
+generated_manual_files = libsbml-manual libsbml-manual.dvi \
+	 		 libsbml-manual.ps libsbml-manual.pdf
+
+generated_apiref_files = libsbml-api-ref.dvi libsbml-api-ref.ps \
+			 libsbml-api-ref.pdf
+
 all_generated_files    = $(generated_manual_files) $(generated_apiref_files) 
+
 all_doc_files          = $(all_generated_files) $(preformatted_files)
 
 docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
@@ -87,7 +92,7 @@ docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but the following are all generated files and directories.
 
-tex_clean = aux bbl blg log out toc dvi
+tex_clean = aux bbl blg log out toc
 
 extra_clean = \
 	$(docs) \
@@ -227,19 +232,20 @@ $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffile
 	$(latex-env) pdflatex libsbml-manual
 	cp -f libsbml-manual.pdf $(formatted)
 
-libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
+$(formatted)/libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	$(latex-env) latex libsbml-manual
 	$(latex-env) bibtex libsbml-manual
 	$(latex-env) latex libsbml-manual
 	$(latex-env) latex libsbml-manual
 	$(latex-env) latex libsbml-manual
+	cp -f libsbml-manual.dvi $(formatted)
 
-$(formatted)/libsbml-manual.ps libsbml-manual.ps: libsbml-manual.dvi
+$(formatted)/libsbml-manual.ps libsbml-manual.ps: $(formatted)/libsbml-manual.dvi
 	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
 	cp -f libsbml-manual.ps $(formatted)
 
-$(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex libsbml-manual.dvi
+$(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libsbml-manual.dvi
 	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
 	@test -L ./libsbmlextras.perl || ln -s tex/libsbmlextras.perl
 	$(latex-env) latex2html -white -split +0 -show_section_numbers \
@@ -282,7 +288,7 @@ endif
 	$(latex-env) pdflatex libsbml-api-ref
 	cp -f libsbml-api-ref.pdf $(formatted)
 
-libsbml-api-ref.dvi: libsbml-api-ref.tex
+$(formatted)/libsbml-api-ref.dvi: libsbml-api-ref.tex
 ifeq "$(api-tex-files)" ""
 	$(create-api-files)
 endif
@@ -292,8 +298,9 @@ endif
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
+	cp -f libsbml-api-ref.dvi $(formatted)
 
-$(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  libsbml-api-ref.dvi
+$(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  $(formatted)/libsbml-api-ref.dvi
 	$(latex-env) dvips -o libsbml-api-ref.ps libsbml-api-ref
 	cp -f libsbml-api-ref.ps $(formatted)
 
