@@ -85,6 +85,8 @@ typedef struct {
 } RuleResult_t;
 
 
+/******************** utility subroutines begin here ********************/
+
 static
 void
 initializeRuleResult(RuleResult_t *result)
@@ -209,6 +211,22 @@ isKindOfVolume(const char *unitsName)
       streq(unitsName, "litre")
       ||
       streq(unitsName, "liter")
+    );
+}
+
+
+static
+unsigned int
+isKindOfSubstance(const char *unitsName)
+{
+  return
+    unitsName != NULL
+    && (
+      streq(unitsName, "substance")
+      ||
+      streq(unitsName, "item")
+      ||
+      streq(unitsName, "mole")
     );
 }
 
@@ -367,6 +385,8 @@ logFullMessage(
     safe_free(message);
 }
 
+
+/*************************** RULEs begin here *****************************/
 
 RULE (compartment_size_dimensions)
 {
@@ -709,7 +729,7 @@ RULE (species_spatialDimensions1)
 
   Species_t *s = (Species_t *) obj;
   compartmentId = Species_getCompartment(s);
-  if (compartmentId)
+  if (compartmentId && Species_isSetSpatialSizeUnits(s))
   {
     Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
     if (c && Compartment_getSpatialDimensions(c) == 1)
@@ -745,7 +765,7 @@ RULE (species_spatialDimensions2)
 
   Species_t *s = (Species_t *) obj;
   compartmentId = Species_getCompartment(s);
-  if (compartmentId)
+  if (compartmentId && Species_isSetSpatialSizeUnits(s))
   {
     Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
     if (c && Compartment_getSpatialDimensions(c) == 2)
@@ -782,7 +802,7 @@ RULE (species_spatialDimensions3)
 
   Species_t *s = (Species_t *) obj;
   compartmentId = Species_getCompartment(s);
-  if (compartmentId)
+  if (compartmentId && Species_isSetSpatialSizeUnits(s))
   {
     Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
     if (c && Compartment_getSpatialDimensions(c) == 3)
@@ -796,6 +816,40 @@ RULE (species_spatialDimensions3)
         LOG_MESSAGE(msg);
         passed = 0;
       }
+    }
+  }
+
+  return passed;
+}
+
+/**
+ * The substanceUnits attribute must contain either substance, item, moles or
+ * the values of id attributes of unitDefinition elements that define variants
+ * (i.e. have only arbitrary scale, multiplier and offset values) of item or
+ * moles.
+ */
+RULE (species_substanceUnits)
+{
+  static const char msg[] =
+    "A species' substanceUnits must be 'substance', 'item', 'mole', or the "
+    "id of a unitDefinition that defines a variant of 'item' or 'mole'.";
+  unsigned int passed = 1;
+
+
+  Species_t *s = (Species_t *) obj;
+  if (Species_isSetSubstanceUnits(s))
+  {
+    const char* substanceUnits = Species_getSubstanceUnits(s);
+    UnitDefinition_t *ud =
+      Model_getUnitDefinitionById(d->model, substanceUnits);
+
+    if (
+      !isKindOfSubstance(substanceUnits)
+      &&
+      !unitDefinitionIsVariantOf(ud, isSubstanceKind, 1)
+    ) {
+      LOG_MESSAGE(msg);
+      passed = 0;
     }
   }
 
@@ -831,4 +885,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_spatialDimensions1,    SBML_SPECIES        );
   Validator_addRule( v, species_spatialDimensions2,    SBML_SPECIES        );
   Validator_addRule( v, species_spatialDimensions3,    SBML_SPECIES        );
+  Validator_addRule( v, species_substanceUnits,        SBML_SPECIES        );
 }
