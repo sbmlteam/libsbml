@@ -67,8 +67,25 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = docs/src
 
+# The following are convenience variables for use in this makefile.
+
 manuals = libsbml-manual libsbml-api-ref
-formats = dvi ps pdf html
+formats = pdf ps html
+
+libsbml-manual-files  = $(foreach format,$(formats),libsbml-manual.$(format))
+libsbml-api-ref-files = $(foreach format,$(formats),libsbml-api-ref.$(format))
+
+# The variable `docs' is used in `makefile-common-actions.mk' for install-docs.
+
+docs    = $(libsbml-manual-files) $(libsbml-api-ref-files) \
+	libsbml-manual libsbml-api-ref 
+
+# The variable `extra_distclean' is used in `makefile-common-actions.mk'
+# for `make dist'.  Normally you wouldn't want to remove documentation
+# files, but these are all generated files and directories.
+
+extra_distclean = $(libsbml-manual-files) $(libsbml-api-ref-files) \
+	libsbml-manual libsbml-api-ref 
 
 
 # -----------------------------------------------------------------------------
@@ -83,7 +100,7 @@ formats = dvi ps pdf html
 # If you would like to generate only a specific document, use the command
 # "make CHOICE" where "CHOICE" is manual-pdf, api-pdf, api-html, etc.
 
-all: dvi pdf ps html
+all: $(formats)
 
 dvi: $(foreach manual,$(manuals),$(manual).dvi)
 
@@ -97,9 +114,10 @@ info:
 	@echo "We're sorry, but the info format is not supported."
 
 # The following constructs some additional targets for convenience.
+# Lets you use `make libsbml-manual' to create all the libsbml-manual files.
 
-libsbml-manual:  $(foreach format,$(formats),libsbml-manual.$(format))
-libsbml-api-ref: $(foreach format,$(formats),libsbml-api-ref.$(format))
+libsbml-manual:  $(libsbml-manual-files)
+libsbml-api-ref: $(libsbml-api-ref-files)
 
 
 # -----------------------------------------------------------------------------
@@ -131,11 +149,16 @@ libsbml-manual.ps: libsbml-manual.tex libsbml-manual.dvi
 	dvips -o libsbml-manual.ps libsbml-manual
 
 libsbml-manual.html: sbmlmanual.perl
-	-@/bin/rm libsbml-manual.html
 	latex2html -white -split +0 -show_section_numbers -image_type gif \
-		   -no_navigation -local_icons -discard \
+		   -no_navigation -local_icons -discard -antialias \
+		   -t "libSBML Developer's Manual" \
 		   -mkdir -dir $(manual_html_dir) libsbml-manual
 	ln -s $(manual_html_dir)/libsbml-manual.html
+	rm $(manual_html_dir)/index.html
+	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
+		$(manual_html_dir)/libsbml-manual.html;
+	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
+		$(manual_html_dir)/libsbml-manual.html;
 
 sbmlmanual.perl:
 	ln -s ../../../project/tex/sbmlmanual.perl
@@ -145,9 +168,11 @@ sbmlmanual.perl:
 # libsbml-api-ref
 # -----------------------------------------------------------------------------
 
+.PHONY: libsbml-api-ref.html
+
 libsbml-api-ref: $(foreach format,dvi pdf ps html,libsbml-api-ref.$(format))
 
-libsbml-api-ref.pdf: libsbml-api-ref.tex api_sections_files
+libsbml-api-ref.pdf:  libsbml-api-ref.tex  api-files
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	pdflatex libsbml-api-ref
 	-bibtex libsbml-api-ref
@@ -164,22 +189,27 @@ libsbml-api-ref.dvi: libsbml-api-ref.tex
 	latex libsbml-api-ref
 	latex libsbml-api-ref
 
-libsbml-api-ref.ps: libsbml-api-ref.tex libsbml-api-ref.dvi
+libsbml-api-ref.ps:  libsbml-api-ref.tex  libsbml-api-ref.dvi
 	dvips -o libsbml-api-ref.ps libsbml-api-ref
 
-libsbml-api-ref.html: api_sections_files doxygen-api-manual
+libsbml-api-ref.html: api-files doxygen-api-manual
+
+doxygen-output-dir = libsbml-api-ref
 
 doxygen-api-manual: Doxyfile
+	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
 	doxygen Doxyfile
+	cp graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
 
-#
-# Miscellaneous helper directives.
-#
+
+# -----------------------------------------------------------------------------
+# Miscellaneous helpers.
+# -----------------------------------------------------------------------------
 
 pdffigs:
-	@(for i in *.eps; do echo "epstopdf $$i"; epstopdf $$i; done)
+	@(for i in graphics/*.eps; do echo "epstopdf $$i"; epstopdf $$i; done)
 
-api_sections_files:
+api-files:
 	$(SHELL) createAPISections.sh ../../src/sbml
 
 
@@ -187,24 +217,11 @@ api_sections_files:
 # Installation.
 # -----------------------------------------------------------------------------
 
-install:
+install: install-docs
 
 uninstall:
 
 installcheck:
-
-
-# -----------------------------------------------------------------------------
-# Cleaning.
-# -----------------------------------------------------------------------------
-
-clean:
-
-distclean:
-
-mostlyclean:
-
-maintainer-clean:
 
 
 # -----------------------------------------------------------------------------
