@@ -98,6 +98,7 @@ nobase_include_HEADERS =          \
   sbml/UnitKind.h                 \
   sbml/common.h                   \
   sbml/config.h                   \
+  sbml/extern.h                   \
   sbml/memory.h                   \
   sbml/util.h
 
