@@ -56,7 +56,8 @@ dnl Bug reports are sent to sbml-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
 if test -f "VERSION.txt"; then
-    m4_define(LIBSBML_VERSION, m4_esyscmd(cat VERSION.txt | tr -d '\n\r'))
+   m4_define(LIBSBML_VERSION, 
+	     m4_esyscmd(cat VERSION.txt | tr -d '\n\r' | sed 's/\-.*$//'))
 fi
 
 AC_INIT([libSBML], LIBSBML_VERSION, [sbml-team@caltech.edu], [libsbml])
