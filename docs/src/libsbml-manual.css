@@ -1,0 +1,47 @@
+/* Century Schoolbook font is very similar to Computer Modern Math: cmmi */
+.MATH    { font-family: "Century Schoolbook", serif; }
+.MATH I  { font-family: "Century Schoolbook", serif; font-style: italic }
+.BOLDMATH { font-family: "Century Schoolbook", serif; font-weight: bold }
+
+/* implement both fixed-size and relative sizes */
+SMALL.XTINY		{ font-size : xx-small }
+SMALL.TINY		{ font-size : x-small  }
+SMALL.SCRIPTSIZE	{ font-size : smaller  }
+SMALL.FOOTNOTESIZE	{ font-size : small    }
+BIG.LARGE		{  }
+BIG.XLARGE		{ font-size : large    }
+BIG.XXLARGE		{ font-size : x-large  }
+BIG.HUGE		{ font-size : larger   }
+BIG.XHUGE		{ font-size : xx-large }
+
+/* heading styles */
+H1 { 
+  font-family: Sans, 'Lucida Grande', Helvetica, Arial, Geneva, sans-serif;
+  font-size: x-large; 
+}
+
+H2 {
+  font-family: Sans, 'Lucida Grande', Helvetica, Arial, Geneva, sans-serif;
+  font-size: large; 
+}
+
+H3 {
+  font-family: Sans, 'Lucida Grande', Helvetica, Arial, Geneva, sans-serif;
+  font-size: large; 
+  font-style: italic;
+}
+
+H4 {
+  font-family: Sans, 'Lucida Grande', Helvetica, Arial, Geneva, sans-serif;
+}
+
+H5 {
+  font-family: Sans, 'Lucida Grande', Helvetica, Arial, Geneva, sans-serif;
+}
+
+/* mathematics styles */
+DIV.displaymath		{ }	/* math displays */
+TD.eqno			{ }	/* equation-number cells */
+
+
+/* document-specific styles come next */
