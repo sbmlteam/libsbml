@@ -1,4 +1,4 @@
-# Microsoft Developer Studio Generated Dependency File, included by libsbmlj.mak
+# Microsoft Developer Studio Generated Dependency File, included by sbmlj.mak
 
 ..\bindings\java\libsbml_wrap.cpp : \
 	"..\bindings\java\local.cpp"\

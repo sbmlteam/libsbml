@@ -30,21 +30,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "libsbmlj"=".\libsbmlj.dsp" - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name libsbml
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "printSBML"=".\printSBML.dsp" - Package Owner=<4>
 
 Package=<5>
@@ -61,6 +46,21 @@ Package=<4>
 ###############################################################################
 
 Project: "readSBML"=".\readSBML.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name libsbml
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "sbmlj"=".\sbmlj.dsp" - Package Owner=<4>
 
 Package=<5>
 {{{
