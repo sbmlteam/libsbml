@@ -126,6 +126,17 @@ LIBSBML_EXTERN
 char *
 writeSBMLToString (SBMLDocument* d);
 
+
+/**
+ * This Java specific typemap applies only to SBML_formulaToString()
+ * and overrides the default call to getCPtrAndDisown() (see
+ * bindings/java/local.i).  Unfortunately, due to the nature of SWIG
+ * typemaps, this is the only place to put it.
+ */
+#ifdef SWIGJAVA
+%typemap(javain) ASTNode * "ASTNode.getCPtr($javainput)";
+#endif
+
 LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode* tree);
