@@ -56,12 +56,16 @@ XLDFLAGS  = $(LDFLAGS)  -L/usr/local/lib
 XCPPFLAGS = $(CPPFLAGS) -I/usr/local/include
 LIBS      = -lsbml
 
-programs = convertSBML printSBML readSBML translateMath validateSBML
+programs = \
+  convertSBML evaluateMath printSBML readSBML translateMath validateSBML
 
 all: $(programs)
 
 convertSBML: convertSBML.c util.c
 	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
+
+evaluateMath: evaluateMath.c util.c
+	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS) -lm
 
 printSBML: printSBML.c util.c
 	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
