@@ -1,0 +1,14 @@
+
+                  Using the libSBML SWIG bindings
+
+                            24-Jun-2004
+
+             for libSBML v2.0.3   document revision 0.1
+
+
+1. OVERVIEW
+
+libSBML is written in C and C++, but thanks to the "SWIG
+bindings", you can write programs in other languages that call
+upon libSBML.  Currently there are SWIG bindings for Java and
+Python.
