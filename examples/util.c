@@ -52,7 +52,12 @@
 
 #include <stddef.h>
 #include <sys/stat.h>
-#include <sys/time.h>
+
+#if WIN32 && !defined(CYGWIN)
+#  include <windows.h>
+#else
+#  include <sys/time.h>
+#endif /* WIN32 && !CYGWIN */
 
 
 /**
@@ -61,14 +66,23 @@
 unsigned long
 getCurrentMillis (void)
 {
-  struct timeval tv;
-  unsigned long  result = 0;
+  unsigned long result = 0;
 
+
+#if WIN32 && !defined(CYGWIN)
+
+  result = (unsigned long) GetTickCount();
+
+#else
+
+  struct timeval tv;
 
   if (gettimeofday(&tv, NULL) == 0)
   {
-    result = (tv.tv_sec * 1000) + (tv.tv_usec * .001);
+    result = (unsigned long) (tv.tv_sec * 1000) + (tv.tv_usec * .001);
   }
+
+#endif /* WIN32 && !CYGWIN */
 
   return result;
 }
