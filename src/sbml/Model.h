@@ -519,6 +519,13 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfEvents (const Model_t *m);
 
+/**
+ * @return the list of items of the given type for this Model.  If the
+ * given SBMLTypeCode does not correspond to a ListOf contained in SBML
+ * Models, NULL is returned.
+ */
+ListOf_t *
+Model_getListOfByTypecode (const Model_t *m, SBMLTypeCode_t type);
 
 /**
  * @return the nth FunctionDefinition of this Model.

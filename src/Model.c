@@ -883,6 +883,65 @@ Model_getListOfEvents (const Model_t *m)
 
 
 /**
+ * @return the list of items of the given type for this Model.  If the
+ * given SBMLTypeCode does not correspond to a ListOf contained in SBML
+ * Models, NULL is returned.
+ */
+ListOf_t *
+Model_getListOfByTypecode (const Model_t *m, SBMLTypeCode_t type)
+{
+  ListOf_t *result;
+
+
+  switch (type)
+  {
+    case SBML_FUNCTION_DEFINITION:
+      result = m->functionDefinition;
+      break;
+
+    case SBML_UNIT_DEFINITION:
+      result = m->unitDefinition;
+      break;
+
+    case SBML_COMPARTMENT:
+      result = m->compartment;
+      break;
+
+    case SBML_SPECIES:
+      result = m->species;
+      break;
+
+    case SBML_PARAMETER:
+      result = m->parameter;
+      break;
+
+    case SBML_REACTION:
+      result = m->reaction;
+      break;
+
+    case SBML_EVENT:
+      result = m->event;
+      break;
+
+    case SBML_ALGEBRAIC_RULE:
+    case SBML_ASSIGNMENT_RULE:
+    case SBML_RATE_RULE:
+    case SBML_SPECIES_CONCENTRATION_RULE:
+    case SBML_COMPARTMENT_VOLUME_RULE:
+    case SBML_PARAMETER_RULE:
+      result = m->rule;
+      break;
+
+    default:
+      result = NULL;
+      break;
+  }
+
+  return result;
+}
+
+
+/**
  * @return the nth FunctionDefinition of this Model.
  */
 LIBSBML_EXTERN
