@@ -1,10 +1,18 @@
 CC  = gcc
 CXX = g++
 
-PYTHON   = /usr/local/bin/python2.3
-CPPFLAGS = -I/usr/local/include/python2.3
-CFLAGS   = -bundle -bundle_loader $(PYTHON)
-LDFLAGS  = -L/usr/local/lib/python2.3/config/
+#linux settings?
+#PYTHON   = /usr/local/bin/python2.3
+#CPPFLAGS = -I/usr/local/include/python2.3
+#CFLAGS   = -bundle -bundle_loader $(PYTHON)
+#LDFLAGS  = -L/usr/local/lib/python2.3/config/
+#LIBS     = -lsbml -lxerces-c
+
+#G5 settings
+PYTHON   = /usr/bin/python
+CPPFLAGS = -I/System/Library/Frameworks/Python.framework/Versions/2.3/include/python2.3 -I../../src
+CFLAGS   = -bundle -framework Python
+LDFLAGS  = -L/System/Library/Frameworks/Python.framework/Versions/2.3/lib/python2.3/lib-dynload -L$(HOME)/software/lib
 LIBS     = -lsbml -lxerces-c
 
 

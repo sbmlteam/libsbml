@@ -193,6 +193,27 @@ polymorphic_type_info (SBase* sbase)
 }
 
 
+%feature("shadow") ListOf::append(SBase*) %{
+   def append(*args):
+      args[0].thisown = 0
+      return _libsbml.ListOf_append(*args)
+%}
+
+%feature("shadow") SBMLDocument::setModel(Model*) %{
+   def setModel(*args):
+      args[0].thisown = 0
+      return _libsbml.SBMLDocument_setModel(*args)
+%}
+
+%feature("shadow") Reaction::Reaction(const std::string&, KineticLaw*, bool) %{
+   def __init__(self, *args):
+      _swig_setattr(self, Reaction, 'this', _libsbml.new_Reaction(*args))
+      _swig_setattr(self, Reaction, 'thisown', 1)
+      # print args
+      # args[1].thisown = 0
+%}
+
+
 %include "std_string.i"
 %import  ../../src/sbml/extern.h
 %include ../../src/sbml/ASTNodeType.h

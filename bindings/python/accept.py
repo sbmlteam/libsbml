@@ -9,7 +9,7 @@ def stackTraceLineNum():
    return sys.exc_info()[2].tb_next.tb_lineno
 
 
-def teestList():
+def testList():
    species = libsbml.Species()
    species.setMetaId('foo')
 
@@ -30,7 +30,7 @@ def teestList():
    assert alsoTheSameSpecies.getMetaId() == "foo"
 
 
-def teestSpecies():
+def testSpecies():
    species = libsbml.Species()
    species.setMetaId('foo')
    assert species.getMetaId() == "foo"
@@ -41,8 +41,7 @@ def teestSpecies():
    assert isNaN(species.getInitialConcentration())
 
 
-def teestReaction():
-   """
+def testReaction():
    reaction = libsbml.Reaction("R", libsbml.KineticLaw("1 + 1"))
    assert reaction
 
@@ -70,7 +69,6 @@ def teestReaction():
 
    """
    #assert kineticLaw == reaction.getKineticLaw()
-   """
 
 
 def testDocument():
@@ -89,6 +87,7 @@ class TestRunner:
          globals()[name] for name in globals() if name.startswith("test")
       ]:
          self.numTestsRun += 1
+         print testFunc.__name__ #DEBUG
          try:
                testFunc()
          except AssertionError, e:
