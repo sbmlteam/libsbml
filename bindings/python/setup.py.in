@@ -60,7 +60,7 @@ from distutils.core import setup, Extension
 from distutils import sysconfig
 
 setup(name             = "libsbml", 
-      version          = vars.get("@PACKAGE_VERSION@"),
+      version          = "@PACKAGE_VERSION@",
       description      = "LibSBML Python API",
       long_description = ("LibSBML is a library for reading, writing and "+
                           "manipulating the Systems Biology Markup Language "+
@@ -70,7 +70,7 @@ setup(name             = "libsbml",
                           "about SBML, please see http://sbml.org."),
       license          = "LGPL",
       author           = "SBML Team",
-      author_email     = vars.get("@PACKAGE_BUGREPORT@"),
+      author_email     = "@PACKAGE_BUGREPORT@",
       url              = "http://sbml.org",
       py_modules       = ["libsbml"],
       ext_modules      = [Extension("_libsbml", 
