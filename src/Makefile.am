@@ -92,14 +92,14 @@ libsbml_la_SOURCES =            \
   sbml/common.hpp               \
   sbml/SBMLFormatter.hpp        \
   sbml/SBMLHandler.hpp          \
-  sbml/SBMLHashCodes.hpp        \
+  sbml/SBMLTagCode.hpp          \
   sbml/SBMLUnicodeConstants.hpp \
   sbml/XMLStringFormatter.hpp   \
   sbml/XMLUtil.hpp              \
   SBMLFormatter.cpp             \
   SBMLHandler.cpp               \
-  SBMLHashCodes.cpp             \
   SBMLReader.cpp                \
+  SBMLTagCode.cpp               \
   SBMLWriter.cpp                \
   XMLStringFormatter.cpp        \
   XMLUtil.cpp                   \

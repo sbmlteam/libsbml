@@ -166,14 +166,14 @@ libsbml_la_SOURCES = \
   sbml/common.hpp               \
   sbml/SBMLFormatter.hpp        \
   sbml/SBMLHandler.hpp          \
-  sbml/SBMLHashCodes.hpp        \
+  sbml/SBMLTagCode.hpp          \
   sbml/SBMLUnicodeConstants.hpp \
   sbml/XMLStringFormatter.hpp   \
   sbml/XMLUtil.hpp              \
   SBMLFormatter.cpp             \
   SBMLHandler.cpp               \
-  SBMLHashCodes.cpp             \
   SBMLReader.cpp                \
+  SBMLTagCode.cpp               \
   SBMLWriter.cpp                \
   XMLStringFormatter.cpp        \
   XMLUtil.cpp                   \
@@ -267,8 +267,8 @@ CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
 libsbml_la_LIBADD =
-am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLHashCodes.lo \
-	SBMLReader.lo SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo \
+am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLReader.lo \
+	SBMLTagCode.lo SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo \
 	AlgebraicRule.lo AssignmentRule.lo ASTNode.lo Compartment.lo \
 	CompartmentVolumeRule.lo FormulaParser.lo FormulaTokenizer.lo \
 	KineticLaw.lo List.lo Model.lo Parameter.lo ParameterRule.lo \
@@ -329,8 +329,8 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLDocument.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLFormatter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLHandler.Plo \
-@AMDEP_TRUE@	./$(DEPDIR)/SBMLHashCodes.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLReader.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/SBMLTagCode.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLWriter.Plo ./$(DEPDIR)/SBase.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Species.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SpeciesConcentrationRule.Plo \
@@ -482,8 +482,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLDocument.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLFormatter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLHandler.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLHashCodes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLReader.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLTagCode.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLWriter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBase.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Species.Plo@am__quote@
