@@ -234,8 +234,10 @@ installcheck: installcheck-recursive
 install-warnings:
 ifneq "$(HOST_TYPE)" "darwin"
 	@echo ""
-	@echo "You may need to run 'ldconfig' or set your LD_LIBRARY_PATH"
-	@echo "environment variable."
+	@echo "The installation of libSBML is finished.  On certain platforms"
+	@echo "(such as Linux), you will also need to do one of the following:"
+	@echo "1) run 'ldconfig' (see the man page if this is unfamiliar)"
+	@echo "2) set the LD_LIBRARY_PATH (or equivalent) environment variable"
 	@echo ""
 endif
 
