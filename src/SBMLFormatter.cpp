@@ -66,6 +66,9 @@
 #include "sbml/XMLUtil.hpp"
 
 
+using namespace std;
+
+
 #define NUMBER_BUFFER_SIZE 100
 
 
@@ -159,15 +162,20 @@ SBMLFormatter::operator<< (const SBMLDocument& d)
   openStartElement(ELEM_SBML);
 
   //
-  // metaid: ID  { use="optional" }  (L2v1)
-  //
-  doMetaId(d);
-
-  //
   // xmlns="http://www.sbml.org/level1"  (L1v1, L1v2)
   // xmlns="http://www.sbml.org/level2"  (L2v1)
   //
   attribute(ATTR_XMLNS, (fLevel == 1) ? XMLNS_SBML_L1 : XMLNS_SBML_L2);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(d);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId(d);
 
   //
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
@@ -210,6 +218,11 @@ SBMLFormatter&
 SBMLFormatter::operator<< (const Model& m)
 {
   openStartElement(ELEM_MODEL);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(m);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -293,6 +306,11 @@ SBMLFormatter::operator<< (const FunctionDefinition& fd)
   openStartElement(ELEM_FUNCTION_DEFINITION);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(fd);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(fd);
@@ -350,6 +368,11 @@ SBMLFormatter&
 SBMLFormatter::operator<< (const UnitDefinition& ud)
 {
   openStartElement(ELEM_UNIT_DEFINITION);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(ud);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -412,6 +435,11 @@ SBMLFormatter::operator<< (const Unit& u)
   openStartElement(ELEM_UNIT);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(u);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(u);
@@ -471,6 +499,11 @@ SBMLFormatter&
 SBMLFormatter::operator<< (const Compartment& c)
 {
   openStartElement(ELEM_COMPARTMENT);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(c);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -593,6 +626,11 @@ SBMLFormatter::operator<< (const Species& s)
   }
 
   openStartElement(elem);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(s);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -730,6 +768,11 @@ SBMLFormatter::operator<< (const Parameter& p)
   openStartElement(ELEM_PARAMETER);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(p);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(p);
@@ -861,6 +904,11 @@ SBMLFormatter::operator<< (const AssignmentRule& ar)
   openStartElement(elem);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(ar);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(ar);
@@ -907,6 +955,11 @@ SBMLFormatter::operator<< (const RateRule& rr)
   openStartElement(ELEM_RATE_RULE);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(rr);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(rr);
@@ -951,6 +1004,11 @@ SBMLFormatter&
 SBMLFormatter::operator<< (const AlgebraicRule& ar)
 {
   openStartElement(ELEM_ALGEBRAIC_RULE);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(ar);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -1028,6 +1086,11 @@ SBMLFormatter::operator<< (const SpeciesConcentrationRule& scr)
     openStartElement(elem);
 
     //
+    // xmlns: attributes
+    //
+    doXMLNS(scr);
+
+    //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
     attribute(ATTR_FORMULA, scr.getFormula());
@@ -1080,6 +1143,11 @@ SBMLFormatter::operator<< (const CompartmentVolumeRule& cvr)
   else
   {
     openStartElement(ELEM_COMPARTMENT_VOLUME_RULE);
+
+    //
+    // xmlns: attributes
+    //
+    doXMLNS(cvr);
 
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
@@ -1135,6 +1203,11 @@ SBMLFormatter::operator<< (const ParameterRule& pr)
     openStartElement(ELEM_PARAMETER_RULE);
 
     //
+    // xmlns: attributes
+    //
+    doXMLNS(pr);
+
+    //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
     attribute(ATTR_FORMULA, pr.getFormula());
@@ -1178,6 +1251,11 @@ SBMLFormatter&
 SBMLFormatter::operator<< (const Reaction& r)
 {
   openStartElement(ELEM_REACTION);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(r);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -1307,6 +1385,11 @@ SBMLFormatter::operator<< (const SpeciesReference& sr)
   openStartElement(elem);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(sr);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(sr);
@@ -1381,6 +1464,11 @@ SBMLFormatter::operator<< (const ModifierSpeciesReference& msr)
   openStartElement(ELEM_MODIFIER_SPECIES_REFERENCE);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(msr);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(msr);
@@ -1410,6 +1498,11 @@ SBMLFormatter&
 SBMLFormatter::operator<< (const KineticLaw& kl)
 {
   openStartElement(ELEM_KINETIC_LAW);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(kl);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -1477,6 +1570,11 @@ SBMLFormatter&
 SBMLFormatter::operator<< (const Event& e)
 {
   openStartElement(ELEM_EVENT);
+
+  //
+  // xmlns: attributes
+  //
+  doXMLNS(e);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
@@ -1578,6 +1676,11 @@ SBMLFormatter::operator<< (const EventAssignment& ea)
   openStartElement(ELEM_EVENT_ASSIGNMENT);
 
   //
+  // xmlns: attributes
+  //
+  doXMLNS(ea);
+
+  //
   // metaid: ID  { use="optional" }  (L2v1)
   //
   doMetaId(ea);
@@ -1652,6 +1755,7 @@ SBMLFormatter::name (const ListOf& list)          \
   if (size > 0)                                   \
   {                                               \
     openStartElement( element );                  \
+    doXMLNS ( list );                             \
     doMetaId( list );                             \
     closeStartElement();                          \
                                                   \
@@ -1700,7 +1804,7 @@ makeFn( listOfEventAssignments, ELEM_LIST_OF_EVENT_ASSIGNMENTS,
  * Notes
  */
 void
-SBMLFormatter::notes (const std::string& s)
+SBMLFormatter::notes (const string& s)
 {
   if ( s.empty() ) return;
 
@@ -1724,7 +1828,7 @@ SBMLFormatter::notes (const std::string& s)
  * Annotation
  */
 void
-SBMLFormatter::annotation (const std::string& s)
+SBMLFormatter::annotation (const string& s)
 {
   if ( s.empty() ) return;
 
@@ -1892,6 +1996,28 @@ SBMLFormatter::doMetaId (const SBase& sb)
     {
       attribute(ATTR_META_ID, sb.getMetaId());
     }
+  }
+}
+
+
+/**
+ * Outputs the XML namespace attributes for the given SBML object.
+ */
+void
+SBMLFormatter::doXMLNS (const SBase& sb)
+{
+  if (sb.hasNamespaces() == false) return;
+
+
+  for (unsigned int n = 0; n < sb.mNamespaces->getLength(); n++)
+  {
+    const XMLNamespace& xmlns = sb.mNamespaces->getNamespace(n);
+    const string prefix("xmlns:" + xmlns.getPrefix());
+    XMLCh *s = XMLString::transcode(prefix.c_str());
+
+    attribute(s, xmlns.getURI());
+
+    XMLString::release(&s);
   }
 }
 
@@ -2226,7 +2352,7 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
  * string).
  */
 void
-SBMLFormatter::attribute (const XMLCh* name, const std::string& value)
+SBMLFormatter::attribute (const XMLCh* name, const string& value)
 {
   attribute(name, value.c_str());
 }

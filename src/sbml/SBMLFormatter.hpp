@@ -202,6 +202,11 @@ private:
   void doMetaId (const SBase& sb);
 
   /**
+   * Outputs the XML namespace attributes for the given SBML object.
+   */
+  void doXMLNS (const SBase& sb);
+
+  /**
    * Outputs the type attribute for Rules (L1 only).
    */
   void doRuleType (const RuleType_t type);
@@ -284,10 +289,10 @@ private:
   // appropriate string representation for the given type.
   //
 
-  void attribute ( const XMLCh* name, bool         value );
-  void attribute ( const XMLCh* name, int          value );
-  void attribute ( const XMLCh* name, unsigned int value );
-  void attribute ( const XMLCh* name, double       value );
+  void attribute ( const XMLCh* name      , bool               value );
+  void attribute ( const XMLCh* name      , int                value );
+  void attribute ( const XMLCh* name      , unsigned int       value );
+  void attribute ( const XMLCh* name      , double             value );
   void attribute ( const XMLCh* name, const std::string& value );
 #ifndef USE_EXPAT
   void attribute ( const XMLCh* name, const char*  value );

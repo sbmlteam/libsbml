@@ -1646,6 +1646,26 @@ START_TEST (test_SBMLFormatter_nonempty_RateRule_bug)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_xmlns)
+{
+  const char *s = wrapXML
+  (
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
+    "xmlns:jd=\"http://www.sbml.org/2001/ns/jdesigner\" "
+    "level=\"2\" version=\"1\"/>\n"
+  );
+
+
+  SBMLDocument d(2, 1);
+
+  d.getNamespaces().add("jd", "http://www.sbml.org/2001/ns/jdesigner");
+
+  *formatter << d;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLFormatter (void)
 {
@@ -1768,6 +1788,7 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_NegINF                );
   tcase_add_test( tcase, test_SBMLFormatter_NegZero               );
   tcase_add_test( tcase, test_SBMLFormatter_nonempty_RateRule_bug );
+  tcase_add_test( tcase, test_SBMLFormatter_xmlns                 );
 
   suite_add_tcase(suite, tcase);
 
