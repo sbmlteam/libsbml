@@ -63,7 +63,9 @@ START_TEST (test_SBMLReader_create)
 
 
   fail_unless(sr->schemaValidationLevel == XML_SCHEMA_VALIDATION_NONE, NULL);
-  fail_unless(sr->schemaFilename        == NULL, NULL);
+  fail_unless(sr->schemaFilenameL1v1    == NULL, NULL);
+  fail_unless(sr->schemaFilenameL1v2    == NULL, NULL);
+  fail_unless(sr->schemaFilenameL2v1    == NULL, NULL);
 
   SBMLReader_free(sr);
 }
@@ -83,18 +85,18 @@ START_TEST (test_SBMLReader_setSchemaFilename)
   char         *filename = "sbml.xsd";
 
 
-  SBMLReader_setSchemaFilename(sr, filename);
+  SBMLReader_setSchemaFilenameL1v1(sr, filename);
 
-  fail_unless( !strcmp(sr->schemaFilename, filename), NULL );
+  fail_unless( !strcmp(sr->schemaFilenameL1v1, filename), NULL );
 
-  if (sr->schemaFilename == filename)
+  if (sr->schemaFilenameL1v1 == filename)
   {
     fail("SBMLReader_setSchemaFilename(...) did not make a copy of string.");
   }
 
-  SBMLReader_setSchemaFilename(sr, NULL);
+  SBMLReader_setSchemaFilenameL1v1(sr, NULL);
 
-  if (sr->schemaFilename != NULL)
+  if (sr->schemaFilenameL1v1 != NULL)
   {
     fail("SBMLReader_setSchemaFilename(...) did not clear string.");
   }
@@ -114,7 +116,32 @@ START_TEST (test_SBMLReader_readSBML_schema_basic)
 
 
   sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_BASIC;
-  SBMLReader_setSchemaFilename(sr, schema);
+  SBMLReader_setSchemaFilenameL1v1(sr, schema);
+
+  d = SBMLReader_readSBML(sr, filename);
+
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 0, NULL );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
+
+  SBMLDocument_free(d);
+  SBMLReader_free(sr);
+  safe_free(filename);
+}
+END_TEST
+
+
+START_TEST (test_SBMLReader_readSBML_schema_basic_L1v2)
+{
+  SBMLDocument_t *d;
+  SBMLReader_t   *sr = SBMLReader_create();
+
+  char *schema   = "sbml-l1v2.xsd";
+  char *filename = safe_strcat(TestDataDirectory, "l1v2-branch.xml");
+
+
+  sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_BASIC;
+  SBMLReader_setSchemaFilenameL1v2(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
 
@@ -140,7 +167,7 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
 
 
   sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_BASIC;
-  SBMLReader_setSchemaFilename(sr, schema);
+  SBMLReader_setSchemaFilenameL1v1(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
 
@@ -165,7 +192,7 @@ START_TEST (test_SBMLReader_readSBML_schema_full)
 
 
   sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_FULL;
-  SBMLReader_setSchemaFilename(sr, schema);
+  SBMLReader_setSchemaFilenameL1v1(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
 
@@ -191,6 +218,7 @@ create_suite_SBMLReader (void)
   tcase_add_test(tcase, test_SBMLReader_setSchemaFilename                );
   tcase_add_test(tcase, test_SBMLReader_free_NULL                        );
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic            );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_L1v2       );
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error );
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full             );
   suite_add_tcase(suite, tcase);

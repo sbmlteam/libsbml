@@ -92,7 +92,9 @@ typedef enum
 typedef struct
 {
   XMLSchemaValidation_t  schemaValidationLevel;
-  char                  *schemaFilename;
+  char                  *schemaFilenameL1v1;
+  char                  *schemaFilenameL1v2;
+  char                  *schemaFilenameL2v1;
 } SBMLReader_t;
 
 
@@ -113,37 +115,6 @@ LIBSBML_EXTERN
 void
 SBMLReader_free (SBMLReader_t *sr);
 
-/**
- * Sets the schema filename used by this SBMLReader.
- *
- * The filename should be either i) an absolute path or ii) relative to the
- * directory contain the SBML file(s) to be read.
- */
-LIBSBML_EXTERN
-void
-SBMLReader_setSchemaFilename (SBMLReader_t *sr, const char *filename);
-
-/**
- * Sets the schema validation level used by this SBMLReader.
- *
- * The levels are:
- *
- *   XML_SCHEMA_VALIDATION_NONE (0) turns schema validation off.
- *
- *   XML_SCHEMA_VALIDATION_BASIC (1) validates an XML instance document
- *   against an XML Schema.  Those who wish to perform schema checking on
- *   SBML documents should use this option.
- *
- *   XML_SCHEMA_VALIDATION_FULL (2) validates both the instance document
- *   itself *and* the XML Schema document.  The XML Schema document is
- *   checked for violation of particle unique attribution constraints and
- *   particle derivation restrictions, which is both time-consuming and
- *   memory intensive.
- */
-LIBSBML_EXTERN
-void
-SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
-                                      XMLSchemaValidation_t level );
 
 /**
  * Reads the SBML document from the given file and returns a pointer to it.
@@ -185,6 +156,63 @@ readSBML (const char *filename);
 LIBSBML_EXTERN
 SBMLDocument_t *
 readSBMLFromString (const char *xml);
+
+
+/**
+ * Sets the schema filename used by this SBMLReader to validate SBML Level
+ * 1 version 1 documents.
+ *
+ * The filename should be either i) an absolute path or ii) relative to the
+ * directory contain the SBML file(s) to be read.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_setSchemaFilenameL1v1 (SBMLReader_t *sr, const char *filename);
+
+/**
+ * Sets the schema filename used by this SBMLReader to validate SBML Level
+ * 1 version 2 documents.
+ *
+ * The filename should be either i) an absolute path or ii) relative to the
+ * directory contain the SBML file(s) to be read.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_setSchemaFilenameL1v2 (SBMLReader_t *sr, const char *filename);
+
+/**
+ * Sets the schema filename used by this SBMLReader to validate SBML Level
+ * 2 version 1 documents.
+ *
+ * The filename should be either i) an absolute path or ii) relative to the
+ * directory contain the SBML file(s) to be read.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_setSchemaFilenameL2v1 (SBMLReader_t *sr, const char *filename);
+
+
+/**
+ * Sets the schema validation level used by this SBMLReader.
+ *
+ * The levels are:
+ *
+ *   XML_SCHEMA_VALIDATION_NONE (0) turns schema validation off.
+ *
+ *   XML_SCHEMA_VALIDATION_BASIC (1) validates an XML instance document
+ *   against an XML Schema.  Those who wish to perform schema checking on
+ *   SBML documents should use this option.
+ *
+ *   XML_SCHEMA_VALIDATION_FULL (2) validates both the instance document
+ *   itself *and* the XML Schema document.  The XML Schema document is
+ *   checked for violation of particle unique attribution constraints and
+ *   particle derivation restrictions, which is both time-consuming and
+ *   memory intensive.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
+                                      XMLSchemaValidation_t level );
 
 
 END_C_DECLS
