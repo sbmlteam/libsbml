@@ -515,6 +515,15 @@ MathMLHandler::parseCN (const char* str)
   Token_t*            token     = FormulaTokenizer_nextToken(tokenizer);
 
 
+  if (token->type == TT_MINUS)
+  {
+    Token_free(token);
+
+    token = FormulaTokenizer_nextToken(tokenizer);
+    Token_negateValue(token);
+  }
+
+
   //
   // <cn type="rational">
   //
@@ -525,11 +534,11 @@ MathMLHandler::parseCN (const char* str)
   {
     if (fSeenSep == false)
     {
-      cn->mInteger = token->value.integer;
+      cn->mInteger = Token_getInteger(token);
     }
     else
     {
-      cn->mDenominator = token->value.integer;
+      cn->mDenominator = Token_getInteger(token);
     }
   }
 
@@ -543,11 +552,11 @@ MathMLHandler::parseCN (const char* str)
   {
     if (fSeenSep == false)
     {
-      cn->mReal = token->value.real;
+      cn->mReal = Token_getReal(token);
     }
     else
     {
-      cn->mExponent = token->value.integer;
+      cn->mExponent = Token_getInteger(token);
     }
   }
 
@@ -556,18 +565,7 @@ MathMLHandler::parseCN (const char* str)
   //
   else if (cn->mType == AST_REAL)
   {
-    if (token->type == TT_REAL)
-    {
-      cn->mReal = token->value.real;
-    }
-    else if (token->type == TT_INTEGER)
-    {
-      cn->mReal = (double) token->value.integer;
-    }
-    else
-    {
-      cn->mType = AST_UNKNOWN;
-    }
+    cn->mReal = Token_getReal(token);
   }
 
   //
@@ -575,14 +573,7 @@ MathMLHandler::parseCN (const char* str)
   //
   else if (cn->mType == AST_INTEGER)
   {
-    if (token->type == TT_INTEGER)
-    {
-      cn->mInteger = token->value.integer;
-    }
-    else
-    {
-      cn->mType = AST_UNKNOWN;
-    }
+    cn->mInteger = Token_getInteger(token);
   }
 
   Token_free(token);

@@ -1628,6 +1628,43 @@ START_TEST (test_element_bug_csymbol_1)
 END_TEST
 
 
+START_TEST (test_element_bug_cn_integer_negative)
+{
+  const ASTNode_t* n;
+  const char* s = wrapMathML("<cn type='integer'> -7 </cn>");
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+  fail_unless( n != NULL, NULL );
+
+  fail_unless( ASTNode_getType(n)        == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger(n)     == -7, NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0 , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_bug_cn_e_notation)
+{
+  const ASTNode_t* n;
+  const char* s = wrapMathML("<cn type='e-notation'> 2 <sep/> -8 </cn>");
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+  fail_unless( n != NULL, NULL );
+
+  fail_unless( ASTNode_getType(n)        == AST_REAL_E, NULL );
+  fail_unless( ASTNode_getMantissa(n)    ==  2.0, NULL );
+  fail_unless( ASTNode_getExponent(n)    == -8.0, NULL );
+  fail_unless( ASTNode_getNumChildren(n) ==  0  , NULL );
+}
+END_TEST
+
+
 Suite *
 create_suite_MathMLHandler (void)
 {
@@ -1710,6 +1747,8 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_bug_apply_ci_1            );
   tcase_add_test( tcase, test_element_bug_apply_ci_2            );
   tcase_add_test( tcase, test_element_bug_csymbol_1             );
+  tcase_add_test( tcase, test_element_bug_cn_integer_negative   );
+  tcase_add_test( tcase, test_element_bug_cn_e_notation         );
 
   suite_add_tcase(suite, tcase);
 
