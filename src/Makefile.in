@@ -351,7 +351,7 @@ endif
 
 include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 
-$(check_programs): $(testrunner_objfiles) $(check_programs)
+$(check_programs): $(testrunner_objfiles)
 	$(CXX) $(CXXFLAGS) $(DEFS) $(extra_CXXFLAGS) $(default_includes) \
 	  $(INCLUDES) $(testrunner_objfiles) $(objfiles) $(extra_LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
