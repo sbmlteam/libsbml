@@ -260,7 +260,7 @@ XMLFormatter::flushBuffer(const bool & isMultiByte)
 {
   XML_Char * tmp = mByteBuffer;
 
-  for (XML_Char *tmp = mByteBuffer; *tmp; tmp++) 
+  for (tmp = mByteBuffer; *tmp; tmp++) 
   {
     if (isMultiByte || (unsigned char) *tmp < 0x80)
     {
