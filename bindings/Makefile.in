@@ -85,6 +85,8 @@ endif
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
+distfiles = Makefile.in
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
@@ -137,9 +139,9 @@ maintainer-clean: maintainer-clean-recursive
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-recursive
+dist: dist-recursive dist-normal
 
-distcheck: distcheck-recursive
+distcheck: distcheck-recursive distcheck-normal
 
 
 # -----------------------------------------------------------------------------
