@@ -50,13 +50,13 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/AlgebraicRule.h"
 
 
 /**
  * Creates a new AlgebraicRule and returns a pointer to it.
  */
+LIBSBML_EXTERN
 AlgebraicRule_t *
 AlgebraicRule_create (void)
 {
@@ -78,6 +78,7 @@ AlgebraicRule_create (void)
  *   AlgebraicRule_t *ar = AlgebraicRule_create();
  *   Rule_setFormula((Rule_t *) ar, formula);
  */
+LIBSBML_EXTERN
 AlgebraicRule_t *
 AlgebraicRule_createWith (const char *formula)
 {
@@ -93,6 +94,7 @@ AlgebraicRule_createWith (const char *formula)
 /**
  * Frees the given AlgebraicRule.
  */
+LIBSBML_EXTERN
 void
 AlgebraicRule_free (AlgebraicRule_t *ar)
 {

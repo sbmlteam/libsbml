@@ -54,13 +54,12 @@
 #define AlgebraicRule_h
 
 
+#include "common.h"
 #include "SBase.h"
 #include "Rule.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -73,6 +72,7 @@ typedef struct
 /**
  * Creates a new AlgebraicRule and returns a pointer to it.
  */
+LIBSBML_EXTERN
 AlgebraicRule_t *
 AlgebraicRule_create (void);
 
@@ -83,19 +83,19 @@ AlgebraicRule_create (void);
  *   AlgebraicRule_t *ar = AlgebraicRule_create();
  *   Rule_setFormula((Rule_t *) ar, formula);
  */
+LIBSBML_EXTERN
 AlgebraicRule_t *
 AlgebraicRule_createWith (const char *formula);
 
 /**
  * Frees the given AlgebraicRule.
  */
+LIBSBML_EXTERN
 void
 AlgebraicRule_free (AlgebraicRule_t *ar);
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** AlgebraicRule_h **/
