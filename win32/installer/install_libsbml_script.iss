@@ -4,21 +4,21 @@
 ;************************************************************************************
 
 ;************************************************************************************
-; the version number appears 5 times. It is currently reading 2.1.2 Sorry if this is wrong
+; the version number appears 5 times. It is currently reading 2.1.1 Sorry if this is wrong
 ;************************************************************************************
 
 
 
 
 [Setup]
-AppName=libsbml
+AppName=libSBML
 
 ;***********************************************************************************
 
 ; this must read libsbml 'space' version number
 
 ;***********************************************************************************
-AppVerName=libsbml 2.1.2
+AppVerName=libSBML 2.1.1
 
 
 AppPublisher=SBML Team
@@ -35,7 +35,8 @@ AppUpdatesURL=http://www.sbml.org
 ; Note this directory name includes the version number
 
 ;***********************************************************************************
-DefaultDirName={pf}\SBML\libsbml-2.1.2-xerces
+DefaultDirName={pf}\SBML\libsbml-2.1.1-xerces
+;DefaultDirName={pf}\SBML\libsbml-2.1.1-expat
 
 DefaultGroupName=libsbml
 DisableProgramGroupPage=yes
@@ -53,12 +54,13 @@ WizardImageFile=libsbml-installer-graphic-v3.bmp
 
 
 ; this direction copies the whole tree to the directory specified by the user
-; default Program Files/SBML/libsbml-2.1.2-xerces
+; default Program Files/SBML/libsbml-2.1.1-xerces
 ;
 ;****************************************************************************************
-Source: "C:\Libsbml-2.1.0-xerces\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "C:\libsbml_for_xerces_release\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 
+;Source: "C:\libsbml_for_expat_release\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 
 
@@ -71,34 +73,51 @@ Source: "C:\Libsbml-2.1.0-xerces\*.*"; DestDir: "{app}"; Flags: ignoreversion re
 
 ;********************************************************************************************
 
-Source: "C:\Libsbml-2.1.0-xerces\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
-Source: "C:\Libsbml-2.1.0-xerces\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
-Source: "C:\Libsbml-2.1.0-xerces\win32\bin\xerces-c*.dll"; DestDir: "{sys}"; Check: GetValue;
-Source: "C:\Libsbml-2.1.0-xerces\win32\bin\xerces-c*.lib"; DestDir: "{sys}"; Check: GetValue;
+; FILES FOR XERCES RELEASE
 
-Source: "C:\Libsbml-2.1.0-xerces\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
+Source: "C:\libsbml_for_xerces_release\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\libsbml_for_xerces_release\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\libsbml_for_xerces_release\win32\bin\xerces-c*.dll"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\libsbml_for_xerces_release\win32\bin\xerces-c*.lib"; DestDir: "{sys}"; Check: GetValue;
 
-Source: "C:\Libsbml sandbox\libsbml\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
-Source: "C:\Libsbml sandbox\libsbml\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
+Source: "C:\libsbml_for_xerces_release\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
+
+Source: "C:\libsbml_for_xerces_release\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
+Source: "C:\libsbml_for_xerces_release\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
 
 
-Source: "C:\Libsbml-2.1.0-xerces\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
-Source: "C:\Libsbml-2.1.0-xerces\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
+Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
+Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
+
+; FILES FOR EXPAT RELEASE
+;Source: "C:\libsbml_for_expat_release\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
+;Source: "C:\libsbml_for_expat_release\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
+;Source: "C:\libsbml_for_expat_release\win32\bin\libexpat.dll"; DestDir: "{sys}"; Check: GetValue;
+;Source: "C:\libsbml_for_expat_release\win32\bin\libexpat.lib"; DestDir: "{sys}"; Check: GetValue;
+
+;Source: "C:\libsbml_for_expat_release\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
+
+;Source: "C:\libsbml_for_expat_release\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
+;Source: "C:\libsbml_for_expat_release\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
+
+
+;Source: "C:\libsbml_for_expat_release\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
+;Source: "C:\libsbml_for_expat_release\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
 
 
 
 [Registry]
 Root: HKCU; Subkey: "Software\SBML"; Flags: uninsdeletekeyifempty
-Root: HKCU; Subkey: "Software\SBML\libsbml"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\SBML\libSBML"; Flags: uninsdeletekey
 Root: HKLM; Subkey: "Software\SBML"; Flags: uninsdeletekeyifempty
-Root: HKLM; Subkey: "Software\SBML\libsbml"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\SBML\libSBML"; Flags: uninsdeletekey
 
 ;********************************************************************************************************
 
 ; version number is inserted here as a string
 ;**********************************************************************************************************
-Root: HKLM; Subkey: "Software\SBML\libsbml"; ValueType: string; ValueName: "Version"; ValueData: "2.1.2"
-Root: HKLM; Subkey: "Software\SBML\libsbml"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
+Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "Version"; ValueData: "2.1.1"
+Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
 
 
 [code]
@@ -119,7 +138,7 @@ var
 begin
 
   Key := '';
-  Key := Key + 'Software\SBML\libsbml\';
+  Key := Key + 'Software\SBML\libSBML\';
   RegQueryStringValue(HKLM, Key, 'Version', Vers);
 
   Result := Vers;
@@ -220,7 +239,8 @@ begin
  
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows release of libsbml 2.1.2 built using the Xerces-c libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows release of libSBML 2.1.1 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+ { MsgBox('This setup installs the Windows release of libSBML 2.1.1 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok); }
 end;
 
 procedure URLLabelOnClick(Sender: TObject);
@@ -273,7 +293,7 @@ begin
 this is the version number for the current installation
 
 *************************************************************************}
-  ThisVersionNumber := '2.1.2';
+  ThisVersionNumber := '2.1.1';
   
   MLRoot := GetMatlabRoot('1');
   if (MLRoot = '') then begin
@@ -293,8 +313,8 @@ this is the version number for the current installation
   SetArrayLength(UserPrompts, 4);
 
   UserPrompts[0] := 'Copy libraries to system directory';
-  UserPrompts[1] := 'Install java binding libraries to system directory';
-  UserPrompts[2] := 'Install python binding libraries to system directory';
+  UserPrompts[1] := 'Install Java binding libraries to system directory';
+  UserPrompts[2] := 'Install Python binding libraries to system directory';
   UserPrompts[3] := 'Install MATLAB binding function';
 
 
@@ -345,11 +365,11 @@ begin
         MsgBox('No bindings to install!', mbInformation, mb_Ok);
 
       end else if (Later = 0) then begin
-        MsgBox('This version of libsbml has already been installed on the system', mbInformation, mb_Ok);
+        MsgBox('This version of libSBML has already been installed on the system', mbInformation, mb_Ok);
       end else if (Later = 1) then begin
-        MsgBox('A later version of libsbml has already been installed on the system', mbInformation, mb_Ok);
+        MsgBox('A later version of libSBML has already been installed on the system', mbInformation, mb_Ok);
       end else begin
-        MsgBox('An earlier version of libsbml has already been installed on the system. Files may be overwritten.', mbInformation, mb_Ok);
+        MsgBox('An earlier version of libSBML has already been installed on the system. Files may be overwritten.', mbInformation, mb_Ok);
       end;
     end;
 
@@ -452,33 +472,33 @@ begin
     S := S + 'Custom installation' + NewLine;
 
     if (UserValues[0] = '1') then begin
-        S := S + 'Writing libsbml library files to system directory' + NewLine;
+        S := S + 'Writing libSBML library files to system directory' + NewLine;
         S := S + '      ' + GetSystemDir();
         S := S + NewLine;
     end else begin
-        S := S + 'Not writing libsbml library files to system directory' + NewLine;
+        S := S + 'Not writing libSBML library files to system directory' + NewLine;
         S := S + NewLine;
     end;
   
     if (UserValues[1] = '1') then begin
         S := S + NewLine;
-        S := S + 'Writing libsbml java library files (sbmlj.*) to system directory' + NewLine;
+        S := S + 'Writing libSBML Java library files (sbmlj.*) to system directory' + NewLine;
         S := S + '      ' + GetSystemDir();
         S := S + NewLine;
     end else begin
         S := S + NewLine;
-        S := S + 'Not writing libsbml java library files to system directory' + NewLine;
+        S := S + 'Not writing libSBML Java library files to system directory' + NewLine;
         S := S + NewLine;
     end;
 
     if (UserValues[2] = '1') then begin
         S := S + NewLine;
-        S := S + 'Writing libsbml python library files (_libsbml.*) to system directory' + NewLine;
+        S := S + 'Writing libSBML Python library files (_libsbml.*) to system directory' + NewLine;
         S := S + '      ' + GetSystemDir();
         S := S + NewLine;
     end else begin
         S := S + NewLine;
-        S := S + 'Not writing libsbml python library files to system directory' + NewLine;
+        S := S + 'Not writing libSBML Python library files to system directory' + NewLine;
         S := S + NewLine;
     end;
 
@@ -500,15 +520,15 @@ begin
   {typical installation}
     S := S + 'Typical installation' + NewLine;
 
-    S := S + 'Writing libsbml library files to system directory' + NewLine;
+    S := S + 'Writing libSBML library files to system directory' + NewLine;
     S := S + '      ' + GetSystemDir();
     S := S + NewLine + NewLine;
 
-    S := S + 'Writing libsbml java library files (sbmlj.*) to system directory' + NewLine;
+    S := S + 'Writing libSBML Java library files (sbmlj.*) to system directory' + NewLine;
     S := S + '      ' + GetSystemDir();
     S := S + NewLine + NewLine;
 
-    S := S + 'Writing libsbml python library files (_libsbml.*) to system directory' + NewLine;
+    S := S + 'Writing libSBML Python library files (_libsbml.*) to system directory' + NewLine;
     S := S + '      ' + GetSystemDir();
     S := S + NewLine + NewLine;
 
