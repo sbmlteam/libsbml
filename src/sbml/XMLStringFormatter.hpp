@@ -76,8 +76,7 @@
 //
 // A formatter can be reset() (emptied) so that it can be reused to process
 // another set of XML tags.  The underlying character encoding is
-// configurable and defaults to "LATIN1", which is probably safe for most
-// applications.
+// configurable.
 //
 // A note on SAX2 qnames vs. localnames:
 //
@@ -102,9 +101,6 @@ public:
   // Ctor
   //
   // Creates a new XMLStringFormatter
-  //
-  // The underlying character encoding is configurable and defaults to
-  // "LATIN1", which is probably safe for most applications.
   //
   XMLStringFormatter (const char* outEncoding);
 
