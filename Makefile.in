@@ -150,7 +150,8 @@ EXTRA_DIST = \
 	examples       \
 	NEWS.txt       \
 	README.txt     \
-	VERSION.txt
+	VERSION.txt    \
+	xml-schemas
 
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4

@@ -60,4 +60,5 @@ EXTRA_DIST =     \
 	examples       \
 	NEWS.txt       \
 	README.txt     \
-	VERSION.txt
+	VERSION.txt    \
+	xml-schemas
