@@ -227,7 +227,7 @@ uninstall:
 installcheck:
 
 create-build-dir: $(libraries)
-	mkdir build build/libsbml
+	mkdir -p build build/libsbml
 	echo "libsbml" > build/libsbml.pth
 	cp $(libraries)  build
 	cp libsbml.py    build/libsbml
