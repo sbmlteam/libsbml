@@ -93,6 +93,8 @@
       for i in range(self.getNumItems()):
         yield self[i]
 
+    def __repr__(self):
+      return "[" + ", ".join([repr(self[i]) for i in range(len(self))]) + "]"
   }
 }
 

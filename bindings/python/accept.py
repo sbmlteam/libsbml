@@ -50,7 +50,7 @@
 ##
 
 
-import sys, operator
+import sys, operator, re
 import libsbml
 
 def isNaN(x):
@@ -586,6 +586,9 @@ def testListOfAsIterator():
    assert len(alsoLast2Reactions) == 2
    assert alsoLast2Reactions[0].getId() == "R3"
    assert alsoLast2Reactions[1].getId() == "R4"
+
+   expect = re.compile("\[<C Reaction instance at _[0-9a-f]{8}_p_Reaction>, <C Reaction instance at _[0-9a-f]{8}_p_Reaction>, <C Reaction instance at _[0-9a-f]{8}_p_Reaction>, <C Reaction instance at _[0-9a-f]{8}_p_Reaction>\]")
+   assert expect.match(repr(listOf))
 
 
 class TestRunner:
