@@ -93,11 +93,9 @@
 
     def _memberline(self, fmt, getter):
         try:
-          value = repr(getter[1](self))
+          return fmt % (getter[0] + ":", repr(getter[1](self)))
         except TypeError:
-          value = "<function get%s>" % (getter[0][0].upper() + getter[0][1:])
-        result = fmt % (getter[0] + ":", value)
-        return result
+          return None
 
 
     def _getClass(self):

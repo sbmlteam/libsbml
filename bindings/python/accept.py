@@ -487,7 +487,6 @@ def testModel():
    assert event.thisown == 0
 
    str(model)
-   print model
 
 
 def testKineticLaw():
