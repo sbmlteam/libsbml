@@ -74,6 +74,7 @@ distfiles = \
         libsbml.dsp       \
         libsbml.dsw       \
         libsbml.mak       \
+        libsbml.vcproj    \
         make.bat          \
         makedist.bat      \
         printSBML.dep     \
