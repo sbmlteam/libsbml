@@ -50,6 +50,9 @@
  */
 
 
+#include <iostream>
+#include <check.h>
+
 #include "sbml/common.h"
 
 #include "sbml/MathMLHandler.hpp"
@@ -62,7 +65,7 @@
 BEGIN_C_DECLS
 
 
-#define XML_HEADER     "<?xml version='1.0' encoding='ascii'?>\n"
+#define XML_HEADER     "<?xml version='1.0' encoding='UTF-8'?>\n"
 #define MATHML_HEADER  "<math xmlns='http://www.w3.org/1998/Math/MathML'>\n"
 #define MATHML_FOOTER  "</math>"
 

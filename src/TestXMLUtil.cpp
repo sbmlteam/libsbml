@@ -47,27 +47,36 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
+#include <iostream>
+#include <check.h>
+
 #include "sbml/common.h"
 
-#include <xercesc/util/XMLString.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
+
+#ifdef USE_EXPAT
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/util/XMLString.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#endif  // USE_EXPAT
+
 
 #include "sbml/SAX2AttributesMock.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"
 #include "sbml/XMLUtil.hpp"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 void
 XMLUtilTest_setup (void)
 {
+#ifndef USE_EXPAT
   try
   {
     XMLPlatformUtils::Initialize();
@@ -76,13 +85,16 @@ XMLUtilTest_setup (void)
   {
     fail("XMLPlatformUtils::Initialize() threw an Exception.");
   }
+#endif  // !USE_EXPAT
 }
 
 
 void
 XMLUtilTest_teardown (void)
 {
+#ifndef USE_EXPAT
   XMLPlatformUtils::Terminate();
+#endif  // !USE_EXPAT
 }
 
 
@@ -665,6 +677,4 @@ create_suite_XMLUtil (void)
 }
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS

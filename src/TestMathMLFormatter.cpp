@@ -47,10 +47,21 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
+#include <iostream>
+#include <check.h>
+
 #include "sbml/common.h"
+
+
+#ifdef USE_EXPAT
+#  include "ExpatFormatter.hpp"
+#endif  // USE_EXPAT
+
+
 #include "sbml/FormulaParser.h"
 #include "sbml/MathMLFormatter.hpp"
 
@@ -76,6 +87,7 @@ static MathMLFormatter    *formatter;
 void
 TestMathMLFormatter_setup (void)
 {
+#ifndef USE_EXPAT
   try
   {
     XMLPlatformUtils::Initialize();
@@ -84,6 +96,7 @@ TestMathMLFormatter_setup (void)
   {
     fail("XMLPlatformUtils::Initialize() threw an Exception.");
   }
+#endif  // !USE_EXPAT
 
   target    = new MemBufFormatTarget();
   formatter = new MathMLFormatter("UTF-8", target, true);

@@ -47,10 +47,19 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
+#include <iostream>
+#include <check.h>
+
 #include "sbml/common.h"
+
+#ifdef USE_EXPAT
+#  include "ExpatXMLString.hpp"
+#endif  // USE_EXPAT
+
 #include "sbml/SAX2AttributesMock.hpp"
 
 
