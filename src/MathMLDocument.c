@@ -56,6 +56,7 @@
 /**
  * Creates a new MathMLDocument and returns a pointer to it.
  */
+LIBSBML_EXTERN
 MathMLDocument_t *
 MathMLDocument_create (void)
 {
@@ -86,6 +87,7 @@ MathMLDocument_free (MathMLDocument_t *d)
  * @return the an abstract syntax tree (AST) representation of the math in
  * this MathMLDocument.
  */
+LIBSBML_EXTERN
 ASTNode_t *
 MathMLDocument_getMath (const MathMLDocument_t *d)
 {
