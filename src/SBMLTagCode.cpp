@@ -1,6 +1,6 @@
 /**
- * Filename    : SBMLHashCodes.cpp
- * Description : SBML Element HashCodes
+ * Filename    : SBMLTagCode.cpp
+ * Description : Maps SBML elements to numbers for comparing and storing
  * Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
  * Organization: Caltech ERATO Kitano Systems Biology Project
  * Created     : 2002-11-26
@@ -57,7 +57,7 @@
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
-#include "sbml/SBMLHashCodes.hpp"
+#include "sbml/SBMLTagCode.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"
 
 
@@ -96,15 +96,15 @@ static const XMLCh* SBML_ELEMENTS[] =
 
 
 /**
- * Returns the HashCode for the given SBML element.
+ * Returns the tag code for the given SBML element.
  */
-HashCode_t
-HashCode_forElement(const XMLCh* name)
+SBMLTagCode_t
+SBMLTagCode_forElement (const XMLCh* name)
 {
-  HashCode_t hc  = HASH_UNKNOWN;
-  HashCode_t lo  = HASH_ALGEBRAIC_RULE;
-  HashCode_t hi  = HASH_UNIT_DEFINITION;
-  HashCode_t mid;
+  SBMLTagCode_t hc  = TAG_UNKNOWN;
+  SBMLTagCode_t lo  = TAG_ALGEBRAIC_RULE;
+  SBMLTagCode_t hi  = TAG_UNIT_DEFINITION;
+  SBMLTagCode_t mid;
 
   int cond;
 
