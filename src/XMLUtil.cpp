@@ -372,7 +372,6 @@ XMLUtil::scanAttr ( const Attributes&  attrs,
 {
   char* s        = XMLString::transcode( attrs.getValue(index) );
   bool  assigned = false;
-  int   size;
 
 
   if (s != NULL)
