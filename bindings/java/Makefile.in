@@ -263,7 +263,7 @@ installcheck:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal
+dist: libsbml_wrap.cpp java-files dist-normal
 
 distcheck: distcheck-normal
 
