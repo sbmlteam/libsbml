@@ -51,7 +51,7 @@
 
 
 lib_LTLIBRARIES    = libsbml.la
-libsbml_la_LDFLAGS = -no-undefined -version-info 3:0:2
+libsbml_la_LDFLAGS = -no-undefined -version-info 2:2:1
 
 nobase_include_HEADERS =          \
   sbml/AlgebraicRule.h            \
@@ -131,6 +131,9 @@ libsbml_la_SOURCES =              \
   memory.c                        \
   util.c
 
+
+if LIBCHECK_ENABLED
+
 TestRunner_SOURCES =             \
   test-data                      \
   sbml/SAX2AttributesMock.hpp    \
@@ -186,6 +189,8 @@ check-TESTS: $(TESTS)
 	@echo
 	@echo Running Tests
 	@echo -------------
-	@ srcdir=$(srcdir); export srcdir; ./TestRunner
+	@ srcdir=@TestDataDirectory@; export srcdir; ./TestRunner
 	@echo
 	@echo
+
+endif  ## LIBCHECK_ENABLED

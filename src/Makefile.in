@@ -73,6 +73,8 @@ INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
+LIBCHECK_ENABLED_FALSE = @LIBCHECK_ENABLED_FALSE@
+LIBCHECK_ENABLED_TRUE = @LIBCHECK_ENABLED_TRUE@
 LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
@@ -92,6 +94,7 @@ RANLIB = @RANLIB@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
+TestDataDirectory = @TestDataDirectory@
 VERSION = @VERSION@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_AS = @ac_ct_AS@
@@ -137,7 +140,7 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 
 lib_LTLIBRARIES = libsbml.la
-libsbml_la_LDFLAGS = -no-undefined -version-info 3:0:2
+libsbml_la_LDFLAGS = -no-undefined -version-info 2:2:1
 
 nobase_include_HEADERS = \
   sbml/AlgebraicRule.h            \
@@ -219,56 +222,56 @@ libsbml_la_SOURCES = \
   util.c
 
 
-TestRunner_SOURCES = \
-  test-data                      \
-  sbml/SAX2AttributesMock.hpp    \
-  SAX2AttributesMock.cpp         \
-  TestSAX2AttributesMock.cpp     \
-  TestSBMLFormatter.cpp          \
-  TestSBMLHandler.cpp            \
-  TestXMLStringFormatter.cpp     \
-  TestXMLUtil.cpp                \
-  TestAlgebraicRule.c            \
-  TestAssignmentRule.c           \
-  TestASTNode.c                  \
-  TestCompartment.c              \
-  TestCompartmentVolumeRule.c    \
-  TestFormulaParser.c            \
-  TestFormulaTokenizer.c         \
-  TestKineticLaw.c               \
-  TestList.c                     \
-  TestMemory.c                   \
-  TestModel.c                    \
-  TestParameter.c                \
-  TestParameterRule.c            \
-  TestParseMessage.c             \
-  TestReaction.c                 \
-  TestRule.c                     \
-  TestRuleType.c                 \
-  TestSBase.c                    \
-  TestSBMLDocument.c             \
-  TestSBMLReader.c               \
-  TestSBMLWriter.c               \
-  TestSpecies.c                  \
-  TestSpeciesConcentrationRule.c \
-  TestSpeciesReference.c         \
-  TestStack.c                    \
-  TestReadFromFile1.c            \
-  TestReadFromFile2.c            \
-  TestReadFromFile3.c            \
-  TestReadFromFile4.c            \
-  TestRunner.c                   \
-  TestUnitDefinition.c           \
-  TestUnitKind.c                 \
-  TestUnit.c                     \
-  TestUtil.c
+@LIBCHECK_ENABLED_TRUE@TestRunner_SOURCES = \
+@LIBCHECK_ENABLED_TRUE@  test-data                      \
+@LIBCHECK_ENABLED_TRUE@  sbml/SAX2AttributesMock.hpp    \
+@LIBCHECK_ENABLED_TRUE@  SAX2AttributesMock.cpp         \
+@LIBCHECK_ENABLED_TRUE@  TestSAX2AttributesMock.cpp     \
+@LIBCHECK_ENABLED_TRUE@  TestSBMLFormatter.cpp          \
+@LIBCHECK_ENABLED_TRUE@  TestSBMLHandler.cpp            \
+@LIBCHECK_ENABLED_TRUE@  TestXMLStringFormatter.cpp     \
+@LIBCHECK_ENABLED_TRUE@  TestXMLUtil.cpp                \
+@LIBCHECK_ENABLED_TRUE@  TestAlgebraicRule.c            \
+@LIBCHECK_ENABLED_TRUE@  TestAssignmentRule.c           \
+@LIBCHECK_ENABLED_TRUE@  TestASTNode.c                  \
+@LIBCHECK_ENABLED_TRUE@  TestCompartment.c              \
+@LIBCHECK_ENABLED_TRUE@  TestCompartmentVolumeRule.c    \
+@LIBCHECK_ENABLED_TRUE@  TestFormulaParser.c            \
+@LIBCHECK_ENABLED_TRUE@  TestFormulaTokenizer.c         \
+@LIBCHECK_ENABLED_TRUE@  TestKineticLaw.c               \
+@LIBCHECK_ENABLED_TRUE@  TestList.c                     \
+@LIBCHECK_ENABLED_TRUE@  TestMemory.c                   \
+@LIBCHECK_ENABLED_TRUE@  TestModel.c                    \
+@LIBCHECK_ENABLED_TRUE@  TestParameter.c                \
+@LIBCHECK_ENABLED_TRUE@  TestParameterRule.c            \
+@LIBCHECK_ENABLED_TRUE@  TestParseMessage.c             \
+@LIBCHECK_ENABLED_TRUE@  TestReaction.c                 \
+@LIBCHECK_ENABLED_TRUE@  TestRule.c                     \
+@LIBCHECK_ENABLED_TRUE@  TestRuleType.c                 \
+@LIBCHECK_ENABLED_TRUE@  TestSBase.c                    \
+@LIBCHECK_ENABLED_TRUE@  TestSBMLDocument.c             \
+@LIBCHECK_ENABLED_TRUE@  TestSBMLReader.c               \
+@LIBCHECK_ENABLED_TRUE@  TestSBMLWriter.c               \
+@LIBCHECK_ENABLED_TRUE@  TestSpecies.c                  \
+@LIBCHECK_ENABLED_TRUE@  TestSpeciesConcentrationRule.c \
+@LIBCHECK_ENABLED_TRUE@  TestSpeciesReference.c         \
+@LIBCHECK_ENABLED_TRUE@  TestStack.c                    \
+@LIBCHECK_ENABLED_TRUE@  TestReadFromFile1.c            \
+@LIBCHECK_ENABLED_TRUE@  TestReadFromFile2.c            \
+@LIBCHECK_ENABLED_TRUE@  TestReadFromFile3.c            \
+@LIBCHECK_ENABLED_TRUE@  TestReadFromFile4.c            \
+@LIBCHECK_ENABLED_TRUE@  TestRunner.c                   \
+@LIBCHECK_ENABLED_TRUE@  TestUnitDefinition.c           \
+@LIBCHECK_ENABLED_TRUE@  TestUnitKind.c                 \
+@LIBCHECK_ENABLED_TRUE@  TestUnit.c                     \
+@LIBCHECK_ENABLED_TRUE@  TestUtil.c
 
 
-TestRunner_LDADD = libsbml.la
+@LIBCHECK_ENABLED_TRUE@TestRunner_LDADD = libsbml.la
 
-TESTS = TestRunner
-check_PROGRAMS = TestRunner
-check_DATA = test-data
+@LIBCHECK_ENABLED_TRUE@TESTS = TestRunner
+@LIBCHECK_ENABLED_TRUE@check_PROGRAMS = TestRunner
+@LIBCHECK_ENABLED_TRUE@check_DATA = test-data
 subdir = src
 mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/src/sbml/config.h
@@ -286,29 +289,65 @@ am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLReader.lo \
 	SpeciesReference.lo Stack.lo Unit.lo UnitDefinition.lo \
 	UnitKind.lo memory.lo util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
-check_PROGRAMS = TestRunner$(EXEEXT)
-am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
-	TestSAX2AttributesMock.$(OBJEXT) TestSBMLFormatter.$(OBJEXT) \
-	TestSBMLHandler.$(OBJEXT) TestXMLStringFormatter.$(OBJEXT) \
-	TestXMLUtil.$(OBJEXT) TestAlgebraicRule.$(OBJEXT) \
-	TestAssignmentRule.$(OBJEXT) TestASTNode.$(OBJEXT) \
-	TestCompartment.$(OBJEXT) TestCompartmentVolumeRule.$(OBJEXT) \
-	TestFormulaParser.$(OBJEXT) TestFormulaTokenizer.$(OBJEXT) \
-	TestKineticLaw.$(OBJEXT) TestList.$(OBJEXT) \
-	TestMemory.$(OBJEXT) TestModel.$(OBJEXT) \
-	TestParameter.$(OBJEXT) TestParameterRule.$(OBJEXT) \
-	TestParseMessage.$(OBJEXT) TestReaction.$(OBJEXT) \
-	TestRule.$(OBJEXT) TestRuleType.$(OBJEXT) TestSBase.$(OBJEXT) \
-	TestSBMLDocument.$(OBJEXT) TestSBMLReader.$(OBJEXT) \
-	TestSBMLWriter.$(OBJEXT) TestSpecies.$(OBJEXT) \
-	TestSpeciesConcentrationRule.$(OBJEXT) \
-	TestSpeciesReference.$(OBJEXT) TestStack.$(OBJEXT) \
-	TestReadFromFile1.$(OBJEXT) TestReadFromFile2.$(OBJEXT) \
-	TestReadFromFile3.$(OBJEXT) TestReadFromFile4.$(OBJEXT) \
-	TestRunner.$(OBJEXT) TestUnitDefinition.$(OBJEXT) \
-	TestUnitKind.$(OBJEXT) TestUnit.$(OBJEXT) TestUtil.$(OBJEXT)
+@LIBCHECK_ENABLED_TRUE@check_PROGRAMS = TestRunner$(EXEEXT)
+@LIBCHECK_ENABLED_FALSE@check_PROGRAMS =
+am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
+	SAX2AttributesMock.cpp TestSAX2AttributesMock.cpp \
+	TestSBMLFormatter.cpp TestSBMLHandler.cpp \
+	TestXMLStringFormatter.cpp TestXMLUtil.cpp TestAlgebraicRule.c \
+	TestAssignmentRule.c TestASTNode.c TestCompartment.c \
+	TestCompartmentVolumeRule.c TestFormulaParser.c \
+	TestFormulaTokenizer.c TestKineticLaw.c TestList.c TestMemory.c \
+	TestModel.c TestParameter.c TestParameterRule.c \
+	TestParseMessage.c TestReaction.c TestRule.c TestRuleType.c \
+	TestSBase.c TestSBMLDocument.c TestSBMLReader.c \
+	TestSBMLWriter.c TestSpecies.c TestSpeciesConcentrationRule.c \
+	TestSpeciesReference.c TestStack.c TestReadFromFile1.c \
+	TestReadFromFile2.c TestReadFromFile3.c TestReadFromFile4.c \
+	TestRunner.c TestUnitDefinition.c TestUnitKind.c TestUnit.c \
+	TestUtil.c
+@LIBCHECK_ENABLED_TRUE@am_TestRunner_OBJECTS = \
+@LIBCHECK_ENABLED_TRUE@	SAX2AttributesMock.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSAX2AttributesMock.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSBMLFormatter.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSBMLHandler.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestXMLStringFormatter.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestXMLUtil.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestAlgebraicRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestAssignmentRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestASTNode.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestCompartment.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestCompartmentVolumeRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestFormulaParser.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestFormulaTokenizer.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestKineticLaw.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestList.$(OBJEXT) TestMemory.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestModel.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestParameter.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestParameterRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestParseMessage.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestReaction.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestRuleType.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSBase.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSBMLDocument.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSBMLReader.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSBMLWriter.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSpecies.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSpeciesConcentrationRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSpeciesReference.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestStack.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestReadFromFile1.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestReadFromFile2.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestReadFromFile3.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestReadFromFile4.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestRunner.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestUnitDefinition.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestUnitKind.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestUnit.$(OBJEXT) TestUtil.$(OBJEXT)
 TestRunner_OBJECTS = $(am_TestRunner_OBJECTS)
-TestRunner_DEPENDENCIES = libsbml.la
+@LIBCHECK_ENABLED_TRUE@TestRunner_DEPENDENCIES = libsbml.la
+@LIBCHECK_ENABLED_FALSE@TestRunner_DEPENDENCIES =
 TestRunner_LDFLAGS =
 
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/src/sbml
@@ -391,7 +430,7 @@ LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) \
 CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-DIST_SOURCES = $(libsbml_la_SOURCES) $(TestRunner_SOURCES)
+DIST_SOURCES = $(libsbml_la_SOURCES) $(am__TestRunner_SOURCES_DIST)
 HEADERS = $(nobase_include_HEADERS)
 
 DIST_COMMON = $(nobase_include_HEADERS) Makefile.am Makefile.in
@@ -678,6 +717,79 @@ GTAGS:
 
 distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
+
+@LIBCHECK_ENABLED_FALSE@check-TESTS: $(TESTS)
+@LIBCHECK_ENABLED_FALSE@	@failed=0; all=0; xfail=0; xpass=0; skip=0; \
+@LIBCHECK_ENABLED_FALSE@	srcdir=$(srcdir); export srcdir; \
+@LIBCHECK_ENABLED_FALSE@	list='$(TESTS)'; \
+@LIBCHECK_ENABLED_FALSE@	if test -n "$$list"; then \
+@LIBCHECK_ENABLED_FALSE@	  for tst in $$list; do \
+@LIBCHECK_ENABLED_FALSE@	    if test -f ./$$tst; then dir=./; \
+@LIBCHECK_ENABLED_FALSE@	    elif test -f $$tst; then dir=; \
+@LIBCHECK_ENABLED_FALSE@	    else dir="$(srcdir)/"; fi; \
+@LIBCHECK_ENABLED_FALSE@	    if $(TESTS_ENVIRONMENT) $${dir}$$tst; then \
+@LIBCHECK_ENABLED_FALSE@	      all=`expr $$all + 1`; \
+@LIBCHECK_ENABLED_FALSE@	      case " $(XFAIL_TESTS) " in \
+@LIBCHECK_ENABLED_FALSE@	      *" $$tst "*) \
+@LIBCHECK_ENABLED_FALSE@	        xpass=`expr $$xpass + 1`; \
+@LIBCHECK_ENABLED_FALSE@	        failed=`expr $$failed + 1`; \
+@LIBCHECK_ENABLED_FALSE@	        echo "XPASS: $$tst"; \
+@LIBCHECK_ENABLED_FALSE@	      ;; \
+@LIBCHECK_ENABLED_FALSE@	      *) \
+@LIBCHECK_ENABLED_FALSE@	        echo "PASS: $$tst"; \
+@LIBCHECK_ENABLED_FALSE@	      ;; \
+@LIBCHECK_ENABLED_FALSE@	      esac; \
+@LIBCHECK_ENABLED_FALSE@	    elif test $$? -ne 77; then \
+@LIBCHECK_ENABLED_FALSE@	      all=`expr $$all + 1`; \
+@LIBCHECK_ENABLED_FALSE@	      case " $(XFAIL_TESTS) " in \
+@LIBCHECK_ENABLED_FALSE@	      *" $$tst "*) \
+@LIBCHECK_ENABLED_FALSE@	        xfail=`expr $$xfail + 1`; \
+@LIBCHECK_ENABLED_FALSE@	        echo "XFAIL: $$tst"; \
+@LIBCHECK_ENABLED_FALSE@	      ;; \
+@LIBCHECK_ENABLED_FALSE@	      *) \
+@LIBCHECK_ENABLED_FALSE@	        failed=`expr $$failed + 1`; \
+@LIBCHECK_ENABLED_FALSE@	        echo "FAIL: $$tst"; \
+@LIBCHECK_ENABLED_FALSE@	      ;; \
+@LIBCHECK_ENABLED_FALSE@	      esac; \
+@LIBCHECK_ENABLED_FALSE@	    else \
+@LIBCHECK_ENABLED_FALSE@	      skip=`expr $$skip + 1`; \
+@LIBCHECK_ENABLED_FALSE@	      echo "SKIP: $$tst"; \
+@LIBCHECK_ENABLED_FALSE@	    fi; \
+@LIBCHECK_ENABLED_FALSE@	  done; \
+@LIBCHECK_ENABLED_FALSE@	  if test "$$failed" -eq 0; then \
+@LIBCHECK_ENABLED_FALSE@	    if test "$$xfail" -eq 0; then \
+@LIBCHECK_ENABLED_FALSE@	      banner="All $$all tests passed"; \
+@LIBCHECK_ENABLED_FALSE@	    else \
+@LIBCHECK_ENABLED_FALSE@	      banner="All $$all tests behaved as expected ($$xfail expected failures)"; \
+@LIBCHECK_ENABLED_FALSE@	    fi; \
+@LIBCHECK_ENABLED_FALSE@	  else \
+@LIBCHECK_ENABLED_FALSE@	    if test "$$xpass" -eq 0; then \
+@LIBCHECK_ENABLED_FALSE@	      banner="$$failed of $$all tests failed"; \
+@LIBCHECK_ENABLED_FALSE@	    else \
+@LIBCHECK_ENABLED_FALSE@	      banner="$$failed of $$all tests did not behave as expected ($$xpass unexpected passes)"; \
+@LIBCHECK_ENABLED_FALSE@	    fi; \
+@LIBCHECK_ENABLED_FALSE@	  fi; \
+@LIBCHECK_ENABLED_FALSE@	  dashes="$$banner"; \
+@LIBCHECK_ENABLED_FALSE@	  skipped=""; \
+@LIBCHECK_ENABLED_FALSE@	  if test "$$skip" -ne 0; then \
+@LIBCHECK_ENABLED_FALSE@	    skipped="($$skip tests were not run)"; \
+@LIBCHECK_ENABLED_FALSE@	    test `echo "$$skipped" | wc -c` -gt `echo "$$banner" | wc -c` && \
+@LIBCHECK_ENABLED_FALSE@	      dashes="$$skipped"; \
+@LIBCHECK_ENABLED_FALSE@	  fi; \
+@LIBCHECK_ENABLED_FALSE@	  report=""; \
+@LIBCHECK_ENABLED_FALSE@	  if test "$$failed" -ne 0 && test -n "$(PACKAGE_BUGREPORT)"; then \
+@LIBCHECK_ENABLED_FALSE@	    report="Please report to $(PACKAGE_BUGREPORT)"; \
+@LIBCHECK_ENABLED_FALSE@	    test `echo "$$report" | wc -c` -gt `echo "$$banner" | wc -c` && \
+@LIBCHECK_ENABLED_FALSE@	      dashes="$$report"; \
+@LIBCHECK_ENABLED_FALSE@	  fi; \
+@LIBCHECK_ENABLED_FALSE@	  dashes=`echo "$$dashes" | sed s/./=/g`; \
+@LIBCHECK_ENABLED_FALSE@	  echo "$$dashes"; \
+@LIBCHECK_ENABLED_FALSE@	  echo "$$banner"; \
+@LIBCHECK_ENABLED_FALSE@	  test -n "$$skipped" && echo "$$skipped"; \
+@LIBCHECK_ENABLED_FALSE@	  test -n "$$report" && echo "$$report"; \
+@LIBCHECK_ENABLED_FALSE@	  echo "$$dashes"; \
+@LIBCHECK_ENABLED_FALSE@	  test "$$failed" -eq 0; \
+@LIBCHECK_ENABLED_FALSE@	else :; fi
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 
 top_distdir = ..
@@ -808,14 +920,14 @@ uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES \
 	uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS
 
 
-check-TESTS: $(TESTS)
-	@echo
-	@echo
-	@echo Running Tests
-	@echo -------------
-	@ srcdir=$(srcdir); export srcdir; ./TestRunner
-	@echo
-	@echo
+@LIBCHECK_ENABLED_TRUE@check-TESTS: $(TESTS)
+@LIBCHECK_ENABLED_TRUE@	@echo
+@LIBCHECK_ENABLED_TRUE@	@echo
+@LIBCHECK_ENABLED_TRUE@	@echo Running Tests
+@LIBCHECK_ENABLED_TRUE@	@echo -------------
+@LIBCHECK_ENABLED_TRUE@	@ srcdir=@TestDataDirectory@; export srcdir; ./TestRunner
+@LIBCHECK_ENABLED_TRUE@	@echo
+@LIBCHECK_ENABLED_TRUE@	@echo
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
