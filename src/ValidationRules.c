@@ -604,6 +604,45 @@ anyRuleVariableIs(const Model_t *m, const char *variableName)
 }
 
 
+/* TODO: somehow make this a member of Rule_t? */
+static
+const char *
+getVariableName(SBase_t *obj)
+{
+  switch (obj->typecode)
+  {
+  case SBML_ASSIGNMENT_RULE:
+    {
+      AssignmentRule_t *ar = (AssignmentRule_t *) obj;
+
+      if (!AssignmentRule_isSetVariable(ar))
+      {
+        return NULL;
+      }
+
+      return AssignmentRule_getVariable(ar);
+    }
+    break;
+
+  case SBML_RATE_RULE:
+    {
+      RateRule_t *rr = (RateRule_t *) obj;
+
+      if (!RateRule_isSetVariable(rr))
+      {
+        return NULL;
+      }
+
+      return RateRule_getVariable(rr);
+    }
+    break;
+    
+  default:
+    return NULL;
+  }
+}
+
+
 /* TODO: what class does this function belong under? */
 static
 BOOLEAN
@@ -1685,40 +1724,8 @@ RULE (rule_nonconstantVariable)
     "or parameter with 'constant'=false.";
   BOOLEAN passed = TRUE;
 
-  const char *variableName;
+  const char *variableName = getVariableName(obj);
 
-
-  switch (obj->typecode)
-  {
-  case SBML_ASSIGNMENT_RULE:
-    {
-      AssignmentRule_t *ar = (AssignmentRule_t *) obj;
-
-      if (!AssignmentRule_isSetVariable(ar))
-      {
-        goto bad;
-      }
-
-      variableName = AssignmentRule_getVariable(ar);
-    }
-    break;
-
-  case SBML_RATE_RULE:
-    {
-      RateRule_t *rr = (RateRule_t *) obj;
-
-      if (!RateRule_isSetVariable(rr))
-      {
-        goto bad;
-      }
-
-      variableName = RateRule_getVariable(rr);
-    }
-    break;
-    
-  default:
-    goto done;
-  }
 
   if (variableName)
   {
@@ -1726,18 +1733,12 @@ RULE (rule_nonconstantVariable)
 
     if (!s || Species_getConstant(s))
     {
-      goto bad;
+      LOG_MESSAGE(msg);
+      passed = FALSE;
     }
   }
 
-
-done:
   return passed;
-
-bad:
-  LOG_MESSAGE(msg);
-  passed = FALSE;
-  goto done;
 }
 
 
