@@ -138,6 +138,10 @@ START_TEST (test_CompartmentVolumeRule_setCompartment)
           " did not make a copy of string." );
   }
 
+  /* Reflexive case (pathological) */
+  CompartmentVolumeRule_setCompartment(CVR, CVR->compartment);
+  fail_unless( !strcmp(CVR->compartment, compartment), NULL );
+
   CompartmentVolumeRule_setCompartment(CVR, NULL);
   fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 

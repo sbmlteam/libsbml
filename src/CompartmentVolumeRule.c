@@ -148,6 +148,9 @@ void
 CompartmentVolumeRule_setCompartment ( CompartmentVolumeRule_t *cvr,
                                        const char *sname )
 {
+  if (cvr->compartment == sname) return;
+
+
   if (cvr->compartment != NULL)
   {
     safe_free(cvr->compartment);
