@@ -87,7 +87,7 @@ AssignmentRule::AssignmentRule (   const std::string&  variable
  */
 LIBSBML_EXTERN
 AssignmentRule::AssignmentRule (   const std::string&  variable
-                                 , ASTNode_t*          math
+                                 , ASTNode*            math
                                  , RuleType_t          type     ) :
     Rule    ( math     )
   , variable( variable )
@@ -210,7 +210,8 @@ LIBSBML_EXTERN
 AssignmentRule_t *
 AssignmentRule_createWith (const char *variable, ASTNode_t *math)
 {
-  return new(std::nothrow) AssignmentRule(variable ? variable : "", math);
+  ASTNode* x = static_cast<ASTNode*>(math);
+  return new(std::nothrow) AssignmentRule(variable ? variable : "", x);
 }
 
 

@@ -61,7 +61,7 @@
 #include "SBase.hpp"
 #include "ListOf.hpp"
 #include "Parameter.hpp"
-#include "ASTNode.h"
+#include "ASTNode.hpp"
 
 
 class KineticLaw : public SBase
@@ -94,7 +94,7 @@ public:
    * @return the math of this KineticLaw.
    */
   LIBSBML_EXTERN
-  const ASTNode_t * getMath () const;
+  const ASTNode* getMath () const;
 
   /**
    * @return the list of Parameters for this KineticLaw.
@@ -170,7 +170,7 @@ public:
    * this KineticLaw will delete the ASTNode (and any child nodes).
    */
   LIBSBML_EXTERN
-  void setMath (ASTNode_t *math);
+  void setMath (ASTNode* math);
 
   /**
    * Sets the math of this KineticLaw from its current formula string.
@@ -229,7 +229,7 @@ public:
 protected:
 
   std::string formula;
-  ASTNode_t*  math;
+  ASTNode*    math;
   ListOf      parameter;
   std::string timeUnits;
   std::string substanceUnits;

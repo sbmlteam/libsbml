@@ -68,7 +68,7 @@ AlgebraicRule::AlgebraicRule (const std::string& formula) : Rule(formula)
  * Creates a new AlgebraicRule with its math attribute set.
  */
 LIBSBML_EXTERN
-AlgebraicRule::AlgebraicRule (ASTNode_t* math) : Rule((ASTNode_t*) math)
+AlgebraicRule::AlgebraicRule (ASTNode* math) : Rule((ASTNode*) math)
 {
   init(SBML_ALGEBRAIC_RULE);
 }
@@ -124,9 +124,9 @@ AlgebraicRule_createWith (const char *formula)
  */
 LIBSBML_EXTERN
 AlgebraicRule_t *
-AlgebraicRule_createWithMath (ASTNode_t *math)
+AlgebraicRule_createWithMath (ASTNode_t* math)
 {
-  return new(std::nothrow) AlgebraicRule(math);
+  return new(std::nothrow) AlgebraicRule( static_cast<ASTNode*>(math) );
 }
 
 

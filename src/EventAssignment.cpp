@@ -71,7 +71,7 @@ EventAssignment::EventAssignment (   const std::string& variable
 
   if ( !formula.empty() )
   {
-    setMath( SBML_parseFormula( formula.c_str() ) );
+    setMath( (ASTNode*) SBML_parseFormula( formula.c_str() ) );
   }
 }
 
@@ -82,7 +82,7 @@ EventAssignment::EventAssignment (   const std::string& variable
  */
 LIBSBML_EXTERN
 EventAssignment::EventAssignment (   const std::string& variable
-                                   , ASTNode_t*         math     ) :
+                                   , ASTNode*           math     ) :
     SBase    ()
   , variable ( variable )
   , math     ( math     )
@@ -97,7 +97,7 @@ EventAssignment::EventAssignment (   const std::string& variable
 LIBSBML_EXTERN
 EventAssignment::~EventAssignment ()
 {
-  ASTNode_free(math);
+  delete math;
 }
 
 
@@ -116,7 +116,7 @@ EventAssignment::getVariable () const
  * @return the math of this EventAssignment.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const ASTNode*
 EventAssignment::getMath () const
 {
   return math;
@@ -167,16 +167,12 @@ EventAssignment::setVariable (const std::string& sid)
  */
 LIBSBML_EXTERN
 void
-EventAssignment::setMath (ASTNode_t *math)
+EventAssignment::setMath (ASTNode* math)
 {
   if (this->math == math) return;
 
 
-  if (this->math != NULL)
-  {
-    ASTNode_free(this->math);
-  }
-
+  delete this->math;
   this->math = math;
 }
 
@@ -207,7 +203,8 @@ LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_createWith (const char *variable, ASTNode_t* math)
 {
-  return new(std::nothrow) EventAssignment(variable ? variable : "", math);
+  ASTNode* x = static_cast<ASTNode*>(math);
+  return new(std::nothrow) EventAssignment(variable ? variable : "", x);
 }
 
 
@@ -243,7 +240,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 EventAssignment_getMath (const EventAssignment_t *ea)
 {
-  static_cast<const EventAssignment*>(ea)->getMath();
+  return static_cast<const EventAssignment*>(ea)->getMath();
 }
 
 
@@ -292,5 +289,5 @@ LIBSBML_EXTERN
 void
 EventAssignment_setMath (EventAssignment_t *ea, ASTNode_t *math)
 {
-  static_cast<EventAssignment*>(ea)->setMath(math);
+  static_cast<EventAssignment*>(ea)->setMath( static_cast<ASTNode*>(math) );
 }

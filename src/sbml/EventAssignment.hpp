@@ -58,7 +58,7 @@
 
 #include "extern.h"
 #include "SBase.hpp"
-#include "ASTNode.h"
+#include "ASTNode.hpp"
 
 
 class EventAssignment : public SBase
@@ -78,7 +78,7 @@ public:
    */
   LIBSBML_EXTERN
   EventAssignment (   const std::string& variable
-                    , ASTNode_t*         math     );
+                    , ASTNode*           math     );
 
   /**
    * Destroys this EventAssignment.
@@ -96,7 +96,7 @@ public:
    * @return the math of this EventAssignment.
    */
   LIBSBML_EXTERN
-  const ASTNode_t* getMath () const;
+  const ASTNode* getMath () const;
 
   /**
    * @return true if the variable of this EventAssignment has been set, false
@@ -126,13 +126,13 @@ public:
    * to EventAssignment_free() will free the ASTNode (and any child nodes).
    */
   LIBSBML_EXTERN
-  void setMath (ASTNode_t* math);
+  void setMath (ASTNode* math);
 
 
 protected:
 
   std::string variable;
-  ASTNode_t   *math;
+  ASTNode*    math;
 
 
   friend class SBMLFormatter;

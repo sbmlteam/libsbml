@@ -71,7 +71,7 @@ Rule::Rule (const std::string& formula) : formula(formula), math(NULL)
  * Creates a new Rule with its math attribute set.
  */
 LIBSBML_EXTERN
-Rule::Rule (ASTNode_t* math) : math(math)
+Rule::Rule (ASTNode* math) : math(math)
 {
 }
 
@@ -82,7 +82,7 @@ Rule::Rule (ASTNode_t* math) : math(math)
 LIBSBML_EXTERN
 Rule::~Rule ()
 {
-  ASTNode_free(math);
+  delete math;
 }
 
 
@@ -101,7 +101,7 @@ Rule::getFormula () const
  * @return the math for this Rule.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const ASTNode*
 Rule::getMath () const
 {
   return math;
@@ -175,12 +175,12 @@ Rule::setFormulaFromMath ()
  */
 LIBSBML_EXTERN
 void
-Rule::setMath (ASTNode_t *math)
+Rule::setMath (ASTNode* math)
 {
   if (this->math == math) return;
 
 
-  ASTNode_free(this->math);
+  delete this->math;
   this->math = math;
 }
 
@@ -200,8 +200,8 @@ Rule::setMathFromFormula ()
   if ( !isSetFormula() ) return;
 
 
-  ASTNode_free(math);
-  math = SBML_parseFormula( formula.c_str() );
+  delete math;
+  math = (ASTNode*) SBML_parseFormula( formula.c_str() );
 }
 
 
@@ -295,7 +295,7 @@ LIBSBML_EXTERN
 void
 Rule_setMath (Rule_t *r, ASTNode_t *math)
 {
-  static_cast<Rule*>(r)->setMath(math);
+  static_cast<Rule*>(r)->setMath( static_cast<ASTNode*>(math) );
 }
 
 

@@ -74,12 +74,12 @@ Event::Event (   const std::string&  id
 
   if ( !trigger_.empty() )
   {
-    setTrigger( SBML_parseFormula( trigger_.c_str() ) );
+    setTrigger( (ASTNode*) SBML_parseFormula( trigger_.c_str() ) );
   }
 
   if ( !delay_.empty() )
   {
-    setDelay( SBML_parseFormula( delay_.c_str() ) );
+    setDelay( (ASTNode*) SBML_parseFormula( delay_.c_str() ) );
   }
 }
 
@@ -90,8 +90,8 @@ Event::Event (   const std::string&  id
  */
 LIBSBML_EXTERN
 Event::Event (   const std::string&  id
-               , ASTNode_t*          trigger
-               , ASTNode_t*          delay   ) :
+               , ASTNode*            trigger
+               , ASTNode*            delay   ) :
     SBase   ()
   , id      ( id      )
   , trigger ( trigger )
@@ -107,8 +107,8 @@ Event::Event (   const std::string&  id
 LIBSBML_EXTERN
 Event::~Event ()
 {
-  ASTNode_free(trigger);
-  ASTNode_free(delay);
+  delete trigger;
+  delete delay;
 }
 
 
@@ -138,7 +138,7 @@ Event::getName () const
  * @return the trigger of this Event.
  */
 LIBSBML_EXTERN
-const ASTNode_t*
+const ASTNode*
 Event::getTrigger () const
 {
   return trigger;
@@ -149,7 +149,7 @@ Event::getTrigger () const
  * @return the delay of this Event.
  */
 LIBSBML_EXTERN
-const ASTNode_t*
+const ASTNode*
 Event::getDelay () const
 {
   return delay;
@@ -254,16 +254,13 @@ Event::setName (const std::string& string)
  */
 LIBSBML_EXTERN
 void
-Event::setTrigger (ASTNode_t *math)
+Event::setTrigger (ASTNode* math)
 {
   if (trigger == math) return;
 
 
-  if (trigger != NULL)
-  {
-    ASTNode_free(trigger);
-  }
 
+  delete trigger;
   trigger = math;
 }
 
@@ -277,16 +274,12 @@ Event::setTrigger (ASTNode_t *math)
  */
 LIBSBML_EXTERN
 void
-Event::setDelay (ASTNode_t *math)
+Event::setDelay (ASTNode* math)
 {
   if (delay == math) return;
 
 
-  if (delay != NULL)
-  {
-    ASTNode_free(delay);
-  }
-
+  delete delay;
   delay = math;
 }
 
@@ -332,7 +325,7 @@ LIBSBML_EXTERN
 void
 Event::unsetDelay ()
 {
-  ASTNode_free(delay);
+  delete delay;
   delay = NULL;
 }
 
@@ -416,7 +409,8 @@ LIBSBML_EXTERN
 Event_t *
 Event_createWith (const char *sid, ASTNode_t *trigger)
 {
-  return new(std::nothrow) Event(sid ? sid : "", trigger);
+  ASTNode* x = static_cast<ASTNode*>(trigger);
+  return new(std::nothrow) Event(sid ? sid : "", x);
 }
 
 
@@ -597,7 +591,7 @@ LIBSBML_EXTERN
 void
 Event_setTrigger (Event_t *e, ASTNode_t *math)
 {
-  static_cast<Event*>(e)->setTrigger(math);
+  static_cast<Event*>(e)->setTrigger( static_cast<ASTNode*>(math) );
 }
 
 
@@ -612,7 +606,7 @@ LIBSBML_EXTERN
 void
 Event_setDelay (Event_t *e, ASTNode_t *math)
 {
-  static_cast<Event*>(e)->setDelay(math);
+  static_cast<Event*>(e)->setDelay( static_cast<ASTNode*>(math) );
 }
 
 

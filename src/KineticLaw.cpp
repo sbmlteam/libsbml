@@ -82,7 +82,7 @@ KineticLaw::KineticLaw (   const std::string& formula
 LIBSBML_EXTERN
 KineticLaw::~KineticLaw ()
 {
-  ASTNode_free(math);
+  delete math;
 }
 
 
@@ -101,7 +101,7 @@ KineticLaw::getFormula () const
  * @return the math of this KineticLaw.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const ASTNode*
 KineticLaw::getMath () const
 {
   return math;
@@ -233,13 +233,13 @@ KineticLaw::setFormulaFromMath ()
  */
 LIBSBML_EXTERN
 void
-KineticLaw::setMath (ASTNode_t *math)
+KineticLaw::setMath (ASTNode* math)
 {
   if (this->math == math) return;
 
 
 
-  ASTNode_free(this->math);
+  delete this->math;
   this->math = math;
 }
 
@@ -259,8 +259,8 @@ KineticLaw::setMathFromFormula ()
   if ( !isSetFormula() ) return;
 
 
-  ASTNode_free(math);
-  math = SBML_parseFormula( formula.c_str() );
+  delete math;
+  math = (ASTNode*) SBML_parseFormula( formula.c_str() );
 }
 
 
@@ -539,7 +539,7 @@ LIBSBML_EXTERN
 void
 KineticLaw_setMath (KineticLaw_t *kl, ASTNode_t *math)
 {
-  static_cast<KineticLaw*>(kl)->setMath(math);
+  static_cast<KineticLaw*>(kl)->setMath( static_cast<ASTNode*>(math) );
 }
 
 
@@ -627,7 +627,7 @@ LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl)
 {
-  static_cast<const KineticLaw*>(kl)->getNumParameters();
+  return static_cast<const KineticLaw*>(kl)->getNumParameters();
 }
 
 

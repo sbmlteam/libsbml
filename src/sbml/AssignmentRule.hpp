@@ -86,7 +86,7 @@ public:
    */
   LIBSBML_EXTERN
   AssignmentRule (   const std::string&  variable
-                   , ASTNode_t*          math
+                   , ASTNode*            math
                    , RuleType_t          type = RULE_TYPE_SCALAR );
 
   /**

@@ -76,7 +76,7 @@ public:
    * Creates a new RateRule with its variable and math attributes set.
    */
   LIBSBML_EXTERN
-  RateRule (const std::string& variable, ASTNode_t* math);
+  RateRule (const std::string& variable, ASTNode* math);
 
   /**
    * Destroys this RateRule.

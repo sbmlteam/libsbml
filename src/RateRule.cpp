@@ -73,7 +73,7 @@ RateRule::RateRule (   const std::string&  variable
  */
 LIBSBML_EXTERN
 RateRule::RateRule (   const std::string&  variable
-                     , ASTNode_t*          math     ) :
+                     , ASTNode*            math     ) :
     Rule    ( math     )
   , variable( variable )
 {
@@ -149,7 +149,10 @@ LIBSBML_EXTERN
 RateRule_t *
 RateRule_createWith (const char *variable, ASTNode_t *math)
 {
-  return new(std::nothrow) RateRule( variable ? variable : "", math);
+  ASTNode* x = static_cast<ASTNode*>(math);
+
+
+  return new(std::nothrow) RateRule( variable ? variable : "", x);
 }
 
 

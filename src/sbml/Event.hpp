@@ -59,6 +59,7 @@
 #include "extern.h"
 
 #include "SBase.hpp"
+#include "ASTNode.hpp"
 #include "ListOf.hpp"
 #include "EventAssignment.hpp"
 
@@ -83,8 +84,8 @@ public:
    */
   LIBSBML_EXTERN
   Event (   const std::string&  id
-          , ASTNode_t*          trigger
-          , ASTNode_t*          delay   = NULL );
+          , ASTNode*            trigger
+          , ASTNode*            delay   = NULL );
 
   /**
    * Destroys this Event.
@@ -108,13 +109,13 @@ public:
    * @return the trigger of this Event.
    */
   LIBSBML_EXTERN
-  const ASTNode_t* getTrigger () const;
+  const ASTNode* getTrigger () const;
 
   /**
    * @return the delay of this Event.
    */
   LIBSBML_EXTERN
-  const ASTNode_t* getDelay () const;
+  const ASTNode* getDelay () const;
 
   /**
    * @return the timeUnits of this Event.
@@ -174,7 +175,7 @@ public:
    * will free the ASTNode (and any child nodes).
    */
   LIBSBML_EXTERN
-  void setTrigger (ASTNode_t *math);
+  void setTrigger (ASTNode* math);
 
   /**
    * Sets the delay of this Event to the given ASTNode.
@@ -184,7 +185,7 @@ public:
    * will free the ASTNode (and any child nodes).
    */
   LIBSBML_EXTERN
-  void setDelay (ASTNode_t *math);
+  void setDelay (ASTNode* math);
 
   /**
    * Sets the timeUnits of this Event to a copy of sid.
@@ -245,8 +246,8 @@ protected:
 
   std::string id;
   std::string name;
-  ASTNode_t*  trigger;
-  ASTNode_t*  delay;
+  ASTNode*    trigger;
+  ASTNode*    delay;
   std::string timeUnits;
   ListOf      eventAssignment;
 

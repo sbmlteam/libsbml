@@ -73,7 +73,7 @@ public:
    * Creates a new AlgebraicRule with its math attribute set.
    */
   LIBSBML_EXTERN
-  AlgebraicRule (ASTNode_t* math);
+  AlgebraicRule (ASTNode* math);
 
   /**
    * Destroys this AlgebraicRule.
