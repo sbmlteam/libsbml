@@ -51,8 +51,8 @@
  */
 
 
-#ifndef SBML_COMMON_HPP
-#define SBML_COMMON_HPP 1
+#ifndef LIBSBML_COMMON_HPP
+#define LIBSBML_COMMON_HPP 1
 
 
 #if HAVE_CONFIG_H || WIN32
@@ -68,6 +68,9 @@
 #  include <xercesc/util/XercesVersion.hpp>
 #  include <xercesc/util/XercesDefs.hpp>
 #endif  // USE_EXPAT
+
+
+#include <string>
 
 
 //
@@ -90,4 +93,4 @@ XERCES_CPP_NAMESPACE_USE
 #endif
 
 
-#endif  // SBML_COMMON_HPP
+#endif  // LIBSBML_COMMON_HPP
