@@ -83,12 +83,14 @@ main (int argc, char *argv[])
   printf( "\n" );
   printf( "This program translates infix formulas into MathML and\n" );
   printf( "vice-versa.  Enter or return on an empty line triggers\n" );
-  printf( "translation. Ctrl-C quits\n\n" );
-
+  printf( "translation. Ctrl-C quits\n" );
+  printf( "\n" );
 
   while (1)
   {
-    printf("Enter infix formula or MathML expression (Ctrl-C to quit):\n");
+    printf( "Enter infix formula or MathML expression (Ctrl-C to quit):\n" );
+    printf( "\n" );
+    printf( "> " );
 
     fgets(line, BUFFER_SIZE, stdin);
 
@@ -107,7 +109,7 @@ main (int argc, char *argv[])
         str    = StringBuffer_getBuffer(sb);
         result = (str[0] == '<') ? translateMathML(str) : translateInfix(str);
 
-        printf("%s\n\n", result);
+        printf("Result:\n\n%s\n\n\n", result);
 
         free(result);
         StringBuffer_reset(sb);
