@@ -99,19 +99,19 @@ START_TEST (test_element_math)
   
 
   D = readMathMLFromString(s);
-  fail_unless(D->math == NULL, NULL);
+  fail_unless(MathMLDocument_getMath(D) == NULL, NULL);
 }
 END_TEST
 
 
 START_TEST (test_element_cn_default)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<cn> 12345.7 </cn>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -124,12 +124,12 @@ END_TEST
 
 START_TEST (test_element_cn_real)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<cn type='real'> 12345.7 </cn>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -142,12 +142,12 @@ END_TEST
 
 START_TEST (test_element_cn_integer)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<cn type='integer'> 12345 </cn>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -160,12 +160,12 @@ END_TEST
 
 START_TEST (test_element_cn_rational)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<cn type='rational'> 12342 <sep/> 2342342 </cn>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -180,12 +180,12 @@ END_TEST
 
 START_TEST (test_element_cn_e_notation)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<cn type='e-notation'> 12.3 <sep/> 5 </cn>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -199,12 +199,12 @@ END_TEST
 
 START_TEST (test_element_ci)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<ci> x </ci>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -217,12 +217,12 @@ END_TEST
 
 START_TEST (test_element_ci_surrounding_spaces_bug)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("  <ci> s </ci>  ");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -235,7 +235,7 @@ END_TEST
 
 START_TEST (test_element_csymbol_time)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML
   (
     "<csymbol encoding='text' "
@@ -244,7 +244,7 @@ START_TEST (test_element_csymbol_time)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -257,7 +257,7 @@ END_TEST
 
 START_TEST (test_element_csymbol_delay)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML
   (
     "<csymbol encoding='text' "
@@ -266,7 +266,7 @@ START_TEST (test_element_csymbol_delay)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -279,12 +279,12 @@ END_TEST
 
 START_TEST (test_element_constants_true)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<true/>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -296,12 +296,12 @@ END_TEST
 
 START_TEST (test_element_constants_false)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<false/>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -313,12 +313,12 @@ END_TEST
 
 START_TEST (test_element_constants_notanumber)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<notanumber/>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -331,12 +331,12 @@ END_TEST
 
 START_TEST (test_element_constants_pi)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<pi/>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -348,12 +348,12 @@ END_TEST
 
 START_TEST (test_element_constants_infinity)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<infinity/>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -366,12 +366,12 @@ END_TEST
 
 START_TEST (test_element_constants_exponentiale)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   const char* s = wrapMathML("<exponentiale/>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -383,7 +383,7 @@ END_TEST
 
 START_TEST (test_element_operator_plus)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
 
   const char* s = wrapMathML
@@ -394,7 +394,7 @@ START_TEST (test_element_operator_plus)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -408,7 +408,7 @@ END_TEST
 
 START_TEST (test_element_operator_times)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
 
   const char* s = wrapMathML
@@ -419,7 +419,7 @@ START_TEST (test_element_operator_times)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -433,13 +433,13 @@ END_TEST
 
 START_TEST (test_element_abs)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><abs/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -453,7 +453,7 @@ END_TEST
 
 START_TEST (test_element_and)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -462,7 +462,7 @@ START_TEST (test_element_and)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -476,13 +476,13 @@ END_TEST
 
 START_TEST (test_element_arccos)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arccos/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -496,13 +496,13 @@ END_TEST
 
 START_TEST (test_element_arccosh)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arccosh/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -516,13 +516,13 @@ END_TEST
 
 START_TEST (test_element_arccot)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arccot/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -536,13 +536,13 @@ END_TEST
 
 START_TEST (test_element_arccoth)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arccoth/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -556,13 +556,13 @@ END_TEST
 
 START_TEST (test_element_arccsc)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arccsc/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -576,13 +576,13 @@ END_TEST
 
 START_TEST (test_element_arccsch)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arccsch/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -596,13 +596,13 @@ END_TEST
 
 START_TEST (test_element_arcsec)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arcsec/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -616,13 +616,13 @@ END_TEST
 
 START_TEST (test_element_arcsech)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arcsech/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -636,13 +636,13 @@ END_TEST
 
 START_TEST (test_element_arcsin)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arcsin/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -656,13 +656,13 @@ END_TEST
 
 START_TEST (test_element_arcsinh)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arcsinh/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -676,13 +676,13 @@ END_TEST
 
 START_TEST (test_element_arctan)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arctan/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -696,13 +696,13 @@ END_TEST
 
 START_TEST (test_element_arctanh)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><arctanh/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -716,13 +716,13 @@ END_TEST
 
 START_TEST (test_element_ceiling)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><ceiling/><cn> 1.6 </cn></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -736,13 +736,13 @@ END_TEST
 
 START_TEST (test_element_cos)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><cos/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -756,13 +756,13 @@ END_TEST
 
 START_TEST (test_element_cosh)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><cosh/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -776,13 +776,13 @@ END_TEST
 
 START_TEST (test_element_cot)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><cot/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -796,13 +796,13 @@ END_TEST
 
 START_TEST (test_element_coth)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><coth/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -816,13 +816,13 @@ END_TEST
 
 START_TEST (test_element_csc)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><csc/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -836,13 +836,13 @@ END_TEST
 
 START_TEST (test_element_csch)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><csch/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -856,7 +856,7 @@ END_TEST
 
 START_TEST (test_element_eq)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -865,7 +865,7 @@ START_TEST (test_element_eq)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -879,13 +879,13 @@ END_TEST
 
 START_TEST (test_element_exp)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><exp/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -899,13 +899,13 @@ END_TEST
 
 START_TEST (test_element_factorial)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><factorial/><cn> 5 </cn></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -919,13 +919,13 @@ END_TEST
 
 START_TEST (test_element_floor)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><floor/><cn> 1.2 </cn></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -939,13 +939,13 @@ END_TEST
 
 START_TEST (test_element_function_call_1)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply> <ci> foo </ci> <ci> x </ci> </apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -959,7 +959,7 @@ END_TEST
 
 START_TEST (test_element_function_call_2)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -970,7 +970,7 @@ START_TEST (test_element_function_call_2)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -984,7 +984,7 @@ END_TEST
 
 START_TEST (test_element_geq)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -993,7 +993,7 @@ START_TEST (test_element_geq)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1007,7 +1007,7 @@ END_TEST
 
 START_TEST (test_element_gt)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1018,7 +1018,7 @@ START_TEST (test_element_gt)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1032,7 +1032,7 @@ END_TEST
 
 START_TEST (test_element_lambda)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1046,7 +1046,7 @@ START_TEST (test_element_lambda)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1060,7 +1060,7 @@ END_TEST
 
 START_TEST (test_element_leq)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1069,7 +1069,7 @@ START_TEST (test_element_leq)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1083,13 +1083,13 @@ END_TEST
 
 START_TEST (test_element_ln)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><ln/><ci> a </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1103,7 +1103,7 @@ END_TEST
 
 START_TEST (test_element_log_1)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1114,7 +1114,7 @@ START_TEST (test_element_log_1)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1128,13 +1128,13 @@ END_TEST
 
 START_TEST (test_element_log_2)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply> <log/> <ci> x </ci> </apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1148,7 +1148,7 @@ END_TEST
 
 START_TEST (test_element_lt)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1159,7 +1159,7 @@ START_TEST (test_element_lt)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1173,7 +1173,7 @@ END_TEST
 
 START_TEST (test_element_neq)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1182,7 +1182,7 @@ START_TEST (test_element_neq)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1196,13 +1196,13 @@ END_TEST
 
 START_TEST (test_element_not)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply> <not/> <ci> TooShabby </ci> </apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1217,7 +1217,7 @@ END_TEST
 
 START_TEST (test_element_or)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1226,7 +1226,7 @@ START_TEST (test_element_or)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1241,7 +1241,7 @@ END_TEST
 
 START_TEST (test_element_piecewise)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1262,7 +1262,7 @@ START_TEST (test_element_piecewise)
   );
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1278,7 +1278,7 @@ END_TEST
 
 START_TEST (test_element_piecewise_otherwise)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1294,7 +1294,7 @@ START_TEST (test_element_piecewise_otherwise)
   );
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1309,13 +1309,13 @@ END_TEST
 
 START_TEST (test_element_power)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><power/> <ci>x</ci> <cn>3</cn> </apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1330,7 +1330,7 @@ END_TEST
 
 START_TEST (test_element_root_1)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1341,7 +1341,7 @@ START_TEST (test_element_root_1)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1355,13 +1355,13 @@ END_TEST
 
 START_TEST (test_element_root_2)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply> <root/> <ci> a </ci> </apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1375,13 +1375,13 @@ END_TEST
 
 START_TEST (test_element_sec)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><sec/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1395,13 +1395,13 @@ END_TEST
 
 START_TEST (test_element_sech)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><sech/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1415,13 +1415,13 @@ END_TEST
 
 START_TEST (test_element_sin)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><sin/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1435,13 +1435,13 @@ END_TEST
 
 START_TEST (test_element_sinh)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><sinh/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1455,13 +1455,13 @@ END_TEST
 
 START_TEST (test_element_tan)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><tan/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1475,13 +1475,13 @@ END_TEST
 
 START_TEST (test_element_tanh)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML("<apply><tanh/><ci> x </ci></apply>");
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1495,7 +1495,7 @@ END_TEST
 
 START_TEST (test_element_xor)
 {
-  ASTNode_t*  n;
+  const ASTNode_t* n;
   char*       f;
   const char* s = wrapMathML
   (
@@ -1504,7 +1504,7 @@ START_TEST (test_element_xor)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
 
@@ -1519,8 +1519,8 @@ END_TEST
 
 START_TEST (test_element_bug_apply_ci_1)
 {
-  ASTNode_t* n;
-  ASTNode_t* c;
+  const ASTNode_t* n;
+  const ASTNode_t* c;
 
   const char* s = wrapMathML
   (
@@ -1532,7 +1532,7 @@ START_TEST (test_element_bug_apply_ci_1)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
   fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
@@ -1551,8 +1551,8 @@ END_TEST
 
 START_TEST (test_element_bug_apply_ci_2)
 {
-  ASTNode_t* n;
-  ASTNode_t* c;
+  const ASTNode_t* n;
+  const ASTNode_t* c;
 
   const char* s = wrapMathML
   (
@@ -1565,7 +1565,7 @@ START_TEST (test_element_bug_apply_ci_2)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
   fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
@@ -1590,8 +1590,8 @@ END_TEST
  */
 START_TEST (test_element_bug_csymbol_1)
 {
-  ASTNode_t* n;
-  ASTNode_t* c;
+  const ASTNode_t* n;
+  const ASTNode_t* c;
 
   const char* s = wrapMathML
   (
@@ -1605,7 +1605,7 @@ START_TEST (test_element_bug_csymbol_1)
 
 
   D = readMathMLFromString(s);
-  n = D->math;
+  n = MathMLDocument_getMath(D);
 
   fail_unless( n != NULL, NULL );
   fail_unless( ASTNode_getType(n)        == AST_RELATIONAL_GT, NULL );

@@ -65,10 +65,14 @@ START_TEST (test_SBMLReader_create)
   SBMLReader_t *sr = SBMLReader_create();
 
 
-  fail_unless(sr->schemaValidationLevel == XML_SCHEMA_VALIDATION_NONE, NULL);
-  fail_unless(sr->schemaFilenameL1v1    == NULL, NULL);
-  fail_unless(sr->schemaFilenameL1v2    == NULL, NULL);
-  fail_unless(sr->schemaFilenameL2v1    == NULL, NULL);
+  fail_unless(
+    SBMLReader_getSchemaValidationLevel(sr) == XML_SCHEMA_VALIDATION_NONE,
+    NULL
+  );
+
+  fail_unless(SBMLReader_getSchemaFilenameL1v1(sr)    == NULL, NULL);
+  fail_unless(SBMLReader_getSchemaFilenameL1v2(sr)    == NULL, NULL);
+  fail_unless(SBMLReader_getSchemaFilenameL2v1(sr)    == NULL, NULL);
 
   SBMLReader_free(sr);
 }
@@ -90,16 +94,16 @@ START_TEST (test_SBMLReader_setSchemaFilename)
 
   SBMLReader_setSchemaFilenameL1v1(sr, filename);
 
-  fail_unless( !strcmp(sr->schemaFilenameL1v1, filename), NULL );
+  fail_unless( !strcmp(SBMLReader_getSchemaFilenameL1v1(sr), filename), NULL );
 
-  if (sr->schemaFilenameL1v1 == filename)
+  if (SBMLReader_getSchemaFilenameL1v1(sr) == filename)
   {
     fail("SBMLReader_setSchemaFilename(...) did not make a copy of string.");
   }
 
   SBMLReader_setSchemaFilenameL1v1(sr, NULL);
 
-  if (sr->schemaFilenameL1v1 != NULL)
+  if (SBMLReader_getSchemaFilenameL1v1(sr) != NULL)
   {
     fail("SBMLReader_setSchemaFilename(...) did not clear string.");
   }
@@ -118,7 +122,7 @@ START_TEST (test_SBMLReader_readSBML_schema_basic)
   char *filename = safe_strcat(TestDataDirectory, "l1v1-branch.xml");
 
 
-  sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_BASIC;
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
   SBMLReader_setSchemaFilenameL1v1(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
@@ -143,7 +147,7 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_L1v2)
   char *filename = safe_strcat(TestDataDirectory, "l1v2-branch.xml");
 
 
-  sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_BASIC;
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
   SBMLReader_setSchemaFilenameL1v2(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
@@ -169,7 +173,7 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
                                "l1v1-branch-schema-error.xml" );
 
 
-  sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_BASIC;
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
   SBMLReader_setSchemaFilenameL1v1(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
@@ -196,7 +200,7 @@ START_TEST (test_SBMLReader_readSBML_schema_full)
   char *filename = safe_strcat(TestDataDirectory, "l1v1-branch.xml");
 
 
-  sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_FULL;
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
   SBMLReader_setSchemaFilenameL1v1(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);

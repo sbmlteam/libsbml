@@ -159,14 +159,16 @@ END_TEST
 START_TEST (test_SpeciesReference_setStoichiometryMath)
 {
   const ASTNode_t  *n;
+  const ASTNode_t  *math;
   MathMLDocument_t *d;
 
 
-  d = readMathMLFromString("<cn type='rational'>1<sep/>2</cn>");
+  d    = readMathMLFromString("<cn type='rational'>1<sep/>2</cn>");
+  math = MathMLDocument_getMath(d);
 
-  SpeciesReference_setStoichiometryMath(SR, d->math);
+  SpeciesReference_setStoichiometryMath(SR, (ASTNode_t*) math);
 
-  fail_unless( SpeciesReference_getStoichiometryMath(SR) == d->math, NULL );
+  fail_unless( SpeciesReference_getStoichiometryMath(SR) == math, NULL );
   fail_unless( SpeciesReference_isSetStoichiometryMath(SR), NULL );
 
   /* Reflexive case (pathological) */
@@ -174,7 +176,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
   SpeciesReference_setStoichiometryMath(SR, (ASTNode_t *) n);
 
   n = SpeciesReference_getStoichiometryMath(SR);
-  fail_unless( n == d->math, NULL );
+  fail_unless( n == math, NULL );
 
   SpeciesReference_setStoichiometryMath(SR, NULL);
   fail_unless( !SpeciesReference_isSetStoichiometryMath(SR), NULL );
@@ -185,8 +187,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
           "did not clear ASTNode." );
   }
 
-  d->math = NULL;
-  MathMLDocument_free(d);
+  // MathMLDocument_free(d);
 }
 END_TEST
 
