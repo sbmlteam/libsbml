@@ -60,9 +60,11 @@
       removed in a future release of libSBML.  Use
       SBMLDocument.checkConsistency() instead.
 
+    - A HTML version of the libSBML Developer's Manual is now available.
+      Thanks to Mike Hucka for working that out.
+
 
 * Released September xx, 2004
-
 
 
 
