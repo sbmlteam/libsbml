@@ -216,7 +216,7 @@ dirs-to-install = \
 	$(DESTDIR)$(DATADIR) \
 	$(DESTDIR)$(DOCDIR)
 
-installdirs: $(dirs-to-install)
+installdirs:
 	$(MKINSTALLDIRS) $(dirs-to-install)
 
 # The following defines a macro that is invoked like this:
