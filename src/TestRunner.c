@@ -90,6 +90,7 @@ Suite *create_suite_Rule                     (void);
 Suite *create_suite_RuleType                 (void);
 Suite *create_suite_SAX2AttributesMock       (void);
 Suite *create_suite_SBase                    (void);
+Suite *create_suite_SBMLConvert              (void);
 Suite *create_suite_SBMLDocument             (void);
 Suite *create_suite_SBMLFormatter            (void);
 Suite *create_suite_SBMLHandler              (void);
@@ -190,6 +191,7 @@ main (void)
   srunner_add_suite( runner, create_suite_RuleType                 () );
   srunner_add_suite( runner, create_suite_SAX2AttributesMock       () );
   srunner_add_suite( runner, create_suite_SBase                    () );
+  srunner_add_suite( runner, create_suite_SBMLConvert              () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
   srunner_add_suite( runner, create_suite_SBMLFormatter            () );
   srunner_add_suite( runner, create_suite_SBMLHandler              () );
