@@ -586,7 +586,8 @@ SBMLHandler::ParseMessage_createFrom (const char* message)
 {
   return new
 #ifdef USE_EXPAT
-    ParseMessage(message, getCurrentLineNumber(), getCurrentColumnNumber());
+    ParseMessage( 100, message,
+                  getCurrentLineNumber(), getCurrentColumnNumber() );
 #else
     ParseMessage( 100, message,
                   (unsigned int) fLocator->getLineNumber(),
