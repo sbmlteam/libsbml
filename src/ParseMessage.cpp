@@ -57,6 +57,7 @@
 /**
  * Creates a new ParseMessage.
  */
+LIBSBML_EXTERN
 ParseMessage::ParseMessage ( const std::string& msg
                              , unsigned int ln
                              , unsigned int cn

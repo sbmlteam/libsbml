@@ -61,6 +61,7 @@ class ParseMessage
 {
 public:
 
+  LIBSBML_EXTERN
   ParseMessage
   (
       const std::string& message = ""
