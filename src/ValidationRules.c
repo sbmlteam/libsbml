@@ -303,12 +303,23 @@ unitDefinitionIsKindOfVolume(
   const Model_t *m,
   const char *spatialSizeUnits)
 {
-  static const PFI literKinds[] = { isLiter, NULL };
-
   UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
 
 
   return isCubicMeters(ud) || isLiters(ud);
+}
+
+
+static
+BOOLEAN
+isSubstanceOrVariant(Model_t *m, const char *unitName)
+{
+  UnitDefinition_t *ud = Model_getUnitDefinitionById(m, unitName);
+
+  return
+    isKindOfSubstance(unitName)
+    ||
+    unitDefinitionIsVariantOf(ud, isSubstanceKind, 1);
 }
 
 
@@ -373,7 +384,7 @@ hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
     {
       char buf[256];
 
-      sprintf(buf, "must have exponent %d.");
+      sprintf(buf, "must have exponent %d.", requiredExponent);
       result->passed = 0;
       result->msg = safe_strdup(buf);
     }
@@ -430,7 +441,7 @@ allSpeciesReferenceIdsIn(Reaction_t *r)
     for (j = 0; j < numReactants; j++)
     {
       SpeciesReference_t *sr = Reaction_getReactant(r, j);
-      List_add(result, SpeciesReference_getSpecies(sr));
+      List_add(result, (void *) SpeciesReference_getSpecies(sr));
     }
   }
 
@@ -439,7 +450,7 @@ allSpeciesReferenceIdsIn(Reaction_t *r)
     for (j = 0; j < numProducts; j++)
     {
       SpeciesReference_t *sr = Reaction_getProduct(r, j);
-      List_add(result, SpeciesReference_getSpecies(sr));
+      List_add(result, (void *) SpeciesReference_getSpecies(sr));
     }
   }
 
@@ -449,7 +460,7 @@ allSpeciesReferenceIdsIn(Reaction_t *r)
     for (j = 0; j < numModifiers; j++)
     {
       ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
-      List_add(result, ModifierSpeciesReference_getSpecies(msr));
+      List_add(result, (void *) ModifierSpeciesReference_getSpecies(msr));
     }
   }
 
@@ -463,7 +474,7 @@ anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
 {
   unsigned int result = FALSE;
   int numReactions = Model_getNumReactions(m);
-  int i, j;
+  int i;
 
 
   for (i = 0; i < numReactions; i++)
@@ -808,41 +819,6 @@ RULE (compartment_outsideCyclic)
   }
 
   List_free(chain);
-  return passed;
-}
-
-
-RULE (kineticLaw_substanceUnits)
-{
-  const char *units;
-
-  Reaction_t   *r      = (Reaction_t *) obj;
-  KineticLaw_t *kl     = Reaction_getKineticLaw(r);
-  unsigned int  passed = 1;
-
-  const char *msg =
-    "substanceUnits must be 'substance', 'items', or 'mole' or the "
-    "values of id attributes of unitDefinition elements that define "
-    "variants (i.e. have only arbitrary scale, multiplier and "
-    "offset values) of 'items' or 'mole'.";
-
-
-  if (kl != NULL)
-  {
-    units = KineticLaw_getSubstanceUnits(kl);
-
-    if (units != NULL)
-    {
-      if (! ( !strcmp(units, "substance") ||
-              !strcmp(units, "item")     ||
-              !strcmp(units, "mole") ) )
-      {
-        passed = 0;
-        LOG_MESSAGE(msg);
-      }
-    }
-  }
-
   return passed;
 }
 
@@ -1230,14 +1206,8 @@ RULE (species_substanceUnits)
   if (Species_isSetSubstanceUnits(s))
   {
     const char* substanceUnits = Species_getSubstanceUnits(s);
-    UnitDefinition_t *ud =
-      Model_getUnitDefinitionById(d->model, substanceUnits);
-
-    if (
-      !isKindOfSubstance(substanceUnits)
-      &&
-      !unitDefinitionIsVariantOf(ud, isSubstanceKind, 1)
-    ) {
+    if (!isSubstanceOrVariant(d->model, substanceUnits))
+    {
       LOG_MESSAGE(msg);
       passed = 0;
     }
@@ -1532,6 +1502,38 @@ RULE (reaction_speciesReferenceExists)
 
 
 /**
+ * The substanceUnits attribute must contain either 'substance', 'item',
+ * 'moles' or the values of id attributes of unitDefinition elements that
+ * define variants (i.e. have only arbitrary scale, multiplier and offset
+ * values) of 'item' or 'moles'.
+ */
+RULE (reaction_kineticLawSubstanceUnits)
+{
+  static const char msg[] =
+    "A kineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
+    "the id of a unitDefinition that defines a variant of 'item' or 'mole'.";
+  BOOLEAN passed = TRUE;
+
+
+  Reaction_t *r = (Reaction_t *) obj;
+  if (Reaction_isSetKineticLaw(r))
+  {
+    KineticLaw_t *kl = Reaction_getKineticLaw(r);
+    if (KineticLaw_isSetSubstanceUnits(kl))
+    {
+      if (!isSubstanceOrVariant(d->model, KineticLaw_getSubstanceUnits(kl)))
+      {
+        LOG_MESSAGE(msg);
+        passed = FALSE;
+      }
+    }
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -1544,7 +1546,6 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, compartment_size_dimensions,    SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_outsideIsDefined,   SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_outsideCyclic,      SBML_COMPARTMENT     );
-  Validator_addRule( v, kineticLaw_substanceUnits  ,    SBML_REACTION        );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
                                                         SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
@@ -1578,5 +1579,8 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_ruleAndReaction,        SBML_SPECIES         );
   Validator_addRule( v, parameter_units,                SBML_PARAMETER       );
   Validator_addRule( v, reaction_speciesReference,      SBML_REACTION        );
-  Validator_addRule( v, reaction_speciesReferenceExists, SBML_REACTION       );
+  Validator_addRule( v, reaction_speciesReferenceExists,
+                                                        SBML_REACTION        );
+  Validator_addRule( v, reaction_kineticLawSubstanceUnits,
+                                                        SBML_REACTION       );
 }
