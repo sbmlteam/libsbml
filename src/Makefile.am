@@ -52,7 +52,7 @@
 
 
 lib_LTLIBRARIES    = libsbml.la
-libsbml_la_LDFLAGS = -no-undefined -version-info 2:2:0
+libsbml_la_LDFLAGS = -no-undefined -version-info 2:3:0
 
 
 if USE_EXPAT
