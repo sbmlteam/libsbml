@@ -139,7 +139,7 @@ public:
    * otherwise.
    */
   LIBSBML_EXTERN
-  int isSetId () const;
+  bool isSetId () const;
 
   /**
    * @return true if the name of this Compartment has been set, false

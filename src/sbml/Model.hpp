@@ -114,7 +114,7 @@ public:
    * @return true if the name of this Model has been set, false otherwise.
    */
   LIBSBML_EXTERN
-  int isSetName () const;
+  bool isSetName () const;
 
   /**
    * Sets the id of this Model to a copy of sid.

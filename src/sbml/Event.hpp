@@ -153,7 +153,7 @@ public:
    * otherwise.
    */
   LIBSBML_EXTERN
-  int isSetTimeUnits () const;
+  bool isSetTimeUnits () const;
 
   /**
    * Sets the id of this Event to a copy of sid.

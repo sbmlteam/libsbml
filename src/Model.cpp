@@ -113,7 +113,7 @@ Model::isSetId () const
  * @return true if the name of this Model has been set, false otherwise.
  */
 LIBSBML_EXTERN
-int
+bool
 Model::isSetName () const
 {
   return ! name.empty();

@@ -194,7 +194,7 @@ Compartment::getConstant () const
  * @return true if the id of this Compartment has been set, false otherwise.
  */
 LIBSBML_EXTERN
-int
+bool
 Compartment::isSetId () const
 {
   return ! id.empty();

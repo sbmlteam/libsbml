@@ -216,7 +216,7 @@ Event::isSetDelay () const
  * otherwise.
  */
 LIBSBML_EXTERN
-int
+bool
 Event::isSetTimeUnits () const
 {
   return ! timeUnits.empty();
