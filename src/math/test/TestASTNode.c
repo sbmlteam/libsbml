@@ -50,9 +50,10 @@
 
 
 #include <check.h>
-#include "common.h"
 
-#include "List.h"
+#include "common/common.h"
+#include "util/List.h"
+
 #include "ASTNode.h"
 #include "FormulaParser.h"
 

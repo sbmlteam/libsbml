@@ -54,25 +54,23 @@
 #include <ctype.h>
 
 
-#include "common.h"
-#include "List.h"
+#include "common/common.h"
+#include "util/List.h"
 
 
 #ifdef USE_EXPAT
 #  include <string>
-#  include "ExpatXMLString.h"
+#  include "xml/ExpatXMLString.h"
 #else
 #  include <xercesc/sax2/Attributes.hpp>
 #  include <xercesc/util/XMLString.hpp>
 #endif  // USE_EXPAT
 
+#include "xml/XMLUtil.h"
 
 #include "ASTNode.h"
 #include "MathMLDocument.h"
 #include "MathMLUnicodeConstants.h"
-#include "XMLUtil.h"
-
-
 #include "MathMLHandler.h"
 
 

@@ -50,12 +50,12 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
 
 
 #ifdef USE_EXPAT
 #  include <expat.h>
-#  include "ExpatXMLString.h"
+#  include "xml/ExpatXMLString.h"
 #else
 #  include <xercesc/util/XMLString.hpp>
 #  include <xercesc/util/XMLUniDefs.hpp>

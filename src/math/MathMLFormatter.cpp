@@ -50,21 +50,22 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatUnicodeChars.h"
-#  include "ExpatFormatter.h"
-#  include "ExpatXMLString.h"
+#  include "xml/ExpatUnicodeChars.h"
+#  include "xml/ExpatFormatter.h"
+#  include "xml/ExpatXMLString.h"
 #endif  // USE_EXPAT
+
+#include "xml/XMLUnicodeConstants.h"
+#include "xml/XMLUtil.h"
 
 #include "ASTNode.h"
 #include "MathMLDocument.h"
 #include "MathMLFormatter.h"
 #include "MathMLUnicodeConstants.h" 
-#include "XMLUnicodeConstants.h"
-#include "XMLUtil.h"
 
 
 const unsigned int

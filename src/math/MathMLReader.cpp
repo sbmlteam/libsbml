@@ -51,7 +51,7 @@
 
 
 #include <iostream>
-#include "common.h"
+#include "common/common.h"
 
 
 #ifndef USE_EXPAT
@@ -64,7 +64,7 @@
 #endif  // !USE_EXPAT
 
 
-#include "List.h"
+#include "util/List.h"
 #include "MathMLHandler.h"
 #include "MathMLReader.h"
 

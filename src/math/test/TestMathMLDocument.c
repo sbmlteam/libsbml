@@ -51,9 +51,9 @@
 
 #include <check.h>
 
-#include "common.h"
-#include "FormulaParser.h"
+#include "common/common.h"
 
+#include "FormulaParser.h"
 #include "MathMLDocument.h"
 
 

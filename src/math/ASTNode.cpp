@@ -51,9 +51,9 @@
 
 #include <new>
 
-#include "common.h"
+#include "common/common.h"
+#include "util/List.h"
 
-#include "List.h"
 #include "ASTNode.h"
 
 

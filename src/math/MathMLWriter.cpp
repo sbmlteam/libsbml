@@ -50,11 +50,11 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatFormatter.h"
+#  include "xml/ExpatFormatter.h"
 #else
 #  include <xercesc/framework/LocalFileFormatTarget.hpp>
 #  include <xercesc/framework/MemBufFormatTarget.hpp>
@@ -66,7 +66,7 @@
 #include "MathMLFormatter.h"
 #include "MathMLDocument.h"
 #include "MathMLWriter.h"
-#include "StreamFormatTarget.h"
+#include "xml/StreamFormatTarget.h"
 
 
 /**
