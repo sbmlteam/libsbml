@@ -128,6 +128,9 @@ Parameter_getUnits (const Parameter_t *p);
 
 /**
  * @return 1 if the name of this Parameter has been set, 0 otherwise.
+ *
+ * In SBML L1, a Parameter name is required and therefore <b>should always
+ * be set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -135,6 +138,10 @@ Parameter_isSetName (const Parameter_t *p);
 
 /**
  * @return 1 if the value of this Parameter has been set, 0 otherwise.
+ *
+ * In SBML L1v1, a Parameter value is required and therefore <b>should
+ * always be set</b>.  In L1v2 and beyond, a value is optional and as such
+ * may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -171,11 +178,35 @@ Parameter_setUnits (Parameter_t *p, const char *sname);
 
 
 /**
- * Marks the value of this Parameter as unset.
+ * Unsets the name of this Parameter.  This is equivalent to:
+ * safe_free(p->name); p->name = NULL;
+ *
+ * In SBML L1, a Parameter name is required and therefore <b>should always
+ * be set</b>.  In L2, name is optional and as such may or may not be set.
+ */
+LIBSBML_EXTERN
+void
+Parameter_unsetName (Parameter_t *p);
+
+/**
+ * Unsets the value of this Parameter.
+ *
+ * In SBML L1v1, a Parameter value is required and therefore <b>should
+ * always be set</b>.  In L1v2 and beyond, a value is optional and as such
+ * may or may not be set.
  */
 LIBSBML_EXTERN
 void
 Parameter_unsetValue (Parameter_t *p);
+
+
+/**
+ * Unsets the units of this Parameter.  This is equivalent to:
+ * safe_free(p->units); p->units = NULL;
+ */
+LIBSBML_EXTERN
+void
+Parameter_unsetUnits (Parameter_t *p);
 
 
 END_C_DECLS

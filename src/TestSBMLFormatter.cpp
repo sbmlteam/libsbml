@@ -399,13 +399,34 @@ START_TEST (test_SBMLFormatter_Parameter)
 END_TEST
 
 
-START_TEST (test_SBMLFormatter_Parameter_skipOptional_L1v2)
+START_TEST (test_SBMLFormatter_Parameter_L1v1_required)
+{
+  Parameter_t *p = Parameter_create();
+  const char  *s = wrapXML("<parameter name=\"Km1\" value=\"NaN\"/>\n");
+
+
+  Parameter_setName(p, "Km1");
+  Parameter_unsetValue(p);
+
+  *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version1;
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Parameter_free(p);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Parameter_L1v2_skipOptional)
 {
   Parameter_t *p = Parameter_create();
   const char  *s = wrapXML("<parameter name=\"Km1\"/>\n");
 
 
   Parameter_setName(p, "Km1");
+  Parameter_unsetValue(p);
+
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
@@ -821,7 +842,8 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_Species_defaults                  );
   tcase_add_test( tcase, test_SBMLFormatter_Species_skipOptional              );
   tcase_add_test( tcase, test_SBMLFormatter_Parameter                         );
-  tcase_add_test( tcase, test_SBMLFormatter_Parameter_skipOptional_L1v2       );
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L1v1_required           );
+  tcase_add_test( tcase, test_SBMLFormatter_Parameter_L1v2_skipOptional       );
   tcase_add_test( tcase, test_SBMLFormatter_AlgebraicRule                     );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesConcentrationRule          );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesConcentrationRule_defaults );

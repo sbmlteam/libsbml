@@ -468,9 +468,10 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   attribute(ATTR_NAME, p->name);
 
   //
+  // value  { use="required" }  (L1v2)
   // value  { use="optional" }  (L1v2, L2v1)
   //
-  if (p->isSet.value)
+  if ((fLevel == 1 && fVersion == 1) || p->isSet.value)
   {
     attribute(ATTR_VALUE, p->value);
   }
@@ -1145,8 +1146,18 @@ SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 void
 SBMLFormatter::attribute (const XMLCh* name, double value)
 {
-  snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%g", value);
-  attribute(name, fNumberBuffer);
+  static const XMLCh NaN[] = { chLatin_N, chLatin_a, chLatin_N, chNull };
+
+
+  if (value != value)
+  {
+    attribute(name, NaN);
+  }
+  else
+  {
+    snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%g", value);
+    attribute(name, fNumberBuffer);
+  }
 }
 
 
