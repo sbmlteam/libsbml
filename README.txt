@@ -37,9 +37,10 @@ library instead:
   ./configure --with-expat
 
 By default, libSBML only builds the C and C++ API library.  If you
-want to configure libSBML to build the Java, Python and/or MATLAB API
-libraries as well, add the flags --with-java, --with-python and/or
---with-matlab to the configure command.  For example,
+want to configure libSBML to build the Java, Python, Lisp and/or
+MATLAB API libraries as well, add the flags --with-java,
+--with-python, --with-lisp and/or --with-matlab to the configure
+command.  For example,
 
   ./configure --with-expat --with-java --with-python
 
@@ -52,6 +53,10 @@ To compile C or C++ programs that use libSBML with GCC, use a command
 such as:
 
   gcc -o myapp.c myapp.c -lsbml
+
+Note: A Perl binding is available but is not yet hooked into the
+configuration system.  See the file bindings/perl/README.txt for
+information about building and installing the Perl bindings
 
 
 1.2 Windows
@@ -79,11 +84,11 @@ manipulating files and data streams containing the Systems Biology
 Markup Language (SBML).  The library supports both SBML Level 1 (version
 1 and 2) and SBML Level 2.
 
-The library is written in ISO C and C++ and currently provides an API for
-the languages C, C++, Java, Python and MATLAB, with support for more
-languages in development.  LibSBML is known to run on Linux, Windows, and
-MacOS X, but is portable and support for other platforms should be
-straightforward to implement.
+The library is written in ISO C and C++ and currently provides an API
+for the languages C, C++, Java, Python, Lisp, Perl and MATLAB.
+LibSBML is known to run on Linux, Windows, and MacOS X, but is
+portable and support for other platforms should be straightforward to
+implement.
 
 LibSBML is entirely open-source and all specifications and source code
 are freely and publicly available.  For more information about SBML,
@@ -245,20 +250,20 @@ already described, the libSBML configuration command supports the
 options described below.
 
 
-3.3.1 Interfaces to Java, Python and MATLAB
-...........................................
+3.3.1 Interfaces to Java, Python, Lisp and MATLAB
+.................................................
 
-libSBML includes language bindings for Java, Python and MATLAB,
-enabling you to write Java, Python and MATLAB programs that call
-libSBML methods, and work with libSBML through Python's and MATLAB's
-interactive modes.  Short tutorials for how to use these facilities
-are available in the libSBML directory 'docs/formatted'.
+libSBML includes language bindings for Java, Python, Common Lisp and
+MATLAB, enabling you to write Java, Python, Lisp and MATLAB programs
+that call libSBML methods, and work with libSBML through Python's and
+MATLAB's interactive modes.  Short tutorials for how to use these
+facilities are available in the libSBML directory 'docs/formatted'.
 
-To enable the library extensions for Java, Python and MATLAB, you need
-to supply additional options to configure.  These options are
---with-java, --with-python, and --with-matlab.  As with other
-configure options, these three take an optional prefix argument; for
-example,
+To enable the library extensions for Java, Python, Lisp and MATLAB,
+you need to supply additional options to configure.  These options are
+--with-java, --with-python, --with-lisp, and --with-matlab.  As with
+other configure options, these three take an optional prefix argument;
+for example,
 
   ./configure --with-java="DIR"
 
@@ -266,6 +271,10 @@ If you want to build multiple language bindings for libSBML, combine
 multiple flags together as in the following example:
 
   ./configure --with-java --with-python
+
+A Perl language binding is available but is not yet hooked into the
+configuration system.  See the file bindings/perl/README.txt for
+information about building and installing the Perl bindings
 
 The libSBML distribution ships with certain interface files provided, so
 that you do not need to have the software necessary to recreate them.
@@ -411,3 +420,7 @@ Last Modified: $Date$
 
 
 
+# The following is for [X]Emacs users.  Please leave in place.
+# Local Variables:
+# fill-column: 70
+# End:
