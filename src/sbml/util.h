@@ -59,9 +59,11 @@
 
 
 /**
- * Easier-to-read string comparison
+ * Easier-to-read and NULL-friendly string comparison.
  */
-#define streq(s, t) (!strcmp(s, t))
+LIBSBML_EXTERN
+unsigned int
+streq(const char *s, const char *t);
 
 
 BEGIN_C_DECLS

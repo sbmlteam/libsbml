@@ -146,6 +146,22 @@ strcmp_insensitive (const char *s1, const char *s2)
 
 
 /**
+ * Easier-to-read and NULL-friendly string comparison.
+ */
+LIBSBML_EXTERN
+unsigned int
+streq(const char *s, const char *t)
+{
+  if (s == NULL)
+    return t == NULL;
+  else if (t == NULL)
+    return 0;
+  else
+    return !strcmp(s, t);
+}
+
+
+/**
  * Peforms a binary search on the string table strings to find string s.
  *
  * All strings from strings[lo] to strings[hi] are searched.  The string
