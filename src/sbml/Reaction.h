@@ -350,7 +350,7 @@ Reaction_unsetKineticLaw (Reaction_t *r);
  * default value, so it may or may not be set to a specific value.
  */
 LIBSBML_EXTERN
-int
+void
 Reaction_unsetFast (Reaction_t *r);
 
 
