@@ -136,6 +136,10 @@ START_TEST (test_Parameter_setName)
     fail("Parameter_setName(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Parameter_setName(P, P->name);
+  fail_unless( !strcmp(P->name, name), NULL );
+
   Parameter_setName(P, NULL);
   fail_unless( !Parameter_isSetName(P), NULL );
 
@@ -161,6 +165,10 @@ START_TEST (test_Parameter_setUnits)
   {
     fail("Parameter_setUnits(...) did not make a copy of string.");
   }
+
+  /* Reflexive case (pathological) */
+  Parameter_setUnits(P, P->units);
+  fail_unless( !strcmp(P->units, units), NULL );
 
   Parameter_setUnits(P, NULL);
   fail_unless( !Parameter_isSetUnits(P), NULL );
