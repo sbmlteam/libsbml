@@ -118,7 +118,12 @@
 
     def __getitem__(self, key):
 
-      if isinstance(key, slice):
+      try:
+         keyIsSlice = isinstance(key, slice)
+      except:
+         keyIsSlice = 0
+
+      if keyIsSlice:
         start = key.start
         if start is None:
           start = 0
