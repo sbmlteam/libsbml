@@ -1,31 +1,31 @@
 
-			     l i b S B M L
+                            l i b S B M L
 
-			     Ben Bornstein
-			with contributions from
-	  Ben Kovitz, Stefan Hoops, Sarah Keating, Mike Hucka,
-		 and many others in the SBML community.
+                            Ben Bornstein
+                       with contributions from
+         Ben Kovitz, Stefan Hoops, Sarah Keating, Mike Hucka,
+                and many others in the SBML community.
 
-	  For more information about SBML or libSBML, contact:
-			     The SBML Team
-		Control and Dynamical Systems, MC 107-81
-		   California Institute of Technology
-			Pasadena, CA, 91125, USA
+         For more information about SBML or libSBML, contact:
+                            The SBML Team
+               Control and Dynamical Systems, MC 107-81
+                  California Institute of Technology
+                       Pasadena, CA, 91125, USA
 
-			  http://www.sbml.org/
-		     mailto:sbml-team@caltech.edu
+                         http://www.sbml.org/
+                     mailto:sbml-team@caltech.edu
 
 
        Please join the libsbml-discuss mailing list by visiting
-       https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
+    https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
 
 
 --------------
 0. Quick Start
 --------------
 
-At the Unix or Cygwin (under Windows) command prompt, untar the
-distribution, cd into it (e.g., libsbml-2.1/), and first type:
+At the Unix command prompt, untar the distribution, cd into it (e.g.,
+libsbml-2.1/), and first type:
 
   ./configure
 
@@ -37,15 +37,15 @@ library instead:
 
 If you want to build the Java, Python and/or MATLAB libraries, add the
 flags --with-java, --with-python, and/or --with-matlab to the
-./configure command.
+configure command.
 
-Once you've successfully configured libSBML, type
+Once you've successfully configured libSBML, type:
 
   make
   make install
 
-To compile C or C++ programs that use libsbml (e.g., see Section 4.1)
-with GCC, use a command such as
+To compile C or C++ programs that use libSBML with GCC, use a command
+such as:
 
   gcc -o myapp.c myapp.c -lsbml
 
@@ -54,7 +54,7 @@ with GCC, use a command such as
 1. Introduction
 ---------------
 
-This README file describes libsbml, a library for reading, writing and
+This README file describes libSBML, a library for reading, writing and
 manipulating files and data streams containing the Systems Biology
 Markup Language (SBML).  The library supports both SBML Level 1 (version
 1 and 2) and SBML Level 2.
@@ -64,7 +64,7 @@ languages C, C++, Java, Python and MATLAB.  LibSBML is known to run on
 Linux, Windows, and MacOS X, but is portable and support for other
 platforms should be straightforward to implement.
 
-Libsbml is entirely open-source and all specifications and source code
+LibSBML is entirely open-source and all specifications and source code
 are freely and publicly available.  For more information about SBML,
 please see the references section or visit http://sbml.org/.
 
@@ -79,7 +79,7 @@ Feature Highlights:
 
   - Small memory footprint and fast runtime
 
-      The parser is event-based (SAX2) and loads SBML data into C
+      The parser is event-based (SAX2) and loads SBML data into C++
       structures that mirror the SBML specification.
 
       The Gepasi generated 100 Yeast file (2Mb; 2000 reactions
@@ -94,37 +94,30 @@ Feature Highlights:
       The build system uses GNU tools (Autoconf, GNU Make) to build
       shared and static libraries.
 
-  - Support for both the Expat and Apache  Xerces-C++ XML Libraries.
+  - Support for both the Expat and Apache Xerces-C++ XML Libraries.
     
       The Apache Xerces-C++ XML library supports:
-      - SAX 1 and 2
-      - DOM 1, 2, and 3
-      - Full DTD and Schema validation
-      - XML Namespaces
-      - Unicode
+        - SAX 1 and 2
+        - DOM 1, 2, and 3
+        - Full DTD and Schema validation
+        - XML Namespaces
+        - Unicode
 
       SBML Documents are parsed and manipulated in the Unicode codepage
       for efficiency (this is Xerces-C++ native format); however,
       strings are transcoded to the local code page for SBML structures.
 
-  - All memory for and contained in SBML structures is C memory, so
-    realloc() and free() may be used.
-
-      This is an important distinction when working with mixed C and
-      C++ code.  C's malloc() and free() are not compatible with C++'s
-      new and delete operators.
-
-  - Well tested: 226 unit tests, 1118 individual assertions.
+  - Well tested: 737 unit tests, 3440 individual assertions.
 
       The entire library was written using the test-first approach
       popularized by Kent Beck and eXtreme Programming, where it's one
       of the 12 principles.
 
-      Four test cases are responsible for reading entire SBML files
+      Five test cases are responsible for reading entire SBML files
       (three are examples from the L1 document) into memory and
       verifying every field of the resulting structures.
 
-  - Memory tests: 1782 allocations and frees, 0 leaks.
+  - Memory tests: 7536 allocations and frees, 0 leaks.
 
       For use by developers, a custom memory trace facility tracks all
       memory allocated and freed in both the library and all test
@@ -137,11 +130,11 @@ Feature Highlights:
 2. Installation
 ---------------
 
-Libsbml depends on Apache's Xerces-C++ XML library for low-level XML
+LibSBML depends on Apache's Xerces-C++ XML library for low-level XML
 tokenizing and Unicode support.  Xerces is supported on both Unix
-(Linux) and Windows (MacOS X?).  Many popular Linux systems provide
-the Xerces library either as part of their standard distribution or as
-an optional RPM or Debian package.  For more information, see:
+(Linux), Windows and MacOS X.  Many popular Linux systems provide the
+Xerces library either as part of their standard distribution or as an
+optional RPM or Debian package.  For more information, see:
 
 
   http://xml.apache.org/xerces-c/
@@ -151,10 +144,10 @@ A good way to determine whether or not Xerces-C is installed is to run
 the build script (see below); it will halt if it cannot find the
 Xerces-C library.
 
-Libsbml is designed to be extremely portable.  It is written in 100%
-pure ANSI-C and the build system uses the GNU Autotools (Autoconf,
-Automake and Libtool).  In most cases, building should be as easy
-unpacking the sources and running:
+LibSBML is designed to be extremely portable.  It is written in 100%
+pure ISO C and C++ and the build system uses GNU tools (Autoconf, GNU
+Make).  In most cases, building should be as easy unpacking the
+sources and running:
 
 
   % ./configure
@@ -166,15 +159,10 @@ unpacking the sources and running:
 However, if Xerces-C is installed in a non-standard place (e.g., your
 home directory), configure will not be able to detect it.  In this
 case, configure needs to be told explicitly where to find the library.
-Set the CPPFLAGS and LDFLAGS environment variables to include the
-custom directories containing Xerces-C header and library files.  For
-example:
+For example:
 
 
-  % export CPPFLAGS=-I/home/bornstei/software/xerces-c/2.2.0/include
-  % export LDFLAGS=-L/home/bornstei/software/xerces-c/2.2.0/lib
-  % ./configure
-  % # etc.
+  % ./configure --with-xerces=/home/bornstei/software/xerces-c/2.2.0
 
 
 'make install' copies header files to /usr/local/include/sbml and
@@ -187,13 +175,13 @@ different install location use:
 
 'make check' is optional and will build and run an extensive suite of
 unit tests to verify all facets of the library.  These tests are meant
-primarily for developers of libsbml and running them is not required
+primarily for developers of libSBML and running them is not required
 for the library to function properly.
 
 To run the unit tests a second library is required, libcheck.  Check
 is a very lightweight C unit test framework based on the xUnit
 framework popularized by Kent Beck and eXtrememe Programming (all of
-libsbml was written using the test first approach).  Check is quite
+libSBML was written using the test first approach).  Check is quite
 small, once installed, it's only two files: libcheck.a and check.h.
 To download Check, visit:
 
