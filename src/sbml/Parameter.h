@@ -257,6 +257,18 @@ void
 Parameter_unsetUnits (Parameter_t *p);
 
 
+/**
+ * The ParameterIdCmp function compares the string sid to p->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than p->id.
+ * Returns -1 if either sid or p->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+ParameterIdCmp (const char *sid, const Parameter_t *p);
+
+
 END_C_DECLS
 
 
