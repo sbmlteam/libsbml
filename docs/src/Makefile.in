@@ -84,9 +84,11 @@ docs    = $(libsbml-manual-files) $(libsbml-api-ref-files) \
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but these are all generated files and directories.
 
-tex_ext = aux bbl blg log out toc
+tex_ext = aux bbl blg log out toc dvi
 
-extra_distclean = $(libsbml-manual-files) $(libsbml-api-ref-files) \
+extra_clean = \
+	$(libsbml-manual-files) \
+	$(libsbml-api-ref-files) \
 	$(addprefix libsbml-manual.,$(tex_ext)) \
 	$(addprefix libsbml-api-ref.,$(tex_ext)) \
 	libsbml-manual \
@@ -124,6 +126,8 @@ distfiles = \
 
 all:
 
+check:
+
 dvi: $(foreach manual,$(manuals),$(manual).dvi)
 
 pdf: $(foreach manual,$(manuals),$(manual).pdf)
@@ -152,37 +156,39 @@ epsfiles        = $(wildcard graphics/*.eps)
 pdffiles        = $(epsfiles:.eps=.pdf)
 
 add-sbmlmanual-link = \
-  { test -L ./sbmlmanual.perl || ln -s ../../../project/tex/sbmlmanual.perl; }
+  { test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl; }
+
+latex-env := TEXINPUTS=".:tex//:../tex//:${TEXINPUTS}::" 
 
 # Yes, run pdflatex 4 times after running bibtex here.
 
 libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
 	@$(add-sbmlmanual-link)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
-	pdflatex libsbml-manual
+	$(latex-env) pdflatex libsbml-manual
 	-bibtex libsbml-manual
-	pdflatex libsbml-manual
-	pdflatex libsbml-manual
-	pdflatex libsbml-manual
-	pdflatex libsbml-manual
+	$(latex-env) pdflatex libsbml-manual
+	$(latex-env) pdflatex libsbml-manual
+	$(latex-env) pdflatex libsbml-manual
+	$(latex-env) pdflatex libsbml-manual
 
 libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 	@$(add-sbmlmanual-link)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
-	latex libsbml-manual
+	$(latex-env) latex libsbml-manual
 	-bibtex libsbml-manual
-	latex libsbml-manual
-	latex libsbml-manual
-	latex libsbml-manual
+	$(latex-env) latex libsbml-manual
+	$(latex-env) latex libsbml-manual
+	$(latex-env) latex libsbml-manual
 
 libsbml-manual.ps: libsbml-manual.dvi
 	dvips -o libsbml-manual.ps libsbml-manual
 
-libsbml-manual.html: libsbml-manual.tex $(pdffiles)
+libsbml-manual.html: libsbml-manual.tex libsbml-manual.dvi
 	@$(add-sbmlmanual-link)
-	latex2html -white -split +0 -show_section_numbers -image_type gif \
-		   -no_navigation -local_icons -discard -antialias \
-		   -t "libSBML Developer's Manual" \
+	$(latex-env) latex2html -white -split +0 -show_section_numbers \
+		   -image_type gif -no_navigation -local_icons -discard \
+		   -antialias -t "libSBML Developer's Manual" \
 		   -mkdir -dir $(manual_html_dir) libsbml-manual
 	rm $(manual_html_dir)/index.html
 #	ln -s libsbml-manual.html $(manual_html_dir)/index.html
@@ -204,20 +210,20 @@ create-api-files = { $(SHELL) createAPISections.sh ../../src/sbml; }
 libsbml-api-ref.pdf:  libsbml-api-ref.tex  $(api-tex-files)
 	$(create-api-files)
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
-	pdflatex libsbml-api-ref
+	$(latex-env) pdflatex libsbml-api-ref
 	-bibtex libsbml-api-ref
-	pdflatex libsbml-api-ref
-	pdflatex libsbml-api-ref
-	pdflatex libsbml-api-ref
-	pdflatex libsbml-api-ref
+	$(latex-env) pdflatex libsbml-api-ref
+	$(latex-env) pdflatex libsbml-api-ref
+	$(latex-env) pdflatex libsbml-api-ref
+	$(latex-env) pdflatex libsbml-api-ref
 
 libsbml-api-ref.dvi: libsbml-api-ref.tex
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
-	latex libsbml-api-ref
+	$(latex-env) latex libsbml-api-ref
 	-bibtex libsbml-api-ref
-	latex libsbml-api-ref
-	latex libsbml-api-ref
-	latex libsbml-api-ref
+	$(latex-env) latex libsbml-api-ref
+	$(latex-env) latex libsbml-api-ref
+	$(latex-env) latex libsbml-api-ref
 
 libsbml-api-ref.ps:  libsbml-api-ref.tex  libsbml-api-ref.dvi
 	dvips -o libsbml-api-ref.ps libsbml-api-ref
