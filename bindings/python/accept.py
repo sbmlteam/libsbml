@@ -205,6 +205,8 @@ def testFunctionDefinition():
    formula = libsbml.parseFormula("1 + 1")
    fd.setMath(formula)
 
+   assert formula.thisown == 0
+
 
 def testUnitDefinition():
    ud = libsbml.UnitDefinition()
@@ -215,6 +217,71 @@ def testUnitDefinition():
    ud.addUnit(unit);
 
    assert unit.thisown == 0
+
+
+def teestSpeciesReference():
+   speciesReference = libsbml.SpeciesReference("ref")
+   assert speciesReference
+
+   formula = libsbml.parseFormula("2 + 2")
+   assert formula.thisown == 1
+
+   speciesReference.setStoichiometryMath(formula)
+   assert formula.thisown == 0
+
+
+def testEvent():
+   event = libsbml.Event()
+   assert event
+
+   # setTrigger()
+
+   formula = libsbml.parseFormula("3 + 3")
+   assert formula.thisown == 1
+
+   event.setTrigger(formula)
+   assert formula.thisown == 0
+
+   # setDelay()
+
+   formula = libsbml.parseFormula("4 + 4")
+   assert formula.thisown == 1
+
+   event.setDelay(formula)
+   assert formula.thisown == 0
+
+   # addEventAssignment()
+
+   eventAssignment = libsbml.EventAssignment()
+   assert eventAssignment
+   assert eventAssignment.thisown == 1
+
+   event.addEventAssignment(eventAssignment)
+   assert event.getNumEventAssignments() == 1
+
+   assert eventAssignment.thisown == 0
+
+
+def testEventAssignment():
+   eventAssignment = libsbml.EventAssignment()
+   assert eventAssignment
+
+   formula = libsbml.parseFormula("10 + 10")
+   assert formula.thisown == 1
+
+   eventAssignment.setMath(formula)
+   assert formula.thisown == 0
+
+
+def teestRule():
+   rule = libsbml.Rule()
+   assert rule
+
+   formula = libsbml.parseFormula("11 + 11")
+   assert formula.thisown == 1
+
+   rule.setMath(formula)
+   assert formula.thisown == 0
 
 
 class TestRunner:

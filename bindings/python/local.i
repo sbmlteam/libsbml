@@ -143,12 +143,61 @@
 %}
 
 
-%feature("shadow") FunctionDefinition::setMath(ASTNode* math)
+%feature("shadow") FunctionDefinition::setMath(ASTNode*)
 %{
   def setMath(*args):
     if args[1] is not None: args[1].thisown = 0
     return _libsbml.FunctionDefinition_setMath(*args)
 %}
+
+
+%feature("shadow") Event::setTrigger(ASTNode*)
+%{
+  def setTrigger(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Event_setTrigger(*args)
+%}
+
+
+%feature("shadow") Event::setDelay(ASTNode*)
+%{
+  def setDelay(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Event_setDelay(*args)
+%}
+
+
+%feature("shadow") Event::addEventAssignment(EventAssignment&)
+%{
+  def addEventAssignment(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Event_addEventAssignment(*args)
+%}
+
+
+%feature("shadow") EventAssignment::setMath(ASTNode*)
+%{
+  def setMath(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.EventAssignment_setMath(*args)
+%}
+
+
+%feature("shadow") Rule::setMath(ASTNode*)
+%{
+  def setMath(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.Rule_setMath(*args)
+%}
+
+
+%feature("shadow") SpeciesReference::setStoichiometryMath(ASTNode*)
+%{
+  def setStoichiometryMath(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.SpeciesReference_setStoichiometryMath(*args)
+%}
+
 
 %feature("shadow") UnitDefinition::addUnit(Unit&)
 %{
