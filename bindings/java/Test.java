@@ -70,7 +70,7 @@ public class Test
 
   static void testImplicitDowncastRule()
   {
-    Model m = new Model("m", "MyModel");
+    Model m = new Model();
     
 
 
@@ -84,9 +84,9 @@ public class Test
   {
     ListOf lo = new ListOf();
 
-    lo.append( new Compartment("c") );
-    lo.append( new Species("s")     );
-    lo.append( new Parameter("p")   );
+    lo.append( new Compartment() );
+    lo.append( new Species()     );
+    lo.append( new Parameter()   );
 
     /**
      * ListOf.get() returns an object of type SBase, so the result must be

@@ -257,3 +257,131 @@
 {
   SBMLReader() { return new SBMLReader(); }
 }
+
+
+%extend SBMLDocument
+{
+  SBMLDocument() { return new SBMLDocument(); }
+}
+
+
+%extend Model
+{
+  Model() { return new Model(); }
+}
+
+%typemap("javacode") Model
+%{
+  public Model (String id)
+  {
+    this(id, "");
+  }
+%}
+
+
+%extend FunctionDefinition
+{
+  FunctionDefinition() { return new FunctionDefinition(); }
+}
+
+%typemap("javacode") FunctionDefinition
+%{
+  public FunctionDefinition (String id)
+  {
+    this(id, "");
+  }
+%}
+
+
+%extend Unit
+{
+  Unit() { return new Unit(); }
+}
+
+%typemap("javacode") Unit
+%{
+  public Unit (int kind, int exponent, int scale, double multiplier)
+  {
+    this(kind, exponent, scale, multiplier, 0.0);
+  }
+
+  public Unit (int kind, int exponent, int scale)
+  {
+    this(kind, exponent, scale, 1.0, 0.0);
+  }
+  
+  public Unit (int kind, int exponent)
+  {
+    this(kind, exponent, 0, 1.0, 0.0);
+  }
+
+  public Unit (int kind)
+  {
+    this(kind, 1, 0, 1.0, 0.0);
+  }
+
+  public Unit (String kind, int exponent, int scale, double multiplier)
+  {
+    this(kind, exponent, scale, multiplier, 0.0);
+  }
+
+  public Unit (String kind, int exponent, int scale)
+  {
+    this(kind, exponent, scale, 1.0, 0.0);
+  }
+  
+  public Unit (String kind, int exponent)
+  {
+    this(kind, exponent, 0, 1.0, 0.0);
+  }
+
+  public Unit (String kind)
+  {
+    this(kind, 1, 0, 1.0, 0.0);
+  }
+%}
+
+
+%extend UnitDefinition
+{
+  UnitDefinition() { return new UnitDefinition(); }
+}
+
+%typemap("javacode") UnitDefinition
+%{
+  public UnitDefinition (String id)
+  {
+    this(id, "");
+  }
+%}
+
+
+%extend Compartment
+{
+  Compartment() { return new Compartment(); }
+}
+
+
+%extend Species
+{
+  Species() { return new Species(); }
+}
+
+
+%extend Parameter
+{
+  Parameter() { return new Parameter(); }
+}
+
+%typemap("javacode") Parameter
+%{
+  public Parameter (String id, double value, String units)
+  {
+    this(id, value, units, true);
+  }
+
+  public Parameter (String id, double value)
+  {
+    this(id, value, "", true);
+  }
+%}
