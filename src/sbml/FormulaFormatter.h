@@ -68,14 +68,14 @@ BEGIN_C_DECLS
  */
 LIBSBML_EXTERN
 char *
-SBML_formulaToString (ASTNode_t *tree);
+SBML_formulaToString (const ASTNode_t *tree);
 
 /**
  * @return true (non-zero) if the given ASTNode is to formatted as a
  * function.
  */
 int
-FormulaFormatter_isFunction (ASTNode_t *node);
+FormulaFormatter_isFunction (const ASTNode_t *node);
 
 /**
  * @return true (non-zero) if the given ASTNode should be grouped (with
@@ -85,28 +85,28 @@ FormulaFormatter_isFunction (ASTNode_t *node);
  * parent node has higher precedence than it.
  */
 int
-FormulaFormatter_isGrouped (ASTNode_t *parent, ASTNode_t *node);
+FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *node);
 
 /**
  * Formats the given ASTNode as an SBML L1 token and appends the result to
  * the given StringBuffer.
  */
 void
-FormulaFormatter_format (StringBuffer_t *sb, ASTNode_t *node);
+FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
  * Formats the given ASTNode as an SBML L1 function name and appends the
  * result to the given StringBuffer.
  */
 void
-FormulaFormatter_formatFunction (StringBuffer_t *sb, ASTNode_t *node);
+FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
  * Formats the given ASTNode as an SBML L1 operator and appends the result
  * to the given StringBuffer.
  */
 void
-FormulaFormatter_formatOperator (StringBuffer_t *sb, ASTNode_t *node);
+FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
  * Formats the given ASTNode as a rational number and appends the result to
@@ -115,14 +115,14 @@ FormulaFormatter_formatOperator (StringBuffer_t *sb, ASTNode_t *node);
  *   "(numerator/denominator)"
  */
 void
-FormulaFormatter_formatRational (StringBuffer_t *sb, ASTNode_t *node);
+FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
  * Formats the given ASTNode as a real number and appends the result to
  * the given StringBuffer.
  */
 void
-FormulaFormatter_formatReal (StringBuffer_t *sb, ASTNode_t *node);
+FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node);
 
 /**
  * Visits the given ASTNode node.  This function is really just a
@@ -130,53 +130,53 @@ FormulaFormatter_formatReal (StringBuffer_t *sb, ASTNode_t *node);
  * SBML_formulaToString_visitOther().
  */
 void
-FormulaFormatter_visit ( ASTNode_t      *parent,
-                         ASTNode_t      *node,
-                         StringBuffer_t *sb );
+FormulaFormatter_visit ( const ASTNode_t *parent,
+                         const ASTNode_t *node,
+                         StringBuffer_t  *sb );
 
 /**
  * Visits the given ASTNode as a function.  For this node only the
  * traversal is preorder.
  */
 void
-FormulaFormatter_visitFunction ( ASTNode_t      *parent,
-                                 ASTNode_t      *node,
-                                 StringBuffer_t *sb );
+FormulaFormatter_visitFunction ( const ASTNode_t *parent,
+                                 const ASTNode_t *node,
+                                 StringBuffer_t  *sb );
 
 /**
  * Visits the given ASTNode as the function "log(10, x)" and in doing so,
  * formats it as "log10(x)" (where x is any subexpression).
  */
 void
-FormulaFormatter_visitLog10 ( ASTNode_t      *parent,
-                              ASTNode_t      *node,
-                              StringBuffer_t *sb );
+FormulaFormatter_visitLog10 ( const ASTNode_t *parent,
+                              const ASTNode_t *node,
+                              StringBuffer_t  *sb );
 
 /**
  * Visits the given ASTNode as the function "root(2, x)" and in doing so,
  * formats it as "sqrt(x)" (where x is any subexpression).
  */
 void
-FormulaFormatter_visitSqrt ( ASTNode_t      *parent,
-                             ASTNode_t      *node,
-                             StringBuffer_t *sb );
+FormulaFormatter_visitSqrt ( const ASTNode_t *parent,
+                             const ASTNode_t *node,
+                             StringBuffer_t  *sb );
 
 /**
  * Visits the given ASTNode as a unary minus.  For this node only the
  * traversal is preorder.
  */
 void
-FormulaFormatter_visitUMinus ( ASTNode_t      *parent,
-                               ASTNode_t      *node,
-                               StringBuffer_t *sb );
+FormulaFormatter_visitUMinus ( const ASTNode_t *parent,
+                               const ASTNode_t *node,
+                               StringBuffer_t  *sb );
 
 /**
  * Visits the given ASTNode and continues the inorder traversal.
  */
 void
-FormulaFormatter_visitOther ( ASTNode_t      *parent,
-                              ASTNode_t      *node,
-                              StringBuffer_t *sb );
+FormulaFormatter_visitOther ( const ASTNode_t *parent,
+                              const ASTNode_t *node,
+                              StringBuffer_t  *sb );
 
 
 END_C_DECLS

@@ -59,7 +59,7 @@
  */
 LIBSBML_EXTERN
 char *
-SBML_formulaToString (ASTNode_t *tree)
+SBML_formulaToString (const ASTNode_t *tree)
 {
   StringBuffer_t *sb = StringBuffer_create(128);
   char           *s;
@@ -78,7 +78,7 @@ SBML_formulaToString (ASTNode_t *tree)
  * function.
  */
 int
-FormulaFormatter_isFunction (ASTNode_t *node)
+FormulaFormatter_isFunction (const ASTNode_t *node)
 {
   return
     ASTNode_isFunction  (node) ||
@@ -96,7 +96,7 @@ FormulaFormatter_isFunction (ASTNode_t *node)
  * parent node has higher precedence than it.
  */
 int
-FormulaFormatter_isGrouped (ASTNode_t *parent, ASTNode_t *node)
+FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *node)
 {
   int group = 0;
 
@@ -118,7 +118,7 @@ FormulaFormatter_isGrouped (ASTNode_t *parent, ASTNode_t *node)
  * the given StringBuffer.
  */
 void
-FormulaFormatter_format (StringBuffer_t *sb, ASTNode_t *node)
+FormulaFormatter_format (StringBuffer_t *sb, const ASTNode_t *node)
 {
   if (ASTNode_isOperator(node))
   {
@@ -140,7 +140,7 @@ FormulaFormatter_format (StringBuffer_t *sb, ASTNode_t *node)
   {
     FormulaFormatter_formatReal(sb, node);
   }
-  else
+  else if ( !ASTNode_isUnknown(node) )
   {
     StringBuffer_append(sb, ASTNode_getName(node));
   }
@@ -152,7 +152,7 @@ FormulaFormatter_format (StringBuffer_t *sb, ASTNode_t *node)
  * result to the given StringBuffer.
  */
 void
-FormulaFormatter_formatFunction (StringBuffer_t *sb, ASTNode_t *node)
+FormulaFormatter_formatFunction (StringBuffer_t *sb, const ASTNode_t *node)
 {
   ASTNodeType_t type = ASTNode_getType(node);
 
@@ -195,7 +195,7 @@ FormulaFormatter_formatFunction (StringBuffer_t *sb, ASTNode_t *node)
  * to the given StringBuffer.
  */
 void
-FormulaFormatter_formatOperator (StringBuffer_t *sb, ASTNode_t *node)
+FormulaFormatter_formatOperator (StringBuffer_t *sb, const ASTNode_t *node)
 {
   ASTNodeType_t type = node->type;
 
@@ -221,7 +221,7 @@ FormulaFormatter_formatOperator (StringBuffer_t *sb, ASTNode_t *node)
  *   "(numerator/denominator)"
  */
 void
-FormulaFormatter_formatRational (StringBuffer_t *sb, ASTNode_t *node)
+FormulaFormatter_formatRational (StringBuffer_t *sb, const ASTNode_t *node)
 {
   StringBuffer_appendChar( sb, '(');
   StringBuffer_appendInt ( sb, ASTNode_getNumerator(node)   );
@@ -236,7 +236,7 @@ FormulaFormatter_formatRational (StringBuffer_t *sb, ASTNode_t *node)
  * the given StringBuffer.
  */
 void
-FormulaFormatter_formatReal (StringBuffer_t *sb, ASTNode_t *node)
+FormulaFormatter_formatReal (StringBuffer_t *sb, const ASTNode_t *node)
 {
   double value = ASTNode_getReal(node);
   int    sign;
@@ -272,9 +272,9 @@ FormulaFormatter_formatReal (StringBuffer_t *sb, ASTNode_t *node)
  * SBML_formulaToString_visitOther().
  */
 void
-FormulaFormatter_visit ( ASTNode_t      *parent,
-                         ASTNode_t      *node,
-                         StringBuffer_t *sb )
+FormulaFormatter_visit ( const ASTNode_t *parent,
+                         const ASTNode_t *node,
+                         StringBuffer_t  *sb )
 {
 
   if (ASTNode_isLog10(node))
@@ -305,9 +305,9 @@ FormulaFormatter_visit ( ASTNode_t      *parent,
  * traversal is preorder.
  */
 void
-FormulaFormatter_visitFunction ( ASTNode_t      *parent,
-                                 ASTNode_t      *node,
-                                 StringBuffer_t *sb )
+FormulaFormatter_visitFunction ( const ASTNode_t *parent,
+                                 const ASTNode_t *node,
+                                 StringBuffer_t  *sb )
 {
   unsigned int numChildren = ASTNode_getNumChildren(node);
   unsigned int n;
@@ -337,9 +337,9 @@ FormulaFormatter_visitFunction ( ASTNode_t      *parent,
  * formats it as "log10(x)" (where x is any subexpression).
  */
 void
-FormulaFormatter_visitLog10 ( ASTNode_t      *parent,
-                              ASTNode_t      *node,
-                              StringBuffer_t *sb )
+FormulaFormatter_visitLog10 ( const ASTNode_t *parent,
+                              const ASTNode_t *node,
+                              StringBuffer_t  *sb )
 {
   StringBuffer_append(sb, "log10(");
   FormulaFormatter_visit(node, ASTNode_getChild(node, 1), sb);
@@ -352,9 +352,9 @@ FormulaFormatter_visitLog10 ( ASTNode_t      *parent,
  * formats it as "sqrt(x)" (where x is any subexpression).
  */
 void
-FormulaFormatter_visitSqrt ( ASTNode_t      *parent,
-                             ASTNode_t      *node,
-                             StringBuffer_t *sb )
+FormulaFormatter_visitSqrt ( const ASTNode_t *parent,
+                             const ASTNode_t *node,
+                             StringBuffer_t  *sb )
 {
   StringBuffer_append(sb, "sqrt(");
   FormulaFormatter_visit(node, ASTNode_getChild(node, 1), sb);
@@ -367,9 +367,9 @@ FormulaFormatter_visitSqrt ( ASTNode_t      *parent,
  * traversal is preorder.
  */
 void
-FormulaFormatter_visitUMinus ( ASTNode_t      *parent,
-                               ASTNode_t      *node,
-                               StringBuffer_t *sb )
+FormulaFormatter_visitUMinus ( const ASTNode_t *parent,
+                               const ASTNode_t *node,
+                               StringBuffer_t  *sb )
 {
   StringBuffer_appendChar(sb, '-');
   FormulaFormatter_visit ( node, ASTNode_getLeftChild(node), sb );
@@ -380,9 +380,9 @@ FormulaFormatter_visitUMinus ( ASTNode_t      *parent,
  * Visits the given ASTNode and continues the inorder traversal.
  */
 void
-FormulaFormatter_visitOther ( ASTNode_t      *parent,
-                              ASTNode_t      *node,
-                              StringBuffer_t *sb )
+FormulaFormatter_visitOther ( const ASTNode_t *parent,
+                              const ASTNode_t *node,
+                              StringBuffer_t  *sb )
 {
   unsigned int numChildren = ASTNode_getNumChildren(node);
   unsigned int group       = FormulaFormatter_isGrouped(parent, node);
