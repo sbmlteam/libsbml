@@ -233,6 +233,9 @@ LIBSBML_EXTERN
 void
 Compartment_setName (Compartment_t *c, const char *sname)
 {
+  if (c->name == sname) return;
+
+
   if (c->name != NULL)
   {
     safe_free(c->name);
@@ -261,6 +264,9 @@ LIBSBML_EXTERN
 void
 Compartment_setUnits (Compartment_t *c, const char *sname)
 {
+  if (c->units == sname) return;
+
+
   if (c->units != NULL)
   {
     safe_free(c->units);
@@ -277,6 +283,9 @@ LIBSBML_EXTERN
 void
 Compartment_setOutside (Compartment_t *c, const char *sname)
 {
+  if (c->outside == sname) return;
+
+
   if (c->outside != NULL)
   {
     safe_free(c->outside);

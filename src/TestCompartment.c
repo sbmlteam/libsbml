@@ -143,6 +143,10 @@ START_TEST (test_Compartment_setName)
     fail("Compartment_setName(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Compartment_setName(C, C->name);
+  fail_unless( !strcmp(C->name, name), NULL );
+
   Compartment_setName(C, NULL);
   fail_unless( !Compartment_isSetName(C), NULL );
 
@@ -169,6 +173,10 @@ START_TEST (test_Compartment_setUnits)
     fail("Compartment_setUnits(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Compartment_setUnits(C, C->units);
+  fail_unless( !strcmp(C->units, units), NULL );
+
   Compartment_setUnits(C, NULL);
   fail_unless( !Compartment_isSetUnits(C), NULL );
 
@@ -194,6 +202,10 @@ START_TEST (test_Compartment_setOutside)
   {
     fail("Compartment_setOutside(...) did not make a copy of string.");
   }
+
+  /* Reflexive case (pathological) */
+  Compartment_setOutside(C, C->outside);
+  fail_unless( !strcmp(C->outside, outside), NULL );
 
   Compartment_setOutside(C, NULL);
   fail_unless( !Compartment_isSetOutside(C), NULL );
