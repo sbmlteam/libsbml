@@ -64,6 +64,7 @@
 
 
 #include "sbml/SBMLFormatter.hpp"
+#include "sbml/SBMLWriter.hpp"
 #include "sbml/SBMLWriter.h"
 
 
@@ -319,4 +320,35 @@ writeSBMLToString (SBMLDocument_t *d)
   SBMLWriter_initDefaults(&sw);
 
   return SBMLWriter_writeSBMLToString(&sw, d);
+}
+
+
+/**
+ * Writes the given SBML document to filename.
+ *
+ * @return 1 on success and 0 on failure (e.g., if filename could not be
+ * opened for writing.)
+ */
+LIBSBML_EXTERN
+int
+writeSBML (SBMLDocument* d, const char* filename)
+{
+  return writeSBML(static_cast<SBMLDocument_t*>(d), filename);
+}
+
+
+/**
+ * Writes the given SBML document to an in-memory string (with the settings
+ * provided by this SBMLWriter) and returns a pointer to it.  The string is
+ * owned by the caller and should be freed (with free()) when no longer
+ * needed.
+ *
+ * @return NULL on failure (e.g., if the SBMLWriter character encoding is
+ * invalid).
+ */
+LIBSBML_EXTERN
+char*
+writeSBMLToString (SBMLDocument* d)
+{
+  return writeSBMLToString(static_cast<SBMLDocument_t*>(d));
 }
