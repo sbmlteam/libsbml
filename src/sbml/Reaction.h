@@ -76,6 +76,13 @@ typedef struct
   KineticLaw_t *kineticLaw;
   int           reversible;
   int           fast;
+
+  struct
+  {
+    unsigned int fast:1;
+  }
+  isSet;
+
 } Reaction_t;
 
 
@@ -112,7 +119,7 @@ Reaction_free (Reaction_t *r);
  * Initializes the fields of this Reaction to their defaults:
  *
  *   - reversible = 1 (true)
- *   - fast       = 0 (false)
+ *   - fast       = 0 (false)  (L1 only)
  */
 LIBSBML_EXTERN
 void
@@ -178,6 +185,17 @@ Reaction_isSetName (const Reaction_t *r);
 LIBSBML_EXTERN
 int
 Reaction_isSetKineticLaw (const Reaction_t *r);
+
+/**
+ * @return 1 if the fast status of this Reation has been set, 0 otherwise.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetFast (const Reaction_t *r);
 
 
 /**
@@ -323,6 +341,17 @@ Reaction_unsetName (Reaction_t *r);
 LIBSBML_EXTERN
 void
 Reaction_unsetKineticLaw (Reaction_t *r);
+
+/**
+ * Unsets the fast status of this Reation.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+LIBSBML_EXTERN
+int
+Reaction_unsetFast (Reaction_t *r);
 
 
 END_C_DECLS

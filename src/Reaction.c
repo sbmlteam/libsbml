@@ -132,14 +132,27 @@ Reaction_free (Reaction_t *r)
  * Initializes the fields of this Reaction to their defaults:
  *
  *   - reversible = 1 (true)
- *   - fast       = 0 (false)
+ *   - fast       = 0 (false)  (L1 only)
  */
 LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r)
 {
   Reaction_setReversible(r, 1);
-  Reaction_setFast      (r, 0);
+
+  /**
+   * Set fast explicitly and make sure isSet.fast is false.  This preserves
+   * backward compatibility with L1 where fast defaulted to false and such
+   * Reaction_isSetFast() was not available.  E.g.:
+   *
+   *   Level 1                          Level 2
+   *   ---------------------------      -------------------------------
+   *   r = Reaction_create();           r = Reaction_create();
+   *   Reaction_getFast(r)   == 0;      Reaction_getFast(r)   == 0, but
+   *   Reaction_isSetFast(r) == N/A     Reaction_isSetFast(r) == 0
+   */
+  r->fast       = 0;
+  r->isSet.fast = 0;
 }
 
 
@@ -235,6 +248,21 @@ Reaction_isSetKineticLaw (const Reaction_t *r)
 
 
 /**
+ * @return 1 if the fast status of this Reation has been set, 0 otherwise.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetFast (const Reaction_t *r)
+{
+  return r->isSet.fast;
+}
+
+
+/**
  * Sets the id of this Reaction to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -300,7 +328,8 @@ LIBSBML_EXTERN
 void
 Reaction_setFast (Reaction_t *r, int value)
 {
-  r->fast = value;
+  r->fast       = value;
+  r->isSet.fast = 0;
 }
 
 
@@ -461,4 +490,19 @@ void
 Reaction_unsetKineticLaw (Reaction_t *r)
 {
   r->kineticLaw = NULL;
+}
+
+
+/**
+ * Unsets the fast status of this Reation.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+LIBSBML_EXTERN
+int
+Reaction_unsetFast (Reaction_t *r)
+{
+  r->isSet.fast = 0;
 }
