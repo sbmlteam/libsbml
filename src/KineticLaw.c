@@ -269,19 +269,6 @@ KineticLaw_getNumParameters (const KineticLaw_t *kl)
 
 
 /**
- * Unsets the formula of this KineticLaw.  This is equivalent to:
- * safe_free(kl->formula); kl->formula = NULL;
- */
-LIBSBML_EXTERN
-void
-KineticLaw_unsetFormula (KineticLaw_t *kl)
-{
-  safe_free(kl->formula);
-  kl->formula = NULL;
-}
-
-
-/**
  * Unsets the timeUnits of this KineticLaw.  This is equivalent to:
  * safe_free(kl->timeUnits); kl->timeUnits = NULL;
  */
