@@ -1735,8 +1735,9 @@ RULE (reaction_kineticLawTimeUnits)
     "unitDefnition that defines a variant of 'second' with exponent=1.";
   BOOLEAN passed = TRUE;
 
-
   Reaction_t *r = (Reaction_t *) obj;
+
+
   if (Reaction_isSetKineticLaw(r))
   {
     KineticLaw_t *kl = Reaction_getKineticLaw(r);
@@ -1811,6 +1812,34 @@ RULE (rule_variableOnlyOnce)
 
 
 /**
+ * The timeUnits attribute must contain either 'time', 'second' or the values
+ * of id attributes of unitDefinition elements that define variants (i.e. have
+ * only arbitrary scale, multiplier and offset values) of second.
+ */
+RULE (event_timeUnits)
+{
+  static const char msg[] =
+    "An event's timeUnits must be 'time', 'second', or the id of a "
+    "unitDefinition that defines a variant of 'second' with exponent=1.";
+  BOOLEAN passed = TRUE;
+
+  Event_t *e = (Event_t *) obj;
+
+
+  if (Event_isSetTimeUnits(e))
+  {
+    if (!isTimeOrVariant(d->model, Event_getTimeUnits(e)))
+    {
+      LOG_MESSAGE(msg);
+      passed = FALSE;
+    }
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -1866,4 +1895,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, rule_nonconstantVariable,       SBML_RATE_RULE       );
   Validator_addRule( v, rule_variableOnlyOnce,          SBML_ASSIGNMENT_RULE );
   Validator_addRule( v, rule_variableOnlyOnce,          SBML_RATE_RULE       );
+  Validator_addRule( v, event_timeUnits,                SBML_EVENT           );
 }
