@@ -51,6 +51,10 @@
 
 
 #include "sbml/common.h"
+
+#include "sbml/FormulaFormatter.h"
+#include "sbml/FormulaParser.h"
+
 #include "sbml/KineticLaw.h"
 
 
@@ -244,6 +248,33 @@ KineticLaw_setFormula (KineticLaw_t *kl, const char *string)
 
 
 /**
+ * Sets the formula of this KineticLaw based on the current value of its
+ * math field.  This convenience function is functionally equivalent to:
+ *
+ *   KineticLaw_setFormula(kl, SBML_formulaToString( KineticLaw_getMath(kl) ))
+ *
+ * except you do not need to track and free the value returned by
+ * SBML_formulaToString().
+ *
+ * If !KineticLaw_isSetMath(kl), this function has no effect.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setFormulaFromMath (KineticLaw_t *kl)
+{
+  if (!KineticLaw_isSetMath(kl)) return;
+
+
+  if (kl->formula != NULL)
+  {
+    safe_free(kl->formula);
+  }
+
+  kl->formula = SBML_formulaToString(kl->math);
+}
+
+
+/**
  * Sets the math of this KineticLaw to the given ASTNode.
  *
  * The node <b>is not copied</b> and this KineticLaw <b>takes ownership</b>
@@ -263,6 +294,30 @@ KineticLaw_setMath (KineticLaw_t *kl, ASTNode_t *math)
   }
 
   kl->math = math;
+}
+
+
+/**
+ * Sets the math of this KineticLaw from its current formula string.  This
+ * convenience function is functionally equivalent to:
+ *
+ *   KineticLaw_setMath(kl, SBML_parseFormula( KineticLaw_getFormula(kl) ))
+ *
+ * If !KineticLaw_isSetFormula(kl), this function has no effect.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setMathFromFormula (KineticLaw_t *kl)
+{
+  if (!KineticLaw_isSetFormula(kl)) return;
+
+
+  if (kl->math != NULL)
+  {
+    ASTNode_free(kl->math);
+  }
+
+  kl->math = SBML_parseFormula(kl->formula);
 }
 
 

@@ -51,7 +51,10 @@
 
 
 #include "sbml/common.h"
+
+#include "sbml/FormulaFormatter.h"
 #include "sbml/FormulaParser.h"
+
 #include "sbml/KineticLaw.h"
 
 
@@ -163,6 +166,31 @@ START_TEST (test_KineticLaw_setFormula)
 END_TEST
 
 
+START_TEST (test_KineticLaw_setFormulaFromMath)
+{
+  ASTNode_t *math = SBML_parseFormula("k1 * X0");
+
+
+  fail_unless( !KineticLaw_isSetMath   (KL), NULL );
+  fail_unless( !KineticLaw_isSetFormula(KL), NULL );
+
+  KineticLaw_setFormulaFromMath(KL);
+  fail_unless( !KineticLaw_isSetMath   (KL), NULL );
+  fail_unless( !KineticLaw_isSetFormula(KL), NULL );
+
+  KineticLaw_setMath(KL, math);
+  fail_unless(  KineticLaw_isSetMath   (KL), NULL );
+  fail_unless( !KineticLaw_isSetFormula(KL), NULL );
+
+  KineticLaw_setFormulaFromMath(KL);
+  fail_unless( KineticLaw_isSetMath   (KL), NULL );
+  fail_unless( KineticLaw_isSetFormula(KL), NULL );
+
+  fail_unless( !strcmp(KineticLaw_getFormula(KL), "k1 * X0"), NULL );
+}
+END_TEST
+
+
 START_TEST (test_KineticLaw_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("k3 / k2");
@@ -184,6 +212,35 @@ START_TEST (test_KineticLaw_setMath)
   {
     fail( "KineticLaw_setMath(KL, NULL) did not clear ASTNode." );
   }
+}
+END_TEST
+
+
+START_TEST (test_KineticLaw_setMathFromFormula)
+{
+  char *formula = "k3 / k2";
+
+
+  fail_unless( !KineticLaw_isSetMath   (KL), NULL );
+  fail_unless( !KineticLaw_isSetFormula(KL), NULL );
+
+  KineticLaw_setMathFromFormula(KL);
+  fail_unless( !KineticLaw_isSetMath   (KL), NULL );
+  fail_unless( !KineticLaw_isSetFormula(KL), NULL );
+
+  KineticLaw_setFormula(KL, formula);
+  fail_unless( !KineticLaw_isSetMath   (KL), NULL );
+  fail_unless(  KineticLaw_isSetFormula(KL), NULL );
+
+  KineticLaw_setMathFromFormula(KL);
+  fail_unless( KineticLaw_isSetMath   (KL), NULL );
+  fail_unless( KineticLaw_isSetFormula(KL), NULL );
+
+  formula = SBML_formulaToString( KineticLaw_getMath(KL) );
+
+  fail_unless( !strcmp(formula, "k3 / k2"), NULL );
+
+  safe_free(formula);
 }
 END_TEST
 
@@ -295,15 +352,17 @@ create_suite_KineticLaw (void)
                              KineticLawTest_setup,
                              KineticLawTest_teardown );
 
-  tcase_add_test( tcase, test_KineticLaw_create            );
-  tcase_add_test( tcase, test_KineticLaw_createWith        );
-  tcase_add_test( tcase, test_KineticLaw_free_NULL         );
-  tcase_add_test( tcase, test_KineticLaw_setFormula        );
-  tcase_add_test( tcase, test_KineticLaw_setMath           );
-  tcase_add_test( tcase, test_KineticLaw_setTimeUnits      );
-  tcase_add_test( tcase, test_KineticLaw_setSubstanceUnits );
-  tcase_add_test( tcase, test_KineticLaw_addParameter      );
-  tcase_add_test( tcase, test_KineticLaw_getParameter      );
+  tcase_add_test( tcase, test_KineticLaw_create             );
+  tcase_add_test( tcase, test_KineticLaw_createWith         );
+  tcase_add_test( tcase, test_KineticLaw_free_NULL          );
+  tcase_add_test( tcase, test_KineticLaw_setFormula         );
+  tcase_add_test( tcase, test_KineticLaw_setFormulaFromMath );
+  tcase_add_test( tcase, test_KineticLaw_setMath            );
+  tcase_add_test( tcase, test_KineticLaw_setMathFromFormula );
+  tcase_add_test( tcase, test_KineticLaw_setTimeUnits       );
+  tcase_add_test( tcase, test_KineticLaw_setSubstanceUnits  );
+  tcase_add_test( tcase, test_KineticLaw_addParameter       );
+  tcase_add_test( tcase, test_KineticLaw_getParameter       );
 
   suite_add_tcase(suite, tcase);
 
