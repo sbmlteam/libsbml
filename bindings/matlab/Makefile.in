@@ -100,20 +100,10 @@ distfiles = \
 
 all: Makefile $(libraries)
 
-# There's a known problem with Matlab on MacOS X.  See the following:
-# http://www.mathworks.com/support/solutions/data/1-1BEIS.html?solution=1-1BEIS
-# The following is a work-around.  2004-08-02 <mhucka@caltech.edu>
-
-ifeq "$(HOST_TYPE)" "darwin"
-  mex = $(MEX) -f mexopts-mac.sh
-else
-  mex = $(MEX)
-endif
-
-flags = $(CPPFLAGS) $(MATLAB_CPPFLAGS) -I../../src -L../../src
+flags = $(MEX_FLAGS) $(CPPFLAGS) $(MATLAB_CPPFLAGS) -I../../src -L../../src
 
 %.$(MEXEXT): %.c
-	$(mex) $(flags) $^ -lsbml $(MATLAB_LIBS)
+	$(MEX) -f mexopts-libsbml.sh $(flags) $^ -lsbml $(MATLAB_LIBS)
 
 
 # -----------------------------------------------------------------------------
