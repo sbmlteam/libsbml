@@ -36,3 +36,20 @@ PYTHON TUTORIAL
 
    When you installed libSBML, you already installed the SWIG
    bindings.
+
+   @@
+
+   First, set your PYTHONPATH environment variable to include
+   the libSBML library.  For example:
+
+   $ export PYTHONPATH=/usr/home/bkovitz/cvs/libsbml/bindings/python
+
+   To get started, we'll run Python in command mode. The first
+   step is to import the Python library that contains the SWIG
+   bindings:
+
+   $ python
+   >>> import libsbml
+   >>>
+
+
