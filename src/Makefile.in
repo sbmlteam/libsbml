@@ -139,6 +139,7 @@ headers = \
   sbml/SBMLTypes.hpp                \
   sbml/SBMLUnicodeConstants.hpp     \
   sbml/SBMLWriter.h                 \
+  sbml/SBMLWriter.hpp               \
   sbml/SBase.h                      \
   sbml/SBase.hpp                    \
   sbml/SimpleSpeciesReference.h     \
