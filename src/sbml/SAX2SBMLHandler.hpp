@@ -121,7 +121,12 @@ public:
   void error      (const SAXParseException&);
   void fatalError (const SAXParseException&);
 
-  ParseMessage_t* createParseMessage(const SAXParseException& e);
+  void warning    (const char* message);
+  void error      (const char* message);
+  void fatalError (const char* message);
+
+  ParseMessage_t* createParseMessage (const char* message);
+  ParseMessage_t* createParseMessage (const SAXParseException& e);
 
 
 private:
