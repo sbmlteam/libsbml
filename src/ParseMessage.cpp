@@ -50,8 +50,13 @@
  */
 
 
+#include <iostream>
+
 #include "sbml/ParseMessage.h"
 #include "sbml/ParseMessage.hpp"
+
+
+using namespace std;
 
 
 /**
@@ -60,10 +65,10 @@
  * associated with it.
  */
 LIBSBML_EXTERN
-ParseMessage::ParseMessage (   unsigned int       id
-                             , const std::string& message
-                             , unsigned int       line
-                             , unsigned int       column) :
+ParseMessage::ParseMessage (   unsigned int  id
+                             , const string& message
+                             , unsigned int  line
+                             , unsigned int  column) :
     mId     ( id      )
   , mMessage( message )
   , mLine   ( line    )
@@ -95,7 +100,7 @@ ParseMessage::getId () const
  * @return the message text of this ParseMessage.
  */
 LIBSBML_EXTERN
-const std::string&
+const string&
 ParseMessage::getMessage () const
 {
   return mMessage;
@@ -121,6 +126,21 @@ unsigned int
 ParseMessage::getColumn () const
 {
   return mColumn;
+}
+
+
+/**
+ * Outputs this ParseMessage to stream in the following format (and
+ * followed by a newline):
+ *
+ *   line:col:(id) message
+ */
+ostream& operator<< (ostream& s, const ParseMessage& pm)
+{
+  s << pm.mLine << ':' << pm.mColumn << ": (" << pm.mId << ") " << pm.mMessage
+    << endl;
+
+  return s;
 }
 
 

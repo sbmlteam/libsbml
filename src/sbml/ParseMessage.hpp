@@ -54,6 +54,7 @@
 #define ParseMessage_hpp
 
 
+#include <iosfwd>
 #include <string>
 
 
@@ -80,6 +81,7 @@ public:
    */
   virtual ~ParseMessage ();
 
+
   /**
    * @return the id of this ParseMessage.
    */
@@ -103,6 +105,15 @@ public:
    */
   LIBSBML_EXTERN
   unsigned int getColumn () const;
+
+  /**
+   * Outputs this ParseMessage to stream in the following format (and
+   * followed by a newline):
+   *
+   *   line:col:(id) message
+   */
+  friend
+  std::ostream& operator<< (std::ostream& stream, const ParseMessage& pm);
 
 
 protected:
