@@ -910,7 +910,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumReactants (const Reaction_t *r)
 {
-  static_cast<const Reaction*>(r)->getNumReactants();
+  return static_cast<const Reaction*>(r)->getNumReactants();
 }
 
 
@@ -921,7 +921,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumProducts (const Reaction_t *r)
 {
-  static_cast<const Reaction*>(r)->getNumProducts();
+  return static_cast<const Reaction*>(r)->getNumProducts();
 }
 
 
@@ -933,7 +933,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumModifiers (const Reaction_t *r)
 {
-  static_cast<const Reaction*>(r)->getNumModifiers();
+  return static_cast<const Reaction*>(r)->getNumModifiers();
 }
 
 
