@@ -132,8 +132,8 @@ ParseMessage_free (ParseMessage_t *pm)
 {
   if (pm == NULL) return;
 
-  free(pm->message);
-  free(pm);
+  safe_free(pm->message);
+  safe_free(pm);
 }
 
 
