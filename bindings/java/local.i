@@ -50,6 +50,9 @@
  */
 
 
+/**
+ * Turns off object destruction.  For testing purposes only.
+ */
 /* %typemap (javafinalize) SWIGTYPE %{ %} */
 
 
