@@ -148,10 +148,13 @@ nobase_include_HEADERS = \
   sbml/ASTNode.h                  \
   sbml/Compartment.h              \
   sbml/CompartmentVolumeRule.h    \
+  sbml/FormulaFormatter.h         \
   sbml/FormulaParser.h            \
   sbml/FormulaTokenizer.h         \
   sbml/KineticLaw.h               \
   sbml/List.h                     \
+  sbml/MathMLDocument.h           \
+  sbml/MathMLReader.h             \
   sbml/Model.h                    \
   sbml/Parameter.h                \
   sbml/ParameterRule.h            \
@@ -169,6 +172,7 @@ nobase_include_HEADERS = \
   sbml/SpeciesConcentrationRule.h \
   sbml/SpeciesReference.h         \
   sbml/Stack.h                    \
+  sbml/StringBuffer.h             \
   sbml/UnitDefinition.h           \
   sbml/Unit.h                     \
   sbml/UnitKind.h                 \
@@ -180,12 +184,19 @@ nobase_include_HEADERS = \
 
 libsbml_la_SOURCES = \
   sbml/common.hpp                 \
+  sbml/MathMLHandler.hpp          \
+  sbml/MathMLTagCodes.hpp         \
+  sbml/MathMLUnicodeConstants.hpp \
   sbml/SBMLFormatter.hpp          \
   sbml/SBMLHandler.hpp            \
   sbml/SBMLTagCodes.hpp           \
   sbml/SBMLUnicodeConstants.hpp   \
   sbml/XMLStringFormatter.hpp     \
   sbml/XMLUtil.hpp                \
+  MathMLDocument.c                \
+  MathMLHandler.cpp               \
+  MathMLReader.cpp                \
+  MathMLTagCodes.cpp              \
   SBMLFormatter.cpp               \
   SBMLHandler.cpp                 \
   SBMLReader.cpp                  \
@@ -198,6 +209,7 @@ libsbml_la_SOURCES = \
   ASTNode.c                       \
   Compartment.c                   \
   CompartmentVolumeRule.c         \
+  FormulaFormatter.c              \
   FormulaParser.c                 \
   FormulaTokenizer.c              \
   KineticLaw.c                    \
@@ -215,6 +227,7 @@ libsbml_la_SOURCES = \
   SpeciesConcentrationRule.c      \
   SpeciesReference.c              \
   Stack.c                         \
+  StringBuffer.c                  \
   Unit.c                          \
   UnitDefinition.c                \
   UnitKind.c                      \
@@ -226,6 +239,7 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  test-data                      \
 @LIBCHECK_ENABLED_TRUE@  sbml/SAX2AttributesMock.hpp    \
 @LIBCHECK_ENABLED_TRUE@  SAX2AttributesMock.cpp         \
+@LIBCHECK_ENABLED_TRUE@  TestMathMLHandler.cpp          \
 @LIBCHECK_ENABLED_TRUE@  TestSAX2AttributesMock.cpp     \
 @LIBCHECK_ENABLED_TRUE@  TestSBMLFormatter.cpp          \
 @LIBCHECK_ENABLED_TRUE@  TestSBMLHandler.cpp            \
@@ -236,10 +250,12 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  TestASTNode.c                  \
 @LIBCHECK_ENABLED_TRUE@  TestCompartment.c              \
 @LIBCHECK_ENABLED_TRUE@  TestCompartmentVolumeRule.c    \
+@LIBCHECK_ENABLED_TRUE@  TestFormulaFormatter.c         \
 @LIBCHECK_ENABLED_TRUE@  TestFormulaParser.c            \
 @LIBCHECK_ENABLED_TRUE@  TestFormulaTokenizer.c         \
 @LIBCHECK_ENABLED_TRUE@  TestKineticLaw.c               \
 @LIBCHECK_ENABLED_TRUE@  TestList.c                     \
+@LIBCHECK_ENABLED_TRUE@  TestMathMLDocument.c           \
 @LIBCHECK_ENABLED_TRUE@  TestMemory.c                   \
 @LIBCHECK_ENABLED_TRUE@  TestModel.c                    \
 @LIBCHECK_ENABLED_TRUE@  TestParameter.c                \
@@ -256,6 +272,7 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  TestSpeciesConcentrationRule.c \
 @LIBCHECK_ENABLED_TRUE@  TestSpeciesReference.c         \
 @LIBCHECK_ENABLED_TRUE@  TestStack.c                    \
+@LIBCHECK_ENABLED_TRUE@  TestStringBuffer.c             \
 @LIBCHECK_ENABLED_TRUE@  TestReadFromFile1.c            \
 @LIBCHECK_ENABLED_TRUE@  TestReadFromFile2.c            \
 @LIBCHECK_ENABLED_TRUE@  TestReadFromFile3.c            \
@@ -279,35 +296,41 @@ CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
 libsbml_la_LIBADD =
-am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLReader.lo \
-	SBMLTagCodes.lo SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo \
-	AlgebraicRule.lo AssignmentRule.lo ASTNode.lo Compartment.lo \
-	CompartmentVolumeRule.lo FormulaParser.lo FormulaTokenizer.lo \
-	KineticLaw.lo List.lo Model.lo Parameter.lo ParameterRule.lo \
-	ParseMessage.lo Reaction.lo Rule.lo RuleType.lo SBase.lo \
-	SBMLDocument.lo Species.lo SpeciesConcentrationRule.lo \
-	SpeciesReference.lo Stack.lo Unit.lo UnitDefinition.lo \
-	UnitKind.lo memory.lo util.lo
+am_libsbml_la_OBJECTS = MathMLDocument.lo MathMLHandler.lo \
+	MathMLReader.lo MathMLTagCodes.lo SBMLFormatter.lo \
+	SBMLHandler.lo SBMLReader.lo SBMLTagCodes.lo SBMLWriter.lo \
+	XMLStringFormatter.lo XMLUtil.lo AlgebraicRule.lo \
+	AssignmentRule.lo ASTNode.lo Compartment.lo \
+	CompartmentVolumeRule.lo FormulaFormatter.lo FormulaParser.lo \
+	FormulaTokenizer.lo KineticLaw.lo List.lo Model.lo Parameter.lo \
+	ParameterRule.lo ParseMessage.lo Reaction.lo Rule.lo \
+	RuleType.lo SBase.lo SBMLDocument.lo Species.lo \
+	SpeciesConcentrationRule.lo SpeciesReference.lo Stack.lo \
+	StringBuffer.lo Unit.lo UnitDefinition.lo UnitKind.lo memory.lo \
+	util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
 @LIBCHECK_ENABLED_TRUE@check_PROGRAMS = TestRunner$(EXEEXT)
 @LIBCHECK_ENABLED_FALSE@check_PROGRAMS =
 am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
-	SAX2AttributesMock.cpp TestSAX2AttributesMock.cpp \
-	TestSBMLFormatter.cpp TestSBMLHandler.cpp \
-	TestXMLStringFormatter.cpp TestXMLUtil.cpp TestAlgebraicRule.c \
-	TestAssignmentRule.c TestASTNode.c TestCompartment.c \
-	TestCompartmentVolumeRule.c TestFormulaParser.c \
-	TestFormulaTokenizer.c TestKineticLaw.c TestList.c TestMemory.c \
-	TestModel.c TestParameter.c TestParameterRule.c \
-	TestParseMessage.c TestReaction.c TestRule.c TestRuleType.c \
-	TestSBase.c TestSBMLDocument.c TestSBMLReader.c \
-	TestSBMLWriter.c TestSpecies.c TestSpeciesConcentrationRule.c \
-	TestSpeciesReference.c TestStack.c TestReadFromFile1.c \
+	SAX2AttributesMock.cpp TestMathMLHandler.cpp \
+	TestSAX2AttributesMock.cpp TestSBMLFormatter.cpp \
+	TestSBMLHandler.cpp TestXMLStringFormatter.cpp TestXMLUtil.cpp \
+	TestAlgebraicRule.c TestAssignmentRule.c TestASTNode.c \
+	TestCompartment.c TestCompartmentVolumeRule.c \
+	TestFormulaFormatter.c TestFormulaParser.c \
+	TestFormulaTokenizer.c TestKineticLaw.c TestList.c \
+	TestMathMLDocument.c TestMemory.c TestModel.c TestParameter.c \
+	TestParameterRule.c TestParseMessage.c TestReaction.c \
+	TestRule.c TestRuleType.c TestSBase.c TestSBMLDocument.c \
+	TestSBMLReader.c TestSBMLWriter.c TestSpecies.c \
+	TestSpeciesConcentrationRule.c TestSpeciesReference.c \
+	TestStack.c TestStringBuffer.c TestReadFromFile1.c \
 	TestReadFromFile2.c TestReadFromFile3.c TestReadFromFile4.c \
 	TestRunner.c TestUnitDefinition.c TestUnitKind.c TestUnit.c \
 	TestUtil.c
 @LIBCHECK_ENABLED_TRUE@am_TestRunner_OBJECTS = \
 @LIBCHECK_ENABLED_TRUE@	SAX2AttributesMock.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestMathMLHandler.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSAX2AttributesMock.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSBMLFormatter.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSBMLHandler.$(OBJEXT) \
@@ -318,11 +341,13 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 @LIBCHECK_ENABLED_TRUE@	TestASTNode.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestCompartment.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestCompartmentVolumeRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestFormulaFormatter.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestFormulaParser.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestFormulaTokenizer.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestKineticLaw.$(OBJEXT) \
-@LIBCHECK_ENABLED_TRUE@	TestList.$(OBJEXT) TestMemory.$(OBJEXT) \
-@LIBCHECK_ENABLED_TRUE@	TestModel.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestList.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestMathMLDocument.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestMemory.$(OBJEXT) TestModel.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestParameter.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestParameterRule.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestParseMessage.$(OBJEXT) \
@@ -337,6 +362,7 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 @LIBCHECK_ENABLED_TRUE@	TestSpeciesConcentrationRule.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSpeciesReference.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestStack.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestStringBuffer.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestReadFromFile1.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestReadFromFile2.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestReadFromFile3.$(OBJEXT) \
@@ -358,9 +384,14 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/AssignmentRule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Compartment.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/CompartmentVolumeRule.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/FormulaFormatter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/FormulaParser.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/FormulaTokenizer.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/KineticLaw.Plo ./$(DEPDIR)/List.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/MathMLDocument.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/MathMLHandler.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/MathMLReader.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/MathMLTagCodes.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Model.Plo ./$(DEPDIR)/Parameter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/ParameterRule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/ParseMessage.Plo \
@@ -376,16 +407,20 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/Species.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SpeciesConcentrationRule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SpeciesReference.Plo \
-@AMDEP_TRUE@	./$(DEPDIR)/Stack.Plo ./$(DEPDIR)/TestASTNode.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/Stack.Plo ./$(DEPDIR)/StringBuffer.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/TestASTNode.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestAlgebraicRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestAssignmentRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestCompartment.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestCompartmentVolumeRule.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestFormulaFormatter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestFormulaParser.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestFormulaTokenizer.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestKineticLaw.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/TestList.Po ./$(DEPDIR)/TestMemory.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/TestModel.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestList.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestMathMLDocument.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestMathMLHandler.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestMemory.Po ./$(DEPDIR)/TestModel.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestParameter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestParameterRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestParseMessage.Po \
@@ -405,7 +440,9 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBase.Po ./$(DEPDIR)/TestSpecies.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSpeciesConcentrationRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSpeciesReference.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/TestStack.Po ./$(DEPDIR)/TestUnit.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestStack.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestStringBuffer.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestUnit.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestUnitDefinition.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestUnitKind.Po ./$(DEPDIR)/TestUtil.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestXMLStringFormatter.Po \
@@ -497,10 +534,15 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/AssignmentRule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Compartment.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CompartmentVolumeRule.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FormulaFormatter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FormulaParser.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FormulaTokenizer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/KineticLaw.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/List.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLDocument.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLHandler.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLReader.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLTagCodes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Model.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Parameter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ParameterRule.Plo@am__quote@
@@ -520,15 +562,19 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpeciesConcentrationRule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SpeciesReference.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Stack.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/StringBuffer.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestASTNode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestAlgebraicRule.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestAssignmentRule.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestCompartment.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestCompartmentVolumeRule.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestFormulaFormatter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestFormulaParser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestFormulaTokenizer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestKineticLaw.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestList.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMathMLDocument.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMathMLHandler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMemory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestModel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestParameter.Po@am__quote@
@@ -553,6 +599,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSpeciesConcentrationRule.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSpeciesReference.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestStack.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestStringBuffer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestUnit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestUnitDefinition.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestUnitKind.Po@am__quote@

@@ -59,10 +59,13 @@ nobase_include_HEADERS =          \
   sbml/ASTNode.h                  \
   sbml/Compartment.h              \
   sbml/CompartmentVolumeRule.h    \
+  sbml/FormulaFormatter.h         \
   sbml/FormulaParser.h            \
   sbml/FormulaTokenizer.h         \
   sbml/KineticLaw.h               \
   sbml/List.h                     \
+  sbml/MathMLDocument.h           \
+  sbml/MathMLReader.h             \
   sbml/Model.h                    \
   sbml/Parameter.h                \
   sbml/ParameterRule.h            \
@@ -80,6 +83,7 @@ nobase_include_HEADERS =          \
   sbml/SpeciesConcentrationRule.h \
   sbml/SpeciesReference.h         \
   sbml/Stack.h                    \
+  sbml/StringBuffer.h             \
   sbml/UnitDefinition.h           \
   sbml/Unit.h                     \
   sbml/UnitKind.h                 \
@@ -90,12 +94,19 @@ nobase_include_HEADERS =          \
 
 libsbml_la_SOURCES =              \
   sbml/common.hpp                 \
+  sbml/MathMLHandler.hpp          \
+  sbml/MathMLTagCodes.hpp         \
+  sbml/MathMLUnicodeConstants.hpp \
   sbml/SBMLFormatter.hpp          \
   sbml/SBMLHandler.hpp            \
   sbml/SBMLTagCodes.hpp           \
   sbml/SBMLUnicodeConstants.hpp   \
   sbml/XMLStringFormatter.hpp     \
   sbml/XMLUtil.hpp                \
+  MathMLDocument.c                \
+  MathMLHandler.cpp               \
+  MathMLReader.cpp                \
+  MathMLTagCodes.cpp              \
   SBMLFormatter.cpp               \
   SBMLHandler.cpp                 \
   SBMLReader.cpp                  \
@@ -108,6 +119,7 @@ libsbml_la_SOURCES =              \
   ASTNode.c                       \
   Compartment.c                   \
   CompartmentVolumeRule.c         \
+  FormulaFormatter.c              \
   FormulaParser.c                 \
   FormulaTokenizer.c              \
   KineticLaw.c                    \
@@ -125,6 +137,7 @@ libsbml_la_SOURCES =              \
   SpeciesConcentrationRule.c      \
   SpeciesReference.c              \
   Stack.c                         \
+  StringBuffer.c                  \
   Unit.c                          \
   UnitDefinition.c                \
   UnitKind.c                      \
@@ -138,6 +151,7 @@ TestRunner_SOURCES =             \
   test-data                      \
   sbml/SAX2AttributesMock.hpp    \
   SAX2AttributesMock.cpp         \
+  TestMathMLHandler.cpp          \
   TestSAX2AttributesMock.cpp     \
   TestSBMLFormatter.cpp          \
   TestSBMLHandler.cpp            \
@@ -148,10 +162,12 @@ TestRunner_SOURCES =             \
   TestASTNode.c                  \
   TestCompartment.c              \
   TestCompartmentVolumeRule.c    \
+  TestFormulaFormatter.c         \
   TestFormulaParser.c            \
   TestFormulaTokenizer.c         \
   TestKineticLaw.c               \
   TestList.c                     \
+  TestMathMLDocument.c           \
   TestMemory.c                   \
   TestModel.c                    \
   TestParameter.c                \
@@ -168,6 +184,7 @@ TestRunner_SOURCES =             \
   TestSpeciesConcentrationRule.c \
   TestSpeciesReference.c         \
   TestStack.c                    \
+  TestStringBuffer.c             \
   TestReadFromFile1.c            \
   TestReadFromFile2.c            \
   TestReadFromFile3.c            \
