@@ -66,6 +66,8 @@ BEGIN_C_DECLS
 /**
  * Parses the given SBML formula and returns a representation of it as an
  * Abstract Syntax Tree (AST).  The root node of the AST is returned.
+ *
+ * If the formula contains a grammatical error, NULL is returned.
  */
 LIBSBML_EXTERN
 ASTNode_t *
