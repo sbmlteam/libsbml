@@ -346,7 +346,7 @@ InputPath=.\libsbml.i
 InputName=libsbml
 
 "$(InputName)_wrap.cxx" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	C:\swig\swig-1.3.21\swig.exe -c++ -java -package libsbml -outdir $(OutDir)  $(InputPath)
+	C:\swig\swig-1.3.21\swig.exe -c++  -I..\..\src -java -package libsbml -outdir $(OutDir)  $(InputPath)
 
 # End Custom Build
 
