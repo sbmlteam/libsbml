@@ -277,6 +277,10 @@ SOURCE=..\..\src\Stack.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\StreamFormatTarget.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\StringBuffer.c
 # End Source File
 # Begin Source File
@@ -573,6 +577,10 @@ SOURCE=..\..\src\sbml\RuleType.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\sbml\SAX2AttributesMock.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sbml\SBase.h
 # End Source File
 # Begin Source File
@@ -633,6 +641,10 @@ SOURCE=..\..\src\sbml\SBMLWriter.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\sbml\SBMLWriter.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sbml\SimpleSpeciesReference.h
 # End Source File
 # Begin Source File
@@ -666,6 +678,10 @@ SOURCE=..\..\src\sbml\SpeciesReference.hpp
 # Begin Source File
 
 SOURCE=..\..\src\sbml\Stack.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\sbml\StreamFormatTarget.hpp
 # End Source File
 # Begin Source File
 
