@@ -58,6 +58,26 @@
 #include "common.hpp"
 
 
+//
+// http://www.sbml.org/sbml/level1
+//
+static const XMLCh XMLNS_SBML_L1[] =
+{
+  chLatin_h, chLatin_t, chLatin_t, chLatin_p,
+  chColon, chForwardSlash, chForwardSlash,
+  chLatin_w, chLatin_w, chLatin_w,
+  chPeriod,
+  chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chPeriod,
+  chLatin_o, chLatin_r, chLatin_g,
+  chForwardSlash,
+  chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chForwardSlash,
+  chLatin_l, chLatin_e, chLatin_v, chLatin_e, chLatin_l, chDigit_1,
+  chNull
+};
+
+
 static const XMLCh ELEM_ALGEBRAIC_RULE[] =
 {
   chLatin_a, chLatin_l, chLatin_g, chLatin_e, chLatin_b, chLatin_r,
@@ -69,6 +89,12 @@ static const XMLCh ELEM_ANNOTATION[] =
 {
   chLatin_a, chLatin_n, chLatin_n, chLatin_o, chLatin_t, chLatin_a,
   chLatin_t, chLatin_i, chLatin_o, chLatin_n, chNull
+};
+
+static const XMLCh ELEM_ANNOTATIONS[] =
+{
+  chLatin_a, chLatin_n, chLatin_n, chLatin_o, chLatin_t, chLatin_a,
+  chLatin_t, chLatin_i, chLatin_o, chLatin_n, chLatin_s, chNull
 };
 
 static const XMLCh ELEM_COMPARTMENT[] =
