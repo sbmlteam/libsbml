@@ -66,6 +66,7 @@
 #include "sbml/MathMLFormatter.hpp"
 #include "sbml/MathMLDocument.h"
 #include "sbml/MathMLWriter.h"
+#include "sbml/MathMLWriter.hpp"
 
 
 /**
@@ -166,3 +167,51 @@ writeMathMLToString (MathMLDocument_t *d)
 
   return result;
 }
+
+/**
+ * Writes the given MathML document to an ostream.
+ *
+ * @return 1 on success and 0 on failure
+ */
+LIBSBML_EXTERN
+int
+writeMathMLToStream (MathMLDocument_t *d, std::ostream & o)
+{
+  int         result   = 1;
+  const char* encoding = "UTF-8";
+
+  StreamFormatTarget* target    = NULL;
+  MathMLFormatter*    formatter = NULL;
+
+
+  try
+  {
+#ifndef USE_EXPAT
+    XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
+
+    target    = new StreamFormatTarget(o);
+    formatter = new MathMLFormatter(encoding, target, true);
+
+    *formatter << d;
+    result = 1;
+  }
+  catch (...)
+  {
+    result = 0;
+  }
+
+
+  if (target != NULL)
+  {
+    delete target;
+  }
+
+  if (formatter != NULL)
+  {
+    delete formatter;
+  }
+
+  return result;
+}
+
