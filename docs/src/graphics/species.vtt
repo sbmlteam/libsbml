@@ -1,0 +1,166 @@
+; Visual Thought 1.0
+
+(header
+  (program "vthought")
+  (version "1.4")
+  (buildDate "$Date$")
+  (writeDate "Tue Jun 24, 2003 11:23:20 AM ")
+  (documentPath "C:\SFORGE_CVS\sbw\project\docs\sbml\sbml-level-2\version-1\specie.vtt")
+)
+
+(document
+  (palette F)
+  (layout
+    (page "Letter")
+    (units "Inches")
+    (orientation "portrait")
+    (numberOfPages 1 1)
+    (scale 100)
+    (margins 18 18 18 18)
+  )
+)
+
+(views
+  (view
+    (location 218 192)
+    (size 1058 682)
+    (zoom 1)
+    (documentLocation 0 52)
+    (gridSnap F)
+    (gridVisibility F)
+    (gridSpacing 9)
+    (pageBreaks T)
+    (toolVisibility T)
+    (rulerVisibility T)
+  )
+)
+
+(shapes
+  (shape
+    (id 1)
+    (layer 0)
+    (type "Rectangle")
+    (location 224 461.5)
+    (size 60 21)
+    (rotation 0)
+    (locked F)
+    (style
+      (filled F)
+      (fillColor 65535 65535 65535)
+      (stroked F)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (flipHorizontal F)
+    (flipVertical F)
+    (showText T)
+    (textVerticalAlignment "top")
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard {\b Species}})
+  )
+  (shape
+    (id 3)
+    (layer 2)
+    (type "Rectangle")
+    (location 223.5 363.5)
+    (size 380 173)
+    (rotation 0)
+    (locked F)
+    (style
+      (filled F)
+      (fillColor 65535 65535 65535)
+      (stroked F)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (flipHorizontal F)
+    (flipVertical F)
+    (showText T)
+    (textVerticalAlignment "top")
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard id : SId
+\par name : string   \{use="optional"\}
+\par compartment : SId
+\par initialAmount : double  \{use="optional"\}
+\par initialConcentration: double  \{use="optional"\}
+\par substanceUnits : SId   \{use="optional"\}
+\par spatialSizeUnits : Sid \{use="optional"\}
+\par hasOnlySubstanceUnits : boolean \{ use="optional" default="false"\}
+\par boundaryCondition : boolean   \{use="optional" default="false"\}
+\par charge : integer   \{use="optional"\}
+\par constant : boolean   \{use="optional" default="false"\}})
+  )
+  (shape
+    (id 4)
+    (layer 3)
+    (type "Rectangle")
+    (location 217.5 372.5)
+    (size 374 201)
+    (rotation 0)
+    (locked F)
+    (style
+      (filled T)
+      (fillColor 65535 65535 65535)
+      (stroked T)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (flipHorizontal F)
+    (flipVertical F)
+    (showText F)
+    (textVerticalAlignment "center")
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard\qc Text})
+  )
+)
+
+(connections
+  (connection
+    (id 2)
+    (layer 1)
+    (rotation 0)
+    (textRotation 0)
+    (locked F)
+    (points
+      (31 451)
+      (404 451)
+    )
+    (curved F)
+    (style
+      (filled T)
+      (fillColor 65535 65535 65535)
+      (stroked T)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (showText F)
+    (textDistancePercentage 0.5)
+    (textWidth 72)
+    (textOffset 0)
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard\qc Text})
+    (drawStartArrowhead F)
+    (drawEndArrowhead F)
+    (startArrowhead "StandardArrow")
+    (endArrowhead "StandardArrow")
+  )
+)
+
+(groups
+)

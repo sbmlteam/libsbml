@@ -1,0 +1,159 @@
+; Visual Thought 1.0
+
+(header
+  (program "vthought")
+  (version "1.4")
+  (buildDate "$Date$")
+  (writeDate "Wed Apr 2, 2003 12:47:37 PM ")
+  (documentPath "C:\SFORGE_CVS\sbw\project\docs\sbml\sbml-level-2\version-1\identified.vtt")
+)
+
+(document
+  (palette F)
+  (layout
+    (page "Letter")
+    (units "Inches")
+    (orientation "portrait")
+    (numberOfPages 1 1)
+    (scale 100)
+    (margins 18 18 18 18)
+  )
+)
+
+(views
+  (view
+    (location 61 303)
+    (size 1506 723)
+    (zoom 2.3468)
+    (documentLocation 0 481)
+    (gridSnap F)
+    (gridVisibility F)
+    (gridSpacing 9)
+    (pageBreaks T)
+    (toolVisibility T)
+    (rulerVisibility T)
+  )
+)
+
+(shapes
+  (shape
+    (id 2)
+    (layer 1)
+    (type "Rectangle")
+    (location 320.5 570.5)
+    (size 439 93)
+    (rotation 0)
+    (locked F)
+    (style
+      (filled F)
+      (fillColor 65535 65535 65535)
+      (stroked F)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (flipHorizontal F)
+    (flipVertical F)
+    (showText T)
+    (textVerticalAlignment "top")
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard metaid : ID \{use="optional"\}
+\par notes : (ANY : \{namespace="http://www.w3.org/1999/xhtml"\})    \{minOccurs="0"\}
+\par annotation : (ANY)   \{minOccurs="0"\}
+\par \pard\qc })
+  )
+  (shape
+    (id 3)
+    (layer 2)
+    (type "Rectangle")
+    (location 304.5 628)
+    (size 63 18)
+    (rotation 0)
+    (locked F)
+    (style
+      (filled F)
+      (fillColor 65535 65535 65535)
+      (stroked F)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (flipHorizontal F)
+    (flipVertical F)
+    (showText T)
+    (textVerticalAlignment "top")
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard\qc {\b\i SBase}})
+  )
+  (shape
+    (id 4)
+    (layer 3)
+    (type "Rectangle")
+    (location 315 598)
+    (size 435 76)
+    (rotation 0)
+    (locked F)
+    (style
+      (filled T)
+      (fillColor 65535 65535 65535)
+      (stroked T)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (flipHorizontal F)
+    (flipVertical F)
+    (showText F)
+    (textVerticalAlignment "center")
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard\qc Text})
+  )
+)
+
+(connections
+  (connection
+    (id 1)
+    (layer 0)
+    (rotation 0)
+    (textRotation 0)
+    (locked F)
+    (points
+      (97 618)
+      (533 618)
+    )
+    (curved F)
+    (style
+      (filled T)
+      (fillColor 65535 65535 65535)
+      (stroked T)
+      (strokeColor 0 0 0)
+      (lineWidth 1)
+      (shadowed F)
+      (shadowColor 39321 39321 39321)
+    )
+    (showText F)
+    (textDistancePercentage 0.5)
+    (textWidth 72)
+    (textOffset 0)
+    (rtfText{\rtf1\ansi\deff0
+{\fonttbl{\f0\fnil Arial medium;}}
+{\colortbl\red0\green0\blue0;}
+\cf0\plain\pard\qc Text})
+    (drawStartArrowhead F)
+    (drawEndArrowhead F)
+    (startArrowhead "StandardArrow")
+    (endArrowhead "StandardArrow")
+  )
+)
+
+(groups
+)
