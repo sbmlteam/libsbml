@@ -498,6 +498,32 @@ anyRuleVariableIs(const Model_t *m, const char *variableName)
 
 
 static
+BOOLEAN
+isBuiltInUnit(const char *unit)
+{
+  const char *builtInUnits[] = {
+    "substance",
+    "volume",
+    "area",
+    "length",
+    "time",
+    NULL
+  };
+  const char **p;
+
+  for (p = builtInUnits; *p; p++)
+  {
+    if (streq(unit, *p))
+    {
+      return TRUE;
+    }
+  }
+
+  return FALSE;
+}
+
+
+static
 void
 logFullMessage(
   const char *baseMsg,
@@ -1360,6 +1386,43 @@ RULE (species_ruleAndReaction)
       passed = 0;
     }
   }
+
+  return passed;
+}
+
+
+/**
+ * The units field must contain one of the following: a value from the unit
+ * kind enumeration (eg 'metre'), a value from the built-in units table e.g.
+ * 'substance' or the value of a id attribute of a unitDefinition element.
+ */
+RULE (parameter_units)
+{
+  static const char msg[] =
+    "A parameter's 'units' must be a base unit (e.g. 'litre'), a built-in "
+    "unit (e.g. 'volume'), or the id of a unitDefinition.";
+  unsigned int passed = 1;
+
+  Parameter_t *p = (Parameter_t *) obj;
+  const char *units = Parameter_getUnits(p);
+
+
+  if (units)
+  {
+    if (
+      !UnitKind_isValidUnitKindString(units)
+      &&
+      Model_getUnitDefinitionById(d->model, units) == NULL
+      &&
+      !isBuiltInUnit(units)
+    )
+    {
+      LOG_MESSAGE(msg);
+      passed = 0;
+    }
+  }
+
+  return passed;
 }
 
 
@@ -1408,4 +1471,5 @@ Validator_addDefaultRules (Validator_t *v)
   */
   Validator_addRule( v, species_speciesReference,       SBML_SPECIES         );
   Validator_addRule( v, species_ruleAndReaction,        SBML_SPECIES         );
+  Validator_addRule( v, parameter_units,                SBML_PARAMETER       );
 }
