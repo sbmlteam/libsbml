@@ -134,14 +134,17 @@ def getPrototype (stream):
   return result
 
 
-def escapeUnderscores(string):
+def escapeProblemChars(string):
   """escapeUnderscore(string) -> string
 
-  Escapes underscores for LaTeX.  Returns the string with any
-  undercores replaced by '\_'.
+  Escapes characters that cause LaTeX problems, such as ampersand
+  and underscore.  Returns the string with any such characters
+  prefixed with a backslash.
   """
 
-  return replace(string, '_', '\_')
+  string = replace(string, '_', '\_')
+  string = replace(string, '&', '\&')
+  return string
 
 
 def filterDocStringLine(string):
@@ -206,9 +209,9 @@ def TeXifyHeaderFile(filename):
     docstring = getDocString(stream)
 
     if isPublicFunction(stream):
-      type      = escapeUnderscores( getReturnType(stream) )
-      prototype = map( escapeUnderscores, getPrototype(stream) )
-      docstring = map( escapeUnderscores, docstring            )
+      type      = escapeProblemChars( getReturnType(stream) )
+      prototype = map( escapeProblemChars, getPrototype(stream) )
+      docstring = map( escapeProblemChars, docstring            )
       docstring = map( filterDocStringLine, docstring          )
 
       print '\\begin{methoddef}{%s %s}' % (type, join(prototype))
