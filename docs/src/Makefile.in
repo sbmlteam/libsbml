@@ -231,7 +231,6 @@ libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 	$(latex-env) latex libsbml-manual
 	$(latex-env) latex libsbml-manual
 	$(latex-env) latex libsbml-manual
-	cp libsbml-manual.dvi $(formatted)
 
 $(formatted)/libsbml-manual.ps libsbml-manual.ps: libsbml-manual.dvi
 	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
@@ -290,7 +289,6 @@ endif
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
-	cp libsbml-api-ref.dvi $(formatted)
 
 $(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  libsbml-api-ref.dvi
 	$(latex-env) dvips -o libsbml-api-ref.ps libsbml-api-ref
