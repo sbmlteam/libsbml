@@ -121,6 +121,78 @@ Model::isSetName () const
 
 
 /**
+ * Moves the id field to the name field for this Model and all of its
+ * contituent UnitDefinitions, Compartments, Species, Parameters, and
+ * Reactions.  This method is used for converting from L2 to L1.
+ *
+ * NOTE: Any object with its name field already set will be skipped.
+ *
+ * @see moveIdToName
+ */
+LIBSBML_EXTERN
+void
+Model::moveAllIdsToNames ()
+{
+  int n;
+  int size;
+
+
+  moveIdToName();
+
+  size = getNumUnitDefinitions();
+  for (n = 0; n < size; n++) getUnitDefinition(n)->moveIdToName();
+
+  size = getNumCompartments();
+  for (n = 0; n < size; n++) getCompartment(n)->moveIdToName();
+
+  size = getNumSpecies();
+  for (n = 0; n < size; n++) getSpecies(n)->moveIdToName();
+
+  size = getNumParameters();
+  for (n = 0; n < size; n++) getParameter(n)->moveIdToName();
+
+  size = getNumReactions();
+  for (n = 0; n < size; n++) getReaction(n)->moveIdToName();
+}
+
+
+/**
+ * Moves the name field to the id field for this Model and all of its
+ * contituent UnitDefinitions, Compartments, Species, Parameters, and
+ * Reactions.  This method is used for converting from L1 to L2.
+ *
+ * NOTE: Any object with its id field already set will be skipped.
+ *
+ * @see moveNameToId
+ */
+LIBSBML_EXTERN
+void
+Model::moveAllNamesToIds ()
+{
+  int n;
+  int size;
+
+
+  moveNameToId();
+
+  size = getNumUnitDefinitions();
+  for (n = 0; n < size; n++) getUnitDefinition(n)->moveNameToId();
+
+  size = getNumCompartments();
+  for (n = 0; n < size; n++) getCompartment(n)->moveNameToId();
+
+  size = getNumSpecies();
+  for (n = 0; n < size; n++) getSpecies(n)->moveNameToId();
+
+  size = getNumParameters();
+  for (n = 0; n < size; n++) getParameter(n)->moveNameToId();
+
+  size = getNumReactions();
+  for (n = 0; n < size; n++) getReaction(n)->moveNameToId();
+}
+
+
+/**
  * Moves the id field of this Model to its name field (iff name is not
  * already set).  This method is used for converting from L2 to L1.
  */
@@ -1280,6 +1352,41 @@ Model_isSetName (const Model_t *m)
 {
   return (int) static_cast<const Model*>(m)->isSetName();
 }
+
+
+/**
+ * Moves the id field to the name field for this Model and all of its
+ * contituent UnitDefinitions, Compartments, Species, Parameters, and
+ * Reactions.  This method is used for converting from L2 to L1.
+ *
+ * NOTE: Any object with its name field already set will be skipped.
+ *
+ * @see moveIdToName
+ */
+LIBSBML_EXTERN
+void
+Model_moveAllIdsToNames (Model_t *m)
+{
+  static_cast<Model*>(m)->moveAllIdsToNames();
+}
+
+
+/**
+ * Moves the name field to the id field for this Model and all of its
+ * contituent UnitDefinitions, Compartments, Species, Parameters, and
+ * Reactions.  This method is used for converting from L1 to L2.
+ *
+ * NOTE: Any object with its id field already set will be skipped.
+ *
+ * @see moveNameToId
+ */
+LIBSBML_EXTERN
+void
+Model_moveAllNamesToIds (Model_t *m)
+{
+  static_cast<Model*>(m)->moveAllNamesToIds();
+}
+
 
 /**
  * Moves the id field of this Model to its name field (iff name is not

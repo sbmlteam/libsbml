@@ -144,6 +144,33 @@ LIBSBML_EXTERN
 int
 Model_isSetName (const Model_t *m);
 
+
+/**
+ * Moves the id field to the name field for this Model and all of its
+ * contituent UnitDefinitions, Compartments, Species, Parameters, and
+ * Reactions.  This method is used for converting from L2 to L1.
+ *
+ * NOTE: Any object with its name field already set will be skipped.
+ *
+ * @see moveIdToName
+ */
+LIBSBML_EXTERN
+void
+Model_moveAllIdsToNames (Model_t *m);
+
+/**
+ * Moves the name field to the id field for this Model and all of its
+ * contituent UnitDefinitions, Compartments, Species, Parameters, and
+ * Reactions.  This method is used for converting from L1 to L2.
+ *
+ * NOTE: Any object with its id field already set will be skipped.
+ *
+ * @see moveNameToId
+ */
+LIBSBML_EXTERN
+void
+Model_moveAllNamesToIds (Model_t *m);
+
 /**
  * Moves the id field of this Model to its name field (iff name is not
  * already set).  This method is used for converting from L2 to L1.
@@ -159,6 +186,7 @@ Model_moveIdToName (Model_t *m);
 LIBSBML_EXTERN
 void
 Model_moveNameToId (Model_t *m);
+
 
 /**
  * Sets the id of this Model to a copy of sid.
