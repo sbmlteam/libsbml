@@ -217,6 +217,28 @@ Reaction_setFast (Reaction_t *r, int value);
 
 
 /**
+ * @return the list of Reactants for this Reaction.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Reaction_getListOfReactants (const Reaction_t *r);
+
+/**
+ * @return the list of Products for this Reaction.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Reaction_getListOfProducts (const Reaction_t *r);
+
+/**
+ * @return the list of Modifiers for this Reaction.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Reaction_getListOfModifiers (const Reaction_t *r);
+
+
+/**
  * Adds the given reactant (SpeciesReference) to this Reaction.
  */
 LIBSBML_EXTERN

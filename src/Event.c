@@ -383,6 +383,17 @@ Event_addEventAssignment (Event_t *e, EventAssignment_t *ea)
 
 
 /**
+ * @return the list of EventAssignments for this Event.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Event_getListOfEventAssignments (const Event_t *e)
+{
+  return e->eventAssignment;
+}
+
+
+/**
  * @return the nth EventAssignment of this Event.
  */
 LIBSBML_EXTERN

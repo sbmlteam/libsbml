@@ -338,6 +338,39 @@ Reaction_addModifier (Reaction_t *r, ModifierSpeciesReference_t *msr)
 
 
 /**
+ * @return the list of Reactants for this Reaction.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Reaction_getListOfReactants (const Reaction_t *r)
+{
+  return r->reactant;
+}
+
+
+/**
+ * @return the list of Products for this Reaction.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Reaction_getListOfProducts (const Reaction_t *r)
+{
+  return r->product;
+}
+
+
+/**
+ * @return the list of Modifiers for this Reaction.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Reaction_getListOfModifiers (const Reaction_t *r)
+{
+  return r->modifier;
+}
+
+
+/**
  * @return the nth reactant (SpeciesReference) of this Reaction.
  */
 LIBSBML_EXTERN

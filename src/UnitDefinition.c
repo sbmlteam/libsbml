@@ -245,6 +245,17 @@ UnitDefinition_addUnit (UnitDefinition_t *ud, Unit_t *u)
 
 
 /**
+ * @return the list of Units for this UnitDefinition.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+UnitDefinition_getListOfUnits (const UnitDefinition_t *ud)
+{
+  return ud->unit;
+}
+
+
+/**
  * @return the nth Unit of this UnitDefinition
  */
 LIBSBML_EXTERN
