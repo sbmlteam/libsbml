@@ -144,12 +144,6 @@ ASTNode_createWithType (ASTNodeType_t type);
 ASTNode_t *
 ASTNode_createFromToken (Token_t *token);
 
-/**
- * Copies the data from the given token to this ASTNode.
- */
-void
-ASTNode_copyFromToken (ASTNode_t *node, Token_t *token);
-
 
 /**
  * Frees the given ASTNode including any child nodes.
