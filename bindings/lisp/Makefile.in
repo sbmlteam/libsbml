@@ -183,7 +183,7 @@ endif
 # they are compiled by asdf if needed,
 # wherever they are (ext vs. local)
 %.$(FASLEXT): %.lisp
-	-$(shell echo '(load "build.lisp")'|$(LISP))
+	-echo '(load "build.lisp")' | $(LISP)
 
 
 # -----------------------------------------------------------------------------
@@ -193,7 +193,7 @@ endif
 all: Makefile $(fasls)
 
 clean:
-	- rm *.$(FASLEXT) tps/uffi/src/*.$(FASLEXT) tps/cparse/*.$(FASLEXT) 
+	-rm *.$(FASLEXT) tps/uffi/src/*.$(FASLEXT) tps/cparse/*.$(FASLEXT) 
 
 # Preprocess header
 libsbml/sbmllisp-pre.h: libsbml/sbmllisp.h $(wildcard ../../src/sbml/*.h)
