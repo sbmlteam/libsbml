@@ -54,6 +54,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "sbml/util.h"
+
 #include "sbml/FormulaFormatter.h"
 #include "sbml/FormulaParser.h"
 
