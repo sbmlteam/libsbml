@@ -637,8 +637,15 @@ SBMLFormatter::operator<< (const ParameterRule_t* pr)
   attribute(ATTR_FORMULA, pr->formula);
   ruleType(pr->type);
 
-  attribute( ATTR_NAME , pr->name  );
-  attribute( ATTR_UNITS, pr->units );
+  attribute(ATTR_NAME, pr->name);
+
+  //
+  // units  { use="optional" }  (L1v1, L1v2);
+  //
+  if (pr->units != NULL)
+  {
+    attribute(ATTR_UNITS, pr->units);
+  }
 
   if ( isEmpty(pr) )
   {
@@ -1170,21 +1177,17 @@ SBMLFormatter::attribute (const XMLCh* name, const char* value)
   XMLCh* s;
 
 
-  if (value == NULL) return;
-  /*
-    FIXME:
+  if (value == NULL)
   {
     attribute(name, (const XMLCh*) NULL);
   }
   else
   {
-  */
+    s = XMLString::transcode(value);
+    attribute(name, s);
 
-  s = XMLString::transcode(value);
-  attribute(name, s);
-
-  delete [] s;
-  /* } */
+    delete [] s;
+  }
 }
 
 
@@ -1201,20 +1204,14 @@ SBMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
     << name
     << chEqual
     << chDoubleQuote
-    << XMLFormatter::AttrEscapes
-    << value
-    << XMLFormatter::NoEscapes
-    << chDoubleQuote;
+    << XMLFormatter::AttrEscapes;
 
-  /*
-    FIXME: 
   if (value != NULL)
   {
     *fFormatter << value;
   }
 
   *fFormatter << XMLFormatter::NoEscapes << chDoubleQuote;
-  */
 }
 
 

@@ -364,13 +364,15 @@ END_TEST
 
 START_TEST (test_SBMLFormatter_Species_skipOptional)
 {
-  Species_t  *sp = Species_create();
-  const char *s  = wrapXML("<species name=\"Ca2\" initialAmount=\"0.7\"/>\n");
+  Species_t *sp = Species_createWith("Ca2", "cell", 0.7, NULL, 0, 2);
+
+  const char *s = wrapXML
+  (
+    "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>\n"
+  );
 
 
-  Species_setName(sp, "Ca2");
-  Species_setInitialAmount(sp, 0.7);
-
+  Species_unsetCharge(sp);
   *formatter << sp;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
@@ -815,6 +817,25 @@ START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters_notes)
 END_TEST
 
 
+//
+// In the case of an unset required attribute, there's not much that can be
+// done at this point, except to make it explicit.
+//
+START_TEST (test_SBMLFormatter_unset_required)
+{
+  SpeciesReference_t *sr = SpeciesReference_createWith(NULL, 1, 1);
+  const char         *s  = wrapXML("<speciesReference species=\"\"/>\n");
+
+
+  *formatter << sr;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  SpeciesReference_free(sr);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLFormatter (void)
 {
@@ -862,6 +883,7 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_skipOptional           );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_ListOfParameters       );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_ListOfParameters_notes );
+  tcase_add_test( tcase, test_SBMLFormatter_unset_required                    );
 
   suite_add_tcase(suite, tcase);
 
