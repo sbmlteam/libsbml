@@ -87,6 +87,9 @@ main (int argc, char *argv[])
   errors = SBMLDocument_getNumWarnings(d) + SBMLDocument_getNumErrors(d) +
            SBMLDocument_getNumFatals(d);
 
+  
+  errors += SBMLDocument_validate(d);
+
   size = getFileSize(argv[1]);
 
   printf( "\n" );
