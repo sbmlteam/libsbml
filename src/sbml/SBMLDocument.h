@@ -61,26 +61,13 @@
 #include "SBase.h"
 #include "Model.h"
 
+#include <stdio.h>
+
 
 BEGIN_C_DECLS
 
 
-/**
- * The SBMLDocument
- */
-typedef struct
-{
-  SBASE_FIELDS;
-
-  unsigned int level;
-  unsigned int version;
-
-  List_t *error;
-  List_t *fatal;
-  List_t *warning;
-
-  Model_t *model;
-} SBMLDocument_t;
+typedef void SBMLDocument_t;
 
 
 /**
@@ -168,7 +155,7 @@ SBMLDocument_getFatal (SBMLDocument_t *d, unsigned int n);
  */
 LIBSBML_EXTERN
 Model_t *
-SBMLDocument_getModel (const SBMLDocument_t *d);
+SBMLDocument_getModel (SBMLDocument_t *d);
 
 /**
  * @return the number of warnings encountered during the parse of this
@@ -245,7 +232,6 @@ LIBSBML_EXTERN
 void
 SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream);
 
-
 /**
  * Sets the level of this SBMLDocument to the given level number.  Valid
  * levels are currently 1 and 2.
@@ -272,12 +258,13 @@ SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m);
 
 /**
  * Performs semantic validation on the document.  Query the results by
- * calling SBMLDocument_getNumWarnings(), SBMLDocument_getNumErrors(),
- * SBMLDocument_getNumFatals().
+ * calling getWarning(), getNumError(),and getNumFatal().
+ *
+ * @return the number of semantic validation errors encountered.
  */
 LIBSBML_EXTERN
-void
-SBMLDocument_validate (const SBMLDocument_t *d);
+unsigned int
+SBMLDocument_validate (SBMLDocument_t *d);
 
 
 END_C_DECLS

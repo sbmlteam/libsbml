@@ -63,13 +63,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char      *id;
-  char      *name;
-  ASTNode_t *math;
-} FunctionDefinition_t;
+typedef void FunctionDefinition_t;
 
 
 /**

@@ -77,20 +77,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char     *id;
-  char     *name;
-  ListOf_t *functionDefinition;
-  ListOf_t *unitDefinition;
-  ListOf_t *compartment;
-  ListOf_t *species;
-  ListOf_t *parameter;
-  ListOf_t *rule;
-  ListOf_t *reaction;
-  ListOf_t *event;
-} Model_t;
+typedef void Model_t;
 
 
 /**
@@ -469,56 +456,56 @@ Model_addEvent (Model_t *m, Event_t *e);
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfFunctionDefinitions (const Model_t *m);
+Model_getListOfFunctionDefinitions (Model_t *m);
 
 /**
  * @return the list of UnitDefinitions for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfUnitDefinitions (const Model_t *m);
+Model_getListOfUnitDefinitions (Model_t *m);
 
 /**
  * @return the list of Compartments for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfCompartments (const Model_t *m);
+Model_getListOfCompartments (Model_t *m);
 
 /**
  * @return the list of Species for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfSpecies (const Model_t *m);
+Model_getListOfSpecies (Model_t *m);
 
 /**
  * @return the list of Parameters for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfParameters (const Model_t *m);
+Model_getListOfParameters (Model_t *m);
 
 /**
  * @return the list of Rules for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfRules (const Model_t *m);
+Model_getListOfRules (Model_t *m);
 
 /**
  * @return the list of Rules for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfReactions (const Model_t *m);
+Model_getListOfReactions (Model_t *m);
 
 /**
  * @return the list of Rules for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Model_getListOfEvents (const Model_t *m);
+Model_getListOfEvents (Model_t *m);
 
 /**
  * @return the list of items of the given type for this Model.  If the
@@ -526,7 +513,7 @@ Model_getListOfEvents (const Model_t *m);
  * Models, NULL is returned.
  */
 ListOf_t *
-Model_getListOfByTypecode (const Model_t *m, SBMLTypeCode_t type);
+Model_getListOfByTypecode (Model_t *m, SBMLTypeCode_t type);
 
 /**
  * @return the nth FunctionDefinition of this Model.

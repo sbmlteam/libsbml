@@ -63,11 +63,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  RULE_FIELDS;
-} AlgebraicRule_t;
+typedef void AlgebraicRule_t;
 
 
 /**

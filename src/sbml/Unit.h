@@ -63,16 +63,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  UnitKind_t kind;
-  int        exponent;
-  int        scale;
-  double     multiplier;
-  double     offset;
-
-} Unit_t;
+typedef void Unit_t;
 
 
 /**
@@ -153,7 +144,7 @@ Unit_getOffset (const Unit_t *u);
  * @return 1 if the kind of this Unit has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
-UnitKind_t
+int
 Unit_isSetKind (const Unit_t *u);
 
 

@@ -64,25 +64,7 @@
 BEGIN_C_DECLS
 
 
-/**
- * IMPORTANT NOTICE
- * ================
- *
- * As of libsbml version 2, the species field of SpeciesConcentrationRule
- * has been replaced by the field variable defined in
- * ASSIGNMENT_RULE_FIELDS.
- *
- * This will only effect your code if you reference the field directly.
- * The species getter and setter remain for backward compatibility.
- */
-
-
-typedef struct
-{
-  SBASE_FIELDS;
-  RULE_FIELDS;
-  ASSIGNMENT_RULE_FIELDS;
-} SpeciesConcentrationRule_t;
+typedef void SpeciesConcentrationRule_t;
 
 
 /**

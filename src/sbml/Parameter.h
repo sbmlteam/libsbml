@@ -61,22 +61,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-
-  char   *id;
-  char   *name;
-  double  value;
-  char   *units;
-  int    constant;
-
-  struct
-  {
-    unsigned int value:1;
-  } isSet;
-
-} Parameter_t;
+typedef void Parameter_t;
 
 
 /**
@@ -215,7 +200,7 @@ Parameter_setValue (Parameter_t *p, double value);
  */
 LIBSBML_EXTERN
 void
-Parameter_setUnits (Parameter_t *p, const char *sname);
+Parameter_setUnits (Parameter_t *p, const char *sid);
 
 /**
  * Sets the constant of this Parameter to value (boolean).

@@ -64,22 +64,7 @@
 BEGIN_C_DECLS
 
 
-/**
- * As shown below, put RULE_FIELDS as the *third* item (SBASE_FIELDS is
- * first, RULE_FIELDS is second) of any struct which "is a(n)" SBML
- * AssignemtnRule object.
- */
-#define ASSIGNMENT_RULE_FIELDS \
-  RuleType_t type;             \
-  char       *variable
-
-
-typedef struct
-{
-  SBASE_FIELDS;
-  RULE_FIELDS;
-  ASSIGNMENT_RULE_FIELDS;
-} AssignmentRule_t;
+typedef void AssignmentRule_t;
 
 
 /**
@@ -115,29 +100,6 @@ AssignmentRule_createWith (const char *variable, ASTNode_t *math);
 LIBSBML_EXTERN
 void
 AssignmentRule_free (AssignmentRule_t *ar);
-
-/**
- * The function is kept for backward compatibility with the SBML L1 API.
- * 
- * Clears (frees) ASSIGNMENT_RULE_FIELDS of this AssignmentRule "subclass".
- * This function also calls its "parent", Rule_clear().
- */
-void
-AssignmentRule_clear (AssignmentRule_t *ar);
-
-
-/**
- * The function is kept for backward compatibility with the SBML L1 API.
- *
- * In L1 AssignmentRule "objects" are abstract, i.e. they are not created.
- * Rather, specific "subclasses" are created (e.g. ParameterRule) and their
- * ASSIGNMENT_RULE_FIELDS are initialized with this function.  The type of
- * the specific "subclass" is indicated by the given SBMLTypeCode.
- *
- * This function also calls its "parent", Rule_init().
- */
-void
-AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc);
 
 /**
  * The function is kept for backward compatibility with the SBML L1 API.

@@ -64,14 +64,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  SIMPLE_SPECIES_REFERENCE_FIELDS;
-  double    stoichiometry;
-  int       denominator;
-  ASTNode_t *stoichiometryMath;
-} SpeciesReference_t;
+typedef void SpeciesReference_t;
 
 
 /**

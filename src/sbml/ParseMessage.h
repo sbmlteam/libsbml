@@ -73,12 +73,7 @@ BEGIN_C_DECLS
  * modify a ParseMessage or its contents through the public APIs (tagged
  * with LIBSBML_EXTERN).
  */
-typedef struct
-{
-  char         *message;
-  unsigned int  line;
-  unsigned int  column;
-} ParseMessage_t;
+typedef void ParseMessage_t;
 
 
 /**
@@ -92,9 +87,9 @@ ParseMessage_create (void);
  * line and column.
  */
 ParseMessage_t *
-ParseMessage_createWith ( const char   *message,
-                          unsigned int  line,
-                          unsigned int  column );
+ParseMessage_createWith (   const char   *message
+                          , unsigned int  line
+                          , unsigned int  column );
 
 /**
  * Frees the given ParseMessage.
@@ -107,21 +102,21 @@ ParseMessage_free (ParseMessage_t *pm);
  */
 LIBSBML_EXTERN
 const char *
-ParseMessage_getMessage (ParseMessage_t *pm);
+ParseMessage_getMessage (const ParseMessage_t *pm);
 
 /**
  * @return the line number where this ParseMessage ocurred.
  */
 LIBSBML_EXTERN
 unsigned int
-ParseMessage_getLine (ParseMessage_t *pm);
+ParseMessage_getLine (const ParseMessage_t *pm);
 
 /**
  * @return the column number where this ParseMessage occurred.
  */
 LIBSBML_EXTERN
 unsigned int
-ParseMessage_getColumn (ParseMessage_t *pm);
+ParseMessage_getColumn (const ParseMessage_t *pm);
 
 
 END_C_DECLS

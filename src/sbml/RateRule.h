@@ -63,12 +63,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  RULE_FIELDS;
-  char *variable;
-} RateRule_t;
+typedef void RateRule_t;
 
 
 /**

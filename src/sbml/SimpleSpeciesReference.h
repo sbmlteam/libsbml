@@ -63,40 +63,7 @@
 BEGIN_C_DECLS
 
 
-/**
- * As shown below, put SIMPLE_SPECIES_REFERENCE_FIELDS as the *second* item
- * (SBASE_FIELDS is first) of any struct which "is a(n)" SBML
- * SimpleSpeciesReference object.
- */
-#define SIMPLE_SPECIES_REFERENCE_FIELDS  char *species
-
-
-typedef struct
-{
-  SBASE_FIELDS;
-  SIMPLE_SPECIES_REFERENCE_FIELDS;
-} SimpleSpeciesReference_t;
-
-
-/**
- * SimpleSpeciesReference "objects" are abstract, i.e. they are not
- * created.  Rather, specific "subclasses" are created
- * (e.g. SpeciesReference, ModifierSpeciesReference) and their
- * SIMPLE_SPECIES_REFERENCE_FIELDS are initialized with this function.  The
- * type of the specific "subclass" is indicated by the given SBMLTypeCode.
- *
- * This function also calls its "parent", SBase_init().
- */
-void
-SimpleSpeciesReference_init (SimpleSpeciesReference_t *ssr, SBMLTypeCode_t tc);
-
-/**
- * Clears (frees) SIMPLE_SPECIES_REFERENCE_FIELDS of this
- * SimpleSpeciesReference "subclass".  This function also calls its
- * "parent", SBase_clear().
- */
-void
-SimpleSpeciesReference_clear (SimpleSpeciesReference_t *ssr);
+typedef void SimpleSpeciesReference_t;
 
 
 /**

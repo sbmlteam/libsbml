@@ -61,26 +61,7 @@
 BEGIN_C_DECLS
 
 
-/**
- * As shown below, put SBASE_FIELDS as the *first* item of any struct
- * which "is a(n)" SBML object.
- */
-#define SBASE_FIELDS       \
-  SBMLTypeCode_t typecode; \
-  unsigned int   line;     \
-  unsigned int   column;   \
-  char           *metaid;  \
-  char           *notes;   \
-  char           *annotation
-
-
-/**
- * Used primarily for example and internally by the functions below.
- */
-typedef struct
-{
-  SBASE_FIELDS;
-} SBase_t;
+typedef void SBase_t;
 
 
 /**

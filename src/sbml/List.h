@@ -60,19 +60,8 @@
 BEGIN_C_DECLS
 
 
-typedef struct node
-{
-  void *item;
-  struct node *next;
-} ListNode_t;
-
-
-typedef struct
-{
-  unsigned int size;
-  ListNode_t   *head;
-  ListNode_t   *tail;
-} List_t;
+typedef void ListNode_t;
+typedef void List_t;
 
 
 /**
@@ -128,6 +117,13 @@ ListNode_create (void *item);
 LIBSBML_EXTERN
 void
 List_free (List_t *lst);
+
+/**
+ * Frees the given ListNode.
+ */
+void
+ListNode_free (ListNode_t *node);
+
 
 /**
  * Frees the items in this List.

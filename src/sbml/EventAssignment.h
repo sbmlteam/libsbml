@@ -63,12 +63,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char      *variable;
-  ASTNode_t *math;
-} EventAssignment_t;
+typedef void EventAssignment_t;
 
 
 /**

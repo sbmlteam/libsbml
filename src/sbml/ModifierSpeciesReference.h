@@ -64,11 +64,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  SIMPLE_SPECIES_REFERENCE_FIELDS;
-} ModifierSpeciesReference_t;
+typedef void ModifierSpeciesReference_t;
 
 
 /**

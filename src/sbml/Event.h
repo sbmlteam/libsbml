@@ -65,16 +65,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char      *id;
-  char      *name;
-  ASTNode_t *trigger;
-  ASTNode_t *delay;
-  char      *timeUnits;
-  ListOf_t  *eventAssignment;
-} Event_t;
+typedef void Event_t;
 
 
 /**
@@ -264,7 +255,7 @@ Event_addEventAssignment (Event_t *e, EventAssignment_t *ea);
  */
 LIBSBML_EXTERN
 ListOf_t *
-Event_getListOfEventAssignments (const Event_t *e);
+Event_getListOfEventAssignments (Event_t *e);
 
 /**
  * @return the nth EventAssignment of this Event.

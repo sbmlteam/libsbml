@@ -64,13 +64,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char     *id;
-  char     *name;
-  ListOf_t *unit;
-} UnitDefinition_t;
+typedef void UnitDefinition_t;
 
 
 /**
@@ -182,7 +176,7 @@ UnitDefinition_addUnit (UnitDefinition_t *ud, Unit_t *u);
  */
 LIBSBML_EXTERN
 ListOf_t *
-UnitDefinition_getListOfUnits (const UnitDefinition_t *ud);
+UnitDefinition_getListOfUnits (UnitDefinition_t *ud);
 
 /**
  * @return the nth Unit of this UnitDefinition.

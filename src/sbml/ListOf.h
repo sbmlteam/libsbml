@@ -63,11 +63,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  List_t *items;
-} ListOf_t;
+typedef void ListOf_t;
 
 
 /**

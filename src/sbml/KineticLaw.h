@@ -65,15 +65,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char      *formula;
-  ASTNode_t *math;
-  ListOf_t  *parameter;
-  char      *timeUnits;
-  char      *substanceUnits;
-} KineticLaw_t;
+typedef void KineticLaw_t;
 
 
 /**
@@ -126,7 +118,7 @@ KineticLaw_getMath (const KineticLaw_t *kl);
  */
 LIBSBML_EXTERN
 ListOf_t *
-KineticLaw_getListOfParameters (const KineticLaw_t *kl);
+KineticLaw_getListOfParameters (KineticLaw_t *kl);
 
 /**
  * @return the timeUnits of this KineticLaw.

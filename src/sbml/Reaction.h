@@ -66,25 +66,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char         *id;
-  char         *name;
-  ListOf_t     *reactant;
-  ListOf_t     *product;
-  ListOf_t     *modifier;
-  KineticLaw_t *kineticLaw;
-  int           reversible;
-  int           fast;
-
-  struct
-  {
-    unsigned int fast:1;
-  }
-  isSet;
-
-} Reaction_t;
+typedef void Reaction_t;
 
 
 /**
@@ -240,21 +222,21 @@ Reaction_setFast (Reaction_t *r, int value);
  */
 LIBSBML_EXTERN
 ListOf_t *
-Reaction_getListOfReactants (const Reaction_t *r);
+Reaction_getListOfReactants (Reaction_t *r);
 
 /**
  * @return the list of Products for this Reaction.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Reaction_getListOfProducts (const Reaction_t *r);
+Reaction_getListOfProducts (Reaction_t *r);
 
 /**
  * @return the list of Modifiers for this Reaction.
  */
 LIBSBML_EXTERN
 ListOf_t *
-Reaction_getListOfModifiers (const Reaction_t *r);
+Reaction_getListOfModifiers (Reaction_t *r);
 
 
 /**

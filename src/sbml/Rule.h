@@ -63,41 +63,7 @@
 BEGIN_C_DECLS
 
 
-/**
- * As shown below, put RULE_FIELDS as the *second* item (SBASE_FIELDS is
- * first) of any struct which "is a(n)" SBML Rule object.
- */
-#define RULE_FIELDS   \
-  char      *formula; \
-  ASTNode_t *math
-
-
-typedef struct
-{
-  SBASE_FIELDS;
-  RULE_FIELDS;
-} Rule_t;
-
-
-/**
- * Rule "objects" are abstract, i.e. they are not created.  Rather,
- * specific "subclasses" are created (e.g. AlgebraicRule) and their
- * RULE_FIELDS are initialized with this function.  The type of the
- * specific "subclass" is indicated by the given SBMLTypeCode.
- *
- * This function also calls its "parent", SBase_init().
- */
-LIBSBML_EXTERN
-void
-Rule_init (Rule_t *r, SBMLTypeCode_t tc);
-
-/**
- * Clears (frees) RULE_FIELDS of this Rule "subclass".  This function also
- * calls its "parent", SBase_clear().
- */
-LIBSBML_EXTERN
-void
-Rule_clear (Rule_t *r);
+typedef void Rule_t;
 
 
 /**

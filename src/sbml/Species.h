@@ -61,36 +61,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-
-  char   *id;
-  char   *name;
-  char   *compartment;
-
-  union
-  {
-    double Amount;
-    double Concentration;
-  } initial;
-
-
-  char   *substanceUnits;
-  char   *spatialSizeUnits;
-  int     hasOnlySubstanceUnits;
-  int     boundaryCondition;
-  int     charge;
-  int     constant;
-
-  struct
-  {
-    unsigned int initialAmount       :1;
-    unsigned int initialConcentration:1;
-    unsigned int charge              :1;
-  } isSet;
-
-} Species_t;
+typedef void Species_t;
 
 
 /**

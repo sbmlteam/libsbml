@@ -61,24 +61,7 @@
 BEGIN_C_DECLS
 
 
-typedef struct
-{
-  SBASE_FIELDS;
-  char         *id;
-  char         *name;
-  unsigned int spatialDimensions;
-  double       size;
-  char         *units;
-  char         *outside;
-  int          constant;
-
-  struct
-  {
-    unsigned int size  :1;
-    unsigned int volume:1;
-  } isSet;
-
-} Compartment_t;
+typedef void Compartment_t;
 
 
 /**
