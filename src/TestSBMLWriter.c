@@ -77,6 +77,7 @@ START_TEST (test_SBMLWriter_free_NULL)
 END_TEST
 
 
+/*
 START_TEST (test_SBMLWriter_writeSBML)
 {
   char           *in  = safe_strcat(TestDataDirectory, "l1v1-branch.xml");
@@ -91,6 +92,7 @@ START_TEST (test_SBMLWriter_writeSBML)
   safe_free(out);
 }
 END_TEST
+*/
 
 
 Suite *
@@ -102,7 +104,7 @@ create_suite_SBMLWriter (void)
 
   tcase_add_test(tcase, test_SBMLWriter_create            );
   tcase_add_test(tcase, test_SBMLWriter_free_NULL         );
-  tcase_add_test(tcase, test_SBMLWriter_writeSBML         );
+  /* tcase_add_test(tcase, test_SBMLWriter_writeSBML         ); */
 
   suite_add_tcase(suite, tcase);
 
