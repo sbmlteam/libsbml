@@ -662,7 +662,7 @@ SBMLFormatter::operator<< (const Reaction_t* r)
 
   //
   // reversible  { use="optional"  default="true" (1) }  (L1v1, L1v2, L2v1)
-  // FIXME: r->isSet.reversible
+  //
   if (r->reversible != 1)
   {
     attribute(ATTR_REVERSIBLE, (bool) r->reversible);
@@ -670,7 +670,7 @@ SBMLFormatter::operator<< (const Reaction_t* r)
 
   //
   // fast  { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
-  // FIXME: r->isSet.fast
+  //
   if (r->fast != 0)
   {
     attribute(ATTR_FAST, (bool) r->fast);

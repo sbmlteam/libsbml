@@ -54,15 +54,14 @@
 #define Reaction_h
 
 
+#include "common.h"
 #include "List.h"
 #include "SBase.h"
 #include "KineticLaw.h"
 #include "SpeciesReference.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -80,6 +79,7 @@ typedef struct
 /**
  * Creates a new Reaction and returns a pointer to it.
  */
+LIBSBML_EXTERN
 Reaction_t *
 Reaction_create (void);
 
@@ -89,8 +89,9 @@ Reaction_create (void);
  * functionally equivalent to:
  *
  *   Reaction_t *r = Reaction_create();
- *   Reaction_setName(r, name); r->kineticLaw = kl; ...;
+ *   Reaction_setName(r, name); Reaction_setKineticLaw(r, kl); ...;
  */
+LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWith ( const char   *name,
                       KineticLaw_t *kl,
@@ -100,6 +101,7 @@ Reaction_createWith ( const char   *name,
 /**
  * Frees the given Reaction.
  */
+LIBSBML_EXTERN
 void
 Reaction_free (Reaction_t *r);
 
@@ -109,55 +111,146 @@ Reaction_free (Reaction_t *r);
  *   - reversible = 1 (true)
  *   - fast       = 0 (false)
  */
+LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r);
 
+
 /**
- * Sets the name field of this Reaction to a copy of sname.
+ * @return the name of this Reaction.
  */
+LIBSBML_EXTERN
+const char *
+Reaction_getName (const Reaction_t *r);
+
+/**
+ * @return the KineticLaw of this Reaction.
+ */
+LIBSBML_EXTERN
+KineticLaw_t *
+Reaction_getKineticLaw (const Reaction_t *r);
+
+/**
+ * @return the reversible status of this Reaction.
+ */
+LIBSBML_EXTERN
+int
+Reaction_getReversible (const Reaction_t *r);
+
+/**
+ * @return the fast status of this Reaction.
+ */
+LIBSBML_EXTERN
+int
+Reaction_getFast (const Reaction_t *r);
+
+
+/**
+ * @return 1 if the name of this Reaction has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetName (const Reaction_t *r);
+
+/**
+ * @return 1 if the KineticLaw of this Reaction has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetKineticLaw (const Reaction_t *r);
+
+
+/**
+ * Sets the name of this Reaction to a copy of sname.
+ */
+LIBSBML_EXTERN
 void
-Reaction_setName(Reaction_t *r, const char *sname);
+Reaction_setName (Reaction_t *r, const char *sname);
+
+/**
+ * Sets the KineticLaw of this Reaction to the given KineticLaw and marks
+ * the field as set.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setKineticLaw (Reaction_t *r, KineticLaw_t *kl);
+
+/**
+ * Sets the reversible status of this Reaction to value (boolean) and marks
+ * the field as set.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setReversible (Reaction_t *r, int value);
+
+/**
+ * Sets the fast status of this Reaction to value (boolean) and marks the
+ * field as set.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setFast (Reaction_t *r, int value);
+
 
 /**
  * Adds the given reactant (SpeciesReference) to this Reaction.
  */
+LIBSBML_EXTERN
 void
-Reaction_addReactant(Reaction_t *r, SpeciesReference_t *sr);
+Reaction_addReactant (Reaction_t *r, SpeciesReference_t *sr);
 
 /**
  * Adds the given product (SpeciesReference) to this Reaction.
  */
+LIBSBML_EXTERN
 void
-Reaction_addProduct(Reaction_t *r, SpeciesReference_t *sr);
+Reaction_addProduct (Reaction_t *r, SpeciesReference_t *sr);
 
 /**
  * @return the nth reactant (SpeciesReference) of this Reaction.
  */
+LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getReactant(Reaction_t *r, unsigned int n);
+Reaction_getReactant (const Reaction_t *r, unsigned int n);
 
 /**
  * @return the nth product (SpeciesReference) of this Reaction.
  */
+LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getProduct(Reaction_t *r, unsigned int n);
+Reaction_getProduct (const Reaction_t *r, unsigned int n);
 
 /**
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
+LIBSBML_EXTERN
 unsigned int
-Reaction_getNumReactants(const Reaction_t *r);
+Reaction_getNumReactants (const Reaction_t *r);
 
 /**
  * @return the number of products (SpeciesReferences) in this Reaction.
  */
+LIBSBML_EXTERN
 unsigned int
-Reaction_getNumProducts(const Reaction_t *r);
+Reaction_getNumProducts (const Reaction_t *r);
 
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * Unsets the name of this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_unsetName (Reaction_t *r);
+
+/**
+ * Unsets the KineticLaw of this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_unsetKineticLaw (Reaction_t *r);
+
+
+END_C_DECLS
 
 
 #endif  /** Reaction_h **/

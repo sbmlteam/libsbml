@@ -87,6 +87,9 @@ START_TEST (test_Reaction_create)
   fail_unless( R->reversible != 0   , NULL );
   fail_unless( R->fast       == 0   , NULL );
 
+  fail_unless( !Reaction_isSetName      (R), NULL );
+  fail_unless( !Reaction_isSetKineticLaw(R), NULL );
+
   fail_unless( Reaction_getNumReactants(R) == 0, NULL );
   fail_unless( Reaction_getNumProducts(R)  == 0, NULL );
 }
@@ -108,6 +111,9 @@ START_TEST (test_Reaction_createWith)
   fail_unless( r->kineticLaw == kl, NULL );
   fail_unless( r->reversible ==  0, NULL );
   fail_unless( r->fast       ==  1, NULL );
+
+  fail_unless( Reaction_isSetName      (r), NULL );
+  fail_unless( Reaction_isSetKineticLaw(r), NULL );
 
   fail_unless( Reaction_getNumReactants(r) == 0, NULL );
   fail_unless( Reaction_getNumProducts(r)  == 0, NULL );
@@ -132,6 +138,7 @@ START_TEST (test_Reaction_setName)
   Reaction_setName(R, name);
 
   fail_unless( !strcmp(R->name, name), NULL );
+  fail_unless( Reaction_isSetName(R) , NULL );
 
   if (R->name == name)
   {
@@ -139,6 +146,7 @@ START_TEST (test_Reaction_setName)
   }
 
   Reaction_setName(R, NULL);
+  fail_unless( !Reaction_isSetName(R), NULL );
 
   if (R->name != NULL)
   {
