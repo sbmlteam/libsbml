@@ -11,10 +11,20 @@
       Rainer Machne.  For more information, see
       bindings/perl/README.txt.
 
+      The Perl API is not yet integrated into the libSBML 'configure'
+      system.  To build and install it, after installing libSBML,
+      change to bindings/perl and follow the CPAN-style build
+      instructions in the README.txt file.
+
     - Lisp
 
       A full libSBML Lisp API was contributed by Martin Ginkel.
       For more information, see bindings/lisp/README.txt.
+
+    - Windows Installation Program
+
+      Sarah Keating created Windows setup programs in two flavors:
+      libsbml-2.2.0-win-xerces.exe and libsbml-2.2.0-win-expat.exe.
 
     - XML namespace definitions may be retrieved from or added to any
       SBML object.  It's good practice, however, to put namespaces
@@ -79,7 +89,8 @@
       Thanks to Mike Hucka for working that out.
 
 
-* Released September xx, 2004
+* Released October 4, 2004
+
 
 
 
