@@ -306,13 +306,13 @@ Token_convertNaNInf (Token_t *t)
   {
     safe_free(t->value.name);
     t->type       = TT_REAL;
-    t->value.real = strtod("NaN", NULL);
+    t->value.real = util_NaN();
   }
   else if ( !strcmp_insensitive(t->value.name, "Inf") )
   {
     safe_free(t->value.name);
     t->type       = TT_REAL;
-    t->value.real = strtod("Inf", NULL);
+    t->value.real = util_PosInf();
   }
 }
 

@@ -295,8 +295,8 @@ START_TEST (test_FormulaTokenizer_numbers_nan_inf)
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL            , NULL );
-  fail_unless( t->value.real == strtod("Inf", NULL), NULL );
+  fail_unless( t->type                   == TT_REAL, NULL );
+  fail_unless( util_isInf(t->value.real) == 1, NULL );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
