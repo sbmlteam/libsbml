@@ -54,14 +54,13 @@
 #define CompartmentVolumeRule_h
 
 
+#include "common.h"
 #include "SBase.h"
 #include "Rule.h"
 #include "AssignmentRule.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -76,6 +75,7 @@ typedef struct
 /**
  * Creates a new CompartmentVolumeRule and returns a pointer to it.
  */
+LIBSBML_EXTERN
 CompartmentVolumeRule_t *
 CompartmentVolumeRule_create (void);
 
@@ -85,8 +85,11 @@ CompartmentVolumeRule_create (void);
  * functionally equivalent to:
  *
  *   CompartmentVolumeRule_t *cvr = CompartmentVolumeRule_create();
- *   Rule_setFormula((Rule_t *) cvr, formula); scr->type = type; ...;
+ *   Rule_setFormula((Rule_t *) cvr, formula);
+ *   AssignmentRule_setType((AssignmentRule_t *) cvr, type);
+ *   ...;
  */
+LIBSBML_EXTERN
 CompartmentVolumeRule_t *
 CompartmentVolumeRule_createWith ( const char *formula,
                                    RuleType_t type,
@@ -95,21 +98,37 @@ CompartmentVolumeRule_createWith ( const char *formula,
 /**
  * Frees the given CompartmentVolumeRule.
  */
+LIBSBML_EXTERN
 void
 CompartmentVolumeRule_free (CompartmentVolumeRule_t *cvr);
+
+
+/**
+ * @return the compartment of this CompartmentVolumeRule.
+ */
+LIBSBML_EXTERN
+const char *
+CompartmentVolumeRule_getCompartment (const CompartmentVolumeRule_t *cvr);
+
+/**
+ * @return 1 if the compartment of this CompartmentVolumeRule has been set,
+ * 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+CompartmentVolumeRule_isSetCompartment (const CompartmentVolumeRule_t *cvr);
 
 /**
  * Sets the compartment field of this CompartmentVolumeRule to a copy of
  * sname.
  */
+LIBSBML_EXTERN
 void
 CompartmentVolumeRule_setCompartment ( CompartmentVolumeRule_t *cvr,
                                        const char *sname );
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** CompartmentVolumeRule_h **/

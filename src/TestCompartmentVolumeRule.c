@@ -85,6 +85,8 @@ START_TEST (test_CompartmentVolumeRule_create)
 
   fail_unless( CVR->type        == RULE_TYPE_SCALAR, NULL );
   fail_unless( CVR->compartment == NULL, NULL );
+
+  fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 }
 END_TEST
 
@@ -106,6 +108,8 @@ START_TEST (test_CompartmentVolumeRule_createWith)
 
   fail_unless( cvr->type == RULE_TYPE_RATE, NULL );
 
+  fail_unless( CompartmentVolumeRule_isSetCompartment(cvr), NULL );
+
   CompartmentVolumeRule_free(cvr);
 }
 END_TEST
@@ -125,7 +129,8 @@ START_TEST (test_CompartmentVolumeRule_setCompartment)
 
   CompartmentVolumeRule_setCompartment(CVR, compartment);
 
-  fail_unless( !strcmp(CVR->compartment, compartment), NULL );
+  fail_unless( !strcmp(CVR->compartment, compartment)     , NULL );
+  fail_unless( CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 
   if (CVR->compartment == compartment)
   {
@@ -134,6 +139,7 @@ START_TEST (test_CompartmentVolumeRule_setCompartment)
   }
 
   CompartmentVolumeRule_setCompartment(CVR, NULL);
+  fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 
   if (CVR->compartment != NULL)
   {
