@@ -49,7 +49,6 @@
  * Contributor(s):
  */
 
-
 /**
  * Allows ListOf objects:
  *

@@ -436,6 +436,8 @@ def testASTNode():
    astNode.addChild(rightNode)
    assert rightNode.thisown == 0
 
+   s = libsbml.formulaToString(astNode)
+
 
 def testMathMLDocument():
    doc = libsbml.MathMLDocument()
@@ -446,6 +448,33 @@ def testMathMLDocument():
 
    doc.setMath(formula)
    assert formula.thisown == 0
+
+   s = libsbml.writeMathMLToString(doc)
+
+
+def testSBMLWriter():
+   doc = libsbml.SBMLDocument()
+   model = doc.createModel("modelId")
+   assert model.thisown == 0
+
+   s = libsbml.writeSBMLToString(doc)
+
+
+def testSBMLReader():
+   sbmlString = \
+"""<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model id="modelId"/>
+</sbml>
+"""
+
+   reader = libsbml.SBMLReader()
+   doc = reader.readSBMLFromString(sbmlString)
+   assert doc.thisown == 1
+
+   doc = libsbml.readSBMLFromString(sbmlString)
+   assert doc.thisown == 1
+
 
 
 class TestRunner:

@@ -87,6 +87,7 @@ typedef void SBMLDocument_t;
 #include "sbml/ParseMessage.hpp"
 
 #include "sbml/SBMLReader.hpp"
+#include "sbml/SBMLReader.h"
 #include "sbml/SBMLWriter.h"
 
 #include "sbml/MathMLReader.h"
