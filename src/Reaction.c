@@ -188,6 +188,9 @@ Reaction_getFast (const Reaction_t *r)
 
 /**
  * @return 1 if the name of this Reaction has been set, 0 otherwise.
+ *
+ * In SBML L1, a Reaction name is required and therefore <b>should always
+ * be set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -325,6 +328,9 @@ Reaction_getNumProducts (const Reaction_t *r)
 /**
  * Unsets the name of this Reaction.  This is equivalent to:
  * safe_free(r->name); r->name = NULL;
+ *
+ * In SBML L1, a Reaction name is required and therefore <b>should always
+ * be set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 void
