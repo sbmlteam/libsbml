@@ -232,6 +232,22 @@ START_TEST (test_Unit_isXXX)
 END_TEST
 
 
+START_TEST (test_Unit_isBuiltIn)
+{
+  fail_unless( Unit_isBuiltIn( "substance") );
+  fail_unless( Unit_isBuiltIn( "volume"   ) );
+  fail_unless( Unit_isBuiltIn( "area"     ) );
+  fail_unless( Unit_isBuiltIn( "length"   ) );
+  fail_unless( Unit_isBuiltIn( "time"     ) );
+
+  fail_unless( !Unit_isBuiltIn( NULL     ) );
+  fail_unless( !Unit_isBuiltIn( ""       ) );
+  fail_unless( !Unit_isBuiltIn( "volt"   ) );
+  fail_unless( !Unit_isBuiltIn( "foobar" ) );
+}
+END_TEST
+
+
 Suite *
 create_suite_Unit (void)
 {
@@ -245,6 +261,7 @@ create_suite_Unit (void)
   tcase_add_test( tcase, test_Unit_createWith );
   tcase_add_test( tcase, test_Unit_free_NULL  );
   tcase_add_test( tcase, test_Unit_isXXX      );
+  tcase_add_test( tcase, test_Unit_isBuiltIn  );
 
   suite_add_tcase(suite, tcase);
 
