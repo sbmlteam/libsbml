@@ -76,8 +76,6 @@ docs      = \
 
 distfiles = $(docs) Makefile.in
 
-extra_distclean = $(wildcard *.pdf) $(wildcard *.ps)
-
 
 # -----------------------------------------------------------------------------
 # Primary build actions
