@@ -70,7 +70,7 @@
 #include "MathMLDocument.h"
 #include "ParseMessage.h"
 #include "Stack.h"
-#include "SBMLTypes.h"
+#include "SBMLTypes.hpp"
 
 #include "SBMLTagCodes.hpp"
 #include "MathMLHandler.hpp"
@@ -78,7 +78,7 @@
 
 
 class SBMLHandler;
-typedef SBase_t* (SBMLHandler::*TagHandler_t)(const Attributes& attrs);
+typedef SBase* (SBMLHandler::*TagHandler_t)(const Attributes& attrs);
 
 
 /**
@@ -103,7 +103,7 @@ public:
    * Creates a new SBMLHandler.  The given SBMLDocument should be empty
    * and will be populated as the document is parsed.
    */
-  SBMLHandler (SBMLDocument_t *d);
+  SBMLHandler (SBMLDocument* d);
 
   /**
    * Dtor
@@ -165,46 +165,46 @@ public:
 
 private:
 
-  SBase_t* doSBML                      (const Attributes& a);
-  SBase_t* doModel                     (const Attributes& a);
+  SBase* doSBML                      (const Attributes& a);
+  SBase* doModel                     (const Attributes& a);
 
-  SBase_t* doListOfFunctionDefinitions (const Attributes& a);
-  SBase_t* doListOfUnitDefinitions     (const Attributes& a);
-  SBase_t* doListOfUnits               (const Attributes& a);
-  SBase_t* doListOfCompartments        (const Attributes& a);
-  SBase_t* doListOfSpecies             (const Attributes& a);
-  SBase_t* doListOfParameters          (const Attributes& a);
-  SBase_t* doListOfRules               (const Attributes& a);
-  SBase_t* doListOfReactions           (const Attributes& a);
-  SBase_t* doListOfReactants           (const Attributes& a);
-  SBase_t* doListOfProducts            (const Attributes& a);
-  SBase_t* doListOfModifiers           (const Attributes& a);
-  SBase_t* doListOfEvents              (const Attributes& a);
-  SBase_t* doListOfEventAssignments    (const Attributes& a);
+  SBase* doListOfFunctionDefinitions (const Attributes& a);
+  SBase* doListOfUnitDefinitions     (const Attributes& a);
+  SBase* doListOfUnits               (const Attributes& a);
+  SBase* doListOfCompartments        (const Attributes& a);
+  SBase* doListOfSpecies             (const Attributes& a);
+  SBase* doListOfParameters          (const Attributes& a);
+  SBase* doListOfRules               (const Attributes& a);
+  SBase* doListOfReactions           (const Attributes& a);
+  SBase* doListOfReactants           (const Attributes& a);
+  SBase* doListOfProducts            (const Attributes& a);
+  SBase* doListOfModifiers           (const Attributes& a);
+  SBase* doListOfEvents              (const Attributes& a);
+  SBase* doListOfEventAssignments    (const Attributes& a);
 
-  SBase_t* doFunctionDefinition        (const Attributes& a);
-  SBase_t* doUnitDefinition            (const Attributes& a);
-  SBase_t* doUnit                      (const Attributes& a);
-  SBase_t* doCompartment               (const Attributes& a);
-  SBase_t* doSpecies                   (const Attributes& a);
-  SBase_t* doParameter                 (const Attributes& a);
-  SBase_t* doReaction                  (const Attributes& a);
-  SBase_t* doSpeciesReference          (const Attributes& a);
-  SBase_t* doModifierSpeciesReference  (const Attributes& a);
-  SBase_t* doKineticLaw                (const Attributes& a);
-  SBase_t* doAssignmentRule            (const Attributes& a);
-  SBase_t* doRateRule                  (const Attributes& a);
-  SBase_t* doAlgebraicRule             (const Attributes& a);
-  SBase_t* doCompartmentVolumeRule     (const Attributes& a);
-  SBase_t* doParameterRule             (const Attributes& a);
-  SBase_t* doSpeciesConcentrationRule  (const Attributes& a);
-  SBase_t* doEvent                     (const Attributes& a);
-  SBase_t* doEventAssignment           (const Attributes& a);
-  SBase_t* doStackPeek                 (const Attributes& a);
+  SBase* doFunctionDefinition        (const Attributes& a);
+  SBase* doUnitDefinition            (const Attributes& a);
+  SBase* doUnit                      (const Attributes& a);
+  SBase* doCompartment               (const Attributes& a);
+  SBase* doSpecies                   (const Attributes& a);
+  SBase* doParameter                 (const Attributes& a);
+  SBase* doReaction                  (const Attributes& a);
+  SBase* doSpeciesReference          (const Attributes& a);
+  SBase* doModifierSpeciesReference  (const Attributes& a);
+  SBase* doKineticLaw                (const Attributes& a);
+  SBase* doAssignmentRule            (const Attributes& a);
+  SBase* doRateRule                  (const Attributes& a);
+  SBase* doAlgebraicRule             (const Attributes& a);
+  SBase* doCompartmentVolumeRule     (const Attributes& a);
+  SBase* doParameterRule             (const Attributes& a);
+  SBase* doSpeciesConcentrationRule  (const Attributes& a);
+  SBase* doEvent                     (const Attributes& a);
+  SBase* doEventAssignment           (const Attributes& a);
+  SBase* doStackPeek                 (const Attributes& a);
 
   SBMLTagCode_t getTagCode (const XMLCh *uri, const XMLCh* localname);
 
-  void setLineAndColumn     (SBase_t *sb);
+  void setLineAndColumn     (SBase *sb);
   void setMath              (ASTNode_t* math);
   void setStoichiometryMath (SpeciesReference_t* sr, ASTNode_t* math);
 
@@ -219,10 +219,10 @@ private:
   */
 
 
-  SBMLDocument_t* fDocument;
-  Model_t*        fModel;
-  Stack_t*        fObjStack;
-  Stack_t*        fTagStack;
+  SBMLDocument* fDocument;
+  Model*        fModel;
+  Stack_t*      fObjStack;
+  Stack_t*      fTagStack;
 
   XMLStringFormatter* fFormatter;
 

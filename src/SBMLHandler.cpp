@@ -132,7 +132,7 @@ SBMLHandler::TagHandler[] =
 /**
  * Ctor
  */
-SBMLHandler::SBMLHandler (SBMLDocument_t *d) : fDocument(d)
+SBMLHandler::SBMLHandler (SBMLDocument* d) : fDocument(d)
 {
 
 #ifdef USE_EXPAT
@@ -223,7 +223,7 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   const XMLCh* const  qname = localname;
 #endif  // USE_EXPAT
 
-  SBase_t*      obj = NULL;
+  SBase*        obj = NULL;
   SBMLTagCode_t tag = getTagCode(uri, localname);
 
 
@@ -321,7 +321,7 @@ SBMLHandler::startElement (const XMLCh* const  uri,
       //
       // metaid: ID  { use="optional" }  (L2v1)
       //
-      XMLUtil::scanAttrCStr(attrs, ATTR_META_ID, &(obj->metaid));
+      XMLUtil::scanAttr(attrs, ATTR_META_ID, obj->metaid);
     }
 
     Stack_push(fTagStack, (void *) tag);
@@ -357,7 +357,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     "Use the <model> element instead.";
 
 
-  SBase_t*      obj = (SBase_t*) Stack_peek(fObjStack);
+  SBase*        obj = (SBase*) Stack_peek(fObjStack);
   SBMLTagCode_t tag = getTagCode(uri, localname);
 
 
@@ -372,7 +372,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     }
     else if (inNotes == 1)
     {
-      if ((obj->typecode == SBML_DOCUMENT) && (fDocument->level == 1))
+      if ((obj->getTypeCode() == SBML_DOCUMENT) && (fDocument->level == 1))
       {
         error(ERRMSG_NO_SBML_NOTE);
       }
@@ -397,7 +397,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
 
     if (inAnnotation == 1)
     {
-      if ((obj->typecode == SBML_DOCUMENT) && (fDocument->level == 1))
+      if ((obj->getTypeCode() == SBML_DOCUMENT) && (fDocument->level == 1))
       {
         error(ERRMSG_NO_SBML_ANNOTATION);
       }
@@ -519,21 +519,21 @@ SBMLHandler::setDocumentLocator (const Locator *const locator)
 void
 SBMLHandler::warning (const SAXParseException& e)
 {
-  List_add( fDocument->warning, ParseMessage_createFrom(e) );
+  fDocument->warning.add( ParseMessage_createFrom(e) );
 }
 
 
 void
 SBMLHandler::error (const SAXParseException& e)
 {
-  List_add( fDocument->error, ParseMessage_createFrom(e) );
+  fDocument->error.add( ParseMessage_createFrom(e) );
 }
 
 
 void
 SBMLHandler::fatalError (const SAXParseException& e)
 {
-  List_add( fDocument->fatal, ParseMessage_createFrom(e) );
+  fDocument->fatal.add( ParseMessage_createFrom(e) );
 }
 #endif  // !USE_EXPAT
 
@@ -547,21 +547,21 @@ SBMLHandler::fatalError (const SAXParseException& e)
 void
 SBMLHandler::warning (const char* message)
 {
-  List_add( fDocument->warning, ParseMessage_createFrom(message) );
+  fDocument->warning.add( ParseMessage_createFrom(message) );
 }
 
 
 void
 SBMLHandler::error (const char* message)
 {
-  List_add( fDocument->error, ParseMessage_createFrom(message) );
+  fDocument->error.add( ParseMessage_createFrom(message) );
 }
 
 
 void
 SBMLHandler::fatalError (const char* message)
 {
-  List_add( fDocument->fatal, ParseMessage_createFrom(message) );
+  fDocument->fatal.add( ParseMessage_createFrom(message) );
 }
 
 
@@ -626,13 +626,13 @@ SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
 /**
  * Initializes the SBMLDocument fDocument from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doSBML (const Attributes& a)
 {
   XMLUtil::scanAttr( a, ATTR_LEVEL  , &(fDocument->level)   );
   XMLUtil::scanAttr( a, ATTR_VERSION, &(fDocument->version) );
 
-  return (SBase_t*) fDocument;
+  return fDocument;
 }
 
 
@@ -640,83 +640,84 @@ SBMLHandler::doSBML (const Attributes& a)
  * Adds a new Model to the SBMLDocument being read and returns a pointer to
  * it.  The Model is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doModel (const Attributes& a)
 {
-  fModel           = Model_create();
-  fDocument->model = fModel;
+  fModel = &fDocument->createModel();
 
   //
   // id: SId  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_ID, &(fModel->id));
+  XMLUtil::scanAttr(a, ATTR_ID, fModel->id);
 
   //
   // name: SName   { use="optional" }  (L1v1, L1v2)
   // name: string  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(fModel->name));
+  XMLUtil::scanAttr(a, ATTR_NAME, fModel->name);
 
-  return (SBase_t*) fModel;
+  return fModel;
 }
 
 
 /**
  * @return the list of FunctionDefinitions for the Model being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfFunctionDefinitions (const Attributes& a)
 {
-  return (SBase_t*) Model_getListOfFunctionDefinitions(fModel);
+  return & fModel->getListOfFunctionDefinitions();
 }
 
 
 /**
  * @return the list of UnitDefinitions for the Model being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfUnitDefinitions (const Attributes& a)
 {
-  return (SBase_t*) Model_getListOfUnitDefinitions(fModel);
+  return & fModel->getListOfUnitDefinitions();
 }
 
 
 /**
- * @return the list of Units for this UnitDefinition being read.
+ * @return the list of Units for the UnitDefinition being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfUnits (const Attributes& a)
 {
-  SBase_t*  obj = (SBase_t*) Stack_peek(fObjStack);
-  ListOf_t* lo  = NULL;
+  SBase*          obj = static_cast<SBase*>( Stack_peek(fObjStack) );
+  ListOf*         lo  = NULL;
+  UnitDefinition* ud;
 
 
-  if (obj->typecode == SBML_UNIT_DEFINITION)
+  if (obj->getTypeCode() == SBML_UNIT_DEFINITION)
   {
-    lo = UnitDefinition_getListOfUnits((UnitDefinition_t*) obj);
+    ud = static_cast<UnitDefinition*>(obj);
+    lo = & ud->getListOfUnits();
   }
 
-  return (SBase_t*) lo;
+  return lo;
 }
 
 
 /**
  * @return the list of Compartments for the Model being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfCompartments (const Attributes& a)
 {
-  return (SBase_t*) Model_getListOfCompartments(fModel);
+  return & fModel->getListOfCompartments();
 }
 
 
 /**
  * @return the list of Species for the Model being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfSpecies (const Attributes& a)
 {
-  return (SBase_t*) Model_getListOfSpecies(fModel);
+  return & fModel->getListOfSpecies();
 }
 
 
@@ -724,128 +725,138 @@ SBMLHandler::doListOfSpecies (const Attributes& a)
  * @return the list of Parameters for either the Model or KineticLaw being
  * read.  The context is determined by the top object on fObjStack.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfParameters (const Attributes& a)
 {
-  SBase_t*  obj = (SBase_t*) Stack_peek(fObjStack);
-  ListOf_t* lo  = NULL;
+  SBase*      obj = static_cast<SBase*>( Stack_peek(fObjStack) );
+  ListOf*     lo  = NULL;
+  KineticLaw* kl;
 
-  if (obj->typecode == SBML_KINETIC_LAW)
+  if (obj->getTypeCode() == SBML_KINETIC_LAW)
   {
-    lo = KineticLaw_getListOfParameters((KineticLaw_t*) obj);
+    kl = static_cast<KineticLaw*>(obj);
+    lo = & kl->getListOfParameters();
   }
   else
   {
-    lo = Model_getListOfParameters(fModel);
+    lo = & fModel->getListOfParameters();
   }
 
-  return (SBase_t*) lo;
+  return lo;
 }
 
 
 /**
  * @return the list of Rules for the Model being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfRules (const Attributes& a)
 {
-  return (SBase_t*) Model_getListOfRules(fModel);
+  return & fModel->getListOfRules();
 }
 
 
 /**
  * @return the list of Reactions for the Model being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfReactions (const Attributes& a)
 {
-  return (SBase_t*) Model_getListOfReactions(fModel);
+  return & fModel->getListOfReactions();
 }
 
 
 /**
  * @return the list of Reactants for the Reaction being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfReactants (const Attributes& a)
 {
-  SBase_t*  obj = (SBase_t*) Stack_peek(fObjStack);
-  ListOf_t* lo  = NULL;
+  SBase*    obj = static_cast<SBase*>( Stack_peek(fObjStack) );
+  ListOf*   lo  = NULL;
+  Reaction* r;
 
 
-  if (obj->typecode == SBML_REACTION)
+  if (obj->getTypeCode() == SBML_REACTION)
   {
-    lo = Reaction_getListOfReactants((Reaction_t*) obj);
+    r  = static_cast<Reaction*>(obj);
+    lo = & r->getListOfReactants();
   }
 
-  return (SBase_t*) lo;
+  return lo;
 }
 
 
 /**
  * @return the list of Products for the Reaction being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfProducts (const Attributes& a)
 {
-  SBase_t*  obj = (SBase_t*) Stack_peek(fObjStack);
-  ListOf_t* lo  = NULL;
+  SBase*    obj = static_cast<SBase*>( Stack_peek(fObjStack) );
+  ListOf*   lo  = NULL;
+  Reaction* r;
 
 
-  if (obj->typecode == SBML_REACTION)
+  if (obj->getTypeCode() == SBML_REACTION)
   {
-    lo = Reaction_getListOfProducts((Reaction_t*) obj);
+    r  = static_cast<Reaction*>(obj);
+    lo = & r->getListOfProducts();
   }
 
-  return (SBase_t*) lo;
+  return lo;
 }
 
 
 /**
  * @return the list of Modifiers for the Reaction being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfModifiers (const Attributes& a)
 {
-  SBase_t*  obj = (SBase_t*) Stack_peek(fObjStack);
-  ListOf_t* lo  = NULL;
+  SBase*    obj = static_cast<SBase*>( Stack_peek(fObjStack) );
+  ListOf*   lo  = NULL;
+  Reaction* r;
 
 
-  if (obj->typecode == SBML_REACTION)
+  if (obj->getTypeCode() == SBML_REACTION)
   {
-    lo = Reaction_getListOfModifiers((Reaction_t*) obj);
+    r  = static_cast<Reaction*>(obj);
+    lo = & r->getListOfModifiers();
   }
 
-  return (SBase_t*) lo;
+  return lo;
 }
 
 
 /**
  * @return the list of Events for the Model being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfEvents (const Attributes& a)
 {
-  return (SBase_t*) Model_getListOfEvents(fModel);
+  return & fModel->getListOfEvents();
 }
 
 
 /**
  * @return the list of EventAssignments for the Event being read.
  */
-SBase_t*
+SBase*
 SBMLHandler::doListOfEventAssignments (const Attributes& a)
 {
-  SBase_t*  obj = (SBase_t*) Stack_peek(fObjStack);
-  ListOf_t* lo  = NULL;
+  SBase*  obj = static_cast<SBase*>( Stack_peek(fObjStack) );
+  ListOf* lo  = NULL;
+  Event*  e;
 
 
-  if (obj->typecode == SBML_EVENT)
+  if (obj->getTypeCode() == SBML_EVENT)
   {
-    lo = Event_getListOfEventAssignments((Event_t*) obj);
+    e  = static_cast<Event*>(obj);
+    lo = & e->getListOfEventAssignments();
   }
 
-  return (SBase_t*) lo;
+  return lo;
 }
 
 
@@ -854,23 +865,23 @@ SBMLHandler::doListOfEventAssignments (const Attributes& a)
  * pointer to it.  The FunctionDefinition is initialized from the given XML
  * attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doFunctionDefinition (const Attributes& a)
 {
-  FunctionDefinition_t* fd = Model_createFunctionDefinition(fModel);
+  FunctionDefinition* fd = & fModel->createFunctionDefinition();
 
 
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_ID, &(fd->id));
+  XMLUtil::scanAttr(a, ATTR_ID, fd->id);
 
   //
   // name: string  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(fd->name));
+  XMLUtil::scanAttr(a, ATTR_NAME, fd->name);
 
-  return (SBase_t*) fd;
+  return fd;
 }
 
 
@@ -878,24 +889,24 @@ SBMLHandler::doFunctionDefinition (const Attributes& a)
  * Adds a new UnitDefinition to the Model being read and returns a pointer
  * to it.  The UnitDefinition is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doUnitDefinition (const Attributes& a)
 {
-  UnitDefinition_t* ud = Model_createUnitDefinition(fModel);
+  UnitDefinition* ud = & fModel->createUnitDefinition();
 
 
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_ID, &(ud->id));
+  XMLUtil::scanAttr(a, ATTR_ID, ud->id);
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   // name: string  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr( a, ATTR_NAME, &(ud->name) );
+  XMLUtil::scanAttr( a, ATTR_NAME, ud->name );
 
-  return (SBase_t*) ud;
+  return ud;
 }
 
 
@@ -903,14 +914,14 @@ SBMLHandler::doUnitDefinition (const Attributes& a)
  * Adds a new Unit to the Model being read and returns a pointer to it.
  * The Unit is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doUnit (const Attributes& a)
 {
-  Unit_t* u    = Model_createUnit(fModel);
-  char*   kind = XMLString::transcode( a.getValue(ATTR_KIND) ); 
+  Unit*  u    = fModel->createUnit();
+  char*  kind = XMLString::transcode( a.getValue(ATTR_KIND) ); 
 
-  int     ivalue;
-  double  dvalue;
+  int    ivalue;
+  double dvalue;
 
 
   //
@@ -924,7 +935,7 @@ SBMLHandler::doUnit (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_EXPONENT, &ivalue) == true)
   {
-    Unit_setExponent(u, ivalue);
+    u->setExponent(ivalue);
   }
 
   //
@@ -932,7 +943,7 @@ SBMLHandler::doUnit (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_SCALE, &ivalue) == true)
   {
-    Unit_setScale(u, ivalue);
+    u->setScale(ivalue);
   }
 
   //
@@ -940,7 +951,7 @@ SBMLHandler::doUnit (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_MULTIPLIER, &dvalue) == true)
   {
-    Unit_setMultiplier(u, dvalue);
+    u->setMultiplier(dvalue);
   }
 
   //
@@ -948,10 +959,10 @@ SBMLHandler::doUnit (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_OFFSET, &dvalue) == true)
   {
-    Unit_setOffset(u, dvalue);
+    u->setOffset(dvalue);
   }
 
-  return (SBase_t*) u;
+  return u;
 }
 
 
@@ -959,10 +970,10 @@ SBMLHandler::doUnit (const Attributes& a)
  * Adds a new Compartment to the Model being read and returns a pointer to
  * it.  The Compartment is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doCompartment (const Attributes& a)
 {
-  Compartment_t* c = Model_createCompartment(fModel);
+  Compartment* c = & fModel->createCompartment();
 
   bool   bvalue;
   double dvalue;
@@ -972,20 +983,20 @@ SBMLHandler::doCompartment (const Attributes& a)
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_ID, &(c->id));
+  XMLUtil::scanAttr(a, ATTR_ID, c->id);
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   // name: string  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(c->name));
+  XMLUtil::scanAttr(a, ATTR_NAME, c->name);
 
   //
   // spatialDimensions: integer  { use="optional" default="3" }  (L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_SPATIAL_DIMENSIONS, &ivalue) == true)
   {
-    Compartment_setSpatialDimensions(c, ivalue);
+    c->setSpatialDimensions(ivalue);
   }
 
   //
@@ -993,7 +1004,7 @@ SBMLHandler::doCompartment (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_VOLUME, &dvalue) == true)
   {
-    Compartment_setVolume(c, dvalue);
+    c->setVolume(dvalue);
   }
 
   //
@@ -1001,30 +1012,30 @@ SBMLHandler::doCompartment (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_SIZE, &dvalue) == true)
   {
-    Compartment_setSize(c, dvalue);
+    c->setSize(dvalue);
   }
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)
   // units: SId    { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_UNITS  , &(c->units));
+  XMLUtil::scanAttr(a, ATTR_UNITS, c->units);
 
   //
   // outside: SName  { use="optional" }  (L1v1, L1v2)
   // outside: SId    { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr( a, ATTR_OUTSIDE, &(c->outside) );
+  XMLUtil::scanAttr( a, ATTR_OUTSIDE, c->outside );
 
   //
   // constant: boolean  { use="optional" default="true" }  (L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_CONSTANT, &bvalue) == true)
   {
-    Compartment_setConstant(c, bvalue);
+    c->setConstant(bvalue);
   }
 
-  return (SBase_t*) c;
+  return c;
 }
 
 
@@ -1032,10 +1043,10 @@ SBMLHandler::doCompartment (const Attributes& a)
  * Adds a new Species to the Model being read and returns a pointer to it.
  * The Species is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doSpecies (const Attributes& a)
 {
-  Species_t* s = Model_createSpecies(fModel);
+  Species* s = & fModel->createSpecies();
 
   bool   bvalue;
   double dvalue;
@@ -1045,19 +1056,19 @@ SBMLHandler::doSpecies (const Attributes& a)
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_ID, &(s->id));
+  XMLUtil::scanAttr(a, ATTR_ID, s->id);
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   // name: string  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_NAME , &(s->name));
+  XMLUtil::scanAttr(a, ATTR_NAME , s->name);
 
   //
   // compartment: SName   { use="required" }  (L1v1, L1v2)
   // compartment: SId     { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_COMPARTMENT, &(s->compartment));
+  XMLUtil::scanAttr(a, ATTR_COMPARTMENT, s->compartment);
 
   //
   // initialAmount: double  { use="required" }  (L1v1, L1v2)
@@ -1065,7 +1076,7 @@ SBMLHandler::doSpecies (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_INITIAL_AMOUNT, &dvalue) == true)
   {
-    Species_setInitialAmount(s, dvalue);
+    s->setInitialAmount(dvalue);
   }
 
   //
@@ -1073,7 +1084,7 @@ SBMLHandler::doSpecies (const Attributes& a)
   //
   else if (XMLUtil::scanAttr(a, ATTR_INITIAL_CONCENTRATION, &dvalue) == true)
   {
-    Species_setInitialConcentration(s, dvalue);
+    s->setInitialConcentration(dvalue);
   }
 
   //
@@ -1083,17 +1094,17 @@ SBMLHandler::doSpecies (const Attributes& a)
   ivalue = a.getIndex(ATTR_UNITS);
   if (ivalue >= 0)
   {
-    XMLUtil::scanAttrCStr(a, ivalue, &(s->substanceUnits));
+    XMLUtil::scanAttr(a, ivalue, s->substanceUnits);
   }
   else
   {
-    XMLUtil::scanAttrCStr(a, ATTR_SUBSTANCE_UNITS, &(s->substanceUnits));
+    XMLUtil::scanAttr(a, ATTR_SUBSTANCE_UNITS, s->substanceUnits);
   }
 
   //
   // spatialSizeUnits: SId  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_SPATIAL_SIZE_UNITS, &(s->spatialSizeUnits));
+  XMLUtil::scanAttr(a, ATTR_SPATIAL_SIZE_UNITS, s->spatialSizeUnits);
 
   //
   // hasOnlySubstanceUnits: boolean  { use="optional" default="true" }
@@ -1101,7 +1112,7 @@ SBMLHandler::doSpecies (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_HAS_ONLY_SUBSTANCE_UNITS, &bvalue) == true)
   {
-    Species_setHasOnlySubstanceUnits(s, bvalue);
+    s->setHasOnlySubstanceUnits(bvalue);
   }
 
   //
@@ -1110,7 +1121,7 @@ SBMLHandler::doSpecies (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_BOUNDARY_CONDITION, &bvalue) == true)
   {
-    Species_setBoundaryCondition(s, bvalue);
+    s->setBoundaryCondition(bvalue);
   }
 
   //
@@ -1118,7 +1129,7 @@ SBMLHandler::doSpecies (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_CHARGE, &ivalue) == true)
   {
-    Species_setCharge(s, ivalue);
+    s->setCharge(ivalue);
   }
 
   //
@@ -1126,10 +1137,10 @@ SBMLHandler::doSpecies (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_CONSTANT, &bvalue) == true)
   {
-    Species_setConstant(s, bvalue);
+    s->setConstant(bvalue);
   }
 
-  return (SBase_t*) s;
+  return s;
 }
 
 
@@ -1138,10 +1149,10 @@ SBMLHandler::doSpecies (const Attributes& a)
  * being read and returns a pointer to it.  The Parameter is initialized
  * from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doParameter (const Attributes& a)
 {
-  Parameter_t*  p   = NULL;
+  Parameter*    p   = NULL;
   SBMLTagCode_t tag = (SBMLTagCode_t) Stack_peekAt(fTagStack, 1);
 
   bool   bvalue;
@@ -1154,11 +1165,11 @@ SBMLHandler::doParameter (const Attributes& a)
   //
   if (tag == TAG_KINETIC_LAW)
   {
-    p = Model_createKineticLawParameter(fModel);
+    p = fModel->createKineticLawParameter();
   }
   else
   {
-    p = Model_createParameter(fModel);
+    p = & fModel->createParameter();
   }
 
   if (p != NULL)
@@ -1166,13 +1177,13 @@ SBMLHandler::doParameter (const Attributes& a)
     //
     // id: SId  { use="required" }  (L2v1)
     //
-    XMLUtil::scanAttrCStr(a, ATTR_ID, &(p->id));
+    XMLUtil::scanAttr(a, ATTR_ID, p->id);
 
     //
     // name: SName   { use="required" }  (L1v1, L1v2)
     // name: string  { use="optional" }  (L2v1)
     //
-    XMLUtil::scanAttrCStr(a, ATTR_NAME, &(p->name));
+    XMLUtil::scanAttr(a, ATTR_NAME, p->name);
 
     //
     // value: double  { use="required" }  (L1v1)
@@ -1180,25 +1191,25 @@ SBMLHandler::doParameter (const Attributes& a)
     //
     if (XMLUtil::scanAttr(a, ATTR_VALUE, &dvalue) == true)
     {
-      Parameter_setValue(p, dvalue);
+      p->setValue(dvalue);
     }
 
     //
     // units: SName  { use="optional" }  (L1v1, L1v2)
     // units: SId    { use="optional" }  (L2v1)
     //
-    XMLUtil::scanAttrCStr(a, ATTR_UNITS, &(p->units));
+    XMLUtil::scanAttr(a, ATTR_UNITS, p->units);
 
     //
     // constant: boolean  { use="optional" default="true" }  (L2v1)
     //
     if (XMLUtil::scanAttr(a, ATTR_CONSTANT, &bvalue) == true)
     {
-      Parameter_setConstant(p, bvalue);
+      p->setConstant(bvalue);
     }
   }
 
-  return (SBase_t*) p;
+  return p;
 }
 
 
@@ -1206,10 +1217,10 @@ SBMLHandler::doParameter (const Attributes& a)
  * Adds a new Reaction to the Model being read and returns a pointer to it.
  * The Reaction is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doReaction (const Attributes& a)
 {
-  Reaction_t* r = Model_createReaction(fModel);
+  Reaction* r = & fModel->createReaction();
 
   bool bvalue;
 
@@ -1217,20 +1228,20 @@ SBMLHandler::doReaction (const Attributes& a)
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_ID, &(r->id));
+  XMLUtil::scanAttr(a, ATTR_ID, r->id);
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   // name: string  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(r->name));
+  XMLUtil::scanAttr(a, ATTR_NAME, r->name);
 
   //
   // reversible: boolean  { use="optional" default="true" }  (L1v1, L1v2, L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_REVERSIBLE, &bvalue) == true)
   {
-    Reaction_setReversible(r, bvalue);
+    r->setReversible(bvalue);
   }
 
   //
@@ -1239,10 +1250,10 @@ SBMLHandler::doReaction (const Attributes& a)
   //
   if (XMLUtil::scanAttr(a, ATTR_FAST, &bvalue) == true)
   {
-    Reaction_setFast(r, bvalue);
+    r->setFast(bvalue);
   }
 
-  return (SBase_t*) r;
+  return r;
 }
 
 
@@ -1251,11 +1262,11 @@ SBMLHandler::doReaction (const Attributes& a)
  * being read and returns a pointer to it.  The SpeciesReference is
  * initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doSpeciesReference (const Attributes& a)
 {
-  SpeciesReference_t* sr    = NULL;
-  SBMLTagCode_t       tag   = (SBMLTagCode_t) Stack_peek(fTagStack);
+  SpeciesReference* sr    = NULL;
+  SBMLTagCode_t     tag   = (SBMLTagCode_t) Stack_peek(fTagStack);
 
   int index;
 
@@ -1265,11 +1276,11 @@ SBMLHandler::doSpeciesReference (const Attributes& a)
   //
   if (tag == TAG_LIST_OF_REACTANTS)
   {
-    sr = Model_createReactant(fModel);
+    sr = fModel->createReactant();
   }
   else if (tag == TAG_LIST_OF_PRODUCTS)
   {
-    sr = Model_createProduct(fModel);
+    sr = fModel->createProduct();
   }
 
   if (sr != NULL)
@@ -1284,11 +1295,11 @@ SBMLHandler::doSpeciesReference (const Attributes& a)
     index = a.getIndex(ATTR_SPECIES);
     if (index >= 0)
     {
-      XMLUtil::scanAttrCStr(a, index, &(sr->species));
+      XMLUtil::scanAttr(a, index, sr->species);
     }
     else
     {
-      XMLUtil::scanAttrCStr(a, ATTR_SPECIE, &(sr->species));
+      XMLUtil::scanAttr(a, ATTR_SPECIE, sr->species);
     }
 
     //
@@ -1303,7 +1314,7 @@ SBMLHandler::doSpeciesReference (const Attributes& a)
     XMLUtil::scanAttr(a, ATTR_DENOMINATOR, &(sr->denominator));
   }
 
-  return (SBase_t*) sr;
+  return sr;
 }
 
 
@@ -1312,10 +1323,10 @@ SBMLHandler::doSpeciesReference (const Attributes& a)
  * being read and returns a pointer to it.  The ModifierSpeciesReference is
  * initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doModifierSpeciesReference (const Attributes& a)
 {
-  ModifierSpeciesReference_t* msr = Model_createModifier(fModel);
+  ModifierSpeciesReference* msr = fModel->createModifier();
   int index;
 
 
@@ -1330,15 +1341,15 @@ SBMLHandler::doModifierSpeciesReference (const Attributes& a)
     index = a.getIndex(ATTR_SPECIES);
     if (index >= 0)
     {
-      XMLUtil::scanAttrCStr(a, index, &(msr->species));
+      XMLUtil::scanAttr(a, index, msr->species);
     }
     else
     {
-      XMLUtil::scanAttrCStr(a, ATTR_SPECIE, &(msr->species));
+      XMLUtil::scanAttr(a, ATTR_SPECIE, msr->species);
     }
   }
 
-  return (SBase_t*) msr;
+  return msr;
 }
 
 
@@ -1346,10 +1357,10 @@ SBMLHandler::doModifierSpeciesReference (const Attributes& a)
  * Adds a new KineticLaw to the Reaction being read and returns a pointer
  * to it.  The KineticLaw is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doKineticLaw (const Attributes& a)
 {
-  KineticLaw_t* kl = Model_createKineticLaw(fModel);
+  KineticLaw* kl = fModel->createKineticLaw();
 
 
   if (kl != NULL)
@@ -1357,22 +1368,22 @@ SBMLHandler::doKineticLaw (const Attributes& a)
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
-    XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(kl->formula));
+    XMLUtil::scanAttr(a, ATTR_FORMULA, kl->formula);
 
     //
     // timeUnits: SName  { use="optional" }  (L1v1, L1v2)
     // timeUnits: SId    { use="optional" }  (L2v1)
     //
-    XMLUtil::scanAttrCStr(a, ATTR_TIME_UNITS, &(kl->timeUnits));
+    XMLUtil::scanAttr(a, ATTR_TIME_UNITS, kl->timeUnits);
 
     //
     // substanceUnits: SName  { use="optional" }  (L1v1, L1v2)
     // substanceUnits: SId    { use="optional" }  (L2v1)
     //
-    XMLUtil::scanAttrCStr(a, ATTR_SUBSTANCE_UNITS, &(kl->substanceUnits));
+    XMLUtil::scanAttr(a, ATTR_SUBSTANCE_UNITS, kl->substanceUnits);
   }
 
-  return (SBase_t*) kl;
+  return kl;
 }
 
 
@@ -1382,18 +1393,18 @@ SBMLHandler::doKineticLaw (const Attributes& a)
  *
  * (L2 only)
  */
-SBase_t*
+SBase*
 SBMLHandler::doAssignmentRule (const Attributes& a)
 {
-  AssignmentRule_t* ar = Model_createAssignmentRule(fModel);
+  AssignmentRule* ar = & fModel->createAssignmentRule();
 
 
   //
   // variable: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_VARIABLE, &(ar->variable));
+  XMLUtil::scanAttr(a, ATTR_VARIABLE, ar->variable);
 
-  return (SBase_t*) ar;
+  return ar;
 }
 
 
@@ -1403,18 +1414,18 @@ SBMLHandler::doAssignmentRule (const Attributes& a)
  *
  * (L2 only)
  */
-SBase_t*
+SBase*
 SBMLHandler::doRateRule (const Attributes& a)
 {
-  RateRule_t* rr = Model_createRateRule(fModel);
+  RateRule* rr = & fModel->createRateRule();
 
 
   //
   // variable: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_VARIABLE, &(rr->variable));
+  XMLUtil::scanAttr(a, ATTR_VARIABLE, rr->variable);
 
-  return (SBase_t*) rr;
+  return rr;
 }
 
 
@@ -1422,18 +1433,18 @@ SBMLHandler::doRateRule (const Attributes& a)
  * Adds a new AlgebraicRule to the Model being read and returns a pointer
  * to it.  The AlgebraicRule is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doAlgebraicRule (const Attributes& a)
 {
-  AlgebraicRule_t* ar = Model_createAlgebraicRule(fModel);
+  AlgebraicRule* ar = & fModel->createAlgebraicRule();
 
 
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(ar->formula));
+  XMLUtil::scanAttr(a, ATTR_FORMULA, ar->formula);
 
-  return (SBase_t*) ar;
+  return ar;
 }
 
 
@@ -1444,17 +1455,17 @@ SBMLHandler::doAlgebraicRule (const Attributes& a)
  *
  * (L1 only)
  */
-SBase_t*
+SBase*
 SBMLHandler::doCompartmentVolumeRule (const Attributes& a)
 {
-  CompartmentVolumeRule_t* cvr = Model_createCompartmentVolumeRule(fModel);
+  CompartmentVolumeRule* cvr = & fModel->createCompartmentVolumeRule();
   int index;
 
 
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(cvr->formula));
+  XMLUtil::scanAttr(a, ATTR_FORMULA, cvr->formula);
 
   //
   // type { use="optional" default="scalar" }  (L1v1, L1v2)
@@ -1474,9 +1485,9 @@ SBMLHandler::doCompartmentVolumeRule (const Attributes& a)
   // replaced by 'variable' and 'variable' is inherited from
   // AssignmentRule).
   //
-  XMLUtil::scanAttrCStr( a, ATTR_COMPARTMENT, &(cvr->variable) );
+  XMLUtil::scanAttr( a, ATTR_COMPARTMENT, cvr->variable );
 
-  return (SBase_t*) cvr;
+  return cvr;
 }
 
 
@@ -1486,17 +1497,17 @@ SBMLHandler::doCompartmentVolumeRule (const Attributes& a)
  *
  * (L1 only)
  */
-SBase_t*
+SBase*
 SBMLHandler::doParameterRule (const Attributes& a)
 {
-  ParameterRule_t* pr   = Model_createParameterRule(fModel);
+  ParameterRule* pr = & fModel->createParameterRule();
   int index;
 
 
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(pr->formula));
+  XMLUtil::scanAttr(a, ATTR_FORMULA, pr->formula);
 
   //
   // type { use="optional" value="scalar" }  (L1v1, L1v2)
@@ -1515,14 +1526,14 @@ SBMLHandler::doParameterRule (const Attributes& a)
   // In L2 ParameterRule has been removed ('name' is replaced by 'variable'
   // and 'variable' is inherited from AssignmentRule).
   //
-  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(pr->variable));
+  XMLUtil::scanAttr(a, ATTR_NAME, pr->variable);
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_UNITS, &(pr->units));
+  XMLUtil::scanAttr(a, ATTR_UNITS, pr->units);
 
-  return (SBase_t*) pr;
+  return pr;
 }
 
 
@@ -1533,19 +1544,19 @@ SBMLHandler::doParameterRule (const Attributes& a)
  *
  * (L1 only)
  */
-SBase_t*
+SBase*
 SBMLHandler::doSpeciesConcentrationRule (const Attributes& a)
 {
-  SpeciesConcentrationRule_t* scr;
+  SpeciesConcentrationRule* scr;
   int index;
 
 
-  scr = Model_createSpeciesConcentrationRule(fModel);
+  scr = & fModel->createSpeciesConcentrationRule();
 
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(scr->formula));
+  XMLUtil::scanAttr(a, ATTR_FORMULA, scr->formula);
 
   //
   // type { use="optional" value="scalar" }  (L1v1, L1v2)
@@ -1570,14 +1581,14 @@ SBMLHandler::doSpeciesConcentrationRule (const Attributes& a)
   index = a.getIndex(ATTR_SPECIES);
   if (index >= 0)
   {
-    XMLUtil::scanAttrCStr(a, index, &(scr->variable));
+    XMLUtil::scanAttr(a, index, scr->variable);
   }
   else
   {
-    XMLUtil::scanAttrCStr(a, ATTR_SPECIE, &(scr->variable));
+    XMLUtil::scanAttr(a, ATTR_SPECIE, scr->variable);
   }
 
-  return (SBase_t*) scr;
+  return (SBase*) scr;
 }
 
 
@@ -1585,29 +1596,29 @@ SBMLHandler::doSpeciesConcentrationRule (const Attributes& a)
  * Adds a new Event to the Model being read and returns a pointer to it.
  * The Event is initialized from the given XML attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doEvent (const Attributes& a)
 {
-  Event_t* e = Model_createEvent(fModel);
+  Event* e = & fModel->createEvent();
 
 
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_ID, &(e->id));
+  XMLUtil::scanAttr(a, ATTR_ID, e->id);
 
   //
   // name: string  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(e->name));
+  XMLUtil::scanAttr(a, ATTR_NAME, e->name);
 
   //
   // timeUnits: SId  { use="optional" }  (L2v1)
   //
-  XMLUtil::scanAttrCStr(a, ATTR_TIME_UNITS, &(e->timeUnits));
+  XMLUtil::scanAttr(a, ATTR_TIME_UNITS, e->timeUnits);
 
 
-  return (SBase_t*) e;
+  return e;
 }
 
 
@@ -1616,10 +1627,10 @@ SBMLHandler::doEvent (const Attributes& a)
  * to it.  The EventAssignment is initialized from the given XML
  * attributes.
  */
-SBase_t*
+SBase*
 SBMLHandler::doEventAssignment (const Attributes& a)
 {
-  EventAssignment_t* ea = Model_createEventAssignment(fModel);
+  EventAssignment* ea = fModel->createEventAssignment();
 
 
   if (ea != NULL)
@@ -1627,10 +1638,10 @@ SBMLHandler::doEventAssignment (const Attributes& a)
     //
     // variable: SId  { use="required" }  (L2v1)
     //
-    XMLUtil::scanAttrCStr(a, ATTR_VARIABLE, &(ea->variable));
+    XMLUtil::scanAttr(a, ATTR_VARIABLE, ea->variable);
   }
 
-  return (SBase_t*) ea;
+  return ea;
 }
 
 
@@ -1644,10 +1655,10 @@ SBMLHandler::doEventAssignment (const Attributes& a)
  * fObjStack and fTagStack stay synchronized and a NULL is not pushed onto
  * fObjStack.
  */
-SBase_t*
+SBase*
 SBMLHandler::doStackPeek (const Attributes& a)
 {
-  return (SBase_t*) Stack_peek(fObjStack);
+  return static_cast<SBase*>( Stack_peek(fObjStack) );
 }
 
 
@@ -1694,7 +1705,7 @@ SBMLHandler::getTagCode (const XMLCh *uri, const XMLCh* localname)
  * document are not available, this method does nothing.
  */
 void
-SBMLHandler::setLineAndColumn (SBase_t* sb)
+SBMLHandler::setLineAndColumn (SBase* sb)
 {
   int line   = 0;
   int column = 0;
@@ -1729,16 +1740,16 @@ SBMLHandler::setLineAndColumn (SBase_t* sb)
 
 /**
  * Sets the math field of the top object on fObjStack.  If the top object
- * has more than one MathML field, the fTagStack is exacmined to choose the
+ * has more than one MathML field, the fTagStack is examined to choose the
  * correct field.  If the top object does not contain a math field, the
  * given math AST is freed.
  *
  * @see endElement()
  */
 void
-SBMLHandler::setMath(ASTNode_t* math)
+SBMLHandler::setMath (ASTNode_t* math)
 {
-  SBase_t*      obj = (SBase_t*)      Stack_peek(fObjStack);
+  SBase*        obj = static_cast<SBase*>( Stack_peek(fObjStack) );
   SBMLTagCode_t tag = (SBMLTagCode_t) Stack_peek(fTagStack);
 
   int freeMath = false;

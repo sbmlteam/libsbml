@@ -66,6 +66,9 @@
 #include "sbml/XMLUtil.hpp"
 
 
+#define NUMBER_BUFFER_SIZE 100
+
+
 /**
  * Ctor
  *
@@ -90,6 +93,7 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
   fTarget        = target;
   fMathFormatter = new MathMLFormatter(outEncoding, fTarget, false);
   fFormatter     = XMLUtil::createXMLFormatter(outEncoding, fTarget);
+  fNumberBuffer  = new char[ NUMBER_BUFFER_SIZE ];
 
   *fFormatter
     << XML_DECL_1
@@ -104,6 +108,7 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 SBMLFormatter::~SBMLFormatter ()
 {
   delete fFormatter;
+  delete fNumberBuffer;
 }
 
 
@@ -141,17 +146,17 @@ SBMLFormatter::operator<< (const SBMLVersion_t version)
  * SBMLDocument
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const SBMLDocument_t* d)
+SBMLFormatter::operator<< (const SBMLDocument& d)
 {
-  fLevel   = d->level;
-  fVersion = d->version;
+  fLevel   = d.getLevel();
+  fVersion = d.getVersion();
 
   openStartElement(ELEM_SBML);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) d );
+  doMetaId(d);
 
   //
   // xmlns="http://www.sbml.org/level1"  (L1v1, L1v2)
@@ -163,16 +168,16 @@ SBMLFormatter::operator<< (const SBMLDocument_t* d)
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
   // level: positiveInteger  { use="required" fixed="2" }  (L2v1)
   //
-  attribute(ATTR_LEVEL, d->level);
+  attribute(ATTR_LEVEL, d.getLevel());
 
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2)
   //
-  attribute(ATTR_VERSION, d->version);
+  attribute(ATTR_VERSION, d.getVersion());
 
 
-  if (d->model == NULL)
+  if (d.model == NULL)
   {
     slashCloseStartElement();
   }
@@ -182,7 +187,7 @@ SBMLFormatter::operator<< (const SBMLDocument_t* d)
 
     upIndent();
 
-    *this << d->model;
+    *this << *(d.model);
 
     downIndent();
 
@@ -197,26 +202,23 @@ SBMLFormatter::operator<< (const SBMLDocument_t* d)
  * Model
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Model_t* m)
+SBMLFormatter::operator<< (const Model& m)
 {
-  if (m == NULL) return *this;
-
-
   openStartElement(ELEM_MODEL);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) m );
+  doMetaId(m);
 
   //
   // id  { use="optional" }  (L2v1)
   //
   if (fLevel > 1)
   {
-    if (Model_isSetId(m))
+    if ( m.isSetId() )
     {
-      attribute(ATTR_ID, m->id);
+      attribute(ATTR_ID, m.getId());
     }
   }
 
@@ -229,20 +231,20 @@ SBMLFormatter::operator<< (const Model_t* m)
   //
   if (fLevel == 1)
   {
-    if ( Model_isSetName(m) )
+    if ( m.isSetName() )
     {
-      attribute(ATTR_NAME, m->name);
+      attribute(ATTR_NAME, m.getName());
     }
-    else if ( Model_isSetId(m) )
+    else if ( m.isSetId() )
     {
-      attribute(ATTR_NAME, m->id);
+      attribute(ATTR_NAME, m.getId());
     }
   }
   else
   {
-    if (Model_isSetName(m))
+    if ( m.isSetName() )
     {
-      attribute(ATTR_NAME, m->name);
+      attribute(ATTR_NAME, m.getName());
     }
   }
 
@@ -257,16 +259,16 @@ SBMLFormatter::operator<< (const Model_t* m)
 
     upIndent();
 
-    notesAndAnnotation( (SBase_t*) m );
+    notesAndAnnotation(m);
 
-    listOfFunctionDefinitions( m->functionDefinition );
-    listOfUnitDefinitions    ( m->unitDefinition     );
-    listOfCompartments       ( m->compartment        );
-    listOfSpecies            ( m->species            );
-    listOfParameters         ( m->parameter          );
-    listOfRules              ( m->rule               );
-    listOfReactions          ( m->reaction           );
-    listOfEvents             ( m->event              );
+    listOfFunctionDefinitions( m.functionDefinition );
+    listOfUnitDefinitions    ( m.unitDefinition     );
+    listOfCompartments       ( m.compartment        );
+    listOfSpecies            ( m.species            );
+    listOfParameters         ( m.parameter          );
+    listOfRules              ( m.rule               );
+    listOfReactions          ( m.reaction           );
+    listOfEvents             ( m.event              );
     
     downIndent();
 
@@ -281,32 +283,29 @@ SBMLFormatter::operator<< (const Model_t* m)
  * FunctionDefinition
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const FunctionDefinition_t* fd)
+SBMLFormatter::operator<< (const FunctionDefinition& fd)
 {
-  if (fd == NULL) return *this;
-
-
   openStartElement(ELEM_FUNCTION_DEFINITION);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) fd );
+  doMetaId(fd);
 
   //
   // id: SId  { use="required" }  (L2v1)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_ID, fd->id);
+    attribute(ATTR_ID, fd.getId());
   }
 
   //
   // name: string  { use="optional" }  (L2v1)
   //
-  if ( FunctionDefinition_isSetName(fd) )
+  if ( fd.isSetName() )
   {
-    attribute(ATTR_NAME, fd->name);
+    attribute(ATTR_NAME, fd.getName());
   }
 
 
@@ -319,7 +318,7 @@ SBMLFormatter::operator<< (const FunctionDefinition_t* fd)
     closeStartElement();
     upIndent();
 
-    notesAndAnnotation( (SBase_t*) fd );
+    notesAndAnnotation(fd);
 
     //
     // math: (lambda:Lambda)  (L2v1)
@@ -327,7 +326,7 @@ SBMLFormatter::operator<< (const FunctionDefinition_t* fd)
     fMathFormatter->setIndentLevel(fIndentLevel);
     fMathFormatter->startMath();
 
-    *fMathFormatter << FunctionDefinition_getMath(fd);
+    *fMathFormatter << fd.getMath();
 
     fMathFormatter->endMath();
 
@@ -343,24 +342,21 @@ SBMLFormatter::operator<< (const FunctionDefinition_t* fd)
  * UnitDefinition
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const UnitDefinition_t* ud)
+SBMLFormatter::operator<< (const UnitDefinition& ud)
 {
-  if (ud == NULL) return *this;
-
-
   openStartElement(ELEM_UNIT_DEFINITION);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) ud );
+  doMetaId(ud);
 
   //
   // id: SId  { use="required" }  (L2v1)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_ID, ud->id);
+    attribute(ATTR_ID, ud.getId());
   }
 
   //
@@ -370,13 +366,13 @@ SBMLFormatter::operator<< (const UnitDefinition_t* ud)
   // For the sake of robustness, if outputting L1 and name is not set,
   // substitute the value of id.
   //
-  if ( UnitDefinition_isSetName(ud) )
+  if ( ud.isSetName() )
   {
-    attribute(ATTR_NAME, ud->name);
+    attribute(ATTR_NAME, ud.getName());
   }
   else if (fLevel == 1)
   {
-    attribute(ATTR_NAME, ud->id);    
+    attribute(ATTR_NAME, ud.getId());
   }
 
 
@@ -390,8 +386,8 @@ SBMLFormatter::operator<< (const UnitDefinition_t* ud)
 
     upIndent();
 
-    notesAndAnnotation( (SBase_t*) ud );
-    listOfUnits(ud->unit);
+    notesAndAnnotation(ud);
+    listOfUnits( ud.unit );
 
     downIndent();
 
@@ -406,34 +402,31 @@ SBMLFormatter::operator<< (const UnitDefinition_t* ud)
  * Unit
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Unit_t* u)
+SBMLFormatter::operator<< (const Unit& u)
 {
-  if (u == NULL) return *this;
-
-
   openStartElement(ELEM_UNIT);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) u );
+  doMetaId(u);
 
-  attribute(ATTR_KIND, UnitKind_toString(u->kind));
+  attribute(ATTR_KIND, UnitKind_toString( u.getKind() ));
 
   //
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
   //
-  if (u->exponent != 1)
+  if (u.getExponent() != 1)
   {
-    attribute(ATTR_EXPONENT, u->exponent);
+    attribute(ATTR_EXPONENT, u.getExponent());
   }
 
   //
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1)
   //
-  if (u->scale != 0)
+  if (u.getScale() != 0)
   {
-    attribute(ATTR_SCALE, u->scale);
+    attribute(ATTR_SCALE, u.getScale());
   }
 
   //
@@ -441,7 +434,7 @@ SBMLFormatter::operator<< (const Unit_t* u)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_MULTIPLIER, u->multiplier);
+    attribute(ATTR_MULTIPLIER, u.getMultiplier());
   }
 
   //
@@ -449,7 +442,7 @@ SBMLFormatter::operator<< (const Unit_t* u)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_OFFSET, u->offset);
+    attribute(ATTR_OFFSET, u.getOffset());
   }
 
 
@@ -459,7 +452,7 @@ SBMLFormatter::operator<< (const Unit_t* u)
   }
   else
   {
-    endElement(ELEM_UNIT, (SBase_t*) u);
+    endElement(ELEM_UNIT, u);
   }
 
   return *this;
@@ -470,24 +463,21 @@ SBMLFormatter::operator<< (const Unit_t* u)
  * Compartment
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Compartment_t* c)
+SBMLFormatter::operator<< (const Compartment& c)
 {
-  if (c == NULL) return *this;
-
-
   openStartElement(ELEM_COMPARTMENT);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) c );
+  doMetaId(c);
 
   //
   // id  (L2v1)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_ID, c->id);
+    attribute(ATTR_ID, c.getId());
   }
 
   //
@@ -497,13 +487,13 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   // For the sake of robustness, if outputting L1 and name is not set,
   // substitute the value of id.
   //
-  if ( Compartment_isSetName(c) )
+  if ( c.isSetName() )
   {
-    attribute(ATTR_NAME, c->name);
+    attribute(ATTR_NAME, c.getName());
   }
   else if (fLevel == 1)
   {
-    attribute(ATTR_NAME, c->id);    
+    attribute(ATTR_NAME, c.getId());
   }
 
   //
@@ -511,9 +501,9 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   //
   if (fLevel > 1)
   {
-    if (c->spatialDimensions != 3)
+    if (c.getSpatialDimensions() != 3)
     {
-      attribute(ATTR_SPATIAL_DIMENSIONS, c->spatialDimensions);
+      attribute(ATTR_SPATIAL_DIMENSIONS, c.getSpatialDimensions());
     }
   }
 
@@ -529,33 +519,33 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   //
   if (fLevel == 1)
   {
-    if ( Compartment_isSetVolume(c) )
+    if ( c.isSetVolume() )
     {
-      attribute(ATTR_VOLUME, Compartment_getVolume(c));
+      attribute(ATTR_VOLUME, c.getVolume());
     }
   }
   else
   {
-    if ( Compartment_isSetSize(c) )
+    if ( c.isSetSize() )
     {
-      attribute(ATTR_SIZE, Compartment_getSize(c));
+      attribute(ATTR_SIZE, c.getSize());
     }
   }
 
   //
   // units  { use="optional" }  (L1v1, L1v2, L2v1)
   //
-  if (c->units != NULL)
+  if ( c.isSetUnits() )
   {
-    attribute(ATTR_UNITS, c->units);
+    attribute(ATTR_UNITS, c.getUnits());
   }
 
   //
   // outside  { use="optional" }  (L1v1, L1v2, L2v1)
   //
-  if (c->outside != NULL)
+  if ( c.isSetOutside() )
   {
-    attribute(ATTR_OUTSIDE, c->outside);
+    attribute(ATTR_OUTSIDE, c.getOutside());
   }
 
   //
@@ -563,9 +553,9 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   //
   if (fLevel > 1)
   {
-    if (c->constant != 1)
+    if (c.getConstant() != true)
     {
-      attribute(ATTR_CONSTANT, (bool) c->constant);
+      attribute(ATTR_CONSTANT, c.getConstant());
     }
   }
 
@@ -576,7 +566,7 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   }
   else
   {
-    endElement(ELEM_COMPARTMENT, (SBase_t*) c);
+    endElement(ELEM_COMPARTMENT, c);
   }
 
   return *this;
@@ -587,11 +577,8 @@ SBMLFormatter::operator<< (const Compartment_t* c)
  * Species
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Species_t* s)
+SBMLFormatter::operator<< (const Species& s)
 {
-  if (s == NULL) return *this;
-
-
   const XMLCh* elem = ELEM_SPECIES;
 
 
@@ -605,14 +592,14 @@ SBMLFormatter::operator<< (const Species_t* s)
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) s );
+  doMetaId(s);
 
   //
   // id: SId  { use="required" }  (L2v1)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_ID, Species_getId(s));
+    attribute(ATTR_ID, s.getId());
   }
 
   //
@@ -622,49 +609,49 @@ SBMLFormatter::operator<< (const Species_t* s)
   // For the sake of robustness, if outputting L1 and name is not set,
   // substitute the value of id.
   //
-  if ( Species_isSetName(s) )
+  if ( s.isSetName() )
   {
-    attribute(ATTR_NAME, Species_getName(s));
+    attribute(ATTR_NAME, s.getName());
   }
   else if (fLevel == 1)
   {
-    attribute(ATTR_NAME, Species_getId(s));
+    attribute(ATTR_NAME, s.getId());
   }
 
   //
   // compartment: SName  { use="required" }  (L1v1, L2v1)
   // compartment: SId    { use="required" }  (L2v1)
   //
-  attribute(ATTR_COMPARTMENT, s->compartment);
+  attribute(ATTR_COMPARTMENT, s.getCompartment());
 
   //
   // initialAmount: double  { use="required" }  (L1v1, L1v2)
   // initialAmount: double  { use="optional" }  (L2v1)
   //
-  if ( Species_isSetInitialAmount(s) )
+  if ( s.isSetInitialAmount() )
   {
-    attribute(ATTR_INITIAL_AMOUNT, Species_getInitialAmount(s));
+    attribute(ATTR_INITIAL_AMOUNT, s.getInitialAmount());
   }
 
   //
   // initialConcentration: double  { use="optional" }  (L2v1)
   //
-  else if ((fLevel > 1) && Species_isSetInitialConcentration(s))
+  else if ((fLevel > 1) && s.isSetInitialConcentration())
   {
-    attribute(ATTR_INITIAL_CONCENTRATION, Species_getInitialConcentration(s));
+    attribute(ATTR_INITIAL_CONCENTRATION, s.getInitialConcentration());
   }
 
   //
   //          units: SName  { use="optional" }  (L1v1, L1v2)
   // substanceUntis: SId    { use="optional" }  (L2v1)
   //
-  if ((fLevel > 1) && Species_isSetSubstanceUnits(s))
+  if ((fLevel > 1) && s.isSetSubstanceUnits())
   {
-    attribute(ATTR_SUBSTANCE_UNITS, Species_getSubstanceUnits(s));
+    attribute(ATTR_SUBSTANCE_UNITS, s.getSubstanceUnits());
   }
-  else if ( Species_isSetUnits(s) )
+  else if ( s.isSetUnits() )
   {
-    attribute(ATTR_UNITS, Species_getUnits(s));
+    attribute(ATTR_UNITS, s.getUnits());
   }
 
   if (fLevel > 1)
@@ -672,19 +659,18 @@ SBMLFormatter::operator<< (const Species_t* s)
     //
     // spatialSizeUnits: SId  { use="optional" }  (L2v1)
     //
-    if ( Species_isSetSpatialSizeUnits(s) )
+    if ( s.isSetSpatialSizeUnits() )
     {
-      attribute(ATTR_SPATIAL_SIZE_UNITS, Species_getSpatialSizeUnits(s));
+      attribute(ATTR_SPATIAL_SIZE_UNITS, s.getSpatialSizeUnits());
     }
 
     //
     // hasOnlySubstanceUnits: boolean
     // { use="optional" default="false" (0) }  (L2v1)
     //
-    if (Species_getHasOnlySubstanceUnits(s) != 0)
+    if (s.getHasOnlySubstanceUnits() != false)
     {
-      attribute( ATTR_HAS_ONLY_SUBSTANCE_UNITS,
-                 (bool) Species_getHasOnlySubstanceUnits(s) );
+      attribute(ATTR_HAS_ONLY_SUBSTANCE_UNITS, s.getHasOnlySubstanceUnits());
     }
   }
 
@@ -693,17 +679,17 @@ SBMLFormatter::operator<< (const Species_t* s)
   // { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
   // 
   //
-  if (Species_getBoundaryCondition(s) != 0)
+  if (s.getBoundaryCondition() != false)
   {
-    attribute(ATTR_BOUNDARY_CONDITION, (bool) Species_getBoundaryCondition(s));
+    attribute(ATTR_BOUNDARY_CONDITION, s.getBoundaryCondition());
   }
 
   //
   // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
   //
-  if ( Species_isSetCharge(s) )
+  if ( s.isSetCharge() )
   {
-    attribute(ATTR_CHARGE, Species_getCharge(s));
+    attribute(ATTR_CHARGE, s.getCharge());
   }
 
   //
@@ -711,9 +697,9 @@ SBMLFormatter::operator<< (const Species_t* s)
   //
   if (fLevel > 1)
   {
-    if (Species_getConstant(s) != 0)
+    if (s.getConstant() != false)
     {
-      attribute(ATTR_CONSTANT, (bool) Species_getConstant(s));
+      attribute(ATTR_CONSTANT, s.getConstant());
     }
   }
 
@@ -723,7 +709,7 @@ SBMLFormatter::operator<< (const Species_t* s)
   }
   else
   {
-    endElement(elem, (SBase_t*) s);
+    endElement(elem, s);
   }
 
   return *this;
@@ -734,24 +720,21 @@ SBMLFormatter::operator<< (const Species_t* s)
  * Parameter
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Parameter_t* p)
+SBMLFormatter::operator<< (const Parameter& p)
 {
-  if (p == NULL) return *this;
-
-
   openStartElement(ELEM_PARAMETER);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) p );
+  doMetaId(p);
 
   //
   // id  (L2v1)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_ID, p->id);
+    attribute(ATTR_ID, p.getId());
   }
 
   //
@@ -761,31 +744,31 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   // For the sake of robustness, if outputting L1 and name is not set,
   // substitute the value of id.
   //
-  if (Parameter_isSetName(p))
+  if ( p.isSetName() )
   {
-    attribute(ATTR_NAME, p->name);
+    attribute(ATTR_NAME, p.getName());
   }
   else if (fLevel == 1)
   {
-    attribute(ATTR_NAME, p->id);    
+    attribute(ATTR_NAME, p.getId());
   }
 
   //
   // value: double  { use="required" }  (L1v2)
   // value: double  { use="optional" }  (L1v2, L2v1)
   //
-  if ((fLevel == 1 && fVersion == 1) || Parameter_isSetValue(p))
+  if ((fLevel == 1 && fVersion == 1) || p.isSetValue())
   {
-    attribute(ATTR_VALUE, p->value);
+    attribute(ATTR_VALUE, p.getValue());
   }
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)
   // units: SId    { use="optional" }  (L2v1)
   //
-  if (p->units != NULL)
+  if ( p.isSetUnits() )
   {
-    attribute(ATTR_UNITS, p->units);
+    attribute(ATTR_UNITS, p.getUnits());
   }
 
   //
@@ -793,9 +776,9 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   //
   if (fLevel > 1)
   {
-    if (p->constant != 1)
+    if (p.getConstant() != true)
     {
-      attribute(ATTR_CONSTANT, (bool) p->constant);
+      attribute(ATTR_CONSTANT, p.getConstant());
     }
   }
 
@@ -806,7 +789,7 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   }
   else
   {
-    endElement(ELEM_PARAMETER, (SBase_t*) p);
+    endElement(ELEM_PARAMETER, p);
   }
 
   return *this;
@@ -817,35 +800,32 @@ SBMLFormatter::operator<< (const Parameter_t* p)
  * Rule
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Rule_t* r)
+SBMLFormatter::operator<< (const Rule& r)
 {
-  if (r == NULL) return *this;
-
-
-  switch (r->typecode)
+  switch (r.getTypeCode())
   {
     case SBML_ASSIGNMENT_RULE:
-      *this << (AssignmentRule_t*) r;
+      *this << static_cast<const AssignmentRule&>(r);
       break;
 
     case SBML_RATE_RULE:
-      *this << (RateRule_t*) r;
+      *this << static_cast<const RateRule&>(r);
       break;
 
     case SBML_ALGEBRAIC_RULE:
-      *this << (AlgebraicRule_t*) r;
+      *this << static_cast<const AlgebraicRule&>(r);
       break;
 
     case SBML_SPECIES_CONCENTRATION_RULE:
-      *this << (SpeciesConcentrationRule_t*) r;
+      *this << static_cast<const SpeciesConcentrationRule&>(r);
       break;
       
     case SBML_COMPARTMENT_VOLUME_RULE:
-      *this << (CompartmentVolumeRule_t*) r;
+      *this << static_cast<const CompartmentVolumeRule&>(r);
       break;
 
     case SBML_PARAMETER_RULE:
-      *this << (ParameterRule_t*) r;
+      *this << static_cast<const ParameterRule&>(r);
       break;
 
     default:
@@ -860,18 +840,15 @@ SBMLFormatter::operator<< (const Rule_t* r)
  * AssignmentRule
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const AssignmentRule_t* ar)
+SBMLFormatter::operator<< (const AssignmentRule& ar)
 {
-  if (ar == NULL) return *this;
-
-
   const XMLCh* elem = ELEM_ASSIGNMENT_RULE;
 
 
   //
   // Format L1 <assigmentRule type="rate" ...> as L2 <rateRule ...>
   // 
-  if ((fLevel > 1) && (AssignmentRule_getType(ar) == RULE_TYPE_RATE))
+  if ((fLevel > 1) && (ar.getType() == RULE_TYPE_RATE))
   {
     elem = ELEM_RATE_RULE;
   }
@@ -881,14 +858,14 @@ SBMLFormatter::operator<< (const AssignmentRule_t* ar)
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) ar );
+  doMetaId(ar);
 
   //
   // variable: SId  { use="required" }  (L2v1)
   //
-  attribute(ATTR_VARIABLE, ar->variable);
+  attribute(ATTR_VARIABLE, ar.getVariable());
 
-  if ( isEmpty((Rule_t*) ar) )
+  if ( isEmpty(static_cast<Rule>(ar)) )
   {
     slashCloseStartElement();
   }
@@ -901,12 +878,12 @@ SBMLFormatter::operator<< (const AssignmentRule_t* ar)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
-    notesAndAnnotation( (SBase_t*) ar );
+    notesAndAnnotation(ar);
 
     //
     // math: Math  (L2v1)
     //
-    doRuleMath( (Rule_t*) ar );
+    doMath(ar);
 
     downIndent();
     endElement(elem);
@@ -920,24 +897,21 @@ SBMLFormatter::operator<< (const AssignmentRule_t* ar)
  * RateRule
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const RateRule_t* rr)
+SBMLFormatter::operator<< (const RateRule& rr)
 {
-  if (rr == NULL) return *this;
-
-
   openStartElement(ELEM_RATE_RULE);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) rr );
+  doMetaId(rr);
 
   //
   // variable: SId  { use="required" }  (L2v1)
   //
-  attribute(ATTR_VARIABLE, rr->variable);
+  attribute(ATTR_VARIABLE, rr.getVariable());
 
-  if ( isEmpty((Rule_t*) rr) )
+  if ( isEmpty(static_cast<Rule>(rr)) )
   {
     slashCloseStartElement();
   }
@@ -950,12 +924,12 @@ SBMLFormatter::operator<< (const RateRule_t* rr)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
-    notesAndAnnotation( (SBase_t*) rr );
+    notesAndAnnotation(rr);
 
     //
     // math: Math  (L2v1)
     //
-    doRuleMath( (Rule_t*) rr );
+    doMath(rr);
 
     downIndent();
     endElement(ELEM_RATE_RULE);
@@ -969,27 +943,24 @@ SBMLFormatter::operator<< (const RateRule_t* rr)
  * AlgebraicRule
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const AlgebraicRule_t* ar)
+SBMLFormatter::operator<< (const AlgebraicRule& ar)
 {
-  if (ar == NULL) return *this;
-
-
   openStartElement(ELEM_ALGEBRAIC_RULE);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) ar );
+  doMetaId(ar);
 
   if (fLevel == 1)
   {
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
-    attribute(ATTR_FORMULA, ar->formula);
+    attribute(ATTR_FORMULA, ar.getFormula());
   }
 
-  if ( isEmpty((Rule_t*) ar) )
+  if ( isEmpty(ar) )
   {
     slashCloseStartElement();
   }
@@ -1002,12 +973,12 @@ SBMLFormatter::operator<< (const AlgebraicRule_t* ar)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
-    notesAndAnnotation( (SBase_t*) ar );
+    notesAndAnnotation(ar);
 
     //
     // math: Math  (L2v1)
     //
-    doRuleMath( (Rule_t*) ar );
+    doMath(ar);
 
     downIndent();
     endElement(ELEM_ALGEBRAIC_RULE);
@@ -1021,20 +992,17 @@ SBMLFormatter::operator<< (const AlgebraicRule_t* ar)
  * SpeciesConcentrationRule
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const SpeciesConcentrationRule_t* scr)
+SBMLFormatter::operator<< (const SpeciesConcentrationRule& scr)
 {
-  if (scr == NULL) return *this;
-
-
   //
   // Level 2
   //
   // A SpeciesConcentrationRule is either an AssignmentRule or a RateRule.
-  // operator<< (const AssignmentRule_t*) formats either case.
+  // operator<< (const AssignmentRule*) formats either case.
   //
   if (fLevel > 1)
   {
-    *this << (AssignmentRule_t*) scr;
+    *this << static_cast<const AssignmentRule&>(scr);
   }
 
   //
@@ -1057,26 +1025,26 @@ SBMLFormatter::operator<< (const SpeciesConcentrationRule_t* scr)
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
-    attribute(ATTR_FORMULA, scr->formula);
+    attribute(ATTR_FORMULA, scr.getFormula());
 
     //
     // type { use="optional" default="scalar" }  (L1v1, L1v2)
     //
-    doRuleType(scr->type);
+    doRuleType(scr.getType());
 
     //
     // specie : SName   { use="required" }  (L1v1)
     // species: SName   { use="required" }  (L1v2)
     //
-    attribute(attr, SpeciesConcentrationRule_getSpecies(scr));
+    attribute(attr, scr.getSpecies());
 
-    if ( isEmpty((Rule_t*) scr) )
+    if ( isEmpty(scr) )
     {
       slashCloseStartElement();
     }
     else
     {
-      endElement(elem, (SBase_t*) scr);
+      endElement(elem, scr);
     }
   }
 
@@ -1088,20 +1056,17 @@ SBMLFormatter::operator<< (const SpeciesConcentrationRule_t* scr)
  * CompartmentVolumeRule
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const CompartmentVolumeRule_t* cvr)
+SBMLFormatter::operator<< (const CompartmentVolumeRule& cvr)
 {
-  if (cvr == NULL) return *this;
-
-
   //
   // Level 2
   //
   // A CompartmentVolumeRule is either an AssignmentRule or a RateRule.
-  // operator<< (const AssignmentRule_t*) formats either case.
+  // operator<< (const AssignmentRule*) formats either case.
   //
   if (fLevel > 1)
   {
-    *this << (AssignmentRule_t*) cvr;
+    *this << static_cast<const AssignmentRule&>(cvr);
   }
 
   //
@@ -1114,25 +1079,25 @@ SBMLFormatter::operator<< (const CompartmentVolumeRule_t* cvr)
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
-    attribute(ATTR_FORMULA, cvr->formula);
+    attribute(ATTR_FORMULA, cvr.getFormula());
 
     //
     // type { use="optional" default="scalar" }  (L1v1, L1v2)
     //
-    doRuleType(cvr->type);
+    doRuleType(cvr.getType());
 
     //
     // compartment: SName  { use="required" }  (L1v1, L1v2)
     //
-    attribute(ATTR_COMPARTMENT, CompartmentVolumeRule_getCompartment(cvr));
+    attribute(ATTR_COMPARTMENT, cvr.getCompartment());
 
-    if ( isEmpty((Rule_t*) cvr) )
+    if ( isEmpty(cvr) )
     {
       slashCloseStartElement();
     }
     else
     {
-      endElement(ELEM_COMPARTMENT_VOLUME_RULE, (SBase_t*) cvr);
+      endElement(ELEM_COMPARTMENT_VOLUME_RULE, cvr);
     }
   }
 
@@ -1144,20 +1109,17 @@ SBMLFormatter::operator<< (const CompartmentVolumeRule_t* cvr)
  * ParameterRule
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const ParameterRule_t* pr)
+SBMLFormatter::operator<< (const ParameterRule& pr)
 {
-  if (pr == NULL) return *this;
-
-
   //
   // Level 2
   //
   // A ParameterRule is either an AssignmentRule or a RateRule.
-  // operator<< (const AssignmentRule_t*) formats either case.
+  // operator<< (const AssignmentRule*) formats either case.
   //
   if (fLevel > 1)
   {
-    *this << (AssignmentRule_t*) pr;
+    *this << static_cast<const AssignmentRule&>(pr);
   }
 
   //
@@ -1170,33 +1132,33 @@ SBMLFormatter::operator<< (const ParameterRule_t* pr)
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
-    attribute(ATTR_FORMULA, pr->formula);
+    attribute(ATTR_FORMULA, pr.getFormula());
 
     //
     // type { use="optional" default="scalar" }  (L1v1, L1v2)
     //
-    doRuleType(pr->type);
+    doRuleType(pr.getType());
 
     //
     // name: SName  { use="required" } (L1v1, L1v2)
     //
-    attribute(ATTR_NAME, ParameterRule_getName(pr));
+    attribute(ATTR_NAME, pr.getName());
 
     //
     // units  { use="optional" }  (L1v1, L1v2);
     //
-    if (pr->units != NULL)
+    if ( pr.isSetUnits() )
     {
-      attribute(ATTR_UNITS, pr->units);
+      attribute(ATTR_UNITS, pr.getUnits());
     }
 
-    if ( isEmpty((Rule_t*) pr) )
+    if ( isEmpty(pr) )
     {
       slashCloseStartElement();
     }
     else
     {
-      endElement(ELEM_PARAMETER_RULE, (SBase_t*) pr);
+      endElement(ELEM_PARAMETER_RULE, pr);
     }
   }
 
@@ -1208,24 +1170,21 @@ SBMLFormatter::operator<< (const ParameterRule_t* pr)
  * Reaction
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Reaction_t* r)
+SBMLFormatter::operator<< (const Reaction& r)
 {
-  if (r == NULL) return *this;
-
-
   openStartElement(ELEM_REACTION);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) r );
+  doMetaId(r);
 
   //
   // id: SId  { use="required" }  (L2v1)
   //
   if (fLevel > 1)
   {
-    attribute(ATTR_ID, r->id);
+    attribute(ATTR_ID, r.getId());
   }
 
   //
@@ -1235,22 +1194,22 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   // For the sake of robustness, if outputting L1 and name is not set,
   // substitute the value of id.
   //
-  if (Reaction_isSetName(r))
+  if ( r.isSetName() )
   {
-    attribute(ATTR_NAME, r->name);
+    attribute(ATTR_NAME, r.getName());
   }
   else if (fLevel == 1)
   {
-    attribute(ATTR_NAME, r->id);    
+    attribute(ATTR_NAME, r.getId());
   }
 
   //
   // reversible: boolean
   // { use="optional"  default="true" (1) }  (L1v1, L1v2, L2v1)
   //
-  if (r->reversible != 1)
+  if (r.getReversible() != true)
   {
-    attribute(ATTR_REVERSIBLE, (bool) r->reversible);
+    attribute(ATTR_REVERSIBLE, r.getReversible());
   }
 
   //
@@ -1259,16 +1218,16 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   //
   if (fLevel == 1)
   {
-    if (r->fast != 0)
+    if (r.getFast() != false)
     {
-      attribute(ATTR_FAST, (bool) r->fast);
+      attribute(ATTR_FAST, r.getFast());
     }
   }
   else
   {
-    if ( Reaction_isSetFast(r) )
+    if ( r.isSetFast() )
     {
-      attribute(ATTR_FAST, (bool) r->fast);
+      attribute(ATTR_FAST, r.getFast());
     }
   }
 
@@ -1281,13 +1240,16 @@ SBMLFormatter::operator<< (const Reaction_t* r)
     closeStartElement();
     upIndent();
 
-    notesAndAnnotation( (SBase_t*) r );
+    notesAndAnnotation(r);
 
-    listOfReactants( r->reactant );
-    listOfProducts ( r->product  );
-    listOfModifiers( r->modifier );
+    listOfReactants( r.reactant );
+    listOfProducts ( r.product  );
+    listOfModifiers( r.modifier );
 
-    *this << r->kineticLaw;
+    if ( r.isSetKineticLaw() )
+    {
+      *this << *(r.getKineticLaw());
+    }
 
     downIndent();
     endElement(ELEM_REACTION);
@@ -1301,19 +1263,16 @@ SBMLFormatter::operator<< (const Reaction_t* r)
  * SimpleSpeciesReference
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const SimpleSpeciesReference_t* ssr)
+SBMLFormatter::operator<< (const SimpleSpeciesReference& ssr)
 {
-  if (ssr == NULL) return *this;
-
-
-  switch (ssr->typecode)
+  switch (ssr.getTypeCode())
   {
     case SBML_SPECIES_REFERENCE:
-      *this << (SpeciesReference_t*) ssr;
+      *this << static_cast<const SpeciesReference&>(ssr);
       break;
 
     case SBML_MODIFIER_SPECIES_REFERENCE:
-      *this << (ModifierSpeciesReference_t*) ssr;
+      *this << static_cast<const ModifierSpeciesReference&>(ssr);
       break;
 
     default:
@@ -1328,11 +1287,8 @@ SBMLFormatter::operator<< (const SimpleSpeciesReference_t* ssr)
  * SpeciesReference
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const SpeciesReference_t* sr)
+SBMLFormatter::operator<< (const SpeciesReference& sr)
 {
-  if (sr == NULL) return *this;
-
-
   const XMLCh* elem = ELEM_SPECIES_REFERENCE;
   const XMLCh* attr = ATTR_SPECIES;
 
@@ -1348,28 +1304,27 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) sr );
+  doMetaId(sr);
 
   //
   // species: SName  { use="required" }  (L1v1, L1v2)
   // species: SId    { use="required" }  (L2v1)
   //
-  attribute(attr, sr->species);
+  attribute(attr, sr.getSpecies());
 
   //
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
   // stoichiometry: double   { use="optional" default="1" }  (L2v1)
   //
-  if (sr->stoichiometry != 1)
+  if (sr.getStoichiometry() != 1)
   {
     if (fLevel == 1)
     {
-      attribute(ATTR_STOICHIOMETRY, (int) sr->stoichiometry);
+      attribute(ATTR_STOICHIOMETRY, (int) sr.getStoichiometry());
     }
-    else if ( !SpeciesReference_isSetStoichiometryMath(sr) &&
-              SpeciesReference_getDenominator(sr) == 1 )
+    else if ( !sr.isSetStoichiometryMath() && sr.getDenominator() == 1 )
     {
-      attribute(ATTR_STOICHIOMETRY, sr->stoichiometry);
+      attribute(ATTR_STOICHIOMETRY, sr.getStoichiometry());
     }
   }
 
@@ -1378,9 +1333,9 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
   //
   if (fLevel == 1)
   {
-    if (sr->denominator != 1)
+    if (sr.getDenominator() != 1)
     {
-      attribute(ATTR_DENOMINATOR, sr->denominator);
+      attribute(ATTR_DENOMINATOR, sr.getDenominator());
     }
   }
 
@@ -1397,12 +1352,12 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
-    notesAndAnnotation( (SBase_t*) sr );
+    notesAndAnnotation(sr);
 
     //
     // stoichiometryMath: StoichiometryMath  { use="optional" } (L2v1)
     //
-    doStoichiometryMath(sr);
+    doMath(sr);
 
     downIndent();
     endElement(elem);
@@ -1416,22 +1371,19 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
  * ModifierSpeciesReference
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const ModifierSpeciesReference_t* msr)
+SBMLFormatter::operator<< (const ModifierSpeciesReference& msr)
 {
-  if (msr == NULL) return *this;
-
-
   openStartElement(ELEM_MODIFIER_SPECIES_REFERENCE);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) msr );
+  doMetaId(msr);
 
   //
   // species: SId  { use="required" }  (L2v1)
   //
-  attribute(ELEM_SPECIES, msr->species);
+  attribute(ELEM_SPECIES, msr.getSpecies());
 
   if ( isEmpty(msr) )
   {
@@ -1439,7 +1391,7 @@ SBMLFormatter::operator<< (const ModifierSpeciesReference_t* msr)
   }
   else
   {
-    endElement(ELEM_MODIFIER_SPECIES_REFERENCE, (SBase_t*) msr);
+    endElement(ELEM_MODIFIER_SPECIES_REFERENCE, msr);
   }
 
   return *this;
@@ -1450,40 +1402,37 @@ SBMLFormatter::operator<< (const ModifierSpeciesReference_t* msr)
  * KineticLaw
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const KineticLaw_t* kl)
+SBMLFormatter::operator<< (const KineticLaw& kl)
 {
-  if (kl == NULL) return *this;
-
-
   openStartElement(ELEM_KINETIC_LAW);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) kl );
+  doMetaId(kl);
 
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
   if (fLevel == 1)
   {
-    attribute(ATTR_FORMULA, kl->formula);
+    attribute(ATTR_FORMULA, kl.getFormula());
   }
 
   //
   // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
   //
-  if (kl->timeUnits != NULL)
+  if ( kl.isSetTimeUnits() )
   {
-    attribute(ATTR_TIME_UNITS, kl->timeUnits);
+    attribute(ATTR_TIME_UNITS, kl.getTimeUnits());
   }
 
   //
   // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1)
   //
-  if (kl->substanceUnits != NULL)
+  if ( kl.isSetSubstanceUnits() )
   {
-    attribute(ATTR_SUBSTANCE_UNITS, kl->substanceUnits);
+    attribute(ATTR_SUBSTANCE_UNITS, kl.getSubstanceUnits());
   }
 
   if ( isEmpty(kl) )
@@ -1499,14 +1448,14 @@ SBMLFormatter::operator<< (const KineticLaw_t* kl)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
-    notesAndAnnotation( (SBase_t*) kl );
+    notesAndAnnotation(kl);
 
     //
     // math: Math  (L2v1)
     //
-    doKineticLawMath(kl);
+    doMath(kl);
 
-    listOfParameters(kl->parameter);
+    listOfParameters( kl.parameter );
 
     downIndent();
     endElement(ELEM_KINETIC_LAW);
@@ -1520,40 +1469,37 @@ SBMLFormatter::operator<< (const KineticLaw_t* kl)
  * Event
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const Event_t* e)
+SBMLFormatter::operator<< (const Event& e)
 {
-  if (e == NULL) return *this;
-
-
   openStartElement(ELEM_EVENT);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) e );
+  doMetaId(e);
 
   //
   // id: SId  { use="optional" }  (L2v1)
   //
-  if ( Event_isSetId(e) )
+  if ( e.isSetId() )
   {
-    attribute(ATTR_ID, Event_getId(e));
+    attribute(ATTR_ID, e.getId());
   }
 
   //
   // name: string  { use="optional" }  (L2v1)
   //
-  if ( Event_isSetName(e) )
+  if ( e.isSetName() )
   {
-    attribute(ATTR_NAME, Event_getName(e));
+    attribute(ATTR_NAME, e.getName());
   }
 
   //
   // timeUnits: SId  { use="optional" }  (L2v1)
   //
-  if ( Event_isSetTimeUnits(e) )
+  if ( e.isSetTimeUnits() )
   {
-    attribute(ATTR_TIME_UNITS, Event_getTimeUnits(e));
+    attribute(ATTR_TIME_UNITS, e.getTimeUnits());
   }
 
   if ( isEmpty(e) )
@@ -1569,19 +1515,19 @@ SBMLFormatter::operator<< (const Event_t* e)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
-    notesAndAnnotation( (SBase_t*) e );
+    notesAndAnnotation(e);
 
     //
     // trigger: Math  (L2v1)
     // 
-    if ( Event_isSetTrigger(e) )
+    if ( e.isSetTrigger() )
     {
       startElement(ELEM_TRIGGER);
 
       fMathFormatter->setIndentLevel(fIndentLevel + 1);
       fMathFormatter->startMath();
 
-      *fMathFormatter << Event_getTrigger(e);
+      *fMathFormatter << e.getTrigger();
 
       fMathFormatter->endMath();
 
@@ -1591,14 +1537,14 @@ SBMLFormatter::operator<< (const Event_t* e)
     //
     // delay: Math  (L2v1)
     //
-    if ( Event_isSetDelay(e) )
+    if ( e.isSetDelay() )
     {
       startElement(ELEM_DELAY);
 
       fMathFormatter->setIndentLevel(fIndentLevel + 1);
       fMathFormatter->startMath();
 
-      *fMathFormatter << Event_getDelay(e);
+      *fMathFormatter << e.getDelay();
 
       fMathFormatter->endMath();
 
@@ -1608,7 +1554,7 @@ SBMLFormatter::operator<< (const Event_t* e)
     //
     // eventAssignment: EventAssignment[1..*]
     //
-    listOfEventAssignments( Event_getListOfEventAssignments(e) );
+    listOfEventAssignments( e.eventAssignment );
 
     downIndent();
     endElement(ELEM_EVENT);
@@ -1622,22 +1568,19 @@ SBMLFormatter::operator<< (const Event_t* e)
  * EventAssignment
  */
 SBMLFormatter&
-SBMLFormatter::operator<< (const EventAssignment_t* ea)
+SBMLFormatter::operator<< (const EventAssignment& ea)
 {
-  if (ea == NULL) return *this;
-
-
   openStartElement(ELEM_EVENT_ASSIGNMENT);
 
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  doMetaId( (SBase_t*) ea );
+  doMetaId(ea);
 
   //
   // variable: SId  { use="required" }  (L2v1)
   //
-  attribute(ATTR_VARIABLE, EventAssignment_getVariable(ea));
+  attribute(ATTR_VARIABLE, ea.getVariable());
 
 
   if ( isEmpty(ea) )
@@ -1653,17 +1596,17 @@ SBMLFormatter::operator<< (const EventAssignment_t* ea)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
-    notesAndAnnotation( (SBase_t*) ea );
+    notesAndAnnotation(ea);
 
     //
     // math: Math  (L2v1)
     // 
-    if ( EventAssignment_isSetMath(ea) )
+    if ( ea.isSetMath() )
     {
       fMathFormatter->setIndentLevel(fIndentLevel);
       fMathFormatter->startMath();
 
-      *fMathFormatter << EventAssignment_getMath(ea);
+      *fMathFormatter << ea.getMath();
 
       fMathFormatter->endMath();
     }
@@ -1693,57 +1636,57 @@ SBMLFormatter::operator<< (const EventAssignment_t* ea)
 // This #define macro provides a template which is used to create each
 // specific function.  Think, C++ templates without all the added baggage.
 //
-#define makeFn(name, element, type)                      \
-void                                                     \
-SBMLFormatter::name (ListOf_t* list)                     \
-{                                                        \
-  unsigned int size = ListOf_getNumItems(list);          \
-                                                         \
-                                                         \
-  if (size > 0)                                          \
-  {                                                      \
-    openStartElement( element );                         \
-    doMetaId( (SBase_t*) list );                         \
-    closeStartElement();                                 \
-                                                         \
-    upIndent();                                          \
-                                                         \
-    if (fLevel > 1) notesAndAnnotation((SBase_t*) list); \
-                                                         \
-    for (unsigned int n = 0; n < size; n++)              \
-    {                                                    \
-      *this << ( type * ) ListOf_get(list, n);           \
-    }                                                    \
-                                                         \
-    downIndent();                                        \
-                                                         \
-    endElement( element );                               \
-  }                                                      \
+#define makeFn(name, element, type)               \
+void                                              \
+SBMLFormatter::name (const ListOf& list)          \
+{                                                 \
+  unsigned int size = list.getNumItems();         \
+  SBase* sb;                                      \
+                                                  \
+                                                  \
+  if (size > 0)                                   \
+  {                                               \
+    openStartElement( element );                  \
+    doMetaId( list );                             \
+    closeStartElement();                          \
+                                                  \
+    upIndent();                                   \
+                                                  \
+    if (fLevel > 1) notesAndAnnotation(list);     \
+                                                  \
+    for (unsigned int n = 0; n < size; n++)       \
+    {                                             \
+      sb = list.get(n);                           \
+      if (sb != NULL)                             \
+      {                                           \
+        *this << * static_cast<const type*>(sb);  \
+      }                                           \
+    }                                             \
+                                                  \
+    downIndent();                                 \
+                                                  \
+    endElement( element );                        \
+  }                                               \
 }
 
-makeFn( listOfFunctionDefinitions,
-        ELEM_LIST_OF_FUNCTION_DEFINITIONS,
-        FunctionDefinition_t )
+makeFn( listOfFunctionDefinitions, ELEM_LIST_OF_FUNCTION_DEFINITIONS,
+        FunctionDefinition )
 
-makeFn( listOfUnitDefinitions, ELEM_LIST_OF_UNIT_DEFINITIONS, UnitDefinition_t )
-makeFn( listOfUnits          , ELEM_LIST_OF_UNITS           , Unit_t           )
-makeFn( listOfCompartments   , ELEM_LIST_OF_COMPARTMENTS    , Compartment_t    )
-makeFn( listOfSpecies        , ELEM_LIST_OF_SPECIES         , Species_t        )
-makeFn( listOfParameters     , ELEM_LIST_OF_PARAMETERS      , Parameter_t      )
-makeFn( listOfRules          , ELEM_LIST_OF_RULES           , Rule_t           )
-makeFn( listOfReactions      , ELEM_LIST_OF_REACTIONS       , Reaction_t       )
-makeFn( listOfReactants      , ELEM_LIST_OF_REACTANTS     , SpeciesReference_t )
-makeFn( listOfProducts       , ELEM_LIST_OF_PRODUCTS      , SpeciesReference_t )
+makeFn( listOfUnitDefinitions, ELEM_LIST_OF_UNIT_DEFINITIONS, UnitDefinition   )
+makeFn( listOfUnits          , ELEM_LIST_OF_UNITS           , Unit             )
+makeFn( listOfCompartments   , ELEM_LIST_OF_COMPARTMENTS    , Compartment      )
+makeFn( listOfSpecies        , ELEM_LIST_OF_SPECIES         , Species          )
+makeFn( listOfParameters     , ELEM_LIST_OF_PARAMETERS      , Parameter        )
+makeFn( listOfRules          , ELEM_LIST_OF_RULES           , Rule             )
+makeFn( listOfReactions      , ELEM_LIST_OF_REACTIONS       , Reaction         )
+makeFn( listOfReactants      , ELEM_LIST_OF_REACTANTS       , SpeciesReference )
+makeFn( listOfProducts       , ELEM_LIST_OF_PRODUCTS        , SpeciesReference )
 
-makeFn( listOfModifiers,
-        ELEM_LIST_OF_MODIFIERS,
-        ModifierSpeciesReference_t );
+makeFn( listOfModifiers, ELEM_LIST_OF_MODIFIERS, ModifierSpeciesReference );
+makeFn( listOfEvents, ELEM_LIST_OF_EVENTS, Event )
 
-makeFn( listOfEvents, ELEM_LIST_OF_EVENTS, Event_t )
-
-makeFn( listOfEventAssignments,
-        ELEM_LIST_OF_EVENT_ASSIGNMENTS,
-        EventAssignment_t )
+makeFn( listOfEventAssignments, ELEM_LIST_OF_EVENT_ASSIGNMENTS,
+        EventAssignment )
 
 #undef makeFn
 
@@ -1752,9 +1695,9 @@ makeFn( listOfEventAssignments,
  * Notes
  */
 void
-SBMLFormatter::notes (const char* s)
+SBMLFormatter::notes (const std::string& s)
 {
-  if (isEmpty(s)) return;
+  if ( s.empty() ) return;
 
 
   startElement(ELEM_NOTES);
@@ -1762,7 +1705,7 @@ SBMLFormatter::notes (const char* s)
   upIndent();
   indent();
 
-  XMLCh* x = XMLString::transcode(s);
+  XMLCh* x = XMLString::transcode( s.c_str() );
   *fFormatter << x << chLF;
   XMLString::release(&x);
 
@@ -1776,14 +1719,14 @@ SBMLFormatter::notes (const char* s)
  * Annotation
  */
 void
-SBMLFormatter::annotation (const char* s)
+SBMLFormatter::annotation (const std::string& s)
 {
-  if (isEmpty(s)) return;
+  if ( s.empty() ) return;
 
 
   indent();
 
-  XMLCh* x = XMLString::transcode(s);
+  XMLCh* x = XMLString::transcode( s.c_str() );
   *fFormatter << x << chLF;
   delete [] x;
 }
@@ -1793,10 +1736,10 @@ SBMLFormatter::annotation (const char* s)
  * Notes and Annotation
  */
 void
-SBMLFormatter::notesAndAnnotation(const SBase_t* sb)
+SBMLFormatter::notesAndAnnotation (const SBase& sb)
 {
-  notes(sb->notes);
-  annotation(sb->annotation);
+  notes     ( sb.getNotes()      );
+  annotation( sb.getAnnotation() );
 }
 
 
@@ -1807,7 +1750,7 @@ SBMLFormatter::notesAndAnnotation(const SBase_t* sb)
  * a formula string set.
  */
 void
-SBMLFormatter::doKineticLawMath (const KineticLaw_t* kl)
+SBMLFormatter::doMath (const KineticLaw& kl)
 {
   ASTNode_t* math;
 
@@ -1817,42 +1760,23 @@ SBMLFormatter::doKineticLawMath (const KineticLaw_t* kl)
   //
   if (fLevel > 1)
   {
-    if ( KineticLaw_isSetMath(kl) || KineticLaw_isSetFormula(kl) )
+    if ( kl.isSetMath() || kl.isSetFormula() )
     {
       fMathFormatter->setIndentLevel(fIndentLevel);
       fMathFormatter->startMath();
 
-      if ( KineticLaw_isSetMath(kl) )
+      if ( kl.isSetMath() )
       {
-        *fMathFormatter << KineticLaw_getMath(kl);
+        *fMathFormatter << kl.getMath();
       }
-      else
+      else if ( kl.isSetFormula() )
       {
-        math = SBML_parseFormula( KineticLaw_getFormula(kl) );
+        math = SBML_parseFormula( kl.getFormula().c_str() );
         *fMathFormatter << math;
         ASTNode_free(math);
       }
 
       fMathFormatter->endMath();
-    }
-  }
-}
-
-
-/**
- * Outputs the metaid attribute for the given SBML object (L2 only).
- */
-void
-SBMLFormatter::doMetaId (const SBase_t* sb)
-{
-  //
-  // metaid: ID  { use="optional" }  (L2v1)
-  //
-  if (fLevel > 1)
-  {
-    if ( SBase_isSetMetaId(sb) )
-    {
-      attribute(ATTR_META_ID, SBase_getMetaId(sb));
     }
   }
 }
@@ -1865,7 +1789,7 @@ SBMLFormatter::doMetaId (const SBase_t* sb)
  * formula string set.
  */
 void
-SBMLFormatter::doRuleMath (const Rule_t* r)
+SBMLFormatter::doMath (const Rule& r)
 {
   ASTNode_t* math;
 
@@ -1875,23 +1799,93 @@ SBMLFormatter::doRuleMath (const Rule_t* r)
   //
   if (fLevel > 1)
   {
-    if ( Rule_isSetMath(r) || Rule_isSetFormula(r) )
+    if ( r.isSetMath() || r.isSetFormula() )
     {
       fMathFormatter->setIndentLevel(fIndentLevel);
       fMathFormatter->startMath();
 
-      if ( Rule_isSetMath(r) )
+      if ( r.isSetMath() )
       {
-        *fMathFormatter << Rule_getMath(r);
+        *fMathFormatter << r.getMath();
       }
-      else
+      else if ( r.isSetFormula() )
       {
-        math = SBML_parseFormula( Rule_getFormula(r) );
+        math = SBML_parseFormula( r.getFormula().c_str() );
         *fMathFormatter << math;
         ASTNode_free(math);
       }
 
       fMathFormatter->endMath();
+    }
+  }
+}
+
+
+/**
+ * Outputs the <stoichiometryMath> element for SpeciesReference (L2 only).
+ */
+void
+SBMLFormatter::doMath (const SpeciesReference& sr)
+{
+  ASTNode_t* node;
+  long int denominator;
+  long int numerator;
+
+
+  //
+  // stoichiometryMath: StoichiometryMath  { use="optional" } (L2v1)
+  //
+  // Either output the stoichiometryMath field directly or output
+  // <cn type='rational'> stoichiometry <sep/> denominator </cn>
+  //
+  if (fLevel > 1)
+  {
+    if (sr.isSetStoichiometryMath() || sr.getDenominator() != 1)
+    {
+      startElement(ELEM_STOICHIOMETRY_MATH);
+      
+      fMathFormatter->setIndentLevel(fIndentLevel + 1);
+      fMathFormatter->startMath();
+
+      if ( sr.isSetStoichiometryMath() )
+      {
+        *fMathFormatter << sr.getStoichiometryMath();
+      }
+      else
+      {
+        numerator   = (long int) sr.getStoichiometry();
+        denominator = (long int) sr.getDenominator();
+
+        node = ASTNode_createWithType(AST_RATIONAL);
+        ASTNode_setRational(node, numerator, denominator);
+
+        *fMathFormatter << node;
+
+        ASTNode_free(node);
+      }
+
+      fMathFormatter->endMath();
+
+      endElement(ELEM_STOICHIOMETRY_MATH);
+    }
+  }
+}
+
+
+/**
+ * Outputs the metaid attribute for the given SBML object (L2 only).
+ */
+void
+SBMLFormatter::doMetaId (const SBase& sb)
+{
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  if (fLevel > 1)
+  {
+    if ( sb.isSetMetaId() )
+    {
+      attribute(ATTR_META_ID, sb.getMetaId());
     }
   }
 }
@@ -1913,58 +1907,6 @@ SBMLFormatter::doRuleType (const RuleType_t type)
 }
 
 
-/**
- * Outputs the <stoichiometryMath> element for SpeciesReference (L2 only).
- */
-void
-SBMLFormatter::doStoichiometryMath (const SpeciesReference_t* sr)
-{
-  int denominator = SpeciesReference_getDenominator(sr);
-
-  ASTNode_t* node;
-  int        numerator;
-
-
-  //
-  // stoichiometryMath: StoichiometryMath  { use="optional" } (L2v1)
-  //
-  // Either output the stoichiometryMath field directly or output
-  // <cn type='rational'> stoichiometry <sep/> denominator </cn>
-  //
-  if (fLevel > 1)
-  {
-    if (SpeciesReference_isSetStoichiometryMath(sr) || denominator != 1)
-    {
-      startElement(ELEM_STOICHIOMETRY_MATH);
-      
-      fMathFormatter->setIndentLevel(fIndentLevel + 1);
-      fMathFormatter->startMath();
-
-      if ( SpeciesReference_isSetStoichiometryMath(sr) )
-      {
-        *fMathFormatter << SpeciesReference_getStoichiometryMath(sr);
-      }
-      else
-      {
-        numerator   = (long) SpeciesReference_getStoichiometry(sr);
-        denominator = (long) SpeciesReference_getDenominator  (sr);
-
-        node = ASTNode_createWithType(AST_RATIONAL);
-        ASTNode_setRational(node, numerator, denominator);
-
-        *fMathFormatter << node;
-
-        ASTNode_free(node);
-      }
-
-      fMathFormatter->endMath();
-
-      endElement(ELEM_STOICHIOMETRY_MATH);
-    }
-  }
-}
-
-
 
 
 /* ----------------------------------------------------------------------
@@ -1974,27 +1916,17 @@ SBMLFormatter::doStoichiometryMath (const SpeciesReference_t* sr)
 
 
 /**
- * Returns true if the string pointed to by s is NULL or zero-length.
- */
-bool
-SBMLFormatter::isEmpty (const char* s)
-{
-  return !(s && *s);
-}
-
-
-/**
  * @return true if the given Rule contains no child XML elements.
  */
 bool
-SBMLFormatter::isEmpty (const Rule_t *r)
+SBMLFormatter::isEmpty (const Rule& r)
 {
-  bool result = isEmpty((SBase_t*) r);
+  bool result = isEmpty((SBase&) r);
 
 
   if (fLevel > 1)
   {
-    result = result && !(Rule_isSetFormula(r) || Rule_isSetMath(r));
+    result = result && !(r.isSetFormula() || r.isSetMath());
   }
 
   return result;
@@ -2006,17 +1938,15 @@ SBMLFormatter::isEmpty (const Rule_t *r)
  * elements.
  */
 bool
-SBMLFormatter::isEmpty (const SpeciesReference_t *sr)
+SBMLFormatter::isEmpty (const SpeciesReference& sr)
 {
-  bool result = isEmpty((SBase_t*) sr);
+  bool result = isEmpty((SBase&) sr);
 
 
   if (fLevel > 1)
   {
     result = result &&
-             
-             !( SpeciesReference_isSetStoichiometryMath(sr) ||
-                SpeciesReference_getDenominator(sr) != 1 );
+             !( sr.isSetStoichiometryMath() || sr.getDenominator() != 1 );
   }
 
   return result;
@@ -2027,16 +1957,14 @@ SBMLFormatter::isEmpty (const SpeciesReference_t *sr)
  * @return true if the given KineticLaw contains no child XML elements.
  */
 bool
-SBMLFormatter::isEmpty (const KineticLaw_t* kl)
+SBMLFormatter::isEmpty (const KineticLaw& kl)
 {
-  bool result = isEmpty((SBase_t*) kl) &&
-                (KineticLaw_getNumParameters(kl) == 0);
+  bool result = isEmpty((SBase&) kl) && ! kl.getNumParameters();
 
 
   if (fLevel > 1)
   {
-    result = result &&
-             !( KineticLaw_isSetMath(kl) || KineticLaw_isSetFormula(kl) );
+    result = result && !( kl.isSetMath() || kl.isSetFormula() );
   }
 
   return result;
@@ -2049,66 +1977,68 @@ SBMLFormatter::isEmpty (const KineticLaw_t* kl)
 //
 
 bool
-SBMLFormatter::isEmpty (const SBase_t* sb)
+SBMLFormatter::isEmpty (const SBase& sb)
 {
-  return isEmpty(sb->notes) && isEmpty(sb->annotation);
+  return !sb.isSetNotes() && !sb.isSetAnnotation();
 }
 
 
 bool
-SBMLFormatter::isEmpty (const Model_t* m)
+SBMLFormatter::isEmpty (const Model& m)
 {
-  return isEmpty((SBase_t*) m)                     &&
-         (Model_getNumFunctionDefinitions(m) == 0) &&
-         (Model_getNumUnitDefinitions    (m) == 0) &&
-         (Model_getNumCompartments       (m) == 0) &&
-         (Model_getNumSpecies            (m) == 0) &&
-         (Model_getNumParameters         (m) == 0) &&
-         (Model_getNumRules              (m) == 0) &&
-         (Model_getNumReactions          (m) == 0) &&
-         (Model_getNumEvents             (m) == 0);
+  return isEmpty((SBase&) m)                &&
+         ( !m.getNumFunctionDefinitions() ) &&
+         ( !m.getNumUnitDefinitions    () ) &&
+         ( !m.getNumCompartments       () ) &&
+         ( !m.getNumSpecies            () ) &&
+         ( !m.getNumParameters         () ) &&
+         ( !m.getNumRules              () ) &&
+         ( !m.getNumReactions          () ) &&
+         ( !m.getNumEvents             () );
 }
 
 
 bool
-SBMLFormatter::isEmpty (const FunctionDefinition_t* fd)
+SBMLFormatter::isEmpty (const FunctionDefinition& fd)
 {
-  return isEmpty((SBase_t*) fd) && (FunctionDefinition_isSetMath(fd) == 0);
+  return isEmpty((SBase&) fd) && !fd.isSetMath();
 }
 
 
 bool
-SBMLFormatter::isEmpty (const UnitDefinition_t* ud)
+SBMLFormatter::isEmpty (const UnitDefinition& ud)
 {
-  return isEmpty((SBase_t*) ud) && (UnitDefinition_getNumUnits(ud) == 0);
+  return isEmpty((SBase&) ud) && !ud.getNumUnits();
 }
 
 
 bool
-SBMLFormatter::isEmpty (const Reaction_t* r)
+SBMLFormatter::isEmpty (const Reaction& r)
 {
-  return isEmpty((SBase_t*) r)              &&
-         (Reaction_getNumReactants(r) == 0) &&
-         (Reaction_getNumProducts (r) == 0) &&
-         (Reaction_getNumModifiers(r) == 0) &&
-         r->kineticLaw == NULL;
+  return
+    isEmpty((SBase&) r)      &&
+    ( !r.getNumReactants() ) &&
+    ( !r.getNumProducts () ) &&
+    ( !r.getNumModifiers() ) &&
+    ( !r.isSetKineticLaw() );
 }
 
 
 bool
-SBMLFormatter::isEmpty (const Event_t* e)
+SBMLFormatter::isEmpty (const Event& e)
 {
-  return isEmpty((SBase_t*) e)                  &&
-         (Event_isSetTrigger          (e) == 0) &&
-         (Event_isSetDelay            (e) == 0) &&
-         (Event_getNumEventAssignments(e) == 0);
+  return
+    isEmpty((SBase&) e)             &&
+    ( !e.isSetTrigger          () ) &&
+    ( !e.isSetDelay            () ) &&
+    ( !e.getNumEventAssignments() );
 }
 
 
 bool
-SBMLFormatter::isEmpty (const EventAssignment_t* ea)
+SBMLFormatter::isEmpty (const EventAssignment& ea)
 {
-  return isEmpty((SBase_t*) ea) && (EventAssignment_isSetMath(ea) == 0);
+  return isEmpty((SBase&) ea) && !ea.isSetMath();
 }
 
 
@@ -2118,18 +2048,19 @@ SBMLFormatter::isEmpty (const EventAssignment_t* ea)
 //
 #define makeFn(type)                   \
 bool                                   \
-SBMLFormatter::isEmpty (const type *t) \
+SBMLFormatter::isEmpty (const type& t) \
 {                                      \
-  return isEmpty((SBase_t*) t);        \
+  return isEmpty((SBase&) t);          \
 }
 
-makeFn( Unit_t                     )
-makeFn( Compartment_t              )
-makeFn( Species_t                  )
-makeFn( Parameter_t                )
-makeFn( ModifierSpeciesReference_t )
+makeFn( Unit                     )
+makeFn( Compartment              )
+makeFn( Species                  )
+makeFn( Parameter                )
+makeFn( ModifierSpeciesReference )
 
 #undef makeFn
+
 
 
 
@@ -2170,7 +2101,7 @@ SBMLFormatter::endElement (const XMLCh* name)
  * contain other subelements like <listOfXXXs> or <kineticLaw>s.
  */
 void
-SBMLFormatter::endElement(const XMLCh* name, const SBase_t* sb)
+SBMLFormatter::endElement(const XMLCh* name, const SBase& sb)
 {
     closeStartElement();
 
@@ -2227,7 +2158,7 @@ SBMLFormatter::slashCloseStartElement ()
 void
 SBMLFormatter::attribute (const XMLCh* name, bool value)
 {
-  (value == true) ? attribute(name, VAL_TRUE) : attribute(name, VAL_FALSE);
+  attribute(name, (value == true) ? VAL_TRUE : VAL_FALSE );
 }
 
 
@@ -2284,9 +2215,21 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
 }
 
 
+/**
+ * Sends ' name="%s" to the underlying XMLFormatter (where %s is a C++
+ * string).
+ */
+void
+SBMLFormatter::attribute (const XMLCh* name, const std::string& value)
+{
+  attribute(name, value.c_str());
+}
+
+
 #ifndef USE_EXPAT
 /**
- * Sends ' name="%s" to the underlying XMLFormatter (where %s is a C string).
+ * Sends ' name="%s" to the underlying XMLFormatter (where %s is a C
+ * string).
  */
 void
 SBMLFormatter::attribute (const XMLCh* name, const char* value)
@@ -2300,7 +2243,7 @@ SBMLFormatter::attribute (const XMLCh* name, const char* value)
   }
   else
   {
-    s = XMLString::transcode(value);
+    s = XMLString::transcode( value );
     attribute(name, s);
 
     delete [] s;

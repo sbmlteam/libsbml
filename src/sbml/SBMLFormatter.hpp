@@ -68,7 +68,7 @@
 
 
 #include "List.h"
-#include "SBMLTypes.h"
+#include "SBMLTypes.hpp"
 
 #include "MathMLFormatter.hpp" 
 #include "SBMLUnicodeConstants.hpp" 
@@ -128,50 +128,50 @@ public:
   // Insertion operators for specific SBML types.
   //
 
-  SBMLFormatter& operator<< ( const SBMLDocument_t*             d   );
-  SBMLFormatter& operator<< ( const Model_t*                    m   );
-  SBMLFormatter& operator<< ( const FunctionDefinition_t*       fd  );
-  SBMLFormatter& operator<< ( const UnitDefinition_t*           ud  );
-  SBMLFormatter& operator<< ( const Unit_t*                     u   );
-  SBMLFormatter& operator<< ( const Compartment_t*              c   );
-  SBMLFormatter& operator<< ( const Species_t*                  s   );
-  SBMLFormatter& operator<< ( const Parameter_t*                p   );
-  SBMLFormatter& operator<< ( const Rule_t*                     r   );
-  SBMLFormatter& operator<< ( const AssignmentRule_t*           ar  );
-  SBMLFormatter& operator<< ( const RateRule_t*                 rr  );
-  SBMLFormatter& operator<< ( const AlgebraicRule_t*            ar  );
-  SBMLFormatter& operator<< ( const SpeciesConcentrationRule_t* scr );
-  SBMLFormatter& operator<< ( const CompartmentVolumeRule_t*    cvr );
-  SBMLFormatter& operator<< ( const ParameterRule_t*            pr  );
-  SBMLFormatter& operator<< ( const Reaction_t*                 r   );
-  SBMLFormatter& operator<< ( const SimpleSpeciesReference_t*   ssr );
-  SBMLFormatter& operator<< ( const SpeciesReference_t*         sr  );
-  SBMLFormatter& operator<< ( const ModifierSpeciesReference_t* msr );
-  SBMLFormatter& operator<< ( const KineticLaw_t*               kl  );
-  SBMLFormatter& operator<< ( const Event_t*                    e   );
-  SBMLFormatter& operator<< ( const EventAssignment_t*          ea  );
+  SBMLFormatter& operator<< ( const SBMLDocument&             d   );
+  SBMLFormatter& operator<< ( const Model&                    m   );
+  SBMLFormatter& operator<< ( const FunctionDefinition&       fd  );
+  SBMLFormatter& operator<< ( const UnitDefinition&           ud  );
+  SBMLFormatter& operator<< ( const Unit&                     u   );
+  SBMLFormatter& operator<< ( const Compartment&              c   );
+  SBMLFormatter& operator<< ( const Species&                  s   );
+  SBMLFormatter& operator<< ( const Parameter&                p   );
+  SBMLFormatter& operator<< ( const Rule&                     r   );
+  SBMLFormatter& operator<< ( const AssignmentRule&           ar  );
+  SBMLFormatter& operator<< ( const RateRule&                 rr  );
+  SBMLFormatter& operator<< ( const AlgebraicRule&            ar  );
+  SBMLFormatter& operator<< ( const SpeciesConcentrationRule& scr );
+  SBMLFormatter& operator<< ( const CompartmentVolumeRule&    cvr );
+  SBMLFormatter& operator<< ( const ParameterRule&            pr  );
+  SBMLFormatter& operator<< ( const Reaction&                 r   );
+  SBMLFormatter& operator<< ( const SimpleSpeciesReference&   ssr );
+  SBMLFormatter& operator<< ( const SpeciesReference&         sr  );
+  SBMLFormatter& operator<< ( const ModifierSpeciesReference& msr );
+  SBMLFormatter& operator<< ( const KineticLaw&               kl  );
+  SBMLFormatter& operator<< ( const Event&                    e   );
+  SBMLFormatter& operator<< ( const EventAssignment&          ea  );
 
 
 private:
 
-  void listOfFunctionDefinitions ( ListOf_t* list );
-  void listOfUnitDefinitions     ( ListOf_t* list );
-  void listOfUnits               ( ListOf_t* list );
-  void listOfCompartments        ( ListOf_t* list );
-  void listOfSpecies             ( ListOf_t* list );
-  void listOfParameters          ( ListOf_t* list );
-  void listOfRules               ( ListOf_t* list );
-  void listOfReactions           ( ListOf_t* list );
-  void listOfReactants           ( ListOf_t* list );
-  void listOfProducts            ( ListOf_t* list );
-  void listOfModifiers           ( ListOf_t* list );
-  void listOfEvents              ( ListOf_t* list );
-  void listOfEventAssignments    ( ListOf_t* list );
+  void listOfFunctionDefinitions ( const ListOf& list );
+  void listOfUnitDefinitions     ( const ListOf& list );
+  void listOfUnits               ( const ListOf& list );
+  void listOfCompartments        ( const ListOf& list );
+  void listOfSpecies             ( const ListOf& list );
+  void listOfParameters          ( const ListOf& list );
+  void listOfRules               ( const ListOf& list );
+  void listOfReactions           ( const ListOf& list );
+  void listOfReactants           ( const ListOf& list );
+  void listOfProducts            ( const ListOf& list );
+  void listOfModifiers           ( const ListOf& list );
+  void listOfEvents              ( const ListOf& list );
+  void listOfEventAssignments    ( const ListOf& list );
 
-  void annotation (const char* s);
-  void notes      (const char* s);
+  void annotation (const std::string& s);
+  void notes      (const std::string& s);
 
-  inline void notesAndAnnotation (const SBase_t* sb);
+  inline void notesAndAnnotation (const SBase& sb);
 
   /**
    * Outputs the <math> element for KineticLaw (L2 only).
@@ -179,12 +179,7 @@ private:
    * This method does the nescessary conversion if the KineticLaw has only
    * a formula string set.
    */
-  void doKineticLawMath (const KineticLaw_t* kl);
-
-  /**
-   * Outputs the metaid attribute for the given SBML object (L2 only).
-   */
-  void doMetaId (const SBase_t* sb);
+  void doMath (const KineticLaw& kl);
 
   /**
    * Outputs the <math> element for Rules (L2 only).
@@ -192,7 +187,17 @@ private:
    * This method does the nescessary conversion if the rule has only a
    * formula string set.
    */
-  void doRuleMath (const Rule_t* r);
+  void doMath (const Rule& r);
+
+  /**
+   * Outputs the <stoichiometryMath> element for SpeciesReference (L2 only).
+   */
+  void doMath (const SpeciesReference& sr);
+
+  /**
+   * Outputs the metaid attribute for the given SBML object (L2 only).
+   */
+  void doMetaId (const SBase& sb);
 
   /**
    * Outputs the type attribute for Rules (L1 only).
@@ -200,48 +205,38 @@ private:
   void doRuleType (const RuleType_t type);
 
   /**
-   * Outputs the <stoichiometryMath> element for SpeciesReference (L2 only).
-   */
-  void doStoichiometryMath (const SpeciesReference_t* sr);
-
-  /**
-   * Returns true if the string pointed to by s is NULL or zero-length.
-   */
-  inline bool isEmpty (const char* s);
-
-  /**
    * @return true if the given Rule contains no child XML elements.
    */
-  bool isEmpty (const Rule_t* r);
+  bool isEmpty (const Rule& r);
 
   /**
    * @return true if the given SpeciesReference contains no child XML
    * elements.
    */
-  bool isEmpty (const SpeciesReference_t* sr);
+  bool isEmpty (const SpeciesReference& sr);
 
   /**
    * @return true if the given KineticLaw contains no child XML elements.
    */
-  bool isEmpty (const KineticLaw_t* kl);
+  bool isEmpty (const KineticLaw& kl);
 
   //
   // In this context "empty" means either no notes, annotations and other
   // SBML (XML) subelements.
   //
 
-  inline bool isEmpty ( const SBase_t*                    sb  );
-  inline bool isEmpty ( const Model_t*                    m   );
-  inline bool isEmpty ( const FunctionDefinition_t*       fd  );
-  inline bool isEmpty ( const UnitDefinition_t*           ud  );
-  inline bool isEmpty ( const Unit_t*                     u   );
-  inline bool isEmpty ( const Compartment_t*              c   );
-  inline bool isEmpty ( const Species_t*                  s   );
-  inline bool isEmpty ( const Parameter_t*                p   );
-  inline bool isEmpty ( const Reaction_t*                 r   );
-  inline bool isEmpty ( const ModifierSpeciesReference_t* msr );
-  inline bool isEmpty ( const Event_t*                    e   );
-  inline bool isEmpty ( const EventAssignment_t*          ea  );
+  inline bool isEmpty ( const SBase&                    sb  );
+  inline bool isEmpty ( const Model&                    m   );
+  inline bool isEmpty ( const FunctionDefinition&       fd  );
+  inline bool isEmpty ( const UnitDefinition&           ud  );
+  inline bool isEmpty ( const Unit&                     u   );
+  inline bool isEmpty ( const Compartment&              c   );
+  inline bool isEmpty ( const Species&                  s   );
+  inline bool isEmpty ( const Parameter&                p   );
+  inline bool isEmpty ( const Reaction&                 r   );
+  inline bool isEmpty ( const ModifierSpeciesReference& msr );
+  inline bool isEmpty ( const Event&                    e   );
+  inline bool isEmpty ( const EventAssignment&          ea  );
 
   /**
    * Sends '<name>\n' to the underlying XMLFormatter.
@@ -258,7 +253,7 @@ private:
    * contain non-empty <notes>, <annotation>s or both, but are not allowed
    * to contain other subelements like <listOfXXXs> or <kineticLaw>s.
    */
-  inline void endElement (const XMLCh* name, const SBase_t* sb);
+  inline void endElement (const XMLCh* name, const SBase& sb);
 
   /**
    * Sends '<name' to the underlying XMLFormatter.  Use when name has one or
@@ -291,6 +286,7 @@ private:
   void attribute ( const XMLCh* name, int          value );
   void attribute ( const XMLCh* name, unsigned int value );
   void attribute ( const XMLCh* name, double       value );
+  void attribute ( const XMLCh* name, const std::string& value );
 #ifndef USE_EXPAT
   void attribute ( const XMLCh* name, const char*  value );
 #endif  // !USE_EXPAT
@@ -306,24 +302,14 @@ private:
   inline void SBMLFormatter::downIndent () { fIndentLevel--; }
 
 
-  //
-  // For the statement:
-  //
-  //   static const unsigned int NUMBER_BUFFER_SIZE = 100;
-  //
-  // MSVC++ 6.0 complains: "error C2258: illegal pure syntax, must be '=
-  // 0'", but g++ has no problem with it?!  Fine.  For now, just #define.
-  //
-#define NUMBER_BUFFER_SIZE 100
-
-  char fNumberBuffer[ NUMBER_BUFFER_SIZE ];
-
   unsigned int fLevel;
   unsigned int fVersion;
 
   MathMLFormatter*  fMathFormatter;
   XMLFormatter*     fFormatter;
   XMLFormatTarget*  fTarget;
+
+  char *fNumberBuffer;
 
   unsigned int      fIndentLevel;
 };
