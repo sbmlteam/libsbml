@@ -30,11 +30,6 @@
 ;;; CPARSE - library for parsing C header files.
 
 (in-package :cl-user)
-; (if (ignore-errors (logical-pathname-translations "cparse"))
-;     (load (logical-pathname "cparse:cparse-config.lisp"))
-;   ;; assume that we are in the correct directory
-;   (load "cparse-config.lisp"))
-;(require :asdf (logical-pathname "cparse:utilities;asdf.lisp"))
 
 
 (when (find-package "UFFI")

@@ -105,7 +105,6 @@ cparsesources := tps/cparse/asdf.lisp \
   tps/cparse/cparse.lisp              \
   tps/cparse/ctype.lisp               \
   tps/cparse/cl-unit.lisp             \
-  tps/cparse/cparse-config.lisp       \
   tps/cparse/cmu-alien-package.lisp   \
   tps/cparse/cparse-package.lisp      \
   tps/cparse/acl-ffi.lisp             \
