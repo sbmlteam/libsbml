@@ -157,8 +157,8 @@ START_TEST (test_SBML_parseFormula_1)
   ASTNode_t *r = SBML_parseFormula("1");
 
 
-  fail_unless( r->type                   == AST_INTEGER, NULL );
-  fail_unless( r->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (r) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (r) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
 
   ASTNode_free(r);
@@ -171,8 +171,8 @@ START_TEST (test_SBML_parseFormula_2)
   ASTNode_t *r = SBML_parseFormula("2.1");
 
 
-  fail_unless( r->type                   == AST_REAL, NULL );
-  fail_unless( r->value.real             == 2.1, NULL );
+  fail_unless( ASTNode_getType       (r) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (r) == 2.1, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
@@ -185,9 +185,9 @@ START_TEST (test_SBML_parseFormula_3)
   ASTNode_t *r = SBML_parseFormula("2.1e5");
 
 
-  fail_unless( r->type                   == AST_REAL_E, NULL );
-  fail_unless( r->value.real             == 2.1, NULL );
-  fail_unless( r->extra.exponent         ==   5, NULL );
+  fail_unless( ASTNode_getType       (r) == AST_REAL_E, NULL );
+  fail_unless( ASTNode_getMantissa   (r) == 2.1, NULL );
+  fail_unless( ASTNode_getExponent   (r) ==   5, NULL );
   fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
 
   ASTNode_free(r);
@@ -200,9 +200,9 @@ START_TEST (test_SBML_parseFormula_4)
   ASTNode_t *r = SBML_parseFormula("foo");
 
 
-  fail_unless( r->type == AST_NAME           , NULL );
-  fail_unless( !strcmp(r->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  fail_unless( ASTNode_getType(r) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0     , NULL );
 
   ASTNode_free(r);
 }
@@ -216,21 +216,21 @@ START_TEST (test_SBML_parseFormula_5)
 
 
 
-  fail_unless( r->type                   == AST_PLUS, NULL );
-  fail_unless( r->value.ch               == '+', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '+', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type == AST_NAME           , NULL );
-  fail_unless( !strcmp(c->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
 }
@@ -244,20 +244,20 @@ START_TEST (test_SBML_parseFormula_6)
 
 
 
-  fail_unless( r->type                   == AST_PLUS, NULL );
-  fail_unless( r->value.ch               == '+', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '+', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 2, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
@@ -272,32 +272,32 @@ START_TEST (test_SBML_parseFormula_7)
 
 
 
-  fail_unless( r->type                   == AST_PLUS, NULL );
-  fail_unless( r->value.ch               == '+', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '+', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type                   == AST_TIMES, NULL );
-  fail_unless( c->value.ch               == '*', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_TIMES, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '*', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2  , NULL );
 
   c = ASTNode_getLeftChild(c);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 2, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild( ASTNode_getRightChild(r) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 3, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
@@ -311,32 +311,32 @@ START_TEST (test_SBML_parseFormula_8)
   ASTNode_t *c;
 
 
-  fail_unless( r->type                   == AST_TIMES, NULL );
-  fail_unless( r->value.ch               == '*', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_TIMES, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '*', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_MINUS, NULL );
-  fail_unless( c->value.ch               == '-', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_MINUS, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '-', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 3, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getLeftChild( ASTNode_getLeftChild(r) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild( ASTNode_getLeftChild(r) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 2, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger   (c)  == 2, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
@@ -350,32 +350,32 @@ START_TEST (test_SBML_parseFormula_9)
   ASTNode_t *c;
 
 
-  fail_unless( r->type                   == AST_PLUS, NULL );
-  fail_unless( r->value.ch               == '+', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '+', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type                   == AST_DIVIDE, NULL );
-  fail_unless( c->value.ch               == '/', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_DIVIDE, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '/', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2  , NULL );
 
   c = ASTNode_getLeftChild(c);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == -2, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == -2, NULL );
   fail_unless( ASTNode_getNumChildren(c) ==  0, NULL );
 
   c = ASTNode_getRightChild( ASTNode_getRightChild(r) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 3, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
@@ -389,33 +389,33 @@ START_TEST (test_SBML_parseFormula_10)
   ASTNode_t *c;
 
 
-  fail_unless( r->type                   == AST_PLUS, NULL );
-  fail_unless( r->value.ch               == '+', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '+', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type                   == AST_DIVIDE, NULL );
-  fail_unless( c->value.ch               == '/', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_DIVIDE, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '/', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2  , NULL );
 
   c = ASTNode_getLeftChild(c);
 
-  fail_unless( c->type                   == AST_REAL_E, NULL );
-  fail_unless( c->value.real             ==  -2, NULL );
-  fail_unless( c->extra.exponent         == 100, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_REAL_E, NULL );
+  fail_unless( ASTNode_getMantissa   (c) ==  -2, NULL );
+  fail_unless( ASTNode_getExponent   (c) == 100, NULL );
   fail_unless( ASTNode_getNumChildren(c) ==   0, NULL );
 
   c = ASTNode_getRightChild( ASTNode_getRightChild(r) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 3, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
@@ -430,38 +430,38 @@ START_TEST (test_SBML_parseFormula_11)
 
 
 
-  fail_unless( r->type                   == AST_MINUS, NULL );
-  fail_unless( r->value.ch               == '-', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_MINUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '-', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type                   == AST_DIVIDE, NULL );
-  fail_unless( c->value.ch               == '/', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_DIVIDE, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '/', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2, NULL );
 
   c = ASTNode_getLeftChild( ASTNode_getRightChild(r) );
 
-  fail_unless( c->type                   == AST_MINUS, NULL );
-  fail_unless( c->value.ch               == '-', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_MINUS, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '-', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 1  , NULL );
 
   c = ASTNode_getLeftChild( ASTNode_getLeftChild( ASTNode_getRightChild(r) ) );
 
-  fail_unless( c->type == AST_NAME           , NULL );
-  fail_unless( !strcmp(c->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   c = ASTNode_getRightChild( ASTNode_getRightChild(r) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 3, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 3, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
@@ -475,45 +475,45 @@ START_TEST (test_SBML_parseFormula_12)
   ASTNode_t *c;
 
 
-  fail_unless( r->type                   == AST_PLUS, NULL );
-  fail_unless( r->value.ch               == '+', NULL );
+  fail_unless( ASTNode_getType       (r) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (r) == '+', NULL );
   fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_TIMES, NULL );
-  fail_unless( c->value.ch               == '*', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_TIMES, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '*', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2  , NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type                   == AST_REAL, NULL );
-  fail_unless( c->value.real             == 3.0, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (c) == 3.0, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0  , NULL );
 
   c = ASTNode_getLeftChild( ASTNode_getLeftChild(r) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 2, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild( ASTNode_getLeftChild(r) );
 
-  fail_unless( c->type                   == AST_POWER, NULL );
-  fail_unless( c->value.ch               == '^', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_POWER, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '^', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2  , NULL );
 
   c = ASTNode_getLeftChild( ASTNode_getRightChild( ASTNode_getLeftChild(r) ) );
 
-  fail_unless( c->type == AST_NAME           , NULL );
-  fail_unless( !strcmp(c->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   c = ASTNode_getRightChild( ASTNode_getRightChild( ASTNode_getLeftChild(r) ) );
 
-  fail_unless( c->type == AST_NAME           , NULL );
-  fail_unless( !strcmp(c->value.name, "bar") , NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "bar") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
 }
@@ -525,9 +525,9 @@ START_TEST (test_SBML_parseFormula_13)
   ASTNode_t *r = SBML_parseFormula("foo()");
 
 
-  fail_unless( r->type == AST_FUNCTION       , NULL );
-  fail_unless( !strcmp(r->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 0, NULL );
+  fail_unless( ASTNode_getType(r) == AST_FUNCTION , NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 0     , NULL );
 
   ASTNode_free(r);
 }
@@ -540,14 +540,14 @@ START_TEST (test_SBML_parseFormula_14)
   ASTNode_t *c;
 
 
-  fail_unless( r->type == AST_FUNCTION       , NULL );
-  fail_unless( !strcmp(r->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 1, NULL );
+  fail_unless( ASTNode_getType(r) == AST_FUNCTION , NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 1     , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   ASTNode_free(r);
@@ -561,21 +561,21 @@ START_TEST (test_SBML_parseFormula_15)
   ASTNode_t *c;
 
 
-  fail_unless( r->type == AST_FUNCTION       , NULL );
-  fail_unless( !strcmp(r->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 2, NULL );
+  fail_unless( ASTNode_getType(r) == AST_FUNCTION , NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2     , NULL );
 
   c = ASTNode_getLeftChild(r);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild(r);
 
-  fail_unless( c->type == AST_NAME           , NULL );
-  fail_unless( !strcmp(c->value.name, "bar") , NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "bar") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   ASTNode_free(r);
 }
@@ -588,38 +588,38 @@ START_TEST (test_SBML_parseFormula_16)
   ASTNode_t *c;
 
 
-  fail_unless( r->type == AST_FUNCTION       , NULL );
-  fail_unless( !strcmp(r->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(r) == 3, NULL );
+  fail_unless( ASTNode_getType(r) == AST_FUNCTION , NULL );
+  fail_unless( !strcmp(ASTNode_getName(r), "foo") , NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 3     , NULL );
 
   c = ASTNode_getChild(r, 0);
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 1, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getChild(r, 1);
 
-  fail_unless( c->type == AST_NAME           , NULL );
-  fail_unless( !strcmp(c->value.name, "bar") , NULL );
-  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME     , NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "bar") , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
 
   c = ASTNode_getChild(r, 2);
 
-  fail_unless( c->type                   == AST_POWER, NULL );
-  fail_unless( c->value.ch               == '^', NULL );
+  fail_unless( ASTNode_getType       (c) == AST_POWER, NULL );
+  fail_unless( ASTNode_getCharacter  (c) == '^', NULL );
   fail_unless( ASTNode_getNumChildren(c) == 2  , NULL );
 
   c = ASTNode_getLeftChild( ASTNode_getChild(r, 2) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == 2, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == 2, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
 
   c = ASTNode_getRightChild( ASTNode_getChild(r, 2) );
 
-  fail_unless( c->type                   == AST_INTEGER, NULL );
-  fail_unless( c->value.integer          == -3, NULL );
+  fail_unless( ASTNode_getType       (c) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (c) == -3, NULL );
   fail_unless( ASTNode_getNumChildren(c) == 0 , NULL );
 
   ASTNode_free(r);
@@ -658,9 +658,9 @@ START_TEST (test_SBML_parseFormula_negInf)
   ASTNode_t *r = SBML_parseFormula("-inf");
 
 
-  fail_unless( r->type == AST_REAL, NULL );
-  fail_unless( util_isInf(r->value.real) == -1, NULL );
-  fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
+  fail_unless( ASTNode_getType(r)             == AST_REAL, NULL );
+  fail_unless( util_isInf(ASTNode_getReal(r)) == -1, NULL );
+  fail_unless( ASTNode_getNumChildren(r)      ==  0, NULL );
 
   ASTNode_free(r);
 }
@@ -672,9 +672,9 @@ START_TEST (test_SBML_parseFormula_negZero)
   ASTNode_t *r = SBML_parseFormula("-0.0");
 
 
-  fail_unless( r->type == AST_REAL, NULL );
-  fail_unless( util_isNegZero(r->value.real) == 1, NULL );
-  fail_unless( ASTNode_getNumChildren(r)    ==  0, NULL );
+  fail_unless( ASTNode_getType(r)                 == AST_REAL, NULL );
+  fail_unless( util_isNegZero(ASTNode_getReal(r)) == 1, NULL );
+  fail_unless( ASTNode_getNumChildren(r)          == 0, NULL );
 
   ASTNode_free(r);
 }

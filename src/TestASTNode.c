@@ -62,12 +62,12 @@ START_TEST (test_ASTNode_create)
   ASTNode_t *n = ASTNode_create();
 
 
-  fail_unless( n->type == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_UNKNOWN, NULL );
 
-  fail_unless( n->value.ch      == '\0', NULL );
-  fail_unless( n->value.name    == NULL, NULL );
-  fail_unless( n->value.integer == 0   , NULL );
-  fail_unless( n->value.real    == 0.0 , NULL );
+  fail_unless( ASTNode_getCharacter(n) == '\0', NULL );
+  fail_unless( ASTNode_getName     (n) == NULL, NULL );
+  fail_unless( ASTNode_getInteger  (n) == 0   , NULL );
+  fail_unless( ASTNode_getExponent (n) == 0   , NULL );
 
   fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
 
@@ -96,9 +96,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type == AST_NAME, NULL );
-  fail_unless( !strcmp(n->value.name, "foo") , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType(n) == AST_NAME    , NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "foo"), NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0    , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -107,9 +107,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type          == AST_INTEGER, NULL );
-  fail_unless( n->value.integer == 2          , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0 , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger    (n) == 2, NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -118,9 +118,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type       == AST_REAL     , NULL );
-  fail_unless( n->value.real == 4.0          , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal       (n) == 4.0, NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -129,10 +129,10 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type           == AST_REAL_E, NULL );
-  fail_unless( n->value.real     == .272      , NULL );
-  fail_unless( n->extra.exponent == 1         , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0 , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_REAL_E, NULL );
+  fail_unless( ASTNode_getMantissa   (n) == .272, NULL );
+  fail_unless( ASTNode_getExponent   (n) == 1   , NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0   , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -141,9 +141,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type     == AST_PLUS       , NULL );
-  fail_unless( n->value.ch == '+'            , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter  (n) == '+', NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -152,9 +152,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type     == AST_MINUS      , NULL );
-  fail_unless( n->value.ch == '-'            , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_MINUS, NULL );
+  fail_unless( ASTNode_getCharacter  (n) == '-', NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -163,9 +163,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type     == AST_TIMES      , NULL );
-  fail_unless( n->value.ch == '*'            , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_TIMES, NULL );
+  fail_unless( ASTNode_getCharacter  (n) == '*', NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -174,9 +174,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type     == AST_DIVIDE     , NULL );
-  fail_unless( n->value.ch == '/'            , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_DIVIDE, NULL );
+  fail_unless( ASTNode_getCharacter  (n) == '/', NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -185,9 +185,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type     == AST_POWER      , NULL );
-  fail_unless( n->value.ch == '^'            , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_POWER, NULL );
+  fail_unless( ASTNode_getCharacter  (n) == '^', NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -196,9 +196,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( n->type     == AST_UNKNOWN    , NULL );
-  fail_unless( n->value.ch == '@'            , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getCharacter  (n) == '@', NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
 
   Token_free(t);
   ASTNode_free(n);
@@ -1029,22 +1029,20 @@ START_TEST (test_ASTNode_getReal)
 
 
   /** 2.0 **/
-  n->type       = AST_REAL;
-  n->value.real = 1.6;
+  ASTNode_setType(n, AST_REAL);
+  ASTNode_setReal(n, 1.6);
 
   fail_unless(ASTNode_getReal(n) == 1.6, NULL);
 
   /** 12.3e3 **/
-  n->type           = AST_REAL_E;
-  n->value.real     = 12.3;
-  n->extra.exponent = 3;
+  ASTNode_setType(n, AST_REAL_E);
+  ASTNode_setRealWithExponent(n, 12.3, 3);
 
   fail_unless(ASTNode_getReal(n) == 12300.0, NULL);
 
   /** 1/2 **/
-  n->type              = AST_RATIONAL;
-  n->value.integer     = 1;
-  n->extra.denominator = 2;
+  ASTNode_setType(n, AST_RATIONAL);
+  ASTNode_setRational(n, 1, 2);
 
   fail_unless(ASTNode_getReal(n) == 0.5, NULL);
 
@@ -1180,31 +1178,31 @@ START_TEST (test_ASTNode_setCharacter)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( node->type == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
 
   ASTNode_setCharacter(node, '+');
-  fail_unless( node->type     == AST_PLUS, NULL );
-  fail_unless( node->value.ch == '+'     , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '+'     , NULL );
 
   ASTNode_setCharacter(node, '-');
-  fail_unless( node->type     == AST_MINUS, NULL );
-  fail_unless( node->value.ch == '-'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_MINUS, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '-'      , NULL );
 
   ASTNode_setCharacter(node, '*');
-  fail_unless( node->type     == AST_TIMES, NULL );
-  fail_unless( node->value.ch == '*'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_TIMES, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '*'      , NULL );
 
   ASTNode_setCharacter(node, '/');
-  fail_unless( node->type     == AST_DIVIDE, NULL );
-  fail_unless( node->value.ch == '/'       , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_DIVIDE, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '/'       , NULL );
 
   ASTNode_setCharacter(node, '^');
-  fail_unless( node->type     == AST_POWER, NULL );
-  fail_unless( node->value.ch == '^'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_POWER, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '^'      , NULL );
 
   ASTNode_setCharacter(node, '$');
-  fail_unless( node->type     == AST_UNKNOWN, NULL );
-  fail_unless( node->value.ch == '$'        , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '$'        , NULL );
 
   ASTNode_free(node);
 }
@@ -1217,22 +1215,22 @@ START_TEST (test_ASTNode_setName)
   ASTNode_t  *node = ASTNode_create();
 
 
-  fail_unless( node->type == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getType(node) == AST_UNKNOWN, NULL );
 
   ASTNode_setName(node, name);
 
-  fail_unless( node->type == AST_NAME, NULL );
-  fail_unless( !strcmp(node->value.name, name), NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), name), NULL );
 
-  if (node->value.name == name)
+  if (ASTNode_getName(node) == name)
   {
     fail("ASTNode_setName(...) did not make a copy of name.");
   }
 
   ASTNode_setName(node, NULL);
-  fail_unless( node->type == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
 
-  if (node->value.name != NULL)
+  if (ASTNode_getName(node) != NULL)
   {
     fail("ASTNode_setName(node, NULL) did not clear string.");
   }
@@ -1274,11 +1272,11 @@ START_TEST (test_ASTNode_setInteger)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( node->type == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
 
   ASTNode_setInteger(node, 321);
-  fail_unless( node->type          == AST_INTEGER, NULL );
-  fail_unless( node->value.integer == 321        , NULL );
+  fail_unless( ASTNode_getType   (node) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getInteger(node) == 321        , NULL );
 
   ASTNode_free(node);
 }
@@ -1294,11 +1292,11 @@ START_TEST (test_ASTNode_setReal)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( node->type == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
 
   ASTNode_setReal(node, 32.1);
-  fail_unless( node->type       == AST_REAL, NULL );
-  fail_unless( node->value.real == 32.1    , NULL );
+  fail_unless( ASTNode_getType(node) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal(node) == 32.1    , NULL );
 
   ASTNode_free(node);
 }
@@ -1315,54 +1313,54 @@ START_TEST (test_ASTNode_setType)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( node->type == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
 
   /**
    * node->value.name should not to cleared or changed as we toggle from
    * AST_FUNCTION to and from AST_NAME.
    */
   ASTNode_setType(node, AST_FUNCTION);
-  fail_unless( node->type == AST_FUNCTION, NULL );
-  fail_unless( !strcmp(node->value.name, "foo"), NULL );
+  fail_unless( ASTNode_getType(node) == AST_FUNCTION, NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "foo"), NULL );
 
   ASTNode_setType(node, AST_NAME);
-  fail_unless( node->type == AST_NAME, NULL );
-  fail_unless( !strcmp(node->value.name, "foo"), NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "foo"), NULL );
 
   /**
    * But now it should...
    */
   ASTNode_setType(node, AST_INTEGER);
-  fail_unless( node->type == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getType(node) == AST_INTEGER, NULL );
 
   ASTNode_setType(node, AST_REAL);
-  fail_unless( node->type == AST_REAL, NULL );
+  fail_unless( ASTNode_getType(node) == AST_REAL, NULL );
 
   ASTNode_setType(node, AST_UNKNOWN);
-  fail_unless( node->type == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getType(node) == AST_UNKNOWN, NULL );
 
   /**
    * Setting these types should also set node->value.ch
    */
   ASTNode_setType(node, AST_PLUS);
-  fail_unless( node->type     == AST_PLUS, NULL );
-  fail_unless( node->value.ch == '+'     , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_PLUS, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '+'     , NULL );
 
   ASTNode_setType(node, AST_MINUS);
-  fail_unless( node->type     == AST_MINUS, NULL );
-  fail_unless( node->value.ch == '-'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_MINUS, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '-'      , NULL );
 
   ASTNode_setType(node, AST_TIMES);
-  fail_unless( node->type     == AST_TIMES, NULL );
-  fail_unless( node->value.ch == '*'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_TIMES, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '*'      , NULL );
 
   ASTNode_setType(node, AST_DIVIDE);
-  fail_unless( node->type     == AST_DIVIDE, NULL );
-  fail_unless( node->value.ch == '/'       , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_DIVIDE, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '/'       , NULL );
 
   ASTNode_setType(node, AST_POWER);
-  fail_unless( node->type     == AST_POWER, NULL );
-  fail_unless( node->value.ch == '^'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_POWER, NULL );
+  fail_unless( ASTNode_getCharacter(node) == '^'      , NULL );
 
   ASTNode_free(node);
 }
