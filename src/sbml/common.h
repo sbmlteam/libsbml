@@ -64,6 +64,7 @@
 #if STDC_HEADERS
 #  include <errno.h>
 #  include <float.h>
+#  include <stdarg.h>
 #  include <stdlib.h>
 #  include <string.h>
 #endif
@@ -91,9 +92,10 @@
 
 #undef  HAVE_LIBCHECK
 
-#define finite(d) _finite(d)
-#define isnan(d)  _isnan(d)
-#define snprintf  _snprintf
+#define finite(d)  _finite(d)
+#define isnan(d)   _isnan(d)
+#define snprintf   _snprintf
+#define vsnprintf  _vsnprintf
 
 /**
  * Avoids silly MSVC++ warning C4800: 'const int' : forcing value to bool
