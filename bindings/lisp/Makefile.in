@@ -169,8 +169,7 @@ endif
 # they are compiled by asdf if needed,
 # wherever they are (ext vs. local)
 %.$(FASLEXT): %.lisp
-	cd libsbml;\
-	echo '(load "build.lisp")'|$(LISP)
+	-$(shell echo '(load "build.lisp")'|$(LISP))
 
 
 # -----------------------------------------------------------------------------
