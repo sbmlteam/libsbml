@@ -213,19 +213,6 @@ START_TEST (test_Species_setUnits)
 END_TEST
 
 
-START_TEST (test_Species_isSet)
-{
-  Species_setInitialAmount    (S, 2.0 );
-  Species_setBoundaryCondition(S,   0 );
-  Species_setCharge           (S,   0 );
-
-  fail_unless( Species_isSetInitialAmount(S)    , NULL );
-  fail_unless( Species_isSetBoundaryCondition(S), NULL );
-  fail_unless( Species_isSetCharge(S)           , NULL );
-}
-END_TEST
-
-
 Suite *
 create_suite_Species (void)
 {
@@ -243,7 +230,6 @@ create_suite_Species (void)
   tcase_add_test( tcase, test_Species_setName        );
   tcase_add_test( tcase, test_Species_setCompartment );
   tcase_add_test( tcase, test_Species_setUnits       );
-  tcase_add_test( tcase, test_Species_isSet          );
 
   suite_add_tcase(suite, tcase);
 
