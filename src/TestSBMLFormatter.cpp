@@ -1793,13 +1793,15 @@ END_TEST
 
 
 /**
- * Konstantin Kozlov reported that a <rateRule> with a <notes> or
- * <annotation> does not close its opening tag, e.g.:
+ * A <rateRule> with a <notes> and/or <annotation> is not formatted with a
+ * closing angle bracket, e.g.:
  *
  *   <rateRule variable="x"  <notes>
  *      This is a note.
  *     </notes>
  *   </rateRule>
+ *
+ * Reported by Konstantin Kozlov <kozlov@spbcas.ru>
  */
 START_TEST (test_SBMLFormatter_nonempty_RateRule_bug)
 {
