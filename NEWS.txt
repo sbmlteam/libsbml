@@ -12,18 +12,13 @@
         ./configure --with-expat[=PATH]
 
       All checks but one pass with Expat enabled (See Bugs below).
-      There are currently three caveats to using Expat with libsbml:
+      There are currently two caveats to using Expat with libsbml:
 
         1.  libsbml *will not* be able to validate SBML and MathML
             content against an XML Schema.  Expat has no facilities
             for XML Schema validation.
 
-        2.  If you are using gcc, g++ 3.0.4 or greater is required.
-            When outputting XML, the Expat port uses the C++ Standard
-            Library ostringstream, which appears to be broken in
-            earlier versions (e.g. 2.96) of the GNU libstdc++.
-
-        3.  XML entity references (e.g. &#160;), which are most likely
+        2.  XML entity references (e.g. &#160;), which are most likely
             to occur in XHTML <notes> sections, will be output as
             their UTF-8 byte sequence instead of the more human
             readable entity reference (see Bugs below for more
@@ -54,7 +49,7 @@
       cross-platform is non-trivial and would hold up this release of
       libsbml for too long.
 
-* Released December 9, 2003
+* Released December 19, 2003
 
 
 
