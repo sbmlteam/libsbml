@@ -43,7 +43,7 @@ AC_DEFUN(CONFIG_LIB_LIBCHECK,
 
       case $host in
       *darwin*) 
-        LIBCHECK_CPPFLAGS="-I/sw/include -I\$(top_srcdir)/expat"
+        LIBCHECK_CPPFLAGS="-I/sw/include"
         LIBCHECK_LDFLAGS="-L/sw/lib"
 	;;
       esac    
