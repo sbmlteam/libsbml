@@ -62,44 +62,54 @@
  * purpose as "class Foo;" forward declarations in C++ code.
  */
 
-typedef struct SBase                     SBase_t;
-typedef struct SBMLDocument              SBMLDocument_t;
-typedef struct Model                     Model_t;
+#ifdef __cplusplus
+#  define CLASS_OR_STRUCT class
+#else
+#  define CLASS_OR_STRUCT struct
+#endif  /* __cplusplus */
 
-typedef struct FunctionDefinition        FunctionDefinition_t;
-typedef struct Unit                      Unit_t;
-typedef struct UnitDefinition            UnitDefinition_t;
-typedef struct Compartment               Compartment_t;
-typedef struct Species                   Species_t;
-typedef struct Parameter                 Parameter_t;
 
-typedef struct Rule                      Rule_t;
-typedef struct AssignmentRule            AssignmentRule_t;
-typedef struct AlgebraicRule             AlgebraicRule_t;
-typedef struct RateRule                  RateRule_t;
-typedef struct CompartmentVolumeRule     CompartmentVolumeRule_t;
-typedef struct ParameterRule             ParameterRule_t;
-typedef struct SpeciesConcentrationRule  SpeciesConcentrationRule_t;
+typedef CLASS_OR_STRUCT SBase                     SBase_t;
+typedef CLASS_OR_STRUCT SBMLDocument              SBMLDocument_t;
+typedef CLASS_OR_STRUCT Model                     Model_t;
 
-typedef struct Reaction                  Reaction_t;
-typedef struct KineticLaw                KineticLaw_t;
-typedef struct SimpleSpeciesReference    SimpleSpeciesReference_t;
-typedef struct ModifierSpeciesReference  ModifierSpeciesReference_t;
-typedef struct SpeciesReference          SpeciesReference_t;
+typedef CLASS_OR_STRUCT FunctionDefinition        FunctionDefinition_t;
+typedef CLASS_OR_STRUCT Unit                      Unit_t;
+typedef CLASS_OR_STRUCT UnitDefinition            UnitDefinition_t;
+typedef CLASS_OR_STRUCT Compartment               Compartment_t;
+typedef CLASS_OR_STRUCT Species                   Species_t;
+typedef CLASS_OR_STRUCT Parameter                 Parameter_t;
 
-typedef struct Event                     Event_t;
-typedef struct EventAssignment           EventAssignment_t;
+typedef CLASS_OR_STRUCT Rule                      Rule_t;
+typedef CLASS_OR_STRUCT AssignmentRule            AssignmentRule_t;
+typedef CLASS_OR_STRUCT AlgebraicRule             AlgebraicRule_t;
+typedef CLASS_OR_STRUCT RateRule                  RateRule_t;
+typedef CLASS_OR_STRUCT CompartmentVolumeRule     CompartmentVolumeRule_t;
+typedef CLASS_OR_STRUCT ParameterRule             ParameterRule_t;
+typedef CLASS_OR_STRUCT SpeciesConcentrationRule  SpeciesConcentrationRule_t;
 
-typedef struct SBMLReader                SBMLReader_t;
+typedef CLASS_OR_STRUCT Reaction                  Reaction_t;
+typedef CLASS_OR_STRUCT KineticLaw                KineticLaw_t;
+typedef CLASS_OR_STRUCT SimpleSpeciesReference    SimpleSpeciesReference_t;
+typedef CLASS_OR_STRUCT ModifierSpeciesReference  ModifierSpeciesReference_t;
+typedef CLASS_OR_STRUCT SpeciesReference          SpeciesReference_t;
 
-typedef struct MathMLDocument            MathMLDocument_t;
-typedef struct MathMLReader              MathMLReader_t;
-typedef struct MathMLWriter              MathMLWriter_t;
+typedef CLASS_OR_STRUCT Event                     Event_t;
+typedef CLASS_OR_STRUCT EventAssignment           EventAssignment_t;
 
-typedef struct ASTNode                   ASTNode_t;
-typedef struct List                      List_t;
-typedef struct ListOf                    ListOf_t;
-typedef struct ParseMessage              ParseMessage_t;
+typedef CLASS_OR_STRUCT SBMLReader                SBMLReader_t;
+
+typedef CLASS_OR_STRUCT MathMLDocument            MathMLDocument_t;
+typedef CLASS_OR_STRUCT MathMLReader              MathMLReader_t;
+typedef CLASS_OR_STRUCT MathMLWriter              MathMLWriter_t;
+
+typedef CLASS_OR_STRUCT ASTNode                   ASTNode_t;
+typedef CLASS_OR_STRUCT List                      List_t;
+typedef CLASS_OR_STRUCT ListOf                    ListOf_t;
+typedef CLASS_OR_STRUCT ParseMessage              ParseMessage_t;
+
+
+#undef CLASS_OR_STRUCT
 
 
 #endif  /* sbmlfwd_h  */
