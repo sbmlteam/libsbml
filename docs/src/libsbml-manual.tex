@@ -69,9 +69,10 @@ Section~\ref{sec:installation}):
 \end{shellVerbatim}
 
 By default, \libsbml{} only builds the C and C++ API library.  If you want
-to configure \libsbml{} to build the Java, Python and/or MATLAB API
-libraries as well, add the flags \shell{--with-java}, \shell{--with-python}
-and/or \shell{--with-matlab} to the configure command.  For example,
+to configure \libsbml{} to build the Java, Python, Lisp and/or MATLAB API
+libraries as well, add the flags \shell{--with-java},
+\shell{--with-python}, \shell{--with-lisp}, and/or \shell{--with-matlab} to
+the configure command.  For example,
 
 \begin{shellVerbatim}
   ./configure --with-expat --with-java --with-python
@@ -90,6 +91,10 @@ Section~\ref{sec:read-example}):
 \begin{shellVerbatim}
   gcc -o myapp.c myapp.c -lsbml
 \end{shellVerbatim}
+
+Note: A Perl binding is available but is not yet hooked into the
+configuration system.  See the file \shell{bindings/perl/README.txt} for
+information about building and installing the Perl bindings
 
 
 %-----------------------------------------------------------------------------
@@ -157,9 +162,10 @@ Some of the features of \libsbml{} include:
   \shell{./configure --enable-memory-tracing}.  (For performance reasons
   memory tracing should be turned off in production environments.)
   
-  \textbf{\textsl{Interfaces for C, C++, Java, Python and MATLAB}}.  C and
-  C++ interfaces are implemented natively; the Java and Python interfaces
-  are implemented using SWIG, the Simplified Wrapper Interface Generator.
+  \textbf{\textsl{Interfaces for C, C++, Java, Python, Lisp, MATLAB and
+      Perl}}.  C and C++ interfaces are implemented natively; the Java,
+  Perl and Python interfaces are implemented using SWIG, the Simplified
+  Wrapper Interface Generator.
 
 \item \textbf{\textsl{Full SBML Support}}.  All constructs in SBML Level~1
   (Versions~1 and~2) and SBML Level~2 are supported, with the exceptions
@@ -332,19 +338,19 @@ on your system, in either the default location (\shell{/usr/local/}) or in
 the location you indicated during the configuration step.
 
 
-\subsubsection{Additional Options: Interfaces to Java, Python and MATLAB}
+\subsubsection{Additional Options: Interfaces to Java, Python, Lisp and MATLAB}
 
-\libsbml{} includes language bindings for Java, Python and MATLAB, enabling
-you to write Java, Python and MATLAB programs that call \libsbml{} methods,
-and work with \libsbml{} through Python's and MATLAB's interactive modes.
-Short tutorials for how to use these facilities are available in the
-directory \shell{docs/formatted}.
+\libsbml{} includes language bindings for Java, Python, Common Lisp and
+MATLAB, enabling you to write Java, Python, Lisp and MATLAB programs that
+call \libsbml{} methods, and work with \libsbml{} through Python's, Lisp's
+and MATLAB's interactive modes.  Short tutorials for how to use these
+facilities are available in the directory \shell{docs/formatted}.
 
-To enable the library extensions for Java, Python and MATLAB, you need to
-supply additional options to configure.  These options are
-\shell{--with-java}, \shell{--with-python}, and \shell{--with-matlab}.  As
-with other configure options, these three take an optional prefix
-argument; for example,
+To enable the library extensions for Java, Python, Lisp and MATLAB, you
+need to supply additional options to configure.  These options are
+\shell{--with-java}, \shell{--with-python}, \shell{--with-lisp}, and
+\shell{--with-matlab}.  As with other configure options, these three take
+an optional prefix argument; for example,
 
 \begin{shellVerbatim}
   ./configure --with-java="DIR"
