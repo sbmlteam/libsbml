@@ -4,7 +4,7 @@
 ;************************************************************************************
 
 ;************************************************************************************
-; the version number appears 5 times. It is currently reading 2.1.1 Sorry if this is wrong
+; the version number appears 5 times. It is currently reading 2.2.0
 ;************************************************************************************
 
 
@@ -18,7 +18,7 @@ AppName=libSBML
 ; this must read libsbml 'space' version number
 
 ;***********************************************************************************
-AppVerName=libSBML 2.1.1
+AppVerName=libSBML 2.2.0
 
 
 AppPublisher=SBML Team
@@ -35,7 +35,7 @@ AppUpdatesURL=http://www.sbml.org
 ; Note this directory name includes the version number
 
 ;***********************************************************************************
-DefaultDirName={pf}\SBML\libsbml-2.1.1-xerces
+DefaultDirName={pf}\SBML\libsbml-2.2.0-xerces
 ;DefaultDirName={pf}\SBML\libsbml-2.1.1-expat
 
 DefaultGroupName=libsbml
@@ -86,8 +86,8 @@ Source: "C:\libsbml_for_xerces_release\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; 
 Source: "C:\libsbml_for_xerces_release\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
 
 
-Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
-Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
+;Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
+;Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
 
 ; FILES FOR EXPAT RELEASE
 ;Source: "C:\libsbml_for_expat_release\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
@@ -116,7 +116,7 @@ Root: HKLM; Subkey: "Software\SBML\libSBML"; Flags: uninsdeletekey
 
 ; version number is inserted here as a string
 ;**********************************************************************************************************
-Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "Version"; ValueData: "2.1.1"
+Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "Version"; ValueData: "2.2.0"
 Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
 
 
@@ -239,7 +239,7 @@ begin
  
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows release of libSBML 2.1.1 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+  MsgBox('This setup installs the Windows release of libSBML 2.2.0 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
  { MsgBox('This setup installs the Windows release of libSBML 2.1.1 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok); }
 end;
 
@@ -293,7 +293,7 @@ begin
 this is the version number for the current installation
 
 *************************************************************************}
-  ThisVersionNumber := '2.1.1';
+  ThisVersionNumber := '2.2.0';
   
   MLRoot := GetMatlabRoot('1');
   if (MLRoot = '') then begin
