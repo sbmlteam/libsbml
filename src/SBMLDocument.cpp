@@ -299,7 +299,7 @@ void
 SBMLDocument::printFatals (std::ostream& stream)
 {
   unsigned int   n, size;
-  ParseMessage  *pm;
+  ParseMessage*  pm;
 
 
   if ((size = getNumFatals()) > 0)
@@ -388,7 +388,7 @@ SBMLDocument::checkConsistency ()
 
   if (getModel() == NULL)
   {
-    List_add( &error, ParseMessage_createWith("No model present.", 0, 0) );
+    List_add(&error, ParseMessage_createWith(1000, "No model present.", 0, 0));
     nerrors = 1;
   }
   else

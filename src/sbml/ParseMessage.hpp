@@ -1,5 +1,5 @@
 /**
- * Filename    : ParseMessage.h
+ * Filename    : ParseMessage.hpp
  * Description : Stores error message encountered during an SBML parse
  * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
  * Organization: JST ERATO Kitano Symbiotic Systems Project
@@ -61,30 +61,59 @@ class ParseMessage
 {
 public:
 
+  /**
+   * Creates a new ParseMessage reporting that message occurred at the given
+   * line and column.  Each ParseMessage has an identification number
+   * associated with it.
+   */
   LIBSBML_EXTERN
   ParseMessage
   (
-      const std::string& message = ""
+      unsigned int       id      = 0
+    , const std::string& message = ""
     , unsigned int       line    = 0
     , unsigned int       col     = 0
   );
 
+  /**
+   * Destroys this ParseMessage.
+   */
   virtual ~ParseMessage ();
 
+  /**
+   * @return the id of this ParseMessage.
+   */
+  LIBSBML_EXTERN
+  unsigned int getId () const;
 
-  LIBSBML_EXTERN const std::string& getMessage () const;
-  LIBSBML_EXTERN unsigned int       getLine    () const;
-  LIBSBML_EXTERN unsigned int       getColumn  () const;
+  /**
+   * @return the message text of this ParseMessage.
+   */
+  LIBSBML_EXTERN
+  const std::string& getMessage () const;
+
+  /**
+   * @return the line number where this ParseMessage ocurred.
+   */
+  LIBSBML_EXTERN
+  unsigned int getLine () const;
+
+  /**
+   * @return the column number where this ParseMessage occurred.
+   */
+  LIBSBML_EXTERN
+  unsigned int getColumn () const;
 
 
 protected:
 
-  std::string  message;
+  unsigned int mId;
 
-  unsigned int line;
-  unsigned int column;
+  std::string  mMessage;
+
+  unsigned int mLine;
+  unsigned int mColumn;
 };
-
 
 
 #endif  // ParseMessage_hpp

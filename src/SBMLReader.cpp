@@ -85,7 +85,7 @@ ParseMessage_createFrom (const XMLException& e)
   ParseMessage_t* pm;
 
 
-  pm = ParseMessage_createWith(msg, e.getSrcLine(), 0);
+  pm = ParseMessage_createWith(0, msg, e.getSrcLine(), 0);
 
   XMLString::release(&msg);
 
@@ -430,7 +430,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
   }
   catch (...)
   {
-    d->fatal.add( new ParseMessage("Unexpected Exception", 0, 0) );
+    d->fatal.add( new ParseMessage(100, "Unexpected Exception", 0, 0) );
   }
 
   if (input != NULL)

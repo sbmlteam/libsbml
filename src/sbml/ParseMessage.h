@@ -84,10 +84,12 @@ ParseMessage_create (void);
 
 /**
  * Creates a new ParseMessage reporting that message occurred at the given
- * line and column.
+ * line and column.  Each ParseMessage has an identification number
+ * associated with it.
  */
 ParseMessage_t *
-ParseMessage_createWith (   const char   *message
+ParseMessage_createWith (   unsigned int  id
+                          , const char   *message
                           , unsigned int  line
                           , unsigned int  column );
 
@@ -103,6 +105,13 @@ ParseMessage_free (ParseMessage_t *pm);
 LIBSBML_EXTERN
 const char *
 ParseMessage_getMessage (const ParseMessage_t *pm);
+
+/**
+ * @return the id of this ParseMessage.
+ */
+LIBSBML_EXTERN
+unsigned int
+ParseMessage_getId (const ParseMessage_t *pm);
 
 /**
  * @return the line number where this ParseMessage ocurred.

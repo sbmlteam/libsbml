@@ -55,13 +55,19 @@
 
 
 /**
- * Creates a new ParseMessage.
+ * Creates a new ParseMessage reporting that message occurred at the given
+ * line and column.  Each ParseMessage has an identification number
+ * associated with it.
  */
 LIBSBML_EXTERN
-ParseMessage::ParseMessage ( const std::string& msg
-                             , unsigned int ln
-                             , unsigned int cn
-                           ) : message(msg), line(ln), column(cn)
+ParseMessage::ParseMessage (   unsigned int       id
+                             , const std::string& message
+                             , unsigned int       line
+                             , unsigned int       column) :
+    mId     ( id      )
+  , mMessage( message )
+  , mLine   ( line    )
+  , mColumn ( column  )
 {
 }
 
@@ -75,13 +81,24 @@ ParseMessage::~ParseMessage ()
 
 
 /**
+ * @return the id of this ParseMessage.
+ */
+LIBSBML_EXTERN
+unsigned int
+ParseMessage::getId () const
+{
+  return mId;
+}
+
+
+/**
  * @return the message text of this ParseMessage.
  */
 LIBSBML_EXTERN
 const std::string&
 ParseMessage::getMessage () const
 {
-  return message;
+  return mMessage;
 }
 
 
@@ -92,7 +109,7 @@ LIBSBML_EXTERN
 unsigned int
 ParseMessage::getLine () const
 {
-  return line;
+  return mLine;
 }
 
 
@@ -103,7 +120,7 @@ LIBSBML_EXTERN
 unsigned int
 ParseMessage::getColumn () const
 {
-  return column;
+  return mColumn;
 }
 
 
@@ -120,14 +137,16 @@ ParseMessage_create (void)
 
 /**
  * Creates a new ParseMessage reporting that message occurred at the given
- * line and column.
+ * line and column.  Each ParseMessage has an identification number
+ * associated with it.
  */
 ParseMessage_t *
-ParseMessage_createWith (   const char   *message
+ParseMessage_createWith (   unsigned int  id
+                          , const char   *message
                           , unsigned int  line
                           , unsigned int  column )
 {
-  return new ParseMessage(message, line, column);
+  return new ParseMessage(id, message, line, column);
 }
 
 
@@ -138,6 +157,17 @@ void
 ParseMessage_free (ParseMessage_t *pm)
 {
   delete static_cast<ParseMessage*>(pm);
+}
+
+
+/**
+ * @return the id of this ParseMessage.
+ */
+LIBSBML_EXTERN
+unsigned int
+ParseMessage_getId (const ParseMessage_t *pm)
+{
+  return static_cast<const ParseMessage*>(pm)->getId();
 }
 
 

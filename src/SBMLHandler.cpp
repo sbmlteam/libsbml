@@ -588,7 +588,7 @@ SBMLHandler::ParseMessage_createFrom (const char* message)
 #ifdef USE_EXPAT
     ParseMessage(message, getCurrentLineNumber(), getCurrentColumnNumber());
 #else
-    ParseMessage( message,
+    ParseMessage( 100, message,
                   (unsigned int) fLocator->getLineNumber(),
                   (unsigned int) fLocator->getColumnNumber() );
 #endif  // USE_EXPAT
@@ -613,7 +613,7 @@ SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
 
   message = XMLString::transcode( e.getMessage() );
 
-  pm = new ParseMessage( message, 
+  pm = new ParseMessage( 100, message, 
                          (unsigned int) e.getLineNumber(),
                          (unsigned int) e.getColumnNumber() );
 

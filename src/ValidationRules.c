@@ -70,12 +70,12 @@
  * This convenience macro, when coupled with the RULE macro, makes it easy
  * to log a validation error message.
  */
-#define LOG_MESSAGE(msg)                                           \
-  if (messages != NULL)                                            \
-  {                                                                \
-    unsigned int line = SBase_getLine(obj);                        \
-    unsigned int col  = SBase_getColumn(obj);                      \
-    List_add( messages, ParseMessage_createWith(msg, line, col) ); \
+#define LOG_MESSAGE(msg)                                              \
+  if (messages != NULL)                                               \
+  {                                                                   \
+    unsigned int line = SBase_getLine(obj);                           \
+    unsigned int col  = SBase_getColumn(obj);                         \
+    List_add( messages, ParseMessage_createWith(0, msg, line, col) ); \
   }
 
 

@@ -61,9 +61,10 @@ START_TEST (test_ParseMessage_create)
   ParseMessage_t *pm = ParseMessage_create();
 
 
-  fail_unless( ParseMessage_getMessage(pm) == NULL, NULL );
-  fail_unless( ParseMessage_getLine   (pm) == 0   , NULL );
-  fail_unless( ParseMessage_getColumn (pm) == 0   , NULL );
+  fail_unless( ParseMessage_getId     (pm) == 0    );
+  fail_unless( ParseMessage_getMessage(pm) == NULL );
+  fail_unless( ParseMessage_getLine   (pm) == 0    );
+  fail_unless( ParseMessage_getColumn (pm) == 0    );
 
   ParseMessage_free(pm);
 }
@@ -72,13 +73,14 @@ END_TEST
 
 START_TEST (test_ParseMessage_createWith)
 {
-  ParseMessage_t *pm = ParseMessage_createWith("Error!", 10, 5);
+  ParseMessage_t *pm = ParseMessage_createWith(1, "Error!", 10, 5);
 
 
-  fail_unless( !strcmp(ParseMessage_getMessage(pm), "Error!"), NULL );
+  fail_unless( !strcmp(ParseMessage_getMessage(pm), "Error!") );
 
-  fail_unless( ParseMessage_getLine  (pm) == 10, NULL );
-  fail_unless( ParseMessage_getColumn(pm) ==  5, NULL );
+  fail_unless( ParseMessage_getId    (pm) ==  1 );
+  fail_unless( ParseMessage_getLine  (pm) == 10 );
+  fail_unless( ParseMessage_getColumn(pm) ==  5 );
 
   ParseMessage_free(pm);
 }
