@@ -85,6 +85,8 @@ START_TEST (test_SpeciesConcentrationRule_create)
   fail_unless( SCR->formula == NULL, NULL );
   fail_unless( SCR->type    == RULE_TYPE_SCALAR, NULL );
   fail_unless( SCR->species == NULL, NULL );
+
+  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
 }
 END_TEST
 
@@ -104,6 +106,8 @@ START_TEST (test_SpeciesConcentrationRule_createWith)
   fail_unless( !strcmp(scr->species, "s1")    , NULL );
 
   fail_unless( scr->type == RULE_TYPE_RATE, NULL );
+
+  fail_unless( SpeciesConcentrationRule_isSetSpecies(scr), NULL );
 
   SpeciesConcentrationRule_free(scr);
 }
@@ -125,6 +129,7 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
   SpeciesConcentrationRule_setSpecies(SCR, species);
 
   fail_unless( !strcmp(SCR->species, species), NULL );
+  fail_unless( SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
 
   if (SCR->species == species)
   {
@@ -133,6 +138,7 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
   }
 
   SpeciesConcentrationRule_setSpecies(SCR, NULL);
+  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
 
   if (SCR->species != NULL)
   {

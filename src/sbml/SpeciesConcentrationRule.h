@@ -54,14 +54,13 @@
 #define SpeciesConcentrationRule_h
 
 
+#include "common.h"
 #include "SBase.h"
 #include "Rule.h"
 #include "AssignmentRule.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -76,6 +75,7 @@ typedef struct
 /**
  * Creates a new SpeciesConcentrationRule and returns a pointer to it.
  */
+LIBSBML_EXTERN
 SpeciesConcentrationRule_t *
 SpeciesConcentrationRule_create (void);
 
@@ -87,6 +87,7 @@ SpeciesConcentrationRule_create (void);
  *   SpeciesConcentrationRule_t *scr = SpeciesConcentrationRule_create();
  *   Rule_setFormula((Rule_t *) scr, formula); scr->type = type; ...;
  */
+LIBSBML_EXTERN
 SpeciesConcentrationRule_t *
 SpeciesConcentrationRule_createWith ( const char *formula,
                                       RuleType_t type,
@@ -95,20 +96,36 @@ SpeciesConcentrationRule_createWith ( const char *formula,
 /**
  * Frees the given SpeciesConcentrationRule.
  */
+LIBSBML_EXTERN
 void
 SpeciesConcentrationRule_free (SpeciesConcentrationRule_t *scr);
 
+
 /**
- * Sets the species field of this SpeciesConcentrationRule to a copy of sname.
+ * @return the species of this SpeciesConcentrationRule.
  */
+LIBSBML_EXTERN
+const char *
+SpeciesConcentrationRule_getSpecies (const SpeciesConcentrationRule_t *scr);
+
+/**
+ * @return 1 if the species of this SpeciesConcentrationRule has been set,
+ * 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesConcentrationRule_isSetSpecies (const SpeciesConcentrationRule_t *scr);
+
+/**
+ * Sets the species of this SpeciesConcentrationRule to a copy of sname.
+ */
+LIBSBML_EXTERN
 void
 SpeciesConcentrationRule_setSpecies ( SpeciesConcentrationRule_t *scr,
                                       const char *sname );
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** SpeciesConcentrationRule_h **/
