@@ -858,13 +858,38 @@ RULE (species_substanceUnits)
 
 
 /**
+ * The initialConcentration attribute must not be present if the
+ * hasOnlySubstanceUnits attribute is true.
+ */
+RULE (species_initialConcentration)
+{
+  static const char msg[] =
+    "A species with hasOnlySubstanceUnits='true' must not have an "
+    "initialConcentration.";
+  unsigned int passed = 1;
+
+  Species_t *s = (Species_t *) obj;
+  if (
+    Species_getHasOnlySubstanceUnits(s)
+    &&
+    Species_isSetInitialConcentration(s)
+  ) {
+    LOG_MESSAGE(msg);
+    passed = 0;
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
 Validator_addDefaultRules (Validator_t *v)
 {
-  Validator_addRule( v, compartment_size_dimensions,   SBML_COMPARTMENT    );
-  Validator_addRule( v, kineticLaw_substanceUnits  ,   SBML_REACTION       );
+  Validator_addRule( v, compartment_size_dimensions,   SBML_COMPARTMENT     );
+  Validator_addRule( v, kineticLaw_substanceUnits  ,   SBML_REACTION        );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
@@ -879,11 +904,12 @@ Validator_addDefaultRules (Validator_t *v)
                                                        SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_timeKinds,
                                                        SBML_UNIT_DEFINITION );
-  Validator_addRule( v, species_compartmentIsDefined,  SBML_SPECIES        );
-  Validator_addRule( v, species_hasOnlySubstanceUnits, SBML_SPECIES        );
-  Validator_addRule( v, species_zeroSpatialDimensions, SBML_SPECIES        );
-  Validator_addRule( v, species_spatialDimensions1,    SBML_SPECIES        );
-  Validator_addRule( v, species_spatialDimensions2,    SBML_SPECIES        );
-  Validator_addRule( v, species_spatialDimensions3,    SBML_SPECIES        );
-  Validator_addRule( v, species_substanceUnits,        SBML_SPECIES        );
+  Validator_addRule( v, species_compartmentIsDefined,  SBML_SPECIES         );
+  Validator_addRule( v, species_hasOnlySubstanceUnits, SBML_SPECIES         );
+  Validator_addRule( v, species_zeroSpatialDimensions, SBML_SPECIES         );
+  Validator_addRule( v, species_spatialDimensions1,    SBML_SPECIES         );
+  Validator_addRule( v, species_spatialDimensions2,    SBML_SPECIES         );
+  Validator_addRule( v, species_spatialDimensions3,    SBML_SPECIES         );
+  Validator_addRule( v, species_substanceUnits,        SBML_SPECIES         );
+  Validator_addRule( v, species_initialConcentration,  SBML_SPECIES         );
 }
