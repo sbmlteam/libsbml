@@ -14,7 +14,7 @@ default: dvi
 dvi:;
 	-@/bin/rm -f $(BASENAME).toc $(BASENAME).aux
 	latex $(BASENAME).tex
-	#bibtex $(BASENAME)
+	bibtex $(BASENAME)
 	latex $(BASENAME).tex
 	latex $(BASENAME).tex
 	latex $(BASENAME).tex
@@ -23,7 +23,7 @@ pdf:;
 	make eps
 	-@/bin/rm -f $(BASENAME).toc $(BASENAME).aux
 	pdflatex $(BASENAME).tex
-	#bibtex $(BASENAME)
+	bibtex $(BASENAME)
 	pdflatex $(BASENAME).tex
 	pdflatex $(BASENAME).tex
 	pdflatex $(BASENAME).tex
