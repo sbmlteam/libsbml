@@ -47,12 +47,19 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
 #include <iostream>
+#include "sbml/common.hpp"
 
-#include <xercesc/util/PlatformUtils.hpp>
+
+#ifdef USE_EXPAT
+#  include "ExpatXMLString.hpp"
+#else
+#  include <xercesc/util/PlatformUtils.hpp>
+#endif // USE_EXPAT
 
 #include "sbml/SAX2AttributesMock.hpp"
 
@@ -69,7 +76,9 @@ SAX2AttributesMock::SAX2AttributesMock (unsigned int max)
   //
   // Initialize() is static, but may be safely called more than once.
   //
+#ifndef USE_EXPAT
   XMLPlatformUtils::Initialize();
+#endif  // USE_EXPAT
 
   fLocalNames = new XMLCh*[max];
   fValues     = new XMLCh*[max];
@@ -181,7 +190,11 @@ SAX2AttributesMock::getIndex (const XMLCh* const  uri,
 //
 // CURRENTLY UNIMPLEMENTED.  RETURNS 0.
 //
+#ifdef USE_EXPAT
+unsigned int
+#else
 int
+#endif  // USE_EXPAT
 SAX2AttributesMock::getIndex (const XMLCh* const qName) const
 {
   return 0;

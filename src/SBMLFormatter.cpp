@@ -47,10 +47,19 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stephan Hoops
  */
 
 
 #include "sbml/common.h"
+
+
+#ifdef USE_EXPAT
+#  include "ExpatXMLString.hpp"
+#  include "ExpatFormatter.hpp"
+#endif  // USE_EXPAT
+
+
 #include "sbml/SBMLFormatter.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"
 #include "sbml/XMLUnicodeConstants.hpp"
@@ -66,10 +75,12 @@
  */
 SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 {
+#ifndef USE_EXPAT
   //
   // Initialize() is static and may be called more than once safely.
   //
   XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
 
   fLevel   = 2;
   fVersion = 1;
@@ -2248,7 +2259,7 @@ SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 void
 SBMLFormatter::attribute (const XMLCh* name, double value)
 {
-  if ( isnan(value) )
+  if (value != value)
   {
     attribute(name, VAL_NAN);
   }
@@ -2272,6 +2283,7 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
 }
 
 
+#ifndef USE_EXPAT
 /**
  * Sends ' name="%s" to the underlying XMLFormatter (where %s is a C string).
  */
@@ -2293,6 +2305,7 @@ SBMLFormatter::attribute (const XMLCh* name, const char* value)
     delete [] s;
   }
 }
+#endif // !USE_EXPAT
 
 
 /**

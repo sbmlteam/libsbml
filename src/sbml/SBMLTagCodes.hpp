@@ -47,6 +47,7 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
@@ -55,7 +56,13 @@
 
 
 #include "common.hpp"
-#include <xercesc/util/XMLUniDefs.hpp>
+
+
+#ifdef USE_EXPAT
+#  include <expat.h>
+#else
+#  include <xercesc/util/XMLUniDefs.hpp>
+#endif
 
 
 typedef int SBMLTagCode_t;

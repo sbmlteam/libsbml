@@ -47,15 +47,23 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#ifndef XMLUtil_hh
-#define XMLUtil_hh
+#ifndef XMLUtil_hpp
+#define XMLUtil_hpp
 
 
-#include <xercesc/framework/XMLFormatter.hpp>
-#include <xercesc/sax2/Attributes.hpp>
+#ifdef USE_EXPAT
+#  include "ExpatAttributes.hpp"
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/framework/XMLFormatter.hpp>
+#  include <xercesc/sax2/Attributes.hpp>
+#endif  // USE_EXPAT
+
+
 #include "common.hpp"
 
 
@@ -74,7 +82,6 @@ public:
        const char*      outEncoding
      , XMLFormatTarget* target
   );
-
 
   /**
    * Searches for an attribute with name.  If found, and the corresponding
@@ -177,4 +184,4 @@ public:
 };
 
 
-#endif  // XMLUtil_hh
+#endif  // XMLUtil_hpp

@@ -47,12 +47,19 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#include "sbml/common.h"
+#include "sbml/common.hpp"
 
-#include <xercesc/util/PlatformUtils.hpp>
+
+#ifdef USE_EXPAT
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/util/PlatformUtils.hpp>
+#endif  // USE_EXPAT
+
 
 #include "sbml/XMLStringFormatter.hpp"
 #include "sbml/XMLUnicodeConstants.hpp"
@@ -71,11 +78,12 @@ XMLStringFormatter::XMLStringFormatter (const char* outEncoding)
   //
   // Initialize() is static, but may be called more than once safely.
   //
+#ifndef USE_EXPAT
   XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
 
   target    = new MemBufFormatTarget();
   formatter = XMLUtil::createXMLFormatter(outEncoding, target);
-
 }
 
 

@@ -47,16 +47,23 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#include <xercesc/framework/LocalFileFormatTarget.hpp>
-#include <xercesc/framework/MemBufFormatTarget.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-
 #include "sbml/common.h"
-#include "sbml/SBMLFormatter.hpp"
 
+
+#ifdef USE_EXPAT
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/framework/LocalFileFormatTarget.hpp>
+#  include <xercesc/framework/MemBufFormatTarget.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#endif  // !USE_EXPAT
+
+
+#include "sbml/SBMLFormatter.hpp"
 #include "sbml/SBMLWriter.h"
 
 
@@ -176,7 +183,9 @@ SBMLWriter_writeSBML ( SBMLWriter_t   *sw,
   {
     if ( !CharacterEncoding_isInvalid(sw->encoding) )
     {
+#ifndef USE_EXPAT
       XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
 
       encoding  = CharacterEncoding_toString(sw->encoding);
       target    = new LocalFileFormatTarget(filename);
@@ -230,7 +239,9 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, SBMLDocument_t *d)
   {
     if ( !CharacterEncoding_isInvalid(sw->encoding) )
     {
+#ifndef USE_EXPAT
       XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
 
       encoding  = CharacterEncoding_toString(sw->encoding);
       target    = new MemBufFormatTarget();

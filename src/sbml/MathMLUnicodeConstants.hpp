@@ -47,6 +47,7 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
@@ -54,8 +55,14 @@
 #define MathMLUnicodeConstants_hpp
 
 
-#include <xercesc/util/XMLUniDefs.hpp>
 #include "common.hpp"
+
+
+#ifdef USE_EXPAT
+#  include "ExpatUnicodeChars.hpp"
+#else
+#  include <xercesc/util/XMLUniDefs.hpp>
+#endif  // USE_EXPAT
 
 
 //

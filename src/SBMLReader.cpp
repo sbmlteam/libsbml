@@ -47,26 +47,33 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#include <iostream>
-
-#include <xercesc/framework/MemBufInputSource.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <xercesc/sax2/XMLReaderFactory.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xercesc/util/XMLString.hpp>
-
+#include <fstream>
 #include "sbml/common.h"
-#include "sbml/SBMLHandler.hpp"
 
+
+#ifdef USE_EXPAT
+typedef void SAX2XMLReader;
+#else
+#  include <xercesc/framework/MemBufInputSource.hpp>
+#  include <xercesc/sax2/DefaultHandler.hpp>
+#  include <xercesc/sax2/SAX2XMLReader.hpp>
+#  include <xercesc/sax2/XMLReaderFactory.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#  include <xercesc/util/XMLString.hpp>
+#endif  // USE_EXPAT
+
+
+#include "sbml/SBMLHandler.hpp"
 #include "sbml/List.h"
 #include "sbml/SBMLDocument.h"
 #include "sbml/SBMLReader.h"
 
 
+#ifndef USE_EXPAT
 /**
  * Creates a new ParseMessage from the given XMLException and returns a
  * pointer to it.
@@ -84,8 +91,7 @@ ParseMessage_createFrom (const XMLException& e)
 
   return pm;
 }
-
-
+#endif  // !USE_EXPAT
 
 
 /**
@@ -98,7 +104,13 @@ ParseMessage_createFrom (const XMLException& e)
 SAX2XMLReader*
 XMLReader_create (DefaultHandler* h)
 {
-  SAX2XMLReader* xr = XMLReaderFactory::createXMLReader();
+  SAX2XMLReader* xr;
+
+
+#ifdef USE_EXPAT
+  xr = NULL;
+#else
+  xr = XMLReaderFactory::createXMLReader();
 
 
   xr->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
@@ -106,11 +118,13 @@ XMLReader_create (DefaultHandler* h)
 
   xr->setContentHandler(h);
   xr->setErrorHandler  (h);
+#endif  // USE_EXPAT
 
   return xr;
 }
 
 
+#ifndef USE_EXPAT
 /**
  * Reads only the <sbml> element from either filename or MemBufInputSource.
  * The SBML level and version help determine the appropriate XML namespace
@@ -122,7 +136,7 @@ XMLReader_readSBMLElement ( SAX2XMLReader*     reader,
                             MemBufInputSource* input )
 {
   XMLPScanToken token;
-  bool          success;
+  bool          success = false;
 
 
   if (input != NULL)
@@ -170,8 +184,7 @@ XMLReader_setSchemaLocation (SAX2XMLReader* xr, const char* location)
 
   XMLString::release(&s);
 }
-
-
+#endif  // !USE_EXPAT
 
 
 /**
@@ -263,6 +276,52 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
                                const char*   filename,
                                const char*   xml )
 {
+#ifdef USE_EXPAT
+
+  SBMLDocument_t* d = SBMLDocument_create();
+  d->model = NULL;
+  
+  SBMLHandler handler(d);
+
+  handler.enableElementHandler();
+
+  try
+  {
+    if (xml)
+    {
+      handler.parse(xml, -1, true);
+    }
+    else if (filename)
+    {
+      std::ifstream is(filename);
+
+      if (is.fail()) throw;
+
+#define BUFFER_SIZE 0xfffe
+      char* pBuffer = new char[BUFFER_SIZE + 1];
+      bool  done    = false;
+
+      while (!done)
+      {
+        is.get(pBuffer, BUFFER_SIZE, 0);
+        
+        if (is.eof()) done = true;
+        if (is.fail() && !done) throw;
+            
+        if (!handler.parse(pBuffer, -1, done)) throw;
+      } 
+      delete [] pBuffer;
+#undef BUFFER_SIZE
+    }
+  }
+  catch (...)
+  {
+    Model_free(d->model);
+    d->model = NULL;
+  }
+
+#else
+
   SBMLDocument_t* d = SBMLDocument_create();
 
 
@@ -352,6 +411,8 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
 
   delete reader;
   delete handler;
+
+#endif  // USE_EXPAT
 
   return d;
 }

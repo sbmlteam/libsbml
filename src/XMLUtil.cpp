@@ -47,21 +47,27 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
 #include <iostream>
-
 #include "sbml/common.h"
 
-#include <xercesc/sax2/Attributes.hpp>
-#include <xercesc/util/XMLString.hpp>
-#include <xercesc/util/XMLUniDefs.hpp>
+
+#ifdef USE_EXPAT
+#  include "ExpatXMLString.hpp"
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/sax2/Attributes.hpp>
+#  include <xercesc/util/XMLString.hpp>
+#  include <xercesc/util/XMLUniDefs.hpp>
+#endif  // USE_EXPAT
+
 
 #include "sbml/SBMLUnicodeConstants.hpp"
 #include "sbml/XMLUnicodeConstants.hpp"
 #include "sbml/XMLUtil.hpp"
-
 
 /**
  * Creates a new XMLStringFormatter and returns a pointer to it.  This

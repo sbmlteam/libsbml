@@ -47,6 +47,7 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
@@ -54,8 +55,19 @@
 #define SBML_COMMON_HPP 1
 
 
-#include <xercesc/util/XercesVersion.hpp>
-#include <xercesc/util/XercesDefs.hpp>
+#if HAVE_CONFIG_H || WIN32
+#  include "config.h"
+#endif
+
+
+#ifdef USE_EXPAT
+#  define  XMLCh   XML_Char
+#  define  Locator XML_Char
+   typedef char    MemBufInputSource;
+#else
+#  include <xercesc/util/XercesVersion.hpp>
+#  include <xercesc/util/XercesDefs.hpp>
+#endif  // USE_EXPAT
 
 
 //

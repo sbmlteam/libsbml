@@ -47,15 +47,21 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
 #include <iostream>
+#include "sbml/common.hpp"
 
-#include "sbml/common.h"
 
-#include <xercesc/util/XMLString.hpp>
-#include <xercesc/util/XMLUniDefs.hpp>
+#ifdef USE_EXPAT
+#  include "ExpatXMLString.hpp"
+#else
+#  include <xercesc/util/XMLString.hpp>
+#  include <xercesc/util/XMLUniDefs.hpp>
+#endif  // USE_EXPAT
+
 
 #include "sbml/SBMLTagCodes.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"

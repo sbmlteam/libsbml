@@ -47,11 +47,19 @@
 ##     mailto:sysbio-team@caltech.edu
 ##
 ## Contributor(s):
+##   Stephan Hoops
 ##
 
 
 lib_LTLIBRARIES    = libsbml.la
 libsbml_la_LDFLAGS = -no-undefined -version-info 2:2:0
+
+
+if USE_EXPAT
+libsbml_la_CPPFLAGS = -I../expat
+libsbml_la_LIBADD   = -L../expat -lexpat-compat
+endif  ## USE_EXPAT
+
 
 nobase_include_HEADERS =          \
   sbml/AlgebraicRule.h            \
@@ -226,6 +234,11 @@ TestRunner_SOURCES =              \
   TestUnitKind.c                  \
   TestUnit.c                      \
   TestUtil.c
+
+
+if USE_EXPAT
+TestRunner_CPPFLAGS = -I../expat
+endif
 
 TestRunner_LDADD = libsbml.la
 

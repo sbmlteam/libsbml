@@ -47,6 +47,7 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
@@ -54,8 +55,15 @@
 #define MathMLHandler_hpp
 
 
-#include <xercesc/sax/Locator.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
+#ifdef USE_EXPAT
+#  include <expat.h>
+#  include "Expat.hpp"
+#  include "ExpatAttributes.hpp"
+#else
+#  include <xercesc/sax/Locator.hpp>
+#  include <xercesc/sax2/DefaultHandler.hpp>
+#endif  // USE_EXPAT
+
 
 #include "common.hpp"
 #include "MathMLTagCodes.hpp"
@@ -71,7 +79,11 @@
 // This XML document handler is responsible for constructing an an Abstract
 // Syntax Tree from SAX2 events deliverd by a SAX2XMLReader.
 //
+#ifdef USE_EXPAT
+class MathMLHandler : public Expat
+#else
 class MathMLHandler : public DefaultHandler
+#endif  // USE_EXPAT
 {
 
 public:
@@ -82,11 +94,32 @@ public:
   // Creates a new MathMLHandler.  The given MathMLDocument should be empty
   // and will be populated as the document is parsed.
   //
-  MathMLHandler (MathMLDocument_t *d) : fDocument(d) { };
+  MathMLHandler (MathMLDocument_t *d);
 
 
-  void startDocument ();
-  void endDocument   ();
+#ifdef USE_EXPAT
+  /**
+   * Start element handler
+   * @param const XML_Char *pszName
+   * @param const XML_Char **papszAttrs
+   */
+  virtual void onStartElement(const XML_Char *pszName,
+                              const XML_Char **papszAttrs);
+
+  /**
+   * End element handler
+   * @param const XML_Char *pszName
+   */
+  virtual void onEndElement(const XML_Char *pszName);
+
+  /**
+   * Character data handler
+   * @param const XML_Char *chars
+   * @param int length
+   */
+  virtual void onCharacterData(const XML_Char *chars, int length);
+
+#else
 
   void startElement
   (
@@ -104,6 +137,12 @@ public:
   );
 
   void characters(const XMLCh* const chars, const unsigned int length);
+
+#endif  // USE_EXPAT
+
+
+  void startDocument ();
+  void endDocument   ();
 
   void setDocumentLocator (const Locator *const locator);
 
@@ -130,6 +169,10 @@ private:
   const Locator* fLocator;
 
   bool fSeenSep;
+
+#ifdef USE_EXPAT
+  std::string mCharacterData;
+#endif  // USE_EXPAT
 };
 
 

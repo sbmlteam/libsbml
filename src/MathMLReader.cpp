@@ -47,18 +47,22 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
 #include <iostream>
-
-#include <xercesc/framework/MemBufInputSource.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
-#include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <xercesc/sax2/XMLReaderFactory.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-
 #include "sbml/common.h"
+
+
+#ifndef USE_EXPAT
+#  include <xercesc/framework/MemBufInputSource.hpp>
+#  include <xercesc/sax2/DefaultHandler.hpp>
+#  include <xercesc/sax2/SAX2XMLReader.hpp>
+#  include <xercesc/sax2/XMLReaderFactory.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#endif  // !USE_EXPAT
+
 
 #include "sbml/List.h"
 #include "sbml/MathMLHandler.hpp"
@@ -75,6 +79,45 @@ readMathMLFromString (const char *xml)
 {
   if (xml == NULL) return NULL;
 
+
+#ifdef USE_EXPAT
+
+  static MathMLDocument_t* d = NULL;
+
+  if (!d)
+  {
+    d = MathMLDocument_create();
+  }
+  else
+  {
+    d->math = NULL;
+  }
+  
+  static MathMLHandler* handler = NULL;
+
+  if (!handler)
+  {
+    handler = new MathMLHandler(d);
+    handler->enableElementHandler();
+  }
+  else
+  {
+    handler->create();
+    handler->enableElementHandler();
+  }
+
+  try
+  {
+    handler->startDocument();
+    handler->parse(xml, -1, true);
+    handler->endDocument();
+  }
+  catch (...)
+  {
+
+  }
+
+#else
 
   try
   {
@@ -113,6 +156,8 @@ readMathMLFromString (const char *xml)
   delete input;
   delete reader;
   delete handler;
+
+#endif  // USE_EXPAT
 
   return d;
 }

@@ -47,6 +47,7 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
@@ -81,14 +82,7 @@
   extern int errno;
 #endif
 
-#if HAVE_LIBCHECK
-#  include <check.h>
-#endif
-
-
 #if WIN32 && !defined(CYGWIN)
-
-#undef  HAVE_LIBCHECK
 
 #define finite(d)  _finite(d)
 #define isnan(d)   _isnan(d)

@@ -47,17 +47,23 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#ifndef SAX2AttributesMock_hh
-#define SAX2AttributesMock_hh
+#ifndef SAX2AttributesMock_hpp
+#define SAX2AttributesMock_hpp
 
-
-#include <xercesc/sax2/Attributes.hpp>
-#include <xercesc/util/XMLString.hpp>
 
 #include "common.hpp"
+
+
+#ifdef USE_EXPAT
+#  include "ExpatAttributes.hpp"
+#else
+#  include <xercesc/sax2/Attributes.hpp>
+#  include <xercesc/util/XMLString.hpp>
+#endif
 
 
 //
@@ -85,7 +91,6 @@
 //
 class SAX2AttributesMock : public Attributes
 {
-
 public:
 
   // ----------------------------------------------------------------------
@@ -107,30 +112,34 @@ public:
 
   virtual unsigned int getLength() const;
 
-	virtual const XMLCh* getURI       (const unsigned int index) const;
+  virtual const XMLCh* getURI       (const unsigned int index) const;
   virtual const XMLCh* getLocalName (const unsigned int index) const;
   virtual const XMLCh* getQName     (const unsigned int index) const;
   virtual const XMLCh* getType      (const unsigned int index) const;
   virtual const XMLCh* getValue     (const unsigned int index) const;
 
-	virtual int getIndex (
-    const XMLCh* const  uri,
-    const XMLCh* const  localPart
-  ) const;
+  virtual int getIndex (
+                        const XMLCh* const  uri,
+                        const XMLCh* const  localPart
+                        ) const;
 
-	virtual int getIndex(const XMLCh* const qName ) const;
+#ifdef USE_EXPAT
+  virtual unsigned int getIndex(const XMLCh* const qName ) const;
+#else
+  virtual int getIndex(const XMLCh* const qName ) const;
+#endif  // USE_EXPAT
 
-	virtual const XMLCh* getType (
-    const XMLCh* const  uri,
-    const XMLCh* const  localPart
-  ) const;
+  virtual const XMLCh* getType (
+                                const XMLCh* const  uri,
+                                const XMLCh* const  localPart
+                                ) const;
 
   virtual const XMLCh* getType(const XMLCh* const qName) const;
 
-	virtual const XMLCh* getValue (
-    const XMLCh* const  uri,
-    const XMLCh* const  localPart
-  ) const;
+  virtual const XMLCh* getValue (
+                                 const XMLCh* const  uri,
+                                 const XMLCh* const  localPart
+                                 ) const;
 
   virtual const XMLCh* getValue (const XMLCh* const qName) const;
 
@@ -152,8 +161,7 @@ private:
   XMLCh**       fValues;
   unsigned int  fMax;
   unsigned int  fLength;
-
 };
 
 
-#endif  // SAX2AttributesMock_hh
+#endif  // SAX2AttributesMock_hpp

@@ -47,22 +47,29 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#ifndef MathMLFormatter_hh
-#define MathMLFormatter_hh
+#ifndef MathMLFormatter_hpp
+#define MathMLFormatter_hpp
 
-
-#include <xercesc/framework/XMLFormatter.hpp>
-#include <xercesc/framework/MemBufFormatTarget.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xercesc/util/XMLString.hpp>
-#include <xercesc/util/XMLUniDefs.hpp>
-
-#include "ASTNode.h"
 
 #include "common.hpp"
+
+
+#ifdef USE_EXPAT
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/framework/XMLFormatter.hpp>
+#  include <xercesc/framework/MemBufFormatTarget.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#  include <xercesc/util/XMLString.hpp>
+#  include <xercesc/util/XMLUniDefs.hpp>
+#endif  // USE_EXPAT
+
+
+#include "ASTNode.h"
 #include "MathMLDocument.h" 
 
 
@@ -89,12 +96,9 @@ public:
    *
    *   <?xml version="1.0" encoding="..."?>
    */
-  MathMLFormatter
-  (
-    const char*      outEncoding,
-    XMLFormatTarget* target,
-    bool             outputXMLDecl
-  );
+  MathMLFormatter (const char*      outEncoding,
+                   XMLFormatTarget* target,
+                   bool             outputXMLDecl);
 
   /**
    * Dtor
@@ -309,15 +313,17 @@ private:
   // Sends ' name=value' to the underlying XMLFormatter where value is an
   // appropriate string representation for the given type.
   //
-
+#ifndef USE_EXPAT
   void attribute ( const XMLCh* name, const char*  value );
+#endif  // !USE_EXPAT
   void attribute ( const XMLCh* name, const XMLCh* value );
 
   //
   // Sends the given string of characters to the underlying XMLFormatter.
   //
-
+#ifndef USE_EXPAT
   void characters (const char*  chars);
+#endif  // !USE_EXPAT
   void characters (const XMLCh* chars);
 
   /**
@@ -348,4 +354,4 @@ private:
 };
 
 
-#endif  // MathMLFormatter_hh
+#endif  // MathMLFormatter_hpp

@@ -47,16 +47,23 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#include <xercesc/framework/LocalFileFormatTarget.hpp>
-#include <xercesc/framework/MemBufFormatTarget.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
+#include "sbml/common.h"
+
+
+#ifdef USE_EXPAT
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/framework/LocalFileFormatTarget.hpp>
+#  include <xercesc/framework/MemBufFormatTarget.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#endif  // USE_EXPAT
+
 
 #include "sbml/MathMLFormatter.hpp"
-
-#include "sbml/common.h"
 #include "sbml/MathMLDocument.h"
 #include "sbml/MathMLWriter.h"
 
@@ -79,7 +86,9 @@ writeMathML (MathMLDocument_t *d, const char *filename)
 
   try
   {
+#ifndef USE_EXPAT
     XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
 
     target    = new LocalFileFormatTarget(filename);
     formatter = new MathMLFormatter(encoding, target, true);
@@ -127,12 +136,15 @@ writeMathMLToString (MathMLDocument_t *d)
 
   try
   {
+#ifndef USE_EXPAT
     XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
 
     target    = new MemBufFormatTarget();
     formatter = new MathMLFormatter(encoding, target, true);
 
     *formatter << d;
+
     result = safe_strdup( (char *) target->getRawBuffer() );
   }
   catch (...)

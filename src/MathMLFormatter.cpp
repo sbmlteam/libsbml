@@ -1,4 +1,4 @@
-/**
+ /**
  * Filename    : MathMLFormatter.cpp
  * Description : Formats MathML
  * Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
@@ -47,10 +47,20 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
 #include "sbml/common.h"
+
+
+#ifdef USE_EXPAT
+#  include "ExpatUnicodeChars.hpp"
+#  include "ExpatFormatter.hpp"
+#  include "ExpatXMLString.hpp"
+#endif  // USE_EXPAT
+
+
 #include "sbml/MathMLFormatter.hpp"
 #include "sbml/MathMLUnicodeConstants.hpp" 
 #include "sbml/XMLUnicodeConstants.hpp"
@@ -124,18 +134,26 @@ MathMLFormatter::MathMLFormatter ( const char*      outEncoding,
   //
   // Initialize() is static and may be called more than once safely.
   //
-  XMLPlatformUtils::Initialize();
-
   fIndentLevel = 0;
-
   fTarget    = target;
+
+#ifndef USE_EXPAT
+  XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
+
   fFormatter = XMLUtil::createXMLFormatter(outEncoding, fTarget);
 
   if (outputXMLDecl)
   {
     *fFormatter
       << XML_DECL_1
+
+#ifdef USE_EXPAT
+      << "UTF-8"
+#else
       << fFormatter->getEncodingName()
+#endif  // USE_EXPAT
+
       << XML_DECL_2;
   }
 }
@@ -317,7 +335,7 @@ MathMLFormatter::operator<< (double value)
     endElement(ELEM_APPLY);
     return *this;
   }
-  else if (isnan(value))
+  else if (value != value)
   {
     startEndElement(ELEM_NOT_A_NUMBER);
     return *this;
@@ -985,6 +1003,7 @@ MathMLFormatter::slashCloseStartElement ()
 }
 
 
+#ifndef USE_EXPAT
 /**
  * Sends ' name="%s" to the underlying XMLFormatter (where %s is a C string).
  */
@@ -1006,6 +1025,7 @@ MathMLFormatter::attribute (const XMLCh* name, const char* value)
     XMLString::release(&s);
   }
 }
+#endif  // !USE_EXPAT
 
 
 /**
@@ -1032,6 +1052,7 @@ MathMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 }
 
 
+#ifndef USE_EXPAT
 /**
  * Sends the given string of characters to the underlying XMLFormatter.
  */
@@ -1045,6 +1066,7 @@ MathMLFormatter::characters (const char* chars)
 
   XMLString::release(&s);
 }
+#endif  // !USE_EXPAT
 
 
 /**
@@ -1056,7 +1078,6 @@ MathMLFormatter::characters (const XMLCh* chars)
 {
   *fFormatter << XMLFormatter::CharEscapes << chars;
 }
-
 
 /**
  * Sends whitespace to the underlying XMLFormatter based on the current

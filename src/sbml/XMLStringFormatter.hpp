@@ -47,18 +47,27 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#ifndef XMLStringFormatter_hh
-#define XMLStringFormatter_hh
+#ifndef XMLStringFormatter_hpp
+#define XMLStringFormatter_hpp
 
-#include <xercesc/sax2/Attributes.hpp>
-#include <xercesc/framework/XMLFormatter.hpp>
-#include <xercesc/framework/MemBufFormatTarget.hpp>
-#include <xercesc/util/XMLUniDefs.hpp>
 
 #include "common.hpp"
+
+
+#ifdef USE_EXPAT
+#  include <expat.h>
+#  include "ExpatAttributes.hpp"
+#  include "ExpatFormatter.hpp"
+#else
+#  include <xercesc/sax2/Attributes.hpp>
+#  include <xercesc/framework/XMLFormatter.hpp>
+#  include <xercesc/framework/MemBufFormatTarget.hpp>
+#  include <xercesc/util/XMLUniDefs.hpp>
+#endif  // USE_EXPAT
 
 
 //
@@ -169,4 +178,4 @@ private:
 };
 
 
-#endif  // XMLStringFormatter_hh
+#endif  // XMLStringFormatter_hpp

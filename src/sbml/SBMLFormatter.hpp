@@ -47,23 +47,29 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stefan Hoops
  */
 
 
-#ifndef SBMLFormatter_hh
-#define SBMLFormatter_hh
+#ifndef SBMLFormatter_hpp
+#define SBMLFormatter_hpp
 
 
-#include <xercesc/framework/XMLFormatter.hpp>
-#include <xercesc/framework/MemBufFormatTarget.hpp>
-#include <xercesc/util/PlatformUtils.hpp>
-#include <xercesc/util/XMLString.hpp>
-#include <xercesc/util/XMLUniDefs.hpp>
+#include "common.hpp"
+
+
+#ifndef USE_EXPAT
+#  include <xercesc/framework/XMLFormatter.hpp>
+#  include <xercesc/framework/MemBufFormatTarget.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#  include <xercesc/util/XMLString.hpp>
+#  include <xercesc/util/XMLUniDefs.hpp>
+#endif  // !USE_EXPAT
+
 
 #include "List.h"
 #include "SBMLTypes.h"
 
-#include "common.hpp"
 #include "MathMLFormatter.hpp" 
 #include "SBMLUnicodeConstants.hpp" 
 
@@ -285,7 +291,9 @@ private:
   void attribute ( const XMLCh* name, int          value );
   void attribute ( const XMLCh* name, unsigned int value );
   void attribute ( const XMLCh* name, double       value );
+#ifndef USE_EXPAT
   void attribute ( const XMLCh* name, const char*  value );
+#endif  // !USE_EXPAT
   void attribute ( const XMLCh* name, const XMLCh* value );
 
   /**
@@ -321,4 +329,4 @@ private:
 };
 
 
-#endif  // SBMLFormatter_hh
+#endif  // SBMLFormatter_hpp
