@@ -89,6 +89,9 @@ START_TEST (test_SBase_init)
   fail_unless(S->typecode   == SBML_MODEL, NULL);
   fail_unless(S->notes      == NULL, NULL);
   fail_unless(S->annotation == NULL, NULL);
+
+  fail_unless( !SBase_isSetNotes     (S), NULL );
+  fail_unless( !SBase_isSetAnnotation(S), NULL );
 }
 END_TEST
 
@@ -108,6 +111,7 @@ START_TEST (test_SBase_setNotes)
   SBase_setNotes(S, notes);
 
   fail_unless( !strcmp(S->notes, notes), NULL );
+  fail_unless( SBase_isSetNotes(S)     , NULL );
 
   if (S->notes == notes)
   {
@@ -115,6 +119,7 @@ START_TEST (test_SBase_setNotes)
   }
 
   SBase_setNotes(S, NULL);
+  fail_unless( !SBase_isSetNotes(S), NULL );
 
   if (S->notes != NULL)
   {
@@ -132,6 +137,7 @@ START_TEST (test_SBase_setAnnotation)
   SBase_setAnnotation(S, annotation);
 
   fail_unless( !strcmp(S->annotation, annotation), NULL );
+  fail_unless( SBase_isSetAnnotation(S), NULL );
 
   if (S->annotation == annotation)
   {
@@ -139,6 +145,7 @@ START_TEST (test_SBase_setAnnotation)
   }
 
   SBase_setAnnotation(S, NULL);
+  fail_unless( !SBase_isSetAnnotation(S), NULL );
 
   if (S->annotation != NULL)
   {

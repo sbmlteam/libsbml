@@ -50,7 +50,6 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/SBase.h"
 
 
@@ -60,6 +59,7 @@
  * are initialized with this function.  The type of the specific "subclass"
  * is indicated by the given SBMLTypeCode.
  */
+LIBSBML_EXTERN
 void
 SBase_init (SBase_t *sb, SBMLTypeCode_t tc)
 {
@@ -72,6 +72,7 @@ SBase_init (SBase_t *sb, SBMLTypeCode_t tc)
 /**
  * Clears (frees) only the SBASE_FIELDS of sb.
  */
+LIBSBML_EXTERN
 void
 SBase_clear (SBase_t *sb)
 {
@@ -83,10 +84,67 @@ SBase_clear (SBase_t *sb)
 
 
 /**
+ * @return the type of this SBML object.
+ */
+LIBSBML_EXTERN
+SBMLTypeCode_t
+SBase_getTypeCode (const SBase_t *sb)
+{
+  return sb->typecode;
+}
+
+
+/**
+ * @return the notes for this SBML object.
+ */
+LIBSBML_EXTERN
+const char *
+SBase_getNotes (const SBase_t *sb)
+{
+  return sb->notes;
+}
+
+
+/**
+ * @return the annotation for this SBML object.
+ */
+LIBSBML_EXTERN
+const char *
+SBase_getAnnotation (const SBase_t *sb)
+{
+  return sb->annotation;
+}
+
+
+/**
+ * @return 1 if the notes for this SBML object has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBase_isSetNotes (const SBase_t *sb)
+{
+  return (sb->notes != NULL);
+}
+
+
+/**
+ * @return 1 if the annotation for this SBML object has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBase_isSetAnnotation (const SBase_t *sb)
+{
+  return (sb->annotation != NULL);
+}
+
+
+/**
  * Sets the notes field of the given SBML object to a copy of notes.  If
  * object already has notes, the existing string is freed before the new
  * one is copied.
  */
+LIBSBML_EXTERN
 void
 SBase_setNotes(SBase_t *sb, const char *notes)
 {
@@ -104,6 +162,7 @@ SBase_setNotes(SBase_t *sb, const char *notes)
  * annotations.  If object already has an annotation, the existing string
  * is freed before the new one is copied.
  */
+LIBSBML_EXTERN
 void
 SBase_setAnnotation(SBase_t *sb, const char *annotation)
 {
@@ -113,4 +172,30 @@ SBase_setAnnotation(SBase_t *sb, const char *annotation)
   }
 
   sb->annotation = (annotation == NULL) ? NULL : safe_strdup(annotation);
+}
+
+
+/**
+ * Unsets the notes for this SBML object.  This is equivalent to:
+ * safe_free(sb->notes); s->notes = NULL;
+ */
+LIBSBML_EXTERN
+void
+SBase_unsetNotes (SBase_t *sb)
+{
+  safe_free(sb->notes);
+  sb->notes = NULL;
+}
+
+
+/**
+ * Unsets the annotation for this SBML object.  This is equivalent to:
+ * safe_free(sb->annotation); s->annotation = NULL;
+ */
+LIBSBML_EXTERN
+void
+SBase_unsetAnnotation (SBase_t *sb)
+{
+  safe_free(sb->annotation);
+  sb->annotation = NULL;
 }
