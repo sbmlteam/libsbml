@@ -140,8 +140,12 @@ START_TEST (test_Validator_multipleRulesOnSameEntityType)
   (
     "<listOfUnitDefinitions>"
     "  <unitDefinition id='litre'/>"      /* error: litre is illegal */
-    "  <unitDefinition id='substance'/>"  /* error: 'substance' non-unique */
-    "  <unitDefinition id='substance'/>"
+    "  <unitDefinition id='substance'>"   /* error: 'substance' non-unique */
+    "    <listOfUnits><unit kind='mole'/></listOfUnits>"
+    "  </unitDefinition>"
+    "  <unitDefinition id='substance'>"
+    "    <listOfUnits><unit kind='mole'/></listOfUnits>"
+    "  </unitDefinition>"
     "</listOfUnitDefinitions>"
   );
 
