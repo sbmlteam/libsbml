@@ -180,7 +180,7 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument::getNumWarnings () const
 {
-  warning.getSize();
+  return warning.getSize();
 }
 
 
