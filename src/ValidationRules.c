@@ -134,12 +134,34 @@ RULE (kineticLaw_substanceUnits)
 }
 
 
+RULE (unitDefinition_idCantBePredefinedUnit)
+{
+  unsigned int passed = 1;
+
+  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
+  const char *id = UnitDefinition_getId(ud);
+
+  static const char msg[] =
+    "The id of a unitDefinition must not be a predefined kind of unit.";
+
+  if (UnitKind_isValidUnitKindString(id))
+  {
+    passed = 0;
+    LOG_MESSAGE(msg);
+  }
+
+  return passed;
+}
+
+
 /**
  * Adds the default ValidationRule set to this Validator.
  */
 void
 Validator_addDefaultRules (Validator_t *v)
 {
-  Validator_addRule( v, compartment_size_dimensions, SBML_COMPARTMENT );
-  Validator_addRule( v, kineticLaw_substanceUnits  , SBML_REACTION    );
+  Validator_addRule( v, compartment_size_dimensions, SBML_COMPARTMENT    );
+  Validator_addRule( v, kineticLaw_substanceUnits  , SBML_REACTION       );
+  Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
+                                                     SBML_UNIT_DEFINITION );
 }
