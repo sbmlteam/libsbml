@@ -223,6 +223,7 @@ AC_CONFIG_FILES([./Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([bindings/Makefile])
 AC_CONFIG_FILES([bindings/python/Makefile])
+AC_CONFIG_FILES([bindings/python/setup.py])
 AC_CONFIG_FILES([bindings/matlab/Makefile])
 AC_CONFIG_FILES([bindings/java/Makefile])
 
