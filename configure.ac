@@ -2,7 +2,7 @@ dnl
 dnl Filename    : Makefile.am
 dnl Description : Process this file with autoconf (2.57) to produce a
 dnl Description : configure script.
-dnl Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
+dnl Author(s)   : SBML Development Group <sbml-team@caltech.edu>
 dnl Organization: JST ERATO Kitano Symbiotic Systems Project
 dnl Created     : 2003-02-13
 dnl Revision    : $Id$
@@ -45,7 +45,7 @@ dnl     California Institute of Technology
 dnl     Pasadena, CA, 91125, USA
 dnl
 dnl     http://www.cds.caltech.edu/erato
-dnl     mailto:sysbio-team@caltech.edu
+dnl     mailto:sbml-team@caltech.edu
 dnl
 dnl Contributor(s):
 dnl
@@ -54,10 +54,10 @@ dnl
 dnl ---------------------------------------------------------------------------
 dnl Autoconf and Automake initialization.
 dnl
-dnl Bug reports are sent to sysbio-team@cds.caltech.edu
+dnl Bug reports are sent to sbml-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
-AC_INIT([SBML Library], [2.0.2], [sysbio-team@caltech.edu], [libsbml])
+AC_INIT([SBML Library], [2.0.2], [sbml-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE
 
@@ -78,20 +78,37 @@ dnl ---------------------------------------------------------------------------
 dnl Command-line options
 dnl ---------------------------------------------------------------------------
 
-AC_ARG_ENABLE(memory-tracing,
+AC_ARG_ENABLE([memory-tracing],
   AC_HELP_STRING([--enable-memory-tracing],
                  [Enable memory tracing (default: disabled)]),
-    [if test "$enableval" = yes; then
-      AC_DEFINE([TRACE_MEMORY], 1,
-                [Define to 1 to enable primitive memory tracing.])
-     fi
-    ])
+  [if test "$enableval" = yes; then
+    AC_DEFINE([TRACE_MEMORY], 1,
+              [Define to 1 to enable primitive memory tracing.])
+   fi
+  ])
 
-AC_ARG_ENABLE(check,
-    AC_HELP_STRING([--enable-check],
-                   [Build the libsbml test suite (default: disabled)]),
-    [libcheck_enabled="$enableval"],
-    [libcheck_enabled=${libcheck_enabled="no"}])
+AC_ARG_ENABLE([check],
+  AC_HELP_STRING([--enable-check],
+                 [Build the libsbml test suite (default: disabled)]),
+  [libcheck_enabled="$enableval"],
+  [libcheck_enabled=${libcheck_enabled="no"}])
+
+AC_ARG_WITH([xerces],
+  AC_HELP_STRING([--with-xerces=PREFIX],
+                 [Use Xerces XML Library [[default=yes]]]),
+  [with_xerces=$withval],
+  [with_xerces=yes])
+
+AC_ARG_WITH([expat],
+  AC_HELP_STRING([--with-expat=PREFIX],
+                 [Use Expat XML Library [[default=no]]]),
+  [with_expat=$withval],
+  [with_expat=no])
+
+if test $with_expat != no; then
+  with_xerces=no
+  AC_DEFINE([USE_EXPAT], 1, [Define to 1 to use the Expat XML library])
+fi
 
 
 dnl ---------------------------------------------------------------------------
@@ -139,17 +156,28 @@ AC_SUBST(TestDataDirectory)
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for libraries.
+dnl
+dnl Check for either the Xerces or Expat XML libraries.
+dnl The default is Xerces.
 dnl ---------------------------------------------------------------------------
 
 AC_LANG(C)
 
-if test "$libcheck_enabled" = "yes"; then
+if test $libcheck_enabled != no; then
   AC_CHECK_LIB(check, srunner_create)
 fi
 
 AC_CHECK_LIB(m, isnan)
 
-SBML_CHECK_LIB_XERCESC
+
+AC_LIB_XERCES
+AC_LIB_EXPAT
+
+if test $with_xerces != no; then
+  xml_library="Xerces-C++"
+else
+  xml_library="Expat"
+fi
 
 
 dnl ---------------------------------------------------------------------------
@@ -182,9 +210,11 @@ dnl ---------------------------------------------------------------------------
 dnl Output
 dnl ---------------------------------------------------------------------------
 
-AM_CONDITIONAL(LIBCHECK_ENABLED, test "$libcheck_enabled" = "yes")
+AM_CONDITIONAL(LIBCHECK_ENABLED, test "$libcheck_enabled" != "no")
+AM_CONDITIONAL(USE_EXPAT, test "$with_expat" != "no")
 
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([expat/Makefile])
 AC_CONFIG_FILES([src/Makefile])
 
 AC_OUTPUT
@@ -204,6 +234,7 @@ echo "----------------------------------"
 echo "  host os     = $host_os"
 echo "  install dir = $prefix"
 echo "  test suite  = $libcheck_enabled"
+echo "  XML library = $xml_library"
 echo "  CC          = $CC"
 echo "  CXX         = $CXX"
 echo "  CFLAGS      = $CFLAGS"

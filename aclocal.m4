@@ -1,4 +1,4 @@
-# generated automatically by aclocal 1.7.6 -*- Autoconf -*-
+# generated automatically by aclocal 1.7.2 -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002
 # Free Software Foundation, Inc.
@@ -16,7 +16,7 @@
 # This macro actually does too much some checks are only needed if
 # your package does certain things.  But this isn't really a big deal.
 
-# Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003
+# Copyright 1996, 1997, 1998, 1999, 2000, 2001, 2002
 # Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
@@ -34,7 +34,14 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
 # 02111-1307, USA.
 
-# serial 10
+# serial 8
+
+# There are a few dirty hacks below to avoid letting `AC_PROG_CC' be
+# written in clear, in which case automake, when reading aclocal.m4,
+# will think it sees a *use*, and therefore will trigger all it's
+# C support machinery.  Also note that it means that autoscan, seeing
+# CC etc. in the Makefile, will ask for an AC_PROG_CC use...
+
 
 AC_PREREQ([2.54])
 
@@ -79,8 +86,8 @@ m4_ifval([$2],
  AC_SUBST([PACKAGE], [$1])dnl
  AC_SUBST([VERSION], [$2])],
 [_AM_SET_OPTIONS([$1])dnl
- AC_SUBST([PACKAGE], ['AC_PACKAGE_TARNAME'])dnl
- AC_SUBST([VERSION], ['AC_PACKAGE_VERSION'])])dnl
+ AC_SUBST([PACKAGE], [AC_PACKAGE_TARNAME])dnl
+ AC_SUBST([VERSION], [AC_PACKAGE_VERSION])])dnl
 
 _AM_IF_OPTION([no-define],,
 [AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE", [Name of package])
@@ -101,7 +108,6 @@ AM_PROG_INSTALL_STRIP
 # some platforms.
 AC_REQUIRE([AC_PROG_AWK])dnl
 AC_REQUIRE([AC_PROG_MAKE_SET])dnl
-AC_REQUIRE([AM_SET_LEADING_DOT])dnl
 
 _AM_IF_OPTION([no-dependencies],,
 [AC_PROVIDE_IFELSE([AC_PROG_CC],
@@ -124,16 +130,7 @@ AC_PROVIDE_IFELSE([AC_PROG_CXX],
 # loop where config.status creates the headers, so we can generate
 # our stamp files there.
 AC_DEFUN([_AC_AM_CONFIG_HEADER_HOOK],
-[# Compute $1's index in $config_headers.
-_am_stamp_count=1
-for _am_header in $config_headers :; do
-  case $_am_header in
-    $1 | $1:* )
-      break ;;
-    * )
-      _am_stamp_count=`expr $_am_stamp_count + 1` ;;
-  esac
-done
+[_am_stamp_count=`expr ${_am_stamp_count-0} + 1`
 echo "timestamp for $1" >`AS_DIRNAME([$1])`/stamp-h[]$_am_stamp_count])
 
 # Copyright 2002  Free Software Foundation, Inc.
@@ -163,7 +160,7 @@ AC_DEFUN([AM_AUTOMAKE_VERSION],[am__api_version="1.7"])
 # Call AM_AUTOMAKE_VERSION so it can be traced.
 # This function is AC_REQUIREd by AC_INIT_AUTOMAKE.
 AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
-	 [AM_AUTOMAKE_VERSION([1.7.6])])
+	 [AM_AUTOMAKE_VERSION([1.7.2])])
 
 # Helper functions for option handling.                    -*- Autoconf -*-
 
@@ -449,42 +446,9 @@ fi
 INSTALL_STRIP_PROGRAM="\${SHELL} \$(install_sh) -c -s"
 AC_SUBST([INSTALL_STRIP_PROGRAM])])
 
-#                                                          -*- Autoconf -*-
-# Copyright (C) 2003  Free Software Foundation, Inc.
+# serial 4						-*- Autoconf -*-
 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
-# any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-# 02111-1307, USA.
-
-# serial 1
-
-# Check whether the underlying file-system supports filenames
-# with a leading dot.  For instance MS-DOS doesn't.
-AC_DEFUN([AM_SET_LEADING_DOT],
-[rm -rf .tst 2>/dev/null
-mkdir .tst 2>/dev/null
-if test -d .tst; then
-  am__leading_dot=.
-else
-  am__leading_dot=_
-fi
-rmdir .tst 2>/dev/null
-AC_SUBST([am__leading_dot])])
-
-# serial 5						-*- Autoconf -*-
-
-# Copyright (C) 1999, 2000, 2001, 2002, 2003  Free Software Foundation, Inc.
+# Copyright 1999, 2000, 2001 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -545,32 +509,18 @@ AC_CACHE_CHECK([dependency style of $depcc],
   # using a relative directory.
   cp "$am_depcomp" conftest.dir
   cd conftest.dir
-  # We will build objects and dependencies in a subdirectory because
-  # it helps to detect inapplicable dependency modes.  For instance
-  # both Tru64's cc and ICC support -MD to output dependencies as a
-  # side effect of compilation, but ICC will put the dependencies in
-  # the current directory while Tru64 will put them in the object
-  # directory.
-  mkdir sub
 
   am_cv_$1_dependencies_compiler_type=none
   if test "$am_compiler_list" = ""; then
      am_compiler_list=`sed -n ['s/^#*\([a-zA-Z0-9]*\))$/\1/p'] < ./depcomp`
   fi
   for depmode in $am_compiler_list; do
-    # Setup a source with many dependencies, because some compilers
-    # like to wrap large dependency lists on column 80 (with \), and
-    # we should not choose a depcomp mode which is confused by this.
-    #
     # We need to recreate these files for each test, as the compiler may
     # overwrite some of them when testing with obscure command lines.
     # This happens at least with the AIX C compiler.
-    : > sub/conftest.c
-    for i in 1 2 3 4 5 6; do
-      echo '#include "conftst'$i'.h"' >> sub/conftest.c
-      : > sub/conftst$i.h
-    done
-    echo "${am__include} ${am__quote}sub/conftest.Po${am__quote}" > confmf
+    echo '#include "conftest.h"' > conftest.c
+    echo 'int i;' > conftest.h
+    echo "${am__include} ${am__quote}conftest.Po${am__quote}" > confmf
 
     case $depmode in
     nosideeffect)
@@ -588,20 +538,13 @@ AC_CACHE_CHECK([dependency style of $depcc],
     # mode.  It turns out that the SunPro C++ compiler does not properly
     # handle `-M -o', and we need to detect this.
     if depmode=$depmode \
-       source=sub/conftest.c object=sub/conftest.${OBJEXT-o} \
-       depfile=sub/conftest.Po tmpdepfile=sub/conftest.TPo \
-       $SHELL ./depcomp $depcc -c -o sub/conftest.${OBJEXT-o} sub/conftest.c \
-         >/dev/null 2>conftest.err &&
-       grep sub/conftst6.h sub/conftest.Po > /dev/null 2>&1 &&
-       grep sub/conftest.${OBJEXT-o} sub/conftest.Po > /dev/null 2>&1 &&
+       source=conftest.c object=conftest.o \
+       depfile=conftest.Po tmpdepfile=conftest.TPo \
+       $SHELL ./depcomp $depcc -c -o conftest.o conftest.c >/dev/null 2>&1 &&
+       grep conftest.h conftest.Po > /dev/null 2>&1 &&
        ${MAKE-make} -s -f confmf > /dev/null 2>&1; then
-      # icc doesn't choke on unknown options, it will just issue warnings
-      # (even with -Werror).  So we grep stderr for any message
-      # that says an option was ignored.
-      if grep 'ignoring option' conftest.err >/dev/null 2>&1; then :; else
-        am_cv_$1_dependencies_compiler_type=$depmode
-        break
-      fi
+      am_cv_$1_dependencies_compiler_type=$depmode
+      break
     fi
   done
 
@@ -623,8 +566,16 @@ AM_CONDITIONAL([am__fastdep$1], [
 # Choose a directory name for dependency files.
 # This macro is AC_REQUIREd in _AM_DEPENDENCIES
 AC_DEFUN([AM_SET_DEPDIR],
-[AC_REQUIRE([AM_SET_LEADING_DOT])dnl
-AC_SUBST([DEPDIR], ["${am__leading_dot}deps"])dnl
+[rm -f .deps 2>/dev/null
+mkdir .deps 2>/dev/null
+if test -d .deps; then
+  DEPDIR=.deps
+else
+  # MS-DOS does not allow filenames that begin with a dot.
+  DEPDIR=_deps
+fi
+rmdir .deps 2>/dev/null
+AC_SUBST([DEPDIR])
 ])
 
 
@@ -728,7 +679,7 @@ AC_DEFUN([AM_OUTPUT_DEPENDENCY_COMMANDS],
 
 # Check to see how 'make' treats includes.	-*- Autoconf -*-
 
-# Copyright (C) 2001, 2002, 2003 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2002 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -753,9 +704,8 @@ AC_DEFUN([AM_OUTPUT_DEPENDENCY_COMMANDS],
 AC_DEFUN([AM_MAKE_INCLUDE],
 [am_make=${MAKE-make}
 cat > confinc << 'END'
-am__doit:
+doit:
 	@echo done
-.PHONY: am__doit
 END
 # If we don't find an include directive, just comment out the code.
 AC_MSG_CHECKING([for style of include used by $am_make])
@@ -783,9 +733,9 @@ if test "$am__include" = "#"; then
       _am_result=BSD
    fi
 fi
-AC_SUBST([am__include])
-AC_SUBST([am__quote])
-AC_MSG_RESULT([$_am_result])
+AC_SUBST(am__include)
+AC_SUBST(am__quote)
+AC_MSG_RESULT($_am_result)
 rm -f confinc confmf
 ])
 
@@ -6665,34 +6615,200 @@ SED=$lt_cv_path_SED
 AC_MSG_RESULT([$SED])
 ])
 
+dnl
+dnl Filename    : xercesc.m4
+dnl Description : Autoconf macro to check for existence of Xerces-C library
+dnl Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
+dnl Organization: JST ERATO Kitano Symbiotic Systems Project
+dnl Created     : 2003-02-14
+dnl Revision    : $Id$
+dnl Source      : $Source$
+dnl
+dnl Copyright 2002 California Institute of Technology and
+dnl Japan Science and Technology Corporation.
+dnl
+dnl This library is free software; you can redistribute it and/or modify it
+dnl under the terms of the GNU Lesser General Public License as published
+dnl by the Free Software Foundation; either version 2.1 of the License, or
+dnl any later version.
+dnl
+dnl This library is distributed in the hope that it will be useful, but
+dnl WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+dnl MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+dnl documentation provided hereunder is on an "as is" basis, and the
+dnl California Institute of Technology and Japan Science and Technology
+dnl Corporation have no obligations to provide maintenance, support,
+dnl updates, enhancements or modifications.  In no event shall the
+dnl California Institute of Technology or the Japan Science and Technology
+dnl Corporation be liable to any party for direct, indirect, special,
+dnl incidental or consequential damages, including lost profits, arising
+dnl out of the use of this software and its documentation, even if the
+dnl California Institute of Technology and/or Japan Science and Technology
+dnl Corporation have been advised of the possibility of such damage.  See
+dnl the GNU Lesser General Public License for more details.
+dnl
+dnl You should have received a copy of the GNU Lesser General Public License
+dnl along with this library; if not, write to the Free Software Foundation,
+dnl Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+dnl
+dnl The original code contained here was initially developed by:
+dnl
+dnl     Ben Bornstein
+dnl     The Systems Biology Markup Language Development Group
+dnl     ERATO Kitano Symbiotic Systems Project
+dnl     Control and Dynamical Systems, MC 107-81
+dnl     California Institute of Technology
+dnl     Pasadena, CA, 91125, USA
+dnl
+dnl     http://www.cds.caltech.edu/erato
+dnl     mailto:sysbio-team@caltech.edu
+dnl
+dnl Contributor(s):
+dnl
 
 
+dnl
+dnl Check --with-xerces[=PREFIX] is specified and Xerces-C++ is installed.
+dnl
 
-AC_DEFUN([SBML_CHECK_LIB_XERCESC],
-  [AC_CACHE_CHECK([for Apache's Xerces-C XML library],
-    [sbml_cv_lib_xercesc],
-    [AC_LANG_SAVE
-     AC_LANG_CPLUSPLUS
-     sbml_save_LIBS=$LIBS
-     LIBS="-lxerces-c $LIBS"
-     AC_TRY_LINK([
+AC_DEFUN(AC_LIB_XERCES,
+[
+  if test $with_xerces != no; then
+
+    AC_MSG_CHECKING([for Apache's Xerces-C XML library])
+
+    XERCES_CPPFLAGS=
+    XERCES_LDFLAGS=
+    XERCES_LIBS=
+
+    if test $with_xerces != yes; then
+      XERCES_CPPFLAGS="-I$with_xerces/include"
+      XERCES_LDFLAGS="-L$with_xerces/lib"
+    fi
+
+    XERCES_LIBS="-lxerces-c"
+
+    AC_LANG_SAVE
+    AC_LANG_CPLUSPLUS
+
+    CPPFLAGS="$XERCES_CPPFLAGS $CPPFLAGS"
+    LDFLAGS="$XERCES_LDFLAGS $LDFLAGS"
+    LIBS="$XERCES_LIBS $LIBS"
+
+    AC_TRY_LINK([
 #include <xercesc/util/XercesDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #ifndef XERCES_HAS_CPP_NAMESPACE
 #define XERCES_CPP_NAMESPACE_QUALIFIER
-#endif],
-       [XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Initialize();],
-       [sbml_cv_lib_xercesc=yes],
-       [sbml_cv_lib_xercesc=no])
-     LIBS=$sbml_save_LIBS
-     AC_LANG_RESTORE
-  ])
+#endif
+      ],
+      [XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Initialize();],
+      [xerces_found=yes],
+      [xerces_found=no])
 
-if test x"$sbml_cv_lib_xercesc" = xyes; then
-  LIBS="-lxerces-c $LIBS"
-else
-  AC_MSG_ERROR([cannot find libxerces-c])
-fi
+    AC_LANG_RESTORE
 
+    AC_MSG_RESULT($xerces_found)
+
+    if test $xerces_found = no; then
+      AC_MSG_ERROR([Could not find the Xerces XML library.])
+    fi
+  fi
+])
+
+dnl
+dnl Filename    : expat.m4
+dnl Description : Autoconf macro to check for existence of Expat library
+dnl Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
+dnl Organization: JST ERATO Kitano Symbiotic Systems Project
+dnl Created     : 2003-11-05
+dnl Revision    : $Id$
+dnl Source      : $Source$
+dnl
+dnl Copyright 2003 California Institute of Technology and
+dnl Japan Science and Technology Corporation.
+dnl
+dnl This library is free software; you can redistribute it and/or modify it
+dnl under the terms of the GNU Lesser General Public License as published
+dnl by the Free Software Foundation; either version 2.1 of the License, or
+dnl any later version.
+dnl
+dnl This library is distributed in the hope that it will be useful, but
+dnl WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+dnl MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+dnl documentation provided hereunder is on an "as is" basis, and the
+dnl California Institute of Technology and Japan Science and Technology
+dnl Corporation have no obligations to provide maintenance, support,
+dnl updates, enhancements or modifications.  In no event shall the
+dnl California Institute of Technology or the Japan Science and Technology
+dnl Corporation be liable to any party for direct, indirect, special,
+dnl incidental or consequential damages, including lost profits, arising
+dnl out of the use of this software and its documentation, even if the
+dnl California Institute of Technology and/or Japan Science and Technology
+dnl Corporation have been advised of the possibility of such damage.  See
+dnl the GNU Lesser General Public License for more details.
+dnl
+dnl You should have received a copy of the GNU Lesser General Public License
+dnl along with this library; if not, write to the Free Software Foundation,
+dnl Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+dnl
+dnl The original code contained here was initially developed by:
+dnl
+dnl     Ben Bornstein
+dnl     The Systems Biology Markup Language Development Group
+dnl     ERATO Kitano Symbiotic Systems Project
+dnl     Control and Dynamical Systems, MC 107-81
+dnl     California Institute of Technology
+dnl     Pasadena, CA, 91125, USA
+dnl
+dnl     http://www.cds.caltech.edu/erato
+dnl     mailto:sysbio-team@caltech.edu
+dnl
+dnl Contributor(s):
+dnl   Stephan Hoops
+dnl
+
+
+dnl
+dnl Check --with-expat[=PREFIX] is specified and Expat 1.95.0 or greater
+dnl is installed.
+dnl
+
+AC_DEFUN(AC_LIB_EXPAT,
+[
+  if test $with_expat != no; then
+
+    EXPAT_CPPFLAGS=
+    EXPAT_LDFLAGS=
+    EXPAT_LIBS=
+
+    if test $with_expat != yes; then
+      EXPAT_CPPFLAGS="-I$with_expat/include"
+      EXPAT_LDFLAGS="-L$with_expat/lib"
+    fi
+
+    EXPAT_LIBS="-lexpat"
+
+    AC_LANG_SAVE
+    AC_LANG_C
+
+    CPPFLAGS="$EXPAT_CPPFLAGS $CPPFLAGS"
+    LDFLAGS="$EXPAT_LDFLAGS $LDFLAGS"
+    LIBS="$EXPAT_LIBS $LIBS"
+
+    AC_CHECK_LIB(expat, XML_ParserCreate, [expat_found=yes], [expat_found=no])
+
+    if test $expat_found = no; then
+      AC_MSG_ERROR([Could not find the Expat XML library.])
+    fi
+
+    AC_CHECK_HEADERS(expat.h, [expat_found=yes], [expat_found=no])
+
+    if test $expat_found = no; then
+      AC_MSG_ERROR([Could not find the expat.h.])
+    fi
+
+    AC_LANG_RESTORE
+  fi
 ])
 

@@ -49,9 +49,14 @@
 ## Contributor(s):
 ##
 
-SUBDIRS = src
 
-EXTRA_DIST =           \
+if USE_EXPAT
+  SUBDIRS = expat src
+else
+  SUBDIRS = src
+endif
+
+EXTRA_DIST =     \
 	AUTHORS.txt    \
 	ChangeLog.txt  \
 	COPYING.html   \
