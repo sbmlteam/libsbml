@@ -78,7 +78,7 @@ StringMapItem_t *StringMap_findItemInList (List_t *items, const char *key);
  */
 LIBSBML_EXTERN
 StringMap_t *
-StringMap_create (void)
+StringMap_create(void)
 {
   StringMap_t *sm = (StringMap_t *) safe_malloc(sizeof(StringMap_t));
   sm->itemLists = 
@@ -90,10 +90,10 @@ StringMap_create (void)
 
 
 /**
- * Creates a new StringMapItem and returns a pointer to it.
+ * Creates a new StringMapItem_t and returns a pointer to it.
  */
 StringMapItem_t *
-StringMapItem_create (const char *key, void *value)
+StringMapItem_create(const char *key, void *value)
 {
   StringMapItem_t *result =
       (StringMapItem_t *) safe_malloc(sizeof(StringMapItem_t));
@@ -103,13 +103,26 @@ StringMapItem_create (const char *key, void *value)
   return result;
 }
 
+/**
+ * Frees a StringMapItem_t including its key.
+ */
+void
+StringMapItem_free(StringMapItem_t *item)
+{
+   if (item)
+   {
+      safe_free(item->key);
+   }
+   safe_free(item);
+}
+
 
 /**
  * Returns nonzero iff key exists.
  */
 LIBSBML_EXTERN
 int
-StringMap_exists (StringMap_t *map, const char *key)
+StringMap_exists(StringMap_t *map, const char *key)
 {
   unsigned int index = StringMap_hashFunction(key) % map->capacity;
   List_t *list;
@@ -142,7 +155,7 @@ StringMap_findItemInList(List_t *items, const char *key)
 
   for (i = 0; i < List_size(items); i++)
   {
-    StringMapItem_t *item = (StringMapItem_t *)List_get(items, i);
+    StringMapItem_t *item = (StringMapItem_t *) List_get(items, i);
     if (!strcmp(item->key, key))
     {
       return item;
@@ -176,9 +189,10 @@ StringMap_free (StringMap_t *map)
         if (item)
         {
           safe_free(item->key);
+          safe_free(item);
         }
       }
-      safe_free(items);
+      List_free(items);
     }
   }
 
@@ -252,9 +266,11 @@ StringMap_grow (StringMap_t *map)
         safe_free(oldItem);
       }
 
-      safe_free(oldList);
+      List_free(oldList);
     }
   }
+
+  safe_free(oldLists);
 }
 
 
@@ -354,6 +370,7 @@ StringMap_remove(StringMap_t *map, const char *key)
     {
       StringMapItem_t *item = (StringMapItem_t *) List_get(list, itemIndex);
       safe_free(item->key);
+      safe_free(item);
       List_remove(list, itemIndex);
       map->size--;
     }
