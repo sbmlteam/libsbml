@@ -54,9 +54,10 @@
 #define UnitKind_h
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "common.h"
+
+
+BEGIN_C_DECLS
 
 
 typedef enum
@@ -112,12 +113,14 @@ typedef enum
  *
  * @return true (!0) if uk1 is logically equivalent to uk2, false (0) otherwise.
  */
+LIBSBML_EXTERN
 int
 UnitKind_equals (UnitKind_t uk1, UnitKind_t uk2);
 
 /**
  * Returns the UnitKind with the given name (case-insensitive).
  */
+LIBSBML_EXTERN
 UnitKind_t
 UnitKind_forName (const char *name);
 
@@ -125,13 +128,12 @@ UnitKind_forName (const char *name);
  * Returns the name of the given UnitKind.  The caller does not own the
  * returned string and is therefore not allowed to modify it.
  */
+LIBSBML_EXTERN
 const char *
 UnitKind_toString (UnitKind_t uk);
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** UnitKind_h **/
