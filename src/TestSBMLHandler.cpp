@@ -2012,12 +2012,13 @@ END_TEST
 START_TEST (test_element_notes_entity_reference)
 {
   const char* n =
+#ifdef USE_EXPAT
     "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some\xc2\xa0text... "
     "</body>";
-
-  const char* m =
+#else
     "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... "
     "</body>";
+#endif
 
   const char* s = wrapSBML
   (
@@ -2030,11 +2031,7 @@ START_TEST (test_element_notes_entity_reference)
   D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
 
-#if USE_EXPAT
   fail_unless( !strcmp(SBase_getNotes(M), n), NULL );
-#else
-  fail_unless( !strcmp(SBase_getNotes(M), m), NULL );
-#endif
 }
 END_TEST
 
