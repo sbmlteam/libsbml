@@ -82,6 +82,8 @@ sources   = \
 
 libraries = libexpat-compat.a
 
+objects = $(sources:.cpp=.$(OBJEXT))
+
 distfiles = $(sources) $(headers) Makefile.in COPYING.txt
 
 extra_CPPFLAGS = $(EXPAT_CPPFLAGS)
@@ -97,7 +99,7 @@ extra_LIBS = $(EXPAT_LIBS)
 
 # The default action is to remake everything.
 
-all: Makefile $(libraries)
+all: Makefile $(objects)
 
 
 # -----------------------------------------------------------------------------
