@@ -2482,12 +2482,12 @@ automatically.  Calling programs must request consistency checking to be
 invoked explicitly by calling the following method.
 
 \begin{methoddef}{unsigned int SBMLDocument\_checkConsistency (const SBMLDocument\_t *d)}
-  Performs consistency checking on the given SBML document.  Calling programs can query
-  the results by calling \method{SBMLDocument\_getNumWarnings()},
+  Performs consistency checking on the given SBML document.  Calling
+  programs can query the results of doing the checking by calling 
+  \method{SBMLDocument\_getNumWarnings()},
   \method{SBMLDocument\_getNumErrors()},
   \method{SBMLDocument\_getNumFatals()}, and related methods.  This method
-  returns (as an integer) the number of consistency errors
-  detected.
+  returns (as an integer) the number of consistency errors detected.
 
   \textbf{Deprecation note}: this method was originally named
   \method{SBMLDocument\_validate()}.  The older name was judged confusing
@@ -2633,8 +2633,9 @@ The full set of list methods are:
 
 
 \begin{methoddef}{void * ListOf\_remove (ListOf\_t *lo, unsigned int n)}
-  Removes the nth item from this list and returns a pointer to it.  If 
-  \code{n > ListOf\_getNumItems(list)}, it returns \code{NULL}.
+  Removes the \emph{n}th item from the given list and returns a pointer to
+  that item.  If \code{n > ListOf\_getNumItems(list)}, it returns
+  \code{NULL}.
 \end{methoddef}
 
 
@@ -2921,8 +2922,9 @@ following meethods are available for returning values from nodes:
 
 \begin{methoddef}{const char * ASTNode\_getName (const ASTNode\_t *node)}
   Returns the value of this AST node as a string.  This function may be
-  called on nodes that are not operators (\code{ASTNode\_isOperator(node)
-    == 0}) or numbers (\code{ASTNode\_isNumber(node) == 0}).
+  called on nodes that are not operators (in which case,
+  \code{ASTNode\_isOperator(node) == 0}) or numbers
+  (in which case, \code{ASTNode\_isNumber(node) == 0}).
 \end{methoddef}
 
 
