@@ -76,8 +76,8 @@ default_includes ?= -I. -I$(srcdir) -I$(TOP_BUILDDIR)/src -I$(INCLUDEDIR)
 compile ?= $(CC) $(CFLAGS) $(DEFS) $(default_includes) $(INCLUDES) \
 	$(CPPFLAGS) $(extra_CPPFLAGS) -fPIC -Wall
 
-cxxcompile ?= $(CXX) $(CFLAGS) $(DEFS) $(default_includes) $(INCLUDES) \
-	$(CXXFLAGS) $(extra_CXXFLAGS) -fPIC -Wall
+cxxcompile ?= $(CXX) $(CFLAGS) $(CXXFLAGS) $(DEFS) $(default_includes) $(INCLUDES) \
+	$(CPPFLAGS) $(extra_CXXFLAGS) -fPIC -Wall
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
