@@ -85,6 +85,7 @@ typedef struct {
 } RuleResult_t;
 
 
+static
 void
 initializeRuleResult(RuleResult_t *result)
 {
@@ -95,6 +96,7 @@ initializeRuleResult(RuleResult_t *result)
 typedef int (*PFI)();
 
 
+static
 int
 isMeter(UnitKind_t uk)
 {
@@ -102,6 +104,7 @@ isMeter(UnitKind_t uk)
 }
 
 
+static
 int
 isLiter(UnitKind_t uk)
 {
@@ -109,6 +112,7 @@ isLiter(UnitKind_t uk)
 }
 
 
+static
 int
 isSubstanceKind(UnitKind_t uk)
 {
@@ -116,6 +120,7 @@ isSubstanceKind(UnitKind_t uk)
 }
 
 
+static
 int
 isSecond(UnitKind_t uk)
 {
@@ -123,6 +128,7 @@ isSecond(UnitKind_t uk)
 }
 
 
+static
 void
 hasSingleKind(RuleResult_t *result, UnitDefinition_t *ud)
 {
@@ -138,6 +144,7 @@ hasSingleKind(RuleResult_t *result, UnitDefinition_t *ud)
 }
 
 
+static
 void
 hasAcceptableKinds(
   RuleResult_t *result,
@@ -158,6 +165,7 @@ hasAcceptableKinds(
 }
 
 
+static
 void
 hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
 {
@@ -174,12 +182,13 @@ hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
 
       sprintf(buf, "must have exponent %d.");
       result->passed = 0;
-      result->msg = strdup(buf);
+      result->msg = safe_strdup(buf);
     }
   }
 }
 
 
+static
 int
 isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
 {
@@ -200,6 +209,7 @@ isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
 }
 
 
+static
 void
 logFullMessage(
   const char *baseMsg,
@@ -207,11 +217,9 @@ logFullMessage(
   SBase_t *obj,
   List_t *messages)
 {
-    char buf[512];
-
-    strcpy(buf, baseMsg);
-    strcat(buf, result->msg);
-    LOG_MESSAGE(strdup(buf));
+    char *message = safe_strcat(baseMsg, result->msg);
+    LOG_MESSAGE(message);
+    safe_free(message);
 }
 
 
