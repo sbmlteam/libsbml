@@ -441,6 +441,7 @@ SBase_t*
 SAX2SBMLHandler::handleSpecies (const Attributes& a)
 {
   Species_t* s = Model_createSpecies(fModel);
+  bool value;
 
 
   XMLUtil::scanAttrCStr( a, ATTR_NAME          , &(s->name)          );
@@ -449,8 +450,10 @@ SAX2SBMLHandler::handleSpecies (const Attributes& a)
   XMLUtil::scanAttr    ( a, ATTR_INITIAL_AMOUNT, &(s->initialAmount) );
   XMLUtil::scanAttr    ( a, ATTR_CHARGE        , &(s->charge)        );
 
-  XMLUtil::scanAttr( a, ATTR_BOUNDARY_CONDITION,
-                    (bool *) &(s->boundaryCondition) );
+  if (XMLUtil::scanAttr(a, ATTR_BOUNDARY_CONDITION, &value) == true)
+  {
+    s->boundaryCondition = value;
+  }
 
   return (SBase_t*) s;
 }
@@ -484,11 +487,20 @@ SBase_t*
 SAX2SBMLHandler::handleReaction (const Attributes& a)
 {
   Reaction_t* r = Model_createReaction(fModel);
+  bool value;
 
 
-  XMLUtil::scanAttrCStr( a, ATTR_NAME      ,         &(r->name)       );
-  XMLUtil::scanAttr    ( a, ATTR_REVERSIBLE, (bool*) &(r->reversible) );
-  XMLUtil::scanAttr    ( a, ATTR_FAST      , (bool*) &(r->fast)       );
+  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(r->name));
+
+  if (XMLUtil::scanAttr(a, ATTR_REVERSIBLE, &value) == true)
+  {
+    r->reversible = value;
+  }
+
+  if (XMLUtil::scanAttr(a, ATTR_FAST, &value) == true)
+  {
+    r->fast = value;
+  }
 
   return (SBase_t*) r;
 }
