@@ -110,7 +110,6 @@ distfiles =                            \
         Doxygen-html-footer.html       \
         Doxygen.css                    \
         Makefile.in                    \
-        README.txt                     \
         createAPISection.py            \
         createAPISections.sh           \
         graphics                       \
