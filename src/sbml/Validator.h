@@ -88,7 +88,7 @@ BEGIN_C_DECLS
  * @see Validator_addRule()
  */
 typedef unsigned int
-        (*ValidationRule) ( const SBase_t *obj, const SBMLDocument_t *d,
+        (*ValidationRule) ( const SBase_t *obj, SBMLDocument_t *d,
                             List_t *messages );
 
 
