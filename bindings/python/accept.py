@@ -61,9 +61,25 @@ def stackTraceLineNum():
    return sys.exc_info()[2].tb_next.tb_lineno
 
 
-def testList():
+def testEquality():
+   lo = libsbml.ListOf()
+   c1 = libsbml.Compartment()
+
+   lo.append(c1)
+   c2 = lo.get(0)
+
+   assert c1 == c2
+
+   c2 = 7
+   assert not c1 == c2
+
+
+def testListOf():
    species = libsbml.Species()
+   assert species and species.thisown == 1
+
    species.setMetaId('foo')
+   assert species.getMetaId() == 'foo'
 
    lst = libsbml.ListOf()
    assert lst
@@ -71,6 +87,7 @@ def testList():
 
    lst.append(species)
    assert lst.getNumItems() == 1
+   assert species.thisown == 0
 
    theSameSpecies = lst.get(0)
    assert theSameSpecies.getMetaId() == "foo"
@@ -96,6 +113,7 @@ def testSpecies():
 def testReaction():
    reaction = libsbml.Reaction("R", libsbml.KineticLaw("1 + 1"))
    assert reaction
+   assert reaction.getKineticLaw().thisown == 0
 
    speciesReference = libsbml.SpeciesReference("SR")
    assert speciesReference
@@ -109,24 +127,26 @@ def testReaction():
    theSameSpeciesReference = reaction.getListOfReactants()[0]
    assert theSameSpeciesReference.getSpecies() == speciesReference.getSpecies()
 
-   """
    kineticLaw = libsbml.KineticLaw("1 + 1")
-   assert kineticLaw
-   print kineticLaw
-
+   assert kineticLaw and kineticLaw.thisown == 1
    assert kineticLaw.getFormula() == "1 + 1"
 
    reaction = libsbml.Reaction("R", None, False)
    reaction.setKineticLaw(kineticLaw)
-
-   """
-   #assert kineticLaw == reaction.getKineticLaw()
+   assert kineticLaw.thisown == 0
+   assert kineticLaw == reaction.getKineticLaw()
 
 
 def testDocument():
    d = libsbml.SBMLDocument()
+   assert d and d.thisown == 1
+   
    m = libsbml.Model()
+   assert m and m.thisown == 1
+
    d.setModel(m)
+   assert m.thisown == 0
+   assert m == d.getModel()
 
 
 class TestRunner:
