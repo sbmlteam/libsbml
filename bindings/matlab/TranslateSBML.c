@@ -1605,6 +1605,11 @@ GetKineticLaw ( Reaction_t   *pReaction,
   const char * pacMathFormula = NULL;
 
   KineticLaw_t *pKineticLaw;
+  
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
+
 
   /* create the structure array */
   if (unSBMLLevel == 1) {
@@ -1633,6 +1638,28 @@ GetKineticLaw ( Reaction_t   *pReaction,
       KineticLaw_setFormulaFromMath(pKineticLaw);
       pacMathFormula = KineticLaw_getFormula(pKineticLaw);
   }
+  
+  /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+  
+  mxInput[0] = mxCreateString(pacFormula);
+  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+  
+  if (nStatus != 0)
+  {
+      mexErrMsgTxt("Failed to convert formula");
+  }
+  
+  /* get the formula returned */
+  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+  pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxOutput[0], pacFormula, nBuflen);
+  
+  if (nStatus != 0)
+  {
+      mexErrMsgTxt("Cannot copy formula");
+  }
+
+  /* END OF HACK */
   
   /**
    * check for NULL strings - Matlab doesnt like creating 
@@ -1927,6 +1954,10 @@ GetListRule ( Model_t      *pModel,
 
   Rule_t *pRule;
   int i;
+  
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
 
   /**
    * create the structure array 
@@ -1957,6 +1988,28 @@ GetListRule ( Model_t      *pModel,
         pacFormula = Rule_getFormula(pRule);
       }
     }
+
+  /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+  
+  mxInput[0] = mxCreateString(pacFormula);
+  nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+  
+  if (nStatus != 0)
+  {
+      mexErrMsgTxt("Failed to convert formula");
+  }
+  
+  /* get the formula returned */
+  nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+  pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+  nStatus = mxGetString(mxOutput[0], pacFormula, nBuflen);
+  
+  if (nStatus != 0)
+  {
+      mexErrMsgTxt("Cannot copy formula");
+  }
+
+  /* END OF HACK */    
     /* values for different types of rules */
     switch(SBase_getTypeCode(pRule)) {
       case SBML_ASSIGNMENT_RULE:
@@ -2129,6 +2182,10 @@ GetFunctionDefinition ( Model_t      *pModel,
 
   FunctionDefinition_t *pFuncDefinition;
   int i;
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
+
 
   /**
    * create the structure array 
@@ -2148,9 +2205,29 @@ GetFunctionDefinition ( Model_t      *pModel,
     if (FunctionDefinition_isSetMath(pFuncDefinition)) {
       pacFormula = SBML_formulaToString(FunctionDefinition_getMath(pFuncDefinition));
     }
-
+  /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+    
+    mxInput[0] = mxCreateString(pacFormula);
+    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+    
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Failed to convert formula");
+    }
+    
+  /* get the formula returned */
+    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxOutput[0], pacFormula, nBuflen);
+    
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Cannot copy formula");
+    }
+    
+  /* END OF HACK */
     /**
-     * check for NULL strings - Matlab doesnt like creating 
+     * check for NULL strings - Matlab doesnt like creating
      * a string that is NULL
      */
     if (pacName == NULL) {
