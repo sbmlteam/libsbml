@@ -57,7 +57,7 @@
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
-#include "sbml/SBMLTagCode.hpp"
+#include "sbml/SBMLTagCodes.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"
 
 
