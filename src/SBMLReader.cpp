@@ -401,7 +401,7 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (...)
   {
-    List_add(d->fatal, ParseMessage_createWith("Unexcepted Exception", 0, 0));
+    List_add(d->fatal, ParseMessage_createWith("Unexpected Exception", 0, 0));
   }
 
   if (input != NULL)
