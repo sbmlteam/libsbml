@@ -210,6 +210,15 @@ $(subdirs_recursive):
 # Installation
 # -----------------------------------------------------------------------------
 
+dirs-to-install = \
+	$(DESTDIR)$(LIBDIR) \
+	$(DESTDIR)$(INCLUDEDIR) \
+	$(DESTDIR)$(DATADIR) \
+	$(DESTDIR)$(DOCDIR)
+
+installdirs: $(dirs-to-install)
+	$(MKINSTALLDIRS) $(dirs-to-install)
+
 # The following defines a macro that is invoked like this:
 # $(call install_library,$(libname),$(dest))
 
@@ -231,10 +240,8 @@ $(to_install_libraries): $(libraries) installdirs
 	$(call install_library,$(subst install-,,$@),$(DESTDIR)$(LIBDIR))
 
 install-libraries: $(libraries) $(to_install_libraries)
-	$(MKINSTALLDIRS) "$(DESTDIR)$(LIBDIR)"
 
-install-docs: $(docs)
-	$(shell [ -d $(DESTDIR)$(DOCDIR) ] || mkdir -p $(DESTDIR)$(DOCDIR))
+install-docs: $(docs) installdirs
 	@if test -z '$(docs)'; then \
 	  echo 'Nothing to be done for install-docs'; \
 	else \
@@ -262,11 +269,33 @@ install-docs: $(docs)
 	  done; \
 	fi
 
-installdirs: 
-	$(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR) \
-			 $(DESTDIR)$(INCLUDEDIR) \
-			 $(DESTDIR)$(DATADIR) \
-			 $(DESTDIR)$(DOCDIR)
+install-headers: $(headers) installdirs
+	@if test -z '$(headers)'; then \
+	  echo 'Nothing to be done for install-headers'; \
+	else \
+	  list='$(headers)'; for file in $$list; do \
+	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	      dir="/$$dir"; \
+	      $(MKINSTALLDIRS) "$(INCLUDEDIR)/$$dir"; \
+	    else \
+	      dir=''; \
+	    fi; \
+	    if test -d $$d/$$file; then \
+	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	        echo Copying $(srcdir)/$$file; \
+	        cp -pR $(srcdir)/$$file $(INCLUDEDIR)$$dir || exit 1; \
+	      fi; \
+	      cp -pR $$d/$$file $(INCLUDEDIR)$$dir || exit 1; \
+	    else \
+	      echo Copying $(INCLUDEDIR)/$$file; \
+	      test -f $(INCLUDEDIR)/$$file \
+	      || cp -p $$d/$$file $(INCLUDEDIR)/$$file \
+	      || exit 1; \
+	    fi; \
+	  done; \
+	fi
 
 
 # -----------------------------------------------------------------------------
