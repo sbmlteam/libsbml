@@ -74,7 +74,7 @@ VPATH             = $(srcdir)
 
 BINDIR            = @bindir@
 DATADIR           = @datadir@
-DOCDIR            = $(DATADIR)/doc/$(PACKAGE_TARNAME)
+DOCDIR            = $(DATADIR)/doc/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
 INCLUDEDIR        = @includedir@
 LIBDIR            = @libdir@
 MANDIR            = @mandir@
