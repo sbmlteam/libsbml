@@ -82,8 +82,10 @@ START_TEST (test_List_create)
 {
   fail_unless(List_size(L) == 0, NULL);
 
+  /*
   fail_unless(L->head == NULL, NULL);
   fail_unless(L->tail == NULL, NULL);
+  */
 }
 END_TEST
 
@@ -93,10 +95,13 @@ START_TEST (test_ListNode_create)
   char       *s    = "foo";
   ListNode_t *node = ListNode_create(s);
 
+
+  /*
   fail_unless(node->item == s   , NULL);
   fail_unless(node->next == NULL, NULL);
+  */
 
-  safe_free(node);
+  ListNode_free(node);
 }
 END_TEST
 
@@ -114,10 +119,12 @@ START_TEST (test_List_add_1)
 
   fail_unless(List_size(L) == 1, NULL);
 
+  /*
   fail_unless( !strcmp(L->head->item, "foo"), NULL );
 
   fail_unless(L->head       == L->tail, NULL);
   fail_unless(L->head->next == NULL   , NULL);
+  */
 }
 END_TEST
 
@@ -129,11 +136,13 @@ START_TEST (test_List_add_2)
 
   fail_unless(List_size(L) == 2, NULL);
 
+  /*
   fail_unless( !strcmp(L->head->item      , "foo"), NULL );
   fail_unless( !strcmp(L->head->next->item, "bar"), NULL );
 
   fail_unless(L->head->next == L->tail, NULL);
   fail_unless(L->tail->next == NULL   , NULL);
+  */
 }
 END_TEST
 
@@ -271,10 +280,12 @@ START_TEST (test_List_prepend_1)
 
   fail_unless(List_size(L) == 1, NULL);
 
+  /*
   fail_unless( !strcmp(L->head->item, "foo"), NULL );
 
   fail_unless(L->head       == L->tail, NULL);
   fail_unless(L->head->next == NULL   , NULL);
+  */
 }
 END_TEST
 
@@ -286,11 +297,13 @@ START_TEST (test_List_prepend_2)
 
   fail_unless(List_size(L) == 2, NULL);
 
+  /*
   fail_unless( !strcmp(L->head->item      , "bar"), NULL );
   fail_unless( !strcmp(L->head->next->item, "foo"), NULL );
 
   fail_unless(L->head->next == L->tail, NULL);
   fail_unless(L->tail->next == NULL   , NULL);
+  */
 }
 END_TEST
 
@@ -303,8 +316,10 @@ START_TEST (test_List_remove_1)
 
   fail_unless(List_size(L) == 0, NULL);
 
+  /*
   fail_unless(L->head == NULL, NULL);
   fail_unless(L->tail == NULL, NULL);
+  */
 }
 END_TEST
 
@@ -320,8 +335,10 @@ START_TEST (test_List_remove_2)
 
   fail_unless( !strcmp( List_get(L, 0), "foo" ), NULL );
 
+  /*
   fail_unless(L->head       == L->tail, NULL);
   fail_unless(L->head->next == NULL   , NULL);
+  */
 }
 END_TEST
 
@@ -339,8 +356,10 @@ START_TEST (test_List_remove_3)
   fail_unless( !strcmp( List_get(L, 0), "foo" ), NULL );
   fail_unless( !strcmp( List_get(L, 1), "baz" ), NULL );
 
+  /*
   fail_unless(L->head       != L->tail, NULL);
   fail_unless(L->tail->next == NULL   , NULL);
+  */
 }
 END_TEST
 
@@ -358,8 +377,10 @@ START_TEST (test_List_remove_4)
   fail_unless( !strcmp( List_get(L, 0), "foo" ), NULL );
   fail_unless( !strcmp( List_get(L, 1), "bar" ), NULL );
 
+  /*
   fail_unless(L->head       != L->tail, NULL);
   fail_unless(L->tail->next == NULL   , NULL);
+  */
 }
 END_TEST
 
@@ -375,8 +396,11 @@ START_TEST (test_List_freeItems)
   List_freeItems(L, safe_free, void);
 
   fail_unless(List_size(L) == 0   , NULL);
+
+  /*
   fail_unless(L->head      == NULL, NULL);
   fail_unless(L->tail      == NULL, NULL);
+  */
 }
 END_TEST
 
@@ -392,9 +416,7 @@ create_suite_List (void)
 
   tcase_add_test( tcase, test_List_create     );
   tcase_add_test( tcase, test_List_free_NULL  );
-
   tcase_add_test( tcase, test_ListNode_create );
-
   tcase_add_test( tcase, test_List_add_1      );
   tcase_add_test( tcase, test_List_add_2      );
   tcase_add_test( tcase, test_List_get        );

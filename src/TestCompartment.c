@@ -80,21 +80,19 @@ CompartmentTest_teardown (void)
 
 START_TEST (test_Compartment_create)
 {
-  fail_unless( C->typecode   == SBML_COMPARTMENT, NULL );
-  fail_unless( C->metaid     == NULL, NULL );
-  fail_unless( C->notes      == NULL, NULL );
-  fail_unless( C->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (C) == SBML_COMPARTMENT, NULL );
+  fail_unless( SBase_getMetaId    (C) == NULL, NULL );
+  fail_unless( SBase_getNotes     (C) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(C) == NULL, NULL );
 
-  fail_unless( C->id      == NULL, NULL );
-  fail_unless( C->name    == NULL, NULL );
-  fail_unless( C->units   == NULL, NULL );
-  fail_unless( C->outside == NULL, NULL );
+  fail_unless( Compartment_getId     (C) == NULL, NULL );
+  fail_unless( Compartment_getName   (C) == NULL, NULL );
+  fail_unless( Compartment_getUnits  (C) == NULL, NULL );
+  fail_unless( Compartment_getOutside(C) == NULL, NULL );
 
-  fail_unless( C->spatialDimensions == 3, NULL );
-
-  fail_unless( Compartment_getVolume(C) == 1.0, NULL );
-
-  fail_unless( C->constant == 1, NULL );
+  fail_unless( Compartment_getSpatialDimensions(C) == 3  , NULL );
+  fail_unless( Compartment_getVolume           (C) == 1.0, NULL );
+  fail_unless( Compartment_getConstant         (C) == 1  , NULL );
 
   fail_unless( !Compartment_isSetId     (C), NULL );
   fail_unless( !Compartment_isSetName   (C), NULL );
@@ -111,20 +109,20 @@ START_TEST (test_Compartment_createWith)
   Compartment_t *c = Compartment_createWith("A", 3.6, "liter", "B");
 
 
-  fail_unless( c->typecode   == SBML_COMPARTMENT, NULL );
-  fail_unless( c->metaid     == NULL, NULL );
-  fail_unless( c->notes      == NULL, NULL );
-  fail_unless( c->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (c) == SBML_COMPARTMENT, NULL );
+  fail_unless( SBase_getMetaId    (c) == NULL, NULL );
+  fail_unless( SBase_getNotes     (c) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(c) == NULL, NULL );
 
-  fail_unless( c->name == NULL, NULL );
-  fail_unless( c->spatialDimensions == 3, NULL );
+  fail_unless( Compartment_getName(c)              == NULL, NULL );
+  fail_unless( Compartment_getSpatialDimensions(c) == 3   , NULL );
 
-  fail_unless( !strcmp( c->id     , "A"     ), NULL );
-  fail_unless( !strcmp( c->units  , "liter" ), NULL );
-  fail_unless( !strcmp( c->outside, "B"     ), NULL );
+  fail_unless( !strcmp( Compartment_getId     (c), "A"     ), NULL );
+  fail_unless( !strcmp( Compartment_getUnits  (c), "liter" ), NULL );
+  fail_unless( !strcmp( Compartment_getOutside(c), "B"     ), NULL );
 
-  fail_unless( c->size     == 3.6, NULL );
-  fail_unless( c->constant == 1  , NULL );
+  fail_unless( Compartment_getSize    (c) == 3.6, NULL );
+  fail_unless( Compartment_getConstant(c) == 1  , NULL );
 
   fail_unless( Compartment_isSetId     (c), NULL );
   fail_unless( !Compartment_isSetName  (c), NULL );
@@ -152,22 +150,22 @@ START_TEST (test_Compartment_setId)
 
   Compartment_setId(C, id);
 
-  fail_unless( !strcmp(C->id, id)    , NULL );
+  fail_unless( !strcmp(Compartment_getId(C), id), NULL );
   fail_unless( Compartment_isSetId(C), NULL );
 
-  if (C->id == id)
+  if (Compartment_getId(C) == id)
   {
     fail("Compartment_setId(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Compartment_setId(C, C->id);
-  fail_unless( !strcmp(C->id, id), NULL );
+  Compartment_setId(C, Compartment_getId(C));
+  fail_unless( !strcmp(Compartment_getId(C), id), NULL );
 
   Compartment_setId(C, NULL);
   fail_unless( !Compartment_isSetId(C), NULL );
 
-  if (C->id != NULL)
+  if (Compartment_getId(C) != NULL)
   {
     fail("Compartment_setId(C, NULL) did not clear string.");
   }
@@ -182,22 +180,22 @@ START_TEST (test_Compartment_setName)
 
   Compartment_setName(C, name);
 
-  fail_unless( !strcmp(C->name, name)  , NULL );
+  fail_unless( !strcmp(Compartment_getName(C), name), NULL );
   fail_unless( Compartment_isSetName(C), NULL );
 
-  if (C->name == name)
+  if (Compartment_getName(C) == name)
   {
     fail("Compartment_setName(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Compartment_setName(C, C->name);
-  fail_unless( !strcmp(C->name, name), NULL );
+  Compartment_setName(C, Compartment_getName(C));
+  fail_unless( !strcmp(Compartment_getName(C), name), NULL );
 
   Compartment_setName(C, NULL);
   fail_unless( !Compartment_isSetName(C), NULL );
 
-  if (C->name != NULL)
+  if (Compartment_getName(C) != NULL)
   {
     fail("Compartment_setName(C, NULL) did not clear string.");
   }
@@ -212,22 +210,22 @@ START_TEST (test_Compartment_setUnits)
 
   Compartment_setUnits(C, units);
 
-  fail_unless( !strcmp(C->units, units) , NULL );
+  fail_unless( !strcmp(Compartment_getUnits(C), units), NULL );
   fail_unless( Compartment_isSetUnits(C), NULL );
 
-  if (C->units == units)
+  if (Compartment_getUnits(C) == units)
   {
     fail("Compartment_setUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Compartment_setUnits(C, C->units);
-  fail_unless( !strcmp(C->units, units), NULL );
+  Compartment_setUnits(C, Compartment_getUnits(C));
+  fail_unless( !strcmp(Compartment_getUnits(C), units), NULL );
 
   Compartment_setUnits(C, NULL);
   fail_unless( !Compartment_isSetUnits(C), NULL );
 
-  if (C->units != NULL)
+  if (Compartment_getUnits(C) != NULL)
   {
     fail("Compartment_setUnits(C, NULL) did not clear string.");
   }
@@ -242,22 +240,22 @@ START_TEST (test_Compartment_setOutside)
 
   Compartment_setOutside(C, outside);
 
-  fail_unless( !strcmp(C->outside, outside), NULL );
+  fail_unless( !strcmp(Compartment_getOutside(C), outside), NULL );
   fail_unless( Compartment_isSetOutside(C) , NULL );
 
-  if (C->outside == outside)
+  if (Compartment_getOutside(C) == outside)
   {
     fail("Compartment_setOutside(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Compartment_setOutside(C, C->outside);
-  fail_unless( !strcmp(C->outside, outside), NULL );
+  Compartment_setOutside(C, Compartment_getOutside(C));
+  fail_unless( !strcmp(Compartment_getOutside(C), outside), NULL );
 
   Compartment_setOutside(C, NULL);
   fail_unless( !Compartment_isSetOutside(C), NULL );
 
-  if (C->outside != NULL)
+  if (Compartment_getOutside(C) != NULL)
   {
     fail("Compartment_setOutside(C, NULL) did not clear string.");
   }

@@ -81,11 +81,13 @@ ModifierSpeciesReferenceTest_teardown (void)
 
 START_TEST (test_ModifierSpeciesReference_create)
 {
-  fail_unless( MSR->typecode   == SBML_MODIFIER_SPECIES_REFERENCE, NULL );
-  fail_unless( MSR->metaid     == NULL, NULL );
-  fail_unless( MSR->notes      == NULL, NULL );
-  fail_unless( MSR->annotation == NULL, NULL );
-  fail_unless( MSR->species    == NULL, NULL );
+  fail_unless(SBase_getTypeCode(MSR) == SBML_MODIFIER_SPECIES_REFERENCE, NULL);
+
+  fail_unless( SBase_getMetaId    (MSR) == NULL, NULL );
+  fail_unless( SBase_getNotes     (MSR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(MSR) == NULL, NULL );
+
+  fail_unless( ModifierSpeciesReference_getSpecies(MSR) == NULL, NULL );
 
   fail_unless( !ModifierSpeciesReference_isSetSpecies(MSR), NULL );
 }
@@ -99,12 +101,13 @@ START_TEST (test_ModifierSpeciesReference_createWith)
 
   msr = ModifierSpeciesReference_createWith("s5");
 
-  fail_unless( msr->typecode   == SBML_MODIFIER_SPECIES_REFERENCE, NULL );
-  fail_unless( msr->metaid     == NULL, NULL );
-  fail_unless( msr->notes      == NULL, NULL );
-  fail_unless( msr->annotation == NULL, NULL );
+  fail_unless(SBase_getTypeCode(msr) == SBML_MODIFIER_SPECIES_REFERENCE, NULL);
 
-  fail_unless( !strcmp(msr->species, "s5"), NULL );
+  fail_unless( SBase_getMetaId    (msr) == NULL, NULL );
+  fail_unless( SBase_getNotes     (msr) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(msr) == NULL, NULL );
+
+  fail_unless( !strcmp(ModifierSpeciesReference_getSpecies(msr), "s5"), NULL );
   fail_unless( ModifierSpeciesReference_isSetSpecies(msr), NULL );
 
   ModifierSpeciesReference_free(msr);
@@ -121,28 +124,34 @@ END_TEST
 
 START_TEST (test_ModifierSpeciesReference_setSpecies)
 {
+  const char *s;
   char *species = "s1";
+
 
 
   ModifierSpeciesReference_setSpecies(MSR, species);
 
-  fail_unless( !strcmp(MSR->species, species), NULL );
-  fail_unless( ModifierSpeciesReference_isSetSpecies(MSR), NULL );
+  s = ModifierSpeciesReference_getSpecies(MSR);
+  fail_unless( !strcmp(s, species), NULL );
+  fail_unless(ModifierSpeciesReference_isSetSpecies(MSR), NULL);
 
-  if (MSR->species == species)
+  if (ModifierSpeciesReference_getSpecies(MSR) == species)
   {
     fail( "ModifierSpeciesReference_setSpecies(...) "
           "did not make a copy of string." );
   }
 
   /* Reflexive case (pathological) */
-  ModifierSpeciesReference_setSpecies(MSR, MSR->species);
-  fail_unless( !strcmp(MSR->species, species), NULL );
+  s = ModifierSpeciesReference_getSpecies(MSR);
+  ModifierSpeciesReference_setSpecies(MSR, s);
+
+  s = ModifierSpeciesReference_getSpecies(MSR);
+  fail_unless( !strcmp(s, species), NULL );
 
   ModifierSpeciesReference_setSpecies(MSR, NULL);
-  fail_unless( !ModifierSpeciesReference_isSetSpecies(MSR), NULL );
+  fail_unless(!ModifierSpeciesReference_isSetSpecies(MSR), NULL);
 
-  if (MSR->species != NULL)
+  if (ModifierSpeciesReference_getSpecies(MSR) != NULL)
   {
     fail( "ModifierSpeciesReference_setSpecies(MSR, NULL) "
           "did not clear string." );

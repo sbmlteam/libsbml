@@ -85,14 +85,14 @@ START_TEST (test_read_l1v1_minimal)
   /**
    * <sbml level="1" version="1" ...>
    */
-  fail_unless( d->level   == 1, NULL );
-  fail_unless( d->version == 1, NULL );
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
 
   /**
    * <model>
    */
-  m = d->model;
+  m = SBMLDocument_getModel(d);
 
   /**
    * <listOfCompartments>
@@ -102,7 +102,7 @@ START_TEST (test_read_l1v1_minimal)
   fail_unless( Model_getNumCompartments(m) == 1, NULL );
 
   c = Model_getCompartment(m, 0);
-  fail_unless( !strcmp(c->name, "x"), NULL );
+  fail_unless( !strcmp(Compartment_getName(c), "x"), NULL );
 
 
   /**
@@ -113,10 +113,10 @@ START_TEST (test_read_l1v1_minimal)
   fail_unless( Model_getNumSpecies(m) == 1, NULL );
 
   s = Model_getSpecies(m, 0);
-  fail_unless( !strcmp( s->name       , "y" )  , NULL );
-  fail_unless( !strcmp( s->compartment, "x" )  , NULL );
-  fail_unless( Species_getInitialAmount(s) == 1, NULL );
-  fail_unless( s->boundaryCondition        == 0, NULL );
+  fail_unless( !strcmp( Species_getName(s)       , "y" )  , NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "x" )  , NULL );
+  fail_unless( Species_getInitialAmount    (s) == 1, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
 
 
   /**
@@ -134,22 +134,22 @@ START_TEST (test_read_l1v1_minimal)
   fail_unless( Model_getNumReactions(m) == 1, NULL );
 
   r = Model_getReaction(m, 0);
-  fail_unless( !strcmp(r->name, "x"), NULL );
-  fail_unless( r->reversible != 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "x"), NULL );
+  fail_unless( Reaction_getReversible(r) != 0, NULL );
+  fail_unless( Reaction_getFast(r)       == 0, NULL );
 
   fail_unless( Reaction_getNumReactants(r) == 1, NULL );
   fail_unless( Reaction_getNumProducts(r)  == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
-  fail_unless( !strcmp(sr->species, "y"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "y"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
-  fail_unless( !strcmp(sr->species, "y"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "y"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   SBMLDocument_free(d);
 }

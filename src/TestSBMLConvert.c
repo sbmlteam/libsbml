@@ -59,16 +59,13 @@
 
 START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)
 {
-  SBMLDocument_t *d = SBMLDocument_create();
+  SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
 
-
-  d->level   = 1;
-  d->version = 2;
 
   SBML_convertToL2( (SBase_t *) d);
 
-  fail_unless( d->level   == 2, NULL );
-  fail_unless( d->version == 1, NULL );
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
   SBMLDocument_free(d);
 }

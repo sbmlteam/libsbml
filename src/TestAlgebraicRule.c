@@ -81,12 +81,13 @@ AlgebraicRuleTest_teardown (void)
 
 START_TEST (test_AlgebraicRule_create)
 {
-  fail_unless( AR->typecode   == SBML_ALGEBRAIC_RULE, NULL );
-  fail_unless( AR->metaid     == NULL, NULL );
-  fail_unless( AR->notes      == NULL, NULL );
-  fail_unless( AR->annotation == NULL, NULL );
-  fail_unless( AR->formula    == NULL, NULL );
-  fail_unless( AR->math       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (AR) == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( SBase_getMetaId    (AR) == NULL, NULL );
+  fail_unless( SBase_getNotes     (AR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(AR) == NULL, NULL );
+
+  fail_unless( Rule_getFormula(AR) == NULL, NULL );
+  fail_unless( Rule_getMath   (AR) == NULL, NULL );
 }
 END_TEST
 
@@ -96,13 +97,13 @@ START_TEST (test_AlgebraicRule_createWith)
   AlgebraicRule_t *ar = AlgebraicRule_createWith("1 + 1");
 
 
-  fail_unless( ar->typecode   == SBML_ALGEBRAIC_RULE, NULL );
-  fail_unless( ar->metaid     == NULL, NULL );
-  fail_unless( ar->notes      == NULL, NULL );
-  fail_unless( ar->annotation == NULL, NULL );
-  fail_unless( ar->math       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (ar) == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( SBase_getMetaId    (ar) == NULL, NULL );
+  fail_unless( SBase_getNotes     (ar) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(ar) == NULL, NULL );
 
-  fail_unless( !strcmp(ar->formula, "1 + 1"), NULL );
+  fail_unless( Rule_getMath(ar) == NULL, NULL );
+  fail_unless( !strcmp(Rule_getFormula(ar), "1 + 1"), NULL );
 
   AlgebraicRule_free(ar);
 }
@@ -115,13 +116,13 @@ START_TEST (test_AlgebraicRule_createWithMath)
   AlgebraicRule_t *ar   = AlgebraicRule_createWithMath(math);
 
 
-  fail_unless( ar->typecode   == SBML_ALGEBRAIC_RULE, NULL );
-  fail_unless( ar->metaid     == NULL, NULL );
-  fail_unless( ar->notes      == NULL, NULL );
-  fail_unless( ar->annotation == NULL, NULL );
-  fail_unless( ar->formula    == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (ar) == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( SBase_getMetaId    (ar) == NULL, NULL );
+  fail_unless( SBase_getNotes     (ar) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(ar) == NULL, NULL );
 
-  fail_unless( ar->math == math, NULL );
+  fail_unless( Rule_getFormula(ar) == NULL, NULL );
+  fail_unless( Rule_getMath   (ar) == math, NULL );
 
   AlgebraicRule_free(ar);
 }

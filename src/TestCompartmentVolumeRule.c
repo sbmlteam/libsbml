@@ -80,12 +80,12 @@ CompartmentVolumeRuleTest_teardown (void)
 
 START_TEST (test_CompartmentVolumeRule_create)
 {
-  fail_unless( CVR->typecode   == SBML_COMPARTMENT_VOLUME_RULE, NULL );
-  fail_unless( CVR->notes      == NULL, NULL );
-  fail_unless( CVR->annotation == NULL, NULL );
-  fail_unless( CVR->formula    == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (CVR) == SBML_COMPARTMENT_VOLUME_RULE, NULL);
+  fail_unless( SBase_getNotes     (CVR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(CVR) == NULL, NULL );
 
-  fail_unless( CVR->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( Rule_getFormula       (CVR) == NULL, NULL );
+  fail_unless( AssignmentRule_getType(CVR) == RULE_TYPE_SCALAR, NULL );
 
   fail_unless( CompartmentVolumeRule_getCompartment(CVR) == NULL, NULL );
   fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
@@ -100,15 +100,15 @@ START_TEST (test_CompartmentVolumeRule_createWith)
 
   cvr = CompartmentVolumeRule_createWith("v + 1", RULE_TYPE_RATE, "c");
 
-  fail_unless( cvr->typecode   == SBML_COMPARTMENT_VOLUME_RULE, NULL );
-  fail_unless( cvr->notes      == NULL, NULL );
-  fail_unless( cvr->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (cvr) == SBML_COMPARTMENT_VOLUME_RULE, NULL);
+  fail_unless( SBase_getNotes     (cvr) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(cvr) == NULL, NULL );
 
 
-  fail_unless( !strcmp(cvr->formula , "v + 1"), NULL );
+  fail_unless( !strcmp(Rule_getFormula(cvr), "v + 1"), NULL );
   fail_unless( !strcmp(CompartmentVolumeRule_getCompartment(cvr), "c"), NULL );
 
-  fail_unless( cvr->type == RULE_TYPE_RATE, NULL );
+  fail_unless( AssignmentRule_getType(cvr) == RULE_TYPE_RATE, NULL );
 
   fail_unless( CompartmentVolumeRule_isSetCompartment(cvr), NULL );
 
@@ -126,28 +126,32 @@ END_TEST
 
 START_TEST (test_CompartmentVolumeRule_setCompartment)
 {
+  const char *c;
   char *compartment = "cell";
 
 
   CompartmentVolumeRule_setCompartment(CVR, compartment);
 
-  fail_unless( !strcmp(CVR->variable, compartment), NULL );
+  fail_unless( !strcmp(CompartmentVolumeRule_getCompartment(CVR), compartment),
+               NULL );
   fail_unless( CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 
-  if (CVR->variable == compartment)
+  if (CompartmentVolumeRule_getCompartment(CVR) == compartment)
   {
     fail( "CompartmentVolumeRule_setCompartment(...)"
           " did not make a copy of string." );
   }
 
   /* Reflexive case (pathological) */
-  CompartmentVolumeRule_setCompartment(CVR, CVR->variable);
-  fail_unless( !strcmp(CVR->variable, compartment), NULL );
+  c = CompartmentVolumeRule_getCompartment(CVR);
+  CompartmentVolumeRule_setCompartment(CVR, c);
+  fail_unless( !strcmp(CompartmentVolumeRule_getCompartment(CVR), compartment),
+               NULL );
 
   CompartmentVolumeRule_setCompartment(CVR, NULL);
   fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
 
-  if (CVR->variable != NULL)
+  if (CompartmentVolumeRule_getCompartment(CVR) != NULL)
   {
     fail( "CompartmentVolumeRule_setCompartment(CVR, NULL)"
           " did not clear string." );

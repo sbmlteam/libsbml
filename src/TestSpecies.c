@@ -80,22 +80,22 @@ SpeciesTest_teardown (void)
 
 START_TEST (test_Species_create)
 {
-  fail_unless( S->typecode   == SBML_SPECIES, NULL );
-  fail_unless( S->metaid     == NULL, NULL );
-  fail_unless( S->notes      == NULL, NULL );
-  fail_unless( S->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (S) == SBML_SPECIES, NULL );
+  fail_unless( SBase_getMetaId    (S) == NULL, NULL );
+  fail_unless( SBase_getNotes     (S) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(S) == NULL, NULL );
 
-  fail_unless( S->id                    == NULL, NULL );
-  fail_unless( S->name                  == NULL, NULL );
-  fail_unless( S->compartment           == NULL, NULL );
-  fail_unless( S->initial.Amount        == 0.0 , NULL );
-  fail_unless( S->initial.Concentration == 0.0 , NULL );
-  fail_unless( S->substanceUnits        == NULL, NULL );
-  fail_unless( S->spatialSizeUnits      == NULL, NULL );
-  fail_unless( S->hasOnlySubstanceUnits == 0   , NULL );
-  fail_unless( S->boundaryCondition     == 0   , NULL );
-  fail_unless( S->charge                == 0   , NULL );
-  fail_unless( S->constant              == 0   , NULL );
+  fail_unless( Species_getId                   (S) == NULL, NULL );
+  fail_unless( Species_getName                 (S) == NULL, NULL );
+  fail_unless( Species_getCompartment          (S) == NULL, NULL );
+  fail_unless( Species_getInitialAmount        (S) == 0.0 , NULL );
+  fail_unless( Species_getInitialConcentration (S) == 0.0 , NULL );
+  fail_unless( Species_getSubstanceUnits       (S) == NULL, NULL );
+  fail_unless( Species_getSpatialSizeUnits     (S) == NULL, NULL );
+  fail_unless( Species_getHasOnlySubstanceUnits(S) == 0   , NULL );
+  fail_unless( Species_getBoundaryCondition    (S) == 0   , NULL );
+  fail_unless( Species_getCharge               (S) == 0   , NULL );
+  fail_unless( Species_getConstant             (S) == 0   , NULL );
 
   fail_unless( !Species_isSetId                  (S), NULL );
   fail_unless( !Species_isSetName                (S), NULL );
@@ -115,23 +115,23 @@ START_TEST (test_Species_createWith)
   Species_t *s = Species_createWith("Ca", "cell", 5.7, "mole", 1, 1);
 
 
-  fail_unless( s->typecode   == SBML_SPECIES, NULL );
-  fail_unless( s->metaid     == NULL, NULL );
-  fail_unless( s->notes      == NULL, NULL );
-  fail_unless( s->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (s) == SBML_SPECIES, NULL );
+  fail_unless( SBase_getMetaId    (s) == NULL, NULL );
+  fail_unless( SBase_getNotes     (s) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(s) == NULL, NULL );
 
-  fail_unless( s->name                  == NULL, NULL );
-  fail_unless( s->spatialSizeUnits      == NULL, NULL );
-  fail_unless( s->hasOnlySubstanceUnits == 0, NULL );
-  fail_unless( s->constant              == 0, NULL );
+  fail_unless( Species_getName                 (s) == NULL, NULL );
+  fail_unless( Species_getSpatialSizeUnits     (s) == NULL, NULL );
+  fail_unless( Species_getHasOnlySubstanceUnits(s) == 0, NULL );
+  fail_unless( Species_getConstant             (s) == 0, NULL );
 
-  fail_unless( !strcmp(s->id            , "Ca"  ), NULL );
-  fail_unless( !strcmp(s->compartment   , "cell"), NULL );
-  fail_unless( !strcmp(s->substanceUnits, "mole"), NULL );
+  fail_unless( !strcmp(Species_getId            (s), "Ca"  ), NULL );
+  fail_unless( !strcmp(Species_getCompartment   (s), "cell"), NULL );
+  fail_unless( !strcmp(Species_getSubstanceUnits(s), "mole"), NULL );
 
-  fail_unless( s->initial.Amount    == 5.7 , NULL );
-  fail_unless( s->boundaryCondition == 1   , NULL );
-  fail_unless( s->charge            == 1   , NULL );
+  fail_unless( Species_getInitialAmount    (s) == 5.7 , NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 1   , NULL );
+  fail_unless( Species_getCharge           (s) == 1   , NULL );
 
   fail_unless(   Species_isSetId                   (s), NULL );
   fail_unless( ! Species_isSetName                 (s), NULL );
@@ -162,22 +162,22 @@ START_TEST (test_Species_setId)
 
   Species_setId(S, id);
 
-  fail_unless( !strcmp(S->id, id), NULL );
-  fail_unless( Species_isSetId(S)  , NULL );
+  fail_unless( !strcmp(Species_getId(S), id), NULL );
+  fail_unless( Species_isSetId(S), NULL );
 
-  if (S->id == id)
+  if (Species_getId(S) == id)
   {
     fail("Species_setId(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setId(S, S->id);
-  fail_unless( !strcmp(S->id, id), NULL );
+  Species_setId(S, Species_getId(S));
+  fail_unless( !strcmp(Species_getId(S), id), NULL );
 
   Species_setId(S, NULL);
   fail_unless( !Species_isSetId(S), NULL );
 
-  if (S->id != NULL)
+  if (Species_getId(S) != NULL)
   {
     fail("Species_setId(S, NULL) did not clear string.");
   }
@@ -192,22 +192,22 @@ START_TEST (test_Species_setName)
 
   Species_setName(S, name);
 
-  fail_unless( !strcmp(S->name, name), NULL );
-  fail_unless( Species_isSetName(S)  , NULL );
+  fail_unless( !strcmp(Species_getName(S), name), NULL );
+  fail_unless( Species_isSetName(S), NULL );
 
-  if (S->name == name)
+  if (Species_getName(S) == name)
   {
     fail("Species_setName(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setName(S, S->name);
-  fail_unless( !strcmp(S->name, name), NULL );
+  Species_setName(S, Species_getName(S));
+  fail_unless( !strcmp(Species_getName(S), name), NULL );
 
   Species_setName(S, NULL);
   fail_unless( !Species_isSetName(S), NULL );
 
-  if (S->name != NULL)
+  if (Species_getName(S) != NULL)
   {
     fail("Species_setName(S, NULL) did not clear string.");
   }
@@ -222,22 +222,22 @@ START_TEST (test_Species_setCompartment)
 
   Species_setCompartment(S, compartment);
 
-  fail_unless( !strcmp(S->compartment, compartment), NULL );
+  fail_unless( !strcmp(Species_getCompartment(S), compartment), NULL );
   fail_unless( Species_isSetCompartment(S), NULL );
 
-  if (S->compartment == compartment)
+  if (Species_getCompartment(S) == compartment)
   {
     fail("Species_setCompartment(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setCompartment(S, S->compartment);
-  fail_unless( !strcmp(S->compartment, compartment), NULL );
+  Species_setCompartment(S, Species_getCompartment(S));
+  fail_unless( !strcmp(Species_getCompartment(S), compartment), NULL );
 
   Species_setCompartment(S, NULL);
   fail_unless( !Species_isSetCompartment(S), NULL );
 
-  if (S->compartment != NULL)
+  if (Species_getCompartment(S) != NULL)
   {
     fail("Species_setComartment(S, NULL) did not clear string.");
   }
@@ -282,22 +282,22 @@ START_TEST (test_Species_setSubstanceUnits)
 
   Species_setSubstanceUnits(S, units);
 
-  fail_unless( !strcmp(S->substanceUnits, units), NULL );
+  fail_unless( !strcmp(Species_getSubstanceUnits(S), units), NULL );
   fail_unless( Species_isSetSubstanceUnits(S), NULL );
 
-  if (S->substanceUnits == units)
+  if (Species_getSubstanceUnits(S) == units)
   {
     fail("Species_setSubstanceUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setSubstanceUnits(S, S->substanceUnits);
-  fail_unless( !strcmp(S->substanceUnits, units), NULL );
+  Species_setSubstanceUnits(S, Species_getSubstanceUnits(S));
+  fail_unless( !strcmp(Species_getSubstanceUnits(S), units), NULL );
 
   Species_setSubstanceUnits(S, NULL);
   fail_unless( !Species_isSetSubstanceUnits(S), NULL );
 
-  if (S->substanceUnits != NULL)
+  if (Species_getSubstanceUnits(S) != NULL)
   {
     fail("Species_setSubstanceUnits(S, NULL) did not clear string.");
   }
@@ -312,22 +312,22 @@ START_TEST (test_Species_setSpatialSizeUnits)
 
   Species_setSpatialSizeUnits(S, units);
 
-  fail_unless( !strcmp(S->spatialSizeUnits, units), NULL );
+  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units), NULL );
   fail_unless( Species_isSetSpatialSizeUnits(S), NULL );
 
-  if (S->spatialSizeUnits == units)
+  if (Species_getSpatialSizeUnits(S) == units)
   {
     fail("Species_setSpatialSizeUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setSpatialSizeUnits(S, S->spatialSizeUnits);
-  fail_unless( !strcmp(S->spatialSizeUnits, units), NULL );
+  Species_setSpatialSizeUnits(S, Species_getSpatialSizeUnits(S));
+  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units), NULL );
 
   Species_setSpatialSizeUnits(S, NULL);
   fail_unless( !Species_isSetSpatialSizeUnits(S), NULL );
 
-  if (S->spatialSizeUnits != NULL)
+  if (Species_getSpatialSizeUnits(S) != NULL)
   {
     fail("Species_setSpatialSizeUnits(S, NULL) did not clear string.");
   }
@@ -345,19 +345,19 @@ START_TEST (test_Species_setUnits)
   fail_unless( !strcmp(Species_getUnits(S), units), NULL );
   fail_unless( Species_isSetUnits(S), NULL );
 
-  if (S->substanceUnits == units)
+  if (Species_getSubstanceUnits(S) == units)
   {
     fail("Species_setUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Species_setUnits(S, S->substanceUnits);
+  Species_setUnits(S, Species_getSubstanceUnits(S));
   fail_unless( !strcmp(Species_getUnits(S), units), NULL );
 
   Species_setUnits(S, NULL);
   fail_unless( !Species_isSetUnits(S), NULL );
 
-  if (S->substanceUnits != NULL)
+  if (Species_getSubstanceUnits(S) != NULL)
   {
     fail("Species_setUnits(S, NULL) did not clear string.");
   }

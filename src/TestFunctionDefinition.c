@@ -81,13 +81,14 @@ FunctionDefinitionTest_teardown (void)
 
 START_TEST (test_FunctionDefinition_create)
 {
-  fail_unless( FD->typecode   == SBML_FUNCTION_DEFINITION, NULL );
-  fail_unless( FD->metaid     == NULL, NULL );
-  fail_unless( FD->notes      == NULL, NULL );
-  fail_unless( FD->annotation == NULL, NULL );
-  fail_unless( FD->id         == NULL, NULL );
-  fail_unless( FD->name       == NULL, NULL );
-  fail_unless( FD->math       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (FD) == SBML_FUNCTION_DEFINITION, NULL );
+  fail_unless( SBase_getMetaId    (FD) == NULL, NULL );
+  fail_unless( SBase_getNotes     (FD) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(FD) == NULL, NULL );
+
+  fail_unless( FunctionDefinition_getId  (FD) == NULL, NULL );
+  fail_unless( FunctionDefinition_getName(FD) == NULL, NULL );
+  fail_unless( FunctionDefinition_getMath(FD) == NULL, NULL );
 }
 END_TEST
 
@@ -98,16 +99,17 @@ START_TEST (test_FunctionDefinition_createWith)
   FunctionDefinition_t *fd   = FunctionDefinition_createWith("pow3", math);
 
 
-  fail_unless( fd->typecode   == SBML_FUNCTION_DEFINITION, NULL );
-  fail_unless( fd->metaid     == NULL, NULL );
-  fail_unless( fd->notes      == NULL, NULL );
-  fail_unless( fd->annotation == NULL, NULL );
-  fail_unless( fd->name       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (fd) == SBML_FUNCTION_DEFINITION, NULL );
+  fail_unless( SBase_getMetaId    (fd) == NULL, NULL );
+  fail_unless( SBase_getNotes     (fd) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(fd) == NULL, NULL );
 
-  fail_unless( fd->math == math, NULL );
+  fail_unless( FunctionDefinition_getName(fd) == NULL, NULL );
+
+  fail_unless( FunctionDefinition_getMath(fd) == math, NULL );
   fail_unless( FunctionDefinition_isSetMath(fd), NULL );
 
-  fail_unless( !strcmp(fd->id, "pow3"), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getId(fd), "pow3"), NULL );
   fail_unless( FunctionDefinition_isSetId(fd), NULL );
 
   FunctionDefinition_free(fd);
@@ -129,22 +131,22 @@ START_TEST (test_FunctionDefinition_setId)
 
   FunctionDefinition_setId(FD, id);
 
-  fail_unless( !strcmp(FD->id, id), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getId(FD), id), NULL );
   fail_unless( FunctionDefinition_isSetId(FD), NULL );
 
-  if (FD->id == id)
+  if (FunctionDefinition_getId(FD) == id)
   {
     fail("FunctionDefinition_setId(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  FunctionDefinition_setId(FD, FD->id);
-  fail_unless( !strcmp(FD->id, id), NULL );
+  FunctionDefinition_setId(FD, FunctionDefinition_getId(FD));
+  fail_unless( !strcmp(FunctionDefinition_getId(FD), id), NULL );
 
   FunctionDefinition_setId(FD, NULL);
   fail_unless( !FunctionDefinition_isSetId(FD), NULL );
 
-  if (FD->id != NULL)
+  if (FunctionDefinition_getId(FD) != NULL)
   {
     fail("FunctionDefinition_setId(FD, NULL) did not clear string.");
   }
@@ -159,22 +161,22 @@ START_TEST (test_FunctionDefinition_setName)
 
   FunctionDefinition_setName(FD, name);
 
-  fail_unless( !strcmp(FD->name, name), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getName(FD), name), NULL );
   fail_unless( FunctionDefinition_isSetName(FD), NULL );
 
-  if (FD->name == name)
+  if (FunctionDefinition_getName(FD) == name)
   {
     fail("FunctionDefinition_setName(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  FunctionDefinition_setName(FD, FD->name);
-  fail_unless( !strcmp(FD->name, name), NULL );
+  FunctionDefinition_setName(FD, FunctionDefinition_getName(FD));
+  fail_unless( !strcmp(FunctionDefinition_getName(FD), name), NULL );
 
   FunctionDefinition_setName(FD, NULL);
   fail_unless( !FunctionDefinition_isSetName(FD), NULL );
 
-  if (FD->name != NULL)
+  if (FunctionDefinition_getName(FD) != NULL)
   {
     fail("FunctionDefinition_setName(FD, NULL) did not clear string.");
   }
@@ -189,17 +191,17 @@ START_TEST (test_FunctionDefinition_setMath)
 
   FunctionDefinition_setMath(FD, math);
 
-  fail_unless( FD->math == math, NULL );
+  fail_unless( FunctionDefinition_getMath(FD) == math, NULL );
   fail_unless( FunctionDefinition_isSetMath(FD), NULL );
 
   /* Reflexive case (pathological) */
-  FunctionDefinition_setMath(FD, FD->math);
-  fail_unless( FD->math == math, NULL );
+  FunctionDefinition_setMath(FD, (ASTNode_t *) FunctionDefinition_getMath(FD));
+  fail_unless( FunctionDefinition_getMath(FD) == math, NULL );
 
   FunctionDefinition_setMath(FD, NULL);
   fail_unless( !FunctionDefinition_isSetMath(FD), NULL );
 
-  if (FD->math != NULL)
+  if (FunctionDefinition_getMath(FD) != NULL)
   {
     fail("FunctionDefinition_setMath(FD, NULL) did not clear ASTNode.");
   }

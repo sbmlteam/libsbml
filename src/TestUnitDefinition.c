@@ -80,12 +80,13 @@ UnitDefinitionTest_teardown (void)
 
 START_TEST (test_UnitDefinition_create)
 {
-  fail_unless( UD->typecode   == SBML_UNIT_DEFINITION, NULL );
-  fail_unless( UD->metaid     == NULL, NULL );
-  fail_unless( UD->notes      == NULL, NULL );
-  fail_unless( UD->annotation == NULL, NULL );
-  fail_unless( UD->id         == NULL, NULL );
-  fail_unless( UD->name       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (UD) == SBML_UNIT_DEFINITION, NULL );
+  fail_unless( SBase_getMetaId    (UD) == NULL, NULL );
+  fail_unless( SBase_getNotes     (UD) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(UD) == NULL, NULL );
+
+  fail_unless( UnitDefinition_getId  (UD) == NULL, NULL );
+  fail_unless( UnitDefinition_getName(UD) == NULL, NULL );
 
   fail_unless( !UnitDefinition_isSetId  (UD), NULL );
   fail_unless( !UnitDefinition_isSetName(UD), NULL );
@@ -100,13 +101,14 @@ START_TEST (test_UnitDefinition_createWith)
   UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
 
 
-  fail_unless( ud->typecode   == SBML_UNIT_DEFINITION, NULL );
-  fail_unless( ud->metaid     == NULL, NULL );
-  fail_unless( ud->notes      == NULL, NULL );
-  fail_unless( ud->annotation == NULL, NULL );
-  fail_unless( ud->name       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION, NULL );
+  fail_unless( SBase_getMetaId    (ud) == NULL, NULL );
+  fail_unless( SBase_getNotes     (ud) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(ud) == NULL, NULL );
 
-  fail_unless( !strcmp(ud->id, "mmls"), NULL );
+  fail_unless( UnitDefinition_getName(ud) == NULL, NULL );
+
+  fail_unless( !strcmp(UnitDefinition_getId(ud), "mmls"), NULL );
   fail_unless(UnitDefinition_isSetId(ud), NULL);
 
   fail_unless(UnitDefinition_getNumUnits(ud) == 0, NULL);
@@ -121,13 +123,16 @@ START_TEST (test_UnitDefinition_createWithName)
   UnitDefinition_t *ud = UnitDefinition_createWithName("mmol liter^-1 sec^-1");
 
 
-  fail_unless( ud->typecode   == SBML_UNIT_DEFINITION, NULL );
-  fail_unless( ud->metaid     == NULL, NULL );
-  fail_unless( ud->notes      == NULL, NULL );
-  fail_unless( ud->annotation == NULL, NULL );
-  fail_unless( ud->id         == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION, NULL );
+  fail_unless( SBase_getMetaId    (ud) == NULL, NULL );
+  fail_unless( SBase_getNotes     (ud) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(ud) == NULL, NULL );
 
-  fail_unless( !strcmp(ud->name, "mmol liter^-1 sec^-1"), NULL );
+  fail_unless( UnitDefinition_getId(ud) == NULL, NULL );
+
+  fail_unless( !strcmp(UnitDefinition_getName(ud), "mmol liter^-1 sec^-1"),
+               NULL );
+
   fail_unless(UnitDefinition_isSetName(ud), NULL);
 
   fail_unless(UnitDefinition_getNumUnits(ud) == 0, NULL);
@@ -151,22 +156,22 @@ START_TEST (test_UnitDefinition_setId)
 
   UnitDefinition_setId(UD, id);
 
-  fail_unless( !strcmp(UD->id, id)       , NULL );
+  fail_unless( !strcmp(UnitDefinition_getId(UD), id), NULL );
   fail_unless( UnitDefinition_isSetId(UD), NULL );
 
-  if (UD->id == id)
+  if (UnitDefinition_getId(UD) == id)
   {
     fail("UnitDefinition_setId(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  UnitDefinition_setId(UD, UD->id);
-  fail_unless( !strcmp(UD->id, id), NULL );
+  UnitDefinition_setId(UD, UnitDefinition_getId(UD));
+  fail_unless( !strcmp(UnitDefinition_getId(UD), id), NULL );
 
   UnitDefinition_setId(UD, NULL);
   fail_unless( !UnitDefinition_isSetId(UD), NULL );
 
-  if (UD->id != NULL)
+  if (UnitDefinition_getId(UD) != NULL)
   {
     fail("UnitDefinition_setId(R, NULL) did not clear string.");
   }
@@ -181,22 +186,22 @@ START_TEST (test_UnitDefinition_setName)
 
   UnitDefinition_setName(UD, name);
 
-  fail_unless( !strcmp(UD->name, name)     , NULL );
+  fail_unless( !strcmp(UnitDefinition_getName(UD), name), NULL );
   fail_unless( UnitDefinition_isSetName(UD), NULL );
 
-  if (UD->name == name)
+  if (UnitDefinition_getName(UD) == name)
   {
     fail("UnitDefinition_setName(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  UnitDefinition_setName(UD, UD->name);
-  fail_unless( !strcmp(UD->name, name), NULL );
+  UnitDefinition_setName(UD, UnitDefinition_getName(UD));
+  fail_unless( !strcmp(UnitDefinition_getName(UD), name), NULL );
 
   UnitDefinition_setName(UD, NULL);
   fail_unless( !UnitDefinition_isSetName(UD), NULL );
 
-  if (UD->name != NULL)
+  if (UnitDefinition_getName(UD) != NULL)
   {
     fail("UnitDefinition_setName(R, NULL) did not clear string.");
   }
@@ -220,13 +225,13 @@ START_TEST (test_UnitDefinition_getUnit)
   Unit_t *second = Unit_create();
 
 
-  mole->kind   = UnitKind_forName("mole");
-  litre->kind  = UnitKind_forName("litre");
-  second->kind = UnitKind_forName("second");
+  Unit_setKind( mole  , UnitKind_forName("mole")   );
+  Unit_setKind( litre , UnitKind_forName("litre")  );
+  Unit_setKind( second, UnitKind_forName("second") );
 
-  mole->scale      = -3;
-  litre->exponent  = -1;
-  second->exponent = -1;
+  Unit_setScale   (mole  , -3);
+  Unit_setExponent(litre , -1);
+  Unit_setExponent(second, -1);
 
   UnitDefinition_addUnit( UD, mole   );
   UnitDefinition_addUnit( UD, litre  );
@@ -238,13 +243,13 @@ START_TEST (test_UnitDefinition_getUnit)
   litre  = UnitDefinition_getUnit(UD, 1);
   second = UnitDefinition_getUnit(UD, 2);
 
-  fail_unless( mole->kind   == UNIT_KIND_MOLE  , NULL );
-  fail_unless( litre->kind  == UNIT_KIND_LITRE , NULL );
-  fail_unless( second->kind == UNIT_KIND_SECOND, NULL );
+  fail_unless( Unit_getKind(mole)   == UNIT_KIND_MOLE  , NULL );
+  fail_unless( Unit_getKind(litre)  == UNIT_KIND_LITRE , NULL );
+  fail_unless( Unit_getKind(second) == UNIT_KIND_SECOND, NULL );
 
-  fail_unless( mole->scale      == -3, NULL );
-  fail_unless( litre->exponent  == -1, NULL );
-  fail_unless( second->exponent == -1, NULL );
+  fail_unless( Unit_getScale(mole)      == -3, NULL );
+  fail_unless( Unit_getExponent(litre)  == -1, NULL );
+  fail_unless( Unit_getExponent(second) == -1, NULL );
 }
 END_TEST
 

@@ -80,15 +80,16 @@ ParameterRuleTest_teardown (void)
 
 START_TEST (test_ParameterRule_create)
 {
-  fail_unless( PR->typecode   == SBML_PARAMETER_RULE, NULL );
-  fail_unless( PR->notes      == NULL, NULL );
-  fail_unless( PR->annotation == NULL, NULL );
-  fail_unless( PR->formula    == NULL, NULL );
-  fail_unless( PR->units      == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (PR) == SBML_PARAMETER_RULE, NULL );
+  fail_unless( SBase_getNotes     (PR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(PR) == NULL, NULL );
 
-  fail_unless( ParameterRule_getName(PR) == NULL, NULL );
+  fail_unless( Rule_getFormula(PR) == NULL, NULL );
 
-  fail_unless( PR->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( ParameterRule_getUnits(PR) == NULL, NULL );
+  fail_unless( ParameterRule_getName (PR) == NULL, NULL );
+
+  fail_unless( AssignmentRule_getType(PR) == RULE_TYPE_SCALAR, NULL );
 
   fail_unless( !ParameterRule_isSetName (PR), NULL );
   fail_unless( !ParameterRule_isSetUnits(PR), NULL );
@@ -103,15 +104,16 @@ START_TEST (test_ParameterRule_createWith)
 
   pr = ParameterRule_createWith("x + 1", RULE_TYPE_SCALAR, "y");
 
-  fail_unless( pr->typecode   == SBML_PARAMETER_RULE, NULL );
-  fail_unless( pr->notes      == NULL, NULL );
-  fail_unless( pr->annotation == NULL, NULL );
-  fail_unless( pr->units      == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (pr) == SBML_PARAMETER_RULE, NULL );
+  fail_unless( SBase_getNotes     (pr) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(pr) == NULL, NULL );
 
-  fail_unless( !strcmp(pr->formula              , "x + 1"), NULL );
+  fail_unless( ParameterRule_getUnits(pr) == NULL, NULL );
+
+  fail_unless( !strcmp(Rule_getFormula(pr)      , "x + 1"), NULL );
   fail_unless( !strcmp(ParameterRule_getName(pr), "y")    , NULL );
 
-  fail_unless( pr->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( AssignmentRule_getType(pr) == RULE_TYPE_SCALAR, NULL );
 
   fail_unless( ParameterRule_isSetName  (pr), NULL );
   fail_unless( !ParameterRule_isSetUnits(pr), NULL );
@@ -138,20 +140,20 @@ START_TEST (test_ParameterRule_setName)
   fail_unless( !strcmp(ParameterRule_getName(PR), name), NULL );
   fail_unless( ParameterRule_isSetName(PR), NULL );
 
-  if (PR->variable == name)
+  if (ParameterRule_getName(PR) == name)
   {
     fail( "ParameterRule_setName(...) did not make a copy of string." );
           
   }
 
   /* Reflexive case (pathological) */
-  ParameterRule_setName(PR, PR->variable);
+  ParameterRule_setName(PR, ParameterRule_getName(PR));
   fail_unless( !strcmp(ParameterRule_getName(PR), name), NULL );
 
   ParameterRule_setName(PR, NULL);
   fail_unless( !ParameterRule_isSetName(PR), NULL );
 
-  if (PR->variable != NULL)
+  if (ParameterRule_getName(PR) != NULL)
   {
     fail( "ParameterRule_setName(PR, NULL) did not clear string." );          
   }
@@ -166,22 +168,22 @@ START_TEST (test_ParameterRule_setUnits)
 
   ParameterRule_setUnits(PR, units);
 
-  fail_unless( !strcmp(PR->units, units)   , NULL );
+  fail_unless( !strcmp(ParameterRule_getUnits(PR), units)   , NULL );
   fail_unless( ParameterRule_isSetUnits(PR), NULL );
 
-  if (PR->units == units)
+  if (ParameterRule_getUnits(PR) == units)
   {
     fail( "ParameterRule_setUnits(...) did not make a copy of string." );
   }
 
   /* Reflexive case (pathological) */
-  ParameterRule_setUnits(PR, PR->units);
-  fail_unless( !strcmp(PR->units, units), NULL );
+  ParameterRule_setUnits(PR, ParameterRule_getUnits(PR));
+  fail_unless( !strcmp(ParameterRule_getUnits(PR), units), NULL );
 
   ParameterRule_setUnits(PR, NULL);
   fail_unless( !ParameterRule_isSetUnits(PR), NULL );
 
-  if (PR->units != NULL)
+  if (ParameterRule_getUnits(PR) != NULL)
   {
     fail( "ParameterRule_setUnits(PR, NULL) did not clear string." );
   }

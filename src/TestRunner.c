@@ -221,6 +221,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestReadFromFile3() );
   srunner_add_suite( runner, create_suite_TestReadFromFile4() );
 
+
   setTestDataDirectory();
 
 #ifdef TRACE_MEMORY

@@ -61,9 +61,9 @@ START_TEST (test_ParseMessage_create)
   ParseMessage_t *pm = ParseMessage_create();
 
 
-  fail_unless( pm->message == NULL, NULL );
-  fail_unless( pm->line    == 0   , NULL );
-  fail_unless( pm->column  == 0   , NULL );
+  fail_unless( ParseMessage_getMessage(pm) == NULL, NULL );
+  fail_unless( ParseMessage_getLine   (pm) == 0   , NULL );
+  fail_unless( ParseMessage_getColumn (pm) == 0   , NULL );
 
   ParseMessage_free(pm);
 }

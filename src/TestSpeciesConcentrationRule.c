@@ -80,12 +80,15 @@ SpeciesConcentrationRuleTest_teardown (void)
 
 START_TEST (test_SpeciesConcentrationRule_create)
 {
-  fail_unless( SCR->typecode   == SBML_SPECIES_CONCENTRATION_RULE, NULL );
-  fail_unless( SCR->notes      == NULL, NULL );
-  fail_unless( SCR->annotation == NULL, NULL );
-  fail_unless( SCR->formula    == NULL, NULL );
+  fail_unless( SBase_getTypeCode(SCR) == SBML_SPECIES_CONCENTRATION_RULE,
+               NULL );
 
-  fail_unless( SCR->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( SBase_getNotes     (SCR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(SCR) == NULL, NULL );
+
+  fail_unless( Rule_getFormula(SCR) == NULL, NULL );
+
+  fail_unless( AssignmentRule_getType(SCR) == RULE_TYPE_SCALAR, NULL );
 
   fail_unless( SpeciesConcentrationRule_getSpecies(SCR) == NULL, NULL );
 
@@ -102,14 +105,16 @@ START_TEST (test_SpeciesConcentrationRule_createWith)
   scr = SpeciesConcentrationRule_createWith("t - s2", RULE_TYPE_RATE, "s1");
 
 
-  fail_unless( scr->typecode   == SBML_SPECIES_CONCENTRATION_RULE, NULL );
-  fail_unless( scr->notes      == NULL, NULL );
-  fail_unless( scr->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode(scr) == SBML_SPECIES_CONCENTRATION_RULE,
+               NULL );
 
-  fail_unless( !strcmp(scr->formula, "t - s2"), NULL );
+  fail_unless( SBase_getNotes     (scr) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(scr) == NULL, NULL );
+
+  fail_unless( !strcmp(Rule_getFormula(scr), "t - s2"), NULL );
   fail_unless( !strcmp(SpeciesConcentrationRule_getSpecies(scr), "s1"), NULL );
 
-  fail_unless( scr->type == RULE_TYPE_RATE, NULL );
+  fail_unless( AssignmentRule_getType(scr) == RULE_TYPE_RATE, NULL );
 
   fail_unless( SpeciesConcentrationRule_isSetSpecies(scr), NULL );
 
@@ -138,7 +143,7 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
 
   fail_unless( SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
 
-  if (SCR->variable == species)
+  if (SpeciesConcentrationRule_getSpecies(SCR) == species)
   {
     fail( "SpeciesConcentrationRule_setSpecies(...)"
           " did not make a copy of string." );
@@ -152,7 +157,7 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
   SpeciesConcentrationRule_setSpecies(SCR, NULL);
   fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
 
-  if (SCR->variable != NULL)
+  if (SpeciesConcentrationRule_getSpecies(SCR) != NULL)
   {
     fail( "SpeciesConcentrationRule_setSpecies(SCR, NULL)"
           " did not clear string." );

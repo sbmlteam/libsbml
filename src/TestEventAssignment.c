@@ -81,12 +81,13 @@ EventAssignmentTest_teardown (void)
 
 START_TEST (test_EventAssignment_create)
 {
-  fail_unless( EA->typecode   == SBML_EVENT_ASSIGNMENT, NULL );
-  fail_unless( EA->metaid     == NULL, NULL );
-  fail_unless( EA->notes      == NULL, NULL );
-  fail_unless( EA->annotation == NULL, NULL );
-  fail_unless( EA->variable   == NULL, NULL );
-  fail_unless( EA->math       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (EA) == SBML_EVENT_ASSIGNMENT, NULL );
+  fail_unless( SBase_getMetaId    (EA) == NULL, NULL );
+  fail_unless( SBase_getNotes     (EA) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(EA) == NULL, NULL );
+
+  fail_unless( EventAssignment_getVariable(EA) == NULL, NULL );
+  fail_unless( EventAssignment_getMath    (EA) == NULL, NULL );
 }
 END_TEST
 
@@ -97,15 +98,15 @@ START_TEST (test_EventAssignment_createWith)
   EventAssignment_t *ea   = EventAssignment_createWith("k", math);
 
 
-  fail_unless( ea->typecode   == SBML_EVENT_ASSIGNMENT, NULL );
-  fail_unless( ea->metaid     == NULL, NULL );
-  fail_unless( ea->notes      == NULL, NULL );
-  fail_unless( ea->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (ea) == SBML_EVENT_ASSIGNMENT, NULL );
+  fail_unless( SBase_getMetaId    (ea) == NULL, NULL );
+  fail_unless( SBase_getNotes     (ea) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(ea) == NULL, NULL );
 
-  fail_unless( ea->math == math, NULL );
+  fail_unless( EventAssignment_getMath(ea) == math, NULL );
   fail_unless( EventAssignment_isSetMath(ea), NULL );
 
-  fail_unless( !strcmp(ea->variable, "k"), NULL );
+  fail_unless( !strcmp(EventAssignment_getVariable(ea), "k"), NULL );
   fail_unless( EventAssignment_isSetVariable(ea), NULL );
 
   EventAssignment_free(ea);
@@ -127,22 +128,22 @@ START_TEST (test_EventAssignment_setVariable)
 
   EventAssignment_setVariable(EA, variable);
 
-  fail_unless( !strcmp(EA->variable, variable)  , NULL );
+  fail_unless( !strcmp(EventAssignment_getVariable(EA), variable), NULL );
   fail_unless( EventAssignment_isSetVariable(EA), NULL );
 
-  if (EA->variable == variable)
+  if (EventAssignment_getVariable(EA) == variable)
   {
     fail("EventAssignment_setVariable(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  EventAssignment_setVariable(EA, EA->variable);
-  fail_unless( !strcmp(EA->variable, variable), NULL );
+  EventAssignment_setVariable(EA, EventAssignment_getVariable(EA));
+  fail_unless( !strcmp(EventAssignment_getVariable(EA), variable), NULL );
 
   EventAssignment_setVariable(EA, NULL);
   fail_unless( !EventAssignment_isSetVariable(EA), NULL );
 
-  if (EA->variable != NULL)
+  if (EventAssignment_getVariable(EA) != NULL)
   {
     fail("EventAssignment_setVariable(EA, NULL) did not clear string.");
   }
@@ -157,17 +158,17 @@ START_TEST (test_EventAssignment_setMath)
 
   EventAssignment_setMath(EA, math);
 
-  fail_unless( EA->math == math, NULL );
+  fail_unless( EventAssignment_getMath(EA) == math, NULL );
   fail_unless( EventAssignment_isSetMath(EA), NULL );
 
   /* Reflexive case (pathological) */
-  EventAssignment_setMath(EA, EA->math);
-  fail_unless( EA->math == math, NULL );
+  EventAssignment_setMath(EA, (ASTNode_t *) EventAssignment_getMath(EA));
+  fail_unless( EventAssignment_getMath(EA) == math, NULL );
 
   EventAssignment_setMath(EA, NULL);
   fail_unless( !EventAssignment_isSetMath(EA), NULL );
 
-  if (EA->math != NULL)
+  if (EventAssignment_getMath(EA) != NULL)
   {
     fail("EventAssignment_setMath(EA, NULL) did not clear ASTNode.");
   }

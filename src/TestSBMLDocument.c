@@ -61,16 +61,16 @@ START_TEST (test_SBMLDocument_create)
   SBMLDocument_t *d = SBMLDocument_create();
 
 
-  fail_unless( d->typecode   == SBML_DOCUMENT, NULL );
-  fail_unless( d->notes      == NULL, NULL );
-  fail_unless( d->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (d) == SBML_DOCUMENT, NULL );
+  fail_unless( SBase_getNotes     (d) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(d) == NULL, NULL );
 
-  fail_unless(d->level   == 2, NULL);
-  fail_unless(d->version == 1, NULL);
+  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL);
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL);
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumErrors(d)   == 0, NULL );
-  fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
+  fail_unless( SBMLDocument_getNumErrors  (d) == 0, NULL );
+  fail_unless( SBMLDocument_getNumFatals  (d) == 0, NULL );
 
   SBMLDocument_free(d);
 }
@@ -82,16 +82,16 @@ START_TEST (test_SBMLDocument_createWith)
   SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
 
 
-  fail_unless( d->typecode   == SBML_DOCUMENT, NULL );
-  fail_unless( d->notes      == NULL, NULL );
-  fail_unless( d->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (d) == SBML_DOCUMENT, NULL );
+  fail_unless( SBase_getNotes     (d) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(d) == NULL, NULL );
 
-  fail_unless(d->level   == 1, NULL);
-  fail_unless(d->version == 2, NULL);
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL);
+  fail_unless( SBMLDocument_getVersion(d) == 2, NULL);
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumErrors(d)   == 0, NULL );
-  fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
+  fail_unless( SBMLDocument_getNumErrors  (d) == 0, NULL );
+  fail_unless( SBMLDocument_getNumFatals  (d) == 0, NULL );
 
   SBMLDocument_free(d);
 }
@@ -112,17 +112,17 @@ START_TEST (test_SBMLDocument_setModel)
   Model_t        *m2 = Model_create();
 
 
-  fail_unless(d->model == NULL, NULL);
+  fail_unless(SBMLDocument_getModel(d) == NULL, NULL);
 
   SBMLDocument_setModel(d, m1);
-  fail_unless(d->model == m1, NULL);
+  fail_unless(SBMLDocument_getModel(d) == m1, NULL);
 
   /* Reflexive case (pathological) */
-  SBMLDocument_setModel(d, d->model);
-  fail_unless(d->model == m1, NULL);
+  SBMLDocument_setModel(d, SBMLDocument_getModel(d));
+  fail_unless(SBMLDocument_getModel(d) == m1, NULL);
 
   SBMLDocument_setModel(d, m2);
-  fail_unless(d->model == m2, NULL);
+  fail_unless(SBMLDocument_getModel(d) == m2, NULL);
 
   SBMLDocument_free(d);
   /* m1 is freed by SBMLDocument_setModel(d, m2); */

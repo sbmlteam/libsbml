@@ -84,15 +84,15 @@ KineticLawTest_teardown (void)
 
 START_TEST (test_KineticLaw_create)
 {
-  fail_unless( KL->typecode   == SBML_KINETIC_LAW, NULL );
-  fail_unless( KL->metaid     == NULL, NULL );
-  fail_unless( KL->notes      == NULL, NULL );
-  fail_unless( KL->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (KL) == SBML_KINETIC_LAW, NULL );
+  fail_unless( SBase_getMetaId    (KL) == NULL, NULL );
+  fail_unless( SBase_getNotes     (KL) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(KL) == NULL, NULL );
 
-  fail_unless( KL->formula        == NULL, NULL );
-  fail_unless( KL->math           == NULL, NULL );
-  fail_unless( KL->timeUnits      == NULL, NULL );
-  fail_unless( KL->substanceUnits == NULL, NULL );
+  fail_unless( KineticLaw_getFormula       (KL) == NULL, NULL );
+  fail_unless( KineticLaw_getMath          (KL) == NULL, NULL );
+  fail_unless( KineticLaw_getTimeUnits     (KL) == NULL, NULL );
+  fail_unless( KineticLaw_getSubstanceUnits(KL) == NULL, NULL );
 
   fail_unless( !KineticLaw_isSetFormula       (KL), NULL );
   fail_unless( !KineticLaw_isSetMath          (KL), NULL );
@@ -109,15 +109,16 @@ START_TEST (test_KineticLaw_createWith)
   KineticLaw_t *kl = KineticLaw_createWith("k1*X0", "seconds", "ug");
 
 
-  fail_unless( kl->typecode   == SBML_KINETIC_LAW, NULL );
-  fail_unless( kl->metaid     == NULL, NULL );
-  fail_unless( kl->notes      == NULL, NULL );
-  fail_unless( kl->annotation == NULL, NULL );
-  fail_unless( kl->math       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (kl) == SBML_KINETIC_LAW, NULL );
+  fail_unless( SBase_getMetaId    (kl) == NULL, NULL );
+  fail_unless( SBase_getNotes     (kl) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(kl) == NULL, NULL );
 
-  fail_unless( !strcmp( kl->formula       , "k1*X0"  ), NULL );
-  fail_unless( !strcmp( kl->timeUnits     , "seconds"), NULL );
-  fail_unless( !strcmp( kl->substanceUnits, "ug"     ), NULL );
+  fail_unless( KineticLaw_getMath(kl) == NULL, NULL );
+
+  fail_unless( !strcmp( KineticLaw_getFormula       (kl), "k1*X0"  ), NULL );
+  fail_unless( !strcmp( KineticLaw_getTimeUnits     (kl), "seconds"), NULL );
+  fail_unless( !strcmp( KineticLaw_getSubstanceUnits(kl), "ug"     ), NULL );
 
   fail_unless( !KineticLaw_isSetMath         (kl), NULL );
   fail_unless( KineticLaw_isSetFormula       (kl), NULL );
@@ -145,22 +146,22 @@ START_TEST (test_KineticLaw_setFormula)
 
   KineticLaw_setFormula(KL, formula);
 
-  fail_unless( !strcmp(KL->formula, formula), NULL );
+  fail_unless( !strcmp(KineticLaw_getFormula(KL), formula), NULL );
   fail_unless( KineticLaw_isSetFormula(KL)  , NULL );
 
-  if (KL->formula == formula)
+  if (KineticLaw_getFormula(KL) == formula)
   {
     fail("KineticLaw_setFormula(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  KineticLaw_setFormula(KL, KL->formula);
-  fail_unless( !strcmp(KL->formula, formula), NULL );
+  KineticLaw_setFormula(KL, KineticLaw_getFormula(KL));
+  fail_unless( !strcmp(KineticLaw_getFormula(KL), formula), NULL );
 
   KineticLaw_setFormula(KL, NULL);
   fail_unless( !KineticLaw_isSetFormula(KL), NULL );
 
-  if (KL->formula != NULL)
+  if (KineticLaw_getFormula(KL) != NULL)
   {
     fail("KineticLaw_setFormula(KL, NULL) did not clear string.");
   }
@@ -200,17 +201,17 @@ START_TEST (test_KineticLaw_setMath)
 
   KineticLaw_setMath(KL, math);
 
-  fail_unless( KL->math == math, NULL );
+  fail_unless( KineticLaw_getMath(KL) == math, NULL );
   fail_unless( KineticLaw_isSetMath(KL), NULL );
 
   /* Reflexive case (pathological) */
-  KineticLaw_setMath(KL, KL->math);
-  fail_unless( KL->math == math, NULL );
+  KineticLaw_setMath(KL, (ASTNode_t *) KineticLaw_getMath(KL));
+  fail_unless( KineticLaw_getMath(KL) == math, NULL );
 
   KineticLaw_setMath(KL, NULL);
   fail_unless( !KineticLaw_isSetMath(KL), NULL );
 
-  if (KL->math != NULL)
+  if (KineticLaw_getMath(KL) != NULL)
   {
     fail( "KineticLaw_setMath(KL, NULL) did not clear ASTNode." );
   }
@@ -254,22 +255,22 @@ START_TEST (test_KineticLaw_setTimeUnits)
 
   KineticLaw_setTimeUnits(KL, units);
 
-  fail_unless( !strcmp(KL->timeUnits, units), NULL );
+  fail_unless( !strcmp(KineticLaw_getTimeUnits(KL), units), NULL );
   fail_unless( KineticLaw_isSetTimeUnits(KL), NULL );
 
-  if (KL->timeUnits == units)
+  if (KineticLaw_getTimeUnits(KL) == units)
   {
     fail("KineticLaw_setTimeUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  KineticLaw_setTimeUnits(KL, KL->timeUnits);
-  fail_unless( !strcmp(KL->timeUnits, units), NULL );
+  KineticLaw_setTimeUnits(KL, KineticLaw_getTimeUnits(KL));
+  fail_unless( !strcmp(KineticLaw_getTimeUnits(KL), units), NULL );
 
   KineticLaw_setTimeUnits(KL, NULL);
   fail_unless( !KineticLaw_isSetTimeUnits(KL), NULL );
 
-  if (KL->timeUnits != NULL)
+  if (KineticLaw_getTimeUnits(KL) != NULL)
   {
     fail("KineticLaw_setTimeUnits(KL, NULL) did not clear string.");
   }
@@ -284,22 +285,22 @@ START_TEST (test_KineticLaw_setSubstanceUnits)
 
   KineticLaw_setSubstanceUnits(KL, units);
 
-  fail_unless( !strcmp(KL->substanceUnits, units), NULL );
+  fail_unless( !strcmp(KineticLaw_getSubstanceUnits(KL), units), NULL );
   fail_unless( KineticLaw_isSetSubstanceUnits(KL), NULL );
 
-  if (KL->substanceUnits == units)
+  if (KineticLaw_getSubstanceUnits(KL) == units)
   {
     fail("KineticLaw_setSubstanceUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  KineticLaw_setSubstanceUnits(KL, KL->substanceUnits);
-  fail_unless( !strcmp(KL->substanceUnits, units), NULL );
+  KineticLaw_setSubstanceUnits(KL, KineticLaw_getSubstanceUnits(KL));
+  fail_unless( !strcmp(KineticLaw_getSubstanceUnits(KL), units), NULL );
 
   KineticLaw_setSubstanceUnits(KL, NULL);
   fail_unless( !KineticLaw_isSetSubstanceUnits(KL), NULL );
 
-  if (KL->substanceUnits != NULL)
+  if (KineticLaw_getSubstanceUnits(KL) != NULL)
   {
     fail("KineticLaw_setSubstanceUnits(KL, NULL) did not clear string.");
   }
@@ -324,8 +325,8 @@ START_TEST (test_KineticLaw_getParameter)
   Parameter_setName(k1, "k1");
   Parameter_setName(k2, "k2");
 
-  k1->value = 3.14;
-  k2->value = 2.72;
+  Parameter_setValue(k1, 3.14);
+  Parameter_setValue(k2, 2.72);
 
   KineticLaw_addParameter(KL, k1);
   KineticLaw_addParameter(KL, k2);
@@ -335,10 +336,10 @@ START_TEST (test_KineticLaw_getParameter)
   k1 = KineticLaw_getParameter(KL, 0);
   k2 = KineticLaw_getParameter(KL, 1);
 
-  fail_unless( !strcmp(k1->name, "k1"), NULL );
-  fail_unless( !strcmp(k2->name, "k2"), NULL );
-  fail_unless( k1->value == 3.14, NULL );
-  fail_unless( k2->value == 2.72, NULL );
+  fail_unless( !strcmp(Parameter_getName(k1), "k1"), NULL );
+  fail_unless( !strcmp(Parameter_getName(k2), "k2"), NULL );
+  fail_unless( Parameter_getValue(k1) == 3.14, NULL );
+  fail_unless( Parameter_getValue(k2) == 2.72, NULL );
 }
 END_TEST
 

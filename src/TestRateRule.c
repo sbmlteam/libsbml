@@ -80,13 +80,14 @@ RateRuleTest_teardown (void)
 
 START_TEST (test_RateRule_create)
 {
-  fail_unless( RR->typecode   == SBML_RATE_RULE, NULL );
-  fail_unless( RR->metaid     == NULL, NULL );
-  fail_unless( RR->notes      == NULL, NULL );
-  fail_unless( RR->annotation == NULL, NULL );
-  fail_unless( RR->formula    == NULL, NULL );
-  fail_unless( RR->math       == NULL, NULL );
-  fail_unless( RR->variable   == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (RR) == SBML_RATE_RULE, NULL );
+  fail_unless( SBase_getMetaId    (RR) == NULL, NULL );
+  fail_unless( SBase_getNotes     (RR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(RR) == NULL, NULL );
+
+  fail_unless( Rule_getFormula     (RR) == NULL, NULL );
+  fail_unless( Rule_getMath        (RR) == NULL, NULL );
+  fail_unless( RateRule_getVariable(RR) == NULL, NULL );
 }
 END_TEST
 
@@ -94,19 +95,20 @@ END_TEST
 START_TEST (test_RateRule_createWith)
 {
   ASTNode_t  *math = SBML_parseFormula("f(W)");
-  RateRule_t *ar   = RateRule_createWith("dx", math);
+  RateRule_t *rr   = RateRule_createWith("dx", math);
 
 
-  fail_unless( ar->typecode   == SBML_RATE_RULE, NULL );
-  fail_unless( ar->metaid     == NULL, NULL );
-  fail_unless( ar->notes      == NULL, NULL );
-  fail_unless( ar->annotation == NULL, NULL );
-  fail_unless( ar->formula    == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (rr) == SBML_RATE_RULE, NULL );
+  fail_unless( SBase_getMetaId    (rr) == NULL, NULL );
+  fail_unless( SBase_getNotes     (rr) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(rr) == NULL, NULL );
 
-  fail_unless( ar->math == math, NULL );
-  fail_unless( !strcmp(ar->variable, "dx"), NULL );
+  fail_unless( Rule_getFormula(rr) == NULL, NULL );
+  fail_unless( Rule_getMath   (rr) == math, NULL );
 
-  RateRule_free(ar);
+  fail_unless( !strcmp(RateRule_getVariable(rr), "dx"), NULL );
+
+  RateRule_free(rr);
 }
 END_TEST
 
@@ -125,22 +127,22 @@ START_TEST (test_RateRule_setVariable)
 
   RateRule_setVariable(RR, variable);
 
-  fail_unless( !strcmp(RR->variable, variable), NULL );
+  fail_unless( !strcmp(RateRule_getVariable(RR), variable), NULL );
   fail_unless( RateRule_isSetVariable(RR), NULL );
 
-  if (RR->variable == variable)
+  if (RateRule_getVariable(RR) == variable)
   {
     fail("RateRule_setVariable(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  RateRule_setVariable(RR, RR->variable);
-  fail_unless( !strcmp(RR->variable, variable), NULL );
+  RateRule_setVariable(RR, RateRule_getVariable(RR));
+  fail_unless( !strcmp(RateRule_getVariable(RR), variable), NULL );
 
   RateRule_setVariable(RR, NULL);
   fail_unless( !RateRule_isSetVariable(RR), NULL );
 
-  if (RR->variable != NULL)
+  if (RateRule_getVariable(RR) != NULL)
   {
     fail("RateRule_setVariable(RR, NULL) did not clear string.");
   }

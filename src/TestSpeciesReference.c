@@ -81,15 +81,15 @@ SpeciesReferenceTest_teardown (void)
 
 START_TEST (test_SpeciesReference_create)
 {
-  fail_unless( SR->typecode   == SBML_SPECIES_REFERENCE, NULL );
-  fail_unless( SR->metaid     == NULL, NULL );
-  fail_unless( SR->notes      == NULL, NULL );
-  fail_unless( SR->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (SR) == SBML_SPECIES_REFERENCE, NULL );
+  fail_unless( SBase_getMetaId    (SR) == NULL, NULL );
+  fail_unless( SBase_getNotes     (SR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(SR) == NULL, NULL );
 
-  fail_unless( SR->species           == NULL, NULL );
-  fail_unless( SR->stoichiometry     == 1   , NULL );
-  fail_unless( SR->stoichiometryMath == NULL, NULL );
-  fail_unless( SR->denominator       == 1   , NULL );
+  fail_unless( SpeciesReference_getSpecies          (SR) == NULL, NULL );
+  fail_unless( SpeciesReference_getStoichiometry    (SR) == 1   , NULL );
+  fail_unless( SpeciesReference_getStoichiometryMath(SR) == NULL, NULL );
+  fail_unless( SpeciesReference_getDenominator      (SR) == 1   , NULL );
 
   fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
   fail_unless( !SpeciesReference_isSetStoichiometryMath(SR), NULL );
@@ -102,14 +102,15 @@ START_TEST (test_SpeciesReference_createWith)
   SpeciesReference_t *sr = SpeciesReference_createWith("s3", 4, 2);
 
 
-  fail_unless( sr->typecode   == SBML_SPECIES_REFERENCE, NULL );
-  fail_unless( sr->notes      == NULL, NULL );
-  fail_unless( sr->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (sr) == SBML_SPECIES_REFERENCE, NULL );
+  fail_unless( SBase_getMetaId    (sr) == NULL, NULL );
+  fail_unless( SBase_getNotes     (sr) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(sr) == NULL, NULL );
 
-  fail_unless( !strcmp(sr->species, "s3"), NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s3"), NULL );
 
-  fail_unless( sr->stoichiometry == 4   , NULL );
-  fail_unless( sr->denominator   == 2   , NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 4   , NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 2   , NULL );
 
   fail_unless( SpeciesReference_isSetSpecies(sr), NULL );
 
@@ -132,22 +133,22 @@ START_TEST (test_SpeciesReference_setSpecies)
 
   SpeciesReference_setSpecies(SR, species);
 
-  fail_unless( !strcmp(SR->species, species)    , NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(SR), species), NULL );
   fail_unless( SpeciesReference_isSetSpecies(SR), NULL );
 
-  if (SR->species == species)
+  if (SpeciesReference_getSpecies(SR) == species)
   {
     fail("SpeciesReference_setSpecies(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  SpeciesReference_setSpecies(SR, SR->species);
-  fail_unless( !strcmp(SR->species, species), NULL );
+  SpeciesReference_setSpecies(SR, SpeciesReference_getSpecies(SR));
+  fail_unless( !strcmp(SpeciesReference_getSpecies(SR), species), NULL );
 
   SpeciesReference_setSpecies(SR, NULL);
   fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
 
-  if (SR->species != NULL)
+  if (SpeciesReference_getSpecies(SR) != NULL)
   {
     fail("SpeciesReference_setSpecies(SR, NULL) did not clear string.");
   }
@@ -157,6 +158,7 @@ END_TEST
 
 START_TEST (test_SpeciesReference_setStoichiometryMath)
 {
+  const ASTNode_t  *n;
   MathMLDocument_t *d;
 
 
@@ -164,17 +166,20 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 
   SpeciesReference_setStoichiometryMath(SR, d->math);
 
-  fail_unless( SR->stoichiometryMath == d->math, NULL );
+  fail_unless( SpeciesReference_getStoichiometryMath(SR) == d->math, NULL );
   fail_unless( SpeciesReference_isSetStoichiometryMath(SR), NULL );
 
   /* Reflexive case (pathological) */
-  SpeciesReference_setStoichiometryMath(SR, SR->stoichiometryMath);
-  fail_unless( SR->stoichiometryMath == d->math, NULL );
+  n = SpeciesReference_getStoichiometryMath(SR);
+  SpeciesReference_setStoichiometryMath(SR, (ASTNode_t *) n);
+
+  n = SpeciesReference_getStoichiometryMath(SR);
+  fail_unless( n == d->math, NULL );
 
   SpeciesReference_setStoichiometryMath(SR, NULL);
   fail_unless( !SpeciesReference_isSetStoichiometryMath(SR), NULL );
 
-  if (SR->stoichiometryMath != NULL)
+  if (SpeciesReference_getStoichiometryMath(SR) != NULL)
   {
     fail( "SpeciesReference_setStoichiometryMath(SR, NULL) "
           "did not clear ASTNode." );

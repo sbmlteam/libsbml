@@ -58,6 +58,7 @@
 #include "sbml/FormulaParser.h"
 
 #include "sbml/Rule.h"
+#include "sbml/AlgebraicRule.h"
 
 
 static Rule_t *R;
@@ -66,45 +67,31 @@ static Rule_t *R;
 void
 RuleTest_setup (void)
 {
-  R = (Rule_t *) safe_calloc(1, sizeof(Rule_t));
+  R = (AlgebraicRule_t *) AlgebraicRule_create();
 
   if (R == NULL)
   {
-    fail("safe_calloc(1, sizeof(Rule_t)) returned a NULL pointer.");
+    fail("AlgebraicRule_create() returned a NULL pointer.");
   }
-
-  /**
-   * Rule_init() requires an SBMLTypeCode_t as its second argument.  Which
-   * one doesn't really matter for the purposes of these tests, so one was
-   * picked at random.
-   */
-  Rule_init(R, SBML_ALGEBRAIC_RULE);
 }
 
 
 void
 RuleTest_teardown (void)
 {
-  Rule_clear(R);
-  safe_free(R);
+  AlgebraicRule_free((AlgebraicRule_t *) R);
 }
 
 
 START_TEST (test_Rule_init)
 {
-  fail_unless( R->typecode   == SBML_ALGEBRAIC_RULE, NULL );
-  fail_unless( R->metaid     == NULL, NULL );
-  fail_unless( R->notes      == NULL, NULL );
-  fail_unless( R->annotation == NULL, NULL );
-  fail_unless( R->formula    == NULL, NULL );
-  fail_unless( R->math       == NULL, NULL );
-}
-END_TEST
+  fail_unless( SBase_getTypeCode  (R) == SBML_ALGEBRAIC_RULE, NULL );
+  fail_unless( SBase_getMetaId    (R) == NULL, NULL );
+  fail_unless( SBase_getNotes     (R) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(R) == NULL, NULL );
 
-
-START_TEST (test_Rule_clear_NULL)
-{
-  Rule_clear(NULL);
+  fail_unless( Rule_getFormula(R) == NULL, NULL );
+  fail_unless( Rule_getMath   (R) == NULL, NULL );
 }
 END_TEST
 
@@ -116,22 +103,22 @@ START_TEST (test_Rule_setFormula)
 
   Rule_setFormula(R, formula);
 
-  fail_unless( !strcmp(R->formula, formula), NULL );
+  fail_unless( !strcmp(Rule_getFormula(R), formula), NULL );
   fail_unless( Rule_isSetFormula(R), NULL );
 
-  if (R->formula == formula)
+  if (Rule_getFormula(R) == formula)
   {
     fail("Rule_setFormula(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Rule_setFormula(R, R->formula);
-  fail_unless( !strcmp(R->formula, formula), NULL );
+  Rule_setFormula(R, Rule_getFormula(R));
+  fail_unless( !strcmp(Rule_getFormula(R), formula), NULL );
 
   Rule_setFormula(R, NULL);
   fail_unless( !Rule_isSetFormula(R), NULL );
 
-  if (R->formula != NULL)
+  if (Rule_getFormula(R) != NULL)
   {
     fail("Rule_setFormula(R, NULL) did not clear string.");
   }
@@ -171,17 +158,17 @@ START_TEST (test_Rule_setMath)
 
   Rule_setMath(R, math);
 
-  fail_unless( R->math == math, NULL );
+  fail_unless( Rule_getMath(R) == math, NULL );
   fail_unless( Rule_isSetMath(R), NULL );
 
   /* Reflexive case (pathological) */
-  Rule_setMath(R, R->math);
-  fail_unless( R->math == math, NULL );
+  Rule_setMath(R, (ASTNode_t *) Rule_getMath(R));
+  fail_unless( Rule_getMath(R) == math, NULL );
 
   Rule_setMath(R, NULL);
   fail_unless( !Rule_isSetMath(R), NULL );
 
-  if (R->math != NULL)
+  if (Rule_getMath(R) != NULL)
   {
     fail("Rule_setMath(R, NULL) did not clear ASTNode.");
   }
@@ -228,7 +215,6 @@ create_suite_Rule (void)
   tcase_add_checked_fixture( tcase, RuleTest_setup, RuleTest_teardown );
 
   tcase_add_test( tcase, test_Rule_init               );
-  tcase_add_test( tcase, test_Rule_clear_NULL         );
   tcase_add_test( tcase, test_Rule_setFormula         );
   tcase_add_test( tcase, test_Rule_setFormulaFromMath );
   tcase_add_test( tcase, test_Rule_setMath            );

@@ -89,10 +89,10 @@ START_TEST (test_read_l1v1_units)
   /**
    * <sbml level="1" version="1">
    */
-  fail_unless( d->level   == 1, NULL );
-  fail_unless( d->version == 1, NULL );
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
-  m = d->model;
+  m = SBMLDocument_getModel(d);
 
 
   /**
@@ -104,10 +104,10 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Model_getNumUnitDefinitions(m) == 2, NULL );
 
   ud = Model_getUnitDefinition(m, 0);
-  fail_unless ( !strcmp(ud->name, "substance"), NULL );
+  fail_unless ( !strcmp(UnitDefinition_getName(ud), "substance"), NULL );
 
   ud = Model_getUnitDefinition(m, 1);
-  fail_unless ( !strcmp(ud->name, "mls"), NULL );
+  fail_unless ( !strcmp(UnitDefinition_getName(ud), "mls"), NULL );
 
 
   /**
@@ -121,9 +121,9 @@ START_TEST (test_read_l1v1_units)
   fail_unless( UnitDefinition_getNumUnits(ud) == 1, NULL );
 
   u = UnitDefinition_getUnit(ud, 0);
-  fail_unless( u->kind     == UNIT_KIND_MOLE, NULL );
-  fail_unless( u->exponent ==  1, NULL );
-  fail_unless( u->scale    == -3, NULL );
+  fail_unless( Unit_getKind    (u) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(u) ==  1, NULL );
+  fail_unless( Unit_getScale   (u) == -3, NULL );
 
 
   /**
@@ -139,19 +139,19 @@ START_TEST (test_read_l1v1_units)
   fail_unless( UnitDefinition_getNumUnits(ud) == 3, NULL );
 
   u = UnitDefinition_getUnit(ud, 0);
-  fail_unless( u->kind     == UNIT_KIND_MOLE, NULL );
-  fail_unless( u->exponent ==  1, NULL );
-  fail_unless( u->scale    == -3, NULL );
+  fail_unless( Unit_getKind    (u) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(u) ==  1, NULL );
+  fail_unless( Unit_getScale   (u) == -3, NULL );
 
   u = UnitDefinition_getUnit(ud, 1);
-  fail_unless( u->kind     == UNIT_KIND_LITER, NULL );
-  fail_unless( u->exponent == -1, NULL );
-  fail_unless( u->scale    ==  0, NULL );
+  fail_unless( Unit_getKind    (u) == UNIT_KIND_LITER, NULL );
+  fail_unless( Unit_getExponent(u) == -1, NULL );
+  fail_unless( Unit_getScale   (u) ==  0, NULL );
 
   u = UnitDefinition_getUnit(ud, 2);
-  fail_unless( u->kind     == UNIT_KIND_SECOND, NULL );
-  fail_unless( u->exponent == -1, NULL );
-  fail_unless( u->scale    ==  0, NULL );
+  fail_unless( Unit_getKind    (u) == UNIT_KIND_SECOND, NULL );
+  fail_unless( Unit_getExponent(u) == -1, NULL );
+  fail_unless( Unit_getScale   (u) ==  0, NULL );
 
   /**
    * <listOfCompartments>
@@ -161,7 +161,7 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Model_getNumCompartments(m) == 1, NULL );
 
   c = Model_getCompartment(m, 0);
-  fail_unless( !strcmp(c->name, "cell"), NULL );
+  fail_unless( !strcmp(Compartment_getName(c), "cell"), NULL );
 
 
   /**
@@ -175,28 +175,28 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Model_getNumSpecies(m) == 4, NULL );
 
   s = Model_getSpecies(m, 0);
-  fail_unless( !strcmp( s->name       , "x0"   ), NULL );
-  fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 1, NULL );
-  fail_unless( s->boundaryCondition        == 0, NULL );
+  fail_unless( !strcmp( Species_getName(s)       , "x0"   ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "cell" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 1, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
   
   s = Model_getSpecies(m, 1);
-  fail_unless( !strcmp( s->name       , "x1"   ), NULL );
-  fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 1, NULL );
-  fail_unless( s->boundaryCondition        == 0, NULL );
+  fail_unless( !strcmp( Species_getName(s)       , "x1"   ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "cell" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 1, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
 
   s = Model_getSpecies(m, 2);
-  fail_unless( !strcmp( s->name       , "s1"   ), NULL );
-  fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 1, NULL );
-  fail_unless( s->boundaryCondition        == 0, NULL );
+  fail_unless( !strcmp( Species_getName(s)       , "s1"   ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "cell" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 1, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
 
   s = Model_getSpecies(m, 3);
-  fail_unless( !strcmp( s->name       , "s2"   ), NULL );
-  fail_unless( !strcmp( s->compartment, "cell" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 1, NULL );
-  fail_unless( s->boundaryCondition        == 0, NULL );
+  fail_unless( !strcmp( Species_getName(s)       , "s2"   ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "cell" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 1, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
 
 
   /**
@@ -208,13 +208,13 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Model_getNumParameters(m) == 2, NULL );
 
   p = Model_getParameter(m, 0);
-  fail_unless( !strcmp( p->name , "vm"  ), NULL );
-  fail_unless( !strcmp( p->units, "mls" ), NULL );
-  fail_unless( p->value == 2, NULL );
+  fail_unless( !strcmp( Parameter_getName (p), "vm"  ), NULL );
+  fail_unless( !strcmp( Parameter_getUnits(p), "mls" ), NULL );
+  fail_unless( Parameter_getValue(p) == 2, NULL );
 
   p = Model_getParameter(m, 1);
-  fail_unless( !strcmp( p->name , "km"  ), NULL );
-  fail_unless( p->value == 2, NULL );
+  fail_unless( !strcmp( Parameter_getName(p), "km"  ), NULL );
+  fail_unless( Parameter_getValue(p) == 2, NULL );
 
   /**
    * <listOfReactions>
@@ -226,19 +226,19 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Model_getNumReactions(m) == 3, NULL );
 
   r = Model_getReaction(m, 0);
-  fail_unless( !strcmp(r->name , "v1"), NULL );
-  fail_unless( r->reversible != 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "v1"), NULL );
+  fail_unless( Reaction_getReversible(r) != 0, NULL );
+  fail_unless( Reaction_getFast(r)       == 0, NULL );
 
   r = Model_getReaction(m, 1);
-  fail_unless( !strcmp(r->name , "v2"), NULL );
-  fail_unless( r->reversible != 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "v2"), NULL );
+  fail_unless( Reaction_getReversible(r) != 0, NULL );
+  fail_unless( Reaction_getFast(r)       == 0, NULL );
 
   r = Model_getReaction(m, 2);
-  fail_unless( !strcmp(r->name , "v3"), NULL );
-  fail_unless( r->reversible != 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "v3"), NULL );
+  fail_unless( Reaction_getReversible(r) != 0, NULL );
+  fail_unless( Reaction_getFast(r)       == 0, NULL );
 
 
   /**
@@ -258,17 +258,17 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Reaction_getNumProducts(r)  == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
-  fail_unless( !strcmp(sr->species, "x0"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "x0"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
-  fail_unless( !strcmp(sr->species, "s1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
-  kl = r->kineticLaw;
-  fail_unless( !strcmp(kl->formula, "(vm * s1)/(km + s1)"), NULL );
+  kl = Reaction_getKineticLaw(r);
+  fail_unless(!strcmp(KineticLaw_getFormula(kl), "(vm * s1)/(km + s1)"), NULL);
 
 
   /**
@@ -288,17 +288,17 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Reaction_getNumProducts(r)  == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
-  fail_unless( !strcmp(sr->species, "s1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
-  fail_unless( !strcmp(sr->species, "s2"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s2"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
-  kl = r->kineticLaw;
-  fail_unless( !strcmp(kl->formula, "(vm * s2)/(km + s2)"), NULL );
+  kl = Reaction_getKineticLaw(r);
+  fail_unless(!strcmp(KineticLaw_getFormula(kl), "(vm * s2)/(km + s2)"), NULL);
 
 
   /**
@@ -318,17 +318,17 @@ START_TEST (test_read_l1v1_units)
   fail_unless( Reaction_getNumProducts(r)  == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
-  fail_unless( !strcmp(sr->species, "s2"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s2"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
-  fail_unless( !strcmp(sr->species, "x1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "x1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
-  kl = r->kineticLaw;
-  fail_unless( !strcmp(kl->formula, "(vm * s1)/(km + s1)"), NULL );
+  kl = Reaction_getKineticLaw(r);
+  fail_unless(!strcmp(KineticLaw_getFormula(kl), "(vm * s1)/(km + s1)"), NULL);
 
   SBMLDocument_free(d);
 }
@@ -355,7 +355,7 @@ START_TEST (test_create_l1v1_units)
   d = SBMLDocument_create();
   m = Model_create();
 
-  d->model = m;
+  SBMLDocument_setModel(d, m);
 
 
   /**
@@ -369,8 +369,8 @@ START_TEST (test_create_l1v1_units)
   UnitDefinition_setName(ud, "substance");
 
   u = Model_createUnit(m);
-  u->kind  = UNIT_KIND_MOLE;
-  u->scale = -3;
+  Unit_setKind(u,UNIT_KIND_MOLE);
+  Unit_setScale(u, -3);
 
   /**
    * <unitDefinition name="mls">
@@ -385,16 +385,16 @@ START_TEST (test_create_l1v1_units)
   UnitDefinition_setName(ud, "mls");
 
   u = Model_createUnit(m);
-  u->kind  = UNIT_KIND_MOLE;
-  u->scale = -3;
+  Unit_setKind(u, UNIT_KIND_MOLE);
+  Unit_setScale(u, -3);
 
   u = Model_createUnit(m);
-  u->kind     = UNIT_KIND_LITER;
-  u->exponent = -1;
+  Unit_setKind(u, UNIT_KIND_LITER);
+  Unit_setExponent(u, -1);
 
   u = Model_createUnit(m);
-  u->kind     = UNIT_KIND_SECOND;
-  u->exponent = -1;
+  Unit_setKind(u, UNIT_KIND_SECOND);
+  Unit_setExponent(u, -1);
 
   /**
    * <listOfCompartments>
@@ -439,13 +439,13 @@ START_TEST (test_create_l1v1_units)
    * </listOfParameters>
    */
   p = Model_createParameter(m);
-  Parameter_setName(p, "vm");
+  Parameter_setName (p, "vm");
   Parameter_setUnits(p, "mls");
-  p->value = 2;
+  Parameter_setValue(p, 2);
 
   p = Model_createParameter(m);
-  Parameter_setName(p, "km");
-  p->value = 2;
+  Parameter_setName (p, "km");
+  Parameter_setValue(p, 2);
 
   /**
    * <reaction name="v1">
@@ -528,8 +528,8 @@ create_suite_TestReadFromFile2 (void)
   TCase *tcase = tcase_create("test-data/l1v1-units.xml");
 
 
-  tcase_add_test(tcase, test_read_l1v1_units);
-  tcase_add_test(tcase, test_create_l1v1_units);
+  tcase_add_test( tcase, test_read_l1v1_units   );
+  tcase_add_test( tcase, test_create_l1v1_units );
 
   suite_add_tcase(suite, tcase);
 

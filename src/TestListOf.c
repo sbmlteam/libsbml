@@ -61,10 +61,10 @@ START_TEST (test_ListOf_create)
   ListOf_t *lo = ListOf_create();
 
 
-  fail_unless( lo->typecode   == SBML_LIST_OF, NULL );
-  fail_unless( lo->notes      == NULL, NULL );
-  fail_unless( lo->annotation == NULL, NULL );
-  fail_unless( lo->metaid     == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (lo) == SBML_LIST_OF, NULL );
+  fail_unless( SBase_getNotes     (lo) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(lo) == NULL, NULL );
+  fail_unless( SBase_getMetaId    (lo) == NULL, NULL );
 
   fail_unless( ListOf_getNumItems(lo) == 0, NULL );
 

@@ -53,8 +53,8 @@
 #include <check.h>
 
 #include "sbml/common.h"
-#include "sbml/FormulaParser.h"
 #include "sbml/SimpleSpeciesReference.h"
+#include "sbml/SpeciesReference.h"
 
 
 static SimpleSpeciesReference_t *SSR;
@@ -63,74 +63,63 @@ static SimpleSpeciesReference_t *SSR;
 void
 SimpleSpeciesReferenceTest_setup (void)
 {
-  SSR = (SimpleSpeciesReference_t *)
-        safe_calloc(1, sizeof(SimpleSpeciesReference_t));
+  SSR = (SimpleSpeciesReference_t *) SpeciesReference_create();
+
 
   if (SSR == NULL)
   {
-    fail( "safe_calloc(1, sizeof(SimpleSpeciesReference_t)) "
-          "returned a NULL pointer." );
+    fail("SpeciesReference_create() returned a NULL pointer.");
   }
-
-  /**
-   * SimpleSpeciesReference_init() requires an SBMLTypeCode_t as its second
-   * argument.  Which one doesn't really matter for the purposes of these
-   * tests, so one was picked at random.
-   */
-  SimpleSpeciesReference_init(SSR, SBML_SPECIES_REFERENCE);
 }
 
 
 void
 SimpleSpeciesReferenceTest_teardown (void)
 {
-  SimpleSpeciesReference_clear(SSR);
-  safe_free(SSR);
+  SpeciesReference_free((SpeciesReference_t *) SSR);
 }
 
 
 START_TEST (test_SimpleSpeciesReference_init)
 {
-  fail_unless( SSR->typecode   == SBML_SPECIES_REFERENCE, NULL );
-  fail_unless( SSR->metaid     == NULL, NULL );
-  fail_unless( SSR->notes      == NULL, NULL );
-  fail_unless( SSR->annotation == NULL, NULL );
-  fail_unless( SSR->species    == NULL, NULL );
-}
-END_TEST
+  fail_unless( SBase_getTypeCode  (SSR) == SBML_SPECIES_REFERENCE, NULL );
+  fail_unless( SBase_getMetaId    (SSR) == NULL, NULL );
+  fail_unless( SBase_getNotes     (SSR) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(SSR) == NULL, NULL );
 
-
-START_TEST (test_SimpleSpeciesReference_clear_NULL)
-{
-  SimpleSpeciesReference_clear(NULL);
+  fail_unless( SimpleSpeciesReference_getSpecies(SSR) == NULL, NULL );
 }
 END_TEST
 
 
 START_TEST (test_SimpleSpeciesReference_setSpecies)
 {
+  const char *s;
   char *species = "s1";
 
 
   SimpleSpeciesReference_setSpecies(SSR, species);
 
-  fail_unless( !strcmp(SSR->species, species), NULL );
+  fail_unless(!strcmp(SimpleSpeciesReference_getSpecies(SSR), species), NULL);
   fail_unless( SimpleSpeciesReference_isSetSpecies(SSR), NULL );
 
-  if (SSR->species == species)
+  if (SimpleSpeciesReference_getSpecies(SSR) == species)
   {
     fail( "SimpleSpeciesReference_setSpecies(...) "
           "did not make a copy of string." );
   }
 
   /* Reflexive case (pathological) */
-  SimpleSpeciesReference_setSpecies(SSR, SSR->species);
-  fail_unless( !strcmp(SSR->species, species), NULL );
+  s = SimpleSpeciesReference_getSpecies(SSR);
+  SimpleSpeciesReference_setSpecies(SSR, s);
+
+  s = SimpleSpeciesReference_getSpecies(SSR);
+  fail_unless( !strcmp(s, species), NULL );
 
   SimpleSpeciesReference_setSpecies(SSR, NULL);
   fail_unless( !SimpleSpeciesReference_isSetSpecies(SSR), NULL );
 
-  if (SSR->species != NULL)
+  if (SimpleSpeciesReference_getSpecies(SSR) != NULL)
   {
     fail("SimpleSpeciesReference_setSpecies(SSR, NULL) did not clear string.");
   }
@@ -150,7 +139,6 @@ create_suite_SimpleSpeciesReference (void)
                              SimpleSpeciesReferenceTest_teardown );
 
   tcase_add_test( tcase, test_SimpleSpeciesReference_init       );
-  tcase_add_test( tcase, test_SimpleSpeciesReference_clear_NULL );
   tcase_add_test( tcase, test_SimpleSpeciesReference_setSpecies );
 
   suite_add_tcase(suite, tcase);

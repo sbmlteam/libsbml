@@ -81,13 +81,13 @@ ModelTest_teardown (void)
 
 START_TEST (test_Model_create)
 {
-  fail_unless( M->typecode   == SBML_MODEL, NULL );
-  fail_unless( M->metaid     == NULL, NULL );
-  fail_unless( M->notes      == NULL, NULL );
-  fail_unless( M->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (M) == SBML_MODEL, NULL );
+  fail_unless( SBase_getMetaId    (M) == NULL, NULL );
+  fail_unless( SBase_getNotes     (M) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(M) == NULL, NULL );
 
-  fail_unless( M->id   == NULL, NULL );
-  fail_unless( M->name == NULL, NULL );
+  fail_unless( Model_getId  (M) == NULL, NULL );
+  fail_unless( Model_getName(M) == NULL, NULL );
 
   fail_unless( !Model_isSetId(M)  , NULL );
   fail_unless( !Model_isSetName(M), NULL );
@@ -113,13 +113,14 @@ START_TEST (test_Model_createWith)
   Model_t *m = Model_createWith("repressilator");
 
 
-  fail_unless( m->typecode   == SBML_MODEL, NULL );  
-  fail_unless( m->metaid     == NULL, NULL );
-  fail_unless( m->notes      == NULL, NULL );
-  fail_unless( m->annotation == NULL, NULL );
-  fail_unless( m->name       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (m) == SBML_MODEL, NULL );  
+  fail_unless( SBase_getMetaId    (m) == NULL, NULL );
+  fail_unless( SBase_getNotes     (m) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(m) == NULL, NULL );
 
-  fail_unless( !strcmp(m->id, "repressilator"), NULL );
+  fail_unless( Model_getName(m) == NULL, NULL );
+
+  fail_unless( !strcmp(Model_getId(m), "repressilator"), NULL );
   fail_unless( Model_isSetId(m), NULL );
 
   fail_unless( Model_getNumUnitDefinitions(m) == 0, NULL );
@@ -138,13 +139,14 @@ START_TEST (test_Model_createWithName)
   Model_t *m = Model_createWithName("The Repressilator Model");
 
 
-  fail_unless( m->typecode   == SBML_MODEL, NULL );  
-  fail_unless( m->metaid     == NULL, NULL );
-  fail_unless( m->notes      == NULL, NULL );
-  fail_unless( m->annotation == NULL, NULL );
-  fail_unless( m->id         == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (m) == SBML_MODEL, NULL );  
+  fail_unless( SBase_getMetaId    (m) == NULL, NULL );
+  fail_unless( SBase_getNotes     (m) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(m) == NULL, NULL );
 
-  fail_unless( !strcmp(m->name, "The Repressilator Model"), NULL );
+  fail_unless( Model_getId(m) == NULL, NULL );
+
+  fail_unless( !strcmp(Model_getName(m), "The Repressilator Model"), NULL );
   fail_unless( Model_isSetName(m), NULL );
 
   fail_unless( Model_getNumUnitDefinitions(m) == 0, NULL );
@@ -165,22 +167,22 @@ START_TEST (test_Model_setId)
 
   Model_setId(M, id);
 
-  fail_unless( !strcmp(M->id, id), NULL );
+  fail_unless( !strcmp(Model_getId(M), id), NULL );
   fail_unless( Model_isSetId(M)  , NULL );
 
-  if (M->id == id)
+  if (Model_getId(M) == id)
   {
     fail("Model_setId(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Model_setId(M, M->id);
-  fail_unless( !strcmp(M->id, id), NULL );
+  Model_setId(M, Model_getId(M));
+  fail_unless( !strcmp(Model_getId(M), id), NULL );
 
   Model_setId(M, NULL);
   fail_unless( !Model_isSetId(M), NULL );
 
-  if (M->id != NULL)
+  if (Model_getId(M) != NULL)
   {
     fail("Model_setId(M, NULL) did not clear string.");
   }
@@ -195,22 +197,22 @@ START_TEST (test_Model_setName)
 
   Model_setName(M, name);
 
-  fail_unless( !strcmp(M->name, name), NULL );
-  fail_unless( Model_isSetName(M)    , NULL );
+  fail_unless( !strcmp(Model_getName(M), name), NULL );
+  fail_unless( Model_isSetName(M), NULL );
 
-  if (M->name == name)
+  if (Model_getName(M) == name)
   {
     fail("Model_setName(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Model_setName(M, M->name);
-  fail_unless( !strcmp(M->name, name), NULL );
+  Model_setName(M, Model_getName(M));
+  fail_unless( !strcmp(Model_getName(M), name), NULL );
 
   Model_setName(M, NULL);
   fail_unless( !Model_isSetName(M), NULL );
 
-  if (M->name != NULL)
+  if (Model_getName(M) != NULL)
   {
     fail("Model_setName(M, NULL) did not clear string.");
   }
@@ -497,10 +499,10 @@ START_TEST (test_Model_createKineticLaw)
   fail_unless( Model_getNumReactions(M) == 2, NULL );
 
   r = Model_getReaction(M, 0);
-  fail_unless( r->kineticLaw == NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == NULL, NULL );
 
   r = Model_getReaction(M, 1);
-  fail_unless( r->kineticLaw == kl, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == kl, NULL );
 }
 END_TEST
 
@@ -515,7 +517,7 @@ START_TEST (test_Model_createKineticLaw_alreadyExists)
   kl = Model_createKineticLaw(M);
 
   fail_unless( Model_createKineticLaw(M) == NULL, NULL );
-  fail_unless( r->kineticLaw == kl, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == kl, NULL );
 }
 END_TEST
 
@@ -544,12 +546,12 @@ START_TEST (test_Model_createKineticLawParameter)
   fail_unless( Model_getNumReactions(M) == 2, NULL );
 
   r = Model_getReaction(M, 0);
-  fail_unless( r->kineticLaw == NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == NULL, NULL );
 
   r = Model_getReaction(M, 1);
-  fail_unless( r->kineticLaw != NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) != NULL, NULL );
 
-  kl = r->kineticLaw;
+  kl = Reaction_getKineticLaw(r);
   fail_unless( KineticLaw_getNumParameters(kl) == 1, NULL );
   fail_unless( KineticLaw_getParameter(kl, 0)  == p, NULL );
 }
@@ -571,7 +573,7 @@ START_TEST (test_Model_createKineticLawParameter_noKineticLaw)
 
   r = Model_createReaction(M);
 
-  fail_unless( r->kineticLaw == NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == NULL, NULL );
   fail_unless( Model_createKineticLawParameter(M) == NULL, NULL );
 }
 END_TEST
@@ -761,8 +763,8 @@ START_TEST (test_Model_getUnitDefinition)
   ud1 = Model_getUnitDefinition(M, 0);
   ud2 = Model_getUnitDefinition(M, 1);
 
-  fail_unless( !strcmp( ud1->name, "mmls"   ), NULL );
-  fail_unless( !strcmp( ud2->name, "volume" ), NULL );
+  fail_unless( !strcmp( UnitDefinition_getName(ud1), "mmls"   ), NULL );
+  fail_unless( !strcmp( UnitDefinition_getName(ud2), "volume" ), NULL );
 }
 END_TEST
 
@@ -803,8 +805,8 @@ START_TEST (test_Model_getCompartment)
   c1 = Model_getCompartment(M, 0);
   c2 = Model_getCompartment(M, 1);
 
-  fail_unless( !strcmp(c1->name, "A"), NULL );
-  fail_unless( !strcmp(c2->name, "B"), NULL );
+  fail_unless( !strcmp(Compartment_getName(c1), "A"), NULL );
+  fail_unless( !strcmp(Compartment_getName(c2), "B"), NULL );
 
 }
 END_TEST
@@ -846,9 +848,8 @@ START_TEST (test_Model_getSpecies)
   s1 = Model_getSpecies(M, 0);
   s2 = Model_getSpecies(M, 1);
 
-  fail_unless( !strcmp( s1->name, "Glucose"     ), NULL );
-  fail_unless( !strcmp( s2->name, "Glucose_6_P" ), NULL );
-
+  fail_unless( !strcmp( Species_getName(s1), "Glucose"     ), NULL );
+  fail_unless( !strcmp( Species_getName(s2), "Glucose_6_P" ), NULL );
 }
 END_TEST
 
@@ -889,9 +890,8 @@ START_TEST (test_Model_getParameter)
   p1 = Model_getParameter(M, 0);
   p2 = Model_getParameter(M, 1);
 
-  fail_unless( !strcmp(p1->name, "Km1"), NULL );
-  fail_unless( !strcmp(p2->name, "Km2"), NULL );
-
+  fail_unless( !strcmp(Parameter_getName(p1), "Km1"), NULL );
+  fail_unless( !strcmp(Parameter_getName(p2), "Km2"), NULL );
 }
 END_TEST
 
@@ -941,10 +941,10 @@ START_TEST (test_Model_getRules)
   cvr = (CompartmentVolumeRule_t *)    Model_getRule(M, 2);
   pr  = (ParameterRule_t *)            Model_getRule(M, 3);
 
-  fail_unless( !strcmp(ar->formula , "x + 1"        ), NULL );
-  fail_unless( !strcmp(scr->formula, "k * t/(1 + k)"), NULL );
-  fail_unless( !strcmp(cvr->formula, "0.10 * t"     ), NULL );
-  fail_unless( !strcmp(pr->formula , "k3/k2"        ), NULL );
+  fail_unless( !strcmp(Rule_getFormula(ar) , "x + 1"        ), NULL );
+  fail_unless( !strcmp(Rule_getFormula(scr), "k * t/(1 + k)"), NULL );
+  fail_unless( !strcmp(Rule_getFormula(cvr), "0.10 * t"     ), NULL );
+  fail_unless( !strcmp(Rule_getFormula(pr) , "k3/k2"        ), NULL );
 }
 END_TEST
 
@@ -965,8 +965,8 @@ START_TEST (test_Model_getReaction)
   r1 = Model_getReaction(M, 0);
   r2 = Model_getReaction(M, 1);
 
-  fail_unless( !strcmp(r1->name, "reaction_1"), NULL );
-  fail_unless( !strcmp(r2->name, "reaction_2"), NULL );
+  fail_unless( !strcmp(Reaction_getName(r1), "reaction_1"), NULL );
+  fail_unless( !strcmp(Reaction_getName(r2), "reaction_2"), NULL );
 }
 END_TEST
 

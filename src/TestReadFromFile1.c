@@ -110,17 +110,18 @@ START_TEST (test_read_l1v1_branch)
   /**
    * <sbml level="1" version="1" ...>
    */
-  fail_unless( d->level   == 1, NULL );
-  fail_unless( d->version == 1, NULL );
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
 
 
   /**
    * <model name="Branch">
    */
-  m = d->model;
+  m = SBMLDocument_getModel(d);
 
-  fail_unless( !strcmp( m->name , "Branch"), NULL );
-  fail_unless( !strcmp( m->notes, notes1) || !strcmp( m->notes, notes2), NULL );
+  fail_unless( !strcmp( Model_getName(m) , "Branch"), NULL );
+  fail_unless( !strcmp( SBase_getNotes((SBase_t *) m), notes1) ||
+               !strcmp( SBase_getNotes((SBase_t *) m), notes2), NULL );
 
 
   /**
@@ -131,7 +132,7 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( Model_getNumCompartments(m) == 1, NULL );
 
   c = Model_getCompartment(m, 0);
-  fail_unless( !strcmp(c->name, "compartmentOne"), NULL );
+  fail_unless( !strcmp(Compartment_getName(c), "compartmentOne"), NULL );
   fail_unless( Compartment_getVolume(c) == 1, NULL );
 
 
@@ -150,28 +151,28 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( Model_getNumSpecies(m) == 4, NULL );
 
   s = Model_getSpecies(m, 0);
-  fail_unless( !strcmp( s->name       , "S1"             ), NULL );
-  fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 0, NULL );
-  fail_unless( s->boundaryCondition        == 0, NULL );
+  fail_unless( !strcmp( Species_getName       (s), "S1"             ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "compartmentOne" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 0, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 0, NULL );
 
   s = Model_getSpecies(m, 1);
-  fail_unless( !strcmp( s->name       , "X0"             ), NULL );
-  fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 0, NULL );
-  fail_unless( s->boundaryCondition        == 1, NULL );
+  fail_unless( !strcmp( Species_getName       (s), "X0"             ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "compartmentOne" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 0, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 1, NULL );
 
   s = Model_getSpecies(m, 2);
-  fail_unless( !strcmp( s->name       , "X1"             ), NULL );
-  fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 0, NULL );
-  fail_unless( s->boundaryCondition        == 1, NULL );
+  fail_unless( !strcmp( Species_getName       (s), "X1"             ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "compartmentOne" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 0, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 1, NULL );
 
   s = Model_getSpecies(m, 3);
-  fail_unless( !strcmp( s->name       , "X2"             ), NULL );
-  fail_unless( !strcmp( s->compartment, "compartmentOne" ), NULL );
-  fail_unless( Species_getInitialAmount(s) == 0, NULL );
-  fail_unless( s->boundaryCondition        == 1, NULL );
+  fail_unless( !strcmp( Species_getName       (s), "X2"             ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(s), "compartmentOne" ), NULL );
+  fail_unless( Species_getInitialAmount    (s) == 0, NULL );
+  fail_unless( Species_getBoundaryCondition(s) == 1, NULL );
 
 
   /**
@@ -184,19 +185,19 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( Model_getNumReactions(m) == 3, NULL );
 
   r = Model_getReaction(m, 0);
-  fail_unless( !strcmp(r->name, "reaction_1"), NULL );
-  fail_unless( r->reversible == 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
+  fail_unless( Reaction_getReversible(r) == 0, NULL );
+  fail_unless( Reaction_getFast      (r) == 0, NULL );
 
   r = Model_getReaction(m, 1);
-  fail_unless( !strcmp(r->name, "reaction_2"), NULL );
-  fail_unless( r->reversible == 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_2"), NULL );
+  fail_unless( Reaction_getReversible(r) == 0, NULL );
+  fail_unless( Reaction_getFast      (r) == 0, NULL );
 
   r = Model_getReaction(m, 2);
-  fail_unless( !strcmp(r->name, "reaction_3"), NULL );
-  fail_unless( r->reversible == 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_3"), NULL );
+  fail_unless( Reaction_getReversible(r) == 0, NULL );
+  fail_unless( Reaction_getFast      (r) == 0, NULL );
 
   /**
    * <reaction name="reaction_1" reversible="false">
@@ -219,22 +220,22 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( Reaction_getNumProducts(r)  == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
-  fail_unless( !strcmp(sr->species, "X0"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
-  fail_unless( !strcmp(sr->species, "S1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "S1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
-  kl = r->kineticLaw;
-  fail_unless( !strcmp(kl->formula, "k1 * X0"), NULL );
+  kl = Reaction_getKineticLaw(r);
+  fail_unless( !strcmp(KineticLaw_getFormula(kl), "k1 * X0"), NULL );
   fail_unless( KineticLaw_getNumParameters(kl) == 1, NULL );
 
   p = KineticLaw_getParameter(kl, 0);
-  fail_unless( !strcmp(p->name, "k1"), NULL );
-  fail_unless( p->value == 0, NULL );
+  fail_unless( !strcmp(Parameter_getName(p), "k1"), NULL );
+  fail_unless( Parameter_getValue(p) == 0, NULL );
 
 
   /**
@@ -257,22 +258,22 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( Reaction_getNumProducts(r)  == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
-  fail_unless( !strcmp(sr->species, "S1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "S1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
-  fail_unless( !strcmp(sr->species, "X1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
-  kl = r->kineticLaw;
-  fail_unless( !strcmp(kl->formula, "k2 * S1"), NULL );
+  kl = Reaction_getKineticLaw(r);
+  fail_unless( !strcmp(KineticLaw_getFormula(kl), "k2 * S1"), NULL );
   fail_unless( KineticLaw_getNumParameters(kl) == 1, NULL );
 
   p = KineticLaw_getParameter(kl, 0);
-  fail_unless( !strcmp(p->name, "k2"), NULL );
-  fail_unless( p->value == 0, NULL );
+  fail_unless( !strcmp(Parameter_getName(p), "k2"), NULL );
+  fail_unless( Parameter_getValue(p) == 0, NULL );
 
 
   /**
@@ -295,22 +296,22 @@ START_TEST (test_read_l1v1_branch)
   fail_unless( Reaction_getNumProducts(r)  == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
-  fail_unless( !strcmp(sr->species, "S1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "S1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
-  fail_unless( !strcmp(sr->species, "X2"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X2"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
-  kl = r->kineticLaw;
-  fail_unless( !strcmp(kl->formula, "k3 * S1"), NULL );
+  kl = Reaction_getKineticLaw(r);
+  fail_unless( !strcmp(KineticLaw_getFormula(kl), "k3 * S1"), NULL );
   fail_unless( KineticLaw_getNumParameters(kl) == 1, NULL );
 
   p = KineticLaw_getParameter(kl, 0);
-  fail_unless( !strcmp(p->name, "k3"), NULL );
-  fail_unless( p->value == 0, NULL );
+  fail_unless( !strcmp(Parameter_getName(p), "k3"), NULL );
+  fail_unless( Parameter_getValue(p) == 0, NULL );
 
   SBMLDocument_free(d);
 }

@@ -81,15 +81,16 @@ EventTest_teardown (void)
 
 START_TEST (test_Event_create)
 {
-  fail_unless( E->typecode   == SBML_EVENT, NULL );
-  fail_unless( E->metaid     == NULL, NULL );
-  fail_unless( E->notes      == NULL, NULL );
-  fail_unless( E->annotation == NULL, NULL );
-  fail_unless( E->id         == NULL, NULL );
-  fail_unless( E->name       == NULL, NULL );
-  fail_unless( E->trigger    == NULL, NULL );
-  fail_unless( E->delay      == NULL, NULL );
-  fail_unless( E->timeUnits  == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (E) == SBML_EVENT, NULL );
+  fail_unless( SBase_getMetaId    (E) == NULL, NULL );
+  fail_unless( SBase_getNotes     (E) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(E) == NULL, NULL );
+
+  fail_unless( Event_getId        (E) == NULL, NULL );
+  fail_unless( Event_getName      (E) == NULL, NULL );
+  fail_unless( Event_getTrigger   (E) == NULL, NULL );
+  fail_unless( Event_getDelay     (E) == NULL, NULL );
+  fail_unless( Event_getTimeUnits (E) == NULL, NULL );
 
   fail_unless( Event_getNumEventAssignments(E) == 0, NULL );
 }
@@ -102,20 +103,21 @@ START_TEST (test_Event_createWith)
   Event_t   *e       = Event_createWith("e1", trigger);
 
 
-  fail_unless( e->typecode   == SBML_EVENT, NULL );
-  fail_unless( e->metaid     == NULL, NULL );
-  fail_unless( e->notes      == NULL, NULL );
-  fail_unless( e->annotation == NULL, NULL );
-  fail_unless( e->name       == NULL, NULL );
-  fail_unless( e->delay      == NULL, NULL );
-  fail_unless( e->timeUnits  == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (e) == SBML_EVENT, NULL );
+  fail_unless( SBase_getMetaId    (e) == NULL, NULL );
+  fail_unless( SBase_getNotes     (e) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(e) == NULL, NULL );
+
+  fail_unless( Event_getName      (e) == NULL, NULL );
+  fail_unless( Event_getDelay     (e) == NULL, NULL );
+  fail_unless( Event_getTimeUnits (e) == NULL, NULL );
 
   fail_unless( Event_getNumEventAssignments(e) == 0, NULL );
 
-  fail_unless( e->trigger == trigger, NULL );
+  fail_unless( Event_getTrigger(e) == trigger, NULL );
   fail_unless( Event_isSetTrigger(e), NULL );
 
-  fail_unless( !strcmp(e->id, "e1"), NULL );
+  fail_unless( !strcmp(Event_getId(e), "e1"), NULL );
   fail_unless( Event_isSetId(e), NULL );
 
   Event_free(e);
@@ -137,22 +139,22 @@ START_TEST (test_Event_setId)
 
   Event_setId(E, id);
 
-  fail_unless( !strcmp(E->id, id), NULL );
+  fail_unless( !strcmp(Event_getId(E), id), NULL );
   fail_unless( Event_isSetId(E), NULL );
 
-  if (E->id == id)
+  if (Event_getId(E) == id)
   {
     fail("Event_setId(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Event_setId(E, E->id);
-  fail_unless( !strcmp(E->id, id), NULL );
+  Event_setId(E, Event_getId(E));
+  fail_unless( !strcmp(Event_getId(E), id), NULL );
 
   Event_setId(E, NULL);
   fail_unless( !Event_isSetId(E), NULL );
 
-  if (E->id != NULL)
+  if (Event_getId(E) != NULL)
   {
     fail("Event_setId(E, NULL) did not clear string.");
   }
@@ -167,22 +169,22 @@ START_TEST (test_Event_setName)
 
   Event_setName(E, name);
 
-  fail_unless( !strcmp(E->name, name), NULL );
+  fail_unless( !strcmp(Event_getName(E), name), NULL );
   fail_unless( Event_isSetName(E), NULL );
 
-  if (E->name == name)
+  if (Event_getName(E) == name)
   {
     fail("Event_setName(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Event_setName(E, E->name);
-  fail_unless( !strcmp(E->name, name), NULL );
+  Event_setName(E, Event_getName(E));
+  fail_unless( !strcmp(Event_getName(E), name), NULL );
 
   Event_setName(E, NULL);
   fail_unless( !Event_isSetName(E), NULL );
 
-  if (E->name != NULL)
+  if (Event_getName(E) != NULL)
   {
     fail("Event_setName(E, NULL) did not clear string.");
   }
@@ -197,17 +199,17 @@ START_TEST (test_Event_setTrigger)
 
   Event_setTrigger(E, trigger);
 
-  fail_unless( E->trigger == trigger, NULL );
+  fail_unless( Event_getTrigger(E) == trigger, NULL );
   fail_unless( Event_isSetTrigger(E), NULL );
 
   /* Reflexive case (pathological) */
-  Event_setTrigger(E, E->trigger);
-  fail_unless( E->trigger == trigger, NULL );
+  Event_setTrigger(E, (ASTNode_t *) Event_getTrigger(E));
+  fail_unless( Event_getTrigger(E) == trigger, NULL );
 
   Event_setTrigger(E, NULL);
   fail_unless( !Event_isSetTrigger(E), NULL );
 
-  if (E->trigger != NULL)
+  if (Event_getTrigger(E) != NULL)
   {
     fail("Event_setTrigger(E, NULL) did not clear ASTNode.");
   }
@@ -222,17 +224,17 @@ START_TEST (test_Event_setDelay)
 
   Event_setDelay(E, delay);
 
-  fail_unless( E->delay == delay  , NULL );
+  fail_unless( Event_getDelay(E) == delay  , NULL );
   fail_unless( Event_isSetDelay(E), NULL );
 
   /* Reflexive case (pathological) */
-  Event_setDelay(E, E->delay);
-  fail_unless( E->delay == delay, NULL );
+  Event_setDelay(E, (ASTNode_t *) Event_getDelay(E));
+  fail_unless( Event_getDelay(E) == delay, NULL );
 
   Event_setDelay(E, NULL);
   fail_unless( !Event_isSetDelay(E), NULL );
 
-  if (E->delay != NULL)
+  if (Event_getDelay(E) != NULL)
   {
     fail("Event_setDelay(E, NULL) did not clear ASTNode.");
   }
@@ -247,22 +249,22 @@ START_TEST (test_Event_setTimeUnits)
 
   Event_setTimeUnits(E, units);
 
-  fail_unless( !strcmp(E->timeUnits, units), NULL );
+  fail_unless( !strcmp(Event_getTimeUnits(E), units), NULL );
   fail_unless( Event_isSetTimeUnits(E), NULL );
 
-  if (E->timeUnits == units)
+  if (Event_getTimeUnits(E) == units)
   {
     fail("Event_setTimeUnits(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Event_setTimeUnits(E, E->timeUnits);
-  fail_unless( !strcmp(E->timeUnits, units), NULL );
+  Event_setTimeUnits(E, Event_getTimeUnits(E));
+  fail_unless( !strcmp(Event_getTimeUnits(E), units), NULL );
 
   Event_setTimeUnits(E, NULL);
   fail_unless( !Event_isSetTimeUnits(E), NULL );
 
-  if (E->timeUnits != NULL)
+  if (Event_getTimeUnits(E) != NULL)
   {
     fail("Event_setTimeUnits(E, NULL) did not clear string.");
   }

@@ -80,16 +80,16 @@ ReactionTest_teardown (void)
 
 START_TEST (test_Reaction_create)
 {
-  fail_unless( R->typecode   == SBML_REACTION, NULL );
-  fail_unless( R->metaid     == NULL, NULL );
-  fail_unless( R->notes      == NULL, NULL );
-  fail_unless( R->annotation == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (R) == SBML_REACTION, NULL );
+  fail_unless( SBase_getMetaId    (R) == NULL, NULL );
+  fail_unless( SBase_getNotes     (R) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(R) == NULL, NULL );
 
-  fail_unless( R->id         == NULL, NULL );
-  fail_unless( R->name       == NULL, NULL );
-  fail_unless( R->kineticLaw == NULL, NULL );
-  fail_unless( R->reversible != 0   , NULL );
-  fail_unless( R->fast       == 0   , NULL );
+  fail_unless( Reaction_getId        (R) == NULL, NULL );
+  fail_unless( Reaction_getName      (R) == NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(R) == NULL, NULL );
+  fail_unless( Reaction_getReversible(R) != 0   , NULL );
+  fail_unless( Reaction_getFast      (R) == 0   , NULL );
 
   fail_unless( !Reaction_isSetId        (R), NULL );
   fail_unless( !Reaction_isSetName      (R), NULL );
@@ -108,17 +108,18 @@ START_TEST (test_Reaction_createWith)
   Reaction_t   *r  = Reaction_createWith("r1", kl, 0, 1);
 
 
-  fail_unless( r->typecode   == SBML_REACTION, NULL );
-  fail_unless( r->metaid     == NULL, NULL );
-  fail_unless( r->notes      == NULL, NULL );
-  fail_unless( r->annotation == NULL, NULL );
-  fail_unless( r->name       == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (r) == SBML_REACTION, NULL );
+  fail_unless( SBase_getMetaId    (r) == NULL, NULL );
+  fail_unless( SBase_getNotes     (r) == NULL, NULL );
+  fail_unless( SBase_getAnnotation(r) == NULL, NULL );
 
-  fail_unless( !strcmp(r->id, "r1"), NULL );
+  fail_unless( Reaction_getName(r) == NULL, NULL );
 
-  fail_unless( r->kineticLaw == kl, NULL );
-  fail_unless( r->reversible ==  0, NULL );
-  fail_unless( r->fast       ==  1, NULL );
+  fail_unless( !strcmp(Reaction_getId(r), "r1"), NULL );
+
+  fail_unless( Reaction_getKineticLaw(r) == kl, NULL );
+  fail_unless( Reaction_getReversible(r) ==  0, NULL );
+  fail_unless( Reaction_getFast      (r) ==  1, NULL );
 
   fail_unless( Reaction_isSetId        (r), NULL );
   fail_unless( !Reaction_isSetName     (r), NULL );
@@ -147,22 +148,22 @@ START_TEST (test_Reaction_setId)
 
   Reaction_setId(R, id);
 
-  fail_unless( !strcmp(R->id, id) , NULL );
+  fail_unless( !strcmp(Reaction_getId(R), id), NULL );
   fail_unless( Reaction_isSetId(R), NULL );
 
-  if (R->id == id)
+  if (Reaction_getId(R) == id)
   {
     fail("Reaction_setId(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Reaction_setId(R, R->id);
-  fail_unless( !strcmp(R->id, id), NULL );
+  Reaction_setId(R, Reaction_getId(R));
+  fail_unless( !strcmp(Reaction_getId(R), id), NULL );
 
   Reaction_setId(R, NULL);
   fail_unless( !Reaction_isSetId(R), NULL );
 
-  if (R->id != NULL)
+  if (Reaction_getId(R) != NULL)
   {
     fail("Reaction_setId(R, NULL) did not clear string.");
   }
@@ -177,22 +178,22 @@ START_TEST (test_Reaction_setName)
 
   Reaction_setName(R, name);
 
-  fail_unless( !strcmp(R->name, name), NULL );
-  fail_unless( Reaction_isSetName(R) , NULL );
+  fail_unless( !strcmp(Reaction_getName(R), name), NULL );
+  fail_unless( Reaction_isSetName(R), NULL );
 
-  if (R->name == name)
+  if (Reaction_getName(R) == name)
   {
     fail("Reaction_setName(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  Reaction_setName(R, R->name);
-  fail_unless( !strcmp(R->name, name), NULL );
+  Reaction_setName(R, Reaction_getName(R));
+  fail_unless( !strcmp(Reaction_getName(R), name), NULL );
 
   Reaction_setName(R, NULL);
   fail_unless( !Reaction_isSetName(R), NULL );
 
-  if (R->name != NULL)
+  if (Reaction_getName(R) != NULL)
   {
     fail("Reaction_setName(R, NULL) did not clear string.");
   }
@@ -252,9 +253,8 @@ START_TEST (test_Reaction_getReactant)
   sr1 = Reaction_getReactant(R, 0);
   sr2 = Reaction_getReactant(R, 1);
 
-  fail_unless( !strcmp(sr1->species, "R1"), NULL );
-  fail_unless( !strcmp(sr2->species, "R2"), NULL );
-
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr1), "R1"), NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr2), "R2"), NULL );
 }
 END_TEST
 
@@ -298,8 +298,8 @@ START_TEST (test_Reaction_getProduct)
   sr1 = Reaction_getProduct(R, 0);
   sr2 = Reaction_getProduct(R, 1);
 
-  fail_unless( !strcmp(sr1->species, "P1"), NULL );
-  fail_unless( !strcmp(sr2->species, "P2"), NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr1), "P1"), NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr2), "P2"), NULL );
 }
 END_TEST
 
@@ -343,8 +343,8 @@ START_TEST (test_Reaction_getModifier)
   msr1 = Reaction_getModifier(R, 0);
   msr2 = Reaction_getModifier(R, 1);
 
-  fail_unless( !strcmp(msr1->species, "M1"), NULL );
-  fail_unless( !strcmp(msr2->species, "M2"), NULL );
+  fail_unless(!strcmp(ModifierSpeciesReference_getSpecies(msr1), "M1"), NULL);
+  fail_unless(!strcmp(ModifierSpeciesReference_getSpecies(msr2), "M2"), NULL);
 }
 END_TEST
 

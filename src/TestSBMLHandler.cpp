@@ -81,6 +81,7 @@ BEGIN_C_DECLS
 
 
 static SBMLDocument_t *D;
+static Model_t        *M;
 
 
 void
@@ -104,8 +105,8 @@ START_TEST (test_element_SBML)
 
   D = readSBMLFromString(s);
 
-  fail_unless(D->level   == 1, NULL);
-  fail_unless(D->version == 1, NULL);
+  fail_unless(SBMLDocument_getLevel  (D) == 1, NULL);
+  fail_unless(SBMLDocument_getVersion(D) == 1, NULL);
 }
 END_TEST
 
@@ -121,7 +122,9 @@ START_TEST (test_element_Model)
 
 
   D = readSBMLFromString(s);
-  fail_unless( !strcmp(D->model->name, "testModel"), NULL );
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( !strcmp(Model_getName(M), "testModel"), NULL );
 }
 END_TEST
 
@@ -137,11 +140,12 @@ START_TEST (test_element_Model_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless(  Model_isSetId  (D->model), NULL );
-  fail_unless( !Model_isSetName(D->model), NULL );
+  fail_unless(  Model_isSetId  (M), NULL );
+  fail_unless( !Model_isSetName(M), NULL );
 
-  fail_unless( !strcmp(Model_getId(D->model), "testModel"), NULL );
+  fail_unless( !strcmp(Model_getId(M), "testModel"), NULL );
 }
 END_TEST
 
@@ -170,10 +174,11 @@ START_TEST (test_element_FunctionDefinition)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumFunctionDefinitions(D->model) == 1, NULL );
+  fail_unless( Model_getNumFunctionDefinitions(M) == 1, NULL );
 
-  fd = Model_getFunctionDefinition(D->model, 0);
+  fd = Model_getFunctionDefinition(M, 0);
   fail_unless( fd != NULL, NULL );
 
   fail_unless( FunctionDefinition_isSetId  (fd), NULL );
@@ -203,10 +208,12 @@ START_TEST (test_element_UnitDefinition)
 
 
   D = readSBMLFromString(s);
-  fail_unless( Model_getNumUnitDefinitions(D->model) == 1, NULL );
+  M = SBMLDocument_getModel(D);
 
-  ud = Model_getUnitDefinition(D->model, 0);
-  fail_unless( !strcmp(ud->name, "mmls"), NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 1, NULL );
+
+  ud = Model_getUnitDefinition(M, 0);
+  fail_unless( !strcmp(UnitDefinition_getName(ud), "mmls"), NULL );
 }
 END_TEST
 
@@ -219,9 +226,11 @@ START_TEST (test_element_UnitDefinition_L2)
 
 
   D = readSBMLFromString(s);
-  fail_unless( Model_getNumUnitDefinitions(D->model) == 1, NULL );
+  M = SBMLDocument_getModel(D);
 
-  ud = Model_getUnitDefinition(D->model, 0);
+  fail_unless( Model_getNumUnitDefinitions(M) == 1, NULL );
+
+  ud = Model_getUnitDefinition(M, 0);
 
   fail_unless( UnitDefinition_isSetId  (ud), NULL );
   fail_unless( UnitDefinition_isSetName(ud), NULL );
@@ -247,19 +256,20 @@ START_TEST (test_element_Unit)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumUnitDefinitions(D->model) == 1, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 1, NULL );
 
-  ud = Model_getUnitDefinition(D->model, 0);
+  ud = Model_getUnitDefinition(M, 0);
 
-  fail_unless( !strcmp(ud->name, "substance"), NULL );
+  fail_unless( !strcmp(UnitDefinition_getName(ud), "substance"), NULL );
   fail_unless( UnitDefinition_getNumUnits(ud) == 1, NULL );
 
   u = UnitDefinition_getUnit(ud, 0);
 
-  fail_unless( u->kind     == UNIT_KIND_MOLE, NULL );
-  fail_unless( u->exponent ==  1, NULL );
-  fail_unless( u->scale    == -3, NULL );
+  fail_unless( Unit_getKind    (u) == UNIT_KIND_MOLE, NULL );
+  fail_unless( Unit_getExponent(u) ==  1, NULL );
+  fail_unless( Unit_getScale   (u) == -3, NULL );
 }
 END_TEST
 
@@ -281,10 +291,11 @@ START_TEST (test_element_Unit_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumUnitDefinitions(D->model) == 1, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 1, NULL );
 
-  ud = Model_getUnitDefinition(D->model, 0);
+  ud = Model_getUnitDefinition(M, 0);
 
   fail_unless( UnitDefinition_isSetId(ud), NULL );
   fail_unless( !strcmp(UnitDefinition_getId(ud), "Fahrenheit"), NULL );
@@ -317,10 +328,11 @@ START_TEST (test_element_Unit_defaults_L1_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumUnitDefinitions(D->model) == 1, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 1, NULL );
 
-  ud = Model_getUnitDefinition(D->model, 0);
+  ud = Model_getUnitDefinition(M, 0);
 
   fail_unless( !strcmp(UnitDefinition_getName(ud), "bogomips"), NULL );
   fail_unless( UnitDefinition_getNumUnits(ud) == 1, NULL );
@@ -350,14 +362,15 @@ START_TEST (test_element_Compartment)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumCompartments(D->model) == 1, NULL );
+  fail_unless( Model_getNumCompartments(M) == 1, NULL );
 
-  c = Model_getCompartment(D->model, 0);
+  c = Model_getCompartment(M, 0);
 
-  fail_unless( !strcmp( c->name   , "mitochondria" ), NULL );
-  fail_unless( !strcmp( c->units  , "milliliters"  ), NULL );
-  fail_unless( !strcmp( c->outside, "cell"         ), NULL );
+  fail_unless( !strcmp( Compartment_getName   (c), "mitochondria" ), NULL );
+  fail_unless( !strcmp( Compartment_getUnits  (c), "milliliters"  ), NULL );
+  fail_unless( !strcmp( Compartment_getOutside(c), "cell"         ), NULL );
   fail_unless( Compartment_getVolume(c) == .0001, NULL );
 
   fail_unless( Compartment_isSetVolume(c), NULL );
@@ -380,10 +393,11 @@ START_TEST (test_element_Compartment_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumCompartments(D->model) == 1, NULL );
+  fail_unless( Model_getNumCompartments(M) == 1, NULL );
 
-  c = Model_getCompartment(D->model, 0);
+  c = Model_getCompartment(M, 0);
 
   fail_unless(  Compartment_isSetId     (c), NULL );
   fail_unless( !Compartment_isSetName   (c), NULL );
@@ -413,10 +427,11 @@ START_TEST (test_element_Compartment_defaults)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumCompartments(D->model) == 1, NULL );
+  fail_unless( Model_getNumCompartments(M) == 1, NULL );
 
-  c = Model_getCompartment(D->model, 0);
+  c = Model_getCompartment(M, 0);
 
   fail_unless(  Compartment_isSetName   (c), NULL );
   fail_unless(  Compartment_isSetVolume (c), NULL );
@@ -441,10 +456,11 @@ START_TEST (test_element_Compartment_defaults_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumCompartments(D->model) == 1, NULL );
+  fail_unless( Model_getNumCompartments(M) == 1, NULL );
 
-  c = Model_getCompartment(D->model, 0);
+  c = Model_getCompartment(M, 0);
 
   fail_unless(  Compartment_isSetId     (c), NULL );
   fail_unless( !Compartment_isSetName   (c), NULL );
@@ -472,21 +488,22 @@ START_TEST (test_element_Specie)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1, NULL );
 
-  sp = Model_getSpecies(D->model, 0);
+  sp = Model_getSpecies(M, 0);
 
-  fail_unless( !strcmp( sp->name            , "Glucose" ), NULL );
-  fail_unless( !strcmp( sp->compartment     , "cell"    ), NULL );
-  fail_unless( !strcmp( Species_getUnits(sp), "volume"  ), NULL );
+  fail_unless( !strcmp( Species_getName       (sp), "Glucose" ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(sp), "cell"    ), NULL );
+  fail_unless( !strcmp( Species_getUnits      (sp), "volume"  ), NULL );
 
-  fail_unless( Species_getInitialAmount(sp) == 4.1, NULL );
-  fail_unless( sp->boundaryCondition        == 0  , NULL );
-  fail_unless( sp->charge                   == 6  , NULL );
+  fail_unless( Species_getInitialAmount    (sp) == 4.1, NULL );
+  fail_unless( Species_getBoundaryCondition(sp) == 0  , NULL );
+  fail_unless( Species_getCharge           (sp) == 6  , NULL );
 
-  fail_unless( sp->isSet.initialAmount == 1, NULL );
-  fail_unless( sp->isSet.charge        == 1, NULL );
+  fail_unless( Species_isSetInitialAmount(sp) == 1, NULL );
+  fail_unless( Species_isSetCharge       (sp) == 1, NULL );
 }
 END_TEST
 
@@ -502,19 +519,20 @@ START_TEST (test_element_Specie_defaults)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1, NULL );
 
-  sp = Model_getSpecies(D->model, 0);
+  sp = Model_getSpecies(M, 0);
 
-  fail_unless( !strcmp( sp->name       , "Glucose" ), NULL );
-  fail_unless( !strcmp( sp->compartment, "cell"    ), NULL );
+  fail_unless( !strcmp( Species_getName       (sp), "Glucose" ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(sp), "cell"    ), NULL );
 
-  fail_unless( Species_getInitialAmount(sp) == 1.0, NULL );
-  fail_unless( sp->boundaryCondition        == 0  , NULL );
+  fail_unless( Species_getInitialAmount    (sp) == 1.0, NULL );
+  fail_unless( Species_getBoundaryCondition(sp) == 0  , NULL );
 
-  fail_unless( sp->isSet.initialAmount == 1, NULL );
-  fail_unless( sp->isSet.charge        == 0, NULL );
+  fail_unless( Species_isSetInitialAmount(sp) == 1, NULL );
+  fail_unless( Species_isSetCharge       (sp) == 0, NULL );
 }
 END_TEST
 
@@ -531,21 +549,22 @@ START_TEST (test_element_Species)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1, NULL );
 
-  sp = Model_getSpecies(D->model, 0);
+  sp = Model_getSpecies(M, 0);
 
-  fail_unless( !strcmp( sp->name            , "Glucose" ), NULL );
-  fail_unless( !strcmp( sp->compartment     , "cell"    ), NULL );
-  fail_unless( !strcmp( Species_getUnits(sp), "volume"  ), NULL );
+  fail_unless( !strcmp( Species_getName       (sp), "Glucose" ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(sp), "cell"    ), NULL );
+  fail_unless( !strcmp( Species_getUnits      (sp), "volume"  ), NULL );
 
-  fail_unless( Species_getInitialAmount(sp) == 4.1, NULL );
-  fail_unless( sp->boundaryCondition        == 0  , NULL );
-  fail_unless( sp->charge                   == 6  , NULL );
+  fail_unless( Species_getInitialAmount    (sp) == 4.1, NULL );
+  fail_unless( Species_getBoundaryCondition(sp) == 0  , NULL );
+  fail_unless( Species_getCharge           (sp) == 6  , NULL );
 
-  fail_unless( sp->isSet.initialAmount == 1, NULL );
-  fail_unless( sp->isSet.charge        == 1, NULL );
+  fail_unless( Species_isSetInitialAmount(sp) == 1, NULL );
+  fail_unless( Species_isSetCharge       (sp) == 1, NULL );
 }
 END_TEST
 
@@ -564,10 +583,11 @@ START_TEST (test_element_Species_L2_1)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1, NULL );
 
-  sp = Model_getSpecies(D->model, 0);
+  sp = Model_getSpecies(M, 0);
 
   fail_unless(  Species_isSetId                  (sp), NULL );
   fail_unless( !Species_isSetName                (sp), NULL );
@@ -603,10 +623,11 @@ START_TEST (test_element_Species_L2_2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1, NULL );
 
-  sp = Model_getSpecies(D->model, 0);
+  sp = Model_getSpecies(M, 0);
 
   fail_unless(  Species_isSetId                  (sp), NULL );
   fail_unless( !Species_isSetName                (sp), NULL );
@@ -635,10 +656,11 @@ START_TEST (test_element_Species_L2_defaults)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1, NULL );
 
-  sp = Model_getSpecies(D->model, 0);
+  sp = Model_getSpecies(M, 0);
 
   fail_unless(  Species_isSetId                  (sp), NULL );
   fail_unless( !Species_isSetName                (sp), NULL );
@@ -670,16 +692,17 @@ START_TEST (test_element_Parameter)
 
     
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumParameters(D->model) == 1, NULL );
+  fail_unless( Model_getNumParameters(M) == 1, NULL );
 
-  p = Model_getParameter(D->model, 0);
+  p = Model_getParameter(M, 0);
 
-  fail_unless( !strcmp( p->name , "Km1"    ), NULL );
-  fail_unless( !strcmp( p->units, "second" ), NULL );
-  fail_unless( p->value == 2.3, NULL );
+  fail_unless( !strcmp( Parameter_getName (p), "Km1"    ), NULL );
+  fail_unless( !strcmp( Parameter_getUnits(p), "second" ), NULL );
+  fail_unless( Parameter_getValue(p) == 2.3, NULL );
 
-  fail_unless( p->isSet.value == 1, NULL );
+  fail_unless( Parameter_isSetValue(p) == 1, NULL );
 }
 END_TEST
 
@@ -695,10 +718,11 @@ START_TEST (test_element_Parameter_L2)
 
     
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumParameters(D->model) == 1, NULL );
+  fail_unless( Model_getNumParameters(M) == 1, NULL );
 
-  p = Model_getParameter(D->model, 0);
+  p = Model_getParameter(M, 0);
 
   fail_unless(  Parameter_isSetId   (p), NULL );
   fail_unless( !Parameter_isSetName (p), NULL );
@@ -722,10 +746,11 @@ START_TEST (test_element_Parameter_L2_defaults)
 
     
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumParameters(D->model) == 1, NULL );
+  fail_unless( Model_getNumParameters(M) == 1, NULL );
 
-  p = Model_getParameter(D->model, 0);
+  p = Model_getParameter(M, 0);
 
   fail_unless(  Parameter_isSetId   (p), NULL );
   fail_unless( !Parameter_isSetName (p), NULL );
@@ -749,14 +774,15 @@ START_TEST (test_element_Reaction)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
   
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
-  fail_unless( !strcmp(r->name, "reaction_1"), NULL );
-  fail_unless( r->reversible == 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
+  fail_unless( Reaction_getReversible(r) == 0, NULL );
+  fail_unless( Reaction_getFast      (r) == 0, NULL );
 }
 END_TEST
 
@@ -768,14 +794,15 @@ START_TEST (test_element_Reaction_defaults)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
   
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
-  fail_unless( !strcmp(r->name, "reaction_1"), NULL );
-  fail_unless( r->reversible != 0, NULL );
-  fail_unless( r->fast       == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
+  fail_unless( Reaction_getReversible(r) != 0, NULL );
+  fail_unless( Reaction_getFast      (r) == 0, NULL );
 }
 END_TEST
 
@@ -791,10 +818,11 @@ START_TEST (test_element_Reaction_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
   
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
   fail_unless(  Reaction_isSetId  (r), NULL );
   fail_unless( !Reaction_isSetName(r), NULL );
@@ -814,10 +842,11 @@ START_TEST (test_element_Reaction_L2_defaults)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
   
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
   fail_unless(  Reaction_isSetId  (r), NULL );
   fail_unless( !Reaction_isSetName(r), NULL );
@@ -845,20 +874,21 @@ START_TEST (test_element_SpecieReference_Reactant)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
-  fail_unless( !strcmp(r->name, "reaction_1"), NULL );
-  fail_unless( r->reversible == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
+  fail_unless( Reaction_getReversible  (r) == 0, NULL );
   fail_unless( Reaction_getNumReactants(r) == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
 
-  fail_unless( !strcmp(sr->species, "X0"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 }
 END_TEST
 
@@ -879,20 +909,21 @@ START_TEST (test_element_SpecieReference_Product)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
-  fail_unless( !strcmp(r->name, "reaction_1"), NULL );
-  fail_unless( r->reversible == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
+  fail_unless( Reaction_getReversible (r) == 0, NULL );
   fail_unless( Reaction_getNumProducts(r) == 1, NULL );
 
   sr = Reaction_getProduct(r, 0);
 
-  fail_unless( !strcmp(sr->species, "S1"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "S1"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 }
 END_TEST
 
@@ -913,20 +944,21 @@ START_TEST (test_element_SpecieReference_defaults)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
-  fail_unless( !strcmp(r->name, "reaction_1"), NULL );
-  fail_unless( r->reversible == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
+  fail_unless( Reaction_getReversible  (r) == 0, NULL );
   fail_unless( Reaction_getNumReactants(r) == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
 
-  fail_unless( !strcmp(sr->species, "X0"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 }
 END_TEST
 
@@ -947,20 +979,21 @@ START_TEST (test_element_SpeciesReference_defaults)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
   
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
-  fail_unless( !strcmp(r->name, "reaction_1"), NULL );
-  fail_unless( r->reversible == 0, NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "reaction_1"), NULL );
+  fail_unless( Reaction_getReversible  (r) == 0, NULL );
   fail_unless( Reaction_getNumReactants(r) == 1, NULL );
 
   sr = Reaction_getReactant(r, 0);
 
-  fail_unless( !strcmp(sr->species, "X0"), NULL );
-  fail_unless( sr->stoichiometry == 1, NULL );
-  fail_unless( sr->denominator   == 1, NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0"), NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 }
 END_TEST
 
@@ -987,10 +1020,11 @@ START_TEST (test_element_SpeciesReference_StoichiometryMath_1)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
 
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
   fail_unless( r != NULL, NULL );
 
   fail_unless( Reaction_getNumReactants(r) == 1, NULL );
@@ -1031,10 +1065,11 @@ START_TEST (test_element_SpeciesReference_StoichiometryMath_2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
 
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
   fail_unless( r != NULL, NULL );
 
   fail_unless( Reaction_getNumReactants(r) == 1, NULL );
@@ -1064,13 +1099,14 @@ START_TEST (test_element_KineticLaw)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
 
-  r  = Model_getReaction(D->model, 0);
-  kl = r->kineticLaw;
+  r  = Model_getReaction(M, 0);
+  kl = Reaction_getKineticLaw(r);
 
-  fail_unless( !strcmp(kl->formula, "k1*X0"), NULL );
+  fail_unless( !strcmp(KineticLaw_getFormula(kl), "k1*X0"), NULL );
 }
 END_TEST
 
@@ -1100,10 +1136,11 @@ START_TEST (test_element_KineticLaw_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
 
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
   fail_unless( r != NULL, NULL );
 
   kl = Reaction_getKineticLaw(r);
@@ -1139,19 +1176,20 @@ START_TEST (test_element_KineticLaw_Parameter)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1, NULL );
 
-  r  = Model_getReaction(D->model, 0);
-  kl = r->kineticLaw;
+  r  = Model_getReaction(M, 0);
+  kl = Reaction_getKineticLaw(r);
 
-  fail_unless( !strcmp(kl->formula, "k1*X0"), NULL );
+  fail_unless( !strcmp(KineticLaw_getFormula(kl), "k1*X0"), NULL );
   fail_unless( KineticLaw_getNumParameters(kl) == 1, NULL );
 
   p = KineticLaw_getParameter(kl, 0);
 
-  fail_unless( !strcmp(p->name, "k1"), NULL );
-  fail_unless( p->value == 0, NULL );
+  fail_unless( !strcmp(Parameter_getName(p), "k1"), NULL );
+  fail_unless( Parameter_getValue(p) == 0, NULL );
 }
 END_TEST
 
@@ -1177,10 +1215,11 @@ START_TEST (test_element_AssignmentRule)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  ar = (AssignmentRule_t *) Model_getRule(D->model, 0);
+  ar = (AssignmentRule_t *) Model_getRule(M, 0);
   fail_unless( ar != NULL, NULL );
 
   fail_unless( Rule_isSetMath((Rule_t *) ar), NULL );
@@ -1222,10 +1261,11 @@ START_TEST (test_element_RateRule)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  rr = (RateRule_t *) Model_getRule(D->model, 0);
+  rr = (RateRule_t *) Model_getRule(M, 0);
   fail_unless( rr != NULL, NULL );
 
   fail_unless( Rule_isSetMath((Rule_t *) rr), NULL );
@@ -1250,12 +1290,13 @@ START_TEST (test_element_AlgebraicRule)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  ar = (AlgebraicRule_t *) Model_getRule(D->model, 0);
+  ar = (AlgebraicRule_t *) Model_getRule(M, 0);
 
-  fail_unless( !strcmp(ar->formula, "x + 1"), NULL );
+  fail_unless( !strcmp(Rule_getFormula(ar), "x + 1"), NULL );
 }
 END_TEST
 
@@ -1285,10 +1326,11 @@ START_TEST (test_element_AlgebraicRule_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  ar = (AlgebraicRule_t *) Model_getRule(D->model, 0);
+  ar = (AlgebraicRule_t *) Model_getRule(M, 0);
   fail_unless( ar != NULL, NULL );
 
   fail_unless( Rule_isSetMath((Rule_t *) ar), NULL );
@@ -1313,15 +1355,16 @@ START_TEST (test_element_CompartmentVolumeRule)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  cvr = (CompartmentVolumeRule_t *) Model_getRule(D->model, 0);
+  cvr = (CompartmentVolumeRule_t *) Model_getRule(M, 0);
 
   fail_unless( !strcmp( CompartmentVolumeRule_getCompartment(cvr), "A"), NULL );
-  fail_unless( !strcmp( cvr->formula, "0.10 * t" ), NULL );
+  fail_unless( !strcmp( Rule_getFormula(cvr), "0.10 * t" ), NULL );
 
-  fail_unless( cvr->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( AssignmentRule_getType(cvr) == RULE_TYPE_SCALAR, NULL );
 }
 END_TEST
 
@@ -1337,14 +1380,15 @@ START_TEST (test_element_ParameterRule)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  pr = (ParameterRule_t *) Model_getRule(D->model, 0);
+  pr = (ParameterRule_t *) Model_getRule(M, 0);
 
   fail_unless( !strcmp( ParameterRule_getName(pr), "k"), NULL );
-  fail_unless( !strcmp( pr->formula, "k3/k2" ), NULL );
-  fail_unless( pr->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( !strcmp( Rule_getFormula(pr), "k3/k2" ), NULL );
+  fail_unless( AssignmentRule_getType(pr) == RULE_TYPE_SCALAR, NULL );
 }
 END_TEST
 
@@ -1360,14 +1404,15 @@ START_TEST (test_element_SpecieConcentrationRule)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  scr = (SpeciesConcentrationRule_t *) Model_getRule(D->model, 0);
+  scr = (SpeciesConcentrationRule_t *) Model_getRule(M, 0);
 
   fail_unless( !strcmp( SpeciesConcentrationRule_getSpecies(scr), "s2"), NULL );
-  fail_unless( !strcmp( scr->formula, "k * t/(1 + k)" ), NULL );
-  fail_unless( scr->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( !strcmp( Rule_getFormula(scr), "k * t/(1 + k)" ), NULL );
+  fail_unless( AssignmentRule_getType(scr) == RULE_TYPE_SCALAR, NULL );
 }
 END_TEST
 
@@ -1383,14 +1428,15 @@ START_TEST (test_element_SpecieConcentrationRule_rate)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  scr = (SpeciesConcentrationRule_t *) Model_getRule(D->model, 0);
+  scr = (SpeciesConcentrationRule_t *) Model_getRule(M, 0);
 
   fail_unless( !strcmp( SpeciesConcentrationRule_getSpecies(scr), "s2"), NULL );
-  fail_unless( !strcmp( scr->formula, "k * t/(1 + k)" ), NULL );
-  fail_unless( scr->type == RULE_TYPE_RATE, NULL );
+  fail_unless( !strcmp( Rule_getFormula(scr), "k * t/(1 + k)" ), NULL );
+  fail_unless( AssignmentRule_getType(scr) == RULE_TYPE_RATE, NULL );
 }
 END_TEST
 
@@ -1406,14 +1452,15 @@ START_TEST (test_element_SpeciesConcentrationRule)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
 
-  scr = (SpeciesConcentrationRule_t *) Model_getRule(D->model, 0);
+  scr = (SpeciesConcentrationRule_t *) Model_getRule(M, 0);
 
   fail_unless( !strcmp( SpeciesConcentrationRule_getSpecies(scr), "s2"), NULL );
-  fail_unless( !strcmp( scr->formula, "k * t/(1 + k)" ), NULL );
-  fail_unless( scr->type == RULE_TYPE_SCALAR, NULL );
+  fail_unless( !strcmp( Rule_getFormula(scr), "k * t/(1 + k)" ), NULL );
+  fail_unless( AssignmentRule_getType(scr) == RULE_TYPE_SCALAR, NULL );
 }
 END_TEST
 
@@ -1426,10 +1473,11 @@ START_TEST (test_element_Event)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+  fail_unless( Model_getNumEvents(M) == 1, NULL );
 
-  e = Model_getEvent(D->model, 0);
+  e = Model_getEvent(M, 0);
   fail_unless( e != NULL, NULL );
 
   fail_unless(  Event_isSetId       (e), NULL );
@@ -1468,10 +1516,11 @@ START_TEST (test_element_Event_trigger)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+  fail_unless( Model_getNumEvents(M) == 1, NULL );
 
-  e = Model_getEvent(D->model, 0);
+  e = Model_getEvent(M, 0);
   fail_unless( e != NULL, NULL );
 
   fail_unless( !Event_isSetDelay  (e), NULL );
@@ -1502,10 +1551,11 @@ START_TEST (test_element_Event_delay)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+  fail_unless( Model_getNumEvents(M) == 1, NULL );
 
-  e = Model_getEvent(D->model, 0);
+  e = Model_getEvent(M, 0);
   fail_unless( e != NULL, NULL );
 
   fail_unless(  Event_isSetDelay  (e), NULL );
@@ -1543,10 +1593,11 @@ START_TEST (test_element_EventAssignment)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+  fail_unless( Model_getNumEvents(M) == 1, NULL );
 
-  e = Model_getEvent(D->model, 0);
+  e = Model_getEvent(M, 0);
   fail_unless( e != NULL, NULL );
 
   fail_unless( Event_getNumEventAssignments(e) == 1, NULL );
@@ -1588,52 +1639,53 @@ START_TEST (test_element_metaid)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  sb = (SBase_t *) Model_getFunctionDefinition(D->model, 0);
+  sb = (SBase_t *) Model_getFunctionDefinition(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "fd"), NULL );
 
 
-  sb = (SBase_t *) Model_getUnitDefinition(D->model, 0);
+  sb = (SBase_t *) Model_getUnitDefinition(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "ud"), NULL );
 
 
-  sb = (SBase_t *) Model_getCompartment(D->model, 0);
+  sb = (SBase_t *) Model_getCompartment(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "c"), NULL );
 
 
-  sb = (SBase_t *) Model_getSpecies(D->model, 0);
+  sb = (SBase_t *) Model_getSpecies(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "s"), NULL );
 
 
-  sb = (SBase_t *) Model_getParameter(D->model, 0);
+  sb = (SBase_t *) Model_getParameter(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "p"), NULL );
 
 
-  sb = (SBase_t *) Model_getRule(D->model, 0);
+  sb = (SBase_t *) Model_getRule(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "rr"), NULL );
 
 
-  sb = (SBase_t *) Model_getReaction(D->model, 0);
+  sb = (SBase_t *) Model_getReaction(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "rx"), NULL );
 
 
-  sb = (SBase_t *) Model_getEvent(D->model, 0);
+  sb = (SBase_t *) Model_getEvent(M, 0);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "e"), NULL );
@@ -1657,10 +1709,11 @@ START_TEST (test_element_metaid_Unit)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  ud = Model_getUnitDefinition(D->model, 0);
+  ud = Model_getUnitDefinition(M, 0);
   sb = (SBase_t *) ud;
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
@@ -1704,10 +1757,11 @@ START_TEST (test_element_metaid_Reaction)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  r  = Model_getReaction(D->model, 0);
+  r  = Model_getReaction(M, 0);
   sb = (SBase_t *) r;
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
@@ -1774,11 +1828,12 @@ START_TEST (test_element_metaid_Event)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
 
-  e  = Model_getEvent(D->model, 0);
+  e  = Model_getEvent(M, 0);
   sb = (SBase_t *) e;
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
@@ -1817,52 +1872,53 @@ START_TEST (test_element_metaid_ListOf)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  sb = (SBase_t *) Model_getListOfFunctionDefinitions(D->model);
+  sb = (SBase_t *) Model_getListOfFunctionDefinitions(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lofd"), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfUnitDefinitions(D->model);
+  sb = (SBase_t *) Model_getListOfUnitDefinitions(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "loud"), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfCompartments(D->model);
+  sb = (SBase_t *) Model_getListOfCompartments(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "loc"), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfSpecies(D->model);
+  sb = (SBase_t *) Model_getListOfSpecies(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "los"), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfParameters(D->model);
+  sb = (SBase_t *) Model_getListOfParameters(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lop"), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfRules(D->model);
+  sb = (SBase_t *) Model_getListOfRules(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lor"), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfReactions(D->model);
+  sb = (SBase_t *) Model_getListOfReactions(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "lorx"), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfEvents(D->model);
+  sb = (SBase_t *) Model_getListOfEvents(M);
 
   fail_unless( SBase_isSetMetaId(sb), NULL );
   fail_unless( !strcmp(SBase_getMetaId(sb), "loe"), NULL );
@@ -1888,12 +1944,14 @@ START_TEST (test_element_notes)
   );
 
 
-  D  = readSBMLFromString(s);
-  r  = Model_getReaction(D->model, 0);
-  kl = r->kineticLaw;
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( kl->notes != NULL, NULL );
-  fail_unless( !strcmp(kl->notes, "This is a test note."), NULL );
+  r  = Model_getReaction(M, 0);
+  kl = Reaction_getKineticLaw(r);
+
+  fail_unless( SBase_getNotes(kl) != NULL, NULL );
+  fail_unless( !strcmp(SBase_getNotes(kl), "This is a test note."), NULL );
 }
 END_TEST
 
@@ -1916,12 +1974,15 @@ START_TEST (test_element_notes_after)
   );
 
 
-  D  = readSBMLFromString(s);
-  r  = Model_getReaction(D->model, 0);
-  kl = r->kineticLaw;
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( kl->notes != NULL, NULL );
-  fail_unless( !strcmp(kl->notes,
+  r  = Model_getReaction(M, 0);
+
+  kl = Reaction_getKineticLaw(r);
+
+  fail_unless( SBase_getNotes(kl) != NULL, NULL );
+  fail_unless( !strcmp(SBase_getNotes(kl),
                        "This note is <b>after</b> everything else."), NULL );
 }
 END_TEST
@@ -1941,7 +2002,9 @@ START_TEST (test_element_notes_xmlns)
 
 
   D = readSBMLFromString(s);
-  fail_unless( !strcmp(D->model->notes, n), NULL );
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( !strcmp(SBase_getNotes(M), n), NULL );
 }
 END_TEST
 
@@ -1960,7 +2023,9 @@ START_TEST (test_element_notes_entity_reference)
 
 
   D = readSBMLFromString(s);
-  fail_unless(!strcmp(D->model->notes, n), NULL );
+  M = SBMLDocument_getModel(D);
+
+  fail_unless(!strcmp(SBase_getNotes(M), n), NULL );
 }
 END_TEST
 
@@ -1985,11 +2050,14 @@ START_TEST (test_element_notes_nested)
   );
 
 
-  D  = readSBMLFromString(s);
-  r  = Model_getReaction(D->model, 0);
-  kl = r->kineticLaw;
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp(kl->notes, n), NULL );
+  r  = Model_getReaction(M, 0);
+
+  kl = Reaction_getKineticLaw(r);
+
+  fail_unless( !strcmp(SBase_getNotes(kl), n), NULL );
   fail_unless( SBMLDocument_getNumWarnings(D) == 1, NULL );
 }
 END_TEST
@@ -2009,8 +2077,9 @@ START_TEST (test_element_notes_sbml)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp( D->notes, n), NULL );
+  fail_unless( !strcmp(SBase_getNotes(D), n), NULL );
   fail_unless( SBMLDocument_getNumErrors(D) == 1, NULL );
 }
 END_TEST
@@ -2030,8 +2099,9 @@ START_TEST (test_element_notes_sbml_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp( D->notes, n), NULL );
+  fail_unless( !strcmp(SBase_getNotes(D), n), NULL );
   fail_unless( SBMLDocument_getNumErrors(D) == 0, NULL );
 }
 END_TEST
@@ -2078,52 +2148,53 @@ START_TEST (test_element_notes_ListOf)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  sb = (SBase_t *) Model_getListOfFunctionDefinitions(D->model);
+  sb = (SBase_t *) Model_getListOfFunctionDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Functions "), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfUnitDefinitions(D->model);
+  sb = (SBase_t *) Model_getListOfUnitDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Units "), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfCompartments(D->model);
+  sb = (SBase_t *) Model_getListOfCompartments(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Compartments "), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfSpecies(D->model);
+  sb = (SBase_t *) Model_getListOfSpecies(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Species "), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfParameters(D->model);
+  sb = (SBase_t *) Model_getListOfParameters(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Parameters "), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfRules(D->model);
+  sb = (SBase_t *) Model_getListOfRules(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Rules "), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfReactions(D->model);
+  sb = (SBase_t *) Model_getListOfReactions(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Reactions "), NULL );
 
 
-  sb = (SBase_t *) Model_getListOfEvents(D->model);
+  sb = (SBase_t *) Model_getListOfEvents(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
   fail_unless( !strcmp(SBase_getNotes(sb), " My Events "), NULL );
@@ -2148,10 +2219,11 @@ START_TEST (test_element_notes_ListOf_Units)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  ud = Model_getUnitDefinition(D->model, 0);
+  ud = Model_getUnitDefinition(M, 0);
   sb = (SBase_t *) UnitDefinition_getListOfUnits(ud);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
@@ -2188,10 +2260,11 @@ START_TEST (test_element_notes_ListOf_Reactions)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  r = Model_getReaction(D->model, 0);
+  r = Model_getReaction(M, 0);
 
   sb = (SBase_t *) Reaction_getListOfReactants(r);
 
@@ -2233,10 +2306,11 @@ START_TEST (test_element_notes_ListOf_EventAssignments)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model != NULL, NULL );
+  fail_unless( M != NULL, NULL );
 
-  e  = Model_getEvent(D->model, 0);
+  e  = Model_getEvent(M, 0);
   sb = (SBase_t *) Event_getListOfEventAssignments(e);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
@@ -2265,9 +2339,10 @@ START_TEST (test_element_annotation)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( D->model->annotation != NULL, NULL );
-  fail_unless( !strcmp(D->model->annotation, a), NULL );
+  fail_unless( SBase_getAnnotation(M) != NULL, NULL );
+  fail_unless( !strcmp(SBase_getAnnotation(M), a), NULL );
 }
 END_TEST
 
@@ -2292,7 +2367,10 @@ START_TEST (test_element_annotations)
 
 
   D = readSBMLFromString(s);
-  fail_unless( !strcmp(D->model->annotation, a), NULL );
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( SBase_getAnnotation(M) != NULL, NULL );
+  fail_unless( !strcmp(SBase_getAnnotation(M), a), NULL );
 }
 END_TEST
 
@@ -2322,11 +2400,13 @@ START_TEST (test_element_annotation_after)
   );
 
 
-  D  = readSBMLFromString(s);
-  r  = Model_getReaction(D->model, 0);
-  kl = r->kineticLaw;
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp(kl->annotation, a), NULL );
+  r  = Model_getReaction(M, 0);
+  kl = Reaction_getKineticLaw(r);
+
+  fail_unless( !strcmp(SBase_getAnnotation(kl), a), NULL );
 }
 END_TEST
 
@@ -2357,7 +2437,9 @@ START_TEST (test_element_annotation_nested)
 
 
   D = readSBMLFromString(s);
-  fail_unless( !strcmp(D->model->annotation, a), NULL );
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( !strcmp(SBase_getAnnotation(M), a), NULL );
 }
 END_TEST
 
@@ -2391,8 +2473,9 @@ START_TEST (test_element_annotation_sbml)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp(D->annotation, a), NULL );
+  fail_unless( !strcmp(SBase_getAnnotation(D), a), NULL );
   fail_unless( SBMLDocument_getNumErrors(D) == 1, NULL );
 }
 END_TEST
@@ -2427,8 +2510,9 @@ START_TEST (test_element_annotation_sbml_L2)
 
 
   D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp(D->annotation, a), NULL );
+  fail_unless( !strcmp(SBase_getAnnotation(D), a), NULL );
   fail_unless( SBMLDocument_getNumErrors(D) == 0, NULL );
 }
 END_TEST
@@ -2450,7 +2534,9 @@ START_TEST (test_element_line_col_numbers)
   /* 123456789012345678901234567890123456789012345678901234567890 */
 
   D = readSBMLFromString(s);
-  fail_unless( D->model != NULL, NULL );
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( M != NULL, NULL );
 
   /**
    * Xerces-C++ and Expat report line and column numbers differently.
@@ -2466,7 +2552,7 @@ START_TEST (test_element_line_col_numbers)
    * but it has no effect.  Perhaps I misunderstood its meaning. :(
    */
 
-  sb = (SBase_t *) D->model;
+  sb = (SBase_t *) M;
 
 #if USE_EXPAT
   fail_unless ( SBase_getLine  (sb) == 3, NULL );
@@ -2477,7 +2563,7 @@ START_TEST (test_element_line_col_numbers)
 #endif
 
 
-  sb = (SBase_t *) Model_getListOfReactions(D->model);
+  sb = (SBase_t *) Model_getListOfReactions(M);
 
 #if USE_EXPAT
   fail_unless ( SBase_getLine  (sb) == 4, NULL );
@@ -2488,7 +2574,7 @@ START_TEST (test_element_line_col_numbers)
 #endif
 
 
-  sb = (SBase_t *) Model_getReaction(D->model, 0);
+  sb = (SBase_t *) Model_getReaction(M, 0);
 
 #if USE_EXPAT
   fail_unless ( SBase_getLine  (sb) ==  4, NULL );
