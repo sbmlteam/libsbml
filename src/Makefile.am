@@ -110,6 +110,7 @@ libsbml_la_SOURCES =              \
   sbml/SBMLTagCodes.hpp           \
   sbml/SBMLUnicodeConstants.hpp   \
   sbml/XMLStringFormatter.hpp     \
+  sbml/XMLUnicodeConstants.hpp    \
   sbml/XMLUtil.hpp                \
   MathMLDocument.c                \
   MathMLFormatter.cpp             \
