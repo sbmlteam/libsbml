@@ -618,8 +618,8 @@ RULE (compartment_spatialDimensions0)
  */
 RULE (compartment_size_dimensions)
 {
-  unsigned int   passed = 1;
-  Compartment_t *c      = (Compartment_t *) obj;
+  unsigned int passed = 1;
+  Compartment_t *c = (Compartment_t *) obj;
 
   static const char msg[] =
     "Compartment size must not be set if spatialDimensions is zero.";
@@ -632,6 +632,30 @@ RULE (compartment_size_dimensions)
       passed = 0;
       LOG_MESSAGE(msg);
     }
+  }
+
+  return passed;
+}
+
+
+/**
+ * The value of the outside attribute of a compartment element must contain
+ * the value of a id field of another compartment.
+ */
+RULE (compartment_outsideIsDefined)
+{
+  static const char msg[] =
+    "A compartment's 'outside' must be the id of another compartment.";
+
+  unsigned int passed = TRUE;
+
+  Compartment_t *c = (Compartment_t *) obj;
+  const char *outside = Compartment_getOutside(c);
+
+  if (outside && Model_getCompartmentById(d->model, outside) == NULL)
+  {
+    LOG_MESSAGE(msg);
+    passed = FALSE;
   }
 
   return passed;
@@ -1264,6 +1288,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, compartment_spatialDimensions3, SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_spatialDimensions0, SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_size_dimensions,    SBML_COMPARTMENT     );
+  Validator_addRule( v, compartment_outsideIsDefined,   SBML_COMPARTMENT     );
   Validator_addRule( v, kineticLaw_substanceUnits  ,    SBML_REACTION        );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
                                                         SBML_UNIT_DEFINITION );
