@@ -80,7 +80,9 @@ SpeciesConcentrationRule_create (void)
  * functionally equivalent to:
  *
  *   SpeciesConcentrationRule_t *scr = SpeciesConcentrationRule_create();
- *   Rule_setFormula((Rule_t *) scr, formula); scr->type = type; ...;
+ *   Rule_setFormula((Rule_t *) scr, formula);
+ *   AssignmentRule_setType((AssignmentRule_t *) scr, type);
+ *   ...;
  */
 LIBSBML_EXTERN
 SpeciesConcentrationRule_t *
