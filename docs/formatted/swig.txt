@@ -1,12 +1,12 @@
 
                   Using the libSBML SWIG bindings
 
-                            24-Jun-2004
+                            30-Jun-2004
 
              for libSBML v2.0.3   document revision 0.1
 
 
-OVERVIEW
+1.0 OVERVIEW
 
    libSBML is written in C and C++, but thanks to the "SWIG
    bindings", you can write programs in other languages that call
@@ -28,28 +28,444 @@ OVERVIEW
    the features of libSBML.  You will need to know only the very
    basics of Python or Java, whichever you prefer to use.
 
-PYTHON TUTORIAL
+
+2.0 PYTHON TUTORIAL
 
    For this tutorial, we'll assume that you're running on some
-   variant of Unix.  (That includes Linux and Mac OS X.)  @@say
-   something about Windows
+   variant of Unix.  (That includes Linux and Mac OS X.)  On
+   Windows, you may need to use backslashes in place of forward
+   slashes, or use a Unix-like shell such as CygWin.
 
    When you installed libSBML, you already installed the SWIG
-   bindings.
+   bindings.  If you have trouble running the examples below,
+   see the section in this manual on building the SWIG bindings.
 
-   @@
+
+2.1 PYTHON IN INTERACTIVE MODE
 
    First, set your PYTHONPATH environment variable to include
    the libSBML library.  For example:
 
-   $ export PYTHONPATH=/usr/home/bkovitz/cvs/libsbml/bindings/python
+   $ export PYTHONPATH=/home/bkovitz/libsbml/bindings/python
 
-   To get started, we'll run Python in command mode. The first
-   step is to import the Python library that contains the SWIG
-   bindings:
+   To get started, we'll run Python in interactive mode:
 
    $ python
-   >>> import libsbml
-   >>>
+      >>> from libsbml import *
+      >>> r = SBMLReader()
+      >>> d = r.readSBML("/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml")
+      >>> print d
+      SBMLDocument:
+         level:        1
+         model:        <C Model instance at _0031a580_p_Model>
+         numErrors:    0
+         numFatals:    0
+         numWarnings:  0
+         version:      1
+      >>> 
+
+   Here's what we just did.  This command:
+
+      >>> from libsbml import *
+
+   imported the names of all the classes and public functions
+   from the libsbml library into the Python namespace.  That
+   means that we can now call anything in libsbml just by
+   typing its name.
+
+   This command:
+
+      >>> r = SBMLReader()
+
+   creates an SBMLReader object and names it "r".  We need an
+   SBMLReader object in order to read in and parse an SBML
+   document, which is what we do in this command:
+
+      >>> d = r.readSBML("/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml")
+
+   Here's the raw XML of this model:
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
+        <model>
+          <listOfCompartments>
+            <compartment name="cell" volume="1"/>
+          </listOfCompartments>
+          <listOfSpecies>
+            <specie name="s1" compartment="cell" initialAmount="4"/>
+            <specie name="s2" compartment="cell" initialAmount="2"/>
+            <specie name="x0" compartment="cell" initialAmount="1"/>
+            <specie name="x1" compartment="cell" initialAmount="0"/>
+          </listOfSpecies>
+          <listOfParameters>
+            <parameter name="k1" value="1.2"/>
+            <parameter name="k2" value="1000"/>
+            <parameter name="k3" value="3000"/>
+            <parameter name="k4" value="4.5"/>
+          </listOfParameters>
+          <listOfRules>
+            <parameterRule name="t" formula="s1 + s2"/>
+            <parameterRule name="k" formula="k3/k2"/>
+            <specieConcentrationRule specie="s2" formula="k * t/(1 + k)"/>
+            <specieConcentrationRule specie="s1" formula="t - s2"/>
+          </listOfRules>
+          <listOfReactions>
+            <reaction name="j1">
+              <listOfReactants>
+                <specieReference specie="x0"/>
+              </listOfReactants>
+              <listOfProducts>
+                <specieReference specie="s1"/>
+              </listOfProducts>
+              <kineticLaw formula="k1 * x0"/>
+            </reaction>
+            <reaction name="j3">
+              <listOfReactants>
+                <specieReference specie="s2"/>
+              </listOfReactants>
+              <listOfProducts>
+                <specieReference specie="x1"/>
+              </listOfProducts>
+              <kineticLaw formula="k4 * s2"/>
+            </reaction>
+          </listOfReactions>
+        </model>
+      </sbml>
 
 
+2.2 LOOKING INSIDE AN SBASE OBJECT
+
+   Now, to look inside the document, we just print it:
+
+      >>> print d
+      SBMLDocument:
+         level:        1
+         model:        <C Model instance at _0031a580_p_Model>
+         numErrors:    0
+         numFatals:    0
+         numWarnings:  0
+         version:      1
+
+   Each line above shows one of the data members of an
+   SBMLDocument object.  You can retrieve the value of any data
+   member by calling a "get" function on the object.  Each
+   "getter's" name includes the name of the data member that it
+   retrieves.  For example:
+
+      >>> d.getNumErrors()
+      0
+      >>> d.getVersion()
+      1
+
+   Most of the classes in libsbml that represent SBML documents
+   or parts of SBML documents are descendants of a class called
+   SBase.  You can "print" any SBase object and "get" the data
+   members of any SBase object following this same patter.
+
+   The "model" data member of an SBMLDocument is itself another
+   libsbml object.  Now we'll "get" the model and look inside:
+
+      >>> m = d.getModel()
+      >>> print m
+      Model:
+         id:                               ''
+         listOfCompartments:               [<C Compartment instance at _0031a9e0_p_Compartment>]
+         listOfEvents:                     []
+         listOfFunctionDefinitions:        []
+         listOfParameters:                 [<C Parameter instance at _0031b030_p_Parameter>, <C Parameter instance at _0031b0a0_p_Parameter>, <C Parameter instance at _0031b0f0_p_Parameter>, <C Parameter instance at _0031b140_p_Parameter>]
+         listOfReactions:                  [<C Reaction instance at _0031b7f0_p_Reaction>, <C Reaction instance at _0031be30_p_Reaction>]
+         listOfRules:                      [<C ParameterRule instance at _0031b390_p_ParameterRule>, <C ParameterRule instance at _0031b3e0_p_ParameterRule>, <C SpeciesConcentrationRule instance at _0031b5a0_p_SpeciesConcentrationRule>, <C SpeciesConcentrationRule instance at _0031b5e0_p_SpeciesConcentrationRule>]
+         listOfSpecies:                    [<C Species instance at _0031ac90_p_Species>, <C Species instance at _0031acf0_p_Species>, <C Species instance at _0031ad50_p_Species>, <C Species instance at _0031adb0_p_Species>]
+         listOfUnitDefinitions:            []
+         name:                             ''
+         numCompartments:                  1
+         numEvents:                        0
+         numFunctionDefinitions:           0
+         numParameters:                    4
+         numReactions:                     2
+         numRules:                         4
+         numSpecies:                       4
+         numSpeciesWithBoundaryCondition:  0
+         numUnitDefinitions:               0
+
+
+2.3 MODIFYING AN SBASE OBJECT
+
+   For many "getters", there is a "setter".  By calling a
+   "setter", you can change an attribute of an SBase object.
+   For example:
+
+      >>> m.setName("sample model")
+      >>> m.getName()
+      'sample model'
+
+   Some data members are not simply variables, but calculated
+   from other information inside the SBase object.  You can't
+   set these:
+
+      >>> m.setNumSpecies(5)
+      Traceback (most recent call last):
+        File "<stdin>", line 1, in ?
+        File "/home/bkovitz/libsbml/bindings/python/libsbml.py", line 393, in <lambda>
+          __getattr__ = lambda self, name: _swig_getattr(self, Model, name)
+        File "/home/bkovitz/libsbml/bindings/python/libsbml.py", line 21, in _swig_getattr
+          raise AttributeError,name
+      AttributeError: setNumSpecies
+      >>> m.getNumSpecies()
+      4
+
+   To find out all the methods and data members in an SBase
+   object, call the Python built-in function dir():
+
+      >>> dir(m)
+      ['__class__', '__cmp__', '__del__', '__delattr__', '__dict__', '__doc__', '__getattr__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__swig_getmethods__', '__swig_setmethods__', '__weakref__', '_getClass', '_memberLines', '_memberName', '_memberline', '_s', 'addCompartment', 'addEvent', 'addFunctionDefinition', 'addParameter', 'addReaction', 'addRule', 'addSpecies', 'addUnitDefinition', 'createAlgebraicRule', 'createAssignmentRule', 'createCompartment', 'createCompartmentVolumeRule', 'createEvent', 'createEventAssignment', 'createFunctionDefinition', 'createKineticLaw', 'createKineticLawParameter', 'createModifier', 'createParameter', 'createParameterRule', 'createProduct', 'createRateRule', 'createReactant', 'createReaction', 'createSpecies', 'createSpeciesConcentrationRule', 'createUnit', 'createUnitDefinition', 'getAnnotation', 'getColumn', 'getCompartment', 'getEvent', 'getFunctionDefinition', 'getId', 'getLine', 'getListOfByTypecode', 'getListOfCompartments', 'getListOfEvents', 'getListOfFunctionDefinitions', 'getListOfParameters', 'getListOfReactions', 'getListOfRules', 'getListOfSpecies', 'getListOfUnitDefinitions', 'getMetaId', 'getName', 'getNotes', 'getNumCompartments', 'getNumEvents', 'getNumFunctionDefinitions', 'getNumParameters', 'getNumReactions', 'getNumRules', 'getNumSpecies', 'getNumSpeciesWithBoundaryCondition', 'getNumUnitDefinitions', 'getParameter', 'getReaction', 'getRule', 'getSpecies', 'getTypeCode', 'getUnitDefinition', 'init', 'isSetAnnotation', 'isSetId', 'isSetMetaId', 'isSetName', 'isSetNotes', 'setAnnotation', 'setId', 'setMetaId', 'setName', 'setNotes', 'this', 'thisown', 'toSBML', 'unsetAnnotation', 'unsetId', 'unsetMetaId', 'unsetName', 'unsetNotes', <class 'libsbml.ModelPtr'>]
+
+   Details on all of the methods are in the LibSBML API
+   Reference Manual (http://www.sbml.org/software/libsbml/libsbml-api-ref.pdf).
+
+
+2.4 THE LISTOF CLASS
+
+   Several of the data members of a Model are objects of class
+   ListOf.  A ListOf is libsbml's internal equivalent of a
+   Python list.  We can treat it pretty much the same as a
+   Python list.  For example:
+
+      >>> lsp = m.getListOfSpecies()
+      >>> print lsp
+      [<C Species instance at _0031ac90_p_Species>, <C Species instance at _0031acf0_p_Species>, <C Species instance at _0031ad50_p_Species>, <C Species instance at _0031adb0_p_Species>]
+      >>> len(lsp)
+      4
+      >>> lsp[0]
+      <C Species instance at _0031ac90_p_Species>
+      >>> print lsp[0]
+      Species:
+         boundaryCondition:      0
+         charge:                 0
+         compartment:            'cell'
+         constant:               0
+         hasOnlySubstanceUnits:  0
+         id:                     's1'
+         initialAmount:          4.0
+         initialConcentration:   4.0
+         name:                   ''
+         spatialSizeUnits:       ''
+         substanceUnits:         ''
+         units:                  ''
+            
+   You can also access a ListOf using the same methods that are
+   defined in the libsbml API:
+
+      >>> lsp.getNumItems()
+      4
+      >>> lsp.get(0)
+      <C Species instance at _0031ac90_p_Species>
+      >>> print lsp.get(0)
+      Species:
+         boundaryCondition:      0
+         charge:                 0
+         compartment:            'cell'
+         constant:               0
+         hasOnlySubstanceUnits:  0
+         id:                     's1'
+         initialAmount:          4.0
+         initialConcentration:   4.0
+         name:                   ''
+         spatialSizeUnits:       ''
+         substanceUnits:         ''
+         units:                  ''
+
+
+2.5 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
+
+   Now that we know how to read SBML in from a file, and how to
+   inspect and modify libsbml objects, let's do something
+   useful: let's convert l1v1-rules.xml from level 1 to level 2.
+
+   To do this, we only need to know one more thing: how to write
+   an SBML document to disk.  
+
+      >>> d.setLevel(2)
+      >>> writeSBML(d, "l2v1-rules.xml")
+      1
+
+   That's all there is to it!  We changed the level of the SBML
+   document by calling its setLevel() method.  And then we wrote
+   it to a new file by calling writeSBML().  The 1 at the end is
+   the value returned by writeSBML().  A nonzero value indicates
+   success.
+
+   This works because internally, libsbml stores the model as a
+   data structure that represents the information in the model
+   and not the format in which the model is stored.  The "level"
+   data member just tells writeSBML() the format in which to
+   save the model.
+
+   The level 2 version of the model is longer than the level 1
+   version, so we'll only show the beginning here.  Notice that
+   "specie" got changed to "species" and the parameterRules are
+   now expressed in MathML inside assignmentRules:
+
+      <?xml version="1.0" encoding="UTF-8"?>
+      <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+        <model>
+          <listOfCompartments>
+            <compartment id="cell" size="1"/>
+          </listOfCompartments>
+          <listOfSpecies>
+            <species id="s1" compartment="cell" initialAmount="4"/>
+            <species id="s2" compartment="cell" initialAmount="2"/>
+            <species id="x0" compartment="cell" initialAmount="1"/>
+            <species id="x1" compartment="cell" initialAmount="0"/>
+          </listOfSpecies>
+          <listOfParameters>
+            <parameter id="k1" value="1.2"/>
+            <parameter id="k2" value="1000"/>
+            <parameter id="k3" value="3000"/>
+            <parameter id="k4" value="4.5"/>
+          </listOfParameters>
+          <listOfRules>
+            <assignmentRule variable="t">
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <apply>
+                  <plus/>
+                  <ci> s1 </ci>
+                  <ci> s2 </ci>
+                </apply>
+              </math>
+            </assignmentRule>
+            . . .
+
+
+2.6 WRITING A PYTHON PROGRAM THAT CALLS LIBSBML
+
+   The Python SWIG binding enables you to exploit Python's
+   syntax to do some sophisticated processing of SBML models in
+   fairly simple programs.
+
+   The following program reads all the SBML models in the
+   test-data directory and lists the ones that contain a
+   parameter with an id of "tau":
+
+      import libsbml, os
+
+      def hasTauParameter(doc):
+         for parameter in doc.getModel().getListOfParameters():
+            if parameter.getId() == "tau":
+               return True
+         return False
+
+      reader = libsbml.SBMLReader()
+      dirname = "/home/bkovitz/libsbml/src/test-data/"
+      for filename in os.listdir(dirname):
+         if filename.endswith(".xml"):
+            if hasTauParameter(reader.readSBML(dirname + filename)):
+               print filename
+
+   Here are a few things to notice about this program:
+
+   *  This syntax:
+
+         for item in items:
+
+      is a Python idiom for "iterate the variable 'item' through
+      all the elements of the list 'items'."  libsbml's ListOf
+      objects, like the object returned by
+      Model.getListOfParameters() in hasTauParameter(), are
+      compatible with this syntax.
+
+   *  The program code does not care if the models are level 1 or
+      level 2.  The directory can contain both kinds of models
+      and the program will read through them all.
+
+   *  The program did an "import libsbml" rather than "from
+      libsbml import *".  This is standard good form in Python,
+      since it's faster and can't lead to surprising name
+      clashes.  It requires us, however, to refer to libsbml
+      classes by prefixing them with "libsbml."  Notice the line
+      in the program where the variable "reader" is set.
+
+
+   You can also create a model from scratch and write it out as
+   SBML.  This enables you to do things like create thousands of
+   models with slightly varying elements in order to run them
+   through your simulator or analyzer.  For example:
+
+      import libsbml
+
+      class CreatedModel(libsbml.Model):
+
+         def __init__(self, k1, k2, s1Boundary, s2Boundary):
+            libsbml.Model.__init__(self)
+
+            c = self.createCompartment()
+            c.setId("c")
+
+            s1 = self.createSpecies()
+            s1.setCompartment("c")
+            s1.setId("s1")
+            s1.setBoundaryCondition(s1Boundary)
+
+            s2 = self.createSpecies()
+            s2.setCompartment("c")
+            s2.setId("s2")
+            s2.setBoundaryCondition(s2Boundary)
+            
+            r1 = self.createReaction()
+            r1.setId("r1")
+            r1.addReactant(libsbml.SpeciesReference("s1"))
+            r1.addProduct(libsbml.SpeciesReference("s2"))
+            kineticLaw = libsbml.KineticLaw("k1 * s1")
+            kineticLaw.addParameter(libsbml.Parameter("k1", float(k1)))
+            r1.setKineticLaw(kineticLaw)
+
+            r2 = self.createReaction()
+            r2.setId("r2")
+            r2.addReactant(libsbml.SpeciesReference("s2"))
+            r2.addProduct(libsbml.SpeciesReference("s1"))
+            kineticLaw = libsbml.KineticLaw("k2 * s2")
+            kineticLaw.addParameter(libsbml.Parameter("k2", float(k2)))
+            r2.setKineticLaw(kineticLaw)
+
+
+      modelId = 1
+      for k1 in [ 0.0, 0.25, 1.5 ]:
+         for k2 in [ 0.0, 0.25, 1.5 ]:
+            for s1Boundary in [ False, True ]:
+               for s2Boundary in [ False, True ]:
+                  doc = libsbml.SBMLDocument()
+                  doc.setModel(CreatedModel(k1, k2, s1Boundary, s2Boundary))
+                  libsbml.writeSBML(doc, "model%d.xml" % modelId)
+                  modelId += 1
+
+   This program generates 36 models, each having a different
+   combination of parameter values and species boundary
+   conditions.
+
+   Another way to create lots of similar models is to read in a
+   "template" model, make a few changes to it, and then write
+   out the result.  This enables you to systematically generate
+   thousands of similar models in only a few lines of Python.
+   In this case, the constructor of the CreatedModel class would
+   read the template model each time and perform the
+   modifications according to its arguments.
+
+
+3.0 PYTHON REFERENCE
+
+   @@list SBase and all its descendants here?
+
+
+3.1 KNOWN BUGS
+
+   You can't copy a libsbml object in either of the usual Python
+   ways: obj[:] or copy.copy(obj).  The reason is that each
+   libsbml object in Python actually just holds a pointer to the
+   libsbml object that's managed by the underlying C++ code.
+   When you copy the object in Python, you are actually just
+   copying the pointers to the same underlying C++ object.
+
+
+4.0 BUILDING THE PYTHON SWIG BINDING
+
+   @@will this be fully automated in this release?
