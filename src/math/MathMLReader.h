@@ -53,7 +53,7 @@
 #define MathMLReader_h
 
 
-#include "extern.h"
+#include "common/extern.h"
 #include "MathMLDocument.h"
 
 

@@ -57,11 +57,11 @@
 #ifdef __cplusplus
 
 
-#include "common.hpp"
+#include "common/common.hpp"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatFormatter.h"
+#  include "xml/ExpatFormatter.h"
 #else
 #  include <xercesc/framework/XMLFormatter.hpp>
 #  include <xercesc/framework/MemBufFormatTarget.hpp>

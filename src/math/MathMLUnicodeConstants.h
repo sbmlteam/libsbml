@@ -54,7 +54,7 @@
 #define MathMLUnicodeConstants_h
 
 
-#include "common.hpp"
+#include "common/common.hpp"
 
 
 #ifdef USE_EXPAT
