@@ -237,8 +237,8 @@ is not a validating XML parser.  A validating parser can check XML input
 against an XML Schema.  Xerces is currently the only validating parser
 library usable with \libsbml{}.  Using Expat with \libsbml{} effectively
 means it will be unable to check SBML input against the SBML XML Schema.
-The tradeoff is that Expat can be noticeably faster at parsing large models
-than Xerces.
+The tradeoff is that Expat can be noticeably faster than Xerces at parsing
+large models.
 
 Unless instructed otherwise, the \libsbml{} build process will
 \textbf{default to using Xerces}.  A good way to determine whether
@@ -248,15 +248,16 @@ can provide the configuration command with a flag telling it to use Expat
 instead of Xerces and you can indicate where the libraries are located if
 they are not in standard locations on your system.
 
-\libsbml{} is designed to be extremely portable.  It is written in 100\%
-pure ISO~C and the build system uses the GNU Autotools (Autoconf, Automake
-and Libtool).  
+\libsbml{} is designed to be extremely portable.  The core is written in
+100\% pure ISO~C and C++, and the build system uses GNU Autoconf and GNU
+Make.
+  
 
 \subsection{Unpacking and Configuring \libsbml{}}
 
 First, uncompress and unpack the \libsbml{} sources.  Then, configure the
-package by typing the following command at your Unix, Cygwin or MacOS~X
-command prompt:
+package by typing the following command at your Linux or MacOS~X command
+prompt:
 
 \begin{example}[csh]
   ./configure
@@ -292,12 +293,13 @@ configure \libsbml{} using the following:
   ./configure --with-xerces=/sw
 \end{example}
 
-During the installation phase (i.e., during \shell{make install},
-discussed below), the \libsbml{} installation commands will copy header
-files to \shell{/usr/local/include/sbml} and (shared and static) library
-files to \shell{/usr/local/lib}, by default.  To specify a different
-installation location, use the \shell{--prefix} argument to
-\shell{configure}.  For example,
+During the installation phase (i.e., during \shell{make install}, discussed
+below), the default \libsbml{} installation commands will copy header files
+to \shell{/usr/local/include/sbml}, the (shared and static) library files
+to \shell{/usr/local/lib}, and documentation files in various formats to
+\shell{/usr/local/share/doc/libsbml-\emph{version}}, by default.  To
+specify a different installation location, use the \shell{--prefix}
+argument to \shell{configure}.  For example,
 
 \begin{example}[csh]
   ./configure --prefix=/my/favorite/path
@@ -330,6 +332,7 @@ above.  And that that's all that should be required to build and install
 In addition to the \shell{--prefix}, \shell{--with-expat} and
 \shell{--with-xerces} options already described, the \libsbml{}
 configuration command supports the options described below.
+
 
 \subsubsection{Unit Testing}
 
@@ -403,35 +406,55 @@ you can reconfigure and disable it as follows:
 \end{example}
 
 
-\subsubsection{Interfaces to Java and Python}
+\subsubsection{Interfaces to Java, Python and MATLAB}
 
-\libsbml{} includes language bindings for Java and Python, enabling you to
-write Java and Python programs that call \libsbml{} subroutines, or work
-with \libsbml{} through the Python's interactive mode.  Tutorials for how
-to operate these bindings are in the directory \shell{docs/formatted}.
+\libsbml{} includes language bindings for Java, Python and MATLAB, enabling
+you to write Java, Python and MATLAB programs that call \libsbml{} methods,
+or work with \libsbml{} through Python's and MATLAB's interactive modes.
+Short tutorials for how to use these facilities are available in the
+directory \shell{docs/formatted}.
 
-To compile them, you will need SWIG, the Simplified Wrapper and Interface
-Generator.  SWIG is available from \shell{http://www.swig.org}.
-
-If you install SWIG in a non-standard location, you can specify it on the
-\shell{configure} command line like this:
+To enable the library extensions for Java, Python and MATLAB, you need to
+supply additional options to configure.  For Java, use
 
 \begin{example}[csh]
-  ./configure --with-swig=/sw
+  ./configure --with-java=|\emph{dir}|
+\end{example}
+For Python,
+\begin{example}[csh]
+  ./configure --with-python=|\emph{dir}|
+\end{example}
+And for MATLAB,
+\begin{example}[csh]
+  ./configure --with-matlab=|\emph{dir}|
 \end{example}
 
-Here are the command-line switches to generate the language bindings for
-Java and Python:
+If you want to build multiple language bindings for \libsbml{}, add the
+flags together.  For example,
+\begin{example}[csh]
+  ./configure --with-java --with-python
+\end{example}
+
+The \libsbml{} distribution ships with certain interface files provided, so
+that you do not need to have the software necessary to recreate them.
+However, if you obtained the \libsbml{} distribution from CVS or else want
+to recreate the files, you will need need SWIG, the Simplified Wrapper and
+Interface Generator.  More information about SWIG is available from
+\shell{http://www.swig.org}.  To tell configure to enable the use of SWIG
+to regenerate the interface files, use the \shell{--with-swig} option to
+configure.  
+
+If your copy of SWIG is installed in a non-standard location, you can
+specify it on the \shell{configure} command line like this:
 
 \begin{example}[csh]
-  ./configure --with-java=/sw
-
-  ./configure --with-python=/sw
+  ./configure --with-swig=|\emph{dir}|
 \end{example}
 
 As with Expat and Xerces, the \shell{/sw} directory is what you would
-specify if you were running on MacOS X and you used Fink to install
-SWIG, Python, etc.
+specify if you were running on MacOS X and you used Fink to install SWIG,
+Python, etc.
+
 
 %=============================================================================
 \section{SBML Classes in C}
