@@ -100,7 +100,7 @@ Feature Highlights:
   - Complete user manual
 
       Documentation is available in the "docs" subdirectory in both
-      pre-formatted and source form.  Preformatted documents are
+      pre-formatted and source form.  Pre-formatted documents are
       available in PDF, TeX DVI, and HTML formats.
 
   - Small memory footprint and fast runtime
