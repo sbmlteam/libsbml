@@ -93,18 +93,18 @@ libraries      = $(jarfile) $(jnifile)
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CXXFLAGS = $(JAVA_CPPFLAGS) -I../swig
+extra_CPPFLAGS = $(JAVA_CPPFLAGS) -I../swig -I../../src
 
 extra_LDFLAGS  = $(JAVA_LDFLAGS)
 
 extra_LIBS     = -L../../src -lsbml $(JAVA_LIBS)
 
 ifeq "$(USE_EXPAT)" "1"
-  extra_CXXFLAGS += $(EXPAT_CPPFLAGS)
+  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
   extra_LDFLAGS  += $(EXPAT_LDFLAGS) -L../../expat
   extra_LIBS     += $(EXPAT_LIBS) -lexpat-compat
 else
-  extra_CXXFLAGS += $(XERCES_CPPFLAGS)
+  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
   extra_LDFLAGS  += $(XERCES_LDFLAGS)
   extra_LIBS     += $(XERCES_LIBS)
 endif
@@ -190,13 +190,17 @@ ifndef USE_SWIG
 	exit 1
 else
 	test -d $(outpath) || mkdir -p $(outpath)
-	$(SWIG) $(SWIGFLAGS) $(extra_CXXFLAGS) -I../../src -outdir $(outpath) \
+	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) -I../../src -outdir $(outpath) \
 	   -c++ -java -package $(java_package) -o libsbml_wrap.cpp libsbml.i
 endif
 
 # Additional standard targets.
 
-check: all run-checks
+ifeq "$(USE_LIBCHECK)" "1"
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
 
 dvi:
 

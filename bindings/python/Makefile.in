@@ -92,24 +92,24 @@ libraries = _libsbml.so
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CXXFLAGS = $(PYTHON_CPPFLAGS) -I../swig
+extra_CPPFLAGS = $(PYTHON_CPPFLAGS) -I../swig -I../../src
 SWIGFLAGS += $(PYTHON_CPPFLAGS) -I../swig
 
 # On MacOS X, compilation generates a warning about `long double'.
 
 ifeq "$(HOST_TYPE)" "darwin"
-  extra_CXXFLAGS += -Wno-long-double
+  extra_CPPFLAGS += -Wno-long-double
 endif
 
 extra_LDFLAGS  = $(PYTHON_LDFLAGS)
 extra_LIBS     = -L../../src -lsbml $(PYTHON_LIBS)
 
 ifeq "$(USE_EXPAT)" "1"
-  extra_CXXFLAGS += $(EXPAT_CPPFLAGS)
+  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
   extra_LDFLAGS  += $(EXPAT_LDFLAGS) -L../../expat
   extra_LIBS     += $(EXPAT_LIBS) -lexpat-compat
 else
-  extra_CXXFLAGS += $(XERCES_CPPFLAGS)
+  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
   extra_LDFLAGS  += $(XERCES_LDFLAGS)
   extra_LIBS     += $(XERCES_LIBS)
 endif
@@ -176,7 +176,11 @@ endif
 
 # Additional standard targets.
 
-check: all run-checks
+ifeq "$(USE_LIBCHECK)" "1"
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
 
 dvi:
 
