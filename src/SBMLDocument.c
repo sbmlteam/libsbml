@@ -177,6 +177,17 @@ SBMLDocument_getVersion (const SBMLDocument_t *d)
 
 
 /**
+ * @return the Model associated with this SBMLDocument.
+ */
+LIBSBML_EXTERN
+Model_t *
+SBMLDocument_getModel (const SBMLDocument_t *d)
+{
+  return d->model;
+}
+
+
+/**
  * @return the nth warning encountered during the parse of this
  * SBMLDocument or NULL if n > getNumWarnings() - 1.
  */

@@ -138,7 +138,6 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getVersion (const SBMLDocument_t *d);
 
-
 /**
  * @return the nth warning encountered during the parse of this
  * SBMLDocument or NULL if n > getNumWarnings() - 1.
@@ -162,6 +161,13 @@ SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
 LIBSBML_EXTERN
 ParseMessage_t *
 SBMLDocument_getFatal (SBMLDocument_t *d, unsigned int n);
+
+/**
+ * @return the Model associated with this SBMLDocument.
+ */
+LIBSBML_EXTERN
+Model_t *
+SBMLDocument_getModel (const SBMLDocument_t *d);
 
 /**
  * @return the number of warnings encountered during the parse of this
