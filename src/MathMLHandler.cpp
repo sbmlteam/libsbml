@@ -634,10 +634,9 @@ MathMLHandler::reduceExpression ()
               parent->getNumChildren() == 2 )
     {
       op = new ASTNode(parentType);
-      op->addChild( (ASTNode*) parent->mChildren->remove(1) );
-      op->addChild(child);
-
-      parent->addChild(op);
+      ASTNode_swapChildren(parent, op);
+      ASTNode_prependChild(parent, op);
+      ASTNode_addChild(parent, child);
     }
 
     //
