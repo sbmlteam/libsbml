@@ -1792,6 +1792,43 @@ START_TEST (test_SBMLFormatter_NegZero)
 END_TEST
 
 
+/**
+ * Konstantin Kozlov reported that a <rateRule> with a <notes> or
+ * <annotation> does not close its opening tag, e.g.:
+ *
+ *   <rateRule variable="x"  <notes>
+ *      This is a note.
+ *     </notes>
+ *   </rateRule>
+ */
+START_TEST (test_SBMLFormatter_nonempty_RateRule_bug)
+{
+  RateRule_t *r;
+
+  const char *s = wrapXML
+  (
+    "<rateRule variable=\"x\">\n"
+    "  <notes>\n"
+    "    This is a note.\n"
+    "  </notes>\n"
+    "</rateRule>\n"    
+  );
+
+
+  r = RateRule_createWith("x", NULL);
+
+  SBase_setNotes((SBase_t*) r, "This is a note.");
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << r;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  RateRule_free(r);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLFormatter (void)
 {
@@ -1910,11 +1947,12 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_Event_full    );
 
   /** Miscellaneous **/
-  tcase_add_test( tcase, test_SBMLFormatter_unset_required );
-  tcase_add_test( tcase, test_SBMLFormatter_NaN            );
-  tcase_add_test( tcase, test_SBMLFormatter_INF            );
-  tcase_add_test( tcase, test_SBMLFormatter_NegINF         );
-  tcase_add_test( tcase, test_SBMLFormatter_NegZero        );
+  tcase_add_test( tcase, test_SBMLFormatter_unset_required        );
+  tcase_add_test( tcase, test_SBMLFormatter_NaN                   );
+  tcase_add_test( tcase, test_SBMLFormatter_INF                   );
+  tcase_add_test( tcase, test_SBMLFormatter_NegINF                );
+  tcase_add_test( tcase, test_SBMLFormatter_NegZero               );
+  tcase_add_test( tcase, test_SBMLFormatter_nonempty_RateRule_bug );
 
   suite_add_tcase(suite, tcase);
 

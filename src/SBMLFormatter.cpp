@@ -943,6 +943,7 @@ SBMLFormatter::operator<< (const RateRule_t* rr)
   }
   else
   {
+    closeStartElement();
     upIndent();
 
     //
