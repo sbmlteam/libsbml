@@ -518,6 +518,11 @@ static const XMLCh ATTR_TYPE[] =
   chLatin_t, chLatin_y, chLatin_p, chLatin_e, chNull
 };
 
+static const XMLCh ATTR_XMLNS[] =
+{
+  chLatin_x, chLatin_m, chLatin_l, chLatin_n, chLatin_s, chNull
+};
+
 static const XMLCh VAL_E_NOTATION[] =
 {
   chLatin_e, chDash   , chLatin_n, chLatin_o, chLatin_t, chLatin_a,
@@ -545,6 +550,11 @@ static const XMLCh VAL_RATIONAL[] =
 static const XMLCh VAL_REAL[] =
 {
   chLatin_r, chLatin_e, chLatin_a, chLatin_l, chNull
+};
+
+static const XMLCh VAL_TEXT[] =
+{
+  chLatin_t, chLatin_e, chLatin_x, chLatin_t, chNull
 };
 
 
