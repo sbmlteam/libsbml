@@ -174,7 +174,7 @@ LIBSBML_EXTERN
 FunctionDefinition&
 Model::createFunctionDefinition ()
 {
-  FunctionDefinition* fd = new FunctionDefinition("", "");
+  FunctionDefinition* fd = new FunctionDefinition;
 
 
   addFunctionDefinition(*fd);
