@@ -81,6 +81,9 @@
 #include "util.h"
 
 
+#define LIBSBML_EXTERN
+
+
 #if __cplusplus
 #  define BEGIN_C_DECLS extern "C" {
 #  define END_C_DECLS   }
