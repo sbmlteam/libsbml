@@ -1742,42 +1742,40 @@ they matched.  (This is not something a real application would ever need to
 do, but it does simply illustrate the use of these two methods.)
 
 \begin{example}[c]
+const char *formulae[] =
 {
-  const char *formulae[] =
-  {
-    "1",
-    "2.1",
-    "2.1e+10",
-    "foo",
-    "1 + foo",
-    "1 + 2",
-    "1 + 2 * 3",
-    "(1 - 2) * 3",
-    "1 + -2 / 3",
-    "1 + -2e-100 / 3",
-    "1 - -foo / 3",
-    "2 * foo^bar + 3.1",
-    "foo()",
-    "foo(1)",
-    "foo(1, bar)",
-    "foo(1, bar, 2^-3)",
-    ""
-  };
+  "1",
+  "2.1",
+  "2.1e+10",
+  "foo",
+  "1 + foo",
+  "1 + 2",
+  "1 + 2 * 3",
+  "(1 - 2) * 3",
+  "1 + -2 / 3",
+  "1 + -2e-100 / 3",
+  "1 - -foo / 3",
+  "2 * foo^bar + 3.1",
+  "foo()",
+  "foo(1)",
+  "foo(1, bar)",
+  "foo(1, bar, 2^-3)",
+  ""
+};
 
-  ASTNode_t *n;
-  char      *s;
-  int        i;
+ASTNode_t *n;
+char      *s;
+int        i;
 
-  for (i = 0; i < *formulae[i]; i++)
-  {
-    n = SBML_parseFormula( formulae[i] );  /* Convert string to AST */
-    s = SBML_formulaToString(n);           /* Convert AST back to string */
+for (i = 0; i < *formulae[i]; i++)
+{
+  n = SBML_parseFormula( formulae[i] );  /* Convert string to AST */
+  s = SBML_formulaToString(n);              /* Convert AST back to string */
 
-    fail_unless( !strcmp(s, formulae[i]), NULL );
+  fail_unless( !strcmp(s, formulae[i]), NULL );
 
-    ASTNode_free(n);
-    safe_free(s);
-  }
+  ASTNode_free(n);
+  safe_free(s);
 }
 \end{example}
 
@@ -1800,9 +1798,11 @@ directly into an AST.  \libsbml{} provides the utility function
 
 The object returned by \method{readMathMLFromString()} is a simple
 container for an AST.  The class of this object, MathMLDocument, is not
-defined by SBML but is provided in \libsbml{} as a utility class.
-MathMLDocument serves as a top-level container for XML documents containing
-only MathML.  The definition of \class{MathMLDocument\_t} is as follows:
+defined by the SBML language standard but is provided in \libsbml{} as a
+utility class.  MathMLDocument serves as a top-level container for XML
+documents containing only MathML; in some ways it mirrors the SBMLDocument
+class, which acts as a container for XML documents containing SBML.  The
+definition of \class{MathMLDocument\_t} is as follows:
  
 \begin{example}[c]
 /**
@@ -1814,17 +1814,19 @@ typedef struct
 } MathMLDocument_t;
 \end{example}  
 
-Application-level code is not intended to create MathMLDocument objects or
-manipulate their internal fields.  The only exceptions are the following
-two functions.
+The following are the functions defined for the MathMLDocument class:
+
+\begin{methoddef}{MathMLDocument\_t *MathMLDocument\_create ()}
+  Creates a \class{MathMLDocument\_t} object structure.
+\end{methoddef}
 
 \begin{methoddef}{void MathMLDocument\_free (MathMLDocument\_t *d)}
   Frees the given \class{MathMLDocument\_t} structure.
 \end{methoddef}
 
 \begin{methoddef}{ASTNode\_t *MathMLDocument\_getMath (const MathMLDocument\_t *d)}
-  Returns the AST representation of the mathematical formula stored in this
-  \class{MathMLDocument\_t} structure.
+  Returns the Abstract Syntax Tree representation of the mathematical
+  formula stored in this \class{MathMLDocument\_t} structure.
 \end{methoddef}
 
 Note that because the content passed to \method{readMathMLFromString()} is
@@ -1833,27 +1835,22 @@ XML document.  The following example illustrates the use of this function
 with a valid MathML input.
 
 \begin{example}[c]
-{
-  MathMLDocument_t *D;
+MathMLDocument_t *D;
 
-  const char* s = "<?xml version='1.0' encoding='ascii'?>"
+const char* s = "<?xml version='1.0' encoding='ascii'?>"
                   "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
                   "<apply><arccos/><ci> x </ci></apply>"
                   "</math>";
 
-  D = readMathMLFromString(s);
-}
+D = readMathMLFromString(s);
 \end{example}
-
 
 
 %-----------------------------------------------------------------------------
 \subsection{Special Cases in Mathematical Formulas}
-\label{sec:mathml-math}
+\label{sec:mathml-special-cases}
 %-----------------------------------------------------------------------------
 
-\emph{explanation of handling of constants like NaN, and conversion of
-  function names between L1 form and MathML.}
 
 
 
@@ -1916,7 +1913,7 @@ Unit_t *u = UnitDefinition_getUnit(u, 1);
 to:
 
 \begin{example}[c]
-  Unit_t *u = (Unit_t *) List_get(ud->unit, 1);
+Unit_t *u = (Unit_t *) List_get(ud->unit, 1);
 \end{example}
 
 Further, the first is more readable.  The List API is mentioned i) for
@@ -1937,7 +1934,90 @@ seemed like an uncommon operation.
 \label{app:ast}
 %=============================================================================
 
-\emph{explanation of ASTNode}
+Abstract Syntax Trees (ASTs) in \libsbml{} are a simple data structure for
+storing mathematical expressions.  For many applications, the details of
+ASTs are irrelevant because the applications can use the text-string based
+translation functions described in Sections~\ref{sec:text-string-math} and
+\ref{sec:mathml-math}.  However, other applications do need to read and
+manipulate ASTs directly.  This section describes \libsbml{}'s AST in
+sufficient detail so software authors can write code to work with them.
+
+An AST \emph{node} is a recursive structure containing a pointer to the
+node's value (e.g., a number or a symbol) and a list of children nodes.
+The following is the definition of \class{ASTNode\_t}:
+
+\begin{example}[c]
+/**
+ * An Abstract Syntax Tree (AST) node.
+ */
+typedef struct
+{
+  ASTNodeType_t type;
+
+  union
+  {
+    char   ch;
+    char   *name;
+    long   integer;
+    double real;
+  } value;    
+
+  union
+  {
+    long denominator;
+    long exponent;
+  } extra;
+
+  List_t *children;
+} ASTNode_t;
+\end{example}
+
+For nodes containing character, string, integer, or simple floating point
+data, the \texttt{value} union in \class{ASTNode\_t} holds the value
+directly.  The additional field \texttt{extra} is used to handle two
+special cases that arise from the need to handle MathML:
+
+\begin{itemize}
+  
+\item A numerical value represented in MathML as a real number with an
+  exponent is stored in an AST node by putting the mantissa part in the
+  field \texttt{value.real} and the exponent part in
+  \texttt{extra.exponent}.  Thus, a MathML value such as \texttt{"1.0e4"}
+  will be stored in an AST node with \texttt{value.real} equal to 1.0 and
+  \texttt{extra.exponent} equal to 4.
+  
+  Readers may note that some numbers could be stored in a C \class{double}
+  data type even if they were expressed in e-notation in MathML.
+  Nevertheless, \libsbml{} records these numbers in e-notation in the AST
+  node so that when an SBML model is read in and then written out again,
+  the amount of change introduced to the SBML during the round-trip
+  activity is minimized.
+
+\item Rational numbers are represented in an AST node using the field
+  \texttt{value.integer} to record the numerator and
+  \texttt{extra.denominator} to record the denominator.
+
+\end{itemize}
+
+The use of unions for \texttt{value} and \texttt{extra} is for space
+efficiency only; the quantities recorded in them are mutually exclusive and
+so there is no need to assign separate storage to each one in the AST data
+structure.
+
+The \texttt{children} field of \class{ASTNode\_t} is a list of pointers to
+other \class{ASTNode\_t} objects.  This list is empty for AST nodes that
+are leaf elements, such as numbers.  For AST nodes that are actually roots
+of expression subtrees, the list of children points to the parsed objects
+that make up the rest of the expression.
+
+The following is a simple example.  
+
+\emph{NEED EXAMPLE}
+
+
+\libsbml{} defines a number of functions for working with
+\class{ASTNode\_t} objects; see the \emph{\libsbml{} API Reference Manual}
+for a detailed list of these.
 
 
 
