@@ -52,41 +52,48 @@ AC_DEFUN(CONFIG_WITH_LISP,
   AC_SUBST(LISP)
   AC_ARG_WITH(lisp,
     AC_HELP_STRING([--with-lisp=<binary>],
-                   [Use this lisp program (default: autodetect)]),
-    [with_lisp=$withval]
-    LISP_PATH="`dirname $with_lisp`" 
-    LISP_PROGS="`basename $with_lisp`"
-    ,
+                   [Use this Lisp program (default: autodetect)]),
+    [with_lisp=$withval],
     [with_lisp=no]
-    LISP_PATH="$PATH"
-    LISP_PROGS='alisp lisp cl clisp'
   )
 
-  AC_PATH_PROGS(LISP,$LISP_PROGS,no-lisp,${LISP_PATH})
-
-  dnl Test whether the batch flag is accepted without error
-  dnl CMU CL needs this to exit on EOF
-
   if test $with_lisp != no; then
-    AC_DEFINE([USE_LISP], 1, [Define to 1 to use Lisp])
-    AC_SUBST(USE_LISP)
+    if test $with_lisp != yes; then
+      LISP_PATH="`dirname $with_lisp`" 
+      LISP_PROGS="`basename $with_lisp`"
+    else
+      LISP_PATH="$PATH"
+      LISP_PROGS='alisp lisp cl clisp'
+    fi
 
-    dnl Test lisp run
-    USE_LISP=1
-    if test "`basename $LISP`" = 'sbcl'; then
-      LISP="$LISP --disable-debugger"
-      if $LISP 2>&5 1>&5 </dev/null ; then
-        true
-      else
-        AC_MSG_WARN([Lisp $LISP does not run properly -- see config.log for details])
-        LISP=no-lisp
-        USE_LISP=""
+    AC_PATH_PROGS(LISP,$LISP_PROGS,no-lisp,${LISP_PATH})
+  
+    dnl Test whether the batch flag is accepted without error
+    dnl CMU CL needs this to exit on EOF
+  
+    if test $LISP != no-lisp; then
+      AC_DEFINE([USE_LISP], 1, [Define to 1 to use Lisp])
+      AC_SUBST(USE_LISP)
+  
+      dnl Test lisp run
+      USE_LISP=1
+      if test "`basename $LISP`" = 'sbcl'; then
+        LISP="$LISP --disable-debugger"
+        if $LISP 2>&5 1>&5 </dev/null ; then
+          true
+        else
+          AC_MSG_WARN([Lisp $LISP does not run properly -- see config.log for details])
+          LISP=no-lisp
+          USE_LISP=""
+        fi
+      elif $LISP -batch </dev/null 2>&5 1>&5 ; then
+        LISP="$LISP -batch"
       fi
-    elif $LISP -batch </dev/null 2>&5 1>&5 ; then
-      LISP="$LISP -batch"
+    else
+      USE_LISP=
     fi
   fi
-
+  
   dnl We record the USE_XXX flag, for later testing in Makefiles.
 
   LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_LISP"
@@ -100,7 +107,7 @@ dnl sets $LISPEXIT to the function name
 AC_DEFUN(CONFIG_LISP_EXIT,
 [
   AC_SUBST(LISPEXIT)
-  if test -n $USE_LISP ; then
+  if test "$USE_LISP" = "1" ; then
     AC_CACHE_CHECK(lisp exit, ac_cv_FUNC_LISPEXIT,
     ac_cv_FUNC_LISPEXIT=no-exit
 dnl for now, leave the sbcl test first, since it seems to ignore --batch
@@ -189,8 +196,9 @@ AC_DEFUN(CONFIG_LISP_CHECK,
 dnl find out the suffix of binary lisp files (fasl, x86f, fas, ...)
 dnl This sets FASLEXT 
 AC_DEFUN(CONFIG_FASL,
-[ AC_SUBST(FASLEXT)
-  if test -n "$USE_LISP" ; then
+[ 
+  AC_SUBST(FASLEXT)
+  if test "$USE_LISP" = "1" ; then
     CONFIG_LISP_OUTPUT(lisp binary-extension,FASLEXT,(format t \"~a\" (pathname-type (compile-file-pathname \"bla.lisp\"))),t)
   fi
 ])
@@ -204,7 +212,7 @@ AC_DEFUN(CONFIG_ASDF_CHECK,
   AC_SUBST(EXT_ASDF)
   AC_SUBST(ASDF)
   AC_SUBST(ASDF_RUN)
-  if test -n "$USE_LISP" ; then
+  if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(asdf,
       AC_HELP_STRING([--with-asdf=<pathname>],
 	             [Use asdf at <pathname> (default:bindings/lisp/tps/asdf)]),
@@ -244,7 +252,7 @@ AC_DEFUN(CONFIG_UFFI_CHECK,
   AC_SUBST(UFFI)
   AC_SUBST(UFFI_RUN)
   AC_SUBST(EXT_UFFI)
-  if test -n "$USE_LISP" ; then
+  if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(uffi,
       AC_HELP_STRING([--with-uffi=<pathname>],
                      [Use uffi at <pathname> (default:bindings/lisp/tps/uffi)]), 
@@ -290,7 +298,7 @@ AC_DEFUN(CONFIG_CPARSE_CHECK,
 [
   AC_SUBST(CPARSE)
   AC_SUBST(EXT_CPARSE)
-  if test -n "$USE_LISP" ; then
+  if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(cparse,
       AC_HELP_STRING([--with-cparse=<pathname>],
         [Use cparse at <pathname> (default:bindings/lisp/tps/cparse, don't change)]), 
