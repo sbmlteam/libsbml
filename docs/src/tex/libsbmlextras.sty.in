@@ -37,11 +37,13 @@
 %% ----------------------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{libsbmlversion}
+\ProvidesClass{libsbmlextras}
 
 %% ----------------------------------------------------------------------------
 %% Main code.
 %% ----------------------------------------------------------------------------
+
+\newcommand{\libsbml}{\textsc{lib\-sbml}}
 
 \newcommand{\libsbmlversion}{@PACKAGE_VERSION@}
 
