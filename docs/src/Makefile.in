@@ -70,29 +70,27 @@ thisdir = docs/src
 # In order to be able to create distributions with ready-to-read docs, we
 # have a separate directory for formatted docs.  This creates a different
 # situation than the case of other make rules in libsbml, because here the
-# results of the build are copied into a different directory.  The current
-# makefile only knows how to create the formatted docs and put them into
-# ../formatted.  The Makefile in ../formatted only knows how to install
-# those files and create distributions out of them.
+# results of the build are copied into a different directory.  
 
-formatted             = ../formatted
+formatted              = ../formatted
 
-manuals               = libsbml-manual libsbml-api-ref
-libsbml-manual-files  = libsbml-manual.pdf libsbml-manual.ps libsbml-manual
-# 2004-07-21 <mhucka@caltech.edu> Temporarily not making the HTML api docs.
-libsbml-api-ref-files = libsbml-api-ref.pdf libsbml-api-ref.ps
-all_manual_files      = $(libsbml-manual-files) $(libsbml-api-ref-files)
+preformatted_files     = java.txt python.txt
 
-docs                  = $(foreach d,$(all_manual_files),$(formatted)/$d)
+generated_manual_files = libsbml-manual.pdf libsbml-manual.ps libsbml-manual
+generated_apiref_files = libsbml-api-ref.pdf libsbml-api-ref.ps
+all_generated_files    = $(generated_manual_files) $(generated_apiref_files) 
+all_doc_files          = $(all_generated_files) $(preformatted_files)
+
+docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
 
 # The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
-# files, but these are all generated files and directories.
+# files, but the following are all generated files and directories.
 
 tex_clean = aux bbl blg log out toc dvi
 
 extra_clean = \
-	$(all_manual_files) \
+	$(docs) \
 	$(addprefix libsbml-manual.,$(tex_clean)) \
 	$(addprefix libsbml-api-ref.,$(tex_clean)) \
 	$(pdffiles)
@@ -109,6 +107,8 @@ distfiles =                            \
         Makefile.in                    \
         createAPISection.py            \
         createAPISections.sh           \
+	java.txt                       \
+	python.txt                     \
         graphics                       \
         libsbml-api-ref.html.tmpl      \
         libsbml-api-ref.tex            \
@@ -163,17 +163,15 @@ distfiles =                            \
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: $(docs)
+all: Makefile $(docs)
 
-dvi: $(foreach manual,$(manuals),$(manual).dvi)
+dvi: $(formatted)/libsbml-manual.dvi $(formatted)/libsbml-api-ref.dvi
 
-pdf: $(foreach manual,$(manuals),$(manual).pdf)
+pdf: $(formatted)/libsbml-manual.pdf $(formatted)/libsbml-api-ref.pdf
 
-ps: $(foreach manual,$(manuals),$(manual).ps)
+ps: $(formatted)/libsbml-manual.ps $(formatted)/libsbml-api-ref.ps
 
-# The HTML conversions create directories, not single files like the others:
-
-html: $(manuals)
+html: $(formatted)/libsbml-manual
 
 info:
 	@echo "We're sorry, but the info format is not supported."
@@ -306,6 +304,17 @@ $(formatted)/libsbml-api-ref libsbml-api-ref: Doxyfile $(wildcard ../../src/*.[c
 
 
 # -----------------------------------------------------------------------------
+# Preformatted files.
+# -----------------------------------------------------------------------------
+
+$(formatted)/java.txt: java.txt
+	cp -f java.txt $(formatted)
+
+$(formatted)/python.txt: python.txt
+	cp -f python.txt $(formatted)
+
+
+# -----------------------------------------------------------------------------
 # Miscellaneous helpers.
 # -----------------------------------------------------------------------------
 
@@ -317,7 +326,38 @@ $(pdffiles): %.pdf: %.eps
 # Installation.
 # -----------------------------------------------------------------------------
 
-install:
+# This needs a special version of install-docs, because the source pathnames
+# have ../formatted in them and we need to strip that out when copying to
+# the destination directory.
+
+install: $(docs)
+	@if test -z '$(docs)'; then \
+	  echo 'Nothing to be done for install-docs'; \
+	else \
+	  list='$(docs)'; for file in $$list; do \
+	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	    dir=`echo "$$file" | sed -e 's,$(formatted),,'`; \
+	    dir=`echo "$$dir" | sed -e 's,/[^/]*$$,,'`; \
+	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	      dir="$$dir"; \
+	      $(MKINSTALLDIRS) "$(DOCDIR)/$$dir"; \
+	    else \
+	      dir=''; \
+	    fi; \
+	    if test -d $$d/$$file; then \
+	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	        echo Copying $(srcdir)/$$file; \
+	        cp -pR $(srcdir)/$$file $(DOCDIR)$$dir || exit 1; \
+	      fi; \
+	      cp -pR $$d/$$file $(DOCDIR)$$dir || exit 1; \
+	    else \
+	      echo Copying $(DOCDIR)/$$file; \
+	      test -f $(DOCDIR)/$$file \
+	      || cp -p $$d/$$file $(DOCDIR)/$$dir \
+	      || exit 1; \
+	    fi; \
+	  done; \
+	fi
 
 uninstall:
 
@@ -328,7 +368,7 @@ installcheck:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal $(libsbml-manual-files) $(libsbml-api-ref-files)
+dist: dist-normal $(docs)
 
 distcheck:
 
