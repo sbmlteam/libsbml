@@ -84,7 +84,7 @@ libraries = libexpat-compat.a
 
 distfiles = $(sources) $(headers) Makefile.in COPYING.txt
 
-extra_CXXFLAGS = $(EXPAT_CPPFLAGS)
+extra_CPPFLAGS = $(EXPAT_CPPFLAGS)
 
 extra_LDFLAGS = $(EXPAT_LDFLAGS)
 
