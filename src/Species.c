@@ -373,7 +373,7 @@ LIBSBML_EXTERN
 void
 Species_unsetInitialAmount (Species_t *s)
 {
-  s->initialAmount       = 0. / 0;    /* NaN */
+  s->initialAmount       = strtod("NaN", NULL);
   s->isSet.initialAmount = 0;
 }
 

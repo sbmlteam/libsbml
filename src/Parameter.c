@@ -254,7 +254,7 @@ LIBSBML_EXTERN
 void
 Parameter_unsetValue (Parameter_t *p)
 {
-  p->value       = 0. / 0;    /* NaN */
+  p->value       = strtod("NaN", NULL);
   p->isSet.value = 0;
 }
 

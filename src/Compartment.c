@@ -310,7 +310,7 @@ LIBSBML_EXTERN
 void
 Compartment_unsetVolume (Compartment_t *c)
 {
-  c->volume       = 0. / 0;    /* NaN */
+  c->volume       = strtod("NaN", NULL);
   c->isSet.volume = 0;
 }
 
