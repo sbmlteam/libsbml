@@ -292,9 +292,9 @@ XMLUtil::scanAttrCStr ( const Attributes&  attrs,
                         const unsigned int index,
                         char**             value )
 {
-  const char* s        = XMLString::transcode( attrs.getValue(index) );
-  bool        assigned = false;
-  int         size;
+  char* s        = XMLString::transcode( attrs.getValue(index) );
+  bool  assigned = false;
+  int   size;
 
 
   if (s != NULL)
