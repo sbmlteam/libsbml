@@ -241,6 +241,7 @@ protected:
 
   friend class SBMLFormatter;
   friend class SBMLHandler;
+  friend class SBMLReader;
 };
 
 
