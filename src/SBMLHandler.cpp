@@ -149,7 +149,7 @@ SBMLHandler::SBMLHandler (SBMLDocument* d) : fDocument(d)
   // MathML is parsed by delegating SAX2 events recieved by this handler to
   // a MathMLHandler.
   //
-  fMathDocument = MathMLDocument_create();
+  fMathDocument = new MathMLDocument;
   fMathHandler  = new MathMLHandler( fMathDocument );
 
   //
@@ -190,7 +190,7 @@ SBMLHandler::~SBMLHandler ()
   Stack_free( fObjStack );
   Stack_free( fTagStack );
 
-  MathMLDocument_free( fMathDocument );
+  delete fMathDocument;
 }
 
 
@@ -1747,7 +1747,7 @@ SBMLHandler::setLineAndColumn (SBase* sb)
  * @see endElement()
  */
 void
-SBMLHandler::setMath (ASTNode_t* math)
+SBMLHandler::setMath (ASTNode* math)
 {
   SBase*        obj = static_cast<SBase*>( Stack_peek(fObjStack) );
   SBMLTagCode_t tag = (SBMLTagCode_t) Stack_peek(fTagStack);
@@ -1802,7 +1802,7 @@ SBMLHandler::setMath (ASTNode_t* math)
 
   if (freeMath)
   {
-    ASTNode_free(math);
+    delete math;
   }
 }
 
@@ -1814,25 +1814,25 @@ SBMLHandler::setMath (ASTNode_t* math)
  * and the denominator field (if math is AST_RATIONAL).
  */
 void
-SBMLHandler::setStoichiometryMath (SpeciesReference_t* sr, ASTNode_t* math)
+SBMLHandler::setStoichiometryMath (SpeciesReference_t* sr, ASTNode* math)
 {
   bool freeMath = true;
 
 
-  switch ( ASTNode_getType(math) )
+  switch ( math->getType() )
   {
     case AST_INTEGER:
-      SpeciesReference_setStoichiometry(sr, ASTNode_getInteger(math));
+      SpeciesReference_setStoichiometry(sr, math->getInteger());
       break;
 
     case AST_REAL:
     case AST_REAL_E:
-      SpeciesReference_setStoichiometry(sr, ASTNode_getReal(math));
+      SpeciesReference_setStoichiometry(sr, math->getReal());
       break;
 
     case AST_RATIONAL:
-      SpeciesReference_setStoichiometry( sr, ASTNode_getNumerator  (math) );
-      SpeciesReference_setDenominator  ( sr, ASTNode_getDenominator(math) );
+      SpeciesReference_setStoichiometry( sr, math->getNumerator()   );
+      SpeciesReference_setDenominator  ( sr, math->getDenominator() );
       break;
 
     default:
@@ -1843,7 +1843,7 @@ SBMLHandler::setStoichiometryMath (SpeciesReference_t* sr, ASTNode_t* math)
 
   if (freeMath)
   {
-    ASTNode_free(math);
+    delete math;
   }
 }
 

@@ -67,9 +67,10 @@
 #endif  // USE_EXPAT
 
 
-#include "MathMLDocument.h"
-#include "ParseMessage.h"
 #include "Stack.h"
+
+#include "MathMLDocument.hpp"
+#include "ParseMessage.hpp"
 #include "SBMLTypes.hpp"
 
 #include "SBMLTagCodes.hpp"
@@ -205,8 +206,8 @@ private:
   SBMLTagCode_t getTagCode (const XMLCh *uri, const XMLCh* localname);
 
   void setLineAndColumn     (SBase *sb);
-  void setMath              (ASTNode_t* math);
-  void setStoichiometryMath (SpeciesReference_t* sr, ASTNode_t* math);
+  void setMath              (ASTNode* math);
+  void setStoichiometryMath (SpeciesReference_t* sr, ASTNode* math);
 
   /*
   void debugPrintStartElement
@@ -226,8 +227,8 @@ private:
 
   XMLStringFormatter* fFormatter;
 
-  MathMLHandler*    fMathHandler;
-  MathMLDocument_t* fMathDocument;
+  MathMLHandler*  fMathHandler;
+  MathMLDocument* fMathDocument;
 
   const Locator* fLocator;
 
