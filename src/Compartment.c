@@ -186,9 +186,9 @@ Compartment_isSetName (const Compartment_t *c)
 /**
  * @return 1 if the volume of this Compartment has been set, 0 otherwise.
  *
- * In SBML L1, Compartment volume has a default value (1.0) and therefore
- * <b>should</b> always be set.  In SBML L2, volume is optional with no
- * default value, so it may not be set.
+ * In SBML L1, a Compartment volume has a default value (1.0) and therefore
+ * <b>should always be set</b>.  In L2, volume is optional with no default
+ * value and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -302,9 +302,9 @@ Compartment_unsetName (Compartment_t *c)
 /**
  * Unsets the volume of this Compartment.
  *
- * In SBML L1, Compartment volume has a default value (1.0) and therefore
- * <b>should</b> always be set.  In SBML L2, volume is optional with no
- * default value, so it may not be set.
+ * In SBML L1, a Compartment volume has a default value (1.0) and therefore
+ * <b>should always be set</b>.  In L2, volume is optional with no default
+ * value and as such may or may not be set.
  */
 LIBSBML_EXTERN
 void
