@@ -1,12 +1,18 @@
       The original code contained here was initially developed by:
  
-			     Ben Bornstein
-			with contributions from
-	Ben Kovitz, Stefan Hoops, Sarah Keating, Michael Hucka,
-		 and many others in the SBML community.
+                            Ben Bornstein
+                       with contributions from
+         Ben Kovitz, Stefan Hoops, Sarah Keating, Mike Hucka,
+            Martin Ginkel, Christoph Flamm, Rainer Machne,
+                and many others in the SBML community.
 
-	  For more information about SBML or libSBML, contact:
+         For more information about SBML or libSBML, contact:
 
-			     The SBML Team
-			    http://sbml.org
-		      mailto:sbml-team@caltech.edu
+                            The SBML Team
+                         http://www.sbml.org/
+                     mailto:sbml-team@caltech.edu
+
+
+       Please join the libsbml-discuss mailing list by visiting
+    https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
+
