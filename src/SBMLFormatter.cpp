@@ -87,14 +87,14 @@ static const XMLCh  XML_DECL_2[] =
 };
 
 
-//
-// Ctor
-//
-// Creates a new SBMLFormatter
-//
-// The underlying character encoding is configurable and defaults to
-// "LATIN1", which is probably safe for most applications.
-//
+/**
+ * Ctor
+ *
+ * Creates a new SBMLFormatter
+ *
+ * The underlying character encoding is configurable and defaults to
+ * "LATIN1", which is probably safe for most applications.
+ */
 SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 {
   //
@@ -107,11 +107,12 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 
   fIndentLevel = 0;
 
-  fTarget      = target;
-  fFormatter   = new XMLFormatter( outEncoding,
-                                   fTarget,
-                                   XMLFormatter::NoEscapes,
-                                   XMLFormatter::UnRep_CharRef );
+  fTarget        = target;
+  fMathFormatter = new MathMLFormatter(outEncoding, target, false);
+  fFormatter     = new XMLFormatter( outEncoding,
+                                     fTarget,
+                                     XMLFormatter::NoEscapes,
+                                     XMLFormatter::UnRep_CharRef );
 
   *fFormatter
     << XML_DECL_1
@@ -120,9 +121,9 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 }
 
 
-//
-// Dtor
-//
+/**
+ * Dtor
+ */
 SBMLFormatter::~SBMLFormatter ()
 {
   delete fFormatter;
@@ -159,9 +160,9 @@ SBMLFormatter::operator<< (const SBMLVersion_t version)
 }
 
 
-//
-// SBMLDocument
-//
+/**
+ * SBMLDocument
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const SBMLDocument_t* d)
 {
@@ -169,6 +170,11 @@ SBMLFormatter::operator<< (const SBMLDocument_t* d)
   fVersion = d->version;
 
   openStartElement(ELEM_SBML);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) d );
 
   attribute( ATTR_XMLNS  , XMLNS_SBML_L1 );
   attribute( ATTR_LEVEL  , d->level      );
@@ -195,9 +201,9 @@ SBMLFormatter::operator<< (const SBMLDocument_t* d)
 }
 
 
-//
-// Model
-//
+/**
+ * Model
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const Model_t* m)
 {
@@ -206,11 +212,15 @@ SBMLFormatter::operator<< (const Model_t* m)
 
   openStartElement(ELEM_MODEL);
 
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) m );
 
   //
   // id  { use="optional" }  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     if (Model_isSetId(m))
     {
@@ -257,12 +267,14 @@ SBMLFormatter::operator<< (const Model_t* m)
 
     notesAndAnnotation( (SBase_t*) m );
 
-    listOfUnitDefinitions( m->unitDefinition );
-    listOfCompartments   ( m->compartment    );
-    listOfSpecies        ( m->species        );
-    listOfParameters     ( m->parameter      );
-    listOfRules          ( m->rule           );
-    listOfReactions      ( m->reaction       );
+    listOfUnitDefinitions( m->functionDefinition );
+    listOfUnitDefinitions( m->unitDefinition     );
+    listOfCompartments   ( m->compartment        );
+    listOfSpecies        ( m->species            );
+    listOfParameters     ( m->parameter          );
+    listOfRules          ( m->rule               );
+    listOfReactions      ( m->reaction           );
+    listOfEvents         ( m->event              );
     
     downIndent();
 
@@ -273,9 +285,71 @@ SBMLFormatter::operator<< (const Model_t* m)
 }
 
 
-//
-// UnitDefinition
-//
+/**
+ * FunctionDefinition
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const FunctionDefinition_t* fd)
+{
+  if (fd == NULL) return *this;
+
+
+  openStartElement(ELEM_FUNCTION_DEFINITION);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) fd );
+
+  //
+  // id: SId  { use="required" }  (L2v1)
+  //
+  if (fLevel > 1)
+  {
+    attribute(ATTR_ID, fd->id);
+  }
+
+  //
+  // name: string  { use="optional" }  (L2v1)
+  //
+  if ( FunctionDefinition_isSetName(fd) )
+  {
+    attribute(ATTR_NAME, fd->name);
+  }
+
+
+  if ( isEmpty(fd) )
+  {
+    slashCloseStartElement();
+  }
+  else
+  {
+    closeStartElement();
+    upIndent();
+
+    notesAndAnnotation( (SBase_t*) fd );
+
+    //
+    // math: (lambda:Lambda)  (L2v1)
+    //
+    fMathFormatter->setIndentLevel(fIndentLevel);
+    fMathFormatter->startMath();
+
+    *fMathFormatter << FunctionDefinition_getMath(fd);
+
+    fMathFormatter->endMath();
+
+    downIndent();
+    endElement(ELEM_FUNCTION_DEFINITION);
+  }
+
+  return *this;
+}
+
+
+/**
+ * UnitDefinition
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const UnitDefinition_t* ud)
 {
@@ -285,9 +359,14 @@ SBMLFormatter::operator<< (const UnitDefinition_t* ud)
   openStartElement(ELEM_UNIT_DEFINITION);
 
   //
-  // id  (L2v1)
+  // metaid: ID  { use="optional" }  (L2v1)
   //
-  if (fLevel == 2)
+  doMetaId( (SBase_t*) ud );
+
+  //
+  // id: SId  { use="required" }  (L2v1)
+  //
+  if (fLevel > 1)
   {
     attribute(ATTR_ID, ud->id);
   }
@@ -331,9 +410,9 @@ SBMLFormatter::operator<< (const UnitDefinition_t* ud)
 }
 
 
-//
-// Unit
-//
+/**
+ * Unit
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const Unit_t* u)
 {
@@ -341,6 +420,11 @@ SBMLFormatter::operator<< (const Unit_t* u)
 
 
   openStartElement(ELEM_UNIT);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) u );
 
   attribute(ATTR_KIND, UnitKind_toString(u->kind));
 
@@ -363,7 +447,7 @@ SBMLFormatter::operator<< (const Unit_t* u)
   //
   // multiplier  { use="optional" default="1" }  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     attribute(ATTR_MULTIPLIER, u->multiplier);
   }
@@ -371,7 +455,7 @@ SBMLFormatter::operator<< (const Unit_t* u)
   //
   // offset  { use="optional" default="0" }  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     attribute(ATTR_OFFSET, u->offset);
   }
@@ -390,9 +474,9 @@ SBMLFormatter::operator<< (const Unit_t* u)
 }
 
 
-//
-// Compartment
-//
+/**
+ * Compartment
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const Compartment_t* c)
 {
@@ -402,9 +486,14 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   openStartElement(ELEM_COMPARTMENT);
 
   //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) c );
+
+  //
   // id  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     attribute(ATTR_ID, c->id);
   }
@@ -428,7 +517,7 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   //
   // spatialDimensions  { use="optional" default="3" }  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     if (c->spatialDimensions != 3)
     {
@@ -480,7 +569,7 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   //
   // constant  { use="optional" default="true" }  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     if (c->constant != 1)
     {
@@ -502,9 +591,9 @@ SBMLFormatter::operator<< (const Compartment_t* c)
 }
 
 
-//
-// Species
-//
+/**
+ * Species
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const Species_t* s)
 {
@@ -522,6 +611,19 @@ SBMLFormatter::operator<< (const Species_t* s)
   openStartElement(elem);
 
   //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) s );
+
+  //
+  // id: SId  { use="required" }  (L2v1)
+  //
+  if (fLevel > 1)
+  {
+    attribute(ATTR_ID, Species_getId(s));
+  }
+
+  //
   // name: SName   { use="required" }  (L1v1, L1v2)
   // name: string  { use="optional" }  (L2v1)
   //
@@ -530,48 +632,97 @@ SBMLFormatter::operator<< (const Species_t* s)
   //
   if ( Species_isSetName(s) )
   {
-    attribute(ATTR_NAME, s->name);
+    attribute(ATTR_NAME, Species_getName(s));
   }
   else if (fLevel == 1)
   {
-    attribute(ATTR_NAME, s->id);    
+    attribute(ATTR_NAME, Species_getId(s));
   }
 
   //
-  // 
-  // compartment  { use="required" }  (L1v1, L2v1, L2v1)
+  // compartment: SName  { use="required" }  (L1v1, L2v1)
+  // compartment: SId    { use="required" }  (L2v1)
   //
   attribute(ATTR_COMPARTMENT, s->compartment);
 
   //
-  // initialAmount  { use="required" }  (L1v1, L1v2)
+  // initialAmount: double  { use="required" }  (L1v1, L1v2)
+  // initialAmount: double  { use="optional" }  (L2v1)
   //
-  attribute(ATTR_INITIAL_AMOUNT, Species_getInitialAmount(s));
+  if ( Species_isSetInitialAmount(s) )
+  {
+    attribute(ATTR_INITIAL_AMOUNT, Species_getInitialAmount(s));
+  }
 
   //
-  // units  { use="optional" }  (L1v1, L1v2, L2v1)
+  // initialConcentration: double  { use="optional" }  (L2v1)
   //
-  if ( Species_isSetUnits(s) )
+  else if ((fLevel > 1) && Species_isSetInitialConcentration(s))
+  {
+    attribute(ATTR_INITIAL_CONCENTRATION, Species_getInitialConcentration(s));
+  }
+
+  //
+  //          units: SName  { use="optional" }  (L1v1, L1v2)
+  // substanceUntis: SId    { use="optional" }  (L2v1)
+  //
+  if ((fLevel > 1) && Species_isSetSubstanceUnits(s))
+  {
+    attribute(ATTR_SUBSTANCE_UNITS, Species_getSubstanceUnits(s));
+  }
+  else if ( Species_isSetUnits(s) )
   {
     attribute(ATTR_UNITS, Species_getUnits(s));
   }
 
-  //
-  // boundaryCondition
-  // { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
-  // 
-  //
-  if (s->boundaryCondition != 0)
+  if (fLevel > 1)
   {
-    attribute(ATTR_BOUNDARY_CONDITION, (bool) s->boundaryCondition);
+    //
+    // spatialSizeUnits: SId  { use="optional" }  (L2v1)
+    //
+    if ( Species_isSetSpatialSizeUnits(s) )
+    {
+      attribute(ATTR_SPATIAL_SIZE_UNITS, Species_getSpatialSizeUnits(s));
+    }
+
+    //
+    // hasOnlySubstanceUnits: boolean
+    // { use="optional" default="false" (0) }  (L2v1)
+    //
+    if (Species_getHasOnlySubstanceUnits(s) != 0)
+    {
+      attribute( ATTR_HAS_ONLY_SUBSTANCE_UNITS,
+                 (bool) Species_getHasOnlySubstanceUnits(s) );
+    }
   }
 
   //
-  // charge  { use="optional" }  (L1v1, L1v2, L2v1)
+  // boundaryCondition: boolean
+  // { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
+  // 
   //
-  if (s->isSet.charge)
+  if (Species_getBoundaryCondition(s) != 0)
   {
-    attribute(ATTR_CHARGE, s->charge);
+    attribute(ATTR_BOUNDARY_CONDITION, (bool) Species_getBoundaryCondition(s));
+  }
+
+  //
+  // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  if ( Species_isSetCharge(s) )
+  {
+    attribute(ATTR_CHARGE, Species_getCharge(s));
+  }
+
+  //
+  // constant: boolean  { use="optional" default="false" (0) }  (L2v1)
+  //
+  if (fLevel > 1)
+  {
+    if (Species_getConstant(s) != 0)
+    {
+      attribute(ATTR_CONSTANT, (bool) Species_getConstant(s));
+    }
   }
 
   if ( isEmpty(s) )
@@ -587,9 +738,9 @@ SBMLFormatter::operator<< (const Species_t* s)
 }
 
 
-//
-// Parameter
-//
+/**
+ * Parameter
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const Parameter_t* p)
 {
@@ -599,16 +750,21 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   openStartElement(ELEM_PARAMETER);
 
   //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) p );
+
+  //
   // id  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     attribute(ATTR_ID, p->id);
   }
 
   //
   // name: SName  { use="required" }  (L1v1, L1v2)
-  // name  { use="optional" }  (L2v1)
+  // name: SId    { use="optional" }  (L2v1)
   //
   // For the sake of robustness, if outputting L1 and name is not set,
   // substitute the value of id.
@@ -623,8 +779,8 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   }
 
   //
-  // value  { use="required" }  (L1v2)
-  // value  { use="optional" }  (L1v2, L2v1)
+  // value: double  { use="required" }  (L1v2)
+  // value: double  { use="optional" }  (L1v2, L2v1)
   //
   if ((fLevel == 1 && fVersion == 1) || Parameter_isSetValue(p))
   {
@@ -632,7 +788,8 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   }
 
   //
-  // units  { use="optional" }  (L1v1, L1v2, L2v1)
+  // units: SName  { use="optional" }  (L1v1, L1v2)
+  // units: SId    { use="optional" }  (L2v1)
   //
   if (p->units != NULL)
   {
@@ -640,9 +797,9 @@ SBMLFormatter::operator<< (const Parameter_t* p)
   }
 
   //
-  // constant  { use="optional" default="true" }  (L2v1)
+  // constant: boolean  { use="optional" default="true" }  (L2v1)
   //
-  if (fLevel == 2)
+  if (fLevel > 1)
   {
     if (p->constant != 1)
     {
@@ -664,9 +821,9 @@ SBMLFormatter::operator<< (const Parameter_t* p)
 }
 
 
-//
-// Rule
-//
+/**
+ * Rule
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const Rule_t* r)
 {
@@ -675,6 +832,14 @@ SBMLFormatter::operator<< (const Rule_t* r)
 
   switch (r->typecode)
   {
+    case SBML_ASSIGNMENT_RULE:
+      *this << (AssignmentRule_t*) r;
+      break;
+
+    case SBML_RATE_RULE:
+      *this << (RateRule_t*) r;
+      break;
+
     case SBML_ALGEBRAIC_RULE:
       *this << (AlgebraicRule_t*) r;
       break;
@@ -699,9 +864,117 @@ SBMLFormatter::operator<< (const Rule_t* r)
 }
 
 
-//
-// AlgebraicRule
-//
+/**
+ * AssignmentRule
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const AssignmentRule_t* ar)
+{
+  if (ar == NULL) return *this;
+
+
+  const XMLCh* elem = ELEM_ASSIGNMENT_RULE;
+
+
+  //
+  // Format L1 <assigmentRule type="rate" ...> as L2 <rateRule ...>
+  // 
+  if ((fLevel > 1) && (AssignmentRule_getType(ar) == RULE_TYPE_RATE))
+  {
+    elem = ELEM_RATE_RULE;
+  }
+
+  openStartElement(elem);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) ar );
+
+  //
+  // variable: SId  { use="required" }  (L2v1)
+  //
+  attribute(ATTR_VARIABLE, ar->variable);
+
+  if ( isEmpty((Rule_t*) ar) )
+  {
+    slashCloseStartElement();
+  }
+  else
+  {
+    closeStartElement();
+    upIndent();
+
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
+    notesAndAnnotation( (SBase_t*) ar );
+
+    //
+    // math: Math  (L2v1)
+    //
+    doRuleMath( (Rule_t*) ar );
+
+    downIndent();
+    endElement(elem);
+  }
+
+  return *this;
+}
+
+
+/**
+ * RateRule
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const RateRule_t* rr)
+{
+  if (rr == NULL) return *this;
+
+
+  openStartElement(ELEM_RATE_RULE);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) rr );
+
+  //
+  // variable: SId  { use="required" }  (L2v1)
+  //
+  attribute(ATTR_VARIABLE, rr->variable);
+
+  if ( isEmpty((Rule_t*) rr) )
+  {
+    slashCloseStartElement();
+  }
+  else
+  {
+    upIndent();
+
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
+    notesAndAnnotation( (SBase_t*) rr );
+
+    //
+    // math: Math  (L2v1)
+    //
+    doRuleMath( (Rule_t*) rr );
+
+    downIndent();
+    endElement(ELEM_RATE_RULE);
+  }
+
+  return *this;
+}
+
+
+/**
+ * AlgebraicRule
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const AlgebraicRule_t* ar)
 {
@@ -710,126 +983,237 @@ SBMLFormatter::operator<< (const AlgebraicRule_t* ar)
 
   openStartElement(ELEM_ALGEBRAIC_RULE);
 
-  attribute(ATTR_FORMULA, ar->formula);
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) ar );
 
-  if ( isEmpty(ar) )
+  if (fLevel == 1)
+  {
+    //
+    // formula: string  { use="required" }  (L1v1, L1v2)
+    //
+    attribute(ATTR_FORMULA, ar->formula);
+  }
+
+  if ( isEmpty((Rule_t*) ar) )
   {
     slashCloseStartElement();
   }
   else
   {
-    endElement(ELEM_ALGEBRAIC_RULE, (SBase_t*) ar);
+    closeStartElement();
+    upIndent();
+
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
+    notesAndAnnotation( (SBase_t*) ar );
+
+    //
+    // math: Math  (L2v1)
+    //
+    doRuleMath( (Rule_t*) ar );
+
+    downIndent();
+    endElement(ELEM_ALGEBRAIC_RULE);
   }
 
   return *this;
 }
 
 
-//
-// SpeciesConcentrationRule
-//
+/**
+ * SpeciesConcentrationRule
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const SpeciesConcentrationRule_t* scr)
 {
   if (scr == NULL) return *this;
 
 
-  const XMLCh* elem = ELEM_SPECIES_CONCENTRATION_RULE;
-  const XMLCh* attr = ATTR_SPECIES;
-
-
-  if ((fLevel == 1) && (fVersion == 1))
+  //
+  // Level 2
+  //
+  // A SpeciesConcentrationRule is either an AssignmentRule or a RateRule.
+  // operator<< (const AssignmentRule_t*) formats either case.
+  //
+  if (fLevel > 1)
   {
-    elem = ELEM_SPECIE_CONCENTRATION_RULE;
-    attr = ATTR_SPECIE;
+    *this << (AssignmentRule_t*) scr;
   }
 
-  openStartElement(elem);
-
-  attribute(ATTR_FORMULA, scr->formula);
-  ruleType(scr->type);
-  attribute(attr, SpeciesConcentrationRule_getSpecies(scr));
-
-  if ( isEmpty(scr) )
-  {
-    slashCloseStartElement();
-  }
+  //
+  // Level 1
+  //
   else
   {
-    endElement(elem, (SBase_t*) scr);
+    const XMLCh* elem = ELEM_SPECIES_CONCENTRATION_RULE;
+    const XMLCh* attr = ATTR_SPECIES;
+
+
+    if ((fLevel == 1) && (fVersion == 1))
+    {
+      elem = ELEM_SPECIE_CONCENTRATION_RULE;
+      attr = ATTR_SPECIE;
+    }
+
+    openStartElement(elem);
+
+    //
+    // formula: string  { use="required" }  (L1v1, L1v2)
+    //
+    attribute(ATTR_FORMULA, scr->formula);
+
+    //
+    // type { use="optional" default="scalar" }  (L1v1, L1v2)
+    //
+    doRuleType(scr->type);
+
+    //
+    // specie : SName   { use="required" }  (L1v1)
+    // species: SName   { use="required" }  (L1v2)
+    //
+    attribute(attr, SpeciesConcentrationRule_getSpecies(scr));
+
+    if ( isEmpty((Rule_t*) scr) )
+    {
+      slashCloseStartElement();
+    }
+    else
+    {
+      endElement(elem, (SBase_t*) scr);
+    }
   }
 
   return *this;
 }
 
 
-//
-// CompartmentVolumeRule
-//
+/**
+ * CompartmentVolumeRule
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const CompartmentVolumeRule_t* cvr)
 {
   if (cvr == NULL) return *this;
 
-  openStartElement(ELEM_COMPARTMENT_VOLUME_RULE);
 
-  attribute(ATTR_FORMULA, cvr->formula);
-  ruleType(cvr->type);
-  attribute(ATTR_COMPARTMENT, CompartmentVolumeRule_getCompartment(cvr));
-
-  if ( isEmpty(cvr) )
+  //
+  // Level 2
+  //
+  // A CompartmentVolumeRule is either an AssignmentRule or a RateRule.
+  // operator<< (const AssignmentRule_t*) formats either case.
+  //
+  if (fLevel > 1)
   {
-    slashCloseStartElement();
+    *this << (AssignmentRule_t*) cvr;
   }
+
+  //
+  // Level 1
+  //
   else
   {
-    endElement(ELEM_COMPARTMENT_VOLUME_RULE, (SBase_t*) cvr);
+    openStartElement(ELEM_COMPARTMENT_VOLUME_RULE);
+
+    //
+    // formula: string  { use="required" }  (L1v1, L1v2)
+    //
+    attribute(ATTR_FORMULA, cvr->formula);
+
+    //
+    // type { use="optional" default="scalar" }  (L1v1, L1v2)
+    //
+    doRuleType(cvr->type);
+
+    //
+    // compartment: SName  { use="required" }  (L1v1, L1v2)
+    //
+    attribute(ATTR_COMPARTMENT, CompartmentVolumeRule_getCompartment(cvr));
+
+    if ( isEmpty((Rule_t*) cvr) )
+    {
+      slashCloseStartElement();
+    }
+    else
+    {
+      endElement(ELEM_COMPARTMENT_VOLUME_RULE, (SBase_t*) cvr);
+    }
   }
 
   return *this;
 }
 
 
-//
-// ParameterRule
-//
+/**
+ * ParameterRule
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const ParameterRule_t* pr)
 {
   if (pr == NULL) return *this;
 
 
-  openStartElement(ELEM_PARAMETER_RULE);
-
-  attribute(ATTR_FORMULA, pr->formula);
-  ruleType(pr->type);
-
-  attribute( ATTR_NAME, ParameterRule_getName(pr) );
-
   //
-  // units  { use="optional" }  (L1v1, L1v2);
+  // Level 2
   //
-  if (pr->units != NULL)
+  // A ParameterRule is either an AssignmentRule or a RateRule.
+  // operator<< (const AssignmentRule_t*) formats either case.
+  //
+  if (fLevel > 1)
   {
-    attribute(ATTR_UNITS, pr->units);
+    *this << (AssignmentRule_t*) pr;
   }
 
-  if ( isEmpty(pr) )
-  {
-    slashCloseStartElement();
-  }
+  //
+  // Level 1
+  //
   else
   {
-    endElement(ELEM_PARAMETER_RULE, (SBase_t*) pr);
+    openStartElement(ELEM_PARAMETER_RULE);
+
+    //
+    // formula: string  { use="required" }  (L1v1, L1v2)
+    //
+    attribute(ATTR_FORMULA, pr->formula);
+
+    //
+    // type { use="optional" default="scalar" }  (L1v1, L1v2)
+    //
+    doRuleType(pr->type);
+
+    //
+    // name: SName  { use="required" } (L1v1, L1v2)
+    //
+    attribute(ATTR_NAME, ParameterRule_getName(pr));
+
+    //
+    // units  { use="optional" }  (L1v1, L1v2);
+    //
+    if (pr->units != NULL)
+    {
+      attribute(ATTR_UNITS, pr->units);
+    }
+
+    if ( isEmpty((Rule_t*) pr) )
+    {
+      slashCloseStartElement();
+    }
+    else
+    {
+      endElement(ELEM_PARAMETER_RULE, (SBase_t*) pr);
+    }
   }
 
   return *this;
 }
 
 
-//
-// Reaction
-//
+/**
+ * Reaction
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const Reaction_t* r)
 {
@@ -839,9 +1223,14 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   openStartElement(ELEM_REACTION);
 
   //
-  // id  (L2v1)
+  // metaid: ID  { use="optional" }  (L2v1)
   //
-  if (fLevel == 2)
+  doMetaId( (SBase_t*) r );
+
+  //
+  // id: SId  { use="required" }  (L2v1)
+  //
+  if (fLevel > 1)
   {
     attribute(ATTR_ID, r->id);
   }
@@ -863,7 +1252,8 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   }
 
   //
-  // reversible  { use="optional"  default="true" (1) }  (L1v1, L1v2, L2v1)
+  // reversible: boolean
+  // { use="optional"  default="true" (1) }  (L1v1, L1v2, L2v1)
   //
   if (r->reversible != 1)
   {
@@ -871,11 +1261,22 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   }
 
   //
-  // fast  { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
+  // fast: boolean  { use="optional" default="false" (0) }  (L1v1, L1v2)
+  // fast: boolean  { use="optional" }  (L2v1)
   //
-  if (r->fast != 0)
+  if (fLevel == 1)
   {
-    attribute(ATTR_FAST, (bool) r->fast);
+    if (r->fast != 0)
+    {
+      attribute(ATTR_FAST, (bool) r->fast);
+    }
+  }
+  else
+  {
+    if ( Reaction_isSetFast(r) )
+    {
+      attribute(ATTR_FAST, (bool) r->fast);
+    }
   }
 
   if ( isEmpty(r) )
@@ -885,16 +1286,17 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   else
   {
     closeStartElement();
-
     upIndent();
 
     notesAndAnnotation( (SBase_t*) r );
+
     listOfReactants( r->reactant );
     listOfProducts ( r->product  );
+    listOfModifiers( r->modifier );
+
     *this << r->kineticLaw;
 
     downIndent();
-
     endElement(ELEM_REACTION);
   }
 
@@ -902,9 +1304,36 @@ SBMLFormatter::operator<< (const Reaction_t* r)
 }
 
 
-//
-// SpeciesReference
-//
+/**
+ * SimpleSpeciesReference
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const SimpleSpeciesReference_t* ssr)
+{
+  if (ssr == NULL) return *this;
+
+
+  switch (ssr->typecode)
+  {
+    case SBML_SPECIES_REFERENCE:
+      *this << (SpeciesReference_t*) ssr;
+      break;
+
+    case SBML_MODIFIER_SPECIES_REFERENCE:
+      *this << (ModifierSpeciesReference_t*) ssr;
+      break;
+
+    default:
+      break;
+  }
+
+  return *this;
+}
+
+
+/**
+ * SpeciesReference
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const SpeciesReference_t* sr)
 {
@@ -923,22 +1352,43 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
 
   openStartElement(elem);
 
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) sr );
+
+  //
+  // species: SName  { use="required" }  (L1v1, L1v2)
+  // species: SId    { use="required" }  (L2v1)
+  //
   attribute(attr, sr->species);
 
   //
-  // stoichiometry  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
+  // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)
+  // stoichiometry: double   { use="optional" default="1" }  (L2v1)
   //
   if (sr->stoichiometry != 1)
   {
-    attribute(ATTR_STOICHIOMETRY, sr->stoichiometry);
+    if (fLevel == 1)
+    {
+      attribute(ATTR_STOICHIOMETRY, (int) sr->stoichiometry);
+    }
+    else if ( !SpeciesReference_isSetStoichiometryMath(sr) &&
+              SpeciesReference_getDenominator(sr) == 1 )
+    {
+      attribute(ATTR_STOICHIOMETRY, sr->stoichiometry);
+    }
   }
 
   //
-  // denominator  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
+  // denominator  { use="optional" default="1" }  (L1v1, L1v2)
   //
-  if (sr->denominator != 1)
+  if (fLevel == 1)
   {
-    attribute(ATTR_DENOMINATOR, sr->denominator);
+    if (sr->denominator != 1)
+    {
+      attribute(ATTR_DENOMINATOR, sr->denominator);
+    }
   }
 
   if ( isEmpty(sr) )
@@ -947,16 +1397,65 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
   }
   else
   {
-    endElement(elem, (SBase_t*) sr);
+    closeStartElement();
+    upIndent();
+
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
+    notesAndAnnotation( (SBase_t*) sr );
+
+    //
+    // stoichiometryMath: StoichiometryMath  { use="optional" } (L2v1)
+    //
+    doStoichiometryMath(sr);
+
+    downIndent();
+    endElement(elem);
   }
 
   return *this;
 }
 
 
-//
-// KineticLaw
-//
+/**
+ * ModifierSpeciesReference
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const ModifierSpeciesReference_t* msr)
+{
+  if (msr == NULL) return *this;
+
+
+  openStartElement(ELEM_MODIFIER_SPECIES_REFERENCE);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) msr );
+
+  //
+  // species: SId  { use="required" }  (L2v1)
+  //
+  attribute(ELEM_SPECIES, msr->species);
+
+  if ( isEmpty(msr) )
+  {
+    slashCloseStartElement();
+  }
+  else
+  {
+    endElement(ELEM_MODIFIER_SPECIES_REFERENCE, (SBase_t*) msr);
+  }
+
+  return *this;
+}
+
+
+/**
+ * KineticLaw
+ */
 SBMLFormatter&
 SBMLFormatter::operator<< (const KineticLaw_t* kl)
 {
@@ -965,7 +1464,18 @@ SBMLFormatter::operator<< (const KineticLaw_t* kl)
 
   openStartElement(ELEM_KINETIC_LAW);
 
-  attribute(ATTR_FORMULA, kl->formula);
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) kl );
+
+  //
+  // formula: string  { use="required" }  (L1v1, L1v2)
+  //
+  if (fLevel == 1)
+  {
+    attribute(ATTR_FORMULA, kl->formula);
+  }
 
   //
   // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1)
@@ -990,16 +1500,184 @@ SBMLFormatter::operator<< (const KineticLaw_t* kl)
   else
   {
     closeStartElement();
-
     upIndent();
 
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
     notesAndAnnotation( (SBase_t*) kl );
+
+    //
+    // math: Math  (L2v1)
+    //
+    doKineticLawMath(kl);
+
     listOfParameters(kl->parameter);
 
     downIndent();
-
     endElement(ELEM_KINETIC_LAW);
   } 
+
+  return *this;
+}
+
+
+/**
+ * Event
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const Event_t* e)
+{
+  if (e == NULL) return *this;
+
+
+  openStartElement(ELEM_EVENT);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) e );
+
+  //
+  // id: SId  { use="optional" }  (L2v1)
+  //
+  if ( Event_isSetId(e) )
+  {
+    attribute(ATTR_ID, Event_getId(e));
+  }
+
+  //
+  // name: string  { use="optional" }  (L2v1)
+  //
+  if ( Event_isSetName(e) )
+  {
+    attribute(ATTR_NAME, Event_getName(e));
+  }
+
+  //
+  // timeUnits: SId  { use="optional" }  (L2v1)
+  //
+  if ( Event_isSetTimeUnits(e) )
+  {
+    attribute(ATTR_TIME_UNITS, Event_getTimeUnits(e));
+  }
+
+  if ( isEmpty(e) )
+  {
+    slashCloseStartElement();
+  }
+  else
+  {
+    closeStartElement();
+    upIndent();
+
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
+    notesAndAnnotation( (SBase_t*) e );
+
+    //
+    // trigger: Math  (L2v1)
+    // 
+    if ( Event_isSetTrigger(e) )
+    {
+      startElement(ELEM_TRIGGER);
+
+      fMathFormatter->setIndentLevel(fIndentLevel + 1);
+      fMathFormatter->startMath();
+
+      *fMathFormatter << Event_getTrigger(e);
+
+      fMathFormatter->endMath();
+
+      endElement(ELEM_TRIGGER);
+    }
+
+    //
+    // delay: Math  (L2v1)
+    //
+    if ( Event_isSetDelay(e) )
+    {
+      startElement(ELEM_DELAY);
+
+      fMathFormatter->setIndentLevel(fIndentLevel + 1);
+      fMathFormatter->startMath();
+
+      *fMathFormatter << Event_getDelay(e);
+
+      fMathFormatter->endMath();
+
+      endElement(ELEM_DELAY);
+    }
+
+    //
+    // eventAssignment: EventAssignment[1..*]
+    //
+    listOfEventAssignments( Event_getListOfEventAssignments(e) );
+
+    downIndent();
+    endElement(ELEM_EVENT);
+  }
+
+  return *this;
+}
+
+
+/**
+ * EventAssignment
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const EventAssignment_t* ea)
+{
+  if (ea == NULL) return *this;
+
+
+  openStartElement(ELEM_EVENT_ASSIGNMENT);
+
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  doMetaId( (SBase_t*) ea );
+
+  //
+  // variable: SId  { use="required" }  (L2v1)
+  //
+  attribute(ATTR_VARIABLE, EventAssignment_getVariable(ea));
+
+
+  if ( isEmpty(ea) )
+  {
+    slashCloseStartElement();
+  }
+  else
+  {
+    closeStartElement();
+    upIndent();
+
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
+    notesAndAnnotation( (SBase_t*) ea );
+
+    //
+    // math: Math  (L2v1)
+    // 
+    if ( EventAssignment_isSetMath(ea) )
+    {
+      fMathFormatter->setIndentLevel(fIndentLevel);
+      fMathFormatter->startMath();
+
+      *fMathFormatter << EventAssignment_getMath(ea);
+
+      fMathFormatter->endMath();
+    }
+
+    downIndent();
+    endElement(ELEM_EVENT_ASSIGNMENT);
+  }
 
   return *this;
 }
@@ -1022,29 +1700,37 @@ SBMLFormatter::operator<< (const KineticLaw_t* kl)
 // This #define macro provides a template which is used to create each
 // specific function.  Think, C++ templates without all the added baggage.
 //
-#define makeFn(name, element, type)             \
-void                                            \
-SBMLFormatter::name (ListOf_t* list)            \
-{                                               \
-  unsigned int size = ListOf_getNumItems(list); \
-                                                \
-                                                \
-  if (size > 0)                                 \
-  {                                             \
-    startElement( element );                    \
-                                                \
-    upIndent();                                 \
-                                                \
-    for (unsigned int n = 0; n < size; n++)     \
-    {                                           \
-      *this << ( type * ) ListOf_get(list, n);  \
-    }                                           \
-                                                \
-    downIndent();                               \
-                                                \
-    endElement( element );                      \
-  }                                             \
+#define makeFn(name, element, type)                      \
+void                                                     \
+SBMLFormatter::name (ListOf_t* list)                     \
+{                                                        \
+  unsigned int size = ListOf_getNumItems(list);          \
+                                                         \
+                                                         \
+  if (size > 0)                                          \
+  {                                                      \
+    openStartElement( element );                         \
+    doMetaId( (SBase_t*) list );                         \
+    closeStartElement();                                 \
+                                                         \
+    upIndent();                                          \
+                                                         \
+    if (fLevel > 1) notesAndAnnotation((SBase_t*) list); \
+                                                         \
+    for (unsigned int n = 0; n < size; n++)              \
+    {                                                    \
+      *this << ( type * ) ListOf_get(list, n);           \
+    }                                                    \
+                                                         \
+    downIndent();                                        \
+                                                         \
+    endElement( element );                               \
+  }                                                      \
 }
+
+makeFn( listOfFunctionDefinitions,
+        ELEM_LIST_OF_FUNCTION_DEFINITIONS,
+        FunctionDefinition_t )
 
 makeFn( listOfUnitDefinitions, ELEM_LIST_OF_UNIT_DEFINITIONS, UnitDefinition_t )
 makeFn( listOfUnits          , ELEM_LIST_OF_UNITS           , Unit_t           )
@@ -1056,28 +1742,22 @@ makeFn( listOfReactions      , ELEM_LIST_OF_REACTIONS       , Reaction_t       )
 makeFn( listOfReactants      , ELEM_LIST_OF_REACTANTS     , SpeciesReference_t )
 makeFn( listOfProducts       , ELEM_LIST_OF_PRODUCTS      , SpeciesReference_t )
 
+makeFn( listOfModifiers,
+        ELEM_LIST_OF_MODIFIERS,
+        ModifierSpeciesReference_t );
+
+makeFn( listOfEvents, ELEM_LIST_OF_EVENTS, Event_t )
+
+makeFn( listOfEventAssignments,
+        ELEM_LIST_OF_EVENT_ASSIGNMENTS,
+        EventAssignment_t )
+
 #undef makeFn
 
 
-//
-// Rule Type
-//
-void
-SBMLFormatter::ruleType (const RuleType_t type)
-{
-  //
-  // type  { use="optional" default="scalar" }  (L1v1, L1v2, L2v1)
-  //
-  if (type != RULE_TYPE_SCALAR)
-  {
-    attribute(ATTR_TYPE, RuleType_toString(type));
-  }
-}
-
-
-//
-// Notes
-//
+/**
+ * Notes
+ */
 void
 SBMLFormatter::notes (const char* s)
 {
@@ -1099,9 +1779,9 @@ SBMLFormatter::notes (const char* s)
 }
 
 
-//
-// Annotation
-//
+/**
+ * Annotation
+ */
 void
 SBMLFormatter::annotation (const char* s)
 {
@@ -1116,14 +1796,179 @@ SBMLFormatter::annotation (const char* s)
 }
 
 
-//
-// Notes and Annotation
-//
+/**
+ * Notes and Annotation
+ */
 void
 SBMLFormatter::notesAndAnnotation(const SBase_t* sb)
 {
   notes(sb->notes);
   annotation(sb->annotation);
+}
+
+
+/**
+ * Outputs the <math> element for KineticLaw (L2 only).
+ *
+ * This method does the nescessary conversion if the KineticLaw has only
+ * a formula string set.
+ */
+void
+SBMLFormatter::doKineticLawMath (const KineticLaw_t* kl)
+{
+  ASTNode_t* math;
+
+
+  //
+  // math: Math  (L2v1)
+  //
+  if (fLevel > 1)
+  {
+    if ( KineticLaw_isSetMath(kl) || KineticLaw_isSetFormula(kl) )
+    {
+      fMathFormatter->setIndentLevel(fIndentLevel);
+      fMathFormatter->startMath();
+
+      if ( KineticLaw_isSetMath(kl) )
+      {
+        *fMathFormatter << KineticLaw_getMath(kl);
+      }
+      else
+      {
+        math = SBML_parseFormula( KineticLaw_getFormula(kl) );
+        *fMathFormatter << math;
+        ASTNode_free(math);
+      }
+
+      fMathFormatter->endMath();
+    }
+  }
+}
+
+
+/**
+ * Outputs the metaid attribute for the given SBML object (L2 only).
+ */
+void
+SBMLFormatter::doMetaId (const SBase_t* sb)
+{
+  //
+  // metaid: ID  { use="optional" }  (L2v1)
+  //
+  if (fLevel > 1)
+  {
+    if ( SBase_isSetMetaId(sb) )
+    {
+      attribute(ATTR_META_ID, SBase_getMetaId(sb));
+    }
+  }
+}
+
+
+/**
+ * Outputs the <math> element for Rules (L2 only).
+ *
+ * This method does the nescessary conversion if the rule has only a
+ * formula string set.
+ */
+void
+SBMLFormatter::doRuleMath (const Rule_t* r)
+{
+  ASTNode_t* math;
+
+
+  //
+  // math: Math  (L2v1)
+  //
+  if (fLevel > 1)
+  {
+    if ( Rule_isSetMath(r) || Rule_isSetFormula(r) )
+    {
+      fMathFormatter->setIndentLevel(fIndentLevel);
+      fMathFormatter->startMath();
+
+      if ( Rule_isSetMath(r) )
+      {
+        *fMathFormatter << Rule_getMath(r);
+      }
+      else
+      {
+        math = SBML_parseFormula( Rule_getFormula(r) );
+        *fMathFormatter << math;
+        ASTNode_free(math);
+      }
+
+      fMathFormatter->endMath();
+    }
+  }
+}
+
+
+/**
+ * Outputs the type attribute for Rules (L1 only).
+ */
+void
+SBMLFormatter::doRuleType (const RuleType_t type)
+{
+  //
+  // type  { use="optional" default="scalar" }  (L1v1, L1v2)
+  //
+  if (type != RULE_TYPE_SCALAR)
+  {
+    attribute(ATTR_TYPE, RuleType_toString(type));
+  }
+}
+
+
+/**
+ * Outputs the <stoichiometryMath> element for SpeciesReference (L2 only).
+ */
+void
+SBMLFormatter::doStoichiometryMath (const SpeciesReference_t* sr)
+{
+  int denominator = SpeciesReference_getDenominator(sr);
+
+  ASTNode_t* node;
+  int        numerator;
+
+
+  //
+  // stoichiometryMath: StoichiometryMath  { use="optional" } (L2v1)
+  //
+  // Either output the stoichiometryMath field directly or output
+  // <cn type='rational'> stoichiometry <sep/> denominator </cn>
+  //
+  if (fLevel > 1)
+  {
+    if (SpeciesReference_isSetStoichiometryMath(sr) || denominator != 1)
+    {
+      startElement(ELEM_STOICHIOMETRY_MATH);
+      
+      fMathFormatter->setIndentLevel(fIndentLevel + 1);
+      fMathFormatter->startMath();
+
+      if ( SpeciesReference_isSetStoichiometryMath(sr) )
+      {
+        *fMathFormatter << SpeciesReference_getStoichiometryMath(sr);
+      }
+      else
+      {
+        numerator   = (long) SpeciesReference_getStoichiometry(sr);
+        denominator = (long) SpeciesReference_getDenominator  (sr);
+
+        node = ASTNode_createWithType(AST_RATIONAL);
+        ASTNode_setRational(node, numerator, denominator);
+
+        *fMathFormatter << node;
+
+        ASTNode_free(node);
+      }
+
+      fMathFormatter->endMath();
+
+      endElement(ELEM_STOICHIOMETRY_MATH);
+    }
+  }
 }
 
 
@@ -1145,6 +1990,66 @@ SBMLFormatter::isEmpty (const char* s)
 }
 
 
+/**
+ * @return true if the given Rule contains no child XML elements.
+ */
+bool
+SBMLFormatter::isEmpty (const Rule_t *r)
+{
+  bool result = isEmpty((SBase_t*) r);
+
+
+  if (fLevel > 1)
+  {
+    result = result && !(Rule_isSetFormula(r) || Rule_isSetMath(r));
+  }
+
+  return result;
+}
+
+
+/**
+ * @return true if the given SpeciesReference contains no child XML
+ * elements.
+ */
+bool
+SBMLFormatter::isEmpty (const SpeciesReference_t *sr)
+{
+  bool result = isEmpty((SBase_t*) sr);
+
+
+  if (fLevel > 1)
+  {
+    result = result &&
+             
+             !( SpeciesReference_isSetStoichiometryMath(sr) ||
+                SpeciesReference_getDenominator(sr) != 1 );
+  }
+
+  return result;
+}
+
+
+/**
+ * @return true if the given KineticLaw contains no child XML elements.
+ */
+bool
+SBMLFormatter::isEmpty (const KineticLaw_t* kl)
+{
+  bool result = isEmpty((SBase_t*) kl) &&
+                (KineticLaw_getNumParameters(kl) == 0);
+
+
+  if (fLevel > 1)
+  {
+    result = result &&
+             !( KineticLaw_isSetMath(kl) || KineticLaw_isSetFormula(kl) );
+  }
+
+  return result;
+}
+
+
 //
 // In this context "empty" means either no notes, annotations and other
 // SBML (XML) subelements.
@@ -1155,6 +2060,7 @@ SBMLFormatter::isEmpty (const SBase_t* sb)
 {
   return isEmpty(sb->notes) && isEmpty(sb->annotation);
 }
+
 
 bool
 SBMLFormatter::isEmpty (const Model_t* m)
@@ -1168,11 +2074,20 @@ SBMLFormatter::isEmpty (const Model_t* m)
          (Model_getNumReactions      (m) == 0);
 }
 
+
+bool
+SBMLFormatter::isEmpty (const FunctionDefinition_t* fd)
+{
+  return isEmpty((SBase_t*) fd) && (FunctionDefinition_isSetMath(fd) == 0);
+}
+
+
 bool
 SBMLFormatter::isEmpty (const UnitDefinition_t* ud)
 {
   return isEmpty((SBase_t*) ud) && (UnitDefinition_getNumUnits(ud) == 0);
 }
+
 
 bool
 SBMLFormatter::isEmpty (const Reaction_t* r)
@@ -1180,13 +2095,25 @@ SBMLFormatter::isEmpty (const Reaction_t* r)
   return isEmpty((SBase_t*) r)              &&
          (Reaction_getNumReactants(r) == 0) &&
          (Reaction_getNumProducts (r) == 0) &&
+         (Reaction_getNumModifiers(r) == 0) &&
          r->kineticLaw == NULL;
 }
 
+
 bool
-SBMLFormatter::isEmpty (const KineticLaw_t* kl)
+SBMLFormatter::isEmpty (const Event_t* e)
 {
-  return isEmpty((SBase_t*) kl) && (KineticLaw_getNumParameters(kl) == 0);
+  return isEmpty((SBase_t*) e)                  &&
+         (Event_isSetTrigger          (e) == 0) &&
+         (Event_isSetDelay            (e) == 0) &&
+         (Event_getNumEventAssignments(e) == 0);
+}
+
+
+bool
+SBMLFormatter::isEmpty (const EventAssignment_t* ea)
+{
+  return isEmpty((SBase_t*) ea) && (EventAssignment_isSetMath(ea) == 0);
 }
 
 
@@ -1205,11 +2132,7 @@ makeFn( Unit_t                     )
 makeFn( Compartment_t              )
 makeFn( Species_t                  )
 makeFn( Parameter_t                )
-makeFn( AlgebraicRule_t            )
-makeFn( SpeciesConcentrationRule_t )
-makeFn( CompartmentVolumeRule_t    )
-makeFn( ParameterRule_t            )
-makeFn( SpeciesReference_t         )
+makeFn( ModifierSpeciesReference_t )
 
 #undef makeFn
 
