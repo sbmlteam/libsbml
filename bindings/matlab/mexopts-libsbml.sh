@@ -242,7 +242,7 @@
             FDEBUGFLAGS='-g'
 #
             LD="$COMPILER"
-            LDFLAGS="-pthread -shared -Wl,--version-script,$TMW_ROOT/extern/libglnx86/$MAPFILE"
+            LDFLAGS="-pthread -shared -Wl,--version-script,$TMW_ROOT/extern/lib/glnx86/$MAPFILE"
             LDOPTIMFLAGS='-O'
             LDDEBUGFLAGS='-g'
 #
