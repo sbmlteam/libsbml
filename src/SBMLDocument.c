@@ -467,3 +467,52 @@ SBMLDocument_validate (SBMLDocument_t *d)
     }
   }
 }
+
+
+/**
+ * Validates kinetic laws.  Query the results by
+ * calling SBMLDocument_getNumWarnings, SBMLDocument_getNumErrors,
+ * SBMLDocument_getNumFatals.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_validateKineticLaw (SBMLDocument_t *d)
+{
+	unsigned int size = Model_getNumReactions(d->model);
+	unsigned int n;
+	  
+  Reaction_t     *r;
+	KineticLaw_t   *kl;
+	StringBuffer_t *sb;
+
+  const char *units;
+	const char *msg;
+	
+	
+	for (n = 0; n < size; n++)
+	{
+    r  = Model_getReaction(d->model, n);
+		kl = Reaction_getKineticLaw(r);
+
+    if (kl == NULL) continue;
+
+    units = KineticLaw_getSubstanceUnits(kl);
+    if (units &&
+        ! ( !strcmp(units, "substance") ||
+		        !strcmp(units, "items"    ) ||
+		        !strcmp(units, "moles"    ) ) )
+		{
+			msg = "substanceUnits must be 'substance', 'items', or 'moles' or the values of id attributes of unitDefinition elements that define variants (i.e. have only arbitrary scale, multiplier and offset values) of 'item' or 'moles";
+      sb  = StringBuffer_create(256);
+      
+      StringBuffer_append(sb, "KineticLaw: ");
+      /* TODO: somehow indicate which KineticLaw has the problem */
+      StringBuffer_append(sb, msg);
+      List_add(
+      		d->error,
+         ParseMessage_createWith(StringBuffer_getBuffer(sb), 0, 0)
+      );
+      StringBuffer_free(sb);
+		}
+	}
+}

@@ -149,7 +149,7 @@ START_TEST (test_SBMLDocument_validate)
   SBMLDocument_t *d;
   unsigned int errors;
 
-  const char* s = wrapSBML
+  const char *s = wrapSBML
   (
     "<listOfCompartments>"
     "  <compartment name='c' spatialDimensions='0' size='1'>"
@@ -159,6 +159,31 @@ START_TEST (test_SBMLDocument_validate)
   d = readSBMLFromString(s);
 
   SBMLDocument_validate(d); 
+
+  errors = SBMLDocument_getNumErrors(d);
+
+  fail_unless(errors == 1, NULL);
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_SBMLDocument_validateKineticLaw)
+{
+  SBMLDocument_t *d;
+  unsigned int errors;
+  
+  const char *s = wrapSBML
+  (
+    "<reaction name='J1'>"
+    "  <kineticLaw formula='k1*X0' substanceUnits='foo'/>"
+    "</reaction>"
+  );
+  
+  d = readSBMLFromString(s);
+
+  SBMLDocument_validateKineticLaw(d); 
 
   errors = SBMLDocument_getNumErrors(d);
 
@@ -181,6 +206,7 @@ create_suite_SBMLDocument (void)
   tcase_add_test(tcase, test_SBMLDocument_free_NULL  );
   tcase_add_test(tcase, test_SBMLDocument_setModel   );
   tcase_add_test(tcase, test_SBMLDocument_validate   );
+  tcase_add_test(tcase, test_SBMLDocument_validateKineticLaw);
 
   suite_add_tcase(suite, tcase);
 
