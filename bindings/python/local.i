@@ -167,11 +167,36 @@
 %}
 
 
+%feature("shadow") FunctionDefinition::FunctionDefinition
+%{
+  def __init__(self, *args):
+    _swig_setattr(self, FunctionDefinition, 'this', _libsbml.new_FunctionDefinition(*args))
+    _swig_setattr(self, FunctionDefinition, 'thisown', 1)
+    try:
+      if args[1] is not None: args[1].thisown = 0
+    except (IndexError, AttributeError):
+      pass
+%}
+
+
 %feature("shadow") FunctionDefinition::setMath(ASTNode*)
 %{
   def setMath(*args):
     if args[1] is not None: args[1].thisown = 0
     return _libsbml.FunctionDefinition_setMath(*args)
+%}
+
+
+%feature("shadow") Event::Event(const std::string&, ASTNode*, ASTNode*)
+%{
+  def __init__(self, *args):
+    _swig_setattr(self, Event, 'this', _libsbml.new_Event(*args))
+    _swig_setattr(self, Event, 'thisown', 1)
+    for index in [1, 2]:
+      try:
+        if args[index] is not None: args[index].thisown = 0
+      except (IndexError, AttributeError):
+        pass
 %}
 
 
@@ -199,6 +224,18 @@
 %}
 
 
+%feature("shadow") EventAssignment::EventAssignment(const std::string&, ASTNode*)
+%{
+  def __init__(self, *args):
+    _swig_setattr(self, EventAssignment, 'this', _libsbml.new_EventAssignment(*args))
+    _swig_setattr(self, EventAssignment, 'thisown', 1)
+    try:
+      if args[1] is not None: args[1].thisown = 0
+    except (IndexError, AttributeError):
+      pass
+%}
+
+
 %feature("shadow") EventAssignment::setMath(ASTNode*)
 %{
   def setMath(*args):
@@ -212,6 +249,42 @@
   def setMath(*args):
     if args[1] is not None: args[1].thisown = 0
     return _libsbml.Rule_setMath(*args)
+%}
+
+
+%feature("shadow") AssignmentRule::AssignmentRule
+%{
+  def __init__(self, *args):
+    _swig_setattr(self, AssignmentRule, 'this', _libsbml.new_AssignmentRule(*args))
+    _swig_setattr(self, AssignmentRule, 'thisown', 1)
+    try:
+      if args[1] is not None: args[1].thisown = 0
+    except (IndexError, AttributeError):
+      pass
+%}
+
+
+%feature("shadow") AlgebraicRule::AlgebraicRule
+%{
+  def __init__(self, *args):
+    _swig_setattr(self, AlgebraicRule, 'this', _libsbml.new_AlgebraicRule(*args))
+    _swig_setattr(self, AlgebraicRule, 'thisown', 1)
+    try:
+      if args[0] is not None: args[0].thisown = 0
+    except (IndexError, AttributeError):
+      pass
+%}
+
+
+%feature("shadow") RateRule::RateRule
+%{
+  def __init__(self, *args):
+    _swig_setattr(self, RateRule, 'this', _libsbml.new_RateRule(*args))
+    _swig_setattr(self, RateRule, 'thisown', 1)
+    try:
+      if args[1] is not None: args[1].thisown = 0
+    except (IndexError, AttributeError):
+      pass
 %}
 
 

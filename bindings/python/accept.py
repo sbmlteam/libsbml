@@ -50,7 +50,7 @@
 ##
 
 
-import sys
+import sys, operator
 import libsbml
 
 def isNaN(x):
@@ -202,9 +202,20 @@ def testFunctionDefinition():
    fd = libsbml.FunctionDefinition()
    assert fd and fd.thisown == 1
 
-   formula = libsbml.parseFormula("1 + 1")
-   fd.setMath(formula)
+   fd = libsbml.FunctionDefinition("id1", "formula0")
+   assert fd and fd.thisown == 1
 
+   formula1 = libsbml.parseFormula("2 + 8")
+   assert formula1.thisown == 1
+
+   fd = libsbml.FunctionDefinition("id", formula1)
+   assert fd and fd.thisown == 1
+   assert formula1.thisown == 0
+
+   formula = libsbml.parseFormula("1 + 1")
+   assert formula.thisown == 1
+
+   fd.setMath(formula)
    assert formula.thisown == 0
 
 
@@ -233,6 +244,22 @@ def testSpeciesReference():
 def testEvent():
    event = libsbml.Event()
    assert event
+
+   event = libsbml.Event("eventId0", "trigger", "delay")
+   assert event
+
+   trigger1 = libsbml.parseFormula("1")
+   assert trigger1.thisown == 1
+   event = libsbml.Event("eventId1", trigger1)
+   assert trigger1.thisown == 0
+
+   trigger2 = libsbml.parseFormula("2")
+   assert trigger2.thisown == 1
+   delay = libsbml.parseFormula("3")
+   assert delay.thisown == 1
+   event = libsbml.Event("eventId2", trigger2, delay)
+   assert trigger2.thisown == 0
+   assert delay.thisown == 0
 
    # setTrigger()
 
@@ -264,7 +291,14 @@ def testEvent():
 
 def testEventAssignment():
    eventAssignment = libsbml.EventAssignment()
+   eventAssignment = libsbml.EventAssignment("var1", "formula0")
+
+   formula1 = libsbml.parseFormula("9 + 9")
+   assert formula1.thisown == 1
+
+   eventAssignment = libsbml.EventAssignment("var", formula1)
    assert eventAssignment
+   assert formula1.thisown == 0
 
    formula = libsbml.parseFormula("10 + 10")
    assert formula.thisown == 1
@@ -273,17 +307,35 @@ def testEventAssignment():
    assert formula.thisown == 0
 
 
-def testRule():
+def testRules():
+   formula1 = libsbml.parseFormula("3 + 4")
+   formula2 = libsbml.parseFormula("5 + 6")
+   formula3 = libsbml.parseFormula("7 + 8")
+
+   assert formula1.thisown == 1
+   assert formula2.thisown == 1
+   assert formula3.thisown == 1
+
    rules = [
       libsbml.AssignmentRule(),
+      libsbml.AssignmentRule("var", "formula"),
+      libsbml.AssignmentRule("var", formula1, libsbml.RULE_TYPE_SCALAR),
       libsbml.AlgebraicRule(),
-      libsbml.RateRule()
+      libsbml.AlgebraicRule("formula"),
+      libsbml.AlgebraicRule(formula2),
+      libsbml.RateRule(),
+      libsbml.RateRule("var", "formula"),
+      libsbml.RateRule("var", formula3),
    ]
+
+   assert formula1.thisown == 0
+   assert formula2.thisown == 0
+   assert formula3.thisown == 0
 
    for rule in rules:
       assert rule
 
-      formula = libsbml.parseFormula("11 + 11")
+      formula = libsbml.parseFormula("11 + 12")
       assert formula.thisown == 1
 
       rule.setMath(formula)
@@ -474,7 +526,6 @@ def testSBMLReader():
 
    doc = libsbml.readSBMLFromString(sbmlString)
    assert doc.thisown == 1
-
 
 
 class TestRunner:
