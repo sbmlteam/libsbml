@@ -285,10 +285,12 @@ num_vars       = $(words $(check_var_list))
 num_vars_set   = $(words $(foreach var,$(check_var_list),$($(var))))
 
 config-check:
-	@if test $(num_vars_set) != $(num_vars); then \
-	  echo "Please reconfigure with all options enabled before doing 'make dist'"; \
-	  exit 2; \
-	fi
+# 2004-09-27 <mhucka@caltech.edu>
+# This is causing too many problems right now -- skip until further notice.
+#	@if test $(num_vars_set) != $(num_vars); then \
+#	  echo "Please reconfigure with all options enabled before doing 'make dist'"; \
+#	  exit 2; \
+#	fi
 
 dist-all: $(distfiles)
 	$(MAKE) $(MAKEFLAGS) all
