@@ -84,6 +84,7 @@ void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 
 mxArray * CreateIntScalar (int);
 char    * TypecodeToChar  (SBMLTypeCode_t);
+char    * RuleTypeToChar  (RuleType_t);
 
 
 static mxArray * mxSpeciesReturn             = NULL;
@@ -463,6 +464,38 @@ TypecodeToChar (SBMLTypeCode_t typecode)
   }
 
   return pacTypecode;
+}
+
+/**
+ * NAME:    RuleTypeToChar
+ *
+ * PARAMETERS:  RuleType_t typecode 
+ *
+ * RETURNS:    char *
+ *
+ * FUNCTION:  converts ruletype to humanly readable string
+ *
+char *
+RuleTypeToChar (RuleType_t ruletype)
+{
+  char * pacType;
+
+  switch (ruletype)
+  {
+    case SBML_COMPARTMENT:
+      pacType = "scalar";
+      break;
+
+    case SBML_EVENT:
+      pacType = "rate";
+      break;
+
+    default:
+      pacType = "invalid";
+      break;
+  }
+
+  return pacType;
 }
 
 
@@ -1857,21 +1890,34 @@ GetListRule ( Model_t      *pModel,
   int dims[2] = {1, n};
 
   /* fields within a rule structure */
-  const int nNoFields = 9;
-  const char *field_names[] = {	"typecode", 
-								"notes", 
-								"annotation",
-								"formula", 
-								"variable", 
-								"species", 
-								"compartment",
-								"name", 
-								"units"};
+  const int nNoFields_l1 = 10;
+  const char *field_names_l1[] = {	"typecode", 
+                                	"notes", 
+                                    "annotation",
+                                    "type",
+                                    "formula", 
+                                    "variable", 
+                                    "species", 
+                                    "compartment",
+                                    "name", 
+                                    "units"};
+ 
+  const int nNoFields_l2 = 9;
+  const char *field_names_l2[] = {	"typecode", 
+                                	"notes", 
+                                    "annotation",
+                                    "formula", 
+                                    "variable", 
+                                    "species", 
+                                    "compartment",
+                                    "name", 
+                                    "units"};
   
   /* determine the values */
   const char * pacTypecode;
   const char * pacNotes;
   const char * pacAnnotations;
+  const char * pacType = NULL;
   const char * pacFormula = NULL;
   const char * pacVariable = NULL;
   const char * pacSpecies = NULL;
@@ -1886,8 +1932,12 @@ GetListRule ( Model_t      *pModel,
    * create the structure array 
    * n instances
    */
-  mxListRuleReturn = mxCreateStructArray(2, dims, nNoFields, field_names);
-
+  if (unSBMLLevel == 1) {
+    mxListRuleReturn = mxCreateStructArray(2, dims, nNoFields_l1, field_names_l1);
+  }
+  else if (unSBMLLevel == 2) {
+    mxListRuleReturn = mxCreateStructArray(2, dims, nNoFields_l2, field_names_l2);
+  }
 
   for (i = 0; i < n; i++) {
     /* determine the values */
@@ -1910,6 +1960,9 @@ GetListRule ( Model_t      *pModel,
     /* values for different types of rules */
     switch(SBase_getTypeCode(pRule)) {
       case SBML_ASSIGNMENT_RULE:
+        if (unSBMLLevel == 1) {
+            pacType = RuleType_toString(AssignmentRule_getType((AssignmentRule_t *) pRule));
+        }
         if (AssignmentRule_isSetVariable((AssignmentRule_t *) pRule) == 1) {
           pacVariable = AssignmentRule_getVariable((AssignmentRule_t *) pRule);
         }
@@ -1941,10 +1994,12 @@ GetListRule ( Model_t      *pModel,
         pacUnits = "";
         break;
       case SBML_SPECIES_CONCENTRATION_RULE:
+        if (unSBMLLevel == 1) {
+            pacType = RuleType_toString(AssignmentRule_getType((SpeciesConcentrationRule_t *) pRule));
+        }
         pacVariable = "";
         if (SpeciesConcentrationRule_isSetSpecies((SpeciesConcentrationRule_t *) pRule) == 1) {
-          pacSpecies =
-            SpeciesConcentrationRule_getSpecies((SpeciesConcentrationRule_t *) pRule);
+          pacSpecies = SpeciesConcentrationRule_getSpecies((SpeciesConcentrationRule_t *) pRule);
         }
         else {
           pacSpecies = "";
@@ -1954,7 +2009,10 @@ GetListRule ( Model_t      *pModel,
         pacUnits = "";
         break;
       case SBML_COMPARTMENT_VOLUME_RULE:
-        pacVariable = "";
+         if (unSBMLLevel == 1) {
+            pacType = RuleType_toString(AssignmentRule_getType((CompartmentVolumeRule_t *) pRule));
+        }
+       pacVariable = "";
         pacSpecies = "";
         if (CompartmentVolumeRule_isSetCompartment((CompartmentVolumeRule_t *) pRule) == 1) {
           pacCompartment = CompartmentVolumeRule_getCompartment((CompartmentVolumeRule_t *) pRule);
@@ -1966,6 +2024,9 @@ GetListRule ( Model_t      *pModel,
         pacUnits = "";
         break;
       case SBML_PARAMETER_RULE:
+        if (unSBMLLevel == 1) {
+            pacType = RuleType_toString(AssignmentRule_getType((ParameterRule_t *) pRule));
+        }
         pacVariable = "";
         pacSpecies = "";
         pacCompartment = "";
@@ -2007,11 +2068,17 @@ GetListRule ( Model_t      *pModel,
     if (pacFormula == NULL) {
       pacFormula = "";
     }
+    if (pacType == NULL) {
+      pacType = "";
+    }
 
     /* put into structure */
     mxSetField(mxListRuleReturn,i,"typecode",mxCreateString(pacTypecode)); 
     mxSetField(mxListRuleReturn, i, "notes",mxCreateString(pacNotes));
     mxSetField(mxListRuleReturn, i, "annotation",mxCreateString(pacAnnotations));
+    if (unSBMLLevel == 1){
+        mxSetField(mxListRuleReturn,i,"type",mxCreateString(pacType));
+    }
     mxSetField(mxListRuleReturn,i,"formula",mxCreateString(pacFormula)); 
     mxSetField(mxListRuleReturn,i,"variable",mxCreateString(pacVariable)); 
     mxSetField(mxListRuleReturn,i,"species",mxCreateString(pacSpecies)); 
