@@ -111,7 +111,7 @@ END_C_DECLS
  *
  * Declared extern in TestReadFromFileN suites.
  */
-static char *TestDataDirectory;
+char *TestDataDirectory;
 
 
 /**
