@@ -53,7 +53,7 @@
 #ifndef SBMLWriter_hpp
 #define SBMLWriter_hpp
 
-#include <iostream>
+#include <iosfwd>
 
 #include "extern.h"
 #include "SBMLDocument.hpp"
