@@ -77,6 +77,7 @@ Suite *create_suite_KineticLaw               (void);
 Suite *create_suite_List                     (void);
 Suite *create_suite_ListOf                   (void);
 Suite *create_suite_MathMLDocument           (void);
+Suite *create_suite_MathMLFormatter          (void);
 Suite *create_suite_MathMLHandler            (void);
 Suite *create_suite_Model                    (void);
 Suite *create_suite_ModifierSpeciesReference (void);
@@ -176,6 +177,7 @@ main (void)
   srunner_add_suite( runner, create_suite_List                     () );
   srunner_add_suite( runner, create_suite_ListOf                   () );
   srunner_add_suite( runner, create_suite_MathMLDocument           () );
+  srunner_add_suite( runner, create_suite_MathMLFormatter          () );
   srunner_add_suite( runner, create_suite_MathMLHandler            () );
   srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
@@ -209,7 +211,6 @@ main (void)
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );
   srunner_add_suite( runner, create_suite_TestReadFromFile3() );
   srunner_add_suite( runner, create_suite_TestReadFromFile4() );
-
 
   setTestDataDirectory();
 
