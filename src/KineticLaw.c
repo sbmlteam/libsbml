@@ -194,6 +194,9 @@ LIBSBML_EXTERN
 void
 KineticLaw_setFormula (KineticLaw_t *kl, const char *string)
 {
+  if (kl->formula == string) return;
+
+
   if (kl->formula != NULL)
   {
     safe_free(kl->formula);
@@ -210,6 +213,9 @@ LIBSBML_EXTERN
 void
 KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sname)
 {
+  if (kl->timeUnits == sname) return;
+
+
   if (kl->timeUnits != NULL)
   {
     safe_free(kl->timeUnits);
@@ -226,6 +232,9 @@ LIBSBML_EXTERN
 void
 KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sname)
 {
+  if (kl->substanceUnits == sname) return;
+
+
   if (kl->substanceUnits != NULL)
   {
     safe_free(kl->substanceUnits);

@@ -140,6 +140,10 @@ START_TEST (test_KineticLaw_setFormula)
     fail("KineticLaw_setFormula(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  KineticLaw_setFormula(KL, KL->formula);
+  fail_unless( !strcmp(KL->formula, formula), NULL );
+
   KineticLaw_setFormula(KL, NULL);
   fail_unless( !KineticLaw_isSetFormula(KL), NULL );
 
@@ -166,6 +170,10 @@ START_TEST (test_KineticLaw_setTimeUnits)
     fail("KineticLaw_setTimeUnits(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  KineticLaw_setTimeUnits(KL, KL->timeUnits);
+  fail_unless( !strcmp(KL->timeUnits, units), NULL );
+
   KineticLaw_setTimeUnits(KL, NULL);
   fail_unless( !KineticLaw_isSetTimeUnits(KL), NULL );
 
@@ -191,6 +199,10 @@ START_TEST (test_KineticLaw_setSubstanceUnits)
   {
     fail("KineticLaw_setSubstanceUnits(...) did not make a copy of string.");
   }
+
+  /* Reflexive case (pathological) */
+  KineticLaw_setSubstanceUnits(KL, KL->substanceUnits);
+  fail_unless( !strcmp(KL->substanceUnits, units), NULL );
 
   KineticLaw_setSubstanceUnits(KL, NULL);
   fail_unless( !KineticLaw_isSetSubstanceUnits(KL), NULL );
