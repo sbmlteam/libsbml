@@ -27,7 +27,7 @@
 
 \funding{\libsbmlfunding{}}
 
-\date{\today{}\\[10pt]\hspace*{-1ex}\libsbml{} Version \libsbmlversion()}
+\date{\today{}\\[10pt]\hspace*{-1ex}\libsbml{} Version \libsbmlversion{}}
 
 \maketitlepage
 
@@ -826,7 +826,7 @@ elaborated in the discussion of setters in the next section.
 Figure~\vref{fig:print-species} provides an example of using getters. 
 
 \begin{figure}[thb]
-  \begin{codeVerbatim}[C,flexiblecolumns=false]
+  \begin{codeVerbatim}
 /** 
  * Prints some basic information about an SBML Level 2 Species.
  */
@@ -840,12 +840,12 @@ myPrintSpecies (Species_t *s, FILE *stream)
   }
 
   const char none[] = "(none)";
-  const char *id = Species_getId(s);
-  const char *name = Species_getName(s);
-  const char *comp = Species_getCompartment(s);
+  const char *id      = Species_getId(s);
+  const char *name    = Species_getName(s);
+  const char *comp    = Species_getCompartment(s);
 
-  fprintf(stream, "    Species id: %s\n", id   != NULL ? id : none);
-  fprintf(stream, "          name: %s\n", name != NULL ? name : none);
+  fprintf(stream, "      Species id: %s\n", id   != NULL ? id : none);
+  fprintf(stream, "             name: %s\n", name != NULL ? name : none);
   fprintf(stream, "compartment id: %s\n", comp != NULL ? comp : none);
 }
   \end{codeVerbatim}
@@ -1824,7 +1824,7 @@ to be \shell{examples}.
 The complete text of \shell{readSBML} is shown in Figure~\vref{fig:printsbml}.
 
 \begin{figure}
-\begin{codeVerbatim}[C,flexiblecolumns=false]
+\begin{codeVerbatim}
 #include <stdio.h>
 
 #include "sbml/SBMLTypes.h"
@@ -1847,7 +1847,7 @@ main (int argc, char *argv[])
   d = readSBML(argv[1]);
   m = SBMLDocument_getModel(d);
 
-  level   = SBMLDocument_getLevel  (d);
+  level    = SBMLDocument_getLevel  (d);
   version = SBMLDocument_getVersion(d);
 
   printf("\n");
@@ -1860,23 +1860,22 @@ main (int argc, char *argv[])
   }
   else
   {
-    printf("  model id: %s\n", 
-           Model_isSetId(m) ? Model_getId(m) : "(empty)");
+    printf("  model id: %s\n", Model_isSetId(m) ? Model_getId(m) : "(empty)");
   }
 
   printf("functionDefinitions: %d\n", Model_getNumFunctionDefinitions(m));
-  printf("    unitDefinitions: %d\n", Model_getNumUnitDefinitions(m)    );
-  printf("       compartments: %d\n", Model_getNumCompartments(m)       );
-  printf("            species: %d\n", Model_getNumSpecies(m)            );
-  printf("         parameters: %d\n", Model_getNumParameters(m)         );
-  printf("          reactions: %d\n", Model_getNumReactions(m)          );
-  printf("              rules: %d\n", Model_getNumRules(m)              );
-  printf("             events: %d\n", Model_getNumEvents(m)             );
+  printf("     unitDefinitions: %d\n", Model_getNumUnitDefinitions(m)    );
+  printf("        compartments: %d\n", Model_getNumCompartments(m)       );
+  printf("              species: %d\n", Model_getNumSpecies(m)            );
+  printf("          parameters: %d\n", Model_getNumParameters(m)         );
+  printf("           reactions: %d\n", Model_getNumReactions(m)          );
+  printf("                rules: %d\n", Model_getNumRules(m)              );
+  printf("               events: %d\n", Model_getNumEvents(m)             );
   printf("\n");
 
   SBMLDocument_printWarnings(d, stdout);
-  SBMLDocument_printErrors  (d, stdout);
-  SBMLDocument_printFatals  (d, stdout);
+  SBMLDocument_printErrors   (d, stdout);
+  SBMLDocument_printFatals   (d, stdout);
 
   SBMLDocument_free(d);
   return 0;
@@ -2291,7 +2290,7 @@ the mathematical expressions.
 
 
 \begin{figure}[b]
-  \begin{codeVerbatim}[C,flexiblecolumns=false]
+  \begin{codeVerbatim}
 #include <stdio.h>
 #include <string.h>
 #include "sbml/SBMLTypes.h"
@@ -2403,7 +2402,7 @@ object names are converted to \attrib{id}'s (which do not exist in
 Level~1).
 
 \begin{figure}[bth]
-  \begin{codeVerbatim}[C,flexiblecolumns=false]
+  \begin{codeVerbatim}
 #include <stdio.h>
 #include "sbml/SBMLTypes.h"
 
@@ -2592,8 +2591,10 @@ itself.
 \label{sec:acknowledgments}
 %=============================================================================
 
-Thanks to Mike Hucka for updating and editing this manual for version 2.0
-of \libsbml{}.
+Thanks to Mike Hucka for updating and editing this manual for versions 2.0
+and 2.1 of \libsbml{}, for developing the look-and-feel and the LaTeX style
+used for this and other SBML-related manuals, and for developing the
+LaTeX2HTML macros used to create the HTML version.
 
 
 
