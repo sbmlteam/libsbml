@@ -50,6 +50,11 @@
  */
 
 
+#include "sbml/SpeciesReference.hpp"
+#include "sbml/ModifierSpeciesReference.hpp"
+#include "sbml/KineticLaw.hpp"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/Reaction.h"
 #include "sbml/Reaction.hpp"
 
@@ -82,6 +87,72 @@ LIBSBML_EXTERN
 Reaction::~Reaction ()
 {
   delete kineticLaw;
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next
+ * Reaction (if available).
+ */
+LIBSBML_EXTERN
+bool
+Reaction::accept (SBMLVisitor& v) const
+{
+  unsigned int n;
+  bool next, result;
+
+
+  result = v.visit(*this);
+
+  //
+  // Reactant
+  //
+
+  getListOfReactants().accept(v, SBML_SPECIES_REFERENCE);
+
+  for (n = 0, next = true; n < getNumReactants() && next; n++)
+  {
+    next = getReactant(n)->accept(v);
+  }
+
+  v.leave(getListOfReactants(), SBML_SPECIES_REFERENCE);
+
+
+  //
+  // Product
+  //
+
+  getListOfProducts().accept(v, SBML_SPECIES_REFERENCE);
+
+  for (n = 0, next = true; n < getNumProducts() && next; n++)
+  {
+    next = getProduct(n)->accept(v);
+  }
+
+  v.leave(getListOfProducts(), SBML_SPECIES_REFERENCE);
+
+
+  //
+  // Modifier
+  //
+
+  getListOfModifiers().accept(v, SBML_MODIFIER_SPECIES_REFERENCE);
+
+  for (n = 0, next = true; n < getNumModifiers() && next; n++)
+  {
+    next = getModifier(n)->accept(v);
+  }
+
+  v.leave(getListOfModifiers(), SBML_MODIFIER_SPECIES_REFERENCE);
+
+  if (kineticLaw != NULL) kineticLaw->accept(v);
+
+  v.leave(*this);
+
+  return result;
 }
 
 
@@ -352,6 +423,17 @@ Reaction::getListOfReactants ()
 
 
 /**
+ * @return the list of Reactants for this Reaction.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Reaction::getListOfReactants () const
+{
+  return reactant;
+}
+
+
+/**
  * @return the list of Products for this Reaction.
  */
 LIBSBML_EXTERN
@@ -363,11 +445,33 @@ Reaction::getListOfProducts ()
 
 
 /**
+ * @return the list of Products for this Reaction.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Reaction::getListOfProducts () const
+{
+  return product;
+}
+
+
+/**
  * @return the list of Modifiers for this Reaction.
  */
 LIBSBML_EXTERN
 ListOf&
 Reaction::getListOfModifiers ()
+{
+  return modifier;
+}
+
+
+/**
+ * @return the list of Modifiers for this Reaction.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Reaction::getListOfModifiers () const
 {
   return modifier;
 }
@@ -390,7 +494,7 @@ Reaction::getReactant (unsigned int n) const
  */
 LIBSBML_EXTERN
 SpeciesReference*
-Reaction::getReactantById (const std::string& sid) const
+Reaction::getReactant (const std::string& sid) const
 {
   void* x =
     reactant.find(sid.c_str(), (ListItemComparator) SimpleSpeciesReferenceCmp);
@@ -417,7 +521,7 @@ Reaction::getProduct (unsigned int n) const
  */
 LIBSBML_EXTERN
 SpeciesReference*
-Reaction::getProductById (const std::string& sid) const
+Reaction::getProduct (const std::string& sid) const
 {
   void* x =
     product.find(sid.c_str(), (ListItemComparator) SimpleSpeciesReferenceCmp);
@@ -444,7 +548,7 @@ Reaction::getModifier (unsigned int n) const
  */
 LIBSBML_EXTERN
 ModifierSpeciesReference*
-Reaction::getModifierById (const std::string& sid) const
+Reaction::getModifier (const std::string& sid) const
 {
   void* x =
     modifier.find(sid.c_str(), (ListItemComparator) SimpleSpeciesReferenceCmp);
@@ -901,7 +1005,7 @@ Reaction_getReactantById (const Reaction_t *r, const char *sid)
   if (sid == NULL) return NULL;
 
 
-  return static_cast<const Reaction*>(r)->getReactantById(sid);
+  return static_cast<const Reaction*>(r)->getReactant(sid);
 }
 
 
@@ -927,7 +1031,7 @@ Reaction_getProductById (const Reaction_t *r, const char *sid)
   if (sid == NULL) return NULL;
 
 
-  return static_cast<const Reaction*>(r)->getProductById(sid);
+  return static_cast<const Reaction*>(r)->getProduct(sid);
 }
 
 
@@ -953,7 +1057,7 @@ Reaction_getModifierById (const Reaction_t *r, const char *sid)
   if (sid == NULL) return NULL;
 
 
-  return static_cast<const Reaction*>(r)->getModifierById(sid);
+  return static_cast<const Reaction*>(r)->getModifier(sid);
 }
 
 
