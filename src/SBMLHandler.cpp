@@ -1770,7 +1770,7 @@ SBMLHandler::setMath (ASTNode* math)
       break;
 
     case SBML_SPECIES_REFERENCE:
-      static_cast<SpeciesReference*>(obj)->setStoichiometryMath(math);
+      setStoichiometryMath(static_cast<SpeciesReference*>(obj), math);
       break;
 
     case SBML_KINETIC_LAW:
