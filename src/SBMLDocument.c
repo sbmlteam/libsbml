@@ -50,6 +50,7 @@
  */
 
 
+#include "sbml/SBMLConvert.h"
 #include "sbml/SBMLDocument.h"
 
 
@@ -377,7 +378,7 @@ SBMLDocument_setLevel (SBMLDocument_t *d, unsigned int level)
 {
   if (d->level == 1 && level == 2)
   {
-    SBML_convertToL2(d);
+    SBML_convertToL2( (SBase_t *) d );
   }
   else
   {
