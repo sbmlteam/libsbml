@@ -209,11 +209,12 @@ html:
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: install-libraries
+install:
+	$(PYTHON) setup.py install --skip-build 
 
-uninstall: uninstall-libraries
+uninstall:
 
-installcheck: installcheck-libraries
+installcheck:
 
 
 # -----------------------------------------------------------------------------
