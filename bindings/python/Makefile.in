@@ -109,7 +109,7 @@ extra_LIBS     = -L../../src -lsbml $(PYTHON_LIBS)
 ifeq "$(USE_EXPAT)" "1"
   extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
   extra_LDFLAGS  += $(EXPAT_LDFLAGS) -L../../expat
-  extra_LIBS     += $(EXPAT_LIBS) -lexpat-compat
+  extra_LIBS     += $(EXPAT_LIBS)
 else
   extra_CPPFLAGS += $(XERCES_CPPFLAGS)
   extra_LDFLAGS  += $(XERCES_LDFLAGS)
