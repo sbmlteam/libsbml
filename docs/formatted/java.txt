@@ -62,7 +62,7 @@
 
    Here is a very simple program that reads in an SBML model:
 
-      import libsbml.*;
+      import org.sbml.libsbml.*;
 
       public class Demo1
       {
@@ -96,7 +96,7 @@
 
    Key libSBML-related elements:
 
-      import libsbml.*;
+      import org.sbml.libsbml.*;
 
          Brings all the libSBML classes and constants into the
          present namespace.
@@ -202,7 +202,7 @@
    modify an SBase object, and how to write an SBML document to
    disk.  Here is the complete program:
 
-      import libsbml.*;
+      import org.sbml.libsbml.*;
 
       public class Demo
       {
