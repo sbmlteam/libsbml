@@ -95,5 +95,8 @@
 #include "FormulaParser.h"
 #include "FormulaFormatter.h"
 
+#include "MathMLDocument.h"
+#include "MathMLReader.h"
+#include "MathMLWriter.h"
 
 #endif  /** SBMLTypes_h **/
