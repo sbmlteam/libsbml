@@ -1,12 +1,14 @@
 \documentclass{cekmanual}
 
+\newcommand{\libsbml}{\textsc{libsbml}}
+
 \begin{document}
 
 %=============================================================================
 % Title page
 %=============================================================================
 
-\title{\textsc{libsbml}\\[5pt]
+\title{\libsbml{}\\[5pt]
   Developer's Manual}
 
 \author{Ben Bornstein}
@@ -17,7 +19,7 @@
   ERATO Kitano Symbiotic Systems Project\\
   Control and Dynamical Systems, MC 107-81\\
   California Institute of Technology, Pasadena, CA 91125, USA\\[3pt]
-  {\url{http://sbw-sbml.org/}}}
+  {\url{http://sbml.org/}}}
 
 \acknowledge{Principal Investigators: John Doyle and Hiroaki Kitano}
 
@@ -34,7 +36,7 @@
 \label{sec:quickstart-unix}
 %=============================================================================
 
-\textsc{Libsbml} depends on Apache's Xerces-C++ XML library for
+\libsbml{} depends on Apache's Xerces-C++ XML library for
 low-level XML tokenizing and Unicode support.  Xerces is supported on
 Unix (Linux), Windows and MacOS X.  Many popular Linux systems provide
 the Xerces library either as part of their standard distribution or as
@@ -87,21 +89,27 @@ Debug Multithreaded DLL version of the VC++ runtime, respectively.
 \label{sec:introduction}
 %=============================================================================
 
-This manual describes \textsc{libsbml}, a C API for reading, writing
-and manipulating the Systems Biology Markup Language (SBML).
-Currently, the library supports SBML level 1, versions 1 and 2.
-Support for SBML level 2 is nearing completion.  RDF and writing L2
-documents are only features left to be implemented.
+This manual describes \textsc{libsbml}, a C application programming
+interface (API) library for reading, writing and manipulating the Systems
+Biology Markup
+Language~\citep[SBML;][]{hucka:2001,hucka:2003,finney:2003c}.  Currently,
+the library supports SBML Level~1 Version~1 and Version~2, and nearly all
+of SBML Level~2 Version~1.  (The still-unimplemented parts of Level~2 are:
+support for RDF, and support for MathML's \texttt{semantics},
+\texttt{annotation} and \texttt{annotation-xml} elements.  These will be
+implemented in the near future.)  For more information about SBML, please
+see the references or visit \url{http://www.sbml.org/} on the Internet.
 
 Since the library provides a C API, familiarity with the C programming
 language is assumed.  Some parts of the library were written in C++,
 however, experience with C++ is not required; its use is ``hidden''
-behind C functions.
+behind C functions.  A companion document~\citep{bornstein:2003b} provides
+a detailed reference manual for the API.
 
-\textsc{Libsbml} is entirely open-source and all specifications and
+\libsbml{} is entirely open-source and all specifications and
 source code are freely and publicly available.  For more information
 about SBML, please see the references section or visit
-\url{http://www.sbw-sbml.org/}.
+\url{http://www.sbml.org/}.
 
 Some of the features of \textsc{libsbml} include:
 
@@ -202,7 +210,7 @@ Some of the features of \textsc{libsbml} include:
 %=============================================================================
 
 
-\textsc{Libsbml} depends on Apache's Xerces-C++ XML library for
+\libsbml{} depends on Apache's Xerces-C++ XML library for
 low-level XML tokenizing and Unicode support.  Xerces is supported on
 Unix (Linux), Windows and MacOS X.  Many popular Linux systems provide
 the Xerces library either as part of their standard distribution or as
@@ -211,13 +219,15 @@ distribution which includes both a DLL and a LIB file.
 
 For more information, see:
 
+\begin{quote}
   \url{http://xml.apache.org/xerces-c/}
+\end{quote}
 
 A good way to determine whether or not Xerces-C is installed is to run
 the build script (see below); it will halt if it cannot find the
 Xerces-C library.
 
-\textsc{Libsbml} is designed to be extremely portable.  It is written
+\libsbml{} is designed to be extremely portable.  It is written
 in 100\% pure ANSI-C and the build system uses the GNU Autotools
 (Autoconf, Automake and Libtool).  In most cases, building should be
 as easy unpacking the sources and running:
@@ -265,7 +275,9 @@ framework popularized by Kent Beck and eXtrememe Programming (all of
 quite small and once installed, it consists of only two files:
 \texttt{libcheck.a} and \texttt{check.h}.  To download Check, visit:
 
-  \url{http://check.sf.net/}
+\begin{quote}
+\url{http://check.sf.net/}
+\end{quote}
 
 \textbf{Note:} Debian users can find Check as a standard add-on
 package (.deb).
@@ -713,7 +725,7 @@ that depend upon it to function correctly (in accordance with the SBML
 specifications).  Take for example the case of outputting SBML for a
 \class{Species}.  \class{Species} has an optional charge attribute,
 which means it need not ever be read-in (specified), written or
-manipulated.  For this reason, \textsc{Libsbml} must be able to
+manipulated.  For this reason, \libsbml{} must be able to
 determine the set or unset state of the \variable{charge} field to
 either output or omit the field as appropriate.
 
@@ -1671,124 +1683,57 @@ there are two simpler equivalents to the above functions:
 
 
 %=============================================================================
-\appendix
-\section{API Reference}
+\section{Handling of Mathematical Formulas and MathML}
+\label{sec:writing-sbml}
 %=============================================================================
 
-\include{api/AlgebraicRule}
-\include{api/AssignmentRule}
-\include{api/ASTNode}
-\include{api/Compartment}
-\include{api/CompartmentVolumeRule}
-\include{api/EventAssignment}
-\include{api/Event}
-\include{api/FormulaFormatter}
-\include{api/FormulaParser}
-\include{api/FormulaTokenizer}
-\include{api/FunctionDefinition}
-\include{api/KineticLaw}
-\include{api/ListOf}
-\include{api/List}
-\include{api/MathMLDocument}
-\include{api/MathMLReader}
-\include{api/memory}
-\include{api/Model}
-\include{api/ModifierSpeciesReference}
-\include{api/ParameterRule}
-\include{api/Parameter}
-\include{api/ParseMessage}
-\include{api/RateRule}
-\include{api/Reaction}
-\include{api/Rule}
-\include{api/RuleType}
-\include{api/SBase}
-\include{api/SBMLDocument}
-\include{api/SBMLReader}
-\include{api/SBMLTypeCodes}
-\include{api/SBMLTypes}
-\include{api/SBMLWriter}
-\include{api/SimpleSpeciesReference}
-\include{api/SpeciesConcentrationRule}
-\include{api/SpeciesReference}
-\include{api/Species}
-\include{api/Stack}
-\include{api/StringBuffer}
-\include{api/UnitDefinition}
-\include{api/UnitKind}
-\include{api/Unit}
-\include{api/util}
+\libsbml{} can read and write MathML 2.0~\citep{w3c:2000b} content in SBML
+documents and data streams, as well as translate between MathML and the
+text-string formulas used in SBML Level~1~\citep{hucka:2001,hucka:2003}.
+This section describes the MathML and mathematics handling capabilities of
+\libsbml{}.
+
+
+%-----------------------------------------------------------------------------
+\subsection{Reading and Writing MathML Content and Formula Strings}
+\label{sec:reading-writing-mathml}
+%-----------------------------------------------------------------------------
+
+Whether formulas in SBML are expressed as text strings (the SBML Level~1
+approach) or MathML (the SBML Level~2 approach), they are converted
+internally in \libsbml{} into abstract syntax trees.  The structure of
+these trees is described in more detail in the next section.
+
+The root of an abstract syntax tree for a mathematical expression is
+encapsulated by an object of class \texttt{MathMLDocument}.  
+
+
+
+%-----------------------------------------------------------------------------
+\subsection{Abstract Syntax Trees}
+\label{sec:ast}
+%-----------------------------------------------------------------------------
+
+
+%-----------------------------------------------------------------------------
+\subsection{Reading and Writing MathML Content and Formula Strings}
+\label{sec:reading-writing-mathml}
+%-----------------------------------------------------------------------------
+
+
+
+
 
 
 %=============================================================================
-\section{Lists}
-\label{app:lists}
+% References
 %=============================================================================
 
+\bibliographystyle{apalike}
+\bibliography{strings,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z}
 
-While List convenience methods (e.g., \texttt{XXX\_getNumYYY()}) are
-provided for every class, it is possible to access and manipulate each
-list directly.  All lists are themselves objects of type
-\texttt{List\_t}.  The full set of list methods are:
-
-
-\begin{methoddef}{void List\_add (List\_t *list, void *item)}
-  Adds item to this List.
-\end{methoddef}
-
-\begin{methoddef}{void *List\_get (List\_t *list, unsigned int n)}
-  Returns the nth item in this List.  If \texttt{n > List\_size(list)
-  - 1} returns \texttt{NULL}.
-\end{methoddef}
-
-\begin{methoddef}{void *List\_remove (List\_t *list, unsigned int n)}
-  Removes the nth item from this List and returns a pointer to it.  If
-  \texttt{n > List\_size(list) - 1} returns \texttt{NULL}.
-\end{methoddef}
-
-\begin{methoddef}{unsigned int List\_size (List\_t *list)}
-  Returns the number of elements in this List.
-\end{methoddef}
-
-
-Since UnitDefinitions maintains a List of Units, the UnitDefinition
-example in Section~\ref{sec:lists} could also be written as:
-
-
-\begin{example}
-UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
-
-List_add(ud->unit, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
-List_add(ud->unit, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
-List_add(ud->unit, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
-\end{example}
-
-
-However, this approach is not preferred.  The best reason to use
-specific \texttt{XXX\_getYYY()} methods over the List API is that the
-former are typed to specific items, whereas \texttt{List\_get()}
-returns a void pointer that must be cast to a specific type.  For
-example, compare:
-
-\begin{example}
-Unit_t *u = UnitDefinition_getUnit(u, 1);
-\end{example}
-
-to:
-
-\begin{example}
-  Unit_t *u = (Unit_t *) List_get(ud->unit, 1);
-\end{example}
-
-Further, the first is more readable.  The List API is mentioned i) for
-the sake of completeness and ii) currently the only way to remove an
-item from a list is to use the API directly:
-
-\begin{example}
-List_remove(ud->unit, 2);
-\end{example}
-
-has no analog in UnitDefinition.  ``Remove'' convenience methods can be
-added to the API.  This feature was skipped because list item removal
-seemed like an uncommon operation.
+%=============================================================================
+% The end.
+%=============================================================================
 
 \end{document}
