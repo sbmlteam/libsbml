@@ -498,3 +498,26 @@ Compartment_unsetOutside (Compartment_t *c)
   safe_free(c->outside);
   c->outside = NULL;
 }
+
+
+/**
+ * The CompartmentIdCmp function compares the string sid to c->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than c->id.
+ * Returns -1 if either sid or c->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+CompartmentIdCmp (const char *sid, const Compartment_t *c)
+{
+  int result = -1;
+
+
+  if (sid != NULL && c->id != NULL)
+  {
+    result = strcmp(sid, c->id);
+  }
+
+  return result;
+}
