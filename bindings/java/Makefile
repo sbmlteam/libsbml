@@ -108,4 +108,4 @@ test: libsbmlj.so
 	java  -classpath classes Test
 
 clean:
-	/bin/rm -f libsbml_wrap.cpp src/*.java classes/*.class *.so *.log *~
+	/bin/rm -f libsbml_wrap.cpp src/*.java classes/*.class *.so *.log
