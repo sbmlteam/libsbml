@@ -366,6 +366,7 @@ SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
   }
 }
 
+
 /**
  * Sets the level of this SBMLDocument to the given level number.  Valid
  * levels are currently 1 and 2.
@@ -375,6 +376,11 @@ void
 SBMLDocument_setLevel (SBMLDocument_t *d, unsigned int level)
 {
   d->level = level;
+
+  if (d->level == 2)
+  {
+    d->version = 1;
+  }
 }
 
 
