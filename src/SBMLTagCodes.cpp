@@ -1,5 +1,5 @@
 /**
- * Filename    : SBMLTagCode.cpp
+ * Filename    : SBMLTagCodes.cpp
  * Description : Maps SBML elements to numbers for comparing and storing
  * Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
  * Organization: Caltech ERATO Kitano Systems Biology Project
