@@ -66,14 +66,14 @@ BEGIN_C_DECLS
  * Schema violations (for both BASIC and FULL) are reported in the
  * SBMLDocument's list of ParseMessages.  The levels are:
  *
- *   NONE turns schema validation off.
+ *   NONE (0) turns schema validation off.
  *
- *   BASIC validates an XML instance document against an XML Schema.  Those
- *   who wish to perform schema checking on SBML documents should use this
- *   option.
+ *   BASIC (1) validates an XML instance document against an XML Schema.
+ *   Those who wish to perform schema checking on SBML documents should use
+ *   this option.
  *
- *   FULL validates both the instance document itself *and* the XML Schema
- *   document.  The XML Schema document is checked for violation of
+ *   FULL (2) validates both the instance document itself *and* the XML
+ *   Schema document.  The XML Schema document is checked for violation of
  *   particle unique attribution constraints and particle derivation
  *   restrictions, which is both time-consuming and memory intensive.
  */
@@ -91,7 +91,7 @@ typedef enum
  */
 typedef struct
 {
-  XMLSchemaValidation_t  schemaValidation;
+  XMLSchemaValidation_t  schemaValidationLevel;
   char                  *schemaFilename;
 } SBMLReader_t;
 
@@ -122,6 +122,28 @@ SBMLReader_free (SBMLReader_t *sr);
 LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilename (SBMLReader_t *sr, const char *filename);
+
+/**
+ * Sets the schema validation level used by this SBMLReader.
+ *
+ * The levels are:
+ *
+ *   XML_SCHEMA_VALIDATION_NONE (0) turns schema validation off.
+ *
+ *   XML_SCHEMA_VALIDATION_BASIC (1) validates an XML instance document
+ *   against an XML Schema.  Those who wish to perform schema checking on
+ *   SBML documents should use this option.
+ *
+ *   XML_SCHEMA_VALIDATION_FULL (2) validates both the instance document
+ *   itself *and* the XML Schema document.  The XML Schema document is
+ *   checked for violation of particle unique attribution constraints and
+ *   particle derivation restrictions, which is both time-consuming and
+ *   memory intensive.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
+                                      XMLSchemaValidation_t level );
 
 /**
  * Reads the SBML document from the given file and returns a pointer to it.
