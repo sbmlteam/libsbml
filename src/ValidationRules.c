@@ -419,10 +419,10 @@ RULE (kineticLaw_substanceUnits)
   unsigned int  passed = 1;
 
   const char *msg =
-    "substanceUnits must be 'substance', 'items', or 'moles' or the "
+    "substanceUnits must be 'substance', 'items', or 'mole' or the "
     "values of id attributes of unitDefinition elements that define "
     "variants (i.e. have only arbitrary scale, multiplier and "
-    "offset values) of 'items' or 'moles";
+    "offset values) of 'items' or 'mole'.";
 
 
   if (kl != NULL)
@@ -432,8 +432,8 @@ RULE (kineticLaw_substanceUnits)
     if (units != NULL)
     {
       if (! ( !strcmp(units, "substance") ||
-              !strcmp(units, "items")     ||
-              !strcmp(units, "moles") ) )
+              !strcmp(units, "item")     ||
+              !strcmp(units, "mole") ) )
       {
         passed = 0;
         LOG_MESSAGE(msg);
@@ -823,10 +823,10 @@ RULE (species_spatialDimensions3)
 }
 
 /**
- * The substanceUnits attribute must contain either substance, item, moles or
+ * The substanceUnits attribute must contain either substance, item, mole or
  * the values of id attributes of unitDefinition elements that define variants
  * (i.e. have only arbitrary scale, multiplier and offset values) of item or
- * moles.
+ * mole.
  */
 RULE (species_substanceUnits)
 {
