@@ -1,6 +1,27 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.0.1 ===
+
+* The correct namespace is now output for SBML Level 2 documents.
+  This fixes a bug in version 2.0.0.
+
+* SBML_convertToL2(SBase_t *sb) converts any SBML Level 1 object and
+  its subordinate objects to SBML Level 2.  Currently this function
+  only converts name fields to id fields, however, in the future it
+  will:
+
+    - Add ModifierSpeciesReferences when converting L1 Reactions.
+    - Add FunctionDefinitions for L1 predefined functions.
+
+  SBMLDocument_setLevel() calls this function automatically when the
+  current level is 1 and the new level is 2.
+
+* Released July 23, 2003
+
+
+
+
 === Version 2.0.0 ===
 
 * Near complete L2 support.  The two features not yet supported are:
