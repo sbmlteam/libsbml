@@ -70,6 +70,7 @@ nobase_include_HEADERS =          \
   sbml/ListOf.h                   \
   sbml/MathMLDocument.h           \
   sbml/MathMLReader.h             \
+  sbml/MathMLWriter.h             \
   sbml/Model.h                    \
   sbml/ModifierSpeciesReference.h \
   sbml/Parameter.h                \
@@ -80,7 +81,7 @@ nobase_include_HEADERS =          \
   sbml/Rule.h                     \
   sbml/RuleType.h                 \
   sbml/SBase.h                    \
-	sbml/SBMLConvert.h              \
+  sbml/SBMLConvert.h              \
   sbml/SBMLDocument.h             \
   sbml/SBMLReader.h               \
   sbml/SBMLTypeCodes.h            \
@@ -118,6 +119,7 @@ libsbml_la_SOURCES =              \
   MathMLHandler.cpp               \
   MathMLReader.cpp                \
   MathMLTagCodes.cpp              \
+  MathMLWriter.cpp                \
   SBMLFormatter.cpp               \
   SBMLHandler.cpp                 \
   SBMLReader.cpp                  \
@@ -149,7 +151,7 @@ libsbml_la_SOURCES =              \
   Rule.c                          \
   RuleType.c                      \
   SBase.c                         \
-	SBMLConvert.c                   \
+  SBMLConvert.c                   \
   SBMLDocument.c                  \
   SimpleSpeciesReference.c        \
   Species.c                       \
@@ -192,6 +194,7 @@ TestRunner_SOURCES =              \
   TestList.c                      \
   TestListOf.c                    \
   TestMathMLDocument.c            \
+  TestMathMLWriter.c              \
   TestMemory.c                    \
   TestModel.c                     \
   TestModifierSpeciesReference.c  \

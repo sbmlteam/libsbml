@@ -159,6 +159,7 @@ nobase_include_HEADERS = \
   sbml/ListOf.h                   \
   sbml/MathMLDocument.h           \
   sbml/MathMLReader.h             \
+  sbml/MathMLWriter.h             \
   sbml/Model.h                    \
   sbml/ModifierSpeciesReference.h \
   sbml/Parameter.h                \
@@ -169,7 +170,7 @@ nobase_include_HEADERS = \
   sbml/Rule.h                     \
   sbml/RuleType.h                 \
   sbml/SBase.h                    \
-	sbml/SBMLConvert.h              \
+  sbml/SBMLConvert.h              \
   sbml/SBMLDocument.h             \
   sbml/SBMLReader.h               \
   sbml/SBMLTypeCodes.h            \
@@ -208,6 +209,7 @@ libsbml_la_SOURCES = \
   MathMLHandler.cpp               \
   MathMLReader.cpp                \
   MathMLTagCodes.cpp              \
+  MathMLWriter.cpp                \
   SBMLFormatter.cpp               \
   SBMLHandler.cpp                 \
   SBMLReader.cpp                  \
@@ -239,7 +241,7 @@ libsbml_la_SOURCES = \
   Rule.c                          \
   RuleType.c                      \
   SBase.c                         \
-	SBMLConvert.c                   \
+  SBMLConvert.c                   \
   SBMLDocument.c                  \
   SimpleSpeciesReference.c        \
   Species.c                       \
@@ -280,6 +282,7 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  TestList.c                      \
 @LIBCHECK_ENABLED_TRUE@  TestListOf.c                    \
 @LIBCHECK_ENABLED_TRUE@  TestMathMLDocument.c            \
+@LIBCHECK_ENABLED_TRUE@  TestMathMLWriter.c              \
 @LIBCHECK_ENABLED_TRUE@  TestMemory.c                    \
 @LIBCHECK_ENABLED_TRUE@  TestModel.c                     \
 @LIBCHECK_ENABLED_TRUE@  TestModifierSpeciesReference.c  \
@@ -326,9 +329,9 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 libsbml_la_LIBADD =
 am_libsbml_la_OBJECTS = MathMLDocument.lo MathMLFormatter.lo \
 	MathMLHandler.lo MathMLReader.lo MathMLTagCodes.lo \
-	SBMLFormatter.lo SBMLHandler.lo SBMLReader.lo SBMLTagCodes.lo \
-	SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo AlgebraicRule.lo \
-	AssignmentRule.lo ASTNode.lo Compartment.lo \
+	MathMLWriter.lo SBMLFormatter.lo SBMLHandler.lo SBMLReader.lo \
+	SBMLTagCodes.lo SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo \
+	AlgebraicRule.lo AssignmentRule.lo ASTNode.lo Compartment.lo \
 	CompartmentVolumeRule.lo Event.lo EventAssignment.lo \
 	FormulaFormatter.lo FormulaParser.lo FormulaTokenizer.lo \
 	FunctionDefinition.lo KineticLaw.lo List.lo ListOf.lo Model.lo \
@@ -352,16 +355,17 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 	TestFormulaFormatter.c TestFormulaParser.c \
 	TestFormulaTokenizer.c TestFunctionDefinition.c \
 	TestKineticLaw.c TestList.c TestListOf.c TestMathMLDocument.c \
-	TestMemory.c TestModel.c TestModifierSpeciesReference.c \
-	TestParameter.c TestParameterRule.c TestParseMessage.c \
-	TestRateRule.c TestReaction.c TestRule.c TestRuleType.c \
-	TestSBase.c TestSBMLConvert.c TestSBMLDocument.c \
-	TestSBMLReader.c TestSBMLWriter.c TestSimpleSpeciesReference.c \
-	TestSpecies.c TestSpeciesConcentrationRule.c \
-	TestSpeciesReference.c TestStack.c TestStringBuffer.c \
-	TestReadFromFile1.c TestReadFromFile2.c TestReadFromFile3.c \
-	TestReadFromFile4.c TestRunner.c TestUnitDefinition.c \
-	TestUnitKind.c TestUnit.c TestUtil.c
+	TestMathMLWriter.c TestMemory.c TestModel.c \
+	TestModifierSpeciesReference.c TestParameter.c \
+	TestParameterRule.c TestParseMessage.c TestRateRule.c \
+	TestReaction.c TestRule.c TestRuleType.c TestSBase.c \
+	TestSBMLConvert.c TestSBMLDocument.c TestSBMLReader.c \
+	TestSBMLWriter.c TestSimpleSpeciesReference.c TestSpecies.c \
+	TestSpeciesConcentrationRule.c TestSpeciesReference.c \
+	TestStack.c TestStringBuffer.c TestReadFromFile1.c \
+	TestReadFromFile2.c TestReadFromFile3.c TestReadFromFile4.c \
+	TestRunner.c TestUnitDefinition.c TestUnitKind.c TestUnit.c \
+	TestUtil.c
 @LIBCHECK_ENABLED_TRUE@am_TestRunner_OBJECTS = \
 @LIBCHECK_ENABLED_TRUE@	SAX2AttributesMock.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestMathMLFormatter.$(OBJEXT) \
@@ -385,6 +389,7 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 @LIBCHECK_ENABLED_TRUE@	TestKineticLaw.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestList.$(OBJEXT) TestListOf.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestMathMLDocument.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestMathMLWriter.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestMemory.$(OBJEXT) TestModel.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestModifierSpeciesReference.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestParameter.$(OBJEXT) \
@@ -439,7 +444,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/MathMLHandler.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/MathMLReader.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/MathMLTagCodes.Plo \
-@AMDEP_TRUE@	./$(DEPDIR)/Model.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/MathMLWriter.Plo ./$(DEPDIR)/Model.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/ModifierSpeciesReference.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Parameter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/ParameterRule.Plo \
@@ -475,6 +480,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestMathMLDocument.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestMathMLFormatter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestMathMLHandler.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestMathMLWriter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestMemory.Po ./$(DEPDIR)/TestModel.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestModifierSpeciesReference.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestParameter.Po \
@@ -608,6 +614,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLHandler.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLReader.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLTagCodes.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MathMLWriter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Model.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ModifierSpeciesReference.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Parameter.Plo@am__quote@
@@ -649,6 +656,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMathMLDocument.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMathMLFormatter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMathMLHandler.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMathMLWriter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestMemory.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestModel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestModifierSpeciesReference.Po@am__quote@
