@@ -6,3 +6,6 @@ cmbtt10.*
 *.brf
 *.dvi
 *.out
+*.aux
+*.log
+*.toc
