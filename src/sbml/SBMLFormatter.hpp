@@ -103,7 +103,9 @@ public:
    *
    * Creates a new SBMLFormatter with the given character encoding.
    */
-  SBMLFormatter (const char* outEncoding, XMLFormatTarget* target);
+  SBMLFormatter (   const char*      outEncoding
+                  , XMLFormatTarget* target
+                  , bool             outputXMLDecl = true );
 
   /**
    * Dtor

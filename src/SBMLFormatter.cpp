@@ -76,7 +76,9 @@
  *
  * The underlying character encoding is configurable.
  */
-SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
+SBMLFormatter::SBMLFormatter (   const char*      outEncoding
+                               , XMLFormatTarget* target
+                               , bool             outputXMLDecl )
 {
 #ifndef USE_EXPAT
   //
@@ -95,10 +97,13 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
   fFormatter     = XMLUtil::createXMLFormatter(outEncoding, fTarget);
   fNumberBuffer  = new char[ NUMBER_BUFFER_SIZE ];
 
-  *fFormatter
-    << XML_DECL_1
-    << fFormatter->getEncodingName()
-    << XML_DECL_2;
+  if (outputXMLDecl)
+  {
+    *fFormatter
+      << XML_DECL_1
+      << fFormatter->getEncodingName()
+      << XML_DECL_2;
+  }
 }
 
 
