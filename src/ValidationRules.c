@@ -85,6 +85,12 @@ typedef struct {
 } RuleResult_t;
 
 
+typedef struct {
+  const char *id;
+  BOOLEAN constant;
+} VariableDescriptor_t;
+
+
 /******************** utility subroutines begin here ********************/
 
 static
@@ -639,6 +645,9 @@ numRulesWithVariable(const Model_t *m, const char *variableName)
         }
       }
       break;
+
+    default:
+      break;
     }
   }
 
@@ -649,7 +658,7 @@ numRulesWithVariable(const Model_t *m, const char *variableName)
 /* TODO: somehow make this a member of Rule_t? */
 static
 const char *
-getVariableName(SBase_t *obj)
+getVariableName(const SBase_t *obj)
 {
   switch (obj->typecode)
   {
@@ -682,6 +691,38 @@ getVariableName(SBase_t *obj)
   default:
     return NULL;
   }
+}
+
+
+/* TODO: make this a member of Model_t?  Also, this subroutine engages in
+ * "latent inheritance.  */
+static
+VariableDescriptor_t
+getVariableDescriptor(Model_t *m, const char *variableName)
+{
+  VariableDescriptor_t result = { NULL, FALSE };
+  Species_t *s = Model_getSpeciesById(m, variableName);
+  Compartment_t *c = Model_getCompartmentById(m, variableName);
+  Parameter_t *p = Model_getParameterById(m, variableName);
+
+  
+  if (s)
+  {
+    result.id = Species_getId(s);
+    result.constant = Species_getConstant(s);
+  }
+  else if (c)
+  {
+    result.id = Compartment_getId(c);
+    result.constant = Compartment_getConstant(c);
+  }
+  else if (p)
+  {
+    result.id = Parameter_getId(p);
+    result.constant = Parameter_getConstant(p);
+  }
+
+  return result;
 }
 
 
@@ -1772,9 +1813,10 @@ RULE (rule_nonconstantVariable)
 
   if (variableName)
   {
-    Species_t *s = Model_getSpeciesById(d->model, variableName);
+    const VariableDescriptor_t variable =
+      getVariableDescriptor(d->model, variableName);
 
-    if (!s || Species_getConstant(s))
+    if (!variable.id || variable.constant)
     {
       LOG_MESSAGE(msg);
       passed = FALSE;
