@@ -127,65 +127,56 @@ SAX2SBMLHandler::startElement (const XMLCh* const  uri,
                                const Attributes&   attrs)
 {
   SBase_t*   obj = NULL;
-  HashCode_t tag = XMLString::hash(localname, SBML_HASH_MODULUS);
-  // HashCode_t tag = HashCode_forElement(localname);
+  HashCode_t tag = HASH_UNKNOWN;
 
-  /*
-  cout << "startElement(...): localname = "
-       << XMLString::transcode(localname);
+/*
+  cout << "startElement(...): " << endl;
+  cout << "        uri = " << XMLString::transcode(uri)       << endl;
+  cout << "  localname = " << XMLString::transcode(localname) << endl;
+  cout << "      qname = " << XMLString::transcode(qname)     << endl;
+  cout << "       line = " << fLocator->getLineNumber()   << endl;
+  cout << "       col  = " << fLocator->getColumnNumber() << endl;
+  cout << endl;
+*/
 
-  cout << "  line = " << fLocator->getLineNumber()
-       << "  col = " << fLocator->getColumnNumber();
-
-  cout << endl << endl;
-  */
-
-  if (inNotes)
+  if ( (XMLString::stringLen(uri) == 0) ||
+       (XMLString::compareString(XMLNS_SBML_L1, uri) == 0) )
   {
-    fFormatter->startElement(qname, attrs);
-
-    if (tag == HASH_NOTES)
-    {
-      inNotes++;
-    }
-
-    return;
-  }
-  else if (inAnnotation)
-  {
-    fFormatter->startElement(qname, attrs);
-
-    if (tag == HASH_ANNOTATION)
-    {
-      inAnnotation++;
-    }
-
-    return;
+    tag = HashCode_forElement(localname);
   }
 
-  /*
-  if (tag == HASH_UNKNOWN)
-  {
-    return;
-  }
-  else
-  */
+
   if (tag == HASH_NOTES)
   {
-    inNotes = 1;
+    //
+    // Technically, a note like:
+    //
+    //   <notes> This is a test <notes>nested</notes> note. </notes>
+    //
+    // is not allowed.  But since someone may try to do this, the number of
+    // notes elements seen (start-end pairs) needs to be tracked.
+    //
+    // See test: test_element_notes_nested
+    //
+    if (inNotes)
+    {
+      warning("<note> elements cannot be nested.");
+      fFormatter->startElement(qname, attrs);
+    }
+
+    inNotes++;
   }
-  else if (tag == HASH_ANNOTATION)
+  else if (tag == HASH_ANNOTATION || tag == HASH_ANNOTATIONS)
+  {
+    inAnnotation++;
+    fFormatter->startElement(qname, attrs);
+  }
+  else if (inNotes || inAnnotation)
   {
     fFormatter->startElement(qname, attrs);
-    inAnnotation = 1;
   }
-  else
+  else if (tag != HASH_UNKNOWN)
   {
-    /**
-     * Tags are added to their Stack as soon as they are encountered.
-     */
-    Stack_push(fTagStack, (void *) tag);
-
     switch (tag)
     {
       case HASH_SBML:             obj = handleSBML            (attrs); break;
@@ -222,9 +213,7 @@ SAX2SBMLHandler::startElement (const XMLCh* const  uri,
         break;
     }
 
-    /**
-     * Objects are added to their Stack after they are created.
-     */
+    Stack_push(fTagStack, (void *) tag);
     Stack_push(fObjStack, obj);
   }
 }
@@ -235,20 +224,29 @@ SAX2SBMLHandler::endElement (const XMLCh* const  uri,
                              const XMLCh* const  localname,
                              const XMLCh* const  qname)
 {
+  static const char ERRMSG_NO_SBML_NOTE[] =
+    "The <sbml> element cannot contain a <note>.  "
+    "Use the <model> element instead.";
+
+  static const char ERRMSG_NO_SBML_ANNOTATION[] =
+    "The <sbml> element cannot contain an <annotation>.  "
+    "Use the <model> element instead.";
+
+
   SBase_t*   obj = (SBase_t*) Stack_peek(fObjStack);
-  HashCode_t tag = XMLString::hash(localname, SBML_HASH_MODULUS);
-  /* HashCode_t tag = HashCode_forElement(localname); */
+  HashCode_t tag = HASH_UNKNOWN;
 
-  /*
-  cout << "endElement(...): localname = "
-       << XMLString::transcode(localname);
 
-  cout << "  line = " << fLocator->getLineNumber()
-       << "  col = " << fLocator->getColumnNumber();
+  if ( (XMLString::stringLen(uri) == 0) ||
+       (XMLString::compareString(XMLNS_SBML_L1, uri) == 0) )
+  {
+    tag = HashCode_forElement(localname);
+  }
 
-  cout << endl;
-  */
 
+  //
+  // Notes
+  //
   if (tag == HASH_NOTES)
   {
     if (inNotes > 1)
@@ -257,20 +255,33 @@ SAX2SBMLHandler::endElement (const XMLCh* const  uri,
     }
     else if (inNotes == 1)
     {
+      if (obj->typecode == SBML_DOCUMENT)
+      {
+        error(ERRMSG_NO_SBML_NOTE);
+      }
+
       SBase_setNotes(obj, fFormatter->getString());
       fFormatter->reset();
     }
 
     inNotes--;
   }
-  else if (tag == HASH_ANNOTATION)
+
+  //
+  // Annotation
+  //
+  else if (tag == HASH_ANNOTATION || tag == HASH_ANNOTATIONS)
   {
     fFormatter->endElement(qname);
 
     if (inAnnotation == 1)
     {
-      SBase_setAnnotation(obj, fFormatter->getString());
+      if (obj->typecode == SBML_DOCUMENT)
+      {
+        error(ERRMSG_NO_SBML_ANNOTATION);
+      }
 
+      SBase_setAnnotation(obj, fFormatter->getString());
       fFormatter->reset();
     }
 
@@ -280,7 +291,7 @@ SAX2SBMLHandler::endElement (const XMLCh* const  uri,
   {
     fFormatter->endElement(qname);
   }
-  else /* if (tag != HASH_UNKNOWN) */
+  else if (tag != HASH_UNKNOWN)
   {
     Stack_pop(fTagStack);
     Stack_pop(fObjStack);
@@ -344,8 +355,51 @@ SAX2SBMLHandler::fatalError (const SAXParseException& e)
 }
 
 
+/* ----------------------------------------------------------------------
+ *                          Custom Error Handlers
+ * ----------------------------------------------------------------------
+ */
+
+
+void
+SAX2SBMLHandler::warning (const char* message)
+{
+  List_add( fDocument->warning, createParseMessage(message) );
+}
+
+
+void
+SAX2SBMLHandler::error (const char* message)
+{
+  List_add( fDocument->error, createParseMessage(message) );
+}
+
+
+void
+SAX2SBMLHandler::fatalError (const char* message)
+{
+  List_add( fDocument->fatal, createParseMessage(message) );
+}
+
+
 ParseMessage_t*
-SAX2SBMLHandler::createParseMessage(const SAXParseException& e)
+SAX2SBMLHandler::createParseMessage (const char* message)
+{
+  ParseMessage_t* pm;
+
+
+  pm = (ParseMessage_t *) safe_calloc(1, sizeof(ParseMessage_t));
+
+  pm->message = safe_strdup(message);
+  pm->line    = (unsigned int) fLocator->getLineNumber();
+  pm->column  = (unsigned int) fLocator->getColumnNumber();
+
+  return pm;
+}
+
+
+ParseMessage_t*
+SAX2SBMLHandler::createParseMessage (const SAXParseException& e)
 {
   char*           msg;
   ParseMessage_t* pm;
@@ -463,7 +517,7 @@ SBase_t*
 SAX2SBMLHandler::handleParameter (const Attributes& a)
 {
   Parameter_t* p  = NULL;
-  HashCode_t tag  = (HashCode_t) Stack_peekAt(fTagStack, 2);
+  HashCode_t tag  = (HashCode_t) Stack_peekAt(fTagStack, 1);
 
 
   if (tag == HASH_KINETIC_LAW)
@@ -510,7 +564,7 @@ SBase_t*
 SAX2SBMLHandler::handleSpeciesReference (const Attributes& a)
 {
   SpeciesReference_t* sr    = NULL;
-  HashCode_t          tag   = (HashCode_t) Stack_peekAt(fTagStack, 1);
+  HashCode_t          tag   = (HashCode_t) Stack_peek(fTagStack);
   int                 index = 0;
 
 
@@ -549,7 +603,8 @@ SAX2SBMLHandler::handleKineticLaw (const Attributes& a)
 {
   KineticLaw_t* kl = Model_createKineticLaw(fModel);
 
-
+  // If tag != HASH_REACTION -> Creation outside a reaction
+  // If kl == NULL           -> KineticLaw already exists
   XMLUtil::scanAttrCStr( a, ATTR_FORMULA        , &(kl->formula)        );
   XMLUtil::scanAttrCStr( a, ATTR_TIME_UNITS     , &(kl->timeUnits)      );
   XMLUtil::scanAttrCStr( a, ATTR_SUBSTANCE_UNITS, &(kl->substanceUnits) );
