@@ -87,7 +87,7 @@ distfiles = \
         install.m              \
         make.bat               \
         Makefile.in            \
-	mexopts-mac.sh         \
+	mexopts-libsbml.sh     \
         README.txt             \
         test.xml               \
         TranslateSBML.c        \
