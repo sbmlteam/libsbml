@@ -88,47 +88,47 @@ nobase_include_HEADERS =          \
   sbml/memory.h                   \
   sbml/util.h
 
-libsbml_la_SOURCES =            \
-  sbml/common.hpp               \
-  sbml/SBMLFormatter.hpp        \
-  sbml/SBMLHandler.hpp          \
-  sbml/SBMLTagCodes.hpp         \
-  sbml/SBMLUnicodeConstants.hpp \
-  sbml/XMLStringFormatter.hpp   \
-  sbml/XMLUtil.hpp              \
-  SBMLFormatter.cpp             \
-  SBMLHandler.cpp               \
-  SBMLReader.cpp                \
-  SBMLTagCodes.cpp              \
-  SBMLWriter.cpp                \
-  XMLStringFormatter.cpp        \
-  XMLUtil.cpp                   \
-  AlgebraicRule.c               \
-  AssignmentRule.c              \
-  ASTNode.c                     \
-  Compartment.c                 \
-  CompartmentVolumeRule.c       \
-  FormulaParser.c               \
-  FormulaTokenizer.c            \
-  KineticLaw.c                  \
-  List.c                        \
-  Model.c                       \
-  Parameter.c                   \
-  ParameterRule.c               \
-  ParseMessage.c                \
-  Reaction.c                    \
-  Rule.c                        \
-  RuleType.c                    \
-  SBase.c                       \
-  SBMLDocument.c                \
-  Species.c                     \
-  SpeciesConcentrationRule.c    \
-  SpeciesReference.c            \
-  Stack.c                       \
-  Unit.c                        \
-  UnitDefinition.c              \
-  UnitKind.c                    \
-  memory.c                      \
+libsbml_la_SOURCES =              \
+  sbml/common.hpp                 \
+  sbml/SBMLFormatter.hpp          \
+  sbml/SBMLHandler.hpp            \
+  sbml/SBMLTagCodes.hpp           \
+  sbml/SBMLUnicodeConstants.hpp   \
+  sbml/XMLStringFormatter.hpp     \
+  sbml/XMLUtil.hpp                \
+  SBMLFormatter.cpp               \
+  SBMLHandler.cpp                 \
+  SBMLReader.cpp                  \
+  SBMLTagCodes.cpp                \
+  SBMLWriter.cpp                  \
+  XMLStringFormatter.cpp          \
+  XMLUtil.cpp                     \
+  AlgebraicRule.c                 \
+  AssignmentRule.c                \
+  ASTNode.c                       \
+  Compartment.c                   \
+  CompartmentVolumeRule.c         \
+  FormulaParser.c                 \
+  FormulaTokenizer.c              \
+  KineticLaw.c                    \
+  List.c                          \
+  Model.c                         \
+  Parameter.c                     \
+  ParameterRule.c                 \
+  ParseMessage.c                  \
+  Reaction.c                      \
+  Rule.c                          \
+  RuleType.c                      \
+  SBase.c                         \
+  SBMLDocument.c                  \
+  Species.c                       \
+  SpeciesConcentrationRule.c      \
+  SpeciesReference.c              \
+  Stack.c                         \
+  Unit.c                          \
+  UnitDefinition.c                \
+  UnitKind.c                      \
+  memory.c                        \
   util.c
 
 TestRunner_SOURCES =             \
@@ -174,10 +174,6 @@ TestRunner_SOURCES =             \
   TestUnitKind.c                 \
   TestUnit.c                     \
   TestUtil.c
-
-noinst_PROGRAMS  = readSBML
-readSBML_SOURCES = readSBML.c
-readSBML_LDADD   = libsbml.la
 
 TestRunner_LDADD = libsbml.la
 

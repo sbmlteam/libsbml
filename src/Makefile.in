@@ -163,46 +163,46 @@ nobase_include_HEADERS = \
 
 
 libsbml_la_SOURCES = \
-  sbml/common.hpp               \
-  sbml/SBMLFormatter.hpp        \
-  sbml/SBMLHandler.hpp          \
-  sbml/SBMLTagCodes.hpp         \
-  sbml/SBMLUnicodeConstants.hpp \
-  sbml/XMLStringFormatter.hpp   \
-  sbml/XMLUtil.hpp              \
-  SBMLFormatter.cpp             \
-  SBMLHandler.cpp               \
-  SBMLReader.cpp                \
-  SBMLTagCodes.cpp              \
-  SBMLWriter.cpp                \
-  XMLStringFormatter.cpp        \
-  XMLUtil.cpp                   \
-  AlgebraicRule.c               \
-  AssignmentRule.c              \
-  ASTNode.c                     \
-  Compartment.c                 \
-  CompartmentVolumeRule.c       \
-  FormulaParser.c               \
-  FormulaTokenizer.c            \
-  KineticLaw.c                  \
-  List.c                        \
-  Model.c                       \
-  Parameter.c                   \
-  ParameterRule.c               \
-  ParseMessage.c                \
-  Reaction.c                    \
-  Rule.c                        \
-  RuleType.c                    \
-  SBase.c                       \
-  SBMLDocument.c                \
-  Species.c                     \
-  SpeciesConcentrationRule.c    \
-  SpeciesReference.c            \
-  Stack.c                       \
-  Unit.c                        \
-  UnitDefinition.c              \
-  UnitKind.c                    \
-  memory.c                      \
+  sbml/common.hpp                 \
+  sbml/SBMLFormatter.hpp          \
+  sbml/SBMLHandler.hpp            \
+  sbml/SBMLTagCodes.hpp           \
+  sbml/SBMLUnicodeConstants.hpp   \
+  sbml/XMLStringFormatter.hpp     \
+  sbml/XMLUtil.hpp                \
+  SBMLFormatter.cpp               \
+  SBMLHandler.cpp                 \
+  SBMLReader.cpp                  \
+  SBMLTagCodes.cpp                \
+  SBMLWriter.cpp                  \
+  XMLStringFormatter.cpp          \
+  XMLUtil.cpp                     \
+  AlgebraicRule.c                 \
+  AssignmentRule.c                \
+  ASTNode.c                       \
+  Compartment.c                   \
+  CompartmentVolumeRule.c         \
+  FormulaParser.c                 \
+  FormulaTokenizer.c              \
+  KineticLaw.c                    \
+  List.c                          \
+  Model.c                         \
+  Parameter.c                     \
+  ParameterRule.c                 \
+  ParseMessage.c                  \
+  Reaction.c                      \
+  Rule.c                          \
+  RuleType.c                      \
+  SBase.c                         \
+  SBMLDocument.c                  \
+  Species.c                       \
+  SpeciesConcentrationRule.c      \
+  SpeciesReference.c              \
+  Stack.c                         \
+  Unit.c                          \
+  UnitDefinition.c                \
+  UnitKind.c                      \
+  memory.c                        \
   util.c
 
 
@@ -251,10 +251,6 @@ TestRunner_SOURCES = \
   TestUtil.c
 
 
-noinst_PROGRAMS = readSBML
-readSBML_SOURCES = readSBML.c
-readSBML_LDADD = libsbml.la
-
 TestRunner_LDADD = libsbml.la
 
 TESTS = TestRunner
@@ -278,9 +274,6 @@ am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLReader.lo \
 	UnitKind.lo memory.lo util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
 check_PROGRAMS = TestRunner$(EXEEXT)
-noinst_PROGRAMS = readSBML$(EXEEXT)
-PROGRAMS = $(noinst_PROGRAMS)
-
 am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
 	TestSAX2AttributesMock.$(OBJEXT) TestSBMLFormatter.$(OBJEXT) \
 	TestSBMLHandler.$(OBJEXT) TestXMLStringFormatter.$(OBJEXT) \
@@ -304,10 +297,6 @@ am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
 TestRunner_OBJECTS = $(am_TestRunner_OBJECTS)
 TestRunner_DEPENDENCIES = libsbml.la
 TestRunner_LDFLAGS =
-am_readSBML_OBJECTS = readSBML.$(OBJEXT)
-readSBML_OBJECTS = $(am_readSBML_OBJECTS)
-readSBML_DEPENDENCIES = libsbml.la
-readSBML_LDFLAGS =
 
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)/src/sbml
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
@@ -373,7 +362,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/UnitKind.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/XMLStringFormatter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/XMLUtil.Plo ./$(DEPDIR)/memory.Plo \
-@AMDEP_TRUE@	./$(DEPDIR)/readSBML.Po ./$(DEPDIR)/util.Plo
+@AMDEP_TRUE@	./$(DEPDIR)/util.Plo
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) \
@@ -389,12 +378,11 @@ LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) \
 CXXLD = $(CXX)
 CXXLINK = $(LIBTOOL) --mode=link $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-DIST_SOURCES = $(libsbml_la_SOURCES) $(TestRunner_SOURCES) \
-	$(readSBML_SOURCES)
+DIST_SOURCES = $(libsbml_la_SOURCES) $(TestRunner_SOURCES)
 HEADERS = $(nobase_include_HEADERS)
 
 DIST_COMMON = $(nobase_include_HEADERS) Makefile.am Makefile.in
-SOURCES = $(libsbml_la_SOURCES) $(TestRunner_SOURCES) $(readSBML_SOURCES)
+SOURCES = $(libsbml_la_SOURCES) $(TestRunner_SOURCES)
 
 all: all-am
 
@@ -442,19 +430,9 @@ clean-checkPROGRAMS:
 	  echo " rm -f $$p $$f"; \
 	  rm -f $$p $$f ; \
 	done
-
-clean-noinstPROGRAMS:
-	@list='$(noinst_PROGRAMS)'; for p in $$list; do \
-	  f=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
-	  echo " rm -f $$p $$f"; \
-	  rm -f $$p $$f ; \
-	done
 TestRunner$(EXEEXT): $(TestRunner_OBJECTS) $(TestRunner_DEPENDENCIES) 
 	@rm -f TestRunner$(EXEEXT)
 	$(CXXLINK) $(TestRunner_LDFLAGS) $(TestRunner_OBJECTS) $(TestRunner_LDADD) $(LIBS)
-readSBML$(EXEEXT): $(readSBML_OBJECTS) $(readSBML_DEPENDENCIES) 
-	@rm -f readSBML$(EXEEXT)
-	$(LINK) $(readSBML_LDFLAGS) $(readSBML_OBJECTS) $(readSBML_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT) core *.core
@@ -535,7 +513,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/XMLStringFormatter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/XMLUtil.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/memory.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/readSBML.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Plo@am__quote@
 
 distclean-depend:
@@ -725,7 +702,7 @@ check-am: all-am
 	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS) $(check_DATA)
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: check-am
-all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(HEADERS)
+all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 
 installdirs:
 	$(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir)
@@ -757,7 +734,7 @@ maintainer-clean-generic:
 clean: clean-am
 
 clean-am: clean-checkPROGRAMS clean-generic clean-libLTLIBRARIES \
-	clean-libtool clean-noinstPROGRAMS mostlyclean-am
+	clean-libtool mostlyclean-am
 
 distclean: distclean-am
 
@@ -804,11 +781,11 @@ uninstall-am: uninstall-info-am uninstall-libLTLIBRARIES \
 
 .PHONY: CTAGS GTAGS all all-am check check-TESTS check-am clean \
 	clean-checkPROGRAMS clean-generic clean-libLTLIBRARIES \
-	clean-libtool clean-noinstPROGRAMS ctags distclean \
-	distclean-compile distclean-depend distclean-generic \
-	distclean-libtool distclean-tags distdir dvi dvi-am info \
-	info-am install install-am install-data install-data-am \
-	install-exec install-exec-am install-info install-info-am \
+	clean-libtool ctags distclean distclean-compile \
+	distclean-depend distclean-generic distclean-libtool \
+	distclean-tags distdir dvi dvi-am info info-am install \
+	install-am install-data install-data-am install-exec \
+	install-exec-am install-info install-info-am \
 	install-libLTLIBRARIES install-man \
 	install-nobase_includeHEADERS install-strip installcheck \
 	installcheck-am installdirs maintainer-clean \
