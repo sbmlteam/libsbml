@@ -6,9 +6,33 @@
              for libSBML v2.0.3   document revision 0.1
 
 
-1. OVERVIEW
+OVERVIEW
 
-libSBML is written in C and C++, but thanks to the "SWIG
-bindings", you can write programs in other languages that call
-upon libSBML.  Currently there are SWIG bindings for Java and
-Python.
+   libSBML is written in C and C++, but thanks to the "SWIG
+   bindings", you can write programs in other languages that call
+   upon libSBML.  Currently there are SWIG bindings for Python
+   and Java.
+
+   SWIG is the "Simplified Wrapper Interface Generator".  SWIG
+   generates "wrapper code" to allow subroutine C and C++
+   programs to be called from other languages.  The SWIG project
+   was started and is run by David Beazley at http://www.swig.org.
+
+   A "SWIG binding" is a machine-readable set of descriptions
+   that tells SWIG how to build the bridge between some C/C++
+   code and other languages that want to call it.
+
+   Fortunately, you don't need to know anything about SWIG to
+   use the libSBML SWIG bindings.  The rest of this document
+   shows you how to write programs in Python and Java that use
+   the features of libSBML.  You will need to know only the very
+   basics of Python or Java, whichever you prefer to use.
+
+PYTHON TUTORIAL
+
+   For this tutorial, we'll assume that you're running on some
+   variant of Unix.  (That includes Linux and Mac OS X.)  @@say
+   something about Windows
+
+   When you installed libSBML, you already installed the SWIG
+   bindings.
