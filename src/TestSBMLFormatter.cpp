@@ -230,14 +230,13 @@ START_TEST (test_SBMLFormatter_Compartment)
 END_TEST
 
 
+/**
+ * Although compartment has a default volume of 1 in SBML L1, IEEE 754
+ * doubles (or floats) cannot be reliably compared for equality.  To be
+ * safe, output the compartment volume even if equal to the default.
+ */
 START_TEST (test_SBMLFormatter_Compartment_skipOptional)
 {
-  //
-  // Although compartment has a default volume of 1 in SBML L1, IEEE 754
-  // doubles (or floats) cannot be reliably compared for equality.  To be
-  // safe, output the compartment volume even if equal to the default.
-  //
-
   Compartment_t *c = Compartment_create();
   const char    *s = wrapXML("<compartment name=\"A\" volume=\"1\"/>\n");
 
@@ -252,10 +251,13 @@ START_TEST (test_SBMLFormatter_Compartment_skipOptional)
 END_TEST
 
 
+/**
+ * See test test_SBMLFormatter_Compartment_skipOptional (above).
+ *
+ * ...  However, do not output if unset.
+ */
 START_TEST (test_SBMLFormatter_Compartment_L2v1_unsetVolume)
 {
-  // However, do not output if unset.
-
   Compartment_t *c = Compartment_create();
   const char    *s = wrapXML("<compartment name=\"A\"/>\n");
 
@@ -817,10 +819,10 @@ START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters_notes)
 END_TEST
 
 
-//
-// In the case of an unset required attribute, there's not much that can be
-// done at this point, except to make it explicit.
-//
+/**
+ * In the case of an unset required attribute, there's not much that can be
+ * done at this point, except to make it explicit.
+ */
 START_TEST (test_SBMLFormatter_unset_required)
 {
   SpeciesReference_t *sr = SpeciesReference_createWith(NULL, 1, 1);
