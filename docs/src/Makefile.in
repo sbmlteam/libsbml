@@ -112,6 +112,7 @@ distfiles =                            \
         graphics                       \
         libsbml-api-ref.html.tmpl      \
         libsbml-api-ref.tex            \
+	libsbml-api-ref.c              \
         libsbml-manual.tex             \
         libsbml-manual.css             \
         libsbml.bib                    \
@@ -222,7 +223,7 @@ $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffile
 	$(latex-env) pdflatex libsbml-manual
 	$(latex-env) pdflatex libsbml-manual
 	$(latex-env) pdflatex libsbml-manual
-	cp libsbml-manual.pdf $(formatted)
+	cp -f libsbml-manual.pdf $(formatted)
 
 libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
@@ -234,7 +235,7 @@ libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 
 $(formatted)/libsbml-manual.ps libsbml-manual.ps: libsbml-manual.dvi
 	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
-	cp libsbml-manual.ps $(formatted)
+	cp -f libsbml-manual.ps $(formatted)
 
 $(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex libsbml-manual.dvi
 	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
@@ -249,7 +250,7 @@ $(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex libsbml-manual.dv
 	cd $(manual_html_dir) && ln -sf libsbml-manual.html index.html
 	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
 		$(manual_html_dir)/libsbml-manual.html
-	cp -r libsbml-manual $(formatted)
+	cp -rf libsbml-manual $(formatted)
 
 #		   -init_file libsbml-manual.init \
 #	ln -s libsbml-manual.html $(manual_html_dir)/index.html
@@ -277,7 +278,7 @@ endif
 	$(latex-env) pdflatex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
-	cp libsbml-api-ref.pdf $(formatted)
+	cp -f libsbml-api-ref.pdf $(formatted)
 
 libsbml-api-ref.dvi: libsbml-api-ref.tex
 ifeq "$(api-tex-files)" ""
@@ -292,7 +293,7 @@ endif
 
 $(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  libsbml-api-ref.dvi
 	$(latex-env) dvips -o libsbml-api-ref.ps libsbml-api-ref
-	cp libsbml-api-ref.ps $(formatted)
+	cp -f libsbml-api-ref.ps $(formatted)
 
 doxygen-output-dir = libsbml-api-ref
 
@@ -301,7 +302,7 @@ $(formatted)/libsbml-api-ref libsbml-api-ref: Doxyfile $(wildcard ../../src/*.[c
 	doxygen Doxyfile
 	cp graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
 	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
-	cp -r libsbml-api-ref $(formatted)
+	cp -rf libsbml-api-ref $(formatted)
 
 
 # -----------------------------------------------------------------------------
@@ -327,37 +328,7 @@ installcheck:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-# Here we have some different rules compared to the default `make dist'
-# actions.  We put the docs into ../formatted in the distribution
-# directory.  This is so that people receiving distributions can find
-# preformatted documentation more easily.  However, this is not done during
-# make install; instead, make install puts the docs into
-# ${prefix}/share/doc/libsbml, which is more appropriate for a make install.
-
 dist: dist-normal $(libsbml-manual-files) $(libsbml-api-ref-files)
-	$(shell [ -d $(formatted) ] || mkdir -p $(formatted))
-	list='$(docs)'; for file in $$list; do \
-	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
-	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-	    dir="$$dir"; \
-	    $(MKINSTALLDIRS) "$(formatted)/$$dir"; \
-	  else \
-	    dir=''; \
-	  fi; \
-	  if test -d $$d/$$file; then \
-	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-	      echo Copying $(srcdir)/$$file; \
-	      cp -pR $(srcdir)/$$file $(formatted)/$$dir || exit 1; \
-	    fi; \
-	    cp -pR $$d/$$file $(formatted)/$$dir || exit 1; \
-	  else \
-	    echo Copying $(formatted)/$$file; \
-	    test -f $(formatted)/$$file \
-	    || cp -p $$d/$$file $(formatted)/$$file \
-	    || exit 1; \
-	  fi; \
-	done
 
 distcheck:
 
