@@ -122,6 +122,20 @@ SimpleSpeciesReference_setSpecies ( SimpleSpeciesReference_t *ssr,
                                     const char *sid );
 
 
+/**
+ * The SimpleSpeciesReferenceCmp function compares the string sid to
+ * ssr->species.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than
+ * ssr->species.  Returns -1 if either sid or ssr->species is NULL.
+ */
+LIBSBML_EXTERN
+int
+SimpleSpeciesReferenceCmp ( const char *sid,
+                            const SimpleSpeciesReference_t *ssr );
+
+
 END_C_DECLS
 
 
