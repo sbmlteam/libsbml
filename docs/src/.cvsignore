@@ -22,3 +22,4 @@ auto
 Doxyfile
 Makefile
 .deps
+*.tar.gz
