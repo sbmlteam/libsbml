@@ -953,6 +953,20 @@ Model_getFunctionDefinition (const Model_t *m, unsigned int n)
 
 
 /**
+ * @return the FunctionDefinition in this Model with the given id or NULL
+ * if no such FunctionDefinition exists.
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t *
+Model_getFunctionDefinitionById (const Model_t *m, const char *sid)
+{
+  return (FunctionDefinition_t *)
+         ListOf_find( m->functionDefinition, sid,
+                      (ListItemComparator) FunctionDefinitionIdCmp );
+}
+
+
+/**
  * @return the nth UnitDefinition of this Model.
  */
 LIBSBML_EXTERN
@@ -972,9 +986,8 @@ UnitDefinition_t *
 Model_getUnitDefinitionById (const Model_t *m, const char *sid)
 {
   return (UnitDefinition_t *)
-         ListOf_find(
-            m->unitDefinition, sid, (ListItemComparator) UnitDefinitionIdCmp
-         );
+         ListOf_find( m->unitDefinition, sid,
+                      (ListItemComparator) UnitDefinitionIdCmp );
 }
 
 
@@ -986,6 +999,20 @@ Compartment_t *
 Model_getCompartment (const Model_t *m, unsigned int n)
 {
   return (Compartment_t *) ListOf_get(m->compartment, n);
+}
+
+
+/**
+ * @return the Compartment in this Model with the given id or NULL if no
+ * such Compartment exists.
+ */
+LIBSBML_EXTERN
+Compartment_t *
+Model_getCompartmentById (const Model_t *m, const char *sid)
+{
+  return (Compartment_t *)
+         ListOf_find( m->compartment, sid,
+                      (ListItemComparator) CompartmentIdCmp );
 }
 
 
@@ -1025,6 +1052,19 @@ Model_getParameter (const Model_t *m, unsigned int n)
 
 
 /**
+ * @return the Parameter in this Model with the given id or NULL if no such
+ * Parameter exists.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+Model_getParameterById (const Model_t *m, const char *sid)
+{
+  return (Parameter_t *)
+         ListOf_find(m->parameter, sid, (ListItemComparator) ParameterIdCmp);
+}
+
+
+/**
  * @return the nth Rule of this Model.
  */
 LIBSBML_EXTERN
@@ -1047,6 +1087,19 @@ Model_getReaction (const Model_t *m, unsigned int n)
 
 
 /**
+ * @return the Reaction in this Model with the given id or NULL if no such
+ * Reaction exists.
+ */
+LIBSBML_EXTERN
+Reaction_t *
+Model_getReactionById (const Model_t *m, const char *sid)
+{
+  return (Reaction_t *)
+         ListOf_find(m->reaction, sid, (ListItemComparator) ReactionIdCmp);
+}
+
+
+/**
  * @return the nth Event of this Model.
  */
 LIBSBML_EXTERN
@@ -1054,6 +1107,19 @@ Event_t *
 Model_getEvent (const Model_t *m, unsigned int n)
 {
   return (Event_t *) ListOf_get(m->event, n);
+}
+
+
+/**
+ * @return the Event in this Model with the given id or NULL if no such
+ * Event exists.
+ */
+LIBSBML_EXTERN
+Event_t *
+Model_getEventById (const Model_t *m, const char *sid)
+{
+  return (Event_t *)
+         ListOf_find(m->event, sid, (ListItemComparator) EventIdCmp);
 }
 
 
