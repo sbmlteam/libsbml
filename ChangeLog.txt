@@ -1,3 +1,12 @@
+2003-04-14  Ben Bornstein  <bornstei@caltech.edu>
+
+	* The ChangeLog is discontinued until further notice.  As you might
+	imagine, it's a pain to maintain and it doesn't really make sense
+	for a single developer.  For now, CVS logs and NEWS.txt will
+	suffice.  When other developers join the project, I'll consider
+	reinstating the ChangeLog.  Sorry GNU Coding Standards.
+
+
 2003-03-31  Ben Bornstein  <bornstei@caltech.edu>
 
 	* memory.c (MemTrace_printStatistics): Fixed unescaped %'s in printf() calls.
