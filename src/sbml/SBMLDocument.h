@@ -54,14 +54,13 @@
 #define SBMLDocument_h
 
 
+#include "common.h"
 #include "List.h"
 #include "SBase.h"
 #include "Model.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 /**
@@ -104,12 +103,14 @@ typedef struct
  *
  * The SBML document level and version are both 1.
  */
+LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_create (void);
 
 /**
  * Creates a new SBMLDocument with the given level and version.
  */
+LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_createWith (unsigned int level, unsigned int version);
 
@@ -119,6 +120,7 @@ SBMLDocument_createWith (unsigned int level, unsigned int version);
  *
  *   d->model = Model_create();
  */
+LIBSBML_EXTERN
 Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d);
 
@@ -126,19 +128,38 @@ SBMLDocument_createModel (SBMLDocument_t *d);
  * Creates a new Model inside this SBMLDocument and returns a pointer to
  * it.  The name field of this Model is set to a copy of sname.
  */
+LIBSBML_EXTERN
 Model_t *
 SBMLDocument_createModelWith (SBMLDocument_t *d, const char *sname);
 
 /**
  * Frees the given SBMLDocument.
  */
+LIBSBML_EXTERN
 void
 SBMLDocument_free (SBMLDocument_t *d);
+
+
+/**
+ * @return the level of this SBMLDocument.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_getLevel (const SBMLDocument_t *d);
+
+/**
+ * @return the version of this SBMLDocument.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_getVersion (const SBMLDocument_t *d);
+
 
 /**
  * @return the nth warning encountered during the parse of this
  * SBMLDocument or NULL if n > getNumWarnings() - 1.
  */
+LIBSBML_EXTERN
 ParseMessage_t *
 SBMLDocument_getWarning (SBMLDocument_t *d, unsigned int n);
 
@@ -146,6 +167,7 @@ SBMLDocument_getWarning (SBMLDocument_t *d, unsigned int n);
  * @return the nth error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumErrors() - 1.
  */
+LIBSBML_EXTERN
 ParseMessage_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
 
@@ -153,6 +175,7 @@ SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
  * @return the nth fatal error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumFatals() - 1.
  */
+LIBSBML_EXTERN
 ParseMessage_t *
 SBMLDocument_getFatal (SBMLDocument_t *d, unsigned int n);
 
@@ -160,22 +183,25 @@ SBMLDocument_getFatal (SBMLDocument_t *d, unsigned int n);
  * @return the number of warnings encountered during the parse of this
  * SBMLDocument.
  */
+LIBSBML_EXTERN
 unsigned int
-SBMLDocument_getNumWarnings (SBMLDocument_t *d);
+SBMLDocument_getNumWarnings (const SBMLDocument_t *d);
 
 /**
  * @return the number of errors encountered during the parse of this
  * SBMLDocument.
  */
+LIBSBML_EXTERN
 unsigned int
-SBMLDocument_getNumErrors (SBMLDocument_t *d);
+SBMLDocument_getNumErrors (const SBMLDocument_t *d);
 
 /**
  * @return the number of fatal errors encountered during the parse of this
  * SBMLDocument.
  */
+LIBSBML_EXTERN
 unsigned int
-SBMLDocument_getNumFatals (SBMLDocument_t *d);
+SBMLDocument_getNumFatals (const SBMLDocument_t *d);
 
 /**
  * Prints all warnings encountered during the parse of this SBMLDocument to
@@ -190,6 +216,7 @@ SBMLDocument_getNumFatals (SBMLDocument_t *d);
  * This is a convenience function to aid in debugging.  For example:
  * SBMLDocument_printWarnings(d, stdout).
  */
+LIBSBML_EXTERN
 void
 SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream);
 
@@ -206,6 +233,7 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream);
  * This is a convenience function to aid in debugging.  For example:
  * SBMLDocument_printErrors(d, stdout).
  */
+LIBSBML_EXTERN
 void
 SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream);
 
@@ -222,13 +250,12 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream);
  * This is a convenience function to aid in debugging.  For example:
  * SBMLDocument_printFatals(d, stdout).
  */
+LIBSBML_EXTERN
 void
 SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream);
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** SBMLDocument_h **/
