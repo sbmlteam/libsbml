@@ -65,6 +65,7 @@ static const XMLCh* SBML_ELEMENTS[] =
 {
     ELEM_ALGEBRAIC_RULE
   , ELEM_ANNOTATION
+  , ELEM_ANNOTATIONS
   , ELEM_COMPARTMENT
   , ELEM_COMPARTMENT_VOLUME_RULE
   , ELEM_KINETIC_LAW
@@ -100,7 +101,7 @@ static const XMLCh* SBML_ELEMENTS[] =
 HashCode_t
 HashCode_forElement(const XMLCh* name)
 {
-  HashCode_t hc  = 0; /* HASH_UNKNOWN; */
+  HashCode_t hc  = HASH_UNKNOWN;
   HashCode_t lo  = HASH_ALGEBRAIC_RULE;
   HashCode_t hi  = HASH_UNIT_DEFINITION;
   HashCode_t mid;
