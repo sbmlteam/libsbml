@@ -90,7 +90,7 @@ extra_clean = \
 	$(addprefix libsbml-api-ref.,$(tex_clean)) \
 	$(pdffiles)
 
-extra_distclean = Doxyfile sbmlmanual.perl
+extra_distclean = Doxyfile sbmlmanual.perl libsbmlextras.perl
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
