@@ -62,7 +62,7 @@
  */
 LIBSBML_EXTERN
 FunctionDefinition::FunctionDefinition (   const std::string& id
-                                         , ASTNode_t*         math  ) :
+                                         , ASTNode*           math  ) :
     SBase()
   , id   ( id   )
   , math ( math )
@@ -86,7 +86,7 @@ FunctionDefinition::FunctionDefinition (   const std::string& id
 
   if ( !formula.empty() )
   {
-    setMath( SBML_parseFormula( formula.c_str() ) );
+    setMath( (ASTNode*) SBML_parseFormula( formula.c_str() ) );
   }
 }
 
@@ -97,7 +97,7 @@ FunctionDefinition::FunctionDefinition (   const std::string& id
 LIBSBML_EXTERN
 FunctionDefinition::~FunctionDefinition ()
 {
-  ASTNode_free(math);
+  delete math;
 }
 
 
@@ -127,7 +127,7 @@ FunctionDefinition::getName () const
  * @return the math of this FunctionDefinition.
  */
 LIBSBML_EXTERN
-const ASTNode_t*
+const ASTNode*
 FunctionDefinition::getMath () const
 {
   return math;
@@ -201,16 +201,13 @@ FunctionDefinition::setName (const std::string& string)
  */
 LIBSBML_EXTERN
 void
-FunctionDefinition::setMath (ASTNode_t* math)
+FunctionDefinition::setMath (ASTNode* math)
 {
   if (this->math == math) return;
 
 
-  if (this->math != NULL)
-  {
-    ASTNode_free(this->math);
-  }
 
+  delete this->math;
   this->math = math;
 }
 
@@ -251,8 +248,11 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_createWith (const char *sid, ASTNode_t *math)
 {
+  ASTNode* x = static_cast<ASTNode*>(math);
+
+
   return
-    new(std::nothrow) FunctionDefinition(sid ? sid : "", math);
+    new(std::nothrow) FunctionDefinition(sid ? sid : "", x);
 }
 
 
@@ -382,7 +382,7 @@ LIBSBML_EXTERN
 void
 FunctionDefinition_setMath (FunctionDefinition_t *fd, ASTNode_t *math)
 {
-  static_cast<FunctionDefinition*>(fd)->setMath(math);
+  static_cast<FunctionDefinition*>(fd)->setMath( static_cast<ASTNode*>(math) );
 }
 
 

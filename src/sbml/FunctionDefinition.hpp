@@ -58,7 +58,7 @@
 
 #include "extern.h"
 #include "SBase.hpp"
-#include "ASTNode.h"
+#include "ASTNode.hpp"
 
 
 class FunctionDefinition : public SBase
@@ -70,8 +70,8 @@ public:
    * attributes set.
    */
   LIBSBML_EXTERN
-  FunctionDefinition (   const std::string& id   = ""
-                       , ASTNode_t*         math = NULL );
+  FunctionDefinition (   const std::string& id
+                       , ASTNode*           math );
   /**
    * Creates a new FunctionDefinition, optionally with its id and math (via
    * an infix formula string) attributes set.
@@ -102,7 +102,7 @@ public:
    * @return the math of this FunctionDefinition.
    */
   LIBSBML_EXTERN
-  const ASTNode_t* getMath () const;
+  const ASTNode* getMath () const;
 
   /**
    * @return true if the id of this FunctionDefinition has been set, false
@@ -146,7 +146,7 @@ public:
    * nodes).
    */
   LIBSBML_EXTERN
-  void setMath (ASTNode_t* math);
+  void setMath (ASTNode* math);
 
   /**
    * Unsets the name of this FunctionDefinition.
@@ -159,7 +159,7 @@ protected:
 
   std::string id;
   std::string name;
-  ASTNode_t   *math;
+  ASTNode*    math;
 
 
   friend class SBMLFormatter;
