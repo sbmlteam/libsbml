@@ -58,7 +58,7 @@ const char* UNIT_KIND_STRINGS[] =
     "ampere"
   , "becquerel"
   , "candela"
-  , "celsius"
+  , "Celsius"
   , "coulomb"
   , "dimensionless"
   , "farad"

@@ -137,7 +137,7 @@ START_TEST (test_UnitKind_toString)
   fail_unless(!strcmp(s, "candela"), NULL);
 
   s = UnitKind_toString(UNIT_KIND_CELSIUS);
-  fail_unless(!strcmp(s, "celsius"), NULL);
+  fail_unless(!strcmp(s, "Celsius"), NULL);
 
   s = UnitKind_toString(UNIT_KIND_COULOMB);
   fail_unless(!strcmp(s, "coulomb"), NULL);
