@@ -61,55 +61,82 @@ libsbml_la_LIBADD   = -L../expat -lexpat-compat
 endif  ## USE_EXPAT
 
 
-nobase_include_HEADERS =          \
-  sbml/AlgebraicRule.h            \
-  sbml/AssignmentRule.h           \
-  sbml/ASTNode.h                  \
-  sbml/Compartment.h              \
-  sbml/CompartmentVolumeRule.h    \
-  sbml/Event.h                    \
-  sbml/EventAssignment.h          \
-  sbml/FormulaFormatter.h         \
-  sbml/FormulaParser.h            \
-  sbml/FormulaTokenizer.h         \
-  sbml/FunctionDefinition.h       \
-  sbml/KineticLaw.h               \
-  sbml/List.h                     \
-  sbml/ListOf.h                   \
-  sbml/MathMLDocument.h           \
-  sbml/MathMLReader.h             \
-  sbml/MathMLWriter.h             \
-  sbml/Model.h                    \
-  sbml/ModifierSpeciesReference.h \
-  sbml/Parameter.h                \
-  sbml/ParameterRule.h            \
-  sbml/ParseMessage.h             \
-  sbml/RateRule.h                 \
-  sbml/Reaction.h                 \
-  sbml/Rule.h                     \
-  sbml/RuleType.h                 \
-  sbml/SBase.h                    \
-  sbml/SBMLConvert.h              \
-  sbml/SBMLDocument.h             \
-  sbml/SBMLReader.h               \
-  sbml/SBMLTypeCodes.h            \
-  sbml/SBMLTypes.h                \
-  sbml/SBMLWriter.h               \
-  sbml/SimpleSpeciesReference.h   \
-  sbml/Species.h                  \
-  sbml/SpeciesConcentrationRule.h \
-  sbml/SpeciesReference.h         \
-  sbml/Stack.h                    \
-  sbml/StringBuffer.h             \
-  sbml/StringMap.h                \
-  sbml/UnitDefinition.h           \
-  sbml/Unit.h                     \
-  sbml/UnitKind.h                 \
-  sbml/Validator.h                \
-  sbml/common.h                   \
-  sbml/config.h                   \
-  sbml/extern.h                   \
-  sbml/memory.h                   \
+nobase_include_HEADERS =            \
+  sbml/AlgebraicRule.h              \
+  sbml/AlgebraicRule.hpp            \
+  sbml/AssignmentRule.h             \
+  sbml/AssignmentRule.hpp           \
+  sbml/ASTNode.h                    \
+  sbml/Compartment.h                \
+  sbml/Compartment.hpp              \
+  sbml/CompartmentVolumeRule.h      \
+  sbml/CompartmentVolumeRule.hpp    \
+  sbml/Event.h                      \
+  sbml/Event.hpp                    \
+  sbml/EventAssignment.h            \
+  sbml/EventAssignment.hpp          \
+  sbml/FormulaFormatter.h           \
+  sbml/FormulaParser.h              \
+  sbml/FormulaTokenizer.h           \
+  sbml/FunctionDefinition.h         \
+  sbml/FunctionDefinition.hpp       \
+  sbml/KineticLaw.h                 \
+  sbml/KineticLaw.hpp               \
+  sbml/List.h                       \
+  sbml/List.hpp                     \
+  sbml/ListOf.h                     \
+  sbml/ListOf.hpp                   \
+  sbml/MathMLDocument.h             \
+  sbml/MathMLReader.h               \
+  sbml/MathMLWriter.h               \
+  sbml/Model.h                      \
+  sbml/Model.hpp                    \
+  sbml/ModifierSpeciesReference.h   \
+  sbml/ModifierSpeciesReference.hpp \
+  sbml/Parameter.h                  \
+  sbml/Parameter.hpp                \
+  sbml/ParameterRule.h              \
+  sbml/ParameterRule.hpp            \
+  sbml/ParseMessage.h               \
+  sbml/ParseMessage.hpp             \
+  sbml/RateRule.h                   \
+  sbml/RateRule.hpp                 \
+  sbml/Reaction.h                   \
+  sbml/Reaction.hpp                 \
+  sbml/Rule.h                       \
+  sbml/Rule.hpp                     \
+  sbml/RuleType.h                   \
+  sbml/SBase.h                      \
+  sbml/SBase.hpp                    \
+  sbml/SBMLConvert.h                \
+  sbml/SBMLDocument.h               \
+  sbml/SBMLDocument.hpp             \
+  sbml/SBMLReader.h                 \
+  sbml/SBMLTypeCodes.h              \
+  sbml/SBMLTypes.h                  \
+  sbml/SBMLTypes.hpp                \
+  sbml/SBMLWriter.h                 \
+  sbml/SimpleSpeciesReference.h     \
+  sbml/SimpleSpeciesReference.hpp   \
+  sbml/Species.h                    \
+  sbml/Species.hpp                  \
+  sbml/SpeciesConcentrationRule.h   \
+  sbml/SpeciesConcentrationRule.hpp \
+  sbml/SpeciesReference.h           \
+  sbml/SpeciesReference.hpp         \
+  sbml/Stack.h                      \
+  sbml/StringBuffer.h               \
+  sbml/StringMap.h                  \
+  sbml/UnitDefinition.h             \
+  sbml/UnitDefinition.hpp           \
+  sbml/Unit.h                       \
+  sbml/Unit.hpp                     \
+  sbml/UnitKind.h                   \
+  sbml/Validator.h                  \
+  sbml/common.h                     \
+  sbml/config.h                     \
+  sbml/extern.h                     \
+  sbml/memory.h                     \
   sbml/util.h
 
 libsbml_la_SOURCES =              \
@@ -131,48 +158,48 @@ libsbml_la_SOURCES =              \
   MathMLReader.cpp                \
   MathMLTagCodes.cpp              \
   MathMLWriter.cpp                \
-  SBMLFormatter.cpp               \
-  SBMLHandler.cpp                 \
-  SBMLReader.cpp                  \
   SBMLTagCodes.cpp                \
-  SBMLWriter.cpp                  \
   XMLStringFormatter.cpp          \
   XMLUtil.cpp                     \
-  AlgebraicRule.c                 \
-  AssignmentRule.c                \
+  AlgebraicRule.cpp               \
+  AssignmentRule.cpp              \
   ASTNode.c                       \
-  Compartment.c                   \
-  CompartmentVolumeRule.c         \
-  Event.c                         \
-  EventAssignment.c               \
+  Compartment.cpp                 \
+  CompartmentVolumeRule.cpp       \
+  Event.cpp                       \
+  EventAssignment.cpp             \
   FormulaFormatter.c              \
   FormulaParser.c                 \
   FormulaTokenizer.c              \
-  FunctionDefinition.c            \
-  KineticLaw.c                    \
-  List.c                          \
-  ListOf.c                        \
-  Model.c                         \
-  ModifierSpeciesReference.c      \
-  Parameter.c                     \
-  ParameterRule.c                 \
-  ParseMessage.c                  \
-  RateRule.c                      \
-  Reaction.c                      \
-  Rule.c                          \
+  FunctionDefinition.cpp          \
+  KineticLaw.cpp                  \
+  List.cpp                        \
+  ListOf.cpp                      \
+  Model.cpp                       \
+  ModifierSpeciesReference.cpp    \
+  Parameter.cpp                   \
+  ParameterRule.cpp               \
+  ParseMessage.cpp                \
+  RateRule.cpp                    \
+  Reaction.cpp                    \
+  Rule.cpp                        \
   RuleType.c                      \
-  SBase.c                         \
+  SBase.cpp                       \
   SBMLConvert.c                   \
-  SBMLDocument.c                  \
-  SimpleSpeciesReference.c        \
-  Species.c                       \
-  SpeciesConcentrationRule.c      \
-  SpeciesReference.c              \
+  SBMLDocument.cpp                \
+  SBMLFormatter.cpp               \
+  SBMLHandler.cpp                 \
+  SBMLReader.cpp                  \
+  SBMLWriter.cpp                  \
+  SimpleSpeciesReference.cpp      \
+  Species.cpp                     \
+  SpeciesConcentrationRule.cpp    \
+  SpeciesReference.cpp            \
   Stack.c                         \
   StringBuffer.c                  \
   StringMap.c                     \
-  Unit.c                          \
-  UnitDefinition.c                \
+  Unit.cpp                        \
+  UnitDefinition.cpp              \
   UnitKind.c                      \
   ValidationRules.c               \
   Validator.c                     \
@@ -189,8 +216,6 @@ TestRunner_SOURCES =              \
   TestMathMLFormatter.cpp         \
   TestMathMLHandler.cpp           \
   TestSAX2AttributesMock.cpp      \
-  TestSBMLFormatter.cpp           \
-  TestSBMLHandler.cpp             \
   TestXMLStringFormatter.cpp      \
   TestXMLUtil.cpp                 \
   TestAlgebraicRule.c             \
@@ -217,11 +242,18 @@ TestRunner_SOURCES =              \
   TestParseMessage.c              \
   TestRateRule.c                  \
   TestReaction.c                  \
+  TestReadFromFile1.c             \
+  TestReadFromFile2.c             \
+  TestReadFromFile3.c             \
+  TestReadFromFile4.c             \
   TestRule.c                      \
   TestRuleType.c                  \
-  TestSBase.c                     \
+  TestRunner.c                    \
+  TestSBase.cpp                   \
   TestSBMLConvert.c               \
   TestSBMLDocument.c              \
+  TestSBMLFormatter.cpp           \
+  TestSBMLHandler.cpp             \
   TestSBMLReader.c                \
   TestSBMLWriter.c                \
   TestSimpleSpeciesReference.c    \
@@ -231,11 +263,6 @@ TestRunner_SOURCES =              \
   TestStack.c                     \
   TestStringBuffer.c              \
   TestStringMap.c                 \
-  TestReadFromFile1.c             \
-  TestReadFromFile2.c             \
-  TestReadFromFile3.c             \
-  TestReadFromFile4.c             \
-  TestRunner.c                    \
   TestUnitDefinition.c            \
   TestUnitKind.c                  \
   TestUnit.c                      \
