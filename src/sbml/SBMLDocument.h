@@ -55,6 +55,7 @@
 
 
 #include "List.h"
+#include "SBase.h"
 #include "Model.h"
 
 
@@ -85,6 +86,8 @@ typedef struct
  */
 typedef struct
 {
+  SBASE_FIELDS;
+
   unsigned int level;
   unsigned int version;
 

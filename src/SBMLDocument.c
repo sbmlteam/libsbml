@@ -67,6 +67,8 @@ SBMLDocument_create (void)
 
   d = (SBMLDocument_t *) safe_calloc(1, sizeof(SBMLDocument_t));
 
+  SBase_init((SBase_t *) d, SBML_DOCUMENT);
+
   d->level   = 1;
   d->version = 1;
 
@@ -155,6 +157,8 @@ SBMLDocument_free (SBMLDocument_t *d)
 
   Model_free(d->model);
 
+  safe_free(d->notes);
+  safe_free(d->annotation);
   safe_free(d);
 }
 
