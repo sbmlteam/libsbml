@@ -215,7 +215,7 @@ AC_CONFIG_FILES([./Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([bindings/Makefile])
 AC_CONFIG_FILES([bindings/python/Makefile])
-dnl AC_CONFIG_FILES([bindings/matlab/Makefile])    # not yet ready
+AC_CONFIG_FILES([bindings/matlab/Makefile])
 AC_CONFIG_FILES([bindings/java/Makefile])
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/src/Doxyfile])
