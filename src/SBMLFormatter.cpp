@@ -50,6 +50,7 @@
  *   Stephan Hoops
  */
 
+#include <time.h>
 
 #include "sbml/common.h"
 
@@ -119,7 +120,31 @@ SBMLFormatter::~SBMLFormatter ()
   delete fNumberBuffer;
 }
 
+/**
+ * Write the program identification comment
+ */
+void SBMLFormatter::writeComment(const char * programName,
+                                 const char * programVersion)
+{
+  time_t seconds;
+  time(&seconds);
+  struct tm *pDate = localtime(&seconds);
+  
+  char date[17]; // "yyyy-MM-dd HH:mm"
 
+  sprintf(date, "%d-%02d-%02d %02d:%02d", 
+          pDate->tm_year + 1900,
+          pDate->tm_mon,
+          pDate->tm_mday,
+          pDate->tm_hour,
+          pDate->tm_min);
+  
+  *fFormatter << XMLFormatter::NoEscapes << XML_COMMENT_1
+              << programName << XML_COMMENT_2
+              << programVersion << XML_COMMENT_3
+              << date << XML_COMMENT_4
+              << PACKAGE_VERSION << XML_COMMENT_5;
+}
 
 
 /* ----------------------------------------------------------------------

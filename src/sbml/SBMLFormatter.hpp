@@ -117,6 +117,12 @@ public:
   enum SBMLVersion_t { Version1 = 1, Version2 = 2 };
 
   /**
+   * Write the program identification comment
+   */
+  void writeComment(const char * programName,
+                    const char * programVersion);
+
+  /**
    * Sets the SBML Level number (used to format subsequent insertions).
    */
   SBMLFormatter& operator<< (const SBMLLevel_t level);
