@@ -88,7 +88,7 @@ distfiles = formatted Makefile.in
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: 
+all docs: docs-recursive
 
 
 # -----------------------------------------------------------------------------

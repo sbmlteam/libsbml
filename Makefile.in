@@ -192,6 +192,8 @@ extra_distclean = config.status config.cache config.log autom4te.cache \
 
 all: configure Makefile all-recursive 
 
+docs: docs-recursive
+
 
 # -----------------------------------------------------------------------------
 # Checking.
