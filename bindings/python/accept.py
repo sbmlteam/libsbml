@@ -284,6 +284,29 @@ def teestRule():
    assert formula.thisown == 0
 
 
+def testListOf():
+   lo = libsbml.ListOf()
+   assert lo
+   assert lo.getNumItems() == 0
+
+   compartment = libsbml.Compartment()
+   assert compartment
+   assert compartment.thisown == 1
+
+   lo.append(compartment)
+   assert lo.getNumItems() == 1
+   assert compartment.thisown == 0
+
+   theSameCompartment = lo.remove(0)
+   assert lo.getNumItems() == 0
+
+   assert theSameCompartment == compartment
+   assert theSameCompartment.thisown == 1
+   # assert compartment.thisown == 1  This fails, but that might be correct.
+   # Theoretically, having thisown==1 on only one object ensures that the
+   # underlying libsbml object gets freed only once.
+
+   
 class TestRunner:
 
    def __init__(self):

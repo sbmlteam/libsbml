@@ -135,6 +135,16 @@
 %}
 
 
+%feature("shadow") ListOf::remove(unsigned int)
+%{
+  def remove(*args):
+    result = _libsbml.ListOf_remove(*args)
+    if result is not None:
+      result.thisown = 1
+    return result
+%}
+
+
 %feature("shadow") SBMLDocument::setModel(Model*)
 %{
   def setModel(*args):
