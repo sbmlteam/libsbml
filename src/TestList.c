@@ -136,6 +136,32 @@ START_TEST (test_List_add_2)
 END_TEST
 
 
+int
+myStrCmp (const void *s1, const void *s2)
+{
+  return strcmp((const char *) s1, (const char *) s2);
+}
+
+
+START_TEST (test_List_find)
+{
+  const char *foo = "foo";
+  const char *bar = "bar";
+  const char *baz = "baz";
+  const char *bop = "bop";
+
+  List_add(L, (void *) foo);
+  List_add(L, (void *) bar);
+  List_add(L, (void *) baz);
+
+  fail_unless( List_find(L, (void *) foo, myStrCmp) == foo , NULL );
+  fail_unless( List_find(L, (void *) bar, myStrCmp) == bar , NULL );
+  fail_unless( List_find(L, (void *) baz, myStrCmp) == baz , NULL );
+  fail_unless( List_find(L, (void *) bop, myStrCmp) == NULL, NULL );
+}
+END_TEST
+
+
 START_TEST (test_List_get)
 {
   List_add(L, "foo");
@@ -285,6 +311,7 @@ create_suite_List (void)
   tcase_add_test( tcase, test_List_add_1      );
   tcase_add_test( tcase, test_List_add_2      );
   tcase_add_test( tcase, test_List_get        );
+  tcase_add_test( tcase, test_List_find       );
   tcase_add_test( tcase, test_List_prepend_1  );
   tcase_add_test( tcase, test_List_prepend_2  );
   tcase_add_test( tcase, test_List_remove_1   );
