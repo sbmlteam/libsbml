@@ -25,6 +25,10 @@ NULL=
 NULL=nul
 !ENDIF 
 
+CPP=cl.exe
+MTL=midl.exe
+RSC=rc.exe
+
 !IF  "$(CFG)" == "libsbml - Win32 Release"
 
 OUTDIR=.\bin
@@ -67,7 +71,6 @@ CLEAN :
 	-@erase "$(INTDIR)\Reaction.obj"
 	-@erase "$(INTDIR)\Rule.obj"
 	-@erase "$(INTDIR)\RuleType.obj"
-	-@erase "$(INTDIR)\SAX2AttributesMock.obj"
 	-@erase "$(INTDIR)\SBase.obj"
 	-@erase "$(INTDIR)\SBMLConvert.obj"
 	-@erase "$(INTDIR)\SBMLDocument.obj"
@@ -90,6 +93,8 @@ CLEAN :
 	-@erase "$(INTDIR)\ValidationRules.obj"
 	-@erase "$(INTDIR)\Validator.obj"
 	-@erase "$(INTDIR)\vc60.idb"
+	-@erase "$(INTDIR)\XMLNamespace.obj"
+	-@erase "$(INTDIR)\XMLNamespaceList.obj"
 	-@erase "$(INTDIR)\XMLStringFormatter.obj"
 	-@erase "$(INTDIR)\XMLUtil.obj"
 	-@erase "$(OUTDIR)\libsbml.dll"
@@ -102,42 +107,8 @@ CLEAN :
 "$(INTDIR)" :
     if not exist "$(INTDIR)/$(NULL)" mkdir "$(INTDIR)"
 
-CPP=cl.exe
 CPP_PROJ=/nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /Fp"$(INTDIR)\libsbml.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-MTL=midl.exe
 MTL_PROJ=/nologo /D "NDEBUG" /mktyplib203 /win32 
-RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\libsbml.bsc" 
 BSC32_SBRS= \
@@ -175,7 +146,6 @@ LINK32_OBJS= \
 	"$(INTDIR)\Reaction.obj" \
 	"$(INTDIR)\Rule.obj" \
 	"$(INTDIR)\RuleType.obj" \
-	"$(INTDIR)\SAX2AttributesMock.obj" \
 	"$(INTDIR)\SBase.obj" \
 	"$(INTDIR)\SBMLConvert.obj" \
 	"$(INTDIR)\SBMLDocument.obj" \
@@ -198,7 +168,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\ValidationRules.obj" \
 	"$(INTDIR)\Validator.obj" \
 	"$(INTDIR)\XMLStringFormatter.obj" \
-	"$(INTDIR)\XMLUtil.obj"
+	"$(INTDIR)\XMLUtil.obj" \
+	"$(INTDIR)\XMLNamespace.obj" \
+	"$(INTDIR)\XMLNamespaceList.obj"
 
 "$(OUTDIR)\libsbml.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -247,7 +219,6 @@ CLEAN :
 	-@erase "$(INTDIR)\Reaction.obj"
 	-@erase "$(INTDIR)\Rule.obj"
 	-@erase "$(INTDIR)\RuleType.obj"
-	-@erase "$(INTDIR)\SAX2AttributesMock.obj"
 	-@erase "$(INTDIR)\SBase.obj"
 	-@erase "$(INTDIR)\SBMLConvert.obj"
 	-@erase "$(INTDIR)\SBMLDocument.obj"
@@ -271,6 +242,8 @@ CLEAN :
 	-@erase "$(INTDIR)\Validator.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
+	-@erase "$(INTDIR)\XMLNamespace.obj"
+	-@erase "$(INTDIR)\XMLNamespaceList.obj"
 	-@erase "$(INTDIR)\XMLStringFormatter.obj"
 	-@erase "$(INTDIR)\XMLUtil.obj"
 	-@erase "$(OUTDIR)\libsbmlD.dll"
@@ -285,42 +258,8 @@ CLEAN :
 "$(INTDIR)" :
     if not exist "$(INTDIR)/$(NULL)" mkdir "$(INTDIR)"
 
-CPP=cl.exe
 CPP_PROJ=/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /Fp"$(INTDIR)\libsbml.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
-
-.c{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.obj::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.c{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cpp{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-.cxx{$(INTDIR)}.sbr::
-   $(CPP) @<<
-   $(CPP_PROJ) $< 
-<<
-
-MTL=midl.exe
 MTL_PROJ=/nologo /D "_DEBUG" /mktyplib203 /win32 
-RSC=rc.exe
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\libsbml.bsc" 
 BSC32_SBRS= \
@@ -358,7 +297,6 @@ LINK32_OBJS= \
 	"$(INTDIR)\Reaction.obj" \
 	"$(INTDIR)\Rule.obj" \
 	"$(INTDIR)\RuleType.obj" \
-	"$(INTDIR)\SAX2AttributesMock.obj" \
 	"$(INTDIR)\SBase.obj" \
 	"$(INTDIR)\SBMLConvert.obj" \
 	"$(INTDIR)\SBMLDocument.obj" \
@@ -381,7 +319,9 @@ LINK32_OBJS= \
 	"$(INTDIR)\ValidationRules.obj" \
 	"$(INTDIR)\Validator.obj" \
 	"$(INTDIR)\XMLStringFormatter.obj" \
-	"$(INTDIR)\XMLUtil.obj"
+	"$(INTDIR)\XMLUtil.obj" \
+	"$(INTDIR)\XMLNamespace.obj" \
+	"$(INTDIR)\XMLNamespaceList.obj"
 
 "$(OUTDIR)\libsbmlD.dll" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -389,6 +329,36 @@ LINK32_OBJS= \
 <<
 
 !ENDIF 
+
+.c{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.obj::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.c{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cpp{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
+
+.cxx{$(INTDIR)}.sbr::
+   $(CPP) @<<
+   $(CPP_PROJ) $< 
+<<
 
 
 !IF "$(NO_EXTERNAL_DEPS)" != "1"
@@ -581,12 +551,6 @@ SOURCE=..\src\RuleType.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\SAX2AttributesMock.cpp
-
-"$(INTDIR)\SAX2AttributesMock.obj" : $(SOURCE) "$(INTDIR)"
-	$(CPP) $(CPP_PROJ) $(SOURCE)
-
-
 SOURCE=..\src\SBase.cpp
 
 "$(INTDIR)\SBase.obj" : $(SOURCE) "$(INTDIR)"
@@ -710,6 +674,18 @@ SOURCE=..\src\ValidationRules.c
 SOURCE=..\src\Validator.c
 
 "$(INTDIR)\Validator.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\src\XMLNamespace.cpp
+
+"$(INTDIR)\XMLNamespace.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\src\XMLNamespaceList.cpp
+
+"$(INTDIR)\XMLNamespaceList.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 

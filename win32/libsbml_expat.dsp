@@ -212,10 +212,6 @@ SOURCE=..\src\RuleType.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\SAX2AttributesMock.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\SBase.cpp
 # End Source File
 # Begin Source File
@@ -297,6 +293,14 @@ SOURCE=..\src\ValidationRules.c
 # Begin Source File
 
 SOURCE=..\src\Validator.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\XMLNamespace.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\XMLNamespaceList.cpp
 # End Source File
 # Begin Source File
 
@@ -536,10 +540,6 @@ SOURCE=..\src\sbml\RuleType.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\sbml\SAX2AttributesMock.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\sbml\SBase.h
 # End Source File
 # Begin Source File
@@ -669,6 +669,14 @@ SOURCE=..\src\sbml\util.h
 # Begin Source File
 
 SOURCE=..\src\sbml\Validator.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\XMLNamespace.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\XMLNamespaceList.hpp
 # End Source File
 # Begin Source File
 
