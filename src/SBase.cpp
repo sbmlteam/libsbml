@@ -56,13 +56,14 @@
 
 
 
-SBase::SBase (): line(0), column(0)
+SBase::SBase (): line(0), column(0), mNamespaces(0)
 {
 }
 
 
 SBase::~SBase ()
 {
+  delete mNamespaces;
 }
 
 
@@ -144,6 +145,30 @@ const std::string&
 SBase::getAnnotation () const
 {
   return annotation;
+}
+
+
+/**
+ * @return a list of XML namespaces defined on this SBML object.
+ */
+LIBSBML_EXTERN
+XMLNamespaceList&
+SBase::getNamespaces ()
+{
+  if (mNamespaces == NULL) mNamespaces = new XMLNamespaceList;
+  return *mNamespaces;
+}
+
+
+/**
+ * @return true if this SBML object has any XML namespaces defined on it,
+ * false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+SBase::hasNamespaces () const
+{
+  return (mNamespaces != NULL);
 }
 
 

@@ -55,6 +55,8 @@
 
 
 #include <string>
+
+#include "XMLNamespaceList.hpp"
 #include "SBase.h"
 
 
@@ -93,6 +95,19 @@ public:
 
   LIBSBML_EXTERN
   const std::string& getAnnotation () const;
+
+  /**
+   * @return a list of XML namespaces defined on this SBML object.
+   */
+  LIBSBML_EXTERN
+  XMLNamespaceList& getNamespaces ();
+
+  /**
+   * @return true if this SBML object has any XML namespaces defined on it,
+   * false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool hasNamespaces () const;
 
   LIBSBML_EXTERN
   bool isSetMetaId () const;
@@ -144,6 +159,7 @@ protected:
   std::string notes;
   std::string annotation;
 
+  XMLNamespaceList *mNamespaces;
 
   friend void SBaseTest_setup ();
   friend class SBMLFormatter;
