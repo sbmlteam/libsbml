@@ -203,8 +203,7 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
 
 
 /**
- * Sets the exponent field of this Unit to value and marks the field as
- * set.
+ * Sets the exponent of this Unit to value and marks the field as set.
  */
 LIBSBML_EXTERN
 int
@@ -216,7 +215,7 @@ Unit_setExponent (Unit_t *u, int value)
 
 
 /**
- * Sets the scale field of this Unit to value and marks the field as set.
+ * Sets the scale of this Unit to value and marks the field as set.
  */
 LIBSBML_EXTERN
 int
@@ -228,7 +227,7 @@ Unit_setScale (Unit_t *u, int value)
 
 
 /**
- * Marks the exponent field of this Unit as unset.
+ * Marks the exponent of this Unit as unset.
  */
 LIBSBML_EXTERN
 int
@@ -239,7 +238,7 @@ Unit_unsetExponent (Unit_t *u)
 
 
 /**
- * Marks the scale field of this Unit as unset.
+ * Marks the scale of this Unit as unset.
  */
 LIBSBML_EXTERN
 int

@@ -111,7 +111,7 @@ int
 UnitDefinition_isSetName (const UnitDefinition_t *ud);
 
 /**
- * Sets the name field of this UnitDefinition to a copy of sname.
+ * Sets the name of this UnitDefinition to a copy of sname.
  */
 LIBSBML_EXTERN
 void
