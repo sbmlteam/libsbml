@@ -115,4 +115,49 @@ static const XMLCh XML_VERSION_1_1[] =
 };
 
 
+// 
+// "<!-- Created by "
+//
+static const XMLCh XML_COMMENT_1[] =
+{
+  chOpenAngle, chBang, chDash, chDash, chSpace, 
+  chLatin_C, chLatin_r, chLatin_e, chLatin_a, chLatin_t, chLatin_e, chLatin_d, chSpace, 
+  chLatin_b, chLatin_y, chSpace, chNull
+};
+
+// 
+// " version "
+//
+static const XMLCh XML_COMMENT_2[] =
+{
+  chSpace, chLatin_v, chLatin_e, chLatin_r, chLatin_s, chLatin_i, chLatin_o, chLatin_n, chSpace, chNull
+};
+
+// 
+// " on "
+//
+static const XMLCh XML_COMMENT_3[] =
+{
+  chSpace, chLatin_o, chLatin_n, chSpace, chNull
+};
+
+
+// 
+// " with libsbml version "
+//
+static const XMLCh XML_COMMENT_4[] =
+{
+  chSpace, chLatin_w, chLatin_i, chLatin_t, chLatin_h,
+  chSpace, chLatin_l, chLatin_i, chLatin_b, chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chSpace, chLatin_v, chLatin_e, chLatin_r, chLatin_s, chLatin_i, chLatin_o, chLatin_n, chSpace, chNull
+};
+
+// 
+// " -->\n"
+//
+static const XMLCh XML_COMMENT_5[] =
+{
+  chPeriod, chSpace, chDash, chDash, chCloseAngle, chLF, chNull
+};
+
 #endif  // XMLUnicodeConstants_hpp
