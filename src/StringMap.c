@@ -156,19 +156,20 @@ StringMap_findItem (const StringMap_t *map, const char *key)
 /**
  * Returns the index of key in list.  If key is not in list, returns -1.
  */
-
 int
 StringMap_findIndexOfItemInList (List_t *list, const char *key)
 {
-  int i;
+  StringMapItem_t *item;
+  unsigned int     i;
+  unsigned int     size = List_size(list);
 
 
-  for (i = 0; i < List_size(list); i++)
+  for (i = 0; i < size; i++)
   {
-    StringMapItem_t *item = (StringMapItem_t *)List_get(list, i);
-    if (!strcmp(item->key, key))
+    item = (StringMapItem_t *) List_get(list, i);
+    if ( !strcmp(item->key, key) )
     {
-      return i;
+      return (int) i;
     }
   }
 
