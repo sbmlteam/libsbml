@@ -257,6 +257,7 @@ test_sources = \
   TestReadFromFile2.c             \
   TestReadFromFile3.c             \
   TestReadFromFile4.c             \
+  TestReadFromFile5.cpp           \
   TestRule.c                      \
   TestRuleType.c                  \
   TestRunner.c                    \

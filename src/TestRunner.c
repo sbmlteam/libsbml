@@ -120,6 +120,7 @@ Suite *create_suite_TestReadFromFile1 (void);
 Suite *create_suite_TestReadFromFile2 (void);
 Suite *create_suite_TestReadFromFile3 (void);
 Suite *create_suite_TestReadFromFile4 (void);
+Suite *create_suite_TestReadFromFile5 (void);
 
 END_C_DECLS
 
@@ -222,6 +223,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );
   srunner_add_suite( runner, create_suite_TestReadFromFile3() );
   srunner_add_suite( runner, create_suite_TestReadFromFile4() );
+  srunner_add_suite( runner, create_suite_TestReadFromFile5() );
 
 
   setTestDataDirectory();
