@@ -78,14 +78,20 @@ int
 FormulaFormatter_isFunction (const ASTNode_t *node);
 
 /**
- * @return true (non-zero) if the given ASTNode should be grouped (with
- * parenthesis), false (0) otherwise.
+ * @return true (non-zero) if the given child ASTNode should be grouped
+ * (with parenthesis), false (0) otherwise.
  *
- * A node should be group if it is not an argument to a function and its
- * parent node has higher precedence than it.
+ * A node should be group if it is not an argument to a function and
+ * either:
+ *
+ *   - The parent node has higher precedence than the child, or
+ *
+ *   - If parent node has equal precedence with the child and the child is
+ *     to the right.  In this case, operator associativity and right-most
+ *     AST derivation enforce the grouping.
  */
 int
-FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *node);
+FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child);
 
 /**
  * Formats the given ASTNode as an SBML L1 token and appends the result to
