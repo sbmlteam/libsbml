@@ -68,6 +68,12 @@ typedef struct
   double  volume;
   char   *units;
   char   *outside;
+
+  struct
+  {
+    unsigned int volume:1;
+  } isSet;
+
 } Compartment_t;
 
 
@@ -146,6 +152,10 @@ Compartment_isSetName (const Compartment_t *c);
 
 /**
  * @return 1 if the volume of this Compartment has been set, 0 otherwise.
+ *
+ * In SBML L1, Compartment volume has a default value (1.0) and therefore
+ * <b>should</b> always be set.  In SBML L2, volume is optional with no
+ * default value, so it may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -204,8 +214,11 @@ void
 Compartment_unsetName (Compartment_t *c);
 
 /**
- * Unsets the volume of this Compartment.  This is equivalent to:
- * c->volume = NaN;
+ * Unsets the volume of this Compartment.
+ *
+ * In SBML L1, Compartment volume has a default value (1.0) and therefore
+ * <b>should</b> always be set.  In SBML L2, volume is optional with no
+ * default value, so it may not be set.
  */
 LIBSBML_EXTERN
 void

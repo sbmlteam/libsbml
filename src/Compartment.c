@@ -125,7 +125,7 @@ LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c)
 {
-  c->volume = 1.0;
+  Compartment_setVolume(c, 1.0);
 }
 
 
@@ -185,6 +185,10 @@ Compartment_isSetName (const Compartment_t *c)
 
 /**
  * @return 1 if the volume of this Compartment has been set, 0 otherwise.
+ *
+ * In SBML L1, Compartment volume has a default value (1.0) and therefore
+ * <b>should</b> always be set.  In SBML L2, volume is optional with no
+ * default value, so it may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -194,7 +198,9 @@ Compartment_isSetVolume (const Compartment_t *c)
    * The unset value for doubles is NaN.  NaN is peculiar in that
    * NaN == NaN is false.
    */
-  return (c->volume == c->volume);
+  /* return (c->volume == c->volume); */
+
+  return c->isSet.volume;
 }
 
 
@@ -243,7 +249,8 @@ LIBSBML_EXTERN
 void
 Compartment_setVolume (Compartment_t *c, double value)
 {
-  c->volume = value;
+  c->volume       = value;
+  c->isSet.volume = 1;
 }
 
 
@@ -293,14 +300,18 @@ Compartment_unsetName (Compartment_t *c)
 
 
 /**
- * Unsets the volume of this Compartment.  This is equivalent to:
- * c->volume = NaN;
+ * Unsets the volume of this Compartment.
+ *
+ * In SBML L1, Compartment volume has a default value (1.0) and therefore
+ * <b>should</b> always be set.  In SBML L2, volume is optional with no
+ * default value, so it may not be set.
  */
 LIBSBML_EXTERN
 void
 Compartment_unsetVolume (Compartment_t *c)
 {
-  c->volume = 0. / 0;
+  c->volume       = 0. / 0;    /* NaN */
+  c->isSet.volume = 0;
 }
 
 
