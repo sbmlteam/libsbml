@@ -1,11 +1,12 @@
 ##
-## Filename    : setup.py.in
-## Description : Python distutils code for libSBML Python module
-## Author(s)   : Michael Hucka, Ben Bornstein, Ben Kovitz
-## Created     : 2004-04-02
-## Revision    : $Id$
-## Source      : $Source$
+## \file    setup.py.in
+## \brief   Python distutils code for libSBML Python module
+## \author  Michael Hucka, Ben Bornstein, Ben Kovitz
 ##
+## $Id$
+## $Source$
+##
+
 ## Copyright 2004 California Institute of Technology and
 ## Japan Science and Technology Corporation.
 ##

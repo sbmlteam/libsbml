@@ -1,12 +1,12 @@
 /**
- * Filename    : local.cpp
- * Description : Python-specific SWIG support code for wrapping libSBML API
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Created     : 2004-04-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    local.cpp
+ * \brief   Python-specific SWIG support code for wrapping libSBML API
+ * \author  Ben Bornstein and Ben Kovitz
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -48,7 +48,7 @@
  * Contributor(s):
  */
 
-#include "sbml/SBase.hpp"
+#include "sbml/SBase.h"
 
 
 /**

@@ -1,12 +1,12 @@
 /**
- * Filename    : local.i
- * Description : Python-specific SWIG directives for wrapping libSBML API
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Created     : 2004-04-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    local.i
+ * \brief   Python-specific SWIG directives for wrapping libSBML API
+ * \author  Ben Bornstein and Ben Kovitz
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
