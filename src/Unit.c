@@ -130,7 +130,7 @@ Unit_initDefaults (Unit_t *u)
  */
 LIBSBML_EXTERN
 UnitKind_t
-Unit_getKind (Unit_t *u)
+Unit_getKind (const Unit_t *u)
 {
   return u->kind;
 }
@@ -141,7 +141,7 @@ Unit_getKind (Unit_t *u)
  */
 LIBSBML_EXTERN
 int
-Unit_getExponent (Unit_t *u)
+Unit_getExponent (const Unit_t *u)
 {
   return u->exponent;
 }
@@ -152,7 +152,7 @@ Unit_getExponent (Unit_t *u)
  */
 LIBSBML_EXTERN
 int
-Unit_getScale (Unit_t *u)
+Unit_getScale (const Unit_t *u)
 {
   return u->scale;
 }
@@ -163,7 +163,7 @@ Unit_getScale (Unit_t *u)
  */
 LIBSBML_EXTERN
 UnitKind_t
-Unit_isSetKind (Unit_t *u)
+Unit_isSetKind (const Unit_t *u)
 {
   return (u->kind != UNIT_KIND_INVALID);
 }
@@ -174,7 +174,7 @@ Unit_isSetKind (Unit_t *u)
  */
 LIBSBML_EXTERN
 int
-Unit_isSetExponent (Unit_t *u)
+Unit_isSetExponent (const Unit_t *u)
 {
   return u->isSet.exponent;
 }
@@ -185,7 +185,7 @@ Unit_isSetExponent (Unit_t *u)
  */
 LIBSBML_EXTERN
 int
-Unit_isSetScale (Unit_t *u)
+Unit_isSetScale (const Unit_t *u)
 {
   return u->isSet.scale;
 }
