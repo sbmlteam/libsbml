@@ -164,15 +164,6 @@ void
 SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
 
 
-/**
- * Unsets the species of this SpeciesReference.  This is equivalent to:
- * safe_free(sr->species); sr->species = NULL;
- */
-LIBSBML_EXTERN
-void
-SpeciesReference_unsetSpecies (SpeciesReference_t *sr);
-
-
 END_C_DECLS
 
 
