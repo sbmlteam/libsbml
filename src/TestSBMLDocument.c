@@ -59,6 +59,10 @@ START_TEST (test_SBMLDocument_create)
   SBMLDocument_t *d = SBMLDocument_create();
 
 
+  fail_unless( d->typecode   == SBML_DOCUMENT, NULL );
+  fail_unless( d->notes      == NULL, NULL );
+  fail_unless( d->annotation == NULL, NULL );
+
   fail_unless(d->level   == 1, NULL);
   fail_unless(d->version == 1, NULL);
 
@@ -75,6 +79,10 @@ START_TEST (test_SBMLDocument_createWith)
 {
   SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
 
+
+  fail_unless( d->typecode   == SBML_DOCUMENT, NULL );
+  fail_unless( d->notes      == NULL, NULL );
+  fail_unless( d->annotation == NULL, NULL );
 
   fail_unless(d->level   == 1, NULL);
   fail_unless(d->version == 2, NULL);
