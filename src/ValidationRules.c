@@ -1074,7 +1074,6 @@ RULE (unitDefinition_idCantBePredefinedUnit)
 }
 
 
-/*
 RULE (unitDefinition_volumeKinds)
 {
   RuleResult_t result;
@@ -1158,7 +1157,6 @@ RULE (unitDefinition_areaKinds)
   }
   return result.passed;
 }
-*/
 
 
 RULE (unitDefinition_lengthKinds)
@@ -2016,13 +2014,12 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, compartment_size_dimensions,    SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_outsideIsDefined,   SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_outsideCyclic,      SBML_COMPARTMENT     );
+
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
                                                         SBML_UNIT_DEFINITION );
-
   Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
                                                         SBML_UNIT_DEFINITION );
-  Validator_addRule( v, unitDefinition_timeKinds,
-                                                        SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_timeKinds, SBML_UNIT_DEFINITION );
 
   Validator_addRule( v, species_compartmentIsDefined,   SBML_SPECIES         );
   Validator_addRule( v, species_hasOnlySubstanceUnits,  SBML_SPECIES         );
@@ -2040,21 +2037,28 @@ Validator_addDefaultRules (Validator_t *v)
                                                         SBML_SPECIES         );
   */
 
-  Validator_addRule( v, species_speciesReference,       SBML_SPECIES         );
-  Validator_addRule( v, species_ruleAndReaction,        SBML_SPECIES         );
-  Validator_addRule( v, parameter_units,                SBML_PARAMETER       );
-  Validator_addRule( v, reaction_speciesReference,      SBML_REACTION        );
-  Validator_addRule( v, reaction_speciesReferenceExists,
-                                                        SBML_REACTION        );
-  Validator_addRule( v, reaction_stoichiometry,         SBML_REACTION        );
-  Validator_addRule( v, reaction_kineticLawSubstanceUnits,
-                                                        SBML_REACTION        );
-  Validator_addRule( v, reaction_kineticLawTimeUnits,   SBML_REACTION        );
-  Validator_addRule( v, rule_nonconstantVariable,       SBML_ASSIGNMENT_RULE );
-  Validator_addRule( v, rule_nonconstantVariable,       SBML_RATE_RULE       );
-  Validator_addRule( v, rule_variableOnlyOnce,          SBML_ASSIGNMENT_RULE );
-  Validator_addRule( v, rule_variableOnlyOnce,          SBML_RATE_RULE       );
-  Validator_addRule( v, event_timeUnits,                SBML_EVENT           );
-  Validator_addRule( v, event_nonconstantVariable,      SBML_EVENT           );
-  Validator_addRule( v, event_variableOnlyOnce,         SBML_EVENT           );
+  Validator_addRule( v, species_speciesReference, SBML_SPECIES );
+  Validator_addRule( v, species_ruleAndReaction , SBML_SPECIES );
+
+  Validator_addRule( v, parameter_units, SBML_PARAMETER );
+
+  Validator_addRule( v, reaction_speciesReference,         SBML_REACTION );
+  Validator_addRule( v, reaction_speciesReferenceExists,   SBML_REACTION );
+  Validator_addRule( v, reaction_stoichiometry,            SBML_REACTION );
+  Validator_addRule( v, reaction_kineticLawSubstanceUnits, SBML_REACTION );
+  Validator_addRule( v, reaction_kineticLawTimeUnits,      SBML_REACTION );
+
+  Validator_addRule( v, rule_nonconstantVariable, SBML_ASSIGNMENT_RULE );
+  Validator_addRule( v, rule_nonconstantVariable, SBML_RATE_RULE       );
+  Validator_addRule( v, rule_variableOnlyOnce   , SBML_ASSIGNMENT_RULE );
+  Validator_addRule( v, rule_variableOnlyOnce   , SBML_RATE_RULE       );
+
+  Validator_addRule( v, event_timeUnits          , SBML_EVENT );
+  Validator_addRule( v, event_nonconstantVariable, SBML_EVENT );
+  Validator_addRule( v, event_variableOnlyOnce   , SBML_EVENT );
+
+  Validator_addRule( v, unitDefinition_substanceKinds, SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_volumeKinds   , SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_areaKinds     , SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_lengthKinds   , SBML_UNIT_DEFINITION );
 }
