@@ -50,9 +50,11 @@
  */
 
 
-#include <sbml/common.h>
-#include <sbml/SBMLReader.h>
-#include <sbml/SBMLTypes.h>
+#include <check.h>
+
+#include "sbml/common.h"
+#include "sbml/SBMLReader.h"
+#include "sbml/SBMLTypes.h"
 
 
 extern char *TestDataDirectory;

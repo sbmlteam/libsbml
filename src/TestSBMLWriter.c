@@ -50,6 +50,8 @@
  */
 
 
+#include <check.h>
+
 #include "sbml/common.h"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLWriter.h"

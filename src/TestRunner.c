@@ -50,6 +50,7 @@
  */
 
 
+#include <check.h>
 #include "sbml/common.h"
 
 

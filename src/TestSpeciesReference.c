@@ -50,6 +50,8 @@
  */
 
 
+#include <check.h>
+
 #include "sbml/common.h"
 #include "sbml/MathMLReader.h"
 #include "sbml/SpeciesReference.h"

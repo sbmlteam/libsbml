@@ -50,6 +50,8 @@
  */
 
 
+#include <check.h>
+
 #include "sbml/common.h"
 #include "sbml/FormulaParser.h"
 #include "sbml/SimpleSpeciesReference.h"
