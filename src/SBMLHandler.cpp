@@ -73,7 +73,6 @@
 #include "sbml/XMLUtil.hpp"
 
 #include "sbml/SBMLHandler.hpp"
-#include "sbml/ParseMessage.h"
 
 
 const TagHandler_t
@@ -576,18 +575,16 @@ SBMLHandler::fatalError (const char* message)
  * The line and column number where the error occurred are obtained from
  * this handler's document Locator and are stored in the ParseMessage.
  */
-ParseMessage_t*
+ParseMessage*
 SBMLHandler::ParseMessage_createFrom (const char* message)
 {
-  return
+  return new
 #ifdef USE_EXPAT
-    ParseMessage_createWith( message, 
-                             getCurrentLineNumber(),
-                             getCurrentColumnNumber() );
+    ParseMessage(message, getCurrentLineNumber(), getCurrentColumnNumber());
 #else
-    ParseMessage_createWith( message, 
-                             (unsigned int) fLocator->getLineNumber(),
-                             (unsigned int) fLocator->getColumnNumber() );
+    ParseMessage( message,
+                  (unsigned int) fLocator->getLineNumber(),
+                  (unsigned int) fLocator->getColumnNumber() );
 #endif  // USE_EXPAT
 }
 
@@ -601,18 +598,18 @@ SBMLHandler::ParseMessage_createFrom (const char* message)
  * and column number where the error occurred are obtained from this
  * handler's document Locator and are also stored in the ParseMessage.
  */
-ParseMessage_t*
+ParseMessage*
 SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
 {
-  char*           message;
-  ParseMessage_t* pm;
+  char*         message;
+  ParseMessage* pm;
 
 
   message = XMLString::transcode( e.getMessage() );
 
-  pm = ParseMessage_createWith( message, 
-                                (unsigned int) e.getLineNumber(),
-                                (unsigned int) e.getColumnNumber() );
+  pm = new ParseMessage( message, 
+                         (unsigned int) e.getLineNumber(),
+                         (unsigned int) e.getColumnNumber() );
 
   XMLString::release(&message);
 
@@ -1762,33 +1759,33 @@ SBMLHandler::setMath (ASTNode* math)
   switch (obj->typecode)
   {
     case SBML_FUNCTION_DEFINITION:
-      FunctionDefinition_setMath((FunctionDefinition_t*) obj, math);
+      static_cast<FunctionDefinition*>(obj)->setMath(math);
       break;
 
     case SBML_ALGEBRAIC_RULE:
     case SBML_ASSIGNMENT_RULE:
     case SBML_RATE_RULE:
-      Rule_setMath           ((Rule_t*) obj, math);
-      Rule_setFormulaFromMath((Rule_t*) obj);
+      static_cast<Rule*>(obj)->setMath(math);
+      static_cast<Rule*>(obj)->setFormulaFromMath();
       break;
 
     case SBML_SPECIES_REFERENCE:
-      setStoichiometryMath((SpeciesReference_t*) obj, math);
+      static_cast<SpeciesReference*>(obj)->setStoichiometryMath(math);
       break;
 
     case SBML_KINETIC_LAW:
-      KineticLaw_setMath           ((KineticLaw_t*) obj, math);
-      KineticLaw_setFormulaFromMath((KineticLaw_t*) obj);
+      static_cast<KineticLaw*>(obj)->setMath(math);
+      static_cast<KineticLaw*>(obj)->setFormulaFromMath();
       break;
 
     case SBML_EVENT:
       if (tag == TAG_TRIGGER)
       {
-        Event_setTrigger((Event_t*) obj, math);
+        static_cast<Event*>(obj)->setTrigger(math);
       }
       else if (tag == TAG_DELAY)
       {
-        Event_setDelay((Event_t*) obj, math);
+        static_cast<Event*>(obj)->setDelay(math);
       }
       else
       {
@@ -1797,7 +1794,7 @@ SBMLHandler::setMath (ASTNode* math)
       break;
 
     case SBML_EVENT_ASSIGNMENT:
-      EventAssignment_setMath((EventAssignment_t*) obj, math);
+      static_cast<EventAssignment*>(obj)->setMath(math);
       break;
 
     default:
@@ -1818,7 +1815,7 @@ SBMLHandler::setMath (ASTNode* math)
  * and the denominator field (if math is AST_RATIONAL).
  */
 void
-SBMLHandler::setStoichiometryMath (SpeciesReference_t* sr, ASTNode* math)
+SBMLHandler::setStoichiometryMath (SpeciesReference* sr, ASTNode* math)
 {
   bool freeMath = true;
 
@@ -1826,21 +1823,21 @@ SBMLHandler::setStoichiometryMath (SpeciesReference_t* sr, ASTNode* math)
   switch ( math->getType() )
   {
     case AST_INTEGER:
-      SpeciesReference_setStoichiometry(sr, math->getInteger());
+      sr->setStoichiometry( math->getInteger() );
       break;
 
     case AST_REAL:
     case AST_REAL_E:
-      SpeciesReference_setStoichiometry(sr, math->getReal());
+      sr->setStoichiometry( math->getReal() );
       break;
 
     case AST_RATIONAL:
-      SpeciesReference_setStoichiometry( sr, math->getNumerator()   );
-      SpeciesReference_setDenominator  ( sr, math->getDenominator() );
+      sr->setStoichiometry( math->getNumerator()   );
+      sr->setDenominator  ( math->getDenominator() );
       break;
 
     default:
-      SpeciesReference_setStoichiometryMath(sr, math);
+      sr->setStoichiometryMath(math);
       freeMath = false;
       break;
   }

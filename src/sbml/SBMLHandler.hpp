@@ -154,14 +154,14 @@ public:
   inline void error      (const SAXParseException&);
   inline void fatalError (const SAXParseException&);
 
-  inline ParseMessage_t* ParseMessage_createFrom (const SAXParseException& e);
+  inline ParseMessage* ParseMessage_createFrom (const SAXParseException& e);
 #endif  // !USE_EXPAT
 
   inline void warning    (const char* message);
   inline void error      (const char* message);
   inline void fatalError (const char* message);
 
-  inline ParseMessage_t* ParseMessage_createFrom (const char* message);
+  inline ParseMessage* ParseMessage_createFrom (const char* message);
 
 
 private:
@@ -207,7 +207,7 @@ private:
 
   void setLineAndColumn     (SBase *sb);
   void setMath              (ASTNode* math);
-  void setStoichiometryMath (SpeciesReference_t* sr, ASTNode* math);
+  void setStoichiometryMath (SpeciesReference* sr, ASTNode* math);
 
   /*
   void debugPrintStartElement
