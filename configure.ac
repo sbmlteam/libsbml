@@ -67,7 +67,7 @@ AC_REVISION($Revision$)
 
 AC_PREREQ(2.57)
 
-AC_CONFIG_SRCDIR(src/sbml/Model.cpp)
+AC_CONFIG_SRCDIR(src/Makefile.in)
 
 AC_CONFIG_HEADERS(src/common/config.h)
 
