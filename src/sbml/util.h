@@ -97,6 +97,36 @@ safe_strdup (const char* s);
 int
 strcmp_insensitive (const char *s1, const char *s2);
 
+/**
+ * @return a (quiet) NaN.
+ */
+double
+util_NaN (void);
+
+/**
+ * @return IEEE-754 Negative Infinity.
+ */
+double
+util_NegInf (void);
+
+/**
+ * @return IEEE-754 Positive Infinity
+ */
+double
+util_PosInf (void);
+
+/**
+ * @return IEEE-754 Negative Zero.
+ */
+double
+util_NegZero (void);
+
+/**
+ * @return true (1) if d is an IEEE-754 negative zero, false (0) otherwise.
+ */
+int
+util_isNegZero (double d);
+
 
 #ifdef __cplusplus
 }

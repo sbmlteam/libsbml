@@ -90,6 +90,52 @@ START_TEST (test_util_safe_strcat)
 END_TEST
 
 
+START_TEST (test_util_NaN)
+{
+  double d = util_NaN();
+
+
+  fail_unless( d != d, "util_NaN() did not return NaN.");
+}
+END_TEST
+
+
+START_TEST (test_util_NegInf)
+{
+  double d = util_NegInf();
+
+
+  if ( finite(d) || isnan(d) || d >= 0)
+  {
+    fail("util_NegInf() did not return -Inf.");
+  }
+}
+END_TEST
+
+
+START_TEST (test_util_PosInf)
+{
+  double d = util_PosInf();
+
+
+  if ( finite(d) || isnan(d) || d <= 0)
+  {
+    fail("util_PosInf() did not return +Inf.");
+  }
+}
+END_TEST
+
+
+START_TEST (test_util_NegZero)
+{
+  double d = util_NegZero();
+
+
+  fail_unless(d == 0, "util_NegZero() did not even return a zero!");
+  fail_unless( util_isNegZero(d), NULL );
+}
+END_TEST
+
 
 Suite *
 create_suite_util (void) 
@@ -100,6 +146,10 @@ create_suite_util (void)
 
   tcase_add_test( tcase, test_util_strcmp_insensitive );
   tcase_add_test( tcase, test_util_safe_strcat        );
+  tcase_add_test( tcase, test_util_NaN                );
+  tcase_add_test( tcase, test_util_NegInf             );
+  tcase_add_test( tcase, test_util_PosInf             );
+  tcase_add_test( tcase, test_util_NegZero            );
 
   suite_add_tcase(suite, tcase);
 

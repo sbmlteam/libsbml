@@ -139,3 +139,72 @@ strcmp_insensitive (const char *s1, const char *s2)
 
   return tolower( *(unsigned char *) s1) - tolower( *(unsigned char *) s2);
 }
+
+
+/**
+ * @return a (quiet) NaN.
+ */
+double
+util_NaN (void)
+{
+  double z = 0.0;
+
+
+  /** MSVC++ will produce a compile error if 0.0 is used instead of z. **/
+  return 0.0 / z;
+}
+
+
+/**
+ * @return IEEE-754 Negative Infinity.
+ */
+double
+util_NegInf (void)
+{
+  double z = 0.0;
+
+
+  /** MSVC++ will produce a compile error if 0.0 is used instead of z. **/
+  return -1.0 / z;
+}
+
+
+/**
+ * @return IEEE-754 Positive Infinity
+ */
+double
+util_PosInf (void)
+{
+  double z = 0.0;
+
+
+  /** MSVC++ will produce a compile error if 0.0 is used instead of z. **/
+  return 1.0 / z;
+}
+
+
+/**
+ * @return IEEE-754 Negative Zero.
+ */
+double
+util_NegZero (void)
+{
+  return -1.0 / util_PosInf();
+}
+
+
+/**
+ * @return true (1) if d is an IEEE-754 negative zero, false (0) otherwise.
+ */
+int
+util_isNegZero (double d)
+{
+  unsigned char *b = (unsigned char *) &d;
+
+
+#if WORDS_BIGENDIAN
+  return b[0] == 0x80;
+#else
+  return b[7] == 0x80;
+#endif
+}
