@@ -229,6 +229,70 @@ RULE (unitDefinition_substanceKinds)
 }
 
 
+RULE (unitDefinition_volumeKinds)
+{
+  static const char msg1[] =
+    "A 'volume' unitDefinition must have a single kind.";
+  static const char msg2[] =
+    "A 'volume' unitDefinition may only have units of kind 'litre' or 'metre'.";
+  static const char msg3[] =
+    "A 'volume' unitDefinition of kind 'metre' must have exponent 3.";
+
+  unsigned int passed = 1;
+
+  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
+  const char *id = UnitDefinition_getId(ud);
+
+  if (!strcmp(id, "volume")) {
+    ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+    int i;
+    int numKinds;
+
+    if ((numKinds = ListOf_getNumItems(kinds)) != 1)
+    {
+      passed = 0;
+      LOG_MESSAGE(msg1);
+    }
+    else
+    {
+      Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
+      UnitKind_t uk = Unit_getKind(u);
+
+      if ( !(isMeter(uk) || isLiter(uk)) )
+      {
+        passed = 0;
+        LOG_MESSAGE(msg2);
+      }
+      else
+      {
+        int exponent = Unit_getExponent(u);
+
+        if (isMeter(uk) && exponent != 3)
+        {
+          passed = 0;
+          LOG_MESSAGE(msg3);
+        }
+      }
+    }
+  }
+
+  return passed;
+}
+
+
+int
+isMeter(UnitKind_t uk)
+{
+  return uk == UNIT_KIND_METRE || uk == UNIT_KIND_METER;
+}
+
+int
+isLiter(UnitKind_t uk)
+{
+  return uk == UNIT_KIND_LITRE || uk == UNIT_KIND_LITER;
+}
+
+
 /**
  * Adds the default ValidationRule set to this Validator.
  */
@@ -242,5 +306,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
                                                      SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_substanceKinds,
+                                                     SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_volumeKinds,
                                                      SBML_UNIT_DEFINITION );
 }
