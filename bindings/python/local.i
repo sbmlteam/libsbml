@@ -55,6 +55,61 @@
  *   - To be indexed and sliced, e.g. lst[0].
  */
 
+%extend SBase {
+
+  %pythoncode {
+
+    def __str__(self):
+      clas = self._getClass()
+
+      result = clas.__name__
+      if result.endswith("Ptr"):
+        result = result[:-3]
+      result += ":\n"
+
+      getters = [
+        (self._memberName(memberName), clas.__dict__[memberName])
+          for memberName in clas.__dict__.keys()
+            if memberName.startswith("get")
+      ]
+      getters.sort(lambda a, b: cmp(a[0], b[0]))
+      memberColumnWidth = max([len(getter[0]) for getter in getters]) + 2
+      fmt = "   %%-%ds %%s" % memberColumnWidth
+
+      result += "\n".join([
+        line for line in self._memberLines(fmt, getters) if line is not None
+      ])
+      
+      return result;
+
+
+    def _memberName(self, getterName):
+      return getterName[3].lower() + getterName[4:]
+
+
+    def _memberLines(self, fmt, getters):
+      return [self._memberline(fmt, getter) for getter in getters]
+
+
+    def _memberline(self, fmt, getter):
+        try:
+          value = repr(getter[1](self))
+        except TypeError:
+          value = "<function get%s>" % (getter[0][0].upper() + getter[0][1:])
+        result = fmt % (getter[0] + ":", value)
+        return result
+
+
+    def _getClass(self):
+      if self.__class__ in self.__dict__:
+        # find the actual SWIG shadow class if we are a Ptr
+        return self.__dict__[self.__class__]
+      else:
+        return self.__class__
+  }
+}
+
+
 %extend ListOf {
   int __len__()
   {
@@ -93,8 +148,13 @@
       for i in range(self.getNumItems()):
         yield self[i]
 
+
     def __repr__(self):
       return "[" + ", ".join([repr(self[i]) for i in range(len(self))]) + "]"
+
+
+    def __str__(self):
+      return repr(self)
   }
 }
 

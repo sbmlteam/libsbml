@@ -141,6 +141,8 @@ def testSpecies():
    species.unsetInitialConcentration()
    assert isNaN(species.getInitialConcentration())
 
+   str(species)
+
 
 def testReaction():
    reaction = libsbml.Reaction("R", libsbml.KineticLaw("1 + 1"))
@@ -200,6 +202,8 @@ def testReaction():
    theSameSpeciesReference = reaction.getModifier(0)
    assert theSameSpeciesReference.getSpecies() == modifierReference.getSpecies()
 
+   str(reaction)
+
 
 def testDocument():
    d = libsbml.SBMLDocument()
@@ -211,6 +215,9 @@ def testDocument():
    d.setModel(m)
    assert m.thisown == 0
    assert m == d.getModel()
+
+   str(d)
+   str(d.getModel())
 
 
 def testFunctionDefinition():
@@ -233,6 +240,8 @@ def testFunctionDefinition():
    fd.setMath(formula)
    assert formula.thisown == 0
 
+   str(fd)
+
 
 def testUnitDefinition():
    ud = libsbml.UnitDefinition()
@@ -244,6 +253,8 @@ def testUnitDefinition():
 
    assert unit.thisown == 0
 
+   str(ud)
+
 
 def testSpeciesReference():
    speciesReference = libsbml.SpeciesReference("ref")
@@ -254,6 +265,8 @@ def testSpeciesReference():
 
    speciesReference.setStoichiometryMath(formula)
    assert formula.thisown == 0
+
+   str(speciesReference)
 
 
 def testEvent():
@@ -303,6 +316,8 @@ def testEvent():
 
    assert eventAssignment.thisown == 0
 
+   str(event)
+
 
 def testEventAssignment():
    eventAssignment = libsbml.EventAssignment()
@@ -321,8 +336,10 @@ def testEventAssignment():
    eventAssignment.setMath(formula)
    assert formula.thisown == 0
 
+   str(eventAssignment)
 
-def testRules():
+
+def teestRules():
    formula1 = libsbml.parseFormula("3 + 4")
    formula2 = libsbml.parseFormula("5 + 6")
    formula3 = libsbml.parseFormula("7 + 8")
@@ -355,6 +372,8 @@ def testRules():
 
       rule.setMath(formula)
       assert formula.thisown == 0
+
+      str(rule)
 
 
 def testListOf():
@@ -390,6 +409,8 @@ def testListOf():
    lo.prepend(compartment2)
    assert lo.getNumItems() == 1
    assert compartment2.thisown == 0
+
+   str(lo)
 
 
 def testModel():
@@ -465,6 +486,9 @@ def testModel():
    model.addEvent(event)
    assert event.thisown == 0
 
+   str(model)
+   print model
+
 
 def testKineticLaw():
    kineticLaw = libsbml.KineticLaw("1 + 1")
@@ -488,6 +512,8 @@ def testKineticLaw():
    kineticLaw.addParameter(parameter)
    assert parameter.thisown == 0
 
+   str(kineticLaw)
+
    
 def testASTNode():
    astNode = libsbml.ASTNode(libsbml.AST_PLUS)
@@ -505,6 +531,8 @@ def testASTNode():
 
    s = libsbml.formulaToString(astNode)
 
+   str(astNode)
+
 
 def testMathMLDocument():
    doc = libsbml.MathMLDocument()
@@ -518,6 +546,8 @@ def testMathMLDocument():
 
    s = libsbml.writeMathMLToString(doc)
 
+   str(doc)
+
 
 def testSBMLWriter():
    doc = libsbml.SBMLDocument()
@@ -526,8 +556,10 @@ def testSBMLWriter():
 
    s = libsbml.writeSBMLToString(doc)
 
+   str(doc)
 
-def testSBMLReader():
+
+def teestSBMLReader():
    sbmlString = \
 """<?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
@@ -541,6 +573,9 @@ def testSBMLReader():
 
    doc = libsbml.readSBMLFromString(sbmlString)
    assert doc.thisown == 1
+
+   str(reader)
+   str(doc)
 
 
 def testListOfAsIterator():
