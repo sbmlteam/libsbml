@@ -51,6 +51,10 @@
 
 
 #include "sbml/common.h"
+
+#include "sbml/FormulaFormatter.h"
+#include "sbml/FormulaParser.h"
+
 #include "sbml/Rule.h"
 
 
@@ -153,6 +157,33 @@ Rule_setFormula (Rule_t *r, const char *string)
 
 
 /**
+ * Sets the formula of this Rule based on the current value of its math
+ * field.  This convenience function is functionally equivalent to:
+ *
+ *   Rule_setFormula(r, SBML_formulaToString( Rule_getMath(r) ))
+ *
+ * except you do not need to track and free the value returned by
+ * SBML_formulaToString().
+ *
+ * If !Rule_isSetMath(r), this function has no effect.
+ */
+LIBSBML_EXTERN
+void
+Rule_setFormulaFromMath (Rule_t *r)
+{
+  if (!Rule_isSetMath(r)) return;
+
+
+  if (r->formula != NULL)
+  {
+    safe_free(r->formula);
+  }
+
+  r->formula = SBML_formulaToString(r->math);
+}
+
+
+/**
  * Sets the math of this Rule to the given ASTNode.
  *
  * The node <b>is not copied</b> and this Rule <b>takes ownership</b> of
@@ -172,4 +203,28 @@ Rule_setMath (Rule_t *r, ASTNode_t *math)
   }
 
   r->math = math;
+}
+
+
+/**
+ * Sets the math of this Rule from its current formula string.  This
+ * convenience function is functionally equivalent to:
+ *
+ *   Rule_setMath(r, SBML_parseFormula( Rule_getFormula(r) ))
+ *
+ * If !Rule_isSetFormula(r), this function has no effect.
+ */
+LIBSBML_EXTERN
+void
+Rule_setMathFromFormula (Rule_t *r)
+{
+  if (!Rule_isSetFormula(r)) return;
+
+
+  if (r->math != NULL)
+  {
+    ASTNode_free(r->math);
+  }
+
+  r->math = SBML_parseFormula(r->formula);
 }

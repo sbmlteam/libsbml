@@ -51,7 +51,10 @@
 
 
 #include "sbml/common.h"
+
+#include "sbml/FormulaFormatter.h"
 #include "sbml/FormulaParser.h"
+
 #include "sbml/Rule.h"
 
 
@@ -134,6 +137,31 @@ START_TEST (test_Rule_setFormula)
 END_TEST
 
 
+START_TEST (test_Rule_setFormulaFromMath)
+{
+  ASTNode_t *math = SBML_parseFormula("k1 * X0");
+
+
+  fail_unless( !Rule_isSetMath   (R), NULL );
+  fail_unless( !Rule_isSetFormula(R), NULL );
+
+  Rule_setFormulaFromMath(R);
+  fail_unless( !Rule_isSetMath   (R), NULL );
+  fail_unless( !Rule_isSetFormula(R), NULL );
+
+  Rule_setMath(R, math);
+  fail_unless(  Rule_isSetMath   (R), NULL );
+  fail_unless( !Rule_isSetFormula(R), NULL );
+
+  Rule_setFormulaFromMath(R);
+  fail_unless( Rule_isSetMath   (R), NULL );
+  fail_unless( Rule_isSetFormula(R), NULL );
+
+  fail_unless( !strcmp(Rule_getFormula(R), "k1 * X0"), NULL );
+}
+END_TEST
+
+
 START_TEST (test_Rule_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("1 + 1");
@@ -159,6 +187,35 @@ START_TEST (test_Rule_setMath)
 END_TEST
 
 
+START_TEST (test_Rule_setMathFromFormula)
+{
+  char *formula = "1 + 1";
+
+
+  fail_unless( !Rule_isSetMath   (R), NULL );
+  fail_unless( !Rule_isSetFormula(R), NULL );
+
+  Rule_setMathFromFormula(R);
+  fail_unless( !Rule_isSetMath   (R), NULL );
+  fail_unless( !Rule_isSetFormula(R), NULL );
+
+  Rule_setFormula(R, formula);
+  fail_unless( !Rule_isSetMath   (R), NULL );
+  fail_unless(  Rule_isSetFormula(R), NULL );
+
+  Rule_setMathFromFormula(R);
+  fail_unless( Rule_isSetMath   (R), NULL );
+  fail_unless( Rule_isSetFormula(R), NULL );
+
+  formula = SBML_formulaToString( Rule_getMath(R) );
+
+  fail_unless( !strcmp(formula, "1 + 1"), NULL );
+
+  safe_free(formula);
+}
+END_TEST
+
+
 Suite *
 create_suite_Rule (void)
 {
@@ -168,10 +225,13 @@ create_suite_Rule (void)
 
   tcase_add_checked_fixture( tcase, RuleTest_setup, RuleTest_teardown );
 
-  tcase_add_test( tcase, test_Rule_init       );
-  tcase_add_test( tcase, test_Rule_clear_NULL );
-  tcase_add_test( tcase, test_Rule_setFormula );
-  tcase_add_test( tcase, test_Rule_setMath    );
+  tcase_add_test( tcase, test_Rule_init               );
+  tcase_add_test( tcase, test_Rule_clear_NULL         );
+  tcase_add_test( tcase, test_Rule_setFormula         );
+  tcase_add_test( tcase, test_Rule_setFormulaFromMath );
+  tcase_add_test( tcase, test_Rule_setMath            );
+  tcase_add_test( tcase, test_Rule_setMathFromFormula );
+
 
   suite_add_tcase(suite, tcase);
 
