@@ -1454,13 +1454,47 @@ SBase_setNotes( (SBase_t *) s, "My Favorite Species" );
 
 The same applies to all other SBML objects.
 
+The handling of \class{annotation} elements merits further explanation.
+The function \method{SBase\_getAnnotation()}, listed above, returns the
+entire annotation string attached to an SBML data object, \emph{including}
+the opening \texttt{<annotation>} XML element.  This is useful when reading
+SBML model files because it gives access to any XML namespaces defined on
+the annotation element.  For example, if a model had the following on a
+structure,
+
+\begin{example}[html]
+<annotation xmlns:mstb="http://www.sbml.org/2001/ns/matlab-sbmltoolbox">
+  <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>
+  <mstb:message>These are my annotations</mstb:message>
+</annotation>
+\end{example}
+
+then \method{SBase\_getAnnotation()} would return all of the above as one
+string.  (In other words, it would not return simply what is being the
+\texttt{<annnotation> </annotation} tags.  Similarly, when creating/setting
+an annotation, programs should pass the entire annotation string including
+the opening \texttt{<annotation>} element to
+\method{SBase\_setAnnotation()}.  Here is an example C program setting the
+same annotation string as in the example above:
+
+\begin{example}[c]
+const char *annotation =
+    "<annotation xmlns:mstb=\"http://www.sbml.org/2001/ns/matlab-sbmltoolbox\">"
+    "  <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>\n"
+    "  <mstb:message>These are my annotations</mstb:message>\n"
+    "</annotation>";
+
+SBase_setAnnotation(model, annotation);
+\end{example}
+
+
 
 %-----------------------------------------------------------------------------
 \subsection{Typecodes}
 \label{sec:typecodes}
 %-----------------------------------------------------------------------------
 
-Finally, each SBML class has a \variable{typecode} that is initialized when
+Each SBML class has a \variable{typecode} that is initialized when
 an object is instantiated.  The \variable{typecode} is a simple C
 enumeration, defined in \shell{SBMLTypeCodes.h} (which is included by the
 main \libsbml{} include file, \shell{SBMLTypes.h}, so client code does not
@@ -1803,8 +1837,8 @@ validation level.  The functions for doing this are:
 \end{methoddef}
 
 
-\begin{methoddef}{void SBMLReader\_setSchemaValidationLevel ( SBMLReader\_t *sr,
-XMLSchemaValidation\_t level )}
+\begin{methoddef}{void SBMLReader\_setSchemaValidationLevel (SBMLReader\_t *sr,
+XMLSchemaValidation\_t level)}
   Sets the level of schema validation used by this SBMLReader.
   The possible values for \variable{level} are:
   \begin{itemize}
@@ -1964,7 +1998,6 @@ const char *formulae[] =
   "foo(1, bar, 2^-3)",
   ""
 };
-
 
 ASTNode_t *n;
 char      *s;
