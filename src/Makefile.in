@@ -151,13 +151,14 @@ nobase_include_HEADERS = \
   sbml/UnitDefinition.h           \
   sbml/Unit.h                     \
   sbml/UnitKind.h                 \
-	sbml/common.h                   \
+  sbml/common.h                   \
   sbml/config.h                   \
   sbml/memory.h                   \
   sbml/util.h
 
 
 libsbml_la_SOURCES = \
+  sbml/common.hpp               \
   sbml/SAX2SBMLHandler.hpp      \
   sbml/SBMLFormatter.hpp        \
   sbml/SBMLHashCodes.hpp        \

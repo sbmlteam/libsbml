@@ -52,6 +52,82 @@ are freely and publicly available.  For more information about SBML,
 please see the references section or visit http://www.sbw-sbml.org/.
 
 
+Feature Highlights:
+-------------------
+
+  - Complete user manual
+
+      This is currently in plain-text format (in README.txt), but will
+      soon be converted to LaTeX, Postscript, PDF and HTML.
+
+  - Small memory footprint and fast runtime
+
+      The parser is event-based (SAX2) and loads SBML data into C
+      structures that mirror the SBML specification.
+
+      The Gepasi generated 100 Yeast file (2Mb; 2000 reactions
+      http://www.gepasi.org/gep3sbml.html) loads in 1.18s on a 1 GHz
+      AMD Athalon XP and uses 1.4Mb of memory.
+
+  - The API mimics an object-oriented style
+
+  - Fully supports <notes> and <annotation> elements, including XML
+    namespaces
+
+  - Portable, pure ANSI-C
+
+      The build system uses the GNU Autotools (Autoconf, Automake, and
+      Libtool) to build shared and static libraries.
+
+      There are no errors or warnings when compiled with 'gcc -ansi
+      -pedantic-errors -Wall', i.e. ANSI violations are compilation
+      errors instead of warnings, and all warnings are reported.
+
+  - Uses Apache Xerces-C++ XML library which supports:
+      - SAX 1 and 2
+      - DOM 1, 2, and 3
+      - Full DTD and Schema validation
+      - XML Namespaces
+      - Unicode
+
+      SBML Documents are parsed and manipulated in the Unicode
+      codepage for efficiency (this is Xerces-C++ native format),
+      However, strings are transcoded to the local code page for SBML
+      structures.
+
+  - The C++ parser API is transparent to the end-user, hidden behind
+    C functions such as:
+
+      SBMLDocument_t *readSBML(const char *filename)
+      SBMLDocument_t *readSBMLFromString(const char *string)
+      etc...
+
+  - All memory for and contained in SBML structures is C memory, so
+    realloc() and free() may be used.
+
+      This is an important distinction when working with mixed C and
+      C++ code.  C's malloc() and free() are not compatible with C++'s
+      new and delete operators.
+
+  - Well tested: 226 unit tests, 1118 individual assertions.
+
+      The entire library was written using the test-first approach
+      popularized by Kent Beck and eXtreme Programming, where it's one
+      of the 12 principles.
+
+      Four test cases are responsible for reading entire SBML files
+      (three are examples from the L1 document) into memory and
+      verifying every field of the resulting structures.
+
+  - Memory tests: 1782 allocations and frees, 0 leaks.
+
+      For use by developers, a custom memory trace facility tracks all
+      memory allocated and freed in both the library and all test
+      suites.  This facility must be enabled at build time with
+      ./configure --enable-memory-tracing.  For performance reasons
+      memory tracing should be turned off in production environments.
+
+
 
 
 ---------------
