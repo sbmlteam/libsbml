@@ -177,7 +177,7 @@ SpeciesReference_isSetSpecies (const SpeciesReference_t *sr)
 
 
 /**
- * Sets the species field of this SpeciesReference to a copy of sname.
+ * Sets the species of this SpeciesReference to a copy of sname.
  */
 LIBSBML_EXTERN
 void
