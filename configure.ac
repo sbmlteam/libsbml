@@ -61,15 +61,11 @@ AC_INIT([SBML Library], [2.0.3], [sbml-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE
 
-
-
 AC_REVISION($Revision$)
 
 AC_PREREQ(2.57)
 
-
 AC_CONFIG_SRCDIR(src/util.c)
-
 
 AC_CONFIG_HEADERS(src/sbml/config.h)
 
@@ -87,11 +83,11 @@ AC_ARG_ENABLE([memory-tracing],
    fi
   ])
 
-AC_ARG_ENABLE([check],
-  AC_HELP_STRING([--enable-check],
-                 [Build the libsbml test suite (default: disabled)]),
-  [libcheck_enabled="$enableval"],
-  [libcheck_enabled=${libcheck_enabled="no"}])
+AC_ARG_WITH([check],
+  AC_HELP_STRING([--with-check=PREFIX],
+                 [Build the test suite using libcheck (default=no)]),
+  [with_libcheck=$withval],
+  [with_libcheck=no])
 
 AC_ARG_WITH([xerces],
   AC_HELP_STRING([--with-xerces=PREFIX],
@@ -109,7 +105,6 @@ if test $with_expat != no; then
   with_xerces=no
   AC_DEFINE([USE_EXPAT], 1, [Define to 1 to use the Expat XML library])
 fi
-
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for programs.
@@ -169,7 +164,6 @@ fi
 
 AC_CHECK_LIB(m, isnan)
 
-
 AC_LIB_XERCES
 AC_LIB_EXPAT
 
@@ -179,6 +173,7 @@ else
   xml_library="Expat"
 fi
 
+AC_LIB_LIBCHECK
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for header files.
