@@ -64,12 +64,48 @@
 }
 
 
+
 /**
  * Convert SBase objects into the most specific type possible.
  */
 %typemap(out) SBase*
 {
   $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
+}
+
+
+
+/**
+ * Add an equality operator to SBase.  All subclasses of SBase
+ * will inherit this method.
+ *
+ * The %feature("shadow") rewrites __cmp__ such that two objects of
+ * disimilar type can be compared without throwing a TypeError.  For
+ * example: the following will return false and not throw an exception:
+ *
+ *   c = libsbml.Compartment()
+ *   n = 5
+ *   c == n
+ *
+ * The %extend forces the generation of a Python shadow class method
+ * named __cmp__.  For some strange reason, this is order dependent.
+ * The directive %feature must occur before %extend.  If not, the
+ * %feature directive seems to be ignored.  If anything, it seems like
+ * it should be the reverse.
+ *
+ * For more information, see testEquality() in accept.py.
+ */
+%feature("shadow") SBase::__cmp__
+{
+  def __cmp__(self, rhs):
+    if hasattr(self, 'this') and hasattr(rhs, 'this'):
+      if self.this == rhs.this: return 0
+    return 1
+}
+
+%extend SBase
+{
+  bool __cmp__(const SBase& rhs) { return self != &rhs; }
 }
 
 
@@ -87,7 +123,7 @@
 %feature("shadow") ListOf::append(SBase*)
 %{
   def append(*args):
-    args[0].thisown = 0
+    if args[1]: args[1].thisown = 0
     return _libsbml.ListOf_append(*args)
 %}
 
@@ -95,7 +131,7 @@
 %feature("shadow") SBMLDocument::setModel(Model*)
 %{
   def setModel(*args):
-    args[0].thisown = 0
+    if args[1]: args[1].thisown = 0
     return _libsbml.SBMLDocument_setModel(*args)
 %}
 
@@ -105,6 +141,21 @@
   def __init__(self, *args):
     _swig_setattr(self, Reaction, 'this', _libsbml.new_Reaction(*args))
     _swig_setattr(self, Reaction, 'thisown', 1)
-    # print args
-    # args[1].thisown = 0
+    if args[1]: args[1].thisown = 0
+%}
+
+
+%feature("shadow") Reaction::setKineticLaw(KineticLaw& kl)
+%{
+  def setKineticLaw(*args):
+    if args[1]: args[1].thisown = 0
+    return _libsbml.Reaction_setKineticLaw(*args)
+%}
+
+
+%feature("shadow") Reaction::addReactant(SpeciesReference& sr)
+%{
+  def addReactant(*args):
+    if args[1]: args[1].thisown = 0
+    return _libsbml.Reaction_addReactant(*args)
 %}
