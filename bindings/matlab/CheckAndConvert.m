@@ -50,30 +50,30 @@ function Formula = CheckAndConvert(Input)
 %
 %  Contributor(s):
 
-Formula = regexprep(Input, 'arccosh', 'acosh');
+Formula = strrep(Input, 'arccosh', 'acosh');
 
-Formula = regexprep(Formula, 'arccot', 'acot');
+Formula = strrep(Formula, 'arccot', 'acot');
 
-Formula = regexprep(Formula, 'arccoth', 'acoth');
+Formula = strrep(Formula, 'arccoth', 'acoth');
 
-Formula = regexprep(Formula, 'arccsc', 'acsc');
+Formula = strrep(Formula, 'arccsc', 'acsc');
 
-Formula = regexprep(Formula, 'arccsch', 'acsch');
+Formula = strrep(Formula, 'arccsch', 'acsch');
 
-Formula = regexprep(Formula, 'arcsec', 'asec');
+Formula = strrep(Formula, 'arcsec', 'asec');
 
-Formula = regexprep(Formula, 'arcsech', 'asech');
+Formula = strrep(Formula, 'arcsech', 'asech');
 
-Formula = regexprep(Formula, 'arcsinh', 'asinh');
+Formula = strrep(Formula, 'arcsinh', 'asinh');
 
-Formula = regexprep(Formula, 'arctanh', 'atanh');
+Formula = strrep(Formula, 'arctanh', 'atanh');
 
-Formula = regexprep(Formula, 'exponentiale', 'exp(1)');
+Formula = strrep(Formula, 'exponentiale', 'exp(1)');
 
-Formula = regexprep(Formula, 'pow', 'power');
+Formula = strrep(Formula, 'pow', 'power');
 
 % log(2,x) must become log2(x)
-Formula = regexprep(Formula, 'log(2,', 'log2(');
+Formula = strrep(Formula, 'log(2,', 'log2(');
 
 
 % root(n,x) must become nthroot(x,n)
@@ -104,9 +104,9 @@ for i = 1:length(Index)
         j = j+1;
     end;
     
-    ReplaceFormula = regexprep(SubFormula, n, x, 'once');
-    ReplaceFormula = regexprep(ReplaceFormula, x, n, 2);
-    ReplaceFormula = regexprep(ReplaceFormula, 'root', 'nthroot', 'once');
+    ReplaceFormula = strrep(SubFormula, n, x, 'once');
+    ReplaceFormula = strrep(ReplaceFormula, x, n, 2);
+    ReplaceFormula = strrep(ReplaceFormula, 'root', 'nthroot', 'once');
     
     Formula = strrep(Formula, SubFormula, ReplaceFormula);
     Index = strfind(Formula, 'root(');
