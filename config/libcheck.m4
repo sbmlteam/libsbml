@@ -87,4 +87,8 @@ AC_DEFUN(CONFIG_LIB_LIBCHECK,
 
   fi
 
+  dnl We record the USE_XXX flag, for later testing in Makefiles.
+
+  LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_LIBCHECK"
+
 ])

@@ -157,4 +157,8 @@ AC_DEFUN([CONFIG_PROG_SWIG],
     fi
   fi
 
+  dnl We record the USE_XXX flag, for later testing in Makefiles.
+
+  LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_SWIG"
+
 ])
