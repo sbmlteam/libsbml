@@ -460,9 +460,23 @@ SBMLFormatter::operator<< (const Parameter_t* p)
 
   openStartElement(ELEM_PARAMETER);
 
-  attribute( ATTR_NAME , p->name  );
-  attribute( ATTR_VALUE, p->value );
-  attribute( ATTR_UNITS, p->units );
+  attribute(ATTR_NAME, p->name);
+
+  //
+  // value  { use="optional" }  (L1v2, L2v1)
+  //
+  if (p->isSet.value)
+  {
+    attribute(ATTR_VALUE, p->value);
+  }
+
+  //
+  // units  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  if (p->units != NULL)
+  {
+    attribute(ATTR_UNITS, p->units);
+  }
 
   if ( isEmpty(p) )
   {

@@ -50,13 +50,13 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/Parameter.h"
 
 
 /**
  * Creates a new Parameter and returns a pointer to it.
  */
+LIBSBML_EXTERN
 Parameter_t *
 Parameter_create (void)
 {
@@ -76,8 +76,9 @@ Parameter_create (void)
  * to:
  *
  *   Parameter_t *p = Parameter_create();
- *   Parameter_setName(p, name); p->value = value; ... ;
+ *   Parameter_setName(p, name); Parameter_setValue(p, value); ... ;
  */
+LIBSBML_EXTERN
 Parameter_t *
 Parameter_createWith (const char *name, double value, const char *units)
 {
@@ -85,9 +86,8 @@ Parameter_createWith (const char *name, double value, const char *units)
 
 
   Parameter_setName ( p, name  );
+  Parameter_setValue( p, value );
   Parameter_setUnits( p, units );
-
-  p->value = value;
 
   return p;
 }
@@ -96,6 +96,7 @@ Parameter_createWith (const char *name, double value, const char *units)
 /**
  * Frees the given Parameter.
  */
+LIBSBML_EXTERN
 void
 Parameter_free (Parameter_t *p)
 {
@@ -110,8 +111,75 @@ Parameter_free (Parameter_t *p)
 
 
 /**
+ * @return the name of this Parameter.
+ */
+LIBSBML_EXTERN
+const char *
+Parameter_getName (const Parameter_t *p)
+{
+  return p->name;
+}
+
+
+/**
+ * @return the value of this Parameter.
+ */
+LIBSBML_EXTERN
+double
+Parameter_getValue (const Parameter_t *p)
+{
+  return p->value;
+}
+
+
+/**
+ * @return the units of this Parameter.
+ */
+LIBSBML_EXTERN
+const char *
+Parameter_getUnits (const Parameter_t *p)
+{
+  return p->units;
+}
+
+
+/**
+ * @return 1 if the name of this Parameter has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_isSetName (const Parameter_t *p)
+{
+  return (p->name != NULL);
+}
+
+
+/**
+ * @return 1 if the value of this Parameter has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_isSetValue (const Parameter_t *p)
+{
+  return p->isSet.value;
+}
+
+
+/**
+ * @return 1 if the units of this Parameter has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Parameter_isSetUnits (const Parameter_t *p)
+{
+  return (p->units != NULL);
+}
+
+
+/**
  * Sets the name field of this Parameter to a copy of sname.
  */
+LIBSBML_EXTERN
 void
 Parameter_setName (Parameter_t *p, const char *sname)
 {
@@ -125,8 +193,21 @@ Parameter_setName (Parameter_t *p, const char *sname)
 
 
 /**
+ * Sets the value of this Parameter to value and marks the field as set.
+ */
+LIBSBML_EXTERN
+void
+Parameter_setValue (Parameter_t *p, double value)
+{
+  p->value       = value;
+  p->isSet.value = 1;
+}
+
+
+/**
  * Sets the units field of this Parameter to a copy of sname.
  */
+LIBSBML_EXTERN
 void
 Parameter_setUnits (Parameter_t *p, const char *sname)
 {
@@ -136,4 +217,15 @@ Parameter_setUnits (Parameter_t *p, const char *sname)
   }
 
   p->units = (sname == NULL) ? NULL : safe_strdup(sname);
+}
+
+
+/**
+ * Marks the value of this Parameter as unset.
+ */
+LIBSBML_EXTERN
+void
+Parameter_unsetValue (Parameter_t *p)
+{
+  p->isSet.value = 0;
 }

@@ -467,7 +467,7 @@ SAX2SBMLHandler::handleUnit (const Attributes& a)
 
 
   //
-  // { use="optional" default="1" }  (L1v1, L1v2, L2v1)
+  // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_EXPONENT, &value) == true)
   {
@@ -475,7 +475,7 @@ SAX2SBMLHandler::handleUnit (const Attributes& a)
   }
 
   //
-  // { use="optional" default="0" }  (L1v1, L1v2, L2v1)
+  // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_SCALE, &value) == true)
   {
@@ -500,7 +500,7 @@ SAX2SBMLHandler::handleCompartment (const Attributes& a)
   XMLUtil::scanAttrCStr(a, ATTR_NAME, &(c->name));
 
   //
-  // { use="optional" default="1.0" }  (L1v1, L1v2)
+  // volume  { use="optional" default="1.0" }  (L1v1, L1v2)
   //
   if (XMLUtil::scanAttr(a, ATTR_VOLUME, &value) == true)
   {
@@ -530,6 +530,7 @@ SAX2SBMLHandler::handleSpecies (const Attributes& a)
   XMLUtil::scanAttrCStr(a, ATTR_UNITS, &(s->units));
 
   //
+  // boundaryCondition
   // { use="optional" default="false" }  (L1v1, L1v2, L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_BOUNDARY_CONDITION, &value) == true)
@@ -562,7 +563,13 @@ SAX2SBMLHandler::handleParameter (const Attributes& a)
 
   XMLUtil::scanAttrCStr( a, ATTR_NAME , &(p->name)  );
   XMLUtil::scanAttrCStr( a, ATTR_UNITS, &(p->units) );
-  XMLUtil::scanAttr    ( a, ATTR_VALUE, &(p->value) );
+
+  //
+  // value  { use="required" }  (L1v1)
+  // value  { use="optional" }  (L1v2, L2v1)
+  //
+  p->isSet.value =
+    XMLUtil::scanAttr(a, ATTR_VALUE, &(p->value));
 
   return (SBase_t*) p;
 }
@@ -578,7 +585,7 @@ SAX2SBMLHandler::handleReaction (const Attributes& a)
   XMLUtil::scanAttrCStr(a, ATTR_NAME, &(r->name));
 
   //
-  // { use="optional" default="true" }  (L1v1, L1v2, L2v1)
+  // reversible  { use="optional" default="true" }  (L1v1, L1v2, L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_REVERSIBLE, &value) == true)
   {
@@ -586,7 +593,7 @@ SAX2SBMLHandler::handleReaction (const Attributes& a)
   }
 
   //
-  // { use="optional" default="false" }  (L1v1, L1v2, L2v1)
+  // fast  { use="optional" default="false" }  (L1v1, L1v2, L2v1)
   //
   if (XMLUtil::scanAttr(a, ATTR_FAST, &value) == true)
   {

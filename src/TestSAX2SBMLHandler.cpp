@@ -164,9 +164,8 @@ START_TEST (test_element_Unit)
   fail_unless( u->exponent ==  1, NULL );
   fail_unless( u->scale    == -3, NULL );
 
-  fail_unless( Unit_isSetKind(u)    , NULL );
-  fail_unless( Unit_isSetExponent(u), NULL );
-  fail_unless( Unit_isSetScale(u)   , NULL );
+  fail_unless( u->isSet.exponent == 1, NULL );
+  fail_unless( u->isSet.scale    == 1, NULL );
 }
 END_TEST
 
@@ -200,9 +199,8 @@ START_TEST (test_element_Unit_defaults)
   fail_unless( u->exponent == 1, NULL );
   fail_unless( u->scale    == 0, NULL );
 
-  fail_unless( Unit_isSetKind(u)    , NULL );
-  fail_unless( Unit_isSetExponent(u), NULL );
-  fail_unless( Unit_isSetScale(u)   , NULL );
+  fail_unless( u->isSet.exponent == 1, NULL );
+  fail_unless( u->isSet.scale    == 1, NULL );
 }
 END_TEST
 
@@ -231,10 +229,7 @@ START_TEST (test_element_Compartment)
   fail_unless( !strcmp( c->outside, "cell"         ), NULL );
   fail_unless( c->volume == .0001, NULL );
 
-  fail_unless( Compartment_isSetName   (c), NULL );
-  fail_unless( Compartment_isSetVolume (c), NULL );
-  fail_unless( Compartment_isSetUnits  (c), NULL );
-  fail_unless( Compartment_isSetOutside(c), NULL );
+  fail_unless( c->isSet.volume == 1, NULL );
 }
 END_TEST
 
@@ -260,10 +255,7 @@ START_TEST (test_element_Compartment_defaults)
   fail_unless( c->units   == NULL, NULL );
   fail_unless( c->outside == NULL, NULL );
 
-  fail_unless( Compartment_isSetName    (c), NULL );
-  fail_unless( Compartment_isSetVolume  (c), NULL );
-  fail_unless( !Compartment_isSetUnits  (c), NULL );
-  fail_unless( !Compartment_isSetOutside(c), NULL );
+  fail_unless( c->isSet.volume == 1, NULL );
 }
 END_TEST
 
@@ -380,6 +372,8 @@ START_TEST (test_element_Parameter)
   fail_unless( !strcmp( p->name , "Km1"    ), NULL );
   fail_unless( !strcmp( p->units, "second" ), NULL );
   fail_unless( p->value == 2.3, NULL );
+
+  fail_unless( p->isSet.value == 1, NULL );
 }
 END_TEST
 

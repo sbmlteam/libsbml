@@ -83,6 +83,10 @@ START_TEST (test_Parameter_create)
 
   fail_unless( P->name  == NULL, NULL );
   fail_unless( P->units == NULL, NULL );
+
+  fail_unless( !Parameter_isSetName (P), NULL );
+  fail_unless( !Parameter_isSetValue(P), NULL );
+  fail_unless( !Parameter_isSetUnits(P), NULL );
 }
 END_TEST
 
@@ -100,6 +104,10 @@ START_TEST (test_Parameter_createWith)
   fail_unless( !strcmp(p->units, "second"), NULL );
 
   fail_unless( p->value == 6.2, NULL );
+
+  fail_unless( Parameter_isSetName (p), NULL );
+  fail_unless( Parameter_isSetValue(p), NULL );
+  fail_unless( Parameter_isSetUnits(p), NULL );
 
   Parameter_free(p);
 }
@@ -121,6 +129,7 @@ START_TEST (test_Parameter_setName)
   Parameter_setName(P, name);
 
   fail_unless( !strcmp(P->name, name), NULL );
+  fail_unless( Parameter_isSetName(P), NULL );
 
   if (P->name == name)
   {
@@ -128,6 +137,7 @@ START_TEST (test_Parameter_setName)
   }
 
   Parameter_setName(P, NULL);
+  fail_unless( !Parameter_isSetName(P), NULL );
 
   if (P->name != NULL)
   {
@@ -145,6 +155,7 @@ START_TEST (test_Parameter_setUnits)
   Parameter_setUnits(P, units);
 
   fail_unless( !strcmp(P->units, units), NULL );
+  fail_unless( Parameter_isSetUnits(P) , NULL );
 
   if (P->units == units)
   {
@@ -152,6 +163,7 @@ START_TEST (test_Parameter_setUnits)
   }
 
   Parameter_setUnits(P, NULL);
+  fail_unless( !Parameter_isSetUnits(P), NULL );
 
   if (P->units != NULL)
   {
