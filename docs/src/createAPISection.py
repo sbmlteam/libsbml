@@ -160,6 +160,11 @@ def filterDocStringLine(string):
   string = replace( string, '@return', 'Returns'   )
   string = replace( string, '<b>'    , '\\textbf{' )
   string = replace( string, '</b>'   , '}'         )
+
+  index = find(string, ';')
+  if index > 0:
+    string = '\\texttt{' + string + '}'
+
   return string
 
 
