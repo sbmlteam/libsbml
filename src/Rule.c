@@ -121,16 +121,3 @@ Rule_setFormula (Rule_t *r, const char *string)
 
   r->formula = (string == NULL) ? NULL : safe_strdup(string);
 }
-
-
-/**
- * Unsets the formula for this Rule.  This is equivalent to:
- * safe_free(r->formula); r->formula = NULL;
- */
-LIBSBML_EXTERN
-void
-Rule_unsetFormula (Rule_t *r)
-{
-  safe_free(r->formula);
-  r->formula = NULL;
-}
