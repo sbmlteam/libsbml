@@ -1,2 +1,7 @@
-Makefile
+*.lo
+*.la
 .deps
+.libs
+Makefile
+TestRunner
+*.dylib
