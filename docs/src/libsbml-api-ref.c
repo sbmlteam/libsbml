@@ -75,5 +75,4 @@
  *   with line and column number information and may be retrieved and
  *   manipulated programmatically.  The XML Schema file used by the parser for
  *   validation is configurable.
- *
  **/
