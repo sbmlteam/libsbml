@@ -227,6 +227,7 @@ SBMLHandler::startElement (const XMLCh* const  uri,
 
 
   /* debugPrintStartElement(uri, localname, qname, attrs); */
+  /* debugPrintAttrs(attrs); */
 
   //
   // If we are already inside an <annotation>, <notes> or <math> tag
@@ -321,6 +322,11 @@ SBMLHandler::startElement (const XMLCh* const  uri,
       // metaid: ID  { use="optional" }  (L2v1)
       //
       XMLUtil::scanAttr(attrs, ATTR_META_ID, obj->metaid);
+
+      //
+      // xmlns: attributes
+      //
+      storeNamespaceDefinitions(obj, attrs);
     }
 
     Stack_push(fTagStack, (void *) tag);
@@ -1850,8 +1856,51 @@ SBMLHandler::setStoichiometryMath (SpeciesReference* sr, ASTNode* math)
 
 
 /**
+ * @return true if prefix begins with 'xmlns:' (case-insensitive), false
+ * otherwise.
+ */
+bool
+startsWithXMLNS (const XMLCh* const prefix)
+{
+  return 
+    XMLString::stringLen(prefix) > 6 &&
+    (prefix[0] == chLatin_x || prefix[0] == chLatin_X) &&
+    (prefix[1] == chLatin_m || prefix[1] == chLatin_M) &&
+    (prefix[2] == chLatin_l || prefix[2] == chLatin_L) &&
+    (prefix[3] == chLatin_n || prefix[3] == chLatin_N) &&
+    (prefix[4] == chLatin_s || prefix[4] == chLatin_S) &&
+     prefix[5] == chColon;
+}
+
+
+/**
+ * Stores any namespace definitions (attribute names that begin with
+ * xmlns:) in the SBase object's collection of namespaces.
+ */
+void
+storeNamespaceDefinitions (SBase *obj, const Attributes& a)
+{
+  for (unsigned int n = 0; n < a.getLength(); n++)
+  {
+    if (startsWithXMLNS( a.getQName(n) ))
+    {
+      char* prefix = XMLString::transcode( a.getQName(n) );
+      char* URI    = XMLString::transcode( a.getValue(n) );
+
+      obj->getNamespaces().add(prefix, URI);
+
+      XMLString::release(&prefix);
+      XMLString::release(&URI);
+    }
+  }
+}
+
+
+/**
  * Prints, to stdout, the value of parameters passed to startElement().
  *
+using namespace std;
+
 void
 SBMLHandler::debugPrintStartElement (const XMLCh* const  uri,
                                      const XMLCh* const  localname,
@@ -1866,5 +1915,25 @@ SBMLHandler::debugPrintStartElement (const XMLCh* const  uri,
   cout << "       col    = " << fLocator->getColumnNumber()     << endl;
   cout << "SBMLTagCode_t = " << getTagCode(uri, localname)      << endl;
   cout << endl;
+}
+
+
+void
+SBMLHandler::debugPrintAttrs (const Attributes& attrs)
+{
+  int n;
+  int size = attrs.getLength();
+
+
+  for (n = 0; n < size; n++)
+  {
+    cout << "attr.getValue(" << n << ") = ["
+         << XMLString::transcode( attrs.getValue(n) ) << "]" << endl;
+
+    cout << "attr.getQName(" << n << ") = ["
+         << XMLString::transcode( attrs.getQName(n) ) << "]" << endl;
+  }
+
+  cout << endl << endl;
 }
 */

@@ -2630,6 +2630,34 @@ START_TEST (test_element_math_in_notes_bug)
 END_TEST
 
 
+START_TEST (test_element_SBML_xmlns)
+{
+  const char* s = wrapXML
+  (
+    "<sbml level='2' version='1' xmlns:jd='http://www.sbml.org/ns/jdesigner'/>"
+  );
+
+  XMLNamespaceList  nl;
+  SBMLReader        reader;
+  SBMLDocument     *d = reader.readSBMLFromString(s);
+
+
+  fail_unless( d->getLevel()   == 2, NULL );
+  fail_unless( d->getVersion() == 1, NULL );
+
+
+  fail_unless( d->hasNamespaces() == true, NULL );
+
+  nl = d->getNamespaces();
+
+  fail_unless( nl.getPrefix(0) == "jd", NULL );
+  fail_unless( nl.getURI(0)    == "http://www.sbml.org/ns/jdesigner", NULL );
+
+  delete d;
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLHandler (void)
 {
@@ -2713,6 +2741,7 @@ create_suite_SBMLHandler (void)
   tcase_add_test( tcase, test_element_annotation_sbml_L2                   );
   tcase_add_test( tcase, test_element_line_col_numbers                     );
   tcase_add_test( tcase, test_element_math_in_notes_bug                    );
+  tcase_add_test( tcase, test_element_SBML_xmlns                           );
 
   suite_add_tcase(suite, tcase);
 

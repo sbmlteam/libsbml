@@ -217,6 +217,8 @@ private:
     const XMLCh* const  qname,
     const Attributes&   attrs
   );
+
+  void debugPrintAttrs (const Attributes& attrs);
   */
 
 
@@ -264,6 +266,21 @@ private:
   int inAnnotation;
   int inMath;
 };
+
+
+/**
+ * @return true if prefix begins with 'xmlns:' (case-insensitive), false
+ * otherwise.
+ */
+bool
+startsWithXMLNS (const XMLCh* const prefix);
+
+/**
+ * Stores any namespace definitions (attribute names that begin with
+ * xmlns:) in the SBase object's collection of namespaces.
+ */
+void
+storeNamespaceDefinitions (SBase *obj, const Attributes& a);
 
 
 #endif  // SBMLHandler_hpp
