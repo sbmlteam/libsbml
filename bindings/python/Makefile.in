@@ -120,6 +120,8 @@ check_programs = accept.py
 
 distfiles = \
 	    Makefile.in \
+	    Python_binding_Win32.dsp \
+	    README.txt \
 	    accept.py \
 	    libsbml.i \
 	    libsbml.py \
@@ -129,7 +131,7 @@ distfiles = \
 	    setup.cfg \
 	    setup.py.in
 
-extra_distclean = libsbml.pyc
+extra_distclean = libsbml.pyc setup.py
 
 
 # -----------------------------------------------------------------------------
