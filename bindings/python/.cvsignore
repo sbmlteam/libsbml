@@ -5,3 +5,4 @@
 Makefile
 libsbml_wrap.cpp
 libsbml.py
+build
