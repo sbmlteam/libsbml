@@ -89,7 +89,7 @@
       Thanks to Mike Hucka for working that out.
 
 
-* Released October 4, 2004
+* Released October 6, 2004
 
 
 
