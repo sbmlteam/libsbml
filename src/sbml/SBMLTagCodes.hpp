@@ -65,7 +65,7 @@
 #endif
 
 
-typedef int SBMLTagCode_t;
+typedef long SBMLTagCode_t;
 
 static const SBMLTagCode_t TAG_ALGEBRAIC_RULE               =  0;
 static const SBMLTagCode_t TAG_ANNOTATION                   =  1;

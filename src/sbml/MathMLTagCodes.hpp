@@ -65,7 +65,7 @@
 #endif  // USE_EXPAT
 
 
-typedef int MathMLTagCode_t;
+typedef long MathMLTagCode_t;
 
 static const MathMLTagCode_t MATHML_TAG_ABS            =  0;
 static const MathMLTagCode_t MATHML_TAG_AND            =  1;
