@@ -188,6 +188,9 @@ LIBSBML_EXTERN
 void
 Model_setName (Model_t *m, const char *sname)
 {
+  if (m->name == sname) return;
+
+
   if (m->name != NULL)
   {
     safe_free(m->name);

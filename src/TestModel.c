@@ -141,6 +141,10 @@ START_TEST (test_Model_setName)
     fail("Model_setName(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Model_setName(M, M->name);
+  fail_unless( !strcmp(M->name, name), NULL );
+
   Model_setName(M, NULL);
   fail_unless( !Model_isSetName(M), NULL );
 
