@@ -194,26 +194,47 @@ util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
 char *
 util_trim (const char *s)
 {
-  char       *trimmed = NULL;
+  const char *start = s;
   const char *end;
-  int        len;
+
+  char *trimmed = NULL;
+  int  len;
 
 
   if (s == NULL) return NULL;
 
+  len = strlen(s);
+  end = start + len - 1;
+
   /**
    * Skip leading whitespace.
    *
-   * When this loop terminates, s will point the first non-whitespace
+   * When this loop terminates, start will point the first non-whitespace
    * character of the string or NULL.
    */
-  while ( *s && isspace(*s) ) s++;
+  while ( len > 0 && isspace(*start) )
+  {
+    start++;
+    len--;
+  }
 
   /**
-   * If the character pointed to by s is NULL, the string is either empty
-   * or pure whitespace.  Set trimmed to an empty string.
+   * Skip trailing whitespace.
+   *
+   * When this loop terminates, end will point the last non-whitespace
+   * character of the string.
    */
-  if (*s == '\0')
+  while ( len > 0 && isspace(*end) )
+  {
+    end--;
+    len--;
+  }
+
+  /**
+   * If len is zero, the string is either empty or pure whitespace.  Set
+   * trimmed to an empty string.
+   */
+  if (len == 0)
   {
     trimmed    = (char *) safe_malloc(1);
     trimmed[0] = '\0';
@@ -224,23 +245,9 @@ util_trim (const char *s)
    */
   else
   {
-    end = s;
-
-    /**
-     * Stop before trailing whitespace (or the end of the string).
-     *
-     * When this loop terminates, end will point to either the first
-     * whitespace character of the string or NULL.
-     */
-    while ( *end && !isspace(*end) ) end++;
-
-    /**
-     * Copy the non-whitepace portion of s to trimmed.
-     */
-    len     = end - s;
     trimmed = (char *) safe_malloc(len + 1);
 
-    strncpy(trimmed, s, len);
+    strncpy(trimmed, start, len);
     trimmed[len] = '\0';
   }
 

@@ -92,24 +92,28 @@ END_TEST
 
 START_TEST (test_util_trim)
 {
-  char *q, *r, *s, *t, *u, *v, *w, *x, *y, *z;
+  char *p, *q, *r, *s, *t, *u, *v, *w, *x, *y, *z;
 
 
-  fail_unless( !strcmp( q = util_trim("p"  ), "p"), NULL );
-  fail_unless( !strcmp( r = util_trim("q " ), "q"), NULL );
-  fail_unless( !strcmp( s = util_trim(" r" ), "r"), NULL );
-  fail_unless( !strcmp( t = util_trim(" s "), "s"), NULL );
+  fail_unless( !strcmp( p = util_trim("p"  ), "p"), NULL );
+  fail_unless( !strcmp( q = util_trim("q " ), "q"), NULL );
+  fail_unless( !strcmp( r = util_trim(" r" ), "r"), NULL );
+  fail_unless( !strcmp( s = util_trim(" s "), "s"), NULL );
 
-  fail_unless( !strcmp( u = util_trim("foo"  ), "foo"), NULL );
-  fail_unless( !strcmp( v = util_trim("foo " ), "foo"), NULL );
-  fail_unless( !strcmp( w = util_trim(" bar" ), "bar"), NULL );
-  fail_unless( !strcmp( x = util_trim(" bar "), "bar"), NULL );
+  fail_unless( !strcmp( t = util_trim("foo"  ), "foo"), NULL );
+  fail_unless( !strcmp( u = util_trim("foo " ), "foo"), NULL );
+  fail_unless( !strcmp( v = util_trim(" bar" ), "bar"), NULL );
+  fail_unless( !strcmp( w = util_trim(" bar "), "bar"), NULL );
+
+  fail_unless( !strcmp( x = util_trim(" foo bar " ), "foo bar"), NULL );
 
   fail_unless( !strcmp( y = util_trim(" "), ""), NULL );
   fail_unless( !strcmp( z = util_trim("" ), ""), NULL );
 
+
   fail_unless( util_trim((char *) NULL) == NULL, NULL );
 
+  safe_free(p);
   safe_free(q);
   safe_free(r);
   safe_free(s);
