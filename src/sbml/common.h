@@ -69,6 +69,12 @@
 #define snprintf _snprintf
 
 /**
+ * Avoids silly MSVC++ warning C4800: 'const int' : forcing value to bool
+ * 'true' or 'false' (performance warning)
+ */
+#pragma warning(disable: 4800)
+
+/**
  * The following ifdef block is the standard way of creating macros which
  * make exporting from a DLL simpler. All files within this DLL are
  * compiled with the LIBSBML_EXPORTS symbol defined on the command line.

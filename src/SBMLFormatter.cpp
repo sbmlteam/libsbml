@@ -424,12 +424,7 @@ SBMLFormatter::operator<< (const Species_t* s)
   //
   if (s->boundaryCondition != 0)
   {
-    //
-    // Avoids MSVC++ warning C4800: 'const int' : forcing value to bool
-    // 'true' or 'false' (performance warning)
-    //
-    bool b = (bool) s->boundaryCondition;
-    attribute(ATTR_BOUNDARY_CONDITION, b);
+    attribute(ATTR_BOUNDARY_CONDITION, (bool) s->boundaryCondition);
   }
 
   //
@@ -677,12 +672,7 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   //
   if (r->reversible != 1)
   {
-    //
-    // Avoids MSVC++ warning C4800: 'const int' : forcing value to bool
-    // 'true' or 'false' (performance warning)
-    //
-    bool b = (bool) r->reversible;
-    attribute(ATTR_REVERSIBLE, b);
+    attribute(ATTR_REVERSIBLE, (bool) r->reversible);
   }
 
   //
@@ -690,12 +680,7 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   //
   if (r->fast != 0)
   {
-    //
-    // Avoids MSVC++ warning C4800: 'const int' : forcing value to bool
-    // 'true' or 'false' (performance warning)
-    //
-    bool b = (bool) r->fast;
-    attribute(ATTR_FAST, b);
+    attribute(ATTR_FAST, (bool) r->fast);
   }
 
   if ( isEmpty(r) )
