@@ -81,6 +81,8 @@ dnl ---------------------------------------------------------------------------
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
+
+AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
 AC_ARG_ENABLE(memory-tracing,
@@ -91,6 +93,29 @@ AC_ARG_ENABLE(memory-tracing,
                 [Define to 1 to enable primitive memory tracing.])
      fi
     ])
+
+
+dnl ---------------------------------------------------------------------------
+dnl Check host operating system.
+dnl ---------------------------------------------------------------------------
+
+dnl AC_CANONICAL_HOST
+
+case "$host_os" in
+  *linux*)
+    AM_CPPFLAGS="-DLINUX"
+    ;;
+
+  *solaris*)
+    AM_CPPFLAGS="-DSOLARIS"
+    ;;
+
+  *cygwin*)
+    AM_CPPFLAGS="-DWIN32 -DCYGWIN -DLIBSBML_EXPORTS"
+    ;;
+esac
+
+AC_SUBST(AM_CPPFLAGS)
 
 
 dnl ---------------------------------------------------------------------------
@@ -139,3 +164,24 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/Makefile])
 
 AC_OUTPUT
+
+
+dnl ---------------------------------------------------------------------------
+dnl Inform users of settings
+dnl ---------------------------------------------------------------------------
+
+if test -f "VERSION.txt"; then
+    LIBSBML_VERSION=[`cat VERSION.txt`]
+fi
+
+echo
+echo "Build Settings for libsbml v${LIBSBML_VERSION}:"
+echo "  host os     = $host_os"
+echo "  install dir = $prefix"
+echo "  CC          = $CC"
+echo "  CXX         = $CXX"
+echo "  CFLAGS      = $CFLAGS"
+echo "  CXXFLAGS    = $CXXFLAGS"
+echo "  CPPFLAGS    = $CPPFLAGS $AM_CPPFLAGS"
+echo "  LDFLAGS     = $LDFLAGS"
+echo
