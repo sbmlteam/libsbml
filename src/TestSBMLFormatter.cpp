@@ -100,134 +100,114 @@ TestSBMLFormatter_teardown (void)
 
 START_TEST (test_SBMLFormatter_SBMLDocument_L1v1)
 {
-  SBMLDocument_t *d = SBMLDocument_createWith(1, 1);
-
   const char *s = wrapXML
   (
     "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
     "level=\"1\" version=\"1\"/>\n"
   );
 
+  SBMLDocument d(1, 1);
+
 
   *formatter << d;
-
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  SBMLDocument_free(d);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SBMLDocument_L1v2)
 {
-  SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
-
   const char *s = wrapXML
   (
     "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
     "level=\"1\" version=\"2\"/>\n"
   );
 
+  SBMLDocument d(1, 2);
+
 
   *formatter << d;
-
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  SBMLDocument_free(d);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SBMLDocument_L2v1)
 {
-  SBMLDocument_t *d = SBMLDocument_createWith(2, 1);
-
   const char *s = wrapXML
   (
     "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
     "level=\"2\" version=\"1\"/>\n"
   );
 
+  SBMLDocument d(2, 1);
+
 
   *formatter << d;
-
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  SBMLDocument_free(d);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Model)
 {
-  Model_t    *m = Model_createWith("Branch");
-  const char *s = wrapXML("<model name=\"Branch\"/>\n");
+  const char* s = wrapXML("<model name=\"Branch\"/>\n");
+  Model m("", "Branch");
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << m;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Model_free(m);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Model_skipOptional)
 {
-  Model_t    *m = Model_create();
   const char *s = wrapXML("<model/>\n");
+  Model m;
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << m;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Model_free(m);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Model_L2v1)
 {
-  Model_t    *m = Model_createWith("Branch");
-  const char *s = wrapXML("<model id=\"Branch\"/>\n");
+  const char* s = wrapXML("<model id=\"Branch\"/>\n");
+  Model m("Branch");
 
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << m;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Model_free(m);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Model_L2v1_skipOptional)
 {
-  Model_t    *m = Model_create();
-  const char *s = wrapXML("<model/>\n");
+  const char* s = wrapXML("<model/>\n");
+  Model m;
 
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << m;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Model_free(m);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_FunctionDefinition)
 {
-  ASTNode_t            *math = SBML_parseFormula("lambda(x, x^3)");
-  FunctionDefinition_t *fd   = FunctionDefinition_createWith("pow3", math);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<functionDefinition id=\"pow3\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -245,97 +225,84 @@ START_TEST (test_SBMLFormatter_FunctionDefinition)
     "</functionDefinition>\n"
   );
 
+  FunctionDefinition fd("pow3", "lambda(x, x^3)");
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << fd;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  FunctionDefinition_free(fd);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Unit)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_KILOGRAM, 2, -3);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>\n"
   );
+
+  Unit u("kilogram", 2, -3);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << u;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Unit_free(u);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Unit_defaults)
 {
-  Unit_t     *u = Unit_createWith(UNIT_KIND_KILOGRAM, 1, 0);
-  const char *s = wrapXML("<unit kind=\"kilogram\"/>\n");
+  const char* s = wrapXML("<unit kind=\"kilogram\"/>\n");
+  Unit u("kilogram", 1, 0);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << u;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Unit_free(u);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Unit_L2v1)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_CELSIUS, 1, 0);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<unit kind=\"Celsius\" multiplier=\"1.8\" offset=\"32\"/>\n"
   );
 
+  Unit u("Celsius", 1, 0, 1.8, 32);
 
-  Unit_setMultiplier(u, 1.8);
-  Unit_setOffset(u, 32);
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << u;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Unit_free(u);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_UnitDefinition)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
-  const char       *s  = wrapXML("<unitDefinition name=\"mmls\"/>\n");
+  const char* s = wrapXML("<unitDefinition name=\"mmls\"/>\n");
+  UnitDefinition ud("mmls");
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << ud;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  UnitDefinition_free(ud);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_UnitDefinition_full)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
-
-  const char *s  = wrapXML
+  const char* s = wrapXML
   (
     "<unitDefinition name=\"mmls\">\n"
     "  <listOfUnits>\n"
@@ -346,43 +313,38 @@ START_TEST (test_SBMLFormatter_UnitDefinition_full)
     "</unitDefinition>\n"
   );
 
+  UnitDefinition ud("mmls");
 
-  UnitDefinition_addUnit( ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
-  UnitDefinition_addUnit( ud, Unit_createWith(UNIT_KIND_LITER , -1,  0) );
-  UnitDefinition_addUnit( ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
+  ud.addUnit( * new Unit("mole"  ,  1, -3) );
+  ud.addUnit( * new Unit("liter" , -1)     );
+  ud.addUnit( * new Unit("second", -1)     );
+
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << ud;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  UnitDefinition_free(ud);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_UnitDefinition_L2v1)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
-  const char       *s  = wrapXML("<unitDefinition id=\"mmls\"/>\n");
+  const char* s = wrapXML("<unitDefinition id=\"mmls\"/>\n");
+  UnitDefinition ud("mmls");
 
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << ud;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  UnitDefinition_free(ud);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_UnitDefinition_L2v1_full)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWith("Fahrenheit");
-  Unit_t           *u  = Unit_create();
-
-  const char *s  = wrapXML
+  const char *s = wrapXML
   (
     "<unitDefinition id=\"Fahrenheit\">\n"
     "  <listOfUnits>\n"
@@ -391,39 +353,35 @@ START_TEST (test_SBMLFormatter_UnitDefinition_L2v1_full)
     "</unitDefinition>\n"
   );
 
+  UnitDefinition ud("Fahrenheit");
+  ud.addUnit( * new Unit("Celsius", 1, 0, 1.8, 32) );
 
-  Unit_setKind      (u, UNIT_KIND_CELSIUS);
-  Unit_setMultiplier(u, 1.8);
-  Unit_setOffset    (u, 32);
-
-  UnitDefinition_addUnit(ud, u);
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << ud;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  UnitDefinition_free(ud);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Compartment)
 {
-  Compartment_t *c = Compartment_createWith("A", 2.1, NULL, "B");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<compartment name=\"A\" volume=\"2.1\" outside=\"B\"/>\n"
   );
+
+  Compartment c("A");
+
+  c.setSize(2.1);
+  c.setOutside("B");
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
 }
 END_TEST
 
@@ -435,18 +393,16 @@ END_TEST
  */
 START_TEST (test_SBMLFormatter_Compartment_skipOptional)
 {
-  Compartment_t *c = Compartment_create();
-  const char    *s = wrapXML("<compartment name=\"A\" volume=\"1\"/>\n");
+  const char* s = wrapXML("<compartment name=\"A\" volume=\"1\"/>\n");
+  Compartment c;
 
 
-  Compartment_setName(c, "A");
+  c.setName("A");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
 }
 END_TEST
 
@@ -456,34 +412,23 @@ END_TEST
  */
 START_TEST (test_SBMLFormatter_Compartment_unsetVolume)
 {
-  Compartment_t *c = Compartment_create();
-  const char    *s = wrapXML("<compartment name=\"A\"/>\n");
+  const char* s = wrapXML("<compartment name=\"A\"/>\n");
+  Compartment c;
 
-
-  Compartment_setName(c, "A");
-  Compartment_unsetVolume(c);
+  c.setName("A");
+  c.unsetVolume();
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Compartment_annotation)
 {
-  Compartment_t *c = Compartment_createWith("A", 2.1, NULL, "B");
-
-  const char *a =
-    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">\n"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\"/>\n"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>\n"
-    "</annotation>";
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<compartment name=\"A\" volume=\"2.1\" outside=\"B\">\n"
     "  <annotation xmlns:mysim=\"http://www.mysim.org/ns\">\n"
@@ -493,351 +438,338 @@ START_TEST (test_SBMLFormatter_Compartment_annotation)
     "</compartment>\n"
   );
 
+  const char* a =
+    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">\n"
+    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\"/>\n"
+    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>\n"
+    "</annotation>";
 
-  SBase_setAnnotation((SBase_t *) c, a);
+  Compartment c("A");
+
+  c.setVolume(2.1);
+  c.setOutside("B");
+  c.setAnnotation(a);
+
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Compartment_L2v1)
 {
-  Compartment_t *c = Compartment_createWith("M", 2.5, NULL, NULL);
-  const char    *s = wrapXML
+  const char* s = wrapXML
   (
     "<compartment id=\"M\" spatialDimensions=\"2\" size=\"2.5\"/>\n"
   );
 
+  Compartment c("M");
 
-  Compartment_setSpatialDimensions(c, 2);
+  c.setSize(2.5);
+  c.setSpatialDimensions(2);
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Compartment_L2v1_constant)
 {
-  Compartment_t *c = Compartment_createWith("cell", 1.2, NULL, NULL);
-  const char    *s = wrapXML
+  const char* s = wrapXML
   (
     "<compartment id=\"cell\" size=\"1.2\" constant=\"false\"/>\n"
   );
 
+  Compartment c("cell");
 
-  Compartment_setConstant(c, 0);
+  c.setSize(1.2);
+  c.setConstant(false);
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Compartment_L2v1_unsetSize)
 {
-  Compartment_t *c = Compartment_create();
-  const char    *s = wrapXML("<compartment id=\"A\"/>\n");
+  const char* s = wrapXML("<compartment id=\"A\"/>\n");
+  Compartment c;
 
-
-  Compartment_setId(c, "A");
-  Compartment_unsetSize(c);
+  c.setId("A");
+  c.unsetSize();
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << c;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
-
-  Compartment_free(c);
 }
 END_TEST
 
 
+
 START_TEST (test_SBMLFormatter_Species)
 {
-  Species_t *sp = Species_createWith("Ca2", "cell", 0.7, "mole", 1, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
     " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>\n"
   );
+
+  Species sp("Ca2");
+
+  sp.setCompartment("cell");
+  sp.setInitialAmount(0.7);
+  sp.setUnits("mole");
+  sp.setBoundaryCondition(true);
+  sp.setCharge(2);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << sp;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Species_free(sp);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Species_L1v1)
 {
-  Species_t *sp = Species_createWith("Ca2", "cell", 0.7, "mole", 1, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<specie name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
     " units=\"mole\" boundaryCondition=\"true\" charge=\"2\"/>\n"
   );
+
+  Species sp("Ca2");
+
+  sp.setCompartment("cell");
+  sp.setInitialAmount(0.7);
+  sp.setUnits("mole");
+  sp.setBoundaryCondition(true);
+  sp.setCharge(2);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version1;
   *formatter << sp;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Species_free(sp);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Species_defaults)
 {
-  Species_t *sp = Species_createWith("Ca2", "cell", 0.7, "mole", 0, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\""
     " units=\"mole\" charge=\"2\"/>\n"
   );
+
+  Species sp("Ca2");
+
+  sp.setCompartment("cell");
+  sp.setInitialAmount(0.7);
+  sp.setUnits("mole");
+  sp.setCharge(2);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << sp;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Species_free(sp);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Species_skipOptional)
 {
-  Species_t *sp = Species_createWith("Ca2", "cell", 0.7, NULL, 0, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<species name=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\"/>\n"
   );
 
+  Species sp("Ca2");
 
-  Species_unsetCharge(sp);
+  sp.setCompartment("cell");
+  sp.setInitialAmount(0.7);
+
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << sp;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Species_free(sp);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Species_L2v1)
 {
-  Species_t *sp = Species_createWith("Ca2", "cell", 0.7, "mole", 0, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<species id=\"Ca2\" compartment=\"cell\" initialAmount=\"0.7\" "
     "substanceUnits=\"mole\" constant=\"true\"/>\n"
   );
 
+  Species sp("Ca2");
 
-  Species_unsetCharge(sp);
-  Species_setConstant(sp, 1);
+  sp.setCompartment("cell");
+  sp.setInitialAmount(0.7);
+  sp.setSubstanceUnits("mole");
+  sp.setConstant(true);
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << sp;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Species_free(sp);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Species_L2v1_skipOptional)
 {
-  Species_t *sp = Species_createWith("Ca2", "cell", 0, NULL, 0, 0);
+  const char* s = wrapXML("<species id=\"Ca2\" compartment=\"cell\"/>\n");
 
-  const char *s = wrapXML("<species id=\"Ca2\" compartment=\"cell\"/>\n");
+  Species sp("Ca2");
+  sp.setCompartment("cell");
 
-
-  Species_unsetInitialAmount(sp);
-  Species_unsetCharge(sp);
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << sp;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Species_free(sp);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Parameter)
 {
-  Parameter_t *p = Parameter_createWith("Km1", 2.3, "second");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<parameter name=\"Km1\" value=\"2.3\" units=\"second\"/>\n"
   );
+
+  Parameter p("Km1", 2.3, "second");
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Parameter_L1v1_required)
 {
-  Parameter_t *p = Parameter_create();
-  const char  *s = wrapXML("<parameter name=\"Km1\" value=\"NaN\"/>\n");
+  const char* s = wrapXML("<parameter name=\"Km1\" value=\"NaN\"/>\n");
+  Parameter   p;
 
+  p.setName("Km1");
+  p.unsetValue();
 
-  Parameter_setName(p, "Km1");
-  Parameter_unsetValue(p);
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version1;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Parameter_L1v2_skipOptional)
 {
-  Parameter_t *p = Parameter_create();
-  const char  *s = wrapXML("<parameter name=\"Km1\"/>\n");
+  const char* s = wrapXML("<parameter name=\"Km1\"/>\n");
+  Parameter   p;
 
 
-  Parameter_setName(p, "Km1");
-  Parameter_unsetValue(p);
+  p.setName("Km1");
+  p.unsetValue();
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Parameter_L2v1)
 {
-  Parameter_t *p = Parameter_createWith("Km1", 2.3, "second");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<parameter id=\"Km1\" value=\"2.3\" units=\"second\"/>\n"
   );
+
+  Parameter p("Km1", 2.3, "second");
 
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Parameter_L2v1_skipOptional)
 {
-  Parameter_t *p = Parameter_create();
-  const char  *s = wrapXML("<parameter id=\"Km1\"/>\n");
+  const char* s = wrapXML("<parameter id=\"Km1\"/>\n");
+  Parameter   p("Km1");
 
-
-  Parameter_setId(p, "Km1");
-  Parameter_unsetValue(p);
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Parameter_L2v1_constant)
 {
-  Parameter_t *p = Parameter_create();
-  const char  *s = wrapXML("<parameter id=\"x\" constant=\"false\"/>\n");
+  const char* s = wrapXML("<parameter id=\"x\" constant=\"false\"/>\n");
+  Parameter   p("x");
 
+  p.setConstant(false);
 
-  Parameter_setId      ( p, "x" );
-  Parameter_setConstant( p, 0   );
-  Parameter_unsetValue ( p      );
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_AlgebraicRule)
 {
-  AlgebraicRule_t *ar = AlgebraicRule_createWith("x + 1");
-
-  const char *s = wrapXML
-  (
-    "<algebraicRule formula=\"x + 1\"/>\n"
-  );
+  const char*   s = wrapXML("<algebraicRule formula=\"x + 1\"/>\n");
+  AlgebraicRule ar("x + 1");
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << ar;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  AlgebraicRule_free(ar);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_AlgebraicRule_L2v1)
 {
-  AlgebraicRule_t *ar = AlgebraicRule_createWith("x + 1");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<algebraicRule>\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -850,90 +782,76 @@ START_TEST (test_SBMLFormatter_AlgebraicRule_L2v1)
     "</algebraicRule>\n"
   );
 
+  AlgebraicRule ar("x + 1");
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << ar;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  AlgebraicRule_free(ar);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesConcentrationRule)
 {
-  SpeciesConcentrationRule_t *scr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<speciesConcentrationRule "
     "formula=\"t * s\" type=\"rate\" species=\"s\"/>\n"
   );
 
+  SpeciesConcentrationRule scr("s", "t * s", RULE_TYPE_RATE);;
 
-  scr = SpeciesConcentrationRule_createWith("t * s", RULE_TYPE_RATE, "s");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << scr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesConcentrationRule_free(scr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesConcentrationRule_defaults)
 {
-  SpeciesConcentrationRule_t *scr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<speciesConcentrationRule formula=\"t * s\" species=\"s\"/>\n"
     
   );
 
+  SpeciesConcentrationRule scr("s", "t * s");
 
-  scr = SpeciesConcentrationRule_createWith("t * s", RULE_TYPE_SCALAR, "s");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << scr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesConcentrationRule_free(scr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesConcentrationRule_L1v1)
 {
-  SpeciesConcentrationRule_t *scr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<specieConcentrationRule formula=\"t * s\" specie=\"s\"/>\n"
   );
 
+  SpeciesConcentrationRule scr("s", "t * s", RULE_TYPE_SCALAR);
 
-  scr = SpeciesConcentrationRule_createWith("t * s", RULE_TYPE_SCALAR, "s");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version1;
   *formatter << scr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesConcentrationRule_free(scr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesConcentrationRule_L2v1)
 {
-  SpeciesConcentrationRule_t *scr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<assignmentRule variable=\"s\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -946,69 +864,57 @@ START_TEST (test_SBMLFormatter_SpeciesConcentrationRule_L2v1)
     "</assignmentRule>\n"
   );
 
+  SpeciesConcentrationRule scr("s", "t * s");
 
-  scr = SpeciesConcentrationRule_createWith("t * s", RULE_TYPE_SCALAR, "s");
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << scr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesConcentrationRule_free(scr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_CompartmentVolumeRule)
 {
-  CompartmentVolumeRule_t *cvr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<compartmentVolumeRule "
     "formula=\"v + s\" type=\"rate\" compartment=\"c\"/>\n"
   );
 
+  CompartmentVolumeRule cvr("c", "v + s", RULE_TYPE_RATE);
 
-  cvr = CompartmentVolumeRule_createWith("v + s", RULE_TYPE_RATE, "c");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << cvr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  CompartmentVolumeRule_free(cvr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_CompartmentVolumeRule_defaults)
 {
-  CompartmentVolumeRule_t *cvr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<compartmentVolumeRule formula=\"v + s\" compartment=\"c\"/>\n"
   );
 
+  CompartmentVolumeRule cvr("c", "v + s");
 
-  cvr = CompartmentVolumeRule_createWith("v + s", RULE_TYPE_SCALAR, "c");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << cvr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  CompartmentVolumeRule_free(cvr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_CompartmentVolumeRule_L2v1)
 {
-  CompartmentVolumeRule_t *cvr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<assignmentRule variable=\"c\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -1021,69 +927,56 @@ START_TEST (test_SBMLFormatter_CompartmentVolumeRule_L2v1)
     "</assignmentRule>\n"
   );
 
-
-  cvr = CompartmentVolumeRule_createWith("v + s", RULE_TYPE_SCALAR, "c");
+  CompartmentVolumeRule cvr("c", "v + s");
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << cvr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  CompartmentVolumeRule_free(cvr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_ParameterRule)
 {
-  ParameterRule_t *pr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<parameterRule "
     "formula=\"p * t\" type=\"rate\" name=\"p\"/>\n"
   );
 
+  ParameterRule pr("p", "p * t", RULE_TYPE_RATE);
 
-  pr = ParameterRule_createWith("p * t", RULE_TYPE_RATE, "p");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << pr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  ParameterRule_free(pr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_ParameterRule_defaults)
 {
-  ParameterRule_t *pr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<parameterRule formula=\"p * t\" name=\"p\"/>\n"
   );
 
 
-  pr = ParameterRule_createWith("p * t", RULE_TYPE_SCALAR, "p");
+  ParameterRule pr("p", "p * t");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << pr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  ParameterRule_free(pr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_ParameterRule_L2v1)
 {
-  ParameterRule_t *pr;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<rateRule variable=\"p\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -1097,64 +990,55 @@ START_TEST (test_SBMLFormatter_ParameterRule_L2v1)
   );
 
 
-  pr = ParameterRule_createWith("p * t", RULE_TYPE_RATE, "p");
+  ParameterRule pr("p", "p * t", RULE_TYPE_RATE);
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << pr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  ParameterRule_free(pr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Reaction)
 {
-  Reaction_t *r = Reaction_createWith("r", NULL, 0, 1);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<reaction name=\"r\" reversible=\"false\" fast=\"true\"/>\n"
   );
+
+  Reaction r("r", NULL, false);
+  r.setFast(true);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << r;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Reaction_free(r);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Reaction_defaults)
 {
-  Reaction_t *r = Reaction_create();
-  const char *s = wrapXML("<reaction name=\"r\"/>\n");
+  const char* s = wrapXML("<reaction name=\"r\"/>\n");
+  Reaction    r;
 
 
-  Reaction_setName(r, "r");
+
+  r.setName("r");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << r;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Reaction_free(r);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Reaction_full)
 {
-  KineticLaw_t       *kl  = KineticLaw_create();
-  Reaction_t         *r   = Reaction_createWith("v1", kl, 1, 0);
-  SpeciesReference_t *srr = SpeciesReference_createWith("x0", 1, 1);
-  SpeciesReference_t *srp = SpeciesReference_createWith("s1", 1, 1);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<reaction name=\"v1\">\n"
     "  <listOfReactants>\n"
@@ -1167,49 +1051,37 @@ START_TEST (test_SBMLFormatter_Reaction_full)
     "</reaction>\n"
   );
 
+  Reaction r("v1", new KineticLaw("(vm * s1)/(km + s1)"), true);
 
-  KineticLaw_setFormula(kl, "(vm * s1)/(km + s1)");
-  Reaction_addReactant(r, srr);
-  Reaction_addProduct (r, srp);
+  r.addReactant( * new SpeciesReference("x0") );
+  r.addProduct ( * new SpeciesReference("s1") );
+
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << r;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Reaction_free(r);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Reaction_L2v1)
 {
-  Reaction_t *r = Reaction_createWith("r", NULL, 0, 1);
-  const char *s = wrapXML("<reaction id=\"r\" reversible=\"false\"/>\n");
+  const char* s = wrapXML("<reaction id=\"r\" reversible=\"false\"/>\n");
+  Reaction    r("r", NULL, false);
 
-
-  Reaction_unsetFast(r);
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << r;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Reaction_free(r);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Reaction_L2v1_full)
 {
-  KineticLaw_t       *kl  = KineticLaw_create();
-  Reaction_t         *r   = Reaction_createWith("v1", kl, 1, 0);
-  SpeciesReference_t *srr = SpeciesReference_createWith("x0", 1, 1);
-  SpeciesReference_t *srp = SpeciesReference_createWith("s1", 1, 1);
-
-  ModifierSpeciesReference_t *msr = ModifierSpeciesReference_createWith("m1");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<reaction id=\"v1\">\n"
     "  <listOfReactants>\n"
@@ -1241,83 +1113,74 @@ START_TEST (test_SBMLFormatter_Reaction_L2v1_full)
     "</reaction>\n"
   );
 
+  Reaction r("v1", new KineticLaw("(vm * s1)/(km + s1)"), true);
 
-  KineticLaw_setFormula(kl, "(vm * s1)/(km + s1)");
-  Reaction_addReactant(r, srr);
-  Reaction_addProduct (r, srp);
-  Reaction_addModifier(r, msr);
+  r.addReactant( * new SpeciesReference("x0")         );
+  r.addProduct ( * new SpeciesReference("s1")         );
+  r.addModifier( * new ModifierSpeciesReference("m1") );
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << r;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Reaction_free(r);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesReference)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith("s", 3, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<speciesReference species=\"s\" stoichiometry=\"3\" denominator=\"2\"/>\n"
   );
+
+  SpeciesReference sr("s", 3, 2);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << sr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesReference_L1v1)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith("s", 3, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<specieReference specie=\"s\" stoichiometry=\"3\" denominator=\"2\"/>\n"
   );
+
+  SpeciesReference sr("s", 3, 2);
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version1;
   *formatter << sr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesReference_defaults)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith("s", 1, 1);
-  const char         *s  = wrapXML("<speciesReference species=\"s\"/>\n");
+  const char*      s = wrapXML("<speciesReference species=\"s\"/>\n");
+  SpeciesReference sr("s");
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << sr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesReference_L2v1_1)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith("s", 3, 2);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<speciesReference species=\"s\">\n"
     "  <stoichiometryMath>\n"
@@ -1328,42 +1191,38 @@ START_TEST (test_SBMLFormatter_SpeciesReference_L2v1_1)
     "</speciesReference>\n"
   );
 
+  SpeciesReference sr("s", 3, 2);
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << sr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesReference_L2v1_2)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith("s", 3.2, 1);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<speciesReference species=\"s\" stoichiometry=\"3.2\"/>\n"
   );
+
+  SpeciesReference sr("s", 3.2);
 
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << sr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_SpeciesReference_L2v1_3)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith("s", 1, 1);
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<speciesReference species=\"s\">\n"
     "  <stoichiometryMath>\n"
@@ -1378,63 +1237,54 @@ START_TEST (test_SBMLFormatter_SpeciesReference_L2v1_3)
     "</speciesReference>\n"
   );
 
+  SpeciesReference sr("s");
+  sr.setStoichiometryMath("1/d");
 
-  SpeciesReference_setStoichiometryMath(sr, SBML_parseFormula("1/d"));
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << sr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_KineticLaw)
 {
-  KineticLaw_t *kl = KineticLaw_createWith("k * e", "second", "item");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<kineticLaw formula=\"k * e\" timeUnits=\"second\" "
     "substanceUnits=\"item\"/>\n"
   );
+
+  KineticLaw kl("k * e", "second", "item");
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << kl;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  KineticLaw_free(kl);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_KineticLaw_skipOptional)
 {
-  KineticLaw_t *kl = KineticLaw_create();
-  const char   *s  = wrapXML("<kineticLaw formula=\"k * e\"/>\n");
+  const char* s = wrapXML("<kineticLaw formula=\"k * e\"/>\n");
+  KineticLaw  kl("k * e");
 
-
-  KineticLaw_setFormula(kl, "k * e");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << kl;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  KineticLaw_free(kl);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_KineticLaw_notes)
 {
-  KineticLaw_t *kl = KineticLaw_createWith("nk * e", "second", "item");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
     "substanceUnits=\"item\">\n"
@@ -1444,24 +1294,21 @@ START_TEST (test_SBMLFormatter_KineticLaw_notes)
     "</kineticLaw>\n"
   );
 
+  KineticLaw kl("nk * e", "second", "item");
+  kl.setNotes("This is a note.");
 
-  SBase_setNotes((SBase_t*) kl, "This is a note.");
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << kl;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  KineticLaw_free(kl);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters)
 {
-  KineticLaw_t *kl = KineticLaw_createWith("nk * e", "second", "item");
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
     "substanceUnits=\"item\">\n"
@@ -1471,25 +1318,21 @@ START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters)
     "</kineticLaw>\n"
   );
 
+  KineticLaw kl("nk * e", "second", "item");
+  kl.addParameter( * new Parameter("n", 1.2) );
 
-  KineticLaw_addParameter(kl, Parameter_createWith("n", 1.2, NULL));
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << kl;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  KineticLaw_free(kl);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters_notes_L1v2)
 {
-  KineticLaw_t *kl = KineticLaw_createWith("nk * e", "second", "item");
-  ListOf_t     *lo;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
     "substanceUnits=\"item\">\n"
@@ -1499,29 +1342,26 @@ START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters_notes_L1v2)
     "</kineticLaw>\n"
   );
 
+  KineticLaw kl("nk * e", "second", "item");
 
-  KineticLaw_addParameter(kl, Parameter_createWith("n", 1.2, NULL));
-  lo = KineticLaw_getListOfParameters(kl);
+  kl.addParameter( * new Parameter("n", 1.2) );
 
-  SBase_setMetaId( (SBase_t*) lo, "lop" );
-  SBase_setNotes ( (SBase_t*) lo, "This is a note." );
+  ListOf& lo = kl.getListOfParameters();
+  lo.setMetaId( "lop" );
+  lo.setNotes ( "This is a note." );
+
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << kl;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  KineticLaw_free(kl);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters_notes_L2v1)
 {
-  KineticLaw_t *kl = KineticLaw_createWith("nk * e", "second", "item");
-  ListOf_t     *lo;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n"
     "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
@@ -1540,43 +1380,41 @@ START_TEST (test_SBMLFormatter_KineticLaw_ListOfParameters_notes_L2v1)
     "</kineticLaw>\n"
   );
 
+  KineticLaw kl("nk * e", "second", "item");
 
-  KineticLaw_addParameter(kl, Parameter_createWith("n", 1.2, NULL));
-  lo = KineticLaw_getListOfParameters(kl);
+  kl.addParameter( * new Parameter("n", 1.2) );
 
-  SBase_setMetaId( (SBase_t*) lo, "lop" );
-  SBase_setNotes ( (SBase_t*) lo, "This is a note." );
+  ListOf& lo = kl.getListOfParameters();
+
+  lo.setMetaId( "lop" );
+  lo.setNotes ( "This is a note." );
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << kl;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  KineticLaw_free(kl);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Event)
 {
-  Event_t    *e = Event_createWith("e", NULL);
-  const char *s = wrapXML("<event id=\"e\"/>\n");
+  const char* s = wrapXML("<event id=\"e\"/>\n");
+  Event       e("e");
 
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << e;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Event_free(e);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Event_trigger)
 {
-  Event_t    *e = Event_createWith("e", SBML_parseFormula("leq(P1, t)"));
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<event id=\"e\" timeUnits=\"second\">\n"
     "  <trigger>\n"
@@ -1591,22 +1429,21 @@ START_TEST (test_SBMLFormatter_Event_trigger)
     "</event>\n"
   );
 
-  Event_setTimeUnits(e, "second");
+  Event e("e", "leq(P1, t)");
+  e.setTimeUnits("second");
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << e;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Event_free(e);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Event_delay)
 {
-  Event_t    *e = Event_createWith("e", NULL);
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<event id=\"e\" timeUnits=\"second\">\n"
     "  <delay>\n"
@@ -1617,23 +1454,21 @@ START_TEST (test_SBMLFormatter_Event_delay)
     "</event>\n"
   );
 
-  Event_setDelay(e, SBML_parseFormula("5"));
-  Event_setTimeUnits(e, "second");
+  Event e("e", "", "5");
+  e.setTimeUnits("second");
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << e;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Event_free(e);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Event_both)
 {
-  Event_t    *e = Event_createWith("e", SBML_parseFormula("leq(P1, t)"));
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<event id=\"e\" timeUnits=\"second\">\n"
     "  <trigger>\n"
@@ -1653,25 +1488,20 @@ START_TEST (test_SBMLFormatter_Event_both)
     "</event>\n"
   );
 
-  Event_setDelay(e, SBML_parseFormula("5"));
-  Event_setTimeUnits(e, "second");
+  Event e("e", "leq(P1, t)", "5");
+  e.setTimeUnits("second");
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << e;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Event_free(e);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_Event_full)
 {
-  Event_t            *e;
-  EventAssignment_t *ea;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<event id=\"e\">\n"
     "  <trigger>\n"
@@ -1693,17 +1523,16 @@ START_TEST (test_SBMLFormatter_Event_full)
     "</event>\n"
   );
 
-  e  = Event_createWith("e", SBML_parseFormula("leq(P1, t)"));
-  ea = EventAssignment_createWith("k2", SBML_parseFormula("0"));
+  Event e( "e" , "leq(P1, t)" );
+  
 
-  Event_addEventAssignment(e, ea);
+  e.addEventAssignment( * new EventAssignment("k2", "0") );
+
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << e;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Event_free(e);
 }
 END_TEST
 
@@ -1714,80 +1543,70 @@ END_TEST
  */
 START_TEST (test_SBMLFormatter_unset_required)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith(NULL, 1, 1);
-  const char         *s  = wrapXML("<speciesReference species=\"\"/>\n");
+  const char*      s = wrapXML("<speciesReference species=\"\"/>\n");
+  SpeciesReference sr;
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << sr;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_NaN)
 {
-  Parameter_t *p = Parameter_createWith("p", util_NaN(), NULL);
-  const char  *s = wrapXML("<parameter name=\"p\" value=\"NaN\"/>\n");
+  const char* s = wrapXML("<parameter name=\"p\" value=\"NaN\"/>\n");
+  Parameter   p("p", util_NaN());
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_INF)
 {
-  Parameter_t *p = Parameter_createWith("p", util_PosInf(), NULL);
-  const char  *s = wrapXML("<parameter name=\"p\" value=\"INF\"/>\n");
+  const char* s = wrapXML("<parameter name=\"p\" value=\"INF\"/>\n");
+  Parameter   p ("p", util_PosInf());
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_NegINF)
 {
-  Parameter_t *p = Parameter_createWith("p", util_NegInf(), NULL);
-  const char  *s = wrapXML("<parameter name=\"p\" value=\"-INF\"/>\n");
+  const char* s = wrapXML("<parameter name=\"p\" value=\"-INF\"/>\n");
+  Parameter   p("p", util_NegInf());
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
 
 START_TEST (test_SBMLFormatter_NegZero)
 {
-  Parameter_t *p = Parameter_createWith("p", util_NegZero(), NULL);
-  const char  *s = wrapXML("<parameter name=\"p\" value=\"-0\"/>\n");
+  const char* s = wrapXML("<parameter name=\"p\" value=\"-0\"/>\n");
+  Parameter   p = Parameter("p", util_NegZero());
 
 
   *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
   *formatter << p;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  Parameter_free(p);
 }
 END_TEST
 
@@ -1805,9 +1624,7 @@ END_TEST
  */
 START_TEST (test_SBMLFormatter_nonempty_RateRule_bug)
 {
-  RateRule_t *r;
-
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<rateRule variable=\"x\">\n"
     "  <notes>\n"
@@ -1817,16 +1634,14 @@ START_TEST (test_SBMLFormatter_nonempty_RateRule_bug)
   );
 
 
-  r = RateRule_createWith("x", NULL);
+  RateRule r("x");
+  r.setNotes("This is a note.");
 
-  SBase_setNotes((SBase_t*) r, "This is a note.");
 
   *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
   *formatter << r;
 
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-
-  RateRule_free(r);
 }
 END_TEST
 
@@ -1934,10 +1749,8 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_skipOptional     );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_notes            );
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw_ListOfParameters );
-
   tcase_add_test( tcase,
                   test_SBMLFormatter_KineticLaw_ListOfParameters_notes_L1v2 );
-
   tcase_add_test( tcase,
                   test_SBMLFormatter_KineticLaw_ListOfParameters_notes_L2v1 );
 
