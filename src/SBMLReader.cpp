@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLReader.cpp
- * Description : Reads an SBML Document into memory
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-15
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLReader.cpp
+ * \brief   Reads an SBML Document into memory
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,7 +51,7 @@
 
 
 #include <fstream>
-#include "sbml/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
@@ -64,16 +63,14 @@ typedef void SAX2XMLReader;
 #  include <xercesc/sax2/XMLReaderFactory.hpp>
 #  include <xercesc/util/PlatformUtils.hpp>
 #  include <xercesc/util/XMLString.hpp>
+   using namespace xercesc;
 #endif  // USE_EXPAT
 
-#include "sbml/SBMLDocument.h"
-#include "sbml/SBMLReader.h"
+#include "ParseMessage.h"
+#include "SBMLDocument.h"
+#include "SBMLHandler.h"
 
-#include "sbml/ParseMessage.hpp"
-
-
-#include "sbml/SBMLHandler.hpp"
-#include "sbml/SBMLReader.hpp"
+#include "SBMLReader.h"
 
 
 #ifndef USE_EXPAT
@@ -326,7 +323,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
     {
       std::ifstream is(filename);
 
-      if (is.fail()) throw errmsg;
+      if (is.fail()) throw ;
 
 #define BUFFER_SIZE 0xfffe
       char* pBuffer = new char[BUFFER_SIZE + 1];
@@ -337,7 +334,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
         is.get(pBuffer, BUFFER_SIZE, 0);
         
         if (is.eof()) done = true;
-        if (is.fail() && !done) throw errmsg;
+        if (is.fail() && !done) throw ;
             
         if (!handler.parse(pBuffer, -1, done))
           throw handler.getErrorString();
@@ -346,10 +343,10 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
 #undef BUFFER_SIZE
     }
   }
-  catch (const char * e)
+  catch (...)
   {
-    d->fatal.add(handler.ParseMessage_createFrom(e));
-    d->setModel(NULL);
+    //d->fatal.add( handler.ParseMessage_createFrom("Unexpected Parse Error") );
+    //d->setModel(NULL);
   }
 
 #else

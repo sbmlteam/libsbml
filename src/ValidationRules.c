@@ -1,13 +1,12 @@
 /**
- * Filename    : ValidationRules.c
- * Description : The default set of rules for validating an SBML document
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2004-03-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    ValidationRules.c
+ * \brief   The default set of rules for validating an SBML document
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,10 +49,14 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/Validator.h"
-#include "sbml/Model.h"
-#include "sbml/UnitKind.h"
+#include "common.h"
+
+#include "List.h"
+#include "ListOf.h"
+#include "ParseMessage.h"
+
+#include "SBMLTypes.h"
+#include "Validator.h"
 
 
 /**
@@ -622,7 +625,7 @@ numRulesWithVariable(const Model_t *m, const char *variableName)
   for (i = 0; i < numRules; i++)
   {
     Rule_t *rule = Model_getRule(m, i);
-    switch ( SBase_getTypeCode((Rule_t *) rule) )
+    switch ( SBase_getTypeCode((SBase_t *) rule) )
     {
     case SBML_ASSIGNMENT_RULE:
       {

@@ -1,13 +1,12 @@
 /**
- * Filename    : StringMap.c
- * Description : Generic (void *) StringMap for C structs on the heap
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-20
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    StringMap.c
+ * \brief   Generic (void *) StringMap for C structs on the heap
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,9 +49,9 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/StringMap.h"
-#include "sbml/List.h"
+#include "common.h"
+#include "List.h"
+#include "StringMap.h"
 
 
 #define INITIAL_CAPACITY 10

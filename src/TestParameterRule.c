@@ -1,13 +1,12 @@
 /**
- * Filename    : TestParameterRule.c
- * Description : ParameterRule unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestParameterRule.c
+ * \brief   ParameterRule unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/ParameterRule.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Rule.h"
+#include "ParameterRule.h"
 
 
 static ParameterRule_t *PR;
@@ -80,19 +82,20 @@ ParameterRuleTest_teardown (void)
 
 START_TEST (test_ParameterRule_create)
 {
-  fail_unless( SBase_getTypeCode  (PR) == SBML_PARAMETER_RULE, NULL );
-  fail_unless( SBase_getNotes     (PR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(PR) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) PR) == SBML_PARAMETER_RULE );
+  fail_unless( SBase_getNotes     ((SBase_t *) PR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) PR) == NULL );
 
-  fail_unless( Rule_getFormula(PR) == NULL, NULL );
+  fail_unless( Rule_getFormula((Rule_t *) PR) == NULL );
 
-  fail_unless( ParameterRule_getUnits(PR) == NULL, NULL );
-  fail_unless( ParameterRule_getName (PR) == NULL, NULL );
+  fail_unless( ParameterRule_getUnits(PR) == NULL );
+  fail_unless( ParameterRule_getName (PR) == NULL );
 
-  fail_unless( AssignmentRule_getType(PR) == RULE_TYPE_SCALAR, NULL );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) PR) ==
+               RULE_TYPE_SCALAR );
 
-  fail_unless( !ParameterRule_isSetName (PR), NULL );
-  fail_unless( !ParameterRule_isSetUnits(PR), NULL );
+  fail_unless( !ParameterRule_isSetName (PR) );
+  fail_unless( !ParameterRule_isSetUnits(PR) );
 }
 END_TEST
 
@@ -104,19 +107,20 @@ START_TEST (test_ParameterRule_createWith)
 
   pr = ParameterRule_createWith("x + 1", RULE_TYPE_SCALAR, "y");
 
-  fail_unless( SBase_getTypeCode  (pr) == SBML_PARAMETER_RULE, NULL );
-  fail_unless( SBase_getNotes     (pr) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(pr) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) pr) == SBML_PARAMETER_RULE );
+  fail_unless( SBase_getNotes     ((SBase_t *) pr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) pr) == NULL );
 
-  fail_unless( ParameterRule_getUnits(pr) == NULL, NULL );
+  fail_unless( ParameterRule_getUnits(pr) == NULL );
 
-  fail_unless( !strcmp(Rule_getFormula(pr)      , "x + 1"), NULL );
-  fail_unless( !strcmp(ParameterRule_getName(pr), "y")    , NULL );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) pr), "x + 1") );
+  fail_unless( !strcmp(ParameterRule_getName(pr), "y") );
 
-  fail_unless( AssignmentRule_getType(pr) == RULE_TYPE_SCALAR, NULL );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) pr) ==
+               RULE_TYPE_SCALAR );
 
-  fail_unless( ParameterRule_isSetName  (pr), NULL );
-  fail_unless( !ParameterRule_isSetUnits(pr), NULL );
+  fail_unless( ParameterRule_isSetName  (pr) );
+  fail_unless( !ParameterRule_isSetUnits(pr) );
 
   ParameterRule_free(pr);
 }
@@ -137,8 +141,8 @@ START_TEST (test_ParameterRule_setName)
 
   ParameterRule_setName(PR, name);
 
-  fail_unless( !strcmp(ParameterRule_getName(PR), name), NULL );
-  fail_unless( ParameterRule_isSetName(PR), NULL );
+  fail_unless( !strcmp(ParameterRule_getName(PR), name) );
+  fail_unless( ParameterRule_isSetName(PR) );
 
   if (ParameterRule_getName(PR) == name)
   {
@@ -148,10 +152,10 @@ START_TEST (test_ParameterRule_setName)
 
   /* Reflexive case (pathological) */
   ParameterRule_setName(PR, ParameterRule_getName(PR));
-  fail_unless( !strcmp(ParameterRule_getName(PR), name), NULL );
+  fail_unless( !strcmp(ParameterRule_getName(PR), name) );
 
   ParameterRule_setName(PR, NULL);
-  fail_unless( !ParameterRule_isSetName(PR), NULL );
+  fail_unless( !ParameterRule_isSetName(PR) );
 
   if (ParameterRule_getName(PR) != NULL)
   {
@@ -168,8 +172,8 @@ START_TEST (test_ParameterRule_setUnits)
 
   ParameterRule_setUnits(PR, units);
 
-  fail_unless( !strcmp(ParameterRule_getUnits(PR), units)   , NULL );
-  fail_unless( ParameterRule_isSetUnits(PR), NULL );
+  fail_unless( !strcmp(ParameterRule_getUnits(PR), units)    );
+  fail_unless( ParameterRule_isSetUnits(PR) );
 
   if (ParameterRule_getUnits(PR) == units)
   {
@@ -178,10 +182,10 @@ START_TEST (test_ParameterRule_setUnits)
 
   /* Reflexive case (pathological) */
   ParameterRule_setUnits(PR, ParameterRule_getUnits(PR));
-  fail_unless( !strcmp(ParameterRule_getUnits(PR), units), NULL );
+  fail_unless( !strcmp(ParameterRule_getUnits(PR), units) );
 
   ParameterRule_setUnits(PR, NULL);
-  fail_unless( !ParameterRule_isSetUnits(PR), NULL );
+  fail_unless( !ParameterRule_isSetUnits(PR) );
 
   if (ParameterRule_getUnits(PR) != NULL)
   {

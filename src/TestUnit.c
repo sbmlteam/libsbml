@@ -1,13 +1,12 @@
 /**
- * Filename    : TestUnit.c
- * Description : Unit unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-22
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestUnit.c
+ * \brief   Unit unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/Unit.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Unit.h"
 
 
 static Unit_t *U;
@@ -80,10 +81,10 @@ UnitTest_teardown (void)
 
 START_TEST (test_Unit_create)
 {
-  fail_unless( SBase_getTypeCode  (U) == SBML_UNIT );
-  fail_unless( SBase_getMetaId    (U) == NULL );
-  fail_unless( SBase_getNotes     (U) == NULL );
-  fail_unless( SBase_getAnnotation(U) == NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) U) == SBML_UNIT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) U) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) U) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) U) == NULL );
 
   fail_unless( Unit_getKind      (U) == UNIT_KIND_INVALID );
   fail_unless( Unit_getExponent  (U) == 1   );
@@ -101,10 +102,10 @@ START_TEST (test_Unit_createWith)
   Unit_t *u = Unit_createWith(UNIT_KIND_SECOND, -2, 1);
 
 
-  fail_unless( SBase_getTypeCode  (u) == SBML_UNIT );
-  fail_unless( SBase_getMetaId    (u) == NULL );
-  fail_unless( SBase_getNotes     (u) == NULL );
-  fail_unless( SBase_getAnnotation(u) == NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) u) == SBML_UNIT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) u) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) u) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) u) == NULL );
 
   fail_unless( Unit_getKind      (u) == UNIT_KIND_SECOND );
   fail_unless( Unit_getExponent  (u) == -2   );

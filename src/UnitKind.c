@@ -1,13 +1,12 @@
 /**
- * Filename    : UnitKind.c
- * Description : SBML UnitKind enumeration
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    UnitKind.c
+ * \brief   SBML UnitKind enumeration
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,8 +49,8 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/UnitKind.h"
+#include "common.h"
+#include "UnitKind.h"
 
 
 const char* UNIT_KIND_STRINGS[] =

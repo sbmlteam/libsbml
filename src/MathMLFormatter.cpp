@@ -1,13 +1,12 @@
  /**
- * Filename    : MathMLFormatter.cpp
- * Description : Formats MathML
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-13
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLFormatter.cpp
+ * \brief   Formats MathML
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -51,20 +50,21 @@
  */
 
 
-#include "sbml/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatUnicodeChars.hpp"
-#  include "ExpatFormatter.hpp"
-#  include "ExpatXMLString.hpp"
+#  include "ExpatUnicodeChars.h"
+#  include "ExpatFormatter.h"
+#  include "ExpatXMLString.h"
 #endif  // USE_EXPAT
 
-
-#include "sbml/MathMLFormatter.hpp"
-#include "sbml/MathMLUnicodeConstants.hpp" 
-#include "sbml/XMLUnicodeConstants.hpp"
-#include "sbml/XMLUtil.hpp"
+#include "ASTNode.h"
+#include "MathMLDocument.h"
+#include "MathMLFormatter.h"
+#include "MathMLUnicodeConstants.h" 
+#include "XMLUnicodeConstants.h"
+#include "XMLUtil.h"
 
 
 const unsigned int
@@ -275,21 +275,6 @@ MathMLFormatter::operator<< (const ASTNode* node)
   {
     doFunction(node);
   }
-
-  return *this;
-}
-
-
-/**
- * ASTNode_t insertion operator (for backward compatibility).
- */
-MathMLFormatter&
-MathMLFormatter::operator<< (const ASTNode_t* node)
-{
-  if (node == NULL) return *this;
-
-
-  *this << static_cast<const ASTNode*>(node);
 
   return *this;
 }

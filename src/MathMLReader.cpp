@@ -1,13 +1,12 @@
 /**
- * Filename    : MathMLReader.cpp
- * Description : Reads a MathML string into an abstract syntax tree
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLReader.cpp
+ * \brief   Reads a MathML string into an abstract syntax tree
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,7 +51,7 @@
 
 
 #include <iostream>
-#include "sbml/common.h"
+#include "common.h"
 
 
 #ifndef USE_EXPAT
@@ -61,12 +60,13 @@
 #  include <xercesc/sax2/SAX2XMLReader.hpp>
 #  include <xercesc/sax2/XMLReaderFactory.hpp>
 #  include <xercesc/util/PlatformUtils.hpp>
+   using namespace xercesc;
 #endif  // !USE_EXPAT
 
 
-#include "sbml/List.h"
-#include "sbml/MathMLHandler.hpp"
-#include "sbml/MathMLReader.h"
+#include "List.h"
+#include "MathMLHandler.h"
+#include "MathMLReader.h"
 
 
 /**

@@ -1,13 +1,12 @@
 /**
- * Filename    : List.cpp
- * Description : Generic (void *) List for C structs / C++ objects on the heap
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-20
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    List.cpp
+ * \brief   Generic (void *) List for C structs / C++ objects on the heap
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,7 +49,7 @@
  */
 
 
-#include "sbml/List.hpp"
+#include "List.h"
 
 
 /**

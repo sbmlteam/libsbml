@@ -1,13 +1,12 @@
 /**
- * Filename    : TestXMLNamespaceList.cpp
- * Description : XMLNamespaceList unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2004-09-15
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestXMLNamespaceList.cpp
+ * \brief   XMLNamespaceList unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,8 +52,8 @@
 #include <iostream>
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/XMLNamespaceList.hpp"
+#include "common.h"
+#include "XMLNamespaceList.h"
 
 
 BEGIN_C_DECLS

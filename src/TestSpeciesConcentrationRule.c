@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSpeciesConcentrationRule.c
- * Description : SpeciesConcentrationRule unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSpeciesConcentrationRule.c
+ * \brief   SpeciesConcentrationRule unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,12 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/SpeciesConcentrationRule.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Rule.h"
+#include "AssignmentRule.h"
+#include "SpeciesConcentrationRule.h"
 
 
 static SpeciesConcentrationRule_t *SCR;
@@ -80,19 +83,20 @@ SpeciesConcentrationRuleTest_teardown (void)
 
 START_TEST (test_SpeciesConcentrationRule_create)
 {
-  fail_unless( SBase_getTypeCode(SCR) == SBML_SPECIES_CONCENTRATION_RULE,
-               NULL );
+  fail_unless( SBase_getTypeCode((SBase_t *) SCR) ==
+               SBML_SPECIES_CONCENTRATION_RULE );
 
-  fail_unless( SBase_getNotes     (SCR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(SCR) == NULL, NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) SCR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) SCR) == NULL );
 
-  fail_unless( Rule_getFormula(SCR) == NULL, NULL );
+  fail_unless( Rule_getFormula((Rule_t *) SCR) == NULL );
 
-  fail_unless( AssignmentRule_getType(SCR) == RULE_TYPE_SCALAR, NULL );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) SCR) ==
+               RULE_TYPE_SCALAR );
 
-  fail_unless( SpeciesConcentrationRule_getSpecies(SCR) == NULL, NULL );
+  fail_unless( SpeciesConcentrationRule_getSpecies(SCR) == NULL );
 
-  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
+  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR) );
 }
 END_TEST
 
@@ -105,18 +109,19 @@ START_TEST (test_SpeciesConcentrationRule_createWith)
   scr = SpeciesConcentrationRule_createWith("t - s2", RULE_TYPE_RATE, "s1");
 
 
-  fail_unless( SBase_getTypeCode(scr) == SBML_SPECIES_CONCENTRATION_RULE,
-               NULL );
+  fail_unless( SBase_getTypeCode((SBase_t *) scr) ==
+               SBML_SPECIES_CONCENTRATION_RULE );
 
-  fail_unless( SBase_getNotes     (scr) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(scr) == NULL, NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) scr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) scr) == NULL );
 
-  fail_unless( !strcmp(Rule_getFormula(scr), "t - s2"), NULL );
-  fail_unless( !strcmp(SpeciesConcentrationRule_getSpecies(scr), "s1"), NULL );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) scr), "t - s2") );
+  fail_unless( !strcmp(SpeciesConcentrationRule_getSpecies(scr), "s1") );
 
-  fail_unless( AssignmentRule_getType(scr) == RULE_TYPE_RATE, NULL );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) scr) ==
+               RULE_TYPE_RATE );
 
-  fail_unless( SpeciesConcentrationRule_isSetSpecies(scr), NULL );
+  fail_unless( SpeciesConcentrationRule_isSetSpecies(scr) );
 
   SpeciesConcentrationRule_free(scr);
 }
@@ -139,9 +144,9 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
   SpeciesConcentrationRule_setSpecies(SCR, species);
 
   s = SpeciesConcentrationRule_getSpecies(SCR);
-  fail_unless( !strcmp(s, species), NULL );
+  fail_unless( !strcmp(s, species) );
 
-  fail_unless( SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
+  fail_unless( SpeciesConcentrationRule_isSetSpecies(SCR) );
 
   if (SpeciesConcentrationRule_getSpecies(SCR) == species)
   {
@@ -152,10 +157,10 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
   /* Reflexive case (pathological) */
   s = SpeciesConcentrationRule_getSpecies(SCR);
   SpeciesConcentrationRule_setSpecies(SCR, s);
-  fail_unless(!strcmp(s, species), NULL);
+  fail_unless(!strcmp(s, species));
 
   SpeciesConcentrationRule_setSpecies(SCR, NULL);
-  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
+  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR) );
 
   if (SpeciesConcentrationRule_getSpecies(SCR) != NULL)
   {

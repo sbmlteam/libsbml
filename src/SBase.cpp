@@ -1,13 +1,12 @@
 /**
- * Filename    : SBase.cpp
- * Description : Base object of all SBML objects
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-13
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBase.cpp
+ * \brief   Base object of all SBML objects
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,10 +49,10 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/SBMLFormatter.hpp"
-#include "sbml/SBase.hpp"
+#include "common.h"
 
+#include "SBMLFormatter.h"
+#include "SBase.h"
 
 
 SBase::SBase (): line(0), column(0), mNamespaces(0)

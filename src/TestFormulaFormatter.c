@@ -1,13 +1,12 @@
 /**
- * Filename    : TestFormulaFormatter.c
- * Description : FormulaFormatter unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-13
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestFormulaFormatter.c
+ * \brief   FormulaFormatter unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,10 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
+#include "common.h"
 
-#include "sbml/FormulaFormatter.h"
-#include "sbml/FormulaParser.h"
+#include "FormulaFormatter.h"
+#include "FormulaParser.h"
 
 
 START_TEST (test_FormulaFormatter_isFunction)

@@ -1,13 +1,12 @@
 /**
- * Filename    : Compartment.cpp
- * Description : SBML Compartment
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-13
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Compartment.cpp
+ * \brief   SBML Compartment
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,11 +49,9 @@
  */
 
 
-#include "sbml/util.h"
-#include "sbml/SBMLVisitor.hpp"
-
-#include "sbml/Compartment.h"
-#include "sbml/Compartment.hpp"
+#include "util.h"
+#include "SBMLVisitor.h"
+#include "Compartment.h"
 
 
 /**

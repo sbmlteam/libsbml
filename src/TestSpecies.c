@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSpecies.c
- * Description : Species unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSpecies.c
+ * \brief   Species unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/Species.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Species.h"
 
 
 static Species_t *S;
@@ -80,32 +81,32 @@ SpeciesTest_teardown (void)
 
 START_TEST (test_Species_create)
 {
-  fail_unless( SBase_getTypeCode  (S) == SBML_SPECIES, NULL );
-  fail_unless( SBase_getMetaId    (S) == NULL, NULL );
-  fail_unless( SBase_getNotes     (S) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(S) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) S) == SBML_SPECIES );
+  fail_unless( SBase_getMetaId    ((SBase_t *) S) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) S) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) S) == NULL );
 
-  fail_unless( Species_getId                   (S) == NULL, NULL );
-  fail_unless( Species_getName                 (S) == NULL, NULL );
-  fail_unless( Species_getCompartment          (S) == NULL, NULL );
-  fail_unless( Species_getInitialAmount        (S) == 0.0 , NULL );
-  fail_unless( Species_getInitialConcentration (S) == 0.0 , NULL );
-  fail_unless( Species_getSubstanceUnits       (S) == NULL, NULL );
-  fail_unless( Species_getSpatialSizeUnits     (S) == NULL, NULL );
-  fail_unless( Species_getHasOnlySubstanceUnits(S) == 0   , NULL );
-  fail_unless( Species_getBoundaryCondition    (S) == 0   , NULL );
-  fail_unless( Species_getCharge               (S) == 0   , NULL );
-  fail_unless( Species_getConstant             (S) == 0   , NULL );
+  fail_unless( Species_getId                   (S) == NULL );
+  fail_unless( Species_getName                 (S) == NULL );
+  fail_unless( Species_getCompartment          (S) == NULL );
+  fail_unless( Species_getInitialAmount        (S) == 0.0  );
+  fail_unless( Species_getInitialConcentration (S) == 0.0  );
+  fail_unless( Species_getSubstanceUnits       (S) == NULL );
+  fail_unless( Species_getSpatialSizeUnits     (S) == NULL );
+  fail_unless( Species_getHasOnlySubstanceUnits(S) == 0    );
+  fail_unless( Species_getBoundaryCondition    (S) == 0    );
+  fail_unless( Species_getCharge               (S) == 0    );
+  fail_unless( Species_getConstant             (S) == 0    );
 
-  fail_unless( !Species_isSetId                  (S), NULL );
-  fail_unless( !Species_isSetName                (S), NULL );
-  fail_unless( !Species_isSetCompartment         (S), NULL );
-  fail_unless( !Species_isSetInitialAmount       (S), NULL );
-  fail_unless( !Species_isSetInitialConcentration(S), NULL );
-  fail_unless( !Species_isSetSubstanceUnits      (S), NULL );
-  fail_unless( !Species_isSetSpatialSizeUnits    (S), NULL );
-  fail_unless( !Species_isSetUnits               (S), NULL );
-  fail_unless( !Species_isSetCharge              (S), NULL );
+  fail_unless( !Species_isSetId                  (S) );
+  fail_unless( !Species_isSetName                (S) );
+  fail_unless( !Species_isSetCompartment         (S) );
+  fail_unless( !Species_isSetInitialAmount       (S) );
+  fail_unless( !Species_isSetInitialConcentration(S) );
+  fail_unless( !Species_isSetSubstanceUnits      (S) );
+  fail_unless( !Species_isSetSpatialSizeUnits    (S) );
+  fail_unless( !Species_isSetUnits               (S) );
+  fail_unless( !Species_isSetCharge              (S) );
 }
 END_TEST
 
@@ -115,33 +116,33 @@ START_TEST (test_Species_createWith)
   Species_t *s = Species_createWith("Ca", "cell", 5.7, "mole", 1, 1);
 
 
-  fail_unless( SBase_getTypeCode  (s) == SBML_SPECIES, NULL );
-  fail_unless( SBase_getMetaId    (s) == NULL, NULL );
-  fail_unless( SBase_getNotes     (s) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(s) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) s) == SBML_SPECIES );
+  fail_unless( SBase_getMetaId    ((SBase_t *) s) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) s) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) s) == NULL );
 
-  fail_unless( Species_getName                 (s) == NULL, NULL );
-  fail_unless( Species_getSpatialSizeUnits     (s) == NULL, NULL );
-  fail_unless( Species_getHasOnlySubstanceUnits(s) == 0, NULL );
-  fail_unless( Species_getConstant             (s) == 0, NULL );
+  fail_unless( Species_getName                 (s) == NULL );
+  fail_unless( Species_getSpatialSizeUnits     (s) == NULL );
+  fail_unless( Species_getHasOnlySubstanceUnits(s) == 0 );
+  fail_unless( Species_getConstant             (s) == 0 );
 
-  fail_unless( !strcmp(Species_getId            (s), "Ca"  ), NULL );
-  fail_unless( !strcmp(Species_getCompartment   (s), "cell"), NULL );
-  fail_unless( !strcmp(Species_getSubstanceUnits(s), "mole"), NULL );
+  fail_unless( !strcmp(Species_getId            (s), "Ca"  ) );
+  fail_unless( !strcmp(Species_getCompartment   (s), "cell") );
+  fail_unless( !strcmp(Species_getSubstanceUnits(s), "mole") );
 
-  fail_unless( Species_getInitialAmount    (s) == 5.7 , NULL );
-  fail_unless( Species_getBoundaryCondition(s) == 1   , NULL );
-  fail_unless( Species_getCharge           (s) == 1   , NULL );
+  fail_unless( Species_getInitialAmount    (s) == 5.7  );
+  fail_unless( Species_getBoundaryCondition(s) == 1    );
+  fail_unless( Species_getCharge           (s) == 1    );
 
-  fail_unless(   Species_isSetId                   (s), NULL );
-  fail_unless( ! Species_isSetName                 (s), NULL );
-  fail_unless(   Species_isSetCompartment          (s), NULL );
-  fail_unless(   Species_isSetSubstanceUnits       (s), NULL );
-  fail_unless( ! Species_isSetSpatialSizeUnits     (s), NULL );
-  fail_unless(   Species_isSetUnits                (s), NULL );
-  fail_unless(   Species_isSetInitialAmount        (s), NULL );
-  fail_unless( ! Species_isSetInitialConcentration (s), NULL );
-  fail_unless(   Species_isSetCharge               (s), NULL );
+  fail_unless(   Species_isSetId                   (s) );
+  fail_unless( ! Species_isSetName                 (s) );
+  fail_unless(   Species_isSetCompartment          (s) );
+  fail_unless(   Species_isSetSubstanceUnits       (s) );
+  fail_unless( ! Species_isSetSpatialSizeUnits     (s) );
+  fail_unless(   Species_isSetUnits                (s) );
+  fail_unless(   Species_isSetInitialAmount        (s) );
+  fail_unless( ! Species_isSetInitialConcentration (s) );
+  fail_unless(   Species_isSetCharge               (s) );
 
   Species_free(s);
 }
@@ -162,8 +163,8 @@ START_TEST (test_Species_setId)
 
   Species_setId(S, id);
 
-  fail_unless( !strcmp(Species_getId(S), id), NULL );
-  fail_unless( Species_isSetId(S), NULL );
+  fail_unless( !strcmp(Species_getId(S), id) );
+  fail_unless( Species_isSetId(S) );
 
   if (Species_getId(S) == id)
   {
@@ -172,10 +173,10 @@ START_TEST (test_Species_setId)
 
   /* Reflexive case (pathological) */
   Species_setId(S, Species_getId(S));
-  fail_unless( !strcmp(Species_getId(S), id), NULL );
+  fail_unless( !strcmp(Species_getId(S), id) );
 
   Species_setId(S, NULL);
-  fail_unless( !Species_isSetId(S), NULL );
+  fail_unless( !Species_isSetId(S) );
 
   if (Species_getId(S) != NULL)
   {
@@ -192,8 +193,8 @@ START_TEST (test_Species_setName)
 
   Species_setName(S, name);
 
-  fail_unless( !strcmp(Species_getName(S), name), NULL );
-  fail_unless( Species_isSetName(S), NULL );
+  fail_unless( !strcmp(Species_getName(S), name) );
+  fail_unless( Species_isSetName(S) );
 
   if (Species_getName(S) == name)
   {
@@ -202,10 +203,10 @@ START_TEST (test_Species_setName)
 
   /* Reflexive case (pathological) */
   Species_setName(S, Species_getName(S));
-  fail_unless( !strcmp(Species_getName(S), name), NULL );
+  fail_unless( !strcmp(Species_getName(S), name) );
 
   Species_setName(S, NULL);
-  fail_unless( !Species_isSetName(S), NULL );
+  fail_unless( !Species_isSetName(S) );
 
   if (Species_getName(S) != NULL)
   {
@@ -222,8 +223,8 @@ START_TEST (test_Species_setCompartment)
 
   Species_setCompartment(S, compartment);
 
-  fail_unless( !strcmp(Species_getCompartment(S), compartment), NULL );
-  fail_unless( Species_isSetCompartment(S), NULL );
+  fail_unless( !strcmp(Species_getCompartment(S), compartment) );
+  fail_unless( Species_isSetCompartment(S) );
 
   if (Species_getCompartment(S) == compartment)
   {
@@ -232,10 +233,10 @@ START_TEST (test_Species_setCompartment)
 
   /* Reflexive case (pathological) */
   Species_setCompartment(S, Species_getCompartment(S));
-  fail_unless( !strcmp(Species_getCompartment(S), compartment), NULL );
+  fail_unless( !strcmp(Species_getCompartment(S), compartment) );
 
   Species_setCompartment(S, NULL);
-  fail_unless( !Species_isSetCompartment(S), NULL );
+  fail_unless( !Species_isSetCompartment(S) );
 
   if (Species_getCompartment(S) != NULL)
   {
@@ -247,30 +248,30 @@ END_TEST
 
 START_TEST (test_Species_setInitialAmount)
 {
-  fail_unless( !Species_isSetInitialAmount       (S), NULL );
-  fail_unless( !Species_isSetInitialConcentration(S), NULL );
+  fail_unless( !Species_isSetInitialAmount       (S) );
+  fail_unless( !Species_isSetInitialConcentration(S) );
 
   Species_setInitialAmount(S, 1.2);
 
-  fail_unless(  Species_isSetInitialAmount       (S), NULL );
-  fail_unless( !Species_isSetInitialConcentration(S), NULL );
+  fail_unless(  Species_isSetInitialAmount       (S) );
+  fail_unless( !Species_isSetInitialConcentration(S) );
 
-  fail_unless( Species_getInitialAmount(S) == 1.2, NULL );
+  fail_unless( Species_getInitialAmount(S) == 1.2 );
 }
 END_TEST
 
 
 START_TEST (test_Species_setInitialConcentration)
 {
-  fail_unless( !Species_isSetInitialAmount       (S), NULL );
-  fail_unless( !Species_isSetInitialConcentration(S), NULL );
+  fail_unless( !Species_isSetInitialAmount       (S) );
+  fail_unless( !Species_isSetInitialConcentration(S) );
 
   Species_setInitialConcentration(S, 3.4);
 
-  fail_unless( !Species_isSetInitialAmount       (S), NULL );
-  fail_unless(  Species_isSetInitialConcentration(S), NULL );
+  fail_unless( !Species_isSetInitialAmount       (S) );
+  fail_unless(  Species_isSetInitialConcentration(S) );
 
-  fail_unless( Species_getInitialConcentration(S) == 3.4, NULL );
+  fail_unless( Species_getInitialConcentration(S) == 3.4 );
 }
 END_TEST
 
@@ -282,8 +283,8 @@ START_TEST (test_Species_setSubstanceUnits)
 
   Species_setSubstanceUnits(S, units);
 
-  fail_unless( !strcmp(Species_getSubstanceUnits(S), units), NULL );
-  fail_unless( Species_isSetSubstanceUnits(S), NULL );
+  fail_unless( !strcmp(Species_getSubstanceUnits(S), units) );
+  fail_unless( Species_isSetSubstanceUnits(S) );
 
   if (Species_getSubstanceUnits(S) == units)
   {
@@ -292,10 +293,10 @@ START_TEST (test_Species_setSubstanceUnits)
 
   /* Reflexive case (pathological) */
   Species_setSubstanceUnits(S, Species_getSubstanceUnits(S));
-  fail_unless( !strcmp(Species_getSubstanceUnits(S), units), NULL );
+  fail_unless( !strcmp(Species_getSubstanceUnits(S), units) );
 
   Species_setSubstanceUnits(S, NULL);
-  fail_unless( !Species_isSetSubstanceUnits(S), NULL );
+  fail_unless( !Species_isSetSubstanceUnits(S) );
 
   if (Species_getSubstanceUnits(S) != NULL)
   {
@@ -312,8 +313,8 @@ START_TEST (test_Species_setSpatialSizeUnits)
 
   Species_setSpatialSizeUnits(S, units);
 
-  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units), NULL );
-  fail_unless( Species_isSetSpatialSizeUnits(S), NULL );
+  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units) );
+  fail_unless( Species_isSetSpatialSizeUnits(S) );
 
   if (Species_getSpatialSizeUnits(S) == units)
   {
@@ -322,10 +323,10 @@ START_TEST (test_Species_setSpatialSizeUnits)
 
   /* Reflexive case (pathological) */
   Species_setSpatialSizeUnits(S, Species_getSpatialSizeUnits(S));
-  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units), NULL );
+  fail_unless( !strcmp(Species_getSpatialSizeUnits(S), units) );
 
   Species_setSpatialSizeUnits(S, NULL);
-  fail_unless( !Species_isSetSpatialSizeUnits(S), NULL );
+  fail_unless( !Species_isSetSpatialSizeUnits(S) );
 
   if (Species_getSpatialSizeUnits(S) != NULL)
   {
@@ -342,8 +343,8 @@ START_TEST (test_Species_setUnits)
 
   Species_setUnits(S, units);
 
-  fail_unless( !strcmp(Species_getUnits(S), units), NULL );
-  fail_unless( Species_isSetUnits(S), NULL );
+  fail_unless( !strcmp(Species_getUnits(S), units) );
+  fail_unless( Species_isSetUnits(S) );
 
   if (Species_getSubstanceUnits(S) == units)
   {
@@ -352,10 +353,10 @@ START_TEST (test_Species_setUnits)
 
   /* Reflexive case (pathological) */
   Species_setUnits(S, Species_getSubstanceUnits(S));
-  fail_unless( !strcmp(Species_getUnits(S), units), NULL );
+  fail_unless( !strcmp(Species_getUnits(S), units) );
 
   Species_setUnits(S, NULL);
-  fail_unless( !Species_isSetUnits(S), NULL );
+  fail_unless( !Species_isSetUnits(S) );
 
   if (Species_getSubstanceUnits(S) != NULL)
   {

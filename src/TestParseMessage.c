@@ -1,13 +1,12 @@
 /**
- * Filename    : TestParseMessage.c
- * Description : ParseMessage unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-04-16
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestParseMessage.c
+ * \brief   ParseMessage unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,8 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/ParseMessage.h"
+#include "common.h"
+#include "ParseMessage.h"
 
 
 START_TEST (test_ParseMessage_create)

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestAssignmentRule.c
- * Description : AssignmentRule unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestAssignmentRule.c
+ * \brief   AssignmentRule unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,12 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/AssignmentRule.h"
+#include "common.h"
+#include "FormulaParser.h"
+
+#include "SBase.h"
+#include "Rule.h"
+#include "AssignmentRule.h"
 
 
 static AssignmentRule_t *AR;
@@ -80,16 +82,16 @@ AssignmentRuleTest_teardown (void)
 
 START_TEST (test_AssignmentRule_L2_create)
 {
-  fail_unless( SBase_getTypeCode  (AR) == SBML_ASSIGNMENT_RULE, NULL );
-  fail_unless( SBase_getMetaId    (AR) == NULL, NULL );
-  fail_unless( SBase_getNotes     (AR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(AR) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) AR) == SBML_ASSIGNMENT_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) AR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) AR) == NULL );
 
-  fail_unless( Rule_getFormula(AR) == NULL, NULL );
-  fail_unless( Rule_getMath   (AR) == NULL, NULL );
+  fail_unless( Rule_getFormula((Rule_t *) AR) == NULL );
+  fail_unless( Rule_getMath   ((Rule_t *) AR) == NULL );
 
-  fail_unless( AssignmentRule_getVariable(AR) == NULL, NULL );
-  fail_unless( AssignmentRule_getType    (AR) == RULE_TYPE_SCALAR, NULL );
+  fail_unless( AssignmentRule_getVariable(AR) == NULL );
+  fail_unless( AssignmentRule_getType    (AR) == RULE_TYPE_SCALAR );
 }
 END_TEST
 
@@ -100,17 +102,17 @@ START_TEST (test_AssignmentRule_L2_createWith)
   AssignmentRule_t *ar   = AssignmentRule_createWith("x", math);
 
 
-  fail_unless( SBase_getTypeCode  (ar) == SBML_ASSIGNMENT_RULE, NULL );
-  fail_unless( SBase_getMetaId    (ar) == NULL, NULL );
-  fail_unless( SBase_getNotes     (ar) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(ar) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ar) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) ar) == NULL );
 
-  fail_unless( Rule_getFormula(ar) == NULL, NULL );
-  fail_unless( Rule_getMath   (ar) == math, NULL );
+  fail_unless( Rule_getFormula((Rule_t *) ar) == NULL );
+  fail_unless( Rule_getMath   ((Rule_t *) ar) == math );
 
-  fail_unless( !strcmp(AssignmentRule_getVariable(ar), "x"), NULL );
+  fail_unless( !strcmp(AssignmentRule_getVariable(ar), "x") );
 
-  fail_unless( AssignmentRule_getType(ar) == RULE_TYPE_SCALAR, NULL );
+  fail_unless( AssignmentRule_getType(ar) == RULE_TYPE_SCALAR );
 
   AssignmentRule_free(ar);
 }
@@ -131,8 +133,8 @@ START_TEST (test_AssignmentRule_setVariable)
 
   AssignmentRule_setVariable(AR, variable);
 
-  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable), NULL );
-  fail_unless( AssignmentRule_isSetVariable(AR), NULL );
+  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable) );
+  fail_unless( AssignmentRule_isSetVariable(AR) );
 
   if (AssignmentRule_getVariable(AR) == variable)
   {
@@ -141,10 +143,10 @@ START_TEST (test_AssignmentRule_setVariable)
 
   /* Reflexive case (pathological) */
   AssignmentRule_setVariable(AR, AssignmentRule_getVariable(AR));
-  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable), NULL );
+  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable) );
 
   AssignmentRule_setVariable(AR, NULL);
-  fail_unless( !AssignmentRule_isSetVariable(AR), NULL );
+  fail_unless( !AssignmentRule_isSetVariable(AR) );
 
   if (AssignmentRule_getVariable(AR) != NULL)
   {

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestStringMap.c
- * Description : List unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-20
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestStringMap.c
+ * \brief   List unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,8 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/StringMap.h"
+#include "common.h"
+#include "StringMap.h"
 
 
 static StringMap_t *SM;

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestListOf.c
- * Description : ListOf unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-04-28
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestListOf.c
+ * \brief   ListOf unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/ListOf.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "ListOf.h"
 
 
 START_TEST (test_ListOf_create)
@@ -61,12 +62,12 @@ START_TEST (test_ListOf_create)
   ListOf_t *lo = ListOf_create();
 
 
-  fail_unless( SBase_getTypeCode  (lo) == SBML_LIST_OF, NULL );
-  fail_unless( SBase_getNotes     (lo) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(lo) == NULL, NULL );
-  fail_unless( SBase_getMetaId    (lo) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) lo) == SBML_LIST_OF );
+  fail_unless( SBase_getNotes     ((SBase_t *) lo) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) lo) == NULL );
+  fail_unless( SBase_getMetaId    ((SBase_t *) lo) == NULL );
 
-  fail_unless( ListOf_getNumItems(lo) == 0, NULL );
+  fail_unless( ListOf_getNumItems(lo) == 0 );
 
   ListOf_free(lo);
 }

@@ -1,13 +1,12 @@
 /**
- * Filename    : XMLNamespaceList.cpp
- * Description : A list of XMLNamepaces
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2004-09-15
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    XMLNamespaceList.cpp
+ * \brief   A list of XMLNamepaces
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -54,8 +53,8 @@
 #include <functional>
 #include <iterator>
 
-#include "sbml/XMLNamespace.hpp"
-#include "sbml/XMLNamespaceList.hpp"
+#include "XMLNamespace.h"
+#include "XMLNamespaceList.h"
 
 
 using namespace std;

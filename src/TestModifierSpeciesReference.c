@@ -1,13 +1,12 @@
 /**
- * Filename    : TestModifierSpeciesReference.c
- * Description : ModifierSpeciesReference unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-04-29
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestModifierSpeciesReference.c
+ * \brief   ModifierSpeciesReference unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/ModifierSpeciesReference.h"
+#include "common.h"
+#include "FormulaParser.h"
+
+#include "SBase.h"
+#include "ModifierSpeciesReference.h"
 
 
 static ModifierSpeciesReference_t *MSR;
@@ -81,15 +82,16 @@ ModifierSpeciesReferenceTest_teardown (void)
 
 START_TEST (test_ModifierSpeciesReference_create)
 {
-  fail_unless(SBase_getTypeCode(MSR) == SBML_MODIFIER_SPECIES_REFERENCE, NULL);
+  fail_unless(SBase_getTypeCode((SBase_t *) MSR) ==
+              SBML_MODIFIER_SPECIES_REFERENCE);
 
-  fail_unless( SBase_getMetaId    (MSR) == NULL, NULL );
-  fail_unless( SBase_getNotes     (MSR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(MSR) == NULL, NULL );
+  fail_unless( SBase_getMetaId    ((SBase_t *) MSR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) MSR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) MSR) == NULL );
 
-  fail_unless( ModifierSpeciesReference_getSpecies(MSR) == NULL, NULL );
+  fail_unless( ModifierSpeciesReference_getSpecies(MSR) == NULL );
 
-  fail_unless( !ModifierSpeciesReference_isSetSpecies(MSR), NULL );
+  fail_unless( !ModifierSpeciesReference_isSetSpecies(MSR) );
 }
 END_TEST
 
@@ -101,14 +103,15 @@ START_TEST (test_ModifierSpeciesReference_createWith)
 
   msr = ModifierSpeciesReference_createWith("s5");
 
-  fail_unless(SBase_getTypeCode(msr) == SBML_MODIFIER_SPECIES_REFERENCE, NULL);
+  fail_unless(SBase_getTypeCode((SBase_t *) msr) ==
+              SBML_MODIFIER_SPECIES_REFERENCE);
 
-  fail_unless( SBase_getMetaId    (msr) == NULL, NULL );
-  fail_unless( SBase_getNotes     (msr) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(msr) == NULL, NULL );
+  fail_unless( SBase_getMetaId    ((SBase_t *) msr) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) msr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) msr) == NULL );
 
-  fail_unless( !strcmp(ModifierSpeciesReference_getSpecies(msr), "s5"), NULL );
-  fail_unless( ModifierSpeciesReference_isSetSpecies(msr), NULL );
+  fail_unless( !strcmp(ModifierSpeciesReference_getSpecies(msr), "s5") );
+  fail_unless( ModifierSpeciesReference_isSetSpecies(msr) );
 
   ModifierSpeciesReference_free(msr);
 }
@@ -132,8 +135,8 @@ START_TEST (test_ModifierSpeciesReference_setSpecies)
   ModifierSpeciesReference_setSpecies(MSR, species);
 
   s = ModifierSpeciesReference_getSpecies(MSR);
-  fail_unless( !strcmp(s, species), NULL );
-  fail_unless(ModifierSpeciesReference_isSetSpecies(MSR), NULL);
+  fail_unless( !strcmp(s, species) );
+  fail_unless(ModifierSpeciesReference_isSetSpecies(MSR));
 
   if (ModifierSpeciesReference_getSpecies(MSR) == species)
   {
@@ -146,10 +149,10 @@ START_TEST (test_ModifierSpeciesReference_setSpecies)
   ModifierSpeciesReference_setSpecies(MSR, s);
 
   s = ModifierSpeciesReference_getSpecies(MSR);
-  fail_unless( !strcmp(s, species), NULL );
+  fail_unless( !strcmp(s, species) );
 
   ModifierSpeciesReference_setSpecies(MSR, NULL);
-  fail_unless(!ModifierSpeciesReference_isSetSpecies(MSR), NULL);
+  fail_unless(!ModifierSpeciesReference_isSetSpecies(MSR));
 
   if (ModifierSpeciesReference_getSpecies(MSR) != NULL)
   {

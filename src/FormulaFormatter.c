@@ -1,13 +1,12 @@
 /**
- * Filename    : FormulaFormatter.c
- * Description : Formats an AST formula tree as an SBML formula string
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-13
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    FormulaFormatter.c
+ * \brief   Formats an AST formula tree as an SBML formula string
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,8 +49,8 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/FormulaFormatter.h"
+#include "common.h"
+#include "FormulaFormatter.h"
 
 
 /**

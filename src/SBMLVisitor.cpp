@@ -49,8 +49,8 @@
  */
 
 
-#include "sbml/SBMLTypes.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "SBMLTypes.h"
+#include "SBMLVisitor.h"
 
 
 SBMLVisitor::~SBMLVisitor ()

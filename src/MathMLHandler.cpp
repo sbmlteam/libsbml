@@ -1,13 +1,12 @@
 /**
- * Filename    : MathMLHandler.cpp
- * Description : MathML SAX2 Handler
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLHandler.cpp
+ * \brief   MathML SAX2 Handler
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -55,22 +54,26 @@
 #include <ctype.h>
 
 
-#include "sbml/common.h"
-#include "sbml/List.h"
+#include "common.h"
+#include "List.h"
 
 
 #ifdef USE_EXPAT
 #  include <string>
-#  include "ExpatXMLString.hpp"
+#  include "ExpatXMLString.h"
 #else
 #  include <xercesc/sax2/Attributes.hpp>
 #  include <xercesc/util/XMLString.hpp>
 #endif  // USE_EXPAT
 
 
-#include "sbml/MathMLUnicodeConstants.hpp"
-#include "sbml/XMLUtil.hpp"
-#include "sbml/MathMLHandler.hpp"
+#include "ASTNode.h"
+#include "MathMLDocument.h"
+#include "MathMLUnicodeConstants.h"
+#include "XMLUtil.h"
+
+
+#include "MathMLHandler.h"
 
 
 /**

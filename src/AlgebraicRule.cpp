@@ -49,10 +49,8 @@
  */
 
 
-#include "sbml/SBMLVisitor.hpp"
-
-#include "sbml/AlgebraicRule.h"
-#include "sbml/AlgebraicRule.hpp"
+#include "SBMLVisitor.h"
+#include "AlgebraicRule.h"
 
 
 /**

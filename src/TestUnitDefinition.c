@@ -1,13 +1,12 @@
 /**
- * Filename    : TestUnitDefinition.c
- * Description : SBML UnitDefinition unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-22
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestUnitDefinition.c
+ * \brief   SBML UnitDefinition unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/UnitDefinition.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Unit.h"
+#include "UnitDefinition.h"
 
 
 static UnitDefinition_t *UD;
@@ -80,10 +82,10 @@ UnitDefinitionTest_teardown (void)
 
 START_TEST (test_UnitDefinition_create)
 {
-  fail_unless( SBase_getTypeCode  (UD) == SBML_UNIT_DEFINITION );
-  fail_unless( SBase_getMetaId    (UD) == NULL );
-  fail_unless( SBase_getNotes     (UD) == NULL );
-  fail_unless( SBase_getAnnotation(UD) == NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) UD) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) UD) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) UD) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) UD) == NULL );
 
   fail_unless( UnitDefinition_getId  (UD) == NULL );
   fail_unless( UnitDefinition_getName(UD) == NULL );
@@ -101,10 +103,10 @@ START_TEST (test_UnitDefinition_createWith)
   UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
 
 
-  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION );
-  fail_unless( SBase_getMetaId    (ud) == NULL );
-  fail_unless( SBase_getNotes     (ud) == NULL );
-  fail_unless( SBase_getAnnotation(ud) == NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
 
   fail_unless( UnitDefinition_getName(ud) == NULL );
 
@@ -123,10 +125,10 @@ START_TEST (test_UnitDefinition_createWithName)
   UnitDefinition_t *ud = UnitDefinition_createWithName("mmol liter^-1 sec^-1");
 
 
-  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION );
-  fail_unless( SBase_getMetaId    (ud) == NULL );
-  fail_unless( SBase_getNotes     (ud) == NULL );
-  fail_unless( SBase_getAnnotation(ud) == NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
 
   fail_unless( UnitDefinition_getId(ud) == NULL );
 

@@ -1,13 +1,12 @@
-/*
- * Filename    : StreamFormatTarget.cpp
- * Description : XMLFormatter class for stream output (source)
- * Author(s)   : Stefan Hoops <shoops@vt.edu>
- * Organization: Virginia Bioinformatics Institute
- * Created     : 2004-12-02
- * Revision    : $Id$
- * Source      : $Source$
- * 
- * Copyright (c) 2003 Stefan Hoops
+/**
+ * \file    StreamFormatTarget.cpp
+ * \brief   XMLFormatter class for stream output (source)
+ * \author  Stefan Hoops <shoops@vt.edu>
+ *
+ * $Id$
+ * $Source$
+ */
+/* Copyright (c) 2003 Stefan Hoops
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -32,11 +31,15 @@
  *
  */
 
+
 // ----------------------------------------------------------------------
 // StreamFormatTarget
 // ----------------------------------------------------------------------
 
-#include "sbml/StreamFormatTarget.hpp"
+#include <iostream>
+#include "common.hpp"
+#include "StreamFormatTarget.h"
+
 
 #ifndef USE_EXPAT
 XERCES_CPP_NAMESPACE_BEGIN
@@ -94,4 +97,3 @@ void StreamFormatTarget::writeChars(const XMLByte* const  toWrite
 #ifndef USE_EXPAT
 XERCES_CPP_NAMESPACE_END
 #endif // !USE_EXPAT
-

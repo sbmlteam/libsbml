@@ -1,13 +1,12 @@
 /**
- * Filename    : KineticLaw.cpp
- * Description : SBML KineticLaw
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    KineticLaw.cpp
+ * \brief   SBML KineticLaw
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,15 +49,15 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/FormulaFormatter.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/Parameter.hpp"
-#include "sbml/ASTNode.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "common.h"
 
-#include "sbml/KineticLaw.h"
-#include "sbml/KineticLaw.hpp"
+#include "FormulaFormatter.h"
+#include "FormulaParser.h"
+#include "ASTNode.h"
+
+#include "SBMLVisitor.h"
+#include "Parameter.h"
+#include "KineticLaw.h"
 
 
 /**

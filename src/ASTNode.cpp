@@ -1,13 +1,12 @@
 /**
- * Filename    : ASTNode.cpp
- * Description : Abstract Syntax Tree (AST) for representing formula trees
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    ASTNode.cpp
+ * \brief   Abstract Syntax Tree (AST) for representing formula trees
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,11 +49,12 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/ASTNode.h"
-#include "sbml/ASTNode.hpp"
-
 #include <new>
+
+#include "common.h"
+
+#include "List.h"
+#include "ASTNode.h"
 
 
 /**

@@ -1,13 +1,12 @@
 /**
- * Filename    : Parameter.cpp
- * Description : SBML Parameter
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-21
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Parameter.cpp
+ * \brief   SBML Parameter
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,11 +49,10 @@
  */
 
 
-#include "sbml/util.h"
-#include "sbml/SBMLVisitor.hpp"
+#include "util.h"
+#include "SBMLVisitor.h"
 
-#include "sbml/Parameter.h"
-#include "sbml/Parameter.hpp"
+#include "Parameter.h"
 
 
 /**

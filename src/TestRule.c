@@ -1,13 +1,12 @@
 /**
- * Filename    : TestRule.c
- * Description : Rule unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestRule.c
+ * \brief   Rule unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,13 +51,14 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
+#include "common.h"
 
-#include "sbml/FormulaFormatter.h"
-#include "sbml/FormulaParser.h"
+#include "FormulaFormatter.h"
+#include "FormulaParser.h"
 
-#include "sbml/Rule.h"
-#include "sbml/AlgebraicRule.h"
+#include "SBase.h"
+#include "Rule.h"
+#include "AlgebraicRule.h"
 
 
 static Rule_t *R;
@@ -67,7 +67,7 @@ static Rule_t *R;
 void
 RuleTest_setup (void)
 {
-  R = (AlgebraicRule_t *) AlgebraicRule_create();
+  R = (Rule_t *) AlgebraicRule_create();
 
   if (R == NULL)
   {
@@ -85,13 +85,13 @@ RuleTest_teardown (void)
 
 START_TEST (test_Rule_init)
 {
-  fail_unless( SBase_getTypeCode  (R) == SBML_ALGEBRAIC_RULE, NULL );
-  fail_unless( SBase_getMetaId    (R) == NULL, NULL );
-  fail_unless( SBase_getNotes     (R) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(R) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) R) == SBML_ALGEBRAIC_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) R) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) R) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) R) == NULL );
 
-  fail_unless( Rule_getFormula(R) == NULL, NULL );
-  fail_unless( Rule_getMath   (R) == NULL, NULL );
+  fail_unless( Rule_getFormula(R) == NULL );
+  fail_unless( Rule_getMath   (R) == NULL );
 }
 END_TEST
 
@@ -103,8 +103,8 @@ START_TEST (test_Rule_setFormula)
 
   Rule_setFormula(R, formula);
 
-  fail_unless( !strcmp(Rule_getFormula(R), formula), NULL );
-  fail_unless( Rule_isSetFormula(R), NULL );
+  fail_unless( !strcmp(Rule_getFormula(R), formula) );
+  fail_unless( Rule_isSetFormula(R) );
 
   if (Rule_getFormula(R) == formula)
   {
@@ -113,10 +113,10 @@ START_TEST (test_Rule_setFormula)
 
   /* Reflexive case (pathological) */
   Rule_setFormula(R, Rule_getFormula(R));
-  fail_unless( !strcmp(Rule_getFormula(R), formula), NULL );
+  fail_unless( !strcmp(Rule_getFormula(R), formula) );
 
   Rule_setFormula(R, NULL);
-  fail_unless( !Rule_isSetFormula(R), NULL );
+  fail_unless( !Rule_isSetFormula(R) );
 
   if (Rule_getFormula(R) != NULL)
   {
@@ -131,22 +131,22 @@ START_TEST (test_Rule_setFormulaFromMath)
   ASTNode_t *math = SBML_parseFormula("k1 * X0");
 
 
-  fail_unless( !Rule_isSetMath   (R), NULL );
-  fail_unless( !Rule_isSetFormula(R), NULL );
+  fail_unless( !Rule_isSetMath   (R) );
+  fail_unless( !Rule_isSetFormula(R) );
 
   Rule_setFormulaFromMath(R);
-  fail_unless( !Rule_isSetMath   (R), NULL );
-  fail_unless( !Rule_isSetFormula(R), NULL );
+  fail_unless( !Rule_isSetMath   (R) );
+  fail_unless( !Rule_isSetFormula(R) );
 
   Rule_setMath(R, math);
-  fail_unless(  Rule_isSetMath   (R), NULL );
-  fail_unless( !Rule_isSetFormula(R), NULL );
+  fail_unless(  Rule_isSetMath   (R) );
+  fail_unless( !Rule_isSetFormula(R) );
 
   Rule_setFormulaFromMath(R);
-  fail_unless( Rule_isSetMath   (R), NULL );
-  fail_unless( Rule_isSetFormula(R), NULL );
+  fail_unless( Rule_isSetMath   (R) );
+  fail_unless( Rule_isSetFormula(R) );
 
-  fail_unless( !strcmp(Rule_getFormula(R), "k1 * X0"), NULL );
+  fail_unless( !strcmp(Rule_getFormula(R), "k1 * X0") );
 }
 END_TEST
 
@@ -158,15 +158,15 @@ START_TEST (test_Rule_setMath)
 
   Rule_setMath(R, math);
 
-  fail_unless( Rule_getMath(R) == math, NULL );
-  fail_unless( Rule_isSetMath(R), NULL );
+  fail_unless( Rule_getMath(R) == math );
+  fail_unless( Rule_isSetMath(R) );
 
   /* Reflexive case (pathological) */
   Rule_setMath(R, (ASTNode_t *) Rule_getMath(R));
-  fail_unless( Rule_getMath(R) == math, NULL );
+  fail_unless( Rule_getMath(R) == math );
 
   Rule_setMath(R, NULL);
-  fail_unless( !Rule_isSetMath(R), NULL );
+  fail_unless( !Rule_isSetMath(R) );
 
   if (Rule_getMath(R) != NULL)
   {
@@ -181,24 +181,24 @@ START_TEST (test_Rule_setMathFromFormula)
   char *formula = "1 + 1";
 
 
-  fail_unless( !Rule_isSetMath   (R), NULL );
-  fail_unless( !Rule_isSetFormula(R), NULL );
+  fail_unless( !Rule_isSetMath   (R) );
+  fail_unless( !Rule_isSetFormula(R) );
 
   Rule_setMathFromFormula(R);
-  fail_unless( !Rule_isSetMath   (R), NULL );
-  fail_unless( !Rule_isSetFormula(R), NULL );
+  fail_unless( !Rule_isSetMath   (R) );
+  fail_unless( !Rule_isSetFormula(R) );
 
   Rule_setFormula(R, formula);
-  fail_unless( !Rule_isSetMath   (R), NULL );
-  fail_unless(  Rule_isSetFormula(R), NULL );
+  fail_unless( !Rule_isSetMath   (R) );
+  fail_unless(  Rule_isSetFormula(R) );
 
   Rule_setMathFromFormula(R);
-  fail_unless( Rule_isSetMath   (R), NULL );
-  fail_unless( Rule_isSetFormula(R), NULL );
+  fail_unless( Rule_isSetMath   (R) );
+  fail_unless( Rule_isSetFormula(R) );
 
   formula = SBML_formulaToString( Rule_getMath(R) );
 
-  fail_unless( !strcmp(formula, "1 + 1"), NULL );
+  fail_unless( !strcmp(formula, "1 + 1") );
 
   safe_free(formula);
 }

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSBMLFormatter.cpp
- * Description : SBMLFormatter unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-03-07
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSBMLFormatter.cpp
+ * \brief   SBMLFormatter unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -54,8 +53,8 @@
 #include <iostream>
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/SBMLFormatter.hpp"
+#include "common.h"
+#include "SBMLFormatter.h"
 
 
 BEGIN_C_DECLS

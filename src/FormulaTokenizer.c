@@ -1,13 +1,12 @@
 /**
- * Filename    : FormulaTokenizer.c
- * Description : Tokenizes an SBML formula string
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    FormulaTokenizer.c
+ * \brief   Tokenizes an SBML formula string
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,8 @@
 
 #include <ctype.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaTokenizer.h"
+#include "common.h"
+#include "FormulaTokenizer.h"
 
 
 /**

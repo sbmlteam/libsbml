@@ -1,13 +1,12 @@
 /**
- * Filename    : Validator.c
- * Description : Holds a set of rules for validating an SBML document
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2004-03-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Validator.c
+ * \brief   Holds a set of rules for validating an SBML document
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,8 +49,12 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/Validator.h"
+#include "common.h"
+
+
+#include "ListOf.h"
+#include "Model.h"
+#include "Validator.h"
 
 
 /**

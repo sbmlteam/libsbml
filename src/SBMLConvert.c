@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLConvert.c
- * Description : Converts SBML L1 objects to SBML L2 objects.
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-07-27
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLConvert.c
+ * \brief   Converts SBML L1 objects to SBML L2 objects.
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,12 +49,13 @@
  */
 
 
-#include "sbml/common.h"
+#include "common.h"
 
-#include "sbml/SBMLTypes.h"
-#include "sbml/SBMLTypeCodes.h"
+#include "List.h"
+#include "SBMLTypes.h"
+#include "SBMLTypeCodes.h"
 
-#include "sbml/SBMLConvert.h"
+#include "SBMLConvert.h"
 
 
 /**
@@ -117,7 +117,7 @@ SBML_convertToL2 (Model_t *m, SBase_t *sb)
     case SBML_SPECIES_CONCENTRATION_RULE:
     case SBML_COMPARTMENT_VOLUME_RULE:
     case SBML_PARAMETER_RULE:
-      SBML_convertRuleToL2(m, sb);
+      SBML_convertRuleToL2(m, (Rule_t *) sb);
       break;
 
     case SBML_KINETIC_LAW:

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestParameter.c
- * Description : Parameter unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestParameter.c
+ * \brief   Parameter unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/Parameter.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Parameter.h"
 
 
 static Parameter_t *P;
@@ -79,20 +80,20 @@ ParameterTest_teardown (void)
 
 START_TEST (test_Parameter_create)
 {
-  fail_unless( SBase_getTypeCode  (P) == SBML_PARAMETER, NULL );
-  fail_unless( SBase_getMetaId    (P) == NULL, NULL );
-  fail_unless( SBase_getNotes     (P) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(P) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) P) == SBML_PARAMETER );
+  fail_unless( SBase_getMetaId    ((SBase_t *) P) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) P) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) P) == NULL );
 
-  fail_unless( Parameter_getId      (P) == NULL, NULL );
-  fail_unless( Parameter_getName    (P) == NULL, NULL );
-  fail_unless( Parameter_getUnits   (P) == NULL, NULL );
-  fail_unless( Parameter_getConstant(P) == 1   , NULL );
+  fail_unless( Parameter_getId      (P) == NULL );
+  fail_unless( Parameter_getName    (P) == NULL );
+  fail_unless( Parameter_getUnits   (P) == NULL );
+  fail_unless( Parameter_getConstant(P) == 1    );
 
-  fail_unless( !Parameter_isSetId   (P), NULL );
-  fail_unless( !Parameter_isSetName (P), NULL );
-  fail_unless( !Parameter_isSetValue(P), NULL );
-  fail_unless( !Parameter_isSetUnits(P), NULL );
+  fail_unless( !Parameter_isSetId   (P) );
+  fail_unless( !Parameter_isSetName (P) );
+  fail_unless( !Parameter_isSetValue(P) );
+  fail_unless( !Parameter_isSetUnits(P) );
 }
 END_TEST
 
@@ -102,22 +103,22 @@ START_TEST (test_Parameter_createWith)
   Parameter_t *p = Parameter_createWith("delay", 6.2, "second");
 
 
-  fail_unless( SBase_getTypeCode  (p) == SBML_PARAMETER, NULL );
-  fail_unless( SBase_getMetaId    (p) == NULL, NULL );
-  fail_unless( SBase_getNotes     (p) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(p) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) p) == SBML_PARAMETER );
+  fail_unless( SBase_getMetaId    ((SBase_t *) p) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) p) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) p) == NULL );
 
-  fail_unless( !strcmp(Parameter_getId   (p), "delay" ), NULL );
-  fail_unless( !strcmp(Parameter_getUnits(p), "second"), NULL );
+  fail_unless( !strcmp(Parameter_getId   (p), "delay" ) );
+  fail_unless( !strcmp(Parameter_getUnits(p), "second") );
 
-  fail_unless( Parameter_getName    (p) == NULL, NULL );
-  fail_unless( Parameter_getValue   (p) == 6.2, NULL );
-  fail_unless( Parameter_getConstant(p) == 1  , NULL );
+  fail_unless( Parameter_getName    (p) == NULL );
+  fail_unless( Parameter_getValue   (p) == 6.2 );
+  fail_unless( Parameter_getConstant(p) == 1   );
 
-  fail_unless(   Parameter_isSetId   (p), NULL );
-  fail_unless( ! Parameter_isSetName (p), NULL );
-  fail_unless(   Parameter_isSetValue(p), NULL );
-  fail_unless(   Parameter_isSetUnits(p), NULL );
+  fail_unless(   Parameter_isSetId   (p) );
+  fail_unless( ! Parameter_isSetName (p) );
+  fail_unless(   Parameter_isSetValue(p) );
+  fail_unless(   Parameter_isSetUnits(p) );
 
   Parameter_free(p);
 }
@@ -138,8 +139,8 @@ START_TEST (test_Parameter_setId)
 
   Parameter_setId(P, id);
 
-  fail_unless( !strcmp(Parameter_getId(P), id), NULL );
-  fail_unless( Parameter_isSetId(P), NULL );
+  fail_unless( !strcmp(Parameter_getId(P), id) );
+  fail_unless( Parameter_isSetId(P) );
 
   if (Parameter_getId(P) == id)
   {
@@ -148,10 +149,10 @@ START_TEST (test_Parameter_setId)
 
   /* Reflexive case (pathological) */
   Parameter_setId(P, Parameter_getId(P));
-  fail_unless( !strcmp(Parameter_getId(P), id), NULL );
+  fail_unless( !strcmp(Parameter_getId(P), id) );
 
   Parameter_setId(P, NULL);
-  fail_unless( !Parameter_isSetId(P), NULL );
+  fail_unless( !Parameter_isSetId(P) );
 
   if (Parameter_getId(P) != NULL)
   {
@@ -168,8 +169,8 @@ START_TEST (test_Parameter_setName)
 
   Parameter_setName(P, name);
 
-  fail_unless( !strcmp(Parameter_getName(P), name), NULL );
-  fail_unless( Parameter_isSetName(P), NULL );
+  fail_unless( !strcmp(Parameter_getName(P), name) );
+  fail_unless( Parameter_isSetName(P) );
 
   if (Parameter_getName(P) == name)
   {
@@ -178,10 +179,10 @@ START_TEST (test_Parameter_setName)
 
   /* Reflexive case (pathological) */
   Parameter_setName(P, Parameter_getName(P));
-  fail_unless( !strcmp(Parameter_getName(P), name), NULL );
+  fail_unless( !strcmp(Parameter_getName(P), name) );
 
   Parameter_setName(P, NULL);
-  fail_unless( !Parameter_isSetName(P), NULL );
+  fail_unless( !Parameter_isSetName(P) );
 
   if (Parameter_getName(P) != NULL)
   {
@@ -198,8 +199,8 @@ START_TEST (test_Parameter_setUnits)
 
   Parameter_setUnits(P, units);
 
-  fail_unless( !strcmp(Parameter_getUnits(P), units), NULL );
-  fail_unless( Parameter_isSetUnits(P) , NULL );
+  fail_unless( !strcmp(Parameter_getUnits(P), units) );
+  fail_unless( Parameter_isSetUnits(P)  );
 
   if (Parameter_getUnits(P) == units)
   {
@@ -208,10 +209,10 @@ START_TEST (test_Parameter_setUnits)
 
   /* Reflexive case (pathological) */
   Parameter_setUnits(P, Parameter_getUnits(P));
-  fail_unless( !strcmp(Parameter_getUnits(P), units), NULL );
+  fail_unless( !strcmp(Parameter_getUnits(P), units) );
 
   Parameter_setUnits(P, NULL);
-  fail_unless( !Parameter_isSetUnits(P), NULL );
+  fail_unless( !Parameter_isSetUnits(P) );
 
   if (Parameter_getUnits(P) != NULL)
   {

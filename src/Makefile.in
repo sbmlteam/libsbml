@@ -76,99 +76,67 @@ thisdir = src
 
 headers = \
   sbml/ASTNode.h                    \
-  sbml/ASTNode.hpp                  \
   sbml/ASTNodeType.h                \
   sbml/AlgebraicRule.h              \
-  sbml/AlgebraicRule.hpp            \
   sbml/AssignmentRule.h             \
-  sbml/AssignmentRule.hpp           \
   sbml/Compartment.h                \
-  sbml/Compartment.hpp              \
   sbml/CompartmentVolumeRule.h      \
-  sbml/CompartmentVolumeRule.hpp    \
   sbml/Event.h                      \
-  sbml/Event.hpp                    \
   sbml/EventAssignment.h            \
-  sbml/EventAssignment.hpp          \
   sbml/FormulaFormatter.h           \
   sbml/FormulaParser.h              \
   sbml/FormulaTokenizer.h           \
   sbml/FunctionDefinition.h         \
-  sbml/FunctionDefinition.hpp       \
   sbml/KineticLaw.h                 \
-  sbml/KineticLaw.hpp               \
   sbml/List.h                       \
-  sbml/List.hpp                     \
   sbml/ListOf.h                     \
-  sbml/ListOf.hpp                   \
   sbml/MathMLDocument.h             \
-  sbml/MathMLDocument.hpp           \
-  sbml/MathMLFormatter.hpp          \
-  sbml/MathMLHandler.hpp            \
+  sbml/MathMLFormatter.h            \
+  sbml/MathMLHandler.h              \
   sbml/MathMLReader.h               \
-  sbml/MathMLTagCodes.hpp           \
-  sbml/MathMLUnicodeConstants.hpp   \
+  sbml/MathMLTagCodes.h             \
+  sbml/MathMLUnicodeConstants.h     \
   sbml/MathMLWriter.h               \
   sbml/Model.h                      \
-  sbml/Model.hpp                    \
   sbml/ModifierSpeciesReference.h   \
-  sbml/ModifierSpeciesReference.hpp \
   sbml/Parameter.h                  \
-  sbml/Parameter.hpp                \
   sbml/ParameterRule.h              \
-  sbml/ParameterRule.hpp            \
   sbml/ParseMessage.h               \
-  sbml/ParseMessage.hpp             \
   sbml/RateRule.h                   \
-  sbml/RateRule.hpp                 \
   sbml/Reaction.h                   \
-  sbml/Reaction.hpp                 \
   sbml/Rule.h                       \
-  sbml/Rule.hpp                     \
   sbml/RuleType.h                   \
   sbml/SBMLConvert.h                \
   sbml/SBMLDocument.h               \
-  sbml/SBMLDocument.hpp             \
-  sbml/SBMLFormatter.hpp            \
-  sbml/SBMLHandler.hpp              \
+  sbml/SBMLFormatter.h              \
+  sbml/SBMLHandler.h                \
   sbml/SBMLReader.h                 \
-  sbml/SBMLReader.hpp               \
-  sbml/SBMLTagCodes.hpp             \
+  sbml/SBMLTagCodes.h               \
   sbml/SBMLTypeCodes.h              \
   sbml/SBMLTypes.h                  \
-  sbml/SBMLTypes.hpp                \
-  sbml/SBMLVisitor.hpp              \
-  sbml/SBMLUnicodeConstants.hpp     \
+  sbml/SBMLVisitor.h                \
+  sbml/SBMLUnicodeConstants.h       \
   sbml/SBMLWriter.h                 \
-  sbml/SBMLWriter.hpp               \
   sbml/SBase.h                      \
-  sbml/SBase.hpp                    \
   sbml/SimpleSpeciesReference.h     \
-  sbml/SimpleSpeciesReference.hpp   \
   sbml/Species.h                    \
-  sbml/Species.hpp                  \
   sbml/SpeciesConcentrationRule.h   \
-  sbml/SpeciesConcentrationRule.hpp \
   sbml/SpeciesReference.h           \
-  sbml/SpeciesReference.hpp         \
   sbml/Stack.h                      \
-  sbml/StreamFormatTarget.hpp       \
+  sbml/StreamFormatTarget.h         \
   sbml/StringBuffer.h               \
   sbml/StringMap.h                  \
   sbml/Unit.h                       \
-  sbml/Unit.hpp                     \
   sbml/UnitDefinition.h             \
-  sbml/UnitDefinition.hpp           \
   sbml/UnitKind.h                   \
   sbml/Validator.h                  \
-  sbml/XMLNamespace.hpp             \
-  sbml/XMLNamespaceList.hpp         \
+  sbml/XMLNamespace.h               \
+  sbml/XMLNamespaceList.h           \
   sbml/XMLSchemaValidation.h        \
-  sbml/XMLStringFormatter.hpp       \
-  sbml/XMLUnicodeConstants.hpp      \
-  sbml/XMLUtil.hpp                  \
+  sbml/XMLStringFormatter.h         \
+  sbml/XMLUnicodeConstants.h        \
+  sbml/XMLUtil.h                    \
   sbml/common.h                     \
-  sbml/common.hpp                   \
   sbml/extern.h                     \
   sbml/memory.h                     \
   sbml/util.h
@@ -233,7 +201,7 @@ sources = \
   util.c
 
 test_headers = \
-  sbml/SAX2AttributesMock.hpp
+  sbml/SAX2AttributesMock.h
 
 test_sources = \
   SAX2AttributesMock.cpp          \
@@ -328,7 +296,7 @@ test_data =                                      \
 libraries = $(PACKAGE).a $(PACKAGE).$(SHAREDLIBEXT)
 
 ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS) -I../expat
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS) -Isbml -I../expat
   extra_LDFLAGS   += $(EXPAT_LDFLAGS)
   extra_LIBS      += $(EXPAT_LIBS)
 
@@ -336,7 +304,7 @@ ifdef USE_EXPAT
   srclist ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
   objfiles = $(filter %.$(OBJEXT),$(srclist)) ../expat/*.$(OBJEXT)
 else
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS) -Isbml
   extra_LDFLAGS   += $(XERCES_LDFLAGS)
   extra_LIBS      += $(XERCES_LIBS)
 endif

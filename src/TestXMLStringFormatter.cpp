@@ -1,13 +1,12 @@
 /**
- * Filename    : TestXMLStringFormatter.cpp
- * Description : XMLStringFormatter unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestXMLStringFormatter.cpp
+ * \brief   XMLStringFormatter unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -54,14 +53,16 @@
 #include <iostream>
 #include <check.h>
 
-#include "sbml/common.h"
+#include "common.h"
+
+#include "SAX2AttributesMock.h"
+#include "XMLStringFormatter.h"
 
 #ifdef USE_EXPAT
-#  include "ExpatXMLString.hpp"
+#  include "ExpatXMLString.h"
+#else
+   using namespace xercesc;
 #endif  // USE_EXPAT
-
-#include "sbml/SAX2AttributesMock.hpp"
-#include "sbml/XMLStringFormatter.hpp"
 
 
 BEGIN_C_DECLS

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSBMLDocument.c
- * Description : SBMLDocument unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-14
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSBMLDocument.c
+ * \brief   SBMLDocument unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/SBMLDocument.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Model.h"
+#include "SBMLDocument.h"
 
 
 START_TEST (test_SBMLDocument_create)
@@ -61,16 +63,16 @@ START_TEST (test_SBMLDocument_create)
   SBMLDocument_t *d = SBMLDocument_create();
 
 
-  fail_unless( SBase_getTypeCode  (d) == SBML_DOCUMENT, NULL );
-  fail_unless( SBase_getNotes     (d) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(d) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) d) == SBML_DOCUMENT );
+  fail_unless( SBase_getNotes     ((SBase_t *) d) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) d) == NULL );
 
-  fail_unless( SBMLDocument_getLevel  (d) == 2, NULL);
-  fail_unless( SBMLDocument_getVersion(d) == 1, NULL);
+  fail_unless( SBMLDocument_getLevel  (d) == 2);
+  fail_unless( SBMLDocument_getVersion(d) == 1);
 
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumErrors  (d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumFatals  (d) == 0, NULL );
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors  (d) == 0 );
+  fail_unless( SBMLDocument_getNumFatals  (d) == 0 );
 
   SBMLDocument_free(d);
 }
@@ -82,16 +84,16 @@ START_TEST (test_SBMLDocument_createWith)
   SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
 
 
-  fail_unless( SBase_getTypeCode  (d) == SBML_DOCUMENT, NULL );
-  fail_unless( SBase_getNotes     (d) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(d) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) d) == SBML_DOCUMENT );
+  fail_unless( SBase_getNotes     ((SBase_t *) d) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) d) == NULL );
 
-  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL);
-  fail_unless( SBMLDocument_getVersion(d) == 2, NULL);
+  fail_unless( SBMLDocument_getLevel  (d) == 1);
+  fail_unless( SBMLDocument_getVersion(d) == 2);
 
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumErrors  (d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumFatals  (d) == 0, NULL );
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors  (d) == 0 );
+  fail_unless( SBMLDocument_getNumFatals  (d) == 0 );
 
   SBMLDocument_free(d);
 }
@@ -112,17 +114,17 @@ START_TEST (test_SBMLDocument_setModel)
   Model_t        *m2 = Model_create();
 
 
-  fail_unless(SBMLDocument_getModel(d) == NULL, NULL);
+  fail_unless(SBMLDocument_getModel(d) == NULL);
 
   SBMLDocument_setModel(d, m1);
-  fail_unless(SBMLDocument_getModel(d) == m1, NULL);
+  fail_unless(SBMLDocument_getModel(d) == m1);
 
   /* Reflexive case (pathological) */
   SBMLDocument_setModel(d, SBMLDocument_getModel(d));
-  fail_unless(SBMLDocument_getModel(d) == m1, NULL);
+  fail_unless(SBMLDocument_getModel(d) == m1);
 
   SBMLDocument_setModel(d, m2);
-  fail_unless(SBMLDocument_getModel(d) == m2, NULL);
+  fail_unless(SBMLDocument_getModel(d) == m2);
 
   SBMLDocument_free(d);
   /* m1 is freed by SBMLDocument_setModel(d, m2); */

@@ -1,13 +1,12 @@
 /**
- * Filename    : UnitDefinition.cpp
- * Description : SBML UnitDefinition
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-22
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    UnitDefinition.cpp
+ * \brief   SBML UnitDefinition
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,12 +49,11 @@
  */
 
 
-#include "sbml/util.h"
-#include "sbml/Unit.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "util.h"
 
-#include "sbml/UnitDefinition.h"
-#include "sbml/UnitDefinition.hpp"
+#include "SBMLVisitor.h"
+#include "Unit.h"
+#include "UnitDefinition.h"
 
 
 /**

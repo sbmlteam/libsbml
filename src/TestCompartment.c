@@ -1,13 +1,12 @@
 /**
- * Filename    : TestCompartment.c
- * Description : Compartment unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestCompartment.c
+ * \brief   Compartment unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/Compartment.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "Compartment.h"
 
 
 static Compartment_t *C;
@@ -80,26 +81,26 @@ CompartmentTest_teardown (void)
 
 START_TEST (test_Compartment_create)
 {
-  fail_unless( SBase_getTypeCode  (C) == SBML_COMPARTMENT, NULL );
-  fail_unless( SBase_getMetaId    (C) == NULL, NULL );
-  fail_unless( SBase_getNotes     (C) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(C) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) C) == SBML_COMPARTMENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) C) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) C) == NULL );
 
-  fail_unless( Compartment_getId     (C) == NULL, NULL );
-  fail_unless( Compartment_getName   (C) == NULL, NULL );
-  fail_unless( Compartment_getUnits  (C) == NULL, NULL );
-  fail_unless( Compartment_getOutside(C) == NULL, NULL );
+  fail_unless( Compartment_getId     (C) == NULL );
+  fail_unless( Compartment_getName   (C) == NULL );
+  fail_unless( Compartment_getUnits  (C) == NULL );
+  fail_unless( Compartment_getOutside(C) == NULL );
 
-  fail_unless( Compartment_getSpatialDimensions(C) == 3  , NULL );
-  fail_unless( Compartment_getVolume           (C) == 1.0, NULL );
-  fail_unless( Compartment_getConstant         (C) == 1  , NULL );
+  fail_unless( Compartment_getSpatialDimensions(C) == 3   );
+  fail_unless( Compartment_getVolume           (C) == 1.0 );
+  fail_unless( Compartment_getConstant         (C) == 1   );
 
-  fail_unless( !Compartment_isSetId     (C), NULL );
-  fail_unless( !Compartment_isSetName   (C), NULL );
-  fail_unless( !Compartment_isSetSize   (C), NULL );
-  fail_unless(  Compartment_isSetVolume (C), NULL );
-  fail_unless( !Compartment_isSetUnits  (C), NULL );
-  fail_unless( !Compartment_isSetOutside(C), NULL );
+  fail_unless( !Compartment_isSetId     (C) );
+  fail_unless( !Compartment_isSetName   (C) );
+  fail_unless( !Compartment_isSetSize   (C) );
+  fail_unless(  Compartment_isSetVolume (C) );
+  fail_unless( !Compartment_isSetUnits  (C) );
+  fail_unless( !Compartment_isSetOutside(C) );
 }
 END_TEST
 
@@ -109,27 +110,27 @@ START_TEST (test_Compartment_createWith)
   Compartment_t *c = Compartment_createWith("A", 3.6, "liter", "B");
 
 
-  fail_unless( SBase_getTypeCode  (c) == SBML_COMPARTMENT, NULL );
-  fail_unless( SBase_getMetaId    (c) == NULL, NULL );
-  fail_unless( SBase_getNotes     (c) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(c) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_COMPARTMENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) c) == NULL );
 
-  fail_unless( Compartment_getName(c)              == NULL, NULL );
-  fail_unless( Compartment_getSpatialDimensions(c) == 3   , NULL );
+  fail_unless( Compartment_getName(c)              == NULL );
+  fail_unless( Compartment_getSpatialDimensions(c) == 3    );
 
-  fail_unless( !strcmp( Compartment_getId     (c), "A"     ), NULL );
-  fail_unless( !strcmp( Compartment_getUnits  (c), "liter" ), NULL );
-  fail_unless( !strcmp( Compartment_getOutside(c), "B"     ), NULL );
+  fail_unless( !strcmp( Compartment_getId     (c), "A"     ) );
+  fail_unless( !strcmp( Compartment_getUnits  (c), "liter" ) );
+  fail_unless( !strcmp( Compartment_getOutside(c), "B"     ) );
 
-  fail_unless( Compartment_getSize    (c) == 3.6, NULL );
-  fail_unless( Compartment_getConstant(c) == 1  , NULL );
+  fail_unless( Compartment_getSize    (c) == 3.6 );
+  fail_unless( Compartment_getConstant(c) == 1   );
 
-  fail_unless( Compartment_isSetId     (c), NULL );
-  fail_unless( !Compartment_isSetName  (c), NULL );
-  fail_unless( Compartment_isSetSize   (c), NULL );
-  fail_unless( Compartment_isSetVolume (c), NULL );
-  fail_unless( Compartment_isSetUnits  (c), NULL );
-  fail_unless( Compartment_isSetOutside(c), NULL );
+  fail_unless( Compartment_isSetId     (c) );
+  fail_unless( !Compartment_isSetName  (c) );
+  fail_unless( Compartment_isSetSize   (c) );
+  fail_unless( Compartment_isSetVolume (c) );
+  fail_unless( Compartment_isSetUnits  (c) );
+  fail_unless( Compartment_isSetOutside(c) );
 
   Compartment_free(c);
 }
@@ -150,8 +151,8 @@ START_TEST (test_Compartment_setId)
 
   Compartment_setId(C, id);
 
-  fail_unless( !strcmp(Compartment_getId(C), id), NULL );
-  fail_unless( Compartment_isSetId(C), NULL );
+  fail_unless( !strcmp(Compartment_getId(C), id) );
+  fail_unless( Compartment_isSetId(C) );
 
   if (Compartment_getId(C) == id)
   {
@@ -160,10 +161,10 @@ START_TEST (test_Compartment_setId)
 
   /* Reflexive case (pathological) */
   Compartment_setId(C, Compartment_getId(C));
-  fail_unless( !strcmp(Compartment_getId(C), id), NULL );
+  fail_unless( !strcmp(Compartment_getId(C), id) );
 
   Compartment_setId(C, NULL);
-  fail_unless( !Compartment_isSetId(C), NULL );
+  fail_unless( !Compartment_isSetId(C) );
 
   if (Compartment_getId(C) != NULL)
   {
@@ -180,8 +181,8 @@ START_TEST (test_Compartment_setName)
 
   Compartment_setName(C, name);
 
-  fail_unless( !strcmp(Compartment_getName(C), name), NULL );
-  fail_unless( Compartment_isSetName(C), NULL );
+  fail_unless( !strcmp(Compartment_getName(C), name) );
+  fail_unless( Compartment_isSetName(C) );
 
   if (Compartment_getName(C) == name)
   {
@@ -190,10 +191,10 @@ START_TEST (test_Compartment_setName)
 
   /* Reflexive case (pathological) */
   Compartment_setName(C, Compartment_getName(C));
-  fail_unless( !strcmp(Compartment_getName(C), name), NULL );
+  fail_unless( !strcmp(Compartment_getName(C), name) );
 
   Compartment_setName(C, NULL);
-  fail_unless( !Compartment_isSetName(C), NULL );
+  fail_unless( !Compartment_isSetName(C) );
 
   if (Compartment_getName(C) != NULL)
   {
@@ -210,8 +211,8 @@ START_TEST (test_Compartment_setUnits)
 
   Compartment_setUnits(C, units);
 
-  fail_unless( !strcmp(Compartment_getUnits(C), units), NULL );
-  fail_unless( Compartment_isSetUnits(C), NULL );
+  fail_unless( !strcmp(Compartment_getUnits(C), units) );
+  fail_unless( Compartment_isSetUnits(C) );
 
   if (Compartment_getUnits(C) == units)
   {
@@ -220,10 +221,10 @@ START_TEST (test_Compartment_setUnits)
 
   /* Reflexive case (pathological) */
   Compartment_setUnits(C, Compartment_getUnits(C));
-  fail_unless( !strcmp(Compartment_getUnits(C), units), NULL );
+  fail_unless( !strcmp(Compartment_getUnits(C), units) );
 
   Compartment_setUnits(C, NULL);
-  fail_unless( !Compartment_isSetUnits(C), NULL );
+  fail_unless( !Compartment_isSetUnits(C) );
 
   if (Compartment_getUnits(C) != NULL)
   {
@@ -240,8 +241,8 @@ START_TEST (test_Compartment_setOutside)
 
   Compartment_setOutside(C, outside);
 
-  fail_unless( !strcmp(Compartment_getOutside(C), outside), NULL );
-  fail_unless( Compartment_isSetOutside(C) , NULL );
+  fail_unless( !strcmp(Compartment_getOutside(C), outside) );
+  fail_unless( Compartment_isSetOutside(C)  );
 
   if (Compartment_getOutside(C) == outside)
   {
@@ -250,10 +251,10 @@ START_TEST (test_Compartment_setOutside)
 
   /* Reflexive case (pathological) */
   Compartment_setOutside(C, Compartment_getOutside(C));
-  fail_unless( !strcmp(Compartment_getOutside(C), outside), NULL );
+  fail_unless( !strcmp(Compartment_getOutside(C), outside) );
 
   Compartment_setOutside(C, NULL);
-  fail_unless( !Compartment_isSetOutside(C), NULL );
+  fail_unless( !Compartment_isSetOutside(C) );
 
   if (Compartment_getOutside(C) != NULL)
   {
@@ -267,24 +268,24 @@ START_TEST (test_Compartment_unsetSize)
 {
   Compartment_setSize(C, 0.2);
 
-  fail_unless( Compartment_getSize(C) == 0.2, NULL );
-  fail_unless( Compartment_isSetSize(C), NULL );
+  fail_unless( Compartment_getSize(C) == 0.2 );
+  fail_unless( Compartment_isSetSize(C) );
 
   Compartment_unsetSize(C);
 
-  fail_unless( !Compartment_isSetSize(C), NULL );
+  fail_unless( !Compartment_isSetSize(C) );
 }
 END_TEST
 
 
 START_TEST (test_Compartment_unsetVolume)
 {
-  fail_unless( Compartment_getVolume(C) == 1.0, NULL );
-  fail_unless( Compartment_isSetVolume(C), NULL );
+  fail_unless( Compartment_getVolume(C) == 1.0 );
+  fail_unless( Compartment_isSetVolume(C) );
 
   Compartment_unsetVolume(C);
 
-  fail_unless( !Compartment_isSetVolume(C), NULL );
+  fail_unless( !Compartment_isSetVolume(C) );
 }
 END_TEST
 

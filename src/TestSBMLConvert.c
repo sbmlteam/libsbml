@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSBMLConvert.c
- * Description : SBMLConvert unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-07-27
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSBMLConvert.c
+ * \brief   SBMLConvert unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,9 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/SBMLConvert.h"
-#include "sbml/SBMLTypes.h"
+#include "common.h"
+#include "SBMLConvert.h"
+#include "SBMLTypes.h"
 
 
 START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)
@@ -293,7 +292,7 @@ START_TEST (test_SBMLConvert_convertRuleToL2_SpeciesConcentrationRule)
   fail_unless( Species_getConstant(s2) != 0 );
   fail_unless( Species_getConstant(s3) != 0 );
 
-  SBML_convertRuleToL2(m, scr);
+  SBML_convertRuleToL2(m, (Rule_t *) scr);
 
   fail_unless( Species_getConstant(s1) != 0 );
   fail_unless( Species_getConstant(s2) == 0 );
@@ -325,7 +324,7 @@ START_TEST (test_SBMLConvert_convertRuleToL2_CompartmentVolumeRule)
   fail_unless( Compartment_getConstant(c2) != 0 );
   fail_unless( Compartment_getConstant(c3) != 0 );
 
-  SBML_convertRuleToL2(m, cvr);
+  SBML_convertRuleToL2(m, (Rule_t *) cvr);
 
   fail_unless( Compartment_getConstant(c1) != 0 );
   fail_unless( Compartment_getConstant(c2) == 0 );
@@ -357,7 +356,7 @@ START_TEST (test_SBMLConvert_convertRuleToL2_ParameterRule)
   fail_unless( Parameter_getConstant(p2) != 0 );
   fail_unless( Parameter_getConstant(p3) != 0 );
 
-  SBML_convertRuleToL2(m, pr);
+  SBML_convertRuleToL2(m, (Rule_t *) pr);
 
   fail_unless( Parameter_getConstant(p1) != 0 );
   fail_unless( Parameter_getConstant(p2) == 0 );

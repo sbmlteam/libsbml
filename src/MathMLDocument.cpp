@@ -1,13 +1,12 @@
 /**
- * Filename    : MathMLDocument.cpp
- * Description : Top-level container for all things MathML
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLDocument.cpp
+ * \brief   Top-level container for all things MathML
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,10 +49,10 @@
  */
 
 
-#include "sbml/MathMLDocument.h"
-#include "sbml/MathMLDocument.hpp"
-
 #include <new>
+
+#include "ASTNode.h"
+#include "MathMLDocument.h"
 
 
 /**

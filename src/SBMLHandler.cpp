@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLHandler.cpp
- * Description : Register with XML Parser to process an SBML document
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLHandler.cpp
+ * \brief   Register with XML Parser to process an SBML document
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,26 +52,32 @@
 
 #include <iostream>
 
-#include "sbml/common.h"
-#include "sbml/List.h"
+#include "common.h"
+#include "List.h"
 
 
 #ifdef USE_EXPAT
 #  include <expat.h>
-#  include "ExpatXMLString.hpp"
+#  include "ExpatXMLString.h"
 #else
 #  include <xercesc/sax2/Attributes.hpp>
 #  include <xercesc/util/XMLString.hpp>
+   using namespace xercesc;
 #endif  // USE_EXPAT
 
 
-#include "sbml/FormulaFormatter.h"
+#include "FormulaFormatter.h"
 
-#include "sbml/SBMLUnicodeConstants.hpp"
-#include "sbml/XMLStringFormatter.hpp"
-#include "sbml/XMLUtil.hpp"
+#include "ParseMessage.h"
 
-#include "sbml/SBMLHandler.hpp"
+#include "SBMLTypes.h"
+#include "SBMLUnicodeConstants.h"
+
+#include "XMLStringFormatter.h"
+#include "XMLUtil.h"
+
+#include "MathMLHandler.h"
+#include "SBMLHandler.h"
 
 
 const TagHandler_t

@@ -1,13 +1,12 @@
 /**
- * Filename    : MathMLWriter.cpp
- * Description : Writes a MathML Document to file or in-memory string
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-07-30
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    MathMLWriter.cpp
+ * \brief   Writes a MathML Document to file or in-memory string
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -51,23 +50,24 @@
  */
 
 
-#include "sbml/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatFormatter.hpp"
+#  include "ExpatFormatter.h"
 #else
 #  include <xercesc/framework/LocalFileFormatTarget.hpp>
 #  include <xercesc/framework/MemBufFormatTarget.hpp>
 #  include <xercesc/util/PlatformUtils.hpp>
+   using namespace xercesc;
 #endif  // USE_EXPAT
 
 
-#include "sbml/MathMLFormatter.hpp"
-#include "sbml/MathMLDocument.h"
-#include "sbml/MathMLWriter.h"
-#include "sbml/MathMLWriter.hpp"
-#include "sbml/StreamFormatTarget.hpp"
+#include "MathMLFormatter.h"
+#include "MathMLDocument.h"
+#include "MathMLWriter.h"
+#include "StreamFormatTarget.h"
+
 
 /**
  * Writes the given MathML document to filename.

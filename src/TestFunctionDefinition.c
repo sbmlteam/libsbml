@@ -1,13 +1,12 @@
 /**
- * Filename    : TestFunctionDefinition.c
- * Description : SBML FunctionDefinition unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-03
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestFunctionDefinition.c
+ * \brief   SBML FunctionDefinition unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/FunctionDefinition.h"
+#include "common.h"
+#include "FormulaParser.h"
+
+#include "SBase.h"
+#include "FunctionDefinition.h"
 
 
 static FunctionDefinition_t *FD;
@@ -81,14 +82,14 @@ FunctionDefinitionTest_teardown (void)
 
 START_TEST (test_FunctionDefinition_create)
 {
-  fail_unless( SBase_getTypeCode  (FD) == SBML_FUNCTION_DEFINITION, NULL );
-  fail_unless( SBase_getMetaId    (FD) == NULL, NULL );
-  fail_unless( SBase_getNotes     (FD) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(FD) == NULL, NULL );
+  fail_unless( SBase_getTypeCode((SBase_t *) FD) == SBML_FUNCTION_DEFINITION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) FD) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) FD) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) FD) == NULL );
 
-  fail_unless( FunctionDefinition_getId  (FD) == NULL, NULL );
-  fail_unless( FunctionDefinition_getName(FD) == NULL, NULL );
-  fail_unless( FunctionDefinition_getMath(FD) == NULL, NULL );
+  fail_unless( FunctionDefinition_getId  (FD) == NULL );
+  fail_unless( FunctionDefinition_getName(FD) == NULL );
+  fail_unless( FunctionDefinition_getMath(FD) == NULL );
 }
 END_TEST
 
@@ -99,18 +100,18 @@ START_TEST (test_FunctionDefinition_createWith)
   FunctionDefinition_t *fd   = FunctionDefinition_createWith("pow3", math);
 
 
-  fail_unless( SBase_getTypeCode  (fd) == SBML_FUNCTION_DEFINITION, NULL );
-  fail_unless( SBase_getMetaId    (fd) == NULL, NULL );
-  fail_unless( SBase_getNotes     (fd) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(fd) == NULL, NULL );
+  fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_FUNCTION_DEFINITION );
+  fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
 
-  fail_unless( FunctionDefinition_getName(fd) == NULL, NULL );
+  fail_unless( FunctionDefinition_getName(fd) == NULL );
 
-  fail_unless( FunctionDefinition_getMath(fd) == math, NULL );
-  fail_unless( FunctionDefinition_isSetMath(fd), NULL );
+  fail_unless( FunctionDefinition_getMath(fd) == math );
+  fail_unless( FunctionDefinition_isSetMath(fd) );
 
-  fail_unless( !strcmp(FunctionDefinition_getId(fd), "pow3"), NULL );
-  fail_unless( FunctionDefinition_isSetId(fd), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getId(fd), "pow3") );
+  fail_unless( FunctionDefinition_isSetId(fd) );
 
   FunctionDefinition_free(fd);
 }
@@ -131,8 +132,8 @@ START_TEST (test_FunctionDefinition_setId)
 
   FunctionDefinition_setId(FD, id);
 
-  fail_unless( !strcmp(FunctionDefinition_getId(FD), id), NULL );
-  fail_unless( FunctionDefinition_isSetId(FD), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getId(FD), id) );
+  fail_unless( FunctionDefinition_isSetId(FD) );
 
   if (FunctionDefinition_getId(FD) == id)
   {
@@ -141,10 +142,10 @@ START_TEST (test_FunctionDefinition_setId)
 
   /* Reflexive case (pathological) */
   FunctionDefinition_setId(FD, FunctionDefinition_getId(FD));
-  fail_unless( !strcmp(FunctionDefinition_getId(FD), id), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getId(FD), id) );
 
   FunctionDefinition_setId(FD, NULL);
-  fail_unless( !FunctionDefinition_isSetId(FD), NULL );
+  fail_unless( !FunctionDefinition_isSetId(FD) );
 
   if (FunctionDefinition_getId(FD) != NULL)
   {
@@ -161,8 +162,8 @@ START_TEST (test_FunctionDefinition_setName)
 
   FunctionDefinition_setName(FD, name);
 
-  fail_unless( !strcmp(FunctionDefinition_getName(FD), name), NULL );
-  fail_unless( FunctionDefinition_isSetName(FD), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getName(FD), name) );
+  fail_unless( FunctionDefinition_isSetName(FD) );
 
   if (FunctionDefinition_getName(FD) == name)
   {
@@ -171,10 +172,10 @@ START_TEST (test_FunctionDefinition_setName)
 
   /* Reflexive case (pathological) */
   FunctionDefinition_setName(FD, FunctionDefinition_getName(FD));
-  fail_unless( !strcmp(FunctionDefinition_getName(FD), name), NULL );
+  fail_unless( !strcmp(FunctionDefinition_getName(FD), name) );
 
   FunctionDefinition_setName(FD, NULL);
-  fail_unless( !FunctionDefinition_isSetName(FD), NULL );
+  fail_unless( !FunctionDefinition_isSetName(FD) );
 
   if (FunctionDefinition_getName(FD) != NULL)
   {
@@ -191,15 +192,15 @@ START_TEST (test_FunctionDefinition_setMath)
 
   FunctionDefinition_setMath(FD, math);
 
-  fail_unless( FunctionDefinition_getMath(FD) == math, NULL );
-  fail_unless( FunctionDefinition_isSetMath(FD), NULL );
+  fail_unless( FunctionDefinition_getMath(FD) == math );
+  fail_unless( FunctionDefinition_isSetMath(FD) );
 
   /* Reflexive case (pathological) */
   FunctionDefinition_setMath(FD, (ASTNode_t *) FunctionDefinition_getMath(FD));
-  fail_unless( FunctionDefinition_getMath(FD) == math, NULL );
+  fail_unless( FunctionDefinition_getMath(FD) == math );
 
   FunctionDefinition_setMath(FD, NULL);
-  fail_unless( !FunctionDefinition_isSetMath(FD), NULL );
+  fail_unless( !FunctionDefinition_isSetMath(FD) );
 
   if (FunctionDefinition_getMath(FD) != NULL)
   {

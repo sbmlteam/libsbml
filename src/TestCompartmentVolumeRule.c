@@ -1,13 +1,12 @@
 /**
- * Filename    : TestCompartmentVolumeRule.c
- * Description : CompartmentVolumeRule unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestCompartmentVolumeRule.c
+ * \brief   CompartmentVolumeRule unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -51,9 +50,12 @@
 
 
 #include <check.h>
+#include "common.h"
 
-#include "sbml/common.h"
-#include "sbml/CompartmentVolumeRule.h"
+#include "SBase.h"
+#include "Rule.h"
+#include "AssignmentRule.h"
+#include "CompartmentVolumeRule.h"
 
 
 static CompartmentVolumeRule_t *CVR;
@@ -80,15 +82,18 @@ CompartmentVolumeRuleTest_teardown (void)
 
 START_TEST (test_CompartmentVolumeRule_create)
 {
-  fail_unless( SBase_getTypeCode  (CVR) == SBML_COMPARTMENT_VOLUME_RULE, NULL);
-  fail_unless( SBase_getNotes     (CVR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(CVR) == NULL, NULL );
+  fail_unless( SBase_getTypeCode((SBase_t *) CVR) ==
+               SBML_COMPARTMENT_VOLUME_RULE );
 
-  fail_unless( Rule_getFormula       (CVR) == NULL, NULL );
-  fail_unless( AssignmentRule_getType(CVR) == RULE_TYPE_SCALAR, NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) CVR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) CVR) == NULL );
 
-  fail_unless( CompartmentVolumeRule_getCompartment(CVR) == NULL, NULL );
-  fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
+  fail_unless( Rule_getFormula((Rule_t *) CVR) == NULL );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) CVR) ==
+               RULE_TYPE_SCALAR );
+
+  fail_unless( CompartmentVolumeRule_getCompartment(CVR) == NULL );
+  fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR) );
 }
 END_TEST
 
@@ -100,17 +105,20 @@ START_TEST (test_CompartmentVolumeRule_createWith)
 
   cvr = CompartmentVolumeRule_createWith("v + 1", RULE_TYPE_RATE, "c");
 
-  fail_unless( SBase_getTypeCode  (cvr) == SBML_COMPARTMENT_VOLUME_RULE, NULL);
-  fail_unless( SBase_getNotes     (cvr) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(cvr) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) cvr) ==
+               SBML_COMPARTMENT_VOLUME_RULE );
+
+  fail_unless( SBase_getNotes     ((SBase_t *) cvr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) cvr) == NULL );
 
 
-  fail_unless( !strcmp(Rule_getFormula(cvr), "v + 1"), NULL );
-  fail_unless( !strcmp(CompartmentVolumeRule_getCompartment(cvr), "c"), NULL );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) cvr), "v + 1") );
+  fail_unless( !strcmp(CompartmentVolumeRule_getCompartment(cvr), "c") );
 
-  fail_unless( AssignmentRule_getType(cvr) == RULE_TYPE_RATE, NULL );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) cvr) ==
+               RULE_TYPE_RATE );
 
-  fail_unless( CompartmentVolumeRule_isSetCompartment(cvr), NULL );
+  fail_unless( CompartmentVolumeRule_isSetCompartment(cvr) );
 
   CompartmentVolumeRule_free(cvr);
 }
@@ -134,7 +142,7 @@ START_TEST (test_CompartmentVolumeRule_setCompartment)
 
   fail_unless( !strcmp(CompartmentVolumeRule_getCompartment(CVR), compartment),
                NULL );
-  fail_unless( CompartmentVolumeRule_isSetCompartment(CVR), NULL );
+  fail_unless( CompartmentVolumeRule_isSetCompartment(CVR) );
 
   if (CompartmentVolumeRule_getCompartment(CVR) == compartment)
   {
@@ -149,7 +157,7 @@ START_TEST (test_CompartmentVolumeRule_setCompartment)
                NULL );
 
   CompartmentVolumeRule_setCompartment(CVR, NULL);
-  fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR), NULL );
+  fail_unless( !CompartmentVolumeRule_isSetCompartment(CVR) );
 
   if (CompartmentVolumeRule_getCompartment(CVR) != NULL)
   {

@@ -1,13 +1,12 @@
 /**
- * Filename    : SringBuffer.h
- * Description : A growable buffer for creating character strings.
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-06-21
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SringBuffer.h
+ * \brief   A growable buffer for creating character strings.
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,8 +49,8 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/StringBuffer.h"
+#include "common.h"
+#include "StringBuffer.h"
 
 
 /**

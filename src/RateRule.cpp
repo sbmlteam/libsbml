@@ -1,13 +1,12 @@
 /**
- * Filename    : RateRule.cpp
- * Description : SBML RateRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-40-29
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    RateRule.cpp
+ * \brief   SBML RateRule
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,10 +49,8 @@
  */
 
 
-#include "sbml/SBMLVisitor.hpp"
-
-#include "sbml/RateRule.h"
-#include "sbml/RateRule.hpp"
+#include "SBMLVisitor.h"
+#include "RateRule.h"
 
 
 /**

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestConsistencyChecks.cpp
- * Description : Unit tests for ValidationRules.c
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-03-07
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestConsistencyChecks.cpp
+ * \brief   Unit tests for ValidationRules.c
+ * \author  Ben Bornstein
  *
- *
+ * $Id$
+ * $Source$
+ */
+/*
  * Run genConsistencyChecks.py to generate ConsistencyChecks.i.  The latter
  * is #included by this file.  It contains the code for each unit test.
  * Each unit tests consists of a minimal model to exercise one part of
@@ -70,11 +69,12 @@
 #include <fstream>
 #include <vector>
 #include <set>
-#include <ctype.h>
 
-#include <sbml/common.h>
-#include <sbml/SBMLDocument.h>
-#include <sbml/SBMLReader.h>
+#include "common.h"
+
+#include "ParseMessage.h"
+#include "SBMLDocument.h"
+#include "SBMLReader.h"
 
 
 using namespace std;

@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLDocument.cpp
- * Description : Top-level container for all things SBML
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-14
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLDocument.cpp
+ * \brief   Top-level container for all things SBML
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,16 +51,15 @@
 
 #include <iostream>
 
-#include "sbml/SBMLConvert.h"
-#include "sbml/StringBuffer.h"
-#include "sbml/Validator.h"
+#include "SBMLConvert.h"
+#include "StringBuffer.h"
+#include "Validator.h"
 
-#include "sbml/ParseMessage.hpp"
-#include "sbml/Model.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "ParseMessage.h"
+#include "SBMLVisitor.h"
+#include "Model.h"
 
-#include "sbml/SBMLDocument.h"
-#include "sbml/SBMLDocument.hpp"
+#include "SBMLDocument.h"
 
 
 /**

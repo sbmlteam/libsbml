@@ -1,13 +1,12 @@
 /**
- * Filename    : TestEvent.c
- * Description : SBML Event unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-03
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestEvent.c
+ * \brief   SBML Event unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,13 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/Event.h"
+#include "common.h"
+#include "FormulaParser.h"
+
+#include "SBase.h"
+#include "EventAssignment.h"
+#include "Event.h"
+
 
 
 static Event_t *E;
@@ -81,18 +84,18 @@ EventTest_teardown (void)
 
 START_TEST (test_Event_create)
 {
-  fail_unless( SBase_getTypeCode  (E) == SBML_EVENT, NULL );
-  fail_unless( SBase_getMetaId    (E) == NULL, NULL );
-  fail_unless( SBase_getNotes     (E) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(E) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) E) == SBML_EVENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) E) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) E) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) E) == NULL );
 
-  fail_unless( Event_getId        (E) == NULL, NULL );
-  fail_unless( Event_getName      (E) == NULL, NULL );
-  fail_unless( Event_getTrigger   (E) == NULL, NULL );
-  fail_unless( Event_getDelay     (E) == NULL, NULL );
-  fail_unless( Event_getTimeUnits (E) == NULL, NULL );
+  fail_unless( Event_getId        (E) == NULL );
+  fail_unless( Event_getName      (E) == NULL );
+  fail_unless( Event_getTrigger   (E) == NULL );
+  fail_unless( Event_getDelay     (E) == NULL );
+  fail_unless( Event_getTimeUnits (E) == NULL );
 
-  fail_unless( Event_getNumEventAssignments(E) == 0, NULL );
+  fail_unless( Event_getNumEventAssignments(E) == 0 );
 }
 END_TEST
 
@@ -103,22 +106,22 @@ START_TEST (test_Event_createWith)
   Event_t   *e       = Event_createWith("e1", trigger);
 
 
-  fail_unless( SBase_getTypeCode  (e) == SBML_EVENT, NULL );
-  fail_unless( SBase_getMetaId    (e) == NULL, NULL );
-  fail_unless( SBase_getNotes     (e) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(e) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) e) == SBML_EVENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) e) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) e) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) e) == NULL );
 
-  fail_unless( Event_getName      (e) == NULL, NULL );
-  fail_unless( Event_getDelay     (e) == NULL, NULL );
-  fail_unless( Event_getTimeUnits (e) == NULL, NULL );
+  fail_unless( Event_getName      (e) == NULL );
+  fail_unless( Event_getDelay     (e) == NULL );
+  fail_unless( Event_getTimeUnits (e) == NULL );
 
-  fail_unless( Event_getNumEventAssignments(e) == 0, NULL );
+  fail_unless( Event_getNumEventAssignments(e) == 0 );
 
-  fail_unless( Event_getTrigger(e) == trigger, NULL );
-  fail_unless( Event_isSetTrigger(e), NULL );
+  fail_unless( Event_getTrigger(e) == trigger );
+  fail_unless( Event_isSetTrigger(e) );
 
-  fail_unless( !strcmp(Event_getId(e), "e1"), NULL );
-  fail_unless( Event_isSetId(e), NULL );
+  fail_unless( !strcmp(Event_getId(e), "e1") );
+  fail_unless( Event_isSetId(e) );
 
   Event_free(e);
 }
@@ -139,8 +142,8 @@ START_TEST (test_Event_setId)
 
   Event_setId(E, id);
 
-  fail_unless( !strcmp(Event_getId(E), id), NULL );
-  fail_unless( Event_isSetId(E), NULL );
+  fail_unless( !strcmp(Event_getId(E), id) );
+  fail_unless( Event_isSetId(E) );
 
   if (Event_getId(E) == id)
   {
@@ -149,10 +152,10 @@ START_TEST (test_Event_setId)
 
   /* Reflexive case (pathological) */
   Event_setId(E, Event_getId(E));
-  fail_unless( !strcmp(Event_getId(E), id), NULL );
+  fail_unless( !strcmp(Event_getId(E), id) );
 
   Event_setId(E, NULL);
-  fail_unless( !Event_isSetId(E), NULL );
+  fail_unless( !Event_isSetId(E) );
 
   if (Event_getId(E) != NULL)
   {
@@ -169,8 +172,8 @@ START_TEST (test_Event_setName)
 
   Event_setName(E, name);
 
-  fail_unless( !strcmp(Event_getName(E), name), NULL );
-  fail_unless( Event_isSetName(E), NULL );
+  fail_unless( !strcmp(Event_getName(E), name) );
+  fail_unless( Event_isSetName(E) );
 
   if (Event_getName(E) == name)
   {
@@ -179,10 +182,10 @@ START_TEST (test_Event_setName)
 
   /* Reflexive case (pathological) */
   Event_setName(E, Event_getName(E));
-  fail_unless( !strcmp(Event_getName(E), name), NULL );
+  fail_unless( !strcmp(Event_getName(E), name) );
 
   Event_setName(E, NULL);
-  fail_unless( !Event_isSetName(E), NULL );
+  fail_unless( !Event_isSetName(E) );
 
   if (Event_getName(E) != NULL)
   {
@@ -199,15 +202,15 @@ START_TEST (test_Event_setTrigger)
 
   Event_setTrigger(E, trigger);
 
-  fail_unless( Event_getTrigger(E) == trigger, NULL );
-  fail_unless( Event_isSetTrigger(E), NULL );
+  fail_unless( Event_getTrigger(E) == trigger );
+  fail_unless( Event_isSetTrigger(E) );
 
   /* Reflexive case (pathological) */
   Event_setTrigger(E, (ASTNode_t *) Event_getTrigger(E));
-  fail_unless( Event_getTrigger(E) == trigger, NULL );
+  fail_unless( Event_getTrigger(E) == trigger );
 
   Event_setTrigger(E, NULL);
-  fail_unless( !Event_isSetTrigger(E), NULL );
+  fail_unless( !Event_isSetTrigger(E) );
 
   if (Event_getTrigger(E) != NULL)
   {
@@ -224,15 +227,15 @@ START_TEST (test_Event_setDelay)
 
   Event_setDelay(E, delay);
 
-  fail_unless( Event_getDelay(E) == delay  , NULL );
-  fail_unless( Event_isSetDelay(E), NULL );
+  fail_unless( Event_getDelay(E) == delay   );
+  fail_unless( Event_isSetDelay(E) );
 
   /* Reflexive case (pathological) */
   Event_setDelay(E, (ASTNode_t *) Event_getDelay(E));
-  fail_unless( Event_getDelay(E) == delay, NULL );
+  fail_unless( Event_getDelay(E) == delay );
 
   Event_setDelay(E, NULL);
-  fail_unless( !Event_isSetDelay(E), NULL );
+  fail_unless( !Event_isSetDelay(E) );
 
   if (Event_getDelay(E) != NULL)
   {
@@ -249,8 +252,8 @@ START_TEST (test_Event_setTimeUnits)
 
   Event_setTimeUnits(E, units);
 
-  fail_unless( !strcmp(Event_getTimeUnits(E), units), NULL );
-  fail_unless( Event_isSetTimeUnits(E), NULL );
+  fail_unless( !strcmp(Event_getTimeUnits(E), units) );
+  fail_unless( Event_isSetTimeUnits(E) );
 
   if (Event_getTimeUnits(E) == units)
   {
@@ -259,10 +262,10 @@ START_TEST (test_Event_setTimeUnits)
 
   /* Reflexive case (pathological) */
   Event_setTimeUnits(E, Event_getTimeUnits(E));
-  fail_unless( !strcmp(Event_getTimeUnits(E), units), NULL );
+  fail_unless( !strcmp(Event_getTimeUnits(E), units) );
 
   Event_setTimeUnits(E, NULL);
-  fail_unless( !Event_isSetTimeUnits(E), NULL );
+  fail_unless( !Event_isSetTimeUnits(E) );
 
   if (Event_getTimeUnits(E) != NULL)
   {
@@ -283,8 +286,8 @@ START_TEST (test_Event_full)
   Event_setName(e, "Set k2 to zero when P1 <= t");
   Event_addEventAssignment(e, ea);
 
-  fail_unless( Event_getNumEventAssignments(e) ==  1, NULL );
-  fail_unless( Event_getEventAssignment(e, 0)  == ea, NULL );
+  fail_unless( Event_getNumEventAssignments(e) ==  1 );
+  fail_unless( Event_getEventAssignment(e, 0)  == ea );
 
   Event_free(e);
 }

@@ -1,13 +1,12 @@
 /**
- * Filename    : SpeciesReference.cpp
- * Description : SBML SpeciesReference
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-22
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SpeciesReference.cpp
+ * \brief   SBML SpeciesReference
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,12 +49,11 @@
  */
 
 
-#include "sbml/FormulaParser.h"
-#include "sbml/ASTNode.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "FormulaParser.h"
+#include "ASTNode.h"
 
-#include "sbml/SpeciesReference.h"
-#include "sbml/SpeciesReference.hpp"
+#include "SBMLVisitor.h"
+#include "SpeciesReference.h"
 
 
 /**

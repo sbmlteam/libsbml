@@ -1,13 +1,12 @@
 /**
- * Filename    : FormulaParser.c
- * Description : Parses an SBML formula string into an AST
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    FormulaParser.c
+ * \brief   Parses an SBML formula string into an AST
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,10 +49,10 @@
  */
 
 
-#include "sbml/common.h"
+#include "common.h"
 
-#include "sbml/FormulaTokenizer.h"
-#include "sbml/FormulaParser.h"
+#include "FormulaTokenizer.h"
+#include "FormulaParser.h"
 
 
 /**

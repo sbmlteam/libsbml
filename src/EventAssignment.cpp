@@ -1,13 +1,12 @@
 /**
- * Filename    : EventAssignment.cpp
- * Description : SBML EventAssignment
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-03
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    EventAssignment.cpp
+ * \brief   SBML EventAssignment
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,12 +49,10 @@
  */
 
 
-#include "sbml/FormulaParser.h"
-#include "sbml/ASTNode.hpp"
-#include "sbml/SBMLVisitor.hpp"
-
-#include "sbml/EventAssignment.h"
-#include "sbml/EventAssignment.hpp"
+#include "FormulaParser.h"
+#include "ASTNode.h"
+#include "SBMLVisitor.h"
+#include "EventAssignment.h"
 
 
 /**

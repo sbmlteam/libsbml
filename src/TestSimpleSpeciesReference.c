@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSimpleSpeciesReference.c
- * Description : SimpleSpeciesReference unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-04-29
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSimpleSpeciesReference.c
+ * \brief   SimpleSpeciesReference unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/SimpleSpeciesReference.h"
-#include "sbml/SpeciesReference.h"
+#include "common.h"
+
+#include "SBase.h"
+#include "SimpleSpeciesReference.h"
+#include "SpeciesReference.h"
 
 
 static SimpleSpeciesReference_t *SSR;
@@ -82,12 +83,12 @@ SimpleSpeciesReferenceTest_teardown (void)
 
 START_TEST (test_SimpleSpeciesReference_init)
 {
-  fail_unless( SBase_getTypeCode  (SSR) == SBML_SPECIES_REFERENCE, NULL );
-  fail_unless( SBase_getMetaId    (SSR) == NULL, NULL );
-  fail_unless( SBase_getNotes     (SSR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(SSR) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) SSR) == SBML_SPECIES_REFERENCE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) SSR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) SSR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) SSR) == NULL );
 
-  fail_unless( SimpleSpeciesReference_getSpecies(SSR) == NULL, NULL );
+  fail_unless( SimpleSpeciesReference_getSpecies(SSR) == NULL );
 }
 END_TEST
 
@@ -100,8 +101,8 @@ START_TEST (test_SimpleSpeciesReference_setSpecies)
 
   SimpleSpeciesReference_setSpecies(SSR, species);
 
-  fail_unless(!strcmp(SimpleSpeciesReference_getSpecies(SSR), species), NULL);
-  fail_unless( SimpleSpeciesReference_isSetSpecies(SSR), NULL );
+  fail_unless(!strcmp(SimpleSpeciesReference_getSpecies(SSR), species));
+  fail_unless( SimpleSpeciesReference_isSetSpecies(SSR) );
 
   if (SimpleSpeciesReference_getSpecies(SSR) == species)
   {
@@ -114,10 +115,10 @@ START_TEST (test_SimpleSpeciesReference_setSpecies)
   SimpleSpeciesReference_setSpecies(SSR, s);
 
   s = SimpleSpeciesReference_getSpecies(SSR);
-  fail_unless( !strcmp(s, species), NULL );
+  fail_unless( !strcmp(s, species) );
 
   SimpleSpeciesReference_setSpecies(SSR, NULL);
-  fail_unless( !SimpleSpeciesReference_isSetSpecies(SSR), NULL );
+  fail_unless( !SimpleSpeciesReference_isSetSpecies(SSR) );
 
   if (SimpleSpeciesReference_getSpecies(SSR) != NULL)
   {

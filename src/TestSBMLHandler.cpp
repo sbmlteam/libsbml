@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSBMLHandler.cpp
- * Description : SBMLHandler unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-30
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSBMLHandler.cpp
+ * \brief   SBMLHandler unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,15 +52,15 @@
 #include <iostream>
 #include <check.h>
 
-#include "sbml/common.h"
+#include "common.h"
 
-#include "sbml/ASTNode.h"
-#include "sbml/FormulaFormatter.h"
+#include "ASTNode.h"
+#include "FormulaFormatter.h"
 
-#include "sbml/SBMLTypes.h"
-#include "sbml/SBMLHandler.hpp"
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLUnicodeConstants.hpp"
+#include "SBMLTypes.h"
+#include "SBMLHandler.h"
+#include "SBMLReader.h"
+#include "SBMLUnicodeConstants.h"
 
 
 BEGIN_C_DECLS

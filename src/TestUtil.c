@@ -1,13 +1,12 @@
 /**
- * Filename    : TestUtil.h
- * Description : utilility functions unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-12-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestUtil.h
+ * \brief   utilility functions unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -51,7 +50,7 @@
 
 
 #include <check.h>
-#include "sbml/common.h"
+#include "common.h"
 
 
 START_TEST (test_util_strcmp_insensitive)

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestReadFromFile3.c
- * Description : Reads tests/l1v1-rules.xml into memory and tests it.
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestReadFromFile3.c
+ * \brief   Reads tests/l1v1-rules.xml into memory and tests it.
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,9 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLTypes.h"
+#include "common.h"
+#include "SBMLReader.h"
+#include "SBMLTypes.h"
 
 
 extern char *TestDataDirectory;

@@ -1,13 +1,12 @@
 /**
- * Filename    : Rule.cpp
- * Description : SBML Rule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Rule.cpp
+ * \brief   SBML Rule
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,14 +49,13 @@
  */
 
 
-#include "sbml/common.h"
-#include "sbml/FormulaFormatter.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/ASTNode.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "common.h"
+#include "FormulaFormatter.h"
+#include "FormulaParser.h"
+#include "ASTNode.h"
 
-#include "sbml/Rule.h"
-#include "sbml/Rule.hpp"
+#include "SBMLVisitor.h"
+#include "Rule.h"
 
 
 /**

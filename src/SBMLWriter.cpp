@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLWriter.cpp
- * Description : Writes an SBML Document to file or in-memory string
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-03-07
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLWriter.cpp
+ * \brief   Writes an SBML Document to file or in-memory string
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -51,11 +50,11 @@
  */
 
 
-#include "sbml/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatFormatter.hpp"
+#  include "ExpatFormatter.h"
 #else
 #  include <xercesc/framework/LocalFileFormatTarget.hpp>
 #  include <xercesc/framework/MemBufFormatTarget.hpp>
@@ -63,10 +62,10 @@
 #endif  // !USE_EXPAT
 
 
-#include "sbml/SBMLFormatter.hpp"
-#include "sbml/SBMLWriter.hpp"
-#include "sbml/SBMLWriter.h"
-#include "sbml/StreamFormatTarget.hpp"
+#include "StreamFormatTarget.h"
+#include "SBMLFormatter.h"
+#include "SBMLWriter.h"
+
 
 const char *CHARACTER_ENCODING_STRINGS[] =
 {
@@ -429,35 +428,4 @@ writeSBMLToString (SBMLDocument_t *d)
   SBMLWriter_initDefaults(&sw);
 
   return SBMLWriter_writeSBMLToString(&sw, d);
-}
-
-
-/**
- * Writes the given SBML document to filename.
- *
- * @return 1 on success and 0 on failure (e.g., if filename could not be
- * opened for writing.)
- */
-LIBSBML_EXTERN
-int
-writeSBML (SBMLDocument* d, const char* filename)
-{
-  return writeSBML(static_cast<SBMLDocument_t*>(d), filename);
-}
-
-
-/**
- * Writes the given SBML document to an in-memory string (with the settings
- * provided by this SBMLWriter) and returns a pointer to it.  The string is
- * owned by the caller and should be freed (with free()) when no longer
- * needed.
- *
- * @return NULL on failure (e.g., if the SBMLWriter character encoding is
- * invalid).
- */
-LIBSBML_EXTERN
-char*
-writeSBMLToString (SBMLDocument* d)
-{
-  return writeSBMLToString(static_cast<SBMLDocument_t*>(d));
 }

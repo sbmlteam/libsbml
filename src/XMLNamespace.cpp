@@ -1,13 +1,12 @@
 /**
- * Filename    : XMLNamespace.cpp
- * Description : An XMLNamespace is a (prefix, URI) pair
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2004-09-15
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    XMLNamespace.cpp
+ * \brief   An XMLNamespace is a (prefix, URI) pair
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,7 +49,7 @@
  */
 
 
-#include "sbml/XMLNamespace.hpp"
+#include "XMLNamespace.h"
 
 
 using namespace std;

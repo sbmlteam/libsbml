@@ -1,13 +1,12 @@
 /**
- * Filename    : TestReadFromFile5.c
- * Description : Reads test-data/l2v1-assignment.xml into memory and tests it.
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2004-07-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestReadFromFile5.c
+ * \brief   Reads test-data/l2v1-assignment.xml into memory and tests it.
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,11 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/common.hpp"
-#include "sbml/SBMLReader.hpp"
-#include "sbml/SBMLWriter.h"
-#include "sbml/SBMLTypes.hpp"
+#include "common.h"
+#include "SBMLReader.h"
+#include "SBMLWriter.h"
+#include "SBMLTypes.h"
 
 #include <string>
 

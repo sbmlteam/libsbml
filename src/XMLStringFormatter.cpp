@@ -1,13 +1,12 @@
 /**
- * Filename    : XMLStringFormatter.cpp
- * Description : Formats XML Strings from SAX2 parse events
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    XMLStringFormatter.cpp
+ * \brief   Formats XML Strings from SAX2 parse events
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -51,19 +50,19 @@
  */
 
 
-#include "sbml/common.hpp"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatFormatter.hpp"
+#  include "ExpatFormatter.h"
 #else
 #  include <xercesc/util/PlatformUtils.hpp>
 #endif  // USE_EXPAT
 
 
-#include "sbml/XMLStringFormatter.hpp"
-#include "sbml/XMLUnicodeConstants.hpp"
-#include "sbml/XMLUtil.hpp"
+#include "XMLStringFormatter.h"
+#include "XMLUnicodeConstants.h"
+#include "XMLUtil.h"
 
 
 //

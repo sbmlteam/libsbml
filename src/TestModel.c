@@ -1,13 +1,12 @@
 /**
- * Filename    : TestModel.c
- * Description : SBML Model unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestModel.c
+ * \brief   SBML Model unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,8 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/Model.h"
-#include "sbml/SBMLTypes.h"
+#include "common.h"
+#include "SBMLTypes.h"
 
 
 static Model_t *M;
@@ -81,22 +79,22 @@ ModelTest_teardown (void)
 
 START_TEST (test_Model_create)
 {
-  fail_unless( SBase_getTypeCode  (M) == SBML_MODEL, NULL );
-  fail_unless( SBase_getMetaId    (M) == NULL, NULL );
-  fail_unless( SBase_getNotes     (M) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(M) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) M) == SBML_MODEL );
+  fail_unless( SBase_getMetaId    ((SBase_t *) M) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) M) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) M) == NULL );
 
-  fail_unless( Model_getId  (M) == NULL, NULL );
-  fail_unless( Model_getName(M) == NULL, NULL );
+  fail_unless( Model_getId  (M) == NULL );
+  fail_unless( Model_getName(M) == NULL );
 
-  fail_unless( !Model_isSetId(M)  , NULL );
-  fail_unless( !Model_isSetName(M), NULL );
+  fail_unless( !Model_isSetId(M)   );
+  fail_unless( !Model_isSetName(M) );
 
-  fail_unless( Model_getNumUnitDefinitions(M) == 0, NULL );
-  fail_unless( Model_getNumCompartments   (M) == 0, NULL );
-  fail_unless( Model_getNumSpecies        (M) == 0, NULL );
-  fail_unless( Model_getNumParameters     (M) == 0, NULL );
-  fail_unless( Model_getNumReactions      (M) == 0, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 0 );
+  fail_unless( Model_getNumCompartments   (M) == 0 );
+  fail_unless( Model_getNumSpecies        (M) == 0 );
+  fail_unless( Model_getNumParameters     (M) == 0 );
+  fail_unless( Model_getNumReactions      (M) == 0 );
 }
 END_TEST
 
@@ -113,21 +111,21 @@ START_TEST (test_Model_createWith)
   Model_t *m = Model_createWith("repressilator");
 
 
-  fail_unless( SBase_getTypeCode  (m) == SBML_MODEL, NULL );  
-  fail_unless( SBase_getMetaId    (m) == NULL, NULL );
-  fail_unless( SBase_getNotes     (m) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(m) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) m) == SBML_MODEL );  
+  fail_unless( SBase_getMetaId    ((SBase_t *) m) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) m) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) m) == NULL );
 
-  fail_unless( Model_getName(m) == NULL, NULL );
+  fail_unless( Model_getName(m) == NULL );
 
-  fail_unless( !strcmp(Model_getId(m), "repressilator"), NULL );
-  fail_unless( Model_isSetId(m), NULL );
+  fail_unless( !strcmp(Model_getId(m), "repressilator") );
+  fail_unless( Model_isSetId(m) );
 
-  fail_unless( Model_getNumUnitDefinitions(m) == 0, NULL );
-  fail_unless( Model_getNumCompartments   (m) == 0, NULL );
-  fail_unless( Model_getNumSpecies        (m) == 0, NULL );
-  fail_unless( Model_getNumParameters     (m) == 0, NULL );
-  fail_unless( Model_getNumReactions      (m) == 0, NULL );
+  fail_unless( Model_getNumUnitDefinitions(m) == 0 );
+  fail_unless( Model_getNumCompartments   (m) == 0 );
+  fail_unless( Model_getNumSpecies        (m) == 0 );
+  fail_unless( Model_getNumParameters     (m) == 0 );
+  fail_unless( Model_getNumReactions      (m) == 0 );
 
   Model_free(m);
 }
@@ -139,21 +137,21 @@ START_TEST (test_Model_createWithName)
   Model_t *m = Model_createWithName("The Repressilator Model");
 
 
-  fail_unless( SBase_getTypeCode  (m) == SBML_MODEL, NULL );  
-  fail_unless( SBase_getMetaId    (m) == NULL, NULL );
-  fail_unless( SBase_getNotes     (m) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(m) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) m) == SBML_MODEL );  
+  fail_unless( SBase_getMetaId    ((SBase_t *) m) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) m) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) m) == NULL );
 
-  fail_unless( Model_getId(m) == NULL, NULL );
+  fail_unless( Model_getId(m) == NULL );
 
-  fail_unless( !strcmp(Model_getName(m), "The Repressilator Model"), NULL );
-  fail_unless( Model_isSetName(m), NULL );
+  fail_unless( !strcmp(Model_getName(m), "The Repressilator Model") );
+  fail_unless( Model_isSetName(m) );
 
-  fail_unless( Model_getNumUnitDefinitions(m) == 0, NULL );
-  fail_unless( Model_getNumCompartments   (m) == 0, NULL );
-  fail_unless( Model_getNumSpecies        (m) == 0, NULL );
-  fail_unless( Model_getNumParameters     (m) == 0, NULL );
-  fail_unless( Model_getNumReactions      (m) == 0, NULL );
+  fail_unless( Model_getNumUnitDefinitions(m) == 0 );
+  fail_unless( Model_getNumCompartments   (m) == 0 );
+  fail_unless( Model_getNumSpecies        (m) == 0 );
+  fail_unless( Model_getNumParameters     (m) == 0 );
+  fail_unless( Model_getNumReactions      (m) == 0 );
 
   Model_free(m);
 }
@@ -167,8 +165,8 @@ START_TEST (test_Model_setId)
 
   Model_setId(M, id);
 
-  fail_unless( !strcmp(Model_getId(M), id), NULL );
-  fail_unless( Model_isSetId(M)  , NULL );
+  fail_unless( !strcmp(Model_getId(M), id) );
+  fail_unless( Model_isSetId(M)   );
 
   if (Model_getId(M) == id)
   {
@@ -177,10 +175,10 @@ START_TEST (test_Model_setId)
 
   /* Reflexive case (pathological) */
   Model_setId(M, Model_getId(M));
-  fail_unless( !strcmp(Model_getId(M), id), NULL );
+  fail_unless( !strcmp(Model_getId(M), id) );
 
   Model_setId(M, NULL);
-  fail_unless( !Model_isSetId(M), NULL );
+  fail_unless( !Model_isSetId(M) );
 
   if (Model_getId(M) != NULL)
   {
@@ -197,8 +195,8 @@ START_TEST (test_Model_setName)
 
   Model_setName(M, name);
 
-  fail_unless( !strcmp(Model_getName(M), name), NULL );
-  fail_unless( Model_isSetName(M), NULL );
+  fail_unless( !strcmp(Model_getName(M), name) );
+  fail_unless( Model_isSetName(M) );
 
   if (Model_getName(M) == name)
   {
@@ -207,10 +205,10 @@ START_TEST (test_Model_setName)
 
   /* Reflexive case (pathological) */
   Model_setName(M, Model_getName(M));
-  fail_unless( !strcmp(Model_getName(M), name), NULL );
+  fail_unless( !strcmp(Model_getName(M), name) );
 
   Model_setName(M, NULL);
-  fail_unless( !Model_isSetName(M), NULL );
+  fail_unless( !Model_isSetName(M) );
 
   if (Model_getName(M) != NULL)
   {
@@ -225,9 +223,9 @@ START_TEST (test_Model_createFunctionDefinition)
   FunctionDefinition_t *fd = Model_createFunctionDefinition(M);
 
 
-  fail_unless( fd != NULL, NULL );
-  fail_unless( Model_getNumFunctionDefinitions(M) == 1 , NULL );
-  fail_unless( Model_getFunctionDefinition(M, 0)  == fd, NULL );
+  fail_unless( fd != NULL );
+  fail_unless( Model_getNumFunctionDefinitions(M) == 1  );
+  fail_unless( Model_getFunctionDefinition(M, 0)  == fd );
 }
 END_TEST
 
@@ -237,9 +235,9 @@ START_TEST (test_Model_createUnitDefinition)
   UnitDefinition_t *ud = Model_createUnitDefinition(M);
 
 
-  fail_unless( ud != NULL, NULL );
-  fail_unless( Model_getNumUnitDefinitions(M) == 1 , NULL );
-  fail_unless( Model_getUnitDefinition(M, 0)  == ud, NULL );
+  fail_unless( ud != NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 1  );
+  fail_unless( Model_getUnitDefinition(M, 0)  == ud );
 }
 END_TEST
 
@@ -255,21 +253,21 @@ START_TEST (test_Model_createUnit)
 
   u = Model_createUnit(M);
 
-  fail_unless( u != NULL, NULL );
-  fail_unless( Model_getNumUnitDefinitions(M) == 2, NULL );
+  fail_unless( u != NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 2 );
 
   ud = Model_getUnitDefinition(M, 1);
 
-  fail_unless( UnitDefinition_getNumUnits(ud) == 1, NULL );
-  fail_unless( UnitDefinition_getUnit(ud, 0)  == u, NULL );
+  fail_unless( UnitDefinition_getNumUnits(ud) == 1 );
+  fail_unless( UnitDefinition_getUnit(ud, 0)  == u );
 }
 END_TEST
 
 
 START_TEST (test_Model_createUnit_noUnitDefinition)
 {
-  fail_unless( Model_getNumUnitDefinitions(M) == 0, NULL );
-  fail_unless( Model_createUnit(M) == NULL, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 0 );
+  fail_unless( Model_createUnit(M) == NULL );
 }
 END_TEST
 
@@ -279,9 +277,9 @@ START_TEST (test_Model_createCompartment)
   Compartment_t *c = Model_createCompartment(M);
 
 
-  fail_unless( c != NULL, NULL );
-  fail_unless( Model_getNumCompartments(M) == 1, NULL );
-  fail_unless( Model_getCompartment(M, 0)  == c, NULL );
+  fail_unless( c != NULL );
+  fail_unless( Model_getNumCompartments(M) == 1 );
+  fail_unless( Model_getCompartment(M, 0)  == c );
 }
 END_TEST
 
@@ -291,9 +289,9 @@ START_TEST (test_Model_createSpecies)
   Species_t *s = Model_createSpecies(M);
 
 
-  fail_unless( s != NULL, NULL );
-  fail_unless( Model_getNumSpecies(M) == 1, NULL );
-  fail_unless( Model_getSpecies(M, 0) == s, NULL );
+  fail_unless( s != NULL );
+  fail_unless( Model_getNumSpecies(M) == 1 );
+  fail_unless( Model_getSpecies(M, 0) == s );
 }
 END_TEST
 
@@ -303,9 +301,9 @@ START_TEST (test_Model_createParameter)
   Parameter_t *p = Model_createParameter(M);
 
 
-  fail_unless( p != NULL, NULL );
-  fail_unless( Model_getNumParameters(M) == 1, NULL );
-  fail_unless( Model_getParameter(M, 0)  == p, NULL );
+  fail_unless( p != NULL );
+  fail_unless( Model_getNumParameters(M) == 1 );
+  fail_unless( Model_getParameter(M, 0)  == p );
 }
 END_TEST
 
@@ -315,9 +313,9 @@ START_TEST (test_Model_createAssignmentRule)
   AssignmentRule_t *ar = Model_createAssignmentRule(M);
 
 
-  fail_unless( ar != NULL, NULL );
-  fail_unless( Model_getNumRules(M) == 1, NULL );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) ar, NULL );
+  fail_unless( ar != NULL );
+  fail_unless( Model_getNumRules(M) == 1 );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) ar );
 }
 END_TEST
 
@@ -327,9 +325,9 @@ START_TEST (test_Model_createRateRule)
   RateRule_t *rr = Model_createRateRule(M);
 
 
-  fail_unless( rr != NULL, NULL );
-  fail_unless( Model_getNumRules(M) == 1, NULL );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) rr, NULL );
+  fail_unless( rr != NULL );
+  fail_unless( Model_getNumRules(M) == 1 );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) rr );
 }
 END_TEST
 
@@ -339,9 +337,9 @@ START_TEST (test_Model_createAlgebraicRule)
   AlgebraicRule_t *ar = Model_createAlgebraicRule(M);
 
 
-  fail_unless( ar != NULL, NULL );
-  fail_unless( Model_getNumRules(M) == 1, NULL );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) ar, NULL );
+  fail_unless( ar != NULL );
+  fail_unless( Model_getNumRules(M) == 1 );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) ar );
 }
 END_TEST
 
@@ -351,9 +349,9 @@ START_TEST (test_Model_createCompartmentVolumeRule)
   CompartmentVolumeRule_t *cvr = Model_createCompartmentVolumeRule(M);
 
 
-  fail_unless( cvr != NULL, NULL );
-  fail_unless( Model_getNumRules(M) == 1, NULL );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) cvr, NULL );
+  fail_unless( cvr != NULL );
+  fail_unless( Model_getNumRules(M) == 1 );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) cvr );
 }
 END_TEST
 
@@ -363,9 +361,9 @@ START_TEST (test_Model_createParameterRule)
   ParameterRule_t *pr = Model_createParameterRule(M);
 
 
-  fail_unless( pr != NULL, NULL );
-  fail_unless( Model_getNumRules(M) == 1, NULL );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) pr, NULL );
+  fail_unless( pr != NULL );
+  fail_unless( Model_getNumRules(M) == 1 );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) pr );
 }
 END_TEST
 
@@ -375,9 +373,9 @@ START_TEST (test_Model_createSpeciesConcentrationRule)
   SpeciesConcentrationRule_t *scr = Model_createSpeciesConcentrationRule(M);
 
 
-  fail_unless( scr != NULL, NULL );
-  fail_unless( Model_getNumRules(M) == 1, NULL );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) scr, NULL );
+  fail_unless( scr != NULL );
+  fail_unless( Model_getNumRules(M) == 1 );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) scr );
 }
 END_TEST
 
@@ -387,9 +385,9 @@ START_TEST (test_Model_createReaction)
   Reaction_t *r = Model_createReaction(M);
 
 
-  fail_unless( r != NULL, NULL );
-  fail_unless( Model_getNumReactions(M) == 1, NULL );
-  fail_unless( Model_getReaction(M, 0)  == r, NULL );
+  fail_unless( r != NULL );
+  fail_unless( Model_getNumReactions(M) == 1 );
+  fail_unless( Model_getReaction(M, 0)  == r );
 }
 END_TEST
 
@@ -405,21 +403,21 @@ START_TEST (test_Model_createReactant)
 
   sr = Model_createReactant(M);
 
-  fail_unless( sr != NULL, NULL );
-  fail_unless( Model_getNumReactions(M) == 2, NULL );
+  fail_unless( sr != NULL );
+  fail_unless( Model_getNumReactions(M) == 2 );
 
   r = Model_getReaction(M, 1);
 
-  fail_unless( Reaction_getNumReactants(r) == 1,  NULL );
-  fail_unless( Reaction_getReactant(r, 0)  == sr, NULL );
+  fail_unless( Reaction_getNumReactants(r) == 1  );
+  fail_unless( Reaction_getReactant(r, 0)  == sr );
 }
 END_TEST
 
 
 START_TEST (test_Model_createReactant_noReaction)
 {
-  fail_unless( Model_getNumReactions(M) == 0,    NULL );
-  fail_unless( Model_createReactant(M)  == NULL, NULL );
+  fail_unless( Model_getNumReactions(M) == 0    );
+  fail_unless( Model_createReactant(M)  == NULL );
 }
 END_TEST
 
@@ -435,21 +433,21 @@ START_TEST (test_Model_createProduct)
 
   sr = Model_createProduct(M);
 
-  fail_unless( sr != NULL, NULL );
-  fail_unless( Model_getNumReactions(M) == 2, NULL );
+  fail_unless( sr != NULL );
+  fail_unless( Model_getNumReactions(M) == 2 );
 
   r = Model_getReaction(M, 1);
 
-  fail_unless( Reaction_getNumProducts(r) == 1,  NULL );
-  fail_unless( Reaction_getProduct(r, 0)  == sr, NULL );
+  fail_unless( Reaction_getNumProducts(r) == 1  );
+  fail_unless( Reaction_getProduct(r, 0)  == sr );
 }
 END_TEST
 
 
 START_TEST (test_Model_createProduct_noReaction)
 {
-  fail_unless( Model_getNumReactions(M) == 0,    NULL );
-  fail_unless( Model_createProduct(M)   == NULL, NULL );
+  fail_unless( Model_getNumReactions(M) == 0    );
+  fail_unless( Model_createProduct(M)   == NULL );
 }
 END_TEST
 
@@ -465,21 +463,21 @@ START_TEST (test_Model_createModifier)
 
   msr = Model_createModifier(M);
 
-  fail_unless( msr != NULL, NULL );
-  fail_unless( Model_getNumReactions(M) == 2, NULL );
+  fail_unless( msr != NULL );
+  fail_unless( Model_getNumReactions(M) == 2 );
 
   r = Model_getReaction(M, 1);
 
-  fail_unless( Reaction_getNumModifiers(r) == 1,   NULL );
-  fail_unless( Reaction_getModifier(r, 0)  == msr, NULL );
+  fail_unless( Reaction_getNumModifiers(r) == 1   );
+  fail_unless( Reaction_getModifier(r, 0)  == msr );
 }
 END_TEST
 
 
 START_TEST (test_Model_createModifier_noReaction)
 {
-  fail_unless( Model_getNumReactions(M) == 0,    NULL );
-  fail_unless( Model_createModifier(M)  == NULL, NULL );
+  fail_unless( Model_getNumReactions(M) == 0    );
+  fail_unless( Model_createModifier(M)  == NULL );
 }
 END_TEST
 
@@ -495,14 +493,14 @@ START_TEST (test_Model_createKineticLaw)
 
   kl = Model_createKineticLaw(M);
 
-  fail_unless( kl != NULL, NULL );
-  fail_unless( Model_getNumReactions(M) == 2, NULL );
+  fail_unless( kl != NULL );
+  fail_unless( Model_getNumReactions(M) == 2 );
 
   r = Model_getReaction(M, 0);
-  fail_unless( Reaction_getKineticLaw(r) == NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == NULL );
 
   r = Model_getReaction(M, 1);
-  fail_unless( Reaction_getKineticLaw(r) == kl, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == kl );
 }
 END_TEST
 
@@ -516,16 +514,16 @@ START_TEST (test_Model_createKineticLaw_alreadyExists)
   r  = Model_createReaction(M);
   kl = Model_createKineticLaw(M);
 
-  fail_unless( Model_createKineticLaw(M) == NULL, NULL );
-  fail_unless( Reaction_getKineticLaw(r) == kl, NULL );
+  fail_unless( Model_createKineticLaw(M) == NULL );
+  fail_unless( Reaction_getKineticLaw(r) == kl );
 }
 END_TEST
 
 
 START_TEST (test_Model_createKineticLaw_noReaction)
 {
-  fail_unless( Model_getNumReactions(M)  == 0,    NULL );
-  fail_unless( Model_createKineticLaw(M) == NULL, NULL );
+  fail_unless( Model_getNumReactions(M)  == 0    );
+  fail_unless( Model_createKineticLaw(M) == NULL );
 }
 END_TEST
 
@@ -543,25 +541,25 @@ START_TEST (test_Model_createKineticLawParameter)
 
   p = Model_createKineticLawParameter(M);
 
-  fail_unless( Model_getNumReactions(M) == 2, NULL );
+  fail_unless( Model_getNumReactions(M) == 2 );
 
   r = Model_getReaction(M, 0);
-  fail_unless( Reaction_getKineticLaw(r) == NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == NULL );
 
   r = Model_getReaction(M, 1);
-  fail_unless( Reaction_getKineticLaw(r) != NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) != NULL );
 
   kl = Reaction_getKineticLaw(r);
-  fail_unless( KineticLaw_getNumParameters(kl) == 1, NULL );
-  fail_unless( KineticLaw_getParameter(kl, 0)  == p, NULL );
+  fail_unless( KineticLaw_getNumParameters(kl) == 1 );
+  fail_unless( KineticLaw_getParameter(kl, 0)  == p );
 }
 END_TEST
 
 
 START_TEST (test_Model_createKineticLawParameter_noReaction)
 {
-  fail_unless( Model_getNumReactions(M)           == 0,    NULL );
-  fail_unless( Model_createKineticLawParameter(M) == NULL, NULL );
+  fail_unless( Model_getNumReactions(M)           == 0    );
+  fail_unless( Model_createKineticLawParameter(M) == NULL );
 }
 END_TEST
 
@@ -573,8 +571,8 @@ START_TEST (test_Model_createKineticLawParameter_noKineticLaw)
 
   r = Model_createReaction(M);
 
-  fail_unless( Reaction_getKineticLaw(r) == NULL, NULL );
-  fail_unless( Model_createKineticLawParameter(M) == NULL, NULL );
+  fail_unless( Reaction_getKineticLaw(r) == NULL );
+  fail_unless( Model_createKineticLawParameter(M) == NULL );
 }
 END_TEST
 
@@ -584,9 +582,9 @@ START_TEST (test_Model_createEvent)
   Event_t *e = Model_createEvent(M);
 
 
-  fail_unless( e != NULL, NULL );
-  fail_unless( Model_getNumEvents(M) == 1, NULL );
-  fail_unless( Model_getEvent(M, 0)  == e, NULL );
+  fail_unless( e != NULL );
+  fail_unless( Model_getNumEvents(M) == 1 );
+  fail_unless( Model_getEvent(M, 0)  == e );
 }
 END_TEST
 
@@ -602,21 +600,21 @@ START_TEST (test_Model_createEventAssignment)
 
   ea = Model_createEventAssignment(M);
 
-  fail_unless( ea != NULL, NULL );
-  fail_unless( Model_getNumEvents(M) == 2, NULL );
+  fail_unless( ea != NULL );
+  fail_unless( Model_getNumEvents(M) == 2 );
 
   e = Model_getEvent(M, 1);
 
-  fail_unless( Event_getNumEventAssignments(e) == 1,  NULL );
-  fail_unless( Event_getEventAssignment(e, 0)  == ea, NULL );
+  fail_unless( Event_getNumEventAssignments(e) == 1  );
+  fail_unless( Event_getEventAssignment(e, 0)  == ea );
 }
 END_TEST
 
 
 START_TEST (test_Model_createEventAssignment_noEvent)
 {
-  fail_unless( Model_getNumEvents(M)          == 0,    NULL );
-  fail_unless( Model_createEventAssignment(M) == NULL, NULL );
+  fail_unless( Model_getNumEvents(M)          == 0    );
+  fail_unless( Model_createEventAssignment(M) == NULL );
 }
 END_TEST
 
@@ -634,11 +632,11 @@ START_TEST (test_Model_add_get_FunctionDefinitions)
   Model_addFunctionDefinition(M, fd1);
   Model_addFunctionDefinition(M, fd2);
 
-  fail_unless( Model_getNumFunctionDefinitions(M) == 2,    NULL );
-  fail_unless( Model_getFunctionDefinition(M, 0)  == fd1,  NULL );
-  fail_unless( Model_getFunctionDefinition(M, 1)  == fd2,  NULL );
-  fail_unless( Model_getFunctionDefinition(M, 2)  == NULL, NULL );
-  fail_unless( Model_getFunctionDefinition(M, -2) == NULL, NULL );
+  fail_unless( Model_getNumFunctionDefinitions(M) == 2    );
+  fail_unless( Model_getFunctionDefinition(M, 0)  == fd1  );
+  fail_unless( Model_getFunctionDefinition(M, 1)  == fd2  );
+  fail_unless( Model_getFunctionDefinition(M, 2)  == NULL );
+  fail_unless( Model_getFunctionDefinition(M, -2) == NULL );
 }
 END_TEST
 
@@ -652,11 +650,11 @@ START_TEST (test_Model_add_get_UnitDefinitions)
   Model_addUnitDefinition(M, ud1);
   Model_addUnitDefinition(M, ud2);
 
-  fail_unless( Model_getNumUnitDefinitions(M) == 2,    NULL );
-  fail_unless( Model_getUnitDefinition(M, 0)  == ud1,  NULL );
-  fail_unless( Model_getUnitDefinition(M, 1)  == ud2,  NULL );
-  fail_unless( Model_getUnitDefinition(M, 2)  == NULL, NULL );
-  fail_unless( Model_getUnitDefinition(M, -2) == NULL, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 2    );
+  fail_unless( Model_getUnitDefinition(M, 0)  == ud1  );
+  fail_unless( Model_getUnitDefinition(M, 1)  == ud2  );
+  fail_unless( Model_getUnitDefinition(M, 2)  == NULL );
+  fail_unless( Model_getUnitDefinition(M, -2) == NULL );
 }
 END_TEST
 
@@ -665,7 +663,7 @@ START_TEST (test_Model_addCompartment)
 {
   Model_addCompartment(M, Compartment_create());
 
-  fail_unless( Model_getNumCompartments(M) == 1, NULL );
+  fail_unless( Model_getNumCompartments(M) == 1 );
 }
 END_TEST
 
@@ -674,7 +672,7 @@ START_TEST (test_Model_addSpecies)
 {
   Model_addSpecies(M, Species_create());
 
-  fail_unless( Model_getNumSpecies(M) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1 );
 }
 END_TEST
 
@@ -683,7 +681,7 @@ START_TEST (test_Model_addParameter)
 {
   Model_addParameter(M, Parameter_create());
 
-  fail_unless( Model_getNumParameters(M) == 1, NULL );
+  fail_unless( Model_getNumParameters(M) == 1 );
 }
 END_TEST
 
@@ -695,7 +693,7 @@ START_TEST (test_Model_addRules)
   Model_addRule( M, (Rule_t *) CompartmentVolumeRule_create()    );
   Model_addRule( M, (Rule_t *) ParameterRule_create()            );
 
-  fail_unless( Model_getNumRules(M) == 4, NULL );
+  fail_unless( Model_getNumRules(M) == 4 );
 }
 END_TEST
 
@@ -704,7 +702,7 @@ START_TEST (test_Model_addReaction)
 {
   Model_addReaction(M, Reaction_create());
 
-  fail_unless( Model_getNumReactions(M) == 1, NULL );
+  fail_unless( Model_getNumReactions(M) == 1 );
 }
 END_TEST
 
@@ -718,11 +716,11 @@ START_TEST (test_Model_add_get_Event)
   Model_addEvent(M, e1);
   Model_addEvent(M, e2);
 
-  fail_unless( Model_getNumEvents(M) == 2,    NULL );
-  fail_unless( Model_getEvent(M, 0)  == e1,   NULL );
-  fail_unless( Model_getEvent(M, 1)  == e2,   NULL );
-  fail_unless( Model_getEvent(M, 2)  == NULL, NULL );
-  fail_unless( Model_getEvent(M, -2) == NULL, NULL );
+  fail_unless( Model_getNumEvents(M) == 2    );
+  fail_unless( Model_getEvent(M, 0)  == e1   );
+  fail_unless( Model_getEvent(M, 1)  == e2   );
+  fail_unless( Model_getEvent(M, 2)  == NULL );
+  fail_unless( Model_getEvent(M, -2) == NULL );
 }
 END_TEST
 
@@ -738,11 +736,11 @@ START_TEST (test_Model_getFunctionDefinitionById)
   Model_addFunctionDefinition(M, fd1);
   Model_addFunctionDefinition(M, fd2);
 
-  fail_unless( Model_getNumFunctionDefinitions(M) == 2, NULL );
+  fail_unless( Model_getNumFunctionDefinitions(M) == 2 );
 
-  fail_unless( Model_getFunctionDefinitionById(M, "sin" ) == fd1 , NULL );
-  fail_unless( Model_getFunctionDefinitionById(M, "cos" ) == fd2 , NULL );
-  fail_unless( Model_getFunctionDefinitionById(M, "tan" ) == NULL, NULL );
+  fail_unless( Model_getFunctionDefinitionById(M, "sin" ) == fd1  );
+  fail_unless( Model_getFunctionDefinitionById(M, "cos" ) == fd2  );
+  fail_unless( Model_getFunctionDefinitionById(M, "tan" ) == NULL );
 }
 END_TEST
 
@@ -758,13 +756,13 @@ START_TEST (test_Model_getUnitDefinition)
   Model_addUnitDefinition(M, ud1);
   Model_addUnitDefinition(M, ud2);
 
-  fail_unless( Model_getNumUnitDefinitions(M) == 2, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 2 );
 
   ud1 = Model_getUnitDefinition(M, 0);
   ud2 = Model_getUnitDefinition(M, 1);
 
-  fail_unless( !strcmp( UnitDefinition_getName(ud1), "mmls"   ), NULL );
-  fail_unless( !strcmp( UnitDefinition_getName(ud2), "volume" ), NULL );
+  fail_unless( !strcmp( UnitDefinition_getName(ud1), "mmls"   ) );
+  fail_unless( !strcmp( UnitDefinition_getName(ud2), "volume" ) );
 }
 END_TEST
 
@@ -780,11 +778,11 @@ START_TEST (test_Model_getUnitDefinitionById)
   Model_addUnitDefinition(M, ud1);
   Model_addUnitDefinition(M, ud2);
 
-  fail_unless( Model_getNumUnitDefinitions(M) == 2, NULL );
+  fail_unless( Model_getNumUnitDefinitions(M) == 2 );
 
-  fail_unless( Model_getUnitDefinitionById(M, "mmls"       ) == ud1 , NULL );
-  fail_unless( Model_getUnitDefinitionById(M, "volume"     ) == ud2 , NULL );
-  fail_unless( Model_getUnitDefinitionById(M, "rototillers") == NULL, NULL );
+  fail_unless( Model_getUnitDefinitionById(M, "mmls"       ) == ud1  );
+  fail_unless( Model_getUnitDefinitionById(M, "volume"     ) == ud2  );
+  fail_unless( Model_getUnitDefinitionById(M, "rototillers") == NULL );
 }
 END_TEST
 
@@ -800,13 +798,13 @@ START_TEST (test_Model_getCompartment)
   Model_addCompartment(M, c1);
   Model_addCompartment(M, c2);
 
-  fail_unless( Model_getNumCompartments(M) == 2, NULL );
+  fail_unless( Model_getNumCompartments(M) == 2 );
 
   c1 = Model_getCompartment(M, 0);
   c2 = Model_getCompartment(M, 1);
 
-  fail_unless( !strcmp(Compartment_getName(c1), "A"), NULL );
-  fail_unless( !strcmp(Compartment_getName(c2), "B"), NULL );
+  fail_unless( !strcmp(Compartment_getName(c1), "A") );
+  fail_unless( !strcmp(Compartment_getName(c2), "B") );
 
 }
 END_TEST
@@ -823,11 +821,11 @@ START_TEST (test_Model_getCompartmentById)
   Model_addCompartment(M, c1);
   Model_addCompartment(M, c2);
 
-  fail_unless( Model_getNumCompartments(M) == 2, NULL );
+  fail_unless( Model_getNumCompartments(M) == 2 );
 
-  fail_unless( Model_getCompartmentById(M, "A" ) == c1  , NULL );
-  fail_unless( Model_getCompartmentById(M, "B" ) == c2  , NULL );
-  fail_unless( Model_getCompartmentById(M, "C" ) == NULL, NULL );
+  fail_unless( Model_getCompartmentById(M, "A" ) == c1   );
+  fail_unless( Model_getCompartmentById(M, "B" ) == c2   );
+  fail_unless( Model_getCompartmentById(M, "C" ) == NULL );
 }
 END_TEST
 
@@ -843,13 +841,13 @@ START_TEST (test_Model_getSpecies)
   Model_addSpecies(M, s1);
   Model_addSpecies(M, s2);
 
-  fail_unless( Model_getNumSpecies(M) == 2, NULL );
+  fail_unless( Model_getNumSpecies(M) == 2 );
 
   s1 = Model_getSpecies(M, 0);
   s2 = Model_getSpecies(M, 1);
 
-  fail_unless( !strcmp( Species_getName(s1), "Glucose"     ), NULL );
-  fail_unless( !strcmp( Species_getName(s2), "Glucose_6_P" ), NULL );
+  fail_unless( !strcmp( Species_getName(s1), "Glucose"     ) );
+  fail_unless( !strcmp( Species_getName(s2), "Glucose_6_P" ) );
 }
 END_TEST
 
@@ -865,11 +863,11 @@ START_TEST (test_Model_getSpeciesById)
   Model_addSpecies(M, s1);
   Model_addSpecies(M, s2);
 
-  fail_unless( Model_getNumSpecies(M) == 2, NULL );
+  fail_unless( Model_getNumSpecies(M) == 2 );
 
-  fail_unless( Model_getSpeciesById(M, "Glucose"    ) == s1  , NULL );
-  fail_unless( Model_getSpeciesById(M, "Glucose_6_P") == s2  , NULL );
-  fail_unless( Model_getSpeciesById(M, "Glucose2"   ) == NULL, NULL );
+  fail_unless( Model_getSpeciesById(M, "Glucose"    ) == s1   );
+  fail_unless( Model_getSpeciesById(M, "Glucose_6_P") == s2   );
+  fail_unless( Model_getSpeciesById(M, "Glucose2"   ) == NULL );
 }
 END_TEST
 
@@ -885,13 +883,13 @@ START_TEST (test_Model_getParameter)
   Model_addParameter(M, p1);
   Model_addParameter(M, p2);
 
-  fail_unless( Model_getNumParameters(M) == 2, NULL );
+  fail_unless( Model_getNumParameters(M) == 2 );
 
   p1 = Model_getParameter(M, 0);
   p2 = Model_getParameter(M, 1);
 
-  fail_unless( !strcmp(Parameter_getName(p1), "Km1"), NULL );
-  fail_unless( !strcmp(Parameter_getName(p2), "Km2"), NULL );
+  fail_unless( !strcmp(Parameter_getName(p1), "Km1") );
+  fail_unless( !strcmp(Parameter_getName(p2), "Km2") );
 }
 END_TEST
 
@@ -907,11 +905,11 @@ START_TEST (test_Model_getParameterById)
   Model_addParameter(M, p1);
   Model_addParameter(M, p2);
 
-  fail_unless( Model_getNumParameters(M) == 2, NULL );
+  fail_unless( Model_getNumParameters(M) == 2 );
 
-  fail_unless( Model_getParameterById(M, "Km1" ) == p1  , NULL );
-  fail_unless( Model_getParameterById(M, "Km2" ) == p2  , NULL );
-  fail_unless( Model_getParameterById(M, "Km3" ) == NULL, NULL );
+  fail_unless( Model_getParameterById(M, "Km1" ) == p1   );
+  fail_unless( Model_getParameterById(M, "Km2" ) == p2   );
+  fail_unless( Model_getParameterById(M, "Km3" ) == NULL );
 }
 END_TEST
 
@@ -934,17 +932,17 @@ START_TEST (test_Model_getRules)
   Model_addRule( M, (Rule_t *) cvr );
   Model_addRule( M, (Rule_t *) pr  );
 
-  fail_unless( Model_getNumRules(M) == 4, NULL );
+  fail_unless( Model_getNumRules(M) == 4 );
 
   ar  = (AlgebraicRule_t *)            Model_getRule(M, 0);
   scr = (SpeciesConcentrationRule_t *) Model_getRule(M, 1);
   cvr = (CompartmentVolumeRule_t *)    Model_getRule(M, 2);
   pr  = (ParameterRule_t *)            Model_getRule(M, 3);
 
-  fail_unless( !strcmp(Rule_getFormula(ar) , "x + 1"        ), NULL );
-  fail_unless( !strcmp(Rule_getFormula(scr), "k * t/(1 + k)"), NULL );
-  fail_unless( !strcmp(Rule_getFormula(cvr), "0.10 * t"     ), NULL );
-  fail_unless( !strcmp(Rule_getFormula(pr) , "k3/k2"        ), NULL );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar) , "x + 1"        ) );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) scr), "k * t/(1 + k)") );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) cvr), "0.10 * t"     ) );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) pr) , "k3/k2"        ) );
 }
 END_TEST
 
@@ -960,13 +958,13 @@ START_TEST (test_Model_getReaction)
   Model_addReaction(M, r1);
   Model_addReaction(M, r2);
 
-  fail_unless( Model_getNumReactions(M) == 2, NULL );
+  fail_unless( Model_getNumReactions(M) == 2 );
 
   r1 = Model_getReaction(M, 0);
   r2 = Model_getReaction(M, 1);
 
-  fail_unless( !strcmp(Reaction_getName(r1), "reaction_1"), NULL );
-  fail_unless( !strcmp(Reaction_getName(r2), "reaction_2"), NULL );
+  fail_unless( !strcmp(Reaction_getName(r1), "reaction_1") );
+  fail_unless( !strcmp(Reaction_getName(r2), "reaction_2") );
 }
 END_TEST
 
@@ -982,11 +980,11 @@ START_TEST (test_Model_getReactionById)
   Model_addReaction(M, r1);
   Model_addReaction(M, r2);
 
-  fail_unless( Model_getNumReactions(M) == 2, NULL );
+  fail_unless( Model_getNumReactions(M) == 2 );
 
-  fail_unless( Model_getReactionById(M, "reaction_1" ) == r1  , NULL );
-  fail_unless( Model_getReactionById(M, "reaction_2" ) == r2  , NULL );
-  fail_unless( Model_getReactionById(M, "reaction_3" ) == NULL, NULL );
+  fail_unless( Model_getReactionById(M, "reaction_1" ) == r1   );
+  fail_unless( Model_getReactionById(M, "reaction_2" ) == r2   );
+  fail_unless( Model_getReactionById(M, "reaction_3" ) == NULL );
 }
 END_TEST
 
@@ -1002,11 +1000,11 @@ START_TEST (test_Model_getEventById)
   Model_addEvent(M, e1);
   Model_addEvent(M, e2);
 
-  fail_unless( Model_getNumEvents(M) == 2, NULL );
+  fail_unless( Model_getNumEvents(M) == 2 );
 
-  fail_unless( Model_getEventById(M, "e1" ) == e1  , NULL );
-  fail_unless( Model_getEventById(M, "e2" ) == e2  , NULL );
-  fail_unless( Model_getEventById(M, "e3" ) == NULL, NULL );
+  fail_unless( Model_getEventById(M, "e1" ) == e1   );
+  fail_unless( Model_getEventById(M, "e2" ) == e2   );
+  fail_unless( Model_getEventById(M, "e3" ) == NULL );
 }
 END_TEST
 
@@ -1018,23 +1016,23 @@ START_TEST (test_Model_getNumSpeciesWithBoundaryCondition)
   Species_t *s3 = Species_createWith("s3", "c", 3, "amount", 1, 0);
 
 
-  fail_unless( Model_getNumSpecies(M) == 0, NULL );
-  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 0, NULL );
+  fail_unless( Model_getNumSpecies(M) == 0 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 0 );
 
   Model_addSpecies(M, s1);
 
-  fail_unless( Model_getNumSpecies(M) == 1, NULL );
-  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 1 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1 );
 
   Model_addSpecies(M, s2);
 
-  fail_unless( Model_getNumSpecies(M) == 2, NULL );
-  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1, NULL );
+  fail_unless( Model_getNumSpecies(M) == 2 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1 );
 
   Model_addSpecies(M, s3);
 
-  fail_unless( Model_getNumSpecies(M) == 3, NULL );
-  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 2, NULL );
+  fail_unless( Model_getNumSpecies(M) == 3 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 2 );
 }
 END_TEST
 

@@ -1,13 +1,12 @@
 /**
- * Filename    : SpeciesConcentrationRule.cpp
- * Description : SBML SpeciesConcentrationRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SpeciesConcentrationRule.cpp
+ * \brief   SBML SpeciesConcentrationRule
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,10 +49,8 @@
  */
 
 
-#include "sbml/SBMLVisitor.hpp"
-
-#include "sbml/SpeciesConcentrationRule.h"
-#include "sbml/SpeciesConcentrationRule.hpp"
+#include "SBMLVisitor.h"
+#include "SpeciesConcentrationRule.h"
 
 
 /**

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestXMLUtil.cpp
- * Description : XMLUtil unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-22
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestXMLUtil.cpp
+ * \brief   XMLUtil unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -54,20 +53,20 @@
 #include <iostream>
 #include <check.h>
 
-#include "sbml/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatFormatter.hpp"
+#  include "ExpatFormatter.h"
 #else
 #  include <xercesc/util/XMLString.hpp>
 #  include <xercesc/util/PlatformUtils.hpp>
 #endif  // USE_EXPAT
 
 
-#include "sbml/SAX2AttributesMock.hpp"
-#include "sbml/SBMLUnicodeConstants.hpp"
-#include "sbml/XMLUtil.hpp"
+#include "SAX2AttributesMock.h"
+#include "SBMLUnicodeConstants.h"
+#include "XMLUtil.h"
 
 
 BEGIN_C_DECLS

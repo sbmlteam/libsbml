@@ -1,13 +1,12 @@
 /**
- * Filename    : TestASTNode.c
- * Description : ASTNode unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestASTNode.c
+ * \brief   ASTNode unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -51,10 +50,11 @@
 
 
 #include <check.h>
-#include "sbml/common.h"
+#include "common.h"
 
-#include "sbml/ASTNode.h"
-#include "sbml/FormulaParser.h"
+#include "List.h"
+#include "ASTNode.h"
+#include "FormulaParser.h"
 
 
 START_TEST (test_ASTNode_create)

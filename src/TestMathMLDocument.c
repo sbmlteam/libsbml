@@ -1,13 +1,12 @@
 /**
- * Filename    : TestMathMLDocument.c
- * Description : MathMLDocument unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestMathMLDocument.c
+ * \brief   MathMLDocument unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,10 +51,10 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaParser.h"
+#include "common.h"
+#include "FormulaParser.h"
 
-#include "sbml/MathMLDocument.h"
+#include "MathMLDocument.h"
 
 
 START_TEST (test_MathMLDocument_create)
@@ -63,7 +62,7 @@ START_TEST (test_MathMLDocument_create)
   MathMLDocument_t *d = MathMLDocument_create();
 
 
-  fail_unless( MathMLDocument_getMath(d) == NULL, NULL );
+  fail_unless( MathMLDocument_getMath(d) == NULL );
 
   MathMLDocument_free(d);
 }
@@ -85,15 +84,15 @@ START_TEST (test_MathMLDocument_setMath)
 
   MathMLDocument_setMath(d, math);
 
-  fail_unless( MathMLDocument_getMath(d) == math, NULL );
-  fail_unless( MathMLDocument_isSetMath(d), NULL );
+  fail_unless( MathMLDocument_getMath(d) == math );
+  fail_unless( MathMLDocument_isSetMath(d) );
 
   /* Reflexive case (pathological) */
-  MathMLDocument_setMath(d, (MathMLDocument_t*) MathMLDocument_getMath(d));
-  fail_unless( MathMLDocument_getMath(d) == math, NULL );
+  MathMLDocument_setMath(d, (ASTNode_t*) MathMLDocument_getMath(d));
+  fail_unless( MathMLDocument_getMath(d) == math );
 
   MathMLDocument_setMath(d, NULL);
-  fail_unless( !MathMLDocument_isSetMath(d), NULL );
+  fail_unless( !MathMLDocument_isSetMath(d) );
 
   if (MathMLDocument_getMath(d) != NULL)
   {

@@ -1,13 +1,12 @@
 /**
- * Filename    : TestRateRule.c
- * Description : RateRule unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestRateRule.c
+ * \brief   RateRule unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,12 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/RateRule.h"
+#include "common.h"
+#include "FormulaParser.h"
+
+#include "SBase.h"
+#include "Rule.h"
+#include "RateRule.h"
 
 
 static RateRule_t *RR;
@@ -80,14 +82,14 @@ RateRuleTest_teardown (void)
 
 START_TEST (test_RateRule_create)
 {
-  fail_unless( SBase_getTypeCode  (RR) == SBML_RATE_RULE, NULL );
-  fail_unless( SBase_getMetaId    (RR) == NULL, NULL );
-  fail_unless( SBase_getNotes     (RR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(RR) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) RR) == SBML_RATE_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) RR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) RR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) RR) == NULL );
 
-  fail_unless( Rule_getFormula     (RR) == NULL, NULL );
-  fail_unless( Rule_getMath        (RR) == NULL, NULL );
-  fail_unless( RateRule_getVariable(RR) == NULL, NULL );
+  fail_unless( Rule_getFormula     ((Rule_t *) RR) == NULL );
+  fail_unless( Rule_getMath        ((Rule_t *) RR) == NULL );
+  fail_unless( RateRule_getVariable(RR) == NULL );
 }
 END_TEST
 
@@ -98,15 +100,15 @@ START_TEST (test_RateRule_createWith)
   RateRule_t *rr   = RateRule_createWith("dx", math);
 
 
-  fail_unless( SBase_getTypeCode  (rr) == SBML_RATE_RULE, NULL );
-  fail_unless( SBase_getMetaId    (rr) == NULL, NULL );
-  fail_unless( SBase_getNotes     (rr) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(rr) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) rr) == SBML_RATE_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) rr) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) rr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) rr) == NULL );
 
-  fail_unless( Rule_getFormula(rr) == NULL, NULL );
-  fail_unless( Rule_getMath   (rr) == math, NULL );
+  fail_unless( Rule_getFormula((Rule_t *) rr) == NULL );
+  fail_unless( Rule_getMath   ((Rule_t *) rr) == math );
 
-  fail_unless( !strcmp(RateRule_getVariable(rr), "dx"), NULL );
+  fail_unless( !strcmp(RateRule_getVariable(rr), "dx") );
 
   RateRule_free(rr);
 }
@@ -127,8 +129,8 @@ START_TEST (test_RateRule_setVariable)
 
   RateRule_setVariable(RR, variable);
 
-  fail_unless( !strcmp(RateRule_getVariable(RR), variable), NULL );
-  fail_unless( RateRule_isSetVariable(RR), NULL );
+  fail_unless( !strcmp(RateRule_getVariable(RR), variable) );
+  fail_unless( RateRule_isSetVariable(RR) );
 
   if (RateRule_getVariable(RR) == variable)
   {
@@ -137,10 +139,10 @@ START_TEST (test_RateRule_setVariable)
 
   /* Reflexive case (pathological) */
   RateRule_setVariable(RR, RateRule_getVariable(RR));
-  fail_unless( !strcmp(RateRule_getVariable(RR), variable), NULL );
+  fail_unless( !strcmp(RateRule_getVariable(RR), variable) );
 
   RateRule_setVariable(RR, NULL);
-  fail_unless( !RateRule_isSetVariable(RR), NULL );
+  fail_unless( !RateRule_isSetVariable(RR) );
 
   if (RateRule_getVariable(RR) != NULL)
   {

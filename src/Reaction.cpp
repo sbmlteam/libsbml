@@ -1,13 +1,12 @@
 /**
- * Filename    : Reaction.cpp
- * Description : SBML Reaction
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Reaction.cpp
+ * \brief   SBML Reaction
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,13 +49,12 @@
  */
 
 
-#include "sbml/SpeciesReference.hpp"
-#include "sbml/ModifierSpeciesReference.hpp"
-#include "sbml/KineticLaw.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "SBMLVisitor.h"
+#include "SpeciesReference.h"
+#include "ModifierSpeciesReference.h"
+#include "KineticLaw.h"
 
-#include "sbml/Reaction.h"
-#include "sbml/Reaction.hpp"
+#include "Reaction.h"
 
 
 /**

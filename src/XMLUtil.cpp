@@ -1,13 +1,12 @@
 /**
- * Filename    : XMLUtil.cpp
- * Description : Utility functions to help manipulate XML data
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-22
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    XMLUtil.cpp
+ * \brief   Utility functions to help manipulate XML data
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,12 +51,12 @@
 
 
 #include <iostream>
-#include "sbml/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatXMLString.hpp"
-#  include "ExpatFormatter.hpp"
+#  include "ExpatXMLString.h"
+#  include "ExpatFormatter.h"
 #else
 #  include <xercesc/sax2/Attributes.hpp>
 #  include <xercesc/util/XMLString.hpp>
@@ -65,9 +64,10 @@
 #endif  // USE_EXPAT
 
 
-#include "sbml/SBMLUnicodeConstants.hpp"
-#include "sbml/XMLUnicodeConstants.hpp"
-#include "sbml/XMLUtil.hpp"
+#include "SBMLUnicodeConstants.h"
+#include "XMLUnicodeConstants.h"
+#include "XMLUtil.h"
+
 
 /**
  * Creates a new XMLStringFormatter and returns a pointer to it.  This

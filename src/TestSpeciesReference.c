@@ -1,13 +1,12 @@
 /**
- * Filename    : TestSpeciesReference.c
- * Description : SpeciesReference unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-25
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestSpeciesReference.c
+ * \brief   SpeciesReference unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/MathMLReader.h"
-#include "sbml/SpeciesReference.h"
+#include "common.h"
+#include "MathMLReader.h"
+
+#include "SBase.h"
+#include "SpeciesReference.h"
 
 
 static SpeciesReference_t *SR;
@@ -81,18 +82,18 @@ SpeciesReferenceTest_teardown (void)
 
 START_TEST (test_SpeciesReference_create)
 {
-  fail_unless( SBase_getTypeCode  (SR) == SBML_SPECIES_REFERENCE, NULL );
-  fail_unless( SBase_getMetaId    (SR) == NULL, NULL );
-  fail_unless( SBase_getNotes     (SR) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(SR) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) SR) == SBML_SPECIES_REFERENCE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) SR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) SR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) SR) == NULL );
 
-  fail_unless( SpeciesReference_getSpecies          (SR) == NULL, NULL );
-  fail_unless( SpeciesReference_getStoichiometry    (SR) == 1   , NULL );
-  fail_unless( SpeciesReference_getStoichiometryMath(SR) == NULL, NULL );
-  fail_unless( SpeciesReference_getDenominator      (SR) == 1   , NULL );
+  fail_unless( SpeciesReference_getSpecies          (SR) == NULL );
+  fail_unless( SpeciesReference_getStoichiometry    (SR) == 1    );
+  fail_unless( SpeciesReference_getStoichiometryMath(SR) == NULL );
+  fail_unless( SpeciesReference_getDenominator      (SR) == 1    );
 
-  fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
-  fail_unless( !SpeciesReference_isSetStoichiometryMath(SR), NULL );
+  fail_unless( !SpeciesReference_isSetSpecies(SR) );
+  fail_unless( !SpeciesReference_isSetStoichiometryMath(SR) );
 }
 END_TEST
 
@@ -102,17 +103,17 @@ START_TEST (test_SpeciesReference_createWith)
   SpeciesReference_t *sr = SpeciesReference_createWith("s3", 4, 2);
 
 
-  fail_unless( SBase_getTypeCode  (sr) == SBML_SPECIES_REFERENCE, NULL );
-  fail_unless( SBase_getMetaId    (sr) == NULL, NULL );
-  fail_unless( SBase_getNotes     (sr) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(sr) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_SPECIES_REFERENCE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) sr) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
 
-  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s3"), NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s3") );
 
-  fail_unless( SpeciesReference_getStoichiometry(sr) == 4   , NULL );
-  fail_unless( SpeciesReference_getDenominator  (sr) == 2   , NULL );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 4    );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 2    );
 
-  fail_unless( SpeciesReference_isSetSpecies(sr), NULL );
+  fail_unless( SpeciesReference_isSetSpecies(sr) );
 
   SpeciesReference_free(sr);
 }
@@ -133,8 +134,8 @@ START_TEST (test_SpeciesReference_setSpecies)
 
   SpeciesReference_setSpecies(SR, species);
 
-  fail_unless( !strcmp(SpeciesReference_getSpecies(SR), species), NULL );
-  fail_unless( SpeciesReference_isSetSpecies(SR), NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(SR), species) );
+  fail_unless( SpeciesReference_isSetSpecies(SR) );
 
   if (SpeciesReference_getSpecies(SR) == species)
   {
@@ -143,10 +144,10 @@ START_TEST (test_SpeciesReference_setSpecies)
 
   /* Reflexive case (pathological) */
   SpeciesReference_setSpecies(SR, SpeciesReference_getSpecies(SR));
-  fail_unless( !strcmp(SpeciesReference_getSpecies(SR), species), NULL );
+  fail_unless( !strcmp(SpeciesReference_getSpecies(SR), species) );
 
   SpeciesReference_setSpecies(SR, NULL);
-  fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
+  fail_unless( !SpeciesReference_isSetSpecies(SR) );
 
   if (SpeciesReference_getSpecies(SR) != NULL)
   {
@@ -168,18 +169,18 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 
   SpeciesReference_setStoichiometryMath(SR, (ASTNode_t*) math);
 
-  fail_unless( SpeciesReference_getStoichiometryMath(SR) == math, NULL );
-  fail_unless( SpeciesReference_isSetStoichiometryMath(SR), NULL );
+  fail_unless( SpeciesReference_getStoichiometryMath(SR) == math );
+  fail_unless( SpeciesReference_isSetStoichiometryMath(SR) );
 
   /* Reflexive case (pathological) */
   n = SpeciesReference_getStoichiometryMath(SR);
   SpeciesReference_setStoichiometryMath(SR, (ASTNode_t *) n);
 
   n = SpeciesReference_getStoichiometryMath(SR);
-  fail_unless( n == math, NULL );
+  fail_unless( n == math );
 
   SpeciesReference_setStoichiometryMath(SR, NULL);
-  fail_unless( !SpeciesReference_isSetStoichiometryMath(SR), NULL );
+  fail_unless( !SpeciesReference_isSetStoichiometryMath(SR) );
 
   if (SpeciesReference_getStoichiometryMath(SR) != NULL)
   {

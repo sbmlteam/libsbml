@@ -1,13 +1,12 @@
 /**
- * Filename    : TestEventAssignment.c
- * Description : SBML EventAssignment unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-03
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestEventAssignment.c
+ * \brief   SBML EventAssignment unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,9 +51,11 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/FormulaParser.h"
-#include "sbml/EventAssignment.h"
+#include "common.h"
+#include "FormulaParser.h"
+
+#include "SBase.h"
+#include "EventAssignment.h"
 
 
 static EventAssignment_t *EA;
@@ -81,13 +82,13 @@ EventAssignmentTest_teardown (void)
 
 START_TEST (test_EventAssignment_create)
 {
-  fail_unless( SBase_getTypeCode  (EA) == SBML_EVENT_ASSIGNMENT, NULL );
-  fail_unless( SBase_getMetaId    (EA) == NULL, NULL );
-  fail_unless( SBase_getNotes     (EA) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(EA) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) EA) == SBML_EVENT_ASSIGNMENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) EA) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) EA) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) EA) == NULL );
 
-  fail_unless( EventAssignment_getVariable(EA) == NULL, NULL );
-  fail_unless( EventAssignment_getMath    (EA) == NULL, NULL );
+  fail_unless( EventAssignment_getVariable(EA) == NULL );
+  fail_unless( EventAssignment_getMath    (EA) == NULL );
 }
 END_TEST
 
@@ -98,16 +99,16 @@ START_TEST (test_EventAssignment_createWith)
   EventAssignment_t *ea   = EventAssignment_createWith("k", math);
 
 
-  fail_unless( SBase_getTypeCode  (ea) == SBML_EVENT_ASSIGNMENT, NULL );
-  fail_unless( SBase_getMetaId    (ea) == NULL, NULL );
-  fail_unless( SBase_getNotes     (ea) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(ea) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ea) == SBML_EVENT_ASSIGNMENT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ea) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ea) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) ea) == NULL );
 
-  fail_unless( EventAssignment_getMath(ea) == math, NULL );
-  fail_unless( EventAssignment_isSetMath(ea), NULL );
+  fail_unless( EventAssignment_getMath(ea) == math );
+  fail_unless( EventAssignment_isSetMath(ea) );
 
-  fail_unless( !strcmp(EventAssignment_getVariable(ea), "k"), NULL );
-  fail_unless( EventAssignment_isSetVariable(ea), NULL );
+  fail_unless( !strcmp(EventAssignment_getVariable(ea), "k") );
+  fail_unless( EventAssignment_isSetVariable(ea) );
 
   EventAssignment_free(ea);
 }
@@ -128,8 +129,8 @@ START_TEST (test_EventAssignment_setVariable)
 
   EventAssignment_setVariable(EA, variable);
 
-  fail_unless( !strcmp(EventAssignment_getVariable(EA), variable), NULL );
-  fail_unless( EventAssignment_isSetVariable(EA), NULL );
+  fail_unless( !strcmp(EventAssignment_getVariable(EA), variable) );
+  fail_unless( EventAssignment_isSetVariable(EA) );
 
   if (EventAssignment_getVariable(EA) == variable)
   {
@@ -138,10 +139,10 @@ START_TEST (test_EventAssignment_setVariable)
 
   /* Reflexive case (pathological) */
   EventAssignment_setVariable(EA, EventAssignment_getVariable(EA));
-  fail_unless( !strcmp(EventAssignment_getVariable(EA), variable), NULL );
+  fail_unless( !strcmp(EventAssignment_getVariable(EA), variable) );
 
   EventAssignment_setVariable(EA, NULL);
-  fail_unless( !EventAssignment_isSetVariable(EA), NULL );
+  fail_unless( !EventAssignment_isSetVariable(EA) );
 
   if (EventAssignment_getVariable(EA) != NULL)
   {
@@ -158,15 +159,15 @@ START_TEST (test_EventAssignment_setMath)
 
   EventAssignment_setMath(EA, math);
 
-  fail_unless( EventAssignment_getMath(EA) == math, NULL );
-  fail_unless( EventAssignment_isSetMath(EA), NULL );
+  fail_unless( EventAssignment_getMath(EA) == math );
+  fail_unless( EventAssignment_isSetMath(EA) );
 
   /* Reflexive case (pathological) */
   EventAssignment_setMath(EA, (ASTNode_t *) EventAssignment_getMath(EA));
-  fail_unless( EventAssignment_getMath(EA) == math, NULL );
+  fail_unless( EventAssignment_getMath(EA) == math );
 
   EventAssignment_setMath(EA, NULL);
-  fail_unless( !EventAssignment_isSetMath(EA), NULL );
+  fail_unless( !EventAssignment_isSetMath(EA) );
 
   if (EventAssignment_getMath(EA) != NULL)
   {

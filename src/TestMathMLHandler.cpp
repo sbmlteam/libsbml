@@ -1,13 +1,12 @@
 /**
- * Filename    : TestMathMLHandler.cpp
- * Description : MathMLHandler unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-05-06
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestMathMLHandler.cpp
+ * \brief   MathMLHandler unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,13 +52,13 @@
 #include <iostream>
 #include <check.h>
 
-#include "sbml/common.h"
+#include "common.h"
 
-#include "sbml/MathMLHandler.hpp"
-#include "sbml/MathMLReader.h"
-#include "sbml/MathMLUnicodeConstants.hpp"
+#include "MathMLHandler.h"
+#include "MathMLReader.h"
+#include "MathMLUnicodeConstants.h"
 
-#include "sbml/FormulaFormatter.h"
+#include "FormulaFormatter.h"
 
 
 BEGIN_C_DECLS

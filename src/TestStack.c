@@ -1,13 +1,12 @@
 /**
- * Filename    : TestStack.c
- * Description : Stack unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-21
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestStack.c
+ * \brief   Stack unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,8 +51,8 @@
 
 #include <check.h>
 
-#include "sbml/common.h"
-#include "sbml/Stack.h"
+#include "common.h"
+#include "Stack.h"
 
 
 static Stack_t *S;

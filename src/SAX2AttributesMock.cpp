@@ -1,13 +1,12 @@
 /**
- * Filename    : SAX2AttributesMock.cpp
- * Description : SAX2 Attributes mock object (to assist unit tests)
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-30
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SAX2AttributesMock.cpp
+ * \brief   SAX2 Attributes mock object (to assist unit tests)
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,16 +51,17 @@
 
 
 #include <iostream>
-#include "sbml/common.hpp"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatXMLString.hpp"
+#  include "ExpatXMLString.h"
 #else
 #  include <xercesc/util/PlatformUtils.hpp>
+   using namespace xercesc;
 #endif // USE_EXPAT
 
-#include "sbml/SAX2AttributesMock.hpp"
+#include "SAX2AttributesMock.h"
 
 
 //

@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLTagCodes.cpp
- * Description : Maps SBML elements to numbers for comparing and storing
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLTagCodes.cpp
+ * \brief   Maps SBML elements to numbers for comparing and storing
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -52,19 +51,19 @@
 
 
 #include <iostream>
-#include "sbml/common.hpp"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatXMLString.hpp"
+#  include "ExpatXMLString.h"
 #else
 #  include <xercesc/util/XMLString.hpp>
 #  include <xercesc/util/XMLUniDefs.hpp>
 #endif  // USE_EXPAT
 
 
-#include "sbml/SBMLTagCodes.hpp"
-#include "sbml/SBMLUnicodeConstants.hpp"
+#include "SBMLTagCodes.h"
+#include "SBMLUnicodeConstants.h"
 
 
 static const XMLCh* SBML_ELEMENTS[] =

@@ -1,13 +1,12 @@
 /**
- * Filename    : SBMLFormatter.cpp
- * Description : Formats SBML ...
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-03-07
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    SBMLFormatter.cpp
+ * \brief   Formats SBML ...
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,21 +49,21 @@
  *   Stephan Hoops
  */
 
-#include <time.h>
 
-#include "sbml/common.h"
+#include <time.h>
+#include "common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatXMLString.hpp"
-#  include "ExpatFormatter.hpp"
+#  include "ExpatXMLString.h"
+#  include "ExpatFormatter.h"
 #endif  // USE_EXPAT
 
 
-#include "sbml/SBMLFormatter.hpp"
-#include "sbml/SBMLUnicodeConstants.hpp"
-#include "sbml/XMLUnicodeConstants.hpp"
-#include "sbml/XMLUtil.hpp"
+#include "SBMLFormatter.h"
+#include "SBMLUnicodeConstants.h"
+#include "XMLUnicodeConstants.h"
+#include "XMLUtil.h"
 
 
 using namespace std;

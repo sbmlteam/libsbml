@@ -1,13 +1,12 @@
 /**
- * Filename    : Model.cpp
- * Description : SBML Model
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-10-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Model.cpp
+ * \brief   SBML Model
+ * \author  Ben Bornstein
  *
- * Copyright 2002 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -50,28 +49,28 @@
  */
 
 
-#include "sbml/FunctionDefinition.hpp"
-#include "sbml/UnitDefinition.hpp"
-#include "sbml/Unit.hpp"
-#include "sbml/Compartment.hpp"
-#include "sbml/Species.hpp"
-#include "sbml/Parameter.hpp"
-#include "sbml/AssignmentRule.hpp"
-#include "sbml/RateRule.hpp"
-#include "sbml/AlgebraicRule.hpp"
-#include "sbml/CompartmentVolumeRule.hpp"
-#include "sbml/ParameterRule.hpp"
-#include "sbml/SpeciesConcentrationRule.hpp"
-#include "sbml/Reaction.hpp"
-#include "sbml/SpeciesReference.hpp"
-#include "sbml/ModifierSpeciesReference.hpp"
-#include "sbml/KineticLaw.hpp"
-#include "sbml/Event.hpp"
-#include "sbml/EventAssignment.hpp"
-#include "sbml/SBMLVisitor.hpp"
+#include "SBMLVisitor.h"
+#include "FunctionDefinition.h"
+#include "UnitDefinition.h"
+#include "Unit.h"
+#include "Compartment.h"
+#include "Species.h"
+#include "Parameter.h"
+#include "AssignmentRule.h"
+#include "RateRule.h"
+#include "AlgebraicRule.h"
+#include "CompartmentVolumeRule.h"
+#include "ParameterRule.h"
+#include "SpeciesConcentrationRule.h"
+#include "Reaction.h"
+#include "SpeciesReference.h"
+#include "ModifierSpeciesReference.h"
+#include "KineticLaw.h"
+#include "Event.h"
+#include "EventAssignment.h"
 
-#include "sbml/Model.h"
-#include "sbml/Model.hpp"
+#include "Model.h"
+
 
 
 /**

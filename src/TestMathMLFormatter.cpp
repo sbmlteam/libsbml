@@ -1,13 +1,12 @@
 /**
- * Filename    : TestMathMLFormatter.cpp
- * Description : MathMLFormatter unit tests
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-05-13
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    TestMathMLFormatter.cpp
+ * \brief   MathMLFormatter unit tests
+ * \author  Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -54,16 +53,16 @@
 #include <iostream>
 #include <check.h>
 
-#include "sbml/common.h"
+#include "common.h"
 
+#include "FormulaParser.h"
+#include "MathMLFormatter.h"
 
 #ifdef USE_EXPAT
-#  include "ExpatFormatter.hpp"
+#  include "ExpatFormatter.h"
+#else
+   using namespace xercesc;
 #endif  // USE_EXPAT
-
-
-#include "sbml/FormulaParser.h"
-#include "sbml/MathMLFormatter.hpp"
 
 
 BEGIN_C_DECLS
