@@ -1,5 +1,5 @@
 /**
- * Filename    : SAX2SBMLHandler.hpp
+ * Filename    : SBMLHandler.hpp
  * Description : Register with XML Parser to process an SBML document
  * Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
  * Organization: Caltech ERATO Kitano Systems Biology Project
@@ -50,8 +50,8 @@
  */
 
 
-#ifndef SAX2SBMLHandler_hh
-#define SAX2SBMLHandler_hh
+#ifndef SBMLHandler_hh
+#define SBMLHandler_hh
 
 
 #include <xercesc/sax/Locator.hpp>
@@ -66,12 +66,12 @@
 
 
 //
-// SAX2SBMLHandler
+// SBMLHandler
 //
 // This XML document handler is responsible for constructing an
 // SBMLDocument from SAX2 events deliverd by a SAX2XMLReader.
 //
-class SAX2SBMLHandler : public DefaultHandler
+class SBMLHandler : public DefaultHandler
 {
 
 public:
@@ -79,15 +79,15 @@ public:
   //
   // Ctor
   //
-  // Creates a new SAX2SBMLHandler.  The given SBMLDocument should be empty
+  // Creates a new SBMLHandler.  The given SBMLDocument should be empty
   // and will be populated as the document is parsed.
   //
-  SAX2SBMLHandler (SBMLDocument_t *d) : fDocument(d) { };
+  SBMLHandler (SBMLDocument_t *d) : fDocument(d) { };
 
   //
   // Dtor
   //
-  ~SAX2SBMLHandler ();
+  ~SBMLHandler ();
 
 
   void startDocument ();
@@ -186,4 +186,4 @@ private:
 };
 
 
-#endif  // SAX2SBMLHandler_hh
+#endif  // SBMLHandler_hh
