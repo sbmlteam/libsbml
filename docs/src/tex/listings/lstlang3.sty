@@ -4,10 +4,10 @@
 %%
 %% The original source files were:
 %%
-%% lstdrvrs.dtx  (with options: `lang3')
+%% lstdrvrs-1.3.dtx  (with options: `lang3')
 %% 
-%% (w)(c) 1996/1997/1998/1999/2000 Carsten Heinz and/or any other author
-%% listed elsewhere in this file.
+%% (w)(c) 1996/1997/1998/1999/2000/2001/2002/2003/2004 Carsten Heinz
+%% and/or any other author listed elsewhere in this file.
 %%
 %% This file is distributed under the terms of the LaTeX Project Public
 %% License from CTAN archives in directory  macros/latex/base/lppl.txt.
@@ -15,13 +15,11 @@
 %%
 %% This file is completely free and comes without any warranty.
 %%
-%% Permission is granted to change this file. You are not allowed to
-%% distribute any changed version of this file, neither under the same
-%% name nor under a different one.
-%%
 %% Send comments and ideas on the package, error reports and additional
 %% programming languages to <cheinz@gmx.de>.
 %%
+\ProvidesFile{lstlang3.sty}
+    [2004/09/05 1.3 listings language file]
 \lst@definelanguage[68]{Algol}%
   {morekeywords={abs,and,arg,begin,bin,bits,bool,by,bytes,case,channel,%
       char,co,comment,compl,conj,divab,do,down,elem,elif,else,empty,%
@@ -43,54 +41,67 @@
    keywordcommentsemicolon={end}{else,end}{comment}%
   }[keywords,keywordcomments]%
 %%
-%% Visual Basic definition (c) 2001 Frédéric Jacquet
-%%                             <fjacquet@gphy.campus.univ-poitiers.fr>
+%% x86masm definition (c) 2002 Andrew Zabolotny
 %%
-\lstdefinelanguage[Visual]{Basic}
-  {morekeywords={AddressOf,Abs,And,AppActivate,Array,As,Asc,Atn,Base,%
-      Beep,Binary,ByRef,ByVal,CVErr,Call,CallByName,Case,ChDir,ChDrive,%
-      Choose,Chr,Close,Command,Compare,Comparison,Const,Cos,%
-      CreateObject,CurDir,DDB,Date,DateAdd,DateDiff,DatePart,%
-      DateSerial,DateValue,Day,Declare,Deftype,DeleteSetting,Dim,Dir,%
-      Do,DoEvents,EOF,Each,Else,Empty,End,Enum,Environ,Eqv,Erase,Error,%
-      Event,Exit,Exp,Explicit,FV,False,FileAttr,FileCopy,FileDateTime,%
-      FileLen,Filter,Fix,For,Format,FormatCurrency,FormatDateRime,%
-      FormatNumber,FormatPercent,Friend,Function,Get,GetAllSettings,%
-      GetAttr,GetAutoServerSettings,GetObject,GetSetting,GoSub,GoTo,%
-      Hex,Hour,IIf,IMEStatus,IPmt,IRR,If,Imp,Implements,InStr,InStrRev,%
-      Input,InputBox,Int,Is,IsArray,IsDate,IsEmpty,IsError,IsMissing,%
-      IsNull,IsNumeric,IsObject,Join,Kill,LBound,LCase,LOF,LSet,LTrim,%
-      Left,Len,Let,Like,Line,Load,LoadPicture,LoadResData,%
-      LoadResPicture,LoadResString,Loc,Lock,Lock,Log,Loop,MIRR,Math,Me,%
-      Mid,Minute,MkDir,Mod,Month,MonthName,MsgBox,NPV,NPer,Name,New,%
-      Next,Not,Nothing,Now,Null,Oct,On,Open,Option,Optional,Or,PPmt,PV,%
-      Paramarray,Partition,Pmt,Print,Private,Property,Public,Put,%
-      QBColor,RGB,RSet,RTrim,RaiseEvent,Randomize,Rate,ReDim,Rem,%
-      Replace,Resume,Return,Right,RmDir,Rnd,Round,SLN,SYD,SavePicture,%
-      SaveSetting,Second,Seek,Select,SendKeys,Set,SetAttr,Sgn,Shell,%
-      Sin,Space,Spc,Split,Sqr,Static,Step,Stop,Str,StrComp,StrConv,%
-      StrReverse,String,Sub,Switch,Tab,Tan,Then,Time,TimeSerial,%
-      TimeValue,Timer,Trim,True,Type,TypeName,UBound,UCase,Unload,%
-      Unlock,Val,VarType,Weekday,WeekdayName,Wend,While,Width,With,%
-      Withevents,Write,Xor,Year},%
-   sensitive=false,%
-   morecomment=[l]\',%
-   morestring=[b]"%
-  }%
+\lst@definelanguage[x86masm]{Assembler}%
+  {morekeywords={al,ah,ax,eax,bl,bh,bx,ebx,cl,ch,cx,ecx,dl,dh,dx,edx,%
+      si,esi,di,edi,bp,ebp,sp,esp,cs,ds,es,ss,fs,gs,cr0,cr1,cr2,cr3,%
+      db0,db1,db2,db3,db4,db5,db6,db7,tr0,tr1,tr2,tr3,tr4,tr5,tr6,tr7,%
+      st,aaa,aad,aam,aas,adc,add,and,arpl,bound,bsf,bsr,bswap,bt,btc,%
+      btr,bts,call,cbw,cdq,clc,cld,cli,clts,cmc,cmp,cmps,cmpsb,cmpsw,%
+      cmpsd,cmpxchg,cwd,cwde,daa,das,dec,div,enter,hlt,idiv,imul,in,%
+      inc,ins,int,into,invd,invlpg,iret,ja,jae,jb,jbe,jc,jcxz,jecxz,%
+      je,jg,jge,jl,jle,jna,jnae,jnb,jnbe,jnc,jne,jng,jnge,jnl,jnle,%
+      jno,jnp,jns,jnz,jo,jp,jpe,jpo,js,jz,jmp,lahf,lar,lea,leave,lgdt,%
+      lidt,lldt,lmsw,lock,lods,lodsb,lodsw,lodsd,loop,loopz,loopnz,%
+      loope,loopne,lds,les,lfs,lgs,lss,lsl,ltr,mov,movs,movsb,movsw,%
+      movsd,movsx,movzx,mul,neg,nop,not,or,out,outs,pop,popa,popad,%
+      popf,popfd,push,pusha,pushad,pushf,pushfd,rcl,rcr,rep,repe,%
+      repne,repz,repnz,ret,retf,rol,ror,sahf,sal,sar,sbb,scas,seta,%
+      setae,setb,setbe,setc,sete,setg,setge,setl,setle,setna,setnae,%
+      setnb,setnbe,setnc,setne,setng,setnge,setnl,setnle,setno,setnp,%
+      setns,setnz,seto,setp,setpe,setpo,sets,setz,sgdt,shl,shld,shr,%
+      shrd,sidt,sldt,smsw,stc,std,sti,stos,stosb,stosw,stosd,str,sub,%
+      test,verr,verw,wait,wbinvd,xadd,xchg,xlatb,xor,fabs,fadd,fbld,%
+      fbstp,fchs,fclex,fcom,fcos,fdecstp,fdiv,fdivr,ffree,fiadd,ficom,%
+      fidiv,fidivr,fild,fimul,fincstp,finit,fist,fisub,fisubr,fld,fld1,%
+      fldl2e,fldl2t,fldlg2,fldln2,fldpi,fldz,fldcw,fldenv,fmul,fnop,%
+      fpatan,fprem,fprem1,fptan,frndint,frstor,fsave,fscale,fsetpm,%
+      fsin,fsincos,fsqrt,fst,fstcw,fstenv,fstsw,fsub,fsubr,ftst,fucom,%
+      fwait,fxam,fxch,fxtract,fyl2x,fyl2xp1,f2xm1},%
+   morekeywords=[2]{.align,.alpha,assume,byte,code,comm,comment,.const,%
+      .cref,.data,.data?,db,dd,df,dosseg,dq,dt,dw,dword,else,end,endif,%
+      endm,endp,ends,eq,equ,.err,.err1,.err2,.errb,.errdef,.errdif,%
+      .erre,.erridn,.errnb,.errndef,.errnz,event,exitm,extrn,far,%
+      .fardata,.fardata?,fword,ge,group,gt,high,if,if1,if2,ifb,ifdef,%
+      ifdif,ife,ifidn,ifnb,ifndef,include,includelib,irp,irpc,label,%
+      .lall,le,length,.lfcond,.list,local,low,lt,macro,mask,mod,.model,%
+      name,ne,near,offset,org,out,page,proc,ptr,public,purge,qword,.%
+      radix,record,rept,.sall,seg,segment,.seq,.sfcond,short,size,%
+      .stack,struc,subttl,tbyte,.tfcond,this,title,type,.type,width,%
+      word,.xall,.xcref,.xlist},%
+   alsoletter=.,alsodigit=?,%
+   sensitive=f,%
+   morestring=[b]",%
+   morestring=[b]',%
+   morecomment=[l];%
+   }[keywords,comments,strings]
 %%
-%% Clean definition (c) 1999 José Romildo Malaquias <romildo@iceb.ufop.br>
+%% Clean definition (c) 1999 Jos\'e Romildo Malaquias
 %%
 %% Clean 1.3 :  some standard functional language: pure, lazy,
 %%              polymorphic type system, modules, type classes,
 %%              garbage collection, functions as first class citizens
 %%
 \lst@definelanguage{Clean}%
-  {otherkeywords={:,::,=,:==,=:,=>,->,<-,<-:,\{,\},\{|,|\},\#,\#!,|,\&,[,],!,.,\\\\,;,_},%
-   keywords={from,definition,implementation,import,module,system,case,code,%
-             if,in,let,let!,of,where,with,infix,infixl,infixr},%
-   ndkeywords={True,False,Start,Int,Real,Char,Bool,String,World,File,ProcId},%
+  {otherkeywords={:,::,=,:==,=:,=>,->,<-,<-:,\{,\},\{|,|\},\#,\#!,|,\&,%
+      [,],!,.,\\\\,;,_},%
+   morekeywords={from,definition,implementation,import,module,system,%
+      case,code,if,in,let,let!,of,where,with,infix,infixl,infixr},%
+   morendkeywords={True,False,Start,Int,Real,Char,Bool,String,World,%
+      File,ProcId},%
    sensitive,%
-   morecomment=[l]//%
+   morecomment=[l]//,% missing comma: Markus Pahlow
    morecomment=[n]{/*}{*/},%
    morestring=[b]"%
   }[keywords,comments,strings]%
@@ -121,6 +132,39 @@
    sensitive,%
    morestring=[d]"%
   }[keywords,strings]%
+%%
+%% Erlang definition (c) 2003 Daniel Gazard
+%%
+\lst@definelanguage{erlang}%
+  {morekeywords={abs,after,and,apply,atom,atom_to_list,band,binary,%
+      binary_to_list,binary_to_term,bor,bsl,bsr,bxor,case,catch,%
+      date,div,element,erase,end,exit,export,float,float_to_list,%
+      get,halt,hash,hd,if,info,import,integer,integer_to_list,%
+      length,link,list,list_to_atom,list_to_float,list_to_integer,%
+      list_to_tuple,module,node,nodes,now,of,or,pid,port,ports,%
+      processes,put,receive,reference,register,registered,rem,%
+      round,self,setelement,size,spawn,throw,time,tl,trace,trunc,%
+      tuple,tuple_to_list,unlink,unregister,whereis,error,false,%
+      infinity,nil,ok,true,undefined,when},%
+   otherkeywords={->,!,[,],\{,\},},%
+   morecomment=[l]\%,%
+   morestring=[b]",%
+   morestring=[b]'%
+  }[keywords,comments,strings]%
+\lst@definelanguage{ksh}
+  {morekeywords={alias,awk,cat,echo,else,elif,fi,exec,exit,%
+      for,in,do,done,select,case,esac,while,until,function,%
+      time,export,cd,eval,fc,fg,kill,let,pwd,read,return,rm,%
+      glob,goto,history,if,logout,nice,nohup,onintr,repeat,sed,%
+      set,setenv,shift,source,switch,then,umask,unalias,%
+      unset,wait,@,env,argv,child,home,ignoreeof,noclobber,%
+      noglob,nomatch,path,prompt,shell,status,verbose,print,printf,%
+      sqrt,BEGIN,END},%
+   morecomment=[l]\#,%
+   morestring=[d]",%
+   morestring=[d]',%
+   morestring=[d]`%
+  }[keywords,comments,strings]%
 \lst@definelanguage{Logo}%
   {morekeywords={and,atan,arctan,both,break,bf,bl,butfirst,butlast,%
       cbreak, close,co,continue,cos,count,clearscreen,cs,debquit,%
@@ -145,6 +189,94 @@
       display,dpy},%
    sensitive=f% ???
   }[keywords]%
+%%
+%% MetaPost definition (c) 2004 Brooks Moses
+%%   This definition is based on the language specifications
+%%   contained in the _User's Manual for Metapost_, with the core
+%%   language enhancements that are described in the _Drawing
+%%   Graphs with MetaPost_ documentation.
+%%
+\lst@definelanguage{MetaPost}%
+  {% keywords[1] = MetaPost primitives (not found in following tables)
+   morekeywords={end,begingroup,endgroup,beginfig,endfig,def,vardef,%
+      primary,secondary,tertiary,primarydef,secondarydef,tertiarydef,%
+      expr,suffix,text,enddef,if,fi,else,elseif,for,forsuffixes,%
+      forever,endfor,upto,downto,stop,until,tension,controls,on,off,%
+      btex,etex,within,input},
+   % keywords[2] = Operators (Tables 6-9 in MetaPost User's manual)
+   morekeywords=[2]{abs,and,angle,arclength,arctime,ASCII,bbox,bluepart,%
+      boolean,bot,ceiling,center,char,color,cosd,cutafter,cutbefore,%
+      cycle,decimal,dir,direction,directionpoint,directiontime,div,%
+      dotprod,floor,fontsize,greenpart,hex,infont,intersectionpoint,%
+      intersectiontimes,inverse,known,length,lft,llcorner,lrcorner,%
+      makepath,makepen,mexp,mlog,mod,normaldeviate,not,numeric,oct,%
+      odd,or,pair,path,pen,penoffset,picture,point,postcontrol,%
+      precontrol,redpart,reverse,rotated,round,rt,scaled,shifted,%
+      sind,slanted,sqrt,str,string,subpath,substring,top,transform,%
+      transformed,ulcorner,uniformdeviate,unitvector,unknown,%
+      urcorner,whatever,xpart,xscaled,xxpart,xypart,ypart,yscaled,%
+      yxpart,yypart,zscaled,of,reflectedabout,rotatedaround,ulft,urt,%
+      llft,lrt,readfrom,write,stroked,filled,textual,clipped,bounded,%
+      pathpart,penpart,dashpart,textpart,fontpart},%
+   % keywords[3] = Commands (Table 10)
+   morekeywords=[3]{addto,clip,cutdraw,draw,drawarrow,drawdblarrow,%
+      fill,filldraw,interim,let,loggingall,newinternal,pickup,%
+      save,setbounds,shipout,show,showdependencies,showtoken,%
+      showvariable,special,tracingall,tracingnone,undraw,unfill,%
+      unfilldraw,to,also,contour,doublepath,withcolor,withpen,%
+      dashed,randomseed},%
+   % keywords[4] = Function-Like Macros (Table 11)
+   morekeywords=[4]{boxit,boxjoin,bpath,buildcycle,circleit,dashpattern,%
+      decr,dotlabel,dotlabels,drawboxed,drawboxes,drawoptions,%
+      drawunboxed,fixpos,fixsize,incr,interpath,label,labels,max,min,pic,%
+      thelabel,z,image},%
+   % keywords[5] = Internal and Predefined Variables (Tables 3, 4)
+   morekeywords=[5]{ahangle,ahlength,bboxmargin,charcode,circmargin,%
+      day,defaultdx,defaultdy,defaultpen,defaultscale,labeloffset,%
+      linecap,linejoin,miterlimit,month,pausing,prologues,showstopping,%
+      time,tracingcapsules,tracingchoices,tracingcommands,%
+      tracingequations,tracinglostchars,tracingmacros,tracingonline,%
+      tracingoutput,tracingrestores,tracingspecs,tracingstats,%
+      tracingtitles,truecorners,warningcheck,year},
+   morekeywords=[5]{background,currentpen,currentpicture,cuttings,%
+      defaultfont},%
+   % keywords[6] = Predefined Constants (Table 5)
+   morekeywords=[6]{beveled,black,blue,bp,butt,cc,cm,dd,ditto,down,%
+      epsilon,evenly,false,fullcircle,green,halfcircle,identity,%
+      in,infinity,left,mitered,mm,nullpicture,origin,pc,pencircle,%
+      pt,quartercircle,red,right,rounded,squared,true,unitsquare,%
+      up,white,withdots},
+   sensitive=false,%
+   alsoother={0123456789$},%
+   morecomment=[l]\%,%
+   morestring=[mf]{input\ },%
+   morestring=[b]"%
+  }[keywords,comments,strings,mf]%
+%%
+%% Mizar definition (c) 2003 Adam Grabowski
+%%
+%% Mizar is freely available at URL www.mizar.org for the Linux x86,
+%% Solaris x86, and Windows operating systems.
+%%
+\lst@definelanguage{Mizar}%
+  {otherkeywords={->,(\#,\#),.=),\&},%
+   morekeywords={vocabulary,constructors,$1,$1,$2,$3,$4,$5,$6,$7,$8,%
+      @proof,according,aggregate,and,antonym,as,associativity,assume,%
+      asymmetry,attr,be,begin,being,by,canceled,case,cases,cluster,%
+      clusters,coherence,commutativity,compatibility,connectedness,%
+      consider,consistency,constructors,contradiction,correctness,def,%
+      deffunc,define,definition,definitions,defpred,end,environ,equals,%
+      ex,exactly,existence,for,from,func,given,hence,hereby,holds,%
+      idempotence,if,iff,implies,involutiveness,irreflexivity,is,it,%
+      let,means,mode,non,not,notation,now,of,or,otherwise,over,per,%
+      pred,prefix,projectivity,proof,provided,qua,reconsider,redefine,%
+      reflexivity,requirements,reserve,scheme,schemes,section,selector,%
+      set,st,struct,such,suppose,symmetry,synonym,take,that,the,then,%
+      theorem,theorems,thesis,thus,to,transitivity,uniqueness,%
+      vocabulary,where},%
+   sensitive=t,%
+   morecomment=[l]::%
+  }[keywords,comments]%
 \lst@definelanguage{Modula-2}%
   {morekeywords={AND,ARRAY,BEGIN,BY,CASE,CONST,DIV,DO,ELSE,ELSIF,END,%
       EXIT,EXPORT,FOR,FROM,IF,IMPLEMENTATION,IMPORT,IN,MOD,MODULE,NOT,%
@@ -158,6 +290,35 @@
    morestring=[d]',%
    morestring=[d]"%
   }[keywords,comments,strings]%
+\lst@definelanguage{MuPAD}{%
+   morekeywords={end,next,break,if,then,elif,else,end_if,case,end_case,%
+      otherwise,for,from,to,step,downto,in,end_for,while,end_while,%
+      repeat,until,end_repeat,or,and,not,xor,div,mod,union,minus,%
+      intersect,subset,proc,begin,end_proc,domain,end_domain,category,%
+      end_category,axiom,end_axiom,quit,delete,frame},%
+   morekeywords=[2]{NIL,FAIL,TRUE,FALSE,UNKNOWN,I,RD_INF,RD_NINF,%
+      RD_NAN,name,local,option,save,inherits,of,do},%
+   otherkeywords={\%if,?,!,:=,<,>,=,<=,<>,>=,==>,<=>,::,..,...,->,%
+      @,@@,\$},%
+   sensitive=true,%
+   morecomment=[l]{//},%
+   morecomment=[n]{/*}{*/},%
+   morestring=[b]",%
+   morestring=[d]{`}%
+  }[keywords,comments,strings]
+\lst@definelanguage{NASTRAN}
+  {morekeywords={ENDDATA},%
+   morecomment=[l]$,%
+   MoreSelectCharTable=%
+        \lst@CArgX BEGIN\ BULK\relax\lst@CDef{}%
+        {\lst@ifmode\else \ifnum\lst@length=\z@
+             \lst@EnterMode{\lst@GPmode}{\lst@modetrue
+                  \let\lst@currstyle\lst@gkeywords@sty}%
+         \fi \fi}%
+        {\ifnum\lst@mode=\lst@GPmode
+             \lst@XPrintToken \lst@LeaveMode
+         \fi}%
+  }[keywords,comments]%
 \lst@definelanguage{Oberon-2}%
   {morekeywords={ARRAY,BEGIN,BOOLEAN,BY,CASE,CHAR,CONST,DIV,DO,ELSE,%
       ELSIF,END,EXIT,FALSE,FOR,IF,IMPORT,IN,INTEGER,IS,LONGINT,%
@@ -171,14 +332,11 @@
    morestring=[d]"%
   }[keywords,comments,strings]%
 %%
-%% OCL definition (c) 2000 Achim D. Brucker <brucker@informatik.uni-freiburg.de>
-%% You are allowed to use, modify and distribute this code either under
-%% the terms of the LPPL (version 1.0 or later) or the GPL (version 2.0 or later).
+%% OCL definition (c) 2000 Achim D. Brucker
 %%
-%% First we define are very decorative style. In the OMG standard only the boolean (infix (?))
-%% operations are highlighted, but I think all OCL-defined operations should be
-%% highlighted, because they are \emph{guaranteed} to be side-effect-free (in OCL only side effect
-%% free evaluations or path expressions are allowed).
+%% You are allowed to use, modify and distribute this code either under
+%% the terms of the LPPL (version 1.0 or later) or the GPL (version 2.0
+%% or later).
 %%
 \lst@definelanguage[decorative]{OCL}[OMG]{OCL}
   {otherkeywords={@pre},%
@@ -192,21 +350,89 @@
       asSequence,asBag,asSequence,asSet,append,prepend,subSequence,at,%
       first,last,true,false,isQuery}%
   }%
-%% Remark: "isQuery" is not real OCL, but a important Attribute of the
-%%         underlying UML model.
-%%
-%% The dialect called \texttt{OMG} is a very spare version. If you use
-%% this variant with bold style for first and second order keywords you
-%% get the look and feel of the OMG standard.
 \lst@definelanguage[OMG]{OCL}%
-    {morekeywords={context,pre,inv,post},
+    {morekeywords={context,pre,inv,post},%
     ndkeywords={or,xor,and,not,implies,if,then,else,endif},%
-    morerdkeywords={Boolean,Integer,Real,String,Set,Sequence,Bag,%
+    morekeywords=[3]{Boolean,Integer,Real,String,Set,Sequence,Bag,%
        OclType,OclAny,OclExpression,Enumeration,Collection,},%
     sensitive=t,%
     morecomment=[l]--,%
     morestring=[d]'%
-   }[keywords,rdkeywords,comments,strings]%
+   }[keywords,comments,strings]%
+\lst@definelanguage{Plasm}%
+  {sensitive=false,%
+   morekeywords={aa,abs,ac,acolor,acos,actor,al,alias,align,and,%
+      animation,animation,appearance,apply,ar,arc,as,asin,assoc,atan,%
+      axialcamera,axialcameras,basehermite,bbox,bbox,bernstein,%
+      bernsteinbasis,bezier,beziercurve,beziermanifold,bezierstripe,%
+      beziersurface,bigger,biggest,bilinearsurface,binormal,%
+      biquadraticsurface,black,blend,blue,bottom,box,brown,bspize,%
+      bspline,bsplinebasis,c,cabinet,camera,cart,case,cat,catch,ceil,%
+      centeredcameras,centralcavalier,char,charseq,choose,circle,%
+      circumference,class,cmap,color,comp,computecoords,cone,%
+      conicalsurface,cons,control,convexcoords,convexhull,coonspatch,%
+      copy,cos,cosh,crease,crosspolytope,cube,cubiccardinal,%
+      cubiccardinalbasis,cubichermite,cubicubspline,cubicubsplinebasis,%
+      cuboid,curl,curvature,curve2cspath,curve2mapvect,cyan,cylinder,%
+      cylindricalsurface,d,deboor,def,depol,depth_sort,depth_test,%
+      derbernstein,derbernsteinbase,derbezier,determinant,difference,%
+      differencepr,dim,dimetric,dirproject,displaygraph,displaynubspline,%
+      displaynurbspline,distl,distr,div,divergence,dodecahedron,dot,down,%
+      dp,drawedges,drawforks,drawtree,ds,dsphere,dump,dumprep,ellipse,%
+      embed,end,eq,ex,exp,explode,export,extract_bodies,extract_polygons,%
+      extract_wires,extrude,extrusion,fact,false,feature,ff,fillcolor,%
+      filter,finitecone,first,flash,flashani,floor,fontcolor,fontheight,%
+      fontspacing,fontwidth,fractalsimplex,frame,frame,frameflash,fromto,%
+      gausscurvature,ge,grad,gradient,gradmap,gray,green,gt,help,hermite,%
+      hermitebasis,hermitesurface,hexahedron,icosahedron,id,idnt,if,in,%
+      inarcs,innerprod,inset,insl,insr,intersection,intersectionpr,%
+      intervals,intmax,intmin,intsto,inv,isa,isanimpol,isbool,ischar,%
+      isclosedshape,iscloseto,isempty,iseven,isfun,isfunvect,isge,isgt,%
+      isint,isintneg,isinto,isintpos,isle,islt,ismat,ismatof,isnat,%
+      isnull,isnum,isnumneg,isnumpos,isodd,isometric,isorthoshape,ispair,%
+      ispoint,ispointseq,ispol,ispoldim,ispolytope,ispurepol,isreal,%
+      isrealneg,isrealpos,isrealvect,isseq,isseqof,isshape,issimplex,%
+      issqrmat,isstring,isvect,iszero,jacobian,join,joints,k,last,le,%
+      left,leftcavalier,len,less,lesseq,lex,lift,light,linecolor,%
+      linesize,list,ln,load,loadlib,loop,lt,lxmy,magenta,map,mapshapes,%
+      markersize,mat,matdotprod,material,mathom,max,mean,meanpoint,med,%
+      merge,mesh,min,minkowski,mirror,mixedprod,mk,mkframe,mkpol,%
+      mkvector,mkversork,mod,model,move,mul,multextrude,mxby,mxmy,mxty,%
+      myfont,n,nat2string,neq,ngon,norm2,normalmap,not,nu_grid,nubspline,%
+      nubsplineknots,nurbspline,nurbsplineknots,octahedron,offset,%
+      onepoint,open,optimize,or,orange,ord,ortho,orthoproject,orthox,%
+      orthoy,orthoz,outarcs,outerloop,outerwarp,pairdiff,parallel,%
+      pascaltriangle,pdiff,pdifference,permutahedron,permutations,%
+      perspective,perspective,pi,pivotop,plane,planemapping,pmap,%
+      points2shape,polar,polyline,polymarker,polypoint,power,powerset,%
+      presort,principalnormal,print,prism,profileprodsurface,%
+      progressivesum,project,projection,purple,pyramid,q,quadarray,%
+      quadmesh,quote,r,raise,range,rationalbezier,rationalblend,%
+      rationalbspline,rationalize,red,rev,reverse,rgbacolor,right,%
+      rightcavalier,ring,rn,rotatedtext,rotationalsurface,rotn,rtail,%
+      ruledsurface,rxmy,s,save,scalarmatprod,scalarvectprod,schlegel2d,%
+      schlegel3d,sdifference,sdifferencepr,segment,sel,setand,setdiff,%
+      setfontcolor,setor,setxor,sex,shape_0,shape_1,shape2points,%
+      shape2pol,shapeclosed,shapecomb,shapediff,shapedist,%
+      shapeinbetweening,shapeinf,shapejoin,shapelen,shapenorm,%
+      shapenormal,shapeprod,shaperot,shapesum,shapesup,shapezero,shift,%
+      showprop,sign,signal,simplex,simplexpile,sin,sinh,size,skeleton,%
+      skew,smaller,smallest,solidifier,solidify,sort,sphere,spline,%
+      splinesampling,splitcells,splitpols,sqr,sqrt,star,string,%
+      stringtokens,struct,sub,svg,sweep,t,tail,tan,tangent,tanh,%
+      tensorprodsurface,tetrahedron,text,texture,textwithattributes,%
+      thinsolid,threepoints,time,tmax,tmin,top,torus,torusmap,trace,%
+      trans,tree,trianglefan,trianglestripe,trimetric,true,truncone,tt,%
+      tube,twopoints,uk,ukpol,ukpolf,union,unionpr,unitvect,unprune,up,%
+      vect2dtoangle,vect2mat,vectdiff,vectnorm,vectprod,vectsum,view,%
+      viewmodel,viewmodel,vrml,warp,warp,where,white,with,xcavalier,xor,%
+      xquadarray,xx,ycavalier,yellow},%
+   moredirectives={loadlib},%
+   otherkeywords={-,+,*,**,/,~,|,..,^,\&,\&\&,\#,\#\#},%
+   morecomment=[s]{\%}{\%},%
+   morestring=[b]',%
+   literate={~}{{$\sim$}}{1} {^}{$\wedge$}{1},%
+  }[keywords,directives,comments,strings]%
 \lst@definelanguage{PL/I}%
   {morekeywords={ABS,ATAN,AUTOMATIC,AUTO,ATAND,BEGIN,BINARY,BIN,BIT,%
       BUILTIN,BY,CALL,CHARACTER,CHAR,CHECK,COLUMN,COL,COMPLEX,CPLX,%
@@ -224,6 +450,176 @@
    morecomment=[s]{/*}{*/},%
    morestring=[d]'%
   }[keywords,comments,strings]%
+%%
+%% Promela definition (c) 2004 William Thimbleby
+%%
+\lst@definelanguage{Promela}
+  {morekeywords={active,assert,atomic,bit,bool,break,byte,chan,d_step,%
+      Dproctype,do,else,empty,enabled,fi,full,goto,hidden,if,init,int,%
+      len,mtype,nempty,never,nfull,od,of,pcvalue,printf,priority,%
+      proctype,provided,run,short,skip,timeout,typedef,unless,unsigned,%
+      xr,xs,true,false,inline,eval},%
+   moredirectives={define,ifdef,ifndef,if,if,else,endif,undef,include},%
+   moredelim=*[directive]\#,%
+   morecomment=[s]{/*}{*/},%
+   morestring=[b]"%
+  }[keywords,comments,strings,directives]%
+%%
+%% Reduce definition (c) 2002 Geraint Paul Bevan
+%%
+\lst@definelanguage{Reduce}%
+  {morekeywords={%
+%% reserved identifiers
+abs,acos,acosh,acot,acoth,acsc,acsch,%
+adjprec,algebraic,algint,allbranch,allfac,and,%
+antisymmetric,append,arglength,array,asec,asech,%
+asin,asinh,atan,atan2,atanh,begin,bfspace,bye,%
+card_no,ceiling,clear,clearrules,coeff,coeffn,%
+cofactor,combineexpt,combinelogs,comment,comp,%
+complex,conj,cons,cont,cos,cosh,cot,coth,cramer,%
+cref,csc,csch,decompose,define,defn,deg,demo,den,%
+depend,det,df,difference,dilog,display,div,do,e,%
+echo,ed,editdef,ei,end,eps,eq,equal,erf,errcont,%
+evallhseqp,eval_mode,even,evenp,exp,expandlogs,%
+expr,expt,ezgcd,factor,factorial,factorize,fexpr,%
+first,fix,fixp,floor,for,forall,foreach,fort,%
+fort_width,freeof,fullroots,g,gcd,geq,go,goto,%
+greaterp,high_pow,hypot,i,if,ifactor,impart,in,%
+index,infinity,infix,input,int,integer,interpol,%
+intstr,k,korder,lambda,lcm,lcof,length,leq,lessp,%
+let,lhs,linear,linelength,lisp,list,listargp,%
+listargs,ln,load,load_package,log,log10,logb,%
+low_pow,lterm,macro,mainvar,mass,mat,match,%
+mateigen,matrix,max,mcd,member,memq,min,minus,mkid,%
+modular,msg,mshell,multiplicities,nat,neq,nero,%
+nextprime,nil,nodepend,noncom,nonzero,nosplit,%
+nospur,nullspace,num,numberp,odd,off,on,operator,%
+or,order,ordp,out,output,part,pause,period,pf,pi,%
+plus,precedence,precise,precision,pret,pri,primep,%
+print_precision,procedure,product,quit,quotient,%
+random,random_new_seed,rank,rat,ratarg,rational,%
+rationalize,ratpri,real,rederr,reduct,remainder,%
+remfac,remind,repart,repeat,rest,resultant,retry,%
+return,reverse,revpri,rhs,rlisp88,%
+root_multiplicity,round,roundall,roundbf,rounded,%
+saveas,savestructr,scalar,sec,sech,second,set,%
+setmod,setq,share,showrules,showtime,shut,sign,sin,%
+sinh,smacro,solve,solvesingular,spur,sqrt,structr,%
+sub,sum,symbolic,symmetric,t,tan,tanh,third,time,%
+times,tp,tra,trace,trfac,trigform,trint,until,%
+varname,vecdim,vector,weight,when,where,while,%
+write,ws,wtlevel,%
+%% identifiers with spaces
+%% for all,for each,go to,such that,%
+},%
+  sensitive=false,%
+  morecomment=[l]\%,%
+  morecomment=[s]{COMMENT}{;},%
+  morecomment=[s]{COMMENT}{$},%
+  morestring="%
+ }[keywords,comments,strings]%
+%%
+%% RSL definition (c) 2004 Brian Christensen
+%%
+\lst@definelanguage{RSL}%
+  {morekeywords={Bool,Char,devt_relation,Int,Nat,Real,Text,Unit,abs,any,%
+      as,axiom,card,case,channel,chaos,class,do,dom,elems,else,elsif,end,%
+      extend,false,for,hd,hide,if,in,inds,initialise,int,len,let,local,%
+      object,of,out,post,pre,read,real,rng,scheme,skip,stop,swap,%
+      test_case,theory,then,tl,true,type,until,use,value,variable,while,%
+      with,write},%
+literate=%
+{<}{$<$}{1}%
+{>}{$>$}{1}%
+{[}{$[$}{1}%%
+{]}{$]$}{1}%%
+{^}{{\mbox{$\widehat{\;}$}}}{1}%%
+{'}{{\raisebox{1ex}[1ex][0ex]{\protect\scriptsize$\prime$}}}{1}%%
+{||}{{\mbox{$\parallel$}}}{2}%%
+{|-}{$\vdash$}{1}%%
+{|=|}{{\mbox{$\lceil\!\rceil\!\!\!\!\!\!\;\lfloor\!\rfloor$}}}{1}%%
+{**}{$\uparrow$}{1}%
+{/\\}{$\wedge$}{1}%%
+{inter}{$\cap$}{1}%%
+{-\\}{$\lambda$}{1}%%
+{->}{$\rightarrow$}{1}%%
+{-m->}{{\mbox{$\rightarrow \hspace{-2.5\lst@width} _{m}\;$}}}{1}%
+{-~m->}{{\mbox{$\stackrel{\sim}{\mbox{$\rightarrow\hspace{-2.5\lst@width} _{m}\;$}}$}}}{1}%
+{-~->}{{\mbox{$\stackrel{\sim}{\rightarrow}$}}}{1}%%
+{-set}{\bf{-set}}{4}%%
+{-list}{{$^{\ast}$}}{1}%%
+{-inflist}{$^\omega$}{1}%
+{-infset}{{\mbox{{\bf -infset}}}}{7}%
+{\#}{$\circ$}{1}%
+{:-}{{\raisebox{.4ex}{\tiny $\bullet$}}}{1}%%
+{=}{$=$}{1}%%
+{==}{$==$}{2}%%
+{=>}{$\Rightarrow$}{1}%%
+{\ is\protect\^^M}{{$\;\equiv$}}{2}%
+{\ is\ }{{$\equiv$}}{3}%%
+{\ isin\protect\^^M}{$\;\in$}{2}%%
+{~}{$\sim$}{1}%%
+{~=}{$\neq$}{1}%%
+{~isin}{$\notin$}{1}%%
+{+>}{$\mapsto$}{1}%%
+{++}{}{1}%
+{|^|}{{\mbox{$\lceil\!\rceil$}}}{1}%%
+{\\/}{$\vee$}{1}%%
+{exists}{$\exists$}{1}%%
+{union}{$\cup$}{1}%%
+{>=}{$\geq$}{1}%%
+{><}{$\times$}{1}%%
+{>>}{$\supset$}{1}%
+{>>=}{$\supseteq$}{1}%%
+{<=}{$\leq$}{1}%%
+{<<}{$\subset$}{1}%
+{<.}{$\langle$}{1}%%
+{<<=}{$\subseteq$}{1}%%
+{<->}{$\leftrightarrow$}{1}%%
+{[=}{$\sqsubseteq$}{1}%%
+{\{=}{$\preceq$}{1}%%
+{\ all\protect\^^M}{$\forall$}{2}%%
+{\ all\ }{$\forall$}{3}%%
+{!!}{$\dagger$}{1}%%
+{always}{$\Box$}{1}%%
+{.>}{$\rangle$}{1}%%
+{`alpha}{$\alpha$}{1}%
+{`beta}{$\beta$}{1}%
+{`gamma}{$\gamma$}{1}%
+{`delta}{$\delta$}{1}%
+{`epsilon}{$\epsilon$}{1}%
+{`zeta}{$\zeta$}{1}%
+{`eta}{$\eta$}{1}%
+{`theta}{$\theta$}{1}%
+{`iota}{$\iota$}{1}%
+{`kappa}{$\kappa$}{1}%
+{`mu}{$\mu$}{1}%
+{`nu}{$\nu$}{1}%
+{`xi}{$\xi$}{1}%
+{`pi}{$\pi$}{1}%
+{`rho}{$\rho$}{1}%
+{`sigma}{$\sigma$}{1}%
+{`tau}{$\tau$}{1}%
+{`upsilon}{$\upsilon$}{1}%
+{`phi}{$\phi$}{1}%
+{`chi}{$\chi$}{1}%
+{`psi}{$\psi$}{1}%
+{`omega}{$\omega$}{1}%
+{`Gamma}{$\Gamma$}{1}%
+{`Delta}{$\Delta$}{1}%
+{`Theta}{$\Theta$}{1}%
+{`Lambda}{$\Lambda$}{1}%
+{`Xi}{$\Xi$}{1}%
+{`Pi}{$\Pi$}{1}%
+{`Sigma}{$\Sigma$}{1}%
+{`Upsilon}{$\Upsilon$}{1}%
+{`Phi}{$\Phi$}{1}%
+{`Psi}{$\Psi$}{1}%
+{`Omega}{$\Omega$}{1},%
+   sensitive=true,%
+   morecomment=[l]{--},%
+   morecomment=[s]{/*}{*/}%
+  }[keywords,comments]%
 \lst@definelanguage[IBM]{Simula}[DEC]{Simula}{}%
 \lst@definelanguage[DEC]{Simula}[67]{Simula}%
   {morekeywords={and,eq,eqv,ge,gt,hidden,imp,le,long,lt,ne,not,%
@@ -322,10 +718,11 @@
    alsoother={._$},%
    sensitive,%
    morecomment=[l]\#,%
-   morestring=[d]"%
+   morestring=[d]",%
+   morestring=[d]'% 2001 Robert Denham
   }%
 \lst@definelanguage{SAS}%
-  {prockeywords={proc},%
+  {procnamekeys={proc},%
    morekeywords={DATA,AND,OR,NOT,EQ,GT,LT,GE,LE,NE,INFILE,INPUT,DO,BY,%
       TO,SIN,COS,OUTPUT,END,PLOT,RUN,LIBNAME,VAR,TITLE,FIRSTOBS,OBS,%
       DELIMITER,DLM,EOF,ABS,DIM,HBOUND,LBOUND,MAX,MIN,MOD,SIGN,SQRT,%
@@ -342,7 +739,7 @@
       SHOW},%
    otherkeywords={!,!=,~,$,*,\&,_,/,<,>=,=<,>},%
    morestring=[d]'%
-   }%
+   }[keywords,comments,strings,procnames]%
 \lst@definelanguage[AlLaTeX]{TeX}[LaTeX]{TeX}%
   {moretexcs={AtBeginDocument,AtBeginDvi,AtEndDocument,AtEndOfClass,%
       AtEndOfPackage,ClassError,ClassInfo,ClassWarning,%
@@ -563,6 +960,47 @@
    alsoother={0123456789$_},%
    morecomment=[l]\%%
   }[keywords,tex,comments]%
+%%
+%% Verilog definition (c) 2003 Cameron H. G. Wright <c.h.g.wright@ieee.org>
+%%   Based on the IEEE 1364-2001 Verilog HDL standard
+%%   Ref: S. Palnitkar, "Verilog HDL: A Guide to Digital Design and Synthesis,"
+%%        Prentice Hall, 2003. ISBN: 0-13-044911-3
+%%
+\lst@definelanguage{Verilog}%
+  {morekeywords={% reserved keywords
+      always,and,assign,automatic,begin,buf,bufif0,bufif1,case,casex,%
+      casez,cell,cmos,config,deassign,default,defparam,design,disable,%
+      edge,else,end,endcase,endconfig,endfunction,endgenerate,%
+      endmodule,endprimitive,endspecify,endtable,endtask,event,for,%
+      force,forever,fork,function,generate,genvar,highz0,highz1,if,%
+      ifnone,incdir,include,initial,inout,input,instance,integer,join,%
+      large,liblist,library,localparam,macromodule,medium,module,nand,%
+      negedge,nmos,nor,noshowcancelled,not,notif0,notif1,or,output,%
+      parameter,pmos,posedge,primitive,pull0,pull1,pulldown,pullup,%
+      pulsestyle_onevent,pulsestyle_ondetect,rcmos,real,realtime,reg,%
+      release,repeat,rnmos,rpmos,rtran,rtranif0,rtranif1,scalared,%
+      showcancelled,signed,small,specify,specparam,strong0,strong1,%
+      supply0,supply1,table,task,time,tran,tranif0,tranif1,tri,tri0,%
+      tri1,triand,trior,trireg,unsigned,use,vectored,wait,wand,weak0,%
+      weak1,while,wire,wor,xnor,xor},%
+   morekeywords=[2]{% system tasks and functions
+      $bitstoreal,$countdrivers,$display,$fclose,$fdisplay,$fmonitor,%
+      $fopen,$fstrobe,$fwrite,$finish,$getpattern,$history,$incsave,%
+      $input,$itor,$key,$list,$log,$monitor,$monitoroff,$monitoron,%
+      $nokey},%
+   morekeywords=[3]{% compiler directives
+      `accelerate,`autoexpand_vectornets,`celldefine,`default_nettype,%
+      `define,`else,`elsif,`endcelldefine,`endif,`endprotect,%
+      `endprotected,`expand_vectornets,`ifdef,`ifndef,`include,%
+      `no_accelerate,`noexpand_vectornets,`noremove_gatenames,%
+      `nounconnected_drive,`protect,`protected,`remove_gatenames,%
+      `remove_netnames,`resetall,`timescale,`unconnected_drive},%
+   alsoletter=\`,%
+   sensitive,%
+   morecomment=[s]{/*}{*/},%
+   morecomment=[l]//,% nonstandard
+   morestring=[b]"%
+  }[keywords,comments,strings]%
 \endinput
 %%
 %% End of file `lstlang3.sty'.
