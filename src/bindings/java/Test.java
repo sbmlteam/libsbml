@@ -1,12 +1,12 @@
 /**
- * Filename    : Test.java
- * Description : Simple test of the libSBML Java module
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Created     : 2004-04-02
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    Test.java
+ * \brief   Simple test of the libSBML Java module
+ * \author  Ben Bornstein
  *
- * Copyright 2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
