@@ -15,6 +15,9 @@
 /* Define to 1 if you have the `check' library (-lcheck). */
 #undef HAVE_LIBCHECK
 
+/* Define to 1 if you have the `m' library (-lm). */
+#undef HAVE_LIBM
+
 /* Define to 1 if you have the <math.h> header file. */
 #undef HAVE_MATH_H
 
