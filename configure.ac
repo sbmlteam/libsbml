@@ -217,6 +217,8 @@ AC_CONFIG_FILES([bindings/Makefile])
 AC_CONFIG_FILES([bindings/python/Makefile])
 dnl AC_CONFIG_FILES([bindings/matlab/Makefile])    # not yet ready
 AC_CONFIG_FILES([bindings/java/Makefile])
+AC_CONFIG_FILES([docs/src/Doxyfile])
+AC_CONFIG_FILES([docs/src/Makefile])
 
 if test $with_expat != no; then
   AC_CONFIG_FILES([expat/Makefile])
