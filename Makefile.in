@@ -256,13 +256,16 @@ remove_distdir = \
     || { find $(DISTDIR) -type d ! -perm -200 -exec chmod u+w {} ';' \
          && rm -fr $(DISTDIR); }; }
 
+distarchive = $(DISTDIR).tar.gz
+
 dist dist-gzip: dist-all
 	if test -d $(DISTDIR); then \
-	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(DISTDIR).tar.gz $(notdir $(DISTDIR)); \
+	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(distarchive) $(notdir $(DISTDIR)); \
 	  $(remove_distdir); \
 	fi
 
 dist-all: $(distfiles)
+	-rm -f $(distarchive)
 	@$(remove_distdir)
 	mkdir -p $(DISTDIR)
 	@list='$(distfiles)'; for file in $$list; do \
