@@ -62,7 +62,7 @@
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/XMLString.hpp>
 
-#include "sbml/SAX2SBMLHandler.hpp"
+#include "sbml/SBMLHandler.hpp"
 #include "sbml/SBMLDocument.h"
 #include "sbml/SBMLReader.h"
 
@@ -215,7 +215,7 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
 
 
   SAX2XMLReader*     reader  = XMLReaderFactory::createXMLReader();
-  DefaultHandler*    handler = new SAX2SBMLHandler(d);
+  DefaultHandler*    handler = new SBMLHandler(d);
   MemBufInputSource* input   = NULL;
 
 

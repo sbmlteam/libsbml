@@ -86,14 +86,14 @@ nobase_include_HEADERS =          \
 
 libsbml_la_SOURCES =            \
   sbml/common.hpp               \
-  sbml/SAX2SBMLHandler.hpp      \
   sbml/SBMLFormatter.hpp        \
+  sbml/SBMLHandler.hpp          \
   sbml/SBMLHashCodes.hpp        \
   sbml/SBMLUnicodeConstants.hpp \
   sbml/XMLStringFormatter.hpp   \
   sbml/XMLUtil.hpp              \
-  SAX2SBMLHandler.cpp           \
   SBMLFormatter.cpp             \
+  SBMLHandler.cpp               \
   SBMLHashCodes.cpp             \
   SBMLReader.cpp                \
   SBMLWriter.cpp                \
@@ -128,8 +128,8 @@ TestRunner_SOURCES =             \
   sbml/SAX2AttributesMock.hpp    \
   SAX2AttributesMock.cpp         \
   TestSAX2AttributesMock.cpp     \
-  TestSAX2SBMLHandler.cpp        \
   TestSBMLFormatter.cpp          \
+  TestSBMLHandler.cpp            \
   TestXMLStringFormatter.cpp     \
   TestXMLUtil.cpp                \
   TestAlgebraicRule.c            \

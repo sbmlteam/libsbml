@@ -160,14 +160,14 @@ nobase_include_HEADERS = \
 
 libsbml_la_SOURCES = \
   sbml/common.hpp               \
-  sbml/SAX2SBMLHandler.hpp      \
   sbml/SBMLFormatter.hpp        \
+  sbml/SBMLHandler.hpp          \
   sbml/SBMLHashCodes.hpp        \
   sbml/SBMLUnicodeConstants.hpp \
   sbml/XMLStringFormatter.hpp   \
   sbml/XMLUtil.hpp              \
-  SAX2SBMLHandler.cpp           \
   SBMLFormatter.cpp             \
+  SBMLHandler.cpp               \
   SBMLHashCodes.cpp             \
   SBMLReader.cpp                \
   SBMLWriter.cpp                \
@@ -203,8 +203,8 @@ TestRunner_SOURCES = \
   sbml/SAX2AttributesMock.hpp    \
   SAX2AttributesMock.cpp         \
   TestSAX2AttributesMock.cpp     \
-  TestSAX2SBMLHandler.cpp        \
   TestSBMLFormatter.cpp          \
+  TestSBMLHandler.cpp            \
   TestXMLStringFormatter.cpp     \
   TestXMLUtil.cpp                \
   TestAlgebraicRule.c            \
@@ -255,23 +255,22 @@ CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(lib_LTLIBRARIES)
 
 libsbml_la_LIBADD =
-am_libsbml_la_OBJECTS = SAX2SBMLHandler.lo SBMLFormatter.lo \
-	SBMLHashCodes.lo SBMLReader.lo SBMLWriter.lo \
-	XMLStringFormatter.lo XMLUtil.lo AlgebraicRule.lo \
-	AssignmentRule.lo Compartment.lo CompartmentVolumeRule.lo \
-	KineticLaw.lo List.lo Model.lo Parameter.lo ParameterRule.lo \
-	Reaction.lo Rule.lo RuleType.lo SBase.lo SBMLDocument.lo \
-	Species.lo SpeciesConcentrationRule.lo SpeciesReference.lo \
-	Stack.lo Unit.lo UnitDefinition.lo UnitKind.lo memory.lo \
-	util.lo
+am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLHashCodes.lo \
+	SBMLReader.lo SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo \
+	AlgebraicRule.lo AssignmentRule.lo Compartment.lo \
+	CompartmentVolumeRule.lo KineticLaw.lo List.lo Model.lo \
+	Parameter.lo ParameterRule.lo Reaction.lo Rule.lo RuleType.lo \
+	SBase.lo SBMLDocument.lo Species.lo SpeciesConcentrationRule.lo \
+	SpeciesReference.lo Stack.lo Unit.lo UnitDefinition.lo \
+	UnitKind.lo memory.lo util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
 check_PROGRAMS = TestRunner$(EXEEXT)
 noinst_PROGRAMS = readSBML$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
 
 am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
-	TestSAX2AttributesMock.$(OBJEXT) TestSAX2SBMLHandler.$(OBJEXT) \
-	TestSBMLFormatter.$(OBJEXT) TestXMLStringFormatter.$(OBJEXT) \
+	TestSAX2AttributesMock.$(OBJEXT) TestSBMLFormatter.$(OBJEXT) \
+	TestSBMLHandler.$(OBJEXT) TestXMLStringFormatter.$(OBJEXT) \
 	TestXMLUtil.$(OBJEXT) TestAlgebraicRule.$(OBJEXT) \
 	TestAssignmentRule.$(OBJEXT) TestCompartment.$(OBJEXT) \
 	TestCompartmentVolumeRule.$(OBJEXT) TestKineticLaw.$(OBJEXT) \
@@ -308,9 +307,9 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/Reaction.Plo ./$(DEPDIR)/Rule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/RuleType.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SAX2AttributesMock.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/SAX2SBMLHandler.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLDocument.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLFormatter.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/SBMLHandler.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLHashCodes.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLReader.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLWriter.Plo ./$(DEPDIR)/SBase.Plo \
@@ -335,9 +334,9 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestRule.Po ./$(DEPDIR)/TestRuleType.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSAX2AttributesMock.Po \
-@AMDEP_TRUE@	./$(DEPDIR)/TestSAX2SBMLHandler.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLDocument.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLFormatter.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestSBMLHandler.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLReader.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLWriter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBase.Po ./$(DEPDIR)/TestSpecies.Po \
@@ -454,9 +453,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Rule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RuleType.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SAX2AttributesMock.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SAX2SBMLHandler.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLDocument.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLFormatter.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLHandler.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLHashCodes.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLReader.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLWriter.Plo@am__quote@
@@ -484,9 +483,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRuleType.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSAX2AttributesMock.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSAX2SBMLHandler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLDocument.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLFormatter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLHandler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLReader.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLWriter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBase.Po@am__quote@
