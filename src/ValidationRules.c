@@ -215,19 +215,32 @@ isKindOfVolume(const char *unitsName)
 
 static
 unsigned int
-isCubicMeters(UnitDefinition_t *ud)
+unitDefinitionIsVariantOf(
+  UnitDefinition_t *ud,
+  PFI isKindPFI,
+  int requiredExponent)
 {
-  static const PFI meterKinds[] = { isMeter, NULL };
+  PFI acceptableKinds[] = { NULL, NULL };
 
 
+  if (ud == NULL)
+    return 0;
+
+  acceptableKinds[0] = isKindPFI;
   return
-    ud != NULL
-    &&
-    isOneOfTheseKinds(ud, meterKinds)
-    &&
     _hasSingleKind(ud)
     &&
-    _hasExponent(ud, 3);
+    isOneOfTheseKinds(ud, acceptableKinds)
+    &&
+    _hasExponent(ud, requiredExponent);
+}
+
+
+static
+unsigned int
+isCubicMeters(UnitDefinition_t *ud)
+{
+  return unitDefinitionIsVariantOf(ud, isMeter, 3);
 }
 
 
@@ -235,17 +248,7 @@ static
 unsigned int
 isLiters(UnitDefinition_t *ud)
 {
-  static const PFI literKinds[] = { isLiter, NULL };
-
-
-  return
-    ud != NULL
-    &&
-    isOneOfTheseKinds(ud, literKinds)
-    &&
-    _hasSingleKind(ud)
-    &&
-    _hasExponent(ud, 1);
+  return unitDefinitionIsVariantOf(ud, isLiter, 1);
 }
 
 
@@ -255,21 +258,12 @@ unitDefinitionIsKindOfLength(
   const Model_t *m,
   const char *spatialSizeUnits)
 {
-  static const PFI acceptableKinds[] = { isMeter, NULL };
-
   UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
 
 
-  return
-    ud != NULL
-    &&
-    isOneOfTheseKinds(ud, acceptableKinds)
-    &&
-    _hasSingleKind(ud)
-    &&
-    _hasExponent(ud, 1);
+  return unitDefinitionIsVariantOf(ud, isMeter, 1);
 }
-
+  
 
 static
 unsigned int
@@ -277,20 +271,12 @@ unitDefinitionIsKindOfArea(
   const Model_t *m,
   const char *spatialSizeUnits)
 {
-  static const PFI acceptableKinds[] = { isMeter, NULL };
-
   UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
 
 
-  return
-    ud != NULL
-    &&
-    isOneOfTheseKinds(ud, acceptableKinds)
-    &&
-    _hasSingleKind(ud)
-    &&
-    _hasExponent(ud, 2);
+  return unitDefinitionIsVariantOf(ud, isMeter, 2);
 }
+
 
 
 static
