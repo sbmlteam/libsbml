@@ -390,6 +390,32 @@ RULE (unitDefinition_areaKinds)
 }
 
 
+RULE (unitDefinition_lengthKinds)
+{
+  RuleResult_t result;
+  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
+  PFI acceptableKinds[] = { isMeter, NULL };
+  static const char baseMsg[] = "a 'length' unitDefinition ";
+  static const char acceptableKindsMsg[] =
+    "may only have units of kind 'metre'.";
+
+  initializeRuleResult(&result);
+
+  if (!strcmp("length", UnitDefinition_getId(ud)))
+  {
+    hasSingleKind(&result, ud);
+    hasAcceptableKinds(&result, ud, acceptableKinds, acceptableKindsMsg);
+    hasExponent(&result, ud, 1);
+  }
+
+  if (!result.passed)
+  {
+    logFullMessage(baseMsg, &result, obj, messages);
+  }
+  return result.passed;
+}
+
+
 /**
  * Adds the default ValidationRule set to this Validator.
  */
@@ -407,5 +433,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, unitDefinition_volumeKinds,
                                                      SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_areaKinds,
+                                                     SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_lengthKinds,
                                                      SBML_UNIT_DEFINITION );
 }
