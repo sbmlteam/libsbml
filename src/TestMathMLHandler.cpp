@@ -1514,6 +1514,72 @@ START_TEST (test_element_xor)
 END_TEST
 
 
+START_TEST (test_element_bug_apply_ci_1)
+{
+  ASTNode_t* n;
+  ASTNode_t* c;
+
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <ci> Y </ci>"
+    "  <cn> 1 </cn>"
+    "</apply>"
+  );
+
+
+  D = readMathMLFromString(s);
+  n = D->math;
+
+  fail_unless( n != NULL, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "Y")  , NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 1    , NULL );
+
+  c = ASTNode_getLeftChild(n);
+
+  fail_unless( c != NULL, NULL );
+  fail_unless( ASTNode_getType(c) == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal(c) == 1       , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_bug_apply_ci_2)
+{
+  ASTNode_t* n;
+  ASTNode_t* c;
+
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <ci> Y </ci>"
+    "  <csymbol encoding='text' "
+    "   definitionURL='http://www.sbml.org/sbml/symbols/time'> t </csymbol>"
+    "</apply>"
+  );
+
+
+  D = readMathMLFromString(s);
+  n = D->math;
+
+  fail_unless( n != NULL, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "Y")  , NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 1    , NULL );
+
+  c = ASTNode_getLeftChild(n);
+
+  fail_unless( c != NULL, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME_TIME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "t")   , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+}
+END_TEST
+
+
+
 Suite *
 create_suite_MathMLHandler (void)
 {
@@ -1593,6 +1659,8 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_tan                       );
   tcase_add_test( tcase, test_element_tanh                      );
   tcase_add_test( tcase, test_element_xor                       );
+  tcase_add_test( tcase, test_element_bug_apply_ci_1            );
+  tcase_add_test( tcase, test_element_bug_apply_ci_2            );
 
   suite_add_tcase(suite, tcase);
 

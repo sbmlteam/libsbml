@@ -186,15 +186,17 @@ MathMLHandler::startElement (const XMLCh* const  uri,
                              const XMLCh* const  qname,
                              const Attributes&   attrs)
 {
-  MathMLTagCode_t currTag = getTagCode(uri, localname);
-  MathMLTagCode_t prevTag = MATHML_TAG_UNKNOWN;
-  ASTNodeType_t   type    = AST_TYPE_TABLE[currTag];
-  ASTNode_t*      node    = NULL;
+  MathMLTagCode_t currTag  = getTagCode(uri, localname);
+  MathMLTagCode_t prevTag  = MATHML_TAG_UNKNOWN;
+  ASTNode_t*      currNode = NULL;
+  ASTNode_t*      prevNode = NULL;
+  ASTNodeType_t   type     = AST_TYPE_TABLE[currTag];
 
 
   if (Stack_size(fTagStack) > 0)
   {
-    prevTag = (MathMLTagCode_t) Stack_peek(fTagStack);
+    prevTag  = (MathMLTagCode_t) Stack_peek(fTagStack);
+    prevNode = (ASTNode_t*)      Stack_peek(fObjStack);
   }
 
   //
@@ -202,7 +204,7 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   // stack.  When the next tag is a builtin MathML function (e.g. <sin>),
   // the AST_FUNCTION node can be popped from the stack, its type made more
   // specific (e.g. AST_FUNCTION_SIN), in effect "renaming" the function,
-  // and pushed on again.  This is what is happening inside the if-block
+  // and pushed on again.  This is what is happening inside the if-blocks
   // below.
   //
   // There is one exception to this rule which the if-block guards against:
@@ -212,25 +214,28 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   //    Stack: (AST_FUNCTION) (AST_NAME)
   //
   // In this case the function name is not known until the full content of
-  // the <ci> tag is seen.  The only thing we can do create and push an
-  // AST_NAME (the else-if block).  The function name will have to wait
+  // the <ci> element is seen.  The only thing we can do create and push an
+  // AST_NAME (the next if block).  The function name will have to wait
   // until reduceExpression().
   //
-  if (prevTag == MATHML_TAG_APPLY && currTag != MATHML_TAG_CI)
+  if (prevTag == MATHML_TAG_APPLY && ASTNode_getName(prevNode) == NULL)
   {
-    Stack_pop(fTagStack);
-    node = (ASTNode_t*) Stack_pop(fObjStack);
+    if (currTag != MATHML_TAG_CI)
+    {
+      Stack_pop(fTagStack);
+      currNode = (ASTNode_t*) Stack_pop(fObjStack);
 
-    ASTNode_setType(node, type);
+      ASTNode_setType(currNode, type);
+    }
   }
 
   //
-  // Otherwise, instead of renaming an AST_FUNCTION node, create a new node
-  // of the appropriate type.
+  // Otherwise (if currNode was not set above), instead of renaming an
+  // AST_FUNCTION node, create a new node of the appropriate type.
   //
-  else if (type != AST_UNKNOWN)
+  if (currNode == NULL && type != AST_UNKNOWN)
   {
-    node = ASTNode_createWithType(type);
+    currNode = ASTNode_createWithType(type);
   }
 
   //
@@ -239,19 +244,19 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   switch (currTag)
   {
     case MATHML_TAG_CN:
-      setTypeCN(node, attrs);
+      setTypeCN(currNode, attrs);
       break;
 
     case MATHML_TAG_CSYMBOL:
-      setTypeCS(node, attrs);
+      setTypeCS(currNode, attrs);
       break;
 
     case MATHML_TAG_NOT_A_NUMBER:
-      ASTNode_setReal(node, util_NaN());
+      ASTNode_setReal(currNode, util_NaN());
       break;
 
     case MATHML_TAG_INFINITY:
-      ASTNode_setReal(node, util_PosInf());
+      ASTNode_setReal(currNode, util_PosInf());
       break;
   }
 
@@ -262,10 +267,10 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   // or tags that add little value to the parse (e.g. <bvar>, <degree>,
   // <logbase>).  These are simply ignored.
   //
-  if (node != NULL)
+  if (currNode != NULL)
   {
     Stack_push(fTagStack, (void*) currTag);
-    Stack_push(fObjStack, node);
+    Stack_push(fObjStack, currNode);
   }
 }
 
@@ -277,7 +282,6 @@ MathMLHandler::endElement (const XMLCh* const  uri,
 {
   MathMLTagCode_t tag  = getTagCode(uri, localname);
   ASTNode_t*      node = (ASTNode_t*) Stack_peek(fObjStack);
-
 
   switch (tag)
   {
@@ -301,6 +305,9 @@ MathMLHandler::endElement (const XMLCh* const  uri,
 
     case MATHML_TAG_SEP:
       fSeenSep = true;
+      break;
+
+    default:
       break;
   }
 }
