@@ -75,15 +75,9 @@ thisdir = docs/src
 formatted              = ../formatted
 
 preformatted_files     = java.txt python.txt
-
-generated_manual_files = libsbml-manual libsbml-manual.dvi \
-	 		 libsbml-manual.ps libsbml-manual.pdf
-
-generated_apiref_files = libsbml-api-ref.dvi libsbml-api-ref.ps \
-			 libsbml-api-ref.pdf
-
+generated_manual_files = libsbml-manual libsbml-manual.dvi libsbml-manual.pdf
+generated_apiref_files = libsbml-api-ref.dvi libsbml-api-ref.pdf
 all_generated_files    = $(generated_manual_files) $(generated_apiref_files) 
-
 all_doc_files          = $(all_generated_files) $(preformatted_files)
 
 docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
