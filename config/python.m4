@@ -77,11 +77,6 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     dnl This comes in part from SWIG 1.3.31's configure.ac file.
 
     case $host in
-    *cygwin* | *mingw*) 
-	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
-	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}"
-        PYTHON_LIBS="-l${PYTHON_NAME}"
-	;;
     *darwin*) 
 	dnl Got an ugly situation on MacOS X: need different args depending
 	dnl on whether the system-installed or Fink-installed version of
@@ -102,9 +97,14 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
 	fi
 	;;
+    *cygwin* | *mingw*) 
+	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
+	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
+        PYTHON_LIBS="-l${PYTHON_NAME}"
+	;;
     *)
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}"
+        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
 	;;
     esac
