@@ -69,7 +69,7 @@ typedef struct
   char   *name;
   char   *compartment;
 
-  struct
+  union
   {
     double Amount;
     double Concentration;

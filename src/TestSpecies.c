@@ -243,6 +243,36 @@ START_TEST (test_Species_setCompartment)
 END_TEST
 
 
+START_TEST (test_Species_setInitialAmount)
+{
+  fail_unless( !Species_isSetInitialAmount       (S), NULL );
+  fail_unless( !Species_isSetInitialConcentration(S), NULL );
+
+  Species_setInitialAmount(S, 1.2);
+
+  fail_unless(  Species_isSetInitialAmount       (S), NULL );
+  fail_unless( !Species_isSetInitialConcentration(S), NULL );
+
+  fail_unless( Species_getInitialAmount(S) == 1.2, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Species_setInitialConcentration)
+{
+  fail_unless( !Species_isSetInitialAmount       (S), NULL );
+  fail_unless( !Species_isSetInitialConcentration(S), NULL );
+
+  Species_setInitialConcentration(S, 3.4);
+
+  fail_unless( !Species_isSetInitialAmount       (S), NULL );
+  fail_unless(  Species_isSetInitialConcentration(S), NULL );
+
+  fail_unless( Species_getInitialConcentration(S) == 3.4, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Species_setSubstanceUnits)
 {
   char *units = "item";
@@ -344,15 +374,17 @@ create_suite_Species (void)
                              SpeciesTest_setup,
                              SpeciesTest_teardown );
 
-  tcase_add_test( tcase, test_Species_create              );
-  tcase_add_test( tcase, test_Species_createWith          );
-  tcase_add_test( tcase, test_Species_free_NULL           );
-  tcase_add_test( tcase, test_Species_setId               );
-  tcase_add_test( tcase, test_Species_setName             );
-  tcase_add_test( tcase, test_Species_setCompartment      );
-  tcase_add_test( tcase, test_Species_setSubstanceUnits   );
-  tcase_add_test( tcase, test_Species_setSpatialSizeUnits );
-  tcase_add_test( tcase, test_Species_setUnits            );
+  tcase_add_test( tcase, test_Species_create                  );
+  tcase_add_test( tcase, test_Species_createWith              );
+  tcase_add_test( tcase, test_Species_free_NULL               );
+  tcase_add_test( tcase, test_Species_setId                   );
+  tcase_add_test( tcase, test_Species_setName                 );
+  tcase_add_test( tcase, test_Species_setCompartment          );
+  tcase_add_test( tcase, test_Species_setInitialAmount        );
+  tcase_add_test( tcase, test_Species_setInitialConcentration );
+  tcase_add_test( tcase, test_Species_setSubstanceUnits       );
+  tcase_add_test( tcase, test_Species_setSpatialSizeUnits     );
+  tcase_add_test( tcase, test_Species_setUnits                );
 
   suite_add_tcase(suite, tcase);
 

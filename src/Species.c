@@ -450,10 +450,9 @@ LIBSBML_EXTERN
 void
 Species_setInitialAmount (Species_t *s, double value)
 {
-  s->initial.Amount      = value;
-  s->isSet.initialAmount = 1;
-
-  Species_unsetInitialConcentration(s);
+  s->initial.Amount             = value;
+  s->isSet.initialAmount        = 1;
+  s->isSet.initialConcentration = 0;
 }
 
 
@@ -466,9 +465,8 @@ void
 Species_setInitialConcentration (Species_t *s, double value)
 {
   s->initial.Concentration      = value;
+  s->isSet.initialAmount        = 0;
   s->isSet.initialConcentration = 1;
-
-  Species_unsetInitialAmount(s);
 }
 
 
