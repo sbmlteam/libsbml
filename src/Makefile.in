@@ -151,6 +151,7 @@ headers = \
   sbml/SpeciesReference.h           \
   sbml/SpeciesReference.hpp         \
   sbml/Stack.h                      \
+  sbml/StreamFormatTarget.hpp       \
   sbml/StringBuffer.h               \
   sbml/StringMap.h                  \
   sbml/Unit.h                       \
@@ -214,6 +215,7 @@ sources = \
   SpeciesConcentrationRule.cpp    \
   SpeciesReference.cpp            \
   Stack.c                         \
+  StreamFormatTarget.cpp          \
   StringBuffer.c                  \
   StringMap.c                     \
   Unit.cpp                        \
