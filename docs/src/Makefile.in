@@ -203,7 +203,7 @@ tex/libsbmlextras.sty: $(TOP_SRCDIR)/VERSION.txt $(TOP_SRCDIR)/FUNDING.txt
 	cd $(TOP_BUILDDIR) && \
 	    $(SHELL) ./config.status $(thisdir)/tex/libsbmlextras.sty
 
-Doxyfile: $(TOP_SRCDIR)/VERSION.txt
+Doxyfile: $(TOP_SRCDIR)/VERSION.txt Doxyfile.in
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/Doxyfile
 
 # Yes, run pdflatex 4 times after running bibtex here.
@@ -257,8 +257,10 @@ api-tex-files = $(wildcard api/*.tex)
 
 create-api-files = { $(SHELL) createAPISections.sh ../../src/sbml; }
 
-libsbml-api-ref.pdf:  libsbml-api-ref.tex  $(api-tex-files)
+libsbml-api-ref.pdf:  libsbml-api-ref.tex
+ifeq "$(api-tex-files)" ""
 	$(create-api-files)
+endif
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	$(latex-env) pdflatex libsbml-api-ref
 	-bibtex libsbml-api-ref
@@ -268,6 +270,9 @@ libsbml-api-ref.pdf:  libsbml-api-ref.tex  $(api-tex-files)
 	$(latex-env) pdflatex libsbml-api-ref
 
 libsbml-api-ref.dvi: libsbml-api-ref.tex
+ifeq "$(api-tex-files)" ""
+	$(create-api-files)
+endif
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	$(latex-env) latex libsbml-api-ref
 	-bibtex libsbml-api-ref
@@ -275,13 +280,12 @@ libsbml-api-ref.dvi: libsbml-api-ref.tex
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) latex libsbml-api-ref
 
-libsbml-api-ref.ps:  libsbml-api-ref.tex  libsbml-api-ref.dvi
+libsbml-api-ref.ps:  libsbml-api-ref.dvi
 	dvips -o libsbml-api-ref.ps libsbml-api-ref
 
 doxygen-output-dir = libsbml-api-ref
 
-libsbml-api-ref: $(api-tex-files)
-	$(create-api-files)
+libsbml-api-ref: Doxyfile $(wildcard ../../src/*.[cpp,hpp])
 	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
 	doxygen Doxyfile
 	cp graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
