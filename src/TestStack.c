@@ -54,7 +54,7 @@
 #include "sbml/Stack.h"
 
 
-Stack_t *S;
+static Stack_t *S;
 
 
 void
@@ -114,6 +114,30 @@ START_TEST (test_Stack_pop)
   fail_unless( Stack_size(S)     ==  0, NULL );
   fail_unless( Stack_capacity(S) == 10, NULL );
   fail_unless( !strcmp(item, "foo")   , NULL );
+}
+END_TEST
+
+
+START_TEST (test_Stack_popN)
+{
+  Stack_push(S, "foo");
+  Stack_push(S, "bar");
+  Stack_push(S, "baz");
+  Stack_push(S, "bop");
+
+  fail_unless( Stack_size(S) ==  4, NULL );
+
+  fail_unless( Stack_popN(S, 0) == NULL, NULL );
+  fail_unless( Stack_size(S) == 4, NULL );
+
+  fail_unless( !strcmp(Stack_popN(S, 3), "bar"), NULL );
+  fail_unless( Stack_size(S) == 1, NULL );
+
+  fail_unless( !strcmp(Stack_popN(S, 1), "foo"), NULL );
+  fail_unless( Stack_size(S) == 0, NULL );
+
+  fail_unless( Stack_popN(S, 0) == NULL, NULL );
+  fail_unless( Stack_size(S) == 0, NULL );
 }
 END_TEST
 
@@ -204,6 +228,26 @@ START_TEST (test_Stack_grow)
 END_TEST
 
 
+START_TEST (test_Stack_find)
+{
+  char *s1 = "foo";
+  char *s2 = "bar";
+  char *s3 = "baz";
+  char *s4 = "bop";
+
+
+  Stack_push(S, s1);
+  Stack_push(S, s2);
+  Stack_push(S, s3);
+
+  fail_unless( Stack_find(S, s1) ==  2, NULL );
+  fail_unless( Stack_find(S, s2) ==  1, NULL );
+  fail_unless( Stack_find(S, s3) ==  0, NULL );
+  fail_unless( Stack_find(S, s4) == -1, NULL );
+}
+END_TEST
+
+
 Suite *
 create_suite_Stack (void)
 {
@@ -216,11 +260,13 @@ create_suite_Stack (void)
   tcase_add_test( tcase, test_Stack_free_NULL );
   tcase_add_test( tcase, test_Stack_push      );
   tcase_add_test( tcase, test_Stack_pop       );
+  tcase_add_test( tcase, test_Stack_popN      );
   tcase_add_test( tcase, test_Stack_peek      );
   tcase_add_test( tcase, test_Stack_peekAt    );
   tcase_add_test( tcase, test_Stack_size      );
   tcase_add_test( tcase, test_Stack_capacity  );
   tcase_add_test( tcase, test_Stack_grow      );
+  tcase_add_test( tcase, test_Stack_find      );
 
   suite_add_tcase(suite, tcase);
 
