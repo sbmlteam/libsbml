@@ -131,4 +131,4 @@ libsbml_wrap.cpp: libsbml.i
 	swig $(SWIGFLAGS) -c++ -python -o libsbml_wrap.cpp libsbml.i
 
 clean:
-	/bin/rm -f libsbml_wrap.cpp libsbml.py *.o *.so *.pyc *~
+	/bin/rm -f libsbml_wrap.cpp libsbml.py *.o *.so *.pyc
