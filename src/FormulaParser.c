@@ -321,7 +321,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseFormula (const char *formula)
 {
-  int rule, state, action;
+  long rule, state, action;
 
   ASTNode_t *node = NULL;
 
@@ -334,7 +334,7 @@ SBML_parseFormula (const char *formula)
 
   while (1)
   {
-    state  = (int) Stack_peek(stack);
+    state  = (long) Stack_peek(stack);
     action = FormulaParser_getAction(state, token);
 
     if (action == ACCEPT_STATE)
@@ -377,7 +377,7 @@ SBML_parseFormula (const char *formula)
     {
       rule  = -action;
       node  = FormulaParser_reduceStackByRule(stack, rule);
-      state = (int) Stack_peek(stack);
+      state = (long) Stack_peek(stack);
 
       Stack_push( stack, node );
       Stack_push( stack, (void *) FormulaParser_getGoto(state, rule) );
@@ -400,11 +400,11 @@ SBML_parseFormula (const char *formula)
  * Postive actions less-than represent shifts.  Negative actions greater
  * than represent reductions by a grammar rule.
  */
-int
-FormulaParser_getAction (int state, Token_t *token)
+long
+FormulaParser_getAction (long state, Token_t *token)
 {
-  int result = ERROR_STATE;
-  int n, max;
+  long result = ERROR_STATE;
+  long n, max;
 
 
   n   = FormulaParser_getActionOffset(token->type);
@@ -429,10 +429,10 @@ FormulaParser_getAction (int state, Token_t *token)
  *
  * This function is machine-generated.  DO NOT EDIT.
  */
-int
+long
 FormulaParser_getActionLength (TokenType_t type)
 {
-  int result;
+  long result;
 
 
   /**
@@ -467,10 +467,10 @@ FormulaParser_getActionLength (TokenType_t type)
  *
  * This function is machine-generated.  DO NOT EDIT.
  */
-int
+long
 FormulaParser_getActionOffset (TokenType_t type)
 {
-  int result;
+  long result;
 
 
   /**
@@ -504,10 +504,10 @@ FormulaParser_getActionOffset (TokenType_t type)
  *
  * ERROR_STATE is special and should be tested for first.
  */
-int
-FormulaParser_getGoto (int state, int rule)
+long
+FormulaParser_getGoto (long state, long rule)
 {
-  int result = ERROR_STATE;
+  long result = ERROR_STATE;
 
 
   if (rule == 1 && state == 0)
@@ -548,7 +548,7 @@ FormulaParser_getGoto (int state, int rule)
  * the given grammar rule.
  */
 ASTNode_t *
-FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
+FormulaParser_reduceStackByRule (Stack_t *stack, long rule)
 {
   ASTNode_t *result, *lexpr, *rexpr, *operator;
 

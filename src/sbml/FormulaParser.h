@@ -82,8 +82,8 @@ SBML_parseFormula (const char *formula);
  * Postive actions less-than represent shifts.  Negative actions greater
  * than represent reductions by a grammar rule.
  */
-int
-FormulaParser_getAction (int state, Token_t *token);
+long
+FormulaParser_getAction (long state, Token_t *token);
 
 /**
  * @return the number of consective tokens in the Action[] table for the
@@ -91,7 +91,7 @@ FormulaParser_getAction (int state, Token_t *token);
  *
  * This function is machine-generated.  DO NOT EDIT.
  */
-int
+long
 FormulaParser_getActionLength (TokenType_t type);
 
 /**
@@ -100,7 +100,7 @@ FormulaParser_getActionLength (TokenType_t type);
  *
  * This function is machine-generated.  DO NOT EDIT.
  */
-int
+long
 FormulaParser_getActionOffset (TokenType_t type);
 
 /**
@@ -108,15 +108,15 @@ FormulaParser_getActionOffset (TokenType_t type);
  *
  * ERROR_STATE is special and should be tested for first.
  */
-int
-FormulaParser_getGoto (int state, int rule);
+long
+FormulaParser_getGoto (long state, long rule);
 
 /**
  * Reduces the given stack (containing SLR parser states and ASTNodes) by
  * the given grammar rule.
  */
 ASTNode_t *
-FormulaParser_reduceStackByRule (Stack_t *stack, int rule);
+FormulaParser_reduceStackByRule (Stack_t *stack, long rule);
 
 
 END_C_DECLS
