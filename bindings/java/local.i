@@ -253,12 +253,6 @@
  * SWIG to generate a no argument Java constructor.
  */
 
-%extend SBMLReader
-{
-  SBMLReader() { return new SBMLReader(); }
-}
-
-
 %extend SBMLDocument
 {
   SBMLDocument() { return new SBMLDocument(); }
@@ -383,5 +377,197 @@
   public Parameter (String id, double value)
   {
     this(id, value, "", true);
+  }
+%}
+
+
+%extend Rule
+{
+  Rule() { return new Rule(); }
+}
+
+
+%extend AlgebraicRule
+{
+  AlgebraicRule() { return new AlgebraicRule(); }
+}
+
+
+%typemap("javacode") AssignmentRule
+%{
+  public AssignmentRule (String variable, String formula)
+  {
+    this(variable, formula, libsbml.RULE_TYPE_SCALAR);
+  }
+
+  public AssignmentRule (String variable, ASTNode math)
+  {
+    this(variable, math, libsbml.RULE_TYPE_SCALAR);
+  }
+%}
+
+
+%typemap("javacode") SpeciesConcentrationRule
+%{
+  public SpeciesConcentrationRule (String species, String formula)
+  {
+    this(species, formula, libsbml.RULE_TYPE_SCALAR);
+  }
+%}
+
+
+%typemap("javacode") CompartmentVolumeRule
+%{
+  public CompartmentVolumeRule (String compartment, String formula)
+  {
+    this(compartment, formula, libsbml.RULE_TYPE_SCALAR);
+  }
+%}
+
+
+%typemap("javacode") CompartmentVolumeRule
+%{
+  public CompartmentVolumeRule (String compartment, String formula)
+  {
+    this(compartment, formula, libsbml.RULE_TYPE_SCALAR);
+  }
+%}
+
+
+%typemap("javacode") ParameterRule
+%{
+  public ParameterRule (String name, String formula)
+  {
+    this(name, formula, libsbml.RULE_TYPE_SCALAR);
+  }
+%}
+
+
+%extend RateRule
+{
+  RateRule() { return new RateRule(); }
+}
+
+
+%extend Reaction
+{
+  Reaction() { return new Reaction(); }
+}
+
+%typemap("javacode") Reaction
+%{
+  public Reaction (String sid, KineticLaw kl)
+  {
+    this(sid, kl, true);
+  }
+
+  public Reaction (String sid)
+  {
+    this(sid, null, true);
+  }
+%}
+
+
+%extend SimpleSpeciesReference
+{
+  SimpleSpeciesReference() { return new SimpleSpeciesReference(); }
+}
+
+
+%extend ModifierSpeciesReference
+{
+  ModifierSpeciesReference() { return new ModifierSpeciesReference(); }
+}
+
+
+%extend SpeciesReference
+{
+  SpeciesReference() { return new SpeciesReference(); }
+}
+
+%typemap("javacode") SpeciesReference
+%{
+  SpeciesReference (String species, double stoichiometry)
+  {
+    this(species, stoichiometry, 1);
+  }
+
+  SpeciesReference (String species)
+  {
+    this(species, 1.0, 1);
+  }
+%}
+
+
+%extend KineticLaw
+{
+  KineticLaw() { return new KineticLaw(); }
+}
+
+%typemap("javacode") KineticLaw
+%{
+  KineticLaw (String formula, String timeUnits)
+  {
+    this(formula, timeUnits, "");
+  }
+
+  KineticLaw (String formula)
+  {
+    this(formula, "", "");
+  }
+%}
+
+
+%extend Event
+{
+  Event() { return new Event(); }
+}
+
+%typemap("javacode") Event
+%{
+  Event (String id, String trigger)
+  {
+    this(id, trigger, "");
+  }
+
+  Event (String id)
+  {
+    this(id, "", "");
+  }
+
+  Event (String id, ASTNode trigger)
+  {
+    this(id, trigger, (ASTNode) null);
+  }
+%}
+
+
+%extend EventAssignment
+{
+  EventAssignment() { return new EventAssignment(); }
+}
+
+
+%extend SBMLReader
+{
+  SBMLReader() { return new SBMLReader(); }
+}
+
+
+%extend ParseMessage
+{
+  ParseMessage() { return new ParseMessage(); }
+}
+
+%typemap("javacode") ParseMessage
+%{
+  ParseMessage (String message, long line)
+  {
+    this(message, line, 0);
+  }
+
+  ParseMessage (String message)
+  {
+    this(message, 0, 0);
   }
 %}
