@@ -373,6 +373,39 @@ hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
 
 
 static
+BOOLEAN
+isOneDimensional(const Model_t *m, const char *spatialSizeUnits)
+{
+  return
+    isKindOfLength(spatialSizeUnits)
+    ||
+    unitDefinitionIsKindOfLength(m, spatialSizeUnits);
+}
+
+
+static
+BOOLEAN
+isTwoDimensional(const Model_t *m, const char *spatialSizeUnits)
+{
+  return 
+    isKindOfArea(spatialSizeUnits)
+    ||
+    unitDefinitionIsKindOfArea(m, spatialSizeUnits);
+}
+
+
+static
+BOOLEAN
+isThreeDimensional(const Model_t *m, const char *spatialSizeUnits)
+{
+  return
+    isKindOfVolume(spatialSizeUnits)
+    ||
+    unitDefinitionIsKindOfVolume(m, spatialSizeUnits);
+}
+
+
+static
 unsigned int
 anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
 {
@@ -826,12 +859,8 @@ RULE (species_spatialDimensions1)
     Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
     if (c && Compartment_getSpatialDimensions(c) == 1)
     {
-      const char *spatialSizeUnits = Species_getSpatialSizeUnits(s);
-      if (
-        !isKindOfLength(spatialSizeUnits)
-        &&
-        !unitDefinitionIsKindOfLength(d->model, spatialSizeUnits)
-      ) {
+      if (!isOneDimensional(d->model, Species_getSpatialSizeUnits(s)))
+      {
         LOG_MESSAGE(msg);
         passed = 0;
       }
@@ -862,12 +891,8 @@ RULE (species_spatialDimensions2)
     Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
     if (c && Compartment_getSpatialDimensions(c) == 2)
     {
-      const char *spatialSizeUnits = Species_getSpatialSizeUnits(s);
-      if (
-        !isKindOfArea(spatialSizeUnits)
-        &&
-        !unitDefinitionIsKindOfArea(d->model, spatialSizeUnits)
-      ) {
+      if (!isTwoDimensional(d->model, Species_getSpatialSizeUnits(s)))
+      {
         LOG_MESSAGE(msg);
         passed = 0;
       }
@@ -899,12 +924,8 @@ RULE (species_spatialDimensions3)
     Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
     if (c && Compartment_getSpatialDimensions(c) == 3)
     {
-      const char *spatialSizeUnits = Species_getSpatialSizeUnits(s);
-      if (
-        !isKindOfVolume(spatialSizeUnits)
-        &&
-        !unitDefinitionIsKindOfVolume(d->model, spatialSizeUnits)
-      ) {
+      if (!isThreeDimensional(d->model, Species_getSpatialSizeUnits(s)))
+      {
         LOG_MESSAGE(msg);
         passed = 0;
       }
