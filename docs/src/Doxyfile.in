@@ -362,7 +362,9 @@ WARN_LOGFILE           =
 # with spaces.
 
 INPUT                  = ../../src \
-                         ../../src/sbml
+                         ../../src/sbml \
+			 ../../expat \
+			 libsbml-api-ref.c
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
