@@ -134,6 +134,209 @@ public:
   LIBSBML_EXTERN
   double getOffset () const;
 
+
+  /**
+   * @return true if the kind of this Unit is 'ampere', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isAmpere () const;
+
+  /**
+   * @return true if the kind of this Unit is 'becquerel', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isBecquerel () const;
+
+  /**
+   * @return true if the kind of this Unit is 'candela', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isCandela () const;
+
+  /**
+   * @return true if the kind of this Unit is 'Celsius', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isCelsius () const;
+
+  /**
+   * @return true if the kind of this Unit is 'coulomb', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isCoulomb () const;
+
+  /**
+   * @return true if the kind of this Unit is 'dimensionless', false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isDimensionless () const;
+
+  /**
+   * @return true if the kind of this Unit is 'farad', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isFarad () const;
+
+  /**
+   * @return true if the kind of this Unit is 'gram', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isGram () const;
+
+  /**
+   * @return true if the kind of this Unit is 'gray', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isGray () const;
+
+  /**
+   * @return true if the kind of this Unit is 'henry', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isHenry () const;
+
+  /**
+   * @return true if the kind of this Unit is 'hertz', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isHertz () const;
+
+  /**
+   * @return true if the kind of this Unit is 'item', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isItem () const;
+
+  /**
+   * @return true if the kind of this Unit is 'joule', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isJoule () const;
+
+  /**
+   * @return true if the kind of this Unit is 'katal', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isKatal () const;
+
+  /**
+   * @return true if the kind of this Unit is 'kelvin', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isKelvin () const;
+
+  /**
+   * @return true if the kind of this Unit is 'kilogram', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isKilogram () const;
+
+  /**
+   * @return true if the kind of this Unit is 'litre' or 'liter', false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isLitre () const;
+
+  /**
+   * @return true if the kind of this Unit is 'lumen', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isLumen () const;
+
+  /**
+   * @return true if the kind of this Unit is 'lux', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isLux () const;
+
+  /**
+   * @return true if the kind of this Unit is 'metre' or 'meter', false
+   * otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isMetre () const;
+
+  /**
+   * @return true if the kind of this Unit is 'mole', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isMole () const;
+
+  /**
+   * @return true if the kind of this Unit is 'newton', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isNewton () const;
+
+  /**
+   * @return true if the kind of this Unit is 'ohm', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isOhm () const;
+
+  /**
+   * @return true if the kind of this Unit is 'pascal', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isPascal () const;
+
+  /**
+   * @return true if the kind of this Unit is 'radian', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isRadian () const;
+
+  /**
+   * @return true if the kind of this Unit is 'second', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSecond () const;
+
+  /**
+   * @return true if the kind of this Unit is 'siemens', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSiemens () const;
+
+  /**
+   * @return true if the kind of this Unit is 'sievert', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSievert () const;
+
+  /**
+   * @return true if the kind of this Unit is 'steradian', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isSteradian () const;
+
+  /**
+   * @return true if the kind of this Unit is 'tesla', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isTesla () const;
+
+  /**
+   * @return true if the kind of this Unit is 'volt', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isVolt () const;
+
+  /**
+   * @return true if the kind of this Unit is 'watt', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isWatt () const;
+
+  /**
+   * @return true if the kind of this Unit is 'weber', false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isWeber () const;
+
+
   /**
    * @return true if the kind of this Unit has been set, false otherwise.
    */

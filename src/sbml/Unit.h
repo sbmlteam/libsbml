@@ -141,6 +141,238 @@ Unit_getOffset (const Unit_t *u);
 
 
 /**
+ * @return 1 if the kind of this Unit is 'ampere', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isAmpere (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'becquerel', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isBecquerel (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'candela', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isCandela (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'Celsius', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isCelsius (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'coulomb', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isCoulomb (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'dimensionless', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isDimensionless (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'farad', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isFarad (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'gram', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isGram (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'gray', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isGray (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'henry', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isHenry (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'hertz', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isHertz (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'item', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isItem (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'joule', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isJoule (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'katal', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isKatal (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'kelvin', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isKelvin (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'kilogram', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isKilogram (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'litre' or 'liter', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isLitre (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'lumen', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isLumen (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'lux', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isLux (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'metre' or 'meter', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isMetre (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'mole', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isMole (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'newton', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isNewton (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'ohm', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isOhm (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'pascal', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isPascal (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'radian', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isRadian (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'second', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSecond (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'siemens', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSiemens (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'sievert', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSievert (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'steradian', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isSteradian (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'tesla', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isTesla (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'volt', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isVolt (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'watt', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isWatt (const Unit_t *u);
+
+/**
+ * @return 1 if the kind of this Unit is 'weber', 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Unit_isWeber (const Unit_t *u);
+
+
+/**
  * @return 1 if the kind of this Unit has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
