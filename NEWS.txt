@@ -23,6 +23,8 @@
 
     - Mike Hucka rewrote the entire build/make system.  It no longer uses
       automake or libtool; as a result, it is smaller, leaner and faster.
+      Other features include changes to configure to add --with-python,
+      --with-java.
 
     - Mike Hucka updated the libsbml-manual.tex to make it reflect the
       current state of the API.  Mike also created a new LaTeX class file
