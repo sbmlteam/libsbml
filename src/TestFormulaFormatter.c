@@ -138,7 +138,7 @@ START_TEST (test_FormulaFormatter_isGrouped)
 
 
   /**
-   * foo(1 + 2, 2 * 3)
+   * "foo(1 + 2, 2 * 3)":
    *
    * The parent node foo has higher precedence than its children, but
    * grouping is not nescessary since foo is a function.
@@ -150,6 +150,40 @@ START_TEST (test_FormulaFormatter_isGrouped)
 
   c = ASTNode_getRightChild(p);
   fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
+
+
+  /**
+   * "(a / b) * c":
+   *
+   * In this case, explicit grouping is not needed due to associativity
+   * rules.
+   */
+  p = SBML_parseFormula("(a / b) * c");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
+
+
+  /**
+   * "a / (b * c)":
+   *
+   * In this case, explicit grouping is needed.  The operators / and * have
+   * the same precedence, but the parenthesis modifies the associativity.
+   */
+  p = SBML_parseFormula("a / (b * c)");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 1, NULL );
 
   ASTNode_free(p);
 }
@@ -264,6 +298,8 @@ START_TEST (test_SBML_formulaToString)
     "foo(1)",
     "foo(1, bar)",
     "foo(1, bar, 2^-3)",
+    "a / b * c",
+    "a / (b * c)",
     ""
   };
 
