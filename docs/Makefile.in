@@ -72,7 +72,10 @@ thisdir = docs
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-subdirs = src formatted
+# Although there are two subdirectories here ("src" and "formatted"), the
+# actions in this makefile work using a single sub-makefile in "src".
+
+subdirs = src
 
 distfiles = Makefile.in
 
