@@ -51,6 +51,7 @@
 
 
 #include "sbml/ASTNode.h"
+#include "sbml/FormulaParser.h"
 
 
 START_TEST (test_ASTNode_create)
@@ -1456,6 +1457,49 @@ START_TEST (test_ASTNode_children)
 END_TEST
 
 
+START_TEST (test_ASTNode_getListOfNodes)
+{
+  const char *gaussian =
+  (
+    "(1 / (sigma * sqrt(2 * pi))) * exp( -(x - mu)^2 / (2 * sigma^2) )"
+  );
+
+  ASTNode_t *root, *node;
+  List_t    *list;
+
+
+  root = SBML_parseFormula(gaussian);
+  list = ASTNode_getListOfNodes(root, (ASTNodePredicate) ASTNode_isName);
+
+  fail_unless( List_size(list) == 4, NULL );
+
+
+  node = (ASTNode_t *) List_get(list, 0);
+
+  fail_unless( ASTNode_isName(node), NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "sigma"), NULL );
+
+  node = (ASTNode_t *) List_get(list, 1);
+
+  fail_unless( ASTNode_isName(node), NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "x"), NULL );
+
+  node = (ASTNode_t *) List_get(list, 2);
+
+  fail_unless( ASTNode_isName(node), NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "mu"), NULL );
+
+  node = (ASTNode_t *) List_get(list, 3);
+
+  fail_unless( ASTNode_isName(node), NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "sigma"), NULL );
+
+  List_free(list);
+  ASTNode_free(root);
+}
+END_TEST
+
+
 Suite *
 create_suite_ASTNode (void) 
 { 
@@ -1486,6 +1530,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_no_children             );
   tcase_add_test( tcase, test_ASTNode_one_child               );
   tcase_add_test( tcase, test_ASTNode_children                );
+  tcase_add_test( tcase, test_ASTNode_getListOfNodes          );
 
   suite_add_tcase(suite, tcase);
 

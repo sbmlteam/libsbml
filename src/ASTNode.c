@@ -665,6 +665,61 @@ ASTNode_getNumChildren (const ASTNode_t *node)
 
 
 /**
+ * Performs a depth-first search (DFS) of the tree rooted at node and
+ * returns the List of nodes where predicate(node) returns true.
+ *
+ * The typedef for ASTNodePredicate is:
+ *
+ *   int (*ASTNodePredicate) (const ASTNode_t *node);
+ *
+ * where a return value of non-zero represents true and zero represents
+ * false.
+ *
+ * The List returned is owned by the caller and should be freed with
+ * List_free().  The ASTNodes in the list, however, are not owned by the
+ * caller (as they still belong to the tree itself) and therefore should
+ * not be freed.  That is, do not call List_freeItems().
+ */
+LIBSBML_EXTERN
+List_t *
+ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate)
+{
+  List_t *list = List_create();
+
+
+  ASTNode_fillListOfNodes(node, predicate, list);
+
+  return list;
+}
+
+
+/**
+ * This method is identical in functionality to ASTNode_getListOfNodes(),
+ * except the List is passed-in by the caller.
+ */
+LIBSBML_EXTERN
+void
+ASTNode_fillListOfNodes ( const ASTNode_t  *node,
+                          ASTNodePredicate predicate,
+                          List_t           *list )
+{
+  unsigned int numChildren = ASTNode_getNumChildren(node);
+  unsigned int c;
+
+
+  if (predicate(node) != 0)
+  {
+    List_add(list, (ASTNode_t *) node);
+  }
+
+  for (c = 0; c < numChildren; c++)
+  {
+    ASTNode_fillListOfNodes( ASTNode_getChild(node, c), predicate, list );
+  }
+}
+
+
+/**
  * @return the value of this ASTNode as a single character.  This function
  * should be called only when ASTNode_getType() is one of AST_PLUS,
  * AST_MINUS, AST_TIMES, AST_DIVIDE or AST_POWER.

@@ -183,6 +183,17 @@ typedef struct
 
 
 /**
+ * ASTNodePredicate
+ *
+ * This is a typedef for a pointer to a function that takes an ASTNode and
+ * returns true (non-zero) or false (0).
+ *
+ * @see ASTNode_getListOfNodes(), ASTNode_fillListOfNodes()
+ */
+typedef int (*ASTNodePredicate) (const ASTNode_t *node);
+
+
+/**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
  * will have a type of AST_UNKNOWN and should be set to something else as
  * soon as possible.
@@ -309,6 +320,37 @@ ASTNode_getRightChild (const ASTNode_t *node);
 LIBSBML_EXTERN
 unsigned int
 ASTNode_getNumChildren (const ASTNode_t *node);
+
+
+/**
+ * Performs a depth-first search (DFS) of the tree rooted at node and
+ * returns the List of nodes where predicate(node) returns true.
+ *
+ * The typedef for ASTNodePredicate is:
+ *
+ *   int (*ASTNodePredicate) (const ASTNode_t *node);
+ *
+ * where a return value of non-zero represents true and zero represents
+ * false.
+ *
+ * The List returned is owned by the caller and should be freed with
+ * List_free().  The ASTNodes in the list, however, are not owned by the
+ * caller (as they still belong to the tree itself) and therefore should
+ * not be freed.  That is, do not call List_freeItems().
+ */
+LIBSBML_EXTERN
+List_t *
+ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate);
+
+/**
+ * This method is identical in functionality to ASTNode_getListOfNodes(),
+ * except the List is passed-in by the caller.
+ */
+LIBSBML_EXTERN
+void
+ASTNode_fillListOfNodes ( const ASTNode_t  *node,
+                          ASTNodePredicate predicate,
+                          List_t           *list );
 
 
 /**
