@@ -148,7 +148,6 @@ distfiles = \
         AUTHORS.txt                                          \
         COPYING.html                                         \
         COPYING.txt                                          \
-        ChangeLog.txt                                        \
         FUNDING.txt                                          \
         Makefile.in                                          \
         NEWS.txt                                             \
