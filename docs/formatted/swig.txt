@@ -467,12 +467,7 @@
    modifications according to its arguments.
 
 
-3.0 PYTHON REFERENCE
-
-   @@list SBase and all its descendants here?
-
-
-3.1 KNOWN BUGS
+2.7 KNOWN BUGS
 
    You can't copy a libSBML object in either of the usual Python
    ways: obj[:] or copy.copy(obj).  The reason is that each
