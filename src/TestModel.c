@@ -368,6 +368,21 @@ START_TEST (test_Model_createKineticLaw)
 END_TEST
 
 
+START_TEST (test_Model_createKineticLaw_alreadyExists)
+{
+  Reaction_t   *r;
+  KineticLaw_t *kl;
+
+
+  r  = Model_createReaction(M);
+  kl = Model_createKineticLaw(M);
+
+  fail_unless( Model_createKineticLaw(M) == NULL, NULL );
+  fail_unless( r->kineticLaw == kl, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Model_createKineticLaw_noReaction)
 {
   fail_unless( Model_getNumReactions(M)  == 0,    NULL );
@@ -674,6 +689,7 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_createProduct                          );
   tcase_add_test( t, test_Model_createProduct_noReaction               );
   tcase_add_test( t, test_Model_createKineticLaw                       );
+  tcase_add_test( t, test_Model_createKineticLaw_alreadyExists         );
   tcase_add_test( t, test_Model_createKineticLaw_noReaction            );
   tcase_add_test( t, test_Model_createKineticLawParameter              );
   tcase_add_test( t, test_Model_createKineticLawParameter_noReaction   );

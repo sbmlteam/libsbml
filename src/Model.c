@@ -434,6 +434,10 @@ Model_createKineticLaw (Model_t *m)
       kl            = KineticLaw_create();
       r->kineticLaw = kl;
     }
+    else
+    {
+      kl = NULL;
+    }
   }
 
   return kl;
