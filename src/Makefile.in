@@ -218,10 +218,10 @@ sources = \
   util.c
 
 ifdef USE_LIBCHECK
-testrunner_headers = \
+test_headers = \
   sbml/SAX2AttributesMock.hpp
 
-testrunner_sources = \
+test_sources = \
   SAX2AttributesMock.cpp          \
   TestMathMLFormatter.cpp         \
   TestMathMLHandler.cpp           \
@@ -279,6 +279,31 @@ testrunner_sources = \
   TestUnit.c                      \
   TestUtil.c                      \
   TestValidator.c
+
+test_data =                                      \
+  test-data/l1v1-branch-schema-error.xml               \
+  test-data/l1v1-branch.xml                            \
+  test-data/l1v1-minimal.xml                           \
+  test-data/l1v1-rules.xml                             \
+  test-data/l1v1-units.xml                             \
+  test-data/l1v2-branch.xml                            \
+  test-data/l2v1-2D-compartments.xml                   \
+  test-data/l2v1-algebraic.xml                         \
+  test-data/l2v1-assignment.xml                        \
+  test-data/l2v1-boundary.xml                          \
+  test-data/l2v1-branch.xml                            \
+  test-data/l2v1-delay.xml                             \
+  test-data/l2v1-events.xml                            \
+  test-data/l2v1-functions.xml                         \
+  test-data/l2v1-mc-ode.xml                            \
+  test-data/l2v1-units.xml                             \
+  test-data/sbml-l1v1.xsd                              \
+  test-data/sbml-l1v2.xsd                              \
+  test-data/sbml-l2v1.xsd                              \
+  test-data/consistency-checks/ConsistencyChecks.txt   \
+  test-data/consistency-checks/genConsistencyChecks.py \
+  test-data/consistency-checks/partialModels
+
 endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
@@ -315,9 +340,12 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) \
-	$(testrunner_sources) \
-	$(testrunner_headers) \
+distfiles = \
+	$(sources) \
+	$(headers) \
+	$(test_sources) \
+	$(test_headers) \
+	$(test_data) \
 	sbml/config.h.in Makefile.in
 
 distfiles_exclude = sbml/config.h
@@ -357,18 +385,14 @@ html:
 # directory and not abstracted into `makefile-common-actions.mk'.
 
 ifdef USE_LIBCHECK
-  testrunner_tmplist  = $(testrunner_sources:.cpp=.$(OBJEXT)) \
-			$(testrunner_sources:.c=.$(OBJEXT))
-  testrunner_objfiles = $(filter %.$(OBJEXT),$(testrunner_tmplist))
-
-  # The .Po dependency files do not need to be included explicitly here, as
-  # makefile-common-actions.mk includes them using a wildcard.
-
+  test_tmplist  = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
+  test_objfiles = $(filter %.$(OBJEXT),$(test_tmplist))
 endif
 
-$(check_programs): $(testrunner_objfiles) $(libraries)
-	$(CXX) $(CXXFLAGS) $(DEFS) $(extra_CXXFLAGS) $(default_includes) \
-	  $(INCLUDES) $(testrunner_objfiles) $(objfiles) $(extra_LDFLAGS) \
+$(check_programs): $(test_objfiles) $(libraries)
+	$(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
+	  $(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) \
+	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
 
 run-checks:: $(check_programs)
