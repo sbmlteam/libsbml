@@ -259,7 +259,16 @@ private:
   inline void SBMLFormatter::downIndent () { fIndentLevel--; }
 
 
-  static const unsigned int NUMBER_BUFFER_SIZE = 100;
+  //
+  // For the statement:
+  //
+  //   static const unsigned int NUMBER_BUFFER_SIZE = 100;
+  //
+  // MSVC++ 6.0 complains: "error C2258: illegal pure syntax, must be '=
+  // 0'", but g++ has no problem with it?!  Fine.  For now, just #define.
+  //
+#define NUMBER_BUFFER_SIZE 100
+
   char fNumberBuffer[ NUMBER_BUFFER_SIZE ];
 
   unsigned int fLevel;
