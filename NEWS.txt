@@ -3,21 +3,115 @@
 
 === Version 2.0.1 ===
 
-* The correct namespace is now output for SBML Level 2 documents.
-  This fixes a bug in version 2.0.0.
+* Bug Fixes:
 
-* SBML_convertToL2(SBase_t *sb) converts any SBML Level 1 object and
-  its subordinate objects to SBML Level 2.  Currently this function
-  only converts name fields to id fields, however, in the future it
-  will:
+    - The correct namespace is now output for SBML Level 2 documents.
 
-    - Add ModifierSpeciesReferences when converting L1 Reactions.
-    - Add FunctionDefinitions for L1 predefined functions.
+    - The MathMLHandler now correctly constructs ASTs for calls to
+      user-defined function containing numeric arguments (Thanks to
+      Colin Gillespie for reporting an anomaly that lead to the
+      discovery of this bug).
 
-  SBMLDocument_setLevel() calls this function automatically when the
-  current level is 1 and the new level is 2.
+    - SBML_formulaToString() did not correctly reproduce (sub)
+      expressions with operators of the same precedence, but modified
+      associativity.  For example, "1 / (2 * 3)" was correctly parsed
+      (in infix or MathML) but incorrectly converted to "1 / 2 * 3".
+      This bug has been fixed!
 
-* Released July 23, 2003
+* Major New Features:
+
+    - When reading SBML Level 2, MathML expressions are automatically
+      converted to and stored as SBML L1 infix expressions for maximum
+      backward compatibility with L1.  That is, either XXX_getMath()
+      or XXX_getFormula() may be used.  There is no need to call
+      SBML_formulaToString() under most circumstances.
+
+    - SBML_convertToL2(SBase_t *sb) converts any SBML Level 1 object
+      and its subordinate objects to SBML Level 2.  Currently this
+      function:
+
+        - Converts name fields to id fields
+
+        - Adds ModifierSpeciesReferences when converting Reactions
+          (via SBML_addModifiersToReaction(Reaction_t *r, const Model_t *m))
+
+      In the future this function will also:
+
+        - Add FunctionDefinitions for L1 predefined functions
+
+     SBMLDocument_setLevel() calls SBML_convertToL2() automatically
+     when the current level is 1 and the new level is 2.
+
+* Major New APIs:
+
+    - char *
+      writeMathMLToString (MathMLDocument_t *d)
+  
+    - unsigned int
+      Model_getNumSpeciesWithBoundaryCondition (const Model_t *m)
+
+    - Species_t *
+      Model_getSpeciesById (const Model_t *m, const char *sid)
+ 
+    - SpeciesReference_t *
+      Reaction_getReactantById (const Reaction_t *r, const char *sid)
+
+    - SpeciesReference_t *
+      Reaction_getProductById (const Reaction_t *r, const char *sid)
+
+    - ModifierSpeciesReference_t *
+      Reaction_getModifierById (const Reaction_t *r, const char *sid)
+
+    - unsigned int
+      ListOf_countIf (const ListOf_t *lo, ListItemPredicate p);
+
+    - void *
+      ListOf_find (const ListOf_t *lo, const void *item1, ListItemComparator c)
+
+    - List_t *
+      ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate p)
+
+    Where ListItemPredicate, ListItemComparator and ASTNodePredicate
+    are pointers to functions with a particular signature.  This
+    allows for convenient and powerful Lisp map-like or C++ STL
+    operations over a container (In fact, the XXX_countIf() name was
+    inspired by the C++ STL).  For example,
+    Model_getNumSpeciesWithBoundaryCondition() (above) is implemented
+    simply as follows:
+
+      return ListOf_countIf( m->species,
+                            (ListItemPredicate) Species_getBoundaryCondition );
+
+
+* New example program:
+
+    - translateMath.c is an interactive console program that translates infix
+      formulas into MathML and vice-versa.
+
+* Improved Windows build and binary distribution:
+
+    - Andrew Finney constructed an MSVC++ project file and a set of
+      batch files to build both regular and debug versions of libsbml
+      and all example programs.
+
+    - Xerces-C++ 2.2.0 headers, DLLs and .lib files are included with
+      the Windows distribution (libsbml-2.0.1.zip; see the win32/
+      subdirectory).
+
+* Minor improvements:
+
+  - Public API header files no longer include references to C-specific
+    header files (e.g. stdio.h).  This should make it easier for
+    automated tools to read these header files and generate API
+    bindings for other languages (e.g. Delphi; Thanks to Herbert Sauro
+    for suggesting this).
+
+  - SBMLTypes.h now #includes both SBMLReader.h and SBMLWriter.h.
+
+  - Internal utility classes and functions are now officially public.
+    See List.h, Stack.h, StringBuffer.h and util.h.
+
+* Released August 6, 2003
 
 
 
@@ -62,9 +156,9 @@
     - There are currently three convenience functions for converting
       between SBML infix and MathML formulae:
 
-        - ASTNode_t *SBML_parseFormula(const char *formula)
-        - char      *SBML_formulaToString(const ASTNode_t *math)
-        - ASTNode_t *readMathMLFromString(cont char *xml)
+        - ASTNode_t        *SBML_parseFormula(const char *formula)
+        - char             *SBML_formulaToString(const ASTNode_t *math)
+        - MathMLDocument_t *readMathMLFromString(cont char *xml)
 
       Again, these are provided purely for convenience.  Under normal
       circumstances, libsbml performs all conversions behind the
