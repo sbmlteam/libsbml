@@ -86,8 +86,8 @@ typedef struct
 /**
  * Creates a new SBMLWriter and returns a pointer to it.
  *
- * By default the character encoding is ISO 8859-1
- * (CHARACTER_ENCODING_ISO_8859_1).
+ * By default the character encoding is UTF-8
+ * (CHARACTER_ENCODING_UTF_8).
  */
 LIBSBML_EXTERN
 SBMLWriter_t *
@@ -103,7 +103,7 @@ SBMLWriter_free (SBMLWriter_t *sw);
 /**
  * Initializes the fields of this SBMLWriter to their defaults:
  *
- *  - encoding = CHARACTER_ENCODING_ISO_8895_1
+ *  - encoding = CHARACTER_ENCODING_UTF_8
  */
 LIBSBML_EXTERN
 void

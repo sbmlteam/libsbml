@@ -63,7 +63,7 @@ START_TEST (test_SBMLWriter_create)
   SBMLWriter_t *sw = SBMLWriter_create();
 
 
-  fail_unless(sw->encoding == CHARACTER_ENCODING_ISO_8859_1, NULL);
+  fail_unless(sw->encoding == CHARACTER_ENCODING_UTF_8, NULL);
 
   SBMLWriter_free(sw);
 }
