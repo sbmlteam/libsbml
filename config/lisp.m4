@@ -33,7 +33,7 @@ dnl SUCH DAMAGE.
 
 dnl CONFIG_PROG_LISP
 dnl Wrapper combining the most common configuration macros into a single call.
-AC_DEFUN(CONFIG_PROG_LISP,
+AC_DEFUN([CONFIG_PROG_LISP],
 [
   CONFIG_WITH_LISP
   CONFIG_LISP_EXIT
@@ -47,7 +47,7 @@ dnl CONFIG_WITH_LISP
 dnl find a common lisp, sets $LISP
 dnl searches $PATH and common places
 dnl introduces --with-lisp
-AC_DEFUN(CONFIG_WITH_LISP,
+AC_DEFUN([CONFIG_WITH_LISP],
 [
   AC_SUBST(LISP)
   AC_ARG_WITH(lisp,
@@ -104,7 +104,7 @@ AC_DEFUN(CONFIG_WITH_LISP,
 dnl AC_LISP_EXIT
 dnl determine the exit function of the lisp implementation
 dnl sets $LISPEXIT to the function name 
-AC_DEFUN(CONFIG_LISP_EXIT,
+AC_DEFUN([CONFIG_LISP_EXIT],
 [
   AC_SUBST(LISPEXIT)
   if test "$USE_LISP" = "1" ; then
@@ -133,7 +133,7 @@ dnl sets variable to 'ok' or 'failed' depending on
 dnl whether code exits lisp with 0 or >0
 dnl cares for caching
 dnl uses program $LISP
-AC_DEFUN(CONFIG_LISP_RUN,
+AC_DEFUN([CONFIG_LISP_RUN],
 [
   AC_CACHE_CHECK($1, ac_cv_$2,
     ac_cv_$2="ok"
@@ -149,7 +149,7 @@ dnl whether code exits lisp with 0 or 1
 dnl prepare is lisp code, done out of all error handlers
 dnl cares for caching
 dnl uses program $LISP and $LISPEXIT
-AC_DEFUN(CONFIG_LISP_OUTPUT,
+AC_DEFUN([CONFIG_LISP_OUTPUT],
 [
   ac_prepare="$4"
   ac_code="$3"
@@ -180,7 +180,7 @@ dnl checks whether the code produces an condition in $LISP
 dnl or runs through
 dnl uses program $LISP and lisp function $LISPEXIT
 dnl prepare is done before code to initialize
-AC_DEFUN(CONFIG_LISP_CHECK,
+AC_DEFUN([CONFIG_LISP_CHECK],
 [
   ac_prepare="$4"
   ac_code="$3"
@@ -195,7 +195,7 @@ AC_DEFUN(CONFIG_LISP_CHECK,
 
 dnl find out the suffix of binary lisp files (fasl, x86f, fas, ...)
 dnl This sets FASLEXT 
-AC_DEFUN(CONFIG_FASL,
+AC_DEFUN([CONFIG_FASL],
 [ 
   AC_SUBST(FASLEXT)
   if test "$USE_LISP" = "1" ; then
@@ -207,7 +207,7 @@ AC_DEFUN(CONFIG_FASL,
 dnl check for compilation tool asdf
 dnl sets ASDF and EXT_ASDF to the directory where asdf is
 dnl installed
-AC_DEFUN(CONFIG_ASDF_CHECK,
+AC_DEFUN([CONFIG_ASDF_CHECK],
 [
   AC_SUBST(EXT_ASDF)
   AC_SUBST(ASDF)
@@ -215,10 +215,10 @@ AC_DEFUN(CONFIG_ASDF_CHECK,
   if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(asdf,
       AC_HELP_STRING([--with-asdf=<pathname>],
-	             [Use asdf at <pathname> (default:bindings/lisp/tps/asdf)]),
+	             [Use asdf at <pathname> (default:src/bindings/lisp/tps/asdf)]),
       ASDFPATH="$with_asdf:`dirname ${with_asdf}`"
      ,
-      ASDFPATH="${srcdir}/bindings/lisp/tps/asdf"
+      ASDFPATH="${srcdir}/src/bindings/lisp/tps/asdf"
     )
     AC_PATH_PROG(ASDF,asdf.lisp,failed,$ASDFPATH)
     if test $ASDF = failed; then
@@ -229,7 +229,7 @@ AC_DEFUN(CONFIG_ASDF_CHECK,
       AC_MSG_ERROR([Asdf cannot be loaded -- see config.log for details] )
     fi
     ASDF=`dirname $ASDF`/
-    if test "$ASDF" = "${srcdir}/bindings/lisp/tps/asdf/"; then
+    if test "$ASDF" = "${srcdir}/src/bindings/lisp/tps/asdf/"; then
       ASDF_RUN="@final_libdir@/lisp/asdf/"
     else
       EXT_ASDF=1
@@ -246,8 +246,8 @@ AC_DEFUN(CONFIG_ASDF_CHECK,
 
 dnl check for uffi 
 dnl sets UFFI to the directory of uffi
-dnl also links the uffi.asd to the bindings/lisp
-AC_DEFUN(CONFIG_UFFI_CHECK,
+dnl also links the uffi.asd to the src/bindings/lisp
+AC_DEFUN([CONFIG_UFFI_CHECK],
 [
   AC_SUBST(UFFI)
   AC_SUBST(UFFI_RUN)
@@ -255,10 +255,10 @@ AC_DEFUN(CONFIG_UFFI_CHECK,
   if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(uffi,
       AC_HELP_STRING([--with-uffi=<pathname>],
-                     [Use uffi at <pathname> (default:bindings/lisp/tps/uffi)]), 
+                     [Use uffi at <pathname> (default:src/bindings/lisp/tps/uffi)]), 
         UFFIPATH="${with_uffi}:`dirname ${with_uffi}`"
 	,
-        UFFIPATH="${srcdir}/bindings/lisp/tps/uffi"
+        UFFIPATH="${srcdir}/src/bindings/lisp/tps/uffi"
     )
     AC_PATH_PROG(UFFI,uffi.asd,failed,$UFFIPATH)
     if test $UFFI = failed; then
@@ -272,7 +272,7 @@ AC_DEFUN(CONFIG_UFFI_CHECK,
     fi
 
     UFFI="`dirname $UFFI`/"
-    if test "$UFFI" = "${srcdir}/bindings/lisp/tps/uffi/"; then
+    if test "$UFFI" = "${srcdir}/src/bindings/lisp/tps/uffi/"; then
       UFFI_RUN="@final_libdir@/lisp/uffi/"
     else
       EXT_UFFI=1
@@ -284,27 +284,27 @@ AC_DEFUN(CONFIG_UFFI_CHECK,
     if test -z "$UFFI_RUN"; then
       UFFI_RUN="$UFFI"
     fi
-    if test -h ${srcdir}/bindings/lisp/uffi.asd ; then
-      rm ${srcdir}/bindings/lisp/uffi.asd
+    if test -h ${srcdir}/src/bindings/lisp/uffi.asd ; then
+      rm ${srcdir}/src/bindings/lisp/uffi.asd
     fi
-    ln -s ${UFFI}uffi.asd ${srcdir}/bindings/lisp/
+    ln -s ${UFFI}uffi.asd ${srcdir}/src/bindings/lisp/
   fi
 ])
 
 dnl check for cparse
 dnl sets CPARSE to the directory of cparse
-dnl also links the cparse.asd to the bindings/lisp
-AC_DEFUN(CONFIG_CPARSE_CHECK,
+dnl also links the cparse.asd to the src/bindings/lisp
+AC_DEFUN([CONFIG_CPARSE_CHECK],
 [
   AC_SUBST(CPARSE)
   AC_SUBST(EXT_CPARSE)
   if test "$USE_LISP" = "1" ; then
     AC_ARG_WITH(cparse,
       AC_HELP_STRING([--with-cparse=<pathname>],
-        [Use cparse at <pathname> (default:bindings/lisp/tps/cparse, don't change)]), 
+        [Use cparse at <pathname> (default:src/bindings/lisp/tps/cparse, don't change)]), 
         CPARSEPATH="$with_cparse"
 	,
-        CPARSEPATH="${srcdir}/bindings/lisp/tps/cparse"
+        CPARSEPATH="${srcdir}/src/bindings/lisp/tps/cparse"
     )
     AC_PATH_PROG(CPARSE,cparse.asd,failed,$CPARSEPATH)
     if test $CPARSE = failed; then
@@ -316,16 +316,16 @@ AC_DEFUN(CONFIG_CPARSE_CHECK,
       AC_MSG_ERROR([cparse cannot be loaded -- see config.log for details] )
     fi
     CPARSE="`dirname $CPARSE`/"
-    if test "$CPARSE" != "${srcdir}/bindings/lisp/tps/cparse/" ; then
+    if test "$CPARSE" != "${srcdir}/src/bindings/lisp/tps/cparse/" ; then
       EXT_CPARSE=1
     fi
     ac_old_dir="`pwd`"
     cd $CPARSE
     CPARSE="`pwd`/"
     cd $ac_old_dir
-    if test -h ${srcdir}/bindings/lisp/cparse.asd ; then
-      rm ${srcdir}/bindings/lisp/cparse.asd
+    if test -h ${srcdir}/src/bindings/lisp/cparse.asd ; then
+      rm ${srcdir}/src/bindings/lisp/cparse.asd
     fi
-    ln -s ${CPARSE}cparse.asd ${srcdir}/bindings/lisp/
+    ln -s ${CPARSE}cparse.asd ${srcdir}/src/bindings/lisp/
   fi
 ])
