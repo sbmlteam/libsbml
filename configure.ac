@@ -57,7 +57,7 @@ dnl
 dnl Bug reports are sent to sysbio-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
-AC_INIT([SBML Library], [1.1.0], [sysbio-team@caltech.edu], [libsbml])
+AC_INIT([SBML Library], [1.1.2], [sysbio-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE
 
@@ -133,15 +133,16 @@ dnl Checks for header files.
 dnl ---------------------------------------------------------------------------
 
 AC_HEADER_STDC
-AC_CHECK_HEADER(errno.h)
-AC_CHECK_HEADER(strings.h)
-
+AC_CHECK_HEADERS(errno.h)
+AC_CHECK_HEADERS(math.h)
+AC_CHECK_HEADERS(ieeefp.h)
 
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for typedefs, structures, and compiler characteristics.
 dnl ---------------------------------------------------------------------------
 
+AC_C_BIGENDIAN
 AC_C_CONST
 AC_TYPE_SIZE_T
 
@@ -150,9 +151,7 @@ dnl ---------------------------------------------------------------------------
 dnl Checks for library functions.
 dnl ---------------------------------------------------------------------------
 
-AC_CHECK_FUNCS(ftime)
-AC_CHECK_FUNCS(strtod)
-AC_CHECK_FUNCS(strtol)
+dnl AC_CHECK_FUNCS(...)
 
 
 dnl ---------------------------------------------------------------------------
