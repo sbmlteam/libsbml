@@ -57,7 +57,7 @@ dnl ---------------------------------------------------------------------------
 
 if test -f "VERSION.txt"; then
    m4_define(LIBSBML_VERSION, 
-	     m4_esyscmd(cat VERSION.txt | tr -d '\n\r' | sed 's/\-.*$//'))
+	     m4_esyscmd(cat VERSION.txt  | sed 's/\-.*$//' | tr -d '\n\r'))
 fi
 
 AC_INIT([libSBML], LIBSBML_VERSION, [sbml-team@caltech.edu], [libsbml])
