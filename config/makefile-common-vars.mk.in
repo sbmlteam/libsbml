@@ -131,6 +131,7 @@ ACLOCAL_M4        = $(top_srcdir)/aclocal.m4
 AUTOCONF          = @AUTOCONF@
 
 AR                = @AR@
+AWK               = awk
 BUILD             = @build@
 BUILD_CPU         = @build_cpu@
 BUILD_OS          = @build_os@
