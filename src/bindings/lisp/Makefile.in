@@ -193,7 +193,8 @@ endif
 all: Makefile $(fasls)
 
 clean:
-	-rm *.$(FASLEXT) tps/uffi/src/*.$(FASLEXT) tps/cparse/*.$(FASLEXT) 
+	-rm -f *.$(FASLEXT) tps/uffi/src/*.$(FASLEXT) tps/cparse/*.$(FASLEXT) 
+	-rm -f sbmllisp-pre.h
 
 # Preprocess header
 sbmllisp-pre.h: sbmllisp.h $(wildcard ../../*/*.h)
