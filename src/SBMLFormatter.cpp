@@ -1839,7 +1839,10 @@ SBMLFormatter::annotation (const string& s)
 
   XMLCh* x = XMLString::transcode( s.c_str() );
   *fFormatter << x << chLF;
-  delete [] x;
+  XMLString::release(&x);
+
+  
+//  delete [] x;
 }
 
 
@@ -2394,7 +2397,9 @@ SBMLFormatter::attribute (const XMLCh* name, const char* value)
     s = XMLString::transcode( value );
     attribute(name, s);
 
-    delete [] s;
+	  XMLString::release(&s);
+
+//    delete [] s;
   }
 }
 #endif // !USE_EXPAT
