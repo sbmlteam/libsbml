@@ -91,11 +91,9 @@ tex_clean = aux bbl blg log out toc
 extra_clean = \
 	$(docs) \
 	$(addprefix libsbml-manual.,$(tex_clean)) \
-	$(addprefix libsbml-api-ref.,$(tex_clean)) \
-	$(pdffiles)
+	$(addprefix libsbml-api-ref.,$(tex_clean)) 
 
 extra_distclean = \
-	$(all_generated_files) \
 	libsbml-manual.ps \
 	$(formatted)/libsbml-manual.ps \
 	libsbml-api-ref.ps \
