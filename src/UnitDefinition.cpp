@@ -51,6 +51,9 @@
 
 
 #include "sbml/util.h"
+#include "sbml/Unit.hpp"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/UnitDefinition.h"
 #include "sbml/UnitDefinition.hpp"
 
@@ -76,6 +79,40 @@ UnitDefinition::UnitDefinition (   const std::string& sid
 LIBSBML_EXTERN
 UnitDefinition::~UnitDefinition ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next
+ * UnitDefinition (if available).
+ */
+LIBSBML_EXTERN
+bool
+UnitDefinition::accept (SBMLVisitor& v) const
+{
+  unsigned int n;
+  bool next, result;
+
+
+  result = v.visit(*this);
+
+  //
+  // Unit
+  //
+
+  getListOfUnits().accept(v, SBML_UNIT);
+
+  for (n = 0, next = true; n < getNumUnits() && next; n++)
+  {
+    next = getUnit(n)->accept(v);
+  }
+
+  v.leave(getListOfUnits(), SBML_UNIT);
+
+  return result;
 }
 
 
@@ -126,6 +163,117 @@ bool
 UnitDefinition::isSetName () const
 {
   return ! name.empty();
+}
+
+
+/**
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * area, i.e. square metres with only abritrary variations in scale,
+ * multiplier, or offset values, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+UnitDefinition::isVariantOfArea () const
+{
+  bool result = false;
+
+
+  if (getNumUnits() == 1)
+  {
+    Unit& u = *getUnit(0);
+    result  = u.isMetre() && u.getExponent() == 2;
+  }
+
+  return result;
+}
+
+
+/**
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * length, i.e. metres with only abritrary variations in scale,
+ * multiplier, or offset values, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+UnitDefinition::isVariantOfLength () const
+{
+  bool result = false;
+
+
+  if (getNumUnits() == 1)
+  {
+    Unit& u = *getUnit(0);
+    result  = u.isMetre() && u.getExponent() == 1;
+  }
+
+  return result;
+}
+
+
+/**
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * substance, i.e. moles or items with only abritrary variations in
+ * scale, multiplier, or offset values, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+UnitDefinition::isVariantOfSubstance () const
+{
+  bool result = false;
+
+
+  if (getNumUnits() == 1)
+  {
+    Unit& u = *getUnit(0);
+    result  = (u.isMole() || u.isItem()) && u.getExponent() == 1;
+  }
+
+  return result;
+}
+
+
+/**
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * time, i.e. seconds with only abritrary variations in scale,
+ * multiplier, or offset values, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+UnitDefinition::isVariantOfTime () const
+{
+  bool result = false;
+
+
+  if (getNumUnits() == 1)
+  {
+    Unit& u = *getUnit(0);
+    result  = u.isSecond() && u.getExponent() == 1;
+  }
+
+  return result;
+}
+
+
+/**
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * volume, i.e. litre or cubic metre with only abritrary variations in
+ * scale, multiplier, or offset values, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+UnitDefinition::isVariantOfVolume () const
+{
+  bool result = false;
+
+
+  if (getNumUnits() == 1)
+  {
+    Unit& u = *getUnit(0);
+    result  = (u.isLitre() && u.getExponent() == 1) ||
+              (u.isMetre() && u.getExponent() == 3);
+  }
+
+  return result;
 }
 
 
@@ -213,6 +361,16 @@ UnitDefinition::addUnit (Unit& u)
 LIBSBML_EXTERN
 ListOf&
 UnitDefinition::getListOfUnits ()
+{
+  return unit;
+}
+
+/**
+ * @return the list of Units for this UnitDefinition.
+ */
+LIBSBML_EXTERN
+const ListOf&
+UnitDefinition::getListOfUnits () const
 {
   return unit;
 }
@@ -321,7 +479,8 @@ UnitDefinition_getName (const UnitDefinition_t *ud)
 
 
 /**
- * @return 1 if the id of this UnitDefinition has been set, 0 otherwise.
+ * @return non-zero if the id of this UnitDefinition has been set, zero
+ * otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -332,7 +491,8 @@ UnitDefinition_isSetId (const UnitDefinition_t *ud)
 
 
 /**
- * @return 1 if the name of this UnitDefinition has been set, 0 otherwise.
+ * @return non-zero if the name of this UnitDefinition has been set, zero
+ * otherwise.
  *
  * In SBML L1, a UnitDefinition name is required and therefore <b>should
  * always be set</b>.  In L2, name is optional and as such may or may not
@@ -343,6 +503,71 @@ int
 UnitDefinition_isSetName (const UnitDefinition_t *ud)
 {
   return static_cast<const UnitDefinition*>(ud)->isSetName();
+}
+
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * area, i.e. square metres with only abritrary variations in scale,
+ * multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfArea (const UnitDefinition_t *ud)
+{
+  return static_cast<const UnitDefinition*>(ud)->isVariantOfArea();
+}
+
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * length, i.e. metres with only abritrary variations in scale, multiplier,
+ * or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud)
+{
+  return static_cast<const UnitDefinition*>(ud)->isVariantOfLength();
+}
+
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * substance, i.e. moles or items with only abritrary variations in scale,
+ * multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud)
+{
+  return static_cast<const UnitDefinition*>(ud)->isVariantOfSubstance();
+}
+
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * time, i.e. seconds with only abritrary variations in scale, multiplier,
+ * or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud)
+{
+  return static_cast<const UnitDefinition*>(ud)->isVariantOfTime();
+}
+
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * volume, i.e. litre or cubic metre with only abritrary variations in
+ * scale, multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud)
+{
+  return static_cast<const UnitDefinition*>(ud)->isVariantOfVolume();
 }
 
 
