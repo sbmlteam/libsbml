@@ -327,6 +327,9 @@ SBase::toSBML (unsigned int level, unsigned int version)
     case SBML_PARAMETER_RULE:
       *formatter << static_cast<ParameterRule&>(*this);
       break;
+
+    case SBML_LIST_OF:
+      break;
   }
 
   result = safe_strdup( (char *) target->getRawBuffer() );
