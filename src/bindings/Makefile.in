@@ -65,7 +65,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
-thisdir = bindings
+thisdir = src/bindings
 
 # Depending on the flags given during libSBML's configuration step, different
 # subdirectories will be added to the list of targets.
@@ -110,7 +110,7 @@ all: Makefile all-recursive
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: check-recursive
+check: all check-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -132,11 +132,11 @@ html: html-recursive
 # Checking.
 # -----------------------------------------------------------------------------
 
-install: install-recursive
+install: all install-recursive
 
-uninstall: uninstall-recursive 
+uninstall: all uninstall-recursive 
 
-installdirs: installdirs-recursive
+installdirs: all installdirs-recursive
 
 
 # -----------------------------------------------------------------------------
