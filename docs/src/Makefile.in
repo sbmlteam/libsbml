@@ -238,12 +238,15 @@ libsbml-manual.html: libsbml-manual.tex libsbml-manual.dvi
 		   -antialias -t "libSBML Developer's Manual" \
 		   -mkdir -dir $(manual_html_dir) libsbml-manual
 	rm $(manual_html_dir)/index.html
-#	ln -s libsbml-manual.html $(manual_html_dir)/index.html
-	ln -s $(manual_html_dir)/libsbml-manual.html
+	cp -f libsbml-manual.css $(manual_html_dir)
+	ln -sf $(manual_html_dir)/libsbml-manual.html
 	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
 		$(manual_html_dir)/libsbml-manual.html
 	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
 		$(manual_html_dir)/libsbml-manual.html
+
+#		   -init_file libsbml-manual.init \
+#	ln -s libsbml-manual.html $(manual_html_dir)/index.html
 
 
 # -----------------------------------------------------------------------------
