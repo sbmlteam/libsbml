@@ -89,8 +89,8 @@
 #include "Event.hpp"
 #include "EventAssignment.hpp"
 
-#include "SBMLReader.h"
-#include "SBMLWriter.h"
+#include "SBMLReader.hpp"
+#include "SBMLWriter.hpp"
 
 #include "FormulaParser.h"
 #include "FormulaFormatter.h"
