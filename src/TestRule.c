@@ -116,6 +116,10 @@ START_TEST (test_Rule_setFormula)
     fail("Rule_setFormula(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Rule_setFormula(R, R->formula);
+  fail_unless( !strcmp(R->formula, formula), NULL );
+
   Rule_setFormula(R, NULL);
   fail_unless( !Rule_isSetFormula(R), NULL );
 

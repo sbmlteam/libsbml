@@ -114,6 +114,9 @@ LIBSBML_EXTERN
 void
 Rule_setFormula (Rule_t *r, const char *string)
 {
+  if (r->formula == string) return;
+
+
   if (r->formula != NULL)
   {
     safe_free(r->formula);
