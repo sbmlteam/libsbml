@@ -1,5 +1,5 @@
 /**
- * Filename    : SAX2SBMLHandler.cpp
+ * Filename    : SBMLHandler.cpp
  * Description : Register with XML Parser to process an SBML document
  * Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
  * Organization: Caltech ERATO Kitano Systems Biology Project
@@ -63,13 +63,13 @@
 #include "sbml/XMLStringFormatter.hpp"
 #include "sbml/XMLUtil.hpp"
 
-#include "sbml/SAX2SBMLHandler.hpp"
+#include "sbml/SBMLHandler.hpp"
 
 
 //
 // Dtor
 //
-SAX2SBMLHandler::~SAX2SBMLHandler ()
+SBMLHandler::~SBMLHandler ()
 {
   Stack_free( fObjStack );
   Stack_free( fTagStack );
@@ -83,7 +83,7 @@ SAX2SBMLHandler::~SAX2SBMLHandler ()
 
 
 void
-SAX2SBMLHandler::startDocument ()
+SBMLHandler::startDocument ()
 {
   /**
    * Used to reconstruct <notes> and <annotation> sections from SAX2
@@ -121,7 +121,7 @@ SAX2SBMLHandler::startDocument ()
 
 
 void
-SAX2SBMLHandler::startElement (const XMLCh* const  uri,
+SBMLHandler::startElement (const XMLCh* const  uri,
                                const XMLCh* const  localname,
                                const XMLCh* const  qname,
                                const Attributes&   attrs)
@@ -220,7 +220,7 @@ SAX2SBMLHandler::startElement (const XMLCh* const  uri,
 
 
 void
-SAX2SBMLHandler::endElement (const XMLCh* const  uri,
+SBMLHandler::endElement (const XMLCh* const  uri,
                              const XMLCh* const  localname,
                              const XMLCh* const  qname)
 {
@@ -300,7 +300,7 @@ SAX2SBMLHandler::endElement (const XMLCh* const  uri,
 
 
 void
-SAX2SBMLHandler::characters (const XMLCh* const  chars,
+SBMLHandler::characters (const XMLCh* const  chars,
                              const unsigned int  length)
 {
   if (inNotes || inAnnotation)
@@ -311,7 +311,7 @@ SAX2SBMLHandler::characters (const XMLCh* const  chars,
 
 
 void
-SAX2SBMLHandler::ignorableWhitespace (const XMLCh* const  chars,
+SBMLHandler::ignorableWhitespace (const XMLCh* const  chars,
                                       const unsigned int  length)
 {
   if (inNotes || inAnnotation)
@@ -322,7 +322,7 @@ SAX2SBMLHandler::ignorableWhitespace (const XMLCh* const  chars,
 
 
 void
-SAX2SBMLHandler::setDocumentLocator (const Locator *const locator)
+SBMLHandler::setDocumentLocator (const Locator *const locator)
 {
   fLocator = locator;
 }
@@ -335,21 +335,21 @@ SAX2SBMLHandler::setDocumentLocator (const Locator *const locator)
 
 
 void
-SAX2SBMLHandler::warning (const SAXParseException& e)
+SBMLHandler::warning (const SAXParseException& e)
 {
   List_add( fDocument->warning, createParseMessage(e) );
 }
 
 
 void
-SAX2SBMLHandler::error (const SAXParseException& e)
+SBMLHandler::error (const SAXParseException& e)
 {
   List_add( fDocument->error, createParseMessage(e) );
 }
 
 
 void
-SAX2SBMLHandler::fatalError (const SAXParseException& e)
+SBMLHandler::fatalError (const SAXParseException& e)
 {
   List_add( fDocument->fatal, createParseMessage(e) );
 }
@@ -362,28 +362,28 @@ SAX2SBMLHandler::fatalError (const SAXParseException& e)
 
 
 void
-SAX2SBMLHandler::warning (const char* message)
+SBMLHandler::warning (const char* message)
 {
   List_add( fDocument->warning, createParseMessage(message) );
 }
 
 
 void
-SAX2SBMLHandler::error (const char* message)
+SBMLHandler::error (const char* message)
 {
   List_add( fDocument->error, createParseMessage(message) );
 }
 
 
 void
-SAX2SBMLHandler::fatalError (const char* message)
+SBMLHandler::fatalError (const char* message)
 {
   List_add( fDocument->fatal, createParseMessage(message) );
 }
 
 
 ParseMessage_t*
-SAX2SBMLHandler::createParseMessage (const char* message)
+SBMLHandler::createParseMessage (const char* message)
 {
   ParseMessage_t* pm;
 
@@ -399,7 +399,7 @@ SAX2SBMLHandler::createParseMessage (const char* message)
 
 
 ParseMessage_t*
-SAX2SBMLHandler::createParseMessage (const SAXParseException& e)
+SBMLHandler::createParseMessage (const SAXParseException& e)
 {
   char*           msg;
   ParseMessage_t* pm;
@@ -425,7 +425,7 @@ SAX2SBMLHandler::createParseMessage (const SAXParseException& e)
 
 
 SBase_t*
-SAX2SBMLHandler::handleSBML (const Attributes& a)
+SBMLHandler::handleSBML (const Attributes& a)
 {
   XMLUtil::scanAttr( a, ATTR_LEVEL  , &(fDocument->level)   );
   XMLUtil::scanAttr( a, ATTR_VERSION, &(fDocument->version) );
@@ -435,7 +435,7 @@ SAX2SBMLHandler::handleSBML (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleModel (const Attributes& a)
+SBMLHandler::handleModel (const Attributes& a)
 {
   fModel           = Model_create();
   fDocument->model = fModel;
@@ -447,7 +447,7 @@ SAX2SBMLHandler::handleModel (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleUnitDefinition (const Attributes& a)
+SBMLHandler::handleUnitDefinition (const Attributes& a)
 {
   UnitDefinition_t* ud = Model_createUnitDefinition(fModel);
 
@@ -459,7 +459,7 @@ SAX2SBMLHandler::handleUnitDefinition (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleUnit (const Attributes& a)
+SBMLHandler::handleUnit (const Attributes& a)
 {
   Unit_t* u    = Model_createUnit(fModel);
   char*   kind = XMLString::transcode( a.getValue(ATTR_KIND) ); 
@@ -491,7 +491,7 @@ SAX2SBMLHandler::handleUnit (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleCompartment (const Attributes& a)
+SBMLHandler::handleCompartment (const Attributes& a)
 {
   Compartment_t* c = Model_createCompartment(fModel);
   double value;
@@ -515,7 +515,7 @@ SAX2SBMLHandler::handleCompartment (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleSpecies (const Attributes& a)
+SBMLHandler::handleSpecies (const Attributes& a)
 {
   Species_t* s = Model_createSpecies(fModel);
   bool value;
@@ -546,7 +546,7 @@ SAX2SBMLHandler::handleSpecies (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleParameter (const Attributes& a)
+SBMLHandler::handleParameter (const Attributes& a)
 {
   Parameter_t* p  = NULL;
   HashCode_t tag  = (HashCode_t) Stack_peekAt(fTagStack, 1);
@@ -576,7 +576,7 @@ SAX2SBMLHandler::handleParameter (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleReaction (const Attributes& a)
+SBMLHandler::handleReaction (const Attributes& a)
 {
   Reaction_t* r = Model_createReaction(fModel);
   bool value;
@@ -605,7 +605,7 @@ SAX2SBMLHandler::handleReaction (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleSpeciesReference (const Attributes& a)
+SBMLHandler::handleSpeciesReference (const Attributes& a)
 {
   SpeciesReference_t* sr    = NULL;
   HashCode_t          tag   = (HashCode_t) Stack_peek(fTagStack);
@@ -643,7 +643,7 @@ SAX2SBMLHandler::handleSpeciesReference (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleKineticLaw (const Attributes& a)
+SBMLHandler::handleKineticLaw (const Attributes& a)
 {
   KineticLaw_t* kl = Model_createKineticLaw(fModel);
 
@@ -658,7 +658,7 @@ SAX2SBMLHandler::handleKineticLaw (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleAlgebraicRule (const Attributes& a)
+SBMLHandler::handleAlgebraicRule (const Attributes& a)
 {
   AlgebraicRule_t* ar = Model_createAlgebraicRule(fModel);
 
@@ -670,7 +670,7 @@ SAX2SBMLHandler::handleAlgebraicRule (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleCompartmentVolumeRule (const Attributes& a)
+SBMLHandler::handleCompartmentVolumeRule (const Attributes& a)
 {
   CompartmentVolumeRule_t* cvr  = Model_createCompartmentVolumeRule(fModel);
   char*                    type = XMLString::transcode( a.getValue(ATTR_TYPE) );
@@ -693,7 +693,7 @@ SAX2SBMLHandler::handleCompartmentVolumeRule (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleParameterRule (const Attributes& a)
+SBMLHandler::handleParameterRule (const Attributes& a)
 {
   ParameterRule_t* pr   = Model_createParameterRule(fModel);
   char*            type = XMLString::transcode( a.getValue(ATTR_TYPE) );
@@ -717,7 +717,7 @@ SAX2SBMLHandler::handleParameterRule (const Attributes& a)
 
 
 SBase_t*
-SAX2SBMLHandler::handleSpeciesConcentrationRule (const Attributes& a)
+SBMLHandler::handleSpeciesConcentrationRule (const Attributes& a)
 {
   SpeciesConcentrationRule_t* scr =
     Model_createSpeciesConcentrationRule(fModel);
