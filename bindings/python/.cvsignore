@@ -1,1 +1,4 @@
 .deps
+*.so
+*.dylib
+*.pyc
