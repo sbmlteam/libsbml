@@ -50,30 +50,30 @@
 #
 
 
-CC       = gcc
-CFLAGS   = -Wall
-LDFLAGS  = -L/usr/local/lib
-CPPFLAGS = -I/usr/local/include
-LIBS     = -lsbml
+CC        = gcc
+XCFLAGS   = $(CFLAGS)   -Wall
+XLDFLAGS  = $(LDFLAGS)  -L/usr/local/lib
+XCPPFLAGS = $(CPPFLAGS) -I/usr/local/include
+LIBS      = -lsbml
 
 programs = convertSBML printSBML readSBML translateMath validateSBML
 
 all: $(programs)
 
 convertSBML: convertSBML.c util.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
 
 printSBML: printSBML.c util.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
 
 readSBML: readSBML.c util.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
 
 translateMath: translateMath.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
 
 validateSBML: validateSBML.c util.c
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
 
 
 clean:
