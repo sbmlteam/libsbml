@@ -153,6 +153,7 @@ ETAGSFLAGS        =
 EXEEXT            = @EXEEXT@
 HOST_OS           = @host_os@
 HOST_TYPE         = @HOST_TYPE@
+HOST_CPU          = @host_cpu@
 INSTALL           = @INSTALL@
 INSTALL_SH        = $(top_srcdir)/config/install-sh
 LDFLAGS           = @LDFLAGS@
