@@ -51,12 +51,13 @@
 
 SUBDIRS = src
 
-EXTRA_DIST =    \
+EXTRA_DIST =          \
 	AUTHORS.txt   \
 	ChangeLog.txt \
 	COPYING.html  \
 	COPYING.txt   \
 	docs          \
-	NEWS.txt      \
+	examples      \
+        NEWS.txt      \
 	README.txt    \
 	VERSION.txt

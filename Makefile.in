@@ -144,7 +144,8 @@ EXTRA_DIST = \
 	COPYING.html  \
 	COPYING.txt   \
 	docs          \
-	NEWS.txt      \
+	examples      \
+        NEWS.txt      \
 	README.txt    \
 	VERSION.txt
 
