@@ -43,7 +43,8 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "PYTHON_BINDING_WIN32_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /Gz /MD /W3 /GX /O2 /I "$(PYTHON_INCLUDE)" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /YX /FD /c
+# ADD CPP /nologo /Gz /MD /W3 /GX /O2 /I "$(PYTHON_INCLUDE)" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /D "_WIN32_" /FD /c
+# SUBTRACT CPP /YX
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x809 /d "NDEBUG"
@@ -53,7 +54,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "$(PYTHON_LIB)" xerces-c_2.lib /nologo /dll /machine:I386 /out:"_libsbml.dll"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib xerces-c_2.lib python23.lib /nologo /dll /machine:I386 /out:"_libsbml.dll"
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
 
@@ -66,6 +68,7 @@ LINK32=link.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "PYTHON_BINDING_WIN32_EXPORTS" /YX /FD /GZ /c
 # ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "PYTHON_BINDING_WIN32_EXPORTS" /YX /FD /GZ /c
@@ -78,7 +81,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib xerces-c_2.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 
 !ENDIF 
 
@@ -92,226 +95,772 @@ LINK32=link.exe
 # Begin Source File
 
 SOURCE=..\..\src\AlgebraicRule.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\AssignmentRule.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\ASTNode.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Compartment.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\CompartmentVolumeRule.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Event.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\EventAssignment.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\FormulaFormatter.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\FormulaParser.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\FormulaTokenizer.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\FunctionDefinition.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\KineticLaw.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\libsbml_wrap.cxx
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\List.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\ListOf.cpp
-# End Source File
-# Begin Source File
 
-SOURCE=.\local.cpp
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\MathMLDocument.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\MathMLFormatter.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\MathMLHandler.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\MathMLReader.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\MathMLTagCodes.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\MathMLWriter.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\memory.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Model.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\ModifierSpeciesReference.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Parameter.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\ParameterRule.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\ParseMessage.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\RateRule.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Reaction.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Rule.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\RuleType.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SAX2AttributesMock.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBase.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBMLConvert.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBMLDocument.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBMLFormatter.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBMLHandler.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBMLReader.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBMLTagCodes.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SBMLWriter.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SimpleSpeciesReference.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Species.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SpeciesConcentrationRule.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\SpeciesReference.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Stack.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\StringBuffer.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\StringMap.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Unit.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\UnitDefinition.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\UnitKind.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\util.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\ValidationRules.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\Validator.c
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\XMLStringFormatter.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\XMLUtil.cpp
+
+!IF  "$(CFG)" == "Python_binding_Win32 - Win32 Release"
+
+# ADD CPP /D "__WIN32__"
+# SUBTRACT CPP /D "_WIN32_"
+
+!ELSEIF  "$(CFG)" == "Python_binding_Win32 - Win32 Debug"
+
+!ENDIF 
+
 # End Source File
 # End Group
 # Begin Group "Header Files"
