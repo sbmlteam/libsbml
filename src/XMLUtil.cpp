@@ -58,6 +58,8 @@
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
+// FIXME: XMLUnicodeConstants?
+#include "sbml/SBMLUnicodeConstants.hpp"
 #include "sbml/XMLUtil.hpp"
 
 
@@ -75,15 +77,6 @@
 bool
 XMLUtil::scanAttr (const Attributes& attrs, const XMLCh* name, bool* value)
 {
-  static const XMLCh str0[] = { chDigit_0, chNull };
-  static const XMLCh str1[] = { chDigit_1, chNull };
-
-  static const XMLCh strTrue[] = 
-    { chLatin_t, chLatin_r, chLatin_u, chLatin_e, chNull };
-
-  static const XMLCh strFalse[] =
-    { chLatin_f, chLatin_a, chLatin_l, chLatin_s, chLatin_e, chNull };
-
   bool         assigned  = false;
   const XMLCh* toConvert = attrs.getValue(name);
 
@@ -103,15 +96,15 @@ XMLUtil::scanAttr (const Attributes& attrs, const XMLCh* name, bool* value)
     //
     if (trimmedLen > 0)
     {
-      if ( !XMLString::compareIString(trimmed, str0) ||
-           !XMLString::compareIString(trimmed, strFalse) )
+      if ( !XMLString::compareIString(trimmed, VAL_0) ||
+           !XMLString::compareIString(trimmed, VAL_FALSE) )
       {
         *value   = false;
         assigned = true;
       }
 
-      else if ( !XMLString::compareIString(trimmed, str1) ||
-                !XMLString::compareIString(trimmed, strTrue) )
+      else if ( !XMLString::compareIString(trimmed, VAL_1) ||
+                !XMLString::compareIString(trimmed, VAL_TRUE) )
       {
         *value   = true;
         assigned = true;

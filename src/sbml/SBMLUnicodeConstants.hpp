@@ -402,12 +402,35 @@ static const XMLCh ATTR_VALUE[] =
   chLatin_v, chLatin_a, chLatin_l, chLatin_u, chLatin_e, chNull
 };
 
-
 static const XMLCh ATTR_VOLUME[] =
 {
   chLatin_v, chLatin_o, chLatin_l, chLatin_u, chLatin_m, chLatin_e,
   chNull
 };
 
+static const XMLCh ATTR_XMLNS[] =
+{
+  chLatin_x, chLatin_m, chLatin_l, chLatin_n, chLatin_s, chNull
+};
+
+static const XMLCh VAL_TRUE[] =
+{
+  chLatin_t, chLatin_r, chLatin_u, chLatin_e, chNull
+};
+
+static const XMLCh VAL_FALSE[] =
+{
+  chLatin_f, chLatin_a, chLatin_l, chLatin_s, chLatin_e, chNull
+};
+
+static const XMLCh VAL_0[] =
+{
+  chDigit_0, chNull
+};
+
+static const XMLCh VAL_1[] =
+{
+  chDigit_1, chNull
+};
 
 #endif  // SBMLUnicodeConstants_hpp
