@@ -312,7 +312,8 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) sbml/config.h.in Makefile.in
+distfiles = $(sources) $(headers) $(testrunner_headers) \
+	sbml/config.h.in Makefile.in
 
 distfiles_exclude = sbml/config.h
 
