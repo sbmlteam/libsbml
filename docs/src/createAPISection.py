@@ -190,7 +190,7 @@ def TeXifyHeaderFile(filename):
 
   Reads the given header file and prints out a corresponding LaTeX
   subsection for the public APIs.  The LaTeX codes emitted assume the
-  style file cekmanual.
+  style file sbmlmanual.
   """
 
   basename  = getBasename(filename)
