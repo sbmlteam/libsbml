@@ -259,6 +259,8 @@ To build libsbml on Windows:
 
       The lib directory from Xerces-C.
 
+   8. Select Build->Rebuild All from the Visual Studio main menu.
+
 
 -----------------------------------
 4. The libsbml-discuss Mailing List
@@ -280,4 +282,5 @@ The libsbml-discuss archives are available at http://sbml.org/forums/.
 File author: B. Bornstein
 Last Modified: $Date$
 -------------------------------------------
+
 
