@@ -43,8 +43,10 @@ XMLFormatter::XMLFormatter():
   mpTarget(NULL),
   mEscapeFlag(XMLFormatter::NoEscapes),
   mpF(&XMLFormatter::writeUTF8),
-  mEncoding("UTF-8")
+  mEncoding("UTF-8"),
+  mByteCounter(0)
 {
+  memset(mByteBuffer, 0x0, sizeof(mByteBuffer));
 }
 
   
@@ -53,9 +55,11 @@ XMLFormatter::XMLFormatter (const XML_Char    * encoding,
                             const EscapeFlags & escapeFlag,
                             const UnRepFlags  & unRepFlag):
   mpTarget(target),
-  mEncoding(encoding)
+  mEncoding(encoding),
+  mByteCounter(0)
 {
   operator<<(escapeFlag);
+  memset(mByteBuffer, 0x0, sizeof(mByteBuffer));
 }
 
   
@@ -135,22 +139,27 @@ XMLFormatter::stdEscape (const XML_Char& c)
   switch (c)
   {
     case '&':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&amp;";
       break;
       
     case '\'':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&apos;";
       break;
       
     case '<':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&lt;";
       break;
       
     case '>':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&gt;";
       break;
       
     case '\"':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&quot;";
       break;
       
@@ -167,14 +176,17 @@ XMLFormatter::attrEscape (const XML_Char& c)
   switch (c)
   {
     case '&':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&amp;";
       break;
       
     case '<':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&lt;";
       break;
       
     case '\"':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&quot;";
       break;
       
@@ -191,10 +203,12 @@ XMLFormatter::charEscape (const XML_Char& c)
   switch (c)
   {
     case '&':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&amp;";
       break;
       
     case '<':
+      if (mByteCounter) flushBuffer();
       *mpTarget << "&lt;";
       break;
       
@@ -204,22 +218,64 @@ XMLFormatter::charEscape (const XML_Char& c)
   }
 }  
 
-
 void
 XMLFormatter::writeUTF8 (const XML_Char& c)
 {
   /* Based on RFC 2279. */
   /* This will work for 0x00 - 0xff */
 
+  if (mByteCounter && (c & 0xc0) == 0x80)
+  {
+    mByteBuffer[mByteCounter--] = c;
+    if (!mByteCounter) flushBuffer(true);
+
+    return;
+  }
+  
+  if (mByteCounter) flushBuffer();
+
   if ((unsigned char) c < 0x80)
   {
     *mpTarget << c;
+  }
+  else if ((c & 0xe0) == 0xc0) 
+  {
+    mByteBuffer[0] = c;
+    mByteCounter = 1;
+  }
+  else if ((c & 0xf0) == 0xe0)
+  {
+    mByteBuffer[0] = c;
+    mByteCounter = 2;    
   }
   else
   {
     *mpTarget << (char) (0xc0 + ((c >> 6) & 0x03));
     *mpTarget << (char) (0x80 + (c & 0x3f));
   }
+}
+
+void
+XMLFormatter::flushBuffer(const bool & isMultiByte)
+{
+  XML_Char * tmp = mByteBuffer;
+
+  for (XML_Char *tmp = mByteBuffer; *tmp; tmp++) 
+  {
+    if (isMultiByte || (unsigned char) *tmp < 0x80)
+    {
+      *mpTarget << *tmp;
+    }
+    else
+    {
+      *mpTarget << (char) (0xc0 + ((*tmp >> 6) & 0x03));
+      *mpTarget << (char) (0x80 + (*tmp & 0x3f));
+    }
+
+    *tmp = 0x0;
+  }
+
+  mByteCounter = 0;
 }
 
 

@@ -118,7 +118,8 @@ private:
   XMLFormatTarget* mpTarget;
   EscapeFlags      mEscapeFlag;
   std::string      mEncoding;
-
+  int              mByteCounter;
+  XML_Char         mByteBuffer[4];
   void (XMLFormatter::*mpF)(const XML_Char & chr);
 
 
@@ -152,6 +153,7 @@ private:
   void charEscape(const XML_Char & chr);
 
   void writeUTF8(const XML_Char & chr);
+  void flushBuffer(const bool & isMultiByte = false);
 };
 
 
