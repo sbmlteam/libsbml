@@ -237,7 +237,6 @@ AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/src/Doxyfile])
 AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([docs/src/tex/libsbmlextras.sty])
-AC_CONFIG_FILES([docs/formatted/Makefile])
 AC_CONFIG_FILES([win32/Makefile])
 AC_CONFIG_FILES([expat/Makefile])
 
