@@ -1,8 +1,0 @@
-.deps
-*.class
-*.dylib
-*.jnilib
-*.jar
-Makefile
-java-files
-libsbml_wrap.cpp
