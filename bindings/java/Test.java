@@ -65,9 +65,6 @@ public class Test
   }
 
 
-  /**
-   * If all goes well, this method will not throw a ClassCastException.
-   */
   static void testImplicitDowncastRule()
   {
     Model m = new Model("m", "MyModel");
@@ -80,28 +77,21 @@ public class Test
   }
     
 
-  /**
-   * If all goes well, this method will not throw a ClassCastException.
-   */
   static void testImplicitDowncastSBase()
   {
-    Compartment c = new Compartment("c");
-    Species     s = new Species("s");
-    Parameter   p = new Parameter("p");
-
     ListOf lo = new ListOf();
 
-    lo.append(c);
-    lo.append(s);
-    lo.append(p);
+    lo.append( new Compartment("c") );
+    lo.append( new Species("s")     );
+    lo.append( new Parameter("p")   );
 
     /**
      * ListOf.get() returns an object of type SBase, so the result must be
      * downcast to an object of the appropriate type.
      */
-    c = (Compartment) lo.get(0);
-    s = (Species)     lo.get(1);
-    p = (Parameter)   lo.get(2);
+    Assert( lo.get(0) instanceof Compartment );
+    Assert( lo.get(1) instanceof Species     );
+    Assert( lo.get(2) instanceof Parameter   );
   }
 
 
