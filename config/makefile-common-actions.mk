@@ -472,6 +472,9 @@ $(TOP_SRCDIR)/src/sbml/stamp-h1: $(TOP_SRCDIR)/./src/sbml/config.h.in \
 # Tags files.
 # -----------------------------------------------------------------------------
 
+tags: TAGS
+ctags: CTAGS
+
 ID: $(headers) $(sources)
 	list='$(sources) $(headers)'; \
 	unique=`for i in $$list; do \
@@ -490,7 +493,7 @@ TAGS: $(headers) $(sources)
 	  done | \
 	  $(AWK) '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
-	test -z "$$tags$$unique" || $(ETAGS) $(ETAGSFLAGS) TAGS $$unique
+	test -z "$$tags$$unique" || $(ETAGS) $(ETAGSFLAGS) $$tags $$unique
 
 CTAGS: $(headers) $(sources)
 	tags=; \
@@ -501,7 +504,7 @@ CTAGS: $(headers) $(sources)
 	  done | \
 	  $(AWK) '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
-	test -z "$$tags$$unique" || $(CTAGS) $(CTAGSFLAGS) CTAGS $$unique
+	test -z "$$tags$$unique" || $(CTAGS) $(CTAGSFLAGS) $$tags $$unique
 
 
 # -----------------------------------------------------------------------------
