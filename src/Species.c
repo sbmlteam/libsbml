@@ -130,7 +130,7 @@ LIBSBML_EXTERN
 void
 Species_initDefaults (Species_t *s)
 {
-  s->boundaryCondition = 0;
+  Species_setBoundaryCondition(s, 0);
 }
 
 

@@ -89,12 +89,12 @@ START_TEST (test_Species_create)
   fail_unless( S->boundaryCondition == 0   , NULL );
   fail_unless( S->charge            == 0   , NULL );
 
-  fail_unless( !Species_isSetName(S)             , NULL );
-  fail_unless( !Species_isSetCompartment(S)      , NULL );
-  fail_unless( !Species_isSetUnits(S)            , NULL );
-  fail_unless( !Species_isSetInitialAmount(S)    , NULL );
-  fail_unless( !Species_isSetBoundaryCondition(S), NULL );
-  fail_unless( !Species_isSetCharge(S)           , NULL );
+  fail_unless( !Species_isSetName(S)            , NULL );
+  fail_unless( !Species_isSetCompartment(S)     , NULL );
+  fail_unless( !Species_isSetUnits(S)           , NULL );
+  fail_unless( !Species_isSetInitialAmount(S)   , NULL );
+  fail_unless( !Species_isSetCharge(S)          , NULL );
+  fail_unless( Species_isSetBoundaryCondition(S), NULL );
 }
 END_TEST
 
