@@ -36,7 +36,7 @@
 #
 # The original code contained here was initially developed by:
 #
-#     Ben Bornstein and Michael Hucka
+#     Michael Hucka and Ben Bornstein
 #     SBML Team
 #     Control and Dynamical Systems, MC 107-81
 #     California Institute of Technology
@@ -48,67 +48,83 @@
 # Contributor(s):
 #
 
-BASENAME = libsbml-manual
-MANUAL_HTML_DIR = libsbml-manual-html
+MANUALS := libsbml-manual libsbml-api-ref
+MANUAL_HTML_DIR := libsbml-manual-html
 
 # The default action is to make everything, completely.
 # If you would like to generate only a specific document, use the command
 # "make CHOICE" where "CHOICE" is manual-pdf, api-pdf, api-html, etc.
 
-.PHONY: manual api manual-dvi manual-pdf manual-html api-dvi api-pdf api-html
+.PHONY: all
 
-default: manual api
 all: default
 
+default: $(foreach manual,$(MANUALS),$(manual).dvi) \
+	 $(foreach manual,$(MANUALS),$(manual).pdf) \
+	 $(foreach manual,$(MANUALS),$(manual).ps)
+
 #
-# Code for generating the libSBML manual.
+# libsbml-manual
 #
 
-manual: manual-dvi manual-pdf manual-html
-api:    api-dvi api-pdf api-html
+libsbml-manual.pdf: libsbml-manual.tex pdffigs
+	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
+	pdflatex libsbml-manual
+	-bibtex libsbml-manual
+	pdflatex libsbml-manual
+	pdflatex libsbml-manual
+	pdflatex libsbml-manual
+	pdflatex libsbml-manual
 
-manual-dvi:
-	-@/bin/rm -f $(BASENAME).toc $(BASENAME).aux
-	latex $(BASENAME).tex
-	-bibtex $(BASENAME)
-	latex $(BASENAME).tex
-	latex $(BASENAME).tex
-	latex $(BASENAME).tex
+libsbml-manual.dvi: libsbml-manual.tex
+	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
+	latex libsbml-manual
+	-bibtex libsbml-manual
+	latex libsbml-manual
+	latex libsbml-manual
+	latex libsbml-manual
 
-manual-ps: manual-dvi
-	dvips -o $(BASENAME).ps $(BASENAME)
+libsbml-manual.ps: libsbml-manual.tex libsbml-manual.dvi
+	dvips -o libsbml-manual.ps libsbml-manual
 
-manual-pdf: manual-pdffigs
-	-@/bin/rm -f $(BASENAME).toc $(BASENAME).aux
-	pdflatex $(BASENAME).tex
-	-bibtex $(BASENAME)
-	pdflatex $(BASENAME).tex
-	pdflatex $(BASENAME).tex
-	pdflatex $(BASENAME).tex
-	pdflatex $(BASENAME).tex
-
-manual-pdffigs:
-	@(for i in *.eps; do echo "epstopdf $$i"; epstopdf $$i; done)
-
-manual-html: sbmlmanual.perl
+libsbml-manual.html: sbmlmanual.perl
+	-@/bin/rm libsbml-manual.html
 	latex2html -white -split +0 -show_section_numbers -image_type gif \
 		   -no_navigation -local_icons -discard \
-		   -mkdir -dir $(MANUAL_HTML_DIR) $(BASENAME)
+		   -mkdir -dir $(MANUAL_HTML_DIR) libsbml-manual
+	ln -s $(MANUAL_HTML_DIR)/libsbml-manual.html
 
 sbmlmanual.perl:
 	ln -s ../../../project/tex/sbmlmanual.perl
 
 
 #
-# Code for generating the libSBML API manual.
+# libsbml-api-ref
 #
 
-api-html: api_sections_files doxygen-api-manual
+libsbml-api-ref.pdf: libsbml-api-ref.tex api_sections_files
+	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
+	pdflatex libsbml-api-ref
+	-bibtex libsbml-api-ref
+	pdflatex libsbml-api-ref
+	pdflatex libsbml-api-ref
+	pdflatex libsbml-api-ref
+	pdflatex libsbml-api-ref
+
+libsbml-api-ref.dvi: libsbml-api-ref.tex
+	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
+	latex libsbml-api-ref
+	-bibtex libsbml-api-ref
+	latex libsbml-api-ref
+	latex libsbml-api-ref
+	latex libsbml-api-ref
+
+libsbml-api-ref.ps: libsbml-api-ref.tex libsbml-api-ref.dvi
+	dvips -o libsbml-api-ref.ps libsbml-api-ref
+
+libsbml-api-ref.html: api_sections_files doxygen-api-manual
 
 libsbml_version = $(shell cat ../../VERSION.txt)
-
-api_sections_files:
-	$(SHELL) createAPISections.sh ../../src/sbml
 
 doxygen-api-manual: Doxyfile
 	doxygen Doxyfile
@@ -117,3 +133,13 @@ Doxyfile: Doxyfile.input
 	rm -f $@ $@.tmp
 	sed 's,@LIBSBML_VERSION\@,$(libsbml_version),g' $< >$@.tmp
 	mv $@.tmp $@
+
+#
+# Miscellaneous helper directives.
+#
+
+pdffigs:
+	@(for i in *.eps; do echo "epstopdf $$i"; epstopdf $$i; done)
+
+api_sections_files:
+	$(SHELL) createAPISections.sh ../../src/sbml
