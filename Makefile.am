@@ -61,4 +61,5 @@ EXTRA_DIST =     \
 	NEWS.txt       \
 	README.txt     \
 	VERSION.txt    \
+	win32          \
 	xml-schemas
