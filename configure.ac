@@ -146,13 +146,7 @@ CONFIG_PROG_SWIG(1.3.21)
 CONFIG_PROG_PYTHON
 CONFIG_PROG_JAVA(1.4.0)
 CONFIG_PROG_MATLAB
-
-AC_LISP
-AC_LISP_EXIT
-AC_ASDF_CHECK
-AC_UFFI_CHECK
-AC_CPARSE_CHECK
-AC_FASL
+CONFIG_PROG_LISP
 
 dnl AC_LIBTOOL_WIN32_DLL
 dnl AC_PROG_LIBTOOL
@@ -263,51 +257,30 @@ fi
 echo ""
 echo "Build Settings for ${PACKAGE_TARNAME} v${PACKAGE_VERSION}:"
 echo "----------------------------------"
-echo "  host type            = $HOST_TYPE"
-echo "  install dir          = $prefix"
-echo "  XML library          = $xml_library"
-echo "  CC                   = $CC"
-echo "  CXX                  = $CXX"
-echo "  CFLAGS               = $CFLAGS"
-echo "  CXXFLAGS             = $CXXFLAGS"
-echo "  CPPFLAGS             = $CPPFLAGS"
-echo "  LDFLAGS              = $LDFLAGS"
-echo "  LIBS                 = $LIBS"
-  
-if test "$with_libcheck" != "no"; then
-  echo "  use libcheck?        = $USE_LIBCHECK"
-fi
-
-if test "$with_swig" != "no"; then
-  echo "  use SWIG?            = $USE_SWIG"
-fi
-
-if test "$with_python" != "no"; then
-  echo "  use Python?          = $USE_PYTHON"
-fi
-
-if test "$with_java" != "no"; then
-  echo "  use Java?            = $USE_JAVA"
-fi
-
-if test "$with_matlab" != "no"; then
-  echo "  use Matlab?          = $USE_MATLAB"
-fi
-
-if test -n "$LISP" ; then
-  echo "  use Lisp             = $LISP"
-fi
+echo "  host type              = $HOST_TYPE"
+echo "  install dir            = $prefix"
+echo "  XML library            = $xml_library"
+echo "  CC                     = $CC"
+echo "  CXX                    = $CXX"
+echo "  CFLAGS                 = $CFLAGS"
+echo "  CXXFLAGS               = $CXXFLAGS"
+echo "  CPPFLAGS               = $CPPFLAGS"
+echo "  LDFLAGS                = $LDFLAGS"
+echo "  LIBS                   = $LIBS"
+echo "  enable memory tracing? = $enable_tracing"
+echo "  use libcheck?          = $with_libcheck"
+echo "  use SWIG?              = $with_swig"
+echo "  use Python?            = $with_python"
+echo "  use Java?              = $with_java"
+echo "  use Matlab?            = $with_matlab"
+echo "  use Lisp               = $with_lisp"
 
 if test -n "$EXT_ASDF"; then
-  echo "  use Asdf            at $ASDF"
+  echo "  use Asdf             at $ASDF"
 fi
 
 if test -n "$EXT_UFFI"; then
-  echo "  use UFFI            at $UFFI"
-fi
-
-if test "$enable_tracing" != "no"; then
-  echo "  enable memory trace? = 1"
+  echo "  use UFFI             at $UFFI"
 fi
 
 echo ""
