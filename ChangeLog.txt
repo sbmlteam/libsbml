@@ -1,3 +1,9 @@
+2003-03-22  Ben Bornstein  <bornstei@caltech.edu>
+
+	* test-data/lv1-branch.xml, l1v1-minimal.xml, l1v1-rules.xml, l1v1-units.xml:
+	Added xmlns="http://www.sbml.org/sbml/level1" to <sbml> element.
+
+
 2003-03-14  Ben Bornstein  <bornstei@caltech.edu>
 
 	* memory.c (MemTrace_getMaxBytes): New function
