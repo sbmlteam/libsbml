@@ -85,6 +85,8 @@ START_TEST (test_SpeciesReference_create)
   fail_unless( SR->species       == NULL, NULL );
   fail_unless( SR->stoichiometry == 1   , NULL );
   fail_unless( SR->denominator   == 1   , NULL );
+
+  fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
 }
 END_TEST
 
@@ -102,6 +104,8 @@ START_TEST (test_SpeciesReference_createWith)
 
   fail_unless( sr->stoichiometry == 4   , NULL );
   fail_unless( sr->denominator   == 2   , NULL );
+
+  fail_unless( SpeciesReference_isSetSpecies(sr), NULL );
 
   SpeciesReference_free(sr);
 }
@@ -122,7 +126,8 @@ START_TEST (test_SpeciesReference_setSpecies)
 
   SpeciesReference_setSpecies(SR, species);
 
-  fail_unless( !strcmp(SR->species, species), NULL );
+  fail_unless( !strcmp(SR->species, species)    , NULL );
+  fail_unless( SpeciesReference_isSetSpecies(SR), NULL );
 
   if (SR->species == species)
   {
@@ -130,6 +135,7 @@ START_TEST (test_SpeciesReference_setSpecies)
   }
 
   SpeciesReference_setSpecies(SR, NULL);
+  fail_unless( !SpeciesReference_isSetSpecies(SR), NULL );
 
   if (SR->species != NULL)
   {

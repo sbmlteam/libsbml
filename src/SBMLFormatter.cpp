@@ -725,7 +725,7 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
 
   //
   // stoichiometry  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
-  // FIXME: sr->isSet.stoichiometry
+  //
   if (sr->stoichiometry != 1)
   {
     attribute(ATTR_STOICHIOMETRY, sr->stoichiometry);
@@ -733,7 +733,7 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
 
   //
   // denominator  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
-  // FIXME: sr->isSet.denomniator
+  //
   if (sr->denominator != 1)
   {
     attribute(ATTR_DENOMINATOR, sr->denominator);

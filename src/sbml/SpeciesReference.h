@@ -54,12 +54,11 @@
 #define SpeciesReference_h
 
 
+#include "common.h"
 #include "SBase.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -74,6 +73,7 @@ typedef struct
 /**
  * Creates a new SpeciesReference and returns a pointer to it.
  */
+LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_create (void);
 
@@ -87,6 +87,7 @@ SpeciesReference_create (void);
  *   r->stoichiometry = stoichiometry;
  *   ...;
  */
+LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createWith ( const char *species,
                               int        stoichiometry,
@@ -95,6 +96,7 @@ SpeciesReference_createWith ( const char *species,
 /**
  * Frees the given SpeciesReference.
  */
+LIBSBML_EXTERN
 void
 SpeciesReference_free (SpeciesReference_t *sr);
 
@@ -104,19 +106,74 @@ SpeciesReference_free (SpeciesReference_t *sr);
  *   - stoichiometry = 1
  *   - denominator   = 1
  */
+LIBSBML_EXTERN
 void
 SpeciesReference_initDefaults (SpeciesReference_t *sr);
 
+
 /**
- * Sets the species field of this SpeciesReference to a copy of sname.
+ * @return the species of this SpeciesReference.
  */
+LIBSBML_EXTERN
+const char *
+SpeciesReference_getSpecies (const SpeciesReference_t *sr);
+
+/**
+ * @return the stoichiometry of this SpeciesReference.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
+
+/**
+ * @return the denominator of this SpeciesReference.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_getDenominator (const SpeciesReference_t *sr);
+
+
+/**
+ * @return 1 if the species of this SpeciesReference has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
+
+
+/**
+ * Sets the species of this SpeciesReference to a copy of sname.
+ */
+LIBSBML_EXTERN
 void
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sname);
 
+/**
+ * Sets the stoichiometry of this SpeciesReference to value.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_setStoichiometry (SpeciesReference_t *sr, int value);
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * Sets the denominator of this SpeciesReference to value.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
+
+
+/**
+ * Unsets the species of this SpeciesReference.  This is equivalent to:
+ * safe_free(sr->species); sr->species = NULL;
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_unsetSpecies (SpeciesReference_t *sr);
+
+
+END_C_DECLS
 
 
 #endif  /** SpeciesReference_h **/
