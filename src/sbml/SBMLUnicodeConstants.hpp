@@ -78,6 +78,25 @@ static const XMLCh XMLNS_SBML_L1[] =
 };
 
 
+//
+// http://www.sbml.org/sbml/level2
+//
+static const XMLCh XMLNS_SBML_L2[] =
+{
+  chLatin_h, chLatin_t, chLatin_t, chLatin_p,
+  chColon, chForwardSlash, chForwardSlash,
+  chLatin_w, chLatin_w, chLatin_w,
+  chPeriod,
+  chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chPeriod,
+  chLatin_o, chLatin_r, chLatin_g,
+  chForwardSlash,
+  chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chForwardSlash,
+  chLatin_l, chLatin_e, chLatin_v, chLatin_e, chLatin_l, chDigit_2,
+  chNull
+};
+
 static const XMLCh ELEM_ALGEBRAIC_RULE[] =
 {
   chLatin_a, chLatin_l, chLatin_g, chLatin_e, chLatin_b, chLatin_r,
@@ -95,6 +114,13 @@ static const XMLCh ELEM_ANNOTATIONS[] =
 {
   chLatin_a, chLatin_n, chLatin_n, chLatin_o, chLatin_t, chLatin_a,
   chLatin_t, chLatin_i, chLatin_o, chLatin_n, chLatin_s, chNull
+};
+
+static const XMLCh ELEM_ASSIGNMENT_RULE[] =
+{
+  chLatin_a, chLatin_s, chLatin_s, chLatin_i, chLatin_g, chLatin_n,
+  chLatin_m, chLatin_e, chLatin_n, chLatin_t, chLatin_R, chLatin_u,
+  chLatin_l, chLatin_e, chNull
 };
 
 static const XMLCh ELEM_COMPARTMENT[] =
@@ -126,6 +152,14 @@ static const XMLCh ELEM_EVENT_ASSIGNMENT[] =
   chLatin_e, chLatin_v, chLatin_e, chLatin_n, chLatin_t, chLatin_A,
   chLatin_s, chLatin_s, chLatin_i, chLatin_g, chLatin_n, chLatin_m,
   chLatin_e, chLatin_n, chLatin_t, chNull
+};
+
+static const XMLCh ELEM_FUNCTION_DEFINITION[] =
+{
+  chLatin_f, chLatin_u, chLatin_n, chLatin_c, chLatin_t, chLatin_i,
+  chLatin_o, chLatin_n, chLatin_D, chLatin_e, chLatin_f, chLatin_i,
+  chLatin_n, chLatin_i, chLatin_t, chLatin_i, chLatin_o, chLatin_n,
+  chNull
 };
 
 static const XMLCh ELEM_KINETIC_LAW[] =
@@ -226,6 +260,11 @@ static const XMLCh ELEM_LIST_OF_UNITS[] =
 {
   chLatin_l, chLatin_i, chLatin_s, chLatin_t, chLatin_O, chLatin_f,
   chLatin_U, chLatin_n, chLatin_i, chLatin_t, chLatin_s, chNull
+};
+
+static const XMLCh ELEM_MATH[] =
+{
+  chLatin_m, chLatin_a, chLatin_t, chLatin_h, chNull
 };
 
 static const XMLCh ELEM_MODEL[] =
