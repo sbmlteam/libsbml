@@ -105,7 +105,8 @@ FormulaFormatter_isFunction (const ASTNode_t *node)
 int
 FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child)
 {
-  int p, c;
+  int pp, cp;
+  int pt, ct;
   int group = 0;
 
 
@@ -113,18 +114,28 @@ FormulaFormatter_isGrouped (const ASTNode_t *parent, const ASTNode_t *child)
   {
     if (!FormulaFormatter_isFunction(parent))
     {
-      p = ASTNode_getPrecedence(parent);
-      c = ASTNode_getPrecedence(child);
+      pp = ASTNode_getPrecedence(parent);
+      cp = ASTNode_getPrecedence(child);
 
-      if (p > c)
+      if (pp > cp)
       {
         group = 1;
       }
-      else if (p == c)
+      else if (pp == cp)
       {
-        if (ASTNode_getType(parent) != ASTNode_getType(child))
+        /**
+         * Group only if i) child is to the right and ii) both parent and
+         * child are either not the same, or if they are the same, they
+         * should be non-associative operators (i.e. AST_MINUS or
+         * AST_DIVIDE).  That is, do not group a parent and right child
+         * that are either both AST_PLUS or both AST_TIMES operators.
+         */
+        if (ASTNode_getRightChild(parent) == child)
         {
-          group = (ASTNode_getRightChild(parent) == child);
+          pt = ASTNode_getType(parent);
+          ct = ASTNode_getType(child);
+
+          group = ((pt != ct) || (pt == AST_MINUS || pt == AST_DIVIDE));
         }
       }
     }

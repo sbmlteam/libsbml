@@ -190,6 +190,108 @@ START_TEST (test_FormulaFormatter_isGrouped)
   fail_unless( FormulaFormatter_isGrouped(p, c) == 1, NULL );
 
   ASTNode_free(p);
+
+
+  /**
+   * "a - (b - c)":
+   *
+   * Rainer Machne reported that the above parsed correctly, but was not
+   * formatted correctly.
+   *
+   * The bug was in FormulaFormatter_isGrouped().  While it was correctly
+   * handling parent and child ASTNodes of the same precedence, it was not
+   * handling the special subcase where parent and child nodes were the
+   * same operator.  For grouping, this only matters for the subtraction
+   * and division operators, as they are not associative.
+   * 
+   * An exhaustive set of eight tests follow.
+   */
+  p = SBML_parseFormula("a - (b - c)");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 1, NULL );
+
+  ASTNode_free(p);
+
+
+  p = SBML_parseFormula("a - b - c");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
+
+
+  p = SBML_parseFormula("a + (b + c)");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
+
+
+  p = SBML_parseFormula("a + b + c");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
+
+
+  p = SBML_parseFormula("a * (b * c)");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
+
+
+  p = SBML_parseFormula("a * b * c");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
+
+
+  p = SBML_parseFormula("a / (b / c)");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 1, NULL );
+
+  ASTNode_free(p);
+
+
+  p = SBML_parseFormula("a / b / c");
+
+  c = ASTNode_getLeftChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  c = ASTNode_getRightChild(p);
+  fail_unless( FormulaFormatter_isGrouped(p, c) == 0, NULL );
+
+  ASTNode_free(p);
 }
 END_TEST
 
