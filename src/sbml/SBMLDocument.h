@@ -174,6 +174,54 @@ SBMLDocument_getNumErrors (SBMLDocument_t *d);
 unsigned int
 SBMLDocument_getNumFatals (SBMLDocument_t *d);
 
+/**
+ * Prints all warnings encountered during the parse of this SBMLDocument to
+ * the given stream.  If no warnings have occurred, i.e.
+ * SBMLDocument_getNumWarnings(d) == 0, no output will be sent to
+ * stream. The format of the output is:
+ *
+ *   %d Warning(s):
+ *     Line %d, Col %d: %s
+ *     ...
+ *
+ * This is a convenience function to aid in debugging.  For example:
+ * SBMLDocument_printWarnings(d, stdout).
+ */
+void
+SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream);
+
+/**
+ * Prints all errors encountered during the parse of this SBMLDocument to
+ * the given stream.  If no errors have occurred, i.e.
+ * SBMLDocument_getNumErrors(d) == 0, no output will be sent to stream. The
+ * format of the output is:
+ *
+ *   %d Error(s):
+ *     Line %d, Col %d: %s
+ *     ...
+ *
+ * This is a convenience function to aid in debugging.  For example:
+ * SBMLDocument_printErrors(d, stdout).
+ */
+void
+SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream);
+
+/**
+ * Prints all fatals encountered during the parse of this SBMLDocument to
+ * the given stream.  If no fatals have occurred, i.e.
+ * SBMLDocument_getNumFatals(d) == 0, no output will be sent to stream. The
+ * format of the output is:
+ *
+ *   %d Fatal(s):
+ *     Line %d, Col %d: %s
+ *     ...
+ *
+ * This is a convenience function to aid in debugging.  For example:
+ * SBMLDocument_printFatals(d, stdout).
+ */
+void
+SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream);
+
 
 #ifdef __cplusplus
 }

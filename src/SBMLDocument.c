@@ -223,3 +223,108 @@ SBMLDocument_getNumFatals (SBMLDocument_t *d)
 {
   return List_size(d->fatal);
 }
+
+
+/**
+ * Prints all warnings encountered during the parse of this SBMLDocument to
+ * the given stream.  If no warnings have occurred, i.e.
+ * SBMLDocument_getNumWarnings(d) == 0, no output will be sent to
+ * stream. The format of the output is:
+ *
+ *   %d Warning(s):
+ *     Line %d, Col %d: %s
+ *     ...
+ *
+ * This is a convenience function to aid in debugging.  For example:
+ * SBMLDocument_printWarnings(d, stdout).
+ */
+void
+SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
+{
+  unsigned int   n, size;
+  ParseMessage_t *pm;
+
+
+  if ((size = SBMLDocument_getNumWarnings(d)) > 0)
+  {
+    printf("%d Warning(s):\n", size);
+
+    for (n = 0; n < size; n++)
+    {
+      pm = SBMLDocument_getWarning(d, n);
+      printf("  Line %d, Col %d: %s\n", pm->line, pm->column, pm->message);
+    }
+
+    printf("\n");
+  }
+}
+
+
+/**
+ * Prints all errors encountered during the parse of this SBMLDocument to
+ * the given stream.  If no errors have occurred, i.e.
+ * SBMLDocument_getNumErrors(d) == 0, no output will be sent to stream. The
+ * format of the output is:
+ *
+ *   %d Error(s):
+ *     Line %d, Col %d: %s
+ *     ...
+ *
+ * This is a convenience function to aid in debugging.  For example:
+ * SBMLDocument_printErrors(d, stdout).
+ */
+void
+SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
+{
+  unsigned int   n, size;
+  ParseMessage_t *pm;
+
+
+  if ((size = SBMLDocument_getNumErrors(d)) > 0)
+  {
+    printf("%d Error(s):\n", size);
+
+    for (n = 0; n < size; n++)
+    {
+      pm = SBMLDocument_getError(d, n);
+      printf("  Line %d, Col %d: %s\n", pm->line, pm->column, pm->message);
+    }
+
+    printf("\n");
+  }
+}
+
+
+/**
+ * Prints all fatals encountered during the parse of this SBMLDocument to
+ * the given stream.  If no fatals have occurred, i.e.
+ * SBMLDocument_getNumFatals(d) == 0, no output will be sent to stream. The
+ * format of the output is:
+ *
+ *   %d Fatal(s):
+ *     Line %d, Col %d: %s
+ *     ...
+ *
+ * This is a convenience function to aid in debugging.  For example:
+ * SBMLDocument_printFatals(d, stdout).
+ */
+void
+SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
+{
+  unsigned int   n, size;
+  ParseMessage_t *pm;
+
+
+  if ((size = SBMLDocument_getNumFatals(d)) > 0)
+  {
+    printf("%d Fatal(s):\n", size);
+
+    for (n = 0; n < size; n++)
+    {
+      pm = SBMLDocument_getFatal(d, n);
+      printf("  Line %d, Col %d: %s\n", pm->line, pm->column, pm->message);
+    }
+
+    printf("\n");
+  }
+}
