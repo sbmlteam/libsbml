@@ -183,13 +183,13 @@ StringBuffer_appendInt (StringBuffer_t *sb, long i)
  *
  * This function is equivalent to:
  *
- *   StringBuffer_appendNumber(sb, "%g", r);
+ *   StringBuffer_appendNumber(sb, LIBSBML_FLOAT_FORMAT, r);
  */
 LIBSBML_EXTERN
 void
 StringBuffer_appendReal (StringBuffer_t *sb, double r)
 {
-  StringBuffer_appendNumber(sb, "%g", r);
+  StringBuffer_appendNumber(sb, LIBSBML_FLOAT_FORMAT, r);
 }
 
 

@@ -2191,7 +2191,8 @@ SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 
 
 /**
- * Sends ' name="%g" to the underlying XMLFormatter (where %g is a double).
+ * Sends ' name="%g" to the underlying XMLFormatter (where %g is a double
+ * and is defined by LIBSBML_FLOAT_FORMAT).
  */
 void
 SBMLFormatter::attribute (const XMLCh* name, double value)
@@ -2214,7 +2215,7 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
   }
   else
   {
-    snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%g", value);
+    snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT, value);
     attribute(name, fNumberBuffer);
   }
 }

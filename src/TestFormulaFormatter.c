@@ -288,7 +288,7 @@ START_TEST (test_SBML_formulaToString)
   {
     "1",
     "2.1",
-    "2.1e+10",
+    "2.1e-10",
     "foo",
     "1 + foo",
     "1 + 2",
@@ -305,6 +305,7 @@ START_TEST (test_SBML_formulaToString)
     "a / b * c",
     "a / (b * c)",
     "1 + 2 + 3",
+    "pow(x, y)",
     ""
   };
 
