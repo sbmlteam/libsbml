@@ -54,20 +54,6 @@
 
 #include "sbml/common.h"
 #include "sbml/SBMLDocument.h"
-#include "sbml/SBMLReader.h"
-
-
-#define XML_HEADER    "<?xml version='1.0' encoding='UTF-8'?>\n"
-#define SBML_HEADER   "<sbml level='1' version='1'> <model name='testModel'>\n"
-#define SBML_HEADER2  "<sbml level='2' version='1'> <model name='testModel'>\n"
-#define SBML_FOOTER   "</model> </sbml>"
-
-/**
- * Wraps the string s in the appropriate XML or SBML boilerplate.
- */
-#define wrapXML(s)    XML_HEADER s
-#define wrapSBML(s)   XML_HEADER SBML_HEADER  s SBML_FOOTER
-#define wrapSBML2(s)  XML_HEADER SBML_HEADER2 s SBML_FOOTER
 
 
 START_TEST (test_SBMLDocument_create)
@@ -144,56 +130,6 @@ START_TEST (test_SBMLDocument_setModel)
 END_TEST
 
 
-START_TEST (test_SBMLDocument_validate)
-{
-  SBMLDocument_t *d;
-  unsigned int errors;
-
-  const char *s = wrapSBML
-  (
-    "<listOfCompartments>"
-    "  <compartment name='c' spatialDimensions='0' size='1'>"
-    "</listOfCompartments>"
-  );
-
-  d = readSBMLFromString(s);
-
-  SBMLDocument_validate(d); 
-
-  errors = SBMLDocument_getNumErrors(d);
-
-  fail_unless(errors == 1, NULL);
-
-  SBMLDocument_free(d);
-}
-END_TEST
-
-
-START_TEST (test_SBMLDocument_validateKineticLaw)
-{
-  SBMLDocument_t *d;
-  unsigned int errors;
-  
-  const char *s = wrapSBML
-  (
-    "<reaction name='J1'>"
-    "  <kineticLaw formula='k1*X0' substanceUnits='foo'/>"
-    "</reaction>"
-  );
-  
-  d = readSBMLFromString(s);
-
-  SBMLDocument_validateKineticLaw(d); 
-
-  errors = SBMLDocument_getNumErrors(d);
-
-  fail_unless(errors == 1, NULL);
-
-  SBMLDocument_free(d);
-}
-END_TEST
-
-
 Suite *
 create_suite_SBMLDocument (void) 
 { 
@@ -205,8 +141,6 @@ create_suite_SBMLDocument (void)
   tcase_add_test(tcase, test_SBMLDocument_createWith );
   tcase_add_test(tcase, test_SBMLDocument_free_NULL  );
   tcase_add_test(tcase, test_SBMLDocument_setModel   );
-  tcase_add_test(tcase, test_SBMLDocument_validate   );
-  tcase_add_test(tcase, test_SBMLDocument_validateKineticLaw);
 
   suite_add_tcase(suite, tcase);
 

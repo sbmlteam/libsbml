@@ -55,6 +55,7 @@
 #include "sbml/SBMLConvert.h"
 #include "sbml/SBMLDocument.h"
 #include "sbml/StringBuffer.h"
+#include "sbml/Validator.h"
 
 
 /**
@@ -429,90 +430,17 @@ SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m)
 
 /**
  * Performs semantic validation on the document.  Query the results by
- * calling SBMLDocument_getNumWarnings, SBMLDocument_getNumErrors,
- * SBMLDocument_getNumFatals.
+ * calling SBMLDocument_getNumWarnings(), SBMLDocument_getNumErrors(),
+ * SBMLDocument_getNumFatals().
  */
 LIBSBML_EXTERN
 void
-SBMLDocument_validate (SBMLDocument_t *d)
+SBMLDocument_validate (const SBMLDocument_t *d)
 {
-  unsigned int numCompartments = Model_getNumCompartments(d->model);
-  unsigned int n;
-
-  Compartment_t  *c;
-  StringBuffer_t *sb;
-
-  const char *msg;
-
-  
-  for (n = 0; n < numCompartments; n++)
-  {
-    c = Model_getCompartment(d->model, n);
-    if (Compartment_getSpatialDimensions(c) == 0)
-    {
-      if (Compartment_isSetSize(c))
-      {
-        msg = "size attribute must not be set if spatialDimensions is zero";
-        sb  = StringBuffer_create(256);
-
-        StringBuffer_append(sb, "compartment ");
-        StringBuffer_append(sb, Compartment_getName(c));
-        StringBuffer_append(sb, msg);
-        List_add(
-            d->error,
-            ParseMessage_createWith(StringBuffer_getBuffer(sb), 0, 0)
-        );
-        StringBuffer_free(sb);
-      }
-    }
-  }
-}
+  Validator_t *v = Validator_createDefault();
 
 
-/**
- * Validates kinetic laws.  Query the results by
- * calling SBMLDocument_getNumWarnings, SBMLDocument_getNumErrors,
- * SBMLDocument_getNumFatals.
- */
-LIBSBML_EXTERN
-void
-SBMLDocument_validateKineticLaw (SBMLDocument_t *d)
-{
-	unsigned int size = Model_getNumReactions(d->model);
-	unsigned int n;
-	  
-  Reaction_t     *r;
-	KineticLaw_t   *kl;
-	StringBuffer_t *sb;
+  Validator_validate(v, d, d->error);
 
-  const char *units;
-	const char *msg;
-	
-	
-	for (n = 0; n < size; n++)
-	{
-    r  = Model_getReaction(d->model, n);
-		kl = Reaction_getKineticLaw(r);
-
-    if (kl == NULL) continue;
-
-    units = KineticLaw_getSubstanceUnits(kl);
-    if (units &&
-        ! ( !strcmp(units, "substance") ||
-		        !strcmp(units, "items"    ) ||
-		        !strcmp(units, "moles"    ) ) )
-		{
-			msg = "substanceUnits must be 'substance', 'items', or 'moles' or the values of id attributes of unitDefinition elements that define variants (i.e. have only arbitrary scale, multiplier and offset values) of 'item' or 'moles";
-      sb  = StringBuffer_create(256);
-      
-      StringBuffer_append(sb, "KineticLaw: ");
-      /* TODO: somehow indicate which KineticLaw has the problem */
-      StringBuffer_append(sb, msg);
-      List_add(
-      		d->error,
-         ParseMessage_createWith(StringBuffer_getBuffer(sb), 0, 0)
-      );
-      StringBuffer_free(sb);
-		}
-	}
+  Validator_free(v);
 }
