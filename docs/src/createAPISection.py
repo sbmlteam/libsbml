@@ -151,18 +151,20 @@ def filterDocStringLine(string):
   Filters a line of a docstring by performing the following substitutions:
 
     *        ->  (empty)
+    %        ->  \%
     @return  ->  Returns
     <b>      ->  \textbf{
     </b>     ->  }
   """
 
   string = replace( string, '*'      , ''          )
+  string = replace( string, '%'      , '\%'        )
   string = replace( string, '@return', 'Returns'   )
   string = replace( string, '<b>'    , '\\textbf{' )
   string = replace( string, '</b>'   , '}'         )
 
   index = find(string, ';')
-  if index > 0:
+  if index > 0 and string[0:3] == '   ':
     string = '\\texttt{' + string + '}'
 
   return string
