@@ -68,8 +68,8 @@
 #include "common.hpp"
 #include "MathMLTagCodes.hpp"
 
-#include "ASTNode.h"
-#include "MathMLDocument.h"
+#include "ASTNode.hpp"
+#include "MathMLDocument.hpp"
 #include "Stack.h"
 
 
@@ -94,7 +94,7 @@ public:
   // Creates a new MathMLHandler.  The given MathMLDocument should be empty
   // and will be populated as the document is parsed.
   //
-  MathMLHandler (MathMLDocument_t *d);
+  MathMLHandler (MathMLDocument* d);
 
 
 #ifdef USE_EXPAT
@@ -149,7 +149,7 @@ public:
 
 private:
 
-  void checkFunctionArgs (ASTNode_t*  node);
+  void checkFunctionArgs (ASTNode*  node);
 
   MathMLTagCode_t getTagCode (const XMLCh* uri, const XMLCh* localname);
 
@@ -158,13 +158,13 @@ private:
 
   void reduceExpression ();
 
-  void setTypeCN (ASTNode_t* node, const Attributes& a);
-  void setTypeCS (ASTNode_t* node, const Attributes& a);
+  void setTypeCN (ASTNode* node, const Attributes& a);
+  void setTypeCS (ASTNode* node, const Attributes& a);
 
 
-  MathMLDocument_t* fDocument;
-  Stack_t*          fObjStack;
-  Stack_t*          fTagStack;
+  MathMLDocument* fDocument;
+  Stack_t*        fObjStack;
+  Stack_t*        fTagStack;
 
   const Locator* fLocator;
 

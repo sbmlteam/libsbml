@@ -164,7 +164,7 @@ static const ASTNodeType_t AST_TYPE_TABLE[] =
  * ----------------------------------------------------------------------
  */
 
-MathMLHandler::MathMLHandler (MathMLDocument_t *d):
+MathMLHandler::MathMLHandler (MathMLDocument* d):
 #ifdef USE_EXPAT
   Expat(),
 #else
@@ -188,7 +188,7 @@ void MathMLHandler::endDocument ()
 {
   if (Stack_size(fObjStack) > 0)
   {
-    fDocument->math = (ASTNode_t *) Stack_pop(fObjStack);
+    fDocument->setMath( static_cast<ASTNode*>( Stack_pop(fObjStack) ) );
   }
 
   Stack_free( fObjStack );
@@ -215,14 +215,14 @@ MathMLHandler::startElement (const XMLCh* const  uri,
 
   MathMLTagCode_t currTag  = getTagCode(uri, localname);
   MathMLTagCode_t prevTag  = MATHML_TAG_UNKNOWN;
-  ASTNode_t*      currNode = NULL;
-  ASTNode_t*      prevNode = NULL;
+  ASTNode*        currNode = NULL;
+  ASTNode*        prevNode = NULL;
   ASTNodeType_t   type     = AST_TYPE_TABLE[currTag];
 
   if (Stack_size(fTagStack) > 0)
   {
     prevTag  = (MathMLTagCode_t) Stack_peek(fTagStack);
-    prevNode = (ASTNode_t*)      Stack_peek(fObjStack);
+    prevNode = (ASTNode*)        Stack_peek(fObjStack);
   }
 
   //
@@ -244,14 +244,14 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   // AST_NAME (the next if block).  The function name will have to wait
   // until reduceExpression().
   //
-  if (prevTag == MATHML_TAG_APPLY && ASTNode_getName(prevNode) == NULL)
+  if (prevTag == MATHML_TAG_APPLY && prevNode->getName() == NULL)
   {
     if (currTag != MATHML_TAG_CI)
     {
       Stack_pop(fTagStack);
-      currNode = (ASTNode_t*) Stack_pop(fObjStack);
+      currNode = (ASTNode*) Stack_pop(fObjStack);
 
-      ASTNode_setType(currNode, type);
+      currNode->setType(type);
     }
   }
 
@@ -261,7 +261,7 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   //
   if (currNode == NULL && type != AST_UNKNOWN)
   {
-    currNode = ASTNode_createWithType(type);
+    currNode = new ASTNode(type);
   }
 
   //
@@ -290,11 +290,11 @@ MathMLHandler::startElement (const XMLCh* const  uri,
       break;
 
     case MATHML_TAG_NOT_A_NUMBER:
-      ASTNode_setReal(currNode, util_NaN());
+      currNode->setValue(util_NaN());
       break;
 
     case MATHML_TAG_INFINITY:
-      ASTNode_setReal(currNode, util_PosInf());
+      currNode->setValue(util_PosInf());
       break;
 
     default:
@@ -330,7 +330,7 @@ MathMLHandler::endElement (const XMLCh* const  uri,
 #endif  // USE_EXPAT
 
   MathMLTagCode_t tag  = getTagCode(uri, localname);
-  ASTNode_t*      node = (ASTNode_t*) Stack_peek(fObjStack);
+  ASTNode*        node = (ASTNode*) Stack_peek(fObjStack);
 
   switch (tag)
   {
@@ -444,26 +444,26 @@ MathMLHandler::setDocumentLocator (const Locator *const locator)
  *   root(x) -> root( 2, x)
  */
 void
-MathMLHandler::checkFunctionArgs (ASTNode_t* node)
+MathMLHandler::checkFunctionArgs (ASTNode* node)
 {
-  ASTNode_t* child;
+  ASTNode* child;
 
 
-  if (ASTNode_getNumChildren(node) == 1)
+  if ( node->getNumChildren() == 1)
   {
-    if (node->type == AST_FUNCTION_LOG)
+    if (node->getType() == AST_FUNCTION_LOG)
     {
-      child = ASTNode_create();
-      ASTNode_setInteger(child, 10);
+      child = new ASTNode;
+      child->setValue(10);
 
-      ASTNode_prependChild(node, child);
+      node->prependChild(child);
     }
-    else if (node->type == AST_FUNCTION_ROOT)
+    else if (node->getType() == AST_FUNCTION_ROOT)
     {
-      child = ASTNode_create();
-      ASTNode_setInteger(child, 2);
+      child = new ASTNode;
+      child->setValue(2);
 
-      ASTNode_prependChild(node, child);
+      node->prependChild(child);
     }
   }
 }
@@ -496,10 +496,10 @@ MathMLHandler::getTagCode (const XMLCh* uri, const XMLCh* localname)
 void
 MathMLHandler::parseCI (const char *str)
 {  
-  ASTNode_t* ci = (ASTNode_t*) Stack_peek(fObjStack);
+  ASTNode* ci = (ASTNode*) Stack_peek(fObjStack);
 
 
-  ci->value.name = util_trim(str);
+  ci->mName = util_trim(str);
 }
 
 
@@ -510,7 +510,7 @@ MathMLHandler::parseCI (const char *str)
 void
 MathMLHandler::parseCN (const char* str)
 {
-  ASTNode_t*          cn        = (ASTNode_t*) Stack_peek(fObjStack);
+  ASTNode*            cn        = (ASTNode*) Stack_peek(fObjStack);
   FormulaTokenizer_t* tokenizer = FormulaTokenizer_create(str);
   Token_t*            token     = FormulaTokenizer_nextToken(tokenizer);
 
@@ -521,15 +521,15 @@ MathMLHandler::parseCN (const char* str)
   // bSeenSep indicates whether or not a <sep/> tag has been encountered in
   // this <cn>.
   //
-  if (cn->type == AST_RATIONAL)
+  if (cn->mType == AST_RATIONAL)
   {
     if (fSeenSep == false)
     {
-      cn->value.integer = token->value.integer;
+      cn->mInteger = token->value.integer;
     }
     else
     {
-      cn->extra.denominator = token->value.integer;
+      cn->mDenominator = token->value.integer;
     }
   }
 
@@ -539,49 +539,49 @@ MathMLHandler::parseCN (const char* str)
   // bSeenSep indicates whether or not a <sep/> tag has been encountered in
   // this <cn>.
   //
-  else if (cn->type == AST_REAL_E)
+  else if (cn->mType == AST_REAL_E)
   {
     if (fSeenSep == false)
     {
-      cn->value.real = token->value.real;
+      cn->mReal = token->value.real;
     }
     else
     {
-      cn->extra.exponent = token->value.integer;
+      cn->mExponent = token->value.integer;
     }
   }
 
   //
   // <cn type="real">
   //
-  else if (cn->type == AST_REAL)
+  else if (cn->mType == AST_REAL)
   {
     if (token->type == TT_REAL)
     {
-      cn->value.real = token->value.real;
+      cn->mReal = token->value.real;
     }
     else if (token->type == TT_INTEGER)
     {
-      cn->value.real = (double) token->value.integer;
+      cn->mReal = (double) token->value.integer;
     }
     else
     {
-      cn->type = AST_UNKNOWN;
+      cn->mType = AST_UNKNOWN;
     }
   }
 
   //
   // <cn type="integer">
   //
-  else if (cn->type == AST_INTEGER)
+  else if (cn->mType == AST_INTEGER)
   {
     if (token->type == TT_INTEGER)
     {
-      cn->value.integer = token->value.integer;
+      cn->mInteger = token->value.integer;
     }
     else
     {
-      cn->type = AST_UNKNOWN;
+      cn->mType = AST_UNKNOWN;
     }
   }
 
@@ -597,17 +597,17 @@ MathMLHandler::parseCN (const char* str)
 void
 MathMLHandler::reduceExpression ()
 {
-  ASTNode_t* child;
-  ASTNode_t* parent;
-  ASTNode_t* op;
+  ASTNode* child;
+  ASTNode* parent;
+  ASTNode* op;
 
   ASTNodeType_t parentType;
 
 
   if (Stack_size(fObjStack) >= 2)
   {
-    child      = (ASTNode_t*) Stack_peekAt(fObjStack, 0);
-    parent     = (ASTNode_t*) Stack_peekAt(fObjStack, 1);
+    child      = (ASTNode*) Stack_peekAt(fObjStack, 0);
+    parent     = (ASTNode*) Stack_peekAt(fObjStack, 1);
     parentType = ASTNode_getType(parent);
 
     //
@@ -620,10 +620,10 @@ MathMLHandler::reduceExpression ()
     // of the child (i.e. the function recieves its name) and the child is
     // subsequently discared.
     //
-    if ( (parentType == AST_FUNCTION) && (ASTNode_getName(parent) == NULL) )
+    if ( (parentType == AST_FUNCTION) && (parent->getName() == NULL) )
     {
-      ASTNode_setName(parent, ASTNode_getName(child));
-      ASTNode_free(child);
+      parent->setName( child->getName() );
+      delete child;
     }
 
     //
@@ -635,13 +635,13 @@ MathMLHandler::reduceExpression ()
     // binary.
     //
     else if ( (parentType == AST_PLUS || parentType == AST_TIMES) &&
-              ASTNode_getNumChildren(parent) == 2 )
+              parent->getNumChildren() == 2 )
     {
-      op = ASTNode_createWithType(parentType);
-      ASTNode_addChild(op, (ASTNode_t *) List_remove(parent->children, 1));
-      ASTNode_addChild(op, child);
+      op = new ASTNode(parentType);
+      op->addChild( (ASTNode*) parent->mChildren->remove(1) );
+      op->addChild(child);
 
-      ASTNode_addChild(parent, op);
+      parent->addChild(op);
     }
 
     //
@@ -649,7 +649,7 @@ MathMLHandler::reduceExpression ()
     //
     else
     {
-      ASTNode_addChild(parent, child);
+      parent->addChild(child);
     }
 
     //
@@ -666,7 +666,7 @@ MathMLHandler::reduceExpression ()
  * Sets the node type based on the MathML <cn type="..."> attribute.
  */
 void
-MathMLHandler::setTypeCN (ASTNode_t* node, const Attributes& a)
+MathMLHandler::setTypeCN (ASTNode* node, const Attributes& a)
 {
   int index = a.getIndex(ATTR_TYPE);
 
@@ -677,15 +677,15 @@ MathMLHandler::setTypeCN (ASTNode_t* node, const Attributes& a)
 
     if ( !XMLString::compareString(type, VAL_INTEGER) )
     {
-      node->type = AST_INTEGER;
+      node->mType = AST_INTEGER;
     }
     else if ( !XMLString::compareString(type, VAL_RATIONAL) )
     {
-      node->type = AST_RATIONAL;
+      node->mType = AST_RATIONAL;
     }
     else if ( !XMLString::compareString(type, VAL_E_NOTATION) )
     {
-      node->type = AST_REAL_E;
+      node->mType = AST_REAL_E;
     }
   }
 }
@@ -696,7 +696,7 @@ MathMLHandler::setTypeCN (ASTNode_t* node, const Attributes& a)
  * attribute.
  */
 void
-MathMLHandler::setTypeCS (ASTNode_t* node, const Attributes& a)
+MathMLHandler::setTypeCS (ASTNode* node, const Attributes& a)
 {
   int index = a.getIndex(ATTR_DEFINITION_URL);
 
@@ -707,11 +707,11 @@ MathMLHandler::setTypeCS (ASTNode_t* node, const Attributes& a)
 
     if ( !XMLString::compareString(url, CSYMBOL_DEFINITION_URL_TIME) )
     {
-      node->type = AST_NAME_TIME;
+      node->mType = AST_NAME_TIME;
     }
     else if ( !XMLString::compareString(url, CSYMBOL_DEFINITION_URL_DELAY) )
     {
-      node->type = AST_NAME_DELAY;
+      node->mType = AST_NAME_DELAY;
     }
   }
 }

@@ -69,8 +69,8 @@
 #endif  // USE_EXPAT
 
 
-#include "ASTNode.h"
-#include "MathMLDocument.h" 
+#include "ASTNode.hpp"
+#include "MathMLDocument.hpp" 
 
 
 //
@@ -125,10 +125,15 @@ public:
   /**
    * MathMLDocument insertion operator
    */
-  MathMLFormatter& operator<< (const MathMLDocument_t* d);
+  MathMLFormatter& operator<< (const MathMLDocument* d);
 
   /**
    * ASTNode insertion operator
+   */
+  MathMLFormatter& operator<< (const ASTNode* node);
+
+  /**
+   * ASTNode_t insertion operator (for backward compatibility).
    */
   MathMLFormatter& operator<< (const ASTNode_t* node);
 
@@ -160,73 +165,73 @@ private:
    * Formats the given ASTNode as
    * <cn type="e-notation"> %f <sep/> %ld </cn>
    */
-  void doENotation (const ASTNode_t* node);
+  void doENotation (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as
    * <cn type="rational"> %ld <sep/> %ld </cn>.
    */
-  void doRational (const ASTNode_t* node);
+  void doRational (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as <cn type="real"> or <cn type='e-notation'>
    * as appropriate.
    */
-  void doReal (const ASTNode_t* node);
+  void doReal (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as a <ci> or <csymbol> element as appropriate.
    */
-  void doName (const ASTNode_t* node);
+  void doName (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as a <csymbol> time or delay element as
    * appropriate.
    */
-  void doCSymbol (const ASTNode_t* node);
+  void doCSymbol (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as a MathML constant.
    */
-  void doConstant (const ASTNode_t* node);
+  void doConstant (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as a <lambda> element.
    */
-  void doLambda (const ASTNode_t* node);
+  void doLambda (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as a <apply> <op/> ... </apply>.
    */
-  void doOperator (const ASTNode_t* node);
+  void doOperator (const ASTNode* node);
 
   /**
    * This function formats the children of the given ASTNode and is called
    * by doOperator().
    */
-  void doOperatorArgs (const ASTNode_t* node);
+  void doOperatorArgs (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as a <piecewise> element.
    */
-  void doPiecewise (const ASTNode_t* node);
+  void doPiecewise (const ASTNode* node);
 
   /**
    * Formats the given ASTNode as <apply> <fn/> ... </apply>.
    */
-  void doFunction (const ASTNode_t* node);
+  void doFunction (const ASTNode* node);
 
   /**
    * Formats the two children of the given ASTNode.  The first child is
    * wrapped in a <logbase> element.
    */
-  void doFunctionLog (const ASTNode_t* node);
+  void doFunctionLog (const ASTNode* node);
 
   /**
    * Formats the children of the given ASTNode.  The first child is wrapped
    * in a <degree> element.
    */
-  void doFunctionRoot (const ASTNode_t* node);
+  void doFunctionRoot (const ASTNode* node);
 
   /**
    * @return true if the string representation of number contains an 'e' or

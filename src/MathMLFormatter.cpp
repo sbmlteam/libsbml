@@ -209,11 +209,11 @@ MathMLFormatter::endMath ()
  * MathMLDocument insertion operator
  */
 MathMLFormatter&
-MathMLFormatter::operator<< (const MathMLDocument_t* d)
+MathMLFormatter::operator<< (const MathMLDocument* d)
 {
   startMath();
 
-  *this << d->math;
+  *this << d->getMath();
 
   endMath();
 
@@ -225,47 +225,62 @@ MathMLFormatter::operator<< (const MathMLDocument_t* d)
  * ASTNode insertion operator
  */
 MathMLFormatter&
+MathMLFormatter::operator<< (const ASTNode* node)
+{
+  if (node == NULL) return *this;
+
+
+  if ( node->isInteger() )
+  {
+    *this << node->getInteger();
+  }
+  else if ( node->isRational() )
+  {
+    doRational(node);
+  }
+  else if ( node->isReal() )
+  {
+    doReal(node);
+  }
+  else if ( node->isName() )
+  {
+    doName(node);
+  }
+  else if ( node->isConstant() )
+  {
+    doConstant(node);
+  }
+  else if ( node->isOperator() )
+  {
+    doOperator(node);
+  }
+  else if ( node->isLambda() )
+  {
+    doLambda(node);
+  }
+  else if ( node->getType() == AST_FUNCTION_PIECEWISE)
+  {
+    doPiecewise(node);
+  }
+  else if ( !node->isUnknown() )
+  {
+    doFunction(node);
+  }
+
+  return *this;
+}
+
+
+/**
+ * ASTNode_t insertion operator (for backward compatibility).
+ */
+MathMLFormatter&
 MathMLFormatter::operator<< (const ASTNode_t* node)
 {
   if (node == NULL) return *this;
 
 
-  if ( ASTNode_isInteger(node) )
-  {
-    *this << ASTNode_getInteger(node);
-  }
-  else if ( ASTNode_isRational(node) )
-  {
-    doRational(node);
-  }
-  else if ( ASTNode_isReal(node) )
-  {
-    doReal(node);
-  }
-  else if ( ASTNode_isName(node) )
-  {
-    doName(node);
-  }
-  else if ( ASTNode_isConstant(node) )
-  {
-    doConstant(node);
-  }
-  else if ( ASTNode_isOperator(node) )
-  {
-    doOperator(node);
-  }
-  else if ( ASTNode_isLambda(node) )
-  {
-    doLambda(node);
-  }
-  else if ( ASTNode_getType(node) == AST_FUNCTION_PIECEWISE)
-  {
-    doPiecewise(node);
-  }
-  else if ( !ASTNode_isUnknown(node) )
-  {
-    doFunction(node);
-  }
+  *this << static_cast<const ASTNode*>(node);
 
   return *this;
 }
@@ -348,10 +363,10 @@ MathMLFormatter::operator<< (double value)
 
   FormulaTokenizer_t* tokenizer = FormulaTokenizer_create(fNumberBuffer);
   Token_t*            token     = FormulaTokenizer_nextToken(tokenizer);
-  ASTNode_t*          node      = ASTNode_createFromToken(token);
+  ASTNode*            node      = new ASTNode(token);
 
 
-  if (node->type == AST_REAL_E)
+  if (node->getType() == AST_REAL_E)
   {
     doENotation(node);
   }
@@ -364,7 +379,7 @@ MathMLFormatter::operator<< (double value)
     spaceEndElement(ELEM_CN);
   }
 
-  ASTNode_free(node);
+  delete node;
   Token_free(token);
   FormulaTokenizer_free(tokenizer);
 
@@ -385,15 +400,15 @@ MathMLFormatter::operator<< (double value)
  * as appropriate.
  */
 void
-MathMLFormatter::doReal (const ASTNode_t* node)
+MathMLFormatter::doReal (const ASTNode* node)
 {
-  if (ASTNode_getType(node) == AST_REAL_E)
+  if (node->getType() == AST_REAL_E)
   {
     doENotation(node);
   }
   else
   {
-    *this << ASTNode_getReal(node);
+    *this << node->getReal();
   }
 }
 
@@ -402,10 +417,10 @@ MathMLFormatter::doReal (const ASTNode_t* node)
  * Formats the given ASTNode as <cn type="e-notation"> %f <sep/> %ld </cn>.
  */
 void
-MathMLFormatter::doENotation (const ASTNode_t* node)
+MathMLFormatter::doENotation (const ASTNode* node)
 {
-  double mantissa = ASTNode_getMantissa(node);
-  long   exponent = ASTNode_getExponent(node);
+  double mantissa = node->getMantissa();
+  long   exponent = node->getExponent();
 
 
   startElementCN(VAL_E_NOTATION);
@@ -437,10 +452,10 @@ MathMLFormatter::doENotation (const ASTNode_t* node)
  * Formats the given ASTNode as <cn type="rational"> %ld <sep/> %ld </cn>.
  */
 void
-MathMLFormatter::doRational (const ASTNode_t* node)
+MathMLFormatter::doRational (const ASTNode* node)
 {
-  long numerator   = ASTNode_getNumerator  (node);
-  long denominator = ASTNode_getDenominator(node);
+  long numerator   = node->getNumerator();
+  long denominator = node->getDenominator();
 
 
   startElementCN(VAL_RATIONAL);
@@ -461,9 +476,9 @@ MathMLFormatter::doRational (const ASTNode_t* node)
  * Formats the given ASTNode as a <ci> or <csymbol> element as appropriate.
  */
 void
-MathMLFormatter::doName (const ASTNode_t* node)
+MathMLFormatter::doName (const ASTNode* node)
 {
-  ASTNodeType_t type = ASTNode_getType(node);
+  ASTNodeType_t type = node->getType();
 
 
   if (type == AST_NAME_DELAY || type == AST_NAME_TIME)
@@ -472,7 +487,7 @@ MathMLFormatter::doName (const ASTNode_t* node)
   }
   else if (type == AST_NAME)
   {
-    *this << ASTNode_getName(node);
+    *this << node->getName();
   }
 }
 
@@ -482,9 +497,9 @@ MathMLFormatter::doName (const ASTNode_t* node)
  * appropriate.
  */
 void
-MathMLFormatter::doCSymbol (const ASTNode_t* node)
+MathMLFormatter::doCSymbol (const ASTNode* node)
 {
-  ASTNodeType_t type = ASTNode_getType(node);
+  ASTNodeType_t type = node->getType();
   const XMLCh*  url  = NULL;
 
 
@@ -504,7 +519,7 @@ MathMLFormatter::doCSymbol (const ASTNode_t* node)
 
   closeStartElementSpace();
 
-  characters( ASTNode_getName(node) );
+  characters( node->getName() );
 
   spaceEndElement(ELEM_CSYMBOL);
 }
@@ -514,9 +529,9 @@ MathMLFormatter::doCSymbol (const ASTNode_t* node)
  * Formats the given ASTNode as a MathML constant.
  */
 void
-MathMLFormatter::doConstant (const ASTNode_t* node)
+MathMLFormatter::doConstant (const ASTNode* node)
 {
-  switch (node->type)
+  switch ( node->getType() )
   {
     case AST_CONSTANT_E:
       startEndElement(ELEM_EXPONENTIALE);
@@ -544,9 +559,9 @@ MathMLFormatter::doConstant (const ASTNode_t* node)
  * Formats the given ASTNode as a <lambda> element.
  */
 void
-MathMLFormatter::doLambda (const ASTNode_t* node)
+MathMLFormatter::doLambda (const ASTNode* node)
 {
-  unsigned int bvars = ASTNode_getNumChildren(node) - 1;
+  unsigned int bvars = node->getNumChildren() - 1;
   unsigned int n;
 
 
@@ -558,14 +573,14 @@ MathMLFormatter::doLambda (const ASTNode_t* node)
     startElement(ELEM_BVAR);
     upIndent();
 
-    *this << ASTNode_getChild(node, n);
+    *this << node->getChild(n);
 
     downIndent();
     indent();
     endElement(ELEM_BVAR);
   }
 
-  *this << ASTNode_getChild(node, n);
+  *this << node->getChild(n);
 
   downIndent();
   indent();
@@ -577,13 +592,13 @@ MathMLFormatter::doLambda (const ASTNode_t* node)
  * Formats the given ASTNode as a <apply> <op/> ... </apply>.
  */
 void
-MathMLFormatter::doOperator (const ASTNode_t* node)
+MathMLFormatter::doOperator (const ASTNode* node)
 {
   startElement(ELEM_APPLY);
 
   upIndent();
 
-  switch (node->type)
+  switch ( node->getType() )
   {
     case AST_PLUS:
       startEndElement(ELEM_PLUS);
@@ -623,11 +638,11 @@ MathMLFormatter::doOperator (const ASTNode_t* node)
  * doOperator().
  */
 void
-MathMLFormatter::doOperatorArgs (const ASTNode_t* node)
+MathMLFormatter::doOperatorArgs (const ASTNode* node)
 {
-  ASTNodeType_t type  = ASTNode_getType(node);
-  ASTNode_t*    left  = ASTNode_getLeftChild (node);
-  ASTNode_t*    right = ASTNode_getRightChild(node);
+  ASTNodeType_t type  = node->getType();
+  ASTNode*      left  = node->getLeftChild();
+  ASTNode*      right = node->getRightChild();
 
 
   //
@@ -640,7 +655,7 @@ MathMLFormatter::doOperatorArgs (const ASTNode_t* node)
   //
   if (type == AST_PLUS || type == AST_TIMES)
   {
-    if (ASTNode_getType(left) == type)
+    if (left->getType() == type)
     {
       doOperatorArgs(left);
     }
@@ -649,7 +664,7 @@ MathMLFormatter::doOperatorArgs (const ASTNode_t* node)
       *this << left;
     }
 
-    if (ASTNode_getType(right) == type)
+    if (right->getType() == type)
     {
       doOperatorArgs(right);
     }
@@ -670,9 +685,9 @@ MathMLFormatter::doOperatorArgs (const ASTNode_t* node)
  * Formats the given ASTNode as a <piecewise> element.
  */
 void
-MathMLFormatter::doPiecewise (const ASTNode_t* node)
+MathMLFormatter::doPiecewise (const ASTNode* node)
 {
-  unsigned int numChildren = ASTNode_getNumChildren(node);
+  unsigned int numChildren = node->getNumChildren();
   unsigned int numPieces   = numChildren;
   unsigned int n;
 
@@ -698,8 +713,8 @@ MathMLFormatter::doPiecewise (const ASTNode_t* node)
 
     upIndent();
 
-    *this << ASTNode_getChild(node, n);
-    *this << ASTNode_getChild(node, n + 1);
+    *this << node->getChild(n);
+    *this << node->getChild(n + 1);
 
     downIndent();
 
@@ -715,7 +730,7 @@ MathMLFormatter::doPiecewise (const ASTNode_t* node)
     startElement(ELEM_OTHERWISE);
     upIndent();
 
-    *this << ASTNode_getChild(node, numPieces);
+    *this << node->getChild(numPieces);
 
     downIndent();
 
@@ -734,10 +749,10 @@ MathMLFormatter::doPiecewise (const ASTNode_t* node)
  * Formats the given ASTNode as <apply> <fn/> ... </apply>.
  */
 void
-MathMLFormatter::doFunction (const ASTNode_t* node)
+MathMLFormatter::doFunction (const ASTNode* node)
 {
-  ASTNodeType_t type        = ASTNode_getType(node);
-  unsigned int  numChildren = ASTNode_getNumChildren(node);
+  ASTNodeType_t type        = node->getType();
+  unsigned int  numChildren = node->getNumChildren();
 
 
   startElement(ELEM_APPLY);
@@ -751,7 +766,7 @@ MathMLFormatter::doFunction (const ASTNode_t* node)
     //
     if (type == AST_FUNCTION)
     {
-      *this << ASTNode_getName(node);
+      *this << node->getName();
     }
     else
     {
@@ -773,7 +788,7 @@ MathMLFormatter::doFunction (const ASTNode_t* node)
     {
       for (unsigned int c = 0; c < numChildren; c++)
       {
-        *this << ASTNode_getChild(node, c);
+        *this << node->getChild(c);
       }
     }
   }
@@ -790,20 +805,20 @@ MathMLFormatter::doFunction (const ASTNode_t* node)
  * wrapped in a <logbase> element.
  */
 void
-MathMLFormatter::doFunctionLog (const ASTNode_t* node)
+MathMLFormatter::doFunctionLog (const ASTNode* node)
 {
   startElement(ELEM_LOGBASE);
 
   upIndent();
 
-  *this << ASTNode_getLeftChild(node);
+  *this << node->getLeftChild();
 
   downIndent();
 
   indent();
   endElement(ELEM_LOGBASE);
 
-  *this << ASTNode_getRightChild(node);
+  *this << node->getRightChild();
 }
 
 
@@ -812,20 +827,20 @@ MathMLFormatter::doFunctionLog (const ASTNode_t* node)
  * in a <degree> element.
  */
 void
-MathMLFormatter::doFunctionRoot (const ASTNode_t* node)
+MathMLFormatter::doFunctionRoot (const ASTNode* node)
 {
   startElement(ELEM_DEGREE);
 
   upIndent();
 
-  *this << ASTNode_getLeftChild(node);
+  *this << node->getLeftChild();
 
   downIndent();
 
   indent();
   endElement(ELEM_DEGREE);
 
-  *this << ASTNode_getRightChild(node);
+  *this << node->getRightChild();
 }
 
 
