@@ -89,15 +89,13 @@ public:
    * Creates a new SBMLHandler.  The given SBMLDocument should be empty
    * and will be populated as the document is parsed.
    */
-  SBMLHandler (SBMLDocument_t *d) : fDocument(d) { };
+  SBMLHandler (SBMLDocument_t *d);
 
   /**
    * Dtor
    */
   ~SBMLHandler ();
 
-
-  void startDocument ();
 
   void startElement
   (

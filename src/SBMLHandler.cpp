@@ -118,35 +118,18 @@ SBMLHandler::TagHandler[] =
 };
 
 
-/**
- * Dtor
- */
-SBMLHandler::~SBMLHandler ()
-{
-  Stack_free( fObjStack );
-  Stack_free( fTagStack );
-
-  MathMLDocument_free( fMathDocument );
-}
-
-
-/* ----------------------------------------------------------------------
- *                         SAX2 Event Handlers
- * ----------------------------------------------------------------------
- */
 
 
 /**
- * startDocument
+ * Ctor
  */
-void
-SBMLHandler::startDocument ()
+SBMLHandler::SBMLHandler (SBMLDocument_t *d) : fDocument(d)
 {
   //
   // An XMLStringFormatter is used to reconstruct <notes> and <annotation>
   // sections from SAX2 events.
   //
-  fFormatter = new XMLStringFormatter("LATIN1");
+  fFormatter = new XMLStringFormatter("UTF-8");
 
   //
   // MathML is parsed by delegating SAX2 events recieved by this handler to
@@ -183,6 +166,26 @@ SBMLHandler::startDocument ()
   inAnnotation = 0;
   inMath       = 0;
 }
+
+
+/**
+ * Dtor
+ */
+SBMLHandler::~SBMLHandler ()
+{
+  Stack_free( fObjStack );
+  Stack_free( fTagStack );
+
+  MathMLDocument_free( fMathDocument );
+}
+
+
+
+
+/* ----------------------------------------------------------------------
+ *                         SAX2 Event Handlers
+ * ----------------------------------------------------------------------
+ */
 
 
 /**
@@ -1557,16 +1560,28 @@ SBMLHandler::doStackPeek (const Attributes& a)
 SBMLTagCode_t
 SBMLHandler::getTagCode (const XMLCh *uri, const XMLCh* localname)
 {
+  unsigned int  len = XMLString::stringLen(uri);
   SBMLTagCode_t tag = TAG_UNKNOWN;
+  
+  XMLCh ch;
 
 
-  if ( (XMLString::stringLen(uri) == 0)                    ||
-       (XMLString::compareString(XMLNS_SBML_L2, uri) == 0) ||
-       (XMLString::compareString(XMLNS_SBML_L1, uri) == 0) )
+  if (len == 0)
   {
     tag = SBMLTagCode_forElement(localname);
   }
-  else if (XMLString::compareString(localname, ELEM_MATH) == 0)
+  else
+  {
+    ch = uri[len - 1];
+
+    if ( (ch == chDigit_2 && !XMLString::compareString(XMLNS_SBML_L2, uri)) ||
+         (ch == chDigit_1 && !XMLString::compareString(XMLNS_SBML_L1, uri)) )
+    {
+      tag = SBMLTagCode_forElement(localname);
+    }
+  }
+
+  if (tag == TAG_UNKNOWN && !XMLString::compareString(localname, ELEM_MATH))
   {
     tag = TAG_MATH;
   }
