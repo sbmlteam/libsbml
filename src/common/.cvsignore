@@ -5,3 +5,4 @@
 Makefile
 TestRunner
 *.dylib
+config.h
