@@ -655,6 +655,33 @@ numRulesWithVariable(const Model_t *m, const char *variableName)
 }
 
 
+/* TODO: move this to Event_t */
+static
+unsigned int
+numEventAssignmentsWithVariable(const Event_t *e, const char *variableName)
+{
+  unsigned int result = 0;
+  unsigned int numEventAssignments = Event_getNumEventAssignments(e);
+  unsigned int i;
+
+
+  for (i = 0; i < numEventAssignments; i++)
+  {
+    EventAssignment_t *ea = Event_getEventAssignment(e, i);
+
+    if (EventAssignment_isSetVariable(ea))
+    {
+      if (streq(EventAssignment_getVariable(ea), variableName))
+      {
+        result++;
+      }
+    }
+  }
+
+  return result;
+}
+
+
 /* TODO: somehow make this a member of Rule_t? */
 static
 const char *
@@ -1914,6 +1941,47 @@ RULE (event_nonconstantVariable)
       }
     }
   }
+
+  return passed;
+}
+
+
+/**
+ * The variable attribute value must be unique amongst the set of
+ * eventAssignments within each event element.
+ */
+RULE (event_variableOnlyOnce)
+{
+  static const char msg[] =
+    "No two eventAssignments within the same event may have the same "
+    "'variable'.";
+  BOOLEAN passed = TRUE;
+
+  Event_t *e = (Event_t *) obj;
+  unsigned int numEventAssignments = Event_getNumEventAssignments(e);
+  unsigned int i;
+
+
+  for (i = 0; i < numEventAssignments; i++)
+  {
+    EventAssignment_t *ea = Event_getEventAssignment(e, i);
+
+    if (EventAssignment_isSetVariable(ea))
+    {
+      if (
+        numEventAssignmentsWithVariable(e, EventAssignment_getVariable(ea))
+        >
+        1
+      )
+      {
+        LOG_MESSAGE(msg);
+        passed = FALSE;
+        break;
+      }
+    }
+  }
+
+  return passed;
 }
 
 
@@ -1975,4 +2043,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, rule_variableOnlyOnce,          SBML_RATE_RULE       );
   Validator_addRule( v, event_timeUnits,                SBML_EVENT           );
   Validator_addRule( v, event_nonconstantVariable,      SBML_EVENT           );
+  Validator_addRule( v, event_variableOnlyOnce,         SBML_EVENT           );
 }
