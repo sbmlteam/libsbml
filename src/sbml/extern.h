@@ -73,6 +73,17 @@
 #  define LIBSBML_EXTERN __declspec(dllimport)
 #endif
 
+/**
+ * Disable MSVC++ warning C4800: 'const int' : forcing value to bool 'true'
+ * or 'false' (performance warning).
+ */
+#pragma warning(disable: 4800)
+
+/**
+ * Disable MSVC++ warning C4291: no matching operator delete found.
+ */
+#pragma warning(disable: 4291)
+
 #else
 
 #define LIBSBML_EXTERN
