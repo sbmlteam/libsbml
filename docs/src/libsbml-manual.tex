@@ -15,7 +15,7 @@
 
 \authoremail{bornstei@cds.caltech.edu}
 
-\address{Systems Biology Workbench Development Group\\
+\address{Systems Biology Markup Language Development Group\\
   ERATO Kitano Symbiotic Systems Project\\
   Control and Dynamical Systems, MC 107-81\\
   California Institute of Technology, Pasadena, CA 91125, USA\\[3pt]
@@ -127,12 +127,12 @@ Some of the features of \textsc{libsbml} include:
 
   The Gepasi generated 100 Yeast file (2Mb; 2000 reactions
   \url{http://www.gepasi.org/gep3sbml.html}) loads in 1.18s on a 1 GHz
-  AMD Athalon XP and uses 1.4Mb of memory.
+  AMD Athlon XP and uses 1.4Mb of memory.
 
   \item \textbf{Portable}
 
   The C source code is pure ANSI for maximum portability.  It produces
-  no errors or warnings when compiled with either gcc or Microsoft
+  no errors or warnings when compiled with either GCC or Microsoft
   Visual C++.  GCC compilation flags are: \texttt{-ansi
   -pedantic-errors -Wall}, i.e., ANSI violations are compilation errors
   instead of warnings and all warnings are reported.
@@ -163,10 +163,10 @@ Some of the features of \textsc{libsbml} include:
   \item \textbf{Full XML Schema Validation}
 
   The library uses the Apache Xerces-C++ XML library, which supports
-  full XML schema validation.  All XML and schema warning, error and
+  full XML Schema validation.  All XML and Schema warning, error and
   fatal error messages are logged with line and column number
   information and may be retrieved and manipulated pragmatically.  The
-  schema file to use for validation is configurable.
+  Schema file to use for validation is configurable.
 
   \item \textbf{Full Unicode Support}
 
@@ -180,12 +180,12 @@ Some of the features of \textsc{libsbml} include:
   popularized by Kent Beck and eXtreme Programming, where it's one of
   the 12 principles.
 
-  Currently there are 1681 individual assertions in 311 functional
+  Currently there are 3014 individual assertions in 583 functional
   unit tests.  Four test cases are responsible for reading entire SBML
   files (three are examples from the L1 document) into memory and
   verifying every field of the resulting structures.
 
-  \item \textbf{Conscientious use of Memory}
+  \item \textbf{Conscientious Use of Memory}
 
   All memory for and contained in SBML structures is C memory, so
   \method{realloc()} and \method{free()} may be used.  This is an
@@ -270,9 +270,8 @@ them is not required for the library to function properly.
 
 To run the unit tests a second library is required, libcheck.  Check
 is a very lightweight C unit test framework based on the xUnit
-framework popularized by Kent Beck and eXtrememe Programming (all of
-\textsc{libsbml} was written using the test first approach).  Check is
-quite small and once installed, it consists of only two files:
+framework popularized by Kent Beck and eXtrememe Programming.  Check
+is quite small and once installed, it consists of only two files:
 \texttt{libcheck.a} and \texttt{check.h}.  To download Check, visit:
 
 \begin{quote}
@@ -381,7 +380,7 @@ Section~\ref{sec:enumerations} for more information).  Finally, there
 is one class, \class{SBMLDocument\_t}, that exists in the
 \textsc{libsbml} API, but not strictly in SBML.  It serves primarily
 as a top-level container for models and stores any warning or error
-messages encountered when an SBML document is read (see
+messages encountered when an SBML document was read (see
 Section~\ref{sec:reading-sbml}).
 
 The methods for SBML classes are declared in header files that
