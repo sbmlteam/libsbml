@@ -49,6 +49,8 @@
  * Contributor(s):
  */
 
+#include "sbml/SBase.hpp"
+
 
 /**
  * @return the most specific Swig type for the given SBase object.
