@@ -245,6 +245,15 @@ void
 SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream);
 
 
+/**
+ * Sets the Model of this SBMLDocument to the given Model.
+ * Any previously defined model is unset and freed.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m);
+
+
 END_C_DECLS
 
 

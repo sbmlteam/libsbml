@@ -365,3 +365,23 @@ SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
     printf("\n");
   }
 }
+
+
+/**
+ * Sets the Model of this SBMLDocument to the given Model.
+ * Any previously defined model is unset and freed.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m)
+{
+  if (d->model == m) return;
+
+
+  if (d->model != NULL)
+  {
+    Model_free(d->model);
+  }
+
+  d->model = m;
+}

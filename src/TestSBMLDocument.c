@@ -103,6 +103,31 @@ START_TEST (test_SBMLDocument_free_NULL)
 END_TEST
 
 
+START_TEST (test_SBMLDocument_setModel)
+{
+  SBMLDocument_t *d  = SBMLDocument_create();
+  Model_t        *m1 = Model_create();
+  Model_t        *m2 = Model_create();
+
+
+  fail_unless(d->model == NULL, NULL);
+
+  SBMLDocument_setModel(d, m1);
+  fail_unless(d->model == m1, NULL);
+
+  /* Reflexive case (pathological) */
+  SBMLDocument_setModel(d, d->model);
+  fail_unless(d->model == m1, NULL);
+
+  SBMLDocument_setModel(d, m2);
+  fail_unless(d->model == m2, NULL);
+
+  SBMLDocument_free(d);
+  /* m1 is freed by SBMLDocument_setModel(d, m2); */
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLDocument (void) 
 { 
@@ -113,6 +138,7 @@ create_suite_SBMLDocument (void)
   tcase_add_test(tcase, test_SBMLDocument_create     );
   tcase_add_test(tcase, test_SBMLDocument_createWith );
   tcase_add_test(tcase, test_SBMLDocument_free_NULL  );
+  tcase_add_test(tcase, test_SBMLDocument_setModel   );
 
   suite_add_tcase(suite, tcase);
 
