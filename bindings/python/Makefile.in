@@ -130,9 +130,9 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(extra_sources) Makefile.in python.py
+distfiles = $(sources) $(extra_sources) Makefile.in libsbml.py
 
-maintainer_clean = libsbml_wrap.cpp python.py
+extra_distclean = libsbml_wrap.cpp libsbml.py libsbml.pyc
 
 
 # -----------------------------------------------------------------------------
