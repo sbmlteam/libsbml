@@ -347,7 +347,7 @@ SBMLDocument::setLevel (unsigned int level)
   if (this->level == 1 && level == 2)
   {
     this->level = 2;
-    SBML_convertToL2( (SBase_t *) this );
+    if (model != NULL) SBML_convertToL2((Model_t *) model, (SBase_t *) this);
   }
   else
   {

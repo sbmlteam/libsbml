@@ -53,6 +53,16 @@
     Thanks to Damon Hachmeister for suggesting this idea.
 
 
+* Bug Fixes:
+
+  - When converting L1 models to L2, any Compartment or Parameter
+    involved in a CompartmentVolumeRule or ParameterRule,
+    respectively, now correctly has its constant attribute set to
+    false (instead of the L2 default of true).  (As for Species, their
+    constant attribute defaults to false in L2).  Thanks to Andrew
+    Finney and Nicolas Le Novere for reporting this bug.
+
+
 * Changes:
 
   - Renamed two methods on the Reaction class:

@@ -60,15 +60,15 @@
 
 /**
  * Converts the given SBase object and any of its subordinate objects from
- * SBML L1 to L2.  This function delegates, based on SBMLTypeCode, to
+ * SBML L1 to L2.  In some cases, the larger Model is needed as context for
+ * conversion.  This function delegates, based on SBMLTypeCode, to
  * SBML_convertNameToId() and others.
  */
 void
 LIBSBML_EXTERN
-SBML_convertToL2 (SBase_t *sb)
+SBML_convertToL2 (Model_t *m, SBase_t *sb)
 {
   SBMLDocument_t *d;
-  Model_t        *m;
   KineticLaw_t   *kl;
   ListOf_t       *lo;
 
@@ -83,7 +83,7 @@ SBML_convertToL2 (SBase_t *sb)
     case SBML_DOCUMENT:
       d = (SBMLDocument_t *) sb;
       SBMLDocument_setLevel(d, 2);
-      SBML_convertToL2( (SBase_t *) SBMLDocument_getModel(d) );
+      SBML_convertToL2( m, (SBase_t *) SBMLDocument_getModel(d) );
       break;
 
     case SBML_LIST_OF:
@@ -92,17 +92,18 @@ SBML_convertToL2 (SBase_t *sb)
 
       for (n = 0; n < size; n++)
       {
-        SBML_convertToL2( (SBase_t *) ListOf_get(lo, n) );
+        SBML_convertToL2( m, (SBase_t *) ListOf_get(lo, n) );
       }
       break;
 
     case SBML_MODEL:
-      m = (Model_t *) sb;
+      /* m = (Model_t *) sb; */
       SBML_convertNameToId(sb);
-      SBML_convertToL2( (SBase_t *) Model_getListOfUnitDefinitions(m) );
-      SBML_convertToL2( (SBase_t *) Model_getListOfCompartments   (m) );
-      SBML_convertToL2( (SBase_t *) Model_getListOfSpecies        (m) );
-      SBML_convertToL2( (SBase_t *) Model_getListOfParameters     (m) );
+      SBML_convertToL2( m, (SBase_t *) Model_getListOfUnitDefinitions(m) );
+      SBML_convertToL2( m, (SBase_t *) Model_getListOfCompartments   (m) );
+      SBML_convertToL2( m, (SBase_t *) Model_getListOfSpecies        (m) );
+      SBML_convertToL2( m, (SBase_t *) Model_getListOfParameters     (m) );
+      SBML_convertToL2( m, (SBase_t *) Model_getListOfRules          (m) );
       SBML_convertReactionsInModelToL2(m);
       break;
 
@@ -113,9 +114,15 @@ SBML_convertToL2 (SBase_t *sb)
       SBML_convertNameToId(sb);
       break;
 
+    case SBML_SPECIES_CONCENTRATION_RULE:
+    case SBML_COMPARTMENT_VOLUME_RULE:
+    case SBML_PARAMETER_RULE:
+      SBML_convertRuleToL2(m, sb);
+      break;
+
     case SBML_KINETIC_LAW:
       kl = (KineticLaw_t *) sb;
-      SBML_convertToL2( (SBase_t *) KineticLaw_getListOfParameters(kl) );
+      SBML_convertToL2( m, (SBase_t *) KineticLaw_getListOfParameters(kl) );
       break;
 
     default:
@@ -195,7 +202,7 @@ SBML_convertReactionsInModelToL2 (Model_t *m)
     r = (Reaction_t *) ListOf_get(reactions, n);
 
     SBML_convertNameToId( (SBase_t *) r );
-    SBML_convertToL2    ( (SBase_t *) Reaction_getKineticLaw(r) );
+    SBML_convertToL2    ( m, (SBase_t *) Reaction_getKineticLaw(r) );
 
     SBML_addModifiersToReaction(r, m);
   }
@@ -280,4 +287,45 @@ SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m)
   }
 
   List_free(names);
+}
+
+
+/**
+ * Ensures that the contant attribute is set to false any rules that refer
+ * to Compartments, Species, or Parameters
+ */
+LIBSBML_EXTERN
+void
+SBML_convertRuleToL2 (Model_t *m, Rule_t *r)
+{
+  Compartment_t  *c;
+  Species_t      *s;
+  Parameter_t    *p;
+
+  const char *id;
+
+
+  switch ( SBase_getTypeCode((SBase_t*) r) )
+  {
+    case SBML_SPECIES_CONCENTRATION_RULE:
+      id = SpeciesConcentrationRule_getSpecies((SpeciesConcentrationRule_t*) r);
+      s  = Model_getSpeciesById(m, id);
+      if (s != NULL) Species_setConstant(s, 0);
+      break;
+
+    case SBML_COMPARTMENT_VOLUME_RULE:
+      id = CompartmentVolumeRule_getCompartment((CompartmentVolumeRule_t*) r);
+      c  = Model_getCompartmentById(m, id);
+      if (c != NULL) Compartment_setConstant(c, 0);
+      break;
+
+    case SBML_PARAMETER_RULE:
+      id = ParameterRule_getName((ParameterRule_t*) r);
+      p  = Model_getParameterById(m, id);
+      if (p != NULL) Parameter_setConstant(p, 0);
+      break;
+
+    default:
+      break;
+  }
 }

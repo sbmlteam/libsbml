@@ -64,12 +64,13 @@ BEGIN_C_DECLS
 
 /**
  * Converts the given SBase object and any of its subordinate objects from
- * SBML L1 to L2.  This function delegates, based on SBMLTypeCode, to
+ * SBML L1 to L2.  In some cases, the larger Model is needed as context for
+ * conversion.  This function delegates, based on SBMLTypeCode, to
  * SBML_convertNameToId() and others.
  */
 void
 LIBSBML_EXTERN
-SBML_convertToL2 (SBase_t *sb);
+SBML_convertToL2 (Model_t *m, SBase_t *sb);
 
 /**
  * Moves the name field of the given SBase object to its Id field if and
@@ -111,6 +112,14 @@ SBML_convertReactionsInModelToL2 (Model_t *m);
 LIBSBML_EXTERN
 void
 SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m);
+
+/**
+ * Ensures that the contant attribute is set to false any rules that refer
+ * to Compartments, Species, or Parameters
+ */
+LIBSBML_EXTERN
+void
+SBML_convertRuleToL2 (Model_t *m, Rule_t *r);
 
 
 END_C_DECLS

@@ -60,9 +60,10 @@
 START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)
 {
   SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
+  Model_t        *m = SBMLDocument_createModel(d);
 
 
-  SBML_convertToL2( (SBase_t *) d);
+  SBML_convertToL2( m, (SBase_t *) d);
 
   fail_unless( SBMLDocument_getLevel  (d) == 2, NULL );
   fail_unless( SBMLDocument_getVersion(d) == 1, NULL );
@@ -267,6 +268,106 @@ START_TEST (test_SBMLConvert_addModifiersToReaction)
 END_TEST
 
 
+START_TEST (test_SBMLConvert_convertRuleToL2_SpeciesConcentrationRule)
+{
+  SpeciesConcentrationRule_t *scr;
+
+  Model_t      *m  = Model_create();
+  Species_t    *s1 = Model_createSpecies(m);
+  Species_t    *s2 = Model_createSpecies(m);
+  Species_t    *s3 = Model_createSpecies(m);
+
+  Species_setId(s1, "s1");
+  Species_setId(s2, "s2");
+  Species_setId(s3, "s3");
+
+  Species_setConstant(s1, 1);
+  Species_setConstant(s2, 1);
+  Species_setConstant(s3, 1);
+
+  scr = Model_createSpeciesConcentrationRule(m);
+  SpeciesConcentrationRule_setSpecies(scr, "s2");
+
+
+  fail_unless( Species_getConstant(s1) != 0 );
+  fail_unless( Species_getConstant(s2) != 0 );
+  fail_unless( Species_getConstant(s3) != 0 );
+
+  SBML_convertRuleToL2(m, scr);
+
+  fail_unless( Species_getConstant(s1) != 0 );
+  fail_unless( Species_getConstant(s2) == 0 );
+  fail_unless( Species_getConstant(s3) != 0 );
+
+  Model_free(m);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertRuleToL2_CompartmentVolumeRule)
+{
+  CompartmentVolumeRule_t *cvr;
+
+  Model_t       *m  = Model_create();
+  Compartment_t *c1 = Model_createCompartment(m);
+  Compartment_t *c2 = Model_createCompartment(m);
+  Compartment_t *c3 = Model_createCompartment(m);
+
+  Compartment_setId(c1, "c1");
+  Compartment_setId(c2, "c2");
+  Compartment_setId(c3, "c3");
+
+  cvr = Model_createCompartmentVolumeRule(m);
+  CompartmentVolumeRule_setCompartment(cvr, "c2");
+
+
+  fail_unless( Compartment_getConstant(c1) != 0 );
+  fail_unless( Compartment_getConstant(c2) != 0 );
+  fail_unless( Compartment_getConstant(c3) != 0 );
+
+  SBML_convertRuleToL2(m, cvr);
+
+  fail_unless( Compartment_getConstant(c1) != 0 );
+  fail_unless( Compartment_getConstant(c2) == 0 );
+  fail_unless( Compartment_getConstant(c3) != 0 );
+
+  Model_free(m);
+}
+END_TEST
+
+
+START_TEST (test_SBMLConvert_convertRuleToL2_ParameterRule)
+{
+  ParameterRule_t *pr;
+
+  Model_t     *m  = Model_create();
+  Parameter_t *p1 = Model_createParameter(m);
+  Parameter_t *p2 = Model_createParameter(m);
+  Parameter_t *p3 = Model_createParameter(m);
+
+  Parameter_setId(p1, "p1");
+  Parameter_setId(p2, "p2");
+  Parameter_setId(p3, "p3");
+
+  pr = Model_createParameterRule(m);
+  ParameterRule_setName(pr, "p2");
+
+
+  fail_unless( Parameter_getConstant(p1) != 0 );
+  fail_unless( Parameter_getConstant(p2) != 0 );
+  fail_unless( Parameter_getConstant(p3) != 0 );
+
+  SBML_convertRuleToL2(m, pr);
+
+  fail_unless( Parameter_getConstant(p1) != 0 );
+  fail_unless( Parameter_getConstant(p2) == 0 );
+  fail_unless( Parameter_getConstant(p3) != 0 );
+
+  Model_free(m);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -282,6 +383,14 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertNameToId_Parameter      );
   tcase_add_test( tcase, test_SBMLConvert_convertNameToId_Reaction       );
   tcase_add_test( tcase, test_SBMLConvert_addModifiersToReaction         );
+
+  tcase_add_test( tcase,
+                  test_SBMLConvert_convertRuleToL2_SpeciesConcentrationRule );
+
+  tcase_add_test( tcase,
+                  test_SBMLConvert_convertRuleToL2_CompartmentVolumeRule );
+
+  tcase_add_test( tcase, test_SBMLConvert_convertRuleToL2_ParameterRule  );
 
 
   suite_add_tcase(suite, tcase);
