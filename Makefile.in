@@ -142,14 +142,14 @@ target_alias = @target_alias@
 SUBDIRS = src
 
 EXTRA_DIST = \
-	AUTHORS.txt   \
-	ChangeLog.txt \
-	COPYING.html  \
-	COPYING.txt   \
-	docs          \
-	examples      \
-	NEWS.txt      \
-	README.txt    \
+	AUTHORS.txt    \
+	ChangeLog.txt  \
+	COPYING.html   \
+	COPYING.txt    \
+	docs/formatted \
+	examples       \
+	NEWS.txt       \
+	README.txt     \
 	VERSION.txt
 
 subdir = .
@@ -350,7 +350,7 @@ distcleancheck_listfiles = find . -type f -print
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkinstalldirs) $(distdir)/./src/sbml $(distdir)/config
+	$(mkinstalldirs) $(distdir)/./src/sbml $(distdir)/config $(distdir)/docs
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
