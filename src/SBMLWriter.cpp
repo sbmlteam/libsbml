@@ -181,6 +181,12 @@ LIBSBML_EXTERN
 void
 SBMLWriter_setProgramName (SBMLWriter_t *sw, const char * programName)
 {
+  if (sw->programName) 
+    {
+      safe_free(sw->programName);
+      sw->programName = NULL;
+    }
+
   sw->programName = safe_strdup(programName);
 }
 
@@ -191,6 +197,12 @@ LIBSBML_EXTERN
 void
 SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char * programVersion)
 {
+  if (sw->programVersion) 
+    {
+      safe_free(sw->programVersion);
+      sw->programVersion = NULL;
+    }
+
   sw->programVersion = safe_strdup(programVersion);
 }
 
