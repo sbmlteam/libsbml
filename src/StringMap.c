@@ -52,27 +52,40 @@
 
 #include "sbml/common.h"
 #include "sbml/StringMap.h"
-#include "sbml/list.h"
+#include "sbml/List.h"
+
 
 #define INITIAL_CAPACITY 10
 
-unsigned int StringMap_hashFunction (const char *str);
-unsigned int StringMap_getHashIndex(StringMap_t *map, const char *key);
-StringMapItem_t *StringMap_findItemInList (List_t *items, const char *key);
-StringMapItem_t *StringMap_findItem (StringMap_t *map, const char *key);
+
+unsigned int
+StringMap_hashFunction (const char *str);
+
+unsigned int
+StringMap_getHashIndex (const StringMap_t *map, const char *key);
+
+StringMapItem_t *
+StringMap_findItemInList (List_t *items, const char *key);
+
+StringMapItem_t *
+StringMap_findItem (const StringMap_t *map, const char *key);
+
 
 /**
  * Creates a new StringMap and returns a pointer to it.
  */
 LIBSBML_EXTERN
 StringMap_t *
-StringMap_create(void)
+StringMap_create (void)
 {
-  StringMap_t *sm = (StringMap_t *) safe_malloc(sizeof(StringMap_t));
-  sm->itemLists = 
-    (List_t **) safe_calloc(INITIAL_CAPACITY, sizeof(List_t *));
-  sm->size     = 0;
-  sm->capacity = INITIAL_CAPACITY;
+  StringMap_t *sm;
+
+
+  sm            = (StringMap_t *) safe_malloc( sizeof(StringMap_t) );
+  sm->itemLists = (List_t **) safe_calloc(INITIAL_CAPACITY, sizeof(List_t *));
+  sm->size      = 0;
+  sm->capacity  = INITIAL_CAPACITY;
+
   return sm;
 }
 
@@ -81,27 +94,31 @@ StringMap_create(void)
  * Creates a new StringMapItem_t and returns a pointer to it.
  */
 StringMapItem_t *
-StringMapItem_create(const char *key, void *value)
+StringMapItem_create (const char *key, void *value)
 {
-  StringMapItem_t *result =
-      (StringMapItem_t *) safe_malloc(sizeof(StringMapItem_t));
-  result->key = key;
-  result->value = value;
+  StringMapItem_t *item;
 
-  return result;
+
+  item        = (StringMapItem_t *) safe_malloc( sizeof(StringMapItem_t) );
+  item->key   = safe_strdup(key);
+  item->value = value;
+
+  return item;
 }
+
 
 /**
  * Frees a StringMapItem_t including its key.
  */
 void
-StringMapItem_free(StringMapItem_t *item)
+StringMapItem_free (StringMapItem_t *item)
 {
-   if (item)
-   {
-      safe_free(item->key);
-   }
-   safe_free(item);
+  if (item)
+  {
+    safe_free(item->key);
+  }
+
+  safe_free(item);
 }
 
 
@@ -110,7 +127,7 @@ StringMapItem_free(StringMapItem_t *item)
  */
 LIBSBML_EXTERN
 int
-StringMap_exists(StringMap_t *map, const char *key)
+StringMap_exists (StringMap_t *map, const char *key)
 {
   return StringMap_findItem(map, key) != NULL;
 }
@@ -120,7 +137,7 @@ StringMap_exists(StringMap_t *map, const char *key)
  * Finds the StringMapItem_t with given key, or NULL if not found.
  */
 StringMapItem_t *
-StringMap_findItem(StringMap_t *map, const char *key)
+StringMap_findItem (const StringMap_t *map, const char *key)
 {
   unsigned int index = StringMap_getHashIndex(map, key);
   List_t *list;
@@ -141,7 +158,7 @@ StringMap_findItem(StringMap_t *map, const char *key)
  */
 
 int
-StringMap_findIndexOfItemInList(List_t *list, const char *key)
+StringMap_findIndexOfItemInList (List_t *list, const char *key)
 {
   int i;
 
@@ -164,7 +181,7 @@ StringMap_findIndexOfItemInList(List_t *list, const char *key)
  * found.
  */
 StringMapItem_t *
-StringMap_findItemInList(List_t *items, const char *key)
+StringMap_findItemInList (List_t *items, const char *key)
 {
   unsigned int i;
 
@@ -187,7 +204,7 @@ StringMap_findItemInList(List_t *items, const char *key)
  */
 LIBSBML_EXTERN
 void
-StringMap_free(StringMap_t *map)
+StringMap_free (StringMap_t *map)
 {
   unsigned int n, i;
 
@@ -224,7 +241,7 @@ StringMap_free(StringMap_t *map)
  */
 LIBSBML_EXTERN
 void *
-StringMap_get(const StringMap_t *map, const char *key)
+StringMap_get (const StringMap_t *map, const char *key)
 {
   StringMapItem_t *item = StringMap_findItem(map, key);
 
@@ -243,16 +260,17 @@ StringMap_get(const StringMap_t *map, const char *key)
  * bucket; this index can produce hash collisions.
  */
 unsigned int
-StringMap_getHashIndex(StringMap_t *map, const char *key)
+StringMap_getHashIndex (const StringMap_t *map, const char *key)
 {
   return StringMap_hashFunction(key) % map->capacity;
 }
+
 
 /**
  * Grows the capacity of the StringMap.
  */
 void
-StringMap_grow(StringMap_t *map)
+StringMap_grow (StringMap_t *map)
 {
   List_t **oldLists = map->itemLists;
   unsigned int oldCapacity = map->capacity;
@@ -283,7 +301,7 @@ StringMap_grow(StringMap_t *map)
         }
         List_add(itemList, newItem);
 
-        safe_free(oldItem);
+        StringMapItem_free(oldItem);
       }
 
       List_free(oldList);
@@ -295,7 +313,7 @@ StringMap_grow(StringMap_t *map)
 
 
 unsigned int
-StringMap_hashFunction(const char *str_)
+StringMap_hashFunction (const char *str_)
 {
   const unsigned char *str = str_;
   unsigned int hash = 5381;
@@ -314,7 +332,7 @@ StringMap_hashFunction(const char *str_)
  */
 LIBSBML_EXTERN
 void
-StringMap_put(StringMap_t *map, const char *key, void *value)
+StringMap_put (StringMap_t *map, const char *key, void *value)
 {
   unsigned int index;
   List_t *list;
@@ -336,14 +354,14 @@ StringMap_put(StringMap_t *map, const char *key, void *value)
 
   if (item == NULL)
   {
-    StringMapItem_t *item = StringMapItem_create(safe_strdup(key), value);
+    StringMapItem_t *item = StringMapItem_create(key, value);
     List_add(list, item);
     map->size++;
   }
   else
   {
     safe_free(item->key);
-    item->key = safe_strdup(key);
+    item->key   = safe_strdup(key);
     item->value = value;
   }
 }
@@ -354,7 +372,7 @@ StringMap_put(StringMap_t *map, const char *key, void *value)
  */
 LIBSBML_EXTERN
 void
-StringMap_remove(StringMap_t *map, const char *key)
+StringMap_remove (StringMap_t *map, const char *key)
 {
   unsigned int index = StringMap_getHashIndex(map, key);
   List_t *list;
@@ -381,7 +399,7 @@ StringMap_remove(StringMap_t *map, const char *key)
  */
 LIBSBML_EXTERN
 unsigned int
-StringMap_size(const StringMap_t *map)
+StringMap_size (const StringMap_t *map)
 {
   return map->size;
 }
