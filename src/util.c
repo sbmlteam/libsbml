@@ -74,7 +74,7 @@ safe_fopen (const char *filename, const char *mode)
 
   if (fp == (FILE *) NULL)
   {
-    fprintf(stderr, format, PACKAGE, filename, modestr);
+    fprintf(stderr, format, PACKAGE_TARNAME, filename, modestr);
     exit(-1);
   }
 

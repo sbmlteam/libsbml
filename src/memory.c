@@ -55,9 +55,9 @@
 
 
 /**
- * PACKAGE is defined (as part of the autoconf process) in common.h
+ * PACKAGE_TARNAME is defined (as part of the autoconf process) in common.h
  */
-#define MSG_OUT_OF_MEMORY  PACKAGE ": error: Out of Memory!"
+#define MSG_OUT_OF_MEMORY  PACKAGE_TARNAME ": error: Out of Memory!"
 
 
 /**
