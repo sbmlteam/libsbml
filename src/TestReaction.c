@@ -257,6 +257,26 @@ START_TEST (test_Reaction_getReactant)
 END_TEST
 
 
+START_TEST (test_Reaction_getReactantById)
+{
+  SpeciesReference_t *sr1 = SpeciesReference_createWith("R1", 1, 1);
+  SpeciesReference_t *sr2 = SpeciesReference_createWith("R2", 1, 1);
+
+
+  Reaction_addReactant(R, sr1);
+  Reaction_addReactant(R, sr2);
+
+  fail_unless( Reaction_getNumReactants(R) == 2, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 0, NULL );
+
+  fail_unless( Reaction_getReactantById(R, "R1") == sr1 , NULL );
+  fail_unless( Reaction_getReactantById(R, "R2") == sr2 , NULL );
+  fail_unless( Reaction_getReactantById(R, "R3") == NULL, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Reaction_getProduct)
 {
   SpeciesReference_t *sr1 = SpeciesReference_create();
@@ -278,6 +298,26 @@ START_TEST (test_Reaction_getProduct)
 
   fail_unless( !strcmp(sr1->species, "P1"), NULL );
   fail_unless( !strcmp(sr2->species, "P2"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_Reaction_getProductById)
+{
+  SpeciesReference_t *sr1 = SpeciesReference_createWith("P1", 1, 1);
+  SpeciesReference_t *sr2 = SpeciesReference_createWith("P2", 1, 1);
+
+
+  Reaction_addProduct(R, sr1);
+  Reaction_addProduct(R, sr2);
+
+  fail_unless( Reaction_getNumReactants(R) == 0, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 2, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 0, NULL );
+
+  fail_unless( Reaction_getProductById(R, "P1") == sr1 , NULL );
+  fail_unless( Reaction_getProductById(R, "P2") == sr2 , NULL );
+  fail_unless( Reaction_getProductById(R, "P3") == NULL, NULL );
 }
 END_TEST
 
@@ -307,6 +347,26 @@ START_TEST (test_Reaction_getModifier)
 END_TEST
 
 
+START_TEST (test_Reaction_getModifierById)
+{
+  ModifierSpeciesReference_t *msr1 = ModifierSpeciesReference_createWith("M1");
+  ModifierSpeciesReference_t *msr2 = ModifierSpeciesReference_createWith("M2");
+
+
+  Reaction_addModifier(R, msr1);
+  Reaction_addModifier(R, msr2);
+
+  fail_unless( Reaction_getNumReactants(R) == 0, NULL );
+  fail_unless( Reaction_getNumProducts (R) == 0, NULL );
+  fail_unless( Reaction_getNumModifiers(R) == 2, NULL );
+
+  fail_unless( Reaction_getModifierById(R, "M1") == msr1, NULL );
+  fail_unless( Reaction_getModifierById(R, "M2") == msr2, NULL );
+  fail_unless( Reaction_getModifierById(R, "M3") == NULL, NULL );
+}
+END_TEST
+
+
 Suite *
 create_suite_Reaction (void)
 {
@@ -316,17 +376,20 @@ create_suite_Reaction (void)
 
   tcase_add_checked_fixture(tcase, ReactionTest_setup, ReactionTest_teardown);
 
-  tcase_add_test( tcase, test_Reaction_create      );
-  tcase_add_test( tcase, test_Reaction_createWith  );
-  tcase_add_test( tcase, test_Reaction_free_NULL   );
-  tcase_add_test( tcase, test_Reaction_setId       );
-  tcase_add_test( tcase, test_Reaction_setName     );
-  tcase_add_test( tcase, test_Reaction_addReactant );
-  tcase_add_test( tcase, test_Reaction_addProduct  );
-  tcase_add_test( tcase, test_Reaction_addModifier );
-  tcase_add_test( tcase, test_Reaction_getReactant );
-  tcase_add_test( tcase, test_Reaction_getProduct  );
-  tcase_add_test( tcase, test_Reaction_getModifier );
+  tcase_add_test( tcase, test_Reaction_create          );
+  tcase_add_test( tcase, test_Reaction_createWith      );
+  tcase_add_test( tcase, test_Reaction_free_NULL       );
+  tcase_add_test( tcase, test_Reaction_setId           );
+  tcase_add_test( tcase, test_Reaction_setName         );
+  tcase_add_test( tcase, test_Reaction_addReactant     );
+  tcase_add_test( tcase, test_Reaction_addProduct      );
+  tcase_add_test( tcase, test_Reaction_addModifier     );
+  tcase_add_test( tcase, test_Reaction_getReactant     );
+  tcase_add_test( tcase, test_Reaction_getReactantById );
+  tcase_add_test( tcase, test_Reaction_getProduct      );
+  tcase_add_test( tcase, test_Reaction_getProductById  );
+  tcase_add_test( tcase, test_Reaction_getModifier     );
+  tcase_add_test( tcase, test_Reaction_getModifierById );
 
   suite_add_tcase(suite, tcase);
 

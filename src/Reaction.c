@@ -411,6 +411,20 @@ Reaction_getReactant (const Reaction_t *r, unsigned int n)
 
 
 /**
+ * @return the reactant (SpeciesReference) in this Reaction with the given
+ * id or NULL if no such reactant exists.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_getReactantById (const Reaction_t *r, const char *sid)
+{
+  return (SpeciesReference_t *)
+         ListOf_find( r->reactant, sid,
+                      (ListItemComparator) SimpleSpeciesReferenceCmp );
+}
+
+
+/**
  * @return the nth product (SpeciesReference) of this Reaction.
  */
 LIBSBML_EXTERN
@@ -420,6 +434,21 @@ Reaction_getProduct (const Reaction_t *r, unsigned int n)
   return (SpeciesReference_t *) ListOf_get(r->product, n);
 }
 
+
+/**
+ * @return the product (SpeciesReference) in this Reaction with the given
+ * id or NULL if no such product exists.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_getProductById (const Reaction_t *r, const char *sid)
+{
+  return (SpeciesReference_t *)
+         ListOf_find( r->product, sid,
+                      (ListItemComparator) SimpleSpeciesReferenceCmp );
+}
+
+
 /**
  * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
  */
@@ -428,6 +457,20 @@ ModifierSpeciesReference_t *
 Reaction_getModifier (const Reaction_t *r, unsigned int n)
 {
   return (ModifierSpeciesReference_t *) ListOf_get(r->modifier, n);
+}
+
+
+/**
+ * @return the modifier (ModifierSpeciesReference) in this Reaction with
+ * the given id or NULL if no such modifier exists.
+ */
+LIBSBML_EXTERN
+ModifierSpeciesReference_t *
+Reaction_getModifierById (const Reaction_t *r, const char *sid)
+{
+  return (ModifierSpeciesReference_t *)
+         ListOf_find( r->modifier, sid,
+                      (ListItemComparator) SimpleSpeciesReferenceCmp );
 }
 
 
