@@ -9,9 +9,9 @@
 @rem Copyright 2003 California Institute of Technology and
 @rem Japan Science and Technology Corporation.
 @rem
-@rem This library is free software@rem you can redistribute it and/or modify it
+@rem This library is free software you can redistribute it and/or modify it
 @rem under the terms of the GNU Lesser General Public License as published
-@rem by the Free Software Foundation@rem either version 2.1 of the License, or
+@rem by the Free Software Foundation either version 2.1 of the License, or
 @rem any later version.
 @rem
 @rem This library is distributed in the hope that it will be useful, but
@@ -56,6 +56,8 @@ PATH=%PATH%;c:\Program Files\Microsoft Visual Studio\VC98\Lib
 set INCLUDE=%INCLUDE%;c:\Program Files\Microsoft Visual Studio\VC98\INCLUDE
 set INCLUDE=%INCLUDE%;c:\Program Files\Microsoft Visual Studio\VC98\MFC\INCLUDE
 set INCLUDE=%INCLUDE%;c:\Program Files\Microsoft Visual Studio\VC98\ATL\INCLUDE
+set INCLUDE=%INCLUDE%;c:\j2sdk1.4.2_05\include
+set INCLUDE=%INCLUDE%;c:\j2sdk1.4.2_05\include\win32
 set INCLUDE=%INCLUDE%;include
 
 set LIB=%LIB%;c:\Program Files\Microsoft Visual Studio\VC98\LIB
@@ -64,6 +66,9 @@ set LIB=%LIB%;bin
 
 call make libsbml.mak "libsbml - Win32 Debug"   clean
 call make libsbml.mak "libsbml - Win32 Release" clean
+
+call make libsbmlj.mak "libsbmlj - Win32 Debug"   clean
+call make libsbmlj.mak "libsbmlj - Win32 Release" clean
 
 call make convertsbml.mak "convertSBML - Win32 Debug"   clean
 call make convertsbml.mak "convertSBML - Win32 Release" clean
@@ -83,6 +88,9 @@ call make validatesbml.mak  "validateSBML - Win32 Release" clean
 call make libsbml.mak "libsbml - Win32 Debug"
 call make libsbml.mak "libsbml - Win32 Release"
 
+call make libsbmlj.mak "libsbmlj - Win32 Debug"
+call make libsbmlj.mak "libsbmlj - Win32 Release"
+
 call make convertsbml.mak   "convertSBML - Win32 Release"
 call make printsbml.mak     "printSBML - Win32 Release"
 call make readsbml.mak      "readSBML - Win32 Release"
@@ -91,6 +99,8 @@ call make validatesbml.mak  "validateSBML - Win32 Release"
 
 call deltree "Debug"
 call deltree "Release"
+call deltree "libsbmlj___Win32_Debug"
+call deltree "libsbmlj___Win32_Release"
 call deltree "convertSBML___Win32_Debug"
 call deltree "convertSBML___Win32_Release"
 call deltree "printSBML___Win32_Debug"
