@@ -1,5 +1,4 @@
 #!/bin/sh
-
 #
 # Filename    : createAPISections.sh
 # Description : Calls createAPISection.py for a set of files.
@@ -49,8 +48,14 @@
 #     mailto:sysbio-team@caltech.edu
 #
 # Contributor(s):
+# 2004-04-15 <mhucka@caltech.edu> Various tiny enhancements.
 #
 
+#
+# Configurable variables
+# 
+
+OUTPUT_DIR=api
 
 ##
 ## Usage: createAPISections.sh <directory>
@@ -70,15 +75,19 @@ if [ $# -lt 1 ]; then
   exit;
 fi
 
-
-DIR=$1
+HEADERS_DIR=$1
 CWD=`pwd`
 
-cd ${DIR}
+if [ ! -d ${OUTPUT_DIR} ]; then
+  mkdir -p ${OUTPUT_DIR};
+fi
+
+cd ${HEADERS_DIR}
 FILES=`ls *.h | sed 's/\.h//'`
 
 cd ${CWD}
 
 for f in ${FILES}; do
-  ./createAPISection.py ${DIR}/${f}.h > api/${f}.tex
+  echo Generating docs for $f
+  ./createAPISection.py ${HEADERS_DIR}/${f}.h > ${OUTPUT_DIR}/${f}.tex
 done
