@@ -379,6 +379,18 @@ void
 Reaction_unsetFast (Reaction_t *r);
 
 
+/**
+ * The ReactionIdCmp function compares the string sid to r->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than r->id.
+ * Returns -1 if either sid or r->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+ReactionIdCmp (const char *sid, const Reaction_t *r);
+
+
 END_C_DECLS
 
 
