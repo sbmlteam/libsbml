@@ -167,11 +167,18 @@ List_add (List_t *list, void *item)
 
 
 /**
- * @return the number of items in the list for which predicate(item)
- * returned true.
+ * @return the number of items in this List for which predicate(item)
+ * returns true.
+ *
+ * The typedef for ListItemPredicate is:
+ *
+ *   int (*ListItemPredicate) (const void *item);
+ *
+ * where a return value of non-zero represents true and zero represents
+ * false.
  */
 unsigned int
-List_countIf (List_t *list, ListItemPredicate predicate)
+List_countIf (const List_t *list, ListItemPredicate predicate)
 {
   unsigned int count = 0;
   ListNode_t   *node = list->head;
@@ -205,7 +212,9 @@ List_countIf (List_t *list, ListItemPredicate predicate)
  *    1    item1 >  item2
  */
 void *
-List_find (List_t *list, void *item1, ListItemComparator comparator)
+List_find ( const List_t *list,
+            const void   *item1,
+            ListItemComparator comparator )
 {
   void       *item2  = NULL;
   ListNode_t *node   = list->head;
