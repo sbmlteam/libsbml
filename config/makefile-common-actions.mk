@@ -370,7 +370,7 @@ distclean-libtool:
 maintainer-clean: distclean maintainer-clean-generic
 
 maintainer-clean-generic:
-	-rm -rf $(maintainer_clean)
+	-rm -rf $(extra_maintainer_clean)
 
 
 # -----------------------------------------------------------------------------
