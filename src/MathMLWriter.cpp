@@ -143,7 +143,7 @@ writeMathMLToString (MathMLDocument_t *d)
     target    = new MemBufFormatTarget();
     formatter = new MathMLFormatter(encoding, target, true);
 
-    *formatter << d;
+    *formatter << static_cast<MathMLDocument*>(d);
 
     result = safe_strdup( (char *) target->getRawBuffer() );
   }

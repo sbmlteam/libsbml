@@ -90,14 +90,14 @@ readMathMLFromString (const char *xml)
   }
   else
   {
-    d->math = NULL;
+    MathMLDocument_setMath(d, NULL);
   }
   
   static MathMLHandler* handler = NULL;
 
   if (!handler)
   {
-    handler = new MathMLHandler(d);
+    handler = new MathMLHandler( static_cast<MathMLDocument*>(d) );
     handler->enableElementHandler();
   }
   else
@@ -130,7 +130,10 @@ readMathMLFromString (const char *xml)
 
   MathMLDocument_t*  d       = MathMLDocument_create();
   SAX2XMLReader*     reader  = XMLReaderFactory::createXMLReader();
-  DefaultHandler*    handler = new MathMLHandler(d);
+
+  DefaultHandler*    handler =
+    new MathMLHandler( static_cast<MathMLDocument*>(d) );
+
   MemBufInputSource* input   = NULL;
 
   input = new MemBufInputSource( (const XMLByte*) xml,
