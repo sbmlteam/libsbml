@@ -79,7 +79,7 @@ SpeciesReference::SpeciesReference (  const std::string& _species
 LIBSBML_EXTERN
 SpeciesReference::~SpeciesReference ()
 {
-  ASTNode_free(stoichiometryMath);
+  delete stoichiometryMath;
 }
 
 
@@ -113,7 +113,7 @@ SpeciesReference::getStoichiometry () const
  * @return the stoichiometryMath of this SpeciesReference.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const ASTNode*
 SpeciesReference::getStoichiometryMath () const
 {
   return stoichiometryMath;
@@ -164,16 +164,12 @@ SpeciesReference::setStoichiometry (double value)
  */
 LIBSBML_EXTERN
 void
-SpeciesReference::setStoichiometryMath (ASTNode_t *math)
+SpeciesReference::setStoichiometryMath (ASTNode* math)
 {
   if (stoichiometryMath == math) return;
 
 
-  if (stoichiometryMath != NULL)
-  {
-    ASTNode_free(stoichiometryMath);
-  }
-
+  delete stoichiometryMath;
   stoichiometryMath = math;
 }
 
@@ -188,7 +184,7 @@ SpeciesReference::setStoichiometryMath (const std::string& formula)
 {
   if ( !formula.empty() )
   {
-    setStoichiometryMath( SBML_parseFormula( formula.c_str() ) );
+    setStoichiometryMath( (ASTNode*) SBML_parseFormula( formula.c_str() ) );
   }
 }
 
@@ -369,7 +365,8 @@ LIBSBML_EXTERN
 void
 SpeciesReference_setStoichiometryMath (SpeciesReference_t *sr, ASTNode_t *math)
 {
-  static_cast<SpeciesReference*>(sr)->setStoichiometryMath(math);
+  ASTNode* x = static_cast<ASTNode*>(math);
+  static_cast<SpeciesReference*>(sr)->setStoichiometryMath(x);
 }
 
 
