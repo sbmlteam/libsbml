@@ -1,2 +1,8 @@
 Makefile
 .deps
+*.plg
+*.ncb
+*.opt
+*.plg
+*.sln
+*.suo
