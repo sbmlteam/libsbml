@@ -80,18 +80,18 @@ UnitDefinitionTest_teardown (void)
 
 START_TEST (test_UnitDefinition_create)
 {
-  fail_unless( SBase_getTypeCode  (UD) == SBML_UNIT_DEFINITION, NULL );
-  fail_unless( SBase_getMetaId    (UD) == NULL, NULL );
-  fail_unless( SBase_getNotes     (UD) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(UD) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (UD) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    (UD) == NULL );
+  fail_unless( SBase_getNotes     (UD) == NULL );
+  fail_unless( SBase_getAnnotation(UD) == NULL );
 
-  fail_unless( UnitDefinition_getId  (UD) == NULL, NULL );
-  fail_unless( UnitDefinition_getName(UD) == NULL, NULL );
+  fail_unless( UnitDefinition_getId  (UD) == NULL );
+  fail_unless( UnitDefinition_getName(UD) == NULL );
 
-  fail_unless( !UnitDefinition_isSetId  (UD), NULL );
-  fail_unless( !UnitDefinition_isSetName(UD), NULL );
+  fail_unless( !UnitDefinition_isSetId  (UD) );
+  fail_unless( !UnitDefinition_isSetName(UD) );
 
-  fail_unless(UnitDefinition_getNumUnits(UD) == 0, NULL);
+  fail_unless(UnitDefinition_getNumUnits(UD) == 0);
 }
 END_TEST
 
@@ -101,17 +101,17 @@ START_TEST (test_UnitDefinition_createWith)
   UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
 
 
-  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION, NULL );
-  fail_unless( SBase_getMetaId    (ud) == NULL, NULL );
-  fail_unless( SBase_getNotes     (ud) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(ud) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    (ud) == NULL );
+  fail_unless( SBase_getNotes     (ud) == NULL );
+  fail_unless( SBase_getAnnotation(ud) == NULL );
 
-  fail_unless( UnitDefinition_getName(ud) == NULL, NULL );
+  fail_unless( UnitDefinition_getName(ud) == NULL );
 
-  fail_unless( !strcmp(UnitDefinition_getId(ud), "mmls"), NULL );
-  fail_unless(UnitDefinition_isSetId(ud), NULL);
+  fail_unless( !strcmp(UnitDefinition_getId(ud), "mmls") );
+  fail_unless(UnitDefinition_isSetId(ud));
 
-  fail_unless(UnitDefinition_getNumUnits(ud) == 0, NULL);
+  fail_unless(UnitDefinition_getNumUnits(ud) == 0);
 
   UnitDefinition_free(ud);
 }
@@ -123,19 +123,19 @@ START_TEST (test_UnitDefinition_createWithName)
   UnitDefinition_t *ud = UnitDefinition_createWithName("mmol liter^-1 sec^-1");
 
 
-  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION, NULL );
-  fail_unless( SBase_getMetaId    (ud) == NULL, NULL );
-  fail_unless( SBase_getNotes     (ud) == NULL, NULL );
-  fail_unless( SBase_getAnnotation(ud) == NULL, NULL );
+  fail_unless( SBase_getTypeCode  (ud) == SBML_UNIT_DEFINITION );
+  fail_unless( SBase_getMetaId    (ud) == NULL );
+  fail_unless( SBase_getNotes     (ud) == NULL );
+  fail_unless( SBase_getAnnotation(ud) == NULL );
 
-  fail_unless( UnitDefinition_getId(ud) == NULL, NULL );
+  fail_unless( UnitDefinition_getId(ud) == NULL );
 
   fail_unless( !strcmp(UnitDefinition_getName(ud), "mmol liter^-1 sec^-1"),
                NULL );
 
-  fail_unless(UnitDefinition_isSetName(ud), NULL);
+  fail_unless(UnitDefinition_isSetName(ud));
 
-  fail_unless(UnitDefinition_getNumUnits(ud) == 0, NULL);
+  fail_unless(UnitDefinition_getNumUnits(ud) == 0);
 
   UnitDefinition_free(ud);
 }
@@ -156,8 +156,8 @@ START_TEST (test_UnitDefinition_setId)
 
   UnitDefinition_setId(UD, id);
 
-  fail_unless( !strcmp(UnitDefinition_getId(UD), id), NULL );
-  fail_unless( UnitDefinition_isSetId(UD), NULL );
+  fail_unless( !strcmp(UnitDefinition_getId(UD), id) );
+  fail_unless( UnitDefinition_isSetId(UD) );
 
   if (UnitDefinition_getId(UD) == id)
   {
@@ -166,10 +166,10 @@ START_TEST (test_UnitDefinition_setId)
 
   /* Reflexive case (pathological) */
   UnitDefinition_setId(UD, UnitDefinition_getId(UD));
-  fail_unless( !strcmp(UnitDefinition_getId(UD), id), NULL );
+  fail_unless( !strcmp(UnitDefinition_getId(UD), id) );
 
   UnitDefinition_setId(UD, NULL);
-  fail_unless( !UnitDefinition_isSetId(UD), NULL );
+  fail_unless( !UnitDefinition_isSetId(UD) );
 
   if (UnitDefinition_getId(UD) != NULL)
   {
@@ -186,8 +186,8 @@ START_TEST (test_UnitDefinition_setName)
 
   UnitDefinition_setName(UD, name);
 
-  fail_unless( !strcmp(UnitDefinition_getName(UD), name), NULL );
-  fail_unless( UnitDefinition_isSetName(UD), NULL );
+  fail_unless( !strcmp(UnitDefinition_getName(UD), name) );
+  fail_unless( UnitDefinition_isSetName(UD) );
 
   if (UnitDefinition_getName(UD) == name)
   {
@@ -196,10 +196,10 @@ START_TEST (test_UnitDefinition_setName)
 
   /* Reflexive case (pathological) */
   UnitDefinition_setName(UD, UnitDefinition_getName(UD));
-  fail_unless( !strcmp(UnitDefinition_getName(UD), name), NULL );
+  fail_unless( !strcmp(UnitDefinition_getName(UD), name) );
 
   UnitDefinition_setName(UD, NULL);
-  fail_unless( !UnitDefinition_isSetName(UD), NULL );
+  fail_unless( !UnitDefinition_isSetName(UD) );
 
   if (UnitDefinition_getName(UD) != NULL)
   {
@@ -213,7 +213,7 @@ START_TEST (test_UnitDefinition_addUnit)
 {
   UnitDefinition_addUnit(UD, Unit_create());
 
-  fail_unless( UnitDefinition_getNumUnits(UD) == 1, NULL );
+  fail_unless( UnitDefinition_getNumUnits(UD) == 1 );
 }
 END_TEST
 
@@ -237,19 +237,194 @@ START_TEST (test_UnitDefinition_getUnit)
   UnitDefinition_addUnit( UD, litre  );
   UnitDefinition_addUnit( UD, second );
 
-  fail_unless( UnitDefinition_getNumUnits(UD) == 3, NULL );
+  fail_unless( UnitDefinition_getNumUnits(UD) == 3 );
 
   mole   = UnitDefinition_getUnit(UD, 0);
   litre  = UnitDefinition_getUnit(UD, 1);
   second = UnitDefinition_getUnit(UD, 2);
 
-  fail_unless( Unit_getKind(mole)   == UNIT_KIND_MOLE  , NULL );
-  fail_unless( Unit_getKind(litre)  == UNIT_KIND_LITRE , NULL );
-  fail_unless( Unit_getKind(second) == UNIT_KIND_SECOND, NULL );
+  fail_unless( Unit_getKind(mole)   == UNIT_KIND_MOLE   );
+  fail_unless( Unit_getKind(litre)  == UNIT_KIND_LITRE  );
+  fail_unless( Unit_getKind(second) == UNIT_KIND_SECOND );
 
-  fail_unless( Unit_getScale(mole)      == -3, NULL );
-  fail_unless( Unit_getExponent(litre)  == -1, NULL );
-  fail_unless( Unit_getExponent(second) == -1, NULL );
+  fail_unless( Unit_getScale(mole)      == -3 );
+  fail_unless( Unit_getExponent(litre)  == -1 );
+  fail_unless( Unit_getExponent(second) == -1 );
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfArea)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_METRE, 2, 1);
+
+
+  fail_unless( !UnitDefinition_isVariantOfArea(UD) );
+
+  UnitDefinition_addUnit(UD, u);
+  fail_unless(  UnitDefinition_isVariantOfArea(UD) );
+
+  Unit_setScale(u, -1);
+  fail_unless(  UnitDefinition_isVariantOfArea(UD) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfArea(UD) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfArea(UD) );
+
+  Unit_setExponent(u, 3);
+  fail_unless( !UnitDefinition_isVariantOfArea(UD) );
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfLength)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_METRE, 1, 1);
+
+
+  fail_unless( !UnitDefinition_isVariantOfLength(UD) );
+
+  UnitDefinition_addUnit(UD, u);
+  fail_unless(  UnitDefinition_isVariantOfLength(UD) );
+
+  Unit_setScale(u, -1);
+  fail_unless(  UnitDefinition_isVariantOfLength(UD) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfLength(UD) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfLength(UD) );
+
+  Unit_setExponent(u, 2);
+  fail_unless( !UnitDefinition_isVariantOfLength(UD) );
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfSubstance_1)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_MOLE, 1, 1);
+
+
+  fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
+
+  UnitDefinition_addUnit(UD, u);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setScale(u, -1);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setExponent(u, -3);
+  fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfSubstance_2)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_ITEM, 1, 1);
+
+
+  fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
+
+  UnitDefinition_addUnit(UD, u);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setScale(u, -1);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setMultiplier(u, 2);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setOffset(u, 3);
+  fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
+
+  Unit_setExponent(u, -2);
+  fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfTime)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_SECOND, 1, 1);
+
+
+  fail_unless( !UnitDefinition_isVariantOfTime(UD) );
+
+  UnitDefinition_addUnit(UD, u);
+  fail_unless(  UnitDefinition_isVariantOfTime(UD) );
+
+  Unit_setScale(u, -10);
+  fail_unless(  UnitDefinition_isVariantOfTime(UD) );
+
+  Unit_setMultiplier(u, 10);
+  fail_unless(  UnitDefinition_isVariantOfTime(UD) );
+
+  Unit_setOffset(u, 30);
+  fail_unless(  UnitDefinition_isVariantOfTime(UD) );
+
+  Unit_setExponent(u, 2);
+  fail_unless( !UnitDefinition_isVariantOfTime(UD) );
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfVolume_1)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_LITRE, 1, 1);
+
+
+  fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
+
+  UnitDefinition_addUnit(UD, u);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setScale(u, 100);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setMultiplier(u, 5);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setOffset(u, -5);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setExponent(u, -1);
+  fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
+}
+END_TEST
+
+
+START_TEST (test_UnitDefinition_isVariantOfVolume_2)
+{
+  Unit_t *u = Unit_createWith(UNIT_KIND_METRE, 3, 1);
+
+
+  fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
+
+  UnitDefinition_addUnit(UD, u);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setScale(u, 100);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setMultiplier(u, 5);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setOffset(u, -5);
+  fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
+
+  Unit_setExponent(u, 2);
+  fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
 }
 END_TEST
 
@@ -265,14 +440,22 @@ create_suite_UnitDefinition (void)
                              UnitDefinitionTest_setup,
                              UnitDefinitionTest_teardown );
 
-  tcase_add_test( tcase, test_UnitDefinition_create         );
-  tcase_add_test( tcase, test_UnitDefinition_createWith     );
-  tcase_add_test( tcase, test_UnitDefinition_createWithName );
-  tcase_add_test( tcase, test_UnitDefinition_free_NULL      );
-  tcase_add_test( tcase, test_UnitDefinition_setId          );
-  tcase_add_test( tcase, test_UnitDefinition_setName        );
-  tcase_add_test( tcase, test_UnitDefinition_addUnit        );
-  tcase_add_test( tcase, test_UnitDefinition_getUnit        );
+  tcase_add_test( tcase, test_UnitDefinition_create                 );
+  tcase_add_test( tcase, test_UnitDefinition_createWith             );
+  tcase_add_test( tcase, test_UnitDefinition_createWithName         );
+  tcase_add_test( tcase, test_UnitDefinition_free_NULL              );
+  tcase_add_test( tcase, test_UnitDefinition_setId                  );
+  tcase_add_test( tcase, test_UnitDefinition_setName                );
+  tcase_add_test( tcase, test_UnitDefinition_addUnit                );
+  tcase_add_test( tcase, test_UnitDefinition_getUnit                );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfArea        );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfLength      );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstance_1 );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstance_1 );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfTime        );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_1    );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_2    );
+
 
   suite_add_tcase(suite, tcase);
 
