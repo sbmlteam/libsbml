@@ -341,6 +341,25 @@ Token_create (void)
 
 
 /**
+ * Frees the given Token
+ */
+LIBSBML_EXTERN
+void
+Token_free (Token_t *t)
+{
+  if (t == NULL) return;
+
+
+  if (t->type == TT_NAME)
+  {
+    safe_free(t->value.name);
+  }
+
+  safe_free(t);
+}
+
+
+/**
  * Converts the given Token (which must be of type TT_NAME) to a TT_REAL
  * NaN or Inf as appropriate.
  */
@@ -363,19 +382,77 @@ Token_convertNaNInf (Token_t *t)
 
 
 /**
- * Frees the given Token
+ * @return the value of this Token as a (long) integer.  This function
+ * should be called only when the Token's type is TT_INTEGER.  If the type
+ * is TT_REAL or TT_REAL_E, the function will cope by truncating the
+ * number's fractional part.
  */
-LIBSBML_EXTERN
-void
-Token_free (Token_t *t)
+long
+Token_getInteger (const Token_t *t)
 {
-  if (t == NULL) return;
+  TokenType_t type   = t->type;
+  long        result = 0;
 
 
-  if (t->type == TT_NAME)
+  if (type == TT_INTEGER)
   {
-    safe_free(t->value.name);
+    result = t->value.integer;
+  }
+  else if (type == TT_REAL || type == TT_REAL_E)
+  {
+    result = (int) Token_getReal(t);
   }
 
-  safe_free(t);
+  return result;
+}
+
+
+/**
+ * @return the value of this Token as a real (double).  This function
+ * should be called only when the Token's is a number (TT_REAL, TT_REAL_E
+ * or TT_INTEGER).
+ */
+double
+Token_getReal (const Token_t *t)
+{
+  TokenType_t type   = t->type;
+  double      result = 0.0;
+
+
+  if (type == TT_REAL || type == TT_REAL_E)
+  {
+    result = t->value.real;
+  
+    if (type == TT_REAL_E)
+    {
+      result *= pow(10,  result);
+    }
+  }
+  else if (type == TT_INTEGER)
+  {
+    result = (double) t->value.integer;
+  }
+
+  return result;
+}
+
+
+/**
+ * Negates the value of this Token.  This operation is only valid if the
+ * Token's type is TT_INTEGER, TT_REAL, or TT_REAL_E.
+ */
+void
+Token_negateValue (Token_t *t)
+{
+  TokenType_t type = t->type;
+
+
+  if (type == TT_INTEGER)
+  {
+    t->value.integer = - (t->value.integer);
+  }
+  else if (type == TT_REAL || type == TT_REAL_E)
+  {
+    t->value.real = - (t->value.real);
+  }
 }

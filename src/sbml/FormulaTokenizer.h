@@ -172,6 +172,30 @@ LIBSBML_EXTERN
 void
 Token_free (Token_t *t);
 
+/**
+ * @return the value of this Token as a (long) integer.  This function
+ * should be called only when the Token's type is TT_INTEGER.  If the type
+ * is TT_REAL or TT_REAL_E, the function will cope by truncating the
+ * number's fractional part.
+ */
+long
+Token_getInteger (const Token_t *t);
+
+/**
+ * @return the value of this Token as a real (double).  This function
+ * should be called only when the Token's is a number (TT_REAL, TT_REAL_E
+ * or TT_INTEGER).
+ */
+double
+Token_getReal (const Token_t *t);
+
+/**
+ * Negates the value of this Token.  This operation is only valid if the
+ * Token's type is TT_INTEGER, TT_REAL, or TT_REAL_E.
+ */
+void
+Token_negateValue (Token_t *t);
+
 
 END_C_DECLS
 
