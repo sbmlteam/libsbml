@@ -71,7 +71,7 @@
 # enclosing makefile can define other values, in which case those
 # definitions will override what's given here.
 
-default_includes ?= -I. -I$(INCLUDEDIR)
+default_includes ?= -I.
 
 compile ?= $(CC) $(extra_CPPFLAGS) $(extra_CFLAGS) $(default_includes) \
 	$(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) -fPIC
