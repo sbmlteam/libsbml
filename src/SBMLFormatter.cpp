@@ -1746,26 +1746,26 @@ SBMLFormatter::operator<< (const EventAssignment& ea)
 //
 #define makeFn(name, element, type)               \
 void                                              \
-SBMLFormatter::name (const ListOf& list)          \
+SBMLFormatter::name (const ListOf& lst)           \
 {                                                 \
-  unsigned int size = list.getNumItems();         \
+  unsigned int size = lst.getNumItems();          \
   SBase* sb;                                      \
                                                   \
                                                   \
   if (size > 0)                                   \
   {                                               \
     openStartElement( element );                  \
-    doXMLNS ( list );                             \
-    doMetaId( list );                             \
+    doXMLNS ( lst );                              \
+    doMetaId( lst );                              \
     closeStartElement();                          \
                                                   \
     upIndent();                                   \
                                                   \
-    if (fLevel > 1) notesAndAnnotation(list);     \
+    if (fLevel > 1) notesAndAnnotation(lst);      \
                                                   \
     for (unsigned int n = 0; n < size; n++)       \
     {                                             \
-      sb = list.get(n);                           \
+      sb = lst.get(n);                            \
       if (sb != NULL)                             \
       {                                           \
         *this << * static_cast<const type*>(sb);  \
