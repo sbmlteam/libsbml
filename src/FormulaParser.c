@@ -344,7 +344,15 @@ SBML_parseFormula (const char *formula)
 
     else if (action == ERROR_STATE)
     {
-      ASTNode_free(node);
+      /**
+       * Free ASTNodes on the Stack, skip the states.
+       */
+      while (Stack_size(stack) > 1)
+      {
+        Stack_pop(stack);
+        ASTNode_free( Stack_pop(stack) );
+      }
+
       node = NULL;
       break;
     }
