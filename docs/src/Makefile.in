@@ -91,6 +91,23 @@ extra_distclean = $(libsbml-manual-files) $(libsbml-api-ref-files) \
 	$(addprefix libsbml-api-ref.,$(tex_ext)) \
 	libsbml-manual libsbml-api-ref 
 
+# The `make dist' rules for this directory are more complicated than usual.
+# There are additional separate rules below.
+
+distfiles = \
+	Doxyfile.in \
+	Doxygen-html-footer.html \
+	Doxygen.css \
+	Makefile.in \
+	README.txt \
+	createAPISection.py \
+	createAPISection.sh \
+	graphics \
+	libsbml-api-ref.html.tmpl \
+	libsbml-api-ref.tex \
+	libsbml-manual.tex \
+	libsbml.bib
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
@@ -100,11 +117,10 @@ extra_distclean = $(libsbml-manual-files) $(libsbml-api-ref-files) \
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-# The default action is to make everything, completely.
-# If you would like to generate only a specific document, use the command
-# "make CHOICE" where "CHOICE" is manual-pdf, api-pdf, api-html, etc.
+# The default action is not to make anything.  You have to run `make pdf'
+# or `make html' or `make libsbml-manual', etc., explicitly.
 
-all: $(formats)
+all:
 
 dvi: $(foreach manual,$(manuals),$(manual).dvi)
 
@@ -133,9 +149,13 @@ manual_html_dir = libsbml-manual
 epsfiles        = $(wildcard graphics/*.eps)
 pdffiles        = $(epsfiles:.eps=.pdf)
 
-# Yes, run pdflatex 4 times after running bibtex.
+add-sbmlmanual-link = \
+  { test -L ./sbmlmanual.perl || ln -s ../../../project/tex/sbmlmanual.perl; }
+
+# Yes, run pdflatex 4 times after running bibtex here.
 
 libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
+	@$(add-sbmlmanual-link)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	pdflatex libsbml-manual
 	-bibtex libsbml-manual
@@ -145,6 +165,7 @@ libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
 	pdflatex libsbml-manual
 
 libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
+	@$(add-sbmlmanual-link)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	latex libsbml-manual
 	-bibtex libsbml-manual
@@ -155,32 +176,31 @@ libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 libsbml-manual.ps: libsbml-manual.dvi
 	dvips -o libsbml-manual.ps libsbml-manual
 
-libsbml-manual.html: libsbml-manual.tex sbmlmanual.perl $(pdffiles)
+libsbml-manual.html: libsbml-manual.tex $(pdffiles)
+	@$(add-sbmlmanual-link)
 	latex2html -white -split +0 -show_section_numbers -image_type gif \
 		   -no_navigation -local_icons -discard -antialias \
 		   -t "libSBML Developer's Manual" \
 		   -mkdir -dir $(manual_html_dir) libsbml-manual
 	rm $(manual_html_dir)/index.html
-	ln -s $(manual_html_dir)/libsbml-manual.html $(manual_html_dir)/index.html
+#	ln -s libsbml-manual.html $(manual_html_dir)/index.html
 	ln -s $(manual_html_dir)/libsbml-manual.html
 	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
 		$(manual_html_dir)/libsbml-manual.html
 	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
 		$(manual_html_dir)/libsbml-manual.html
 
-sbmlmanual.perl:
-	ln -s ../../../project/tex/sbmlmanual.perl
-
 
 # -----------------------------------------------------------------------------
 # libsbml-api-ref
 # -----------------------------------------------------------------------------
 
-.PHONY: libsbml-api-ref.html
+api-tex-files = $(wildcard api/*.tex)
 
-libsbml-api-ref: $(foreach format,dvi pdf ps html,libsbml-api-ref.$(format))
+create-api-files = { $(SHELL) createAPISections.sh ../../src/sbml; }
 
-libsbml-api-ref.pdf:  libsbml-api-ref.tex  api-files
+libsbml-api-ref.pdf:  libsbml-api-ref.tex  $(api-tex-files)
+	$(create-api-files)
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	pdflatex libsbml-api-ref
 	-bibtex libsbml-api-ref
@@ -200,15 +220,14 @@ libsbml-api-ref.dvi: libsbml-api-ref.tex
 libsbml-api-ref.ps:  libsbml-api-ref.tex  libsbml-api-ref.dvi
 	dvips -o libsbml-api-ref.ps libsbml-api-ref
 
-libsbml-api-ref.html: api-files doxygen-api-manual
-	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
-
 doxygen-output-dir = libsbml-api-ref
 
-doxygen-api-manual: Doxyfile
+libsbml-api-ref.html: $(api-tex-files)
+	$(create-api-files)
 	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
 	doxygen Doxyfile
 	cp graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
+	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
 
 
 # -----------------------------------------------------------------------------
@@ -218,15 +237,12 @@ doxygen-api-manual: Doxyfile
 $(pdffiles): %.pdf: %.eps
 	epstopdf $@
 
-api-files:
-	$(SHELL) createAPISections.sh ../../src/sbml
-
 
 # -----------------------------------------------------------------------------
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: install-docs
+install: libsbml-manual libsbml-api-ref install-docs
 
 uninstall:
 
@@ -246,7 +262,7 @@ installcheck:
 
 formatted = $(DISTDIR)/docs/formatted
 
-dist: libsbml-manual libsbml-api-ref
+dist: dist-normal libsbml-manual libsbml-api-ref
 	$(shell [ -d $(formatted) ] || mkdir -p $(formatted))
 	list='$(docs)'; for file in $$list; do \
 	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
