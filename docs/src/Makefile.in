@@ -117,12 +117,13 @@ distfiles =                            \
         tex/html.sty                   \
         tex/libsbmlextras.perl         \
         tex/libsbmlextras.sty.in       \
-        tex/listings/listings.cfg      \
-        tex/listings/listings.dtx      \
-        tex/listings/listings.ins      \
+        tex/listings/listings-1.3.dtx  \
+        tex/listings/listings-1.3.ins  \
+        tex/listings/listings-1.3.pdf  \
         tex/listings/listings.sty      \
+        tex/listings/listings.cfg      \
         tex/listings/lstdoc.sty        \
-        tex/listings/lstdrvrs.dtx      \
+        tex/listings/lstdrvrs-1.3.dtx  \
         tex/listings/lstdrvrs.ins      \
         tex/listings/lstlang1.sty      \
         tex/listings/lstlang2.sty      \
@@ -130,7 +131,7 @@ distfiles =                            \
         tex/listings/lstmisc.sty       \
         tex/listings/lstpatch.sty      \
         tex/listings/README            \
-        tex/listings/UPDATE            \
+        tex/listings/README.SBML       \
         tex/logos/sbml-logo-340x54.jpg \
         tex/logos/sbml-logo-300x48.jpg \
         tex/logos/sbml-logo-compat.eps \
