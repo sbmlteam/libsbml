@@ -1,7 +1,7 @@
 ## @configure_input@
 ##
 ## File name   : Makefile.in
-## Description : Makefile for libSBML document
+## Description : Makefile for libSBML documentation
 ## Author(s)   : Michael Hucka <mhucka@caltech.edu>
 ## Organization: CDS, Caltech
 ## Language    : Make
@@ -49,24 +49,66 @@
 ## Contributor(s):
 ##
 
-MANUALS := libsbml-manual libsbml-api-ref
-MANUAL_HTML_DIR := libsbml-manual-html
+
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include @top_srcdir@/config/makefile-common-vars.mk
+
+# `srcdir' points to the current directory, but should be set by configure.
+# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# set `subdir' to an absolute path, or some `make' actions will fail.
+
+srcdir  = @srcdir@
+thisdir = docs/src
+
+manuals = libsbml-manual libsbml-api-ref
+formats = dvi ps pdf html
+
+
+# -----------------------------------------------------------------------------
+# Primary build actions
+# -----------------------------------------------------------------------------
+
+# The default rules in `makefile-common-actions.mk' know to interpret goals
+# of the form `foo-recursive' to run 'make foo' in directories defined in
+# variable `subdirs'.
 
 # The default action is to make everything, completely.
 # If you would like to generate only a specific document, use the command
 # "make CHOICE" where "CHOICE" is manual-pdf, api-pdf, api-html, etc.
 
-.PHONY: all
+all: dvi pdf ps html
 
-all: default
+dvi: $(foreach manual,$(manuals),$(manual).dvi)
 
-default: $(foreach manual,$(MANUALS),$(manual).dvi) \
-	 $(foreach manual,$(MANUALS),$(manual).pdf) \
-	 $(foreach manual,$(MANUALS),$(manual).ps)
+pdf: $(foreach manual,$(manuals),$(manual).pdf)
 
-#
+ps: $(foreach manual,$(manuals),$(manual).ps)
+
+html: $(foreach manual,$(manuals),$(manual).html)
+
+info:
+	@echo "We're sorry, but the info format is not supported."
+
+# The following constructs some additional targets for convenience.
+
+libsbml-manual:  $(foreach format,$(formats),libsbml-manual.$(format))
+libsbml-api-ref: $(foreach format,$(formats),libsbml-api-ref.$(format))
+
+
+# -----------------------------------------------------------------------------
 # libsbml-manual
-#
+# -----------------------------------------------------------------------------
+
+manual_html_dir = libsbml-manual
+
+# Yes, run pdflatex 4 times after running bibtex.
 
 libsbml-manual.pdf: libsbml-manual.tex pdffigs
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
@@ -92,16 +134,18 @@ libsbml-manual.html: sbmlmanual.perl
 	-@/bin/rm libsbml-manual.html
 	latex2html -white -split +0 -show_section_numbers -image_type gif \
 		   -no_navigation -local_icons -discard \
-		   -mkdir -dir $(MANUAL_HTML_DIR) libsbml-manual
-	ln -s $(MANUAL_HTML_DIR)/libsbml-manual.html
+		   -mkdir -dir $(manual_html_dir) libsbml-manual
+	ln -s $(manual_html_dir)/libsbml-manual.html
 
 sbmlmanual.perl:
 	ln -s ../../../project/tex/sbmlmanual.perl
 
-
-#
+
+# -----------------------------------------------------------------------------
 # libsbml-api-ref
-#
+# -----------------------------------------------------------------------------
+
+libsbml-api-ref: $(foreach format,dvi pdf ps html,libsbml-api-ref.$(format))
 
 libsbml-api-ref.pdf: libsbml-api-ref.tex api_sections_files
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
@@ -137,3 +181,39 @@ pdffigs:
 
 api_sections_files:
 	$(SHELL) createAPISections.sh ../../src/sbml
+
+
+# -----------------------------------------------------------------------------
+# Installation.
+# -----------------------------------------------------------------------------
+
+install:
+
+uninstall:
+
+installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean:
+
+distclean:
+
+mostlyclean:
+
+maintainer-clean:
+
+
+# -----------------------------------------------------------------------------
+# Common default rules.
+# -----------------------------------------------------------------------------
+
+include @top_srcdir@/config/makefile-common-actions.mk
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------
