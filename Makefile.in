@@ -140,9 +140,9 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
+@USE_EXPAT_FALSE@SUBDIRS = src
 
 @USE_EXPAT_TRUE@SUBDIRS = expat src
-@USE_EXPAT_FALSE@SUBDIRS = src
 
 EXTRA_DIST = \
 	AUTHORS.txt    \
@@ -174,7 +174,7 @@ DIST_COMMON = ./src/sbml/config.h.in Makefile.am Makefile.in aclocal.m4 \
 	config/compile config/config.guess config/config.sub \
 	config/depcomp config/install-sh config/ltmain.sh \
 	config/missing config/mkinstalldirs configure configure.ac
-DIST_SUBDIRS = expat src
+DIST_SUBDIRS = src expat
 all: all-recursive
 
 .SUFFIXES:
