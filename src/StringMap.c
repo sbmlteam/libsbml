@@ -124,7 +124,7 @@ LIBSBML_EXTERN
 int
 StringMap_exists(StringMap_t *map, const char *key)
 {
-  unsigned int index = StringMap_hashFunction(key) % map->capacity;
+  unsigned int index = StringMap_getHashIndex(map, key);
   List_t *list;
 
 
@@ -209,7 +209,7 @@ LIBSBML_EXTERN
 void *
 StringMap_get (const StringMap_t *map, const char *key)
 {
-  unsigned int index = StringMap_hashFunction(key) % map->capacity;
+  unsigned int index = StringMap_getHashIndex(map, key);
   List_t *list;
 
 
@@ -226,6 +226,16 @@ StringMap_get (const StringMap_t *map, const char *key)
   return NULL;
 }
 
+
+/**
+ * Returns the index of key in map.  The index is the index of the hash
+ * bucket; this index can produce hash collisions.
+ */
+unsigned int
+StringMap_getHashIndex(StringMap_t *map, const char *key)
+{
+  return StringMap_hashFunction(key) % map->capacity;
+}
 
 /**
  * Grows the capacity of the StringMap.
@@ -253,8 +263,7 @@ StringMap_grow (StringMap_t *map)
         StringMapItem_t *oldItem = (StringMapItem_t *) List_get(oldList, j);
         StringMapItem_t *newItem = 
             StringMapItem_create(oldItem->key, oldItem->value);
-        unsigned int index =
-            StringMap_hashFunction(oldItem->key) % map->capacity;
+        unsigned int index = StringMap_getHashIndex(map, oldItem->key);
         List_t *itemList = map->itemLists[index];
         
         if (itemList == NULL)
@@ -303,7 +312,7 @@ StringMap_put (StringMap_t *map, const char *key, void *value)
   {
     StringMap_grow(map);
   }
-  index = StringMap_hashFunction(key) % map->capacity;
+  index = StringMap_getHashIndex(map, key);
 
   if (map->itemLists[index] == NULL)
   {
@@ -358,7 +367,7 @@ LIBSBML_EXTERN
 void
 StringMap_remove(StringMap_t *map, const char *key)
 {
-  unsigned int index = StringMap_hashFunction(key) % map->capacity;
+  unsigned int index = StringMap_getHashIndex(map, key);
   List_t *list;
 
 
