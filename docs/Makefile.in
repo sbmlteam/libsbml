@@ -77,7 +77,7 @@ thisdir = docs
 
 subdirs = src
 
-distfiles = Makefile.in
+distfiles = formatted Makefile.in
 
 
 # -----------------------------------------------------------------------------
