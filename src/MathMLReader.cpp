@@ -79,7 +79,7 @@ readMathMLFromString (const char *xml)
   {
     XMLPlatformUtils::Initialize();
   }
-  catch (const XMLException& e)
+  catch (...)
   {
     return NULL;
   }
