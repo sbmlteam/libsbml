@@ -366,6 +366,29 @@ SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
   }
 }
 
+/**
+ * Sets the level of this SBMLDocument to the given level number.  Valid
+ * levels are currently 1 and 2.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_setLevel (SBMLDocument_t *d, unsigned int level)
+{
+  d->level = level;
+}
+
+
+/**
+ * Sets the version of this SBMLDocument to the given version number.
+ * Valid versions are currently 1 and 2 for SBML L1 and 1 for SBML L2.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_setVersion (SBMLDocument_t *d, unsigned int version)
+{
+  d->version = version;
+}
+
 
 /**
  * Sets the Model of this SBMLDocument to the given Model.
