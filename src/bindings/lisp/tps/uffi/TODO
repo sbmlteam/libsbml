@@ -1,0 +1,7 @@
+- Run test-suite on MCL port
+
+- Add OpenMCL support for with-cast-pointer and def-foreign-var
+
+- Add support for direct vector passing to and from foreign functions
+   to avoid copying elements in and out of vector.
+

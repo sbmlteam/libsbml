@@ -1,0 +1,8 @@
+Makefile
+.deps
+libsbml-config-run.lisp
+libsbml-config.lisp
+build.lisp
+*.x86f
+sbmllisp-pre.h
+libsbmlc.lisp
