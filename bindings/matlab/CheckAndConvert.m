@@ -104,9 +104,9 @@ for i = 1:length(Index)
         j = j+1;
     end;
     
-    ReplaceFormula = strrep(SubFormula, n, x, 'once');
-    ReplaceFormula = strrep(ReplaceFormula, x, n, 2);
-    ReplaceFormula = strrep(ReplaceFormula, 'root', 'nthroot', 'once');
+    ReplaceFormula = regexprep(SubFormula, n, x, 'once');
+    ReplaceFormula = regexprep(ReplaceFormula, x, n, 2);
+    ReplaceFormula = regexprep(ReplaceFormula, 'root', 'nthroot', 'once');
     
     Formula = strrep(Formula, SubFormula, ReplaceFormula);
     Index = strfind(Formula, 'root(');
