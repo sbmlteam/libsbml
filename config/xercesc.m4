@@ -70,7 +70,7 @@ AC_DEFUN(CONFIG_LIB_XERCES,
 
     AC_MSG_CHECKING([for Apache's Xerces-C XML library])
 
-    AC_LANG_PUSH(C)
+    AC_LANG_PUSH(C++)
 
     XERCES_CPPFLAGS=
     XERCES_LDFLAGS=
@@ -104,7 +104,9 @@ AC_DEFUN(CONFIG_LIB_XERCES,
       [xerces_found=yes],
       [xerces_found=no])
 
-    if test $xerces_found = no; then
+    if test $xerces_found = yes; then
+      AC_MSG_RESULT([yes])
+    else
       AC_MSG_ERROR([Could not find the Xerces XML library.])
     fi
 
