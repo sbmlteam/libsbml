@@ -53,38 +53,8 @@
 #include "sbml/common.h"
 #include "sbml/MathMLFormatter.hpp"
 #include "sbml/MathMLUnicodeConstants.hpp" 
-
-
-//
-// <?xml version="1.0" encoding="
-//
-static const XMLCh XML_DECL_1[] =
-{
-  chOpenAngle, chQuestion,
-
-  chLatin_x, chLatin_m, chLatin_l, chSpace,
-
-  chLatin_v, chLatin_e, chLatin_r, chLatin_s, chLatin_i, chLatin_o,
-  chLatin_n,
-
-  chEqual,
-
-  chDoubleQuote, chDigit_1, chPeriod, chDigit_0, chDoubleQuote, chSpace,
-
-  chLatin_e, chLatin_n, chLatin_c, chLatin_o, chLatin_d, chLatin_i,
-  chLatin_n, chLatin_g,
-
-  chEqual, chDoubleQuote, chNull
-};
-
-
-//
-// "?>
-//
-static const XMLCh  XML_DECL_2[] =
-{
-  chDoubleQuote, chQuestion, chCloseAngle, chLF, chNull
-};
+#include "sbml/XMLUnicodeConstants.hpp"
+#include "sbml/XMLUtil.hpp"
 
 
 //
@@ -159,10 +129,7 @@ MathMLFormatter::MathMLFormatter ( const char*      outEncoding,
   fIndentLevel = 0;
 
   fTarget    = target;
-  fFormatter = new XMLFormatter( outEncoding,
-                                 fTarget,
-                                 XMLFormatter::NoEscapes,
-                                 XMLFormatter::UnRep_CharRef );
+  fFormatter = XMLUtil::createXMLFormatter(outEncoding, fTarget);
 
   if (outputXMLDecl)
   {

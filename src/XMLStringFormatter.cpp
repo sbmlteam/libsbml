@@ -55,6 +55,8 @@
 #include <xercesc/util/PlatformUtils.hpp>
 
 #include "sbml/XMLStringFormatter.hpp"
+#include "sbml/XMLUnicodeConstants.hpp"
+#include "sbml/XMLUtil.hpp"
 
 
 //
@@ -73,10 +75,8 @@ XMLStringFormatter::XMLStringFormatter (const char* outEncoding)
   XMLPlatformUtils::Initialize();
 
   target    = new MemBufFormatTarget();
-  formatter = new XMLFormatter( outEncoding,
-                                target,
-                                XMLFormatter::NoEscapes,
-                                XMLFormatter::UnRep_CharRef );
+  formatter = XMLUtil::createXMLFormatter(outEncoding, target);
+
 }
 
 

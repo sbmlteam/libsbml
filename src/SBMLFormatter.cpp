@@ -53,38 +53,8 @@
 #include "sbml/common.h"
 #include "sbml/SBMLFormatter.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"
-
-
-//
-// <?xml version="1.0" encoding="
-//
-static const XMLCh XML_DECL_1[] =
-{
-  chOpenAngle, chQuestion,
-
-  chLatin_x, chLatin_m, chLatin_l, chSpace,
-
-  chLatin_v, chLatin_e, chLatin_r, chLatin_s, chLatin_i, chLatin_o,
-  chLatin_n,
-
-  chEqual,
-
-  chDoubleQuote, chDigit_1, chPeriod, chDigit_0, chDoubleQuote, chSpace,
-
-  chLatin_e, chLatin_n, chLatin_c, chLatin_o, chLatin_d, chLatin_i,
-  chLatin_n, chLatin_g,
-
-  chEqual, chDoubleQuote, chNull
-};
-
-
-//
-// "?>
-//
-static const XMLCh  XML_DECL_2[] =
-{
-  chDoubleQuote, chQuestion, chCloseAngle, chLF, chNull
-};
+#include "sbml/XMLUnicodeConstants.hpp"
+#include "sbml/XMLUtil.hpp"
 
 
 /**
@@ -108,11 +78,8 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
   fIndentLevel = 0;
 
   fTarget        = target;
-  fMathFormatter = new MathMLFormatter(outEncoding, target, false);
-  fFormatter     = new XMLFormatter( outEncoding,
-                                     fTarget,
-                                     XMLFormatter::NoEscapes,
-                                     XMLFormatter::UnRep_CharRef );
+  fMathFormatter = new MathMLFormatter(outEncoding, fTarget, false);
+  fFormatter     = XMLUtil::createXMLFormatter(outEncoding, fTarget);
 
   *fFormatter
     << XML_DECL_1
@@ -2065,13 +2032,15 @@ SBMLFormatter::isEmpty (const SBase_t* sb)
 bool
 SBMLFormatter::isEmpty (const Model_t* m)
 {
-  return isEmpty((SBase_t*) m)                 &&
-         (Model_getNumUnitDefinitions(m) == 0) &&
-         (Model_getNumCompartments   (m) == 0) &&
-         (Model_getNumSpecies        (m) == 0) &&
-         (Model_getNumParameters     (m) == 0) &&
-         (Model_getNumRules          (m) == 0) &&
-         (Model_getNumReactions      (m) == 0);
+  return isEmpty((SBase_t*) m)                     &&
+         (Model_getNumFunctionDefinitions(m) == 0) &&
+         (Model_getNumUnitDefinitions    (m) == 0) &&
+         (Model_getNumCompartments       (m) == 0) &&
+         (Model_getNumSpecies            (m) == 0) &&
+         (Model_getNumParameters         (m) == 0) &&
+         (Model_getNumRules              (m) == 0) &&
+         (Model_getNumReactions          (m) == 0) &&
+         (Model_getNumEvents             (m) == 0);
 }
 
 
