@@ -20,8 +20,7 @@
   California Institute of Technology, Pasadena, CA 91125, USA\\[2pt]
   {\url{http://www.sbml.org/}}}
 
-\date{DRAFT\\[5pt]
-  \today{}\\[10pt]%
+\date{\today{}\\[10pt]%
   \hspace*{-1ex}\libsbml{} Version \input{../../VERSION.txt}%
 }
 
@@ -35,11 +34,10 @@
 
 \libsbml{} requires a separate XML library for low-level XML tokenizing and
 Unicode support.  It currently supports the Xerces-C++ and Expat XML
-libraries on Linux, Windows and MacOS X.  You will first need to make sure
-one of these libraries is installed on your system.  Many Linux systems
-provide one or both of these libraries either as part of their standard
-distribution or as an optional RPM or Debian package.  For more
-information, see \url{http://xml.apache.org/xerces-c/} for Xerces and
+libraries on Linux, Windows and MacOS X.  Many Linux systems provide one or
+both of these libraries either as part of their standard distribution or as
+an optional RPM or Debian package.  For more information, see
+\url{http://xml.apache.org/xerces-c/} for Xerces and
 \url{http://expat.sf.net} for Expat.
 
 %-----------------------------------------------------------------------------
@@ -123,39 +121,41 @@ see the references or visit \url{http://www.sbml.org/} on the Internet.
 \libsbml{} is entirely open-source under the terms of the GNU LGPL, and all
 source code and other materials are freely and publicly available.
 
-Because the library provides a C API, the rest of this manual assumes
-familiarity with the C programming language.  Some parts of the library
-were written in C++, however, experience with C++ is not required; its use
-is ``hidden'' behind C functions.  A companion
-document~\citep{bornstein_2004b} provides a detailed reference manual for
-the API.
-
-Some of the technical features of \libsbml{} include:
+Some of the features of \libsbml{} include:
 
 \begin{itemize}
   
-\item \textbf{\textsl{Small Memory Footprint}}:  The parser is event-based (SAX2)
-  and loads SBML data into C structures that mirror the classes in the SBML
-  specification.  No intermediate DOM is used, which greatly reduces
-  runtime memory usage.
+\item \textbf{\textsl{Complete user manual}}. Documentation is available in
+  the "docs" subdirectory in both pre-formatted and source form.  Documents
+  are available in PDF, PostScript and HTML formats.
   
-\item \textbf{\textsl{Fast Runtime}}:  A 2000 reaction test file
-  (\url{http://www.gepasi.org/gep3sbml.html}) loads in 1.18s on a 1 GHz AMD
+\item \textbf{\textsl{Small memory footprint and fast runtime}}. The parser
+  is event-based (SAX2) and loads SBML data into C++ structures that mirror
+  the SBML specification.  As an example of \libsbml{}'s performance, the
+  Gepasi generated 100 Yeast file (2Mb; 2000 reactions
+  \url{http://www.gepasi.org/gep3sbml.html}) loads in 1.18s on a 1 GHz AMD
   Athlon XP and uses 1.4Mb of memory.
+      
+\item \textbf{\textsl{Well tested: 737 unit tests, 3440 individual
+      assertions}}.  The entire library was written using the test-first
+  approach popularized by Kent Beck and eXtreme Programming, where it's one
+  of the 12 principles.  In \libsbml{}, five test cases are responsible for
+  reading entire SBML files (three are examples from the Level~1
+  specification document) into memory and verifying every field of the
+  resulting structures.
+      
+\item \textbf{\textsl{Memory tests: 7536 allocations and frees, 0 leaks}}.
+  For use by developers, a custom memory trace facility tracks all memory
+  allocated and freed in both the library and all test suites.  This
+  facility must be enabled at \libsbml{} configuration time with
+  \shell{./configure --enable-memory-tracing}.  (For performance reasons
+  memory tracing should be turned off in production environments.)
   
-\item \textbf{\textsl{Portable}}:  The C source code is pure ISO standard C for
-  maximum portability.  It produces no errors or warnings when compiled
-  with either GCC or Microsoft Visual C++.  GCC compilation flags are:
-  \shell{-ansi -pedantic-errors -Wall}, i.e., ISO violations are
-  compilation errors instead of warnings and all warnings are reported.
-  The build system uses the GNU Autotools (Autoconf, Automake, and Libtool)
-  to build shared and static libraries on a variety of Unix-based
-  platforms.  Microsoft Windows is supported either through the Cygwin
-  environment or as a native Win32 Dynamic Link Library (DLL).  A Microsoft
-  Visual C++ 6.0 project file is included in the source distribution and 
-  precompiled Windows distributions are available.
-  
-\item \textbf{\textsl{Full SBML Support}}:  All constructs in SBML Level~1
+  \textbf{\textsl{Interfaces for C, C++, Java, Python and MATLAB}}.  C and
+  C++ interfaces are implemented natively; the Java and Python interfaces
+  are implemented using SWIG, the Simplified Wrapper Interface Generator.
+
+\item \textbf{\textsl{Full SBML Support}}.  All constructs in SBML Level~1
   (Versions~1 and~2) and SBML Level~2 are supported, with the exceptions
   noted above (i.e., RDF, and three rarely-used MathML constructs).  The
   exceptions will be removed in the near future.  \libsbml{} handles such
@@ -168,40 +168,29 @@ Some of the technical features of \libsbml{} include:
   popular Level~1 documents, the parser recognizes and stores notes
   and annotations defined for the top-level \code{<sbml>} element (logging
   a warning).
+    
+\item \textbf{\textsl{Written in portable, pure ISO C and C++}}. The build
+  system uses GNU tools (Autoconf, GNU Make) to build shared and static
+  libraries.
   
-\item \textbf{\textsl{Full XML Schema Validation}}: The library can use the Apache
-  Xerces-C++ XML library, which supports full XML Schema validation.  All
-  XML and Schema warning, error and fatal error messages are logged with
-  line and column number information and may be retrieved and manipulated
-  pragmatically.  The XML Schema file used by the parser for validation is
-  configurable.
-  
-\item \textbf{\textsl{Full Unicode Support}}: SBML Documents are parsed and
-  manipulated in the Unicode codepage for efficiency (this is Xerces-C++
-  native format); however, strings are transcoded to the local code page
-  for the SBML C interface data structures.
-  
-\item \textbf{\textsl{Well Tested}}: The entire library was written using
-  the test-first approach popularized by Kent Beck and eXtreme Programming,
-  where it's one of the 12 principles.  Currently the \libsbml{} code base
-  features 3340 individual assertions in 636 functional unit tests.  Four
-  test cases are responsible for reading entire SBML files (three are
-  examples from the SBML Level~1 specification) into memory and verifying
-  every field of the resulting structures.
-  
-\item \textbf{\textsl{Conscientious Use of Memory}}: All memory for and contained in
-  SBML structures is C memory, so \code{realloc()} and \code{free()}
-  may be used.  This is an important distinction when working with mixed C
-  and C++ code.  C's \code{malloc()} and \code{free()} are not
-  compatible with C++'s \code{new} and \code{delete} operators.
+\item \textbf{\textsl{Support for both the Expat and Apache Xerces-C++ XML
+      Libraries}}.  SBML Documents are parsed and manipulated in the
+  Unicode codepage for efficiency (this is Xerces-C++ native format);
+  however, strings are transcoded to the local code page for SBML
+  structures.
 
-  A custom memory trace facility can be used to track all memory
-  allocated and freed in both the library and all test suites.  This
-  facility must be enabled at build time with \shell{./configure
-  --enable-memory-tracing}.  For performance reasons memory tracing
-  should be turned off in production environments.
+\item \textbf{\textsl{Full XML Schema Validation}}. The library can use the
+  Apache Xerces-C++ XML library, which supports full XML Schema validation.
+  All XML and Schema warning, error and fatal error messages are logged
+  with line and column number information and may be retrieved and
+  manipulated programmatically.  The XML Schema file used by the parser for
+  validation is configurable.
 
 \end{itemize}
+
+A companion document~\citep{bornstein_2004b} provides a detailed reference
+manual for the API.
+
 
 
 %=============================================================================
@@ -214,15 +203,14 @@ area on SourceForge.net, at \url{http://sf.net/projects/sbml}.  A link to
 the download area is also provided on the SBML project home page,
 \url{http://www.sbml.org}.
 
-\libsbml{} depends on a separate XML library for low-level XML tokenizing
-and Unicode support.  Currently, \libsbml{} can use either Apache's
-Xerces-C++ XML library or James Clark's Expat XML library on Linux,
-Windows and MacOS~X.  You will first need to make sure one of
-these libraries is installed on your system.  Many systems provide one or
-both of these libraries either as part of their standard distribution or as
-an optional RPM or Debian package.  DLL and LIB file distributions are
-available for both Xerces and Expat.  For more information, see the
-following resources:
+Before you can build and use \libsbml{}, you must first make sure you have
+on your system an XML library for low-level XML tokenizing and Unicode
+support.  Currently, \libsbml{} can use either Apache's Xerces-C++ XML
+library or James Clark's Expat XML library on Linux, Windows and MacOS~X.
+Many systems provide one or both of these libraries either as part of their
+standard distribution or as an optional RPM or Debian package.  DLL and LIB
+file distributions are available for both Xerces and Expat.  For more
+information, see the following resources:
 
 \begin{itemize}\setlength{\parskip}{-0.25ex}
 
@@ -334,6 +322,50 @@ In addition to the \shell{--prefix}, \shell{--with-expat} and
 configuration command supports the options described below.
 
 
+\subsubsection{Interfaces to Java, Python and MATLAB}
+
+\libsbml{} includes language bindings for Java, Python and MATLAB, enabling
+you to write Java, Python and MATLAB programs that call \libsbml{} methods,
+and work with \libsbml{} through Python's and MATLAB's interactive modes.
+Short tutorials for how to use these facilities are available in the
+directory \shell{docs/formatted}.
+
+To enable the library extensions for Java, Python and MATLAB, you need to
+supply additional options to configure.  These options are
+\shell{--with-java}, \shell{--with-python}, and \shell{--with-matlab}.  As
+with other configure options, these three take an optional prefix
+argument; for example,
+
+\begin{example}[csh]
+  ./configure --with-java=|\emph{dir}|
+\end{example}
+
+If you want to build multiple language bindings for \libsbml{}, combine
+multiple flags together as in the following example:
+\begin{example}[csh]
+  ./configure --with-java --with-python
+\end{example}
+
+The \libsbml{} distribution ships with certain interface files provided, so
+that you do not need to have the software necessary to recreate them.
+However, if you obtained the \libsbml{} distribution from CVS or want to
+recreate the files deliberately, you will need need SWIG, the Simplified
+Wrapper and Interface Generator.  More information about SWIG is available
+from \shell{http://www.swig.org}.  To tell configure to enable the use of
+SWIG to regenerate the interface files, use the \shell{--with-swig} option
+to configure.  If your copy of SWIG is installed in a non-standard
+location, you can specify it on the \shell{configure} command line like
+this:
+
+\begin{example}[csh]
+  ./configure --with-swig=|\emph{dir}|
+\end{example}
+
+As with Expat and Xerces, the \shell{/sw} directory is what you would
+specify if you were running on MacOS X and you used Fink to install SWIG,
+Python, etc.
+
+
 \subsubsection{Unit Testing}
 
 \libsbml{} provides built-in facilities for testing itself.  To run the
@@ -406,54 +438,6 @@ you can reconfigure and disable it as follows:
 \end{example}
 
 
-\subsubsection{Interfaces to Java, Python and MATLAB}
-
-\libsbml{} includes language bindings for Java, Python and MATLAB, enabling
-you to write Java, Python and MATLAB programs that call \libsbml{} methods,
-or work with \libsbml{} through Python's and MATLAB's interactive modes.
-Short tutorials for how to use these facilities are available in the
-directory \shell{docs/formatted}.
-
-To enable the library extensions for Java, Python and MATLAB, you need to
-supply additional options to configure.  For Java, use
-
-\begin{example}[csh]
-  ./configure --with-java=|\emph{dir}|
-\end{example}
-For Python,
-\begin{example}[csh]
-  ./configure --with-python=|\emph{dir}|
-\end{example}
-And for MATLAB,
-\begin{example}[csh]
-  ./configure --with-matlab=|\emph{dir}|
-\end{example}
-
-If you want to build multiple language bindings for \libsbml{}, add the
-flags together.  For example,
-\begin{example}[csh]
-  ./configure --with-java --with-python
-\end{example}
-
-The \libsbml{} distribution ships with certain interface files provided, so
-that you do not need to have the software necessary to recreate them.
-However, if you obtained the \libsbml{} distribution from CVS or else want
-to recreate the files, you will need need SWIG, the Simplified Wrapper and
-Interface Generator.  More information about SWIG is available from
-\shell{http://www.swig.org}.  To tell configure to enable the use of SWIG
-to regenerate the interface files, use the \shell{--with-swig} option to
-configure.  
-
-If your copy of SWIG is installed in a non-standard location, you can
-specify it on the \shell{configure} command line like this:
-
-\begin{example}[csh]
-  ./configure --with-swig=|\emph{dir}|
-\end{example}
-
-As with Expat and Xerces, the \shell{/sw} directory is what you would
-specify if you were running on MacOS X and you used Fink to install SWIG,
-Python, etc.
 
 
 %=============================================================================
