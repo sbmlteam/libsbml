@@ -142,7 +142,7 @@ SBML_convertFormulaToMath (SBase_t *sb)
   switch (sb->typecode)
   {
     case SBML_KINETIC_LAW:
-      kl = (KineticLaw_t *) kl;
+      kl = (KineticLaw_t *) sb;
       if (kl->math == NULL && kl->formula != NULL)
       {
         kl->math    = SBML_parseFormula(kl->formula);
