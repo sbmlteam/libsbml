@@ -223,10 +223,7 @@ AC_CONFIG_FILES([docs/src/Doxyfile])
 AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([docs/formatted/Makefile])
 AC_CONFIG_FILES([win32/Makefile])
-
-if test $with_expat != no; then
-  AC_CONFIG_FILES([expat/Makefile])
-fi
+AC_CONFIG_FILES([expat/Makefile])
 
 AC_OUTPUT
 
