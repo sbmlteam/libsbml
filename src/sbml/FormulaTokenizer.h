@@ -76,10 +76,7 @@ typedef struct
  */
 typedef enum
 {
-    TT_NAME    = -2
-  , TT_INTEGER = -3
-  , TT_REAL    = -4
-  , TT_PLUS    = '+'
+    TT_PLUS    = '+'
   , TT_MINUS   = '-'
   , TT_TIMES   = '*'
   , TT_DIVIDE  = '/'
@@ -88,20 +85,34 @@ typedef enum
   , TT_RPAREN  = ')'
   , TT_COMMA   = ','
   , TT_END     = '\0'
-  , TT_UNKNOWN = -5
+  , TT_NAME    = 256
+  , TT_INTEGER
+  , TT_REAL
+  , TT_REAL_E
+  , TT_UNKNOWN
 } TokenType_t;
 
 
 /**
- * A token has a type and a value.  The value field is a union of many
- * different types and the type to use depends on the TokenType_t.
+ * A token has a type and a value.  The value field is a union of different
+ * types and the type to reference depends on the value of TokenType_t.
  *
  *   TokenType_t      Use value.XXX
- *   -----------      -------------
+ *   -----------      --------------
  *   TT_NAME          name
  *   TT_INTEGER       integer
  *   TT_REAL          real
+ *   TT_REAL_E        real, exponent
  *   Anything else    ch
+ *
+ * If a real number was encoded using e-notation, TokenType will be
+ * TT_REAL_E instead of TT_REAL. The field value.real will contain the
+ * mantissa and a separate Token field will contain the exponent.  For
+ * example, the token (t) for '1.2e3':
+ *
+ *   t.type     = TT_REAL_E
+ *   t.value    = 1.2
+ *   t.exponent = 3
  *
  * In the case of TT_UNKNOWN, value.ch will contain the unrecognized
  * character.  For TT_END, value.ch will contain '\0'.  For all others, the
@@ -118,6 +129,8 @@ typedef struct
     long   integer;
     double real;
   } value;
+
+  long exponent;
 
 } Token_t;
 
