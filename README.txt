@@ -84,7 +84,7 @@ Feature Highlights:
 
       The Gepasi generated 100 Yeast file (2Mb; 2000 reactions
       http://www.gepasi.org/gep3sbml.html) loads in 1.18s on a 1 GHz
-      AMD Athalon XP and uses 1.4Mb of memory.
+      AMD Athlon XP and uses 1.4Mb of memory.
 
   - Fully supports <notes> and <annotation> elements, including XML
     namespaces
