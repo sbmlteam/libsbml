@@ -220,6 +220,7 @@ TestRunner_SOURCES = \
   TestRuleType.c                 \
   TestSBase.c                    \
   TestSBMLDocument.c             \
+  TestSBMLReader.c               \
   TestSpecies.c                  \
   TestSpeciesConcentrationRule.c \
   TestSpeciesReference.c         \
@@ -274,8 +275,8 @@ am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
 	TestParameterRule.$(OBJEXT) TestParameter.$(OBJEXT) \
 	TestReaction.$(OBJEXT) TestRule.$(OBJEXT) \
 	TestRuleType.$(OBJEXT) TestSBase.$(OBJEXT) \
-	TestSBMLDocument.$(OBJEXT) TestSpecies.$(OBJEXT) \
-	TestSpeciesConcentrationRule.$(OBJEXT) \
+	TestSBMLDocument.$(OBJEXT) TestSBMLReader.$(OBJEXT) \
+	TestSpecies.$(OBJEXT) TestSpeciesConcentrationRule.$(OBJEXT) \
 	TestSpeciesReference.$(OBJEXT) TestStack.$(OBJEXT) \
 	TestReadFromFile1.$(OBJEXT) TestReadFromFile2.$(OBJEXT) \
 	TestReadFromFile3.$(OBJEXT) TestReadFromFile4.$(OBJEXT) \
@@ -331,6 +332,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestSAX2SBMLHandler.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLDocument.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLFormatter.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestSBMLReader.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBase.Po ./$(DEPDIR)/TestSpecies.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSpeciesConcentrationRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSpeciesReference.Po \
@@ -477,6 +479,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSAX2SBMLHandler.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLDocument.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLFormatter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLReader.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBase.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSpecies.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSpeciesConcentrationRule.Po@am__quote@

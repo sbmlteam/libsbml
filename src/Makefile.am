@@ -145,6 +145,7 @@ TestRunner_SOURCES =             \
   TestRuleType.c                 \
   TestSBase.c                    \
   TestSBMLDocument.c             \
+  TestSBMLReader.c               \
   TestSpecies.c                  \
   TestSpeciesConcentrationRule.c \
   TestSpeciesReference.c         \

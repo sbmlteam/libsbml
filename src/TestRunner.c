@@ -79,6 +79,7 @@ Suite *create_suite_SAX2SBMLHandler          (void);
 Suite *create_suite_SBase                    (void);
 Suite *create_suite_SBMLDocument             (void);
 Suite *create_suite_SBMLFormatter            (void);
+Suite *create_suite_SBMLReader               (void);
 Suite *create_suite_Species                  (void);
 Suite *create_suite_SpeciesConcentrationRule (void);
 Suite *create_suite_SpeciesReference         (void);
@@ -161,6 +162,7 @@ main (void)
   srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
   srunner_add_suite( runner, create_suite_SBMLFormatter            () );
+  srunner_add_suite( runner, create_suite_SBMLReader               () );
   srunner_add_suite( runner, create_suite_Species                  () );
   srunner_add_suite( runner, create_suite_SpeciesConcentrationRule () );
   srunner_add_suite( runner, create_suite_SpeciesReference         () );

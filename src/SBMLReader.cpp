@@ -68,6 +68,233 @@
 
 
 /**
+ * These functions are "private", i.e. they are used only by other
+ * functions in this file.
+ */
+ParseMessage_t* createParseMessage (const char* msg);
+ParseMessage_t* createParseMessage (const XMLException& e);
+ParseMessage_t* createParseMessage (const SAXParseException& e);
+
+SBMLDocument_t*
+SBMLReader_readSBML_internal ( SBMLReader_t* sr,
+                               const char*   filename,
+                               const char*   xml );
+
+
+/**
+ * Creates a new SBMLReader and returns a pointer to it.
+ *
+ * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE) and
+ * schemaFilename is NULL.
+ */
+SBMLReader_t *
+SBMLReader_create (void)
+{
+  SBMLReader_t *sr = (SBMLReader_t *) safe_malloc( sizeof(SBMLReader_t) );
+
+
+  sr->schemaValidation = XML_SCHEMA_VALIDATION_NONE;
+  sr->schemaFilename   = NULL;
+
+  return sr;
+}
+
+
+/**
+ * Frees the given SBMLReader.
+ */
+void
+SBMLReader_free (SBMLReader_t *sr)
+{
+  if (sr == NULL) return;
+
+
+  safe_free(sr->schemaFilename);
+  safe_free(sr);
+}
+
+
+/**
+ * Sets the schema filename used by this SBMLReader.
+ *
+ * The filename should be either i) an absolute path or ii) relative to the
+ * directory contain the SBML file(s) to be read.
+ */
+void
+SBMLReader_setSchemaFilename (SBMLReader_t *sr, const char *filename)
+{
+  if (sr->schemaFilename != NULL)
+  {
+    safe_free(sr->schemaFilename);
+  }
+
+
+  sr->schemaFilename = (filename == NULL) ? NULL : safe_strdup(filename);
+}
+
+
+/**
+ * Reads the SBML document from the given file and returns a pointer to it.
+ */
+SBMLDocument_t *
+SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
+{
+  return SBMLReader_readSBML_internal(sr, filename, NULL);
+}
+
+
+/**
+ * Reads the SBML document from the given XML string and returns a pointer
+ * to it.
+ *
+ * The XML string must be complete and legal XML document.  Among other
+ * things, it must start with an XML processing instruction.  For e.g.,:
+ *
+ *   <?xml version='1.0' encoding='UTF-8'?>
+ */
+SBMLDocument_t *
+SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
+{
+  return SBMLReader_readSBML_internal(sr, NULL, xml);
+}
+
+
+/**
+ * Reads the SBML document from the given file and returns a pointer to it.
+ * This convenience function is functionally equivalent to:
+ *
+ *   SBMLReader_readSBML(SBMLReader_create(), filename);
+ */
+SBMLDocument_t *
+readSBML (const char *filename)
+{
+  SBMLReader_t sr = {XML_SCHEMA_VALIDATION_NONE, NULL};
+
+
+  return SBMLReader_readSBML(&sr, filename);
+}
+
+
+/**
+ * Reads the SBML document from the given XML string and returns a pointer
+ * to it.  This convenience function is functionally equivalent to:
+ *
+ *   SBMLReader_readSBMLFromString(SBMLReader_create(), filename);
+ */
+SBMLDocument_t *
+readSBMLFromString (const char *xml)
+{
+  SBMLReader_t sr = {XML_SCHEMA_VALIDATION_NONE, NULL};
+
+
+  return SBMLReader_readSBMLFromString(&sr, xml);
+}
+
+
+/**
+ * Used by SBMLReader_readSBML(SBMLReader_t *sr, const char *filename) and
+ * SBMLReader_readSBMLFromString(...).
+ */
+SBMLDocument_t*
+SBMLReader_readSBML_internal ( SBMLReader_t* sr,
+                               const char*   filename,
+                               const char*   xml )
+{
+  SBMLDocument_t *d = SBMLDocument_create();
+
+
+  try
+  {
+    XMLPlatformUtils::Initialize();
+  }
+  catch (const XMLException& e)
+  {
+    List_add(d->fatal, createParseMessage(e));
+    return d;
+  }
+
+
+  SAX2XMLReader*     reader  = XMLReaderFactory::createXMLReader();
+  DefaultHandler*    handler = new SAX2SBMLHandler(d);
+  MemBufInputSource* input   = NULL;
+
+
+  if (xml != NULL)
+  {
+    input = new MemBufInputSource( (const XMLByte*) xml,
+                                   strlen(xml),
+                                   "FromString",
+                                   false );
+  }
+
+  reader->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
+  reader->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes, true );
+
+  reader->setContentHandler(handler);
+  reader->setErrorHandler(handler);
+
+  //
+  // XML Schema Validation (based on the state of the SBMLReader)
+  //
+  if (sr->schemaValidation != XML_SCHEMA_VALIDATION_NONE)
+  {
+    reader->setFeature( XMLUni::fgSAX2CoreValidation, true );
+    reader->setFeature( XMLUni::fgXercesSchema      , true );
+
+    reader->setFeature(XMLUni::fgXercesSchemaFullChecking,
+                       sr->schemaValidation == XML_SCHEMA_VALIDATION_FULL);
+
+    if (sr->schemaFilename != NULL)
+    {
+      char   xmlns[]  = "http://www.sbml.org/sbml/level1 ";
+      char*  location = safe_strcat(xmlns, sr->schemaFilename);
+      XMLCh* value    = XMLString::transcode(location);
+      
+      reader->setProperty(XMLUni::fgXercesSchemaExternalSchemaLocation, value);
+
+      delete [] value;
+      safe_free(location);
+    }
+  }
+
+
+  try
+  {
+    if (input != NULL)
+    {
+      reader->parse(*input);
+    }
+    else
+    {
+      reader->parse(filename);
+    }
+  }
+  catch (const XMLException& e)
+  {
+    List_add(d->fatal, createParseMessage(e));
+  }
+  catch (const SAXParseException& e)
+  {
+    List_add(d->fatal, createParseMessage(e));
+  }
+  catch (...)
+  {
+    List_add(d->fatal, createParseMessage("Unexcepted Exception"));
+  }
+
+  if (input != NULL)
+  {
+    delete input;
+  }
+
+  delete reader;
+  delete handler;
+
+  return d;
+}
+
+
+/**
  * Creates a new ParseMessage with the given message and returns a pointer
  * to it.
  */
@@ -123,105 +350,4 @@ createParseMessage (const SAXParseException& e)
   delete [] msg;
 
   return pm;
-}
-
-
-/**
- * Used by readSBML() and readSBMLFromString().
- */
-SBMLDocument_t*
-readSBML_internal (const char *filename, const char* xml)
-{
-  SBMLDocument_t *d = SBMLDocument_create();
-
-
-  try
-  {
-    XMLPlatformUtils::Initialize();
-  }
-  catch (const XMLException& e)
-  {
-    List_add(d->fatal, createParseMessage(e));
-    return d;
-  }
-
-
-  SAX2XMLReader*     reader  = XMLReaderFactory::createXMLReader();
-  DefaultHandler*    handler = new SAX2SBMLHandler(d);
-  MemBufInputSource* input   = NULL;
-
-
-  if (xml != NULL)
-  {
-    input = new MemBufInputSource( (const XMLByte*) xml,
-                                   strlen(xml),
-                                   "FromString",
-                                   false );
-  }
-
-  reader->setFeature(XMLUni::fgSAX2CoreNameSpaces,        true);
-  reader->setFeature(XMLUni::fgSAX2CoreNameSpacePrefixes, true);
-
-  reader->setContentHandler(handler);
-  reader->setErrorHandler(handler);
-
-  try
-  {
-    if (input != NULL)
-    {
-      reader->parse(*input);
-    }
-    else
-    {
-      reader->parse(filename);
-    }
-  }
-  catch (const XMLException& e)
-  {
-    List_add(d->fatal, createParseMessage(e));
-  }
-  catch (const SAXParseException& e)
-  {
-    List_add(d->fatal, createParseMessage(e));
-  }
-  catch (...)
-  {
-    List_add(d->fatal, createParseMessage("Unexcepted Exception"));
-  }
-
-  if (input != NULL)
-  {
-    delete input;
-  }
-
-  delete reader;
-  delete handler;
-
-  return d;
-}
-
-
-/**
- * Reads the SBML document from the given file and returns a pointer to it.
- */
-SBMLDocument_t *
-readSBML (const char *filename)
-{
-  return readSBML_internal(filename, NULL);
-}
-
-
-/**
- * Reads the SBML document from the given XML string and returns a pointer
- * to it.
- *
- * The XML string must be complete and legal XML document.  Among other
- * things, it must start with an XML processing instruction.  For e.g.,:
- *
- *   <?xml version='1.0' encoding='UTF-8'?>
- */
-SBMLDocument_t *
-readSBMLFromString (const char *xml)
-{
-  return readSBML_internal(NULL, xml);
 }
