@@ -64,8 +64,7 @@
 //
 // Creates a new XMLStringFormatter
 //
-// The underlying character encoding is configurable and defaults to
-// "LATIN1", which is probably safe for most applications.
+// The underlying character encoding is configurable.
 //
 XMLStringFormatter::XMLStringFormatter (const char* outEncoding)
 {
