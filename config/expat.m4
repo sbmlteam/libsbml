@@ -65,7 +65,7 @@ AC_DEFUN(AC_LIB_EXPAT,
     EXPAT_LIBS=
 
     if test $with_expat != yes; then
-      EXPAT_CPPFLAGS="-I$with_expat/include"
+      EXPAT_CPPFLAGS="-I$with_expat/include -I../expat"
       EXPAT_LDFLAGS="-L$with_expat/lib"
     fi
 
