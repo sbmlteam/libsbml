@@ -1,0 +1,431 @@
+## @configure_input@
+##
+## Filename    : Makefile.in
+## Description : Makefile template for libsbml main sources
+## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Organization: California Institute of Technology
+## Created     : 2004-06-11
+## Revision    : $Id$
+## Source      : $Source$
+##
+## Copyright 2004 California Institute of Technology and
+## Japan Science and Technology Corporation.
+##
+## This library is free software; you can redistribute it and/or modify it
+## under the terms of the GNU Lesser General Public License as published
+## by the Free Software Foundation; either version 2.1 of the License, or
+## any later version.
+##
+## This library is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+## documentation provided hereunder is on an "as is" basis, and the
+## California Institute of Technology and Japan Science and Technology
+## Corporation have no obligations to provide maintenance, support,
+## updates, enhancements or modifications.  In no event shall the
+## California Institute of Technology or the Japan Science and Technology
+## Corporation be liable to any party for direct, indirect, special,
+## incidental or consequential damages, including lost profits, arising
+## out of the use of this software and its documentation, even if the
+## California Institute of Technology and/or Japan Science and Technology
+## Corporation have been advised of the possibility of such damage.  See
+## the GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this library; if not, write to the Free Software Foundation,
+## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+##
+## The original code contained here was initially developed by:
+##
+##     Ben Bornstein
+##     SBML Team
+##     Control and Dynamical Systems, MC 107-81
+##     California Institute of Technology
+##     Pasadena, CA, 91125, USA
+##
+##     http://www.sbml.org
+##     mailto:sbml-team@caltech.edu
+##
+## Contributor(s):
+##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
+##
+
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include @top_srcdir@/config/makefile-common-vars.mk
+
+# `srcdir' points to the current directory, but should be set by configure.
+# `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
+# set `subdir' to an absolute path, or some `make' actions will fail.
+
+srcdir  = @srcdir@
+thisdir = src
+
+# The `headers' list is not actually used for analyzing source dependencies
+# (a separate mechanism is used for that), but for other things such as what
+# to distribute and install.
+
+# The file sbml/config.h is purposefully left out of this list because we
+# don't install or distribute it.
+
+headers = \
+  sbml/ASTNode.h                    \
+  sbml/ASTNodeType.h                \
+  sbml/AlgebraicRule.h              \
+  sbml/AssignmentRule.h             \
+  sbml/Compartment.h                \
+  sbml/CompartmentVolumeRule.h      \
+  sbml/Event.h                      \
+  sbml/EventAssignment.h            \
+  sbml/FormulaFormatter.h           \
+  sbml/FormulaParser.h              \
+  sbml/FormulaTokenizer.h           \
+  sbml/FunctionDefinition.h         \
+  sbml/KineticLaw.h                 \
+  sbml/List.h                       \
+  sbml/ListOf.h                     \
+  sbml/MathMLDocument.h             \
+  sbml/MathMLFormatter.h            \
+  sbml/MathMLHandler.h              \
+  sbml/MathMLReader.h               \
+  sbml/MathMLTagCodes.h             \
+  sbml/MathMLUnicodeConstants.h     \
+  sbml/MathMLWriter.h               \
+  sbml/Model.h                      \
+  sbml/ModifierSpeciesReference.h   \
+  sbml/Parameter.h                  \
+  sbml/ParameterRule.h              \
+  sbml/ParseMessage.h               \
+  sbml/RateRule.h                   \
+  sbml/Reaction.h                   \
+  sbml/Rule.h                       \
+  sbml/RuleType.h                   \
+  sbml/SBMLConvert.h                \
+  sbml/SBMLDocument.h               \
+  sbml/SBMLFormatter.h              \
+  sbml/SBMLHandler.h                \
+  sbml/SBMLReader.h                 \
+  sbml/SBMLTagCodes.h               \
+  sbml/SBMLTypeCodes.h              \
+  sbml/SBMLTypes.h                  \
+  sbml/SBMLVisitor.h                \
+  sbml/SBMLUnicodeConstants.h       \
+  sbml/SBMLWriter.h                 \
+  sbml/SBase.h                      \
+  sbml/SimpleSpeciesReference.h     \
+  sbml/Species.h                    \
+  sbml/SpeciesConcentrationRule.h   \
+  sbml/SpeciesReference.h           \
+  sbml/Stack.h                      \
+  sbml/StreamFormatTarget.h         \
+  sbml/StringBuffer.h               \
+  sbml/StringMap.h                  \
+  sbml/Unit.h                       \
+  sbml/UnitDefinition.h             \
+  sbml/UnitKind.h                   \
+  sbml/Validator.h                  \
+  sbml/XMLNamespace.h               \
+  sbml/XMLNamespaceList.h           \
+  sbml/XMLSchemaValidation.h        \
+  sbml/XMLStringFormatter.h         \
+  sbml/XMLUnicodeConstants.h        \
+  sbml/XMLUtil.h                    \
+  sbml/sbmlfwd.h                    \
+  sbml/common.h                     \
+  sbml/extern.h                     \
+  sbml/memory.h                     \
+  sbml/util.h
+
+sources = \
+  ASTNode.cpp                     \
+  AlgebraicRule.cpp               \
+  AssignmentRule.cpp              \
+  Compartment.cpp                 \
+  CompartmentVolumeRule.cpp       \
+  Event.cpp                       \
+  EventAssignment.cpp             \
+  FormulaFormatter.c              \
+  FormulaParser.c                 \
+  FormulaTokenizer.c              \
+  FunctionDefinition.cpp          \
+  KineticLaw.cpp                  \
+  List.cpp                        \
+  ListOf.cpp                      \
+  MathMLDocument.cpp              \
+  MathMLFormatter.cpp             \
+  MathMLHandler.cpp               \
+  MathMLReader.cpp                \
+  MathMLTagCodes.cpp              \
+  MathMLWriter.cpp                \
+  Model.cpp                       \
+  ModifierSpeciesReference.cpp    \
+  Parameter.cpp                   \
+  ParameterRule.cpp               \
+  ParseMessage.cpp                \
+  RateRule.cpp                    \
+  Reaction.cpp                    \
+  Rule.cpp                        \
+  RuleType.c                      \
+  SBMLConvert.c                   \
+  SBMLDocument.cpp                \
+  SBMLFormatter.cpp               \
+  SBMLHandler.cpp                 \
+  SBMLReader.cpp                  \
+  SBMLTagCodes.cpp                \
+  SBMLVisitor.cpp                 \
+  SBMLWriter.cpp                  \
+  SBase.cpp                       \
+  SimpleSpeciesReference.cpp      \
+  Species.cpp                     \
+  SpeciesConcentrationRule.cpp    \
+  SpeciesReference.cpp            \
+  Stack.c                         \
+  StreamFormatTarget.cpp          \
+  StringBuffer.c                  \
+  StringMap.c                     \
+  Unit.cpp                        \
+  UnitDefinition.cpp              \
+  UnitKind.c                      \
+  ValidationRules.c               \
+  Validator.c                     \
+  XMLNamespace.cpp                \
+  XMLNamespaceList.cpp            \
+  XMLStringFormatter.cpp          \
+  XMLUtil.cpp                     \
+  memory.c                        \
+  util.c
+
+test_headers = \
+  sbml/SAX2AttributesMock.h
+
+test_sources = \
+  SAX2AttributesMock.cpp          \
+  TestMathMLFormatter.cpp         \
+  TestMathMLHandler.cpp           \
+  TestSAX2AttributesMock.cpp      \
+  TestXMLNamespace.cpp            \
+  TestXMLNamespaceList.cpp        \
+  TestXMLStringFormatter.cpp      \
+  TestXMLUtil.cpp                 \
+  TestAlgebraicRule.c             \
+  TestAssignmentRule.c            \
+  TestASTNode.c                   \
+  TestCompartment.c               \
+  TestCompartmentVolumeRule.c     \
+  TestConsistencyChecks.cpp       \
+  TestEvent.c                     \
+  TestEventAssignment.c           \
+  TestFormulaFormatter.c          \
+  TestFormulaParser.c             \
+  TestFormulaTokenizer.c          \
+  TestFunctionDefinition.c        \
+  TestKineticLaw.c                \
+  TestList.c                      \
+  TestListOf.c                    \
+  TestMathMLDocument.c            \
+  TestMathMLWriter.c              \
+  TestMemory.c                    \
+  TestModel.c                     \
+  TestModifierSpeciesReference.c  \
+  TestParameter.c                 \
+  TestParameterRule.c             \
+  TestParseMessage.c              \
+  TestRateRule.c                  \
+  TestReaction.c                  \
+  TestReadFromFile1.c             \
+  TestReadFromFile2.c             \
+  TestReadFromFile3.c             \
+  TestReadFromFile4.c             \
+  TestReadFromFile5.cpp           \
+  TestRule.c                      \
+  TestRuleType.c                  \
+  TestRunner.c                    \
+  TestSBase.cpp                   \
+  TestSBMLConvert.c               \
+  TestSBMLDocument.c              \
+  TestSBMLFormatter.cpp           \
+  TestSBMLHandler.cpp             \
+  TestSBMLReader.c                \
+  TestSBMLWriter.c                \
+  TestSimpleSpeciesReference.c    \
+  TestSpecies.c                   \
+  TestSpeciesConcentrationRule.c  \
+  TestSpeciesReference.c          \
+  TestStack.c                     \
+  TestStringBuffer.c              \
+  TestStringMap.c                 \
+  TestUnitDefinition.c            \
+  TestUnitKind.c                  \
+  TestUnit.c                      \
+  TestUtil.c                      \
+  TestValidator.c
+
+test_data =                                      \
+  test-data/l1v1-branch-schema-error.xml               \
+  test-data/l1v1-branch.xml                            \
+  test-data/l1v1-minimal.xml                           \
+  test-data/l1v1-rules.xml                             \
+  test-data/l1v1-units.xml                             \
+  test-data/l1v2-branch.xml                            \
+  test-data/l2v1-2D-compartments.xml                   \
+  test-data/l2v1-algebraic.xml                         \
+  test-data/l2v1-assignment.xml                        \
+  test-data/l2v1-boundary.xml                          \
+  test-data/l2v1-branch.xml                            \
+  test-data/l2v1-delay.xml                             \
+  test-data/l2v1-events.xml                            \
+  test-data/l2v1-functions.xml                         \
+  test-data/l2v1-mc-ode.xml                            \
+  test-data/l2v1-units.xml                             \
+  test-data/sbml-l1v1.xsd                              \
+  test-data/sbml-l1v2.xsd                              \
+  test-data/sbml-l2v1.xsd                              \
+  test-data/consistency-checks/ConsistencyChecks.txt   \
+  test-data/consistency-checks/genConsistencyChecks.py \
+  test-data/consistency-checks/partialModels
+
+# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
+# rules in `makefile-common-actions.mk' included at the end.
+
+libraries = $(PACKAGE).a $(PACKAGE).$(SHAREDLIBEXT)
+
+ifdef USE_EXPAT
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS) -Isbml -I../expat
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
+
+  # Redefine $(objfiles) to contain the expat compatibility code from ../expat.
+  srclist ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
+  objfiles = $(filter %.$(OBJEXT),$(srclist)) ../expat/*.$(OBJEXT)
+else
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS) -Isbml
+  extra_LDFLAGS   += $(XERCES_LDFLAGS)
+  extra_LIBS      += $(XERCES_LIBS)
+endif
+
+ifdef USE_LIBCHECK
+  check_programs   = TestRunner
+  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
+    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
+    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
+    extra_LIBS      += $(LIBCHECK_LIBS)
+  endif
+  extra_clean     += $(check_programs)
+endif
+
+# `distfiles' determines the files and directories included in a distribution.
+# `distfiles_exclude' is used to filter out specific items, so that even if
+# they appear in `distfiles', they will not be copied in the distribution.
+
+distfiles = \
+	$(sources) \
+	$(headers) \
+	$(test_sources) \
+	$(test_headers) \
+	$(test_data) \
+	sbml/config.h.in Makefile.in
+
+
+# -----------------------------------------------------------------------------
+# Primary build actions
+# -----------------------------------------------------------------------------
+
+# The default action is to remake everything.  Those rules which are not
+# defined below are defined in makefile-common-actions.mk.
+
+all: Makefile $(libraries)
+
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
+
+ifdef USE_LIBCHECK
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
+
+# The makefile directives for check tend to have to be specific to each source
+# directory and not abstracted into `makefile-common-actions.mk'.
+
+ifdef USE_LIBCHECK
+  test_tmplist  = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
+  test_objfiles = $(filter %.$(OBJEXT),$(test_tmplist))
+endif
+
+$(check_programs): $(test_objfiles) $(libraries)
+	$(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
+	  $(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) \
+	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) $(LDFLAGS) \
+	  $(LIBS) $(extra_LIBS) -o $@
+
+run-checks:: $(check_programs)
+	@echo
+	@echo Running Tests
+	@echo -------------
+	@list='$(check_programs)'; for test in $$list; do \
+	  export srcdir=@TestDataDirectory@; \
+	  echo ""; \
+	  echo "Running \"$$test\""; \
+	  ./$$test; \
+	  echo ""; \
+	done;
+
+
+# -----------------------------------------------------------------------------
+# Formatting documentation.
+# -----------------------------------------------------------------------------
+
+dvi:
+
+pdf:
+
+ps:
+
+info:
+
+html:
+
+
+# -----------------------------------------------------------------------------
+# Installation
+# -----------------------------------------------------------------------------
+
+install: install-libraries install-headers
+
+uninstall: uninstall-libraries
+
+installcheck: installcheck-libraries
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: dist-normal
+
+distcheck: distcheck-normal
+
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+include @top_srcdir@/config/makefile-common-actions.mk
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------
