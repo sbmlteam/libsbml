@@ -75,7 +75,7 @@ thisdir   = src/validator/test
 test_sources =              \
   TestConsistencyChecks.cpp \
   TestValidator.c           \
-  TestRunner. c
+  TestRunner.cpp
 
 extra_CPPFLAGS = -I.. -I../..
 
@@ -91,6 +91,16 @@ ifdef USE_LIBCHECK
     extra_LIBS      += $(LIBCHECK_LIBS)
   endif
   extra_clean       += $(check_driver)
+endif
+
+ifdef USE_EXPAT
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
+else
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS   += $(XERCES_LDFLAGS)
+  extra_LIBS      += $(XERCES_LIBS)
 endif
 
 # `distfiles' determines the files and directories included in a distribution.
@@ -121,12 +131,18 @@ endif
 
 # Variables $(test_objfiles), $(check_driver), and the rest of the code
 # for running check are abstracted out into makefile-common-actions.mk,
-# which is included at the bottom of this file.
+# which is included at the bottom of this file.  Here we just need to construct
+# the appropriate list of object files to link together.  Because there are
+# dependencies on other subdirectoris of the source tree, we do some rummaging
+# around in .. and ../../subdirs.
 
-tmp     = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
-objects = $(filter %.$(OBJEXT),$(tmp))
+tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
+localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
-test_objfiles = $(objects) $(wildcard ../*.$(OBJEXT))
+otherdirs     = .. ../../util ../../xml ../../math ../../sbml
+otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+
+test_objfiles = $(localobjfiles) $(otherobjfiles)
 
 ifdef USE_LIBCHECK
   check: all run-checks
