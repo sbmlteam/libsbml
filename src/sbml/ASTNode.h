@@ -210,6 +210,7 @@ ASTNode_createFromToken (Token_t *token);
 void
 ASTNode_copyFromToken (ASTNode_t *node, Token_t *token);
 
+
 /**
  * Frees the given ASTNode including any child nodes.
  */
@@ -223,6 +224,7 @@ ASTNode_free (ASTNode_t *node);
  */
 void
 ASTNode_freeName (ASTNode_t *node);
+
 
 /**
  * Attempts to convert this ASTNode to a canonical form and returns true
@@ -255,6 +257,7 @@ LIBSBML_EXTERN
 int
 ASTNode_canonicalize (ASTNode_t *node);
 
+
 /**
  * Adds the given node as a child of this ASTNode.  Child nodes are added
  * in-order from "left-to-right".
@@ -270,6 +273,7 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
 LIBSBML_EXTERN
 void
 ASTNode_prependChild (ASTNode_t *node, ASTNode_t *child);
+
 
 /**
  * @return the nth child of this ASTNode or NULL if this node has no nth
@@ -305,6 +309,7 @@ ASTNode_getRightChild (const ASTNode_t *node);
 LIBSBML_EXTERN
 unsigned int
 ASTNode_getNumChildren (const ASTNode_t *node);
+
 
 /**
  * @return the value of this ASTNode as a single character.  This function
@@ -383,7 +388,7 @@ ASTNode_getExponent (const ASTNode_t *node);
  */
 LIBSBML_EXTERN
 int
-ASTNode_getPrecedence (ASTNode_t *node);
+ASTNode_getPrecedence (const ASTNode_t *node);
 
 /**
  * @return the type of this ASTNode.
@@ -391,6 +396,7 @@ ASTNode_getPrecedence (ASTNode_t *node);
 LIBSBML_EXTERN
 ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node);
+
 
 /**
  * @return true (non-zero) if this ASTNode is a MathML constant (true,
@@ -526,6 +532,15 @@ ASTNode_isSqrt (const ASTNode_t *node);
 LIBSBML_EXTERN
 int
 ASTNode_isUMinus (const ASTNode_t *node);
+
+/**
+ * @return true (non-zero) if this ASTNode is of type AST_UNKNOWN, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isUnknown (const ASTNode_t *node);
+
 
 /**
  * Sets the value of this ASTNode to the given character.  If character is

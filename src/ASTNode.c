@@ -818,7 +818,7 @@ ASTNode_getExponent (const ASTNode_t *node)
  */
 LIBSBML_EXTERN
 int
-ASTNode_getPrecedence (ASTNode_t *node)
+ASTNode_getPrecedence (const ASTNode_t *node)
 {
   int precedence;
 
@@ -1098,6 +1098,18 @@ ASTNode_isUMinus (const ASTNode_t *node)
   }
 
   return uminus;
+}
+
+
+/**
+ * @return true (non-zero) if this ASTNode is of type AST_UNKNOWN, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isUnknown (const ASTNode_t *node)
+{
+  return ASTNodeType_isUnknown(node->type);
 }
 
 
