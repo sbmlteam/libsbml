@@ -303,7 +303,7 @@ SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m)
     node = (ASTNode_t *) List_get(names, n);
     id   = ASTNode_getName(node);
 
-    /** 1. It is an AST_NAME (not AST_NAME_TIME nor AST_NAME_DELAY), and **/
+    /** 1. It is an AST_NAME (not AST_NAME_TIME), and **/
     if (ASTNode_getType(node) != AST_NAME) continue;
 
     /** 2. It refers to a Species in this Model, and **/

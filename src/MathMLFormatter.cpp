@@ -96,6 +96,7 @@ MathMLFormatter::MATHML_ELEMENTS[] =
   , ELEM_COTH
   , ELEM_CSC
   , ELEM_CSCH
+  , ELEM_CSYMBOL
   , ELEM_EXP
   , ELEM_FACTORIAL
   , ELEM_FLOOR
@@ -486,7 +487,7 @@ MathMLFormatter::doName (const ASTNode* node)
   ASTNodeType_t type = node->getType();
 
 
-  if (type == AST_NAME_DELAY || type == AST_NAME_TIME)
+  if (type == AST_FUNCTION_DELAY || type == AST_NAME_TIME)
   {
     doCSymbol(node);
   }
@@ -508,7 +509,7 @@ MathMLFormatter::doCSymbol (const ASTNode* node)
   const XMLCh*  url  = NULL;
 
 
-  if (type == AST_NAME_DELAY)
+  if (type == AST_FUNCTION_DELAY)
   {
     url = CSYMBOL_DEFINITION_URL_DELAY;
   }
@@ -811,6 +812,10 @@ MathMLFormatter::doFunction (const ASTNode* node)
     if (type == AST_FUNCTION)
     {
       *this << node->getName();
+    }
+    else if (type == AST_FUNCTION_DELAY)
+    {
+      doCSymbol(node);
     }
     else
     {

@@ -255,7 +255,7 @@ START_TEST (test_element_csymbol_time)
 END_TEST
 
 
-START_TEST (test_element_csymbol_delay)
+START_TEST (test_element_csymbol_delay_1)
 {
   const ASTNode_t* n;
   const char* s = wrapMathML
@@ -270,9 +270,39 @@ START_TEST (test_element_csymbol_delay)
 
   fail_unless( n != NULL, NULL );
 
-  fail_unless( ASTNode_getType(n) == AST_NAME_DELAY, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_DELAY, NULL );
   fail_unless( !strcmp(ASTNode_getName(n), "delay"), NULL );
   fail_unless( ASTNode_getNumChildren(n) == 0      , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_csymbol_delay_2)
+{
+  const ASTNode_t* n;
+  char*       f;
+
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/delay'> my_delay </csymbol>"
+    "  <ci> x </ci>"
+    "  <cn> 0.1 </cn>"
+    "</apply>\n"
+  );
+
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+  fail_unless( n != NULL, NULL );
+
+  f = SBML_formulaToString(n);
+  fail_unless( !strcmp(f, "my_delay(x, 0.1)"), NULL );
+
+  safe_free(f);
 }
 END_TEST
 
@@ -1686,7 +1716,8 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_ci                        );
   tcase_add_test( tcase, test_element_ci_surrounding_spaces_bug );
   tcase_add_test( tcase, test_element_csymbol_time              );
-  tcase_add_test( tcase, test_element_csymbol_delay             );
+  tcase_add_test( tcase, test_element_csymbol_delay_1           );
+  tcase_add_test( tcase, test_element_csymbol_delay_2           );
   tcase_add_test( tcase, test_element_constants_true            );
   tcase_add_test( tcase, test_element_constants_false           );
   tcase_add_test( tcase, test_element_constants_notanumber      );

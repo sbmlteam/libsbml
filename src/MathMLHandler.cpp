@@ -706,7 +706,7 @@ MathMLHandler::setTypeCS (ASTNode* node, const Attributes& a)
     }
     else if ( !XMLString::compareString(url, CSYMBOL_DEFINITION_URL_DELAY) )
     {
-      node->mType = AST_NAME_DELAY;
+      node->mType = AST_FUNCTION_DELAY;
     }
   }
 }

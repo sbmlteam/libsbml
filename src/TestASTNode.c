@@ -939,9 +939,6 @@ START_TEST (test_ASTNode_getName)
   ASTNode_setName(n, "foo");
   fail_unless( !strcmp(ASTNode_getName(n), "foo"), NULL );
 
-  ASTNode_setType(n, AST_NAME_DELAY);
-  fail_unless( !strcmp(ASTNode_getName(n), "foo"), NULL );
-
   ASTNode_setType(n, AST_NAME_TIME);
   fail_unless( !strcmp(ASTNode_getName(n), "foo"), NULL );
 
@@ -973,7 +970,13 @@ START_TEST (test_ASTNode_getName)
   ASTNode_setName(n, "f");
   fail_unless( !strcmp(ASTNode_getName(n), "f"), NULL );
 
+  ASTNode_setType(n, AST_FUNCTION_DELAY);
+  fail_unless( !strcmp(ASTNode_getName(n), "f"), NULL );
+
   ASTNode_setName(n, NULL);
+  fail_unless( !strcmp(ASTNode_getName(n), "delay"), NULL );
+
+  ASTNode_setType(n, AST_FUNCTION);
   fail_unless( ASTNode_getName(n) == NULL, NULL );
 
 

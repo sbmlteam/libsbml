@@ -136,6 +136,7 @@ static const char *AST_FUNCTION_STRINGS[] =
   , "coth"
   , "csc"
   , "csch"
+  , "delay"
   , "exp"
   , "factorial"
   , "floor"

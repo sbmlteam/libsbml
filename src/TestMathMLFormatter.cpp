@@ -306,15 +306,19 @@ END_TEST
 
 START_TEST (test_MathMLFormatter_csymbol_delay)
 {
-  ASTNode_t  *n = ASTNode_createWithType(AST_NAME_DELAY);
+  ASTNode_t  *n = SBML_parseFormula("delay(x, 0.1)");
   const char *s = wrapXML
   (
-    "<csymbol encoding=\"text\" "
-    "definitionURL=\"http://www.sbml.org/sbml/symbols/delay\"> d </csymbol>\n"
+    "<apply>\n"
+    "  <csymbol encoding=\"text\" definitionURL=\"http://www.sbml.org/sbml/"
+    "symbols/delay\"> my_delay </csymbol>\n"
+    "  <ci> x </ci>\n"
+    "  <cn> 0.1 </cn>\n"
+    "</apply>\n"
   );
 
 
-  ASTNode_setName(n, "d");
+  ASTNode_setName(n, "my_delay");
 
   *formatter << n;
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
