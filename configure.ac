@@ -52,14 +52,17 @@ dnl
 
 
 dnl ---------------------------------------------------------------------------
-dnl Autoconf and Automake initialization.
+dnl Autoconf initialization.
 dnl
 dnl Bug reports are sent to sbml-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
-AC_INIT([SBML Library], [2.0.5], [sbml-team@caltech.edu], [libsbml])
+if test -f "VERSION.txt"; then
+    m4_define(LIBSBML_VERSION, m4_esyscmd(cat VERSION.txt | tr -d '\n\r'))
+fi
+
+AC_INIT([libSBML], LIBSBML_VERSION, [sbml-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
-AM_INIT_AUTOMAKE
 
 AC_REVISION($Revision$)
 
@@ -74,6 +77,8 @@ dnl ---------------------------------------------------------------------------
 dnl Command-line options
 dnl ---------------------------------------------------------------------------
 
+dnl Other cmd-line options are defined in the individual .m4 files in config.
+
 AC_ARG_ENABLE([memory-tracing],
   AC_HELP_STRING([--enable-memory-tracing],
                  [Enable memory tracing (default: disabled)]),
@@ -83,97 +88,83 @@ AC_ARG_ENABLE([memory-tracing],
    fi
   ])
 
-AC_ARG_WITH([check],
-  AC_HELP_STRING([--with-check=PREFIX],
-                 [Build the test suite using libcheck (default=no)]),
-  [with_libcheck=$withval],
-  [with_libcheck=no])
-
-AC_ARG_WITH([xerces],
-  AC_HELP_STRING([--with-xerces=PREFIX],
-                 [Use Xerces XML Library [[default=yes]]]),
-  [with_xerces=$withval],
-  [with_xerces=yes])
-
-AC_ARG_WITH([expat],
-  AC_HELP_STRING([--with-expat=PREFIX],
-                 [Use Expat XML Library [[default=no]]]),
-  [with_expat=$withval],
-  [with_expat=no])
-
-if test $with_expat != no; then
-  with_xerces=no
-  AC_DEFINE([USE_EXPAT], 1, [Define to 1 to use the Expat XML library])
-fi
-
-dnl ---------------------------------------------------------------------------
-dnl Checks for programs.
-dnl ---------------------------------------------------------------------------
-
-AC_PROG_CXX
-AC_PROG_CC
-AC_PROG_CPP
-
-AC_LIBTOOL_WIN32_DLL
-AC_PROG_LIBTOOL
-
 
 dnl ---------------------------------------------------------------------------
 dnl Check host operating system.
 dnl ---------------------------------------------------------------------------
 
-dnl AC_CANONICAL_HOST
+AC_CANONICAL_HOST
 
 TestDataDirectory="\$(srcdir)"
+SHAREDLIBEXT="so"
 
-case "$host_os" in
+case $host_os in
   *linux*)
-    AM_CPPFLAGS="-DLINUX"
+    CPPFLAGS="-DLINUX $CPPFLAGS"
+    HOST_TYPE="linux"
     ;;
 
   *solaris*)
-    AM_CPPFLAGS="-DSOLARIS"
+    CPPFLAGS="-DSOLARIS $CPPFLAGS"
+    HOST_TYPE="solaris"
     ;;
 
   *cygwin*)
-    AM_CPPFLAGS="-DWIN32 -DCYGWIN -DLIBSBML_EXPORTS"
+    CPPFLAGS="-DWIN32 -DCYGWIN -DLIBSBML_EXPORTS $CPPFLAGS"
+    HOST_TYPE="cygwin"
     ;;
 
   *darwin*)
-    AM_CPPFLAGS="-DMACOSX"
+    CPPFLAGS="-DMACOSX $CPPFLAGS"
+    CXXFLAGS="-DMACOSX $CXXFLAGS"
+    HOST_TYPE="darwin"
+    SHAREDLIBEXT="dylib"
     TestDataDirectory="."
     ;;
 esac
 
-AC_SUBST(AM_CPPFLAGS)
 AC_SUBST(TestDataDirectory)
+AC_SUBST(HOST_TYPE)
+AC_SUBST(SHAREDLIBEXT)
+
+dnl ---------------------------------------------------------------------------
+dnl Checks for various programs and packages.
+dnl ---------------------------------------------------------------------------
+
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_RANLIB
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+
+AC_PATH_PROG([AUTOCONF],[autoconf],[autoconf])
+AC_PATH_PROG([ACLOCAL],[aclocal],[aclocal])
+AC_PATH_PROG([AR],[ar],[ar])
+
+CONFIG_PROG_SWIG(1.3.21)
+CONFIG_PROG_PYTHON
+CONFIG_PROG_JAVA(1.4.0)
+CONFIG_PROG_MATLAB
+
+dnl AC_LIBTOOL_WIN32_DLL
+dnl AC_PROG_LIBTOOL
 
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for libraries.
-dnl
-dnl Check for either the Xerces or Expat XML libraries.
-dnl The default is Xerces.
 dnl ---------------------------------------------------------------------------
 
 AC_LANG(C)
 
-if test $libcheck_enabled != no; then
-  AC_CHECK_LIB(check, srunner_create)
-fi
-
 AC_CHECK_LIB(m, isnan)
 
-AC_LIB_XERCES
-AC_LIB_EXPAT
+dnl Make sure to test for expat before xerces, because xerces is the default.
 
-if test $with_xerces != no; then
-  xml_library="Xerces-C++"
-else
-  xml_library="Expat"
-fi
+CONFIG_LIB_EXPAT
+CONFIG_LIB_XERCES
+CONFIG_LIB_LIBCHECK
 
-AC_LIB_LIBCHECK
 
 dnl ---------------------------------------------------------------------------
 dnl Checks for header files.
@@ -192,25 +183,44 @@ dnl ---------------------------------------------------------------------------
 AC_C_BIGENDIAN
 AC_C_CONST
 AC_TYPE_SIZE_T
+AC_EXEEXT
+AC_OBJEXT
 
 
 dnl ---------------------------------------------------------------------------
-dnl Checks for library functions.
+dnl Miscellaneous
 dnl ---------------------------------------------------------------------------
 
-dnl AC_CHECK_FUNCS(...)
+# Root directory
+# Translate path for native Windows compilers for use with 'make check'
+
+ROOT_DIR=`pwd`
+case $host in
+*-*-cygwin* | *-*-mingw*)
+  if (cygpath --mixed $ROOT_DIR) >/dev/null 2>/dev/null; then
+    ROOT_DIR=`cygpath --mixed $ROOT_DIR`
+  fi
+  # Extra files generated by some Windows compilers
+  EXTRA_CLEAN="*.stackdump *.exp *.lib"
+  ;;
+esac
 
 
 dnl ---------------------------------------------------------------------------
 dnl Output
 dnl ---------------------------------------------------------------------------
 
-AM_CONDITIONAL(LIBCHECK_ENABLED, test "$libcheck_enabled" != "no")
-AM_CONDITIONAL(USE_EXPAT, test "$with_expat" != "no")
-
-AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([expat/Makefile])
+AC_CONFIG_FILES([config/makefile-common-vars.mk])
+AC_CONFIG_FILES([./Makefile])
 AC_CONFIG_FILES([src/Makefile])
+AC_CONFIG_FILES([bindings/Makefile])
+AC_CONFIG_FILES([bindings/python/Makefile])
+dnl AC_CONFIG_FILES([bindings/matlab/Makefile])    # not yet ready
+AC_CONFIG_FILES([bindings/java/Makefile])
+
+if test $with_expat != no; then
+  AC_CONFIG_FILES([expat/Makefile])
+fi
 
 AC_OUTPUT
 
@@ -219,22 +229,44 @@ dnl ---------------------------------------------------------------------------
 dnl Inform users of settings
 dnl ---------------------------------------------------------------------------
 
-if test -f "VERSION.txt"; then
-    LIBSBML_VERSION=[`cat VERSION.txt`]
+if test $with_expat != no; then
+  xml_library="Expat"
+else
+  xml_library="Xerces-C++"
 fi
 
 echo ""
-echo "Build Settings for libsbml v${LIBSBML_VERSION}:"
+echo "Build Settings for ${PACKAGE_TARNAME} v${PACKAGE_VERSION}:"
 echo "----------------------------------"
-echo "  host os     = $host_os"
-echo "  install dir = $prefix"
-echo "  test suite  = $libcheck_enabled"
-echo "  XML library = $xml_library"
-echo "  CC          = $CC"
-echo "  CXX         = $CXX"
-echo "  CFLAGS      = $CFLAGS"
-echo "  CXXFLAGS    = $CXXFLAGS"
-echo "  CPPFLAGS    = $CPPFLAGS $AM_CPPFLAGS"
-echo "  LDFLAGS     = $LDFLAGS"
-echo "  LIBS        = $LIBS"
+echo "  host type      = $HOST_TYPE"
+echo "  install dir    = $prefix"
+echo "  XML library    = $xml_library"
+echo "  CC             = $CC"
+echo "  CXX            = $CXX"
+echo "  CFLAGS         = $CFLAGS"
+echo "  CXXFLAGS       = $CXXFLAGS"
+echo "  CPPFLAGS       = $CPPFLAGS"
+echo "  LDFLAGS        = $LDFLAGS"
+echo "  LIBS           = $LIBS"
+  
+if test $with_libcheck != no; then
+  echo "  use libcheck?  = $USE_LIBCHECK"
+fi
+
+if test $with_swig != no; then
+  echo "  use SWIG?      = $USE_SWIG"
+fi
+
+if test $with_python != no; then
+  echo "  use Python?    = $USE_PYTHON"
+fi
+
+if test $with_java != no; then
+  echo "  use Java?      = $USE_JAVA"
+fi
+
+if test $with_matlab != no; then
+  echo "  use Matlab?    = $USE_MATLAB"
+fi
+
 echo ""
