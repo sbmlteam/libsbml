@@ -45,8 +45,8 @@ typedef struct
 #define _STDIO_H	1      /*  avoid inclusion of stdio.h       */
 
 
-#include <SBMLConvert.h>
-#include <SBMLReader.h>
-#include <SBMLWriter.h>
-#include <FormulaParser.h>
-#include <FormulaFormatter.h>
+#include <sbml/SBMLConvert.h>
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLWriter.h>
+#include <math/FormulaParser.h>
+#include <math/FormulaFormatter.h>

@@ -38,7 +38,7 @@ SUCH DAMAGE.
       (uffi    (truename #p"@UFFI@"))          ;; where is uffi.asd
       (libsbml (make-pathname :name nil :type nil :version nil :defaults
 					     cl::*load-truename*))
-      (libdir  (truename (format nil "~a/../../src/" 
+      (libdir  (truename (format nil "~a/../.." 
 				 (namestring libsbml))))   ;;where is libsbml.so
       
       )

@@ -196,7 +196,7 @@ clean:
 	-rm *.$(FASLEXT) tps/uffi/src/*.$(FASLEXT) tps/cparse/*.$(FASLEXT) 
 
 # Preprocess header
-sbmllisp-pre.h: libsbml/sbmllisp.h $(wildcard ../../*/*.h)
+sbmllisp-pre.h: sbmllisp.h $(wildcard ../../*/*.h)
 	$(CPP) -I../.. $< > $@
 
 libsbmlc.lisp: sbmllisp-pre.h
