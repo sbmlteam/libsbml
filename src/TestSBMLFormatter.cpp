@@ -252,7 +252,7 @@ START_TEST (test_SBMLFormatter_Compartment_skipOptional)
 END_TEST
 
 
-START_TEST (test_SBMLFormatter_Compartment_unsetVolume)
+START_TEST (test_SBMLFormatter_Compartment_L2v1_unsetVolume)
 {
   // However, do not output if unset.
 
@@ -814,7 +814,7 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition_full               );
   tcase_add_test( tcase, test_SBMLFormatter_Compartment                       );
   tcase_add_test( tcase, test_SBMLFormatter_Compartment_skipOptional          );
-  tcase_add_test( tcase, test_SBMLFormatter_Compartment_unsetVolume           );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_L2v1_unsetVolume      );
   tcase_add_test( tcase, test_SBMLFormatter_Compartment_annotation            );
   tcase_add_test( tcase, test_SBMLFormatter_Species                           );
   tcase_add_test( tcase, test_SBMLFormatter_Species_L1v1                      );
