@@ -196,10 +196,11 @@ clean:
 	-rm *.$(FASLEXT) tps/uffi/src/*.$(FASLEXT) tps/cparse/*.$(FASLEXT) 
 
 # Preprocess header
-libsbml/sbmllisp-pre.h: libsbml/sbmllisp.h $(wildcard ../../src/sbml/*.h)
+sbmllisp-pre.h: libsbml/sbmllisp.h $(wildcard ../../src/sbml/*.h)
 	$(CPP) -I../../src/sbml/ $< > $@
 
-libsbml/libsbmlc.fasl: libsbml/sbmllisp-pre.h
+libsbmlc.lisp: sbmllisp-pre.h
+	echo '(load "build.lisp")' | $(LISP)
 
 # -----------------------------------------------------------------------------
 # Targets for checking/testing.
