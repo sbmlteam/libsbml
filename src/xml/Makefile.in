@@ -1,14 +1,14 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml expat interface
+## Description : Makefile template for libsbml src/xml directory
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
-## Created     : 2004-06-10
+## Created     : 2005-03-02
 ## Revision    : $Id$
 ## Source      : $Source$
 ##
-## Copyright 2004 California Institute of Technology and
+## Copyright 2005 California Institute of Technology and
 ## Japan Science and Technology Corporation.
 ##
 ## This library is free software; you can redistribute it and/or modify it
@@ -61,36 +61,76 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir    = @srcdir@
-thisdir   = expat
+thisdir   = src/xml
 
 # Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers   = \
-  Expat.hpp                 \
-  ExpatAttributes.hpp       \
-  ExpatFormatter.hpp        \
-  ExpatUnicodeChars.hpp     \
-  ExpatXMLString.hpp
+headers   =              \
+  ParseMessage.h         \
+  SAX2AttributesMock.h   \
+  StreamFormatTarget.h   \
+  XMLNamespace.h         \
+  XMLNamespaceList.h     \
+  XMLSchemaValidation.h  \
+  XMLStringFormatter.h   \
+  XMLUnicodeConstants.h  \
+  XMLUtil.h
 
-sources   = \
-  Expat.cpp                 \
-  ExpatAttributes.cpp       \
-  ExpatFormatter.cpp        \
-  ExpatXMLString.cpp
+header_inst_prefix = xml
 
-libraries = libexpat-compat.a
+expat_headers =          \
+  Expat.h                \
+  ExpatAttributes.h      \
+  ExpatFormatter.h       \
+  ExpatUnicodeChars.h    \
+  ExpatXMLString.h       \
 
-objects = $(sources:.cpp=.$(OBJEXT))
+sources   =              \
+  ParseMessage.cpp       \
+  SAX2AttributesMock.cpp \
+  StreamFormatTarget.cpp \
+  XMLNamespace.cpp       \
+  XMLNamespaceList.cpp   \
+  XMLStringFormatter.cpp \
+  XMLUtil.cpp
 
-distfiles = $(sources) $(headers) Makefile.in COPYING.txt
+expat_sources = \
+  Expat.cpp               \
+  ExpatAttributes.cpp     \
+  ExpatFormatter.cpp      \
+  ExpatXMLString.cpp      \
 
-extra_CPPFLAGS = $(EXPAT_CPPFLAGS)
+# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
+# rules in `makefile-common-actions.mk' included at the end.
 
-extra_LDFLAGS = $(EXPAT_LDFLAGS)
+ifdef USE_EXPAT
+  sources += $(expat_sources)
+endif
 
-extra_LIBS = $(EXPAT_LIBS)
+extra_CPPFLAGS = -I../common -I../sbml -I../util
+
+ifdef USE_EXPAT
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
+else
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS   += $(XERCES_LDFLAGS)
+  extra_LIBS      += $(XERCES_LIBS)
+endif
+
+subdirs = test
+
+# `distfiles' determines the files and directories included in a distribution.
+# `distfiles_exclude' is used to filter out specific items, so that even if
+# they appear in `distfiles', they will not be copied in the distribution.
+
+distfiles = $(sources) $(expat_sources) \
+	    $(headers) $(expat_headers) \
+	    Makefile.in COPYING.txt
 
 
 # -----------------------------------------------------------------------------
@@ -99,14 +139,14 @@ extra_LIBS = $(EXPAT_LIBS)
 
 # The default action is to remake everything.
 
-all: Makefile $(objects)
+all: Makefile default
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: all
+check: all check-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -131,20 +171,33 @@ html:
 # This library doesn't actually get installed.  The main libsbml library
 # (in ../src) slurps in the contents when it's built.
 
-install: all
+install: all install-headers
 
-uninstall:
+uninstall: all uninstall-headers
 
-installcheck: all
+installcheck: all installcheck-headers
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-normal clean-recursive
+
+distclean: distclean-normal distclean-recursive
+
+mostlyclean: mostlyclean-normal mostlyclean-recursive
+
+maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal
+dist: dist-normal dist-recursive
 
-distcheck: distcheck-normal
+distcheck: distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------
