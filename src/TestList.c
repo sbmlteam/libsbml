@@ -174,6 +174,55 @@ START_TEST (test_List_countIf)
 END_TEST
 
 
+START_TEST (test_List_findIf)
+{
+  List_t *list;
+
+  const char *foo = "foo";
+  const char *bar = "bar";
+  const char *baz = "baz";
+  const char *bop = "bop";
+
+
+  List_add(L, (void *) foo);
+  List_add(L, (void *) bop);
+
+  list = List_findIf(L, myPredicate);
+
+  fail_unless( list            != NULL, NULL );
+  fail_unless( List_size(list) == 0   , NULL );
+
+  List_free(list);
+
+  List_add(L, (void *) foo);
+  List_add(L, (void *) bar);
+  List_add(L, (void *) baz);
+  List_add(L, (void *) bop);
+
+  list = List_findIf(L, myPredicate);
+
+  fail_unless( list              != NULL, NULL );
+  fail_unless( List_size(list)   == 2   , NULL );
+  fail_unless( List_get(list, 0) == bar , NULL );
+  fail_unless( List_get(list, 1) == baz , NULL );
+
+  List_free(list);
+
+  List_add(L, (void *) baz);
+
+  list = List_findIf(L, myPredicate);
+
+  fail_unless( list              != NULL, NULL );
+  fail_unless( List_size(list)   == 3   , NULL );
+  fail_unless( List_get(list, 0) == bar , NULL );
+  fail_unless( List_get(list, 1) == baz , NULL );
+  fail_unless( List_get(list, 2) == baz , NULL );
+
+  List_free(list);
+}
+END_TEST
+
+
 int
 myStrCmp (const void *s1, const void *s2)
 {
@@ -350,6 +399,7 @@ create_suite_List (void)
   tcase_add_test( tcase, test_List_add_2      );
   tcase_add_test( tcase, test_List_get        );
   tcase_add_test( tcase, test_List_countIf    );
+  tcase_add_test( tcase, test_List_findIf     );
   tcase_add_test( tcase, test_List_find       );
   tcase_add_test( tcase, test_List_prepend_1  );
   tcase_add_test( tcase, test_List_prepend_2  );

@@ -204,6 +204,19 @@ List_find ( const List_t       *lst,
             ListItemComparator comparator );
 
 /**
+ * @return a new List containing (pointers to) all items in this List for
+ * which predicate(item) was true.
+ *
+ * The returned list may be empty.
+ *
+ * The caller owns the returned list (but not its constituent items) and is
+ * responsible for freeing it with List_free().
+ */
+LIBSBML_EXTERN
+List_t *
+List_findIf (const List_t *lst, ListItemPredicate predicate);
+
+/**
  * Returns the nth item in this List.  If n > List_size(list) returns NULL.
  */
 LIBSBML_EXTERN
