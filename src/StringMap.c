@@ -313,14 +313,18 @@ StringMap_grow (StringMap_t *map)
 
 
 unsigned int
-StringMap_hashFunction (const char *str_)
+StringMap_hashFunction (const char *str)
 {
-  const unsigned char *str = str_;
-  unsigned int hash = 5381;
-  int c;
+  unsigned char *s    = (unsigned char *) str;
+  unsigned int   hash = 5381;
+  unsigned char  c    = *s;
 
-  while (c = *str++)
-    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+  while (c != '\0')
+  {
+    hash = ((hash << 5) + hash) + c;
+    c    = *(s++);
+  }
 
   return hash;
 }
@@ -334,27 +338,29 @@ LIBSBML_EXTERN
 void
 StringMap_put (StringMap_t *map, const char *key, void *value)
 {
-  unsigned int index;
-  List_t *list;
+  unsigned int     index;
+  List_t          *list;
+  StringMapItem_t *item;
 
 
   if (map->size >= map->capacity)
   {
     StringMap_grow(map);
   }
+
   index = StringMap_getHashIndex(map, key);
 
   if (map->itemLists[index] == NULL)
   {
     map->itemLists[index] = List_create();
   }
+
   list = map->itemLists[index];
-  
-  StringMapItem_t *item = StringMap_findItemInList(list, key);
+  item = StringMap_findItemInList(list, key);
 
   if (item == NULL)
   {
-    StringMapItem_t *item = StringMapItem_create(key, value);
+    item = StringMapItem_create(key, value);
     List_add(list, item);
     map->size++;
   }
