@@ -80,8 +80,8 @@ START_TEST (test_MathMLWriter_writeMathMLToString)
     "</math>\n"
   );
 
-  d->math = SBML_parseFormula("a + b");
-  s       = writeMathMLToString(d);
+  MathMLDocument_setMath(d, SBML_parseFormula("a + b"));
+  s = writeMathMLToString(d);
 
   fail_unless( !strcmp(s, expected), NULL );
 

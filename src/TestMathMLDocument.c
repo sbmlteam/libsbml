@@ -63,7 +63,7 @@ START_TEST (test_MathMLDocument_create)
   MathMLDocument_t *d = MathMLDocument_create();
 
 
-  fail_unless( d->math == NULL, NULL );
+  fail_unless( MathMLDocument_getMath(d) == NULL, NULL );
 
   MathMLDocument_free(d);
 }
@@ -85,17 +85,17 @@ START_TEST (test_MathMLDocument_setMath)
 
   MathMLDocument_setMath(d, math);
 
-  fail_unless( d->math == math, NULL );
+  fail_unless( MathMLDocument_getMath(d) == math, NULL );
   fail_unless( MathMLDocument_isSetMath(d), NULL );
 
   /* Reflexive case (pathological) */
-  MathMLDocument_setMath(d, d->math);
-  fail_unless( d->math == math, NULL );
+  MathMLDocument_setMath(d, (MathMLDocument_t*) MathMLDocument_getMath(d));
+  fail_unless( MathMLDocument_getMath(d) == math, NULL );
 
   MathMLDocument_setMath(d, NULL);
   fail_unless( !MathMLDocument_isSetMath(d), NULL );
 
-  if (d->math != NULL)
+  if (MathMLDocument_getMath(d) != NULL)
   {
     fail( "MathMLDocument_setMath(d, NULL) did not clear ASTNode." );
   }
