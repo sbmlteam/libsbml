@@ -64,17 +64,17 @@ WizardImageFile=libsbml-installer-graphic-v3.bmp
 
 [Files]
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\*.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\*.html"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\bindings\matlab\TranslateSBML.m"; DestDir: "{app}\bindings\matlab"; Flags: ignoreversion recursesubdirs
+Source: "C:\Libsbml sandbox\libsbml\*.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Libsbml sandbox\libsbml\bindings\matlab\TranslateSBML.m"; DestDir: "{app}\bindings\matlab"; Flags: ignoreversion recursesubdirs
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\docs\*"; DestDir: "{app}\docs"; Flags: ignoreversion recursesubdirs
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\examples\*"; DestDir: "{app}\examples"; Flags: ignoreversion
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\expat\*"; DestDir: "{app}\expat"; Flags: ignoreversion
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\src\*"; DestDir: "{app}\src"; Flags: ignoreversion recursesubdirs
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\win32\*"; DestDir: "{app}\win32"; Flags: ignoreversion recursesubdirs
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\xml-schemas\*"; DestDir: "{app}\xml-schemas"; Flags: ignoreversion recursesubdirs
-Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\win32\bin\libsbml.dll"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\LIBSBML\libsbml\Release\libsbml.dll"; DestDir: "{sys}"; Check: GetValue;
 ;Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\win32\bin\*.dll"; DestDir: "{sys}"; Check: GetValue;
-Source: "C:\InstalledLibsbml\libsbml-2.0.3-xerces\bindings\matlab\TranslateSBML.m"; DestDir: "{code:GetMatlabRoot}\toolbox\SBMLBinding"; Check: GetML; Flags: ignoreversion recursesubdirs
+Source: "C:\Libsbml sandbox\libsbml\bindings\matlab\TranslateSBML.m"; DestDir: "{code:GetMatlabRoot}\toolbox\SBMLBinding"; Check: GetML; Flags: ignoreversion recursesubdirs
 
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -288,8 +288,13 @@ begin
     { First open the custom wizard page }
     if not BackClicked then
       CurSubPage := 0
-    else
-      CurSubPage := 1;
+    else begin
+      if MatlabExists then
+        CurSubPage := 1
+      else
+        CurSubPage := 0;
+      end;
+
 
     ScriptDlgPageOpen();
 
@@ -321,6 +326,8 @@ begin
               Next := InputOption(MLInstallPrompt, MLInstallValue);
 
             end else begin
+            { dont want to do this as it is confusing - but
+            also dont want to lose this page as it may prove useful}
               MsgBox('No bindings to install!', mbInformation, mb_Ok);
 
             end;
@@ -330,10 +337,18 @@ begin
       end;
 
     { See NextButtonClick and BackButtonClick: return True if the click should be allowed }
-      if Next then
-        CurSubPage := CurSubPage + 1
-      else
+      if Next then begin
+        CurSubPage := CurSubPage + 1;
+        if (not MatlabExists) and (CurSubPage = 1) then
+          CurSubPage := CurSubPage + 1;
+
+
+      end else begin
         CurSubPage := CurSubPage - 1;
+        if (not MatlabExists) and (CurSubPage = 1) then
+          CurSubPage := CurSubPage - 1;
+      end;
+
     end; {end of while}
 
     if not BackClicked then
