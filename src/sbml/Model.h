@@ -57,17 +57,20 @@
 #include "common.h"
 #include "ListOf.h"
 #include "SBase.h"
+#include "FunctionDefinition.h"
 #include "UnitDefinition.h"
 #include "Compartment.h"
 #include "Species.h"
 #include "Parameter.h"
 #include "Rule.h"
+#include "AssignmentRule.h"
+#include "RateRule.h"
 #include "AlgebraicRule.h"
-#include "Reaction.h"
 #include "CompartmentVolumeRule.h"
 #include "ParameterRule.h"
 #include "SpeciesConcentrationRule.h"
-
+#include "Reaction.h"
+#include "Event.h"
 
 BEGIN_C_DECLS
 
@@ -77,12 +80,14 @@ typedef struct
   SBASE_FIELDS;
   char     *id;
   char     *name;
+  ListOf_t *functionDefinition;
   ListOf_t *unitDefinition;
   ListOf_t *compartment;
   ListOf_t *species;
   ListOf_t *parameter;
   ListOf_t *rule;
   ListOf_t *reaction;
+  ListOf_t *event;
 } Model_t;
 
 
@@ -184,6 +189,16 @@ Model_unsetName (Model_t *m);
 
 
 /**
+ * Creates a new FunctionDefinition inside this Model and returns a pointer
+ * to it.  This covenience function is functionally equivalent to:
+ *
+ *   Model_addFunctionDefinition(m, FunctionDefinition_create());
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t *
+Model_createFunctionDefinition (Model_t *m);
+
+/**
  * Creates a new UnitDefinition inside this Model and returns a pointer to
  * it.  This covenience function is functionally equivalent to:
  *
@@ -233,6 +248,30 @@ Model_createSpecies (Model_t *m);
 LIBSBML_EXTERN
 Parameter_t *
 Model_createParameter (Model_t *m);
+
+/**
+ * Creates a new AssignmentRule inside this Model and returns a pointer to
+ * it.  This covenience function is functionally equivalent to:
+ *
+ *   Model_addRule(m, AssignmentRule_create());
+ *
+ * (L2 only)
+ */
+LIBSBML_EXTERN
+AssignmentRule_t *
+Model_createAssignmentRule (Model_t *m);
+
+/**
+ * Creates a new RateRule inside this Model and returns a pointer to it.
+ * This covenience function is functionally equivalent to:
+ *
+ *   Model_addRule(m, RateRule_create());
+ *
+ * (L2 only)
+ */
+LIBSBML_EXTERN
+RateRule_t *
+Model_createRateRule (Model_t *m);
 
 /**
  * Creates a new AlgebraicRule inside this Model and returns a pointer to
@@ -309,6 +348,18 @@ SpeciesReference_t *
 Model_createProduct (Model_t *m);
 
 /**
+ * Creates a new Modifer (i.e. ModifierSpeciesReference) inside this Model
+ * and returns a pointer to it.  The ModifierSpeciesReference is added to
+ * the modifiers of the last Reaction created.
+ *
+ * If a Reaction does not exist for this model, a new
+ * ModifierSpeciesReference is not created and NULL is returned.
+ */
+LIBSBML_EXTERN
+ModifierSpeciesReference_t *
+Model_createModifier (Model_t *m);
+
+/**
  * Creates a new KineticLaw inside this Model and returns a pointer to it.
  * The KineticLaw is associated with the last Reaction created.
  *
@@ -331,6 +382,35 @@ Model_createKineticLaw (Model_t *m);
 LIBSBML_EXTERN
 Parameter_t *
 Model_createKineticLawParameter (Model_t *m);
+
+/**
+ * Creates a new Event inside this Model and returns a pointer to it.
+ * This covenience function is functionally equivalent to:
+ *
+ *   Model_addEvent(m, Event_create());
+ */
+LIBSBML_EXTERN
+Event_t *
+Model_createEvent (Model_t *m);
+
+/**
+ * Creates a new EventAssignment inside this Model and returns a pointer to
+ * it.  The EventAssignment is added to the the last Event created.
+ *
+ * If an Event does not exist for this model, a new EventAssignment is not
+ * created and NULL is returned.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+Model_createEventAssignment (Model_t *m);
+
+
+/**
+ * Adds the given FunctionDefinition to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addFunctionDefinition (Model_t *m, FunctionDefinition_t *fd);
 
 /**
  * Adds the given UnitDefinition to this Model.
@@ -375,46 +455,133 @@ void
 Model_addReaction (Model_t *m, Reaction_t *r);
 
 /**
+ * Adds the given Event to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addEvent (Model_t *m, Event_t *e);
+
+
+/**
+ * @return the list of FunctionDefinitions for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfFunctionDefinitions (const Model_t *m);
+
+/**
+ * @return the list of UnitDefinitions for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfUnitDefinitions (const Model_t *m);
+
+/**
+ * @return the list of Compartments for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfCompartments (const Model_t *m);
+
+/**
+ * @return the list of Species for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfSpecies (const Model_t *m);
+
+/**
+ * @return the list of Parameters for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfParameters (const Model_t *m);
+
+/**
+ * @return the list of Rules for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfRules (const Model_t *m);
+
+/**
+ * @return the list of Rules for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfReactions (const Model_t *m);
+
+/**
+ * @return the list of Rules for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfEvents (const Model_t *m);
+
+
+/**
+ * @return the nth FunctionDefinition of this Model.
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t *
+Model_getFunctionDefinition (const Model_t *m, unsigned int n);
+
+/**
  * @return the nth UnitDefinition of this Model.
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
-Model_getUnitDefinition (Model_t *m, unsigned int n);
+Model_getUnitDefinition (const Model_t *m, unsigned int n);
 
 /**
  * @return the nth Compartment of this Model.
  */
 LIBSBML_EXTERN
 Compartment_t *
-Model_getCompartment (Model_t *m, unsigned int n);
+Model_getCompartment (const Model_t *m, unsigned int n);
 
 /**
  * @return the nth Species of this Model.
  */
 LIBSBML_EXTERN
 Species_t *
-Model_getSpecies (Model_t *m, unsigned int n);
+Model_getSpecies (const Model_t *m, unsigned int n);
 
 /**
  * @return the nth Parameter of this Model.
  */
 LIBSBML_EXTERN
 Parameter_t *
-Model_getParameter (Model_t *m, unsigned int n);
+Model_getParameter (const Model_t *m, unsigned int n);
 
 /**
  * @return the nth Rule of this Model.
  */
 LIBSBML_EXTERN
 Rule_t *
-Model_getRule (Model_t *m, unsigned int n);
+Model_getRule (const Model_t *m, unsigned int n);
 
 /**
  * @return the nth Reaction of this Model.
  */
 LIBSBML_EXTERN
 Reaction_t *
-Model_getReaction (Model_t *m, unsigned int n);
+Model_getReaction (const Model_t *m, unsigned int n);
+
+/**
+ * @return the nth Event of this Model.
+ */
+LIBSBML_EXTERN
+Event_t *
+Model_getEvent (const Model_t *m, unsigned int n);
+
+
+/**
+ * @return the number of FunctionDefinitions in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumFunctionDefinitions (const Model_t *m);
 
 /**
  * @return the number of UnitDefinitions in this Model.
@@ -458,6 +625,13 @@ Model_getNumRules (const Model_t *m);
 LIBSBML_EXTERN
 unsigned int
 Model_getNumReactions (const Model_t *m);
+
+/**
+ * @return the number of Events in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumEvents (const Model_t *m);
 
 
 END_C_DECLS

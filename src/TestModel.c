@@ -216,6 +216,18 @@ START_TEST (test_Model_setName)
 END_TEST
 
 
+START_TEST (test_Model_createFunctionDefinition)
+{
+  FunctionDefinition_t *fd = Model_createFunctionDefinition(M);
+
+
+  fail_unless( fd != NULL, NULL );
+  fail_unless( Model_getNumFunctionDefinitions(M) == 1 , NULL );
+  fail_unless( Model_getFunctionDefinition(M, 0)  == fd, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Model_createUnitDefinition)
 {
   UnitDefinition_t *ud = Model_createUnitDefinition(M);
@@ -290,6 +302,30 @@ START_TEST (test_Model_createParameter)
   fail_unless( p != NULL, NULL );
   fail_unless( Model_getNumParameters(M) == 1, NULL );
   fail_unless( Model_getParameter(M, 0)  == p, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_createAssignmentRule)
+{
+  AssignmentRule_t *ar = Model_createAssignmentRule(M);
+
+
+  fail_unless( ar != NULL, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) ar, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_createRateRule)
+{
+  RateRule_t *rr = Model_createRateRule(M);
+
+
+  fail_unless( rr != NULL, NULL );
+  fail_unless( Model_getNumRules(M) == 1, NULL );
+  fail_unless( Model_getRule(M, 0)  == (Rule_t *) rr, NULL );
 }
 END_TEST
 
@@ -414,6 +450,36 @@ START_TEST (test_Model_createProduct_noReaction)
 END_TEST
 
 
+START_TEST (test_Model_createModifier)
+{
+  Reaction_t                 *r;
+  ModifierSpeciesReference_t *msr;
+
+
+  Model_createReaction(M);
+  Model_createReaction(M);
+
+  msr = Model_createModifier(M);
+
+  fail_unless( msr != NULL, NULL );
+  fail_unless( Model_getNumReactions(M) == 2, NULL );
+
+  r = Model_getReaction(M, 1);
+
+  fail_unless( Reaction_getNumModifiers(r) == 1,   NULL );
+  fail_unless( Reaction_getModifier(r, 0)  == msr, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_createModifier_noReaction)
+{
+  fail_unless( Model_getNumReactions(M) == 0,    NULL );
+  fail_unless( Model_createModifier(M)  == NULL, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Model_createKineticLaw)
 {
   Reaction_t   *r;
@@ -509,10 +575,70 @@ START_TEST (test_Model_createKineticLawParameter_noKineticLaw)
 END_TEST
 
 
+START_TEST (test_Model_createEvent)
+{
+  Event_t *e = Model_createEvent(M);
+
+
+  fail_unless( e != NULL, NULL );
+  fail_unless( Model_getNumEvents(M) == 1, NULL );
+  fail_unless( Model_getEvent(M, 0)  == e, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_createEventAssignment)
+{
+  Event_t           *e;
+  EventAssignment_t *ea;
+
+
+  Model_createEvent(M);
+  Model_createEvent(M);
+
+  ea = Model_createEventAssignment(M);
+
+  fail_unless( ea != NULL, NULL );
+  fail_unless( Model_getNumEvents(M) == 2, NULL );
+
+  e = Model_getEvent(M, 1);
+
+  fail_unless( Event_getNumEventAssignments(e) == 1,  NULL );
+  fail_unless( Event_getEventAssignment(e, 0)  == ea, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_createEventAssignment_noEvent)
+{
+  fail_unless( Model_getNumEvents(M)          == 0,    NULL );
+  fail_unless( Model_createEventAssignment(M) == NULL, NULL );
+}
+END_TEST
+
+
 /**
  * If I had time to do it over again, this is how I would write and
  * combine the get / add tests for collection (see below).
  */
+START_TEST (test_Model_add_get_FunctionDefinitions)
+{
+  FunctionDefinition_t *fd1 = FunctionDefinition_create();
+  FunctionDefinition_t *fd2 = FunctionDefinition_create();
+
+
+  Model_addFunctionDefinition(M, fd1);
+  Model_addFunctionDefinition(M, fd2);
+
+  fail_unless( Model_getNumFunctionDefinitions(M) == 2,    NULL );
+  fail_unless( Model_getFunctionDefinition(M, 0)  == fd1,  NULL );
+  fail_unless( Model_getFunctionDefinition(M, 1)  == fd2,  NULL );
+  fail_unless( Model_getFunctionDefinition(M, 2)  == NULL, NULL );
+  fail_unless( Model_getFunctionDefinition(M, -2) == NULL, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Model_add_get_UnitDefinitions)
 {
   UnitDefinition_t *ud1 = UnitDefinition_create();
@@ -575,6 +701,24 @@ START_TEST (test_Model_addReaction)
   Model_addReaction(M, Reaction_create());
 
   fail_unless( Model_getNumReactions(M) == 1, NULL );
+}
+END_TEST
+
+
+START_TEST (test_Model_add_get_Event)
+{
+  Event_t *e1 = Event_create();
+  Event_t *e2 = Event_create();
+
+
+  Model_addEvent(M, e1);
+  Model_addEvent(M, e2);
+
+  fail_unless( Model_getNumEvents(M) == 2,    NULL );
+  fail_unless( Model_getEvent(M, 0)  == e1,   NULL );
+  fail_unless( Model_getEvent(M, 1)  == e2,   NULL );
+  fail_unless( Model_getEvent(M, 2)  == NULL, NULL );
+  fail_unless( Model_getEvent(M, -2) == NULL, NULL );
 }
 END_TEST
 
@@ -744,12 +888,15 @@ create_suite_Model (void)
   /**
    * Model_createXXX() methods
    */
+  tcase_add_test( t, test_Model_createFunctionDefinition               );
   tcase_add_test( t, test_Model_createUnitDefinition                   );
   tcase_add_test( t, test_Model_createUnit                             );
   tcase_add_test( t, test_Model_createUnit_noUnitDefinition            );
   tcase_add_test( t, test_Model_createCompartment                      );
   tcase_add_test( t, test_Model_createSpecies                          );
   tcase_add_test( t, test_Model_createParameter                        );
+  tcase_add_test( t, test_Model_createAssignmentRule                   );
+  tcase_add_test( t, test_Model_createRateRule                         );
   tcase_add_test( t, test_Model_createAlgebraicRule                    );
   tcase_add_test( t, test_Model_createCompartmentVolumeRule            );
   tcase_add_test( t, test_Model_createParameterRule                    );
@@ -759,22 +906,29 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_createReactant_noReaction              );
   tcase_add_test( t, test_Model_createProduct                          );
   tcase_add_test( t, test_Model_createProduct_noReaction               );
+  tcase_add_test( t, test_Model_createModifier                         );
+  tcase_add_test( t, test_Model_createModifier_noReaction              );
   tcase_add_test( t, test_Model_createKineticLaw                       );
   tcase_add_test( t, test_Model_createKineticLaw_alreadyExists         );
   tcase_add_test( t, test_Model_createKineticLaw_noReaction            );
   tcase_add_test( t, test_Model_createKineticLawParameter              );
   tcase_add_test( t, test_Model_createKineticLawParameter_noReaction   );
   tcase_add_test( t, test_Model_createKineticLawParameter_noKineticLaw );
+  tcase_add_test( t, test_Model_createEvent                            );
+  tcase_add_test( t, test_Model_createEventAssignment                  );
+  tcase_add_test( t, test_Model_createEventAssignment_noEvent          );
 
   /**
    * Model_addXXX() methods
    */
-  tcase_add_test( t, test_Model_add_get_UnitDefinitions );
-  tcase_add_test( t, test_Model_addCompartment          );
-  tcase_add_test( t, test_Model_addSpecies              );
-  tcase_add_test( t, test_Model_addParameter            );
-  tcase_add_test( t, test_Model_addRules                );
-  tcase_add_test( t, test_Model_addReaction             );
+  tcase_add_test( t, test_Model_add_get_FunctionDefinitions );
+  tcase_add_test( t, test_Model_add_get_UnitDefinitions     );
+  tcase_add_test( t, test_Model_addCompartment              );
+  tcase_add_test( t, test_Model_addSpecies                  );
+  tcase_add_test( t, test_Model_addParameter                );
+  tcase_add_test( t, test_Model_addRules                    );
+  tcase_add_test( t, test_Model_addReaction                 );
+  tcase_add_test( t, test_Model_add_get_Event               );
 
   /**
    * Model_getXXX() methods
