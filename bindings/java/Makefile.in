@@ -154,7 +154,7 @@ extra_clean = $(class_files)
 
 $(jarfile): libsbml_wrap.cpp $(class_files)
 ifeq "$(java_files)" ""
-	$(MAKE) $(MAKEFLAGS) libsbml_wrap.cpp
+	$(MAKE) dummy_create_class_files
 endif
 	$(CD) $(outdir) && \
 	   $(JAR) -cvf ../$(jarfile) $(pkg_path)/*.class
@@ -162,8 +162,10 @@ endif
 $(outpath):
 	$(shell [ -d $(outpath) ] || mkdir -p $(outpath))
 
-$(class_files): $(outpath)/%.class: $(outpath)/%.java $(outpath)
+$(class_files): $(outpath)/%.class: $(outpath)/%.java
 	$(JAVAC) -d $(outdir) $(outpath)/*.java
+
+dummy_create_class_files: $(class_files)
 
 # MacOS X is different.  We need to compile the .jnilib files using -bundle.
 
@@ -176,16 +178,18 @@ endif
 # wrapper file ready-made.  This is only enabled if configure is given the
 # --with-swig flag.
 
-ifdef SWIG
+swig_sources = \
+	../swig/libsbml.hpp \
+	../swig/libsbml.i
 
-  swig_sources = \
-	  ../swig/libsbml.hpp \
-	  ../swig/libsbml.i
-
-  libsbml_wrap.cpp: $(swig_sources)
+libsbml_wrap.cpp: $(swig_sources)
+ifndef USE_SWIG
+	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
+	exit 1
+else
+	test -d $(outpath) || mkdir -p $(outpath)
 	$(SWIG) $(SWIGFLAGS) $(extra_CXXFLAGS) -I../../src -outdir $(outpath) \
 	   -c++ -java -package $(java_package) -o libsbml_wrap.cpp libsbml.i
-
 endif
 
 # Additional standard targets.
