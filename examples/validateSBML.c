@@ -76,9 +76,9 @@ main (int argc, char *argv[])
 
   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
 
-  SBMLReader_setSchemaFilenameL1v1(sr, "../../xml-schemas/sbml/sbml-l1v1.xsd");
-  SBMLReader_setSchemaFilenameL1v2(sr, "../../xml-schemas/sbml/sbml-l1v2.xsd");
-  SBMLReader_setSchemaFilenameL2v1(sr, "../../xml-schemas/sbml/sbml-l2v1.xsd");
+  SBMLReader_setSchemaFilenameL1v1(sr, "sbml-l1v1.xsd");
+  SBMLReader_setSchemaFilenameL1v2(sr, "sbml-l1v2.xsd");
+  SBMLReader_setSchemaFilenameL2v1(sr, "sbml-l2v1.xsd");
 
   start = getCurrentMillis();
   d     = SBMLReader_readSBML(sr, argv[1]);
