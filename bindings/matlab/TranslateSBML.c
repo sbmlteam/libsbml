@@ -1132,7 +1132,7 @@ void GetReaction ( Model_t      *pModel,
 									"kineticLaw",
 									"reversible", 
 									"fast", 
-									"IsSetFast"};
+									"isSetFast"};
 
   const char * pacTypecode;
   const char * pacNotes;
