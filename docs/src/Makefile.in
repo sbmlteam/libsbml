@@ -72,10 +72,9 @@ thisdir = docs/src
 manuals = libsbml-manual libsbml-api-ref
 formats = pdf ps html
 
+libsbml-manual-files  = $(foreach format,$(formats),libsbml-manual.$(format))
 # 2004-07-21 <mhucka@caltech.edu> We're temporarily taking out the HTML docs.
-#libsbml-manual-files  = $(foreach format,$(formats),libsbml-manual.$(format))
 #libsbml-api-ref-files = $(foreach format,$(formats),libsbml-api-ref.$(format))
-libsbml-manual-files  = $(foreach format,pdf ps,libsbml-manual.$(format))
 libsbml-api-ref-files = $(foreach format,pdf ps,libsbml-api-ref.$(format))
 
 # The variable `docs' is used in `makefile-common-actions.mk' for install-docs.
@@ -83,7 +82,7 @@ libsbml-api-ref-files = $(foreach format,pdf ps,libsbml-api-ref.$(format))
 # 2004-07-21 <mhucka@caltech.edu> We're temporarily taking out the HTML docs.
 #docs    = $(libsbml-manual-files) $(libsbml-api-ref-files) \
 #	libsbml-manual libsbml-api-ref 
-docs    = $(libsbml-manual-files) $(libsbml-api-ref-files)
+docs    = $(libsbml-manual-files) libsbml-manual $(libsbml-api-ref-files) 
 
 # The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
