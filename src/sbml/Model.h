@@ -54,7 +54,8 @@
 #define Model_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "ListOf.h"
 #include "SBase.h"
 #include "FunctionDefinition.h"

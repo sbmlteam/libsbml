@@ -54,7 +54,8 @@
 #define ASTNode_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "FormulaTokenizer.h"
 #include "List.h"
 

@@ -54,7 +54,8 @@
 #define UnitDefinition_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "ListOf.h"
 #include "SBase.h"
 #include "Unit.h"

@@ -54,7 +54,7 @@
 #define SBase_h
 
 
-#include "common.h"
+#include "extern.h"
 #include "SBMLTypeCodes.h"
 
 

@@ -54,7 +54,7 @@
 #define SBMLReader_h
 
 
-#include "common.h"
+#include "extern.h"
 #include "SBMLDocument.h"
 
 

@@ -54,7 +54,8 @@
 #define KineticLaw_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "ASTNode.h"
 #include "ListOf.h"
 #include "SBase.h"

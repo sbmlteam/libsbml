@@ -54,7 +54,8 @@
 #define CompartmentVolumeRule_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "SBase.h"
 #include "Rule.h"
 #include "AssignmentRule.h"

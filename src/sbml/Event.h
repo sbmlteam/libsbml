@@ -54,7 +54,8 @@
 #define Event_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "SBase.h"
 #include "ASTNode.h"
 #include "EventAssignment.h"

@@ -54,7 +54,8 @@
 #define ListOf_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "List.h"
 #include "SBase.h"
 

@@ -54,7 +54,8 @@
 #define FormulaParser_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "ASTNode.h"
 #include "FormulaTokenizer.h"
 #include "Stack.h"

@@ -54,7 +54,7 @@
 #define ParseMessage_h
 
 
-#include "common.h"
+#include "extern.h"
 
 
 BEGIN_C_DECLS

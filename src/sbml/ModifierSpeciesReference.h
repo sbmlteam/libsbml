@@ -54,7 +54,8 @@
 #define ModifierSpeciesReference_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "ASTNode.h"
 #include "SBase.h"
 #include "SimpleSpeciesReference.h"

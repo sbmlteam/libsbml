@@ -54,7 +54,8 @@
 #define SBMLDocument_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "List.h"
 #include "ParseMessage.h"
 #include "SBase.h"

@@ -54,7 +54,8 @@
 #define AssignmentRule_h
 
 
-#include "common.h"
+#include "extern.h"
+
 #include "SBase.h"
 #include "Rule.h"
 #include "RuleType.h"
