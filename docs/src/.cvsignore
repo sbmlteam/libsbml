@@ -10,12 +10,15 @@ cmbtt10.*
 *.log
 *.toc
 libsbml-manual.ps
+libsbml-manual.pdf
+libsbml-manual.html
 libsbml-api-ref.ps
+libsbml-api-ref.pdf
+libsbml-manual
+libsbml-api-ref
 html
 api
 auto
-libsbml-manual-html
-libsbml-manual.html
 Doxyfile
 Makefile
 .deps
