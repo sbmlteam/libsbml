@@ -423,6 +423,26 @@ static const XMLCh VAL_FALSE[] =
   chLatin_f, chLatin_a, chLatin_l, chLatin_s, chLatin_e, chNull
 };
 
+static const XMLCh VAL_NAN[] =
+{
+  chLatin_N, chLatin_a, chLatin_N, chNull
+};
+
+static const XMLCh VAL_INF[] =
+{
+  chLatin_I, chLatin_N, chLatin_F, chNull
+};
+
+static const XMLCh VAL_NEG_INF[] =
+{
+  chDash, chLatin_I, chLatin_N, chLatin_F, chNull
+};
+
+static const XMLCh VAL_NEG_ZERO[] =
+{
+  chDash, chDigit_0, chNull
+};
+
 static const XMLCh VAL_0[] =
 {
   chDigit_0, chNull
@@ -432,5 +452,6 @@ static const XMLCh VAL_1[] =
 {
   chDigit_1, chNull
 };
+
 
 #endif  // SBMLUnicodeConstants_hpp
