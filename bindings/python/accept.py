@@ -52,6 +52,7 @@
 
 import sys, operator, re
 import libsbml
+import os.path
 
 def isNaN(x):
    return str(x) == "nan"
@@ -582,9 +583,7 @@ def testSBMLReader():
    str(doc)
 
    # test for relative-path discovered on 15-Jul-2004
-   doc = reader.readSBML("../../src/test-data/l1v1-branch.xml")
-   print doc #DEBUG
-   print doc.getFatal(0).getMessage() #DEBUG
+   doc = reader.readSBML(os.path.abspath("../../src/test-data/l1v1-branch.xml"))
    assert doc.getNumFatals() == 0
    assert doc.getModel()
 
