@@ -95,8 +95,7 @@ extra_LIBS = $(EXPAT_LIBS)
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to remake everything.  Those rules which are not
-# defined below are defined in makefile-common-actions.mk.
+# The default action is to remake everything.
 
 all: Makefile $(libraries)
 
