@@ -287,7 +287,8 @@ SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m)
    * Get a list of AST_NAMEs (symbols) used in the KineticLaw.
    */
   node  = KineticLaw_getMath(kl);
-  names = ASTNode_getListOfNodes(node, (ASTNodePredicate) ASTNode_isName);
+  names = ASTNode_getListOfNodes( (ASTNode_t*) node,
+                                  (ASTNodePredicate) ASTNode_isName) ;
   size  = List_size(names);
 
   /**
