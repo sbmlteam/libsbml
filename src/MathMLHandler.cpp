@@ -348,11 +348,13 @@ MathMLHandler::endElement (const XMLCh* const  uri,
       fSeenSep = false;
       break;
 
-#ifdef USE_EXPAT
     case MATHML_TAG_CSYMBOL:
+#ifdef USE_EXPAT
       enableCharacterDataHandler(false);
-      break;
 #endif  // USE_EXPAT
+      reduceExpression();
+      break;
+
 
     case MATHML_TAG_LAMBDA:
     case MATHML_TAG_EXPONENTIALE:

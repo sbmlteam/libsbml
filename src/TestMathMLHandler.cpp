@@ -1582,6 +1582,51 @@ START_TEST (test_element_bug_apply_ci_2)
 END_TEST
 
 
+/**
+ * A MathML expression involving a <csymbol> does not "reduce" to the
+ * correct syntax tree when it is the last argument of an <apply>.
+ *
+ * Reported by Jacek Puchalka <japuch@poczta.ibb.waw.pl>
+ */
+START_TEST (test_element_bug_csymbol_1)
+{
+  ASTNode_t* n;
+  ASTNode_t* c;
+
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <gt/>"
+    "  <csymbol encoding='text' "
+    "    definitionURL='http://www.sbml.org/sbml/symbols/time'>time</csymbol>"
+    "  <cn>5000</cn>"
+    "</apply>"
+  );
+
+
+  D = readMathMLFromString(s);
+  n = D->math;
+
+  fail_unless( n != NULL, NULL );
+  fail_unless( ASTNode_getType(n)        == AST_RELATIONAL_GT, NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 2, NULL );
+
+  c = ASTNode_getLeftChild(n);
+
+  fail_unless( c != NULL, NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME_TIME, NULL );
+  fail_unless( !strcmp(ASTNode_getName(c), "time"), NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0     , NULL );
+
+  c = ASTNode_getRightChild(n);
+
+  fail_unless( c != NULL, NULL );
+  fail_unless( ASTNode_getType(c)        == AST_REAL, NULL );
+  fail_unless( ASTNode_getReal(c)        == 5000    , NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0       , NULL );
+}
+END_TEST
+
 
 Suite *
 create_suite_MathMLHandler (void)
@@ -1664,6 +1709,7 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_xor                       );
   tcase_add_test( tcase, test_element_bug_apply_ci_1            );
   tcase_add_test( tcase, test_element_bug_apply_ci_2            );
+  tcase_add_test( tcase, test_element_bug_csymbol_1             );
 
   suite_add_tcase(suite, tcase);
 
