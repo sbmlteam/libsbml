@@ -1,0 +1,185 @@
+\documentclass{cekmanual}
+
+\begin{document}
+
+%=============================================================================
+% Title page
+%=============================================================================
+
+\title{\textsc{libsbml} API Reference Manual}
+
+\author{Ben Bornstein}
+
+\authoremail{bornstei@cds.caltech.edu}
+
+\address{Systems Biology Workbench Development Group\\
+  ERATO Kitano Symbiotic Systems Project\\
+  Control and Dynamical Systems, MC 107-81\\
+  California Institute of Technology, Pasadena, CA 91125, USA\\[3pt]
+  {\url{http://www.sbml.org/}}}
+
+\acknowledge{Principal Investigators: John Doyle and Hiroaki Kitano}
+
+\date{DRAFT\\[5pt]
+  \today{}}
+
+\maketitlepage
+
+
+%=============================================================================
+\section{Introduction}
+\label{sec:quickstart-unix}
+%=============================================================================
+
+This manual is a reference for the \textsc{libsbml} application programming
+interface (API).  \textsc{libsbml} is a C API for reading, writing and
+manipulating the Systems Biology Markup
+Language~\citep[SBML;][]{hucka:2003,finney:2003c}.  Currently, the library
+supports SBML Level~1 Version~1 and Version~2, and nearly all of SBML Level~2
+Version~1.  (The still-unimplemented parts of Level~2 are: support for RDF,
+and support for MathML's \texttt{semantics}, \texttt{annotation} and
+\texttt{annotation-xml} elements.  These will be implemented in the near
+future.)  For more information about SBML, please see the references
+or visit \url{http://www.sbml.org/} on the Internet.
+
+\textsc{Libsbml} is entirely open-source and all specifications and source
+code are freely and publicly available.  This document explains the library
+API in detail, but does not provide general information about
+\textsc{libsbml}, its use or its installation.  For that, please consult
+the \emph{\textsc{libsbml} Developer's Manual}~\citep{bornstein:2003}.
+
+
+%=============================================================================
+\appendix
+\section{API Reference}
+%=============================================================================
+
+\include{api/AlgebraicRule}
+\include{api/AssignmentRule}
+\include{api/ASTNode}
+\include{api/Compartment}
+\include{api/CompartmentVolumeRule}
+\include{api/EventAssignment}
+\include{api/Event}
+\include{api/FormulaFormatter}
+\include{api/FormulaParser}
+\include{api/FormulaTokenizer}
+\include{api/FunctionDefinition}
+\include{api/KineticLaw}
+\include{api/ListOf}
+\include{api/List}
+\include{api/MathMLDocument}
+\include{api/MathMLReader}
+\include{api/memory}
+\include{api/Model}
+\include{api/ModifierSpeciesReference}
+\include{api/ParameterRule}
+\include{api/Parameter}
+\include{api/ParseMessage}
+\include{api/RateRule}
+\include{api/Reaction}
+\include{api/Rule}
+\include{api/RuleType}
+\include{api/SBase}
+\include{api/SBMLDocument}
+\include{api/SBMLReader}
+\include{api/SBMLTypeCodes}
+\include{api/SBMLTypes}
+\include{api/SBMLWriter}
+\include{api/SimpleSpeciesReference}
+\include{api/SpeciesConcentrationRule}
+\include{api/SpeciesReference}
+\include{api/Species}
+\include{api/Stack}
+\include{api/StringBuffer}
+\include{api/UnitDefinition}
+\include{api/UnitKind}
+\include{api/Unit}
+\include{api/util}
+
+
+%=============================================================================
+\section{Lists}
+\label{app:lists}
+%=============================================================================
+
+
+While List convenience methods (e.g., \texttt{XXX\_getNumYYY()}) are
+provided for every class, it is possible to access and manipulate each
+list directly.  All lists are themselves objects of type
+\texttt{List\_t}.  The full set of list methods are:
+
+
+\begin{methoddef}{void List\_add (List\_t *list, void *item)}
+  Adds item to this List.
+\end{methoddef}
+
+\begin{methoddef}{void *List\_get (List\_t *list, unsigned int n)}
+  Returns the nth item in this List.  If \texttt{n > List\_size(list)
+  - 1} returns \texttt{NULL}.
+\end{methoddef}
+
+\begin{methoddef}{void *List\_remove (List\_t *list, unsigned int n)}
+  Removes the nth item from this List and returns a pointer to it.  If
+  \texttt{n > List\_size(list) - 1} returns \texttt{NULL}.
+\end{methoddef}
+
+\begin{methoddef}{unsigned int List\_size (List\_t *list)}
+  Returns the number of elements in this List.
+\end{methoddef}
+
+
+Since UnitDefinitions maintains a List of Units, the UnitDefinition
+example in Section~\ref{sec:lists} could also be written as:
+
+
+\begin{example}
+UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
+
+List_add(ud->unit, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
+List_add(ud->unit, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
+List_add(ud->unit, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
+\end{example}
+
+
+However, this approach is not preferred.  The best reason to use
+specific \texttt{XXX\_getYYY()} methods over the List API is that the
+former are typed to specific items, whereas \texttt{List\_get()}
+returns a void pointer that must be cast to a specific type.  For
+example, compare:
+
+\begin{example}
+Unit_t *u = UnitDefinition_getUnit(u, 1);
+\end{example}
+
+to:
+
+\begin{example}
+  Unit_t *u = (Unit_t *) List_get(ud->unit, 1);
+\end{example}
+
+Further, the first is more readable.  The List API is mentioned i) for
+the sake of completeness and ii) currently the only way to remove an
+item from a list is to use the API directly:
+
+\begin{example}
+List_remove(ud->unit, 2);
+\end{example}
+
+has no analog in UnitDefinition.  ``Remove'' convenience methods can be
+added to the API.  This feature was skipped because list item removal
+seemed like an uncommon operation.
+
+
+%=============================================================================
+% References
+%=============================================================================
+
+\bibliographystyle{apalike}
+\bibliography{strings,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z}
+
+%=============================================================================
+% The end.
+%=============================================================================
+
+\end{document}
