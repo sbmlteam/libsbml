@@ -136,6 +136,7 @@ headers = \
   sbml/XMLStringFormatter.h         \
   sbml/XMLUnicodeConstants.h        \
   sbml/XMLUtil.h                    \
+  sbml/sbmlfwd.h                    \
   sbml/common.h                     \
   sbml/extern.h                     \
   sbml/memory.h                     \
