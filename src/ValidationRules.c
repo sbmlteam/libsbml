@@ -513,12 +513,40 @@ logFullMessage(
 
 /*************************** RULEs begin here *****************************/
 
+
+RULE (compartment_spatialDimensions1)
+{
+  static const char msg[] =
+    "A compartment with spatialDimensions=1 must have units of 'length', "
+    "'metre', or the id of a unitDefinition that defines a variant of "
+    "'metre' with exponent=1.";
+
+  Compartment_t *c = (Compartment_t *) obj;
+  unsigned int passed = TRUE;
+
+  if (Compartment_getSpatialDimensions(c) == 1)
+  {
+    const char *units = Compartment_getUnits(c);
+    if (units && !isOneDimensional(d->model, units))
+    {
+      LOG_MESSAGE(msg);
+      passed = FALSE;
+    }
+  }
+
+  return passed;
+}
+
+
+/**
+ * The size attribute must not be set if spatialDimensions is zero.
+ */
 RULE (compartment_size_dimensions)
 {
   unsigned int   passed = 1;
   Compartment_t *c      = (Compartment_t *) obj;
 
-  const char *msg =
+  static const char msg[] =
     "Compartment size must not be set if spatialDimensions is zero.";
 
 
@@ -1156,6 +1184,7 @@ RULE (species_ruleAndReaction)
 void
 Validator_addDefaultRules (Validator_t *v)
 {
+  Validator_addRule( v, compartment_spatialDimensions1, SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_size_dimensions,   SBML_COMPARTMENT     );
   Validator_addRule( v, kineticLaw_substanceUnits  ,   SBML_REACTION        );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
