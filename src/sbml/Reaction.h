@@ -168,24 +168,21 @@ void
 Reaction_setName (Reaction_t *r, const char *sname);
 
 /**
- * Sets the KineticLaw of this Reaction to the given KineticLaw and marks
- * the field as set.
+ * Sets the KineticLaw of this Reaction to the given KineticLaw.
  */
 LIBSBML_EXTERN
 void
 Reaction_setKineticLaw (Reaction_t *r, KineticLaw_t *kl);
 
 /**
- * Sets the reversible status of this Reaction to value (boolean) and marks
- * the field as set.
+ * Sets the reversible status of this Reaction to value (boolean).
  */
 LIBSBML_EXTERN
 void
 Reaction_setReversible (Reaction_t *r, int value);
 
 /**
- * Sets the fast status of this Reaction to value (boolean) and marks the
- * field as set.
+ * Sets the fast status of this Reaction to value (boolean).
  */
 LIBSBML_EXTERN
 void
