@@ -166,6 +166,25 @@ def testDocument():
    assert m == d.getModel()
 
 
+def testFunctionDefinition():
+   fd = libsbml.FunctionDefinition()
+   assert fd and fd.thisown == 1
+
+   formula = libsbml.parseFormula("1 + 1")
+   fd.setMath(formula)
+
+
+def testUnitDefinition():
+   ud = libsbml.UnitDefinition()
+   assert ud and ud.thisown == 1
+
+   unit = libsbml.Unit(libsbml.UNIT_KIND_KILOGRAM, 1, 1000, 1, 0)
+   assert unit.thisown 
+   ud.addUnit(unit);
+
+   assert unit.thisown == 0
+
+
 class TestRunner:
 
    def __init__(self):

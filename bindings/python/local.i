@@ -143,6 +143,21 @@
 %}
 
 
+%feature("shadow") FunctionDefinition::setMath(ASTNode* math)
+%{
+  def setMath(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.FunctionDefinition_setMath(*args)
+%}
+
+%feature("shadow") UnitDefinition::addUnit(Unit&)
+%{
+  def addUnit(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.UnitDefinition_addUnit(*args)
+%}
+
+
 %feature("shadow") Model::addRule(Rule&)
 %{
   def addRule(*args):
