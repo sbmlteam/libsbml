@@ -80,7 +80,7 @@ libsbml-api-ref-files = $(foreach format,$(formats),libsbml-api-ref.$(format))
 docs    = $(libsbml-manual-files) $(libsbml-api-ref-files) \
 	libsbml-manual libsbml-api-ref 
 
-# The variable `extra_distclean' is used in `makefile-common-actions.mk'
+# The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but these are all generated files and directories.
 
@@ -94,6 +94,8 @@ extra_clean = \
 	libsbml-manual \
 	libsbml-api-ref \
 	$(pdffiles)
+
+extra_distclean = Doxyfile sbmlmanual.perl
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
