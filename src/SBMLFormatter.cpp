@@ -190,7 +190,7 @@ SBMLFormatter::operator<< (const SBMLDocument& d)
   attribute(ATTR_VERSION, d.getVersion());
 
 
-  if (d.model == NULL)
+  if ( isEmpty(d) )
   {
     slashCloseStartElement();
   }
@@ -200,7 +200,9 @@ SBMLFormatter::operator<< (const SBMLDocument& d)
 
     upIndent();
 
-    *this << *(d.model);
+    notesAndAnnotation(d);
+
+    if (d.model != NULL) *this << *(d.model);
 
     downIndent();
 
@@ -2111,6 +2113,20 @@ bool
 SBMLFormatter::isEmpty (const SBase& sb)
 {
   return !sb.isSetNotes() && !sb.isSetAnnotation();
+}
+
+
+bool
+SBMLFormatter::isEmpty (const SBMLDocument& d)
+{
+  if (d.model == NULL)
+  {
+    return (d.getLevel() == 1) ? true : isEmpty((SBase&) d);
+  }
+  else
+  {
+    return false;
+  }
 }
 
 

@@ -1611,6 +1611,26 @@ START_TEST (test_SBMLFormatter_NegZero)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_xmlns)
+{
+  const char *s = wrapXML
+  (
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
+    "xmlns:jd=\"http://www.sbml.org/2001/ns/jdesigner\" "
+    "level=\"2\" version=\"1\"/>\n"
+  );
+
+
+  SBMLDocument d(2, 1);
+
+  d.getNamespaces().add("jd", "http://www.sbml.org/2001/ns/jdesigner");
+
+  *formatter << d;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+}
+END_TEST
+
+
 /**
  * A <rateRule> with a <notes> and/or <annotation> is not formatted with a
  * closing angle bracket, e.g.:
@@ -1646,19 +1666,61 @@ START_TEST (test_SBMLFormatter_nonempty_RateRule_bug)
 END_TEST
 
 
-START_TEST (test_SBMLFormatter_xmlns)
+/**
+ * An annotation on the top-level <sbml> element is not written-out for L2
+ * documents.
+ *
+ * Reported by Damon Hachmeister <damon.hachmeister@mathworks.com>.
+ */
+START_TEST (test_SBMLFormatter_SBMLDocument_no_annotation_bug_L2)
 {
-  const char *s = wrapXML
+  const char* s = wrapXML
   (
     "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
-    "xmlns:jd=\"http://www.sbml.org/2001/ns/jdesigner\" "
-    "level=\"2\" version=\"1\"/>\n"
+    "level=\"2\" version=\"1\">\n"
+    "  <annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
+    "  <ls:this-is-a-test/>\n"
+    "</annotation>\n"
+    "</sbml>\n"
   );
+
+  const char* a =
+    "<annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
+    "  <ls:this-is-a-test/>\n"
+    "</annotation>";
 
 
   SBMLDocument d(2, 1);
 
-  d.getNamespaces().add("jd", "http://www.sbml.org/2001/ns/jdesigner");
+  d.setAnnotation(a);
+
+  *formatter << d;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+}
+END_TEST
+
+
+/**
+ * Annotations are not allowed on the top-level <sbml> element in L1.  I
+ * wanted to make sure I didn't introduce a bug when I fixed the one above.
+ */
+START_TEST (test_SBMLFormatter_SBMLDocument_no_annotation_bug_L1)
+{
+  const char* s = wrapXML
+  (
+    "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
+    "level=\"1\" version=\"2\"/>\n"
+  );
+
+  const char* a =
+    "<annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
+    "  <ls:this-is-a-test/>\n"
+    "</annotation>";
+
+
+  SBMLDocument d(1, 2);
+
+  d.setAnnotation(a);
 
   *formatter << d;
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
@@ -1787,8 +1849,12 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_INF                   );
   tcase_add_test( tcase, test_SBMLFormatter_NegINF                );
   tcase_add_test( tcase, test_SBMLFormatter_NegZero               );
-  tcase_add_test( tcase, test_SBMLFormatter_nonempty_RateRule_bug );
   tcase_add_test( tcase, test_SBMLFormatter_xmlns                 );
+
+  /* Bugs */
+  tcase_add_test( tcase, test_SBMLFormatter_nonempty_RateRule_bug             );
+  tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument_no_annotation_bug_L2 );
+  tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument_no_annotation_bug_L1 );
 
   suite_add_tcase(suite, tcase);
 

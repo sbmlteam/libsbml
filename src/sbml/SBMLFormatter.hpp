@@ -233,6 +233,7 @@ private:
   //
 
   inline bool isEmpty ( const SBase&                    sb  );
+  inline bool isEmpty ( const SBMLDocument&             d   );
   inline bool isEmpty ( const Model&                    m   );
   inline bool isEmpty ( const FunctionDefinition&       fd  );
   inline bool isEmpty ( const UnitDefinition&           ud  );
