@@ -108,6 +108,7 @@ Suite *create_suite_StringMap                (void);
 Suite *create_suite_Unit                     (void);
 Suite *create_suite_UnitDefinition           (void);
 Suite *create_suite_UnitKind                 (void);
+Suite *create_suite_Validator                (void);
 Suite *create_suite_XMLStringFormatter       (void);
 Suite *create_suite_XMLUtil                  (void);
 
@@ -211,6 +212,7 @@ main (void)
   srunner_add_suite( runner, create_suite_Unit                     () );
   srunner_add_suite( runner, create_suite_UnitDefinition           () );
   srunner_add_suite( runner, create_suite_UnitKind                 () );
+  srunner_add_suite( runner, create_suite_Validator                () );
   srunner_add_suite( runner, create_suite_XMLStringFormatter       () );
   srunner_add_suite( runner, create_suite_XMLUtil                  () );
 
