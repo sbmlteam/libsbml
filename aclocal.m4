@@ -1,4 +1,4 @@
-# generated automatically by aclocal 1.7.2 -*- Autoconf -*-
+# generated automatically by aclocal 1.7.6 -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002
 # Free Software Foundation, Inc.
@@ -668,12 +668,8 @@ AC_DEFUN(CONFIG_LIB_EXPAT,
 
     AC_LANG_PUSH(C)
 
-    EXPAT_CPPFLAGS=
-    EXPAT_LDFLAGS=
-    EXPAT_LIBS=
-
     if test $with_expat != yes; then
-      EXPAT_CPPFLAGS="-I$with_expat/include -I\$(top_srcdir)/expat"
+      EXPAT_CPPFLAGS="-I$with_expat/include"
       EXPAT_LDFLAGS="-L$with_expat/lib"
     else
       dnl On the Macs, if the user has installed expat via Fink and they
@@ -683,7 +679,7 @@ AC_DEFUN(CONFIG_LIB_EXPAT,
 
       case $host in
       *darwin*) 
-        EXPAT_CPPFLAGS="-I/sw/include -I\$(top_srcdir)/expat"
+        EXPAT_CPPFLAGS="-I/sw/include"
         EXPAT_LDFLAGS="-L/sw/lib"
 	;;
       esac    
@@ -910,7 +906,7 @@ AC_DEFUN(CONFIG_LIB_LIBCHECK,
 
       case $host in
       *darwin*) 
-        LIBCHECK_CPPFLAGS="-I/sw/include -I\$(top_srcdir)/expat"
+        LIBCHECK_CPPFLAGS="-I/sw/include"
         LIBCHECK_LDFLAGS="-L/sw/lib"
 	;;
       esac    
