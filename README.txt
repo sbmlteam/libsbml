@@ -133,7 +133,7 @@ Feature Highlights:
       for efficiency (this is Xerces-C++ native format); however,
       strings are transcoded to the local code page for SBML structures.
 
-  - Well tested: 758 unit tests, 3486 individual assertions.
+  - Well tested: 760 unit tests, 3426 individual assertions.
 
       The entire library was written using the test-first approach
       popularized by Kent Beck and eXtreme Programming, where it's one
