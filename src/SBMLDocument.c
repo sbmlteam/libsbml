@@ -375,11 +375,18 @@ LIBSBML_EXTERN
 void
 SBMLDocument_setLevel (SBMLDocument_t *d, unsigned int level)
 {
-  d->level = level;
-
-  if (d->level == 2)
+  if (d->level == 1 && level == 2)
   {
-    d->version = 1;
+    SBML_convertToL2(d);
+  }
+  else
+  {
+    d->level = level;
+
+    if (d->level == 2)
+    {
+      d->version = 1;
+    }
   }
 }
 
