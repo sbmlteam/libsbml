@@ -306,8 +306,8 @@ END_TEST
 Suite *
 create_suite_TestReadFromFile1 (void)
 { 
-  Suite *suite = suite_create("tests/l1v1-branch.xml");
-  TCase *tcase = tcase_create("tests/l1v1-branch.xml");
+  Suite *suite = suite_create("test-data/l1v1-branch.xml");
+  TCase *tcase = tcase_create("test-data/l1v1-branch.xml");
 
 
   tcase_add_test(tcase, test_read_l1v1_branch);
