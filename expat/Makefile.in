@@ -129,11 +129,11 @@ html:
 # This library doesn't actually get installed.  The main libsbml library
 # (in ../src) slurps in the contents when it's built.
 
-install:
+install: all
 
 uninstall:
 
-installcheck:
+installcheck: all
 
 
 # -----------------------------------------------------------------------------
