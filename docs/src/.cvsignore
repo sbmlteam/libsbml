@@ -18,3 +18,4 @@ libsbml-manual-html
 libsbml-manual.html
 Doxyfile
 Makefile
+.deps
