@@ -1,6 +1,5 @@
            libsbml NEWS -- History of user-visible changes
 
-
 === Version 2.x.y ===
 
 * Bug Fixes:
@@ -15,18 +14,29 @@
       <apply>.  Thanks to Jacek Puchalka for reporting this bug and
       providing a fix.
 
+    - memory.c used global variables.  They needed to be static.
+
 * Changes:
 
     - SBMLTypes.h now includes MathMLDocument.h, MathMLReader.h and
       MathMLWriter.h
 
-    - Mike Hucka made some massive updates to libsbml-manual.tex to make
-      it reflect the current state of the API.  Mike also created a new
-      LaTeX class file called sbmlmanual.tex, available in the
-      projects/tex directory of the SBML project CVS tree.
+    - Mike Hucka rewrote the entire build/make system.  It no longer uses
+      automake or libtool; as a result, it is smaller, leaner and faster.
 
-    - Mike Hucka also updated the doxygen documentation configuration
-      and the makefile that drives it.
+    - Mike Hucka updated the libsbml-manual.tex to make it reflect the
+      current state of the API.  Mike also created a new LaTeX class file
+      called sbmlmanual.tex, available in the docs/src/tex subdirectory.
+
+    - In order to make the generation of the manuals self-contained, we've
+      put all the necessary LaTeX class files and extensions they use in
+      docs/src/tex.  This bloats the distribution, but is the only safe way
+      to ensure that people can actually make the docs.
+
+    - Mike Hucka also updated the doxygen documentation configuration and
+      the makefile that drives it.  However, it's still not ready for
+      prime-time and we are not yet distributing it as a standard part of
+      the regular distributions.
 
 * Released April xx, 2004
 
