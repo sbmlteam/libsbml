@@ -158,7 +158,7 @@ UnitKind_toString (UnitKind_t uk)
  */
 LIBSBML_EXTERN
 int
-UnitKind_isValidUnitKindString( const char *string )
+UnitKind_isValidUnitKindString (const char *string)
 {
   return UnitKind_forName(string) != UNIT_KIND_INVALID;
 }

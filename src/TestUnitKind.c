@@ -248,10 +248,12 @@ END_TEST
 
 
 START_TEST (test_UnitKind_isValidUnitKindString)
+{
+  fail_unless( !UnitKind_isValidUnitKindString("fun-foam-unit for kids!"),
+               NULL );
 
-  fail_unless(!UnitKind_isValidUnitKindString("fun-foam-unit for kids!"), NULL);
-  fail_unless(UnitKind_isValidUnitKindString("litre"), NULL);
-
+  fail_unless( UnitKind_isValidUnitKindString("litre"), NULL );
+}
 END_TEST
 
 
