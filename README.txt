@@ -4,6 +4,7 @@
                             Ben Bornstein
                        with contributions from
          Ben Kovitz, Stefan Hoops, Sarah Keating, Mike Hucka,
+	    Martin Ginkel, Christoph Flamm, Rainer Machne,
                 and many others in the SBML community.
 
          For more information about SBML or libSBML, contact:
