@@ -585,9 +585,6 @@ AC_DEFUN(CONFIG_PROG_MATLAB,
 
   if test $with_matlab != no; then
 
-
-
-
     AC_DEFINE([USE_MATLAB], 1, [Define to 1 to use Matlab])
     AC_SUBST(USE_MATLAB, 1)
 
