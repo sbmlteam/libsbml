@@ -1,0 +1,645 @@
+/**
+ * Filename    : SAX2SBMLHandler.cpp
+ * Description : Register with XML Parser to process an SBML document
+ * Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
+ * Organization: Caltech ERATO Kitano Systems Biology Project
+ * Created     : 2002-10-25
+ * Revision    : $Id$
+ * Source      : $Source$
+ *
+ * Copyright 2002 California Institute of Technology and
+ * Japan Science and Technology Corporation.
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation; either version 2.1 of the License, or
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+ * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+ * documentation provided hereunder is on an "as is" basis, and the
+ * California Institute of Technology and Japan Science and Technology
+ * Corporation have no obligations to provide maintenance, support,
+ * updates, enhancements or modifications.  In no event shall the
+ * California Institute of Technology or the Japan Science and Technology
+ * Corporation be liable to any party for direct, indirect, special,
+ * incidental or consequential damages, including lost profits, arising
+ * out of the use of this software and its documentation, even if the
+ * California Institute of Technology and/or Japan Science and Technology
+ * Corporation have been advised of the possibility of such damage.  See
+ * the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ *
+ * The original code contained here was initially developed by:
+ *
+ *     Ben Bornstein
+ *     The Systems Biology Workbench Development Group
+ *     ERATO Kitano Systems Biology Project
+ *     Control and Dynamical Systems, MC 107-81
+ *     California Institute of Technology
+ *     Pasadena, CA, 91125, USA
+ *
+ *     http://www.cds.caltech.edu/erato
+ *     mailto:sysbio-team@caltech.edu
+ *
+ * Contributor(s):
+ */
+
+
+#include <iostream>
+
+#include "sbml/common.h"
+#include "sbml/List.h"
+
+#include <xercesc/sax2/Attributes.hpp>
+#include <xercesc/util/XMLString.hpp>
+
+#include "sbml/SBMLHashCodes.hpp"
+#include "sbml/SBMLUnicodeConstants.hpp"
+#include "sbml/XMLStringFormatter.hpp"
+#include "sbml/XMLUtil.hpp"
+
+#include "sbml/SAX2SBMLHandler.hpp"
+
+
+//
+// Dtor
+//
+SAX2SBMLHandler::~SAX2SBMLHandler ()
+{
+  Stack_free( fObjStack );
+  Stack_free( fTagStack );
+}
+
+
+/* ----------------------------------------------------------------------
+ *                         SAX2 Event Handlers
+ * ----------------------------------------------------------------------
+ */
+
+
+void
+SAX2SBMLHandler::startDocument ()
+{
+  /**
+   * Used to reconstruct <notes> and <annotation> sections from SAX2
+   * events.
+   */
+  fFormatter = new XMLStringFormatter("LATIN1");
+
+  /**
+   * Two separate but parallel stacks are used: one to track XML elements
+   * (XML tags) and the other, each element's corresponding SBML objects.
+   *
+   * For <listOf...> elements, a sentinal NULL is placed on the SBML object
+   * stack.  <notes>, <annotation> and any elements contained within them
+   * are never recorded on either stack.
+   *
+   * The stacks will double in size automatically if their initial capacity
+   * is exceeded.  But why rely on this if we can avoid it in most cases?
+   * By my calculations, the deepest the stacks can get for SBML documents
+   * is 7:
+   *
+   * 1: <sbml level='1' version='1'>
+   * 2:   <model name='myModel'>
+   * 3:    <listOfReactions>
+   * 4:      <reaction name='r1'>
+   * 5:         <kineticLaw formula='k*S0'>
+   * 6:           <listOfParameters>
+   * 7:             <parameter name='foo' value='1'>
+   */
+  fObjStack = Stack_create(7);
+  fTagStack = Stack_create(7);
+
+  inNotes      = 0;
+  inAnnotation = 0;
+}
+
+
+void
+SAX2SBMLHandler::startElement (const XMLCh* const  uri,
+                               const XMLCh* const  localname,
+                               const XMLCh* const  qname,
+                               const Attributes&   attrs)
+{
+  SBase_t*   obj = NULL;
+  HashCode_t tag = XMLString::hash(localname, SBML_HASH_MODULUS);
+  // HashCode_t tag = HashCode_forElement(localname);
+
+  /*
+  cout << "startElement(...): localname = "
+       << XMLString::transcode(localname);
+
+  cout << "  line = " << fLocator->getLineNumber()
+       << "  col = " << fLocator->getColumnNumber();
+
+  cout << endl << endl;
+  */
+
+  if (inNotes)
+  {
+    fFormatter->startElement(qname, attrs);
+
+    if (tag == HASH_NOTES)
+    {
+      inNotes++;
+    }
+
+    return;
+  }
+  else if (inAnnotation)
+  {
+    fFormatter->startElement(qname, attrs);
+
+    if (tag == HASH_ANNOTATION)
+    {
+      inAnnotation++;
+    }
+
+    return;
+  }
+
+  /*
+  if (tag == HASH_UNKNOWN)
+  {
+    return;
+  }
+  else
+  */
+  if (tag == HASH_NOTES)
+  {
+    inNotes = 1;
+  }
+  else if (tag == HASH_ANNOTATION)
+  {
+    fFormatter->startElement(qname, attrs);
+    inAnnotation = 1;
+  }
+  else
+  {
+    /**
+     * Tags are added to their Stack as soon as they are encountered.
+     */
+    Stack_push(fTagStack, (void *) tag);
+
+    switch (tag)
+    {
+      case HASH_SBML:             obj = handleSBML            (attrs); break;
+      case HASH_MODEL:            obj = handleModel           (attrs); break;
+      case HASH_UNIT_DEFINITION:  obj = handleUnitDefinition  (attrs); break;
+      case HASH_UNIT:             obj = handleUnit            (attrs); break;
+      case HASH_COMPARTMENT:      obj = handleCompartment     (attrs); break;
+      case HASH_PARAMETER:        obj = handleParameter       (attrs); break;
+      case HASH_REACTION:         obj = handleReaction        (attrs); break;
+      case HASH_KINETIC_LAW:      obj = handleKineticLaw      (attrs); break;
+      case HASH_ALGEBRAIC_RULE:   obj = handleAlgebraicRule   (attrs); break;
+      case HASH_PARAMETER_RULE:   obj = handleParameterRule   (attrs); break;
+
+      case HASH_SPECIE:
+      case HASH_SPECIES:
+        obj = handleSpecies(attrs);
+        break;
+
+      case HASH_SPECIE_REFERENCE:
+      case HASH_SPECIES_REFERENCE:
+        obj = handleSpeciesReference(attrs);
+        break;
+
+      case HASH_COMPARTMENT_VOLUME_RULE:
+        obj = handleCompartmentVolumeRule(attrs);
+        break;
+
+      case HASH_SPECIE_CONCENTRATION_RULE:
+      case HASH_SPECIES_CONCENTRATION_RULE:
+        obj = handleSpeciesConcentrationRule(attrs);
+        break;
+
+      default:
+        break;
+    }
+
+    /**
+     * Objects are added to their Stack after they are created.
+     */
+    Stack_push(fObjStack, obj);
+  }
+}
+
+
+void
+SAX2SBMLHandler::endElement (const XMLCh* const  uri,
+                             const XMLCh* const  localname,
+                             const XMLCh* const  qname)
+{
+  SBase_t*   obj = (SBase_t*) Stack_peek(fObjStack);
+  HashCode_t tag = XMLString::hash(localname, SBML_HASH_MODULUS);
+  /* HashCode_t tag = HashCode_forElement(localname); */
+
+  /*
+  cout << "endElement(...): localname = "
+       << XMLString::transcode(localname);
+
+  cout << "  line = " << fLocator->getLineNumber()
+       << "  col = " << fLocator->getColumnNumber();
+
+  cout << endl;
+  */
+
+  if (tag == HASH_NOTES)
+  {
+    if (inNotes > 1)
+    {
+      fFormatter->endElement(qname);
+    }
+    else if (inNotes == 1)
+    {
+      SBase_setNotes(obj, fFormatter->getString());
+      fFormatter->reset();
+    }
+
+    inNotes--;
+  }
+  else if (tag == HASH_ANNOTATION)
+  {
+    fFormatter->endElement(qname);
+
+    if (inAnnotation == 1)
+    {
+      SBase_setAnnotation(obj, fFormatter->getString());
+
+      fFormatter->reset();
+    }
+
+    inAnnotation--;
+  }
+  else if (inNotes || inAnnotation)
+  {
+    fFormatter->endElement(qname);
+  }
+  else /* if (tag != HASH_UNKNOWN) */
+  {
+    Stack_pop(fTagStack);
+    Stack_pop(fObjStack);
+  }
+}
+
+
+void
+SAX2SBMLHandler::characters (const XMLCh* const  chars,
+                             const unsigned int  length)
+{
+  if (inNotes || inAnnotation)
+  {
+    fFormatter->characters(chars, length);
+  }
+}
+
+
+void
+SAX2SBMLHandler::ignorableWhitespace (const XMLCh* const  chars,
+                                      const unsigned int  length)
+{
+  if (inNotes || inAnnotation)
+  {
+    fFormatter->ignorableWhitespace(chars, length);
+  }
+}
+
+
+void
+SAX2SBMLHandler::setDocumentLocator (const Locator *const locator)
+{
+  fLocator = locator;
+}
+
+
+/* ----------------------------------------------------------------------
+ *                         SAX2 Error Handlers
+ * ----------------------------------------------------------------------
+ */
+
+
+void
+SAX2SBMLHandler::warning (const SAXParseException& e)
+{
+  List_add( fDocument->warning, createParseMessage(e) );
+}
+
+
+void
+SAX2SBMLHandler::error (const SAXParseException& e)
+{
+  List_add( fDocument->error, createParseMessage(e) );
+}
+
+
+void
+SAX2SBMLHandler::fatalError (const SAXParseException& e)
+{
+  List_add( fDocument->fatal, createParseMessage(e) );
+}
+
+
+ParseMessage_t*
+SAX2SBMLHandler::createParseMessage(const SAXParseException& e)
+{
+  char*           msg;
+  ParseMessage_t* pm;
+
+
+  msg = XMLString::transcode( e.getMessage() );
+  pm  = (ParseMessage_t *) safe_calloc(1, sizeof(ParseMessage_t));
+
+  pm->message = safe_strdup(msg);
+  pm->line    = (unsigned int) e.getLineNumber();
+  pm->column  = (unsigned int) e.getColumnNumber();
+
+  delete [] msg;
+
+  return pm;
+}
+
+
+/* ----------------------------------------------------------------------
+ *                          SBML Tag Handlers
+ * ----------------------------------------------------------------------
+ */
+
+
+SBase_t*
+SAX2SBMLHandler::handleSBML (const Attributes& a)
+{
+  XMLUtil::scanAttr( a, ATTR_LEVEL  , &(fDocument->level)   );
+  XMLUtil::scanAttr( a, ATTR_VERSION, &(fDocument->version) );
+
+  return (SBase_t*) fDocument;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleModel (const Attributes& a)
+{
+  fModel           = Model_create();
+  fDocument->model = fModel;
+
+  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(fModel->name));
+
+  return (SBase_t*) fModel;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleUnitDefinition (const Attributes& a)
+{
+  UnitDefinition_t* ud = Model_createUnitDefinition(fModel);
+
+
+  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(ud->name));
+
+  return (SBase_t*) ud;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleUnit (const Attributes& a)
+{
+  Unit_t* u    = Model_createUnit(fModel);
+  char*   kind = XMLString::transcode( a.getValue(ATTR_KIND) ); 
+
+
+  XMLUtil::scanAttr( a, ATTR_EXPONENT, &(u->exponent) );
+  XMLUtil::scanAttr( a, ATTR_SCALE   , &(u->scale)    );
+
+  u->kind = UnitKind_forName(kind);
+
+  delete [] kind;
+
+  return (SBase_t*) u;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleCompartment (const Attributes& a)
+{
+  Compartment_t* c = Model_createCompartment(fModel);
+
+
+  XMLUtil::scanAttrCStr( a, ATTR_NAME   , &(c->name)    );
+  XMLUtil::scanAttr    ( a, ATTR_VOLUME , &(c->volume)  );
+  XMLUtil::scanAttrCStr( a, ATTR_UNITS  , &(c->units)   );
+  XMLUtil::scanAttrCStr( a, ATTR_OUTSIDE, &(c->outside) );
+
+  return (SBase_t*) c;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleSpecies (const Attributes& a)
+{
+  Species_t* s = Model_createSpecies(fModel);
+
+
+  XMLUtil::scanAttrCStr( a, ATTR_NAME          , &(s->name)          );
+  XMLUtil::scanAttrCStr( a, ATTR_COMPARTMENT   , &(s->compartment)   );
+  XMLUtil::scanAttrCStr( a, ATTR_UNITS         , &(s->units)         );
+  XMLUtil::scanAttr    ( a, ATTR_INITIAL_AMOUNT, &(s->initialAmount) );
+  XMLUtil::scanAttr    ( a, ATTR_CHARGE        , &(s->charge)        );
+
+  XMLUtil::scanAttr( a, ATTR_BOUNDARY_CONDITION,
+                    (bool *) &(s->boundaryCondition) );
+
+  return (SBase_t*) s;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleParameter (const Attributes& a)
+{
+  Parameter_t* p  = NULL;
+  HashCode_t tag  = (HashCode_t) Stack_peekAt(fTagStack, 2);
+
+
+  if (tag == HASH_KINETIC_LAW)
+  {
+    p = Model_createKineticLawParameter(fModel);
+  }
+  else
+  {
+    p = Model_createParameter(fModel);
+  }
+
+  XMLUtil::scanAttrCStr( a, ATTR_NAME , &(p->name)  );
+  XMLUtil::scanAttrCStr( a, ATTR_UNITS, &(p->units) );
+  XMLUtil::scanAttr    ( a, ATTR_VALUE, &(p->value) );
+
+  return (SBase_t*) p;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleReaction (const Attributes& a)
+{
+  Reaction_t* r = Model_createReaction(fModel);
+
+
+  XMLUtil::scanAttrCStr( a, ATTR_NAME      ,         &(r->name)       );
+  XMLUtil::scanAttr    ( a, ATTR_REVERSIBLE, (bool*) &(r->reversible) );
+  XMLUtil::scanAttr    ( a, ATTR_FAST      , (bool*) &(r->fast)       );
+
+  return (SBase_t*) r;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleSpeciesReference (const Attributes& a)
+{
+  SpeciesReference_t* sr    = NULL;
+  HashCode_t          tag   = (HashCode_t) Stack_peekAt(fTagStack, 1);
+  int                 index = 0;
+
+
+  if (tag == HASH_LIST_OF_REACTANTS)
+  {
+    sr = Model_createReactant(fModel);
+  }
+  else if (tag == HASH_LIST_OF_PRODUCTS)
+  {
+    sr = Model_createProduct(fModel);
+  }
+
+  //
+  // Two spellings of "species" are allowed.  Look first for "species" and
+  // if not found, look for "specie".
+  //
+  index = a.getIndex(ATTR_SPECIES);
+  if (index >= 0)
+  {
+    XMLUtil::scanAttrCStr(a, index, &(sr->species));
+  }
+  else
+  {
+    XMLUtil::scanAttrCStr(a, ATTR_SPECIE, &(sr->species));
+  }
+
+  XMLUtil::scanAttr( a, ATTR_STOICHIOMETRY, &(sr->stoichiometry) );
+  XMLUtil::scanAttr( a, ATTR_DENOMINATOR  , &(sr->denominator)   );
+
+  return (SBase_t*) sr;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleKineticLaw (const Attributes& a)
+{
+  KineticLaw_t* kl = Model_createKineticLaw(fModel);
+
+
+  XMLUtil::scanAttrCStr( a, ATTR_FORMULA        , &(kl->formula)        );
+  XMLUtil::scanAttrCStr( a, ATTR_TIME_UNITS     , &(kl->timeUnits)      );
+  XMLUtil::scanAttrCStr( a, ATTR_SUBSTANCE_UNITS, &(kl->substanceUnits) );
+
+  return (SBase_t*) kl;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleAlgebraicRule (const Attributes& a)
+{
+  AlgebraicRule_t* ar = Model_createAlgebraicRule(fModel);
+
+
+  XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(ar->formula));
+
+  return (SBase_t*) ar;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleCompartmentVolumeRule (const Attributes& a)
+{
+  CompartmentVolumeRule_t* cvr  = Model_createCompartmentVolumeRule(fModel);
+  char*                    type = XMLString::transcode( a.getValue(ATTR_TYPE) );
+
+
+  XMLUtil::scanAttrCStr( a, ATTR_FORMULA    , &(cvr->formula)     );
+  XMLUtil::scanAttrCStr( a, ATTR_COMPARTMENT, &(cvr->compartment) );
+
+  //
+  // type {use="default" value="scalar")
+  //
+  if (type != NULL)
+  {
+    cvr->type = RuleType_forName(type);
+    delete [] type;
+  }
+
+  return (SBase_t*) cvr;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleParameterRule (const Attributes& a)
+{
+  ParameterRule_t* pr   = Model_createParameterRule(fModel);
+  char*            type = XMLString::transcode( a.getValue(ATTR_TYPE) );
+
+
+  XMLUtil::scanAttrCStr( a, ATTR_FORMULA, &(pr->formula) );
+  XMLUtil::scanAttrCStr( a, ATTR_NAME   , &(pr->name)    );
+  XMLUtil::scanAttrCStr( a, ATTR_UNITS  , &(pr->units)   );
+
+  //
+  // type {use="default" value="scalar")
+  //
+  if (type != NULL)
+  {
+    pr->type = RuleType_forName(type);
+    delete [] type;
+  }
+
+  return (SBase_t*) pr;
+}
+
+
+SBase_t*
+SAX2SBMLHandler::handleSpeciesConcentrationRule (const Attributes& a)
+{
+  SpeciesConcentrationRule_t* scr =
+    Model_createSpeciesConcentrationRule(fModel);
+
+  int index = 0;
+
+
+  XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(scr->formula));
+
+  //
+  // type {use="default" value="scalar")
+  //
+  index = a.getIndex(ATTR_TYPE);
+  if (index >= 0)
+  {
+    char* type = XMLString::transcode( a.getValue(index) );
+    scr->type  = RuleType_forName(type);
+    delete [] type;
+  }
+
+  //
+  // Two spellings of "species" are allowed.  Look first for "species" and
+  // if not found, look for "specie".
+  //
+  index = a.getIndex(ATTR_SPECIES);
+  if (index >= 0)
+  {
+    XMLUtil::scanAttrCStr(a, index, &(scr->species));
+  }
+  else
+  {
+    XMLUtil::scanAttrCStr(a, ATTR_SPECIE, &(scr->species));
+  }
+
+  return (SBase_t*) scr;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml level="1" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment name="x"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <specie name="y" compartment="x" initialAmount="1"/>
+    </listOfSpecies>
+    <listOfReactions>
+      <reaction name="x">
+        <listOfReactants>
+          <specieReference specie="y"/>
+        </listOfReactants>
+        <listOfProducts>
+          <specieReference specie="y"/>
+        </listOfProducts>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

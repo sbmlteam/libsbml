@@ -1,0 +1,11 @@
+     The original code contained here was initially developed by:
+ 
+                            Ben Bornstein
+           The Systems Biology Workbench Development Group
+                 ERATO Kitano Systems Biology Project
+               Control and Dynamical Systems, MC 107-81
+                  California Institute of Technology
+                       Pasadena, CA, 91125, USA
+ 
+                   http://www.cds.caltech.edu/erato
+                    mailto:sysbio-team@caltech.edu
