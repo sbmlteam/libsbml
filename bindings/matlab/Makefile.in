@@ -93,6 +93,11 @@ distfiles = \
         TranslateSBML.c        \
 	TranslateSBML.m
 
+# `extra_clean' and `extra_distclean' determine the files and directories
+# removed during "make clean" and "make distclean".
+
+extra_clean = TranslateSBML.$(MEXTEXT)
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
