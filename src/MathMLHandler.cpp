@@ -389,7 +389,12 @@ MathMLHandler::characters(const XMLCh* const  chars,
                           const unsigned int  length)
 #endif  // USE_EXPAT
 {
-  MathMLTagCode_t tag = (MathMLTagCode_t) Stack_peek(fTagStack);
+  MathMLTagCode_t tag = MATHML_TAG_UNKNOWN;
+ 
+  if (Stack_size(fTagStack) > 0)
+  {
+    tag = (MathMLTagCode_t) Stack_peek(fTagStack);
+  }
 
 
 #ifdef USE_EXPAT
