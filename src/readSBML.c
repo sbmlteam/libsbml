@@ -61,7 +61,6 @@
  * Function Prototypes
  */
 unsigned long getCurrentMillis (void);
-void          reportErrors     (SBMLDocument_t *d);
 
 
 int
@@ -99,7 +98,9 @@ main (int argc, char *argv[])
   printf( "            rules: %d\n",  Model_getNumRules(m)           );
   printf( "\n");
 
-  reportErrors(d);
+  SBMLDocument_printWarnings(d, stdout);
+  SBMLDocument_printErrors  (d, stdout);
+  SBMLDocument_printFatals  (d, stdout);
 
   printf( "Total Read Time (ms): %lu\n", stop - start);
 
@@ -120,55 +121,4 @@ getCurrentMillis (void)
 
   ftime(&t);
   return (unsigned long) (t.time * 1000 + t.millitm);
-}
-
-
-void
-reportErrors (SBMLDocument_t *d)
-{
-  unsigned int   n, size;
-  ParseMessage_t *pm;
-
-
-  /* Fatal Errors */
-  if ((size = SBMLDocument_getNumFatals(d)) > 0)
-  {
-    printf("%d Fatal Error(s):\n", size);
-
-    for (n = 0; n < size; n++)
-    {
-      pm = SBMLDocument_getFatal(d, n);
-      printf("  Line %d, Col %d: %s\n", pm->line, pm->column, pm->message);
-    }
-
-    printf("\n");
-  }
-
-  /* Errors */
-  if ((size = SBMLDocument_getNumErrors(d)) > 0)
-  {
-    printf("%d Error(s):\n", size);
-
-    for (n = 0; n < size; n++)
-    {
-      pm = SBMLDocument_getError(d, n);
-      printf("  Line %d, Col %d: %s\n", pm->line, pm->column, pm->message);
-    }
-
-    printf("\n");
-  }
-
-  /* Warnings */
-  if ((size = SBMLDocument_getNumWarnings(d)) > 0)
-  {
-    printf("%d Warning(s):\n", size);
-
-    for (n = 0; n < size; n++)
-    {
-      pm = SBMLDocument_getWarning(d, n);
-      printf(" Line %d, Col %d: %s\n", pm->line, pm->column, pm->message);
-    }
-
-    printf("\n");
-  }
 }
