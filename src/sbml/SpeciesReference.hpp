@@ -106,7 +106,7 @@ public:
    * @return the denominator of this SpeciesReference.
    */
   LIBSBML_EXTERN
-  int SpeciesReference::getDenominator () const;
+  int getDenominator () const;
 
   /**
    * @return true if the stoichiometryMath of this SpeciesReference has
