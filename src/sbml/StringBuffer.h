@@ -1,5 +1,5 @@
 /**
- * Filename    : SringBuffer.h
+ * Filename    : StringBuffer.h
  * Description : A growable buffer for creating character strings.
  * Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
  * Organization: JST ERATO Kitano Symbiotic Systems Project
