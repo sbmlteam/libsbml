@@ -74,7 +74,8 @@ typedef struct
 
   struct
   {
-    unsigned int size:1;
+    unsigned int size  :1;
+    unsigned int volume:1;
   } isSet;
 
 } Compartment_t;

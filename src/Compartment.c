@@ -272,7 +272,7 @@ LIBSBML_EXTERN
 int
 Compartment_isSetVolume (const Compartment_t *c)
 {
-  return Compartment_isSetSize(c);
+  return c->isSet.volume;
 }
 
 
@@ -360,8 +360,9 @@ LIBSBML_EXTERN
 void
 Compartment_setSize (Compartment_t *c, double value)
 {
-  c->size       = value;
-  c->isSet.size = 1;
+  c->size         = value;
+  c->isSet.size   = 1;
+  c->isSet.volume = 1;
 }
 
 
@@ -372,7 +373,8 @@ LIBSBML_EXTERN
 void
 Compartment_setVolume (Compartment_t *c, double value)
 {
-  Compartment_setSize(c, value);
+  c->size         = value;
+  c->isSet.volume = 1;
 }
 
 
@@ -445,8 +447,9 @@ LIBSBML_EXTERN
 void
 Compartment_unsetSize (Compartment_t *c)
 {
-  c->size       = util_NaN();
-  c->isSet.size = 0;
+  c->size         = util_NaN();
+  c->isSet.size   = 0;
+  c->isSet.volume = 0;
 }
 
 
