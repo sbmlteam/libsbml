@@ -110,7 +110,7 @@ else
   mex = $(MEX)
 endif
 
-flags = $(CPPFLAGS) $(MATLAB_CPPFLAGS) -I../../src
+flags = $(CPPFLAGS) $(MATLAB_CPPFLAGS) -I../../src -L../../src
 
 %.$(MEXEXT): %.c
 	$(mex) $(flags) $^ -lsbml $(MATLAB_LIBS)
