@@ -255,3 +255,26 @@ FunctionDefinition_unsetName (FunctionDefinition_t *fd)
   safe_free(fd->name);
   fd->name = NULL;
 }
+
+
+/**
+ * The FunctionDefinitionIdCmp function compares the string sid to fd->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than
+ * fd->id.  Returns -1 if either sid or fd->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+FunctionDefinitionIdCmp (const char *sid, const FunctionDefinition_t *fd)
+{
+  int result = -1;
+
+
+  if (sid != NULL && fd->id != NULL)
+  {
+    result = strcmp(sid, fd->id);
+  }
+
+  return result;
+}

@@ -181,6 +181,18 @@ void
 FunctionDefinition_unsetName (FunctionDefinition_t *fd);
 
 
+/**
+ * The FunctionDefinitionIdCmp function compares the string sid to fd->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than
+ * fd->id.  Returns -1 if either sid or fd->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+FunctionDefinitionIdCmp (const char *sid, const FunctionDefinition_t *fd);
+
+
 END_C_DECLS
 
 
