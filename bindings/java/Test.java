@@ -50,7 +50,7 @@
  */
 
 
-import libsbml.*;
+import org.sbml.libsbml.*;
 
 
 public class Test
