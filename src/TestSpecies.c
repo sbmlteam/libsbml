@@ -148,6 +148,10 @@ START_TEST (test_Species_setName)
     fail("Species_setName(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Species_setName(S, S->name);
+  fail_unless( !strcmp(S->name, name), NULL );
+
   Species_setName(S, NULL);
   fail_unless( !Species_isSetName(S), NULL );
 
@@ -174,6 +178,10 @@ START_TEST (test_Species_setCompartment)
     fail("Species_setCompartment(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Species_setCompartment(S, S->compartment);
+  fail_unless( !strcmp(S->compartment, compartment), NULL );
+
   Species_setCompartment(S, NULL);
   fail_unless( !Species_isSetCompartment(S), NULL );
 
@@ -199,6 +207,10 @@ START_TEST (test_Species_setUnits)
   {
     fail("Species_setUnits(...) did not make a copy of string.");
   }
+
+  /* Reflexive case (pathological) */
+  Species_setUnits(S, S->units);
+  fail_unless( !strcmp(S->units, units), NULL );
 
   Species_setUnits(S, NULL);
   fail_unless( !Species_isSetUnits(S), NULL );

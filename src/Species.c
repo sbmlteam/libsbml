@@ -271,6 +271,9 @@ LIBSBML_EXTERN
 void
 Species_setName (Species_t *s, const char *sname)
 {
+  if (s->name == sname) return;
+
+
   if (s->name != NULL)
   {
     safe_free(s->name);
@@ -287,6 +290,9 @@ LIBSBML_EXTERN
 void
 Species_setCompartment (Species_t *s, const char *sname)
 {
+  if (s->compartment == sname) return;
+
+
   if (s->compartment != NULL)
   {
     safe_free(s->compartment);
@@ -317,6 +323,9 @@ LIBSBML_EXTERN
 void
 Species_setUnits (Species_t *s, const char *sname)
 {
+  if (s->units == sname) return;
+
+
   if (s->units != NULL)
   {
     safe_free(s->units);
