@@ -6002,11 +6002,8 @@ esac
 
           ac_config_files="$ac_config_files win32/Makefile"
 
+          ac_config_files="$ac_config_files expat/Makefile"
 
-if test $with_expat != no; then
-            ac_config_files="$ac_config_files expat/Makefile"
-
-fi
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
