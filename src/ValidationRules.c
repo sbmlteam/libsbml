@@ -485,7 +485,7 @@ anyRuleVariableIs(const Model_t *m, const char *variableName)
       break;
 
     case SBML_RATE_RULE:
-      if (streq(RateRule_getVariable(ar), variableName))
+      if (streq(RateRule_getVariable(rr), variableName))
       {
         return TRUE;
       }
@@ -652,12 +652,98 @@ RULE (compartment_outsideIsDefined)
   Compartment_t *c = (Compartment_t *) obj;
   const char *outside = Compartment_getOutside(c);
 
+
   if (outside && Model_getCompartmentById(d->model, outside) == NULL)
   {
     LOG_MESSAGE(msg);
     passed = FALSE;
   }
 
+  return passed;
+}
+
+
+/**
+ * The graph of links between compartments implied by the outside attributes
+ * must not be cyclic.
+ */
+RULE (compartment_outsideCyclic)
+{
+  unsigned int passed = TRUE;
+
+  Compartment_t *c = (Compartment_t *) obj;
+  const char *startCompartment = Compartment_getId(c);
+  List_t *chain = List_create();
+
+
+  for ( ; ; )
+  {
+    const char *outside = Compartment_getOutside(c);
+
+    if (!outside)
+    {
+      break;
+    }
+
+    if (streq(startCompartment, outside)) /* if found a cycle */
+    {
+      char buf[512];
+
+      sprintf(buf, "Compartment '%s' encloses itself", startCompartment);
+
+      if (List_size(chain) == 0)
+      {
+        strcat(buf, ".");
+      }
+      else
+      {
+        int numInChain = List_size(chain);
+        int i;
+        BOOLEAN firstTime = TRUE;
+
+        for (i = 0; i < numInChain; i++)
+        {
+          const char *name = (const char *) List_get(chain, i);
+
+          if (streq(startCompartment, name))
+          {
+            break;
+          }
+
+          if (firstTime)
+          {
+            strcat(buf, " via ");
+          }
+          else
+          {
+            strcat(buf, ", ");
+          }
+
+          strcat(buf, "'");
+          strcat(buf, name);
+          strcat(buf, "'");
+
+          firstTime = FALSE;
+        }
+
+        strcat(buf, ".");
+      }
+
+      LOG_MESSAGE(buf);
+      passed = FALSE;
+      break;
+    }
+
+    List_add(chain, outside);
+
+    c = Model_getCompartmentById(d->model, outside);
+    if (!c)
+    {
+      break;
+    }
+  }
+
+  List_free(chain);
   return passed;
 }
 
@@ -1289,6 +1375,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, compartment_spatialDimensions0, SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_size_dimensions,    SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_outsideIsDefined,   SBML_COMPARTMENT     );
+  Validator_addRule( v, compartment_outsideCyclic,      SBML_COMPARTMENT     );
   Validator_addRule( v, kineticLaw_substanceUnits  ,    SBML_REACTION        );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
                                                         SBML_UNIT_DEFINITION );
