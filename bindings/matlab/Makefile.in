@@ -37,7 +37,7 @@
 ##
 ## The original code contained here was initially developed by:
 ##
-##     Ben Bornstein and Ben Kovitz
+##     Ben Bornstein and Sarah Keating
 ##     SBML Team
 ##     Control and Dynamical Systems, MC 107-81
 ##     California Institute of Technology
@@ -68,6 +68,14 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = bindings/matlab
 
+sources = TranslateSBML.c
+
+# This use of $(libraries) is slightly inconsistent with the other makefiles,
+# but for Matlab, these object files act a lot like dynamic libraries and
+# we're installing them in the same place as the other libraries, so....
+
+libraries = $(sources:.c=.$(MEXEXT))
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
@@ -79,6 +87,7 @@ distfiles = \
         install.m              \
         make.bat               \
         Makefile.in            \
+	mexopts-mac.sh         \
         README.txt             \
         test.xml               \
         TranslateSBML.c        \
@@ -89,25 +98,22 @@ distfiles = \
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# Temporarily disabling the default action until we can test this with the new
-# build system.
+all: Makefile $(libraries)
 
-#all: $(programs)
-all: 
+# There's a known problem with Matlab on MacOS X.  See the following:
+# http://www.mathworks.com/support/solutions/data/1-1BEIS.html?solution=1-1BEIS
+# The following is a work-around.  2004-08-02 <mhucka@caltech.edu>
 
-MEX       = mex
-XCFLAGS   = $(CFLAGS)
-XLDFLAGS  = $(LDFLAGS)  -L/usr/local/lib
-XCPPFLAGS = $(CPPFLAGS) -I/usr/local/include
-LIBS      = -lsbml
+ifeq "$(HOST_TYPE)" "darwin"
+  mex = $(MEX) -f mexopts-mac.sh
+else
+  mex = $(MEX)
+endif
 
-programs = TranslateSBML.mexglx
+flags = $(CPPFLAGS) $(MATLAB_CPPFLAGS) -I../../src
 
-TranslateSBML.mexglx: TranslateSBML.c
-	$(MEX) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) $^ $(LIBS)
-
-clean:
-	/bin/rm -f $(programs) *~
+%.$(MEXEXT): %.c
+	$(mex) $(flags) $^ -lsbml $(MATLAB_LIBS)
 
 
 # -----------------------------------------------------------------------------
@@ -121,24 +127,11 @@ check:
 # Installation.
 # -----------------------------------------------------------------------------
 
-install:
+install: all install-libraries
 
 uninstall:
 
-installdirs:
-
-
-# -----------------------------------------------------------------------------
-# Cleaning.
-# -----------------------------------------------------------------------------
-
-clean:
-
-distclean:
-
-mostlyclean:
-
-maintainer-clean:
+installdirs: all
 
 
 # -----------------------------------------------------------------------------
