@@ -32,6 +32,10 @@
       this aspect of libSBML, they would have reported it as a bug.
       Thanks to Sarah Keating for reporting this bug.
 
+    - The consistency checks were referencing ids instead of names
+      when checking L1 models.  Thanks to Jo Matthews, Mike Hucka, and
+      Manuel Martin for reporting this bug.
+
 
 * Changes:
 
