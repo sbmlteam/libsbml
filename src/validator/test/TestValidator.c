@@ -51,9 +51,11 @@
 
 #include <check.h>
 
-#include "common.h"
+#include "common/common.h"
+#include "sbml/SBMLReader.h"
+
 #include "Validator.h"
-#include "SBMLReader.h"
+
 
 
 #define XML_HEADER    "<?xml version='1.0' encoding='UTF-8'?>\n"

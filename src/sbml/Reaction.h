@@ -386,7 +386,7 @@ protected:
 BEGIN_C_DECLS
 
 
-#include "sbmlfwd.h"
+#include "common/sbmlfwd.h"
 
 
 /**

@@ -53,7 +53,7 @@
 #define ModifierSpeciesReference_h
 
 
-#include "extern.h"
+#include "common/extern.h"
 
 
 #ifdef __cplusplus
@@ -111,7 +111,7 @@ protected:
 BEGIN_C_DECLS
 
 
-#include "sbmlfwd.h"
+#include "common/sbmlfwd.h"
 
 
 /**

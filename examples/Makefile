@@ -52,8 +52,8 @@
 
 CC        = gcc
 XCFLAGS   = $(CFLAGS)   -Wall
-XLDFLAGS  = $(LDFLAGS)  -L/usr/local/lib
-XCPPFLAGS = $(CPPFLAGS) -I/usr/local/include
+XLDFLAGS  = $(LDFLAGS)  
+XCPPFLAGS = $(CPPFLAGS)
 LIBS      = -lsbml
 
 programs = \

@@ -49,11 +49,11 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
 
+#include "sbml/ListOf.h"
+#include "sbml/Model.h"
 
-#include "ListOf.h"
-#include "Model.h"
 #include "Validator.h"
 
 

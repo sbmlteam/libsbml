@@ -58,8 +58,8 @@
 
 
 #ifdef USE_EXPAT
-#  include "Expat.h"
-#  include "ExpatAttributes.h"
+#  include "xml/Expat.h"
+#  include "xml/ExpatAttributes.h"
 #else
 #  include <xercesc/sax/Locator.hpp>
 #  include <xercesc/sax2/DefaultHandler.hpp>
@@ -69,7 +69,7 @@
    using xercesc::SAXParseException;
 #endif  /* USE_EXPAT */
 
-#include "Stack.h"
+#include "util/Stack.h"
 #include "SBMLTagCodes.h"
 
 

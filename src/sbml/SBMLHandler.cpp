@@ -52,31 +52,28 @@
 
 #include <iostream>
 
-#include "common.h"
-#include "List.h"
+#include "common/common.h"
+#include "util/List.h"
 
 
 #ifdef USE_EXPAT
 #  include <expat.h>
-#  include "ExpatXMLString.h"
+#  include "xml/ExpatXMLString.h"
 #else
 #  include <xercesc/sax2/Attributes.hpp>
 #  include <xercesc/util/XMLString.hpp>
    using namespace xercesc;
 #endif  // USE_EXPAT
 
+#include "math/FormulaFormatter.h"
+#include "math/MathMLHandler.h"
 
-#include "FormulaFormatter.h"
-
-#include "ParseMessage.h"
+#include "xml/ParseMessage.h"
+#include "xml/XMLStringFormatter.h"
+#include "xml/XMLUtil.h"
 
 #include "SBMLTypes.h"
 #include "SBMLUnicodeConstants.h"
-
-#include "XMLStringFormatter.h"
-#include "XMLUtil.h"
-
-#include "MathMLHandler.h"
 #include "SBMLHandler.h"
 
 

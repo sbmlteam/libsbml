@@ -51,7 +51,7 @@
 
 
 #include <fstream>
-#include "common.h"
+#include "common/common.h"
 
 
 #ifdef USE_EXPAT
@@ -66,7 +66,7 @@ typedef void SAX2XMLReader;
    using namespace xercesc;
 #endif  // USE_EXPAT
 
-#include "ParseMessage.h"
+#include "xml/ParseMessage.h"
 #include "SBMLDocument.h"
 #include "SBMLHandler.h"
 

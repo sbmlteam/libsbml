@@ -53,7 +53,7 @@
 #define RuleType_h
 
 
-#include "extern.h"
+#include "common/extern.h"
 
 
 BEGIN_C_DECLS

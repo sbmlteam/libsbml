@@ -108,7 +108,7 @@ ifdef USE_EXPAT
   sources += $(expat_sources)
 endif
 
-extra_CPPFLAGS = -I../common -I../sbml -I../util
+extra_CPPFLAGS = -I..
 
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)

@@ -51,8 +51,8 @@
 
 #include <check.h>
 
-#include "common.h"
-#include "FormulaParser.h"
+#include "common/common.h"
+#include "math/FormulaParser.h"
 
 #include "SBase.h"
 #include "ModifierSpeciesReference.h"

@@ -54,7 +54,7 @@
 #define SBMLTagCodes_h
 
 
-#include "common.hpp"
+#include "common/common.hpp"
 
 
 typedef long SBMLTagCode_t;

@@ -49,11 +49,11 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
 
-#include "FormulaFormatter.h"
-#include "FormulaParser.h"
-#include "ASTNode.h"
+#include "math/FormulaFormatter.h"
+#include "math/FormulaParser.h"
+#include "math/ASTNode.h"
 
 #include "SBMLVisitor.h"
 #include "Parameter.h"

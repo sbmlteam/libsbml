@@ -111,7 +111,7 @@ test_sources =                   \
   TestUnitKind.c                 \
   TestRunner. c
 
-extra_CPPFLAGS = -I.. -I../../common -I../../sbml
+extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
   check_driver      = TestRunner

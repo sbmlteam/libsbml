@@ -49,13 +49,13 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
+#include "util/List.h"
 
-#include "List.h"
-#include "ListOf.h"
-#include "ParseMessage.h"
+#include "xml/ParseMessage.h"
+#include "sbml/ListOf.h"
+#include "sbml/SBMLTypes.h"
 
-#include "SBMLTypes.h"
 #include "Validator.h"
 
 

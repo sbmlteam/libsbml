@@ -53,7 +53,7 @@
 #define SBase_h
 
 
-#include "extern.h"
+#include "common/extern.h"
 
 
 #ifdef __cplusplus
@@ -61,7 +61,7 @@
 
 #include <string>
 
-#include "XMLNamespaceList.h"
+#include "xml/XMLNamespaceList.h"
 #include "SBMLTypeCodes.h"
 
 
@@ -183,7 +183,7 @@ typedef SBase SBase_t;
 BEGIN_C_DECLS
 
 
-#include "sbmlfwd.h"
+#include "common/sbmlfwd.h"
 #include "SBMLTypeCodes.h"
 
 

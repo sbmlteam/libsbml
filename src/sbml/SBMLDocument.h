@@ -53,7 +53,7 @@
 #define SBMLDocument_h
 
 
-#include "extern.h"
+#include "common/extern.h"
 
 
 #ifdef __cplusplus
@@ -62,7 +62,7 @@
 #include <iosfwd>
 
 #include "SBase.h"
-#include "List.h"
+#include "util/List.h"
 
 
 class Model;
@@ -274,7 +274,7 @@ BEGIN_C_DECLS
 
 
 #include <stdio.h>
-#include "sbmlfwd.h"
+#include "common/sbmlfwd.h"
 
 
 /**

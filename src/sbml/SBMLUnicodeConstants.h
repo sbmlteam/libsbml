@@ -54,12 +54,12 @@
 #define SBMLUnicodeConstants_h
 
 
-#include "common.hpp"
+#include "common/common.hpp"
 
 
 #ifdef USE_EXPAT
 #  include <expat.h>
-#  include "ExpatUnicodeChars.h"
+#  include "xml/ExpatUnicodeChars.h"
 #else
 #  include <xercesc/util/XMLUniDefs.hpp>
    using namespace xercesc;

@@ -49,8 +49,9 @@
  */
 
 
-#include "FormulaParser.h"
-#include "ASTNode.h"
+#include "math/FormulaParser.h"
+#include "math/ASTNode.h"
+
 #include "SBMLVisitor.h"
 #include "EventAssignment.h"
 

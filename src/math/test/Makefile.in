@@ -82,7 +82,7 @@ test_sources =            \
   TestMathMLWriter.c      \
   TestRunner. c
 
-extra_CPPFLAGS = -I.. -I../../common -I../../sbml -I../../xml -I../../util
+extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
   check_driver       = TestRunner

@@ -59,7 +59,7 @@
 #include <list>
 #include <string>
 
-#include "extern.h"
+#include "common/extern.h"
 #include "XMLNamespace.h"
 
 

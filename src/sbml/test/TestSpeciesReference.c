@@ -51,8 +51,9 @@
 
 #include <check.h>
 
-#include "common.h"
-#include "MathMLReader.h"
+#include "common/common.h"
+
+#include "math/MathMLReader.h"
 
 #include "SBase.h"
 #include "SpeciesReference.h"

@@ -91,12 +91,12 @@
 #include "SBMLReader.h"
 #include "SBMLWriter.h"
 
-#include "FormulaParser.h"
-#include "FormulaFormatter.h"
+#include "math/FormulaParser.h"
+#include "math/FormulaFormatter.h"
 
-#include "MathMLDocument.h"
-#include "MathMLReader.h"
-#include "MathMLWriter.h"
+#include "math/MathMLDocument.h"
+#include "math/MathMLReader.h"
+#include "math/MathMLWriter.h"
 
 
 #endif  /* SBMLTypes_h */

@@ -53,8 +53,8 @@
 #include <iostream>
 #include <check.h>
 
-#include "common.h"
-#include "extern.h"
+#include "common/common.h"
+#include "common/extern.h"
 
 #include "SAX2AttributesMock.h"
 

@@ -54,7 +54,7 @@
 #define SAX2AttributesMock_h
 
 
-#include "common.hpp"
+#include "common/common.hpp"
 
 
 #ifdef __cplusplus

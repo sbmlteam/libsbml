@@ -49,7 +49,8 @@
  */
 
 
-#include "util.h"
+#include "util/util.h"
+
 #include "SBMLVisitor.h"
 #include "Compartment.h"
 

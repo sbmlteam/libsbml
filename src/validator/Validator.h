@@ -53,12 +53,12 @@
 #define Validator_h
 
 
-#include "extern.h"
+#include "common/extern.h"
+#include "util/List.h"
 
-#include "List.h"
-#include "SBase.h"
-#include "SBMLDocument.h"
-#include "SBMLTypeCodes.h"
+#include "sbml/SBase.h"
+#include "sbml/SBMLDocument.h"
+#include "sbml/SBMLTypeCodes.h"
 
 
 BEGIN_C_DECLS

@@ -49,12 +49,11 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
+#include "util/List.h"
 
-#include "List.h"
 #include "SBMLTypes.h"
 #include "SBMLTypeCodes.h"
-
 #include "SBMLConvert.h"
 
 

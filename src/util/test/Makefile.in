@@ -82,7 +82,7 @@ test_sources =       \
   TestUtil.c         \
   TestRunner. c
 
-extra_CPPFLAGS = -I../../common -I../../sbml -I..
+extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
   check_driver      = TestRunner

@@ -53,7 +53,7 @@
 #include <iostream>
 #include <check.h>
 
-#include "common.h"
+#include "common/common.h"
 
 
 #ifdef USE_EXPAT
@@ -64,8 +64,8 @@
 #endif  // USE_EXPAT
 
 
+#include "sbml/SBMLUnicodeConstants.h"
 #include "SAX2AttributesMock.h"
-#include "SBMLUnicodeConstants.h"
 #include "XMLUtil.h"
 
 

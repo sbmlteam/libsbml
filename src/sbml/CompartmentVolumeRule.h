@@ -53,7 +53,7 @@
 #define CompartmentVolumeRule_h
 
 
-#include "extern.h"
+#include "common/extern.h"
 #include "RuleType.h"
 
 
@@ -142,7 +142,7 @@ protected:
 BEGIN_C_DECLS
 
 
-#include "sbmlfwd.h"
+#include "common/sbmlfwd.h"
 
 
 /**

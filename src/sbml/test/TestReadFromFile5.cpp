@@ -51,7 +51,8 @@
 
 #include <check.h>
 
-#include "common.h"
+#include "common/common.h"
+
 #include "SBMLReader.h"
 #include "SBMLWriter.h"
 #include "SBMLTypes.h"

@@ -51,11 +51,13 @@
 
 #include <iostream>
 
-#include "SBMLConvert.h"
-#include "StringBuffer.h"
-#include "Validator.h"
+#include "util/StringBuffer.h"
 
-#include "ParseMessage.h"
+#include "validator/Validator.h"
+
+#include "xml/ParseMessage.h"
+
+#include "SBMLConvert.h"
 #include "SBMLVisitor.h"
 #include "Model.h"
 

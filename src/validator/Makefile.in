@@ -78,7 +78,7 @@ header_inst_prefix = validator
 
 sources   = ValidationRules.c Validator.c 
 
-extra_CPPFLAGS = -I../common -I../sbml -I../util -I../xml -I../math
+extra_CPPFLAGS = -I..
 
 subdirs   = test
 

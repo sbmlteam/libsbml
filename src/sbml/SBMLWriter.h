@@ -53,8 +53,8 @@
 #define SBMLWriter_h
 
 
-#include "extern.h"
-#include "sbmlfwd.h"
+#include "common/extern.h"
+#include "common/sbmlfwd.h"
 
 
 /**

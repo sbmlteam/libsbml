@@ -53,7 +53,7 @@
 #include <iostream>
 #include <check.h>
 
-#include "common.h"
+#include "common/common.h"
 
 #include "SAX2AttributesMock.h"
 #include "XMLStringFormatter.h"

@@ -52,10 +52,10 @@
 #include <iostream>
 #include <check.h>
 
-#include "common.h"
+#include "common/common.h"
 
-#include "ASTNode.h"
-#include "FormulaFormatter.h"
+#include "math/ASTNode.h"
+#include "math/FormulaFormatter.h"
 
 #include "SBMLTypes.h"
 #include "SBMLHandler.h"

@@ -81,7 +81,7 @@ test_sources =               \
   TestXMLUtil.cpp            \
   TestRunner. c
 
-extra_CPPFLAGS = -I.. -I../../common -I../../sbml -I../../util
+extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
   check_driver      = TestRunner

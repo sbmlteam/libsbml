@@ -54,7 +54,7 @@
 
 
 #include <stdio.h>
-#include "extern.h"
+#include "common/extern.h"
 
 
 #ifndef FALSE

@@ -50,7 +50,7 @@
  */
 
 
-#include "common.h"
+#include "common/common.h"
 
 
 #ifdef USE_EXPAT

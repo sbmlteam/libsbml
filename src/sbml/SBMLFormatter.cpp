@@ -51,19 +51,19 @@
 
 
 #include <time.h>
-#include "common.h"
+#include "common/common.h"
 
 
 #ifdef USE_EXPAT
-#  include "ExpatXMLString.h"
-#  include "ExpatFormatter.h"
+#  include "xml/ExpatXMLString.h"
+#  include "xml/ExpatFormatter.h"
 #endif  // USE_EXPAT
 
+#include "xml/XMLUnicodeConstants.h"
+#include "xml/XMLUtil.h"
 
 #include "SBMLFormatter.h"
 #include "SBMLUnicodeConstants.h"
-#include "XMLUnicodeConstants.h"
-#include "XMLUtil.h"
 
 
 using namespace std;

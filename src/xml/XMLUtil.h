@@ -67,6 +67,7 @@
 #  include <xercesc/framework/XMLFormatter.hpp>
 #  include <xercesc/sax2/Attributes.hpp>
    using xercesc::XMLFormatter;
+   using xercesc::XMLFormatTarget;
    using xercesc::Attributes;
 #endif  /* USE_EXPAT */
 

@@ -50,7 +50,7 @@
 
 
 #include <check.h>
-#include "common.h"
+#include "common/common.h"
 
 
 START_TEST (test_util_strcmp_insensitive)

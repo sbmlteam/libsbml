@@ -90,7 +90,7 @@ sources   = \
 	StringMap.c \
 	util.c \
 
-extra_CPPFLAGS = -I../common -I../sbml
+extra_CPPFLAGS = -I..
 
 subdirs = test
 

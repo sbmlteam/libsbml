@@ -66,10 +66,10 @@
 #endif  /* !USE_EXPAT */
 
 
-#include "List.h"
-#include "SBMLTypes.h"
+#include "util/List.h"
+#include "math/MathMLFormatter.h"
 
-#include "MathMLFormatter.h"
+#include "SBMLTypes.h"
 #include "SBMLUnicodeConstants.h" 
 
 

@@ -77,8 +77,7 @@ test_sources =              \
   TestValidator.c           \
   TestRunner. c
 
-extra_CPPFLAGS = -I../../common -I../../sbml -I../../util \
-                 -I../../xml -I../../math -I..
+extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
   check_driver      = TestRunner

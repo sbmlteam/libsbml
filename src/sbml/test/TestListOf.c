@@ -51,7 +51,7 @@
 
 #include <check.h>
 
-#include "common.h"
+#include "common/common.h"
 
 #include "SBase.h"
 #include "ListOf.h"

@@ -70,11 +70,12 @@
 #include <vector>
 #include <set>
 
-#include "common.h"
+#include "common/common.h"
 
-#include "ParseMessage.h"
-#include "SBMLDocument.h"
-#include "SBMLReader.h"
+#include "xml/ParseMessage.h"
+
+#include "sbml/SBMLDocument.h"
+#include "sbml/SBMLReader.h"
 
 
 using namespace std;
