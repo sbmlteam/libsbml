@@ -47,8 +47,11 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *  Stephan Hoops
  */
 
+
+#include <check.h>
 
 #include "sbml/common.h"
 #include "sbml/SBMLReader.h"
@@ -172,7 +175,9 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
   d = SBMLReader_readSBML(sr, filename);
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
+#ifndef USE_EXPAT  /* No schema verification possible. */
   fail_unless( SBMLDocument_getNumErrors(d)   == 1, NULL );
+#endif  /* !USE_EXPAT */
   fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
 
   SBMLDocument_free(d);
