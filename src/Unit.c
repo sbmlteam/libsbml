@@ -184,7 +184,7 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
  * Sets the exponent of this Unit to value and marks the field as set.
  */
 LIBSBML_EXTERN
-int
+void
 Unit_setExponent (Unit_t *u, int value)
 {
   u->exponent = value;
@@ -195,7 +195,7 @@ Unit_setExponent (Unit_t *u, int value)
  * Sets the scale of this Unit to value and marks the field as set.
  */
 LIBSBML_EXTERN
-int
+void
 Unit_setScale (Unit_t *u, int value)
 {
   u->scale = value;
