@@ -63,13 +63,7 @@
 BEGIN_C_DECLS
 
 
-/**
- * The MathMLDocument
- */
-typedef struct
-{
-  ASTNode_t *math;
-} MathMLDocument_t;
+typedef void MathMLDocument_t;
 
 
 /**
