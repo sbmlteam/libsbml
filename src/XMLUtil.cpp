@@ -254,16 +254,55 @@ XMLUtil::scanAttr (const Attributes& attrs, const XMLCh* name, double* value)
     //
     if (trimmedLen > 0)
     {
-      errno         = 0;
-      char*  endptr = 0;
-      char*  nptr   = XMLString::transcode(trimmed);
-      double result = strtod(nptr, &endptr);
-      int    len    = endptr - nptr;
+      errno        = 0;
+      char* endptr = 0;
+      char* nptr   = XMLString::transcode(trimmed);
 
-      if ( (len == (int) trimmedLen) && (errno != ERANGE) )
+
+      //
+      // The forms "-0.", "-0.0" and "+Inf" are not valid according to the
+      // documentation for XML Schema datatype double (Section 3.2.5):
+      //
+      //   http://www.w3.org/TR/xmlschema-2/#double
+      // 
+      // However, they are common notation and easy to support.  Adding
+      // checks for them does no real harm.  Any more sophistication,
+      // however, (e.g. "- Inf") would require either a mini-parser be
+      // implemented here or use FormulaParser.
+      //
+      if ( !strcmp_insensitive(nptr, "-Inf") )
       {
-        *value   = result;
+        *value   = util_NegInf();
         assigned = true;
+      }
+      else if ( !strcmp(nptr, "-0"  ) ||
+                !strcmp(nptr, "-0." ) ||
+                !strcmp(nptr, "-0.0") )
+      {
+        *value   = util_NegZero();
+        assigned = true;
+      }
+      else if ( (strcmp_insensitive(nptr, "Inf")  == 0) ||
+                (strcmp_insensitive(nptr, "+Inf") == 0) )
+      {
+        *value   = util_PosInf();
+        assigned = true;
+      }
+      else if (strcmp_insensitive(nptr, "NaN") == 0)
+      {
+        *value   = util_NaN();
+        assigned = true;
+      }
+      else
+      {
+        double result = strtod(nptr, &endptr);
+        int    len    = endptr - nptr;
+
+        if ( (len == (int) trimmedLen) && (errno != ERANGE) )
+        {
+          *value   = result;
+          assigned = true;
+        }
       }
 
       delete [] nptr;

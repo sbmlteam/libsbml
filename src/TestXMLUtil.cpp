@@ -516,6 +516,20 @@ START_TEST (test_scanAttr_double_nan)
 END_TEST
 
 
+START_TEST (test_scanAttr_double_negZero)
+{
+  double volume = 2.72;
+  SAX2AttributesMock attrs(1);
+
+
+  attrs.add("volume", "-0");
+
+  fail_unless( XMLUtil::scanAttr(attrs, ATTR_VOLUME, &volume) == true, NULL );
+  fail_unless( util_isNegZero(volume), NULL );
+}
+END_TEST
+
+
 START_TEST (test_scanAttr_double_notFound)
 {
   double volume = 1.41;
@@ -637,6 +651,7 @@ create_suite_XMLUtil (void)
   tcase_add_test( tcase, test_scanAttr_double_formatted );
   tcase_add_test( tcase, test_scanAttr_double_inf       );
   tcase_add_test( tcase, test_scanAttr_double_nan       );
+  tcase_add_test( tcase, test_scanAttr_double_negZero   );
   tcase_add_test( tcase, test_scanAttr_double_notFound  );
   tcase_add_test( tcase, test_scanAttr_double_ws        );
 
