@@ -51,7 +51,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some make actions will fail.
 
 srcdir  = @srcdir@
-thisdir = bindings/lisp
+thisdir = src/bindings/lisp
 
 dirs := libsbml
 
@@ -196,8 +196,8 @@ clean:
 	-rm *.$(FASLEXT) tps/uffi/src/*.$(FASLEXT) tps/cparse/*.$(FASLEXT) 
 
 # Preprocess header
-sbmllisp-pre.h: libsbml/sbmllisp.h $(wildcard ../../src/sbml/*.h)
-	$(CPP) -I../../src/sbml/ $< > $@
+sbmllisp-pre.h: libsbml/sbmllisp.h $(wildcard ../../*/*.h)
+	$(CPP) -I../.. $< > $@
 
 libsbmlc.lisp: sbmllisp-pre.h
 	echo '(load "build.lisp")' | $(LISP)
