@@ -60,7 +60,7 @@
 
 
 #include <iostream>
-#include <strstream>
+#include <sstream>
 #include <check.h>
 
 #include <ctype.h>
@@ -103,7 +103,7 @@ class Expectation : public vector<string>
 public:
    Expectation(const string& modelString) {
       string line;
-      istrstream ifs(modelString.c_str());
+      istringstream ifs(modelString.c_str());
 
       while (getline(ifs, line)) {
          string expect = parseExpect(line);
