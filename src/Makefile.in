@@ -142,7 +142,7 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 
 lib_LTLIBRARIES = libsbml.la
-libsbml_la_LDFLAGS = -no-undefined -version-info 2:4:0
+libsbml_la_LDFLAGS = -no-undefined -version-info 2:5:0
 
 @USE_EXPAT_TRUE@libsbml_la_CPPFLAGS = -I../expat
 @USE_EXPAT_TRUE@libsbml_la_LIBADD = -L../expat -lexpat-compat
