@@ -105,7 +105,7 @@ main (int argc, char *argv[])
   printf( "Total Read Time (ms): %lu\n", stop - start);
 
 #ifdef TRACE_MEMORY
-  printf( "         Total Bytes: %lu\n", MemTrace_getMaxBytes());
+  printf( "         Total Bytes: %u\n", MemTrace_getMaxBytes());
 #endif
 
   SBMLDocument_free(d);
