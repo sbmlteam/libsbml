@@ -20,9 +20,7 @@
         <listOfRules>
             <rateRule variable="S1">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
-                    <apply>
-                        <ci> k2 </ci>
-                    </apply>
+                  <ci> k2 </ci>
                 </math>
             </rateRule>
         </listOfRules>
