@@ -99,13 +99,7 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
   //
   // Initialize() is static and may be called more than once safely.
   //
-  try
-  {
-    XMLPlatformUtils::Initialize();
-  }
-  catch (const XMLException& e)
-  {
-  }
+  XMLPlatformUtils::Initialize();
 
   fLevel   = 1;
   fVersion = 2;
