@@ -1,6 +1,6 @@
 ##
 ## Filename    : setup.py
-## Description : Python Distutils for libSBML Python module (broken)
+## Description : Python distutils code for libSBML Python module
 ## Author(s)   : SBML Development Group <sbml-team@caltech.edu>
 ## Organization: JST ERATO Kitano Symbiotic Systems Project
 ## Created     : 2004-04-02
@@ -47,22 +47,66 @@
 ##     mailto:sysbio-team@caltech.edu
 ##
 ## Contributor(s):
-##
+##   Michael Hucka <mhucka@caltech.edu> Rewrote this to use it for installation
 
 
-##
-## While Python Distutils works with SWIG and C, it does not currently
-## work with SWIG and C++ (it doesn't generate the appropriate
-## compilation and link commands).  This is a known bug with Distutils.
-##
-##
-## Would someone with knowledge of Distutils like to look into this
-## bug and improve this file in other ways they see fit?  Thank you.
-##
+# This currently is only used for doing installations of what's built using
+# the makefiles.  It's not being used for compiling or doing other things
+# that distutils is capable of.
+#
+# While Python Distutils works with SWIG and C, it does not currently
+# work with SWIG and C++ (it doesn't generate the appropriate
+# compilation and link commands).  This is a known bug with Distutils.
 
+# -----------------------------------------------------------------------------
+# First read the current version number of libSBML.
+# -----------------------------------------------------------------------------
 
-import distutils
+import shlex
+
+varsfile = open("../../config/makefile-common-vars.mk")
+vars     = {}
+
+while True:
+    line = varsfile.readline()
+    if not line:
+        break
+    if line.strip() == '' or line[0] in '#':
+        continue
+    lexer = shlex.shlex(line)
+    lexer.whitespace = lexer.whitespace + '\x0c='
+    lexer.wordchars = lexer.wordchars + '/@.$()-{}'
+    key = lexer.get_token()
+    val = lexer.get_token()
+    vars[key] = val
+
+# -----------------------------------------------------------------------------
+# Now do the Python setup part.
+# -----------------------------------------------------------------------------
+
 from distutils.core import setup, Extension
+from distutils import sysconfig
 
-setup(name = "libSBML Python", version = "1.0",
-      ext_modules = [Extension("_libsbml", ["libsbml.i", "libsbml.cpp"])])
+setup(name             = "libsbml", 
+      version          = vars.get("PACKAGE_VERSION"),
+      description      = "LibSBML Python API",
+      long_description = ("LibSBML is a library for reading, writing and "+
+                          "manipulating the Systems Biology Markup Language "+
+                          "(SBML).  It is written in ISO C and C++, supports "+
+                          "SBML Levels 1 and 2, and runs on Linux, Microsoft "+
+                          "Windows, and Apple MacOS X.  For more information "+
+                          "about SBML, please see http://sbml.org."),
+      license          = "LGPL",
+      author           = "SBML Team",
+      author_email     = vars.get("PACKAGE_BUGREPORT"),
+      url              = "http://sbml.org",
+      py_modules       = ["libsbml"],
+      ext_modules      = [Extension("_libsbml", 
+                                    ["libsbml.i", "libsbml.cpp"],
+                                    include_dirs="../../src")],
+      data_files       = [(sysconfig.get_python_lib(), ["_libsbml.so"])]
+)
+      
+
+
+# filter(lambda s: s[-13:] == 'site-packages', sys.path)
