@@ -47,8 +47,12 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stephan Hoops
  */
 
+
+#include <iostream>
+#include <check.h>
 
 #include "sbml/common.h"
 #include "sbml/SBMLFormatter.hpp"
@@ -71,6 +75,7 @@ static SBMLFormatter      *formatter;
 void
 TestSBMLFormatter_setup (void)
 {
+#ifndef USE_EXPAT
   try
   {
     XMLPlatformUtils::Initialize();
@@ -79,6 +84,7 @@ TestSBMLFormatter_setup (void)
   {
     fail("XMLPlatformUtils::Initialize() threw an Exception.");
   }
+#endif // !USE_EXPAT
 
   target    = new MemBufFormatTarget();
   formatter = new SBMLFormatter("UTF-8", target);

@@ -47,17 +47,24 @@
  *     mailto:sysbio-team@caltech.edu
  *
  * Contributor(s):
+ *   Stephan Hoops
  */
 
 
+#include <iostream>
+#include <check.h>
+
 #include "sbml/common.h"
+
+#ifdef USE_EXPAT
+#  include "ExpatXMLString.hpp"
+#endif  // USE_EXPAT
+
 #include "sbml/SAX2AttributesMock.hpp"
 #include "sbml/XMLStringFormatter.hpp"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 static XMLStringFormatter *XSFormatter;
@@ -66,12 +73,7 @@ static XMLStringFormatter *XSFormatter;
 void
 TestXMLStringFormatter_setup (void)
 {
-  char *outEncoding = safe_strdup("LATIN1");
-
-
-  XSFormatter = new XMLStringFormatter(outEncoding);
-
-  safe_free(outEncoding);
+  XSFormatter = new XMLStringFormatter("UTF-8");
 }
 
 
@@ -129,12 +131,11 @@ create_suite_XMLStringFormatter (void)
   tcase_add_test( tcase, test_XMLStringFormatter_startElement        );
   tcase_add_test( tcase, test_XMLStringFormatter_bug_no_chCloseAngle );
 
+
   suite_add_tcase(suite, tcase);
 
   return suite;
 }
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
