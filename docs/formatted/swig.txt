@@ -46,11 +46,11 @@
    bindings.  
    
    If you have trouble running the examples below, then most
-   likely there is a problem with your installation of you don't
-   have one of your environment variables set correctly.  See
-   the next section for info about nevironment variables.  If
-   that doesn't work, try reinstalling libSBML.  If that doesn't
-   work, try the libSBML discussion list:
+   likely there is a problem with your installation or one or
+   more of your environment variables needs to be set
+   differently.  See the next section for info about nevironment
+   variables.  If that doesn't work, try reinstalling libSBML.
+   If that doesn't work, try the libSBML discussion list:
 
       https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
 
@@ -296,7 +296,7 @@
 
    Now that we know how to read SBML in from a file, and how to
    inspect and modify libSBML objects, let's do something
-   useful: let's convert l1v1-rules.xml from level 1 to level 2.
+   useful: let's convert l1v1-rules.xml from Level 1 to Level 2.
 
    To do this, we only need to know one more thing: how to write
    an SBML document to disk.  
@@ -317,7 +317,7 @@
    data member just tells writeSBML() the format in which to
    save the model.
 
-   The level 2 version of the model is longer than the level 1
+   The Level 2 version of the model is longer than the Level 1
    version, so we'll only show the beginning here.  Notice that
    "specie" got changed to "species" and the parameterRules are
    now expressed in MathML inside assignmentRules:
@@ -390,8 +390,8 @@
       Model.getListOfParameters(), are compatible with this
       syntax.
 
-   *  The program code does not care if the models are level 1 or
-      level 2.  The directory can contain both kinds of models
+   *  The program code does not care if the models are Level 1 or
+      Level 2.  The directory can contain both kinds of models
       and the program will read through them all.
 
    *  The program did an "import libsbml" rather than "from
@@ -601,8 +601,8 @@
 3.2 CONVERTING A MODEL FROM LEVEL 1 TO LEVEL 2
 
    Now that we know how to read SBML in from a file, let's do
-   something useful: let's convert l1v1-rules.xml from level 1
-   to level 2.
+   something useful: let's convert l1v1-rules.xml from Level 1
+   to Level 2.
 
    To do this, we only need to know two more things: how to
    modify an SBase object, and how to write an SBML document to
