@@ -78,7 +78,7 @@ typedef struct
 /**
  * ListItemComparator
  *
- * This is a prototype for a pointer to a function that compares two list
+ * This is a typedef for a pointer to a function that compares two list
  * items.  The return value semantics are the same as for strcmp:
  *
  *   -1    item1 <  item2,
@@ -88,6 +88,16 @@ typedef struct
  * @see List_find()
  */
 typedef int (*ListItemComparator) (const void *item1, const void *item2);
+
+/**
+ * ListItemPredicate
+ *
+ * This is a typedef for a pointer to a function that takes a list item and
+ * returns true (non-zero) or false (0).
+ *
+ * @see List_countIf()
+ */
+typedef int (*ListItemPredicate) (const void *item);
 
 
 /**
@@ -156,9 +166,16 @@ void
 List_add (List_t *list, void *item);
 
 /**
+ * @return the number of items in the list for which predicate(item)
+ * returned true.
+ */
+unsigned int
+List_countIf (List_t *list, ListItemPredicate predicate);
+
+/**
  * @return the first occurrence of item1 in this List or NULL if item was
  * not found.  ListItemComparator is a pointer to a function used to find
- * item.  The prototype for ListItemComparator is:
+ * item.  The typedef for ListItemComparator is:
  *
  *   int (*ListItemComparator) (const void *item1, const void *item2);
  *
@@ -169,7 +186,7 @@ List_add (List_t *list, void *item);
  *    1    item1 >  item2
  */
 void *
-List_find (List_t *list, void *item1, ListItemComparator);
+List_find (List_t *list, void *item1, ListItemComparator comparator);
 
 /**
  * Returns the nth item in this List.  If n > List_size(list) returns NULL.

@@ -137,6 +137,42 @@ END_TEST
 
 
 int
+myPredicate (const void *item)
+{
+  const char *s = (char *) item;
+
+
+  return s[1] == 'a';
+}
+
+
+START_TEST (test_List_countIf)
+{
+  const char *foo = "foo";
+  const char *bar = "bar";
+  const char *baz = "baz";
+  const char *bop = "bop";
+
+  List_add(L, (void *) foo);
+  List_add(L, (void *) bop);
+
+  fail_unless( List_countIf(L, myPredicate) == 0 , NULL );
+
+  List_add(L, (void *) foo);
+  List_add(L, (void *) bar);
+  List_add(L, (void *) baz);
+  List_add(L, (void *) bop);
+
+  fail_unless( List_countIf(L, myPredicate) == 2 , NULL );
+
+  List_add(L, (void *) baz);
+
+  fail_unless( List_countIf(L, myPredicate) == 3 , NULL );
+}
+END_TEST
+
+
+int
 myStrCmp (const void *s1, const void *s2)
 {
   return strcmp((const char *) s1, (const char *) s2);
@@ -311,6 +347,7 @@ create_suite_List (void)
   tcase_add_test( tcase, test_List_add_1      );
   tcase_add_test( tcase, test_List_add_2      );
   tcase_add_test( tcase, test_List_get        );
+  tcase_add_test( tcase, test_List_countIf    );
   tcase_add_test( tcase, test_List_find       );
   tcase_add_test( tcase, test_List_prepend_1  );
   tcase_add_test( tcase, test_List_prepend_2  );

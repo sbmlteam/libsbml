@@ -167,9 +167,34 @@ List_add (List_t *list, void *item)
 
 
 /**
+ * @return the number of items in the list for which predicate(item)
+ * returned true.
+ */
+unsigned int
+List_countIf (List_t *list, ListItemPredicate predicate)
+{
+  unsigned int count = 0;
+  ListNode_t   *node = list->head;
+
+
+  while (node != NULL)
+  {
+    if (predicate(node->item) != 0)
+    {
+      count++;
+    }
+
+    node = node->next;
+  }
+
+  return count;
+}
+
+
+/**
  * @return the first occurrence of item1 in this List or NULL if item was
  * not found.  ListItemComparator is a pointer to a function used to find
- * item.  The prototype for ListItemComparator is:
+ * item.  The typedef for ListItemComparator is:
  *
  *   int (*ListItemComparator) (void *item1, void *item2);
  *
