@@ -196,7 +196,7 @@ swig_sources = \
 	../swig/libsbml.hpp \
 	../swig/libsbml.i
 
-libsbml_wrap.cpp java-files: $(swig_sources)
+libsbml_wrap.cpp java-files: $(swig_sources) ../../src/sbml/*.hpp
 ifndef USE_SWIG
 	@echo "Please reconfigure with --with-swig to rebuild libsbml_wrap.cpp"
 	@echo "and the files in the java-files directory."
