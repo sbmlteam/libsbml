@@ -89,7 +89,9 @@ tex_ext = aux bbl blg log out toc
 extra_distclean = $(libsbml-manual-files) $(libsbml-api-ref-files) \
 	$(addprefix libsbml-manual.,$(tex_ext)) \
 	$(addprefix libsbml-api-ref.,$(tex_ext)) \
-	libsbml-manual libsbml-api-ref 
+	libsbml-manual \
+	libsbml-api-ref \
+	$(pdffiles)
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
@@ -235,7 +237,7 @@ libsbml-api-ref.html: $(api-tex-files)
 # -----------------------------------------------------------------------------
 
 $(pdffiles): %.pdf: %.eps
-	epstopdf $@
+	epstopdf $<
 
 
 # -----------------------------------------------------------------------------
