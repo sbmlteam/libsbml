@@ -60,6 +60,7 @@
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
+#include "List.h"
 #include "SBMLTypes.h"
 
 #include "common.hpp"
@@ -118,23 +119,128 @@ public:
   //
   ~SBMLFormatter ();
 
-  SBMLFormatter& operator<< ( const SBMLDocument_t             *d   );
-  SBMLFormatter& operator<< ( const Model_t                    *m   );
-  SBMLFormatter& operator<< ( const Unit_t                     *u   );
-  SBMLFormatter& operator<< ( const UnitDefinition_t           *ud  );
-  SBMLFormatter& operator<< ( const Compartment_t              *c   );
-  SBMLFormatter& operator<< ( const Species_t                  *s   );
-  SBMLFormatter& operator<< ( const Parameter_t                *p   );
-  SBMLFormatter& operator<< ( const AlgebraicRule_t            *ar  );
-  SBMLFormatter& operator<< ( const SpeciesConcentrationRule_t *scr );
-  SBMLFormatter& operator<< ( const CompartmentVolumeRule_t    *cvr );
-  SBMLFormatter& operator<< ( const ParameterRule_t            *pr  );
-  SBMLFormatter& operator<< ( const Reaction_t                 *r   );
-  SBMLFormatter& operator<< ( const SpeciesReference_t         *sr  );
-  SBMLFormatter& operator<< ( const KineticLaw_t               *kl  );
+
+  enum SBMLLevel_t   { Level1   = 1 };
+  enum SBMLVersion_t { Version1 = 1, Version2 = 2 };
+
+  /**
+   * Sets the SBML Level number (used to format subsequent insertions).
+   */
+  SBMLFormatter& operator<< (const SBMLLevel_t level);
+
+  /**
+   * Sets the SBML Version number (used to format subsequent insertions).
+   */
+  SBMLFormatter& operator<< (const SBMLVersion_t version);
+
+  //
+  // Insertion operators for specific SBML types.
+  //
+
+  SBMLFormatter& operator<< ( const SBMLDocument_t*             d   );
+  SBMLFormatter& operator<< ( const Model_t*                    m   );
+  SBMLFormatter& operator<< ( const UnitDefinition_t*           ud  );
+  SBMLFormatter& operator<< ( const Unit_t*                     u   );
+  SBMLFormatter& operator<< ( const Compartment_t*              c   );
+  SBMLFormatter& operator<< ( const Species_t*                  s   );
+  SBMLFormatter& operator<< ( const Parameter_t*                p   );
+  SBMLFormatter& operator<< ( const Rule_t*                     r   );
+  SBMLFormatter& operator<< ( const AlgebraicRule_t*            ar  );
+  SBMLFormatter& operator<< ( const SpeciesConcentrationRule_t* scr );
+  SBMLFormatter& operator<< ( const CompartmentVolumeRule_t*    cvr );
+  SBMLFormatter& operator<< ( const ParameterRule_t*            pr  );
+  SBMLFormatter& operator<< ( const Reaction_t*                 r   );
+  SBMLFormatter& operator<< ( const SpeciesReference_t*         sr  );
+  SBMLFormatter& operator<< ( const KineticLaw_t*               kl  );
 
 
 private:
+
+  void listOfUnitDefinitions ( List_t* list );
+  void listOfUnits           ( List_t* list );
+  void listOfCompartments    ( List_t* list );
+  void listOfSpecies         ( List_t* list );
+  void listOfParameters      ( List_t* list );
+  void listOfRules           ( List_t* list );
+  void listOfReactions       ( List_t* list );
+  void listOfReactants       ( List_t* list );
+  void listOfProducts        ( List_t* list );
+
+  void annotation (const char* s);
+  void notes      (const char* s);
+
+  inline void notesAndAnnotation (const SBase_t* sb);
+
+  void ruleType (const RuleType_t type);
+
+  /**
+   * Returns true if the string pointed to by s is NULL or zero-length.
+   */
+  inline bool isEmpty (const char* s);
+
+  //
+  // In this context "empty" means either no notes, annotations and other
+  // SBML (XML) subelements.
+  //
+
+  inline bool isEmpty ( const SBase_t*                    sb  );
+  inline bool isEmpty ( const Model_t*                    m   );
+  inline bool isEmpty ( const UnitDefinition_t*           ud  );
+  inline bool isEmpty ( const Unit_t*                     u   );
+  inline bool isEmpty ( const Compartment_t*              c   );
+  inline bool isEmpty ( const Species_t*                  s   );
+  inline bool isEmpty ( const Parameter_t*                p   );
+  inline bool isEmpty ( const AlgebraicRule_t*            ar  );
+  inline bool isEmpty ( const SpeciesConcentrationRule_t* scr );
+  inline bool isEmpty ( const CompartmentVolumeRule_t*    cvr );
+  inline bool isEmpty ( const ParameterRule_t*            pr  );
+  inline bool isEmpty ( const Reaction_t*                 r   );
+  inline bool isEmpty ( const SpeciesReference_t*         sr  );
+  inline bool isEmpty ( const KineticLaw_t*               kl  );
+
+  /**
+   * Sends '<name>\n' to the underlying XMLFormatter.
+   */
+  inline void startElement (const XMLCh* name);
+
+  /**
+   * Sends '</name>\n' to the underlying XMLFormatter.
+   */
+  inline void endElement (const XMLCh* name);
+
+  /**
+   * Encapsulates a common operation for ending SBML (XML) elements that
+   * contain non-empty <notes>, <annotation>s or both, but are not allowed
+   * to contain other subelements like <listOfXXXs> or <kineticLaw>s.
+   */
+  inline void endElement (const XMLCh* name, const SBase_t* sb);
+
+  /**
+   * Sends '<name' to the underlying XMLFormatter.  Use when name has one or
+   * more attributes.
+   *
+   * See also closeStartElement() or slashCloseStartElement().
+   */
+  inline void openStartElement (const XMLCh* name);
+
+  /**
+   * Sends '>\n' to the underlying XMLFormatter.
+   *
+   * See also openStartElement().
+   */
+  inline void closeStartElement ();
+
+  /**
+   * Sends "/>\n" to the underlying XMLFormatter.
+   *
+   * See also openStartElement().
+   */
+  inline void slashCloseStartElement ();
+
+  //
+  // Sends ' name=value' to the underlying XMLFormatter where value is an
+  // appropriate string representation for the given type.
+  //
 
   void attribute ( const XMLCh* name, bool         value );
   void attribute ( const XMLCh* name, int          value );
@@ -143,45 +249,21 @@ private:
   void attribute ( const XMLCh* name, const char*  value );
   void attribute ( const XMLCh* name, const XMLCh* value );
 
-
   /**
-   * Returns true if the string pointed to by s is empty or s is a NULL
-   * pointer.
+   * Sends whitespace to the underlying XMLFormatter based on the current
+   * indentation level.
    */
-  inline bool SBMLFormatter::isEmpty(const char *s)
-  {
-    return !(s && *s);
-  }
+  void indent ();
 
-  inline void SBMLFormatter::startElement (const XMLCh* name)
-  {
-    *fFormatter << XMLFormatter::NoEscapes << chOpenAngle << name;
-  }
-
-  inline void SBMLFormatter::closeStartElement ()
-  {
-    *fFormatter << XMLFormatter::NoEscapes << chCloseAngle << chLF;
-  }
-
-  inline void SBMLFormatter::slashCloseStartElement ()
-  {
-    *fFormatter << XMLFormatter::NoEscapes
-                << chForwardSlash << chCloseAngle << chLF;
-  }
-
-  inline void SBMLFormatter::endElement (const XMLCh* name)
-  {
-    *fFormatter << XMLFormatter::NoEscapes
-                << chOpenAngle  << chForwardSlash << name
-                << chCloseAngle << chLF;
-  }
-
-  inline void SBMLFormatter::upIndent ()   { fIndentLevel++; }
+  inline void SBMLFormatter::upIndent   () { fIndentLevel++; }
   inline void SBMLFormatter::downIndent () { fIndentLevel--; }
 
 
   static const unsigned int NUMBER_BUFFER_SIZE = 100;
   char fNumberBuffer[ NUMBER_BUFFER_SIZE ];
+
+  unsigned int fLevel;
+  unsigned int fVersion;
 
   XMLFormatter*     fFormatter;
   XMLFormatTarget*  fTarget;

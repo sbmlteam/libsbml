@@ -85,8 +85,6 @@ static const XMLCh  XML_DECL_2[] =
   chDoubleQuote, chQuestion, chCloseAngle, chLF, chNull
 };
 
-static const XMLCh fIndent[] = { chSpace, chSpace, chNull };
-
 
 //
 // Ctor
@@ -99,7 +97,7 @@ static const XMLCh fIndent[] = { chSpace, chSpace, chNull };
 SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 {
   //
-  // Initialize() is static, but may be called more than once safely.
+  // Initialize() is static and may be called more than once safely.
   //
   try
   {
@@ -108,6 +106,9 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
   catch (const XMLException& e)
   {
   }
+
+  fLevel   = 1;
+  fVersion = 2;
 
   fIndentLevel = 0;
 
@@ -129,8 +130,37 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 //
 SBMLFormatter::~SBMLFormatter ()
 {
-  delete fTarget;
   delete fFormatter;
+}
+
+
+
+
+/* ----------------------------------------------------------------------
+ *                          Insertion operator
+ * ----------------------------------------------------------------------
+ */
+
+
+/**
+ * Sets the SBML Level number (used to format subsequent insertions).
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const SBMLLevel_t level)
+{
+  fLevel = (unsigned int) level;
+  return *this;
+}
+
+
+/**
+ * Sets the SBML Version number (used to format subsequent insertions).
+ */
+SBMLFormatter&
+SBMLFormatter::operator<< (const SBMLVersion_t version)
+{
+  fVersion = (unsigned int) version;
+  return *this;
 }
 
 
@@ -138,21 +168,33 @@ SBMLFormatter::~SBMLFormatter ()
 // SBMLDocument
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const SBMLDocument_t *d)
+SBMLFormatter::operator<< (const SBMLDocument_t* d)
 {
-  startElement(ELEM_SBML);
+  fLevel   = d->level;
+  fVersion = d->version;
 
-  attribute( ATTR_LEVEL  , d->level   );
-  attribute( ATTR_VERSION, d->version );
+  openStartElement(ELEM_SBML);
 
-  closeStartElement();
+  attribute( ATTR_XMLNS  , XMLNS_SBML_L1 );
+  attribute( ATTR_LEVEL  , d->level      );
+  attribute( ATTR_VERSION, d->version    );
 
-  if (d->model != NULL)
+  if (d->model == NULL)
   {
-    *this << d->model;
+    slashCloseStartElement();
   }
+  else
+  {
+    closeStartElement();
 
-  endElement(ELEM_SBML);
+    upIndent();
+
+    *this << d->model;
+
+    downIndent();
+
+    endElement(ELEM_SBML);
+  }
 
   return *this;
 }
@@ -162,43 +204,37 @@ SBMLFormatter::operator<< (const SBMLDocument_t *d)
 // Model
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const Model_t *m)
+SBMLFormatter::operator<< (const Model_t* m)
 {
-  startElement(ELEM_MODEL);
+  if (m == NULL) return *this;
+
+
+  openStartElement(ELEM_MODEL);
 
   attribute(ATTR_NAME, m->name);
 
-  closeStartElement();
-
-  endElement(ELEM_MODEL);
-
-  return *this;
-}
-
-
-//
-// Unit
-//
-SBMLFormatter&
-SBMLFormatter::operator<< (const Unit_t *u)
-{
-  const char* kind = UnitKind_toString(u->kind);
-
-
-  startElement(ELEM_UNIT);
-
-  attribute( ATTR_KIND,     kind        );
-  attribute( ATTR_EXPONENT, u->exponent );
-  attribute( ATTR_SCALE,    u->scale    );
-
-  if ( isEmpty(u->notes) && isEmpty(u->annotation) )
+  if ( isEmpty(m) )
   {
     slashCloseStartElement();
   }
   else
   {
     closeStartElement();
-    endElement(ELEM_UNIT);
+
+    upIndent();
+
+    notesAndAnnotation( (SBase_t*) m );
+
+    listOfUnitDefinitions( m->unitDefinition );
+    listOfCompartments   ( m->compartment    );
+    listOfSpecies        ( m->species        );
+    listOfParameters     ( m->parameter      );
+    listOfRules          ( m->rule           );
+    listOfReactions      ( m->reaction       );
+    
+    downIndent();
+
+    endElement(ELEM_MODEL);
   }
 
   return *this;
@@ -209,37 +245,75 @@ SBMLFormatter::operator<< (const Unit_t *u)
 // UnitDefinition
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const UnitDefinition_t *ud)
+SBMLFormatter::operator<< (const UnitDefinition_t* ud)
 {
-  unsigned int n, size;
+  if (ud == NULL) return *this;
 
 
-  startElement(ELEM_UNIT_DEFINITION);
+  openStartElement(ELEM_UNIT_DEFINITION);
 
   attribute(ATTR_NAME, ud->name);
-  
-  closeStartElement();
 
-  size = UnitDefinition_getNumUnits(ud);
 
-  if (size > 0)
+  if ( isEmpty(ud) )
   {
-    upIndent();
-    startElement(ELEM_LIST_OF_UNITS);
+    slashCloseStartElement();
+  }
+  else
+  {
     closeStartElement();
+
     upIndent();
 
-    for (n = 0; n < size; n++)
-    {
-      *this << UnitDefinition_getUnit(ud, n);
-    }
+    notesAndAnnotation( (SBase_t*) ud );
+    listOfUnits(ud->unit);
 
     downIndent();
-    endElement(ELEM_LIST_OF_UNITS);
-    downIndent();
+
+    endElement(ELEM_UNIT_DEFINITION);
   }
 
-  endElement(ELEM_UNIT_DEFINITION);
+  return *this;
+}
+
+
+//
+// Unit
+//
+SBMLFormatter&
+SBMLFormatter::operator<< (const Unit_t* u)
+{
+  if (u == NULL) return *this;
+
+
+  openStartElement(ELEM_UNIT);
+
+  attribute(ATTR_KIND, UnitKind_toString(u->kind));
+
+  //
+  // In SBML L1, exponent="1" is the default.
+  //
+  if (fLevel != 1 || u->exponent != 1)
+  {
+    attribute(ATTR_EXPONENT, u->exponent);
+  }
+
+  //
+  // In SBML L1, scale="0" is the default.
+  //
+  if (fLevel != 1 || u->scale != 0)
+  {
+    attribute(ATTR_SCALE, u->scale);
+  }
+
+  if ( isEmpty(u) )
+  {
+    slashCloseStartElement();
+  }
+  else
+  {
+    endElement(ELEM_UNIT, (SBase_t*) u);
+  }
 
   return *this;
 }
@@ -249,23 +323,32 @@ SBMLFormatter::operator<< (const UnitDefinition_t *ud)
 // Compartment
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const Compartment_t *c)
+SBMLFormatter::operator<< (const Compartment_t* c)
 {
-  startElement(ELEM_COMPARTMENT);
+  if (c == NULL) return *this;
 
-  attribute( ATTR_NAME   , c->name    );
-  attribute( ATTR_VOLUME , c->volume  );
+
+  openStartElement(ELEM_COMPARTMENT);
+
+  attribute(ATTR_NAME, c->name);
+
+  //
+  // Although compartment has a default volume of 1.0 in SBML L1, IEEE 754
+  // doubles (or floats) cannot be reliably compared for equality.  To be
+  // safe, always output compartment volume, regardless of its value.
+  //
+  attribute(ATTR_VOLUME , c->volume);
+
   attribute( ATTR_UNITS  , c->units   );
   attribute( ATTR_OUTSIDE, c->outside );
 
-  if ( isEmpty(c->notes) && isEmpty(c->annotation) )
+  if ( isEmpty(c) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_COMPARTMENT);
+    endElement(ELEM_COMPARTMENT, (SBase_t*) c);
   }
 
   return *this;
@@ -276,25 +359,43 @@ SBMLFormatter::operator<< (const Compartment_t *c)
 // Species
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const Species_t *s)
+SBMLFormatter::operator<< (const Species_t* s)
 {
-  startElement(ELEM_SPECIES);
+  if (s == NULL) return *this;
 
-  attribute( ATTR_NAME              , s->name                     );
-  attribute( ATTR_COMPARTMENT       , s->compartment              );
-  attribute( ATTR_INITIAL_AMOUNT    , s->initialAmount            );
-  attribute( ATTR_UNITS             , s->units                    );
-  attribute( ATTR_BOUNDARY_CONDITION, (bool) s->boundaryCondition );
-  attribute( ATTR_CHARGE            , s->charge                   );
 
-  if ( isEmpty(s->notes) && isEmpty(s->annotation) )
+  const XMLCh* elem = ELEM_SPECIES;
+
+
+  if ((fLevel == 1) && (fVersion == 1))
+  {
+    elem = ELEM_SPECIE;
+  }
+
+  openStartElement(elem);
+
+  attribute( ATTR_NAME          , s->name          );
+  attribute( ATTR_COMPARTMENT   , s->compartment   );
+  attribute( ATTR_INITIAL_AMOUNT, s->initialAmount );
+  attribute( ATTR_UNITS         , s->units         );
+
+  //
+  // In SBML L1, boundaryCondition="false" (0) is the default.
+  //
+  if (fLevel != 1 || s->boundaryCondition != 0)
+  {
+    attribute(ATTR_BOUNDARY_CONDITION, (bool) s->boundaryCondition);
+  }
+
+  attribute(ATTR_CHARGE, s->charge);
+
+  if ( isEmpty(s) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_SPECIES);
+    endElement(elem, (SBase_t*) s);
   }
 
   return *this;
@@ -305,22 +406,59 @@ SBMLFormatter::operator<< (const Species_t *s)
 // Parameter
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const Parameter_t *p)
+SBMLFormatter::operator<< (const Parameter_t* p)
 {
-  startElement(ELEM_PARAMETER);
+  if (p == NULL) return *this;
+
+
+  openStartElement(ELEM_PARAMETER);
 
   attribute( ATTR_NAME , p->name  );
   attribute( ATTR_VALUE, p->value );
   attribute( ATTR_UNITS, p->units );
 
-  if ( isEmpty(p->notes) && isEmpty(p->annotation) )
+  if ( isEmpty(p) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_PARAMETER);
+    endElement(ELEM_PARAMETER, (SBase_t*) p);
+  }
+
+  return *this;
+}
+
+
+//
+// Rule
+//
+SBMLFormatter&
+SBMLFormatter::operator<< (const Rule_t* r)
+{
+  if (r == NULL) return *this;
+
+
+  switch (r->typecode)
+  {
+    case SBML_ALGEBRAIC_RULE:
+      *this << (AlgebraicRule_t*) r;
+      break;
+
+    case SBML_SPECIES_CONCENTRATION_RULE:
+      *this << (SpeciesConcentrationRule_t*) r;
+      break;
+      
+    case SBML_COMPARTMENT_VOLUME_RULE:
+      *this << (CompartmentVolumeRule_t*) r;
+      break;
+
+    case SBML_PARAMETER_RULE:
+      *this << (ParameterRule_t*) r;
+      break;
+
+    default:
+      break;
   }
 
   return *this;
@@ -331,20 +469,22 @@ SBMLFormatter::operator<< (const Parameter_t *p)
 // AlgebraicRule
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const AlgebraicRule_t *ar)
+SBMLFormatter::operator<< (const AlgebraicRule_t* ar)
 {
-  startElement(ELEM_ALGEBRAIC_RULE);
+  if (ar == NULL) return *this;
+
+
+  openStartElement(ELEM_ALGEBRAIC_RULE);
 
   attribute(ATTR_FORMULA, ar->formula);
 
-  if ( isEmpty(ar->notes) && isEmpty(ar->annotation) )
+  if ( isEmpty(ar) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_ALGEBRAIC_RULE);
+    endElement(ELEM_ALGEBRAIC_RULE, (SBase_t*) ar);
   }
 
   return *this;
@@ -355,22 +495,34 @@ SBMLFormatter::operator<< (const AlgebraicRule_t *ar)
 // SpeciesConcentrationRule
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const SpeciesConcentrationRule_t *scr)
+SBMLFormatter::operator<< (const SpeciesConcentrationRule_t* scr)
 {
-  startElement(ELEM_SPECIES_CONCENTRATION_RULE);
+  if (scr == NULL) return *this;
 
-  attribute( ATTR_FORMULA, scr->formula );
-  attribute( ATTR_TYPE   , scr->type    );
-  attribute( ATTR_SPECIES, scr->species );
 
-  if ( isEmpty(scr->notes) && isEmpty(scr->annotation) )
+  const XMLCh* elem = ELEM_SPECIES_CONCENTRATION_RULE;
+  const XMLCh* attr = ATTR_SPECIES;
+
+
+  if ((fLevel == 1) && (fVersion == 1))
+  {
+    elem = ELEM_SPECIE_CONCENTRATION_RULE;
+    attr = ATTR_SPECIE;
+  }
+
+  openStartElement(elem);
+
+  attribute(ATTR_FORMULA, scr->formula);
+  ruleType(scr->type);
+  attribute(attr, scr->species);
+
+  if ( isEmpty(scr) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_SPECIES_CONCENTRATION_RULE);
+    endElement(elem, (SBase_t*) scr);
   }
 
   return *this;
@@ -381,22 +533,23 @@ SBMLFormatter::operator<< (const SpeciesConcentrationRule_t *scr)
 // CompartmentVolumeRule
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const CompartmentVolumeRule_t *cvr)
+SBMLFormatter::operator<< (const CompartmentVolumeRule_t* cvr)
 {
-  startElement(ELEM_COMPARTMENT_VOLUME_RULE);
+  if (cvr == NULL) return *this;
 
-  attribute( ATTR_FORMULA    , cvr->formula     );
-  attribute( ATTR_TYPE       , cvr->type        );
-  attribute( ATTR_COMPARTMENT, cvr->compartment );
+  openStartElement(ELEM_COMPARTMENT_VOLUME_RULE);
 
-  if ( isEmpty(cvr->notes) && isEmpty(cvr->annotation) )
+  attribute(ATTR_FORMULA, cvr->formula);
+  ruleType(cvr->type);
+  attribute(ATTR_COMPARTMENT, cvr->compartment);
+
+  if ( isEmpty(cvr) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_COMPARTMENT_VOLUME_RULE);
+    endElement(ELEM_COMPARTMENT_VOLUME_RULE, (SBase_t*) cvr);
   }
 
   return *this;
@@ -407,22 +560,26 @@ SBMLFormatter::operator<< (const CompartmentVolumeRule_t *cvr)
 // ParameterRule
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const ParameterRule_t *pr)
+SBMLFormatter::operator<< (const ParameterRule_t* pr)
 {
-  startElement(ELEM_PARAMETER_RULE);
+  if (pr == NULL) return *this;
 
-  attribute( ATTR_FORMULA, pr->formula );
-  attribute( ATTR_NAME   , pr->name    );
-  attribute( ATTR_UNITS  , pr->units   );
 
-  if ( isEmpty(pr->notes) && isEmpty(pr->annotation) )
+  openStartElement(ELEM_PARAMETER_RULE);
+
+  attribute(ATTR_FORMULA, pr->formula);
+  ruleType(pr->type);
+
+  attribute( ATTR_NAME , pr->name  );
+  attribute( ATTR_UNITS, pr->units );
+
+  if ( isEmpty(pr) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_PARAMETER_RULE);
+    endElement(ELEM_PARAMETER_RULE, (SBase_t*) pr);
   }
 
   return *this;
@@ -433,21 +590,48 @@ SBMLFormatter::operator<< (const ParameterRule_t *pr)
 // Reaction
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const Reaction_t *r)
+SBMLFormatter::operator<< (const Reaction_t* r)
 {
-  startElement(ELEM_REACTION);
+  if (r == NULL) return *this;
 
-  attribute( ATTR_NAME      , r->name              );
-  attribute( ATTR_REVERSIBLE, (bool) r->reversible );
-  attribute( ATTR_FAST      , (bool) r->fast       );
 
-  if ( isEmpty(r->notes) && isEmpty(r->annotation) )
+  openStartElement(ELEM_REACTION);
+
+  attribute(ATTR_NAME, r->name);
+
+  //
+  // In SBML L1, reversible="true" (1) is the default.
+  //
+  if (fLevel != 1 || r->reversible != 1)
+  {
+    attribute(ATTR_REVERSIBLE, (bool) r->reversible);
+  }
+
+  //
+  // In SBML L1, fast="false" (0) is the default.
+  //
+  if (fLevel != 1 || r->fast != 0)
+  {
+    attribute(ATTR_FAST, (bool) r->fast);
+  }
+
+  if ( isEmpty(r) )
   {
     slashCloseStartElement();
   }
   else
   {
     closeStartElement();
+
+    upIndent();
+
+    notesAndAnnotation( (SBase_t*) r );
+    listOfReactants( r->reactant );
+    listOfProducts ( r->product  );
+    *this << r->kineticLaw;
+
+    downIndent();
+
     endElement(ELEM_REACTION);
   }
 
@@ -459,22 +643,48 @@ SBMLFormatter::operator<< (const Reaction_t *r)
 // SpeciesReference
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const SpeciesReference_t *sr)
+SBMLFormatter::operator<< (const SpeciesReference_t* sr)
 {
-  startElement(ELEM_SPECIES_REFERENCE);
+  if (sr == NULL) return *this;
 
-  attribute( ATTR_SPECIES      , sr->species       );
-  attribute( ATTR_STOICHIOMETRY, sr->stoichiometry );
-  attribute( ATTR_DENOMINATOR  , sr->denominator   );
 
-  if ( isEmpty(sr->notes) && isEmpty(sr->annotation) )
+  const XMLCh* elem = ELEM_SPECIES_REFERENCE;
+  const XMLCh* attr = ATTR_SPECIES;
+
+
+  if ((fLevel == 1) && (fVersion == 1))
+  {
+    elem = ELEM_SPECIE_REFERENCE;
+    attr = ATTR_SPECIE;
+  }
+
+  openStartElement(elem);
+
+  attribute(attr, sr->species);
+
+  //
+  // In SBML L1, stoichiometry="1" is the default.
+  //
+  if (fLevel != 1 || sr->stoichiometry != 1)
+  {
+    attribute(ATTR_STOICHIOMETRY, sr->stoichiometry);
+  }
+
+  //
+  // In SBML L1, denominator="1" is the default.
+  //
+  if (fLevel != 1 || sr->denominator != 1)
+  {
+    attribute(ATTR_DENOMINATOR, sr->denominator);
+  }
+
+  if ( isEmpty(sr) )
   {
     slashCloseStartElement();
   }
   else
   {
-    closeStartElement();
-    endElement(ELEM_SPECIES_REFERENCE);
+    endElement(elem, (SBase_t*) sr);
   }
 
   return *this;
@@ -485,35 +695,350 @@ SBMLFormatter::operator<< (const SpeciesReference_t *sr)
 // KineticLaw
 //
 SBMLFormatter&
-SBMLFormatter::operator<< (const KineticLaw_t *kl)
+SBMLFormatter::operator<< (const KineticLaw_t* kl)
 {
-  startElement(ELEM_KINETIC_LAW);
+  if (kl == NULL) return *this;
+
+
+  openStartElement(ELEM_KINETIC_LAW);
 
   attribute( ATTR_FORMULA        , kl->formula        );
   attribute( ATTR_TIME_UNITS     , kl->timeUnits      );
   attribute( ATTR_SUBSTANCE_UNITS, kl->substanceUnits );
 
-  if ( isEmpty(kl->notes) && isEmpty(kl->annotation) )
+  if ( isEmpty(kl) )
   {
     slashCloseStartElement();
   }
   else
   {
     closeStartElement();
+
+    upIndent();
+
+    notesAndAnnotation( (SBase_t*) kl );
+    listOfParameters(kl->parameter);
+
+    downIndent();
+
     endElement(ELEM_KINETIC_LAW);
-  }
+  } 
 
   return *this;
 }
 
 
+
+
+/* ----------------------------------------------------------------------
+ *                 Insertion Operator Supporting Functions
+ * ----------------------------------------------------------------------
+ */
+
+
+//
+// listOfXXXs
+//
+// The listOfXXX() functions are similar, with changes in element (tag)
+// names and C types only.
+//
+// This #define macro provides a template which is used to create each
+// specific function.  Think, C++ templates without all the added baggage.
+//
+#define makeFn(name, element, type)          \
+void                                         \
+SBMLFormatter::name (List_t* list)           \
+{                                            \
+  unsigned int size = List_size(list);       \
+                                             \
+                                             \
+  if (size > 0)                              \
+  {                                          \
+    startElement( element );                 \
+                                             \
+    upIndent();                              \
+                                             \
+    for (unsigned int n = 0; n < size; n++)  \
+    {                                        \
+      *this << ( type * ) List_get(list, n); \
+    }                                        \
+                                             \
+    downIndent();                            \
+                                             \
+    endElement( element );                   \
+  }                                          \
+}
+
+makeFn( listOfUnitDefinitions, ELEM_LIST_OF_UNIT_DEFINITIONS, UnitDefinition_t )
+makeFn( listOfUnits          , ELEM_LIST_OF_UNITS           , Unit_t           )
+makeFn( listOfCompartments   , ELEM_LIST_OF_COMPARTMENTS    , Compartment_t    )
+makeFn( listOfSpecies        , ELEM_LIST_OF_SPECIES         , Species_t        )
+makeFn( listOfParameters     , ELEM_LIST_OF_PARAMETERS      , Parameter_t      )
+makeFn( listOfRules          , ELEM_LIST_OF_RULES           , Rule_t           )
+makeFn( listOfReactions      , ELEM_LIST_OF_REACTIONS       , Reaction_t       )
+makeFn( listOfReactants      , ELEM_LIST_OF_REACTANTS     , SpeciesReference_t )
+makeFn( listOfProducts       , ELEM_LIST_OF_PRODUCTS      , SpeciesReference_t )
+
+#undef makeFn
+
+
+//
+// Rule Type
+//
 void
-SBMLFormatter::attribute (const XMLCh* name, bool value)
+SBMLFormatter::ruleType (const RuleType_t type)
 {
-  (value == true) ? attribute(name, "true") : attribute(name, "false");
+  //
+  // In SBML L1, type="scalar" is the default.
+  //
+  if (fLevel != 1 || type != RULE_TYPE_SCALAR)
+  {
+    attribute(ATTR_TYPE, RuleType_toString(type));
+  }
 }
 
 
+//
+// Notes
+//
+void
+SBMLFormatter::notes (const char* s)
+{
+  if (isEmpty(s)) return;
+
+
+  startElement(ELEM_NOTES);
+
+  upIndent();
+  indent();
+
+  XMLCh* x = XMLString::transcode(s);
+  *fFormatter << x << chLF;
+  delete [] x;
+
+  downIndent();
+
+  endElement(ELEM_NOTES);
+}
+
+
+//
+// Annotation
+//
+void
+SBMLFormatter::annotation (const char* s)
+{
+  if (isEmpty(s)) return;
+
+
+  indent();
+
+  XMLCh* x = XMLString::transcode(s);
+  *fFormatter << x << chLF;
+  delete [] x;
+}
+
+
+//
+// Notes and Annotation
+//
+void
+SBMLFormatter::notesAndAnnotation(const SBase_t* sb)
+{
+  notes(sb->notes);
+  annotation(sb->annotation);
+}
+
+
+
+
+/* ----------------------------------------------------------------------
+ *                               isEmpty()
+ * ----------------------------------------------------------------------
+ */
+
+
+/**
+ * Returns true if the string pointed to by s is NULL or zero-length.
+ */
+bool
+SBMLFormatter::isEmpty (const char* s)
+{
+  return !(s && *s);
+}
+
+
+//
+// In this context "empty" means either no notes, annotations and other
+// SBML (XML) subelements.
+//
+
+bool
+SBMLFormatter::isEmpty (const SBase_t* sb)
+{
+  return isEmpty(sb->notes) && isEmpty(sb->annotation);
+}
+
+bool
+SBMLFormatter::isEmpty (const Model_t* m)
+{
+  return isEmpty((SBase_t*) m)                 &&
+         (Model_getNumUnitDefinitions(m) == 0) &&
+         (Model_getNumCompartments   (m) == 0) &&
+         (Model_getNumSpecies        (m) == 0) &&
+         (Model_getNumParameters     (m) == 0) &&
+         (Model_getNumRules          (m) == 0) &&
+         (Model_getNumReactions      (m) == 0);
+}
+
+bool
+SBMLFormatter::isEmpty (const UnitDefinition_t* ud)
+{
+  return isEmpty((SBase_t*) ud) && (UnitDefinition_getNumUnits(ud) == 0);
+}
+
+bool
+SBMLFormatter::isEmpty (const Reaction_t* r)
+{
+  return isEmpty((SBase_t*) r)              &&
+         (Reaction_getNumReactants(r) == 0) &&
+         (Reaction_getNumProducts (r) == 0) &&
+         r->kineticLaw == NULL;
+}
+
+bool
+SBMLFormatter::isEmpty (const KineticLaw_t* kl)
+{
+  return isEmpty((SBase_t*) kl) && (KineticLaw_getNumParameters(kl) == 0);
+}
+
+
+//
+// The rest of the isEmpty() functions have the same basic form.  In fact,
+// they exist simply to avoid an explicit type cast.
+//
+#define makeFn(type)                   \
+bool                                   \
+SBMLFormatter::isEmpty (const type *t) \
+{                                      \
+  return isEmpty((SBase_t*) t);        \
+}
+
+makeFn( Unit_t                     )
+makeFn( Compartment_t              )
+makeFn( Species_t                  )
+makeFn( Parameter_t                )
+makeFn( AlgebraicRule_t            )
+makeFn( SpeciesConcentrationRule_t )
+makeFn( CompartmentVolumeRule_t    )
+makeFn( ParameterRule_t            )
+makeFn( SpeciesReference_t         )
+
+#undef makeFn
+
+
+
+/* ----------------------------------------------------------------------
+ *                      XML Elements and Attributes
+ * ----------------------------------------------------------------------
+ */
+
+
+/**
+ * Sends '<name>\n' to the underlying XMLFormatter.
+ */
+void
+SBMLFormatter::startElement (const XMLCh* name)
+{
+  indent();
+  *fFormatter << XMLFormatter::NoEscapes
+              << chOpenAngle << name << chCloseAngle << chLF;
+}
+
+
+/**
+ * Sends '</name>\n' to the underlying XMLFormatter.
+ */
+void
+SBMLFormatter::endElement (const XMLCh* name)
+{
+  indent();
+  *fFormatter << XMLFormatter::NoEscapes
+              << chOpenAngle  << chForwardSlash << name
+              << chCloseAngle << chLF;
+}
+
+
+/**
+ * Encapsulates a common operation for ending SBML (XML) elements that
+ * contain non-empty <notes>, <annotation>s or both, but are not allowed to
+ * contain other subelements like <listOfXXXs> or <kineticLaw>s.
+ */
+void
+SBMLFormatter::endElement(const XMLCh* name, const SBase_t* sb)
+{
+    closeStartElement();
+
+    upIndent();
+    notesAndAnnotation(sb);
+    downIndent();
+
+    endElement(name);
+}
+
+
+/**
+ * Sends '<name' to the underlying XMLFormatter.  Use when name has one or
+ * more attributes.
+ *
+ * See also closeStartElement() or slashCloseStartElement().
+ */
+void
+SBMLFormatter::openStartElement (const XMLCh* name)
+{
+  indent();
+  *fFormatter << XMLFormatter::NoEscapes << chOpenAngle << name;
+}
+
+
+/**
+ * Sends '>\n' to the underlying XMLFormatter.
+ *
+ * See also openStartElement().
+ */
+void
+SBMLFormatter::closeStartElement ()
+{
+  *fFormatter << XMLFormatter::NoEscapes << chCloseAngle << chLF;
+}
+
+
+/**
+ * Sends "/>\n" to the underlying XMLFormatter.
+ *
+ * See also openStartElement().
+ */
+void
+SBMLFormatter::slashCloseStartElement ()
+{
+  *fFormatter << XMLFormatter::NoEscapes
+              << chForwardSlash << chCloseAngle << chLF;
+}
+
+
+/**
+ * Sends ' name="true"' or ' name="false"' to the underlying XMLFormatter
+ */
+void
+SBMLFormatter::attribute (const XMLCh* name, bool value)
+{
+  (value == true) ? attribute(name, VAL_TRUE) : attribute(name, VAL_FALSE);
+}
+
+
+/**
+ * Sends ' name="%d" to the underlying XMLFormatter (where %d is an integer).
+ */
 void
 SBMLFormatter::attribute (const XMLCh* name, int value)
 {
@@ -522,6 +1047,10 @@ SBMLFormatter::attribute (const XMLCh* name, int value)
 }
 
 
+/**
+ * Sends ' name="%u" to the underlying XMLFormatter (where %u is an unsigned
+ * integer).
+ */
 void
 SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 {
@@ -530,6 +1059,9 @@ SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 }
 
 
+/**
+ * Sends ' name="%g" to the underlying XMLFormatter (where %g is a double).
+ */
 void
 SBMLFormatter::attribute (const XMLCh* name, double value)
 {
@@ -538,6 +1070,9 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
 }
 
 
+/**
+ * Sends ' name="%s" to the underlying XMLFormatter (where %s is a C string).
+ */
 void
 SBMLFormatter::attribute (const XMLCh* name, const char *value)
 {
@@ -549,10 +1084,14 @@ SBMLFormatter::attribute (const XMLCh* name, const char *value)
   s = XMLString::transcode(value);
   attribute(name, s);
 
-  delete s;
+  delete [] s;
 }
 
 
+/**
+ * Sends ' name="%s" to the underlying XMLFormatter (where %s is a Unicode
+ * string).
+ */
 void
 SBMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 {
@@ -569,13 +1108,16 @@ SBMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 
 }
 
-/*
+
+/**
+ * Sends whitespace to the underlying XMLFormatter based on the current
+ * indentation level.
+ */
 void
-SBMLFormatter::doIndent ()
+SBMLFormatter::indent ()
 {
   for (unsigned int n = 0; n < fIndentLevel; n++)
   {
-    *fFormatter << fIndent;
+    *fFormatter << chSpace << chSpace;
   }
 }
-*/
