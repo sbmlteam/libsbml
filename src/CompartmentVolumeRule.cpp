@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/CompartmentVolumeRule.h"
 #include "sbml/CompartmentVolumeRule.hpp"
 
@@ -87,6 +89,21 @@ CompartmentVolumeRule::CompartmentVolumeRule
 LIBSBML_EXTERN
 CompartmentVolumeRule::~CompartmentVolumeRule ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next Rule
+ * (if available).
+ */
+LIBSBML_EXTERN
+bool
+CompartmentVolumeRule::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

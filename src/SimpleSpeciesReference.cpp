@@ -51,6 +51,8 @@
 
 
 #include "sbml/util.h"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/SimpleSpeciesReference.h"
 #include "sbml/SimpleSpeciesReference.hpp"
 
@@ -63,6 +65,21 @@ LIBSBML_EXTERN
 SimpleSpeciesReference::SimpleSpeciesReference (const std::string& s) :
   SBase(), species(s)
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Reaction's next
+ * SimpleSpeciesReference (if available).
+ */
+LIBSBML_EXTERN
+bool
+SimpleSpeciesReference::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

@@ -61,6 +61,9 @@
 #include "RuleType.h"
 
 
+class SBMLVisitor;
+
+
 class AssignmentRule : public Rule
 {
 public:
@@ -92,8 +95,19 @@ public:
   /**
    * Destroys this AssignmentRule.
    */
-  LIBSBML_EXTERN virtual ~AssignmentRule ();
+  LIBSBML_EXTERN
+  virtual ~AssignmentRule ();
 
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * The function is kept for backward compatibility with the SBML L1 API.
@@ -102,33 +116,39 @@ public:
    *
    *   - type = RULE_TYPE_SCALAR
    */
-  LIBSBML_EXTERN void initDefaults ();
+  LIBSBML_EXTERN
+  void initDefaults ();
 
   /**
    * @return the type for this AssignmentRule.
    */
-  LIBSBML_EXTERN RuleType_t getType () const;
+  LIBSBML_EXTERN
+  RuleType_t getType () const;
 
   /**
    * @return the variable for this AssignmentRule.
    */
-  LIBSBML_EXTERN const std::string& getVariable () const;
+  LIBSBML_EXTERN
+  const std::string& getVariable () const;
 
   /**
    * @return true if the variable of this AssignmentRule has been set,
    * false otherwise.
    */
-  LIBSBML_EXTERN bool isSetVariable () const;
+  LIBSBML_EXTERN
+  bool isSetVariable () const;
 
   /**
    * Sets the type of this Rule to the given RuleType.
    */
-  LIBSBML_EXTERN void setType (RuleType_t rt);
+  LIBSBML_EXTERN
+  void setType (RuleType_t rt);
 
   /**
    * Sets the variable of this AssignmentRule to a copy of sid.
    */
-  LIBSBML_EXTERN void setVariable (const std::string& sid);
+  LIBSBML_EXTERN
+  void setVariable (const std::string& sid);
 
 
 protected:

@@ -51,6 +51,8 @@
 
 
 #include "sbml/FormulaParser.h"
+#include "sbml/ASTNode.hpp"
+#include "sbml/SBMLVisitor.hpp"
 
 #include "sbml/SpeciesReference.h"
 #include "sbml/SpeciesReference.hpp"
@@ -80,6 +82,21 @@ LIBSBML_EXTERN
 SpeciesReference::~SpeciesReference ()
 {
   delete stoichiometryMath;
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Reaction's next
+ * SimpleSpeciesReference (if available).
+ */
+LIBSBML_EXTERN
+bool
+SpeciesReference::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

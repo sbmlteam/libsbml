@@ -57,9 +57,11 @@
 #include <string>
 
 #include "extern.h"
-
 #include "SBase.hpp"
-#include "ASTNode.hpp"
+
+
+class ASTNode;
+class SBMLVisitor;
 
 
 class Rule : public SBase
@@ -84,6 +86,15 @@ public:
   LIBSBML_EXTERN
   virtual ~Rule ();
 
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return the formula for this Rule.

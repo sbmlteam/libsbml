@@ -50,6 +50,9 @@
  */
 
 
+#include "sbml/SBMLVisitor.hpp"
+
+#include "sbml/ListOf.h"
 #include "sbml/ListOf.hpp"
 
 
@@ -70,6 +73,17 @@ LIBSBML_EXTERN
 ListOf::~ListOf ()
 {
   freeItems();
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ */
+LIBSBML_EXTERN
+void
+ListOf::accept (SBMLVisitor& v, SBMLTypeCode_t type) const
+{
+  v.visit(*this, type);
 }
 
 

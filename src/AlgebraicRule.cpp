@@ -49,6 +49,8 @@
  */
 
 
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/AlgebraicRule.h"
 #include "sbml/AlgebraicRule.hpp"
 
@@ -79,6 +81,21 @@ AlgebraicRule::AlgebraicRule (ASTNode* math) : Rule((ASTNode*) math)
 LIBSBML_EXTERN
 AlgebraicRule::~AlgebraicRule ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next Rule
+ * (if available).
+ */
+LIBSBML_EXTERN
+bool
+AlgebraicRule::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/SpeciesConcentrationRule.h"
 #include "sbml/SpeciesConcentrationRule.hpp"
 
@@ -87,6 +89,21 @@ SpeciesConcentrationRule::SpeciesConcentrationRule
 LIBSBML_EXTERN
 SpeciesConcentrationRule::~SpeciesConcentrationRule ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next Rule
+ * (if available).
+ */
+LIBSBML_EXTERN
+bool
+SpeciesConcentrationRule::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

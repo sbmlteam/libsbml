@@ -53,6 +53,8 @@
 #include "sbml/common.h"
 #include "sbml/FormulaFormatter.h"
 #include "sbml/FormulaParser.h"
+#include "sbml/ASTNode.hpp"
+#include "sbml/SBMLVisitor.hpp"
 
 #include "sbml/Rule.h"
 #include "sbml/Rule.hpp"
@@ -83,6 +85,21 @@ LIBSBML_EXTERN
 Rule::~Rule ()
 {
   delete math;
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next Rule
+ * (if available).
+ */
+LIBSBML_EXTERN
+bool
+Rule::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

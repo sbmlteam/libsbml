@@ -60,6 +60,9 @@
 #include "Rule.hpp"
 
 
+class SBMLVisitor;
+
+
 class RateRule : public Rule
 {
 public:
@@ -84,6 +87,16 @@ public:
   LIBSBML_EXTERN
   virtual ~RateRule ();
 
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return the variable for this RateRule.

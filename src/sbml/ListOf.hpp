@@ -54,10 +54,12 @@
 #define ListOf_hpp
 
 
+#include "SBMLTypeCodes.h"
 #include "SBase.hpp"
 #include "List.hpp"
 
-#include "ListOf.h"
+
+class SBMLVisitor;
 
 
 class ListOf : public SBase
@@ -76,6 +78,12 @@ public:
   LIBSBML_EXTERN
   virtual ~ListOf ();
 
+
+  /**
+   * Accepts the given SBMLVisitor.
+   */
+  LIBSBML_EXTERN
+  void accept (SBMLVisitor& v, SBMLTypeCode_t type) const;
 
   /**
    * Adds item to the end of this List.

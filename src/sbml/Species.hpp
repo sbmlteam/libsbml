@@ -55,8 +55,12 @@
 
 
 #include <string>
+
 #include "extern.h"
 #include "SBase.hpp"
+
+
+class SBMLVisitor;
 
 
 class Species : public SBase
@@ -74,6 +78,17 @@ public:
    */
   LIBSBML_EXTERN
   virtual ~Species ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next
+   * Species (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
 
   /**
    * Initializes the fields of this Species to their defaults:

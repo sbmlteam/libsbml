@@ -60,6 +60,9 @@
 #include "AssignmentRule.hpp"
 
 
+class SBMLVisitor;
+
+
 class CompartmentVolumeRule : public AssignmentRule
 {
 public:
@@ -87,6 +90,17 @@ public:
    */
   LIBSBML_EXTERN
   virtual ~CompartmentVolumeRule ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return the compartment of this CompartmentVolumeRule.

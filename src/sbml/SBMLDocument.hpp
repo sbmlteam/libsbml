@@ -54,14 +54,16 @@
 #define SBMLDocument_hpp
 
 
-#include "extern.h"
+#include <iosfwd>
 
+#include "extern.h"
 #include "SBase.hpp"
 #include "List.hpp"
-#include "ParseMessage.hpp"
-#include "Model.hpp"
 
-#include <iosfwd>
+
+class Model;
+class ParseMessage;
+class SBMLVisitor;
 
 
 class SBMLDocument: public SBase
@@ -83,12 +85,19 @@ public:
 
 
   /**
+   * Accepts the given SBMLVisitor.
+   */
+  LIBSBML_EXTERN
+  void accept (SBMLVisitor& v) const;
+
+  /**
    * Creates a new Model (optionally with its Id attribute set) inside this
    * SBMLDocument and returns it.  This covenience method is equivalent to:
    *
    *   setModel( Model() );
    */
-  LIBSBML_EXTERN Model& createModel (const std::string& sid = "");
+  LIBSBML_EXTERN
+  Model& createModel (const std::string& sid = "");
 
   /**
    * @return the level of this SBMLDocument.

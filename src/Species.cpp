@@ -51,6 +51,8 @@
 
 
 #include "sbml/util.h"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/Species.h"
 #include "sbml/Species.hpp"
 
@@ -83,6 +85,21 @@ Species::Species (const std::string& id) :
 LIBSBML_EXTERN
 Species::~Species ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next
+ * Species (if available).
+ */
+LIBSBML_EXTERN
+bool
+Species::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

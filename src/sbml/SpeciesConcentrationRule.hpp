@@ -60,6 +60,9 @@
 #include "AssignmentRule.hpp"
 
 
+class SBMLVisitor;
+
+
 class SpeciesConcentrationRule : public AssignmentRule
 {
 public:
@@ -88,6 +91,16 @@ public:
   LIBSBML_EXTERN
   virtual ~SpeciesConcentrationRule ();
 
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next Rule
+   * (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return the species of this SpeciesConcentrationRule.

@@ -55,8 +55,12 @@
 
 
 #include <string>
+
 #include "extern.h"
 #include "SBase.hpp"
+
+
+class SBMLVisitor;
 
 
 class Parameter : public SBase
@@ -84,6 +88,17 @@ public:
    */
   LIBSBML_EXTERN
   virtual ~Parameter ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the parent Model's or
+   * KineticLaw's next Parameter (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
 
   /**
    * Initializes the fields of this Parameter to their defaults:

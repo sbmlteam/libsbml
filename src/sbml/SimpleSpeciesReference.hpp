@@ -60,6 +60,9 @@
 #include "SBase.hpp"
 
 
+class SBMLVisitor;
+
+
 class SimpleSpeciesReference : public SBase
 {
 public:
@@ -68,28 +71,44 @@ public:
    * Creates a new SimpleSpeciesReference, optionally with its species
    * attribute set.
    */
-  LIBSBML_EXTERN SimpleSpeciesReference (const std::string& species = "");
+  LIBSBML_EXTERN
+  SimpleSpeciesReference (const std::string& species = "");
 
   /**
    * Destroys this SimpleSpeciesReference.
    */
-  LIBSBML_EXTERN virtual ~SimpleSpeciesReference() { }
+  LIBSBML_EXTERN
+  virtual ~SimpleSpeciesReference() { }
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return the species for this SimpleSpeciesReference.
    */
-  LIBSBML_EXTERN const std::string& getSpecies () const;
+  LIBSBML_EXTERN
+  const std::string& getSpecies () const;
 
   /**
    * @return true if the species for this SimpleSpeciesReference has been
    * set, false otherwise.
    */
-  LIBSBML_EXTERN bool isSetSpecies () const;
+  LIBSBML_EXTERN
+  bool isSetSpecies () const;
 
   /**
    * Sets the species of this SimpleSpeciesReference to a copy of sid.
    */
-  LIBSBML_EXTERN void setSpecies (const std::string& sid);
+  LIBSBML_EXTERN
+  void setSpecies (const std::string& sid);
 
 
 protected:

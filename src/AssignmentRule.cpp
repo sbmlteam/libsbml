@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/AssignmentRule.h"
 #include "sbml/AssignmentRule.hpp"
 
@@ -103,6 +105,21 @@ AssignmentRule::AssignmentRule (   const std::string&  variable
 LIBSBML_EXTERN
 AssignmentRule::~AssignmentRule ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next Rule
+ * (if available).
+ */
+LIBSBML_EXTERN
+bool
+AssignmentRule::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

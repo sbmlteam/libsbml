@@ -51,6 +51,8 @@
 
 
 #include "sbml/util.h"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/Parameter.h"
 #include "sbml/Parameter.hpp"
 
@@ -96,6 +98,21 @@ Parameter::Parameter (   const std::string&  id
 LIBSBML_EXTERN
 Parameter::~Parameter ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the parent Model's or
+ * KineticLaw's next Parameter (if available).
+ */
+LIBSBML_EXTERN
+bool
+Parameter::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

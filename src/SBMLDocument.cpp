@@ -50,14 +50,18 @@
  */
 
 
+#include <iostream>
+
 #include "sbml/SBMLConvert.h"
 #include "sbml/StringBuffer.h"
 #include "sbml/Validator.h"
 
+#include "sbml/ParseMessage.hpp"
+#include "sbml/Model.hpp"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/SBMLDocument.h"
 #include "sbml/SBMLDocument.hpp"
-
-#include <iostream>
 
 
 /**
@@ -82,6 +86,19 @@ LIBSBML_EXTERN
 SBMLDocument::~SBMLDocument ()
 {
   delete model;
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument::accept (SBMLVisitor& v) const
+{
+  v.visit(*this);
+  if (model != NULL) model->accept(v);
+  v.leave(*this);
 }
 
 

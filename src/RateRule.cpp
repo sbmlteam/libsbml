@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/RateRule.h"
 #include "sbml/RateRule.hpp"
 
@@ -87,6 +89,21 @@ RateRule::RateRule (   const std::string&  variable
 LIBSBML_EXTERN
 RateRule::~RateRule ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next Rule
+ * (if available).
+ */
+LIBSBML_EXTERN
+bool
+RateRule::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

@@ -51,6 +51,8 @@
 
 
 #include "sbml/util.h"
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/Compartment.h"
 #include "sbml/Compartment.hpp"
 
@@ -76,6 +78,21 @@ Compartment::Compartment (const std::string& id) : SBase(), id(id)
 LIBSBML_EXTERN
 Compartment::~Compartment ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next
+ * Compartment (if available).
+ */
+LIBSBML_EXTERN
+bool
+Compartment::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

@@ -55,8 +55,12 @@
 
 
 #include <string>
+
 #include "extern.h"
 #include "SBase.hpp"
+
+
+class SBMLVisitor;
 
 
 class Compartment : public SBase
@@ -75,6 +79,16 @@ public:
   LIBSBML_EXTERN
   virtual ~Compartment ();
 
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next
+   * Compartment (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
 
   /**
    * Initializes the fields of this Compartment to their defaults:

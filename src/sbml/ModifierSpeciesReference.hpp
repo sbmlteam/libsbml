@@ -60,6 +60,9 @@
 #include "SimpleSpeciesReference.hpp"
 
 
+class SBMLVisitor;
+
+
 class ModifierSpeciesReference : public SimpleSpeciesReference
 {
 public:
@@ -68,12 +71,25 @@ public:
    * Creates a new ModifierSpeciesReference, optionally with its species
    * attribute set.
    */
-  LIBSBML_EXTERN ModifierSpeciesReference (const std::string& species = "");
+  LIBSBML_EXTERN
+  ModifierSpeciesReference (const std::string& species = "");
 
   /**
    * Destroys this ModifierSpeciesReference.
    */
-  LIBSBML_EXTERN virtual ~ModifierSpeciesReference();
+  LIBSBML_EXTERN
+  virtual ~ModifierSpeciesReference();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
 
 protected:

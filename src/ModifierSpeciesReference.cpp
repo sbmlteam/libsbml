@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/SBMLVisitor.hpp"
+
 #include "sbml/ModifierSpeciesReference.h"
 #include "sbml/ModifierSpeciesReference.hpp"
 
@@ -72,6 +74,21 @@ ModifierSpeciesReference::ModifierSpeciesReference (const std::string& s) :
 LIBSBML_EXTERN
 ModifierSpeciesReference::~ModifierSpeciesReference ()
 {
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Reaction's next
+ * SimpleSpeciesReference (if available).
+ */
+LIBSBML_EXTERN
+bool
+ModifierSpeciesReference::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 

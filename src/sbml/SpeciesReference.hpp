@@ -58,7 +58,10 @@
 
 #include "extern.h"
 #include "SimpleSpeciesReference.hpp"
-#include "ASTNode.hpp"
+
+
+class ASTNode;
+class SBMLVisitor;
 
 
 class SpeciesReference : public SimpleSpeciesReference
@@ -80,6 +83,16 @@ public:
   LIBSBML_EXTERN
   virtual ~SpeciesReference ();
 
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  LIBSBML_EXTERN
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * Initializes the fields of this SpeciesReference to their defaults:

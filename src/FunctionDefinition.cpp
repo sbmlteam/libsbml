@@ -51,6 +51,8 @@
 
 
 #include "sbml/FormulaParser.h"
+#include "sbml/ASTNode.hpp"
+#include "sbml/SBMLVisitor.hpp"
 
 #include "sbml/FunctionDefinition.h"
 #include "sbml/FunctionDefinition.hpp"
@@ -98,6 +100,21 @@ LIBSBML_EXTERN
 FunctionDefinition::~FunctionDefinition ()
 {
   delete math;
+}
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the Model's next
+ * FunctionDefinition (if available).
+ */
+LIBSBML_EXTERN
+bool
+FunctionDefinition::accept (SBMLVisitor& v) const
+{
+  return v.visit(*this);
 }
 
 
