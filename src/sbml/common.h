@@ -103,6 +103,9 @@
 #endif /* WIN32 && !CYGWIN */
 
 
+#define LIBSBML_FLOAT_FORMAT "%.15g"
+
+
 #include "extern.h"
 #include "memory.h"
 #include "util.h"
