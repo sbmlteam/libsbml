@@ -1,13 +1,11 @@
 /**
- * Filename    : StringBuffer.h
- * Description : A growable buffer for creating character strings.
- * Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2003-06-21
- * Revision    : $Id$
- * Source      : $Source$
- *
- * Copyright 2003 California Institute of Technology and
+ * \file        StringBuffer.h
+ * \brief       A growable buffer for creating character strings.
+ * \author      Ben Bornstein <ben.bornstein@jpl.nasa.gov>
+ * \version     $Id StringBuffer.h,v 1.5 2004/04/16 013708 mhucka Exp $
+ * \version     $Source /cvsroot/sbml/libsbml/src/sbml/StringBuffer.h,v $
+ */
+/* Copyright 2003-2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -37,18 +35,17 @@
  * The original code contained here was initially developed by:
  *
  *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
+ *     The SBML Team
  *     Control and Dynamical Systems, MC 107-81
  *     California Institute of Technology
  *     Pasadena, CA, 91125, USA
  *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sysbio-team@caltech.edu
+ *     http://www.sbml.org
+ *     mailto:sbml-team@caltech.edu
  *
  * Contributor(s):
+ *
  */
-
 
 #ifndef StringBuffer_h
 #define StringBuffer_h
