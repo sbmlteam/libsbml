@@ -52,7 +52,7 @@
 
 
 lib_LTLIBRARIES    = libsbml.la
-libsbml_la_LDFLAGS = -no-undefined -version-info 2:3:0
+libsbml_la_LDFLAGS = -no-undefined -version-info 2:4:0
 
 
 if USE_EXPAT
@@ -67,6 +67,8 @@ nobase_include_HEADERS =            \
   sbml/AssignmentRule.h             \
   sbml/AssignmentRule.hpp           \
   sbml/ASTNode.h                    \
+  sbml/ASTNode.hpp                  \
+  sbml/ASTNodeType.h                \
   sbml/Compartment.h                \
   sbml/Compartment.hpp              \
   sbml/CompartmentVolumeRule.h      \
@@ -87,6 +89,7 @@ nobase_include_HEADERS =            \
   sbml/ListOf.h                     \
   sbml/ListOf.hpp                   \
   sbml/MathMLDocument.h             \
+  sbml/MathMLDocument.hpp           \
   sbml/MathMLReader.h               \
   sbml/MathMLWriter.h               \
   sbml/Model.h                      \
@@ -112,6 +115,7 @@ nobase_include_HEADERS =            \
   sbml/SBMLDocument.h               \
   sbml/SBMLDocument.hpp             \
   sbml/SBMLReader.h                 \
+  sbml/SBMLReader.hpp               \
   sbml/SBMLTypeCodes.h              \
   sbml/SBMLTypes.h                  \
   sbml/SBMLTypes.hpp                \
@@ -133,6 +137,7 @@ nobase_include_HEADERS =            \
   sbml/Unit.hpp                     \
   sbml/UnitKind.h                   \
   sbml/Validator.h                  \
+  sbml/XMLSchemaValidation.h        \
   sbml/common.h                     \
   sbml/config.h                     \
   sbml/extern.h                     \
@@ -152,7 +157,7 @@ libsbml_la_SOURCES =              \
   sbml/XMLStringFormatter.hpp     \
   sbml/XMLUnicodeConstants.hpp    \
   sbml/XMLUtil.hpp                \
-  MathMLDocument.c                \
+  MathMLDocument.cpp              \
   MathMLFormatter.cpp             \
   MathMLHandler.cpp               \
   MathMLReader.cpp                \
@@ -163,7 +168,7 @@ libsbml_la_SOURCES =              \
   XMLUtil.cpp                     \
   AlgebraicRule.cpp               \
   AssignmentRule.cpp              \
-  ASTNode.c                       \
+  ASTNode.cpp                     \
   Compartment.cpp                 \
   CompartmentVolumeRule.cpp       \
   Event.cpp                       \
