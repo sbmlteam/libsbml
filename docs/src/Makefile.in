@@ -96,6 +96,10 @@ extra_clean = \
 
 extra_distclean = \
 	$(all_generated_files) \
+	libsbml-manual.ps \
+	$(formatted)/libsbml-manual.ps \
+	libsbml-api-ref.ps \
+	$(formatted)/libsbml-api-ref.ps \
 	Doxyfile \
 	sbmlmanual.perl \
 	libsbmlextras.perl
