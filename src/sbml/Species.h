@@ -455,7 +455,6 @@ Species_unsetCharge (Species_t *s);
 LIBSBML_EXTERN
 int
 SpeciesIdCmp (const char *sid, const Species_t *s);
-     /* SpeciesIdCmp (const void *sid, const void *species); */
 
 
 END_C_DECLS
