@@ -57,8 +57,8 @@
 #include <xercesc/sax/Locator.hpp>
 #include <xercesc/sax2/DefaultHandler.hpp>
 
+#include "ParseMessage.h"
 #include "Stack.h"
-#include "SBMLReader.h"
 #include "SBMLTypes.h"
 
 #include "common.hpp"
