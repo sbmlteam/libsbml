@@ -1,13 +1,12 @@
 /**
- * Filename    : AlgebraicRule.cpp
- * Description : SBML AlgebraicRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
- *
- * Copyright 2002 California Institute of Technology and
+ * \file   AlgebraicRule.cpp
+ * \brief  Class implementing the SBML AlgebraicRule
+ * \author Ben Bornstein
+ * 
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -43,7 +42,7 @@
  *     California Institute of Technology
  *     Pasadena, CA, 91125, USA
  *
- *     http://www.cds.caltech.edu/erato
+ *     http://www.sbml.org
  *     mailto:sbml-team@caltech.edu
  *
  * Contributor(s):
@@ -83,8 +82,6 @@ AlgebraicRule::~AlgebraicRule ()
 }
 
 
-
-
 /**
  * Creates a new AlgebraicRule and returns a pointer to it.
  */
@@ -97,11 +94,12 @@ AlgebraicRule_create (void)
 
 
 /**
- * Creates a new AlgebraicRule with the given formula and returns a pointer
- * to it.  This convenience function is functionally equivalent to:
- *
+ * Creates a new AlgebraicRule with the given \a formula and returns a
+ * pointer to it.  This convenience function is functionally equivalent to:
+ * \code
  *   AlgebraicRule_t *ar = AlgebraicRule_create();
  *   Rule_setFormula((Rule_t *) ar, formula);
+ * \endcode
  */
 LIBSBML_EXTERN
 AlgebraicRule_t *
@@ -112,14 +110,14 @@ AlgebraicRule_createWith (const char *formula)
 
 
 /**
- * Creates a new AlgebraicRule with the given math and returns a pointer
+ * Creates a new AlgebraicRule with the given \a math and returns a pointer
  * to it.  This convenience function is functionally equivalent to:
- *
+ * \code
  *   AlgebraicRule_t *ar = AlgebraicRule_create();
  *   Rule_setMath((Rule_t *) ar, math);
- *
- * The node <b>is not copied</b> and this AlgebraicRule <b>takes
- * ownership</b> of it; i.e. subsequent calls to this function or a call to
+ * \endcode
+ * The node <em>is not copied</em> and this AlgebraicRule <em>takes
+ * ownership</em> of it; i.e. subsequent calls to this function or a call to
  * AlgebraicRule_free() will free the ASTNode (and any child nodes).
  */
 LIBSBML_EXTERN
@@ -131,7 +129,7 @@ AlgebraicRule_createWithMath (ASTNode_t* math)
 
 
 /**
- * Frees the given AlgebraicRule.
+ * Frees the AlgebraicRule given by \a ar.
  */
 LIBSBML_EXTERN
 void
