@@ -1,0 +1,48 @@
+           libsbml NEWS -- History of user-visible changes
+
+
+=== Version 1.1.0 ====
+
+* SBML (XML) namespace handling is much improved.
+
+* '<annotations>' is treated as a synonym for the correct form
+  '<annotation>' (singular).
+
+* Notes and annotations on the top-level <sbml> element are read-in
+  and stored (SBMLDocument_t now "inherits" from SBase_t), but not
+  written.  When this occurs, a warning message is logged.
+
+* Builds successfully on Solaris 2.8.
+
+* SBML documents may now be validated against their XML schema.  This
+  is still off by default.  To turn validation on see
+  SBMLReader_create(), SBMLReader_readSBML() and possibly SBMLReader.h
+  for more information.
+
+* Three new convenience functions exist to quickly print warnings,
+  errors and fatal errors that occurred while reading an SBMLDocument.
+  The prototype for this class of function is:
+
+    SBMLDocument_printXXXs(SBMLDocument_t *d, FILE *stream).
+
+  Where XXX is Warning, Error or Fatal.
+
+
+* Released April xx, 2003.
+
+
+
+
+=== Version 1.0.1 ====
+
+* The build system detects and supports Xerces-C 2.1.0, Xerces-C 2.2.0
+  compiled with or without namespace support.
+
+* Released March 14, 2003.
+
+
+
+
+=== Version 1.0.0 ===
+
+* Initial release, March 12, 2003.
