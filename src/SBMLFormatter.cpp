@@ -1755,7 +1755,7 @@ SBMLFormatter::notes (const char* s)
 
   XMLCh* x = XMLString::transcode(s);
   *fFormatter << x << chLF;
-  delete [] x;
+  XMLString::release(&x);
 
   downIndent();
 

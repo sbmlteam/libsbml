@@ -79,7 +79,7 @@ ParseMessage_createFrom (const XMLException& e)
 
   pm = ParseMessage_createWith(msg, e.getSrcLine(), 0);
 
-  delete [] msg;
+  XMLString::release(&msg);
 
   return pm;
 }
@@ -167,7 +167,7 @@ XMLReader_setSchemaLocation (SAX2XMLReader* xr, const char* location)
 
   xr->setProperty(XMLUni::fgXercesSchemaExternalSchemaLocation, s);
 
-  delete [] s;
+  XMLString::release(&s);
 }
 
 

@@ -148,7 +148,7 @@ XMLUtil::scanAttr (const Attributes& attrs, const XMLCh* name, bool* value)
       }
     }
 
-    delete [] trimmed;
+    XMLString::release(&trimmed);
   }
 
   return assigned;
@@ -197,10 +197,10 @@ XMLUtil::scanAttr (const Attributes& attrs, const XMLCh* name, int* value)
         assigned = true;
       }
 
-      delete [] nptr;
+      XMLString::release(&nptr);
     }
 
-    delete [] trimmed;
+    XMLString::release(&trimmed);
   }
 
   return assigned;
@@ -251,10 +251,10 @@ XMLUtil::scanAttr (const Attributes& attrs,
         assigned = true;
       }
 
-      delete [] nptr;
+      XMLString::release(&nptr);
     }
 
-    delete [] trimmed;
+    XMLString::release(&trimmed);
   }
 
   return assigned;
@@ -342,10 +342,10 @@ XMLUtil::scanAttr (const Attributes& attrs, const XMLCh* name, double* value)
         }
       }
 
-      delete [] nptr;
+      XMLString::release(&nptr);
     }
 
-    delete [] trimmed;
+    XMLString::release(&trimmed);
   }
 
   return assigned;
@@ -381,7 +381,7 @@ XMLUtil::scanAttrCStr ( const Attributes&  attrs,
     strncpy(*value, s, size);
     assigned = true;
 
-    delete [] s;
+    XMLString::release(&s);
   }
 
   return assigned;

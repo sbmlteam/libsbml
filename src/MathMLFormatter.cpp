@@ -1003,7 +1003,7 @@ MathMLFormatter::attribute (const XMLCh* name, const char* value)
     s = XMLString::transcode(value);
     attribute(name, s);
 
-    delete [] s;
+    XMLString::release(&s);
   }
 }
 
@@ -1043,7 +1043,7 @@ MathMLFormatter::characters (const char* chars)
   XMLCh* s = XMLString::transcode(chars);
   characters(s);
 
-  delete [] s;
+  XMLString::release(&s);
 }
 
 

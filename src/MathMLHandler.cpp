@@ -332,7 +332,7 @@ MathMLHandler::characters (const XMLCh* const  chars,
       parseCI(s);
     }
 
-    delete [] s;
+    XMLString::release(&s);
   }
 }
 

@@ -513,7 +513,7 @@ SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
                                 (unsigned int) e.getLineNumber(),
                                 (unsigned int) e.getColumnNumber() );
 
-  delete [] message;
+  XMLString::release(&message);
 
   return pm;
 }
@@ -819,7 +819,7 @@ SBMLHandler::doUnit (const Attributes& a)
   // kind: UnitKind  (L1v1, L1v2, L2v1)
   //
   u->kind = UnitKind_forName(kind);
-  delete [] kind;
+  XMLString::release(&kind);
 
   //
   // exponent: integer  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
@@ -1366,7 +1366,7 @@ SBMLHandler::doCompartmentVolumeRule (const Attributes& a)
   {
     char* type = XMLString::transcode( a.getValue(index) );
     cvr->type  = RuleType_forName(type);
-    delete [] type;
+    XMLString::release(&type);
   }
 
   //
@@ -1408,7 +1408,7 @@ SBMLHandler::doParameterRule (const Attributes& a)
   {
     char* type = XMLString::transcode( a.getValue(index) );
     pr->type   = RuleType_forName(type);
-    delete [] type;
+    XMLString::release(&type);
   }
 
   //
@@ -1457,7 +1457,7 @@ SBMLHandler::doSpeciesConcentrationRule (const Attributes& a)
   {
     char* type = XMLString::transcode( a.getValue(index) );
     scr->type  = RuleType_forName(type);
-    delete [] type;
+    XMLString::release(&type);
   }
 
   //
