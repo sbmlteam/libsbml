@@ -116,13 +116,13 @@ SBMLDocument_createModel (SBMLDocument_t *d)
 
 /**
  * Creates a new Model inside this SBMLDocument and returns a pointer to
- * it.  The name field of this Model is set to a copy of sname.
+ * it.  The name field of this Model is set to a copy of sid.
  */
 LIBSBML_EXTERN
 Model_t *
-SBMLDocument_createModelWith (SBMLDocument_t *d, const char *sname)
+SBMLDocument_createModelWith (SBMLDocument_t *d, const char *sid)
 {
-  d->model = Model_createWith(sname);
+  d->model = Model_createWith(sid);
 
 
   return d->model;
