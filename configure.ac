@@ -82,12 +82,13 @@ dnl Other cmd-line options are defined in the individual .m4 files in config.
 AC_ARG_ENABLE([memory-tracing],
   AC_HELP_STRING([--enable-memory-tracing],
                  [Enable memory tracing (default: disabled)]),
-  [if test "$enableval" = yes; then
-    AC_DEFINE([TRACE_MEMORY], 1,
-              [Define to 1 to enable primitive memory tracing.])
-   fi
-  ])
+    [enable_tracing=$withval],
+    [enable_tracing=no])
 
+if test "$enable_tracing" != no; then
+  AC_DEFINE([TRACE_MEMORY], 1,
+            [Define to 1 to enable primitive memory tracing.])
+fi
 
 dnl ---------------------------------------------------------------------------
 dnl Check host operating system.
@@ -243,35 +244,39 @@ fi
 echo ""
 echo "Build Settings for ${PACKAGE_TARNAME} v${PACKAGE_VERSION}:"
 echo "----------------------------------"
-echo "  host type      = $HOST_TYPE"
-echo "  install dir    = $prefix"
-echo "  XML library    = $xml_library"
-echo "  CC             = $CC"
-echo "  CXX            = $CXX"
-echo "  CFLAGS         = $CFLAGS"
-echo "  CXXFLAGS       = $CXXFLAGS"
-echo "  CPPFLAGS       = $CPPFLAGS"
-echo "  LDFLAGS        = $LDFLAGS"
-echo "  LIBS           = $LIBS"
+echo "  host type            = $HOST_TYPE"
+echo "  install dir          = $prefix"
+echo "  XML library          = $xml_library"
+echo "  CC                   = $CC"
+echo "  CXX                  = $CXX"
+echo "  CFLAGS               = $CFLAGS"
+echo "  CXXFLAGS             = $CXXFLAGS"
+echo "  CPPFLAGS             = $CPPFLAGS"
+echo "  LDFLAGS              = $LDFLAGS"
+echo "  LIBS                 = $LIBS"
   
-if test $with_libcheck != no; then
-  echo "  use libcheck?  = $USE_LIBCHECK"
+if test "$with_libcheck" != "no"; then
+  echo "  use libcheck?        = $USE_LIBCHECK"
 fi
 
-if test $with_swig != no; then
-  echo "  use SWIG?      = $USE_SWIG"
+if test "$with_swig" != "no"; then
+  echo "  use SWIG?            = $USE_SWIG"
 fi
 
-if test $with_python != no; then
-  echo "  use Python?    = $USE_PYTHON"
+if test "$with_python" != "no"; then
+  echo "  use Python?          = $USE_PYTHON"
 fi
 
-if test $with_java != no; then
-  echo "  use Java?      = $USE_JAVA"
+if test "$with_java" != "no"; then
+  echo "  use Java?            = $USE_JAVA"
 fi
 
-if test $with_matlab != no; then
-  echo "  use Matlab?    = $USE_MATLAB"
+if test "$with_matlab" != "no"; then
+  echo "  use Matlab?          = $USE_MATLAB"
+fi
+
+if test "$enable_tracing" != "no"; then
+  echo "  enable memory trace? = 1"
 fi
 
 echo ""
