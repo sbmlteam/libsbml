@@ -324,7 +324,7 @@ MemTrace_printLeaks (FILE *stream)
              node->size );
   }
 
-  fprintf(stream, "Total Leaks: %d ", MemTrace_AllocList->size);
+  fprintf(stream, "Total Leaks: %d ", leaks);
 
   if (total > 1048576)
   {
