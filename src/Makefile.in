@@ -137,6 +137,7 @@ headers = \
   sbml/SBMLTypeCodes.h              \
   sbml/SBMLTypes.h                  \
   sbml/SBMLTypes.hpp                \
+  sbml/SBMLVisitor.hpp              \
   sbml/SBMLUnicodeConstants.hpp     \
   sbml/SBMLWriter.h                 \
   sbml/SBMLWriter.hpp               \
@@ -208,6 +209,7 @@ sources = \
   SBMLHandler.cpp                 \
   SBMLReader.cpp                  \
   SBMLTagCodes.cpp                \
+  SBMLVisitor.cpp                 \
   SBMLWriter.cpp                  \
   SBase.cpp                       \
   SimpleSpeciesReference.cpp      \
