@@ -1,6 +1,18 @@
 .footer {
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-size: 12px;
+}
+
+TD.footer {
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-size: 13px;
+}
+
+.footercomment {
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-size: x-small;
+  font-style: italic;
+  color: #555555;
 }
 
 H1 {
@@ -24,17 +36,16 @@ DIV.qindex {
   width: 100%;
   background-color: #eeeeff;
   border: 4px solid #eeeeff;
-  text-align: center;
+  text-align: left;
   margin-bottom: 2px
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 A.qindex {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-weight: bold;
-  font-size: 13px;
   color: #0000ee
 }
 
@@ -42,14 +53,12 @@ A.qindex:visited {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-weight: bold;
-  font-size: 13px;
   color: #0000ee
 }
 
 A.qindex:hover {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 13px;
   background-color: #ddddff
 }
 
@@ -57,7 +66,6 @@ A.qindexHL {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-weight: bold;
-  font-size: 13px;
   background-color: #6666cc;
   color: #ffffff
 }
@@ -65,7 +73,6 @@ A.qindexHL {
 A.qindexHL:hover {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 13px;
   background-color: #6666cc;
   color: #ffffff
 }
@@ -73,7 +80,6 @@ A.qindexHL:hover {
 A.qindexHL:visited {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 13px;
   background-color: #6666cc;
   color: #ffffff
 }
