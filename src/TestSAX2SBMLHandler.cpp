@@ -806,6 +806,8 @@ START_TEST (test_element_notes_nested)
   Reaction_t*   r;
   KineticLaw_t* kl;
 
+  const char* n = "This is a test <notes>nested</notes> note.";
+
   const char* s = wrapSBML
   (
     "<reaction name='J1'>"
@@ -823,8 +825,29 @@ START_TEST (test_element_notes_nested)
   r  = Model_getReaction(D->model, 0);
   kl = r->kineticLaw;
 
-  fail_unless( !strcmp( kl->notes,
-                        "This is a test <notes>nested</notes> note." ), NULL );
+  fail_unless( !strcmp(kl->notes, n), NULL );
+  fail_unless( SBMLDocument_getNumWarnings(D) == 1, NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_notes_sbml)
+{
+  const char* n =
+    "Notes are not allowed as part of the SBML element.";
+
+  const char* s = wrapXML
+  (
+    "<sbml level='1' version='1'>"
+    "  <notes>Notes are not allowed as part of the SBML element.</notes>"
+    "</sbml>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( !strcmp( D->notes, n), NULL );
+  fail_unless( SBMLDocument_getNumErrors(D) == 1, NULL );
 }
 END_TEST
 
@@ -845,6 +868,31 @@ START_TEST (test_element_annotation)
     "  </mysim:nodecolors>"
     "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
     "</annotation>"
+  );
+
+
+  D = readSBMLFromString(s);
+  fail_unless( !strcmp(D->model->annotation, a), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_annotations)
+{
+  const char* a =
+    "<annotations xmlns:mysim=\"http://www.mysim.org/ns\">"
+    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
+    "  </mysim:nodecolors>"
+    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
+    "</annotations>";
+
+  const char* s = wrapSBML
+  (
+    "<annotations xmlns:mysim=\"http://www.mysim.org/ns\">"
+    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
+    "  </mysim:nodecolors>"
+    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
+    "</annotations>"
   );
 
 
@@ -919,6 +967,43 @@ START_TEST (test_element_annotation_nested)
 END_TEST
 
 
+START_TEST (test_element_annotation_sbml)
+{
+  const char* a =
+    "<annotation xmlns:jd=\"http://www.sys-bio.org/sbml\">"
+    "    <jd:header>"
+    "      <VersionHeader SBMLVersion=\"1.0\"></VersionHeader>"
+    "    </jd:header>"
+    "    <jd:display>"
+    "      <SBMLGraphicsHeader BackGroundColor=\"15728639\">"
+    "</SBMLGraphicsHeader>"
+    "    </jd:display>"
+    "  </annotation>";
+
+  const char* s = wrapXML
+  (
+    "<sbml level=\"1\" version=\"1\">"
+    "  <annotation xmlns:jd = \"http://www.sys-bio.org/sbml\">"
+    "    <jd:header>"
+    "      <VersionHeader SBMLVersion = \"1.0\"/>"
+    "    </jd:header>"
+    "    <jd:display>"
+    "      <SBMLGraphicsHeader BackGroundColor = \"15728639\"/>"
+    "    </jd:display>"
+    "  </annotation>"
+    "</sbml>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( !strcmp(D->annotation, a), NULL );
+  fail_unless( SBMLDocument_getNumErrors(D) == 1, NULL );
+
+}
+END_TEST
+
+
 Suite *
 create_suite_SAX2SBMLHandler (void)
 {
@@ -959,9 +1044,12 @@ create_suite_SAX2SBMLHandler (void)
   tcase_add_test( tcase, test_element_notes_after                  );
   tcase_add_test( tcase, test_element_notes_xmlns                  );
   tcase_add_test( tcase, test_element_notes_nested                 );
+  tcase_add_test( tcase, test_element_notes_sbml                   );
   tcase_add_test( tcase, test_element_annotation                   );
+  tcase_add_test( tcase, test_element_annotations                  );
   tcase_add_test( tcase, test_element_annotation_after             );
   tcase_add_test( tcase, test_element_annotation_nested            );
+  tcase_add_test( tcase, test_element_annotation_sbml              );
 
   suite_add_tcase(suite, tcase);
 
