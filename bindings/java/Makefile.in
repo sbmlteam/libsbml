@@ -138,7 +138,7 @@ distfiles = $(sources) $(extra_sources) $(check_sources) Makefile.in $(java_file
 
 extra_clean = $(class_files) $(check_sources:.java=.class)
 
-extra_distclean = libsbml_wrap.cpp java-files
+extra_distclean = java-files
 
 
 # -----------------------------------------------------------------------------
@@ -217,7 +217,7 @@ $(check_classes): Makefile $(libraries) $(check_sources)
 	$(JAVAC) -g -classpath $(classpath) $(check_sources)
 
 run-checks: $(check_classes)
-	$(JAVA) -classpath $(classpath) Test
+	$(call libsbmlrun,$(JAVA) -classpath $(classpath) Test)
 
 
 # -----------------------------------------------------------------------------
