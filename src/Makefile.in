@@ -136,6 +136,7 @@ nobase_include_HEADERS = \
   sbml/Model.h                    \
   sbml/Parameter.h                \
   sbml/ParameterRule.h            \
+  sbml/ParseMessage.h             \
   sbml/Reaction.h                 \
   sbml/Rule.h                     \
   sbml/RuleType.h                 \
@@ -182,6 +183,7 @@ libsbml_la_SOURCES = \
   Model.c                       \
   Parameter.c                   \
   ParameterRule.c               \
+  ParseMessage.c                \
   Reaction.c                    \
   Rule.c                        \
   RuleType.c                    \
@@ -215,8 +217,9 @@ TestRunner_SOURCES = \
   TestList.c                     \
   TestMemory.c                   \
   TestModel.c                    \
-  TestParameterRule.c            \
   TestParameter.c                \
+  TestParameterRule.c            \
+  TestParseMessage.c             \
   TestReaction.c                 \
   TestRule.c                     \
   TestRuleType.c                 \
@@ -259,10 +262,10 @@ am_libsbml_la_OBJECTS = SBMLFormatter.lo SBMLHandler.lo SBMLHashCodes.lo \
 	SBMLReader.lo SBMLWriter.lo XMLStringFormatter.lo XMLUtil.lo \
 	AlgebraicRule.lo AssignmentRule.lo Compartment.lo \
 	CompartmentVolumeRule.lo KineticLaw.lo List.lo Model.lo \
-	Parameter.lo ParameterRule.lo Reaction.lo Rule.lo RuleType.lo \
-	SBase.lo SBMLDocument.lo Species.lo SpeciesConcentrationRule.lo \
-	SpeciesReference.lo Stack.lo Unit.lo UnitDefinition.lo \
-	UnitKind.lo memory.lo util.lo
+	Parameter.lo ParameterRule.lo ParseMessage.lo Reaction.lo \
+	Rule.lo RuleType.lo SBase.lo SBMLDocument.lo Species.lo \
+	SpeciesConcentrationRule.lo SpeciesReference.lo Stack.lo \
+	Unit.lo UnitDefinition.lo UnitKind.lo memory.lo util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
 check_PROGRAMS = TestRunner$(EXEEXT)
 noinst_PROGRAMS = readSBML$(EXEEXT)
@@ -275,9 +278,9 @@ am_TestRunner_OBJECTS = SAX2AttributesMock.$(OBJEXT) \
 	TestAssignmentRule.$(OBJEXT) TestCompartment.$(OBJEXT) \
 	TestCompartmentVolumeRule.$(OBJEXT) TestKineticLaw.$(OBJEXT) \
 	TestList.$(OBJEXT) TestMemory.$(OBJEXT) TestModel.$(OBJEXT) \
-	TestParameterRule.$(OBJEXT) TestParameter.$(OBJEXT) \
-	TestReaction.$(OBJEXT) TestRule.$(OBJEXT) \
-	TestRuleType.$(OBJEXT) TestSBase.$(OBJEXT) \
+	TestParameter.$(OBJEXT) TestParameterRule.$(OBJEXT) \
+	TestParseMessage.$(OBJEXT) TestReaction.$(OBJEXT) \
+	TestRule.$(OBJEXT) TestRuleType.$(OBJEXT) TestSBase.$(OBJEXT) \
 	TestSBMLDocument.$(OBJEXT) TestSBMLReader.$(OBJEXT) \
 	TestSBMLWriter.$(OBJEXT) TestSpecies.$(OBJEXT) \
 	TestSpeciesConcentrationRule.$(OBJEXT) \
@@ -304,6 +307,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/KineticLaw.Plo ./$(DEPDIR)/List.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Model.Plo ./$(DEPDIR)/Parameter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/ParameterRule.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/ParseMessage.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Reaction.Plo ./$(DEPDIR)/Rule.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/RuleType.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SAX2AttributesMock.Po \
@@ -326,6 +330,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestModel.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestParameter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestParameterRule.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestParseMessage.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestReaction.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestReadFromFile1.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestReadFromFile2.Po \
@@ -449,6 +454,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Model.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Parameter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ParameterRule.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ParseMessage.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Reaction.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Rule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RuleType.Plo@am__quote@
@@ -474,6 +480,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestModel.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestParameter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestParameterRule.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestParseMessage.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestReaction.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestReadFromFile1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestReadFromFile2.Po@am__quote@

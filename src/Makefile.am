@@ -63,6 +63,7 @@ nobase_include_HEADERS =          \
   sbml/Model.h                    \
   sbml/Parameter.h                \
   sbml/ParameterRule.h            \
+  sbml/ParseMessage.h             \
   sbml/Reaction.h                 \
   sbml/Rule.h                     \
   sbml/RuleType.h                 \
@@ -108,6 +109,7 @@ libsbml_la_SOURCES =            \
   Model.c                       \
   Parameter.c                   \
   ParameterRule.c               \
+  ParseMessage.c                \
   Reaction.c                    \
   Rule.c                        \
   RuleType.c                    \
@@ -140,8 +142,9 @@ TestRunner_SOURCES =             \
   TestList.c                     \
   TestMemory.c                   \
   TestModel.c                    \
-  TestParameterRule.c            \
   TestParameter.c                \
+  TestParameterRule.c            \
+  TestParseMessage.c             \
   TestReaction.c                 \
   TestRule.c                     \
   TestRuleType.c                 \
