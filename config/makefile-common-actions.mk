@@ -203,7 +203,11 @@ subdirs_recursive = $(addsuffix -recursive,$(subdirs))
 subdirs: $(subdirs_recursive)
 
 $(subdirs_recursive): 
-	$(MAKE) -wC $(subst -recursive,,$@) $(MAKECMDGOALS)
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -$(MAKEFLAGS) -C $(subst -recursive,,$@) $(MAKECMDGOALS)
+else
+	$(MAKE) -w -C $(subst -recursive,,$@) $(MAKECMDGOALS)
+endif
 
 
 # -----------------------------------------------------------------------------
