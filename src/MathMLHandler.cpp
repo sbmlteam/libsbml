@@ -314,7 +314,7 @@ MathMLHandler::characters (const XMLCh* const  chars,
                            const unsigned int  length)
 {
   MathMLTagCode_t tag = (MathMLTagCode_t) Stack_peek(fTagStack);
-  const char*     s   = XMLString::transcode(chars);
+  char*           s   = XMLString::transcode(chars);
 
 
   if (XMLString::isAllWhiteSpace(chars) == false)
