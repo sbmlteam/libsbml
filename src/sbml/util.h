@@ -55,11 +55,10 @@
 
 
 #include <stdio.h>
+#include "extern.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 /**
@@ -191,9 +190,7 @@ util_isNegZero (double d);
 #endif
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** util_h **/
