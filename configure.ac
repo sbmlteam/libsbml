@@ -228,6 +228,7 @@ AC_CONFIG_FILES([bindings/java/Makefile])
 
 dnl logical pathnames for build
 AC_CONFIG_FILES([bindings/lisp/libsbml-config.lisp])
+AC_CONFIG_FILES([bindings/lisp/tps/cparse/cparse-config.lisp])
 AC_CONFIG_FILES([bindings/lisp/build.lisp])
 dnl logical pathnames for installed version
 AC_CONFIG_FILES([bindings/lisp/libsbml-config-run.lisp])
