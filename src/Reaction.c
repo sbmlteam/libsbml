@@ -329,7 +329,7 @@ void
 Reaction_setFast (Reaction_t *r, int value)
 {
   r->fast       = value;
-  r->isSet.fast = 0;
+  r->isSet.fast = 1;
 }
 
 
