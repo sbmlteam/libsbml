@@ -69,7 +69,7 @@ BEGIN_C_DECLS
  * AssignemtnRule object.
  */
 #define ASSIGNMENT_RULE_FIELDS \
-  RuleType_t  type;            \
+  RuleType_t type;             \
   char       *variable
 
 
