@@ -328,7 +328,7 @@ configuration command supports the options described below.
 \libsbml{} provides built-in facilities for testing itself.  To run the
 unit tests, a second library is required, \shell{libcheck}.  Check is a
 very lightweight C unit test framework based on the xUnit framework
-popularized by Kent Beck and eXtrememe Programming.  Check is quite small
+popularized by Kent Beck and eXtreme Programming.  Check is quite small
 and once installed, it consists of only two files: \shell{libcheck.a} and
 \shell{check.h}.  To download Check, visit:
 
@@ -340,10 +340,10 @@ and once installed, it consists of only two files: \shell{libcheck.a} and
 (.deb).  MacOS~X users can find and install Check using the Fink system.
 
 To enable the unit testing facilities in \libsbml{}, add the
-\shell{--enable-check} flag to the configure command:
+\shell{--with-check} flag to the configure command:
 
 \begin{example}[csh]
-  ./configure --enable-check
+  ./configure --with-check
 \end{example}
 
 Following this, you must build \libsbml{} and then you can run the tests:
@@ -352,9 +352,6 @@ Following this, you must build \libsbml{} and then you can run the tests:
   make
   make check
 \end{example}
-
-If you have already built \libsbml{} once in your installation, don't
-forget to do a \shell{make clean} prior to the steps above.
 
 The \shell{make check} step is optional and will build and run an extensive
 suite of unit tests to verify all facets of the library.  These tests are
@@ -515,18 +512,19 @@ classes in one fell swoop, \code{\#include SBMLTypes.h}.
 \subsection{Primitive Types}
 %-----------------------------------------------------------------------------
 
-The mapping from SBML primitive types to C is straightforward as an
+The mapping from SBML primitive types to C is straightforward, as an
 example will help illustrate.  A Species has at least one attribute of
-every primitive type defined by SBML.
-Figure~\vref{fig:species-uml-and-c} shows the UML definition for
-Species and the corresponding C struct side-by-side.  The similarity
-between the two demonstrates the mapping rules for primitive types:
+every primitive type defined by SBML.  Figure~\ref{fig:species-uml-and-c}
+shows the UML definition for Species and the corresponding C struct
+side-by-side.  The similarity between the two demonstrates the mapping
+rules for primitive types:
 
 \begin{enumerate}
   
   \item In all cases, the form of UML attribute names, including their
   capitalization, are preserved (e.g., \attrib{initialAmount}) when
-  mapped to C struct fields.
+  mapped to C struct fields.  The names of getters and setters (see below)
+  reflect these names.
   
 \item SName (in SBML Level~1) and SId (in SBML Level~2) are mapped to
   standard C strings (pointers to arrays of \code{char} terminated by a
@@ -540,25 +538,42 @@ between the two demonstrates the mapping rules for primitive types:
   non-zero represents true.
 
 \end{enumerate}
+
 \begin{figure}[bht]
   \begin{tabular}{m{8.5cm}c}
     \includegraphics[scale=0.68]{species}
     &
     \begin{example}[c]
-typedef struct { 
-  char    *name;
-  char    *compartment;
-  double  initialAmount;
-  char    *units;
+typedef struct
+{
+  SBASE_FIELDS;
+  char   *id;
+  char   *name;
+  char   *compartment;
+  union
+  {
+    double Amount;
+    double Concentration;
+  } initial;
+  char   *substanceUnits;
+  char   *spatialSizeUnits;
+  int     hasOnlySubstanceUnits;
   int     boundaryCondition;
   int     charge;
+  int     constant;
 } Species_t;
     \end{example}\\
   \end{tabular}
-  \caption{Example: the definition of SBML Level~1's Species in UML (left) and the
-    corresponding \class{Species\_t} C struct (right) in \libsbml{}.}
+  \caption{Example: the definition of SBML's Species in UML (left) and the
+    corresponding \class{Species\_t} C struct (right) in \libsbml{}.
+    \code{SBASE\_FIELDS} is part of the OOP-like style used to implement
+    objects in C; it is a macro that expands into the fields defined by
+    SBase.  The use of a union for amount and concentration reflects that
+    these two fields are mutually exclusive in the SBML Species
+    definition.}
   \label{fig:species-uml-and-c}
 \end{figure}
+
 
 
 %-----------------------------------------------------------------------------
@@ -676,7 +691,7 @@ give a concrete example, here are the getters for \class{Species\_t}:
 
 
 \begin{methoddef}{int Species\_getHasOnlySubstanceUnits (const Species\_t *s)}
-  Returns true (non-zero) if this Species' \attrib{hasOnlySubstanceUnits}
+  Returns true if this Species' \attrib{hasOnlySubstanceUnits}
   field is true, false (\code{0}) otherwise.
 \end{methoddef}
 
@@ -714,9 +729,8 @@ Figure~\vref{fig:print-species} provides an example of using getters.
 
 \begin{figure}[thb]
   \begin{codeVerbatim}[C,flexiblecolumns=false]
-/**
- * Prints basic information about an SBML Level 2 Species.  This assumes
- * that the caller has already determined the model is SBML Level 2.
+/** 
+ * Prints some basic information about an SBML Level 2 Species.
  */
 void
 myPrintSpecies (Species_t *s, FILE *stream)
@@ -748,15 +762,14 @@ myPrintSpecies (Species_t *s, FILE *stream)
 %-----------------------------------------------------------------------------
 
 A value is assigned to a field via a \emph{set} method.  Requiring all
-assignments to take place through setter methods allows \libsbml{} to track
-(and the developer to query) the set or unset \emph{state} of a field apart
-from its actual \emph{value}.  The need to make a distinction between state
-and value is critical and is discussed further in
-Section~\ref{sec:field-states}.  Earlier versions of \libsbml{} allowed
-primitive types to be set directly; however, such direct access made it
-impossible to distinguish between set and unset states of a field, since
-all possible values are valid (i.e., no sentinel value exists to indicate
-an unset state).
+assignments to be done using setter methods allows \libsbml{} to track (and
+the developer to query) the set or unset \emph{state} of a field apart from
+its actual \emph{value}.  The need to distinguish between state and value
+is critical and is discussed further in Section~\ref{sec:field-states}.
+(Earlier versions of \libsbml{} allowed primitive types to be set directly;
+however, direct access made it impossible to distinguish between set and
+unset states of a field, since all possible values are valid---no sentinel
+value exists to indicate an unset state.)
 
 The setter methods follow the naming convention \method{XXX\_setYYY()}.
 The setters for \class{Species\_t} are:
@@ -834,8 +847,8 @@ The setters for \class{Species\_t} are:
 
 In the case of strings, requiring setter methods also enables clean and
 simple memory semantics.  The rule is: every SBML object is responsible for
-its own memory, including SName strings.  Whenever a set method is called,
-the passed-in string is copied and stored.  If the field being set
+its own memory, including SId and SName strings.  Whenever a set method is
+called, the passed-in string is copied and stored.  If the field being set
 previously contained a string, it is freed.  When \method{XXX\_free()} is
 called, all strings are freed.
 
@@ -887,9 +900,9 @@ in a model, \libsbml{} must be able to determine whether the field has ever
 been set in order to know whether to output or omit the field while writing
 the model.
 
-To determine whether a particular field in a structure is set or unset is
-to, calling programs should use \libsbml{}'s \method{XXX\_isSetYYY()} class
-of methods.  For \class{Species\_t}, the following are available:
+To determine whether a particular field in a structure is set or unset,
+calling programs should use \libsbml{}'s \method{XXX\_isSetYYY()} class of
+methods.  For \class{Species\_t}, the following are available:
 
 
 \begin{methoddef}{int Species\_isSetId (const Species\_t *s)}
@@ -967,8 +980,7 @@ want to check for and handle this case (especially if the program is an
 SBML validator).  Second, please be aware that in the transition from SBML
 Level~1 to Level~2, some fields changed from being required to being
 optional.  If this is the case for a particular field, the documentation
-for the corresponding \method{isSetYYY()} will state it (as above).  That
-said, this second point is more relevant when it comes to unsetting fields.
+for the corresponding \method{isSetYYY()} will state it (as above).
 
 Just as fields may be set and their set state queried, they may also be
 unset.  Unset methods are named (predictably) \method{XXX\_unsetYYY()}.
@@ -1032,16 +1044,17 @@ Species in both SBML Level~1 and Level~2).
 \label{sec:lists}
 %-----------------------------------------------------------------------------
 
+Species only contains fields having types SId, SName and primitive types,
+but many SBML classes also contain lists of other objects.  For example, a
+UnitDefinition contains a list of Units, as shown in
+Figure~\vref{fig:unit-definition}.
+
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=0.68]{unitdefinition}
-  \caption{SBML's UnitDefinition and Unit.}
+  \caption{SBML Level 2's UnitDefinition and Unit.}
   \label{fig:unit-definition}
 \end{figure}
-
-Species contains only SNames and primitive types, but many SBML classes
-also contain lists of other objects.  For example, a UnitDefinition
-contains a list of Units, as shown in Figure~\vref{fig:unit-definition}.
 
 To help manage this containment relationship, three standard functions are
 provided by \libsbml{}: \method{XXX\_addYYY()}, \method{XXX\_getYYY()} and
@@ -1125,7 +1138,8 @@ discarded).  The \class{Unit\_t} is added to the last
 methods is the case where no intermediate container exists; e.g., if no
 \class{UnitDefinition\_t} were created above.  In that case, the call to
 \method{Model\_createUnit()} does nothing.  More specifically, no
-\class{Unit\_t} is created and (obviously) nothing is added to the model.
+\class{Unit\_t} is created, nothing is added to the model, and \code{NULL}
+is returned.
 
 For more detailed information on lists in \libsbml{} and the
 \class{ListOf\_t} utility type provided in the library, see
@@ -1325,8 +1339,8 @@ also derived from \class{SBase}.
 \begin{figure}[hbt]
   \centering
   \includegraphics[scale = 0.7]{sbase}
-  \caption{The definition of \class{SBase}.  See the SBML specifications
-  for an explanation of the notation.}
+  \caption{The definition of \class{SBase} in SBML Level~2.  See the SBML
+    specifications for an explanation of the notation.}
   \label{fig:sbase}
 \end{figure}
 
@@ -1360,6 +1374,16 @@ However, the methods to work with these fields in \libsbml{} are generic:
 
 \begin{methoddef}{const char * SBase\_getAnnotation (const SBase\_t *sb)}
   Returns the \attrib{annotation} field for this SBML object.
+\end{methoddef}
+
+
+\begin{methoddef}{unsigned int SBase\_getColumn (const SBase\_t *sb)}
+  Returns the column number for this SBML object.
+\end{methoddef}
+
+
+\begin{methoddef}{unsigned int SBase\_getLine (const SBase\_t *sb)}
+  Returns the line number for this SBML object.
 \end{methoddef}
 
 
@@ -1444,7 +1468,7 @@ need to include it separately):
 
 \begin{example}[c]
 /**
- * An enumeration of SBML types to help identify SBML objects at runtime.
+ * An enumeration of SBML Level 2 types to help identify SBML objects at runtime.
  * Abstract types do not have a typecode since they cannot be instantiated.
  */
 typedef enum
@@ -1477,9 +1501,9 @@ The primary reason for the \variable{typecode} is distinguish specific
 types of rules in a Model.  A \class{Model\_t} contains a list of rules,
 but a \class{Rule\_t} in SBML Level~1 may be of one of four specific types:
 \class{AlgebraicRule}, \class{SpeciesConcentrationRule},
-\class{CompartmentVolumeRule} and \class{ParameterRule}.  Having a typecode
-associated with each object allows calling programs to distinguish their
-type more easily.
+\class{CompartmentVolumeRule} and \class{ParameterRule}.  Having a type
+code associated with each object allows calling programs to distinguish its
+type.  Without type codes, it would be impossible.
 
 
 %=============================================================================
@@ -1498,7 +1522,6 @@ SBMLDocument.  \libsbml{} defines two basic read functions:
 \begin{methoddef}{SBMLDocument\_t *readSBMLFromString (const char *xml)}
   Reads the SBML document from the given XML string and returns a pointer
   to it.
-
   The XML string must be complete and legal XML document.  Among other
   things, it must start with an XML processing instruction.  For example,
   \begin{example}
@@ -1738,10 +1761,10 @@ main (int argc, char *argv[])
 \label{sec:schema-validation}
 %-----------------------------------------------------------------------------
 
-At input, to have \libsbml{} validate an SBML document against an SBML
-(XML) Schema when using a Schema-aware parser such as Xerces requires
-creating an \texttt{SBMLReader} object and setting the appropriate schema
-filename and validation level.  The functions for doing this are:
+To have \libsbml{} validate an SBML document against an SBML (XML) Schema
+when using a Schema-aware parser such as Xerces requires creating an
+\texttt{SBMLReader} object and setting the appropriate schema filename and
+validation level.  The functions for doing this are:
 
 
 \begin{methoddef}{SBMLReader\_t *SBMLReader\_create (void)}
@@ -1878,20 +1901,19 @@ library's capabilities for handling MathML and mathematics.
 
 In SBML Level~1, mathematical formulas are expressed as text strings using
 a simple C-like syntax.  In SBML Level~2, mathematical formulas are
-expressed in MathML syntax.  The API interfaces to SBML files and data
-streams work with ASCII text strings in both cases; the difference between
-Level~1 and Level~2 mathematical expressions is entirely in the syntax of
-the strings.
+expressed in MathML syntax.  \libsbml{} helps calling programs smooth over
+this difference by providing an API that allows working with formulas in
+both text-string and MathML form, and to interconvert mathematical
+expressions between these forms (to the extent possible by the differences
+between SBML Levels~1 and~2.)
 
-Whether formulas in SBML are expressed in the C-like syntax of Level~1 or
-in the MathML syntax of Level~2, they are converted internally in
-\libsbml{} into Abstract Syntax Trees (ASTs).  ASTs are described in detail
-in Appendix~\ref{app:ast}.  When \libsbml{} reads an SBML model, it
-converts the expressions into ASTs and stores the ASTs in the corresponding
-data structures that have mathematical formulas (such as in an SBML
-KineticLaw).  Thus, the \method{KineticLaw\_getMath()} method, for example,
-returns a pointer to the root of an AST corresponding to the formula stored
-there.
+Formulas in \libsbml{} are represented internally using Abstract Syntax
+Trees (ASTs).  ASTs are described in detail in Appendix~\ref{app:ast}.
+When \libsbml{} reads an SBML model, it converts the expressions into ASTs
+and stores the ASTs in the corresponding data structures that have
+mathematical formulas (such as in an SBML KineticLaw).  Thus, the
+\method{KineticLaw\_getMath()} method, for example, returns a pointer to
+the root of an AST corresponding to the formula stored there.
 
 Many software packages provide users with the ability to express formulas
 for such things as reaction rate expressions, and these packages'
@@ -1942,6 +1964,7 @@ const char *formulae[] =
   "foo(1, bar, 2^-3)",
   ""
 };
+
 
 ASTNode_t *n;
 char      *s;
@@ -2035,7 +2058,7 @@ XML (though not necessarily SBML) document.  The following example
 illustrates the use of this function with a valid MathML input.
 
 \begin{example}[c]
-MathMLDocument_t *D;
+MathMLDocument_t *doc;
 ASTNode_t          *ast;
 char               *result;
 
@@ -2044,7 +2067,7 @@ const char* s = "<?xml version='1.0' encoding='UTF-8'?>"
                     "<apply><arccos/><ci> x </ci></apply>"
                   "</math>";
 
-D      = readMathMLFromString(s);
+doc    = readMathMLFromString(s);
 ast    = MathMLDocument_getMath(doc);
 \end{example}
 
@@ -2073,6 +2096,47 @@ there, and write out the appropriate text in MathML syntax.
 \end{methoddef}
 
 
+
+%-----------------------------------------------------------------------------
+\subsection{Differences between SBML Level~1 Formulas and MathML}
+\label{sec:function-names}
+%-----------------------------------------------------------------------------
+
+The text-string based mathematical formula syntax of SBML Level~1 is
+\emph{mostly} compatible with the representation of formulas in MathML.  A
+few differences exist in the names of predefined functions such as
+\code{arccos}.  Table~\vref{tab:function-names} gives the mapping
+between SBML Level~1 and Level~2 function names.  
+
+\begin{table}[bth]
+  \small
+  \centering
+  \ttfamily
+  \begin{tabular}{ll}
+    \toprule
+    \textrm{\textbf{SBML Level 1}} & \textrm{\textbf{SBML Level 2}} \\
+    \midrule
+    abs     & abs \\
+    acos    & \underline{arccos} \\
+    asin    & \underline{arcsin} \\
+    atan    & \underline{arctan} \\
+    ceil    & \underline{ceiling} \\
+    cos     & cos \\
+    exp     & exp \\
+    floor   & floor \\
+    log     & \underline{ln} \\
+    log10(x) & \underline{log(10, x)} \\
+    pow(x, y) &       \underline{power(x, y)} \\
+    sqr(x)  & \underline{power(x, 2)} \\
+    sqrt(x) & \underline{root(2, x)} \\
+    sin     & sin \\
+    tan     & tan \\
+    \bottomrule
+  \end{tabular}
+  \caption{Basic mathematical functions defined in SBML Levels~1 and~2.
+The underlined functions are different between the two levels of SBML.}
+  \label{tab:function-names}
+\end{table}
 
 %-----------------------------------------------------------------------------
 \subsection{Additional Notes about the Handling of Mathematical Formulas}
@@ -2113,8 +2177,8 @@ main (int argc, char *argv[])
 
     const char* expected = "1 + f(x)";
 
-    const char* s = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-        "<math xmlns=\"http://www.w3.org/1998/Math/MathML\">"
+    const char* s = "<?xml version='1.0' encoding='UTF-8'?>"
+        "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
         "  <apply> <plus/> <cn> 1 </cn>"
         "                  <apply> <ci> f </ci> <ci> x </ci> </apply>"
         "  </apply>"
@@ -2130,7 +2194,7 @@ main (int argc, char *argv[])
     }
     else
     {
-        printf("Mismatch after readMathMLFromString\n");
+        printf("Mismatch after readMathMLFromString()\n");
     }
 
     new_mathml = SBML_parseFormula(result);
@@ -2186,8 +2250,8 @@ that impact how a model is written out:
 
 
 \begin{methoddef}{void SBMLDocument\_setLevel (SBMLDocument\_t *d, unsigned int level)}
-  Sets the level of this SBML document to the given \variable{level}
-  number.  Valid levels are currently 1 and 2.
+  Sets the level of this SBML document to \variable{level}.  Valid levels
+  are currently 1 and 2. 
 \end{methoddef}
 
 
@@ -2274,25 +2338,11 @@ elsewhere, getting the most of this validation capability requires the
 using of an XML Schema-aware parser such as Xerces).
 
 \libsbml{} implements more extensive semantic validation rules internally.
-At the time of this writing, there are over 30 rules implemented in the
-library.  Examples of these validation tests include the following:
-
-\begin{itemize}\setlength{\parskip}{-0.25ex}
-  
-\item Compartments' \attrib{spatialSizeUnits} fields must be consistent with
-  their \attrib{spatialDimensions}.
-  
-\item Species with \attrib{hasOnlySubstanceUnits} set to true must not have
-  an \attrib{initialConcentration}.
-  
-\item A species must not be named in bothh a reaction and an SBML rule.
-  
-\item Reactions must refer to at least one species in their
-  reactants, products or modifiers.
-
-\item Etc.
-
-\end{itemize}
+At the time of this writing, over 30 tests are implemented.  Examples of
+these rules include: compartments' \attrib{spatialSizeUnits} fields must be
+consistent with their \attrib{spatialDimensions}; species with
+\attrib{hasOnlySubstanceUnits} set to true must not have an
+\attrib{initialConcentration}; and others.
     
 Semantic validation rules in \libsbml{} (and indeed, in SBML in general)
 are still somewhat experimental; for this reason, the library does not
@@ -2300,13 +2350,24 @@ perform them automatically.  Callers must request semantic validation to be
 invoked explicitly by calling the following method.
 
 
-\begin{methoddef}{void SBMLDocument\_validate (const SBMLDocument\_t *d)}
+\begin{methoddef}{unsigned int SBMLDocument\_validate (const SBMLDocument\_t *d)}
   Performs semantic validation on the document.  Calling programs can query
   the results by calling \method{SBMLDocument\_getNumWarnings()},
   \method{SBMLDocument\_getNumErrors()},
-  \method{SBMLDocument\_getNumFatals()}, and related methods.
+  \method{SBMLDocument\_getNumFatals()}, and related methods.  This method
+  returns (as an integer) the number of semantic validation errors
+  encountered
 \end{methoddef}
 
+% FIXME give more details about the number returned.  Here's what B.B. says:
+%
+%The validator keeps track of every rule fired (or run) and increments a
+%counter if it fails.  It also logs an error message.  That error message
+%(ParseMessage) is logged to the same list of error messages that XML Schema
+%validation errors are logged to, i.e. the one kept by SBMLDocument.
+%getNumErrors() simply returns the size of this list.  The count of violated
+%rules is returned by the validator and SBMLDocument_validate() propagates
+%this number to its caller.
 
 
 
@@ -2322,7 +2383,7 @@ surrounding the use and behavior of \libsbml{}.
 \subsection{Conformance to SBML}
 
 Currently, \libsbml{} supports all of SBML Level~1 Version~1 and Version~2,
-and nearly all of SBML Level~2 Version~1.  The still-supported parts of
+and nearly all of SBML Level~2 Version~1.  The still-unsupported parts of
 the Level~2 specification are:
 
 \begin{itemize}\setlength{\parskip}{-0.25ex}
@@ -2388,6 +2449,15 @@ itself.
 %\label{sec:issues-about-math}
 
 
+%=============================================================================
+\section{Acknowledgments}
+\label{sec:acknowledgments}
+%=============================================================================
+
+Thanks to Mike Hucka for updating and editing this manual for version 2.0
+of \libsbml{}.
+
+
 
 \clearpage
 \appendix
@@ -2413,8 +2483,8 @@ The full set of list methods are:
 
 
 \begin{methoddef}{void * ListOf\_get (const ListOf\_t *lo, unsigned int n)}
-  Returns the nth item in this list.  If n > \method{ListOf\_getNumItems(list)}
-  returns \code{NULL}.
+  Returns the nth item in this list.  If \code{n > ListOf\_getNumItems(list)},
+  it returns \code{NULL}.
 \end{methoddef}
 
 
@@ -2424,8 +2494,8 @@ The full set of list methods are:
 
 
 \begin{methoddef}{void * ListOf\_remove (ListOf\_t *lo, unsigned int n)}
-  Removes the nth item from this list and returns a pointer to it.  If n >
-  \method{ListOf\_getNumItems(list)} returns \code{NULL}.
+  Removes the nth item from this list and returns a pointer to it.  If 
+  \code{n > ListOf\_getNumItems(list)}, it returns \code{NULL}.
 \end{methoddef}
 
 
@@ -2436,23 +2506,24 @@ example presented in Section~\ref{sec:lists} could also be written as:
 \begin{example}[c]
 UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
 
-ListOf_append(ud->unit, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
-ListOf_append(ud->unit, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
-ListOf_append(ud->unit, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
+UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
+UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
+UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
 \end{example}
 
 
 However, this approach is not the preferred one.  The best reason to use
 specific \method{XXX\_getYYY()} methods over the list API in \libsbml{} is
 that the former are typed to specific items, whereas \method{ListOf\_get()}
-returns a void pointer that must be cast to a specific type.  Also, the
+returns a void pointer that must be cast to a specific type.  Moreover, the
 code resulting from using the \method{XXX\_getYYY()} methods is arguably
-more readable.  The list API is mentioned here (1) for the sake of
-completeness and (2) because currently the only way to remove an item from
-a list is to use the API directly.  (Although methods for removing items
-from the various SBML object lists could easily be added to the API, but
-they have been omitted because in practice it appears they are rarely
-needed.)
+more readable.
+
+Although many specialized methods are available for accessing various data
+objects in SBML, the list API is necessary for accessing such things as the
+content of \attrib{notes} and \attrib{annotation} elements on SBML's
+\attrib{listOf***} elements.  In addition, the only way to remove an item
+from a list is to use the API directly.
 
 
 %=============================================================================
@@ -2628,9 +2699,9 @@ methods can be used to interrogate the type of a given AST node:
 \begin{methoddef}{int ASTNode\_isNumber (const ASTNode\_t *node)}
   Returns true (non-zero) if this AST node is a number, false (\code{0})
   otherwise.  This is functionally equivalent to:
-  \begin{example}[c]
-    ASTNode_isInteger(node) || ASTNode_isReal(node).
-  \end{example}
+  \begin{quote}
+    \code{ASTNode\_isInteger(node)} \verb+||+ \code{ASTNode\_isReal(node)}
+  \end{quote}
 \end{methoddef}
 
 
@@ -2649,8 +2720,7 @@ methods can be used to interrogate the type of a given AST node:
 
 \begin{methoddef}{int ASTNode\_isReal (const ASTNode\_t *node)}
   Returns true (non-zero) if the value of this AST node can represented as
-  a real number, false (\code{0}) otherwise.
- 
+  a real number, false (\code{0}) otherwise. 
   To be a represented as a real number, this node must be of one of the
   following types: \class{AST\_REAL}, \class{AST\_REAL\_E} or
   \class{AST\_RATIONAL}.
@@ -2666,8 +2736,7 @@ methods can be used to interrogate the type of a given AST node:
 
 \begin{methoddef}{int ASTNode\_isSqrt (const ASTNode\_t *node)}
   Returns true (non-zero) if the given AST node represents a \code{sqrt()}
-  function, false (\code{0}) otherwise.
- 
+  function, false (\code{0}) otherwise. 
   More precisely, the node type is \class{AST\_FUNCTION\_ROOT} with two
   children the first of which is an \class{AST\_INTEGER} equal to 2.
 \end{methoddef}
@@ -2675,13 +2744,11 @@ methods can be used to interrogate the type of a given AST node:
 
 \begin{methoddef}{int ASTNode\_isUMinus (const ASTNode\_t *node)}
   Returns true (non-zero) if this AST node is a unary minus, false (\code{0})
-  otherwise.
- 
+  otherwise. 
   For numbers, unary minus nodes can be "collapsed" by negating the number.
   In fact, \method{SBML\_parseFormula()} does this during its parse.
   However, unary minus nodes for symbols (\class{AST\_NAMES}) cannot be
   ``collapsed'', so this predicate function is necessary.
- 
   A node is defined as a unary minus node if it is of type
   \class{AST\_MINUS} and has exactly one child.
 \end{methoddef}
@@ -2735,7 +2802,6 @@ following meethods are available for returning values from nodes:
 \begin{methoddef}{double ASTNode\_getReal (const ASTNode\_t *node)}
   Returns the value of this AST node as a real (double).  This function
   should be called only when \code{ASTNode\_isReal(node) != 0}.
- 
   This function performs the necessary arithmetic if the node type is
   \class{AST\_REAL\_E} (mantissa  10\verb|^|exponent) or \class{AST\_RATIONAL}
   (numerator / denominator).
@@ -2777,7 +2843,6 @@ the values of AST nodes.
 
 \begin{methoddef}{void ASTNode\_setName (ASTNode\_t *node, const char *name)}
   Sets the value of this AST node to the given name.
- 
   The node type will be set (to \class{AST\_NAME}) \textbf{only if} the AST
   node was previously an operator (\code{ASTNode\_isOperator(node) != 0}) or
   number (\code{ASTNode\_isNumber(node) != 0}).  This allows names to be set for
