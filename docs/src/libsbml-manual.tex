@@ -1,6 +1,5 @@
 \documentclass{sbmlmanual}
-
-\newcommand{\libsbml}{\textsc{lib\-sbml}}
+\usepackage{libsbmlextras}
 
 \begin{document}
 
@@ -8,8 +7,14 @@
 % Title page
 %=============================================================================
 
-\title{\libsbml{}\\[5pt]
-  Developer's Manual}
+\latexhtml {
+  % This is the normal (non-latex2html) case.
+  \title{\libsbml{}\\[5pt]
+    Developer's Manual}
+}{
+  % When using latex2html, don't put a newline in the title.
+  \title{\libsbml{} Developer's Manual}
+}
 
 \author{Ben Bornstein}
 
@@ -20,7 +25,9 @@
   California Institute of Technology, Pasadena, CA 91125, USA\\[2pt]
   {\url{http://www.sbml.org/}}}
 
-\date{\today{}\\[10pt]\hspace*{-1ex}\libsbml{} Version \input{../../VERSION.txt}}
+\funding{\libsbmlfunding{}}
+
+\date{\today{}\\[10pt]\hspace*{-1ex}\libsbml{} Version \libsbmlversion()}
 
 \maketitlepage
 
@@ -42,10 +49,11 @@ information, see \url{http://xml.apache.org/xerces-c/} for Xerces and
 \subsection{Linux, MacOS X and Solaris}
 %-----------------------------------------------------------------------------
 
-If you have obtained the \libsbml{} source code distribution, then at your
-Linux, MacOS~X or Solaris command prompt, unpack the distribution,
-\shell{cd} into the directory created (e.g., \shell{libsbml-2.1.0/}), and
-type the following command to configure \libsbml{} for your system:
+If you have obtained the source code distribution of \libsbml{}, then at
+your Linux, MacOS~X or Solaris command prompt, unpack the distribution,
+\shell{cd} into the directory created as a result (e.g.,
+\shell{libsbml-2.1.0/}), and type the following command to configure
+\libsbml{} for your system:
 
 \begin{example}[csh]
   ./configure
@@ -76,7 +84,7 @@ Next, compile and install the \libsbml{} library using the following command:
   make install
 \end{example}
 
-To compile programs that use libsbml with GCC (for an example, see
+To compile programs that use \libsbml{} with GCC (for an example, see
 Section~\ref{sec:read-example}):
 
 \begin{example}[csh]
@@ -192,7 +200,7 @@ manual for the API.
 
 
 %=============================================================================
-\section{Detailed Instructions for Configuring and Installing LibSBML}
+\section{Detailed Instructions for Configuring and Installing the Library}
 \label{sec:installation}
 %=============================================================================
 
@@ -208,7 +216,7 @@ library or James Clark's Expat XML library on Linux, Windows, MacOS~X and
 Solaris.  Many systems provide one or both of these libraries either as
 part of their standard distribution or as an optional RPM or Debian
 package.  For Windows, DLL and LIB file distributions are available for
-both Xerces and Expat.  For more information, see the following resources:
+both Xerces and Expat.  For more information, see the following:
 
 \begin{itemize}\setlength{\parskip}{-0.25ex}
 
@@ -218,11 +226,15 @@ both Xerces and Expat.  For more information, see the following resources:
 \end{itemize}
 
 Note that if you use Expat instead of Xerces, \libsbml{} will not be able
-to perform validation or consistency tests on SBML models, because Expat is
-not a validating XML parser.  (A validating parser can check XML input
-against an XML Schema.)  Xerces is currently the only validating parser
-library usable with \libsbml{}.  The tradeoff is that Expat can be
-noticeably faster than Xerces at parsing large models.
+to validate SBML input against the XML Schema for SBML because Expat is not
+a validating XML parser.  Xerces is currently the only validating parser
+library usable with \libsbml{}.  The implication of this is that when using
+Expat, some syntactic errors in SBML inputs may go undetected; examples
+include identifiers not using the correct character set, and missing
+required attributes.  (However, the \libsbml{} consistency checks described
+in Section~\ref{sec:consistency-checking} can still be performed.)  The
+tradeoff is that Expat can be noticeably faster than Xerces at parsing
+large models.
 
 Unless instructed otherwise, the \libsbml{} build process will
 \textbf{default to using Xerces}.  A good way to determine whether
@@ -258,18 +270,18 @@ able to detect it.  In this case, \shell{configure} needs to be told
 explicitly where to find the libraries.  Use the following forms:
 
 \begin{example}[csh]
-  ./configure --with-expat="|\emph{dir}|"
+  ./configure --with-expat="DIR"
 \end{example}
 or
 \begin{example}[csh]
-  ./configure --with-xerces="|\emph{dir}|"
+  ./configure --with-xerces="DIR"
 \end{example}
 
-where \code{\emph{dir}} is the \textbf{parent} directory of where the
-\code{include} and \code{lib} directories of Xerces or Expat (whichever
-one you are trying to use) is located.  For example, on MacOS~X, if you
-used Fink to install Expat in Fink's default software tree, you would
-configure \libsbml{} using the following:
+where \code{DIR} is the \textbf{parent} directory of where the
+\code{include} and \code{lib} directories of Xerces or Expat (whichever one
+you are trying to use) is located.  For example, on MacOS~X, if you used
+Fink to install Expat in Fink's default software tree, you would configure
+\libsbml{} using the following:
 
 \begin{example}[csh]
   ./configure --with-xerces="/sw"
@@ -313,13 +325,12 @@ Finally, on most platforms, you will also need to either run the command
 if this is unfamiliar), or else set the environment variable
 \shell{LD\_LIBRARY\_PATH} in your terminal shell window.  (On MacOS~X, the
 variable is named \shell{DYLD\_LIBRARY\_PATH}.)  If you do not do this,
-attempting to link other programs with the \libsbml{} library will fail
-with errors about being unable to find it.
+attempts to run other programs that were linked with the \libsbml{} library
+will probably fail with errors about being unable to find the library.
 
 If all went as it should, \libsbml{} should end up compiled and installed
 on your system, in either the default location (\shell{/usr/local/}) or in
-the location you indicated during the configuration step as explained
-above.
+the location you indicated during the configuration step.
 
 
 \subsubsection{Additional Options: Interfaces to Java, Python and MATLAB}
@@ -337,7 +348,7 @@ with other configure options, these three take an optional prefix
 argument; for example,
 
 \begin{example}[csh]
-  ./configure --with-java="|\emph{dir}|"
+  ./configure --with-java="DIR"
 \end{example}
 
 If you want to build multiple language bindings for \libsbml{}, combine
@@ -352,14 +363,16 @@ that you do not need to have the software necessary to recreate them.
 However, if you obtained the \libsbml{} distribution from CVS or want to
 recreate the files deliberately, you will need need SWIG, the Simplified
 Wrapper and Interface Generator.  More information about SWIG is available
-from \shell{http://www.swig.org}.  To tell configure to enable the use of
-SWIG to regenerate the interface files, use the \shell{--with-swig} option
-to configure.  If your copy of SWIG is installed in a non-standard
-location, you can specify it on the \shell{configure} command line like
-this:
+from \shell{http://www.swig.org}.  At this time, \libsbml{} is known to
+work \emph{only} with version 1.3.21 of SWIG; earlier versions are known
+\emph{not} to work and the newest versions have not yet been tested.  To
+tell configure to enable the use of SWIG to regenerate the interface files,
+use the \shell{--with-swig} option to configure.  If your copy of SWIG is
+installed in a non-standard location, you can specify it on the
+\shell{configure} command line like this:
 
 \begin{example}[csh]
-  ./configure --with-swig="|\emph{dir}|"
+  ./configure --with-swig="DIR"
 \end{example}
 
 As with Expat and Xerces, the \shell{/sw} directory is what you would
@@ -433,6 +446,8 @@ you can reconfigure and disable it as follows:
   ./configure --disable-memory-tracing
 \end{example}
 
+After doing this, make sure to rebuild and reinstall the \libsbml{} library.
+
 
 \subsection{Instructions for Microsoft Windows}
 
@@ -446,7 +461,7 @@ installed.
 As mentioned above, \libsbml{} requires that either the Xerces-C or Expat
 XML parsing libraries be available on your computer prior to attempting to
 compile \libsbml{}.  (See the beginning of this section for tips on
-obtaining these packages.)  The DLL for xerces or expat must be placed in
+obtaining these packages.)  The DLL for Xerces or Expat must be placed in
 the \shell{win32/bin} subdirectory of the \libsbml{} directory.
 
 The following are the steps for using Visual Studio to compile \libsbml{}
@@ -624,7 +639,7 @@ rules for primitive types:
 
 \begin{figure}[bht]
   \begin{tabular}{m{8.5cm}c}
-    \includegraphics[scale=0.68]{graphics/species}
+    \includegraphics[scale=0.67]{graphics/species}
     &
     \begin{example}[c]
 typedef struct
@@ -939,7 +954,7 @@ For example, to set the compartment of a Species object stored in variable
 \code{s} to the string \code{"cell"}, you could do the following:
 
 \begin{example}[c]
-Species_setCompartment(s, "cell");
+  Species_setCompartment(s, "cell");
 \end{example}
 
 The effect of passing a \code{NULL} pointer as the string argument
@@ -1127,10 +1142,10 @@ Species in both SBML Level~1 and Level~2).
 \label{sec:lists}
 %-----------------------------------------------------------------------------
 
-Species only contains fields having types SId, SName and primitive types,
-but many SBML classes also contain lists of other objects.  For example, a
-UnitDefinition contains a list of Units, as shown in
-Figure~\vref{fig:unit-definition}.
+The Species class of object only contains fields having types SId, SName
+and primitive types, but many SBML classes also contain lists of other
+objects.  For example, a UnitDefinition contains a list of Units, as shown
+in Figure~\vref{fig:unit-definition}.
 
 \begin{figure}[htb]
   \centering
@@ -1161,36 +1176,35 @@ UnitDefinition\_t *ud)}
 \end{methoddef}
 
 
-Furthering the example, creating the \class{UnitDefinition} $mmol l^-1
-s^1$ with an identifer of ``\code{mmls}'', corresponding to the following SBML,
+Furthering the example, creating the \class{UnitDefinition} \emph{mmol/l/s}
+with an identifer of ``\code{mmls}'', corresponding to the following SBML,
 
 \begin{example}
-<listOfUnitDefinitions>
-  <unitDefinition id="mmls">
-    <listOfUnits>
-      <unit kind="mole"   scale="-3"/>
-      <unit kind="litre"  exponent="-1"/>
-      <unit kind="second" exponent="-1"/>
-    </listOfUnits>
-  </unitDefinition>
-</listOfUnitDefinitions>
+  <listOfUnitDefinitions>
+    <unitDefinition id="mmls">
+      <listOfUnits>
+        <unit kind="mole"   scale="-3"/>
+        <unit kind="litre"  exponent="-1"/>
+        <unit kind="second" exponent="-1"/>
+      </listOfUnits>
+    </unitDefinition>
+  </listOfUnitDefinitions>
 \end{example}
 
 
 could be accomplished with the following C:
 
 \begin{example}[c]
-UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
+  UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
 
-UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
-UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
-UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
+  UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
+  UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
+  UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
 \end{example}
 
-
-List items are numbered starting at zero.  In the case above,
-\method{UnitDefinition\_getNumUnits(\variable{ud})} returns 3 and
-\method{UnitDefinition\_getUnit(\variable{ud}, 1)} returns the
+List items are numbered starting at zero.  For the case above, 
+\method{UnitDefinition\_getNumUnits(\variable{ud})} would return 3 and
+\method{UnitDefinition\_getUnit(\variable{ud}, 1)} would return the
 \emph{second} Unit structure.  (The \class{UNIT\_KIND\_XXX} enumerations
 are discussed later.)
 
@@ -1203,14 +1217,14 @@ the above \class{UnitDefinition\_t} object, but this time inside a
 
 
 \begin{example}[c]
-Model_t            *m  = Model_createWith("MyModel");
-UnitDefinition_t   *ud = Model_createUnitDefinition(m);
+  Model_t            *m  = Model_createWith("MyModel");
+  UnitDefinition_t   *ud = Model_createUnitDefinition(m);
 
-UnitDefinition_setName(ud, "mmls");
+  UnitDefinition_setName(ud, "mmls");
 
-Model_createUnit(m, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
-Model_createUnit(m, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
-Model_createUnit(m, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
+  Model_createUnit(m, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
+  Model_createUnit(m, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
+  Model_createUnit(m, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
 \end{example}
 
 
@@ -1240,17 +1254,17 @@ support functions for equality testing and converting to and from strings.
 
 
 \begin{example}[c]
-typedef enum
-{
-    UNIT_KIND_AMPERE
-  , UNIT_KIND_BECQUEREL
-
-   /* Omitted for space */
-
-  , UNIT_KIND_WEBER
-  , UNIT_KIND_INVALID
-} UnitKind_t;
-\end{example}
+  typedef enum
+  {
+      UNIT_KIND_AMPERE
+    , UNIT_KIND_BECQUEREL
+  
+     /* Omitted for space */
+  
+    , UNIT_KIND_WEBER
+    , UNIT_KIND_INVALID
+  } UnitKind_t;
+  \end{example}
 
 The following are the methods available for UnitKind:
 
@@ -1289,11 +1303,12 @@ match any known \class{UnitKind}.
 The same ideas apply to RuleType, except there is no need for
 \method{RuleType\_equals()}.  See \shell{RuleType.h} for more information.
 
-\emph{Implementation Note}: The internal \variable{UNIT\_KIND\_STRINGS}
-table is sorted alphabetically and \class{UnitKind\_t} matches this sort
-order.  Because of this, \method{UnitKind\_forName()} is able to perform a
-binary search to find a matching name, making its complexity $O(log(n))$.
-That is, \method{UnitKind\_forName()} is implemented efficiently.
+\emph{Implementation Note}: The internal table of
+\variable{UNIT\_KIND\_STRINGS} is sorted alphabetically and
+\class{UnitKind\_t} matches this sort order.  Because of this,
+\method{UnitKind\_forName()} is able to perform a binary search to find a
+matching name, making its complexity \emph{O(log(n))}.  That is,
+\method{UnitKind\_forName()} is implemented efficiently.
 
 
 %-----------------------------------------------------------------------------
@@ -1532,24 +1547,24 @@ the notes field of some \class{Species} held in variable \variable{s}, cast
 the variable to type \class{SBase\_t}:
 
 \begin{example}[c]
-SBase_setNotes( (SBase_t *) s, "My Favorite Species" );
+  SBase_setNotes( (SBase_t *) s, "My Favorite Species" );
 \end{example}
 
 The same applies to all other SBML objects.
 
-The handling of \class{annotation} elements merits further explanation.
-The function \method{SBase\_getAnnotation()}, listed above, returns the
-entire annotation string attached to an SBML data object, \emph{including}
-the opening \texttt{<annotation>} XML element.  This is useful when reading
-SBML model files because it gives access to any XML namespaces defined on
-the annotation element.  For example, if a model had the following on a
-structure,
+The \libsbml{} library's handling of \class{annotation} elements merits
+further explanation.  The method \method{SBase\_getAnnotation()}, listed
+above, returns the entire annotation string attached to an SBML data
+object, \emph{including} the opening \texttt{<annotation>} XML element.
+This is useful when reading SBML model files because it gives access to any
+XML namespaces defined on the annotation element.  For example, if a model
+had the following on a structure,
 
 \begin{example}[html]
-<annotation xmlns:mstb="http://www.sbml.org/2001/ns/matlab-sbmltoolbox">
-  <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>
-  <mstb:message>These are my annotations</mstb:message>
-</annotation>
+  <annotation xmlns:mstb="http://www.sbml.org/2001/ns/matlab-sbmltoolbox">
+    <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>
+    <mstb:message>These are my annotations</mstb:message>
+  </annotation>
 \end{example}
 
 then \method{SBase\_getAnnotation()} would return all of the above as one
@@ -1561,13 +1576,13 @@ the opening \texttt{<annotation>} element to
 same annotation string as in the example above:
 
 \begin{example}[c]
-const char *annotation =
-    "<annotation xmlns:mstb=\"http://www.sbml.org/2001/ns/matlab-sbmltoolbox\">"
-    "  <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>\n"
-    "  <mstb:message>These are my annotations</mstb:message>\n"
-    "</annotation>";
-
-SBase_setAnnotation(model, annotation);
+  const char *annotation =
+      "<annotation xmlns:mstb=\"http://www.sbml.org/2001/ns/matlab-sbmltoolbox\">"
+      "  <mstb:timestamp>2004-May-13 10:30 PST</mstb:timestamp>\n"
+      "  <mstb:message>These are my annotations</mstb:message>\n"
+      "</annotation>";
+  
+  SBase_setAnnotation(model, annotation);
 \end{example}
 
 
@@ -1584,34 +1599,34 @@ main \libsbml{} include file, \shell{SBMLTypes.h}, so client code does not
 need to include it separately):
 
 \begin{example}[c]
-/**
- * An enumeration of SBML Level 2 types to help identify SBML objects at runtime.
- * Abstract types do not have a typecode since they cannot be instantiated.
- */
-typedef enum
-{
-    SBML_COMPARTMENT
-  , SBML_DOCUMENT
-  , SBML_EVENT
-  , SBML_EVENT_ASSIGNMENT
-  , SBML_FUNCTION_DEFINITION
-  , SBML_KINETIC_LAW
-  , SBML_LIST_OF
-  , SBML_MODEL
-  , SBML_PARAMETER
-  , SBML_REACTION
-  , SBML_SPECIES
-  , SBML_SPECIES_REFERENCE
-  , SBML_MODIFIER_SPECIES_REFERENCE
-  , SBML_UNIT_DEFINITION
-  , SBML_UNIT
-  , SBML_ALGEBRAIC_RULE
-  , SBML_ASSIGNMENT_RULE
-  , SBML_RATE_RULE
-  , SBML_SPECIES_CONCENTRATION_RULE
-  , SBML_COMPARTMENT_VOLUME_RULE
-  , SBML_PARAMETER_RULE
-} SBMLTypeCode_t;
+  /**
+   * An enumeration of SBML Level 2 types to help identify SBML objects at runtime.
+   * Abstract types do not have a typecode since they cannot be instantiated.
+   */
+  typedef enum
+  {
+      SBML_COMPARTMENT
+    , SBML_DOCUMENT
+    , SBML_EVENT
+    , SBML_EVENT_ASSIGNMENT
+    , SBML_FUNCTION_DEFINITION
+    , SBML_KINETIC_LAW
+    , SBML_LIST_OF
+    , SBML_MODEL
+    , SBML_PARAMETER
+    , SBML_REACTION
+    , SBML_SPECIES
+    , SBML_SPECIES_REFERENCE
+    , SBML_MODIFIER_SPECIES_REFERENCE
+    , SBML_UNIT_DEFINITION
+    , SBML_UNIT
+    , SBML_ALGEBRAIC_RULE
+    , SBML_ASSIGNMENT_RULE
+    , SBML_RATE_RULE
+    , SBML_SPECIES_CONCENTRATION_RULE
+    , SBML_COMPARTMENT_VOLUME_RULE
+    , SBML_PARAMETER_RULE
+  } SBMLTypeCode_t;
 \end{example}
 
 The primary reason for the \variable{typecode} is distinguish specific
@@ -2061,44 +2076,44 @@ formula generator and comparing the strings to make sure they matched.
 does simply illustrate the use of these two methods.)
 
 \begin{example}[c]
-const char *formulae[] =
-{
-  "1",
-  "2.1",
-  "2.1e+10",
-  "foo",
-  "1 + foo",
-  "1 + 2",
-  "1 + 2 * 3",
-  "(1 - 2) * 3",
-  "1 + -2 / 3",
-  "1 + -2e-100 / 3",
-  "1 - -foo / 3",
-  "2 * foo^bar + 3.1",
-  "foo()",
-  "foo(1)",
-  "foo(1, bar)",
-  "foo(1, bar, 2^-3)",
-  ""
-};
-
-ASTNode_t *n;
-char      *s;
-int        i;
-
-for (i = 0; i < *formulae[i]; i++)
-{
-  n = SBML_parseFormula( formulae[i] );  /* Convert string to AST */
-  s = SBML_formulaToString(n);           /* Convert AST back to string */
-
-  if ( strcmp(s, formulae[i]) != 0 ) 
+  const char *formulae[] =
   {
-    printf("Formula '%s' parsed incorrectly\n", formulae[i] );
+    "1",
+    "2.1",
+    "2.1e+10",
+    "foo",
+    "1 + foo",
+    "1 + 2",
+    "1 + 2 * 3",
+    "(1 - 2) * 3",
+    "1 + -2 / 3",
+    "1 + -2e-100 / 3",
+    "1 - -foo / 3",
+    "2 * foo^bar + 3.1",
+    "foo()",
+    "foo(1)",
+    "foo(1, bar)",
+    "foo(1, bar, 2^-3)",
+    ""
+  };
+  
+  ASTNode_t *n;
+  char      *s;
+  int        i;
+  
+  for (i = 0; i < *formulae[i]; i++)
+  {
+    n = SBML_parseFormula( formulae[i] );  /* Convert string to AST */
+    s = SBML_formulaToString(n);           /* Convert AST back to string */
+  
+    if ( strcmp(s, formulae[i]) != 0 ) 
+    {
+      printf("Formula '%s' parsed incorrectly\n", formulae[i] );
+    }
+  
+    ASTNode_free(n);
+    free(s);
   }
-
-  ASTNode_free(n);
-  free(s);
-}
 \end{example}
 
 Section~\ref{sec:mathml-special-cases} describes some additional points
@@ -2131,13 +2146,13 @@ class, which acts as a container for XML documents containing SBML.  The
 definition of \class{MathMLDocument\_t} is as follows:
  
 \begin{example}[c]
-/**
- * The MathMLDocument
- */
-typedef struct
-{
-  ASTNode_t *math;
-} MathMLDocument_t;
+  /**
+   * The MathMLDocument
+   */
+  typedef struct
+  {
+    ASTNode_t *math;
+  } MathMLDocument_t;
 \end{example}  
 
 The following are the functions defined for the MathMLDocument class:
@@ -2174,17 +2189,17 @@ XML (though not necessarily SBML) document.  The following example
 illustrates the use of this function with a valid MathML input.
 
 \begin{example}[c]
-MathMLDocument_t *doc;
-ASTNode_t          *ast;
-char               *result;
-
-const char* s = "<?xml version='1.0' encoding='UTF-8'?>"
-                  "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
-                    "<apply><arccos/><ci> x </ci></apply>"
-                  "</math>";
-
-doc    = readMathMLFromString(s);
-ast    = MathMLDocument_getMath(doc);
+  MathMLDocument_t *doc;
+  ASTNode_t          *ast;
+  char               *result;
+  
+  const char* s = "<?xml version='1.0' encoding='UTF-8'?>"
+                    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+                      "<apply><arccos/><ci> x </ci></apply>"
+                    "</math>";
+  
+  doc    = readMathMLFromString(s);
+  ast    = MathMLDocument_getMath(doc);
 \end{example}
 
 The code above would create an AST structure stored in the variable
@@ -2444,7 +2459,7 @@ surprising to see how short this program is.
 
 %=============================================================================
 \section{Checking the Consistency of SBML Models}
-\label{sec:sbml-validation}
+\label{sec:consistency-checking}
 %=============================================================================
 
 \libsbml{} performs a certain amount of validation of SBML inputs at the
@@ -2453,12 +2468,13 @@ mostly syntactic in nature, based on the XML Schema for SBML (and as noted
 elsewhere, using this validation capability requires using an XML
 Schema-aware parser such as Xerces).
 
-\libsbml{} also implements more extensive semantic tests and consistency
-checks than those represented by the XML Schema for SBML.  At the time of
-this writing, over 30 tests are implemented.  Examples of these consistency
-checks include: testing that compartments' \attrib{spatialSizeUnits} fields
-are consistent with their \attrib{spatialDimensions}; testing that species
-with \attrib{hasOnlySubstanceUnits} set to true do not also have an
+The \libsbml{} library also implements more extensive semantic tests and
+consistency checks than those represented by the XML Schema for SBML.  At
+the time of this writing, over 30 tests are implemented.  Examples of these
+consistency checks include: testing that compartments'
+\attrib{spatialSizeUnits} fields are consistent with their
+\attrib{spatialDimensions}; testing that species with
+\attrib{hasOnlySubstanceUnits} set to true do not also have an
 \attrib{initialConcentration}; and others.
     
 Consistency checking rules in \libsbml{} (and indeed, in SBML in general)
@@ -2626,11 +2642,11 @@ example presented in Section~\ref{sec:lists} could also be written as:
 
 
 \begin{example}[c]
-UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
-
-UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
-UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
-UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
+  UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
+  
+  UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
+  UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
+  UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
 \end{example}
 
 
