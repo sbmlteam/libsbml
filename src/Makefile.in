@@ -339,19 +339,13 @@ ifeq ($(USE_LIBCHECK),1)
   testrunner_tmplist  = $(testrunner_sources:.cpp=.$(OBJEXT)) \
 			$(testrunner_sources:.c=.$(OBJEXT))
   testrunner_objfiles = $(filter %.$(OBJEXT),$(testrunner_tmplist))
-  testrunner_depfiles = $(addprefix $(DEPDIR)/,$(testrunner_objfiles:.$(OBJEXT)=.$(DEPEXT)))
+
+  # The .Po dependency files do not need to be included explicitly here, as
+  # makefile-common-actions.mk includes them using a wildcard.
+
 endif
 
-# This next line includes the dependency files.  This doesn't use
-# $depfiles, but rather a wildcard on the actual files, so that if they
-# don't exist yet, `make' won't generate errors about being unable to
-# include such-and-such file.  If the files are missing, the wildcard will
-# expand to nothing.  The /dev/null at the end makes sure that we don't
-# have an empty `include' line if there are no depfiles at all.
-
-include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
-
-$(check_programs): $(testrunner_objfiles)
+$(check_programs): $(testrunner_objfiles) $(libraries)
 	$(CXX) $(CXXFLAGS) $(DEFS) $(extra_CXXFLAGS) $(default_includes) \
 	  $(INCLUDES) $(testrunner_objfiles) $(objfiles) $(extra_LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
