@@ -604,6 +604,48 @@ anyRuleVariableIs(const Model_t *m, const char *variableName)
 }
 
 
+static
+unsigned int
+numRulesWithVariable(const Model_t *m, const char *variableName)
+{
+  unsigned int result = 0;
+  unsigned int numRules = Model_getNumRules(m);
+  unsigned int i;
+
+
+  for (i = 0; i < numRules; i++)
+  {
+    Rule_t *rule = Model_getRule(m, i);
+    switch (rule->typecode)
+    {
+    case SBML_ASSIGNMENT_RULE:
+      {
+        AssignmentRule_t *ar = (AssignmentRule_t *) rule;
+
+        if (streq(AssignmentRule_getVariable(ar), variableName))
+        {
+          result++;
+        }
+      }
+      break;
+
+    case SBML_RATE_RULE:
+      {
+        RateRule_t *rr = (RateRule_t *) rule;
+
+        if (streq(RateRule_getVariable(rr), variableName))
+        {
+          result++;
+        }
+      }
+      break;
+    }
+  }
+
+  return result;
+}
+
+
 /* TODO: somehow make this a member of Rule_t? */
 static
 const char *
@@ -1743,6 +1785,32 @@ RULE (rule_nonconstantVariable)
 
 
 /**
+ * The variable attribute value must be unique amongst the set of rule
+ * elements.
+ */
+RULE (rule_variableOnlyOnce)
+{
+  static const char msg[] =
+    "The variable '%s' appears in two or more rules.";
+  BOOLEAN passed = TRUE;
+
+
+  const char *variableName = getVariableName(obj);
+
+  if (numRulesWithVariable(d->model, variableName) > 1)
+  {
+    char buf[512];
+
+    sprintf(buf, msg, variableName);
+    LOG_MESSAGE(buf);
+    passed = FALSE;
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -1796,4 +1864,6 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, reaction_kineticLawTimeUnits,   SBML_REACTION        );
   Validator_addRule( v, rule_nonconstantVariable,       SBML_ASSIGNMENT_RULE );
   Validator_addRule( v, rule_nonconstantVariable,       SBML_RATE_RULE       );
+  Validator_addRule( v, rule_variableOnlyOnce,          SBML_ASSIGNMENT_RULE );
+  Validator_addRule( v, rule_variableOnlyOnce,          SBML_RATE_RULE       );
 }
