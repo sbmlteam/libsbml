@@ -1,13 +1,42 @@
-[Setup]
+;************************************************************************************
+; Sarah's comments for using this script are all in boxes surrounded by stars
+; comments refer to the line below the comment
+;************************************************************************************
 
-AppName=libsbml_test
-AppVerName=libsbml 2.1.0
+;************************************************************************************
+; the version number appears 5 times. It is currently reading 2.1.2 Sorry if this is wrong
+;************************************************************************************
+
+
+
+
+[Setup]
+AppName=libsbml
+
+;***********************************************************************************
+
+; this must read libsbml 'space' version number
+
+;***********************************************************************************
+AppVerName=libsbml 2.1.2
+
+
 AppPublisher=SBML Team
 AppPublisherURL=http://www.sbml.org
 AppSupportURL=http://www.sbml.org
 AppUpdatesURL=http://www.sbml.org
 
-DefaultDirName={pf}\SBML\libsbml-2.1.0-xerces
+;***********************************************************************************
+
+; this must read {pf}\SBML\ followed by the name of the libsbml directory
+; this is the top level directory where the installation will be copied
+; {pf} indicates that the Program Files directory
+
+; Note this directory name includes the version number
+
+;***********************************************************************************
+DefaultDirName={pf}\SBML\libsbml-2.1.2-xerces
+
 DefaultGroupName=libsbml
 DisableProgramGroupPage=yes
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
@@ -15,21 +44,61 @@ WizardImageFile=libsbml-installer-graphic-v3.bmp
 
 
 [Files]
-;Source: "C:\Libsbml-2.1.0-xerces\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
-;Source: "C:\Libsbml-2.1.0-xerces\win32\bin\*.dll"; DestDir: "{sys}"; Check: GetValue;
-;Source: "C:\Libsbml-2.1.0-xerces\win32\bin\*.lib"; DestDir: "{sys}"; Check: GetValue;
-;Source: "C:\Libsbml-2.1.0-xerces\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\toolbox\SBMLBinding"; Check: GetML; Flags: ignoreversion recursesubdirs
-;Source: "C:\Libsbml-2.1.0-xerces\bindings\java\sbmlj.dll"; DestDir: "{sys}"; Check: GetJavaValue;
-;Source: "C:\Libsbml-2.1.0-xerces\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
-Source: "C:\Libsbml-2.1.0-xerces\version.txt"; DestDir: "{app}"; Flags: ignoreversion
+;***************************************************************************************
+
+; these directions tell the installer where to copy each file
+; To be obvious Source should be the path on your system where the files are
+
+
+
+
+; this direction copies the whole tree to the directory specified by the user
+; default Program Files/SBML/libsbml-2.1.2-xerces
+;
+;****************************************************************************************
+Source: "C:\Libsbml-2.1.0-xerces\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+
+
+
+
+
+
+
+;********************************************************************************************
+; these are the optional copies to the system directory or matlabroot
+; the Check flag retrievs the user reponse via the installer GUI before deciding whether to make the copy
+
+
+;********************************************************************************************
+
+Source: "C:\Libsbml-2.1.0-xerces\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\Libsbml-2.1.0-xerces\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\Libsbml-2.1.0-xerces\win32\bin\xerces-c*.dll"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\Libsbml-2.1.0-xerces\win32\bin\xerces-c*.lib"; DestDir: "{sys}"; Check: GetValue;
+
+Source: "C:\Libsbml-2.1.0-xerces\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
+
+Source: "C:\Libsbml sandbox\libsbml\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
+Source: "C:\Libsbml sandbox\libsbml\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
+
+
+Source: "C:\Libsbml-2.1.0-xerces\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
+Source: "C:\Libsbml-2.1.0-xerces\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
+
+
 
 [Registry]
-;Root: HKCU; Subkey: "Software\SBML"; Flags: uninsdeletekeyifempty
-;Root: HKCU; Subkey: "Software\SBML\libsbml"; Flags: uninsdeletekey
-;Root: HKLM; Subkey: "Software\SBML"; Flags: uninsdeletekeyifempty
-;Root: HKLM; Subkey: "Software\SBML\libsbml"; Flags: uninsdeletekey
-;Root: HKLM; Subkey: "Software\SBML\libsbml"; ValueType: string; ValueName: "Version"; ValueData: "2.1.0"
-;Root: HKLM; Subkey: "Software\SBML\libsbml"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
+Root: HKCU; Subkey: "Software\SBML"; Flags: uninsdeletekeyifempty
+Root: HKCU; Subkey: "Software\SBML\libsbml"; Flags: uninsdeletekey
+Root: HKLM; Subkey: "Software\SBML"; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: "Software\SBML\libsbml"; Flags: uninsdeletekey
+
+;********************************************************************************************************
+
+; version number is inserted here as a string
+;**********************************************************************************************************
+Root: HKLM; Subkey: "Software\SBML\libsbml"; ValueType: string; ValueName: "Version"; ValueData: "2.1.2"
+Root: HKLM; Subkey: "Software\SBML\libsbml"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
 
 
 [code]
@@ -38,7 +107,9 @@ var
   LibsbmlExists, MatlabExists: Boolean;
  UserPrompts, UserValues: TArrayOfString;
    InstallationOptionPrompts, InstallationOptionValues: TArrayOfString;
-   VersionNumber, MLRoot: String;
+   PreviousInstalledVersionNumber, ThisVersionNumber, MLRoot: String;
+
+
 {function to return version number stored in registry}
 function GetVersion(): String;
 var
@@ -54,15 +125,15 @@ begin
   Result := Vers;
 end;
 
-
+{function to determine whether libsbml has been previously installed}
 function LibExists() : Boolean ;
 var
 Exists: Boolean;
 
 begin
-  VersionNumber := GetVersion();
+  PreviousInstalledVersionNumber := GetVersion();
   
-  if VersionNumber = '' then begin
+  if PreviousInstalledVersionNumber = '' then begin
     Exists := False;
   end else begin
     Exists := True;
@@ -141,7 +212,15 @@ end;
 {functions to activate buttons and url on screen}
 procedure AboutButtonOnClick(Sender: TObject);
 begin
-  MsgBox('This is a test and only installs one test file.', mbInformation, mb_Ok);
+
+{*********************************************************************************************************
+ The text for this message box is what the user will see if they click the About button during installation
+ 
+ Feel free to alter it to taste but beware it must all be on one line.
+ 
+  Note: it includes a version number
+**********************************************************************************************************}
+  MsgBox('This setup installs the Windows release of libsbml 2.1.2 built using the Xerces-c libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
 end;
 
 procedure URLLabelOnClick(Sender: TObject);
@@ -189,6 +268,13 @@ function InitializeSetup(): Boolean;
 begin
   LibsbmlExists := LibExists();
 
+{************************************************************************
+
+this is the version number for the current installation
+
+*************************************************************************}
+  ThisVersionNumber := '2.1.2';
+  
   MLRoot := GetMatlabRoot('1');
   if (MLRoot = '') then begin
     MatlabExists := False;
@@ -197,44 +283,51 @@ begin
   end;
 
 
-  if (MatlabExists) then begin
-    SetArrayLength(UserValues, 4);
+  SetArrayLength(UserValues, 4);
 
-    UserValues[0] := '1';
-    UserValues[1] := '1';
-    UserValues[2] := '1';
-    UserValues[3] := '1';
+  UserValues[0] := '0';
+  UserValues[1] := '0';
+  UserValues[2] := '0';
+  UserValues[3] := '0';
 
-    SetArrayLength(UserPrompts, 4);
+  SetArrayLength(UserPrompts, 4);
 
-    UserPrompts[0] := 'Copy libraries to system directory';
-    UserPrompts[1] := 'Install java binding libraries to system directory';
-    UserPrompts[2] := 'Install python binding libraries to system directory';
-    UserPrompts[3] := 'Install MATLAB binding function';
-  end else begin
-    SetArrayLength(UserValues, 3);
+  UserPrompts[0] := 'Copy libraries to system directory';
+  UserPrompts[1] := 'Install java binding libraries to system directory';
+  UserPrompts[2] := 'Install python binding libraries to system directory';
+  UserPrompts[3] := 'Install MATLAB binding function';
 
-    UserValues[0] := '1';
-    UserValues[1] := '1';
-    UserValues[2] := '1';
 
-    SetArrayLength(UserPrompts, 3);
-
-    UserPrompts[0] := 'Copy libraries to system directory';
-    UserPrompts[1] := 'Install java binding libraries to system directory';
-    UserPrompts[2] := 'Install python binding libraries to system directory';
-
-  end;
-SetArrayLength(InstallationOptionValues, 2)
- InstallationOptionValues[0] := '1';
+  SetArrayLength(InstallationOptionValues, 2)
+  InstallationOptionValues[0] := '1';
   InstallationOptionValues[1] := '0';
 
   SetArrayLength(InstallationOptionPrompts, 2)
- InstallationOptionPrompts[0] := 'Typical';
+  InstallationOptionPrompts[0] := 'Typical';
   InstallationOptionPrompts[1] := 'Custom';
+
+ { Try to find the settings that were stored last time (also see below). }
+  UserValues[0] := GetPreviousData('Libraries', UserValues[0]);
+  UserValues[1] := GetPreviousData('Java', UserValues[1]);
+  UserValues[2] := GetPreviousData('Python', UserValues[2]);
+  UserValues[3] := GetPreviousData('Matlab', UserValues[3]);
+  InstallationOptionValues[0] := GetPreviousData('Typical', InstallationOptionValues[0]);
+  InstallationOptionValues[1] := GetPreviousData('Custom', InstallationOptionValues[1]);
+
 
   { Let Setup run }
   Result := True;
+end;
+
+procedure RegisterPreviousData(PreviousDataKey: Integer);
+begin
+  { Store the settings so we can restore them next time }
+  SetPreviousData(PreviousDataKey, 'Libraries', UserValues[0]);
+  SetPreviousData(PreviousDataKey, 'Java', UserValues[1]);
+  SetPreviousData(PreviousDataKey, 'Python', UserValues[2]);
+  SetPreviousData(PreviousDataKey, 'Matlab', UserValues[3]);
+  SetPreviousData(PreviousDataKey, 'Typical', InstallationOptionValues[0]);
+  SetPreviousData(PreviousDataKey, 'Custom', InstallationOptionValues[1]);
 end;
 
 {function to navigate between pages}
@@ -246,9 +339,9 @@ begin
  if (not BackClicked and (CurPage = wpSelectDir)) or (BackClicked and (CurPage = wpReady)) then begin
      if (LibsbmlExists) then begin
 
-      Later := LaterVersion(VersionNumber, '2.1.0');
+      Later := LaterVersion(PreviousInstalledVersionNumber, ThisVersionNumber);
 
-      if (VersionNumber = '') then begin
+      if (PreviousInstalledVersionNumber = '') then begin
         MsgBox('No bindings to install!', mbInformation, mb_Ok);
 
       end else if (Later = 0) then begin
@@ -283,15 +376,36 @@ begin
         1:
           begin
 
+            {custom installation}
             if InstallationOptionValues[1] = '1' then begin
                ScriptDlgPageClearCustom();
-          { Set some captions }
+
+             { Set some captions }
               ScriptDlgPageSetCaption('Customise setup');
               ScriptDlgPageSetSubCaption1('Select the following options');
 
               Next := InputOptionArray(UserPrompts, UserValues, False, False);
-            end else
-              Next := True
+              
+              {if matlab not detected but user selects install matlab show message}
+              if ((not MatlabExists) and (UserValues[3] = '1')) then begin
+                UserValues[3] := '0';
+                MsgBox('MATLAB has not been detected on your system. Setup will copy the matlab bindings files to the installation directory but will not attempt to put them on the MATLAB path', mbInformation, mb_OK);
+              end;
+              
+            end else begin
+              {typical installation}
+              UserValues[0] := '1';
+              UserValues[1] := '1';
+              UserValues[2] := '1';
+              
+              if MatlabExists then begin
+                UserValues[3] := '1';
+              end else begin
+                UserValues[3] := '0';
+              end;
+              
+              Next := True;
+            end;
     
           end;
       end; {of case}
