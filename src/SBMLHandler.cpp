@@ -1685,7 +1685,7 @@ SBMLHandler::setStoichiometryMath (SpeciesReference_t* sr, ASTNode_t* math)
 
 /**
  * Prints, to stdout, the value of parameters passed to startElement().
- */
+ *
 void
 SBMLHandler::debugPrintStartElement (const XMLCh* const  uri,
                                      const XMLCh* const  localname,
@@ -1701,3 +1701,4 @@ SBMLHandler::debugPrintStartElement (const XMLCh* const  uri,
   cout << "SBMLTagCode_t = " << getTagCode(uri, localname)      << endl;
   cout << endl;
 }
+*/

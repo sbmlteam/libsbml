@@ -180,6 +180,7 @@ private:
   void setMath(ASTNode_t* math);
   void setStoichiometryMath(SpeciesReference_t* sr, ASTNode_t* math);
 
+  /*
   void debugPrintStartElement
   (
     const XMLCh* const  uri,
@@ -187,6 +188,7 @@ private:
     const XMLCh* const  qname,
     const Attributes&   attrs
   );
+  */
 
 
   SBMLDocument_t* fDocument;
