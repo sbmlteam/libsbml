@@ -15,6 +15,18 @@
       <apply>.  Thanks to Jacek Puchalka for reporting this bug and
       providing a fix.
 
+* Changes:
+
+    - SBMLTypes.h now includes MathMLDocument.h, MathMLReader.h and
+      MathMLWriter.h
+
+    - Mike Hucka made some massive updates to libsbml-manual.tex to make
+      it reflect the current state of the API.  Mike also created a new
+      LaTeX class file called sbmlmanual.tex, available in the
+      projects/tex directory of the SBML project CVS tree.
+
+    - Mike Hucka also updated the doxygen documentation configuration
+      and the makefile that drives it.
 
 * Released April xx, 2004
 
