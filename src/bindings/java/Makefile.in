@@ -65,7 +65,7 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some make actions will fail.
 
 srcdir  = @srcdir@
-thisdir = bindings/java
+thisdir = src/bindings/java
 
 # `sources' are used by the default rules to determine what needs to be
 # compiled.  `added_sources' are other source files local to this directory
@@ -94,15 +94,15 @@ libraries      = $(jarfile) $(jnifile)
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CPPFLAGS = $(JAVA_CPPFLAGS) -I../swig -I../../src
+extra_CPPFLAGS = $(JAVA_CPPFLAGS) -I../swig -I../..
 
 extra_LDFLAGS  = $(JAVA_LDFLAGS)
 
-extra_LIBS     = -L../../src -lsbml $(JAVA_LIBS)
+extra_LIBS     = -L../.. -lsbml $(JAVA_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS  += $(EXPAT_LDFLAGS) -L../../expat
+  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
   extra_LIBS     += $(EXPAT_LIBS)
 else
   extra_CPPFLAGS += $(XERCES_CPPFLAGS)
@@ -148,7 +148,7 @@ extra_distclean = java-files
 # build directives of `makefile-common-actions.mk'.
 
 .SUFFIXES:
-.SUFFIXES: .i .cpp .hpp .java .class .jar .o .obj .so .dylib
+.SUFFIXES: .i .cpp .h .java .class .jar .o .obj .so .dylib
 
 objfiles = libsbml_wrap.$(OBJEXT)
 
@@ -192,10 +192,10 @@ endif
 # --with-swig flag.
 
 swig_sources = \
-	../swig/libsbml.hpp \
+	../swig/libsbml.h \
 	../swig/libsbml.i
 
-libsbml_wrap.cpp java-files: $(swig_sources) ../../src/sbml/*.hpp
+libsbml_wrap.cpp java-files: $(swig_sources) ../../*/*.h
 ifndef USE_SWIG
 	@echo "Please reconfigure with --with-swig to rebuild libsbml_wrap.cpp"
 	@echo "and the files in the java-files directory."
@@ -212,7 +212,14 @@ endif
 # -----------------------------------------------------------------------------
 
 ifdef USE_LIBCHECK
-  check: all run-checks
+  check: $(check_classes)
+	@echo
+	@echo
+	@echo Running Tests in $(thisdir)
+	@echo -----------------------------------------------------------------
+	$(call libsbmlrun,$(JAVA) -classpath $(classpath) Test)
+	@echo -----------------------------------------------------------------
+	@echo
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
@@ -223,9 +230,6 @@ classpath = $(jarfile):$(TOP_BUILDDIR)/src:.
 
 $(check_classes): Makefile $(libraries) $(check_sources)
 	$(JAVAC) -g -classpath $(classpath) $(check_sources)
-
-run-checks: $(check_classes)
-	$(call libsbmlrun,$(JAVA) -classpath $(classpath) Test)
 
 
 # -----------------------------------------------------------------------------
