@@ -57,8 +57,8 @@
 #include <mex.h>
 #include <matrix.h>
 
-#include "SBMLReader.h"
-#include "SBMLTypes.h"
+#include "sbml/SBMLReader.h"
+#include "sbml/SBMLTypes.h"
 
 
 
