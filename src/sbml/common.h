@@ -55,7 +55,7 @@
 #define LIBSBML_COMMON_H 1
 
 
-#if HAVE_CONFIG_H || WIN32
+#if defined(HAVE_CONFIG_H) || defined(WIN32)
 #  include "config.h"
 #endif
 
@@ -90,10 +90,15 @@
 #define vsnprintf  _vsnprintf
 
 /**
- * Avoids silly MSVC++ warning C4800: 'const int' : forcing value to bool
- * 'true' or 'false' (performance warning)
+ * Disable MSVC++ warning C4800: 'const int' : forcing value to bool 'true'
+ * or 'false' (performance warning).
  */
 #pragma warning(disable: 4800)
+
+/**
+ * Disable MSVC++ warning C4291: no matching operator delete found.
+ */
+#pragma warning(disable: 4291)
 
 #endif /* WIN32 && !CYGWIN */
 
