@@ -120,6 +120,12 @@ LIBSBML_EXTERN
 const ASTNode_t *
 KineticLaw_getMath (const KineticLaw_t *kl);
 
+/**
+ * @return the list of Parameters for this KineticLaw.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+KineticLaw_getListOfParameters (const KineticLaw_t *kl);
 
 /**
  * @return the timeUnits of this KineticLaw.

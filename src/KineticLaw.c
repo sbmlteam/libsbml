@@ -113,9 +113,12 @@ KineticLaw_free (KineticLaw_t *kl)
 
   ListOf_free(kl->parameter);
 
-  safe_free(kl->formula);
-  safe_free(kl->timeUnits);
-  safe_free(kl->substanceUnits);
+  safe_free( kl->formula        );
+  safe_free( kl->timeUnits      );
+  safe_free( kl->substanceUnits );
+
+  ASTNode_free( kl->math );
+
   safe_free(kl);
 }
 
@@ -139,6 +142,17 @@ const ASTNode_t *
 KineticLaw_getMath (const KineticLaw_t *kl)
 {
   return kl->math;
+}
+
+
+/**
+ * @return the list of Parameters for this KineticLaw.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+KineticLaw_getListOfParameters (const KineticLaw_t *kl)
+{
+  return kl->parameter;
 }
 
 
