@@ -169,6 +169,9 @@ LIBSBML_EXTERN
 void
 ParameterRule_setName (ParameterRule_t *pr, const char *sname)
 {
+  if (pr->name == sname) return;
+
+
   if (pr->name != NULL)
   {
     safe_free(pr->name);
@@ -185,6 +188,9 @@ LIBSBML_EXTERN
 void
 ParameterRule_setUnits (ParameterRule_t *pr, const char *sname)
 {
+  if (pr->units == sname) return;
+
+
   if (pr->units != NULL)
   {
     safe_free(pr->units);

@@ -141,6 +141,10 @@ START_TEST (test_ParameterRule_setName)
           
   }
 
+  /* Reflexive case (pathological) */
+  ParameterRule_setName(PR, PR->name);
+  fail_unless( !strcmp(PR->name, name), NULL );
+
   ParameterRule_setName(PR, NULL);
   fail_unless( !ParameterRule_isSetName(PR), NULL );
 
@@ -166,6 +170,10 @@ START_TEST (test_ParameterRule_setUnits)
   {
     fail( "ParameterRule_setUnits(...) did not make a copy of string." );
   }
+
+  /* Reflexive case (pathological) */
+  ParameterRule_setUnits(PR, PR->units);
+  fail_unless( !strcmp(PR->units, units), NULL );
 
   ParameterRule_setUnits(PR, NULL);
   fail_unless( !ParameterRule_isSetUnits(PR), NULL );
