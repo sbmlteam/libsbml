@@ -54,27 +54,34 @@
 #define Compartment_h
 
 
+#include "common.h"
 #include "SBase.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
 {
   SBASE_FIELDS;
+
   char   *name;
   double  volume;
   char   *units;
   char   *outside;
+
+  struct
+  {
+    unsigned int volume:1;
+  } isSet;
+
 } Compartment_t;
 
 
 /**
  * Creates a new Compartment and returns a pointer to it.
  */
+LIBSBML_EXTERN
 Compartment_t *
 Compartment_create (void);
 
@@ -84,8 +91,9 @@ Compartment_create (void);
  * equivalent to:
  *
  *   Compartment_t *c = Compartment_create();
- *   Compartment_setName(c, name); c->volume = volume; ... ;
+ *   Compartment_setName(c, name); Compartment_setVolume(c, volume); ... ;
  */
+LIBSBML_EXTERN
 Compartment_t *
 Compartment_createWith ( const char *name,  double volume,
                          const char *units, const char *outside );
@@ -93,6 +101,7 @@ Compartment_createWith ( const char *name,  double volume,
 /**
  * Frees the given Compartment.
  */
+LIBSBML_EXTERN
 void
 Compartment_free (Compartment_t *c);
 
@@ -101,31 +110,107 @@ Compartment_free (Compartment_t *c);
  *
  *   - volume = 1.0
  */
+LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c);
 
+
 /**
- * Sets the name field of this Compartment to a copy of sname.
+ * @return the name of this Compartment.
  */
+LIBSBML_EXTERN
+const char *
+Compartment_getName (const Compartment_t *c);
+
+/**
+ * @return the volume of this Compartment.
+ */
+LIBSBML_EXTERN
+double
+Compartment_getVolume (const Compartment_t *c);
+
+/**
+ * @return the units of this Compartment.
+ */
+LIBSBML_EXTERN
+const char *
+Compartment_getUnits (const Compartment_t *c);
+
+/**
+ * @return the outside of this Compartment.
+ */
+LIBSBML_EXTERN
+const char *
+Compartment_getOutside (const Compartment_t *c);
+
+
+/**
+ * @return 1 if the name of this Compartment has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetName (const Compartment_t *c);
+
+/**
+ * @return 1 if the volume of this Compartment has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetVolume (const Compartment_t *c);
+
+/**
+ * @return 1 if the units of this Compartment has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetUnits (const Compartment_t *c);
+
+/**
+ * @return 1 if the outside of this Compartment has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Compartment_isSetOutside (const Compartment_t *c);
+
+
+/**
+ * Sets the name of this Compartment to a copy of sname.
+ */
+LIBSBML_EXTERN
 void
 Compartment_setName (Compartment_t *c, const char *sname);
 
 /**
- * Sets the units field of this Compartment to a copy of sname.
+ * Sets the volume of this Compartment to value and marks the field as set.
  */
+LIBSBML_EXTERN
+void
+Compartment_setVolume (Compartment_t *c, double value);
+
+/**
+ * Sets the units of this Compartment to a copy of sname.
+ */
+LIBSBML_EXTERN
 void
 Compartment_setUnits (Compartment_t *c, const char *sname);
 
 /**
- * Sets the outside field of this Compartment to a copy of sname.
+ * Sets the outside of this Compartment to a copy of sname.
  */
+LIBSBML_EXTERN
 void
 Compartment_setOutside (Compartment_t *c, const char *sname);
 
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * Marks the volume of this Compartment as unset.
+ */
+LIBSBML_EXTERN
+void
+Compartment_unsetVolume (Compartment_t *c);
+
+
+END_C_DECLS
 
 
 #endif  /** Compartment_h **/

@@ -87,6 +87,11 @@ START_TEST (test_Compartment_create)
   fail_unless( C->outside == NULL, NULL );
 
   fail_unless( C->volume == 1.0, NULL );
+
+  fail_unless( !Compartment_isSetName   (C), NULL );
+  fail_unless( Compartment_isSetVolume  (C), NULL );
+  fail_unless( !Compartment_isSetUnits  (C), NULL );
+  fail_unless( !Compartment_isSetOutside(C), NULL );
 }
 END_TEST
 
@@ -105,6 +110,11 @@ START_TEST (test_Compartment_createWith)
   fail_unless( !strcmp( c->outside, "B"     ), NULL );
 
   fail_unless( c->volume == 3.6, NULL );
+
+  fail_unless( Compartment_isSetName   (c), NULL );
+  fail_unless( Compartment_isSetVolume (c), NULL );
+  fail_unless( Compartment_isSetUnits  (c), NULL );
+  fail_unless( Compartment_isSetOutside(c), NULL );
 
   Compartment_free(c);
 }
@@ -125,7 +135,8 @@ START_TEST (test_Compartment_setName)
 
   Compartment_setName(C, name);
 
-  fail_unless( !strcmp(C->name, name), NULL );
+  fail_unless( !strcmp(C->name, name)  , NULL );
+  fail_unless( Compartment_isSetName(C), NULL );
 
   if (C->name == name)
   {
@@ -133,6 +144,7 @@ START_TEST (test_Compartment_setName)
   }
 
   Compartment_setName(C, NULL);
+  fail_unless( !Compartment_isSetName(C), NULL );
 
   if (C->name != NULL)
   {
@@ -149,7 +161,8 @@ START_TEST (test_Compartment_setUnits)
 
   Compartment_setUnits(C, units);
 
-  fail_unless( !strcmp(C->units, units), NULL );
+  fail_unless( !strcmp(C->units, units) , NULL );
+  fail_unless( Compartment_isSetUnits(C), NULL );
 
   if (C->units == units)
   {
@@ -157,6 +170,7 @@ START_TEST (test_Compartment_setUnits)
   }
 
   Compartment_setUnits(C, NULL);
+  fail_unless( !Compartment_isSetUnits(C), NULL );
 
   if (C->units != NULL)
   {
@@ -174,6 +188,7 @@ START_TEST (test_Compartment_setOutside)
   Compartment_setOutside(C, outside);
 
   fail_unless( !strcmp(C->outside, outside), NULL );
+  fail_unless( Compartment_isSetOutside(C) , NULL );
 
   if (C->outside == outside)
   {
@@ -181,6 +196,7 @@ START_TEST (test_Compartment_setOutside)
   }
 
   Compartment_setOutside(C, NULL);
+  fail_unless( !Compartment_isSetOutside(C), NULL );
 
   if (C->outside != NULL)
   {

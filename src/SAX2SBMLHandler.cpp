@@ -466,11 +466,17 @@ SAX2SBMLHandler::handleUnit (const Attributes& a)
   int     value;
 
 
+  //
+  // { use="optional" default="1" }  (L1v1, L1v2, L2v1)
+  //
   if (XMLUtil::scanAttr(a, ATTR_EXPONENT, &value) == true)
   {
     Unit_setExponent(u, value);
   }
 
+  //
+  // { use="optional" default="0" }  (L1v1, L1v2, L2v1)
+  //
   if (XMLUtil::scanAttr(a, ATTR_SCALE, &value) == true)
   {
     Unit_setScale(u, value);
@@ -488,10 +494,19 @@ SBase_t*
 SAX2SBMLHandler::handleCompartment (const Attributes& a)
 {
   Compartment_t* c = Model_createCompartment(fModel);
+  double value;
 
 
-  XMLUtil::scanAttrCStr( a, ATTR_NAME   , &(c->name)    );
-  XMLUtil::scanAttr    ( a, ATTR_VOLUME , &(c->volume)  );
+  XMLUtil::scanAttrCStr(a, ATTR_NAME, &(c->name));
+
+  //
+  // { use="optional" default="1.0" }  (L1v1, L1v2)
+  //
+  if (XMLUtil::scanAttr(a, ATTR_VOLUME, &value) == true)
+  {
+    Compartment_setVolume(c, value);
+  }
+
   XMLUtil::scanAttrCStr( a, ATTR_UNITS  , &(c->units)   );
   XMLUtil::scanAttrCStr( a, ATTR_OUTSIDE, &(c->outside) );
 
@@ -514,6 +529,9 @@ SAX2SBMLHandler::handleSpecies (const Attributes& a)
 
   XMLUtil::scanAttrCStr(a, ATTR_UNITS, &(s->units));
 
+  //
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1)
+  //
   if (XMLUtil::scanAttr(a, ATTR_BOUNDARY_CONDITION, &value) == true)
   {
     Species_setBoundaryCondition(s, value);
@@ -559,11 +577,17 @@ SAX2SBMLHandler::handleReaction (const Attributes& a)
 
   XMLUtil::scanAttrCStr(a, ATTR_NAME, &(r->name));
 
+  //
+  // { use="optional" default="true" }  (L1v1, L1v2, L2v1)
+  //
   if (XMLUtil::scanAttr(a, ATTR_REVERSIBLE, &value) == true)
   {
     r->reversible = value;
   }
 
+  //
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1)
+  //
   if (XMLUtil::scanAttr(a, ATTR_FAST, &value) == true)
   {
     r->fast = value;
@@ -649,7 +673,7 @@ SAX2SBMLHandler::handleCompartmentVolumeRule (const Attributes& a)
   XMLUtil::scanAttrCStr( a, ATTR_COMPARTMENT, &(cvr->compartment) );
 
   //
-  // type {use="default" value="scalar")
+  // type { use="optional" default="scalar" )  (L1v1, L1v2)
   //
   if (type != NULL)
   {
@@ -673,7 +697,7 @@ SAX2SBMLHandler::handleParameterRule (const Attributes& a)
   XMLUtil::scanAttrCStr( a, ATTR_UNITS  , &(pr->units)   );
 
   //
-  // type {use="default" value="scalar")
+  // type { use="optional" value="scalar" }  (L1v1, L1v2)
   //
   if (type != NULL)
   {
@@ -697,7 +721,7 @@ SAX2SBMLHandler::handleSpeciesConcentrationRule (const Attributes& a)
   XMLUtil::scanAttrCStr(a, ATTR_FORMULA, &(scr->formula));
 
   //
-  // type {use="default" value="scalar")
+  // type { use="optional" value="scalar" }  (L1v1, L1v2)
   //
   index = a.getIndex(ATTR_TYPE);
   if (index >= 0)

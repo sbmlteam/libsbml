@@ -215,6 +215,48 @@ START_TEST (test_SBMLFormatter_Compartment)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_Compartment_skipOptional)
+{
+  //
+  // Although compartment has a default volume of 1 in SBML L1, IEEE 754
+  // doubles (or floats) cannot be reliably compared for equality.  To be
+  // safe, output the compartment volume even if equal to the default.
+  //
+
+  Compartment_t *c = Compartment_create();
+  const char    *s = wrapXML("<compartment name=\"A\" volume=\"1\"/>\n");
+
+
+  Compartment_setName(c, "A");
+  *formatter << c;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  Compartment_free(c);
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_Compartment_unsetVolume)
+{
+  // However, do not output if unset.
+
+  Compartment_t *c = Compartment_create();
+  const char    *s = wrapXML("<compartment name=\"A\"/>\n");
+
+
+  Compartment_setName(c, "A");
+  Compartment_unsetVolume(c);
+
+  *formatter << c;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  Compartment_free(c);
+}
+END_TEST
+
+
 START_TEST (test_SBMLFormatter_Compartment_annotation)
 {
   Compartment_t *c = Compartment_createWith("A", 2.1, NULL, "B");
@@ -305,7 +347,7 @@ START_TEST (test_SBMLFormatter_Species_defaults)
 END_TEST
 
 
-START_TEST (test_SBMLFormatter_Species_optional)
+START_TEST (test_SBMLFormatter_Species_skipOptional)
 {
   Species_t  *sp = Species_create();
   const char *s  = wrapXML("<species name=\"Ca2\" initialAmount=\"0.7\"/>\n");
@@ -723,11 +765,13 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition                    );
   tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition_full               );
   tcase_add_test( tcase, test_SBMLFormatter_Compartment                       );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_skipOptional          );
+  tcase_add_test( tcase, test_SBMLFormatter_Compartment_unsetVolume           );
   tcase_add_test( tcase, test_SBMLFormatter_Compartment_annotation            );
   tcase_add_test( tcase, test_SBMLFormatter_Species                           );
   tcase_add_test( tcase, test_SBMLFormatter_Species_L1v1                      );
   tcase_add_test( tcase, test_SBMLFormatter_Species_defaults                  );
-  tcase_add_test( tcase, test_SBMLFormatter_Species_optional                  );
+  tcase_add_test( tcase, test_SBMLFormatter_Species_skipOptional              );
   tcase_add_test( tcase, test_SBMLFormatter_Parameter                         );
   tcase_add_test( tcase, test_SBMLFormatter_AlgebraicRule                     );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesConcentrationRule          );

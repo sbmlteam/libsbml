@@ -230,6 +230,11 @@ START_TEST (test_element_Compartment)
   fail_unless( !strcmp( c->units  , "milliliters"  ), NULL );
   fail_unless( !strcmp( c->outside, "cell"         ), NULL );
   fail_unless( c->volume == .0001, NULL );
+
+  fail_unless( Compartment_isSetName   (c), NULL );
+  fail_unless( Compartment_isSetVolume (c), NULL );
+  fail_unless( Compartment_isSetUnits  (c), NULL );
+  fail_unless( Compartment_isSetOutside(c), NULL );
 }
 END_TEST
 
@@ -254,6 +259,11 @@ START_TEST (test_element_Compartment_defaults)
   fail_unless( c->volume  == 1.0 , NULL );
   fail_unless( c->units   == NULL, NULL );
   fail_unless( c->outside == NULL, NULL );
+
+  fail_unless( Compartment_isSetName    (c), NULL );
+  fail_unless( Compartment_isSetVolume  (c), NULL );
+  fail_unless( !Compartment_isSetUnits  (c), NULL );
+  fail_unless( !Compartment_isSetOutside(c), NULL );
 }
 END_TEST
 

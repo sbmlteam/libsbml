@@ -291,17 +291,17 @@ SBMLFormatter::operator<< (const Unit_t* u)
   attribute(ATTR_KIND, UnitKind_toString(u->kind));
 
   //
-  // { use="default" value="1" } (L1v1, L1v2)
+  // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
   //
-  if (u->exponent != 1)
+  if (u->isSet.exponent && u->exponent != 1)
   {
     attribute(ATTR_EXPONENT, u->exponent);
   }
 
   //
-  // { use="default" value="0" } (L1v1, L1v2)
+  // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1)
   //
-  if (u->scale != 0)
+  if (u->isSet.scale &&  u->scale != 0)
   {
     attribute(ATTR_SCALE, u->scale);
   }
@@ -333,14 +333,36 @@ SBMLFormatter::operator<< (const Compartment_t* c)
   attribute(ATTR_NAME, c->name);
 
   //
-  // Although compartment has a default volume of 1.0 in SBML L1, IEEE 754
-  // doubles (or floats) cannot be reliably compared for equality.  To be
-  // safe, always output compartment volume, regardless of its value.
   //
-  attribute(ATTR_VOLUME , c->volume);
+  // volume  { use="optional" default="1" }  (L1v1, L1v2)
+  //
+  // Although compartment has a default volume of 1 in SBML L1, IEEE 754
+  // doubles (or floats) cannot be reliably compared for equality.  To be
+  // safe, output the compartment volume even if equal to the default.
+  //
+  // However, do not output if unset.
+  //
+  //
+  if (c->isSet.volume)
+  {
+    attribute(ATTR_VOLUME, c->volume);
+  }
 
-  attribute( ATTR_UNITS  , c->units   );
-  attribute( ATTR_OUTSIDE, c->outside );
+  //
+  // units  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  if (c->units != NULL)
+  {
+    attribute(ATTR_UNITS, c->units);
+  }
+
+  //
+  // outside  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  if (c->outside != NULL)
+  {
+    attribute(ATTR_OUTSIDE, c->outside);
+  }
 
   if ( isEmpty(c) )
   {
@@ -377,7 +399,9 @@ SBMLFormatter::operator<< (const Species_t* s)
   attribute(ATTR_NAME, s->name);
 
   //
-  // compartment { use="optional" }
+  // FIXME:
+  // compartment  { use="required" }  (L1v1, L2v1)
+  // compartment  { use="optional" }  (L1v2)
   //
   if (s->compartment != NULL)
   {
@@ -387,7 +411,7 @@ SBMLFormatter::operator<< (const Species_t* s)
   attribute(ATTR_INITIAL_AMOUNT, s->initialAmount);
 
   //
-  // units { use="optional" }
+  // units  { use="optional" }  (L1v1, L1v2, L2v1)
   //
   if (s->units != NULL)
   {
@@ -395,15 +419,17 @@ SBMLFormatter::operator<< (const Species_t* s)
   }
 
   //
-  // boundaryCondition { use="default" value="false" (0) }
+  // boundaryCondition
+  // { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
+  // 
   //
-  if (fLevel != 1 || s->boundaryCondition != 0)
+  if (s->isSet.boundaryCondition && s->boundaryCondition != 0)
   {
     attribute(ATTR_BOUNDARY_CONDITION, (bool) s->boundaryCondition);
   }
 
   //
-  // charge {use="optional"}
+  // charge  { use="optional" }  (L1v1, L1v2, L2v1)
   //
   if (s->isSet.charge)
   {
@@ -621,17 +647,17 @@ SBMLFormatter::operator<< (const Reaction_t* r)
   attribute(ATTR_NAME, r->name);
 
   //
-  // In SBML L1, reversible="true" (1) is the default.
-  //
-  if (fLevel != 1 || r->reversible != 1)
+  // reversible  { use="optional"  default="true" (1) }  (L1v1, L1v2, L2v1)
+  // FIXME: r->isSet.reversible
+  if (r->reversible != 1)
   {
     attribute(ATTR_REVERSIBLE, (bool) r->reversible);
   }
 
   //
-  // In SBML L1, fast="false" (0) is the default.
-  //
-  if (fLevel != 1 || r->fast != 0)
+  // fast  { use="optional" default="false" (0) }  (L1v1, L1v2, L2v1)
+  // FIXME: r->isSet.fast
+  if (r->fast != 0)
   {
     attribute(ATTR_FAST, (bool) r->fast);
   }
@@ -684,17 +710,17 @@ SBMLFormatter::operator<< (const SpeciesReference_t* sr)
   attribute(attr, sr->species);
 
   //
-  // In SBML L1, stoichiometry="1" is the default.
-  //
-  if (fLevel != 1 || sr->stoichiometry != 1)
+  // stoichiometry  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
+  // FIXME: sr->isSet.stoichiometry
+  if (sr->stoichiometry != 1)
   {
     attribute(ATTR_STOICHIOMETRY, sr->stoichiometry);
   }
 
   //
-  // In SBML L1, denominator="1" is the default.
-  //
-  if (fLevel != 1 || sr->denominator != 1)
+  // denominator  { use="optional" default="1" }  (L1v1, L1v2, L2v1)
+  // FIXME: sr->isSet.denomniator
+  if (sr->denominator != 1)
   {
     attribute(ATTR_DENOMINATOR, sr->denominator);
   }
@@ -810,9 +836,9 @@ void
 SBMLFormatter::ruleType (const RuleType_t type)
 {
   //
-  // In SBML L1, type="scalar" is the default.
+  // type  { use="optional" default="scalar" }  (L1v1, L1v2, L2v1)
   //
-  if (fLevel != 1 || type != RULE_TYPE_SCALAR)
+  if (type != RULE_TYPE_SCALAR)
   {
     attribute(ATTR_TYPE, RuleType_toString(type));
   }
