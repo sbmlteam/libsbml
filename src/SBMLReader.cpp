@@ -91,8 +91,8 @@ SBMLReader_create (void)
   SBMLReader_t *sr = (SBMLReader_t *) safe_malloc( sizeof(SBMLReader_t) );
 
 
-  sr->schemaValidation = XML_SCHEMA_VALIDATION_NONE;
-  sr->schemaFilename   = NULL;
+  sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_NONE;
+  sr->schemaFilename        = NULL;
 
   return sr;
 }
@@ -130,6 +130,32 @@ SBMLReader_setSchemaFilename (SBMLReader_t *sr, const char *filename)
 
 
   sr->schemaFilename = (filename == NULL) ? NULL : safe_strdup(filename);
+}
+
+
+/**
+ * Sets the schema validation level used by this SBMLReader.
+ *
+ * The levels are:
+ *
+ *   XML_SCHEMA_VALIDATION_NONE (0) turns schema validation off.
+ *
+ *   XML_SCHEMA_VALIDATION_BASIC (1) validates an XML instance document
+ *   against an XML Schema.  Those who wish to perform schema checking on
+ *   SBML documents should use this option.
+ *
+ *   XML_SCHEMA_VALIDATION_FULL (2) validates both the instance document
+ *   itself *and* the XML Schema document.  The XML Schema document is
+ *   checked for violation of particle unique attribution constraints and
+ *   particle derivation restrictions, which is both time-consuming and
+ *   memory intensive.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
+                                      XMLSchemaValidation_t level )
+{
+  sr->schemaValidationLevel = level;
 }
 
 
@@ -240,13 +266,13 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   //
   // XML Schema Validation (based on the state of the SBMLReader)
   //
-  if (sr->schemaValidation != XML_SCHEMA_VALIDATION_NONE)
+  if (sr->schemaValidationLevel != XML_SCHEMA_VALIDATION_NONE)
   {
     reader->setFeature( XMLUni::fgSAX2CoreValidation, true );
     reader->setFeature( XMLUni::fgXercesSchema      , true );
 
     reader->setFeature(XMLUni::fgXercesSchemaFullChecking,
-                       sr->schemaValidation == XML_SCHEMA_VALIDATION_FULL);
+                       sr->schemaValidationLevel == XML_SCHEMA_VALIDATION_FULL);
 
     if (sr->schemaFilename != NULL)
     {
