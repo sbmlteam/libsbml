@@ -558,7 +558,7 @@ def testSBMLWriter():
    str(doc)
 
 
-def teestSBMLReader():
+def testSBMLReader():
    sbmlString = \
 """<?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
@@ -567,14 +567,27 @@ def teestSBMLReader():
 """
 
    reader = libsbml.SBMLReader()
+
    doc = reader.readSBMLFromString(sbmlString)
    assert doc.thisown == 1
+   assert doc.getNumFatals() == 0
+   assert doc.getModel()
 
    doc = libsbml.readSBMLFromString(sbmlString)
    assert doc.thisown == 1
+   assert doc.getNumFatals() == 0
+   assert doc.getModel()
 
    str(reader)
    str(doc)
+
+   # test for relative-path discovered on 15-Jul-2004
+   doc = reader.readSBML("../../src/test-data/l1v1-branch.xml")
+   print doc #DEBUG
+   print doc.getFatal(0).getMessage() #DEBUG
+   assert doc.getNumFatals() == 0
+   assert doc.getModel()
+
 
 
 def testListOfAsIterator():
