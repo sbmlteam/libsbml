@@ -1,6 +1,45 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.1.1 ===
+
+* New Features:
+
+* Bug Fixes:
+
+    - <csymbol> delay functions were being handled incorrectly
+      throughout libSBML as symbols (similar to <csymbol> time, which
+      is a symbol) instead of functions.  The fix results in three
+      changes:
+
+        1. The ASTNodeType AST_NAME_DELAY is changed to
+           AST_FUNCTION_DELAY.
+
+        2. As a result of (1), ASTNode.isFunction() will now return
+           true for delay function nodes.
+
+        3. The infix expression parser will parse:
+
+             delay(...)
+
+           as an AST_FUNCTION_DELAY (This does not mean delay
+           functions must be called "delay" in MathML, it simply means
+           if you want to create them in infix, you need to use the
+           name "delay").
+
+      I'm reasonably confident the effect of these changes on existing
+      code will be minimal.  My guess is that if anyone had been using
+      this aspect of libSBML, they would have reported it as a bug.
+      Thanks to Sarah Keating for reporting this bug.
+
+
+* Changes:
+
+* Released September xx, 2004
+
+
+
+
 === Version 2.1.0 ===
 
 * New Features:
