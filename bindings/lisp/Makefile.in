@@ -121,23 +121,23 @@ fasls := $(sources:.lisp=.$(FASLEXT))
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles =            \
-  $(asdfdirs)          \
-  $(asdfsources)       \
-  $(cparsedirs)        \
-  $(cparsesources)     \
-  $(cparseextras)      \
-  tps/cparse/ChangeLog \
-  tps/cparse/README    \
-  $(uffidirs)          \
-  $(uffisources)       \
-  $(uffiextras)        \
-  tps/uffi/ChangeLog   \
-  tps/uffi/AUTHORS     \
-  tps/uffi/INSTALL     \
-  tps/uffi/LICENSE     \
-  tps/uffi/README      \
-  tps/uffi/NEWS        \
+distfiles =             \
+  $(asdfdirs)           \
+  $(asdfsources)        \
+  $(cparsedirs)         \
+  $(cparsesources)      \
+  $(cparseextras)       \
+  tps/cparse/ChangeLog  \
+  tps/cparse/README.txt \
+  $(uffidirs)           \
+  $(uffisources)        \
+  $(uffiextras)         \
+  tps/uffi/ChangeLog    \
+  tps/uffi/AUTHORS      \
+  tps/uffi/INSTALL      \
+  tps/uffi/LICENSE      \
+  tps/uffi/README       \
+  tps/uffi/NEWS         \
   tps/uffi/TODO
 
 installdirs:=$(dirs)
