@@ -69,6 +69,9 @@ typedef void SAX2XMLReader;
 #include "sbml/SBMLDocument.h"
 #include "sbml/SBMLReader.h"
 
+#include "sbml/ParseMessage.hpp"
+
+
 #include "sbml/SBMLHandler.hpp"
 #include "sbml/SBMLReader.hpp"
 
