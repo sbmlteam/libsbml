@@ -54,6 +54,7 @@
 #define XMLUtil_hh
 
 
+#include <xercesc/framework/XMLFormatter.hpp>
 #include <xercesc/sax2/Attributes.hpp>
 #include "common.hpp"
 
@@ -62,6 +63,18 @@ class XMLUtil
 {
 
 public:
+
+  /**
+   * Creates a new XMLStringFormatter and returns a pointer to it.  This
+   * method hides the constructor API differences between Xerces 2.3.0 and
+   * earlier versions.
+   */
+  static XMLFormatter* createXMLFormatter
+  (
+       const char*      outEncoding
+     , XMLFormatTarget* target
+  );
+
 
   /**
    * Searches for an attribute with name.  If found, and the corresponding

@@ -58,9 +58,46 @@
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
-// FIXME: XMLUnicodeConstants?
 #include "sbml/SBMLUnicodeConstants.hpp"
+#include "sbml/XMLUnicodeConstants.hpp"
 #include "sbml/XMLUtil.hpp"
+
+
+/**
+ * Creates a new XMLStringFormatter and returns a pointer to it.  This
+ * method hides the constructor API differences between Xerces 2.3.0 and
+ * earlier versions.
+ */
+XMLFormatter*
+XMLUtil::createXMLFormatter ( const char*      outEncoding,
+                              XMLFormatTarget* target )
+{
+  XMLFormatter* formatter;
+
+
+  //
+  // Starting with Xerces-C 2.3.0 _XERCES_VERSION (20300 == 2.03.00 ==
+  // 2.3.0), the XMLFormatter class takes a new constructor argument, the
+  // version of XML to write (1.0 or 1.1).
+  //
+#if _XERCES_VERSION >= 20300
+
+  formatter = new XMLFormatter( outEncoding,
+                                "1.0",
+                                target,
+                                XMLFormatter::NoEscapes,
+                                XMLFormatter::UnRep_CharRef );
+#else
+
+  formatter = new XMLFormatter( outEncoding,
+                                target,
+                                XMLFormatter::NoEscapes,
+                                XMLFormatter::UnRep_CharRef );
+
+#endif
+
+  return formatter;
+}
 
 
 /**
