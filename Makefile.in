@@ -73,7 +73,7 @@ thisdir = .
 # used by the default rules in `makefile-common-actions.mk' included at the
 # end.
 
-ifeq "$(USE_EXPAT)" "1"
+ifdef USE_EXPAT 
   subdirs = expat src bindings docs
 else
   subdirs = src bindings docs

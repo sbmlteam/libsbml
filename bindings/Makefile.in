@@ -71,13 +71,13 @@ thisdir = bindings
 # Depending on the flags given during libSBML's configuration step, different
 # subdirectories will be added to the list of targets.
 
-ifeq ($(USE_PYTHON),1)
+ifdef USE_PYTHON
 subdirs = python
 endif
-ifeq ($(USE_JAVA),1)
+ifdef USE_JAVA
 subdirs += java
 endif
-ifeq ($(USE_MATLAB),1)
+ifdef USE_MATLAB
 subdirs += matlab
 endif
 

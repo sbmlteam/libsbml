@@ -217,7 +217,7 @@ sources = \
   memory.c                        \
   util.c
 
-ifeq "$(USE_LIBCHECK)" "1"
+ifdef USE_LIBCHECK
 testrunner_headers = \
   sbml/SAX2AttributesMock.hpp
 
@@ -287,7 +287,7 @@ endif
 
 libraries = $(PACKAGE).a $(PACKAGE).$(SHAREDLIBEXT)
 
-ifeq "$(USE_EXPAT)" "1"
+ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS) -I../expat
   extra_LDFLAGS   += $(EXPAT_LDFLAGS) -L../expat
   extra_LIBS      += $(EXPAT_LIBS) -lexpat-compat
@@ -297,7 +297,7 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-ifeq "$(USE_LIBCHECK)" "1"
+ifdef USE_LIBCHECK
   check_programs   = TestRunner
   ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
     extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
@@ -332,7 +332,7 @@ distfiles_exclude = sbml/config.h
 
 all: Makefile $(libraries)
 
-ifeq "$(USE_LIBCHECK)" "1"
+ifdef USE_LIBCHECK
   check: all run-checks
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
@@ -356,7 +356,7 @@ html:
 # The makefile directives for check tend to have to be specific to each source
 # directory and not abstracted into `makefile-common-actions.mk'.
 
-ifeq "$(USE_LIBCHECK)" "1"
+ifdef USE_LIBCHECK
   testrunner_tmplist  = $(testrunner_sources:.cpp=.$(OBJEXT)) \
 			$(testrunner_sources:.c=.$(OBJEXT))
   testrunner_objfiles = $(filter %.$(OBJEXT),$(testrunner_tmplist))
