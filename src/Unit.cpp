@@ -275,7 +275,7 @@ LIBSBML_EXTERN
 Unit_t *
 Unit_createWith (UnitKind_t kind, int exponent, int scale)
 {
-  Unit* u = new(std::nothrow) Unit(kind, exponent, scale);
+  return new(std::nothrow) Unit(kind, exponent, scale);
 }
 
 
