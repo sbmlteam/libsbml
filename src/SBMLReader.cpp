@@ -336,14 +336,16 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
         if (is.eof()) done = true;
         if (is.fail() && !done) throw errmsg;
             
-        if (!handler.parse(pBuffer, -1, done)) throw errmsg;
+        if (!handler.parse(pBuffer, -1, done))
+          throw handler.getErrorString();
       } 
       delete [] pBuffer;
 #undef BUFFER_SIZE
     }
   }
-  catch (...)
+  catch (const char * e)
   {
+    d->fatal.add(handler.ParseMessage_createFrom(e));
     d->setModel(NULL);
   }
 
