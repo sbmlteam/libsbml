@@ -73,6 +73,13 @@
   $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
 }
 
+/**
+ * Convert Rule objects into the most specific type possible.
+ */
+%typemap(out) Rule*
+{
+  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
+}
 
 
 /**
@@ -133,6 +140,14 @@
   def setModel(*args):
     if args[1]: args[1].thisown = 0
     return _libsbml.SBMLDocument_setModel(*args)
+%}
+
+
+%feature("shadow") Model::addRule(Rule&)
+%{
+  def addRule(*args):
+    if args[1]: args[1].thisown = 0
+    return _libsbml.Model_addRule(*args)
 %}
 
 

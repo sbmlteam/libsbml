@@ -74,7 +74,24 @@ def testEquality():
    assert not c1 == c2
 
 
-def testListOf():
+def testImplicitDowncastOfRule():
+   m = libsbml.Model()
+   assert m and m.thisown == 1
+   
+   r = libsbml.AssignmentRule("x", "1 + 1")
+   assert r and r.thisown == 1
+
+   m.addRule(r)
+   assert m.getNumRules() == 1
+   assert r.thisown == 0
+
+   r = m.getRule(0)
+   r.setFormulaFromMath()
+   assert r.getVariable() == "x"
+   assert r.getFormula()  == "1 + 1"
+
+
+def testImplicitDowncastOfSBase():
    species = libsbml.Species()
    assert species and species.thisown == 1
 
