@@ -15,10 +15,10 @@
    On Linux:
 
       CLASSPATH
-         must include the "classes" directory in the Java SWIG
-         bindings directory.  For example:
+         must include the "libsbmlj.jar" file from the libSBML
+	 java bindings directory.  For example:
 
-            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/classes
+            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
 
       LD_LIBRARY_PATH
          must include the directory that contains the
@@ -29,10 +29,10 @@
    On Mac OS X:
 
       CLASSPATH
-         must include the "classes" directory in the Java SWIG
-         bindings directory.  For example:
+         must include the "libsbmlj.jar" file from the libSBML
+	 java bindings directory.  For example:
 
-            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/classes
+            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
 
       DYLD_LIBRARY_PATH
          must include the directory that contains the
@@ -43,16 +43,17 @@
   On Windows:
 
      CLASSPATH
-         must include the "classes" directory in the Java SWIG
+         must include the "sbmlj.jar" file in the Java SWIG
          bindings directory.  For example:
 
-            CLASSPATH C:\libsbml\bindings\java\classes
+            CLASSPATH C:\libsbml\bindings\java\sbmlj.jar
 
-  NOTE: To set an environmental variable in Windows use the System option
-   on the Control Panel. 
+         NOTE: To set an environmental variable in Windows use the
+         System option on the Control Panel.
       
-     The sbmlj.dll file must be on the system path. The easiest way to achieve
-     this is to copy this file to the windows system directory. For example
+     The sbmlj.dll file must be on the system path. The easiest way to
+     achieve this is to copy this file to the windows system
+     directory. For example
 
 	   C:\WINDOWS\SYSTEM32
      
