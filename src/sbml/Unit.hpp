@@ -61,6 +61,9 @@
 #include "UnitKind.h"
 
 
+class SBMLVisitor;
+
+
 class Unit : public SBase
 {
 public:
@@ -92,6 +95,16 @@ public:
    */
   LIBSBML_EXTERN
   virtual ~Unit ();
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the UnitDefinition's
+   * next Unit (if available).
+   */
+  LIBSBML_EXTERN
+  bool accept (SBMLVisitor& v) const;
 
   /**
    * Initializes the fields of this Unit to their defaults:
@@ -372,6 +385,20 @@ public:
    */
   LIBSBML_EXTERN
   void setOffset (double value);
+
+
+  /**
+   * @return true if name is one of the five SBML builtin Unit names
+   * ('substance', 'volume', 'area', 'length' or 'time'), false otherwise.
+   */
+  LIBSBML_EXTERN
+  static bool isBuiltIn (const std::string& name);
+
+  /**
+   * @return true if name is a valid UnitKind.
+   */
+  LIBSBML_EXTERN
+  static bool isUnitKind (const std::string& name);
 
 
 protected:
