@@ -31,52 +31,73 @@ dnl OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 dnl SUCH DAMAGE.
 
 
+dnl CONFIG_PROG_LISP
+dnl Wrapper combining the most common configuration macros into a single call.
+AC_DEFUN(CONFIG_PROG_LISP,
+[
+  CONFIG_WITH_LISP
+  CONFIG_LISP_EXIT
+  CONFIG_ASDF_CHECK
+  CONFIG_UFFI_CHECK
+  CONFIG_CPARSE_CHECK
+  CONFIG_FASL
+])
 
-dnl AC_LISP
+dnl CONFIG_WITH_LISP
 dnl find a common lisp, sets $LISP
 dnl searches $PATH and common places
 dnl introduces --with-lisp
-AC_DEFUN(AC_LISP,
+AC_DEFUN(CONFIG_WITH_LISP,
 [
-AC_SUBST(LISP)
-AC_ARG_WITH(lisp,
-  AC_HELP_STRING([--with-lisp=<binary>],[Use this lisp program (default: autodetect)]), 
-  LISP_PATH="`dirname $with_lisp`" 
-  LISP_PROGS="`basename $with_lisp`"; 
-  ,  
-  LISP_PATH="$PATH"
-  LISP_PROGS='alisp lisp cl clisp'
-)
-AC_PATH_PROGS(LISP,$LISP_PROGS,no-lisp,${LISP_PATH})
-dnl Test whether the batch flag is accepted without error
-dnl CMU CL needs this to exit on EOF
-AC_SUBST(USE_LISP)
-if test $LISP != no-lisp; then
-dnl Test lisp run
-  USE_LISP=yes
-  if test "`basename $LISP`" = 'sbcl'; then
-    LISP="$LISP --disable-debugger"
-    if $LISP 2>&5 1>&5 </dev/null ; then
-      true
-    else
-      AC_MSG_WARN([Lisp $LISP does not run properly -- see config.log for details] )
-      LISP=no-lisp
-      USE_LISP=""
+  AC_SUBST(LISP)
+  AC_ARG_WITH(lisp,
+    AC_HELP_STRING([--with-lisp=<binary>],
+                   [Use this lisp program (default: autodetect)]),
+    [with_lisp=$withval]
+    LISP_PATH="`dirname $with_lisp`" 
+    LISP_PROGS="`basename $with_lisp`"
+    ,
+    [with_lisp=no]
+    LISP_PATH="$PATH"
+    LISP_PROGS='alisp lisp cl clisp'
+  )
+
+  AC_PATH_PROGS(LISP,$LISP_PROGS,no-lisp,${LISP_PATH})
+
+  dnl Test whether the batch flag is accepted without error
+  dnl CMU CL needs this to exit on EOF
+
+  if test $with_lisp != no; then
+    AC_DEFINE([USE_LISP], 1, [Define to 1 to use Lisp])
+    AC_SUBST(USE_LISP)
+
+    dnl Test lisp run
+    USE_LISP=1
+    if test "`basename $LISP`" = 'sbcl'; then
+      LISP="$LISP --disable-debugger"
+      if $LISP 2>&5 1>&5 </dev/null ; then
+        true
+      else
+        AC_MSG_WARN([Lisp $LISP does not run properly -- see config.log for details])
+        LISP=no-lisp
+        USE_LISP=""
+      fi
+    elif $LISP -batch </dev/null 2>&5 1>&5 ; then
+      LISP="$LISP -batch"
     fi
-  elif $LISP -batch </dev/null 2>&5 1>&5 ; then
-    LISP="$LISP -batch"
   fi
-else
-  USE_LISP=
-fi
-LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_LISP"
+
+  dnl We record the USE_XXX flag, for later testing in Makefiles.
+
+  LIBSBML_OPTIONS="$LIBSBML_OPTIONS USE_LISP"
+
 ])
 
 
 dnl AC_LISP_EXIT
 dnl determine the exit function of the lisp implementation
 dnl sets $LISPEXIT to the function name 
-AC_DEFUN(AC_LISP_EXIT,
+AC_DEFUN(CONFIG_LISP_EXIT,
 [
   AC_SUBST(LISPEXIT)
   if test -n $USE_LISP ; then
@@ -105,7 +126,7 @@ dnl sets variable to 'ok' or 'failed' depending on
 dnl whether code exits lisp with 0 or >0
 dnl cares for caching
 dnl uses program $LISP
-AC_DEFUN(AC_LISP_RUN,
+AC_DEFUN(CONFIG_LISP_RUN,
 [
   AC_CACHE_CHECK($1, ac_cv_$2,
     ac_cv_$2="ok"
@@ -121,7 +142,7 @@ dnl whether code exits lisp with 0 or 1
 dnl prepare is lisp code, done out of all error handlers
 dnl cares for caching
 dnl uses program $LISP and $LISPEXIT
-AC_DEFUN(AC_LISP_OUTPUT,
+AC_DEFUN(CONFIG_LISP_OUTPUT,
 [
   ac_prepare="$4"
   ac_code="$3"
@@ -152,12 +173,12 @@ dnl checks whether the code produces an condition in $LISP
 dnl or runs through
 dnl uses program $LISP and lisp function $LISPEXIT
 dnl prepare is done before code to initialize
-AC_DEFUN(AC_LISP_CHECK,
+AC_DEFUN(CONFIG_LISP_CHECK,
 [
   ac_prepare="$4"
   ac_code="$3"
   ac_ltest="$ac_prepare(handler-bind ((serious-condition #'(lambda (ex) (ignore-errors (apply #'format (list t (simple-condition-format-control ex) (simple-condition-format-arguments ex)))) ($LISPEXIT 1)))) ${ac_code} )($LISPEXIT 0)"
-  AC_LISP_RUN($1,$2,$ac_ltest)
+  CONFIG_LISP_RUN($1,$2,$ac_ltest)
   if test "[$]$2" = failed; then
     echo "Failed lisp code was: " >&5
     echo "$ac_code"|sed 's/^/\|/' >&5
@@ -167,10 +188,10 @@ AC_DEFUN(AC_LISP_CHECK,
 
 dnl find out the suffix of binary lisp files (fasl, x86f, fas, ...)
 dnl This sets FASLEXT 
-AC_DEFUN(AC_FASL,
+AC_DEFUN(CONFIG_FASL,
 [ AC_SUBST(FASLEXT)
   if test -n "$USE_LISP" ; then
-    AC_LISP_OUTPUT(lisp binary-extension,FASLEXT,(format t \"~a\" (pathname-type (compile-file-pathname \"bla.lisp\"))),t)
+    CONFIG_LISP_OUTPUT(lisp binary-extension,FASLEXT,(format t \"~a\" (pathname-type (compile-file-pathname \"bla.lisp\"))),t)
   fi
 ])
 
@@ -178,22 +199,24 @@ AC_DEFUN(AC_FASL,
 dnl check for compilation tool asdf
 dnl sets ASDF and EXT_ASDF to the directory where asdf is
 dnl installed
-AC_DEFUN(AC_ASDF_CHECK,
+AC_DEFUN(CONFIG_ASDF_CHECK,
 [
   AC_SUBST(EXT_ASDF)
   AC_SUBST(ASDF)
   AC_SUBST(ASDF_RUN)
   if test -n "$USE_LISP" ; then
     AC_ARG_WITH(asdf,
-      AC_HELP_STRING(--with-asdf=<pathname>,Use asdf at <pathname> (default:bindings/lisp/tps/asdf)), 
-      ASDFPATH="$with_asdf:`dirname ${with_asdf}`",
+      AC_HELP_STRING([--with-asdf=<pathname>],
+	             [Use asdf at <pathname> (default:bindings/lisp/tps/asdf)]),
+      ASDFPATH="$with_asdf:`dirname ${with_asdf}`"
+     ,
       ASDFPATH="${srcdir}/bindings/lisp/tps/asdf"
     )
     AC_PATH_PROG(ASDF,asdf.lisp,failed,$ASDFPATH)
     if test $ASDF = failed; then
       AC_MSG_ERROR([Asdf not found in one of $ASDFPATH])
     fi
-    AC_LISP_CHECK(asdf load,RUN_ASDF,(load \"$ASDF\"),t)
+    CONFIG_LISP_CHECK(asdf load,RUN_ASDF,(load \"$ASDF\"),t)
     if test $RUN_ASDF = failed; then
       AC_MSG_ERROR([Asdf cannot be loaded -- see config.log for details] )
     fi
@@ -216,23 +239,25 @@ AC_DEFUN(AC_ASDF_CHECK,
 dnl check for uffi 
 dnl sets UFFI to the directory of uffi
 dnl also links the uffi.asd to the bindings/lisp
-AC_DEFUN(AC_UFFI_CHECK,
+AC_DEFUN(CONFIG_UFFI_CHECK,
 [
   AC_SUBST(UFFI)
   AC_SUBST(UFFI_RUN)
   AC_SUBST(EXT_UFFI)
   if test -n "$USE_LISP" ; then
     AC_ARG_WITH(uffi,
-      AC_HELP_STRING(--with-uffi=<pathname>,Use uffi at <pathname> (default:bindings/lisp/tps/uffi)), 
-      UFFIPATH="${with_uffi}:`dirname ${with_uffi}`",
-      UFFIPATH="${srcdir}/bindings/lisp/tps/uffi"
+      AC_HELP_STRING([--with-uffi=<pathname>],
+                     [Use uffi at <pathname> (default:bindings/lisp/tps/uffi)]), 
+        UFFIPATH="${with_uffi}:`dirname ${with_uffi}`"
+	,
+        UFFIPATH="${srcdir}/bindings/lisp/tps/uffi"
     )
     AC_PATH_PROG(UFFI,uffi.asd,failed,$UFFIPATH)
     if test $UFFI = failed; then
       AC_MSG_ERROR([Uffi not found in one of $UFFIPATH])
     fi
 
-    AC_LISP_CHECK(uffi load,RUN_UFFI,(progn (load \"${UFFI}\") (asdf:operate 'asdf:load-op :uffi)),(require :asdf \"${ASDF}/asdf.lisp\"))
+    CONFIG_LISP_CHECK(uffi load,RUN_UFFI,(progn (load \"${UFFI}\") (asdf:operate 'asdf:load-op :uffi)),(require :asdf \"${ASDF}/asdf.lisp\"))
 
     if test $RUN_UFFI = failed; then
       AC_MSG_ERROR([uffi cannot be loaded -- see config.log for details] )
@@ -261,22 +286,24 @@ AC_DEFUN(AC_UFFI_CHECK,
 dnl check for cparse
 dnl sets CPARSE to the directory of cparse
 dnl also links the cparse.asd to the bindings/lisp
-AC_DEFUN(AC_CPARSE_CHECK,
+AC_DEFUN(CONFIG_CPARSE_CHECK,
 [
   AC_SUBST(CPARSE)
   AC_SUBST(EXT_CPARSE)
   if test -n "$USE_LISP" ; then
     AC_ARG_WITH(cparse,
-      AC_HELP_STRING(--with-cparse=<pathname>,Use cparse at <pathname> (default:bindings/lisp/tps/cparse, don't change)), 
-      CPARSEPATH="$with_cparse",
-      CPARSEPATH="${srcdir}/bindings/lisp/tps/cparse"
+      AC_HELP_STRING([--with-cparse=<pathname>],
+        [Use cparse at <pathname> (default:bindings/lisp/tps/cparse, don't change)]), 
+        CPARSEPATH="$with_cparse"
+	,
+        CPARSEPATH="${srcdir}/bindings/lisp/tps/cparse"
     )
     AC_PATH_PROG(CPARSE,cparse.asd,failed,$CPARSEPATH)
     if test $CPARSE = failed; then
       AC_MSG_ERROR([Cparse not found in one of $CPARSEPATH])
     fi
 
-    AC_LISP_CHECK(cparse load,RUN_CPARSE,(progn (load \"${CPARSE}\")(asdf:operate 'asdf:load-op :cparse)),(require :asdf \"${ASDF}/asdf.lisp\"))
+    CONFIG_LISP_CHECK(cparse load,RUN_CPARSE,(progn (load \"${CPARSE}\")(asdf:operate 'asdf:load-op :cparse)),(require :asdf \"${ASDF}/asdf.lisp\"))
     if test $RUN_CPARSE = failed; then
       AC_MSG_ERROR([cparse cannot be loaded -- see config.log for details] )
     fi
