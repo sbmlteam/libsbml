@@ -135,6 +135,8 @@ def testReaction():
    speciesReference = libsbml.SpeciesReference("SR")
    assert speciesReference
 
+   # Reactant
+
    reaction.addReactant(speciesReference)
    assert reaction.getNumReactants() == 1
 
@@ -144,6 +146,8 @@ def testReaction():
    theSameSpeciesReference = reaction.getListOfReactants()[0]
    assert theSameSpeciesReference.getSpecies() == speciesReference.getSpecies()
 
+   # KineticLaw
+
    kineticLaw = libsbml.KineticLaw("1 + 1")
    assert kineticLaw and kineticLaw.thisown == 1
    assert kineticLaw.getFormula() == "1 + 1"
@@ -152,6 +156,21 @@ def testReaction():
    reaction.setKineticLaw(kineticLaw)
    assert kineticLaw.thisown == 0
    assert kineticLaw == reaction.getKineticLaw()
+
+   # Product
+
+   productReference = libsbml.SpeciesReference("product")
+   assert productReference
+
+   reaction.addProduct(productReference)
+   assert productReference.thisown == 0
+
+   assert reaction.getNumProducts() == 1
+
+   theSameSpeciesReference = reaction.getProduct(0)
+   assert theSameSpeciesReference.getSpecies() == productReference.getSpecies()
+
+   assert productReference.thisown == 0
 
 
 def testDocument():

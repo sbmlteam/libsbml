@@ -189,3 +189,12 @@
     if args[1]: args[1].thisown = 0
     return _libsbml.Reaction_addReactant(*args)
 %}
+
+
+%feature("shadow") Reaction::addProduct(SpeciesReference& sr)
+%{
+  def addProduct(*args):
+    if args[1] is not None:
+      args[1].thisown = 0
+    return _libsbml.Reaction_addProduct(*args)
+%}
