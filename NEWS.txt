@@ -3,6 +3,16 @@
 
 === Version 1.1.0 ====
 
+* A Developer's Manual (DRAFT) is available in docs/formatted/.
+
+* Formula strings may optionally be parsed into abstract syntax trees.
+  See ASTNode.h, and SBML_parseFormula() in FormulaParser.h.
+
+* XXX_isSetYYY() and XXX_unsetYYY() methods are available for optional
+  fields without default values.
+
+* XXX_getYYY() and XXX_setYYY() methods are available for every field.
+
 * SBML (XML) namespace handling is much improved.
 
 * '<annotations>' is treated as a synonym for the correct form
@@ -28,7 +38,7 @@
   Where XXX is Warning, Error or Fatal.
 
 
-* Released April xx, 2003.
+* Released May 11, 2003.
 
 
 
