@@ -81,6 +81,7 @@ StringMapTest_teardown (void)
 START_TEST (test_StringMap_basics)
 {
   fail_unless(StringMap_size(SM) == 0, NULL);
+  fail_unless(StringMap_get(SM, "key") == NULL, NULL);
 
   StringMap_put(SM, "key", "value");
 
@@ -143,6 +144,7 @@ START_TEST (test_StringMap_remove)
   StringMap_remove(SM, "gnip");
 
   fail_unless(!StringMap_exists(SM, "gnip"), NULL);
+  fail_unless(StringMap_size(SM) == 0, NULL);
 }
 END_TEST
 

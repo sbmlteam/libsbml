@@ -55,6 +55,7 @@
 
 
 #include "extern.h"
+#include "List.h"
 
 
 BEGIN_C_DECLS
@@ -71,7 +72,7 @@ typedef struct
 {
   unsigned int     size;
   unsigned int     capacity;
-  StringMapItem_t *items;
+  List_t         **itemLists;
 } StringMap_t;
 
 
