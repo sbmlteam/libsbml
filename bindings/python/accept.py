@@ -528,6 +528,30 @@ def testSBMLReader():
    assert doc.thisown == 1
 
 
+def testListOfAsIterator():
+   model = libsbml.Model()
+   model.addReaction(libsbml.Reaction("R1", libsbml.KineticLaw("1 + 2")))
+   model.addReaction(libsbml.Reaction("R2", libsbml.KineticLaw("2 + 3")))
+   model.addReaction(libsbml.Reaction("R3", libsbml.KineticLaw("3 + 4")))
+
+   reactions = []
+   for reaction in model.getListOfReactions():
+      reactions.append(reactions)
+
+   assert len(reactions) == 3
+
+   assert model.getListOfReactions()[-1].getId() == "R3"
+
+   """
+   IndexError doesn't work yet
+   try:
+      print model.getListOfReactions()[3]
+      assert False, "failed to raise IndexError"
+   except IndexError:
+      pass
+   """
+
+
 class TestRunner:
 
    def __init__(self):

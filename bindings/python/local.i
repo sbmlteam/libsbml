@@ -58,7 +58,16 @@
 {
   SBase* __getitem__(int index)
   {
-    return self->get(index);
+    if (index < 0) { /* convert from negative index */
+      index = index + self->getNumItems();
+    }
+
+    if (index < 0 || index >= self->getNumItems()) {
+      PyErr_SetString(PyExc_IndexError, "ListOf index out of range");
+      return NULL;
+    } else {
+      return self->get(index);
+    }
   }
 }
 
@@ -157,6 +166,15 @@
     if result is not None: result.thisown = 1
     return result
 %}
+
+
+%extend ListOf {
+  %pythoncode {
+    def __iter__(self):
+      for i in range(self.getNumItems()):
+        yield self[i]
+  }
+}
 
 
 %feature("shadow") SBMLDocument::setModel(Model*)
