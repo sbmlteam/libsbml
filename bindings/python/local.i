@@ -127,10 +127,17 @@
  */
 
 
+%feature("shadow") SpeciesReference::setStoichiometryMath
+%{
+  def setStoichiometryMath(*args):
+    if args[1] is not None: args[1].thisown = 0
+    return _libsbml.SpeciesReference_setStoichiometryMath(*args)
+%}
+
 %feature("shadow") ListOf::append(SBase*)
 %{
   def append(*args):
-    if args[1]: args[1].thisown = 0
+    if args[1] is not None: args[1].thisown = 0
     return _libsbml.ListOf_append(*args)
 %}
 
@@ -139,8 +146,7 @@
 %{
   def remove(*args):
     result = _libsbml.ListOf_remove(*args)
-    if result is not None:
-      result.thisown = 1
+    if result is not None: result.thisown = 1
     return result
 %}
 
@@ -148,7 +154,7 @@
 %feature("shadow") SBMLDocument::setModel(Model*)
 %{
   def setModel(*args):
-    if args[1]: args[1].thisown = 0
+    if args[1] is not None: args[1].thisown = 0
     return _libsbml.SBMLDocument_setModel(*args)
 %}
 
@@ -201,14 +207,6 @@
 %}
 
 
-%feature("shadow") SpeciesReference::setStoichiometryMath(ASTNode*)
-%{
-  def setStoichiometryMath(*args):
-    if args[1] is not None: args[1].thisown = 0
-    return _libsbml.SpeciesReference_setStoichiometryMath(*args)
-%}
-
-
 %feature("shadow") UnitDefinition::addUnit(Unit&)
 %{
   def addUnit(*args):
@@ -220,7 +218,7 @@
 %feature("shadow") Model::addRule(Rule&)
 %{
   def addRule(*args):
-    if args[1]: args[1].thisown = 0
+    if args[1] is not None: args[1].thisown = 0
     return _libsbml.Model_addRule(*args)
 %}
 
@@ -230,14 +228,14 @@
   def __init__(self, *args):
     _swig_setattr(self, Reaction, 'this', _libsbml.new_Reaction(*args))
     _swig_setattr(self, Reaction, 'thisown', 1)
-    if args[1]: args[1].thisown = 0
+    if args[1] is not None: args[1].thisown = 0
 %}
 
 
 %feature("shadow") Reaction::setKineticLaw(KineticLaw& kl)
 %{
   def setKineticLaw(*args):
-    if args[1]: args[1].thisown = 0
+    if args[1] is not None: args[1].thisown = 0
     return _libsbml.Reaction_setKineticLaw(*args)
 %}
 
@@ -245,7 +243,7 @@
 %feature("shadow") Reaction::addReactant(SpeciesReference& sr)
 %{
   def addReactant(*args):
-    if args[1]: args[1].thisown = 0
+    if args[1] is not None: args[1].thisown = 0
     return _libsbml.Reaction_addReactant(*args)
 %}
 

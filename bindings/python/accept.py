@@ -219,7 +219,7 @@ def testUnitDefinition():
    assert unit.thisown == 0
 
 
-def teestSpeciesReference():
+def testSpeciesReference():
    speciesReference = libsbml.SpeciesReference("ref")
    assert speciesReference
 
@@ -273,8 +273,8 @@ def testEventAssignment():
    assert formula.thisown == 0
 
 
-def teestRule():
-   rule = libsbml.Rule()
+def testRule():
+   rule = libsbml.AssignmentRule()
    assert rule
 
    formula = libsbml.parseFormula("11 + 11")
