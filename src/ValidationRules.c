@@ -497,6 +497,7 @@ anyRuleVariableIs(const Model_t *m, const char *variableName)
 }
 
 
+/* TODO: what class does this function belong under? */
 static
 BOOLEAN
 isBuiltInUnit(const char *unit)
@@ -1364,7 +1365,7 @@ RULE (species_ruleAndReaction)
 {
   static const char msg[] =
     "A species may not participate in both a rule and a reaction.";
-  unsigned int passed = 1;
+  BOOLEAN passed = TRUE;
 
   Species_t *s = (Species_t *) obj;
   const char *speciesId = Species_getId(s);
@@ -1383,7 +1384,7 @@ RULE (species_ruleAndReaction)
     )
     {
       LOG_MESSAGE(msg);
-      passed = 0;
+      passed = FALSE;
     }
   }
 
@@ -1401,7 +1402,7 @@ RULE (parameter_units)
   static const char msg[] =
     "A parameter's 'units' must be a base unit (e.g. 'litre'), a built-in "
     "unit (e.g. 'volume'), or the id of a unitDefinition.";
-  unsigned int passed = 1;
+  BOOLEAN passed = TRUE;
 
   Parameter_t *p = (Parameter_t *) obj;
   const char *units = Parameter_getUnits(p);
@@ -1418,10 +1419,40 @@ RULE (parameter_units)
     )
     {
       LOG_MESSAGE(msg);
-      passed = 0;
+      passed = FALSE;
     }
   }
 
+  return passed;
+}
+
+
+/**
+ * A reaction must contain one "speciesReference" element (either in the
+ * products or reactants lists).
+ */
+RULE (reaction_speciesReference)
+{
+  static const char msg[] =
+    "A reaction must contain one speciesReference, in its products, "
+    "reactants, or modifiers.";
+
+  Reaction_t *r = (Reaction_t *) obj;
+  BOOLEAN passed = TRUE;
+
+
+  if (
+    Reaction_getNumReactants(r) == 0
+    &&
+    Reaction_getNumProducts(r) == 0
+    &&
+    Reaction_getNumModifiers(r) == 0
+  )
+  {
+    LOG_MESSAGE(msg);
+    passed = FALSE;
+  }
+  
   return passed;
 }
 
@@ -1472,4 +1503,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_speciesReference,       SBML_SPECIES         );
   Validator_addRule( v, species_ruleAndReaction,        SBML_SPECIES         );
   Validator_addRule( v, parameter_units,                SBML_PARAMETER       );
+  Validator_addRule( v, reaction_speciesReference,      SBML_REACTION        );
 }

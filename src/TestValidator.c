@@ -117,8 +117,12 @@ START_TEST (test_Validator_KineticLaw_substanceUnits)
 {
   const char *s = wrapSBML
   (
+    "<species id='s'/>"
     "<reaction name='J1'>"
     "  <kineticLaw formula='k1*X0' substanceUnits='foo'/>"
+    "  <listOfProducts>"
+    "     <speciesReference species='s'>"
+    "  </listOfProducts>"
     "</reaction>"
   );
 
