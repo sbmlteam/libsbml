@@ -62,7 +62,7 @@ BEGIN_C_DECLS
 
 typedef struct node
 {
-  void        *item;
+  void *item;
   struct node *next;
 } ListNode_t;
 
@@ -80,6 +80,12 @@ typedef struct
  */
 List_t *
 List_create (void);
+
+/**
+ * Creates a new ListNode (with item) and returns a pointer to it.
+ */
+ListNode_t *
+ListNode_create (void *item);
 
 /**
  * Frees the given List.
@@ -129,7 +135,7 @@ List_free (List_t *list);
 
 
 /**
- * Adds item to this List.
+ * Adds item to the end of this List.
  */
 void
 List_add (List_t *list, void *item);
@@ -138,7 +144,13 @@ List_add (List_t *list, void *item);
  * Returns the nth item in this List.  If n > List_size(list) returns NULL.
  */
 void *
-List_get (List_t *list, unsigned int n);
+List_get (const List_t *list, unsigned int n);
+
+/**
+ * Adds item to the beginning of this List.
+ */
+void
+List_prepend (List_t *list, void *item);
 
 /**
  * Removes the nth item from this List and returns a pointer to it.  If n >

@@ -93,6 +93,22 @@ List_create (void)
 
 
 /**
+ * Creates a new ListNode (with item) and returns a pointer to it.
+ */
+ListNode_t *
+ListNode_create (void *item)
+{
+  ListNode_t *node = (ListNode_t *) safe_calloc( 1, sizeof(ListNode_t) );
+
+
+  node->item = item;
+  node->next = NULL;
+
+  return node;
+}
+
+
+/**
  * Frees the given List.
  *
  * This function does not free List items.  It frees only the List_t
@@ -127,17 +143,13 @@ List_free (List_t *list)
 
 
 /**
- * Adds item to this List.
+ * Adds item to the end of this List.
  */
 void
 List_add (List_t *list, void *item)
 {
-  ListNode_t *node;
+  ListNode_t *node = ListNode_create(item);
 
-
-  node       = (ListNode_t *) safe_calloc( 1, sizeof(ListNode_t) );
-  node->item = item;
-  node->next = NULL;
 
   if (list->head == NULL)
   {
@@ -159,7 +171,7 @@ List_add (List_t *list, void *item)
  * NULL.
  */
 void *
-List_get (List_t *list, unsigned int n)
+List_get (const List_t *list, unsigned int n)
 {
   unsigned int  size = list->size;
   ListNode_t   *node = list->head;
@@ -189,6 +201,30 @@ List_get (List_t *list, unsigned int n)
   }
 
   return node->item;
+}
+
+
+/**
+ * Adds item to the beginning of this List.
+ */
+void
+List_prepend (List_t *list, void *item)
+{
+  ListNode_t *node = ListNode_create(item);
+
+
+  if (list->head == NULL)
+  {
+    list->head = node;
+    list->tail = node;
+  }
+  else
+  {
+    node->next = list->head;
+    list->head = node;
+  }
+
+  list->size++;
 }
 
 
