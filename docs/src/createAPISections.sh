@@ -88,6 +88,6 @@ FILES=`ls *.h | sed 's/\.h//'`
 cd ${CWD}
 
 for f in ${FILES}; do
-  echo Generating docs for $f
+  echo Extracting docs for $f
   ./createAPISection.py ${HEADERS_DIR}/${f}.h > ${OUTPUT_DIR}/${f}.tex
 done
