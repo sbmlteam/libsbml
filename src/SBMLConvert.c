@@ -69,6 +69,7 @@ SBML_convertToL2 (SBase_t *sb)
 {
   SBMLDocument_t *d;
   Model_t        *m;
+  Reaction_t     *r;
   KineticLaw_t   *kl;
   ListOf_t       *lo;
 
@@ -111,13 +112,18 @@ SBML_convertToL2 (SBase_t *sb)
     case SBML_COMPARTMENT:
     case SBML_SPECIES:
     case SBML_PARAMETER:
-    case SBML_REACTION:
       SBML_convertNameToId(sb);
+      break;
+
+    case SBML_REACTION:
+      r = (Reaction_t *) sb;
+      SBML_convertNameToId(sb);
+      SBML_convertToL2( (SBase_t *) r->kineticLaw );
       break;
 
     case SBML_KINETIC_LAW:
       kl = (KineticLaw_t *) sb;
-      SBML_convertToL2( (SBase_t *) (kl->parameter) );
+      SBML_convertToL2( (SBase_t *) kl->parameter );
       break;
 
     default:
