@@ -257,10 +257,17 @@ void
 SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m);
 
 /**
- * Performs semantic validation on the document.  Query the results by
- * calling getWarning(), getNumError(),and getNumFatal().
+ * Performs a set of semantic consistency checks on the document.  Query
+ * the results by calling getWarning(), getNumError(),and getNumFatal().
  *
- * @return the number of semantic validation errors encountered.
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_checkConsistency (SBMLDocument_t *d);
+
+/**
+ * @deprecated use SBMLDocument_checkConsistency() instead.
  */
 LIBSBML_EXTERN
 unsigned int

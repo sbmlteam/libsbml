@@ -88,7 +88,7 @@ main (int argc, char *argv[])
            SBMLDocument_getNumFatals(d);
 
   
-  errors += SBMLDocument_validate(d);
+  errors += SBMLDocument_checkConsistency(d);
 
   size = getFileSize(argv[1]);
 

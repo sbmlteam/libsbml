@@ -373,14 +373,14 @@ SBMLDocument::setModel (Model* m)
 
 
 /**
- * Performs semantic validation on the document.  Query the results by
- * calling getWarning(), getNumError(),and getNumFatal().
+ * Performs a set of semantic consistency checks on the document.  Query
+ * the results by calling getWarning(), getNumError(),and getNumFatal().
  *
- * @return the number of semantic validation errors encountered.
+ * @return the number of failed checks (errors) encountered.
  */
 LIBSBML_EXTERN
 unsigned int
-SBMLDocument::validate ()
+SBMLDocument::checkConsistency ()
 {
   unsigned int  nerrors;
   Validator_t*  v = Validator_createDefault();
@@ -396,6 +396,17 @@ SBMLDocument::validate ()
   if (level == 1) getModel()->moveAllIdsToNames();
 
   return nerrors;
+}
+
+
+/**
+ * @deprecated use checkConsistency() instead.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument::validate ()
+{
+  return checkConsistency();
 }
 
 
@@ -724,10 +735,21 @@ SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m)
 
 
 /**
- * Performs semantic validation on the document.  Query the results by
- * calling getWarning(), getNumError(),and getNumFatal().
+ * Performs a set of semantic consistency checks on the document.  Query
+ * the results by calling getWarning(), getNumError(),and getNumFatal().
  *
- * @return the number of semantic validation errors encountered.
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_checkConsistency (SBMLDocument_t *d)
+{
+  return static_cast<SBMLDocument*>(d)->checkConsistency();
+}
+
+
+/**
+ * @deprecated use SBMLDocument_checkConsistency() instead.
  */
 LIBSBML_EXTERN
 unsigned int
