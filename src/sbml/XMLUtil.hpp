@@ -147,6 +147,35 @@ public:
 
   /**
    * Stores the string value of the attribute at the given index.  The
+   * string is stored through the last reference argument, analogous to C's
+   * scanf.  If index is out of range, the last argument is left
+   * unassigned.
+   *
+   * Returns true if the last argument was assigned, false otherwise.
+   */
+  static bool XMLUtil::scanAttr
+  ( 
+     const Attributes&  attrs
+   , const unsigned int index
+   , std::string&       value
+  );
+
+  /**
+   * Searches for an attribute with name.  If found, the corresponding
+   * string is stored through the last reference argument, analogous to C's
+   * scanf.  Otherwise, the last argument is left unassigned.
+   *
+   * Returns true if the last argument was assigned, false otherwise.
+   */
+  static bool XMLUtil::scanAttr
+  (
+     const Attributes& attrs
+   , const XMLCh*      name
+   , std::string&      value
+  );
+
+  /**
+   * Stores the string value of the attribute at the given index.  The
    * string is stored through the last pointer argument, analogous to C's
    * scanf.  If index is out of range, the last argument is left
    * unassigned.
