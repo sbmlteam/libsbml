@@ -204,7 +204,7 @@ subdirs: $(subdirs_recursive)
 
 $(subdirs_recursive): 
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -w -$(MAKEFLAGS) -C $(subst -recursive,,$@) $(MAKECMDGOALS)
+	$(MAKE) -w -C $(subst -recursive,,$@) -$(MAKEFLAGS) $(MAKECMDGOALS)
 else
 	$(MAKE) -w -C $(subst -recursive,,$@) $(MAKECMDGOALS)
 endif
