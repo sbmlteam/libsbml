@@ -414,10 +414,54 @@ isThreeDimensional(const Model_t *m, const char *spatialSizeUnits)
 }
 
 
+/*
+ * Caller owns result.
+ */
+/* TODO: move this to Reaction_t. */
 static
-unsigned int
+List_t *
+allSpeciesReferenceIdsIn(Reaction_t *r)
+{
+  List_t *result = List_create();
+  unsigned int j;
+
+  { /* collect reactant species */
+    int numReactants = Reaction_getNumReactants(r);
+    for (j = 0; j < numReactants; j++)
+    {
+      SpeciesReference_t *sr = Reaction_getReactant(r, j);
+      List_add(result, SpeciesReference_getSpecies(sr));
+    }
+  }
+
+  { /* collect product species */
+    int numProducts = Reaction_getNumProducts(r);
+    for (j = 0; j < numProducts; j++)
+    {
+      SpeciesReference_t *sr = Reaction_getProduct(r, j);
+      List_add(result, SpeciesReference_getSpecies(sr));
+    }
+  }
+
+
+  { /* collect modifier species */
+    int numModifiers = Reaction_getNumModifiers(r);
+    for (j = 0; j < numModifiers; j++)
+    {
+      ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
+      List_add(result, ModifierSpeciesReference_getSpecies(msr));
+    }
+  }
+
+  return result;
+}
+
+
+static
+BOOLEAN
 anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
 {
+  unsigned int result = FALSE;
   int numReactions = Model_getNumReactions(m);
   int i, j;
 
@@ -426,47 +470,28 @@ anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
   {
     Reaction_t *r = Model_getReaction(m, i);
 
-    /* look at reactant species */
-    int numReactants = Reaction_getNumReactants(r);
-    for (j = 0; j < numReactants; j++)
+    List_t *speciesReferenceIds = allSpeciesReferenceIdsIn(r);
+    unsigned int numReferences = List_size(speciesReferenceIds);
+    unsigned int j;
+
+    for (j = 0; j < numReferences; j++)
     {
-      SpeciesReference_t *sr = Reaction_getReactant(r, j);
-      const char *referenceId = SpeciesReference_getSpecies(sr);
+      const char *referenceId = (const char *)List_get(speciesReferenceIds, j);
 
       if (streq(speciesId, referenceId))
       {
-        return 1;
+        result = TRUE;
+        break;
       }
     }
 
-    /* look at product species */
-    int numProducts = Reaction_getNumProducts(r);
-    for (j = 0; j < numProducts; j++)
-    {
-      SpeciesReference_t *sr = Reaction_getProduct(r, j);
-      const char *referenceId = SpeciesReference_getSpecies(sr);
+    List_free(speciesReferenceIds);
 
-      if (streq(speciesId, referenceId))
-      {
-        return 1;
-      }
-    }
-
-    /* look at modifier species */
-    int numModifiers = Reaction_getNumModifiers(r);
-    for (j = 0; j < numModifiers; j++)
-    {
-      ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
-      const char *referenceId = ModifierSpeciesReference_getSpecies(msr);
-
-      if (streq(speciesId, referenceId))
-      {
-        return 1;
-      }
-    }
+    if (result)
+      break;
   }
 
-  return 0;
+  return result;
 }
 
 
@@ -498,6 +523,9 @@ anyRuleVariableIs(const Model_t *m, const char *variableName)
       {
         return TRUE;
       }
+      break;
+
+    default:
       break;
     }
   }
@@ -770,7 +798,7 @@ RULE (compartment_outsideCyclic)
       break;
     }
 
-    List_add(chain, outside);
+    List_add(chain, (void *) outside);
 
     c = Model_getCompartmentById(d->model, outside);
     if (!c)
@@ -1477,16 +1505,16 @@ RULE (reaction_speciesReferenceExists)
     "Species '%s' is not defined.";
 
   Reaction_t *r = (Reaction_t *) obj;
-  int j;
   BOOLEAN passed = TRUE;
 
+  List_t *speciesReferenceIds = allSpeciesReferenceIdsIn(r);
+  unsigned int numReferences = List_size(speciesReferenceIds);
+  unsigned int i;
 
-  /* look at reactant species */
-  int numReactants = Reaction_getNumReactants(r);
-  for (j = 0; j < numReactants; j++)
+
+  for (i = 0; i < numReferences; i++)
   {
-    SpeciesReference_t *sr = Reaction_getReactant(r, j);
-    const char *species = SpeciesReference_getSpecies(sr);
+    const char *species = (const char *)List_get(speciesReferenceIds, i);
 
     if (!speciesExists(d->model, species))
     {
@@ -1498,41 +1526,7 @@ RULE (reaction_speciesReferenceExists)
     }
   }
 
-  /* look at product species */
-  int numProducts = Reaction_getNumProducts(r);
-  for (j = 0; j < numProducts; j++)
-  {
-    SpeciesReference_t *sr = Reaction_getProduct(r, j);
-    const char *species = SpeciesReference_getSpecies(sr);
-
-    if (!speciesExists(d->model, species))
-    {
-      char buf[512];
-
-      sprintf(buf, baseMsg, species);
-      LOG_MESSAGE(buf)
-      passed = FALSE;
-    }
-  }
-
-
-  /* look at modifier species */
-  int numModifiers = Reaction_getNumModifiers(r);
-  for (j = 0; j < numModifiers; j++)
-  {
-    ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
-    const char *species = ModifierSpeciesReference_getSpecies(msr);
-
-    if (!speciesExists(d->model, species))
-    {
-      char buf[512];
-
-      sprintf(buf, baseMsg, species);
-      LOG_MESSAGE(buf)
-      passed = FALSE;
-    }
-  }
-
+  List_free(speciesReferenceIds);
   return passed;
 }
 
