@@ -759,7 +759,7 @@
 % \begin{exampleFigure}
 %   \begin{codeVerbatim}[Java,first=20]
 
-\lstnewenvironment{codeVerbatim}[1][Java]{%
+\lstnewenvironment{codeVerbatim}[1][C]{%
   \lstset{escapechar=|,%
     basicstyle=\small\ttfamily,%
     labelstep=1,%
@@ -781,7 +781,7 @@
 
 \newcommand{\codenote}[1]{\marginpar{\footnotesize\textcolor{sbmlblue}{\emph{#1}}}}
 
-\lstnewenvironment{example}[1][Java]{%
+\lstnewenvironment{example}[1][C]{%
   \lstset{escapechar=|,%
     basicstyle=\small\ttfamily,%
     aboveskip=0.75\baselineskip,%
@@ -796,7 +796,7 @@
   \examplespacing \csname lst@SetFirstLabel\endcsname}
 {\regularspacing \csname lst@SaveFirstLabel\endcsname}
 
-\lstnewenvironment{exampleTight}[1][Java]{%
+\lstnewenvironment{exampleTight}[1][C]{%
   \lstset{escapechar=|,%
     basicstyle=\small\ttfamily,%
     aboveskip=0.75\baselineskip,%
