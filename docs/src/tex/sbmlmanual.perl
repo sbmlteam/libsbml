@@ -346,106 +346,23 @@ sub process_smallcaps {
     $scstr;
 }
 
-# 2004-09-20 <mhucka@caltech.edu>
-# Pulled from alltt.perl and modified to create the 'example' environment.
-
-sub preprocess_alltt {
-    local ($before, $after, $example, $example_env);
-    local ($example_begin) = "<example_begin>";
-    local ($example_end) = "<example_end>";
-    local($saveRS) = $/; $*=1;undef $/;
-    while (/\\begin\s*{($example_rx)}([ \t]*\n)?/m) {
-	$example_env = $1;
-	$example = "";
-	($before, $after) = ($`, $');
-	if ($after =~ /\\end\s*{($example_rx)}/s) {
-	    ($example, $after) = ($`, $');
-	    local(@check) = split("\n",$before);
-	    local($lastline) = pop @check unless ($before =~ s/\n$//s);
-	    $example = &example_helper($example)	 # shield special chars
-		unless ($lastline =~ /(^|[^\\])(\\\\)*%.*$/m);  # unless commented out
-	    undef @check; undef $lastline;
-	}
-	$_ = join('', $before, "\n", $example_begin, "{$example_env}\n"
-		, $example, $example_end, "{$example_env}", $after);
-    }
-    $/ = $saveRS;
-    s/$example_begin\{([^\}]*)\}/\\begin{$1}/gos;
-    s/$example_end\{([^\}]*)\}/\\end{$1}/gos;
-}
-
-sub example_helper {
-    local ($_) = @_;
-    local($br_id) = ++$global{'max_id'};
-    s/^/\\relax$O$br_id$C$O$br_id$C /s; # Preserve leading & trailing white space
-    s/\t/ /g;		# Remove tabs
-    # preserve space after macro names
-    s/(\\\w+) /$br_id=++$global{'max_id'};$1."$O$br_id$C$O$br_id$C "/eg;
-    s/\\?\$/;SPMdollar;/g;
-    s/\\?%/;SPMpct;/g;
-    # protect " from being used as an active character with some languages
-    s/((^|[^\\])(\\\\)*)(\"|\;SPMquot\;)/$1\&#34;/gm;
-    s/~/;SPMtilde;/g;
-    s/\n/\n<BR>/g;	# preserve end-of-lines --- cannot have <P>s
-    join('', $_, "\\relax ");
-}
+# Ideas taken from alltt.perl.  This doesn't work very well though.
 
 sub do_env_example {
     local ($_) = @_;
-    local($closures,$reopens,$example_start,$example_end,@open_block_tags);
     &get_next_optional_argument;
-    if ($HTML_VERSION > 3.0) {
-        if ($USING_STYLES) {
-            $env_id .= ' CLASS="example"' unless ($env_id =~/CLASS=/);
-            $env_style{'example'} = " " unless ($env_style{'example'});
-        }
-	$example_start = "\n<DIV$env_id ALIGN=\"LEFT\">\n";
-	$example_end = "\n</DIV>\n";
-	$env_id = '';
-    } else {
-	$example_start = "<P ALIGN=\"LEFT\">";
-	$example_end = "</P>";
-    }
-
-
-    # get the tag-strings for all open tags
-    local(@keep_open_tags) = @$open_tags_R;
-    ($closures,$reopens) = &preserve_open_tags() if (@$open_tags_R);
-
-    # get the tags for text-level tags only
-    $open_tags_R = [ @keep_open_tags ];
-    local($local_closures, $local_reopens);
-    ($local_closures, $local_reopens,@open_block_tags) = &preserve_open_block_tags
-	if (@$open_tags_R);
-
-    $open_tags_R = [ @open_block_tags ];
+    $example_start = "\n<PRE>\n";
+    $example_end = "\n</PRE>\n";
 
     do {
-	local($open_tags_R) = [ @open_block_tags ];
-	local(@save_open_tags) = ();
-
-	local($cnt) = ++$global{'max_id'};
-	$_ = join('',"$O$cnt$C\\tt$O", ++$global{'max_id'}, $C
-		, "<PRE>" . $_ . "</PRE>" 
-		  , $O, $global{'max_id'}, "$C$O$cnt$C");
-
-	$_ = &translate_environments($_);
-	$_ = &translate_commands($_) if (/\\/);
-
-	# preserve space-runs, using &nbsp;
-	while (s/(\S) ( +)/$1$2;SPMnbsp;/g){};
-	s/(<BR>) /$1;SPMnbsp;/g;
-
-	$_ = join('', $closures, $example_start , $local_reopens
-		, $_
-		, &balance_tags() #, $local_closures
-		, $example_end, $reopens);
-	undef $open_tags_R; undef @save_open_tags;
+	s/\n/\n<BR>/g;	# preserve end-of-lines --- cannot have <P>s
+	s/\\par//g;
+	$_ = join('', $example_start, $_ , $example_end);
     };
 
-    $open_tags_R = [ @keep_open_tags ];
     $_;
 }
+
 
 #-----------------------------------------------------------------------------
 # End of file.
