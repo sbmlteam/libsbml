@@ -51,6 +51,8 @@
 
 
 #include "sbml/common.h"
+#include "sbml/FormulaParser.h"
+
 #include "sbml/MathMLDocument.h"
 
 
@@ -73,6 +75,34 @@ START_TEST (test_MathMLDocument_free_NULL)
 END_TEST
 
 
+START_TEST (test_MathMLDocument_setMath)
+{
+  MathMLDocument_t *d    = MathMLDocument_create();
+  ASTNode_t        *math = SBML_parseFormula("1 + 1 + 2 + 3 + 5 + 8");
+
+
+  MathMLDocument_setMath(d, math);
+
+  fail_unless( d->math == math, NULL );
+  fail_unless( MathMLDocument_isSetMath(d), NULL );
+
+  /* Reflexive case (pathological) */
+  MathMLDocument_setMath(d, d->math);
+  fail_unless( d->math == math, NULL );
+
+  MathMLDocument_setMath(d, NULL);
+  fail_unless( !MathMLDocument_isSetMath(d), NULL );
+
+  if (d->math != NULL)
+  {
+    fail( "MathMLDocument_setMath(d, NULL) did not clear ASTNode." );
+  }
+
+  MathMLDocument_free(d);
+}
+END_TEST
+
+
 Suite *
 create_suite_MathMLDocument (void) 
 { 
@@ -80,8 +110,9 @@ create_suite_MathMLDocument (void)
   TCase *tcase = tcase_create("MathMLDocument");
  
 
-  tcase_add_test(tcase, test_MathMLDocument_create    );
-  tcase_add_test(tcase, test_MathMLDocument_free_NULL );
+  tcase_add_test( tcase, test_MathMLDocument_create    );
+  tcase_add_test( tcase, test_MathMLDocument_free_NULL );
+  tcase_add_test( tcase, test_MathMLDocument_setMath   );
 
   suite_add_tcase(suite, tcase);
 

@@ -91,8 +91,26 @@ MathMLDocument_free (MathMLDocument_t *d);
  * this MathMLDocument.
  */
 LIBSBML_EXTERN
-ASTNode_t *
+const ASTNode_t *
 MathMLDocument_getMath (const MathMLDocument_t *d);
+
+/**
+ * @return 1 if the math of this MathMLDocument has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+MathMLDocument_isSetMath (const MathMLDocument_t *d);
+
+/**
+ * Sets the math of this MathMLDocument to the given ASTNode.
+ *
+ * The node <b>is not copied</b> and this MathMLDocument <b>takes
+ * ownership</b> of it; i.e. subsequent calls to this function or a call to
+ * MathMLDocument_free() will free the ASTNode (and any child nodes).
+ */
+LIBSBML_EXTERN
+void
+MathMLDocument_setMath (MathMLDocument_t *d, ASTNode_t *math);
 
 
 END_C_DECLS
