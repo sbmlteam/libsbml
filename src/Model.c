@@ -968,7 +968,7 @@ Model_getUnitDefinition (const Model_t *m, unsigned int n)
  * such UnitDefinition exists.
  */
 LIBSBML_EXTERN
-Species_t *
+UnitDefinition_t *
 Model_getUnitDefinitionById (const Model_t *m, const char *sid)
 {
   return (UnitDefinition_t *)

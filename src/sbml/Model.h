@@ -542,6 +542,14 @@ UnitDefinition_t *
 Model_getUnitDefinition (const Model_t *m, unsigned int n);
 
 /**
+ * @return the UnitDefinition in this Model with the given id or NULL if
+ * no such UnitDefinition exists.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t *
+Model_getUnitDefinitionById (const Model_t *m, const char *sid);
+
+/**
  * @return the nth Compartment of this Model.
  */
 LIBSBML_EXTERN

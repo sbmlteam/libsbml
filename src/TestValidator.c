@@ -144,12 +144,12 @@ START_TEST (test_Validator_multipleValidationRulesOnSameEntityType)
     "           <unit kind=\"volume\" exponent=\"-1\"/>"
     "       </listOfUnits>"
     "   </unitDefinition>"
-    "  <unitDefinition id=\"substance\">"  /* error: 'substance' non-unique */
+    "  <unitDefinition id=\"replicant\">"  /* error: 'replicant' non-unique */
     "      <listOfUnits>"
     "          <unit kind=\"mole\" scale=\"-3\"/>"
     "      </listOfUnits>"
     "  </unitDefinition>"
-    "  <unitDefinition id=\"substance\">"
+    "  <unitDefinition id=\"replicant\">"
     "      <listOfUnits>"
     "          <unit kind=\"mole\" scale=\"-3\"/>"
     "      </listOfUnits>"
