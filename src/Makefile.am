@@ -51,7 +51,7 @@
 
 
 lib_LTLIBRARIES    = libsbml.la
-libsbml_la_LDFLAGS = -no-undefined -version-info 2:2:1
+libsbml_la_LDFLAGS = -no-undefined -version-info 2:0:0
 
 nobase_include_HEADERS =          \
   sbml/AlgebraicRule.h            \
@@ -101,6 +101,7 @@ nobase_include_HEADERS =          \
 
 libsbml_la_SOURCES =              \
   sbml/common.hpp                 \
+  sbml/MathMLFormatter.hpp        \
   sbml/MathMLHandler.hpp          \
   sbml/MathMLTagCodes.hpp         \
   sbml/MathMLUnicodeConstants.hpp \
@@ -111,6 +112,7 @@ libsbml_la_SOURCES =              \
   sbml/XMLStringFormatter.hpp     \
   sbml/XMLUtil.hpp                \
   MathMLDocument.c                \
+  MathMLFormatter.cpp             \
   MathMLHandler.cpp               \
   MathMLReader.cpp                \
   MathMLTagCodes.cpp              \
@@ -165,6 +167,7 @@ TestRunner_SOURCES =              \
   test-data                       \
   sbml/SAX2AttributesMock.hpp     \
   SAX2AttributesMock.cpp          \
+  TestMathMLFormatter.cpp         \
   TestMathMLHandler.cpp           \
   TestSAX2AttributesMock.cpp      \
   TestSBMLFormatter.cpp           \
