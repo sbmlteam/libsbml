@@ -102,13 +102,14 @@ START_TEST (test_memory_MemTrace_MemInfoNode_create)
   int           line;
 
 
-  node = MemTrace_MemInfoNode_create((int *) 42, 4, __FILE__, line = __LINE__);
+  node = MemTrace_MemInfoNode_create((int *) 42, 4, "Foo.c", line = __LINE__);
 
   fail_unless( node->address == (int *) 42, NULL );
   fail_unless( node->size    ==          4, NULL );
   fail_unless( node->line    == line, NULL );
   fail_unless( node->next    == NULL, NULL );
-  fail_unless( !strcmp(node->filename, "TestMemory.c"), NULL );
+
+  fail_unless( !strcmp(node->filename, "Foo.c"), NULL );
 
   free(node);
 }
