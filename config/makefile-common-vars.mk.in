@@ -1,0 +1,174 @@
+## @configure_input@
+##
+## Filename    : makefile-common-vars.mk.in
+## Description : Makefile include file containing common variable definitions
+## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Organization: California Institute of Technology
+## Created     : 2004-06-11
+## Revision    : $Id$
+## Source      : $Source$
+##
+## Copyright 2004 California Institute of Technology.
+##
+## This library is free software; you can redistribute it and/or modify it
+## under the terms of the GNU Lesser General Public License as published
+## by the Free Software Foundation; either version 2.1 of the License, or
+## any later version.
+##
+## This library is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+## documentation provided hereunder is on an "as is" basis, and the
+## California Institute of Technology and Japan Science and Technology
+## Corporation have no obligations to provide maintenance, support,
+## updates, enhancements or modifications.  In no event shall the
+## California Institute of Technology or the Japan Science and Technology
+## Corporation be liable to any party for direct, indirect, special,
+## incidental or consequential damages, including lost profits, arising
+## out of the use of this software and its documentation, even if the
+## California Institute of Technology and/or Japan Science and Technology
+## Corporation have been advised of the possibility of such damage.  See
+## the GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this library; if not, write to the Free Software Foundation,
+## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+##
+## The original code contained here was initially developed by:
+##
+##     Michael Hucka
+##     SBML Team
+##     Control and Dynamical Systems, MC 107-81
+##     California Institute of Technology
+##     Pasadena, CA, 91125, USA
+##
+##     http://www.sbml.org
+##     mailto:sbml-team@caltech.edu
+##
+## Contributor(s):
+##
+
+
+# -----------------------------------------------------------------------------
+# Commmon variables.
+# -----------------------------------------------------------------------------
+#
+# For '@' variables (which are expanded by configure), make sure not to
+# put anything in here that might expand to a relative path.
+#
+# `prefix', `exec_prefix', `top_srcdir' and `top_builddir' must be in
+# lowercase, because some of the autoconf macros expand into strings that
+# use them.
+#
+# The enclosing makefile is assumed to define `srcdir'.
+
+prefix            = @prefix@
+exec_prefix       = @exec_prefix@
+
+top_srcdir        = @abs_top_srcdir@
+top_builddir      = @abs_top_builddir@
+TOP_SRCDIR        = $(top_srcdir)
+TOP_BUILDDIR      = $(top_builddir)
+VPATH             = $(srcdir)
+
+BINDIR            = @bindir@
+DATADIR           = @datadir@
+INCLUDEDIR        = @includedir@
+LIBDIR            = @libdir@
+MANDIR            = @mandir@
+
+USE_LIBCHECK      = @USE_LIBCHECK@
+LIBCHECK_CPPFLAGS = @LIBCHECK_CPPFLAGS@
+LIBCHECK_LDFLAGS  = @LIBCHECK_LDFLAGS@
+LIBCHECK_LIBS     = @LIBCHECK_LIBS@
+
+USE_EXPAT         = @USE_EXPAT@
+EXPAT_CPPFLAGS    = @EXPAT_CPPFLAGS@
+EXPAT_LDFLAGS     = @EXPAT_LDFLAGS@
+EXPAT_LIBS        = @EXPAT_LIBS@
+
+USE_XERCES        = @USE_XERCES@
+XERCES_CPPFLAGS   = @XERCES_CPPFLAGS@
+XERCES_LDFLAGS    = @XERCES_LDFLAGS@
+XERCES_LIBS       = @XERCES_LIBS@
+
+USE_PYTHON        = @USE_PYTHON@
+PYTHON            = @PYTHON@
+PYTHON_CPPFLAGS   = @PYTHON_CPPFLAGS@
+PYTHON_LDFLAGS    = @PYTHON_LDFLAGS@
+PYTHON_LIBS       = @PYTHON_LIBS@
+
+USE_JAVA          = @USE_JAVA@
+JAVA              = @JAVA@
+JAVAC             = @JAVAC@
+JAR               = @JAR@
+JAVA_CPPFLAGS     = @JAVA_CPPFLAGS@
+JAVA_LDFLAGS      = @JAVA_LDFLAGS@
+JAVA_LIBS         = @JAVA_LIBS@
+JNIEXT            = @JNIEXT@
+
+USE_MATLAB        = @USE_MATLAB@
+MATLAB            = @MATLAB@
+MATLAB_CPPFLAGS   = @MATLAB_CPPFLAGS@
+MATLAB_LDFLAGS    = @MATLAB_LDFLAGS@
+MATLAB_LIBS       = @MATLAB_LIBS@
+
+USE_SWIG          = @USE_SWIG@
+SWIG              = @SWIG@
+SWIGLIB           = @SWIGLIB@
+SWIGFLAGS         = @SWIGFLAGS@
+
+ACLOCAL           = @ACLOCAL@
+ACLOCAL_FLAGS     = --acdir=$(top_srcdir)/config
+ACLOCAL_M4        = $(top_srcdir)/aclocal.m4
+AUTOCONF          = @AUTOCONF@
+
+AR                = @AR@
+BUILD             = @build@
+BUILD_CPU         = @build_cpu@
+BUILD_OS          = @build_os@
+BUILD_VENDOR      = @build_vendor@
+CC                = @CC@
+CD                = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
+CFLAGS            = @CFLAGS@
+CPP               = @CPP@
+CPPFLAGS          = @CPPFLAGS@
+CTAGS             = ctags
+CTAGSFLAGS        =
+CXX               = @CXX@
+CXXFLAGS          = @CXXFLAGS@
+CYGPATH_W         = @CYGPATH_W@
+DEFS              = @DEFS@
+DEPDIR            = .deps
+DEPEXT            = Po
+ETAGS             = etags
+ETAGSFLAGS        =
+EXEEXT            = @EXEEXT@
+HOST_OS           = @host_os@
+HOST_TYPE         = @HOST_TYPE@
+INSTALL           = @INSTALL@
+INSTALL_HEADER    = $(INSTALL_DATA)
+INSTALL_SCRIPT    = @INSTALL_SCRIPT@
+LDFLAGS           = @LDFLAGS@
+LIBS              = @LIBS@
+MKINSTALLDIRS     = $(SHELL) $(top_srcdir)/config/mkinstalldirs
+OBJEXT            = @OBJEXT@
+PACKAGE           = @PACKAGE_TARNAME@
+PACKAGE_BUGREPORT = @PACKAGE_BUGREPORT@
+PACKAGE_NAME      = @PACKAGE_NAME@
+PACKAGE_STRING    = @PACKAGE_STRING@
+PACKAGE_TARNAME   = @PACKAGE_TARNAME@
+PACKAGE_VERSION   = @PACKAGE_VERSION@
+RANLIB            = @RANLIB@
+SHAREDLIBEXT      = @SHAREDLIBEXT@
+SHELL             = @SHELL@
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------
+
+## The following is for [X]Emacs users.  Please leave in place.
+## Local Variables:
+## mode: Makefile
+## End:
