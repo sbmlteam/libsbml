@@ -70,7 +70,7 @@ AC_DEFUN([SBML_CHECK_LIB_XERCESC],
     [AC_LANG_SAVE
      AC_LANG_CPLUSPLUS
      sbml_save_LIBS=$LIBS
-     LIBS="$LIBS -lxerces-c"
+     LIBS="-lxerces-c $LIBS"
      AC_TRY_LINK([
 #include <xercesc/util/XercesDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
@@ -85,7 +85,7 @@ AC_DEFUN([SBML_CHECK_LIB_XERCESC],
   ])
 
 if test x"$sbml_cv_lib_xercesc" = xyes; then
-  LIBS="$LIBS -lxerces-c"
+  LIBS="-lxerces-c $LIBS"
 else
   AC_MSG_ERROR([cannot find libxerces-c])
 fi
