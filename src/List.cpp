@@ -49,8 +49,9 @@
  * Contributor(s):
  */
 
-
-#include "List.hpp"
+/* SMK -
+	needs to this for windows build */
+#include "sbml\List.hpp"
 
 
 /**
