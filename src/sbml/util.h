@@ -67,6 +67,7 @@ extern "C" {
  * to it.  If the filename could not be opened, prints an error message and
  * exits.
  */
+LIBSBML_EXTERN
 FILE *
 safe_fopen (const char *filename, const char *mode);
 
@@ -77,6 +78,7 @@ safe_fopen (const char *filename, const char *mode);
  *
  * NOTE: This strcat behaves differently than standard library strcat().
  */
+LIBSBML_EXTERN
 char *
 safe_strcat (char *str1, char *str2);
 
@@ -85,6 +87,7 @@ safe_strcat (char *str1, char *str2);
  * Memory for the string is obtained with safe_malloc() and can be freed
  * with safe_free().
  */
+LIBSBML_EXTERN
 char *
 safe_strdup (const char* s);
 
@@ -94,6 +97,7 @@ safe_strdup (const char* s);
  * @return an integer less than, equal to, or greater than zero if s1 is
  * found, respectively, to be less than, to match, or be greater than s2.
  */
+LIBSBML_EXTERN
 int
 strcmp_insensitive (const char *s1, const char *s2);
 
@@ -107,6 +111,7 @@ strcmp_insensitive (const char *s1, const char *s2);
  * @return the index of s in strings, if s was found, or stop + 1
  * otherwise.
  */
+LIBSBML_EXTERN
 int
 util_bsearchStringsI (const char **strings, const char *s, int lo, int hi);
 
@@ -116,30 +121,35 @@ util_bsearchStringsI (const char **strings, const char *s, int lo, int hi);
  *
  * Whitespace is determined by isspace().
  */
+LIBSBML_EXTERN
 char *
 util_trim (const char *s);
 
 /**
  * @return a (quiet) NaN.
  */
+LIBSBML_EXTERN
 double
 util_NaN (void);
 
 /**
  * @return IEEE-754 Negative Infinity.
  */
+LIBSBML_EXTERN
 double
 util_NegInf (void);
 
 /**
  * @return IEEE-754 Positive Infinity
  */
+LIBSBML_EXTERN
 double
 util_PosInf (void);
 
 /**
  * @return IEEE-754 Negative Zero.
  */
+LIBSBML_EXTERN
 double
 util_NegZero (void);
 
@@ -147,12 +157,14 @@ util_NegZero (void);
  * @return -1 if d represents negative infinity, 1 if d represents positive
  * infinity and 0 otherwise.
  */
+LIBSBML_EXTERN
 int
 util_isInf (double d);
 
 /**
  * @return true (1) if d is an IEEE-754 negative zero, false (0) otherwise.
  */
+LIBSBML_EXTERN
 int
 util_isNegZero (double d);
 
