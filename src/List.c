@@ -161,11 +161,11 @@ List_add (List_t *list, void *item)
 void *
 List_get (List_t *list, unsigned int n)
 {
-  int         size = list->size;
-  ListNode_t *node = list->head;
+  unsigned int  size = list->size;
+  ListNode_t   *node = list->head;
 
 
-  if (n < 0 || n >= size)
+  if (n >= size)
   {
     REPORT_LIST_RANGE_ERROR("List_get", n, size);
     return NULL;
@@ -205,7 +205,7 @@ List_remove (List_t *list, unsigned int n)
   ListNode_t *next;
 
 
-  if (n < 0 || n >= list->size)
+  if (n >= list->size)
   {
     REPORT_LIST_RANGE_ERROR("List_remove", n, list->size);
     return NULL;
