@@ -323,7 +323,8 @@ START_TEST (test_element_constants_notanumber)
   fail_unless( n != NULL, NULL );
 
   fail_unless( ASTNode_getType(n) == AST_REAL, NULL );
-  fail_unless( isnan(ASTNode_getReal(n))     , NULL );
+#define test_isnan(x) (x != x)  /* necessary to avoid peculiar MacOS X bug */
+  fail_unless( test_isnan(ASTNode_getReal(n)), NULL );
   fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
 }
 END_TEST
