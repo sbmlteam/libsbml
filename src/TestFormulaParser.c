@@ -148,13 +148,6 @@ START_TEST (test_FormulaParser_getGoto)
 }
 END_TEST
 
-/*
-START_TEST (test_FormulaParser_reduceStackByRule)
-{
-}
-END_TEST
-*/
-
 
 START_TEST (test_SBML_parseFormula_1)
 {
@@ -172,6 +165,35 @@ END_TEST
 
 START_TEST (test_SBML_parseFormula_2)
 {
+  ASTNode_t *r = SBML_parseFormula("2.1");
+
+
+  fail_unless( r->type                   == AST_REAL, NULL );
+  fail_unless( r->value.real             == 2.1, NULL );
+  fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseFormula_3)
+{
+  ASTNode_t *r = SBML_parseFormula("2.1e5");
+
+
+  fail_unless( r->type                   == AST_REAL_E, NULL );
+  fail_unless( r->value.real             == 2.1, NULL );
+  fail_unless( r->extra.exponent         ==   5, NULL );
+  fail_unless( ASTNode_getNumChildren(r) ==   0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseFormula_4)
+{
   ASTNode_t *r = SBML_parseFormula("foo");
 
 
@@ -184,7 +206,7 @@ START_TEST (test_SBML_parseFormula_2)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_3)
+START_TEST (test_SBML_parseFormula_5)
 {
   ASTNode_t *r = SBML_parseFormula("1 + foo");
   ASTNode_t *c;
@@ -212,7 +234,7 @@ START_TEST (test_SBML_parseFormula_3)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_4)
+START_TEST (test_SBML_parseFormula_6)
 {
   ASTNode_t *r = SBML_parseFormula("1 + 2");
   ASTNode_t *c;
@@ -240,7 +262,7 @@ START_TEST (test_SBML_parseFormula_4)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_5)
+START_TEST (test_SBML_parseFormula_7)
 {
   ASTNode_t *r = SBML_parseFormula("1 + 2 * 3");
   ASTNode_t *c;
@@ -280,7 +302,7 @@ START_TEST (test_SBML_parseFormula_5)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_6)
+START_TEST (test_SBML_parseFormula_8)
 {
   ASTNode_t *r = SBML_parseFormula("(1 - 2) * 3");
   ASTNode_t *c;
@@ -319,11 +341,10 @@ START_TEST (test_SBML_parseFormula_6)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_7)
+START_TEST (test_SBML_parseFormula_9)
 {
   ASTNode_t *r = SBML_parseFormula("1 + -2 / 3");
   ASTNode_t *c;
-
 
 
   fail_unless( r->type                   == AST_PLUS, NULL );
@@ -359,7 +380,47 @@ START_TEST (test_SBML_parseFormula_7)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_8)
+START_TEST (test_SBML_parseFormula_10)
+{
+  ASTNode_t *r = SBML_parseFormula("1 + -2e100 / 3");
+  ASTNode_t *c;
+
+
+  fail_unless( r->type                   == AST_PLUS, NULL );
+  fail_unless( r->value.ch               == '+', NULL );
+  fail_unless( ASTNode_getNumChildren(r) == 2  , NULL );
+
+  c = ASTNode_getLeftChild(r);
+
+  fail_unless( c->type                   == AST_INTEGER, NULL );
+  fail_unless( c->value.integer          == 1, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  c = ASTNode_getRightChild(r);
+
+  fail_unless( c->type                   == AST_DIVIDE, NULL );
+  fail_unless( c->value.ch               == '/', NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 2  , NULL );
+
+  c = ASTNode_getLeftChild(c);
+
+  fail_unless( c->type                   == AST_REAL_E, NULL );
+  fail_unless( c->value.real             ==  -2, NULL );
+  fail_unless( c->extra.exponent         == 100, NULL );
+  fail_unless( ASTNode_getNumChildren(c) ==   0, NULL );
+
+  c = ASTNode_getRightChild( ASTNode_getRightChild(r) );
+
+  fail_unless( c->type                   == AST_INTEGER, NULL );
+  fail_unless( c->value.integer          == 3, NULL );
+  fail_unless( ASTNode_getNumChildren(c) == 0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseFormula_11)
 {
   ASTNode_t *r = SBML_parseFormula("1 - -foo / 3");
   ASTNode_t *c;
@@ -405,11 +466,10 @@ START_TEST (test_SBML_parseFormula_8)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_9)
+START_TEST (test_SBML_parseFormula_12)
 {
   ASTNode_t *r = SBML_parseFormula("2 * foo^bar + 3.0");
   ASTNode_t *c;
-
 
 
   fail_unless( r->type                   == AST_PLUS, NULL );
@@ -457,7 +517,7 @@ START_TEST (test_SBML_parseFormula_9)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_10)
+START_TEST (test_SBML_parseFormula_13)
 {
   ASTNode_t *r = SBML_parseFormula("foo()");
 
@@ -471,7 +531,7 @@ START_TEST (test_SBML_parseFormula_10)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_11)
+START_TEST (test_SBML_parseFormula_14)
 {
   ASTNode_t *r = SBML_parseFormula("foo(1)");
   ASTNode_t *c;
@@ -492,7 +552,7 @@ START_TEST (test_SBML_parseFormula_11)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_12)
+START_TEST (test_SBML_parseFormula_15)
 {
   ASTNode_t *r = SBML_parseFormula("foo(1, bar)");
   ASTNode_t *c;
@@ -519,7 +579,7 @@ START_TEST (test_SBML_parseFormula_12)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_13)
+START_TEST (test_SBML_parseFormula_16)
 {
   ASTNode_t *r = SBML_parseFormula("foo(1, bar, 2^-3)");
   ASTNode_t *c;
@@ -564,7 +624,7 @@ START_TEST (test_SBML_parseFormula_13)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_14)
+START_TEST (test_SBML_parseFormula_17)
 {
   ASTNode_t *r = SBML_parseFormula("1//1");
 
@@ -577,7 +637,7 @@ START_TEST (test_SBML_parseFormula_14)
 END_TEST
 
 
-START_TEST (test_SBML_parseFormula_15)
+START_TEST (test_SBML_parseFormula_18)
 {
   ASTNode_t *r = SBML_parseFormula("1+2*3 4");
 
@@ -643,6 +703,9 @@ create_suite_FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseFormula_13      );
   tcase_add_test( tcase, test_SBML_parseFormula_14      );
   tcase_add_test( tcase, test_SBML_parseFormula_15      );
+  tcase_add_test( tcase, test_SBML_parseFormula_16      );
+  tcase_add_test( tcase, test_SBML_parseFormula_17      );
+  tcase_add_test( tcase, test_SBML_parseFormula_18      );
   tcase_add_test( tcase, test_SBML_parseFormula_negInf  );
   tcase_add_test( tcase, test_SBML_parseFormula_negZero );
 
