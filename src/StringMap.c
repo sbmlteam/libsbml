@@ -70,6 +70,7 @@ typedef struct
 } FoundIndex_t;
 
 unsigned long StringMap_hashFunction(const unsigned char *str);
+FoundIndex_t StringMap_findKey (const StringMap_t *map, const char *key);
 
 
 /**
@@ -95,6 +96,26 @@ StringMapItem_t *
 StringMapItem_create (const char *key, void *value)
 {
   return 0;
+}
+
+
+/**
+ * Returns nonzero iff key exists.
+ */
+LIBSBML_EXTERN
+int
+StringMap_exists (StringMap_t *map, const char *key)
+{
+  FoundIndex_t found = StringMap_findKey(map, key);
+  switch (found.status)
+  {
+    case FI_FOUND_KEY:
+      return 1; // true
+
+    case FI_FOUND_EMPTY_SLOT:
+    case FI_FOUND_NOTHING:
+      return 0;
+  }
 }
 
 
@@ -175,7 +196,8 @@ StringMap_get (const StringMap_t *map, const char *key)
     case FI_FOUND_KEY:
       return map->items[found.index].value;
 
-    default:
+    case FI_FOUND_EMPTY_SLOT:
+    case FI_FOUND_NOTHING:
       return NULL;
   }
 }
@@ -210,6 +232,19 @@ StringMap_grow (StringMap_t *map)
   }
 
   safe_free(oldItems);
+}
+
+
+unsigned long
+StringMap_hashFunction(const unsigned char *str)
+{
+  unsigned long hash = 5381;
+  int c;
+
+  while (c = *str++)
+    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+  return hash;
 }
 
 
@@ -250,6 +285,28 @@ StringMap_put (StringMap_t *map, const char *key, void *value)
 
 
 /**
+ * Removes the specified key.  Does nothing if the key does not exist.
+ */
+LIBSBML_EXTERN
+void
+StringMap_remove(StringMap_t *map, const char *key)
+{
+  FoundIndex_t found = StringMap_findKey(map, key);
+  switch (found.status)
+  {
+    case FI_FOUND_KEY:
+      safe_free(map->items[found.index].key);
+      map->items[found.index].key = NULL;
+      map->size--;
+      break;
+
+    default:
+      break;
+  }
+}
+
+
+/**
  * Returns the number of elements in this StringMap.
  */
 LIBSBML_EXTERN
@@ -257,17 +314,4 @@ unsigned int
 StringMap_size (const StringMap_t *map)
 {
   return map->size;
-}
-
-
-unsigned long
-StringMap_hashFunction(const unsigned char *str)
-{
-  unsigned long hash = 5381;
-  int c;
-
-  while (c = *str++)
-    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-
-  return hash;
 }

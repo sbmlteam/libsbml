@@ -78,7 +78,7 @@ StringMapTest_teardown (void)
 }
 
 
-START_TEST (test_StringMap_simple)
+START_TEST (test_StringMap_basics)
 {
   fail_unless(StringMap_size(SM) == 0, NULL);
 
@@ -132,6 +132,35 @@ START_TEST (test_StringMap_grow)
 END_TEST
 
 
+START_TEST (test_StringMap_remove)
+{
+  fail_unless(!StringMap_exists(SM, "gnip"), NULL);
+
+  StringMap_put(SM, "gnip", "gnop");
+
+  fail_unless(StringMap_exists(SM, "gnip"), NULL);
+
+  StringMap_remove(SM, "gnip");
+
+  fail_unless(!StringMap_exists(SM, "gnip"), NULL);
+}
+END_TEST
+
+
+START_TEST (test_StringMap_nullValue)
+{
+   fail_unless(!StringMap_exists(SM, "null"), NULL);
+   fail_unless(StringMap_get(SM, "null") == NULL, NULL);
+
+   StringMap_put(SM, "null", NULL);
+
+   fail_unless(StringMap_exists(SM, "null"), NULL);
+   fail_unless(StringMap_get(SM, "null") == NULL, NULL);
+   fail_unless(StringMap_size(SM) == 1, NULL);
+}
+END_TEST
+
+
 Suite *
 create_suite_StringMap (void)
 {
@@ -141,9 +170,11 @@ create_suite_StringMap (void)
 
   tcase_add_checked_fixture(tcase, StringMapTest_setup, StringMapTest_teardown);
 
-  tcase_add_test( tcase, test_StringMap_simple    );
+  tcase_add_test( tcase, test_StringMap_basics    );
   tcase_add_test( tcase, test_StringMap_duplicate );
   tcase_add_test( tcase, test_StringMap_grow      );
+  tcase_add_test( tcase, test_StringMap_remove    );
+  tcase_add_test( tcase, test_StringMap_nullValue );
 
   suite_add_tcase(suite, tcase);
 

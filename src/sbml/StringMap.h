@@ -89,6 +89,13 @@ StringMapItem_t *
 StringMapItem_create (const char *key, void *value);
 
 /**
+ * Returns nonzero iff key exists.
+ */
+LIBSBML_EXTERN
+int
+StringMap_exists (StringMap_t *map, const char *key);
+
+/**
  * Frees the given StringMap.  Does not free the values.
  */
 LIBSBML_EXTERN
@@ -118,6 +125,13 @@ StringMap_capacity (const StringMap_t *map);
 LIBSBML_EXTERN
 void
 StringMap_put (StringMap_t *map, const char *key, void *value);
+
+/**
+ * Removes the specified key.  Does nothing if the key does not exist.
+ */
+LIBSBML_EXTERN
+void
+StringMap_remove (StringMap_t *map, const char *key);
 
 /**
  * Returns the number of elements in this StringMap.
