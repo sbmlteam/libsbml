@@ -266,13 +266,30 @@ remove_distdir = \
 
 distarchive = $(DISTDIR).tar.gz
 
-dist dist-gzip: dist-all
+dist dist-gzip: config-check dist-all
 	if test -d $(DISTDIR); then \
 	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(distarchive) $(notdir $(DISTDIR)); \
 	  $(remove_distdir); \
 	fi
 
+# For 'make dist' to work properly, we need the developer to reconfigure
+# libsbml with all the options (except --with-xerces and --with-expat)
+# turned on.  The following uses GNU Make features to count how many of
+# the USE_XYZ variables have a non-empty value.
+
+ignore_vars    = USE_EXPAT USE_XERCES
+check_var_list = $(filter-out $(ignore_vars),$(LIBSBML_OPTIONS))
+num_vars       = $(words $(check_var_list))
+num_vars_set   = $(words $(foreach var,$(check_var_list),$($(var))))
+
+config-check:
+	@if test $(num_vars_set) != $(num_vars); then \
+	  echo "Please reconfigure with all options enabled before doing 'make dist'"; \
+	  exit 2; \
+	fi
+
 dist-all: $(distfiles)
+	$(MAKE) $(MAKEFLAGS) all
 	-rm -f $(distarchive)
 	@$(remove_distdir)
 	mkdir -p $(DISTDIR)
