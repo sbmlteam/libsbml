@@ -300,7 +300,7 @@ LIBSBML_EXTERN
 void
 ListOf_prepend (ListOf_t *lo, void *item)
 {
-  return static_cast<ListOf*>(lo)->prepend( static_cast<SBase*>(item) );
+  static_cast<ListOf*>(lo)->prepend( static_cast<SBase*>(item) );
 }
 
 
