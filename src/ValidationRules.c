@@ -312,6 +312,15 @@ unitDefinitionIsKindOfVolume(
 }
 
 
+/* TODO: move this to Model_t? */
+static
+BOOLEAN
+speciesExists(Model_t *m, const char *speciesName)
+{
+  return Model_getSpeciesById(m, speciesName) != NULL;
+}
+
+
 static
 void
 hasSingleKind(RuleResult_t *result, UnitDefinition_t *ud)
@@ -1458,6 +1467,77 @@ RULE (reaction_speciesReference)
 
 
 /**
+ * The value of a species attribute of a speciesReference and
+ * modifierSpeciesReference element must contain the value of a id attribute
+ * of a species element.
+ */
+RULE (reaction_speciesReferenceExists)
+{
+  static const char baseMsg[] =
+    "Species '%s' is not defined.";
+
+  Reaction_t *r = (Reaction_t *) obj;
+  int j;
+  BOOLEAN passed = TRUE;
+
+
+  /* look at reactant species */
+  int numReactants = Reaction_getNumReactants(r);
+  for (j = 0; j < numReactants; j++)
+  {
+    SpeciesReference_t *sr = Reaction_getReactant(r, j);
+    const char *species = SpeciesReference_getSpecies(sr);
+
+    if (!speciesExists(d->model, species))
+    {
+      char buf[512];
+
+      sprintf(buf, baseMsg, species);
+      LOG_MESSAGE(buf)
+      passed = FALSE;
+    }
+  }
+
+  /* look at product species */
+  int numProducts = Reaction_getNumProducts(r);
+  for (j = 0; j < numProducts; j++)
+  {
+    SpeciesReference_t *sr = Reaction_getProduct(r, j);
+    const char *species = SpeciesReference_getSpecies(sr);
+
+    if (!speciesExists(d->model, species))
+    {
+      char buf[512];
+
+      sprintf(buf, baseMsg, species);
+      LOG_MESSAGE(buf)
+      passed = FALSE;
+    }
+  }
+
+
+  /* look at modifier species */
+  int numModifiers = Reaction_getNumModifiers(r);
+  for (j = 0; j < numModifiers; j++)
+  {
+    ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
+    const char *species = ModifierSpeciesReference_getSpecies(msr);
+
+    if (!speciesExists(d->model, species))
+    {
+      char buf[512];
+
+      sprintf(buf, baseMsg, species);
+      LOG_MESSAGE(buf)
+      passed = FALSE;
+    }
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -1504,4 +1584,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_ruleAndReaction,        SBML_SPECIES         );
   Validator_addRule( v, parameter_units,                SBML_PARAMETER       );
   Validator_addRule( v, reaction_speciesReference,      SBML_REACTION        );
+  Validator_addRule( v, reaction_speciesReferenceExists, SBML_REACTION       );
 }
