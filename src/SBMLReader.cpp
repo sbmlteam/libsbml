@@ -249,7 +249,7 @@ SBMLReader_getSchemaLocation (SBMLReader_t* sr, SBMLDocument_t* d)
     xmlns    = "http://www.sbml.org/sbml/level1 ";
     filename = (version == 1) ? sr->schemaFilenameL1v1 : sr->schemaFilenameL1v2;
   }
-  else if (d->level == 2)
+  else if (level == 2)
   {
     xmlns    = "http://www.sbml.org/sbml/level2 ";
     filename = sr->schemaFilenameL2v1;
@@ -279,9 +279,9 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
 #ifdef USE_EXPAT
 
   SBMLDocument_t* d = SBMLDocument_create();
-  d->model = NULL;
+  // d->model = NULL;
   
-  SBMLHandler handler(d);
+  SBMLHandler handler(static_cast<SBMLDocument*>(d));
 
   handler.enableElementHandler();
 
@@ -316,8 +316,7 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (...)
   {
-    Model_free(d->model);
-    d->model = NULL;
+    SBMLDocument_setModel(d, NULL);
   }
 
 #else
@@ -331,12 +330,13 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (const XMLException& e)
   {
-    List_add(d->fatal, ParseMessage_createFrom(e));
+    // TODO: C++ify
+    // List_add(d->fatal, ParseMessage_createFrom(e));
     return d;
   }
 
 
-  DefaultHandler*    handler = new SBMLHandler(d);
+  DefaultHandler*    handler = new SBMLHandler(static_cast<SBMLDocument*>(d));
   SAX2XMLReader*     reader  = XMLReader_create(handler);
   MemBufInputSource* input   = NULL;
 
@@ -397,11 +397,13 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (const XMLException& e)
   {
-    List_add(d->fatal, ParseMessage_createFrom(e));
+    // TODO: C++ify
+    // List_add(d->fatal, ParseMessage_createFrom(e));
   }
   catch (...)
   {
-    List_add(d->fatal, ParseMessage_createWith("Unexpected Exception", 0, 0));
+    // TODO: C++ify
+    // List_add(d->fatal, ParseMessage_createWith("Unexpected Exception", 0, 0));
   }
 
   if (input != NULL)

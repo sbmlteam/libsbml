@@ -191,7 +191,7 @@ SBMLWriter_writeSBML ( SBMLWriter_t   *sw,
       target    = new LocalFileFormatTarget(filename);
       formatter = new SBMLFormatter(encoding, target);
 
-      *formatter << d;
+      *formatter << * static_cast<SBMLDocument*>(d);
       result = 1;
     }
   }
@@ -247,7 +247,7 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, SBMLDocument_t *d)
       target    = new MemBufFormatTarget();
       formatter = new SBMLFormatter(encoding, target);
 
-      *formatter << d;
+      *formatter << * static_cast<SBMLDocument*>(d);
       result = safe_strdup( (char *) target->getRawBuffer() );
     }
   }
