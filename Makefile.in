@@ -245,9 +245,14 @@ remove_distdir = \
 
 dist dist-gzip: dist-all
 	if test -d $(DISTDIR); then \
-	  tar chof - $(DISTDIR) | GZIP="${GZIP} --best" gzip -c >$(DISTDIR).tar.gz; \
-	  $(remove_distdir); \
+	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(DISTDIR).tar.gz $(notdir $(DISTDIR)); \
 	fi
+
+#dist dist-gzip: dist-all
+#	if test -d $(DISTDIR); then \
+#	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(DISTDIR).tar.gz $(notdir $(DISTDIR)); \
+#	  $(remove_distdir); \
+#	fi
 
 dist-all: $(distfiles)
 	@$(remove_distdir)
