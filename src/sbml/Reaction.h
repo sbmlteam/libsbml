@@ -236,14 +236,16 @@ Reaction_getNumProducts (const Reaction_t *r);
 
 
 /**
- * Unsets the name of this Reaction.
+ * Unsets the name of this Reaction.  This is equivalent to:
+ * safe_free(r->name); r->name = NULL;
  */
 LIBSBML_EXTERN
 void
 Reaction_unsetName (Reaction_t *r);
 
 /**
- * Unsets the KineticLaw of this Reaction.
+ * Unsets the KineticLaw of this Reaction.  This is equivalent to:
+ * r->kineticLaw = NULL;
  */
 LIBSBML_EXTERN
 void
