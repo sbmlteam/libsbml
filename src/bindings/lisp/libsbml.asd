@@ -73,7 +73,7 @@ SUCH DAMAGE.
       "sbmllisp"
       :depends-on (package boolean-functions)
       :preprocessor cl-user::*cpp*
-      :preproc-options (format nil " -I~a/../../src/sbml "
+      :preproc-options (format nil " -I~a/../.. "
 			       (namestring (truename (logical-pathname "libsbml:")))))
      #+:build
      (:c-preproc-header-file 

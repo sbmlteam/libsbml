@@ -1,6 +1,6 @@
 /**
  * \file    sbmllisp.h
- * \brief   preprocess with gcc -I../../src/sbml/ -E sbmllisp.h > sbmllisp-pre.h
+ * \brief   preprocess with gcc -I../.. -E sbmllisp.h > sbmllisp-pre.h
  * \author  Martin Ginkel <mginkel@mpi-mageburg.mpg.de>
  *
  * $Id$
