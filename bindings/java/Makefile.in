@@ -205,28 +205,16 @@ else
 	   -c++ -java -package $(java_package) -o libsbml_wrap.cpp libsbml.i
 endif
 
-# Additional standard targets.
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
 
 ifdef USE_LIBCHECK
   check: all run-checks
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
-
-dvi:
-
-pdf:
-
-ps:
-
-info:
-
-html:
-
-
-# -----------------------------------------------------------------------------
-# Targets for checking/testing.
-# -----------------------------------------------------------------------------
 
 check_classes = $(check_sources:.java=.class)
 
@@ -237,6 +225,21 @@ $(check_classes): Makefile $(libraries) $(check_sources)
 
 run-checks: $(check_classes)
 	$(JAVA) -classpath $(classpath) Test
+
+
+# -----------------------------------------------------------------------------
+# Formatting documentation.
+# -----------------------------------------------------------------------------
+
+dvi:
+
+pdf:
+
+ps:
+
+info:
+
+html:
 
 
 # -----------------------------------------------------------------------------
