@@ -5,6 +5,17 @@
 
 * New Features:
 
+    - Perl
+
+      A full libSBML Perl API was contributed by Christoph Flamm and
+      Rainer Machne.  For more information, see
+      bindings/perl/README.txt.
+
+    - Lisp
+
+      A full libSBML Lisp API was contributed by Martin Ginkel.
+      For more information, see bindings/lisp/README.txt.
+
     - XML namespace definitions may be retrieved from or added to any
       SBML object.  It's good practice, however, to put namespaces
       only on the top-level <sbml> element.  For example:
@@ -19,6 +30,10 @@
 
 
 * Bug Fixes:
+
+    - <notes> and <annotation> elements on the top-level <sbml>
+      element were not being written-out for L2 documents.  Thanks to
+      Damon Hachmeister for reporting this bug.
 
     - <csymbol> delay functions were being handled incorrectly
       throughout libSBML as symbols (similar to <csymbol> time, which
