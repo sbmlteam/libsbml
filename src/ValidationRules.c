@@ -178,106 +178,21 @@ RULE (unitDefinition_idCantBePredefinedUnit)
   return passed;
 }
 
-RULE (unitDefinition_substanceKinds)
+
+typedef struct {
+  int passed;
+  char *msg;
+} RuleResult_t;
+
+
+void
+initializeRuleResult(RuleResult_t *result)
 {
-  static const char msg1[] =
-    "A 'substance' unitDefinition must have a single kind.";
-  static const char msg2[] =
-    "A 'substance' unitDefinition may only have units of 'mole' or 'item'.";
-  static const char msg3[] =
-    "A 'substance' unitDefinition must have an exponent of 1.";
-
-  unsigned int passed = 1;
-
-  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
-  const char *id = UnitDefinition_getId(ud);
-
-  if (!strcmp(id, "substance")) {
-    ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
-    int i;
-    int numKinds;
-
-    if ((numKinds = ListOf_getNumItems(kinds)) != 1)
-    {
-      passed = 0;
-      LOG_MESSAGE(msg1);
-    }
-    else
-    {
-      Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
-      UnitKind_t uk = Unit_getKind(u);
-
-      if (uk != UNIT_KIND_MOLE && uk != UNIT_KIND_ITEM)
-      {
-        passed = 0;
-        LOG_MESSAGE(msg2);
-      }
-      else
-      {
-        int exponent = Unit_getExponent(u);
-
-        if (exponent != 1)
-        {
-          passed = 0;
-          LOG_MESSAGE(msg3);
-        }
-      }
-    }
-  }
-
-  return passed;
+  result->passed = 1;
+  result->msg = NULL;
 }
 
-
-RULE (unitDefinition_volumeKinds)
-{
-  static const char msg1[] =
-    "A 'volume' unitDefinition must have a single kind.";
-  static const char msg2[] =
-    "A 'volume' unitDefinition may only have units of kind 'litre' or 'metre'.";
-  static const char msg3[] =
-    "A 'volume' unitDefinition of kind 'metre' must have exponent 3.";
-
-  unsigned int passed = 1;
-
-  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
-  const char *id = UnitDefinition_getId(ud);
-
-  if (!strcmp(id, "volume")) {
-    ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
-    int i;
-    int numKinds;
-
-    if ((numKinds = ListOf_getNumItems(kinds)) != 1)
-    {
-      passed = 0;
-      LOG_MESSAGE(msg1);
-    }
-    else
-    {
-      Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
-      UnitKind_t uk = Unit_getKind(u);
-
-      if ( !(isMeter(uk) || isLiter(uk)) )
-      {
-        passed = 0;
-        LOG_MESSAGE(msg2);
-      }
-      else
-      {
-        int exponent = Unit_getExponent(u);
-
-        if (isMeter(uk) && exponent != 3)
-        {
-          passed = 0;
-          LOG_MESSAGE(msg3);
-        }
-      }
-    }
-  }
-
-  return passed;
-}
+typedef int (*PFI)();
 
 
 int
@@ -286,10 +201,166 @@ isMeter(UnitKind_t uk)
   return uk == UNIT_KIND_METRE || uk == UNIT_KIND_METER;
 }
 
+
 int
 isLiter(UnitKind_t uk)
 {
   return uk == UNIT_KIND_LITRE || uk == UNIT_KIND_LITER;
+}
+
+
+int
+isSubstanceKind(UnitKind_t uk)
+{
+  return uk == UNIT_KIND_MOLE || uk == UNIT_KIND_ITEM;
+}
+
+
+void
+hasSingleKind(RuleResult_t *result, UnitDefinition_t *ud)
+{
+  ListOf_t *kinds;
+  if (!result->passed) return;
+
+  kinds = UnitDefinition_getListOfUnits(ud);
+  if (ListOf_getNumItems(kinds) != 1)
+  {
+    result->passed = 0;
+    result->msg = "must have only a single kind.";
+  }
+}
+
+
+void
+hasAcceptableKinds(
+  RuleResult_t *result,
+  UnitDefinition_t *ud,
+  PFI *acceptableKinds,
+  char *acceptableKindsMsg)
+{
+  if (!result->passed) return;
+
+  {
+    if (!isOneOfTheseKinds(ud, acceptableKinds))
+    {
+      result->passed = 0;
+      result->msg = acceptableKindsMsg;
+      return;
+    }
+  }
+}
+
+
+void
+hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
+{
+  if (!result->passed) return;
+
+  {
+    ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+    Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
+
+    int exponent = Unit_getExponent(u);
+    if (exponent != requiredExponent)
+    {
+      char buf[256];
+
+      sprintf(buf, "must have exponent %d.");
+      result->passed = 0;
+      result->msg = strdup(buf);
+    }
+  }
+}
+
+
+int
+isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
+{
+  ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+  Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
+  UnitKind_t unitKind = Unit_getKind(u);
+  PFI *kindTest;
+
+  for (kindTest = kindTests; *kindTest; kindTest++)
+  {
+    if ((*kindTest)(unitKind))
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+
+void
+logFullMessage(
+  const char *baseMsg,
+  RuleResult_t *result,
+  SBase_t *obj,
+  List_t *messages)
+{
+    char buf[512];
+
+    strcpy(buf, baseMsg);
+    strcat(buf, result->msg);
+    LOG_MESSAGE(strdup(buf));
+}
+
+
+RULE (unitDefinition_volumeKinds)
+{
+  RuleResult_t result;
+  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
+  PFI acceptableKinds[] = { isMeter, isLiter, NULL };
+  PFI kindsThatNeedExponent3[] = { isMeter, NULL };
+  static const char baseMsg[] = "a 'volume' unitDefinition ";
+  static const char acceptableKindsMsg[] =
+    "may only have units of kind 'liter' or 'metre'.";
+
+  initializeRuleResult(&result);
+
+  if (!strcmp("volume", UnitDefinition_getId(ud)))
+  {
+    hasSingleKind(&result, ud);
+    hasAcceptableKinds(&result, ud, acceptableKinds, acceptableKindsMsg);
+    if (isOneOfTheseKinds(ud, kindsThatNeedExponent3))
+    {
+      hasExponent(&result, ud, 3);
+    }
+  }
+
+  if (!result.passed)
+  {
+    logFullMessage(baseMsg, &result, obj, messages);
+  }
+  return result.passed;
+}
+
+
+RULE (unitDefinition_substanceKinds)
+{
+  RuleResult_t result;
+  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
+  PFI acceptableKinds[] = { isSubstanceKind, isLiter, NULL };
+  static const char baseMsg[] = "a 'substance' unitDefinition ";
+  static const char acceptableKindsMsg[] =
+    "may only have units of kind 'mole' or 'item'.";
+
+  initializeRuleResult(&result);
+
+  if (!strcmp("substance", UnitDefinition_getId(ud)))
+  {
+    hasSingleKind(&result, ud);
+    hasAcceptableKinds(&result, ud, acceptableKinds, acceptableKindsMsg);
+    hasExponent(&result, ud, 1);
+  }
+
+  if (!result.passed)
+  {
+    logFullMessage(baseMsg, &result, obj, messages);
+  }
+  return result.passed;
 }
 
 
