@@ -54,6 +54,7 @@
 
 #include "sbml/SBMLConvert.h"
 #include "sbml/SBMLDocument.h"
+#include "sbml/StringBuffer.h"
 
 
 /**
@@ -423,4 +424,46 @@ SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m)
   }
 
   d->model = m;
+}
+
+
+/**
+ * Performs semantic validation on the document.  Query the results by
+ * calling SBMLDocument_getNumWarnings, SBMLDocument_getNumErrors,
+ * SBMLDocument_getNumFatals.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_validate (SBMLDocument_t *d)
+{
+  unsigned int numCompartments = Model_getNumCompartments(d->model);
+  unsigned int n;
+
+  Compartment_t  *c;
+  StringBuffer_t *sb;
+
+  const char *msg;
+
+  
+  for (n = 0; n < numCompartments; n++)
+  {
+    c = Model_getCompartment(d->model, n);
+    if (Compartment_getSpatialDimensions(c) == 0)
+    {
+      if (Compartment_isSetSize(c))
+      {
+        msg = "size attribute must not be set if spatialDimensions is zero";
+        sb  = StringBuffer_create(256);
+
+        StringBuffer_append(sb, "compartment ");
+        StringBuffer_append(sb, Compartment_getName(c));
+        StringBuffer_append(sb, msg);
+        List_add(
+            d->error,
+            ParseMessage_createWith(StringBuffer_getBuffer(sb), 0, 0)
+        );
+        StringBuffer_free(sb);
+      }
+    }
+  }
 }

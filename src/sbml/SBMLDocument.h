@@ -270,6 +270,14 @@ LIBSBML_EXTERN
 void
 SBMLDocument_setModel (SBMLDocument_t *d, Model_t *m);
 
+/**
+ * Performs semantic validation on the document.  Query the results by
+ * calling SBMLDocument_getNumWarnings, SBMLDocument_getNumErrors,
+ * SBMLDocument_getNumFatals.
+ */
+LIBSBML_EXTERN
+void
+SBMLDocument_validate (SBMLDocument_t *d);
 
 END_C_DECLS
 
