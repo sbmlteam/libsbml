@@ -106,7 +106,10 @@ all: Makefile all-recursive
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: check-recursive
+check: check-prereq check-recursive
+
+check-prereq: ;
+	make all
 
 
 # -----------------------------------------------------------------------------
