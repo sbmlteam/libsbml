@@ -1,0 +1,9 @@
+.deps
+*.so
+*.dylib
+*.pyc
+Makefile
+libsbml_wrap.cpp
+libsbml.py
+build
+setup.py
