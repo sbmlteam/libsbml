@@ -67,6 +67,7 @@ CLEAN :
 	-@erase "$(INTDIR)\Reaction.obj"
 	-@erase "$(INTDIR)\Rule.obj"
 	-@erase "$(INTDIR)\RuleType.obj"
+	-@erase "$(INTDIR)\SAX2AttributesMock.obj"
 	-@erase "$(INTDIR)\SBase.obj"
 	-@erase "$(INTDIR)\SBMLConvert.obj"
 	-@erase "$(INTDIR)\SBMLDocument.obj"
@@ -81,10 +82,13 @@ CLEAN :
 	-@erase "$(INTDIR)\SpeciesReference.obj"
 	-@erase "$(INTDIR)\Stack.obj"
 	-@erase "$(INTDIR)\StringBuffer.obj"
+	-@erase "$(INTDIR)\StringMap.obj"
 	-@erase "$(INTDIR)\Unit.obj"
 	-@erase "$(INTDIR)\UnitDefinition.obj"
 	-@erase "$(INTDIR)\UnitKind.obj"
 	-@erase "$(INTDIR)\util.obj"
+	-@erase "$(INTDIR)\ValidationRules.obj"
+	-@erase "$(INTDIR)\Validator.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\XMLStringFormatter.obj"
 	-@erase "$(INTDIR)\XMLUtil.obj"
@@ -171,6 +175,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\Reaction.obj" \
 	"$(INTDIR)\Rule.obj" \
 	"$(INTDIR)\RuleType.obj" \
+	"$(INTDIR)\SAX2AttributesMock.obj" \
 	"$(INTDIR)\SBase.obj" \
 	"$(INTDIR)\SBMLConvert.obj" \
 	"$(INTDIR)\SBMLDocument.obj" \
@@ -185,10 +190,13 @@ LINK32_OBJS= \
 	"$(INTDIR)\SpeciesReference.obj" \
 	"$(INTDIR)\Stack.obj" \
 	"$(INTDIR)\StringBuffer.obj" \
+	"$(INTDIR)\StringMap.obj" \
 	"$(INTDIR)\Unit.obj" \
 	"$(INTDIR)\UnitDefinition.obj" \
 	"$(INTDIR)\UnitKind.obj" \
 	"$(INTDIR)\util.obj" \
+	"$(INTDIR)\ValidationRules.obj" \
+	"$(INTDIR)\Validator.obj" \
 	"$(INTDIR)\XMLStringFormatter.obj" \
 	"$(INTDIR)\XMLUtil.obj"
 
@@ -239,6 +247,7 @@ CLEAN :
 	-@erase "$(INTDIR)\Reaction.obj"
 	-@erase "$(INTDIR)\Rule.obj"
 	-@erase "$(INTDIR)\RuleType.obj"
+	-@erase "$(INTDIR)\SAX2AttributesMock.obj"
 	-@erase "$(INTDIR)\SBase.obj"
 	-@erase "$(INTDIR)\SBMLConvert.obj"
 	-@erase "$(INTDIR)\SBMLDocument.obj"
@@ -253,10 +262,13 @@ CLEAN :
 	-@erase "$(INTDIR)\SpeciesReference.obj"
 	-@erase "$(INTDIR)\Stack.obj"
 	-@erase "$(INTDIR)\StringBuffer.obj"
+	-@erase "$(INTDIR)\StringMap.obj"
 	-@erase "$(INTDIR)\Unit.obj"
 	-@erase "$(INTDIR)\UnitDefinition.obj"
 	-@erase "$(INTDIR)\UnitKind.obj"
 	-@erase "$(INTDIR)\util.obj"
+	-@erase "$(INTDIR)\ValidationRules.obj"
+	-@erase "$(INTDIR)\Validator.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(INTDIR)\XMLStringFormatter.obj"
@@ -346,6 +358,7 @@ LINK32_OBJS= \
 	"$(INTDIR)\Reaction.obj" \
 	"$(INTDIR)\Rule.obj" \
 	"$(INTDIR)\RuleType.obj" \
+	"$(INTDIR)\SAX2AttributesMock.obj" \
 	"$(INTDIR)\SBase.obj" \
 	"$(INTDIR)\SBMLConvert.obj" \
 	"$(INTDIR)\SBMLDocument.obj" \
@@ -360,10 +373,13 @@ LINK32_OBJS= \
 	"$(INTDIR)\SpeciesReference.obj" \
 	"$(INTDIR)\Stack.obj" \
 	"$(INTDIR)\StringBuffer.obj" \
+	"$(INTDIR)\StringMap.obj" \
 	"$(INTDIR)\Unit.obj" \
 	"$(INTDIR)\UnitDefinition.obj" \
 	"$(INTDIR)\UnitKind.obj" \
 	"$(INTDIR)\util.obj" \
+	"$(INTDIR)\ValidationRules.obj" \
+	"$(INTDIR)\Validator.obj" \
 	"$(INTDIR)\XMLStringFormatter.obj" \
 	"$(INTDIR)\XMLUtil.obj"
 
@@ -385,43 +401,43 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "libsbml - Win32 Release" || "$(CFG)" == "libsbml - Win32 Debug"
-SOURCE=..\src\AlgebraicRule.c
+SOURCE=..\src\AlgebraicRule.cpp
 
 "$(INTDIR)\AlgebraicRule.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\AssignmentRule.c
+SOURCE=..\src\AssignmentRule.cpp
 
 "$(INTDIR)\AssignmentRule.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\ASTNode.c
+SOURCE=..\src\ASTNode.cpp
 
 "$(INTDIR)\ASTNode.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Compartment.c
+SOURCE=..\src\Compartment.cpp
 
 "$(INTDIR)\Compartment.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\CompartmentVolumeRule.c
+SOURCE=..\src\CompartmentVolumeRule.cpp
 
 "$(INTDIR)\CompartmentVolumeRule.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Event.c
+SOURCE=..\src\Event.cpp
 
 "$(INTDIR)\Event.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\EventAssignment.c
+SOURCE=..\src\EventAssignment.cpp
 
 "$(INTDIR)\EventAssignment.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
@@ -445,31 +461,31 @@ SOURCE=..\src\FormulaTokenizer.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\FunctionDefinition.c
+SOURCE=..\src\FunctionDefinition.cpp
 
 "$(INTDIR)\FunctionDefinition.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\KineticLaw.c
+SOURCE=..\src\KineticLaw.cpp
 
 "$(INTDIR)\KineticLaw.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\List.c
+SOURCE=..\src\List.cpp
 
 "$(INTDIR)\List.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\ListOf.c
+SOURCE=..\src\ListOf.cpp
 
 "$(INTDIR)\ListOf.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\MathMLDocument.c
+SOURCE=..\src\MathMLDocument.cpp
 
 "$(INTDIR)\MathMLDocument.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
@@ -511,49 +527,49 @@ SOURCE=..\src\memory.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Model.c
+SOURCE=..\src\Model.cpp
 
 "$(INTDIR)\Model.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\ModifierSpeciesReference.c
+SOURCE=..\src\ModifierSpeciesReference.cpp
 
 "$(INTDIR)\ModifierSpeciesReference.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Parameter.c
+SOURCE=..\src\Parameter.cpp
 
 "$(INTDIR)\Parameter.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\ParameterRule.c
+SOURCE=..\src\ParameterRule.cpp
 
 "$(INTDIR)\ParameterRule.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\ParseMessage.c
+SOURCE=..\src\ParseMessage.cpp
 
 "$(INTDIR)\ParseMessage.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\RateRule.c
+SOURCE=..\src\RateRule.cpp
 
 "$(INTDIR)\RateRule.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Reaction.c
+SOURCE=..\src\Reaction.cpp
 
 "$(INTDIR)\Reaction.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Rule.c
+SOURCE=..\src\Rule.cpp
 
 "$(INTDIR)\Rule.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
@@ -565,7 +581,13 @@ SOURCE=..\src\RuleType.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\SBase.c
+SOURCE=..\src\SAX2AttributesMock.cpp
+
+"$(INTDIR)\SAX2AttributesMock.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\src\SBase.cpp
 
 "$(INTDIR)\SBase.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
@@ -577,7 +599,7 @@ SOURCE=..\src\SBMLConvert.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\SBMLDocument.c
+SOURCE=..\src\SBMLDocument.cpp
 
 "$(INTDIR)\SBMLDocument.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
@@ -613,25 +635,25 @@ SOURCE=..\src\SBMLWriter.cpp
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\SimpleSpeciesReference.c
+SOURCE=..\src\SimpleSpeciesReference.cpp
 
 "$(INTDIR)\SimpleSpeciesReference.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Species.c
+SOURCE=..\src\Species.cpp
 
 "$(INTDIR)\Species.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\SpeciesConcentrationRule.c
+SOURCE=..\src\SpeciesConcentrationRule.cpp
 
 "$(INTDIR)\SpeciesConcentrationRule.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\SpeciesReference.c
+SOURCE=..\src\SpeciesReference.cpp
 
 "$(INTDIR)\SpeciesReference.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
@@ -649,13 +671,19 @@ SOURCE=..\src\StringBuffer.c
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\Unit.c
+SOURCE=..\src\StringMap.c
+
+"$(INTDIR)\StringMap.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\src\Unit.cpp
 
 "$(INTDIR)\Unit.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\src\UnitDefinition.c
+SOURCE=..\src\UnitDefinition.cpp
 
 "$(INTDIR)\UnitDefinition.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
@@ -670,6 +698,18 @@ SOURCE=..\src\UnitKind.c
 SOURCE=..\src\util.c
 
 "$(INTDIR)\util.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\src\ValidationRules.c
+
+"$(INTDIR)\ValidationRules.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+
+SOURCE=..\src\Validator.c
+
+"$(INTDIR)\Validator.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
