@@ -131,6 +131,28 @@ SBase_getAnnotation (const SBase_t *sb)
 
 
 /**
+ * @return the column number for this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getColumn (const SBase_t *sb)
+{
+  return 0;
+}
+
+
+/**
+ * @return the line number for this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getLine (const SBase_t *sb)
+{
+  return 0;
+}
+
+
+/**
  * @return 1 if the metaid for this SBML object has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
