@@ -2596,6 +2596,43 @@ START_TEST (test_element_line_col_numbers)
 END_TEST
 
 
+/**
+ * This test ensures the SBMLHandler does not invoke the MathML parser if
+ * it encounters a <math> element inside <notes> or <annotation> elements.
+ */
+START_TEST (test_element_math_in_notes_bug)
+{
+  AssignmentRule_t* ar;
+
+  const char *n =
+    "    <math> <apply> <ci> fn </ci> </apply> </math>  ";
+
+  const char *s = wrapSBML2
+  (
+    "<assignmentRule variable='x'>"
+    "  <notes>"
+    "    <math> <apply> <ci> fn </ci> </apply> </math>"
+    "  </notes>"
+    "</assignmentRule>"
+  );
+
+
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( Model_getNumRules(M) == 1, NULL );
+
+  ar = (AssignmentRule_t *) Model_getRule(M, 0);
+  fail_unless( ar != NULL, NULL );
+
+  fail_unless( !Rule_isSetMath ((Rule_t  *) ar), NULL );
+  fail_unless( SBase_isSetNotes((SBase_t *) ar), NULL );
+
+  fail_unless( !strcmp(SBase_getNotes((SBase_t *) ar), n), NULL );
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLHandler (void)
 {
@@ -2678,6 +2715,7 @@ create_suite_SBMLHandler (void)
   tcase_add_test( tcase, test_element_annotation_sbml                      );
   tcase_add_test( tcase, test_element_annotation_sbml_L2                   );
   tcase_add_test( tcase, test_element_line_col_numbers                     );
+  tcase_add_test( tcase, test_element_math_in_notes_bug                    );
 
   suite_add_tcase(suite, tcase);
 

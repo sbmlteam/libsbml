@@ -332,6 +332,9 @@ SBMLHandler::startElement (const XMLCh* const  uri,
 
 /**
  * endElement()
+ *
+ * FIXME: This method has grown quite hairy and is in desperate need of
+ * FIXME: refactoring.
  */
 #ifdef USE_EXPAT
 void SBMLHandler::onEndElement(const XML_Char *localname)
@@ -416,7 +419,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   //
   // MathML
   //
-  else if (tag == TAG_MATH)
+  else if (tag == TAG_MATH && !(inNotes || inAnnotation))
   {
 #ifdef USE_EXPAT
     fMathHandler->onEndElement(localname);
@@ -506,6 +509,7 @@ void
 SBMLHandler::setDocumentLocator (const Locator *const locator)
 {
   fLocator = locator;
+  fMathHandler->setDocumentLocator(locator);
 }
 
 
