@@ -144,17 +144,17 @@ safe_realloc (void *ptr, size_t size)
 /**
  * The following data are shared among the functions below.
  */
-int MemTrace_initialized = 0;
+static int MemTrace_initialized = 0;
 
-unsigned int MemTrace_NumAllocs;
-unsigned int MemTrace_NumFrees;
+static unsigned int MemTrace_NumAllocs;
+static unsigned int MemTrace_NumFrees;
 
-unsigned int MemTrace_CurrentBytes;
-unsigned int MemTrace_MaxBytes;
+static unsigned int MemTrace_CurrentBytes;
+static unsigned int MemTrace_MaxBytes;
 
-MemInfoList_t *MemTrace_AllocList;
-MemInfoList_t *MemTrace_FreeList;
-MemInfoList_t *MemTrace_UnmatchedFreeList;
+static MemInfoList_t *MemTrace_AllocList;
+static MemInfoList_t *MemTrace_FreeList;
+static MemInfoList_t *MemTrace_UnmatchedFreeList;
 
 
 /**
