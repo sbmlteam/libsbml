@@ -1678,6 +1678,67 @@ RULE (reaction_kineticLawTimeUnits)
  * attribute of a compartment, species, or parameter element. The constant
  * attribute of the compartment, species, or parameter element must be false.
  */
+RULE (rule_nonconstantVariable)
+{
+  static const char msg[] =
+    "A rule's 'variable' must be the 'id' of a compartment, species, "
+    "or parameter with 'constant'=false.";
+  BOOLEAN passed = TRUE;
+
+  const char *variableName;
+
+
+  switch (obj->typecode)
+  {
+  case SBML_ASSIGNMENT_RULE:
+    {
+      AssignmentRule_t *ar = (AssignmentRule_t *) obj;
+
+      if (!AssignmentRule_isSetVariable(ar))
+      {
+        goto bad;
+      }
+
+      variableName = AssignmentRule_getVariable(ar);
+    }
+    break;
+
+  case SBML_RATE_RULE:
+    {
+      RateRule_t *rr = (RateRule_t *) obj;
+
+      if (!RateRule_isSetVariable(rr))
+      {
+        goto bad;
+      }
+
+      variableName = RateRule_getVariable(rr);
+    }
+    break;
+    
+  default:
+    goto done;
+  }
+
+  if (variableName)
+  {
+    Species_t *s = Model_getSpeciesById(d->model, variableName);
+
+    if (!s || Species_getConstant(s))
+    {
+      goto bad;
+    }
+  }
+
+
+done:
+  return passed;
+
+bad:
+  LOG_MESSAGE(msg);
+  passed = FALSE;
+  goto done;
+}
 
 
 /**
@@ -1732,4 +1793,6 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, reaction_kineticLawSubstanceUnits,
                                                         SBML_REACTION        );
   Validator_addRule( v, reaction_kineticLawTimeUnits,   SBML_REACTION        );
+  Validator_addRule( v, rule_nonconstantVariable,       SBML_ASSIGNMENT_RULE );
+  Validator_addRule( v, rule_nonconstantVariable,       SBML_RATE_RULE       );
 }

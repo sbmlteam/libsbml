@@ -224,6 +224,8 @@ Validator_validate ( const Validator_t    *v,
   count += Validator_runRules( v, SBML_PARAMETER          , d, messages );
   count += Validator_runRules( v, SBML_REACTION           , d, messages );
   count += Validator_runRules( v, SBML_EVENT              , d, messages );
+  /* this next line actually picks up all rules, not just assignment rules */
+  count += Validator_runRules( v, SBML_ASSIGNMENT_RULE    , d, messages );
 
   return count;
 }
