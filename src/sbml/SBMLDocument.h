@@ -56,28 +56,12 @@
 
 #include "common.h"
 #include "List.h"
+#include "ParseMessage.h"
 #include "SBase.h"
 #include "Model.h"
 
 
 BEGIN_C_DECLS
-
-
-/**
- * SBMLDocuments contain three Lists of ParseMessages, one for each class
- * of messages that could be triggered during an XML parse: Warnings,
- * Errors and Fatal Errors.
- *
- * Each ParseMessage contains the message itself and the line and column
- * numbers of the XML entity that triggered the message.  If line or column
- * information is unavailable, -1 is used.
- */
-typedef struct
-{
-  char *message;
-  int  line;
-  int  column;
-} ParseMessage_t;
 
 
 /**
