@@ -57,7 +57,7 @@ dnl
 dnl Bug reports are sent to sysbio-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
-AC_INIT([SBML Library], [2.0.1], [sysbio-team@caltech.edu], [libsbml])
+AC_INIT([SBML Library], [2.0.2], [sysbio-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE
 

@@ -1,6 +1,30 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.0.2 ===
+
+* Major New Features:
+
+    - Sarah Keating has contributed a Matlab interface to libsbml and
+      tools to load, store and view (via a Matlab GUI) a database of
+      models (from a .mat file).  See the README.txt in
+      bindings/matlab/SBMLToolbox for build instructions and
+      additional information.
+
+* Bug Fixes:
+
+    - Writing SBML L2 documents with FunctionDefinitions would cause
+      libsbml to crash (segfault).  The cause was a typo in
+      SBMLFormatter.cpp where a call to listOfUnitDefinitions() should
+      have been (and is now) listOfFunctionDefinitions() (Thanks to Jo
+      Matthews for reporting an anomaly that lead to the discovery of
+      this bug).
+
+* Released October 24, 2003
+
+
+
+
 === Version 2.0.1 ===
 
 * Bug Fixes:
