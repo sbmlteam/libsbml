@@ -100,19 +100,51 @@ extra_distclean = Doxyfile sbmlmanual.perl
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
 
-distfiles = \
-	Doxyfile.in \
-	Doxygen-html-footer.html \
-	Doxygen.css \
-	Makefile.in \
-	README.txt \
-	createAPISection.py \
-	createAPISections.sh \
-	graphics \
-	libsbml-api-ref.html.tmpl \
-	libsbml-api-ref.tex \
-	libsbml-manual.tex \
-	libsbml.bib
+distfiles =                            \
+        Doxyfile.in                    \
+        Doxygen-html-footer.html       \
+        Doxygen.css                    \
+        Makefile.in                    \
+        README.txt                     \
+        createAPISection.py            \
+        createAPISections.sh           \
+        graphics                       \
+        libsbml-api-ref.html.tmpl      \
+        libsbml-api-ref.tex            \
+        libsbml-manual.tex             \
+        libsbml.bib                    \
+        tex/alltt.sty                  \
+        tex/booktabs/booktabs.dtx      \
+        tex/booktabs/booktabs.readme   \
+        tex/booktabs/booktabs.sty      \
+        tex/caption.sty                \
+        tex/fancyheadings.sty          \
+        tex/fancyvrb.sty               \
+        tex/html.sty                   \
+        tex/listings/listings.cfg      \
+        tex/listings/listings.dtx      \
+        tex/listings/listings.ins      \
+        tex/listings/listings.sty      \
+        tex/listings/lstdoc.sty        \
+        tex/listings/lstdrvrs.dtx      \
+        tex/listings/lstdrvrs.ins      \
+        tex/listings/lstlang1.sty      \
+        tex/listings/lstlang2.sty      \
+        tex/listings/lstlang3.sty      \
+        tex/listings/lstmisc.sty       \
+        tex/listings/lstpatch.sty      \
+        tex/listings/README            \
+        tex/listings/UPDATE            \
+        tex/logos/sbml-logo-compat.eps \
+        tex/logos/sbml-logo.eps        \
+        tex/logos/sbml-logo.jpg        \
+        tex/logos/sbml-logo.pdf        \
+        tex/logos/sbml-logo.tif        \
+        tex/sbmlmanual.cls             \
+        tex/sbmlmanual.perl            \
+        tex/sbmlmanual.README          \
+        tex/varioref.sty               \
+	tex/wrapfig.sty
 
 
 # -----------------------------------------------------------------------------
