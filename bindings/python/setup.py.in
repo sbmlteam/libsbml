@@ -75,6 +75,5 @@ setup(name             = "libsbml",
       py_modules       = ["libsbml"],
       ext_modules      = [Extension("_libsbml", 
                                     ["libsbml.i", "libsbml.cpp"],
-                                    include_dirs="../../src")],
-      data_files       = [(sysconfig.get_python_lib(), ["_libsbml.so"])]
+                                    include_dirs="../../src")]
 )
