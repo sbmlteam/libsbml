@@ -76,6 +76,15 @@ static MathMLFormatter    *formatter;
 void
 TestMathMLFormatter_setup (void)
 {
+  try
+  {
+    XMLPlatformUtils::Initialize();
+  }
+  catch (const XMLException& e)
+  {
+    fail("XMLPlatformUtils::Initialize() threw an Exception.");
+  }
+
   target    = new MemBufFormatTarget();
   formatter = new MathMLFormatter("UTF-8", target, true);
 }

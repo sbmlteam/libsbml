@@ -71,6 +71,15 @@ static SBMLFormatter      *formatter;
 void
 TestSBMLFormatter_setup (void)
 {
+  try
+  {
+    XMLPlatformUtils::Initialize();
+  }
+  catch (const XMLException& e)
+  {
+    fail("XMLPlatformUtils::Initialize() threw an Exception.");
+  }
+
   target    = new MemBufFormatTarget();
   formatter = new SBMLFormatter("UTF-8", target);
 }
