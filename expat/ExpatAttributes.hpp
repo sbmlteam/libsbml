@@ -54,7 +54,15 @@ public:
   virtual const XML_Char* getValue(const unsigned int index) const;
   virtual const XML_Char* getQName(const unsigned int index) const;
 
-  static const unsigned int InvalidIndex = (unsigned int) -1;
+  //
+  // For the statement:
+  //
+  //   static const unsigned int InvalidIndex = (unsigned int) -1;
+  //
+  // MSVC++ 6.0 complains: "error C2258: illegal pure syntax, must be '=
+  // 0'", but g++ has no problem with it?!  Fine.  For now, just #define.
+  //
+#define InvalidIndex ((unsigned int) -1)
 
 
 protected:
