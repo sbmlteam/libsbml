@@ -101,7 +101,7 @@ distfiles = \
 	Makefile.in \
 	README.txt \
 	createAPISection.py \
-	createAPISection.sh \
+	createAPISections.sh \
 	graphics \
 	libsbml-api-ref.html.tmpl \
 	libsbml-api-ref.tex \
