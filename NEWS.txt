@@ -1,6 +1,21 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.0.3 ===
+
+* Bug Fixes:
+
+    - The correct namespace is now output for both SBML Level 1 and
+      Level 2 documents.  This bug was introduced as a result of a bug
+      fix in the 2.0.1 release which output only Level 1 namespaces.
+      The bug is fixed now.  Honest.  Thanks to Akira Funahashi for
+      reporting this bug.
+
+* Released ...
+
+
+
+
 === Version 2.0.2 ===
 
 * Major New Features:
@@ -17,7 +32,7 @@
       libsbml to crash (segfault).  The cause was a typo in
       SBMLFormatter.cpp where a call to listOfUnitDefinitions() should
       have been (and is now) listOfFunctionDefinitions() (Thanks to Jo
-      Matthews for reporting an anomaly that lead to the discovery of
+      Matthews for reporting an anomaly that led to the discovery of
       this bug).
 
 * Released October 24, 2003
