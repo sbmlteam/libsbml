@@ -120,6 +120,17 @@ MEX               = @MEX@
 MEX_FLAGS         = @MEX_FLAGS@
 MEXEXT            = @MEXEXT@
 
+USE_LISP          = @USE_LISP@
+LISP              = @LISP@
+LISPEXIT          = @LISPEXIT@
+FASLEXT           = @FASLEXT@
+EXT_ASDF          = @EXT_ASDF@
+ASDF              = @ASDF@
+EXT_UFFI          = @EXT_UFFI@
+UFFI              = @UFFI@
+EXT_CPARSE        = @EXT_CPARSE@
+CPARSE            = @CPARSE@
+
 USE_SWIG          = @USE_SWIG@
 SWIG              = @SWIG@
 SWIGLIB           = @SWIGLIB@
