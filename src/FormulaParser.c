@@ -138,8 +138,7 @@ typedef struct
  * numbers represent a "shift and goto that state" action.  Negative action
  * numbers represent a "reduce by that production number" action.
  *
- * To find the range of entries for a particular token, use the
- * ActionLookup[] table.
+ * To lookup an action, use the FormulaParser_getAction() function.
  *
  * This is machine-generated.  DO NOT EDIT.
  */
@@ -443,6 +442,7 @@ FormulaParser_getActionLength (TokenType_t type)
     case TT_NAME:    result =  10; break;
     case TT_INTEGER: result =  10; break;
     case TT_REAL:    result =  10; break;
+    case TT_REAL_E:  result =  10; break;
     case TT_PLUS:    result =  14; break;
     case TT_MINUS:   result =  24; break;
     case TT_TIMES:   result =  14; break;
@@ -480,6 +480,7 @@ FormulaParser_getActionOffset (TokenType_t type)
     case TT_NAME:    result =   0; break;
     case TT_INTEGER: result =  10; break;
     case TT_REAL:    result =  10; break;
+    case TT_REAL_E:  result =  10; break;
     case TT_PLUS:    result =  20; break;
     case TT_MINUS:   result =  34; break;
     case TT_TIMES:   result =  58; break;
@@ -561,6 +562,15 @@ FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
   {
     Stack_pop(stack);
     result = Stack_pop(stack);
+
+    if (rule == 10)
+    {
+      /**
+       * Convert result to a recognized L2 function constant (if
+       * applicable).
+       */
+      ASTNode_canonicalize(result);
+    }
   }
 
   /**
@@ -601,8 +611,9 @@ FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
     /**
      * Perform a simple tree reduction, if possible.
      *
-     * If Expr is an AST_INTEGER or AST_REAL, simply negate the numeric
-     * value.  Otheriwse, a (unary) AST_MINUS node should be returned.
+     * If Expr is an AST_INTEGER or AST_REAL (or AST_REAL_E), simply negate
+     * the numeric value.  Otheriwse, a (unary) AST_MINUS node should be
+     * returned.
      */
     if (lexpr->type == AST_INTEGER)
     {
@@ -610,7 +621,7 @@ FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
       ASTNode_free(operator);
       result = lexpr;
     }
-    else if (lexpr->type == AST_REAL)
+    else if (lexpr->type == AST_REAL || lexpr->type == AST_REAL_E)
     {
       lexpr->value.real = - lexpr->value.real;
       ASTNode_free(operator);
@@ -671,6 +682,11 @@ FormulaParser_reduceStackByRule (Stack_t *stack, int rule)
 
       ASTNode_free(lexpr);
     }
+
+    /**
+     * Convert result to a recognized L2 function constant (if applicable).
+     */
+    ASTNode_canonicalize(result);
   }
 
   /**
