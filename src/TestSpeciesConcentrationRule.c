@@ -137,6 +137,10 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
           " did not make a copy of string." );
   }
 
+  /* Reflexive case (pathological) */
+  SpeciesConcentrationRule_setSpecies(SCR, SCR->species);
+  fail_unless( !strcmp(SCR->species, species), NULL );
+
   SpeciesConcentrationRule_setSpecies(SCR, NULL);
   fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR), NULL );
 

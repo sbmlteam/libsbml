@@ -149,6 +149,9 @@ void
 SpeciesConcentrationRule_setSpecies ( SpeciesConcentrationRule_t *scr,
                                       const char *sname )
 {
+  if (scr->species == sname) return;
+
+
   if (scr->species != NULL)
   {
     safe_free(scr->species);
