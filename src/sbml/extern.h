@@ -54,7 +54,7 @@
 #define LIBSBML_EXTERN_H 1
 
 
-#if WIN32
+#if (WIN32 && ! defined LIBSBML_STATIC)
 
 /**
  * The following ifdef block is the standard way of creating macros which
