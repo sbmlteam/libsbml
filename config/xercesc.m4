@@ -47,18 +47,30 @@ dnl     http://www.cds.caltech.edu/erato
 dnl     mailto:sysbio-team@caltech.edu
 dnl
 dnl Contributor(s):
+dnl   Mike Hucka <mhucka@caltech.edu> Enhancements to this file.
 dnl
-
 
 dnl
 dnl Check --with-xerces[=PREFIX] is specified and Xerces-C++ is installed.
 dnl
 
-AC_DEFUN(AC_LIB_XERCES,
+AC_DEFUN(CONFIG_LIB_XERCES,
 [
+  AC_ARG_WITH([xerces],
+    AC_HELP_STRING([--with-xerces=PREFIX],
+                   [Use Xerces XML Library [[default=yes]]]),
+    [with_xerces=$withval],
+    [with_xerces=yes])
+
+  if test $with_expat != no; then
+    with_xerces=no
+  fi
+
   if test $with_xerces != no; then
 
     AC_MSG_CHECKING([for Apache's Xerces-C XML library])
+
+    AC_LANG_PUSH(C)
 
     XERCES_CPPFLAGS=
     XERCES_LDFLAGS=
@@ -71,12 +83,15 @@ AC_DEFUN(AC_LIB_XERCES,
 
     XERCES_LIBS="-lxerces-c"
 
-    AC_LANG_SAVE
-    AC_LANG_CPLUSPLUS
+    dnl The following is grungy but I don't know how else to make 
+    dnl AC_CHECK_LIB use particular library and include paths.
 
-    CPPFLAGS="$XERCES_CPPFLAGS $CPPFLAGS"
-    LDFLAGS="$XERCES_LDFLAGS $LDFLAGS"
-    LIBS="$XERCES_LIBS $LIBS"
+    tmp_CPPFLAGS=$CPPFLAGS
+    tmp_LDFLAGS=$LDFLAGS
+    tmp_LIBS=$LIBS
+    CPPFLAGS="$CPPFLAGS $XERCES_CPPFLAGS"
+    LDFLAGS="$LDFLAGS $XERCES_LDFLAGS"
+    LIBS="$LIBS $XERCES_LIBS"
 
     AC_TRY_LINK([
 #include <xercesc/util/XercesDefs.hpp>
@@ -89,10 +104,23 @@ AC_DEFUN(AC_LIB_XERCES,
       [xerces_found=yes],
       [xerces_found=no])
 
-    AC_LANG_RESTORE
-
     if test $xerces_found = no; then
       AC_MSG_ERROR([Could not find the Xerces XML library.])
     fi
+
+    CPPFLAGS=$tmp_CPPFLAGS
+    LDFLAGS=$tmp_LDFLAGS
+    LIBS=$tmp_LIBS
+
+    AC_LANG_POP
+
+    AC_DEFINE([USE_XERCES], 1, [Define to 1 to use the Xerces XML library])
+    AC_SUBST(USE_XERCES, 1)
+
+    AC_SUBST(XERCES_CPPFLAGS)
+    AC_SUBST(XERCES_LDFLAGS)
+    AC_SUBST(XERCES_LIBS)
+
   fi
+
 ])
