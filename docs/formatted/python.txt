@@ -9,9 +9,10 @@
 1  SETTING UP
 
    For this tutorial, we'll assume that you're running on some
-   variant of Unix.  (That includes Linux and Mac OS X.)  On
+   variant of Unix.  (That includes Linux and Mac OS X.) On
    Windows, you may need to use backslashes in place of forward
-   slashes, or use a Unix-like shell such as Cygwin.
+   slashes, or use a Unix-like shell such as Cygwin. (See note on 
+   building and running with ActiveState Python under Windows.)
 
    When you installed libSBML, you already installed the Python
    interface.
@@ -453,3 +454,39 @@
    libSBML object that's managed by the underlying C++ code.
    When you copy the object in Python, you are actually just
    copying the pointers to the same underlying C++ object.
+
+9  BUILDING AND RUNNING USING ACTIVESTATE PYTHON UNDER WINDOWS
+
+   Unfortunately the different versions of Python under Windows are not
+   compatible with each other and thus to use the libsbml python interface
+   it will be necessary to build the libraries for the version of python 
+   being used.
+
+   The Windows download includes a Microsoft Visual C++ project file
+   Python_binding_Win32 which will build the library files. In order
+   to run this the following environmental variables must be set.
+   
+   PYTHON_INCLUDE - Path to the python win32 include files
+   e.g. C:\Python23\include
+
+   PYTHON_LIB - Path to the python win32 library
+   e.g. C:\Python23\libs\python23.lib
+
+   NOTE: To set an environmental variable in Windows use the System option
+   on the Control Panel. 
+
+   Once set the project should build. (Apologies for using MSVC but python claim 
+   their code is untested with any other C compiler under Windows.)
+
+   Put the resulting _libsbml.dll file into the windows system directory 
+   C:\WINDOWS\SYSTEM32
+   This ensures it is on the system path and accessible anywhere.
+  
+   Set the environmental variable
+
+   PYTHONPATH - Path to the libSBML Python directory
+   e.g. C:\libsbml\bindings\python
+
+   You should now be able to run the examples given above from your python shell 
+   or command line.
+
