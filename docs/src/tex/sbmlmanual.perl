@@ -192,7 +192,7 @@ sub do_cmd_maketitlepage {
     if ($t_affil&&!($t_affil=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
 	$the_title .= "\n<P$alignc><I>$t_affil</I></P>";}
     if ($t_address&&!($t_address=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
-        $the_title .= "\n<P$alignc><SMALL>$t_address</SMALL></P>";}
+        $the_title .= "\n<P$alignc>$t_address</P>";}
     if ($t_acknowledge&&!($t_acknowledge=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
         $the_title .= "\n<P$alignc><SMALL>$t_acknowledge</SMALL></P>";}
     if ($t_date&&!($t_date=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
@@ -233,7 +233,7 @@ sub do_cmd_maketitle {
     if ($t_affil&&!($t_affil=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
 	$the_title .= "\n<P$alignc><I>$t_affil</I></P>";}
     if ($t_address&&!($t_address=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
-        $the_title .= "\n<P$alignc><SMALL>$t_address</SMALL></P>";}
+        $the_title .= "\n<P$alignc>$t_address</P>";}
     if ($t_acknowledge&&!($t_acknowledge=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
         $the_title .= "\n<P$alignc><SMALL>$t_acknowledge</SMALL></P>";}
     if ($t_date&&!($t_date=~/^\s*(($O|$OP)\d+($C|$CP))\s*\1\s*$/)) {
@@ -280,6 +280,43 @@ sub do_cmd_href{
     else { $href = &make_href($url,$text) }
     print "\nHREF:$href" if ($VERBOSITY > 3);
     join ('',$href,$_);
+}
+
+# 2004-09-17 <mhucka@caltech.edu>
+# Pulled from latex2html.  I didn't like the way the original used <small>
+# around small caps fonts.
+
+sub process_smallcaps {
+    local($text) = @_;
+    local($next, $scstr, $scbef, $special, $char);
+    # is this enough for \sc and \scshape ?
+    $text = &translate_environments($text);
+
+    # MRO: replaced $* with /m
+    while ($text =~ /(\\[a-zA-Z]+|[&;]SPM\w+;|<[^>]+>)+/m ) {
+	$scbef = $`; $special = $&; $text = $';
+	while ( $scbef =~ /(&#\d+;|[a-z$sclower])+[a-z\W\d$sclower]*/m) {
+	    $scstr .= $`; $scbef = $';
+	    $next = $&; 
+	    $next =~ s/&#(\d+);/&lowercase_entity($1)/egm;
+	    eval "\$next =~ $scextra" if ($scextra);
+	    eval "\$next =~ tr/a-z$sclower/A-Z$scupper/";
+	    $scstr .= $next;
+	}
+	$scstr .= $scbef . $special;
+    }
+    if ($text) {
+	while ( $text =~ /(&#\d+;|[a-z$sclower])+[a-z\W\d$sclower]*/m) {
+	    $scstr .= $`; $text = $';
+	    $next = $&;
+	    $next =~ s/&#(\d+);/&lowercase_entity($1)/egm;
+	    eval "\$next =~ $scextra" if ($scextra);
+	    eval "\$next =~ tr/a-z$sclower/A-Z$scupper/";
+	    $scstr .= $next;
+	}
+	$scstr .= $text;
+    }
+    $scstr;
 }
 
 #-----------------------------------------------------------------------------
