@@ -71,13 +71,14 @@
 # enclosing makefile can define other values, in which case those
 # definitions will override what's given here.
 
-default_includes ?= -I. -I$(srcdir) -I$(TOP_BUILDDIR)/src -I$(INCLUDEDIR)
+#default_includes ?= -I. -I$(TOP_BUILDDIR)/src -I$(INCLUDEDIR)
+default_includes ?= -I. -I$(INCLUDEDIR)
 
-compile ?= $(CC) $(extra_CPPFLAGS) $(CPPFLAGS) $(CFLAGS) \
-	$(DEFS) $(default_includes) $(INCLUDES) -fPIC -Wall
+compile ?= $(CC) $(extra_CPPFLAGS) $(extra_CFLAGS) $(default_includes) \
+	$(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) -fPIC
 
-cxxcompile ?= $(CXX) $(extra_CXXFLAGS) $(CXXFLAGS) $(CPPFLAGS) $(CFLAGS) \
-	$(DEFS) $(default_includes) $(INCLUDES) -fPIC -Wall
+cxxcompile ?= $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
+	 $(CPPFLAGS) $(CXXFLAGS) $(DEFS) $(INCLUDES) -fPIC
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
