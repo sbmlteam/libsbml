@@ -131,6 +131,7 @@ distfiles = \
 	    setup.cfg \
 	    setup.py.in
 
+extra_clean     = build
 extra_distclean = libsbml.pyc setup.py
 
 
@@ -218,12 +219,18 @@ html:
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: setup.py
+install: setup.py create-build-dir
 	$(PYTHON) setup.py install --skip-build --prefix=$(prefix)
 
 uninstall:
 
 installcheck:
+
+create-build-dir: $(libraries)
+	mkdir build build/libsbml
+	echo "libsbml" > build/libsbml.pth
+	cp $(libraries)  build
+	cp libsbml.py    build/libsbml
 
 
 # -----------------------------------------------------------------------------
