@@ -36,7 +36,7 @@
  *
  * The original code contained here was initially developed by:
  *
- *     Ben Bornstein
+ *     Ben Bornstein and Ben Kovitz
  *     The Systems Biology Markup Language Development Group
  *     ERATO Kitano Symbiotic Systems Project
  *     Control and Dynamical Systems, MC 107-81
@@ -63,7 +63,7 @@
 #define RULE(name) \
   static           \
   unsigned int     \
-  name (const SBase_t *obj, const SBMLDocument_t *d, List_t *messages)
+  name (const SBase_t *obj, SBMLDocument_t *d, List_t *messages)
 
 
 /**
@@ -260,7 +260,6 @@ unitDefinitionIsVariantOf(
 {
   PFI acceptableKinds[] = { NULL, NULL };
 
-
   if (ud == NULL)
     return 0;
 
@@ -311,10 +310,8 @@ unitDefinitionIsKindOfArea(
 {
   UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
 
-
   return unitDefinitionIsVariantOf(ud, isMeter, 2);
 }
-
 
 
 static
@@ -585,7 +582,7 @@ anyRuleVariableIs(const Model_t *m, const char *variableName)
     AssignmentRule_t *ar = (AssignmentRule_t *) rule;
     RateRule_t *rr = (RateRule_t *) rule;
 
-    switch (rule->typecode)
+    switch ( SBase_getTypeCode((SBase_t*) rule) )
     {
     case SBML_ASSIGNMENT_RULE:
       if (streq(AssignmentRule_getVariable(ar), variableName))
@@ -622,7 +619,7 @@ numRulesWithVariable(const Model_t *m, const char *variableName)
   for (i = 0; i < numRules; i++)
   {
     Rule_t *rule = Model_getRule(m, i);
-    switch (rule->typecode)
+    switch ( SBase_getTypeCode((Rule_t *) rule) )
     {
     case SBML_ASSIGNMENT_RULE:
       {
@@ -687,7 +684,7 @@ static
 const char *
 getVariableName(const SBase_t *obj)
 {
-  switch (obj->typecode)
+  switch ( SBase_getTypeCode(obj) )
   {
   case SBML_ASSIGNMENT_RULE:
     {
@@ -811,7 +808,7 @@ RULE (compartment_spatialDimensions1)
   if (Compartment_getSpatialDimensions(c) == 1)
   {
     const char *units = Compartment_getUnits(c);
-    if (units && !isOneDimensional(d->model, units))
+    if (units && !isOneDimensional(SBMLDocument_getModel(d), units))
     {
       LOG_MESSAGE(msg);
       passed = FALSE;
@@ -836,7 +833,7 @@ RULE (compartment_spatialDimensions2)
   if (Compartment_getSpatialDimensions(c) == 2)
   {
     const char *units = Compartment_getUnits(c);
-    if (units && !isTwoDimensional(d->model, units))
+    if (units && !isTwoDimensional(SBMLDocument_getModel(d), units))
     {
       LOG_MESSAGE(msg);
       passed = FALSE;
@@ -861,7 +858,7 @@ RULE (compartment_spatialDimensions3)
   if (Compartment_getSpatialDimensions(c) == 3)
   {
     const char *units = Compartment_getUnits(c);
-    if (units && !isThreeDimensional(d->model, units))
+    if (units && !isThreeDimensional(SBMLDocument_getModel(d), units))
     {
       LOG_MESSAGE(msg);
       passed = FALSE;
@@ -936,7 +933,8 @@ RULE (compartment_outsideIsDefined)
   const char *outside = Compartment_getOutside(c);
 
 
-  if (outside && Model_getCompartmentById(d->model, outside) == NULL)
+  if (outside &&
+      Model_getCompartmentById(SBMLDocument_getModel(d), outside) == NULL)
   {
     LOG_MESSAGE(msg);
     passed = FALSE;
@@ -1019,7 +1017,7 @@ RULE (compartment_outsideCyclic)
 
     List_add(chain, (void *) outside);
 
-    c = Model_getCompartmentById(d->model, outside);
+    c = Model_getCompartmentById(SBMLDocument_getModel(d), outside);
     if (!c)
     {
       break;
@@ -1041,7 +1039,8 @@ RULE (unitDefinition_idsMustBeUnique)
   UnitDefinition_t *ud = (UnitDefinition_t *) obj;
   const char *id = UnitDefinition_getId(ud);
 
-  UnitDefinition_t *got = Model_getUnitDefinitionById(d->model, id);
+  UnitDefinition_t *got =
+    Model_getUnitDefinitionById(SBMLDocument_getModel(d), id);
 
 
   if (got != ud)
@@ -1075,6 +1074,7 @@ RULE (unitDefinition_idCantBePredefinedUnit)
 }
 
 
+/*
 RULE (unitDefinition_volumeKinds)
 {
   RuleResult_t result;
@@ -1158,6 +1158,7 @@ RULE (unitDefinition_areaKinds)
   }
   return result.passed;
 }
+*/
 
 
 RULE (unitDefinition_lengthKinds)
@@ -1231,8 +1232,7 @@ RULE (species_compartmentIsDefined)
   compartmentId = Species_getCompartment(s);
   if (compartmentId
       &&
-      Model_getCompartmentById(d->model, compartmentId) == NULL
-  ) {
+      Model_getCompartmentById(SBMLDocument_getModel(d), compartmentId) == NULL) {
     char buf[512];
 
     sprintf(buf, msg, compartmentId);
@@ -1284,7 +1284,9 @@ RULE (species_zeroSpatialDimensions)
   compartmentId = Species_getCompartment(s);
   if (compartmentId)
   {
-    Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
+    Compartment_t *c =
+      Model_getCompartmentById(SBMLDocument_getModel(d), compartmentId);
+
     if (
       c
       &&
@@ -1317,10 +1319,13 @@ RULE (species_spatialDimensions1)
   compartmentId = Species_getCompartment(s);
   if (compartmentId && Species_isSetSpatialSizeUnits(s))
   {
-    Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
+    Compartment_t *c =
+      Model_getCompartmentById(SBMLDocument_getModel(d), compartmentId);
+
     if (c && Compartment_getSpatialDimensions(c) == 1)
     {
-      if (!isOneDimensional(d->model, Species_getSpatialSizeUnits(s)))
+      if (!isOneDimensional( SBMLDocument_getModel(d),
+                             Species_getSpatialSizeUnits(s) ))
       {
         LOG_MESSAGE(msg);
         passed = 0;
@@ -1349,10 +1354,13 @@ RULE (species_spatialDimensions2)
   compartmentId = Species_getCompartment(s);
   if (compartmentId && Species_isSetSpatialSizeUnits(s))
   {
-    Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
+    Compartment_t *c =
+      Model_getCompartmentById(SBMLDocument_getModel(d), compartmentId);
+
     if (c && Compartment_getSpatialDimensions(c) == 2)
     {
-      if (!isTwoDimensional(d->model, Species_getSpatialSizeUnits(s)))
+      if (!isTwoDimensional( SBMLDocument_getModel(d),
+                             Species_getSpatialSizeUnits(s) ))
       {
         LOG_MESSAGE(msg);
         passed = 0;
@@ -1382,10 +1390,13 @@ RULE (species_spatialDimensions3)
   compartmentId = Species_getCompartment(s);
   if (compartmentId && Species_isSetSpatialSizeUnits(s))
   {
-    Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
+    Compartment_t *c =
+      Model_getCompartmentById(SBMLDocument_getModel(d), compartmentId);
+
     if (c && Compartment_getSpatialDimensions(c) == 3)
     {
-      if (!isThreeDimensional(d->model, Species_getSpatialSizeUnits(s)))
+      if (!isThreeDimensional( SBMLDocument_getModel(d),
+                               Species_getSpatialSizeUnits(s) ))
       {
         LOG_MESSAGE(msg);
         passed = 0;
@@ -1414,7 +1425,7 @@ RULE (species_substanceUnits)
   if (Species_isSetSubstanceUnits(s))
   {
     const char* substanceUnits = Species_getSubstanceUnits(s);
-    if (!isSubstanceOrVariant(d->model, substanceUnits))
+    if (!isSubstanceOrVariant(SBMLDocument_getModel(d), substanceUnits))
     {
       LOG_MESSAGE(msg);
       passed = 0;
@@ -1484,7 +1495,8 @@ RULE (species_initialConcentrationZeroSpatialDimensions)
   unsigned int passed = 1;
 
   Species_t *s = (Species_t *) obj;
-  unsigned int spatialDimensions = getSpatialDimensions(d->model, s);
+  unsigned int spatialDimensions =
+    getSpatialDimensions(SBMLDocument_getModel(d), s);
 
 
   if (
@@ -1511,6 +1523,7 @@ RULE (species_initialConcentrationZeroSpatialDimensions)
    <compartment id="c"/>
    <species id="someId" compartment="c" initialAmount="5.8" initialConcentration="2.4"/>
  */
+/*
 RULE (species_initialConcentrationInitialAmount)
 {
   static const char msg[] =
@@ -1531,6 +1544,8 @@ RULE (species_initialConcentrationInitialAmount)
 
   return passed;
 }
+*/
+
 
 /**
  * When a species element has a constant attribute value of true and a
@@ -1555,7 +1570,7 @@ RULE (species_speciesReference)
     !Species_getBoundaryCondition(s)
   )
   {
-    if (anySpeciesReferenceIsTo(d->model, speciesId))
+    if (anySpeciesReferenceIsTo(SBMLDocument_getModel(d), speciesId))
     {
       LOG_MESSAGE(msg);
       passed = 0;
@@ -1593,9 +1608,9 @@ RULE (species_ruleAndReaction)
   )
   {
     if (
-      anySpeciesReferenceIsTo(d->model, speciesId)
+      anySpeciesReferenceIsTo(SBMLDocument_getModel(d), speciesId)
       &&
-      anyRuleVariableIs(d->model, speciesId)
+      anyRuleVariableIs(SBMLDocument_getModel(d), speciesId)
     )
     {
       LOG_MESSAGE(msg);
@@ -1628,7 +1643,7 @@ RULE (parameter_units)
     if (
       !UnitKind_isValidUnitKindString(units)
       &&
-      Model_getUnitDefinitionById(d->model, units) == NULL
+      Model_getUnitDefinitionById(SBMLDocument_getModel(d), units) == NULL
       &&
       !isBuiltInUnit(units)
     )
@@ -1694,7 +1709,7 @@ RULE (reaction_speciesReferenceExists)
   {
     const char *species = (const char *)List_get(speciesReferenceIds, i);
 
-    if (!speciesExists(d->model, species))
+    if (!speciesExists(SBMLDocument_getModel(d), species))
     {
       char buf[512];
 
@@ -1779,7 +1794,8 @@ RULE (reaction_kineticLawSubstanceUnits)
     KineticLaw_t *kl = Reaction_getKineticLaw(r);
     if (KineticLaw_isSetSubstanceUnits(kl))
     {
-      if (!isSubstanceOrVariant(d->model, KineticLaw_getSubstanceUnits(kl)))
+      if (!isSubstanceOrVariant( SBMLDocument_getModel(d),
+                                 KineticLaw_getSubstanceUnits(kl) ))
       {
         LOG_MESSAGE(msg);
         passed = FALSE;
@@ -1811,7 +1827,8 @@ RULE (reaction_kineticLawTimeUnits)
     KineticLaw_t *kl = Reaction_getKineticLaw(r);
     if (KineticLaw_isSetTimeUnits(kl))
     {
-      if (!isTimeOrVariant(d->model, KineticLaw_getTimeUnits(kl)))
+      if (!isTimeOrVariant( SBMLDocument_getModel(d),
+                            KineticLaw_getTimeUnits(kl) ))
       {
         LOG_MESSAGE(msg);
         passed = FALSE;
@@ -1841,7 +1858,7 @@ RULE (rule_nonconstantVariable)
   if (variableName)
   {
     const VariableDescriptor_t variable =
-      getVariableDescriptor(d->model, variableName);
+      getVariableDescriptor(SBMLDocument_getModel(d), variableName);
 
     if (!variable.id || variable.constant)
     {
@@ -1867,7 +1884,7 @@ RULE (rule_variableOnlyOnce)
 
   const char *variableName = getVariableName(obj);
 
-  if (numRulesWithVariable(d->model, variableName) > 1)
+  if (numRulesWithVariable(SBMLDocument_getModel(d), variableName) > 1)
   {
     char buf[512];
 
@@ -1897,7 +1914,7 @@ RULE (event_timeUnits)
 
   if (Event_isSetTimeUnits(e))
   {
-    if (!isTimeOrVariant(d->model, Event_getTimeUnits(e)))
+    if (!isTimeOrVariant(SBMLDocument_getModel(d), Event_getTimeUnits(e)))
     {
       LOG_MESSAGE(msg);
       passed = FALSE;
@@ -1931,7 +1948,8 @@ RULE (event_nonconstantVariable)
     if (EventAssignment_isSetVariable(ea))
     {
       VariableDescriptor_t variable =
-        getVariableDescriptor(d->model, EventAssignment_getVariable(ea));
+        getVariableDescriptor( SBMLDocument_getModel(d),
+                               EventAssignment_getVariable(ea) );
 
       if (!variable.id || variable.constant)
       {
@@ -2000,18 +2018,12 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, compartment_outsideCyclic,      SBML_COMPARTMENT     );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
                                                         SBML_UNIT_DEFINITION );
+
   Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
-                                                        SBML_UNIT_DEFINITION );
-  Validator_addRule( v, unitDefinition_substanceKinds,
-                                                        SBML_UNIT_DEFINITION );
-  Validator_addRule( v, unitDefinition_volumeKinds,
-                                                        SBML_UNIT_DEFINITION );
-  Validator_addRule( v, unitDefinition_areaKinds,
-                                                        SBML_UNIT_DEFINITION );
-  Validator_addRule( v, unitDefinition_lengthKinds,
                                                         SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_timeKinds,
                                                         SBML_UNIT_DEFINITION );
+
   Validator_addRule( v, species_compartmentIsDefined,   SBML_SPECIES         );
   Validator_addRule( v, species_hasOnlySubstanceUnits,  SBML_SPECIES         );
   Validator_addRule( v, species_zeroSpatialDimensions,  SBML_SPECIES         );
@@ -2027,6 +2039,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_initialConcentrationInitialAmount,
                                                         SBML_SPECIES         );
   */
+
   Validator_addRule( v, species_speciesReference,       SBML_SPECIES         );
   Validator_addRule( v, species_ruleAndReaction,        SBML_SPECIES         );
   Validator_addRule( v, parameter_units,                SBML_PARAMETER       );
