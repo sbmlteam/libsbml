@@ -1,6 +1,127 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.0.0 ===
+
+* Near complete L2 support.  The two features not yet supported are:
+
+    1. RDF (although the metaid attribute is read, stored and written)
+
+    2. Processing of the MathML <semantic> element (for annotating
+       MathML elements with additional content, e.g. TeX).
+
+
+* New L2 Structures:
+
+    - FunctionDefinition
+    - Event
+    - EventAssignment
+    - SimpleSpeciesReference    (abstract)
+    - ModifierSpeciesReference
+    - AssignmentRule            (no longer abstract)
+    - RateRule
+
+    - MathML and L1 infix expressions (when parsed) are both stored in
+      the same Abstract Syntax Tree (AST) structure ASTNode.
+
+    - ListOf stores lists of others SBML objects and may contain a
+      metaid, notes or annotations.
+
+
+* New L2 Functions:
+
+    - The getters, setters, isSet and unset functions are too numerous
+      to mention here.  Like L1, they parallel the UML structures
+      defined in the SBML specification.  All L1 functions are kept
+      for backward compatibility (see below).
+
+    - Any structure containing a list now has a getListOfXXX()
+      function which returns the corresponding ListOf structure.
+
+    - There are currently three convenience functions for converting
+      between SBML infix and MathML formulae:
+
+        - ASTNode_t *SBML_parseFormula(const char *formula)
+        - char      *SBML_formulaToString(const ASTNode_t *math)
+        - ASTNode_t *readMathMLFromString(cont char *xml)
+
+      Again, these are provided purely for convenience.  Under normal
+      circumstances, libsbml performs all conversions behind the
+      scenes when necessary.
+
+
+* L1 to L2 Changes:
+
+  libsbml stores both L1 and L2 models in the same memory structure.
+  While the L1 getters, setters, isSet and unset functions exist for
+  backward compatibility there are some changes of which users of
+  previous versions of libsbml should be aware:
+
+    - Compartment:
+
+        - .volume has been renamed to .size.
+
+    - Species:
+
+        - .units has been renamed to .substanceUnits.
+
+        - .initialAmount and .initialConcentration are stored in a
+          union called .initial with discriminators .Amount and
+          .Concentration.
+
+    - Reaction:
+
+        - .fast is optional in L2 which introduces Reaction_isSet /
+          unsetFast() functions.
+
+    - SpeciesReference:
+
+        - .stoichiometry is now of type double which necessitated a
+          change in the signature of the getter and setter functions.
+
+        - The use of .denominator is deprecated in L2.
+
+          However, libsbml still uses denominator in L2 models.  When
+          reading a <stoichiometry Math> if the content is a single
+          <CNN type='rational'>, libsbml will discard the
+          stoichiometry Math and set stoichiometry and denominator
+          directly.  Similarly, libsbml will write <stoichiometryMath>
+          in L2 documents if the .stoichiometryMath field is not set
+          and the denominator is not 1.
+
+    - CompartmentVolumeRule:
+    - SpeciesConcentrationRule:
+    - ParameterRule:
+
+        - .compartment, .species and .parameter have all been renamed
+          to .variable.
+
+    - The XXX_createWith() functions now set the .id field instead of
+      the .name field.
+
+    - List_t has been replaced by ListOf_t to store a metaid, notes,
+      and annotations.  ListOf_t is simply a wrapper around List_t.
+
+
+* SBMLReader allows you to set up to three Schema filenames (one each
+  for L1v1, L1v2 and L2v1) and it will automatically use the
+  appropriate Schema for the SBML document being read.
+
+* A simple command-line executable that converts L1 models to L2 was
+  added to the examples/ subdirectory.
+
+* A new subdirectory, xml-schemas/, contains schemas for SBML L1v1,
+  L1v2, L2v1 and MathML 2.
+
+* Xerces-C 2.3.0 is now supported by libsbml.  Older versions of
+  Xerces-C (2.2.0 and 2.1.0) are still supported.
+
+
+* Released July 23, 2003
+
+
+
+
 === Version 1.1.2 ===
 
 * A new subdirectory, examples, contains a few small programs that
