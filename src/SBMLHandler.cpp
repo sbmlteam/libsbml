@@ -370,7 +370,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     }
     else if (inNotes == 1)
     {
-      if (obj->typecode == SBML_DOCUMENT)
+      if ((obj->typecode == SBML_DOCUMENT) && (fDocument->level == 1))
       {
         error(ERRMSG_NO_SBML_NOTE);
       }
@@ -395,7 +395,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
 
     if (inAnnotation == 1)
     {
-      if (obj->typecode == SBML_DOCUMENT)
+      if ((obj->typecode == SBML_DOCUMENT) && (fDocument->level == 1))
       {
         error(ERRMSG_NO_SBML_ANNOTATION);
       }

@@ -2016,6 +2016,27 @@ START_TEST (test_element_notes_sbml)
 END_TEST
 
 
+START_TEST (test_element_notes_sbml_L2)
+{
+  const char* n =
+    "Notes *are* allowed as part of the SBML element in L2.";
+
+  const char* s = wrapXML
+  (
+    "<sbml level='2' version='1'>"
+    "  <notes>Notes *are* allowed as part of the SBML element in L2.</notes>"
+    "</sbml>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( !strcmp( D->notes, n), NULL );
+  fail_unless( SBMLDocument_getNumErrors(D) == 0, NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_notes_ListOf)
 {
   SBase_t*  sb;
@@ -2373,7 +2394,42 @@ START_TEST (test_element_annotation_sbml)
 
   fail_unless( !strcmp(D->annotation, a), NULL );
   fail_unless( SBMLDocument_getNumErrors(D) == 1, NULL );
+}
+END_TEST
 
+
+START_TEST (test_element_annotation_sbml_L2)
+{
+  const char* a =
+    "<annotation xmlns:jd=\"http://www.sys-bio.org/sbml\">"
+    "    <jd:header>"
+    "      <VersionHeader SBMLVersion=\"1.0\"></VersionHeader>"
+    "    </jd:header>"
+    "    <jd:display>"
+    "      <SBMLGraphicsHeader BackGroundColor=\"15728639\">"
+    "</SBMLGraphicsHeader>"
+    "    </jd:display>"
+    "  </annotation>";
+
+  const char* s = wrapXML
+  (
+    "<sbml level=\"2\" version=\"1\">"
+    "  <annotation xmlns:jd = \"http://www.sys-bio.org/sbml\">"
+    "    <jd:header>"
+    "      <VersionHeader SBMLVersion = \"1.0\"/>"
+    "    </jd:header>"
+    "    <jd:display>"
+    "      <SBMLGraphicsHeader BackGroundColor = \"15728639\"/>"
+    "    </jd:display>"
+    "  </annotation>"
+    "</sbml>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( !strcmp(D->annotation, a), NULL );
+  fail_unless( SBMLDocument_getNumErrors(D) == 0, NULL );
 }
 END_TEST
 
@@ -2448,6 +2504,7 @@ create_suite_SBMLHandler (void)
   tcase_add_test( tcase, test_element_notes_entity_reference               );
   tcase_add_test( tcase, test_element_notes_nested                         );
   tcase_add_test( tcase, test_element_notes_sbml                           );
+  tcase_add_test( tcase, test_element_notes_sbml_L2                        );
   tcase_add_test( tcase, test_element_notes_ListOf                         );
   tcase_add_test( tcase, test_element_notes_ListOf_Units                   );
   tcase_add_test( tcase, test_element_notes_ListOf_Reactions               );
@@ -2457,6 +2514,7 @@ create_suite_SBMLHandler (void)
   tcase_add_test( tcase, test_element_annotation_after                     );
   tcase_add_test( tcase, test_element_annotation_nested                    );
   tcase_add_test( tcase, test_element_annotation_sbml                      );
+  tcase_add_test( tcase, test_element_annotation_sbml_L2                   );
 
   suite_add_tcase(suite, tcase);
 
