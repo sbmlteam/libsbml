@@ -564,6 +564,19 @@ START_TEST (test_SBML_parseFormula_13)
 END_TEST
 
 
+START_TEST (test_SBML_parseFormula_14)
+{
+  ASTNode_t *r = SBML_parseFormula("1//1");
+
+
+  /* Pathetic error handling */
+  fail_unless(r == NULL, NULL);
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 START_TEST (test_SBML_parseFormula_negInf)
 {
   ASTNode_t *r = SBML_parseFormula("-inf");
@@ -615,6 +628,7 @@ create_suite_FormulaParser (void)
   tcase_add_test( tcase, test_SBML_parseFormula_11      );
   tcase_add_test( tcase, test_SBML_parseFormula_12      );
   tcase_add_test( tcase, test_SBML_parseFormula_13      );
+  tcase_add_test( tcase, test_SBML_parseFormula_14      );
   tcase_add_test( tcase, test_SBML_parseFormula_negInf  );
   tcase_add_test( tcase, test_SBML_parseFormula_negZero );
 

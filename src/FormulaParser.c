@@ -313,6 +313,8 @@ static const StateActionPair_t Action[] =
 /**
  * Parses the given SBML formula and returns a representation of it as an
  * Abstract Syntax Tree (AST).  The root node of the AST is returned.
+ *
+ * If the formula contains a grammatical error, NULL is returned.
  */
 LIBSBML_EXTERN
 ASTNode_t *
@@ -342,7 +344,9 @@ SBML_parseFormula (const char *formula)
 
     else if (action == ERROR_STATE)
     {
-      printf("\nError!\n");
+      ASTNode_free(node);
+      node = NULL;
+      break;
     }
 
     /**
