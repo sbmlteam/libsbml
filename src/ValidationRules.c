@@ -936,6 +936,13 @@ RULE (species_initialConcentrationZeroSpatialDimensions)
  * The initialConcentration and initialAmount attributes must not be present
  * on the same element at the same time.
  */
+/* TODO: access this info directly from parser; as of 15-Apr-2004, can't
+ * access it from libsbml object model.
+ * Test case for partialModels:
+# A species may not have both an initialConcentration and an initialAmount.
+   <compartment id="c"/>
+   <species id="someId" compartment="c" initialAmount="5.8" initialConcentration="2.4"/>
+ */
 RULE (species_initialConcentrationInitialAmount)
 {
   static const char msg[] =
@@ -945,8 +952,6 @@ RULE (species_initialConcentrationInitialAmount)
   Species_t *s = (Species_t *) obj;
 
 
-  printf("isSetInitialConcentration: %d\n", Species_isSetInitialConcentration(s)); //DEBUG
-  printf("isSetInitialAmount: %d\n", Species_isSetInitialAmount(s)); //DEBUG
   if (
     Species_isSetInitialConcentration(s)
     &&
@@ -956,6 +961,85 @@ RULE (species_initialConcentrationInitialAmount)
     passed = 0;
   }
 
+  return passed;
+}
+
+/**
+ * When a species element has a constant attribute value of true and a
+ * boundaryCondition attribute of false then there must be no speciesReference
+ * element's species attribute that contains the value of the species
+ * element's id attribute.
+ */
+RULE (species_speciesReference)
+{
+  static const char msg[] =
+    "A speciesReference may not refer to a species with constant='true' "
+    "and boundaryCondition='false'.";
+  unsigned int passed = 1;
+
+  Species_t *s = (Species_t *) obj;
+  const char *speciesId = Species_getId(s);
+
+
+  if (
+    Species_getConstant(s)
+    &&
+    !Species_getBoundaryCondition(s)
+  ) {
+    int numReactions = Model_getNumReactions(d->model);
+    int i, j;
+
+    for (i = 0; i < numReactions; i++)
+    {
+      Reaction_t *r = Model_getReaction(d->model, i);
+
+      /* look at reactant species */
+      int numReactants = Reaction_getNumReactants(r);
+      for (j = 0; j < numReactants; j++)
+      {
+        SpeciesReference_t *sr = Reaction_getReactant(r, j);
+
+        const char *referenceId = SpeciesReference_getSpecies(sr);
+        if (streq(speciesId, referenceId))
+        {
+          goto failed;
+        }
+      }
+
+      /* look at product species */
+      int numProducts = Reaction_getNumProducts(r);
+      for (j = 0; j < numProducts; j++)
+      {
+        SpeciesReference_t *sr = Reaction_getProduct(r, j);
+
+        const char *referenceId = SpeciesReference_getSpecies(sr);
+        if (streq(speciesId, referenceId))
+        {
+          goto failed;
+        }
+      }
+
+      /* look at modifier species */
+      int numModifiers = Reaction_getNumModifiers(r);
+      for (j = 0; j < numModifiers; j++)
+      {
+        ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
+
+        const char *referenceId = ModifierSpeciesReference_getSpecies(msr);
+        if (streq(speciesId, referenceId))
+        {
+          goto failed;
+        }
+      }
+
+    }
+  }
+
+  return passed;
+
+failed:
+  LOG_MESSAGE(msg);
+  passed = 0;
   return passed;
 }
 
@@ -993,6 +1077,9 @@ Validator_addDefaultRules (Validator_t *v)
                                                        SBML_SPECIES         );
   Validator_addRule( v, species_initialConcentrationZeroSpatialDimensions,
                                                        SBML_SPECIES         );
+  /*
   Validator_addRule( v, species_initialConcentrationInitialAmount,
                                                        SBML_SPECIES         );
+  */
+  Validator_addRule( v, species_speciesReference,      SBML_SPECIES         );
 }
