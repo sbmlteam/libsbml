@@ -2057,7 +2057,6 @@ create_suite_ConsistencyTest (void)
   tcase_add_test( tcase, test_0007 );
   tcase_add_test( tcase, test_0008 );
   tcase_add_test( tcase, test_0009 );
-
   tcase_add_test( tcase, test_0010 );
   tcase_add_test( tcase, test_0011 );
   tcase_add_test( tcase, test_0012 );
@@ -2074,7 +2073,6 @@ create_suite_ConsistencyTest (void)
   tcase_add_test( tcase, test_0023 );
   tcase_add_test( tcase, test_0024 );
   tcase_add_test( tcase, test_0025 );
-
   tcase_add_test( tcase, test_0026 );
   tcase_add_test( tcase, test_0027 );
   tcase_add_test( tcase, test_0028 );

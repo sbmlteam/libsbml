@@ -228,7 +228,7 @@ ConsistencyTest_teardown (void)
 }
 
 
-#include "ConsistencyChecks.i"
+#include "test-data/consistency-checks/ConsistencyChecks.txt"
 
 
 END_C_DECLS

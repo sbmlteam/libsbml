@@ -3,8 +3,6 @@
 
 import os, sys
 
-outputDir = "variantModels"
-
 
 def makeList(obj):
    if not isinstance(obj, list):
@@ -96,7 +94,7 @@ create_suite_ConsistencyTest (void)
       
 
 def main():
-   f = file("ConsistencyChecks.i", "w");
+   f = file("ConsistencyChecks.txt", "w");
 
    idNumber = 0
    for model in readModels():
@@ -118,7 +116,7 @@ def readModels():
    template = None
    model = None
 
-   for line in file("consistencyCheckPartialModels"):
+   for line in file("partialModels"):
       line = line.rstrip()
       if line == "":
          continue
@@ -150,16 +148,6 @@ def readModels():
             model.append(line)
             
    return result
-
-
-def setUpOutputDir():
-   os.system(
-      """rm -rf %s
-      mkdir %s
-      """
-      %
-      (outputDir, outputDir)
-   )
 
 
 main()
