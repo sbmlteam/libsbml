@@ -40,6 +40,23 @@
 
             DYLD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
 
+  On Windows:
+
+     CLASSPATH
+         must include the "classes" directory in the Java SWIG
+         bindings directory.  For example:
+
+            CLASSPATH C:\libsbml\bindings\java\classes
+
+  NOTE: To set an environmental variable in Windows use the System option
+   on the Control Panel. 
+      
+     The sbmlj.dll file must be on the system path. The easiest way to achieve
+     this is to copy this file to the windows system directory. For example
+
+	   C:\WINDOWS\SYSTEM32
+     
+
 
 2  A SIMPLE JAVA LIBSBML PROGRAM
 
