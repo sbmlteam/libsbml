@@ -1,4 +1,36 @@
-% TranslateSBML('filename') translates sbml into a matlab structure
+% TranslateSBML((optional)'filename') translates sbml into a matlab structure
+%
+% filename is the name of the file containing the sbml definition of a
+% model - if not supplied a browse window is opened
+%
+% TranslateSBML returns a structure with the following fields
+% i.e. a sbml model structure
+% eg    Typecode
+%       Notes
+%       Annotations
+%       Level
+%       Version
+%       Name
+%       Id (2)
+%       ListFunctionDefinition (2)
+%       ListUnitDefinition
+%       ListCompartment
+%       ListSpecies
+%       ListParameter
+%       ListRule
+%       ListReaction
+%       ListEvent (2)
+%
+% NOTE number in brackets indicates field is appropriate for that level of
+% sbml only
+%
+% where Typecode,  Notes,  Annotations & Name are all of type char * 
+%                           (ie mxArray of char)
+%       ListXX refers to an array of structures of type XXX
+%
+% the structure of each type XXX is defined in help text for 
+% the isSBML_XXX() functions
+
 %
 %  Filename    : TranslateSBML.m
 %  Description : MATLAB help file for TranslateSBML
@@ -50,35 +82,3 @@
 %  Contributor(s):
 %
 %
-% TranslateSBML('filename') translates sbml into a matlab structure
-%
-% filename is the name of the file containing the sbml definition of a
-% model
-%
-% TranslateSBML returns a structure with the following fields
-% i.e. a sbml model structure
-% eg    Typecode
-%       Notes
-%       Annotations
-%       Level
-%       Version
-%       Name
-%       Id (2)
-%       ListFunctionDefinition (2)
-%       ListUnitDefinition
-%       ListCompartment
-%       ListSpecies
-%       ListParameter
-%       ListRule
-%       ListReaction
-%       ListEvent (2)
-%
-% NOTE number in brackets indicates field is appropriate for that level of
-% sbml only
-%
-% where Typecode,  Notes,  Annotations & Name are all of type char * 
-%                           (ie mxArray of char)
-%       ListXX refers to an array of structures of type XXX
-%
-% the structure of each type XXX is defined in help text for 
-% the isSBML_XXX() functions

@@ -565,7 +565,8 @@ GetSpecies ( Model_t      *pModel,
 
   int i;
   Species_t *pSpecies;
-    
+
+  double dZero = 0.0;
       
   /* create the structure array */
   if (unSBMLLevel == 1) {
@@ -589,6 +590,17 @@ GetSpecies ( Model_t      *pModel,
     nCharge = Species_getCharge(pSpecies);
     unIsSetInit = Species_isSetInitialAmount(pSpecies);
     unIsSetCharge = Species_isSetCharge(pSpecies);
+
+    /* record any unset values as NAN */
+    if (unIsSetInit == 0) {
+        dInitialAmount = 0.0/dZero;
+    }
+    if (unIsSetCharge == 0) {
+    /* if charge is not set it is assumed to be zero */
+        nCharge = 0;
+    }
+    
+    
     if (unSBMLLevel == 1) {
         pacUnits = Species_getUnits(pSpecies);
     }
@@ -600,9 +612,14 @@ GetSpecies ( Model_t      *pModel,
         nHasOnlySubsUnits = Species_getHasOnlySubstanceUnits(pSpecies);
         nConstant = Species_getConstant(pSpecies);
         unIsSetInitConc = Species_isSetInitialConcentration(pSpecies);
+    
+        /* record any unset values as NAN */
+    
+        if (unIsSetInitConc == 0) {
+            dInitialConcentration = 0.0/dZero;
+        }
     }
     
-
     /**
      * check for NULL strings - Matlab doesnt like creating 
      * a string that is NULL
@@ -826,6 +843,7 @@ GetCompartment ( Model_t      *pModel,
   Compartment_t *pCompartment;
   int i;
 
+  double dZero = 0.0;
 
   /* create the structure array  */
   if (unSBMLLevel == 1) {
@@ -847,6 +865,11 @@ GetCompartment ( Model_t      *pModel,
     unIsSetVolume = Compartment_isSetVolume(pCompartment);
     if (unSBMLLevel == 1) {
         dVolume = Compartment_getVolume(pCompartment);
+        
+        /* record any unset values as NAN */
+        if (unIsSetVolume == 0) {
+            dVolume = 0.0/dZero;
+        }
     }
     else if (unSBMLLevel == 2) {
         pacId = Compartment_getId(pCompartment);
@@ -854,6 +877,11 @@ GetCompartment ( Model_t      *pModel,
         dSize = Compartment_getSize(pCompartment);
         nConstant = Compartment_getConstant(pCompartment);
         unIsSetSize = Compartment_isSetSize(pCompartment);
+  
+        /* record any unset values as NAN */
+        if (unIsSetSize == 0) {
+            dSize = 0.0/dZero;
+        }
     }
 
     /**
@@ -958,7 +986,7 @@ GetParameter ( Model_t      *pModel,
   Parameter_t *pParameter;
 
   int i;
-      
+  double dZero =0.0;    
   
   /* create the structure array  */
   if (unSBMLLevel == 1) {
@@ -979,6 +1007,11 @@ GetParameter ( Model_t      *pModel,
     dValue = Parameter_getValue(pParameter);
     pacUnits = Parameter_getUnits(pParameter);
     unIsSetValue = Parameter_isSetValue(pParameter);
+   
+    /* record any unset values as NAN */
+    if (unIsSetValue == 0) {
+        dValue = 0.0/dZero;
+    }
     if (unSBMLLevel == 2) {
         pacId = Parameter_getId(pParameter);
         nConstant = Parameter_getConstant(pParameter);
@@ -1079,7 +1112,8 @@ void GetReaction ( Model_t      *pModel,
   Reaction_t *pReaction;
 
   int i;
-      
+  
+  int nZero = 0;
 
   /* create the structure array */
   if (unSBMLLevel == 1) {
@@ -1109,6 +1143,13 @@ void GetReaction ( Model_t      *pModel,
        pacId = Reaction_getId(pReaction);
        unIsSetFast = Reaction_isSetFast(pReaction);
        GetModifier(pReaction, unSBMLLevel, unSBMLVersion);   
+        
+       /* record any unset values as not specified */
+        if (unIsSetFast == 0) {
+        /* since in level 2 the fast field is optional a 
+        value of -1 indicates that the user has chosen not to set */
+            nFast = -1;
+        }
     }
 
     /**
@@ -1651,6 +1692,8 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
   Parameter_t *pParameter;
 
   int i;
+  
+  double dZero = 0.0;
       
   /* create the structure array */
   if (unSBMLLevel == 1) {
@@ -1671,6 +1714,13 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     dValue = Parameter_getValue(pParameter);
     pacUnits = Parameter_getUnits(pParameter);
     unIsSetValue = Parameter_isSetValue(pParameter);
+
+    /* record any unset values as NAN */
+    if (unIsSetValue == 0) {
+        dValue = 0.0/dZero;
+    }
+    
+    
     if (unSBMLLevel == 2) {
         pacId = Parameter_getId(pParameter);
         nConstant = Parameter_getConstant(pParameter);
