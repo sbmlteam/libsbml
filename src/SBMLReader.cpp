@@ -335,7 +335,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
         if (is.eof()) done = true;
         if (is.fail() && !done) throw;
             
-        if (!handler.parse(pBuffer, -1, done)) throw;
+        if (!handler.parse(pBuffer, -1, done)) throw "Parse Error";
       } 
       delete [] pBuffer;
 #undef BUFFER_SIZE
