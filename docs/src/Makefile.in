@@ -202,15 +202,24 @@ manual_html_dir = libsbml-manual
 epsfiles        = $(wildcard graphics/*.eps)
 pdffiles        = $(epsfiles:.eps=.pdf)
 
-add-sbmlmanual-link = \
-  { test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl; }
-
 latex-env := TEXINPUTS=".:tex//:../tex//:${TEXINPUTS}::" 
+
+# Check that these files are up-to-date w.r.t. libsbml's version number.
+# This helps catch the situation where a person does a CVS update and
+# the version number changes, but the person doesn't remember to do a
+# reconfigure.
+
+tex/libsbmlextras.sty: $(TOP_SRCDIR)/VERSION.txt $(TOP_SRCDIR)/FUNDING.txt
+	cd $(TOP_BUILDDIR) && \
+	    $(SHELL) ./config.status $(thisdir)/tex/libsbmlextras.sty
+
+Doxyfile: $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && \
+	    $(SHELL) ./config.status $(thisdir)/Doxyfile
 
 # Yes, run pdflatex 4 times after running bibtex here.
 
 libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
-	@$(add-sbmlmanual-link)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	$(latex-env) pdflatex libsbml-manual
 	-bibtex libsbml-manual
@@ -220,7 +229,6 @@ libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
 	$(latex-env) pdflatex libsbml-manual
 
 libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
-	@$(add-sbmlmanual-link)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	$(latex-env) latex libsbml-manual
 	-bibtex libsbml-manual
@@ -232,21 +240,24 @@ libsbml-manual.ps: libsbml-manual.dvi
 	dvips -o libsbml-manual.ps libsbml-manual
 
 libsbml-manual.html: libsbml-manual.tex libsbml-manual.dvi
-	@$(add-sbmlmanual-link)
+	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
+	@test -L ./libsbmlextras.perl || ln -s tex/libsbmlextras.perl
 	$(latex-env) latex2html -white -split +0 -show_section_numbers \
 		   -image_type gif -no_navigation -local_icons -discard \
-		   -antialias -t "libSBML Developer's Manual" \
+		   -antialias -t "libSBML $(PACKAGE_VERSION) Developer's Manual" \
 		   -mkdir -dir $(manual_html_dir) libsbml-manual
 	rm $(manual_html_dir)/index.html
 	cp -f libsbml-manual.css $(manual_html_dir)
-	ln -sf $(manual_html_dir)/libsbml-manual.html
-	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
-		$(manual_html_dir)/libsbml-manual.html
+	cp tex/logos/sbml-logo-300x48.jpg $(manual_html_dir)
+	cd $(manual_html_dir) && ln -sf libsbml-manual.html index.html
 	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
 		$(manual_html_dir)/libsbml-manual.html
 
 #		   -init_file libsbml-manual.init \
 #	ln -s libsbml-manual.html $(manual_html_dir)/index.html
+#	ln -sf $(manual_html_dir)/libsbml-manual.html
+#	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
+#		$(manual_html_dir)/libsbml-manual.html
 
 
 # -----------------------------------------------------------------------------
