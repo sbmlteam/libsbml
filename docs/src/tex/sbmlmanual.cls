@@ -285,6 +285,9 @@
 \def\acknowledge#1{\gdef\@acknowledge{#1}}
 \def\@acknowledge{}
 
+\def\funding#1{\gdef\@funding{#1}}
+\def\@funding{}
+
 \def\@puttitle{%
   \scalebox{1}[0.9]{%
     \fcolorbox{black}{sbmlblue}{%
@@ -300,17 +303,11 @@
 \setlength{\bottomgraphicwidth}{\textwidth}
 \addtolength{\bottomgraphicwidth}{-26pt}
 
+% IMPORTANT: if you change the following text, make sure to also change
+% the corresponding text in sbmlmanual.perl.
+
 \def\@putbottomgraphic{%
-  \small{\par This and other projects of the SBML Team are supported by the
-    following organizations: the National Institutes of Health (USA); the
-    International Joint Research Program of NEDO (Japan); the JST
-    ERATO-SORST Program (Japan); the Japanese Ministry of Agriculture; the
-    Japanese Ministry of Education, Culture, Sports, Science and
-    Technology; the BBSRC e-Science Initiative (UK); the DARPA IPTO
-    Bio-Computation Program (USA); the Air Force Office of Scientific
-    Research (USA); the California Institute of Technology (USA); the
-    University of Hertfordshire (UK); the Molecular Sciences Institute
-    (USA); and the Systems Biology Institute (Japan).}
+  \small{\par\@funding}
   \vskip 10ex%
   \@ifundefined{pdfoutput}{%
     \centerline{\includegraphics[width=2.5in]{sbml-logo}}%
