@@ -71,7 +71,7 @@ START_TEST (test_read_l1v1_branch)
   Species_t          *s;
   SpeciesReference_t *sr;
 
-  char notes[] = 
+  char notes1[] = 
     "\n"
     "      <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
     "        <p>Simple branch system.</p>\n"
@@ -79,6 +79,18 @@ START_TEST (test_read_l1v1_branch)
     "        <p>reaction-1:   X0 -> S1; k1*X0;</p>\n"
     "        <p>reaction-2:   S1 -> X1; k2*S1;</p>\n"
     "        <p>reaction-3:   S1 -> X2; k3*S1;</p>\n"
+    "      </body>\n"
+    "    ";
+
+  /* Xerces-C 2.4.0 escapes the '>' with '&gt;'. */
+  char notes2[] = 
+    "\n"
+    "      <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+    "        <p>Simple branch system.</p>\n"
+    "        <p>The reaction looks like this:</p>\n"
+    "        <p>reaction-1:   X0 -&gt; S1; k1*X0;</p>\n"
+    "        <p>reaction-2:   S1 -&gt; X1; k2*S1;</p>\n"
+    "        <p>reaction-3:   S1 -&gt; X2; k3*S1;</p>\n"
     "      </body>\n"
     "    ";
 
@@ -108,7 +120,7 @@ START_TEST (test_read_l1v1_branch)
   m = d->model;
 
   fail_unless( !strcmp( m->name , "Branch"), NULL );
-  fail_unless( !strcmp( m->notes, notes   ), NULL );
+  fail_unless( !strcmp( m->notes, notes1) || !strcmp( m->notes, notes2), NULL );
 
 
   /**
