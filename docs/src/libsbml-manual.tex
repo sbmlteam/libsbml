@@ -51,10 +51,10 @@ instructions below assume Apache is already installed on your system.
 %-----------------------------------------------------------------------------
 
 At the Unix, Cygwin or OS X command prompt, \texttt{untar} the
-distribution, \texttt{cd} into it (e.g., \texttt{libsbml-1.0.1/}), and
-type:
+distribution, \texttt{cd} into the directory created (e.g.,
+\texttt{libsbml-1.0.1/}), and type:
 
-\begin{example}
+\begin{example}[csh]
   % ./configure
   % make
   % make install
@@ -63,7 +63,7 @@ type:
 To compile programs that use libsbml (e.g., see
 Section~\ref{sec:read-example}) with GCC:
 
-\begin{example}
+\begin{example}[csh]
   % gcc -o myapp.c myapp.c -lsbml
 \end{example}
 
@@ -134,7 +134,7 @@ Some of the features of \textsc{libsbml} include:
   The C source code is pure ANSI for maximum portability.  It produces
   no errors or warnings when compiled with either gcc or Microsoft
   Visual C++.  GCC compilation flags are: \texttt{-ansi
-  -pedantic-errors -Wall}, i.e. ANSI violations are compilation errors
+  -pedantic-errors -Wall}, i.e., ANSI violations are compilation errors
   instead of warnings and all warnings are reported.
 
   The build system uses the GNU Autotools (Autoconf, Automake, and
@@ -149,7 +149,7 @@ Some of the features of \textsc{libsbml} include:
   \item \textbf{Full SBML Support}
 
   The parser supports both spellings of \emph{species} and
-  \emph{annotation} (i.e. with and without the last \emph{s}) for any
+  \emph{annotation} (i.e., with and without the last \emph{s}) for any
   level and version.  When writing SBML documents, the appropriate
   specification-sanctioned spelling is used.
 
@@ -232,7 +232,7 @@ in 100\% pure ANSI-C and the build system uses the GNU Autotools
 (Autoconf, Automake and Libtool).  In most cases, building should be
 as easy unpacking the sources and running:
 
-\begin{example}
+\begin{example}[csh]
   % ./configure
   % make
   % make check    (optional)
@@ -246,7 +246,7 @@ Set the \variable{CPPFLAGS} and \variable{LDFLAGS} environment
 variables to include the custom directories containing Xerces-C header
 and library files.  For example:
 
-\begin{example}
+\begin{example}[csh]
   % export CPPFLAGS=-I/home/bornstei/software/xerces-c/2.2.0/include
   % export LDFLAGS=-L/home/bornstei/software/xerces-c/2.2.0/lib
   % ./configure
@@ -258,7 +258,7 @@ and library files.  For example:
 to \texttt{/usr/local/lib}.  To specify a different install location
 use:
 
-\begin{example}
+\begin{example}[csh]
   % ./configure --prefix=/my/favorite/path
 \end{example}
 
@@ -295,14 +295,14 @@ In addition to the unit tests, a custom memory tracing facility is
 available.  It is disabled by default and must be enabled explicitly
 at build time, either as an argument to configure:
 
-\begin{example}
+\begin{example}[csh]
   % ./configure --enable-memory-tracing
 \end{example}
 
 or, in your own projects, by defining the C preprocessor symbol
 \variable{TRACE\_MEMORY}:
 
-\begin{example}
+\begin{example}[c]
   #define TRACE_MEMORY
 \end{example}
 
@@ -318,7 +318,7 @@ If for some reason this is not the case, please submit a but report at
 For performance reasons, memory tracing should be disabled in
 production environments:
 
-\begin{example}
+\begin{example}[csh]
   % ./configure --disable-memory-tracing
 \end{example}
 
@@ -349,7 +349,7 @@ few simple stylistic conventions:
 
   \item SBML classes are represented as C structs with a typedef
   shorthand.  The shorthand form is derived by appending \class{\_t}
-  to the name of the SBML class, e.g. \class{Model} becomes
+  to the name of the SBML class, e.g., \class{Model} becomes
   \class{Model\_t}.
 
   \item C ``objects'' are nothing more than pointers to specific
@@ -363,7 +363,7 @@ few simple stylistic conventions:
   argument.  For example, the function prototype for the
   \method{addCompartment()} method of a \class{Model} is:
 
-    \begin{example}
+    \begin{example}[c]
     void Model_addCompartment(Model_t *m, Compartment_t *c);
     \end{example}
 
@@ -440,7 +440,7 @@ SBMLTypes.h}.
   \begin{tabular}{m{8.5cm}c}
     \includegraphics[scale=0.68]{species}
     &
-    \begin{example}
+    \begin{example}[c]
 typedef struct
 {
   char    *name;
@@ -465,10 +465,10 @@ Species and the corresponding C struct side-by-side.  The similarity
 between the two demonstrates the mapping rules for primitive types:
 
 \begin{enumerate}
-
-  \item In all cases, UML attribute names, including capitalization,
-  are preserved (e.g., \variable{initialAmount}) when mapped to C
-  struct fields.
+  
+  \item In all cases, the form of UML attribute names, including their
+  capitalization, are preserved (e.g., \variable{initialAmount}) when
+  mapped to C struct fields.
 
   \item SName maps to a standard C string (pointer to an array of
   characters terminated by a \texttt{NULL} (\texttt{0}) character; for
@@ -512,7 +512,7 @@ int boundaryCondition, int charge)}
   initialAmount, units, boundaryCondition and charge and returns a
   pointer to it.  This convenience function is functionally equivalent
   to:
-  \begin{example}
+  \begin{example}[c]
 Species_t *s = Species_create();
 Species_setName(s, name); Species_setCompartment(s, compartment); ...;
   \end{example}
@@ -687,7 +687,7 @@ the field being set previously contained a string, it is freed.  When
 For example, to set the compartment of Species \variable{s} to the
 string ``cell'':
 
-\begin{example}
+\begin{example}[c]
 Species_setCompartment(s, "cell");
 \end{example}
 
@@ -701,7 +701,7 @@ There is nothing in C language specification or the compiler that
 prevents string fields (or any other field type for that matter) from
 being set directly, as in:
 
-\begin{example}
+\begin{example}[c]
 s->name = "s2";
 \end{example}
 
@@ -729,8 +729,8 @@ manipulated.  For this reason, \libsbml{} must be able to
 determine the set or unset state of the \variable{charge} field to
 either output or omit the field as appropriate.
 
-The easiest way to determine whether a particular field is set or
-unset is to use the \method{XXX\_isSetYYY()} class of methods.  For
+The easiest way to determine whether a particular field in a structure is
+set or unset is to use the \method{XXX\_isSetYYY()} class of methods.  For
 Species, the following are available:
 
 
@@ -780,11 +780,10 @@ Just as fields may be set and their set state queried, they may also
 be unset.  Unset methods are named (predictably)
 \method{XXX\_unsetYYY()}.  The unset methods for Species are:
 
-
 \begin{methoddef}{void Species\_unsetName (Species\_t *s)}
-  Unsets the name of this Species.  This is equivalent to:\\
-  \texttt{safe\_free(s->name); s->name = NULL;}\\
-
+  Unsets the name of this Species.  This is equivalent to the following code:\\
+  \texttt{safe\_free(s->name); s->name = NULL;}
+  \\
   In SBML L1, a Species name is required and therefore \textbf{should
   always be set}.  In L2, name is optional and as such may or may not
   be set.
@@ -818,7 +817,7 @@ It is also possible to check the set status of a field directly.  For
 SName strings this is simple, unset fields will contain a
 \texttt{NULL} pointer:
 
-\begin{example}
+\begin{example}[c]
   s->units != NULL  /* Equivalent to Species_isSetUnits(s). */
 \end{example}
 
@@ -835,7 +834,7 @@ in Figure~\ref{fig:species-isSet}.
 
 So, to determine if a given species \variable{s} has a charge:
 
-\begin{example}
+\begin{example}[c]
   s->isSet.charge == 1  /* Equivalent to Species_isSetCharge(s) */
 \end{example}
 
@@ -883,8 +882,8 @@ SBML classes also contain lists of other objects.  For example, a
 \end{figure}
 
 
-To help manage this containment relationship, three standard functions
-are provided \method{XXX\_addYYY()}, \method{XXX\_getYYY()} and
+To help manage this containment relationship, three standard functions are
+provided by \libsbml{}: \method{XXX\_addYYY()}, \method{XXX\_getYYY()} and
 \method{XXX\_getNumYYY()}.  For example, the methods for UnitDefinition
 are:
 
@@ -923,7 +922,7 @@ s^1$ named ``mmls'', corresponding to the SBML:
 
 could be accomplished with the following C:
 
-\begin{example}
+\begin{example}[c]
 UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
 
 UnitDefinition_addUnit(ud, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
@@ -946,9 +945,9 @@ them.  Another way to construct the above \class{UnitDefinition}, but
 this time inside a \class{Model}, is:
 
 
-\begin{example}
+\begin{example}[c]
 Model_t            *m  = Model_createWith("MyModel");
-UnitDefinition_t *ud = Model_createUnitDefinition(m);
+UnitDefinition_t   *ud = Model_createUnitDefinition(m);
 
 UnitDefinition_setName(ud, "mmls");
 
@@ -981,7 +980,7 @@ few support functions for equality testing and converting to and from
 strings.  From \texttt{UnitKind.h}:
 
 
-\begin{example}
+\begin{example}[c]
 typedef enum
 {
     UNIT_KIND_AMPERE
@@ -1095,7 +1094,7 @@ inheritance}.  For example, Species inherits from SBase:
 \texttt{SBase.h} defines:
 
 
-\begin{example}
+\begin{example}[c]
 /**
  * As shown below, put SBASE_FIELDS as the *first* item of any struct
  * which "is a(n)" SBML object.
@@ -1109,7 +1108,7 @@ inheritance}.  For example, Species inherits from SBase:
 
 and recall \class{Species\_t} from earlier:
 
-\begin{example}
+\begin{example}[c]
 typedef struct
 {
   SBASE_FIELDS;
@@ -1130,7 +1129,7 @@ same first three fields.  Accessing the notes or annotation field of a
 \class{Species\_t} \variable{*s}, or any other SBML object, is the
 same as for other fields.  For example:
 
-\begin{example}
+\begin{example}[c]
 if (s->notes != NULL)
 {
   printf("Notes for Species %s:\n", (s->name == NULL) ? "(null)" : s->name);
@@ -1167,7 +1166,7 @@ required.  To set the notes field of \class{Species} \variable{s}
 then:
 
 
-\begin{example}
+\begin{example}[c]
 SBase_setNotes( (SBase_t *) s, "My Favorite Species" );
 \end{example}
 
@@ -1180,7 +1179,7 @@ initialized when an object is instantiated.  The \variable{typecode}
 is a simple C enumeration, defined in \texttt{SBMLTypeCodes.h}:
 
 
-\begin{example}
+\begin{example}[c]
 /**
  * An enumeration of SBML types to help identify SBML objects at runtime.
  * Abstract types do not have a typecode since they cannot be instantiated.
@@ -1240,7 +1239,7 @@ SBMLDocument.  \texttt{SBMLReader.h} defines two basic read functions:
 These functions return a pointer to an SBMLDocument:
 
 
-\begin{example}
+\begin{example}[c]
 /**
  * The SBMLDocument
  */
@@ -1265,7 +1264,7 @@ warning or error is a ParseMessage (again from
 \texttt{SBMLDocument.h}):
 
 
-\begin{example}
+\begin{example}[c]
 /**
  * SBMLDocuments contain three Lists of ParseMessages, one for each class
  * of messages that could be triggered during an XML parse: Warnings,
@@ -1335,7 +1334,7 @@ FILE *stream)}
       Line %d, Col %d: %s
       ...
   \end{example}
-  This is a convenience function to aid in debugging.  For example:
+  This is a convenience function to aid in debugging.  For example:\\
   \texttt{SBMLDocument\_printWarnings(d, stdout)}.
  \end{methoddef}
   
@@ -1343,7 +1342,7 @@ FILE *stream)}
 \begin{methoddef}{void SBMLDocument\_printErrors (SBMLDocument\_t *d,
 FILE *stream)}
   Prints all errors encountered during the parse of this SBMLDocument
-  to the given stream.  If no errors have occurred, i.e.
+  to the given stream.  If no errors have occurred, that is, if 
   \texttt{SBMLDocument\_getNumErrors(d) == 0}, no output will be sent
   to stream. The format of the output is:
   \begin{example}
@@ -1351,7 +1350,7 @@ FILE *stream)}
       Line %d, Col %d: %s
       ...
   \end{example}
-  This is a convenience function to aid in debugging.  For example:
+  This is a convenience function to aid in debugging.  For example:\\
   \texttt{SBMLDocument\_printErrors(d, stdout)}.
  \end{methoddef}
   
@@ -1359,7 +1358,7 @@ FILE *stream)}
 \begin{methoddef}{void SBMLDocument\_printFatals (SBMLDocument\_t *d,
 FILE *stream)}
   Prints all fatals encountered during the parse of this SBMLDocument
-  to the given stream.  If no fatals have occurred, i.e.
+  to the given stream.  If no fatals have occurred, that is, if
   \texttt{SBMLDocument\_getNumFatals(d) == 0}, no output will be sent
   to stream. The format of the output is:
   \begin{example}
@@ -1367,7 +1366,7 @@ FILE *stream)}
       Line %d, Col %d: %s
       ...
   \end{example}
-  This is a convenience function to aid in debugging.  For example:
+  This is a convenience function to aid in debugging.  For example:\\
   \texttt{SBMLDocument\_printFatals(d, stdout)}.
  \end{methoddef}
 
@@ -1387,7 +1386,7 @@ as well as the total read time (in milliseconds).
 To run the example, go to the top-level directory where
 \textsc{libsbml} was unpacked and:
 
-\begin{example}
+\begin{example}[csh]
   % cd src
   % ./readSBML test-data/l1v1-branch.xml
   % ./readSBML test-data/l1v1-minimal.xml
@@ -1401,13 +1400,12 @@ The exact procedure for compile the example (and linking-in
 \textsc{libsbml} in general) varies from one platform and compiler to
 another.  On Linux or Solaris with GCC the following should work:
 
-\begin{example}
+\begin{example}[csh]
   % gcc -o readSBML readSBML.c -lsbml
 \end{example}
 
 
 The example is listed below:
-\\
 
 %\begin{figure}[hbt]
 \begin{codeVerbatim}[C,flexiblecolumns=false]
@@ -1553,9 +1551,9 @@ XMLSchemaValidation\_t level )}
 \end{methoddef}
 
 
-Once an \texttt{SBMLReader} has been created, there are two variants
-of \texttt{readSBML()} and \texttt{readSBMLFromString()} functions
-described above.  These variants can be thought of as methods of the
+Once an \texttt{SBMLReader} has been created, there two variants of the
+functions \texttt{readSBML()} and \texttt{readSBMLFromString()} become
+available.  These variants can be thought of as methods of the
 \texttt{SBMLReader} class.
 
 
@@ -1592,7 +1590,7 @@ selecting a schema filename and validation level, an output encoding
 is chosen instead.  The supported output encodings are:
 
 
-\begin{example}
+\begin{example}[c]
 /**
  * The character encodings supported by SBMLWriter
  */
@@ -1658,7 +1656,7 @@ there are two simpler equivalents to the above functions:
   this SBMLWriter.  This convenience function is functionally equivalent
   to:
 
-  \begin{example}
+  \begin{example}[c]
     SBMLWriter_writeSBML(SBMLWriter_create(), d, filename);
   \end{example}
 
@@ -1673,7 +1671,7 @@ there are two simpler equivalents to the above functions:
   owned by the caller and should be freed (with free()) when no longer
   needed.  This convenience function is functionally equivalent to:
   
-  \begin{example}
+  \begin{example}[c]
     SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
   \end{example}
 
@@ -1684,41 +1682,263 @@ there are two simpler equivalents to the above functions:
 
 %=============================================================================
 \section{Handling of Mathematical Formulas and MathML}
-\label{sec:writing-sbml}
+\label{sec:mathml}
 %=============================================================================
 
 \libsbml{} can read and write MathML 2.0~\citep{w3c:2000b} content in SBML
 documents and data streams, as well as translate between MathML and the
-text-string formulas used in SBML Level~1~\citep{hucka:2001,hucka:2003}.
-This section describes the MathML and mathematics handling capabilities of
-\libsbml{}.
+text-string formulas used in SBML Level~1.  This section describes the
+MathML and mathematics handling capabilities of the library.
 
 
 %-----------------------------------------------------------------------------
-\subsection{Reading and Writing MathML Content and Formula Strings}
-\label{sec:reading-writing-mathml}
+\subsection{Reading and Writing Formulas in Text-String Form}
+\label{sec:text-string-math}
 %-----------------------------------------------------------------------------
 
-Whether formulas in SBML are expressed as text strings (the SBML Level~1
-approach) or MathML (the SBML Level~2 approach), they are converted
-internally in \libsbml{} into abstract syntax trees.  The structure of
-these trees is described in more detail in the next section.
+In SBML Level~1, mathematical formulas are expressed as text strings using
+a simple C-like syntax.  In SBML Level~2, mathematical formulas are
+expressed in MathML syntax.  The API interfaces to SBML files and data
+streams work with ASCII text strings in both cases; the difference between
+Level~1 and Level~2 mathematical expressions is entirely in the syntax of
+the strings.
 
-The root of an abstract syntax tree for a mathematical expression is
-encapsulated by an object of class \texttt{MathMLDocument}.  
+Whether formulas in SBML are expressed in the C-like syntax of Level~1 or
+in the MathML syntax of Level~2, they are converted internally in
+\libsbml{} into Abstract Syntax Trees (ASTs).  The structure of ASTs is
+described in detail in Appendix~\ref{app:ast}.  When \libsbml{} reads an
+SBML model, it converts the expressions into ASTs and stores the ASTs in
+the corresponding data structures that have mathematical formulas (such as
+in a \texttt{KineticLaw}).  Thus, the \method{KineticLaw\_getMath()} method,
+for example, returns a pointer to the root of an AST corresponding to the
+formula stored there.
+
+Many software packages provide users with the ability to express formulas
+for such things as reaction rate expressions, and these packages'
+interfaces often let users type in the formulas directly as strings.
+\libsbml{} provides two high-level functions for working with mathematical
+expressions in the form of strings: \method{SBML\_parseFormula} and
+\method{SBML\_formulaToString}.
+
+\begin{methoddef}{ASTNode\_t *SBML\_parseFormula (const char *formula)}
+  Parses the given string as a mathematical formula in SBML Level~1 syntax
+  form, and returns a representation of it as an Abstract Syntax Tree
+  (AST).  This function returns the root node of the AST.  If the formula
+  contains a syntax error, this function returns NULL instead.
+\end{methoddef}
+
+\begin{methoddef}{char *SBML\_formulaToString (ASTNode\_t *tree)}
+  Returns a text-string mathematical expression corresponding to the
+  Abstract Syntax Tree given as the argument.  The caller owns the memory
+  allocated for the returned string and is responsible for freeing it when
+  it is no longer needed.
+\end{methoddef}
+
+Using these methods is exceedingly simple.  The following is a code
+fragment that illustrates calling the parser function repeatedly with
+different formula strings, taking the ASTs returned each time and handing
+them back to the formula generator and comparing the strings to make sure
+they matched.  (This is not something a real application would ever need to
+do, but it does simply illustrate the use of these two methods.)
+
+\begin{example}[c]
+{
+  const char *formulae[] =
+  {
+    "1",
+    "2.1",
+    "2.1e+10",
+    "foo",
+    "1 + foo",
+    "1 + 2",
+    "1 + 2 * 3",
+    "(1 - 2) * 3",
+    "1 + -2 / 3",
+    "1 + -2e-100 / 3",
+    "1 - -foo / 3",
+    "2 * foo^bar + 3.1",
+    "foo()",
+    "foo(1)",
+    "foo(1, bar)",
+    "foo(1, bar, 2^-3)",
+    ""
+  };
+
+  ASTNode_t *n;
+  char      *s;
+  int        i;
+
+  for (i = 0; i < *formulae[i]; i++)
+  {
+    n = SBML_parseFormula( formulae[i] );  /* Convert string to AST */
+    s = SBML_formulaToString(n);           /* Convert AST back to string */
+
+    fail_unless( !strcmp(s, formulae[i]), NULL );
+
+    ASTNode_free(n);
+    safe_free(s);
+  }
+}
+\end{example}
 
 
 
 %-----------------------------------------------------------------------------
-\subsection{Abstract Syntax Trees}
-\label{sec:ast}
+\subsection{Reading Formulas in MathML Form}
+\label{sec:mathml-math}
 %-----------------------------------------------------------------------------
 
+There may arise situations in which an application needs to convert MathML
+directly into an AST.  \libsbml{} provides the utility function
+\method{readMathMLFromString()} for this purpose.  
+
+\begin{methoddef}{MathMLDocument\_t *readMathMLFromString (const char *xml)}
+  Reads a string containing an XML MathML expression, constructs the
+  corresponding Abstract Syntax Tree and returns a pointer to a
+  \class{MathMLDocument\_t} holding the tree structure.
+\end{methoddef}
+
+The object returned by \method{readMathMLFromString()} is a simple
+container for an AST.  The class of this object, MathMLDocument, is not
+defined by SBML but is provided in \libsbml{} as a utility class.
+MathMLDocument serves as a top-level container for XML documents containing
+only MathML.  The definition of \class{MathMLDocument\_t} is as follows:
+ 
+\begin{example}[c]
+/**
+ * The MathMLDocument
+ */
+typedef struct
+{
+  ASTNode_t *math;
+} MathMLDocument_t;
+\end{example}  
+
+Application-level code is not intended to create MathMLDocument objects or
+manipulate their internal fields.  The only exceptions are the following
+two functions.
+
+\begin{methoddef}{void MathMLDocument\_free (MathMLDocument\_t *d)}
+  Frees the given \class{MathMLDocument\_t} structure.
+\end{methoddef}
+
+\begin{methoddef}{ASTNode\_t *MathMLDocument\_getMath (const MathMLDocument\_t *d)}
+  Returns the AST representation of the mathematical formula stored in this
+  \class{MathMLDocument\_t} structure.
+\end{methoddef}
+
+Note that because the content passed to \method{readMathMLFromString()} is
+handed to an XML parser, the string given as argument must be a complete
+XML document.  The following example illustrates the use of this function
+with a valid MathML input.
+
+\begin{example}[c]
+{
+  MathMLDocument_t *D;
+
+  const char* s = "<?xml version='1.0' encoding='ascii'?>"
+                  "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+                  "<apply><arccos/><ci> x </ci></apply>"
+                  "</math>";
+
+  D = readMathMLFromString(s);
+}
+\end{example}
+
+
 
 %-----------------------------------------------------------------------------
-\subsection{Reading and Writing MathML Content and Formula Strings}
-\label{sec:reading-writing-mathml}
+\subsection{Special Cases in Mathematical Formulas}
+\label{sec:mathml-math}
 %-----------------------------------------------------------------------------
+
+\emph{explanation of handling of constants like NaN, and conversion of
+  function names between L1 form and MathML.}
+
+
+
+
+\clearpage
+\appendix
+%=============================================================================
+\section{Lists}
+\label{app:lists}
+%=============================================================================
+
+While List convenience methods (e.g., \texttt{XXX\_getNumYYY()}) are
+provided for every class, it is possible to access and manipulate each
+list directly.  All lists are themselves objects of type
+\texttt{List\_t}.  The full set of list methods are:
+
+
+\begin{methoddef}{void List\_add (List\_t *list, void *item)}
+  Adds item to this List.
+\end{methoddef}
+
+\begin{methoddef}{void *List\_get (List\_t *list, unsigned int n)}
+  Returns the nth item in this List.  If \texttt{n > List\_size(list)
+  - 1} returns \texttt{NULL}.
+\end{methoddef}
+
+\begin{methoddef}{void *List\_remove (List\_t *list, unsigned int n)}
+  Removes the nth item from this List and returns a pointer to it.  If
+  \texttt{n > List\_size(list) - 1} returns \texttt{NULL}.
+\end{methoddef}
+
+\begin{methoddef}{unsigned int List\_size (List\_t *list)}
+  Returns the number of elements in this List.
+\end{methoddef}
+
+
+Since UnitDefinitions maintains a List of Units, the UnitDefinition
+example in Section~\ref{sec:lists} could also be written as:
+
+
+\begin{example}[c]
+UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
+
+List_add(ud->unit, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
+List_add(ud->unit, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
+List_add(ud->unit, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
+\end{example}
+
+
+However, this approach is not preferred.  The best reason to use
+specific \texttt{XXX\_getYYY()} methods over the List API is that the
+former are typed to specific items, whereas \texttt{List\_get()}
+returns a void pointer that must be cast to a specific type.  For
+example, compare:
+
+\begin{example}[c]
+Unit_t *u = UnitDefinition_getUnit(u, 1);
+\end{example}
+
+to:
+
+\begin{example}[c]
+  Unit_t *u = (Unit_t *) List_get(ud->unit, 1);
+\end{example}
+
+Further, the first is more readable.  The List API is mentioned i) for
+the sake of completeness and ii) currently the only way to remove an
+item from a list is to use the API directly:
+
+\begin{example}[c]
+List_remove(ud->unit, 2);
+\end{example}
+
+has no analog in UnitDefinition.  ``Remove'' convenience methods can be
+added to the API.  This feature was skipped because list item removal
+seemed like an uncommon operation.
+
+
+%=============================================================================
+\section{Abstract Syntax Trees and \texttt{ASTNode\_t}}
+\label{app:ast}
+%=============================================================================
+
+\emph{explanation of ASTNode}
+
 
 
 
@@ -1729,6 +1949,7 @@ encapsulated by an object of class \texttt{MathMLDocument}.
 % References
 %=============================================================================
 
+\clearpage
 \bibliographystyle{apalike}
 \bibliography{strings,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z}
 

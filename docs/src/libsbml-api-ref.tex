@@ -50,7 +50,6 @@ the \emph{\textsc{libsbml} Developer's Manual}~\citep{bornstein:2003}.
 
 
 %=============================================================================
-\appendix
 \section{API Reference}
 %=============================================================================
 
@@ -96,79 +95,6 @@ the \emph{\textsc{libsbml} Developer's Manual}~\citep{bornstein:2003}.
 \include{api/UnitKind}
 \include{api/Unit}
 \include{api/util}
-
-
-%=============================================================================
-\section{Lists}
-\label{app:lists}
-%=============================================================================
-
-
-While List convenience methods (e.g., \texttt{XXX\_getNumYYY()}) are
-provided for every class, it is possible to access and manipulate each
-list directly.  All lists are themselves objects of type
-\texttt{List\_t}.  The full set of list methods are:
-
-
-\begin{methoddef}{void List\_add (List\_t *list, void *item)}
-  Adds item to this List.
-\end{methoddef}
-
-\begin{methoddef}{void *List\_get (List\_t *list, unsigned int n)}
-  Returns the nth item in this List.  If \texttt{n > List\_size(list)
-  - 1} returns \texttt{NULL}.
-\end{methoddef}
-
-\begin{methoddef}{void *List\_remove (List\_t *list, unsigned int n)}
-  Removes the nth item from this List and returns a pointer to it.  If
-  \texttt{n > List\_size(list) - 1} returns \texttt{NULL}.
-\end{methoddef}
-
-\begin{methoddef}{unsigned int List\_size (List\_t *list)}
-  Returns the number of elements in this List.
-\end{methoddef}
-
-
-Since UnitDefinitions maintains a List of Units, the UnitDefinition
-example in Section~\ref{sec:lists} could also be written as:
-
-
-\begin{example}
-UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
-
-List_add(ud->unit, Unit_createWith(UNIT_KIND_MOLE  ,  1, -3) );
-List_add(ud->unit, Unit_createWith(UNIT_KIND_LITRE , -1,  0) );
-List_add(ud->unit, Unit_createWith(UNIT_KIND_SECOND, -1,  0) );
-\end{example}
-
-
-However, this approach is not preferred.  The best reason to use
-specific \texttt{XXX\_getYYY()} methods over the List API is that the
-former are typed to specific items, whereas \texttt{List\_get()}
-returns a void pointer that must be cast to a specific type.  For
-example, compare:
-
-\begin{example}
-Unit_t *u = UnitDefinition_getUnit(u, 1);
-\end{example}
-
-to:
-
-\begin{example}
-  Unit_t *u = (Unit_t *) List_get(ud->unit, 1);
-\end{example}
-
-Further, the first is more readable.  The List API is mentioned i) for
-the sake of completeness and ii) currently the only way to remove an
-item from a list is to use the API directly:
-
-\begin{example}
-List_remove(ud->unit, 2);
-\end{example}
-
-has no analog in UnitDefinition.  ``Remove'' convenience methods can be
-added to the API.  This feature was skipped because list item removal
-seemed like an uncommon operation.
 
 
 %=============================================================================
