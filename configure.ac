@@ -57,7 +57,7 @@ dnl ---------------------------------------------------------------------------
 
 if test -f "VERSION.txt"; then
    m4_define(LIBSBML_VERSION, 
-	     m4_esyscmd(cat VERSION.txt  | sed 's/\-.*$//' | tr -d '\n\r'))
+       m4_esyscmd(cat VERSION.txt  | sed 's/\-.*$//' | tr -d '\n\r'))
 fi
 
 AC_INIT([libSBML], LIBSBML_VERSION, [sbml-team@caltech.edu], [libsbml])
@@ -147,6 +147,13 @@ CONFIG_PROG_PYTHON
 CONFIG_PROG_JAVA(1.4.0)
 CONFIG_PROG_MATLAB
 
+AC_LISP
+AC_LISP_EXIT
+AC_ASDF_CHECK
+AC_UFFI_CHECK
+AC_CPARSE_CHECK
+AC_FASL
+
 dnl AC_LIBTOOL_WIN32_DLL
 dnl AC_PROG_LIBTOOL
 
@@ -224,6 +231,14 @@ AC_CONFIG_FILES([bindings/Makefile])
 AC_CONFIG_FILES([bindings/python/Makefile])
 AC_CONFIG_FILES([bindings/matlab/Makefile])
 AC_CONFIG_FILES([bindings/java/Makefile])
+
+dnl logical pathnames for build
+AC_CONFIG_FILES([bindings/lisp/libsbml-config.lisp])
+AC_CONFIG_FILES([bindings/lisp/build.lisp])
+dnl logical pathnames for installed version
+AC_CONFIG_FILES([bindings/lisp/libsbml-config-run.lisp])
+AC_CONFIG_FILES([bindings/lisp/Makefile])
+
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/src/Doxyfile])
 AC_CONFIG_FILES([docs/src/Makefile])
@@ -277,6 +292,18 @@ fi
 
 if test "$with_matlab" != "no"; then
   echo "  use Matlab?          = $USE_MATLAB"
+fi
+
+if test -n "$LISP" ; then
+  echo "  use Lisp             = $LISP"
+fi
+
+if test -n "$EXT_ASDF"; then
+  echo "  use Asdf            at $ASDF"
+fi
+
+if test -n "$EXT_UFFI"; then
+  echo "  use UFFI            at $UFFI"
 fi
 
 if test "$enable_tracing" != "no"; then
