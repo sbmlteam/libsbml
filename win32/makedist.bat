@@ -67,8 +67,8 @@ set LIB=%LIB%;bin
 call make libsbml.mak "libsbml - Win32 Debug"   clean
 call make libsbml.mak "libsbml - Win32 Release" clean
 
-call make libsbmlj.mak "libsbmlj - Win32 Debug"   clean
-call make libsbmlj.mak "libsbmlj - Win32 Release" clean
+call make sbmlj.mak "sbmlj - Win32 Debug"   clean
+call make sbmlj.mak "sbmlj - Win32 Release" clean
 
 call make convertsbml.mak "convertSBML - Win32 Debug"   clean
 call make convertsbml.mak "convertSBML - Win32 Release" clean
@@ -88,8 +88,8 @@ call make validatesbml.mak  "validateSBML - Win32 Release" clean
 call make libsbml.mak "libsbml - Win32 Debug"
 call make libsbml.mak "libsbml - Win32 Release"
 
-call make libsbmlj.mak "libsbmlj - Win32 Debug"
-call make libsbmlj.mak "libsbmlj - Win32 Release"
+call make sbmlj.mak "sbmlj - Win32 Debug"
+call make sbmlj.mak "sbmlj - Win32 Release"
 
 call make convertsbml.mak   "convertSBML - Win32 Release"
 call make printsbml.mak     "printSBML - Win32 Release"
@@ -99,8 +99,8 @@ call make validatesbml.mak  "validateSBML - Win32 Release"
 
 call deltree "Debug"
 call deltree "Release"
-call deltree "libsbmlj___Win32_Debug"
-call deltree "libsbmlj___Win32_Release"
+call deltree "sbmlj___Win32_Debug"
+call deltree "sbmlj___Win32_Release"
 call deltree "convertSBML___Win32_Debug"
 call deltree "convertSBML___Win32_Release"
 call deltree "printSBML___Win32_Debug"
