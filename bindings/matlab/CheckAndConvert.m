@@ -70,7 +70,14 @@ Formula = strrep(Formula, 'arctanh', 'atanh');
 
 Formula = strrep(Formula, 'exponentiale', 'exp(1)');
 
+Formula = strrep(Formula, 'geq', 'ge');
+
+Formula = strrep(Formula, 'leq', 'le');
+
 Formula = strrep(Formula, 'pow', 'power');
+
+% any logical expressions can only have two arguments
+Formula = SortLogicals(Formula);
 
 % log(2,x) must become log2(x)
 Formula = strrep(Formula, 'log(2,', 'log2(');
@@ -206,3 +213,209 @@ else
         end;
     end;
 end;
+
+function Formula = CorrectFormula(OriginalFormula, LogicalExpression)
+% CorrectFormula takes an OriginalFormula (as a char array)
+%                 and  a Logical Expression (as a char array with following '(')
+% and returns the formula written so that the logical expression only takes 2 arguments
+% 
+% *************************************************************************************
+% 
+% EXAMPLE:    y = CorrectFormula('and(A,B,C)', 'and(')
+% 
+%             y = 'and(and(A,B), C)'
+%             
+
+% find all opening brackets, closing brackets and commas contained
+% within the original formula
+OpeningBracketIndex = find((ismember(OriginalFormula, '(')) == 1);
+
+ClosingBracketIndex = find((ismember(OriginalFormula, ')')) == 1);
+
+CommaIndex = find((ismember(OriginalFormula, ',')) == 1);
+
+% check that tha number of brackets matches 
+if (length(OpeningBracketIndex) ~= length(ClosingBracketIndex))
+    error('Bracket mismatch');
+end;
+
+% find the commas that are between the arguments of the logical expression
+% not those that may be part of the argument
+% in the OpeningBracketIndex the first element refers to the opening
+% bracket of the expression and the last element of ClosingBracketIndex
+% refers to the the closing bracket of the expression
+% commas between other pairs of brackets do not need to be considered
+% e.g.  'and(gt(d,e),lt(2,e),gt(f,d))'
+%                   |       |       
+%                  relevant commas
+
+for i = 1:length(CommaIndex)
+    for j = 2:length(OpeningBracketIndex)
+        if ((CommaIndex(i) > OpeningBracketIndex(j)) && (CommaIndex(i) < ClosingBracketIndex(j-1)))
+            CommaIndex(i) = 0;
+        end;
+    end;
+end;
+
+NonZeros = find(CommaIndex ~= 0);
+
+% if there is only one relevant comma
+% implies only two arguments
+% MATLAB can deal with the OriginalFormula
+
+if (length(NonZeros) == 1)
+     Formula = OriginalFormula;
+     return;
+end;
+
+% get elements that represent the arguments of the logical expression
+% as an array of character arrays
+% e.g. first element is between opening barcket and first relevant comma
+%      next elements are between relevant commas
+%      last element is between last relevant comma and closing bracket
+
+j = OpeningBracketIndex(1);
+ElementNumber = 1;
+
+for i = 1:length(NonZeros)
+    element = '';
+    j = j+1;
+    while (j <= CommaIndex(NonZeros(i)) - 1)
+        element = strcat(element, OriginalFormula(j));
+        j = j + 1;
+    end;
+
+    Elements{ElementNumber} = element;
+    ElementNumber = ElementNumber + 1;
+
+end;
+
+
+element = '';
+j = j+1;
+while (j < ClosingBracketIndex(length(ClosingBracketIndex)) - 1)
+    element = strcat(element, OriginalFormula(j));
+    j = j + 1;
+end;
+
+Elements{ElementNumber} = element;
+
+% iteratively replace the first two arguments with the logical expression applied to
+% the first two arguments
+% e.g. OriginalFormula = 'and(a,b,c,d)'
+% becomes                'and(and(a,b),c,d)'
+% which becomes          'and(and(and(a,b),c),d)'
+Formula = OriginalFormula;
+
+if (length(Elements) > 2)
+    for i = 2:length(Elements)-1
+        Find = strcat(Elements{i-1}, ',', Elements{i});
+        Replace = strcat(LogicalExpression, Find, ')');
+
+        Formula = strrep(Formula, Find, Replace);
+        Elements{i} = Replace;
+    end;
+end;
+
+
+function Arguments = CheckLogical(Formula, LogicalExpression)
+% CheckLogical takes a Formula (as a character array) 
+%               and  a LogicalExpression (as a char array)
+% and returns an array of character strings 
+% representing the application of the logical expression within the formula
+% 
+% NOTE the logical expression is followed by an '(' to prevent confusion 
+% with other character strings within the formula 
+% 
+% ******************************************************************
+%  EXAMPLE:       y = CheckLogical('piecewise(and(A,B,C), 0.2, 1)' , 'and(')
+%  
+%                 y = 'and(A,B,C)'
+%
+%  EXAMPLE:       y = CheckLogical('or(and(A,B), and(A,B,C))', 'and(')
+%
+%                 y = 'and(A,B)'    'and(A,B,C)'
+
+% find the starting indices of all occurences of the logical expression
+Start = strfind(Formula, LogicalExpression);
+
+% if not found; no arguments - return
+if (isempty(Start))
+    Arguments = {};
+    return;
+end;
+
+
+for j = 1:length(Start) % each occurence of the logical expression
+
+    Stop = 0;
+    flag = 0;
+    i = Start(j);
+    output = '';
+
+    for i = Start(j):Start(j)+length(LogicalExpression)
+        output = strcat(output, Formula(i));
+    end;
+    i = i + 1;
+
+    while ((Stop == 0) && (i <= length(Formula)))
+        c = Formula(i);
+
+        if (strcmp(c, '('))
+            flag = flag + 1;
+            output = strcat(output, c);
+        elseif (strcmp(c, ')'))
+            if (flag > 0)
+                output = strcat(output, c);
+                flag = flag - 1;
+            else
+                output = strcat(output, c);
+                Stop = 1;
+            end;
+
+        else
+            output = strcat(output, c);
+        end;
+
+        i = i + 1;
+
+    end;
+
+
+    Arguments{j} = output;
+
+end;
+
+function y = SortLogicals(Formula)
+% SortLogicals takes a formula as a char array
+% and returns the formula with and logical expressions applied to only two arguments
+
+Formula = LoseWhiteSpace(Formula);
+
+Find = CheckLogical(Formula, 'and(');
+
+for i = 1:length(Find)
+    Replace = CorrectFormula(Find{i}, 'and(');
+
+    Formula = strrep(Formula, Find{i}, Replace);
+
+end;
+
+Find = CheckLogical(Formula, 'xor(');
+
+for i = 1:length(Find)
+    Replace = CorrectFormula(Find{i}, 'xor(');
+
+    Formula = strrep(Formula, Find{i}, Replace);
+
+end;
+
+Find = CheckLogical(Formula, 'or(');
+
+for i = 1:length(Find)
+    Replace = CorrectFormula(Find{i}, 'or(');
+
+    Formula = strrep(Formula, Find{i}, Replace);
+
+end;
+y = Formula;
