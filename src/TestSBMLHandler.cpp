@@ -51,8 +51,11 @@
 
 
 #include "sbml/common.h"
-#include "sbml/SBMLTypes.h"
 
+#include "sbml/ASTNode.h"
+#include "sbml/FormulaFormatter.h"
+
+#include "sbml/SBMLTypes.h"
 #include "sbml/SBMLHandler.hpp"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLUnicodeConstants.hpp"
@@ -61,15 +64,17 @@
 BEGIN_C_DECLS
 
 
-#define XML_HEADER   "<?xml version='1.0' encoding='ascii'?>\n"
-#define SBML_HEADER  "<sbml level='1' version='1'> <model name='testModel'>\n"
-#define SBML_FOOTER  "</model> </sbml>"
+#define XML_HEADER    "<?xml version='1.0' encoding='ascii'?>\n"
+#define SBML_HEADER   "<sbml level='1' version='1'> <model name='testModel'>\n"
+#define SBML_HEADER2  "<sbml level='2' version='1'> <model name='testModel'>\n"
+#define SBML_FOOTER   "</model> </sbml>"
 
 /**
  * Wraps the string s in the appropriate XML or SBML boilerplate.
  */
-#define wrapXML(s)   XML_HEADER s
-#define wrapSBML(s)  XML_HEADER SBML_HEADER s SBML_FOOTER
+#define wrapXML(s)    XML_HEADER s
+#define wrapSBML(s)   XML_HEADER SBML_HEADER  s SBML_FOOTER
+#define wrapSBML2(s)  XML_HEADER SBML_HEADER2 s SBML_FOOTER
 
 
 SBMLDocument_t *D;
@@ -111,8 +116,78 @@ START_TEST (test_element_Model)
     "</sbml>"
   );
 
+
   D = readSBMLFromString(s);
   fail_unless( !strcmp(D->model->name, "testModel"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Model_L2)
+{
+  const char* s = wrapXML
+  (
+    "<sbml level='2' version='1'>"
+    "  <model id='testModel'> </model>"
+    "</sbml>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless(  Model_isSetId  (D->model), NULL );
+  fail_unless( !Model_isSetName(D->model), NULL );
+
+  fail_unless( !strcmp(Model_getId(D->model), "testModel"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_FunctionDefinition)
+{
+  FunctionDefinition_t* fd;
+  const ASTNode_t*      math;
+  char*                 formula;
+
+  const char* s = wrapSBML2
+  (
+    "<functionDefinition id='pow3' name='cubed'>"
+    "  <math>"
+    "    <lambda>"
+    "      <bvar><ci> x </ci></bvar>"
+    "      <apply>"
+    "        <power/>"
+    "        <ci> x </ci>"
+    "        <cn> 3 </cn>"
+    "      </apply>"
+    "    </lambda>"
+    "  </math>"
+    "</functionDefinition>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumFunctionDefinitions(D->model) == 1, NULL );
+
+  fd = Model_getFunctionDefinition(D->model, 0);
+  fail_unless( fd != NULL, NULL );
+
+  fail_unless( FunctionDefinition_isSetId  (fd), NULL );
+  fail_unless( FunctionDefinition_isSetName(fd), NULL );
+
+  fail_unless( !strcmp( FunctionDefinition_getId  (fd), "pow3"  ), NULL );
+  fail_unless( !strcmp( FunctionDefinition_getName(fd), "cubed" ), NULL );
+
+  fail_unless( FunctionDefinition_isSetMath(fd), NULL );
+  math = FunctionDefinition_getMath(fd);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp(formula, "lambda(x, pow(x, 3))"), NULL );
+
+  safe_free(formula);
 }
 END_TEST
 
@@ -129,6 +204,27 @@ START_TEST (test_element_UnitDefinition)
 
   ud = Model_getUnitDefinition(D->model, 0);
   fail_unless( !strcmp(ud->name, "mmls"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_UnitDefinition_L2)
+{
+  UnitDefinition_t* ud;
+
+  const char* s = wrapSBML("<unitDefinition id='mmls' name='mmol/ls'/>");
+
+
+  D = readSBMLFromString(s);
+  fail_unless( Model_getNumUnitDefinitions(D->model) == 1, NULL );
+
+  ud = Model_getUnitDefinition(D->model, 0);
+
+  fail_unless( UnitDefinition_isSetId  (ud), NULL );
+  fail_unless( UnitDefinition_isSetName(ud), NULL );
+
+  fail_unless( !strcmp(UnitDefinition_getId  (ud), "mmls")   , NULL );
+  fail_unless( !strcmp(UnitDefinition_getName(ud), "mmol/ls"), NULL );
 }
 END_TEST
 
@@ -165,7 +261,45 @@ START_TEST (test_element_Unit)
 END_TEST
 
 
-START_TEST (test_element_Unit_defaults)
+START_TEST (test_element_Unit_L2)
+{
+  Unit_t*           u;
+  UnitDefinition_t* ud;
+
+
+  const char* s = wrapSBML
+  (
+    "<unitDefinition id='Fahrenheit'>"
+    "  <listOfUnits>"
+    "    <unit kind='Celsius' multiplier='1.8' offset='32'/>"
+    "  </listOfUnits>"
+    "</unitDefinition>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumUnitDefinitions(D->model) == 1, NULL );
+
+  ud = Model_getUnitDefinition(D->model, 0);
+
+  fail_unless( UnitDefinition_isSetId(ud), NULL );
+  fail_unless( !strcmp(UnitDefinition_getId(ud), "Fahrenheit"), NULL );
+
+  fail_unless( UnitDefinition_getNumUnits(ud) == 1, NULL );
+
+  u = UnitDefinition_getUnit(ud, 0);
+
+  fail_unless( Unit_getKind      (u) == UNIT_KIND_CELSIUS, NULL );
+  fail_unless( Unit_getExponent  (u) ==  1  , NULL );
+  fail_unless( Unit_getScale     (u) ==  0  , NULL );
+  fail_unless( Unit_getMultiplier(u) ==  1.8, NULL );
+  fail_unless( Unit_getOffset    (u) == 32  , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Unit_defaults_L1_L2)
 {
   Unit_t*           u;
   UnitDefinition_t* ud;
@@ -185,14 +319,16 @@ START_TEST (test_element_Unit_defaults)
 
   ud = Model_getUnitDefinition(D->model, 0);
 
-  fail_unless( !strcmp(ud->name, "bogomips"), NULL );
+  fail_unless( !strcmp(UnitDefinition_getName(ud), "bogomips"), NULL );
   fail_unless( UnitDefinition_getNumUnits(ud) == 1, NULL );
 
   u = UnitDefinition_getUnit(ud, 0);
 
-  fail_unless( u->kind     == UNIT_KIND_SECOND, NULL );
-  fail_unless( u->exponent == 1, NULL );
-  fail_unless( u->scale    == 0, NULL );
+  fail_unless( Unit_getKind      (u) == UNIT_KIND_SECOND, NULL );
+  fail_unless( Unit_getExponent  (u) ==  1  , NULL );
+  fail_unless( Unit_getScale     (u) ==  0  , NULL );
+  fail_unless( Unit_getMultiplier(u) ==  1.0, NULL );
+  fail_unless( Unit_getOffset    (u) ==  0.0, NULL );
 }
 END_TEST
 
@@ -226,6 +362,42 @@ START_TEST (test_element_Compartment)
 END_TEST
 
 
+START_TEST (test_element_Compartment_L2)
+{
+  Compartment_t* c;
+
+  const char* s = wrapSBML
+  (
+    "<listOfCompartments>"
+    "  <compartment id='membrane' size='.3' spatialDimensions='2'"
+    "               units='area' outside='tissue' constant='false'/>"
+    "</listOfCompartments>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumCompartments(D->model) == 1, NULL );
+
+  c = Model_getCompartment(D->model, 0);
+
+  fail_unless(  Compartment_isSetId     (c), NULL );
+  fail_unless( !Compartment_isSetName   (c), NULL );
+  fail_unless(  Compartment_isSetVolume (c), NULL );
+  fail_unless(  Compartment_isSetSize   (c), NULL );
+  fail_unless(  Compartment_isSetUnits  (c), NULL );
+  fail_unless(  Compartment_isSetOutside(c), NULL );
+
+  fail_unless( !strcmp( Compartment_getId     (c), "membrane" ), NULL );
+  fail_unless( !strcmp( Compartment_getUnits  (c), "area"     ), NULL );
+  fail_unless( !strcmp( Compartment_getOutside(c), "tissue"   ), NULL );
+
+  fail_unless( Compartment_getSpatialDimensions(c) == 2, NULL );
+  fail_unless( Compartment_getSize(c) == .3, NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_Compartment_defaults)
 {
   Compartment_t* c;
@@ -242,12 +414,43 @@ START_TEST (test_element_Compartment_defaults)
 
   c = Model_getCompartment(D->model, 0);
 
-  fail_unless( !strcmp( c->name, "cell" ), NULL );
-  fail_unless( Compartment_getVolume(c) == 1.0 , NULL );
-  fail_unless( c->units   == NULL, NULL );
-  fail_unless( c->outside == NULL, NULL );
+  fail_unless(  Compartment_isSetName   (c), NULL );
+  fail_unless(  Compartment_isSetVolume (c), NULL );
+  fail_unless( !Compartment_isSetUnits  (c), NULL );
+  fail_unless( !Compartment_isSetOutside(c), NULL );
 
-  fail_unless( Compartment_isSetVolume(c), NULL );
+  fail_unless( !strcmp( Compartment_getName(c), "cell" ), NULL );
+  fail_unless( Compartment_getVolume(c) == 1.0 , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Compartment_defaults_L2)
+{
+  Compartment_t* c;
+
+  const char* s = wrapSBML
+  (
+     "<listOfCompartments> <compartment id='cell'/> </listOfCompartments>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumCompartments(D->model) == 1, NULL );
+
+  c = Model_getCompartment(D->model, 0);
+
+  fail_unless(  Compartment_isSetId     (c), NULL );
+  fail_unless( !Compartment_isSetName   (c), NULL );
+  fail_unless( !Compartment_isSetSize   (c), NULL );
+  fail_unless( !Compartment_isSetUnits  (c), NULL );
+  fail_unless( !Compartment_isSetOutside(c), NULL );
+
+  fail_unless( !strcmp( Compartment_getId(c), "cell" ), NULL );
+
+  fail_unless( Compartment_getSpatialDimensions(c) == 3, NULL );
+  fail_unless( Compartment_getConstant(c)          == 1, NULL );
 }
 END_TEST
 
@@ -342,6 +545,115 @@ START_TEST (test_element_Species)
 END_TEST
 
 
+START_TEST (test_element_Species_L2_1)
+{
+  Species_t* sp;
+
+  const char* s = wrapSBML
+  (
+    "<species id='Glucose' compartment='cell' initialConcentration='4.1'"
+    "         substanceUnits='item' spatialSizeUnits='volume'"
+    "         boundaryCondition='true' charge='6' constant='true'/>"
+
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+
+  sp = Model_getSpecies(D->model, 0);
+
+  fail_unless(  Species_isSetId                  (sp), NULL );
+  fail_unless( !Species_isSetName                (sp), NULL );
+  fail_unless(  Species_isSetCompartment         (sp), NULL );
+  fail_unless( !Species_isSetInitialAmount       (sp), NULL );
+  fail_unless(  Species_isSetInitialConcentration(sp), NULL );
+  fail_unless(  Species_isSetSubstanceUnits      (sp), NULL );
+  fail_unless(  Species_isSetSpatialSizeUnits    (sp), NULL );
+  fail_unless(  Species_isSetCharge              (sp), NULL );
+
+  fail_unless( !strcmp( Species_getId              (sp), "Glucose" ), NULL );
+  fail_unless( !strcmp( Species_getCompartment     (sp), "cell"    ), NULL );
+  fail_unless( !strcmp( Species_getSubstanceUnits  (sp), "item"    ), NULL );
+  fail_unless( !strcmp( Species_getSpatialSizeUnits(sp), "volume"  ), NULL );
+
+  fail_unless( Species_getInitialConcentration (sp) == 4.1, NULL );
+  fail_unless( Species_getHasOnlySubstanceUnits(sp) == 0  , NULL );
+  fail_unless( Species_getBoundaryCondition    (sp) == 1  , NULL );
+  fail_unless( Species_getCharge               (sp) == 6  , NULL );
+  fail_unless( Species_getConstant             (sp) == 1  , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Species_L2_2)
+{
+  Species_t* sp;
+
+  const char* s = wrapSBML
+  (
+    "<species id='s' compartment='c' hasOnlySubstanceUnits='true'/>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+
+  sp = Model_getSpecies(D->model, 0);
+
+  fail_unless(  Species_isSetId                  (sp), NULL );
+  fail_unless( !Species_isSetName                (sp), NULL );
+  fail_unless(  Species_isSetCompartment         (sp), NULL );
+  fail_unless( !Species_isSetInitialAmount       (sp), NULL );
+  fail_unless( !Species_isSetInitialConcentration(sp), NULL );
+  fail_unless( !Species_isSetSubstanceUnits      (sp), NULL );
+  fail_unless( !Species_isSetSpatialSizeUnits    (sp), NULL );
+  fail_unless( !Species_isSetCharge              (sp), NULL );
+
+  fail_unless( !strcmp( Species_getId         (sp), "s" ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(sp), "c" ), NULL );
+
+  fail_unless( Species_getHasOnlySubstanceUnits(sp) == 1, NULL );
+  fail_unless( Species_getBoundaryCondition    (sp) == 0, NULL );
+  fail_unless( Species_getConstant             (sp) == 0, NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Species_L2_defaults)
+{
+  Species_t* sp;
+
+  const char* s = wrapSBML("<species id='Glucose_6_P' compartment='cell'/>");
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumSpecies(D->model) == 1, NULL );
+
+  sp = Model_getSpecies(D->model, 0);
+
+  fail_unless(  Species_isSetId                  (sp), NULL );
+  fail_unless( !Species_isSetName                (sp), NULL );
+  fail_unless(  Species_isSetCompartment         (sp), NULL );
+  fail_unless( !Species_isSetInitialAmount       (sp), NULL );
+  fail_unless( !Species_isSetInitialConcentration(sp), NULL );
+  fail_unless( !Species_isSetSubstanceUnits      (sp), NULL );
+  fail_unless( !Species_isSetSpatialSizeUnits    (sp), NULL );
+  fail_unless( !Species_isSetCharge              (sp), NULL );
+
+  fail_unless( !strcmp( Species_getId         (sp), "Glucose_6_P" ), NULL );
+  fail_unless( !strcmp( Species_getCompartment(sp), "cell"        ), NULL );
+
+  fail_unless( Species_getHasOnlySubstanceUnits(sp) == 0, NULL );
+  fail_unless( Species_getBoundaryCondition    (sp) == 0, NULL );
+  fail_unless( Species_getConstant             (sp) == 0, NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_Parameter)
 {
   Parameter_t* p;
@@ -363,6 +675,60 @@ START_TEST (test_element_Parameter)
   fail_unless( p->value == 2.3, NULL );
 
   fail_unless( p->isSet.value == 1, NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Parameter_L2)
+{
+  Parameter_t* p;
+
+  const char* s = wrapSBML
+  (
+    "<parameter id='T' value='4.6' units='Celsius' constant='false'/>"
+  );
+
+    
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumParameters(D->model) == 1, NULL );
+
+  p = Model_getParameter(D->model, 0);
+
+  fail_unless(  Parameter_isSetId   (p), NULL );
+  fail_unless( !Parameter_isSetName (p), NULL );
+  fail_unless(  Parameter_isSetValue(p), NULL );
+  fail_unless(  Parameter_isSetUnits(p), NULL );
+
+  fail_unless( !strcmp( Parameter_getId   (p), "T"       ), NULL );
+  fail_unless( !strcmp( Parameter_getUnits(p), "Celsius" ), NULL );
+
+  fail_unless( Parameter_getValue   (p) == 4.6, NULL );
+  fail_unless( Parameter_getConstant(p) == 0  , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Parameter_L2_defaults)
+{
+  Parameter_t* p;
+
+  const char* s = wrapSBML("<parameter id='x'/>");
+
+    
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumParameters(D->model) == 1, NULL );
+
+  p = Model_getParameter(D->model, 0);
+
+  fail_unless(  Parameter_isSetId   (p), NULL );
+  fail_unless( !Parameter_isSetName (p), NULL );
+  fail_unless( !Parameter_isSetValue(p), NULL );
+  fail_unless( !Parameter_isSetUnits(p), NULL );
+
+  fail_unless( !strcmp(Parameter_getId(p), "x"), NULL );
+  fail_unless( Parameter_getConstant(p) == 1, NULL );
 }
 END_TEST
 
@@ -393,7 +759,6 @@ END_TEST
 START_TEST (test_element_Reaction_defaults)
 {
   Reaction_t* r;
-
   const char* s = wrapSBML("<reaction name='reaction_1'/>");
 
 
@@ -406,6 +771,55 @@ START_TEST (test_element_Reaction_defaults)
   fail_unless( !strcmp(r->name, "reaction_1"), NULL );
   fail_unless( r->reversible != 0, NULL );
   fail_unless( r->fast       == 0, NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Reaction_L2)
+{
+  Reaction_t* r;
+
+  const char* s = wrapSBML
+  (
+    "<reaction id='r1' reversible='false' fast='false'/>"
+  );
+
+
+  D = readSBMLFromString(s);
+  
+  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  
+  r = Model_getReaction(D->model, 0);
+
+  fail_unless(  Reaction_isSetId  (r), NULL );
+  fail_unless( !Reaction_isSetName(r), NULL );
+  /* FIXME: fail_unless( Reaaction_isSetFast(r), NULL ); */
+
+  fail_unless( !strcmp( Reaction_getId(r), "r1"), NULL );
+  fail_unless( Reaction_getReversible(r) == 0, NULL );
+  fail_unless( Reaction_getFast(r)       == 0, NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Reaction_L2_defaults)
+{
+  Reaction_t* r;
+  const char* s = wrapSBML("<reaction id='r1'/>");
+
+
+  D = readSBMLFromString(s);
+  
+  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+  
+  r = Model_getReaction(D->model, 0);
+
+  fail_unless(  Reaction_isSetId  (r), NULL );
+  fail_unless( !Reaction_isSetName(r), NULL );
+  /* FIXME: fail_unless( !Reaaction_isSetFast(r), NULL ); */
+
+  fail_unless( !strcmp( Reaction_getId(r), "r1"), NULL );
+  fail_unless( Reaction_getReversible(r) == 1, NULL );
 }
 END_TEST
 
@@ -546,6 +960,91 @@ START_TEST (test_element_SpeciesReference_defaults)
 END_TEST
 
 
+START_TEST (test_element_SpeciesReference_StoichiometryMath_1)
+{
+  Reaction_t*         r;
+  SpeciesReference_t* sr;
+  const ASTNode_t*    math;
+  char*               formula;
+
+  const char* s = wrapSBML
+  (
+    "<reaction name='r1'>"
+    "  <listOfReactants>"
+    "    <speciesReference species='X0'>"
+    "      <stoichiometryMath>"
+    "        <math> <ci> x </ci> </math>"
+    "      </stoichiometryMath>"
+    "    </speciesReference>"
+    "  </listOfReactants>"
+    "</reaction>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+
+  r = Model_getReaction(D->model, 0);
+  fail_unless( r != NULL, NULL );
+
+  fail_unless( Reaction_getNumReactants(r) == 1, NULL );
+
+  sr = Reaction_getReactant(r, 0);
+  fail_unless( sr != NULL, NULL );
+
+  fail_unless( SpeciesReference_isSetStoichiometryMath(sr), NULL );
+  math = SpeciesReference_getStoichiometryMath(sr);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp(formula, "x"), NULL );
+
+  safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_element_SpeciesReference_StoichiometryMath_2)
+{
+  Reaction_t*         r;
+  SpeciesReference_t* sr;
+
+  const char* s = wrapSBML
+  (
+    "<reaction name='r1'>"
+    "  <listOfReactants>"
+    "    <speciesReference species='X0'>"
+    "      <stoichiometryMath>"
+    "        <math> <cn type='rational'> 3 <sep/> 2 </cn> </math>"
+    "      </stoichiometryMath>"
+    "    </speciesReference>"
+    "  </listOfReactants>"
+    "</reaction>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+
+  r = Model_getReaction(D->model, 0);
+  fail_unless( r != NULL, NULL );
+
+  fail_unless( Reaction_getNumReactants(r) == 1, NULL );
+
+  sr = Reaction_getReactant(r, 0);
+  fail_unless( sr != NULL, NULL );
+
+  fail_unless( !SpeciesReference_isSetStoichiometryMath(sr), NULL );
+
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 3, NULL );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 2, NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_KineticLaw)
 {
   Reaction_t*   r;
@@ -567,6 +1066,53 @@ START_TEST (test_element_KineticLaw)
   kl = r->kineticLaw;
 
   fail_unless( !strcmp(kl->formula, "k1*X0"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_KineticLaw_L2)
+{
+  Reaction_t*      r;
+  KineticLaw_t*    kl;
+  const ASTNode_t* math;
+  char*            formula;
+
+  const char* s = wrapSBML2
+  (
+    "<reaction id='J1'>"
+    "  <kineticLaw>"
+    "    <math>"
+    "      <apply>"
+    "        <times/>"
+    "        <ci> k  </ci>"
+    "        <ci> S2 </ci>"
+    "        <ci> X0 </ci>"
+    "      </apply>"
+    "    </math>"
+    "  </kineticLaw>"
+    "</reaction>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumReactions(D->model) == 1, NULL );
+
+  r = Model_getReaction(D->model, 0);
+  fail_unless( r != NULL, NULL );
+
+  kl = Reaction_getKineticLaw(r);
+  fail_unless( kl != NULL, NULL );
+
+  fail_unless( KineticLaw_isSetMath(kl), NULL );
+  math = KineticLaw_getMath(kl);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp(formula, "k * S2 * X0"), NULL );
+
+  safe_free(formula);
 }
 END_TEST
 
@@ -607,6 +1153,96 @@ START_TEST (test_element_KineticLaw_Parameter)
 END_TEST
 
 
+START_TEST (test_element_AssignmentRule)
+{
+  AssignmentRule_t* ar;
+  const ASTNode_t*  math;
+  char*             formula;
+
+  const char *s = wrapSBML2
+  (
+    "<assignmentRule variable='k'>"
+    "  <math>"
+    "    <apply>"
+    "      <divide/>"
+    "      <ci> k3 </ci>"
+    "      <ci> k2 </ci>"
+    "    </apply>"
+    "  </math>"
+    "</assignmentRule>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+
+  ar = (AssignmentRule_t *) Model_getRule(D->model, 0);
+  fail_unless( ar != NULL, NULL );
+
+  fail_unless( Rule_isSetMath((Rule_t *) ar), NULL );
+  math = Rule_getMath((Rule_t *) ar);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp(formula, "k3 / k2"), NULL );
+
+  safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_element_RateRule)
+{
+  RateRule_t*      rr;
+  const ASTNode_t* math;
+  char*            formula;
+
+  const char *s = wrapSBML2
+  (
+    "<rateRule variable='x'>"
+    "  <math>"
+    "    <apply>"
+    "      <times/>"
+    "      <apply>"
+    "        <minus/>"
+    "        <cn> 1 </cn>"
+    "        <ci> x </ci>"
+    "      </apply>"
+    "      <apply>"
+    "        <ln/>"
+    "        <ci> x </ci>"
+    "      </apply>"
+    "    </apply>"
+    "  </math>"
+    "</rateRule>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+
+  rr = (RateRule_t *) Model_getRule(D->model, 0);
+  fail_unless( rr != NULL, NULL );
+
+  fail_unless( Rule_isSetMath((Rule_t *) rr), NULL );
+  math = Rule_getMath((Rule_t *) rr);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  /**
+   * In L1 formula syntax, the natural log (ln) is defined to be log.
+   */
+  fail_unless( !strcmp(formula, "(1 - x) * log(x)"), NULL );
+
+  safe_free(formula);
+}
+END_TEST
+
+
 START_TEST (test_element_AlgebraicRule)
 {
   AlgebraicRule_t *ar;
@@ -621,6 +1257,50 @@ START_TEST (test_element_AlgebraicRule)
   ar = (AlgebraicRule_t *) Model_getRule(D->model, 0);
 
   fail_unless( !strcmp(ar->formula, "x + 1"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_AlgebraicRule_L2)
+{
+  AlgebraicRule_t* ar;
+  const ASTNode_t*  math;
+  char*             formula;
+
+  const char *s = wrapSBML2
+  (
+    "<algebraicRule>"
+    "  <math>"
+    "    <apply>"
+    "      <minus/>"
+    "      <apply>"
+    "        <plus/>"
+    "          <ci> S1 </ci>"
+    "          <ci> S2 </ci>"
+    "      </apply>"
+    "      <ci> T </ci>"
+    "    </apply>"
+    "  </math>"
+    "</algebraicRule>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumRules(D->model) == 1, NULL );
+
+  ar = (AlgebraicRule_t *) Model_getRule(D->model, 0);
+  fail_unless( ar != NULL, NULL );
+
+  fail_unless( Rule_isSetMath((Rule_t *) ar), NULL );
+  math = Rule_getMath((Rule_t *) ar);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp(formula, "S1 + S2 - T"), NULL );
+
+  safe_free(formula);
 }
 END_TEST
 
@@ -741,6 +1421,458 @@ START_TEST (test_element_SpeciesConcentrationRule)
 END_TEST
 
 
+START_TEST (test_element_Event)
+{
+  Event_t* e;
+
+  const char* s = wrapSBML2("<event id='e1' name='MyEvent' timeUnits='time'/>");
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+
+  e = Model_getEvent(D->model, 0);
+  fail_unless( e != NULL, NULL );
+
+  fail_unless(  Event_isSetId       (e), NULL );
+  fail_unless(  Event_isSetName     (e), NULL );
+  fail_unless(  Event_isSetTimeUnits(e), NULL );
+  fail_unless( !Event_isSetTrigger  (e), NULL );
+  fail_unless( !Event_isSetDelay    (e), NULL );
+
+  fail_unless( !strcmp( Event_getId       (e), "e1"      ), NULL );
+  fail_unless( !strcmp( Event_getName     (e), "MyEvent" ), NULL );
+  fail_unless( !strcmp( Event_getTimeUnits(e), "time"    ), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_Event_trigger)
+{
+  Event_t*         e;
+  const ASTNode_t* math;
+  char*            formula;
+
+  const char* s = wrapSBML2
+  (
+    "<event>"
+    "  <trigger>"
+    "    <math>"
+    "      <apply>"
+    "        <leq/>"
+    "        <ci> P1 </ci>"
+    "        <ci> t  </ci>"
+    "      </apply>"
+    "    </math>"
+    " </trigger>"
+    "</event>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+
+  e = Model_getEvent(D->model, 0);
+  fail_unless( e != NULL, NULL );
+
+  fail_unless( !Event_isSetDelay  (e), NULL );
+  fail_unless(  Event_isSetTrigger(e), NULL );
+
+  math = Event_getTrigger(e);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp(formula, "leq(P1, t)"), NULL );
+
+  safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_element_Event_delay)
+{
+  Event_t*         e;
+  const ASTNode_t* math;
+  char*            formula;
+
+  const char* s = wrapSBML2
+  (
+    "<event> <delay> <math> <cn> 5 </cn> </math> </delay> </event>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+
+  e = Model_getEvent(D->model, 0);
+  fail_unless( e != NULL, NULL );
+
+  fail_unless(  Event_isSetDelay  (e), NULL );
+  fail_unless( !Event_isSetTrigger(e), NULL );
+
+  math = Event_getDelay(e);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp(formula, "5"), NULL );
+
+  safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_element_EventAssignment)
+{
+  Event_t*           e;
+  EventAssignment_t* ea;
+  const ASTNode_t*   math;
+  char*              formula;
+
+  const char* s = wrapSBML2
+  (
+    "<event>"
+    "  <listOfEventAssignments>"
+    "    <eventAssignment variable='k2'>"
+    "      <math> <cn> 0 </cn> </math>"
+    "    </eventAssignment>"
+    "  </listOfEventAssignments>"
+    "</event>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( Model_getNumEvents(D->model) == 1, NULL );
+
+  e = Model_getEvent(D->model, 0);
+  fail_unless( e != NULL, NULL );
+
+  fail_unless( Event_getNumEventAssignments(e) == 1, NULL );
+
+  ea = Event_getEventAssignment(e, 0);
+  fail_unless( ea != NULL, NULL );
+
+  fail_unless( EventAssignment_isSetVariable(ea), NULL );
+  fail_unless( !strcmp(EventAssignment_getVariable(ea), "k2"), NULL );
+
+  fail_unless( EventAssignment_isSetMath(ea), NULL );
+  math = EventAssignment_getMath(ea);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL, NULL );
+
+  fail_unless( !strcmp( formula, "0"), NULL );
+
+  safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_element_metaid)
+{
+  SBase_t*  sb;
+
+  const char* s = wrapSBML2
+  (
+    "<functionDefinition metaid='fd'/>"
+    "<unitDefinition     metaid='ud'/>"
+    "<compartment        metaid='c'/>"
+    "<species            metaid='s'/>"
+    "<parameter          metaid='p'/>"
+    "<rateRule           metaid='rr'/>"
+    "<reaction           metaid='rx'/>"
+    "<event              metaid='e'/>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  sb = (SBase_t *) Model_getFunctionDefinition(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "fd"), NULL );
+
+
+  sb = (SBase_t *) Model_getUnitDefinition(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "ud"), NULL );
+
+
+  sb = (SBase_t *) Model_getCompartment(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "c"), NULL );
+
+
+  sb = (SBase_t *) Model_getSpecies(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "s"), NULL );
+
+
+  sb = (SBase_t *) Model_getParameter(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "p"), NULL );
+
+
+  sb = (SBase_t *) Model_getRule(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "rr"), NULL );
+
+
+  sb = (SBase_t *) Model_getReaction(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "rx"), NULL );
+
+
+  sb = (SBase_t *) Model_getEvent(D->model, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "e"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_metaid_Unit)
+{
+  SBase_t*          sb;
+  UnitDefinition_t* ud;
+
+  const char* s = wrapSBML2
+  (
+    "<unitDefinition metaid='ud'>"
+    "  <listOfUnits metaid='lou'>"
+    "    <unit metaid='u'/>"
+    "  </listOfUnits>"
+    "</unitDefinition>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  ud = Model_getUnitDefinition(D->model, 0);
+  sb = (SBase_t *) ud;
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "ud"), NULL );
+
+
+  sb = (SBase_t *) UnitDefinition_getListOfUnits(ud);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lou"), NULL );
+
+
+  sb = (SBase_t *) UnitDefinition_getUnit(ud, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "u"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_metaid_Reaction)
+{
+  SBase_t*    sb;
+  Reaction_t* r;
+
+  const char* s = wrapSBML2
+  (
+    "<reaction metaid='r'>"
+    "  <listOfReactants metaid='lor'>"
+    "    <speciesReference metaid='sr1'/>"
+    "  </listOfReactants>"
+    "  <listOfProducts metaid='lop'>"
+    "    <speciesReference metaid='sr2'/>"
+    "  </listOfProducts>"
+    "  <listOfModifiers metaid='lom'>"
+    "    <modifierSpeciesReference metaid='msr'/>"
+    "  </listOfModifiers>"
+    "  <kineticLaw metaid='kl'/>"
+    "</unitDefinition>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  r  = Model_getReaction(D->model, 0);
+  sb = (SBase_t *) r;
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "r"), NULL );
+
+
+  sb = (SBase_t *) Reaction_getListOfReactants(r);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lor"), NULL );
+
+
+  sb = (SBase_t *) Reaction_getReactant(r, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "sr1"), NULL );
+
+
+  sb = (SBase_t *) Reaction_getListOfProducts(r);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lop"), NULL );
+
+
+  sb = (SBase_t *) Reaction_getProduct(r, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "sr2"), NULL );
+
+
+  sb = (SBase_t *) Reaction_getListOfModifiers(r);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lom"), NULL );
+
+
+  sb = (SBase_t *) Reaction_getModifier(r, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "msr"), NULL );
+
+
+  sb = (SBase_t *) Reaction_getKineticLaw(r);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "kl"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_metaid_Event)
+{
+  SBase_t* sb;
+  Event_t* e;
+
+  const char* s = wrapSBML2
+  (
+    "<event metaid='e'>"
+    "  <listOfEventAssignments metaid='loea'>"
+    "    <eventAssignment metaid='ea'/>"
+    "  </listOfEventAssignments>"
+    "</event>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+
+  e  = Model_getEvent(D->model, 0);
+  sb = (SBase_t *) e;
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "e"), NULL );
+
+
+  sb = (SBase_t *) Event_getListOfEventAssignments(e);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "loea"), NULL );
+
+
+  sb = (SBase_t *) Event_getEventAssignment(e, 0);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "ea"), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_metaid_ListOf)
+{
+  SBase_t*  sb;
+
+  const char* s = wrapSBML2
+  (
+    "<listOfFunctionDefinitions metaid='lofd'/>"
+    "<listOfUnitDefinitions     metaid='loud'/>"
+    "<listOfCompartments        metaid='loc'/>"
+    "<listOfSpecies             metaid='los'/>"
+    "<listOfParameters          metaid='lop'/>"
+    "<listOfRules               metaid='lor'/>"
+    "<listOfReactions           metaid='lorx'/>"
+    "<listOfEvents              metaid='loe'/>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  sb = (SBase_t *) Model_getListOfFunctionDefinitions(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lofd"), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfUnitDefinitions(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "loud"), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfCompartments(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "loc"), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfSpecies(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "los"), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfParameters(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lop"), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfRules(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lor"), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfReactions(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "lorx"), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfEvents(D->model);
+
+  fail_unless( SBase_isSetMetaId(sb), NULL );
+  fail_unless( !strcmp(SBase_getMetaId(sb), "loe"), NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_notes)
 {
   Reaction_t*   r;
@@ -763,6 +1895,7 @@ START_TEST (test_element_notes)
   r  = Model_getReaction(D->model, 0);
   kl = r->kineticLaw;
 
+  fail_unless( kl->notes != NULL, NULL );
   fail_unless( !strcmp(kl->notes, "This is a test note."), NULL );
 }
 END_TEST
@@ -790,6 +1923,7 @@ START_TEST (test_element_notes_after)
   r  = Model_getReaction(D->model, 0);
   kl = r->kineticLaw;
 
+  fail_unless( kl->notes != NULL, NULL );
   fail_unless( !strcmp(kl->notes,
                        "This note is <b>after</b> everything else."), NULL );
 }
@@ -866,6 +2000,214 @@ START_TEST (test_element_notes_sbml)
 END_TEST
 
 
+START_TEST (test_element_notes_ListOf)
+{
+  SBase_t*  sb;
+
+  const char* s = wrapSBML2
+  (
+    "<listOfFunctionDefinitions>"
+    "  <notes> My Functions </notes>"
+    "</listOfFunctionDefinitions>"
+
+    "<listOfUnitDefinitions>"
+    "  <notes> My Units </notes>"
+    "</listOfUnitDefinitions>"
+
+    "<listOfCompartments>"
+    "  <notes> My Compartments </notes>"
+    "</listOfCompartments>"
+
+    "<listOfSpecies>"
+    "  <notes> My Species </notes>"
+    "</listOfSpecies>"
+
+    "<listOfParameters>"
+    "  <notes> My Parameters </notes>"
+    "</listOfParameters>"
+
+    "<listOfRules>"
+    "  <notes> My Rules </notes>"
+    "</listOfRules>"
+
+    "<listOfReactions>"
+    "  <notes> My Reactions </notes>"
+    "</listOfReactions>"
+
+    "<listOfEvents>"
+    "  <notes> My Events </notes>"
+    "</listOfEvents>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  sb = (SBase_t *) Model_getListOfFunctionDefinitions(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Functions "), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfUnitDefinitions(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Units "), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfCompartments(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Compartments "), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfSpecies(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Species "), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfParameters(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Parameters "), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfRules(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Rules "), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfReactions(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Reactions "), NULL );
+
+
+  sb = (SBase_t *) Model_getListOfEvents(D->model);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Events "), NULL );
+
+}
+END_TEST
+
+
+START_TEST (test_element_notes_ListOf_Units)
+{
+  UnitDefinition_t* ud;
+  SBase_t*          sb;
+
+  const char* s = wrapSBML2
+  (
+    "<unitDefinition>"
+    "  <listOfUnits>"
+    "    <notes> My Units </notes>"
+    "  </listOfUnits>"
+    "</unitDefinition>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  ud = Model_getUnitDefinition(D->model, 0);
+  sb = (SBase_t *) UnitDefinition_getListOfUnits(ud);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Units "), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_notes_ListOf_Reactions)
+{
+  Reaction_t*   r;
+  KineticLaw_t* kl;
+  SBase_t*      sb;
+
+  const char* s = wrapSBML2
+  (
+    "<reaction>"
+    "  <listOfReactants>"
+    "    <notes> My Reactants </notes>"
+    "  </listOfReactants>"
+    "  <listOfProducts>"
+    "    <notes> My Products </notes>"
+    "  </listOfProducts>"
+    "  <listOfModifiers>"
+    "    <notes> My Modifiers </notes>"
+    "  </listOfModifiers>"
+    "  <kineticLaw>"
+    "    <listOfParameters>"
+    "    <notes> My Parameters </notes>"
+    "    </listOfParameters>"
+    "  </kineticLaw>"
+    "</reaction>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  r = Model_getReaction(D->model, 0);
+
+  sb = (SBase_t *) Reaction_getListOfReactants(r);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Reactants "), NULL );
+
+
+  sb = (SBase_t *) Reaction_getListOfProducts(r);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Products "), NULL );
+
+  sb = (SBase_t *) Reaction_getListOfModifiers(r);
+
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Modifiers "), NULL );
+
+  kl = Reaction_getKineticLaw(r);
+  sb = (SBase_t *) KineticLaw_getListOfParameters(kl);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Parameters "), NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_notes_ListOf_EventAssignments)
+{
+  Event_t*  e;
+  SBase_t*  sb;
+
+  const char* s = wrapSBML2
+  (
+    "<event>"
+    "  <listOfEventAssignments>"
+    "  <notes> My Assignments </notes>"
+    "  </listOfAssignments>"
+    "</event>"
+  );
+
+
+  D = readSBMLFromString(s);
+
+  fail_unless( D->model != NULL, NULL );
+
+  e  = Model_getEvent(D->model, 0);
+  sb = (SBase_t *) Event_getListOfEventAssignments(e);
+
+  fail_unless( SBase_isSetNotes(sb), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), " My Assignments "), NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_annotation)
 {
   const char* a =
@@ -886,6 +2228,8 @@ START_TEST (test_element_annotation)
 
 
   D = readSBMLFromString(s);
+
+  fail_unless( D->model->annotation != NULL, NULL );
   fail_unless( !strcmp(D->model->annotation, a), NULL );
 }
 END_TEST
@@ -1029,41 +2373,73 @@ create_suite_SBMLHandler (void)
                              SBMLHandlerTest_setup,
                              SBMLHandlerTest_teardown );
 
-  tcase_add_test( tcase, test_element_SBML                         );
-  tcase_add_test( tcase, test_element_Model                        );
-  tcase_add_test( tcase, test_element_UnitDefinition               );
-  tcase_add_test( tcase, test_element_Unit                         );
-  tcase_add_test( tcase, test_element_Unit_defaults                );
-  tcase_add_test( tcase, test_element_Compartment                  );
-  tcase_add_test( tcase, test_element_Compartment_defaults         );
-  tcase_add_test( tcase, test_element_Specie                       );
-  tcase_add_test( tcase, test_element_Specie_defaults              );
-  tcase_add_test( tcase, test_element_Species                      );
-  tcase_add_test( tcase, test_element_Parameter                    );
-  tcase_add_test( tcase, test_element_Reaction                     );
-  tcase_add_test( tcase, test_element_Reaction_defaults            );
-  tcase_add_test( tcase, test_element_SpecieReference_Reactant     );
-  tcase_add_test( tcase, test_element_SpecieReference_Product      );
-  tcase_add_test( tcase, test_element_SpecieReference_defaults     );
-  tcase_add_test( tcase, test_element_SpeciesReference_defaults    );
-  tcase_add_test( tcase, test_element_KineticLaw                   );
-  tcase_add_test( tcase, test_element_KineticLaw_Parameter         );
-  tcase_add_test( tcase, test_element_AlgebraicRule                );
-  tcase_add_test( tcase, test_element_CompartmentVolumeRule        );
-  tcase_add_test( tcase, test_element_ParameterRule                );
-  tcase_add_test( tcase, test_element_SpecieConcentrationRule      );
-  tcase_add_test( tcase, test_element_SpecieConcentrationRule_rate );
-  tcase_add_test( tcase, test_element_SpeciesConcentrationRule     );
-  tcase_add_test( tcase, test_element_notes                        );
-  tcase_add_test( tcase, test_element_notes_after                  );
-  tcase_add_test( tcase, test_element_notes_xmlns                  );
-  tcase_add_test( tcase, test_element_notes_nested                 );
-  tcase_add_test( tcase, test_element_notes_sbml                   );
-  tcase_add_test( tcase, test_element_annotation                   );
-  tcase_add_test( tcase, test_element_annotations                  );
-  tcase_add_test( tcase, test_element_annotation_after             );
-  tcase_add_test( tcase, test_element_annotation_nested            );
-  tcase_add_test( tcase, test_element_annotation_sbml              );
+  tcase_add_test( tcase, test_element_SBML                                 );
+  tcase_add_test( tcase, test_element_Model                                );
+  tcase_add_test( tcase, test_element_Model_L2                             );
+  tcase_add_test( tcase, test_element_FunctionDefinition                   );
+  tcase_add_test( tcase, test_element_UnitDefinition                       );
+  tcase_add_test( tcase, test_element_UnitDefinition_L2                    );
+  tcase_add_test( tcase, test_element_Unit                                 );
+  tcase_add_test( tcase, test_element_Unit_L2                              );
+  tcase_add_test( tcase, test_element_Unit_defaults_L1_L2                  );
+  tcase_add_test( tcase, test_element_Compartment                          );
+  tcase_add_test( tcase, test_element_Compartment_L2                       );
+  tcase_add_test( tcase, test_element_Compartment_defaults                 );
+  tcase_add_test( tcase, test_element_Compartment_defaults_L2              );
+  tcase_add_test( tcase, test_element_Specie                               );
+  tcase_add_test( tcase, test_element_Specie_defaults                      );
+  tcase_add_test( tcase, test_element_Species                              );
+  tcase_add_test( tcase, test_element_Species_L2_1                         );
+  tcase_add_test( tcase, test_element_Species_L2_2                         );
+  tcase_add_test( tcase, test_element_Species_L2_defaults                  );
+  tcase_add_test( tcase, test_element_Parameter                            );
+  tcase_add_test( tcase, test_element_Parameter_L2                         );
+  tcase_add_test( tcase, test_element_Parameter_L2_defaults                );
+  tcase_add_test( tcase, test_element_Reaction                             );
+  tcase_add_test( tcase, test_element_Reaction_defaults                    );
+  tcase_add_test( tcase, test_element_Reaction_L2                          );
+  tcase_add_test( tcase, test_element_Reaction_L2_defaults                 );
+  tcase_add_test( tcase, test_element_SpecieReference_Reactant             );
+  tcase_add_test( tcase, test_element_SpecieReference_Product              );
+  tcase_add_test( tcase, test_element_SpecieReference_defaults             );
+  tcase_add_test( tcase, test_element_SpeciesReference_defaults            );
+  tcase_add_test( tcase, test_element_SpeciesReference_StoichiometryMath_1 );
+  tcase_add_test( tcase, test_element_SpeciesReference_StoichiometryMath_2 );
+  tcase_add_test( tcase, test_element_KineticLaw                           );
+  tcase_add_test( tcase, test_element_KineticLaw_L2                        );
+  tcase_add_test( tcase, test_element_KineticLaw_Parameter                 );
+  tcase_add_test( tcase, test_element_AssignmentRule                       );
+  tcase_add_test( tcase, test_element_RateRule                             );
+  tcase_add_test( tcase, test_element_AlgebraicRule                        );
+  tcase_add_test( tcase, test_element_AlgebraicRule_L2                     );
+  tcase_add_test( tcase, test_element_CompartmentVolumeRule                );
+  tcase_add_test( tcase, test_element_ParameterRule                        );
+  tcase_add_test( tcase, test_element_SpecieConcentrationRule              );
+  tcase_add_test( tcase, test_element_SpecieConcentrationRule_rate         );
+  tcase_add_test( tcase, test_element_SpeciesConcentrationRule             );
+  tcase_add_test( tcase, test_element_Event                                );
+  tcase_add_test( tcase, test_element_Event_trigger                        );
+  tcase_add_test( tcase, test_element_Event_delay                          );
+  tcase_add_test( tcase, test_element_EventAssignment                      );
+  tcase_add_test( tcase, test_element_metaid                               );
+  tcase_add_test( tcase, test_element_metaid_Unit                          );
+  tcase_add_test( tcase, test_element_metaid_Reaction                      );  
+  tcase_add_test( tcase, test_element_metaid_Event                         );  
+  tcase_add_test( tcase, test_element_metaid_ListOf                        );  
+  tcase_add_test( tcase, test_element_notes                                );
+  tcase_add_test( tcase, test_element_notes_after                          );
+  tcase_add_test( tcase, test_element_notes_xmlns                          );
+  tcase_add_test( tcase, test_element_notes_nested                         );
+  tcase_add_test( tcase, test_element_notes_sbml                           );
+  tcase_add_test( tcase, test_element_notes_ListOf                         );
+  tcase_add_test( tcase, test_element_notes_ListOf_Units                   );
+  tcase_add_test( tcase, test_element_notes_ListOf_Reactions               );
+  tcase_add_test( tcase, test_element_notes_ListOf_EventAssignments        );
+  tcase_add_test( tcase, test_element_annotation                           );
+  tcase_add_test( tcase, test_element_annotations                          );
+  tcase_add_test( tcase, test_element_annotation_after                     );
+  tcase_add_test( tcase, test_element_annotation_nested                    );
+  tcase_add_test( tcase, test_element_annotation_sbml                      );
 
   suite_add_tcase(suite, tcase);
 
