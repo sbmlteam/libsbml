@@ -472,11 +472,8 @@ $(TOP_SRCDIR)/src/sbml/stamp-h1: $(TOP_SRCDIR)/./src/sbml/config.h.in \
 # Tags files.
 # -----------------------------------------------------------------------------
 
-tags: TAGS
-ctags: CTAGS
-
-ID: $(headers) $(sources) $(LISP) $(TAGS_FILES)
-	list='$(sources) $(headers) $(LISP) $(TAGS_FILES)'; \
+ID: $(headers) $(sources)
+	list='$(sources) $(headers)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
 	  done | \
@@ -484,38 +481,27 @@ ID: $(headers) $(sources) $(LISP) $(TAGS_FILES)
 	       END { for (i in files) print i; }'`; \
 	mkid -fID $$unique
 
-TAGS: $(headers) $(sources)  $(TAGS_DEPENDENCIES) \
-		$(TAGS_FILES) $(LISP)
+TAGS: $(headers) $(sources)
 	tags=; \
 	here=`pwd`; \
-	list='$(sources) $(headers)  $(LISP) $(TAGS_FILES)'; \
+	list='$(sources) $(headers)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
 	  done | \
 	  $(AWK) '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
-	test -z "$(ETAGS_ARGS)$$tags$$unique" \
-	  || $(ETAGS) $(ETAGSFLAGS) $(AM_ETAGSFLAGS) $(ETAGS_ARGS) \
-	     $$tags $$unique
+	test -z "$$tags$$unique" || $(ETAGS) $(ETAGSFLAGS) TAGS $$unique
 
-CTAGS: $(headers) $(sources)  $(TAGS_DEPENDENCIES) \
-		$(TAGS_FILES) $(LISP)
+CTAGS: $(headers) $(sources)
 	tags=; \
 	here=`pwd`; \
-	list='$(sources) $(headers)  $(LISP) $(TAGS_FILES)'; \
+	list='$(sources) $(headers)'; \
 	unique=`for i in $$list; do \
 	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
 	  done | \
 	  $(AWK) '    { files[$$0] = 1; } \
 	       END { for (i in files) print i; }'`; \
-	test -z "$(CTAGS_ARGS)$$tags$$unique" \
-	  || $(CTAGS) $(CTAGSFLAGS) $(AM_CTAGSFLAGS) $(CTAGS_ARGS) \
-	     $$tags $$unique
-
-GTAGS:
-	here=`$(CD) $(TOP_BUILDDIR) && pwd` \
-	  && cd $(TOP_SRCDIR) \
-	  && gtags -i $(GTAGS_ARGS) $$here
+	test -z "$$tags$$unique" || $(CTAGS) $(CTAGSFLAGS) CTAGS $$unique
 
 
 # -----------------------------------------------------------------------------
