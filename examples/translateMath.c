@@ -53,15 +53,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "sbml/util.h"
+#include "util/util.h"
 
-#include "sbml/FormulaFormatter.h"
-#include "sbml/FormulaParser.h"
+#include "math/FormulaFormatter.h"
+#include "math/FormulaParser.h"
 
-#include "sbml/MathMLReader.h"
-#include "sbml/MathMLWriter.h"
+#include "math/MathMLReader.h"
+#include "math/MathMLWriter.h"
 
-#include "sbml/StringBuffer.h"
+#include "util/StringBuffer.h"
 
 #define BUFFER_SIZE 1024
 
