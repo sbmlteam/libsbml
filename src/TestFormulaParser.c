@@ -564,6 +564,34 @@ START_TEST (test_SBML_parseFormula_13)
 END_TEST
 
 
+START_TEST (test_SBML_parseFormula_negInf)
+{
+  ASTNode_t *r = SBML_parseFormula("-inf");
+
+
+  fail_unless( r->type == AST_REAL, NULL );
+  fail_unless( util_isInf(r->value.real) == -1, NULL );
+  fail_unless( ASTNode_getNumChildren(r) ==  0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
+START_TEST (test_SBML_parseFormula_negZero)
+{
+  ASTNode_t *r = SBML_parseFormula("-0.0");
+
+
+  fail_unless( r->type == AST_REAL, NULL );
+  fail_unless( util_isNegZero(r->value.real) == 1, NULL );
+  fail_unless( ASTNode_getNumChildren(r)    ==  0, NULL );
+
+  ASTNode_free(r);
+}
+END_TEST
+
+
 Suite *
 create_suite_FormulaParser (void) 
 { 
@@ -574,19 +602,21 @@ create_suite_FormulaParser (void)
   tcase_add_test( tcase, test_FormulaParser_getAction );
   tcase_add_test( tcase, test_FormulaParser_getGoto   );
 
-  tcase_add_test( tcase, test_SBML_parseFormula_1  );
-  tcase_add_test( tcase, test_SBML_parseFormula_2  );
-  tcase_add_test( tcase, test_SBML_parseFormula_3  );
-  tcase_add_test( tcase, test_SBML_parseFormula_4  );
-  tcase_add_test( tcase, test_SBML_parseFormula_5  );
-  tcase_add_test( tcase, test_SBML_parseFormula_6  );
-  tcase_add_test( tcase, test_SBML_parseFormula_7  );
-  tcase_add_test( tcase, test_SBML_parseFormula_8  );
-  tcase_add_test( tcase, test_SBML_parseFormula_9  );
-  tcase_add_test( tcase, test_SBML_parseFormula_10 );
-  tcase_add_test( tcase, test_SBML_parseFormula_11 );
-  tcase_add_test( tcase, test_SBML_parseFormula_12 );
-  tcase_add_test( tcase, test_SBML_parseFormula_13 );
+  tcase_add_test( tcase, test_SBML_parseFormula_1       );
+  tcase_add_test( tcase, test_SBML_parseFormula_2       );
+  tcase_add_test( tcase, test_SBML_parseFormula_3       );
+  tcase_add_test( tcase, test_SBML_parseFormula_4       );
+  tcase_add_test( tcase, test_SBML_parseFormula_5       );
+  tcase_add_test( tcase, test_SBML_parseFormula_6       );
+  tcase_add_test( tcase, test_SBML_parseFormula_7       );
+  tcase_add_test( tcase, test_SBML_parseFormula_8       );
+  tcase_add_test( tcase, test_SBML_parseFormula_9       );
+  tcase_add_test( tcase, test_SBML_parseFormula_10      );
+  tcase_add_test( tcase, test_SBML_parseFormula_11      );
+  tcase_add_test( tcase, test_SBML_parseFormula_12      );
+  tcase_add_test( tcase, test_SBML_parseFormula_13      );
+  tcase_add_test( tcase, test_SBML_parseFormula_negInf  );
+  tcase_add_test( tcase, test_SBML_parseFormula_negZero );
 
   suite_add_tcase(suite, tcase);
 
