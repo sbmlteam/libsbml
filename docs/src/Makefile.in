@@ -90,6 +90,7 @@ tex_clean = aux bbl blg log out toc
 
 extra_clean = \
 	$(docs) \
+	$(api-tex-files) \
 	$(addprefix libsbml-manual.,$(tex_clean)) \
 	$(addprefix libsbml-api-ref.,$(tex_clean)) 
 
@@ -169,7 +170,7 @@ distfiles =                            \
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: Makefile $(docs)
+all docs: Makefile $(docs)
 
 dvi: $(formatted)/libsbml-manual.dvi $(formatted)/libsbml-api-ref.dvi
 
@@ -219,7 +220,7 @@ Doxyfile: $(TOP_SRCDIR)/VERSION.txt Doxyfile.in
 
 # Yes, run pdflatex 4 times after running bibtex here.
 
-$(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
+manual $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	$(latex-env) pdflatex libsbml-manual
 	$(latex-env) bibtex libsbml-manual
@@ -272,7 +273,7 @@ api-tex-files = $(wildcard api/*.tex)
 
 create-api-files = { $(SHELL) createAPISections.sh ../../src/sbml; }
 
-$(formatted)/libsbml-api-ref.pdf libsbml-api-ref.pdf:  libsbml-api-ref.tex
+api-ref $(formatted)/libsbml-api-ref.pdf libsbml-api-ref.pdf:  libsbml-api-ref.tex
 ifeq "$(api-tex-files)" ""
 	$(create-api-files)
 endif
