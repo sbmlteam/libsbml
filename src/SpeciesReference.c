@@ -87,7 +87,7 @@ SpeciesReference_create (void)
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createWith ( const char *species,
-                              int        stoichiometry,
+                              double     stoichiometry,
                               int        denominator )
 {
   SpeciesReference_t *sr = SpeciesReference_create();
@@ -113,6 +113,8 @@ SpeciesReference_free (SpeciesReference_t *sr)
 
 
   SimpleSpeciesReference_clear((SimpleSpeciesReference_t *) sr);
+
+  ASTNode_free(sr->stoichiometryMath);
   safe_free(sr);
 }
 
@@ -147,7 +149,7 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr)
  * @return the stoichiometry of this SpeciesReference.
  */
 LIBSBML_EXTERN
-int
+double
 SpeciesReference_getStoichiometry (const SpeciesReference_t *sr)
 {
   return sr->stoichiometry;
@@ -216,7 +218,7 @@ SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sname)
  */
 LIBSBML_EXTERN
 void
-SpeciesReference_setStoichiometry (SpeciesReference_t *sr, int value)
+SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value)
 {
   sr->stoichiometry = value;
 }

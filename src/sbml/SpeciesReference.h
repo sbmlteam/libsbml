@@ -67,7 +67,7 @@ typedef struct
 {
   SBASE_FIELDS;
   SIMPLE_SPECIES_REFERENCE_FIELDS;
-  int       stoichiometry;
+  double    stoichiometry;
   int       denominator;
   ASTNode_t *stoichiometryMath;
 } SpeciesReference_t;
@@ -93,7 +93,7 @@ SpeciesReference_create (void);
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createWith ( const char *species,
-                              int        stoichiometry,
+                              double     stoichiometry,
                               int        denominator );
 
 /**
@@ -125,7 +125,7 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr);
  * @return the stoichiometry of this SpeciesReference.
  */
 LIBSBML_EXTERN
-int
+double
 SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
 
 /**
@@ -172,7 +172,7 @@ SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sname);
  */
 LIBSBML_EXTERN
 void
-SpeciesReference_setStoichiometry (SpeciesReference_t *sr, int value);
+SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value);
 
 /**
  * Sets the stoichiometryMath of this SpeciesReference to the given
