@@ -274,23 +274,20 @@ dist dist-gzip: config-check dist-all
 	  $(remove_distdir); \
 	fi
 
-# For 'make dist' to work properly, we need the developer to reconfigure
-# libsbml with all the options (except --with-xerces and --with-expat)
-# turned on.  The following uses GNU Make features to count how many of
-# the USE_XYZ variables have a non-empty value.
+# For `make dist' to work properly, we need the developer to configure
+# libsbml with certain flags, so that certain auto-generated files are
+# present when `make dist' runs and looks for them.
 
-ignore_vars    = USE_EXPAT USE_XERCES
-check_var_list = $(filter-out $(ignore_vars),$(LIBSBML_OPTIONS))
-num_vars       = $(words $(check_var_list))
-num_vars_set   = $(words $(foreach var,$(check_var_list),$($(var))))
+check_vars_list = USE_SWIG USE_JAVA USE_LISP
+num_vars        = $(words $(check_vars_list))
+num_vars_set    = $(words $(foreach var,$(check_vars_list),$($(var))))
 
 config-check:
-# 2004-09-27 <mhucka@caltech.edu>
-# This is causing too many problems right now -- skip until further notice.
-#	@if test $(num_vars_set) != $(num_vars); then \
-#	  echo "Please reconfigure with all options enabled before doing 'make dist'"; \
-#	  exit 2; \
-#	fi
+	@if test $(num_vars_set) != $(num_vars); then \
+	  echo "Please reconfigure with options $(check_vars_list)"; \
+	  echo "before running 'make dist'"; \
+	  exit 2; \
+	fi
 
 dist-all: $(distfiles)
 	$(MAKE) $(MAKEFLAGS) all
