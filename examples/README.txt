@@ -38,7 +38,7 @@ available in ../src/test-data.  For example:
 
   % printSBML     ../src/test-data/l1v1-branch.xml
   % readSBML      ../src/test-data/l2v1-delay.xml
-  % convertSBML   ../src/test-data/l1v1-rules l2v1-rules.xml
+  % convertSBML   ../src/test-data/l1v1-rules.xml l2v1-rules.xml
   % validateSBML  ../src/test-data/l2v1-branch.xml
   % validateSBML  ../src/test-data/l1v1-branch.xml
   % validateSBML  ../src/test-data/l1v1-branch-schema-error.xml
