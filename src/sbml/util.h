@@ -58,6 +58,12 @@
 #include "extern.h"
 
 
+/**
+ * Easier-to-read string comparison
+ */
+#define streq(s, t) (!strcmp(s, t))
+
+
 BEGIN_C_DECLS
 
 

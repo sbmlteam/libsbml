@@ -129,13 +129,33 @@ isSecond(UnitKind_t uk)
 
 
 static
-int
-isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
+unsigned int
+_hasSingleKind(UnitDefinition_t *ud)
+{
+  ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+  return ListOf_getNumItems(kinds) == 1;
+}
+
+
+static
+unsigned int
+_hasExponent(UnitDefinition_t *ud, int requiredExponent)
+{
+  ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+  Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
+
+  return requiredExponent == Unit_getExponent(u);
+}
+
+
+static
+unsigned int
+isOneOfTheseKinds(UnitDefinition_t *ud, const PFI *kindTests)
 {
   ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
   Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
   UnitKind_t unitKind = Unit_getKind(u);
-  PFI *kindTest;
+  const PFI *kindTest;
 
   for (kindTest = kindTests; *kindTest; kindTest++)
   {
@@ -146,6 +166,45 @@ isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
   }
 
   return 0;
+}
+
+
+static
+unsigned int
+isKindOfLength(const char *unitsName)
+{
+  return
+    unitsName != NULL
+    &&
+    (
+      streq(unitsName, "length")
+      ||
+      streq(unitsName, "meter")
+      ||
+      streq(unitsName, "metre")
+    );
+}
+
+
+static
+unsigned int
+unitDefinitionIsKindOfLength(
+  const Model_t *m,
+  const char *spatialSizeUnits)
+{
+  static const PFI acceptableKinds[] = { isMeter };
+
+  UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
+
+
+  return
+    ud != NULL
+    &&
+    isOneOfTheseKinds(ud, acceptableKinds)
+    &&
+    _hasSingleKind(ud)
+    &&
+    _hasExponent(ud, 1);
 }
 
 
@@ -549,6 +608,41 @@ RULE (species_zeroSpatialDimensions)
   return passed;
 }
 
+/**
+ * spatialSizeUnits for spatialDimensions of 1.
+ */
+RULE (species_spatialDimensions1)
+{
+  static const char msg[] =
+    "A species whose compartment has spatialDimensions=1 must have "
+    "spatialSizeUnits of 'length', 'metre', or the id of a unitDefinition "
+    "that defines a variant of 'metre' with exponent=1.";
+  const char *compartmentId;
+  unsigned int passed = 1;
+
+
+  Species_t *s = (Species_t *) obj;
+  compartmentId = Species_getCompartment(s);
+  if (compartmentId)
+  {
+    Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
+    if (c && Compartment_getSpatialDimensions(c) == 1)
+    {
+      const char *spatialSizeUnits = Species_getSpatialSizeUnits(s);
+      if (
+        !isKindOfLength(spatialSizeUnits)
+        &&
+        !unitDefinitionIsKindOfLength(d->model, spatialSizeUnits)
+      ) {
+        LOG_MESSAGE(msg);
+        passed = 0;
+      }
+    }
+  }
+
+  return passed;
+}
+
 
 /**
  * Adds the default ValidationRule set to this Validator.
@@ -575,4 +669,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_compartmentIsDefined,  SBML_SPECIES        );
   Validator_addRule( v, species_hasOnlySubstanceUnits, SBML_SPECIES        );
   Validator_addRule( v, species_zeroSpatialDimensions, SBML_SPECIES        );
+  Validator_addRule( v, species_spatialDimensions1,    SBML_SPECIES        );
 }
