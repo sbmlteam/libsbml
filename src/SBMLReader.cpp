@@ -66,11 +66,11 @@ typedef void SAX2XMLReader;
 #  include <xercesc/util/XMLString.hpp>
 #endif  // USE_EXPAT
 
-
-#include "sbml/SBMLHandler.hpp"
-#include "sbml/List.h"
 #include "sbml/SBMLDocument.h"
 #include "sbml/SBMLReader.h"
+
+#include "sbml/SBMLHandler.hpp"
+#include "sbml/SBMLReader.hpp"
 
 
 #ifndef USE_EXPAT
@@ -160,9 +160,9 @@ XMLReader_readSBMLElement ( SAX2XMLReader*     reader,
  * against an XML Schema.
  */
 void
-XMLReader_setSchema (SAX2XMLReader* xr, SBMLReader_t* sr)
+XMLReader_setSchema (SAX2XMLReader* xr, SBMLReader* sr)
 {
-  bool doFull = (sr->schemaValidationLevel == XML_SCHEMA_VALIDATION_FULL);
+  bool doFull = (sr->getSchemaValidationLevel() == XML_SCHEMA_VALIDATION_FULL);
 
 
   xr->setFeature( XMLUni::fgSAX2CoreValidation      , true   );
@@ -188,41 +188,60 @@ XMLReader_setSchemaLocation (SAX2XMLReader* xr, const char* location)
 
 
 /**
- * Creates a new SBMLReader and returns a pointer to it.
+ * Creates a new SBMLReader and returns it.
  *
  * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE) and
- * schemaFilename is NULL.
+ * schemaFilenames are empty.
  */
 LIBSBML_EXTERN
-SBMLReader_t *
-SBMLReader_create (void)
+SBMLReader::SBMLReader (XMLSchemaValidation_t level) :
+  schemaValidationLevel(level)
 {
-  SBMLReader_t *sr = (SBMLReader_t *) safe_malloc( sizeof(SBMLReader_t) );
-
-
-  sr->schemaValidationLevel = XML_SCHEMA_VALIDATION_NONE;
-  sr->schemaFilenameL1v1    = NULL;
-  sr->schemaFilenameL1v2    = NULL;
-  sr->schemaFilenameL2v1    = NULL;
-
-  return sr;
 }
 
 
 /**
- * Frees the given SBMLReader.
+ * Destorys this SBMLReader.
  */
 LIBSBML_EXTERN
-void
-SBMLReader_free (SBMLReader_t *sr)
+SBMLReader::~SBMLReader ()
 {
-  if (sr == NULL) return;
+}
 
 
-  safe_free(sr->schemaFilenameL1v1);
-  safe_free(sr->schemaFilenameL1v2);
-  safe_free(sr->schemaFilenameL2v1);
-  safe_free(sr);
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML
+ * Level 1 version 1 documents.
+ */
+LIBSBML_EXTERN
+const std::string&
+SBMLReader::getSchemaFilenameL1v1 () const
+{
+  return schemaFilenameL1v1;
+}
+
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML
+ * Level 1 version 2 documents.
+ */
+LIBSBML_EXTERN
+const std::string&
+SBMLReader::getSchemaFilenameL1v2 () const
+{
+  return schemaFilenameL1v2;
+}
+
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML Level
+ * 2 version 1 documents.
+ */
+LIBSBML_EXTERN
+const std::string&
+SBMLReader::getSchemaFilenameL2v1 () const
+{
+  return schemaFilenameL2v1;
 }
 
 
@@ -230,29 +249,29 @@ SBMLReader_free (SBMLReader_t *sr)
  * @return the SchemaLocation to use when reading the given SBMLDocument.
  * 
  * This function assumes the SBMLDocument level and version correspond to
- * the document that will be read.  The caller owns the returned string and
- * is responsible for freeing it
+ * the document that will be read.
  */
-char *
-SBMLReader_getSchemaLocation (SBMLReader_t* sr, SBMLDocument_t* d)
+char*
+SBMLReader::getSchemaLocation (SBMLDocument* d) const
 {
-  unsigned int level   = SBMLDocument_getLevel(d);
-  unsigned int version = SBMLDocument_getVersion(d);
+  unsigned int level   = d->getLevel();
+  unsigned int version = d->getVersion();
 
-  char* xmlns    = NULL;
-  char* filename = NULL;
-  char* location = NULL;
+  const char* xmlns    = NULL;
+  const char* filename = NULL;
+  char*       location = NULL;
 
 
   if (level == 1)
   {
     xmlns    = "http://www.sbml.org/sbml/level1 ";
-    filename = (version == 1) ? sr->schemaFilenameL1v1 : sr->schemaFilenameL1v2;
+    filename = (version == 1) ? schemaFilenameL1v1.c_str() :
+                                schemaFilenameL1v2.c_str();
   }
   else if (level == 2)
   {
     xmlns    = "http://www.sbml.org/sbml/level2 ";
-    filename = sr->schemaFilenameL2v1;
+    filename = schemaFilenameL2v1.c_str();
   }
 
   //
@@ -268,20 +287,28 @@ SBMLReader_getSchemaLocation (SBMLReader_t* sr, SBMLDocument_t* d)
 
 
 /**
- * Used by SBMLReader_readSBML(SBMLReader_t *sr, const char *filename) and
- * SBMLReader_readSBMLFromString(...).
+ * @return the schema validation level used by this SBMLReader.
  */
-SBMLDocument_t*
-SBMLReader_readSBML_internal ( SBMLReader_t* sr,
-                               const char*   filename,
-                               const char*   xml )
+LIBSBML_EXTERN
+XMLSchemaValidation_t
+SBMLReader::getSchemaValidationLevel() const
+{
+  return schemaValidationLevel;
+}
+
+
+/**
+ * Used by readSBML(SBMLReader_t *sr, const char *filename) and
+ * readSBMLFromString(...).
+ */
+SBMLDocument*
+SBMLReader::readSBML_internal (const char* filename, const char* xml)
 {
 #ifdef USE_EXPAT
 
-  SBMLDocument_t* d = SBMLDocument_create();
-  // d->model = NULL;
+  SBMLDocument* d = new SBMLDocument();
   
-  SBMLHandler handler(static_cast<SBMLDocument*>(d));
+  SBMLHandler handler(d);
 
   handler.enableElementHandler();
 
@@ -316,12 +343,12 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (...)
   {
-    SBMLDocument_setModel(d, NULL);
+    d->setModel(NULL);
   }
 
 #else
 
-  SBMLDocument_t* d = SBMLDocument_create();
+  SBMLDocument* d = new SBMLDocument;
 
 
   try
@@ -330,13 +357,12 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (const XMLException& e)
   {
-    // TODO: C++ify
-    // List_add(d->fatal, ParseMessage_createFrom(e));
+    d->fatal.add( ParseMessage_createFrom(e) );
     return d;
   }
 
 
-  DefaultHandler*    handler = new SBMLHandler(static_cast<SBMLDocument*>(d));
+  DefaultHandler*    handler = new SBMLHandler(d);
   SAX2XMLReader*     reader  = XMLReader_create(handler);
   MemBufInputSource* input   = NULL;
 
@@ -352,7 +378,7 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   //
   // XML Schema Validation (based on the state of the SBMLReader)
   //
-  if (sr->schemaValidationLevel != XML_SCHEMA_VALIDATION_NONE)
+  if (schemaValidationLevel != XML_SCHEMA_VALIDATION_NONE)
   {
     //
     // Reads only the <sbml> element from either filename or
@@ -366,12 +392,12 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
     delete reader;
     reader = XMLReader_create(handler);
 
-    XMLReader_setSchema(reader, sr);
+    XMLReader_setSchema(reader, this);
 
     //
     // Set the schema location
     //
-    char* location = SBMLReader_getSchemaLocation(sr, d);
+    char* location = getSchemaLocation(d);
 
     if (location != NULL)
     {
@@ -397,13 +423,11 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
   }
   catch (const XMLException& e)
   {
-    // TODO: C++ify
-    // List_add(d->fatal, ParseMessage_createFrom(e));
+    d->fatal.add( ParseMessage_createFrom(e) );
   }
   catch (...)
   {
-    // TODO: C++ify
-    // List_add(d->fatal, ParseMessage_createWith("Unexpected Exception", 0, 0));
+    d->fatal.add( new ParseMessage("Unexpected Exception", 0, 0) );
   }
 
   if (input != NULL)
@@ -424,10 +448,194 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
  * Reads the SBML document from the given file and returns a pointer to it.
  */
 LIBSBML_EXTERN
+SBMLDocument*
+SBMLReader::readSBML (const std::string& filename)
+{
+  return readSBML_internal(filename.c_str(), NULL);
+}
+
+
+/**
+ * Reads the SBML document from the given XML string and returns a pointer
+ * to it.
+ *
+ * The XML string must be complete and legal XML document.  Among other
+ * things, it must start with an XML processing instruction.  For e.g.,:
+ *
+ *   <?xml version='1.0' encoding='UTF-8'?>
+ */
+LIBSBML_EXTERN
+SBMLDocument*
+SBMLReader::readSBMLFromString (const std::string& xml)
+{
+  return readSBML_internal(NULL, xml.c_str());
+}
+
+
+/**
+ * Sets the schema filename used by this SBMLReader to validate SBML Level
+ * 1 version 1 documents.
+ *
+ * The filename should be either i) an absolute path or ii) relative to the
+ * directory contain the SBML file(s) to be read.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader::setSchemaFilenameL1v1 (const std::string& filename)
+{
+  schemaFilenameL1v1 = filename;
+}
+
+
+/**
+ * Sets the schema filename used by this SBMLReader to validate SBML Level
+ * 1 version 2 documents.
+ *
+ * The filename should be either i) an absolute path or ii) relative to the
+ * directory contain the SBML file(s) to be read.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader::setSchemaFilenameL1v2 (const std::string& filename)
+{
+  schemaFilenameL1v2 = filename;
+}
+
+
+/**
+ * Sets the schema filename used by this SBMLReader to validate SBML Level
+ * 2 version 1 documents.
+ *
+ * The filename should be either i) an absolute path or ii) relative to the
+ * directory contain the SBML file(s) to be read.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader::setSchemaFilenameL2v1 (const std::string& filename)
+{
+  schemaFilenameL2v1 = filename;
+}
+
+
+/**
+ * Sets the schema validation level used by this SBMLReader.
+ *
+ * The levels are:
+ *
+ *   XML_SCHEMA_VALIDATION_NONE (0) turns schema validation off.
+ *
+ *   XML_SCHEMA_VALIDATION_BASIC (1) validates an XML instance document
+ *   against an XML Schema.  Those who wish to perform schema checking on
+ *   SBML documents should use this option.
+ *
+ *   XML_SCHEMA_VALIDATION_FULL (2) validates both the instance document
+ *   itself *and* the XML Schema document.  The XML Schema document is
+ *   checked for violation of particle unique attribution constraints and
+ *   particle derivation restrictions, which is both time-consuming and
+ *   memory intensive.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader::setSchemaValidationLevel (XMLSchemaValidation_t level)
+{
+  schemaValidationLevel = level;
+}
+
+
+
+
+/**
+ * Creates a new SBMLReader and returns a pointer to it.
+ *
+ * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE) and
+ * schemaFilename is NULL.
+ */
+LIBSBML_EXTERN
+SBMLReader_t *
+SBMLReader_create (void)
+{
+  return new (std::nothrow) SBMLReader;
+}
+
+
+/**
+ * Frees the given SBMLReader.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_free (SBMLReader_t *sr)
+{
+  delete static_cast<SBMLReader*>(sr);
+}
+
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML
+ * Level 1 version 1 documents.
+ */
+LIBSBML_EXTERN
+const char *
+SBMLReader_getSchemaFilenameL1v1 (const SBMLReader_t *sr)
+{
+  const SBMLReader*  x = static_cast<const SBMLReader*>(sr);
+  const std::string& s = x->getSchemaFilenameL1v1();
+
+
+  return s.empty() ? NULL : s.c_str();
+}
+
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML
+ * Level 1 version 2 documents.
+ */
+LIBSBML_EXTERN
+const char *
+SBMLReader_getSchemaFilenameL1v2 (const SBMLReader_t *sr)
+{
+  const SBMLReader*  x = static_cast<const SBMLReader*>(sr);
+  const std::string& s = x->getSchemaFilenameL1v2();
+
+
+  return s.empty() ? NULL : s.c_str();
+}
+
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML Level
+ * 2 version 1 documents.
+ */
+LIBSBML_EXTERN
+const char *
+SBMLReader_getSchemaFilenameL2v1 (const SBMLReader_t *sr)
+{
+  const SBMLReader*  x = static_cast<const SBMLReader*>(sr);
+  const std::string& s = x->getSchemaFilenameL2v1();
+
+
+  return s.empty() ? NULL : s.c_str();
+}
+
+
+/**
+ * @return the schema validation level used by this SBMLReader.
+ */
+LIBSBML_EXTERN
+XMLSchemaValidation_t
+SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr)
+{
+  return static_cast<const SBMLReader*>(sr)->getSchemaValidationLevel();
+}
+
+
+/**
+ * Reads the SBML document from the given file and returns a pointer to it.
+ */
+LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
 {
-  return SBMLReader_readSBML_internal(sr, filename, NULL);
+  return static_cast<SBMLReader*>(sr)->readSBML(filename);
 }
 
 
@@ -444,7 +652,7 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 {
-  return SBMLReader_readSBML_internal(sr, NULL, xml);
+  return static_cast<SBMLReader*>(sr)->readSBMLFromString(xml);
 }
 
 
@@ -458,10 +666,12 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 readSBML (const char *filename)
 {
-  SBMLReader_t sr = {XML_SCHEMA_VALIDATION_NONE, NULL, NULL, NULL};
+  SBMLReader*   sr = new SBMLReader;
+  SBMLDocument* d  = sr->readSBML(filename);
 
 
-  return SBMLReader_readSBML(&sr, filename);
+  delete sr;
+  return d;
 }
 
 
@@ -475,10 +685,12 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 readSBMLFromString (const char *xml)
 {
-  SBMLReader_t sr = {XML_SCHEMA_VALIDATION_NONE, NULL, NULL, NULL};
+  SBMLReader*   sr = new SBMLReader;
+  SBMLDocument* d  = sr->readSBMLFromString(xml);
 
 
-  return SBMLReader_readSBMLFromString(&sr, xml);
+  delete sr;
+  return d;
 }
 
 
@@ -493,16 +705,7 @@ LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilenameL1v1 (SBMLReader_t *sr, const char *filename)
 {
-  if (sr->schemaFilenameL1v1 == filename) return;
-
-
-  if (sr->schemaFilenameL1v1 != NULL)
-  {
-    safe_free(sr->schemaFilenameL1v1);
-  }
-
-
-  sr->schemaFilenameL1v1 = (filename == NULL) ? NULL : safe_strdup(filename);
+  static_cast<SBMLReader*>(sr)->setSchemaFilenameL1v1(filename ? filename : "");
 }
 
 
@@ -517,16 +720,7 @@ LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilenameL1v2 (SBMLReader_t *sr, const char *filename)
 {
-  if (sr->schemaFilenameL1v2 == filename) return;
-
-
-  if (sr->schemaFilenameL1v2 != NULL)
-  {
-    safe_free(sr->schemaFilenameL1v2);
-  }
-
-
-  sr->schemaFilenameL1v2 = (filename == NULL) ? NULL : safe_strdup(filename);
+  static_cast<SBMLReader*>(sr)->setSchemaFilenameL1v2(filename ? filename : "");
 }
 
 
@@ -541,16 +735,7 @@ LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilenameL2v1 (SBMLReader_t *sr, const char *filename)
 {
-  if (sr->schemaFilenameL2v1 == filename) return;
-
-
-  if (sr->schemaFilenameL2v1 != NULL)
-  {
-    safe_free(sr->schemaFilenameL2v1);
-  }
-
-
-  sr->schemaFilenameL2v1 = (filename == NULL) ? NULL : safe_strdup(filename);
+  static_cast<SBMLReader*>(sr)->setSchemaFilenameL2v1(filename ? filename : "");
 }
 
 
@@ -576,5 +761,5 @@ void
 SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
                                       XMLSchemaValidation_t level )
 {
-  sr->schemaValidationLevel = level;
+  static_cast<SBMLReader*>(sr)->setSchemaValidationLevel(level);
 }

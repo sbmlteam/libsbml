@@ -56,46 +56,17 @@
 
 #include "extern.h"
 #include "SBMLDocument.h"
+#include "XMLSchemaValidation.h"
 
 
 BEGIN_C_DECLS
 
 
 /**
- * Used by an SBMLReader to indicate the level of XML Schema validation.
- * Schema violations (for both BASIC and FULL) are reported in the
- * SBMLDocument's list of ParseMessages.  The levels are:
- *
- *   NONE (0) turns schema validation off.
- *
- *   BASIC (1) validates an XML instance document against an XML Schema.
- *   Those who wish to perform schema checking on SBML documents should use
- *   this option.
- *
- *   FULL (2) validates both the instance document itself *and* the XML
- *   Schema document.  The XML Schema document is checked for violation of
- *   particle unique attribution constraints and particle derivation
- *   restrictions, which is both time-consuming and memory intensive.
- */
-typedef enum
-{
-    XML_SCHEMA_VALIDATION_NONE
-  , XML_SCHEMA_VALIDATION_BASIC
-  , XML_SCHEMA_VALIDATION_FULL
-} XMLSchemaValidation_t;
-
-
-/**
  * An SBMLReader maintains some simple state related to XML Schema
  * validation.
  */
-typedef struct
-{
-  XMLSchemaValidation_t  schemaValidationLevel;
-  char                  *schemaFilenameL1v1;
-  char                  *schemaFilenameL1v2;
-  char                  *schemaFilenameL2v1;
-} SBMLReader_t;
+typedef void SBMLReader_t;
 
 
 /**
@@ -115,6 +86,37 @@ LIBSBML_EXTERN
 void
 SBMLReader_free (SBMLReader_t *sr);
 
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML
+ * Level 1 version 1 documents.
+ */
+LIBSBML_EXTERN
+const char *
+SBMLReader_getSchemaFilenameL1v1 (const SBMLReader_t *sr);
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML
+ * Level 1 version 2 documents.
+ */
+LIBSBML_EXTERN
+const char *
+SBMLReader_getSchemaFilenameL1v2 (const SBMLReader_t *sr);
+
+/**
+ * @return the schema filename used by this SBMLReader to validate SBML Level
+ * 2 version 1 documents.
+ */
+LIBSBML_EXTERN
+const char *
+SBMLReader_getSchemaFilenameL2v1 (const SBMLReader_t *sr);
+
+/**
+ * @return the schema validation level used by this SBMLReader.
+ */
+LIBSBML_EXTERN
+XMLSchemaValidation_t
+SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr);
 
 /**
  * Reads the SBML document from the given file and returns a pointer to it.
