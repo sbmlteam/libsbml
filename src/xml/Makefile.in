@@ -69,7 +69,6 @@ thisdir   = src/xml
 
 headers   =              \
   ParseMessage.h         \
-  SAX2AttributesMock.h   \
   StreamFormatTarget.h   \
   XMLNamespace.h         \
   XMLNamespaceList.h     \
@@ -89,7 +88,6 @@ expat_headers =          \
 
 sources   =              \
   ParseMessage.cpp       \
-  SAX2AttributesMock.cpp \
   StreamFormatTarget.cpp \
   XMLNamespace.cpp       \
   XMLNamespaceList.cpp   \
