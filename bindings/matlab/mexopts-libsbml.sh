@@ -1,21 +1,33 @@
-#
-# mexopts.sh	Shell script for configuring MEX-file creation script,
-#               mex.  These options were tested with the specified compiler.
-#
-# usage:        Do not call this file directly; it is sourced by the
-#               mex shell script.  Modify only if you don't like the
-#               defaults after running mex.  No spaces are allowed
-#               around the '=' in the variable assignment.
-#
-# SELECTION_TAGs occur in template option files and are used by MATLAB
-# tools, such as mex and mbuild, to determine the purpose of the contents
-# of an option file. These tags are only interpreted when preceded by '#'
-# and followed by ':'.
-#
-#SELECTION_TAG_MEX_OPT: Template Options file for building MEX-files via the system ANSI compiler
-#
-# Copyright 1984-2000 The MathWorks, Inc.
-# $Revision$  $Date$
+## @configure_input@
+##
+## Filename    : mexopts-libsbml.in
+## Description : mexopts file for libsbml.
+## Author(s)   : Michael Hucka <mhucka@caltech.edu>
+## Organization: California Institute of Technology
+## Created     : 2004-09-27
+## Revision    : $Id$
+## Source      : $Source$
+##
+## This file is based on mexopts.sh as provided by The MathWorks, Inc.,
+## in MATLAB R14.  The original copyright notice from that file is:
+##
+## Copyright 1984-2000 The MathWorks, Inc.
+## $ Revision: 1.1 $  $Date$
+##
+## The modifications in this file are for use with libSBML, in order to
+## cope with the following issues:
+##
+## 1) There's a known problem with Matlab on MacOS X.  See the following:
+##    http://www.mathworks.com/support/solutions/data/1-1BEIS.html?solution=1-1BEIS
+##    The MacOS definitions in this file provide a work-around.
+##
+## 2) There's a known problem with XA64-based Linuxes (e.g., SuSE on AMD
+##    opteron systems): MATLAB does not ship with 64-bit libraries.  This
+##    mexopts file works around this by following the workaround procedure 
+##    recommended by The MathWorks, namely to tell mex and matlab to use
+##    the 32-bit libraries instead.
+##
+
 #----------------------------------------------------------------------------
 #
     TMW_ROOT="$MATLAB"
@@ -202,7 +214,7 @@
             ;;
         glnx86)
 #----------------------------------------------------------------------------
-            RPATH="-Wl,--rpath-link,$TMW_ROOT/extern/lib/$Arch,--rpath-link,$TMW_ROOT/bin/$Arch"
+            RPATH="-Wl,--rpath-link,$TMW_ROOT/extern/lib/glnx86,--rpath-link,$TMW_ROOT/bin/glnx86"
 #           gcc -v
 #           gcc version 2.95.2 19991024 (release)
             CC='gcc'
@@ -231,7 +243,51 @@
             FDEBUGFLAGS='-g'
 #
             LD="$COMPILER"
-            LDFLAGS="-pthread -shared -Wl,--version-script,$TMW_ROOT/extern/lib/$Arch/$MAPFILE"
+            LDFLAGS="-pthread -shared -Wl,--version-script,$TMW_ROOT/extern/libglnx86/$MAPFILE"
+            LDOPTIMFLAGS='-O'
+            LDDEBUGFLAGS='-g'
+#
+            POSTLINK_CMDS=':'
+#----------------------------------------------------------------------------
+            ;;
+        glnxa64)
+#----------------------------------------------------------------------------
+	    if [ "$ENTRYPOINT" = "mexLibrary" ]; then
+	        MLIBS="-L$TMW_ROOT/bin/glnx86 -lmx -lmex -lmatlb -lmat -lmwservices -lut -lm"
+	    else  
+	        MLIBS="-L$TMW_ROOT/bin/glnx86 -lmx -lmex -lmat -lm"
+	    fi
+
+            RPATH="-Wl,--rpath-link,$TMW_ROOT/extern/lib/glnx86,--rpath-link,$TMW_ROOT/bin/glnx86"
+#           gcc -v
+#           gcc version 2.95.2 19991024 (release)
+            CC='gcc'
+            CFLAGS='-m32 -fPIC -ansi -D_GNU_SOURCE -pthread'
+            CLIBS="$RPATH $MLIBS -lm"
+            COPTIMFLAGS='-O -DNDEBUG'
+            CDEBUGFLAGS='-g'
+#           
+#           g++ -v
+#           gcc version 2.95.2 19991024 (release)
+            CXX='g++'
+#           Add -fhandle-exceptions to CXXFLAGS to support exception handling
+            CXXFLAGS='-fPIC -ansi -D_GNU_SOURCE -pthread'
+            CXXLIBS="$RPATH $MLIBS -lm"
+            CXXOPTIMFLAGS='-O -DNDEBUG'
+            CXXDEBUGFLAGS='-g'
+#
+#           g77 -v -xf77-version 
+#           g77 version 2.95.2 19991024 (release) 
+#           (from FSF-g77 version 0.5.25 19991024 (release))
+#           NOTE: g77 is not thread safe
+            FC='g77'
+            FFLAGS='-fPIC'
+            FLIBS="$RPATH $MLIBS -lm"
+            FOPTIMFLAGS='-O'
+            FDEBUGFLAGS='-g'
+#
+            LD="$COMPILER"
+            LDFLAGS="-m32 -pthread -shared -Wl,--version-script,$TMW_ROOT/extern/lib/glnx86/$MAPFILE"
             LDOPTIMFLAGS='-O'
             LDDEBUGFLAGS='-g'
 #
