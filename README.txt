@@ -229,10 +229,10 @@ To build libsbml on Windows:
 
    1. Install Xerces-C if it's not already installed.
 
-   2. Download the tar archive http://sbml.org/@@ and extract using WinZip.
-   Do not extract the tar archive using the "tar" that comes with CygWin;
-   that "tar" does not translate line terminators so that they'll work with
-   Visual C++.
+   2. Download the libsbml tar archive from sf.net/projects/sbml and
+   extract using WinZip.  Do not extract the tar archive using the "tar"
+   that comes with CygWin; that "tar" does not translate line
+   terminators so that they'll work with Visual C++.
 
    3. Using CygWin, cd to the (libsbml) directory and run:
 
@@ -280,3 +280,4 @@ The libsbml-discuss archives are available at http://sbml.org/forums/.
 File author: B. Bornstein
 Last Modified: $Date$
 -------------------------------------------
+
