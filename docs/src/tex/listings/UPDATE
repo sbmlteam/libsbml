@@ -1,0 +1,56 @@
+New language drivers
+--------------------
+
+Additionally to the languages listed in the User's Guide,
+lstdrvrs.dtx  now provides definitions for more languages.
+The language names are followed by a list of dialects.
+
+  - ABAP (R/2 4.3, R/2 5.0, R/3 3.1, R/3 4.6C)
+
+  - Basic (Visual)
+
+  - Clean
+
+  - R
+
+  - S (empty, PLUS)
+
+  - SAS
+
+  - Tcl (empty, Tk),
+    TclTk
+
+Credits go to
+
+    Knut Lickert,
+    José Romildo Malaquias,
+    Gerd Neugebauer,
+    Winfried Theis, and
+    Frédéric Jacquet.
+
+
+Request for language drivers
+----------------------------
+
+If you want a programming language to be added, the minimal
+things *you* should provide are:
+
+  1. a comma separated list of keywords, and whether they
+     are case sensitive or not;
+
+  2. optional: a comma separated list of predefined names,
+     functions, and procedures;
+
+  3. a description of the comment delimiters---for example
+     "the delimiters are (* and *) and they work as /* and
+     */ in C" would be enough;
+
+  4. a description of the string delimiters;
+
+  5. a description of special things, for example, for TeX
+     this would include that digits never belong to a
+     control sequence and hence don't behave like digits in
+     usual programming languages.
+
+Best regards,
+Carsten Heinz

@@ -1,0 +1,116 @@
+This is TeX, Version 3.14159 (Web2C 7.3.1) (format=tex 2001.12.12)  15 JAN 2002 21:57
+**listings.ins
+(listings.ins (/usr/share/texmf/tex/latex/base/docstrip.tex
+\blockLevel=\count26
+\emptyLines=\count27
+\processedLines=\count28
+\commentsRemoved=\count29
+\commentsPassed=\count30
+\codeLinesPassed=\count31
+\TotalprocessedLines=\count32
+\TotalcommentsRemoved=\count33
+\TotalcommentsPassed=\count34
+\TotalcodeLinesPassed=\count35
+\NumberOfFiles=\count36
+\inFile=\read0
+\inputcheck=\read1
+\@tempcnta=\count37
+\off@0=\count38
+\off@1=\count39
+\off@2=\count40
+\off@3=\count41
+\off@4=\count42
+\off@5=\count43
+\off@6=\count44
+\off@7=\count45
+\off@8=\count46
+\off@9=\count47
+\off@10=\count48
+\off@11=\count49
+\off@12=\count50
+\off@13=\count51
+\off@14=\count52
+\off@15=\count53
+\@temptokena=\toks12
+\@maxfiles=\count54
+\@maxoutfiles=\count55
+
+Utility: `docstrip' 2.5b <1998/04/28>
+English documentation    <1999/03/31>
+
+**********************************************************
+* This program converts documented macro-files into fast *
+* loadable files by stripping off (nearly) all comments! *
+**********************************************************
+
+********************************************************
+* No Configuration file found, using default settings. *
+********************************************************
+
+)
+
+Generating file(s) listings.sty lstmisc.sty lstdoc.sty lstdrvrs.ins listings.cf
+g 
+\openout0 = `listings.sty'.
+
+\openout1 = `lstmisc.sty'.
+
+\openout2 = `lstdoc.sty'.
+
+
+Processing file listings.dtx (kernel) -> listings.sty
+                             (misc) -> lstmisc.sty
+                             (doc) -> lstdoc.sty
+File listings.dtx ended by \endinput.
+Lines  processed: 13979
+Comments removed: 10044
+Comments  passed: 30
+Codelines passed: 3808
+
+\openout0 = `lstdrvrs.ins'.
+
+\openout1 = `listings.cfg'.
+
+
+Processing file lstdrvrs.dtx (install) -> lstdrvrs.ins
+                             (config) -> listings.cfg
+File lstdrvrs.dtx ended by \endinput.
+Lines  processed: 2780
+Comments removed: 897
+Comments  passed: 124
+Codelines passed: 1659
+
+(lstdrvrs.ins
+
+Generating file(s) lstlang1.sty lstlang2.sty lstlang3.sty 
+\openout0 = `lstlang1.sty'.
+
+\openout1 = `lstlang2.sty'.
+
+\openout2 = `lstlang3.sty'.
+
+
+Processing file lstdrvrs.dtx (lang1) -> lstlang1.sty
+                             (lang2) -> lstlang2.sty
+                             (lang3) -> lstlang3.sty
+File lstdrvrs.dtx ended by \endinput.
+Lines  processed: 2780
+Comments removed: 897
+Comments  passed: 124
+Codelines passed: 1659
+
+)
+*
+* You probably need to move all created `.sty' and `.cfg'
+* files into a directory searched by TeX.
+*
+* Run `listings.dtx' through LaTeX2e to get the documentation.
+*
+Overall statistics:
+Files  processed: 3
+Lines  processed: 19539
+Comments removed: 11838
+Comments  passed: 278
+Codelines passed: 7126
+ )
+No pages of output.

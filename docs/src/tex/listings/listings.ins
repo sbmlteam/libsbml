@@ -1,0 +1,47 @@
+%%
+%% This file generates files required to use the listings package.
+%% At your command prompt write
+%%
+%%     tex listings.ins
+%%
+%%
+%% (w)(c) 1996--1999 Carsten Heinz
+%%
+%% This file is distributed under the terms of the LaTeX Project Public
+%% License from CTAN archives in directory  macros/latex/base/lppl.txt.
+%% Either version 1.0 or, at your option, any later version.
+%%
+%% This file is completely free and comes without any warranty.
+%%
+%% Permission is granted to change this file. You are not allowed to
+%% distribute any changed version of this file, neither under the same
+%% name nor under a different one.
+%%
+\input docstrip
+\preamble
+\endpreamble
+
+\usedir{tex/latex/listings}
+\keepsilent
+\askonceonly
+
+
+\generate{
+    \file{listings.sty}{\from{listings.dtx}{kernel}}
+    \file{lstmisc.sty}{\from{listings.dtx}{misc}}
+    \file{lstdoc.sty}{\from{listings.dtx}{doc}}
+    \file{lstdrvrs.ins}{\from{lstdrvrs.dtx}{install}}
+    \file{listings.cfg}{\from{lstdrvrs.dtx}{config}}
+}
+
+\batchinput{lstdrvrs.ins}
+
+
+\Msg{*}
+\Msg{* You probably need to move all created `.sty' and `.cfg'}
+\Msg{* files into a directory searched by TeX.}
+\Msg{*}
+\Msg{* Run `listings.dtx' through LaTeX2e to get the documentation.}
+\Msg{*}
+
+\endbatchfile

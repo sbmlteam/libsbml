@@ -1,0 +1,21 @@
+This is booktabs.readme
+
+Package provides publication quality tables for LaTeX
+(can be used in 2.09 with a minor change to booktabs.sty
+documented therein).
+
+For documentation (including justification for recommending
+this package) LaTeX2e users can just print the output of
+
+latex booktabs.dtx
+
+2.09 users will have to read this file as best they can.
+
+Simon Fear
+Dept Statistics and Computational Mathematics
+University of Liverpool
+Liverpool L69 3BX
+England
+
+6 November 1995
+

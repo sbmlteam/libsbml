@@ -1,0 +1,91 @@
+%% This is file `booktabs.sty'
+%% Copyright 1995 Simon Fear, University of Liverpool
+%% scf@liv.ac.uk or fear@scmp.scm.liv.ac.uk
+%%
+%% For documentation see booktabs.dtx
+%%
+%% Can be used in LaTeX 2.09 by commenting out the
+%% \ProvidesPackage command and argument
+%%
+%\NeedsTexFormat{LaTeX2e} -- not really!
+\ProvidesPackage{booktabs}
+	 [1995/11/06 v1.00 publication quality tables]
+\newdimen\heavyrulewidth 
+\newdimen\lightrulewidth 
+\newdimen\cmidrulewidth  
+\newdimen\belowrulesep   
+\newdimen\aboverulesep   
+\newdimen\cmidrulesep    
+\newdimen\cmidrulekern   
+\newdimen\defaultaddspace
+\heavyrulewidth=.08em
+\lightrulewidth=.05em
+\cmidrulewidth=.03em
+\belowrulesep=.65ex
+\aboverulesep=.4ex
+\cmidrulesep=\doublerulesep
+\cmidrulekern=.25em
+\defaultaddspace=.5em
+\newcount\rulesflag
+\newdimen\@cmidrulewidth
+\newcount\@cmidla
+\newcount\@cmidlb
+\rulesflag=0
+\def\toprule{\noalign{\ifnum0=`}\fi
+    \@ifnextchar[{\@toprule}{\@toprule[\heavyrulewidth]}}
+\def\@toprule[#1]{\ifnum\rulesflag=1\vskip 
+    \doublerulesep\global\rulesflag=0\fi
+    \hrule \@height#1\futurelet\@tempa\@endrule}
+\def\@endrule{\ifx\@tempa\toprule\global\rulesflag=1%
+    \else\ifx\@tempa\midrule\global\rulesflag=1%
+    \else\ifx\@tempa\bottomrule\global\rulesflag=1%
+    \else\ifx\@tempa\cmidrule\global\rulesflag=1%
+    \else\ifx\@tempa\specialrule\global\rulesflag=1%
+    \else\ifx\@tempa\addlinespace\global\rulesflag=1%
+    \else\vskip \belowrulesep\fi\fi\fi\fi\fi\fi\ifnum0=`{\fi}}
+\def\midrule{\noalign{\ifnum0=`}\fi
+    \@ifnextchar[{\@midrule}{\@midrule[\lightrulewidth]}}
+\def\@midrule[#1]{\ifnum\rulesflag=1\vskip \doublerulesep\global\rulesflag=0
+    \else\vskip \aboverulesep\fi
+    \hrule \@height#1\futurelet\@tempa\@endrule}
+\def\bottomrule{\noalign{\ifnum0=`}\fi
+    \@ifnextchar[{\@midrule}{\@midrule[\heavyrulewidth]}}
+\def\addlinespace{\noalign{\ifnum0=`}\fi
+    \@ifnextchar[{\@addspace}{\@addspace[\defaultaddspace]}}
+\def\@addspace[#1]{\ifnum\rulesflag=1\global\rulesflag=0\fi
+    \vskip #1\futurelet\@tempa\@endrule}
+\def\specialrule#1#2#3{\noalign{
+    \ifnum\rulesflag=1\global\rulesflag=0
+    \else\vskip #2\fi\hrule \@height#1\vskip #3}}
+\def\cmidrule{\noalign{\ifnum0=`}\fi
+    \@ifnextchar[{\@cmidrule}{\@cmidrule[\cmidrulewidth]}}
+\def\@cmidrule[#1]{\@ifnextchar({\@@cmidrule[#1]}{\@@cmidrule[#1]()}}
+\def\@@cmidrule[#1](#2)#3{\@@@cmidrule[#3]{#1}{#2}}
+\def\@@@cmidrule[#1-#2]#3#4{\global\@cmidla#1\relax
+    \global\advance\@cmidla\m@ne
+    \ifnum\@cmidla>0\global\let\@gtempa\@cmidrulea\else
+    \global\let\@gtempa\@cmidruleb\fi
+    \global\@cmidlb#2\relax
+    \global\advance\@cmidlb-\@cmidla
+    \global\@cmidrulewidth=#3
+    \global\let\cmlkern@l\z@ \global\let\cmlkern@r\z@
+    \@tfor\@tempa :=#4\do{\global\expandafter\let
+        \csname cmlkern@\@tempa\endcsname\cmidrulekern}%
+\ifnum\rulesflag=0\vskip \aboverulesep\fi\ifnum0=`{\fi}\@gtempa
+    \noalign{\ifnum0=`}\fi\futurelet\@tempa\@xcmidrule}
+\def\@cmidrulea{\multispan\@cmidla&\multispan\@cmidlb
+    \unskip\hskip \cmlkern@l\leaders\hrule \@height\@cmidrulewidth\hfill
+    \hskip \cmlkern@r\cr}
+\def\@cmidruleb{\multispan\@cmidlb
+    \unskip\hskip \cmlkern@l\leaders\hrule \@height\@cmidrulewidth\hfill
+    \hskip \cmlkern@r\cr}
+\def\@xcmidrule{\ifx\@tempa\cmidrule\vskip-\@cmidrulewidth
+    \global\rulesflag=1\else
+    \ifx\@tempa\morecmidrules\vskip \cmidrulesep
+    \global\rulesflag=1\else
+    \vskip \belowrulesep\global\rulesflag=0\fi\fi
+    \ifnum0=`{\fi}}
+\def\morecmidrules{\noalign{\relax}}
+\endinput
+%%
+%% End of file `booktabs.sty'.

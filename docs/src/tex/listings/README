@@ -1,0 +1,67 @@
+Abstract
+--------
+
+The `listings' package is a source code printer for LaTeX.
+You can typeset stand alone files as well as listings with
+an environment similar to  `verbatim' as well as you can
+print code snippets using a command similar to \verb'.
+Many parameters control the output and if your preferred
+programming language isn't already supported, you can make
+your own definition.
+
+For more details read the documentation `listings.dvi'.
+
+
+Quick Installation Guide
+------------------------
+
+1) Following the TeX directory structure (TDS), you should
+   put the files of the `listings' package into directories
+   as follows:
+
+     texmf/doc/latex/listings
+       listings.dvi            
+
+     texmf/source/latex/listings (or a temporary directory)
+       listings.dtx
+       listings.ins
+       lstdrvrs.dtx
+       lstpatch.sty (if you have a patch file)
+
+   If you don't use the TDS, adjust the directories below.
+
+2) Create `texmf/tex/latex/listings' or remove all files
+   except `lst????0.sty' and `lstlocal.cfg' from that
+   directory.
+
+3) Go to the directory `texmf/source/latex/listings' and
+   run `listings.ins' through TeX or LaTeX.
+
+4) Move all .sty and .cfg of the current directory to
+   `texmf/tex/latex/listings', if this is not already done.
+
+5) If your TeX implementation uses a filename database,
+   update it.
+
+6) If you receive a patch file later on, put it where
+   `listings.sty' is (and update file name database).
+
+Note that `listings' requires at least version 1.10 of
+`keyval' included in David Carlisle's `graphics' bundle.
+You can download it from
+
+    CTAN: macros/latex/required/graphics
+
+You'll have to run  graphics.ins  through TeX.
+
+
+Contacts
+--------
+
+If you encounter problems, or if you have questions,
+suggestions or concrete enhancements, please contact me.
+I'll try to response quickly, but sometimes it can take
+some days.
+
+Carsten Heinz
+cheinz@gmx.de

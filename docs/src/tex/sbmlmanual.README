@@ -1,0 +1,144 @@
+2004-04-15 <mhucka@caltech.edu>
+
+"sbmlmanual" is a new style for authoring manuals for the SBML project.  It
+is based on the SBW project "cekarticle" style.  Here is a quick summary.
+
+-----------------------------------------------------------------------------
+FRONT PAGE MATERIAL
+-----------------------------------------------------------------------------
+
+Here's an example of what to put after \begin{document} for generating our
+more-or-less standard front page:
+
+    \documentclass{sbmlmanual}
+    
+    \begin{document}
+    
+    \title{Systems Biology Workbench\\[5pt]
+      Java\textsuperscript{\tiny{\texttrademark}} Programming Manual}
+    
+    \author{Andrew Finney, Michael Hucka, Herbert Sauro, Hamid Bolouri}
+    
+    \authoremail{\{afinney,mhucka,hsauro,hbolouri\}@cds.caltech.edu}
+    
+    \address{Systems Biology Workbench Development Group\\
+      ERATO Kitano Systems Biology Project\\
+      Control and Dynamical Systems, MC 107-81\\
+      California Institute of Technology, Pasadena, CA 91125, USA\\[3pt]
+      {\url{http://www.cds.caltech.edu/erato}}}
+    
+    \acknowledge{Principal Investigators: John Doyle and Hiroaki Kitano}
+    
+    \maketitlepage
+
+
+-----------------------------------------------------------------------------
+SPECIAL COMMANDS
+-----------------------------------------------------------------------------
+
+\class{...}
+\method{...}
+\variable{...}
+
+    Whenever you refer to a class or data type in text, use \class{foo}.
+    Whenever you refer to a method in text, use \method{foo}.
+    Whenever you refer to a variable in text, use \variable{foo}.
+
+\begin{exampleFigure} \end{exampleFigure}
+
+    New figure environment to be used in conjunction with
+    \begin{codeVerbatim}, described below.  Use this to show code examples.
+    For instance,
+
+        \begin{exampleFigure}[htb]
+          \begin{codeVerbatim}
+        import java.util.*;
+        import edu.caltech.sbw;
+        
+        interface Trigonometry 
+        {
+          double sin(double x) throws SBWException;
+          double cos(double x) throws SBWException;
+        }
+          \end{codeVerbatim}
+          \caption{Java example}
+          \label{fig:javacalltrig}
+        \end{exampleFigure}
+        
+\begin{codeVerbatim} \end{codeVerbatim}
+\codenote{...}
+
+    This sets up a boxed, line-numbered environment useful for describing
+    code examples.  The box is colored in a dark teal color matched to the
+    color of headings in the sbmlmanual style.  Everything within this
+    environment is printed verbatim, with the exception that TeX/LaTeX
+    commands work within the environment.
+
+    Use \textbackslash{} to get a '\' character within the text.
+
+    The \codenote{} command creates a margin note for mentioning line
+    numbers in reference to the lines in the \begin{codeVerbatim}
+    environment.  Example:
+
+	The sin method throws \class{SBWException}\codenote{line 6} if it
+	encounters a problem.
+
+    Note that the text in the \codenote{} has to be fully spelled out, as in
+    "line 6", rather than simply "6" -- \codenote{} prints exactly what you
+    put in it and no more.  See the SBW Java API manual .tex file for lots
+    of examples of usage.
+
+\begin{example} \end{example}
+\begin{exampleTight} \end{exampleTight}
+
+    This should be used around sample code outside of figures, whether it
+    is in a programming language or XML snippets.  The "exampleTight"
+    version uses tighter inter-line spacing.  In general, you should not
+    use "exampleTight" unless you are trying to fit something and nothing
+    else seems to work.
+
+\begin{methoddef}{methodsig}   \end{methoddef}
+
+    Use this environment to define a method in a class.  The first argument
+    must be the signature string of the method.  Example:
+
+        \begin{methoddef}{String getName()}
+          Returns the unique identification of the module.  This name
+          typically follows a notational convention such as that outlined
+          in Section~\ref{sec:ref:naming}; for example, a module's unique
+          name might be ``edu.caltech.trigonometry''.
+        \end{methoddef}
+
+\toprule
+\midrule
+\bottomrule
+\addlinespace
+
+    By virtue of loading the `booktabs' package, `cek-article' provides new
+    commands for inserting rules (horizontal lines) in tabular
+    environments, for creating nicer-looking tables than what LaTeX
+    produces by default.  The \toprule and \bottomrule commands create
+    slightly thicker lines for the top and bottom of a table and the
+    \midrule creates a slightly thinner line for use inside a table (for
+    example, under the column headings).  \addlinespace adds a small amount
+    of vertical space between lines.  Here is an example of the use of
+    these commands:
+
+    \begin{table}[bh]
+      \centering
+      \begin{tabular}{ll}
+        \toprule
+          \textbf{Almond Joy} & \textbf{Mounds}\\
+        \midrule
+          Sometimes you feel like a nut & Sometimes you don't\\
+ 	\bottomrule    
+      \end{tabular}
+      \caption{Foo.}
+    \end{table}
+
+
+\url{}
+
+    This formats its contents in a particular way.  You can use this when
+    writing a URL in text.
+
