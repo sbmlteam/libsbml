@@ -99,7 +99,7 @@ def testImplicitDowncastOfSBase():
    assert species.getMetaId() == 'foo'
 
    lst = libsbml.ListOf()
-   assert lst
+   assert len(lst) == 0
    assert lst.getNumItems() == 0
 
    lst.append(species)
@@ -344,8 +344,8 @@ def testRules():
 
 def testListOf():
    lo = libsbml.ListOf()
-   assert lo
    assert lo.getNumItems() == 0
+   assert len(lo) == 0
 
    compartment = libsbml.Compartment()
    assert compartment
@@ -533,23 +533,44 @@ def testListOfAsIterator():
    model.addReaction(libsbml.Reaction("R1", libsbml.KineticLaw("1 + 2")))
    model.addReaction(libsbml.Reaction("R2", libsbml.KineticLaw("2 + 3")))
    model.addReaction(libsbml.Reaction("R3", libsbml.KineticLaw("3 + 4")))
+   model.addReaction(libsbml.Reaction("R4", libsbml.KineticLaw("4 + 5")))
+
+   listOf = model.getListOfReactions()
+   assert len(listOf) == 4
 
    reactions = []
-   for reaction in model.getListOfReactions():
+   for reaction in listOf:
       reactions.append(reactions)
 
-   assert len(reactions) == 3
+   assert len(reactions) == 4
 
-   assert model.getListOfReactions()[-1].getId() == "R3"
+   assert listOf[-1].getId() == "R4"
 
-   """
-   IndexError doesn't work yet
    try:
-      print model.getListOfReactions()[3]
+      print listOf[4]
       assert False, "failed to raise IndexError"
    except IndexError:
       pass
-   """
+
+   middle2Reactions = listOf[1:3]
+   assert len(middle2Reactions) == 2
+   assert middle2Reactions[0].getId() == "R2"
+   assert middle2Reactions[1].getId() == "R3"
+
+   first2Reactions = listOf[:2]
+   assert len(first2Reactions) == 2
+   assert first2Reactions[0].getId() == "R1"
+   assert first2Reactions[1].getId() == "R2"
+
+   last2Reactions = listOf[2:]
+   assert len(last2Reactions) == 2
+   assert last2Reactions[0].getId() == "R3"
+   assert last2Reactions[1].getId() == "R4"
+
+   alsoLast2Reactions = listOf[-2:]
+   assert len(alsoLast2Reactions) == 2
+   assert alsoLast2Reactions[0].getId() == "R3"
+   assert alsoLast2Reactions[1].getId() == "R4"
 
 
 class TestRunner:

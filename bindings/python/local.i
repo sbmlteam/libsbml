@@ -54,23 +54,46 @@
  *
  *   - To be indexed and sliced, e.g. lst[0].
  */
-%extend ListOf
-{
-  SBase* __getitem__(int index)
-  {
-    if (index < 0) { /* convert from negative index */
-      index = index + self->getNumItems();
-    }
 
-    if (index < 0 || index >= self->getNumItems()) {
-      PyErr_SetString(PyExc_IndexError, "ListOf index out of range");
-      return NULL;
-    } else {
-      return self->get(index);
-    }
+%extend ListOf {
+  int __len__()
+  {
+    return self->getNumItems();
+  }
+
+  %pythoncode {
+
+    def __getitem__(self, key):
+      if isinstance(key, slice):
+        start = key.start
+        if start is None:
+          start = 0
+        stop = key.stop
+        if stop is None:
+          stop = self.getNumItems()
+        return [self[i] for i in range(
+          self._fixNegativeIndex(start), self._fixNegativeIndex(stop)
+        )]
+
+      key = self._fixNegativeIndex(key)
+      if key < 0 or key >= self.getNumItems():
+        raise IndexError(key)
+      return self.get(key)
+
+
+    def _fixNegativeIndex(self, index):
+      if index < 0:
+        return index + self.getNumItems()
+      else:
+        return index
+
+
+    def __iter__(self):
+      for i in range(self.getNumItems()):
+        yield self[i]
+
   }
 }
-
 
 
 /**
@@ -166,15 +189,6 @@
     if result is not None: result.thisown = 1
     return result
 %}
-
-
-%extend ListOf {
-  %pythoncode {
-    def __iter__(self):
-      for i in range(self.getNumItems()):
-        yield self[i]
-  }
-}
 
 
 %feature("shadow") SBMLDocument::setModel(Model*)
