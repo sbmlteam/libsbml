@@ -197,7 +197,7 @@ __dummy := $(shell [ -d $(DEPDIR) ] || mkdir $(DEPDIR))
 # Generic default.
 # -----------------------------------------------------------------------------
 
-default: $(objfiles) $(libraries)
+default: $(objfiles) $(test_objfiles) $(libraries)
 
 
 # -----------------------------------------------------------------------------
@@ -242,9 +242,11 @@ $(check_driver): $(test_objfiles)
 
 run-checks: $(check_driver) $(libraries)
 	@echo
+	@echo
 	@echo Running Tests in $(thisdir)
-	@echo -------------
-	$(call libsbmlrun,./$(check_driver))
+	@echo -----------------------------------------------------------------
+	@$(call libsbmlrun,./$(check_driver))
+	@echo -----------------------------------------------------------------
 	@echo
 
 
