@@ -221,8 +221,47 @@ production environments:
 
 
 
+--------------------------------------
+3. Building on Windows with Visual C++
+--------------------------------------
+
+To build libsbml on Windows:
+
+   1. Install Xerces-C if it's not already installed.
+
+   2. Download the tar archive http://sbml.org/@@ and extract using WinZip.
+   Do not extract the tar archive using the "tar" that comes with CygWin;
+   that "tar" does not translate line terminators so that they'll work with
+   Visual C++.
+
+   3. Using CygWin, cd to the (libsbml) directory and run:
+
+      ./configure
+
+   4. In Visual Studio 7, open (libsbml)/win32/libsbml.vcproj.
+      In Visual Studio 6, open (libsbml)/win32/libsbml.dsw.
+
+   5. Select Tools->Options, and select Projects/Directories (VS7) or
+   click the Directories tab (VS6).
+
+   The screen for indicating which directories contain project-relevant
+   files appears.
+
+   6. At "Show Directories For:", select "Include Files".  Add the
+   following if they're not already shown:
+
+      The include directory from Xerces-C.
+      (libsbml)/src
+      (libsbml)/win32/include
+
+   7. At "Show Directories For:", select "Library Files".  Add the
+   following it's not already shown:
+
+      The lib directory from Xerces-C.
+
+
 -----------------------------------
-3. The libsbml-discuss Mailing List
+4. The libsbml-discuss Mailing List
 -----------------------------------
 
 Please join the libsbml-discuss mailing list by visiting the URL
