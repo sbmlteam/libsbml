@@ -54,14 +54,13 @@
 #define ParameterRule_h
 
 
+#include "common.h"
 #include "SBase.h"
 #include "Rule.h"
 #include "AssignmentRule.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -77,6 +76,7 @@ typedef struct
 /**
  * Creates a new ParameterRule and returns a pointer to it.
  */
+LIBSBML_EXTERN
 ParameterRule_t *
 ParameterRule_create (void);
 
@@ -88,6 +88,7 @@ ParameterRule_create (void);
  *   ParameterRule_t *pr = ParameterRule_create();
  *   Rule_setFormula((Rule_t *) pr, formula); scr->type = type; ...;
  */
+LIBSBML_EXTERN
 ParameterRule_t *
 ParameterRule_createWith ( const char *formula,
                            RuleType_t type,
@@ -96,25 +97,68 @@ ParameterRule_createWith ( const char *formula,
 /**
  * Frees the given ParameterRule.
  */
+LIBSBML_EXTERN
 void
 ParameterRule_free (ParameterRule_t *pr);
 
+
 /**
- * Sets the name field of this ParameterRule to a copy of sname.
+ * @return the (Parameter) name for this ParameterRule.
  */
+LIBSBML_EXTERN
+const char *
+ParameterRule_getName (const ParameterRule_t *pr);
+
+/**
+ * @return the units for this ParameterRule.
+ */
+LIBSBML_EXTERN
+const char *
+ParameterRule_getUnits (const ParameterRule_t *pr);
+
+
+/**
+ * @return 1 if the (Parameter) name for this ParameterRule has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+ParameterRule_isSetName (const ParameterRule_t *pr);
+
+/**
+ * @return 1 if the units for this ParameterRule has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+ParameterRule_isSetUnits (const ParameterRule_t *pr);
+
+
+/**
+ * Sets the (Parameter) name for this ParameterRule to a copy of sname.
+ */
+LIBSBML_EXTERN
 void
 ParameterRule_setName (ParameterRule_t *pr, const char *sname);
 
 /**
- * Sets the units field of this ParameterRule to a copy of sname.
+ * Sets the units for this ParameterRule to a copy of sname.
  */
+LIBSBML_EXTERN
 void
 ParameterRule_setUnits (ParameterRule_t *pr, const char *sname);
 
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * Unsets the units for this ParameterRule.  This is equivalent to:
+ * safe_free(pr->units); pr->units = NULL;
+ */
+LIBSBML_EXTERN
+void
+ParameterRule_unsetUnits (ParameterRule_t *pr);
+
+
+END_C_DECLS
 
 
 #endif  /** ParameterRule_h **/

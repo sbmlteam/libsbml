@@ -86,6 +86,9 @@ START_TEST (test_ParameterRule_create)
   fail_unless( PR->type       == RULE_TYPE_SCALAR, NULL );
   fail_unless( PR->name       == NULL, NULL );
   fail_unless( PR->units      == NULL, NULL );
+
+  fail_unless( !ParameterRule_isSetName (PR), NULL );
+  fail_unless( !ParameterRule_isSetUnits(PR), NULL );
 }
 END_TEST
 
@@ -107,6 +110,9 @@ START_TEST (test_ParameterRule_createWith)
   fail_unless( PR->type  == RULE_TYPE_SCALAR, NULL );
   fail_unless( PR->units == NULL, NULL );
 
+  fail_unless( ParameterRule_isSetName  (pr), NULL );
+  fail_unless( !ParameterRule_isSetUnits(pr), NULL );
+
   ParameterRule_free(pr);
 }
 END_TEST
@@ -126,7 +132,8 @@ START_TEST (test_ParameterRule_setName)
 
   ParameterRule_setName(PR, name);
 
-  fail_unless( !strcmp(PR->name, name), NULL );
+  fail_unless( !strcmp(PR->name, name)    , NULL );
+  fail_unless( ParameterRule_isSetName(PR), NULL );
 
   if (PR->name == name)
   {
@@ -135,6 +142,7 @@ START_TEST (test_ParameterRule_setName)
   }
 
   ParameterRule_setName(PR, NULL);
+  fail_unless( !ParameterRule_isSetName(PR), NULL );
 
   if (PR->name != NULL)
   {
@@ -151,7 +159,8 @@ START_TEST (test_ParameterRule_setUnits)
 
   ParameterRule_setUnits(PR, units);
 
-  fail_unless( !strcmp(PR->units, units), NULL );
+  fail_unless( !strcmp(PR->units, units)   , NULL );
+  fail_unless( ParameterRule_isSetUnits(PR), NULL );
 
   if (PR->units == units)
   {
@@ -159,6 +168,7 @@ START_TEST (test_ParameterRule_setUnits)
   }
 
   ParameterRule_setUnits(PR, NULL);
+  fail_unless( !ParameterRule_isSetUnits(PR), NULL );
 
   if (PR->units != NULL)
   {
