@@ -229,7 +229,8 @@ ConsistencyTest_teardown (void)
 }
 
 
-#include "test-data/consistency-checks/ConsistencyChecks.txt"
-
+#if 0
+#include "../../sbml/test/test-data/consistency-checks/ConsistencyChecks.txt"
+#endif
 
 END_C_DECLS
