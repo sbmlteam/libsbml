@@ -66,7 +66,7 @@
 #include "sbml/SBMLFormatter.hpp"
 #include "sbml/SBMLWriter.hpp"
 #include "sbml/SBMLWriter.h"
-
+#include "sbml/StreamFormatTarget.hpp"
 
 const char *CHARACTER_ENCODING_STRINGS[] =
 {

@@ -67,7 +67,7 @@
 #include "sbml/MathMLDocument.h"
 #include "sbml/MathMLWriter.h"
 #include "sbml/MathMLWriter.hpp"
-
+#include "sbml/StreamFormatTarget.hpp"
 
 /**
  * Writes the given MathML document to filename.
