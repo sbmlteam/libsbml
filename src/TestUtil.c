@@ -90,6 +90,40 @@ START_TEST (test_util_safe_strcat)
 END_TEST
 
 
+START_TEST (test_util_trim)
+{
+  char *q, *r, *s, *t, *u, *v, *w, *x, *y, *z;
+
+
+  fail_unless( !strcmp( q = util_trim("p"  ), "p"), NULL );
+  fail_unless( !strcmp( r = util_trim("q " ), "q"), NULL );
+  fail_unless( !strcmp( s = util_trim(" r" ), "r"), NULL );
+  fail_unless( !strcmp( t = util_trim(" s "), "s"), NULL );
+
+  fail_unless( !strcmp( u = util_trim("foo"  ), "foo"), NULL );
+  fail_unless( !strcmp( v = util_trim("foo " ), "foo"), NULL );
+  fail_unless( !strcmp( w = util_trim(" bar" ), "bar"), NULL );
+  fail_unless( !strcmp( x = util_trim(" bar "), "bar"), NULL );
+
+  fail_unless( !strcmp( y = util_trim(" "), ""), NULL );
+  fail_unless( !strcmp( z = util_trim("" ), ""), NULL );
+
+  fail_unless( util_trim((char *) NULL) == NULL, NULL );
+
+  safe_free(q);
+  safe_free(r);
+  safe_free(s);
+  safe_free(t);
+  safe_free(u);
+  safe_free(v);
+  safe_free(w);
+  safe_free(x);
+  safe_free(y);
+  safe_free(z);
+}
+END_TEST
+
+
 START_TEST (test_util_NaN)
 {
   double d = util_NaN();
@@ -159,6 +193,7 @@ create_suite_util (void)
 
   tcase_add_test( tcase, test_util_strcmp_insensitive );
   tcase_add_test( tcase, test_util_safe_strcat        );
+  tcase_add_test( tcase, test_util_trim               );
   tcase_add_test( tcase, test_util_NaN                );
   tcase_add_test( tcase, test_util_NegInf             );
   tcase_add_test( tcase, test_util_PosInf             );

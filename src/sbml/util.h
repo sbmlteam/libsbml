@@ -98,6 +98,28 @@ int
 strcmp_insensitive (const char *s1, const char *s2);
 
 /**
+ * Peforms a binary search on the string table strings to find string s.
+ *
+ * All strings from strings[lo] to strings[hi] are searched.  The string
+ * comparison function used is strcmp_insensitive().  Since the search is
+ * binary, the strings table must be sorted, irrespecitve of case.
+ *
+ * @return the index of s in strings, if s was found, or stop + 1
+ * otherwise.
+ */
+int
+util_bsearchStringsI (const char **strings, const char *s, int lo, int hi);
+
+/**
+ * @return a pointer to a new string which is a duplicate of the string s,
+ * with leading and trailing whitespace removed or NULL is s is NULL.
+ *
+ * Whitespace is determined by isspace().
+ */
+char *
+util_trim (const char *s);
+
+/**
  * @return a (quiet) NaN.
  */
 double

@@ -142,6 +142,113 @@ strcmp_insensitive (const char *s1, const char *s2)
 
 
 /**
+ * Peforms a binary search on the string table strings to find string s.
+ *
+ * All strings from strings[lo] to strings[hi] are searched.  The string
+ * comparison function used is strcmp_insensitive().  Since the search is
+ * binary, the strings table must be sorted, irrespecitve of case.
+ *
+ * @return the index of s in strings, if s was found, or stop + 1
+ * otherwise.
+ */
+int
+util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
+{
+  int cond;
+  int mid;
+  int result = hi + 1;
+
+
+  if (s == NULL) return result;
+
+  while (lo <= hi)
+  {
+    mid  = (lo + hi) / 2;
+    cond = strcmp_insensitive(s, strings[mid]);
+      
+    if (cond < 0)
+    {
+      hi = mid - 1;
+    }
+    else if (cond > 0)
+    {
+      lo = mid + 1;
+    }
+    else
+    {
+      result = mid;
+      break;
+    }
+  }
+
+  return result;
+}
+
+
+/**
+ * @return a pointer to a new string which is a duplicate of the string s,
+ * with leading and trailing whitespace removed or NULL is s is NULL.
+ *
+ * Whitespace is determined by isspace().
+ */
+char *
+util_trim (const char *s)
+{
+  char       *trimmed = NULL;
+  const char *end;
+  int        len;
+
+
+  if (s == NULL) return NULL;
+
+  /**
+   * Skip leading whitespace.
+   *
+   * When this loop terminates, s will point the first non-whitespace
+   * character of the string or NULL.
+   */
+  while ( *s && isspace(*s) ) s++;
+
+  /**
+   * If the character pointed to by s is NULL, the string is either empty
+   * or pure whitespace.  Set trimmed to an empty string.
+   */
+  if (*s == '\0')
+  {
+    trimmed    = (char *) safe_malloc(1);
+    trimmed[0] = '\0';
+  }
+
+  /**
+   * Otherwise...
+   */
+  else
+  {
+    end = s;
+
+    /**
+     * Stop before trailing whitespace (or the end of the string).
+     *
+     * When this loop terminates, end will point to either the first
+     * whitespace character of the string or NULL.
+     */
+    while ( *end && !isspace(*end) ) end++;
+
+    /**
+     * Copy the non-whitepace portion of s to trimmed.
+     */
+    len     = end - s;
+    trimmed = (char *) safe_malloc(len + 1);
+
+    strncpy(trimmed, s, len);
+    trimmed[len] = '\0';
+  }
+
+  return trimmed;
+}
+
+
+/**
  * @return a (quiet) NaN.
  */
 double
