@@ -445,6 +445,19 @@ void
 Species_unsetCharge (Species_t *s);
 
 
+/**
+ * The SpeciesIdCmp function compares the string sid to species->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match, or be greater than
+ * species->id.  Returns -1 if either sid or species->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+SpeciesIdCmp (const char *sid, const Species_t *s);
+     /* SpeciesIdCmp (const void *sid, const void *species); */
+
+
 END_C_DECLS
 
 
