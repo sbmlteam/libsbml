@@ -1880,6 +1880,42 @@ RULE (event_timeUnits)
   return passed;
 }
 
+/**
+ * The variable attribute of a rule element must contain the value of a id
+ * attribute of a compartment, species, or parameter element. The constant
+ * attribute of the compartment, species, or parameter element must be false.
+ */
+RULE (event_nonconstantVariable)
+{
+  static const char msg[] =
+    "An eventAssignment's 'variable' must be the 'id' of a compartment, "
+    "species, or parameter with 'constant'=false.";
+  BOOLEAN passed = TRUE;
+
+  Event_t *e = (Event_t *) obj;
+  unsigned int numEventAssignments = Event_getNumEventAssignments(e);
+  unsigned int i;
+
+
+  for (i = 0; i < numEventAssignments; i++)
+  {
+    EventAssignment_t *ea = Event_getEventAssignment(e, i);
+
+    if (EventAssignment_isSetVariable(ea))
+    {
+      VariableDescriptor_t variable =
+        getVariableDescriptor(d->model, EventAssignment_getVariable(ea));
+
+      if (!variable.id || variable.constant)
+      {
+        LOG_MESSAGE(msg);
+        passed = FALSE;
+        break;
+      }
+    }
+  }
+}
+
 
 /**
  * Adds the default ValidationRule set to this Validator.
@@ -1938,4 +1974,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, rule_variableOnlyOnce,          SBML_ASSIGNMENT_RULE );
   Validator_addRule( v, rule_variableOnlyOnce,          SBML_RATE_RULE       );
   Validator_addRule( v, event_timeUnits,                SBML_EVENT           );
+  Validator_addRule( v, event_nonconstantVariable,      SBML_EVENT           );
 }
