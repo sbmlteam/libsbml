@@ -425,3 +425,26 @@ Event_getNumEventAssignments (const Event_t *e)
 {
   return ListOf_getNumItems(e->eventAssignment);
 }
+
+
+/**
+ * The EventIdCmp function compares the string sid to e->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than e->id.
+ * Returns -1 if either sid or e->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+EventIdCmp (const char *sid, const Event_t *e)
+{
+  int result = -1;
+
+
+  if (sid != NULL && e->id != NULL)
+  {
+    result = strcmp(sid, e->id);
+  }
+
+  return result;
+}

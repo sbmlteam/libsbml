@@ -281,6 +281,18 @@ unsigned int
 Event_getNumEventAssignments (const Event_t *e);
 
 
+/**
+ * The EventIdCmp function compares the string sid to e->id.
+ *
+ * @returns an integer less than, equal to, or greater than zero if sid is
+ * found to be, respectively, less than, to match or be greater than e->id.
+ * Returns -1 if either sid or e->id is NULL.
+ */
+LIBSBML_EXTERN
+int
+EventIdCmp (const char *sid, const Event_t *e);
+
+
 END_C_DECLS
 
 
