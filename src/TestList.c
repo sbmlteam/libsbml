@@ -54,7 +54,7 @@
 #include "sbml/List.h"
 
 
-List_t *L;
+static List_t *L;
 
 
 void

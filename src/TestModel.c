@@ -55,7 +55,7 @@
 #include "sbml/SBMLTypes.h"
 
 
-Model_t *M;
+static Model_t *M;
 
 
 void

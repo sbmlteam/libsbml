@@ -55,7 +55,7 @@
 #include "sbml/Rule.h"
 
 
-Rule_t *R;
+static Rule_t *R;
 
 
 void

@@ -55,7 +55,7 @@
 #include "sbml/AlgebraicRule.h"
 
 
-AlgebraicRule_t *AR;
+static AlgebraicRule_t *AR;
 
 
 void

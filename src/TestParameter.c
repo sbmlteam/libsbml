@@ -54,7 +54,7 @@
 #include "sbml/Parameter.h"
 
 
-Parameter_t *P;
+static Parameter_t *P;
 
 
 void

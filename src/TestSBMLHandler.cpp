@@ -77,7 +77,7 @@ BEGIN_C_DECLS
 #define wrapSBML2(s)  XML_HEADER SBML_HEADER2 s SBML_FOOTER
 
 
-SBMLDocument_t *D;
+static SBMLDocument_t *D;
 
 
 void

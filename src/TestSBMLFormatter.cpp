@@ -64,8 +64,8 @@ BEGIN_C_DECLS
 #define wrapXML(s)   XML_HEADER s
 
 
-MemBufFormatTarget *target;
-SBMLFormatter      *formatter;
+static MemBufFormatTarget *target;
+static SBMLFormatter      *formatter;
 
 
 void

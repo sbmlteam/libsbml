@@ -55,7 +55,7 @@
 #include "sbml/AssignmentRule.h"
 
 
-AssignmentRule_t *AR;
+static AssignmentRule_t *AR;
 
 
 void

@@ -54,7 +54,7 @@
 #include "sbml/SpeciesConcentrationRule.h"
 
 
-SpeciesConcentrationRule_t *SCR;
+static SpeciesConcentrationRule_t *SCR;
 
 
 void

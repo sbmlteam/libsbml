@@ -55,7 +55,7 @@
 #include "sbml/RateRule.h"
 
 
-RateRule_t *RR;
+static RateRule_t *RR;
 
 
 void

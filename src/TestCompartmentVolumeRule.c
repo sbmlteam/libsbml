@@ -54,7 +54,7 @@
 #include "sbml/CompartmentVolumeRule.h"
 
 
-CompartmentVolumeRule_t *CVR;
+static CompartmentVolumeRule_t *CVR;
 
 
 void

@@ -60,7 +60,7 @@ extern "C" {
 #endif
 
 
-XMLStringFormatter *XSFormatter;
+static XMLStringFormatter *XSFormatter;
 
 
 void

@@ -55,7 +55,7 @@
 #include "sbml/SpeciesReference.h"
 
 
-SpeciesReference_t *SR;
+static SpeciesReference_t *SR;
 
 
 void

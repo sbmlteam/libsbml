@@ -54,7 +54,7 @@
 #include "sbml/ParameterRule.h"
 
 
-ParameterRule_t *PR;
+static ParameterRule_t *PR;
 
 
 void

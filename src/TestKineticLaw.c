@@ -55,7 +55,7 @@
 #include "sbml/KineticLaw.h"
 
 
-KineticLaw_t *KL;
+static KineticLaw_t *KL;
 
 
 void

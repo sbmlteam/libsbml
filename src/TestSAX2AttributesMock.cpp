@@ -59,7 +59,7 @@ extern "C" {
 #endif
 
 
-SAX2AttributesMock *attrs;
+static SAX2AttributesMock *attrs;
 
 
 void

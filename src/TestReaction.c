@@ -54,7 +54,7 @@
 #include "sbml/Reaction.h"
 
 
-Reaction_t *R;
+static Reaction_t *R;
 
 
 void
