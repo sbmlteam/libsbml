@@ -50,7 +50,6 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/Rule.h"
 #include "sbml/AssignmentRule.h"
 
@@ -63,6 +62,7 @@
  *
  * This function also calls its "parent", Rule_init().
  */
+LIBSBML_EXTERN
 void
 AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc)
 {
@@ -75,6 +75,7 @@ AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc)
  * Clears (frees) ASSIGNMENT_RULE_FIELDS of this AssignmentRule "subclass".
  * This function also calls its "parent", Rule_clear().
  */
+LIBSBML_EXTERN
 void
 AssignmentRule_clear (AssignmentRule_t *ar)
 {
@@ -89,6 +90,7 @@ AssignmentRule_clear (AssignmentRule_t *ar)
  *
  *   - type = RULE_TYPE_SCALAR
  */
+LIBSBML_EXTERN
 void
 AssignmentRule_initDefaults (AssignmentRule_t *ar)
 {
@@ -96,4 +98,23 @@ AssignmentRule_initDefaults (AssignmentRule_t *ar)
 }
 
 
+/**
+ * @return the type for this AssignmentRule.
+ */
+LIBSBML_EXTERN
+RuleType_t
+AssignmentRule_getType (const AssignmentRule_t *ar)
+{
+  return ar->type;
+}
 
+
+/**
+ * Sets the type of this Rule to the given RuleType.
+ */
+LIBSBML_EXTERN
+void
+AssignmentRule_setType (AssignmentRule_t *ar, RuleType_t rt)
+{
+  ar->type = rt;
+}

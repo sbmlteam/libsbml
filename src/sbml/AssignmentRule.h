@@ -54,14 +54,13 @@
 #define AssignmentRule_h
 
 
+#include "common.h"
 #include "SBase.h"
 #include "Rule.h"
 #include "RuleType.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 /**
@@ -88,6 +87,7 @@ typedef struct
  *
  * This function also calls its "parent", Rule_init().
  */
+LIBSBML_EXTERN
 void
 AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc);
 
@@ -95,22 +95,36 @@ AssignmentRule_init (AssignmentRule_t *ar, SBMLTypeCode_t tc);
  * Clears (frees) ASSIGNMENT_RULE_FIELDS of this AssignmentRule "subclass".
  * This function also calls its "parent", Rule_clear().
  */
+LIBSBML_EXTERN
 void
 AssignmentRule_clear (AssignmentRule_t *ar);
-
 
 /**
  * Initializes the fields of this AssignmentRule to their defaults:
  *
  *   - type = RULE_TYPE_SCALAR
  */
+LIBSBML_EXTERN
 void
 AssignmentRule_initDefaults (AssignmentRule_t *ar);
 
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * @return the type for this AssignmentRule.
+ */
+LIBSBML_EXTERN
+RuleType_t
+AssignmentRule_getType (const AssignmentRule_t *ar);
+
+/**
+ * Sets the type of this Rule to the given RuleType.
+ */
+LIBSBML_EXTERN
+void
+AssignmentRule_setType (AssignmentRule_t *ar, RuleType_t rt);
+
+
+END_C_DECLS
 
 
 #endif  /** AssignmentRule_h **/
