@@ -56,7 +56,7 @@ LDFLAGS  = -L/usr/local/lib
 CPPFLAGS = -I/usr/local/include
 LIBS     = -lsbml
 
-programs = convertSBML printSBML readSBML validateSBML
+programs = convertSBML printSBML readSBML translateMath validateSBML
 
 all: $(programs)
 
@@ -67,6 +67,9 @@ printSBML: printSBML.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 readSBML: readSBML.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+translateMath: translateMath.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 validateSBML: validateSBML.c util.c
