@@ -68,45 +68,44 @@
 #include "SBMLUnicodeConstants.hpp" 
 
 
-
-//
-// SBMLFormatter is meant to act like a C++ output stream.  Creating an
-// SBMLFormatter requires a character encoding and an underlying
-// XMLFormatTarget, which can be either in-memory (with MemBufFormatTarget)
-// or file (FileFormatTarget), to be specified.  Once created, inserting
-// SBML objects (C structs) into the stream (with <<) will cause them to be
-// formatted in the character encoding for the XMLFormatTarget.
-//
-//
-// By default, the formatter outputs SBML Level 1, version 2 (L1v2).  To
-// change the default, either i) insert an SBMLDocument into the formatter
-// stream and the formatter will use the level and version of the given
-// SBMLDocument (most common) or ii) insert a level or version directly
-// (usually used unit test purposes) as in:
-//
-//   formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
-//
-// Currently, this class is meant to be used internally by libsbml.
-//
+/**
+ * SBMLFormatter is meant to act like a C++ output stream.  Creating an
+ * SBMLFormatter requires a character encoding and an underlying
+ * XMLFormatTarget, which can be either in-memory (with MemBufFormatTarget)
+ * or file (FileFormatTarget), to be specified.  Once created, inserting
+ * SBML objects (C structs) into the stream (with <<) will cause them to be
+ * formatted in the character encoding for the XMLFormatTarget.
+ *
+ *
+ * By default, the formatter outputs SBML Level 2, version 1 (L2v1).  To
+ * change the default, either i) insert an SBMLDocument into the formatter
+ * stream and the formatter will use the level and version of the given
+ * SBMLDocument (most common) or ii) insert a level or version directly
+ * (usually used unit test purposes) as in:
+ *
+ *   formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
+ *
+ * Currently, this class is meant to be used internally by libsbml.
+ */
 class SBMLFormatter
 {
 
 public:
 
-  //
-  // Ctor
-  //
-  // Creates a new SBMLFormatter with the given character encoding.
-  //
+  /**
+   * Ctor
+   *
+   * Creates a new SBMLFormatter with the given character encoding.
+   */
   SBMLFormatter (const char* outEncoding, XMLFormatTarget* target);
 
-  //
-  // Dtor
-  //
+  /**
+   * Dtor
+   */
   ~SBMLFormatter ();
 
 
-  enum SBMLLevel_t   { Level1   = 1, Level2 = 2 };
+  enum SBMLLevel_t   { Level1   = 1, Level2   = 2 };
   enum SBMLVersion_t { Version1 = 1, Version2 = 2 };
 
   /**

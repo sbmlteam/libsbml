@@ -62,8 +62,7 @@
  *
  * Creates a new SBMLFormatter
  *
- * The underlying character encoding is configurable and defaults to
- * "LATIN1", which is probably safe for most applications.
+ * The underlying character encoding is configurable.
  */
 SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
 {
@@ -72,8 +71,8 @@ SBMLFormatter::SBMLFormatter (const char* outEncoding, XMLFormatTarget* target)
   //
   XMLPlatformUtils::Initialize();
 
-  fLevel   = 1;
-  fVersion = 2;
+  fLevel   = 2;
+  fVersion = 1;
 
   fIndentLevel = 0;
 
@@ -133,6 +132,9 @@ SBMLFormatter::operator<< (const SBMLVersion_t version)
 SBMLFormatter&
 SBMLFormatter::operator<< (const SBMLDocument_t* d)
 {
+  const XMLCh* xmlns = (fLevel == 1) ? XMLNS_SBML_L1 : XMLNS_SBML_L2;
+
+
   fLevel   = d->level;
   fVersion = d->version;
 
@@ -143,9 +145,24 @@ SBMLFormatter::operator<< (const SBMLDocument_t* d)
   //
   doMetaId( (SBase_t*) d );
 
-  attribute( ATTR_XMLNS  , XMLNS_SBML_L1 );
-  attribute( ATTR_LEVEL  , d->level      );
-  attribute( ATTR_VERSION, d->version    );
+  //
+  // xmlns="http://www.sbml.org/level1"  (L1v1, L1v2)
+  // xmlns="http://www.sbml.org/level2"  (L2v1)
+  //
+  attribute(ATTR_XMLNS, xmlns);
+
+  //
+  // level: positiveInteger  { use="required" fixed="1" }  (L1v1)
+  // level: positiveInteger  { use="required" fixed="2" }  (L2v1)
+  //
+  attribute(ATTR_LEVEL, d->level);
+
+  //
+  // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
+  // version: positiveInteger  { use="required" fixed="2" }  (L1v2)
+  //
+  attribute(ATTR_VERSION, d->version);
+
 
   if (d->model == NULL)
   {
