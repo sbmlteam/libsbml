@@ -1,0 +1,146 @@
+## @configure_input@
+##
+## Filename    : Makefile.in
+## Description : Makefile for win32 subdirectory
+## Author(s)   : SBML Team <sbml-team@caltech.edu>
+## Organization: Caltech, USA, and University of Hertfordshire, UK
+## Created     : 2004-07-13
+## Revision    : $Id$
+## Source      : $Source$
+##
+## Copyright 2004 California Institute of Technology and
+## Japan Science and Technology Corporation.
+##
+## This library is free software; you can redistribute it and/or modify it
+## under the terms of the GNU Lesser General Public License as published
+## by the Free Software Foundation; either version 2.1 of the License, or
+## any later version.
+##
+## This library is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+## documentation provided hereunder is on an "as is" basis, and the
+## California Institute of Technology and Japan Science and Technology
+## Corporation have no obligations to provide maintenance, support,
+## updates, enhancements or modifications.  In no event shall the
+## California Institute of Technology or the Japan Science and Technology
+## Corporation be liable to any party for direct, indirect, special,
+## incidental or consequential damages, including lost profits, arising
+## out of the use of this software and its documentation, even if the
+## California Institute of Technology and/or Japan Science and Technology
+## Corporation have been advised of the possibility of such damage.  See
+## the GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this library; if not, write to the Free Software Foundation,
+## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+##
+## The original code contained here was initially developed by:
+##
+##     Sarah Keating and Ben Bornstein
+##     SBML Team
+##     http://www.sbml.org
+##     mailto:sbml-team@caltech.edu
+##
+## Contributor(s):
+##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
+##
+
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include @top_srcdir@/config/makefile-common-vars.mk
+
+# `srcdir' points to the current directory, but should be set by configure.
+# `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
+# set `subdir' to an absolute path, or some `make' actions will fail.
+
+srcdir  = @srcdir@
+thisdir = win32
+
+# This makefile only serves a role for `make dist'.
+
+distfiles = \
+        convertSBML.dep   \
+        convertSBML.dsp   \
+        convertSBML.mak   \
+        deltree.bat       \
+        libsbml.dep       \
+        libsbml.dsp       \
+        libsbml.dsw       \
+        libsbml.mak       \
+        make.bat          \
+        makedist.bat      \
+        printSBML.dep     \
+        printSBML.dsp     \
+        printSBML.mak     \
+        readSBML.dep      \
+        readSBML.dsp      \
+        readSBML.mak      \
+        translateMath.dep \
+        translateMath.dsp \
+        translateMath.mak \
+        validateSBML.dep  \
+        validateSBML.dsp  \
+        validateSBML.mak  \
+        Makefile.in
+
+
+# -----------------------------------------------------------------------------
+# Primary build actions
+# -----------------------------------------------------------------------------
+
+# At this time, this makefile currently does nothing except serve to set
+# variables for `make dist'.  Consequently, there is nothing here to build.
+
+all: 
+
+check:
+
+dvi:
+
+pdf:
+
+ps:
+
+info:
+
+
+# -----------------------------------------------------------------------------
+# Installation
+# -----------------------------------------------------------------------------
+
+# This library doesn't actually get installed.  The main libsbml library
+# (in ../src) slurps in the contents when it's built.
+
+install:
+
+uninstall:
+
+installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: dist-normal
+
+distcheck: distcheck-normal
+
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+include @top_srcdir@/config/makefile-common-actions.mk
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------
