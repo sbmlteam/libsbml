@@ -181,20 +181,20 @@ Validator_getRulesOfType (const Validator_t *v, SBMLTypeCode_t type)
 {
   ValidatorPair_t *pair;
 
-  ListNode_t *node   = v->rule->head;
-  List_t     *result = List_create();
+  unsigned int n;
+  unsigned int size = List_size(v->rule);
+
+  List_t *result = List_create();
 
 
-  while (node != NULL)
+  for (n = 0; n < size; n++)
   {
-    pair = (ValidatorPair_t *) node->item;
+    pair = (ValidatorPair_t *) List_get(v->rule, n);
 
     if (pair->type == type)
     {
       List_add(result, (void *) pair->rule);
     }
-
-    node = node->next;
   }
 
   return result;
@@ -253,35 +253,33 @@ Validator_runRules (   const Validator_t    * v
   List_t     *rules;
   ListOf_t   *objects;
 
-  ListNode_t *rnode;
-  ListNode_t *onode;
-
   unsigned int count;
+  unsigned int osize;
+  unsigned int rsize;
+  unsigned int on;
+  unsigned int rn;
+
+  Model_t *m = SBMLDocument_getModel((SBMLDocument_t*) d);
 
 
   count   = 0;
-  objects = Model_getListOfByTypecode(SBMLDocument_getModel(d), type);
+  objects = Model_getListOfByTypecode(m, type);
 
   if (objects != NULL)
   {
+    osize = ListOf_getNumItems(objects);
     rules = Validator_getRulesOfType(v, type);
+    rsize = List_size(rules);
 
-    rnode = rules->head;
-
-    while (rnode != NULL)
+    for (rn = 0; rn < rsize; rn++)
     {
-      rule = (ValidationRule) rnode->item;
+      rule = (ValidationRule) List_get(rules, rn);
 
-      onode = objects->items->head;
-      while (onode != NULL)
+      for (on = 0; on < osize; on++)
       {
-        obj    = (SBase_t *) onode->item;
-        count += !rule(obj, d, messages);
-
-        onode = onode->next;
+        obj    = (SBase_t *) ListOf_get(objects, on);
+        count += !rule(obj, (SBMLDocument_t *) d, messages);
       }
-
-      rnode = rnode->next;
     }
 
     List_free(rules);
