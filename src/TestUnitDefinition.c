@@ -132,6 +132,10 @@ START_TEST (test_UnitDefinition_setName)
     fail("UnitDefinition_setName(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  UnitDefinition_setName(UD, UD->name);
+  fail_unless( !strcmp(UD->name, name), NULL );
+
   UnitDefinition_setName(UD, NULL);
   fail_unless( !UnitDefinition_isSetName(UD), NULL );
 

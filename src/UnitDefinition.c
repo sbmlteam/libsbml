@@ -139,6 +139,9 @@ LIBSBML_EXTERN
 void
 UnitDefinition_setName (UnitDefinition_t *ud, const char *sname)
 {
+  if (ud->name == sname) return;
+
+
   if (ud->name != NULL)
   {
     safe_free(ud->name);
