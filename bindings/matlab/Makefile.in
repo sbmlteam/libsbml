@@ -100,7 +100,7 @@ distfiles = \
 
 all: Makefile $(libraries)
 
-flags = $(MEX_FLAGS) $(CPPFLAGS) $(MATLAB_CPPFLAGS) -I../../src -L../../src
+flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../../src -L../../src
 
 %.$(MEXEXT): %.c
 	$(MEX) -f mexopts-libsbml.sh $(flags) $^ -lsbml $(MATLAB_LIBS)
@@ -110,7 +110,7 @@ flags = $(MEX_FLAGS) $(CPPFLAGS) $(MATLAB_CPPFLAGS) -I../../src -L../../src
 # Targets for checking/testing.
 # -----------------------------------------------------------------------------
 
-check:
+check: all
 
 
 # -----------------------------------------------------------------------------
