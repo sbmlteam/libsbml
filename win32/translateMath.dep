@@ -1,0 +1,15 @@
+# Microsoft Developer Studio Generated Dependency File, included by translateMath.mak
+
+..\examples\translateMath.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLReader.h"\
+	{$(INCLUDE)}"sbml\MathMLWriter.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	{$(INCLUDE)}"sbml\util.h"\
+	

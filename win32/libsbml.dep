@@ -1,0 +1,1482 @@
+# Microsoft Developer Studio Generated Dependency File, included by libsbml.mak
+
+..\src\AlgebraicRule.c : \
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\AssignmentRule.c : \
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\ASTNode.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	
+
+..\src\Compartment.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\CompartmentVolumeRule.c : \
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\Event.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\EventAssignment.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\FormulaFormatter.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	
+
+..\src\FormulaParser.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	
+
+..\src\FormulaTokenizer.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	
+
+..\src\FunctionDefinition.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\KineticLaw.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	
+
+..\src\List.c : \
+	"..\src\sbml\List.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	
+
+..\src\ListOf.c : \
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLDocument.h"\
+	{$(INCLUDE)}"sbml\SBMLReader.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SBMLTypes.h"\
+	{$(INCLUDE)}"sbml\SBMLWriter.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	
+
+..\src\MathMLDocument.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	
+
+..\src\MathMLFormatter.cpp : \
+	"..\src\sbml\MathMLUnicodeConstants.hpp"\
+	"..\src\sbml\XMLUnicodeConstants.hpp"\
+	"..\src\sbml\XMLUtil.hpp"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\MemBufFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\PlatformUtils.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\MathMLHandler.cpp : \
+	"..\src\sbml\List.h"\
+	"..\src\sbml\MathMLUnicodeConstants.hpp"\
+	"..\src\sbml\XMLUtil.hpp"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLHandler.hpp"\
+	{$(INCLUDE)}"sbml\MathMLTagCodes.hpp"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\ContentHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DeclHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DefaultHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\LexicalHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\DTDHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\EntityResolver.hpp"\
+	{$(INCLUDE)}"xercesc\sax\ErrorHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\Locator.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXException.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXParseException.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\MathMLReader.cpp : \
+	"..\src\sbml\List.h"\
+	"..\src\sbml\MathMLReader.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLHandler.hpp"\
+	{$(INCLUDE)}"sbml\MathMLTagCodes.hpp"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"xercesc\framework\MemBufInputSource.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLAttDef.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLAttDefList.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLAttr.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLBuffer.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLBufferMgr.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLContentModel.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLDocumentHandler.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLElementDecl.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLEntityDecl.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLEntityHandler.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorCodes.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLNotationDecl.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLPScanToken.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLRecognizer.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLRefInfo.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLValidator.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLValidityCodes.hpp"\
+	{$(INCLUDE)}"xercesc\internal\ReaderMgr.hpp"\
+	{$(INCLUDE)}"xercesc\internal\VecAttributesImpl.hpp"\
+	{$(INCLUDE)}"xercesc\internal\VecAttrListImpl.hpp"\
+	{$(INCLUDE)}"xercesc\internal\XMLReader.hpp"\
+	{$(INCLUDE)}"xercesc\internal\XMLScanner.hpp"\
+	{$(INCLUDE)}"xercesc\parsers\SAX2XMLReaderImpl.hpp"\
+	{$(INCLUDE)}"xercesc\parsers\SAXParser.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\ContentHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DeclHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DefaultHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\LexicalHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\SAX2XMLReader.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\XMLReaderFactory.hpp"\
+	{$(INCLUDE)}"xercesc\sax\AttributeList.hpp"\
+	{$(INCLUDE)}"xercesc\sax\DTDHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\EntityResolver.hpp"\
+	{$(INCLUDE)}"xercesc\sax\ErrorHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\InputSource.hpp"\
+	{$(INCLUDE)}"xercesc\sax\Locator.hpp"\
+	{$(INCLUDE)}"xercesc\sax\Parser.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXException.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXParseException.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\EmptyStackException.hpp"\
+	{$(INCLUDE)}"xercesc\util\HashBase.hpp"\
+	{$(INCLUDE)}"xercesc\util\HashXMLCh.hpp"\
+	{$(INCLUDE)}"xercesc\util\IllegalArgumentException.hpp"\
+	{$(INCLUDE)}"xercesc\util\NameIdPool.c"\
+	{$(INCLUDE)}"xercesc\util\NameIdPool.hpp"\
+	{$(INCLUDE)}"xercesc\util\NoSuchElementException.hpp"\
+	{$(INCLUDE)}"xercesc\util\NullPointerException.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\PlatformUtils.hpp"\
+	{$(INCLUDE)}"xercesc\util\QName.hpp"\
+	{$(INCLUDE)}"xercesc\util\RefHashTableOf.c"\
+	{$(INCLUDE)}"xercesc\util\RefHashTableOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\RefStackOf.c"\
+	{$(INCLUDE)}"xercesc\util\RefStackOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\RefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\RefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\RuntimeException.hpp"\
+	{$(INCLUDE)}"xercesc\util\ValueStackOf.c"\
+	{$(INCLUDE)}"xercesc\util\ValueStackOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\ValueVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\ValueVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLChar.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DocTypeHandler.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DTDAttDef.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DTDElementDecl.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DTDEntityDecl.hpp"\
+	
+
+..\src\MathMLTagCodes.cpp : \
+	"..\src\sbml\MathMLUnicodeConstants.hpp"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\MathMLTagCodes.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\MathMLWriter.cpp : \
+	"..\src\sbml\MathMLWriter.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\LocalFileFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\MemBufFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\PlatformUtils.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\memory.c : \
+	"..\src\sbml\memory.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	
+
+..\src\Model.c : \
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	
+
+..\src\ModifierSpeciesReference.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	
+
+..\src\Parameter.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\ParameterRule.c : \
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\ParseMessage.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	
+
+..\src\RateRule.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\Reaction.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	
+
+..\src\Rule.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	
+
+..\src\RuleType.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	
+
+..\src\SBase.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	
+
+..\src\SBMLConvert.c : \
+	"..\src\sbml\SBMLConvert.h"\
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLDocument.h"\
+	{$(INCLUDE)}"sbml\SBMLReader.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SBMLTypes.h"\
+	{$(INCLUDE)}"sbml\SBMLWriter.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	
+
+..\src\SBMLDocument.c : \
+	"..\src\sbml\SBMLConvert.h"\
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLDocument.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	
+
+..\src\SBMLFormatter.cpp : \
+	"..\src\sbml\SBMLFormatter.hpp"\
+	"..\src\sbml\XMLUnicodeConstants.hpp"\
+	"..\src\sbml\XMLUtil.hpp"\
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLFormatter.hpp"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLDocument.h"\
+	{$(INCLUDE)}"sbml\SBMLReader.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SBMLTypes.h"\
+	{$(INCLUDE)}"sbml\SBMLUnicodeConstants.hpp"\
+	{$(INCLUDE)}"sbml\SBMLWriter.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	{$(INCLUDE)}"xercesc\framework\MemBufFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\PlatformUtils.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\SBMLHandler.cpp : \
+	"..\src\sbml\List.h"\
+	"..\src\sbml\SBMLHandler.hpp"\
+	"..\src\sbml\XMLUtil.hpp"\
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLHandler.hpp"\
+	{$(INCLUDE)}"sbml\MathMLTagCodes.hpp"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLDocument.h"\
+	{$(INCLUDE)}"sbml\SBMLReader.h"\
+	{$(INCLUDE)}"sbml\SBMLTagCodes.hpp"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SBMLTypes.h"\
+	{$(INCLUDE)}"sbml\SBMLUnicodeConstants.hpp"\
+	{$(INCLUDE)}"sbml\SBMLWriter.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	{$(INCLUDE)}"sbml\XMLStringFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\MemBufFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\ContentHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DeclHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DefaultHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\LexicalHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\DTDHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\EntityResolver.hpp"\
+	{$(INCLUDE)}"xercesc\sax\ErrorHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\Locator.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXException.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXParseException.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\SBMLReader.cpp : \
+	"..\src\sbml\List.h"\
+	"..\src\sbml\SBMLHandler.hpp"\
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLHandler.hpp"\
+	{$(INCLUDE)}"sbml\MathMLTagCodes.hpp"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLDocument.h"\
+	{$(INCLUDE)}"sbml\SBMLReader.h"\
+	{$(INCLUDE)}"sbml\SBMLTagCodes.hpp"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SBMLTypes.h"\
+	{$(INCLUDE)}"sbml\SBMLWriter.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	{$(INCLUDE)}"sbml\XMLStringFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\MemBufFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\MemBufInputSource.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLAttDef.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLAttDefList.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLAttr.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLBuffer.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLBufferMgr.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLContentModel.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLDocumentHandler.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLElementDecl.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLEntityDecl.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLEntityHandler.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorCodes.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLNotationDecl.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLPScanToken.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLRecognizer.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLRefInfo.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLValidator.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLValidityCodes.hpp"\
+	{$(INCLUDE)}"xercesc\internal\ReaderMgr.hpp"\
+	{$(INCLUDE)}"xercesc\internal\VecAttributesImpl.hpp"\
+	{$(INCLUDE)}"xercesc\internal\VecAttrListImpl.hpp"\
+	{$(INCLUDE)}"xercesc\internal\XMLReader.hpp"\
+	{$(INCLUDE)}"xercesc\internal\XMLScanner.hpp"\
+	{$(INCLUDE)}"xercesc\parsers\SAX2XMLReaderImpl.hpp"\
+	{$(INCLUDE)}"xercesc\parsers\SAXParser.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\ContentHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DeclHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\DefaultHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\LexicalHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\SAX2XMLReader.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\XMLReaderFactory.hpp"\
+	{$(INCLUDE)}"xercesc\sax\AttributeList.hpp"\
+	{$(INCLUDE)}"xercesc\sax\DTDHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\EntityResolver.hpp"\
+	{$(INCLUDE)}"xercesc\sax\ErrorHandler.hpp"\
+	{$(INCLUDE)}"xercesc\sax\InputSource.hpp"\
+	{$(INCLUDE)}"xercesc\sax\Locator.hpp"\
+	{$(INCLUDE)}"xercesc\sax\Parser.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXException.hpp"\
+	{$(INCLUDE)}"xercesc\sax\SAXParseException.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\EmptyStackException.hpp"\
+	{$(INCLUDE)}"xercesc\util\HashBase.hpp"\
+	{$(INCLUDE)}"xercesc\util\HashXMLCh.hpp"\
+	{$(INCLUDE)}"xercesc\util\IllegalArgumentException.hpp"\
+	{$(INCLUDE)}"xercesc\util\NameIdPool.c"\
+	{$(INCLUDE)}"xercesc\util\NameIdPool.hpp"\
+	{$(INCLUDE)}"xercesc\util\NoSuchElementException.hpp"\
+	{$(INCLUDE)}"xercesc\util\NullPointerException.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\PlatformUtils.hpp"\
+	{$(INCLUDE)}"xercesc\util\QName.hpp"\
+	{$(INCLUDE)}"xercesc\util\RefHashTableOf.c"\
+	{$(INCLUDE)}"xercesc\util\RefHashTableOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\RefStackOf.c"\
+	{$(INCLUDE)}"xercesc\util\RefStackOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\RefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\RefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\RuntimeException.hpp"\
+	{$(INCLUDE)}"xercesc\util\ValueStackOf.c"\
+	{$(INCLUDE)}"xercesc\util\ValueStackOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\ValueVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\ValueVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLChar.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DocTypeHandler.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DTDAttDef.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DTDElementDecl.hpp"\
+	{$(INCLUDE)}"xercesc\validators\DTD\DTDEntityDecl.hpp"\
+	
+
+..\src\SBMLTagCodes.cpp : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\SBMLTagCodes.hpp"\
+	{$(INCLUDE)}"sbml\SBMLUnicodeConstants.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\SBMLWriter.cpp : \
+	"..\src\sbml\SBMLFormatter.hpp"\
+	{$(INCLUDE)}"sbml\AlgebraicRule.h"\
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\Compartment.h"\
+	{$(INCLUDE)}"sbml\CompartmentVolumeRule.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\Event.h"\
+	{$(INCLUDE)}"sbml\EventAssignment.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaFormatter.h"\
+	{$(INCLUDE)}"sbml\FormulaParser.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\FunctionDefinition.h"\
+	{$(INCLUDE)}"sbml\KineticLaw.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\MathMLDocument.h"\
+	{$(INCLUDE)}"sbml\MathMLFormatter.hpp"\
+	{$(INCLUDE)}"sbml\Model.h"\
+	{$(INCLUDE)}"sbml\ModifierSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Parameter.h"\
+	{$(INCLUDE)}"sbml\ParameterRule.h"\
+	{$(INCLUDE)}"sbml\ParseMessage.h"\
+	{$(INCLUDE)}"sbml\RateRule.h"\
+	{$(INCLUDE)}"sbml\Reaction.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLDocument.h"\
+	{$(INCLUDE)}"sbml\SBMLReader.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SBMLTypes.h"\
+	{$(INCLUDE)}"sbml\SBMLUnicodeConstants.hpp"\
+	{$(INCLUDE)}"sbml\SBMLWriter.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	{$(INCLUDE)}"xercesc\framework\LocalFileFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\MemBufFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\PlatformUtils.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\SimpleSpeciesReference.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	
+
+..\src\Species.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\Species.h"\
+	
+
+..\src\SpeciesConcentrationRule.c : \
+	{$(INCLUDE)}"sbml\AssignmentRule.h"\
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\Rule.h"\
+	{$(INCLUDE)}"sbml\RuleType.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SpeciesConcentrationRule.h"\
+	
+
+..\src\SpeciesReference.c : \
+	{$(INCLUDE)}"sbml\ASTNode.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\FormulaTokenizer.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\SimpleSpeciesReference.h"\
+	{$(INCLUDE)}"sbml\SpeciesReference.h"\
+	
+
+..\src\Stack.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\Stack.h"\
+	
+
+..\src\StringBuffer.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\StringBuffer.h"\
+	
+
+..\src\Unit.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	
+
+..\src\UnitDefinition.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\ListOf.h"\
+	{$(INCLUDE)}"sbml\SBase.h"\
+	{$(INCLUDE)}"sbml\SBMLTypeCodes.h"\
+	{$(INCLUDE)}"sbml\Unit.h"\
+	{$(INCLUDE)}"sbml\UnitDefinition.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	
+
+..\src\UnitKind.c : \
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\UnitKind.h"\
+	
+
+..\src\util.c : \
+	"..\src\sbml\List.h"\
+	"..\src\sbml\util.h"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	
+
+..\src\XMLStringFormatter.cpp : \
+	"..\src\sbml\XMLUnicodeConstants.hpp"\
+	"..\src\sbml\XMLUtil.hpp"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\XMLStringFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\MemBufFormatTarget.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\PlatformUtils.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
+
+..\src\XMLUtil.cpp : \
+	"..\src\sbml\XMLUnicodeConstants.hpp"\
+	"..\src\sbml\XMLUtil.hpp"\
+	{$(INCLUDE)}"sbml\common.h"\
+	{$(INCLUDE)}"sbml\common.hpp"\
+	{$(INCLUDE)}"sbml\config.h"\
+	{$(INCLUDE)}"sbml\extern.h"\
+	{$(INCLUDE)}"sbml\SBMLUnicodeConstants.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLErrorReporter.hpp"\
+	{$(INCLUDE)}"xercesc\framework\XMLFormatter.hpp"\
+	{$(INCLUDE)}"xercesc\sax2\Attributes.hpp"\
+	{$(INCLUDE)}"xercesc\util\ArrayIndexOutOfBoundsException.hpp"\
+	{$(INCLUDE)}"xercesc\util\AutoSense.hpp"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.c"\
+	{$(INCLUDE)}"xercesc\util\BaseRefVectorOf.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\BorlandCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CodeWarriorDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\CSetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\DECCXXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\GCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\HPCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAOS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\IBMVAW32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MIPSproDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\MVSCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\OS400SetDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\PTXCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SCOCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\SunKaiDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\TandemCCDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Compilers\VCPPDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\AIX\AIXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\BeOS\BeOSDef.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\HPUX\HPUXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Linux\LinuxDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\MacOS\MacOSDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS2\OS2Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\OS390\OS390Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\PTX\PTXDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Solaris\SolarisDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Tandem\TandemDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\Platforms\Win32\Win32Defs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesDefs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XercesVersion.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLEnumerator.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLException.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLExceptMsgs.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLString.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUni.hpp"\
+	{$(INCLUDE)}"xercesc\util\XMLUniDefs.hpp"\
+	
