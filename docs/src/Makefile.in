@@ -160,8 +160,6 @@ distfiles =                            \
 
 all:
 
-check:
-
 dvi: $(foreach manual,$(manuals),$(manual).dvi)
 
 pdf: $(foreach manual,$(manuals),$(manual).pdf)
@@ -178,6 +176,17 @@ info:
 
 libsbml-manual:  $(libsbml-manual-files)
 libsbml-api-ref: $(libsbml-api-ref-files)
+
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
+
+ifdef USE_LIBCHECK
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
 
 
 # -----------------------------------------------------------------------------
