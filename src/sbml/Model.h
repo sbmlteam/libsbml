@@ -548,6 +548,14 @@ Species_t *
 Model_getSpecies (const Model_t *m, unsigned int n);
 
 /**
+ * @return the Species in this Model with the given id or NULL if no such
+ * Species exists.
+ */
+LIBSBML_EXTERN
+Species_t *
+Model_getSpeciesById (const Model_t *m, const char *sid);
+
+/**
  * @return the nth Parameter of this Model.
  */
 LIBSBML_EXTERN
@@ -603,6 +611,14 @@ Model_getNumCompartments (const Model_t *m);
 LIBSBML_EXTERN
 unsigned int
 Model_getNumSpecies (const Model_t *m);
+
+/**
+ * @return the number of Species in this Model with boundaryCondition set
+ * to true.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumSpeciesWithBoundaryCondition (const Model_t *m);
 
 /**
  * @return the number of Parameters in this Model.  Parameters defined in

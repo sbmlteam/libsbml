@@ -926,6 +926,19 @@ Model_getSpecies (const Model_t *m, unsigned int n)
 
 
 /**
+ * @return the Species in this Model with the given id or NULL if no such
+ * Species exists.
+ */
+LIBSBML_EXTERN
+Species_t *
+Model_getSpeciesById (const Model_t *m, const char *sid)
+{
+  return (Species_t *)
+         ListOf_find(m->species, sid, (ListItemComparator) SpeciesIdCmp);
+}
+
+
+/**
  * @return the nth Parameter of this Model.
  */
 LIBSBML_EXTERN
@@ -1010,6 +1023,19 @@ unsigned int
 Model_getNumSpecies (const Model_t *m)
 {
   return ListOf_getNumItems(m->species);
+}
+
+
+/**
+ * @return the number of Species in this Model with boundaryCondition set
+ * to true.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumSpeciesWithBoundaryCondition (const Model_t *m)
+{
+  return ListOf_countIf( m->species,
+                         (ListItemPredicate) Species_getBoundaryCondition );
 }
 
 
