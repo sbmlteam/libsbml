@@ -126,6 +126,8 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include sbml/ParseMessage.hpp
 %include sbml/SBMLReader.hpp
 %include sbml/SBMLWriter.hpp
+%include sbml/XMLNamespace.hpp
+%include sbml/XMLNamespaceList.hpp
 %include sbml/XMLSchemaValidation.h
 
 

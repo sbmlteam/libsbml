@@ -85,6 +85,9 @@ typedef void SBMLDocument_t;
 
 #include "sbml/ParseMessage.hpp"
 
+#include "sbml/XMLNamespace.hpp"
+#include "sbml/XMLNamespaceList.hpp"
+
 #include "sbml/SBMLReader.hpp"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLWriter.hpp"
