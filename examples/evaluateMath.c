@@ -229,7 +229,7 @@ evalAST(ASTNode_t *n)
   result = var;
       }
       break;
-    case AST_NAME_DELAY:
+    case AST_FUNCTION_DELAY:
       printf("\n-----------------MESSAGE FROM EVALUATION FUNCTION-----------------\n");      
       printf("Delays can only be evaluated during a time series simulation.\n");
       printf("The value of the first child (ie. the first argument to the function)\n");
