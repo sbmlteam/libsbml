@@ -52,6 +52,7 @@
 
 import org.sbml.libsbml.*;
 
+import java.io.File;
 
 public class Test
 {
@@ -118,7 +119,7 @@ public class Test
     SpeciesReference sr;
 
     SBMLReader reader   = new SBMLReader();
-    String     filename = "../../src/test-data/l1v1-branch.xml";
+    File       file     = new File("../../src/test-data/l1v1-branch.xml");
 
     String xml =
         "<?xml version='1.0' encoding='UTF-8'?>"
@@ -126,7 +127,7 @@ public class Test
       + "<model name='Branch'/>"
       + "</sbml>";
 
-    d = reader.readSBML(filename);
+    d = reader.readSBML(file.getAbsolutePath());
     // d = reader.readSBMLFromString(xml);
     
     if (d == null)
