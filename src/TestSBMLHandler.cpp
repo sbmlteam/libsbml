@@ -1077,7 +1077,7 @@ START_TEST (test_element_KineticLaw_L2)
   Reaction_t*      r;
   KineticLaw_t*    kl;
   const ASTNode_t* math;
-  char*            formula;
+  const char*      formula;
 
   const char* s = wrapSBML2
   (
@@ -1109,12 +1109,10 @@ START_TEST (test_element_KineticLaw_L2)
   fail_unless( KineticLaw_isSetMath(kl), NULL );
   math = KineticLaw_getMath(kl);
 
-  formula = SBML_formulaToString(math);
+  formula = KineticLaw_getFormula(kl);
   fail_unless( formula != NULL, NULL );
 
   fail_unless( !strcmp(formula, "k * S2 * X0"), NULL );
-
-  safe_free(formula);
 }
 END_TEST
 
@@ -1159,7 +1157,7 @@ START_TEST (test_element_AssignmentRule)
 {
   AssignmentRule_t* ar;
   const ASTNode_t*  math;
-  char*             formula;
+  const char*       formula;
 
   const char *s = wrapSBML2
   (
@@ -1185,12 +1183,10 @@ START_TEST (test_element_AssignmentRule)
   fail_unless( Rule_isSetMath((Rule_t *) ar), NULL );
   math = Rule_getMath((Rule_t *) ar);
 
-  formula = SBML_formulaToString(math);
+  formula = Rule_getFormula((Rule_t *) ar);
   fail_unless( formula != NULL, NULL );
 
   fail_unless( !strcmp(formula, "k3 / k2"), NULL );
-
-  safe_free(formula);
 }
 END_TEST
 
@@ -1199,7 +1195,7 @@ START_TEST (test_element_RateRule)
 {
   RateRule_t*      rr;
   const ASTNode_t* math;
-  char*            formula;
+  const char*      formula;
 
   const char *s = wrapSBML2
   (
@@ -1232,15 +1228,13 @@ START_TEST (test_element_RateRule)
   fail_unless( Rule_isSetMath((Rule_t *) rr), NULL );
   math = Rule_getMath((Rule_t *) rr);
 
-  formula = SBML_formulaToString(math);
+  formula = Rule_getFormula((Rule_t *) rr);
   fail_unless( formula != NULL, NULL );
 
   /**
    * In L1 formula syntax, the natural log (ln) is defined to be log.
    */
   fail_unless( !strcmp(formula, "(1 - x) * log(x)"), NULL );
-
-  safe_free(formula);
 }
 END_TEST
 
@@ -1266,8 +1260,8 @@ END_TEST
 START_TEST (test_element_AlgebraicRule_L2)
 {
   AlgebraicRule_t* ar;
-  const ASTNode_t*  math;
-  char*             formula;
+  const ASTNode_t* math;
+  const char*      formula;
 
   const char *s = wrapSBML2
   (
@@ -1297,12 +1291,10 @@ START_TEST (test_element_AlgebraicRule_L2)
   fail_unless( Rule_isSetMath((Rule_t *) ar), NULL );
   math = Rule_getMath((Rule_t *) ar);
 
-  formula = SBML_formulaToString(math);
+  formula = Rule_getFormula((Rule_t *) ar);
   fail_unless( formula != NULL, NULL );
 
   fail_unless( !strcmp(formula, "S1 + S2 - T"), NULL );
-
-  safe_free(formula);
 }
 END_TEST
 

@@ -1616,7 +1616,8 @@ SBMLHandler::setMath(ASTNode_t* math)
     case SBML_ALGEBRAIC_RULE:
     case SBML_ASSIGNMENT_RULE:
     case SBML_RATE_RULE:
-      Rule_setMath((Rule_t*) obj, math);
+      Rule_setMath           ((Rule_t*) obj, math);
+      Rule_setFormulaFromMath((Rule_t*) obj);
       break;
 
     case SBML_SPECIES_REFERENCE:
@@ -1624,7 +1625,8 @@ SBMLHandler::setMath(ASTNode_t* math)
       break;
 
     case SBML_KINETIC_LAW:
-      KineticLaw_setMath((KineticLaw_t*) obj, math);
+      KineticLaw_setMath           ((KineticLaw_t*) obj, math);
+      KineticLaw_setFormulaFromMath((KineticLaw_t*) obj);
       break;
 
     case SBML_EVENT:
