@@ -147,7 +147,7 @@ localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 otherdirs     = ..  ../../util
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
-test_objfiles = $(localobjfilse) $(otherobjfiles)
+test_objfiles = $(localobjfiles) $(otherobjfiles)
 
 ifdef USE_LIBCHECK
   check: all run-checks
