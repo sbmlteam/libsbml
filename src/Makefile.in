@@ -223,7 +223,6 @@ sources = \
   memory.c                        \
   util.c
 
-ifdef USE_LIBCHECK
 test_headers = \
   sbml/SAX2AttributesMock.hpp
 
@@ -310,8 +309,6 @@ test_data =                                      \
   test-data/consistency-checks/ConsistencyChecks.txt   \
   test-data/consistency-checks/genConsistencyChecks.py \
   test-data/consistency-checks/partialModels
-
-endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
