@@ -188,6 +188,17 @@ isKindOfLength(const char *unitsName)
 
 static
 unsigned int
+isKindOfArea(const char *unitsName)
+{
+  return
+    unitsName != NULL
+    &&
+    streq(unitsName, "area");
+}
+
+
+static
+unsigned int
 unitDefinitionIsKindOfLength(
   const Model_t *m,
   const char *spatialSizeUnits)
@@ -205,6 +216,28 @@ unitDefinitionIsKindOfLength(
     _hasSingleKind(ud)
     &&
     _hasExponent(ud, 1);
+}
+
+
+static
+unsigned int
+unitDefinitionIsKindOfArea(
+  const Model_t *m,
+  const char *spatialSizeUnits)
+{
+  static const PFI acceptableKinds[] = { isMeter };
+
+  UnitDefinition_t *ud = Model_getUnitDefinitionById(m, spatialSizeUnits);
+
+
+  return
+    ud != NULL
+    &&
+    isOneOfTheseKinds(ud, acceptableKinds)
+    &&
+    _hasSingleKind(ud)
+    &&
+    _hasExponent(ud, 2);
 }
 
 
@@ -645,6 +678,42 @@ RULE (species_spatialDimensions1)
 
 
 /**
+ * spatialSizeUnits for spatialDimensions of 2.
+ */
+RULE (species_spatialDimensions2)
+{
+  static const char msg[] =
+    "A species whose compartment has spatialDimensions=2 must have "
+    "spatialSizeUnits of 'area' or the id of a unitDefinition "
+    "that defines a variant of 'metre' with exponent=2.";
+  const char *compartmentId;
+  unsigned int passed = 1;
+
+
+  Species_t *s = (Species_t *) obj;
+  compartmentId = Species_getCompartment(s);
+  if (compartmentId)
+  {
+    Compartment_t *c = Model_getCompartmentById(d->model, compartmentId);
+    if (c && Compartment_getSpatialDimensions(c) == 2)
+    {
+      const char *spatialSizeUnits = Species_getSpatialSizeUnits(s);
+      if (
+        !isKindOfArea(spatialSizeUnits)
+        &&
+        !unitDefinitionIsKindOfArea(d->model, spatialSizeUnits)
+      ) {
+        LOG_MESSAGE(msg);
+        passed = 0;
+      }
+    }
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -670,4 +739,5 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_hasOnlySubstanceUnits, SBML_SPECIES        );
   Validator_addRule( v, species_zeroSpatialDimensions, SBML_SPECIES        );
   Validator_addRule( v, species_spatialDimensions1,    SBML_SPECIES        );
+  Validator_addRule( v, species_spatialDimensions2,    SBML_SPECIES        );
 }
