@@ -589,6 +589,30 @@ RULE (compartment_spatialDimensions3)
 }
 
 
+RULE (compartment_spatialDimensions0)
+{
+  static const char msg[] =
+    "A compartment with spatialDimensions=0 must have units of "
+    "'dimensionless'.";
+
+  Compartment_t *c = (Compartment_t *) obj;
+  unsigned int passed = TRUE;
+
+
+  if (Compartment_getSpatialDimensions(c) == 0)
+  {
+    const char *units = Compartment_getUnits(c);
+    if (units && !streq(units, "dimensionless"))
+    {
+      LOG_MESSAGE(msg);
+      passed = FALSE;
+    }
+  }
+
+  return passed;
+}
+
+
 /**
  * The size attribute must not be set if spatialDimensions is zero.
  */
@@ -1238,6 +1262,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, compartment_spatialDimensions1, SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_spatialDimensions2, SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_spatialDimensions3, SBML_COMPARTMENT     );
+  Validator_addRule( v, compartment_spatialDimensions0, SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_size_dimensions,    SBML_COMPARTMENT     );
   Validator_addRule( v, kineticLaw_substanceUnits  ,    SBML_REACTION        );
   Validator_addRule( v, unitDefinition_idsMustBeUnique,
