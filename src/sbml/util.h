@@ -135,6 +135,28 @@ int
 util_isNegZero (double d);
 
 
+/**
+ * Function prototypes to supress gcc compiler warnings about implicit
+ * declaration of isnan and finite which occur despite the inclusion of
+ * math.h where they are defined.  In fact, even a simple example
+ * triggers this warning:
+ *
+ * #include <math.h>
+ *
+ * int main (int argc, char **argv) { return isnan(1.0); }
+ *
+ *  % gcc -ansi -Wall test.c
+ *  test.c:3: warning: implicit declaration of function `isnan'
+ */
+#if !defined(isnan)
+  int isnan  (double d);
+#endif
+
+#if !defined(finite)
+  int finite (double d);
+#endif
+
+
 #ifdef __cplusplus
 }
 #endif
