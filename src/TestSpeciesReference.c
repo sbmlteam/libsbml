@@ -187,7 +187,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
           "did not clear ASTNode." );
   }
 
-  // MathMLDocument_free(d);
+  /* MathMLDocument_free(d); */
 }
 END_TEST
 
