@@ -97,7 +97,7 @@ asdfextras := tps/asdf/asdf.lisp
 cparsedirs := tps/cparse
 
 cparseextras := tps/cparse/cparse.asd \
-  tps/cparse/README
+  tps/cparse/README.txt
 
 cparsesources := tps/cparse/asdf.lisp \
   tps/cparse/ctype-test.lisp          \
