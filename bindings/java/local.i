@@ -176,9 +176,17 @@
 /**
  * Convert SBase objects into the most specific object possible.
  */
-%typemap("javaout") SBase *
+%typemap("javaout") SBase*
 {
   return libsbml.DowncastSBase($jnicall, $owner);
+}
+
+/**
+ * Convert Rule objects into the most specific object possible.
+ */
+%typemap("javaout") Rule*
+{
+  return (Rule) libsbml.DowncastSBase($jnicall, $owner);
 }
 
 

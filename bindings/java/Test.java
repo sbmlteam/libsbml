@@ -75,8 +75,8 @@ public class Test
 
 
     m.addRule( new AssignmentRule("x", "1 + 1", libsbml.RULE_TYPE_SCALAR) );
-    //Assert( m.getNumRules() == 1 );
-    //Assert( m.getRule(0) instanceof AssignmentRule );
+    Assert( m.getNumRules() == 1 );
+    Assert( m.getRule(0) instanceof AssignmentRule );
   }
     
 
