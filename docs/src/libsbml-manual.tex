@@ -35,20 +35,20 @@
 
 \libsbml{} requires a separate XML library for low-level XML tokenizing and
 Unicode support.  It currently supports the Xerces-C++ and Expat XML
-libraries on Linux, Solaris, Windows and MacOS X.  You will first need to
-make sure one of these libraries is installed on your system.  Many Linux
-systems provide one or both of these libraries either as part of their
-standard distribution or as an optional RPM or Debian package.  For more
+libraries on Linux, Windows and MacOS X.  You will first need to make sure
+one of these libraries is installed on your system.  Many Linux systems
+provide one or both of these libraries either as part of their standard
+distribution or as an optional RPM or Debian package.  For more
 information, see \url{http://xml.apache.org/xerces-c/} for Xerces and
 \url{http://expat.sf.net} for Expat.
 
 %-----------------------------------------------------------------------------
-\subsection{Linux, Solaris, Cygwin or MacOS X}
+\subsection{Linux or MacOS X}
 %-----------------------------------------------------------------------------
 
-If you have obtained the source code distribution, then at your Unix,
-Cygwin or MacOS~X command prompt, unpack the distribution, \shell{cd} into
-the directory created (e.g., \shell{libsbml-2.0.3/}), and type the
+If you have obtained the \libsbml{} source code distribution, then at your
+Linux or MacOS~X command prompt, unpack the distribution, \shell{cd} into
+the directory created (e.g., \shell{libsbml-2.1.0/}), and type the
 following command to configure \libsbml{} for your system:
 
 \begin{example}[csh]
@@ -62,6 +62,15 @@ Section~\ref{sec:installation}):
 
 \begin{example}[csh]
   ./configure --with-expat
+\end{example}
+
+By default, \libsbml{} only builds the C and C++ API library.  If you want
+to configure \libsbml{} to build the Java, Python and/or MATLAB API
+libraries as well, add the flags \shell{--with-java}, \shell{--with-python}
+and/or \shell{--with-matlab} to the configure command.  For example,
+
+\begin{example}[csh]
+  ./configure --with-expat --with-java --with-python
 \end{example}
 
 Next, compile and install the \libsbml{} library using the following command:
@@ -84,8 +93,8 @@ Section~\ref{sec:read-example}):
 %-----------------------------------------------------------------------------
 
 Unzip the \libsbml{} distribution and open the resulting folder (which will
-have a name such as \shell{libsbml-2.0.3-expat} or
-\shell{libsbml-2.0.3-xerces}).  There are debug (\shell{libsbmld}) and
+have a name such as \shell{libsbml-2.1.0-expat} or
+\shell{libsbml-2.1.0-xerces}).  There are debug (\shell{libsbmld}) and
 release (\shell{libsbml}) versions of \libsbml{}, with \shell{.dll} and
 \shell{.lib} files for both versions in the \shell{win32} subdirectory of
 the \libsbml{} distribution.  Header files are located in the subdirectory
@@ -102,18 +111,17 @@ respectively.
 \label{sec:introduction}
 %=============================================================================
 
-This manual describes \libsbml{}, a C application programming interface
-(API) library for reading, writing and manipulating the Systems Biology
-Markup Language~\citep[SBML;][]{hucka_2001b,hucka_2003,finney_2003b}.
-Currently, the library supports all of SBML Level~1 Version~1 and
-Version~2, and nearly all of SBML Level~2 Version~1.  (The
-still-unimplemented parts of Level~2 are: support for RDF, and support for
-MathML's \code{semantics}, \code{annotation} and \code{annotation-xml}
-elements.  These will be implemented in the near future.)  For more
-information about SBML, please see the references or visit
-\url{http://www.sbml.org/} on the Internet.  \libsbml{} is entirely
-open-source under the terms of the GNU LGPL, and all source code and other
-materials are freely and publicly available.
+This manual describes \libsbml{}, a application programming interface (API)
+library for reading, writing and manipulating the Systems Biology Markup
+Language~\citep[SBML;][]{hucka_2001b,hucka_2003,finney_2003b}.  Currently,
+the library supports all of SBML Level~1 Version~1 and Version~2, and
+nearly all of SBML Level~2 Version~1.  (The still-unimplemented parts of
+Level~2 are: support for RDF, and support for MathML's \code{semantics},
+\code{annotation} and \code{annotation-xml} elements.  These will be
+implemented in the near future.)  For more information about SBML, please
+see the references or visit \url{http://www.sbml.org/} on the Internet.
+\libsbml{} is entirely open-source under the terms of the GNU LGPL, and all
+source code and other materials are freely and publicly available.
 
 Because the library provides a C API, the rest of this manual assumes
 familiarity with the C programming language.  Some parts of the library
@@ -209,7 +217,7 @@ the download area is also provided on the SBML project home page,
 \libsbml{} depends on a separate XML library for low-level XML tokenizing
 and Unicode support.  Currently, \libsbml{} can use either Apache's
 Xerces-C++ XML library or James Clark's Expat XML library on Linux,
-Solaris, Windows and MacOS~X.  You will first need to make sure one of
+Windows and MacOS~X.  You will first need to make sure one of
 these libraries is installed on your system.  Many systems provide one or
 both of these libraries either as part of their standard distribution or as
 an optional RPM or Debian package.  DLL and LIB file distributions are
