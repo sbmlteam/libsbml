@@ -58,7 +58,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/util/XMLString.hpp>
 
-#include "sbml/SBMLTagCode.hpp"
+#include "sbml/SBMLTagCodes.hpp"
 #include "sbml/SBMLUnicodeConstants.hpp"
 #include "sbml/XMLStringFormatter.hpp"
 #include "sbml/XMLUtil.hpp"
