@@ -103,12 +103,14 @@ typedef int (*ListItemPredicate) (const void *item);
 /**
  * Creates a new List and returns a pointer to it.
  */
+LIBSBML_EXTERN
 List_t *
 List_create (void);
 
 /**
  * Creates a new ListNode (with item) and returns a pointer to it.
  */
+LIBSBML_EXTERN
 ListNode_t *
 ListNode_create (void *item);
 
@@ -123,8 +125,9 @@ ListNode_create (void *item);
  * longer or ii) the list has no items (List_size(list) == 0).  If neither
  * are true, try List_freeItems() instead.
  */
+LIBSBML_EXTERN
 void
-List_free (List_t *list);
+List_free (List_t *lst);
 
 /**
  * Frees the items in this List.
@@ -139,7 +142,7 @@ List_free (List_t *list);
  * While the function prototype cannot be expressed precisely in C syntax,
  * it is roughly:
  *
- *  List_freeItems(List_t *list, void (*free_item)(type *), type)
+ *  List_freeItems(List_t *lst, void (*free_item)(type *), type)
  *
  * where type is a C type resolved at compile time.
  *
@@ -162,8 +165,9 @@ List_free (List_t *list);
 /**
  * Adds item to the end of this List.
  */
+LIBSBML_EXTERN
 void
-List_add (List_t *list, void *item);
+List_add (List_t *lst, void *item);
 
 /**
  * @return the number of items in this List for which predicate(item)
@@ -176,8 +180,9 @@ List_add (List_t *list, void *item);
  * where a return value of non-zero represents true and zero represents
  * false.
  */
+LIBSBML_EXTERN
 unsigned int
-List_countIf (const List_t *list, ListItemPredicate predicate);
+List_countIf (const List_t *lst, ListItemPredicate predicate);
 
 /**
  * @return the first occurrence of item1 in this List or NULL if item was
@@ -192,35 +197,40 @@ List_countIf (const List_t *list, ListItemPredicate predicate);
  *    0    item1 == item 2
  *    1    item1 >  item2
  */
+LIBSBML_EXTERN
 void *
-List_find ( const List_t       *list,
+List_find ( const List_t       *lst,
             const void         *item1,
             ListItemComparator comparator );
 
 /**
  * Returns the nth item in this List.  If n > List_size(list) returns NULL.
  */
+LIBSBML_EXTERN
 void *
-List_get (const List_t *list, unsigned int n);
+List_get (const List_t *lst, unsigned int n);
 
 /**
  * Adds item to the beginning of this List.
  */
+LIBSBML_EXTERN
 void
-List_prepend (List_t *list, void *item);
+List_prepend (List_t *lst, void *item);
 
 /**
  * Removes the nth item from this List and returns a pointer to it.  If n >
  * List_size(list) returns NULL.
  */
+LIBSBML_EXTERN
 void *
-List_remove (List_t *list, unsigned int n);
+List_remove (List_t *lst, unsigned int n);
 
 /**
  * Returns the number of elements in this List.
  */
+LIBSBML_EXTERN
 unsigned int
-List_size (const List_t *list);
+List_size (const List_t *lst);
 
 
 END_C_DECLS
