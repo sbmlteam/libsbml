@@ -117,7 +117,7 @@ public class Test
     Species          s;
     SpeciesReference sr;
 
-    SBMLReader reader   = new SBMLReader(libsbml.XML_SCHEMA_VALIDATION_NONE);
+    SBMLReader reader   = new SBMLReader();
     String     filename = "/home/bornstei/checkout/libsbml/src/test-data/l1v1-branch.xml";
 
     String xml =
