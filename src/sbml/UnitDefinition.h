@@ -118,14 +118,16 @@ UnitDefinition_getName (const UnitDefinition_t *ud);
 
 
 /**
- * @return 1 if the id of this UnitDefinition has been set, 0 otherwise.
+ * @return non-zero if the id of this UnitDefinition has been set, zero
+ * otherwise.
  */
 LIBSBML_EXTERN
 int
 UnitDefinition_isSetId (const UnitDefinition_t *ud);
 
 /**
- * @return 1 if the name of this UnitDefinition has been set, 0 otherwise.
+ * @return non-zero if the name of this UnitDefinition has been set, zero
+ * otherwise.
  *
  * In SBML L1, a UnitDefinition name is required and therefore <b>should
  * always be set</b>.  In L2, name is optional and as such may or may not
@@ -134,6 +136,52 @@ UnitDefinition_isSetId (const UnitDefinition_t *ud);
 LIBSBML_EXTERN
 int
 UnitDefinition_isSetName (const UnitDefinition_t *ud);
+
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * area, i.e. square metres with only abritrary variations in scale,
+ * multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfArea (const UnitDefinition_t *ud);
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * length, i.e. metres with only abritrary variations in scale, multiplier,
+ * or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud);
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * substance, i.e. moles or items with only abritrary variations in scale,
+ * multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud);
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * time, i.e. seconds with only abritrary variations in scale, multiplier,
+ * or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud);
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of the builtin type
+ * volume, i.e. litre or cubic metre with only abritrary variations in
+ * scale, multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
 
 
 /**
