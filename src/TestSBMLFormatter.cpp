@@ -118,6 +118,21 @@ START_TEST (test_SBMLFormatter_Model)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_Model_skipOptional)
+{
+  Model_t    *m = Model_create();
+  const char *s = wrapXML("<model/>\n");
+
+
+  *formatter << m;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  Model_free(m);
+}
+END_TEST
+
+
 START_TEST (test_SBMLFormatter_Unit)
 {
   Unit_t *u = Unit_createWith(UNIT_KIND_KILOGRAM, 2, -3);
@@ -792,6 +807,7 @@ create_suite_SBMLFormatter (void)
  
   tcase_add_test( tcase, test_SBMLFormatter_SBMLDocument                      );
   tcase_add_test( tcase, test_SBMLFormatter_Model                             );
+  tcase_add_test( tcase, test_SBMLFormatter_Model_skipOptional                );
   tcase_add_test( tcase, test_SBMLFormatter_Unit                              );
   tcase_add_test( tcase, test_SBMLFormatter_Unit_defaults                     );
   tcase_add_test( tcase, test_SBMLFormatter_UnitDefinition                    );

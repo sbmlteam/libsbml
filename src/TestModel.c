@@ -85,6 +85,8 @@ START_TEST (test_Model_create)
 
   fail_unless( M->name == NULL, NULL );
 
+  fail_unless( !Model_isSetName(M), NULL );
+
   fail_unless( Model_getNumUnitDefinitions(M) == 0, NULL );
   fail_unless( Model_getNumCompartments   (M) == 0, NULL );
   fail_unless( Model_getNumSpecies        (M) == 0, NULL );
@@ -111,6 +113,7 @@ START_TEST (test_Model_createWith)
   fail_unless( m->annotation == NULL, NULL );
 
   fail_unless( !strcmp(m->name, "repressilator"), NULL );
+  fail_unless( Model_isSetName(m), NULL );
 
   fail_unless( Model_getNumUnitDefinitions(m) == 0, NULL );
   fail_unless( Model_getNumCompartments   (m) == 0, NULL );
@@ -131,6 +134,7 @@ START_TEST (test_Model_setName)
   Model_setName(M, name);
 
   fail_unless( !strcmp(M->name, name), NULL );
+  fail_unless( Model_isSetName(M)    , NULL );
 
   if (M->name == name)
   {
@@ -138,6 +142,7 @@ START_TEST (test_Model_setName)
   }
 
   Model_setName(M, NULL);
+  fail_unless( !Model_isSetName(M), NULL );
 
   if (M->name != NULL)
   {

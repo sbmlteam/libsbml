@@ -211,7 +211,13 @@ SBMLFormatter::operator<< (const Model_t* m)
 
   openStartElement(ELEM_MODEL);
 
-  attribute(ATTR_NAME, m->name);
+  //
+  // name  { use="optional" }  (L1v1, L1v2, L2v1)
+  //
+  if (m->name != NULL)
+  {
+    attribute(ATTR_NAME, m->name);
+  }
 
   if ( isEmpty(m) )
   {
