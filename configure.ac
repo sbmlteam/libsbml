@@ -75,6 +75,26 @@ AC_CONFIG_HEADERS(src/sbml/config.h)
 
 
 dnl ---------------------------------------------------------------------------
+dnl Command-line options
+dnl ---------------------------------------------------------------------------
+
+AC_ARG_ENABLE(memory-tracing,
+  AC_HELP_STRING([--enable-memory-tracing],
+                 [Enable memory tracing (default: disabled)]),
+    [if test "$enableval" = yes; then
+      AC_DEFINE([TRACE_MEMORY], 1,
+                [Define to 1 to enable primitive memory tracing.])
+     fi
+    ])
+
+AC_ARG_ENABLE(check,
+    AC_HELP_STRING([--enable-check],
+                   [Build the libsbml test suite (default: disabled)]),
+    [libcheck_enabled="$enableval"],
+    [libcheck_enabled=${libcheck_enabled="no"}])
+
+
+dnl ---------------------------------------------------------------------------
 dnl Checks for programs.
 dnl ---------------------------------------------------------------------------
 
@@ -85,21 +105,14 @@ AC_PROG_CPP
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
-AC_ARG_ENABLE(memory-tracing,
-  AC_HELP_STRING([--enable-memory-tracing],
-                 [Turn on memory tracing (default: off)]),
-    [if test "$enableval" = yes; then
-      AC_DEFINE([TRACE_MEMORY], 1,
-                [Define to 1 to enable primitive memory tracing.])
-     fi
-    ])
-
 
 dnl ---------------------------------------------------------------------------
 dnl Check host operating system.
 dnl ---------------------------------------------------------------------------
 
 dnl AC_CANONICAL_HOST
+
+TestDataDirectory="\$(srcdir)"
 
 case "$host_os" in
   *linux*)
@@ -113,9 +126,15 @@ case "$host_os" in
   *cygwin*)
     AM_CPPFLAGS="-DWIN32 -DCYGWIN -DLIBSBML_EXPORTS"
     ;;
+
+  *darwin*)
+    AM_CPPFLAGS="-DMACOSX"
+    TestDataDirectory=".."
+    ;;
 esac
 
 AC_SUBST(AM_CPPFLAGS)
+AC_SUBST(TestDataDirectory)
 
 
 dnl ---------------------------------------------------------------------------
@@ -123,7 +142,12 @@ dnl Checks for libraries.
 dnl ---------------------------------------------------------------------------
 
 AC_LANG(C)
-AC_CHECK_LIB(check, srunner_create)
+
+if test "$libcheck_enabled" = "yes"; then
+  AC_CHECK_LIB(check, srunner_create)
+fi
+
+AC_CHECK_LIB(m, isnan)
 
 SBML_CHECK_LIB_XERCESC
 
@@ -158,6 +182,7 @@ dnl ---------------------------------------------------------------------------
 dnl Output
 dnl ---------------------------------------------------------------------------
 
+AM_CONDITIONAL(LIBCHECK_ENABLED, test "$libcheck_enabled" = "yes")
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/Makefile])
@@ -173,14 +198,17 @@ if test -f "VERSION.txt"; then
     LIBSBML_VERSION=[`cat VERSION.txt`]
 fi
 
-echo
+echo ""
 echo "Build Settings for libsbml v${LIBSBML_VERSION}:"
+echo "----------------------------------"
 echo "  host os     = $host_os"
 echo "  install dir = $prefix"
+echo "  test suite  = $libcheck_enabled"
 echo "  CC          = $CC"
 echo "  CXX         = $CXX"
 echo "  CFLAGS      = $CFLAGS"
 echo "  CXXFLAGS    = $CXXFLAGS"
 echo "  CPPFLAGS    = $CPPFLAGS $AM_CPPFLAGS"
 echo "  LDFLAGS     = $LDFLAGS"
-echo
+echo "  LIBS        = $LIBS"
+echo ""
