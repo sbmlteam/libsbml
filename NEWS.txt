@@ -5,6 +5,19 @@
 
 * New Features:
 
+    - XML namespace definitions may be retrieved from or added to any
+      SBML object.  It's good practice, however, to put namespaces
+      only on the top-level <sbml> element.  For example:
+
+        SBMLDocument d;
+        d.getNamespaces().add("jd", "http://www.sbml.org/2001/ns/jdesigner");
+
+      To find out if an SBML object (XML element) has any namespaces
+      defined, use hasNamespaces(), for e.g.:
+
+        if (d.hasNamespaces()) ...
+
+
 * Bug Fixes:
 
     - <csymbol> delay functions were being handled incorrectly
@@ -36,8 +49,17 @@
       when checking L1 models.  Thanks to Jo Matthews, Mike Hucka, and
       Manuel Martin for reporting this bug.
 
+    - XML namespace definitions were not being preserved when writing
+      out an SBML document.  Thanks to Jo Matthews, Michael Lawrence,
+      and Herbert Sauro for reporting this bug.
+
 
 * Changes:
+
+    - The API SBMLDocument.validate() has been deprecated and will be
+      removed in a future release of libSBML.  Use
+      SBMLDocument.checkConsistency() instead.
+
 
 * Released September xx, 2004
 
