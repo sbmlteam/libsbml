@@ -218,6 +218,9 @@ LIBSBML_EXTERN
 void
 Reaction_setName (Reaction_t *r, const char *sname)
 {
+  if (r->name == sname) return;
+
+
   if (r->name != NULL)
   {
     safe_free(r->name);

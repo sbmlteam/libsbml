@@ -145,6 +145,10 @@ START_TEST (test_Reaction_setName)
     fail("Reaction_setName(...) did not make a copy of string.");
   }
 
+  /* Reflexive case (pathological) */
+  Reaction_setName(R, R->name);
+  fail_unless( !strcmp(R->name, name), NULL );
+
   Reaction_setName(R, NULL);
   fail_unless( !Reaction_isSetName(R), NULL );
 
