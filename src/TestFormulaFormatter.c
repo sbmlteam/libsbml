@@ -304,6 +304,7 @@ START_TEST (test_SBML_formulaToString)
     "foo(1, bar, 2^-3)",
     "a / b * c",
     "a / (b * c)",
+    "1 + 2 + 3",
     ""
   };
 
