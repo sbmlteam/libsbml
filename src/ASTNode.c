@@ -50,7 +50,7 @@
  */
 
 
-#include "ASTNode.h"
+#include "sbml/ASTNode.h"
 
 
 /**

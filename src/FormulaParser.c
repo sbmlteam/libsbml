@@ -50,8 +50,8 @@
  */
 
 
-#include "FormulaTokenizer.h"
-#include "FormulaParser.h"
+#include "sbml/FormulaTokenizer.h"
+#include "sbml/FormulaParser.h"
 
 
 /**

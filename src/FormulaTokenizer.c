@@ -50,8 +50,8 @@
  */
 
 
-#include "ctype.h"
-#include "FormulaTokenizer.h"
+#include <ctype.h>
+#include "sbml/FormulaTokenizer.h"
 
 
 /**
