@@ -67,6 +67,17 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
 
+%ignore SBMLDocument::printWarnings;
+%ignore SBMLDocument::printErrors;
+%ignore SBMLDocument::printFatals;
+
+%ignore ASTNode(Token_t*);
+%ignore ASTNode::getListOfNodes;
+%ignore ASTNode::fillListOfNodes;
+
+%ignore ListOf::find;
+%ignore ListOf::countIf;
+
 
 %include "std_string.i"
 
