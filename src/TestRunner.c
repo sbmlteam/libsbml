@@ -71,6 +71,7 @@ Suite *create_suite_List                     (void);
 Suite *create_suite_Model                    (void);
 Suite *create_suite_Parameter                (void);
 Suite *create_suite_ParameterRule            (void);
+Suite *create_suite_ParseMessage             (void);
 Suite *create_suite_Reaction                 (void);
 Suite *create_suite_Rule                     (void);
 Suite *create_suite_RuleType                 (void);
@@ -155,6 +156,7 @@ main (void)
   srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_Parameter                () );
   srunner_add_suite( runner, create_suite_ParameterRule            () );
+  srunner_add_suite( runner, create_suite_ParseMessage             () );
   srunner_add_suite( runner, create_suite_Reaction                 () );
   srunner_add_suite( runner, create_suite_Rule                     () );
   srunner_add_suite( runner, create_suite_RuleType                 () );
