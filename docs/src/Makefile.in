@@ -94,6 +94,7 @@ extra_clean = \
 	$(addprefix libsbml-api-ref.,$(tex_clean)) 
 
 extra_distclean = \
+	$(all_generated_files) \
 	libsbml-manual.ps \
 	$(formatted)/libsbml-manual.ps \
 	libsbml-api-ref.ps \
