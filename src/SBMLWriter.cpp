@@ -50,8 +50,6 @@
  */
 
 
-#include "sbml/common.h"
-
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 #include <xercesc/framework/MemBufFormatTarget.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
@@ -103,6 +101,7 @@ CharacterEncoding_toString (CharacterEncoding_t ce)
  * By default the character encoding is ISO 8859-1
  * (CHARACTER_ENCODING_ISO_8859_1).
  */
+LIBSBML_EXTERN
 SBMLWriter_t *
 SBMLWriter_create (void)
 {
@@ -118,6 +117,7 @@ SBMLWriter_create (void)
 /**
  * Frees the given SBMLWriter.
  */
+LIBSBML_EXTERN
 void
 SBMLWriter_free (SBMLWriter_t *sw)
 {
@@ -130,6 +130,7 @@ SBMLWriter_free (SBMLWriter_t *sw)
  *
  *  - encoding = CHARACTER_ENCODING_ISO_8895_1
  */
+LIBSBML_EXTERN
 void
 SBMLWriter_initDefaults (SBMLWriter_t *sw)
 {
@@ -144,6 +145,7 @@ SBMLWriter_initDefaults (SBMLWriter_t *sw)
  * @return 1 on success and 0 on failure (e.g., if filename could not be
  * opened for writing or the SBMLWriter character encoding is invalid).*
  */
+LIBSBML_EXTERN
 int
 SBMLWriter_writeSBML ( SBMLWriter_t   *sw,
                        SBMLDocument_t *d,
@@ -199,6 +201,7 @@ SBMLWriter_writeSBML ( SBMLWriter_t   *sw,
  * @return NULL on failure (e.g., if the SBMLWriter character encoding is
  * invalid).
  */
+LIBSBML_EXTERN
 char *
 SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, SBMLDocument_t *d)
 {
@@ -254,6 +257,7 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, SBMLDocument_t *d)
  * @return 1 on success and 0 on failure (e.g., if filename could not be
  * opened for writing or the SBMLWriter character encoding is invalid).
  */
+LIBSBML_EXTERN
 int
 writeSBML (SBMLDocument_t *d, const char *filename)
 {
@@ -280,6 +284,7 @@ writeSBML (SBMLDocument_t *d, const char *filename)
  * @return NULL on failure (e.g., if the SBMLWriter character encoding is
  * invalid).
  */
+LIBSBML_EXTERN
 char *
 writeSBMLToString (SBMLDocument_t *d)
 {
