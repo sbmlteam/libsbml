@@ -74,12 +74,26 @@ AC_DEFUN(CONFIG_LIB_EXPAT,
     if test $with_expat != yes; then
       EXPAT_CPPFLAGS="-I$with_expat/include -I\$(top_srcdir)/expat"
       EXPAT_LDFLAGS="-L$with_expat/lib"
+    else
+      dnl On the Macs, if the user has installed expat via Fink and they
+      dnl used the default Fink install path of /sw, the following should
+      dnl catch it.  We do this so that Mac users are more likely to find
+      dnl success even if they only type --with-expat.
+
+      case $host in
+      *darwin*) 
+        EXPAT_CPPFLAGS="-I/sw/include -I\$(top_srcdir)/expat"
+        EXPAT_LDFLAGS="-L/sw/lib"
+	;;
+      esac    
+
     fi
 
     EXPAT_LIBS="-lexpat"
 
     dnl The following is grungy but I don't know how else to make 
-    dnl AC_CHECK_LIB use particular library and include paths.
+    dnl AC_CHECK_LIB use particular library and include paths without
+    dnl permanently resetting CPPFLAGS etc.
 
     tmp_CPPFLAGS=$CPPFLAGS
     tmp_LDFLAGS=$LDFLAGS
@@ -92,7 +106,7 @@ AC_DEFUN(CONFIG_LIB_EXPAT,
 
     if test $expat_found = no; then
       AC_MSG_ERROR([Could not find the Expat XML library.])
-    fi
+    fi       
 
     AC_CHECK_HEADERS(expat.h, [expat_found=yes], [expat_found=no])
 
