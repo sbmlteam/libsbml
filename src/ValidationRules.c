@@ -232,6 +232,20 @@ isKindOfSubstance(const char *unitsName)
 
 
 static
+BOOLEAN
+isKindOfTime(const char *unitsName)
+{
+  return
+    unitsName != NULL
+    && (
+      streq(unitsName, "time")
+      ||
+      streq(unitsName, "second")
+    );
+}
+
+
+static
 unsigned int
 unitDefinitionIsVariantOf(
   UnitDefinition_t *ud,
@@ -316,10 +330,25 @@ isSubstanceOrVariant(Model_t *m, const char *unitName)
 {
   UnitDefinition_t *ud = Model_getUnitDefinitionById(m, unitName);
 
+
   return
     isKindOfSubstance(unitName)
     ||
     unitDefinitionIsVariantOf(ud, isSubstanceKind, 1);
+}
+
+
+static
+BOOLEAN
+isTimeOrVariant(Model_t *m, const char *unitName)
+{
+  UnitDefinition_t *ud = Model_getUnitDefinitionById(m, unitName);
+
+
+  return
+    isKindOfTime(unitName)
+    ||
+    unitDefinitionIsVariantOf(ud, isSecond, 1);
 }
 
 
@@ -1534,6 +1563,37 @@ RULE (reaction_kineticLawSubstanceUnits)
 
 
 /**
+ * The timeUnits attribute must contain either 'time', 'second' or the values
+ * of id attributes of unitDefinition elements that define variants (i.e. have
+ * only arbitrary scale, multiplier and offset values) of 'second'.
+ */
+RULE (reaction_kineticLawTimeUnits)
+{
+  static const char msg[] =
+    "A kineticLaw's timeUnits must be 'time', 'second', or the id of a "
+    "unitDefnition that defines a variant of 'second' with exponent=1.";
+  BOOLEAN passed = TRUE;
+
+
+  Reaction_t *r = (Reaction_t *) obj;
+  if (Reaction_isSetKineticLaw(r))
+  {
+    KineticLaw_t *kl = Reaction_getKineticLaw(r);
+    if (KineticLaw_isSetTimeUnits(kl))
+    {
+      if (!isTimeOrVariant(d->model, KineticLaw_getTimeUnits(kl)))
+      {
+        LOG_MESSAGE(msg);
+        passed = FALSE;
+      }
+    }
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -1582,5 +1642,6 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, reaction_speciesReferenceExists,
                                                         SBML_REACTION        );
   Validator_addRule( v, reaction_kineticLawSubstanceUnits,
-                                                        SBML_REACTION       );
+                                                        SBML_REACTION        );
+  Validator_addRule( v, reaction_kineticLawTimeUnits,   SBML_REACTION        );
 }
