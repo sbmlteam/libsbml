@@ -496,6 +496,36 @@ allSpeciesReferenceIdsIn(Reaction_t *r)
   return result;
 }
 
+/*
+ * Caller owns result.
+ */
+/* TODO: move this to Reaction_t. */
+static 
+List_t *
+allSpeciesReferencesIn(Reaction_t *r)
+{
+  List_t *result = List_create();
+  unsigned int i;
+
+  { /* collect reactant speciesReferences */
+    int numReactants = Reaction_getNumReactants(r);
+    for (i = 0; i < numReactants; i++)
+    {
+      List_add(result, (void *) Reaction_getReactant(r, i));
+    }
+  }
+
+  { /* collect product speciesReferences */
+    int numProducts = Reaction_getNumProducts(r);
+    for (i = 0; i < numProducts; i++)
+    {
+      List_add(result, (void *) Reaction_getProduct(r, i));
+    }
+  }
+
+  return result;
+}
+
 
 static
 BOOLEAN
@@ -1470,7 +1500,7 @@ RULE (parameter_units)
 RULE (reaction_speciesReference)
 {
   static const char msg[] =
-    "A reaction must contain one speciesReference, in its products, "
+    "A reaction must contain at least one speciesReference, in its products, "
     "reactants, or modifiers.";
 
   Reaction_t *r = (Reaction_t *) obj;
@@ -1526,6 +1556,56 @@ RULE (reaction_speciesReferenceExists)
   }
 
   List_free(speciesReferenceIds);
+  return passed;
+}
+
+
+/**
+ * The 'stoichiometry' and 'stoichiometryMath' fields are mutually exclusive.
+ * Can't detect this because stoichiometry is a double in SpeciesReference_t.
+ * Using partial coverage: if stoichiometryMath is set and stoichiometry is
+ * not 1, that will trigger a validation error. --Ben Kovitz
+ */
+RULE (reaction_stoichiometry)
+{
+  static const char msg[] =
+    "Reaction '%s' contains a speciesReference (to '%s'), which contains both "
+    "a 'stoichiometry' attribute and a 'stoichiometryMath' attribute.";
+
+  Reaction_t *r = (Reaction_t *) obj;
+  BOOLEAN passed = TRUE;
+
+  List_t *speciesReferences = allSpeciesReferencesIn(r);
+  unsigned int numReferences = List_size(speciesReferences);
+  unsigned int i;
+
+
+  for (i = 0; i < numReferences; i++)
+  {
+    const SpeciesReference_t *sr =
+        (const SpeciesReference_t *)List_get(speciesReferences, i);
+
+
+    if (
+      SpeciesReference_isSetStoichiometryMath(sr)
+      &&
+      SpeciesReference_getStoichiometry(sr) != 1
+    )
+    {
+      char buf[512];
+
+      const char *species = SpeciesReference_getSpecies(sr);
+      if (!species)
+      {
+        species = "(unknown)";
+      }
+      sprintf(buf, msg, Reaction_getId(r), SpeciesReference_getSpecies(sr));
+      LOG_MESSAGE(buf);
+      passed = FALSE;
+    }
+  }
+
+  List_free(speciesReferences);
   return passed;
 }
 
@@ -1594,6 +1674,13 @@ RULE (reaction_kineticLawTimeUnits)
 
 
 /**
+ * The variable attribute of a rule element must contain the value of a id
+ * attribute of a compartment, species, or parameter element. The constant
+ * attribute of the compartment, species, or parameter element must be false.
+ */
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -1641,6 +1728,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, reaction_speciesReference,      SBML_REACTION        );
   Validator_addRule( v, reaction_speciesReferenceExists,
                                                         SBML_REACTION        );
+  Validator_addRule( v, reaction_stoichiometry,         SBML_REACTION        );
   Validator_addRule( v, reaction_kineticLawSubstanceUnits,
                                                         SBML_REACTION        );
   Validator_addRule( v, reaction_kineticLawTimeUnits,   SBML_REACTION        );
