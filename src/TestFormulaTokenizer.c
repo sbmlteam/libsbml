@@ -84,6 +84,7 @@ START_TEST (test_Token_create)
   fail_unless( t->value.name    == NULL      , NULL );
   fail_unless( t->value.integer == 0         , NULL );
   fail_unless( t->value.real    == 0.0       , NULL );
+  fail_unless( t->exponent      == 0         , NULL );
 
   Token_free(t);
 }
@@ -310,45 +311,62 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_numbers_exp)
 {
-  const char         *formula = "12.3e1 .314E1 7e-3 .067e2 5E0 2e+12 3e";
+  const char         *formula = "12.3e1 .314E1 7e-3 .067e2 5E0 2e+12 3e 4";
   FormulaTokenizer_t *ft      = FormulaTokenizer_create(formula);
   Token_t            *t;
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 123    , NULL );
+  fail_unless( t->type       == TT_REAL_E, NULL );
+  fail_unless( t->value.real == 12.3, NULL );
+  fail_unless( t->exponent   == 1   , NULL );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 3.14   , NULL );
+  fail_unless( t->type       == TT_REAL_E, NULL );
+  fail_unless( t->value.real == .314, NULL );
+  fail_unless( t->exponent   == 1   , NULL );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == .007   , NULL );
+  fail_unless( t->type       == TT_REAL_E, NULL );
+  fail_unless( t->value.real ==  7, NULL );
+  fail_unless( t->exponent   == -3, NULL );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 6.7    , NULL );
+  fail_unless( t->type       == TT_REAL_E, NULL );
+  fail_unless( t->value.real == .067, NULL );
+  fail_unless( t->exponent   == 2   , NULL );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 5.0    , NULL );
+  fail_unless( t->type       == TT_REAL_E, NULL );
+  fail_unless( t->value.real == 5.0, NULL );
+  fail_unless( t->exponent   == 0  , NULL );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 2e12   , NULL );
+  fail_unless( t->type       == TT_REAL_E, NULL );
+  fail_unless( t->value.real == 2 , NULL );
+  fail_unless( t->exponent   == 12, NULL );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 3.0    , NULL );
+  fail_unless( t->type       == TT_REAL_E, NULL );
+  fail_unless( t->value.real == 3.0, NULL );
+  fail_unless( t->exponent   == 0  , NULL );
   Token_free(t);
+
+  /**
+   * Gobble-up the '4'.  This last token is here as a test to ensure the
+   * previous token is not interpreted as 3e4.
+   */
+  t = FormulaTokenizer_nextToken(ft);
+  fail_unless( t->type          == TT_INTEGER, NULL );
+  fail_unless( t->value.integer == 4, NULL );
+  Token_free(t);
+
 
   t = FormulaTokenizer_nextToken(ft);
   fail_unless(t->type == TT_END, NULL);
