@@ -54,14 +54,13 @@
 #define UnitDefinition_h
 
 
+#include "common.h"
 #include "List.h"
 #include "SBase.h"
 #include "Unit.h"
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+BEGIN_C_DECLS
 
 
 typedef struct
@@ -75,6 +74,7 @@ typedef struct
 /**
  * Creates a new UnitDefinition and returns a pointer to it.
  */
+LIBSBML_EXTERN
 UnitDefinition_t *
 UnitDefinition_create (void);
 
@@ -84,43 +84,63 @@ UnitDefinition_create (void);
  *
  *   UnitDefinition_setName(UnitDefinition_create(), sname);
  */
+LIBSBML_EXTERN
 UnitDefinition_t *
 UnitDefinition_createWith (const char *sname);
 
 /**
  * Frees the given UnitDefinition.
  */
+LIBSBML_EXTERN
 void
 UnitDefinition_free (UnitDefinition_t *ud);
+
+
+/**
+ * @return the name of this UnitDefinition.
+ */
+LIBSBML_EXTERN
+const char *
+UnitDefinition_getName (const UnitDefinition_t *ud);
+
+/**
+ * @return 1 if the name of this UnitDefinition has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isSetName (const UnitDefinition_t *ud);
 
 /**
  * Sets the name field of this UnitDefinition to a copy of sname.
  */
+LIBSBML_EXTERN
 void
-UnitDefinition_setName(UnitDefinition_t *ud, const char *sname);
+UnitDefinition_setName (UnitDefinition_t *ud, const char *sname);
+
 
 /**
  * Adds the given Unit to this UnitDefinition.
  */
+LIBSBML_EXTERN
 void
-UnitDefinition_addUnit(UnitDefinition_t *ud, Unit_t *u);
+UnitDefinition_addUnit (UnitDefinition_t *ud, Unit_t *u);
 
 /**
  * @return the nth Unit of this UnitDefinition.
  */
+LIBSBML_EXTERN
 Unit_t *
-UnitDefinition_getUnit(const UnitDefinition_t *ud, unsigned int n);
+UnitDefinition_getUnit (const UnitDefinition_t *ud, unsigned int n);
 
 /**
  * @return the number of Units in this UnitDefinition.
  */
+LIBSBML_EXTERN
 unsigned int
-UnitDefinition_getNumUnits(const UnitDefinition_t *ud);
+UnitDefinition_getNumUnits (const UnitDefinition_t *ud);
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** UnitDefinition_h **/

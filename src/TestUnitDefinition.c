@@ -83,6 +83,8 @@ START_TEST (test_UnitDefinition_create)
   fail_unless( UD->annotation == NULL, NULL );
   fail_unless( UD->name       == NULL, NULL );
 
+  fail_unless( !UnitDefinition_isSetName(UD), NULL );
+
   fail_unless(UnitDefinition_getNumUnits(UD) == 0, NULL);
 }
 END_TEST
@@ -99,7 +101,9 @@ START_TEST (test_UnitDefinition_createWith)
 
   fail_unless( !strcmp(ud->name, "mmls"), NULL );
 
-  fail_unless(UnitDefinition_getNumUnits(UD) == 0, NULL);
+  fail_unless(UnitDefinition_isSetName(ud), NULL);
+
+  fail_unless(UnitDefinition_getNumUnits(ud) == 0, NULL);
 
   UnitDefinition_free(ud);
 }
@@ -120,7 +124,8 @@ START_TEST (test_UnitDefinition_setName)
 
   UnitDefinition_setName(UD, name);
 
-  fail_unless( !strcmp(UD->name, name), NULL );
+  fail_unless( !strcmp(UD->name, name)     , NULL );
+  fail_unless( UnitDefinition_isSetName(UD), NULL );
 
   if (UD->name == name)
   {
@@ -128,6 +133,7 @@ START_TEST (test_UnitDefinition_setName)
   }
 
   UnitDefinition_setName(UD, NULL);
+  fail_unless( !UnitDefinition_isSetName(UD), NULL );
 
   if (UD->name != NULL)
   {
@@ -151,6 +157,7 @@ START_TEST (test_UnitDefinition_getUnit)
   Unit_t *mole   = Unit_create();
   Unit_t *litre  = Unit_create();
   Unit_t *second = Unit_create();
+
 
   mole->kind   = UnitKind_forName("mole");
   litre->kind  = UnitKind_forName("litre");
