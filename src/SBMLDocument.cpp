@@ -386,14 +386,25 @@ SBMLDocument::checkConsistency ()
   Validator_t*  v = Validator_createDefault();
 
 
-  /* HACK: The Validator uses 'id' instead of 'name', irrespective of Level. */
-  if (level == 1) getModel()->moveAllNamesToIds();
+  if (getModel() == NULL)
+  {
+    List_add( &error, ParseMessage_createWith("No model present.", 0, 0) );
+    nerrors = 1;
+  }
+  else
+  {
+    /**
+     * HACK: Currently, the Validator uses 'id' instead of 'name',
+     * irrespective of Level.
+     */
+    if (level == 1) getModel()->moveAllNamesToIds();
 
-  nerrors = Validator_validate(v, (SBMLDocument_t*) this, (List_t*) &error);
-  Validator_free(v);
+    nerrors = Validator_validate(v, (SBMLDocument_t*) this, (List_t*) &error);
+    Validator_free(v);
 
-  /* HACK: Change back... */
-  if (level == 1) getModel()->moveAllIdsToNames();
+    /* HACK: Change back... */
+    if (level == 1) getModel()->moveAllIdsToNames();
+  }
 
   return nerrors;
 }
