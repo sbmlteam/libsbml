@@ -50,7 +50,6 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/Rule.h"
 
 
@@ -62,6 +61,7 @@
  *
  * This function also calls its "parent", SBase_init().
  */
+LIBSBML_EXTERN
 void
 Rule_init (Rule_t *r, SBMLTypeCode_t tc)
 {
@@ -74,6 +74,7 @@ Rule_init (Rule_t *r, SBMLTypeCode_t tc)
  * Clears (frees) RULE_FIELDS of this Rule "subclass".  This function also
  * calls its "parent", SBase_clear().
  */
+LIBSBML_EXTERN
 void
 Rule_clear (Rule_t *r)
 {
@@ -85,8 +86,31 @@ Rule_clear (Rule_t *r)
 
 
 /**
+ * @return the formula for this Rule.
+ */
+LIBSBML_EXTERN
+const char *
+Rule_getFormula (const Rule_t *r)
+{
+  return r->formula;
+}
+
+
+/**
+ * @return 1 if the formula for this Rule has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Rule_isSetFormula (const Rule_t *r)
+{
+  return (r->formula != NULL);
+}
+
+
+/**
  * Sets the formula field of this Rule to a copy of string.
  */
+LIBSBML_EXTERN
 void
 Rule_setFormula (Rule_t *r, const char *string)
 {
@@ -96,4 +120,17 @@ Rule_setFormula (Rule_t *r, const char *string)
   }
 
   r->formula = (string == NULL) ? NULL : safe_strdup(string);
+}
+
+
+/**
+ * Unsets the formula for this Rule.  This is equivalent to:
+ * safe_free(r->formula); r->formula = NULL;
+ */
+LIBSBML_EXTERN
+void
+Rule_unsetFormula (Rule_t *r)
+{
+  safe_free(r->formula);
+  r->formula = NULL;
 }

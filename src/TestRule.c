@@ -109,6 +109,7 @@ START_TEST (test_Rule_setFormula)
   Rule_setFormula(R, formula);
 
   fail_unless( !strcmp(R->formula, formula), NULL );
+  fail_unless( Rule_isSetFormula(R), NULL );
 
   if (R->formula == formula)
   {
@@ -116,6 +117,7 @@ START_TEST (test_Rule_setFormula)
   }
 
   Rule_setFormula(R, NULL);
+  fail_unless( !Rule_isSetFormula(R), NULL );
 
   if (R->formula != NULL)
   {
