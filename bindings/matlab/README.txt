@@ -1,7 +1,7 @@
       matlab binding for libsbml
 %
 %  Filename    : README.txt
-%  Description : Readme for TranslateSBML teh matlab libsbml binding
+%  Description : Readme for TranslateSBML the matlab libsbml binding
 %  Author(s)   : SBML Development Group <sbml-team@caltech.edu>
 %  Organization: University of Hertfordshire STRC
 %  Created     : 2003-09-15
@@ -64,9 +64,8 @@
 1.  Introduction
 ----------------
 
-The binding provides a Matlab function (TranslateSBML) that imports an SBML model into the Matlab environment as a Matlab structure.
-
-
+The binding provides a Matlab function (TranslateSBML) that imports an SBML
+model into the Matlab environment as a Matlab structure.
 
 
 ----------------
@@ -85,13 +84,18 @@ This will start Matlab and run a script that
 
   1) adds the directory to the matlab search path
 
-  2) 	checks whether the necessary libraries are on 	the PATH and if not copies the files to the 		matlabroot\bin\win32 directory as this must be 		on the PATH if matlab is installed.
+  2) checks whether the necessary libraries are on the PATH and if not
+     copies the files to the matlabroot\bin\win32 directory as this must be
+     on the PATH if matlab is installed.
 
-  3)	Prompts user to close Matlab
+  3) Prompts user to close Matlab
 
-The TranslateSBML executable is provided with the download and it is not necessary to build it in order to use it. However the script BuildTranslate_Win32 can be used within matlab to build TranslateSBML.dll provided the C compiler that Matlab uses is compatible (Working on this!)
+The TranslateSBML executable is provided with the download and it is not
+necessary to build it in order to use it. However the script
+BuildTranslate_Win32 can be used within matlab to build TranslateSBML.dll
+provided the C compiler that Matlab uses is compatible (Working on this!)
 
- (Use mex -setup in MATLAB to chose a default compiler)
+(Use mex -setup in MATLAB to chose a default compiler)
 
 
 
@@ -129,7 +133,8 @@ To build:
 
 To run:
 
-  Ensure the directory containing TranslateSBML.mexglx is in your Matlab path.  For example, at the Matlab prompt:
+  Ensure the directory containing TranslateSBML.mexglx is in your Matlab
+  path.  For example, at the Matlab prompt:
 
     >> addpath('bindings/matlab');
 
@@ -141,8 +146,6 @@ If you have any questions or problems with the above install
 procedure, please email Ben Bornstein (bornstei@caltech.edu).  In a
 future release of libsbml, this procedure will be integrated with the
 top-level build ('configure') script.
-
-
 
 
 ------------
@@ -167,6 +170,6 @@ COPYING.txt.
 
 
 -------------------------------------------
-  File author: S. Keating
+File author: S. Keating
 Last Modified: 2004/03/29 
 -------------------------------------------
