@@ -1,13 +1,12 @@
-/*
- * Filename    : ExpatAttributes.cpp
- * Description : Attributes wrapper class
- * Author(s)   : Stefan Hoops <shoops@vt.edu>
- * Organization: Virginia Bioinformatics Institute
- * Created     : 2003-08-29
- * Revision    : $Id$
- * Source      : $Source$
- * 
- * Copyright (c) 2003 Stefan Hoops
+/**
+ * \file    ExpatAttributes.cpp
+ * \brief   Attributes wrapper class
+ * \author  Stefan Hoops <shoops@vt.edu>
+ *
+ * $Id$
+ * $Source$
+ */
+/* Copyright (c) 2003 Stefan Hoops
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -34,8 +33,8 @@
  */
 
 
-#include <string.h>
-#include "ExpatAttributes.hpp"
+#include <cstring>
+#include "ExpatAttributes.h"
 
 
 Attributes::Attributes() :

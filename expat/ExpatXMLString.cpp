@@ -1,13 +1,12 @@
-/*
- * Filename    : ExpatXMLString.cpp
- * Description : XMLString class
- * Author(s)   : Stefan Hoops <shoops@vt.edu>
- * Organization: Virginia Bioinformatics Institute
- * Created     : 2003-08-29
- * Revision    : $Id$
- * Source      : $Source$
- * 
- * Copyright (c) 2003 Stefan Hoops
+/**
+ * \file    ExpatXMLString.cpp
+ * \brief   XMLString class
+ * \author  Stefan Hoops <shoops@vt.edu>
+ *
+ * $Id$
+ * Source$
+ */
+/* Copyright (c) 2003 Stefan Hoops
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -34,8 +33,8 @@
  */
 
 
-#include <string.h>
-#include "ExpatXMLString.hpp"
+#include <cstring>
+#include "ExpatXMLString.h"
 
 
 XML_Char* 

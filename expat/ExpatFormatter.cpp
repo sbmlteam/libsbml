@@ -1,13 +1,12 @@
-/*
- * Filename    : ExpatFormatter.cpp
- * Description : XMLFormatter class for output (source)
- * Author(s)   : Stefan Hoops <shoops@vt.edu>
- * Organization: Virginia Bioinformatics Institute
- * Created     : 2003-08-29
- * Revision    : $Id$
- * Source      : $Source$
- * 
- * Copyright (c) 2003 Stefan Hoops
+/**
+ * \file    ExpatFormatter.cpp
+ * \brief   XMLFormatter class for output (source)
+ * \author  Stefan Hoops <shoops@vt.edu>
+ *
+ * $Id$
+ * $Source$
+ */
+/* Copyright (c) 2003 Stefan Hoops
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -36,7 +35,7 @@
 #include <iostream>
 #include <expat.h>
 
-#include "ExpatFormatter.hpp"
+#include "ExpatFormatter.h"
 
 
 XMLFormatter::XMLFormatter():
