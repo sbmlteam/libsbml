@@ -1,20 +1,121 @@
            libsbml NEWS -- History of user-visible changes
 
-=== Version 2.x.y ===
+
+=== Version 2.1.0 ===
+
+* New Features:
+
+    - C++
+
+      While it's always been possible to call the C API from C++ code,
+      this version of libSBML features a true object-oriented API that
+      mirrors the SBML specifications.  To get a feel for the C++ API,
+      see src/TestReadFromFile5.cpp.
+
+      For those that prefer the straight C API, it's still available
+      and over 730 unit tests prove its backward compatible with
+      previous releases.
+
+    - Java
+
+      A full libSBML Java API is also available.  See:
+
+        docs/formatted/java.txt  -  For more information
+        bindings/java/Test.java  -  For example code
+
+    - Python
+
+      A full libSBML Python API is also available. See:
+
+        docs/formatted/python.txt  -  For more information
+        bindings/python/accept.py  -  For example code
+
+
+    - Validation Engine / Consistency Checks
+
+      In addition to validating an SBML document against the SBML XML
+      Schema, we've added a (customizable) validation engine.
+
+      Currently libSBML comes pre-configured with 39 consistency check
+      rules described at:
+
+        http://sbml.org/wiki/Semantic_Validation
+
+      To test whether or not an SBML document violates any of these
+      consistency checks, simply load an SBML document, d, and call:
+
+        SBMLDocument_validate(d)  -  C
+        d.validate()              -  C++, Java, Python
+
+      Every violation adds an error message to the SBML document
+      (accessible with getNumErrors() and getError()) and validate()
+      returns the total number of errors found.
+
+      The ability to add your own rules is still a bit rough around
+      the edges.  The API was started before libSBML was ported to
+      C++, so new rules must be written in C or C++ (no Java or
+      Python).  If you're interested, please see
+      src/ValidationRules.c.
+
+
+    - Additional Convenience Functions:
+
+      It's now possible retrieve objects from a Model either via their
+      ordinal position or their SId.  In C++, Java, and Python the
+      same method name is overloaded to take either an integer or a
+      string:
+
+        int   n;
+        Model m;
+
+        m.getXXX(n);
+        m.getXXX("SomeSId");
+
+      In C, two separate functions are provided:
+
+        Model_getXXX(n);
+        Model_getXXXById("SomeSId");
+
 
 * Bug Fixes:
+
+    - All bugs reported for the libSBML betas, 2.0.4 and 2.0.5, have
+      been fixed.
+
+    - Infix formula strings with grouped non-associative operators of
+      the same precedence were being formatted incorrectly.  That is:
+
+        "a - (b - c)"  ->  "a - b - c"
+        "a - (b / c)"  ->  "a / b / c"
+
+      To be clear, the formula string would parse correctly, but would
+      be written out incorrectly.  Thanks to Rainer Machne for
+      reporting this bug.
+
+    - Double precision numbers (in attribute values, infix formulas,
+      or MathML) were being printed to a maximum precision of six
+      digits.  This artifically low limit has been increased to 15
+      digits (the maximum precision possible for an IEEE-754 doubles).
+      Thanks to Tatsuya Ishida for reporting this bug.
+
+    - MathML incorrectly nested inside <notes> or <annotation>
+      elements would cause libSBML to crash.  Thanks to Adam Halasz
+      reporting this bug.
+
+    - Negative numbers in MathML <cn> elements were being incorrectly
+      parsed.  Thanks to Nadia Ugel and Victoria Gor, both of whom
+      independently discovered and reported this bug.
 
     - A <rateRule> element would be written without the closing angle
       bracket (!) if it had a note and/or annotation associated with
       it.  Thanks to Konstantin Kozlov for reporting this bug and
       providing a fix.
 
-    - A MathML expression involving a <csymbol> does not "reduce" to
-      the correct syntax tree when it is the last argument of an
+    - A MathML expression involving a <csymbol> did not "reduce" to
+      the correct syntax tree when it was the last argument of an
       <apply>.  Thanks to Jacek Puchalka for reporting this bug and
       providing a fix.
 
-    - memory.c used global variables.  They needed to be static.
 
 * Changes:
 
@@ -24,7 +125,7 @@
     - Mike Hucka rewrote the entire build/make system.  It no longer uses
       automake or libtool; as a result, it is smaller, leaner and faster.
       Other features include changes to configure to add --with-python,
-      --with-java.
+      --with-java, --with-matlab.
 
     - Mike Hucka updated the libsbml-manual.tex to make it reflect the
       current state of the API.  Mike also created a new LaTeX class file
@@ -40,7 +141,7 @@
       prime-time and we are not yet distributing it as a standard part of
       the regular distributions.
 
-* Released April xx, 2004
+* Released July 23, 2004
 
 
 
