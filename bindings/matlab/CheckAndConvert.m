@@ -68,7 +68,7 @@ Formula = regexprep(Formula, 'arcsinh', 'asinh');
 
 Formula = regexprep(Formula, 'arctanh', 'atanh');
 
-Formula = regexprep(Formula, 'expontiale', 'exp(1)');
+Formula = regexprep(Formula, 'exponentiale', 'exp(1)');
 
 Formula = regexprep(Formula, 'pow', 'power');
 
@@ -115,10 +115,14 @@ for i = 1:length(Index)
 end;
 
 % log(n,x) must become (log(x)/log(n))
+% but log(x) must be left alone
+
+LogTypes = IsItLogBase(Formula);
 Index = strfind(Formula, 'log(');
 
 for i = 1:length(Index)
 
+    if (LogTypes(i) == 1)
     % create a subformula log(n,x)
     SubFormula = '';
     j = 1;
@@ -146,6 +150,59 @@ for i = 1:length(Index)
     
     Formula = strrep(Formula, SubFormula, ReplaceFormula);
     Index = Index + 7;
+    end;
+
+end;
 
 
+function y = IsItLogBase(Formula)
+
+% returns an array of 0/1 indicating whether each occurence of log is
+% a log(n,x) or a log(x)
+% e.g. Formula = 'log(2,3) + log(6)'
+%      IsItLogBase returns y = [1,0]
+
+
+y = 0;
+
+% find log
+
+LogIndex = strfind(Formula, 'log(');
+
+if (isempty(LogIndex))
+    return;
+else
+    OpenBracket = strfind(Formula, '(');
+    Comma = strfind(Formula, ',');
+    CloseBracket = strfind(Formula, ')');
+
+    for i = 1:length(LogIndex)
+        if (isempty(Comma))
+            % no commas so no logbase formulas
+            y(i) = 0;
+        else
+
+            % find the opening bracket
+            Open = find(ismember(OpenBracket, LogIndex(i)+3) == 1);
+
+            % find closing bracket
+            Close = find(CloseBracket > LogIndex(i)+3, 1);
+
+            % is there a comma between
+            Greater = find(Comma > OpenBracket(Open));
+            Less = find(Comma < CloseBracket(Close));
+
+            if (isempty(Greater) || isempty(Less))
+                y(i) = 0;
+            else
+                Equal = find(Greater == Less);
+                if (isempty(Equal))
+                    y(i) = 0;
+                else
+                    y(i) = 1;
+                end;
+            end;
+
+        end;
+    end;
 end;
