@@ -81,7 +81,30 @@
 #include "util.h"
 
 
+/**
+ * The following ifdef block is the standard way of creating macros which
+ * make exporting from a DLL simpler. All files within this DLL are
+ * compiled with the LIBSBML_EXPORTS symbol defined on the command line.
+ * This symbol should not be defined on any project that uses this
+ * DLL. This way any other project whose source files include this file see
+ * LIBSBML_EXTERN functions as being imported from a DLL, wheras this DLL
+ * sees symbols defined with this macro as being exported.
+ *
+ * (From Andrew Finney's sbwdefs.h, with "SBW" replaced by "LIBSBML" :)
+ */
+#if WIN32
+
+#if LIBSBML_EXPORTS
+#  define LIBSBML_EXTERN __declspec(dllexport)
+#else
+#  define LIBSBML_EXTERN __declspec(dllimport)
+#endif
+
+#else
+
 #define LIBSBML_EXTERN
+
+#endif  /* WIN32 */
 
 
 #if __cplusplus
