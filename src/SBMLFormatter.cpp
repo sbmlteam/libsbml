@@ -870,7 +870,7 @@ SBMLFormatter::operator<< (const AssignmentRule& ar)
   //
   attribute(ATTR_VARIABLE, ar.getVariable());
 
-  if ( isEmpty(static_cast<Rule>(ar)) )
+  if ( isEmpty(ar) )
   {
     slashCloseStartElement();
   }
@@ -916,7 +916,7 @@ SBMLFormatter::operator<< (const RateRule& rr)
   //
   attribute(ATTR_VARIABLE, rr.getVariable());
 
-  if ( isEmpty(static_cast<Rule>(rr)) )
+  if ( isEmpty(rr) )
   {
     slashCloseStartElement();
   }
