@@ -68,7 +68,10 @@
 #if !defined(CYGWIN)
 
 #undef  HAVE_LIBCHECK
-#define snprintf _snprintf
+
+#define finite(d) _finite(d)
+#define isnan(d)  _isnan(d)
+#define snprintf  _snprintf
 
 /**
  * Avoids silly MSVC++ warning C4800: 'const int' : forcing value to bool
@@ -108,11 +111,19 @@
 
 #if STDC_HEADERS
 #  include <errno.h>
+#  include <float.h>
 #  include <stdlib.h>
 #  include <string.h>
-#elif HAVE_STRINGS_H
-#  include <strings.h>
 #endif
+
+#if HAVE_MATH_H
+#  include <math.h>
+#endif
+
+#if HAVE_IEEFP_H
+#  include <ieeefp.h>
+#endif
+
 
 #ifndef errno
   extern int errno;
