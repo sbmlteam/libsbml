@@ -73,10 +73,14 @@ thisdir = .
 # used by the default rules in `makefile-common-actions.mk' included at the
 # end.
 
-ifdef USE_EXPAT 
-  subdirs = expat src bindings docs
+ifneq ($(MAKECMDGOALS),dist)
+  ifdef USE_EXPAT 
+    subdirs = expat src bindings docs
+  else
+    subdirs = src bindings docs
+  endif
 else
-  subdirs = src bindings docs
+  subdirs = expat src bindings docs win32
 endif
 
 # Variables `examples' and `xml-schemas' are local variables reused below.
@@ -144,10 +148,8 @@ docs = \
 # `distfile' is the list of files used for creating distributions,
 # something that only the libSBML developers should do.  The list of files
 # here is in addition to the subdirectories listed in `subdirs'.  The
-# latter are the object of `make subdist' and the files that are collected
+# latter are the object of `make dist' and the files that are collected
 # are under the control of the makefiles in the subdirectories.
-
-dist_subdirs = expat src bindings docs win32
 
 distfiles = \
         AUTHORS.txt                                          \
@@ -178,15 +180,16 @@ distfiles = \
 	$(examples)                                          \
 	$(xml-schemas)
 
-# The files listed in `extra_distclean' are items created at compile time
-# in this directory and that need to be removed prior to `make dist'.
+# The files listed in `extra_distclean' are items created by configure or
+# make, and that are removed by the default rules for `make distclean' in
+# makefile-common-actions.mk.
 
 extra_distclean = config.status config.cache config.log autom4te.cache \
 	src/sbml/config.h src/sbml/stamp-h1
 
 
 # -----------------------------------------------------------------------------
-# Primary build actions
+# Primary build actions.
 # -----------------------------------------------------------------------------
 
 # The default rules in `makefile-common-actions.mk' know to interpret goals
@@ -195,7 +198,17 @@ extra_distclean = config.status config.cache config.log autom4te.cache \
 
 all: configure Makefile all-recursive 
 
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
+
 check: check-recursive
+
+
+# -----------------------------------------------------------------------------
+# Formatting documentation.
+# -----------------------------------------------------------------------------
 
 dvi: dvi-recursive
 
@@ -209,7 +222,7 @@ html: html-recursive
 
 
 # -----------------------------------------------------------------------------
-# Installation
+# Installation.
 # -----------------------------------------------------------------------------
 
 install: install-recursive install-docs-recursive install-docs
@@ -246,13 +259,8 @@ remove_distdir = \
 dist dist-gzip: dist-all
 	if test -d $(DISTDIR); then \
 	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(DISTDIR).tar.gz $(notdir $(DISTDIR)); \
+	  $(remove_distdir); \
 	fi
-
-#dist dist-gzip: dist-all
-#	if test -d $(DISTDIR); then \
-#	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(DISTDIR).tar.gz $(notdir $(DISTDIR)); \
-#	  $(remove_distdir); \
-#	fi
 
 dist-all: $(distfiles)
 	@$(remove_distdir)
@@ -277,7 +285,7 @@ dist-all: $(distfiles)
 	    || exit 1; \
 	  fi; \
 	done
-	@list='$(dist_subdirs)'; for subdir in $$list; do \
+	@list='$(subdirs)'; for subdir in $$list; do \
 	  if test "$$subdir" = .; then :; else \
 	    test -d $(DISTDIR)/$$subdir \
 	    || mkdir $(DISTDIR)/$$subdir \
@@ -356,7 +364,7 @@ dist-all: $(distfiles)
 
 
 # -----------------------------------------------------------------------------
-# Miscellaneous
+# Miscellaneous.
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
