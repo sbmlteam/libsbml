@@ -222,6 +222,36 @@ Reaction::isSetFast () const
 
 
 /**
+ * Moves the id field of this Reaction to its name field (iff name is not
+ * already set).  This method is used for converting from L2 to L1.
+ */
+LIBSBML_EXTERN
+void
+Reaction::moveIdToName ()
+{
+  if ( isSetName() ) return;
+
+  setName( getId() );
+  setId  ( "" );
+}
+
+
+/**
+ * Moves the name field of this Reaction to its id field (iff id is not
+ * already set).  This method is used for converting from L1 to L2.
+ */
+LIBSBML_EXTERN
+void
+Reaction::moveNameToId ()
+{
+  if ( isSetId() ) return;
+
+  setId  ( getName() );
+  setName( "" );
+}
+
+
+/**
  * Sets the id of this Reaction to a copy of sid.
  */
 LIBSBML_EXTERN
