@@ -470,14 +470,36 @@
 
 4.0 JAVA TUTORIAL
 
-   @@What path variables need to be set up?
-   CLASSPATH
-   LD_LIBRARY_PATH
-   more?
+   To run Java programs that access libSBML, you must set up
+   the following environment variables.
 
-   OS X:
-   @@aha, the DYLD_LIBRARY_PATH must contain directory
-   containing libsbmlj.jnilib
+   On Linux:
+
+      CLASSPATH
+         must include the "classes" directory in the Java SWIG
+         bindings directory.  For example:
+
+            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/classes
+
+      LD_LIBRARY_PATH
+         must include the directory that contains the
+         libsbmlj.so file.  For example:
+
+            LD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
+
+   On Mac OS X:
+
+      CLASSPATH
+         must include the "classes" directory in the Java SWIG
+         bindings directory.  For example:
+
+            CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/classes
+
+      DYLD_LIBRARY_PATH
+         must include the directory that contains the
+         libsbmlj.jnilib file.  For example:
+
+            DYLD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
 
 
 4.1 A SIMPLE JAVA LIBSBML PROGRAM
