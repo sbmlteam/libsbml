@@ -90,6 +90,21 @@ def testImplicitDowncastOfRule():
    assert r.getVariable() == "x"
    assert r.getFormula()  == "1 + 1"
 
+   assert "AssignmentRule" in r.__class__.__name__
+
+
+def testMoreRuleTypes():
+   model = libsbml.Model()
+
+   model.addRule(libsbml.SpeciesConcentrationRule())
+   model.addRule(libsbml.CompartmentVolumeRule())
+   model.addRule(libsbml.ParameterRule())
+
+   assert "SpeciesConcentrationRule" in model.getRule(0).__class__.__name__
+   assert "CompartmentVolumeRule" in model.getRule(1).__class__.__name__
+   assert "ParameterRule" in model.getRule(2).__class__.__name__
+
+
 
 def testImplicitDowncastOfSBase():
    species = libsbml.Species()

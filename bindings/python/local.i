@@ -64,6 +64,7 @@
   %pythoncode {
 
     def __getitem__(self, key):
+
       if isinstance(key, slice):
         start = key.start
         if start is None:
