@@ -933,6 +933,34 @@ RULE (species_initialConcentrationZeroSpatialDimensions)
 
 
 /**
+ * The initialConcentration and initialAmount attributes must not be present
+ * on the same element at the same time.
+ */
+RULE (species_initialConcentrationInitialAmount)
+{
+  static const char msg[] =
+    "A species may not have both an initialConcentration and an initialAmount.";
+  unsigned int passed = 1;
+
+  Species_t *s = (Species_t *) obj;
+
+
+  printf("isSetInitialConcentration: %d\n", Species_isSetInitialConcentration(s)); //DEBUG
+  printf("isSetInitialAmount: %d\n", Species_isSetInitialAmount(s)); //DEBUG
+  if (
+    Species_isSetInitialConcentration(s)
+    &&
+    Species_isSetInitialAmount(s)
+  ) {
+    LOG_MESSAGE(msg);
+    passed = 0;
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -964,4 +992,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, species_initialConcentrationSubstanceUnits,
                                                        SBML_SPECIES         );
   Validator_addRule( v, species_initialConcentrationZeroSpatialDimensions,
-                                                       SBML_SPECIES         ); }
+                                                       SBML_SPECIES         );
+  Validator_addRule( v, species_initialConcentrationInitialAmount,
+                                                       SBML_SPECIES         );
+}
