@@ -1,4 +1,4 @@
-# generated automatically by aclocal 1.7.6 -*- Autoconf -*-
+# generated automatically by aclocal 1.7.2 -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002
 # Free Software Foundation, Inc.
@@ -253,11 +253,6 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
     dnl This comes in part from SWIG 1.3.31's configure.ac file.
 
     case $host in
-    *cygwin* | *mingw*) 
-	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
-	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}"
-        PYTHON_LIBS="-l${PYTHON_NAME}"
-	;;
     *darwin*) 
 	dnl Got an ugly situation on MacOS X: need different args depending
 	dnl on whether the system-installed or Fink-installed version of
@@ -278,9 +273,14 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
 	fi
 	;;
+    *cygwin* | *mingw*) 
+	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
+	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
+        PYTHON_LIBS="-l${PYTHON_NAME}"
+	;;
     *)
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}"
+        PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
 	;;
     esac
@@ -584,6 +584,9 @@ AC_DEFUN(CONFIG_PROG_MATLAB,
     [with_matlab=no])
 
   if test $with_matlab != no; then
+
+
+
 
     AC_DEFINE([USE_MATLAB], 1, [Define to 1 to use Matlab])
     AC_SUBST(USE_MATLAB, 1)
