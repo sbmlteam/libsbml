@@ -1,7 +1,7 @@
      The original code contained here was initially developed by:
  
                             Ben Bornstein
-		JST ERATO Kitano Symbiotic Systems Project
+              JST ERATO Kitano Symbiotic Systems Project
                Control and Dynamical Systems, MC 107-81
                   California Institute of Technology
                        Pasadena, CA, 91125, USA
