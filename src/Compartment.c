@@ -127,7 +127,13 @@ LIBSBML_EXTERN
 void
 Compartment_initDefaults (Compartment_t *c)
 {
-  Compartment_setVolume           ( c, 1.0 );
+  /**
+   * Calling Compartment_setVolume() will set c->isSet.size which is L2 not
+   * L1.
+   */
+  c->size         = 1.0;
+  c->isSet.volume = 1;
+
   Compartment_setSpatialDimensions( c, 3   );
   Compartment_setConstant         ( c, 1   );
 }
@@ -373,8 +379,7 @@ LIBSBML_EXTERN
 void
 Compartment_setVolume (Compartment_t *c, double value)
 {
-  c->size         = value;
-  c->isSet.volume = 1;
+  Compartment_setSize(c, value);
 }
 
 
