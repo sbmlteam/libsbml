@@ -49,3 +49,114 @@
 ## Contributor(s):
 ##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
 ##
+
+
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include @top_srcdir@/config/makefile-common-vars.mk
+
+# `srcdir' points to the current directory, but should be set by configure.
+# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# set `subdir' to an absolute path, or some make actions will fail.
+
+srcdir  = @srcdir@
+thisdir = bindings/matlab
+
+# `distfiles' determines the files and directories included in a distribution.
+# `distfiles_exclude' is used to filter out specific items, so that even if
+# they appear in `distfiles', they will not be copied in the distribution.
+
+distfiles = \
+        BuildTranslate_Win32.c \
+        BuildTranslate_Win32.m \
+        Contents.m             \
+        install.m              \
+        make.bat               \
+        Makefile.in            \
+        README.txt             \
+        test.xml               \
+        TranslateSBML.c        \
+	TranslateSBML.m
+
+
+# -----------------------------------------------------------------------------
+# Primary build actions
+# -----------------------------------------------------------------------------
+
+# Temporarily disabling the default action until we can test this with the new
+# build system.
+
+#all: $(programs)
+all: 
+
+MEX       = mex
+XCFLAGS   = $(CFLAGS)
+XLDFLAGS  = $(LDFLAGS)  -L/usr/local/lib
+XCPPFLAGS = $(CPPFLAGS) -I/usr/local/include
+LIBS      = -lsbml
+
+programs = TranslateSBML.mexglx
+
+TranslateSBML.mexglx: TranslateSBML.c
+	$(MEX) $(XCFLAGS) $(XCPPFLAGS) $(XLDFLAGS) $^ $(LIBS)
+
+clean:
+	/bin/rm -f $(programs) *~
+
+
+# -----------------------------------------------------------------------------
+# Targets for checking/testing.
+# -----------------------------------------------------------------------------
+
+check:
+
+
+# -----------------------------------------------------------------------------
+# Installation.
+# -----------------------------------------------------------------------------
+
+install:
+
+uninstall:
+
+installdirs:
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean:
+
+distclean:
+
+mostlyclean:
+
+maintainer-clean:
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: dist-normal
+
+distcheck: distcheck-normal
+
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+include @top_srcdir@/config/makefile-common-actions.mk
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------
