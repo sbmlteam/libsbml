@@ -2012,12 +2012,17 @@ END_TEST
 START_TEST (test_element_notes_entity_reference)
 {
   const char* n =
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... </body>";
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some\xc2\xa0text... "
+    "</body>";
+
+  const char* m =
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... "
+    "</body>";
 
   const char* s = wrapSBML
   (
     "<notes>"
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#160;text... </body>"
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... </body>"
     "</notes>"
   );
 
@@ -2025,7 +2030,11 @@ START_TEST (test_element_notes_entity_reference)
   D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
 
-  fail_unless(!strcmp(SBase_getNotes(M), n), NULL );
+#if USE_EXPAT
+  fail_unless( !strcmp(SBase_getNotes(M), n), NULL );
+#else
+  fail_unless( !strcmp(SBase_getNotes(M), m), NULL );
+#endif
 }
 END_TEST
 
