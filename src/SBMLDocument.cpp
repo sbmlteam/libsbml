@@ -386,9 +386,14 @@ SBMLDocument::validate ()
   Validator_t*  v = Validator_createDefault();
 
 
+  /* HACK: The Validator uses 'id' instead of 'name', irrespective of Level. */
+  if (level == 1) getModel()->moveAllNamesToIds();
+
   nerrors = Validator_validate(v, (SBMLDocument_t*) this, (List_t*) &error);
   Validator_free(v);
 
+  /* HACK: Change back... */
+  if (level == 1) getModel()->moveAllIdsToNames();
 
   return nerrors;
 }
