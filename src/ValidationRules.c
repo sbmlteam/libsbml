@@ -373,6 +373,61 @@ hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
 
 
 static
+unsigned int
+anySpeciesReferenceIsTo(const Model_t *m, const char *speciesId)
+{
+  int numReactions = Model_getNumReactions(m);
+  int i, j;
+
+  for (i = 0; i < numReactions; i++)
+  {
+    Reaction_t *r = Model_getReaction(m, i);
+
+    /* look at reactant species */
+    int numReactants = Reaction_getNumReactants(r);
+    for (j = 0; j < numReactants; j++)
+    {
+      SpeciesReference_t *sr = Reaction_getReactant(r, j);
+
+      const char *referenceId = SpeciesReference_getSpecies(sr);
+      if (streq(speciesId, referenceId))
+      {
+        return 1;
+      }
+    }
+
+    /* look at product species */
+    int numProducts = Reaction_getNumProducts(r);
+    for (j = 0; j < numProducts; j++)
+    {
+      SpeciesReference_t *sr = Reaction_getProduct(r, j);
+
+      const char *referenceId = SpeciesReference_getSpecies(sr);
+      if (streq(speciesId, referenceId))
+      {
+        return 1;
+      }
+    }
+
+    /* look at modifier species */
+    int numModifiers = Reaction_getNumModifiers(r);
+    for (j = 0; j < numModifiers; j++)
+    {
+      ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
+
+      const char *referenceId = ModifierSpeciesReference_getSpecies(msr);
+      if (streq(speciesId, referenceId))
+      {
+        return 1;
+      }
+    }
+  }
+
+  return 0;
+}
+
+
+static
 void
 logFullMessage(
   const char *baseMsg,
@@ -986,60 +1041,13 @@ RULE (species_speciesReference)
     &&
     !Species_getBoundaryCondition(s)
   ) {
-    int numReactions = Model_getNumReactions(d->model);
-    int i, j;
-
-    for (i = 0; i < numReactions; i++)
+    if (anySpeciesReferenceIsTo(d->model, speciesId))
     {
-      Reaction_t *r = Model_getReaction(d->model, i);
-
-      /* look at reactant species */
-      int numReactants = Reaction_getNumReactants(r);
-      for (j = 0; j < numReactants; j++)
-      {
-        SpeciesReference_t *sr = Reaction_getReactant(r, j);
-
-        const char *referenceId = SpeciesReference_getSpecies(sr);
-        if (streq(speciesId, referenceId))
-        {
-          goto failed;
-        }
-      }
-
-      /* look at product species */
-      int numProducts = Reaction_getNumProducts(r);
-      for (j = 0; j < numProducts; j++)
-      {
-        SpeciesReference_t *sr = Reaction_getProduct(r, j);
-
-        const char *referenceId = SpeciesReference_getSpecies(sr);
-        if (streq(speciesId, referenceId))
-        {
-          goto failed;
-        }
-      }
-
-      /* look at modifier species */
-      int numModifiers = Reaction_getNumModifiers(r);
-      for (j = 0; j < numModifiers; j++)
-      {
-        ModifierSpeciesReference_t *msr = Reaction_getModifier(r, j);
-
-        const char *referenceId = ModifierSpeciesReference_getSpecies(msr);
-        if (streq(speciesId, referenceId))
-        {
-          goto failed;
-        }
-      }
-
+      LOG_MESSAGE(msg);
+      passed = 0;
     }
   }
 
-  return passed;
-
-failed:
-  LOG_MESSAGE(msg);
-  passed = 0;
   return passed;
 }
 
