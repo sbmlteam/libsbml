@@ -104,6 +104,7 @@ typedef struct
 } ASTNode_t;
 */
 
+
 #ifndef SWIG
 
 
@@ -584,7 +585,7 @@ void
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
 
 
-#endif  // SWIG
+#endif  /** SWIG **/
 
 
 END_C_DECLS
