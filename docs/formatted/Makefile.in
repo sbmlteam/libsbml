@@ -68,9 +68,15 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir    = @srcdir@
 thisdir   = docs/formatted
 
-docs      = java.txt python.txt
+docs      = \
+	java.txt \
+	python.txt \
+	$(wildcard *.pdf) \
+	$(wildcard *.ps)
 
 distfiles = $(docs) Makefile.in
+
+extra_distclean = $(wildcard *.pdf) $(wildcard *.ps)
 
 
 # -----------------------------------------------------------------------------
@@ -121,7 +127,7 @@ installcheck:
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean:
+clean: 
 
 distclean:
 
