@@ -76,8 +76,6 @@ dnl ---------------------------------------------------------------------------
 dnl Command-line options
 dnl ---------------------------------------------------------------------------
 
-dnl Other cmd-line options are defined in the individual .m4 files in config.
-
 AC_ARG_ENABLE([memory-tracing],
   AC_HELP_STRING([--enable-memory-tracing],
                  [Enable memory tracing (default: disabled)]),
@@ -88,6 +86,9 @@ if test "$enable_tracing" != no; then
   AC_DEFINE([TRACE_MEMORY], 1,
             [Define to 1 to enable primitive memory tracing.])
 fi
+
+dnl Other cmd-line options are defined in the individual .m4 files in the
+dnl config/ subdirectory.
 
 dnl ---------------------------------------------------------------------------
 dnl Check host operating system.
@@ -203,6 +204,13 @@ case $host in
   EXTRA_CLEAN="*.stackdump *.exp *.lib"
   ;;
 esac
+
+dnl dnl In order to allow certain Makefile tests, we define a variable that
+dnl stores a list of options available to configure.  This variable is
+dnl added to by the configure options defined in config/ .m4 files.
+
+AC_DEFINE(LIBSBML_OPTIONS)
+AC_SUBST(LIBSBML_OPTIONS)
 
 
 dnl ---------------------------------------------------------------------------
