@@ -217,7 +217,7 @@ sources = \
   memory.c                        \
   util.c
 
-ifeq ($(USE_LIBCHECK),1)
+ifeq "$(USE_LIBCHECK)" "1"
 testrunner_headers = \
   sbml/SAX2AttributesMock.hpp
 
@@ -287,7 +287,7 @@ endif
 
 libraries = $(PACKAGE).a $(PACKAGE).$(SHAREDLIBEXT)
 
-ifeq ($(USE_LIBCHECK),1)
+ifeq "$(USE_LIBCHECK)" "1"
   check_programs   = TestRunner
   extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
   extra_CXXFLAGS  += $(LIBCHECK_CPPFLAGS)
@@ -296,7 +296,7 @@ ifeq ($(USE_LIBCHECK),1)
   extra_clean     += $(check_programs)
 endif
 
-ifeq ($(USE_EXPAT),1)
+ifeq "$(USE_EXPAT)" "1"
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS) -I../expat
   extra_CXXFLAGS  += $(EXPAT_CPPFLAGS) -I../expat
   extra_LDFLAGS   += $(EXPAT_LDFLAGS) -L../expat
@@ -308,7 +308,13 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-distfiles = $(sources) $(headers) Makefile.in COPYING.txt
+# `distfiles' determines the files and directories included in a distribution.
+# `distfiles_exclude' is used to filter out specific items, so that even if
+# they appear in `distfiles', they will not be copied in the distribution.
+
+distfiles = $(sources) $(headers) Makefile.in
+
+distfiles_exclude = sbml/config.h
 
 
 # -----------------------------------------------------------------------------
@@ -330,12 +336,17 @@ ps:
 
 info:
 
+html:
+
 
 # -----------------------------------------------------------------------------
 # Targets for checking/testing.
 # -----------------------------------------------------------------------------
 
-ifeq ($(USE_LIBCHECK),1)
+# The makefile directives for check tend to have to be specific to each source
+# directory and not abstracted into `makefile-common-actions.mk'.
+
+ifeq "$(USE_LIBCHECK)" "1"
   testrunner_tmplist  = $(testrunner_sources:.cpp=.$(OBJEXT)) \
 			$(testrunner_sources:.c=.$(OBJEXT))
   testrunner_objfiles = $(filter %.$(OBJEXT),$(testrunner_tmplist))
@@ -367,30 +378,20 @@ run-checks:: $(check_programs)
 # Installation
 # -----------------------------------------------------------------------------
 
-to_install_libraries = $(addprefix install-,$(libraries))
+install: install-libraries
 
-install: $(libraries) $(to_install_libraries)
+uninstall: uninstall-libraries
 
-$(to_install_libraries): $(libraries) installdirs
-	$(call install_library,$(subst install-,,$@),$(DESTDIR)$(LIBDIR))
+installcheck: installcheck-libraries
 
-uninstall:
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
 
-installdirs:
+dist: dist-normal
 
-install-exec:
-
-install-data:
-
-installcheck:
-
-install-info:
-
-install-man:
-
-uninstall-info:
-
-installcheck:
+distcheck: distcheck-normal
 
 
 # -----------------------------------------------------------------------------

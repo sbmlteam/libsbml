@@ -86,6 +86,18 @@ cxxcompile ?= $(CXX) $(CFLAGS) $(DEFS) $(default_includes) $(INCLUDES) \
 
 library_version = $(PACKAGE_VERSION)
 
+# `platform_link_flags' is used below in the definition of link_shared_lib.
+# Generally, gcc and ld need -shared, but some systems think different.
+
+ifeq "$(HOST_TYPE)" "darwin"
+  # MacOS X's normal libraries have the extension .dylib, and "bundles"
+  # have .so.  The default shared library definition here builds .dylib.
+  platform_link_flags ?= -dynamiclib -flat_namespace \
+	-current_version $(library_version)
+else
+  platform_link_flags ?= -shared
+endif
+
 # The following defines the default function for linking objects into a
 # shared library. It gets used thus: $(call link_shared_lib,ARGS...).  The
 # forms $(1), $(2) in the expressions below, etc. are the arguments passed
@@ -93,44 +105,10 @@ library_version = $(PACKAGE_VERSION)
 # which case, the definition below will not be used.
 
 ifndef link_shared_lib
-
-  ifeq ($(HOST_TYPE),darwin)
-    # MacOS X's normal libraries have the extension .dylib, and "bundles"
-    # have .so.  The default shared library definition here builds .dylib.
-
-    define link_shared_lib 
-      $(CXX) $(LDFLAGS) $(extra_LDFLAGS) -dynamiclib -flat_namespace \
-	-current_version $(library_version) \
+  define link_shared_lib 
+    $(CXX) $(LDFLAGS) $(extra_LDFLAGS) $(platform_link_flags) \
 	-o $(1) $(objfiles) $(extra_LIBS) $(LIBS)
-    endef
-
-  endif
-
-  ifeq ($(HOST_TYPE),linux)
-
-    define link_shared_lib 
-      $(CXX) $(LDFLAGS) $(extra_LDFLAGS) -shared \
-	-o $(1) $(objfiles) $(extra_LIBS) $(LIBS)
-    endef
-
-  endif
-
-  ifeq ($(HOST_TYPE),solaris)
-
-    define link_shared_lib 
-	error Solaris support not yet implemented in this makefile system
-    endef
-
-  endif
-
-  ifeq ($(HOST_TYPE),cygwin)
-
-    define link_shared_lib 
-	error Cygwin support not yet implemented in this makefile system
-    endef
-
-  endif
-
+  endef
 endif
 
 # The following defines the default function for linking objects into a
@@ -149,8 +127,8 @@ endef
 # names from the list of source files.  They're used for the generic
 # compilation rules further below.
 
-tmplist  ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
-objfiles ?= $(filter %.$(OBJEXT),$(tmplist))
+srclist  ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
+objfiles ?= $(filter %.$(OBJEXT),$(srclist))
 depfiles ?= $(addprefix $(DEPDIR)/,$(objfiles:.$(OBJEXT)=.$(DEPEXT)))
 
 # This next line includes the dependency files.  This doesn't use
@@ -167,6 +145,12 @@ include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 
 %.a: $(objfiles)
 	$(call link_static_lib,$@)
+
+%.so: $(objfiles)
+	$(call link_shared_lib,$@)
+
+%.$(JNIEXT): $(objfiles)
+	$(call link_shared_lib,$@)
 
 %.$(SHAREDLIBEXT): $(objfiles)
 	$(call link_shared_lib,$@)
@@ -209,7 +193,8 @@ recursive_targets = all-recursive install-data-recursive \
 	ps-recursive info-recursive dvi-recursive pdf-recursive \
 	check-recursive installcheck-recursive mostlyclean-recursive \
 	clean-recursive distclean-recursive maintainer-clean-recursive \
-	install-man-recursive tags-recursive ctags-recursive
+	install-man-recursive tags-recursive ctags-recursive \
+	install-docs-recursive dist-recursive distcheck-recursive
 
 $(recursive_targets): subdirs
 
@@ -218,13 +203,14 @@ subdirs_recursive = $(addsuffix -recursive,$(subdirs))
 subdirs: $(subdirs_recursive)
 
 $(subdirs_recursive): 
-	$(MAKE) -C  $(subst -recursive,,$@) $(MAKECMDGOALS)
+	$(MAKE) -wC $(subst -recursive,,$@) $(MAKECMDGOALS)
 
 
 # -----------------------------------------------------------------------------
 # Installation
 # -----------------------------------------------------------------------------
 
+# The following defines a macro that is invoked like this:
 # $(call install_library,$(libname),$(dest))
 
 define install_library
@@ -239,10 +225,87 @@ define install_library
   fi
 endef
 
+to_install_libraries = $(addprefix install-,$(libraries))
+
+$(to_install_libraries): $(libraries) installdirs
+	$(call install_library,$(subst install-,,$@),$(DESTDIR)$(LIBDIR))
+
+install-libraries: $(libraries) $(to_install_libraries)
+	$(MKINSTALLDIRS) "$(DESTDIR)$(LIBDIR)"
+
+install-docs: $(docs)
+	$(shell [ -d $(DESTDIR)$(DOCDIR) ] || mkdir -p $(DESTDIR)$(DOCDIR))
+	@if test -z '$(docs)'; then \
+	  echo 'Nothing to be done for install-docs'; \
+	else \
+	  list='$(docs)'; for file in $$list; do \
+	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	      dir="/$$dir"; \
+	      $(MKINSTALLDIRS) "$(DOCDIR)/$$dir"; \
+	    else \
+	      dir=''; \
+	    fi; \
+	    if test -d $$d/$$file; then \
+	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	        echo Copying $(srcdir)/$$file; \
+	        cp -pR $(srcdir)/$$file $(DOCDIR)$$dir || exit 1; \
+	      fi; \
+	      cp -pR $$d/$$file $(DOCDIR)$$dir || exit 1; \
+	    else \
+	      echo Copying $(DOCDIR)/$$file; \
+	      test -f $(DOCDIR)/$$file \
+	      || cp -p $$d/$$file $(DOCDIR)/$$file \
+	      || exit 1; \
+	    fi; \
+	  done; \
+	fi
+
 installdirs: 
 	$(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR) \
 			 $(DESTDIR)$(INCLUDEDIR) \
-			 $(DESTDIR)$(DATADIR)
+			 $(DESTDIR)$(DATADIR) \
+			 $(DESTDIR)$(DOCDIR)
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+# The `dist-nor(mal' case uses the list of files and diretories in
+# $(distfiles) and mirrors their structure in $(DISTDIR)/$(thisdir)/,
+# except that files and directories that are also listed in
+# $(distfile_exclude) are not copied.
+
+dist-normal: DESTINATION := $(DISTDIR)/$(thisdir)
+dist-normal: $(distfiles)
+	$(shell [ -d $(DESTINATION) ] || mkdir -p $(DESTINATION))
+	@list='$(distfiles)'; for file in $$list; do \
+	  exlist='$(distfiles_exclude)'; for ex in $$exlist; do \
+	    if test $$file = $$ex; then continue 2; fi; \
+          done; \
+	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	    dir="/$$dir"; \
+	    $(MKINSTALLDIRS) "$(DESTINATION)/$$dir"; \
+	  else \
+	    dir=''; \
+	  fi; \
+	  if test -d $$d/$$file; then \
+	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	      echo Copying $(srcdir)/$$file; \
+	      cp -pR $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
+	    fi; \
+	    cp -pR $$d/$$file $(DESTINATION)/$$dir || exit 1; \
+	  else \
+	    echo Copying $(DESTINATION)/$$file; \
+	    test -f $(DESTINATION)/$$file \
+	    || cp -p $$d/$$file $(DESTINATION)/$$file \
+	    || exit 1; \
+	  fi; \
+	done
 
 
 # -----------------------------------------------------------------------------
@@ -283,10 +346,7 @@ mostlyclean-libtool:
 	-rm -f *.lo
 
 distclean: clean distclean-compile distclean-depend distclean-generic \
-	distclean-tags distclean-libtool distclean-hdr
-
-distclean-hdr:
-	-rm -f src/sbml/config.h src/sbml/stamp-h1
+	distclean-tags distclean-libtool
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -320,7 +380,7 @@ maintainer-clean-generic:
 # The following is for running shell commands with the right XX_LIBRARY_PATH
 # variable set for different platforms.
 
-ifeq ($(HOST_TYPE),darwin)
+ifeq "$(HOST_TYPE)" "darwin"
 
   define libsbmlrun
 	DYLD_LIBRARY_PATH=$(TOP_BUILDDIR)/src; export DYLD_LIBRARY_PATH; \
@@ -328,7 +388,7 @@ ifeq ($(HOST_TYPE),darwin)
   endef
 
 endif
-ifeq ($(HOST_TYPE),linux)
+ifeq "$(HOST_TYPE)" "linux"
 
   define libsbmlrun
 	LD_LIBRARY_PATH=$(TOP_BUILDDIR)/src; export LD_LIBRARY_PATH; \
@@ -433,16 +493,15 @@ GTAGS:
 .PHONY: $(recursive_targets) CTAGS GTAGS all all-am check check-am clean \
 	clean-generic clean-libtool ctags \
 	dist dist-all dist-gzip distcheck distclean \
-	distclean-generic distclean-hdr distclean-libtool \
-	distclean-tags distcleancheck distdir \
-	distuninstallcheck dvi dvi-am info info-am \
+	distclean-generic distclean-libtool distclean-tags distcleancheck \
+	distdir distuninstallcheck dvi dvi-am info info-am \
 	install install-am install-data install-data-am \
 	install-exec install-exec-am install-info install-info-am \
 	install-man install-strip installcheck installcheck-am installdirs \
 	installdirs-am maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags uninstall uninstall-am uninstall-info-am \
-	clean-extras subdirs $(subdirs_recursive)
+	clean-extras subdirs $(subdirs_recursive) subdist subdistcheck
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -109,6 +109,8 @@ ps:
 
 info:
 
+html:
+
 
 # -----------------------------------------------------------------------------
 # Installation
@@ -121,21 +123,16 @@ install:
 
 uninstall:
 
-installdirs:
-
-install-exec:
-
-install-data:
-
 installcheck:
 
-install-info:
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
 
-install-man:
+dist: dist-normal
 
-uninstall-info:
-
-installcheck:
+distcheck: distcheck-normal
 
 
 # -----------------------------------------------------------------------------

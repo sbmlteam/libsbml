@@ -84,7 +84,11 @@ docs    = $(libsbml-manual-files) $(libsbml-api-ref-files) \
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but these are all generated files and directories.
 
+tex_ext = aux bbl blg log out toc
+
 extra_distclean = $(libsbml-manual-files) $(libsbml-api-ref-files) \
+	$(addprefix libsbml-manual.,$(tex_ext)) \
+	$(addprefix libsbml-api-ref.,$(tex_ext)) \
 	libsbml-manual libsbml-api-ref 
 
 
@@ -126,9 +130,12 @@ libsbml-api-ref: $(libsbml-api-ref-files)
 
 manual_html_dir = libsbml-manual
 
+epsfiles        = $(wildcard graphics/*.eps)
+pdffiles        = $(epsfiles:.eps=.pdf)
+
 # Yes, run pdflatex 4 times after running bibtex.
 
-libsbml-manual.pdf: libsbml-manual.tex pdffigs
+libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	pdflatex libsbml-manual
 	-bibtex libsbml-manual
@@ -137,7 +144,7 @@ libsbml-manual.pdf: libsbml-manual.tex pdffigs
 	pdflatex libsbml-manual
 	pdflatex libsbml-manual
 
-libsbml-manual.dvi: libsbml-manual.tex
+libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
 	latex libsbml-manual
 	-bibtex libsbml-manual
@@ -145,20 +152,21 @@ libsbml-manual.dvi: libsbml-manual.tex
 	latex libsbml-manual
 	latex libsbml-manual
 
-libsbml-manual.ps: libsbml-manual.tex libsbml-manual.dvi
+libsbml-manual.ps: libsbml-manual.dvi
 	dvips -o libsbml-manual.ps libsbml-manual
 
-libsbml-manual.html: sbmlmanual.perl
+libsbml-manual.html: libsbml-manual.tex sbmlmanual.perl $(pdffiles)
 	latex2html -white -split +0 -show_section_numbers -image_type gif \
 		   -no_navigation -local_icons -discard -antialias \
 		   -t "libSBML Developer's Manual" \
 		   -mkdir -dir $(manual_html_dir) libsbml-manual
-	ln -s $(manual_html_dir)/libsbml-manual.html
 	rm $(manual_html_dir)/index.html
+	ln -s $(manual_html_dir)/libsbml-manual.html $(manual_html_dir)/index.html
+	ln -s $(manual_html_dir)/libsbml-manual.html
 	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
-		$(manual_html_dir)/libsbml-manual.html;
+		$(manual_html_dir)/libsbml-manual.html
 	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
-		$(manual_html_dir)/libsbml-manual.html;
+		$(manual_html_dir)/libsbml-manual.html
 
 sbmlmanual.perl:
 	ln -s ../../../project/tex/sbmlmanual.perl
@@ -193,6 +201,7 @@ libsbml-api-ref.ps:  libsbml-api-ref.tex  libsbml-api-ref.dvi
 	dvips -o libsbml-api-ref.ps libsbml-api-ref
 
 libsbml-api-ref.html: api-files doxygen-api-manual
+	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
 
 doxygen-output-dir = libsbml-api-ref
 
@@ -206,8 +215,8 @@ doxygen-api-manual: Doxyfile
 # Miscellaneous helpers.
 # -----------------------------------------------------------------------------
 
-pdffigs:
-	@(for i in graphics/*.eps; do echo "epstopdf $$i"; epstopdf $$i; done)
+$(pdffiles): %.pdf: %.eps
+	epstopdf $@
 
 api-files:
 	$(SHELL) createAPISections.sh ../../src/sbml
@@ -222,6 +231,47 @@ install: install-docs
 uninstall:
 
 installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+# Here we have some different rules compared to the default `make dist'
+# actions.  We put the docs into ../formatted in the distribution
+# directory.  This is so that people receiving distributions can find
+# preformatted documentation more easily.  However, this is not done during
+# make install; instead, make install puts the docs into
+# ${prefix}/share/doc/libsbml, which is more appropriate for a make install.
+
+formatted = $(DISTDIR)/docs/formatted
+
+dist: libsbml-manual libsbml-api-ref
+	$(shell [ -d $(formatted) ] || mkdir -p $(formatted))
+	list='$(docs)'; for file in $$list; do \
+	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	    dir="$$dir"; \
+	    $(MKINSTALLDIRS) "$(formatted)/$$dir"; \
+	  else \
+	    dir=''; \
+	  fi; \
+	  if test -d $$d/$$file; then \
+	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	      echo Copying $(srcdir)/$$file; \
+	      cp -pR $(srcdir)/$$file $(formatted)/$$dir || exit 1; \
+	    fi; \
+	    cp -pR $$d/$$file $(formatted)/$$dir || exit 1; \
+	  else \
+	    echo Copying $(formatted)/$$file; \
+	    test -f $(formatted)/$$file \
+	    || cp -p $$d/$$file $(formatted)/$$file \
+	    || exit 1; \
+	  fi; \
+	done
+
+distcheck:
 
 
 # -----------------------------------------------------------------------------

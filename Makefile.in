@@ -69,46 +69,120 @@ srcdir  = @srcdir@
 thisdir = .
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
-# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
-# rules in `makefile-common-actions.mk' included at the end.
+# `extra_CXXFLAGS', `extra_LDFLAGS', `extra_clean', and `distfiles' are
+# used by the default rules in `makefile-common-actions.mk' included at the
+# end.
 
-ifeq ($(USE_EXPAT),1)
-  subdirs = expat src bindings
+ifeq "$(USE_EXPAT)" "1"
+  subdirs = expat src bindings docs
 else
-  subdirs = src bindings
+  subdirs = src bindings docs
 endif
 
+# Variables `examples' and `xml-schemas' are local variables reused below.
+
+examples = \
+        examples/Makefile                                    \
+        examples/convertSBML.c                               \
+        examples/evaluateMath.c                              \
+        examples/printSBML.c                                 \
+        examples/README.txt                                  \
+        examples/readSBML.c                                  \
+        examples/translateMath.c                             \
+        examples/util.c                                      \
+        examples/util.h                                      \
+        examples/validateSBML.c
+
+xml-schemas = \
+        xml-schemas/mathml2/common/common-attribs.xsd        \
+        xml-schemas/mathml2/common/math.xsd                  \
+        xml-schemas/mathml2/common/xlink-href.xsd            \
+        xml-schemas/mathml2/content/arith.xsd                \
+        xml-schemas/mathml2/content/calculus.xsd             \
+        xml-schemas/mathml2/content/common-attrib.xsd        \
+        xml-schemas/mathml2/content/constants.xsd            \
+        xml-schemas/mathml2/content/constructs.xsd           \
+        xml-schemas/mathml2/content/elementary-functions.xsd \
+        xml-schemas/mathml2/content/functions.xsd            \
+        xml-schemas/mathml2/content/linear-algebra.xsd       \
+        xml-schemas/mathml2/content/logic.xsd                \
+        xml-schemas/mathml2/content/relations.xsd            \
+        xml-schemas/mathml2/content/semantics.xsd            \
+        xml-schemas/mathml2/content/sets.xsd                 \
+        xml-schemas/mathml2/content/statistics.xsd           \
+        xml-schemas/mathml2/content/tokens.xsd               \
+        xml-schemas/mathml2/content/vector-calculus.xsd      \
+        xml-schemas/mathml2/mathml2.xsd                      \
+        xml-schemas/mathml2/presentation/action.xsd          \
+        xml-schemas/mathml2/presentation/characters.xsd      \
+        xml-schemas/mathml2/presentation/common-attribs.xsd  \
+        xml-schemas/mathml2/presentation/common-types.xsd    \
+        xml-schemas/mathml2/presentation/error.xsd           \
+        xml-schemas/mathml2/presentation/layout.xsd          \
+        xml-schemas/mathml2/presentation/scripts.xsd         \
+        xml-schemas/mathml2/presentation/space.xsd           \
+        xml-schemas/mathml2/presentation/style.xsd           \
+        xml-schemas/mathml2/presentation/table.xsd           \
+        xml-schemas/mathml2/presentation/tokens.xsd          \
+        xml-schemas/sbml/sbml-l1v1.xsd                       \
+        xml-schemas/sbml/sbml-l1v2.xsd                       \
+	xml-schemas/sbml/sbml-l2v1.xsd
+
+# The files listed in `docs' are copied to the documentation directory
+# during a `make install'.
+
+docs = \
+        AUTHORS.txt                                          \
+        COPYING.html                                         \
+        COPYING.txt                                          \
+        NEWS.txt                                             \
+        README.txt                                           \
+        VERSION.txt                                          \
+	$(examples)                                          \
+	$(xml-schemas)
+
+# `distfile' is the list of files used for creating distributions,
+# something that only the libSBML developers should do.  The list of files
+# here is in addition to the subdirectories listed in `subdirs'.  The
+# latter are the object of `make subdist' and the files that are collected
+# are under the control of the makefiles in the subdirectories.
+
+dist_subdirs = expat src bindings docs
+
 distfiles = \
-        AUTHORS.txt          \
-        ChangeLog.txt        \
-        COPYING.html         \
-        COPYING.txt          \
-        NEWS.txt             \
-        README.txt           \
-        VERSION.txt          \
-        Makefile.in          \
-        aclocal.m4           \
-        bindings             \
-        config/compile       \
-        config/config.guess  \
-        config/config.sub    \
-        config/install-sh    \
-        config/missing       \
-        config/mkinstalldirs \
-        configure            \
-        configure.ac         \
-        docs/formatted       \
-        examples             \
-        src/sbml/config.h.in \
-        win32                \
-	xml-schemas 
+        AUTHORS.txt                                          \
+        ChangeLog.txt                                        \
+        COPYING.html                                         \
+        COPYING.txt                                          \
+        NEWS.txt                                             \
+        README.txt                                           \
+        VERSION.txt                                          \
+        Makefile.in                                          \
+        aclocal.m4                                           \
+        config/config.guess                                  \
+        config/config.sub                                    \
+        config/expat.m4                                      \
+        config/install-sh                                    \
+        config/java.m4                                       \
+        config/libcheck.m4                                   \
+        config/makefile-common-actions.mk                    \
+        config/makefile-common-vars.mk.in                    \
+        config/matlab.m4                                     \
+        config/missing                                       \
+        config/mkinstalldirs                                 \
+        config/python.m4                                     \
+        config/swig.m4                                       \
+        config/xercesc.m4                                    \
+        configure                                            \
+        configure.ac                                         \
+	$(examples)                                          \
+	$(xml-schemas)
 
-dist_subdirs = bindings config docs examples expat invalid-models src win32 xml-schemas
+# The files listed in `extra_distclean' are items created at compile time
+# in this directory and that need to be removed prior to `make dist'.
 
-distdir = $(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
-
-extra_distclean = config.status config.cache config.log \
-	src/sbml/config.h autom4te.cache
+extra_distclean = config.status config.cache config.log autom4te.cache \
+	src/sbml/config.h src/sbml/stamp-h1
 
 
 # -----------------------------------------------------------------------------
@@ -131,28 +205,16 @@ ps: ps-recursive
 
 info: info-recursive
 
+html: html-recursive
+
 
 # -----------------------------------------------------------------------------
 # Installation
 # -----------------------------------------------------------------------------
 
-install: install-recursive
+install: install-recursive install-docs-recursive install-docs
 
 uninstall: uninstall-recursive
-
-installdirs: installdirs-recursive
-
-install-exec: install-exec-recursive
-
-install-data: install-data-recursive
-
-installcheck: installcheck-recursive
-
-install-info: install-info-recursive
-
-install-man: install-man-recursive
-
-uninstall-info: uninstall-info-recursive
 
 installcheck: installcheck-recursive
 
@@ -171,74 +233,62 @@ maintainer-clean: maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------
-# Creating distributions
+# Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-#remove_distdir = \
-#  { test ! -d $(distdir) \
-#    || { find $(distdir) -type d ! -perm -200 -exec chmod u+w {} ';' \
-#         && rm -fr $(distdir); }; }
+# The `make dist' command is only available from this top-level makefile.
 
-#gzip_env = --best
-#distuninstallcheck_listfiles = find . -type f -print
-#distcleancheck_listfiles = find . -type f -print
+remove_distdir = \
+  { test ! -d $(DISTDIR) \
+    || { find $(DISTDIR) -type d ! -perm -200 -exec chmod u+w {} ';' \
+         && rm -fr $(DISTDIR); }; }
 
-#distdir: $(distfiles)
-#	$(remove_distdir)
-#	mkdir $(distdir)
-#	$(mkinstalldirs) $(distdir)/./src/sbml $(distdir)/config $(distdir)/docs
-#	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
-#	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
-#	list='$(distfiles)'; for file in $$list; do \
-#	  case $$file in \
-#	    $(srcdir)/*) file=`echo "$$file" | sed "s|^$$srcdirstrip/||"`;; \
-#	    $(top_srcdir)/*) file=`echo "$$file" | sed "s|^$$topsrcdirstrip/|$(TOP_BUILDDIR)/|"`;; \
-#	  esac; \
-#	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-#	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
-#	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-#	    dir="/$$dir"; \
-#	    $(mkinstalldirs) "$(distdir)$$dir"; \
-#	  else \
-#	    dir=''; \
-#	  fi; \
-#	  if test -d $$d/$$file; then \
-#	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-#	      cp -pR $(srcdir)/$$file $(distdir)$$dir || exit 1; \
-#	    fi; \
-#	    cp -pR $$d/$$file $(distdir)$$dir || exit 1; \
-#	  else \
-#	    test -f $(distdir)/$$file \
-#	    || cp -p $$d/$$file $(distdir)/$$file \
-#	    || exit 1; \
-#	  fi; \
-#	done
-#	list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
-#	  if test "$$subdir" = .; then :; else \
-#	    test -d $(distdir)/$$subdir \
-#	    || mkdir $(distdir)/$$subdir \
-#	    || exit 1; \
-#	    (cd $$subdir && \
-#	      $(MAKE) $(MAKEFLAGS) \
-#	        TOP_DISTDIR="$(TOP_DISTDIR)" \
-#	        distdir=../$(distdir)/$$subdir \
-#	        distdir) \
-#	      || exit 1; \
-#	  fi; \
-#	done
-#	-find $(distdir) -type d ! -perm -777 -exec chmod a+rwx {} \; -o \
-#	  ! -type d ! -perm -444 -links 1 -exec chmod a+r {} \; -o \
-#	  ! -type d ! -perm -400 -exec chmod a+r {} \; -o \
-#	  ! -type d ! -perm -444 -exec $(SHELL) $(INSTALL_SH) -c -m a+r {} {} \; \
-#	|| chmod -R a+r $(distdir)
+dist dist-gzip: dist-all
+	if test -d $(DISTDIR); then \
+	  tar chof - $(DISTDIR) | GZIP="${GZIP} --best" gzip -c >$(DISTDIR).tar.gz; \
+	  $(remove_distdir); \
+	fi
 
-#dist-gzip: distdir
-#	$(AMTAR) chof - $(distdir) | GZIP=$(gzip_env) gzip -c >$(distdir).tar.gz
-#	$(remove_distdir)
-
-#dist dist-all: distdir
-#	$(AMTAR) chof - $(distdir) | GZIP=$(gzip_env) gzip -c >$(distdir).tar.gz
-#	$(remove_distdir)
+dist-all: $(distfiles)
+	@$(remove_distdir)
+	mkdir -p $(DISTDIR)
+	@list='$(distfiles)'; for file in $$list; do \
+	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	    dir="$$dir"; \
+	    $(MKINSTALLDIRS) "$(DISTDIR)/$$dir"; \
+	  else \
+	    dir=''; \
+	  fi; \
+	  if test -d $$d/$$file; then \
+	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	      cp -pR $(srcdir)/$$file $(DISTDIR)/$$dir || exit 1; \
+	    fi; \
+	    cp -pR $$d/$$file $(DISTDIR)/$$dir || exit 1; \
+	  else \
+	    test -f $(DISTDIR)/$$file \
+	    || cp -p $$d/$$file $(DISTDIR)/$$file \
+	    || exit 1; \
+	  fi; \
+	done
+	@list='$(dist_subdirs)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    test -d $(DISTDIR)/$$subdir \
+	    || mkdir $(DISTDIR)/$$subdir \
+	    || exit 1; \
+	    $(MAKE) $(MAKEFLAGS) -wC $$subdir \
+	        TOP_DISTDIR="$(TOP_DISTDIR)" \
+	        DISTDIR=$(DISTDIR) \
+	        dist \
+	      || exit 1; \
+	  fi; \
+	done
+	-@find $(DISTDIR) -type d ! -perm -777 -exec chmod a+rwx {} \; -o \
+	  ! -type d ! -perm -444 -links 1 -exec chmod a+r {} \; -o \
+	  ! -type d ! -perm -400 -exec chmod a+r {} \; -o \
+	  ! -type d ! -perm -444 -exec $(SHELL) $(INSTALL_SH) -c -m a+r {} {} \; \
+	|| chmod -R a+r $(DISTDIR)
 
 ## This target untars the dist file and tries a VPATH configuration.  Then
 ## it guarantees that the distribution is self-contained by making another
@@ -265,7 +315,7 @@ maintainer-clean: maintainer-clean-recursive
 #	        distuninstallcheck \
 #	  && chmod -R a-w "$$dc_install_base" \
 #	  && ({ \
-#	       (cd ../.. && $(mkinstalldirs) "$$dc_destdir") \
+#	       (cd ../.. && $(MKINSTALLDIRS) "$$dc_destdir") \
 #	       && $(MAKE) $(AM_MAKEFLAGS) DESTDIR="$$dc_destdir" install \
 #	       && $(MAKE) $(AM_MAKEFLAGS) DESTDIR="$$dc_destdir" uninstall \
 #	       && $(MAKE) $(AM_MAKEFLAGS) DESTDIR="$$dc_destdir" \
@@ -281,12 +331,12 @@ maintainer-clean: maintainer-clean-recursive
 
 #distuninstallcheck:
 #	cd $(distuninstallcheck_dir) \
-#	&& test `$(distuninstallcheck_listfiles) | wc -l` -le 1 \
+#	&& test `find . -type f -print | wc -l` -le 1 \
 #	   || { echo "ERROR: files left after uninstall:" ; \
 #	        if test -n "$(DESTDIR)"; then \
 #	          echo "  (check DESTDIR support)"; \
 #	        fi ; \
-#	        $(distuninstallcheck_listfiles) ; \
+#	        find . -type f -print ; \
 #	        exit 1; } >&2
 
 #distcleancheck: distclean
@@ -294,9 +344,9 @@ maintainer-clean: maintainer-clean-recursive
 #	  echo "ERROR: distcleancheck can only run from a VPATH build" ; \
 #	  exit 1 ; \
 #	fi
-#	test `$(distcleancheck_listfiles) | wc -l` -eq 0 \
+#	test `find . -type f -print | wc -l` -eq 0 \
 #	  || { echo "ERROR: files left in build directory after distclean:" ; \
-#	       $(distcleancheck_listfiles) ; \
+#	       find -type f -print ; \
 #	       exit 1; } >&2
 
 

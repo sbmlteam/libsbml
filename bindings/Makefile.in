@@ -106,6 +106,8 @@ ps: ps-recursive
 
 info: info-recursive
 
+html: html-recursive
+
 
 # -----------------------------------------------------------------------------
 # Installation.
@@ -116,20 +118,6 @@ install: install-recursive
 uninstall: uninstall-recursive 
 
 installdirs: installdirs-recursive
-
-install-data: install-data-recursive
-
-install-exec: install-exec-recursive
-
-installdirs: installdirs-recursive
-
-install-info: install-info-recursive
-
-install-man: install-man-recursive
-
-uninstall-info: uninstall-info-recursive 
-
-installcheck: installcheck-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -143,6 +131,15 @@ distclean: distclean-recursive
 mostlyclean: mostlyclean-recursive
 
 maintainer-clean: maintainer-clean-recursive
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: dist-recursive
+
+distcheck: distcheck-recursive
 
 
 # -----------------------------------------------------------------------------

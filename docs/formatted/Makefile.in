@@ -65,10 +65,12 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under srcdir.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
-thisdir = docs/formatted
+srcdir    = @srcdir@
+thisdir   = docs/formatted
 
-docs = java.txt python.txt
+docs      = java.txt python.txt
+
+distfiles = $(docs)
 
 
 # -----------------------------------------------------------------------------
@@ -100,7 +102,7 @@ html:
 
 install: install-docs
 
-uninstall:
+uninstall: uninstall-docs
 
 installcheck:
 
@@ -116,6 +118,15 @@ distclean:
 mostlyclean:
 
 maintainer-clean:
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: dist-normal
+
+distcheck: distcheck-normal
 
 
 # -----------------------------------------------------------------------------
