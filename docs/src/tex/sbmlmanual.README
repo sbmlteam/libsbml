@@ -14,21 +14,17 @@ more-or-less standard front page:
     
     \begin{document}
     
-    \title{Systems Biology Workbench\\[5pt]
-      Java\textsuperscript{\tiny{\texttrademark}} Programming Manual}
+    \title{libSBML Manual}
     
-    \author{Andrew Finney, Michael Hucka, Herbert Sauro, Hamid Bolouri}
+    \author{Ben Bornstein and Ben Kovitz}
     
-    \authoremail{\{afinney,mhucka,hsauro,hbolouri\}@cds.caltech.edu}
+    \authoremail{ben.bornstein@jpl.nasa.gov, bkovitz@caltech.edu}
     
-    \address{Systems Biology Workbench Development Group\\
-      ERATO Kitano Systems Biology Project\\
+    \address{The SBML Team\\
       Control and Dynamical Systems, MC 107-81\\
       California Institute of Technology, Pasadena, CA 91125, USA\\[3pt]
-      {\url{http://www.cds.caltech.edu/erato}}}
-    
-    \acknowledge{Principal Investigators: John Doyle and Hiroaki Kitano}
-    
+      {\url{http://sbml.org}}}
+
     \maketitlepage
 
 
