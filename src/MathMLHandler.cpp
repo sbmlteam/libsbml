@@ -152,16 +152,6 @@ static const ASTNodeType_t AST_TYPE_TABLE[] =
 };
 
 
-//
-// Dtor
-//
-MathMLHandler::~MathMLHandler ()
-{
-  Stack_free( fObjStack );
-  Stack_free( fTagStack );
-}
-
-
 /* ----------------------------------------------------------------------
  *                         SAX2 Event Handlers
  * ----------------------------------------------------------------------
@@ -184,6 +174,9 @@ MathMLHandler::endDocument ()
   {
     fDocument->math = (ASTNode_t *) Stack_pop(fObjStack);
   }
+
+  Stack_free( fObjStack );
+  Stack_free( fTagStack );
 }
 
 
@@ -324,20 +317,23 @@ MathMLHandler::characters (const XMLCh* const  chars,
   const char*     s   = XMLString::transcode(chars);
 
 
-  //
-  // If there is a <cn> or <ci> on top of the tag stack parse its character
-  // data to populate the corresponding ASTNode on top of the object stack.
-  //
-  if (tag == MATHML_TAG_CN)
+  if (XMLString::isAllWhiteSpace(chars) == false)
   {
-    parseCN(s);
-  }
-  else if (tag == MATHML_TAG_CI || tag == MATHML_TAG_CSYMBOL)
-  {
-    parseCI(s);
-  }
+    //
+    // If there is a <cn> or <ci> on top of the tag stack parse its character
+    // data to populate the corresponding ASTNode on top of the object stack.
+    //
+    if (tag == MATHML_TAG_CN)
+    {
+      parseCN(s);
+    }
+    else if (tag == MATHML_TAG_CI || tag == MATHML_TAG_CSYMBOL)
+    {
+      parseCI(s);
+    }
 
-  delete [] s;
+    delete [] s;
+  }
 }
 
 
@@ -506,7 +502,6 @@ MathMLHandler::parseCN (const char* str)
     }
   }
 
-
   Token_free(token);
   FormulaTokenizer_free(tokenizer);
 }
@@ -521,12 +516,16 @@ MathMLHandler::reduceExpression ()
 {
   ASTNode_t* child;
   ASTNode_t* parent;
+  ASTNode_t* op;
+
+  ASTNodeType_t parentType;
 
 
   if (Stack_size(fObjStack) >= 2)
   {
-    child  = (ASTNode_t*) Stack_peekAt(fObjStack, 0);
-    parent = (ASTNode_t*) Stack_peekAt(fObjStack, 1);
+    child      = (ASTNode_t*) Stack_peekAt(fObjStack, 0);
+    parent     = (ASTNode_t*) Stack_peekAt(fObjStack, 1);
+    parentType = ASTNode_getType(parent);
 
     //
     // The case of a call to a user-defined function:
@@ -538,11 +537,28 @@ MathMLHandler::reduceExpression ()
     // of the child (i.e. the function recieves its name) and the child is
     // subsequently discared.
     //
-    if ( ASTNode_getType(parent) == AST_FUNCTION &&
-         ASTNode_getName(parent) == NULL )
+    if ( (parentType == AST_FUNCTION) && (ASTNode_getName(parent) == NULL) )
     {
       ASTNode_setName(parent, ASTNode_getName(child));
       ASTNode_free(child);
+    }
+
+    //
+    // In MathML <plus/> and <times/> are n-ary operators.
+    //
+    // The infix FormulaParser, however, represents them as binary (its an
+    // SL Right-most derivation parser).  For the sake of consistency, this
+    // special case reduction ensures AST_PLUS and AST_TIMES are stored as
+    // binary.
+    //
+    else if ( (parentType == AST_PLUS || parentType == AST_TIMES) &&
+              ASTNode_getNumChildren(parent) == 2 )
+    {
+      op = ASTNode_createWithType(parentType);
+      ASTNode_addChild(op, (ASTNode_t *) List_remove(parent->children, 1));
+      ASTNode_addChild(op, child);
+
+      ASTNode_addChild(parent, op);
     }
 
     //

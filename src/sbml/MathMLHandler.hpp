@@ -84,11 +84,6 @@ public:
   //
   MathMLHandler (MathMLDocument_t *d) : fDocument(d) { };
 
-  //
-  // Dtor
-  //
-  ~MathMLHandler ();
-
 
   void startDocument ();
   void endDocument   ();

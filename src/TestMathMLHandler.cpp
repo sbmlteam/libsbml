@@ -212,6 +212,24 @@ START_TEST (test_element_ci)
 END_TEST
 
 
+START_TEST (test_element_ci_surrounding_spaces_bug)
+{
+  ASTNode_t*  n;
+  const char* s = wrapMathML("  <ci> s </ci>  ");
+
+
+  D = readMathMLFromString(s);
+  n = D->math;
+
+  fail_unless( n != NULL, NULL );
+
+  fail_unless( ASTNode_getType(n) == AST_NAME  , NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "s"), NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_csymbol_time)
 {
   ASTNode_t*  n;
@@ -356,6 +374,56 @@ START_TEST (test_element_constants_exponentiale)
 
   fail_unless( ASTNode_getType(n) == AST_CONSTANT_E, NULL );
   fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_operator_plus)
+{
+  ASTNode_t*  n;
+  char*       f;
+
+  const char* s = wrapMathML
+  (
+    "<apply> <plus/> <cn> 1 </cn> <cn> 2 </cn> <cn> 3 </cn> </apply>"
+  );
+
+
+
+  D = readMathMLFromString(s);
+  n = D->math;
+
+  fail_unless( n != NULL, NULL );
+
+  f = SBML_formulaToString(n);
+  fail_unless( !strcmp(f, "1 + 2 + 3"), NULL );
+
+  safe_free(f);
+}
+END_TEST
+
+
+START_TEST (test_element_operator_times)
+{
+  ASTNode_t*  n;
+  char*       f;
+
+  const char* s = wrapMathML
+  (
+    "<apply> <times/> <ci> x </ci> <ci> y </ci> <ci> z </ci> </apply>"
+  );
+
+
+
+  D = readMathMLFromString(s);
+  n = D->math;
+
+  fail_unless( n != NULL, NULL );
+
+  f = SBML_formulaToString(n);
+  fail_unless( !strcmp(f, "x * y * z"), NULL );
+
+  safe_free(f);
 }
 END_TEST
 
@@ -1457,71 +1525,74 @@ create_suite_MathMLHandler (void)
                              MathMLHandlerTest_setup,
                              MathMLHandlerTest_teardown );
 
-  tcase_add_test( tcase, test_element_math                   );
-  tcase_add_test( tcase, test_element_cn_default             );
-  tcase_add_test( tcase, test_element_cn_real                );
-  tcase_add_test( tcase, test_element_cn_integer             );
-  tcase_add_test( tcase, test_element_cn_rational            );
-  tcase_add_test( tcase, test_element_cn_e_notation          );
-  tcase_add_test( tcase, test_element_ci                     );
-  tcase_add_test( tcase, test_element_csymbol_time           );
-  tcase_add_test( tcase, test_element_csymbol_delay          );
-  tcase_add_test( tcase, test_element_constants_true         );
-  tcase_add_test( tcase, test_element_constants_false        );
-  tcase_add_test( tcase, test_element_constants_notanumber   );
-  tcase_add_test( tcase, test_element_constants_pi           );
-  tcase_add_test( tcase, test_element_constants_infinity     );
-  tcase_add_test( tcase, test_element_constants_exponentiale );
-  tcase_add_test( tcase, test_element_abs                    );
-  tcase_add_test( tcase, test_element_and                    );
-  tcase_add_test( tcase, test_element_arccos                 );
-  tcase_add_test( tcase, test_element_arccosh                );
-  tcase_add_test( tcase, test_element_arccot                 );
-  tcase_add_test( tcase, test_element_arccoth                );
-  tcase_add_test( tcase, test_element_arccsc                 );
-  tcase_add_test( tcase, test_element_arccsch                );
-  tcase_add_test( tcase, test_element_arcsec                 );
-  tcase_add_test( tcase, test_element_arcsech                );
-  tcase_add_test( tcase, test_element_arcsin                 );
-  tcase_add_test( tcase, test_element_arcsinh                );
-  tcase_add_test( tcase, test_element_arctan                 );
-  tcase_add_test( tcase, test_element_arctanh                );
-  tcase_add_test( tcase, test_element_ceiling                );
-  tcase_add_test( tcase, test_element_cos                    );
-  tcase_add_test( tcase, test_element_cosh                   );
-  tcase_add_test( tcase, test_element_cot                    );
-  tcase_add_test( tcase, test_element_coth                   );
-  tcase_add_test( tcase, test_element_csc                    );
-  tcase_add_test( tcase, test_element_csch                   );
-  tcase_add_test( tcase, test_element_eq                     );
-  tcase_add_test( tcase, test_element_exp                    );
-  tcase_add_test( tcase, test_element_factorial              );
-  tcase_add_test( tcase, test_element_floor                  );
-  tcase_add_test( tcase, test_element_function_call_1        );
-  tcase_add_test( tcase, test_element_function_call_2        );
-  tcase_add_test( tcase, test_element_geq                    );
-  tcase_add_test( tcase, test_element_gt                     );
-  tcase_add_test( tcase, test_element_lambda                 );
-  tcase_add_test( tcase, test_element_leq                    );
-  tcase_add_test( tcase, test_element_ln                     );
-  tcase_add_test( tcase, test_element_log_1                  );
-  tcase_add_test( tcase, test_element_log_2                  );
-  tcase_add_test( tcase, test_element_lt                     );
-  tcase_add_test( tcase, test_element_neq                    );
-  tcase_add_test( tcase, test_element_not                    );
-  tcase_add_test( tcase, test_element_or                     );
-  tcase_add_test( tcase, test_element_piecewise              );
-  tcase_add_test( tcase, test_element_piecewise_otherwise    );
-  tcase_add_test( tcase, test_element_power                  );
-  tcase_add_test( tcase, test_element_root_1                 );
-  tcase_add_test( tcase, test_element_root_2                 );
-  tcase_add_test( tcase, test_element_sec                    );
-  tcase_add_test( tcase, test_element_sech                   );
-  tcase_add_test( tcase, test_element_sin                    );
-  tcase_add_test( tcase, test_element_sinh                   );
-  tcase_add_test( tcase, test_element_tan                    );
-  tcase_add_test( tcase, test_element_tanh                   );
-  tcase_add_test( tcase, test_element_xor                    );
+  tcase_add_test( tcase, test_element_math                      );
+  tcase_add_test( tcase, test_element_cn_default                );
+  tcase_add_test( tcase, test_element_cn_real                   );
+  tcase_add_test( tcase, test_element_cn_integer                );
+  tcase_add_test( tcase, test_element_cn_rational               );
+  tcase_add_test( tcase, test_element_cn_e_notation             );
+  tcase_add_test( tcase, test_element_ci                        );
+  tcase_add_test( tcase, test_element_ci_surrounding_spaces_bug );
+  tcase_add_test( tcase, test_element_csymbol_time              );
+  tcase_add_test( tcase, test_element_csymbol_delay             );
+  tcase_add_test( tcase, test_element_constants_true            );
+  tcase_add_test( tcase, test_element_constants_false           );
+  tcase_add_test( tcase, test_element_constants_notanumber      );
+  tcase_add_test( tcase, test_element_constants_pi              );
+  tcase_add_test( tcase, test_element_constants_infinity        );
+  tcase_add_test( tcase, test_element_constants_exponentiale    );
+  tcase_add_test( tcase, test_element_operator_plus             );
+  tcase_add_test( tcase, test_element_operator_times            );
+  tcase_add_test( tcase, test_element_abs                       );
+  tcase_add_test( tcase, test_element_and                       );
+  tcase_add_test( tcase, test_element_arccos                    );
+  tcase_add_test( tcase, test_element_arccosh                   );
+  tcase_add_test( tcase, test_element_arccot                    );
+  tcase_add_test( tcase, test_element_arccoth                   );
+  tcase_add_test( tcase, test_element_arccsc                    );
+  tcase_add_test( tcase, test_element_arccsch                   );
+  tcase_add_test( tcase, test_element_arcsec                    );
+  tcase_add_test( tcase, test_element_arcsech                   );
+  tcase_add_test( tcase, test_element_arcsin                    );
+  tcase_add_test( tcase, test_element_arcsinh                   );
+  tcase_add_test( tcase, test_element_arctan                    );
+  tcase_add_test( tcase, test_element_arctanh                   );
+  tcase_add_test( tcase, test_element_ceiling                   );
+  tcase_add_test( tcase, test_element_cos                       );
+  tcase_add_test( tcase, test_element_cosh                      );
+  tcase_add_test( tcase, test_element_cot                       );
+  tcase_add_test( tcase, test_element_coth                      );
+  tcase_add_test( tcase, test_element_csc                       );
+  tcase_add_test( tcase, test_element_csch                      );
+  tcase_add_test( tcase, test_element_eq                        );
+  tcase_add_test( tcase, test_element_exp                       );
+  tcase_add_test( tcase, test_element_factorial                 );
+  tcase_add_test( tcase, test_element_floor                     );
+  tcase_add_test( tcase, test_element_function_call_1           );
+  tcase_add_test( tcase, test_element_function_call_2           );
+  tcase_add_test( tcase, test_element_geq                       );
+  tcase_add_test( tcase, test_element_gt                        );
+  tcase_add_test( tcase, test_element_lambda                    );
+  tcase_add_test( tcase, test_element_leq                       );
+  tcase_add_test( tcase, test_element_ln                        );
+  tcase_add_test( tcase, test_element_log_1                     );
+  tcase_add_test( tcase, test_element_log_2                     );
+  tcase_add_test( tcase, test_element_lt                        );
+  tcase_add_test( tcase, test_element_neq                       );
+  tcase_add_test( tcase, test_element_not                       );
+  tcase_add_test( tcase, test_element_or                        );
+  tcase_add_test( tcase, test_element_piecewise                 );
+  tcase_add_test( tcase, test_element_piecewise_otherwise       );
+  tcase_add_test( tcase, test_element_power                     );
+  tcase_add_test( tcase, test_element_root_1                    );
+  tcase_add_test( tcase, test_element_root_2                    );
+  tcase_add_test( tcase, test_element_sec                       );
+  tcase_add_test( tcase, test_element_sech                      );
+  tcase_add_test( tcase, test_element_sin                       );
+  tcase_add_test( tcase, test_element_sinh                      );
+  tcase_add_test( tcase, test_element_tan                       );
+  tcase_add_test( tcase, test_element_tanh                      );
+  tcase_add_test( tcase, test_element_xor                       );
 
   suite_add_tcase(suite, tcase);
 
