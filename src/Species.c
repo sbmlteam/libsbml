@@ -373,6 +373,7 @@ LIBSBML_EXTERN
 void
 Species_unsetInitialAmount (Species_t *s)
 {
+  s->initialAmount       = 0. / 0;    /* NaN */
   s->isSet.initialAmount = 0;
 }
 
@@ -397,5 +398,6 @@ LIBSBML_EXTERN
 void
 Species_unsetCharge (Species_t *s)
 {
+  s->charge       = 0;
   s->isSet.charge = 0;
 }
