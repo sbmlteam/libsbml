@@ -675,12 +675,26 @@ AC_DEFUN(CONFIG_LIB_EXPAT,
     if test $with_expat != yes; then
       EXPAT_CPPFLAGS="-I$with_expat/include -I\$(top_srcdir)/expat"
       EXPAT_LDFLAGS="-L$with_expat/lib"
+    else
+      dnl On the Macs, if the user has installed expat via Fink and they
+      dnl used the default Fink install path of /sw, the following should
+      dnl catch it.  We do this so that Mac users are more likely to find
+      dnl success even if they only type --with-expat.
+
+      case $host in
+      *darwin*) 
+        EXPAT_CPPFLAGS="-I/sw/include -I\$(top_srcdir)/expat"
+        EXPAT_LDFLAGS="-L/sw/lib"
+	;;
+      esac    
+
     fi
 
     EXPAT_LIBS="-lexpat"
 
     dnl The following is grungy but I don't know how else to make 
-    dnl AC_CHECK_LIB use particular library and include paths.
+    dnl AC_CHECK_LIB use particular library and include paths without
+    dnl permanently resetting CPPFLAGS etc.
 
     tmp_CPPFLAGS=$CPPFLAGS
     tmp_LDFLAGS=$LDFLAGS
@@ -693,7 +707,7 @@ AC_DEFUN(CONFIG_LIB_EXPAT,
 
     if test $expat_found = no; then
       AC_MSG_ERROR([Could not find the Expat XML library.])
-    fi
+    fi       
 
     AC_CHECK_HEADERS(expat.h, [expat_found=yes], [expat_found=no])
 
@@ -794,7 +808,7 @@ AC_DEFUN(CONFIG_LIB_XERCES,
 
     AC_MSG_CHECKING([for Apache's Xerces-C XML library])
 
-    AC_LANG_PUSH(C)
+    AC_LANG_PUSH(C++)
 
     XERCES_CPPFLAGS=
     XERCES_LDFLAGS=
@@ -828,7 +842,9 @@ AC_DEFUN(CONFIG_LIB_XERCES,
       [xerces_found=yes],
       [xerces_found=no])
 
-    if test $xerces_found = no; then
+    if test $xerces_found = yes; then
+      AC_MSG_RESULT([yes])
+    else
       AC_MSG_ERROR([Could not find the Xerces XML library.])
     fi
 
@@ -886,6 +902,19 @@ AC_DEFUN(CONFIG_LIB_LIBCHECK,
     if test $with_libcheck != yes; then
       LIBCHECK_CPPFLAGS="-I$with_libcheck/include"
       LIBCHECK_LDFLAGS="-L$with_libcheck/lib"
+    else
+      dnl On the Macs, if the user has installed libcheck via Fink and they
+      dnl used the default Fink install path of /sw, the following should
+      dnl catch it.  We do this so that Mac users are more likely to find
+      dnl success even if they only type --with-expat.
+
+      case $host in
+      *darwin*) 
+        LIBCHECK_CPPFLAGS="-I/sw/include -I\$(top_srcdir)/expat"
+        LIBCHECK_LDFLAGS="-L/sw/lib"
+	;;
+      esac    
+
     fi
 
     AC_LANG_PUSH(C)
@@ -898,7 +927,7 @@ AC_DEFUN(CONFIG_LIB_LIBCHECK,
 
     AC_CHECK_HEADERS([check.h], [libcheck_found=yes], [libcheck_found=no])
 
-    if test $libcheck_found = yes; then
+    if test $libcheck_found = no; then
       AC_CHECK_LIB([check], [srunner_create],
         [libcheck_found=yes],
         [libcheck_found=no])
