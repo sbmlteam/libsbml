@@ -50,7 +50,6 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/RuleType.h"
 
 
@@ -65,6 +64,7 @@ const char* RULE_TYPE_STRINGS[] =
 /**
  * Returns the RuleType with the given name (case-insensitive).
  */
+LIBSBML_EXTERN
 RuleType_t
 RuleType_forName (const char *name)
 {
@@ -92,6 +92,7 @@ RuleType_forName (const char *name)
  * Returns the name of the given RuleType.  The caller does not own the
  * returned string and is therefore not allowed to modify it.
  */
+LIBSBML_EXTERN
 const char *
 RuleType_toString (RuleType_t rt)
 {
@@ -102,4 +103,3 @@ RuleType_toString (RuleType_t rt)
 
   return RULE_TYPE_STRINGS[rt];
 }
-

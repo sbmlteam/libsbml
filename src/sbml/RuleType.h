@@ -54,9 +54,10 @@
 #define RuleType_h
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "common.h"
+
+
+BEGIN_C_DECLS
 
 
 typedef enum
@@ -70,6 +71,7 @@ typedef enum
 /**
  * Returns the RuleType with the given name (case-insensitive).
  */
+LIBSBML_EXTERN
 RuleType_t
 RuleType_forName (const char *name);
 
@@ -77,13 +79,12 @@ RuleType_forName (const char *name);
  * Returns the name of the given RuleType.  The caller does not own the
  * returned string and is therefore not allowed to modify it.
  */
+LIBSBML_EXTERN
 const char *
 RuleType_toString (RuleType_t rt);
 
 
-#ifdef __cplusplus
-}
-#endif
+END_C_DECLS
 
 
 #endif  /** RuleType_h **/
