@@ -1,3 +1,8 @@
+2003-03-24  Ben Bornstein  <bornstei@caltech.edu>
+
+	* SBMLDocument.c (ParseMessage_free): Replace free() with safe_free().
+
+
 2003-03-22  Ben Bornstein  <bornstei@caltech.edu>
 
 	* test-data/lv1-branch.xml, l1v1-minimal.xml, l1v1-rules.xml, l1v1-units.xml:
@@ -19,8 +24,6 @@
 	* SAX2SBMLHandler.hpp, SBMLFormatter.hpp, SBMLHashCodes.hpp,
 	SBMLUnicodeConstants.hpp, XMLStringFormatter.hpp, XMLUtil.hpp:
 	Includes common.hpp.
-
-        * memory.c (MemTrace_getMaxBytes): Added
 
 
 2003-02-10  Ben Bornstein  <bornstei@caltech.edu>
