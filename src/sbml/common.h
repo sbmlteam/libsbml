@@ -65,6 +65,8 @@
 
 #if WIN32
 
+#if !defined(CYGWIN)
+
 #undef  HAVE_LIBCHECK
 #define snprintf _snprintf
 
@@ -73,6 +75,8 @@
  * 'true' or 'false' (performance warning)
  */
 #pragma warning(disable: 4800)
+
+#endif /* !CYGWIN */
 
 /**
  * The following ifdef block is the standard way of creating macros which
