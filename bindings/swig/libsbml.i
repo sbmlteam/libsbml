@@ -66,17 +66,23 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
 
-%ignore SBMLDocument::printWarnings;
-%ignore SBMLDocument::printErrors;
-%ignore SBMLDocument::printFatals;
 
 %ignore ASTNode(Token_t*);
 %ignore ASTNode::getListOfNodes;
 %ignore ASTNode::fillListOfNodes;
+%ignore ASTNode::freeName;
 %ignore ASTNode::setValue(int);
+%ignore ASTNode::swapChildren(ASTNode*);
 
-%ignore ListOf::find;
 %ignore ListOf::countIf;
+%ignore ListOf::find;
+%ignore ListOf::freeItems;
+
+%ignore Model::getListOfByTypecode(SBMLTypeCode_t);
+
+%ignore SBMLDocument::printWarnings;
+%ignore SBMLDocument::printErrors;
+%ignore SBMLDocument::printFatals;
 
 
 %newobject SBMLReader::readSBMLFromString;
