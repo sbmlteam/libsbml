@@ -54,6 +54,9 @@
 #define SBMLHashCodes_hpp
 
 
+#include "common.hpp"
+
+
 typedef int HashCode_t;
 
 

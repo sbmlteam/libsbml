@@ -57,7 +57,7 @@ dnl
 dnl Bug reports are sent to sysbio-team@cds.caltech.edu
 dnl ---------------------------------------------------------------------------
 
-AC_INIT([SBML Library], [1.0.0], [sysbio-team@caltech.edu], [libsbml])
+AC_INIT([SBML Library], [1.0.1], [sysbio-team@caltech.edu], [libsbml])
 AC_CONFIG_AUX_DIR(config)
 AM_INIT_AUTOMAKE
 
@@ -97,12 +97,6 @@ dnl ---------------------------------------------------------------------------
 dnl Checks for libraries.
 dnl ---------------------------------------------------------------------------
 
-dnl AC_ARG_WITH(xercesc-libdir, 
-dnl  AC_HELP_STRING([--with-xercesc-libdir=DIR],
-dnl                  [Directory containing Xerces-C library files
-dnl                   (if installed in a non-standard location)])
-dnl   [xercesc_libdir=$withval], [])
-
 AC_LANG(C)
 AC_CHECK_LIB(check, srunner_create)
 
@@ -140,10 +134,6 @@ dnl ---------------------------------------------------------------------------
 dnl Output
 dnl ---------------------------------------------------------------------------
 
-
-dnl test x"${debug_memory}" = xyes && DEFS="$DEFS -DDEBUG_MALLOCS"
-
-dnl AC_SUBST(debug_memory)
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([src/Makefile])

@@ -1,9 +1,9 @@
 /**
- * Filename    : common.h
- * Description : Common functions and macros for C and C++
+ * Filename    : common.hpp
+ * Description : Common functions and macros for C++ only
  * Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
  * Organization: Caltech ERATO Kitano Systems Biology Project
- * Created     : 2003-02-10
+ * Created     : 2003-03-13
  * Revision    : $Id$
  * Source      : $Source$
  *
@@ -50,44 +50,32 @@
  */
 
 
-#ifndef SBML_COMMON_H
-#define SBML_COMMON_H 1
-
-#if HAVE_CONFIG_H
-#  include "config.h"
-#endif
-
-#include <stdio.h>
-#include <sys/types.h>
-
-#if STDC_HEADERS
-#  include <errno.h>
-#  include <stdlib.h>
-#  include <string.h>
-#elif HAVE_STRINGS_H
-#  include <strings.h>
-#endif
-
-#ifndef errno
-  extern int errno;
-#endif
-
-#if HAVE_LIBCHECK
-#  include <check.h>
-#endif
+#ifndef SBML_COMMON_HPP
+#define SBML_COMMON_HPP 1
 
 
-#include "memory.h"
-#include "util.h"
+#include <xercesc/util/XercesVersion.hpp>
+#include <xercesc/util/XercesDefs.hpp>
 
 
-#if __cplusplus
-#  define BEGIN_C_DECLS extern "C" {
-#  define END_C_DECLS   }
-#else
-#  define BEGIN_C_DECLS
-#  define END_C_DECLS
+//
+// Starting with Xerces-C++ 2.2.0 its API is wrapped in a C++ namesapce.
+//
+// The namespaces is version specific, e.g. xercesc_2_2, but the macro
+// XERCES_CPP_NAMESPACE_USE defines "using namespace xercesc<version>;".
+// If Xerces was compiled *without* namespace support, this macro will be
+// empty.
+//
+// The namespace xercesc:: is also valid.  It is an alias for the most
+// current version of API.
+//
+// _XERCES_VERSION (20200 == 2.02.00 == 2.2.0) is defined in
+// XercesVersion.hpp.  XERCES_CPP_NAMESPACE_USE is defined in
+// XercesDefs.hpp.
+//
+#if _XERCES_VERSION >= 20200
+XERCES_CPP_NAMESPACE_USE
 #endif
 
 
-#endif  /** SBML_COMMON_H **/
+#endif  // SBML_COMMON_HPP

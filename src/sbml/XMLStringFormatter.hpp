@@ -58,6 +58,8 @@
 #include <xercesc/framework/MemBufFormatTarget.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
+#include "common.hpp"
+
 
 //
 // The XMLStringFormatter is designed to receive SAX-like callback events

@@ -55,6 +55,7 @@
 
 
 #include <xercesc/util/XMLUniDefs.hpp>
+#include "common.hpp"
 
 
 static const XMLCh ELEM_ALGEBRAIC_RULE[] =

@@ -53,14 +53,17 @@
 #ifndef SBMLFormatter_hh
 #define SBMLFormatter_hh
 
+
 #include <xercesc/framework/XMLFormatter.hpp>
 #include <xercesc/framework/MemBufFormatTarget.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/XMLString.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 
-#include "sbml/SBMLTypes.h"
-#include "sbml/SBMLUnicodeConstants.hpp" 
+#include "SBMLTypes.h"
+
+#include "common.hpp"
+#include "SBMLUnicodeConstants.hpp" 
 
 
 //

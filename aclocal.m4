@@ -4414,8 +4414,13 @@ AC_DEFUN([SBML_CHECK_LIB_XERCESC],
      AC_LANG_CPLUSPLUS
      sbml_save_LIBS=$LIBS
      LIBS="$LIBS -lxerces-c"
-     AC_TRY_LINK([#include <xercesc/util/PlatformUtils.hpp>],
-       [XMLPlatformUtils::Initialize();],
+     AC_TRY_LINK([
+#include <xercesc/util/XercesDefs.hpp>
+#include <xercesc/util/PlatformUtils.hpp>
+#ifndef XERCES_HAS_CPP_NAMESPACE
+#define XERCES_CPP_NAMESPACE_QUALIFIER
+#endif],
+       [XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Initialize();],
        [sbml_cv_lib_xercesc=yes],
        [sbml_cv_lib_xercesc=no])
      LIBS=$sbml_save_LIBS

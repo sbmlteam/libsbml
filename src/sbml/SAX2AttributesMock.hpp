@@ -57,6 +57,8 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <xercesc/util/XMLString.hpp>
 
+#include "common.hpp"
+
 
 //
 // SAX2AttributesMock

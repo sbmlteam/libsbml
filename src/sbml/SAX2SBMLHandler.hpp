@@ -60,9 +60,17 @@
 #include "Stack.h"
 #include "SBMLReader.h"
 #include "SBMLTypes.h"
+
+#include "common.hpp"
 #include "XMLStringFormatter.hpp"
 
 
+//
+// SAX2SBMLHandler
+//
+// This XML document handler is responsible for constructing an
+// SBMLDocument from SAX2 events deliverd by a SAX2XMLReader.
+//
 class SAX2SBMLHandler : public DefaultHandler
 {
 

@@ -55,6 +55,7 @@
 
 
 #include <xercesc/sax2/Attributes.hpp>
+#include "common.hpp"
 
 
 class XMLUtil
