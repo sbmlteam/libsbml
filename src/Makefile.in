@@ -187,9 +187,11 @@ nobase_include_HEADERS = \
   sbml/SpeciesReference.h         \
   sbml/Stack.h                    \
   sbml/StringBuffer.h             \
+  sbml/StringMap.h                \
   sbml/UnitDefinition.h           \
   sbml/Unit.h                     \
   sbml/UnitKind.h                 \
+  sbml/Validator.h                \
   sbml/common.h                   \
   sbml/config.h                   \
   sbml/extern.h                   \
@@ -255,9 +257,12 @@ libsbml_la_SOURCES = \
   SpeciesReference.c              \
   Stack.c                         \
   StringBuffer.c                  \
+  StringMap.c                     \
   Unit.c                          \
   UnitDefinition.c                \
   UnitKind.c                      \
+  ValidationRules.c               \
+  Validator.c                     \
   memory.c                        \
   util.c
 
@@ -310,6 +315,7 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  TestSpeciesReference.c          \
 @LIBCHECK_ENABLED_TRUE@  TestStack.c                     \
 @LIBCHECK_ENABLED_TRUE@  TestStringBuffer.c              \
+@LIBCHECK_ENABLED_TRUE@  TestStringMap.c                 \
 @LIBCHECK_ENABLED_TRUE@  TestReadFromFile1.c             \
 @LIBCHECK_ENABLED_TRUE@  TestReadFromFile2.c             \
 @LIBCHECK_ENABLED_TRUE@  TestReadFromFile3.c             \
@@ -318,7 +324,8 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  TestUnitDefinition.c            \
 @LIBCHECK_ENABLED_TRUE@  TestUnitKind.c                  \
 @LIBCHECK_ENABLED_TRUE@  TestUnit.c                      \
-@LIBCHECK_ENABLED_TRUE@  TestUtil.c
+@LIBCHECK_ENABLED_TRUE@  TestUtil.c                      \
+@LIBCHECK_ENABLED_TRUE@  TestValidator.c
 
 
 @LIBCHECK_ENABLED_TRUE@@USE_EXPAT_TRUE@TestRunner_CPPFLAGS = -I../expat
@@ -358,9 +365,10 @@ am_libsbml_la_OBJECTS = libsbml_la-MathMLDocument.lo \
 	libsbml_la-SimpleSpeciesReference.lo libsbml_la-Species.lo \
 	libsbml_la-SpeciesConcentrationRule.lo \
 	libsbml_la-SpeciesReference.lo libsbml_la-Stack.lo \
-	libsbml_la-StringBuffer.lo libsbml_la-Unit.lo \
-	libsbml_la-UnitDefinition.lo libsbml_la-UnitKind.lo \
-	libsbml_la-memory.lo libsbml_la-util.lo
+	libsbml_la-StringBuffer.lo libsbml_la-StringMap.lo \
+	libsbml_la-Unit.lo libsbml_la-UnitDefinition.lo \
+	libsbml_la-UnitKind.lo libsbml_la-ValidationRules.lo \
+	libsbml_la-Validator.lo libsbml_la-memory.lo libsbml_la-util.lo
 libsbml_la_OBJECTS = $(am_libsbml_la_OBJECTS)
 @LIBCHECK_ENABLED_TRUE@check_PROGRAMS = TestRunner$(EXEEXT)
 @LIBCHECK_ENABLED_FALSE@check_PROGRAMS =
@@ -381,10 +389,10 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 	TestSBMLConvert.c TestSBMLDocument.c TestSBMLReader.c \
 	TestSBMLWriter.c TestSimpleSpeciesReference.c TestSpecies.c \
 	TestSpeciesConcentrationRule.c TestSpeciesReference.c \
-	TestStack.c TestStringBuffer.c TestReadFromFile1.c \
-	TestReadFromFile2.c TestReadFromFile3.c TestReadFromFile4.c \
-	TestRunner.c TestUnitDefinition.c TestUnitKind.c TestUnit.c \
-	TestUtil.c
+	TestStack.c TestStringBuffer.c TestStringMap.c \
+	TestReadFromFile1.c TestReadFromFile2.c TestReadFromFile3.c \
+	TestReadFromFile4.c TestRunner.c TestUnitDefinition.c \
+	TestUnitKind.c TestUnit.c TestUtil.c TestValidator.c
 @LIBCHECK_ENABLED_TRUE@am_TestRunner_OBJECTS = \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-SAX2AttributesMock.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestMathMLFormatter.$(OBJEXT) \
@@ -431,6 +439,7 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestSpeciesReference.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestStack.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestStringBuffer.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestRunner-TestStringMap.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestReadFromFile1.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestReadFromFile2.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestReadFromFile3.$(OBJEXT) \
@@ -439,7 +448,8 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestUnitDefinition.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestUnitKind.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestUnit.$(OBJEXT) \
-@LIBCHECK_ENABLED_TRUE@	TestRunner-TestUtil.$(OBJEXT)
+@LIBCHECK_ENABLED_TRUE@	TestRunner-TestUtil.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestRunner-TestValidator.$(OBJEXT)
 TestRunner_OBJECTS = $(am_TestRunner_OBJECTS)
 @LIBCHECK_ENABLED_TRUE@TestRunner_DEPENDENCIES = libsbml.la
 @LIBCHECK_ENABLED_FALSE@TestRunner_DEPENDENCIES =
@@ -496,10 +506,12 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestSpeciesReference.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestStack.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestStringBuffer.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestStringMap.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestUnit.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestUnitDefinition.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestUnitKind.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestUtil.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestValidator.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestXMLStringFormatter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestXMLUtil.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-ASTNode.Plo \
@@ -545,9 +557,12 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-SpeciesReference.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-Stack.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-StringBuffer.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-StringMap.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-Unit.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-UnitDefinition.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-UnitKind.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-ValidationRules.Plo \
+@AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-Validator.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-XMLStringFormatter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-XMLUtil.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/libsbml_la-memory.Plo \
@@ -677,10 +692,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestSpeciesReference.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestStack.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestStringBuffer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestStringMap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestUnit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestUnitDefinition.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestUnitKind.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestUtil.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestValidator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestXMLStringFormatter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestXMLUtil.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-ASTNode.Plo@am__quote@
@@ -726,9 +743,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-SpeciesReference.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-Stack.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-StringBuffer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-StringMap.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-Unit.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-UnitDefinition.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-UnitKind.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-ValidationRules.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-Validator.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-XMLStringFormatter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-XMLUtil.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libsbml_la-memory.Plo@am__quote@
@@ -1859,6 +1879,39 @@ libsbml_la-StringBuffer.lo: StringBuffer.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-StringBuffer.lo `test -f 'StringBuffer.c' || echo '$(srcdir)/'`StringBuffer.c
 
+libsbml_la-StringMap.o: StringMap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-StringMap.o -MD -MP -MF "$(DEPDIR)/libsbml_la-StringMap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-StringMap.o `test -f 'StringMap.c' || echo '$(srcdir)/'`StringMap.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-StringMap.Tpo" "$(DEPDIR)/libsbml_la-StringMap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-StringMap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='StringMap.c' object='libsbml_la-StringMap.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-StringMap.Po' tmpdepfile='$(DEPDIR)/libsbml_la-StringMap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-StringMap.o `test -f 'StringMap.c' || echo '$(srcdir)/'`StringMap.c
+
+libsbml_la-StringMap.obj: StringMap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-StringMap.obj -MD -MP -MF "$(DEPDIR)/libsbml_la-StringMap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-StringMap.obj `if test -f 'StringMap.c'; then $(CYGPATH_W) 'StringMap.c'; else $(CYGPATH_W) '$(srcdir)/StringMap.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-StringMap.Tpo" "$(DEPDIR)/libsbml_la-StringMap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-StringMap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='StringMap.c' object='libsbml_la-StringMap.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-StringMap.Po' tmpdepfile='$(DEPDIR)/libsbml_la-StringMap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-StringMap.obj `if test -f 'StringMap.c'; then $(CYGPATH_W) 'StringMap.c'; else $(CYGPATH_W) '$(srcdir)/StringMap.c'; fi`
+
+libsbml_la-StringMap.lo: StringMap.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-StringMap.lo -MD -MP -MF "$(DEPDIR)/libsbml_la-StringMap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-StringMap.lo `test -f 'StringMap.c' || echo '$(srcdir)/'`StringMap.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-StringMap.Tpo" "$(DEPDIR)/libsbml_la-StringMap.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-StringMap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='StringMap.c' object='libsbml_la-StringMap.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-StringMap.Plo' tmpdepfile='$(DEPDIR)/libsbml_la-StringMap.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-StringMap.lo `test -f 'StringMap.c' || echo '$(srcdir)/'`StringMap.c
+
 libsbml_la-Unit.o: Unit.c
 @am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-Unit.o -MD -MP -MF "$(DEPDIR)/libsbml_la-Unit.Tpo" \
 @am__fastdepCC_TRUE@	  -c -o libsbml_la-Unit.o `test -f 'Unit.c' || echo '$(srcdir)/'`Unit.c; \
@@ -1957,6 +2010,72 @@ libsbml_la-UnitKind.lo: UnitKind.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-UnitKind.Plo' tmpdepfile='$(DEPDIR)/libsbml_la-UnitKind.TPlo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-UnitKind.lo `test -f 'UnitKind.c' || echo '$(srcdir)/'`UnitKind.c
+
+libsbml_la-ValidationRules.o: ValidationRules.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-ValidationRules.o -MD -MP -MF "$(DEPDIR)/libsbml_la-ValidationRules.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-ValidationRules.o `test -f 'ValidationRules.c' || echo '$(srcdir)/'`ValidationRules.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-ValidationRules.Tpo" "$(DEPDIR)/libsbml_la-ValidationRules.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-ValidationRules.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ValidationRules.c' object='libsbml_la-ValidationRules.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-ValidationRules.Po' tmpdepfile='$(DEPDIR)/libsbml_la-ValidationRules.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-ValidationRules.o `test -f 'ValidationRules.c' || echo '$(srcdir)/'`ValidationRules.c
+
+libsbml_la-ValidationRules.obj: ValidationRules.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-ValidationRules.obj -MD -MP -MF "$(DEPDIR)/libsbml_la-ValidationRules.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-ValidationRules.obj `if test -f 'ValidationRules.c'; then $(CYGPATH_W) 'ValidationRules.c'; else $(CYGPATH_W) '$(srcdir)/ValidationRules.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-ValidationRules.Tpo" "$(DEPDIR)/libsbml_la-ValidationRules.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-ValidationRules.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ValidationRules.c' object='libsbml_la-ValidationRules.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-ValidationRules.Po' tmpdepfile='$(DEPDIR)/libsbml_la-ValidationRules.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-ValidationRules.obj `if test -f 'ValidationRules.c'; then $(CYGPATH_W) 'ValidationRules.c'; else $(CYGPATH_W) '$(srcdir)/ValidationRules.c'; fi`
+
+libsbml_la-ValidationRules.lo: ValidationRules.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-ValidationRules.lo -MD -MP -MF "$(DEPDIR)/libsbml_la-ValidationRules.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-ValidationRules.lo `test -f 'ValidationRules.c' || echo '$(srcdir)/'`ValidationRules.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-ValidationRules.Tpo" "$(DEPDIR)/libsbml_la-ValidationRules.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-ValidationRules.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='ValidationRules.c' object='libsbml_la-ValidationRules.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-ValidationRules.Plo' tmpdepfile='$(DEPDIR)/libsbml_la-ValidationRules.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-ValidationRules.lo `test -f 'ValidationRules.c' || echo '$(srcdir)/'`ValidationRules.c
+
+libsbml_la-Validator.o: Validator.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-Validator.o -MD -MP -MF "$(DEPDIR)/libsbml_la-Validator.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-Validator.o `test -f 'Validator.c' || echo '$(srcdir)/'`Validator.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-Validator.Tpo" "$(DEPDIR)/libsbml_la-Validator.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-Validator.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='Validator.c' object='libsbml_la-Validator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-Validator.Po' tmpdepfile='$(DEPDIR)/libsbml_la-Validator.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-Validator.o `test -f 'Validator.c' || echo '$(srcdir)/'`Validator.c
+
+libsbml_la-Validator.obj: Validator.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-Validator.obj -MD -MP -MF "$(DEPDIR)/libsbml_la-Validator.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-Validator.obj `if test -f 'Validator.c'; then $(CYGPATH_W) 'Validator.c'; else $(CYGPATH_W) '$(srcdir)/Validator.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-Validator.Tpo" "$(DEPDIR)/libsbml_la-Validator.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-Validator.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='Validator.c' object='libsbml_la-Validator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-Validator.Po' tmpdepfile='$(DEPDIR)/libsbml_la-Validator.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-Validator.obj `if test -f 'Validator.c'; then $(CYGPATH_W) 'Validator.c'; else $(CYGPATH_W) '$(srcdir)/Validator.c'; fi`
+
+libsbml_la-Validator.lo: Validator.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-Validator.lo -MD -MP -MF "$(DEPDIR)/libsbml_la-Validator.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o libsbml_la-Validator.lo `test -f 'Validator.c' || echo '$(srcdir)/'`Validator.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/libsbml_la-Validator.Tpo" "$(DEPDIR)/libsbml_la-Validator.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/libsbml_la-Validator.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='Validator.c' object='libsbml_la-Validator.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/libsbml_la-Validator.Plo' tmpdepfile='$(DEPDIR)/libsbml_la-Validator.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o libsbml_la-Validator.lo `test -f 'Validator.c' || echo '$(srcdir)/'`Validator.c
 
 libsbml_la-memory.o: memory.c
 @am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libsbml_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT libsbml_la-memory.o -MD -MP -MF "$(DEPDIR)/libsbml_la-memory.Tpo" \
@@ -3245,6 +3364,39 @@ TestRunner-TestStringBuffer.lo: TestStringBuffer.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestStringBuffer.lo `test -f 'TestStringBuffer.c' || echo '$(srcdir)/'`TestStringBuffer.c
 
+TestRunner-TestStringMap.o: TestStringMap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TestRunner-TestStringMap.o -MD -MP -MF "$(DEPDIR)/TestRunner-TestStringMap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o TestRunner-TestStringMap.o `test -f 'TestStringMap.c' || echo '$(srcdir)/'`TestStringMap.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/TestRunner-TestStringMap.Tpo" "$(DEPDIR)/TestRunner-TestStringMap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestStringMap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='TestStringMap.c' object='TestRunner-TestStringMap.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/TestRunner-TestStringMap.Po' tmpdepfile='$(DEPDIR)/TestRunner-TestStringMap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestStringMap.o `test -f 'TestStringMap.c' || echo '$(srcdir)/'`TestStringMap.c
+
+TestRunner-TestStringMap.obj: TestStringMap.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TestRunner-TestStringMap.obj -MD -MP -MF "$(DEPDIR)/TestRunner-TestStringMap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o TestRunner-TestStringMap.obj `if test -f 'TestStringMap.c'; then $(CYGPATH_W) 'TestStringMap.c'; else $(CYGPATH_W) '$(srcdir)/TestStringMap.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/TestRunner-TestStringMap.Tpo" "$(DEPDIR)/TestRunner-TestStringMap.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestStringMap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='TestStringMap.c' object='TestRunner-TestStringMap.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/TestRunner-TestStringMap.Po' tmpdepfile='$(DEPDIR)/TestRunner-TestStringMap.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestStringMap.obj `if test -f 'TestStringMap.c'; then $(CYGPATH_W) 'TestStringMap.c'; else $(CYGPATH_W) '$(srcdir)/TestStringMap.c'; fi`
+
+TestRunner-TestStringMap.lo: TestStringMap.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TestRunner-TestStringMap.lo -MD -MP -MF "$(DEPDIR)/TestRunner-TestStringMap.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o TestRunner-TestStringMap.lo `test -f 'TestStringMap.c' || echo '$(srcdir)/'`TestStringMap.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/TestRunner-TestStringMap.Tpo" "$(DEPDIR)/TestRunner-TestStringMap.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestStringMap.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='TestStringMap.c' object='TestRunner-TestStringMap.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/TestRunner-TestStringMap.Plo' tmpdepfile='$(DEPDIR)/TestRunner-TestStringMap.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestStringMap.lo `test -f 'TestStringMap.c' || echo '$(srcdir)/'`TestStringMap.c
+
 TestRunner-TestReadFromFile1.o: TestReadFromFile1.c
 @am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TestRunner-TestReadFromFile1.o -MD -MP -MF "$(DEPDIR)/TestRunner-TestReadFromFile1.Tpo" \
 @am__fastdepCC_TRUE@	  -c -o TestRunner-TestReadFromFile1.o `test -f 'TestReadFromFile1.c' || echo '$(srcdir)/'`TestReadFromFile1.c; \
@@ -3541,6 +3693,39 @@ TestRunner-TestUtil.lo: TestUtil.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/TestRunner-TestUtil.Plo' tmpdepfile='$(DEPDIR)/TestRunner-TestUtil.TPlo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestUtil.lo `test -f 'TestUtil.c' || echo '$(srcdir)/'`TestUtil.c
+
+TestRunner-TestValidator.o: TestValidator.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TestRunner-TestValidator.o -MD -MP -MF "$(DEPDIR)/TestRunner-TestValidator.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o TestRunner-TestValidator.o `test -f 'TestValidator.c' || echo '$(srcdir)/'`TestValidator.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/TestRunner-TestValidator.Tpo" "$(DEPDIR)/TestRunner-TestValidator.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestValidator.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='TestValidator.c' object='TestRunner-TestValidator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/TestRunner-TestValidator.Po' tmpdepfile='$(DEPDIR)/TestRunner-TestValidator.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestValidator.o `test -f 'TestValidator.c' || echo '$(srcdir)/'`TestValidator.c
+
+TestRunner-TestValidator.obj: TestValidator.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TestRunner-TestValidator.obj -MD -MP -MF "$(DEPDIR)/TestRunner-TestValidator.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o TestRunner-TestValidator.obj `if test -f 'TestValidator.c'; then $(CYGPATH_W) 'TestValidator.c'; else $(CYGPATH_W) '$(srcdir)/TestValidator.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/TestRunner-TestValidator.Tpo" "$(DEPDIR)/TestRunner-TestValidator.Po"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestValidator.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='TestValidator.c' object='TestRunner-TestValidator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/TestRunner-TestValidator.Po' tmpdepfile='$(DEPDIR)/TestRunner-TestValidator.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestValidator.obj `if test -f 'TestValidator.c'; then $(CYGPATH_W) 'TestValidator.c'; else $(CYGPATH_W) '$(srcdir)/TestValidator.c'; fi`
+
+TestRunner-TestValidator.lo: TestValidator.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT TestRunner-TestValidator.lo -MD -MP -MF "$(DEPDIR)/TestRunner-TestValidator.Tpo" \
+@am__fastdepCC_TRUE@	  -c -o TestRunner-TestValidator.lo `test -f 'TestValidator.c' || echo '$(srcdir)/'`TestValidator.c; \
+@am__fastdepCC_TRUE@	then mv "$(DEPDIR)/TestRunner-TestValidator.Tpo" "$(DEPDIR)/TestRunner-TestValidator.Plo"; \
+@am__fastdepCC_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestValidator.Tpo"; exit 1; \
+@am__fastdepCC_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='TestValidator.c' object='TestRunner-TestValidator.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	depfile='$(DEPDIR)/TestRunner-TestValidator.Plo' tmpdepfile='$(DEPDIR)/TestRunner-TestValidator.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o TestRunner-TestValidator.lo `test -f 'TestValidator.c' || echo '$(srcdir)/'`TestValidator.c
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	if $(CXXCOMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \

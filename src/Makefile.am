@@ -105,6 +105,7 @@ nobase_include_HEADERS =          \
   sbml/UnitDefinition.h           \
   sbml/Unit.h                     \
   sbml/UnitKind.h                 \
+  sbml/Validator.h                \
   sbml/common.h                   \
   sbml/config.h                   \
   sbml/extern.h                   \
@@ -173,6 +174,8 @@ libsbml_la_SOURCES =              \
   Unit.c                          \
   UnitDefinition.c                \
   UnitKind.c                      \
+  ValidationRules.c               \
+  Validator.c                     \
   memory.c                        \
   util.c
 
@@ -236,7 +239,8 @@ TestRunner_SOURCES =              \
   TestUnitDefinition.c            \
   TestUnitKind.c                  \
   TestUnit.c                      \
-  TestUtil.c
+  TestUtil.c                      \
+  TestValidator.c
 
 
 if USE_EXPAT
