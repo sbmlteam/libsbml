@@ -1,6 +1,85 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.3.0 ===
+
+                                DRAFT
+
+* New Features:
+
+  - libSBML now implements a variant of the Visitor pattern (Design
+    Patterns, GoF, 1995, p. 331).  The parent Visitor class is called
+    SBMLVisitor and each SBML class now has an accept() method to
+    accept subclasses of SBMLVisitor.  See the libSBML Developer's
+    Manual for more information.
+
+  - Added const versions of the getListOfXXX() methods for Model,
+    UnitDefinition, Reaction, KineticLaw, and Events.
+
+  - There are several new convenience methods (and functions) on Unit
+    and UnitDefinition.  These make many libSBML consistency checks
+    both much more succint and easier to read.  In particular the
+    following were added:
+
+      - Unit.isXXX() C++ methods (and corresponding Unit_isXXX() C
+        functions) for each UnitKind.  For example, Unit.isMetre() (or
+        Unit_isLitre()).
+
+      - A static C++ method Unit::isBuiltIn() (and the corresponding C
+        function Unit_isBuiltIn()).  It takes a string as an argument
+        and returns true if it is one of the five SBML built-in units:
+        'area', 'length', 'substance', 'time', or 'volume'.
+
+      - Five new methods that allow you to ask whether or not a
+        particular UnitDefinition is a variant of a built-in unit.
+        That is, the unit expresses the built-in type and varies
+        arbitrarily in only scale, multiplier, and/or offset.  The
+        methods are:
+
+          - isVariantOfArea()
+          - isVariantOfLength()
+          - isVariantOfSubstance()
+          - isVariantOfTime()
+          - isVariantOfVolume()
+
+  - ParseMessages can now have an integer identification number
+    associated with them to uniquely identify each message.  The id
+    the first argument passed to the ParseMessage constructor and
+    ParseMessage_createWith().
+
+    The new and improved libSBML consistency check facility will make
+    use of ParseMessage ids.
+
+    Thanks to Damon Hachmeister for suggesting this idea.
+
+
+* Changes:
+
+  - Renamed two methods on the Reaction class:
+
+      - getReactantById() -> getReactant()
+      - getProductById()  -> getProduct ()
+
+    The naming scheme takes advantage of C++ overloading (i.e. you can
+    specify either a string id or an integer position to get the nth
+    reactant or product) and is consistent with similar methods
+    elsewhere in libSBML.  The 'ById' portion of the name was a
+    holdover from the C API and was introduced by mistake when
+    converting the C API to C++.
+
+  - Started upgrading some unit tests to 'check' 0.92.  In version
+    0.92, NULL may be omitted as the second argument to fail_unless()
+    and fail_if().
+
+  - All header files use forward class declarations in order to
+    minimize dependencies and increase compilation speed.
+
+
+* Released March ??, 2005
+
+
+
+
 === Version 2.2.0 ===
 
 * New Features:
