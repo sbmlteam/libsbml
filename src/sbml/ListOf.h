@@ -93,6 +93,38 @@ void
 ListOf_append (ListOf_t *lo, void *item);
 
 /**
+ * @return the number of items in this List for which predicate(item)
+ * returns true.
+ *
+ * The typedef for ListItemPredicate is:
+ *
+ *   int (*ListItemPredicate) (const void *item);
+ *
+ * where a return value of non-zero represents true and zero represents
+ * false.
+ */
+unsigned int
+ListOf_countIf (const ListOf_t *lo, ListItemPredicate predicate);
+
+/**
+ * @return the first occurrence of item1 in this List or NULL if item was
+ * not found.  ListItemComparator is a pointer to a function used to find
+ * item.  The typedef for ListItemComparator is:
+ *
+ *   int (*ListItemComparator) (const void *item1, const void *item2);
+ *
+ * The return value semantics are the same as for strcmp:
+ *
+ *   -1    item1 <  item2,
+ *    0    item1 == item 2
+ *    1    item1 >  item2
+ */
+void *
+ListOf_find ( const ListOf_t    *lo,
+              const void        *item1,
+              ListItemComparator comparator );
+
+/**
  * Returns the nth item in this List.  If n > ListOf_getNumItems(list)
  * returns NULL.
  */
