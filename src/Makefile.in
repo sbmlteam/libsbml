@@ -293,7 +293,7 @@ ifeq ($(USE_LIBCHECK),1)
   extra_CXXFLAGS  += $(LIBCHECK_CPPFLAGS)
   extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
   extra_LIBS      += $(LIBCHECK_LIBS)
-  extra_distclean += $(check_programs)
+  extra_clean     += $(check_programs)
 endif
 
 ifeq ($(USE_EXPAT),1)
@@ -356,11 +356,12 @@ $(check_programs): $(testrunner_objfiles) $(check_programs)
 	  $(INCLUDES) $(testrunner_objfiles) $(objfiles) $(extra_LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
 
-run-checks::
+run-checks:: $(check_programs)
 	@echo
 	@echo Running Tests
 	@echo -------------
 	@list='$(check_programs)'; for test in $$list; do \
+	  export srcdir=@TestDataDirectory@; \
 	  echo ""; \
 	  echo "Running \"$$test\""; \
 	  ./$$test; \
