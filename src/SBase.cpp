@@ -50,6 +50,8 @@
  */
 
 
+#include "sbml/common.h"
+#include "sbml/SBMLFormatter.hpp"
 #include "sbml/SBase.hpp"
 
 
@@ -216,6 +218,123 @@ void
 SBase::setAnnotation (const std::string& xml)
 {
   annotation = xml;
+}
+
+
+/**
+ * @return the partial SBML that describes this SBML object.
+ */
+LIBSBML_EXTERN
+char*
+SBase::toSBML (unsigned int level, unsigned int version)
+{
+  MemBufFormatTarget* target;
+  SBMLFormatter*      formatter;
+  char*               result;
+
+
+#ifndef USE_EXPAT
+  XMLPlatformUtils::Initialize();
+#endif USE_EXPAT
+
+  target    = new MemBufFormatTarget();
+  formatter = new SBMLFormatter("UTF-8", target, false);
+
+  *formatter <<
+    ((level == 1) ? SBMLFormatter::Level1 : SBMLFormatter::Level2);
+
+  *formatter <<
+    ((version == 1) ? SBMLFormatter::Version1 : SBMLFormatter::Version2);
+
+  switch ( this->getTypeCode() )
+  {
+    case SBML_COMPARTMENT:
+      *formatter << static_cast<Compartment&>(*this);
+      break;
+
+    case SBML_DOCUMENT:
+      *formatter << static_cast<SBMLDocument&>(*this);
+      break;
+
+    case SBML_EVENT:
+      *formatter << static_cast<Event&>(*this);
+      break;
+      
+    case SBML_EVENT_ASSIGNMENT:
+      *formatter << static_cast<Event&>(*this);
+      break;
+
+    case SBML_FUNCTION_DEFINITION:
+      *formatter << static_cast<FunctionDefinition&>(*this);
+      break;
+
+    case SBML_KINETIC_LAW:
+      *formatter << static_cast<KineticLaw&>(*this);
+      break;
+
+    case SBML_MODEL:
+      *formatter << static_cast<Model&>(*this);
+      break;
+      
+    case SBML_PARAMETER:
+      *formatter << static_cast<Parameter&>(*this);
+      break;
+      
+    case SBML_REACTION:
+      *formatter << static_cast<Reaction&>(*this);
+      break;      
+
+    case SBML_SPECIES:
+      *formatter << static_cast<Species&>(*this);
+      break;
+
+    case SBML_SPECIES_REFERENCE:
+      *formatter << static_cast<SpeciesReference&>(*this);
+      break;
+
+    case SBML_MODIFIER_SPECIES_REFERENCE:
+      *formatter << static_cast<ModifierSpeciesReference&>(*this);
+      break;      
+
+    case SBML_UNIT_DEFINITION:
+      *formatter << static_cast<UnitDefinition&>(*this);
+      break;
+
+    case SBML_UNIT:
+      *formatter << static_cast<Unit&>(*this);
+      break;
+      
+    case SBML_ALGEBRAIC_RULE:
+      *formatter << static_cast<AlgebraicRule&>(*this);
+      break;
+      
+    case SBML_ASSIGNMENT_RULE:
+      *formatter << static_cast<AssignmentRule&>(*this);
+      break;
+
+    case SBML_RATE_RULE:
+      *formatter << static_cast<RateRule&>(*this);
+      break;
+      
+    case SBML_SPECIES_CONCENTRATION_RULE:
+      *formatter << static_cast<SpeciesConcentrationRule&>(*this);
+      break;
+      
+    case SBML_COMPARTMENT_VOLUME_RULE:
+      *formatter << static_cast<CompartmentVolumeRule&>(*this);
+      break;
+
+    case SBML_PARAMETER_RULE:
+      *formatter << static_cast<ParameterRule&>(*this);
+      break;
+  }
+
+  result = safe_strdup( (char *) target->getRawBuffer() );
+
+  delete target;
+  delete formatter;
+
+  return result;
 }
 
 

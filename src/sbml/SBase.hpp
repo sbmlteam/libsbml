@@ -73,28 +73,61 @@ public:
    * are initialized with this function.  The type of the specific
    * "subclass" is indicated by the given SBMLTypeCode.
    */
-  LIBSBML_EXTERN void init (SBMLTypeCode_t tc);
+  LIBSBML_EXTERN
+  void init (SBMLTypeCode_t tc);
 
-  LIBSBML_EXTERN SBMLTypeCode_t getTypeCode () const;
+  LIBSBML_EXTERN
+  SBMLTypeCode_t getTypeCode () const;
 
-  LIBSBML_EXTERN unsigned int getColumn () const;
-  LIBSBML_EXTERN unsigned int getLine   () const;
+  LIBSBML_EXTERN
+  unsigned int getColumn () const;
 
-  LIBSBML_EXTERN const std::string& getMetaId     () const;
-  LIBSBML_EXTERN const std::string& getNotes      () const;
-  LIBSBML_EXTERN const std::string& getAnnotation () const;
+  LIBSBML_EXTERN
+  unsigned int getLine () const;
 
-  LIBSBML_EXTERN bool isSetMetaId     () const;
-  LIBSBML_EXTERN bool isSetNotes      () const;
-  LIBSBML_EXTERN bool isSetAnnotation () const;
+  LIBSBML_EXTERN
+  const std::string& getMetaId () const;
 
-  LIBSBML_EXTERN void setMetaId     (const std::string& id   );
-  LIBSBML_EXTERN void setNotes      (const std::string& xhtml);
-  LIBSBML_EXTERN void setAnnotation (const std::string& xml  );
+  LIBSBML_EXTERN
+  const std::string& getNotes () const;
 
-  LIBSBML_EXTERN void unsetMetaId     ();
-  LIBSBML_EXTERN void unsetNotes      ();
-  LIBSBML_EXTERN void unsetAnnotation ();
+  LIBSBML_EXTERN
+  const std::string& getAnnotation () const;
+
+  LIBSBML_EXTERN
+  bool isSetMetaId () const;
+
+  LIBSBML_EXTERN
+  bool isSetNotes () const;
+
+  LIBSBML_EXTERN
+  bool isSetAnnotation () const;
+
+  LIBSBML_EXTERN
+  void setMetaId (const std::string& id);
+
+  LIBSBML_EXTERN
+  void setNotes (const std::string& xhtml);
+
+  LIBSBML_EXTERN
+  void setAnnotation (const std::string& xml);
+
+  /**
+   * @return the partial SBML that describes this SBML object.
+   */
+  LIBSBML_EXTERN
+  char*
+  SBase::toSBML (unsigned int level = 2, unsigned int version = 1);
+
+  LIBSBML_EXTERN
+  void unsetMetaId ();
+
+  LIBSBML_EXTERN
+  void unsetNotes ();
+
+  LIBSBML_EXTERN
+  void unsetAnnotation ();
+
 
 
 protected:
