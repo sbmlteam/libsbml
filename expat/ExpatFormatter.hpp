@@ -44,38 +44,49 @@
 
 class XMLFormatTarget
 {
+public:
+  virtual XMLFormatTarget& operator<< (const char& ch)  = 0;
+  virtual XMLFormatTarget& operator<< (const char* str) = 0;
+
 protected:
   XMLFormatTarget();
-
-public:
-  //  virtual XMLFormatTarget & operator << (const char & chr) = NULL;
-  //  virtual XMLFormatTarget & operator << (const char * chars) = NULL;
 };
 
 
-class LocalFileFormatTarget : public XMLFormatTarget, public std::ofstream
+class LocalFileFormatTarget : public XMLFormatTarget
 {
+public:
+  LocalFileFormatTarget(const char * filename);
+
+  virtual XMLFormatTarget& operator<< (const char& ch);
+  virtual XMLFormatTarget& operator<< (const char* str);
+
+
 protected:
   LocalFileFormatTarget();
 
-public:
-  LocalFileFormatTarget(const char * filename);
+private:
+  std::ofstream stream;
 };
 
 
-class MemBufFormatTarget : public XMLFormatTarget, public std::ostringstream
+class MemBufFormatTarget : public XMLFormatTarget
 {
-private:
-  unsigned int mSize;
-  char*        mpBuffer;
-
 public:
   MemBufFormatTarget ();
   ~MemBufFormatTarget();
 
   const char*  getRawBuffer() const;
   unsigned int getLen      () const;
-  void         reset ();
+  void         reset       ();
+
+  virtual XMLFormatTarget& operator<< (const char& ch);
+  virtual XMLFormatTarget& operator<< (const char* str);
+
+private:
+  mutable unsigned int mSize;
+  mutable char*        mpBuffer;
+  std::ostringstream   stream;
 };
 
 

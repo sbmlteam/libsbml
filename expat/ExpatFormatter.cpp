@@ -135,23 +135,23 @@ XMLFormatter::stdEscape (const XML_Char& c)
   switch (c)
   {
     case '&':
-      *(std::ostream *)mpTarget << "&amp;";
+      *mpTarget << "&amp;";
       break;
       
     case '\'':
-      *(std::ostream *)mpTarget << "&apos;";
+      *mpTarget << "&apos;";
       break;
       
     case '<':
-      *(std::ostream *)mpTarget << "&lt;";
+      *mpTarget << "&lt;";
       break;
       
     case '>':
-      *(std::ostream *)mpTarget << "&gt;";
+      *mpTarget << "&gt;";
       break;
       
     case '\"':
-      *(std::ostream *)mpTarget << "&quot;";
+      *mpTarget << "&quot;";
       break;
       
     default:
@@ -167,15 +167,15 @@ XMLFormatter::attrEscape (const XML_Char& c)
   switch (c)
   {
     case '&':
-      *(std::ostream *)mpTarget << "&amp;";
+      *mpTarget << "&amp;";
       break;
       
     case '<':
-      *(std::ostream *)mpTarget << "&lt;";
+      *mpTarget << "&lt;";
       break;
       
     case '\"':
-      *(std::ostream *)mpTarget << "&quot;";
+      *mpTarget << "&quot;";
       break;
       
     default:
@@ -191,11 +191,11 @@ XMLFormatter::charEscape (const XML_Char& c)
   switch (c)
   {
     case '&':
-      *(std::ostream *)mpTarget << "&amp;";
+      *mpTarget << "&amp;";
       break;
       
     case '<':
-      *(std::ostream *)mpTarget << "&lt;";
+      *mpTarget << "&lt;";
       break;
       
     default:
@@ -213,53 +213,98 @@ XMLFormatter::writeUTF8 (const XML_Char& c)
 
   if ((unsigned char) c < 0x80)
   {
-    *(std::ostream *)mpTarget << c;
+    *mpTarget << c;
   }
   else
   {
-    *(std::ostream *)mpTarget << (char) (0xc0 + ((c >> 6) & 0x03));
-    *(std::ostream *)mpTarget << (char) (0x80 + (c & 0x3f));
+    *mpTarget << (char) (0xc0 + ((c >> 6) & 0x03));
+    *mpTarget << (char) (0x80 + (c & 0x3f));
   }
 }
 
 
-XMLFormatTarget::XMLFormatTarget() {}
 
 
-LocalFileFormatTarget::LocalFileFormatTarget():
-  XMLFormatTarget(),
-  std::ofstream()
-{}
+// ----------------------------------------------------------------------
+// XMLFormatTarget
+// ----------------------------------------------------------------------
+
+XMLFormatTarget::XMLFormatTarget()
+{
+}
 
 
-LocalFileFormatTarget::LocalFileFormatTarget(const char * filename):
-  XMLFormatTarget(),
-  std::ofstream(filename)
-{}
 
+
+// ----------------------------------------------------------------------
+// LocalFileFormatTarget
+// ----------------------------------------------------------------------
+
+
+LocalFileFormatTarget::LocalFileFormatTarget ():
+  XMLFormatTarget()
+{
+}
+
+
+LocalFileFormatTarget::LocalFileFormatTarget (const char * filename):
+    XMLFormatTarget()
+  , stream(filename)
+{
+}
+
+
+XMLFormatTarget&
+LocalFileFormatTarget::operator<< (const char& ch)
+{
+  stream << ch;
+  return *this;
+}
+
+
+XMLFormatTarget&
+LocalFileFormatTarget::operator<< (const char* str)
+{
+  stream << str;
+  return *this;
+}
+
+
+
+
+// ----------------------------------------------------------------------
+// MemBufFormatTarget
+// ----------------------------------------------------------------------
 
 MemBufFormatTarget::MemBufFormatTarget():
-  XMLFormatTarget(),
-  std::ostringstream(),
-  mSize(1024),
-  mpBuffer(new char[mSize])
-{}
+    XMLFormatTarget()
+  , mSize(1024)
+  , mpBuffer(new char[mSize])
+{
+}
 
 
-MemBufFormatTarget::~MemBufFormatTarget() {delete [] mpBuffer;}
+MemBufFormatTarget::~MemBufFormatTarget()
+{
+  delete [] mpBuffer;
+}
 
 
 const char * MemBufFormatTarget::getRawBuffer() const
 {
-  unsigned int size = str().length() + 1;
+  unsigned int size = stream.str().length() + 1;
+
+
   if (mSize < size)
-    {
-      delete [] mpBuffer;
-      const_cast<MemBufFormatTarget *>(this)->mSize = size;
-      const_cast<MemBufFormatTarget *>(this)->mpBuffer = new char[mSize];
-    }
+  {
+    delete [] mpBuffer;
+
+    mSize    = size;
+    mpBuffer = new char[mSize];
+  }
   
-  strcpy(mpBuffer, str().c_str());
+  strcpy(mpBuffer, stream.str().c_str());
+
   return mpBuffer;
 }
 
@@ -267,12 +312,28 @@ const char * MemBufFormatTarget::getRawBuffer() const
 unsigned int
 MemBufFormatTarget::getLen() const
 {
-  return str().length();
+  return stream.str().length();
 }
 
 
 void
 MemBufFormatTarget::reset()
 {
-  str("");
+  stream.str("");
+}
+
+
+XMLFormatTarget&
+MemBufFormatTarget::operator<< (const char& ch)
+{
+  stream << ch;
+  return *this;
+}
+
+
+XMLFormatTarget&
+MemBufFormatTarget::operator<< (const char* str)
+{
+  stream << str;
+  return *this;
 }
