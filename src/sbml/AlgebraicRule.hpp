@@ -1,13 +1,12 @@
 /**
- * Filename    : AlgebraicRule.hpp
- * Description : SBML AlgebraicRule
- * Author(s)   : SBML Development Group <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2002-11-26
- * Revision    : $Id$
- * Source      : $Source$
- *
- * Copyright 2002 California Institute of Technology and
+ * \file   AlgebraicRule.hpp
+ * \brief  Class implementing the SBML AlgebraicRule
+ * \author Ben Bornstein
+ * 
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
