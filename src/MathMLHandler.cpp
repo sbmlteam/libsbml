@@ -246,7 +246,7 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   //
   if (prevTag == MATHML_TAG_APPLY && prevNode->getName() == NULL)
   {
-    if (currTag != MATHML_TAG_CI)
+    if (currTag != MATHML_TAG_CI && currTag != MATHML_TAG_CSYMBOL)
     {
       Stack_pop(fTagStack);
       currNode = (ASTNode*) Stack_pop(fObjStack);

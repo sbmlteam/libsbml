@@ -307,6 +307,40 @@ START_TEST (test_element_csymbol_delay_2)
 END_TEST
 
 
+START_TEST (test_element_csymbol_delay_3)
+{
+  const ASTNode_t* n;
+  char*       f;
+
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <power/>"
+    "  <apply>"
+    "    <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/delay'> delay </csymbol>"
+    "    <ci> P </ci>"
+    "    <ci> delta_t </ci>"
+    "  </apply>\n"
+    "  <ci> q </ci>"
+    "</apply>\n"
+  );
+
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+  fail_unless( n != NULL, NULL );
+
+  f = SBML_formulaToString(n);
+  fail_unless( !strcmp(f, "pow(delay(P, delta_t), q)"), NULL );
+
+  safe_free(f);
+}
+END_TEST
+
+
 START_TEST (test_element_constants_true)
 {
   const ASTNode_t* n;
@@ -1718,6 +1752,7 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_csymbol_time              );
   tcase_add_test( tcase, test_element_csymbol_delay_1           );
   tcase_add_test( tcase, test_element_csymbol_delay_2           );
+  tcase_add_test( tcase, test_element_csymbol_delay_3           );
   tcase_add_test( tcase, test_element_constants_true            );
   tcase_add_test( tcase, test_element_constants_false           );
   tcase_add_test( tcase, test_element_constants_notanumber      );
