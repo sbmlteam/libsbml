@@ -1,5 +1,5 @@
 dnl
-dnl Filename    : Makefile.am
+dnl Filename    : Makefile.ac
 dnl Description : Run this file through autoconf to produce `configure'
 dnl Author(s)   : SBML Development Group <sbml-team@caltech.edu>
 dnl Created     : 2003-02-13
@@ -67,9 +67,9 @@ AC_REVISION($Revision$)
 
 AC_PREREQ(2.57)
 
-AC_CONFIG_SRCDIR(src/util.c)
+AC_CONFIG_SRCDIR(src/sbml/Model.cpp)
 
-AC_CONFIG_HEADERS(src/sbml/config.h)
+AC_CONFIG_HEADERS(src/common/config.h)
 
 
 dnl ---------------------------------------------------------------------------
@@ -220,26 +220,46 @@ dnl ---------------------------------------------------------------------------
 
 AC_CONFIG_FILES([config/makefile-common-vars.mk])
 AC_CONFIG_FILES([./Makefile])
-AC_CONFIG_FILES([src/Makefile])
-AC_CONFIG_FILES([bindings/Makefile])
-AC_CONFIG_FILES([bindings/python/Makefile])
-AC_CONFIG_FILES([bindings/python/setup.py])
-AC_CONFIG_FILES([bindings/matlab/Makefile])
-AC_CONFIG_FILES([bindings/java/Makefile])
 
+AC_CONFIG_FILES([src/Makefile])
+
+AC_CONFIG_FILES([src/common/Makefile])
+
+AC_CONFIG_FILES([src/bindings/Makefile])
+
+AC_CONFIG_FILES([src/bindings/python/Makefile])
+AC_CONFIG_FILES([src/bindings/python/setup.py])
+
+AC_CONFIG_FILES([src/bindings/matlab/Makefile])
+
+AC_CONFIG_FILES([src/bindings/java/Makefile])
+
+AC_CONFIG_FILES([src/bindings/lisp/Makefile])
 dnl logical pathnames for build
-AC_CONFIG_FILES([bindings/lisp/libsbml-config.lisp])
-AC_CONFIG_FILES([bindings/lisp/build.lisp])
+AC_CONFIG_FILES([src/bindings/lisp/libsbml-config.lisp])
+AC_CONFIG_FILES([src/bindings/lisp/build.lisp])
 dnl logical pathnames for installed version
-AC_CONFIG_FILES([bindings/lisp/libsbml-config-run.lisp])
-AC_CONFIG_FILES([bindings/lisp/Makefile])
+AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
+
+AC_CONFIG_FILES([src/math/Makefile])
+AC_CONFIG_FILES([src/math/test/Makefile])
+
+AC_CONFIG_FILES([src/sbml/Makefile])
+AC_CONFIG_FILES([src/sbml/test/Makefile])
+
+AC_CONFIG_FILES([src/util/Makefile])
+AC_CONFIG_FILES([src/util/test/Makefile])
+
+AC_CONFIG_FILES([src/validator/Makefile])
+AC_CONFIG_FILES([src/validator/test/Makefile])
+
+AC_CONFIG_FILES([src/xml/Makefile])
+AC_CONFIG_FILES([src/xml/test/Makefile])
 
 AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/src/Doxyfile])
 AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([docs/src/tex/libsbmlextras.sty])
-AC_CONFIG_FILES([win32/Makefile])
-AC_CONFIG_FILES([expat/Makefile])
 
 AC_OUTPUT
 

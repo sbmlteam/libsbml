@@ -123,12 +123,22 @@ define link_static_lib
   $(RANLIB) $(1)
 endef
 
+# Most of the sources are a mix of C and C++ files.  They have separate
+# extensions, and simply using something like $(sources:.cpp=.o) doesn't
+# work for converting the source file names into object file names because
+# you have to do it twice (once each for .cpp and .c) and then you have to
+# filter the results.  This abstracts out this common operation.
+
+make_objects_list = \
+  $(filter %.$(OBJEXT),\
+    $(patsubst %.cpp,%.$(OBJEXT),$(1)) $(patsubst %.c,%.$(OBJEXT),$(1)))
+
 # The following generate the list of object file names and dependency file
 # names from the list of source files.  They're used for the generic
 # compilation rules further below.
 
-srclist  ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
-objfiles ?= $(filter %.$(OBJEXT),$(srclist))
+tmplist  ?= $(sources:.cpp=.$(OBJEXT)) $(sources:.c=.$(OBJEXT))
+objfiles ?= $(filter %.$(OBJEXT),$(tmplist))
 depfiles ?= $(addprefix $(DEPDIR)/,$(objfiles:.$(OBJEXT)=.$(DEPEXT)))
 
 # This next line includes the dependency files.  This doesn't use
@@ -143,16 +153,16 @@ include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 # The next set of rules are generic for creating .a, .so, and other styles
 # of static and shared library files.
 
-%.a: $(objfiles)
+%.a ../%.a: $(objfiles)
 	$(call link_static_lib,$@)
 
-%.so: $(objfiles)
+%.so ../%.so: $(objfiles)
 	$(call link_shared_lib,$@)
 
-%.$(JNIEXT): $(objfiles)
+%.$(JNIEXT) ../%.$(JNIEXT): $(objfiles)
 	$(call link_shared_lib,$@)
 
-%.$(SHAREDLIBEXT): $(objfiles)
+%.$(SHAREDLIBEXT) ../%.$(SHAREDLIBEXT): $(objfiles)
 	$(call link_shared_lib,$@)
 
 # The following define generic rules for creating object files.
@@ -184,6 +194,13 @@ __dummy := $(shell [ -d $(DEPDIR) ] || mkdir $(DEPDIR))
 
 
 # -----------------------------------------------------------------------------
+# Generic default.
+# -----------------------------------------------------------------------------
+
+default: $(objfiles) $(libraries)
+
+
+# -----------------------------------------------------------------------------
 # Generic recursive targets.
 # -----------------------------------------------------------------------------
 
@@ -211,27 +228,40 @@ endif
 
 
 # -----------------------------------------------------------------------------
-# Installation
+# Running checks.
 # -----------------------------------------------------------------------------
 
-dirs-to-install = \
-	$(DESTDIR)$(LIBDIR) \
-	$(DESTDIR)$(INCLUDEDIR) \
-	$(DESTDIR)$(DATADIR) \
-	$(DESTDIR)$(DOCDIR)
+# This depends on $(check_driver) and $(test_objfiles) to have been defined
+# in the including Makefile.
 
-installdirs:
-	$(MKINSTALLDIRS) $(dirs-to-install)
+$(check_driver): $(test_objfiles)
+	$(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
+	  $(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) \
+	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) $(LDFLAGS) \
+	  $(LIBS) $(extra_LIBS) -o $@
+
+run-checks: $(check_driver) $(libraries)
+	@echo
+	@echo Running Tests in $(thisdir)
+	@echo -------------
+	$(call libsbmlrun,./$(check_driver))
+	@echo
+
+
+# -----------------------------------------------------------------------------
+# Installation
+# -----------------------------------------------------------------------------
 
 # The following defines a macro that is invoked like this:
 # $(call install_library,$(libname),$(dest))
 
 define install_library
+  $(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR)
   @if test "$(suffix $(1))" = ".so" -o "$(suffix $(1))" = ".dylib" -o "$(suffix $(1))" = ".jnilib"; then \
-    echo $(INSTALL) $(1) $(2)/$(basename $(1)).$(library_version)$(suffix $(1)); \
-    $(INSTALL) $(1) $(2)/$(basename $(1)).$(library_version)$(suffix $(1)); \
-    echo ln -fs $(basename $(1)).$(library_version)$(suffix $(1)) $(2)/$(1); \
-    ln -fs $(basename $(1)).$(library_version)$(suffix $(1)) $(2)/$(1); \
+    echo $(INSTALL) $(1) $(2)/$(notdir $(basename $(1))).$(library_version)$(suffix $(1)); \
+    $(INSTALL) $(1) $(2)/$(notdir $(basename $(1))).$(library_version)$(suffix $(1)); \
+    echo ln -fs $(notdir $(basename $(1))).$(library_version)$(suffix $(1)) $(2)/$(notdir $(1)); \
+    ln -fs $(notdir $(basename $(1))).$(library_version)$(suffix $(1)) $(2)/$(notdir $(1)); \
   else \
     echo $(INSTALL) $(1) $(2); \
     $(INSTALL) $(1) $(2); \
@@ -245,57 +275,37 @@ $(to_install_libraries): $(libraries) installdirs
 
 install-libraries: $(libraries) $(to_install_libraries)
 
-install-docs: $(docs) installdirs
-	@if test -z '$(docs)'; then \
-	  echo 'Nothing to be done for install-docs'; \
-	else \
-	  list='$(docs)'; for file in $$list; do \
-	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-	    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
-	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-	      dir="/$$dir"; \
-	      $(MKINSTALLDIRS) "$(DOCDIR)/$$dir"; \
-	    else \
-	      dir=''; \
-	    fi; \
-	    if test -d $$d/$$file; then \
-	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-	        echo Copying $(srcdir)/$$file; \
-	        cp -pR $(srcdir)/$$file $(DOCDIR)$$dir || exit 1; \
-	      fi; \
-	      cp -pR $$d/$$file $(DOCDIR)$$dir || exit 1; \
-	    else \
-	      echo Copying $(DOCDIR)/$$file; \
-	      test -f $(DOCDIR)/$$file \
-	      || cp -p $$d/$$file $(DOCDIR)/$$file \
-	      || exit 1; \
-	    fi; \
-	  done; \
-	fi
-
 install-headers: $(headers) installdirs
-	@if test -z '$(headers)'; then \
+	if test -z '$(headers)'; then \
 	  echo 'Nothing to be done for install-headers'; \
 	else \
 	  list='$(headers)'; for file in $$list; do \
+	    targetdir="$(DESTDIR)$(INCLUDEDIR)"; \
+	    if test -n '$(INCLUDEPREFIX)'; then \
+	      targetdir="$$targetdir/$(INCLUDEPREFIX)"; \
+	    fi; \
+	    if test -n '$(header_inst_prefix)'; then \
+	      targetdir="$$targetdir/$(header_inst_prefix)"; \
+	    fi; \
+	    $(MKINSTALLDIRS) $$targetdir; \
 	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
 	    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
 	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
 	      dir="/$$dir"; \
-	      $(MKINSTALLDIRS) "$(INCLUDEDIR)/$$dir"; \
+	      $(MKINSTALLDIRS) $$targetdir/$$dir; \
 	    else \
 	      dir=''; \
 	    fi; \
 	    if test -d $$d/$$file; then \
 	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
 	        echo Copying $(srcdir)/$$file; \
-	        cp -pR $(srcdir)/$$file $(INCLUDEDIR)$$dir || exit 1; \
+	        $(INSTALL) -m 644 $(srcdir)/$$file $$targetdir$$dir || exit 1; \
 	      fi; \
-	      cp -pR $$d/$$file $(INCLUDEDIR)$$dir || exit 1; \
+	      $(INSTALL) -m 644 $$d/$$file $$targetdir$$dir || exit 1; \
 	    else \
-	      echo Copying $(INCLUDEDIR)/$$file; \
-	      test -f $(INCLUDEDIR)/$$file \
-	      || cp -p $$d/$$file $(INCLUDEDIR)/$$file \
+	      echo Copying $$targetdir/$$file; \
+	      test -f $$targetdir/$$file \
+	      || $(INSTALL) -m 644 $$d/$$file $$targetdir/$$file \
 	      || exit 1; \
 	    fi; \
 	  done; \
@@ -311,10 +321,14 @@ install-headers: $(headers) installdirs
 # except that files and directories that are also listed in
 # $(distfile_exclude) are not copied.
 
+# The $(sort ...) removes duplicates.
+
+sortedfiles = $(sort $(distfiles))
+
 dist-normal: DESTINATION := $(DISTDIR)/$(thisdir)
 dist-normal: $(distfiles)
 	$(shell [ -d $(DESTINATION) ] || mkdir -p $(DESTINATION))
-	@list='$(distfiles)'; for file in $$list; do \
+	@list='$(sortedfiles)'; for file in $$list; do \
 	  exlist='$(distfiles_exclude)'; for ex in $$exlist; do \
 	    if test $$file = $$ex; then continue 2; fi; \
           done; \
@@ -329,13 +343,13 @@ dist-normal: $(distfiles)
 	  if test -d $$d/$$file; then \
 	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
 	      echo Copying $(srcdir)/$$file; \
-	      cp -pR $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
+	      $(INSTALL) $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
 	    fi; \
-	    cp -pR $$d/$$file $(DESTINATION)/$$dir || exit 1; \
+	    $(INSTALL) $$d/$$file $(DESTINATION)/$$dir || exit 1; \
 	  else \
 	    echo Copying $(DESTINATION)/$$file; \
 	    test -f $(DESTINATION)/$$file \
-	    || cp -p $$d/$$file $(DESTINATION)/$$file \
+	    || $(INSTALL) $$d/$$file $(DESTINATION)/$$file \
 	    || exit 1; \
 	  fi; \
 	done
@@ -351,9 +365,11 @@ dist-normal: $(distfiles)
 # makefiles, the cleaning targets for libtool are included below in case
 # someone ever decides to use libtool as part of some make actions.
 
-mostlyclean: clean-generic mostlyclean-libtool
+mostlyclean:        clean-generic mostlyclean-libtool
+mostlyclean-normal: clean-generic mostlyclean-libtool
 
-clean: mostlyclean clean-libraries clean-libtool clean-extras
+clean:        mostlyclean clean-libraries clean-libtool clean-extras
+clean-normal: mostlyclean clean-libraries clean-libtool clean-extras
 
 clean-generic:
 	-rm -f *.$(OBJEXT) core *.core
@@ -380,6 +396,8 @@ mostlyclean-libtool:
 
 distclean: clean distclean-compile distclean-depend distclean-generic \
 	distclean-tags distclean-libtool
+distclean-normal: clean distclean-compile distclean-depend distclean-generic \
+	distclean-tags distclean-libtool
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -399,7 +417,8 @@ distclean-tags:
 distclean-libtool:
 	-rm -f libtool
 
-maintainer-clean: distclean maintainer-clean-generic
+maintainer-clean:        distclean maintainer-clean-generic
+maintainer-clean-normal: distclean maintainer-clean-generic
 
 maintainer-clean-generic:
 	-rm -rf $(extra_maintainer_clean)

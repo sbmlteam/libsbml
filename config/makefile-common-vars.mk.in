@@ -79,6 +79,9 @@ INCLUDEDIR        = @includedir@
 LIBDIR            = @libdir@
 MANDIR            = @mandir@
 
+# Starting release 2.3, we put header files in ...include/sbml
+INCLUDEPREFIX	  = sbml
+
 LIBSBML_OPTIONS   = @LIBSBML_OPTIONS@
 
 USE_LIBCHECK      = @USE_LIBCHECK@

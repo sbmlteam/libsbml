@@ -68,21 +68,6 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = .
 
-# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
-# `extra_CXXFLAGS', `extra_LDFLAGS', `extra_clean', and `distfiles' are
-# used by the default rules in `makefile-common-actions.mk' included at the
-# end.
-
-ifneq ($(MAKECMDGOALS),dist)
-  ifdef USE_EXPAT 
-    subdirs = expat src bindings docs
-  else
-    subdirs = src bindings docs
-  endif
-else
-  subdirs = expat src bindings docs win32
-endif
-
 # Variables `examples' and `xml-schemas' are local variables reused below.
 
 examples = \
@@ -146,6 +131,13 @@ docs = \
 	$(examples)                                          \
 	$(xml-schemas)
 
+# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# `extra_CXXFLAGS', `extra_LDFLAGS', `extra_clean', and `distfiles' are
+# used by the default rules in `makefile-common-actions.mk' included at the
+# end.
+
+subdirs = src docs
+
 # `distfile' is the list of files used for creating distributions,
 # something that only the libSBML developers should do.  The list of files
 # here is in addition to the subdirectories listed in `subdirs'.  The
@@ -154,14 +146,14 @@ docs = \
 
 distfiles = \
         AUTHORS.txt                                          \
-        ChangeLog.txt                                        \
         COPYING.html                                         \
         COPYING.txt                                          \
+        ChangeLog.txt                                        \
         FUNDING.txt                                          \
+        Makefile.in                                          \
         NEWS.txt                                             \
         README.txt                                           \
         VERSION.txt                                          \
-        Makefile.in                                          \
         aclocal.m4                                           \
         config/config.guess                                  \
         config/config.sub                                    \
@@ -188,7 +180,7 @@ distfiles = \
 # makefile-common-actions.mk.
 
 extra_distclean = config.status config.cache config.log autom4te.cache \
-	src/sbml/config.h src/sbml/stamp-h1
+	src/common/config.h src/common/stamp-h1
 
 
 # -----------------------------------------------------------------------------
@@ -228,7 +220,9 @@ html: html-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: install-recursive install-docs-recursive install-docs install-warnings
+install: install-recursive install-warnings
+
+install-docs: install-docs-recursive
 
 uninstall: uninstall-recursive
 
@@ -249,13 +243,13 @@ endif
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-recursive
+clean: clean-normal clean-recursive
 
-distclean: distclean-recursive
+distclean: distclean-normal distclean-recursive
 
-mostlyclean: mostlyclean-recursive
+mostlyclean: mostlyclean-normal mostlyclean-recursive
 
-maintainer-clean: maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 
 # -----------------------------------------------------------------------------
