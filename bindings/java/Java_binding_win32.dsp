@@ -38,7 +38,7 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "Release"
+# PROP Output_Dir "libsbml"
 # PROP Intermediate_Dir "Release"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
@@ -341,22 +341,24 @@ SOURCE=.\libsbml.i
 !IF  "$(CFG)" == "Java_binding_win32 - Win32 Release"
 
 # Begin Custom Build
+OutDir=.\libsbml
 InputPath=.\libsbml.i
 InputName=libsbml
 
 "$(InputName)_wrap.cxx" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	C:\swig\swig-1.3.21\swig.exe -c++ -java $(InputPath)
+	C:\swig\swig-1.3.21\swig.exe -c++ -java -package libsbml -outdir $(OutDir)  $(InputPath)
 
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "Java_binding_win32 - Win32 Debug"
 
 # Begin Custom Build
+OutDir=.\Debug
 InputPath=.\libsbml.i
 InputName=libsbml
 
 "$(InputName)_wrap.cxx" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	C:\swig\swig-1.3.21\swig.exe -c++ -java $(InputPath)
+	C:\swig\swig-1.3.21\swig.exe -c++ -java -package libsbml -outdir $(OutDir) $(InputPath)
 
 # End Custom Build
 
