@@ -104,6 +104,7 @@ Suite *create_suite_SpeciesConcentrationRule (void);
 Suite *create_suite_SpeciesReference         (void);
 Suite *create_suite_Stack                    (void);
 Suite *create_suite_StringBuffer             (void);
+Suite *create_suite_StringMap                (void);
 Suite *create_suite_Unit                     (void);
 Suite *create_suite_UnitDefinition           (void);
 Suite *create_suite_UnitKind                 (void);
@@ -206,6 +207,7 @@ main (void)
   srunner_add_suite( runner, create_suite_SpeciesReference         () );
   srunner_add_suite( runner, create_suite_Stack                    () );
   srunner_add_suite( runner, create_suite_StringBuffer             () );
+  srunner_add_suite( runner, create_suite_StringMap                () );
   srunner_add_suite( runner, create_suite_Unit                     () );
   srunner_add_suite( runner, create_suite_UnitDefinition           () );
   srunner_add_suite( runner, create_suite_UnitKind                 () );
