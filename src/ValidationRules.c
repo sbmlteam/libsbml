@@ -81,7 +81,7 @@
 
 typedef struct {
   int passed;
-  char *msg;
+  const char *msg;
 } RuleResult_t;
 
 
@@ -129,6 +129,27 @@ isSecond(UnitKind_t uk)
 
 
 static
+int
+isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
+{
+  ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+  Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
+  UnitKind_t unitKind = Unit_getKind(u);
+  PFI *kindTest;
+
+  for (kindTest = kindTests; *kindTest; kindTest++)
+  {
+    if ((*kindTest)(unitKind))
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+
+static
 void
 hasSingleKind(RuleResult_t *result, UnitDefinition_t *ud)
 {
@@ -150,7 +171,7 @@ hasAcceptableKinds(
   RuleResult_t *result,
   UnitDefinition_t *ud,
   PFI *acceptableKinds,
-  char *acceptableKindsMsg)
+  const char *acceptableKindsMsg)
 {
   if (!result->passed) return;
 
@@ -189,32 +210,11 @@ hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
 
 
 static
-int
-isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
-{
-  ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
-  Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
-  UnitKind_t unitKind = Unit_getKind(u);
-  PFI *kindTest;
-
-  for (kindTest = kindTests; *kindTest; kindTest++)
-  {
-    if ((*kindTest)(unitKind))
-    {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
-
-static
 void
 logFullMessage(
   const char *baseMsg,
   RuleResult_t *result,
-  SBase_t *obj,
+  const SBase_t *obj,
   List_t *messages)
 {
     char *message = safe_strcat(baseMsg, result->msg);
@@ -458,6 +458,32 @@ RULE (unitDefinition_timeKinds)
 
 
 /**
+ * The compartment attribute on a species element must contain the value of an
+ * id attribute on a compartment element. 
+ */
+RULE (species_compartmentIsDefined)
+{
+  static const char msg[] =
+    "Compartment '%s' is undefined.";
+
+  const char* compartmentId;
+  unsigned int passed = 1;
+
+  Species_t *s = (Species_t *) obj;
+  compartmentId = Species_getCompartment(s);
+  if (Model_getCompartmentById(d->model, compartmentId)== NULL) {
+    char buf[512];
+
+    sprintf(buf, msg, compartmentId);
+    LOG_MESSAGE(buf);
+    passed = 0;
+  }
+
+  return passed;
+}
+
+
+/**
  * Adds the default ValidationRule set to this Validator.
  */
 void
@@ -479,4 +505,5 @@ Validator_addDefaultRules (Validator_t *v)
                                                      SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_timeKinds,
                                                      SBML_UNIT_DEFINITION );
+  Validator_addRule( v, species_compartmentIsDefined, SBML_SPECIES        );
 }

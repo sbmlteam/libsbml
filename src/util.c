@@ -91,7 +91,7 @@ safe_fopen (const char *filename, const char *mode)
  */
 LIBSBML_EXTERN
 char *
-safe_strcat (char *str1, char *str2)
+safe_strcat (const char *str1, const char *str2)
 {
   int  len1    = strlen(str1);
   int  len2    = strlen(str2);

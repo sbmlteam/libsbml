@@ -79,7 +79,7 @@ safe_fopen (const char *filename, const char *mode);
  */
 LIBSBML_EXTERN
 char *
-safe_strcat (char *str1, char *str2);
+safe_strcat (const char *str1, const char *str2);
 
 /**
  * @return a pointer to a new string which is a duplicate of the string s.
