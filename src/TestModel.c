@@ -791,6 +791,26 @@ START_TEST (test_Model_getSpecies)
 END_TEST
 
 
+START_TEST (test_Model_getSpeciesById)
+{
+  Species_t *s1 = Species_create();
+  Species_t *s2 = Species_create();
+
+  Species_setId( s1, "Glucose"     );
+  Species_setId( s2, "Glucose_6_P" );
+
+  Model_addSpecies(M, s1);
+  Model_addSpecies(M, s2);
+
+  fail_unless( Model_getNumSpecies(M) == 2, NULL );
+
+  fail_unless( Model_getSpeciesById(M, "Glucose"    ) == s1  , NULL );
+  fail_unless( Model_getSpeciesById(M, "Glucose_6_P") == s2  , NULL );
+  fail_unless( Model_getSpeciesById(M, "Glucose2"   ) == NULL, NULL );
+}
+END_TEST
+
+
 START_TEST (test_Model_getParameter)
 {
   Parameter_t *p1 = Parameter_create();
@@ -869,6 +889,34 @@ START_TEST (test_Model_getReaction)
 END_TEST
 
 
+START_TEST (test_Model_getNumSpeciesWithBoundaryCondition)
+{
+  Species_t *s1 = Species_createWith("s1", "c", 1, "amount", 1, 0);
+  Species_t *s2 = Species_createWith("s2", "c", 2, "amount", 0, 0);
+  Species_t *s3 = Species_createWith("s3", "c", 3, "amount", 1, 0);
+
+
+  fail_unless( Model_getNumSpecies(M) == 0, NULL );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 0, NULL );
+
+  Model_addSpecies(M, s1);
+
+  fail_unless( Model_getNumSpecies(M) == 1, NULL );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1, NULL );
+
+  Model_addSpecies(M, s2);
+
+  fail_unless( Model_getNumSpecies(M) == 2, NULL );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1, NULL );
+
+  Model_addSpecies(M, s3);
+
+  fail_unless( Model_getNumSpecies(M) == 3, NULL );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 2, NULL );
+}
+END_TEST
+
+
 Suite *
 create_suite_Model (void)
 {
@@ -936,9 +984,12 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_getUnitDefinition );
   tcase_add_test( t, test_Model_getCompartment    );
   tcase_add_test( t, test_Model_getSpecies        );
+  tcase_add_test( t, test_Model_getSpeciesById    );
   tcase_add_test( t, test_Model_getParameter      );
   tcase_add_test( t, test_Model_getRules          );
   tcase_add_test( t, test_Model_getReaction       );
+
+  tcase_add_test( t, test_Model_getNumSpeciesWithBoundaryCondition );
 
   suite_add_tcase(s, t);
 
