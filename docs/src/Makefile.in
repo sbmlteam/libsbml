@@ -69,34 +69,25 @@ thisdir = docs/src
 
 # The following are convenience variables for use in this makefile.
 
-manuals = libsbml-manual libsbml-api-ref
-formats = pdf ps html
-
-libsbml-manual-files  = $(foreach format,$(formats),libsbml-manual.$(format))
-# 2004-07-21 <mhucka@caltech.edu> We're temporarily taking out the HTML docs.
-#libsbml-api-ref-files = $(foreach format,$(formats),libsbml-api-ref.$(format))
-libsbml-api-ref-files = $(foreach format,pdf ps,libsbml-api-ref.$(format))
+manuals               = libsbml-manual libsbml-api-ref
+libsbml-manual-files  = libsbml-manual.pdf libsbml-manual.ps libsbml-manual
+# 2004-07-21 <mhucka@caltech.edu> Temporarily not making the HTML api docs.
+libsbml-api-ref-files = libsbml-api-ref.pdf libsbml-api-ref.ps
 
 # The variable `docs' is used in `makefile-common-actions.mk' for install-docs.
 
-# 2004-07-21 <mhucka@caltech.edu> We're temporarily taking out the HTML docs.
-#docs    = $(libsbml-manual-files) $(libsbml-api-ref-files) \
-#	libsbml-manual libsbml-api-ref 
-docs    = $(libsbml-manual-files) libsbml-manual $(libsbml-api-ref-files) 
+docs    = $(libsbml-manual-files) $(libsbml-api-ref-files) 
 
 # The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but these are all generated files and directories.
 
-tex_ext = aux bbl blg log out toc dvi
+tex_clean = aux bbl blg log out toc dvi
 
 extra_clean = \
-	$(libsbml-manual-files) \
-	$(libsbml-api-ref-files) \
-	$(addprefix libsbml-manual.,$(tex_ext)) \
-	$(addprefix libsbml-api-ref.,$(tex_ext)) \
-	libsbml-manual \
-	libsbml-api-ref \
+	$(docs) \
+	$(addprefix libsbml-manual.,$(tex_clean)) \
+	$(addprefix libsbml-api-ref.,$(tex_clean)) \
 	$(pdffiles)
 
 extra_distclean = Doxyfile sbmlmanual.perl
@@ -124,6 +115,8 @@ distfiles =                            \
         tex/fancyheadings.sty          \
         tex/fancyvrb.sty               \
         tex/html.sty                   \
+        tex/libsbmlextras.perl         \
+        tex/libsbmlextras.sty.in       \
         tex/listings/listings.cfg      \
         tex/listings/listings.dtx      \
         tex/listings/listings.ins      \
@@ -138,6 +131,8 @@ distfiles =                            \
         tex/listings/lstpatch.sty      \
         tex/listings/README            \
         tex/listings/UPDATE            \
+        tex/logos/sbml-logo-340x54.jpg \
+        tex/logos/sbml-logo-300x48.jpg \
         tex/logos/sbml-logo-compat.eps \
         tex/logos/sbml-logo.eps        \
         tex/logos/sbml-logo.jpg        \
@@ -159,7 +154,7 @@ distfiles =                            \
 # variable `subdirs'.
 
 # The default action is not to make anything.  You have to run `make pdf'
-# or `make html' or `make libsbml-manual', etc., explicitly.
+# or `make html' or `make libsbml-manual.pdf', etc., explicitly.
 
 all: 
 
@@ -169,16 +164,12 @@ pdf: $(foreach manual,$(manuals),$(manual).pdf)
 
 ps: $(foreach manual,$(manuals),$(manual).ps)
 
-html: $(foreach manual,$(manuals),$(manual).html)
+# The HTML conversions create directories, not single files like the others:
+
+html: $(manuals)
 
 info:
 	@echo "We're sorry, but the info format is not supported."
-
-# The following constructs some additional targets for convenience.
-# Lets you use `make libsbml-manual' to create all the libsbml-manual files.
-
-libsbml-manual:  $(libsbml-manual-files)
-libsbml-api-ref: $(libsbml-api-ref-files)
 
 
 # -----------------------------------------------------------------------------
@@ -213,8 +204,7 @@ tex/libsbmlextras.sty: $(TOP_SRCDIR)/VERSION.txt $(TOP_SRCDIR)/FUNDING.txt
 	    $(SHELL) ./config.status $(thisdir)/tex/libsbmlextras.sty
 
 Doxyfile: $(TOP_SRCDIR)/VERSION.txt
-	cd $(TOP_BUILDDIR) && \
-	    $(SHELL) ./config.status $(thisdir)/Doxyfile
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/Doxyfile
 
 # Yes, run pdflatex 4 times after running bibtex here.
 
@@ -238,7 +228,7 @@ libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
 libsbml-manual.ps: libsbml-manual.dvi
 	dvips -o libsbml-manual.ps libsbml-manual
 
-libsbml-manual.html: libsbml-manual.tex libsbml-manual.dvi
+libsbml-manual: libsbml-manual.tex libsbml-manual.dvi
 	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
 	@test -L ./libsbmlextras.perl || ln -s tex/libsbmlextras.perl
 	$(latex-env) latex2html -white -split +0 -show_section_numbers \
@@ -290,7 +280,7 @@ libsbml-api-ref.ps:  libsbml-api-ref.tex  libsbml-api-ref.dvi
 
 doxygen-output-dir = libsbml-api-ref
 
-libsbml-api-ref.html: $(api-tex-files)
+libsbml-api-ref: $(api-tex-files)
 	$(create-api-files)
 	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
 	doxygen Doxyfile
@@ -310,7 +300,7 @@ $(pdffiles): %.pdf: %.eps
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: libsbml-manual libsbml-api-ref
+install: $(libsbml-manual-files) $(libsbml-api-ref-files)
 
 uninstall:
 
@@ -330,7 +320,7 @@ installcheck:
 
 formatted = ../formatted
 
-dist: dist-normal libsbml-manual libsbml-api-ref
+dist: dist-normal $(libsbml-manual-files) $(libsbml-api-ref-files)
 	$(shell [ -d $(formatted) ] || mkdir -p $(formatted))
 	list='$(docs)'; for file in $$list; do \
 	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
