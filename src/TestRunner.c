@@ -79,6 +79,7 @@ Suite *create_suite_ListOf                   (void);
 Suite *create_suite_MathMLDocument           (void);
 Suite *create_suite_MathMLFormatter          (void);
 Suite *create_suite_MathMLHandler            (void);
+Suite *create_suite_MathMLWriter             (void);
 Suite *create_suite_Model                    (void);
 Suite *create_suite_ModifierSpeciesReference (void);
 Suite *create_suite_Parameter                (void);
@@ -180,6 +181,7 @@ main (void)
   srunner_add_suite( runner, create_suite_MathMLDocument           () );
   srunner_add_suite( runner, create_suite_MathMLFormatter          () );
   srunner_add_suite( runner, create_suite_MathMLHandler            () );
+  srunner_add_suite( runner, create_suite_MathMLWriter             () );
   srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
   srunner_add_suite( runner, create_suite_Parameter                () );
