@@ -53,10 +53,24 @@
 #ifndef SBMLWriter_hpp
 #define SBMLWriter_hpp
 
+#include <iostream>
 
 #include "extern.h"
 #include "SBMLDocument.hpp"
+#include "SBMLWriter.h"
 
+/**
+ * Writes the given SBML document to ostream (with the settings provided
+ * by this SBMLWriter).
+ *
+ * @return 1 on success and 0 on failure (e.g., if filename could not be
+ * opened for writing or the SBMLWriter character encoding is invalid).*
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_writeSBMLToStream ( SBMLWriter_t   *sw,
+                               SBMLDocument_t *d,
+                               std::ostream   &o);
 
 /**
  * Writes the given SBML document to filename.

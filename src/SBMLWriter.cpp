@@ -274,6 +274,62 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, SBMLDocument_t *d)
 
 
 /**
+ * Writes the given SBML document to ostream (with the settings provided
+ * by this SBMLWriter).
+ *
+ * @return 1 on success and 0 on failure (e.g., if filename could not be
+ * opened for writing or the SBMLWriter character encoding is invalid).*
+ */
+LIBSBML_EXTERN
+int
+SBMLWriter_writeSBMLToStream ( SBMLWriter_t   *sw,
+                               SBMLDocument_t *d,
+                               std::ostream   &o)
+{
+  const char *encoding = NULL;
+  int        result    = 0;
+
+  StreamFormatTarget* target    = NULL;
+  SBMLFormatter*         formatter = NULL;
+
+
+  try
+  {
+    if ( !CharacterEncoding_isInvalid(sw->encoding) )
+    {
+#ifndef USE_EXPAT
+      XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
+
+      encoding  = CharacterEncoding_toString(sw->encoding);
+      target    = new StreamFormatTarget(o);
+      formatter = new SBMLFormatter(encoding, target);
+
+      *formatter << * static_cast<SBMLDocument*>(d);
+      result = 1;
+    }
+  }
+  catch (...)
+  {
+    result = 0;
+  }
+
+
+  if (target != NULL)
+  {
+    delete target;
+  }
+
+  if (formatter != NULL)
+  {
+    delete formatter;
+  }
+
+  return result;
+}
+
+
+/**
  * Writes the given SBML document to filename with the settings provided by
  * this SBMLWriter.  This convenience function is functionally equivalent
  * to:
