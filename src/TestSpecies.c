@@ -88,6 +88,13 @@ START_TEST (test_Species_create)
   fail_unless( S->initialAmount     == 0.0 , NULL );
   fail_unless( S->boundaryCondition == 0   , NULL );
   fail_unless( S->charge            == 0   , NULL );
+
+  fail_unless( !Species_isSetName(S)             , NULL );
+  fail_unless( !Species_isSetCompartment(S)      , NULL );
+  fail_unless( !Species_isSetUnits(S)            , NULL );
+  fail_unless( !Species_isSetInitialAmount(S)    , NULL );
+  fail_unless( !Species_isSetBoundaryCondition(S), NULL );
+  fail_unless( !Species_isSetCharge(S)           , NULL );
 }
 END_TEST
 
@@ -109,6 +116,13 @@ START_TEST (test_Species_createWith)
   fail_unless( s->boundaryCondition == 1   , NULL );
   fail_unless( s->charge            == 1   , NULL );
 
+  fail_unless( Species_isSetName(s)             , NULL );
+  fail_unless( Species_isSetCompartment(s)      , NULL );
+  fail_unless( Species_isSetUnits(s)            , NULL );
+  fail_unless( Species_isSetInitialAmount(s)    , NULL );
+  fail_unless( Species_isSetBoundaryCondition(s), NULL );
+  fail_unless( Species_isSetCharge(s)           , NULL );
+
   Species_free(s);
 }
 END_TEST
@@ -129,6 +143,7 @@ START_TEST (test_Species_setName)
   Species_setName(S, name);
 
   fail_unless( !strcmp(S->name, name), NULL );
+  fail_unless( Species_isSetName(S)  , NULL );
 
   if (S->name == name)
   {
@@ -136,6 +151,7 @@ START_TEST (test_Species_setName)
   }
 
   Species_setName(S, NULL);
+  fail_unless( !Species_isSetName(S), NULL );
 
   if (S->name != NULL)
   {
@@ -153,7 +169,7 @@ START_TEST (test_Species_setCompartment)
   Species_setCompartment(S, compartment);
 
   fail_unless( !strcmp(S->compartment, compartment), NULL );
-
+  fail_unless( Species_isSetCompartment(S), NULL );
 
   if (S->compartment == compartment)
   {
@@ -161,6 +177,7 @@ START_TEST (test_Species_setCompartment)
   }
 
   Species_setCompartment(S, NULL);
+  fail_unless( !Species_isSetCompartment(S), NULL );
 
   if (S->compartment != NULL)
   {
@@ -178,6 +195,7 @@ START_TEST (test_Species_setUnits)
   Species_setUnits(S, units);
 
   fail_unless( !strcmp(S->units, units), NULL );
+  fail_unless( Species_isSetUnits(S), NULL );
 
   if (S->units == units)
   {
@@ -185,11 +203,25 @@ START_TEST (test_Species_setUnits)
   }
 
   Species_setUnits(S, NULL);
+  fail_unless( !Species_isSetUnits(S), NULL );
 
   if (S->units != NULL)
   {
     fail("Species_setUnits(S, NULL) did not clear string.");
   }
+}
+END_TEST
+
+
+START_TEST (test_Species_isSet)
+{
+  Species_setInitialAmount    (S, 2.0 );
+  Species_setBoundaryCondition(S,   0 );
+  Species_setCharge           (S,   0 );
+
+  fail_unless( Species_isSetInitialAmount(S)    , NULL );
+  fail_unless( Species_isSetBoundaryCondition(S), NULL );
+  fail_unless( Species_isSetCharge(S)           , NULL );
 }
 END_TEST
 
@@ -211,6 +243,7 @@ create_suite_Species (void)
   tcase_add_test( tcase, test_Species_setName        );
   tcase_add_test( tcase, test_Species_setCompartment );
   tcase_add_test( tcase, test_Species_setUnits       );
+  tcase_add_test( tcase, test_Species_isSet          );
 
   suite_add_tcase(suite, tcase);
 

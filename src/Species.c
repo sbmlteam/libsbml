@@ -50,13 +50,13 @@
  */
 
 
-#include "sbml/common.h"
 #include "sbml/Species.h"
 
 
 /**
  * Creates a new Species and returns a pointer to it.
  */
+LIBSBML_EXTERN
 Species_t *
 Species_create (void)
 {
@@ -80,6 +80,7 @@ Species_create (void)
  *   Species_t *s = Species_create();
  *   Species_setName(s, name); Species_setCompartment(s, compartment); ...;
  */
+LIBSBML_EXTERN
 Species_t *
 Species_createWith( const char *sname,
                     const char *compartment,
@@ -91,13 +92,12 @@ Species_createWith( const char *sname,
   Species_t *s = Species_create();
 
 
-  Species_setName       ( s, sname       );
-  Species_setCompartment( s, compartment );
-  Species_setUnits      ( s, units       );
-
-  s->initialAmount     = initialAmount;
-  s->boundaryCondition = boundaryCondition;
-  s->charge            = charge;
+  Species_setName              ( s, sname             );
+  Species_setCompartment       ( s, compartment       );
+  Species_setInitialAmount     ( s, initialAmount     );
+  Species_setUnits             ( s, units             );
+  Species_setBoundaryCondition ( s, boundaryCondition );
+  Species_setCharge            ( s, charge            );
 
   return s;
 }
@@ -106,6 +106,7 @@ Species_createWith( const char *sname,
 /**
  * Frees the given Species.
  */
+LIBSBML_EXTERN
 void
 Species_free (Species_t *s)
 {
@@ -125,6 +126,7 @@ Species_free (Species_t *s)
  *
  *   - boundaryCondition = 0 (false)
  */
+LIBSBML_EXTERN
 void
 Species_initDefaults (Species_t *s)
 {
@@ -133,8 +135,143 @@ Species_initDefaults (Species_t *s)
 
 
 /**
+ * @return the name field of this Species.
+ */
+LIBSBML_EXTERN
+const char *
+Species_getName (Species_t *s)
+{
+  return s->name;
+}
+
+
+/**
+ * @return the compartment field of this Species.
+ */
+LIBSBML_EXTERN
+const char *
+Species_getCompartment (Species_t *s)
+{
+  return s->compartment;
+}
+
+
+/**
+ * @return the initialAmount field of this Species.
+ */
+LIBSBML_EXTERN
+double
+Species_getInitialAmount (Species_t *s)
+{
+  return s->initialAmount;
+}
+
+
+/**
+ * @return the units field of this Species.
+ */
+LIBSBML_EXTERN
+const char *
+Species_getUnits (Species_t *s)
+{
+  return s->units;
+}
+
+
+/**
+ * @return the boundaryCondition field of this Species.
+ */
+LIBSBML_EXTERN
+int
+Species_getBoundaryCondition (Species_t *s)
+{
+  return s->boundaryCondition;
+}
+
+
+/**
+ * @return the charge field of this Species.
+ */
+LIBSBML_EXTERN
+int
+Species_getCharge (Species_t *s)
+{
+  return s->charge;
+}
+
+/**
+ * @return 1 if the name field of this Species has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetName (Species_t *s)
+{
+  return (s->name != NULL);
+}
+
+
+/**
+ * @return 1 if the compartment field of this Species has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetCompartment (Species_t *s)
+{
+  return (s->compartment != NULL);
+}
+
+
+/**
+ * @return 1 if the initialAmount field of this Species has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetInitialAmount (Species_t *s)
+{
+  return s->isSet.initialAmount;
+}
+
+
+/**
+ * @return 1 if the units field of this Species has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetUnits (Species_t *s)
+{
+  return (s->units != NULL);
+}
+
+
+/**
+ * @return 1 if the boundaryCondition field of this Species has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetBoundaryCondition (Species_t *s)
+{
+  return s->isSet.boundaryCondition;
+}
+
+
+/**
+ * @return 1 if the charge field of this Species has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetCharge (Species_t *s)
+{
+  return s->isSet.charge;
+}
+
+
+/**
  * Sets the name field of this Species to a copy of sname.
  */
+LIBSBML_EXTERN
 void
 Species_setName (Species_t *s, const char *sname)
 {
@@ -150,6 +287,7 @@ Species_setName (Species_t *s, const char *sname)
 /**
  * Sets the compartment field of this Species to a copy of sname.
  */
+LIBSBML_EXTERN
 void
 Species_setCompartment (Species_t *s, const char *sname)
 {
@@ -163,8 +301,23 @@ Species_setCompartment (Species_t *s, const char *sname)
 
 
 /**
+ * Sets the initialAmount field of this Species to value and marks the
+ * field as set.
+ */
+LIBSBML_EXTERN
+void
+Species_setInitialAmount (Species_t *s, double value)
+{
+  s->initialAmount       = value;
+  s->isSet.initialAmount = 1;
+}
+
+
+
+/**
  * Sets the units field of this Species to a copy of sname.
  */
+LIBSBML_EXTERN
 void
 Species_setUnits (Species_t *s, const char *sname)
 {
@@ -174,4 +327,63 @@ Species_setUnits (Species_t *s, const char *sname)
   }
 
   s->units = (sname == NULL) ? NULL : safe_strdup(sname);
+}
+
+
+/**
+ * Sets the boundaryCondition field of this Species to value (boolean) and
+ * marks the field as set.
+ */
+LIBSBML_EXTERN
+void
+Species_setBoundaryCondition (Species_t *s, int value)
+{
+  s->boundaryCondition       = value;
+  s->isSet.boundaryCondition = 1;
+}
+
+
+/**
+ * Sets the charge field of this Species to value and marks the field as
+ * set.
+ */
+LIBSBML_EXTERN
+void
+Species_setCharge (Species_t *s, int value)
+{
+  s->charge       = value;
+  s->isSet.charge = 1;
+}
+
+
+/**
+ * Marks the initialAmount field of this Species as unset.
+ */
+LIBSBML_EXTERN
+void
+Species_unsetInitialAmount (Species_t *s)
+{
+  s->isSet.initialAmount = 0;
+}
+
+
+/**
+ * Marks the boundaryCondition field of this Species as unset.
+ */
+LIBSBML_EXTERN
+void
+Species_unsetBoundaryCondition (Species_t *s)
+{
+  s->isSet.boundaryCondition = 0;
+}
+
+
+/**
+ * Marks the charge field of this Species as unset.
+ */
+LIBSBML_EXTERN
+void
+Species_unsetCharge (Species_t *s)
+{
+  s->isSet.charge = 0;
 }

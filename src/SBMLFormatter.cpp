@@ -374,20 +374,41 @@ SBMLFormatter::operator<< (const Species_t* s)
 
   openStartElement(elem);
 
-  attribute( ATTR_NAME          , s->name          );
-  attribute( ATTR_COMPARTMENT   , s->compartment   );
-  attribute( ATTR_INITIAL_AMOUNT, s->initialAmount );
-  attribute( ATTR_UNITS         , s->units         );
+  attribute(ATTR_NAME, s->name);
 
   //
-  // In SBML L1, boundaryCondition="false" (0) is the default.
+  // compartment { use="optional" }
+  //
+  if (s->compartment != NULL)
+  {
+    attribute(ATTR_COMPARTMENT, s->compartment);
+  }
+
+  attribute(ATTR_INITIAL_AMOUNT, s->initialAmount);
+
+  //
+  // units { use="optional" }
+  //
+  if (s->units != NULL)
+  {
+    attribute(ATTR_UNITS, s->units);
+  }
+
+  //
+  // boundaryCondition { use="default" value="false" (0) }
   //
   if (fLevel != 1 || s->boundaryCondition != 0)
   {
     attribute(ATTR_BOUNDARY_CONDITION, (bool) s->boundaryCondition);
   }
 
-  attribute(ATTR_CHARGE, s->charge);
+  //
+  // charge {use="optional"}
+  //
+  if (s->isSet.charge)
+  {
+    attribute(ATTR_CHARGE, s->charge);
+  }
 
   if ( isEmpty(s) )
   {
@@ -1074,17 +1095,26 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
  * Sends ' name="%s" to the underlying XMLFormatter (where %s is a C string).
  */
 void
-SBMLFormatter::attribute (const XMLCh* name, const char *value)
+SBMLFormatter::attribute (const XMLCh* name, const char* value)
 {
   XMLCh* s;
 
 
   if (value == NULL) return;
+  /*
+    FIXME:
+  {
+    attribute(name, (const XMLCh*) NULL);
+  }
+  else
+  {
+  */
 
   s = XMLString::transcode(value);
   attribute(name, s);
 
   delete [] s;
+  /* } */
 }
 
 
@@ -1106,6 +1136,15 @@ SBMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
     << XMLFormatter::NoEscapes
     << chDoubleQuote;
 
+  /*
+    FIXME: 
+  if (value != NULL)
+  {
+    *fFormatter << value;
+  }
+
+  *fFormatter << XMLFormatter::NoEscapes << chDoubleQuote;
+  */
 }
 
 

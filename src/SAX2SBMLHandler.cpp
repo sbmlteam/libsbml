@@ -498,16 +498,21 @@ SAX2SBMLHandler::handleSpecies (const Attributes& a)
   bool value;
 
 
-  XMLUtil::scanAttrCStr( a, ATTR_NAME          , &(s->name)          );
-  XMLUtil::scanAttrCStr( a, ATTR_COMPARTMENT   , &(s->compartment)   );
-  XMLUtil::scanAttrCStr( a, ATTR_UNITS         , &(s->units)         );
-  XMLUtil::scanAttr    ( a, ATTR_INITIAL_AMOUNT, &(s->initialAmount) );
-  XMLUtil::scanAttr    ( a, ATTR_CHARGE        , &(s->charge)        );
+  XMLUtil::scanAttrCStr(a, ATTR_NAME       , &(s->name)        );
+  XMLUtil::scanAttrCStr(a, ATTR_COMPARTMENT, &(s->compartment) );
+
+  s->isSet.initialAmount =
+    XMLUtil::scanAttr(a, ATTR_INITIAL_AMOUNT, &(s->initialAmount));
+
+  XMLUtil::scanAttrCStr(a, ATTR_UNITS, &(s->units));
 
   if (XMLUtil::scanAttr(a, ATTR_BOUNDARY_CONDITION, &value) == true)
   {
-    s->boundaryCondition = value;
+    Species_setBoundaryCondition(s, value);
   }
+
+  s->isSet.charge =
+    XMLUtil::scanAttr(a, ATTR_CHARGE, &(s->charge));
 
   return (SBase_t*) s;
 }

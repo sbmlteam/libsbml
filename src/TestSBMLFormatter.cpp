@@ -305,6 +305,24 @@ START_TEST (test_SBMLFormatter_Species_defaults)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_Species_optional)
+{
+  Species_t  *sp = Species_create();
+  const char *s  = wrapXML("<species name=\"Ca2\" initialAmount=\"0.7\"/>\n");
+
+
+  Species_setName(sp, "Ca2");
+  Species_setInitialAmount(sp, 0.7);
+
+  *formatter << sp;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  Species_free(sp);
+}
+END_TEST
+
+
 START_TEST (test_SBMLFormatter_Parameter)
 {
   Parameter_t *p = Parameter_createWith("Km1", 2.3, "second");
@@ -709,6 +727,7 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_Species                           );
   tcase_add_test( tcase, test_SBMLFormatter_Species_L1v1                      );
   tcase_add_test( tcase, test_SBMLFormatter_Species_defaults                  );
+  tcase_add_test( tcase, test_SBMLFormatter_Species_optional                  );
   tcase_add_test( tcase, test_SBMLFormatter_Parameter                         );
   tcase_add_test( tcase, test_SBMLFormatter_AlgebraicRule                     );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesConcentrationRule          );
