@@ -71,19 +71,19 @@ thisdir = bindings
 # Depending on the flags given during libSBML's configuration step, different
 # subdirectories will be added to the list of targets.
 
-ifneq ($(MAKECMDGOALS),dist)
+ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_PYTHON
     subdirs = python
   endif
   ifdef USE_JAVA
     subdirs += java
   endif
-#  ifdef USE_MATLAB             # 2004-07-20 Makefiles for matlab not yet ready
-#    subdirs += matlab
-#  endif
+  ifdef USE_MATLAB
+    subdirs += matlab
+  endif
 else
   # If `make dist' was given, include all subdirectories.
-  subdirs = python java  matlab
+  subdirs = python java matlab
 endif
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
