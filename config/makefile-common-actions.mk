@@ -74,10 +74,10 @@
 default_includes ?= -I. -I$(srcdir) -I$(TOP_BUILDDIR)/src -I$(INCLUDEDIR)
 
 compile ?= $(CC) $(CFLAGS) $(DEFS) $(default_includes) $(INCLUDES) \
-	$(CPPFLAGS) $(extra_CPPFLAGS) -fPIC 
+	$(CPPFLAGS) $(extra_CPPFLAGS) -fPIC -Wall
 
 cxxcompile ?= $(CXX) $(CFLAGS) $(DEFS) $(default_includes) $(INCLUDES) \
-	$(CXXFLAGS) $(extra_CXXFLAGS) -fPIC 
+	$(CXXFLAGS) $(extra_CXXFLAGS) -fPIC -Wall
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
@@ -174,18 +174,10 @@ include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 # The following define generic rules for creating object files.
 
 .c.$(OBJEXT):
-	if $(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
-	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
-	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.$(DEPEXT)"; \
-	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
-	fi
+	$(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
 
 .cpp.$(OBJEXT):
-	if $(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
-	  -c -o $@ `test -f '$<' || echo '$(srcdir)/'`$<; \
-	then mv "$(DEPDIR)/$*.Tpo" "$(DEPDIR)/$*.$(DEPEXT)"; \
-	else rm -f "$(DEPDIR)/$*.Tpo"; exit 1; \
-	fi
+	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
 
 .c.obj:
 	if $(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
