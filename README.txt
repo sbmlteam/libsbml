@@ -411,6 +411,18 @@ your experiences with fellow developers and users of libSBML.
 The libsbml-discuss archives are available at http://sbml.org/forums/.
 
 
+------------------------------------
+6. The sbml-cvs-libsbml Mailing List
+------------------------------------
+
+If you are obtaining your libSBML files from CVS, you may wish to
+subscribe to the mailing list sbml-cvs-libsbml, to be appraised of
+changes to the CVS repository as soon as they are committed.  You can
+join the list by visiting the following URL:
+
+  https://lists.sourceforge.net/lists/listinfo/sbml-cvs-libsbml
+
+
 
 -------------------------------------------
 File author: B. Bornstein, M. Hucka
