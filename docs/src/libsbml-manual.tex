@@ -1,6 +1,6 @@
 \documentclass{sbmlmanual}
 
-\newcommand{\libsbml}{\textsc{libsbml}}
+\newcommand{\libsbml}{\textsc{lib\-sbml}}
 
 \begin{document}
 
@@ -20,9 +20,7 @@
   California Institute of Technology, Pasadena, CA 91125, USA\\[2pt]
   {\url{http://www.sbml.org/}}}
 
-\date{\today{}\\[10pt]%
-  \hspace*{-1ex}\libsbml{} Version \input{../../VERSION.txt}%
-}
+\date{\today{}\\[10pt]\hspace*{-1ex}\libsbml{} Version \input{../../VERSION.txt}}
 
 \maketitlepage
 
@@ -34,20 +32,20 @@
 
 \libsbml{} requires a separate XML library for low-level XML tokenizing and
 Unicode support.  It currently supports the Xerces-C++ and Expat XML
-libraries on Linux, Windows and MacOS X.  Many Linux systems provide one or
-both of these libraries either as part of their standard distribution or as
-an optional RPM or Debian package.  For more information, see
-\url{http://xml.apache.org/xerces-c/} for Xerces and
+libraries on Linux, Windows, MacOS~X and Solaris.  Many Linux systems
+provide one or both of these libraries either as part of their standard
+distribution or as an optional RPM, Debian or Mandrake package.  For more
+information, see \url{http://xml.apache.org/xerces-c/} for Xerces and
 \url{http://expat.sf.net} for Expat.
 
 %-----------------------------------------------------------------------------
-\subsection{Linux or MacOS X}
+\subsection{Linux, MacOS X and Solaris}
 %-----------------------------------------------------------------------------
 
 If you have obtained the \libsbml{} source code distribution, then at your
-Linux or MacOS~X command prompt, unpack the distribution, \shell{cd} into
-the directory created (e.g., \shell{libsbml-2.1.0/}), and type the
-following command to configure \libsbml{} for your system:
+Linux, MacOS~X or Solaris command prompt, unpack the distribution,
+\shell{cd} into the directory created (e.g., \shell{libsbml-2.1.0/}), and
+type the following command to configure \libsbml{} for your system:
 
 \begin{example}[csh]
   ./configure
@@ -194,23 +192,23 @@ manual for the API.
 
 
 %=============================================================================
-\section{Detailed Installation Instructions}
+\section{Detailed Instructions for Configuring and Installing LibSBML}
 \label{sec:installation}
 %=============================================================================
 
-The \libsbml{} distributions can be downloaded from the \emph{SBML} project
-area on SourceForge.net, at \url{http://sf.net/projects/sbml}.  A link to
-the download area is also provided on the SBML project home page,
+The \libsbml{} distributions can be downloaded from the SBML project area
+on SourceForge.net, at \url{http://sf.net/projects/sbml}.  A link to the
+download area is also provided on the SBML project home page,
 \url{http://www.sbml.org}.
 
 Before you can build and use \libsbml{}, you must first make sure you have
 on your system an XML library for low-level XML tokenizing and Unicode
 support.  Currently, \libsbml{} can use either Apache's Xerces-C++ XML
-library or James Clark's Expat XML library on Linux, Windows and MacOS~X.
-Many systems provide one or both of these libraries either as part of their
-standard distribution or as an optional RPM or Debian package.  DLL and LIB
-file distributions are available for both Xerces and Expat.  For more
-information, see the following resources:
+library or James Clark's Expat XML library on Linux, Windows, MacOS~X and
+Solaris.  Many systems provide one or both of these libraries either as
+part of their standard distribution or as an optional RPM or Debian
+package.  For Windows, DLL and LIB file distributions are available for
+both Xerces and Expat.  For more information, see the following resources:
 
 \begin{itemize}\setlength{\parskip}{-0.25ex}
 
@@ -220,13 +218,11 @@ information, see the following resources:
 \end{itemize}
 
 Note that if you use Expat instead of Xerces, \libsbml{} will not be able
-to perform certain kinds of validation tests on SBML models, because Expat
-is not a validating XML parser.  A validating parser can check XML input
-against an XML Schema.  Xerces is currently the only validating parser
-library usable with \libsbml{}.  Using Expat with \libsbml{} effectively
-means it will be unable to check SBML input against the SBML XML Schema.
-The tradeoff is that Expat can be noticeably faster than Xerces at parsing
-large models.
+to perform validation or consistency tests on SBML models, because Expat is
+not a validating XML parser.  (A validating parser can check XML input
+against an XML Schema.)  Xerces is currently the only validating parser
+library usable with \libsbml{}.  The tradeoff is that Expat can be
+noticeably faster than Xerces at parsing large models.
 
 Unless instructed otherwise, the \libsbml{} build process will
 \textbf{default to using Xerces}.  A good way to determine whether
@@ -235,17 +231,15 @@ Xerces-C++ is installed on your system is to run the configuration command
 can provide the configuration command with a flag telling it to use Expat
 instead of Xerces and you can indicate where the libraries are located if
 they are not in standard locations on your system.
-
-\libsbml{} is designed to be extremely portable.  The core is written in
-100\% pure ISO~C and C++, and the build system uses GNU Autoconf and GNU
-Make.
   
 
-\subsection{Unpacking and Configuring \libsbml{}}
+\subsection{Instructions for Linux, MacOS~X and Solaris}
 
-First, uncompress and unpack the \libsbml{} sources.  Then, configure the
-package by typing the following command at your Linux or MacOS~X command
-prompt:
+\subsubsection{Configuring \libsbml{}}
+
+After obtaining, uncompressing and unpacking the \libsbml{} distribution,
+configure the package by typing the following command at your Linux,
+MacOS~X or Solaris command prompt:
 
 \begin{example}[csh]
   ./configure
@@ -264,11 +258,11 @@ able to detect it.  In this case, \shell{configure} needs to be told
 explicitly where to find the libraries.  Use the following forms:
 
 \begin{example}[csh]
-  ./configure --with-expat=|\emph{dir}|
+  ./configure --with-expat="|\emph{dir}|"
 \end{example}
 or
 \begin{example}[csh]
-  ./configure --with-xerces=|\emph{dir}|
+  ./configure --with-xerces="|\emph{dir}|"
 \end{example}
 
 where \code{\emph{dir}} is the \textbf{parent} directory of where the
@@ -278,7 +272,7 @@ used Fink to install Expat in Fink's default software tree, you would
 configure \libsbml{} using the following:
 
 \begin{example}[csh]
-  ./configure --with-xerces=/sw
+  ./configure --with-xerces="/sw"
 \end{example}
 
 During the installation phase (i.e., during \shell{make install}, discussed
@@ -290,39 +284,45 @@ specify a different installation location, use the \shell{--prefix}
 argument to \shell{configure}.  For example,
 
 \begin{example}[csh]
-  ./configure --prefix=/my/favorite/path
+  ./configure --prefix="/my/favorite/path"
 \end{example}
 
 Of course, you can combine the flags to \shell{configure}, giving both
 \shell{--prefix} and \shell{--with-expat} or \shell{--with-xerces} to set
-both options.  Other options are described below.
+both options.  The \libsbml{} configuration command also supports a number
+of other options described below.
 
 
-\subsection{Building and Installing \libsbml{}}
+\subsubsection{Building and Installing \libsbml{}}
 
 Once configured, building should be very easy.  Simply execute the
-following commands at your Unix, Cygwin or MacOS~X command prompt:
+following commands at your Linux, MacOS~X or Solaris command prompt:
 
 \begin{example}[csh]
   make
   make install
 \end{example}
 
+Note that you will probably have to perform the \shell{make install}
+command as the user 'root' on your system if you used the default
+installation directory (\shell{/usr/local}) or you set \shell{--prefix} to
+a system directory that only root is permitted to write into.
+
+Finally, on most platforms, you will also need to either run the command
+\shell{ldconfig} as user 'root' (consult the man page for \shell{ldconfig}
+if this is unfamiliar), or else set the environment variable
+\shell{LD\_LIBRARY\_PATH} in your terminal shell window.  (On MacOS~X, the
+variable is named \shell{DYLD\_LIBRARY\_PATH}.)  If you do not do this,
+attempting to link other programs with the \libsbml{} library will fail
+with errors about being unable to find it.
+
 If all went as it should, \libsbml{} should end up compiled and installed
 on your system, in either the default location (\shell{/usr/local/}) or in
 the location you indicated during the configuration step as explained
-above.  And that that's all that should be required to build and install
-\libsbml{} normally!
+above.
 
 
-\subsection{Additional Options for Configuring \libsbml{}}
-
-In addition to the \shell{--prefix}, \shell{--with-expat} and
-\shell{--with-xerces} options already described, the \libsbml{}
-configuration command supports the options described below.
-
-
-\subsubsection{Interfaces to Java, Python and MATLAB}
+\subsubsection{Additional Options: Interfaces to Java, Python and MATLAB}
 
 \libsbml{} includes language bindings for Java, Python and MATLAB, enabling
 you to write Java, Python and MATLAB programs that call \libsbml{} methods,
@@ -337,11 +337,12 @@ with other configure options, these three take an optional prefix
 argument; for example,
 
 \begin{example}[csh]
-  ./configure --with-java=|\emph{dir}|
+  ./configure --with-java="|\emph{dir}|"
 \end{example}
 
 If you want to build multiple language bindings for \libsbml{}, combine
 multiple flags together as in the following example:
+
 \begin{example}[csh]
   ./configure --with-java --with-python
 \end{example}
@@ -358,32 +359,27 @@ location, you can specify it on the \shell{configure} command line like
 this:
 
 \begin{example}[csh]
-  ./configure --with-swig=|\emph{dir}|
+  ./configure --with-swig="|\emph{dir}|"
 \end{example}
 
 As with Expat and Xerces, the \shell{/sw} directory is what you would
-specify if you were running on MacOS X and you used Fink to install SWIG,
+specify if you were running on MacOS~X and you used Fink to install SWIG,
 Python, etc.
 
 
-\subsubsection{Unit Testing}
+\subsubsection{Additional Options: Unit Testing}
 
 \libsbml{} provides built-in facilities for testing itself.  To run the
 unit tests, a second library is required, \shell{libcheck}.  Check is a
 very lightweight C unit test framework based on the xUnit framework
 popularized by Kent Beck and eXtreme Programming.  Check is quite small
 and once installed, it consists of only two files: \shell{libcheck.a} and
-\shell{check.h}.  To download Check, visit:
-
-\begin{itemize}
-  \item \url{http://check.sf.net/}
-\end{itemize}
-
+\shell{check.h}.  To download Check, visit \url{http://check.sf.net/}.
 \emph{Note:} Debian users can find Check as a standard add-on package
 (.deb).  MacOS~X users can find and install Check using the Fink system.
 
 To enable the unit testing facilities in \libsbml{}, add the
-\shell{--with-check} flag to the configure command:
+\shell{--with-check} flag during configuration:
 
 \begin{example}[csh]
   ./configure --with-check
@@ -405,7 +401,7 @@ system, please submit a bug report using the facilities at
 \url{http://www.sf.net/projects/sbml}.
 
 
-\subsubsection{Memory Tracing}
+\subsubsection{Additional Options: Memory Tracing}
 
 In addition to the unit tests, a custom memory tracing facility is
 available.  It is disabled by default and must be enabled explicitly
@@ -436,6 +432,50 @@ you can reconfigure and disable it as follows:
 \begin{example}[csh]
   ./configure --disable-memory-tracing
 \end{example}
+
+
+\subsection{Instructions for Microsoft Windows}
+
+The Windows distributions of \libsbml{} come in the form of both
+precompiled binaries (with a self-extracting installer), and source code.
+The precompiled binaries come ready-to-use and only need to be installed.
+The source distribution is a \shell{.zip} file containing the \libsbml{}
+code that must be extracted in a directory on your system, compiled and
+installed.
+
+As mentioned above, \libsbml{} requires that either the Xerces-C or Expat
+XML parsing libraries be available on your computer prior to attempting to
+compile \libsbml{}.  (See the beginning of this section for tips on
+obtaining these packages.)  The DLL for xerces or expat must be placed in
+the \shell{win32/bin} subdirectory of the \libsbml{} directory.
+
+The following are the steps for using Visual Studio to compile \libsbml{}
+under Windows:
+
+\begin{enumerate}
+  
+\item In Visual Studio 7, open the file \shell{win32/libsbml.vcproj}
+  located in the \libsbml{} directory.  In Visual Studio~6, the file is
+  \shell{win32/libsbml.dsw}.
+  
+\item Select the ``Options'' item out of the ``Tools'' pull-down menu, and
+  select ``Projects/Directories'' (in VS7) or click the ``Directories'' tab
+  (in VS6).  The screen for indicating which directories contain
+  project-relevant files will then be displayed.
+  
+\item For ``Show Directories For:'', select ``Include Files''.
+  Add the \shell{win32/include} directory from the \libsbml{} directory if
+  it is not already shown.
+  
+\item For ``Show Directories For:'', select ``Library Files''.  Add the
+  \shell{win32/bin} directory from the \libsbml{} directory if it is not
+  already shown.  (This is the directory were you should place the DLLs for
+  Xerces or Expat.)
+  
+\item Select the ``Rebuild All'' option from the ``Build'' pull-down menu
+  in Visual Studio.
+
+\end{enumerate}
 
 
 
@@ -2403,48 +2443,54 @@ surprising to see how short this program is.
 
 
 %=============================================================================
-\section{Validation of SBML Models}
+\section{Checking the Consistency of SBML Models}
 \label{sec:sbml-validation}
 %=============================================================================
 
 \libsbml{} performs a certain amount of validation of SBML inputs at the
 time of parsing files and data streams.  However, the checks performed are
 mostly syntactic in nature, based on the XML Schema for SBML (and as noted
-elsewhere, getting the most of this validation capability requires the
-using of an XML Schema-aware parser such as Xerces).
+elsewhere, using this validation capability requires using an XML
+Schema-aware parser such as Xerces).
 
-\libsbml{} implements more extensive semantic validation rules internally.
-At the time of this writing, over 30 tests are implemented.  Examples of
-these rules include: compartments' \attrib{spatialSizeUnits} fields must be
-consistent with their \attrib{spatialDimensions}; species with
-\attrib{hasOnlySubstanceUnits} set to true must not have an
+\libsbml{} also implements more extensive semantic tests and consistency
+checks than those represented by the XML Schema for SBML.  At the time of
+this writing, over 30 tests are implemented.  Examples of these consistency
+checks include: testing that compartments' \attrib{spatialSizeUnits} fields
+are consistent with their \attrib{spatialDimensions}; testing that species
+with \attrib{hasOnlySubstanceUnits} set to true do not also have an
 \attrib{initialConcentration}; and others.
     
-Semantic validation rules in \libsbml{} (and indeed, in SBML in general)
-are still somewhat experimental; for this reason, the library does not
-perform them automatically.  Callers must request semantic validation to be
+Consistency checking rules in \libsbml{} (and indeed, in SBML in general)
+are still experimental; for this reason, the library does not perform them
+automatically.  Calling programs must request consistency checking to be
 invoked explicitly by calling the following method.
 
-
-\begin{methoddef}{unsigned int SBMLDocument\_validate (const SBMLDocument\_t *d)}
-  Performs semantic validation on the document.  Calling programs can query
+\begin{methoddef}{unsigned int SBMLDocument\_checkConsistency (const SBMLDocument\_t *d)}
+  Performs consistency checking on the given SBML document.  Calling programs can query
   the results by calling \method{SBMLDocument\_getNumWarnings()},
   \method{SBMLDocument\_getNumErrors()},
   \method{SBMLDocument\_getNumFatals()}, and related methods.  This method
-  returns (as an integer) the number of semantic validation errors
-  encountered
+  returns (as an integer) the number of consistency errors
+  detected.
+
+  \textbf{Deprecation note}: this method was originally named
+  \method{SBMLDocument\_validate()}.  The older name was judged confusing
+  and has been deprecated in favor of the new name.
 \end{methoddef}
 
-% FIXME give more details about the number returned.  Here's what B.B. says:
-%
-%The validator keeps track of every rule fired (or run) and increments a
-%counter if it fails.  It also logs an error message.  That error message
-%(ParseMessage) is logged to the same list of error messages that XML Schema
-%validation errors are logged to, i.e. the one kept by SBMLDocument.
-%getNumErrors() simply returns the size of this list.  The count of violated
-%rules is returned by the validator and SBMLDocument_validate() propagates
-%this number to its caller.
-
+Here is some additional information about the \libsbml{} procedures for
+checking the consistency of an SBML model.  The program contains an
+internal list of consistency checks.  These checks are run sequentially
+when \method{SBMLDocument\_checkConsistency()} is invoked.  \libsbml{}
+keeps track of every consistency check executed; if a check returns a
+negative value (i.e., a failure), it increments an internal counter and
+also logs an error message returned by the check.  That error message is
+logged to the same list of error messages where XML Schema validation
+errors are stored (that is, the list kept in the SBMLDocument).  The method
+\method{SBMLDocument\_checkConsistency()} returns the count of checks
+failed, and the method \method{SBMLDocument.getNumErrors()} returns the
+length of the list on SBMLDocument.
 
 
 %=============================================================================
