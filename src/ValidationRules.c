@@ -79,6 +79,142 @@
   }
 
 
+typedef struct {
+  int passed;
+  char *msg;
+} RuleResult_t;
+
+
+void
+initializeRuleResult(RuleResult_t *result)
+{
+  result->passed = 1;
+  result->msg = NULL;
+}
+
+typedef int (*PFI)();
+
+
+int
+isMeter(UnitKind_t uk)
+{
+  return uk == UNIT_KIND_METRE || uk == UNIT_KIND_METER;
+}
+
+
+int
+isLiter(UnitKind_t uk)
+{
+  return uk == UNIT_KIND_LITRE || uk == UNIT_KIND_LITER;
+}
+
+
+int
+isSubstanceKind(UnitKind_t uk)
+{
+  return uk == UNIT_KIND_MOLE || uk == UNIT_KIND_ITEM;
+}
+
+
+int
+isSecond(UnitKind_t uk)
+{
+  return uk == UNIT_KIND_SECOND;
+}
+
+
+void
+hasSingleKind(RuleResult_t *result, UnitDefinition_t *ud)
+{
+  ListOf_t *kinds;
+  if (!result->passed) return;
+
+  kinds = UnitDefinition_getListOfUnits(ud);
+  if (ListOf_getNumItems(kinds) != 1)
+  {
+    result->passed = 0;
+    result->msg = "must have exactly one unit kind.";
+  }
+}
+
+
+void
+hasAcceptableKinds(
+  RuleResult_t *result,
+  UnitDefinition_t *ud,
+  PFI *acceptableKinds,
+  char *acceptableKindsMsg)
+{
+  if (!result->passed) return;
+
+  {
+    if (!isOneOfTheseKinds(ud, acceptableKinds))
+    {
+      result->passed = 0;
+      result->msg = acceptableKindsMsg;
+      return;
+    }
+  }
+}
+
+
+void
+hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
+{
+  if (!result->passed) return;
+
+  {
+    ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+    Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
+
+    int exponent = Unit_getExponent(u);
+    if (exponent != requiredExponent)
+    {
+      char buf[256];
+
+      sprintf(buf, "must have exponent %d.");
+      result->passed = 0;
+      result->msg = strdup(buf);
+    }
+  }
+}
+
+
+int
+isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
+{
+  ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
+  Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
+  UnitKind_t unitKind = Unit_getKind(u);
+  PFI *kindTest;
+
+  for (kindTest = kindTests; *kindTest; kindTest++)
+  {
+    if ((*kindTest)(unitKind))
+    {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+
+void
+logFullMessage(
+  const char *baseMsg,
+  RuleResult_t *result,
+  SBase_t *obj,
+  List_t *messages)
+{
+    char buf[512];
+
+    strcpy(buf, baseMsg);
+    strcat(buf, result->msg);
+    LOG_MESSAGE(strdup(buf));
+}
+
+
 RULE (compartment_size_dimensions)
 {
   unsigned int   passed = 1;
@@ -179,142 +315,13 @@ RULE (unitDefinition_idCantBePredefinedUnit)
 }
 
 
-typedef struct {
-  int passed;
-  char *msg;
-} RuleResult_t;
-
-
-void
-initializeRuleResult(RuleResult_t *result)
-{
-  result->passed = 1;
-  result->msg = NULL;
-}
-
-typedef int (*PFI)();
-
-
-int
-isMeter(UnitKind_t uk)
-{
-  return uk == UNIT_KIND_METRE || uk == UNIT_KIND_METER;
-}
-
-
-int
-isLiter(UnitKind_t uk)
-{
-  return uk == UNIT_KIND_LITRE || uk == UNIT_KIND_LITER;
-}
-
-
-int
-isSubstanceKind(UnitKind_t uk)
-{
-  return uk == UNIT_KIND_MOLE || uk == UNIT_KIND_ITEM;
-}
-
-
-void
-hasSingleKind(RuleResult_t *result, UnitDefinition_t *ud)
-{
-  ListOf_t *kinds;
-  if (!result->passed) return;
-
-  kinds = UnitDefinition_getListOfUnits(ud);
-  if (ListOf_getNumItems(kinds) != 1)
-  {
-    result->passed = 0;
-    result->msg = "must have only a single kind.";
-  }
-}
-
-
-void
-hasAcceptableKinds(
-  RuleResult_t *result,
-  UnitDefinition_t *ud,
-  PFI *acceptableKinds,
-  char *acceptableKindsMsg)
-{
-  if (!result->passed) return;
-
-  {
-    if (!isOneOfTheseKinds(ud, acceptableKinds))
-    {
-      result->passed = 0;
-      result->msg = acceptableKindsMsg;
-      return;
-    }
-  }
-}
-
-
-void
-hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
-{
-  if (!result->passed) return;
-
-  {
-    ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
-    Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
-
-    int exponent = Unit_getExponent(u);
-    if (exponent != requiredExponent)
-    {
-      char buf[256];
-
-      sprintf(buf, "must have exponent %d.");
-      result->passed = 0;
-      result->msg = strdup(buf);
-    }
-  }
-}
-
-
-int
-isOneOfTheseKinds(UnitDefinition_t *ud, PFI *kindTests)
-{
-  ListOf_t *kinds = UnitDefinition_getListOfUnits(ud);
-  Unit_t *u = (Unit_t *) ListOf_get(kinds, 0);
-  UnitKind_t unitKind = Unit_getKind(u);
-  PFI *kindTest;
-
-  for (kindTest = kindTests; *kindTest; kindTest++)
-  {
-    if ((*kindTest)(unitKind))
-    {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
-
-void
-logFullMessage(
-  const char *baseMsg,
-  RuleResult_t *result,
-  SBase_t *obj,
-  List_t *messages)
-{
-    char buf[512];
-
-    strcpy(buf, baseMsg);
-    strcat(buf, result->msg);
-    LOG_MESSAGE(strdup(buf));
-}
-
-
 RULE (unitDefinition_volumeKinds)
 {
   RuleResult_t result;
   UnitDefinition_t *ud = (UnitDefinition_t *) obj;
   PFI acceptableKinds[] = { isMeter, isLiter, NULL };
   PFI kindsThatNeedExponent3[] = { isMeter, NULL };
-  static const char baseMsg[] = "a 'volume' unitDefinition ";
+  static const char baseMsg[] = "A 'volume' unitDefinition ";
   static const char acceptableKindsMsg[] =
     "may only have units of kind 'liter' or 'metre'.";
 
@@ -342,8 +349,8 @@ RULE (unitDefinition_substanceKinds)
 {
   RuleResult_t result;
   UnitDefinition_t *ud = (UnitDefinition_t *) obj;
-  PFI acceptableKinds[] = { isSubstanceKind, isLiter, NULL };
-  static const char baseMsg[] = "a 'substance' unitDefinition ";
+  PFI acceptableKinds[] = { isSubstanceKind, NULL };
+  static const char baseMsg[] = "A 'substance' unitDefinition ";
   static const char acceptableKindsMsg[] =
     "may only have units of kind 'mole' or 'item'.";
 
@@ -369,7 +376,7 @@ RULE (unitDefinition_areaKinds)
   RuleResult_t result;
   UnitDefinition_t *ud = (UnitDefinition_t *) obj;
   PFI acceptableKinds[] = { isMeter, NULL };
-  static const char baseMsg[] = "an 'area' unitDefinition ";
+  static const char baseMsg[] = "An 'area' unitDefinition ";
   static const char acceptableKindsMsg[] =
     "may only have units of kind 'metre'.";
 
@@ -395,13 +402,39 @@ RULE (unitDefinition_lengthKinds)
   RuleResult_t result;
   UnitDefinition_t *ud = (UnitDefinition_t *) obj;
   PFI acceptableKinds[] = { isMeter, NULL };
-  static const char baseMsg[] = "a 'length' unitDefinition ";
+  static const char baseMsg[] = "A 'length' unitDefinition ";
   static const char acceptableKindsMsg[] =
     "may only have units of kind 'metre'.";
 
   initializeRuleResult(&result);
 
   if (!strcmp("length", UnitDefinition_getId(ud)))
+  {
+    hasSingleKind(&result, ud);
+    hasAcceptableKinds(&result, ud, acceptableKinds, acceptableKindsMsg);
+    hasExponent(&result, ud, 1);
+  }
+
+  if (!result.passed)
+  {
+    logFullMessage(baseMsg, &result, obj, messages);
+  }
+  return result.passed;
+}
+
+
+RULE (unitDefinition_timeKinds)
+{
+  RuleResult_t result;
+  UnitDefinition_t *ud = (UnitDefinition_t *) obj;
+  PFI acceptableKinds[] = { isSecond, NULL };
+  static const char baseMsg[] = "A 'time' unitDefinition ";
+  static const char acceptableKindsMsg[] =
+    "may only have units of kind 'second'.";
+
+  initializeRuleResult(&result);
+
+  if (!strcmp("time", UnitDefinition_getId(ud)))
   {
     hasSingleKind(&result, ud);
     hasAcceptableKinds(&result, ud, acceptableKinds, acceptableKindsMsg);
@@ -435,5 +468,7 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, unitDefinition_areaKinds,
                                                      SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_lengthKinds,
+                                                     SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_timeKinds,
                                                      SBML_UNIT_DEFINITION );
 }
