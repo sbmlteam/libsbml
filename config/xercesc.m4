@@ -91,8 +91,6 @@ AC_DEFUN(AC_LIB_XERCES,
 
     AC_LANG_RESTORE
 
-    AC_MSG_RESULT($xerces_found)
-
     if test $xerces_found = no; then
       AC_MSG_ERROR([Could not find the Xerces XML library.])
     fi
