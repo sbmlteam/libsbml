@@ -110,7 +110,7 @@ TestMathMLFormatter_teardown (void)
 }
 
 
-START_TEST (test_MathMLFormatter_cn_real)
+START_TEST (test_MathMLFormatter_cn_real_1)
 {
   ASTNode_t  *n = SBML_parseFormula("1.2");
   const char *s = wrapXML("<cn> 1.2 </cn>\n");
@@ -124,13 +124,24 @@ START_TEST (test_MathMLFormatter_cn_real)
 END_TEST
 
 
-START_TEST (test_MathMLFormatter_cn_real_e_notation)
+START_TEST (test_MathMLFormatter_cn_real_2)
 {
   ASTNode_t  *n = SBML_parseFormula("1234567.8");
-  const char *s = wrapXML
-  (
-    "<cn type=\"e-notation\"> 1.23457 <sep/> 6 </cn>\n"
-  );
+  const char *s = wrapXML("<cn> 1234567.8 </cn>\n");
+
+
+  *formatter << n;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_cn_real_3)
+{
+  ASTNode_t  *n = SBML_parseFormula("-3.14");
+  const char *s = wrapXML("<cn> -3.14 </cn>\n");
 
 
   *formatter << n;
@@ -142,6 +153,23 @@ END_TEST
 
 
 START_TEST (test_MathMLFormatter_cn_e_notation_1)
+{
+  ASTNode_t  *n = SBML_parseFormula("0e3");
+  const char *s = wrapXML
+  (
+    "<cn type=\"e-notation\"> 0 <sep/> 3 </cn>\n"
+  );
+
+
+  *formatter << n;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_cn_e_notation_2)
 {
   ASTNode_t  *n = SBML_parseFormula("2e3");
   const char *s = wrapXML
@@ -158,12 +186,12 @@ START_TEST (test_MathMLFormatter_cn_e_notation_1)
 END_TEST
 
 
-START_TEST (test_MathMLFormatter_cn_e_notation_2)
+START_TEST (test_MathMLFormatter_cn_e_notation_3)
 {
   ASTNode_t  *n = SBML_parseFormula("1234567.8e3");
   const char *s = wrapXML
   (
-    "<cn type=\"e-notation\"> 1234567.800000 <sep/> 3 </cn>\n"
+    "<cn type=\"e-notation\"> 1234567.8 <sep/> 3 </cn>\n"
   );
 
 
@@ -171,6 +199,62 @@ START_TEST (test_MathMLFormatter_cn_e_notation_2)
   fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
 
   ASTNode_free(n);
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_cn_e_notation_4)
+{
+  ASTNode_t  *n = SBML_parseFormula("6.0221367e+23");
+  const char *s = wrapXML
+  (
+    "<cn type=\"e-notation\"> 6.0221367 <sep/> 23 </cn>\n"
+  );
+
+
+  *formatter << n;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_cn_e_notation_5)
+{
+  ASTNode_t  *n = SBML_parseFormula(".000004");
+  const char *s = wrapXML("<cn type=\"e-notation\"> 4 <sep/> -6 </cn>\n");
+
+
+  *formatter << n;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_cn_e_notation_6)
+{
+  ASTNode_t  *n = SBML_parseFormula(".000004e-6");
+  const char *s = wrapXML("<cn type=\"e-notation\"> 4 <sep/> -12 </cn>\n");
+
+
+  *formatter << n;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
+START_TEST (test_MathMLFormatter_cn_e_notation_7)
+{
+  const char *s = wrapXML("<cn type=\"e-notation\"> -1 <sep/> -6 </cn>\n");
+
+
+  *formatter << -1e-6;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
 }
 END_TEST
 
@@ -772,10 +856,16 @@ create_suite_MathMLFormatter (void)
                             TestMathMLFormatter_teardown);
  
 
-  tcase_add_test( tcase, test_MathMLFormatter_cn_real               );
-  tcase_add_test( tcase, test_MathMLFormatter_cn_real_e_notation    );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_real_1             );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_real_2             );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_real_3             );
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_1       );
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_2       );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_3       );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_4       );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_5       );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_6       );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_7       );
   tcase_add_test( tcase, test_MathMLFormatter_cn_integer            );
   tcase_add_test( tcase, test_MathMLFormatter_cn_rational           );
   tcase_add_test( tcase, test_MathMLFormatter_ci                    );

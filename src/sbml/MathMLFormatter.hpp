@@ -108,7 +108,7 @@ public:
   /**
    * Sets the current indentation level for this MathMLFormatter.
    */
-  void setIndentLevel (unsigned int n) { fIndentLevel = n; }
+  void setIndentLevel (unsigned int n) { mIndentLevel = n; }
 
   /**
    * Sends a '<math xmlns="http://www.w3.org/1998/Math/MathML">' to the
@@ -162,10 +162,25 @@ private:
    */
 
   /**
-   * Formats the given ASTNode as
-   * <cn type="e-notation"> %f <sep/> %ld </cn>
+   * Formats the given ASTNode as:
+   *
+   *   <cn type="e-notation"> %f <sep/> %ld </cn>.
    */
   void doENotation (const ASTNode* node);
+
+  /**
+   * Formats the given mantissa and exponent as:
+   *
+   *   <cn type="e-notation"> %f <sep/> %ld </cn>
+   */
+  void doENotation (double mantissa, long exponent);
+
+  /**
+   * Formats the given mantissa and exponent as:
+   *
+   *   <cn type="e-notation"> %s <sep/> %s </cn>
+   */
+  void doENotation (const char* mantissa, const char* exponent);
 
   /**
    * Formats the given ASTNode as
@@ -201,6 +216,21 @@ private:
   void doLambda (const ASTNode* node);
 
   /**
+   * Outputs MathML appropriate for NaN (<notanumber/>).
+   */
+  void doNaN();
+
+  /**
+   * Outputs MathML appropriate for negative infinity.
+   */
+  void doNegInfinity ();
+
+  /**
+   * Outputs MathML appropriate for infinity (<infinity/>).
+   */
+  void doPosInfinity ();
+
+  /**
    * Formats the given ASTNode as a <apply> <op/> ... </apply>.
    */
   void doOperator (const ASTNode* node);
@@ -234,10 +264,27 @@ private:
   void doFunctionRoot (const ASTNode* node);
 
   /**
-   * @return true if the string representation of number contains an 'e' or
-   * 'E'.
+   * @return a string representation of the given integer value.
    */
-  bool hasExponent (const char* number);
+  char* toString (long value);
+
+  /**
+   * @return a string representation of the given real value.
+   */ 
+  char* toString (double value);
+
+  /**
+   * Splits the string representation of number into mantissa and exponent
+   * parts.
+   *
+   * The 'e' or 'E' in the string is overwritten with a NULL character and
+   * a pointer to the exponent part is returned.  If the string does not
+   * contain an exponent, number is not modified and a NULL pointer is
+   * returned.
+   */
+  char* splitExponent (char* number);
+
+
 
 
   /* ----------------------------------------------------------------------
@@ -337,25 +384,19 @@ private:
    */
   void indent ();
 
-  inline void upIndent   () { fIndentLevel++; }
-  inline void downIndent () { fIndentLevel--; }
+  inline void upIndent   () { mIndentLevel++; }
+  inline void downIndent () { mIndentLevel--; }
 
 
-  //
-  // For the statement:
-  //
-  //   static const unsigned int NUMBER_BUFFER_SIZE = 100;
-  //
-  // MSVC++ 6.0 complains: "error C2258: illegal pure syntax, must be '=
-  // 0'", but g++ has no problem with it?!  Fine.  For now, just #define.
-  //
-#define NUMBER_BUFFER_SIZE 100
+  XMLFormatter*     mFormatter;
+  XMLFormatTarget*  mTarget;
+  unsigned int      mIndentLevel;
 
-  char fNumberBuffer[ NUMBER_BUFFER_SIZE ];
+  char* mFloatBuffer;
+  char* mIntBuffer;
 
-  XMLFormatter*     fFormatter;
-  XMLFormatTarget*  fTarget;
-  unsigned int      fIndentLevel;
+  static const unsigned int NUMBER_BUFFER_SIZE;
+  static const XMLCh*       MATHML_ELEMENTS[];
 };
 
 

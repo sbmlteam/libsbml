@@ -67,10 +67,14 @@
 #include "sbml/XMLUtil.hpp"
 
 
+const unsigned int
+MathMLFormatter::NUMBER_BUFFER_SIZE = 100;
+
 //
 // Most MathML elements, indexed by (ASTNodeType - AST_FUNCTION_ABS).
 //
-static const XMLCh *MATHML_ELEMENTS[] =
+const XMLCh*
+MathMLFormatter::MATHML_ELEMENTS[] =
 {
     ELEM_ABS
   , ELEM_ARCCOS
@@ -131,27 +135,29 @@ MathMLFormatter::MathMLFormatter ( const char*      outEncoding,
                                    XMLFormatTarget* target,
                                    bool             outputXMLDecl )
 {
+  mIndentLevel = 0;
+  mTarget      = target;
+  mFloatBuffer = new char[NUMBER_BUFFER_SIZE];
+  mIntBuffer   = new char[NUMBER_BUFFER_SIZE];
+
+#ifndef USE_EXPAT
   //
   // Initialize() is static and may be called more than once safely.
   //
-  fIndentLevel = 0;
-  fTarget    = target;
-
-#ifndef USE_EXPAT
   XMLPlatformUtils::Initialize();
 #endif  // !USE_EXPAT
 
-  fFormatter = XMLUtil::createXMLFormatter(outEncoding, fTarget);
+  mFormatter = XMLUtil::createXMLFormatter(outEncoding, mTarget);
 
   if (outputXMLDecl)
   {
-    *fFormatter
+    *mFormatter
       << XML_DECL_1
 
 #ifdef USE_EXPAT
       << "UTF-8"
 #else
-      << fFormatter->getEncodingName()
+      << mFormatter->getEncodingName()
 #endif  // USE_EXPAT
 
       << XML_DECL_2;
@@ -164,7 +170,9 @@ MathMLFormatter::MathMLFormatter ( const char*      outEncoding,
  */
 MathMLFormatter::~MathMLFormatter ()
 {
-  delete fFormatter;
+  delete mFormatter;
+  delete mFloatBuffer;
+  delete mIntBuffer;
 }
 
 
@@ -310,8 +318,7 @@ MathMLFormatter::operator<< (long value)
 {
   startElementCN(VAL_INTEGER);
 
-  snprintf  (fNumberBuffer, NUMBER_BUFFER_SIZE, "%d", value);
-  characters(fNumberBuffer);
+  characters( toString(value) );
 
   spaceEndElement(ELEM_CN);
 
@@ -333,55 +340,39 @@ MathMLFormatter::operator<< (double value)
   //
   if (isInf > 0)
   {
-    startEndElement(ELEM_INFINITY);
-    return *this;
+    doPosInfinity();
   }
   else if (isInf < 0)
   {
-    startElement(ELEM_APPLY);
-    upIndent();
-
-    startEndElement(ELEM_MINUS);
-    startEndElement(ELEM_INFINITY);
-
-    downIndent();
-
-    indent();
-    endElement(ELEM_APPLY);
-    return *this;
+    doNegInfinity();
   }
   else if (value != value)
   {
-    startEndElement(ELEM_NOT_A_NUMBER);
-    return *this;
+    doNaN();
   }
 
   //
   // Normal case
   //
-  snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%g", value);
-
-  FormulaTokenizer_t* tokenizer = FormulaTokenizer_create(fNumberBuffer);
-  Token_t*            token     = FormulaTokenizer_nextToken(tokenizer);
-  ASTNode*            node      = new ASTNode(token);
-
-
-  if (node->getType() == AST_REAL_E)
-  {
-    doENotation(node);
-  }
   else
   {
-    startElementSpace(ELEM_CN);
+    char* mantissa = toString(value);
+    char* exponent = splitExponent(mantissa);
 
-    characters(fNumberBuffer);
 
-    spaceEndElement(ELEM_CN);
+    if (exponent != NULL)
+    {
+      doENotation(mantissa, exponent);
+    }
+    else
+    {
+      startElementSpace(ELEM_CN);
+
+      characters(mantissa);
+
+      spaceEndElement(ELEM_CN);
+    }
   }
-
-  delete node;
-  Token_free(token);
-  FormulaTokenizer_free(tokenizer);
 
   return *this;
 }
@@ -414,35 +405,51 @@ MathMLFormatter::doReal (const ASTNode* node)
 
 
 /**
- * Formats the given ASTNode as <cn type="e-notation"> %f <sep/> %ld </cn>.
+ * Formats the given ASTNode as:
+ *
+ *   <cn type="e-notation"> %f <sep/> %ld </cn>.
  */
 void
 MathMLFormatter::doENotation (const ASTNode* node)
 {
-  double mantissa = node->getMantissa();
-  long   exponent = node->getExponent();
+  doENotation(node->getMantissa(), node->getExponent());
+}
 
 
-  startElementCN(VAL_E_NOTATION);
+/**
+ * Formats the given mantissa and exponent as:
+ *
+ *   <cn type="e-notation"> %f <sep/> %ld </cn>
+ */
+void
+MathMLFormatter::doENotation (double mantissa, long exponent)
+{
+  char* m = toString(mantissa);
+  char* e = splitExponent(m);
 
-  /**
-   * Try %g first, as trailing zeros are removed from the fractional part
-   * of the result.  However, if the result contains an exponent, fall-back
-   * to %f.
-   */
-  snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%g", mantissa);
 
-  if ( hasExponent(fNumberBuffer) )
+  if (e != NULL)
   {
-    snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%f", mantissa);
+    exponent += strtol(e, NULL, 10);
   }
 
-  characters(fNumberBuffer);
+  doENotation(m, toString(exponent));
+}
 
+
+/**
+ * Formats the given mantissa and exponent as:
+ *
+ *   <cn type="e-notation"> %s <sep/> %s </cn>
+ */
+void
+MathMLFormatter::doENotation (const char* mantissa, const char* exponent)
+{
+  startElementCN(VAL_E_NOTATION);
+
+  characters(mantissa);
   sepElement();
-
-  snprintf  (fNumberBuffer, NUMBER_BUFFER_SIZE, "%ld", exponent);
-  characters(fNumberBuffer);
+  characters(exponent);
 
   spaceEndElement(ELEM_CN);
 }
@@ -460,13 +467,11 @@ MathMLFormatter::doRational (const ASTNode* node)
 
   startElementCN(VAL_RATIONAL);
 
-  snprintf  (fNumberBuffer, NUMBER_BUFFER_SIZE, "%ld", numerator);
-  characters(fNumberBuffer);
+  characters( toString(numerator) );
 
   sepElement();
 
-  snprintf  (fNumberBuffer, NUMBER_BUFFER_SIZE, "%ld", denominator);
-  characters(fNumberBuffer);
+  characters( toString(denominator) );
 
   spaceEndElement(ELEM_CN);
 }
@@ -585,6 +590,45 @@ MathMLFormatter::doLambda (const ASTNode* node)
   downIndent();
   indent();
   endElement(ELEM_LAMBDA);
+}
+
+
+/**
+ * Outputs MathML appropriate for NaN (<notanumber/>).
+ */
+void
+MathMLFormatter::doNaN()
+{
+  startEndElement(ELEM_NOT_A_NUMBER);
+}
+
+
+/**
+ * Outputs MathML appropriate for negative infinity.
+ */
+void
+MathMLFormatter::doNegInfinity ()
+{
+  startElement(ELEM_APPLY);
+  upIndent();
+
+  startEndElement(ELEM_MINUS);
+  startEndElement(ELEM_INFINITY);
+
+  downIndent();
+
+  indent();
+  endElement(ELEM_APPLY);
+}
+
+
+/**
+ * Outputs MathML appropriate for infinity (<infinity/>).
+ */
+void
+MathMLFormatter::doPosInfinity ()
+{
+  startEndElement(ELEM_INFINITY);
 }
 
 
@@ -845,25 +889,66 @@ MathMLFormatter::doFunctionRoot (const ASTNode* node)
 
 
 /**
- * @return true if the string representation of number contains an 'e' or
- * 'E'.
+ * @return a string representation of the given integer value.
  */
-bool
-MathMLFormatter::hasExponent (const char* number)
+char*
+MathMLFormatter::toString (long value)
 {
-  bool result = false;
+  snprintf(mIntBuffer, NUMBER_BUFFER_SIZE, "%ld", value);
+  return mIntBuffer;
+}
 
 
-  while (*number++)
+/**
+ * @return a string representation of the given real value.
+ */ 
+char*
+MathMLFormatter::toString (double value)
+{
+  snprintf(mFloatBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT, value);
+  return mFloatBuffer;
+}
+
+
+/**
+ * Splits the string representation of number into mantissa and exponent
+ * parts.
+ *
+ * The 'e' or 'E' in the string is overwritten with a NULL character and a
+ * pointer to the exponent part is returned.  If the string does not
+ * contain an exponent, number is not modified and a NULL pointer is
+ * returned.
+ */
+char*
+MathMLFormatter::splitExponent (char* number)
+{
+  char *exponent = strpbrk(number, "eE");
+
+
+  if (exponent != NULL)
   {
-    if (*number == 'e' || *number == 'E')
+    *exponent++ = '\0';
+
+    //
+    // A printf %e or %g may format an exponent with a leading zero, i.e.
+    // [-]d.ddde±dd.  Remove the leading zero.
+    // 
+    if (exponent[0] == '0')
     {
-      result = true;
-      break;
+      exponent++;
+    }
+    else if (exponent[0] == '-' && exponent[1] == '0')
+    {
+      exponent++;
+      exponent[0] = '-';
+    }
+    else if (exponent[0] == '+' && exponent[1] == '0')
+    {
+      exponent += 2;
     }
   }
 
-  return result;
+  return exponent;
 }
 
 
@@ -881,7 +966,7 @@ MathMLFormatter::hasExponent (const char* number)
 void
 MathMLFormatter::sepElement ()
 {
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chSpace
               << chOpenAngle << ELEM_SEP << chForwardSlash << chCloseAngle
               << chSpace;
@@ -895,7 +980,7 @@ void
 MathMLFormatter::startElement (const XMLCh* name)
 {
   indent();
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chOpenAngle << name << chCloseAngle << chLF;
 }
 
@@ -908,7 +993,7 @@ MathMLFormatter::startElementCN (const XMLCh* type)
 {
   openStartElement(ELEM_CN);
   attribute(ATTR_TYPE, type);
-  *fFormatter << XMLFormatter::NoEscapes << chCloseAngle << chSpace;
+  *mFormatter << XMLFormatter::NoEscapes << chCloseAngle << chSpace;
 }
 
 
@@ -919,7 +1004,7 @@ void
 MathMLFormatter::startElementSpace (const XMLCh* name)
 {
   indent();
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chOpenAngle << name << chCloseAngle << chSpace;
 }
 
@@ -930,7 +1015,7 @@ MathMLFormatter::startElementSpace (const XMLCh* name)
 void
 MathMLFormatter::endElement (const XMLCh* name)
 {
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chOpenAngle  << chForwardSlash << name << chCloseAngle
               << chLF;
 }
@@ -942,7 +1027,7 @@ MathMLFormatter::endElement (const XMLCh* name)
 void
 MathMLFormatter::spaceEndElement (const XMLCh* name)
 {
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chSpace
               << chOpenAngle  << chForwardSlash << name << chCloseAngle
               << chLF;
@@ -961,7 +1046,7 @@ void
 MathMLFormatter::startEndElement (const XMLCh* name)
 {
   indent();
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chOpenAngle  << name << chForwardSlash
               << chCloseAngle << chLF;
 }
@@ -977,7 +1062,7 @@ void
 MathMLFormatter::openStartElement (const XMLCh* name)
 {
   indent();
-  *fFormatter << XMLFormatter::NoEscapes << chOpenAngle << name;
+  *mFormatter << XMLFormatter::NoEscapes << chOpenAngle << name;
 }
 
 
@@ -989,7 +1074,7 @@ MathMLFormatter::openStartElement (const XMLCh* name)
 void
 MathMLFormatter::closeStartElement ()
 {
-  *fFormatter << XMLFormatter::NoEscapes << chCloseAngle << chLF;
+  *mFormatter << XMLFormatter::NoEscapes << chCloseAngle << chLF;
 }
 
 
@@ -1001,7 +1086,7 @@ MathMLFormatter::closeStartElement ()
 void
 MathMLFormatter::closeStartElementSpace ()
 {
-  *fFormatter << XMLFormatter::NoEscapes << chCloseAngle << chSpace;
+  *mFormatter << XMLFormatter::NoEscapes << chCloseAngle << chSpace;
 }
 
 
@@ -1013,7 +1098,7 @@ MathMLFormatter::closeStartElementSpace ()
 void
 MathMLFormatter::slashCloseStartElement ()
 {
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chForwardSlash << chCloseAngle << chLF;
 }
 
@@ -1050,7 +1135,7 @@ MathMLFormatter::attribute (const XMLCh* name, const char* value)
 void
 MathMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 {
-  *fFormatter
+  *mFormatter
     << XMLFormatter::NoEscapes
     << chSpace
     << name
@@ -1060,10 +1145,10 @@ MathMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 
   if (value != NULL)
   {
-    *fFormatter << value;
+    *mFormatter << value;
   }
 
-  *fFormatter << XMLFormatter::NoEscapes << chDoubleQuote;
+  *mFormatter << XMLFormatter::NoEscapes << chDoubleQuote;
 }
 
 
@@ -1091,7 +1176,7 @@ MathMLFormatter::characters (const char* chars)
 void
 MathMLFormatter::characters (const XMLCh* chars)
 {
-  *fFormatter << XMLFormatter::CharEscapes << chars;
+  *mFormatter << XMLFormatter::CharEscapes << chars;
 }
 
 /**
@@ -1101,8 +1186,8 @@ MathMLFormatter::characters (const XMLCh* chars)
 void
 MathMLFormatter::indent ()
 {
-  for (unsigned int n = 0; n < fIndentLevel; n++)
+  for (unsigned int n = 0; n < mIndentLevel; n++)
   {
-    *fFormatter << chSpace << chSpace;
+    *mFormatter << chSpace << chSpace;
   }
 }
