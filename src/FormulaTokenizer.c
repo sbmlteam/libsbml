@@ -159,13 +159,17 @@ void
 FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
 {
   char c;
+  char endchar;
   char *endptr;
 
-  int  start, stop, len;
+  unsigned int start, stop, len;
 
-  int  seendot  = 0;
-  int  seenexp  = 0;
-  int  seensgn  = 0;
+  unsigned int exppos = 0;
+  unsigned int endpos = 0;
+
+  int seendot = 0;
+  int seenexp = 0;
+  int seensgn = 0;
 
 
   start = ft->pos;
@@ -183,6 +187,7 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
     else if ((c == 'e' || c == 'E') && seenexp == 0)
     {
       seenexp = 1;
+      exppos  = ft->pos;
     }
     else if ((c == '+' || c == '-') && seenexp == 1 && seensgn == 0)
     {
@@ -190,11 +195,23 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
     }
     else if (c < '0' || c > '9')
     {
+      endchar = c;
+      endpos  = ft->pos;
       break;
     }
 
     c = ft->formula[ ++ft->pos ];
   }
+
+  /**
+   * Temporarily terminate ft->formula will a NULL at the character just
+   * beyond the end of the number.  This prevents strtod() and strtol()
+   * (below) from reading past the end of the number.
+   *
+   * This prevents at least one obscure bug where something like '3e 4' is
+   * understood as one token 3e4 instead of two: 3e0 and 4.
+   */
+  ft->formula[ endpos ] = '\0';
 
   stop = ft->pos;
   len  = stop - start;
@@ -211,14 +228,40 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
   }
   else if (seendot || seenexp)
   {
+    /**
+     * Temporarily "hide" the exponent part, so strtod below will convert
+     * only the mantissa part.
+     */
+    if (seenexp)
+    {
+      c                     = ft->formula[ exppos ];
+      ft->formula[ exppos ] = '\0';
+    }
+
     t->type       = TT_REAL;
     t->value.real = strtod(ft->formula + start, &endptr);
+
+    /**
+     * Convert the exponent part and "unhide" it.
+     */
+    if (seenexp)
+    {
+      t->type     = TT_REAL_E;
+      t->exponent = strtol(ft->formula + exppos + 1, &endptr, 10);
+
+      ft->formula[ exppos ] = c;
+    }
   }
   else
   {
     t->type          = TT_INTEGER;
     t->value.integer = strtol(ft->formula + start, &endptr, 10);
   }
+
+  /**
+   * Restore the character overwritten above.
+   */
+  ft->formula[ endpos ] = endchar;
 }
 
 
