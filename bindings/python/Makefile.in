@@ -169,7 +169,7 @@ ifndef USE_SWIG
 else
 	$(SWIG) $(SWIGFLAGS) -I../../src \
 	  -c++ -python -o libsbml_wrap.cpp libsbml.i
-	perl -pi -e "s|import _libsbml|import _libsbml\nfrom __future__ import generators|" \
+	perl -pi -e "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
 		libsbml.py
 endif
 
