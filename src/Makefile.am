@@ -228,6 +228,7 @@ TestRunner_SOURCES =              \
   TestASTNode.c                   \
   TestCompartment.c               \
   TestCompartmentVolumeRule.c     \
+  TestConsistencyChecks.cpp       \
   TestEvent.c                     \
   TestEventAssignment.c           \
   TestFormulaFormatter.c          \

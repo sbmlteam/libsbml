@@ -68,6 +68,7 @@ Suite *create_suite_AssignmentRule           (void);
 Suite *create_suite_ASTNode                  (void);
 Suite *create_suite_Compartment              (void);
 Suite *create_suite_CompartmentVolumeRule    (void);
+Suite *create_suite_ConsistencyTest          (void);
 Suite *create_suite_Event                    (void);
 Suite *create_suite_EventAssignment          (void);
 Suite *create_suite_FormulaFormatter         (void);
@@ -172,6 +173,7 @@ main (void)
   srunner_add_suite( runner, create_suite_ASTNode                  () );
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
+  srunner_add_suite( runner, create_suite_ConsistencyTest          () );
   srunner_add_suite( runner, create_suite_Event                    () );
   srunner_add_suite( runner, create_suite_EventAssignment          () );
   srunner_add_suite( runner, create_suite_FormulaFormatter         () );

@@ -1,0 +1,686 @@
+TEMPLATE
+<?xml version="1.0" encoding="UTF-8"?>
+   <sbml xlmns="http://www.sbml.org/sbml/level2" level="2" version="1">%s
+     <model>
+        <listOfUnitDefinitions>
+            %s
+        </listOfUnitDefinitions>
+      </model>
+   </sbml>
+
+# ok
+            <unitDefinition id="substance">
+              <listOfUnits>
+                <unit kind="mole" scale="-3"/>
+              </listOfUnits>
+            </unitDefinition>
+
+# No two unitDefinitions may have the same id.
+            <unitDefinition id="centipose">
+             <listOfUnits>
+               <unit kind="mole" scale="-3"/>
+             </listOfUnits>
+             </unitDefinition>
+               <unitDefinition id="centipose">
+             <listOfUnits>
+               <unit kind="mole" scale="-3"/>
+             </listOfUnits>
+            </unitDefinition>
+
+# The id of a unitDefinition must not be a predefined kind of unit.
+            <unitDefinition id="litre">
+                <listOfUnits>
+                    <unit kind="volume" exponent="-1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'substance' unitDefinition must have exactly one unit kind.
+            <unitDefinition id="substance">
+                <listOfUnits>
+                    <unit kind="mole" exponent="1"/>
+                </listOfUnits>
+                <listOfUnits>
+                    <unit kind="item" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'substance' unitDefinition may only have units of kind 'mole' or 'item'.
+            <unitDefinition id="substance">
+                <listOfUnits>
+                    <unit kind="radian" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'substance' unitDefinition must have exponent 1.
+            <unitDefinition id="substance">
+                <listOfUnits>
+                    <unit kind="mole" scale="-3" exponent="3"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# ok
+            <unitDefinition id="volume">
+                <listOfUnits>
+                    <unit kind="litre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'volume' unitDefinition must have exactly one unit kind.
+            <unitDefinition id="volume">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="3"/>
+                    <unit kind="litre" scale="-3" exponent="3"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'volume' unitDefinition may only have units of kind 'liter' or 'metre'.
+            <unitDefinition id="volume">
+                <listOfUnits>
+                    <unit kind="mole" scale="-3" exponent="3"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'volume' unitDefinition must have exponent 3.
+            <unitDefinition id="volume">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# ok
+            <unitDefinition id="area">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="2"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# An 'area' unitDefinition must have exactly one unit kind.
+            <unitDefinition id="area">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="2"/>
+                    <unit kind="litre" scale="-3" exponent="2"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# An 'area' unitDefinition may only have units of kind 'metre'.
+            <unitDefinition id="area">
+                <listOfUnits>
+                    <unit kind="litre" scale="-3" exponent="3"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# An 'area' unitDefinition must have exponent 2.
+            <unitDefinition id="area">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# ok
+            <unitDefinition id="length">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'length' unitDefinition must have exactly one unit kind.
+            <unitDefinition id="length">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="1"/>
+                    <unit kind="litre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'length' unitDefinition may only have units of kind 'metre'.
+            <unitDefinition id="length">
+                <listOfUnits>
+                    <unit kind="litre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'length' unitDefinition must have exponent 1.
+            <unitDefinition id="length">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="2"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# ok
+            <unitDefinition id="time">
+                <listOfUnits>
+                    <unit kind="second" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'time' unitDefinition must have exactly one unit kind.
+            <unitDefinition id="time">
+                <listOfUnits>
+                    <unit kind="second" scale="-3" exponent="1"/>
+                    <unit kind="litre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'time' unitDefinition may only have units of kind 'second'.
+            <unitDefinition id="time">
+                <listOfUnits>
+                    <unit kind="metre" scale="-3" exponent="1"/>
+                </listOfUnits>
+            </unitDefinition>
+
+# A 'time' unitDefinition must have exponent 1.
+            <unitDefinition id="time">
+                <listOfUnits>
+                    <unit kind="second" scale="-3" exponent="2"/>
+                </listOfUnits>
+            </unitDefinition>
+
+TEMPLATE
+<?xml version="1.0" encoding="UTF-8"?>
+   <sbml xlmns="http://www.sbml.org/sbml/level2" level="2" version="1">%s
+     <model>
+         %s
+      </model>
+   </sbml>
+
+
+# Compartment 'anythingButC' is undefined.
+   <compartment id="c"/>
+   <species id="someId" compartment="anythingButC"/>
+
+# ok
+   <compartment id="c"/>
+   <species id="someId" compartment="c" spatialSizeUnits="volume"/>
+
+# A species with hasOnlySubstanceUnits=true must not have spatialSizeUnits.
+   <species id="s" hasOnlySubstanceUnits="true" spatialSizeUnits="meter">
+
+# A species must not have spatialSizeUnits if its compartment has spatialDimensions=0.
+   <compartment id="c" spatialDimensions="0"/>
+   <species id="someId" compartment="c" spatialSizeUnits="meter"/>
+
+# ok
+   <compartment id="c" spatialDimensions="1"/>
+   <species id="someId" compartment="c" spatialSizeUnits="meter"/>
+
+# ok
+   <listOfUnitDefinitions>
+     <unitDefinition id="smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="1"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="1"/>
+   <species id="someId" compartment="c" spatialSizeUnits="smidgeon"/>
+
+# A species whose compartment has spatialDimensions=1 must have spatialSizeUnits of 'length', 'metre', or the id of a unitDefinition that defines a variant of 'metre' with exponent=1.
+   <compartment id="c" spatialDimensions="1"/>
+   <species id="someId" compartment="c" spatialSizeUnits="area"/>
+
+# A species whose compartment has spatialDimensions=1 must have spatialSizeUnits of 'length', 'metre', or the id of a unitDefinition that defines a variant of 'metre' with exponent=1.
+   <listOfUnitDefinitions>
+     <unitDefinition id="square smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="2"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="1"/>
+   <species id="someId" compartment="c" spatialSizeUnits="square smidgeon"/>
+
+# ok
+   <compartment id="c" spatialDimensions="2"/>
+   <species id="someId" compartment="c" spatialSizeUnits="area"/>
+
+# ok
+   <listOfUnitDefinitions>
+     <unitDefinition id="square smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="2"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="2"/>
+   <species id="someId" compartment="c" spatialSizeUnits="square smidgeon"/>
+
+# A species whose compartment has spatialDimensions=2 must have spatialSizeUnits of 'area' or the id of a unitDefinition that defines a variant of 'metre' with exponent=2.
+   <compartment id="c" spatialDimensions="2"/>
+   <species id="someId" compartment="c" spatialSizeUnits="length"/>
+
+# A species whose compartment has spatialDimensions=2 must have spatialSizeUnits of 'area' or the id of a unitDefinition that defines a variant of 'metre' with exponent=2.
+   <listOfUnitDefinitions>
+     <unitDefinition id="smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="1"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="2"/>
+   <species id="someId" compartment="c" spatialSizeUnits="smidgeon"/>
+
+
+# ok
+   <compartment id="c" spatialDimensions="3"/>
+   <species id="someId" compartment="c" spatialSizeUnits="volume"/>
+
+# ok
+   <listOfUnitDefinitions>
+     <unitDefinition id="cubic smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="3"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="3"/>
+   <species id="someId" compartment="c" spatialSizeUnits="cubic smidgeon"/>
+
+# A species whose compartment has spatialDimensions=3 must have spatialSizeUnits of 'volume' or 'litre' or the id of a unitDefinition that defines a variant of 'metre' with exponent=3 or a variant of 'litre'.
+   <compartment id="c" spatialDimensions="3"/>
+   <species id="someId" compartment="c" spatialSizeUnits="length"/>
+
+# A species whose compartment has spatialDimensions=3 must have spatialSizeUnits of 'volume' or 'litre' or the id of a unitDefinition that defines a variant of 'metre' with exponent=3 or a variant of 'litre'.
+   <listOfUnitDefinitions>
+     <unitDefinition id="smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="1"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="3"/>
+   <species id="someId" compartment="c" spatialSizeUnits="smidgeon"/>
+
+# ok
+   <listOfUnitDefinitions>
+     <unitDefinition id="small liter">
+       <listOfUnits>
+         <unit kind="litre" scale="-3" exponent="1"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="3"/>
+   <species id="someId" compartment="c" spatialSizeUnits="small liter"/>
+
+# ok
+   <compartment id="c">
+   <species id="someId" compartment="c" hasOnlySubstanceUnits="true" substanceUnits="mole"/>
+
+# A species' substanceUnits must be 'substance', 'item', 'mole', or the id of a unitDefinition that defines a variant of 'item' or 'mole'.
+   <compartment id="c">
+   <species id="someId" compartment="c" hasOnlySubstanceUnits="true" substanceUnits="length"/>
+
+# ok
+   <compartment id="c" spatialDimensions="0">
+   <species id="someId" compartment="c" substanceUnits="mole"/>
+
+# A species' substanceUnits must be 'substance', 'item', 'mole', or the id of a unitDefinition that defines a variant of 'item' or 'mole'.
+   <listOfUnitDefinitions>
+     <unitDefinition id="smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="1"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="0"/>
+   <species id="someId" compartment="c" substanceUnits="smidgeon"/>
+
+# ok
+   <listOfUnitDefinitions>
+     <unitDefinition id="supermole">
+       <listOfUnits>
+         <unit kind="mole" scale="10" exponent="1"/>
+       </listOfUnits>
+     </unitDefinition>
+   <listOfUnitDefinitions/>
+   <compartment id="c" spatialDimensions="0"/>
+   <species id="someId" compartment="c" substanceUnits="supermole"/>
+
+# A species with hasOnlySubstanceUnits='true' must not have an initialConcentration.
+   <compartment id="c" spatialDimensions="3"/>
+   <species id="someId" compartment="c" hasOnlySubstanceUnits="true"
+     initialConcentration="2.4"/>
+
+# A species whose compartment has spatialDimensions='0' must not have an initialConcentration.
+   <compartment id="c" spatialDimensions="0"/>
+   <species id="someId" compartment="c" initialConcentration="2.4"/>
+
+
+# A speciesReference may not refer to a species with constant='true' and boundaryCondition='false'.
+   <species id="s" constant="true" boundaryCondition="false"/>
+   <reaction id="r">
+     <listOfReactants>
+       <speciesReference species="s"/>
+     </listOfReactants>
+   </reaction>
+
+
+# A speciesReference may not refer to a species with constant='true' and boundaryCondition='false'.
+   <species id="s" constant="true" boundaryCondition="false"/>
+   <reaction id="r">
+     <listOfProducts>
+       <speciesReference species="s"/>
+     </listOfProducts>
+   </reaction>
+
+
+# A speciesReference may not refer to a species with constant='true' and boundaryCondition='false'.
+   <species id="s" constant="true" boundaryCondition="false"/>
+   <reaction id="r">
+     <listOfModifiers>
+       <modifierSpeciesReference species="s"/>
+     </listOfModifiers>
+   </reaction>
+
+# A species may not participate in both a rule and a reaction.
+   <species id="s" constant="false" boundaryCondition="false"/>
+   <assignmentRule variable="s">
+   <reaction id="r">
+     <listOfReactants>
+       <speciesReference species="s"/>
+     </listOfReactants>
+   </reaction>
+
+# A species may not participate in both a rule and a reaction.
+   <species id="s" constant="false" boundaryCondition="false"/>
+   <rateRule variable="s">
+   <reaction id="r">
+     <listOfReactants>
+       <speciesReference species="s"/>
+     </listOfReactants>
+   </reaction>
+
+# ok
+   <species id="s" constant="false" boundaryCondition="false"/>
+   <species id="t">
+   <rateRule variable="s">
+   <reaction id="r">
+     <listOfReactants>
+       <speciesReference species="t"/>
+     </listOfReactants>
+   </reaction>
+
+# A compartment with spatialDimensions=1 must have units of 'length', 'metre', or the id of a unitDefinition that defines a variant of 'metre' with exponent=1.
+   <compartment id="c" spatialDimensions="1" units="centipose"/>
+
+# ok
+   <compartment id="c" spatialDimensions="1" units="meter"/>
+
+# A compartment with spatialDimensions=2 must have units of 'area' or the id of a unitDefinition that defines a variant of 'metre' with exponent=2.
+   <compartment id="c" spatialDimensions="2" units="centipose">
+
+# ok
+   <compartment id="c" spatialDimensions="2" units="area"/>
+
+# A compartment with spatialDimensions=3 must have units of 'volume', 'litre', or the id of a unitDefinition that defines a variant of 'metre' with exponent=3.
+   <compartment id="c" spatialDimensions="3" units="centipose"/>
+
+# ok
+   <compartment id="c" spatialDimensions="3" units="volume"/>
+
+# A compartment with spatialDimensions=0 must have units of 'dimensionless'.
+   <compartment id="c" spatialDimensions="0" units="centipose"/>
+
+# ok
+   <compartment id="c" spatialDimensions="0" units="dimensionless"/>
+
+# A compartment's 'outside' must be the id of another compartment.
+   <compartment id="c" outside="not a real compartment"/>
+
+# ok
+   <compartment id="another compartment"/>
+   <compartment id="c" outside="another compartment"/>
+
+# Compartment 'a' encloses itself via 'b'.
+# Compartment 'b' encloses itself via 'a'.
+   <compartment id="a" outside="b"/>
+   <compartment id="b" outside="a"/>
+
+# Compartment 'a' encloses itself.
+   <compartment id="a" outside="a"/>
+
+# Compartment 'a' encloses itself via 'b', 'c'.
+# Compartment 'b' encloses itself via 'c', 'a'.
+# Compartment 'c' encloses itself via 'a', 'b'.
+   <compartment id="a" outside="b"/>
+   <compartment id="b" outside="c"/>
+   <compartment id="c" outside="a"/>
+
+# A parameter's 'units' must be a base unit (e.g. 'litre'), a built-in unit (e.g. 'volume'), or the id of a unitDefinition.
+   <parameter id="p" units="not-a-valid-unit"/>
+
+# ok
+   <parameter id="p" units="sievert"/>
+
+# ok
+   <listOfUnitDefinitions>
+     <unitDefinition id="smidgeon">
+       <listOfUnits>
+         <unit kind="metre" scale="-3" exponent="1"/>
+       </listOfUnits>
+     </unitDefinition>
+   <parameter id="p" units="smidgeon"/>
+
+# ok
+   <parameter id="p" units="length"/>
+
+# ok
+   <parameter id="p"/>
+
+# A reaction must contain at least one speciesReference, in its products, reactants, or modifiers.
+   <reaction id="r">
+      <listOfReactants>
+      </listOfReactants>
+   </reaction>
+
+# ok
+   <species id="s"/>
+   <reaction id="r">
+      <listOfReactants>
+          <speciesReference species="s"/>
+      </listOfReactants>
+   </reaction>
+
+# ok
+   <species id="s"/>
+   <reaction id="r">
+      <listOfProducts>
+          <speciesReference species="s"/>
+      </listOfProducts>
+   </reaction>
+
+# ok
+   <species id="s"/>
+   <reaction id="r">
+      <listOfModifiers>
+          <modifierSpeciesReference species="s"/>
+      </listOfModifiers>
+   </reaction>
+
+# ok
+   <species id="s"/>
+   <species id="t"/>
+   <reaction id="r">
+      <listOfModifiers>
+          <modifierSpeciesReference species="s"/>
+          <modifierSpeciesReference species="t"/>
+      </listOfModifiers>
+   </reaction>
+
+# Species 's' is not defined.
+   <reaction id="r">
+      <listOfProducts>
+          <speciesReference species="s"/>
+      </listOfProducts>
+   </reaction>
+
+# Species 's' is not defined.
+   <reaction id="r">
+      <listOfReactants>
+          <speciesReference species="s"/>
+      </listOfReactants>
+   </reaction>
+
+# Species 's' is not defined.
+# Species 't' is not defined.
+# Species 'u' is not defined.
+   <reaction id="r">
+      <listOfModifiers>
+          <modifierSpeciesReference species="s"/>
+          <modifierSpeciesReference species="t"/>
+      </listOfModifiers>
+      <listOfReactants>
+          <speciesReference species="u"/>
+      </listOfReactants>
+   </reaction>
+
+# A kineticLaw's substanceUnits must be 'substance', 'item', 'mole', or the id of a unitDefinition that defines a variant of 'item' or 'mole'.
+   <species id="s"/>
+   <reaction id="r">
+      <listOfProducts>
+          <speciesReference species="s"/>
+      </listOfProducts>
+      <kineticLaw substanceUnits='length'/>
+   </reaction>
+
+# ok
+   <species id="s"/>
+   <reaction id="r">
+      <listOfProducts>
+          <speciesReference species="s"/>
+      </listOfProducts>
+      <kineticLaw substanceUnits='mole'/>
+   </reaction>
+
+# A kineticLaw's timeUnits must be 'time', 'second', or the id of a unitDefnition that defines a variant of 'second' with exponent=1.
+   <species id="s"/>
+   <reaction id="r">
+      <listOfProducts>
+          <speciesReference species="s"/>
+      </listOfProducts>
+      <kineticLaw timeUnits='length'/>
+   </reaction>
+
+# Reaction 'r' contains a speciesReference (to 's'), which contains both a 'stoichiometry' attribute and a 'stoichiometryMath' attribute.
+   <species id="s"/>
+   <reaction id="r">
+      <listOfProducts>
+          <speciesReference species="s" stoichiometry="2">
+             <stoichiometryMath>
+                <math> <ci> x </ci> </math>
+             </stoichiometryMath>
+          </speciesReference>
+      </listOfProducts>
+   </reaction>
+
+# A rule's 'variable' must be the 'id' of a compartment, species, or parameter with 'constant'=false.
+   <listOfRules>
+      <assignmentRule variable="s">
+         <math> <cn> 1 </cn> </math>
+      </assignmentRule>
+   </listOfRules>
+
+# A rule's 'variable' must be the 'id' of a compartment, species, or parameter with 'constant'=false.
+   <species id="s" constant="true"/>
+   <listOfRules>
+      <rateRule variable="s">
+         <math> <cn> 1 </cn> </math>
+      </rateRule>
+   </listOfRules>
+
+# ok
+   <species id="s" constant="false"/>
+   <listOfRules>
+      <assignmentRule variable="s">
+         <math> <cn> 1 </cn> </math>
+      </assignmentRule>
+   </listOfRules>
+
+# ok
+   <species id="s"/>
+   <listOfRules>
+      <assignmentRule variable="s"/>
+         <math> <cn> 1 </cn> </math>
+      </assignmentRule>
+   </listOfRules>
+
+# ok
+   <compartment id="s" constant="false"/>
+   <listOfRules>
+      <assignmentRule variable="s"/>
+         <math> <cn> 1 </cn> </math>
+      </assignmentRule>
+   </listOfRules>
+
+# ok
+   <parameter id="s" constant="false"/>
+   <listOfRules>
+      <assignmentRule variable="s"/>
+         <math> <cn> 1 </cn> </math>
+      </assignmentRule>
+   </listOfRules>
+
+# The variable 's' appears in two or more rules.
+# The variable 's' appears in two or more rules.
+   <species id="s"/>
+   <species id="t"/>
+   <listOfRules>
+      <assignmentRule variable="s">
+         <math> <cn> 1 </cn> </math>
+      </assignmentRule>
+      <rateRule variable="s">
+         <math> <cn> 2 </cn> </math>
+      </rateRule>
+   </listOfRules>
+
+# An event's timeUnits must be 'time', 'second', or the id of a unitDefinition that defines a variant of 'second' with exponent=1.
+   <event timeUnits="parsec"/>
+
+# An eventAssignment's 'variable' must be the 'id' of a compartment, species, or parameter with 'constant'=false.
+   <compartment id="s" constant="true"/>
+   <listOfEvents>
+      <event>
+         <listOfEventAssignments>
+            <eventAssignment variable="s"/>
+         </listOfEventAssignments>
+      </event>
+   </listOfEvents>
+
+# ok
+   <species id="s" constant="false"/>
+   <listOfEvents>
+      <event>
+         <listOfEventAssignments>
+            <eventAssignment variable="s"/>
+         </listOfEventAssignments>
+      </event>
+   </listOfEvents>
+
+# ok
+   <compartment id="s" constant="false"/>
+   <listOfEvents>
+      <event>
+         <listOfEventAssignments>
+            <eventAssignment variable="s"/>
+         </listOfEventAssignments>
+      </event>
+   </listOfEvents>
+
+# ok
+   <parameter id="s" constant="false"/>
+   <listOfEvents>
+      <event>
+         <listOfEventAssignments>
+            <eventAssignment variable="s"/>
+         </listOfEventAssignments>
+      </event>
+   </listOfEvents>
+
+# No two eventAssignments within the same event may have the same 'variable'.
+   <parameter id="p" constant="false"/>
+   <listOfEvents>
+      <event>
+         <listOfEventAssignments>
+            <eventAssignment variable="p"/>
+            <eventAssignment variable="p"/>
+         </listOfEventAssignments>
+      </event>
+   </listOfEvents>

@@ -82,6 +82,7 @@
 typedef struct {
   int passed;
   const char *msg;
+  BOOLEAN needsFree; /* does msg need to be freed? */
 } RuleResult_t;
 
 
@@ -99,6 +100,7 @@ initializeRuleResult(RuleResult_t *result)
 {
   result->passed = 1;
   result->msg = NULL;
+  result->needsFree = FALSE;
 }
 
 typedef int (*PFI)();
@@ -419,6 +421,7 @@ hasExponent(RuleResult_t *result, UnitDefinition_t *ud, int requiredExponent)
       sprintf(buf, "must have exponent %d.", requiredExponent);
       result->passed = 0;
       result->msg = safe_strdup(buf);
+      result->needsFree = TRUE;
     }
   }
 }
@@ -787,6 +790,10 @@ logFullMessage(
 {
     char *message = safe_strcat(baseMsg, result->msg);
     LOG_MESSAGE(message);
+    if (result->needsFree)
+    {
+       safe_free((char *) result->msg);
+    }
     safe_free(message);
 }
 
@@ -2015,12 +2022,6 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, compartment_outsideIsDefined,   SBML_COMPARTMENT     );
   Validator_addRule( v, compartment_outsideCyclic,      SBML_COMPARTMENT     );
 
-  Validator_addRule( v, unitDefinition_idsMustBeUnique,
-                                                        SBML_UNIT_DEFINITION );
-  Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
-                                                        SBML_UNIT_DEFINITION );
-  Validator_addRule( v, unitDefinition_timeKinds, SBML_UNIT_DEFINITION );
-
   Validator_addRule( v, species_compartmentIsDefined,   SBML_SPECIES         );
   Validator_addRule( v, species_hasOnlySubstanceUnits,  SBML_SPECIES         );
   Validator_addRule( v, species_zeroSpatialDimensions,  SBML_SPECIES         );
@@ -2061,4 +2062,10 @@ Validator_addDefaultRules (Validator_t *v)
   Validator_addRule( v, unitDefinition_volumeKinds   , SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_areaKinds     , SBML_UNIT_DEFINITION );
   Validator_addRule( v, unitDefinition_lengthKinds   , SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_timeKinds     , SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_idsMustBeUnique,
+                                                       SBML_UNIT_DEFINITION );
+  Validator_addRule( v, unitDefinition_idCantBePredefinedUnit,
+                                                       SBML_UNIT_DEFINITION );
+
 }

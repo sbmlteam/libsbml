@@ -141,7 +141,7 @@ case "$host_os" in
 
   *darwin*)
     AM_CPPFLAGS="-DMACOSX"
-    TestDataDirectory=".."
+    TestDataDirectory="."
     ;;
 esac
 

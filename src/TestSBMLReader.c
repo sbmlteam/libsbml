@@ -126,7 +126,6 @@ START_TEST (test_SBMLReader_readSBML_schema_basic)
   SBMLReader_setSchemaFilenameL1v1(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
-
   fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
   fail_unless( SBMLDocument_getNumErrors(d)   == 0, NULL );
   fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );

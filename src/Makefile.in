@@ -313,6 +313,7 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  TestASTNode.c                   \
 @LIBCHECK_ENABLED_TRUE@  TestCompartment.c               \
 @LIBCHECK_ENABLED_TRUE@  TestCompartmentVolumeRule.c     \
+@LIBCHECK_ENABLED_TRUE@  TestConsistencyChecks.cpp       \
 @LIBCHECK_ENABLED_TRUE@  TestEvent.c                     \
 @LIBCHECK_ENABLED_TRUE@  TestEventAssignment.c           \
 @LIBCHECK_ENABLED_TRUE@  TestFormulaFormatter.c          \
@@ -409,22 +410,23 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 	TestMathMLHandler.cpp TestSAX2AttributesMock.cpp \
 	TestXMLStringFormatter.cpp TestXMLUtil.cpp TestAlgebraicRule.c \
 	TestAssignmentRule.c TestASTNode.c TestCompartment.c \
-	TestCompartmentVolumeRule.c TestEvent.c TestEventAssignment.c \
-	TestFormulaFormatter.c TestFormulaParser.c \
-	TestFormulaTokenizer.c TestFunctionDefinition.c \
-	TestKineticLaw.c TestList.c TestListOf.c TestMathMLDocument.c \
-	TestMathMLWriter.c TestMemory.c TestModel.c \
-	TestModifierSpeciesReference.c TestParameter.c \
-	TestParameterRule.c TestParseMessage.c TestRateRule.c \
-	TestReaction.c TestReadFromFile1.c TestReadFromFile2.c \
-	TestReadFromFile3.c TestReadFromFile4.c TestRule.c \
-	TestRuleType.c TestRunner.c TestSBase.cpp TestSBMLConvert.c \
-	TestSBMLDocument.c TestSBMLFormatter.cpp TestSBMLHandler.cpp \
-	TestSBMLReader.c TestSBMLWriter.c TestSimpleSpeciesReference.c \
-	TestSpecies.c TestSpeciesConcentrationRule.c \
-	TestSpeciesReference.c TestStack.c TestStringBuffer.c \
-	TestStringMap.c TestUnitDefinition.c TestUnitKind.c TestUnit.c \
-	TestUtil.c TestValidator.c
+	TestCompartmentVolumeRule.c TestConsistencyChecks.cpp \
+	TestEvent.c TestEventAssignment.c TestFormulaFormatter.c \
+	TestFormulaParser.c TestFormulaTokenizer.c \
+	TestFunctionDefinition.c TestKineticLaw.c TestList.c \
+	TestListOf.c TestMathMLDocument.c TestMathMLWriter.c \
+	TestMemory.c TestModel.c TestModifierSpeciesReference.c \
+	TestParameter.c TestParameterRule.c TestParseMessage.c \
+	TestRateRule.c TestReaction.c TestReadFromFile1.c \
+	TestReadFromFile2.c TestReadFromFile3.c TestReadFromFile4.c \
+	TestRule.c TestRuleType.c TestRunner.c TestSBase.cpp \
+	TestSBMLConvert.c TestSBMLDocument.c TestSBMLFormatter.cpp \
+	TestSBMLHandler.cpp TestSBMLReader.c TestSBMLWriter.c \
+	TestSimpleSpeciesReference.c TestSpecies.c \
+	TestSpeciesConcentrationRule.c TestSpeciesReference.c \
+	TestStack.c TestStringBuffer.c TestStringMap.c \
+	TestUnitDefinition.c TestUnitKind.c TestUnit.c TestUtil.c \
+	TestValidator.c
 @LIBCHECK_ENABLED_TRUE@am_TestRunner_OBJECTS = \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-SAX2AttributesMock.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestMathMLFormatter.$(OBJEXT) \
@@ -437,6 +439,7 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestASTNode.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestCompartment.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestCompartmentVolumeRule.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestRunner-TestConsistencyChecks.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestEvent.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestEventAssignment.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRunner-TestFormulaFormatter.$(OBJEXT) \
@@ -496,6 +499,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestAssignmentRule.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestCompartment.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestCompartmentVolumeRule.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestConsistencyChecks.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestEvent.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestEventAssignment.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner-TestFormulaFormatter.Po \
@@ -682,6 +686,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestAssignmentRule.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestCompartment.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestCompartmentVolumeRule.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestConsistencyChecks.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestEvent.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestEventAssignment.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner-TestFormulaFormatter.Po@am__quote@
@@ -4352,6 +4357,39 @@ TestRunner-TestXMLUtil.lo: TestXMLUtil.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	depfile='$(DEPDIR)/TestRunner-TestXMLUtil.Plo' tmpdepfile='$(DEPDIR)/TestRunner-TestXMLUtil.TPlo' @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o TestRunner-TestXMLUtil.lo `test -f 'TestXMLUtil.cpp' || echo '$(srcdir)/'`TestXMLUtil.cpp
+
+TestRunner-TestConsistencyChecks.o: TestConsistencyChecks.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT TestRunner-TestConsistencyChecks.o -MD -MP -MF "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo" \
+@am__fastdepCXX_TRUE@	  -c -o TestRunner-TestConsistencyChecks.o `test -f 'TestConsistencyChecks.cpp' || echo '$(srcdir)/'`TestConsistencyChecks.cpp; \
+@am__fastdepCXX_TRUE@	then mv "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo" "$(DEPDIR)/TestRunner-TestConsistencyChecks.Po"; \
+@am__fastdepCXX_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo"; exit 1; \
+@am__fastdepCXX_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='TestConsistencyChecks.cpp' object='TestRunner-TestConsistencyChecks.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	depfile='$(DEPDIR)/TestRunner-TestConsistencyChecks.Po' tmpdepfile='$(DEPDIR)/TestRunner-TestConsistencyChecks.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o TestRunner-TestConsistencyChecks.o `test -f 'TestConsistencyChecks.cpp' || echo '$(srcdir)/'`TestConsistencyChecks.cpp
+
+TestRunner-TestConsistencyChecks.obj: TestConsistencyChecks.cpp
+@am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT TestRunner-TestConsistencyChecks.obj -MD -MP -MF "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo" \
+@am__fastdepCXX_TRUE@	  -c -o TestRunner-TestConsistencyChecks.obj `if test -f 'TestConsistencyChecks.cpp'; then $(CYGPATH_W) 'TestConsistencyChecks.cpp'; else $(CYGPATH_W) '$(srcdir)/TestConsistencyChecks.cpp'; fi`; \
+@am__fastdepCXX_TRUE@	then mv "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo" "$(DEPDIR)/TestRunner-TestConsistencyChecks.Po"; \
+@am__fastdepCXX_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo"; exit 1; \
+@am__fastdepCXX_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='TestConsistencyChecks.cpp' object='TestRunner-TestConsistencyChecks.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	depfile='$(DEPDIR)/TestRunner-TestConsistencyChecks.Po' tmpdepfile='$(DEPDIR)/TestRunner-TestConsistencyChecks.TPo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o TestRunner-TestConsistencyChecks.obj `if test -f 'TestConsistencyChecks.cpp'; then $(CYGPATH_W) 'TestConsistencyChecks.cpp'; else $(CYGPATH_W) '$(srcdir)/TestConsistencyChecks.cpp'; fi`
+
+TestRunner-TestConsistencyChecks.lo: TestConsistencyChecks.cpp
+@am__fastdepCXX_TRUE@	if $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT TestRunner-TestConsistencyChecks.lo -MD -MP -MF "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo" \
+@am__fastdepCXX_TRUE@	  -c -o TestRunner-TestConsistencyChecks.lo `test -f 'TestConsistencyChecks.cpp' || echo '$(srcdir)/'`TestConsistencyChecks.cpp; \
+@am__fastdepCXX_TRUE@	then mv "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo" "$(DEPDIR)/TestRunner-TestConsistencyChecks.Plo"; \
+@am__fastdepCXX_TRUE@	else rm -f "$(DEPDIR)/TestRunner-TestConsistencyChecks.Tpo"; exit 1; \
+@am__fastdepCXX_TRUE@	fi
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='TestConsistencyChecks.cpp' object='TestRunner-TestConsistencyChecks.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	depfile='$(DEPDIR)/TestRunner-TestConsistencyChecks.Plo' tmpdepfile='$(DEPDIR)/TestRunner-TestConsistencyChecks.TPlo' @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o TestRunner-TestConsistencyChecks.lo `test -f 'TestConsistencyChecks.cpp' || echo '$(srcdir)/'`TestConsistencyChecks.cpp
 
 TestRunner-TestSBase.o: TestSBase.cpp
 @am__fastdepCXX_TRUE@	if $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(TestRunner_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT TestRunner-TestSBase.o -MD -MP -MF "$(DEPDIR)/TestRunner-TestSBase.Tpo" \
