@@ -40,10 +40,12 @@
 #include "sbml/common.h"
 
 #ifdef USE_EXPAT
-#include <expat.h>
-#include <ExpatFormatter.hpp>
+#  include <expat.h>
+#  include <ExpatFormatter.hpp>
 #else
-#include <xercesc/framework/XMLFormatter.hpp>
+#  include <xercesc/framework/XMLFormatter.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+XERCES_CPP_NAMESPACE_BEGIN
 #endif
 
 
@@ -69,5 +71,9 @@ public:
 private:
   std::ostream  & mO;
 };
+
+#ifndef USE_EXPAT
+XERCES_CPP_NAMESPACE_END
+#endif // !USE_EXPAT
 
 #endif // StreamFormatTarget_hpp

@@ -38,6 +38,10 @@
 
 #include "sbml/StreamFormatTarget.hpp"
 
+#ifndef USE_EXPAT
+XERCES_CPP_NAMESPACE_BEGIN
+#endif
+
 StreamFormatTarget::StreamFormatTarget ():
 XMLFormatTarget(),
 mO(std::cout)
@@ -69,7 +73,7 @@ StreamFormatTarget::operator<< (const char* str)
 
 void StreamFormatTarget::flush()
 {
-    XERCES_STD_QUALIFIER mO.flush();
+  mO.flush();
 }
 
 void StreamFormatTarget::writeChars(const XMLByte* const  toWrite
@@ -81,8 +85,13 @@ void StreamFormatTarget::writeChars(const XMLByte* const  toWrite
         // Without the cast, it was printing the pointer value in hex.
         // Quite annoying, considering every other platform printed
         // the string with the explicit cast to char* below.
-    XERCES_STD_QUALIFIER mO.write((char *) toWrite, (int) count);
-    XERCES_STD_QUALIFIER mO.flush();
+    mO.write((char *) toWrite, (int) count);
+    mO.flush();
 
 }
 #endif
+
+#ifndef USE_EXPAT
+XERCES_CPP_NAMESPACE_END
+#endif // !USE_EXPAT
+

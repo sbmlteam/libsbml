@@ -140,10 +140,10 @@ void SBMLFormatter::writeComment(const char * programName,
           pDate->tm_min);
   
   *fFormatter << XMLFormatter::NoEscapes << XML_COMMENT_1
-              << programName << XML_COMMENT_2
-              << programVersion << XML_COMMENT_3
-              << date << XML_COMMENT_4
-              << PACKAGE_VERSION << XML_COMMENT_5;
+              << (XMLCh *) programName << XML_COMMENT_2
+              << (XMLCh *) programVersion << XML_COMMENT_3
+              << (XMLCh *) date << XML_COMMENT_4
+              << (XMLCh *) PACKAGE_VERSION << XML_COMMENT_5;
 }
 
 
