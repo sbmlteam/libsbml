@@ -114,6 +114,8 @@ MATLAB            = @MATLAB@
 MATLAB_CPPFLAGS   = @MATLAB_CPPFLAGS@
 MATLAB_LDFLAGS    = @MATLAB_LDFLAGS@
 MATLAB_LIBS       = @MATLAB_LIBS@
+MEX               = @MEX@
+MEXEXT            = @MEXEXT@
 
 USE_SWIG          = @USE_SWIG@
 SWIG              = @SWIG@
