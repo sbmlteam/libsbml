@@ -202,12 +202,16 @@ util_isNegZero (double d);
  *  % gcc -ansi -Wall test.c
  *  test.c:3: warning: implicit declaration of function `isnan'
  */
+#ifndef __cplusplus
+
 #if !defined(isnan)
   int isnan  (double d);
 #endif
 
 #if !defined(finite)
   int finite (double d);
+#endif
+
 #endif
 
 
