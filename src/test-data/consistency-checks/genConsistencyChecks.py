@@ -1,13 +1,12 @@
+#
 # Filename    : genConsistencyChecks.py
 # Description : Generates unit tests for ValidationRules.c
-# Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
-# Organization: JST ERATO Kitano Symbiotic Systems Project
+# Author(s)   : Ben Bornstein, Ben Kovitz, Stephan Hoops
 # Created     : 2003-03-07
 # Revision    : $Id$
 # Source      : $Source$
 #
-#
-# Copyright 2002 California Institute of Technology and
+# Copyright 2002-2004 California Institute of Technology and
 # Japan Science and Technology Corporation.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -37,14 +36,13 @@
 # The original code contained here was initially developed by:
 #
 #     Ben Bornstein
-#     The Systems Biology Markup Language Development Group
-#     ERATO Kitano Symbiotic Systems Project
+#     The SBML Team
 #     Control and Dynamical Systems, MC 107-81
 #     California Institute of Technology
 #     Pasadena, CA, 91125, USA
 #
-#     http://www.cds.caltech.edu/erato
-#     mailto:sysbio-team@caltech.edu
+#     http://sbml.org
+#     mailto:sbml-team@caltech.edu
 #
 # Contributor(s):
 #   Stephan Hoops
