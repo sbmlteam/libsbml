@@ -117,7 +117,6 @@ case $host_os in
 
   *darwin*)
     CPPFLAGS="-DMACOSX $CPPFLAGS"
-    CXXFLAGS="-DMACOSX $CXXFLAGS"
     HOST_TYPE="darwin"
     SHAREDLIBEXT="dylib"
     TestDataDirectory="."
