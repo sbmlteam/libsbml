@@ -9,6 +9,8 @@ cmbtt10.*
 *.aux
 *.log
 *.toc
+libsbml-manual.ps
+libsbml-api-ref.ps
 html
 api
 auto
