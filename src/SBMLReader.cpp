@@ -306,6 +306,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
 {
 #ifdef USE_EXPAT
 
+  const char* errmsg = "Unexpected Parse Error";
   SBMLDocument* d = new SBMLDocument();
   
   SBMLHandler handler(d);
@@ -322,7 +323,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
     {
       std::ifstream is(filename);
 
-      if (is.fail()) throw;
+      if (is.fail()) throw errmsg;
 
 #define BUFFER_SIZE 0xfffe
       char* pBuffer = new char[BUFFER_SIZE + 1];
@@ -333,9 +334,9 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
         is.get(pBuffer, BUFFER_SIZE, 0);
         
         if (is.eof()) done = true;
-        if (is.fail() && !done) throw;
+        if (is.fail() && !done) throw errmsg;
             
-        if (!handler.parse(pBuffer, -1, done)) throw "Parse Error";
+        if (!handler.parse(pBuffer, -1, done)) throw errmsg;
       } 
       delete [] pBuffer;
 #undef BUFFER_SIZE
