@@ -119,20 +119,12 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include sbml/RuleType.h
 %include sbml/ParseMessage.hpp
 %include sbml/SBMLReader.hpp
+%include sbml/SBMLWriter.hpp
 %include sbml/XMLSchemaValidation.h
 
 
 %typemap(newfree) char * "free($1);";
-
-LIBSBML_EXTERN
-int
-writeSBML (SBMLDocument* d, const char *filename);
-
 %newobject writeSBMLToString;
-LIBSBML_EXTERN
-char *
-writeSBMLToString (SBMLDocument* d);
-
 
 /**
  * This Java specific typemap applies only to SBML_formulaToString()
