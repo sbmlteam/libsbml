@@ -72,7 +72,7 @@ XMLString::trim (XML_Char* str)
   for (i = 0, tmp2 = str; i < len; i++, tmp1++, tmp2++) *tmp2 = *tmp1;
   
   /* terminate */
-  *tmp2 = NULL;
+  *tmp2 = '\0';
 
   return;
 }
