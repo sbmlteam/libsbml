@@ -61,7 +61,7 @@
 /**
  * Converts the given SBase object and any of its subordinate objects from
  * SBML L1 to L2.  This function delegates, based on SBMLTypeCode, to
- * SBML_convertNameToId().
+ * SBML_convertNameToId() and others.
  */
 void
 LIBSBML_EXTERN
@@ -69,7 +69,6 @@ SBML_convertToL2 (SBase_t *sb)
 {
   SBMLDocument_t *d;
   Model_t        *m;
-  Reaction_t     *r;
   KineticLaw_t   *kl;
   ListOf_t       *lo;
 
@@ -105,7 +104,7 @@ SBML_convertToL2 (SBase_t *sb)
       SBML_convertToL2( (SBase_t *) m->compartment    );
       SBML_convertToL2( (SBase_t *) m->species        );
       SBML_convertToL2( (SBase_t *) m->parameter      );
-      SBML_convertToL2( (SBase_t *) m->reaction       );
+      SBML_convertReactionsInModelToL2(m);
       break;
 
     case SBML_UNIT_DEFINITION:
@@ -115,55 +114,9 @@ SBML_convertToL2 (SBase_t *sb)
       SBML_convertNameToId(sb);
       break;
 
-    case SBML_REACTION:
-      r = (Reaction_t *) sb;
-      SBML_convertNameToId(sb);
-      SBML_convertToL2( (SBase_t *) r->kineticLaw );
-      break;
-
     case SBML_KINETIC_LAW:
       kl = (KineticLaw_t *) sb;
       SBML_convertToL2( (SBase_t *) kl->parameter );
-      break;
-
-    default:
-      break;
-  }
-}
-
-
-/**
- * Converts the formula of this SBase object to the equivalent ASTNode math
- * expression if and only if the formula field is set and the math field is
- * not set.  After the conversion, the formula field is cleared.  SBase may
- * be a KineticLaw or Rule.
- */
-void
-SBML_convertFormulaToMath (SBase_t *sb)
-{
-  KineticLaw_t *kl;
-  Rule_t       *r;
-
-
-  switch (sb->typecode)
-  {
-    case SBML_KINETIC_LAW:
-      kl = (KineticLaw_t *) sb;
-      if (kl->math == NULL && kl->formula != NULL)
-      {
-        kl->math    = SBML_parseFormula(kl->formula);
-        kl->formula = NULL;
-      }
-      break;
-
-    case SBML_ALGEBRAIC_RULE:
-    case SBML_ASSIGNMENT_RULE:
-      r = (Rule_t *) sb;
-      if (r->math == NULL && r->formula != NULL)
-      {
-        r->math    = SBML_parseFormula(r->formula);
-        r->formula = NULL;
-      }
       break;
 
     default:
@@ -254,83 +207,115 @@ SBML_convertNameToId (SBase_t *sb)
 
 
 /**
- * Converts the SBase object from an SBML Level 1 Rule to an SBML Level 2
- * Rule.
+ * Converts the list of Reactions in this Model from SBML L1 to L2.
  *
- * The address of the SBase pointer (**sb) is required as L1
- * AssignmentRules of RULE_TYPE_RATE will be copied to a newly created
- * RateRule in L2.  Also, ParameterRules are always copied to a new
- * AssignmentRule or RateRule, regardless of their RuleType.  This is done
- * to keep rule sizes in memory consistent.  ParameterRules are the only
- * AssignmentRules with an extra field, units.
+ * Conversion involves:
+ *
+ *   - Converting Reaction name to Reaction id (via SBML_convertNameToId())
+ *
+ *   - Converting the subordinate KineticLaw (and its Parameters) to L2
+ *     (via SBML_convertToL2()), and
+ *
+ *   - Adding modifiers (ModifierSpeciesReference) to this Reaction as
+ *     appropriate (via SBML_addModifiersToReaction()).
  */
 void
-SBML_convertRuleToL2 (SBase_t **sb)
+SBML_convertReactionsInModelToL2 (Model_t *m)
 {
-  RateRule_t       *rr;
-  AssignmentRule_t *ar;
-  ParameterRule_t  *pr;
+  unsigned int  numReactions = Model_getNumReactions(m);
+  ListOf_t     *reactions    = Model_getListOfReactions(m);
+
+  unsigned int  n;
+  Reaction_t   *r;
 
 
-  switch ( (*sb)->typecode )
+  for (n = 0; n < numReactions; n++)
   {
-    case SBML_ALGEBRAIC_RULE:
-      SBML_convertFormulaToMath(*sb);
-      break;
+    r = (Reaction_t *) ListOf_get(reactions, n);
 
-    case SBML_SPECIES_CONCENTRATION_RULE:
-    case SBML_COMPARTMENT_VOLUME_RULE:
-      ar = (AssignmentRule_t *) *sb;
+    SBML_convertNameToId( (SBase_t *) r );
+    SBML_convertToL2    ( (SBase_t *) r->kineticLaw );
 
-      if (ar->type == RULE_TYPE_SCALAR)
-      {
-        (*sb)->typecode = SBML_ASSIGNMENT_RULE;
-      }
-      else if (ar->type == RULE_TYPE_RATE)
-      {
-        rr           = RateRule_create();
-        rr->formula  = ar->formula;
-        rr->math     = ar->math;
-        rr->variable = ar->variable;
-
-        safe_free(ar);
-        *sb = (SBase_t *) rr;
-      }
-
-      SBML_convertFormulaToMath(*sb);
-      break;
-  
-    case SBML_PARAMETER_RULE:
-      pr = (ParameterRule_t *) *sb;
-
-      if (pr->type == RULE_TYPE_SCALAR)
-      {
-        ar           = AssignmentRule_create();
-        ar->formula  = pr->formula;
-        ar->math     = pr->math;
-        ar->variable = pr->variable;
-
-        safe_free(pr->units);
-        safe_free(pr);
-
-        *sb = (SBase_t *) ar;
-      }
-      else if (pr->type == RULE_TYPE_RATE)
-      {
-        rr           = RateRule_create();
-        rr->formula  = pr->formula;
-        rr->math     = pr->math;
-        rr->variable = pr->variable;
-
-        safe_free(pr->units);
-        safe_free(pr);
-        *sb = (SBase_t *) rr;
-      }
-
-      SBML_convertFormulaToMath(*sb);
-      break;
-
-    default:
-      break;
+    SBML_addModifiersToReaction(r, m);
   }
+}
+
+
+/**
+ * Adds modifiers (ModifierSpeciesReferences) to the given Reaction.
+ *
+ * A Model is needed for context to determine the set of allowable Species
+ * (see criterion 1 below).
+ *
+ * For each symbol in the Reaction's KineticLaw, that symbol is a modifier
+ * iff:
+ *
+ *   1. It is defined as a Species in the Model
+ *   2. It is not a Reactant or Product in this Reaction.
+ */
+LIBSBML_EXTERN
+void
+SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m)
+{
+  const char *id;
+
+  unsigned int size;
+  unsigned int n;
+
+  const ASTNode_t *node;
+  List_t          *names;
+
+  KineticLaw_t *kl = Reaction_getKineticLaw(r);
+
+
+  /**
+   * If the Reaction does not have a KineticLaw or the KineticLaw does not
+   * have a formula, there is nothing to be done.
+   */
+  if ( kl == NULL ) return;
+  if ( !KineticLaw_isSetMath(kl) && !KineticLaw_isSetFormula(kl) ) return;
+
+  /**
+   * Ensure the KineticLaw has an AST math expression by deriving it from
+   * the infix formula string if nescessary.
+   */
+  if ( !KineticLaw_isSetMath(kl) )
+  {
+    KineticLaw_setMath(kl, SBML_parseFormula( KineticLaw_getFormula(kl) ));
+  }
+
+  /**
+   * Get a list of AST_NAMEs (symbols) used in the KineticLaw.
+   */
+  node  = KineticLaw_getMath(kl);
+  names = ASTNode_getListOfNodes(node, (ASTNodePredicate) ASTNode_isName);
+  size  = List_size(names);
+
+  /**
+   * NOTE: The C 'continue' keyword immediately aborts the current loop
+   * iteration and continues with the next one (n++).  It is used below as
+   * an alternative to several levels of nested if statements.
+   *
+   * For each symbol, add it as a Reaction modifier iff:
+   */
+  for (n = 0; n < size; n++)
+  {
+    node = (ASTNode_t *) List_get(names, n);
+    id   = ASTNode_getName(node);
+
+    /** 1. It is an AST_NAME (not AST_NAME_TIME nor AST_NAME_DELAY), and **/
+    if (ASTNode_getType(node) != AST_NAME) continue;
+
+    /** 2. It refers to a Species in this Model, and **/
+    if (id == NULL || Model_getSpeciesById(m, id) == NULL) continue;
+
+    /** 3. It is not a Reactant, Product, or (already) a Modifier **/
+    if (Reaction_getReactantById(r, id) != NULL) continue;
+    if (Reaction_getProductById (r, id) != NULL) continue;
+    if (Reaction_getModifierById(r, id) != NULL) continue;
+
+    Reaction_addModifier(r, ModifierSpeciesReference_createWith(id));
+  }
+
+  List_free(names);
 }

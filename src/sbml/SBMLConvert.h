@@ -55,6 +55,8 @@
 
 
 #include "SBase.h"
+#include "Model.h"
+#include "Reaction.h"
 
 
 BEGIN_C_DECLS
@@ -63,7 +65,7 @@ BEGIN_C_DECLS
 /**
  * Converts the given SBase object and any of its subordinate objects from
  * SBML L1 to L2.  This function delegates, based on SBMLTypeCode, to
- * SBML_convertNameToId().
+ * SBML_convertNameToId() and others.
  */
 void
 LIBSBML_EXTERN
@@ -77,6 +79,38 @@ SBML_convertToL2 (SBase_t *sb);
 void
 LIBSBML_EXTERN
 SBML_convertNameToId (SBase_t *sb);
+
+/**
+ * Converts the list of Reactions in this Model from SBML L1 to L2.
+ *
+ * Conversion involves:
+ *
+ *   - Converting Reaction name to Reaction id (via SBML_convertNameToId())
+ *
+ *   - Converting the subordinate KineticLaw (and its Parameters) to L2
+ *     (via SBML_convertToL2()), and
+ *
+ *   - Adding modifiers (ModifierSpeciesReference) to this Reaction as
+ *     appropriate (via SBML_addModifiersToReaction()).
+ */
+void
+SBML_convertReactionsInModelToL2 (Model_t *m);
+
+/**
+ * Adds modifiers (ModifierSpeciesReferences) to the given Reaction.
+ *
+ * A Model is needed for context to determine the set of allowable Species
+ * (see criterion 1 below).
+ *
+ * For each symbol in the Reaction's KineticLaw, that symbol is a modifier
+ * iff:
+ *
+ *   1. It is defined as a Species in the Model
+ *   2. It is not a Reactant or Product in this Reaction.
+ */
+LIBSBML_EXTERN
+void
+SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m);
 
 
 END_C_DECLS

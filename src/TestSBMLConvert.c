@@ -229,6 +229,45 @@ START_TEST (test_SBMLConvert_convertNameToId_Reaction)
 END_TEST
 
 
+START_TEST (test_SBMLConvert_addModifiersToReaction)
+{
+  Model_t      *m  = Model_create();
+  KineticLaw_t *kl = KineticLaw_createWith("k1*S1*S2*S3*S4*S5", NULL, NULL);
+  Reaction_t   *r  = Reaction_createWith("R", kl, 1, 0);
+
+  SimpleSpeciesReference_t *ssr1;
+  SimpleSpeciesReference_t *ssr2;
+
+
+  Model_addSpecies( m, Species_createWith("S1", "cell", 2.0, "amount", 0, 0) );
+  Model_addSpecies( m, Species_createWith("S2", "cell", 2.0, "amount", 0, 0) );
+  Model_addSpecies( m, Species_createWith("S3", "cell", 1.0, "amount", 0, 0) );
+  Model_addSpecies( m, Species_createWith("S4", "cell", 1.0, "amount", 0, 0) );
+  Model_addSpecies( m, Species_createWith("S5", "cell", 0.0, "amount", 0, 0) );
+
+  Reaction_addReactant( r, SpeciesReference_createWith("S1", 1, 1) );
+  Reaction_addReactant( r, SpeciesReference_createWith("S2", 1, 1) );
+  Reaction_addProduct ( r, SpeciesReference_createWith("S5", 1, 1) );
+
+  Model_addReaction(m, r);
+
+  fail_unless( Reaction_getNumModifiers(r) == 0, NULL );
+
+  SBML_addModifiersToReaction(r, m);
+
+  fail_unless( Reaction_getNumModifiers(r) == 2, NULL );
+
+  ssr1 = (SimpleSpeciesReference_t *) Reaction_getModifier(r, 0);
+  ssr2 = (SimpleSpeciesReference_t *) Reaction_getModifier(r, 1);
+
+  fail_unless( !strcmp(SimpleSpeciesReference_getSpecies(ssr1), "S3"), NULL );
+  fail_unless( !strcmp(SimpleSpeciesReference_getSpecies(ssr2), "S4"), NULL );
+
+  Model_free(m);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLConvert (void) 
 { 
@@ -243,6 +282,7 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertNameToId_Species        );
   tcase_add_test( tcase, test_SBMLConvert_convertNameToId_Parameter      );
   tcase_add_test( tcase, test_SBMLConvert_convertNameToId_Reaction       );
+  tcase_add_test( tcase, test_SBMLConvert_addModifiersToReaction         );
 
 
   suite_add_tcase(suite, tcase);
