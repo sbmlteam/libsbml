@@ -78,13 +78,12 @@ SBML_convertToL2 (SBase_t *sb)
 
   if (sb == NULL) return;
 
-  switch (sb->typecode)
+  switch (SBase_getTypeCode(sb))
   {
     case SBML_DOCUMENT:
-      d          = (SBMLDocument_t *) sb;
-      d->level   = 2;
-      d->version = 1;
-      SBML_convertToL2( (SBase_t *) d->model );
+      d = (SBMLDocument_t *) sb;
+      SBMLDocument_setLevel(d, 2);
+      SBML_convertToL2( (SBase_t *) SBMLDocument_getModel(d) );
       break;
 
     case SBML_LIST_OF:
@@ -100,10 +99,10 @@ SBML_convertToL2 (SBase_t *sb)
     case SBML_MODEL:
       m = (Model_t *) sb;
       SBML_convertNameToId(sb);
-      SBML_convertToL2( (SBase_t *) m->unitDefinition );
-      SBML_convertToL2( (SBase_t *) m->compartment    );
-      SBML_convertToL2( (SBase_t *) m->species        );
-      SBML_convertToL2( (SBase_t *) m->parameter      );
+      SBML_convertToL2( (SBase_t *) Model_getListOfUnitDefinitions(m) );
+      SBML_convertToL2( (SBase_t *) Model_getListOfCompartments   (m) );
+      SBML_convertToL2( (SBase_t *) Model_getListOfSpecies        (m) );
+      SBML_convertToL2( (SBase_t *) Model_getListOfParameters     (m) );
       SBML_convertReactionsInModelToL2(m);
       break;
 
@@ -116,7 +115,7 @@ SBML_convertToL2 (SBase_t *sb)
 
     case SBML_KINETIC_LAW:
       kl = (KineticLaw_t *) sb;
-      SBML_convertToL2( (SBase_t *) kl->parameter );
+      SBML_convertToL2( (SBase_t *) KineticLaw_getListOfParameters(kl) );
       break;
 
     default:
@@ -144,59 +143,59 @@ SBML_convertNameToId (SBase_t *sb)
 
   if (sb == NULL) return;
 
-  switch (sb->typecode)
+  switch (SBase_getTypeCode(sb))
   {
     case SBML_MODEL:
       m = (Model_t *) sb;
-      if (m->id == NULL)
+      if ( !Model_isSetId(m) )
       {
-        m->id   = m->name;
-        m->name = NULL;
+        Model_setId(m, Model_getName(m));
+        Model_unsetName(m);
       }
       break;
 
     case SBML_UNIT_DEFINITION:
       ud = (UnitDefinition_t *) sb;
-      if (ud->id == NULL)
+      if ( !UnitDefinition_isSetId(ud) )
       {
-        ud->id   = ud->name;
-        ud->name = NULL;
+        UnitDefinition_setId(ud, UnitDefinition_getName(ud));
+        UnitDefinition_unsetName(ud);
       }
       break;
 
     case SBML_COMPARTMENT:
       c = (Compartment_t *) sb;
-      if (c->id == NULL)
+      if ( !Compartment_isSetId(c) )
       {
-        c->id   = c->name;
-        c->name = NULL;
+        Compartment_setId(c, Compartment_getName(c));
+        Compartment_unsetName(c);
       }
       break;
 
     case SBML_SPECIES:
       s = (Species_t *) sb;
-      if (s->id == NULL)
+      if ( !Species_isSetId(s) )
       {
-        s->id   = s->name;
-        s->name = NULL;
+        Species_setId(s, Species_getName(s));
+        Species_unsetName(s);
       }
       break;
 
     case SBML_PARAMETER:
       p = (Parameter_t *) sb;
-      if (p->id == NULL)
+      if ( !Parameter_isSetId(p) )
       {
-        p->id   = p->name;
-        p->name = NULL;
+        Parameter_setId(p, Parameter_getName(p));
+        Parameter_unsetName(p);
       }
       break;
 
     case SBML_REACTION:
       r = (Reaction_t *) sb;
-      if (r->id == NULL)
+      if ( !Reaction_isSetId(r) )
       {
-        r->id   = r->name;
-        r->name = NULL;
+        Reaction_setId(r, Reaction_getName(r));
+        Reaction_unsetName(r);
       }
       break;
 
@@ -234,7 +233,7 @@ SBML_convertReactionsInModelToL2 (Model_t *m)
     r = (Reaction_t *) ListOf_get(reactions, n);
 
     SBML_convertNameToId( (SBase_t *) r );
-    SBML_convertToL2    ( (SBase_t *) r->kineticLaw );
+    SBML_convertToL2    ( (SBase_t *) Reaction_getKineticLaw(r) );
 
     SBML_addModifiersToReaction(r, m);
   }
