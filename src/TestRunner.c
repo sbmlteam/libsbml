@@ -64,8 +64,11 @@ BEGIN_C_DECLS
 
 Suite *create_suite_AlgebraicRule            (void);
 Suite *create_suite_AssignmentRule           (void);
+Suite *create_suite_ASTNode                  (void);
 Suite *create_suite_Compartment              (void);
 Suite *create_suite_CompartmentVolumeRule    (void);
+Suite *create_suite_FormulaParser            (void);
+Suite *create_suite_FormulaTokenizer         (void);
 Suite *create_suite_KineticLaw               (void);
 Suite *create_suite_List                     (void);
 Suite *create_suite_Model                    (void);
@@ -149,8 +152,11 @@ main (void)
   srunner_add_suite( runner, create_suite_util                     () );
   srunner_add_suite( runner, create_suite_AlgebraicRule            () );
   srunner_add_suite( runner, create_suite_AssignmentRule           () );
+  srunner_add_suite( runner, create_suite_ASTNode                  () );
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
+  srunner_add_suite( runner, create_suite_FormulaParser            () );
+  srunner_add_suite( runner, create_suite_FormulaTokenizer         () );
   srunner_add_suite( runner, create_suite_KineticLaw               () );
   srunner_add_suite( runner, create_suite_List                     () );
   srunner_add_suite( runner, create_suite_Model                    () );
