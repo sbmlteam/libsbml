@@ -101,6 +101,7 @@ nobase_include_HEADERS =          \
   sbml/SpeciesReference.h         \
   sbml/Stack.h                    \
   sbml/StringBuffer.h             \
+  sbml/StringMap.h                \
   sbml/UnitDefinition.h           \
   sbml/Unit.h                     \
   sbml/UnitKind.h                 \
@@ -168,6 +169,7 @@ libsbml_la_SOURCES =              \
   SpeciesReference.c              \
   Stack.c                         \
   StringBuffer.c                  \
+  StringMap.c                     \
   Unit.c                          \
   UnitDefinition.c                \
   UnitKind.c                      \
@@ -225,6 +227,7 @@ TestRunner_SOURCES =              \
   TestSpeciesReference.c          \
   TestStack.c                     \
   TestStringBuffer.c              \
+  TestStringMap.c                 \
   TestReadFromFile1.c             \
   TestReadFromFile2.c             \
   TestReadFromFile3.c             \
