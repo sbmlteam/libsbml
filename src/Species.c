@@ -392,7 +392,7 @@ Species_unsetUnits (Species_t *s)
 
 
 /**
- * Marks the charge of this Species as unset.
+ * Unsets the charge of this Species.
  */
 LIBSBML_EXTERN
 void
