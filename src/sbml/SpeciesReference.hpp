@@ -58,7 +58,7 @@
 
 #include "extern.h"
 #include "SimpleSpeciesReference.hpp"
-#include "ASTNode.h"
+#include "ASTNode.hpp"
 
 
 class SpeciesReference : public SimpleSpeciesReference
@@ -100,7 +100,7 @@ public:
    * @return the stoichiometryMath of this SpeciesReference.
    */
   LIBSBML_EXTERN
-  const ASTNode_t * getStoichiometryMath () const;
+  const ASTNode* getStoichiometryMath () const;
 
   /**
    * @return the denominator of this SpeciesReference.
@@ -131,7 +131,7 @@ public:
    * nodes).
    */
   LIBSBML_EXTERN
-  void setStoichiometryMath (ASTNode_t *math);
+  void setStoichiometryMath (ASTNode* math);
 
   /**
    * Sets the stoichiometryMath of this SpeciesReference to the given
@@ -151,7 +151,7 @@ protected:
 
   double    stoichiometry;
   int       denominator;
-  ASTNode_t *stoichiometryMath;
+  ASTNode*  stoichiometryMath;
 
 
   friend class SBMLFormatter;

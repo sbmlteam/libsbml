@@ -59,7 +59,7 @@
 #include "extern.h"
 
 #include "SBase.hpp"
-#include "ASTNode.h"
+#include "ASTNode.hpp"
 
 
 class Rule : public SBase
@@ -76,7 +76,7 @@ public:
    * Creates a new Rule with its math attribute set.
    */
   LIBSBML_EXTERN
-  Rule (ASTNode_t* math);
+  Rule (ASTNode* math);
 
   /**
    * Destroys this Rule.
@@ -95,7 +95,7 @@ public:
    * @return the math for this Rule.
    */
   LIBSBML_EXTERN
-  const ASTNode_t* getMath () const;
+  const ASTNode* getMath () const;
 
   /**
    * @return true if the formula for this Rule has been set, false
@@ -138,7 +138,7 @@ public:
    * delete the ASTNode (and any child nodes).
    */
   LIBSBML_EXTERN
-  void setMath (ASTNode_t *math);
+  void setMath (ASTNode *math);
 
   /**
    * Sets the math of this Rule from its current formula string.  This
@@ -155,7 +155,7 @@ public:
 protected:
 
   std::string formula;
-  ASTNode_t*  math;
+  ASTNode*    math;
 
 
   friend class SBMLFormatter;
