@@ -133,70 +133,32 @@ void
 LIBSBML_EXTERN
 SBML_convertNameToId (SBase_t *sb)
 {
-  Model_t          *m;
-  UnitDefinition_t *ud;
-  Compartment_t    *c;
-  Species_t        *s;
-  Parameter_t      *p;
-  Reaction_t       *r;
-
-
   if (sb == NULL) return;
 
   switch (SBase_getTypeCode(sb))
   {
     case SBML_MODEL:
-      m = (Model_t *) sb;
-      if ( !Model_isSetId(m) )
-      {
-        Model_setId(m, Model_getName(m));
-        Model_unsetName(m);
-      }
+      Model_moveNameToId((Model_t *) sb);
       break;
 
     case SBML_UNIT_DEFINITION:
-      ud = (UnitDefinition_t *) sb;
-      if ( !UnitDefinition_isSetId(ud) )
-      {
-        UnitDefinition_setId(ud, UnitDefinition_getName(ud));
-        UnitDefinition_unsetName(ud);
-      }
+      UnitDefinition_moveNameToId((UnitDefinition_t *) sb);
       break;
 
     case SBML_COMPARTMENT:
-      c = (Compartment_t *) sb;
-      if ( !Compartment_isSetId(c) )
-      {
-        Compartment_setId(c, Compartment_getName(c));
-        Compartment_unsetName(c);
-      }
+      Compartment_moveNameToId((Compartment_t *) sb);
       break;
 
     case SBML_SPECIES:
-      s = (Species_t *) sb;
-      if ( !Species_isSetId(s) )
-      {
-        Species_setId(s, Species_getName(s));
-        Species_unsetName(s);
-      }
+      Species_moveNameToId((Species_t *) sb);
       break;
 
     case SBML_PARAMETER:
-      p = (Parameter_t *) sb;
-      if ( !Parameter_isSetId(p) )
-      {
-        Parameter_setId(p, Parameter_getName(p));
-        Parameter_unsetName(p);
-      }
+      Parameter_moveNameToId((Parameter_t *) sb);
       break;
 
     case SBML_REACTION:
-      r = (Reaction_t *) sb;
-      if ( !Reaction_isSetId(r) )
-      {
-        Reaction_setId(r, Reaction_getName(r));
-        Reaction_unsetName(r);
-      }
+      Reaction_moveNameToId((Reaction_t *) sb);
       break;
 
     default:
