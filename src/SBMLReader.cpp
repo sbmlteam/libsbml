@@ -276,7 +276,7 @@ SBMLReader_readSBML_internal ( SBMLReader_t* sr,
 
     if (sr->schemaFilename != NULL)
     {
-      char   xmlns[]  = "http://www.sbml.org/sbml/level1 ";
+      char   xmlns[]  = "http://www.sbml.org/sbml/level2 ";
       char*  location = safe_strcat(xmlns, sr->schemaFilename);
       XMLCh* value    = XMLString::transcode(location);
       
