@@ -74,7 +74,7 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %ignore ASTNode(Token_t*);
 %ignore ASTNode::getListOfNodes;
 %ignore ASTNode::fillListOfNodes;
-%ignore ASTNode::setValue(long);
+%ignore ASTNode::setValue(int);
 
 %ignore ListOf::find;
 %ignore ListOf::countIf;
