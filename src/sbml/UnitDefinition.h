@@ -137,6 +137,23 @@ UnitDefinition_isSetName (const UnitDefinition_t *ud);
 
 
 /**
+ * Moves the id field of this UnitDefinition to its name field (iff name is
+ * not already set).  This method is used for converting from L2 to L1.
+ */
+LIBSBML_EXTERN
+void
+UnitDefinition_moveIdToName (UnitDefinition_t *ud);
+
+/**
+ * Moves the name field of this UnitDefinition to its id field (iff id is not
+ * already set).  This method is used for converting from L1 to L2.
+ */
+LIBSBML_EXTERN
+void
+UnitDefinition_moveNameToId (UnitDefinition_t *ud);
+
+
+/**
  * Sets the id of this UnitDefinition to a copy of sid.
  */
 LIBSBML_EXTERN

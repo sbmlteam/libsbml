@@ -270,6 +270,23 @@ Species_isSetCharge (const Species_t *s);
 
 
 /**
+ * Moves the id field of this Species to its name field (iff name is not
+ * already set).  This method is used for converting from L2 to L1.
+ */
+LIBSBML_EXTERN
+void
+Species_moveIdToName (Species_t *s);
+
+/**
+ * Moves the name field of this Species to its id field (iff id is not
+ * already set).  This method is used for converting from L1 to L2.
+ */
+LIBSBML_EXTERN
+void
+Species_moveNameToId (Species_t *s);
+
+
+/**
  * Sets the id of this Species to a copy of sid.
  */
 LIBSBML_EXTERN

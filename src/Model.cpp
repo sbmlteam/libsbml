@@ -1281,6 +1281,29 @@ Model_isSetName (const Model_t *m)
   return (int) static_cast<const Model*>(m)->isSetName();
 }
 
+/**
+ * Moves the id field of this Model to its name field (iff name is not
+ * already set).  This method is used for converting from L2 to L1.
+ */
+LIBSBML_EXTERN
+void
+Model_moveIdToName (Model_t *m)
+{
+  static_cast<Model*>(m)->moveIdToName();
+}
+
+
+/**
+ * Moves the name field of this Model to its id field (iff id is not
+ * already set).  This method is used for converting from L1 to L2.
+ */
+LIBSBML_EXTERN
+void
+Model_moveNameToId (Model_t *m)
+{
+  static_cast<Model*>(m)->moveNameToId();
+}
+
 
 /**
  * Sets the id of this Model to a copy of sid.

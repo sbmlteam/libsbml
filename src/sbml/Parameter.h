@@ -174,12 +174,28 @@ Parameter_isSetUnits (const Parameter_t *p);
 
 
 /**
+ * Moves the id field of this Parameter to its name field (iff name is not
+ * already set).  This method is used for converting from L2 to L1.
+ */
+LIBSBML_EXTERN
+void
+Parameter_moveIdToName (Parameter_t *p);
+
+/**
+ * Moves the id field of this Parameter to its name field (iff name is not
+ * already set).  This method is used for converting from L2 to L1.
+ */
+LIBSBML_EXTERN
+void
+Parameter_moveNameToId (Parameter_t *p);
+
+
+/**
  * Sets the id of this Parameter to a copy of sid.
  */
 LIBSBML_EXTERN
 void
 Parameter_setId (Parameter_t *p, const char *sid);
-
 
 /**
  * Sets the name of this Parameter to a copy of string (SName in L1).
