@@ -10,6 +10,11 @@
       it.  Thanks to Konstantin Kozlov for reporting this bug and
       providing a fix.
 
+    - A MathML expression involving a <csymbol> does not "reduce" to
+      the correct syntax tree when it is the last argument of an
+      <apply>.  Thanks to Jacek Puchalka for reporting this bug and
+      providing a fix.
+
 
 * Released April xx, 2004
 
