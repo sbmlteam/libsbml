@@ -106,6 +106,7 @@ distfiles =                            \
         libsbml-api-ref.html.tmpl      \
         libsbml-api-ref.tex            \
         libsbml-manual.tex             \
+        libsbml-manual.css             \
         libsbml.bib                    \
         tex/alltt.sty                  \
         tex/booktabs/booktabs.dtx      \
