@@ -127,7 +127,7 @@ endif
 
 distfiles = $(sources) $(extra_sources) $(check_sources) Makefile.in libsbml.py
 
-extra_distclean = libsbml_wrap.cpp libsbml.py libsbml.pyc
+extra_distclean = libsbml.py libsbml.pyc
 
 
 # -----------------------------------------------------------------------------
