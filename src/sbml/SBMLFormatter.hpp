@@ -68,36 +68,23 @@
 
 
 //
-// The SBMLFormatter is designed to receive SAX-like callback events
-// and reconstruct the XML string that produced those events.  This is
-// useful if you want your SAX Handler to leave certain chunks of XML
-// untouched.  To do so, simply delegate all SAX events (tags) you are not
-// interested in to this formatter.  The corresponding XML will be
-// reconstructed and can be retrieved with the getString() method (and its
-// length with getLength()).
+// SBMLFormatter is meant to act like a C++ output stream.  Creating an
+// SBMLFormatter requires a character encoding and an underlying
+// XMLFormatTarget, which can be either in-memory (with MemBufFormatTarget)
+// or file (FileFormatTarget), to be specified.  Once created, inserting
+// SBML objects (C structs) into the stream (with <<) will cause them to be
+// formatted in the character encoding for the XMLFormatTarget.
 //
-// For instance, in the SBML parser, this formatter is used to store the
-// original XML contents of <notes> (which can contain XHTML) and
-// <annotations> elements.
 //
-// A formatter can be reset() (emptied) so that it can be reused to process
-// another set of XML tags.  The underlying character encoding is
-// configurable and defaults to "LATIN1", which is probably safe for most
-// applications.
+// By default, the formatter outputs SBML Level 1, version 2 (L1v2).  To
+// change the default, either i) insert an SBMLDocument into the formatter
+// stream and the formatter will use the level and version of the given
+// SBMLDocument (most common) or ii) insert a level or version directly
+// (usually used unit test purposes) as in:
 //
-// A note on SAX2 qnames vs. localnames:
+//   formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
 //
-// They are identical if no namespace prefix is specified.  For example,
-// suppose:
-//
-//   <prefix:myelement .../>
-//
-// In this case, localname will be 'myelement' and qname will be
-// 'prefix:myelement'.  If prefix were not present, qname would also be
-// 'myelement'.  Since the goal is of SBMLFormatter is to reproduce
-// the input as close as possible, qname is used.
-//
-// See Xerces-C SAX2 API for a description of method parameters.
+// Currently, this class is meant to be used internally by libsbml.
 //
 class SBMLFormatter
 {
@@ -107,10 +94,7 @@ public:
   //
   // Ctor
   //
-  // Creates a new SBMLFormatter
-  //
-  // The underlying character encoding is configurable and defaults to
-  // "LATIN1", which is probably safe for most applications.
+  // Creates a new SBMLFormatter with the given character encoding.
   //
   SBMLFormatter (const char* outEncoding, XMLFormatTarget* target);
 
