@@ -80,6 +80,7 @@ nobase_include_HEADERS =          \
   sbml/Rule.h                     \
   sbml/RuleType.h                 \
   sbml/SBase.h                    \
+	sbml/SBMLConvert.h              \
   sbml/SBMLDocument.h             \
   sbml/SBMLReader.h               \
   sbml/SBMLTypeCodes.h            \
@@ -148,6 +149,7 @@ libsbml_la_SOURCES =              \
   Rule.c                          \
   RuleType.c                      \
   SBase.c                         \
+	SBMLConvert.c                   \
   SBMLDocument.c                  \
   SimpleSpeciesReference.c        \
   Species.c                       \
@@ -201,6 +203,7 @@ TestRunner_SOURCES =              \
   TestRule.c                      \
   TestRuleType.c                  \
   TestSBase.c                     \
+  TestSBMLConvert.c               \
   TestSBMLDocument.c              \
   TestSBMLReader.c                \
   TestSBMLWriter.c                \

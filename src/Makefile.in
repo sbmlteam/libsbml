@@ -169,6 +169,7 @@ nobase_include_HEADERS = \
   sbml/Rule.h                     \
   sbml/RuleType.h                 \
   sbml/SBase.h                    \
+	sbml/SBMLConvert.h              \
   sbml/SBMLDocument.h             \
   sbml/SBMLReader.h               \
   sbml/SBMLTypeCodes.h            \
@@ -238,6 +239,7 @@ libsbml_la_SOURCES = \
   Rule.c                          \
   RuleType.c                      \
   SBase.c                         \
+	SBMLConvert.c                   \
   SBMLDocument.c                  \
   SimpleSpeciesReference.c        \
   Species.c                       \
@@ -289,6 +291,7 @@ libsbml_la_SOURCES = \
 @LIBCHECK_ENABLED_TRUE@  TestRule.c                      \
 @LIBCHECK_ENABLED_TRUE@  TestRuleType.c                  \
 @LIBCHECK_ENABLED_TRUE@  TestSBase.c                     \
+@LIBCHECK_ENABLED_TRUE@  TestSBMLConvert.c               \
 @LIBCHECK_ENABLED_TRUE@  TestSBMLDocument.c              \
 @LIBCHECK_ENABLED_TRUE@  TestSBMLReader.c                \
 @LIBCHECK_ENABLED_TRUE@  TestSBMLWriter.c                \
@@ -331,7 +334,8 @@ am_libsbml_la_OBJECTS = MathMLDocument.lo MathMLFormatter.lo \
 	FunctionDefinition.lo KineticLaw.lo List.lo ListOf.lo Model.lo \
 	ModifierSpeciesReference.lo Parameter.lo ParameterRule.lo \
 	ParseMessage.lo RateRule.lo Reaction.lo Rule.lo RuleType.lo \
-	SBase.lo SBMLDocument.lo SimpleSpeciesReference.lo Species.lo \
+	SBase.lo SBMLConvert.lo SBMLDocument.lo \
+	SimpleSpeciesReference.lo Species.lo \
 	SpeciesConcentrationRule.lo SpeciesReference.lo Stack.lo \
 	StringBuffer.lo Unit.lo UnitDefinition.lo UnitKind.lo memory.lo \
 	util.lo
@@ -351,13 +355,13 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 	TestMemory.c TestModel.c TestModifierSpeciesReference.c \
 	TestParameter.c TestParameterRule.c TestParseMessage.c \
 	TestRateRule.c TestReaction.c TestRule.c TestRuleType.c \
-	TestSBase.c TestSBMLDocument.c TestSBMLReader.c \
-	TestSBMLWriter.c TestSimpleSpeciesReference.c TestSpecies.c \
-	TestSpeciesConcentrationRule.c TestSpeciesReference.c \
-	TestStack.c TestStringBuffer.c TestReadFromFile1.c \
-	TestReadFromFile2.c TestReadFromFile3.c TestReadFromFile4.c \
-	TestRunner.c TestUnitDefinition.c TestUnitKind.c TestUnit.c \
-	TestUtil.c
+	TestSBase.c TestSBMLConvert.c TestSBMLDocument.c \
+	TestSBMLReader.c TestSBMLWriter.c TestSimpleSpeciesReference.c \
+	TestSpecies.c TestSpeciesConcentrationRule.c \
+	TestSpeciesReference.c TestStack.c TestStringBuffer.c \
+	TestReadFromFile1.c TestReadFromFile2.c TestReadFromFile3.c \
+	TestReadFromFile4.c TestRunner.c TestUnitDefinition.c \
+	TestUnitKind.c TestUnit.c TestUtil.c
 @LIBCHECK_ENABLED_TRUE@am_TestRunner_OBJECTS = \
 @LIBCHECK_ENABLED_TRUE@	SAX2AttributesMock.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestMathMLFormatter.$(OBJEXT) \
@@ -391,6 +395,7 @@ am__TestRunner_SOURCES_DIST = test-data sbml/SAX2AttributesMock.hpp \
 @LIBCHECK_ENABLED_TRUE@	TestRule.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestRuleType.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSBase.$(OBJEXT) \
+@LIBCHECK_ENABLED_TRUE@	TestSBMLConvert.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSBMLDocument.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSBMLReader.$(OBJEXT) \
 @LIBCHECK_ENABLED_TRUE@	TestSBMLWriter.$(OBJEXT) \
@@ -442,6 +447,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/RateRule.Plo ./$(DEPDIR)/Reaction.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/Rule.Plo ./$(DEPDIR)/RuleType.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SAX2AttributesMock.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/SBMLConvert.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLDocument.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLFormatter.Plo \
 @AMDEP_TRUE@	./$(DEPDIR)/SBMLHandler.Plo \
@@ -483,6 +489,7 @@ am__depfiles_maybe = depfiles
 @AMDEP_TRUE@	./$(DEPDIR)/TestRule.Po ./$(DEPDIR)/TestRuleType.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestRunner.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSAX2AttributesMock.Po \
+@AMDEP_TRUE@	./$(DEPDIR)/TestSBMLConvert.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLDocument.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLFormatter.Po \
 @AMDEP_TRUE@	./$(DEPDIR)/TestSBMLHandler.Po \
@@ -611,6 +618,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Rule.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RuleType.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SAX2AttributesMock.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLConvert.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLDocument.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLFormatter.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SBMLHandler.Plo@am__quote@
@@ -657,6 +665,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRuleType.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestRunner.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSAX2AttributesMock.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLConvert.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLDocument.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLFormatter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestSBMLHandler.Po@am__quote@
