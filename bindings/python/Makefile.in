@@ -163,13 +163,15 @@ endif
 # wrapper file ready-made.  This is only enabled if configure is given the
 # --with-swig flag.
 
-ifdef SWIG
-
-  swig_sources = \
+swig_sources = \
 	  ../swig/libsbml.hpp \
 	  ../swig/libsbml.i
 
-  libsbml_wrap.cpp libsbml.py: $(swig_sources)
+libsbml_wrap.cpp libsbml.py: $(swig_sources)
+ifndef USE_SWIG
+	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
+	exit 1
+else
 	$(SWIG) $(SWIGFLAGS) -I../../src \
 	  -c++ -python -o libsbml_wrap.cpp libsbml.i
 endif
