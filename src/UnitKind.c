@@ -127,40 +127,11 @@ LIBSBML_EXTERN
 UnitKind_t
 UnitKind_forName (const char *name)
 {
-  UnitKind_t uk  = UNIT_KIND_INVALID;
-  UnitKind_t lo  = UNIT_KIND_AMPERE;
-  UnitKind_t hi  = UNIT_KIND_WEBER;
-  UnitKind_t mid;
-
-  int cond;
+  const UnitKind_t lo = UNIT_KIND_AMPERE;
+  const UnitKind_t hi = UNIT_KIND_WEBER;
 
 
-  /* Proceed iff name is not NULL and name is not an empty string */
-  if (name && *name)
-  {
-    /* Classic Binary Search */
-    while (lo <= hi)
-    {
-      mid  = (lo + hi) / 2;
-      cond = strcmp_insensitive(name, UNIT_KIND_STRINGS[mid]);
-      
-      if (cond < 0)
-      {
-        hi = mid - 1;
-      }
-      else if (cond > 0)
-      {
-        lo = mid + 1;
-      }
-      else
-      {
-        uk = mid;
-        break;
-      }
-    }
-  }
-
-  return uk;
+  return util_bsearchStringsI(UNIT_KIND_STRINGS, name, lo, hi);
 }
 
 
