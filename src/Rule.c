@@ -108,7 +108,7 @@ Rule_isSetFormula (const Rule_t *r)
 
 
 /**
- * Sets the formula field of this Rule to a copy of string.
+ * Sets the formula of this Rule to a copy of string.
  */
 LIBSBML_EXTERN
 void
