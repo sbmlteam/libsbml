@@ -3,14 +3,14 @@
 
                             Ben Bornstein
 
-              The Systems Biology Workbench Development Group
-                JST ERATO Kitano Symbiotic Systems Project
-                 Control and Dynamical Systems, MC 107-81
-                    California Institute of Technology
-                         Pasadena, CA, 91125, USA
+        The Systems Biology Markup Language Development Group
+              JST ERATO Kitano Symbiotic Systems Project
+               Control and Dynamical Systems, MC 107-81
+                  California Institute of Technology
+                       Pasadena, CA, 91125, USA
 
-                         http://www.sbw-sbml.org/
-                      mailto:sysbio-team@caltech.edu
+                         http://www.sbml.org/
+                    mailto:sysbio-team@caltech.edu
 
 
 --------------

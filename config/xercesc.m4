@@ -2,8 +2,8 @@
 ## Filename    : xercesc.m4
 ## Description : Autoconf macro to check for existence of Xerces-C library
 ## Description : configure script.
-## Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
-## Organization: Caltech ERATO Kitano Systems Biology Project
+## Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
+## Organization: JST ERATO Kitano Symbiotic Systems Project
 ## Created     : 2003-02-14
 ## Revision    : $Id$
 ## Source      : $Source$
@@ -38,8 +38,8 @@
 ## The original code contained here was initially developed by:
 ##
 ##     Ben Bornstein
-##     The Systems Biology Workbench Development Group
-##     ERATO Kitano Systems Biology Project
+##     The Systems Biology Markup Language Development Group
+##     ERATO Kitano Symbiotic Systems Project
 ##     Control and Dynamical Systems, MC 107-81
 ##     California Institute of Technology
 ##     Pasadena, CA, 91125, USA

@@ -2,8 +2,8 @@ dnl
 dnl Filename    : Makefile.am
 dnl Description : Process this file with autoconf (2.57) to produce a
 dnl Description : configure script.
-dnl Author(s)   : SBW Development Group <sysbio-team@caltech.edu>
-dnl Organization: Caltech ERATO Kitano Systems Biology Project
+dnl Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
+dnl Organization: JST ERATO Kitano Symbiotic Systems Project
 dnl Created     : 2003-02-13
 dnl Revision    : $Id$
 dnl Source      : $Source$
@@ -38,8 +38,8 @@ dnl
 dnl The original code contained here was initially developed by:
 dnl
 dnl     Ben Bornstein
-dnl     The Systems Biology Workbench Development Group
-dnl     ERATO Kitano Systems Biology Project
+dnl     The Systems Biology Markup Language Development Group
+dnl     ERATO Kitano Symbiotic Systems Project
 dnl     Control and Dynamical Systems, MC 107-81
 dnl     California Institute of Technology
 dnl     Pasadena, CA, 91125, USA

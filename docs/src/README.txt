@@ -3,7 +3,7 @@
 
                             Ben Bornstein
 
-              The Systems Biology Workbench Development Group
+              The Systems Biology Markup Language Development Group
                 JST ERATO Kitano Symbiotic Systems Project
                  Control and Dynamical Systems, MC 107-81
                     California Institute of Technology
