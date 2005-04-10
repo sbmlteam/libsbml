@@ -1,7 +1,7 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml src/util/validator
+## Description : Makefile template for libsbml src/validator/test
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
 ## Created     : 2005-03-15
@@ -72,15 +72,12 @@ thisdir   = src/validator/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =              \
-  TestConsistencyChecks.cpp \
-  TestValidator.c           \
-  TestRunner.cpp
+test_sources = TestFile.cpp TestConsistencyValidator.cpp TestValidator.cpp
 
 extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
-  check_driver      = TestRunner
+  check_driver      = TestConsistencyValidator
   ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
     extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
   endif
@@ -139,7 +136,7 @@ endif
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
-otherdirs     = .. ../../util ../../xml ../../math ../../sbml
+otherdirs     = .. ../constraints ../../util ../../xml ../../math ../../sbml
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)
