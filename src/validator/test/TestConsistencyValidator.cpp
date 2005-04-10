@@ -90,10 +90,10 @@ main (int argc, char* argv[])
   cout.precision(0);
   cout.width(3);
 
-  cout << "Testing Consistency Constraints (1000 - 9999)." << endl;
+  cout << "Testing Consistency Constraints (1000 - 1999)." << endl;
 
 
-  set<TestFile> files    = TestFile::getFilesIn("test-data", 1000, 9999);
+  set<TestFile> files    = TestFile::getFilesIn("test-data", 1000, 1999);
   unsigned int  passes   = count_if(files.begin(), files.end(), runTest);
   unsigned int  failures = files.size() - passes;
   double        percent  = (static_cast<double>(passes) / files.size()) * 100;
