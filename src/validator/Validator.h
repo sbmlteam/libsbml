@@ -1,12 +1,12 @@
 /**
  * \file    Validator.h
- * \brief   Holds a set of rules for validating an SBML document
+ * \brief   Base class for all SBML Validators
  * \author  Ben Bornstein
  *
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
+/* Copyright 2005 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,175 +53,113 @@
 #define Validator_h
 
 
-#include "common/extern.h"
-#include "util/List.h"
-
-#include "sbml/SBase.h"
-#include "sbml/SBMLDocument.h"
-#include "sbml/SBMLTypeCodes.h"
+#ifdef __cplusplus
 
 
-BEGIN_C_DECLS
+#include <list>
+
+#include "xml/ParseMessage.h"
+#include "ConstraintSet.h"
 
 
-/**
- * ValidationRule
- *
- * A ValidationRule is a function that performs a single check on an aspect
- * of an SBML document.
- *
- * A ValidationRule takes as parameters the SBML object to be checked
- * (SBase_t *), the SBMLDocument itself (for context, if necessary), and a
- * list of ParseMessages to which it may append an error message. It
- * returns true (1) if the check passed and false (0) otherwise.
- *
- * If the list of messages is NULL, the ValidationRule should not generate
- * an error message.
- *
- * ValidationRules are added to a Validator with the Validator_addRule()
- * function.  When a rule is added, it is associated with an SBMLTypeCode,
- * indicating the type of SBML object it validates.  When a Validator is
- * run, the rule will be called once for each SBML object of the given
- * type.
- *
- * @see Validator_addRule()
- */
-typedef unsigned int
-        (*ValidationRule) ( const SBase_t *obj, SBMLDocument_t *d,
-                            List_t *messages );
+class Constraint;
 
 
-/**
- * ValidatorPair
- *
- * Pairs a ValidationRule with the type of SBML object on which it can
- * operate.
- */
-typedef struct
+class Validator
 {
-  ValidationRule rule;
-  SBMLTypeCode_t type;
-} ValidatorPair_t;
+public:
+
+  Validator ();
+  virtual ~Validator ();
+
+  /**
+   * Initializes this Validator with a set of Constraints.
+   *
+   * When creating a subclass of Validator, override this method to add
+   * your own Constraints.
+   */
+  virtual void init () = 0;
+
+  /**
+   * Adds the given Contraint to this validator.
+   */
+  void addConstraint (Constraint* c);
+
+  /**
+   * Clears the Validator's list of messages.
+   *
+   * If you are validating multiple SBML documents with the same Validator,
+   * call this method after you have processed the list of messages from
+   * the last Validation run and before validating the next document.
+   */
+  void clearMessages ();
+
+  /**
+   * @return a list of messages logged during validation.
+   */
+  const std::list<ParseMessage>& getMessages () const;
+
+  /**
+   * Adds the given message to this list of Validators messages.
+   */
+  void logMessage (const ParseMessage& msg);
+
+  /**
+   * Validates the given SBMLDocument.  Error messages logged during
+   * validation may be retrieved via <code>getMessages()</code>.
+   *
+   * @return the number of validation errors that occurred.
+   */
+  unsigned int validate (const SBMLDocument& d);
+
+  /**
+   * Validates the given SBMLDocument.  Error messages logged during
+   * validation may be retrieved via <code>getMessages()</code>.
+   *
+   * @return the number of validation errors that occurred.
+   */
+  unsigned int validate (const std::string& filename);
 
 
-/**
- * Validator
- *
- * A Validator is a list of ValidatorPairs.
- */
-typedef struct
-{
-  List_t *rule;
-} Validator_t;
+protected:
 
 
-/**
- * Creates a new Validator and returns a pointer to it.
- */
-LIBSBML_EXTERN
-Validator_t *
-Validator_create (void);
+  /* Maintain a separate list of constraints for each SBML type.  This is
+   * done so that constraints may be applied efficiently during the
+   * validation process.
+   */
 
-/**
- * Creates a new Validator with the default ValidationRule set and returns
- * a pointer to it.
- */
-LIBSBML_EXTERN
-Validator_t *
-Validator_createDefault (void);
+  ConstraintSet<GlobalConstraint>         mGlobalConstraints;
 
-/**
- * Creates a new ValidatorPair and returns a pointer to it.
- */
-ValidatorPair_t *
-ValidatorPair_create (ValidationRule rule, SBMLTypeCode_t type);
+  ConstraintSet<SBMLDocument>             mSBMLDocumentConstraints;
+  ConstraintSet<Model>                    mModelConstraints;
+  ConstraintSet<FunctionDefinition>       mFunctionDefinitionConstraints;
+  ConstraintSet<UnitDefinition>           mUnitDefinitionConstraints;
+  ConstraintSet<Unit>                     mUnitConstraints;
+  ConstraintSet<Compartment>              mCompartmentConstraints;
+  ConstraintSet<Species>                  mSpeciesConstraints;
+  ConstraintSet<Parameter>                mParameterConstraints;
+  ConstraintSet<Rule>                     mRuleConstraints;
+  ConstraintSet<AlgebraicRule>            mAlgebraicRuleConstraints;
+  ConstraintSet<AssignmentRule>           mAssignmentRuleConstraints;
+  ConstraintSet<SpeciesConcentrationRule> mSpeciesConcentrationRuleConstraints;
+  ConstraintSet<CompartmentVolumeRule>    mCompartmentVolumeRuleConstraints;
+  ConstraintSet<ParameterRule>            mParameterRuleConstraints;
+  ConstraintSet<RateRule>                 mRateRuleConstraints;
+  ConstraintSet<Reaction>                 mReactionConstraints;
+  ConstraintSet<KineticLaw>               mKineticLawConstraints;
+  ConstraintSet<SimpleSpeciesReference>   mSimpleSpeciesReferenceConstraints;
+  ConstraintSet<SpeciesReference>         mSpeciesReferenceConstraints;
+  ConstraintSet<ModifierSpeciesReference> mModifierSpeciesReferenceConstraints;
+  ConstraintSet<Event>                    mEventConstraints;
+  ConstraintSet<EventAssignment>          mEventAssignmentConstraints;
 
-/**
- * Frees the given Validator.
- */
-LIBSBML_EXTERN
-void
-Validator_free (Validator_t *v);
-
-/**
- * Frees the given ValidatorPair.
- */
-void
-ValidatorPair_free (ValidatorPair_t *pair);
+  std::list<ParseMessage> mMessages;
 
 
-/**
- * Adds the given ValidationRule to this validator.  When the Validator is
- * run, the ValidationRule will be called once for each SBML object with
- * the given SBMLTypeCode.
- */
-LIBSBML_EXTERN
-void
-Validator_addRule (Validator_t *v, ValidationRule rule, SBMLTypeCode_t type);
-
-/**
- * Adds the default ValidationRule set to this Validator.
- */
-void
-Validator_addDefaultRules (Validator_t *v);
+  friend class ValidatingVisitor;
+};
 
 
-/**
- * @return the number of ValidationRules in this Validator.
- */
-LIBSBML_EXTERN
-unsigned int
-Validator_getNumRules (const Validator_t *v);
-
-/**
- * @return the nth ValidationRule of this Validator.
- */
-LIBSBML_EXTERN
-ValidationRule
-Validator_getRule (const Validator_t *v, unsigned int n);
-
-/**
- * @return a List of ValidationRules for the SBML object of the given
- * type.
- *
- * The caller owns the returned list (but not its constituent items) and is
- * responsible for freeing it with List_free().
- */
-List_t *
-Validator_getRulesOfType (const Validator_t *v, SBMLTypeCode_t type);
-
-
-/**
- * Validates the given SBML document using the ValidationRules of this
- * Validator.  If messages is not NULL, a ParseMessage error message may be
- * logged for each ValidationRule that failed.
- *
- * @return the number of failed ValidationRules.
- */
-LIBSBML_EXTERN
-unsigned int
-Validator_validate ( const Validator_t    *v,
-                     const SBMLDocument_t *d,
-                     List_t               *messages );
-
-/**
- * Runs all ValidationRules for a given type of SBML object on all SBML
- * objects of that type in the SBML document.  If messages is not NULL, a
- * ParseMessage error message may be logged for each ValidationRule that
- * failed.
- *
- * This function is used internally by Validator_validate().
- *
- * @return the number of failed ValidationRules.
- */
-unsigned int
-Validator_runRules (   const Validator_t    * v
-                     , SBMLTypeCode_t         type
-                     , const SBMLDocument_t * d
-                     , List_t               * messages );
-
-
-END_C_DECLS
-
-
-#endif  /** Validator_h **/
+#endif  /* __cplusplus */
+#endif  /* Validator_h */
