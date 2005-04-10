@@ -72,15 +72,29 @@ thisdir   = src/validator
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers   = Validator.h
+headers = \
+  ConsistencyValidator.h \
+  Constraint.h           \
+  ConstraintMacros.h     \
+  ConstraintSet.h        \
+  GlobalConstraint.h     \
+  LocalConstraint.h      \
+  ValidatingVisitor.h    \
+  Validator.h
 
 header_inst_prefix = validator
 
-sources   = ValidationRules.c Validator.c 
+sources = \
+  ConsistencyValidator.cpp \
+  ConstraintSet.cpp        \
+  GlobalConstraint.cpp     \
+  LocalConstraint.cpp      \
+  ValidatingVisitor.cpp    \
+  Validator.cpp
 
 extra_CPPFLAGS = -I..
 
-subdirs   = test
+subdirs = constraints test
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
@@ -95,7 +109,7 @@ distfiles = $(sources) $(headers) Makefile.in
 
 # The default action is to remake everything.
 
-all: Makefile default
+all: Makefile default all-recursive
 
 
 # -----------------------------------------------------------------------------
