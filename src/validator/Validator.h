@@ -57,12 +57,11 @@
 
 
 #include <list>
-
 #include "xml/ParseMessage.h"
-#include "ConstraintSet.h"
 
 
 class Constraint;
+class ValidatorConstraints;
 
 
 class Validator
@@ -124,36 +123,7 @@ public:
 protected:
 
 
-  /* Maintain a separate list of constraints for each SBML type.  This is
-   * done so that constraints may be applied efficiently during the
-   * validation process.
-   */
-
-  ConstraintSet<GlobalConstraint>         mGlobalConstraints;
-
-  ConstraintSet<SBMLDocument>             mSBMLDocumentConstraints;
-  ConstraintSet<Model>                    mModelConstraints;
-  ConstraintSet<FunctionDefinition>       mFunctionDefinitionConstraints;
-  ConstraintSet<UnitDefinition>           mUnitDefinitionConstraints;
-  ConstraintSet<Unit>                     mUnitConstraints;
-  ConstraintSet<Compartment>              mCompartmentConstraints;
-  ConstraintSet<Species>                  mSpeciesConstraints;
-  ConstraintSet<Parameter>                mParameterConstraints;
-  ConstraintSet<Rule>                     mRuleConstraints;
-  ConstraintSet<AlgebraicRule>            mAlgebraicRuleConstraints;
-  ConstraintSet<AssignmentRule>           mAssignmentRuleConstraints;
-  ConstraintSet<SpeciesConcentrationRule> mSpeciesConcentrationRuleConstraints;
-  ConstraintSet<CompartmentVolumeRule>    mCompartmentVolumeRuleConstraints;
-  ConstraintSet<ParameterRule>            mParameterRuleConstraints;
-  ConstraintSet<RateRule>                 mRateRuleConstraints;
-  ConstraintSet<Reaction>                 mReactionConstraints;
-  ConstraintSet<KineticLaw>               mKineticLawConstraints;
-  ConstraintSet<SimpleSpeciesReference>   mSimpleSpeciesReferenceConstraints;
-  ConstraintSet<SpeciesReference>         mSpeciesReferenceConstraints;
-  ConstraintSet<ModifierSpeciesReference> mModifierSpeciesReferenceConstraints;
-  ConstraintSet<Event>                    mEventConstraints;
-  ConstraintSet<EventAssignment>          mEventAssignmentConstraints;
-
+  ValidatorConstraints*   mConstraints;
   std::list<ParseMessage> mMessages;
 
 
