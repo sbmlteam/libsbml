@@ -76,21 +76,13 @@ headers = \
   ConsistencyValidator.h \
   Constraint.h           \
   ConstraintMacros.h     \
-  ConstraintSet.h        \
   GlobalConstraint.h     \
   LocalConstraint.h      \
-  ValidatingVisitor.h    \
   Validator.h
 
 header_inst_prefix = validator
 
-sources = \
-  ConsistencyValidator.cpp \
-  ConstraintSet.cpp        \
-  GlobalConstraint.cpp     \
-  LocalConstraint.cpp      \
-  ValidatingVisitor.cpp    \
-  Validator.cpp
+sources = ConsistencyValidator.cpp Validator.cpp
 
 extra_CPPFLAGS = -I..
 
