@@ -43,7 +43,7 @@
 
 #ifdef USE_EXPAT
 #  include <expat.h>
-#  include <ExpatFormatter.h>
+#  include "ExpatFormatter.h"
 #else
 #  include <xercesc/framework/XMLFormatter.hpp>
 #  include <xercesc/util/PlatformUtils.hpp>

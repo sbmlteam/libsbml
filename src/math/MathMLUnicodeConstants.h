@@ -58,7 +58,7 @@
 
 
 #ifdef USE_EXPAT
-#  include "ExpatUnicodeChars.h"
+#  include "xml/ExpatUnicodeChars.h"
 #else
 #  include <xercesc/util/XMLUniDefs.hpp>
    using namespace xercesc;

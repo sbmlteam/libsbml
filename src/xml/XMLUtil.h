@@ -58,6 +58,7 @@
 
 
 #include <string>
+#include "common/common.hpp"
 
 
 #ifdef USE_EXPAT

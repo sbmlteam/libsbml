@@ -54,6 +54,9 @@
 #define XMLUnicodeConstants_h
 
 
+#include "common/common.hpp"
+
+
 #ifdef USE_EXPAT
 #  include "ExpatUnicodeChars.h"
 #else
