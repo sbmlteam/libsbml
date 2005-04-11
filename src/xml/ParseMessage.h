@@ -152,6 +152,7 @@ protected:
 BEGIN_C_DECLS
 
 
+#include <stdio.h>
 #include "common/sbmlfwd.h"
 
 
