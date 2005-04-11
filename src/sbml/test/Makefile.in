@@ -173,7 +173,8 @@ endif
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
-otherdirs     = ..  ../../util ../../xml ../../math ../../validator
+otherdirs     = ..  ../../util ../../xml ../../math ../../validator \
+                ../../validator/constraints
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 test_objfiles = $(localobjfiles) $(otherobjfiles)
