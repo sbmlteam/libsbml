@@ -50,11 +50,10 @@
 
 
 #include <iostream>
+#include <list>
 
+#include "validator/ConsistencyValidator.h"
 #include "util/StringBuffer.h"
-
-#include "validator/Validator.h"
-
 #include "xml/ParseMessage.h"
 
 #include "SBMLConvert.h"
@@ -62,6 +61,9 @@
 #include "Model.h"
 
 #include "SBMLDocument.h"
+
+
+using namespace std;
 
 
 /**
@@ -230,34 +232,20 @@ SBMLDocument::getNumFatals () const
  * the given stream.  If no warnings have occurred, i.e.  getNumWarnings()
  * == 0, no output will be sent to stream. The format of the output is:
  *
- *   %d Warning(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience method to aid in debugging.  For example:
- * printWarnings(cout).
+ *   N Warning(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
 SBMLDocument::printWarnings (std::ostream& stream)
 {
-  unsigned int   n, size;
-  ParseMessage*  pm;
+  unsigned int n, size;
 
 
   if ((size = getNumWarnings()) > 0)
   {
-    stream << size << " Warning(s):" << std::endl;
-
-    for (n = 0; n < size; n++)
-    {
-      pm = getWarning(n);
-      stream << "  Line " << pm->getLine()    <<
-                ", Col "  << pm->getColumn()  <<
-                ": "      << pm->getMessage() << std::endl;
-    }
-
-    stream << std::endl;
+    stream << size << " Warning(s):" << endl;
+    for (n = 0; n < size; n++) stream << "  " << *(getWarning(n));
   }
 }
 
@@ -267,34 +255,20 @@ SBMLDocument::printWarnings (std::ostream& stream)
  * the given stream.  If no errors have occurred, i.e.  getNumErrors() ==
  * 0, no output will be sent to stream. The format of the output is:
  *
- *   %d Error(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience method to aid in debugging.  For example:
- * printErrors(cout).
+ *   N Error(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
-SBMLDocument::printErrors (std::ostream& stream)
+SBMLDocument::printErrors (ostream& stream)
 {
-  unsigned int   n, size;
-  ParseMessage*  pm;
+  unsigned int n, size;
 
 
   if ((size = getNumErrors()) > 0)
   {
-    stream << size << " Error(s):" << std::endl;
-
-    for (n = 0; n < size; n++)
-    {
-      pm = getError(n);
-      stream << "  Line " << pm->getLine()    <<
-                ", Col "  << pm->getColumn()  <<
-                ": "      << pm->getMessage() << std::endl;
-    }
-
-    stream << std::endl;
+    stream << size << " Error(s):" << endl;
+    for (n = 0; n < size; n++) stream << "  " << *(getError(n));
   }
 }
 
@@ -304,34 +278,20 @@ SBMLDocument::printErrors (std::ostream& stream)
  * the given stream.  If no fatals have occurred, i.e.  getNumFatals() ==
  * 0, no output will be sent to stream. The format of the output is:
  *
- *   %d Fatal(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience method to aid in debugging.  For example:
- * printFatals(d, cout).
+ *   N Fatal(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
-SBMLDocument::printFatals (std::ostream& stream)
+SBMLDocument::printFatals (ostream& stream)
 {
-  unsigned int   n, size;
-  ParseMessage*  pm;
+  unsigned int n, size;
 
 
   if ((size = getNumFatals()) > 0)
   {
-    stream << size << " Fatal(s):" << std::endl;
-
-    for (n = 0; n < size; n++)
-    {
-      pm = getFatal(n);
-      stream << "  Line " << pm->getLine()    <<
-                ", Col "  << pm->getColumn()  <<
-                ": "      << pm->getMessage() << std::endl;
-    }
-
-    stream << std::endl;
+    stream << size << " Fatal(s):" << endl;
+    for (n = 0; n < size; n++) stream << "  " << *(getFatal(n));
   }
 }
 
@@ -399,8 +359,10 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument::checkConsistency ()
 {
-  unsigned int  nerrors;
-  Validator_t*  v = Validator_createDefault();
+  unsigned int nerrors = 0;
+
+  ConsistencyValidator validator;
+  validator.init();
 
 
   if (getModel() == NULL)
@@ -410,16 +372,32 @@ SBMLDocument::checkConsistency ()
   }
   else
   {
-    /**
-     * HACK: Currently, the Validator uses 'id' instead of 'name',
-     * irrespective of Level.
-     */
+    // HACK: Currently, the Validator uses 'id' instead of 'name',
+    // irrespective of Level.
     if (level == 1) getModel()->moveAllNamesToIds();
 
-    nerrors = Validator_validate(v, (SBMLDocument_t*) this, (List_t*) &error);
-    Validator_free(v);
+    nerrors = validator.validate(*this);
 
-    /* HACK: Change back... */
+    //
+    // Add the Validator messages to the SBMLDocument's list of error
+    // messages.
+    //
+    // FIXME: When the custom List class is replaced with an STL List, the
+    // code below can be replaced with:
+    //
+    //   copy(messages.begin(), messages.end(), back_inserter(error));
+    //
+    const list<ParseMessage>& messages = validator.getMessages();
+
+    list<ParseMessage>::const_iterator end = messages.end();
+    list<ParseMessage>::const_iterator iter;
+
+    for (iter = messages.begin(); iter != end; iter++)
+    {
+      error.add( new ParseMessage(*iter) );
+    }
+
+    // HACK: Change back...
     if (level == 1) getModel()->moveAllIdsToNames();
   }
 
@@ -615,20 +593,14 @@ SBMLDocument_getNumFatals (const SBMLDocument_t *d)
  * SBMLDocument_getNumWarnings(d) == 0, no output will be sent to
  * stream. The format of the output is:
  *
- *   %d Warning(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience function to aid in debugging.  For example:
- * SBMLDocument_printWarnings(d, stdout).
+ *   N Warning(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
 SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
 {
-  unsigned int   n, size;
-  ParseMessage_t *pm;
-
+  unsigned int n, size;
 
   if ((size = SBMLDocument_getNumWarnings(d)) > 0)
   {
@@ -636,14 +608,9 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
 
     for (n = 0; n < size; n++)
     {
-      pm = SBMLDocument_getWarning(d, n);
-      printf( "  Line %d, Col %d: %s\n"
-              , ParseMessage_getLine   (pm)
-              , ParseMessage_getColumn (pm)
-              , ParseMessage_getMessage(pm) );
+      fprintf(stream, "  ");
+      ParseMessage_print(SBMLDocument_getWarning(d, n), stream);
     }
-
-    printf("\n");
   }
 }
 
@@ -654,19 +621,14 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
  * SBMLDocument_getNumErrors(d) == 0, no output will be sent to stream. The
  * format of the output is:
  *
- *   %d Error(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience function to aid in debugging.  For example:
- * SBMLDocument_printErrors(d, stdout).
+ *   N Error(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
 SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
 {
-  unsigned int   n, size;
-  ParseMessage_t *pm;
+  unsigned int n, size;
 
 
   if ((size = SBMLDocument_getNumErrors(d)) > 0)
@@ -675,14 +637,9 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
 
     for (n = 0; n < size; n++)
     {
-      pm = SBMLDocument_getError(d, n);
-      printf( "  Line %d, Col %d: %s\n"
-              , ParseMessage_getLine   (pm)
-              , ParseMessage_getColumn (pm)
-              , ParseMessage_getMessage(pm) );
+      fprintf(stream, "  ");
+      ParseMessage_print(SBMLDocument_getError(d, n), stream);
     }
-
-    printf("\n");
   }
 }
 
@@ -693,19 +650,14 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
  * SBMLDocument_getNumFatals(d) == 0, no output will be sent to stream. The
  * format of the output is:
  *
- *   %d Fatal(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience function to aid in debugging.  For example:
- * SBMLDocument_printFatals(d, stdout).
+ *   N Fatal(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
 SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
 {
-  unsigned int   n, size;
-  ParseMessage_t *pm;
+  unsigned int n, size;
 
 
   if ((size = SBMLDocument_getNumFatals(d)) > 0)
@@ -714,14 +666,9 @@ SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
 
     for (n = 0; n < size; n++)
     {
-      pm = SBMLDocument_getFatal(d, n);
-      printf( "  Line %d, Col %d: %s\n"
-              , ParseMessage_getLine   (pm)
-              , ParseMessage_getColumn (pm)
-              , ParseMessage_getMessage(pm) );
+      fprintf(stream, "  ");
+      ParseMessage_print(SBMLDocument_getFatal(d, n), stream);
     }
-
-    printf("\n");
   }
 }
 

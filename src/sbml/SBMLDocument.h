@@ -169,12 +169,8 @@ public:
    * getNumWarnings() == 0, no output will be sent to stream. The format of
    * the output is:
    *
-   *   %d Warning(s):
-   *     Line %d, Col %d: %s
-   *     ...
-   *
-   * This is a convenience method to aid in debugging.  For example:
-   * printWarnings(cout).
+   *   N Warning(s):
+   *     line: (id) message
    */
   LIBSBML_EXTERN
   void printWarnings (std::ostream& stream);
@@ -184,12 +180,8 @@ public:
    * the given stream.  If no errors have occurred, i.e.  getNumErrors() ==
    * 0, no output will be sent to stream. The format of the output is:
    *
-   *   %d Error(s):
-   *     Line %d, Col %d: %s
-   *     ...
-   *
-   * This is a convenience method to aid in debugging.  For example:
-   * printErrors(cout).
+   *   N Error(s):
+   *     line: (id) message
    */
   LIBSBML_EXTERN
   void printErrors (std::ostream& stream);
@@ -199,12 +191,8 @@ public:
    * the given stream.  If no fatals have occurred, i.e.  getNumFatals() ==
    * 0, no output will be sent to stream. The format of the output is:
    *
-   *   %d Fatal(s):
-   *     Line %d, Col %d: %s
-   *     ...
-   *
-   * This is a convenience method to aid in debugging.  For example:
-   * printFatals(d, cout).
+   *   N Fatal(s):
+   *     line: (id) message
    */
   LIBSBML_EXTERN
   void printFatals (std::ostream& stream);
@@ -394,12 +382,8 @@ SBMLDocument_getNumFatals (const SBMLDocument_t *d);
  * SBMLDocument_getNumWarnings(d) == 0, no output will be sent to
  * stream. The format of the output is:
  *
- *   %d Warning(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience function to aid in debugging.  For example:
- * SBMLDocument_printWarnings(d, stdout).
+ *   N Warning(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
@@ -411,12 +395,8 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream);
  * SBMLDocument_getNumErrors(d) == 0, no output will be sent to stream. The
  * format of the output is:
  *
- *   %d Error(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience function to aid in debugging.  For example:
- * SBMLDocument_printErrors(d, stdout).
+ *   N Error(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
@@ -428,12 +408,8 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream);
  * SBMLDocument_getNumFatals(d) == 0, no output will be sent to stream. The
  * format of the output is:
  *
- *   %d Fatal(s):
- *     Line %d, Col %d: %s
- *     ...
- *
- * This is a convenience function to aid in debugging.  For example:
- * SBMLDocument_printFatals(d, stdout).
+ *   N Fatal(s):
+ *     line: (id) message
  */
 LIBSBML_EXTERN
 void
