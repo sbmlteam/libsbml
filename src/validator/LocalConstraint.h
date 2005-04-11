@@ -71,6 +71,7 @@ struct LocalConstraint: public Constraint
    */
   LocalConstraint (unsigned int id) : Constraint(id) { }
 
+
   /**
    * @return true if this contraint holds when applied to the given SBML
    * object of type T, false otherwise.
@@ -78,7 +79,17 @@ struct LocalConstraint: public Constraint
    * The Model object should contain x and is passed in to provide
    * additional context information, should the contraint need it.
    */
-  bool holds (const Model& m, const T& x);
+  bool holds (const Model& m, const T& x)
+  {
+    mHolds = true;
+
+    check(m, x);
+
+    bool result = mHolds;
+    mHolds      = true;
+
+    return result;
+  }
 
   /**
    * @return the error message for this LocalConstraint.
