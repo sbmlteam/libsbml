@@ -77,12 +77,12 @@ public:
   /**
    * Creates a new GlobalConstraint with the given id.
    */
-  GlobalConstraint (unsigned int id);
+  GlobalConstraint (unsigned int id) : Constraint(id) { }
 
   /**
    * Destroys this GlobalConstraint.
    */
-  virtual ~GlobalConstraint ();
+  virtual ~GlobalConstraint () { };
 
 
   /**
@@ -100,7 +100,7 @@ public:
    * Resets the state of this GlobalConstraint by clearing its internal
    * list of error messages.
    */
-  virtual void reset ();
+  virtual void reset () { mMessages.clear(); }
 
 
 protected:
@@ -108,7 +108,7 @@ protected:
   /**
    * The holds method delegates to this pure virtual method.
    */
-  virtual bool check (const Model& m);
+  virtual bool check (const Model& m) { return true; }
 
   /**
    * Adds the given message to this list of messages.
