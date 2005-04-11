@@ -164,7 +164,8 @@ subdirs = test
 # redefines the defaults from makefile-common-actions.mk to accomplish this.
 
 objects   = $(call make_objects_list,$(sources))
-otherdirs = ../common ../util ../xml ../math ../validator
+otherdirs = ../common ../util ../xml ../math ../validator \
+            ../validator/constraints
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 # The libraries are actually placed in the parent directory.
