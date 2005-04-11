@@ -82,6 +82,12 @@ public:
   );
 
   /**
+   * Creates a new ParseMessage by copying an existing ParseMessage.
+   */
+  LIBSBML_EXTERN
+  ParseMessage (const ParseMessage& msg);
+
+  /**
    * Destroys this ParseMessage.
    */
   virtual ~ParseMessage ();
@@ -118,7 +124,7 @@ public:
    * Outputs this ParseMessage to stream in the following format (and
    * followed by a newline):
    *
-   *   line:col:(id) message
+   *   line: (id) message
    */
   friend
   std::ostream& operator<< (std::ostream& stream, const ParseMessage& pm);
@@ -199,6 +205,16 @@ ParseMessage_getLine (const ParseMessage_t *pm);
 LIBSBML_EXTERN
 unsigned int
 ParseMessage_getColumn (const ParseMessage_t *pm);
+
+/**
+ * Outputs this ParseMessage to stream in the following format (and
+ * followed by a newline):
+ *
+ *   line: (id) message
+ */
+LIBSBML_EXTERN
+void
+ParseMessage_print (const ParseMessage_t *pm, FILE *stream);
 
 
 END_C_DECLS

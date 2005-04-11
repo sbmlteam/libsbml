@@ -50,6 +50,9 @@
 
 
 #include <iostream>
+#include <sstream>
+
+#include <cstdio>
 
 #include "ParseMessage.h"
 
@@ -71,6 +74,19 @@ ParseMessage::ParseMessage (   unsigned int  id
   , mMessage( message )
   , mLine   ( line    )
   , mColumn ( column  )
+{
+}
+
+
+/**
+ * Creates a new ParseMessage by copying an existing ParseMessage.
+ */
+LIBSBML_EXTERN
+ParseMessage::ParseMessage (const ParseMessage& msg) :
+    mId     ( msg.mId      )
+  , mMessage( msg.mMessage )
+  , mLine   ( msg.mLine    )
+  , mColumn ( msg.mColumn  )
 {
 }
 
@@ -131,13 +147,11 @@ ParseMessage::getColumn () const
  * Outputs this ParseMessage to stream in the following format (and
  * followed by a newline):
  *
- *   line:col:(id) message
+ *   line: (id) message
  */
 ostream& operator<< (ostream& s, const ParseMessage& pm)
 {
-  s << pm.mLine << ':' << pm.mColumn << ": (" << pm.mId << ") " << pm.mMessage
-    << endl;
-
+  s << pm.mLine << ": (" << pm.mId << ") " << pm.mMessage << endl;
   return s;
 }
 
@@ -222,4 +236,22 @@ unsigned int
 ParseMessage_getColumn (const ParseMessage_t *pm)
 {
   return static_cast<const ParseMessage*>(pm)->getColumn();
+}
+
+
+/**
+ * Outputs this ParseMessage to stream in the following format (and
+ * followed by a newline):
+ *
+ *   line: (id) message
+ */
+LIBSBML_EXTERN
+void
+ParseMessage_print (const ParseMessage_t *pm, FILE *stream)
+{
+  ostringstream os;
+
+
+  os << *(static_cast<const ParseMessage*>(pm));
+  fprintf(stream, "%s", os.str().c_str());
 }
