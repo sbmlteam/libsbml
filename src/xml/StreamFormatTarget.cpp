@@ -41,13 +41,6 @@
 #include "StreamFormatTarget.h"
 
 
-/* taken out for MSVC build
-
-#ifndef USE_EXPAT
-XERCES_CPP_NAMESPACE_BEGIN
-#endif
-*/
-
 StreamFormatTarget::StreamFormatTarget ():
 XMLFormatTarget(),
 mO(std::cout)
@@ -96,10 +89,3 @@ void StreamFormatTarget::writeChars(const XMLByte* const  toWrite
 
 }
 #endif
-
-/* taken out for MSVC build
-
-#ifndef USE_EXPAT
-XERCES_CPP_NAMESPACE_END
-#endif // !USE_EXPAT
-*/
