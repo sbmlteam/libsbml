@@ -251,6 +251,7 @@ AC_CONFIG_FILES([src/util/Makefile])
 AC_CONFIG_FILES([src/util/test/Makefile])
 
 AC_CONFIG_FILES([src/validator/Makefile])
+AC_CONFIG_FILES([src/validator/constraints/Makefile])
 AC_CONFIG_FILES([src/validator/test/Makefile])
 
 AC_CONFIG_FILES([src/xml/Makefile])
