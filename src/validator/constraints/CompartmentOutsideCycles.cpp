@@ -193,7 +193,7 @@ CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
     msg += " -> '" + c->getId() + "'";
   }
 
-  msg += '.';
+  msg += " (L2v1 erratum).";
 
   logMessage( ParseMessage(getId(), msg, c->getLine(), c->getColumn()) );
 }
