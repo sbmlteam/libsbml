@@ -7,8 +7,12 @@ an initialConcentration.
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
+    <listOfCompartments>
+      <compartment id="c"/>
+    </listOfCompartments>
     <listOfSpecies>
-      <species id="s" hasOnlySubstanceUnits="false" initialConcentration="2.4"/>
+      <species id="s" compartment="c" hasOnlySubstanceUnits="false"
+               initialConcentration="2.4"/>
     </listOfSpecies>
   </model>
 </sbml>

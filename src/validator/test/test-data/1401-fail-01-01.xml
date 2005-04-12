@@ -7,8 +7,12 @@ spatialSizeUnits.
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
+    <listOfCompartments>
+      <compartment id="c"/>
+    </listOfCompartments>
     <listOfSpecies>
-      <species id="s" hasOnlySubstanceUnits="true" spatialSizeUnits="volume"/>
+      <species id="s" compartment="c" hasOnlySubstanceUnits="true"
+               spatialSizeUnits="volume"/>
     </listOfSpecies>
   </model>
 </sbml>

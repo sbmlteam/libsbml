@@ -15,8 +15,11 @@ exponent='1'.
         </listOfUnits>
       </unitDefinition>
     </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="c"/>
+    </listOfCompartments>
     <listOfSpecies>
-      <species id="s"/>
+      <species id="s" compartment="c"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="r">

@@ -4,8 +4,11 @@
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
+    <listOfCompartments>
+      <compartment id="c"/>
+    </listOfCompartments>
     <listOfSpecies>
-      <species id="s"/>
+      <species id="s" compartment="c"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="r">

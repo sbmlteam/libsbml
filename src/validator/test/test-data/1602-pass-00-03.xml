@@ -7,8 +7,12 @@ constant='true' and boundaryCondition='false'.
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
+    <listOfCompartments>
+      <compartment id="c"/>
+    </listOfCompartments>
     <listOfSpecies>
-      <species id="s" constant="false" boundaryCondition="true"/>
+      <species id="s" compartment="c" constant="false"
+               boundaryCondition="true"/>
     </listOfSpecies>
     <listOfReactions>
       <reaction id="r">
