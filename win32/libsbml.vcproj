@@ -23,8 +23,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS"
+				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug/libsbml.pch"
 				AssemblerListingLocation=".\Debug/"
@@ -142,1160 +144,136 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
-			<File
-				RelativePath="..\src\AlgebraicRule.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\AssignmentRule.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\ASTNode.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Compartment.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\CompartmentVolumeRule.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Event.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\EventAssignment.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FormulaFormatter.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FormulaParser.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FormulaTokenizer.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\FunctionDefinition.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\KineticLaw.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\List.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\ListOf.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\MathMLDocument.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\MathMLFormatter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\MathMLHandler.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\MathMLReader.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\MathMLTagCodes.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\MathMLWriter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\memory.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Model.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\ModifierSpeciesReference.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Parameter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\ParameterRule.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\ParseMessage.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\RateRule.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Reaction.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Rule.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\RuleType.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SAX2AttributesMock.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBase.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBMLConvert.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBMLDocument.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBMLFormatter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBMLHandler.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBMLReader.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBMLTagCodes.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SBMLWriter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SimpleSpeciesReference.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Species.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SpeciesConcentrationRule.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\SpeciesReference.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Stack.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\StringBuffer.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\StringMap.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Unit.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\UnitDefinition.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\UnitKind.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\util.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\ValidationRules.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\Validator.c">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\XMLStringFormatter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\XMLUtil.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl">
+			Filter="">
 			<File
 				RelativePath="..\src\sbml\AlgebraicRule.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\AlgebraicRule.hpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\AssignmentRule.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\AssignmentRule.hpp">
+				RelativePath="..\src\math\ASTNode.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\ASTNode.h">
+				RelativePath="..\src\math\ASTNodeType.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\ASTNode.hpp">
+				RelativePath="..\src\common\common.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\ASTNodeType.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\common.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\common.hpp">
+				RelativePath="..\src\common\common.hpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Compartment.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Compartment.hpp">
+				RelativePath="..\src\validator\constraints\CompartmentOutsideCycles.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\CompartmentVolumeRule.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\CompartmentVolumeRule.hpp">
+				RelativePath="..\src\validator\ConsistencyValidator.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\config.h">
+				RelativePath="..\src\validator\Constraint.h">
+			</File>
+			<File
+				RelativePath="..\src\validator\ConstraintMacros.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Event.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Event.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\EventAssignment.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\EventAssignment.hpp">
+				RelativePath="..\src\common\extern.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\extern.h">
+				RelativePath="..\src\math\FormulaFormatter.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\FormulaFormatter.h">
+				RelativePath="..\src\math\FormulaParser.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\FormulaParser.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\FormulaTokenizer.h">
+				RelativePath="..\src\math\FormulaTokenizer.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\FunctionDefinition.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\FunctionDefinition.hpp">
+				RelativePath="..\src\validator\GlobalConstraint.h">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\IdList.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\KineticLaw.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\KineticLaw.hpp">
-			</File>
-			<File
-				RelativePath="..\src\sbml\List.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\List.hpp">
+				RelativePath="..\src\util\List.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\ListOf.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\ListOf.hpp">
+				RelativePath="..\src\validator\LocalConstraint.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLDocument.h">
+				RelativePath="..\src\math\MathMLDocument.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLDocument.hpp">
+				RelativePath="..\src\math\MathMLFormatter.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLFormatter.hpp">
+				RelativePath="..\src\math\MathMLHandler.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLHandler.hpp">
+				RelativePath="..\src\math\MathMLReader.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLReader.h">
+				RelativePath="..\src\math\MathMLTagCodes.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLTagCodes.hpp">
+				RelativePath="..\src\math\MathMLUnicodeConstants.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLUnicodeConstants.hpp">
+				RelativePath="..\src\math\MathMLWriter.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\MathMLWriter.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\memory.h">
+				RelativePath="..\src\util\memory.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Model.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Model.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\ModifierSpeciesReference.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\ModifierSpeciesReference.hpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Parameter.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Parameter.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\ParameterRule.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\ParameterRule.hpp">
-			</File>
-			<File
-				RelativePath="..\src\sbml\ParseMessage.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\ParseMessage.hpp">
+				RelativePath="..\src\xml\ParseMessage.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\RateRule.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\RateRule.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\Reaction.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\Reaction.hpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Rule.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Rule.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\RuleType.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SAX2AttributesMock.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\SBase.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\SBase.hpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\SBMLConvert.h">
@@ -1304,22 +282,19 @@
 				RelativePath="..\src\sbml\SBMLDocument.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLDocument.hpp">
+				RelativePath="..\src\sbml\SBMLFormatter.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLFormatter.hpp">
+				RelativePath="..\src\common\sbmlfwd.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLHandler.hpp">
+				RelativePath="..\src\sbml\SBMLHandler.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\SBMLReader.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLReader.hpp">
-			</File>
-			<File
-				RelativePath="..\src\sbml\SBMLTagCodes.hpp">
+				RelativePath="..\src\sbml\SBMLTagCodes.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\SBMLTypeCodes.h">
@@ -1328,10 +303,10 @@
 				RelativePath="..\src\sbml\SBMLTypes.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLTypes.hpp">
+				RelativePath="..\src\sbml\SBMLUnicodeConstants.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLUnicodeConstants.hpp">
+				RelativePath="..\src\sbml\SBMLVisitor.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\SBMLWriter.h">
@@ -1340,72 +315,244 @@
 				RelativePath="..\src\sbml\SimpleSpeciesReference.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SimpleSpeciesReference.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\Species.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\Species.hpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\SpeciesConcentrationRule.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SpeciesConcentrationRule.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\SpeciesReference.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SpeciesReference.hpp">
+				RelativePath="..\src\util\Stack.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Stack.h">
+				RelativePath="..\src\xml\StreamFormatTarget.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\StringBuffer.h">
+				RelativePath="..\src\util\StringBuffer.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\StringMap.h">
+				RelativePath="..\src\util\StringMap.h">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Unit.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Unit.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\UnitDefinition.h">
-			</File>
-			<File
-				RelativePath="..\src\sbml\UnitDefinition.hpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\UnitKind.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\util.h">
+				RelativePath="..\src\util\util.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Validator.h">
+				RelativePath="..\src\validator\Validator.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\XMLSchemaValidation.h">
+				RelativePath="..\src\xml\XMLNamespace.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\XMLStringFormatter.hpp">
+				RelativePath="..\src\xml\XMLNamespaceList.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\XMLUnicodeConstants.hpp">
+				RelativePath="..\src\xml\XMLSchemaValidation.h">
 			</File>
 			<File
-				RelativePath="..\src\sbml\XMLUtil.hpp">
+				RelativePath="..\src\xml\XMLStringFormatter.h">
+			</File>
+			<File
+				RelativePath="..\src\xml\XMLUnicodeConstants.h">
+			</File>
+			<File
+				RelativePath="..\src\xml\XMLUtil.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="">
+			<File
+				RelativePath="..\src\sbml\AlgebraicRule.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\AssignmentRule.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\ASTNode.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Compartment.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\CompartmentOutsideCycles.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\CompartmentVolumeRule.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\ConsistencyValidator.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Event.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\EventAssignment.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\FormulaFormatter.c">
+			</File>
+			<File
+				RelativePath="..\src\math\FormulaParser.c">
+			</File>
+			<File
+				RelativePath="..\src\math\FormulaTokenizer.c">
+			</File>
+			<File
+				RelativePath="..\src\sbml\FunctionDefinition.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\IdList.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\KineticLaw.cpp">
+			</File>
+			<File
+				RelativePath="..\src\util\List.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\ListOf.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\MathMLDocument.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\MathMLFormatter.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\MathMLHandler.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\MathMLReader.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\MathMLTagCodes.cpp">
+			</File>
+			<File
+				RelativePath="..\src\math\MathMLWriter.cpp">
+			</File>
+			<File
+				RelativePath="..\src\util\memory.c">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Model.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\ModifierSpeciesReference.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Parameter.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\ParameterRule.cpp">
+			</File>
+			<File
+				RelativePath="..\src\xml\ParseMessage.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\RateRule.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Reaction.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Rule.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\RuleType.c">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBase.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLConvert.c">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLDocument.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLFormatter.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLHandler.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLReader.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLTagCodes.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLVisitor.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLWriter.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SimpleSpeciesReference.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Species.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SpeciesConcentrationRule.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SpeciesReference.cpp">
+			</File>
+			<File
+				RelativePath="..\src\util\Stack.c">
+			</File>
+			<File
+				RelativePath="..\src\xml\StreamFormatTarget.cpp">
+			</File>
+			<File
+				RelativePath="..\src\util\StringBuffer.c">
+			</File>
+			<File
+				RelativePath="..\src\util\StringMap.c">
+			</File>
+			<File
+				RelativePath="..\src\sbml\Unit.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\UnitDefinition.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\UnitKind.c">
+			</File>
+			<File
+				RelativePath="..\src\util\util.c">
+			</File>
+			<File
+				RelativePath="..\src\validator\Validator.cpp">
+			</File>
+			<File
+				RelativePath="..\src\xml\XMLNamespace.cpp">
+			</File>
+			<File
+				RelativePath="..\src\xml\XMLNamespaceList.cpp">
+			</File>
+			<File
+				RelativePath="..\src\xml\XMLStringFormatter.cpp">
+			</File>
+			<File
+				RelativePath="..\src\xml\XMLUtil.cpp">
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\src\sbml\config.h.in">
