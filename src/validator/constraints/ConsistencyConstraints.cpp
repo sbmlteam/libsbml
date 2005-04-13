@@ -63,7 +63,6 @@
 using namespace std;
 
 
-// FIXME: Needs test cases
 START_CONSTRAINT (1002, Model, x)
 {
   msg =
