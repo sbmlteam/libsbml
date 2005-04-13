@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-Fail: (1304) A Compartment with spatialDimensions='1' must have units
-of 'length', 'metre', or the id of a UnitDefinition that defines a
-variant of 'metre' with exponent='1'.
+<!-- 
+Pass: (1304) A Compartment may not enclose itself via its 'outside'
+attribute (L2v1 erratum).  Compartment 'a' encloses itself via 'a' ->
+'b' -> 'a'.
 -->
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
-    <listOfUnitDefinitions>
-      <unitDefinition id="sqm">
-        <listOfUnits>
-          <unit kind="metre" exponent="2"/>
-        </listOfUnits>
-      </unitDefinition>
-    </listOfUnitDefinitions>
     <listOfCompartments>
-      <compartment id="c" spatialDimensions="1" units="sqm"/>
+      <compartment id="a" outside="b"/>
+      <compartment id="b" outside="a"/>
     </listOfCompartments>
   </model>
 </sbml>

@@ -9,6 +9,8 @@ attribute (L2v1 erratum).  Compartment 'a' encloses itself.
   <model>
     <listOfCompartments>
       <compartment id="a" outside="a"/>
+      <compartment id="b" outside="a"/>
+      <compartment id="c" outside="b"/>
     </listOfCompartments>
   </model>
 </sbml>
