@@ -138,10 +138,10 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\examples\util.cpp">
+				RelativePath="..\examples\util.c">
 			</File>
 			<File
-				RelativePath="..\examples\validateSBML.cpp">
+				RelativePath="..\examples\validateSBML.c">
 			</File>
 		</Filter>
 		<Filter
