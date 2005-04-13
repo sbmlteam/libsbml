@@ -181,19 +181,20 @@ CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
   string msg;
 
 
-  msg  = "A Compartment may not enclose itself via its 'outside' attribute, ";
-  msg += "but Compartment '" + c->getId() + "' encloses itself";
+  msg  = "A Compartment may not enclose itself via its 'outside' attribute ";
+  msg += "(L2v1 erratum).  Compartment '" + c->getId() + "' encloses itself";
 
   if (cycle.size() > 1)
   {
     IdList::const_iterator iter = cycle.begin();
     IdList::const_iterator end  = cycle.end();
 
+    msg += " via '" + *iter++ + "'";
     while (iter != end) msg += " -> '" + *iter++ + "'";
     msg += " -> '" + c->getId() + "'";
   }
 
-  msg += " (L2v1 erratum).";
+  msg += '.';
 
   logMessage( ParseMessage(getId(), msg, c->getLine(), c->getColumn()) );
 }
