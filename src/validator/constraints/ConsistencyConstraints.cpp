@@ -220,13 +220,25 @@ START_CONSTRAINT (1301, Compartment, c)
     "(L2v1 Section 4.5.4).";
 
   pre( c.getSpatialDimensions() == 0 );
-  inv( c.isSetUnits() == false );
+  inv( c.isSetUnits() == false       );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (1302, Compartment, c)
+{
+  msg =
+    "A Compartment must be constant if spatialDimensions is zero "
+    "(L2v1 Section 4.5.5).";
+
+  pre( c.getSpatialDimensions() == 0 );
+  inv( c.getConstant() == true       );
 }
 END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1302, Compartment, c)
+START_CONSTRAINT (1303, Compartment, c)
 {
   msg =
     "A Compartment's 'outside' must be the id of another Compartment "
@@ -239,10 +251,10 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-EXTERN_CONSTRAINT(1303, CompartmentOutsideCycles)
+EXTERN_CONSTRAINT(1304, CompartmentOutsideCycles)
 
 
-START_CONSTRAINT (1304, Compartment, c)
+START_CONSTRAINT (1305, Compartment, c)
 {
   msg =
     "A Compartment with spatialDimensions='1' must have units of 'length', "
@@ -262,7 +274,7 @@ START_CONSTRAINT (1304, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1305, Compartment, c)
+START_CONSTRAINT (1306, Compartment, c)
 {
   msg =
     "A Compartment with spatialDimensions='2' must have units of 'area' "
@@ -281,7 +293,7 @@ START_CONSTRAINT (1305, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1306, Compartment, c)
+START_CONSTRAINT (1307, Compartment, c)
 {
   msg =
     "A Compartment with spatialDimensions='3' must have units of 'volume', "
@@ -299,21 +311,6 @@ START_CONSTRAINT (1306, Compartment, c)
   inv_or( defn  != NULL && defn->isVariantOfVolume() );
 }
 END_CONSTRAINT
-
-
-// FIXME: Needs test cases.
-// FIXME: This should be really be grouped with 1300 - 1302
-START_CONSTRAINT (1307, Compartment, c)
-{
-  msg =
-    "A Compartment must be constant if spatialDimensions is zero "
-    "(L2v1 Section 4.5.5).";
-
-  pre( c.getSpatialDimensions() == 0 );
-  inv( c.getConstant() == true );
-}
-END_CONSTRAINT
-
 
 
 // NOTE: This constraint also applies to L1 Models.
