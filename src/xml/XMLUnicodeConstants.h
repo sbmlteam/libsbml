@@ -66,9 +66,9 @@
 
 
 /**
- * <?xml version="1.0" encoding="
+ * <?xml version="1.0" encoding="UTF-8"?>
  */
-static const XMLCh XML_DECL_1[] =
+static const XMLCh XML_DECL[] =
 {
   chOpenAngle, chQuestion,
 
@@ -84,34 +84,17 @@ static const XMLCh XML_DECL_1[] =
   chLatin_e, chLatin_n, chLatin_c, chLatin_o, chLatin_d, chLatin_i,
   chLatin_n, chLatin_g,
 
-  chEqual, chDoubleQuote, chNull
-};
+  chEqual,
 
+  chDoubleQuote,
+  chLatin_U, chLatin_T, chLatin_F, chDash, chDigit_8,
+  chDoubleQuote,
+  
+  chQuestion, chCloseAngle,
 
-/**
- * "?>
- */
-static const XMLCh XML_DECL_2[] =
-{
-  chDoubleQuote, chQuestion, chCloseAngle, chLF, chNull
-};
+  chLF,
 
-
-/**
- * 1.0
- */
-static const XMLCh XML_VERSION_1_0[] =
-{
-  chDigit_1, chPeriod, chDigit_0, chNull
-};
-
-
-/**
- * 1.1
- */
-static const XMLCh XML_VERSION_1_1[] =
-{
-  chDigit_1, chPeriod, chDigit_1, chNull
+  chNull
 };
 
 
