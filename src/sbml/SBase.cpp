@@ -262,7 +262,7 @@ SBase::toSBML (unsigned int level, unsigned int version)
 #endif  // USE_EXPAT
 
   target    = new MemBufFormatTarget();
-  formatter = new SBMLFormatter("UTF-8", target, false);
+  formatter = new SBMLFormatter(target, false);
 
   *formatter <<
     ((level == 1) ? SBMLFormatter::Level1 : SBMLFormatter::Level2);
