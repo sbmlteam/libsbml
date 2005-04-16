@@ -54,62 +54,104 @@
 
 
 #include "common/extern.h"
-#include "common/sbmlfwd.h"
 
 
-/**
- * The character encodings supported by SBMLWriter
- */
-typedef enum
-{
-    CHARACTER_ENCODING_ASCII
-  , CHARACTER_ENCODING_UTF_8
-  , CHARACTER_ENCODING_UTF_16
-  , CHARACTER_ENCODING_ISO_8859_1
-  , CHARACTER_ENCODING_INVALID
-} CharacterEncoding_t;
-
-
-/**
- * An SBMLWriter maintains some simple state related to how SBML documents
- * should be written to file or in-memory string.
- */
-typedef struct
-{
-  CharacterEncoding_t encoding;
-  char * programName;
-  char * programVersion;
-} SBMLWriter_t;
-
-
-#if defined(__cplusplus) && !defined(SWIG)
+#ifdef __cplusplus
 
 
 #include <iosfwd>
+#include <string>
 
 
 class SBMLDocument;
 
-/**
- * Writes the given SBML document to ostream (with the settings provided
- * by this SBMLWriter).
- *
- * @return 1 on success and 0 on failure (e.g., if filename could not be
- * opened for writing or the SBMLWriter character encoding is invalid).*
- */
-LIBSBML_EXTERN
-int
-SBMLWriter_writeSBMLToStream ( SBMLWriter_t   *sw,
-                               SBMLDocument_t *d,
-                               std::ostream   &o);
 
-#endif  /* __cplusplus && !SWIG */
+class SBMLWriter
+{
+public:
+
+  /**
+   * Creates a new SBMLWriter.
+   */
+  SBMLWriter  ();
+
+  /**
+   * Destroys this SBMLWriter.
+   */
+  ~SBMLWriter ();
+
+
+  /**
+   * Sets the name of this program, i.e. the one about to write out the
+   * SBMLDocument.  If the program name and version are set
+   * (setProgramVersion()), the following XML comment, intended for human
+   * consumption, will be written at the beginning of the document:
+   *
+   *   <!-- Created by <program name> version <program version>
+   *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+   */
+  LIBSBML_EXTERN
+  void setProgramName (const std::string& name);
+
+  /**
+   * Sets the version of this program, i.e. the one about to write out the
+   * SBMLDocument.  If the program version and name are set
+   * (setProgramName()), the following XML comment, intended for human
+   * consumption, will be written at the beginning of the document:
+   *
+   *   <!-- Created by <program name> version <program version>
+   *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+   */
+  LIBSBML_EXTERN
+  void setProgramVersion (const std::string& version);
+
+  /**
+   * Writes the given SBML document to filename.
+   *
+   * @return true on success and false if the filename could not be opened
+   * for writing.
+   */
+  LIBSBML_EXTERN
+  bool write (const SBMLDocument& d, const std::string& filename);
+
+  /**
+   * Writes the given SBML document to the output stream.
+   *
+   * @return true on success and false if one of the underlying Xerces or
+   * Expat components fail (rare).
+   */
+  LIBSBML_EXTERN
+  bool write (const SBMLDocument& d, std::ostream& stream);
+
+  /**
+   * Writes the given SBML document to an in-memory string and returns a
+   * pointer to it.  The string is owned by the caller and should be freed
+   * (with free()) when no longer needed.
+   *
+   * @return the string on success and 0 if one of the underlying Xerces or
+   * Expat components fail (rare).
+   */
+  LIBSBML_EXTERN
+  char* writeToString (const SBMLDocument& d);
+
+
+ protected:
+
+  std::string mProgramName;
+  std::string mProgramVersion;
+};
+
+
+#endif  /* __cplusplus */
 
 
 #ifndef SWIG
 
 
 BEGIN_C_DECLS
+
+
+#include "common/sbmlfwd.h"
 
 
 /**
@@ -130,95 +172,89 @@ void
 SBMLWriter_free (SBMLWriter_t *sw);
 
 /**
- * Initializes the fields of this SBMLWriter to their defaults:
+ * Sets the name of this program, i.e. the one about to write out the
+ * SBMLDocument.  If the program name and version are set
+ * (setProgramVersion()), the following XML comment, intended for human
+ * consumption, will be written at the beginning of the document:
  *
- *  - encoding = CHARACTER_ENCODING_UTF_8
+ *   <!-- Created by <program name> version <program version>
+ *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
  */
 LIBSBML_EXTERN
 void
-SBMLWriter_initDefaults (SBMLWriter_t *sw);
+SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
 
 /**
- * Sets the character encoding for this SBMLWriter to the given
- * CharacterEncoding type.
- */
-LIBSBML_EXTERN
-void
-SBMLWriter_setEncoding (SBMLWriter_t *sw, CharacterEncoding_t encoding);
-
-/**
- * Sets the program name of the writing program.
- */
-LIBSBML_EXTERN
-void
-SBMLWriter_setProgramName (SBMLWriter_t *sw, const char * programName);
-
-/**
- * Sets the program version of the writing program.
- */
-LIBSBML_EXTERN
-void
-SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char * programVersion);
-
-/**
- * Writes the given SBML document to filename (with the settings provided
- * by this SBMLWriter).
+ * Sets the version of this program, i.e. the one about to write out the
+ * SBMLDocument.  If the program version and name are set
+ * (setProgramName()), the following XML comment, intended for human
+ * consumption, will be written at the beginning of the document:
  *
- * @return 1 on success and 0 on failure (e.g., if filename could not be
- * opened for writing or the SBMLWriter character encoding is invalid).
+ *   <!-- Created by <program name> version <program version>
+ *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+ */
+LIBSBML_EXTERN
+void
+SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
+
+/**
+ * Writes the given SBML document to filename.
+ *
+ * @return non-zero on success and zero if the filename could not be opened
+ * for writing.)
  */
 LIBSBML_EXTERN
 int
-SBMLWriter_writeSBML ( SBMLWriter_t   *sw,
-                       SBMLDocument_t *d,
-                       const char     *filename );
+SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
+                       const SBMLDocument_t *d,
+                       const char           *filename );
 
 /**
- * Writes the given SBML document to an in-memory string (with the settings
- * provided by this SBMLWriter) and returns a pointer to it.  The string is
- * owned by the caller and should be freed (with free()) when no longer
- * needed.
+ * Writes the given SBML document to an in-memory string and returns a
+ * pointer to it.  The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.
  *
- * @return NULL on failure (e.g., if the SBMLWriter character encoding is
- * invalid).
+ * @return the string on success and NULL if one of the underlying Xerces or
+ * Expat components fail (rare).
  */
 LIBSBML_EXTERN
 char *
-SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, SBMLDocument_t *d);
+SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d);
+
+
+#endif  /* !SWIG */
 
 
 /**
- * Writes the given SBML document to filename with the settings provided by
- * this SBMLWriter.  This convenience function is functionally equivalent
- * to:
+ * Writes the given SBML document to filename.  This convenience function
+ * is functionally equivalent to:
  *
  *   SBMLWriter_writeSBML(SBMLWriter_create(), d, filename);
  *
- * @return 1 on success and 0 on failure (e.g., if filename could not be
- * opened for writing or the SBMLWriter character encoding is invalid).
+ * @return non-zero on success and zero if the filename could not be opened
+ * for writing.)
  */
 LIBSBML_EXTERN
 int
-writeSBML (SBMLDocument_t *d, const char *filename);
+writeSBML (const SBMLDocument_t *d, const char *filename);
 
 /**
- * Writes the given SBML document to an in-memory string (with the settings
- * provided by this SBMLWriter) and returns a pointer to it.  The string is
- * owned by the caller and should be freed (with free()) when no longer
- * needed.  This convenience function is functionally equivalent to:
+ * Writes the given SBML document to an in-memory string and returns a
+ * pointer to it.  The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.  This convenience function is
+ * functionally equivalent to:
  *
  *   SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
  *
- * @return NULL on failure (e.g., if the SBMLWriter character encoding is
- * invalid).
+ * @return the string on success and NULL if one of the underlying Xerces
+ * or Expat components fail (rare).
  */
 LIBSBML_EXTERN
 char *
-writeSBMLToString (SBMLDocument_t *d);
+writeSBMLToString (const SBMLDocument_t *d);
 
 
 END_C_DECLS
 
 
-#endif  /* !SWIG */
 #endif  /* SBMLWriter_h */
