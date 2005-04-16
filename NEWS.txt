@@ -78,9 +78,10 @@
 * Changes:
 
 
-  - Removed support for various character encodings.  This change has
-    been a long time coming.  LibSBML supports only UTF-8 because that
-    is what the SBML standards require.
+  - Removed support for writing various character encodings.  This
+    change has been a long time coming.  LibSBML should support
+    writing only UTF-8 because that is what the SBML standard
+    requires.
 
   - Renamed two methods on the Reaction class:
 
