@@ -145,10 +145,11 @@ public:
 #endif  /* __cplusplus */
 
 
-#ifndef SWIG
-
 
 BEGIN_C_DECLS
+
+
+#ifndef SWIG
 
 
 #include "common/sbmlfwd.h"
