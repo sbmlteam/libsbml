@@ -582,7 +582,8 @@ def testSBMLReader():
    str(doc)
 
    # test for relative-path discovered on 15-Jul-2004
-   doc = reader.readSBML(os.path.abspath("../../src/test-data/l1v1-branch.xml"))
+   filename = "../../sbml/test/test-data/l1v1-branch.xml"
+   doc      = reader.readSBML(os.path.abspath(filename))
    assert doc.getNumFatals() == 0
    assert doc.getModel()
 
