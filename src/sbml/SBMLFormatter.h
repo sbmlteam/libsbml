@@ -75,12 +75,11 @@
 
 /**
  * SBMLFormatter is meant to act like a C++ output stream.  Creating an
- * SBMLFormatter requires a character encoding and an underlying
- * XMLFormatTarget, which can be either in-memory (with MemBufFormatTarget)
- * or file (FileFormatTarget), to be specified.  Once created, inserting
- * SBML objects (C structs) into the stream (with <<) will cause them to be
- * formatted in the character encoding for the XMLFormatTarget.
- *
+ * SBMLFormatter requires an underlying XMLFormatTarget, which can be
+ * either in-memory (with MemBufFormatTarget) or file (FileFormatTarget),
+ * to be specified.  Once created, inserting SBML objects into the stream
+ * (with <<) will cause them to be formatted in UTF-8 for the
+ * XMLFormatTarget.
  *
  * By default, the formatter outputs SBML Level 2, version 1 (L2v1).  To
  * change the default, either i) insert an SBMLDocument into the formatter
@@ -98,16 +97,15 @@ class SBMLFormatter
 public:
 
   /**
-   * Ctor
+   * Creates a new SBMLFormatter.  If outputXMLDecl is true the output
+   * will begin with:
    *
-   * Creates a new SBMLFormatter with the given character encoding.
+   *   <?xml version="1.0" encoding="UTF-8"?>
    */
-  SBMLFormatter (   const char*      outEncoding
-                  , XMLFormatTarget* target
-                  , bool             outputXMLDecl = true );
+  SBMLFormatter (XMLFormatTarget* target, bool outputXMLDecl = true);
 
   /**
-   * Dtor
+   * Destroys this SBMLFormatter.
    */
   ~SBMLFormatter ();
 
@@ -115,11 +113,16 @@ public:
   enum SBMLLevel_t   { Level1   = 1, Level2   = 2 };
   enum SBMLVersion_t { Version1 = 1, Version2 = 2 };
 
+
   /**
-   * Write the program identification comment
+   * Writes following XML comment (intended for human consumption):
+   *
+   *   <!-- Created by <program name> version <program version>
+   *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
    */
-  void writeComment(const char * programName,
-                    const char * programVersion);
+  void writeComment(const std::string& programName,
+                    const std::string& programVersion);
+
 
   /**
    * Sets the SBML Level number (used to format subsequent insertions).
@@ -311,20 +314,20 @@ private:
    */
   void indent ();
 
-  inline void upIndent   () { fIndentLevel++; }
-  inline void downIndent () { fIndentLevel--; }
+  inline void upIndent   () { mIndentLevel++; }
+  inline void downIndent () { mIndentLevel--; }
 
 
-  unsigned int fLevel;
-  unsigned int fVersion;
+  unsigned int mLevel;
+  unsigned int mVersion;
+  unsigned int mIndentLevel;
 
-  MathMLFormatter*  fMathFormatter;
-  XMLFormatter*     fFormatter;
-  XMLFormatTarget*  fTarget;
+  char *mNumberBuffer;
 
-  char *fNumberBuffer;
+  MathMLFormatter*  mMathFormatter;
+  XMLFormatter*     mFormatter;
 
-  unsigned int fIndentLevel;
+  static const unsigned int NUMBER_BUFFER_SIZE;
 };
 
 

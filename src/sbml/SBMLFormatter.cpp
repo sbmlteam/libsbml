@@ -69,19 +69,21 @@
 using namespace std;
 
 
-#define NUMBER_BUFFER_SIZE 100
+const unsigned int
+SBMLFormatter::NUMBER_BUFFER_SIZE = 100;
 
 
 /**
- * Ctor
+ * Creates a new SBMLFormatter.  If outputXMLDecl is true the output
+ * will begin with:
  *
- * Creates a new SBMLFormatter
- *
- * The underlying character encoding is configurable.
+ *   <?xml version="1.0" encoding="UTF-8"?>
  */
-SBMLFormatter::SBMLFormatter (   const char*      outEncoding
-                               , XMLFormatTarget* target
-                               , bool             outputXMLDecl )
+SBMLFormatter::SBMLFormatter (XMLFormatTarget* target, bool outputXMLDecl) :
+    mLevel       ( 2 )
+  , mVersion     ( 1 )
+  , mIndentLevel ( 0 )
+  , mNumberBuffer( new char[ NUMBER_BUFFER_SIZE ] )
 {
 #ifndef USE_EXPAT
   //
@@ -90,40 +92,28 @@ SBMLFormatter::SBMLFormatter (   const char*      outEncoding
   XMLPlatformUtils::Initialize();
 #endif  // !USE_EXPAT
 
-  fLevel   = 2;
-  fVersion = 1;
+  mMathFormatter = new MathMLFormatter(target, false);
+  mFormatter     = XMLUtil::createXMLFormatter("UTF-8", target);
 
-  fIndentLevel = 0;
-
-  fTarget        = target;
-  fMathFormatter = new MathMLFormatter(outEncoding, fTarget, false);
-  fFormatter     = XMLUtil::createXMLFormatter(outEncoding, fTarget);
-  fNumberBuffer  = new char[ NUMBER_BUFFER_SIZE ];
-
-  if (outputXMLDecl)
-  {
-    *fFormatter
-      << XML_DECL_1
-      << fFormatter->getEncodingName()
-      << XML_DECL_2;
-  }
+  if (outputXMLDecl) *mFormatter << XML_DECL;
 }
 
 
 /**
- * Dtor
+ * Destroys this SBMLFormatter.
  */
 SBMLFormatter::~SBMLFormatter ()
 {
-  delete fFormatter;
-  delete fNumberBuffer;
+  delete mFormatter;
+  delete mNumberBuffer;
 }
+
 
 /**
  * Write the program identification comment
  */
-void SBMLFormatter::writeComment(const char * programName,
-                                 const char * programVersion)
+void SBMLFormatter::writeComment(const string& programName,
+                                 const string& programVersion)
 {
   time_t seconds;
   time(&seconds);
@@ -138,11 +128,11 @@ void SBMLFormatter::writeComment(const char * programName,
           pDate->tm_hour,
           pDate->tm_min);
   
-  *fFormatter << XMLFormatter::NoEscapes << XML_COMMENT_1
-              << (XMLCh *) programName << XML_COMMENT_2
-              << (XMLCh *) programVersion << XML_COMMENT_3
-              << (XMLCh *) date << XML_COMMENT_4
-              << (XMLCh *) PACKAGE_VERSION << XML_COMMENT_5;
+  *mFormatter << XMLFormatter::NoEscapes          << XML_COMMENT_1
+              << (XMLCh *) programName   .c_str() << XML_COMMENT_2
+              << (XMLCh *) programVersion.c_str() << XML_COMMENT_3
+              << (XMLCh *) date                   << XML_COMMENT_4
+              << (XMLCh *) PACKAGE_VERSION        << XML_COMMENT_5;
 }
 
 
@@ -158,7 +148,7 @@ void SBMLFormatter::writeComment(const char * programName,
 SBMLFormatter&
 SBMLFormatter::operator<< (const SBMLLevel_t level)
 {
-  fLevel = (unsigned int) level;
+  mLevel = (unsigned int) level;
   return *this;
 }
 
@@ -169,7 +159,7 @@ SBMLFormatter::operator<< (const SBMLLevel_t level)
 SBMLFormatter&
 SBMLFormatter::operator<< (const SBMLVersion_t version)
 {
-  fVersion = (unsigned int) version;
+  mVersion = (unsigned int) version;
   return *this;
 }
 
@@ -180,8 +170,8 @@ SBMLFormatter::operator<< (const SBMLVersion_t version)
 SBMLFormatter&
 SBMLFormatter::operator<< (const SBMLDocument& d)
 {
-  fLevel   = d.getLevel();
-  fVersion = d.getVersion();
+  mLevel   = d.getLevel();
+  mVersion = d.getVersion();
 
   openStartElement(ELEM_SBML);
 
@@ -189,7 +179,7 @@ SBMLFormatter::operator<< (const SBMLDocument& d)
   // xmlns="http://www.sbml.org/level1"  (L1v1, L1v2)
   // xmlns="http://www.sbml.org/level2"  (L2v1)
   //
-  attribute(ATTR_XMLNS, (fLevel == 1) ? XMLNS_SBML_L1 : XMLNS_SBML_L2);
+  attribute(ATTR_XMLNS, (mLevel == 1) ? XMLNS_SBML_L1 : XMLNS_SBML_L2);
 
   //
   // xmlns: attributes
@@ -258,7 +248,7 @@ SBMLFormatter::operator<< (const Model& m)
   //
   // id  { use="optional" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if ( m.isSetId() )
     {
@@ -273,7 +263,7 @@ SBMLFormatter::operator<< (const Model& m)
   // For the sake of robustness, if outputting L1 and name is not set,
   // substitute the value of id.
   //
-  if (fLevel == 1)
+  if (mLevel == 1)
   {
     if ( m.isSetName() )
     {
@@ -344,7 +334,7 @@ SBMLFormatter::operator<< (const FunctionDefinition& fd)
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_ID, fd.getId());
   }
@@ -372,12 +362,12 @@ SBMLFormatter::operator<< (const FunctionDefinition& fd)
     //
     // math: (lambda:Lambda)  (L2v1)
     //
-    fMathFormatter->setIndentLevel(fIndentLevel);
-    fMathFormatter->startMath();
+    mMathFormatter->setIndentLevel(mIndentLevel);
+    mMathFormatter->startMath();
 
-    *fMathFormatter << fd.getMath();
+    *mMathFormatter << fd.getMath();
 
-    fMathFormatter->endMath();
+    mMathFormatter->endMath();
 
     downIndent();
     endElement(ELEM_FUNCTION_DEFINITION);
@@ -408,7 +398,7 @@ SBMLFormatter::operator<< (const UnitDefinition& ud)
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_ID, ud.getId());
   }
@@ -424,7 +414,7 @@ SBMLFormatter::operator<< (const UnitDefinition& ud)
   {
     attribute(ATTR_NAME, ud.getName());
   }
-  else if (fLevel == 1)
+  else if (mLevel == 1)
   {
     attribute(ATTR_NAME, ud.getId());
   }
@@ -491,7 +481,7 @@ SBMLFormatter::operator<< (const Unit& u)
   //
   // multiplier  { use="optional" default="1" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_MULTIPLIER, u.getMultiplier());
   }
@@ -499,7 +489,7 @@ SBMLFormatter::operator<< (const Unit& u)
   //
   // offset  { use="optional" default="0" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_OFFSET, u.getOffset());
   }
@@ -539,7 +529,7 @@ SBMLFormatter::operator<< (const Compartment& c)
   //
   // id  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_ID, c.getId());
   }
@@ -555,7 +545,7 @@ SBMLFormatter::operator<< (const Compartment& c)
   {
     attribute(ATTR_NAME, c.getName());
   }
-  else if (fLevel == 1)
+  else if (mLevel == 1)
   {
     attribute(ATTR_NAME, c.getId());
   }
@@ -563,7 +553,7 @@ SBMLFormatter::operator<< (const Compartment& c)
   //
   // spatialDimensions  { use="optional" default="3" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if (c.getSpatialDimensions() != 3)
     {
@@ -581,7 +571,7 @@ SBMLFormatter::operator<< (const Compartment& c)
   //
   // However, do not output if unset.
   //
-  if (fLevel == 1)
+  if (mLevel == 1)
   {
     if ( c.isSetVolume() )
     {
@@ -615,7 +605,7 @@ SBMLFormatter::operator<< (const Compartment& c)
   //
   // constant  { use="optional" default="true" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if (c.getConstant() != true)
     {
@@ -646,7 +636,7 @@ SBMLFormatter::operator<< (const Species& s)
   const XMLCh* elem = ELEM_SPECIES;
 
 
-  if ((fLevel == 1) && (fVersion == 1))
+  if ((mLevel == 1) && (mVersion == 1))
   {
     elem = ELEM_SPECIE;
   }
@@ -666,7 +656,7 @@ SBMLFormatter::operator<< (const Species& s)
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_ID, s.getId());
   }
@@ -682,7 +672,7 @@ SBMLFormatter::operator<< (const Species& s)
   {
     attribute(ATTR_NAME, s.getName());
   }
-  else if (fLevel == 1)
+  else if (mLevel == 1)
   {
     attribute(ATTR_NAME, s.getId());
   }
@@ -705,7 +695,7 @@ SBMLFormatter::operator<< (const Species& s)
   //
   // initialConcentration: double  { use="optional" }  (L2v1)
   //
-  else if ((fLevel > 1) && s.isSetInitialConcentration())
+  else if ((mLevel > 1) && s.isSetInitialConcentration())
   {
     attribute(ATTR_INITIAL_CONCENTRATION, s.getInitialConcentration());
   }
@@ -714,7 +704,7 @@ SBMLFormatter::operator<< (const Species& s)
   //          units: SName  { use="optional" }  (L1v1, L1v2)
   // substanceUntis: SId    { use="optional" }  (L2v1)
   //
-  if ((fLevel > 1) && s.isSetSubstanceUnits())
+  if ((mLevel > 1) && s.isSetSubstanceUnits())
   {
     attribute(ATTR_SUBSTANCE_UNITS, s.getSubstanceUnits());
   }
@@ -723,7 +713,7 @@ SBMLFormatter::operator<< (const Species& s)
     attribute(ATTR_UNITS, s.getUnits());
   }
 
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     //
     // spatialSizeUnits: SId  { use="optional" }  (L2v1)
@@ -764,7 +754,7 @@ SBMLFormatter::operator<< (const Species& s)
   //
   // constant: boolean  { use="optional" default="false" (0) }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if (s.getConstant() != false)
     {
@@ -806,7 +796,7 @@ SBMLFormatter::operator<< (const Parameter& p)
   //
   // id  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_ID, p.getId());
   }
@@ -822,7 +812,7 @@ SBMLFormatter::operator<< (const Parameter& p)
   {
     attribute(ATTR_NAME, p.getName());
   }
-  else if (fLevel == 1)
+  else if (mLevel == 1)
   {
     attribute(ATTR_NAME, p.getId());
   }
@@ -831,7 +821,7 @@ SBMLFormatter::operator<< (const Parameter& p)
   // value: double  { use="required" }  (L1v2)
   // value: double  { use="optional" }  (L1v2, L2v1)
   //
-  if ((fLevel == 1 && fVersion == 1) || p.isSetValue())
+  if ((mLevel == 1 && mVersion == 1) || p.isSetValue())
   {
     attribute(ATTR_VALUE, p.getValue());
   }
@@ -848,7 +838,7 @@ SBMLFormatter::operator<< (const Parameter& p)
   //
   // constant: boolean  { use="optional" default="true" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if (p.getConstant() != true)
     {
@@ -922,7 +912,7 @@ SBMLFormatter::operator<< (const AssignmentRule& ar)
   //
   // Format L1 <assigmentRule type="rate" ...> as L2 <rateRule ...>
   // 
-  if ((fLevel > 1) && (ar.getType() == RULE_TYPE_RATE))
+  if ((mLevel > 1) && (ar.getType() == RULE_TYPE_RATE))
   {
     elem = ELEM_RATE_RULE;
   }
@@ -1041,7 +1031,7 @@ SBMLFormatter::operator<< (const AlgebraicRule& ar)
   //
   doMetaId(ar);
 
-  if (fLevel == 1)
+  if (mLevel == 1)
   {
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
@@ -1089,7 +1079,7 @@ SBMLFormatter::operator<< (const SpeciesConcentrationRule& scr)
   // A SpeciesConcentrationRule is either an AssignmentRule or a RateRule.
   // operator<< (const AssignmentRule*) formats either case.
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     *this << static_cast<const AssignmentRule&>(scr);
   }
@@ -1103,7 +1093,7 @@ SBMLFormatter::operator<< (const SpeciesConcentrationRule& scr)
     const XMLCh* attr = ATTR_SPECIES;
 
 
-    if ((fLevel == 1) && (fVersion == 1))
+    if ((mLevel == 1) && (mVersion == 1))
     {
       elem = ELEM_SPECIE_CONCENTRATION_RULE;
       attr = ATTR_SPECIE;
@@ -1158,7 +1148,7 @@ SBMLFormatter::operator<< (const CompartmentVolumeRule& cvr)
   // A CompartmentVolumeRule is either an AssignmentRule or a RateRule.
   // operator<< (const AssignmentRule*) formats either case.
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     *this << static_cast<const AssignmentRule&>(cvr);
   }
@@ -1216,7 +1206,7 @@ SBMLFormatter::operator<< (const ParameterRule& pr)
   // A ParameterRule is either an AssignmentRule or a RateRule.
   // operator<< (const AssignmentRule*) formats either case.
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     *this << static_cast<const AssignmentRule&>(pr);
   }
@@ -1291,7 +1281,7 @@ SBMLFormatter::operator<< (const Reaction& r)
   //
   // id: SId  { use="required" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     attribute(ATTR_ID, r.getId());
   }
@@ -1307,7 +1297,7 @@ SBMLFormatter::operator<< (const Reaction& r)
   {
     attribute(ATTR_NAME, r.getName());
   }
-  else if (fLevel == 1)
+  else if (mLevel == 1)
   {
     attribute(ATTR_NAME, r.getId());
   }
@@ -1325,7 +1315,7 @@ SBMLFormatter::operator<< (const Reaction& r)
   // fast: boolean  { use="optional" default="false" (0) }  (L1v1, L1v2)
   // fast: boolean  { use="optional" }  (L2v1)
   //
-  if (fLevel == 1)
+  if (mLevel == 1)
   {
     if (r.getFast() != false)
     {
@@ -1402,7 +1392,7 @@ SBMLFormatter::operator<< (const SpeciesReference& sr)
   const XMLCh* attr = ATTR_SPECIES;
 
 
-  if ((fLevel == 1) && (fVersion == 1))
+  if ((mLevel == 1) && (mVersion == 1))
   {
     elem = ELEM_SPECIE_REFERENCE;
     attr = ATTR_SPECIE;
@@ -1432,7 +1422,7 @@ SBMLFormatter::operator<< (const SpeciesReference& sr)
   //
   if (sr.getStoichiometry() != 1)
   {
-    if (fLevel == 1)
+    if (mLevel == 1)
     {
       attribute(ATTR_STOICHIOMETRY, (int) sr.getStoichiometry());
     }
@@ -1445,7 +1435,7 @@ SBMLFormatter::operator<< (const SpeciesReference& sr)
   //
   // denominator  { use="optional" default="1" }  (L1v1, L1v2)
   //
-  if (fLevel == 1)
+  if (mLevel == 1)
   {
     if (sr.getDenominator() != 1)
     {
@@ -1538,7 +1528,7 @@ SBMLFormatter::operator<< (const KineticLaw& kl)
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  if (fLevel == 1)
+  if (mLevel == 1)
   {
     attribute(ATTR_FORMULA, kl.getFormula());
   }
@@ -1653,12 +1643,12 @@ SBMLFormatter::operator<< (const Event& e)
     {
       startElement(ELEM_TRIGGER);
 
-      fMathFormatter->setIndentLevel(fIndentLevel + 1);
-      fMathFormatter->startMath();
+      mMathFormatter->setIndentLevel(mIndentLevel + 1);
+      mMathFormatter->startMath();
 
-      *fMathFormatter << e.getTrigger();
+      *mMathFormatter << e.getTrigger();
 
-      fMathFormatter->endMath();
+      mMathFormatter->endMath();
 
       endElement(ELEM_TRIGGER);
     }
@@ -1670,12 +1660,12 @@ SBMLFormatter::operator<< (const Event& e)
     {
       startElement(ELEM_DELAY);
 
-      fMathFormatter->setIndentLevel(fIndentLevel + 1);
-      fMathFormatter->startMath();
+      mMathFormatter->setIndentLevel(mIndentLevel + 1);
+      mMathFormatter->startMath();
 
-      *fMathFormatter << e.getDelay();
+      *mMathFormatter << e.getDelay();
 
-      fMathFormatter->endMath();
+      mMathFormatter->endMath();
 
       endElement(ELEM_DELAY);
     }
@@ -1737,12 +1727,12 @@ SBMLFormatter::operator<< (const EventAssignment& ea)
     // 
     if ( ea.isSetMath() )
     {
-      fMathFormatter->setIndentLevel(fIndentLevel);
-      fMathFormatter->startMath();
+      mMathFormatter->setIndentLevel(mIndentLevel);
+      mMathFormatter->startMath();
 
-      *fMathFormatter << ea.getMath();
+      *mMathFormatter << ea.getMath();
 
-      fMathFormatter->endMath();
+      mMathFormatter->endMath();
     }
 
     downIndent();
@@ -1787,7 +1777,7 @@ SBMLFormatter::name (const ListOf& lst)           \
                                                   \
     upIndent();                                   \
                                                   \
-    if (fLevel > 1) notesAndAnnotation(lst);      \
+    if (mLevel > 1) notesAndAnnotation(lst);      \
                                                   \
     for (unsigned int n = 0; n < size; n++)       \
     {                                             \
@@ -1841,7 +1831,7 @@ SBMLFormatter::notes (const string& s)
   indent();
 
   XMLCh* x = XMLString::transcode( s.c_str() );
-  *fFormatter << x << chLF;
+  *mFormatter << x << chLF;
   XMLString::release(&x);
 
   downIndent();
@@ -1862,7 +1852,7 @@ SBMLFormatter::annotation (const string& s)
   indent();
 
   XMLCh* x = XMLString::transcode( s.c_str() );
-  *fFormatter << x << chLF;
+  *mFormatter << x << chLF;
   XMLString::release(&x);
 
   
@@ -1896,25 +1886,25 @@ SBMLFormatter::doMath (const KineticLaw& kl)
   //
   // math: Math  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if ( kl.isSetMath() || kl.isSetFormula() )
     {
-      fMathFormatter->setIndentLevel(fIndentLevel);
-      fMathFormatter->startMath();
+      mMathFormatter->setIndentLevel(mIndentLevel);
+      mMathFormatter->startMath();
 
       if ( kl.isSetMath() )
       {
-        *fMathFormatter << kl.getMath();
+        *mMathFormatter << kl.getMath();
       }
       else if ( kl.isSetFormula() )
       {
         math = SBML_parseFormula( kl.getFormula().c_str() );
-        *fMathFormatter << math;
+        *mMathFormatter << math;
         ASTNode_free(math);
       }
 
-      fMathFormatter->endMath();
+      mMathFormatter->endMath();
     }
   }
 }
@@ -1935,25 +1925,25 @@ SBMLFormatter::doMath (const Rule& r)
   //
   // math: Math  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if ( r.isSetMath() || r.isSetFormula() )
     {
-      fMathFormatter->setIndentLevel(fIndentLevel);
-      fMathFormatter->startMath();
+      mMathFormatter->setIndentLevel(mIndentLevel);
+      mMathFormatter->startMath();
 
       if ( r.isSetMath() )
       {
-        *fMathFormatter << r.getMath();
+        *mMathFormatter << r.getMath();
       }
       else if ( r.isSetFormula() )
       {
         math = SBML_parseFormula( r.getFormula().c_str() );
-        *fMathFormatter << math;
+        *mMathFormatter << math;
         ASTNode_free(math);
       }
 
-      fMathFormatter->endMath();
+      mMathFormatter->endMath();
     }
   }
 }
@@ -1976,18 +1966,18 @@ SBMLFormatter::doMath (const SpeciesReference& sr)
   // Either output the stoichiometryMath field directly or output
   // <cn type='rational'> stoichiometry <sep/> denominator </cn>
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if (sr.isSetStoichiometryMath() || sr.getDenominator() != 1)
     {
       startElement(ELEM_STOICHIOMETRY_MATH);
       
-      fMathFormatter->setIndentLevel(fIndentLevel + 1);
-      fMathFormatter->startMath();
+      mMathFormatter->setIndentLevel(mIndentLevel + 1);
+      mMathFormatter->startMath();
 
       if ( sr.isSetStoichiometryMath() )
       {
-        *fMathFormatter << sr.getStoichiometryMath();
+        *mMathFormatter << sr.getStoichiometryMath();
       }
       else
       {
@@ -1997,12 +1987,12 @@ SBMLFormatter::doMath (const SpeciesReference& sr)
         node = ASTNode_createWithType(AST_RATIONAL);
         ASTNode_setRational(node, numerator, denominator);
 
-        *fMathFormatter << node;
+        *mMathFormatter << node;
 
         ASTNode_free(node);
       }
 
-      fMathFormatter->endMath();
+      mMathFormatter->endMath();
 
       endElement(ELEM_STOICHIOMETRY_MATH);
     }
@@ -2019,7 +2009,7 @@ SBMLFormatter::doMetaId (const SBase& sb)
   //
   // metaid: ID  { use="optional" }  (L2v1)
   //
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     if ( sb.isSetMetaId() )
     {
@@ -2084,7 +2074,7 @@ SBMLFormatter::isEmpty (const Rule& r)
   bool result = isEmpty((SBase&) r);
 
 
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     result = result && !(r.isSetFormula() || r.isSetMath());
   }
@@ -2103,7 +2093,7 @@ SBMLFormatter::isEmpty (const SpeciesReference& sr)
   bool result = isEmpty((SBase&) sr);
 
 
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     result = result &&
              !( sr.isSetStoichiometryMath() || sr.getDenominator() != 1 );
@@ -2122,7 +2112,7 @@ SBMLFormatter::isEmpty (const KineticLaw& kl)
   bool result = isEmpty((SBase&) kl) && ! kl.getNumParameters();
 
 
-  if (fLevel > 1)
+  if (mLevel > 1)
   {
     result = result && !( kl.isSetMath() || kl.isSetFormula() );
   }
@@ -2251,7 +2241,7 @@ void
 SBMLFormatter::startElement (const XMLCh* name)
 {
   indent();
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chOpenAngle << name << chCloseAngle << chLF;
 }
 
@@ -2263,7 +2253,7 @@ void
 SBMLFormatter::endElement (const XMLCh* name)
 {
   indent();
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chOpenAngle  << chForwardSlash << name
               << chCloseAngle << chLF;
 }
@@ -2297,7 +2287,7 @@ void
 SBMLFormatter::openStartElement (const XMLCh* name)
 {
   indent();
-  *fFormatter << XMLFormatter::NoEscapes << chOpenAngle << name;
+  *mFormatter << XMLFormatter::NoEscapes << chOpenAngle << name;
 }
 
 
@@ -2309,7 +2299,7 @@ SBMLFormatter::openStartElement (const XMLCh* name)
 void
 SBMLFormatter::closeStartElement ()
 {
-  *fFormatter << XMLFormatter::NoEscapes << chCloseAngle << chLF;
+  *mFormatter << XMLFormatter::NoEscapes << chCloseAngle << chLF;
 }
 
 
@@ -2321,7 +2311,7 @@ SBMLFormatter::closeStartElement ()
 void
 SBMLFormatter::slashCloseStartElement ()
 {
-  *fFormatter << XMLFormatter::NoEscapes
+  *mFormatter << XMLFormatter::NoEscapes
               << chForwardSlash << chCloseAngle << chLF;
 }
 
@@ -2342,8 +2332,8 @@ SBMLFormatter::attribute (const XMLCh* name, bool value)
 void
 SBMLFormatter::attribute (const XMLCh* name, int value)
 {
-  snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%d", value);
-  attribute(name, fNumberBuffer);
+  snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%d", value);
+  attribute(name, mNumberBuffer);
 }
 
 
@@ -2354,8 +2344,8 @@ SBMLFormatter::attribute (const XMLCh* name, int value)
 void
 SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 {
-  snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, "%u", value);
-  attribute(name, fNumberBuffer);
+  snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%u", value);
+  attribute(name, mNumberBuffer);
 }
 
 
@@ -2384,8 +2374,8 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
   }
   else
   {
-    snprintf(fNumberBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT, value);
-    attribute(name, fNumberBuffer);
+    snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT, value);
+    attribute(name, mNumberBuffer);
   }
 }
 
@@ -2436,7 +2426,7 @@ SBMLFormatter::attribute (const XMLCh* name, const char* value)
 void
 SBMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 {
-  *fFormatter
+  *mFormatter
     << XMLFormatter::NoEscapes
     << chSpace
     << name
@@ -2446,10 +2436,10 @@ SBMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 
   if (value != NULL)
   {
-    *fFormatter << value;
+    *mFormatter << value;
   }
 
-  *fFormatter << XMLFormatter::NoEscapes << chDoubleQuote;
+  *mFormatter << XMLFormatter::NoEscapes << chDoubleQuote;
 }
 
 
@@ -2460,8 +2450,8 @@ SBMLFormatter::attribute (const XMLCh* name, const XMLCh* value)
 void
 SBMLFormatter::indent ()
 {
-  for (unsigned int n = 0; n < fIndentLevel; n++)
+  for (unsigned int n = 0; n < mIndentLevel; n++)
   {
-    *fFormatter << chSpace << chSpace;
+    *mFormatter << chSpace << chSpace;
   }
 }

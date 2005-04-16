@@ -79,11 +79,11 @@ class MathMLDocument;
 
 /**
  * MathMLFormatter is meant to act like a C++ output stream.  Creating an
- * MathMLFormatter requires a character encoding and an underlying
- * XMLFormatTarget, which can be either in-memory (with MemBufFormatTarget)
- * or file (FileFormatTarget), to be specified.  Once created, inserting
- * ASTNode objects (C structs) into the stream (with <<) will cause them to
- * be formatted in the character encoding for the XMLFormatTarget.
+ * MathMLFormatter requires an underlying XMLFormatTarget, which can be
+ * either in-memory (with MemBufFormatTarget) or file (FileFormatTarget),
+ * to be specified.  Once created, inserting ASTNode objects into the
+ * stream (with <<) will cause them to be formatted in UTF-8 for the
+ * XMLFormatTarget.
  *
  * Currently, this class is meant to be used internally by libsbml.
  */
@@ -93,19 +93,15 @@ class MathMLFormatter
 public:
 
   /**
-   * Ctor
+   * Creates a new MathMLFormatter.  If outputXMLDecl is true the output
+   * will begin with:
    *
-   * Creates a new MathMLFormatter with the given character encoding.
-   * If outputXMLDecl is true the output will begin with:
-   *
-   *   <?xml version="1.0" encoding="..."?>
+   *   <?xml version="1.0" encoding="UTF-8"?>
    */
-  MathMLFormatter (const char*      outEncoding,
-                   XMLFormatTarget* target,
-                   bool             outputXMLDecl);
+  MathMLFormatter (XMLFormatTarget* target, bool outputXMLDecl = true);
 
   /**
-   * Dtor
+   * Destroys this MathMLFormatter
    */
   ~MathMLFormatter ();
 
@@ -129,7 +125,7 @@ public:
   /**
    * MathMLDocument insertion operator
    */
-  MathMLFormatter& operator<< (const MathMLDocument* d);
+  MathMLFormatter& operator<< (const MathMLDocument& d);
 
   /**
    * ASTNode insertion operator
@@ -387,12 +383,12 @@ private:
   inline void downIndent () { mIndentLevel--; }
 
 
-  XMLFormatter*     mFormatter;
-  XMLFormatTarget*  mTarget;
-  unsigned int      mIndentLevel;
+  unsigned int mIndentLevel;
 
   char* mFloatBuffer;
   char* mIntBuffer;
+
+  XMLFormatter* mFormatter;
 
   static const unsigned int NUMBER_BUFFER_SIZE;
   static const XMLCh*       MATHML_ELEMENTS[];

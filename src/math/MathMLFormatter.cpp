@@ -71,6 +71,7 @@
 const unsigned int
 MathMLFormatter::NUMBER_BUFFER_SIZE = 100;
 
+
 //
 // Most MathML elements, indexed by (ASTNodeType - AST_FUNCTION_ABS).
 //
@@ -126,22 +127,16 @@ MathMLFormatter::MATHML_ELEMENTS[] =
 
 
 /**
- * Ctor
+ * Creates a new MathMLFormatter.  If outputXMLDecl is true the output
+ * will begin with:
  *
- * Creates a new MathMLFormatter with the given character encoding.
- * If outputXMLDecl is true the output will begin with:
- *
- *   <?xml version="1.0" encoding="..."?>
+ *   <?xml version="1.0" encoding="UTF-8"?>
  */
-MathMLFormatter::MathMLFormatter ( const char*      outEncoding,
-                                   XMLFormatTarget* target,
-                                   bool             outputXMLDecl )
+MathMLFormatter::MathMLFormatter (XMLFormatTarget* target, bool outputXMLDecl) :
+    mIndentLevel ( 0 )
+  , mFloatBuffer ( new char[NUMBER_BUFFER_SIZE] )
+  , mIntBuffer   ( new char[NUMBER_BUFFER_SIZE] )
 {
-  mIndentLevel = 0;
-  mTarget      = target;
-  mFloatBuffer = new char[NUMBER_BUFFER_SIZE];
-  mIntBuffer   = new char[NUMBER_BUFFER_SIZE];
-
 #ifndef USE_EXPAT
   //
   // Initialize() is static and may be called more than once safely.
@@ -149,26 +144,14 @@ MathMLFormatter::MathMLFormatter ( const char*      outEncoding,
   XMLPlatformUtils::Initialize();
 #endif  // !USE_EXPAT
 
-  mFormatter = XMLUtil::createXMLFormatter(outEncoding, mTarget);
+  mFormatter = XMLUtil::createXMLFormatter("UTF-8", target);
 
-  if (outputXMLDecl)
-  {
-    *mFormatter
-      << XML_DECL_1
-
-#ifdef USE_EXPAT
-      << "UTF-8"
-#else
-      << mFormatter->getEncodingName()
-#endif  // USE_EXPAT
-
-      << XML_DECL_2;
-  }
+  if (outputXMLDecl) *mFormatter << XML_DECL;
 }
 
 
 /**
- * Dtor
+ * Destroys this MathMLFormatter
  */
 MathMLFormatter::~MathMLFormatter ()
 {
@@ -219,11 +202,11 @@ MathMLFormatter::endMath ()
  * MathMLDocument insertion operator
  */
 MathMLFormatter&
-MathMLFormatter::operator<< (const MathMLDocument* d)
+MathMLFormatter::operator<< (const MathMLDocument& d)
 {
   startMath();
 
-  *this << d->getMath();
+  *this << d.getMath();
 
   endMath();
 
