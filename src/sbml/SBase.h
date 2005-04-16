@@ -171,8 +171,6 @@ protected:
   friend class SBMLHandler;
 };
 
-typedef SBase SBase_t;
-
 
 #endif  /* __cplusplus */
 
