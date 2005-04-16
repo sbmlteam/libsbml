@@ -69,6 +69,145 @@
 #include "xml/StreamFormatTarget.h"
 
 
+using namespace std;
+
+
+/**
+ * Creates a new MathMLWriter.
+ */
+MathMLWriter::MathMLWriter ()
+{
+}
+
+
+/**
+ * Destroys this MathMLWriter.
+ */
+MathMLWriter::~MathMLWriter ()
+{
+}
+
+
+/**
+ * Writes the given MathML document to filename.
+ *
+ * @return true on success and false if the filename could not be opened
+ * for writing.
+ */
+LIBSBML_EXTERN
+bool
+MathMLWriter::write (const MathMLDocument& d, const std::string& filename)
+{
+  bool result = false;
+
+  LocalFileFormatTarget* target    = 0;
+  MathMLFormatter*       formatter = 0;
+
+  try
+  {
+#ifndef USE_EXPAT
+    XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
+
+    target    = new LocalFileFormatTarget(filename.c_str());
+    formatter = new MathMLFormatter(target, true);
+
+    *formatter << d;
+    result = true;
+  }
+  catch (...)
+  {
+  }
+
+  delete target;
+  delete formatter;
+
+  return result;
+}
+
+
+/**
+ * Writes the given MathML document to the output stream.
+ *
+ * @return true on success and false if one of the underlying Xerces or
+ * Expat components fail (rare).
+ */
+LIBSBML_EXTERN
+bool
+MathMLWriter::write (const MathMLDocument& d, ostream& stream)
+{
+  bool result = false;
+
+  StreamFormatTarget* target    = 0;
+  MathMLFormatter*    formatter = 0;
+
+
+  try
+  {
+#ifndef USE_EXPAT
+    XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
+
+    target    = new StreamFormatTarget(stream);
+    formatter = new MathMLFormatter(target, true);
+
+    *formatter << d;
+    result = true;
+  }
+  catch (...)
+  {
+  }
+
+  delete target;
+  delete formatter;
+
+  return result;
+}
+
+
+/**
+ * Writes the given MathML document to an in-memory string and returns a
+ * pointer to it.  The string is owned by the caller and should be freed
+ * (with free()) when no longer needed.
+ *
+ * @return the string on success and 0 if one of the underlying Xerces or
+ * Expat components fail (rare).
+ */
+LIBSBML_EXTERN
+char*
+MathMLWriter::writeToString (const MathMLDocument& d)
+{
+  char* result = 0;
+
+  MemBufFormatTarget* target    = 0;
+  MathMLFormatter*    formatter = 0;
+
+
+  try
+  {
+#ifndef USE_EXPAT
+    XMLPlatformUtils::Initialize();
+#endif  // !USE_EXPAT
+
+    target    = new MemBufFormatTarget();
+    formatter = new MathMLFormatter(target, true);
+
+    *formatter << d;
+    result = safe_strdup( (char *) target->getRawBuffer() );
+  }
+  catch (...)
+  {
+    safe_free(result);
+    result = 0;
+  }
+
+  delete target;
+  delete formatter;
+
+  return result;
+}
+
+
 /**
  * Writes the given MathML document to filename.
  *
@@ -77,43 +216,10 @@
  */
 LIBSBML_EXTERN
 int
-writeMathML (MathMLDocument_t *d, const char *filename)
+writeMathML (const MathMLDocument_t *d, const char *filename)
 {
-  const char *encoding = "UTF-8";
-  int        result    = 0;
-
-  LocalFileFormatTarget* target    = NULL;
-  MathMLFormatter*       formatter = NULL;
-
-  try
-  {
-#ifndef USE_EXPAT
-    XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
-
-    target    = new LocalFileFormatTarget(filename);
-    formatter = new MathMLFormatter(encoding, target, true);
-
-    *formatter << d;
-    result = 1;
-  }
-  catch (...)
-  {
-    result = 0;
-  }
-
-
-  if (target != NULL)
-  {
-    delete target;
-  }
-
-  if (formatter != NULL)
-  {
-    delete formatter;
-  }
-
-  return result;
+  MathMLWriter mw;
+  return mw.write(*d, filename);
 }
 
 
@@ -126,92 +232,8 @@ writeMathML (MathMLDocument_t *d, const char *filename)
  */
 LIBSBML_EXTERN
 char *
-writeMathMLToString (MathMLDocument_t *d)
+writeMathMLToString (const MathMLDocument_t *d)
 {
-  char*       result   = NULL;
-  const char* encoding = "UTF-8";
-
-  MemBufFormatTarget* target    = NULL;
-  MathMLFormatter*    formatter = NULL;
-
-
-  try
-  {
-#ifndef USE_EXPAT
-    XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
-
-    target    = new MemBufFormatTarget();
-    formatter = new MathMLFormatter(encoding, target, true);
-
-    *formatter << static_cast<MathMLDocument*>(d);
-
-    result = safe_strdup( (char *) target->getRawBuffer() );
-  }
-  catch (...)
-  {
-    safe_free(result);
-    result = NULL;
-  }
-
-
-  if (target != NULL)
-  {
-    delete target;
-  }
-
-  if (formatter != NULL)
-  {
-    delete formatter;
-  }
-
-  return result;
+  MathMLWriter mw;
+  return mw.writeToString(*d);
 }
-
-/**
- * Writes the given MathML document to an ostream.
- *
- * @return 1 on success and 0 on failure
- */
-LIBSBML_EXTERN
-int
-writeMathMLToStream (MathMLDocument_t *d, std::ostream & o)
-{
-  int         result   = 1;
-  const char* encoding = "UTF-8";
-
-  StreamFormatTarget* target    = NULL;
-  MathMLFormatter*    formatter = NULL;
-
-
-  try
-  {
-#ifndef USE_EXPAT
-    XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
-
-    target    = new StreamFormatTarget(o);
-    formatter = new MathMLFormatter(encoding, target, true);
-
-    *formatter << d;
-    result = 1;
-  }
-  catch (...)
-  {
-    result = 0;
-  }
-
-
-  if (target != NULL)
-  {
-    delete target;
-  }
-
-  if (formatter != NULL)
-  {
-    delete formatter;
-  }
-
-  return result;
-}
-

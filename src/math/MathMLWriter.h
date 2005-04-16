@@ -54,7 +54,6 @@
 
 
 #include "common/extern.h"
-#include "common/sbmlfwd.h"
 
 
 #ifndef SWIG
@@ -64,16 +63,56 @@
 
 
 #include <iosfwd>
+#include <string>
 
 
-/**
- * Writes the given MathML document to an ostream.
- *
- * @return 1 on success and 0 on failure
- */
-LIBSBML_EXTERN
-int
-writeMathMLToStream (MathMLDocument_t *d, std::ostream & o);
+class MathMLDocument;
+
+
+class MathMLWriter
+{
+public:
+
+  /**
+   * Creates a new MathMLWriter.
+   */
+  MathMLWriter  ();
+
+  /**
+   * Destroys this MathMLWriter.
+   */
+  ~MathMLWriter ();
+
+
+  /**
+   * Writes the given MathML document to filename.
+   *
+   * @return true on success and false if the filename could not be opened
+   * for writing.
+   */
+  LIBSBML_EXTERN
+  bool write (const MathMLDocument& d, const std::string& filename);
+
+  /**
+   * Writes the given MathML document to the output stream.
+   *
+   * @return true on success and false if one of the underlying Xerces or
+   * Expat components fail (rare).
+   */
+  LIBSBML_EXTERN
+  bool write (const MathMLDocument& d, std::ostream& stream);
+
+  /**
+   * Writes the given MathML document to an in-memory string and returns a
+   * pointer to it.  The string is owned by the caller and should be freed
+   * (with free()) when no longer needed.
+   *
+   * @return the string on success and 0 if one of the underlying Xerces or
+   * Expat components fail (rare).
+   */
+  LIBSBML_EXTERN
+  char* writeToString (const MathMLDocument& d);
+};
 
 
 #endif  /* __cplusplus */
@@ -82,15 +121,18 @@ writeMathMLToStream (MathMLDocument_t *d, std::ostream & o);
 BEGIN_C_DECLS
 
 
+#include "common/sbmlfwd.h"
+
+
 /**
  * Writes the given MathML document to filename.
  *
- * @return 1 on success and 0 on failure (e.g., if filename could not be
- * opened for writing or the MathMLWriter character encoding is invalid).*
+ * @return true on success and false if the filename could not be opened
+ * for writing.
  */
 LIBSBML_EXTERN
 int
-writeMathML (MathMLDocument_t *d, const char *filename);
+writeMathML (const MathMLDocument_t *d, const char *filename);
 
 
 /**
@@ -98,11 +140,12 @@ writeMathML (MathMLDocument_t *d, const char *filename);
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
- * @return NULL on failure
+ * @return the string on success and 0 if one of the underlying Xerces or
+ * Expat components fail (rare).
  */
 LIBSBML_EXTERN
 char *
-writeMathMLToString (MathMLDocument_t *d);
+writeMathMLToString (const MathMLDocument_t *d);
 
 
 END_C_DECLS
