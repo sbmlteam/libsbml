@@ -98,6 +98,7 @@ typedef CLASS_OR_STRUCT Event                     Event_t;
 typedef CLASS_OR_STRUCT EventAssignment           EventAssignment_t;
 
 typedef CLASS_OR_STRUCT SBMLReader                SBMLReader_t;
+typedef CLASS_OR_STRUCT SBMLWriter                SBMLWriter_t;
 
 typedef CLASS_OR_STRUCT MathMLDocument            MathMLDocument_t;
 typedef CLASS_OR_STRUCT MathMLReader              MathMLReader_t;
