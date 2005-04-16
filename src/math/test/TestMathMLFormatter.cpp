@@ -98,7 +98,7 @@ TestMathMLFormatter_setup (void)
 #endif  // !USE_EXPAT
 
   target    = new MemBufFormatTarget();
-  formatter = new MathMLFormatter("UTF-8", target, true);
+  formatter = new MathMLFormatter(target, true);
 }
 
 

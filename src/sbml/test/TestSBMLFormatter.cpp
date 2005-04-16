@@ -86,7 +86,7 @@ TestSBMLFormatter_setup (void)
 #endif // !USE_EXPAT
 
   target    = new MemBufFormatTarget();
-  formatter = new SBMLFormatter("UTF-8", target);
+  formatter = new SBMLFormatter(target);
 }
 
 

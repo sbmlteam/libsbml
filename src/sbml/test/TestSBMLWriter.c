@@ -59,25 +59,6 @@
 extern char *TestDataDirectory;
 
 
-START_TEST (test_SBMLWriter_create)
-{
-  SBMLWriter_t *sw = SBMLWriter_create();
-
-
-  fail_unless(sw->encoding == CHARACTER_ENCODING_UTF_8, NULL);
-
-  SBMLWriter_free(sw);
-}
-END_TEST
-
-
-START_TEST (test_SBMLWriter_free_NULL)
-{
-  SBMLWriter_free(NULL);
-}
-END_TEST
-
-
 /*
 START_TEST (test_SBMLWriter_writeSBML)
 {
@@ -103,8 +84,6 @@ create_suite_SBMLWriter (void)
   TCase *tcase = tcase_create("SBMLWriter");
  
 
-  tcase_add_test(tcase, test_SBMLWriter_create            );
-  tcase_add_test(tcase, test_SBMLWriter_free_NULL         );
   /* tcase_add_test(tcase, test_SBMLWriter_writeSBML         ); */
 
   suite_add_tcase(suite, tcase);
