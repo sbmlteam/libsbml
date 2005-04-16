@@ -7,6 +7,18 @@
 
 * New Features:
 
+  - SBMLWriter and MathMLWriter are now full-fledged classes.  Plus,
+    thanks to Stefan Hoops, it is now possible to:
+
+      1.  To use these classes to write to a C++ std::ostream, and
+
+      2.  Set a program and version name when writing SBMLDocuments,
+          which will write the following XML comment (intended for
+          human consumption) at the beginning of the file:
+
+            <!-- Created by <program name> version <program version>
+            on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
+
   - libSBML now implements a variant of the Visitor pattern (Design
     Patterns, GoF, 1995, p. 331).  The parent Visitor class is called
     SBMLVisitor and each SBML class now has an accept() method to
@@ -65,6 +77,11 @@
 
 * Changes:
 
+
+  - Removed support for various character encodings.  This change has
+    been a long time coming.  LibSBML supports only UTF-8 because that
+    is what the SBML standards require.
+
   - Renamed two methods on the Reaction class:
 
       - getReactantById() -> getReactant()
@@ -85,7 +102,7 @@
     minimize dependencies and increase compilation speed.
 
 
-* Released March ??, 2005
+* Released April ??, 2005
 
 
 
