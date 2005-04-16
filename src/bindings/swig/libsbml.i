@@ -92,6 +92,7 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include "std_string.i"
 
 %import  common/extern.h
+%import  common/sbmlfwd.h
 
 %include sbml/SBMLReader.h
 %include sbml/SBMLWriter.h
@@ -163,12 +164,12 @@ readMathMLFromString (const char *xml);
 
 LIBSBML_EXTERN
 int
-writeMathML (MathMLDocument* d, const char *filename);
+writeMathML (const MathMLDocument* d, const char *filename);
 
 %newobject writeMathMLToString;
 LIBSBML_EXTERN
 char *
-writeMathMLToString (MathMLDocument* d);
+writeMathMLToString (const MathMLDocument* d);
 
 %newobject readSBML(const char *);
 LIBSBML_EXTERN
