@@ -73,6 +73,7 @@ using namespace std;
 /**
  * Creates a new SBMLWriter.
  */
+LIBSBML_EXTERN
 SBMLWriter::SBMLWriter ()
 {
 }
@@ -81,6 +82,7 @@ SBMLWriter::SBMLWriter ()
 /**
  * Destroys this SBMLWriter.
  */
+LIBSBML_EXTERN
 SBMLWriter::~SBMLWriter ()
 {
 }

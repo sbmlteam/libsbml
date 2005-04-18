@@ -73,11 +73,13 @@ public:
   /**
    * Creates a new SBMLWriter.
    */
+	LIBSBML_EXTERN
   SBMLWriter  ();
 
   /**
    * Destroys this SBMLWriter.
    */
+LIBSBML_EXTERN
   ~SBMLWriter ();
 
 
