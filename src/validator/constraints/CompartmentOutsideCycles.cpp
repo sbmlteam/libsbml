@@ -104,7 +104,7 @@ CompartmentOutsideCycles::reset ()
 bool
 CompartmentOutsideCycles::check (const Model& m)
 {
-  for (int n = 0; n < m.getNumCompartments(); n++)
+  for (unsigned int n = 0; n < m.getNumCompartments(); n++)
   {
     checkForCycle(m, m.getCompartment(n));
   }
