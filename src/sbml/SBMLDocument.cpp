@@ -53,6 +53,7 @@
 #include <list>
 
 #include "validator/ConsistencyValidator.h"
+#include "validator/L1CompatibilityValidator.h"
 #include "util/StringBuffer.h"
 #include "xml/ParseMessage.h"
 
@@ -309,6 +310,26 @@ SBMLDocument::setLevel (unsigned int level)
     this->level = 2;
     if (model != NULL) SBML_convertToL2((Model_t *) model, (SBase_t *) this);
   }
+  else if (this->level == 2 && level == 1)
+  {
+	  /* put in consistency check */
+    int nerrors = this->checkL1Compatibility();
+
+	if (nerrors == 0)
+	{
+		this->level = 1;
+		this->version = 2;
+
+		if (model != NULL) SBML_convertToL1((Model_t *) model, (SBase_t *) this);
+	}
+	else
+	{
+		this->printErrors(cout);
+		this->printWarnings(cout);
+		this->printFatals(cout);
+	}
+
+  }
   else
   {
     this->level = level;
@@ -413,6 +434,57 @@ unsigned int
 SBMLDocument::validate ()
 {
   return checkConsistency();
+}
+
+/**
+ * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L1 and can be converted.  Query
+ * the results by calling getWarning(), getNumError(),and getNumFatal().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument::checkL1Compatibility ()
+{
+  unsigned int nerrors = 0;
+
+  L1CompatibilityValidator validator;
+  validator.init();
+
+
+  if (getModel() == NULL)
+  {
+    List_add(&error, ParseMessage_createWith(1000, "No model present.", 0, 0));
+    nerrors = 1;
+  }
+  else
+  {
+
+    nerrors = validator.validate(*this);
+
+    //
+    // Add the Validator messages to the SBMLDocument's list of error
+    // messages.
+    //
+    // FIXME: When the custom List class is replaced with an STL List, the
+    // code below can be replaced with:
+    //
+    //   copy(messages.begin(), messages.end(), back_inserter(error));
+    //
+    const list<ParseMessage>& messages = validator.getMessages();
+
+    list<ParseMessage>::const_iterator end = messages.end();
+    list<ParseMessage>::const_iterator iter;
+
+    for (iter = messages.begin(); iter != end; iter++)
+    {
+      error.add( new ParseMessage(*iter) );
+    }
+
+  }
+
+  return nerrors;
 }
 
 

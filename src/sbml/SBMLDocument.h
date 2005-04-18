@@ -232,6 +232,16 @@ public:
    */
   LIBSBML_EXTERN
   unsigned int validate ();
+  
+  /**
+   * Performs a set of semantic consistency checks on the document to establish
+   * whether it is compatible with L1 and can be converted.  Query
+   * the results by calling getWarning(), getNumError(),and getNumFatal().
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  LIBSBML_EXTERN
+  unsigned int checkL1Compatibility ();
 
 
 protected:

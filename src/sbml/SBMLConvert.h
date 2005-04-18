@@ -120,6 +120,16 @@ LIBSBML_EXTERN
 void
 SBML_convertRuleToL2 (Model_t *m, Rule_t *r);
 
+/**
+ * Converts the given SBase object and any of its subordinate objects from
+ * SBML L2 to L1.  In some cases, the larger Model is needed as context for
+ * conversion.  This function delegates, based on SBMLTypeCode, to
+ * SBML_convertIdToName() and others.
+ */
+void
+LIBSBML_EXTERN
+SBML_convertToL1 (Model_t *m, SBase_t *sb);
+
 
 END_C_DECLS
 
