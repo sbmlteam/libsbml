@@ -23,9 +23,12 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				EnableFunctionLevelLinking="FALSE"
+				RuntimeTypeInfo="FALSE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\validateSBML___Win32_Debug/validateSBML.pch"
 				AssemblerListingLocation=".\validateSBML___Win32_Debug/"
@@ -33,14 +36,15 @@
 				ProgramDataBaseFileName=".\validateSBML___Win32_Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="4"/>
+				DebugInformationFormat="4"
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="bin/libsbmlD.lib odbc32.lib odbccp32.lib"
 				OutputFile="bin/validateSBMLD.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\bin/validateSBMLD.pdb"
@@ -82,25 +86,29 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="0"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				StringPooling="TRUE"
-				RuntimeLibrary="4"
-				EnableFunctionLevelLinking="TRUE"
+				StringPooling="FALSE"
+				ExceptionHandling="TRUE"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="FALSE"
+				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\validateSBML___Win32_Release/validateSBML.pch"
 				AssemblerListingLocation=".\validateSBML___Win32_Release/"
 				ObjectFile=".\validateSBML___Win32_Release/"
 				ProgramDataBaseFileName=".\validateSBML___Win32_Release/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
+				SuppressStartupBanner="TRUE"
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="bin/libsbml.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\bin/validateSBML.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\bin/validateSBML.pdb"
 				SubSystem="1"
@@ -141,7 +149,7 @@
 				RelativePath="..\examples\util.c">
 			</File>
 			<File
-				RelativePath="..\examples\validateSBML.c">
+				RelativePath="..\examples\C++\validateSBML.cpp">
 			</File>
 		</Filter>
 		<Filter
