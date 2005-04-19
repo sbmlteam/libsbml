@@ -56,7 +56,9 @@
 #include "SBMLTypeCodes.h"
 #include "SBMLConvert.h"
 
+
 #define ASSIGNEDCOMPARTMENT "AssignedName"
+
 
 /**
  * Converts the given SBase object and any of its subordinate objects from
@@ -329,6 +331,8 @@ SBML_convertRuleToL2 (Model_t *m, Rule_t *r)
       break;
   }
 }
+
+
 /**
  * Converts the given Model from SBML L2 to L1. 
  * Deals with teh species concentrations and amounts seperately
@@ -341,6 +345,8 @@ SBML_convertModelToL1 (Model_t *m, SBase_t *sb)
   SBML_convertAllSpeciesToL1(m);
   SBML_convertToL1(m, sb);
 }
+
+
 /**
  * Converts the given SBase object and any of its subordinate objects from
  * SBML L2 to L1.  In some cases, the larger Model is needed as context for
@@ -405,7 +411,7 @@ SBML_convertToL1 (Model_t *m, SBase_t *sb)
     case SBML_SPECIES_CONCENTRATION_RULE:
     case SBML_COMPARTMENT_VOLUME_RULE:
     case SBML_PARAMETER_RULE:
-     // SBML_convertRuleToL2(m, (Rule_t *) sb);
+      /* SBML_convertRuleToL2(m, (Rule_t *) sb); */
       break;
 
     case SBML_KINETIC_LAW:
@@ -418,10 +424,13 @@ SBML_convertToL1 (Model_t *m, SBase_t *sb)
   }
 
 }
+
+
 /**
- * Moves the id field of the given SBase object to its name field 
- * losing any name fields that are already set. SBase may be any L2 object that has
- * an id: Model, UnitDefinition, Species, Parameter, Reaction or Compartment.
+ * Moves the id field of the given SBase object to its name field losing
+ * any name fields that are already set. SBase may be any L2 object that
+ * has an id: Model, UnitDefinition, Species, Parameter, Reaction or
+ * Compartment.
  */
 void
 LIBSBML_EXTERN
@@ -466,10 +475,11 @@ SBML_convertIdToName (SBase_t *sb)
   }
 }
 
+
 /**
- * Level 2 allows a model to be specified without a Compartment.
- * However this is not valid in Level 1. Thus if a L2 model has no
- * Compartment one must be included.
+ * Level 2 allows a model to be specified without a Compartment.  However
+ * this is not valid in Level 1. Thus if a L2 model has no Compartment one
+ * must be included.
  */
 void
 LIBSBML_EXTERN
@@ -479,6 +489,7 @@ SBML_includeCompartment (Model_t *m)
   Compartment_setName(c, ASSIGNEDCOMPARTMENT);
   Model_addCompartment(m, c);
 }
+
 
 /**
  * Ensures that the species has an initialAmount set 
@@ -504,6 +515,8 @@ SBML_convertSpeciesToL1 (Model_t *m, Species_t *s)
   Species_setInitialAmount(s, amount);
 
 }
+
+
 /**
  * Converts all the species in a model from 
  * SBML L2 to L1.  This is necessary before any other conversion 
@@ -526,6 +539,8 @@ SBML_convertAllSpeciesToL1 (Model_t *m)
     SBML_convertSpeciesToL1(m, Model_getSpecies(m, n));
   }
 }
+
+
 /**
  * Converts the list of Reactions in this Model from SBML L2 to L1.
  *
