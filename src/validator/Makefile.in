@@ -73,16 +73,17 @@ thisdir   = src/validator
 # rules in `makefile-common-actions.mk' included at the end.
 
 headers = \
-  ConsistencyValidator.h \
-  Constraint.h           \
-  ConstraintMacros.h     \
-  GlobalConstraint.h     \
-  LocalConstraint.h      \
+  ConsistencyValidator.h     \
+  Constraint.h               \
+  ConstraintMacros.h         \
+  GlobalConstraint.h         \
+  L1CompatibilityValidator.h \
+  LocalConstraint.h          \
   Validator.h
 
 header_inst_prefix = validator
 
-sources = ConsistencyValidator.cpp Validator.cpp
+sources = ConsistencyValidator.cpp L1CompatibilityValidator.cpp Validator.cpp
 
 extra_CPPFLAGS = -I..
 
