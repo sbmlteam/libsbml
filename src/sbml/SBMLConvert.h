@@ -119,6 +119,13 @@ SBML_addModifiersToReaction (Reaction_t *r, const Model_t *m);
 LIBSBML_EXTERN
 void
 SBML_convertRuleToL2 (Model_t *m, Rule_t *r);
+/**
+ * Converts the given Model from SBML L2 to L1. 
+ * Deals with the species concentrations and amounts seperately
+ */
+void
+LIBSBML_EXTERN
+SBML_convertModelToL1 (Model_t *m, SBase_t *sb);
 
 /**
  * Converts the given SBase object and any of its subordinate objects from
@@ -130,6 +137,55 @@ void
 LIBSBML_EXTERN
 SBML_convertToL1 (Model_t *m, SBase_t *sb);
 
+/**
+ * Moves the id field of the given SBase object to its name field 
+ * losing any name fields that are already set. SBase may be any L2 object that has
+ * an id: Model, UnitDefinition, Species, Parameter, Reaction or Compartment.
+ */
+void
+LIBSBML_EXTERN
+SBML_convertIdToName (SBase_t *sb);
+
+/**
+ * Level 2 allows a model to be specified without a Compartment.
+ * However this is not valid in Level 1. Thus if a L2 model has no
+ * Compartment one must be included.
+ */
+void
+LIBSBML_EXTERN
+SBML_includeCompartment (Model_t *m);
+
+/**
+ * Converts all the species in a model from 
+ * SBML L2 to L1.  This is necessary before any other conversion 
+ * happens because of the potential conflicts of concentration 
+ * versus amount.
+ */
+void
+LIBSBML_EXTERN
+SBML_convertAllSpeciesToL1 (Model_t *m);
+
+/**
+ * Ensures that the species has a compartment field (required in level 1)
+ * the initialAmount is set 
+ */
+LIBSBML_EXTERN
+void
+SBML_convertSpeciesToL1 (Model_t *m, Species_t *s);
+
+/**
+ * Converts the list of Reactions in this Model from SBML L2 to L1.
+ *
+ * Conversion involves:
+ *
+ *   - Converting Reaction id to Reaction name (via SBML_convertIdToName())
+ *
+ *   - Converting the subordinate KineticLaw (and its Parameters) to L1
+ *     (via SBML_convertToL1()), and
+ *
+ */
+void
+SBML_convertReactionsInModelToL1 (Model_t *m);
 
 END_C_DECLS
 

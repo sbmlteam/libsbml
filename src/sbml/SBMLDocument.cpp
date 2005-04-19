@@ -320,7 +320,7 @@ SBMLDocument::setLevel (unsigned int level)
 		this->level = 1;
 		this->version = 2;
 
-		if (model != NULL) SBML_convertToL1((Model_t *) model, (SBase_t *) this);
+		if (model != NULL) SBML_convertModelToL1((Model_t *) model, (SBase_t *) this);
 	}
 	else
 	{
@@ -337,6 +337,10 @@ SBMLDocument::setLevel (unsigned int level)
     if (this->level == 2)
     {
       version = 1;
+    }
+    else if (this->level == 1)
+    {
+      version = 2;
     }
   }
 }

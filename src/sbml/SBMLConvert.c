@@ -56,6 +56,7 @@
 #include "SBMLTypeCodes.h"
 #include "SBMLConvert.h"
 
+#define ASSIGNEDCOMPARTMENT "AssignedName"
 
 /**
  * Converts the given SBase object and any of its subordinate objects from
@@ -329,6 +330,18 @@ SBML_convertRuleToL2 (Model_t *m, Rule_t *r)
   }
 }
 /**
+ * Converts the given Model from SBML L2 to L1. 
+ * Deals with teh species concentrations and amounts seperately
+ */
+void
+LIBSBML_EXTERN
+SBML_convertModelToL1 (Model_t *m, SBase_t *sb)
+
+{
+  SBML_convertAllSpeciesToL1(m);
+  SBML_convertToL1(m, sb);
+}
+/**
  * Converts the given SBase object and any of its subordinate objects from
  * SBML L2 to L1.  In some cases, the larger Model is needed as context for
  * conversion.  This function delegates, based on SBMLTypeCode, to
@@ -338,4 +351,207 @@ void
 LIBSBML_EXTERN
 SBML_convertToL1 (Model_t *m, SBase_t *sb)
 {
+  SBMLDocument_t *d;
+  KineticLaw_t   *kl;
+  ListOf_t       *lo;
+
+  unsigned int n;
+  unsigned int size;
+
+
+  if (sb == NULL) return;
+
+
+  switch (SBase_getTypeCode(sb))
+  {
+    case SBML_DOCUMENT:
+      d = (SBMLDocument_t *) sb;
+      SBMLDocument_setLevel(d, 1);
+      SBML_convertToL1( m, (SBase_t *) SBMLDocument_getModel(d) );
+      break;
+
+    case SBML_LIST_OF:
+      lo   = (ListOf_t *) sb;
+      size = ListOf_getNumItems(lo);
+
+      for (n = 0; n < size; n++)
+      {
+        SBML_convertToL1( m, (SBase_t *) ListOf_get(lo, n) );
+      }
+      break;
+
+    case SBML_MODEL:
+      /* m = (Model_t *) sb; */
+      SBML_convertIdToName(sb);
+      SBML_convertToL1( m, (SBase_t *) Model_getListOfUnitDefinitions(m) );
+      SBML_convertToL1( m, (SBase_t *) Model_getListOfCompartments   (m) );
+      SBML_convertToL1( m, (SBase_t *) Model_getListOfSpecies        (m) );
+      SBML_convertToL1( m, (SBase_t *) Model_getListOfParameters     (m) );
+      SBML_convertToL1( m, (SBase_t *) Model_getListOfRules          (m) );
+      
+      if (Model_getNumCompartments(m) == 0)
+        SBML_includeCompartment(m);
+
+      SBML_convertReactionsInModelToL1(m);
+      break;
+
+    case SBML_UNIT_DEFINITION:
+    case SBML_COMPARTMENT:
+    case SBML_PARAMETER:
+    case SBML_SPECIES:
+      SBML_convertIdToName(sb);
+      break;
+
+    case SBML_SPECIES_CONCENTRATION_RULE:
+    case SBML_COMPARTMENT_VOLUME_RULE:
+    case SBML_PARAMETER_RULE:
+     // SBML_convertRuleToL2(m, (Rule_t *) sb);
+      break;
+
+    case SBML_KINETIC_LAW:
+      kl = (KineticLaw_t *) sb;
+      SBML_convertToL1( m, (SBase_t *) KineticLaw_getListOfParameters(kl) );
+      break;
+
+    default:
+      break;
+  }
+
+}
+/**
+ * Moves the id field of the given SBase object to its name field 
+ * losing any name fields that are already set. SBase may be any L2 object that has
+ * an id: Model, UnitDefinition, Species, Parameter, Reaction or Compartment.
+ */
+void
+LIBSBML_EXTERN
+SBML_convertIdToName (SBase_t *sb)
+{
+  if (sb == NULL) return;
+
+  switch (SBase_getTypeCode(sb))
+  {
+    case SBML_MODEL:
+      Model_unsetName((Model_t *) sb);
+      Model_moveIdToName((Model_t *) sb);
+      break;
+
+    case SBML_UNIT_DEFINITION:
+      UnitDefinition_unsetName((UnitDefinition_t *) sb);
+      UnitDefinition_moveIdToName((UnitDefinition_t *) sb);
+      break;
+
+    case SBML_COMPARTMENT:
+      Compartment_unsetName((Compartment_t *) sb);
+      Compartment_moveIdToName((Compartment_t *) sb);
+      break;
+
+    case SBML_SPECIES:
+      Species_unsetName((Species_t *) sb);
+      Species_moveIdToName((Species_t *) sb);
+      break;
+
+    case SBML_PARAMETER:
+      Parameter_unsetName((Parameter_t *) sb);
+      Parameter_moveIdToName((Parameter_t *) sb);
+      break;
+
+    case SBML_REACTION:
+      Reaction_unsetName((Reaction_t *) sb);
+      Reaction_moveIdToName((Reaction_t *) sb);
+      break;
+
+    default:
+      break;
+  }
+}
+
+/**
+ * Level 2 allows a model to be specified without a Compartment.
+ * However this is not valid in Level 1. Thus if a L2 model has no
+ * Compartment one must be included.
+ */
+void
+LIBSBML_EXTERN
+SBML_includeCompartment (Model_t *m)
+{
+  Compartment_t * c = Compartment_create();
+  Compartment_setName(c, ASSIGNEDCOMPARTMENT);
+  Model_addCompartment(m, c);
+}
+
+/**
+ * Ensures that the species has an initialAmount set 
+ */
+LIBSBML_EXTERN
+void
+SBML_convertSpeciesToL1 (Model_t *m, Species_t *s)
+{
+  double amount;
+  Compartment_t *c;
+
+  /* need to deal with possible mismatch of units */
+
+  if (Species_isSetInitialConcentration(s) == 1)
+  {
+    c = Model_getCompartmentById(m, Species_getCompartment(s));
+    amount = (Species_getInitialConcentration(s))*(Compartment_getSize(c));
+  }
+  else if (Species_isSetInitialConcentration(s) == 0)
+  {
+    amount = 0.0;
+  }
+  Species_setInitialAmount(s, amount);
+
+}
+/**
+ * Converts all the species in a model from 
+ * SBML L2 to L1.  This is necessary before any other conversion 
+ * happens because of the potential conflicts of concentration 
+ * versus amount.
+ */
+void
+LIBSBML_EXTERN
+SBML_convertAllSpeciesToL1 (Model_t *m)
+{
+  unsigned int n;
+  unsigned int size;
+
+  size = Model_getNumSpecies(m);
+
+  if (size == 0) return;
+
+  for (n = 0; n < size; n++)
+  {
+    SBML_convertSpeciesToL1(m, Model_getSpecies(m, n));
+  }
+}
+/**
+ * Converts the list of Reactions in this Model from SBML L2 to L1.
+ *
+ * Conversion involves:
+ *
+ *   - Converting Reaction id to Reaction name (via SBML_convertIdToName())
+ *
+ *   - Converting the subordinate KineticLaw (and its Parameters) to L1
+ *     (via SBML_convertToL1()), and
+ *
+ */
+void
+SBML_convertReactionsInModelToL1 (Model_t *m)
+{
+  unsigned int  numReactions = Model_getNumReactions(m);
+  ListOf_t     *reactions    = Model_getListOfReactions(m);
+
+  unsigned int  n;
+  Reaction_t   *r;
+
+
+  for (n = 0; n < numReactions; n++)
+  {
+    r = (Reaction_t *) ListOf_get(reactions, n);
+
+    SBML_convertIdToName( (SBase_t *) r );
+    SBML_convertToL1    ( m, (SBase_t *) Reaction_getKineticLaw(r) );
+  }
 }
