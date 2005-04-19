@@ -285,7 +285,7 @@ SBase::toSBML (unsigned int level, unsigned int version)
       break;
       
     case SBML_EVENT_ASSIGNMENT:
-      *formatter << static_cast<Event&>(*this);
+      *formatter << static_cast<EventAssignment&>(*this);
       break;
 
     case SBML_FUNCTION_DEFINITION:
