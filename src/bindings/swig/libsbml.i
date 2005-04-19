@@ -63,10 +63,6 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include local.i
 
 
-%rename(formulaToString) SBML_formulaToString;
-%rename(parseFormula)    SBML_parseFormula;
-
-
 %ignore ASTNode(Token_t*);
 %ignore ASTNode::getListOfNodes;
 %ignore ASTNode::fillListOfNodes;
@@ -85,8 +81,27 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %ignore SBMLDocument::printFatals;
 
 
+%typemap(newfree) char * "free($1);";
+
+%newobject SBase::toSBML;
+
 %newobject SBMLReader::readSBMLFromString;
 %newobject SBMLReader::readSBML;
+%newobject readSBML(const char *);
+%newobject readSBMLFromString(const char *);
+
+%newobject SBMLWriter::writeToString;
+%newobject writeSBMLToString;
+
+%newobject readMathMLFromString;
+%newobject writeMathMLToString;
+
+%newobject SBML_formulaToString;
+%newobject SBML_parseFormula;
+
+
+%rename(formulaToString) SBML_formulaToString;
+%rename(parseFormula)    SBML_parseFormula;
 
 
 %include "std_string.i"
@@ -125,8 +140,13 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include sbml/UnitKind.h
 %include sbml/RuleType.h
 
+%include math/MathMLReader.h
+%include math/MathMLWriter.h
+
 %include math/ASTNode.h
 %include math/ASTNodeType.h
+%include math/FormulaFormatter.h
+%include math/FormulaParser.h
 %include math/MathMLDocument.h
 
 %include xml/ParseMessage.h
@@ -134,9 +154,6 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include xml/XMLNamespaceList.h
 %include xml/XMLSchemaValidation.h
 
-
-%typemap(newfree) char * "free($1);";
-%newobject writeSBMLToString;
 
 /**
  * This Java specific typemap applies only to SBML_formulaToString()
@@ -147,36 +164,3 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 #ifdef SWIGJAVA
 %typemap(javain) ASTNode * "ASTNode.getCPtr($javainput)";
 #endif
-
-%newobject SBML_formulaToString;
-LIBSBML_EXTERN
-char *
-SBML_formulaToString (const ASTNode* tree);
-
-%newobject SBML_parseFormula;
-LIBSBML_EXTERN
-ASTNode*
-SBML_parseFormula (const char *formula);
-
-LIBSBML_EXTERN
-MathMLDocument*
-readMathMLFromString (const char *xml);
-
-LIBSBML_EXTERN
-int
-writeMathML (const MathMLDocument* d, const char *filename);
-
-%newobject writeMathMLToString;
-LIBSBML_EXTERN
-char *
-writeMathMLToString (const MathMLDocument* d);
-
-%newobject readSBML(const char *);
-LIBSBML_EXTERN
-SBMLDocument*
-readSBML(const char*);
-
-%newobject readSBMLFromString(const char *);
-LIBSBML_EXTERN
-SBMLDocument*
-readSBMLFromString(const char*);
