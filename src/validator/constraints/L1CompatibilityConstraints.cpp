@@ -49,7 +49,7 @@
  */
 
 
-#ifndef AddingL1CompatibilityConstraintsToValidator
+#ifndef AddingConstraintsToValidator
 #include <string>
 #include "sbml/SBMLTypes.h"
 #include "validator/LocalConstraint.h"

@@ -66,6 +66,6 @@
 void
 L1CompatibilityValidator::init ()
 {
-#define  AddingL1CompatibilityConstraintsToValidator 1
+#define  AddingConstraintsToValidator 1
 #include "constraints/L1CompatibilityConstraints.cpp"
 }
