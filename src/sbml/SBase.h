@@ -65,7 +65,9 @@
 #include "SBMLTypeCodes.h"
 
 
-extern "C" void SBaseTest_setup (void);
+#ifndef SWIG
+  extern "C" void SBaseTest_setup (void);
+#endif
 
 
 class SBase
