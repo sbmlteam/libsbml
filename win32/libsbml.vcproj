@@ -217,6 +217,9 @@
 				RelativePath="..\src\sbml\KineticLaw.h">
 			</File>
 			<File
+				RelativePath="..\src\validator\L1CompatibilityValidator.h">
+			</File>
+			<File
 				RelativePath="..\src\util\List.h">
 			</File>
 			<File
@@ -424,6 +427,9 @@
 			</File>
 			<File
 				RelativePath="..\src\sbml\KineticLaw.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\L1CompatibilityValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\src\util\List.cpp">
