@@ -114,3 +114,14 @@ START_CONSTRAINT (2004, Unit, u)
   inv( u.getOffset() == 0.0 );
 }
 END_CONSTRAINT
+
+START_CONSTRAINT (2005, Species, s)
+{
+  msg =
+    "A Species that does not identify its compartment "
+	"cannot be represented in Level 1.";
+
+
+  inv( s.isSetCompartment());
+}
+END_CONSTRAINT
