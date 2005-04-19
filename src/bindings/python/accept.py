@@ -49,9 +49,14 @@
 ##
 
 
-import sys, operator, re
-import libsbml
+import sys
+import operator
+import re
+import string
 import os.path
+
+import libsbml
+
 
 def isNaN(x):
    return str(x) == "nan"
@@ -339,7 +344,7 @@ def testEventAssignment():
    str(eventAssignment)
 
 
-def teestRules():
+def testRules():
    formula1 = libsbml.parseFormula("3 + 4")
    formula2 = libsbml.parseFormula("5 + 6")
    formula3 = libsbml.parseFormula("7 + 8")
@@ -631,9 +636,13 @@ def testListOfAsIterator():
    alsoLast2Reactions = listOf[-2:]
    assert len(alsoLast2Reactions) == 2
    assert alsoLast2Reactions[0].getId() == "R3"
-   assert alsoLast2Reactions[1].getId() == "R4"
+   assert alsoLast2Reactions[1].getId() == "R4" 
 
-   expect = re.compile("\[<C Reaction instance at _[0-9a-f]+_p_Reaction>, <C Reaction instance at _[0-9a-f]+_p_Reaction>, <C Reaction instance at _[0-9a-f]+_p_Reaction>, <C Reaction instance at _[0-9a-f]+_p_Reaction>\]")
+   item  = "\<libsbml\.ReactionPtr\; proxy of C\+\+ Reaction instance at "
+   item += "_[0-9a-f]+_p_Reaction\>";
+   items = string.join([item] * 4, ", ")
+
+   expect = re.compile("\[" + items + "\]")
    assert expect.match(repr(listOf))
 
 
