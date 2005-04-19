@@ -62,16 +62,55 @@
 
 using namespace std;
 
-
-START_CONSTRAINT (2001, Model, x)
+START_CONSTRAINT (2000, Model, c)
 {
   msg =
-    "A Model that has a Species must also have at least one Compartment "
-    "(L2v1 Section 4.5).";
+    "A Model with Events cannot "
+	"be represented in Level 1.";
 
-  pre( m.getNumSpecies()      > 0 );
-  inv( m.getNumCompartments() > 0 );
+  inv( m.getNumEvents() == 0 );
 }
 END_CONSTRAINT
 
+START_CONSTRAINT (2001, Compartment, c)
+{
+  msg =
+    "Compartment with spatialDimensions other than three cannot "
+	"be represented in Level 1.";
 
+  inv( c.getSpatialDimensions() == 3 );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (2002, Reaction, r)
+{
+  msg =
+    "A Reaction containing modifiers "
+	"cannot be represented in Level 1.";
+
+  inv( r.getNumModifiers() == 0);
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (2003, SpeciesReference, sr)
+{
+  msg =
+    "A SpeciesReference containing a 'stoichiometryMath' subelement "
+	"cannot be represented in Level 1.";
+
+
+  inv( !sr.isSetStoichiometryMath()  );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (2004, Unit, u)
+{
+  msg =
+    "A Unit containing multipliers or offsets "
+	"cannot be represented in Level 1.";
+
+
+  inv( u.getMultiplier() == 1.0 );
+  inv( u.getOffset() == 0.0 );
+}
+END_CONSTRAINT
