@@ -200,10 +200,10 @@ protected:
 #endif /* __cplusplus */
 
 
-#ifndef SWIG
-
-
 BEGIN_C_DECLS
+
+
+#ifndef SWIG
 
 
 #include "common/sbmlfwd.h"
@@ -278,28 +278,6 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
 
-
-/**
- * Reads the SBML document from the given file and returns a pointer to it.
- * This convenience function is functionally equivalent to:
- *
- *   SBMLReader_readSBML(SBMLReader_create(), filename);
- */
-LIBSBML_EXTERN
-SBMLDocument_t *
-readSBML (const char *filename);
-
-/**
- * Reads the SBML document from the given XML string and returns a pointer
- * to it.  This convenience function is functionally equivalent to:
- *
- *   SBMLReader_readSBMLFromString(SBMLReader_create(), filename);
- */
-LIBSBML_EXTERN
-SBMLDocument_t *
-readSBMLFromString (const char *xml);
-
-
 /**
  * Sets the schema filename used by this SBMLReader to validate SBML Level
  * 1 version 1 documents.
@@ -357,8 +335,31 @@ SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
                                       XMLSchemaValidation_t level );
 
 
+#endif  /* !SWIG */
+
+
+/**
+ * Reads the SBML document from the given file and returns a pointer to it.
+ * This convenience function is functionally equivalent to:
+ *
+ *   SBMLReader_readSBML(SBMLReader_create(), filename);
+ */
+LIBSBML_EXTERN
+SBMLDocument_t *
+readSBML (const char *filename);
+
+/**
+ * Reads the SBML document from the given XML string and returns a pointer
+ * to it.  This convenience function is functionally equivalent to:
+ *
+ *   SBMLReader_readSBMLFromString(SBMLReader_create(), filename);
+ */
+LIBSBML_EXTERN
+SBMLDocument_t *
+readSBMLFromString (const char *xml);
+
+
 END_C_DECLS
 
 
-#endif  /* !SWIG */
 #endif  /* SBMLReader_h */

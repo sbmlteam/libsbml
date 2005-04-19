@@ -56,9 +56,6 @@
 #include "common/extern.h"
 
 
-#ifndef SWIG
-
-
 #ifdef __cplusplus
 
 
@@ -151,5 +148,4 @@ writeMathMLToString (const MathMLDocument_t *d);
 END_C_DECLS
 
 
-#endif  /* !SWIG */
 #endif  /* MathMLWriter_h */

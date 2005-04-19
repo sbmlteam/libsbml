@@ -73,6 +73,10 @@ LIBSBML_EXTERN
 ASTNode_t *
 SBML_parseFormula (const char *formula);
 
+
+#ifndef SWIG
+
+
 /**
  * @return the action for the current state and token.
  *
@@ -121,4 +125,5 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule);
 END_C_DECLS
 
 
-#endif  /** FormulaParser_h **/
+#endif  /* !SWIG */
+#endif  /* FormulaParser_h */

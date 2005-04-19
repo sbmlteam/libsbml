@@ -70,6 +70,10 @@ LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode_t *tree);
 
+
+#ifndef SWIG
+
+
 /**
  * @return true (non-zero) if the given ASTNode is to formatted as a
  * function.
@@ -188,4 +192,5 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
 END_C_DECLS
 
 
-#endif  /** FormulaFormatter_h **/
+#endif  /* !SWIG */
+#endif  /* FormulaFormatter_h */
