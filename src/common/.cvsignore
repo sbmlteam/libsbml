@@ -5,4 +5,4 @@
 Makefile
 TestRunner
 *.dylib
-config.h
+libsbml-config-unix.h
