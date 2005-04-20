@@ -92,7 +92,7 @@ extra_clean = \
 	$(docs) \
 	$(api-tex-files) \
 	$(addprefix libsbml-manual.,$(tex_clean)) \
-	$(addprefix libsbml-api-ref.,$(tex_clean)) 
+	$(addprefix libsbml-api-ref.,$(tex_clean))
 
 extra_distclean = \
 	$(all_generated_files) \
@@ -102,7 +102,8 @@ extra_distclean = \
 	$(formatted)/libsbml-api-ref.ps \
 	Doxyfile \
 	sbmlmanual.perl \
-	libsbmlextras.perl
+	libsbmlextras.perl \
+	api/.timestamp
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
@@ -227,7 +228,6 @@ manual $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(
 	$(latex-env) pdflatex libsbml-manual
 	$(latex-env) pdflatex libsbml-manual
 	$(latex-env) pdflatex libsbml-manual
-	$(latex-env) pdflatex libsbml-manual
 	cp -f libsbml-manual.pdf $(formatted)
 
 $(formatted)/libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
@@ -269,27 +269,24 @@ $(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libs
 # libsbml-api-ref
 # -----------------------------------------------------------------------------
 
-api-tex-files = $(wildcard api/*.tex)
+api-tex-files := $(wildcard api/*.tex)
 
-create-api-files = { $(SHELL) createAPISections.sh ../../src/sbml; }
+api/.timestamp:
+	$(SHELL) createAPISections.sh ../../src/sbml
+	echo `date` > api/.timestamp
 
-api-ref $(formatted)/libsbml-api-ref.pdf libsbml-api-ref.pdf:  libsbml-api-ref.tex
-ifeq "$(api-tex-files)" ""
-	$(create-api-files)
-endif
+$(formatted)/libsbml-api-ref.pdf libsbml-api-ref.pdf: libsbml-api-ref.tex \
+  api/.timestamp $(api-tex-files)
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	$(latex-env) pdflatex libsbml-api-ref
 	$(latex-env) bibtex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
 	$(latex-env) pdflatex libsbml-api-ref
-	$(latex-env) pdflatex libsbml-api-ref
 	cp -f libsbml-api-ref.pdf $(formatted)
 
-$(formatted)/libsbml-api-ref.dvi: libsbml-api-ref.tex
-ifeq "$(api-tex-files)" ""
-	$(create-api-files)
-endif
+$(formatted)/libsbml-api-ref.dvi: libsbml-api-ref.tex \
+  api/.timestamp $(api-tex-files)
 	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
 	$(latex-env) latex libsbml-api-ref
 	$(latex-env) bibtex libsbml-api-ref
