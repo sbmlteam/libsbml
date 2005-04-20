@@ -63,6 +63,42 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include local.i
 
 
+/**
+ * Unfortunately, SWIG makes no distinction between const and
+ * non-const member functions (SWIG 1.3 Manual, Section 6.25), but in
+ * libSBML C++ we have both const and non-const versions of
+ * getListOfXXX().  To avoid a ton of Warning(516) messages, we turn
+ * explicitly tell to ignore the const version (since it wouldn't wrap
+ * it anyway).  We don't want to turn-off warning 516 altogether as it
+ * might alert us to a genuine conflict at some later date.
+ */
+%ignore Model::getListOfFunctionDefinitions() const;
+%ignore Model::getListOfUnitDefinitions    () const;
+%ignore Model::getListOfCompartments       () const;
+%ignore Model::getListOfSpecies            () const;
+%ignore Model::getListOfParameters         () const;
+%ignore Model::getListOfRules              () const;
+%ignore Model::getListOfReactions          () const;
+%ignore Model::getListOfEvents             () const;
+
+%ignore UnitDefinition::getListOfUnits() const;
+
+%ignore Reaction::getListOfReactants() const;
+%ignore Reaction::getListOfProducts () const;
+%ignore Reaction::getListOfModifiers() const;
+
+%ignore KineticLaw::getListOfParameters() const;
+
+%ignore Event::getListOfEventAssignments() const;
+
+
+/**
+ * Ignore the Visitor pattern accept() method (for now) on all SBML
+ * objects.
+ */
+%ignore *::accept;
+
+
 %ignore ASTNode(Token_t*);
 %ignore ASTNode::getListOfNodes;
 %ignore ASTNode::fillListOfNodes;
@@ -76,10 +112,22 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 
 %ignore Model::getListOfByTypecode(SBMLTypeCode_t);
 
+
+/**
+ * SWIG doesn't wrap FILE* or std::ostream very well so ignore these
+ * methods.
+ */
 %ignore SBMLDocument::printWarnings;
 %ignore SBMLDocument::printErrors;
 %ignore SBMLDocument::printFatals;
+%ignore SBMLWriter  ::write(const SBMLDocument&  , std::ostream&);
+%ignore MathMLWriter::write(const MathMLDocument&, std::ostream&);
 
+
+/**
+ * The following methods will create new objects.  To prevent memory
+ * leaks we must inform SWIG of this.
+ */
 
 %typemap(newfree) char * "free($1);";
 
@@ -100,9 +148,19 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %newobject SBML_parseFormula;
 
 
+/**
+ * In the wrapped languages, these methods will appear as:
+ *
+ *  - libsbml.formulaToString()
+ *  - libsbml.parseFormula()
+ */
 %rename(formulaToString) SBML_formulaToString;
 %rename(parseFormula)    SBML_parseFormula;
 
+
+/**
+ * Wrap these files.
+ */
 
 %include "std_string.i"
 
@@ -145,7 +203,6 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 
 %include math/ASTNode.h
 %include math/ASTNodeType.h
-%include math/FormulaFormatter.h
 %include math/FormulaParser.h
 %include math/MathMLDocument.h
 
@@ -164,3 +221,11 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 #ifdef SWIGJAVA
 %typemap(javain) ASTNode * "ASTNode.getCPtr($javainput)";
 #endif
+
+/**
+ * @return the given formula AST as an SBML L1 string formula.  The caller
+ * owns the returned string and is responsible for freeing it.
+ */
+LIBSBML_EXTERN
+char *
+SBML_formulaToString (const ASTNode_t *tree);
