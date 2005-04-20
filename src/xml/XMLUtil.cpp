@@ -51,7 +51,7 @@
 
 
 #include <iostream>
-#include "common/common.h"
+#include "xml/common.h"
 
 
 #ifdef USE_EXPAT
@@ -65,6 +65,9 @@
 
 
 #include "sbml/SBMLUnicodeConstants.h"
+#include "util/memory.h"
+#include "util/util.h"
+
 #include "XMLUnicodeConstants.h"
 #include "XMLUtil.h"
 
