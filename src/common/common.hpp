@@ -67,32 +67,7 @@
    typedef char    MemBufInputSource;
 #else
 #  define  XML_PLATFORM_UTILS_INIT()  xercesc::XMLPlatformUtils::Initialize()
-#  include <xercesc/util/XercesVersion.hpp>
-#  include <xercesc/util/XercesDefs.hpp>
 #endif  // USE_EXPAT
-
-
-#include <string>
-
-
-//
-// Starting with Xerces-C++ 2.2.0 its API is wrapped in a C++ namesapce.
-//
-// The namespaces is version specific, e.g. xercesc_2_2, but the macro
-// XERCES_CPP_NAMESPACE_USE defines "using namespace xercesc<version>;".
-// If Xerces was compiled *without* namespace support, this macro will be
-// empty.
-//
-// The namespace xercesc:: is also valid.  It is an alias for the most
-// current version of API.
-//
-// _XERCES_VERSION (20200 == 2.02.00 == 2.2.0) is defined in
-// XercesVersion.hpp.  XERCES_CPP_NAMESPACE_USE is defined in
-// XercesDefs.hpp.
-//
-// #if _XERCES_VERSION >= 20200
-// XERCES_CPP_NAMESPACE_USE
-// #endif
 
 
 #endif  // LIBSBML_COMMON_HPP
