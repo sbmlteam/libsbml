@@ -96,63 +96,92 @@ class SAX2AttributesMock : public Attributes
 {
 public:
 
-  /* ----------------------------------------------------------------------
-   *  Ctors and Dtors
-   * ----------------------------------------------------------------------
-   */
-
   /**
    * Creates an implementation of a SAX2 Attributes class (adhering to the
    * Attributes interface) capable of holding at most max Attributes.
    */
   SAX2AttributesMock (unsigned int max);
 
-  virtual ~SAX2AttributesMock (void);
+  virtual ~SAX2AttributesMock ();
 
 
-  /* ----------------------------------------------------------------------
-   *  Implementation of the Attribute Interface
-   * ----------------------------------------------------------------------
+  /**
+   * @return The number of attributes in the list.
    */
+  virtual
+  unsigned int getLength() const;
 
-  virtual unsigned int getLength() const;
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual
+  const XMLCh* getURI (const unsigned int index) const;
 
-  virtual const XMLCh* getURI       (const unsigned int index) const;
-  virtual const XMLCh* getLocalName (const unsigned int index) const;
-  virtual const XMLCh* getQName     (const unsigned int index) const;
-  virtual const XMLCh* getType      (const unsigned int index) const;
-  virtual const XMLCh* getValue     (const unsigned int index) const;
+  /**
+   * @return The local name of the indexed attribute, or null if the index
+   * is out of range.
+   */
+  virtual
+  const XMLCh* getLocalName (const unsigned int index) const;
 
-  virtual int getIndex (
-                        const XMLCh* const  uri,
-                        const XMLCh* const  localPart
-                        ) const;
+  /**
+   * @return getLocalName(index)
+   */
+  virtual
+  const XMLCh* getQName (const unsigned int index) const;
 
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual
+  const XMLCh* getType (const unsigned int index) const;
+
+  /**
+   * @return The attribute value as a string, or null if the index is out
+   * of range.
+   */
+  virtual
+  const XMLCh* getValue (const unsigned int index) const;
+
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual
+  int getIndex (const XMLCh* const uri, const XMLCh* const localPart) const;
+
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual
 #ifdef USE_EXPAT
-  virtual unsigned int getIndex(const XMLCh* const qName ) const;
-#else
-  virtual int getIndex(const XMLCh* const qName ) const;
-#endif  /* USE_EXPAT */
+   unsigned
+#endif
+   int getIndex (const XMLCh* const qname) const;
 
-  virtual const XMLCh* getType (
-                                const XMLCh* const  uri,
-                                const XMLCh* const  localPart
-                                ) const;
-
-  virtual const XMLCh* getType(const XMLCh* const qName) const;
-
-  virtual const XMLCh* getValue (
-                                 const XMLCh* const  uri,
-                                 const XMLCh* const  localPart
-                                 ) const;
-
-  virtual const XMLCh* getValue (const XMLCh* const qName) const;
-
-
-  /* ----------------------------------------------------------------------
-   * Other methods
-   * ----------------------------------------------------------------------
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
    */
+  virtual
+  const XMLCh* getType (const XMLCh* const uri,
+                        const XMLCh* const localPart) const;
+
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual const XMLCh* getType (const XMLCh* const qname) const;
+
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual const XMLCh* getValue (const XMLCh* const uri,
+                                 const XMLCh* const localPart) const;
+
+  /**
+   * @return The attribute value as a string, or null if the attribute is
+   * not in the list or if qualified names are not available.
+   */
+  virtual const XMLCh* getValue (const XMLCh* const qname) const;
+
 
   /**
    * If getLength() is less-than the maximum number of attributes (supplied
@@ -161,12 +190,13 @@ public:
    */
   void add (const char* localname, const char* value);
 
+
 private:
 
-  XMLCh**       fLocalNames;
-  XMLCh**       fValues;
-  unsigned int  fMax;
-  unsigned int  fLength;
+  XMLCh**       mLocalNames;
+  XMLCh**       mValues;
+  unsigned int  mMax;
+  unsigned int  mLength;
 };
 
 

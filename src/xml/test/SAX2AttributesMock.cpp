@@ -53,6 +53,7 @@
 #include <iostream>
 #include "xml/common.h"
 
+
 #ifdef USE_EXPAT
 #  include "ExpatXMLString.h"
 #else
@@ -60,54 +61,48 @@
    using namespace xercesc;
 #endif // USE_EXPAT
 
+
 #include "SAX2AttributesMock.h"
 
 
-//
-// Ctor
-//
-// Creates an implementation of a SAX2 Attributes class (adhering to the
-// Attributes interface) capable of holding at most max Attributes.
-//
-//
-SAX2AttributesMock::SAX2AttributesMock (unsigned int max)
+/**
+ * Creates an implementation of a SAX2 Attributes class (adhering to the
+ * Attributes interface) capable of holding at most max Attributes.
+ */
+SAX2AttributesMock::SAX2AttributesMock (unsigned int max) :
+    mLocalNames( new XMLCh*[max] )
+  , mValues    ( new XMLCh*[max] )
+  , mMax       ( max )
+  , mLength    ( 0 )
 {
   XML_PLATFORM_UTILS_INIT();
-
-  fLocalNames = new XMLCh*[max];
-  fValues     = new XMLCh*[max];
-  fMax        = max;
-  fLength     = 0;
 }
 
 
-//
-// Dtor
-//
-SAX2AttributesMock::~SAX2AttributesMock (void)
+SAX2AttributesMock::~SAX2AttributesMock ()
 {
 
-  for (unsigned int i = 0; i < fLength; i++)
+  for (unsigned int i = 0; i < mLength; i++)
   {
-    delete [] fLocalNames[i];
-    delete [] fValues[i];
+    delete [] mLocalNames[i];
+    delete [] mValues[i];
   }
 }
 
 
-//
-// @return The number of attributes in the list.
-//
+/**
+ * @return The number of attributes in the list.
+ */
 unsigned int
 SAX2AttributesMock::getLength () const
 {
-  return fLength;
+  return mLength;
 }
 
 
-//
-// CURRENTLY UNIMPLEMENTED.  RETURNS 0.
-//
+/**
+ * @return 0.  CURRENTLY UNIMPLEMENTED.
+ */
 const XMLCh*
 SAX2AttributesMock::getURI (const unsigned int index) const
 {
@@ -115,16 +110,16 @@ SAX2AttributesMock::getURI (const unsigned int index) const
 }
 
 
-//
-// @return The local name of the indexed attribute, or null if the index is
-// out of range.
-//
+/**
+ * @return The local name of the indexed attribute, or null if the index is
+ * out of range.
+ */
 const XMLCh*
 SAX2AttributesMock::getLocalName (const unsigned int index) const
 {
-  if (index >= 0 && index < fLength)
+  if (index >= 0 && index < mLength)
   {
-    return fLocalNames[index];
+    return mLocalNames[index];
   }
   else
   {
@@ -133,9 +128,9 @@ SAX2AttributesMock::getLocalName (const unsigned int index) const
 }
 
 
-//
-// @return getLocalName(index)
-//
+/**
+ * @return getLocalName(index)
+ */
 const XMLCh*
 SAX2AttributesMock::getQName (const unsigned int index) const
 {
@@ -143,9 +138,9 @@ SAX2AttributesMock::getQName (const unsigned int index) const
 }
 
 
-//
-// CURRENTLY UNIMPLEMENTED.  RETURNS 0.
-//
+/**
+ * @return 0.  CURRENTLY UNIMPLEMENTED.
+ */
 const XMLCh*
 SAX2AttributesMock::getType (const unsigned int index) const
 {
@@ -153,16 +148,16 @@ SAX2AttributesMock::getType (const unsigned int index) const
 }
 
 
-//
-// @return The attribute value as a string, or null if the index is out
-// of range.
-//
+/**
+ * @return The attribute value as a string, or null if the index is out
+ * of range.
+ */
 const XMLCh*
 SAX2AttributesMock::getValue (const unsigned int index) const
 {
-  if (index >= 0 && index < fLength)
+  if (index >= 0 && index < mLength)
   {
-    return fValues[index];
+    return mValues[index];
   }
   else
   {
@@ -170,9 +165,10 @@ SAX2AttributesMock::getValue (const unsigned int index) const
   }
 }
 
-//
-// CURRENTLY UNIMPLEMENTED.  RETURNS 0.
-//
+
+/**
+ * @return 0.  CURRENTLY UNIMPLEMENTED.
+ */
 int
 SAX2AttributesMock::getIndex (const XMLCh* const  uri,
                               const XMLCh* const  localPart) const
@@ -181,23 +177,22 @@ SAX2AttributesMock::getIndex (const XMLCh* const  uri,
 }
 
 
-//
-// CURRENTLY UNIMPLEMENTED.  RETURNS 0.
-//
+/**
+ * @return 0.  CURRENTLY UNIMPLEMENTED.
+ */
 #ifdef USE_EXPAT
-unsigned int
-#else
+unsigned
+#endif
 int
-#endif  // USE_EXPAT
-SAX2AttributesMock::getIndex (const XMLCh* const qName) const
+SAX2AttributesMock::getIndex (const XMLCh* const qname) const
 {
   return 0;
 }
 
 
-//
-// CURRENTLY UNIMPLEMENTED.  RETURNS 0.
-//
+/**
+ * @return 0.  CURRENTLY UNIMPLEMENTED.
+ */
 const XMLCh*
 SAX2AttributesMock::getType (const XMLCh* const  uri,
                              const XMLCh* const  localPart) const
@@ -206,20 +201,20 @@ SAX2AttributesMock::getType (const XMLCh* const  uri,
 }
 
 
-//
-// CURRENTLY UNIMPLEMENTED.  RETURNS 0.
-//
+/**
+ * @return 0.  CURRENTLY UNIMPLEMENTED.
+ */
 const XMLCh*
-SAX2AttributesMock::getType(const XMLCh* const qName) const
+SAX2AttributesMock::getType (const XMLCh* const qname) const
 {
   
   return 0;
 }
 
 
-//
-// CURRENTLY UNIMPLEMENTED.  RETURNS 0.
-//
+/**
+ * @return 0.  CURRENTLY UNIMPLEMENTED.
+ */
 const XMLCh*
 SAX2AttributesMock::getValue (const XMLCh* const  uri,
                               const XMLCh* const  localPart) const
@@ -228,18 +223,18 @@ SAX2AttributesMock::getValue (const XMLCh* const  uri,
 }
 
 
-//
-// @return The attribute value as a string, or null if the attribute is not
-// in the list or if qualified names are not available.
-//
+/**
+ * @return The attribute value as a string, or null if the attribute is not
+ * in the list or if qualified names are not available.
+ */
 const XMLCh*
-SAX2AttributesMock::getValue (const XMLCh* const qName) const
+SAX2AttributesMock::getValue (const XMLCh* const qname) const
 {
-  for (unsigned int n = 0; n < fLength; n++)
+  for (unsigned int n = 0; n < mLength; n++)
   {
-    if ( XMLString::compareString(fLocalNames[n], qName) == 0)
+    if ( XMLString::compareString(mLocalNames[n], qname) == 0)
     {
-      return fValues[n];
+      return mValues[n];
     }
   }
 
@@ -247,18 +242,18 @@ SAX2AttributesMock::getValue (const XMLCh* const qName) const
 }
 
 
-//
-// If getLength() is less-than the maximum number of attributes (supplied
-// during construction), adds an Attribute with the given localname and
-// value to this set of Attributes, otherwise does nothing.
-//
+/**
+ * If getLength() is less-than the maximum number of attributes (supplied
+ * during construction), adds an Attribute with the given localname and
+ * value to this set of Attributes, otherwise does nothing.
+ */
 void
-SAX2AttributesMock::add(const char* localname, const char* value)
+SAX2AttributesMock::add (const char* localname, const char* value)
 {
-  if (fLength < fMax)
+  if (mLength < mMax)
   {
-    fLocalNames[fLength] = XMLString::transcode( localname );
-    fValues    [fLength] = XMLString::transcode( value     );
-    fLength++;
+    mLocalNames[mLength] = XMLString::transcode( localname );
+    mValues    [mLength] = XMLString::transcode( value     );
+    mLength++;
   }
 }
