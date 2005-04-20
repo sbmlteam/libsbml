@@ -73,7 +73,6 @@ thisdir = src/common
 
 headers =    \
   common.h   \
-  common.hpp \
   config.h   \
   sbmlfwd.h  \
   extern.h
