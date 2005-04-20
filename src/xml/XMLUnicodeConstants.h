@@ -54,7 +54,7 @@
 #define XMLUnicodeConstants_h
 
 
-#include "xml/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
