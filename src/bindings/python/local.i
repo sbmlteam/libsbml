@@ -48,6 +48,13 @@
  * Contributor(s):
  */
 
+
+/**
+ * Turn on (minimal) Python docstrings.
+ */
+%feature("autodoc", "1");
+
+
 /**
  * Allows ListOf objects:
  *
