@@ -6,3 +6,4 @@ Makefile
 TestRunner
 *.dylib
 libsbml-config-unix.h
+libsbml-package.h
