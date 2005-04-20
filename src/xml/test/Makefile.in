@@ -119,15 +119,10 @@ distfiles = $(test_sources) Makefile.in
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to do nothing except maybe remake the Makefile.  If
-# libcheck has been enabled, then we also make the targets listed in
-# $(check_driver).
+# The default action is to do nothing except maybe remake the Makefile.  The
+# real actions are triggered by 'make check'.
 
-ifdef USE_LIBCHECK
-  all: Makefile $(check_driver)
-else
-  all: Makefile
-endif
+all: Makefile
 
 
 # -----------------------------------------------------------------------------
