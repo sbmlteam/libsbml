@@ -63,8 +63,10 @@
 #ifdef USE_EXPAT
 #  define  XMLCh   XML_Char
 #  define  Locator XML_Char
+#  define  XML_PLATFORM_UTILS_INIT()
    typedef char    MemBufInputSource;
 #else
+#  define  XML_PLATFORM_UTILS_INIT()  xercesc::XMLPlatformUtils::Initialize()
 #  include <xercesc/util/XercesVersion.hpp>
 #  include <xercesc/util/XercesDefs.hpp>
 #endif  // USE_EXPAT

@@ -257,9 +257,7 @@ SBase::toSBML (unsigned int level, unsigned int version)
   char*               result;
 
 
-#ifndef USE_EXPAT
-  XMLPlatformUtils::Initialize();
-#endif  // USE_EXPAT
+  XML_PLATFORM_UTILS_INIT();
 
   target    = new MemBufFormatTarget();
   formatter = new SBMLFormatter(target, false);

@@ -137,12 +137,7 @@ MathMLFormatter::MathMLFormatter (XMLFormatTarget* target, bool outputXMLDecl) :
   , mFloatBuffer ( new char[NUMBER_BUFFER_SIZE] )
   , mIntBuffer   ( new char[NUMBER_BUFFER_SIZE] )
 {
-#ifndef USE_EXPAT
-  //
-  // Initialize() is static and may be called more than once safely.
-  //
-  XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
+  XML_PLATFORM_UTILS_INIT();
 
   mFormatter = XMLUtil::createXMLFormatter("UTF-8", target);
 

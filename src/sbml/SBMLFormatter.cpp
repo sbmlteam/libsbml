@@ -85,12 +85,7 @@ SBMLFormatter::SBMLFormatter (XMLFormatTarget* target, bool outputXMLDecl) :
   , mIndentLevel ( 0 )
   , mNumberBuffer( new char[ NUMBER_BUFFER_SIZE ] )
 {
-#ifndef USE_EXPAT
-  //
-  // Initialize() is static and may be called more than once safely.
-  //
-  XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
+  XML_PLATFORM_UTILS_INIT();
 
   mMathFormatter = new MathMLFormatter(target, false);
   mFormatter     = XMLUtil::createXMLFormatter("UTF-8", target);

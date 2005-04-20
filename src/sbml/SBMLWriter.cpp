@@ -140,9 +140,7 @@ SBMLWriter::write (const SBMLDocument& d, const string& filename)
 
   try
   {
-#ifndef USE_EXPAT
-    XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
+    XML_PLATFORM_UTILS_INIT();
 
     target    = new LocalFileFormatTarget(filename.c_str());
     formatter = new SBMLFormatter(target);
@@ -184,9 +182,7 @@ SBMLWriter::write (const SBMLDocument& d, ostream& stream)
 
   try
   {
-#ifndef USE_EXPAT
-    XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
+    XML_PLATFORM_UTILS_INIT();
 
     target    = new StreamFormatTarget(stream);
     formatter = new SBMLFormatter(target);
@@ -225,9 +221,7 @@ SBMLWriter::writeToString (const SBMLDocument& d)
 
   try
   {
-#ifndef USE_EXPAT
-    XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
+    XML_PLATFORM_UTILS_INIT();
 
     target    = new MemBufFormatTarget();
     formatter = new SBMLFormatter(target);

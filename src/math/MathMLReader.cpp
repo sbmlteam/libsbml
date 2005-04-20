@@ -121,7 +121,7 @@ readMathMLFromString (const char *xml)
 
   try
   {
-    XMLPlatformUtils::Initialize();
+    XML_PLATFORM_UTILS_INIT();
   }
   catch (...)
   {

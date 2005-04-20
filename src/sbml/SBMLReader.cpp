@@ -356,7 +356,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
 
   try
   {
-    XMLPlatformUtils::Initialize();
+    XML_PLATFORM_UTILS_INIT();
   }
   catch (const XMLException& e)
   {

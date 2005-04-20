@@ -73,12 +73,7 @@
 //
 SAX2AttributesMock::SAX2AttributesMock (unsigned int max)
 {
-  //
-  // Initialize() is static, but may be safely called more than once.
-  //
-#ifndef USE_EXPAT
-  XMLPlatformUtils::Initialize();
-#endif  // USE_EXPAT
+  XML_PLATFORM_UTILS_INIT();
 
   fLocalNames = new XMLCh*[max];
   fValues     = new XMLCh*[max];

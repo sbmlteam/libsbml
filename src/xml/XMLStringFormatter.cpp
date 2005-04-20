@@ -74,12 +74,7 @@
 //
 XMLStringFormatter::XMLStringFormatter (const char* outEncoding)
 {
-  //
-  // Initialize() is static, but may be called more than once safely.
-  //
-#ifndef USE_EXPAT
-  XMLPlatformUtils::Initialize();
-#endif  // !USE_EXPAT
+  XML_PLATFORM_UTILS_INIT();
 
   target    = new MemBufFormatTarget();
   formatter = XMLUtil::createXMLFormatter(outEncoding, target);

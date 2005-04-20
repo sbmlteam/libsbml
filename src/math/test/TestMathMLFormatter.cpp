@@ -86,16 +86,14 @@ static MathMLFormatter    *formatter;
 void
 TestMathMLFormatter_setup (void)
 {
-#ifndef USE_EXPAT
   try
   {
-    XMLPlatformUtils::Initialize();
+    XML_PLATFORM_UTILS_INIT();
   }
-  catch (const XMLException& e)
+  catch (...)
   {
     fail("XMLPlatformUtils::Initialize() threw an Exception.");
   }
-#endif  // !USE_EXPAT
 
   target    = new MemBufFormatTarget();
   formatter = new MathMLFormatter(target, true);
