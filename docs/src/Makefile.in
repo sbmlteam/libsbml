@@ -170,7 +170,7 @@ distfiles =                            \
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all doc: Makefile $(docs)
+all docs: Makefile $(docs)
 
 dvi: $(formatted)/libsbml-manual.dvi $(formatted)/libsbml-api-ref.dvi
 
@@ -339,7 +339,7 @@ $(pdffiles): %.pdf: %.eps
 # have ../formatted in them and we need to strip that out when copying to
 # the destination directory.
 
-install install-doc: $(docs)
+install install-docs: $(docs)
 	@if test -z '$(docs)'; then \
 	  echo 'Nothing to be done for install-docs'; \
 	else \

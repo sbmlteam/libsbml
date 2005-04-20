@@ -116,7 +116,7 @@ check-prereq: ;
 # Formatting documentation.
 # -----------------------------------------------------------------------------
 
-doc:
+docs:
 
 dvi:
 
@@ -135,7 +135,7 @@ html:
 
 install: all install-recursive install-libraries
 
-install-doc:
+install-docs:
 
 uninstall: all uninstall-libraries
 

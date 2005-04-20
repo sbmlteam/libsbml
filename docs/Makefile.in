@@ -89,7 +89,7 @@ distfiles = formatted Makefile.in
 # variable `subdirs'.
 
 all:
-doc: doc-recursive
+docs: docs-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -120,7 +120,7 @@ html: html-recursive
 
 install:
 
-install-doc: install-doc-recursive
+install-docs: install-docs-recursive
 
 uninstall: uninstall-recursive 
 

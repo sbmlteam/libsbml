@@ -260,10 +260,11 @@ run-checks: $(check_driver) $(libraries)
 define install_library
   $(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR)
   @if test "$(suffix $(1))" = ".so" -o "$(suffix $(1))" = ".dylib" -o "$(suffix $(1))" = ".jnilib"; then \
-    echo $(INSTALL) $(1) $(2)/$(notdir $(basename $(1))).$(library_version)$(suffix $(1)); \
-    $(INSTALL) $(1) $(2)/$(notdir $(basename $(1))).$(library_version)$(suffix $(1)); \
-    echo ln -fs $(notdir $(basename $(1))).$(library_version)$(suffix $(1)) $(2)/$(notdir $(1)); \
-    ln -fs $(notdir $(basename $(1))).$(library_version)$(suffix $(1)) $(2)/$(notdir $(1)); \
+    finalname="$(notdir $(basename $(1))).$(library_version)$(suffix $(1))"; \
+    echo $(INSTALL) -s $(1) $(2)/$$finalname; \
+    $(INSTALL) -s $(1) $(2)/$$finalname; \
+    echo ln -fs $$finalname $(2)/$(notdir $(1)); \
+    ln -fs $$finalname $(2)/$(notdir $(1)); \
   else \
     echo $(INSTALL) $(1) $(2); \
     $(INSTALL) $(1) $(2); \
@@ -532,8 +533,8 @@ CTAGS: $(headers) $(sources)
 # Common special targets.
 # -----------------------------------------------------------------------------
 
-.PHONY: $(recursive_targets) CTAGS GTAGS all all-am check check-am clean \
-	clean-generic clean-libtool ctags \
+.PHONY: $(recursive_targets) CTAGS GTAGS all all-am check check-am docs \
+	clean clean-generic clean-libtool ctags \
 	dist dist-all dist-gzip distcheck distclean \
 	distclean-generic distclean-libtool distclean-tags distcleancheck \
 	distdir distuninstallcheck dvi dvi-am info info-am \
