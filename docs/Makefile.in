@@ -118,7 +118,9 @@ html: html-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: install-recursive
+install:
+
+install-doc: install-doc-recursive
 
 uninstall: uninstall-recursive 
 
