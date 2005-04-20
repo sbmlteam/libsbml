@@ -71,11 +71,14 @@ thisdir = src/common
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers =    \
-  common.h   \
-  config.h   \
-  sbmlfwd.h  \
-  extern.h
+headers =               \
+  common.h              \
+  extern.h              \
+  libsbml-config.h      \
+  libsbml-config-unix.h \
+  libsbml-config-win.h  \
+  sbmlfwd.h
+
 
 header_inst_prefix = common
 
@@ -83,7 +86,11 @@ header_inst_prefix = common
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(headers) Makefile.in
+distfiles =   \
+  $(headers)  \
+  Makefile.in \
+  libsbml-config-unix.h.in \
+  libsbml-package.h.in     \
 
 
 # -----------------------------------------------------------------------------

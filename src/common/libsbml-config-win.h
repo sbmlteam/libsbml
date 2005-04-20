@@ -1,12 +1,12 @@
 /**
- * \file    common.h
- * \brief   Common functions and macros for C and C++
+ * \file    libsbml-config-win.h
+ * \brief   Configuration variables for Windows (e.g. MSVC++) builds
  * \author  Ben Bornstein
  *
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
+/* Copyright 2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -46,60 +46,45 @@
  *     mailto:sbml-team@caltech.edu
  *
  * Contributor(s):
- *   Stefan Hoops
  */
 
 
-#ifndef LIBSBML_COMMON_H
-#define LIBSBML_COMMON_H 1
+/* Define to 1 if you have the <check.h> header file. */
+/* #define HAVE_CHECK_H 1 */
+
+/* Define to 1 if you have the `check' library (-lcheck). */
+/* #define HAVE_LIBCHECK 1 */
 
 
-#include "libsbml-config.h"
+/* Define to 1 if you have the <expat.h> header file. */
+/* #undef HAVE_EXPAT_H */
+
+/* Define to 1 to use the Expat XML library */
+/* #undef USE_EXPAT */
 
 
-#include <stdio.h>
+/* Define to 1 if you have the <errno.h> header file. */
+#define HAVE_ERRNO_H 1
+
+/* Define to 1 if you have the <ieeefp.h> header file. */
+/* #define HAVE_IEEEFP_H 1 */
+
+/* Define to 1 if you have the ANSI C header files. */
+#define STDC_HEADERS 1
+
+/* Define to 1 if you have the <math.h> header file. */
+#define HAVE_MATH_H 1
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#define HAVE_SYS_TYPES_H 1
+
+/* Define to 1 if you have the `m' library (-lm). */
+/* #define HAVE_LIBM 1 */
 
 
-#if HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
+/* Define to 1 to enable primitive memory tracing. */
+/* #define TRACE_MEMORY 1 */
 
-
-#if STDC_HEADERS
-#  include <errno.h>
-#  include <float.h>
-#  include <stdarg.h>
-#  include <stdlib.h>
-#  include <string.h>
-#endif
-
-#if HAVE_MATH_H
-#  include <math.h>
-#endif
-
-#if HAVE_IEEFP_H
-#  include <ieeefp.h>
-#endif
-
-#ifndef errno
-  extern int errno;
-#endif
-
-
-#if WIN32 && !defined(CYGWIN)
-#  define finite(d)  _finite(d)
-#  define isnan(d)   _isnan(d)
-#  define snprintf   _snprintf
-#  define vsnprintf  _vsnprintf
-#endif /* WIN32 && !CYGWIN */
-
-
-#define LIBSBML_FLOAT_FORMAT "%.15g"
-
-
-#include "extern.h"
-#include "util/memory.h"
-#include "util/util.h"
-
-
-#endif  /* LIBSBML_COMMON_H */
+/* Define to 1 if your processor stores words with the most significant byte
+   first (like Motorola and SPARC, unlike Intel and VAX). */
+/* #define WORDS_BIGENDIAN 1 */

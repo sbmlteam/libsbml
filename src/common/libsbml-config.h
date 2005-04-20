@@ -1,12 +1,12 @@
 /**
- * \file    common.h
- * \brief   Common functions and macros for C and C++
+ * \file    libsbml-config.h
+ * \brief   Decides whether to #include Unix or Windows configuration variables.
  * \author  Ben Bornstein
  *
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
+/* Copyright 2005 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -46,60 +46,21 @@
  *     mailto:sbml-team@caltech.edu
  *
  * Contributor(s):
- *   Stefan Hoops
  */
 
 
-#ifndef LIBSBML_COMMON_H
-#define LIBSBML_COMMON_H 1
+#ifndef LIBSBML_CONFIG_H
+#define LIBSBML_CONFIG_H 1
 
 
-#include "libsbml-config.h"
-
-
-#include <stdio.h>
-
-
-#if HAVE_SYS_TYPES_H
-#  include <sys/types.h>
+#if defined(WIN32) && !defined(CYGWIN)
+#  include "libsbml-config-win.h"
+#else
+#  include "libsbml-config-unix.h"
 #endif
 
 
-#if STDC_HEADERS
-#  include <errno.h>
-#  include <float.h>
-#  include <stdarg.h>
-#  include <stdlib.h>
-#  include <string.h>
-#endif
-
-#if HAVE_MATH_H
-#  include <math.h>
-#endif
-
-#if HAVE_IEEFP_H
-#  include <ieeefp.h>
-#endif
-
-#ifndef errno
-  extern int errno;
-#endif
+#include "libsbml-package.h"
 
 
-#if WIN32 && !defined(CYGWIN)
-#  define finite(d)  _finite(d)
-#  define isnan(d)   _isnan(d)
-#  define snprintf   _snprintf
-#  define vsnprintf  _vsnprintf
-#endif /* WIN32 && !CYGWIN */
-
-
-#define LIBSBML_FLOAT_FORMAT "%.15g"
-
-
-#include "extern.h"
-#include "util/memory.h"
-#include "util/util.h"
-
-
-#endif  /* LIBSBML_COMMON_H */
+#endif  /* LIBSBML_CONFIG_H */
