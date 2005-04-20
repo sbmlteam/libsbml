@@ -118,7 +118,7 @@ public class Test
     SpeciesReference sr;
 
     SBMLReader reader   = new SBMLReader();
-    File       file     = new File("../../src/test-data/l1v1-branch.xml");
+    File       file     = new File("../../sbml/test/test-data/l1v1-branch.xml");
 
     String xml =
         "<?xml version='1.0' encoding='UTF-8'?>"
@@ -349,7 +349,7 @@ public class Test
     if (condition == false)
     {
       System.err.println("Assertion failed!");
-      System.exit(0);
+      throw new RuntimeException();
     }
   }
 
