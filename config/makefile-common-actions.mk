@@ -486,7 +486,7 @@ $(TOP_SRCDIR)/configure: $(TOP_SRCDIR)/configure.ac $(ACLOCAL_M4)
 	cd $(TOP_SRCDIR) && $(AUTOCONF)
 	cd $(TOP_SRCDIR) && $(SHELL) ./config.status --recheck
 
-$(ACLOCAL_M4): $(TOP_SRCDIR)/configure.ac $(wildcard $(TOP_SRCDIR)/config/*.m4)
+$(ACLOCAL_M4): $(wildcard $(TOP_SRCDIR)/config/*.m4)
 	cd $(TOP_SRCDIR) && $(ACLOCAL) $(ACLOCAL_FLAGS)
 
 $(TOP_SRCDIR)/src/sbml/config.h: src/sbml/stamp-h1
