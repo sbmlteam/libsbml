@@ -54,7 +54,7 @@
 #define XMLStringFormatter_h
 
 
-#include "xml/common.h"
+#include "common.h"
 
 
 #ifdef __cplusplus
@@ -112,51 +112,36 @@ class XMLStringFormatter
 public:
 
   /**
-   * Ctor
-   *
    * Creates a new XMLStringFormatter
    */
-  XMLStringFormatter (const char* outEncoding);
+  XMLStringFormatter (const char* encoding);
 
   /**
-   * Dtor
-   *
    * Destroys this XMLStringFormatter
    */
-  ~XMLStringFormatter (void);
+  ~XMLStringFormatter ();
 
 
   /**
    * Formats a string of the form:
    *   '<qname qname:attrs1="value1" ... qname:attrsN="valueN">'.
    */
-  void startElement (
-    const XMLCh* const  qname,
-    const Attributes&   attrs
-  );
+  void startElement (const XMLCh* const qname, const Attributes& attrs);
 
   /**
-   * Formats a string of the form '</qname>'
+   * Formats a string of the form '</qname>'.
    */
-  void endElement (
-    const XMLCh* const  qname
-  );
+  void endElement (const XMLCh* const qname);
 
   /**
    * Formats a string composed of the chars.
    */
-  void characters (
-    const XMLCh* const  chars,
-    const unsigned int  length
-  );
+  void characters (const XMLCh* const chars, unsigned int length);
 
   /**
    * Formats a string composed of whitespace chars.
    */
-  void ignorableWhitespace (
-    const XMLCh* const  chars,
-    const unsigned int  length
-  );
+  void ignorableWhitespace (const XMLCh* const chars, unsigned int length);
 
   /**
    * Resets (empties) the internal character buffer.  Use this method when
@@ -165,12 +150,12 @@ public:
   void reset ();
 
   /**
-   * Returns the length of the current XML string.
+   * @return the length of the current XML string.
    */
   unsigned int getLength () const;
 
   /**
-   * Returns a the underlying formatted XML string.  The caller does not
+   * @return a the underlying formatted XML string.  The caller does not
    * own this string and therefore is not allowed to modify it.
    */
   const char* getString ();
@@ -178,8 +163,8 @@ public:
 
 private:
 
-  XMLFormatter*        formatter;
-  MemBufFormatTarget*  target;
+  XMLFormatter*        mFormatter;
+  MemBufFormatTarget*  mTarget;
 };
 
 

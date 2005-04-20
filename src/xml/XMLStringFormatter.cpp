@@ -50,7 +50,7 @@
  */
 
 
-#include "common/common.h"
+#include "common.h"
 
 
 #ifdef USE_EXPAT
@@ -65,50 +65,44 @@
 #include "XMLUtil.h"
 
 
-//
-// Ctor
-//
-// Creates a new XMLStringFormatter
-//
-// The underlying character encoding is configurable.
-//
-XMLStringFormatter::XMLStringFormatter (const char* outEncoding)
+/**
+ * Creates a new XMLStringFormatter
+ */
+XMLStringFormatter::XMLStringFormatter (const char* encoding)
 {
   XML_PLATFORM_UTILS_INIT();
 
-  target    = new MemBufFormatTarget();
-  formatter = XMLUtil::createXMLFormatter(outEncoding, target);
+  mTarget    = new MemBufFormatTarget();
+  mFormatter = XMLUtil::createXMLFormatter(encoding, mTarget);
 }
 
 
-//
-// Dtor
-//
-// Destroys this XMLStringFormatter
-//
-XMLStringFormatter::~XMLStringFormatter (void)
+/**
+ * Destroys this XMLStringFormatter
+ */
+XMLStringFormatter::~XMLStringFormatter ()
 {
-  delete formatter;
-  delete target;
+  delete mFormatter;
+  delete mTarget;
 }
 
 
-//
-// Formats a string of the form:
-//   '<qname attrs1="value1" ... attrsN="valueN">'.
-//
+/**
+ * Formats a string of the form:
+ *  '<qname attrs1="value1" ... attrsN="valueN">'.
+ */
 void
-XMLStringFormatter::startElement (const XMLCh* const  qname,
-                                  const Attributes&   attrs)
+XMLStringFormatter::startElement (const XMLCh* const qname,
+                                  const Attributes&  attrs)
 {
-  *formatter << XMLFormatter::NoEscapes << chOpenAngle;
-  *formatter << qname;
+  *mFormatter << XMLFormatter::NoEscapes << chOpenAngle;
+  *mFormatter << qname;
 
 
   unsigned int length = attrs.getLength();
   for (unsigned int index = 0; index < length; index++)
   {
-    *formatter 
+    *mFormatter 
       << XMLFormatter::NoEscapes
       << chSpace 
       << attrs.getQName(index)
@@ -120,73 +114,73 @@ XMLStringFormatter::startElement (const XMLCh* const  qname,
       << chDoubleQuote;
   }
 
-  *formatter << chCloseAngle;
+  *mFormatter << chCloseAngle;
 }
 
 
-//
-// Formats a string of the form '</qname>'
-//
+/**
+ * Formats a string of the form '</qname>'.
+ */
 void
-XMLStringFormatter::endElement (const XMLCh* const  qname)
+XMLStringFormatter::endElement (const XMLCh* const qname)
 {
-  *formatter << XMLFormatter::NoEscapes
-             << chOpenAngle
-             << chForwardSlash
-             << qname
-             << chCloseAngle;
+  *mFormatter << XMLFormatter::NoEscapes
+              << chOpenAngle
+              << chForwardSlash
+              << qname
+              << chCloseAngle;
 }
 
 
-//
-// Formats a string composed of the chars.
-//
+/**
+ * Formats a string composed of the chars.
+ */
 void
-XMLStringFormatter::characters (const XMLCh* const  chars,
-                                const unsigned int  length)
+XMLStringFormatter::characters (const XMLCh* const chars,
+                                unsigned int length)
 {
-  formatter->formatBuf(chars, length, XMLFormatter::CharEscapes);
+  mFormatter->formatBuf(chars, length, XMLFormatter::CharEscapes);
 }
 
 
-//
-// Formats a string composed of whitespace chars.
-//
+/**
+ * Formats a string composed of whitespace chars.
+ */
 void
-XMLStringFormatter::ignorableWhitespace (const XMLCh* const  chars,
-                                         const unsigned int  length)
+XMLStringFormatter::ignorableWhitespace (const XMLCh* const chars,
+                                         unsigned int length)
 {
-  formatter->formatBuf(chars, length, XMLFormatter::CharEscapes);
+  mFormatter->formatBuf(chars, length, XMLFormatter::CharEscapes);
 }
 
 
-//
-// Resets (empties) the internal character buffer.  Use this method when
-// you want the formatter to begin creating a new XML string.
-//
+/**
+ * Resets (empties) the internal character buffer.  Use this method when
+ * you want the formatter to begin creating a new XML string.
+ */
 void
-XMLStringFormatter::reset (void)
+XMLStringFormatter::reset ()
 {
-  target->reset();
+  mTarget->reset();
 }
 
 
-//
-// Returns the length of the current XML string.
-//
+/**
+ * @return the length of the current XML string.
+ */
 unsigned int
-XMLStringFormatter::getLength (void) const
+XMLStringFormatter::getLength () const
 {
-  return target->getLen();
+  return mTarget->getLen();
 }
 
 
-//
-// Returns a the underlying formatted XML string.  The caller does not
-// own this string and therefore is not allowed to modify it.
-//
+/**
+ * @return a the underlying formatted XML string.  The caller does not own
+ * this string and therefore is not allowed to modify it.
+ */
 const char*
 XMLStringFormatter::getString (void)
 {
-  return (char *) target->getRawBuffer();
+  return (char *) mTarget->getRawBuffer();
 }
