@@ -191,7 +191,9 @@ SBMLHandler::~SBMLHandler ()
   Stack_free( fObjStack );
   Stack_free( fTagStack );
 
+  delete fMathHandler;
   delete fMathDocument;
+  delete fFormatter;
 }
 
 

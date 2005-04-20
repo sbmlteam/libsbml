@@ -99,8 +99,9 @@ SBMLFormatter::SBMLFormatter (XMLFormatTarget* target, bool outputXMLDecl) :
  */
 SBMLFormatter::~SBMLFormatter ()
 {
+  delete mMathFormatter;
   delete mFormatter;
-  delete mNumberBuffer;
+  delete [] mNumberBuffer;
 }
 
 
