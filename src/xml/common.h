@@ -53,7 +53,7 @@
 #define LIBSBML_XML_COMMON_H 1
 
 
-#include "common/config.h"
+#include "common/libsbml-config.h"
 
 
 #ifdef USE_EXPAT
