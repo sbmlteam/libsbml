@@ -41,6 +41,7 @@
 
 #include <iosfwd>
 
+
 #ifdef USE_EXPAT
 #  include <expat.h>
 #  include "ExpatFormatter.h"

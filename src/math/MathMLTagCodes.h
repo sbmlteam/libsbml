@@ -54,7 +54,7 @@
 #define MathMLTagCodes_hpp
 
 
-#include "common/common.hpp"
+#include "xml/common.h"
 
 
 #ifdef USE_EXPAT

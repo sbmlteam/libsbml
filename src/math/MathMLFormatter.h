@@ -57,7 +57,7 @@
 #ifdef __cplusplus
 
 
-#include "common/common.hpp"
+#include "xml/common.h"
 
 
 #ifdef USE_EXPAT

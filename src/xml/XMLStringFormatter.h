@@ -54,7 +54,7 @@
 #define XMLStringFormatter_h
 
 
-#include "common/common.hpp"
+#include "xml/common.h"
 
 
 #ifdef __cplusplus
