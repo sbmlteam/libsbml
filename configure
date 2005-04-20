@@ -3331,7 +3331,7 @@ fi;
 
 
 
-    for a in 1.3.21         x; do
+    for a in 1.3.24         x; do
         case "$a" in
             x) break;;
             [0-9]*.[0-9]*.[0-9]*) SWIG_REQUEST_VERSION="$a";;
