@@ -254,6 +254,17 @@ run-checks: $(check_driver) $(libraries)
 # Installation
 # -----------------------------------------------------------------------------
 
+# It doesn't look like you can usefully strip binary libraries at installation
+# time on Darwin.  The man page for 'strip' says you'd have to do it as 'ld -s'
+# to really make it work, but you don't want to strip the library that's built
+# in the source tree -- you only want to strip the copy that gets installed
+# in the destination directory.  So, we do the following conditional, until
+# we can figure out something better.
+
+ifneq "$(HOST_TYPE)" "darwin"
+  install_strip = -s
+endif
+
 # The following defines a macro that is invoked like this:
 # $(call install_library,$(libname),$(dest))
 
@@ -261,13 +272,13 @@ define install_library
   $(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR)
   @if test "$(suffix $(1))" = ".so" -o "$(suffix $(1))" = ".dylib" -o "$(suffix $(1))" = ".jnilib"; then \
     finalname="$(notdir $(basename $(1))).$(library_version)$(suffix $(1))"; \
-    echo $(INSTALL) -s $(1) $(2)/$$finalname; \
-    $(INSTALL) -s $(1) $(2)/$$finalname; \
+    echo $(INSTALL) $(install_strip) $(1) $(2)/$$finalname; \
+    $(INSTALL) $(install_strip) $(1) $(2)/$$finalname; \
     echo ln -fs $$finalname $(2)/$(notdir $(1)); \
     ln -fs $$finalname $(2)/$(notdir $(1)); \
   else \
-    echo $(INSTALL) $(1) $(2); \
-    $(INSTALL) $(1) $(2); \
+    echo $(INSTALL) $(install_strip) $(1) $(2); \
+    $(INSTALL) $(install_strip) $(1) $(2); \
   fi
 endef
 
