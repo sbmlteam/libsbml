@@ -59,6 +59,7 @@
  * Make most libSBML constants (e.g. SBMLTypecodes) Java compile-time
  * constants so they may be used in switch statements.
  */
+%include "enumsimple.swg"
 %javaconst(1);
 
 
@@ -196,31 +197,89 @@
  * getCPtrAndDisown() is like getCPtr() but it also sets the SWIG memory
  * ownsership flag to false.
  *
- * NOTE: getCPtr() is already defined by SWIG, but if we wish to add a
- * custom variant of this method, we have to duplicate the original,
- * otherwise it will be clobbered.
+ * We used to use %typemap(javagetcptr), but this has been deprecated
+ * in SWIG 1.3.24.  Instead we add getCPtrAndDisown() from the incantation
+ * below (taken from the SWIG 1.3.24 CHANGES file).
  */
-%typemap(javagetcptr) SWIGTYPE, SWIGTYPE *, SWIGTYPE &
+
+/* Utility macro for manipulating the Java body code method attributes */
+%define SWIGJAVA_ATTRIBS(TYPENAME, CTOR_ATTRIB, GETCPTR_ATTRIB)
+
+%typemap(javabody) TYPENAME
 %{
-  public static long getCPtr ($javaclassname obj)
-  {
-    return (obj == null) ? 0 : obj.swigCPtr;
-  }
+   private long swigCPtr;
+   protected boolean swigCMemOwn;
 
+   CTOR_ATTRIB $javaclassname(long cPtr, boolean cMemoryOwn)
+   {
+     swigCMemOwn = cMemoryOwn;
+     swigCPtr    = cPtr;
+   }
 
-  public static long getCPtrAndDisown ($javaclassname obj)
-  {
-    long ptr = 0;
+   GETCPTR_ATTRIB static long getCPtr($javaclassname obj)
+   {
+     return (obj == null) ? 0 : obj.swigCPtr;
+   }
 
-    if (obj != null)
-    {
-      ptr             = obj.swigCPtr;
-      obj.swigCMemOwn = false;
-    }
+   GETCPTR_ATTRIB static long getCPtrAndDisown ($javaclassname obj)
+   {
+     long ptr = 0;
 
-    return ptr;
-  }
+     if (obj != null)
+     {
+       ptr             = obj.swigCPtr;
+       obj.swigCMemOwn = false;
+     }
+
+     return ptr;
+   }
 %}
+
+
+%typemap(javabody_derived) TYPENAME
+%{
+   private long swigCPtr;
+
+   CTOR_ATTRIB $javaclassname(long cPtr, boolean cMemoryOwn)
+   {
+     super($moduleJNI.SWIG$javaclassnameUpcast(cPtr), cMemoryOwn);
+     swigCPtr = cPtr;
+   }
+
+   GETCPTR_ATTRIB static long getCPtr($javaclassname obj)
+   {
+     return (obj == null) ? 0 : obj.swigCPtr;
+   }
+
+   GETCPTR_ATTRIB static long getCPtrAndDisown ($javaclassname obj)
+   {
+     long ptr = 0;
+
+     if (obj != null)
+     {
+       ptr             = obj.swigCPtr;
+       obj.swigCMemOwn = false;
+     }
+
+     return ptr;
+   }
+%}
+
+%enddef
+
+/* The default is protected getCPtr, protected constructor */
+SWIGJAVA_ATTRIBS(SWIGTYPE, protected, protected)
+
+/* Public getCPtr method, protected constructor */
+%define PUBLIC_GETCPTR(TYPENAME)
+SWIGJAVA_ATTRIBS(TYPENAME, protected, public)
+%enddef
+
+/* Public getCPtr method, public constructor */
+%define PUBLIC_BODYMETHODS(TYPENAME)
+SWIGJAVA_ATTRIBS(TYPENAME, public, public)
+%enddef
+
 
 
 /**
@@ -243,330 +302,3 @@
  */
 %typemap(javain) SBMLDocument   * "SBMLDocument.getCPtr($javainput)";
 %typemap(javain) MathMLDocument * "MathMLDocument.getCPtr($javainput)";
-
-
-/**
- * SWIG does not generate a no argument Java constructor if all C++
- * constructors of a class have default arguments.  By attaching a default
- * constructor to classes at the SWIG level (with %extend) we are forcing
- * SWIG to generate a no argument Java constructor.
- */
-
-%extend SBMLDocument
-{
-  SBMLDocument() { return new SBMLDocument(); }
-}
-
-
-%extend Model
-{
-  Model() { return new Model(); }
-}
-
-%typemap("javacode") Model
-%{
-  public Model (String id)
-  {
-    this(id, "");
-  }
-%}
-
-
-%extend FunctionDefinition
-{
-  FunctionDefinition() { return new FunctionDefinition(); }
-}
-
-%typemap("javacode") FunctionDefinition
-%{
-  public FunctionDefinition (String id)
-  {
-    this(id, "");
-  }
-%}
-
-
-%extend Unit
-{
-  Unit() { return new Unit(); }
-}
-
-%typemap("javacode") Unit
-%{
-  public Unit (int kind, int exponent, int scale, double multiplier)
-  {
-    this(kind, exponent, scale, multiplier, 0.0);
-  }
-
-  public Unit (int kind, int exponent, int scale)
-  {
-    this(kind, exponent, scale, 1.0, 0.0);
-  }
-  
-  public Unit (int kind, int exponent)
-  {
-    this(kind, exponent, 0, 1.0, 0.0);
-  }
-
-  public Unit (int kind)
-  {
-    this(kind, 1, 0, 1.0, 0.0);
-  }
-
-  public Unit (String kind, int exponent, int scale, double multiplier)
-  {
-    this(kind, exponent, scale, multiplier, 0.0);
-  }
-
-  public Unit (String kind, int exponent, int scale)
-  {
-    this(kind, exponent, scale, 1.0, 0.0);
-  }
-  
-  public Unit (String kind, int exponent)
-  {
-    this(kind, exponent, 0, 1.0, 0.0);
-  }
-
-  public Unit (String kind)
-  {
-    this(kind, 1, 0, 1.0, 0.0);
-  }
-%}
-
-
-%extend UnitDefinition
-{
-  UnitDefinition() { return new UnitDefinition(); }
-}
-
-%typemap("javacode") UnitDefinition
-%{
-  public UnitDefinition (String id)
-  {
-    this(id, "");
-  }
-%}
-
-
-%extend Compartment
-{
-  Compartment() { return new Compartment(); }
-}
-
-
-%extend Species
-{
-  Species() { return new Species(); }
-}
-
-
-%extend Parameter
-{
-  Parameter() { return new Parameter(); }
-}
-
-%typemap("javacode") Parameter
-%{
-  public Parameter (String id, double value, String units)
-  {
-    this(id, value, units, true);
-  }
-
-  public Parameter (String id, double value)
-  {
-    this(id, value, "", true);
-  }
-%}
-
-
-%extend Rule
-{
-  Rule() { return new Rule(); }
-}
-
-
-%extend AlgebraicRule
-{
-  AlgebraicRule() { return new AlgebraicRule(); }
-}
-
-
-%typemap("javacode") AssignmentRule
-%{
-  public AssignmentRule (String variable, String formula)
-  {
-    this(variable, formula, libsbml.RULE_TYPE_SCALAR);
-  }
-
-  public AssignmentRule (String variable, ASTNode math)
-  {
-    this(variable, math, libsbml.RULE_TYPE_SCALAR);
-  }
-%}
-
-
-%typemap("javacode") SpeciesConcentrationRule
-%{
-  public SpeciesConcentrationRule (String species, String formula)
-  {
-    this(species, formula, libsbml.RULE_TYPE_SCALAR);
-  }
-%}
-
-
-%typemap("javacode") CompartmentVolumeRule
-%{
-  public CompartmentVolumeRule (String compartment, String formula)
-  {
-    this(compartment, formula, libsbml.RULE_TYPE_SCALAR);
-  }
-%}
-
-
-%typemap("javacode") CompartmentVolumeRule
-%{
-  public CompartmentVolumeRule (String compartment, String formula)
-  {
-    this(compartment, formula, libsbml.RULE_TYPE_SCALAR);
-  }
-%}
-
-
-%typemap("javacode") ParameterRule
-%{
-  public ParameterRule (String name, String formula)
-  {
-    this(name, formula, libsbml.RULE_TYPE_SCALAR);
-  }
-%}
-
-
-%extend RateRule
-{
-  RateRule() { return new RateRule(); }
-}
-
-
-%extend Reaction
-{
-  Reaction() { return new Reaction(); }
-}
-
-%typemap("javacode") Reaction
-%{
-  public Reaction (String sid, KineticLaw kl)
-  {
-    this(sid, kl, true);
-  }
-
-  public Reaction (String sid)
-  {
-    this(sid, null, true);
-  }
-%}
-
-
-%extend SimpleSpeciesReference
-{
-  SimpleSpeciesReference() { return new SimpleSpeciesReference(); }
-}
-
-
-%extend ModifierSpeciesReference
-{
-  ModifierSpeciesReference() { return new ModifierSpeciesReference(); }
-}
-
-
-%extend SpeciesReference
-{
-  SpeciesReference() { return new SpeciesReference(); }
-}
-
-%typemap("javacode") SpeciesReference
-%{
-  SpeciesReference (String species, double stoichiometry)
-  {
-    this(species, stoichiometry, 1);
-  }
-
-  SpeciesReference (String species)
-  {
-    this(species, 1.0, 1);
-  }
-%}
-
-
-%extend KineticLaw
-{
-  KineticLaw() { return new KineticLaw(); }
-}
-
-%typemap("javacode") KineticLaw
-%{
-  KineticLaw (String formula, String timeUnits)
-  {
-    this(formula, timeUnits, "");
-  }
-
-  KineticLaw (String formula)
-  {
-    this(formula, "", "");
-  }
-%}
-
-
-%extend Event
-{
-  Event() { return new Event(); }
-}
-
-%typemap("javacode") Event
-%{
-  Event (String id, String trigger)
-  {
-    this(id, trigger, "");
-  }
-
-  Event (String id)
-  {
-    this(id, "", "");
-  }
-
-  Event (String id, ASTNode trigger)
-  {
-    this(id, trigger, (ASTNode) null);
-  }
-%}
-
-
-%extend EventAssignment
-{
-  EventAssignment() { return new EventAssignment(); }
-}
-
-
-%extend SBMLReader
-{
-  SBMLReader() { return new SBMLReader(); }
-}
-
-
-%extend ParseMessage
-{
-  ParseMessage() { return new ParseMessage(); }
-}
-
-%typemap("javacode") ParseMessage
-%{
-  ParseMessage (String message, long line)
-  {
-    this(message, line, 0);
-  }
-
-  ParseMessage (String message)
-  {
-    this(message, 0, 0);
-  }
-%}
