@@ -363,18 +363,18 @@ multiple flags together as in the following example:
   ./configure --with-java --with-python
 \end{shellVerbatim}
 
-The \libsbml{} distribution ships with certain interface files provided, so
-that you do not need to have the software necessary to recreate them.
-However, if you obtained the \libsbml{} distribution from CVS or want to
-recreate the files deliberately, you will need need SWIG, the Simplified
-Wrapper and Interface Generator.  More information about SWIG is available
-from \shell{http://www.swig.org}.  At this time, \libsbml{} is known to
-work \emph{only} with version 1.3.21 of SWIG; earlier versions are known
-\emph{not} to work and the newest versions have not yet been tested.  To
-tell configure to enable the use of SWIG to regenerate the interface files,
-use the \shell{--with-swig} option to configure.  If your copy of SWIG is
-installed in a non-standard location, you can specify it on the
-\shell{configure} command line like this:
+The \libsbml{} distribution ships with certain interface files
+provided, so that you do not need to have the software necessary to
+recreate them.  However, if you obtained the \libsbml{} distribution
+from CVS or want to recreate the files deliberately, you will need
+need SWIG, the Simplified Wrapper and Interface Generator.  More
+information about SWIG is available from \shell{http://www.swig.org}.
+At this time, \libsbml{} is known to work \emph{only} with the latest
+stable version of SWIG (1.3.24); earlier versions are known \emph{not}
+to work.  To tell configure to enable the use of SWIG to regenerate
+the interface files, use the \shell{--with-swig} option to configure.
+If your copy of SWIG is installed in a non-standard location, you can
+specify it on the \shell{configure} command line like this:
 
 \begin{shellVerbatim}
   ./configure --with-swig="DIR"
