@@ -54,9 +54,10 @@
 
 
 /**
- * PACKAGE_TARNAME is defined (as part of the autoconf process) in common.h
+ * PACKAGE_NAME is defined (as part of the autoconf process) in
+ * libsbml-package.h (which is included by common.h).
  */
-#define MSG_OUT_OF_MEMORY  PACKAGE_TARNAME ": error: Out of Memory!"
+#define MSG_OUT_OF_MEMORY  PACKAGE_NAME ": error: Out of Memory!"
 
 
 /**
