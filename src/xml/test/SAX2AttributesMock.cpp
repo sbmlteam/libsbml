@@ -51,7 +51,7 @@
 
 
 #include <iostream>
-
+#include "xml/common.h"
 
 #ifdef USE_EXPAT
 #  include "ExpatXMLString.h"

@@ -40,6 +40,7 @@
 
 
 #include <iosfwd>
+#include "common.h"
 
 
 #ifdef USE_EXPAT
