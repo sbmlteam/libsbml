@@ -135,7 +135,7 @@ html:
 
 install: all install-recursive install-libraries
 
-install-docs:
+install-doc:
 
 uninstall: all uninstall-libraries
 
