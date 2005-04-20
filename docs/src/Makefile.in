@@ -339,7 +339,7 @@ $(pdffiles): %.pdf: %.eps
 # have ../formatted in them and we need to strip that out when copying to
 # the destination directory.
 
-install: $(docs)
+install install-doc: $(docs)
 	@if test -z '$(docs)'; then \
 	  echo 'Nothing to be done for install-docs'; \
 	else \
