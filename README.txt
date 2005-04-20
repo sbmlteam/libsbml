@@ -276,16 +276,18 @@ A Perl language binding is available but is not yet hooked into the
 configuration system.  See the file bindings/perl/README.txt for
 information about building and installing the Perl bindings
 
-The libSBML distribution ships with certain interface files provided, so
-that you do not need to have the software necessary to recreate them.
-However, if you obtained the libSBML distribution from CVS or want to
-recreate the files deliberately, you will need need SWIG, the Simplified
-Wrapper and Interface Generator.  More information about SWIG is available
-from http://www.swig.org.  To tell configure to enable the use of
-SWIG to regenerate the interface files, use the --with-swig option
-to configure.  If your copy of SWIG is installed in a non-standard
-location, you can specify it on the configure command line like
-this:
+The libSBML distribution ships with certain interface files provided,
+so that you do not need to have the software necessary to recreate
+them.  However, if you obtained the libSBML distribution from CVS or
+want to recreate the files deliberately, you will need need SWIG, the
+Simplified Wrapper and Interface Generator.  More information about
+SWIG is available from http://www.swig.org.  At this time, libSBML is
+known to work only with the latest stable version of SWIG (1.3.24);
+earlier versions are known not to work.  To tell configure to enable
+the use of SWIG to regenerate the interface files, use the --with-swig
+option to configure.  If your copy of SWIG is installed in a
+non-standard location, you can specify it on the configure command
+line like this:
 
   ./configure --with-swig="DIR"
 
