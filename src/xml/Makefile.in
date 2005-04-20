@@ -68,6 +68,7 @@ thisdir   = src/xml
 # rules in `makefile-common-actions.mk' included at the end.
 
 headers   =              \
+  common.h               \
   ParseMessage.h         \
   StreamFormatTarget.h   \
   XMLNamespace.h         \
