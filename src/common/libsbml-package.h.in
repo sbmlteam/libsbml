@@ -5,9 +5,6 @@
  *
  * If this file is named 'libsbml-package.h', then it was generated from
  * 'libsbml-package.h.in' by configure.
- *
- * $Id$
- * $Source$
  */
 /* Copyright 2005 California Institute of Technology and
  * Japan Science and Technology Corporation.
