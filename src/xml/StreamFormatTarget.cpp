@@ -37,7 +37,6 @@
 // ----------------------------------------------------------------------
 
 #include <iostream>
-#include "common/common.hpp"
 #include "StreamFormatTarget.h"
 
 
