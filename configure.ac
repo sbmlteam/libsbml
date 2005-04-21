@@ -263,6 +263,8 @@ AC_CONFIG_FILES([docs/src/Doxyfile])
 AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([docs/src/tex/libsbmlextras.sty])
 
+AC_CONFIG_FILES([examples/Makefile])
+
 AC_OUTPUT
 
 
