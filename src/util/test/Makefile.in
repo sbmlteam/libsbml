@@ -79,8 +79,7 @@ test_sources =       \
   TestStack.c        \
   TestStringBuffer.c \
   TestStringMap.c    \
-  TestUtil.c         \
-  TestRunner.c
+  TestUtil.c
 
 extra_CPPFLAGS = -I.. -I../..
 
