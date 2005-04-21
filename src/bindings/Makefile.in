@@ -92,7 +92,7 @@ endif
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-distfiles = Makefile.in swig/libsbml.hpp swig/libsbml.i
+distfiles = Makefile.in swig/libsbml.h swig/libsbml.i
 
 
 # -----------------------------------------------------------------------------
