@@ -5,3 +5,4 @@ evaluateMath
 readSBML
 translateMath
 .gdb_history
+Makefile
