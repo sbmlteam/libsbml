@@ -346,25 +346,29 @@ dist-normal: $(distfiles)
 	  exlist='$(distfiles_exclude)'; for ex in $$exlist; do \
 	    if test $$file = $$ex; then continue 2; fi; \
           done; \
-	  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
-	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-	    dir="/$$dir"; \
-	    $(MKINSTALLDIRS) "$(DESTINATION)/$$dir"; \
+	  if test -d $$file; then \
+	    $(MKINSTALLDIRS) "$(DESTINATION)/$$file"; \
 	  else \
-	    dir=''; \
-	  fi; \
-	  if test -d $$d/$$file; then \
-	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-	      echo Copying $(srcdir)/$$file; \
-	      $(INSTALL) $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
+	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+	    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+	      dir="/$$dir"; \
+	      $(MKINSTALLDIRS) "$(DESTINATION)/$$dir"; \
+	    else \
+	      dir=''; \
 	    fi; \
-	    $(INSTALL) $$d/$$file $(DESTINATION)/$$dir || exit 1; \
-	  else \
-	    echo Copying $(DESTINATION)/$$file; \
-	    test -f $(DESTINATION)/$$file \
-	    || $(INSTALL) $$d/$$file $(DESTINATION)/$$file \
-	    || exit 1; \
+	    if test -d $$d/$$file; then \
+	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+	        echo Copying $(srcdir)/$$file; \
+	        $(INSTALL) $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
+	      fi; \
+	      $(INSTALL) $$d/$$file $(DESTINATION)/$$dir || exit 1; \
+	    else \
+	      echo Copying $(DESTINATION)/$$file; \
+	      test -f $(DESTINATION)/$$file \
+	      || $(INSTALL) $$d/$$file $(DESTINATION)/$$file \
+	      || exit 1; \
+	    fi; \
 	  fi; \
 	done
 
