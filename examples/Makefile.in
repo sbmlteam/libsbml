@@ -2,7 +2,7 @@
 ##
 ## Filename    : Makefile
 ## Description : Builds the example programs
-## Author(s)   : SBML Development Group <sbml-team@caltech.edu>
+## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Created     : 2002-12-05
 ## Revision    : $Id$
 ## Source      : $Source$
@@ -86,3 +86,13 @@ validateSBML: validateSBML.c util.c
 
 clean:
 	/bin/rm -f $(programs) *~
+
+distclean: clean
+	/bin/rm Makefile
+
+# The following are generic 'make' targets that are not used in
+# this simple examples directory.
+
+check dist docs install install-docs uninstall \
+mostlyclean maintainer-clean installcheck dvi pdf ps info html \
+distcheck:
