@@ -119,7 +119,7 @@ void SBMLFormatter::writeComment(const string& programName,
 
   sprintf(date, "%d-%02d-%02d %02d:%02d", 
           pDate->tm_year + 1900,
-          pDate->tm_mon,
+          pDate->tm_mon + 1,
           pDate->tm_mday,
           pDate->tm_hour,
           pDate->tm_min);
