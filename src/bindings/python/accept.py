@@ -1,7 +1,7 @@
 ##
 ## Filename    : accept.py
 ## Description : Acceptance tests for libSBML Python module
-## Author(s)   : SBML Development Group <sbml-team@caltech.edu>
+## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Created     : 2004-04-02
 ## Revision    : $Id$
 ## Source      : $Source$
