@@ -49,15 +49,12 @@
 ##  <mhucka@caltech.edu> Created the Makefile.in version of this file.
 
 
-# The following line includes variable settings made by 'configure'
-
-include @top_srcdir@/config/makefile-common-vars.mk
-
 # The following are configuration variables for this makefile.
 
-XCFLAGS   = $(CFLAGS) -Wall -I../src
-XLDFLAGS  = $(LDFLAGS) -L../src
-XCPPFLAGS = $(CPPFLAGS)
+CC        = @CC@
+XCFLAGS   = @CFLAGS@ -Wall -I../src
+XLDFLAGS  = @LDFLAGS@ -L../src
+XCPPFLAGS = @CPPFLAGS@
 LIBS      = -lsbml
 
 programs = \
