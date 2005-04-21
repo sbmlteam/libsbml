@@ -47,7 +47,8 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 
     if test $with_python != yes;
     then
-      AC_PATH_PROG([PYTHON], [python], [python], [$with_python/bin:$PATH])
+      AC_PATH_PROG([PYTHON], [python], [$with_python/bin/python],
+                     [no-python-found], [$with_python/bin])
     else
       AC_PATH_PROG([PYTHON], [python])
     fi

@@ -99,7 +99,8 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     if test $with_swig != yes;
     then
-      AC_PATH_PROG([SWIG], [swig], [swig], [$with_swig/bin:$PATH])
+      AC_PATH_PROG([SWIG], [swig], [$with_swig/bin/swig],
+                     [no-swig-found], [$with_swig/bin])
     else
       AC_PATH_PROG([SWIG], [swig])
     fi

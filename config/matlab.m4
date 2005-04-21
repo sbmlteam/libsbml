@@ -59,8 +59,10 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
     if test $with_matlab != yes;
     then
-      AC_PATH_PROG([MEX], [mex], [mex], [$with_matlab/bin:$PATH])
-      AC_PATH_PROG([MATLAB], [matlab], [matlab], [$with_matlab/bin:$PATH])
+      AC_PATH_PROG([MEX], [mex], [$with_matlab/bin/mex],
+                     [no-mex-found], [$with_matlab/bin])
+      AC_PATH_PROG([MATLAB], [matlab], [$with_matlab/bin/matlab],
+                     [no-matlab-found], [$with_matlab/bin])
     else
       AC_PATH_PROG([MEX], [mex])
       AC_PATH_PROG([MATLAB], [matlab])

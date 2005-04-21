@@ -63,9 +63,12 @@ AC_DEFUN([CONFIG_PROG_JAVA],
       dnl Users seems to have supplied a prefix directory path.  See if we can 
       dnl find Java somewhere in the given tree.
 
-      AC_PATH_PROG([JAVA], [java], [java], [$with_java/bin:$PATH])
-      AC_PATH_PROG([JAVAC], [javac], [javac], [$with_java/bin:$PATH])
-      AC_PATH_PROG([JAR], [jar], [jar], [$with_java/bin:$PATH])
+      AC_PATH_PROG([JAVA], [java], [$with_java/bin/java],
+                     [no-java-found], [$with_java/bin])
+      AC_PATH_PROG([JAVAC], [javac], [$with_java/bin/javac],
+                     [no-javac-found], [$with_java/bin])
+      AC_PATH_PROG([JAR], [jar], [$with_java/bin/jar],
+                     [no-jar-found], [$with_java/bin])
     else
       AC_PATH_PROG([JAVA], [java])
       AC_PATH_PROG([JAVAC], [javac])
