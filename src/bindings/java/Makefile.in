@@ -211,6 +211,13 @@ endif
 # Checking.
 # -----------------------------------------------------------------------------
 
+check_classes = $(check_sources:.java=.class)
+
+classpath = $(jarfile):$(TOP_BUILDDIR)/src:.
+
+$(check_classes): Makefile $(libraries) $(check_sources)
+	$(JAVAC) -g -classpath $(classpath) $(check_sources)
+
 ifdef USE_LIBCHECK
   check: $(check_classes)
 	@echo
@@ -223,13 +230,6 @@ ifdef USE_LIBCHECK
 else
   check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
 endif
-
-check_classes = $(check_sources:.java=.class)
-
-classpath = $(jarfile):$(TOP_BUILDDIR)/src:.
-
-$(check_classes): Makefile $(libraries) $(check_sources)
-	$(JAVAC) -g -classpath $(classpath) $(check_sources)
 
 
 # -----------------------------------------------------------------------------
