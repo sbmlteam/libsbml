@@ -80,7 +80,7 @@ test_sources =       \
   TestStringBuffer.c \
   TestStringMap.c    \
   TestUtil.c         \
-  TestRunner. c
+  TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
 
