@@ -129,7 +129,7 @@ subdirs = test
 
 distfiles = $(sources) $(expat_sources) \
 	    $(headers) $(expat_headers) \
-	    Makefile.in COPYING.txt
+	    Makefile.in expat-COPYING.txt
 
 
 # -----------------------------------------------------------------------------
