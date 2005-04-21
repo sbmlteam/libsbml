@@ -1,7 +1,7 @@
 %  Filename: install.m
 %
 %  Description : File to install SBMLToolbox
-%  Author(s)   : SBML Development Group <sbml-team@caltech.edu>
+%  Author(s)   : SBML Team <sbml-team@caltech.edu>
 %  Organization: University of Hertfordshire STRC
 %  Created     : 2003-10-01
 %  Revision    : $Id$

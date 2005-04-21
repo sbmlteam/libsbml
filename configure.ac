@@ -1,7 +1,7 @@
 dnl
 dnl Filename    : Makefile.ac
 dnl Description : Run this file through autoconf to produce `configure'
-dnl Author(s)   : SBML Development Group <sbml-team@caltech.edu>
+dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Created     : 2003-02-13
 dnl Revision    : $Id$
 dnl Source      : $Source$

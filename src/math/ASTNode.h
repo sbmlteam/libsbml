@@ -1,7 +1,7 @@
 /**
  * \file    ASTNode.h
  * \brief   Abstract Syntax Tree (AST) for representing formula trees
- * \author  SBML Development Group <sbml-team@caltech.edu>
+ * \author  SBML Team <sbml-team@caltech.edu>
  *
  * $Id$
  * $Source$

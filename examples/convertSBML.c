@@ -1,7 +1,7 @@
 /**
  * Filename    : convertSBML.c
  * Description : Converts SBML L1 documents (any version) to L2v1
- * Author(s)   : SBML Development Group <sysbio-team@caltech.edu>
+ * Author(s)   : SBML Team <sbml-team@caltech.edu>
  * Organization: JST ERATO Kitano Symbiotic Systems Project
  * Created     : 2003-07-21
  * Revision    : $Id$
@@ -44,7 +44,7 @@
  *     Pasadena, CA, 91125, USA
  *
  *     http://www.cds.caltech.edu/erato
- *     mailto:sysbio-team@caltech.edu
+ *     mailto:sbml-team@caltech.edu
  *
  * Contributor(s):
  */

@@ -1,7 +1,7 @@
 /**
  * \file    ListOf.h
  * \author  Wraps List and inherits from SBase
- * \author  SBML Development Group <sbml-team@caltech.edu>
+ * \author  SBML Team <sbml-team@caltech.edu>
  *
  * $Id$
  * $Source$
