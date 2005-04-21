@@ -71,7 +71,7 @@ thisdir = .
 # Variables `examples' and `xml-schemas' are local variables reused below.
 
 examples = \
-        examples/Makefile                                    \
+        examples/Makefile.in                                 \
         examples/convertSBML.c                               \
         examples/evaluateMath.c                              \
         examples/printSBML.c                                 \
