@@ -335,7 +335,7 @@ SBML_convertRuleToL2 (Model_t *m, Rule_t *r)
 
 /**
  * Converts the given Model from SBML L2 to L1. 
- * Deals with teh species concentrations and amounts seperately
+ * Deals with the species concentrations and amounts seperately
  */
 void
 LIBSBML_EXTERN
@@ -560,13 +560,63 @@ SBML_convertReactionsInModelToL1 (Model_t *m)
 
   unsigned int  n;
   Reaction_t   *r;
-
+/*
+  unsigned int numReactants, numProducts;
+  ListOf_t *reactants;
+  ListOf_t *products;
+  SpeciesReference_t *sr;
+*/
 
   for (n = 0; n < numReactions; n++)
   {
     r = (Reaction_t *) ListOf_get(reactions, n);
 
     SBML_convertIdToName( (SBase_t *) r );
+    
     SBML_convertToL1    ( m, (SBase_t *) Reaction_getKineticLaw(r) );
+  
+    /*
+     * code left in as will be necessary when allow
+     * the option of converting a rational stoichiometry 
+     * to an integal stoichiometry and denominator
+     *
+    reactants = Reaction_getListOfReactants(r);
+    products  = Reaction_getListOfProducts(r);
+
+    numReactants = Reaction_getNumReactants(r);
+    numProducts  = Reaction_getNumProducts( r);
+
+    for (noSR = 0; noSR < numReactants; noSR++)
+    {
+      sr = (SpeciesReference_t *) ListOf_get(reactants, noSR);
+      SBML_convertStoichiometryToL1(sr);
+    }
+
+    for (noSR = 0; noSR < numProducts; noSR++)
+    {
+      sr = (SpeciesReference_t *) ListOf_get(products, noSR);
+      SBML_convertStoichiometryToL1(sr);
+    }
+
+    */
+
+
   }
+}
+/**
+ * Converts the stoichiometry attribute of a SpeciesReference
+ * from SBML L2 to L1. Since in L2 stoichiometry can be of type 
+ * double but in L1 the attributes are stoichiometry and denominator
+ * both of type integer
+ *
+ */
+void
+SBML_convertStoichiometryToL1 (SpeciesReference_t *sr)
+{
+
+  double stoichiometry;
+
+  stoichiometry = SpeciesReference_getStoichiometry(sr);
+
+  
 }

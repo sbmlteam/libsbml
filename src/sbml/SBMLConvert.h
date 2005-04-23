@@ -187,6 +187,16 @@ SBML_convertSpeciesToL1 (Model_t *m, Species_t *s);
 void
 SBML_convertReactionsInModelToL1 (Model_t *m);
 
+/**
+ * Converts the stoichiometry attribute of a SpeciesReference
+ * from SBML L2 to L1. Since in L2 stoichiometry can be of type 
+ * double but in L1 the attributes are stoichiometry and denominator
+ * both of type integer
+ *
+ */
+void
+SBML_convertStoichiometryToL1 (SpeciesReference_t *sr);
+
 END_C_DECLS
 
 
