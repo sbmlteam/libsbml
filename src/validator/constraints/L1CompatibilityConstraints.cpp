@@ -50,10 +50,9 @@
 
 
 #ifndef AddingConstraintsToValidator
-#include <string>
 #include "sbml/SBMLTypes.h"
 #include "validator/LocalConstraint.h"
-#include "CompartmentOutsideCycles.h"
+#include <math.h>
 #endif
 
 
@@ -82,6 +81,11 @@ START_CONSTRAINT (2001, Compartment, c)
 }
 END_CONSTRAINT
 
+/* taken out as strictly speaking not true
+ * L1 models will not list modifiers within a reaction
+ * but they are present in the ListOfSpecies
+ *
+ *
 START_CONSTRAINT (2002, Reaction, r)
 {
   msg =
@@ -91,15 +95,16 @@ START_CONSTRAINT (2002, Reaction, r)
   inv( r.getNumModifiers() == 0);
 }
 END_CONSTRAINT
-
+*/
 START_CONSTRAINT (2003, SpeciesReference, sr)
 {
   msg =
-    "A SpeciesReference containing a 'stoichiometryMath' subelement "
+    "A SpeciesReference containing a non-integer or non-rational 'stoichiometryMath' subelement "
 	"cannot be represented in Level 1.";
 
+  pre( sr.isSetStoichiometryMath() );
 
-  inv( !sr.isSetStoichiometryMath()  );
+  inv( sr.getStoichiometryMath()->isInteger() || sr.getStoichiometryMath()->isRational()  );
 }
 END_CONSTRAINT
 
@@ -123,5 +128,17 @@ START_CONSTRAINT (2005, Species, s)
 
 
   inv( s.isSetCompartment());
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (2006, SpeciesReference, sr)
+{
+  msg =
+    "A SpeciesReference containing a non-integer 'stoichiometry' subelement "
+	"cannot be represented in Level 1.";
+
+  pre( !sr.isSetStoichiometryMath() );
+
+  inv( floor(sr.getStoichiometry()) == sr.getStoichiometry() );
 }
 END_CONSTRAINT
