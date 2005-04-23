@@ -315,19 +315,13 @@ SBMLDocument::setLevel (unsigned int level)
 	  /* put in consistency check */
     int nerrors = this->checkL1Compatibility();
 
-	if (nerrors == 0)
-	{
-		this->level = 1;
-		this->version = 2;
+	  if (nerrors == 0)
+	  {
+		  this->level = 1;
+		  this->version = 2;
 
-		if (model != NULL) SBML_convertModelToL1((Model_t *) model, (SBase_t *) this);
-	}
-	else
-	{
-		this->printErrors(cout);
-		this->printWarnings(cout);
-		this->printFatals(cout);
-	}
+		  if (model != NULL) SBML_convertModelToL1((Model_t *) model, (SBase_t *) this);
+	  }
 
   }
   else
@@ -678,6 +672,7 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
 {
   unsigned int n, size;
 
+  fprintf(stream,"in print warnings");
   if ((size = SBMLDocument_getNumWarnings(d)) > 0)
   {
     printf("%d Warning(s):\n", size);
