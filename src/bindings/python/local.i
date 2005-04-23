@@ -50,9 +50,10 @@
 
 
 /**
- * Turn on (minimal) Python docstrings.
+ * Turn on (minimal) Python docstrings and then append our own.
  */
 %feature("autodoc", "1");
+%include "pydoc.i"
 
 
 /**

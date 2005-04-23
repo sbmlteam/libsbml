@@ -169,6 +169,7 @@ ifndef USE_SWIG
 	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
 	exit 1
 else
+	../swig/swigdoc.py python -I../.. ../swig/libsbml.i pydoc.i
 	$(SWIG) $(SWIGFLAGS) -I../.. -c++ -python -o libsbml_wrap.cpp libsbml.i
 	perl -pi -e "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
 		libsbml.py

@@ -5,5 +5,6 @@
 Makefile
 libsbml_wrap.cpp
 libsbml.py
+pydoc.i
 build
 setup.py
