@@ -202,6 +202,7 @@ ifndef USE_SWIG
 	exit 1
 else
 	test -d $(outpath) || mkdir -p $(outpath)
+	../swig/swigdoc.py java -I../.. ../swig/libsbml.i javadoc.i
 	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) -I../../src -outdir $(outpath) \
 	   -c++ -java -package $(java_package) -o libsbml_wrap.cpp libsbml.i
 endif

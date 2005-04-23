@@ -49,6 +49,9 @@
  */
 
 
+%include "javadoc.i"
+
+
 /**
  * Turns off object destruction.  For testing purposes only.
  */

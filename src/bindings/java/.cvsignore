@@ -6,3 +6,4 @@
 Makefile
 java-files
 libsbml_wrap.cpp
+javadoc.i
