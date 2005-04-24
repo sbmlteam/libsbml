@@ -305,8 +305,10 @@ SBMLReader::getSchemaValidationLevel() const
 
 
 /**
- * Used by readSBML(SBMLReader_t *sr, const char *filename) and
- * readSBMLFromString(...).
+ * Used by readSBML() and readSBMLFromString()  Pass in either:
+ *
+ *   - a filename to read and a NULL XML string, or
+ *   - a NULL filename and an XML string
  */
 SBMLDocument*
 SBMLReader::readSBML_internal (const char* filename, const char* xml)
@@ -466,7 +468,10 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
 
 
 /**
- * Reads the SBML document from the given file and returns a pointer to it.
+ * Reads an SBML document from the given file.
+ *
+ * @return a pointer to the SBMLDocument read or NULL if the given file
+ * does not exist.
  */
 LIBSBML_EXTERN
 SBMLDocument*
@@ -477,13 +482,14 @@ SBMLReader::readSBML (const std::string& filename)
 
 
 /**
- * Reads the SBML document from the given XML string and returns a pointer
- * to it.
+ * Reads an SBML document from the given XML string.
  *
  * The XML string must be complete and legal XML document.  Among other
  * things, it must start with an XML processing instruction.  For e.g.,:
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument*
@@ -641,7 +647,10 @@ SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr)
 
 
 /**
- * Reads the SBML document from the given file and returns a pointer to it.
+ * Reads an SBML document from the given file.
+ *
+ * @return a pointer to the SBMLDocument read or NULL if filename is NULL
+ * or does not exist.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -652,13 +661,15 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
 
 
 /**
- * Reads the SBML document from the given XML string and returns a pointer
- * to it.
+ * Reads an SBML document from the given XML string.
  *
  * The XML string must be complete and legal XML document.  Among other
  * things, it must start with an XML processing instruction.  For e.g.,:
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
+ *
+ * @return a pointer to the SBMLDocument read or NULL if the given XML
+ * string is NULL.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -669,10 +680,13 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 
 
 /**
- * Reads the SBML document from the given file and returns a pointer to it.
- * This convenience function is functionally equivalent to:
+ * Reads an SBML document from the given file.  This convenience function
+ * is functionally equivalent to:
  *
  *   SBMLReader_readSBML(SBMLReader_create(), filename);
+ *
+ * @return a pointer to the SBMLDocument read or NULL if the given file
+ * does not exist.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -684,10 +698,19 @@ readSBML (const char *filename)
 
 
 /**
- * Reads the SBML document from the given XML string and returns a pointer
- * to it.  This convenience function is functionally equivalent to:
+ * Reads an SBML document from the given XML string.
+ *
+ * The XML string must be complete and legal XML document.  Among other
+ * things, it must start with an XML processing instruction.  For e.g.,:
+ *
+ *   <?xml version='1.0' encoding='UTF-8'?>
+ *
+ * This convenience function is functionally equivalent to:
  *
  *   SBMLReader_readSBMLFromString(SBMLReader_create(), filename);
+ *
+ * @return a pointer to the SBMLDocument read or NULL if the given XML
+ * string is NULL.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
