@@ -311,8 +311,7 @@ SBMLReader::getSchemaValidationLevel() const
 SBMLDocument*
 SBMLReader::readSBML_internal (const char* filename, const char* xml)
 {
-  if (filename == 0 && (xml == 0 || *xml == 0))     return 0;
-  if (filename != 0 && !util_file_exists(filename)) return 0;
+  if (filename && !util_file_exists(filename)) return 0;
 
 
 #ifdef USE_EXPAT
@@ -647,7 +646,7 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
 {
-  return sr->readSBML(filename ? filename : "");
+  return (filename != NULL) ? sr->readSBML(filename) : NULL;
 }
 
 
@@ -664,7 +663,7 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 {
-  return sr->readSBMLFromString(xml ? xml : "");
+  return (xml != NULL) ? sr->readSBMLFromString(xml) : NULL;
 }
 
 
