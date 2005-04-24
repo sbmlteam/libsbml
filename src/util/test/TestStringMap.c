@@ -151,7 +151,7 @@ START_TEST (test_StringMap_nullValue)
    fail_unless( !StringMap_exists(SM, "null")         );
    fail_unless( StringMap_get    (SM, "null") == NULL );
 
-   StringMap_put(SM, "null");
+   StringMap_put(SM, "null", NULL);
 
    fail_unless( StringMap_exists(SM, "null")         );
    fail_unless( StringMap_get   (SM, "null") == NULL );
