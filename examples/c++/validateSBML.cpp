@@ -98,8 +98,8 @@ main (int argc, char *argv[])
 
   if (errors > 0)
   {
-	d->printWarnings(cout);
-	d->printErrors  (cout);
+    d->printWarnings(cout);
+    d->printErrors  (cout);
     d->printFatals  (cout);
   }
 
