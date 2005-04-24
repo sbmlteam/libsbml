@@ -79,8 +79,8 @@ StackTest_teardown (void)
 
 START_TEST (test_Stack_create)
 {
-  fail_unless(Stack_size(S)     ==  0, NULL);
-  fail_unless(Stack_capacity(S) == 10, NULL);
+  fail_unless(Stack_size(S)     ==  0);
+  fail_unless(Stack_capacity(S) == 10);
 }
 END_TEST
 
@@ -96,9 +96,9 @@ START_TEST (test_Stack_push)
 {
   Stack_push(S, "foo");
 
-  fail_unless( Stack_size(S)     ==  1       , NULL );
-  fail_unless( Stack_capacity(S) == 10       , NULL );
-  fail_unless( !strcmp( Stack_peek(S), "foo"), NULL );
+  fail_unless( Stack_size(S)     ==  1        );
+  fail_unless( Stack_capacity(S) == 10        );
+  fail_unless( !strcmp( Stack_peek(S), "foo") );
 }
 END_TEST
 
@@ -112,9 +112,9 @@ START_TEST (test_Stack_pop)
   
   item = (char *) Stack_pop(S);
 
-  fail_unless( Stack_size(S)     ==  0, NULL );
-  fail_unless( Stack_capacity(S) == 10, NULL );
-  fail_unless( !strcmp(item, "foo")   , NULL );
+  fail_unless( Stack_size(S)     ==  0 );
+  fail_unless( Stack_capacity(S) == 10 );
+  fail_unless( !strcmp(item, "foo")    );
 }
 END_TEST
 
@@ -126,19 +126,19 @@ START_TEST (test_Stack_popN)
   Stack_push(S, "baz");
   Stack_push(S, "bop");
 
-  fail_unless( Stack_size(S) ==  4, NULL );
+  fail_unless( Stack_size(S) ==  4 );
 
-  fail_unless( Stack_popN(S, 0) == NULL, NULL );
-  fail_unless( Stack_size(S) == 4, NULL );
+  fail_unless( Stack_popN(S, 0) == NULL );
+  fail_unless( Stack_size(S) == 4 );
 
-  fail_unless( !strcmp(Stack_popN(S, 3), "bar"), NULL );
-  fail_unless( Stack_size(S) == 1, NULL );
+  fail_unless( !strcmp(Stack_popN(S, 3), "bar") );
+  fail_unless( Stack_size(S) == 1 );
 
-  fail_unless( !strcmp(Stack_popN(S, 1), "foo"), NULL );
-  fail_unless( Stack_size(S) == 0, NULL );
+  fail_unless( !strcmp(Stack_popN(S, 1), "foo") );
+  fail_unless( Stack_size(S) == 0 );
 
-  fail_unless( Stack_popN(S, 0) == NULL, NULL );
-  fail_unless( Stack_size(S) == 0, NULL );
+  fail_unless( Stack_popN(S, 0) == NULL );
+  fail_unless( Stack_size(S) == 0 );
 }
 END_TEST
 
@@ -152,9 +152,9 @@ START_TEST (test_Stack_peek)
 
   item = (char *) Stack_peek(S);
 
-  fail_unless( Stack_size(S)     ==  1, NULL );
-  fail_unless( Stack_capacity(S) == 10, NULL );
-  fail_unless( !strcmp(item, "foo")   , NULL );
+  fail_unless( Stack_size(S)     ==  1 );
+  fail_unless( Stack_capacity(S) == 10 );
+  fail_unless( !strcmp(item, "foo")    );
 }
 END_TEST
 
@@ -168,40 +168,40 @@ START_TEST (test_Stack_peekAt)
   Stack_push(S, "bar");
   Stack_push(S, "baz");
 
-  fail_unless( Stack_size(S)     ==  3, NULL );
-  fail_unless( Stack_capacity(S) == 10, NULL );
+  fail_unless( Stack_size(S)     ==  3 );
+  fail_unless( Stack_capacity(S) == 10 );
 
   item = (char *) Stack_peekAt(S, 0);
-  fail_unless( !strcmp(item, "baz"), NULL );
+  fail_unless( !strcmp(item, "baz") );
 
   item = (char *) Stack_peekAt(S, 1);
-  fail_unless( !strcmp(item, "bar"), NULL );
+  fail_unless( !strcmp(item, "bar") );
 
   item = (char *) Stack_peekAt(S, 2);
-  fail_unless( !strcmp(item, "foo"), NULL );
+  fail_unless( !strcmp(item, "foo") );
 
-  fail_unless( Stack_peekAt(S, -1) == NULL, NULL );
-  fail_unless( Stack_peekAt(S,  3) == NULL, NULL );
+  fail_unless( Stack_peekAt(S, -1) == NULL );
+  fail_unless( Stack_peekAt(S,  3) == NULL );
 }
 END_TEST
 
 
 START_TEST (test_Stack_size)
 {
-  fail_unless( Stack_size(S)     ==  0, NULL );
-  fail_unless( Stack_capacity(S) == 10, NULL );
+  fail_unless( Stack_size(S)     ==  0 );
+  fail_unless( Stack_capacity(S) == 10 );
 
   Stack_push(S, "foo");
 
-  fail_unless( Stack_size(S)     ==  1, NULL );
-  fail_unless( Stack_capacity(S) == 10, NULL );
+  fail_unless( Stack_size(S)     ==  1 );
+  fail_unless( Stack_capacity(S) == 10 );
 }
 END_TEST
 
 
 START_TEST (test_Stack_capacity)
 {
-  fail_unless(Stack_capacity(S) == 10, NULL);
+  fail_unless(Stack_capacity(S) == 10);
 }
 END_TEST
 
@@ -216,15 +216,15 @@ START_TEST (test_Stack_grow)
     Stack_push(S, "foo");
   }
 
-  fail_unless( Stack_size(S)     == 10, NULL );
-  fail_unless( Stack_capacity(S) == 10, NULL );
-  fail_unless( !strcmp(Stack_peek(S), "foo"), NULL );
+  fail_unless( Stack_size(S)     == 10 );
+  fail_unless( Stack_capacity(S) == 10 );
+  fail_unless( !strcmp(Stack_peek(S), "foo") );
 
   Stack_push(S, "bar");
 
-  fail_unless( Stack_size(S)     == 11      , NULL );
-  fail_unless( Stack_capacity(S) == 20      , NULL );
-  fail_unless( !strcmp(Stack_peek(S), "bar"), NULL );
+  fail_unless( Stack_size(S)     == 11       );
+  fail_unless( Stack_capacity(S) == 20       );
+  fail_unless( !strcmp(Stack_peek(S), "bar") );
 }
 END_TEST
 
@@ -241,10 +241,10 @@ START_TEST (test_Stack_find)
   Stack_push(S, s2);
   Stack_push(S, s3);
 
-  fail_unless( Stack_find(S, s1) ==  2, NULL );
-  fail_unless( Stack_find(S, s2) ==  1, NULL );
-  fail_unless( Stack_find(S, s3) ==  0, NULL );
-  fail_unless( Stack_find(S, s4) == -1, NULL );
+  fail_unless( Stack_find(S, s1) ==  2 );
+  fail_unless( Stack_find(S, s2) ==  1 );
+  fail_unless( Stack_find(S, s3) ==  0 );
+  fail_unless( Stack_find(S, s4) == -1 );
 }
 END_TEST
 

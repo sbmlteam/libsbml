@@ -87,9 +87,9 @@ START_TEST (test_memory_MemTrace_MemInfoList_create)
   MemInfoList_t *list = MemTrace_MemInfoList_create();
 
 
-  fail_unless( list->head == NULL, NULL );
-  fail_unless( list->tail == NULL, NULL );
-  fail_unless( list->size ==    0, NULL );
+  fail_unless( list->head == NULL );
+  fail_unless( list->tail == NULL );
+  fail_unless( list->size ==    0 );
 
   MemTrace_MemInfoList_free(list);
 }
@@ -104,12 +104,12 @@ START_TEST (test_memory_MemTrace_MemInfoNode_create)
 
   node = MemTrace_MemInfoNode_create((int *) 42, 4, "Foo.c", line = __LINE__);
 
-  fail_unless( node->address == (int *) 42, NULL );
-  fail_unless( node->size    ==          4, NULL );
-  fail_unless( node->line    == line, NULL );
-  fail_unless( node->next    == NULL, NULL );
+  fail_unless( node->address == (int *) 42 );
+  fail_unless( node->size    ==          4 );
+  fail_unless( node->line    == line );
+  fail_unless( node->next    == NULL );
 
-  fail_unless( !strcmp(node->filename, "Foo.c"), NULL );
+  fail_unless( !strcmp(node->filename, "Foo.c") );
 
   free(node);
 }
@@ -126,11 +126,11 @@ START_TEST (test_memory_MemTrace_MemInfoList_append_1)
   node = MemTrace_MemInfoNode_create(&list, size, __FILE__, __LINE__);
   MemTrace_MemInfoList_append(list, node);
 
-  fail_unless( list->head       == node, NULL );
-  fail_unless( list->tail       == node, NULL );
-  fail_unless( list->head->next == NULL, NULL );
-  fail_unless( list->tail->next == NULL, NULL ); 
-  fail_unless( list->size       ==    1, NULL );
+  fail_unless( list->head       == node );
+  fail_unless( list->tail       == node );
+  fail_unless( list->head->next == NULL );
+  fail_unless( list->tail->next == NULL ); 
+  fail_unless( list->size       ==    1 );
 
   MemTrace_MemInfoList_free(list);
 }
@@ -151,11 +151,11 @@ START_TEST (test_memory_MemTrace_MemInfoList_append_2)
   MemTrace_MemInfoList_append(list, node1);
   MemTrace_MemInfoList_append(list, node2);
 
-  fail_unless( list->head       == node1, NULL );
-  fail_unless( list->tail       == node2, NULL );
-  fail_unless( list->head->next == node2, NULL );
-  fail_unless( list->tail->next ==  NULL, NULL ); 
-  fail_unless( list->size       ==     2, NULL );
+  fail_unless( list->head       == node1 );
+  fail_unless( list->tail       == node2 );
+  fail_unless( list->head->next == node2 );
+  fail_unless( list->tail->next ==  NULL ); 
+  fail_unless( list->size       ==     2 );
 
   MemTrace_MemInfoList_free(list);
 }
@@ -181,11 +181,11 @@ START_TEST (test_memory_MemTrace_MemInfoList_get)
   MemTrace_MemInfoList_append(list, node3);
   MemTrace_MemInfoList_append(list, node4);
 
-  fail_unless( MemTrace_MemInfoList_get(list, (int *) 40) ==  NULL, NULL );
-  fail_unless( MemTrace_MemInfoList_get(list, (int *) 41) == node1, NULL );
-  fail_unless( MemTrace_MemInfoList_get(list, (int *) 42) == node2, NULL );
-  fail_unless( MemTrace_MemInfoList_get(list, (int *) 43) == node3, NULL );
-  fail_unless( MemTrace_MemInfoList_get(list, (int *) 44) == node4, NULL );
+  fail_unless( MemTrace_MemInfoList_get(list, (int *) 40) ==  NULL );
+  fail_unless( MemTrace_MemInfoList_get(list, (int *) 41) == node1 );
+  fail_unless( MemTrace_MemInfoList_get(list, (int *) 42) == node2 );
+  fail_unless( MemTrace_MemInfoList_get(list, (int *) 43) == node3 );
+  fail_unless( MemTrace_MemInfoList_get(list, (int *) 44) == node4 );
 
   MemTrace_MemInfoList_free(list);
 }
@@ -211,32 +211,32 @@ START_TEST (test_memory_MemTrace_MemInfoList_remove)
   MemTrace_MemInfoList_append(list, node2);
   MemTrace_MemInfoList_append(list, node3);
   MemTrace_MemInfoList_append(list, node4);
-  fail_unless( list->size == 4, NULL );
+  fail_unless( list->size == 4 );
 
   /* Not Found */
-  fail_unless( MemTrace_MemInfoList_remove(list, (int *) 40) == NULL, NULL );
-  fail_unless( list->size == 4, NULL );
+  fail_unless( MemTrace_MemInfoList_remove(list, (int *) 40) == NULL );
+  fail_unless( list->size == 4 );
 
   /* Remove middle */
   removed = MemTrace_MemInfoList_remove(list, (int *) 43);
-  fail_unless( removed    == node3, NULL );
-  fail_unless( list->head == node1, NULL );
-  fail_unless( list->tail == node4, NULL );
-  fail_unless( list->size ==     3, NULL );
+  fail_unless( removed    == node3 );
+  fail_unless( list->head == node1 );
+  fail_unless( list->tail == node4 );
+  fail_unless( list->size ==     3 );
 
   /* Remove first */
   removed = MemTrace_MemInfoList_remove(list, (int *) 41);
-  fail_unless( removed    == node1, NULL );
-  fail_unless( list->head == node2, NULL );
-  fail_unless( list->tail == node4, NULL );
-  fail_unless( list->size ==     2, NULL );
+  fail_unless( removed    == node1 );
+  fail_unless( list->head == node2 );
+  fail_unless( list->tail == node4 );
+  fail_unless( list->size ==     2 );
 
   /* Remove last */
   removed = MemTrace_MemInfoList_remove(list, (int *) 44);
-  fail_unless( removed    == node4, NULL );
-  fail_unless( list->head == node2, NULL );
-  fail_unless( list->tail == node2, NULL );
-  fail_unless( list->size ==     1, NULL );
+  fail_unless( removed    == node4 );
+  fail_unless( list->head == node2 );
+  fail_unless( list->tail == node2 );
+  fail_unless( list->size ==     1 );
 
   MemTrace_MemInfoList_free(list);
 }
@@ -247,10 +247,10 @@ START_TEST (test_memory_MemTrace_init)
 {
   MemTrace_init();
 
-  fail_unless( MemTrace_getNumAllocs()         == 0, NULL );
-  fail_unless( MemTrace_getNumLeaks()          == 0, NULL );
-  fail_unless( MemTrace_getNumFrees()          == 0, NULL );
-  fail_unless( MemTrace_getNumUnmatchedFrees() == 0, NULL );
+  fail_unless( MemTrace_getNumAllocs()         == 0 );
+  fail_unless( MemTrace_getNumLeaks()          == 0 );
+  fail_unless( MemTrace_getNumFrees()          == 0 );
+  fail_unless( MemTrace_getNumUnmatchedFrees() == 0 );
 }
 END_TEST
 
@@ -261,21 +261,21 @@ START_TEST (test_memory_MemTrace_getAllocs)
   void *q = safe_malloc(1024);
 
 
-  fail_unless( MemTrace_getNumAllocs() == 2, NULL );
-  fail_unless( MemTrace_getNumLeaks()  == 2, NULL );
-  fail_unless( MemTrace_getNumFrees()  == 0, NULL );
+  fail_unless( MemTrace_getNumAllocs() == 2 );
+  fail_unless( MemTrace_getNumLeaks()  == 2 );
+  fail_unless( MemTrace_getNumFrees()  == 0 );
 
   safe_free(p);
 
-  fail_unless( MemTrace_getNumAllocs() == 2, NULL );
-  fail_unless( MemTrace_getNumLeaks()  == 1, NULL );
-  fail_unless( MemTrace_getNumFrees()  == 1, NULL );
+  fail_unless( MemTrace_getNumAllocs() == 2 );
+  fail_unless( MemTrace_getNumLeaks()  == 1 );
+  fail_unless( MemTrace_getNumFrees()  == 1 );
 
   safe_free(q);
 
-  fail_unless( MemTrace_getNumAllocs() == 2, NULL );
-  fail_unless( MemTrace_getNumLeaks()  == 0, NULL );
-  fail_unless( MemTrace_getNumFrees()  == 2, NULL );
+  fail_unless( MemTrace_getNumAllocs() == 2 );
+  fail_unless( MemTrace_getNumLeaks()  == 0 );
+  fail_unless( MemTrace_getNumFrees()  == 2 );
 }
 END_TEST
 
@@ -286,18 +286,18 @@ START_TEST (test_memory_MemTrace_getNumUnmatchedFrees)
   void *q = malloc(1024);
 
 
-  fail_unless( MemTrace_getNumFrees()          == 2, NULL );
-  fail_unless( MemTrace_getNumUnmatchedFrees() == 0, NULL );
+  fail_unless( MemTrace_getNumFrees()          == 2 );
+  fail_unless( MemTrace_getNumUnmatchedFrees() == 0 );
 
   safe_free(p);
 
-  fail_unless( MemTrace_getNumFrees()          == 3, NULL );
-  fail_unless( MemTrace_getNumUnmatchedFrees() == 1, NULL );
+  fail_unless( MemTrace_getNumFrees()          == 3 );
+  fail_unless( MemTrace_getNumUnmatchedFrees() == 1 );
 
   safe_free(q);
 
-  fail_unless( MemTrace_getNumFrees()          == 4, NULL );
-  fail_unless( MemTrace_getNumUnmatchedFrees() == 2, NULL );
+  fail_unless( MemTrace_getNumFrees()          == 4 );
+  fail_unless( MemTrace_getNumUnmatchedFrees() == 2 );
 }
 END_TEST
 
@@ -306,10 +306,10 @@ START_TEST (test_memory_MemTrace_reset)
 {
   MemTrace_reset();
 
-  fail_unless( MemTrace_getNumAllocs()         == 0, NULL );
-  fail_unless( MemTrace_getNumLeaks()          == 0, NULL );
-  fail_unless( MemTrace_getNumFrees()          == 0, NULL );
-  fail_unless( MemTrace_getNumUnmatchedFrees() == 0, NULL );
+  fail_unless( MemTrace_getNumAllocs()         == 0 );
+  fail_unless( MemTrace_getNumLeaks()          == 0 );
+  fail_unless( MemTrace_getNumFrees()          == 0 );
+  fail_unless( MemTrace_getNumUnmatchedFrees() == 0 );
 }
 END_TEST
 

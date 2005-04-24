@@ -79,11 +79,11 @@ ListTest_teardown (void)
 
 START_TEST (test_List_create)
 {
-  fail_unless(List_size(L) == 0, NULL);
+  fail_unless(List_size(L) == 0);
 
   /*
-  fail_unless(L->head == NULL, NULL);
-  fail_unless(L->tail == NULL, NULL);
+  fail_unless(L->head == NULL);
+  fail_unless(L->tail == NULL);
   */
 }
 END_TEST
@@ -96,8 +96,8 @@ START_TEST (test_ListNode_create)
 
 
   /*
-  fail_unless(node->item == s   , NULL);
-  fail_unless(node->next == NULL, NULL);
+  fail_unless(node->item == s   );
+  fail_unless(node->next == NULL);
   */
 
   ListNode_free(node);
@@ -116,13 +116,13 @@ START_TEST (test_List_add_1)
 {
   List_add(L, "foo");
 
-  fail_unless(List_size(L) == 1, NULL);
+  fail_unless(List_size(L) == 1);
 
   /*
-  fail_unless( !strcmp(L->head->item, "foo"), NULL );
+  fail_unless( !strcmp(L->head->item, "foo") );
 
-  fail_unless(L->head       == L->tail, NULL);
-  fail_unless(L->head->next == NULL   , NULL);
+  fail_unless(L->head       == L->tail);
+  fail_unless(L->head->next == NULL   );
   */
 }
 END_TEST
@@ -133,14 +133,14 @@ START_TEST (test_List_add_2)
   List_add(L, "foo");
   List_add(L, "bar");
 
-  fail_unless(List_size(L) == 2, NULL);
+  fail_unless(List_size(L) == 2);
 
   /*
-  fail_unless( !strcmp(L->head->item      , "foo"), NULL );
-  fail_unless( !strcmp(L->head->next->item, "bar"), NULL );
+  fail_unless( !strcmp(L->head->item      , "foo") );
+  fail_unless( !strcmp(L->head->next->item, "bar") );
 
-  fail_unless(L->head->next == L->tail, NULL);
-  fail_unless(L->tail->next == NULL   , NULL);
+  fail_unless(L->head->next == L->tail);
+  fail_unless(L->tail->next == NULL   );
   */
 }
 END_TEST
@@ -166,18 +166,18 @@ START_TEST (test_List_countIf)
   List_add(L, (void *) foo);
   List_add(L, (void *) bop);
 
-  fail_unless( List_countIf(L, myPredicate) == 0 , NULL );
+  fail_unless( List_countIf(L, myPredicate) == 0 );
 
   List_add(L, (void *) foo);
   List_add(L, (void *) bar);
   List_add(L, (void *) baz);
   List_add(L, (void *) bop);
 
-  fail_unless( List_countIf(L, myPredicate) == 2 , NULL );
+  fail_unless( List_countIf(L, myPredicate) == 2 );
 
   List_add(L, (void *) baz);
 
-  fail_unless( List_countIf(L, myPredicate) == 3 , NULL );
+  fail_unless( List_countIf(L, myPredicate) == 3 );
 }
 END_TEST
 
@@ -197,8 +197,8 @@ START_TEST (test_List_findIf)
 
   list = List_findIf(L, myPredicate);
 
-  fail_unless( list            != NULL, NULL );
-  fail_unless( List_size(list) == 0   , NULL );
+  fail_unless( list            != NULL );
+  fail_unless( List_size(list) == 0    );
 
   List_free(list);
 
@@ -209,10 +209,10 @@ START_TEST (test_List_findIf)
 
   list = List_findIf(L, myPredicate);
 
-  fail_unless( list              != NULL, NULL );
-  fail_unless( List_size(list)   == 2   , NULL );
-  fail_unless( List_get(list, 0) == bar , NULL );
-  fail_unless( List_get(list, 1) == baz , NULL );
+  fail_unless( list              != NULL );
+  fail_unless( List_size(list)   == 2    );
+  fail_unless( List_get(list, 0) == bar  );
+  fail_unless( List_get(list, 1) == baz  );
 
   List_free(list);
 
@@ -220,11 +220,11 @@ START_TEST (test_List_findIf)
 
   list = List_findIf(L, myPredicate);
 
-  fail_unless( list              != NULL, NULL );
-  fail_unless( List_size(list)   == 3   , NULL );
-  fail_unless( List_get(list, 0) == bar , NULL );
-  fail_unless( List_get(list, 1) == baz , NULL );
-  fail_unless( List_get(list, 2) == baz , NULL );
+  fail_unless( list              != NULL );
+  fail_unless( List_size(list)   == 3    );
+  fail_unless( List_get(list, 0) == bar  );
+  fail_unless( List_get(list, 1) == baz  );
+  fail_unless( List_get(list, 2) == baz  );
 
   List_free(list);
 }
@@ -249,10 +249,10 @@ START_TEST (test_List_find)
   List_add(L, (void *) bar);
   List_add(L, (void *) baz);
 
-  fail_unless( List_find(L, (void *) foo, myStrCmp) == foo , NULL );
-  fail_unless( List_find(L, (void *) bar, myStrCmp) == bar , NULL );
-  fail_unless( List_find(L, (void *) baz, myStrCmp) == baz , NULL );
-  fail_unless( List_find(L, (void *) bop, myStrCmp) == NULL, NULL );
+  fail_unless( List_find(L, (void *) foo, myStrCmp) == foo  );
+  fail_unless( List_find(L, (void *) bar, myStrCmp) == bar  );
+  fail_unless( List_find(L, (void *) baz, myStrCmp) == baz  );
+  fail_unless( List_find(L, (void *) bop, myStrCmp) == NULL );
 }
 END_TEST
 
@@ -262,13 +262,13 @@ START_TEST (test_List_get)
   List_add(L, "foo");
   List_add(L, "bar");
 
-  fail_unless(List_size(L) == 2, NULL);
+  fail_unless(List_size(L) == 2);
  
-  fail_unless( !strcmp(List_get(L, 0), "foo"), NULL );
-  fail_unless( !strcmp(List_get(L, 1), "bar"), NULL );
+  fail_unless( !strcmp(List_get(L, 0), "foo") );
+  fail_unless( !strcmp(List_get(L, 1), "bar") );
 
-  fail_unless(List_get(L, -1) == NULL, NULL);
-  fail_unless(List_get(L,  2) == NULL, NULL);
+  fail_unless(List_get(L, -1) == NULL);
+  fail_unless(List_get(L,  2) == NULL);
 }
 END_TEST
 
@@ -277,13 +277,13 @@ START_TEST (test_List_prepend_1)
 {
   List_prepend(L, "foo");
 
-  fail_unless(List_size(L) == 1, NULL);
+  fail_unless(List_size(L) == 1);
 
   /*
-  fail_unless( !strcmp(L->head->item, "foo"), NULL );
+  fail_unless( !strcmp(L->head->item, "foo") );
 
-  fail_unless(L->head       == L->tail, NULL);
-  fail_unless(L->head->next == NULL   , NULL);
+  fail_unless(L->head       == L->tail);
+  fail_unless(L->head->next == NULL   );
   */
 }
 END_TEST
@@ -294,14 +294,14 @@ START_TEST (test_List_prepend_2)
   List_prepend(L, "foo");
   List_prepend(L, "bar");
 
-  fail_unless(List_size(L) == 2, NULL);
+  fail_unless(List_size(L) == 2);
 
   /*
-  fail_unless( !strcmp(L->head->item      , "bar"), NULL );
-  fail_unless( !strcmp(L->head->next->item, "foo"), NULL );
+  fail_unless( !strcmp(L->head->item      , "bar") );
+  fail_unless( !strcmp(L->head->next->item, "foo") );
 
-  fail_unless(L->head->next == L->tail, NULL);
-  fail_unless(L->tail->next == NULL   , NULL);
+  fail_unless(L->head->next == L->tail);
+  fail_unless(L->tail->next == NULL   );
   */
 }
 END_TEST
@@ -311,13 +311,13 @@ START_TEST (test_List_remove_1)
 {
   List_add(L, "foo");
 
-  fail_unless( !strcmp(List_remove(L, 0), "foo"), NULL );
+  fail_unless( !strcmp(List_remove(L, 0), "foo") );
 
-  fail_unless(List_size(L) == 0, NULL);
+  fail_unless(List_size(L) == 0);
 
   /*
-  fail_unless(L->head == NULL, NULL);
-  fail_unless(L->tail == NULL, NULL);
+  fail_unless(L->head == NULL);
+  fail_unless(L->tail == NULL);
   */
 }
 END_TEST
@@ -328,15 +328,15 @@ START_TEST (test_List_remove_2)
   List_add(L, "foo");
   List_add(L, "bar");
 
-  fail_unless( !strcmp(List_remove(L, 1), "bar"), NULL );
+  fail_unless( !strcmp(List_remove(L, 1), "bar") );
 
-  fail_unless(List_size(L) == 1, NULL);
+  fail_unless(List_size(L) == 1);
 
-  fail_unless( !strcmp( List_get(L, 0), "foo" ), NULL );
+  fail_unless( !strcmp( List_get(L, 0), "foo" ) );
 
   /*
-  fail_unless(L->head       == L->tail, NULL);
-  fail_unless(L->head->next == NULL   , NULL);
+  fail_unless(L->head       == L->tail);
+  fail_unless(L->head->next == NULL   );
   */
 }
 END_TEST
@@ -348,16 +348,16 @@ START_TEST (test_List_remove_3)
   List_add(L, "bar");
   List_add(L, "baz");
 
-  fail_unless( !strcmp( List_remove(L, 1), "bar" ), NULL );
+  fail_unless( !strcmp( List_remove(L, 1), "bar" ) );
 
-  fail_unless(List_size(L) == 2, NULL);
+  fail_unless(List_size(L) == 2);
 
-  fail_unless( !strcmp( List_get(L, 0), "foo" ), NULL );
-  fail_unless( !strcmp( List_get(L, 1), "baz" ), NULL );
+  fail_unless( !strcmp( List_get(L, 0), "foo" ) );
+  fail_unless( !strcmp( List_get(L, 1), "baz" ) );
 
   /*
-  fail_unless(L->head       != L->tail, NULL);
-  fail_unless(L->tail->next == NULL   , NULL);
+  fail_unless(L->head       != L->tail);
+  fail_unless(L->tail->next == NULL   );
   */
 }
 END_TEST
@@ -369,16 +369,16 @@ START_TEST (test_List_remove_4)
   List_add(L, "bar");
   List_add(L, "baz");
 
-  fail_unless( !strcmp( List_remove(L, 2), "baz" ), NULL );
+  fail_unless( !strcmp( List_remove(L, 2), "baz" ) );
 
-  fail_unless(List_size(L) == 2, NULL);
+  fail_unless(List_size(L) == 2);
 
-  fail_unless( !strcmp( List_get(L, 0), "foo" ), NULL );
-  fail_unless( !strcmp( List_get(L, 1), "bar" ), NULL );
+  fail_unless( !strcmp( List_get(L, 0), "foo" ) );
+  fail_unless( !strcmp( List_get(L, 1), "bar" ) );
 
   /*
-  fail_unless(L->head       != L->tail, NULL);
-  fail_unless(L->tail->next == NULL   , NULL);
+  fail_unless(L->head       != L->tail);
+  fail_unless(L->tail->next == NULL   );
   */
 }
 END_TEST
@@ -390,15 +390,15 @@ START_TEST (test_List_freeItems)
   List_add(L, safe_strdup("bar"));
   List_add(L, safe_strdup("baz"));
 
-  fail_unless(List_size(L) == 3, NULL);
+  fail_unless(List_size(L) == 3);
 
   List_freeItems(L, safe_free, void);
 
-  fail_unless(List_size(L) == 0   , NULL);
+  fail_unless(List_size(L) == 0);
 
   /*
-  fail_unless(L->head      == NULL, NULL);
-  fail_unless(L->tail      == NULL, NULL);
+  fail_unless(L->head      == NULL);
+  fail_unless(L->tail      == NULL);
   */
 }
 END_TEST

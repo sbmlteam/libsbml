@@ -79,14 +79,14 @@ StringMapTest_teardown (void)
 
 START_TEST (test_StringMap_basics)
 {
-  fail_unless(StringMap_size(SM) == 0, NULL);
-  fail_unless(StringMap_get(SM, "key") == NULL, NULL);
+  fail_unless( StringMap_size(SM)       == 0    );
+  fail_unless( StringMap_get(SM, "key") == NULL );
 
   StringMap_put(SM, "key", "value");
 
-  fail_unless(!strcmp(StringMap_get(SM, "key"), "value"), NULL);
+  fail_unless( !strcmp(StringMap_get(SM, "key"), "value") );
 
-  fail_unless(StringMap_size(SM) == 1, NULL);
+  fail_unless(StringMap_size(SM) == 1);
 }
 END_TEST
 
@@ -96,68 +96,66 @@ START_TEST (test_StringMap_duplicate)
   StringMap_put(SM, "foo", "bar");
   StringMap_put(SM, "foo", "baz");
 
-  fail_unless(!strcmp(StringMap_get(SM, "foo"), "baz"), NULL);
+  fail_unless(!strcmp( StringMap_get(SM, "foo"), "baz") );
 
-  fail_unless(StringMap_size(SM) == 1, NULL);
+  fail_unless(StringMap_size(SM) == 1);
 }
 END_TEST
 
 
 START_TEST (test_StringMap_grow)
 {
-  StringMap_put(SM, "1" , "one");
-  StringMap_put(SM, "2" , "two");
-  StringMap_put(SM, "3" , "three");
-  StringMap_put(SM, "4" , "four");
-  StringMap_put(SM, "5" , "five");
-  StringMap_put(SM, "6" , "six");
-  StringMap_put(SM, "7" , "seven");
-  StringMap_put(SM, "8" , "eight");
-  StringMap_put(SM, "9" , "nine");
-  StringMap_put(SM, "10", "ten");
+  StringMap_put( SM, "1" , "one"   );
+  StringMap_put( SM, "2" , "two"   );
+  StringMap_put( SM, "3" , "three" );
+  StringMap_put( SM, "4" , "four"  );
+  StringMap_put( SM, "5" , "five"  );
+  StringMap_put( SM, "6" , "six"   );
+  StringMap_put( SM, "7" , "seven" );
+  StringMap_put( SM, "8" , "eight" );
+  StringMap_put( SM, "9" , "nine"  );
+  StringMap_put( SM, "10", "ten"   );
 
-  fail_unless( StringMap_size(SM) == 10, NULL ); 
-  fail_unless( SM->capacity       == 10, NULL ); 
-  fail_unless( StringMap_get(SM, "11") == NULL, NULL );
+  fail_unless( StringMap_size(SM)      == 10   ); 
+  fail_unless( SM->capacity            == 10   ); 
+  fail_unless( StringMap_get(SM, "11") == NULL );
 
   StringMap_put(SM, "11", "eleven");
 
-  fail_unless( StringMap_size(SM) == 11, NULL ); 
-  fail_unless( SM->capacity       == 100, NULL ); 
+  fail_unless( StringMap_size(SM) ==  11 ); 
+  fail_unless( SM->capacity       == 100 ); 
 
-  fail_unless(!strcmp(StringMap_get(SM,  "1"), "one"   ), NULL);
-  fail_unless(!strcmp(StringMap_get(SM, "10"), "ten"   ), NULL);
-  fail_unless(!strcmp(StringMap_get(SM, "11"), "eleven"), NULL);
+  fail_unless( !strcmp(StringMap_get(SM,  "1"), "one"   ) );
+  fail_unless( !strcmp(StringMap_get(SM, "10"), "ten"   ) );
+  fail_unless( !strcmp(StringMap_get(SM, "11"), "eleven") );
 }
 END_TEST
 
 
 START_TEST (test_StringMap_remove)
 {
-  fail_unless(!StringMap_exists(SM, "gnip"), NULL);
+  fail_unless( !StringMap_exists(SM, "gnip") );
 
   StringMap_put(SM, "gnip", "gnop");
-
-  fail_unless(StringMap_exists(SM, "gnip"), NULL);
+  fail_unless( StringMap_exists(SM, "gnip") );
 
   StringMap_remove(SM, "gnip");
-
-  fail_unless(!StringMap_exists(SM, "gnip"), NULL);
-  fail_unless(StringMap_size(SM) == 0, NULL);
+  fail_unless( !StringMap_exists(SM, "gnip") );
+  fail_unless( StringMap_size(SM) == 0       );
 }
 END_TEST
 
 
 START_TEST (test_StringMap_nullValue)
 {
-   fail_unless(!StringMap_exists(SM, "null"), NULL);
-   fail_unless(StringMap_get(SM, "null") == NULL, NULL);
+   fail_unless( !StringMap_exists(SM, "null")         );
+   fail_unless( StringMap_get    (SM, "null") == NULL );
 
-   StringMap_put(SM, "null", NULL);
+   StringMap_put(SM, "null");
 
-   fail_unless(StringMap_exists(SM, "null"), NULL);
-   fail_unless(StringMap_get(SM, "null") == NULL, NULL);
-   fail_unless(StringMap_size(SM) == 1, NULL);
+   fail_unless( StringMap_exists(SM, "null")         );
+   fail_unless( StringMap_get   (SM, "null") == NULL );
+   fail_unless( StringMap_size  (SM)         == 1    );
 }
 END_TEST
 

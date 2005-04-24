@@ -79,8 +79,8 @@ StringBufferTest_teardown (void)
 
 START_TEST (test_StringBuffer_create)
 {
-  fail_unless(StringBuffer_length(SB)   ==  0, NULL);
-  fail_unless(StringBuffer_capacity(SB) == 10, NULL);
+  fail_unless(StringBuffer_length(SB)   ==  0);
+  fail_unless(StringBuffer_capacity(SB) == 10);
 }
 END_TEST
 
@@ -99,19 +99,19 @@ START_TEST (test_StringBuffer_append)
 
   StringBuffer_append(SB, "foo");
 
-  fail_unless( StringBuffer_length(SB)   ==  3, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  3 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "foo"), NULL );
+  fail_unless( !strcmp(s, "foo") );
 
   StringBuffer_append(SB, "bar");
 
-  fail_unless( StringBuffer_length(SB)   ==  6, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  6 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   t = StringBuffer_toString(SB);
-  fail_unless( !strcmp(t, "foobar"), NULL );
+  fail_unless( !strcmp(t, "foobar") );
 
   safe_free(s);
   safe_free(t);
@@ -126,27 +126,27 @@ START_TEST (test_StringBuffer_appendChar)
 
   StringBuffer_appendChar(SB, '*');
 
-  fail_unless( StringBuffer_length(SB)   ==  1, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  1 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "*"), NULL );
+  fail_unless( !strcmp(s, "*") );
 
   StringBuffer_append(SB, "foo");
 
-  fail_unless( StringBuffer_length(SB)   ==  4, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  4 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   t = StringBuffer_toString(SB);
-  fail_unless( !strcmp(t, "*foo"), NULL );
+  fail_unless( !strcmp(t, "*foo") );
 
   StringBuffer_appendChar(SB, '*');
 
-  fail_unless( StringBuffer_length(SB)   ==  5, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  5 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   u = StringBuffer_toString(SB);
-  fail_unless( !strcmp(u, "*foo*"), NULL );
+  fail_unless( !strcmp(u, "*foo*") );
 
   safe_free(s);
   safe_free(t);
@@ -162,21 +162,21 @@ START_TEST (test_StringBuffer_appendInt)
 
   StringBuffer_appendInt(SB, 1);
 
-  fail_unless( StringBuffer_length(SB)   ==  1, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  1 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "1"), NULL );
+  fail_unless( !strcmp(s, "1") );
 
   StringBuffer_appendChar(SB, ' ');
   StringBuffer_appendInt(SB, 23);
 
-  fail_unless( StringBuffer_length(SB)   ==  4, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  4 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   t = StringBuffer_toString(SB);
 
-  fail_unless( !strcmp(t, "1 23"), NULL );
+  fail_unless( !strcmp(t, "1 23") );
 
   safe_free(s);
   safe_free(t);
@@ -191,20 +191,20 @@ START_TEST (test_StringBuffer_appendReal)
 
   StringBuffer_appendReal(SB, 1.2);
 
-  fail_unless( StringBuffer_length(SB)   ==  3, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  3 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "1.2"), NULL );
+  fail_unless( !strcmp(s, "1.2") );
 
   StringBuffer_appendChar(SB, ' ');
   StringBuffer_appendReal(SB, 3);
 
-  fail_unless( StringBuffer_length(SB)   ==  5, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  5 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   t = StringBuffer_toString(SB);
-  fail_unless( !strcmp(t, "1.2 3"), NULL );
+  fail_unless( !strcmp(t, "1.2 3") );
 
   safe_free(s);
   safe_free(t);
@@ -219,16 +219,16 @@ START_TEST (test_StringBuffer_grow)
 
   StringBuffer_append(SB, "foobar");
 
-  fail_unless( StringBuffer_length(SB)   ==  6, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  6 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   StringBuffer_grow(SB, 10);
 
-  fail_unless( StringBuffer_length(SB)   ==  6, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  6 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "foobar"), NULL );
+  fail_unless( !strcmp(s, "foobar") );
 
   safe_free(s);
 }
@@ -242,19 +242,19 @@ START_TEST (test_StringBuffer_append_grow)
 
   StringBuffer_append(SB, "fooooooooo");
 
-  fail_unless( StringBuffer_length(SB)   == 10, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   == 10 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "fooooooooo"), NULL );
+  fail_unless( !strcmp(s, "fooooooooo") );
 
   StringBuffer_append(SB, "bar");
 
-  fail_unless( StringBuffer_length(SB)   == 13, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   == 13 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   t = StringBuffer_toString(SB);
-  fail_unless( !strcmp(t, "fooooooooobar"), NULL );
+  fail_unless( !strcmp(t, "fooooooooobar") );
 
   safe_free(s);
   safe_free(t);
@@ -269,19 +269,19 @@ START_TEST (test_StringBuffer_appendChar_grow)
 
   StringBuffer_append(SB, "fooooooooo");
 
-  fail_unless( StringBuffer_length(SB)   == 10, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   == 10 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "fooooooooo"), NULL );
+  fail_unless( !strcmp(s, "fooooooooo") );
 
   StringBuffer_appendChar(SB, '!');
 
-  fail_unless( StringBuffer_length(SB)   == 11, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   == 11 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   t = StringBuffer_toString(SB);
-  fail_unless( !strcmp(t, "fooooooooo!"), NULL );
+  fail_unless( !strcmp(t, "fooooooooo!") );
 
   safe_free(s);
   safe_free(t);
@@ -293,23 +293,23 @@ START_TEST (test_StringBuffer_reset)
 {
   StringBuffer_append(SB, "foo");
 
-  fail_unless( StringBuffer_length(SB)   ==  3, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  3 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   StringBuffer_reset(SB);
 
-  fail_unless( StringBuffer_length(SB)   ==  0, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  0 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   StringBuffer_append(SB, "foobarfoobar");
 
-  fail_unless( StringBuffer_length(SB)   == 12, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   == 12 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 
   StringBuffer_reset(SB);
 
-  fail_unless( StringBuffer_length(SB)   ==  0, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 20, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  0 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
 }
 END_TEST
 
@@ -321,11 +321,11 @@ START_TEST (test_StringBuffer_toString)
 
   StringBuffer_append(SB, "foo");
 
-  fail_unless( StringBuffer_length(SB)   ==  3, NULL );
-  fail_unless( StringBuffer_capacity(SB) == 10, NULL );
+  fail_unless( StringBuffer_length(SB)   ==  3 );
+  fail_unless( StringBuffer_capacity(SB) == 10 );
 
   s = StringBuffer_toString(SB);
-  fail_unless( !strcmp(s, "foo"), NULL );
+  fail_unless( !strcmp(s, "foo") );
 
   s[0] = 'b';
 
