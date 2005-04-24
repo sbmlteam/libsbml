@@ -21,6 +21,6 @@ exponent='1'.
         </listOfReactants>
         <kineticLaw timeUnits="substance"/>
       </reaction>
-    <listOfReactions>
+    </listOfReactions>
   </model>
 </sbml>

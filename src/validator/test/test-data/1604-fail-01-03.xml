@@ -28,6 +28,6 @@ of 'item' or 'mole'.
         </listOfReactants>
         <kineticLaw substanceUnits="mm"/>
       </reaction>
-    <listOfReactions>
+    </listOfReactions>
   </model>
 </sbml>

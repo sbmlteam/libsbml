@@ -21,6 +21,6 @@ of 'item' or 'mole'.
         </listOfReactants>
         <kineticLaw substanceUnits="length"/>
       </reaction>
-    <listOfReactions>
+    </listOfReactions>
   </model>
 </sbml>
