@@ -135,6 +135,13 @@ int
 util_bsearchStringsI (const char **strings, const char *s, int lo, int hi);
 
 /**
+ * @returns true (non-zero) if filename exists, false (zero) otherwise.
+ */
+LIBSBML_EXTERN
+int
+util_file_exists (const char *filename);
+
+/**
  * @return a pointer to a new string which is a duplicate of the string s,
  * with leading and trailing whitespace removed or NULL is s is NULL.
  *
@@ -181,7 +188,8 @@ int
 util_isInf (double d);
 
 /**
- * @return true (1) if d is an IEEE-754 negative zero, false (0) otherwise.
+ * @return true (non-zero) if d is an IEEE-754 negative zero, false (zero)
+ * otherwise.
  */
 LIBSBML_EXTERN
 int

@@ -55,6 +55,8 @@
 
 
 #include <ctype.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 
 /**
@@ -149,7 +151,7 @@ strcmp_insensitive (const char *s1, const char *s2)
  */
 LIBSBML_EXTERN
 unsigned int
-streq(const char *s, const char *t)
+streq (const char *s, const char *t)
 {
   if (s == NULL)
     return t == NULL;
@@ -202,6 +204,22 @@ util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
   }
 
   return result;
+}
+
+
+/**
+ * @returns true (non-zero) if filename exists, false (zero) otherwise.
+ */
+LIBSBML_EXTERN
+int
+util_file_exists (const char *filename)
+{
+#ifdef _MSC_VER
+#  define stat _stat
+#endif
+
+  struct stat buf;
+  return stat(filename, &buf) == 0;
 }
 
 
@@ -340,6 +358,11 @@ LIBSBML_EXTERN
 int
 util_isInf (double d)
 {
+#ifdef _MSC_VER
+#  define finite(d) _finite(d)
+#  define isnan(d)  _isnan(d)
+#endif
+
   if ( !(finite(d) || isnan(d)) )
   {
     return (d < 0) ? -1 : 1;
@@ -350,7 +373,8 @@ util_isInf (double d)
 
 
 /**
- * @return true (1) if d is an IEEE-754 negative zero, false (0) otherwise.
+ * @return true (non-zero) if d is an IEEE-754 negative zero, false (zero)
+ * otherwise.
  */
 LIBSBML_EXTERN
 int
