@@ -53,21 +53,29 @@
 #include "common/common.h"
 
 
+START_TEST (test_util_file_exists)
+{
+  fail_unless(  util_file_exists("TestUtil.c")      );
+  fail_unless( !util_file_exists("NonexistentFile") );
+}
+END_TEST
+
+
 START_TEST (test_util_strcmp_insensitive)
 {
-  fail_unless( strcmp_insensitive("foobar", "foobar") == 0, NULL );
-  fail_unless( strcmp_insensitive("foobar", "FooBar") == 0, NULL );
+  fail_unless( strcmp_insensitive("foobar", "foobar") == 0 );
+  fail_unless( strcmp_insensitive("foobar", "FooBar") == 0 );
 
-  fail_unless( strcmp_insensitive("foobar", "FooBaz") < 0, NULL );
-  fail_unless( strcmp_insensitive("foobar", "FooBaZ") < 0, NULL );
+  fail_unless( strcmp_insensitive("foobar", "FooBaz") < 0 );
+  fail_unless( strcmp_insensitive("foobar", "FooBaZ") < 0 );
 
-  fail_unless( strcmp_insensitive("foobar", "FooBab") > 0, NULL );
-  fail_unless( strcmp_insensitive("foobar", "FooBaB") > 0, NULL );
+  fail_unless( strcmp_insensitive("foobar", "FooBab") > 0 );
+  fail_unless( strcmp_insensitive("foobar", "FooBaB") > 0 );
 
-  fail_unless( strcmp_insensitive("", "")  == 0, NULL );
+  fail_unless( strcmp_insensitive("", "")  == 0 );
 
-  fail_unless( strcmp_insensitive("", "a") < 0, NULL );
-  fail_unless( strcmp_insensitive("a", "") > 0, NULL );
+  fail_unless( strcmp_insensitive("", "a") < 0 );
+  fail_unless( strcmp_insensitive("a", "") > 0 );
 }
 END_TEST
 
@@ -77,10 +85,10 @@ START_TEST (test_util_safe_strcat)
   char *p, *q, *r, *s;
 
 
-  fail_unless( !strcmp( p = safe_strcat( "foo", "bar" ), "foobar" ), NULL );
-  fail_unless( !strcmp( q = safe_strcat( "foo", ""    ), "foo"    ), NULL );
-  fail_unless( !strcmp( r = safe_strcat( ""   , "bar" ), "bar"    ), NULL );
-  fail_unless( !strcmp( s = safe_strcat( ""   , ""    ), ""       ), NULL );
+  fail_unless( !strcmp( p = safe_strcat( "foo", "bar" ), "foobar" ) );
+  fail_unless( !strcmp( q = safe_strcat( "foo", ""    ), "foo"    ) );
+  fail_unless( !strcmp( r = safe_strcat( ""   , "bar" ), "bar"    ) );
+  fail_unless( !strcmp( s = safe_strcat( ""   , ""    ), ""       ) );
 
   safe_free(p);
   safe_free(q);
@@ -95,23 +103,23 @@ START_TEST (test_util_trim)
   char *p, *q, *r, *s, *t, *u, *v, *w, *x, *y, *z;
 
 
-  fail_unless( !strcmp( p = util_trim("p"  ), "p"), NULL );
-  fail_unless( !strcmp( q = util_trim("q " ), "q"), NULL );
-  fail_unless( !strcmp( r = util_trim(" r" ), "r"), NULL );
-  fail_unless( !strcmp( s = util_trim(" s "), "s"), NULL );
+  fail_unless( !strcmp( p = util_trim("p"  ), "p") );
+  fail_unless( !strcmp( q = util_trim("q " ), "q") );
+  fail_unless( !strcmp( r = util_trim(" r" ), "r") );
+  fail_unless( !strcmp( s = util_trim(" s "), "s") );
 
-  fail_unless( !strcmp( t = util_trim("foo"  ), "foo"), NULL );
-  fail_unless( !strcmp( u = util_trim("foo " ), "foo"), NULL );
-  fail_unless( !strcmp( v = util_trim(" bar" ), "bar"), NULL );
-  fail_unless( !strcmp( w = util_trim(" bar "), "bar"), NULL );
+  fail_unless( !strcmp( t = util_trim("foo"  ), "foo") );
+  fail_unless( !strcmp( u = util_trim("foo " ), "foo") );
+  fail_unless( !strcmp( v = util_trim(" bar" ), "bar") );
+  fail_unless( !strcmp( w = util_trim(" bar "), "bar") );
 
-  fail_unless( !strcmp( x = util_trim(" foo bar " ), "foo bar"), NULL );
+  fail_unless( !strcmp( x = util_trim(" foo bar " ), "foo bar") );
 
-  fail_unless( !strcmp( y = util_trim(" "), ""), NULL );
-  fail_unless( !strcmp( z = util_trim("" ), ""), NULL );
+  fail_unless( !strcmp( y = util_trim(" "), "") );
+  fail_unless( !strcmp( z = util_trim("" ), "") );
 
 
-  fail_unless( util_trim((char *) NULL) == NULL, NULL );
+  fail_unless( util_trim((char *) NULL) == NULL );
 
   safe_free(p);
   safe_free(q);
@@ -170,20 +178,20 @@ START_TEST (test_util_NegZero)
 
 
   fail_unless(d == 0, "util_NegZero() did not even return a zero!");
-  fail_unless( util_isNegZero(d), NULL );
+  fail_unless( util_isNegZero(d) );
 }
 END_TEST
 
 
 START_TEST (test_util_isInf)
 {
-  fail_unless( util_isInf( util_PosInf()  ) ==  1, NULL );
-  fail_unless( util_isInf( util_NegInf()  ) == -1, NULL );
-  fail_unless( util_isInf( util_NaN()     ) ==  0, NULL );
-  fail_unless( util_isInf( util_NegZero() ) ==  0, NULL );
+  fail_unless( util_isInf( util_PosInf()  ) ==  1 );
+  fail_unless( util_isInf( util_NegInf()  ) == -1 );
+  fail_unless( util_isInf( util_NaN()     ) ==  0 );
+  fail_unless( util_isInf( util_NegZero() ) ==  0 );
 
-  fail_unless( util_isInf(0.0) == 0, NULL );
-  fail_unless( util_isInf(1.2) == 0, NULL );
+  fail_unless( util_isInf(0.0) == 0 );
+  fail_unless( util_isInf(1.2) == 0 );
 }
 END_TEST
 
@@ -195,6 +203,7 @@ create_suite_util (void)
   TCase *tcase = tcase_create("util");
 
 
+  tcase_add_test( tcase, test_util_file_exists        );
   tcase_add_test( tcase, test_util_strcmp_insensitive );
   tcase_add_test( tcase, test_util_safe_strcat        );
   tcase_add_test( tcase, test_util_trim               );
