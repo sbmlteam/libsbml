@@ -50,7 +50,10 @@
  */
 
 
+#include <ios>
 #include <fstream>
+#include <sstream>
+
 #include "common/common.h"
 
 
@@ -66,11 +69,15 @@ typedef void SAX2XMLReader;
    using namespace xercesc;
 #endif  // USE_EXPAT
 
+
 #include "xml/ParseMessage.h"
 #include "SBMLDocument.h"
 #include "SBMLHandler.h"
 
 #include "SBMLReader.h"
+
+
+using namespace std;
 
 
 #ifndef USE_EXPAT
@@ -306,10 +313,12 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
 {
 #ifdef USE_EXPAT
 
-  const char* errmsg = "Unexpected Parse Error";
-  SBMLDocument* d = new SBMLDocument();
-  
-  SBMLHandler handler(d);
+  const int BUFFER_SIZE = 0xfffe;
+  char*     pBuffer     = 0;
+
+  SBMLDocument* d = new SBMLDocument();  
+  SBMLHandler   handler(d);
+
 
   handler.enableElementHandler();
 
@@ -322,32 +331,41 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
     else if (filename)
     {
       std::ifstream is(filename);
+      is.exceptions(ios_base::badbit | ios_base::failbit);
 
-      if (is.fail()) throw ;
-
-#define BUFFER_SIZE 0xfffe
-      char* pBuffer = new char[BUFFER_SIZE + 1];
-      bool  done    = false;
+      pBuffer   = new char[BUFFER_SIZE + 1];
+      bool done = false;
 
       while (!done)
       {
         is.get(pBuffer, BUFFER_SIZE, 0);
-        
-        if (is.eof()) done = true;
-        if (is.fail() && !done) throw ;
+        done = is.eof();
             
         if (!handler.parse(pBuffer, -1, done))
           throw handler.getErrorString();
-      } 
-      delete [] pBuffer;
-#undef BUFFER_SIZE
+      }
     }
+  }
+  catch (const char* msg)
+  {
+    d->fatal.add( new ParseMessage(0, msg) );
+    d->setModel(0);
+  }
+  catch (ios_base::failure& e)
+  {
+    ostringstream msg;
+    msg << "Error while reading from file '" << filename << "'.";
+
+    d->fatal.add( new ParseMessage(0, msg.str()) );
+    d->setModel(0);
   }
   catch (...)
   {
-    //d->fatal.add( handler.ParseMessage_createFrom("Unexpected Parse Error") );
-    //d->setModel(NULL);
+    d->fatal.add( new ParseMessage(0, "Unexpected Parse Error") );
+    d->setModel(0);
   }
+
+  delete [] pBuffer;
 
 #else
 
@@ -433,11 +451,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
     d->fatal.add( new ParseMessage(100, "Unexpected Exception", 0, 0) );
   }
 
-  if (input != NULL)
-  {
-    delete input;
-  }
-
+  delete input;
   delete reader;
   delete handler;
 
