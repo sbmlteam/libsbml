@@ -250,8 +250,16 @@ void
 ParseMessage_print (const ParseMessage_t *pm, FILE *stream)
 {
   ostringstream os;
-
-
   os << *(static_cast<const ParseMessage*>(pm));
-  fprintf(stream, "%s", os.str().c_str());
+
+  /*
+    HACK for MSVC
+    The stream pointer gets lost in a MSVC compile
+  */
+
+  #ifdef _MSC_VER
+    printf("%s", os.str().c_str());
+  #else
+    fprintf(stream, "%s", os.str().c_str());
+  #endif
 }

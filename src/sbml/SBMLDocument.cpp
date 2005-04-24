@@ -242,13 +242,29 @@ SBMLDocument::printWarnings (std::ostream& stream)
 {
   unsigned int n, size;
 
+  /* HACK for MSVC6 support
+   * stream can only print out chars!!
+   */
 
-  if ((size = getNumWarnings()) > 0)
-  {
-    stream << size << " Warning(s):" << endl;
-    for (n = 0; n < size; n++) stream << "  " << *(getWarning(n));
-  }
-}
+  #if _MSC_VER < 7000
+    if ((size = getNumWarnings()) > 0)
+	{
+      cout << size << " Warning(s):" << endl;
+      for (n = 0; n < size; n++) cout << "  " << *(getWarning(n));
+	}
+
+  #else
+
+    if ((size = getNumWarnings()) > 0)
+	{
+      stream << size << " Warning(s):" << endl;
+      for (n = 0; n < size; n++) stream << "  " << *(getWarning(n));
+	}
+  #endif
+
+
+
+ }
 
 
 /**
@@ -265,12 +281,25 @@ SBMLDocument::printErrors (ostream& stream)
 {
   unsigned int n, size;
 
+  /* HACK for MSVC6 support
+   * stream can only print out chars!!
+   */
 
-  if ((size = getNumErrors()) > 0)
-  {
-    stream << size << " Error(s):" << endl;
-    for (n = 0; n < size; n++) stream << "  " << *(getError(n));
-  }
+  #if _MSC_VER < 7000
+    if ((size = getNumErrors()) > 0)
+	{
+      cout << size << " Error(s):" << endl;
+      for (n = 0; n < size; n++) cout << "  " << *(getError(n));
+	}
+
+  #else
+
+    if ((size = getNumErrors()) > 0)
+	{
+      stream << size << " Error(s):" << endl;
+      for (n = 0; n < size; n++) stream << "  " << *(getError(n));
+	}
+  #endif
 }
 
 
@@ -288,12 +317,26 @@ SBMLDocument::printFatals (ostream& stream)
 {
   unsigned int n, size;
 
+  /* HACK for MSVC6 support
+   * stream can only print out chars!!
+   */
 
-  if ((size = getNumFatals()) > 0)
-  {
-    stream << size << " Fatal(s):" << endl;
-    for (n = 0; n < size; n++) stream << "  " << *(getFatal(n));
-  }
+  #if _MSC_VER < 7000
+    if ((size = getNumFatals()) > 0)
+	{
+      cout << size << " Fatal(s):" << endl;
+      for (n = 0; n < size; n++) cout << "  " << *(getFatal(n));
+	}
+
+  #else
+
+    if ((size = getNumFatals()) > 0)
+	{
+      stream << size << " Fatal(s):" << endl;
+      for (n = 0; n < size; n++) stream << "  " << *(getFatal(n));
+	}
+  #endif
+
 }
 
 
@@ -672,16 +715,30 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
 {
   unsigned int n, size;
 
-  fprintf(stream,"in print warnings");
   if ((size = SBMLDocument_getNumWarnings(d)) > 0)
   {
     printf("%d Warning(s):\n", size);
 
+  /*
+    HACK for MSVC
+    The stream pointer gets lost in a MSVC compile
+  */
+
+  #ifdef _MSC_VER
+	for (n = 0; n < size; n++)
+    {
+      printf("  ");
+      ParseMessage_print(SBMLDocument_getWarning(d, n), stream);
+    }
+
+  #else
     for (n = 0; n < size; n++)
     {
       fprintf(stream, "  ");
       ParseMessage_print(SBMLDocument_getWarning(d, n), stream);
     }
+
+  #endif
   }
 }
 
@@ -705,12 +762,26 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
   if ((size = SBMLDocument_getNumErrors(d)) > 0)
   {
     printf("%d Error(s):\n", size);
+  /*
+    HACK for MSVC
+    The stream pointer gets lost in a MSVC compile
+  */
 
+  #ifdef _MSC_VER
+	for (n = 0; n < size; n++)
+    {
+      printf("  ");
+      ParseMessage_print(SBMLDocument_getError(d, n), stream);
+    }
+
+  #else
     for (n = 0; n < size; n++)
     {
       fprintf(stream, "  ");
       ParseMessage_print(SBMLDocument_getError(d, n), stream);
     }
+
+  #endif
   }
 }
 
@@ -734,12 +805,27 @@ SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
   if ((size = SBMLDocument_getNumFatals(d)) > 0)
   {
     printf("%d Fatal(s):\n", size);
+  /*
+    HACK for MSVC
+    The stream pointer gets lost in a MSVC compile
+  */
 
+  #ifdef _MSC_VER
+	for (n = 0; n < size; n++)
+    {
+      printf("  ");
+      ParseMessage_print(SBMLDocument_getFatal(d, n), stream);
+    }
+
+  #else
     for (n = 0; n < size; n++)
     {
       fprintf(stream, "  ");
       ParseMessage_print(SBMLDocument_getFatal(d, n), stream);
     }
+
+  #endif
+
   }
 }
 
