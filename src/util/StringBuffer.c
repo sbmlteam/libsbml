@@ -144,6 +144,10 @@ LIBSBML_EXTERN
 void
 StringBuffer_appendNumber (StringBuffer_t *sb, const char *format, ...)
 {
+#ifdef _MSC_VER
+#  define vsnprintf _vsnprintf
+#endif
+
   const int size = 16;
   int       len;
   va_list   ap;
