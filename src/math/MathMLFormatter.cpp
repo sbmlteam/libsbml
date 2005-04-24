@@ -68,6 +68,11 @@
 #include "MathMLUnicodeConstants.h" 
 
 
+#ifdef _MSC_VER
+#  define snprintf _snprintf
+#endif
+
+
 const unsigned int
 MathMLFormatter::NUMBER_BUFFER_SIZE = 100;
 
