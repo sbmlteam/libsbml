@@ -311,6 +311,10 @@ SBMLReader::getSchemaValidationLevel() const
 SBMLDocument*
 SBMLReader::readSBML_internal (const char* filename, const char* xml)
 {
+  if (filename == 0 && (xml == 0 || *xml == 0))     return 0;
+  if (filename != 0 && !util_file_exists(filename)) return 0;
+
+
 #ifdef USE_EXPAT
 
   const int BUFFER_SIZE = 0xfffe;
@@ -582,7 +586,7 @@ LIBSBML_EXTERN
 void
 SBMLReader_free (SBMLReader_t *sr)
 {
-  delete static_cast<SBMLReader*>(sr);
+  delete sr;
 }
 
 
@@ -594,10 +598,7 @@ LIBSBML_EXTERN
 const char *
 SBMLReader_getSchemaFilenameL1v1 (const SBMLReader_t *sr)
 {
-  const SBMLReader*  x = static_cast<const SBMLReader*>(sr);
-  const std::string& s = x->getSchemaFilenameL1v1();
-
-
+  const std::string& s = sr->getSchemaFilenameL1v1();
   return s.empty() ? NULL : s.c_str();
 }
 
@@ -610,10 +611,7 @@ LIBSBML_EXTERN
 const char *
 SBMLReader_getSchemaFilenameL1v2 (const SBMLReader_t *sr)
 {
-  const SBMLReader*  x = static_cast<const SBMLReader*>(sr);
-  const std::string& s = x->getSchemaFilenameL1v2();
-
-
+  const std::string& s = sr->getSchemaFilenameL1v2();
   return s.empty() ? NULL : s.c_str();
 }
 
@@ -626,10 +624,7 @@ LIBSBML_EXTERN
 const char *
 SBMLReader_getSchemaFilenameL2v1 (const SBMLReader_t *sr)
 {
-  const SBMLReader*  x = static_cast<const SBMLReader*>(sr);
-  const std::string& s = x->getSchemaFilenameL2v1();
-
-
+  const std::string& s = sr->getSchemaFilenameL2v1();
   return s.empty() ? NULL : s.c_str();
 }
 
@@ -641,7 +636,7 @@ LIBSBML_EXTERN
 XMLSchemaValidation_t
 SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr)
 {
-  return static_cast<const SBMLReader*>(sr)->getSchemaValidationLevel();
+  return sr->getSchemaValidationLevel();
 }
 
 
@@ -652,7 +647,7 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
 {
-  return static_cast<SBMLReader*>(sr)->readSBML(filename);
+  return sr->readSBML(filename ? filename : "");
 }
 
 
@@ -669,7 +664,7 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 {
-  return static_cast<SBMLReader*>(sr)->readSBMLFromString(xml);
+  return sr->readSBMLFromString(xml ? xml : "");
 }
 
 
@@ -683,12 +678,8 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 readSBML (const char *filename)
 {
-  SBMLReader*   sr = new SBMLReader;
-  SBMLDocument* d  = sr->readSBML(filename);
-
-
-  delete sr;
-  return d;
+  SBMLReader sr;
+  return SBMLReader_readSBML(&sr, filename);
 }
 
 
@@ -702,12 +693,8 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 readSBMLFromString (const char *xml)
 {
-  SBMLReader*   sr = new SBMLReader;
-  SBMLDocument* d  = sr->readSBMLFromString(xml);
-
-
-  delete sr;
-  return d;
+  SBMLReader sr;
+  return SBMLReader_readSBMLFromString(&sr, xml);
 }
 
 
@@ -722,7 +709,7 @@ LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilenameL1v1 (SBMLReader_t *sr, const char *filename)
 {
-  static_cast<SBMLReader*>(sr)->setSchemaFilenameL1v1(filename ? filename : "");
+  sr->setSchemaFilenameL1v1(filename ? filename : "");
 }
 
 
@@ -737,7 +724,7 @@ LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilenameL1v2 (SBMLReader_t *sr, const char *filename)
 {
-  static_cast<SBMLReader*>(sr)->setSchemaFilenameL1v2(filename ? filename : "");
+  sr->setSchemaFilenameL1v2(filename ? filename : "");
 }
 
 
@@ -752,7 +739,7 @@ LIBSBML_EXTERN
 void
 SBMLReader_setSchemaFilenameL2v1 (SBMLReader_t *sr, const char *filename)
 {
-  static_cast<SBMLReader*>(sr)->setSchemaFilenameL2v1(filename ? filename : "");
+  sr->setSchemaFilenameL2v1(filename ? filename : "");
 }
 
 
@@ -778,5 +765,5 @@ void
 SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
                                       XMLSchemaValidation_t level )
 {
-  static_cast<SBMLReader*>(sr)->setSchemaValidationLevel(level);
+  sr->setSchemaValidationLevel(level);
 }
