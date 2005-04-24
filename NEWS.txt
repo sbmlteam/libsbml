@@ -114,8 +114,20 @@
   - All header files use forward class declarations in order to
     minimize dependencies and increase compilation speed.
 
+  - 'make install' now strips the installed library on systems where
+    we can do it at installation time (which currently are non-MacOSX
+    systems).
 
-* Released April ??, 2005
+  - 'make install' no longer installs the documentation by default;
+    use 'make install-docs' for this.  The install-docs formats the
+    latex-based documentation in the docs subdirectory and requires
+    latex and pdflatex to be available on your system.  It can also be
+    a time-consuming step.  To reduce annoyances for people who
+    frequently do 'make install', we took out the docs installation
+    step and make it separate.
+
+
+* Released April 29, 2005
 
 
 
