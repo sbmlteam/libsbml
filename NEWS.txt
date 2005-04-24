@@ -42,7 +42,7 @@
 
   - There are several new convenience methods (and functions) on Unit
     and UnitDefinition.  These make many libSBML consistency checks
-    both much more succint and easier to read.  In particular the
+    both much more succinct and easier to read.  In particular the
     following were added:
 
       - Unit.isXXX() C++ methods (and corresponding Unit_isXXX() C
@@ -71,8 +71,8 @@
     the first argument passed to the ParseMessage constructor and
     ParseMessage_createWith().
 
-    The new and improved libSBML consistency check facility will make
-    use of ParseMessage ids.
+    The new and improved libSBML consistency check facility makes use
+    of ParseMessage ids.
 
     Thanks to Damon Hachmeister for suggesting this idea.
 
@@ -86,9 +86,19 @@
     constant attribute defaults to false in L2).  Thanks to Andrew
     Finney and Nicolas Le Novere for reporting this bug.
 
+  - When reading SBML with libSBML Expat some classes of errors would
+    result in segmentation faults.  This has been fixed.
+
+  - When reading SBML from an in-memory string with libSBML Expat
+    parse errors were not be logged.  This has been fixed.
+
 
 * Changes:
 
+  - readSBML(filename), SBMLReader_readSBML(filename) and
+    SBMLReader::readSBML(filename) now return a NULL SBMLDocument if
+    the file could not be found.  These semantics are inline with C's
+    familiar fopen().  Thanks to Eryk Wolski for suggesting this idea.
 
   - Removed support for writing various character encodings.  This
     change has been a long time coming.  LibSBML should support
