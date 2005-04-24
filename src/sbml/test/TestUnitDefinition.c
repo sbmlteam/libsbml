@@ -453,7 +453,7 @@ create_suite_UnitDefinition (void)
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfArea        );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfLength      );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstance_1 );
-  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstance_1 );
+  tcase_add_test( tcase, test_UnitDefinition_isVariantOfSubstance_2 );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfTime        );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_1    );
   tcase_add_test( tcase, test_UnitDefinition_isVariantOfVolume_2    );
