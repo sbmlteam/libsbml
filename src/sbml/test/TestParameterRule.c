@@ -55,6 +55,7 @@
 
 #include "SBase.h"
 #include "Rule.h"
+#include "AssignmentRule.h"
 #include "ParameterRule.h"
 
 
