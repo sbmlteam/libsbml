@@ -329,7 +329,8 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
   {
     if (xml)
     {
-      handler.parse(xml, -1, true);
+      if (!handler.parse(xml, -1, true))
+        throw handler.getErrorString();
     }
     else if (filename)
     {
