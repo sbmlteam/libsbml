@@ -66,14 +66,14 @@ START_TEST (test_SBMLReader_create)
   SBMLReader_t *sr = SBMLReader_create();
 
 
-  fail_unless(
-    SBMLReader_getSchemaValidationLevel(sr) == XML_SCHEMA_VALIDATION_NONE,
-    NULL
+  fail_unless
+  (
+    SBMLReader_getSchemaValidationLevel(sr) == XML_SCHEMA_VALIDATION_NONE
   );
 
-  fail_unless(SBMLReader_getSchemaFilenameL1v1(sr)    == NULL, NULL);
-  fail_unless(SBMLReader_getSchemaFilenameL1v2(sr)    == NULL, NULL);
-  fail_unless(SBMLReader_getSchemaFilenameL2v1(sr)    == NULL, NULL);
+  fail_unless(SBMLReader_getSchemaFilenameL1v1(sr) == NULL);
+  fail_unless(SBMLReader_getSchemaFilenameL1v2(sr) == NULL);
+  fail_unless(SBMLReader_getSchemaFilenameL2v1(sr) == NULL);
 
   SBMLReader_free(sr);
 }
@@ -95,7 +95,7 @@ START_TEST (test_SBMLReader_setSchemaFilename)
 
   SBMLReader_setSchemaFilenameL1v1(sr, filename);
 
-  fail_unless( !strcmp(SBMLReader_getSchemaFilenameL1v1(sr), filename), NULL );
+  fail_unless( !strcmp(SBMLReader_getSchemaFilenameL1v1(sr), filename) );
 
   if (SBMLReader_getSchemaFilenameL1v1(sr) == filename)
   {
@@ -127,9 +127,9 @@ START_TEST (test_SBMLReader_readSBML_schema_basic)
   SBMLReader_setSchemaFilenameL1v1(sr, schema);
 
   d = SBMLReader_readSBML(sr, filename);
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumErrors(d)   == 0, NULL );
-  fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
@@ -152,9 +152,9 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_L1v2)
 
   d = SBMLReader_readSBML(sr, filename);
 
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumErrors(d)   == 0, NULL );
-  fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
@@ -178,11 +178,11 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
 
   d = SBMLReader_readSBML(sr, filename);
 
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
 #ifndef USE_EXPAT  /* No schema verification possible. */
-  fail_unless( SBMLDocument_getNumErrors(d)   == 1, NULL );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 1 );
 #endif  /* !USE_EXPAT */
-  fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
@@ -205,15 +205,69 @@ START_TEST (test_SBMLReader_readSBML_schema_full)
 
   d = SBMLReader_readSBML(sr, filename);
 
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0, NULL );
-  fail_unless( SBMLDocument_getNumErrors(d)   == 0, NULL );
-  fail_unless( SBMLDocument_getNumFatals(d)   == 0, NULL );
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
   safe_free(filename);
 }
 END_TEST
+
+
+START_TEST (test_readSBML_NULL)
+{
+  SBMLReader_t *sr = SBMLReader_create();
+
+
+  fail_unless( SBMLReader_readSBML          (sr, NULL) == NULL );
+  fail_unless( SBMLReader_readSBMLFromString(sr, NULL) == NULL );
+
+  fail_unless( readSBML(NULL)           == NULL );
+  fail_unless( readSBMLFromString(NULL) == NULL );
+
+  SBMLReader_free(sr);
+}
+END_TEST
+
+
+START_TEST (test_readSBML_file_not_found)
+{
+  SBMLReader_t *sr = SBMLReader_create();
+
+
+  fail_unless( SBMLReader_readSBML(sr, "nonexistent.xml") == NULL );
+  fail_unless( readSBML("nonexistent.xml")                == NULL );
+
+  SBMLReader_free(sr);
+}
+END_TEST
+
+START_TEST (test_readSBMLFromString_empty)
+{
+  SBMLDocument_t *d;
+  SBMLReader_t   *sr = SBMLReader_create();
+
+
+  d = SBMLReader_readSBMLFromString(sr, "");
+
+  fail_unless( d != NULL );
+  fail_unless( SBMLDocument_getNumFatals(d) != 0 );
+
+  SBMLDocument_free(d);
+  SBMLReader_free(sr);
+
+
+  d = readSBMLFromString("");
+
+  fail_unless( d != NULL );
+  fail_unless( SBMLDocument_getNumFatals(d) != 0 );
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
 
 
 Suite *
@@ -230,6 +284,10 @@ create_suite_SBMLReader (void)
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_L1v2       );
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error );
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full             );
+  tcase_add_test(tcase, test_readSBML_NULL                               );
+  tcase_add_test(tcase, test_readSBML_file_not_found                     );
+  tcase_add_test(tcase, test_readSBMLFromString_empty                    );
+
   suite_add_tcase(suite, tcase);
 
   return suite;
