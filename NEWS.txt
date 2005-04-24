@@ -7,6 +7,18 @@
 
 * New Features:
 
+  - The Java and Python language bindings now include documentation
+    strings for each method and function.  The docstrings are
+    extracted from the C/C++ docstrings and added to each language
+    bindings (see src/bindings/swig/swigdoc.py for more information).
+
+      - Since the SWIG generated sources are annotated, Java
+        docstrings can be accessed by running JavaDoc on the generated
+        Java source files.
+
+      - Python docstrings may be accessed via help() (since Python
+        2.1), pydoc, docutils, HappyDoc, etc.
+
   - SBMLWriter and MathMLWriter are now full-fledged classes.  Plus,
     thanks to Stefan Hoops, it is now possible to:
 
