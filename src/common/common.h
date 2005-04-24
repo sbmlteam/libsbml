@@ -60,11 +60,6 @@
 #include <stdio.h>
 
 
-#if HAVE_SYS_TYPES_H
-#  include <sys/types.h>
-#endif
-
-
 #if STDC_HEADERS
 #  include <errno.h>
 #  include <float.h>
@@ -84,14 +79,6 @@
 #ifndef errno
   extern int errno;
 #endif
-
-
-#if WIN32 && !defined(CYGWIN)
-#  define finite(d)  _finite(d)
-#  define isnan(d)   _isnan(d)
-#  define snprintf   _snprintf
-#  define vsnprintf  _vsnprintf
-#endif /* WIN32 && !CYGWIN */
 
 
 #define LIBSBML_FLOAT_FORMAT "%.15g"
