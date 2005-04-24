@@ -1751,7 +1751,7 @@ START_TEST (test_element_metaid_Reaction)
     "    <modifierSpeciesReference metaid='msr'/>"
     "  </listOfModifiers>"
     "  <kineticLaw metaid='kl'/>"
-    "</unitDefinition>"
+    "</reaction>"
   );
 
 
@@ -2305,7 +2305,7 @@ START_TEST (test_element_notes_ListOf_EventAssignments)
     "<event>"
     "  <listOfEventAssignments>"
     "  <notes> My Assignments </notes>"
-    "  </listOfAssignments>"
+    "  </listOfEventAssignments>"
     "</event>"
   );
 
