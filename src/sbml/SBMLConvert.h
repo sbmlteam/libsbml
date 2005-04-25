@@ -197,7 +197,25 @@ SBML_convertReactionsInModelToL1 (Model_t *m);
 void
 SBML_convertStoichiometryToL1 (SpeciesReference_t *sr);
 
+/**
+ * Converts all the rules in a model from 
+ * SBML L2 to L1.  This is necessary before any other conversion 
+ * happens because of the need to track ids
+ */
+void
+LIBSBML_EXTERN
+SBML_convertAllRulesToL1 (Model_t *m);
+
+/**
+ * Applies the function definitions in a L2 model 
+ * directly to any formula strings
+ */
+void
+LIBSBML_EXTERN
+SBML_applyFunctionDefinitions (Model_t *m);
+
 END_C_DECLS
+
 
 
 #endif  /** SBMLConvert_h **/

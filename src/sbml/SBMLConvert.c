@@ -57,6 +57,8 @@
 #include "SBMLConvert.h"
 
 
+#include <tchar.h>
+
 #define ASSIGNEDCOMPARTMENT "AssignedName"
 
 
@@ -342,8 +344,10 @@ LIBSBML_EXTERN
 SBML_convertModelToL1 (Model_t *m, SBase_t *sb)
 
 {
+  SBML_convertAllRulesToL1(m);
   SBML_convertAllSpeciesToL1(m);
   SBML_convertToL1(m, sb);
+  SBML_applyFunctionDefinitions(m);
 }
 
 
@@ -406,12 +410,6 @@ SBML_convertToL1 (Model_t *m, SBase_t *sb)
     case SBML_PARAMETER:
     case SBML_SPECIES:
       SBML_convertIdToName(sb);
-      break;
-
-    case SBML_SPECIES_CONCENTRATION_RULE:
-    case SBML_COMPARTMENT_VOLUME_RULE:
-    case SBML_PARAMETER_RULE:
-      /* SBML_convertRuleToL2(m, (Rule_t *) sb); */
       break;
 
     case SBML_KINETIC_LAW:
@@ -615,4 +613,164 @@ SBML_convertStoichiometryToL1 (SpeciesReference_t *sr)
   double stoichiometry;
 
   stoichiometry = SpeciesReference_getStoichiometry(sr);  
+}
+
+
+/**
+ * Converts all the rules in a model from 
+ * SBML L2 to L1.  This is necessary before any other conversion 
+ * happens because of the need to track ids
+ */
+void
+LIBSBML_EXTERN
+SBML_convertAllRulesToL1 (Model_t *m)
+{
+  unsigned int  numRules = Model_getNumRules(m);
+  ListOf_t     *rules    = Model_getListOfRules(m);
+  unsigned int n;
+  Compartment_t  *c;
+  Species_t      *s;
+  Parameter_t    *p;
+  SpeciesConcentrationRule_t * scr;
+  CompartmentVolumeRule_t * cvr;
+  ParameterRule_t * pr;
+  const char *id;
+
+
+  Rule_t * r;
+
+  if (numRules == 0) return;
+
+  for (n = 0; n < numRules; n++)
+  {
+    r = (Rule_t *) ListOf_get(rules, n);
+
+    switch ( SBase_getTypeCode((SBase_t*) r) )
+      {
+        case SBML_ASSIGNMENT_RULE:
+          id = AssignmentRule_getVariable((AssignmentRule_t*) r);
+      
+          if ((s  = Model_getSpeciesById(m, id)) != NULL)
+          {
+            scr = Model_createSpeciesConcentrationRule(m);
+            SpeciesConcentrationRule_setSpecies (scr, id);
+            Rule_setFormula((Rule_t*) scr, Rule_getFormula((Rule_t*) r));
+            ListOf_remove(rules, n);
+          }
+          else if ((c = Model_getCompartmentById(m, id)) != NULL)
+          {
+            cvr = Model_createCompartmentVolumeRule(m);
+            CompartmentVolumeRule_setCompartment (cvr, id);
+            Rule_setFormula((Rule_t*) cvr, Rule_getFormula((Rule_t*) r));
+            ListOf_remove(rules, n);
+          }
+          else if ((p = Model_getParameterById(m, id)) != NULL)
+          {
+            pr = Model_createParameterRule(m);
+            ParameterRule_setName (pr, id);
+            Rule_setFormula((Rule_t*) pr, Rule_getFormula((Rule_t*) r));
+            ListOf_remove(rules, n);
+          }
+          break;
+
+        case SBML_RATE_RULE:
+          id = RateRule_getVariable((RateRule_t*) r);
+      
+          if ((s  = Model_getSpeciesById(m, id)) != NULL)
+          {
+            scr = Model_createSpeciesConcentrationRule(m);
+            SpeciesConcentrationRule_setSpecies (scr, id);
+            Rule_setFormula((Rule_t*) scr, Rule_getFormula((Rule_t*) r));
+            AssignmentRule_setType((AssignmentRule_t*) scr, RULE_TYPE_RATE);
+            ListOf_remove(rules, n);
+          }
+          else if ((c = Model_getCompartmentById(m, id)) != NULL)
+          {
+            cvr = Model_createCompartmentVolumeRule(m);
+            CompartmentVolumeRule_setCompartment (cvr, id);
+            Rule_setFormula((Rule_t*) cvr, Rule_getFormula((Rule_t*) r));
+            AssignmentRule_setType((AssignmentRule_t*) cvr, RULE_TYPE_RATE);
+            ListOf_remove(rules, n);
+          }
+          else if ((p = Model_getParameterById(m, id)) != NULL)
+          {
+            pr = Model_createParameterRule(m);
+            ParameterRule_setName (pr, id);
+            Rule_setFormula((Rule_t*) pr, Rule_getFormula((Rule_t*) r));
+            AssignmentRule_setType((AssignmentRule_t*) pr, RULE_TYPE_RATE);
+            ListOf_remove(rules, n);
+          }
+            break;
+
+        case SBML_ALGEBRAIC_RULE:
+          break;
+
+        default:
+          break;
+      }
+  }
+}
+/**
+ * Applies the function definitions in a L2 model 
+ * directly to any formula strings
+ */
+void
+LIBSBML_EXTERN
+SBML_applyFunctionDefinitions (Model_t *m)
+{
+  unsigned int  numFunctions = Model_getNumFunctionDefinitions(m);
+  ListOf_t     *functions    = Model_getListOfFunctionDefinitions(m);
+  unsigned int  numRules = Model_getNumRules(m);
+  ListOf_t     *rules    = Model_getListOfRules(m);
+  unsigned int n, nr, i;
+
+  FunctionDefinition_t *fd;
+  const char *id;
+  char * idWithBracket, * argument = NULL;
+
+  char* match;
+  char* closeBracket, *a;
+  Rule_t *r;
+
+  char * formula, * function, *functionArg;
+
+  if (numFunctions == 0) return;
+
+  for (n = 0; n < numFunctions; n++)
+  {
+    fd = Model_getFunctionDefinition(m, n);
+    id = FunctionDefinition_getId(fd);
+
+    idWithBracket = strcat(id, "(");
+    for (nr = 0; nr < numRules; nr++)
+    {
+      r = Model_getRule(m, nr);
+
+      formula = Rule_getFormula(r);
+      if ((match = strstr(formula, idWithBracket)) != NULL)
+      {
+        closeBracket = strstr(formula, ")");
+        //  cant do this a it messes up the actual formula
+        _tcsnset(closeBracket, NULL, strlen(closeBracket));
+        argument = _tcsninc(match, strlen(idWithBracket));
+        
+        functionArg = SBML_formulaToString(ASTNode_getChild(FunctionDefinition_getMath(fd),0));
+        function = SBML_formulaToString(ASTNode_getChild(FunctionDefinition_getMath(fd),1));
+
+        a = strstr(function, functionArg);
+        strncpy(function + strlen(function) - strlen(a), argument, strlen(argument));
+       
+        formula = Rule_getFormula(r);
+        match = strstr(formula, idWithBracket);
+        closeBracket = strstr(formula, ")");
+
+        _tcsnset(closeBracket+1, NULL, strlen(closeBracket)-1);
+
+        formula = Rule_getFormula(r);
+        strncpy(formula, match, function);
+
+     }
+    }
+
+  }
 }
