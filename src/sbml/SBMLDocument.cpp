@@ -246,6 +246,7 @@ SBMLDocument::printWarnings (std::ostream& stream)
    * stream can only print out chars!!
    */
 
+  /* commented out for testing
   #if _MSC_VER < 7000
     if ((size = getNumWarnings()) > 0)
 	{
@@ -254,13 +255,13 @@ SBMLDocument::printWarnings (std::ostream& stream)
 	}
 
   #else
-
+  */
     if ((size = getNumWarnings()) > 0)
 	{
       stream << size << " Warning(s):" << endl;
       for (n = 0; n < size; n++) stream << "  " << *(getWarning(n));
 	}
-  #endif
+ // #endif
 
 
 
@@ -284,6 +285,7 @@ SBMLDocument::printErrors (ostream& stream)
   /* HACK for MSVC6 support
    * stream can only print out chars!!
    */
+  /* commented out for testing
 
   #if _MSC_VER < 7000
     if ((size = getNumErrors()) > 0)
@@ -293,13 +295,13 @@ SBMLDocument::printErrors (ostream& stream)
 	}
 
   #else
-
+*/
     if ((size = getNumErrors()) > 0)
 	{
       stream << size << " Error(s):" << endl;
       for (n = 0; n < size; n++) stream << "  " << *(getError(n));
 	}
-  #endif
+//  #endif
 }
 
 
@@ -320,6 +322,7 @@ SBMLDocument::printFatals (ostream& stream)
   /* HACK for MSVC6 support
    * stream can only print out chars!!
    */
+  /* commented out for testing
 
   #if _MSC_VER < 7000
     if ((size = getNumFatals()) > 0)
@@ -329,13 +332,13 @@ SBMLDocument::printFatals (ostream& stream)
 	}
 
   #else
-
+*/
     if ((size = getNumFatals()) > 0)
 	{
       stream << size << " Fatal(s):" << endl;
       for (n = 0; n < size; n++) stream << "  " << *(getFatal(n));
 	}
-  #endif
+//  #endif
 
 }
 
@@ -723,6 +726,7 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
     HACK for MSVC
     The stream pointer gets lost in a MSVC compile
   */
+  /* commented out for testing
 
   #ifdef _MSC_VER
 	for (n = 0; n < size; n++)
@@ -732,13 +736,15 @@ SBMLDocument_printWarnings (SBMLDocument_t *d, FILE *stream)
     }
 
   #else
-    for (n = 0; n < size; n++)
+ 
+   */
+	for (n = 0; n < size; n++)
     {
       fprintf(stream, "  ");
       ParseMessage_print(SBMLDocument_getWarning(d, n), stream);
     }
 
-  #endif
+ // #endif
   }
 }
 
@@ -766,6 +772,7 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
     HACK for MSVC
     The stream pointer gets lost in a MSVC compile
   */
+  /* commented out for testing
 
   #ifdef _MSC_VER
 	for (n = 0; n < size; n++)
@@ -775,13 +782,14 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
     }
 
   #else
-    for (n = 0; n < size; n++)
+*/
+	for (n = 0; n < size; n++)
     {
       fprintf(stream, "  ");
       ParseMessage_print(SBMLDocument_getError(d, n), stream);
     }
 
-  #endif
+ // #endif
   }
 }
 
@@ -809,6 +817,7 @@ SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
     HACK for MSVC
     The stream pointer gets lost in a MSVC compile
   */
+  /* commented out for testing
 
   #ifdef _MSC_VER
 	for (n = 0; n < size; n++)
@@ -818,13 +827,14 @@ SBMLDocument_printFatals (SBMLDocument_t *d, FILE *stream)
     }
 
   #else
-    for (n = 0; n < size; n++)
+*/
+   for (n = 0; n < size; n++)
     {
       fprintf(stream, "  ");
       ParseMessage_print(SBMLDocument_getFatal(d, n), stream);
     }
 
-  #endif
+ // #endif
 
   }
 }

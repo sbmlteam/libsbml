@@ -256,10 +256,12 @@ ParseMessage_print (const ParseMessage_t *pm, FILE *stream)
     HACK for MSVC
     The stream pointer gets lost in a MSVC compile
   */
+  /* commented out for testing
 
   #ifdef _MSC_VER
     printf("%s", os.str().c_str());
   #else
+  */
     fprintf(stream, "%s", os.str().c_str());
-  #endif
+ // #endif
 }
