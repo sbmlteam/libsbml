@@ -52,6 +52,9 @@
 #include "common/common.h"
 #include "FormulaFormatter.h"
 
+#ifdef _MSC_VER
+#  define isnan _isnan
+#endif
 
 /**
  * @return the given formula AST as an SBML L1 string formula.  The caller
