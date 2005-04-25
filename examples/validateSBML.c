@@ -59,6 +59,8 @@
 int
 main (int argc, char *argv[])
 {
+  const char *filename;
+
   unsigned long start, stop, size;
   unsigned int  errors = 0;
 
@@ -80,9 +82,17 @@ main (int argc, char *argv[])
   SBMLReader_setSchemaFilenameL1v2(sr, "sbml-l1v2.xsd");
   SBMLReader_setSchemaFilenameL2v1(sr, "sbml-l2v1.xsd");
 
+  filename = argv[1];
+
   start = getCurrentMillis();
-  d     = SBMLReader_readSBML(sr, argv[1]);
+  d     = SBMLReader_readSBML(sr, filename);
   stop  = getCurrentMillis();
+
+  if (d == NULL)
+  {
+    printf("error: Could not open filename '%s' for reading\n", filename);
+    return 2;
+  }
 
   errors = SBMLDocument_getNumWarnings(d) + SBMLDocument_getNumErrors(d) +
            SBMLDocument_getNumFatals(d);
@@ -90,10 +100,10 @@ main (int argc, char *argv[])
   
   errors += SBMLDocument_checkConsistency(d);
 
-  size = getFileSize(argv[1]);
+  size = getFileSize(filename);
 
   printf( "\n" );
-  printf( "        filename: %s\n" , argv[1]      );
+  printf( "        filename: %s\n" , filename     );
   printf( "       file size: %lu\n", size         );
   printf( "  read time (ms): %lu\n", stop - start );
   printf( "        error(s): %u\n" , errors       );

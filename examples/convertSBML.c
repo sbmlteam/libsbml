@@ -61,6 +61,7 @@
 int
 main (int argc, char *argv[])
 {
+  const char   *filename;
   unsigned int errors = 0;
 
   SBMLDocument_t *d;
@@ -72,7 +73,14 @@ main (int argc, char *argv[])
     return 1;
   }
 
-  d = readSBML(argv[1]);
+  filename = argv[1];
+  d        = readSBML(filename);
+
+  if (d == NULL)
+  {
+    printf("error: Could not open filename '%s' for reading\n", filename);
+    return 2;
+  }
 
   errors = SBMLDocument_getNumWarnings(d) + SBMLDocument_getNumErrors(d) +
            SBMLDocument_getNumFatals(d);

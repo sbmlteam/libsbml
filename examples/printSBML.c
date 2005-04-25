@@ -58,6 +58,8 @@
 int
 main (int argc, char *argv[])
 {
+  const char *filename;
+ 
   SBMLDocument_t *d;
   Model_t        *m;
 
@@ -70,14 +72,21 @@ main (int argc, char *argv[])
     return 1;
   }
 
-  d = readSBML(argv[1]);
-  m = SBMLDocument_getModel(d);
+  filename = argv[1];
+  d        = readSBML(filename);
 
+  if (d == NULL)
+  {
+    printf("error: Could not open filename '%s' for reading\n", filename);
+    return 2;
+  }
+
+  m       = SBMLDocument_getModel  (d);
   level   = SBMLDocument_getLevel  (d);
   version = SBMLDocument_getVersion(d);
 
-  printf( "\n" );
-  printf( "File: %s (Level %u, version %u)\n", argv[1], level, version     );
+  printf("\n");
+  printf("File: %s (Level %u, version %u)\n", filename, level, version);
 
   printf( "         ");
 
@@ -91,14 +100,14 @@ main (int argc, char *argv[])
   }
 
   printf( "functionDefinitions: %d\n",  Model_getNumFunctionDefinitions(m) );
-  printf( "    unitDefinitions: %d\n",  Model_getNumUnitDefinitions(m)     );
-  printf( "       compartments: %d\n",  Model_getNumCompartments(m)        );
-  printf( "            species: %d\n",  Model_getNumSpecies(m)             );
-  printf( "         parameters: %d\n",  Model_getNumParameters(m)          );
-  printf( "          reactions: %d\n",  Model_getNumReactions(m)           );
-  printf( "              rules: %d\n",  Model_getNumRules(m)               );
-  printf( "             events: %d\n",  Model_getNumEvents(m)              );
-  printf( "\n");
+  printf( "    unitDefinitions: %d\n",  Model_getNumUnitDefinitions    (m) );
+  printf( "       compartments: %d\n",  Model_getNumCompartments       (m) );
+  printf( "            species: %d\n",  Model_getNumSpecies            (m) );
+  printf( "         parameters: %d\n",  Model_getNumParameters         (m) );
+  printf( "          reactions: %d\n",  Model_getNumReactions          (m) );
+  printf( "              rules: %d\n",  Model_getNumRules              (m) );
+  printf( "             events: %d\n",  Model_getNumEvents             (m) );
+  printf( "\n" );
 
   SBMLDocument_printWarnings(d, stdout);
   SBMLDocument_printErrors  (d, stdout);
