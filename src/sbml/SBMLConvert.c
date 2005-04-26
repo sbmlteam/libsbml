@@ -57,7 +57,7 @@
 #include "SBMLConvert.h"
 
 
-#include <tchar.h>
+/* #include <tchar.h> */
 
 #define ASSIGNEDCOMPARTMENT "AssignedName"
 
@@ -718,6 +718,7 @@ void
 LIBSBML_EXTERN
 SBML_applyFunctionDefinitions (Model_t *m)
 {
+  /*
   unsigned int  numFunctions = Model_getNumFunctionDefinitions(m);
   ListOf_t     *functions    = Model_getListOfFunctionDefinitions(m);
   unsigned int  numRules = Model_getNumRules(m);
@@ -771,6 +772,6 @@ SBML_applyFunctionDefinitions (Model_t *m)
 
      }
     }
-
   }
+  */
 }
