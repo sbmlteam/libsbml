@@ -171,6 +171,10 @@ protected:
   friend void SBaseTest_setup ();
   friend class SBMLFormatter;
   friend class SBMLHandler;
+
+#ifdef USE_LAYOUT
+  friend class LayoutHandler;
+#endif
 };
 
 

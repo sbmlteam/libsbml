@@ -88,6 +88,17 @@ if test "$enable_tracing" != no; then
             [Define to 1 to enable primitive memory tracing.])
 fi
 
+
+AC_ARG_ENABLE([layout],
+  AC_HELP_STRING([--enable-layout=yes|no],
+                 [Build the SBML layout extension (default=no)]),
+  [enable_layout=$withval],
+  [enable_layout=no])
+
+if test "$enable_layout" != no; then
+  AC_DEFINE([USE_LAYOUT], 1, [Define to 1 to build the SBML layout extension.])
+fi
+
 dnl Other cmd-line options are defined in the individual .m4 files in the
 dnl config/ subdirectory.
 
@@ -248,6 +259,10 @@ AC_CONFIG_FILES([src/math/test/Makefile])
 AC_CONFIG_FILES([src/sbml/Makefile])
 AC_CONFIG_FILES([src/sbml/test/Makefile])
 
+if test "$enable_layout" != "no" ; then
+  AC_CONFIG_FILES([src/sbml/layout/Makefile])
+fi
+
 AC_CONFIG_FILES([src/util/Makefile])
 AC_CONFIG_FILES([src/util/test/Makefile])
 
@@ -305,6 +320,10 @@ fi
 
 if test -n "$EXT_UFFI"; then
   echo "  use UFFI             at $UFFI"
+fi
+
+if test "$enable_layout" != "no" ; then
+  echo "  LAYOUT EXTENSION       = yes"
 fi
 
 echo ""

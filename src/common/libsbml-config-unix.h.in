@@ -89,6 +89,9 @@
 /* Define to 1 to enable primitive memory tracing. */
 #undef TRACE_MEMORY
 
+/* Define to 1 to build the SBML layout extension. */
+#undef USE_LAYOUT
+
 
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */

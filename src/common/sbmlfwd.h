@@ -112,5 +112,8 @@ typedef CLASS_OR_STRUCT ParseMessage              ParseMessage_t;
 
 #undef CLASS_OR_STRUCT
 
+#ifdef USE_LAYOUT
+#  include "sbml/layout/layoutfwd.h"
+#endif
 
 #endif  /* sbmlfwd_h  */
