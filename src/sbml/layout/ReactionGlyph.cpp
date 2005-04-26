@@ -268,7 +268,7 @@ ReactionGlyph::createCubicBezier ()
  */
 LIBSBML_EXTERN
 ReactionGlyph_t *
-ReactionGlyph_create ()
+ReactionGlyph_create (void)
 {
   return new(std::nothrow) ReactionGlyph;
 }
@@ -281,7 +281,7 @@ LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_createWith (const char *sid)
 {
-  return new(std::nothrow) ReactionGlyph(sid, "");
+  return new(std::nothrow) ReactionGlyph(sid ? sid : "", "");
 }
 
 
@@ -292,7 +292,7 @@ LIBSBML_EXTERN
 ReactionGlyph_t *
 ReactionGlyph_createWithReactionId (const char *id, const char *reactionId)
 {
-  return new(std::nothrow) ReactionGlyph(id, reactionId);
+  return new(std::nothrow) ReactionGlyph(id ? id : "", reactionId ? reactionId : "");
 }
 
 
@@ -325,7 +325,7 @@ LIBSBML_EXTERN
 void
 ReactionGlyph_setReactionId (ReactionGlyph_t *rg,const char *id)
 {
-  rg->setReactionId(id);
+    static_cast<ReactionGlyph*>(rg)->setReactionId( id ? id : "" );
 }
 
 
@@ -336,7 +336,7 @@ LIBSBML_EXTERN
 const char *
 ReactionGlyph_getReactionId (const ReactionGlyph_t *rg)
 {
-  return rg->getReactionId().c_str();
+    return rg->isSetReactionId() ? rg->getReactionId().c_str() : NULL;
 }
 
 

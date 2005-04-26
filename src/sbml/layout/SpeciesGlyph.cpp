@@ -131,7 +131,7 @@ void SpeciesGlyph::initDefaults ()
  */
 LIBSBML_EXTERN
 SpeciesGlyph_t *
-SpeciesGlyph_create ()
+SpeciesGlyph_create (void)
 {
   return new(std::nothrow) SpeciesGlyph;
 }
@@ -155,7 +155,7 @@ LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createWith (const char *id)
 {
-  return new(std::nothrow) SpeciesGlyph(id, "");
+  return new(std::nothrow) SpeciesGlyph(id ? id : "", "");
 }
 
 
@@ -166,7 +166,7 @@ LIBSBML_EXTERN
 SpeciesGlyph_t *
 SpeciesGlyph_createWithSpeciesId (const char *sid, const char *speciesId)
 {
-  return new(std::nothrow) SpeciesGlyph(sid, speciesId);
+  return new(std::nothrow) SpeciesGlyph(sid ? sid : "", speciesId ? speciesId : "");
 }
 
 
@@ -188,7 +188,7 @@ LIBSBML_EXTERN
 void
 SpeciesGlyph_setSpeciesId (SpeciesGlyph_t *sg, const char *id)
 {
-  sg->setSpeciesId(id);
+    static_cast<SpeciesGlyph*>(sg)->setSpeciesId( id ? id : "" );
 }
 
 
@@ -199,7 +199,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesGlyph_getSpeciesId (const SpeciesGlyph_t *sg)
 {
-  return sg->getSpeciesId().c_str();
+    return sg->isSetSpeciesId() ? sg->getSpeciesId().c_str() : NULL ;
 }
 
 

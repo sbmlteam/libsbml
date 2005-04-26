@@ -241,6 +241,11 @@ private:
    */
   inline bool isEmpty (const char* s);
 
+  /**
+   * Returns true if the notes and annotations are empty.
+   */
+  bool isEmpty(const SBase& o);
+
 
 
   void attribute ( const XMLCh* name, bool         value );

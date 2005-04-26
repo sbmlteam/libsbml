@@ -150,6 +150,14 @@ GraphicalObject::getId () const
   return this->id;
 }
 
+/**
+ * returns true if the id is not the empty string
+ */
+LIBSBML_EXTERN
+bool GraphicalObject::isSetId() const{
+    return !this->id.empty();
+}
+
 
 /**
  * Sets the id for the GraphicalObject.
@@ -210,7 +218,7 @@ GraphicalObject::initDefaults ()
  */
 LIBSBML_EXTERN
 GraphicalObject_t *
-GraphicalObject_create ()
+GraphicalObject_create (void)
 {
   return new(std::nothrow) GraphicalObject;
 }
@@ -244,7 +252,7 @@ LIBSBML_EXTERN
 void
 GraphicalObject_setId (GraphicalObject_t *go, const char *id)
 {
-  go->setId(id);
+    go->setId( id ? id : "" );
 }
 
 
@@ -255,7 +263,7 @@ LIBSBML_EXTERN
 const char *
 GraphicalObject_getId (const GraphicalObject_t *go)
 {
-  return go->getId().c_str();
+    return go->isSetId() ? go->getId().c_str() : NULL;
 }
 
 
@@ -290,3 +298,14 @@ GraphicalObject_initDefaults (GraphicalObject_t *go)
 {
   go->initDefaults();
 }
+
+/**
+ * Returns zero if the id is the empty string
+ */
+LIBSBML_EXTERN
+int
+GraphicalObject_isSetId(GraphicalObject_t* go){
+    return (int)go->isSetId();
+}
+
+

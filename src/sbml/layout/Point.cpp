@@ -177,7 +177,7 @@ Point::getZOffset () const
  */ 
 LIBSBML_EXTERN
 Point_t *
-Point_create ()
+Point_create (void)
 {
   return new(std::nothrow) Point; 
 }

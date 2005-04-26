@@ -245,7 +245,7 @@ CubicBezier::setBasePoint2 (double x, double y, double z)
  */
 LIBSBML_EXTERN
 CubicBezier_t *
-CubicBezier_create ()
+CubicBezier_create (void)
 {
   return new(std::nothrow) CubicBezier;
 }

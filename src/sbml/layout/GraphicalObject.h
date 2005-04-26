@@ -140,6 +140,12 @@ public:
   void setId (const std::string& id);
 
   /**
+   * Returns true if the id is not the empty string.
+   */
+  LIBSBML_EXTERN
+  bool isSetId () const;
+
+  /**
    * Sets the boundingbox for the GraphicalObject.
    */ 
   LIBSBML_EXTERN

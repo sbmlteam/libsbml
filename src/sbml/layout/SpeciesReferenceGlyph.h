@@ -67,6 +67,8 @@ protected:
   SpeciesReferenceRole_t role;
   Curve* curve;
 
+public:
+  static const std::string SPECIES_REFERENCE_ROLE_STRING[];
 
 public:
 
@@ -120,6 +122,13 @@ public:
    */ 
   LIBSBML_EXTERN
   void setSpeciesReferenceId (const std::string& id);
+
+  /**
+   * Returns a string representation of the role.
+   */ 
+  LIBSBML_EXTERN
+  const std::string& getRoleString() const;
+
         
   /**
    * Returns the role.
@@ -340,6 +349,13 @@ SpeciesReferenceGlyph_setRole (SpeciesReferenceGlyph_t *srg, const char *r);
 LIBSBML_EXTERN
 SpeciesReferenceRole_t
 SpeciesReferenceGlyph_getRole (const SpeciesReferenceGlyph_t *srg);
+/**
+ * Returns a string representation of the role of the species reference.
+ */ 
+LIBSBML_EXTERN
+const char*
+SpeciesReferenceGlyph_getRoleString(const SpeciesReferenceGlyph_t* srg);
+
 
 /**
  * Returns true if the role is not SPECIES_ROLE_UNDEFINED.

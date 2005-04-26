@@ -680,7 +680,7 @@ Layout::createCubicBezier ()
  */
 LIBSBML_EXTERN
 Layout_t *
-Layout_create ()
+Layout_create (void)
 {
   return new(std::nothrow) Layout;
 }
@@ -693,7 +693,7 @@ LIBSBML_EXTERN
 Layout_t *
 Layout_createWith (const char *sid)
 {
-  return new(std::nothrow) Layout(sid, Dimensions());
+  return new(std::nothrow) Layout(sid ? sid : "", Dimensions());
 }
 
 
@@ -717,7 +717,7 @@ Layout_t *
 Layout_createWithSize (const char *id,
                        double width, double height, double depth)
 {
-  return new (std::nothrow) Layout(id, Dimensions(width, height, depth));
+  return new (std::nothrow) Layout(id ? id : "", Dimensions(width, height, depth));
 }
 
 
@@ -729,7 +729,7 @@ LIBSBML_EXTERN
 Layout_t *
 Layout_createWithDimensions (const char *id, const Dimensions_t *dimensions)
 {
-  return new (std::nothrow) Layout(id, *dimensions);
+  return new (std::nothrow) Layout(id ? id : "", *dimensions);
 }
 
 
@@ -751,7 +751,7 @@ LIBSBML_EXTERN
 void
 Layout_setId (Layout_t *l, const char *id)
 {
-  l->setId(id);
+    static_cast<Layout*>(l)->setId( id ? id : "" );
 }
 
 
@@ -928,7 +928,7 @@ LIBSBML_EXTERN
 const char *
 Layout_getId (const Layout_t *l)
 {
-  return l->getId().c_str();
+    return l->isSetId() ? l->getId().c_str() : NULL;
 }
 
 

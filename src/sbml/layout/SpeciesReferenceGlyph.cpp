@@ -47,6 +47,19 @@
 #include "common/common.h"
 #include "SpeciesReferenceGlyph.h"
 
+const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
+    "undefined" 
+   ,"substrate"
+   ,"product"
+   ,"sidesubstrate"
+   ,"sideproduct"
+   ,"modifier"
+   ,"activator"
+   ,"inhibitor"
+   ,""
+};
+
+
 
 /**
  * Creates a new SpeciesReferenceGlyph.  The id if the associated species
@@ -150,6 +163,13 @@ SpeciesReferenceGlyph::getRole() const
   return this->role;
 }
 
+/**
+ * Returns a string representation for the role
+ */
+LIBSBML_EXTERN
+const std::string& SpeciesReferenceGlyph::getRoleString() const{
+    return SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[this->role];
+}
 
 /**
  * Sets the role based on a string.
@@ -166,13 +186,13 @@ LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph::setRole (const std::string& role)
 {
-       if ( role == "SUBSTRATE"     ) this->role = SPECIES_ROLE_SUBSTRATE;
-  else if ( role == "PRODUCT"       ) this->role = SPECIES_ROLE_PRODUCT;
-  else if ( role == "SIDESUBSTRATE" ) this->role = SPECIES_ROLE_SIDESUBSTRATE;
-  else if ( role == "SIDEPRODUCT"   ) this->role = SPECIES_ROLE_SIDEPRODUCT;
-  else if ( role == "MODIFIER"      ) this->role = SPECIES_ROLE_MODIFIER;
-  else if ( role == "ACTIVATOR"     ) this->role = SPECIES_ROLE_ACTIVATOR;
-  else if ( role == "INHIBITOR"     ) this->role = SPECIES_ROLE_INHIBITOR;
+       if ( role == "substrate"     ) this->role = SPECIES_ROLE_SUBSTRATE;
+  else if ( role == "product"       ) this->role = SPECIES_ROLE_PRODUCT;
+  else if ( role == "sidesubstrate" ) this->role = SPECIES_ROLE_SIDESUBSTRATE;
+  else if ( role == "sideproduct"   ) this->role = SPECIES_ROLE_SIDEPRODUCT;
+  else if ( role == "modifier"      ) this->role = SPECIES_ROLE_MODIFIER;
+  else if ( role == "activator"     ) this->role = SPECIES_ROLE_ACTIVATOR;
+  else if ( role == "inhibitor"     ) this->role = SPECIES_ROLE_INHIBITOR;
   else                                this->role = SPECIES_ROLE_UNDEFINED;
 }
 
@@ -301,7 +321,7 @@ SpeciesReferenceGlyph::createCubicBezier ()
  */
 LIBSBML_EXTERN
 SpeciesReferenceGlyph_t *
-SpeciesReferenceGlyph_create()
+SpeciesReferenceGlyph_create(void)
 {
   return new(std::nothrow) SpeciesReferenceGlyph;
 }
@@ -330,7 +350,7 @@ SpeciesReferenceGlyph_createWith (const char *sid,
                                   SpeciesReferenceRole_t role)
 {
   return new(std::nothrow)
-    SpeciesReferenceGlyph(sid, speciesReferenceId, speciesGlyphId, role);
+    SpeciesReferenceGlyph(sid ? sid : "", speciesReferenceId ? speciesReferenceId : "", speciesGlyphId ? speciesGlyphId : "", role);
 }
 
 
@@ -353,7 +373,7 @@ void
 SpeciesReferenceGlyph_setSpeciesReferenceId (SpeciesReferenceGlyph_t *srg,
                                              const char *id)
 {
-  srg->setSpeciesReferenceId(id);
+    srg->setSpeciesReferenceId( id ? id : "" );
 }
 
 
@@ -364,7 +384,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesReferenceGlyph_getSpeciesReferenceId (const SpeciesReferenceGlyph_t *srg)
 {
-  return srg->getSpeciesReferenceId().c_str();
+    return srg->isSetSpeciesReferenceId() ? srg->getSpeciesReferenceId().c_str() : NULL;
 }
 
 
@@ -377,7 +397,7 @@ int
 SpeciesReferenceGlyph_isSetSpeciesReferenceId
   (const SpeciesReferenceGlyph_t *srg)
 {
-  return static_cast<int>( srg->isSetSpeciesReferenceId() );
+    return (int)srg->isSetSpeciesReferenceId();
 }
 
 
@@ -389,7 +409,7 @@ void
 SpeciesReferenceGlyph_setSpeciesGlyphId (SpeciesReferenceGlyph_t *srg,
                                          const char *id)
 {
-    static_cast<SpeciesReferenceGlyph*>(srg)->setSpeciesGlyphId(id);
+    srg->setSpeciesGlyphId( id ? id : "" );
 }
 
 
@@ -400,7 +420,7 @@ LIBSBML_EXTERN
 const char *
 SpeciesReferenceGlyph_getSpeciesGlyphId (const SpeciesReferenceGlyph_t *srg)
 {
-  return srg->getSpeciesGlyphId().c_str();
+    return srg->isSetSpeciesGlyphId() ? srg->getSpeciesGlyphId().c_str() : NULL;
 }
 
 
@@ -473,6 +493,16 @@ SpeciesReferenceGlyph_getRole (const SpeciesReferenceGlyph_t *srg)
 {
   return srg->getRole();
 }
+
+/**
+ * Returns a string representation of the role of the species reference.
+ */ 
+LIBSBML_EXTERN
+const char*
+SpeciesReferenceGlyph_getRoleString(const SpeciesReferenceGlyph_t* srg){
+    return srg->getRoleString().empty() ? NULL : srg->getRoleString().c_str();
+}
+
 
 
 /**

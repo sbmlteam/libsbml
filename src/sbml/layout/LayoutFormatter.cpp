@@ -319,7 +319,7 @@ void LayoutFormatter::doSpeciesReferenceGlyph(const SpeciesReferenceGlyph& srg){
     if(srg.isSetSpeciesGlyphId()){
         attribute(ATTR_SPECIES_GLYPH,srg.getSpeciesGlyphId().c_str());
     }
-    attribute(ATTR_ROLE,srg.getRole());
+    attribute(ATTR_ROLE,srg.getRoleString().c_str());
     closeStartElement();
     upIndent();
     notesAndAnnotation( (const SBase&) srg );
@@ -549,12 +549,17 @@ void LayoutFormatter::doDimensions(const Dimensions& d){
     if(d.getDepth()!=0.0){
       attribute(ATTR_DEPTH,d.getDepth());
     }
-    closeStartElement();
-    upIndent();
-    notesAndAnnotation( (const SBase&) d );
-    downIndent();
-    indent();
-    endElement(DIMENSIONS);
+    if(isEmpty(static_cast<const SBase&>(d))){
+        slashCloseStartElement();
+    }
+    else{
+        closeStartElement();
+        upIndent();
+        notesAndAnnotation( (const SBase&) d );
+        downIndent();
+        indent();
+        endElement(DIMENSIONS);
+    }
 }
 
 void LayoutFormatter::doPoint(const Point& p,const char* elemName){
@@ -566,13 +571,18 @@ void LayoutFormatter::doPoint(const Point& p,const char* elemName){
     if(p.getZOffset()!=0.0){
       attribute(ATTR_Z,p.getZOffset());
     }
-    closeStartElement();
-    upIndent();
-    notesAndAnnotation( (const SBase&) p );
-    downIndent();
-    indent();
-    endElement(elementNameXMLCh);
-    XMLString::release(&elementNameXMLCh);
+    if(isEmpty(static_cast<const SBase&>(p))){
+        slashCloseStartElement();
+    }
+    else{
+        closeStartElement();
+        upIndent();
+        notesAndAnnotation( (const SBase&) p );
+        downIndent();
+        indent();
+        endElement(elementNameXMLCh);
+    }
+XMLString::release(&elementNameXMLCh);
 }
 
 
@@ -942,4 +952,10 @@ LayoutFormatter::isEmpty (const char* s)
   return !(s && *s);
 }
 
+/**
+ * Returns true if the notes and annotations are empty.
+ */
+bool LayoutFormatter::isEmpty(const SBase& o){
+    return (o.getNotes().empty() && o.getAnnotation().empty());    
+}
 

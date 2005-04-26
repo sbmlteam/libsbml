@@ -246,7 +246,7 @@ BoundingBox::setDimensions (const Dimensions& d)
  */
 LIBSBML_EXTERN
 BoundingBox_t *
-BoundingBox_create ()
+BoundingBox_create (void)
 {
   return new(std::nothrow) BoundingBox;
 }
@@ -261,7 +261,7 @@ LIBSBML_EXTERN
 BoundingBox_t *
 BoundingBox_createWith (const char *id)
 {
-  return new(std::nothrow) BoundingBox(id);
+  return new(std::nothrow) BoundingBox(id ? id : "");
 }
 
 
@@ -275,7 +275,7 @@ BoundingBox_createWithCoordinates (const char *id,
                                    double x, double y, double z,
                                    double width, double height, double depth)
 {
-  return new(std::nothrow) BoundingBox(id, x, y, z, width, height, depth);
+  return new(std::nothrow) BoundingBox(id ? id : "" , x, y, z, width, height, depth);
 }
 
 
@@ -309,7 +309,7 @@ LIBSBML_EXTERN
 void
 BoundingBox_setId (BoundingBox_t *bb, const char* id)
 {
-  bb->setId(id);
+    static_cast<BoundingBox*>(bb)->setId( id ? id : "" );
 }
 
 
@@ -320,7 +320,7 @@ LIBSBML_EXTERN
 const char *
 BoundingBox_getId (const BoundingBox_t *bb)
 {
-  return bb->getId().c_str();
+    return bb->isSetId() ? bb->getId().c_str() : NULL;
 }
 
 

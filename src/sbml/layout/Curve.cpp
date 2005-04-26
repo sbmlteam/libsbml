@@ -194,7 +194,7 @@ CubicBezier& Curve::createCubicBezier ()
  */
 LIBSBML_EXTERN
 Curve_t *
-Curve_create ()
+Curve_create (void)
 {
   return new(std::nothrow) Curve;
 }

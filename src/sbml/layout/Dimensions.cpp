@@ -172,7 +172,7 @@ void Dimensions::initDefaults ()
  */ 
 LIBSBML_EXTERN
 Dimensions_t *
-Dimensions_create ()
+Dimensions_create (void)
 {
   return new(std::nothrow) Dimensions;
 }

@@ -198,7 +198,7 @@ TextGlyph::initDefaults()
  */
 LIBSBML_EXTERN
 TextGlyph_t *
-TextGlyph_create ()
+TextGlyph_create (void)
 {
   return new(std::nothrow) TextGlyph;
 }
@@ -222,7 +222,7 @@ LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_createWith (const char *sid)
 {
-  return new(std::nothrow) TextGlyph(sid, "");
+  return new(std::nothrow) TextGlyph(sid ? sid : "", "");
 }
 
 
@@ -233,7 +233,7 @@ LIBSBML_EXTERN
 TextGlyph_t *
 TextGlyph_createWithText (const char *id, const char *text)
 {  
-  return new(std::nothrow) TextGlyph(id, text);
+  return new(std::nothrow) TextGlyph(id ? id : "", text ? text : "");
 }
 
 
@@ -255,7 +255,7 @@ LIBSBML_EXTERN
 void
 TextGlyph_setText (TextGlyph_t *tg, const char *text)
 {
-  tg->setText(text);
+    tg->setText( text ? text : "" );
 }
 
 
@@ -268,7 +268,7 @@ LIBSBML_EXTERN
 void
 TextGlyph_setOriginOfTextId (TextGlyph_t *tg, const char *sid)
 {
-  tg->setOriginOfTextId(sid);
+    tg->setOriginOfTextId( sid ? sid : "" );
 }
 
 
@@ -282,7 +282,7 @@ LIBSBML_EXTERN
 void
 TextGlyph_setGraphicalObjectId (TextGlyph_t *tg, const char *sid)
 {
-  tg->setGraphicalObjectId(sid);
+    tg->setGraphicalObjectId( sid ? sid : "" );
 }
 
 
@@ -293,7 +293,7 @@ LIBSBML_EXTERN
 const char *
 TextGlyph_getText (const TextGlyph_t *tg)
 {
-  return tg->getText().c_str();
+    return tg->isSetText() ? tg->getText().c_str() : NULL;
 }
 
 
@@ -305,7 +305,7 @@ LIBSBML_EXTERN
 const char *
 TextGlyph_getGraphicalObjectId (const TextGlyph_t *tg)
 {
-  tg->getGraphicalObjectId().c_str();
+    return tg->isSetGraphicalObjectId() ? tg->getGraphicalObjectId().c_str() : NULL;
 }
 
 
@@ -316,7 +316,7 @@ LIBSBML_EXTERN
 const char *
 TextGlyph_getOriginOfTextId (const TextGlyph_t *tg)
 {
-  tg->getOriginOfTextId().c_str();
+    return tg->isSetOriginOfTextId() ? tg->getOriginOfTextId().c_str() : NULL;
 }
 
 

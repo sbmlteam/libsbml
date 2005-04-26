@@ -236,7 +236,7 @@ LineSegment::setEnd (double x, double y, double z)
  */
 LIBSBML_EXTERN
 LineSegment_t *
-LineSegment_create ()
+LineSegment_create (void)
 {
   return new(std::nothrow) LineSegment;
 }
