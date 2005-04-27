@@ -53,6 +53,7 @@
 #define SBase_h
 
 
+#include "common/libsbml-config.h"
 #include "common/extern.h"
 
 

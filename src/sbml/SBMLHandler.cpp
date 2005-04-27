@@ -65,6 +65,10 @@
    using namespace xercesc;
 #endif  // USE_EXPAT
 
+#ifdef USE_LAYOUT
+#  include "layout/LayoutHandler.h"
+#endif  // USE_LAYOUT
+
 #include "math/FormulaFormatter.h"
 #include "math/MathMLHandler.h"
 
@@ -75,6 +79,9 @@
 #include "SBMLTypes.h"
 #include "SBMLUnicodeConstants.h"
 #include "SBMLHandler.h"
+
+
+using namespace std;
 
 
 const TagHandler_t
@@ -180,6 +187,11 @@ SBMLHandler::SBMLHandler (SBMLDocument* d) : fDocument(d)
   inNotes      = 0;
   inAnnotation = 0;
   inMath       = 0;
+
+#ifdef USE_LAYOUT
+  fLayoutHandler = 0;
+  inLayout       = 0;
+#endif  // USE_LAYOUT
 }
 
 
@@ -194,6 +206,10 @@ SBMLHandler::~SBMLHandler ()
   delete fMathHandler;
   delete fMathDocument;
   delete fFormatter;
+
+#ifdef USE_LAYOUT
+  delete fLayoutHandler;
+#endif  // USE_LAYOUT
 }
 
 
@@ -239,38 +255,110 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   //
   if (inAnnotation)
   {
-    fFormatter->startElement(qname, attrs);
 
-    //
-    // Track nested <annotation> tags.
-    //
-    if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
+
+#ifdef USE_LAYOUT
+    if (inLayout)
     {
-      inAnnotation++;
+#     ifdef USE_EXPAT
+      fLayoutHandler->onStartElement(localname, papszAttrs);
+#     else
+      fLayoutHandler->startElement(uri, localname, qname, attrs);
+#     endif  // USE_EXPAT
     }
+    else
+    {
+#endif  // USE_LAYOUT
+
+
+      //
+      // Track nested <annotation> tags.
+      //
+      if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
+      {
+        inAnnotation++;
+        fFormatter->startElement(qname, attrs);
+      }
+
+
+#ifdef USE_LAYOUT     
+      else if (tag == TAG_LIST_OF_LAYOUTS)
+      {
+        inLayout++;
+        fLayoutHandler->startDocument();
+#       ifdef USE_EXPAT
+        fLayoutHandler->onStartElement(localname, papszAttrs);
+#       else
+        fLayoutHandler->startElement(uri, localname, qname, attrs);
+#       endif  // USE_EXPAT
+      }
+      else if (tag == TAG_LAYOUTID)
+      {
+#        ifdef USE_EXPAT
+         const string& id = this->doSpeciesReferenceId(papszAttrs);
+#        else
+         const string& id = this->doSpeciesReferenceId(attrs);
+#        endif  // USE_EXPAT
+         SBase* o = static_cast<SBase*>( Stack_peek(fObjStack) );
+         if (o->getTypeCode() == SBML_SPECIES_REFERENCE ||
+             o->getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE)
+         {
+           static_cast<SimpleSpeciesReference*>(o)->setId(id);
+         }
+      }
+#endif  // USE_LAYOUT
+
+
+      else
+      {
+        fFormatter->startElement(qname, attrs);
+      }
+
+
+#ifdef USE_LAYOUT
+    }
+#endif  // USE_LAYOUT
+
+
   }
   else if (inNotes)
   {
-    fFormatter->startElement(qname, attrs);
 
-    //
-    // Track nested <notes> tags.  While this is technically not proper
-    // SBML, it's easy to be a little bit more robust.
-    //
-    if (tag == TAG_NOTES)
-    {
-      warning("<notes> elements cannot be nested.");
-      inNotes++;
-    }
+
+#ifdef USE_LAYOUT
+      if (!inLayout)
+      {
+#endif  // USE_LAYOUT
+
+
+        fFormatter->startElement(qname, attrs);
+
+        //
+        // Track nested <notes> tags.  While this is technically not proper
+        // SBML, it's easy to be a little bit more robust.
+        //
+        if (tag == TAG_NOTES)
+        {
+          warning("<notes> elements cannot be nested.");
+          inNotes++;
+        }
+
+
+#ifdef USE_LAYOUT
+      }
+#endif  // USE_LAYOUT
+
+
   }
   else if (inMath)
   {
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     fMathHandler->onStartElement(localname, papszAttrs);
-#else
+#   else
     fMathHandler->startElement(uri, localname, qname, attrs);
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
   }
+
 
   //
   // Otherwise, check for the special tags <annotation>, <notes> or <math>
@@ -278,37 +366,42 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   //
   else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
   {
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     if (!inAnnotation) enableCharacterDataHandler();
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
     fFormatter->startElement(qname, attrs);
 
     inAnnotation++;
   }
+
+
   else if (tag == TAG_NOTES)
   {
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     if (!inNotes) enableCharacterDataHandler();
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
 
     inNotes++;
   }
+
+
   else if (tag == TAG_MATH)
   {
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     if (!inMath) enableCharacterDataHandler();
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
 
-     fMathHandler->startDocument();
+    fMathHandler->startDocument();
 
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     fMathHandler->onStartElement(localname, papszAttrs);
-#else
+#   else
     fMathHandler->startElement(uri, localname, qname, attrs);
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
 
     inMath++;
   }
+
 
   //
   // Finally, if none of the above conditions were true, proccess the SBML
@@ -373,6 +466,24 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   SBMLTagCode_t tag = getTagCode(uri, localname);
 
 
+#ifdef USE_LAYOUT
+  if (tag == TAG_LIST_OF_LAYOUTS)
+  {
+#   ifdef USE_EXPAT
+    fLayoutHandler->onEndElement(localname);
+#   else
+    fLayoutHandler->endElement(uri, localname, qname);
+#   endif  // USE_EXPAT
+    fLayoutHandler->endDocument();
+    inLayout--;
+  }
+  else if (tag == TAG_LAYOUTID)
+  {
+  }
+  else
+#endif  // USE_LAYOUT
+
+
   //
   // Notes
   //
@@ -389,16 +500,31 @@ SBMLHandler::endElement (const XMLCh* const  uri,
         error(ERRMSG_NO_SBML_NOTE);
       }
 
+
+#ifdef USE_LAYOUT
+      if (!inLayout)
+      {
+#endif  // USE_LAYOUT
+
+
       SBase_setNotes(obj, fFormatter->getString());
       fFormatter->reset();
+
+
+#ifdef USE_LAYOUT
+      }
+#endif  // USE_LAYOUT
+
+
     }
 
     inNotes--;
 
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     if (!inNotes) enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
   }
+
 
   //
   // Annotation
@@ -420,21 +546,22 @@ SBMLHandler::endElement (const XMLCh* const  uri,
 
     inAnnotation--;
 
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     if (!inAnnotation) enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
   }
+
 
   //
   // MathML
   //
   else if (tag == TAG_MATH && !(inNotes || inAnnotation))
   {
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     fMathHandler->onEndElement(localname);
-#else
+#   else
     fMathHandler->endElement(uri, localname, qname);
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
 
     fMathHandler->endDocument();
     setMath(fMathDocument->math);
@@ -442,23 +569,40 @@ SBMLHandler::endElement (const XMLCh* const  uri,
 
     inMath--;
 
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     if (!inMath) enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
+#   endif  // USE_EXPAT
   }
+
+
+#ifdef USE_LAYOUT   
+  else if (inLayout)
+  {
+#   ifdef USE_EXPAT
+    fLayoutHandler->onEndElement(localname);
+#   else
+    fLayoutHandler->endElement(uri, localname, qname);
+#   endif // USE_EXPAT
+  }
+#endif  // USE_LAYOUT
+
 
   else if (inNotes || inAnnotation)
   {
     fFormatter->endElement(qname);
   }
+
+
   else if (inMath)
   {
-#ifdef USE_EXPAT
+#   ifdef USE_EXPAT
     fMathHandler->onEndElement(localname);
-#else
+#   else
     fMathHandler->endElement(uri, localname, qname);
-#endif  // !USE_EXPAT
+#   endif  // !USE_EXPAT
   }
+
+
   else if (tag != TAG_UNKNOWN)
   {
     Stack_pop(fTagStack);
@@ -479,18 +623,40 @@ SBMLHandler::characters (const XMLCh* const  chars,
                          const unsigned int  length)
 #endif  // USE_EXPAT
 {
-  if (inNotes || inAnnotation)
+
+
+#ifdef USE_LAYOUT
+  if (inLayout)
   {
-    fFormatter->characters(chars, length);
+#  ifdef USE_EXPAT      
+   fLayoutHandler->onCharacterData(chars,length);
+#  else
+   fLayoutHandler->characters(chars,length);
+#  endif   
+  } 
+  else
+  { 
+#endif  // USE_LAYOUT
+
+
+    if (inNotes || inAnnotation)
+    {
+      fFormatter->characters(chars, length);
+    }
+    else if (inMath)
+    {
+#     ifdef USE_EXPAT
+      fMathHandler->onCharacterData(chars, length);
+#     else
+      fMathHandler->characters(chars, length);
+#     endif  // USE_EXPAT
+    }
+
+
+#ifdef USE_LAYOUT
   }
-  else if (inMath)
-  {
-#ifdef USE_EXPAT
-    fMathHandler->onCharacterData(chars, length);
-#else
-    fMathHandler->characters(chars, length);
-#endif  // USE_EXPAT
-  }
+#endif // USE_LAYOUT
+
 }
 
 
@@ -656,6 +822,13 @@ SBase*
 SBMLHandler::doModel (const Attributes& a)
 {
   fModel = &fDocument->createModel();
+
+
+#ifdef USE_LAYOUT
+  fLayoutHandler =
+    new LayoutHandler( &fDocument->getModel()->getListOfLayouts() );
+#endif  // USE_LAYOUT
+
 
   //
   // id: SId  { use="optional" }  (L2v1)
@@ -1707,6 +1880,20 @@ SBMLHandler::getTagCode (const XMLCh *uri, const XMLCh* localname)
     tag = TAG_MATH;
   }
 
+
+#ifdef USE_LAYOUT
+  if ( tag == TAG_UNKNOWN &&
+       !XMLString::compareString(localname, LIST_OF_LAYOUTS) )
+  {
+    tag = TAG_LIST_OF_LAYOUTS;
+  }
+  if (tag == TAG_UNKNOWN && !XMLString::compareString(localname, LAYOUTID))
+  {
+    tag = TAG_LAYOUTID;
+  }
+#endif  // USE_LAYOUT
+
+
   return tag;
 }
 
@@ -1901,11 +2088,43 @@ storeNamespaceDefinitions (SBase *obj, const Attributes& a)
 }
 
 
+
+
+#ifdef USE_LAYOUT
+
+
+#ifdef USE_EXPAT
+/**
+ * Sets the id attribute of a SpeciesReference.
+ */
+string
+SBMLHandler::doSpeciesReferenceId (const XML_Char **papszAttrs)
+{
+  return doSpeciesReferenceId( Attributes(papszAttrs) );
+}
+#endif // USE_EXPAT
+
+
+/**
+ * Sets the id attribute of a SpeciesReference.
+ */
+string
+SBMLHandler::doSpeciesReferenceId (const Attributes& a)
+{
+  string s;  
+  XMLUtil::scanAttr(a, ATTR_ID, s);
+  return s;
+}
+
+
+#endif  // USE_LAYOUT
+
+
+
+
 /**
  * Prints, to stdout, the value of parameters passed to startElement().
  *
-using namespace std;
-
 void
 SBMLHandler::debugPrintStartElement (const XMLCh* const  uri,
                                      const XMLCh* const  localname,

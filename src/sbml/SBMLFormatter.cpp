@@ -59,6 +59,10 @@
 #  include "xml/ExpatFormatter.h"
 #endif  // USE_EXPAT
 
+#ifdef USE_LAYOUT
+#  include "layout/LayoutFormatter.h"
+#endif  // USE_LAYOUT
+
 #include "xml/XMLUnicodeConstants.h"
 #include "xml/XMLUtil.h"
 
@@ -95,6 +99,10 @@ SBMLFormatter::SBMLFormatter (XMLFormatTarget* target, bool outputXMLDecl) :
   mMathFormatter = new MathMLFormatter(target, false);
   mFormatter     = XMLUtil::createXMLFormatter("UTF-8", target);
 
+#ifdef USE_LAYOUT
+  mLayoutFormatter = new LayoutFormatter(target, false);
+#endif  // USE_LAYOUT
+
   if (outputXMLDecl) *mFormatter << XML_DECL;
 }
 
@@ -107,6 +115,10 @@ SBMLFormatter::~SBMLFormatter ()
   delete mMathFormatter;
   delete mFormatter;
   delete [] mNumberBuffer;
+
+#ifdef USE_LAYOUT
+  delete mLayoutFormatter;
+#endif  // USE_LAYOUT
 }
 
 
@@ -294,7 +306,11 @@ SBMLFormatter::operator<< (const Model& m)
 
     upIndent();
 
+#ifdef USE_LAYOUT    
+    notesAndAnnotationWithLayoutInformation(m);
+#else
     notesAndAnnotation(m);
+#endif  // USE_LAYOUT
 
     listOfFunctionDefinitions( m.functionDefinition );
     listOfUnitDefinitions    ( m.unitDefinition     );
@@ -1444,7 +1460,12 @@ SBMLFormatter::operator<< (const SpeciesReference& sr)
     }
   }
 
+
+#ifdef USE_LAYOUT
+  if ( isEmpty(sr) && !sr.isSetId() )
+#else
   if ( isEmpty(sr) )
+#endif  // USE_LAYOUT
   {
     slashCloseStartElement();
   }
@@ -1457,7 +1478,11 @@ SBMLFormatter::operator<< (const SpeciesReference& sr)
     //      notes: (ANY)  { minOccurs="0" }
     // annotation: (ANY)  { minOccurs="0" }
     //
+#ifdef USE_LAYOUT
+    notesAndAnnotationWithLayoutId(sr);
+#else
     notesAndAnnotation(sr);
+#endif  // USE_LAYOUT
 
     //
     // stoichiometryMath: StoichiometryMath  { use="optional" } (L2v1)
@@ -1495,12 +1520,30 @@ SBMLFormatter::operator<< (const ModifierSpeciesReference& msr)
   //
   attribute(ELEM_SPECIES, msr.getSpecies());
 
+#ifdef USE_LAYOUT
+  if ( isEmpty(msr) && !msr.isSetId() )
+#else
   if ( isEmpty(msr) )
+#endif  // USE_LAYOUT
   {
     slashCloseStartElement();
   }
   else
   {
+    closeStartElement();
+    upIndent();
+
+    //
+    //      notes: (ANY)  { minOccurs="0" }
+    // annotation: (ANY)  { minOccurs="0" }
+    //
+#ifdef USE_LAYOUT
+    notesAndAnnotationWithLayoutId(msr);
+#else
+    notesAndAnnotation(msr);
+#endif  // USE_LAYOUT
+
+    downIndent();
     endElement(ELEM_MODIFIER_SPECIES_REFERENCE, msr);
   }
 
@@ -1872,6 +1915,149 @@ SBMLFormatter::notesAndAnnotation (const SBase& sb)
 }
 
 
+
+#ifdef USE_LAYOUT
+
+
+/**
+ * Notes and Annotation with the layoutId for SpeciesReferences
+ */
+void
+SBMLFormatter::notesAndAnnotationWithLayoutId (const SimpleSpeciesReference& sb)
+{
+  notes( sb.getNotes() );
+
+  const string& s = sb.getAnnotation();
+  if (s.empty() && !sb.isSetId()) return;
+
+  indent();
+
+  if( !sb.isSetId() )
+  {
+    XMLCh* x = XMLString::transcode( s.c_str() );
+    *mFormatter << x << chLF;
+    XMLString::release(&x);
+  }
+  else
+  {
+    /* add the layout id on a line by itself to the end of the annotation */
+    if( s.empty() )
+    {
+      string temp =
+        "<annotation>\n"
+        "  <layoutId xmlns=\"http://projects.eml.org/bcb/sbml/level2\""
+        " id=\"" + sb.getId() + "\"/>\n"
+        "</annotation>";
+
+      XMLCh* x = XMLString::transcode(temp.c_str());
+      *mFormatter << x << chLF;
+      XMLString::release(&x);
+    }
+    else
+    {
+      int pos = s.rfind("</annotation>");
+      if (pos != std::string::npos)
+      {
+        int pos2 = s.rfind("\n", pos);
+        if (pos2 != string::npos)
+        {
+          int    dist   = pos - pos2;
+          string temp   = s;
+          string wSpace = "";
+          int    counter;
+
+          /*
+          for (counter = 0; counter < dist; counter++)
+          {
+            wSpace.append(" ");
+          }
+          */
+   
+          wSpace.append
+          (
+            "<layoutId xmlns=\"http://projects.eml.org/bcb/sbml/level2\""
+            " id=\"" + sb.getId() + "\"/>"
+          );
+          temp.insert(pos2, wSpace);
+          XMLCh* x = XMLString::transcode(temp.c_str());
+          *mFormatter << x << chLF;
+          XMLString::release(&x); 
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Notes and Annotation with the layout information for Model
+ */
+void
+SBMLFormatter::notesAndAnnotationWithLayoutInformation (const Model& m)
+{
+  notes ( m.getNotes() );
+
+  const string& s = m.getAnnotation();
+  if (s.empty() && m.getListOfLayouts().getNumItems() == 0) return;
+
+  indent();
+
+  if (m.getListOfLayouts().getNumItems() == 0)
+  { 
+    XMLCh* x = XMLString::transcode( s.c_str() );
+    *mFormatter << x << chLF;
+    XMLString::release(&x);
+  }
+  else
+  {
+    /* add the layout id on a line by itself to the end of the annotation */
+    if( s.empty() )
+    {
+      /* just output the layout information */
+      upIndent();
+      openStartElement(ELEM_ANNOTATION);
+      closeStartElement();
+      mLayoutFormatter->doListOfLayouts(m.getListOfLayouts());
+      indent();
+      endElement(ELEM_ANNOTATION);
+      downIndent();
+    }
+    else
+    {
+      /* find the closing annotation tag and get the substring up to 
+       * before the last newline before it.
+       */
+      string::size_type pos = s.find("</annotation>");
+      /* assert(pos != string::npos); */
+
+      string::size_type pos2 = s.rfind("\n", pos);
+      if (pos2 == std::string::npos)
+      {
+        pos2 = pos;
+      }
+      string ts = s.substr(0, pos2);
+
+      /*
+       * Output this string, output the layout information, output the
+       * closing tag.
+       */
+      XMLCh* x = XMLString::transcode(ts.c_str());
+      *mFormatter << x << chLF;
+      XMLString::release(&x);
+
+      mLayoutFormatter->doListOfLayouts(m.getListOfLayouts());
+      x = XMLString::transcode("</annotation>");
+      *mFormatter << x << chLF;
+      XMLString::release(&x);
+    }
+  }
+}
+
+
+#endif  // USE_LAYOUT
+
+
+
 /**
  * Outputs the <math> element for KineticLaw (L2 only).
  *
@@ -2159,7 +2345,12 @@ SBMLFormatter::isEmpty (const Model& m)
          ( !m.getNumParameters         () ) &&
          ( !m.getNumRules              () ) &&
          ( !m.getNumReactions          () ) &&
-         ( !m.getNumEvents             () );
+         ( !m.getNumEvents             () )
+
+#ifdef USE_LAYOUT
+      && ( !m.getListOfLayouts().getNumItems() )
+#endif  // USE_LAYOUT
+    ;
 }
 
 
@@ -2413,8 +2604,6 @@ SBMLFormatter::attribute (const XMLCh* name, const char* value)
     attribute(name, s);
 
 	  XMLString::release(&s);
-
-//    delete [] s;
   }
 }
 #endif // !USE_EXPAT

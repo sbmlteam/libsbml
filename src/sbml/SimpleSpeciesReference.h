@@ -53,6 +53,7 @@
 #define SimpleSpeciesReference_h
 
 
+#include "common/libsbml-config.h"
 #include "common/extern.h"
 
 
@@ -114,9 +115,44 @@ public:
   void setSpecies (const std::string& sid);
 
 
+#ifdef USE_LAYOUT
+
+  /**
+   * Sets the id for the species reference.
+   */
+  LIBSBML_EXTERN
+  void setId (const std::string& id);
+
+  /**
+   * Returns the id for the species reference.
+   */
+  LIBSBML_EXTERN
+  const std::string& getId () const;
+
+  /**
+   * Returns true if the id of the species reference is not equal to the
+   * empty string.
+   */
+  LIBSBML_EXTERN
+  bool isSetId () const;
+
+  /**
+   * Unsets the id for the species reference.
+   */
+  LIBSBML_EXTERN
+  void unsetId ();
+
+#endif  /* USE_LAYOUT */
+
+
 protected:
 
   std::string species;
+
+#ifdef USE_LAYOUT 
+  std::string id;
+#endif  /* USE_LAYOUT */
+
 
   friend class SBMLFormatter;
   friend class SBMLHandler;
@@ -157,6 +193,42 @@ LIBSBML_EXTERN
 void
 SimpleSpeciesReference_setSpecies ( SimpleSpeciesReference_t *ssr,
                                     const char *sid );
+
+
+
+#ifdef USE_LAYOUT
+
+
+/**
+ * Returns the id for the species reference.
+ */ 
+LIBSBML_EXTERN
+const char *
+SimpleSpeciesReference_getId (const SimpleSpeciesReference_t *ssr);
+
+/**
+ * Sets the id for the given SpeciesReference.
+ */ 
+LIBSBML_EXTERN
+void
+SimpleSpeciesReference_setId (SimpleSpeciesReference_t *ssr, const char *sid);
+
+/**
+ * Returns 0 if the id is not set.
+ */ 
+LIBSBML_EXTERN
+int
+SimpleSpeciesReference_isSetId (const SimpleSpeciesReference_t *ssr);
+
+/**
+ * Sets the id to the empty string.
+ */ 
+LIBSBML_EXTERN
+void
+SimpleSpeciesReference_unsetId (SimpleSpeciesReference_t *ssr);
+
+
+#endif  /* USE_LAYOUT */
 
 
 /**

@@ -53,7 +53,9 @@
 #define Model_h
 
 
+#include "common/libsbml-config.h"
 #include "common/extern.h"
+
 #include "SBMLTypeCodes.h"
 
 
@@ -86,6 +88,10 @@ class KineticLaw;
 class Event;
 class EventAssignment;
 class SBMLVisitor;
+
+#ifdef USE_LAYOUT
+  class Layout;
+#endif  /* USE_LAYOUT */
 
 
 class Model : public SBase
@@ -698,6 +704,43 @@ public:
   unsigned int getNumEvents () const;
 
 
+#ifdef USE_LAYOUT
+
+  /**
+   * Returns a reference to the ListOf object that holds the layouts.
+   */
+  LIBSBML_EXTERN
+  ListOf& getListOfLayouts ();
+
+  /**
+   * Returns a reference to the ListOf object that holds the layouts.
+   */
+  LIBSBML_EXTERN
+  const ListOf& getListOfLayouts () const;
+
+  /**
+   * Returns the layout object that belongs to the given index. If the
+   * index is invalid, NULL is returned.
+   */
+  LIBSBML_EXTERN
+  Layout* getLayout (unsigned int index) const;
+
+  /**
+   * Adds the layout object to the list of layouts.
+   */ 
+  LIBSBML_EXTERN
+  void addLayout (Layout& layout);
+
+  /**
+   * Creates a new layout object and adds it to the list of layout objects.
+   * A reference to the newly created object is returned.
+   */
+  LIBSBML_EXTERN
+  Layout& createLayout();
+
+#endif  /* USE_LAYOUT */  
+
+
 protected:
 
   std::string  id;
@@ -710,6 +753,10 @@ protected:
   ListOf       rule;
   ListOf       reaction;
   ListOf       event;
+
+#ifdef USE_LAYOUT
+  ListOf layouts;
+#endif  /* USE_LAYOUT */
 
 
   friend class SBMLFormatter;
@@ -1384,6 +1431,44 @@ Model_getNumReactions (const Model_t *m);
 LIBSBML_EXTERN
 unsigned int
 Model_getNumEvents (const Model_t *m);
+
+
+
+#ifdef USE_LAYOUT
+
+
+/**
+ * Returns a reference to the ListOf object that holds the layouts.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfLayouts (Model_t *m);
+
+/**
+ * Returns the layout object that belongs to the given index. If the index
+ * is invalid, NULL is returned.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Model_getLayout (Model_t *m, unsigned int index);
+
+/**
+ * Adds a copy of the layout object to the list of layouts.
+ */ 
+LIBSBML_EXTERN
+void 
+Model_addLayout (Model_t *m, Layout_t *layout);
+
+/**
+ * Creates a new layout object and adds it to the list of layout objects.
+ * A reference to the newly created object is returned.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Model_createLayout (Model_t *m);
+
+
+#endif /* USE_LAYOUT */
 
 
 END_C_DECLS

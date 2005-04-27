@@ -69,8 +69,11 @@
 #include "Event.h"
 #include "EventAssignment.h"
 
-#include "Model.h"
+#ifdef USE_LAYOUT
+#  include "layout/Layout.h"
+#endif  /* USE_LAYOUT */
 
+#include "Model.h"
 
 
 /**
@@ -1488,6 +1491,74 @@ Model::getNumEvents () const
 
 
 
+#ifdef USE_LAYOUT
+
+
+/**
+ * Returns a reference to the ListOf object that holds the layouts.
+ */
+LIBSBML_EXTERN
+ListOf&
+Model::getListOfLayouts ()
+{
+  return layouts;
+}
+
+     
+/**
+ * Returns a reference to the ListOf object that holds the layouts.
+ */
+LIBSBML_EXTERN
+const ListOf&
+Model::getListOfLayouts () const
+{
+  return layouts;
+}
+
+
+/**
+ * Returns the layout object that belongs to the given index. If the index
+ * is invalid, NULL is returned.
+ */
+LIBSBML_EXTERN
+Layout*
+Model::getLayout (unsigned int index) const
+{
+  return static_cast<Layout*>( layouts.get(index) );
+}
+
+
+/**
+ * Adds a copy of the layout object to the list of layouts.
+ */ 
+LIBSBML_EXTERN
+void
+Model::addLayout (Layout& layout)
+{
+  layouts.append(&layout);
+}
+
+
+/**
+ * Creates a new layout object and adds it to the list of layout objects.
+ * A reference to the newly created object is returned.
+ */
+LIBSBML_EXTERN
+Layout&
+Model::createLayout ()
+{
+  Layout* l = new Layout();
+
+
+  addLayout(*l);
+  return *l;
+}
+
+
+#endif  /* USE_LAYOUT */
+
+
+
 
 /**
  * Creates a new Model and returns a pointer to it.
@@ -2513,3 +2584,56 @@ Model_getNumEvents (const Model_t *m)
 {
   return static_cast<const Model*>(m)->getNumEvents();
 }
+
+
+
+#ifdef USE_LAYOUT  
+
+
+/**
+ * Returns a reference to the ListOf object that holds the layouts.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfLayouts (Model_t *m)
+{
+  return & m->getListOfLayouts();
+}
+
+
+/**
+ * Returns the layout object that belongs to the given index. If the index
+ * is invalid, NULL is returned.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Model_getLayout (Model_t *m, unsigned int index)
+{
+  return m->getLayout(index);
+}
+
+
+/**
+ * Adds a copy of the layout object to the list of layouts.
+ */ 
+LIBSBML_EXTERN
+void 
+Model_addLayout (Model_t *m, Layout_t *layout)
+{
+  m->addLayout(*layout);
+}
+
+
+/**
+ * Creates a new layout object and adds it to the list of layout objects.
+ * A pointer to the newly created object is returned.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Model_createLayout (Model_t *m)
+{
+	return & m->createLayout();
+}
+
+
+#endif  /* USE_LAYOUT */

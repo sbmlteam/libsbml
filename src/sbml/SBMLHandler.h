@@ -54,6 +54,9 @@
 #define SBMLHandler_h
 
 
+#include "common/libsbml-config.h"
+
+
 #ifdef __cplusplus
 
 
@@ -84,9 +87,13 @@ class MathMLDocument;
 
 class ParseMessage;
 class XMLStringFormatter;
-
-
 class SBMLHandler;
+
+#ifdef USE_LAYOUT
+  class LayoutHandler;
+#endif  /* USE_LAYOUT */
+
+
 typedef SBase* (SBMLHandler::*TagHandler_t)(const Attributes& attrs);
 
 
@@ -217,6 +224,20 @@ private:
   void setMath              (ASTNode* math);
   void setStoichiometryMath (SpeciesReference* sr, ASTNode* math);
 
+
+#ifdef USE_LAYOUT
+  /**
+   * Sets the id attribute of a SpeciesReference.
+   */
+#ifdef USE_EXPAT
+  std::string SBMLHandler::doSpeciesReferenceId (const XML_Char **papszAttrs);
+#else
+  std::string SBMLHandler::doSpeciesReferenceId (const Attributes& a);
+#endif  /* USE_EXPAT */
+
+#endif  /* USE_LAYOUT */
+
+
   /*
   void debugPrintStartElement
   (
@@ -239,6 +260,10 @@ private:
 
   MathMLHandler*  fMathHandler;
   MathMLDocument* fMathDocument;
+
+#ifdef USE_LAYOUT
+  LayoutHandler* fLayoutHandler;
+#endif  /* USE_LAYOUT */
 
   const Locator* fLocator;
 
@@ -273,6 +298,10 @@ private:
   int inNotes;
   int inAnnotation;
   int inMath;
+
+#ifdef USE_LAYOUT
+  int inLayout;
+#endif  /* USE_LAYOUT */
 };
 
 

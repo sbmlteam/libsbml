@@ -54,6 +54,9 @@
 #define SBMLFormatter_h
 
 
+#include "common/libsbml-config.h"
+
+
 #ifdef __cplusplus
 
 
@@ -71,6 +74,11 @@
 
 #include "SBMLTypes.h"
 #include "SBMLUnicodeConstants.h" 
+
+
+#ifdef USE_LAYOUT
+  class LayoutFormatter;
+#endif  /* USE_LAYOUT */
 
 
 /**
@@ -181,7 +189,15 @@ private:
   void annotation (const std::string& s);
   void notes      (const std::string& s);
 
-  inline void notesAndAnnotation (const SBase& sb);
+  void notesAndAnnotation (const SBase& sb);
+
+#ifdef USE_LAYOUT  
+
+  void notesAndAnnotationWithLayoutId (const SimpleSpeciesReference& sb);
+  void notesAndAnnotationWithLayoutInformation (const Model& m);
+
+#endif  /* USE_LAYOUT */
+
 
   /**
    * Outputs the <math> element for KineticLaw (L2 only).
@@ -314,8 +330,8 @@ private:
    */
   void indent ();
 
-  inline void upIndent   () { mIndentLevel++; }
-  inline void downIndent () { mIndentLevel--; }
+  void upIndent   () { mIndentLevel++; }
+  void downIndent () { mIndentLevel--; }
 
 
   unsigned int mLevel;
@@ -326,6 +342,11 @@ private:
 
   MathMLFormatter*  mMathFormatter;
   XMLFormatter*     mFormatter;
+
+#ifdef USE_LAYOUT
+  LayoutFormatter*  mLayoutFormatter;
+#endif  /* USE_LAYOUT */
+
 
   static const unsigned int NUMBER_BUFFER_SIZE;
 };

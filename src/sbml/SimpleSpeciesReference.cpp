@@ -116,6 +116,58 @@ SimpleSpeciesReference::setSpecies (const std::string& sid)
 
 
 
+#ifdef USE_LAYOUT  
+
+
+/**
+ * Sets the id for the species reference.
+ */
+LIBSBML_EXTERN
+void
+SimpleSpeciesReference::setId (const std::string& sid)
+{
+  id = sid;
+}
+
+
+/**
+ * Returns the id for the species reference.
+ */
+LIBSBML_EXTERN
+const
+std::string& SimpleSpeciesReference::getId () const
+{
+  return id;
+}
+
+
+/**
+ * Returns true if the id of the species reference is not equal to the
+ * empty string.
+ */
+LIBSBML_EXTERN
+bool
+SimpleSpeciesReference::isSetId () const
+{
+  return ! id.empty();
+}
+
+
+/**
+ * Unsets the id for the species reference.
+ */
+LIBSBML_EXTERN
+void
+SimpleSpeciesReference::unsetId ()
+{
+  id.erase();
+}
+
+
+#endif  /* USE_LAYOUT */
+
+
+
 
 /**
  * @return the species for this SimpleSpeciesReference.
@@ -154,6 +206,57 @@ SimpleSpeciesReference_setSpecies ( SimpleSpeciesReference_t *ssr,
 {
   static_cast<SimpleSpeciesReference*>(ssr)->setSpecies(sid ? sid : "");
 }
+
+
+
+#ifdef USE_LAYOUT
+
+
+/**
+ * Returns the id for the species reference.
+ */ 
+LIBSBML_EXTERN
+const char *
+SimpleSpeciesReference_getId (const SimpleSpeciesReference_t *ssr)
+{
+  return ssr->isSetId() ? ssr->getId().c_str() : NULL;
+}
+
+
+/**
+ * Sets the id for the given SpeciesReference.
+ */ 
+LIBSBML_EXTERN
+void
+SimpleSpeciesReference_setId (SimpleSpeciesReference_t *ssr, const char *sid)
+{
+  ssr->setId(sid ? sid : "");
+}
+
+
+/**
+ * Returns 0 if the id is not set.
+ */ 
+LIBSBML_EXTERN
+int
+SimpleSpeciesReference_isSetId (const SimpleSpeciesReference_t *ssr)
+{
+  return static_cast<int>( ssr->isSetId() );
+}
+
+
+/**
+ * Sets the id to the empty string.
+ */ 
+LIBSBML_EXTERN
+void
+SimpleSpeciesReference_unsetId (SimpleSpeciesReference_t *ssr)
+{
+  ssr->unsetId();
+}
+
+
+#endif  /* USE_LAYOUT */
 
 
 /**
