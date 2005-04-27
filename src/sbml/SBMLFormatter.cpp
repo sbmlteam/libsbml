@@ -2455,12 +2455,19 @@ SBMLFormatter::endElement(const XMLCh* name, const SBase& sb)
     {
       notesAndAnnotationWithLayoutId
       (
-        static_cast<ModifierSpeciesReference&>(sb)
-      )
+        static_cast<const ModifierSpeciesReference&>(sb)
+      );
     }
     else
-#else
-    notesAndAnnotation(sb);
+    {
+#endif  // USE_LAYOUT
+
+
+      notesAndAnnotation(sb);
+
+
+#ifdef USE_LAYOUT
+    }
 #endif  // USE_LAYOUT
 
 
