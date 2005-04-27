@@ -166,9 +166,6 @@
 				RelativePath="..\src\common\common.h">
 			</File>
 			<File
-				RelativePath="..\src\common\common.hpp">
-			</File>
-			<File
 				RelativePath="..\src\sbml\Compartment.h">
 			</File>
 			<File
