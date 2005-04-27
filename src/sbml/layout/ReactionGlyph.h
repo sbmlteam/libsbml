@@ -48,7 +48,7 @@
 #define ReactionGlyph_H__
 
 
-#include "common/common.h"
+#include "common/libsbml-config.h"
 
 
 #ifdef __cplusplus

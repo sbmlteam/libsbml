@@ -48,7 +48,7 @@
 #define LayoutUnicodeConstants_h
 
 
-#include "common/common.h"
+#include "common/libsbml-config.h"
 
 
 #ifdef USE_EXPAT

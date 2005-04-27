@@ -48,7 +48,7 @@
 #define LayoutTagCodes_h
 
 
-#include "common/common.h"
+#include "common/libsbml-config.h"
 #include "xml/XMLUtil.h"
 
 

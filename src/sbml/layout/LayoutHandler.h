@@ -47,7 +47,7 @@
 #ifndef LayoutHandler_h
 #define LayoutHandler_h
 
-#include "common/common.h"
+#include "common/libsbml-config.h"
 
 
 #ifdef USE_EXPAT
