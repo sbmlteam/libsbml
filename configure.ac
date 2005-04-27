@@ -97,6 +97,7 @@ AC_ARG_ENABLE([layout],
 
 if test "$enable_layout" != no; then
   AC_DEFINE([USE_LAYOUT], 1, [Define to 1 to build the SBML layout extension.])
+  AC_SUBST(USE_LAYOUT, 1)
 fi
 
 dnl Other cmd-line options are defined in the individual .m4 files in the
@@ -323,7 +324,7 @@ if test -n "$EXT_UFFI"; then
 fi
 
 if test "$enable_layout" != "no" ; then
-  echo "  LAYOUT EXTENSION       = yes"
+echo "  use Layout Extension   = yes  (experimental)"
 fi
 
 echo ""

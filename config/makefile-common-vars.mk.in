@@ -134,6 +134,8 @@ UFFI              = @UFFI@
 EXT_CPARSE        = @EXT_CPARSE@
 CPARSE            = @CPARSE@
 
+USE_LAYOUT        = @USE_LAYOUT@
+
 USE_SWIG          = @USE_SWIG@
 SWIG              = @SWIG@
 SWIGLIB           = @SWIGLIB@

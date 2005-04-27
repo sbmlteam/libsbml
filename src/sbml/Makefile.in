@@ -155,7 +155,11 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-subdirs = layout test
+ifdef USE_LAYOUT
+  subdirs = layout test
+else
+  subdirs = test
+endif
 
 # The libsbml build is a little more complicated than it used to be.  The
 # library is assembled after compiling the object files in this directory.
@@ -165,8 +169,14 @@ subdirs = layout test
 
 objects   = $(call make_objects_list,$(sources))
 otherdirs = ../common ../util ../xml ../math ../validator \
-            ../validator/constraints ./layout
+            ../validator/constraints
+
+ifdef USE_LAYOUT
+  otherdirs += ./layout
+endif
+
 objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+
 
 # The libraries are actually placed in the parent directory.
 
