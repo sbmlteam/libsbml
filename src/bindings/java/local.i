@@ -96,6 +96,7 @@
  */
 %ignore ASTNode::setValue(long);
 
+#ifndef USE_LAYOUT
 
 /**
  * @return the most specific Java object possible for the given SBase
@@ -178,6 +179,128 @@
   }
 %}
 
+#else
+
+/**
+ * @return the most specific Java object possible for the given SBase
+ * object.
+ */
+%pragma(java) modulecode =
+%{
+  public static SBase DowncastSBase(long cPtr, boolean owner)
+  {
+    if (cPtr == 0) return null;
+
+    switch( libsbmlJNI.SBase_getTypeCode(cPtr) )
+    {
+      case libsbmlConstants.SBML_COMPARTMENT:
+        return new Compartment(cPtr, owner);
+
+      case libsbmlConstants.SBML_DOCUMENT:
+        return new SBMLDocument(cPtr, owner);
+
+      case libsbmlConstants.SBML_EVENT:
+        return new Event(cPtr, owner);
+
+      case libsbmlConstants.SBML_EVENT_ASSIGNMENT:
+        return new EventAssignment(cPtr, owner);
+
+      case libsbmlConstants.SBML_FUNCTION_DEFINITION:
+        return new FunctionDefinition(cPtr, owner);
+
+      case libsbmlConstants.SBML_KINETIC_LAW:
+        return new KineticLaw(cPtr, owner);
+
+      case libsbmlConstants.SBML_LIST_OF:
+        return new ListOf(cPtr, owner);
+
+      case libsbmlConstants.SBML_MODEL:
+        return new Model(cPtr, owner);
+
+      case libsbmlConstants.SBML_PARAMETER:
+        return new Parameter(cPtr, owner);
+
+      case libsbmlConstants.SBML_REACTION:
+        return new Reaction(cPtr, owner);
+
+      case libsbmlConstants.SBML_SPECIES:
+        return new Species(cPtr, owner);
+
+      case libsbmlConstants.SBML_SPECIES_REFERENCE:
+        return new SpeciesReference(cPtr, owner);
+
+      case libsbmlConstants.SBML_MODIFIER_SPECIES_REFERENCE:
+        return new ModifierSpeciesReference(cPtr, owner);
+
+      case libsbmlConstants.SBML_UNIT_DEFINITION:
+        return new UnitDefinition(cPtr, owner);
+
+      case libsbmlConstants.SBML_UNIT:
+        return new Unit(cPtr, owner);
+
+      case libsbmlConstants.SBML_ALGEBRAIC_RULE:
+        return new AlgebraicRule(cPtr, owner);
+
+      case libsbmlConstants.SBML_ASSIGNMENT_RULE:
+        return new AssignmentRule(cPtr, owner);
+
+      case libsbmlConstants.SBML_RATE_RULE:
+        return new RateRule(cPtr, owner);
+
+      case libsbmlConstants.SBML_SPECIES_CONCENTRATION_RULE:
+        return new SpeciesConcentrationRule(cPtr, owner);
+
+      case libsbmlConstants.SBML_COMPARTMENT_VOLUME_RULE:
+        return new CompartmentVolumeRule(cPtr, owner);
+
+      case libsbmlConstants.SBML_PARAMETER_RULE:
+        return new ParameterRule(cPtr, owner);
+
+      case libsbmlConstants.SBML_LAYOUT_BOUNDINGBOX:
+        return new BoundingBox(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_COMPARTMENTGLYPH:
+        return new CompartmentGlyph(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_CUBICBEZIER:
+        return new CubicBezier(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_CURVE:
+        return new Curve(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_DIMENSIONS:
+        return new Dimensions(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_GRAPHICALOBJECT:
+        return new GraphicalObject(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_LAYOUT:
+        return new Layout(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_LINESEGMENT:
+        return new LineSegment(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_POINT:
+        return new Point(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_REACTIONGLYPH:
+        return new ReactionGlyph(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_SPECIESGLYPH:
+        return new SpeciesGlyph(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+        return new SpeciesReferenceGlyph(cPtr, owner);
+        
+      case libsbmlConstants.SBML_LAYOUT_TEXTGLYPH:
+        return new TextGlyph(cPtr, owner);
+       default:
+        return new SBase(cPtr, owner);
+    }
+  }
+%}
+
+#endif /* ! USE_LAYOUT */
 
 /**
  * Convert SBase objects into the most specific object possible.
