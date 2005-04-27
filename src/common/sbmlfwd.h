@@ -53,6 +53,9 @@
 #define sbmlfwd_h
 
 
+#include "libsbml-config.h"
+
+
 /**
  * Forward declaration of all opaque C types.
  *
