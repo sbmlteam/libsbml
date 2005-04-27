@@ -63,7 +63,7 @@
    typedef char    MemBufInputSource;
 #else
 #  define  XML_PLATFORM_UTILS_INIT()  xercesc::XMLPlatformUtils::Initialize()
-#endif  // USE_EXPAT
+#endif  /* USE_EXPAT */
 
 
 #endif  /* LIBSBML_XML_COMMON_H */
