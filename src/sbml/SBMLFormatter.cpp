@@ -1530,20 +1530,6 @@ SBMLFormatter::operator<< (const ModifierSpeciesReference& msr)
   }
   else
   {
-    closeStartElement();
-    upIndent();
-
-    //
-    //      notes: (ANY)  { minOccurs="0" }
-    // annotation: (ANY)  { minOccurs="0" }
-    //
-#ifdef USE_LAYOUT
-    notesAndAnnotationWithLayoutId(msr);
-#else
-    notesAndAnnotation(msr);
-#endif  // USE_LAYOUT
-
-    downIndent();
     endElement(ELEM_MODIFIER_SPECIES_REFERENCE, msr);
   }
 
@@ -2462,7 +2448,22 @@ SBMLFormatter::endElement(const XMLCh* name, const SBase& sb)
     closeStartElement();
 
     upIndent();
+
+
+#ifdef USE_LAYOUT
+    if (sb.getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE)
+    {
+      notesAndAnnotationWithLayoutId
+      (
+        static_cast<ModifierSpeciesReference&>(sb)
+      )
+    }
+    else
+#else
     notesAndAnnotation(sb);
+#endif  // USE_LAYOUT
+
+
     downIndent();
 
     endElement(name);

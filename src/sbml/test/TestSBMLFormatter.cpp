@@ -1246,6 +1246,67 @@ START_TEST (test_SBMLFormatter_SpeciesReference_L2v1_3)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_ModifierSpeciesReference_notes)
+{
+  const char* s = wrapXML
+  (
+    "<reaction id=\"r\">\n"
+    "  <listOfModifiers>\n"
+    "    <modifierSpeciesReference species=\"s\">\n"
+    "      <notes>\n"
+    "        This is a note.\n"
+    "      </notes>\n"
+    "    </modifierSpeciesReference>\n"
+    "  </listOfModifiers>\n"
+    "</reaction>\n"
+  );
+
+  Reaction r("r");
+  r.addModifier( * new ModifierSpeciesReference("s") );
+
+  r.getModifier(0)->setNotes("This is a note.");
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << r;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+}
+END_TEST
+
+
+START_TEST (test_SBMLFormatter_ModifierSpeciesReference_annotation)
+{
+  const char* s = wrapXML
+  (
+    "<reaction id=\"r\">\n"
+    "  <listOfModifiers>\n"
+    "    <modifierSpeciesReference species=\"s\">\n"
+    "      <annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
+    "        <ls:this-is-a-test/>\n"
+    "      </annotation>\n"
+    "    </modifierSpeciesReference>\n"
+    "  </listOfModifiers>\n"
+    "</reaction>\n"
+  );
+
+  const char* a =
+    "<annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
+    "        <ls:this-is-a-test/>\n"
+    "      </annotation>";
+
+  Reaction r("r");
+  r.addModifier( * new ModifierSpeciesReference("s") );
+
+  r.getModifier(0)->setAnnotation(a);
+
+  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
+  *formatter << r;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+}
+END_TEST
+
+
 START_TEST (test_SBMLFormatter_KineticLaw)
 {
   const char* s = wrapXML
@@ -1822,6 +1883,11 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesReference_L2v1_1   );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesReference_L2v1_2   );
   tcase_add_test( tcase, test_SBMLFormatter_SpeciesReference_L2v1_3   );
+
+  /** ModifierSpeciesReference **/
+  tcase_add_test( tcase, test_SBMLFormatter_ModifierSpeciesReference_notes );
+  tcase_add_test( tcase,
+                  test_SBMLFormatter_ModifierSpeciesReference_annotation );
 
   /** KineticLaw **/
   tcase_add_test( tcase, test_SBMLFormatter_KineticLaw                  );
