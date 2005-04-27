@@ -157,6 +157,10 @@ SOURCE=..\..\validator\L1CompatibilityValidator.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\libsbml_wrap.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\util\List.cpp
 # End Source File
 # Begin Source File
@@ -355,7 +359,7 @@ InputName=libsbml
 	echo PYTHON_INCLUDE: %PYTHON_INCLUDE% 
 	echo PYTHON_LIB: %PYTHON_LIB% 
 	echo on 
-	C:\swig\swig-1.3.21\swig -c++ -I..\..\src -python $(InputPath) 
+	C:\swig\swig-1.3.24\swig -c++ -I..\..\src -python $(InputPath) 
 	
 # End Custom Build
 

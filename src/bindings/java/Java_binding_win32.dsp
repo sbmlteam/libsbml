@@ -57,7 +57,7 @@ LINK32=link.exe
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Desc=java post build
-PostBuild_Cmds=echo on	%JAVA_BIN%\javac *.java
+PostBuild_Cmds=echo on	%JAVA_BIN%\javac \classes\org\sbml\libsbml\*.java
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "Java_binding_win32 - Win32 Debug"
@@ -103,51 +103,67 @@ PostBuild_Cmds=echo on	%JAVA_BIN%\javac *.java
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\src\AlgebraicRule.cpp
+SOURCE=..\..\sbml\AlgebraicRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\AssignmentRule.cpp
+SOURCE=..\..\sbml\AssignmentRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ASTNode.cpp
+SOURCE=..\..\math\ASTNode.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Compartment.cpp
+SOURCE=..\..\sbml\Compartment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\CompartmentVolumeRule.cpp
+SOURCE=..\..\validator\constraints\CompartmentOutsideCycles.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Event.cpp
+SOURCE=..\..\sbml\CompartmentVolumeRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\EventAssignment.cpp
+SOURCE=..\..\validator\ConsistencyValidator.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FormulaFormatter.c
+SOURCE=..\..\sbml\Event.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FormulaParser.c
+SOURCE=..\..\sbml\EventAssignment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FormulaTokenizer.c
+SOURCE=..\..\math\FormulaFormatter.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FunctionDefinition.cpp
+SOURCE=..\..\math\FormulaParser.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\KineticLaw.cpp
+SOURCE=..\..\math\FormulaTokenizer.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\sbml\FunctionDefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\validator\constraints\IdList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\sbml\KineticLaw.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\validator\L1CompatibilityValidator.cpp
 # End Source File
 # Begin Source File
 
@@ -155,11 +171,11 @@ SOURCE=.\libsbml_wrap.cxx
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\List.cpp
+SOURCE=..\..\util\List.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ListOf.cpp
+SOURCE=..\..\sbml\ListOf.cpp
 # End Source File
 # Begin Source File
 
@@ -167,163 +183,171 @@ SOURCE=.\local.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLDocument.cpp
+SOURCE=..\..\math\MathMLDocument.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLFormatter.cpp
+SOURCE=..\..\math\MathMLFormatter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLHandler.cpp
+SOURCE=..\..\math\MathMLHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLReader.cpp
+SOURCE=..\..\math\MathMLReader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLTagCodes.cpp
+SOURCE=..\..\math\MathMLTagCodes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLWriter.cpp
+SOURCE=..\..\math\MathMLWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\memory.c
+SOURCE=..\..\util\memory.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Model.cpp
+SOURCE=..\..\sbml\Model.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ModifierSpeciesReference.cpp
+SOURCE=..\..\sbml\ModifierSpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Parameter.cpp
+SOURCE=..\..\sbml\Parameter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ParameterRule.cpp
+SOURCE=..\..\sbml\ParameterRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ParseMessage.cpp
+SOURCE=..\..\xml\ParseMessage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\RateRule.cpp
+SOURCE=..\..\sbml\RateRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Reaction.cpp
+SOURCE=..\..\sbml\Reaction.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Rule.cpp
+SOURCE=..\..\sbml\Rule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\RuleType.c
+SOURCE=..\..\sbml\RuleType.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SAX2AttributesMock.cpp
+SOURCE=..\..\sbml\SBase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBase.cpp
+SOURCE=..\..\sbml\SBMLConvert.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLConvert.c
+SOURCE=..\..\sbml\SBMLDocument.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLDocument.cpp
+SOURCE=..\..\sbml\SBMLFormatter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLFormatter.cpp
+SOURCE=..\..\sbml\SBMLHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLHandler.cpp
+SOURCE=..\..\sbml\SBMLReader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLReader.cpp
+SOURCE=..\..\sbml\SBMLTagCodes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLTagCodes.cpp
+SOURCE=..\..\sbml\SBMLVisitor.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLWriter.cpp
+SOURCE=..\..\sbml\SBMLWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SimpleSpeciesReference.cpp
+SOURCE=..\..\sbml\SimpleSpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Species.cpp
+SOURCE=..\..\sbml\Species.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SpeciesConcentrationRule.cpp
+SOURCE=..\..\sbml\SpeciesConcentrationRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SpeciesReference.cpp
+SOURCE=..\..\sbml\SpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Stack.c
+SOURCE=..\..\util\Stack.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\StringBuffer.c
+SOURCE=..\..\xml\StreamFormatTarget.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\StringMap.c
+SOURCE=..\..\util\StringBuffer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Unit.cpp
+SOURCE=..\..\util\StringMap.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\UnitDefinition.cpp
+SOURCE=..\..\sbml\Unit.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\UnitKind.c
+SOURCE=..\..\sbml\UnitDefinition.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\util.c
+SOURCE=..\..\sbml\UnitKind.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ValidationRules.c
+SOURCE=..\..\util\util.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Validator.c
+SOURCE=..\..\validator\Validator.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\XMLStringFormatter.cpp
+SOURCE=..\..\xml\XMLNamespace.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\XMLUtil.cpp
+SOURCE=..\..\xml\XMLNamespaceList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\xml\XMLStringFormatter.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\xml\XMLUtil.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -346,7 +370,7 @@ InputPath=.\libsbml.i
 InputName=libsbml
 
 "$(InputName)_wrap.cxx" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	C:\swig\swig-1.3.21\swig.exe -c++  -I..\..\src -java -package org.sbml.libsbml -outdir $(OutDir)  $(InputPath)
+	C:\swig\swig-1.3.24\swig.exe -c++  -I..\..\..\src -java -package org.sbml.libsbml -outdir $(OutDir)  $(InputPath)
 
 # End Custom Build
 
@@ -358,7 +382,7 @@ InputPath=.\libsbml.i
 InputName=libsbml
 
 "$(InputName)_wrap.cxx" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	C:\swig\swig-1.3.21\swig.exe -c++ -java -package libsbml -outdir $(OutDir) $(InputPath)
+	C:\swig\swig-1.3.24\swig.exe -c++ -java -package libsbml -outdir $(OutDir) $(InputPath)
 
 # End Custom Build
 
