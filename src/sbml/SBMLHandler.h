@@ -229,12 +229,11 @@ private:
   /**
    * Sets the id attribute of a SpeciesReference.
    */
-#ifdef USE_EXPAT
-  std::string SBMLHandler::doSpeciesReferenceId (const XML_Char **papszAttrs);
-#else
-  std::string SBMLHandler::doSpeciesReferenceId (const Attributes& a);
-#endif  /* USE_EXPAT */
+  std::string doSpeciesReferenceId (const Attributes& a);
 
+#ifdef USE_EXPAT
+  std::string doSpeciesReferenceId (const XML_Char **papszAttrs);
+#endif  /* USE_EXPAT  */
 #endif  /* USE_LAYOUT */
 
 
