@@ -54,6 +54,9 @@
 
 %{
 #include "libsbml.h"
+#ifdef USE_LAYOUT
+#include "../swig/layout.h"
+#endif /* USE_LAYOUT */
 #include "local.cpp"
 
 void SBaseTest_setup() { /* empty, but required to link. */ }
@@ -123,6 +126,9 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %ignore SBMLWriter  ::write(const SBMLDocument&  , std::ostream&);
 %ignore MathMLWriter::write(const MathMLDocument&, std::ostream&);
 
+#ifdef USE_LAYOUT
+%ignore Model::getListOfLayouts() const;
+#endif /* USE_LAYOUT */
 
 /**
  * The following methods will create new objects.  To prevent memory
@@ -211,6 +217,9 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %include xml/XMLNamespaceList.h
 %include xml/XMLSchemaValidation.h
 
+#ifdef USE_LAYOUT
+%include ../swig/layout.i
+#endif /* USE_LAYOUT */
 
 /**
  * This Java specific typemap applies only to SBML_formulaToString()

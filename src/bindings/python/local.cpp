@@ -124,6 +124,48 @@ GetDowncastSwigType (SBase* sb)
 
     case SBML_PARAMETER_RULE:
       return SWIGTYPE_p_ParameterRule;
+      
+#ifdef USE_LAYOUT
+    case SBML_LAYOUT_BOUNDINGBOX:
+        return SWIGTYPE_p_BoundingBox;
+        
+    case SBML_LAYOUT_COMPARTMENTGLYPH:
+        return SWIGTYPE_p_CompartmentGlyph;
+        
+    case SBML_LAYOUT_CUBICBEZIER:
+        return SWIGTYPE_p_CubicBezier;
+        
+    case SBML_LAYOUT_CURVE:
+        return SWIGTYPE_p_Curve;
+        
+    case SBML_LAYOUT_DIMENSIONS:
+        return SWIGTYPE_p_Dimensions;
+        
+    case SBML_LAYOUT_GRAPHICALOBJECT:
+        return SWIGTYPE_p_GraphicalObject;
+        
+    case SBML_LAYOUT_LAYOUT:
+        return SWIGTYPE_p_Layout;
+        
+    case SBML_LAYOUT_LINESEGMENT:
+        return SWIGTYPE_p_LineSegment;
+        
+    case SBML_LAYOUT_POINT:
+        return SWIGTYPE_p_Point;
+        
+    case SBML_LAYOUT_REACTIONGLYPH:
+        return SWIGTYPE_p_ReactionGlyph;
+        
+    case SBML_LAYOUT_SPECIESGLYPH:
+        return SWIGTYPE_p_SpeciesGlyph;
+        
+    case SBML_LAYOUT_SPECIESREFERENCEGLYPH:
+        return SWIGTYPE_p_SpeciesReferenceGlyph;
+        
+    case SBML_LAYOUT_TEXTGLYPH:
+        return SWIGTYPE_p_TextGlyph;
+        
+#endif /* USE_LAYOUT */      
 
     default:
       return SWIGTYPE_p_SBase;

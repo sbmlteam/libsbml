@@ -618,3 +618,7 @@ ASTNode::prependChild(ASTNode*)
     if args[1] is not None: args[1].thisown = 0
     return _libsbml.ASTNode_prependChild(*args)
 %}
+
+#ifdef USE_LAYOUT
+%include layout_local.i
+#endif

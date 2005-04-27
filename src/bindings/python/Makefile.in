@@ -86,6 +86,11 @@ libraries = _libsbml.so
 extra_CPPFLAGS = $(PYTHON_CPPFLAGS) -I../swig -I../..
 SWIGFLAGS += $(PYTHON_CPPFLAGS) -I../swig
 
+ifdef USE_LAYOUT
+  SWIGFLAGS += -I../../sbml/ -DUSE_LAYOUT
+  extra_CPPFLAGS += -I../../sbml/ -DUSE_LAYOUT
+endif # USE_LAYOUT  
+
 # On MacOS X, compilation generates a warning about `long double'.
 
 ifeq "$(HOST_TYPE)" "darwin"
