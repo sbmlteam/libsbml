@@ -75,6 +75,7 @@ using namespace std;
 /**
  * Creates a new MathMLWriter.
  */
+LIBSBML_EXTERN
 MathMLWriter::MathMLWriter ()
 {
 }
@@ -83,6 +84,7 @@ MathMLWriter::MathMLWriter ()
 /**
  * Destroys this MathMLWriter.
  */
+LIBSBML_EXTERN
 MathMLWriter::~MathMLWriter ()
 {
 }

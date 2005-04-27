@@ -99,6 +99,7 @@ public:
    * @return true if prefix begins with 'xmlns:' (case-insensitive), false
    * otherwise.
    */
+  LIBSBML_EXTERN
   static bool startsWithXMLNS (const std::string& prefix);
 
 

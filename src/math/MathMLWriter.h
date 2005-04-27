@@ -73,11 +73,13 @@ public:
   /**
    * Creates a new MathMLWriter.
    */
+  LIBSBML_EXTERN
   MathMLWriter  ();
 
   /**
    * Destroys this MathMLWriter.
    */
+  LIBSBML_EXTERN
   ~MathMLWriter ();
 
 

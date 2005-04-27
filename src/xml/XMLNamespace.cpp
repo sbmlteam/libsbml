@@ -72,6 +72,7 @@ XMLNamespace::XMLNamespace (const string& prefix, const string& URI) :
  * @return true if prefix begins with 'xmlns:' (case-insensitive), false
  * otherwise.
  */
+LIBSBML_EXTERN
 bool
 XMLNamespace::startsWithXMLNS (const string& prefix)
 {
