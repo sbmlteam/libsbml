@@ -71,13 +71,14 @@ thisdir = src
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-subdirs = common util xml math validator sbml
-
 ifdef USE_LAYOUT
-  subdirs += sbml/layout
+  subdirs = common util xml math validator sbml/layout sbml
+else
+  subdirs = common util xml math validator sbml
 endif
 
-subdires += bindings
+
+subdirs += bindings
 
 
 ifdef USE_EXPAT

@@ -48,17 +48,24 @@
 ## Contributor(s):
 ##  <mhucka@caltech.edu> Created the Makefile.in version of this file.
 
+include @top_srcdir@/config/makefile-common-vars.mk
 
 # The following are configuration variables for this makefile.
 
 CC        = @CC@
+CXX       = @CXX@
 XCFLAGS   = @CFLAGS@ -Wall -I../src
+XCXXFLAGS = @CXXFLAGS@ -Wall -I../src
 XLDFLAGS  = @LDFLAGS@ -L../src
 XCPPFLAGS = @CPPFLAGS@
 LIBS      = -lsbml
 
 programs = \
   convertSBML evaluateMath printSBML readSBML translateMath validateSBML
+
+ifdef USE_LAYOUT
+  programs += layout_example1 layout_example2 layout_example3
+endif
 
 all: $(programs)
 
@@ -80,6 +87,14 @@ translateMath: translateMath.c
 validateSBML: validateSBML.c util.c
 	$(CC) $(XCFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
 
+layout_example1: layout_example1.cpp
+	$(CXX) $(XCXXFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
+
+layout_example2: layout_example2.cpp
+	$(CXX) $(XCXXFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
+
+layout_example3: layout_example3.cpp
+	$(CXX) $(XCXXFLAGS) $(XLDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	/bin/rm -f $(programs) *~

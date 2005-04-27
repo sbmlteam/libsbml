@@ -155,11 +155,7 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-ifdef USE_LAYOUT
-  subdirs = layout test
-else
-  subdirs = test
-endif
+subdirs = test
 
 # The libsbml build is a little more complicated than it used to be.  The
 # library is assembled after compiling the object files in this directory.
