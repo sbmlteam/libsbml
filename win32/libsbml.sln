@@ -27,6 +27,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sbmlj", "sbmlj.vcproj", "{A
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "translateMath", "translateMath.vcproj", "{0885C55A-AF70-4CD1-B45A-B01168E9158A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{713656C6-8BBB-40DC-9B5C-F13443DBE12C} = {713656C6-8BBB-40DC-9B5C-F13443DBE12C}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -57,6 +62,10 @@ Global
 		{A6735289-5F54-4A8F-975D-59C11DD50FB1}.Debug.Build.0 = Debug|Win32
 		{A6735289-5F54-4A8F-975D-59C11DD50FB1}.Release.ActiveCfg = Release|Win32
 		{A6735289-5F54-4A8F-975D-59C11DD50FB1}.Release.Build.0 = Release|Win32
+		{0885C55A-AF70-4CD1-B45A-B01168E9158A}.Debug.ActiveCfg = Debug|Win32
+		{0885C55A-AF70-4CD1-B45A-B01168E9158A}.Debug.Build.0 = Debug|Win32
+		{0885C55A-AF70-4CD1-B45A-B01168E9158A}.Release.ActiveCfg = Release|Win32
+		{0885C55A-AF70-4CD1-B45A-B01168E9158A}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
