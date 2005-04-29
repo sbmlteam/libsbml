@@ -80,11 +80,10 @@ typedef int (*ListItemComparator) (const void *item1, const void *item2);
  */
 typedef int (*ListItemPredicate) (const void *item);
 
-typedef struct ListNode ListNode_t;
-
 
 #ifdef __cplusplus
 
+typedef class ListNode ListNode_t;
 
 #ifndef SWIG
 
@@ -206,7 +205,8 @@ protected:
   ListNode*    tail;
 };
 
-
+#else
+  typedef struct ListNode ListNode_t;
 #endif  /* __cplusplus */
 
 
