@@ -56,6 +56,8 @@
 
 #include "common/common.h"
 
+// This needs to be before the xerces includes for Visual C++ 6.0 
+#include "xml/ParseMessage.h"
 
 #ifdef USE_EXPAT
 typedef void SAX2XMLReader;
@@ -69,8 +71,6 @@ typedef void SAX2XMLReader;
    using namespace xercesc;
 #endif  // USE_EXPAT
 
-
-#include "xml/ParseMessage.h"
 #include "SBMLDocument.h"
 #include "SBMLHandler.h"
 
