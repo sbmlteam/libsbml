@@ -64,12 +64,12 @@ using namespace std;
 int
 main (int argc, char *argv[])
 {
-  unsigned int errors = 0;
+  unsigned int errors = 0, conv_errors;
 
   SBMLDocument * d   = new SBMLDocument();
   SBMLReader   * sr  = new SBMLReader();
   SBMLWriter   * sw  = new SBMLWriter();
-	
+
   if (argc != 3)
   {
     cout << "\n  usage: convertSBML <input-filename> <output-filename>\n\n";
@@ -85,16 +85,39 @@ main (int argc, char *argv[])
     cout << "Error(s):\n";
 
     d->printWarnings(cout);
-	d->printErrors  (cout);
-	d->printFatals  (cout);
+	  d->printErrors  (cout);
+	  d->printFatals  (cout);
 
     cout << "Conversion skipped.  Correct the above and re-run.\n";
   }
   else
   {
-    d->setLevel(2);
-	
-	sw->write(*d, argv[2]);
+    if (d->getLevel() == 1)
+    {
+      d->setLevel(2);
+ 	    sw->write(*d, argv[2]);
+    }
+    else
+    {
+      d->setLevel(1);
+  
+      conv_errors = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();
+
+      if (conv_errors > 0)
+      {
+        cout << "Error(s):\n";
+
+        d->printWarnings(cout);
+	      d->printErrors  (cout);
+	      d->printFatals  (cout);
+
+        cout << "Conversion skipped.  Correct the above and re-run.\n";
+      }
+      else
+      { 	    
+        sw->write(*d, argv[2]);
+      }
+    }
   }
 
 

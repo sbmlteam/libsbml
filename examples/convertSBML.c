@@ -62,10 +62,9 @@ int
 main (int argc, char *argv[])
 {
   const char   *filename;
-  unsigned int errors = 0;
+  unsigned int errors, conv_errors = 0;
 
   SBMLDocument_t *d;
-
 
   if (argc != 3)
   {
@@ -99,7 +98,34 @@ main (int argc, char *argv[])
   {
     SBMLDocument_setLevel(d, 2);
     writeSBML(d, argv[2]);
-  }
+    if (SBMLDocument_getLevel(d) == 1)
+    {
+      SBMLDocument_setLevel(d, 2);
+      writeSBML(d, argv[2]);
+    }
+    else
+    {
+      SBMLDocument_setLevel(d, 1);
+  
+      conv_errors = SBMLDocument_getNumWarnings(d) + SBMLDocument_getNumErrors(d) +
+           SBMLDocument_getNumFatals(d);
+
+      if (conv_errors > 0)
+      {
+        printf("Error(s):\n");
+
+        SBMLDocument_printWarnings(d, stdout);
+        SBMLDocument_printErrors  (d, stdout);
+        SBMLDocument_printFatals  (d, stdout);
+
+        printf("Conversion skipped.  Correct the above and re-run.\n");
+      }
+      else
+      { 	    
+        writeSBML(d, argv[2]);
+      }
+    }
+   }
 
   SBMLDocument_free(d);
   return errors;
