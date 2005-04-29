@@ -61,7 +61,7 @@
 
 using namespace std;
 
-START_CONSTRAINT (2000, Model, c)
+START_CONSTRAINT (2000, Model, x)
 {
   msg =
     "A Model with Events cannot "
@@ -140,5 +140,15 @@ START_CONSTRAINT (2006, SpeciesReference, sr)
   pre( !sr.isSetStoichiometryMath() );
 
   inv( floor(sr.getStoichiometry()) == sr.getStoichiometry() );
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (2007, Model, x)
+{
+  msg =
+    "Conversion of a model with FunctionDefinitions "
+	"to Level 1 is not yet supported.";
+
+  inv( m.getNumFunctionDefinitions() == 0);
 }
 END_CONSTRAINT

@@ -347,7 +347,6 @@ SBML_convertModelToL1 (Model_t *m, SBase_t *sb)
   SBML_convertAllRulesToL1(m);
   SBML_convertAllSpeciesToL1(m);
   SBML_convertToL1(m, sb);
-  SBML_applyFunctionDefinitions(m);
 }
 
 
@@ -634,6 +633,7 @@ SBML_convertAllRulesToL1 (Model_t *m)
   SpeciesConcentrationRule_t * scr;
   CompartmentVolumeRule_t * cvr;
   ParameterRule_t * pr;
+  AlgebraicRule_t * ar;
   const char *id;
 
 
@@ -655,21 +655,21 @@ SBML_convertAllRulesToL1 (Model_t *m)
             scr = Model_createSpeciesConcentrationRule(m);
             SpeciesConcentrationRule_setSpecies (scr, id);
             Rule_setFormula((Rule_t*) scr, Rule_getFormula((Rule_t*) r));
-            ListOf_remove(rules, n);
+//            ListOf_remove(rules, n);
           }
           else if ((c = Model_getCompartmentById(m, id)) != NULL)
           {
             cvr = Model_createCompartmentVolumeRule(m);
             CompartmentVolumeRule_setCompartment (cvr, id);
             Rule_setFormula((Rule_t*) cvr, Rule_getFormula((Rule_t*) r));
-            ListOf_remove(rules, n);
+//            ListOf_remove(rules, n);
           }
           else if ((p = Model_getParameterById(m, id)) != NULL)
           {
             pr = Model_createParameterRule(m);
             ParameterRule_setName (pr, id);
             Rule_setFormula((Rule_t*) pr, Rule_getFormula((Rule_t*) r));
-            ListOf_remove(rules, n);
+//            ListOf_remove(rules, n);
           }
           break;
 
@@ -682,7 +682,7 @@ SBML_convertAllRulesToL1 (Model_t *m)
             SpeciesConcentrationRule_setSpecies (scr, id);
             Rule_setFormula((Rule_t*) scr, Rule_getFormula((Rule_t*) r));
             AssignmentRule_setType((AssignmentRule_t*) scr, RULE_TYPE_RATE);
-            ListOf_remove(rules, n);
+ //           ListOf_remove(rules, n);
           }
           else if ((c = Model_getCompartmentById(m, id)) != NULL)
           {
@@ -690,7 +690,7 @@ SBML_convertAllRulesToL1 (Model_t *m)
             CompartmentVolumeRule_setCompartment (cvr, id);
             Rule_setFormula((Rule_t*) cvr, Rule_getFormula((Rule_t*) r));
             AssignmentRule_setType((AssignmentRule_t*) cvr, RULE_TYPE_RATE);
-            ListOf_remove(rules, n);
+   //         ListOf_remove(rules, n);
           }
           else if ((p = Model_getParameterById(m, id)) != NULL)
           {
@@ -698,80 +698,26 @@ SBML_convertAllRulesToL1 (Model_t *m)
             ParameterRule_setName (pr, id);
             Rule_setFormula((Rule_t*) pr, Rule_getFormula((Rule_t*) r));
             AssignmentRule_setType((AssignmentRule_t*) pr, RULE_TYPE_RATE);
-            ListOf_remove(rules, n);
+     //       ListOf_remove(rules, n);
           }
             break;
 
         case SBML_ALGEBRAIC_RULE:
+          ar = Model_createAlgebraicRule(m);
+          Rule_setFormula((Rule_t*) ar, Rule_getFormula((Rule_t*) r));
+       //   ListOf_remove(rules, n);
           break;
 
         default:
           break;
       }
   }
-}
-/**
- * Applies the function definitions in a L2 model 
- * directly to any formula strings
- */
-void
-LIBSBML_EXTERN
-SBML_applyFunctionDefinitions (Model_t *m)
-{
-  /*
-  unsigned int  numFunctions = Model_getNumFunctionDefinitions(m);
-  ListOf_t     *functions    = Model_getListOfFunctionDefinitions(m);
-  unsigned int  numRules = Model_getNumRules(m);
-  ListOf_t     *rules    = Model_getListOfRules(m);
-  unsigned int n, nr, i;
-
-  FunctionDefinition_t *fd;
-  const char *id;
-  char * idWithBracket, * argument = NULL;
-
-  char* match;
-  char* closeBracket, *a;
-  Rule_t *r;
-
-  char * formula, * function, *functionArg;
-
-  if (numFunctions == 0) return;
-
-  for (n = 0; n < numFunctions; n++)
+  
+  for (n = numRules; n > 0; n--)
   {
-    fd = Model_getFunctionDefinition(m, n);
-    id = FunctionDefinition_getId(fd);
+    r = (Rule_t *) ListOf_get(rules, n-1);
 
-    idWithBracket = strcat(id, "(");
-    for (nr = 0; nr < numRules; nr++)
-    {
-      r = Model_getRule(m, nr);
-
-      formula = Rule_getFormula(r);
-      if ((match = strstr(formula, idWithBracket)) != NULL)
-      {
-        closeBracket = strstr(formula, ")");
-        //  cant do this a it messes up the actual formula
-        _tcsnset(closeBracket, NULL, strlen(closeBracket));
-        argument = _tcsninc(match, strlen(idWithBracket));
-        
-        functionArg = SBML_formulaToString(ASTNode_getChild(FunctionDefinition_getMath(fd),0));
-        function = SBML_formulaToString(ASTNode_getChild(FunctionDefinition_getMath(fd),1));
-
-        a = strstr(function, functionArg);
-        strncpy(function + strlen(function) - strlen(a), argument, strlen(argument));
-       
-        formula = Rule_getFormula(r);
-        match = strstr(formula, idWithBracket);
-        closeBracket = strstr(formula, ")");
-
-        _tcsnset(closeBracket+1, NULL, strlen(closeBracket)-1);
-
-        formula = Rule_getFormula(r);
-        strncpy(formula, match, function);
-
-     }
-    }
+    ListOf_remove(rules, n-1);
   }
-  */
+ 
 }
