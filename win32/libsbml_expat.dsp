@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /D "USE_EXPAT" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /D "_MSC_EXTENSIONS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "../src" /I "./include/expat" /D "USE_EXPAT" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /D "_MSC_EXTENSIONS" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x809 /d "NDEBUG"
@@ -53,7 +53,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# ADD LINK32 libexpat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"bin/libsbml.dll"
+# ADD LINK32 libexpat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"bin/libsbml.dll" /libpath:"./bin"
 
 !ELSEIF  "$(CFG)" == "libsbml - Win32 Debug"
 
@@ -69,7 +69,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "USE_EXPAT" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "../src" /I "./include/expat" /D "USE_EXPAT" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "LIBSBML_EXPORTS" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x809 /d "_DEBUG"
@@ -79,7 +79,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 libexpat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"bin/libsbmlD.dll" /pdbtype:sept
+# ADD LINK32 libexpat.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"bin/libsbmlD.dll" /pdbtype:sept /libpath:"./bin"
 
 !ENDIF 
 
@@ -350,6 +350,206 @@ SOURCE=..\src\xml\XMLUtil.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\src\sbml\AlgebraicRule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\AssignmentRule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\common.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Compartment.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\CompartmentVolumeRule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Event.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\EventAssignment.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\Expat.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\ExpatAttributes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\ExpatFormatter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\ExpatUnicodeChars.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\ExpatXMLString.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\FunctionDefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\KineticLaw.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\ListOf.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Model.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\ModifierSpeciesReference.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Parameter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\ParameterRule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\ParseMessage.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\RateRule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Reaction.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Rule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\RuleType.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLConvert.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLDocument.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLFormatter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLTagCodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLTypeCodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLTypes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLUnicodeConstants.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLVisitor.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLWriter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SimpleSpeciesReference.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Species.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SpeciesConcentrationRule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SpeciesReference.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\StreamFormatTarget.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\Unit.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\UnitDefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\UnitKind.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLNamespace.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLNamespaceList.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLSchemaValidation.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLStringFormatter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLUnicodeConstants.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\xml\XMLUtil.h
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 
