@@ -179,7 +179,6 @@ translateMathML (const char *xml)
 
     xml = StringBuffer_getBuffer(sb);
 
-//    free(sb);
   }
 
   d      = readMathMLFromString(xml);
