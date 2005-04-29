@@ -64,9 +64,8 @@ bool
 IdList::contains (const std::string id) const
 {
   IdList::const_iterator end = mIds.end();
-
-
-  return find(mIds.begin(), end, id) != end;
+  
+  return std::find(mIds.begin(), end, id) != end;
 }
 
 
@@ -77,7 +76,7 @@ void
 IdList::removeIdsBefore (const std::string id)
 {
   IdList::iterator end = mIds.end();
-  IdList::iterator pos = find(mIds.begin(), end, id);
+  IdList::iterator pos = std::find(mIds.begin(), end, id);
 
 
   if (pos != end) mIds.erase(mIds.begin(), pos);
