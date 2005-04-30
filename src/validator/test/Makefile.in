@@ -72,7 +72,14 @@ thisdir   = src/validator/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources = TestFile.cpp TestConsistencyValidator.cpp TestValidator.cpp
+test_sources =                 \
+  TestFile.cpp                 \
+  TestConsistencyValidator.cpp \
+  TestValidator.cpp
+
+test_headers =                 \
+  TestFile.h                   \
+  TestValidator.h
 
 extra_CPPFLAGS = -I.. -I../..
 
@@ -104,7 +111,16 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(test_sources) Makefile.in
+test_data_files = \
+  $(wildcard test-data/*.xml) \
+  $(wildcard test-data-l2-l1-conversion/*.xml)
+
+test_extras =  \
+  tps/dirent.c \
+  tps/dirent.h
+
+distfiles = $(test_sources) $(test_extras) $(test_headers) $(test_data_files) \
+	    Makefile.in
 
 
 # -----------------------------------------------------------------------------
@@ -174,6 +190,19 @@ install:
 uninstall:
 
 installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-normal
+
+distclean: distclean-normal
+
+mostlyclean: mostlyclean-normal
+
+maintainer-clean: maintainer-clean-normal
 
 
 # -----------------------------------------------------------------------------

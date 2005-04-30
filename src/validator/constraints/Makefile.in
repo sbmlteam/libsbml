@@ -72,21 +72,23 @@ thisdir   = src/validator/constraints
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-sources = \
-  CompartmentOutsideCycles.cpp \
+sources =                        \
+  CompartmentOutsideCycles.cpp   \
+  L1CompatibilityConstraints.cpp \
+  ConsistencyConstraints.cpp     \
   IdList.cpp
 
-extra_CPPFLAGS = -I../..
+headers =                        \
+  CompartmentOutsideCycles.h     \
+  IdList.h
 
+extra_CPPFLAGS = -I../..
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) Makefile.in \
-  ConsistencyConstraints.cpp \
-  CompartmentOutsideCycles.h \
-  IdList.h
+distfiles = $(sources) $(headers) Makefile.in
 
 
 # -----------------------------------------------------------------------------
@@ -102,7 +104,7 @@ all: Makefile default
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: all check-recursive
+check:
 
 
 # -----------------------------------------------------------------------------
@@ -138,22 +140,22 @@ installcheck: all installcheck-headers
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-normal clean-recursive
+clean: clean-normal
 
-distclean: distclean-normal distclean-recursive
+distclean: distclean-normal
 
-mostlyclean: mostlyclean-normal mostlyclean-recursive
+mostlyclean: mostlyclean-normal
 
-maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal
 
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal dist-recursive
+dist: all dist-normal
 
-distcheck: distcheck-normal distcheck-recursive
+distcheck: all distcheck-normal
 
 
 # -----------------------------------------------------------------------------

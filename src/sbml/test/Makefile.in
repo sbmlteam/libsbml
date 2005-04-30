@@ -141,7 +141,9 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(test_sources) Makefile.in
+test_data_files = $(wildcard test-data/*.xml) $(wildcard test-data/*.xsd)
+
+distfiles = $(test_sources) $(test_data_files) Makefile.in
 
 
 # -----------------------------------------------------------------------------

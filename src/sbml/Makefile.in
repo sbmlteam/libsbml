@@ -71,7 +71,7 @@ thisdir = src/sbml
 # (a separate mechanism is used for that), but for other things such as what
 # to distribute and install.
 
-headers = \
+headers =                      \
   AlgebraicRule.h              \
   AssignmentRule.h             \
   Compartment.h                \
@@ -91,9 +91,14 @@ headers = \
   RuleType.h                   \
   SBMLConvert.h                \
   SBMLDocument.h               \
+  SBMLFormatter.h              \
+  SBMLHandler.h                \
   SBMLReader.h                 \
+  SBMLTagCodes.h               \
   SBMLTypeCodes.h              \
   SBMLTypes.h                  \
+  SBMLUnicodeConstants.h       \
+  SBMLVisitor.h                \
   SBMLWriter.h                 \
   SBase.h                      \
   SimpleSpeciesReference.h     \
@@ -104,39 +109,39 @@ headers = \
   UnitDefinition.h             \
   UnitKind.h
 
-sources = \
-  AlgebraicRule.cpp               \
-  AssignmentRule.cpp              \
-  Compartment.cpp                 \
-  CompartmentVolumeRule.cpp       \
-  Event.cpp                       \
-  EventAssignment.cpp             \
-  FunctionDefinition.cpp          \
-  KineticLaw.cpp                  \
-  ListOf.cpp                      \
-  Model.cpp                       \
-  ModifierSpeciesReference.cpp    \
-  Parameter.cpp                   \
-  ParameterRule.cpp               \
-  RateRule.cpp                    \
-  Reaction.cpp                    \
-  Rule.cpp                        \
-  RuleType.c                      \
-  SBMLConvert.c                   \
-  SBMLDocument.cpp                \
-  SBMLFormatter.cpp               \
-  SBMLHandler.cpp                 \
-  SBMLReader.cpp                  \
-  SBMLTagCodes.cpp                \
-  SBMLVisitor.cpp                 \
-  SBMLWriter.cpp                  \
-  SBase.cpp                       \
-  SimpleSpeciesReference.cpp      \
-  Species.cpp                     \
-  SpeciesConcentrationRule.cpp    \
-  SpeciesReference.cpp            \
-  Unit.cpp                        \
-  UnitDefinition.cpp              \
+sources =                      \
+  AlgebraicRule.cpp            \
+  AssignmentRule.cpp           \
+  Compartment.cpp              \
+  CompartmentVolumeRule.cpp    \
+  Event.cpp                    \
+  EventAssignment.cpp          \
+  FunctionDefinition.cpp       \
+  KineticLaw.cpp               \
+  ListOf.cpp                   \
+  Model.cpp                    \
+  ModifierSpeciesReference.cpp \
+  Parameter.cpp                \
+  ParameterRule.cpp            \
+  RateRule.cpp                 \
+  Reaction.cpp                 \
+  Rule.cpp                     \
+  RuleType.c                   \
+  SBMLConvert.c                \
+  SBMLDocument.cpp             \
+  SBMLFormatter.cpp            \
+  SBMLHandler.cpp              \
+  SBMLReader.cpp               \
+  SBMLTagCodes.cpp             \
+  SBMLVisitor.cpp              \
+  SBMLWriter.cpp               \
+  SBase.cpp                    \
+  SimpleSpeciesReference.cpp   \
+  Species.cpp                  \
+  SpeciesConcentrationRule.cpp \
+  SpeciesReference.cpp         \
+  Unit.cpp                     \
+  UnitDefinition.cpp           \
   UnitKind.c
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
@@ -245,9 +250,9 @@ maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal
+dist: all dist-normal dist-recursive
 
-distcheck: distcheck-normal
+distcheck: all distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------

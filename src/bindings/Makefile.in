@@ -88,11 +88,18 @@ else
   subdirs = java lisp matlab python
 endif
 
+swig_extras =    \
+  swig/layout.h  \
+  swig/layout.i  \
+  swig/libsbml.h \
+  swig/libsbml.i \
+  swig/swigdoc.py
+
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-distfiles = Makefile.in swig/libsbml.h swig/libsbml.i
+distfiles = Makefile.in $(swig_extras)
 
 
 # -----------------------------------------------------------------------------

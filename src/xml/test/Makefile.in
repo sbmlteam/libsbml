@@ -82,6 +82,9 @@ test_sources =               \
   TestXMLUtil.cpp            \
   TestRunner.c
 
+test_headers =               \
+  SAX2AttributesMock.h
+
 extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
@@ -112,7 +115,7 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(test_sources) Makefile.in
+distfiles = $(test_sources) $(test_headers) Makefile.in
 
 
 # -----------------------------------------------------------------------------
@@ -178,6 +181,19 @@ install:
 uninstall:
 
 installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-normal
+
+distclean: distclean-normal
+
+mostlyclean: mostlyclean-normal
+
+maintainer-clean: maintainer-clean-normal
 
 
 # -----------------------------------------------------------------------------

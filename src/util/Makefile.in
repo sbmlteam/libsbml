@@ -174,9 +174,9 @@ maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
 # The recursive command is needed because of the ./test subdiretory.
 
-dist: dist-normal dist-recursive
+dist: all dist-normal dist-recursive
 
-distcheck: distcheck-normal distcheck-recursive
+distcheck: all distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------

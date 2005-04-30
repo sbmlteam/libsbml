@@ -164,6 +164,19 @@ installcheck:
 
 
 # -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-normal
+
+distclean: distclean-normal
+
+mostlyclean: mostlyclean-normal
+
+maintainer-clean: maintainer-clean-normal
+
+
+# -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
