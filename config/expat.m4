@@ -66,6 +66,10 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     AC_LANG_PUSH(C)
 
+    EXPAT_CPPFLAGS=
+    EXPAT_LDFLAGS=
+    EXPAT_LIBS=
+
     if test $with_expat != yes; then
       EXPAT_CPPFLAGS="-I$with_expat/include"
       EXPAT_LDFLAGS="-L$with_expat/lib"
