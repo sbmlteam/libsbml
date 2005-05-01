@@ -50,7 +50,7 @@
  */
 
 
-#include <iostream>
+#include "common/common.h"
 #include "common.h"
 
 
@@ -466,4 +466,82 @@ XMLUtil::scanAttrCStr ( const Attributes& attrs,
 
 
   return (index >= 0) ? scanAttrCStr(attrs, index, value) : false;
+}
+
+
+/**
+ * Splits toSplit into XML namespace triplets.  The contents of toSplit
+ * is assumed to have one of the following three forms (whitespace is not
+ * part of the strings below and is provided only for separation
+ * clarity):
+ *
+ *   localname
+ *   uri sepchar localname
+ *   uri sepchar localname sepchar prefix
+ *
+ * The split is performed in-place by replacing each sepchar with NULL.
+ * If a particular namespace component is found (e.g. URI), the
+ * corresponding passed-in variable will be set to the start of that
+ * component.  If a namespace component is not found, the corresponding
+ * passed-in variable will be set to NULL.
+ *
+ * To unsplit, call unsplitNamespaceTriplets()
+ */
+void
+XMLUtil::splitNamespaceTriplets ( XMLCh*  toSplit,
+                                  XMLCh** uri,
+                                  XMLCh** localname,
+                                  XMLCh** prefix,
+                                  XMLCh   sepchar )
+{
+  *uri       = 0;
+  *prefix    = 0;
+  *localname = toSplit;
+
+
+  int pos = XMLString::indexOf(toSplit, sepchar);
+
+  //
+  // At least: uri SepChar localname
+  //
+  if (pos > -1)
+  {
+    toSplit[pos] = '\0';
+    *uri         = toSplit;
+    *localname   = toSplit + pos + 1;
+
+    pos = XMLString::indexOf(*localname, sepchar);
+
+    //
+    // uri SepChar localname SepChar prefix 
+    //
+    if (pos > -1)
+    {
+      (*localname)[pos] = '\0';
+      *prefix           = *localname + pos + 1;
+    }
+  }
+}
+
+
+/**
+ * Undoes the work of splitNamespaceTriplets().
+ */
+void
+XMLUtil::unsplitNamespaceTriplets ( XMLCh** uri,
+                                    XMLCh** localname,
+                                    XMLCh** prefix,
+                                    XMLCh   sepchar )
+{
+  if (*uri)
+  {
+    *(*localname - 1) = sepchar;
+    *uri              = 0;
+  }
+
+  if (*prefix)
+  {
+    *(*prefix - 1) = sepchar;
+    *prefix        = 0;
+  }
 }

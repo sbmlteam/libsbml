@@ -75,7 +75,6 @@
 
 class XMLUtil
 {
-
 public:
 
   /**
@@ -215,6 +214,44 @@ public:
      const Attributes& attrs
    , const XMLCh*      name
    , char**            value
+  );
+
+  /**
+   * Splits toSplit into XML namespace triplets.  The contents of toSplit
+   * is assumed to have one of the following three forms (whitespace is not
+   * part of the strings below and is provided only for separation
+   * clarity):
+   *
+   *   localname
+   *   uri sepchar localname
+   *   uri sepchar localname sepchar prefix
+   *
+   * The split is performed in-place by replacing each sepchar with NULL.
+   * If a particular namespace component is found (e.g. uri), the
+   * corresponding passed-in variable will be set to the start of that
+   * component.  If a namespace component is not found, the corresponding
+   * passed-in variable will be set to NULL.
+   *
+   * To unsplit, call unsplitNamespaceTriplets()
+   */
+  static void splitNamespaceTriplets
+  (
+      XMLCh*  toSplit
+    , XMLCh** uri
+    , XMLCh** localname
+    , XMLCh** prefix
+    , XMLCh   sepchar
+  );
+
+  /**
+   * Undoes the work of splitNamespaceTriplets().
+   */
+  static void unsplitNamespaceTriplets
+  (
+      XMLCh** uri
+    , XMLCh** localname
+    , XMLCh** prefix
+    , XMLCh   sepchar
   );
 };
 
