@@ -142,7 +142,7 @@ AC_SUBST(SHAREDLIBEXT)
 
 dnl Provide dynamic library path settings.
 
-CONFIG_RUN_LDPATH
+CONFIG_LDPATH
 
 
 dnl ---------------------------------------------------------------------------
