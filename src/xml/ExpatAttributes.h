@@ -28,8 +28,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *  Contributor(s):
- *    Ben Bornstein - Minor reformatting, modifications and integration
- *                    into the libsbml source tree.
+ *    Ben Bornstein
  */
 
 
@@ -40,40 +39,96 @@
 #ifdef __cplusplus
 
 
+#include <string>
+#include <map>
+
 #include <expat.h>
+
+#include "common.h"
+#include "ExpatUnicodeChars.h"
 
 
 class Attributes
 {
 public:
-   Attributes(const XML_Char** pAttrs);
-  ~Attributes();
 
+  /**
+   * Creates a new Xerces-C++ Attributes that to wrap the given "raw" Expat
+   * attributes.  The Expat attribute names are assumed to be in namespace
+   * triplet form separated by sepChar.
+   */
+  Attributes (const XML_Char** pAttrs, XML_Char sepChar = chSpace);
+
+  /**
+   * Destroys this Attribute set.
+   */
+  virtual ~Attributes ();
+
+
+  /**
+   * @return the number of attributes in this list.
+   */
   virtual unsigned int getLength () const;
-  virtual unsigned int getIndex  (const XML_Char* const name) const;
 
-  virtual const XML_Char* getValue(const XML_Char*    name)  const;
-  virtual const XML_Char* getValue(const unsigned int index) const;
-  virtual const XML_Char* getQName(const unsigned int index) const;
+  /**
+   * @return the namespace URI of an attribute in this list (by position),
+   * or NULL if index is out of range.
+   */
+  virtual const XML_Char* getURI (const unsigned int index) const;
 
-  //
-  // For the statement:
-  //
-  //   static const unsigned int InvalidIndex = (unsigned int) -1;
-  //
-  // MSVC++ 6.0 complains: "error C2258: illegal pure syntax, must be '=
-  // 0'", but g++ has no problem with it?!  Fine.  For now, just #define.
-  //
-#define InvalidIndex ((unsigned int) -1)
+  /**
+   * @return the local name of an attribute in this list (by position),
+   * or NULL if index is out of range.
+   */
+  virtual const XML_Char* getLocalName (const unsigned int index) const;
+
+  /**
+   * @return the namespace prefix qualified name of an attribute in this
+   * list (by position), or NULL if the index is out of range.
+   */
+  virtual const XML_Char* getQName (const unsigned int index) const;
+
+  /**
+   * Lookup the index of an attribute by name.
+   *
+   * @return the index of the attribute, or -1 if it does not appear in the
+   * list.
+   */
+  virtual int getIndex (const XML_Char* const name) const;
+
+  /**
+   * Lookup an Attributes value by name.
+   *
+   * @return The attribute value as a string or NULL if the attribute is
+   * not in the list.
+   */
+  virtual const XML_Char* getValue (const XML_Char* name) const;
+
+  /**
+   * @return the value of an attribute in the list (by position), or NULL
+   * if index is out of range.
+   */
+  virtual const XML_Char* getValue (const unsigned int index) const;
 
 
 protected:
+
   Attributes();
 
 
 private:
-  const XML_Char** mpAttributes;
-  unsigned int     mSize;
+
+  XML_Char**   mpAttributes;
+  XML_Char     mSepChar;
+  unsigned int mSize;
+
+  /* Points to the respective parts of each attribute name. */
+  XML_Char** mURIs;
+  XML_Char** mLocalNames;
+  XML_Char** mPrefixes;
+
+  typedef std::map<unsigned int, std::string> IndexNameMap;
+  mutable IndexNameMap mQNames;
 };
 
 
