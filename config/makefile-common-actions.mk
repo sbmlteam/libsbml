@@ -458,7 +458,6 @@ endif
 ifeq "$(HOST_TYPE)" "linux"
 
   define libsbmlrun
-	echo $(RUN_LDPATH)
 	LD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:$(RUN_LDPATH):."; export LD_LIBRARY_PATH; export srcdir=.; \
 	$(1)
   endef
