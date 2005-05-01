@@ -67,6 +67,10 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = docs/src
 
+# By default, we only generate PDF and HTML format documentation.  We no
+# longer try to create .dvi files because some people's installations of
+# tex/latex apparently only have a pdflatex and not a regular latex.
+
 # In order to be able to create distributions with ready-to-read docs, we
 # have a separate directory for formatted docs.  This creates a different
 # situation than the case of other make rules in libsbml, because here the
@@ -75,8 +79,8 @@ thisdir = docs/src
 formatted              = ../formatted
 
 preformatted_files     = java.txt python.txt
-generated_manual_files = libsbml-manual libsbml-manual.dvi libsbml-manual.pdf
-generated_apiref_files = libsbml-api-ref.dvi libsbml-api-ref.pdf
+generated_manual_files = libsbml-manual libsbml-manual.pdf
+generated_apiref_files = libsbml-api-ref.pdf
 all_generated_files    = $(generated_manual_files) $(generated_apiref_files) 
 all_doc_files          = $(all_generated_files) $(preformatted_files)
 
@@ -258,7 +262,9 @@ $(formatted)/libsbml-manual.ps libsbml-manual.ps: $(formatted)/libsbml-manual.dv
 	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
 	cp -f libsbml-manual.ps $(formatted)
 
-$(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libsbml-manual.dvi
+# latex2html wants a .aux file
+
+$(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libsbml-manual.pdf
 	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
 	@test -L ./libsbmlextras.perl || ln -s tex/libsbmlextras.perl
 	$(latex-env) latex2html -white -split +0 -show_section_numbers \
