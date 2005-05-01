@@ -209,7 +209,7 @@ public:
    * the List is passed-in by the caller.
    */
   LIBSBML_EXTERN
-  void fillListOfNodes (ASTNodePredicate predicate, List* list);
+  void fillListOfNodes (ASTNodePredicate predicate, List* lst);
 
   /**
    * @return the value of this ASTNode as a single character.  This
@@ -286,6 +286,13 @@ public:
    */
   LIBSBML_EXTERN
   ASTNodeType_t getType () const;
+
+  /**
+   * @return true if this ASTNode is a boolean (a logical operator, a
+   * relational operator, or the constants true or false), false otherwise.
+   */
+  LIBSBML_EXTERN
+  bool isBoolean () const;
 
   /**
    * @return true if this ASTNode is a MathML constant (true, false, pi,
@@ -677,7 +684,7 @@ LIBSBML_EXTERN
 void
 ASTNode_fillListOfNodes ( ASTNode_t        *node,
                           ASTNodePredicate predicate,
-                          List_t           *list );
+                          List_t           *lst );
 
 
 /**
@@ -766,6 +773,14 @@ LIBSBML_EXTERN
 ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node);
 
+/**
+ * @return true (non-zero) if this ASTNode is a boolean (a logical
+ * operator, a relational operator, or the constants true or false), false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isBoolean (const ASTNode_t *node);
 
 /**
  * @return true (non-zero) if this ASTNode is a MathML constant (true,

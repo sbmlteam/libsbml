@@ -636,12 +636,12 @@ LIBSBML_EXTERN
 List*
 ASTNode::getListOfNodes (ASTNodePredicate predicate)
 {
-  List* list = new List;
+  List* lst = new List;
 
 
-  fillListOfNodes(predicate, list);
+  fillListOfNodes(predicate, lst);
 
-  return list;
+  return lst;
 }
 
 
@@ -651,7 +651,7 @@ ASTNode::getListOfNodes (ASTNodePredicate predicate)
  */
 LIBSBML_EXTERN
 void
-ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* list)
+ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst)
 {
   ASTNode*     child;
   unsigned int c;
@@ -661,13 +661,13 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* list)
 
   if (predicate(this) != 0)
   {
-    list->add(this);
+    lst->add(this);
   }
 
   for (c = 0; c < numChildren; c++)
   {
     child = getChild(c);
-    child->fillListOfNodes(predicate, list);
+    child->fillListOfNodes(predicate, lst);
   }
 }
 
@@ -870,6 +870,22 @@ ASTNodeType_t
 ASTNode::getType () const
 {
   return mType;
+}
+
+
+/**
+ * @return true if this ASTNode is a boolean (a logical operator, a
+ * relational operator, or the constants true or false), false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isBoolean () const
+{
+  return
+    isLogical   () ||
+    isRelational() ||
+    mType == AST_CONSTANT_TRUE ||
+    mType == AST_CONSTANT_FALSE;
 }
 
 
@@ -1484,9 +1500,9 @@ LIBSBML_EXTERN
 void
 ASTNode_fillListOfNodes ( ASTNode_t        *node,
                           ASTNodePredicate predicate,
-                          List_t           *list )
+                          List_t           *lst )
 {
-  List* x = static_cast<List*>(list);
+  List* x = static_cast<List*>(lst);
 
   static_cast<ASTNode*>(node)->fillListOfNodes(predicate, x);
 }
@@ -1615,6 +1631,19 @@ ASTNodeType_t
 ASTNode_getType (const ASTNode_t *node)
 {
   return static_cast<const ASTNode*>(node)->getType();
+}
+
+
+/**
+ * @return true (non-zero) if this ASTNode is a boolean (a logical
+ * operator, a relational operator, or the constants true or false), false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isBoolean (const ASTNode_t *node)
+{
+  return (int) static_cast<const ASTNode*>(node)->isBoolean();
 }
 
 
