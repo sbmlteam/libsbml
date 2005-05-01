@@ -295,6 +295,23 @@ public:
   void enableNamespaceDeclHandler(bool enable = true);
 
   /**
+   * Enable/Disable namespace triplet reporting.  When enabled, and if the
+   * Expat parser was created with namespace handling (i.e. a non-null
+   * separator character given to create()), then for the
+   * onStart/onEndElement() handlers, the element name will have the
+   * following form:
+   *
+   *   ns-uri sep name sep ns-prefix
+   *
+   * (whitespace will not be present and is provided only for clarity)
+   * where the namespace uri and/or the namespace prefix (and its
+   * corresponding separator may not be present).
+   *
+   * @param bool enable (Default: true)
+   */
+  void enableNamespaceTriplets(bool enable = true);
+
+  /**
    * Start namespace declaration handler
    *
    * @param  const XML_Char*  prefix
