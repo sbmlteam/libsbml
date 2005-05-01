@@ -53,9 +53,11 @@
 #define SBMLTypeCodes_h
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "common/libsbml-config.h"
+#include "common/extern.h"
+
+
+BEGIN_C_DECLS
 
 
 /**
@@ -64,7 +66,9 @@ extern "C" {
  */
 typedef enum
 {
-    SBML_COMPARTMENT
+    SBML_UNKNOWN
+
+  , SBML_COMPARTMENT
   , SBML_DOCUMENT
   , SBML_EVENT
   , SBML_EVENT_ASSIGNMENT
@@ -105,9 +109,17 @@ typedef enum
 } SBMLTypeCode_t;
 
 
-#ifdef __cplusplus
-}
-#endif
+/**
+ * @return a human readable name for the given SBMLTypeCode_t.  The caller
+ * does not own the returned string and is therefore not allowed to modify
+ * it.
+ */
+LIBSBML_EXTERN
+const char *
+SBMLTypeCode_toString (SBMLTypeCode_t tc);
 
 
-#endif  /** SBMLTypeCodes_h **/
+END_C_DECLS
+
+
+#endif  /* SBMLTypeCodes_h */
