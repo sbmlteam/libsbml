@@ -28,33 +28,36 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
   if test $with_libcheck != no; then
 
-    LIBCHECK_CPPFLAGS=
-    LIBCHECK_LDFLAGS=
-    LIBCHECK_LIBS=
+    AC_LANG_PUSH(C)
 
     if test $with_libcheck != yes; then
-      LIBCHECK_CPPFLAGS="-I$with_libcheck/include"
-      LIBCHECK_LDFLAGS="-L$with_libcheck/lib"
+      libcheck_root="$with_libcheck"
+      RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
     else
       dnl On the Macs, if the user has installed libcheck via Fink and they
       dnl used the default Fink install path of /sw, the following should
       dnl catch it.  We do this so that Mac users are more likely to find
-      dnl success even if they only type --with-expat.
+      dnl success even if they only type --with-check.
 
       case $host in
       *darwin*) 
-        LIBCHECK_CPPFLAGS="-I/sw/include"
-        LIBCHECK_LDFLAGS="-L/sw/lib"
+        libcheck_root="/sw"
+        RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
 	;;
       esac    
 
     fi
 
-    AC_LANG_PUSH(C)
+    LIBCHECK_CPPFLAGS="-I$with_libcheck/include"
+    LIBCHECK_LDFLAGS="-L$with_libcheck/lib"
+    LIBCHECK_LIBS="-lcheck"
+
+    dnl The following is grungy but I don't know how else to make 
+    dnl AC_CHECK_LIB use particular library and include paths without
+    dnl permanently resetting CPPFLAGS etc.
 
     tmp_CPPFLAGS=$CPPFLAGS
     tmp_LDFLAGS=$LDFLAGS
-    tmp_LIBS=$LIBS
     CPPFLAGS="$LIBCHECK_CPPFLAGS $CPPFLAGS"
     LDFLAGS="$LIBCHECK_LDFLAGS $LDFLAGS"
 
@@ -66,9 +69,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
         [libcheck_found=no])
     fi
 
-    if test $libcheck_found = yes; then
-      LIBCHECK_LIBS="$LIBS -lcheck"
-    else 
+    if test $libcheck_found = no; then
       AC_MSG_ERROR([Could not find the libcheck library.])
     fi
 
@@ -78,7 +79,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     AC_LANG_POP(C)
 
-    AC_DEFINE([USE_LIBCHECK], 1, [Define to 1 to use the libcheck library])
+    AC_DEFINE([USE_LIBCHECK], 1, [Define to 1 to use the check library])
     AC_SUBST(USE_LIBCHECK, 1)
 
     AC_SUBST(LIBCHECK_CPPFLAGS)

@@ -71,15 +71,13 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 
     AC_LANG_PUSH(C++)
 
-    XERCES_CPPFLAGS=
-    XERCES_LDFLAGS=
-    XERCES_LIBS=
-
     if test $with_xerces != yes; then
-      XERCES_CPPFLAGS="-I$with_xerces/include"
-      XERCES_LDFLAGS="-L$with_xerces/lib"
+      xerces_root="$with_xerces"
+      RUN_LDPATH="$RUN_LDPATH:$xerces_root/lib"
     fi
 
+    XERCES_CPPFLAGS="-I$xerces_root/include"
+    XERCES_LDFLAGS="-L$xerces_root/lib"
     XERCES_LIBS="-lxerces-c"
 
     dnl The following is grungy but I don't know how else to make 

@@ -66,13 +66,9 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     AC_LANG_PUSH(C)
 
-    EXPAT_CPPFLAGS=
-    EXPAT_LDFLAGS=
-    EXPAT_LIBS=
-
     if test $with_expat != yes; then
-      EXPAT_CPPFLAGS="-I$with_expat/include"
-      EXPAT_LDFLAGS="-L$with_expat/lib"
+      expat_root="$with_expat"
+      RUN_LDPATH="$RUN_LDPATH:$expat_root/lib"
     else
       dnl On the Macs, if the user has installed expat via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -81,13 +77,15 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
       case $host in
       *darwin*) 
-        EXPAT_CPPFLAGS="-I/sw/include"
-        EXPAT_LDFLAGS="-L/sw/lib"
+        expat_root="/sw"
+        RUN_LDPATH="$RUN_LDPATH:$expat_root/lib" 
 	;;
       esac    
 
     fi
 
+    EXPAT_CPPFLAGS="-I$expat_root/include"
+    EXPAT_LDFLAGS="-I$expat_root/lib"
     EXPAT_LIBS="-lexpat"
 
     dnl The following is grungy but I don't know how else to make 
@@ -96,10 +94,8 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     tmp_CPPFLAGS=$CPPFLAGS
     tmp_LDFLAGS=$LDFLAGS
-    tmp_LIBS=$LIBS
     CPPFLAGS="$CPPFLAGS $EXPAT_CPPFLAGS"
     LDFLAGS="$LDFLAGS $EXPAT_LDFLAGS"
-    LIBS="$LIBS $EXPAT_LIBS"
 
     AC_CHECK_LIB(expat, XML_ParserCreate, [expat_found=yes], [expat_found=no])
 
@@ -115,7 +111,6 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     CPPFLAGS=$tmp_CPPFLAGS
     LDFLAGS=$tmp_LDFLAGS
-    LIBS=$tmp_LIBS
 
     AC_LANG_POP(C)
 
