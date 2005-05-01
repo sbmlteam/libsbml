@@ -2478,7 +2478,6 @@ START_TEST (test_element_annotation_sbml)
 
 
   D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
 
   fail_unless( !strcmp(SBase_getAnnotation(D), a), NULL );
   fail_unless( SBMLDocument_getNumErrors(D) == 1, NULL );
