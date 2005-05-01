@@ -92,21 +92,25 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	  dnl MacOSX-installed version of Python (we hope).
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
+          RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload"
 	else
 	  dnl Fink-installed version of Python, or something else.
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
+          RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload"
 	fi
 	;;
     *cygwin* | *mingw*) 
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
 	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
+	RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
 	;;
     *)
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
         PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
+	RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
 	;;
     esac
 

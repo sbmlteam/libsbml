@@ -450,7 +450,7 @@ maintainer-clean-generic:
 ifeq "$(HOST_TYPE)" "darwin"
 
   define libsbmlrun
-	DYLD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:$(DYLD_LIBRARY_PATH):."; export DYLD_LIBRARY_PATH; export srcdir=.; \
+	DYLD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:$(RUN_LDPATH):."; export DYLD_LIBRARY_PATH; export srcdir=.; \
 	$(1)
   endef
 
@@ -458,7 +458,8 @@ endif
 ifeq "$(HOST_TYPE)" "linux"
 
   define libsbmlrun
-	LD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:$(LD_LIBRARY_PATH):."; export LD_LIBRARY_PATH; export srcdir=.; \
+	echo $(RUN_LDPATH)
+	LD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:$(RUN_LDPATH):."; export LD_LIBRARY_PATH; export srcdir=.; \
 	$(1)
   endef
 
