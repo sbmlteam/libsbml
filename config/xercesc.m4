@@ -73,11 +73,12 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 
     if test $with_xerces != yes; then
       xerces_root="$with_xerces"
-      RUN_LDPATH="$RUN_LDPATH:$xerces_root/lib"
+      CONFIG_ADD_LDPATH($xerces_root/lib)
+
+      XERCES_CPPFLAGS="-I$xerces_root/include"
+      XERCES_LDFLAGS="-L$xerces_root/lib"
     fi
 
-    XERCES_CPPFLAGS="-I$xerces_root/include"
-    XERCES_LDFLAGS="-L$xerces_root/lib"
     XERCES_LIBS="-lxerces-c"
 
     dnl The following is grungy but I don't know how else to make 

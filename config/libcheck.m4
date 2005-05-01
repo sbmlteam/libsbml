@@ -32,7 +32,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
-      RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
+      CONFIG_ADD_LDPATH($libcheck_root/lib)
     else
       dnl On the Macs, if the user has installed libcheck via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -42,7 +42,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
       case $host in
       *darwin*) 
         libcheck_root="/sw"
-        RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
+        CONFIG_ADD_LDPATH($libcheck_root/lib)
 	;;
       esac    
 

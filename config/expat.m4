@@ -68,7 +68,7 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     if test $with_expat != yes; then
       expat_root="$with_expat"
-      RUN_LDPATH="$RUN_LDPATH:$expat_root/lib"
+      CONFIG_ADD_LDPATH($expat_root/lib)
     else
       dnl On the Macs, if the user has installed expat via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -78,10 +78,12 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
       case $host in
       *darwin*) 
         expat_root="/sw"
-        RUN_LDPATH="$RUN_LDPATH:$expat_root/lib" 
+        CONFIG_ADD_LDPATH($expat_root/lib)
 	;;
       esac    
 
+      dnl Note that CONFIG_ADD_LDPATH is deliberately not called in cases
+      dnl other than the two above.
     fi
 
     EXPAT_CPPFLAGS="-I$expat_root/include"

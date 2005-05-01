@@ -45,7 +45,10 @@ dnl     mailto:sbml-team@caltech.edu
 dnl
 dnl Contributor(s):
 
-AC_DEFUN([CONFIG_RUN_LDPATH],
+dnl CONFIG_LDPATH needs to be called from configure.ac to initialize the 
+dnl internal variable.  It needs to be called fairly early.
+
+AC_DEFUN([CONFIG_LDPATH],
 [
   AC_DEFINE([RUN_LDPATH])
 
@@ -62,3 +65,13 @@ AC_DEFUN([CONFIG_RUN_LDPATH],
 
   AC_SUBST(RUN_LDPATH)
 ])
+
+
+dnl CONFIG_ADD_LDPATH(path) adds "path" to list of paths used to set
+dnl LD_LIBRARY_PATH.
+
+AC_DEFUN([CONFIG_ADD_LDPATH],
+[
+  RUN_LDPATH="$RUN_LDPATH:$1"
+])
+
