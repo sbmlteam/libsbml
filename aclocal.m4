@@ -81,7 +81,7 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     if test $with_expat != yes; then
       expat_root="$with_expat"
-      RUN_LDPATH="$RUN_LDPATH:$expat_root/lib"
+      CONFIG_ADD_LDPATH($expat_root/lib)
     else
       dnl On the Macs, if the user has installed expat via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -91,10 +91,12 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
       case $host in
       *darwin*) 
         expat_root="/sw"
-        RUN_LDPATH="$RUN_LDPATH:$expat_root/lib" 
+        CONFIG_ADD_LDPATH($expat_root/lib)
 	;;
       esac    
 
+      dnl Note that CONFIG_ADD_LDPATH is deliberately not called in cases
+      dnl other than the two above.
     fi
 
     EXPAT_CPPFLAGS="-I$expat_root/include"
@@ -466,7 +468,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
-      RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
+      CONFIG_ADD_LDPATH($libcheck_root/lib)
     else
       dnl On the Macs, if the user has installed libcheck via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -476,7 +478,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
       case $host in
       *darwin*) 
         libcheck_root="/sw"
-        RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
+        CONFIG_ADD_LDPATH($libcheck_root/lib)
 	;;
       esac    
 
@@ -1059,25 +1061,24 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	  dnl MacOSX-installed version of Python (we hope).
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
-          RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload"
 	else
 	  dnl Fink-installed version of Python, or something else.
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
-          RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload"
 	fi
+        CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload)
 	;;
     *cygwin* | *mingw*) 
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME} -DUSE_DL_IMPORT"
 	PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
-	RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
+	CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config)
 	;;
     *)
 	PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
         PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
         PYTHON_LIBS="-l${PYTHON_NAME}"
-	RUN_LDPATH="${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config"
+	CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/config)
 	;;
     esac
 
@@ -1144,7 +1145,10 @@ dnl     mailto:sbml-team@caltech.edu
 dnl
 dnl Contributor(s):
 
-AC_DEFUN([CONFIG_RUN_LDPATH],
+dnl CONFIG_LDPATH needs to be called from configure.ac to initialize the 
+dnl internal variable.  It needs to be called fairly early.
+
+AC_DEFUN([CONFIG_LDPATH],
 [
   AC_DEFINE([RUN_LDPATH])
 
@@ -1161,6 +1165,16 @@ AC_DEFUN([CONFIG_RUN_LDPATH],
 
   AC_SUBST(RUN_LDPATH)
 ])
+
+
+dnl CONFIG_ADD_LDPATH(path) adds "path" to list of paths used to set
+dnl LD_LIBRARY_PATH.
+
+AC_DEFUN([CONFIG_ADD_LDPATH],
+[
+  RUN_LDPATH="$RUN_LDPATH:$1"
+])
+
 
 dnl
 dnl Filename    : swig.m4
@@ -1403,11 +1417,12 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 
     if test $with_xerces != yes; then
       xerces_root="$with_xerces"
-      RUN_LDPATH="$RUN_LDPATH:$xerces_root/lib"
+      CONFIG_ADD_LDPATH($xerces_root/lib)
+
+      XERCES_CPPFLAGS="-I$xerces_root/include"
+      XERCES_LDFLAGS="-L$xerces_root/lib"
     fi
 
-    XERCES_CPPFLAGS="-I$xerces_root/include"
-    XERCES_LDFLAGS="-L$xerces_root/lib"
     XERCES_LIBS="-lxerces-c"
 
     dnl The following is grungy but I don't know how else to make 
