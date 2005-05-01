@@ -100,7 +100,7 @@ public:
    * Resets the state of this GlobalConstraint by clearing its internal
    * list of error messages.
    */
-  virtual void reset () { mMessages.clear(); }
+  virtual void reset () { mHolds = true; mMessages.clear(); }
 
 
 protected:
