@@ -108,62 +108,51 @@ public:
   /**
    * @return The number of attributes in the list.
    */
-  virtual
-  unsigned int getLength() const;
+  virtual unsigned int getLength() const;
 
   /**
    * @return 0.  CURRENTLY UNIMPLEMENTED.
    */
-  virtual
-  const XMLCh* getURI (const unsigned int index) const;
+  virtual const XMLCh* getURI (const unsigned int index) const;
 
   /**
    * @return The local name of the indexed attribute, or null if the index
    * is out of range.
    */
-  virtual
-  const XMLCh* getLocalName (const unsigned int index) const;
+  virtual const XMLCh* getLocalName (const unsigned int index) const;
 
   /**
    * @return getLocalName(index)
    */
-  virtual
-  const XMLCh* getQName (const unsigned int index) const;
+  virtual const XMLCh* getQName (const unsigned int index) const;
 
   /**
    * @return 0.  CURRENTLY UNIMPLEMENTED.
    */
-  virtual
-  const XMLCh* getType (const unsigned int index) const;
+  virtual const XMLCh* getType (const unsigned int index) const;
 
   /**
    * @return The attribute value as a string, or null if the index is out
    * of range.
    */
-  virtual
-  const XMLCh* getValue (const unsigned int index) const;
+  virtual const XMLCh* getValue (const unsigned int index) const;
 
   /**
    * @return 0.  CURRENTLY UNIMPLEMENTED.
    */
-  virtual
-  int getIndex (const XMLCh* const uri, const XMLCh* const localPart) const;
-
-  /**
-   * @return 0.  CURRENTLY UNIMPLEMENTED.
-   */
-  virtual
-#ifdef USE_EXPAT
-   unsigned
-#endif
-   int getIndex (const XMLCh* const qname) const;
-
-  /**
-   * @return 0.  CURRENTLY UNIMPLEMENTED.
-   */
-  virtual
-  const XMLCh* getType (const XMLCh* const uri,
+  virtual int getIndex (const XMLCh* const uri,
                         const XMLCh* const localPart) const;
+
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual int getIndex (const XMLCh* const qname) const;
+
+  /**
+   * @return 0.  CURRENTLY UNIMPLEMENTED.
+   */
+  virtual const XMLCh* getType (const XMLCh* const uri,
+                                const XMLCh* const localPart) const;
 
   /**
    * @return 0.  CURRENTLY UNIMPLEMENTED.

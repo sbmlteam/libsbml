@@ -81,7 +81,6 @@ SAX2AttributesMock::SAX2AttributesMock (unsigned int max) :
 
 SAX2AttributesMock::~SAX2AttributesMock ()
 {
-
   for (unsigned int i = 0; i < mLength; i++)
   {
     delete [] mLocalNames[i];
@@ -180,9 +179,6 @@ SAX2AttributesMock::getIndex (const XMLCh* const  uri,
 /**
  * @return 0.  CURRENTLY UNIMPLEMENTED.
  */
-#ifdef USE_EXPAT
-unsigned
-#endif
 int
 SAX2AttributesMock::getIndex (const XMLCh* const qname) const
 {
