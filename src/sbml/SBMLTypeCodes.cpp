@@ -103,6 +103,7 @@ const char* SBML_TYPE_CODE_STRINGS[] =
  * does not own the returned string and is therefore not allowed to modify
  * it.
  */
+LIBSBML_EXTERN
 const char *
 SBMLTypeCode_toString (SBMLTypeCode_t tc)
 {
