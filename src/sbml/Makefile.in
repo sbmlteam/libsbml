@@ -133,6 +133,7 @@ sources =                      \
   SBMLHandler.cpp              \
   SBMLReader.cpp               \
   SBMLTagCodes.cpp             \
+  SBMLTypeCodes.cpp            \
   SBMLVisitor.cpp              \
   SBMLWriter.cpp               \
   SBase.cpp                    \
