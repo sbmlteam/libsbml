@@ -81,36 +81,18 @@
 using namespace std;
 
 
-#ifdef USE_EXPAT
-
-void
-LayoutHandler::onStartElement(const XML_Char *localname,
-                                const XML_Char **papszAttrs){
-
-#else
-
 void
 LayoutHandler::startElement (const XMLCh* const  uri,
                              const XMLCh* const  localname,
                              const XMLCh* const  qname,
                              const Attributes&   attrs)
 {
-
-
-#endif // USE_EXPAT
-
-#ifdef USE_EXPAT
-  XMLCh*              uri = NULL;
-  Attributes          attrs(papszAttrs);
-  const XMLCh* const  qname = localname;
-  enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
-
   LayoutTagCode_t currTag  = getTagCode(uri, localname);
   LayoutTagCode_t prevTag  = TAG_UNKNOWN;
   FILE* errStream;
   SBase* obj=NULL;
   SBase* prevNode=NULL;
+
   /*
   char* lname = XMLString::transcode(localname);
   
@@ -121,153 +103,164 @@ LayoutHandler::startElement (const XMLCh* const  uri,
   std::cout <<  "<" << lname << ">" << std::endl;
   XMLString::release(&lname);
   */
-  if (inAnnotation){
-      fFormatter->startElement(qname, attrs);
-      if (currTag == TAG_ANNOTATION || currTag == TAG_ANNOTATIONS)
-      {
-          inAnnotation++;
-      }
+
+  if (inAnnotation)
+  {
+    fFormatter->startElement(qname, attrs);
+    if (currTag == TAG_ANNOTATION || currTag == TAG_ANNOTATIONS)
+    {
+      inAnnotation++;
+    }
   }
-  else if(inNotes){
+  else if (inNotes)
+  {
     fFormatter->startElement(qname, attrs);
     if (currTag == TAG_NOTES)
     {
       warning("<notes> elements cannot be nested.");
       inNotes++;
     }
-
   }
   else if (currTag == TAG_ANNOTATION || currTag == TAG_ANNOTATIONS)
   {
-#ifdef USE_EXPAT
-      if (!inAnnotation) enableCharacterDataHandler();
-#endif  // USE_EXPAT
-      fFormatter->startElement(qname, attrs);
-
-      inAnnotation++;
+    fFormatter->startElement(qname, attrs);
+    inAnnotation++;
   }
   else if (currTag == TAG_NOTES)
   {
-#ifdef USE_EXPAT
-      if (!inNotes) enableCharacterDataHandler();
-#endif  // USE_EXPAT
-
-      inNotes++;
+    inNotes++;
   }    
-  else {
-      if (Stack_size(fTagStack) > 0)
-      {
-          prevTag  = (LayoutTagCode_t) Stack_peek(fTagStack);
-          prevNode = (SBase*)      Stack_peek(fObjStack);
-      }
-      switch (currTag)
-      {
-          case TAG_BOUNDING_BOX:
-              obj=(SBase*)doBoundingBox(attrs);
-              break;
-          case TAG_COMPARTMENT_GLYPH:
-              obj=(SBase*)doCompartmentGlyph(attrs);
-              break;
-          case TAG_CURVE:
-              obj=(SBase*)doCurve(attrs);
-              break;
-          case TAG_CURVE_SEGMENT:
-              obj=(SBase*)doCurveSegment(attrs);
-              break;
-          case TAG_DIMENSIONS:
-              obj=(SBase*)doDimensions(attrs);
-              break;      
-          case TAG_LAYOUT:
-              obj=(SBase*)doLayout(attrs);
-              break;
-          case TAG_LIST_OF_ADDITIONAL_GRAPHICAL_OBJECTS:
-              obj=(SBase*)doListOfAdditionalGraphicalObjects(attrs);
-              break;
-          case TAG_LIST_OF_COMPARTMENT_GLYPHS:
-              obj=(SBase*)doListOfCompartmentGlyphs(attrs);
-              break;
-          case TAG_LIST_OF_CURVE_SEGMENTS:
-              obj=(SBase*)doListOfCurveSegments(attrs);
-              break;
-          case TAG_LIST_OF_LAYOUTS:
-              obj=(SBase*)doListOfLayouts(attrs);
-              break;
-          case TAG_LIST_OF_REACTION_GLYPHS:
-              obj=(SBase*)doListOfReactionGlyphs(attrs);
-              break;
-          case TAG_LIST_OF_SPECIES_GLYPHS:
-              obj=(SBase*)doListOfSpeciesGlyphs(attrs);
-              break;
-          case TAG_LIST_OF_SPECIES_REFERENCE_GLYPHS:
-              obj=(SBase*)doListOfSpeciesReferenceGlyphs(attrs);
-              break;
-          case TAG_LIST_OF_TEXT_GLYPHS:
-              obj=(SBase*)doListOfTextGlyphs(attrs);
-              break;
-          case TAG_BOUNDING_BOX_POSITION:
-              obj=(SBase*)doPosition(attrs);
-              break;
-          case TAG_LINE_SEGMENT_START:
-              obj=(SBase*)doStart(attrs);
-              break;
-          case TAG_LINE_SEGMENT_END:
-              obj=(SBase*)doEnd(attrs);
-              break;
-          case TAG_CUBIC_BEZIER_BASE_POINT_1:
-              obj=(SBase*)doBasePoint1(attrs);
-              break;
-          case TAG_CUBIC_BEZIER_BASE_POINT_2:
-              obj=(SBase*)doBasePoint2(attrs);
-              break;    
-          case TAG_REACTION_GLYPH:
-              obj=(SBase*)doReactionGlyph(attrs);
-              break;
-          case TAG_SPECIES_GLYPH:
-              obj=(SBase*)doSpeciesGlyph(attrs);
-              break;
-          case TAG_SPECIES_REFERENCE_GLYPH:
-              obj=(SBase*)doSpeciesReferenceGlyph(attrs);
-              break;
-          case TAG_TEXT_GLYPH:
-              obj=(SBase*)doTextGlyph(attrs);
-              break;
-          default:
-              errStream=fdopen(2,"w");
-              char* c=XMLString::transcode(qname);
-              fprintf(errStream,"Error. Unknown start tag %s.\n",c);
-              XMLString::release(&c);
-              fclose(errStream);
-              exit(1);
-              break;
-      }
+  else
+  {
+    if (Stack_size(fTagStack) > 0)
+    {
+      prevTag  = (LayoutTagCode_t) Stack_peek(fTagStack);
+      prevNode = (SBase*)      Stack_peek(fObjStack);
+    }
 
-      if (obj != NULL)
-      {
-          setLineAndColumn(obj);
-          Stack_push(fTagStack, (void*) currTag);
-          Stack_push(fObjStack, obj);
-      }
-      else{
-	      std::cout << "Sorry object is NULL." << std::endl;
-      }
+    switch (currTag)
+    {
+      case TAG_BOUNDING_BOX:
+        obj=(SBase*)doBoundingBox(attrs);
+        break;
+
+      case TAG_COMPARTMENT_GLYPH:
+        obj=(SBase*)doCompartmentGlyph(attrs);
+        break;
+
+      case TAG_CURVE:
+        obj=(SBase*)doCurve(attrs);
+        break;
+
+      case TAG_CURVE_SEGMENT:
+        obj=(SBase*)doCurveSegment(attrs);
+        break;
+
+      case TAG_DIMENSIONS:
+        obj=(SBase*)doDimensions(attrs);
+        break;      
+
+      case TAG_LAYOUT:
+        obj=(SBase*)doLayout(attrs);
+        break;
+
+      case TAG_LIST_OF_ADDITIONAL_GRAPHICAL_OBJECTS:
+        obj=(SBase*)doListOfAdditionalGraphicalObjects(attrs);
+        break;
+
+      case TAG_LIST_OF_COMPARTMENT_GLYPHS:
+        obj=(SBase*)doListOfCompartmentGlyphs(attrs);
+        break;
+
+      case TAG_LIST_OF_CURVE_SEGMENTS:
+        obj=(SBase*)doListOfCurveSegments(attrs);
+        break;
+
+      case TAG_LIST_OF_LAYOUTS:
+        obj=(SBase*)doListOfLayouts(attrs);
+        break;
+
+      case TAG_LIST_OF_REACTION_GLYPHS:
+        obj=(SBase*)doListOfReactionGlyphs(attrs);
+        break;
+
+      case TAG_LIST_OF_SPECIES_GLYPHS:
+        obj=(SBase*)doListOfSpeciesGlyphs(attrs);
+        break;
+
+      case TAG_LIST_OF_SPECIES_REFERENCE_GLYPHS:
+        obj=(SBase*)doListOfSpeciesReferenceGlyphs(attrs);
+        break;
+
+      case TAG_LIST_OF_TEXT_GLYPHS:
+        obj=(SBase*)doListOfTextGlyphs(attrs);
+        break;
+
+      case TAG_BOUNDING_BOX_POSITION:
+        obj=(SBase*)doPosition(attrs);
+        break;
+
+      case TAG_LINE_SEGMENT_START:
+        obj=(SBase*)doStart(attrs);
+        break;
+
+      case TAG_LINE_SEGMENT_END:
+        obj=(SBase*)doEnd(attrs);
+        break;
+
+      case TAG_CUBIC_BEZIER_BASE_POINT_1:
+        obj=(SBase*)doBasePoint1(attrs);
+        break;
+
+      case TAG_CUBIC_BEZIER_BASE_POINT_2:
+        obj=(SBase*)doBasePoint2(attrs);
+        break;    
+
+      case TAG_REACTION_GLYPH:
+        obj=(SBase*)doReactionGlyph(attrs);
+        break;
+
+      case TAG_SPECIES_GLYPH:
+        obj=(SBase*)doSpeciesGlyph(attrs);
+        break;
+
+      case TAG_SPECIES_REFERENCE_GLYPH:
+        obj=(SBase*)doSpeciesReferenceGlyph(attrs);
+        break;
+
+      case TAG_TEXT_GLYPH:
+        obj=(SBase*)doTextGlyph(attrs);
+        break;
+
+      default:
+        errStream=fdopen(2,"w");
+        char* c=XMLString::transcode(qname);
+        fprintf(errStream,"Error. Unknown start tag %s.\n",c);
+        XMLString::release(&c);
+        fclose(errStream);
+        exit(1);
+        break;
+    }
+
+    if (obj != NULL)
+    {
+      setLineAndColumn(obj);
+      Stack_push(fTagStack, (void*) currTag);
+      Stack_push(fObjStack, obj);
+    }
+    else
+    {
+      std::cout << "Sorry object is NULL." << std::endl;
+    }
   }
-} 
-    
-#ifdef USE_EXPAT
-void
-LayoutHandler::onEndElement(const XML_Char *localname){
-  XMLCh* uri = NULL;
-  const XMLCh* const  qname = localname;
+}
 
-#else
-
+   
 void
 LayoutHandler::endElement (const XMLCh* const  uri,
                            const XMLCh* const  localname,
                            const XMLCh* const  qname)
 {
-
-#endif // USE_EXPAT
   LayoutTagCode_t prevTag;
   SBase* node;
   SBase* prevNode;
@@ -287,10 +280,6 @@ LayoutHandler::endElement (const XMLCh* const  uri,
     }
 
     inNotes--;
-
-#ifdef USE_EXPAT
-    if (!inNotes) enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
   }
 
   //
@@ -309,12 +298,9 @@ LayoutHandler::endElement (const XMLCh* const  uri,
     }
 
     inAnnotation--;
-
-#ifdef USE_EXPAT
-    if (!inAnnotation) enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
   }
-  else{
+  else
+  {
     node = (SBase*) Stack_pop(fObjStack);
     prevNode=(SBase*)Stack_peek(fObjStack);
     Stack_pop(fTagStack);
@@ -528,23 +514,11 @@ LayoutHandler::endElement (const XMLCh* const  uri,
     }
 }
     
-#ifdef USE_EXPAT
-
-void
-LayoutHandler::onCharacterData(const XML_Char *chars,int length){
-
-    
-#else
 
 void
 LayoutHandler::characters (const XMLCh* const  chars,
                            const unsigned int  length)
 {
-
-#endif // USE_EXPAT
-  /* MathMLTagCode_t tag = (MathMLTagCode_t) Stack_peek(fTagStack); */
-
-
 #ifdef USE_EXPAT
   if (XMLString::isAllWhiteSpace(chars, length) == false)
   {
@@ -560,17 +534,20 @@ LayoutHandler::characters (const XMLCh* const  chars,
 
 
 void
-LayoutHandler::warning(const char* message){
+LayoutHandler::warning (const char* message)
+{
   List_add( this->warnings, ParseMessage_createFrom(message) );
 }
 
 void
-LayoutHandler::error(const char* message){
+LayoutHandler::error (const char* message)
+{
   List_add( this->errors, ParseMessage_createFrom(message) );
 }
 
 void
-LayoutHandler::fatalerror(const char* message){
+LayoutHandler::fatalerror (const char* message)
+{
   List_add( this->fatalErrors, ParseMessage_createFrom(message) );
 }
 
@@ -578,20 +555,24 @@ LayoutHandler::fatalerror(const char* message){
 #ifndef USE_EXPAT
 
 void 
-LayoutHandler::warning (const SAXParseException& e){
+LayoutHandler::warning (const SAXParseException& e)
+{
   List_add( this->warnings, ParseMessage_createFrom(e) );
 }
 
 void
-LayoutHandler::error   (const SAXParseException& e){
+LayoutHandler::error (const SAXParseException& e)
+{
   List_add( this->errors, ParseMessage_createFrom(e) );
 }
 
 void
-LayoutHandler::fatalerror (const SAXParseException& e){
+LayoutHandler::fatalerror (const SAXParseException& e)
+{
   List_add( this->fatalErrors, ParseMessage_createFrom(e) );
 }
-#endif /* USE_EXPAT */
+
+#endif  /* USE_EXPAT */
 
 
 
@@ -626,10 +607,15 @@ LayoutHandler::setDocumentLocator (const Locator *const locator)
 {
   fLocator = locator;
 }
-#endif
+#endif  /* USE_EXPAT */
+
 
 void 
-LayoutHandler::ignorableWhitespace(const XMLCh* const chars, const unsigned int length){}
+LayoutHandler::ignorableWhitespace (const XMLCh* const chars,
+                                    const unsigned int length)
+{
+}
+
 
 /**
  * @return the LayoutTagCode for the given namespace URI and element name
@@ -658,61 +644,66 @@ LayoutHandler::getTagCode (const XMLCh *uri, const XMLCh* localname)
 
 
 
-LayoutHandler::LayoutHandler(ListOf* l):
-   DefaultHandler(),
-   listOfLayouts(l){
-#ifdef USE_EXPAT
-    create();
-#endif /* USE_EXPAT */
-
-    this->errors=new List();
-    this->warnings=new List();
-    this->fatalErrors=new List();
+LayoutHandler::LayoutHandler (ListOf* l) : DefaultHandler(), listOfLayouts(l)
+{
+  this->errors     = new List();
+  this->warnings   = new List();
+  this->fatalErrors= new List();
 }
 
-LayoutHandler::~LayoutHandler(){
-    delete this->errors;
-    delete this->warnings;
-    delete this->fatalErrors;
+
+LayoutHandler::~LayoutHandler()
+{
+  delete this->errors;
+  delete this->warnings;
+  delete this->fatalErrors;
 }
 
 
 SBase*
-LayoutHandler::doListOfLayouts (const Attributes& a){
-    return (SBase*)listOfLayouts;
+LayoutHandler::doListOfLayouts (const Attributes& a)
+{
+  return (SBase*)listOfLayouts;
 }
 
+
 SBase*
-LayoutHandler::doLayout (const Attributes& a){
-    Layout* l=new Layout();
+LayoutHandler::doLayout (const Attributes& a)
+{
+  Layout* l=new Layout();
     
-    std::string id;
+  std::string id;
     
-    XMLUtil::scanAttr(a, ATTR_ID, id);
-    l->setId(id);
-    currentLayout=l;
-    listOfLayouts->append(currentLayout);
-    return (SBase*)l;
-};
-
-SBase*
-LayoutHandler::doGraphicalObject(const Attributes& a){
-    GraphicalObject* go=&currentLayout->createAdditionalGraphicalObject();
-    
-    XMLUtil::scanAttr(a, ATTR_ID, go->id);
-    return (SBase*)go;
+  XMLUtil::scanAttr(a, ATTR_ID, id);
+  l->setId(id);
+  currentLayout=l;
+  listOfLayouts->append(currentLayout);
+  return (SBase*)l;
 }
 
+
 SBase*
-LayoutHandler::doCompartmentGlyph(const Attributes& a){
-    CompartmentGlyph* cg=&currentLayout->createCompartmentGlyph();
+LayoutHandler::doGraphicalObject(const Attributes& a)
+{
+  GraphicalObject* go=&currentLayout->createAdditionalGraphicalObject();
+    
+  XMLUtil::scanAttr(a, ATTR_ID, go->id);
+  return (SBase*)go;
+}
+
+
+SBase*
+LayoutHandler::doCompartmentGlyph(const Attributes& a)
+{
+  CompartmentGlyph* cg=&currentLayout->createCompartmentGlyph();
    
     
-    XMLUtil::scanAttr(a, ATTR_ID, cg->id);
-    XMLUtil::scanAttr(a, ATTR_COMPARTMENT_ID, cg->compartment);
+  XMLUtil::scanAttr(a, ATTR_ID, cg->id);
+  XMLUtil::scanAttr(a, ATTR_COMPARTMENT_ID, cg->compartment);
    
-    return (SBase*)cg;
+  return (SBase*)cg;
 }
+
 
 SBase*
 LayoutHandler::doSpeciesGlyph(const Attributes& a){
@@ -1161,5 +1152,3 @@ LayoutHandler::setLineAndColumn (SBase* sb)
     sb->column = column;
   }
 }
-
-

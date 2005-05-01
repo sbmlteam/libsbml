@@ -135,6 +135,8 @@ SBMLHandler::TagHandler[] =
 };
 
 
+static const char XML_NAMESPACE_URI_SEP = ' ';
+
 
 
 /**
@@ -142,11 +144,6 @@ SBMLHandler::TagHandler[] =
  */
 SBMLHandler::SBMLHandler (SBMLDocument* d) : fDocument(d)
 {
-
-#ifdef USE_EXPAT
-   create();
-#endif  // USE_EXPAT
-
   //
   // An XMLStringFormatter is used to reconstruct <notes> and <annotation>
   // sections from SAX2 events.
@@ -221,33 +218,20 @@ SBMLHandler::~SBMLHandler ()
  */
 
 
-/**
- * startElement
- */
-#ifdef USE_EXPAT
-void SBMLHandler::onStartElement(const XML_Char *localname,
-                                 const XML_Char **papszAttrs)
-#else
 void
 SBMLHandler::startElement (const XMLCh* const  uri,
                            const XMLCh* const  localname,
                            const XMLCh* const  qname,
                            const Attributes&   attrs)
-#endif  // USE_EXPAT
 {
-
-#ifdef USE_EXPAT
-  XMLCh*              uri = NULL;
-  Attributes          attrs(papszAttrs);
-  const XMLCh* const  qname = localname;
-#endif  // USE_EXPAT
-
   SBase*        obj = NULL;
   SBMLTagCode_t tag = getTagCode(uri, localname);
 
 
-  /* debugPrintStartElement(uri, localname, qname, attrs); */
-  /* debugPrintAttrs(attrs); */
+  /*
+  debugPrintStartElement(uri, localname, qname, attrs);
+  debugPrintAttrs(attrs);
+  */
 
   //
   // If we are already inside an <annotation>, <notes> or <math> tag
@@ -260,11 +244,7 @@ SBMLHandler::startElement (const XMLCh* const  uri,
 #ifdef USE_LAYOUT
     if (inLayout)
     {
-#     ifdef USE_EXPAT
-      fLayoutHandler->onStartElement(localname, papszAttrs);
-#     else
       fLayoutHandler->startElement(uri, localname, qname, attrs);
-#     endif  // USE_EXPAT
     }
     else
     {
@@ -286,19 +266,12 @@ SBMLHandler::startElement (const XMLCh* const  uri,
       {
         inLayout++;
         fLayoutHandler->startDocument();
-#       ifdef USE_EXPAT
-        fLayoutHandler->onStartElement(localname, papszAttrs);
-#       else
         fLayoutHandler->startElement(uri, localname, qname, attrs);
-#       endif  // USE_EXPAT
       }
       else if (tag == TAG_LAYOUTID)
       {
-#        ifdef USE_EXPAT
-         const string& id = this->doSpeciesReferenceId(papszAttrs);
-#        else
          const string& id = this->doSpeciesReferenceId(attrs);
-#        endif  // USE_EXPAT
+
          SBase* o = static_cast<SBase*>( Stack_peek(fObjStack) );
          if (o->getTypeCode() == SBML_SPECIES_REFERENCE ||
              o->getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE)
@@ -352,11 +325,7 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   }
   else if (inMath)
   {
-#   ifdef USE_EXPAT
-    fMathHandler->onStartElement(localname, papszAttrs);
-#   else
     fMathHandler->startElement(uri, localname, qname, attrs);
-#   endif  // USE_EXPAT
   }
 
 
@@ -366,38 +335,21 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   //
   else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
   {
-#   ifdef USE_EXPAT
-    if (!inAnnotation) enableCharacterDataHandler();
-#   endif  // USE_EXPAT
     fFormatter->startElement(qname, attrs);
-
     inAnnotation++;
   }
 
 
   else if (tag == TAG_NOTES)
   {
-#   ifdef USE_EXPAT
-    if (!inNotes) enableCharacterDataHandler();
-#   endif  // USE_EXPAT
-
     inNotes++;
   }
 
 
   else if (tag == TAG_MATH)
   {
-#   ifdef USE_EXPAT
-    if (!inMath) enableCharacterDataHandler();
-#   endif  // USE_EXPAT
-
     fMathHandler->startDocument();
-
-#   ifdef USE_EXPAT
-    fMathHandler->onStartElement(localname, papszAttrs);
-#   else
     fMathHandler->startElement(uri, localname, qname, attrs);
-#   endif  // USE_EXPAT
 
     inMath++;
   }
@@ -438,21 +390,11 @@ SBMLHandler::startElement (const XMLCh* const  uri,
  * FIXME: This method has grown quite hairy and is in desperate need of
  * FIXME: refactoring.
  */
-#ifdef USE_EXPAT
-void SBMLHandler::onEndElement(const XML_Char *localname)
-#else
 void
 SBMLHandler::endElement (const XMLCh* const  uri,
                          const XMLCh* const  localname,
                          const XMLCh* const  qname)
-#endif  // USE_EXPAT
 {
-
-#ifdef USE_EXPAT
-  XMLCh*              uri   = NULL;
-  const XMLCh* const  qname = localname;
-#endif  // USE_EXPAT
-
   static const char ERRMSG_NO_SBML_NOTE[] =
     "The <sbml> element cannot contain a <note>.  "
     "Use the <model> element instead.";
@@ -469,11 +411,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
 #ifdef USE_LAYOUT
   if (tag == TAG_LIST_OF_LAYOUTS)
   {
-#   ifdef USE_EXPAT
-    fLayoutHandler->onEndElement(localname);
-#   else
     fLayoutHandler->endElement(uri, localname, qname);
-#   endif  // USE_EXPAT
     fLayoutHandler->endDocument();
     inLayout--;
   }
@@ -519,10 +457,6 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     }
 
     inNotes--;
-
-#   ifdef USE_EXPAT
-    if (!inNotes) enableCharacterDataHandler(false);
-#   endif  // USE_EXPAT
   }
 
 
@@ -531,7 +465,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   //
   else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
   {
-    fFormatter->endElement(qname);
+    fFormatter->endElement(localname);
 
     if (inAnnotation == 1)
     {
@@ -545,10 +479,6 @@ SBMLHandler::endElement (const XMLCh* const  uri,
     }
 
     inAnnotation--;
-
-#   ifdef USE_EXPAT
-    if (!inAnnotation) enableCharacterDataHandler(false);
-#   endif  // USE_EXPAT
   }
 
 
@@ -557,32 +487,20 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   //
   else if (tag == TAG_MATH && !(inNotes || inAnnotation))
   {
-#   ifdef USE_EXPAT
-    fMathHandler->onEndElement(localname);
-#   else
     fMathHandler->endElement(uri, localname, qname);
-#   endif  // USE_EXPAT
 
     fMathHandler->endDocument();
     setMath(fMathDocument->math);
     fMathDocument->math = NULL;
 
     inMath--;
-
-#   ifdef USE_EXPAT
-    if (!inMath) enableCharacterDataHandler(false);
-#   endif  // USE_EXPAT
   }
 
 
 #ifdef USE_LAYOUT   
   else if (inLayout)
   {
-#   ifdef USE_EXPAT
-    fLayoutHandler->onEndElement(localname);
-#   else
     fLayoutHandler->endElement(uri, localname, qname);
-#   endif // USE_EXPAT
   }
 #endif  // USE_LAYOUT
 
@@ -595,11 +513,7 @@ SBMLHandler::endElement (const XMLCh* const  uri,
 
   else if (inMath)
   {
-#   ifdef USE_EXPAT
-    fMathHandler->onEndElement(localname);
-#   else
     fMathHandler->endElement(uri, localname, qname);
-#   endif  // !USE_EXPAT
   }
 
 
@@ -615,24 +529,16 @@ SBMLHandler::endElement (const XMLCh* const  uri,
  * Characters are either part of <notes>, <annotation> or MathML <cn> and
  * <ci> elements.  Everything else is ignored.
  */
-#ifdef USE_EXPAT
-void SBMLHandler::onCharacterData(const XML_Char *chars, int length)
-#else
 void
 SBMLHandler::characters (const XMLCh* const  chars,
                          const unsigned int  length)
-#endif  // USE_EXPAT
 {
 
 
 #ifdef USE_LAYOUT
   if (inLayout)
   {
-#  ifdef USE_EXPAT      
-   fLayoutHandler->onCharacterData(chars,length);
-#  else
-   fLayoutHandler->characters(chars,length);
-#  endif   
+    fLayoutHandler->characters(chars, length);
   } 
   else
   { 
@@ -645,11 +551,7 @@ SBMLHandler::characters (const XMLCh* const  chars,
     }
     else if (inMath)
     {
-#     ifdef USE_EXPAT
-      fMathHandler->onCharacterData(chars, length);
-#     else
       fMathHandler->characters(chars, length);
-#     endif  // USE_EXPAT
     }
 
 
@@ -2093,18 +1995,6 @@ storeNamespaceDefinitions (SBase *obj, const Attributes& a)
 #ifdef USE_LAYOUT
 
 
-#ifdef USE_EXPAT
-/**
- * Sets the id attribute of a SpeciesReference.
- */
-string
-SBMLHandler::doSpeciesReferenceId (const XML_Char **papszAttrs)
-{
-  return doSpeciesReferenceId( Attributes(papszAttrs) );
-}
-#endif // USE_EXPAT
-
-
 /**
  * Sets the id attribute of a SpeciesReference.
  */
@@ -2131,14 +2021,42 @@ SBMLHandler::debugPrintStartElement (const XMLCh* const  uri,
                                      const XMLCh* const  qname,
                                      const Attributes&   attrs)
 {
-  cout << "SBMLHandler::startElement(...): " << endl;
-  cout << "        uri   = " << XMLString::transcode(uri)       << endl;
-  cout << "  localname   = " << XMLString::transcode(localname) << endl;
-  cout << "      qname   = " << XMLString::transcode(qname)     << endl;
-  cout << "       line   = " << fLocator->getLineNumber()       << endl;
-  cout << "       col    = " << fLocator->getColumnNumber()     << endl;
-  cout << "SBMLTagCode_t = " << getTagCode(uri, localname)      << endl;
-  cout << endl;
+  unsigned int line;
+  unsigned int col;
+
+  const XMLCh* s;
+
+
+#if USE_EXPAT
+  line = getCurrentLineNumber  ();
+  col  = getCurrentColumnNumber();
+#else
+  line = fLocator->getLineNumber  ();
+  col  = fLocator->getColumnNumber();
+#endif  // USE_EXPAT
+
+
+  cerr << endl;
+  cerr << "SBMLHandler::startElement(...): " << endl;
+
+  s = XMLString::transcode(uri);
+  s = s ? s: "(null)";
+  cerr << "        uri   = [" << s << "]" << endl;
+
+  s = XMLString::transcode(localname);
+  s = s ? s: "(null)";
+  cerr << "  localname   = [" << s << "]" << endl;
+
+  s = XMLString::transcode(qname);
+  s = s ? s: "(null)";
+  cerr << "      qname   = [" << s << "]" << endl;
+
+  cerr << "       line   = [" << line << "]" << endl;
+  cerr << "       col    = [" << col  << "]" << endl;
+
+  cerr << "SBMLTagCode_t = [" << getTagCode(uri, localname) << "]" << endl;
+
+  cerr << endl;
 }
 
 
@@ -2148,16 +2066,33 @@ SBMLHandler::debugPrintAttrs (const Attributes& attrs)
   int n;
   int size = attrs.getLength();
 
+  const XMLCh* s;
+
+  cerr << "attr.getLength() = [" << size << "]" << endl;
 
   for (n = 0; n < size; n++)
   {
-    cout << "attr.getValue(" << n << ") = ["
-         << XMLString::transcode( attrs.getValue(n) ) << "]" << endl;
+    cerr << "attr(" << n << "):" << endl;
 
-    cout << "attr.getQName(" << n << ") = ["
-         << XMLString::transcode( attrs.getQName(n) ) << "]" << endl;
+    s = XMLString::transcode( attrs.getURI(n) );
+    s = s ? s : "(null)";
+    cerr << "  attr.getURI(" << n << ")       = [" << s << "]" << endl;
+
+    s = XMLString::transcode( attrs.getLocalName(n) );
+    s = s ? s : "(null)";
+    cerr << "  attr.getLocalName(" << n << ") = [" << s << "]" << endl;
+
+    s = XMLString::transcode( attrs.getQName(n) );
+    s = s ? s : "(null)";
+    cerr << "  attr.getQName(" << n << ")     = [" << s << "]" << endl;
+
+    s = XMLString::transcode( attrs.getValue(n) );
+    s = s ? s : "(null)";
+    cerr << "  attr.getValue(" << n << ")     = [" << s << "]" << endl;
+
+    cerr << endl;
   }
 
-  cout << endl << endl;
+  cerr << endl << endl;
 }
 */

@@ -63,6 +63,7 @@
 #ifdef USE_EXPAT
 #  include "xml/Expat.h"
 #  include "xml/ExpatAttributes.h"
+#  include "xml/ExpatToXerces.h"
 #else
 #  include <xercesc/sax/Locator.hpp>
 #  include <xercesc/sax2/DefaultHandler.hpp>
@@ -97,20 +98,19 @@ class SBMLHandler;
 typedef SBase* (SBMLHandler::*TagHandler_t)(const Attributes& attrs);
 
 
+#ifdef USE_EXPAT
+typedef ExpatToXerces DefaultHandler;
+#endif  /* USE_EXPAT */
+
+
 /**
  * SBMLHandler
  *
  * This XML document handler is responsible for constructing an
  * SBMLDocument from SAX2 events deliverd by a SAX2XMLReader.
  */
-#ifdef USE_EXPAT
-typedef Expat DefaultHandler;
-#endif  /* USE_EXPAT */
-
-
 class SBMLHandler : public DefaultHandler
 {
-
 public:
 
   /**
@@ -127,16 +127,6 @@ public:
   ~SBMLHandler ();
 
 
-#ifdef USE_EXPAT
-  virtual void onStartElement(const XML_Char *pszName,
-                              const XML_Char **papszAttrs);
-
-  virtual void onEndElement(const XML_Char *pszName);
-
-  void onCharacterData(const XML_Char *chars, int length);
-
-#else
-
   void startElement
   (
     const XMLCh* const  uri,
@@ -152,9 +142,7 @@ public:
     const XMLCh* const  qname
   );
 
-  void characters(const XMLCh* const chars, const unsigned int length);
-
-#endif  /* USE_EXPAT */
+  void characters (const XMLCh* const chars, const unsigned int length);
 
   void ignorableWhitespace
   (
@@ -165,18 +153,18 @@ public:
   void setDocumentLocator (const Locator *const locator);
 
 #ifndef USE_EXPAT
-  inline void warning    (const SAXParseException&);
-  inline void error      (const SAXParseException&);
-  inline void fatalError (const SAXParseException&);
+  void warning    (const SAXParseException&);
+  void error      (const SAXParseException&);
+  void fatalError (const SAXParseException&);
 
-  inline ParseMessage* ParseMessage_createFrom (const SAXParseException& e);
+  ParseMessage* ParseMessage_createFrom (const SAXParseException& e);
 #endif  /* !USE_EXPAT */
 
-  inline void warning    (const char* message);
-  inline void error      (const char* message);
-  inline void fatalError (const char* message);
+  void warning    (const char* message);
+  void error      (const char* message);
+  void fatalError (const char* message);
 
-  inline ParseMessage* ParseMessage_createFrom (const char* message);
+  ParseMessage* ParseMessage_createFrom (const char* message);
 
 
 private:
@@ -230,10 +218,6 @@ private:
    * Sets the id attribute of a SpeciesReference.
    */
   std::string doSpeciesReferenceId (const Attributes& a);
-
-#ifdef USE_EXPAT
-  std::string doSpeciesReferenceId (const XML_Char **papszAttrs);
-#endif  /* USE_EXPAT  */
 #endif  /* USE_LAYOUT */
 
 
@@ -248,6 +232,7 @@ private:
 
   void debugPrintAttrs (const Attributes& attrs);
   */
+
 
 
   SBMLDocument* fDocument;

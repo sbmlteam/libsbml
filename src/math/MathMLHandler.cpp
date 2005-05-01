@@ -50,7 +50,6 @@
  */
 
 
-#include <iostream>
 #include <ctype.h>
 
 
@@ -167,16 +166,14 @@ static const ASTNodeType_t AST_TYPE_TABLE[] =
 
 MathMLHandler::MathMLHandler (MathMLDocument* d):
 #ifdef USE_EXPAT
-  Expat(),
+  ExpatToXerces()
 #else
-  DefaultHandler(),
+  DefaultHandler()
 #endif  // USE_EXPAT
-  fDocument(d)
+  , fDocument(d)
 {
-#ifdef USE_EXPAT
-  create();
-#endif  // USE_EXPAT
 };
+
 
 void MathMLHandler::startDocument ()
 {
@@ -184,6 +181,7 @@ void MathMLHandler::startDocument ()
   fTagStack = Stack_create(7);
   fSeenSep  = false;
 }
+
 
 void MathMLHandler::endDocument ()
 {
@@ -197,23 +195,12 @@ void MathMLHandler::endDocument ()
 }
 
 
-#ifdef USE_EXPAT
-void MathMLHandler::onStartElement(const XML_Char *localname,
-                                   const XML_Char **papszAttrs)
-#else
 void
 MathMLHandler::startElement (const XMLCh* const  uri,
                              const XMLCh* const  localname,
                              const XMLCh* const  qname,
                              const Attributes&   attrs)
-#endif  // USE_EXPAT
 {
-
-#ifdef USE_EXPAT
-  XMLCh*     uri = NULL;
-  Attributes attrs(papszAttrs);
-#endif  // USE_EXPAT
-
   MathMLTagCode_t currTag  = getTagCode(uri, localname);
   MathMLTagCode_t prevTag  = MATHML_TAG_UNKNOWN;
   ASTNode*        currNode = NULL;
@@ -270,23 +257,11 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   //
   switch (currTag)
   {
-#ifdef USE_EXPAT
-    case MATHML_TAG_CI:
-      enableCharacterDataHandler();
-      break;
-#endif  // USE_EXPAT
-
     case MATHML_TAG_CN:
-#ifdef USE_EXPAT
-      enableCharacterDataHandler();
-#endif  // USE_EXPAT
       setTypeCN(currNode, attrs);
       break;
 
     case MATHML_TAG_CSYMBOL:
-#ifdef USE_EXPAT
-      enableCharacterDataHandler();
-#endif  // USE_EXPAT
       setTypeCS(currNode, attrs);
       break;
 
@@ -317,19 +292,11 @@ MathMLHandler::startElement (const XMLCh* const  uri,
 }
 
 
-#ifdef USE_EXPAT
-void MathMLHandler::onEndElement(const XML_Char *localname)
-#else
 void
 MathMLHandler::endElement (const XMLCh* const  uri,
                            const XMLCh* const  localname,
                            const XMLCh* const  qname)
-#endif  // USE_EXPAT
 {
-#ifdef USE_EXPAT
-  XMLCh* uri = NULL;
-#endif  // USE_EXPAT
-
   MathMLTagCode_t tag  = getTagCode(uri, localname);
   ASTNode*        node = (ASTNode*) Stack_peek(fObjStack);
 
@@ -342,17 +309,11 @@ MathMLHandler::endElement (const XMLCh* const  uri,
 
     case MATHML_TAG_CI:
     case MATHML_TAG_CN:
-#ifdef USE_EXPAT
-      enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
       reduceExpression();
       fSeenSep = false;
       break;
 
     case MATHML_TAG_CSYMBOL:
-#ifdef USE_EXPAT
-      enableCharacterDataHandler(false);
-#endif  // USE_EXPAT
       reduceExpression();
       break;
 
@@ -381,14 +342,9 @@ MathMLHandler::endElement (const XMLCh* const  uri,
 /**
  * In MathML characters are used primarily within <cn> and <ci> elements.
  */
-
-#ifdef USE_EXPAT
-void MathMLHandler::onCharacterData(const XML_Char *chars, int length)
-#else
 void
 MathMLHandler::characters(const XMLCh* const  chars,
                           const unsigned int  length)
-#endif  // USE_EXPAT
 {
   MathMLTagCode_t tag = MATHML_TAG_UNKNOWN;
  

@@ -51,12 +51,17 @@
 
 
 #ifdef USE_EXPAT
-#include "xml/Expat.h"
-#include "xml/ExpatAttributes.h"
+#  include "xml/Expat.h"
+#  include "xml/ExpatAttributes.h"
+#  include "xml/ExpatToXerces.h"
 #else
-#include <xercesc/sax/Locator.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
-#endif /* USE_EXPAT */
+#  include <xercesc/sax/Locator.hpp>
+#  include <xercesc/sax2/DefaultHandler.hpp>
+   using xercesc::Attributes;
+   using xercesc::DefaultHandler;
+   using xercesc::Locator;
+   using xercesc::SAXParseException;
+#endif  /* USE_EXPAT */
 
 #include "util/Stack.h"
 #include "xml/ParseMessage.h"
@@ -75,8 +80,8 @@ typedef SBase* (SBMLHandler::*TagHandler)(const Attributes& attrs);
 
 
 #ifdef USE_EXPAT
-typedef Expat DefaultHandler;
-#endif /* USE_EXPAT */
+typedef ExpatToXerces DefaultHandler;
+#endif  /* USE_EXPAT */
 
 
 /**
@@ -97,21 +102,12 @@ public:
 
   virtual ~LayoutHandler();
   
-#ifdef USE_EXPAT
-    virtual void onStartElement(const XML_Char *pszName,
-                                const XML_Char **papszAttrs);
-
-    virtual void onEndElement(const XML_Char *pszName);
-
-    void onCharacterData(const XML_Char *chars,int length);
-    
-#else
   void startElement
   (
     const XMLCh* const  uri,
     const XMLCh* const  localname,
     const XMLCh* const  qname,
-    const xercesc::Attributes&   attrs
+    const Attributes&   attrs
   );
 
   void endElement
@@ -121,34 +117,33 @@ public:
     const XMLCh* const  qname
   );
 
-  void characters(const XMLCh* const chars, const unsigned int length);
+  void characters (const XMLCh* const chars, const unsigned int length);
   
 
   void setDocumentLocator (const Locator *const locator);
 
-  void warning (const SAXParseException&);
-  void error   (const SAXParseException&);
+#ifndef USE_EXPAT
+  void warning    (const SAXParseException&);
+  void error      (const SAXParseException&);
   void fatalerror (const SAXParseException&);
 
-
   ParseMessage* ParseMessage_createFrom(const SAXParseException& e);
+#endif  /* USE_EXPAT */
 
- 
-#endif /* USE_EXPAT */
-  
-void startDocument ();
-void endDocument   ();
-void ignorableWhitespace(const XMLCh* const chars, const unsigned int length);
+  void warning   (const char* message);
+  void error     (const char* message);
+  void fatalerror(const char* message);
 
+  ParseMessage* ParseMessage_createFrom (const char* message);
 
-void warning(const char* message);
-void error(const char* message);
-void fatalerror(const char* message);
-
-ParseMessage* ParseMessage_createFrom(const char* message);
+  void startDocument ();
+  void endDocument   ();
+  void ignorableWhitespace (const XMLCh* const chars,
+                            const unsigned int length);
 
      
-ListOf* getListOfLayouts();
+  ListOf* getListOfLayouts();
+
 
 private:
 
@@ -176,35 +171,34 @@ private:
   XMLStringFormatter* fFormatter;
   
 
-  SBase* doListOfLayouts (const Attributes& a);
-  SBase* doLayout (const Attributes& a);
-  SBase* doGraphicalObject(const Attributes& a);
-  SBase* doCompartmentGlyph(const Attributes& a);
-  SBase* doSpeciesGlyph(const Attributes& a);
-  SBase* doReactionGlyph(const Attributes& a);
-  SBase* doSpeciesReferenceGlyph(const Attributes& a);
-  SBase* doTextGlyph(const Attributes& a);
-  SBase* doListOfSpeciesReferenceGlyphs(const Attributes& a);
-  SBase* doListOfSpeciesGlyphs(const Attributes& a);
-  SBase* doListOfReactionGlyphs(const Attributes& a);
-  SBase* doListOfCompartmentGlyphs(const Attributes& a);
-  SBase* doListOfAdditionalGraphicalObjects(const Attributes& a);
-  SBase* doCurve(const Attributes& a);
-  SBase* doCurveSegment(const Attributes& a);
-  SBase* doListOfCurveSegments(const Attributes& a);
-  SBase* doLineSegment(const Attributes& a);
-  SBase* doCubicBezier(const Attributes& a);
-  SBase* doListOfTextGlyphs(const Attributes& a); 
-  SBase* doDimensions(const Attributes& a);
-  SBase* doBoundingBox(const Attributes& a);  
-  SBase* doPosition(const Attributes& a);
-  SBase* doStart(const Attributes& a);
-  SBase* doEnd(const Attributes& a);  
-  SBase* doBasePoint1(const Attributes& a);
-  SBase* doBasePoint2(const Attributes& a);  
+  SBase* doListOfLayouts                    (const Attributes& a);
+  SBase* doLayout                           (const Attributes& a);
+  SBase* doGraphicalObject                  (const Attributes& a);
+  SBase* doCompartmentGlyph                 (const Attributes& a);
+  SBase* doSpeciesGlyph                     (const Attributes& a);
+  SBase* doReactionGlyph                    (const Attributes& a);
+  SBase* doSpeciesReferenceGlyph            (const Attributes& a);
+  SBase* doTextGlyph                        (const Attributes& a);
+  SBase* doListOfSpeciesReferenceGlyphs     (const Attributes& a);
+  SBase* doListOfSpeciesGlyphs              (const Attributes& a);
+  SBase* doListOfReactionGlyphs             (const Attributes& a);
+  SBase* doListOfCompartmentGlyphs          (const Attributes& a);
+  SBase* doListOfAdditionalGraphicalObjects (const Attributes& a);
+  SBase* doCurve                            (const Attributes& a);
+  SBase* doCurveSegment                     (const Attributes& a);
+  SBase* doListOfCurveSegments              (const Attributes& a);
+  SBase* doLineSegment                      (const Attributes& a);
+  SBase* doCubicBezier                      (const Attributes& a);
+  SBase* doListOfTextGlyphs                 (const Attributes& a); 
+  SBase* doDimensions                       (const Attributes& a);
+  SBase* doBoundingBox                      (const Attributes& a);  
+  SBase* doPosition                         (const Attributes& a);
+  SBase* doStart                            (const Attributes& a);
+  SBase* doEnd                              (const Attributes& a);  
+  SBase* doBasePoint1                       (const Attributes& a);
+  SBase* doBasePoint2                       (const Attributes& a);  
   
-  void setLineAndColumn     (SBase *sb);
-  
+  void setLineAndColumn (SBase *sb);
 };
 
 

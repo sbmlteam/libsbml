@@ -61,6 +61,7 @@
 #  include <expat.h>
 #  include "xml/Expat.h"
 #  include "xml/ExpatAttributes.h"
+#  include "xml/ExpatToXerces.h"
 #else
 #  include <xercesc/sax/Locator.hpp>
 #  include <xercesc/sax2/DefaultHandler.hpp>
@@ -83,7 +84,7 @@ class MathMLDocument;
  * Syntax Tree from SAX2 events deliverd by a SAX2XMLReader.
  */
 #ifdef USE_EXPAT
-class MathMLHandler : public Expat
+class MathMLHandler : public ExpatToXerces
 #else
 class MathMLHandler : public DefaultHandler
 #endif  /* USE_EXPAT */
@@ -100,30 +101,6 @@ public:
   MathMLHandler (MathMLDocument* d);
 
 
-#ifdef USE_EXPAT
-  /**
-   * Start element handler
-   * @param const XML_Char *pszName
-   * @param const XML_Char **papszAttrs
-   */
-  virtual void onStartElement(const XML_Char *pszName,
-                              const XML_Char **papszAttrs);
-
-  /**
-   * End element handler
-   * @param const XML_Char *pszName
-   */
-  virtual void onEndElement(const XML_Char *pszName);
-
-  /**
-   * Character data handler
-   * @param const XML_Char *chars
-   * @param int length
-   */
-  virtual void onCharacterData(const XML_Char *chars, int length);
-
-#else
-
   void startElement
   (
     const XMLCh* const  uri,
@@ -139,9 +116,7 @@ public:
     const XMLCh* const  qname
   );
 
-  void characters(const XMLCh* const chars, const unsigned int length);
-
-#endif  /* USE_EXPAT */
+  void characters (const XMLCh* const chars, const unsigned int length);
 
 
   void startDocument ();
