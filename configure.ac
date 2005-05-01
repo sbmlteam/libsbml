@@ -140,6 +140,11 @@ AC_SUBST(TestDataDirectory)
 AC_SUBST(HOST_TYPE)
 AC_SUBST(SHAREDLIBEXT)
 
+dnl Provide dynamic library path settings.
+
+CONFIG_RUN_LDPATH
+
+
 dnl ---------------------------------------------------------------------------
 dnl Checks for various programs and packages.
 dnl ---------------------------------------------------------------------------
@@ -219,7 +224,7 @@ case $host in
   ;;
 esac
 
-dnl dnl In order to allow certain Makefile tests, we define a variable that
+dnl In order to allow certain Makefile tests, we define a variable that
 dnl stores a list of options available to configure.  This variable is
 dnl added to by the configure options defined in config/ .m4 files.
 
