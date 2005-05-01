@@ -67,7 +67,7 @@ thisdir   = src/xml
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers   =              \
+headers =                \
   common.h               \
   ParseMessage.h         \
   StreamFormatTarget.h   \
@@ -84,6 +84,7 @@ expat_headers =          \
   Expat.h                \
   ExpatAttributes.h      \
   ExpatFormatter.h       \
+  ExpatToXerces.h        \
   ExpatUnicodeChars.h    \
   ExpatXMLString.h       \
 
@@ -95,11 +96,12 @@ sources   =              \
   XMLStringFormatter.cpp \
   XMLUtil.cpp
 
-expat_sources = \
+expat_sources =           \
   Expat.cpp               \
   ExpatAttributes.cpp     \
   ExpatFormatter.cpp      \
-  ExpatXMLString.cpp      \
+  ExpatToXerces.cpp       \
+  ExpatXMLString.cpp
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
