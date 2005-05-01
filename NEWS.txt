@@ -124,10 +124,13 @@
   - All header files use forward class declarations in order to
     minimize dependencies and increase compilation speed.
 
+  - The make system tries harder to use the user's LD_LIBRARY_PATH
+    setting, especially when running tests with 'make check'.
+
   - 'make install' now strips the installed library on systems where
     we can do it at installation time (which currently are non-MacOSX
     systems).
-
+  
   - 'make install' no longer installs the documentation by default;
     use 'make install-docs' for this.  The install-docs formats the
     latex-based documentation in the docs subdirectory and requires
@@ -135,6 +138,12 @@
     a time-consuming step.  To reduce annoyances for people who
     frequently do 'make install', we took out the docs installation
     step and make it separate.
+
+  - The default documentation creation procedure no longer creates 
+    DVI files, only PDF and HTML.  Some people's TeX/LaTeX installations
+    apparently don't have a latex, only a pdflatex, and the default
+    actions could fail.  DVI and PS formats can still by obtained by
+    using explicit commands.  (See the Makefile in docs/src for more.)
 
 
 * Released April 29, 2005
