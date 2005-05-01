@@ -1581,6 +1581,59 @@ START_TEST (test_element_xor)
 END_TEST
 
 
+/**
+ * libSBML Expat was not correctly interpreting XML namespace prefixes or
+ * their corresponding qualified element names.  That is, while the
+ * following common case was parsed correctly:
+ *
+ *   <math xmlns='http://www.w3.org/1998/Math/MathML'>
+ *     <apply>
+ *     ...
+ *
+ * The less common qualified name case was not parsed correctly:
+ *
+ *   <math:math xmlns:math='http://www.w3.org/1998/Math/MathML'>
+ *     <math:apply>
+ *     ...
+ *
+ * regardless of whether the 'math' namespace prefix was defined on <math>
+ * element or a parent element.
+ *
+ * While this bug was not specific to MathML handling (indeed it applied to
+ * XML namespace handling in general), the bug was first reported in a
+ * MathML context, hence this test.
+ *
+ *
+ * Reported by Ben S. Skrainka <bss@skrainka.biz> on 29-Apr-05
+ */
+START_TEST (test_element_bug_math_xmlns)
+{
+  const ASTNode_t* n;
+  char*       f;
+  const char* s = wrapXML
+  (
+    "<foo:math xmlns:foo='http://www.w3.org/1998/Math/MathML'>"
+    "  <foo:apply>"
+    "    <foo:plus/> <foo:cn>1</foo:cn> <foo:cn>2</foo:cn>"
+    "  </foo:apply>"
+    "</foo:math>"
+  );
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+  fail_unless( n != NULL, NULL );
+
+  f = SBML_formulaToString(n);
+
+  fail_unless( !strcmp(f, "1 + 2"), NULL );
+
+  safe_free(f);
+}
+END_TEST
+
+
 START_TEST (test_element_bug_apply_ci_1)
 {
   const ASTNode_t* n;
@@ -1810,6 +1863,7 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_tan                       );
   tcase_add_test( tcase, test_element_tanh                      );
   tcase_add_test( tcase, test_element_xor                       );
+  tcase_add_test( tcase, test_element_bug_math_xmlns            );
   tcase_add_test( tcase, test_element_bug_apply_ci_1            );
   tcase_add_test( tcase, test_element_bug_apply_ci_2            );
   tcase_add_test( tcase, test_element_bug_csymbol_1             );
