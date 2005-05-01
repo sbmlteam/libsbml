@@ -92,6 +92,14 @@ XMLString::compareString (const XML_Char* str1, const XML_Char* str2)
 
 
 int
+XMLString::indexOf (const XML_Char * str1, const XML_Char ch)
+{
+  char* pos = strchr(str1, ch);
+  return pos ? pos - str1 : -1;
+}
+
+
+int
 XMLString::compareIString (const XML_Char* str1, const XML_Char* str2)
 {
 #if (defined(WIN32) && !defined(__CYGWIN__))

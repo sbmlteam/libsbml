@@ -28,8 +28,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  *  Contributor(s):
- *    Ben Bornstein - Minor reformatting, modifications and integration
- *                    into the libsbml source tree.
+ *    Ben Bornstein
  */
 
 
@@ -49,6 +48,7 @@ public:
   static XML_Char * replicate(const XML_Char * str);
   static void trim(XML_Char * str);
   static unsigned int stringLen(const XML_Char * str);
+  static int indexOf(const XML_Char * str1, const XML_Char ch);
   static int compareString(const XML_Char * str1, const XML_Char * str2);
   static int compareIString(const XML_Char * str1, const XML_Char * str2);
   static XML_Char * transcode(const XML_Char * str, const int & length = -1);
