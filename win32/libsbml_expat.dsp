@@ -140,6 +140,10 @@ SOURCE=..\src\xml\ExpatFormatter.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\xml\ExpatToXerces.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\xml\ExpatXMLString.cpp
 # End Source File
 # Begin Source File
