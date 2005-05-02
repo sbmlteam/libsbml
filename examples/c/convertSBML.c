@@ -67,7 +67,7 @@ main (int argc, char *argv[])
   if (argc != 3)
   {
     printf("\n  usage: convertSBML <input-filename> <output-filename>\n");
-    printf("  Converts an SBML L1 file to L2 or vice versa.\n\n");
+    printf("  Converts an SBML L1 file to L2 or vice-versa.\n\n");
     return 1;
   }
 

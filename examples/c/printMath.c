@@ -80,11 +80,11 @@ printReactionMath (unsigned int n, const Reaction_t *r)
 
   if (Reaction_isSetKineticLaw(r))
   {
-    kl = Reaction_getKineticLaw(kl);
+    kl = Reaction_getKineticLaw(r);
 
     if ( KineticLaw_isSetMath(kl) )
     {
-      formula = SBML_formulaToString( KineticLaw_getMath(r) );
+      formula = SBML_formulaToString( KineticLaw_getMath(kl) );
       printf("Reaction %d, formula: %s\n", n, formula);
       free(formula);
     }
@@ -145,7 +145,6 @@ void
 printMath (const Model_t *m)
 {
   unsigned int  n;
-  Reaction_t   *r;
 
 
   for (n = 0; n < Model_getNumRules(m); ++n)
@@ -157,7 +156,7 @@ printMath (const Model_t *m)
 
   for (n = 0; n < Model_getNumReactions(m); ++n)
   {
-    printReactionMath(n + 1, Model_getReaction(m, n);
+    printReactionMath(n + 1, Model_getReaction(m, n));
   }
 
   printf("\n");

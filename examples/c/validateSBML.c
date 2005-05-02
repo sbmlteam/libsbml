@@ -59,11 +59,20 @@
 int
 main (int argc, char *argv[])
 {
+  const char *filename;
+
   unsigned long start, stop, size;
   unsigned int  errors = 0;
 
   SBMLDocument_t *d;
   SBMLReader_t   *sr;
+
+
+  if (argc != 2)
+  {
+    printf("\n usage: validateSBML <filename>\n\n");
+    return 1;
+  }
 
 
   sr = SBMLReader_create();
@@ -74,8 +83,10 @@ main (int argc, char *argv[])
   SBMLReader_setSchemaFilenameL1v2(sr, "sbml-l1v2.xsd");
   SBMLReader_setSchemaFilenameL2v1(sr, "sbml-l2v1.xsd");
 
+  filename = argv[1];
+
   start = getCurrentMillis();
-  d     = SBMLReader_readSBML(sr, argv[1]);
+  d     = SBMLReader_readSBML(sr, filename);
   stop  = getCurrentMillis();
 
   errors = SBMLDocument_getNumWarnings(d) + SBMLDocument_getNumErrors(d) +

@@ -62,7 +62,7 @@ main (int argc, char *argv[])
   const char *filename;
 
   unsigned long start, stop, size;
-  unsigned int  errors = 0;
+  unsigned int  errors;
 
   SBMLDocument_t *d;
 

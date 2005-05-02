@@ -57,9 +57,8 @@ LDFLAGS   = @LDFLAGS@  -L$(SRCDIR)
 CPPFLAGS  = @CPPFLAGS@
 LIBS      = -lsbml
 
-programs = \
-  convertSBML evaluateMath printMath printSBML printUnits readSBML \
-  translateMath validateSBML
+programs = convertSBML evaluateMath printMath printSBML readSBML \
+           translateMath validateSBML
 
 
 all: $(programs)
@@ -74,9 +73,6 @@ printMath: printMath.c util.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS) -lm
 
 printSBML: printSBML.c util.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
-
-printUnits: printUnits.c util.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 readSBML: readSBML.c util.c
