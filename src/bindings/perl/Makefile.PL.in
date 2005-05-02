@@ -45,14 +45,15 @@
 
 use ExtUtils::MakeMaker;
 WriteMakefile(
-              NAME     => "LibSBML",
-              PREFIX   => '@prefix@',
-              LIBS     => ["-lxerces-c", "-lm"],
-              INC      => "-I../swig -I../..",
-              MYEXTLIB => "../../libsbml.a",
-              OBJECT   => "LibSBML_wrap.o",
-              AUTHOR   => 'Christoph Flamm <xtof@tbi.univie.ac.at>',
-              VERSION  => @PACKAGE_VERSION@,
+              NAME        => "LibSBML",
+              MAKEFILE    => 'Makefile-perl',
+              INSTALLDIRS => "site",
+              LIBS        => ["-lxerces-c", "-lm"],
+              INC         => "-I../swig -I../..",
+              MYEXTLIB    => "../../libsbml.a",
+              OBJECT      => "LibSBML_wrap.o",
+              AUTHOR      => "Christoph Flamm <xtof@tbi.univie.ac.at>",
+              VERSION     => "@PACKAGE_VERSION@",
 );
 
 package MY;
