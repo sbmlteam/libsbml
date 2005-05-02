@@ -109,6 +109,10 @@ all: Makefile-perl LibSBML_wrap.cxx
 Makefile-perl: Makefile.PL
 	$(PERL) Makefile.PL
 
+Makefile.PL: Makefile.PL.in $(TOP_SRCDIR)/configure \
+	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/$@
+
 swig_sources = \
 	  ../swig/libsbml.h \
 	  ../swig/libsbml.i
@@ -126,18 +130,8 @@ endif
 # Checking.
 # -----------------------------------------------------------------------------
 
-ifdef USE_LIBCHECK
-  check: $(libraries)
-	@echo
-	@echo
-	@echo Running Tests in $(thisdir)
-	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,$(PYTHON) accept.py)
-	@echo -----------------------------------------------------------------
-	@echo
-else
-  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
-endif
+check: Makefile-perl
+	$(MAKE) -f Makefile-perl test
 
 
 # -----------------------------------------------------------------------------
