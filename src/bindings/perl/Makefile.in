@@ -68,7 +68,7 @@ thisdir = src/bindings/perl
 # `sources' are used by the default rules to determine what needs to be
 # compiled.
 
-sources = LibSBML.i LibSBML.pod LibSBML_wrap.cxx LibSBML.pm Makefile-perl
+sources = LibSBML.i LibSBML.pod LibSBML_wrap.cxx LibSBML.pm
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
@@ -82,7 +82,6 @@ distfiles =        \
   LibSBML_wrap.cxx \
   MANIFEST         \
   Makefile.in      \
-  Makefile.PL      \
   Makefile.PL.in   \
   README.txt       \
   local.cpp        \
@@ -90,7 +89,7 @@ distfiles =        \
   patchLibSBML.pl  \
   t/
 
-extra_distclean = Makefile-perl LibSBML_wrap.cxx
+extra_distclean = Makefile-perl Makefile-perl.old
 
 
 # -----------------------------------------------------------------------------
@@ -117,7 +116,7 @@ swig_sources = \
 	  ../swig/libsbml.h \
 	  ../swig/libsbml.i
 
-LibSBML_wrap.cxx: LibSBML.i Makefile-perl $(swig_sources)
+LibSBML_wrap.cxx: LibSBML.i $(swig_sources)
 ifndef USE_SWIG
 	echo "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
 	exit 1
@@ -167,9 +166,9 @@ installcheck:
 
 clean: Makefile-perl
 	$(MAKE) -f Makefile-perl clean
+	mv -f Makefile-perl.old Makefile-perl
 
-distclean: Makefile-perl
-	$(MAKE) -f Makefile-perl distclean
+distclean: Makefile-perl distclean-normal
 
 mostlyclean: 
 
