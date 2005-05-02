@@ -13,7 +13,7 @@ Fail: (1801) An Event trigger must return a boolean value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply> <plus/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
-        <trigger>
+        </trigger>
       </event>
     </listOfEvents>
   </model>
