@@ -46,9 +46,11 @@
 use ExtUtils::MakeMaker;
 WriteMakefile(
               NAME        => "LibSBML",
+	      PREFIX      => "@prefix@",
               MAKEFILE    => 'Makefile-perl',
               INSTALLDIRS => "site",
               LIBS        => ["-lxerces-c", "-lm"],
+	      CCFLAGS     => "@PERL_CPPFLAGS@",
               INC         => "-I../swig -I../..",
               MYEXTLIB    => "../../libsbml.a",
               OBJECT      => "LibSBML_wrap.o",
