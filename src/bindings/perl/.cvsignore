@@ -1,5 +1,6 @@
 .deps
 Makefile
+Makefile.PL
 Makefile-perl
 pm_to_blib
 blib
