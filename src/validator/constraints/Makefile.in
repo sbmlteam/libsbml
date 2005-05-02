@@ -85,16 +85,12 @@ sources =                          \
   UniqueVarsInEventAssignments.cpp \
   UniqueVarsInRules.cpp
 
-headers =                        \
-  CompartmentOutsideCycles.h     \
-  IdBase.h                       \
-  IdList.h                       \
-  UniqueIdBase.h                 \
-  UniqueIdsForUnitDefinitions.h  \
-  UniqueIdsInKineticLaw.h        \
-  UniqueIdsInModel.h             \
-  UniqueVarsInEventAssignments.h \
-  UniqueVarsInRules.h
+header_inst_prefix = validator/constraints
+
+headers =        \
+  IdBase.h       \
+  IdList.h       \
+  UniqueIdBase.h
 
 
 extra_CPPFLAGS = -I../..
