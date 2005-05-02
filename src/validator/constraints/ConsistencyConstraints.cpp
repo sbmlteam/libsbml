@@ -50,10 +50,20 @@
 
 
 #ifndef AddingConstraintsToValidator
+
 #include <string>
+
 #include "sbml/SBMLTypes.h"
 #include "validator/LocalConstraint.h"
+
 #include "CompartmentOutsideCycles.h"
+
+#include "UniqueIdsForUnitDefinitions.h"
+#include "UniqueIdsInKineticLaw.h"
+#include "UniqueIdsInModel.h"
+#include "UniqueVarsInEventAssignments.h"
+#include "UniqueVarsInRules.h"
+
 #endif
 
 
@@ -63,7 +73,19 @@
 using namespace std;
 
 
-START_CONSTRAINT (1002, Model, x)
+EXTERN_CONSTRAINT( 900, UniqueIdsInModel             )
+EXTERN_CONSTRAINT( 901, UniqueIdsForUnitDefinitions  )
+EXTERN_CONSTRAINT( 902, UniqueIdsInKineticLaw        )
+EXTERN_CONSTRAINT( 903, UniqueVarsInRules            )
+EXTERN_CONSTRAINT( 904, UniqueVarsInEventAssignments )
+
+
+//
+// Constraint 1000 is: No Model Present and is caught before validation
+// begins.  This is because the validator framework assumes a Model.
+//
+
+START_CONSTRAINT (1001, Model, x)
 {
   msg =
     "A Model that has a Species must also have at least one Compartment "
@@ -73,6 +95,7 @@ START_CONSTRAINT (1002, Model, x)
   inv( m.getNumCompartments() > 0 );
 }
 END_CONSTRAINT
+
 
 
 // NOTE: This constraint also applies to L1 Models (replacing name with id).
@@ -688,8 +711,15 @@ START_CONSTRAINT (1800, Event, e)
 END_CONSTRAINT
 
 
-// 1801 - The top-level MathML operator in the trigger subelement must be a
-// return boolean.
+START_CONSTRAINT (1801, Event, e)
+{
+  msg =
+    "An Event trigger must return a boolean value (L2v1 Section 4.10.2).";
+
+  pre( e.isSetTrigger()            );
+  inv( e.getTrigger()->isBoolean() );
+}
+END_CONSTRAINT
 
 
 START_CONSTRAINT (1802, EventAssignment, ea)
