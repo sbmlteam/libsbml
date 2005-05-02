@@ -14,14 +14,15 @@
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
  * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an as is" basis, and the
- * European Media Laboratories gGmbH have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * European Media Laboratory gGmbH be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * European Media Laboratories gGmbH have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * documentation provided hereunder is on an as is" basis, and the European
+ * Media Laboratories gGmbH have no obligations to provide maintenance,
+ * support, updates, enhancements or modifications.  In no event shall the
+ * European Media Laboratory gGmbH be liable to any party for direct,
+ * indirect, special, incidental or consequential damages, including lost
+ * profits, arising out of the use of this software and its documentation,
+ * even if the European Media Laboratories gGmbH have been advised of the
+ * possibility of such damage.  See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
@@ -42,22 +43,22 @@
  * Contributor(s):
  */
 
-%ignore BoundingBox::getPosition() const;
-%ignore BoundingBox::getDimensions() const;
-%ignore GraphicalObject::getBoundingBox() const;
-%ignore CubicBezier::getBasePoint1() const;
-%ignore CubicBezier::getBasePoint2() const;
-%ignore LineSegment::getStart() const;
-%ignore LineSegment::getEnd() const;
-%ignore Curve::getListOfCurveSegments() const;
-%ignore Layout::getDimensions() const;
-%ignore Layout::getListOfCompartmentGlyphs() const;
-%ignore Layout::getListOfSpeciesGlyphs() const;
-%ignore Layout::getListOfReactionGlyphs() const;
-%ignore Layout::getListOfTextGlyphs() const;
-%ignore Layout::getListOfAdditionalGraphicalObjects() const;
-%ignore ReactionGlyph::getListOfSpeciesReferenceGlyphs() const;
 
+%ignore BoundingBox::getPosition                      () const;
+%ignore BoundingBox::getDimensions                    () const;
+%ignore GraphicalObject::getBoundingBox               () const;
+%ignore CubicBezier::getBasePoint1                    () const;
+%ignore CubicBezier::getBasePoint2                    () const;
+%ignore LineSegment::getStart                         () const;
+%ignore LineSegment::getEnd                           () const;
+%ignore Curve::getListOfCurveSegments                 () const;
+%ignore Layout::getDimensions                         () const;
+%ignore Layout::getListOfCompartmentGlyphs            () const;
+%ignore Layout::getListOfSpeciesGlyphs                () const;
+%ignore Layout::getListOfReactionGlyphs               () const;
+%ignore Layout::getListOfTextGlyphs                   () const;
+%ignore Layout::getListOfAdditionalGraphicalObjects   () const;
+%ignore ReactionGlyph::getListOfSpeciesReferenceGlyphs() const;
 
 
 %include sbml/layout/SpeciesReferenceRole.h
@@ -74,5 +75,3 @@
 %include sbml/layout/SpeciesGlyph.h
 %include sbml/layout/TextGlyph.h
 %include sbml/layout/Layout.h
-
-
