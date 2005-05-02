@@ -655,21 +655,18 @@ SBML_convertAllRulesToL1 (Model_t *m)
             scr = Model_createSpeciesConcentrationRule(m);
             SpeciesConcentrationRule_setSpecies (scr, id);
             Rule_setFormula((Rule_t*) scr, Rule_getFormula((Rule_t*) r));
-//            ListOf_remove(rules, n);
           }
           else if ((c = Model_getCompartmentById(m, id)) != NULL)
           {
             cvr = Model_createCompartmentVolumeRule(m);
             CompartmentVolumeRule_setCompartment (cvr, id);
             Rule_setFormula((Rule_t*) cvr, Rule_getFormula((Rule_t*) r));
-//            ListOf_remove(rules, n);
           }
           else if ((p = Model_getParameterById(m, id)) != NULL)
           {
             pr = Model_createParameterRule(m);
             ParameterRule_setName (pr, id);
             Rule_setFormula((Rule_t*) pr, Rule_getFormula((Rule_t*) r));
-//            ListOf_remove(rules, n);
           }
           break;
 
@@ -682,7 +679,6 @@ SBML_convertAllRulesToL1 (Model_t *m)
             SpeciesConcentrationRule_setSpecies (scr, id);
             Rule_setFormula((Rule_t*) scr, Rule_getFormula((Rule_t*) r));
             AssignmentRule_setType((AssignmentRule_t*) scr, RULE_TYPE_RATE);
- //           ListOf_remove(rules, n);
           }
           else if ((c = Model_getCompartmentById(m, id)) != NULL)
           {
@@ -690,7 +686,6 @@ SBML_convertAllRulesToL1 (Model_t *m)
             CompartmentVolumeRule_setCompartment (cvr, id);
             Rule_setFormula((Rule_t*) cvr, Rule_getFormula((Rule_t*) r));
             AssignmentRule_setType((AssignmentRule_t*) cvr, RULE_TYPE_RATE);
-   //         ListOf_remove(rules, n);
           }
           else if ((p = Model_getParameterById(m, id)) != NULL)
           {
@@ -698,14 +693,12 @@ SBML_convertAllRulesToL1 (Model_t *m)
             ParameterRule_setName (pr, id);
             Rule_setFormula((Rule_t*) pr, Rule_getFormula((Rule_t*) r));
             AssignmentRule_setType((AssignmentRule_t*) pr, RULE_TYPE_RATE);
-     //       ListOf_remove(rules, n);
           }
             break;
 
         case SBML_ALGEBRAIC_RULE:
           ar = Model_createAlgebraicRule(m);
           Rule_setFormula((Rule_t*) ar, Rule_getFormula((Rule_t*) r));
-       //   ListOf_remove(rules, n);
           break;
 
         default:
@@ -718,6 +711,5 @@ SBML_convertAllRulesToL1 (Model_t *m)
     r = (Rule_t *) ListOf_get(rules, n-1);
 
     ListOf_remove(rules, n-1);
-  }
- 
+  } 
 }
