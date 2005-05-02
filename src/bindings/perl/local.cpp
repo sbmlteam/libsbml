@@ -48,7 +48,7 @@
  * Contributor(s):
  */
 
-#include "sbml/SBase.hpp"
+#include "sbml/SBase.h"
 
 
 /**
