@@ -210,7 +210,7 @@ recursive_targets = all-recursive install-data-recursive \
 	ps-recursive info-recursive dvi-recursive pdf-recursive \
 	check-recursive installcheck-recursive mostlyclean-recursive \
 	clean-recursive distclean-recursive maintainer-clean-recursive \
-	install-man-recursive tags-recursive ctags-recursive doc-recursive \
+	install-man-recursive tags-recursive ctags-recursive docs-recursive \
 	install-docs-recursive dist-recursive distcheck-recursive
 
 $(recursive_targets): subdirs
