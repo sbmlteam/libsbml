@@ -17,7 +17,7 @@
     The layout extension may be used from libSBML C, C++, Java and
     Python.  It has not been tested under Windows (the MSVC++ 6 and
     MSVC++ 7 project files do not even attempt to compile it).
-    Example code can be found in examples/c++/layout.
+    Example code can be found in examples/layout.
 
 
   - The new and much improved libSBML Validator framework may be found
