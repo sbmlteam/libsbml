@@ -58,9 +58,6 @@
 #include "SBMLReader.h"
 
 
-extern char *TestDataDirectory;
-
-
 START_TEST (test_SBMLReader_create)
 {
   SBMLReader_t *sr = SBMLReader_create();
@@ -119,21 +116,17 @@ START_TEST (test_SBMLReader_readSBML_schema_basic)
   SBMLDocument_t *d;
   SBMLReader_t   *sr = SBMLReader_create();
 
-  char *schema   = "sbml-l1v1.xsd";
-  char *filename = safe_strcat(TestDataDirectory, "l1v1-branch.xml");
-
 
   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
-  SBMLReader_setSchemaFilenameL1v1(sr, schema);
+  SBMLReader_setSchemaFilenameL1v1(sr, "sbml-l1v1.xsd");
 
-  d = SBMLReader_readSBML(sr, filename);
+  d = SBMLReader_readSBML(sr, "test-data/l1v1-branch.xml");
   fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
   fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
   fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
-  safe_free(filename);
 }
 END_TEST
 
@@ -143,14 +136,10 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_L1v2)
   SBMLDocument_t *d;
   SBMLReader_t   *sr = SBMLReader_create();
 
-  char *schema   = "sbml-l1v2.xsd";
-  char *filename = safe_strcat(TestDataDirectory, "l1v2-branch.xml");
-
-
   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
-  SBMLReader_setSchemaFilenameL1v2(sr, schema);
+  SBMLReader_setSchemaFilenameL1v2(sr, "sbml-l1v2.xsd");
 
-  d = SBMLReader_readSBML(sr, filename);
+  d = SBMLReader_readSBML(sr, "test-data/l1v2-branch.xml");
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
   fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
@@ -158,7 +147,6 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_L1v2)
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
-  safe_free(filename);
 }
 END_TEST
 
@@ -168,15 +156,11 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
   SBMLDocument_t *d;
   SBMLReader_t   *sr = SBMLReader_create();
 
-  char *schema   = "sbml-l1v1.xsd";
-  char *filename = safe_strcat( TestDataDirectory,
-                               "l1v1-branch-schema-error.xml" );
-
 
   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
-  SBMLReader_setSchemaFilenameL1v1(sr, schema);
+  SBMLReader_setSchemaFilenameL1v1(sr, "sbml-l1v1.xsd");
 
-  d = SBMLReader_readSBML(sr, filename);
+  d = SBMLReader_readSBML(sr, "test-data/l1v1-branch-schema-error.xml");
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
 #ifndef USE_EXPAT  /* No schema verification possible. */
@@ -186,7 +170,6 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
-  safe_free(filename);
 }
 END_TEST
 
@@ -196,14 +179,11 @@ START_TEST (test_SBMLReader_readSBML_schema_full)
   SBMLDocument_t *d;
   SBMLReader_t   *sr = SBMLReader_create();
 
-  char *schema   = "sbml-l1v1.xsd";
-  char *filename = safe_strcat(TestDataDirectory, "l1v1-branch.xml");
-
 
   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
-  SBMLReader_setSchemaFilenameL1v1(sr, schema);
+  SBMLReader_setSchemaFilenameL1v1(sr, "sbml-l1v1.xsd");
 
-  d = SBMLReader_readSBML(sr, filename);
+  d = SBMLReader_readSBML(sr, "test-data/l1v1-branch.xml");
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
   fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
@@ -211,7 +191,6 @@ START_TEST (test_SBMLReader_readSBML_schema_full)
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
-  safe_free(filename);
 }
 END_TEST
 
@@ -232,42 +211,95 @@ START_TEST (test_readSBML_NULL)
 END_TEST
 
 
-START_TEST (test_readSBML_file_not_found)
+START_TEST (test_readSBML_file_not_found_1)
 {
-  SBMLReader_t *sr = SBMLReader_create();
+  ParseMessage_t *pm;
+  SBMLReader_t   *sr = SBMLReader_create();
+  SBMLDocument_t *d  = SBMLReader_readSBML(sr, "test-data/nonexistent.xml");
 
 
-  fail_unless( SBMLReader_readSBML(sr, "nonexistent.xml") == NULL );
-  fail_unless( readSBML("nonexistent.xml")                == NULL );
+  fail_unless( d != NULL );
+  fail_unless( SBMLDocument_getNumFatals(d) > 0 );
 
+  pm = SBMLDocument_getFatal(d, 0);
+  fail_unless( ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND );
+
+  SBMLDocument_free(d);
   SBMLReader_free(sr);
 }
 END_TEST
+
+
+START_TEST (test_readSBML_file_not_found_2)
+{
+  ParseMessage_t *pm;
+  SBMLDocument_t *d = readSBML("test-data/nonexistent.xml");
+
+
+  fail_unless( d != NULL );
+  fail_unless( SBMLDocument_getNumFatals(d) > 0 );
+
+  pm = SBMLDocument_getFatal(d, 0);
+  fail_unless( ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND );
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+
+START_TEST (test_readSBML_file_not_SBML_1)
+{
+  ParseMessage_t *pm;
+  SBMLReader_t   *sr = SBMLReader_create();
+  SBMLDocument_t *d  = SBMLReader_readSBML(sr, "test-data/sbml-l1v1.xsd");
+
+
+  fail_unless( d != NULL );
+  fail_unless( SBMLDocument_getNumFatals(d) > 0 );
+
+  pm = SBMLDocument_getFatal(d, 0);
+  fail_unless( ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML );
+
+  SBMLDocument_free(d);
+  SBMLReader_free(sr);
+}
+END_TEST
+
+
+START_TEST (test_readSBML_file_not_SBML_2)
+{
+  ParseMessage_t *pm;
+  SBMLDocument_t *d = readSBML("test-data/sbml-l1v1.xsd");
+
+
+  fail_unless( d != NULL );
+  fail_unless( SBMLDocument_getNumFatals(d) > 0 );
+
+  pm = SBMLDocument_getFatal(d, 0);
+  fail_unless( ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML );
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
 
 START_TEST (test_readSBMLFromString_empty)
 {
-  SBMLDocument_t *d;
+  ParseMessage_t *pm;
   SBMLReader_t   *sr = SBMLReader_create();
+  SBMLDocument_t *d  = SBMLReader_readSBMLFromString(sr, "");
 
-
-  d = SBMLReader_readSBMLFromString(sr, "");
 
   fail_unless( d != NULL );
-  fail_unless( SBMLDocument_getNumFatals(d) != 0 );
+  fail_unless( SBMLDocument_getNumFatals(d) > 0 );
+
+  pm = SBMLDocument_getFatal(d, 0);
+  fail_unless( ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML );
 
   SBMLDocument_free(d);
   SBMLReader_free(sr);
-
-
-  d = readSBMLFromString("");
-
-  fail_unless( d != NULL );
-  fail_unless( SBMLDocument_getNumFatals(d) != 0 );
-
-  SBMLDocument_free(d);
 }
 END_TEST
-
 
 
 Suite *
@@ -275,7 +307,7 @@ create_suite_SBMLReader (void)
 { 
   Suite *suite = suite_create("SBMLReader");
   TCase *tcase = tcase_create("SBMLReader");
- 
+
 
   tcase_add_test(tcase, test_SBMLReader_create                           );
   tcase_add_test(tcase, test_SBMLReader_setSchemaFilename                );
@@ -285,7 +317,10 @@ create_suite_SBMLReader (void)
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error );
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full             );
   tcase_add_test(tcase, test_readSBML_NULL                               );
-  tcase_add_test(tcase, test_readSBML_file_not_found                     );
+  tcase_add_test(tcase, test_readSBML_file_not_found_1                   );
+  tcase_add_test(tcase, test_readSBML_file_not_found_2                   );
+  tcase_add_test(tcase, test_readSBML_file_not_SBML_1                    );
+  tcase_add_test(tcase, test_readSBML_file_not_SBML_2                    );
   tcase_add_test(tcase, test_readSBMLFromString_empty                    );
 
   suite_add_tcase(suite, tcase);
