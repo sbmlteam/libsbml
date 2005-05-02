@@ -1990,7 +1990,7 @@ END_TEST
 START_TEST (test_element_notes_xmlns)
 {
   const char* n =
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some text... </body>";
+    "<body xmlns=\"http://www.w3.org/1999/xhtml\"> Some text... </body>";
 
   const char* s = wrapSBML
   (
@@ -2012,10 +2012,10 @@ START_TEST (test_element_notes_entity_reference)
 {
   const char* n =
 #ifdef USE_EXPAT
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some\xc2\xa0text... "
+    "<body xmlns=\"http://www.w3.org/1999/xhtml\"> Some\xc2\xa0text... "
     "</body>";
 #else
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... "
+    "<body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... "
     "</body>";
 #endif
 
@@ -2160,49 +2160,49 @@ START_TEST (test_element_notes_ListOf)
   sb = (SBase_t *) Model_getListOfFunctionDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Functions "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Functions"), NULL );
 
 
   sb = (SBase_t *) Model_getListOfUnitDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Units "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Units"), NULL );
 
 
   sb = (SBase_t *) Model_getListOfCompartments(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Compartments "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Compartments"), NULL );
 
 
   sb = (SBase_t *) Model_getListOfSpecies(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Species "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Species"), NULL );
 
 
   sb = (SBase_t *) Model_getListOfParameters(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Parameters "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Parameters"), NULL );
 
 
   sb = (SBase_t *) Model_getListOfRules(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Rules "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Rules"), NULL );
 
 
   sb = (SBase_t *) Model_getListOfReactions(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Reactions "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Reactions"), NULL );
 
 
   sb = (SBase_t *) Model_getListOfEvents(M);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Events "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Events"), NULL );
 
 }
 END_TEST
@@ -2232,7 +2232,7 @@ START_TEST (test_element_notes_ListOf_Units)
   sb = (SBase_t *) UnitDefinition_getListOfUnits(ud);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Units "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Units"), NULL );
 }
 END_TEST
 
@@ -2274,23 +2274,23 @@ START_TEST (test_element_notes_ListOf_Reactions)
   sb = (SBase_t *) Reaction_getListOfReactants(r);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Reactants "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Reactants"), NULL );
 
 
   sb = (SBase_t *) Reaction_getListOfProducts(r);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Products "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Products"), NULL );
 
   sb = (SBase_t *) Reaction_getListOfModifiers(r);
 
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Modifiers "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Modifiers"), NULL );
 
   kl = Reaction_getKineticLaw(r);
   sb = (SBase_t *) KineticLaw_getListOfParameters(kl);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Parameters "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Parameters"), NULL );
 }
 END_TEST
 
@@ -2319,7 +2319,7 @@ START_TEST (test_element_notes_ListOf_EventAssignments)
   sb = (SBase_t *) Event_getListOfEventAssignments(e);
 
   fail_unless( SBase_isSetNotes(sb), NULL );
-  fail_unless( !strcmp(SBase_getNotes(sb), " My Assignments "), NULL );
+  fail_unless( !strcmp(SBase_getNotes(sb), "My Assignments"), NULL );
 }
 END_TEST
 
@@ -2522,6 +2522,34 @@ START_TEST (test_element_annotation_sbml_L2)
 END_TEST
 
 
+START_TEST (test_element_annotation_trim_ws)
+{
+  const char* a =
+    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
+    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
+    "  </mysim:nodecolors>"
+    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
+    "</annotation>";
+
+  const char* s = wrapSBML
+  (
+    "\n \n<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
+    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
+    "  </mysim:nodecolors>"
+    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
+    "</annotation>    "
+  );
+
+
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
+
+  fail_unless( SBase_getAnnotation(M) != NULL, NULL );
+  fail_unless( !strcmp(SBase_getAnnotation(M), a), NULL );
+}
+END_TEST
+
+
 START_TEST (test_element_line_col_numbers)
 {
   SBase_t*  sb;
@@ -2600,7 +2628,7 @@ START_TEST (test_element_math_in_notes_bug)
   AssignmentRule_t* ar;
 
   const char *n =
-    "    <math> <apply> <ci> fn </ci> </apply> </math>  ";
+    "<math> <apply> <ci> fn </ci> </apply> </math>";
 
   const char *s = wrapSBML2
   (
@@ -2737,6 +2765,7 @@ create_suite_SBMLHandler (void)
   tcase_add_test( tcase, test_element_annotation_nested                    );
   tcase_add_test( tcase, test_element_annotation_sbml                      );
   tcase_add_test( tcase, test_element_annotation_sbml_L2                   );
+  tcase_add_test( tcase, test_element_annotation_trim_ws                   );
   tcase_add_test( tcase, test_element_line_col_numbers                     );
   tcase_add_test( tcase, test_element_math_in_notes_bug                    );
   tcase_add_test( tcase, test_element_SBML_xmlns                           );

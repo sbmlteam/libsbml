@@ -444,8 +444,8 @@ SBMLHandler::endElement (const XMLCh* const  uri,
       {
 #endif  // USE_LAYOUT
 
-
-      SBase_setNotes(obj, fFormatter->getString());
+      char* notes = const_cast<char*>( fFormatter->getString() );
+      SBase_setNotes(obj, util_trim_in_place(notes));
       fFormatter->reset();
 
 
@@ -474,7 +474,8 @@ SBMLHandler::endElement (const XMLCh* const  uri,
         error(ERRMSG_NO_SBML_ANNOTATION);
       }
 
-      SBase_setAnnotation(obj, fFormatter->getString());
+      char* annotation = const_cast<char*>( fFormatter->getString() );
+      SBase_setAnnotation(obj, util_trim_in_place(annotation));
       fFormatter->reset();
     }
 
