@@ -101,7 +101,6 @@ extra_CPPFLAGS = -I../..
 
 distfiles = $(sources) $(headers) Makefile.in \
   CompartmentOutsideCycles.h     \
-  ConsistencyConstraints.h       \
   L1CompatibilityConstraints.h   \
   UniqueIdsForUnitDefinitions.h  \
   UniqueIdsInKineticLaw.h        \
