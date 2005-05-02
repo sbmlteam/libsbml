@@ -413,6 +413,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\IdBase.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\IdList.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1013,6 +1016,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\sbml\SBMLTypeCodes.cpp">
+			</File>
+			<File
 				RelativePath="..\..\sbml\SBMLVisitor.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1211,6 +1217,24 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;$(NoInherit)"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueIdBase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueIdsForUnitDefinitions.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueIdsInKineticLaw.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueIdsInModel.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueVarsInEventAssignments.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueVarsInRules.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\Unit.cpp">

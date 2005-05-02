@@ -420,6 +420,9 @@
 				RelativePath="..\src\sbml\FunctionDefinition.cpp">
 			</File>
 			<File
+				RelativePath="..\src\validator\constraints\IdBase.cpp">
+			</File>
+			<File
 				RelativePath="..\src\validator\constraints\IdList.cpp">
 			</File>
 			<File
@@ -504,6 +507,9 @@
 				RelativePath="..\src\sbml\SBMLTagCodes.cpp">
 			</File>
 			<File
+				RelativePath="..\src\sbml\SBMLTypeCodes.cpp">
+			</File>
+			<File
 				RelativePath="..\src\sbml\SBMLVisitor.cpp">
 			</File>
 			<File
@@ -532,6 +538,24 @@
 			</File>
 			<File
 				RelativePath="..\src\util\StringMap.c">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\UniqueIdBase.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\UniqueIdsForUnitDefinitions.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\UniqueIdsInKineticLaw.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\UniqueIdsInModel.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\UniqueVarsInEventAssignments.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\UniqueVarsInRules.cpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Unit.cpp">
