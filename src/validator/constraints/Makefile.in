@@ -74,8 +74,10 @@ thisdir   = src/validator/constraints
 
 sources =                          \
   CompartmentOutsideCycles.cpp     \
+  ConsistencyConstraints.cpp       \
   IdBase.cpp                       \
   IdList.cpp                       \
+  L1CompatibilityConstraints.cpp   \
   UniqueIdBase.cpp                 \
   UniqueIdsForUnitDefinitions.cpp  \
   UniqueIdsInKineticLaw.cpp        \
