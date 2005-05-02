@@ -78,7 +78,8 @@ headers   = \
   SpeciesGlyph.h              \
   SpeciesReferenceGlyph.h     \
   SpeciesReferenceRole.h      \
-  TextGlyph.h
+  TextGlyph.h                 \
+  layoutfwd.h
 
 header_inst_prefix = layout
 
@@ -173,9 +174,9 @@ maintainer-clean: maintainer-clean-normal
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal
+dist: dist-normal
 
-distcheck: all distcheck-normal
+distcheck: distcheck-normal
 
 # -----------------------------------------------------------------------------
 # Miscellaneous
