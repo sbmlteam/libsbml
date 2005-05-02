@@ -61,58 +61,63 @@
 
 using namespace std;
 
+
 START_CONSTRAINT (2000, Model, x)
 {
   msg =
-    "A Model with Events cannot "
-	"be represented in Level 1.";
+    "A Model with Events cannot be represented in Level 1.";
 
   inv( m.getNumEvents() == 0 );
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (2001, Compartment, c)
 {
   msg =
-    "Compartment with spatialDimensions other than three cannot "
-	"be represented in Level 1.";
+    "Compartment with spatialDimensions other than three cannot be "
+    "represented in Level 1.";
 
   inv( c.getSpatialDimensions() == 3 );
 }
 END_CONSTRAINT
 
-/* taken out as strictly speaking not true
- * L1 models will not list modifiers within a reaction
- * but they are present in the ListOfSpecies
- *
+
+/**
+ * Taken out as strictly speaking not true L1 models will not list
+ * modifiers within a reaction but they are present in the ListOfSpecies
  *
 START_CONSTRAINT (2002, Reaction, r)
 {
   msg =
     "A Reaction containing modifiers "
-	"cannot be represented in Level 1.";
+  "cannot be represented in Level 1.";
 
   inv( r.getNumModifiers() == 0);
 }
 END_CONSTRAINT
 */
+
+
 START_CONSTRAINT (2003, SpeciesReference, sr)
 {
   msg =
-    "A SpeciesReference containing a non-integer or non-rational 'stoichiometryMath' subelement "
-	"cannot be represented in Level 1.";
+    "A SpeciesReference containing a non-integer or non-rational "
+    "'stoichiometryMath' subelement cannot be represented in Level 1.";
 
   pre( sr.isSetStoichiometryMath() );
 
-  inv( sr.getStoichiometryMath()->isInteger() || sr.getStoichiometryMath()->isRational()  );
+  inv_or( sr.getStoichiometryMath()->isInteger()  );
+  inv_or( sr.getStoichiometryMath()->isRational() );
 }
 END_CONSTRAINT
+
 
 START_CONSTRAINT (2004, Unit, u)
 {
   msg =
-    "A Unit containing multipliers or offsets "
-	"cannot be represented in Level 1.";
+    "A Unit containing multipliers or offsets cannot be represented in "
+    "Level 1.";
 
 
   inv( u.getMultiplier() == 1.0 );
@@ -120,35 +125,38 @@ START_CONSTRAINT (2004, Unit, u)
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (2005, Species, s)
 {
   msg =
-    "A Species that does not identify its compartment "
-	"cannot be represented in Level 1.";
+    "A Species that does not identify its compartment cannot be "
+    "represented in Level 1.";
 
 
-  inv( s.isSetCompartment());
+  inv( s.isSetCompartment() );
 }
 END_CONSTRAINT
+
 
 START_CONSTRAINT (2006, SpeciesReference, sr)
 {
   msg =
     "A SpeciesReference containing a non-integer 'stoichiometry' subelement "
-	"cannot be represented in Level 1.";
+    "cannot be represented in Level 1.";
+
 
   pre( !sr.isSetStoichiometryMath() );
-
   inv( floor(sr.getStoichiometry()) == sr.getStoichiometry() );
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (2007, Model, x)
 {
   msg =
-    "Conversion of a model with FunctionDefinitions "
-	"to Level 1 is not yet supported.";
+    "Conversion of a model with FunctionDefinitions to Level 1 is not yet "
+    "supported.";
 
-  inv( m.getNumFunctionDefinitions() == 0);
+  inv( m.getNumFunctionDefinitions() == 0 );
 }
 END_CONSTRAINT
