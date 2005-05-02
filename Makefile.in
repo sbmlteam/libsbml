@@ -71,20 +71,33 @@ thisdir = .
 # Variables `examples' and `xml-schemas' are local variables reused below.
 
 examples = \
-	examples/c++                                         \
-	examples/layout_example1.cpp                         \
-	examples/layout_example2.cpp                         \
-	examples/layout_example3.cpp                         \
-        examples/Makefile.in                                 \
-        examples/README.txt                                  \
-        examples/convertSBML.c                               \
-        examples/evaluateMath.c                              \
-        examples/printSBML.c                                 \
-        examples/readSBML.c                                  \
-        examples/translateMath.c                             \
-        examples/util.c                                      \
-        examples/util.h                                      \
-        examples/validateSBML.c
+  examples/README.txt            \
+  examples/c/Makefile.in         \
+  examples/c/convertSBML.c       \
+  examples/c/evaluateMath.c      \
+  examples/c/printMath.c         \
+  examples/c/printSBML.c         \
+  examples/c/printUnits.c        \
+  examples/c/readSBML.c          \
+  examples/c/translateMath.c     \
+  examples/c/validateSBML.c      \
+  examples/c/util.c              \
+  examples/c/util.h              \
+  examples/c++/Makefile.in       \
+  examples/c++/convertSBML.cpp   \
+  examples/c++/printSBML.cpp     \
+  examples/c++/readSBML.cpp      \
+  examples/c++/translateMath.cpp \
+  examples/c++/validateSBML.cpp  \
+  examples/c++/util.c            \
+  examples/c++/util.h            \
+  examples/layout/Makefile.in    \
+  examples/layout/example1.cpp   \
+  examples/layout/example2.cpp   \
+  examples/layout/example3.cpp   \
+  examples/layout/example1.java  \
+  examples/layout/example1.py    \
+  examples/layout/layout2svg.xsl
 
 xml-schemas = \
         xml-schemas/mathml2/common/common-attribs.xsd        \
