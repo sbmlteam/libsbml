@@ -1,2 +1,5 @@
 .deps
 Makefile
+Makefile-perl
+pm_to_lib
+blib
