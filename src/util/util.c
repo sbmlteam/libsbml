@@ -224,6 +224,8 @@ util_file_exists (const char *filename)
 
 
 /**
+ * Removes leading and trailing whitespace from the string s.
+ *
  * @return a pointer to a new string which is a duplicate of the string s,
  * with leading and trailing whitespace removed or NULL is s is NULL.
  *
@@ -291,6 +293,58 @@ util_trim (const char *s)
   }
 
   return trimmed;
+}
+
+
+/**
+ * Removes leading and trailing whitespace from the string s.
+ *
+ * @return a pointer to the first non-whitespace character of the string s
+ * (which may be the terminating NULL), or NULL if s is NULL.  The first
+ * trailing whitespace character will be replaced with NULL.
+ *
+ * Whitespace is determined by isspace().
+ */
+LIBSBML_EXTERN
+char *
+util_trim_in_place (char *s)
+{
+  char *end;
+  int   len;
+
+
+  if (s == NULL) return NULL;
+
+  len = strlen(s);
+  end = s + len - 1;
+
+  /**
+   * Skip leading whitespace.
+   *
+   * When this loop terminates, s will point the first non-whitespace
+   * character of the string or NULL.
+   */
+  while ( len > 0 && isspace(*s) )
+  {
+    s++;
+    len--;
+  }
+
+  /**
+   * Skip trailing whitespace.
+   *
+   * When this loop terminates, end will point the last non-whitespace
+   * character of the string.
+   */
+  while ( len > 0 && isspace(*end) )
+  {
+    end--;
+    len--;
+  }
+
+  s[len] = '\0';
+
+  return s;
 }
 
 

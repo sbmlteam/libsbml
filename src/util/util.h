@@ -75,7 +75,7 @@
  */
 LIBSBML_EXTERN
 unsigned int
-streq(const char *s, const char *t);
+streq (const char *s, const char *t);
 
 
 BEGIN_C_DECLS
@@ -142,6 +142,8 @@ int
 util_file_exists (const char *filename);
 
 /**
+ * Removes leading and trailing whitespace from the string s.
+ *
  * @return a pointer to a new string which is a duplicate of the string s,
  * with leading and trailing whitespace removed or NULL is s is NULL.
  *
@@ -150,6 +152,19 @@ util_file_exists (const char *filename);
 LIBSBML_EXTERN
 char *
 util_trim (const char *s);
+
+/**
+ * Removes leading and trailing whitespace from the string s.
+ *
+ * @return a pointer to the first non-whitespace character of the string s
+ * (which may be the terminating NULL), or NULL if s is NULL.  The first
+ * trailing whitespace character will be replaced with NULL.
+ *
+ * Whitespace is determined by isspace().
+ */
+LIBSBML_EXTERN
+char *
+util_trim_in_place (char *s);
 
 /**
  * @return a (quiet) NaN.

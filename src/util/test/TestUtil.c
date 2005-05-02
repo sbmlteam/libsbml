@@ -136,6 +136,50 @@ START_TEST (test_util_trim)
 END_TEST
 
 
+START_TEST (test_util_trim_in_place)
+{
+  char *s = safe_malloc(100);
+
+  strcpy(s, "p");
+  fail_unless( !strcmp( util_trim_in_place(s), "p") );
+
+  strcpy(s, "q ");
+  fail_unless( !strcmp( util_trim_in_place(s), "q") );
+
+  strcpy(s, " r");
+  fail_unless( !strcmp( util_trim_in_place(s), "r") );
+
+  strcpy(s, " s ");
+  fail_unless( !strcmp( util_trim_in_place(s), "s") );
+
+  strcpy(s, "foo");
+  fail_unless( !strcmp( util_trim_in_place(s), "foo") );
+
+  strcpy(s, "foo ");
+  fail_unless( !strcmp( util_trim_in_place(s), "foo") );
+
+  strcpy(s, " bar");
+  fail_unless( !strcmp( util_trim_in_place(s), "bar") );
+
+  strcpy(s, " bar ");
+  fail_unless( !strcmp( util_trim_in_place(s), "bar") );
+
+  strcpy(s, " foo bar ");
+  fail_unless( !strcmp( util_trim_in_place(s), "foo bar") );
+
+  strcpy(s, " ");
+  fail_unless( !strcmp( util_trim_in_place(s), "") );
+
+  strcpy(s, "");
+  fail_unless( !strcmp( util_trim_in_place(s), "") );
+
+  fail_unless( util_trim_in_place((char *) NULL) == NULL );
+
+  safe_free(s);
+}
+END_TEST
+
+
 START_TEST (test_util_NaN)
 {
   double d = util_NaN();
@@ -207,6 +251,7 @@ create_suite_util (void)
   tcase_add_test( tcase, test_util_strcmp_insensitive );
   tcase_add_test( tcase, test_util_safe_strcat        );
   tcase_add_test( tcase, test_util_trim               );
+  tcase_add_test( tcase, test_util_trim_in_place      );
   tcase_add_test( tcase, test_util_NaN                );
   tcase_add_test( tcase, test_util_NegInf             );
   tcase_add_test( tcase, test_util_PosInf             );
