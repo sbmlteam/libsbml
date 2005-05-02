@@ -3,9 +3,53 @@
 
 === Version 2.3.0 ===
 
-                                DRAFT
-
 * New Features:
+
+  - Ralph Gauges extension to libSBML to support the diagram layout
+    proposal (previously available as a separate patch) is now part of
+    the libSBML distribution.  Since the layout extension is still
+    experimental at this point, it is not compiled into libSBML by
+    default.  To enable it:
+
+      ./configure --enable-layout
+      make
+
+    The layout extension may be used from libSBML C, C++, Java and
+    Python.  It has not been tested under Windows (the MSVC++ 6 and
+    MSVC++ 7 project files do not even attempt to compile it).
+    Example code can be found in examples/c++/layout.
+
+
+  - The new and much improved libSBML Validator framework may be found
+    in src/validator.  This framework has been used to implement 45
+    (out of approximately 50) SBML model consistency checks listed on
+    the SBML Wiki (http://sbml.org/wiki/Semantic_Validation).
+
+    The libSBML Validator framework is designed to allow you to
+    express model validation constraints in a succinct yet readable
+    manner.  The constraint "language" has a declarative feel while
+    still allowing you to use the full expressive power of C++ when
+    necessary.  To see the current set of 45 consistency constraints,
+    see src/validator/contraints/ConsistencyConstraints.cpp.
+
+    The most up-to-date validator documentation is available on the
+    libSBML website (http://www.sbml.org/software/libsbml).
+
+
+  - LibSBML now supports SBML Level 2 to SBML Level 1 conversions for
+    certain classes models.  To use, on an SBML L2 document, simply
+    call SBMLDocument.setLevel(1).  If no errors were logged,
+    conversion was successful.  Currently, libSBML is somewhat
+    conservative about the classes of models it will allow to be down
+    converted.  The sophistication of this conversion will improve
+    over time.  See also examples/c++/convertSBML.cpp.
+
+
+  - libSBML now implements a variant of the Visitor pattern (Design
+    Patterns, GoF, 1995, p. 331).  The parent Visitor class is called
+    SBMLVisitor and each SBML class now has an accept() method to
+    accept subclasses of SBMLVisitor.  See the libSBML Developer's
+    Manual for more information.
 
   - The Java and Python language bindings now include documentation
     strings for each method and function.  The docstrings are
@@ -31,19 +75,12 @@
             <!-- Created by <program name> version <program version>
             on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
 
-  - libSBML now implements a variant of the Visitor pattern (Design
-    Patterns, GoF, 1995, p. 331).  The parent Visitor class is called
-    SBMLVisitor and each SBML class now has an accept() method to
-    accept subclasses of SBMLVisitor.  See the libSBML Developer's
-    Manual for more information.
-
   - Added const versions of the getListOfXXX() methods for Model,
     UnitDefinition, Reaction, KineticLaw, and Events.
 
   - There are several new convenience methods (and functions) on Unit
     and UnitDefinition.  These make many libSBML consistency checks
-    both much more succinct and easier to read.  In particular the
-    following were added:
+    much readable.  In particular the following were added:
 
       - Unit.isXXX() C++ methods (and corresponding Unit_isXXX() C
         functions) for each UnitKind.  For example, Unit.isMetre() (or
@@ -79,6 +116,22 @@
 
 * Bug Fixes:
 
+  - XML namespace handling is now working properly with libSBML Expat.
+    Thanks to Ben Skrainka for reporting this bug.
+
+  - Because libSBML did not trim leading and trailing whitespace on
+    <notes> and <annotation> content, each time libSBML read and then
+    wrote a file, the amount of leading and trailing whitespace within
+    this content would grow (i.e. the extra whitespace and libSBML's
+    modest pretty printing were interfering with each other).  Thanks
+    to Damon Hachmeister for reporting this bug.
+
+  - There's a bug in Xerces-C++ 2.6.0 (#1308) that caused libSBML to
+    record an incorrect XML namespace on a </annotation> element in
+    some instances.  Thanks to Johan Hattne for discovering this bug
+    and providing a workaround.  Thanks also to Eryk Wolski who sent
+    in runs of 'make check' that also revealed this bug.
+
   - When converting L1 models to L2, any Compartment or Parameter
     involved in a CompartmentVolumeRule or ParameterRule,
     respectively, now correctly has its constant attribute set to
@@ -95,10 +148,15 @@
 
 * Changes:
 
+  - Leading and trailing whitespace is now removed before storing
+    <notes> and <annotation> content.  Note that whitespace *within*
+    <notes> and <annotation> content is preserved as always.
+
   - readSBML(filename), SBMLReader_readSBML(filename) and
-    SBMLReader::readSBML(filename) now return a NULL SBMLDocument if
-    the file could not be found.  These semantics are inline with C's
-    familiar fopen().  Thanks to Eryk Wolski for suggesting this idea.
+    SBMLReader::readSBML(filename) now log specific fatal error
+    ParseMessages if the file could not be found or the content is not
+    SBML.  See the function / method docstrings for more information.
+    Thanks to Eryk Wolski and Ralph Gauges for suggesting this idea.
 
   - Removed support for writing various character encodings.  This
     change has been a long time coming.  LibSBML should support
@@ -146,7 +204,33 @@
     using explicit commands.  (See the Makefile in docs/src for more.)
 
 
-* Released April 29, 2005
+* Known Bugs:
+
+  - Qualified (prefixed) element names are broken in the Xerces-C++
+    2.6.0 SAX2 handler.  Currently, libSBML does not work around this
+    bug.  As a result, when libSBML converts <annotation>s to strings,
+    qualified element names with intervening element content
+    (e.g. <foo:bar> <baz:bop> </foo:bar>) will result in end elements
+    with incorrect prefixes (e.g. </baz:bar>).  If you prefer
+    Xerces-C++, for now please use 2.5.0 or earlier.
+
+  - When reading nested <piecewise> elements, libSBML looses the outer
+    piecewise elements.  Martin Ginkel has reported this bug and
+    provided a test case.
+
+  - In libSBML C++, adding objects created on the *stack* to a
+    container object (e.g. adding a Species to a Model or a Unit to a
+    UnitDefinition) may cause libSBML to crash.  LibSBML assumes:
+    i) container objects adopt the the objects they contain
+    (i.e. container objects will freeing objects they contain) and
+    ii) all such objects are heap based (e.g. created with new).
+
+    This bug will be fixed in a future release (2.4.0?) with reference
+    counted objects.  Note this bug *does not occur* in any of LibSBML
+    C, Java, Python, Perl, Lisp, or Matlab.
+
+
+* Released May 2, 2005
 
 
 
