@@ -7175,10 +7175,8 @@ _ACEOF
           ac_config_files="$ac_config_files src/sbml/test/Makefile"
 
 
-if test "$enable_layout" != "no" ; then
-            ac_config_files="$ac_config_files src/sbml/layout/Makefile"
+          ac_config_files="$ac_config_files src/sbml/layout/Makefile"
 
-fi
 
           ac_config_files="$ac_config_files src/util/Makefile"
 

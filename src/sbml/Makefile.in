@@ -163,6 +163,14 @@ endif
 
 subdirs = test
 
+ifneq "$(MAKECMDGOALS)" "dist"
+  ifdef USE_LAYOUT
+    subdirs += layout
+  endif
+else
+  subdirs += layout
+endif
+
 # The libsbml build is a little more complicated than it used to be.  The
 # library is assembled after compiling the object files in this directory.
 # However, to link the library, we have to assemble it out of pieces coming
@@ -251,9 +259,9 @@ maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: dist-normal dist-recursive
 
-distcheck: all distcheck-normal distcheck-recursive
+distcheck: distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------

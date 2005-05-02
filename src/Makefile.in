@@ -71,8 +71,12 @@ thisdir = src
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-ifdef USE_LAYOUT
-  subdirs = common util xml math validator sbml/layout sbml
+ifneq "$(MAKECMDGOALS)" "dist"
+  ifdef USE_LAYOUT
+    subdirs = common util xml math validator sbml/layout sbml
+  else
+    subdirs = common util xml math validator sbml
+  endif
 else
   subdirs = common util xml math validator sbml
 endif
