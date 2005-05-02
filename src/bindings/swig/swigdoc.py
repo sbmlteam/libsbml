@@ -50,17 +50,18 @@
 #     mailto:sbml-team@caltech.edu
 #
 # Contributor(s):
+#   Christoph Flamm - Code to generate Perl docs
 #
 
 
-import sys, string, os.path
+import sys, string, os.path, re
 
 
 class CHeader:
   """CHeader encapsulates the C++ class and C function definitions
   found within a C header file.  It has the following public
   attributes:
-  
+
     - classes
     - functions
   """
@@ -113,7 +114,7 @@ class CHeader:
       if stripped == '};':
         inClass = False
         continue
-      
+
       if inDocs or stripped == '/**':
         docstring += line
         inDocs     = (stripped != '*/')
@@ -183,7 +184,7 @@ def getHeadersFromSWIG (filename):
   """
   stream = open(filename)
   lines  = stream.readlines()
-  
+
   lines  = filter(lambda line: line.strip().startswith('%include'), lines)
   lines  = filter(lambda line: line.strip().endswith('.h')        , lines)
   lines  = map(lambda line: line.replace('%include', '').strip(), lines)
@@ -227,9 +228,25 @@ def sanitizeForPython (docstring):
 
 
 
+def sanitizeForPerl (docstring):
+  """sanitizeForPerl (docstring) -> docstring
+
+  Performs some mimimal Perl specific sanitizations on the
+  C++/Doxygen docstring.
+  """
+  docstring = docstring.replace('/**', '').replace('*/', '').replace('*', '')
+  docstring = docstring.replace('@return', 'Returns')
+  docstring = docstring.replace(' < ', ' E<lt> ').replace(' > ', ' E<gt> ')
+  docstring = ' '.join(docstring.split())
+  docstring = re.sub('<code>([^<]*)</code>', r'C<\1>', docstring)
+  docstring = re.sub('<b>([^<]*)</b>', r'B<\1>', docstring)  
+  return docstring
+
+
+
 def writeDocstring (ostream, language, docstring, methodname, classname=None):
-  """writeDocstring (ostream, language='java'|'python', docstring, methodname,
-  classname='')
+  """writeDocstring (ostream, language='java'|'python'|'perl', docstring,
+  methodname, classname='')
 
   Writes to ostream the necessary SWIG incantation to annotate the
   given class method (or function) with a docstring appropriate for
@@ -238,6 +255,9 @@ def writeDocstring (ostream, language, docstring, methodname, classname=None):
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = 'public'
+  elif language == 'perl':
+    pre  = '=item'
+    post = ''
   else:
     pre  = '%feature("docstring")'
     post = ''
@@ -246,13 +266,18 @@ def writeDocstring (ostream, language, docstring, methodname, classname=None):
 
   if language == 'python':
     docstring = sanitizeForPython(docstring)
+  elif language == 'perl':
+    docstring = sanitizeForPerl(docstring)  
 
   output = pre + ' '
 
   if classname:
     output += classname + '::'
 
-  output += '%s "\n%s%s";\n\n' % (methodname, docstring, post)
+  if language == 'perl':
+   output += '%s\n\n%s%s\n\n'    % (methodname, docstring, post)
+  else:
+    output += '%s "\n%s%s";\n\n' % (methodname, docstring, post)
 
   ostream.write(output)
   ostream.flush()
@@ -260,12 +285,12 @@ def writeDocstring (ostream, language, docstring, methodname, classname=None):
 
 
 def main (args):
-  """usage: swigdoc.py [java | python] -Ipath libsbml.i docstrings.i
+  """usage: swigdoc.py [java | python | perl] -Ipath libsbml.i docstrings.i
 
-  java | python  generate docstrings for this language module.
-  path           is the path to the libsbml src/ directory.
-  libsbml.i      is the master libsbml SWIG interface file.
-  docstrings.i   is the file to output the SWIG docstrings.
+  java | python | perl  generate docstrings for this language module.
+  path                  is the path to the libsbml src/ directory.
+  libsbml.i             is the master libsbml SWIG interface file.
+  docstrings.i          is the file to output the SWIG docstrings.
   """
   if len(args) != 5:
     print main.__doc__
@@ -276,12 +301,21 @@ def main (args):
   headers     = getHeadersFromSWIG(args[3])
   stream      = open(args[4], 'w')
 
+  if language == 'perl':
+    infile = open(os.path.abspath('LibSBML.txt'), 'r')
+    stream.write(infile.read())
+    stream.write('=head1 FUNCTION INDEX\n\n=over 8\n\n')
+
   for file in headers:
     filename = os.path.normpath(os.path.join(includepath, file))
     processHeader(filename, stream, language)
+
+  if language == 'perl':
+   stream.write('=cut\n')
 
   stream.close()
 
 
 if __name__ == '__main__':
   main(sys.argv)
+ 
