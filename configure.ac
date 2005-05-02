@@ -286,7 +286,12 @@ AC_CONFIG_FILES([docs/src/Doxyfile])
 AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([docs/src/tex/libsbmlextras.sty])
 
-AC_CONFIG_FILES([examples/Makefile])
+AC_CONFIG_FILES([examples/c/Makefile])
+AC_CONFIG_FILES([examples/c++/Makefile])
+
+if test "$enable_layout" != "no" ; then
+  AC_CONFIG_FILES([examples/layout/Makefile])
+fi
 
 AC_OUTPUT
 
