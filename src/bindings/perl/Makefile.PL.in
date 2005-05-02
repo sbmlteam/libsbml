@@ -63,6 +63,7 @@ sub postamble {
 	return <<'MAKE_FRAG';
 LibSBML_wrap.cxx:
 	@SWIG@ @SWIGFLAGS@ -Wall -c++ -perl5 -proxy -I../.. LibSBML.i
+	../swig/swigdoc.py perl -I../.. ../swig/libsbml.i LibSBML.pod
 MAKE_FRAG
 }
 # End of file
