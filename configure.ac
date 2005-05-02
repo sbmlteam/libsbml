@@ -269,9 +269,7 @@ AC_CONFIG_FILES([src/math/test/Makefile])
 AC_CONFIG_FILES([src/sbml/Makefile])
 AC_CONFIG_FILES([src/sbml/test/Makefile])
 
-if test "$enable_layout" != "no" ; then
-  AC_CONFIG_FILES([src/sbml/layout/Makefile])
-fi
+AC_CONFIG_FILES([src/sbml/layout/Makefile])
 
 AC_CONFIG_FILES([src/util/Makefile])
 AC_CONFIG_FILES([src/util/test/Makefile])
