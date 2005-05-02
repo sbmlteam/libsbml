@@ -1763,7 +1763,7 @@ START_TEST (test_element_bug_cn_integer_negative)
 END_TEST
 
 
-START_TEST (test_element_bug_cn_e_notation)
+START_TEST (test_element_bug_cn_e_notation_1)
 {
   const ASTNode_t* n;
   const char* s = wrapMathML("<cn type='e-notation'> 2 <sep/> -8 </cn>");
@@ -1777,6 +1777,44 @@ START_TEST (test_element_bug_cn_e_notation)
   fail_unless( ASTNode_getType(n)        == AST_REAL_E, NULL );
   fail_unless( ASTNode_getMantissa(n)    ==  2.0, NULL );
   fail_unless( ASTNode_getExponent(n)    == -8.0, NULL );
+  fail_unless( ASTNode_getNumChildren(n) ==  0  , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_bug_cn_e_notation_2)
+{
+  const ASTNode_t* n;
+  const char* s = wrapMathML("<cn type='e-notation'> -3 <sep/> 4 </cn>");
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+  fail_unless( n != NULL, NULL );
+
+  fail_unless( ASTNode_getType(n)        == AST_REAL_E, NULL );
+  fail_unless( ASTNode_getMantissa(n)    == -3.0, NULL );
+  fail_unless( ASTNode_getExponent(n)    ==  4.0, NULL );
+  fail_unless( ASTNode_getNumChildren(n) ==  0  , NULL );
+}
+END_TEST
+
+
+START_TEST (test_element_bug_cn_e_notation_3)
+{
+  const ASTNode_t* n;
+  const char* s = wrapMathML("<cn type='e-notation'> -6 <sep/> -1 </cn>");
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+  fail_unless( n != NULL, NULL );
+
+  fail_unless( ASTNode_getType(n)        == AST_REAL_E, NULL );
+  fail_unless( ASTNode_getMantissa(n)    == -6.0, NULL );
+  fail_unless( ASTNode_getExponent(n)    == -1.0, NULL );
   fail_unless( ASTNode_getNumChildren(n) ==  0  , NULL );
 }
 END_TEST
@@ -1868,7 +1906,9 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_bug_apply_ci_2            );
   tcase_add_test( tcase, test_element_bug_csymbol_1             );
   tcase_add_test( tcase, test_element_bug_cn_integer_negative   );
-  tcase_add_test( tcase, test_element_bug_cn_e_notation         );
+  tcase_add_test( tcase, test_element_bug_cn_e_notation_1       );
+  tcase_add_test( tcase, test_element_bug_cn_e_notation_2       );
+  tcase_add_test( tcase, test_element_bug_cn_e_notation_3       );
 
   suite_add_tcase(suite, tcase);
 
