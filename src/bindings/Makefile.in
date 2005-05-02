@@ -83,9 +83,12 @@ ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_LISP
     subdirs += lisp
   endif
+  ifdef USE_PERL
+    subdirs += perl
+  endif
 else
   # If `make dist' was given, include all subdirectories.
-  subdirs = java lisp matlab python
+  subdirs = java lisp matlab python perl
 endif
 
 swig_extras =    \

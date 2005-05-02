@@ -162,6 +162,7 @@ AC_PATH_PROG([AR],[ar],[ar])
 
 CONFIG_PROG_SWIG(1.3.24)
 CONFIG_PROG_PYTHON
+CONFIG_PROG_PERL
 CONFIG_PROG_JAVA(1.4.0)
 CONFIG_PROG_MATLAB
 CONFIG_PROG_LISP
@@ -248,6 +249,9 @@ AC_CONFIG_FILES([src/bindings/Makefile])
 AC_CONFIG_FILES([src/bindings/python/Makefile])
 AC_CONFIG_FILES([src/bindings/python/setup.py])
 
+AC_CONFIG_FILES([src/bindings/perl/Makefile])
+AC_CONFIG_FILES([src/bindings/perl/Makefile.PL])
+
 AC_CONFIG_FILES([src/bindings/matlab/Makefile])
 
 AC_CONFIG_FILES([src/bindings/java/Makefile])
@@ -316,6 +320,7 @@ echo "  enable memory tracing? = $enable_tracing"
 echo "  use libcheck?          = $with_libcheck"
 echo "  use SWIG?              = $with_swig"
 echo "  use Python?            = $with_python"
+echo "  use Perl?              = $with_perl"
 echo "  use Java?              = $with_java"
 echo "  use Matlab?            = $with_matlab"
 echo "  use Lisp               = $with_lisp"
