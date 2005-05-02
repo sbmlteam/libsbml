@@ -2,6 +2,7 @@
 Makefile
 Makefile.PL
 Makefile-perl
+Makefile-perl.old
 pm_to_blib
 blib
 LibSBML.bs
