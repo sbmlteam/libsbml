@@ -177,7 +177,7 @@ maintainer-clean: maintainer-clean-recursive
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-recursive dist-normal
+dist: dist-normal dist-recursive
 
 distcheck: distcheck-recursive distcheck-normal
 
