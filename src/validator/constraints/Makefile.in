@@ -72,15 +72,28 @@ thisdir   = src/validator/constraints
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-sources =                        \
-  CompartmentOutsideCycles.cpp   \
-  L1CompatibilityConstraints.cpp \
-  ConsistencyConstraints.cpp     \
-  IdList.cpp
+sources =                          \
+  CompartmentOutsideCycles.cpp     \
+  IdBase.cpp                       \
+  IdList.cpp                       \
+  UniqueIdBase.cpp                 \
+  UniqueIdsForUnitDefinitions.cpp  \
+  UniqueIdsInKineticLaw.cpp        \
+  UniqueIdsInModel.cpp             \
+  UniqueVarsInEventAssignments.cpp \
+  UniqueVarsInRules.cpp
 
 headers =                        \
   CompartmentOutsideCycles.h     \
-  IdList.h
+  IdBase.h                       \
+  IdList.h                       \
+  UniqueIdBase.h                 \
+  UniqueIdsForUnitDefinitions.h  \
+  UniqueIdsInKineticLaw.h        \
+  UniqueIdsInModel.h             \
+  UniqueVarsInEventAssignments.h \
+  UniqueVarsInRules.h
+
 
 extra_CPPFLAGS = -I../..
 
