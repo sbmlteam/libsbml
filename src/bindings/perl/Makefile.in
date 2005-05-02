@@ -1,0 +1,203 @@
+## @configure_input@
+##
+## \file    Makefile.in
+## \brief   Makefile template for libSBML Perl bindings
+## \author  Mike Hucka
+## 
+## $Id$
+## $Source$
+##
+
+## Copyright 2005 California Institute of Technology and
+## Japan Science and Technology Corporation.
+##
+## This library is free software; you can redistribute it and/or modify it
+## under the terms of the GNU Lesser General Public License as published
+## by the Free Software Foundation; either version 2.1 of the License, or
+## any later version.
+##
+## This library is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+## documentation provided hereunder is on an "as is" basis, and the
+## California Institute of Technology and Japan Science and Technology
+## Corporation have no obligations to provide maintenance, support,
+## updates, enhancements or modifications.  In no event shall the
+## California Institute of Technology or the Japan Science and Technology
+## Corporation be liable to any party for direct, indirect, special,
+## incidental or consequential damages, including lost profits, arising
+## out of the use of this software and its documentation, even if the
+## California Institute of Technology and/or Japan Science and Technology
+## Corporation have been advised of the possibility of such damage.  See
+## the GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this library; if not, write to the Free Software Foundation,
+## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+##
+## The original code contained here was initially developed by:
+##
+##     Christoph Flamm
+##     Institut fuer Theoretische Chemie
+##     Universitaet Wien
+##     Waehringerstrasse 17/3/308
+##     A-1090 Wien, Austria
+
+## Contributor(s):
+##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
+##
+
+
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include @top_srcdir@/config/makefile-common-vars.mk
+
+# `srcdir' points to the current directory, but should be set by configure.
+# `subdir' must be set manually to the relative dir under srcdir.  Don't 
+# set `subdir' to an absolute path, or some make actions will fail.
+
+srcdir  = @srcdir@
+thisdir = src/bindings/perl
+
+# `sources' are used by the default rules to determine what needs to be
+# compiled.
+
+sources = LibSBML.i LibSBML.pod LibSBML_wrap.cxx LibSBML.pm Makefile-perl
+
+# `distfiles' determines the files and directories included in a distribution.
+# `distfiles_exclude' is used to filter out specific items, so that even if
+# they appear in `distfiles', they will not be copied in the distribution.
+
+distfiles =        \
+  $(sources)       \
+  LibSBML.i        \
+  LibSBML.pm       \
+  LibSBML.pod      \
+  LibSBML_wrap.cxx \
+  MANIFEST         \
+  Makefile.in      \
+  Makefile.PL      \
+  Makefile.PL.in   \
+  README.txt       \
+  local.cpp        \
+  local.i          \
+  patchLibSBML.pl  \
+  t/
+
+extra_distclean = Makefile-perl LibSBML_wrap.cxx
+
+
+# -----------------------------------------------------------------------------
+# Primary build actions
+# -----------------------------------------------------------------------------
+
+.SUFFIXES:
+.SUFFIXES: .i .cxx .o .obj
+
+# The default action is to remake everything.
+
+all: Makefile-perl LibSBML_wrap.cxx
+
+# The Perl-created Makefile is named 'Makefile-perl'.
+
+Makefile-perl: Makefile.PL
+	$(PERL) Makefile.PL
+
+swig_sources = \
+	  ../swig/libsbml.h \
+	  ../swig/libsbml.i
+
+LibSBML_wrap.cxx: LibSBML.i Makefile-perl $(swig_sources)
+ifndef USE_SWIG
+	echo "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
+	exit 1
+else
+	$(MAKE) -f Makefile-perl
+endif
+
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
+
+ifdef USE_LIBCHECK
+  check: $(libraries)
+	@echo
+	@echo
+	@echo Running Tests in $(thisdir)
+	@echo -----------------------------------------------------------------
+	$(call libsbmlrun,$(PYTHON) accept.py)
+	@echo -----------------------------------------------------------------
+	@echo
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
+
+
+# -----------------------------------------------------------------------------
+# Formatting documentation.
+# -----------------------------------------------------------------------------
+
+dvi:
+
+pdf:
+
+ps:
+
+info:
+
+html:
+
+
+# -----------------------------------------------------------------------------
+# Installation.
+# -----------------------------------------------------------------------------
+
+install: Makefile.PL Makefile-perl
+	$(MAKE) -f Makefile-perl install
+
+uninstall:
+
+installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: Makefile-perl
+	$(MAKE) -f Makefile-perl clean
+
+distclean: Makefile-perl
+	$(MAKE) -f Makefile-perl distclean
+
+mostlyclean: 
+
+maintainer-clean: 
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: LibSBML_wrap.cxx dist-normal
+
+distcheck: distcheck-normal
+
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+include @top_srcdir@/config/makefile-common-actions.mk
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------
