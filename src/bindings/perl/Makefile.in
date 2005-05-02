@@ -108,7 +108,7 @@ extra_distclean = Makefile-perl Makefile-perl.old
 
 # The default action is to remake everything.
 
-all: Makefile-perl LibSBML_wrap.cxx
+all: Makefile-perl LibSBML_wrap.cxx LibSBML.pod
 
 # The Perl-created Makefile is named 'Makefile-perl'.
 
@@ -130,6 +130,9 @@ ifndef USE_SWIG
 else
 	$(MAKE) -f Makefile-perl
 endif
+
+LibSBML.pod: LibSBML_wrap.cxx LibSBML.i ../swig/libsbml.i
+	../swig/swigdoc.py perl -I../.. ../swig/libsbml.i LibSBML.pod
 
 
 # -----------------------------------------------------------------------------
