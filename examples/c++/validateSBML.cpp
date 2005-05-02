@@ -53,7 +53,7 @@
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
 
-#include "../util.h"
+#include "util.h"
 
 #include <iostream>
 

@@ -66,6 +66,8 @@ main (int argc, char *argv[])
 {
   const char* filename;
 
+  SBMLDocument* d;
+
   unsigned long start, stop, size;
   unsigned int  errors;
 
@@ -76,8 +78,10 @@ main (int argc, char *argv[])
     return 1;
   }
 
+  filename = argv[1];
+
   start = getCurrentMillis();
-  d     = readSBML(argv[1]);
+  d     = readSBML(filename);
   stop  = getCurrentMillis();
 
   errors = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();

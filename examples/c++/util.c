@@ -78,7 +78,8 @@ getCurrentMillis (void)
 
   if (gettimeofday(&tv, NULL) == 0)
   {
-    result = (unsigned long) (tv.tv_sec * 1000) + (tv.tv_usec * .001);
+    result =
+      static_cast<unsigned long>((tv.tv_sec * 1000) + (tv.tv_usec * .001));
   }
 
 #endif /* WIN32 && !CYGWIN */

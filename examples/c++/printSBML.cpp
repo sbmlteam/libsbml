@@ -61,8 +61,10 @@ using namespace std;
 int
 main (int argc, char *argv[])
 {
-  const char*   filename;
+  const char* filename;
+
   SBMLDocument* d;
+  Model*        m;
 
   unsigned int level, version;
 

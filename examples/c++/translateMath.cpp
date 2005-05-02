@@ -88,7 +88,7 @@ main (int argc, char *argv[])
 
   cout << endl 
        << "This program translates infix formulas into MathML and" << endl
-       << "vice-versa.  Enter or return on an empty line triggers" << edl
+       << "vice-versa.  Enter or return on an empty line triggers" << endl
        << "translation. Ctrl-C quits" << endl
        << endl;
 
@@ -115,7 +115,7 @@ main (int argc, char *argv[])
         str    = StringBuffer_getBuffer(sb);
         result = (str[0] == '<') ? translateMathML(str) : translateInfix(str);
 
-        cout << "Result:" endl << endl << result << endl << endl << endl;
+        cout << "Result:" << endl << endl << result << endl << endl << endl;
 
         StringBuffer_reset(sb);
         break;
