@@ -144,6 +144,10 @@ SOURCE=..\src\sbml\FunctionDefinition.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\constraints\IdBase.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\validator\constraints\IdList.cpp
 # End Source File
 # Begin Source File
@@ -256,6 +260,10 @@ SOURCE=..\src\sbml\SBMLTagCodes.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\sbml\SBMLTypeCodes.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\SBMLVisitor.cpp
 # End Source File
 # Begin Source File
@@ -293,6 +301,30 @@ SOURCE=..\src\util\StringBuffer.c
 # Begin Source File
 
 SOURCE=..\src\util\StringMap.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueIdBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueIdsForUnitDefinitions.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueIdsInKineticLaw.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueIdsInModel.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueVarsInEventAssignments.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueVarsInRules.cpp
 # End Source File
 # Begin Source File
 
