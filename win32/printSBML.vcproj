@@ -146,7 +146,7 @@
 				RelativePath="..\examples\C++\printSBML.cpp">
 			</File>
 			<File
-				RelativePath="..\examples\util.c">
+				RelativePath="..\examples\c++\util.c">
 			</File>
 		</Filter>
 		<Filter

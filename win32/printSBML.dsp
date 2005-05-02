@@ -95,7 +95,7 @@ SOURCE="..\examples\c++\printSBML.cpp"
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\examples\util.h
+SOURCE=..\examples\c++\util.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
