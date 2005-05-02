@@ -7,4 +7,5 @@ pm_to_blib
 blib
 LibSBML.bs
 LibSBML.pm
+LibSBML.pod
 LibSBML_wrap.cxx
