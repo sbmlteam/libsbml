@@ -1,13 +1,12 @@
 /**
- * Filename    : convertSBML.cpp
- * Description : Converts SBML L1 documents (any version) to L2v1
- * Author(s)   : SBML Team <sbml-team@caltech.edu>
- * Organization: JST ERATO Kitano Symbiotic Systems Project
- * Created     : 2005-04-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    convertSBML.cpp
+ * \brief   Converts SBML L1 documents (any version) to L2v1
+ * \author  Sarah Keating and Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -58,71 +57,66 @@
 #include "util/util.h"
 
 #include <iostream>
+
+
 using namespace std;
 
 
 int
 main (int argc, char *argv[])
 {
-  unsigned int errors = 0, conv_errors;
+  SBMLDocument* d;
+  unsigned int  errors;
 
-  SBMLDocument * d   = new SBMLDocument();
-  SBMLReader   * sr  = new SBMLReader();
-  SBMLWriter   * sw  = new SBMLWriter();
 
   if (argc != 3)
   {
-    cout << "\n  usage: convertSBML <input-filename> <output-filename>\n\n";
+    cout << endl
+         << "  usage: convertSBML <input-filename> <output-filename>" << endl
+         << "  Converts an SBML L1 file to L2 or vice versa"          << endl
+         << endl;
     return 1;
   }
 
-  d = sr->readSBML(argv[1]);
 
+  d      = readSBML(argv[1]);
   errors = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();
 
   if (errors > 0)
   {
-    cout << "Error(s):\n";
+    cout << "Read Error(s):" << endl;
 
     d->printWarnings(cout);
 	  d->printErrors  (cout);
 	  d->printFatals  (cout);
 
-    cout << "Conversion skipped.  Correct the above and re-run.\n";
+    cout << "Conversion skipped.  Correct the above and re-run." << endl;
   }
   else
   {
-    if (d->getLevel() == 1)
+    d->setLevel( d->getLevel() == 2 ? 1 : 2 );
+  
+    errors = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();
+
+    if (errors > 0)
     {
-      d->setLevel(2);
- 	    sw->write(*d, argv[2]);
+      cout << "Conversion Error(s):" << endl;
+
+      d->printWarnings(cout);
+      d->printErrors  (cout);
+      d->printFatals  (cout);
+
+      cout << "Conversion skipped.  Either libSBML does not (yet) have " << endl
+           << "ability to convert this model or (automatic) conversion " << endl
+           << "is not possible." << endl;
     }
     else
     {
-      d->setLevel(1);
-  
-      conv_errors = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();
-
-      if (conv_errors > 0)
-      {
-        cout << "Error(s):\n";
-
-        d->printWarnings(cout);
-	      d->printErrors  (cout);
-	      d->printFatals  (cout);
-
-        cout << "Conversion skipped.  Correct the above and re-run.\n";
-      }
-      else
-      { 	    
-        sw->write(*d, argv[2]);
-      }
+      writeSBML(d, argv[2]);
     }
   }
 
 
-  delete (sw);
-  delete(d);
- 
+  delete d;
   return errors;
 }

@@ -1,12 +1,12 @@
 /**
- * Filename    : printModel.cpp
- * Description : Prints some information about the top-level model
- * Author(s)   : The SBML Team <sbml-team@caltech.edu>
- * Created     : 2005-04-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    printModel.cpp
+ * \brief   Prints some information about the top-level model
+ * \author  Sarah Keating and Ben Bornstein
  *
- * Copyright 2002-2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2002-2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,36 +53,45 @@
 #include "sbml/SBMLTypes.h"
 
 #include <iostream>
+
+
 using namespace std;
+
 
 int
 main (int argc, char *argv[])
 {
-  SBMLDocument *d = new SBMLDocument();
-  SBMLReader   * sr = new SBMLReader();
-  Model        *m = new Model();
+  const char*   filename;
+  SBMLDocument* d;
 
   unsigned int level, version;
-  argc = 2;
-  argv[1] = "C:\\libsbml\\src\\validator\\test\\test-data\\1201-fail-01-01.xml";
 
 
   if (argc != 2)
   {
-    cout << "\n  usage: printSBML <filename>\n\n";
+    cout << endl << "  usage: printSBML <filename>" << endl << endl;
     return 1;
   }
 
-  d = sr->readSBML(argv[1]);
+
+  filename = argv[1];
+  d        = readSBML(filename);
+
+  d->printWarnings(cout);
+  d->printErrors  (cout);
+  d->printFatals  (cout);
+
   m = d->getModel();
+  if (!m) return 2;
 
   level   = d->getLevel  ();
   version = d->getVersion();
 
-  cout << endl;
-  cout << "File: " << argv[1] << " (Level " << level << ", version " << version << ")\n";
-  cout << "         ";
+  cout << endl
+       << "File: " << filename
+       << " (Level " << level << ", version " << version << ")" << endl;
 
+  cout << "         ";
 
   if (level == 1)
   {
@@ -90,7 +99,7 @@ main (int argc, char *argv[])
   }
   else
   {
-    cout <<"  model id: " <<  (m->isSetId() ? m->getId() : "(empty)")<< endl;
+    cout <<"  model id: " <<  (m->isSetId() ? m->getId() : "(empty)") << endl;
   }
 
   cout << "functionDefinitions: " <<   m->getNumFunctionDefinitions() << endl;
@@ -103,12 +112,6 @@ main (int argc, char *argv[])
   cout << "             events: " <<   m->getNumEvents()              << endl;
   cout << endl;
 
-  d->printWarnings(cout);
-  d->printErrors  (cout);
-  d->printFatals  (cout);
-
-  cout << endl;
-
-  delete (d);
+  delete d;
   return 0;
 }

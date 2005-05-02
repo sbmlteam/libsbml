@@ -1,12 +1,12 @@
 /**
- * Filename    : translateMath.cpp
- * Description : Translates infix formulas into MathML and vice-versa
- * Author(s)   : The SBML Team <sbml-team@caltech.edu>
- * Created     : 2005-04-29
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    translateMath.cpp
+ * \brief   Translates infix formulas into MathML and vice-versa
+ * \author  Sarah Keating and Ben Bornstein
  *
- * Copyright 2003-2004 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003-2004 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -66,6 +66,8 @@
 #define BUFFER_SIZE 1024
 
 #include <iostream>
+
+
 using namespace std;
 
 
@@ -76,24 +78,24 @@ char *translateMathML (const char *xml);
 int
 main (int argc, char *argv[])
 {
-  char           line[BUFFER_SIZE];
-  char           *trimmed;
-  char           *result;
-  char           *str;
-  unsigned int   len;
-  StringBuffer_t *sb = StringBuffer_create(1024);
+  char            line[BUFFER_SIZE];
+  char*           trimmed;
+  char*           result;
+  char*           str;
+  unsigned int    len;
+  StringBuffer_t* sb = StringBuffer_create(1024);
 
-  cout << "\n" ;
-  cout << "This program translates infix formulas into MathML and\n" ;
-  cout << "vice-versa.  Enter or return on an empty line triggers\n" ;
-  cout << "translation. Ctrl-C quits\n" ;
-  cout << "\n" ;
 
+  cout << endl 
+       << "This program translates infix formulas into MathML and" << endl
+       << "vice-versa.  Enter or return on an empty line triggers" << edl
+       << "translation. Ctrl-C quits" << endl
+       << endl;
 
   while (1)
   {
-    cout << "Enter infix formula or MathML expression (Ctrl-C to quit):\n" ;
-    cout << "\n" ;
+    cout << "Enter infix formula or MathML expression (Ctrl-C to quit):"
+         << endl << endl;
     cout << "> " ;
 
     cin.getline(line, BUFFER_SIZE, '\n');
@@ -113,7 +115,7 @@ main (int argc, char *argv[])
         str    = StringBuffer_getBuffer(sb);
         result = (str[0] == '<') ? translateMathML(str) : translateInfix(str);
 
-        cout << "Result:\n\n" << result << "\n\n\n";
+        cout << "Result:" endl << endl << result << endl << endl << endl;
 
         StringBuffer_reset(sb);
         break;

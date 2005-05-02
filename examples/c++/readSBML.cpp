@@ -1,12 +1,12 @@
 /**
- * Filename    : readSBML.cpp
- * Description : Similar to validateSBML, but without the validation
- * Author(s)   : The SBML Team <sbml-team@caltech.edu>
- * Created     : 2005-04-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    readSBML.cpp
+ * \brief   Similar to validateSBML, but without the validation
+ * \author  Sarah Keating and Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -53,53 +53,51 @@
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
 
-#include "../util.h"
+#include "util.h"
 
 #include <iostream>
+
+
 using namespace std;
 
 
 int
 main (int argc, char *argv[])
 {
-  unsigned long start, stop, size;
-  unsigned int  errors = 0;
+  const char* filename;
 
-  SBMLDocument * d  = new SBMLDocument();
-  SBMLReader   * sr = new SBMLReader();
+  unsigned long start, stop, size;
+  unsigned int  errors;
+
 
   if (argc != 2)
   {
-    cout << "\n  usage: readSBML <filename>\n\n";
+    cout << endl << "  usage: readSBML <filename>" << endl << endl;
     return 1;
   }
 
   start = getCurrentMillis();
-  d     = sr->readSBML(argv[1]);
+  d     = readSBML(argv[1]);
   stop  = getCurrentMillis();
 
   errors = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();
-
-  errors += d->checkConsistency();
-
-  size = getFileSize(argv[1]);
+  size   = getFileSize(argv[1]);
 
   cout << endl;
-  cout << "        filename: " << argv[1] << endl;
-  cout << "       file size: " << size << endl;
+  cout << "        filename: " << filename     << endl;
+  cout << "       file size: " << size         << endl;
   cout << "  read time (ms): " << stop - start << endl;
-  cout << "        error(s): " << errors << endl;
+  cout << "        error(s): " << errors       << endl;
 
   if (errors > 0)
   {
-	d->printWarnings(cout);
-	d->printErrors  (cout);
-	d->printFatals  (cout);
+    d->printWarnings(cout);
+    d->printErrors  (cout);
+    d->printFatals  (cout);
   }
 
   cout << endl;
 
-  delete (d);
-
+  delete d;
   return errors;
 }

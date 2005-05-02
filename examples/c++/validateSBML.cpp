@@ -1,12 +1,12 @@
 /**
- * Filename    : validateSBML.cpp
- * Description : Validates an SBML file against the appropriate schema
- * Author(s)   : The SBML Team <sbml-team@caltech.edu>
- * Created     : 2005-04-18
- * Revision    : $Id$
- * Source      : $Source$
+ * \file    validateSBML.cpp
+ * \brief   Validates an SBML file against the appropriate schema
+ * \author  Sarah Keating and Ben Bornstein
  *
- * Copyright 2003 California Institute of Technology and
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2003 California Institute of Technology and
  * Japan Science and Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -56,42 +56,49 @@
 #include "../util.h"
 
 #include <iostream>
+
+
 using namespace std;
+
 
 int
 main (int argc, char *argv[])
 {
+  const char* filename;
+
   unsigned long start, stop, size;
   unsigned int  errors = 0;
 
-  SBMLDocument * d  = new SBMLDocument();
-  SBMLReader   * sr = new SBMLReader();
+  SBMLDocument *d;
+
 
   if (argc != 2)
   {
-    cout << "\n usage: validateSBML <filename>\n\n";
+    cout << endl << " usage: validateSBML <filename>" << endl << endl;
     return 1;
   }
 
 
-  sr->setSchemaValidationLevel(XML_SCHEMA_VALIDATION_BASIC);
+  SBMLReader sr;
+  sr.setSchemaValidationLevel(XML_SCHEMA_VALIDATION_BASIC);
 
-  sr->setSchemaFilenameL1v1("sbml-l1v1.xsd");
-  sr->setSchemaFilenameL1v2("sbml-l1v2.xsd");
-  sr->setSchemaFilenameL2v1("sbml-l2v1.xsd");
+  sr.setSchemaFilenameL1v1("sbml-l1v1.xsd");
+  sr.setSchemaFilenameL1v2("sbml-l1v2.xsd");
+  sr.setSchemaFilenameL2v1("sbml-l2v1.xsd");
+
+  filename = argv[1];
 
   start = getCurrentMillis();
-  d     = sr->readSBML(argv[1]);
+  d     = sr.readSBML(filename);
   stop  = getCurrentMillis();
 
-  errors = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();
-  
+  errors  = d->getNumWarnings() + d->getNumErrors() + d->getNumFatals();
   errors += d->checkConsistency();
 
-  size = getFileSize(argv[1]);
+  size = getFileSize(filename);
 
   cout << endl;
-  cout << "        filename: " << argv[1]      << endl;
+  cout << "        filename: " << filename     << endl;
   cout << "       file size: " << size         << endl;
   cout << "  read time (ms): " << stop - start << endl;
   cout << "        error(s): " << errors       << endl;
@@ -105,6 +112,6 @@ main (int argc, char *argv[])
 
   cout << endl;
 
-  delete (d);
+  delete d;
   return errors;
 }
