@@ -57,6 +57,19 @@
 #include "xml/XMLSchemaValidation.h"
 
 
+/**
+ * Warnings, errors and fatal errors are logged to an SBMLDocument while
+ * reading.  Three types of fatal errors in particular will be logged
+ * immediately.  They have the following ParseMessage ids:
+ */
+typedef enum
+{
+    SBML_READ_ERROR_UNKNOWN        = 0
+  , SBML_READ_ERROR_FILE_NOT_FOUND = 1
+  , SBML_READ_ERROR_NOT_SBML       = 2
+} SBMLReadError_t;
+
+
 #ifdef __cplusplus
 
 
@@ -114,10 +127,21 @@ public:
   XMLSchemaValidation_t getSchemaValidationLevel() const;
 
   /**
-   * Reads an SBML document from the given file.
+   * Reads an SBML document from the given file.  If filename does not
+   * exist or is not an SBML file, a fatal error will be logged.
+   * Errors can be identified by their unique ids, e.g.:
    *
-   * @return a pointer to the SBMLDocument read or NULL if the given file
-   * does not exist.
+   * <code>
+   *   SBMLDocument* d = reader.readSBML(filename);
+   *
+   *   if (d->getNumFatals() > 0)
+   *   {
+   *     if (d->getFatal(0)->getId() == SBML_READ_ERROR_FILE_NOT_FOUND)
+   *     if (d->getFatal(0)->getId() == SBML_READ_ERROR_NOT_SBML)
+   *   }
+   * </code>
+   *
+   * @return a pointer to the SBMLDocument read.
    */
   LIBSBML_EXTERN
   SBMLDocument* readSBML (const std::string& filename);
@@ -129,6 +153,10 @@ public:
    * things, it must start with an XML processing instruction.  For e.g.,:
    *
    *   <?xml version='1.0' encoding='UTF-8'?>
+   *
+   * This method will log a fatal error if the XML string is not SBML.  See
+   * the method documentation for readSBML(filename) for example error
+   * checking code.
    *
    * @return a pointer to the SBMLDocument read.
    */
@@ -262,10 +290,31 @@ XMLSchemaValidation_t
 SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr);
 
 /**
- * Reads an SBML document from the given file.
+ * Reads an SBML document from the given file.  If filename does not exist
+ * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * identified by their unique ids, e.g.:
  *
- * @return a pointer to the SBMLDocument read or NULL if the given file
- * does not exist.
+ * <code>
+ *   SBMLReader     *sr;
+ *   SBMLDocument_t *d;
+ *
+ *   sr = SBMLReader_create();
+ *   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
+ *   SBMLReader_setSchemaFilenameL1v1("sbml-l1v1.xsd");
+ *   SBMLReader_setSchemaFilenameL1v2("sbml-l1v2.xsd");
+ *   SBMLReader_setSchemaFilenameL2v1("sbml-l2v1.xsd");
+ *
+ *   d = SBMLReader_readSBML(reader, filename);
+ *
+ *   if (SBMLDocument_getNumFatals(d) > 0)
+ *   {
+ *     ParseMessage_t *pm = SBMLDocument_getFatal(d, 0);
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND)
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML)
+ *   }
+ * </code>
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -279,8 +328,11 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename);
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
  *
- * @return a pointer to the SBMLDocument read or NULL if the given XML
- * string is NULL.
+ * This method will log a fatal error if the XML string is not SBML.  See
+ * the function documentation for SBMLReader_readSBML(filename) for example
+ * error checking code.
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -347,13 +399,22 @@ SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
 
 
 /**
- * Reads an SBML document from the given file.  This convenience function
- * is functionally equivalent to:
+ * Reads an SBML document from the given file.  If filename does not exist
+ * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * identified by their unique ids, e.g.:
  *
- *   SBMLReader_readSBML(SBMLReader_create(), filename);
+ * <code>
+ *   SBMLDocument_t *d = SBMLReader_readSBML(reader, filename);
  *
- * @return a pointer to the SBMLDocument read or NULL if the given file
- * does not exist.
+ *   if (SBMLDocument_getNumFatals(d) > 0)
+ *   {
+ *     ParseMessage_t *pm = SBMLDocument_getFatal(d, 0);
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND)
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML)
+ *   }
+ * </code>
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -367,12 +428,11 @@ readSBML (const char *filename);
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
  *
- * This convenience function is functionally equivalent to:
+ * This method will log a fatal error if the XML string is not SBML.  See
+ * the function documentation for readSBML(filename) for example error
+ * checking code.
  *
- *   SBMLReader_readSBMLFromString(SBMLReader_create(), filename);
- *
- * @return a pointer to the SBMLDocument read or NULL if the given XML
- * string is NULL.
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *

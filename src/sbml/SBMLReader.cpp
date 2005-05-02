@@ -313,7 +313,16 @@ SBMLReader::getSchemaValidationLevel() const
 SBMLDocument*
 SBMLReader::readSBML_internal (const char* filename, const char* xml)
 {
-  if (filename && !util_file_exists(filename)) return 0;
+  SBMLDocument* d = new SBMLDocument();
+
+  if (filename && !util_file_exists(filename))
+  {
+    ostringstream msg;
+    msg << "File '" << filename << "' does not exist.";
+
+    d->fatal.add( new ParseMessage(SBML_READ_ERROR_FILE_NOT_FOUND, msg.str()) );
+    return d;
+  }
 
 
 #ifdef USE_EXPAT
@@ -321,10 +330,8 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
   const int BUFFER_SIZE = 0xfffe;
   char*     pBuffer     = 0;
 
-  SBMLDocument* d = new SBMLDocument();  
-  SBMLHandler   handler(d);
 
-
+  SBMLHandler handler(d);
   handler.enableElementHandler();
 
   try
@@ -363,19 +370,16 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
     msg << "Error while reading from file '" << filename << "'.";
 
     d->fatal.add( new ParseMessage(0, msg.str()) );
-    d->setModel(0);
   }
   catch (...)
   {
     d->fatal.add( new ParseMessage(0, "Unexpected Parse Error") );
-    d->setModel(0);
   }
 
   delete [] pBuffer;
 
-#else
 
-  SBMLDocument* d = new SBMLDocument;
+#else
 
 
   try
@@ -454,7 +458,7 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
   }
   catch (...)
   {
-    d->fatal.add( new ParseMessage(100, "Unexpected Exception", 0, 0) );
+    d->fatal.add( new ParseMessage(0, "Unexpected Parse Error", 0, 0) );
   }
 
   delete input;
@@ -463,15 +467,35 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
 
 #endif  // USE_EXPAT
 
+
+  if ( !d->getModel() )
+  {
+    d->fatal.prepend
+    (
+      new ParseMessage(SBML_READ_ERROR_NOT_SBML, "Content is not SBML.")
+    );
+  }
+
   return d;
 }
 
 
 /**
- * Reads an SBML document from the given file.
+ * Reads an SBML document from the given file.  If filename does not exist
+ * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * identified by their unique ids, e.g.:
  *
- * @return a pointer to the SBMLDocument read or NULL if the given file
- * does not exist.
+ * <code>
+ *   SBMLDocument* d = reader.readSBML(filename);
+ *
+ *   if (d->getNumFatals() > 0)
+ *   {
+ *     if (d->getFatal(0)->getId() == SBML_READ_ERROR_FILE_NOT_FOUND)
+ *     if (d->getFatal(0)->getId() == SBML_READ_ERROR_NOT_SBML)
+ *   }
+ * </code>
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument*
@@ -488,6 +512,10 @@ SBMLReader::readSBML (const std::string& filename)
  * things, it must start with an XML processing instruction.  For e.g.,:
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
+ *
+ * This method will log a fatal error if the XML string is not SBML.  See
+ * the method documentation for readSBML(filename) for example error
+ * checking code.
  *
  * @return a pointer to the SBMLDocument read.
  */
@@ -647,10 +675,31 @@ SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr)
 
 
 /**
- * Reads an SBML document from the given file.
+ * Reads an SBML document from the given file.  If filename does not exist
+ * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * identified by their unique ids, e.g.:
  *
- * @return a pointer to the SBMLDocument read or NULL if filename is NULL
- * or does not exist.
+ * <code>
+ *   SBMLReader     *sr;
+ *   SBMLDocument_t *d;
+ *
+ *   sr = SBMLReader_create();
+ *   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
+ *   SBMLReader_setSchemaFilenameL1v1("sbml-l1v1.xsd");
+ *   SBMLReader_setSchemaFilenameL1v2("sbml-l1v2.xsd");
+ *   SBMLReader_setSchemaFilenameL2v1("sbml-l2v1.xsd");
+ *
+ *   d = SBMLReader_readSBML(reader, filename);
+ *
+ *   if (SBMLDocument_getNumFatals(d) > 0)
+ *   {
+ *     ParseMessage_t *pm = SBMLDocument_getFatal(d, 0);
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND)
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML)
+ *   }
+ * </code>
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -668,8 +717,11 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
  *
- * @return a pointer to the SBMLDocument read or NULL if the given XML
- * string is NULL.
+ * This method will log a fatal error if the XML string is not SBML.  See
+ * the function documentation for SBMLReader_readSBML(filename) for example
+ * error checking code.
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -680,13 +732,22 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 
 
 /**
- * Reads an SBML document from the given file.  This convenience function
- * is functionally equivalent to:
+ * Reads an SBML document from the given file.  If filename does not exist
+ * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * identified by their unique ids, e.g.:
  *
- *   SBMLReader_readSBML(SBMLReader_create(), filename);
+ * <code>
+ *   SBMLDocument_t *d = SBMLReader_readSBML(reader, filename);
  *
- * @return a pointer to the SBMLDocument read or NULL if the given file
- * does not exist.
+ *   if (SBMLDocument_getNumFatals(d) > 0)
+ *   {
+ *     ParseMessage_t *pm = SBMLDocument_getFatal(d, 0);
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND)
+ *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML)
+ *   }
+ * </code>
+ *
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -705,12 +766,11 @@ readSBML (const char *filename)
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
  *
- * This convenience function is functionally equivalent to:
+ * This method will log a fatal error if the XML string is not SBML.  See
+ * the function documentation for readSBML(filename) for example error
+ * checking code.
  *
- *   SBMLReader_readSBMLFromString(SBMLReader_create(), filename);
- *
- * @return a pointer to the SBMLDocument read or NULL if the given XML
- * string is NULL.
+ * @return a pointer to the SBMLDocument read.
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
