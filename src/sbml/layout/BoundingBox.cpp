@@ -365,7 +365,7 @@ LIBSBML_EXTERN
 void
 BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p)
 {
-  bb->setPosition(*p);
+  bb->setPosition(p ? *p : Point());
 }
 
 
@@ -376,5 +376,5 @@ LIBSBML_EXTERN
 void
 BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d)
 {
-  bb->setDimensions(*d);
+  bb->setDimensions(d ? *d : Dimensions());
 }

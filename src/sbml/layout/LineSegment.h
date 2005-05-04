@@ -116,6 +116,14 @@ public:
   const std::string& getId () const;
 
   /**
+   * Returns false if the id has been set and 
+   * true otherwise.
+   */
+  LIBSBML_EXTERN
+  int
+  isSetId() const;
+
+  /**
    * Returns the start point of the line.
    */ 
   LIBSBML_EXTERN
@@ -258,6 +266,27 @@ LIBSBML_EXTERN
 void
 LineSegment_initDefaults (LineSegment_t *ls);
 
+/**
+ * Returns the id of the LineSegment. Or NULL if the id is not set.
+ */ 
+LIBSBML_EXTERN
+const char*
+LineSegment_getId (LineSegment_t *ls);
+
+/**
+ * Sets the id of the LineSegment.
+ */ 
+LIBSBML_EXTERN
+void
+LineSegment_setId(LineSegment_t* ls,const char* id);
+
+/**
+ * Returns 0 if the id has been set and an 
+ * integer different from 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+LineSegment_isSetId(LineSegment_t* ls);
 
 END_C_DECLS
 

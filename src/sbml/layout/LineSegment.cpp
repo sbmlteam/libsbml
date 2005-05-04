@@ -142,6 +142,17 @@ LineSegment::getId () const
 
 
 /**
+ * Returns false if the id has been set and 
+ * true otherwise.
+ */
+LIBSBML_EXTERN
+int
+LineSegment::isSetId() const
+{
+    return !this->id.empty();
+}
+
+/**
  * Returns the start point of the line.
  */ 
 LIBSBML_EXTERN
@@ -249,7 +260,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createFrom (const LineSegment_t *temp)
 {
-  return new(std::nothrow) LineSegment(*temp);
+  return new(std::nothrow) LineSegment(temp ? *temp : LineSegment());
 }
 
 
@@ -260,7 +271,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createWithPoints (const Point_t *start, const Point_t *end)
 {
-  return new(std::nothrow) LineSegment (*start, *end);
+  return new(std::nothrow) LineSegment (start ? *start : Point(), end ? *end : Point());
 }
 
 
@@ -294,7 +305,7 @@ LIBSBML_EXTERN
 void
 LineSegment_setStart (LineSegment_t *ls, const Point_t *start)
 {
-  ls->setStart(*start);
+  ls->setStart(start ? *start : Point() );
 }
 
 
@@ -305,7 +316,7 @@ LIBSBML_EXTERN
 void
 LineSegment_setEnd (LineSegment_t *ls, const Point_t *end)
 {
-  ls->setEnd(*end);
+  ls->setEnd(end ? *end : Point() );
 }
 
 
@@ -340,3 +351,36 @@ LineSegment_initDefaults (LineSegment_t *ls)
 {
   ls->initDefaults();
 }
+
+/**
+ * Returns the id of the LineSegment. Or NULL if the id is not set.
+ */ 
+LIBSBML_EXTERN
+const char*
+LineSegment_getId (LineSegment_t *ls)
+{
+  return ls->getId().empty() ? NULL : ls->getId().c_str();
+}
+
+/**
+ * Sets the id of the LineSegment.
+ */ 
+LIBSBML_EXTERN
+void
+LineSegment_setId(LineSegment_t* ls,const char* id)
+{
+     ls->setId(id ? id : "");
+}
+
+/**
+ * Returns 0 if the id has been set and an 
+ * integer different from 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+LineSegment_isSetId(LineSegment_t* ls)
+{
+    return (int)ls->isSetId();
+}
+
+
