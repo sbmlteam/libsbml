@@ -2355,11 +2355,11 @@ END_TEST
 START_TEST (test_element_annotations)
 {
   const char* a =
-    "<annotations xmlns:mysim=\"http://www.mysim.org/ns\">"
+    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
     "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
     "  </mysim:nodecolors>"
     "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotations>";
+    "</annotation>";
 
   const char* s = wrapSBML
   (

@@ -333,10 +333,19 @@ SBMLHandler::startElement (const XMLCh* const  uri,
   // Otherwise, check for the special tags <annotation>, <notes> or <math>
   // and delegate to the appropriate sub-handler.
   //
-  else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
+  else if (tag == TAG_ANNOTATION)
   {
     fFormatter->startElement(qname, attrs);
     inAnnotation++;
+  }
+  else if (tag == TAG_ANNOTATIONS)
+  {
+    XMLCh* name = removeLastChar(qname);
+
+    fFormatter->startElement(name, attrs);
+    inAnnotation++;
+
+    delete [] name;
   }
 
 
@@ -465,7 +474,16 @@ SBMLHandler::endElement (const XMLCh* const  uri,
   //
   else if (tag == TAG_ANNOTATION || tag == TAG_ANNOTATIONS)
   {
-    fFormatter->endElement(localname);
+    if (tag == TAG_ANNOTATIONS)
+    {
+      XMLCh* name = removeLastChar(localname);  // removeLastChar(qname);
+      fFormatter->endElement(name);
+      delete [] name;
+    }
+    else
+    {
+      fFormatter->endElement(localname);  // fFormatter->endElement(qname);
+    }
 
     if (inAnnotation == 1)
     {
@@ -1947,6 +1965,24 @@ SBMLHandler::setStoichiometryMath (SpeciesReference* sr, ASTNode* math)
   {
     delete math;
   }
+}
+
+
+/**
+ * @return a duplicate of s with the last character removed.  Free the
+ * returned string delete [ ].
+ */
+XMLCh*
+removeLastChar (const XMLCh* const s)
+{
+  int    len    = XMLString::stringLen(s);
+  XMLCh* result = new XMLCh[len];
+
+
+  XMLString::copyNString(result, s, len - 1);
+  result[len - 1] = chNull;
+
+  return result;
 }
 
 

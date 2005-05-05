@@ -1,6 +1,38 @@
            libsbml NEWS -- History of user-visible changes
 
 
+=== Version 2.3.1 ===
+
+* New Features:
+
+
+* Bug Fixes:
+
+  - LibSBML now converts plural <annotations> into their singular form
+    when reading and storing annotation strings.  This prevents
+    technically incorrect SBML from being written when a plural
+    annotations are read-in and an L1v2 or L2v1 SBML document is
+    subsequently written-out.
+
+    Note: It is still possible to pass setAnnotation() an incorrectly
+    formatted annotation string.  This is one of the many shortcomings
+    of the libSBML annotation system, which will be overhauled soon.
+
+  - Doxygen generated HTML documentation, which was broken in libSBML
+    2.3.0, is working again.
+
+
+* Changes:
+
+
+* Known Bugs:
+
+
+* Released May 9, 2005
+
+
+
+
 === Version 2.3.0 ===
 
 * New Features:

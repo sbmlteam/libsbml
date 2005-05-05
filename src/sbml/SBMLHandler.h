@@ -290,6 +290,13 @@ private:
 
 
 /**
+ * @return a duplicate of s with the last character removed.  Free the
+ * returned string delete [ ].
+ */
+XMLCh*
+removeLastChar (const XMLCh* const s);
+
+/**
  * @return true if prefix begins with 'xmlns:' (case-insensitive), false
  * otherwise.
  */
