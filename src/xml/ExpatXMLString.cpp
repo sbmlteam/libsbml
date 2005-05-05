@@ -110,6 +110,44 @@ XMLString::compareIString (const XML_Char* str1, const XML_Char* str2)
 }
 
 
+/**
+ * Copies source, including the terminating null character, to the location
+ * specified by target.
+ *
+ * No overflow checking is performed when strings are copied or
+ * appended. The behavior of copyString is undefined if the source and
+ * destination strings overlap.
+ *
+ * @param  target  destination string
+ * @param  source  null-terminated source string
+ */
+void
+XMLString::copyString (XML_Char* target, const XML_Char* source)
+{
+  strcpy(target, source);
+}
+
+
+/**
+ * Copies source, upto a fixed number of characters, to the location
+ * specified by target.
+ *
+ * No overflow checking is performed when strings are copied or
+ * appended. The behavior of copyNString is undefined if the source and
+ * destination strings overlap.
+ *
+ * @param  target  destination string
+ * @param  source  null-terminated source string
+ */
+void
+XMLString::copyNString (XML_Char*       target,
+                        const XML_Char* source,
+                        unsigned int    maxChars)
+{
+  strncpy(target, source, maxChars);
+}
+
+
 XML_Char*
 XMLString::transcode (const XML_Char* str, const int& length)
 {

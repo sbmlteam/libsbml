@@ -51,6 +51,35 @@ public:
   static int indexOf(const XML_Char * str1, const XML_Char ch);
   static int compareString(const XML_Char * str1, const XML_Char * str2);
   static int compareIString(const XML_Char * str1, const XML_Char * str2);
+
+  /**
+   * Copies source, including the terminating null character, to the
+   * location specified by target.
+   *
+   * No overflow checking is performed when strings are copied or
+   * appended. The behavior of copyString is undefined if the source and
+   * destination strings overlap.
+   *
+   * @param  target  destination string
+   * @param  source  null-terminated source string
+   */
+  static void copyString (XML_Char* target, const XML_Char* source);
+
+  /**
+   * Copies source, upto a fixed number of characters, to the location
+   * specified by target.
+   *
+   * No overflow checking is performed when strings are copied or
+   * appended. The behavior of copyNString is undefined if the source and
+   * destination strings overlap.
+   *
+   * @param  target  destination string
+   * @param  source  null-terminated source string
+   */
+  static void copyNString (XML_Char*       target,
+                           const XML_Char* source,
+                           unsigned int    maxChars);
+
   static XML_Char * transcode(const XML_Char * str, const int & length = -1);
   static bool isAllWhiteSpace(const XML_Char * str, const int & length = -1);
   static void release(XML_Char ** str);
