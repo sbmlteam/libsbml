@@ -23,6 +23,9 @@
   - Doxygen generated HTML documentation, which was broken in libSBML
     2.3.0, is working again.
 
+  - ./configure --with-expat=... works again.  There was a small typo
+    in the config/expat.m4 script that caused LDFLAGS to be set
+    incorrectly.  Thanks to Ed Frank for reporting this bug.
 
 * Changes:
 

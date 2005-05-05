@@ -87,7 +87,7 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
     fi
 
     EXPAT_CPPFLAGS="-I$expat_root/include"
-    EXPAT_LDFLAGS="-I$expat_root/lib"
+    EXPAT_LDFLAGS="-L$expat_root/lib"
     EXPAT_LIBS="-lexpat"
 
     dnl The following is grungy but I don't know how else to make 
