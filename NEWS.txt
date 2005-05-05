@@ -18,6 +18,8 @@
     formatted annotation string.  This is one of the many shortcomings
     of the libSBML annotation system, which will be overhauled soon.
 
+    Thanks to Jo Matthews for reporting this bug.
+
   - Doxygen generated HTML documentation, which was broken in libSBML
     2.3.0, is working again.
 
