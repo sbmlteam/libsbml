@@ -107,8 +107,8 @@ START_TEST (test_AssignmentRule_L2_createWith)
   fail_unless( SBase_getNotes     ((SBase_t *) ar) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) ar) == NULL );
 
-  fail_unless( Rule_getFormula((Rule_t *) ar) == NULL );
-  fail_unless( Rule_getMath   ((Rule_t *) ar) == math );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "y + 1") );
+  fail_unless( Rule_getMath((Rule_t *) ar) == math );
 
   fail_unless( !strcmp(AssignmentRule_getVariable(ar), "x") );
 

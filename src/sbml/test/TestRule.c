@@ -126,6 +126,11 @@ START_TEST (test_Rule_setFormula)
 END_TEST
 
 
+/**
+ * setFormulaFromMath() is no longer necessary.  LibSBML now keeps formula
+ * strings and math ASTs synchronized automatically.  This (now modified)
+ * test is kept around to demonstrate the behavioral change.
+ */
 START_TEST (test_Rule_setFormulaFromMath)
 {
   ASTNode_t *math = SBML_parseFormula("k1 * X0");
@@ -139,8 +144,8 @@ START_TEST (test_Rule_setFormulaFromMath)
   fail_unless( !Rule_isSetFormula(R) );
 
   Rule_setMath(R, math);
-  fail_unless(  Rule_isSetMath   (R) );
-  fail_unless( !Rule_isSetFormula(R) );
+  fail_unless( Rule_isSetMath(R) );
+  fail_unless( /* ! */ Rule_isSetFormula(R) );
 
   Rule_setFormulaFromMath(R);
   fail_unless( Rule_isSetMath   (R) );
@@ -175,7 +180,11 @@ START_TEST (test_Rule_setMath)
 }
 END_TEST
 
-
+/**
+ * setMathFromFormula() is no longer necessary.  LibSBML now keeps formula
+ * strings and math ASTs synchronized automatically.  This (now modified)
+ * test is kept around to demonstrate the behavioral change.
+ */
 START_TEST (test_Rule_setMathFromFormula)
 {
   char *formula = "1 + 1";
@@ -189,7 +198,7 @@ START_TEST (test_Rule_setMathFromFormula)
   fail_unless( !Rule_isSetFormula(R) );
 
   Rule_setFormula(R, formula);
-  fail_unless( !Rule_isSetMath   (R) );
+  fail_unless( /* ! */ Rule_isSetMath(R) );
   fail_unless(  Rule_isSetFormula(R) );
 
   Rule_setMathFromFormula(R);

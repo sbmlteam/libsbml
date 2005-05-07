@@ -132,15 +132,15 @@ public:
   const std::string& getSubstanceUnits () const;
 
   /**
-   * @return true if the formula of this KineticLaw has been set, false
-   * otherwise.
+   * @return true if the formula (or equivalently the math) of this
+   * KineticLaw has been set, false otherwise.
    */
   LIBSBML_EXTERN
   bool isSetFormula () const;
 
   /**
-   * @return true if the math of this KineticLaw has been set, false
-   * otherwise.
+   * @return true if the math (or equivalently the formula) of this
+   * KineticLaw has been set, false otherwise.
    */
   LIBSBML_EXTERN
   bool isSetMath () const;
@@ -166,20 +166,6 @@ public:
   void setFormula (const std::string& formula);
 
   /**
-   * Sets the formula of this KineticLaw based on the current value of its
-   * math field.  This convenience method is equivalent to:
-   *
-   *   setFormula( SBML_formulaToString( getMath() ))
-   *
-   * except you do not need to track and free the value returned by
-   * SBML_formulaToString().
-   *
-   * If !isSetMath(), this method has no effect.
-   */
-  LIBSBML_EXTERN
-  void setFormulaFromMath ();
-
-  /**
    * Sets the math of this KineticLaw to the given ASTNode.
    *
    * The node <b>is not copied</b> and this KineticLaw <b>takes
@@ -190,15 +176,20 @@ public:
   void setMath (ASTNode* math);
 
   /**
-   * Sets the math of this KineticLaw from its current formula string.
-   * This convenience method is equivalent to:
-   *
-   *   setMath( SBML_parseFormula( getFormula() ))
-   *
-   * If !isSetFormula(), this method has no effect.
+   * This method is no longer necessary.  LibSBML now keeps formula strings
+   * and math ASTs synchronized automatically.  The method is kept around
+   * for backward compatibility (and is used internally).
    */
   LIBSBML_EXTERN
-  void setMathFromFormula ();
+  void setFormulaFromMath () const;
+
+  /**
+   * This method is no longer necessary.  LibSBML now keeps formula strings
+   * and math ASTs synchronized automatically.  The method is kept around
+   * for backward compatibility (and is used internally).
+   */
+  LIBSBML_EXTERN
+  void setMathFromFormula () const;
 
   /**
    * Sets the timeUnits of this KineticLaw to a copy of sname.
@@ -245,8 +236,9 @@ public:
 
 protected:
 
-  std::string formula;
-  ASTNode*    math;
+  mutable std::string formula;
+  mutable ASTNode*    math;
+
   ListOf      parameter;
   std::string timeUnits;
   std::string substanceUnits;
@@ -337,14 +329,16 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl);
 
 
 /**
- * @return 1 if the formula of this KineticLaw has been set, 0 otherwise.
+ * @return true (non-zero) if the formula (or equivalently the math) of
+ * this KineticLaw has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 KineticLaw_isSetFormula (const KineticLaw_t *kl);
 
 /**
- * @return 1 if the math of this KineticLaw has been set, 0 otherwise.
+ * @return true if the math (or equivalently the formula) of this
+ * KineticLaw has been set, false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -374,21 +368,6 @@ void
 KineticLaw_setFormula (KineticLaw_t *kl, const char *string);
 
 /**
- * Sets the formula of this KineticLaw based on the current value of its
- * math field.  This convenience function is functionally equivalent to:
- *
- *   KineticLaw_setFormula(kl, SBML_formulaToString( KineticLaw_getMath(kl) ))
- *
- * except you do not need to track and free the value returned by
- * SBML_formulaToString().
- *
- * If !KineticLaw_isSetMath(kl), this function has no effect.
- */
-LIBSBML_EXTERN
-void
-KineticLaw_setFormulaFromMath (KineticLaw_t *kl);
-
-/**
  * Sets the math of this KineticLaw to the given ASTNode.
  *
  * The node <b>is not copied</b> and this KineticLaw <b>takes ownership</b>
@@ -399,17 +378,25 @@ LIBSBML_EXTERN
 void
 KineticLaw_setMath (KineticLaw_t *kl, ASTNode_t *math);
 
+
 /**
- * Sets the math of this KineticLaw from its current formula string.  This
- * convenience function is functionally equivalent to:
- *
- *   KineticLaw_setMath(kl, SBML_parseFormula( KineticLaw_getFormula(kl) ))
- *
- * If !KineticLaw_isSetFormula(kl), this function has no effect.
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
  */
 LIBSBML_EXTERN
 void
-KineticLaw_setMathFromFormula (KineticLaw_t *kl);
+KineticLaw_setFormulaFromMath (const KineticLaw_t *kl);
+
+/**
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setMathFromFormula (const KineticLaw_t *kl);
+
 
 /**
  * Sets the timeUnits of this KineticLaw to a copy of sname.

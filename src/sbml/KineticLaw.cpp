@@ -70,7 +70,7 @@ KineticLaw::KineticLaw (   const std::string& formula
                          , const std::string& substanceUnits ) :
     SBase()
   , formula        ( formula        )
-  , math           ( NULL           )
+  , math           ( 0              )
   , timeUnits      ( timeUnits      )
   , substanceUnits ( substanceUnits )
 {
@@ -125,6 +125,7 @@ LIBSBML_EXTERN
 const std::string&
 KineticLaw::getFormula () const
 {
+  if (formula.empty() && math) setFormulaFromMath();
   return formula;
 }
 
@@ -136,6 +137,7 @@ LIBSBML_EXTERN
 const ASTNode*
 KineticLaw::getMath () const
 {
+  if (!math && !formula.empty()) setMathFromFormula();
   return math;
 }
 
@@ -185,26 +187,26 @@ KineticLaw::getSubstanceUnits () const
 
 
 /**
- * @return true if the formula of this KineticLaw has been set, false
- * otherwise.
+ * @return true if the formula (or equivalently the math) of this
+ * KineticLaw has been set, false otherwise.
  */
 LIBSBML_EXTERN
 bool
 KineticLaw::isSetFormula () const
 {
-  return ! formula.empty();
+  return !formula.empty() || math;
 }
 
 
 /**
- * @return true if the math of this KineticLaw has been set, false
- * otherwise.
+ * @return true if the math (or equivalently the formula) of this
+ * KineticLaw has been set, false otherwise.
  */
 LIBSBML_EXTERN
 bool
 KineticLaw::isSetMath () const
 {
-  return (math != NULL);
+  return isSetFormula();
 }
 
 
@@ -240,30 +242,12 @@ void
 KineticLaw::setFormula (const std::string& string)
 {
   formula = string;
-}
 
-
-/**
- * Sets the formula of this KineticLaw based on the current value of its
- * math field.  This convenience method is equivalent to:
- *
- *   setFormula( SBML_formulaToString( getMath() ))
- *
- * except you do not need to track and free the value returned by
- * SBML_formulaToString().
- *
- * If !isSetMath(), this method has no effect.
- */
-LIBSBML_EXTERN
-void
-KineticLaw::setFormulaFromMath ()
-{
-  if ( !isSetMath() ) return;
-
-  char* s = SBML_formulaToString(math);
-  formula = s;
-
-  safe_free(s);
+  if (math)
+  {
+    delete math;
+    math = 0;
+  }
 }
 
 
@@ -281,29 +265,47 @@ KineticLaw::setMath (ASTNode* math)
   if (this->math == math) return;
 
 
-
   delete this->math;
   this->math = math;
+
+  formula.erase();
 }
 
 
 /**
- * Sets the math of this KineticLaw from its current formula string.  This
- * convenience method is equivalent to:
- *
- *   setMath( SBML_parseFormula( getFormula() ))
- *
- * If !isSetFormula(), this method has no effect.
+ * This method is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The method is kept around for
+ * backward compatibility (and is used internally).
  */
 LIBSBML_EXTERN
 void
-KineticLaw::setMathFromFormula ()
+KineticLaw::setFormulaFromMath () const
 {
-  if ( !isSetFormula() ) return;
+  if (math)
+  {
+    char* s = SBML_formulaToString(math);
+    formula = s;
+
+    safe_free(s);
+  }
+  else
+  {
+    formula.erase();
+  }
+}
 
 
+/**
+ * This method is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The method is kept around for
+ * backward compatibility (and is used internally).
+ */
+LIBSBML_EXTERN
+void
+KineticLaw::setMathFromFormula () const
+{
   delete math;
-  math = (ASTNode*) SBML_parseFormula( formula.c_str() );
+  math = formula.empty() ? 0 : SBML_parseFormula( formula.c_str() );
 }
 
 
@@ -428,7 +430,7 @@ LIBSBML_EXTERN
 void
 KineticLaw_free (KineticLaw_t *kl)
 {
-  delete static_cast<KineticLaw*>(kl);
+  delete kl;
 }
 
 
@@ -439,10 +441,7 @@ LIBSBML_EXTERN
 const char *
 KineticLaw_getFormula (const KineticLaw_t *kl)
 {
-  const KineticLaw* x = static_cast<const KineticLaw*>(kl);
-
-
-  return x->isSetFormula() ? x->getFormula().c_str() : NULL;
+  return kl->isSetFormula() ? kl->getFormula().c_str() : NULL;
 }
 
 
@@ -453,7 +452,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 KineticLaw_getMath (const KineticLaw_t *kl)
 {
-  return static_cast<const KineticLaw*>(kl)->getMath();
+  return kl->getMath();
 }
 
 
@@ -464,7 +463,7 @@ LIBSBML_EXTERN
 ListOf_t *
 KineticLaw_getListOfParameters (KineticLaw_t *kl)
 {
-  return (ListOf_t *) & static_cast<KineticLaw*>(kl)->getListOfParameters();
+  return & kl->getListOfParameters();
 }
 
 
@@ -475,10 +474,7 @@ LIBSBML_EXTERN
 const char *
 KineticLaw_getTimeUnits (const KineticLaw_t *kl)
 {
-  const KineticLaw* x = static_cast<const KineticLaw*>(kl);
-
-
-  return x->isSetTimeUnits() ? x->getTimeUnits().c_str() : NULL;
+  return kl->isSetTimeUnits() ? kl->getTimeUnits().c_str() : NULL;
 }
 
 
@@ -489,32 +485,31 @@ LIBSBML_EXTERN
 const char *
 KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
 {
-  const KineticLaw* x = static_cast<const KineticLaw*>(kl);
-
-
-  return x->isSetSubstanceUnits() ? x->getSubstanceUnits().c_str() : NULL;
+  return kl->isSetSubstanceUnits() ? kl->getSubstanceUnits().c_str() : NULL;
 }
 
 
 /**
- * @return 1 if the formula of this KineticLaw has been set, 0 otherwise.
+ * @return true (non-zero) if the formula (or equivalently the math) of
+ * this KineticLaw has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 KineticLaw_isSetFormula (const KineticLaw_t *kl)
 {
-  return (int) static_cast<const KineticLaw*>(kl)->isSetFormula();
+  return static_cast<int>( kl->isSetFormula() );
 }
 
 
 /**
- * @return 1 if the math of this KineticLaw has been set, 0 otherwise.
+ * @return true if the math (or equivalently the formula) of this
+ * KineticLaw has been set, false otherwise.
  */
 LIBSBML_EXTERN
 int
 KineticLaw_isSetMath (const KineticLaw_t *kl)
 {
-  return (int) static_cast<const KineticLaw*>(kl)->isSetMath();
+  return static_cast<int>( kl->isSetMath() );
 }
 
 
@@ -525,7 +520,7 @@ LIBSBML_EXTERN
 int
 KineticLaw_isSetTimeUnits (const KineticLaw_t *kl)
 {
-  return (int) static_cast<const KineticLaw*>(kl)->isSetTimeUnits();
+  return static_cast<int>( kl->isSetTimeUnits() );
 }
 
 
@@ -537,7 +532,7 @@ LIBSBML_EXTERN
 int
 KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
 {
-  return (int) static_cast<const KineticLaw*>(kl)->isSetSubstanceUnits();
+  return static_cast<int>( kl->isSetSubstanceUnits() );
 }
 
 
@@ -548,26 +543,7 @@ LIBSBML_EXTERN
 void
 KineticLaw_setFormula (KineticLaw_t *kl, const char *string)
 {
-  static_cast<KineticLaw*>(kl)->setFormula(string ? string : "");
-}
-
-
-/**
- * Sets the formula of this KineticLaw based on the current value of its
- * math field.  This convenience function is functionally equivalent to:
- *
- *   KineticLaw_setFormula(kl, SBML_formulaToString( KineticLaw_getMath(kl) ))
- *
- * except you do not need to track and free the value returned by
- * SBML_formulaToString().
- *
- * If !KineticLaw_isSetMath(kl), this function has no effect.
- */
-LIBSBML_EXTERN
-void
-KineticLaw_setFormulaFromMath (KineticLaw_t *kl)
-{
-  static_cast<KineticLaw*>(kl)->setFormulaFromMath();
+  kl->setFormula(string ? string : "");
 }
 
 
@@ -582,23 +558,33 @@ LIBSBML_EXTERN
 void
 KineticLaw_setMath (KineticLaw_t *kl, ASTNode_t *math)
 {
-  static_cast<KineticLaw*>(kl)->setMath( static_cast<ASTNode*>(math) );
+  kl->setMath(math);
 }
 
 
 /**
- * Sets the math of this KineticLaw from its current formula string.  This
- * convenience function is functionally equivalent to:
- *
- *   KineticLaw_setMath(kl, SBML_parseFormula( KineticLaw_getFormula(kl) ))
- *
- * If !KineticLaw_isSetFormula(kl), this function has no effect.
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
  */
 LIBSBML_EXTERN
 void
-KineticLaw_setMathFromFormula (KineticLaw_t *kl)
+KineticLaw_setFormulaFromMath (const KineticLaw_t *kl)
 {
-  static_cast<KineticLaw*>(kl)->setMathFromFormula();
+  kl->setFormulaFromMath();
+}
+
+
+/**
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setMathFromFormula (const KineticLaw_t *kl)
+{
+  kl->setMathFromFormula();
 }
 
 
@@ -609,14 +595,8 @@ LIBSBML_EXTERN
 void
 KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sname)
 {
-  if (sname == NULL)
-  {
-    static_cast<KineticLaw*>(kl)->unsetTimeUnits();
-  }
-  else
-  {
-    static_cast<KineticLaw*>(kl)->setTimeUnits(sname);
-  }
+  if (sname == NULL) kl->unsetTimeUnits();
+  else kl->setTimeUnits(sname);
 }
 
 
@@ -627,14 +607,8 @@ LIBSBML_EXTERN
 void
 KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sname)
 {
-  if (sname == NULL)
-  {
-    static_cast<KineticLaw*>(kl)->unsetSubstanceUnits();
-  }
-  else
-  {
-    static_cast<KineticLaw*>(kl)->setSubstanceUnits(sname);
-  }
+  if (sname == NULL) kl->unsetSubstanceUnits();
+  else kl->setSubstanceUnits(sname);
 }
 
 
@@ -645,10 +619,7 @@ LIBSBML_EXTERN
 void
 KineticLaw_addParameter (KineticLaw_t *kl, Parameter_t *p)
 {
-  if (p != NULL)
-  {
-    static_cast<KineticLaw*>(kl)->addParameter( * static_cast<Parameter*>(p) );
-  }
+  if (p != NULL) kl->addParameter(*p);
 }
 
 
@@ -659,7 +630,7 @@ LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameter (const KineticLaw_t *kl, unsigned int n)
 {
-  return static_cast<const KineticLaw*>(kl)->getParameter(n);
+  return kl->getParameter(n);
 }
 
 
@@ -670,7 +641,7 @@ LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl)
 {
-  return static_cast<const KineticLaw*>(kl)->getNumParameters();
+  return kl->getNumParameters();
 }
 
 
@@ -682,7 +653,7 @@ LIBSBML_EXTERN
 void
 KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
 {
-  static_cast<KineticLaw*>(kl)->unsetTimeUnits();
+  kl->unsetTimeUnits();
 }
 
 
@@ -694,5 +665,5 @@ LIBSBML_EXTERN
 void
 KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
 {
-  static_cast<KineticLaw*>(kl)->unsetSubstanceUnits();
+  kl->unsetSubstanceUnits();
 }

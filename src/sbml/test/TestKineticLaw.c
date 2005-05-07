@@ -107,7 +107,10 @@ END_TEST
 
 START_TEST (test_KineticLaw_createWith)
 {
-  KineticLaw_t *kl = KineticLaw_createWith("k1*X0", "seconds", "ug");
+  const ASTNode_t *math;
+  char *formula;
+
+  KineticLaw_t *kl = KineticLaw_createWith("k1 * X0", "seconds", "ug");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) kl) == SBML_KINETIC_LAW );
@@ -115,13 +118,18 @@ START_TEST (test_KineticLaw_createWith)
   fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) kl) == NULL );
 
-  fail_unless( KineticLaw_getMath(kl) == NULL );
+  math = KineticLaw_getMath(kl);
+  fail_unless( math != NULL );
 
-  fail_unless( !strcmp( KineticLaw_getFormula       (kl), "k1*X0"  ) );
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "k1 * X0") );
+
+  fail_unless( !strcmp( KineticLaw_getFormula       (kl), formula  ) );
   fail_unless( !strcmp( KineticLaw_getTimeUnits     (kl), "seconds") );
   fail_unless( !strcmp( KineticLaw_getSubstanceUnits(kl), "ug"     ) );
 
-  fail_unless( !KineticLaw_isSetMath         (kl) );
+  fail_unless( KineticLaw_isSetMath          (kl) );
   fail_unless( KineticLaw_isSetFormula       (kl) );
   fail_unless( KineticLaw_isSetTimeUnits     (kl) );
   fail_unless( KineticLaw_isSetSubstanceUnits(kl) );
@@ -129,6 +137,7 @@ START_TEST (test_KineticLaw_createWith)
   fail_unless(KineticLaw_getNumParameters(kl) == 0);
 
   KineticLaw_free(kl);
+  safe_free(formula);
 }
 END_TEST
 
@@ -170,6 +179,11 @@ START_TEST (test_KineticLaw_setFormula)
 END_TEST
 
 
+/**
+ * setFormulaFromMath() is no longer necessary.  LibSBML now keeps formula
+ * strings and math ASTs synchronized automatically.  This (now modified)
+ * test is kept around to demonstrate the behavioral change.
+ */
 START_TEST (test_KineticLaw_setFormulaFromMath)
 {
   ASTNode_t *math = SBML_parseFormula("k1 * X0");
@@ -183,8 +197,8 @@ START_TEST (test_KineticLaw_setFormulaFromMath)
   fail_unless( !KineticLaw_isSetFormula(KL) );
 
   KineticLaw_setMath(KL, math);
-  fail_unless(  KineticLaw_isSetMath   (KL) );
-  fail_unless( !KineticLaw_isSetFormula(KL) );
+  fail_unless(  KineticLaw_isSetMath(KL) );
+  fail_unless( /* ! */ KineticLaw_isSetFormula(KL) );
 
   KineticLaw_setFormulaFromMath(KL);
   fail_unless( KineticLaw_isSetMath   (KL) );
@@ -220,6 +234,11 @@ START_TEST (test_KineticLaw_setMath)
 END_TEST
 
 
+/**
+ * setMathFromFormula() is no longer necessary.  LibSBML now keeps formula
+ * strings and math ASTs synchronized automatically.  This (now modified)
+ * test is kept around to demonstrate the behavioral change.
+ */
 START_TEST (test_KineticLaw_setMathFromFormula)
 {
   char *formula = "k3 / k2";
@@ -233,7 +252,7 @@ START_TEST (test_KineticLaw_setMathFromFormula)
   fail_unless( !KineticLaw_isSetFormula(KL) );
 
   KineticLaw_setFormula(KL, formula);
-  fail_unless( !KineticLaw_isSetMath   (KL) );
+  fail_unless( /* ! */ KineticLaw_isSetMath(KL) );
   fail_unless(  KineticLaw_isSetFormula(KL) );
 
   KineticLaw_setMathFromFormula(KL);

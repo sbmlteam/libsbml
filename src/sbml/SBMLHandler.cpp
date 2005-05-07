@@ -1885,7 +1885,6 @@ SBMLHandler::setMath (ASTNode* math)
     case SBML_ASSIGNMENT_RULE:
     case SBML_RATE_RULE:
       static_cast<Rule*>(obj)->setMath(math);
-      static_cast<Rule*>(obj)->setFormulaFromMath();
       break;
 
     case SBML_SPECIES_REFERENCE:
@@ -1894,7 +1893,6 @@ SBMLHandler::setMath (ASTNode* math)
 
     case SBML_KINETIC_LAW:
       static_cast<KineticLaw*>(obj)->setMath(math);
-      static_cast<KineticLaw*>(obj)->setFormulaFromMath();
       break;
 
     case SBML_EVENT:

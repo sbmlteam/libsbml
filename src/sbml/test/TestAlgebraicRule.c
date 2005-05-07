@@ -96,6 +96,9 @@ END_TEST
 
 START_TEST (test_AlgebraicRule_createWith)
 {
+  const ASTNode_t *math;
+  char *formula;
+
   AlgebraicRule_t *ar = AlgebraicRule_createWith("1 + 1");
 
 
@@ -104,10 +107,17 @@ START_TEST (test_AlgebraicRule_createWith)
   fail_unless( SBase_getNotes     ((SBase_t *) ar) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) ar) == NULL );
 
-  fail_unless( Rule_getMath((Rule_t *) ar) == NULL );
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
+  math = Rule_getMath((Rule_t *) ar);
+  fail_unless(math != NULL);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "1 + 1") );
+
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), formula) );
 
   AlgebraicRule_free(ar);
+  safe_free(formula);
 }
 END_TEST
 
@@ -123,8 +133,8 @@ START_TEST (test_AlgebraicRule_createWithMath)
   fail_unless( SBase_getNotes     ((SBase_t *) ar) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) ar) == NULL );
 
-  fail_unless( Rule_getFormula((Rule_t *) ar) == NULL );
-  fail_unless( Rule_getMath   ((Rule_t *) ar) == math );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
+  fail_unless( Rule_getMath((Rule_t *) ar) == math );
 
   AlgebraicRule_free(ar);
 }

@@ -63,7 +63,7 @@
  * Creates a new Rule, optionally with its formula attribute set.
  */
 LIBSBML_EXTERN
-Rule::Rule (const std::string& formula) : formula(formula), math(NULL)
+Rule::Rule (const std::string& formula) : formula(formula), math(0)
 {
 }
 
@@ -109,6 +109,7 @@ LIBSBML_EXTERN
 const std::string&
 Rule::getFormula () const
 {
+  if (formula.empty() && math) setFormulaFromMath();
   return formula;
 }
 
@@ -120,29 +121,32 @@ LIBSBML_EXTERN
 const ASTNode*
 Rule::getMath () const
 {
+  if (!math && !formula.empty()) setMathFromFormula();
   return math;
 }
 
 
 /**
- * @return true if the formula for this Rule has been set, false otherwise.
+ * @return true if the formula (or equivalently the math) for this Rule has
+ * been set, false otherwise.
  */
 LIBSBML_EXTERN
 bool
 Rule::isSetFormula () const
 {
-  return ! formula.empty();
+  return !formula.empty() || math;
 }
 
 
 /**
- * @return true if the math for this Rule has been set, false otherwise.
+ * @return true if the math (or equivalently the formula) for this Rule has
+ * been set, false otherwise.
  */
 LIBSBML_EXTERN
 bool
 Rule::isSetMath () const
 {
-  return (math != NULL);
+  return isSetFormula();
 }
 
 
@@ -154,31 +158,12 @@ void
 Rule::setFormula (const std::string& string)
 {
   formula = string;
-}
 
-
-/**
- * Sets the formula of this Rule based on the current value of its math
- * field.  This convenience method is equivalent to:
- *
- *   setFormula( SBML_formulaToString( getMath() ))
- *
- * except you do not need to track and free the value returned by
- * SBML_formulaToString().
- *
- * If !isSetMath(r), this method has no effect.
- */
-LIBSBML_EXTERN
-void
-Rule::setFormulaFromMath ()
-{
-  if ( !isSetMath() ) return;
-
-
-  char* s = SBML_formulaToString(math);
-  formula = s;
-
-  safe_free(s);
+  if (math)
+  {
+    delete math;
+    math = 0;
+  }
 }
 
 
@@ -198,26 +183,45 @@ Rule::setMath (ASTNode* math)
 
   delete this->math;
   this->math = math;
+
+  formula.erase();
 }
 
 
 /**
- * Sets the math of this Rule from its current formula string.  This
- * convenience method is equivalent to:
- *
- *   setMath( SBML_parseFormula( getFormula() ))
- *
- * If !isSetFormula(), this method has no effect.
+ * This method is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The method is kept around for
+ * backward compatibility (and is used internally).
  */
 LIBSBML_EXTERN
 void
-Rule::setMathFromFormula ()
+Rule::setFormulaFromMath () const
 {
-  if ( !isSetFormula() ) return;
+  if (math)
+  {
+    char* s = SBML_formulaToString(math);
+    formula = s;
+
+    safe_free(s);
+  }
+  else
+  {
+    formula.erase();
+  }
+}
 
 
+/**
+ * This method is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The method is kept around for
+ * backward compatibility (and is used internally).
+ */
+LIBSBML_EXTERN
+void
+Rule::setMathFromFormula () const
+{
   delete math;
-  math = (ASTNode*) SBML_parseFormula( formula.c_str() );
+  math = formula.empty() ? 0 : SBML_parseFormula( formula.c_str() );
 }
 
 
@@ -230,10 +234,7 @@ LIBSBML_EXTERN
 const char *
 Rule_getFormula (const Rule_t *r)
 {
-  const Rule* x = static_cast<const Rule*>(r);
-
-
-  return x->isSetFormula() ? x->getFormula().c_str() : NULL;
+  return r->isSetFormula() ? r->getFormula().c_str() : NULL;
 }
 
 
@@ -244,29 +245,31 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Rule_getMath (const Rule_t *r)
 {
-  return static_cast<const Rule*>(r)->getMath();
+  return r->getMath();
 }
 
 
 /**
- * @return 1 if the formula for this Rule has been set, 0 otherwise.
+ * @return true (non-zero) if the formula (or equivalently the math) for
+ * this Rule has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Rule_isSetFormula (const Rule_t *r)
 {
-  return (int) static_cast<const Rule*>(r)->isSetFormula();
+  return static_cast<int>( r->isSetFormula() );
 }
 
 
 /**
- * @return 1 if the math for this Rule has been set, 0 otherwise.
+ * @return true (non-zero) if the formula (or equivalently the math) for
+ * this Rule has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Rule_isSetMath (const Rule_t *r)
 {
-  return (int) static_cast<const Rule*>(r)->isSetMath();
+  return static_cast<int>( r->isSetMath() );
 }
 
 
@@ -277,26 +280,7 @@ LIBSBML_EXTERN
 void
 Rule_setFormula (Rule_t *r, const char *string)
 {
-  static_cast<Rule*>(r)->setFormula(string ? string : "");
-}
-
-
-/**
- * Sets the formula of this Rule based on the current value of its math
- * field.  This convenience function is functionally equivalent to:
- *
- *   Rule_setFormula(r, SBML_formulaToString( Rule_getMath(r) ))
- *
- * except you do not need to track and free the value returned by
- * SBML_formulaToString().
- *
- * If !Rule_isSetMath(r), this function has no effect.
- */
-LIBSBML_EXTERN
-void
-Rule_setFormulaFromMath (Rule_t *r)
-{
-  static_cast<Rule*>(r)->setFormulaFromMath();
+  r->setFormula(string ? string : "");
 }
 
 
@@ -311,21 +295,31 @@ LIBSBML_EXTERN
 void
 Rule_setMath (Rule_t *r, ASTNode_t *math)
 {
-  static_cast<Rule*>(r)->setMath( static_cast<ASTNode*>(math) );
+  r->setMath(math);
 }
 
 
 /**
- * Sets the math of this Rule from its current formula string.  This
- * convenience function is functionally equivalent to:
- *
- *   Rule_setMath(r, SBML_parseFormula( Rule_getFormula(r) ))
- *
- * If !Rule_isSetFormula(r), this function has no effect.
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
  */
 LIBSBML_EXTERN
 void
-Rule_setMathFromFormula (Rule_t *r)
+Rule_setFormulaFromMath (const Rule_t *r)
 {
-  static_cast<Rule*>(r)->setMathFromFormula();
+  r->setFormulaFromMath();
+}
+
+
+/**
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
+ */
+LIBSBML_EXTERN
+void
+Rule_setMathFromFormula (const Rule_t *r)
+{
+  r->setMathFromFormula();
 }

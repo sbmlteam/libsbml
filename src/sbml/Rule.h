@@ -112,14 +112,15 @@ public:
   const ASTNode* getMath () const;
 
   /**
-   * @return true if the formula for this Rule has been set, false
-   * otherwise.
+   * @return true if the formula (or equivalently the math) for this Rule
+   * has been set, false otherwise.
    */
   LIBSBML_EXTERN
   bool isSetFormula () const;
 
   /**
-   * @return true if the math for this Rule has been set, false otherwise.
+   * @return true if the formula (or equivalently the math) for this Rule
+   * has been set, false otherwise.
    */
   LIBSBML_EXTERN
   bool isSetMath () const;
@@ -129,20 +130,6 @@ public:
    */
   LIBSBML_EXTERN
   void setFormula (const std::string& str);
-
-  /**
-   * Sets the formula of this Rule based on the current value of its math
-   * field.  This convenience method is equivalent to:
-   *
-   *   setFormula( SBML_formulaToString( getMath() ))
-   *
-   * except you do not need to track and free the value returned by
-   * SBML_formulaToString().
-   *
-   * If !isSetMath(r), this method has no effect.
-   */
-  LIBSBML_EXTERN
-  void setFormulaFromMath ();
 
   /**
    * Sets the math of this Rule to the given ASTNode.
@@ -155,21 +142,26 @@ public:
   void setMath (ASTNode *math);
 
   /**
-   * Sets the math of this Rule from its current formula string.  This
-   * convenience method is equivalent to:
-   *
-   *   setMath( SBML_parseFormula( getFormula() ))
-   *
-   * If !isSetFormula(), this method has no effect.
+   * This method is no longer necessary.  LibSBML now keeps formula strings
+   * and math ASTs synchronized automatically.  The method is kept around
+   * for backward compatibility (and is used internally).
    */
   LIBSBML_EXTERN
-  void setMathFromFormula ();
+  void setFormulaFromMath () const;
+
+  /**
+   * This method is no longer necessary.  LibSBML now keeps formula strings
+   * and math ASTs synchronized automatically.  The method is kept around
+   * for backward compatibility (and is used internally).
+   */
+  LIBSBML_EXTERN
+  void setMathFromFormula () const;
 
 
 protected:
 
-  std::string formula;
-  ASTNode*    math;
+  mutable std::string formula;
+  mutable ASTNode*    math;
 
   friend class SBMLFormatter;
   friend class SBMLHandler;
@@ -204,14 +196,16 @@ Rule_getMath (const Rule_t *r);
 
 
 /**
- * @return 1 if the formula for this Rule has been set, 0 otherwise.
+ * @return true (non-zero) if the formula (or equivalently the math) for
+ * this Rule has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Rule_isSetFormula (const Rule_t *r);
 
 /**
- * @return 1 if the math for this Rule has been set, 0 otherwise.
+ * @return true (non-zero) if the formula (or equivalently the math) for
+ * this Rule has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -226,21 +220,6 @@ void
 Rule_setFormula (Rule_t *r, const char *string);
 
 /**
- * Sets the formula of this Rule based on the current value of its math
- * field.  This convenience function is functionally equivalent to:
- *
- *   Rule_setFormula(r, SBML_formulaToString( Rule_getMath(r) ))
- *
- * except you do not need to track and free the value returned by
- * SBML_formulaToString().
- *
- * If !Rule_isSetMath(r), this function has no effect.
- */
-LIBSBML_EXTERN
-void
-Rule_setFormulaFromMath (Rule_t *r);
-
-/**
  * Sets the math of this Rule to the given ASTNode.
  *
  * The node <b>is not copied</b> and this Rule <b>takes ownership</b> of
@@ -251,17 +230,24 @@ LIBSBML_EXTERN
 void
 Rule_setMath (Rule_t *r, ASTNode_t *math);
 
+
 /**
- * Sets the math of this Rule from its current formula string.  This
- * convenience function is functionally equivalent to:
- *
- *   Rule_setMath(r, SBML_parseFormula( Rule_getFormula(r) ))
- *
- * If !Rule_isSetFormula(r), this function has no effect.
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
  */
 LIBSBML_EXTERN
 void
-Rule_setMathFromFormula (Rule_t *r);
+Rule_setFormulaFromMath (const Rule_t *r);
+
+/**
+ * This function is no longer necessary.  LibSBML now keeps formula strings
+ * and math ASTs synchronized automatically.  The function is kept around
+ * for backward compatibility (and is used internally).
+ */
+LIBSBML_EXTERN
+void
+Rule_setMathFromFormula (const Rule_t *r);
 
 
 END_C_DECLS

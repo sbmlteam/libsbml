@@ -105,8 +105,8 @@ START_TEST (test_RateRule_createWith)
   fail_unless( SBase_getNotes     ((SBase_t *) rr) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) rr) == NULL );
 
-  fail_unless( Rule_getFormula((Rule_t *) rr) == NULL );
-  fail_unless( Rule_getMath   ((Rule_t *) rr) == math );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) rr), "f(W)") );
+  fail_unless( Rule_getMath((Rule_t *) rr) == math );
 
   fail_unless( !strcmp(RateRule_getVariable(rr), "dx") );
 

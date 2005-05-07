@@ -5,6 +5,15 @@
 
 * New Features:
 
+  - LibSBML now keeps infix formula strings and ASTs internally
+    synchronized for Rules and KineticLaws.  This means you may use
+    whichever you prefer: get/setFormula(), get/setMath(), or freely
+    intermix them.  This brings the libSBML object model another step
+    closer to SBML level and version transparency (where reasonably
+    possible).  As a result, the methods / functions
+    setFormulaFromMath() and setMathFromFormula() are no longer
+    necessary, but are kept around for backward compatibility.
+
 
 * Bug Fixes:
 
@@ -28,6 +37,11 @@
     incorrectly.  Thanks to Ed Frank for reporting this bug.
 
 * Changes:
+
+  - The methods / functions setFormulaFromMath() and
+    setMathFromFormula() for Rules and KineticLaws are no longer
+    necessary, but are kept around for backward compatibility (see New
+    Features).
 
 
 * Known Bugs:
