@@ -57,6 +57,48 @@
 
 
 void
+printFunctionDefinition (unsigned int n, const FunctionDefinition_t *fd)
+{
+  const ASTNode_t *math;
+  char *formula;
+
+
+  if ( FunctionDefinition_isSetMath(fd) )
+  {
+    printf("FunctionDefinition %d, %s(", n, FunctionDefinition_getId(fd));
+
+    math = FunctionDefinition_getMath(fd);
+
+    /* Print function arguments. */
+    if (ASTNode_getNumChildren(math) > 1)
+    {
+      printf("%s", ASTNode_getName( ASTNode_getLeftChild(math) ));
+
+      for (n = 1; n < ASTNode_getNumChildren(math) - 1; ++n)
+      {
+        printf(", %s", ASTNode_getName( ASTNode_getChild(math, n) ));
+      }
+    }
+
+    printf(") := ");
+
+    /* Print function body. */
+    if (ASTNode_getNumChildren(math) == 0)
+    {
+      printf("(no body defined)");
+    }
+    else
+    {
+      math    = ASTNode_getChild(math, ASTNode_getNumChildren(math) - 1);
+      formula = SBML_formulaToString(math);
+      printf("%s\n", formula);
+      free(formula);
+    }
+  }
+}
+
+
+void
 printRuleMath (unsigned int n, const Rule_t *r)
 {
   char *formula;
@@ -146,6 +188,11 @@ printMath (const Model_t *m)
 {
   unsigned int  n;
 
+
+  for (n = 0; n < Model_getNumFunctionDefinitions(m); ++n)
+  {
+    printFunctionDefinition(n + 1, Model_getFunctionDefinition(m, n));
+  }
 
   for (n = 0; n < Model_getNumRules(m); ++n)
   {
