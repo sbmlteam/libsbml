@@ -92,3 +92,10 @@
 /* Define to 1 if your processor stores words with the most significant byte
    first (like Motorola and SPARC, unlike Intel and VAX). */
 /* #define WORDS_BIGENDIAN 1 */
+
+
+/* Define to the full name of this package. */
+#define PACKAGE_NAME "libSBML"
+
+/* Define to the version of this package. */
+#define PACKAGE_VERSION "2.3.0"
