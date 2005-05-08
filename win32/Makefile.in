@@ -66,30 +66,28 @@ thisdir = win32
 # This makefile only serves a role for `make dist'.
 
 distfiles = \
-        convertSBML.dep   \
-        convertSBML.dsp   \
-        convertSBML.mak   \
-        deltree.bat       \
-        libsbml.dep       \
-        libsbml.dsp       \
-        libsbml.dsw       \
-        libsbml.mak       \
-        libsbml.vcproj    \
-        make.bat          \
-        makedist.bat      \
-        printSBML.dep     \
-        printSBML.dsp     \
-        printSBML.mak     \
-        readSBML.dep      \
-        readSBML.dsp      \
-        readSBML.mak      \
-        translateMath.dep \
-        translateMath.dsp \
-        translateMath.mak \
-        validateSBML.dep  \
-        validateSBML.dsp  \
-        validateSBML.mak  \
-        Makefile.in
+  Makefile.in          \
+  convertSBML.dsp      \
+  convertSBML.vcproj   \
+  libsbml.dsp          \
+  libsbml.dsw          \
+  libsbml.sln          \
+  libsbml.vcproj       \
+  libsbml_expat.dsp    \
+  libsbml_expat.dsw    \
+  libsbml_expat.sln    \
+  libsbml_expat.vcproj \
+  printSBML.dsp        \
+  printSBML.vcproj     \
+  readSBML.dsp         \
+  readSBML.vcproj      \
+  sbmlj.dsp            \
+  sbmlj.vcproj         \
+  translateMath.dsp    \
+  translateMath.vcproj \
+  validateSBML.dsp     \
+  validateSBML.vcproj
+
 
 
 # -----------------------------------------------------------------------------
