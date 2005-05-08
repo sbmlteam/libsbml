@@ -90,7 +90,7 @@ sources   = \
 	StringMap.c \
 	util.c \
 
-extra_CPPFLAGS = -I.. -DPACKAGE_NAME="$(PACKAGE_NAME)"
+extra_CPPFLAGS = -I.. -DPACKAGE_NAME=\"$(PACKAGE_NAME)\"
 
 subdirs = test
 
