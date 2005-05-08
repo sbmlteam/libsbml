@@ -52,6 +52,8 @@
 #include <check.h>
 
 #include "common/common.h"
+
+#include "math/FormulaFormatter.h"
 #include "math/FormulaParser.h"
 
 #include "SBase.h"
