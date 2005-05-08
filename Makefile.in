@@ -153,7 +153,7 @@ docs = \
 # used by the default rules in `makefile-common-actions.mk' included at the
 # end.
 
-subdirs = src docs
+subdirs = src docs win32
 
 # `distfile' is the list of files used for creating distributions,
 # something that only the libSBML developers should do.  The list of files
