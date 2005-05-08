@@ -46,6 +46,8 @@
 
 * Known Bugs:
 
+  - Same as for libSBML 2.3.0
+
 
 * Released May 9, 2005
 
