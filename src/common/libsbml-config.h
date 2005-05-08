@@ -60,7 +60,4 @@
 #endif
 
 
-#include "libsbml-package.h"
-
-
 #endif  /* LIBSBML_CONFIG_H */
