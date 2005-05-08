@@ -55,7 +55,7 @@ CXX       = @CXX@
 CXXFLAGS  = @CXXFLAGS@ -Wall -I$(SRCDIR)
 LDFLAGS   = @LDFLAGS@  -L$(SRCDIR)
 CPPFLAGS  = @CPPFLAGS@
-LIBS      = -lsbml
+LIBS      = -lsbml @XERCES_LIBS@ @EXPAT_LIBS@ -lstdc++
 
 programs = convertSBML printSBML readSBML translateMath validateSBML
 
