@@ -91,7 +91,6 @@ def testImplicitDowncastOfRule():
    assert r.thisown == 0
 
    r = m.getRule(0)
-   r.setFormulaFromMath()
    assert r.getVariable() == "x"
    assert r.getFormula()  == "1 + 1"
 
