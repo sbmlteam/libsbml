@@ -1219,7 +1219,7 @@ void GetReaction ( Model_t      *pModel,
     mxSetField(mxReactionReturn,i,"reversible",CreateIntScalar(nReversible)); 
     mxSetField(mxReactionReturn,i,"fast",CreateIntScalar(nFast)); 
     if (unSBMLLevel == 2) {
-      mxSetField(mxReactionReturn,i,"IsSetFast",CreateIntScalar(unIsSetFast)); 
+      mxSetField(mxReactionReturn,i,"isSetFast",CreateIntScalar(unIsSetFast)); 
     }
 
     mxReactantReturn   = NULL;
