@@ -101,7 +101,7 @@ public:
    *
    *   <?xml version="1.0" encoding="UTF-8"?>
    */
-  LayoutFormatter (XMLFormatTarget* target, bool outputXMLDecl);
+  LayoutFormatter (XMLFormatTarget* target, bool outputXMLDecl=true);
   
   /**
    * Destroys this LayoutFormatter.
