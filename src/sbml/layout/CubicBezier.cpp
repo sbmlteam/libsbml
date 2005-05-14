@@ -259,7 +259,7 @@ CubicBezier_t *
 CubicBezier_createWithPoints (const Point_t *start, const Point_t *base1,
                               const Point_t *base2, const Point_t *end)
 {
-  return new(std::nothrow)CubicBezier(*start, *base1, *base2, *end);
+  return new(std::nothrow)CubicBezier(start ? *start : Point() , base1 ? *base1 : Point(), base2 ? *base2 : Point(), end ? *end: Point());
 }
 
 
@@ -287,7 +287,7 @@ LIBSBML_EXTERN
 CubicBezier_t *
 CubicBezier_createFrom (const CubicBezier_t *temp)
 {
-  return new(std::nothrow) CubicBezier(*temp);
+  return new(std::nothrow) CubicBezier(temp ? *temp : CubicBezier());
 }
 
 
@@ -309,7 +309,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setStart (CubicBezier_t *cb, const Point_t *start)
 {
-  LineSegment_setStart(cb, start);
+  LineSegment_setStart((LineSegment_t*)cb, start);
 }
 
 
@@ -331,7 +331,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setEnd (CubicBezier_t *cb, const Point_t *end)
 {
-  LineSegment_setEnd(cb, end);
+  LineSegment_setEnd((LineSegment_t*)cb, end);
 }
 
 
@@ -353,7 +353,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint1 (CubicBezier_t *cb, const Point_t *point)
 {
-  cb->setBasePoint1(*point);
+  cb->setBasePoint1(point ? *point : Point());
 }
 
 
@@ -376,7 +376,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint2 (CubicBezier_t *cb, const Point_t *point)
 {
-  cb->setBasePoint2(*point);
+  cb->setBasePoint2(point ? *point : Point());
 }
 
 
