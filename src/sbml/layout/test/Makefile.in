@@ -1,0 +1,207 @@
+##
+## Filename    : Makefile.in
+## Description : Makefile.in for automake
+## Organization: European Media Laboratories Research gGmbH
+## Created     : 2005-05-03
+##
+## Copyright 2005 European Media Laboratories Research gGmbH
+##
+## This library is free software; you can redistribute it and/or modify it
+## under the terms of the GNU Lesser General Public License as published
+## by the Free Software Foundation; either version 2.1 of the License, or
+## any later version.
+##
+## This library is distributed in the hope that it will be useful, but
+## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
+## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
+## documentation provided hereunder is on an "as is" basis, and the
+## European Media Laboratories Research gGmbH have no obligations to
+## provide maintenance, support, updates, enhancements or modifications.
+## In no event shall the European Media Laboratories Research gGmbH be
+## liable to any party for direct, indirect, special, incidental or
+## consequential damages, including lost profits, arising out of the use of
+## this software and its documentation, even if the European Media
+## Laboratories Research gGmbH have been advised of the possibility of such
+## damage.  See the GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this library; if not, write to the Free Software Foundation,
+## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+##
+## The original code contained here was initially developed by:
+##
+##     Ralph Gauges
+##     Bioinformatics Group
+##     European Media Laboratories Research gGmbH
+##     Schloss-Wolfsbrunnenweg 31c
+##     69118 Heidelberg
+##     Germany
+##
+##     http://www.eml-research.de/english/Research/BCB/
+##     mailto:ralph.gauges@eml-r.villa-bosch.de
+##
+## Contributor(s):
+
+
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include @top_srcdir@/config/makefile-common-vars.mk
+
+# `srcdir' points to the current directory, but should be set by configure.
+# `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
+# set `subdir' to an absolute path, or some `make' actions will fail.
+
+srcdir    = @srcdir@
+thisdir   = src/sbml/layout/test
+
+# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
+# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
+# rules in `makefile-common-actions.mk' included at the end.
+
+test_sources =                   \
+  TestBoundingBox.cpp            \
+  TestCompartmentGlyph.cpp       \
+  TestCubicBezier.cpp            \
+  TestCurve.cpp                  \
+  TestDimensions.cpp             \
+  TestGraphicalObject.cpp        \
+  TestLayout.cpp                 \
+  TestLayoutFormatter.cpp        \
+  TestLayoutHandler.cpp          \
+  TestLineSegment.cpp            \
+  TestPoint.cpp                  \
+  TestReactionGlyph.cpp          \
+  TestSpeciesGlyph.cpp           \
+  TestSpeciesReferenceGlyph.cpp  \
+  TestTextGlyph.cpp              \
+  TestRunner.c
+
+extra_CPPFLAGS = -I.. -I../../..
+
+ifdef USE_LIBCHECK
+  check_driver      = TestRunner
+  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
+    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
+    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
+    extra_LIBS      += $(LIBCHECK_LIBS)
+  endif
+  extra_clean       += $(check_driver)
+endif
+
+ifdef USE_EXPAT
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
+else
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS   += $(XERCES_LDFLAGS)
+  extra_LIBS      += $(XERCES_LIBS)
+endif
+
+# `distfiles' determines the files and directories included in a distribution.
+# `distfiles_exclude' is used to filter out specific items, so that even if
+# they appear in `distfiles', they will not be copied in the distribution.
+
+test_data_files = $(wildcard test-data/*.xml) $(wildcard test-data/*.xsd)
+
+distfiles = $(test_sources) $(test_data_files) Makefile.in
+
+
+# -----------------------------------------------------------------------------
+# Primary build actions
+# -----------------------------------------------------------------------------
+
+# The default action is to do nothing except maybe remake the Makefile.  The
+# real actions are triggered by 'make check'.
+
+all: Makefile
+
+
+# -----------------------------------------------------------------------------
+# Checking.
+# -----------------------------------------------------------------------------
+
+# Variables $(test_objfiles), $(check_driver), and the rest of the code
+# for running check are abstracted out into makefile-common-actions.mk,
+# which is included at the bottom of this file.  Here we just need to construct
+# the appropriate list of object files to link together.  Because there are
+# dependencies on other subdirectoris of the source tree, we do some rummaging
+# around in .. and ../../subdirs.
+
+tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
+localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+
+otherdirs     = .. ../..  ../../../util ../../../xml ../../../math ../../../validator \
+                ../../../validator/constraints
+
+
+
+otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+
+test_objfiles = $(localobjfiles) $(otherobjfiles)
+
+ifdef USE_LIBCHECK
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
+
+
+# -----------------------------------------------------------------------------
+# Formatting documentation.
+# -----------------------------------------------------------------------------
+
+dvi:
+
+pdf:
+
+ps:
+
+info:
+
+html:
+
+
+# -----------------------------------------------------------------------------
+# Installation
+# -----------------------------------------------------------------------------
+
+# This library doesn't actually get installed.  The main libsbml library
+# (in ../src) slurps in the contents when it's built.
+
+install:
+
+uninstall:
+
+installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Creating distribution (for libSBML maintainers only)
+# -----------------------------------------------------------------------------
+
+dist: all dist-normal
+
+distcheck: all distcheck-normal
+
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+include @top_srcdir@/config/makefile-common-actions.mk
+
+
+# -----------------------------------------------------------------------------
+# End.
+# -----------------------------------------------------------------------------
