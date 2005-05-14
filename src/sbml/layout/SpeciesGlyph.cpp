@@ -66,7 +66,7 @@ SpeciesGlyph::SpeciesGlyph ()
 LIBSBML_EXTERN
 SpeciesGlyph::SpeciesGlyph (const std::string& sid,
                             const std::string& speciesId) : 
-    GraphicalObject( id )
+    GraphicalObject( sid )
   , species        ( speciesId )
 {
   init(SBML_LAYOUT_SPECIESGLYPH);
