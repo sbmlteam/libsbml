@@ -173,7 +173,7 @@ LIBSBML_EXTERN
 unsigned int
 ReactionGlyph::getNumSpeciesReferenceGlyphs () const
 {
-  this->speciesReferenceGlyphs.getNumItems();
+  return this->speciesReferenceGlyphs.getNumItems();
 }
 
 
