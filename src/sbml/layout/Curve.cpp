@@ -207,7 +207,7 @@ LIBSBML_EXTERN
 Curve_t *
 Curve_createFrom (const Curve_t *temp)
 {
-  return new(std::nothrow) Curve(*temp);
+  return new(std::nothrow) Curve(temp ? *temp : Curve());
 }
 
 
@@ -229,7 +229,7 @@ LIBSBML_EXTERN
 void
 Curve_addCurveSegment (Curve_t *c, LineSegment_t *ls)
 {
-  c->addCurveSegment(*ls);
+  c->addCurveSegment(ls ? *ls : *(new LineSegment()));
 }
 
 
