@@ -287,3 +287,23 @@
     return LibSBMLc::MathMLDocument_setMath(@_);
   }
 %}
+
+%feature("shadow") AssignmentRule::AssignmentRule
+%{
+  sub new {
+    my $pkg = shift;
+    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
+    my $self = LibSBMLc::new_AssignmentRule(@_);
+    bless $self, $pkg if defined($self);
+  }
+%}
+
+%feature("shadow") FunctionDefinition::FunctionDefinition
+%{
+  sub new {
+    my $pkg = shift;
+    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
+    my $self = LibSBMLc::new_FunctionDefinition(@_);
+    bless $self, $pkg if defined($self);
+  }
+%}
