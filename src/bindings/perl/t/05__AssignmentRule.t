@@ -1,15 +1,20 @@
 use Test;
-BEGIN { plan tests => 18 };
+BEGIN { plan tests => 21 };
 
 use LibSBML;
+use strict;
+use vars qw/$formula $f/;
 
 #########################
 
+$formula = 'X^n/(1+X^n)';
+$f = '';
+
 # creation with formula
-my $formula = 'X^n/(1+X^n)';
 my $r = new LibSBML::AssignmentRule('Y',
 				    $formula,
 				    $LibSBML::RULE_TYPE_SCALAR);
+ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 1);
 ok($r->isSetMath(), 1);
 ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
@@ -20,8 +25,7 @@ ok($f, $formula);
 $r = new LibSBML::AssignmentRule('Y',
 				 LibSBML::parseFormula($formula),
 				 $LibSBML::RULE_TYPE_SCALAR);
-
-
+ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 1);
 ok($r->isSetMath(), 1);
 ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
@@ -30,6 +34,7 @@ ok($f, $formula);
 
 # creation w/o arguments
 $r = new LibSBML::AssignmentRule();
+ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 0);
 ok($r->isSetMath(), 0);
 ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
@@ -49,7 +54,7 @@ ok($r->getVariable(), 'Y');
 
 # set/get math
 $r->setMath(LibSBML::parseFormula($formula));
-(my $f = LibSBML::formulaToString($r->getMath())) =~ s/\s+//g;
+($f = LibSBML::formulaToString($r->getMath())) =~ s/\s+//g;
 ok($f, $formula);
 
 # creat a document and a model
