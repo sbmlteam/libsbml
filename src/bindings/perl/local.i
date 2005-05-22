@@ -307,3 +307,13 @@
     bless $self, $pkg if defined($self);
   }
 %}
+
+%feature("shadow") AlgebraicRule::AlgebraicRule
+%{
+  sub new {
+    my $pkg = shift;
+    $_[0]->DISOWN() if defined $_[0] && ref($_[0]) eq 'LibSBML::ASTNode';
+    my $self = LibSBMLc::new_AlgebraicRule(@_);
+    bless $self, $pkg if defined($self);
+  }
+%}
