@@ -48,7 +48,7 @@
   ST(argvi) = sv_newmortal();
   SWIG_MakePtr(ST(argvi++), (void*)$1, GetDowncastSwigType($1), SWIG_SHADOW|0);
 }
-                                                                                
+
 /**
  * Unfortunately SWIG Version 1.3.21 supports %feature only for python and
  * java therefore we need to patch LibSBML.pm by ourself
@@ -317,3 +317,24 @@
     bless $self, $pkg if defined($self);
   }
 %}
+
+%feature("shadow") EventAssignment::EventAssignment
+%{
+  sub new {
+    my $pkg = shift;
+    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
+    my $self = LibSBMLc::new_EventAssignment(@_);
+    bless $self, $pkg if defined($self);
+  }
+%}
+
+%feature("shadow") Event::Event
+%{
+  sub new {
+    my $pkg = shift;
+    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
+    my $self = LibSBMLc::new_Event(@_);
+    bless $self, $pkg if defined($self);
+  }
+%}
+
