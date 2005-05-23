@@ -32,6 +32,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "translateMath", "translateM
 		{713656C6-8BBB-40DC-9B5C-F13443DBE12C} = {713656C6-8BBB-40DC-9B5C-F13443DBE12C}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "printMath", "printMath.vcproj", "{1574F9F3-425F-4726-A338-C6EBB3076BAF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{713656C6-8BBB-40DC-9B5C-F13443DBE12C} = {713656C6-8BBB-40DC-9B5C-F13443DBE12C}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -66,6 +71,10 @@ Global
 		{0885C55A-AF70-4CD1-B45A-B01168E9158A}.Debug.Build.0 = Debug|Win32
 		{0885C55A-AF70-4CD1-B45A-B01168E9158A}.Release.ActiveCfg = Release|Win32
 		{0885C55A-AF70-4CD1-B45A-B01168E9158A}.Release.Build.0 = Release|Win32
+		{1574F9F3-425F-4726-A338-C6EBB3076BAF}.Debug.ActiveCfg = Debug|Win32
+		{1574F9F3-425F-4726-A338-C6EBB3076BAF}.Debug.Build.0 = Debug|Win32
+		{1574F9F3-425F-4726-A338-C6EBB3076BAF}.Release.ActiveCfg = Release|Win32
+		{1574F9F3-425F-4726-A338-C6EBB3076BAF}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
