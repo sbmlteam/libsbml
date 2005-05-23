@@ -58,39 +58,39 @@ using namespace std;
 
 
 void
-printFunctionDefinition (unsigned int n, const FunctionDefinition_t *fd)
+printFunctionDefinition (unsigned int n, const FunctionDefinition *fd)
 {
-  const ASTNode_t *math;
+  const ASTNode *math;
   char *formula;
 
 
-  if ( FunctionDefinition_isSetMath(fd) )
+  if ( fd->isSetMath() )
   {
-    cout << "FunctionDefinition " << n << ", " << FunctionDefinition_getId(fd);
+    cout << "FunctionDefinition " << n << ", " << fd->getId();
 
-    math = FunctionDefinition_getMath(fd);
+    math = fd->getMath();
 
     /* Print function arguments. */
-    if (ASTNode_getNumChildren(math) > 1)
+    if (math->getNumChildren() > 1)
     {
-      cout << ASTNode_getName( ASTNode_getLeftChild(math) );
+      cout << ( math->getLeftChild() )->getName();
 
-      for (n = 1; n < ASTNode_getNumChildren(math) - 1; ++n)
+      for (n = 1; n < math->getNumChildren() - 1; ++n)
       {
-        cout <<", " << ASTNode_getName( ASTNode_getChild(math, n) );
+        cout <<", " << ( math->getChild(n) )->getName();
       }
     }
 
     cout <<") := ";
 
     /* Print function body. */
-    if (ASTNode_getNumChildren(math) == 0)
+    if (math->getNumChildren() == 0)
     {
       cout << "(no body defined)";
     }
     else
     {
-      math    = ASTNode_getChild(math, ASTNode_getNumChildren(math) - 1);
+      math    = math->getChild(math->getNumChildren() - 1);
       formula = SBML_formulaToString(math);
       cout << formula << "\n";
       free(formula);
@@ -100,14 +100,14 @@ printFunctionDefinition (unsigned int n, const FunctionDefinition_t *fd)
 
 
 void
-printRuleMath (unsigned int n, const Rule_t *r)
+printRuleMath (unsigned int n, const Rule *r)
 {
   char *formula;
 
 
-  if ( Rule_isSetMath(r) )
+  if ( r->isSetMath() )
   {
-    formula = SBML_formulaToString( Rule_getMath(r) );
+    formula = SBML_formulaToString( r->getMath() );
     cout << "Rule " << n << ", " << formula << "\n";
     free(formula);
   }
@@ -115,19 +115,19 @@ printRuleMath (unsigned int n, const Rule_t *r)
 
 
 void
-printReactionMath (unsigned int n, const Reaction_t *r)
+printReactionMath (unsigned int n, const Reaction *r)
 {
   char         *formula;
-  KineticLaw_t *kl;
+  KineticLaw *kl;
 
 
-  if (Reaction_isSetKineticLaw(r))
+  if (r->isSetKineticLaw())
   {
-    kl = Reaction_getKineticLaw(r);
+    kl = r->getKineticLaw();
 
-    if ( KineticLaw_isSetMath(kl) )
+    if ( kl->isSetMath() )
     {
-      formula = SBML_formulaToString( KineticLaw_getMath(kl) );
+      formula = SBML_formulaToString( kl->getMath() );
       cout << "Reaction " << n << ", " << formula << "\n";
       free(formula);
     }
@@ -136,16 +136,16 @@ printReactionMath (unsigned int n, const Reaction_t *r)
 
 
 void
-printEventAssignmentMath (unsigned int n, const EventAssignment_t *ea)
+printEventAssignmentMath (unsigned int n, const EventAssignment *ea)
 {
-  const char *variable;
+  std::string variable;
   char       *formula;
 
 
-  if ( EventAssignment_isSetMath(ea) )
+  if ( ea->isSetMath() )
   {
-    variable = EventAssignment_getVariable(ea);
-    formula  = SBML_formulaToString( EventAssignment_getMath(ea) );
+    variable = ea->getVariable();
+    formula  = SBML_formulaToString( ea->getMath() );
 
     cout <<"  EventAssignment " << n << ", trigger: " << variable << " = " << formula << "\n";
 
@@ -155,29 +155,29 @@ printEventAssignmentMath (unsigned int n, const EventAssignment_t *ea)
 
 
 void
-printEventMath (unsigned int n, const Event_t *e)
+printEventMath (unsigned int n, const Event *e)
 {
   char         *formula;
   unsigned int i;
 
 
-  if ( Event_isSetDelay(e) )
+  if ( e->isSetDelay() )
   {
-    formula = SBML_formulaToString( Event_getDelay(e) );
+    formula = SBML_formulaToString( e->getDelay() );
     cout << "Event " << n << " delay: " << formula << "\n";
     free(formula);
   }
 
-  if ( Event_isSetTrigger(e) )
+  if ( e->isSetTrigger() )
   {
-    formula = SBML_formulaToString( Event_getTrigger(e) );
+    formula = SBML_formulaToString( e->getTrigger() );
     cout << "Event " << n << " trigger: " << formula << "\n";
     free(formula);
   }
 
-  for (i = 0; i < Event_getNumEventAssignments(e); ++i)
+  for (i = 0; i < e->getNumEventAssignments(); ++i)
   {
-    printEventAssignmentMath(i + 1, Event_getEventAssignment(e, i));
+    printEventAssignmentMath(i + 1, e->getEventAssignment(i));
   }
 
   cout << "\n";
@@ -185,33 +185,33 @@ printEventMath (unsigned int n, const Event_t *e)
 
 
 void
-printMath (const Model_t *m)
+printMath (const Model *m)
 {
   unsigned int  n;
 
 
-  for (n = 0; n < Model_getNumFunctionDefinitions(m); ++n)
+  for (n = 0; n < m->getNumFunctionDefinitions(); ++n)
   {
-    printFunctionDefinition(n + 1, Model_getFunctionDefinition(m, n));
+    printFunctionDefinition(n + 1, m->getFunctionDefinition(n));
   }
 
-  for (n = 0; n < Model_getNumRules(m); ++n)
+  for (n = 0; n < m->getNumRules(); ++n)
   {
-    printRuleMath(n + 1, Model_getRule(m, n));
-  }
-
-  cout << endl;
-
-  for (n = 0; n < Model_getNumReactions(m); ++n)
-  {
-    printReactionMath(n + 1, Model_getReaction(m, n));
+    printRuleMath(n + 1, m->getRule(n));
   }
 
   cout << endl;
 
-  for (n = 0; n < Model_getNumEvents(m); ++n)
+  for (n = 0; n < m->getNumReactions(); ++n)
   {
-    printEventMath(n + 1, Model_getEvent(m, n));
+    printReactionMath(n + 1, m->getReaction(n));
+  }
+
+  cout << endl;
+
+  for (n = 0; n < m->getNumEvents(); ++n)
+  {
+    printEventMath(n + 1, m->getEvent(n));
   }
 }
 
@@ -223,7 +223,6 @@ main (int argc, char *argv[])
 
   SBMLDocument* d;
   Model*        m;
-
 
   if (argc != 2)
   {
