@@ -83,7 +83,7 @@
 %{
   sub remove {
     my $obj = LibSBMLc::ListOf_remove(@_);
-    $obj->DISOWN();
+    $obj->DISOWN() if defined $obj;
     return $obj;
   }
 %}
