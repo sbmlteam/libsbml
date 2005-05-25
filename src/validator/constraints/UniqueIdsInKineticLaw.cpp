@@ -109,5 +109,7 @@ UniqueIdsInKineticLaw::doCheck (const Model& m)
     {
       checkId( kl->getParameter(p) );
     }
+
+    mIdObjectMap.clear();
   }
 }
