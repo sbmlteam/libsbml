@@ -2593,6 +2593,953 @@ itself.
 
 
 %=============================================================================
+\section{Java Tutorial}
+\label{sec:java}
+%=============================================================================
+
+%-----------------------------------------------------------------------------
+\subsection{Setting Up}
+\label{sec:java-setting-up}
+%-----------------------------------------------------------------------------
+
+To run Java programs that access \libsbml{}, you must set up
+environment variables as described below.  The exact environment variables
+depend on your operating system.
+
+%-----------------------------------------------------------------------------
+\subsubsection{Linux}
+\label{sec:java-linux-setup}
+%-----------------------------------------------------------------------------
+
+To run Java programs that access \libsbml{} under Linux:
+
+\begin{description}
+
+\item[CLASSPATH]
+must include the \code{libsbmlj.jar} file from the \libsbml{}
+java bindings directory.  For example:
+
+\begin{shellVerbatim}
+CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
+\end{shellVerbatim}
+
+\end{description}
+
+%-----------------------------------------------------------------------------
+\subsubsection{Mac OS X}
+\label{sec:java-osx-setup}
+%-----------------------------------------------------------------------------
+
+To run Java programs that access \libsbml{} under Mac OS X:
+
+\begin{description}
+
+%want: a way to make the following look nicer
+\item[CLASSPATH]
+must include the \code{libsbmlj.jar} file from the \libsbml{}
+java bindings directory.  For example:
+
+\begin{shellVerbatim}
+CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
+\end{shellVerbatim}
+
+\item[DYLD\_LIBRARY\_PATH]
+must include the directory that contains the
+\code{libsbmlj.jnilib} file.  For example:
+
+\begin{shellVerbatim}
+DYLD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
+\end{shellVerbatim}
+
+\end{description}
+
+%-----------------------------------------------------------------------------
+\subsubsection{Windows}
+\label{sec:java-windows-setup}
+%-----------------------------------------------------------------------------
+
+To run Java programs that access \libsbml{} under Windows, your environment
+variables must be set as described below.
+
+%want: something more specific than "use" in this next sentence, or a green
+%light to delete it
+To set an environment variable in Windows, use the System option on the
+Control Panel.
+
+\begin{description}
+
+\item[CLASSPATH]
+must include the \code{sbmlj.jar} file in the Java SWIG
+bindings directory.  For example:
+
+\begin{shellVerbatim}
+CLASSPATH=C:\libsbml\bindings\java\sbmlj.jar
+\end{shellVerbatim}
+
+\item[PATH]
+must include the directory that contains the \code{sbmlj.dll} file. An
+easy way to achieve this is to copy this file to the Windows system
+directory. For example:
+
+\begin{shellVerbatim}
+CD <libsbml directory>
+COPY SBMLJ.DLL C:\WINDOWS\SYSTEM32
+\end{shellVerbatim}
+
+\end{description}
+
+
+%-----------------------------------------------------------------------------
+\subsection{A Simple Java \libsbml{} Program}
+\label{sec:simple-java-program}
+%-----------------------------------------------------------------------------
+
+   Here is a very simple program that reads in an SBML model:
+
+\begin{boxedCodeVerbatim}
+import org.sbml.libsbml.*;
+
+public class Demo1
+{
+   public static void main(String args[])
+   {
+      System.loadLibrary("sbmlj");
+
+      SBMLReader reader = new SBMLReader();
+      SBMLDocument document = reader.readSBML(
+         "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+      Model model = document.getModel();
+      ListOf listOfSpecies = model.getListOfSpecies();
+
+      for (int i = 0; i < model.getNumSpecies(); i++) {
+         Species species = (Species)listOfSpecies.get(i);
+         System.out.println(
+            species.getName() + "  " +
+            species.getCompartment() + "  " +
+            species.getInitialAmount()
+         );
+      }
+   }
+}
+\end{boxedCodeVerbatim}
+
+Here is the output of the program:
+
+\begin{shellVerbatim}
+   s1  cell  4.0
+   s2  cell  2.0
+   x0  cell  1.0
+   x1  cell  0.0
+\end{shellVerbatim}
+
+Key \libsbml{}-related elements:
+
+%want: a way to not indent this
+\begin{shellVerbatim}
+import org.sbml.libsbml.*;
+\end{shellVerbatim}
+
+%want: a way to indent this, so it looks like a description of the preceding
+%code snippet
+   Brings all the \libsbml{} classes and constants into the
+   present namespace.
+
+\begin{shellVerbatim}
+System.loadLibrary("sbmlj");
+\end{shellVerbatim}
+
+   Loads \libsbml{} and its Java SWIG binding into memory.
+
+\begin{shellVerbatim}
+SBMLReader reader = new SBMLReader();
+\end{shellVerbatim}
+
+   Creates the object that will read in an SBML document.
+
+\begin{shellVerbatim}
+SBMLDocument document = reader.readSBML(
+   "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+\end{shellVerbatim}
+
+   Reads in the SBML document.  See section 2.1 for the
+   full text of the document.
+
+\begin{shellVerbatim}
+Model model = document.getModel();
+\end{shellVerbatim}
+
+   Extracts the model from the document.
+
+\begin{shellVerbatim}
+ListOf listOfSpecies = model.getListOfSpecies();
+\end{shellVerbatim}
+
+   Gets a \code{ListOf} object that holds references to all the
+   species in the model.  A \code{ListOf} object does not operate
+   the same way as a Java \code{List}.  You need to call it with
+   the same method names as the C/C++ \code{ListOf} class in the
+   \libsbml{} library.
+
+\begin{shellVerbatim}
+for (int i = 0; i < model.getNumSpecies(); i++) {
+   Species species = (Species)listOfSpecies.get(i);
+   System.out.println(
+      species.getName() + "  " +
+      species.getCompartment() + "  " +
+      species.getInitialAmount()
+   );
+}
+\end{shellVerbatim}
+
+   Notice the \code{(Species)} cast on the object returned by
+   \code{listOfSpecies.get()}.  As usual in Java, when extracting
+   items from a list that can hold objects of a variety of
+   classes, we must know the class of the object we're
+   extracting so we can make the cast.
+
+   Here's the raw XML of the model:
+
+\begin{boxedCodeVerbatim}
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment name="cell" volume="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <specie name="s1" compartment="cell" initialAmount="4"/>
+      <specie name="s2" compartment="cell" initialAmount="2"/>
+      <specie name="x0" compartment="cell" initialAmount="1"/>
+      <specie name="x1" compartment="cell" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="k1" value="1.2"/>
+      <parameter name="k2" value="1000"/>
+      <parameter name="k3" value="3000"/>
+      <parameter name="k4" value="4.5"/>
+    </listOfParameters>
+    <listOfRules>
+      <parameterRule name="t" formula="s1 + s2"/>
+      <parameterRule name="k" formula="k3/k2"/>
+      <specieConcentrationRule specie="s2" formula="k * t/(1 + k)"/>
+      <specieConcentrationRule specie="s1" formula="t - s2"/>
+    </listOfRules>
+    <listOfReactions>
+      <reaction name="j1">
+        <listOfReactants>
+          <specieReference specie="x0"/>
+        </listOfReactants>
+        <listOfProducts>
+          <specieReference specie="s1"/>
+        </listOfProducts>
+        <kineticLaw formula="k1 * x0"/>
+      </reaction>
+      <reaction name="j3">
+        <listOfReactants>
+          <specieReference specie="s2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <specieReference specie="x1"/>
+        </listOfProducts>
+        <kineticLaw formula="k4 * s2"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
+\end{boxedCodeVerbatim}
+
+%-----------------------------------------------------------------------------
+\subsection{Converting a Model from Level 1 to Level 2}
+\label{sec:simple-java-program}
+%-----------------------------------------------------------------------------
+
+Now that we know how to read SBML in from a file, let's do
+something useful: let's convert \code{l1v1-rules.xml} from Level 1
+to Level 2.
+
+To do this, we only need to know two more things: how to
+modify an \code{SBase} object, and how to write an SBML document to
+disk.  Here is the complete program:
+
+\begin{boxedCodeVerbatim}
+   import org.sbml.libsbml.*;
+
+   public class Demo
+   {
+      public static void main(String args[])
+      {
+         System.loadLibrary("sbmlj");
+         SBMLReader reader   = new SBMLReader();
+         SBMLDocument document = reader.readSBML(
+            "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
+
+         document.setLevel(2);
+         libsbml.writeSBML(document, "l2v1-rules.xml");
+      }
+   }
+\end{boxedCodeVerbatim}
+
+That's all there is to it!  We changed the level of the SBML
+document by calling its \code{setLevel()} method.  All \libsbml{}
+objects that inherit from \code{SBase}---that is, all \libsbml{} objects
+that represent entities in an SBML document---are modified by
+a "setter" function whose name is \code{setXxx}, where \code{Xxx} is
+the name of the data element (with the first letter
+capitalized).
+
+Then we wrote the document to a new file by calling the
+static function \code{libsbml.writeSBML()}.
+
+This works because, internally, \libsbml{} stores the model as a
+data structure that represents the information in the model
+without regard to the format in which the model is stored on
+disk.  The \code{SBMLDocument}'s \code{level} data member just tells
+\code{writeSBML()} the format in which to save the model.
+
+The Level 2 version of the model is longer than the Level 1
+version, so we'll only show the beginning here.  Notice that
+\code{specie} got changed to \code{species} and the \code{parameterRule}s are
+now expressed in MathML inside \code{assignmentRule}s:
+
+\begin{boxedCodeVerbatim}
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="cell" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="s1" compartment="cell" initialAmount="4"/>
+      <species id="s2" compartment="cell" initialAmount="2"/>
+      <species id="x0" compartment="cell" initialAmount="1"/>
+      <species id="x1" compartment="cell" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" value="1.2"/>
+      <parameter id="k2" value="1000"/>
+      <parameter id="k3" value="3000"/>
+      <parameter id="k4" value="4.5"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="t">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> s1 </ci>
+            <ci> s2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      . . .
+\end{boxedCodeVerbatim}
+
+
+%=============================================================================
+\section{Python Tutorial}
+\label{sec:python}
+%=============================================================================
+
+%-----------------------------------------------------------------------------
+\subsection{Setting Up}
+\label{sec:python-setting-up}
+%-----------------------------------------------------------------------------
+
+In this tutorial, we'll assume that you're running on some
+variant of Unix.  (That includes Linux and Mac OS X.) On
+Windows, you may need to use backslashes in place of forward slashes, or use a
+Unix-like shell such as Cygwin. (See Section~\ref{sec:activestate} for notes
+on running with ActiveState Python under Windows.)
+
+When you installed \libsbml{}, you already installed the Python
+interface.
+
+First, set your \code{PYTHONPATH} environment variable to include
+the \libsbml{} Python directory.  For example:
+
+\begin{shellVerbatim}
+$ export PYTHONPATH=/home/bkovitz/libsbml/bindings/python
+\end{shellVerbatim}
+
+The relevant file is named \code{libsbml.py}.
+
+You'll also need to be sure that your \code{LD\_LIBRARY\_PATH}
+(\code{DYLD\_LIBRARY\_PATH} on Mac OS X) includes both the main
+\libsbml{} library (\code{libsbml.so}) and the \code{\_libsbml.so} library that
+contains the interface code for Python.  For example:
+
+\begin{shellVerbatim}
+$ export LD\_LIBRARY\_PATH=/home/bkovitz/software/libsbml:/home/bkovitz/libsbml/bindings/python
+\end{shellVerbatim}
+
+If you have trouble running the examples below, then most
+likely there is a problem with your installation or one or
+more of your environment variables needs to be set
+differently.  If you still have troubles, try reinstalling
+\libsbml{}.  If that doesn't work, try the \libsbml{} discussion
+list:
+
+\begin{shellVerbatim}
+https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
+\end{shellVerbatim}
+
+%-----------------------------------------------------------------------------
+\subsubsection{Building and Running with ActiveState Python under Windows}
+\label{sec:activestate}
+%-----------------------------------------------------------------------------
+
+The different versions of Python under Windows are not compatible with each
+other, so, to run on Windows, you will need to build the \libsbml{} libraries
+in a way that is specific to the version of Python that you're using. In this
+section, we show how to build and run \libsbml{} using ActiveState Python.
+
+To build the \libsbml{} libraries to run with ActiveState Python:
+
+\begin{enumerate}
+
+\item
+Set the following environment variables:
+
+\begin{description}
+
+%want: nicer format for the following
+\item[PYTHON\_INCLUDE] must contain the name of the directory containing the
+Python Win32 ``include'' files. For example:
+
+\begin{shellVerbatim}
+C:\Python23\include
+\end{shellVerbatim}
+
+\item[PYTHON\_LIB] must contain the full pathname of the Python Win32 library.
+For example:
+
+\begin{shellVerbatim}
+C:\Python23\libs\python23.lib
+\end{shellVerbatim}
+
+\end{description}
+
+To set an environment variable in Windows, use the System option
+on the Control Panel. 
+
+
+\item
+Start Microsoft Visual C++ and build this project file, from the \libsbml{}
+download for Windows:
+
+\begin{shellVerbatim}
+Python_binding_Win32
+\end{shellVerbatim}
+
+This builds all the \libsbml{} library files.
+
+(Note that ActiveState Python says that the only C compiler on Windows that
+their code is tested on is Microsoft Visual C++.)
+
+Building with \code{Python\_binding\_Win32} generates \code{\_libsbml.dll}.
+\end{enumerate}
+
+To run ActiveState Python with \libsbml{}:
+
+\begin{enumerate}
+
+\item
+Copy \code{\_libsbml.dll} into the windows system directory:
+
+\begin{shellVerbatim}
+C:\WINDOWS\SYSTEM32
+\end{shellVerbatim}
+
+This ensures that \code{\_libsbml.dll} is on the system \code{PATH} and
+accessible anywhere.
+
+\item
+Set the environment variable \code{PYTHONPATH} to include the \libsbml{}
+Python directory.  For example:
+
+\begin{shellVerbatim}
+C:\libsbml\bindings\python
+\end{shellVerbatim}
+
+\end{enumerate}
+
+You should now be able to run the examples in this section from your Python
+shell or command line.
+
+
+%-----------------------------------------------------------------------------
+\subsection{Python in Interactive Mode}
+\label{sec:python-interactive}
+%-----------------------------------------------------------------------------
+
+To get started, we'll run Python in interactive mode:
+
+\begin{shellVerbatim}
+$ python
+>>> from libsbml import *
+>>> r = SBMLReader()
+>>> d = r.readSBML("/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml")
+>>> print d
+SBMLDocument:
+   level:        1
+   model:        <C Model instance at _0031a580_p_Model>
+   numErrors:    0
+   numFatals:    0
+   numWarnings:  0
+   version:      1
+>>> 
+\end{shellVerbatim}
+
+Here's what we just did.  This command:
+
+\begin{shellVerbatim}
+>>> from libsbml import *
+\end{shellVerbatim}
+
+imports the names of all the classes and public functions
+from the \libsbml{} library into the Python namespace.  That
+means that we can now call anything in \libsbml{} just by
+typing its name.
+
+This command:
+
+\begin{shellVerbatim}
+>>> r = SBMLReader()
+\end{shellVerbatim}
+
+creates an \code{SBMLReader} object and names it \code{r}.  We need an
+\code{SBMLReader} object in order to read in and parse an SBML
+document, which is what we do in this command:
+
+\begin{shellVerbatim}
+>>> d = r.readSBML("/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml")
+\end{shellVerbatim}
+
+Here's the raw XML of this model:
+
+\begin{boxedCodeVerbatim}
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment name="cell" volume="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <specie name="s1" compartment="cell" initialAmount="4"/>
+      <specie name="s2" compartment="cell" initialAmount="2"/>
+      <specie name="x0" compartment="cell" initialAmount="1"/>
+      <specie name="x1" compartment="cell" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter name="k1" value="1.2"/>
+      <parameter name="k2" value="1000"/>
+      <parameter name="k3" value="3000"/>
+      <parameter name="k4" value="4.5"/>
+    </listOfParameters>
+    <listOfRules>
+      <parameterRule name="t" formula="s1 + s2"/>
+      <parameterRule name="k" formula="k3/k2"/>
+      <specieConcentrationRule specie="s2" formula="k * t/(1 + k)"/>
+      <specieConcentrationRule specie="s1" formula="t - s2"/>
+    </listOfRules>
+    <listOfReactions>
+      <reaction name="j1">
+        <listOfReactants>
+          <specieReference specie="x0"/>
+        </listOfReactants>
+        <listOfProducts>
+          <specieReference specie="s1"/>
+        </listOfProducts>
+        <kineticLaw formula="k1 * x0"/>
+      </reaction>
+      <reaction name="j3">
+        <listOfReactants>
+          <specieReference specie="s2"/>
+        </listOfReactants>
+        <listOfProducts>
+          <specieReference specie="x1"/>
+        </listOfProducts>
+        <kineticLaw formula="k4 * s2"/>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>
+\end{boxedCodeVerbatim}
+
+%-----------------------------------------------------------------------------
+\subsection{Looking Inside an \class{SBase} Object}
+\label{sec:python-sbase}
+%-----------------------------------------------------------------------------
+
+Now, to look inside the document, we just print it:
+
+\begin{shellVerbatim}
+>>> print d
+SBMLDocument:
+   level:        1
+   model:        <C Model instance at _0031a580_p_Model>
+   numErrors:    0
+   numFatals:    0
+   numWarnings:  0
+   version:      1
+\end{shellVerbatim}
+
+Each line above shows one of the data members of an
+\code{SBMLDocument} object.  You can retrieve the value of any data
+member by calling a \code{get} function on the object.  Each
+``getter's'' name includes the name of the data member that it
+retrieves.  For example:
+
+\begin{shellVerbatim}
+>>> d.getNumErrors()
+0
+>>> d.getVersion()
+1
+\end{shellVerbatim}
+
+Most of the classes in \libsbml{} that represent SBML documents or parts of
+SBML documents are descendants of a class called \code{SBase}.  You can
+\code{print} any \code{SBase} object and \code{get} the data members of any
+\code{SBase} object following this same pattern.
+
+The \code{model} data member of an \code{SBMLDocument} is itself another
+\libsbml{} object.  Now we'll \code{get} the model and look inside:
+
+%want: a nice way to deal with the long lines below
+\begin{shellVerbatim}
+>>> m = d.getModel()
+>>> print m
+Model:
+   id:                               ''
+   listOfCompartments:               [<C Compartment instance at _0031a9e0_p_Compartment>]
+   listOfEvents:                     []
+   listOfFunctionDefinitions:        []
+   listOfParameters:                 [<C Parameter instance at _0031b030_p_Parameter>, <C Parameter instance at _0031b0a0_p_Parameter>, <C Parameter instance at _0031b0f0_p_Parameter>, <C Parameter instance at _0031b140_p_Parameter>]
+   listOfReactions:                  [<C Reaction instance at _0031b7f0_p_Reaction>, <C Reaction instance at _0031be30_p_Reaction>]
+   listOfRules:                      [<C ParameterRule instance at _0031b390_p_ParameterRule>, <C ParameterRule instance at _0031b3e0_p_ParameterRule>, <C SpeciesConcentrationRule instance at _0031b5a0_p_SpeciesConcentrationRule>, <C SpeciesConcentrationRule instance at _0031b5e0_p_SpeciesConcentrationRule>]
+   listOfSpecies:                    [<C Species instance at _0031ac90_p_Species>, <C Species instance at _0031acf0_p_Species>, <C Species instance at _0031ad50_p_Species>, <C Species instance at _0031adb0_p_Species>]
+   listOfUnitDefinitions:            []
+   name:                             ''
+   numCompartments:                  1
+   numEvents:                        0
+   numFunctionDefinitions:           0
+   numParameters:                    4
+   numReactions:                     2
+   numRules:                         4
+   numSpecies:                       4
+   numSpeciesWithBoundaryCondition:  0
+   numUnitDefinitions:               0
+\end{shellVerbatim}
+
+
+%-----------------------------------------------------------------------------
+\subsection{Modifying an \class{SBase} Object}
+\label{sec:python-interactive}
+%-----------------------------------------------------------------------------
+
+For many ``getters'', there is a ``setter.''  By calling a
+``setter,'' you can change an attribute of an \code{SBase} object.
+For example:
+
+\begin{shellVerbatim}
+>>> m.setName("sample model")
+>>> m.getName()
+'sample model'
+\end{shellVerbatim}
+
+Some data members are not simply variables, but calculated
+from other information inside the \code{SBase} object.  You can't
+set these:
+
+\begin{shellVerbatim}
+>>> m.setNumSpecies(5)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+  File "/home/bkovitz/libsbml/bindings/python/libsbml.py", line 393, in <lambda>
+    __getattr__ = lambda self, name: _swig_getattr(self, Model, name)
+  File "/home/bkovitz/libsbml/bindings/python/libsbml.py", line 21, in _swig_getattr
+    raise AttributeError,name
+AttributeError: setNumSpecies
+>>> m.getNumSpecies()
+4
+\end{shellVerbatim}
+
+To find out all the methods and data members in an \code{SBase}
+object, call the Python built-in function \code{dir()}:
+
+\begin{shellVerbatim}
+>>> dir(m)
+['__class__', '__cmp__', '__del__', '__delattr__', '__dict__', '__doc__', '__getattr__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__swig_getmethods__', '__swig_setmethods__', '__weakref__', '_getClass', '_memberLines', '_memberName', '_memberline', '_s', 'addCompartment', 'addEvent', 'addFunctionDefinition', 'addParameter', 'addReaction', 'addRule', 'addSpecies', 'addUnitDefinition', 'createAlgebraicRule', 'createAssignmentRule', 'createCompartment', 'createCompartmentVolumeRule', 'createEvent', 'createEventAssignment', 'createFunctionDefinition', 'createKineticLaw', 'createKineticLawParameter', 'createModifier', 'createParameter', 'createParameterRule', 'createProduct', 'createRateRule', 'createReactant', 'createReaction', 'createSpecies', 'createSpeciesConcentrationRule', 'createUnit', 'createUnitDefinition', 'getAnnotation', 'getColumn', 'getCompartment', 'getEvent', 'getFunctionDefinition', 'getId', 'getLine', 'getListOfByTypecode', 'getListOfCompartments', 'getListOfEvents', 'getListOfFunctionDefinitions', 'getListOfParameters', 'getListOfReactions', 'getListOfRules', 'getListOfSpecies', 'getListOfUnitDefinitions', 'getMetaId', 'getName', 'getNotes', 'getNumCompartments', 'getNumEvents', 'getNumFunctionDefinitions', 'getNumParameters', 'getNumReactions', 'getNumRules', 'getNumSpecies', 'getNumSpeciesWithBoundaryCondition', 'getNumUnitDefinitions', 'getParameter', 'getReaction', 'getRule', 'getSpecies', 'getTypeCode', 'getUnitDefinition', 'init', 'isSetAnnotation', 'isSetId', 'isSetMetaId', 'isSetName', 'isSetNotes', 'setAnnotation', 'setId', 'setMetaId', 'setName', 'setNotes', 'this', 'thisown', 'toSBML', 'unsetAnnotation', 'unsetId', 'unsetMetaId', 'unsetName', 'unsetNotes', <class 'libsbml.ModelPtr'>]
+\end{shellVerbatim}
+
+Details on all of the methods are in Section~\ref{sec:sbml-classes-in-c}.
+
+%-----------------------------------------------------------------------------
+\subsection{The \class{ListOf} Class}
+\label{sec:python-listof}
+%-----------------------------------------------------------------------------
+
+Several of the data members of a \code{Model} are objects of class
+\code{ListOf}.  A \code{ListOf} is \libsbml{}'s internal equivalent of a
+Python list.  We can treat it pretty much the same as a
+Python list.  For example:
+
+\begin{shellVerbatim}
+>>> lsp = m.getListOfSpecies()
+>>> print lsp
+[<C Species instance at _0031ac90_p_Species>, <C Species instance at _0031acf0_p_Species>, <C Species instance at _0031ad50_p_Species>, <C Species instance at _0031adb0_p_Species>]
+>>> len(lsp)
+4
+>>> lsp[0]
+<C Species instance at _0031ac90_p_Species>
+>>> print lsp[0]
+Species:
+   boundaryCondition:      0
+   charge:                 0
+   compartment:            'cell'
+   constant:               0
+   hasOnlySubstanceUnits:  0
+   id:                     's1'
+   initialAmount:          4.0
+   initialConcentration:   4.0
+   name:                   ''
+   spatialSizeUnits:       ''
+   substanceUnits:         ''
+   units:                  ''
+\end{shellVerbatim}
+         
+You can also access a \code{ListOf} using the same methods that are
+defined in Section~\ref{app:lists}.
+
+\begin{shellVerbatim}
+>>> lsp.getNumItems()
+4
+>>> lsp.get(0)
+<C Species instance at _0031ac90_p_Species>
+>>> print lsp.get(0)
+Species:
+   boundaryCondition:      0
+   charge:                 0
+   compartment:            'cell'
+   constant:               0
+   hasOnlySubstanceUnits:  0
+   id:                     's1'
+   initialAmount:          4.0
+   initialConcentration:   4.0
+   name:                   ''
+   spatialSizeUnits:       ''
+   substanceUnits:         ''
+   units:                  ''
+\end{shellVerbatim}
+
+
+%-----------------------------------------------------------------------------
+\subsection{Converting a Model from Level 1 to Level 2}
+\label{sec:python-converting}
+%-----------------------------------------------------------------------------
+
+Now that we know how to read SBML in from a file, and how to
+inspect and modify \libsbml{} objects, let's do something
+useful: let's convert \code{l1v1-rules.xml} from Level 1 to Level 2.
+
+To do this, we only need to know one more thing: how to write
+an SBML document to disk.  
+
+\begin{shellVerbatim}
+>>> d.setLevel(2)
+>>> writeSBML(d, "l2v1-rules.xml")
+1
+\end{shellVerbatim}
+
+That's all there is to it!  We changed the level of the SBML
+document by calling its \code{setLevel()} method.  And then we wrote
+it to a new file by calling \code{writeSBML()}.  The 1 at the end is
+the value returned by \code{writeSBML()}.  A nonzero value indicates
+success.
+
+This works because internally, \libsbml{} stores the model as a data structure
+that represents the information in the model independently of the format in
+which the model is stored.  The \code{level} data member just tells
+\code{writeSBML()} the format in which to save the model.
+
+The Level 2 version of the model is longer than the Level 1 version, so we'll
+only show the beginning here.  Notice that \code{specie} got changed to
+\code{species} and the \code{parameterRule}s are now expressed in MathML
+inside \code{assignmentRule}s:
+
+\begin{shellVerbatim}
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model>
+    <listOfCompartments>
+      <compartment id="cell" size="1"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="s1" compartment="cell" initialAmount="4"/>
+      <species id="s2" compartment="cell" initialAmount="2"/>
+      <species id="x0" compartment="cell" initialAmount="1"/>
+      <species id="x1" compartment="cell" initialAmount="0"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="k1" value="1.2"/>
+      <parameter id="k2" value="1000"/>
+      <parameter id="k3" value="3000"/>
+      <parameter id="k4" value="4.5"/>
+    </listOfParameters>
+    <listOfRules>
+      <assignmentRule variable="t">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <ci> s1 </ci>
+            <ci> s2 </ci>
+          </apply>
+        </math>
+      </assignmentRule>
+      . . .
+\end{shellVerbatim}
+
+
+%-----------------------------------------------------------------------------
+\subsection{Writing a Python Program that Calls \libsbml{}}
+\label{sec:python-calling-libsbml}
+%-----------------------------------------------------------------------------
+
+The Python SWIG binding enables you to exploit Python's
+syntax to do some sophisticated processing of SBML models in
+fairly simple programs.
+
+The following program reads all the SBML models in the
+test-data directory and lists the ones that contain a
+parameter with an id of \code{tau}:
+
+\begin{boxedCodeVerbatim}
+import libsbml, os
+
+def hasTauParameter(doc):
+   for parameter in doc.getModel().getListOfParameters():
+      if parameter.getId() == "tau":
+         return True
+   return False
+
+reader = libsbml.SBMLReader()
+dirname = "/home/bkovitz/libsbml/src/test-data/"
+for filename in os.listdir(dirname):
+   if filename.endswith(".xml"):
+      if hasTauParameter(reader.readSBML(dirname + filename)):
+         print filename
+\end{boxedCodeVerbatim}
+
+Here are a few things to notice about this program:
+
+\begin{itemize}
+
+\item
+This syntax:
+
+\begin{shellVerbatim}
+for item in items:
+\end{shellVerbatim}
+
+is a Python idiom for ``iterate the variable \code{item} through
+all the elements of the list \code{items}."  \libsbml{}'s \class{ListOf}
+objects, like the object returned by
+\code{Model.getListOfParameters()}, are compatible with this
+syntax.
+
+\item
+The program code does not care if the models are Level 1 or Level 2.  The
+directory can contain both kinds of models and the program will read through
+them all.
+
+\item
+The program did an \code{import libsbml} rather than
+\code{from libsbml import *}.  This is standard good form in Python, since
+it's faster and can't lead to surprising name clashes.  It requires us,
+however, to refer to \libsbml{} classes by prefixing them with
+``\code{libsbml.}''  Notice the line in the program where the variable
+\code{reader} is set.
+
+\end{itemize}
+
+You can also create a model from scratch and write it out as
+SBML.  This enables you to do things like create thousands of
+models with slightly varying elements in order to run them
+through your simulator or analyzer.  For example:
+
+\begin{boxedCodeVerbatim}
+import libsbml
+
+class CreatedModel(libsbml.Model):
+
+   def __init__(self, k1, k2, s1Boundary, s2Boundary):
+      libsbml.Model.__init__(self)
+
+      c = self.createCompartment()
+      c.setId("c")
+
+      s1 = self.createSpecies()
+      s1.setCompartment("c")
+      s1.setId("s1")
+      s1.setBoundaryCondition(s1Boundary)
+
+      s2 = self.createSpecies()
+      s2.setCompartment("c")
+      s2.setId("s2")
+      s2.setBoundaryCondition(s2Boundary)
+      
+      r1 = self.createReaction()
+      r1.setId("r1")
+      r1.addReactant(libsbml.SpeciesReference("s1"))
+      r1.addProduct(libsbml.SpeciesReference("s2"))
+      kineticLaw = libsbml.KineticLaw("k1 * s1")
+      kineticLaw.addParameter(libsbml.Parameter("k1", float(k1)))
+      r1.setKineticLaw(kineticLaw)
+
+      r2 = self.createReaction()
+      r2.setId("r2")
+      r2.addReactant(libsbml.SpeciesReference("s2"))
+      r2.addProduct(libsbml.SpeciesReference("s1"))
+      kineticLaw = libsbml.KineticLaw("k2 * s2")
+      kineticLaw.addParameter(libsbml.Parameter("k2", float(k2)))
+      r2.setKineticLaw(kineticLaw)
+
+
+modelId = 1
+doc = libsbml.SBMLDocument()
+for k1 in [ 0.0, 0.25, 1.5 ]:
+   for k2 in [ 0.0, 0.25, 1.5 ]:
+      for s1Boundary in [ False, True ]:
+         for s2Boundary in [ False, True ]:
+            doc.setModel(CreatedModel(k1, k2, s1Boundary, s2Boundary))
+            libsbml.writeSBML(doc, "model%d.xml" % modelId)
+            modelId += 1
+\end{boxedCodeVerbatim}
+
+This program generates 36 models, each having a different
+combination of parameter values and species boundary
+conditions.
+
+Another way to create lots of similar models is to read in a
+``template" model, make a few changes to it, and then write
+out the result.  This enables you to systematically generate
+thousands of similar models in only a few lines of Python.
+In this case, the constructor of the \code{CreatedModel} class would
+read the template model each time and perform the
+modifications according to its arguments.
+
+%-----------------------------------------------------------------------------
+\subsection{Known Bugs}
+\label{sec:python-bugs}
+%-----------------------------------------------------------------------------
+
+You can't copy a \libsbml{} object in either of the usual Python ways:
+\code{obj[:]} or \code{copy.copy(obj)}.  The reason is that each \libsbml{}
+object in Python actually just holds a pointer to the \libsbml{} object that's
+managed by the underlying C++ code.  When you copy the object in Python, you
+are actually just copying the pointers to the same underlying C++ object.
+
+
+%=============================================================================
 \section{Acknowledgments}
 \label{sec:acknowledgments}
 %=============================================================================
@@ -2601,7 +3548,6 @@ Thanks to Mike Hucka for updating and editing this manual for versions 2.0
 and 2.1 of \libsbml{}, for developing the look-and-feel and the LaTeX style
 used for this and other SBML-related manuals, and for developing the
 LaTeX2HTML macros used to create the HTML version.
-
 
 
 \clearpage
