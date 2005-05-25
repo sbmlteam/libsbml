@@ -54,6 +54,7 @@
 
 #include <iostream>
 
+
 using namespace std;
 
 
@@ -92,7 +93,7 @@ printFunctionDefinition (unsigned int n, const FunctionDefinition *fd)
     {
       math    = math->getChild(math->getNumChildren() - 1);
       formula = SBML_formulaToString(math);
-      cout << formula << "\n";
+      cout << formula << endl;
       free(formula);
     }
   }
@@ -108,7 +109,7 @@ printRuleMath (unsigned int n, const Rule *r)
   if ( r->isSetMath() )
   {
     formula = SBML_formulaToString( r->getMath() );
-    cout << "Rule " << n << ", " << formula << "\n";
+    cout << "Rule " << n << ", " << formula << endl;
     free(formula);
   }
 }
@@ -128,7 +129,7 @@ printReactionMath (unsigned int n, const Reaction *r)
     if ( kl->isSetMath() )
     {
       formula = SBML_formulaToString( kl->getMath() );
-      cout << "Reaction " << n << ", " << formula << "\n";
+      cout << "Reaction " << n << ", " << formula << endl;
       free(formula);
     }
   }
@@ -147,7 +148,8 @@ printEventAssignmentMath (unsigned int n, const EventAssignment *ea)
     variable = ea->getVariable();
     formula  = SBML_formulaToString( ea->getMath() );
 
-    cout <<"  EventAssignment " << n << ", trigger: " << variable << " = " << formula << "\n";
+    cout <<"  EventAssignment " << n
+         << ", trigger: " << variable << " = " << formula << endl;
 
     free(formula);
   }
@@ -164,14 +166,14 @@ printEventMath (unsigned int n, const Event *e)
   if ( e->isSetDelay() )
   {
     formula = SBML_formulaToString( e->getDelay() );
-    cout << "Event " << n << " delay: " << formula << "\n";
+    cout << "Event " << n << " delay: " << formula << endl;
     free(formula);
   }
 
   if ( e->isSetTrigger() )
   {
     formula = SBML_formulaToString( e->getTrigger() );
-    cout << "Event " << n << " trigger: " << formula << "\n";
+    cout << "Event " << n << " trigger: " << formula << endl;
     free(formula);
   }
 
@@ -180,7 +182,7 @@ printEventMath (unsigned int n, const Event *e)
     printEventAssignmentMath(i + 1, e->getEventAssignment(i));
   }
 
-  cout << "\n";
+  cout << endl;
 }
 
 
@@ -226,12 +228,11 @@ main (int argc, char *argv[])
 
   if (argc != 2)
   {
-    cout << "\n  usage: printMath <filename>\n\n";
+    cout << endl << "  usage: printMath <filename>" << endl << endl;
     return 1;
   }
     
   filename = argv[1];
-
   d        = readSBML(filename);
 
   d->printWarnings(cout);
