@@ -58,6 +58,7 @@
 #include "TestValidator.h"
 
 #include "ConsistencyValidator.h"
+#include "L1CompatibilityValidator.h"
 
 
 using namespace std;
@@ -79,10 +80,27 @@ runTest (const TestFile& file)
   return tester.test(file);
 }
 
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runL1Test (const TestFile& file)
+{
+  L1CompatibilityValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
 
 /**
  * Runs the libSBML ConsistencyValidator on all consistency TestFiles in
  * the test-data/ directory.
+ * Runs the libSBML L1CompatibilityValidator on all TestFiles in the
+ * test-data-l2-l1-conversion/ directory.
  */
 int
 main (int argc, char* argv[])
@@ -102,5 +120,19 @@ main (int argc, char* argv[])
   cout << static_cast<int>(percent) << "%: Checks: " << files.size();
   cout << ", Failures: " << failures << endl;
 
+  cout << "Testing Consistency Constraints (2000-2999)." << endl;
+
+
+  set<TestFile> files_conv    = TestFile::getFilesIn("test-data-l2-l1-conversion", 2000, 2999);
+  unsigned int  passes_conv   = count_if(files_conv.begin(), files_conv.end(), runL1Test);
+  unsigned int  failures_conv = files_conv.size() - passes_conv;
+  double        percent_conv  = (static_cast<double>(passes_conv) / files_conv.size()) * 100;
+
+
+  cout << static_cast<int>(percent_conv) << "%: Checks: " << files_conv.size();
+  cout << ", Failures: " << failures_conv << endl;
+
+
   return failures;
 }
+
