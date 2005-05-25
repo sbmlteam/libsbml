@@ -338,3 +338,50 @@
   }
 %}
 
+%inline %{
+  void printFatals (SBMLDocument_t *d)
+  {
+    unsigned int n, size;
+    if ((size = SBMLDocument_getNumFatals(d)) > 0)
+    {
+      fprintf(stderr, "%d Fatal(s):\n", size);
+      for (n = 0; n < size; n++)
+      {
+        fprintf(stderr, "  ");
+        ParseMessage_print(SBMLDocument_getFatal(d, n), stderr);
+      }
+    }
+  }
+%}
+
+%inline %{
+  void printErrors (SBMLDocument_t *d)
+  {
+    unsigned int n, size;
+    if ((size = SBMLDocument_getNumErrors(d)) > 0)
+    {
+      fprintf(stderr, "%d Error(s):\n", size);
+      for (n = 0; n < size; n++)
+      {
+        fprintf(stderr, "  ");
+        ParseMessage_print(SBMLDocument_getError(d, n), stderr);
+      }
+    }
+  }
+%}
+
+%inline %{
+  void printWarnings (SBMLDocument_t *d)
+  {
+    unsigned int n, size;
+    if ((size = SBMLDocument_getNumWarnings(d)) > 0)
+    {
+      fprintf(stderr, "%d Warning(s):\n", size);
+      for (n = 0; n < size; n++)
+      {
+        fprintf(stderr, "  ");
+        ParseMessage_print(SBMLDocument_getWarning(d, n), stderr);
+      }
+    }
+  }
+%}
