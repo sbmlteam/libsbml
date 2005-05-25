@@ -59,9 +59,9 @@
 
 #ifdef USE_EXPAT
 #  include <expat.h>
-#  include "xml/Expat.h"
-#  include "xml/ExpatAttributes.h"
-#  include "xml/ExpatToXerces.h"
+#  include "../xml/Expat.h"
+#  include "../xml/ExpatAttributes.h"
+#  include "../xml/ExpatToXerces.h"
 #else
 #  include <xercesc/sax/Locator.hpp>
 #  include <xercesc/sax2/DefaultHandler.hpp>
@@ -70,8 +70,9 @@
    using xercesc::Locator;
 #endif  /* USE_EXPAT */
 
-#include "util/Stack.h"
+#include "../util/Stack.h"
 #include "MathMLTagCodes.h"
+
 
 class ASTNode;
 class MathMLDocument;

@@ -85,8 +85,8 @@
 
 
 #include "extern.h"
-#include "util/memory.h"
-#include "util/util.h"
+#include "../util/memory.h"
+#include "../util/util.h"
 
 
 #endif  /* LIBSBML_COMMON_H */

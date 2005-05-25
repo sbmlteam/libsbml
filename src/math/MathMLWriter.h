@@ -53,7 +53,7 @@
 #define MathMLWriter_h
 
 
-#include "common/extern.h"
+#include "../common/extern.h"
 
 
 #ifdef __cplusplus
@@ -120,7 +120,7 @@ public:
 BEGIN_C_DECLS
 
 
-#include "common/sbmlfwd.h"
+#include "../common/sbmlfwd.h"
 
 
 /**

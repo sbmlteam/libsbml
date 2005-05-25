@@ -54,11 +54,11 @@
 #define MathMLUnicodeConstants_h
 
 
-#include "xml/common.h"
+#include "../xml/common.h"
 
 
 #ifdef USE_EXPAT
-#  include "xml/ExpatUnicodeChars.h"
+#  include "../xml/ExpatUnicodeChars.h"
 #else
 #  include <xercesc/util/XMLUniDefs.hpp>
    using namespace xercesc;

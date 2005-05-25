@@ -53,10 +53,10 @@
 #define FormulaFormatter_h
 
 
-#include "common/extern.h"
+#include "../common/extern.h"
+#include "../util/StringBuffer.h"
 
 #include "ASTNode.h"
-#include "util/StringBuffer.h"
 
 
 BEGIN_C_DECLS

@@ -53,7 +53,7 @@
 #define List_h
 
 
-#include "common/extern.h"
+#include "../common/extern.h"
 
 
 /**
@@ -215,7 +215,8 @@ protected:
 
 BEGIN_C_DECLS
 
-#include "common/sbmlfwd.h"
+
+#include "../common/sbmlfwd.h"
 
 
 /**

@@ -53,8 +53,8 @@
 #define ASTNode_h
 
 
-#include "common/extern.h"
-#include "common/sbmlfwd.h"
+#include "../common/extern.h"
+#include "../common/sbmlfwd.h"
 
 #include "FormulaTokenizer.h"
 #include "ASTNodeType.h"

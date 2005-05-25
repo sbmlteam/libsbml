@@ -53,7 +53,7 @@
 #define ParseMessage_h
 
 
-#include "common/extern.h"
+#include "../common/extern.h"
 
 
 #ifdef __cplusplus
@@ -153,7 +153,7 @@ BEGIN_C_DECLS
 
 
 #include <stdio.h>
-#include "common/sbmlfwd.h"
+#include "../common/sbmlfwd.h"
 
 
 /**

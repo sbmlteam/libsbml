@@ -51,7 +51,7 @@
 #define StringBuffer_h
 
 
-#include "common/extern.h"
+#include "../common/extern.h"
 
 
 BEGIN_C_DECLS
