@@ -49,10 +49,13 @@
 
 #include "LayoutFormatter.h"
 
+
 BEGIN_C_DECLS
 
-static LayoutFormatter * LF;
+XERCES_CPP_NAMESPACE_USE
+
 static MemBufFormatTarget *target;
+static LayoutFormatter *LF;
 
 void
 LayoutFormatterTest_setup (void)
