@@ -49,15 +49,16 @@
 ##  <mhucka@caltech.edu> Created the Makefile.in version of this file.
 
 
-SRCDIR    = ../../src
+SRCDIR     = ../../src
+INCLUDEDIR = ../../include
 
-CXX       = @CXX@
-CXXFLAGS  = @CXXFLAGS@ -Wall -I$(SRCDIR)
-LDFLAGS   = @LDFLAGS@  -L$(SRCDIR)
-CPPFLAGS  = @CPPFLAGS@
-LIBS      = -lsbml @XERCES_LIBS@ @EXPAT_LIBS@ -lstdc++
+CXX        = @CXX@
+CXXFLAGS   = @CXXFLAGS@ -Wall -I$(INCLUDEDIR)
+LDFLAGS    = @LDFLAGS@  -L$(SRCDIR)
+CPPFLAGS   = @CPPFLAGS@
+LIBS       = -lsbml @XERCES_LIBS@ @EXPAT_LIBS@ -lstdc++
 
-programs = convertSBML printSBML readSBML translateMath validateSBML
+programs   = convertSBML printSBML readSBML translateMath validateSBML
 
 
 all: $(programs)

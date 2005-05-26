@@ -49,12 +49,12 @@
  */
 
 
-#include "common/common.h"
+#include "sbml/common/common.h"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLWriter.h"
 #include "sbml/SBMLTypes.h"
 
-#include "util/util.h"
+#include "sbml/util/util.h"
 
 #include <iostream>
 
