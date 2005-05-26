@@ -1,6 +1,43 @@
 \documentclass{sbmlmanual}
 \usepackage{libsbmlextras}
 
+%special non-indenting "verbatim" environments
+\newcommand{\newVerbatimEnvNoIndent}[2]{%
+\lstnewenvironment{#1}{%
+\lstset{escapechar=|,%
+basicstyle=\small\ttfamily,%
+aboveskip=0.75\baselineskip,%
+belowskip=0.4\baselineskip,%
+xleftmargin=0ex,%
+commentstyle=\footnotesize\itshape,%
+flexiblecolumns=true,%
+showstringspaces=false,%
+tabsize=2,%x
+keywordstyle=\ttfamily,
+language=#2}%
+\examplespacing \csname lst@SetFirstLabel\endcsname}
+{\regularspacing \csname lst@SaveFirstLabel\endcsname}}
+
+\newVerbatimEnvNoIndent{cppVerbatimNoIndent}{[ANSI]C++}
+\newVerbatimEnvNoIndent{cVerbatimNoIndent}{[ANSI]C}
+\newVerbatimEnvNoIndent{delphiVerbatimNoIndent}{Delphi}
+\newVerbatimEnvNoIndent{fortranVerbatimNoIndent}{[90]Fortran}
+\newVerbatimEnvNoIndent{htmlVerbatimNoIndent}{HTML}
+\newVerbatimEnvNoIndent{javaVerbatimNoIndent}{Java}
+\newVerbatimEnvNoIndent{latexVerbatimNoIndent}{LaTeX}
+\newVerbatimEnvNoIndent{lispVerbatimNoIndent}{Lisp}
+\newVerbatimEnvNoIndent{mathematicaVerbatimNoIndent}{Mathematica}
+\newVerbatimEnvNoIndent{matlabVerbatimNoIndent}{Matlab}
+\newVerbatimEnvNoIndent{pascalVerbatimNoIndent}{Pascal}
+\newVerbatimEnvNoIndent{perlVerbatimNoIndent}{Perl}
+\newVerbatimEnvNoIndent{pythonVerbatimNoIndent}{Python}
+\newVerbatimEnvNoIndent{rVerbatimNoIndent}{R}
+\newVerbatimEnvNoIndent{sqlVerbatimNoIndent}{SQL}
+\newVerbatimEnvNoIndent{shellVerbatimNoIndent}{csh}
+\newVerbatimEnvNoIndent{tcltkVerbatimNoIndent}{[Tk]Tcl}
+\newVerbatimEnvNoIndent{texVerbatimNoIndent}{[plain]TeX}
+\newVerbatimEnvNoIndent{xmlVerbatimNoIndent}{XML}
+
 \begin{document}
 
 %=============================================================================
@@ -2613,6 +2650,7 @@ depend on your operating system.
 
 To run Java programs that access \libsbml{} under Linux:
 
+\begin{quote}
 \begin{description}
 
 \item[CLASSPATH]
@@ -2623,7 +2661,16 @@ java bindings directory.  For example:
 CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
 \end{shellVerbatim}
 
+\item[LD\_LIBRARY\_PATH]
+must include the directory that contains the \code{libsbmlj.so} file.  For
+example:
+
+\begin{shellVerbatim}
+LD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
+\end{shellVerbatim}
+
 \end{description}
+\end{quote}
 
 %-----------------------------------------------------------------------------
 \subsubsection{Mac OS X}
@@ -2632,9 +2679,9 @@ CLASSPATH=.:/home/bkovitz/libsbml/bindings/java/libsbmlj.jar
 
 To run Java programs that access \libsbml{} under Mac OS X:
 
+\begin{quote}
 \begin{description}
 
-%want: a way to make the following look nicer
 \item[CLASSPATH]
 must include the \code{libsbmlj.jar} file from the \libsbml{}
 java bindings directory.  For example:
@@ -2652,20 +2699,16 @@ DYLD_LIBRARY_PATH=/home/bkovitz/libsbml/bindings/java
 \end{shellVerbatim}
 
 \end{description}
+\end{quote}
 
 %-----------------------------------------------------------------------------
 \subsubsection{Windows}
 \label{sec:java-windows-setup}
 %-----------------------------------------------------------------------------
 
-To run Java programs that access \libsbml{} under Windows, your environment
-variables must be set as described below.
+To run Java programs that access \libsbml{} under Windows:
 
-%want: something more specific than "use" in this next sentence, or a green
-%light to delete it
-To set an environment variable in Windows, use the System option on the
-Control Panel.
-
+\begin{quote}
 \begin{description}
 
 \item[CLASSPATH]
@@ -2687,6 +2730,7 @@ COPY SBMLJ.DLL C:\WINDOWS\SYSTEM32
 \end{shellVerbatim}
 
 \end{description}
+\end{quote}
 
 
 %-----------------------------------------------------------------------------
@@ -2734,53 +2778,64 @@ Here is the output of the program:
 
 Key \libsbml{}-related elements:
 
-%want: a way to not indent this
-\begin{shellVerbatim}
-import org.sbml.libsbml.*;
-\end{shellVerbatim}
+\begin{quotation}
 
-%want: a way to indent this, so it looks like a description of the preceding
-%code snippet
+\begin{javaVerbatimNoIndent}
+import org.sbml.libsbml.*;
+\end{javaVerbatimNoIndent}
+
+\begin{quote}
    Brings all the \libsbml{} classes and constants into the
    present namespace.
+\end{quote}
 
-\begin{shellVerbatim}
+\begin{javaVerbatimNoIndent}
 System.loadLibrary("sbmlj");
-\end{shellVerbatim}
+\end{javaVerbatimNoIndent}
 
+\begin{quote}
    Loads \libsbml{} and its Java SWIG binding into memory.
+\end{quote}
 
-\begin{shellVerbatim}
+\begin{javaVerbatimNoIndent}
 SBMLReader reader = new SBMLReader();
-\end{shellVerbatim}
+\end{javaVerbatimNoIndent}
 
+\begin{quote}
    Creates the object that will read in an SBML document.
+\end{quote}
 
-\begin{shellVerbatim}
+\begin{javaVerbatimNoIndent}
 SBMLDocument document = reader.readSBML(
    "/home/bkovitz/libsbml/src/test-data/l1v1-rules.xml");
-\end{shellVerbatim}
+\end{javaVerbatimNoIndent}
 
+\begin{quote}
    Reads in the SBML document.  See section 2.1 for the
    full text of the document.
+\end{quote}
 
-\begin{shellVerbatim}
+\begin{javaVerbatimNoIndent}
 Model model = document.getModel();
-\end{shellVerbatim}
+\end{javaVerbatimNoIndent}
 
+\begin{quote}
    Extracts the model from the document.
+\end{quote}
 
-\begin{shellVerbatim}
+\begin{javaVerbatimNoIndent}
 ListOf listOfSpecies = model.getListOfSpecies();
-\end{shellVerbatim}
+\end{javaVerbatimNoIndent}
 
+\begin{quote}
    Gets a \code{ListOf} object that holds references to all the
    species in the model.  A \code{ListOf} object does not operate
    the same way as a Java \code{List}.  You need to call it with
    the same method names as the C/C++ \code{ListOf} class in the
    \libsbml{} library.
+\end{quote}
 
-\begin{shellVerbatim}
+\begin{javaVerbatimNoIndent}
 for (int i = 0; i < model.getNumSpecies(); i++) {
    Species species = (Species)listOfSpecies.get(i);
    System.out.println(
@@ -2789,15 +2844,19 @@ for (int i = 0; i < model.getNumSpecies(); i++) {
       species.getInitialAmount()
    );
 }
-\end{shellVerbatim}
+\end{javaVerbatimNoIndent}
 
+\begin{quote}
    Notice the \code{(Species)} cast on the object returned by
    \code{listOfSpecies.get()}.  As usual in Java, when extracting
    items from a list that can hold objects of a variety of
    classes, we must know the class of the object we're
    extracting so we can make the cast.
+\end{quote}
 
-   Here's the raw XML of the model:
+\end{quotation}
+
+Here's the raw XML of the model:
 
 \begin{boxedCodeVerbatim}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -3001,7 +3060,6 @@ Set the following environment variables:
 
 \begin{description}
 
-%want: nicer format for the following
 \item[PYTHON\_INCLUDE] must contain the name of the directory containing the
 Python Win32 ``include'' files. For example:
 
@@ -3204,7 +3262,6 @@ SBML documents are descendants of a class called \code{SBase}.  You can
 The \code{model} data member of an \code{SBMLDocument} is itself another
 \libsbml{} object.  Now we'll \code{get} the model and look inside:
 
-%want: a nice way to deal with the long lines below
 \begin{shellVerbatim}
 >>> m = d.getModel()
 >>> print m
@@ -3213,10 +3270,10 @@ Model:
    listOfCompartments:               [<C Compartment instance at _0031a9e0_p_Compartment>]
    listOfEvents:                     []
    listOfFunctionDefinitions:        []
-   listOfParameters:                 [<C Parameter instance at _0031b030_p_Parameter>, <C Parameter instance at _0031b0a0_p_Parameter>, <C Parameter instance at _0031b0f0_p_Parameter>, <C Parameter instance at _0031b140_p_Parameter>]
-   listOfReactions:                  [<C Reaction instance at _0031b7f0_p_Reaction>, <C Reaction instance at _0031be30_p_Reaction>]
-   listOfRules:                      [<C ParameterRule instance at _0031b390_p_ParameterRule>, <C ParameterRule instance at _0031b3e0_p_ParameterRule>, <C SpeciesConcentrationRule instance at _0031b5a0_p_SpeciesConcentrationRule>, <C SpeciesConcentrationRule instance at _0031b5e0_p_SpeciesConcentrationRule>]
-   listOfSpecies:                    [<C Species instance at _0031ac90_p_Species>, <C Species instance at _0031acf0_p_Species>, <C Species instance at _0031ad50_p_Species>, <C Species instance at _0031adb0_p_Species>]
+   listOfParameters:                 [<C Parameter instance at _0031b030_p_Parameter>, ...
+   listOfReactions:                  [<C Reaction instance at _0031b7f0_p_Reaction>, <C...
+   listOfRules:                      [<C ParameterRule instance at _0031b390_p_Paramete...
+   listOfSpecies:                    [<C Species instance at _0031ac90_p_Species>, <C S...
    listOfUnitDefinitions:            []
    name:                             ''
    numCompartments:                  1
@@ -3268,7 +3325,32 @@ object, call the Python built-in function \code{dir()}:
 
 \begin{shellVerbatim}
 >>> dir(m)
-['__class__', '__cmp__', '__del__', '__delattr__', '__dict__', '__doc__', '__getattr__', '__getattribute__', '__hash__', '__init__', '__module__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__str__', '__swig_getmethods__', '__swig_setmethods__', '__weakref__', '_getClass', '_memberLines', '_memberName', '_memberline', '_s', 'addCompartment', 'addEvent', 'addFunctionDefinition', 'addParameter', 'addReaction', 'addRule', 'addSpecies', 'addUnitDefinition', 'createAlgebraicRule', 'createAssignmentRule', 'createCompartment', 'createCompartmentVolumeRule', 'createEvent', 'createEventAssignment', 'createFunctionDefinition', 'createKineticLaw', 'createKineticLawParameter', 'createModifier', 'createParameter', 'createParameterRule', 'createProduct', 'createRateRule', 'createReactant', 'createReaction', 'createSpecies', 'createSpeciesConcentrationRule', 'createUnit', 'createUnitDefinition', 'getAnnotation', 'getColumn', 'getCompartment', 'getEvent', 'getFunctionDefinition', 'getId', 'getLine', 'getListOfByTypecode', 'getListOfCompartments', 'getListOfEvents', 'getListOfFunctionDefinitions', 'getListOfParameters', 'getListOfReactions', 'getListOfRules', 'getListOfSpecies', 'getListOfUnitDefinitions', 'getMetaId', 'getName', 'getNotes', 'getNumCompartments', 'getNumEvents', 'getNumFunctionDefinitions', 'getNumParameters', 'getNumReactions', 'getNumRules', 'getNumSpecies', 'getNumSpeciesWithBoundaryCondition', 'getNumUnitDefinitions', 'getParameter', 'getReaction', 'getRule', 'getSpecies', 'getTypeCode', 'getUnitDefinition', 'init', 'isSetAnnotation', 'isSetId', 'isSetMetaId', 'isSetName', 'isSetNotes', 'setAnnotation', 'setId', 'setMetaId', 'setName', 'setNotes', 'this', 'thisown', 'toSBML', 'unsetAnnotation', 'unsetId', 'unsetMetaId', 'unsetName', 'unsetNotes', <class 'libsbml.ModelPtr'>]
+['__class__', '__cmp__', '__del__', '__delattr__', '__dict__', '__doc__',
+'__getattr__', '__getattribute__', '__hash__', '__init__', '__module__',
+'__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__',
+'__str__', '__swig_getmethods__', '__swig_setmethods__', '__weakref__',
+'_getClass', '_memberLines', '_memberName', '_memberline', '_s',
+'addCompartment', 'addEvent', 'addFunctionDefinition', 'addParameter',
+'addReaction', 'addRule', 'addSpecies', 'addUnitDefinition',
+'createAlgebraicRule', 'createAssignmentRule', 'createCompartment',
+'createCompartmentVolumeRule', 'createEvent', 'createEventAssignment',
+'createFunctionDefinition', 'createKineticLaw', 'createKineticLawParameter',
+'createModifier', 'createParameter', 'createParameterRule', 'createProduct',
+'createRateRule', 'createReactant', 'createReaction', 'createSpecies',
+'createSpeciesConcentrationRule', 'createUnit', 'createUnitDefinition',
+'getAnnotation', 'getColumn', 'getCompartment', 'getEvent',
+'getFunctionDefinition', 'getId', 'getLine', 'getListOfByTypecode',
+'getListOfCompartments', 'getListOfEvents', 'getListOfFunctionDefinitions',
+'getListOfParameters', 'getListOfReactions', 'getListOfRules',
+'getListOfSpecies', 'getListOfUnitDefinitions', 'getMetaId', 'getName',
+'getNotes', 'getNumCompartments', 'getNumEvents', 'getNumFunctionDefinitions',
+'getNumParameters', 'getNumReactions', 'getNumRules', 'getNumSpecies',
+'getNumSpeciesWithBoundaryCondition', 'getNumUnitDefinitions', 'getParameter',
+'getReaction', 'getRule', 'getSpecies', 'getTypeCode', 'getUnitDefinition',
+'init', 'isSetAnnotation', 'isSetId', 'isSetMetaId', 'isSetName',
+'isSetNotes', 'setAnnotation', 'setId', 'setMetaId', 'setName', 'setNotes',
+'this', 'thisown', 'toSBML', 'unsetAnnotation', 'unsetId', 'unsetMetaId',
+'unsetName', 'unsetNotes', <class 'libsbml.ModelPtr'>]
 \end{shellVerbatim}
 
 Details on all of the methods are in Section~\ref{sec:sbml-classes-in-c}.
@@ -3366,7 +3448,7 @@ only show the beginning here.  Notice that \code{specie} got changed to
 \code{species} and the \code{parameterRule}s are now expressed in MathML
 inside \code{assignmentRule}s:
 
-\begin{shellVerbatim}
+\begin{boxedCodeVerbatim}
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
@@ -3396,7 +3478,7 @@ inside \code{assignmentRule}s:
         </math>
       </assignmentRule>
       . . .
-\end{shellVerbatim}
+\end{boxedCodeVerbatim}
 
 
 %-----------------------------------------------------------------------------
@@ -3436,9 +3518,9 @@ Here are a few things to notice about this program:
 \item
 This syntax:
 
-\begin{shellVerbatim}
+\begin{pythonVerbatim}
 for item in items:
-\end{shellVerbatim}
+\end{pythonVerbatim}
 
 is a Python idiom for ``iterate the variable \code{item} through
 all the elements of the list \code{items}."  \libsbml{}'s \class{ListOf}
