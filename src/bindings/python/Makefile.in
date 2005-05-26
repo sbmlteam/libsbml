@@ -124,6 +124,7 @@ distfiles = \
 	    Python_binding_Win32.dsp \
 	    README.txt \
 	    accept.py \
+	    layout_local.i \
 	    libsbml.i \
 	    libsbml.py \
 	    libsbml_wrap.cpp \
