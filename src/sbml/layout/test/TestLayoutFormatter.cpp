@@ -52,7 +52,9 @@
 
 BEGIN_C_DECLS
 
+#ifndef USE_EXPAT
 XERCES_CPP_NAMESPACE_USE
+#endif /* !USE_EXPAT */
 
 static MemBufFormatTarget *target;
 static LayoutFormatter *LF;
