@@ -80,13 +80,15 @@
  *     , AST_POWER   = '^'
  *
  *
- * The generated Java code does not the tick marks (').
+ * The generated Java code does not like the tick marks (').  To fix
+ * this, we need to be explicit about (and duplicate) the value of
+ * the constants here.
  */
-%javaconst(0) AST_PLUS;
-%javaconst(0) AST_MINUS;
-%javaconst(0) AST_TIMES;
-%javaconst(0) AST_DIVIDE;
-%javaconst(0) AST_POWER;
+%javaconstvalue("'+'") AST_PLUS;
+%javaconstvalue("'-'") AST_MINUS;
+%javaconstvalue("'*'") AST_TIMES;
+%javaconstvalue("'/'") AST_DIVIDE;
+%javaconstvalue("'^'") AST_POWER;
 
 
 /**
