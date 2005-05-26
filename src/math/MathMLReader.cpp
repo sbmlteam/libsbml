@@ -82,16 +82,7 @@ readMathMLFromString (const char *xml)
 
 #ifdef USE_EXPAT
 
-  static MathMLDocument_t* d = NULL;
-
-  if (!d)
-  {
-    d = MathMLDocument_create();
-  }
-  else
-  {
-    MathMLDocument_setMath(d, NULL);
-  }
+  MathMLDocument_t* d = MathMLDocument_create();
   
   static MathMLHandler* handler = NULL;
 
