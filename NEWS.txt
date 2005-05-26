@@ -1,5 +1,59 @@
            libsbml NEWS -- History of user-visible changes
 
+                              D R A F T
+
+=== Version 2.3.2 ===
+
+* New Features:
+
+  - Java example programs (Nicolas Rodriguez)
+
+  - Perl example program, printSBML.pl  (Christoph Flamm)
+
+  - C++ printMath example program  (Sarah Keating)
+
+
+* Bug Fixes:
+
+  - libSBML 2.3.0 and 2.3.1 required both PREFIX/include and
+    PREFIX/include/sbml (e.g. /usr/local/include and
+    /usr/local/include/sbml) to be on the include path when compiling
+    programs with libSBML.  This has been fixed.  Once again, only
+    PREFIX/include is required to find all appropriate libSBML header
+    files.  Thanks to Colin Gillespie and many others at the recent
+    SBML Hackathon for reporting this bug.
+
+  - readMathMLFromString() would crash if the returned MathMLDocument
+    was freed in-between subsequent calls to the function.  This bug
+    only manifested itself when libSBML was configured to use Expat.
+    Thanks to Herbert Sauro for reporting this bug and Frank Bergmann
+    for providing a fix.
+
+  - AST_PLUS, AST_MINUS, AST_TIMES, AST_DIVIDE, and AST_POWER
+    enumerations may (once again) be used in Java switch statements.
+    Thanks to Nicolas Rodriguez for reporting this bug.
+
+  - Local Parameters with the same ids in separate KineticLaws were
+    incorrectly reported as duplicates / conflicting by the libSBML
+    consistency checker (consistency check id 902).  Thanks to Jo
+    Matthews for reporting this bug.
+
+  - In the libSBML Matlab 'IsSetFast' was renamed to 'isSetFast'
+    (TranslateSBML.c).  This bug caused no problem with Matlab 6, but
+    would crash Matlab 7.
+
+  - Minor layout extension bug fixes.
+
+
+* Known Bugs:
+
+  - Same as for libSBML 2.3.1
+
+
+* Released May 27, 2005
+
+
+
 
 === Version 2.3.1 ===
 
