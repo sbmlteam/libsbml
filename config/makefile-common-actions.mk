@@ -204,7 +204,7 @@ default: $(objfiles) $(test_objfiles) $(libraries)
 # Generic recursive targets.
 # -----------------------------------------------------------------------------
 
-recursive_targets = all-recursive install-data-recursive \
+recursive_targets = all-recursive include-recursive install-data-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive uninstall-info-recursive install-info-recursive \
 	ps-recursive info-recursive dvi-recursive pdf-recursive \
@@ -289,41 +289,54 @@ $(to_install_libraries): $(libraries) installdirs
 
 install-libraries: $(libraries) $(to_install_libraries)
 
-install-headers: $(headers) installdirs
-	if test -z '$(headers)'; then \
-	  echo 'Nothing to be done for install-headers'; \
-	else \
-	  list='$(headers)'; for file in $$list; do \
-	    targetdir="$(DESTDIR)$(INCLUDEDIR)"; \
-	    if test -n '$(INCLUDEPREFIX)'; then \
-	      targetdir="$$targetdir/$(INCLUDEPREFIX)"; \
-	    fi; \
-	    if test -n '$(header_inst_prefix)'; then \
-	      targetdir="$$targetdir/$(header_inst_prefix)"; \
-	    fi; \
-	    $(MKINSTALLDIRS) $$targetdir; \
-	    if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
-	    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
-	    if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-	      dir="/$$dir"; \
-	      $(MKINSTALLDIRS) $$targetdir/$$dir; \
-	    else \
-	      dir=''; \
-	    fi; \
-	    if test -d $$d/$$file; then \
-	      if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
-	        echo Copying $(srcdir)/$$file; \
-	        $(INSTALL) -m 644 $(srcdir)/$$file $$targetdir$$dir || exit 1; \
-	      fi; \
-	      $(INSTALL) -m 644 $$d/$$file $$targetdir$$dir || exit 1; \
-	    else \
-	      echo Copying $$targetdir/$$file; \
-	      test -f $$targetdir/$$file \
-	      || $(INSTALL) -m 644 $$d/$$file $$targetdir/$$file \
-	      || exit 1; \
-	    fi; \
-	  done; \
-	fi
+# 'install_includes takes one argument, the root of the destination directory.
+
+define install_includes
+  @file="$(1)"; \
+  targetdir="$(2)"; \
+  if test -n '$(INCLUDEPREFIX)'; then \
+    targetdir="$$targetdir/$(INCLUDEPREFIX)"; \
+  fi; \
+  if test -n '$(header_inst_prefix)'; then \
+    targetdir="$$targetdir/$(header_inst_prefix)"; \
+  fi; \
+  $(MKINSTALLDIRS) $$targetdir; \
+  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+    dir="/$$dir"; \
+    $(MKINSTALLDIRS) $$targetdir/$$dir; \
+  else \
+    dir=''; \
+  fi; \
+  if test -d $$d/$$file; then \
+    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+      echo Copying $(srcdir)/$$file; \
+      $(INSTALL) -m 644 $(srcdir)/$$file $$targetdir$$dir || exit 1; \
+    fi; \
+    $(INSTALL) -m 644 $$d/$$file $$targetdir$$dir || exit 1; \
+  else \
+    echo Copying $$targetdir/$$file; \
+    test -f $$targetdir/$$file \
+    || $(INSTALL) -m 644 $$d/$$file $$targetdir/$$file \
+    || exit 1; \
+  fi;
+endef
+
+to_install_headers = $(addprefix install-,$(headers))
+
+$(to_install_headers): $(headers) installdirs
+	$(call install_includes,$(subst install-,,$@),$(DESTDIR)$(INCLUDDIR))
+
+install-headers: $(headers) $(to_install_headers)
+
+# The following is for the copy of the include directory created in the root
+# of the libsbml source tree.
+
+include: $(addprefix $(srcdir)/include/,$(headers))
+
+$(addprefix $(srcdir)/include/,$(headers)): $(headers)
+	$(call install_includes,$(@F),$(TOP_SRCDIR)/include)
 
 
 # -----------------------------------------------------------------------------
@@ -547,7 +560,7 @@ CTAGS: $(headers) $(sources)
 # -----------------------------------------------------------------------------
 
 .PHONY: $(recursive_targets) CTAGS GTAGS all all-am check check-am docs \
-	clean clean-generic clean-libtool ctags \
+	include clean clean-generic clean-libtool ctags \
 	dist dist-all dist-gzip distcheck distclean \
 	distclean-generic distclean-libtool distclean-tags distcleancheck \
 	distdir distuninstallcheck dvi dvi-am info info-am \
