@@ -49,7 +49,7 @@
  */
 
 
-#include "common/common.h"
+#include "sbml/common/common.h"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
 

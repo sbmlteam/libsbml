@@ -49,9 +49,13 @@
  */
 
 
-#include "common/common.h"
+#include "sbml/common/common.h"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
+#include "sbml/Rule.h"
+#include "sbml/Model.h"
+#include "sbml/AssignmentRule.h"
+#include "sbml/SBMLDocument.h"
 
 #include "util.h"
 
@@ -63,6 +67,8 @@ main (int argc, char *argv[])
 
   unsigned long start, stop, size;
   unsigned int  errors = 0;
+
+  AssignmentRule_t *ar;
 
   SBMLDocument_t *d;
   SBMLReader_t   *sr;
@@ -77,10 +83,8 @@ main (int argc, char *argv[])
 
   sr = SBMLReader_create();
 
-  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
 
-  SBMLReader_setSchemaFilenameL1v1(sr, "sbml-l1v1.xsd");
-  SBMLReader_setSchemaFilenameL1v2(sr, "sbml-l1v2.xsd");
   SBMLReader_setSchemaFilenameL2v1(sr, "sbml-l2v1.xsd");
 
   filename = argv[1];
@@ -92,7 +96,6 @@ main (int argc, char *argv[])
   errors = SBMLDocument_getNumWarnings(d) + SBMLDocument_getNumErrors(d) +
            SBMLDocument_getNumFatals(d);
 
-  
   errors += SBMLDocument_checkConsistency(d);
 
   size = getFileSize(filename);
@@ -102,6 +105,10 @@ main (int argc, char *argv[])
   printf( "       file size: %lu\n", size         );
   printf( "  read time (ms): %lu\n", stop - start );
   printf( "        error(s): %u\n" , errors       );
+
+  ar = (AssignmentRule_t *) Model_getRule(SBMLDocument_getModel(d), 0);
+
+  printf( " expr = '%s'", Rule_getFormula((Rule_t *)ar));
 
   if (errors > 0)
   {

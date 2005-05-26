@@ -51,11 +51,11 @@
 #include <stddef.h>
 #include <string.h>
 
-#include "util/util.h"
+#include "sbml/util/util.h"
 #include "util.h"
 
-#include "math/FormulaFormatter.h"
-#include "math/FormulaParser.h"
+#include "sbml/math/FormulaFormatter.h"
+#include "sbml/math/FormulaParser.h"
 
 
 #define SQR(x) ((x)*(x))
