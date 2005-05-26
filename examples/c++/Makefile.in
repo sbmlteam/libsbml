@@ -53,9 +53,9 @@ SRCDIR     = ../../src
 INCLUDEDIR = ../../include
 
 CXX        = @CXX@
-CXXFLAGS   = @CXXFLAGS@ -Wall -I$(INCLUDEDIR)
+CXXFLAGS   = @CXXFLAGS@ -Wall
+CPPFLAGS   = @CPPFLAGS@ -I$(INCLUDEDIR)
 LDFLAGS    = @LDFLAGS@  -L$(SRCDIR)
-CPPFLAGS   = @CPPFLAGS@
 LIBS       = -lsbml @XERCES_LIBS@ @EXPAT_LIBS@ -lstdc++
 
 programs   = convertSBML printSBML readSBML translateMath validateSBML

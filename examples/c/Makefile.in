@@ -52,9 +52,9 @@ SRCDIR     = ../../src
 INCLUDEDIR = ../../include
 
 CC         = @CC@
-CFLAGS     = @CFLAGS@ -Wall -I$(INCLUDEDIR)
+CFLAGS     = @CFLAGS@ -Wall
+CPPFLAGS   = @CPPFLAGS@ -I$(INCLUDEDIR)
 LDFLAGS    = @LDFLAGS@  -L$(SRCDIR)
-CPPFLAGS   = @CPPFLAGS@
 LIBS       = -lsbml @XERCES_LIBS@ @EXPAT_LIBS@ -lstdc++
 
 programs   = convertSBML evaluateMath printMath printSBML readSBML \
