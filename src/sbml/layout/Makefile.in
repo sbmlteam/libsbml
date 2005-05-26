@@ -164,21 +164,23 @@ installcheck: all installcheck-headers
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-normal
+clean: clean-normal clean-recursive
 
-distclean: distclean-normal
+distclean: distclean-normal distclean-recursive
 
-mostlyclean: mostlyclean-normal
+mostlyclean: mostlyclean-normal mostlyclean-recursive
 
-maintainer-clean: maintainer-clean-normal
+maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal
+dist: dist-normal dist-recursive
 
-distcheck: distcheck-normal
+distcheck: distcheck-normal distcheck-recursive
+
 
 # -----------------------------------------------------------------------------
 # Miscellaneous
