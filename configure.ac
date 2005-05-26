@@ -270,6 +270,7 @@ AC_CONFIG_FILES([src/sbml/Makefile])
 AC_CONFIG_FILES([src/sbml/test/Makefile])
 
 AC_CONFIG_FILES([src/sbml/layout/Makefile])
+AC_CONFIG_FILES([src/sbml/layout/test/Makefile])
 
 AC_CONFIG_FILES([src/util/Makefile])
 AC_CONFIG_FILES([src/util/test/Makefile])
