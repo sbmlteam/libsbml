@@ -111,7 +111,7 @@ distfiles = Makefile.in
 # form 'foo-recursive' are interpreted by the common makefile rules as meaning
 # "go into every subdir and do 'make foo' in each".
 
-all: Makefile all-recursive
+all: Makefile include-recursive all-recursive
 
 
 # -----------------------------------------------------------------------------

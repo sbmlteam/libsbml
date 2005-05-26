@@ -108,7 +108,7 @@ distfiles = $(sources) $(headers) Makefile.in
 # The default action is to remake the object files.  Those rules which are
 # not defined below are defined in makefile-common-actions.mk.
 
-all: Makefile default
+all: Makefile include default
 
 
 # -----------------------------------------------------------------------------

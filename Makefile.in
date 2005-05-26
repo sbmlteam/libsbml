@@ -207,7 +207,7 @@ extra_distclean = config.status config.cache config.log autom4te.cache \
 # of the form `foo-recursive' to run 'make foo' in directories defined in
 # variable `subdirs'.
 
-all: configure Makefile all-recursive 
+all: configure Makefile include-recursive all-recursive
 
 docs: docs-recursive
 
@@ -238,7 +238,7 @@ html: html-recursive
 # Installation.
 # -----------------------------------------------------------------------------
 
-install: install-recursive install-warnings
+install: all install-recursive install-warnings
 
 install-docs: install-docs-recursive
 
@@ -263,7 +263,10 @@ endif
 
 clean: clean-normal clean-recursive
 
-distclean: distclean-normal distclean-recursive
+distclean: distclean-normal distclean-recursive distclean-include-copy
+
+distclean-include-copy:
+	-rm -rf include
 
 mostlyclean: mostlyclean-normal mostlyclean-recursive
 
