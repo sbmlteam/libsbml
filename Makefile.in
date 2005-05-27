@@ -196,7 +196,7 @@ distfiles = \
 # makefile-common-actions.mk.
 
 extra_distclean = config.status config.cache config.log autom4te.cache \
-	src/common/config.h src/common/stamp-h1
+	src/common/config.h src/common/stamp-h1 include
 
 
 # -----------------------------------------------------------------------------
@@ -266,10 +266,7 @@ endif
 
 clean: clean-normal clean-recursive
 
-distclean: distclean-normal distclean-recursive distclean-include-copy
-
-distclean-include-copy:
-	-rm -rf include
+distclean: distclean-normal distclean-recursive
 
 mostlyclean: mostlyclean-normal mostlyclean-recursive
 
