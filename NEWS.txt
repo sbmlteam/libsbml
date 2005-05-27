@@ -52,6 +52,10 @@
     (TranslateSBML.c).  This bug caused no problem with Matlab 6, but
     would crash Matlab 7.
 
+  - Configuring with --with-check on MacOSX would cause -Lyes/lib to be
+    added to the LDFLAGS.  This bug in config/libcheck.m4 is now fixed.
+    (Tracker libsbml case #57.)
+
   - Minor layout extension bug fixes.
 
 
