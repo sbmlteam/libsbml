@@ -5177,7 +5177,12 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
   RUN_LDPATH="$RUN_LDPATH:$expat_root/lib"
 
+
+      EXPAT_CPPFLAGS="-I$expat_root/include"
+      EXPAT_LDFLAGS="-L$expat_root/lib"
+      EXPAT_LIBS="-lexpat"
     else
+
 
       case $host in
       *darwin*)
@@ -5185,14 +5190,14 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
   RUN_LDPATH="$RUN_LDPATH:$expat_root/lib"
 
+
+        EXPAT_CPPFLAGS="-I$expat_root/include"
+        EXPAT_LDFLAGS="-L$expat_root/lib"
+        EXPAT_LIBS="-lexpat"
 	;;
       esac
 
                 fi
-
-    EXPAT_CPPFLAGS="-I$expat_root/include"
-    EXPAT_LDFLAGS="-L$expat_root/lib"
-    EXPAT_LIBS="-lexpat"
 
 
     tmp_CPPFLAGS=$CPPFLAGS
@@ -5604,7 +5609,12 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
   RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
 
+
+      LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
+      LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+      LIBCHECK_LIBS="-lcheck"
     else
+
 
       case $host in
       *darwin*)
@@ -5612,14 +5622,14 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
   RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
 
+
+        LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
+        LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+        LIBCHECK_LIBS="-lcheck"
 	;;
       esac
 
-    fi
-
-    LIBCHECK_CPPFLAGS="-I$with_libcheck/include"
-    LIBCHECK_LDFLAGS="-L$with_libcheck/lib"
-    LIBCHECK_LIBS="-lcheck"
+                fi
 
 
     tmp_CPPFLAGS=$CPPFLAGS
