@@ -6,11 +6,21 @@
 
 * New Features:
 
-  - Java example programs (Nicolas Rodriguez)
+  - New example programs:
 
-  - Perl example program, printSBML.pl  (Christoph Flamm)
+    - At the 3rd SBML Hackathon, Nicolas Rodriguez converted all C++
+      example programs to Java.  See examples/java/README.txt for more
+      information.
 
-  - C++ printMath example program  (Sarah Keating)
+    - Christoph Flamm has started to convert the C++ example programs
+      to Perl.  See examples/perl.
+
+    - Sarah Keating converted the printMath.c example program to C++.
+      See examples/c++/printMath.cpp.
+
+  - Christoph Flamm added the following functions to the Perl binding:
+    LibSBML::printWarnings, LibSBML::printErrors, and
+    LibSBML::printFatals.
 
 
 * Bug Fixes:
