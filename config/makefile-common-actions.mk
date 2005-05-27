@@ -74,10 +74,10 @@
 default_includes ?= -I.
 
 compile ?= $(CC) $(extra_CPPFLAGS) $(extra_CFLAGS) $(default_includes) \
-	$(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) -fPIC
+	$(CPPFLAGS) $(CFLAGS) $(INCLUDES) -fPIC
 
 cxxcompile ?= $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
-	 $(CPPFLAGS) $(CXXFLAGS) $(DEFS) $(INCLUDES) -fPIC
+	 $(CPPFLAGS) $(CXXFLAGS) $(INCLUDES) -fPIC
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
@@ -236,7 +236,7 @@ endif
 
 $(check_driver): $(test_objfiles)
 	$(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
-	  $(CPPFLAGS) $(CFLAGS) $(DEFS) $(INCLUDES) \
+	  $(CPPFLAGS) $(CFLAGS) $(INCLUDES) \
 	  $(test_objfiles) $(objfiles) $(extra_LDFLAGS) $(LDFLAGS) \
 	  $(LIBS) $(extra_LIBS) -o $@
 
