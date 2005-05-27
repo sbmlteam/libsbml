@@ -71,32 +71,43 @@ thisdir = .
 # Variables `examples' and `xml-schemas' are local variables reused below.
 
 examples = \
-  examples/README.txt            \
-  examples/c/Makefile.in         \
-  examples/c/convertSBML.c       \
-  examples/c/evaluateMath.c      \
-  examples/c/printMath.c         \
-  examples/c/printSBML.c         \
-  examples/c/readSBML.c          \
-  examples/c/translateMath.c     \
-  examples/c/util.c              \
-  examples/c/util.h              \
-  examples/c/validateSBML.c      \
-  examples/c++/Makefile.in       \
-  examples/c++/convertSBML.cpp   \
-  examples/c++/printSBML.cpp     \
-  examples/c++/readSBML.cpp      \
-  examples/c++/translateMath.cpp \
-  examples/c++/util.c            \
-  examples/c++/util.h            \
-  examples/c++/validateSBML.cpp  \
-  examples/layout/Makefile.in    \
-  examples/layout/example1.cpp   \
-  examples/layout/example2.cpp   \
-  examples/layout/example3.cpp   \
-  examples/layout/example1.java  \
-  examples/layout/example1.py    \
-  examples/layout/layout2svg.xsl
+  examples/README.txt              \
+  examples/c/Makefile.in           \
+  examples/c/convertSBML.c         \
+  examples/c/evaluateMath.c        \
+  examples/c/printMath.c           \
+  examples/c/printSBML.c           \
+  examples/c/readSBML.c            \
+  examples/c/translateMath.c       \
+  examples/c/util.c                \
+  examples/c/util.h                \
+  examples/c/validateSBML.c        \
+  examples/c++/Makefile.in         \
+  examples/c++/convertSBML.cpp     \
+  examples/c++/printSBML.cpp       \
+  examples/c++/readSBML.cpp        \
+  examples/c++/translateMath.cpp   \
+  examples/c++/util.c              \
+  examples/c++/util.h              \
+  examples/c++/validateSBML.cpp    \
+  examples/java/Makefile.in        \
+  examples/java/README.txt         \
+  examples/java/convertSBML.java   \
+  examples/java/evaluateMath.java  \
+  examples/java/libSBMLHelper.java \
+  examples/java/printMath.java     \
+  examples/java/printSBML.java     \
+  examples/java/readSBML.java      \
+  examples/java/translateMath.java \
+  examples/java/validateSBML.java  \
+  examples/layout/Makefile.in      \
+  examples/layout/example1.cpp     \
+  examples/layout/example2.cpp     \
+  examples/layout/example3.cpp     \
+  examples/layout/example1.java    \
+  examples/layout/example1.py      \
+  examples/layout/layout2svg.xsl   \
+  examples/perl/printSBML.pl
 
 xml-schemas = \
         xml-schemas/mathml2/common/common-attribs.xsd        \
