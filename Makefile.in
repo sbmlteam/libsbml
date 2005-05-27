@@ -77,20 +77,19 @@ examples = \
   examples/c/evaluateMath.c      \
   examples/c/printMath.c         \
   examples/c/printSBML.c         \
-  examples/c/printUnits.c        \
   examples/c/readSBML.c          \
   examples/c/translateMath.c     \
-  examples/c/validateSBML.c      \
   examples/c/util.c              \
   examples/c/util.h              \
+  examples/c/validateSBML.c      \
   examples/c++/Makefile.in       \
   examples/c++/convertSBML.cpp   \
   examples/c++/printSBML.cpp     \
   examples/c++/readSBML.cpp      \
   examples/c++/translateMath.cpp \
-  examples/c++/validateSBML.cpp  \
   examples/c++/util.c            \
   examples/c++/util.h            \
+  examples/c++/validateSBML.cpp  \
   examples/layout/Makefile.in    \
   examples/layout/example1.cpp   \
   examples/layout/example2.cpp   \
