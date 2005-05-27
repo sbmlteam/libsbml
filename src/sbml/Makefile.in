@@ -206,7 +206,7 @@ distfiles = $(sources) $(headers) Makefile.in
 # The default action is to remake everything.  Those rules which are not
 # defined below are defined in makefile-common-actions.mk.
 
-all: Makefile include default
+all: Makefile default
 
 
 # -----------------------------------------------------------------------------

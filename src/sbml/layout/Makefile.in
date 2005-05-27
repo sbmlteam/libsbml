@@ -125,7 +125,7 @@ distfiles = $(sources) $(headers) Makefile.in
 
 # The default action is to remake everything.
 
-all: Makefile include default
+all: Makefile default
 
 # -----------------------------------------------------------------------------
 # Checking.

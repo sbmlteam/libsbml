@@ -140,7 +140,7 @@ distfiles = $(sources) $(expat_sources) \
 
 # The default action is to remake everything.
 
-all: Makefile include default
+all: Makefile default
 
 
 # -----------------------------------------------------------------------------
