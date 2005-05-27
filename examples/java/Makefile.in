@@ -64,10 +64,7 @@ convertSBML.class: convertSBML.java libSBMLHelper.java
 	$(JAVAC) $(JFLAGS) $^
 
 evaluateMath.class: evaluateMath.java libSBMLHelper.java
-	$(JAVAC) $(JFLAGS) $^
-  @if $! != 0; then \
-    echo "***** JDK 1.5 is required to compile this program *****" \
-  fi
+	$(JAVAC) $(JFLAGS) $^; if test "$$?" != "0"; then echo "***** JDK 1.5 is required to compile this program *****" fi
 
 printMath.class: printMath.java libSBMLHelper.java
 	$(JAVAC) $(JFLAGS) $^
