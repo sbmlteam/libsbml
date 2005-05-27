@@ -84,7 +84,7 @@ validateSBML.class: validateSBML.java libSBMLHelper.java
 	$(JAVAC) $(JFLAGS) $^
 
 clean:
-	/bin/rm -f $(classes) *~
+	/bin/rm -f $(classes) libSBMLHelper.class *~
 
 distclean: clean
 	/bin/rm Makefile
