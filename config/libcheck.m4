@@ -70,24 +70,33 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
       CONFIG_ADD_LDPATH($libcheck_root/lib)
+
+      LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
+      LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+      LIBCHECK_LIBS="-lcheck"
     else
       dnl On the Macs, if the user has installed libcheck via Fink and they
       dnl used the default Fink install path of /sw, the following should
       dnl catch it.  We do this so that Mac users are more likely to find
       dnl success even if they only type --with-check.
 
+      dnl This is a case statement in case we need to do something similar
+      dnl for other host types in the future.
+
       case $host in
       *darwin*) 
         libcheck_root="/sw"
         CONFIG_ADD_LDPATH($libcheck_root/lib)
+
+        LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
+        LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+        LIBCHECK_LIBS="-lcheck"
 	;;
       esac    
 
+      dnl Note that CONFIG_ADD_LDPATH is deliberately not called in cases
+      dnl other than the two above.
     fi
-
-    LIBCHECK_CPPFLAGS="-I$with_libcheck/include"
-    LIBCHECK_LDFLAGS="-L$with_libcheck/lib"
-    LIBCHECK_LIBS="-lcheck"
 
     dnl The following is grungy but I don't know how else to make 
     dnl AC_CHECK_LIB use particular library and include paths without

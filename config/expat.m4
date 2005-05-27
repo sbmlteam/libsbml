@@ -69,26 +69,33 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
     if test $with_expat != yes; then
       expat_root="$with_expat"
       CONFIG_ADD_LDPATH($expat_root/lib)
+
+      EXPAT_CPPFLAGS="-I$expat_root/include"
+      EXPAT_LDFLAGS="-L$expat_root/lib"
+      EXPAT_LIBS="-lexpat"
     else
       dnl On the Macs, if the user has installed expat via Fink and they
       dnl used the default Fink install path of /sw, the following should
       dnl catch it.  We do this so that Mac users are more likely to find
       dnl success even if they only type --with-expat.
 
+      dnl This is a case statement in case we need to do something similar
+      dnl for other host types in the future.
+
       case $host in
       *darwin*) 
         expat_root="/sw"
         CONFIG_ADD_LDPATH($expat_root/lib)
+
+        EXPAT_CPPFLAGS="-I$expat_root/include"
+        EXPAT_LDFLAGS="-L$expat_root/lib"
+        EXPAT_LIBS="-lexpat"
 	;;
       esac    
 
       dnl Note that CONFIG_ADD_LDPATH is deliberately not called in cases
       dnl other than the two above.
     fi
-
-    EXPAT_CPPFLAGS="-I$expat_root/include"
-    EXPAT_LDFLAGS="-L$expat_root/lib"
-    EXPAT_LIBS="-lexpat"
 
     dnl The following is grungy but I don't know how else to make 
     dnl AC_CHECK_LIB use particular library and include paths without
