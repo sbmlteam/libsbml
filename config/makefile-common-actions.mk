@@ -326,16 +326,18 @@ endef
 to_install_headers = $(addprefix install-,$(headers))
 
 $(to_install_headers): $(headers) installdirs
-	$(call install_includes,$(subst install-,,$@),$(DESTDIR)$(INCLUDDIR))
+	$(call install_includes,$(subst install-,,$@),$(DESTDIR)$(INCLUDEDIR))
 
 install-headers: $(headers) $(to_install_headers)
 
 # The following is for the copy of the include directory created in the root
 # of the libsbml source tree.
 
-include: $(addprefix $(srcdir)/include/,$(headers))
+include_root = $(subst //,/,$(TOP_SRCDIR)/include/$(INCLUDEPREFIX)/$(header_inst_prefix)/)
 
-$(addprefix $(srcdir)/include/,$(headers)): $(headers)
+include: $(addprefix $(include_root),$(headers))
+
+$(addprefix $(include_root),$(headers)): $(headers)
 	$(call install_includes,$(@F),$(TOP_SRCDIR)/include)
 
 
