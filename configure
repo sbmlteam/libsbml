@@ -5329,6 +5329,8 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
+    EXPAT_LIBS="-lexpat"
+
     if test $with_expat != yes; then
       expat_root="$with_expat"
 
@@ -5337,20 +5339,19 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
       EXPAT_CPPFLAGS="-I$expat_root/include"
       EXPAT_LDFLAGS="-L$expat_root/lib"
-      EXPAT_LIBS="-lexpat"
     else
 
 
       case $host in
       *darwin*)
-        expat_root="/sw"
+        if test -e "/sw"; then
+          expat_root="/sw"
 
   RUN_LDPATH="$RUN_LDPATH:$expat_root/lib"
 
-
-        EXPAT_CPPFLAGS="-I$expat_root/include"
-        EXPAT_LDFLAGS="-L$expat_root/lib"
-        EXPAT_LIBS="-lexpat"
+          EXPAT_CPPFLAGS="-I$expat_root/include"
+          EXPAT_LDFLAGS="-L$expat_root/lib"
+        fi
 	;;
       esac
 
