@@ -66,13 +66,14 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
     AC_LANG_PUSH(C)
 
+    EXPAT_LIBS="-lexpat"
+
     if test $with_expat != yes; then
       expat_root="$with_expat"
       CONFIG_ADD_LDPATH($expat_root/lib)
 
       EXPAT_CPPFLAGS="-I$expat_root/include"
       EXPAT_LDFLAGS="-L$expat_root/lib"
-      EXPAT_LIBS="-lexpat"
     else
       dnl On the Macs, if the user has installed expat via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -84,12 +85,12 @@ AC_DEFUN([CONFIG_LIB_EXPAT],
 
       case $host in
       *darwin*) 
-        expat_root="/sw"
-        CONFIG_ADD_LDPATH($expat_root/lib)
-
-        EXPAT_CPPFLAGS="-I$expat_root/include"
-        EXPAT_LDFLAGS="-L$expat_root/lib"
-        EXPAT_LIBS="-lexpat"
+        if test -e "/sw"; then
+          expat_root="/sw"
+          CONFIG_ADD_LDPATH($expat_root/lib)
+          EXPAT_CPPFLAGS="-I$expat_root/include"
+          EXPAT_LDFLAGS="-L$expat_root/lib"
+        fi
 	;;
       esac    
 
