@@ -2,8 +2,8 @@
 # -*-Perl-*-
 
 ##
-## \file    printModel.pl
-## \brief   Prints some information about the top-level model
+## \file    readSBML.pl
+## \brief   Similar to validateSBML, but without the validation
 ## \author  TBI {xtof,raim}@tbi.univie.ac.at
 ##
 ## $Id$
