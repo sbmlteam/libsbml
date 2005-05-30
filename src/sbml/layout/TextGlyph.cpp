@@ -61,6 +61,16 @@ TextGlyph::TextGlyph ()
 
 
 /**
+ * Creates a new TextGlpyh. The id is given as the first argument.
+ */ 
+LIBSBML_EXTERN
+TextGlyph::TextGlyph (const std::string& id):
+  GraphicalObject(id)
+{
+  init(SBML_LAYOUT_TEXTGLYPH);
+}
+
+/**
  * Creates a new TextGlpyh. The id is given as the first argument, the text
  * to be displayed as the second.  All other attirbutes are set to the
  * empty string.

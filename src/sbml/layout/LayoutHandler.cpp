@@ -685,7 +685,7 @@ LayoutHandler::doLayout (const Attributes& a)
 SBase*
 LayoutHandler::doGraphicalObject(const Attributes& a)
 {
-  GraphicalObject* go=&currentLayout->createAdditionalGraphicalObject();
+  GraphicalObject* go=currentLayout->createAdditionalGraphicalObject();
     
   XMLUtil::scanAttr(a, ATTR_ID, go->id);
   return (SBase*)go;
@@ -695,7 +695,7 @@ LayoutHandler::doGraphicalObject(const Attributes& a)
 SBase*
 LayoutHandler::doCompartmentGlyph(const Attributes& a)
 {
-  CompartmentGlyph* cg=&currentLayout->createCompartmentGlyph();
+  CompartmentGlyph* cg=currentLayout->createCompartmentGlyph();
    
     
   XMLUtil::scanAttr(a, ATTR_ID, cg->id);
@@ -707,7 +707,7 @@ LayoutHandler::doCompartmentGlyph(const Attributes& a)
 
 SBase*
 LayoutHandler::doSpeciesGlyph(const Attributes& a){
-    SpeciesGlyph* sg=&currentLayout->createSpeciesGlyph();
+    SpeciesGlyph* sg=currentLayout->createSpeciesGlyph();
    
     XMLUtil::scanAttr(a, ATTR_ID, sg->id);
     XMLUtil::scanAttr(a, ATTR_SPECIES_ID, sg->species);
@@ -716,7 +716,7 @@ LayoutHandler::doSpeciesGlyph(const Attributes& a){
 
 SBase*
 LayoutHandler::doReactionGlyph(const Attributes& a){
-    ReactionGlyph* rg=&currentLayout->createReactionGlyph();
+    ReactionGlyph* rg=currentLayout->createReactionGlyph();
     
     
     XMLUtil::scanAttr(a, ATTR_ID, rg->id);
@@ -728,7 +728,7 @@ LayoutHandler::doReactionGlyph(const Attributes& a){
 
 SBase*
 LayoutHandler::doTextGlyph(const Attributes& a){
-    TextGlyph* tg=&currentLayout->createTextGlyph();
+    TextGlyph* tg=currentLayout->createTextGlyph();
     std::string s; 
     
     

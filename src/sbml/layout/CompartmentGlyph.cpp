@@ -60,6 +60,16 @@ CompartmentGlyph::CompartmentGlyph ()
 
 
 /**
+ * Constructor which creates a new CompartmentGlyph with the given id.
+ */
+LIBSBML_EXTERN
+CompartmentGlyph::CompartmentGlyph (const std::string& id):
+  GraphicalObject(id)
+{
+  init(SBML_LAYOUT_COMPARTMENTGLYPH);
+}
+
+/**
  * Constructor which creates a new CompartmentGlyph.  Id and associated
  * compartment id are set to copies of the values given as arguments.
  */

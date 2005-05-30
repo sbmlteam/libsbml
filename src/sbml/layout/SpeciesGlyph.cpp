@@ -60,6 +60,16 @@ SpeciesGlyph::SpeciesGlyph ()
 
 
 /**
+ * Creates a new SpeciesGlyph with the given id.
+ */ 
+LIBSBML_EXTERN
+SpeciesGlyph::SpeciesGlyph (const std::string& sid):
+    GraphicalObject( sid )
+{
+  init(SBML_LAYOUT_SPECIESGLYPH);
+}
+
+/**
  * Creates a new SpeciesGlyph with the given id and the id of the
  * associated species object set to the second argument.
  */ 

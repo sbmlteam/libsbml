@@ -76,6 +76,12 @@ public:
   SpeciesGlyph ();
 
   /**
+   * Creates a new SpeciesGlyph with the given id. 
+   */ 
+  LIBSBML_EXTERN
+  SpeciesGlyph (const std::string& id);
+
+  /**
    * Creates a new SpeciesGlyph with the given id and the id of the
    * associated species object set to the second argument.
    */ 

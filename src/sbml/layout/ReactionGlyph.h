@@ -84,6 +84,12 @@ public:
   ReactionGlyph ();
        
   /**
+   * Creates a ResctionGlyph with the given id.
+   */ 
+  LIBSBML_EXTERN 
+  ReactionGlyph (const std::string& id);
+
+  /**
    * Creates a ResctionGlyph with the given id and set the id of the
    * associated reaction to the second argument.
    */ 

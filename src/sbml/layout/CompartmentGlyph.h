@@ -77,6 +77,12 @@ public:
   CompartmentGlyph ();
         
   /**
+   * Constructor which creates a new CompartmentGlyph with the given id.
+   */
+  LIBSBML_EXTERN
+  CompartmentGlyph (const std::string& id);
+
+  /**
    * Constructor which creates a new CompartmentGlyph.  Id and associated
    * compartment id are set to copies of the values given as arguments.
    */

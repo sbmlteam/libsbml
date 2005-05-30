@@ -96,7 +96,7 @@ Layout::initDefaults ()
  * Returns the id.
  */ 
 LIBSBML_EXTERN
-const std::string
+const std::string&
 Layout::getId () const
 {
   return this->id;
@@ -523,13 +523,13 @@ Layout::isSetId () const
  * glyph objects list and returns a reference to the newly created object.
  */
 LIBSBML_EXTERN
-CompartmentGlyph& 
+CompartmentGlyph* 
 Layout::createCompartmentGlyph ()
 {
   CompartmentGlyph* p = new CompartmentGlyph();
 
   this->addCompartmentGlyph(*p);
-  return *p;
+  return p;
 }
 
 
@@ -538,13 +538,13 @@ Layout::createCompartmentGlyph ()
  * objects list and returns a reference to the newly created object.
  */
 LIBSBML_EXTERN
-SpeciesGlyph& 
+SpeciesGlyph* 
 Layout::createSpeciesGlyph ()
 {
   SpeciesGlyph* p = new SpeciesGlyph();
 
   this->addSpeciesGlyph(*p);
-  return *p;
+  return p;
 }
 
 
@@ -553,13 +553,13 @@ Layout::createSpeciesGlyph ()
  * objects list and returns a reference to the newly created object.
  */
 LIBSBML_EXTERN
-ReactionGlyph& 
+ReactionGlyph* 
 Layout::createReactionGlyph ()
 {
   ReactionGlyph* p = new ReactionGlyph();
 
   this->addReactionGlyph(*p);
-  return *p;
+  return p;
 }
 
 
@@ -568,13 +568,13 @@ Layout::createReactionGlyph ()
  * list and returns a reference to the newly created object.
  */
 LIBSBML_EXTERN
-TextGlyph& 
+TextGlyph* 
 Layout::createTextGlyph ()
 {
   TextGlyph* p = new TextGlyph();
 
   this->addTextGlyph(*p);
-  return *p;
+  return p;
 }
 
 
@@ -584,13 +584,13 @@ Layout::createTextGlyph ()
  * object.
  */
 LIBSBML_EXTERN
-GraphicalObject& 
+GraphicalObject* 
 Layout::createAdditionalGraphicalObject ()
 {
   GraphicalObject* p = new GraphicalObject();
 
   this->addAdditionalGraphicalObject(*p);
-  return *p;
+  return p;
 }
 
 
@@ -607,7 +607,7 @@ Layout::createSpeciesReferenceGlyph ()
   if (size == 0) return NULL;
 
   ReactionGlyph* r =(ReactionGlyph*) this->getReactionGlyph(size - 1);
-  return & r->createSpeciesReferenceGlyph();
+  return &r->createSpeciesReferenceGlyph();
 }
 
 
@@ -1018,7 +1018,7 @@ LIBSBML_EXTERN
 CompartmentGlyph_t *
 Layout_createCompartmentGlyph (Layout_t *l)
 {
-  return & l->createCompartmentGlyph();
+  return l->createCompartmentGlyph();
 }
 
 
@@ -1030,7 +1030,7 @@ LIBSBML_EXTERN
 SpeciesGlyph_t *
 Layout_createSpeciesGlyph (Layout_t *l)
 {
-  return & l->createSpeciesGlyph();
+  return l->createSpeciesGlyph();
 }
 
 
@@ -1042,7 +1042,7 @@ LIBSBML_EXTERN
 ReactionGlyph_t *
 Layout_createReactionGlyph (Layout_t *l)
 {
-  return & l->createReactionGlyph();
+  return l->createReactionGlyph();
 }
 
 
@@ -1054,7 +1054,7 @@ LIBSBML_EXTERN
 TextGlyph_t *
 Layout_createTextGlyph (Layout_t *l)
 {
-  return & l->createTextGlyph();
+  return l->createTextGlyph();
 }
 
 
@@ -1067,5 +1067,5 @@ LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_createAdditionalGraphicalObject (Layout_t *l)
 {
-  return & l->createAdditionalGraphicalObject();
+  return l->createAdditionalGraphicalObject();
 }

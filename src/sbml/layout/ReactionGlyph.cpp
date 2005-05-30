@@ -60,6 +60,18 @@ ReactionGlyph::ReactionGlyph() : curve( new Curve() )
 
 
 /**
+ * Creates a ReactionGlyph with the given id.
+ */
+LIBSBML_EXTERN
+ReactionGlyph::ReactionGlyph (const std::string& id):
+    GraphicalObject( id          )
+  , curve          ( new Curve() )
+{
+  init(SBML_LAYOUT_REACTIONGLYPH);
+}
+
+
+/**
  * Creates a ReactionGlyph with the given id and set the id of the
  * associated reaction to the second argument.
  */

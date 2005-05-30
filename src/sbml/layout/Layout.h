@@ -119,7 +119,7 @@ public:
    * Returns the id.
    */ 
   LIBSBML_EXTERN        
-  const std::string getId () const;
+  const std::string& getId () const;
         
   /**
    * Sets the id to a copy of the given string.
@@ -350,45 +350,45 @@ public:
 
   /**
    * Creates a CompartmentGlyph object, adds it to the end of the
-   * compartment glyph objects list and returns a reference to the newly
+   * compartment glyph objects list and returns a pointer to the newly
    * created object.
    */
   LIBSBML_EXTERN
-  CompartmentGlyph& createCompartmentGlyph ();
+  CompartmentGlyph* createCompartmentGlyph ();
 
   /**
    * Creates a SpeciesGlyph object, adds it to the end of the species glyph
-   * objects list and returns a reference to the newly created object.
+   * objects list and returns a pointer to the newly created object.
    */
   LIBSBML_EXTERN
-  SpeciesGlyph& createSpeciesGlyph ();
+  SpeciesGlyph* createSpeciesGlyph ();
 
   /**
    * Creates a ReactionGlyph object, adds it to the end of the reaction
-   * glyph objects list and returns a reference to the newly created
+   * glyph objects list and returns a pointer to the newly created
    * object.
    */
   LIBSBML_EXTERN
-  ReactionGlyph& createReactionGlyph ();
+  ReactionGlyph* createReactionGlyph ();
 
   /**
    * Creates a TextGlyph object, adds it to the end of the text glyph
-   * objects list and returns a reference to the newly created object.
+   * objects list and returns a pointer to the newly created object.
    */
   LIBSBML_EXTERN
-  TextGlyph& createTextGlyph ();
+  TextGlyph* createTextGlyph ();
 
   /**
    * Creates a GraphicalObject object, adds it to the end of the additional
-   * graphical objects list and returns a reference to the newly created
+   * graphical objects list and returns a pointer to the newly created
    * object.
    */
   LIBSBML_EXTERN
-  GraphicalObject& createAdditionalGraphicalObject ();
+  GraphicalObject* createAdditionalGraphicalObject ();
 
   /**
    * Creates a new SpeciesReferenceGlyph for the last ReactionGlyph and
-   * adds it to its list of SpeciesReferenceGlyph objects.  A reference to
+   * adds it to its list of SpeciesReferenceGlyph objects.  A pointer to
    * the newly created object is returned.
    */
   LIBSBML_EXTERN
@@ -398,7 +398,7 @@ public:
    * Creates a new LineSegment for the Curve object of the last
    * ReactionGlyph or the last SpeciesReferenceGlyph in the last
    * ReactionGlyph and adds it to its list of SpeciesReferenceGlyph
-   * objects.  A reference to the newly created object is returned.
+   * objects.  A pointer to the newly created object is returned.
    */
   LIBSBML_EXTERN
   LineSegment* createLineSegment ();
@@ -407,7 +407,7 @@ public:
    * Creates a new CubicBezier for the Curve object of the last
    * ReactionGlyph or the last SpeciesReferenceGlyph in the last
    * ReactionGlyph and adds it to its list of SpeciesReferenceGlyph
-   * objects.  A reference to the newly created object is returned.
+   * objects.  A pointer to the newly created object is returned.
    */
   LIBSBML_EXTERN
   CubicBezier* createCubicBezier ();
