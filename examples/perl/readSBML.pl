@@ -44,9 +44,10 @@
 ##     Waehringerstrasse 17/3/308
 ##     A-1090 Wien, Austria
 
+require 5.8.0;
 use File::Basename;
 use File::stat;
-use Benchmark;
+use Time::HiRes qw/gettimeofday tv_interval/;
 use blib '../../src/bindings/perl';
 use LibSBML;
 use strict;
@@ -55,17 +56,17 @@ my $filename = shift()
     || do { printf STDERR "\n  usage: @{[basename($0)]} <filename>\n\n";
 	    exit (1);
 	  };
-my $start  = new Benchmark;
+my $start  = [gettimeofday];
 my $rd     = new LibSBML::SBMLReader();
 my $d      = $rd->readSBML($filename);
-my $stop   = new Benchmark;
+my $stop   = tv_interval ( $start, [gettimeofday]);
 my $errors = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
 my $size   = -s $filename;
 
 printf( "\n" );
 printf( "        filename: %s\n" , $filename     );
 printf( "       file size: %lu\n", $size         );
-printf( "  read time (ms): %s\n", timestr(timediff($stop, $start)) );
+printf( "  read time (ms): %lu\n", $stop*1000    );
 printf( "        error(s): %u\n" , $errors       );
 
 if ($errors > 0) {
