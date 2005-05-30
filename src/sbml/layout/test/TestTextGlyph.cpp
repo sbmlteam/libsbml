@@ -75,26 +75,61 @@ TextGlyphTest_teardown (void)
 
 START_TEST ( test_TextGlyph_new )
 {
+    fail_unless( TG->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
+    fail_unless( TG->getMetaId()      == "" );
+    fail_unless( TG->getNotes()       == "" );
+    fail_unless( TG->getAnnotation()  == "" );
+    fail_unless( TG->getId()          == "" );
+    fail_unless( !TG->isSetId());
+    fail_unless( !TG->isSetText());
+    fail_unless( !TG->isSetGraphicalObjectId());
+    fail_unless( !TG->isSetOriginOfTextId());
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_new_with_text )
 {
+    std::string id="TestTextGlyphId";
+    std::string text="TestTextGlyph";
+    TextGlyph* tg=new TextGlyph(id,text);
+    fail_unless( tg->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
+    fail_unless( tg->getMetaId()      == "" );
+    fail_unless( tg->getNotes()       == "" );
+    fail_unless( tg->getAnnotation()  == "" );
+    fail_unless( tg->getId()          == id );
+    fail_unless( tg->isSetId());
+    fail_unless( tg->isSetText());
+    fail_unless( tg->getText()        == text );
+    fail_unless( !tg->isSetGraphicalObjectId());
+    fail_unless( !tg->isSetOriginOfTextId());
+    delete tg;
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_setText )
 {
+    std::string text="TestTextGlyph"; 
+    TG->setText(text);
+    fail_unless ( TG->isSetText());
+    fail_unless (TG->getText() == text );
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_setGraphicalObjectId )
 {
+    std::string id="SomeSpeciesGlyphId"; 
+    TG->setGraphicalObjectId(id);
+    fail_unless ( TG->isSetGraphicalObjectId());
+    fail_unless ( TG->getGraphicalObjectId() == id );
 }
 END_TEST
 
 START_TEST ( test_TextGlyph_setOriginOfTextId )
 {
+    std::string id="SomeSpeciesGlyphId"; 
+    TG->setOriginOfTextId(id);
+    fail_unless ( TG->isSetOriginOfTextId());
+    fail_unless ( TG->getOriginOfTextId() == id );
 }
 END_TEST
 
