@@ -161,14 +161,16 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-subdirs = test
-
 ifneq "$(MAKECMDGOALS)" "dist"
   ifdef USE_LAYOUT
-    subdirs += layout
+    subdirs = layout
   endif
 else
-  subdirs += layout
+  subdirs = layout
+endif
+
+ifneq "$(MAKECMDGOALS)" "all"
+  subdirs += test
 endif
 
 # The libsbml build is a little more complicated than it used to be.  The
@@ -206,7 +208,10 @@ distfiles = $(sources) $(headers) Makefile.in
 # The default action is to remake everything.  Those rules which are not
 # defined below are defined in makefile-common-actions.mk.
 
-all: Makefile default
+all: Makefile all-recursive all-this-dir
+
+all-this-dir: ;
+	make default
 
 
 # -----------------------------------------------------------------------------
