@@ -10,7 +10,7 @@
 ## $Source$
 
 ##
-## Copyright 2004 TBI
+## Copyright 2005 TBI
 ##
 ## This library is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Lesser General Public License as published
@@ -50,7 +50,7 @@ use LibSBML;
 use strict;
 
 my $filename = shift()
-    || do { printf STDERR "\n  usage: printSBML.pl <filename>\n\n";
+    || do { printf STDERR "\n  usage: @{[basename($0)]} <filename>\n\n";
 	    exit (1);
 	  };
 my $rd = new LibSBML::SBMLReader();
@@ -83,11 +83,5 @@ printf( "          reactions: %d\n",  $m->getNumReactions          () );
 printf( "              rules: %d\n",  $m->getNumRules              () );
 printf( "             events: %d\n",  $m->getNumEvents             () );
 printf( "\n" );
-
-#---
-sub usage {
-  printf STDERR "\n  usage: printSBML.pl <filename>\n\n";
-  exit (1);
-}
 
 __END__
