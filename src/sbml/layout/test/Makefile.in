@@ -185,6 +185,18 @@ uninstall:
 
 installcheck:
 
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-normal clean-recursive
+
+distclean: distclean-normal distclean-recursive
+
+mostlyclean: mostlyclean-normal mostlyclean-recursive
+
+maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
