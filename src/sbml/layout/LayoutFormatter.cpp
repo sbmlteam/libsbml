@@ -158,7 +158,7 @@ LayoutFormatter::operator<< (const SBase& node)
             break;
         default:
             errStream=fdopen(2,"w");
-            fprintf(errStream,"Error. Unknown tag.\n");
+            fprintf(errStream,"Error. Unknown tag %d.\n",tcode);
             fclose(errStream);
             exit(1);
             break;
@@ -364,6 +364,7 @@ void LayoutFormatter::doGraphicalObject(const GraphicalObject& go){
     closeStartElement();
     upIndent();
     notesAndAnnotation( (SBase&) go );
+    doBoundingBox(go.getBoundingBox());
     downIndent();
     indent();
     endElement(GRAPHICAL_OBJECT);
@@ -582,7 +583,7 @@ void LayoutFormatter::doPoint(const Point& p,const char* elemName){
         indent();
         endElement(elementNameXMLCh);
     }
-XMLString::release(&elementNameXMLCh);
+    XMLString::release(&elementNameXMLCh);
 }
 
 
@@ -782,7 +783,7 @@ LayoutFormatter::annotation (const char* s)
 
   XMLCh* x = XMLString::transcode(s);
   *mFormatter << x << chLF;
-  delete [] x;
+  XMLString::release(&x);
 }
 
 
