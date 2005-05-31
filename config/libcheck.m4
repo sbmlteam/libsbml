@@ -67,13 +67,13 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     AC_LANG_PUSH(C)
 
+    LIBCHECK_LIBS="-lcheck"
+
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
       CONFIG_ADD_LDPATH($libcheck_root/lib)
-
       LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
       LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
-      LIBCHECK_LIBS="-lcheck"
     else
       dnl On the Macs, if the user has installed libcheck via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -87,10 +87,8 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
       *darwin*) 
         libcheck_root="/sw"
         CONFIG_ADD_LDPATH($libcheck_root/lib)
-
         LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
         LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
-        LIBCHECK_LIBS="-lcheck"
 	;;
       esac    
 
