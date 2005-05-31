@@ -44,30 +44,31 @@
 ##     Waehringerstrasse 17/3/308
 ##     A-1090 Wien, Austria
 
-require 5.8.0;
 use File::Basename;
-use File::stat;
-use Time::HiRes qw/gettimeofday tv_interval/;
+use Benchmark qw/:hireswallclock/;
 use blib '../../src/bindings/perl';
 use LibSBML;
 use strict;
+use vars qw/$tu/;
 
 my $filename = shift()
     || do { printf STDERR "\n  usage: @{[basename($0)]} <filename>\n\n";
 	    exit (1);
 	  };
-my $start  = [gettimeofday];
-my $rd     = new LibSBML::SBMLReader();
-my $d      = $rd->readSBML($filename);
-my $stop   = tv_interval ( $start, [gettimeofday]);
-my $errors = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
-my $size   = -s $filename;
+
+my $t0        = new Benchmark;
+my $rd        = new LibSBML::SBMLReader();
+my $d         = $rd->readSBML($filename);
+my $t1        = new Benchmark;
+(my $ellapsed = timestr(timediff($t1, $t0), 'nop')) =~ s/\A([\d\.]+)/$1/;
+my $errors    = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
+my $size      = -s $filename;
 
 printf( "\n" );
-printf( "        filename: %s\n" , $filename     );
-printf( "       file size: %lu\n", $size         );
-printf( "  read time (ms): %lu\n", $stop*1000    );
-printf( "        error(s): %u\n" , $errors       );
+printf( "        filename: %s\n" , $filename          );
+printf( "       file size: %lu\n", $size              );
+printf( "  read time (%s): %lu\n", $tu, $ellapsed*1000);
+printf( "        error(s): %u\n" , $errors            );
 
 if ($errors > 0) {
   $d->LibSBML::printWarnings();
@@ -76,5 +77,13 @@ if ($errors > 0) {
 }
 
 printf("\n");
+
+BEGIN {
+  $main::tu = 'ms';
+  eval "use Time::HiRes";
+  warn "\nModule Time::HiRes not installed.\n"
+      . "Time granularity will be integer seconds not milliseconds!\n" if $@;
+   $main::tu = ' s' if $@;
+}
 
 __END__
