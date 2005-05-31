@@ -149,7 +149,7 @@ test_objfiles = $(objfiles)
 
 # The default action is to remake everything.
 
-all: Makefile $(libraries)
+all: Makefile swig-prereq $(libraries)
 
 # The libSBML Python API library on MacOS X has to be built as a "bundle"
 # rather than a .dylib library.  This is different from the default rules
@@ -170,16 +170,57 @@ swig_sources = \
 	  ../swig/libsbml.h \
 	  ../swig/libsbml.i
 
-libsbml_wrap.cpp libsbml.py: $(swig_sources)
-ifndef USE_SWIG
-	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
-	exit 1
-else
+ifdef USE_SWIG
+# If swig is enabled, always rebuild the swig wrapper files.
+
+swig-prereq:
+	$(MAKE) swigfiles
+
+else # not USE_SWIG
+
+# If USE_SWIG is *not* in effect, things get tricky.  If the last run was
+# made with --enable-layout and this one isn't, or vice-versa, the swig
+# wrap files will be wrong for this run.  However, you can't tell just by
+# looking at file mod times, so you can't use normal make dependencies.  So
+# we do this grungy trick of looking at the file to see what's inside.
+
+ifdef USE_LAYOUT
+swig-prereq:
+	@if test -z "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
+	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
+	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
+	  exit 1; \
+	else \
+	  $(MAKE) libsbml_wrap.cpp libsbml.py; \
+	fi
+
+else # not USE_LAYOUT
+swig-prereq:
+	@if test -n "`grep SWIGTYPE_p_Layout libsbml_wrap.cpp`"; then \
+	  $(MAKE) swigfiles; \
+	else \
+	  $(MAKE) libsbml_wrap.cpp libsbml.py; \
+	fi
+endif # USE_LAYOUT
+endif # USE_SWIG
+
+# The next target is for forcing re-swigging.
+
+swigfiles:
+ifdef USE_SWIG
 	../swig/swigdoc.py python -I../.. ../swig/libsbml.i pydoc.i
 	$(SWIG) $(SWIGFLAGS) -I../.. -c++ -python -o libsbml_wrap.cpp libsbml.i
 	perl -pi -e "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
 		libsbml.py
+else
+	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
+	exit 1
 endif
+
+# The following are the normal dependency rules.
+
+libsbml_wrap.cpp libsbml.py: $(swig_sources)
+	$(MAKE) swigfiles
 
 setup.py: setup.py.in
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/setup.py

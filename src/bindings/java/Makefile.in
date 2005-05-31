@@ -157,10 +157,9 @@ extra_distclean = java-files
 
 objfiles = libsbml_wrap.$(OBJEXT)
 
-# The default action is to remake everything.  Those rules which are not
-# defined below are defined in makefile-common-actions.mk.
+# The default action is to remake everything.
 
-all: Makefile $(libraries)
+all: Makefile swig-prereq $(libraries)
 
 # The dependencies that follow are an awful tangle.  I wish I could find a
 # way to simplify this.  The critical point is that we don't want to put a
@@ -200,17 +199,66 @@ swig_sources = \
 	../swig/libsbml.h \
 	../swig/libsbml.i
 
-libsbml_wrap.cpp java-files: $(swig_sources)
-ifndef USE_SWIG
-	@echo "Please reconfigure with --with-swig to rebuild libsbml_wrap.cpp"
-	@echo "and the files in the java-files directory."
-	exit 1
-else
+ifdef USE_SWIG
+# If swig is enabled, always rebuild the swig wrapper files.  The following
+# is a sub-make for an important reason: the wildcarding of java file names
+# that happens earlier in this Makefile may be incorrect if we're switching
+# from building with/without --enable-layout to building without/with
+# --enable-layout.
+
+swig-prereq: clean-swigfiles
+	$(MAKE) swigfiles
+
+else # not USE_SWIG
+
+# If USE_SWIG is *not* in effect, things get tricky.  If the last run was
+# made with --enable-layout and this one isn't, or vice-versa, the swig
+# wrap files will be wrong for this run.  However, you can't tell just by
+# looking at file mod times, so you can't use normal make dependencies.  So
+# we do this grungy trick of looking at the file to see what's inside.
+
+ifdef USE_LAYOUT
+swig-prereq:
+	@if test -z "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
+	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
+	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
+	  exit 1; \
+	else \
+	  $(MAKE) libsbml_wrap.cpp java-files; \
+	fi
+
+else # not USE_LAYOUT
+swig-prereq:
+	@if test -n "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
+	  $(MAKE) clean-swigfiles; \
+	  $(MAKE) swigfiles; \
+	else \
+	  $(MAKE) libsbml_wrap.cpp java-files; \
+	fi
+endif # USE_LAYOUT
+endif # USE_SWIG
+
+# The next target is for forcing re-swigging.
+
+swigfiles:
+ifdef USE_SWIG
 	test -d $(outpath) || mkdir -p $(outpath)
 	../swig/swigdoc.py java -I../.. ../swig/libsbml.i javadoc.i
 	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) -I../../src -outdir $(outpath) \
 	   -c++ -java -package $(java_package) -o libsbml_wrap.cpp libsbml.i
+else
+	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
+	@echo "and the files in the java-files directory."
+	exit 1
 endif
+
+clean-swigfiles:
+	rm -rf java-files
+
+# The following are the normal dependency rules.
+
+libsbml_wrap.cpp java-files: $(swig_sources)
+	make swigfiles
 
 
 # -----------------------------------------------------------------------------
