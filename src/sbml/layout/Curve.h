@@ -67,7 +67,6 @@ class Curve : public SBase
 {
 protected:
 
-  std::string id;
   ListOf curveSegments;
 
 
@@ -90,18 +89,6 @@ public:
    */ 
   LIBSBML_EXTERN
   void initDefaults ();
-
-  /**
-   * Sets the id of the curve.
-   */ 
-  LIBSBML_EXTERN
-  void setId (const std::string& id);
-
-  /**
-   * Returns the id of the curve.
-   */ 
-  LIBSBML_EXTERN
-  const std::string& getId () const;
 
   /**
    * Returns a reference to the ListOf object that holds all the curve

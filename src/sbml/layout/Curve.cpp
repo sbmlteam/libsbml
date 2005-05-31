@@ -79,28 +79,6 @@ void Curve::initDefaults ()
 
 
 /**
- * Sets the id of the curve.
- */ 
-LIBSBML_EXTERN
-void
-Curve::setId (const std::string& id)
-{
-  this->id = id;
-}
-
-
-/**
- * Returns the id of the curve.
- */ 
-LIBSBML_EXTERN
-const std::string&
-Curve::getId () const
-{
-  return this->id;
-}
-
-
-/**
  * Returns a reference to the ListOf object that holds all the curve
  * segments.
  */
