@@ -107,7 +107,9 @@ examples = \
   examples/layout/example1.java    \
   examples/layout/example1.py      \
   examples/layout/layout2svg.xsl   \
-  examples/perl/printSBML.pl
+  examples/perl/convertSBML.pl     \
+  examples/perl/printSBML.pl       \
+  examples/perl/readSBML.pl
 
 xml-schemas = \
         xml-schemas/mathml2/common/common-attribs.xsd        \
@@ -142,21 +144,21 @@ xml-schemas = \
         xml-schemas/mathml2/presentation/tokens.xsd          \
         xml-schemas/sbml/sbml-l1v1.xsd                       \
         xml-schemas/sbml/sbml-l1v2.xsd                       \
-	xml-schemas/sbml/sbml-l2v1.xsd
+        xml-schemas/sbml/sbml-l2v1.xsd
 
 # The files listed in `docs' are copied to the documentation directory
 # during a `make install'.
 
 docs = \
-        AUTHORS.txt                                          \
-        COPYING.html                                         \
-        COPYING.txt                                          \
-        NEWS.txt                                             \
-        README.txt                                           \
-        VERSION.txt                                          \
-        FUNDING.txt                                          \
-	$(examples)                                          \
-	$(xml-schemas)
+  AUTHORS.txt                                          \
+  COPYING.html                                         \
+  COPYING.txt                                          \
+  NEWS.txt                                             \
+  README.txt                                           \
+  VERSION.txt                                          \
+  FUNDING.txt                                          \
+  $(examples)                                          \
+  $(xml-schemas)
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS', `extra_clean', and `distfiles' are
