@@ -374,16 +374,20 @@ dist-normal: $(distfiles)
 	  if test -d $$d/$$file; then \
 	    if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
 	      echo Copying $(srcdir)/$$file; \
-	      $(INSTALL) --mode="u+X,g+X,o+X" $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
+	      cp -r $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
 	    fi; \
-	    $(INSTALL) -d $$d/$$file $(DESTINATION)/$$dir || exit 1; \
+	    cp -r $$d/$$file $(DESTINATION)/$$dir || exit 1; \
 	  else \
 	    echo Copying $(DESTINATION)/$$file; \
 	    test -f $(DESTINATION)/$$file \
-	    || $(INSTALL) --mode="u+X,g+X,o+X" $$d/$$file $(DESTINATION)/$$file \
+	    || cp -r $$d/$$file $(DESTINATION)/$$file \
 	    || exit 1; \
 	  fi; \
 	done
+
+#	      $(INSTALL) --mode="u+X,g+X,o+X" $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
+#	    $(INSTALL) -d $$d/$$file $(DESTINATION)/$$dir || exit 1; \
+#	    || $(INSTALL) --mode="u+X,g+X,o+X" $$d/$$file $(DESTINATION)/$$file \
 
 
 # -----------------------------------------------------------------------------
