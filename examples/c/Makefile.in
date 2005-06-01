@@ -64,25 +64,25 @@ programs   = convertSBML evaluateMath printMath printSBML readSBML \
 all: $(programs)
 
 convertSBML: convertSBML.c util.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 evaluateMath: evaluateMath.c util.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS) -lm
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS) -lm
 
 printMath: printMath.c util.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS) -lm
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS) -lm
 
 printSBML: printSBML.c util.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 readSBML: readSBML.c util.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 translateMath: translateMath.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 validateSBML: validateSBML.c util.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 clean:
 	/bin/rm -f $(programs) *~
