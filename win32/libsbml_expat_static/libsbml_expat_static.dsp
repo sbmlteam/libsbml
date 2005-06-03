@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\expat" /I "..\..\expat" /I "C:\Program Files\Expat-1.95.7\Source\lib" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "LIBSBML_STATIC" /D "XML_STATIC" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "C:\Program Files\Expat-1.95.7\Source\lib" /I "..\..\src" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "LIBSBML_STATIC" /D "XML_STATIC" /D "USE_EXPAT" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -49,11 +49,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
-# ADD LIB32 /nologo
-# Begin Special Build Tool
-SOURCE="$(InputPath)"
-PostBuild_Cmds=copy Release\libsbml_expat_static.lib ..\..\lib\libsbml.lib
-# End Special Build Tool
+# ADD LIB32 /nologo /out:"..\bin\libsbml_expat_static.lib"
 
 !ELSEIF  "$(CFG)" == "libsbml_expat_static - Win32 Debug"
 
@@ -68,7 +64,7 @@ PostBuild_Cmds=copy Release\libsbml_expat_static.lib ..\..\lib\libsbml.lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\expat" /I "..\..\expat" /I "C:\Program Files\Expat-1.95.7\Source\lib" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "LIBSBML_STATIC" /D "XML_STATIC" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "C:\Program Files\Expat-1.95.7\Source\lib" /I "..\..\src" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "LIBSBML_STATIC" /D "XML_STATIC" /D "USE_EXPAT" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -89,243 +85,303 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\src\AlgebraicRule.cpp
+SOURCE=..\..\src\sbml\AlgebraicRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\AssignmentRule.cpp
+SOURCE=..\..\src\sbml\AssignmentRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ASTNode.cpp
+SOURCE=..\..\src\math\ASTNode.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Compartment.cpp
+SOURCE=..\..\src\sbml\Compartment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\CompartmentVolumeRule.cpp
+SOURCE=..\..\src\validator\constraints\CompartmentOutsideCycles.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Event.cpp
+SOURCE=..\..\src\sbml\CompartmentVolumeRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\EventAssignment.cpp
+SOURCE=..\..\src\validator\constraints\ConsistencyConstraints.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\Expat.cpp
+SOURCE=..\..\src\validator\ConsistencyValidator.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\ExpatAttributes.cpp
+SOURCE=..\..\src\sbml\Event.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\ExpatFormatter.cpp
+SOURCE=..\..\src\sbml\EventAssignment.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\ExpatXMLString.cpp
+SOURCE=..\..\src\xml\Expat.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FormulaFormatter.c
+SOURCE=..\..\src\xml\ExpatAttributes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FormulaParser.c
+SOURCE=..\..\src\xml\ExpatFormatter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FormulaTokenizer.c
+SOURCE=..\..\src\xml\ExpatToXerces.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\FunctionDefinition.cpp
+SOURCE=..\..\src\xml\ExpatXMLString.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\KineticLaw.cpp
+SOURCE=..\..\src\math\FormulaFormatter.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\List.cpp
+SOURCE=..\..\src\math\FormulaParser.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ListOf.cpp
+SOURCE=..\..\src\math\FormulaTokenizer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLDocument.cpp
+SOURCE=..\..\src\sbml\FunctionDefinition.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLFormatter.cpp
+SOURCE=..\..\src\validator\constraints\IdBase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLHandler.cpp
+SOURCE=..\..\src\validator\constraints\IdList.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLReader.cpp
+SOURCE=..\..\src\sbml\KineticLaw.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLTagCodes.cpp
+SOURCE=..\..\src\validator\constraints\L1CompatibilityConstraints.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\MathMLWriter.cpp
+SOURCE=..\..\src\validator\L1CompatibilityValidator.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\memory.c
+SOURCE=..\..\src\util\List.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Model.cpp
+SOURCE=..\..\src\sbml\ListOf.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ModifierSpeciesReference.cpp
+SOURCE=..\..\src\math\MathMLDocument.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Parameter.cpp
+SOURCE=..\..\src\math\MathMLFormatter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ParameterRule.cpp
+SOURCE=..\..\src\math\MathMLHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ParseMessage.cpp
+SOURCE=..\..\src\math\MathMLReader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\RateRule.cpp
+SOURCE=..\..\src\math\MathMLTagCodes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Reaction.cpp
+SOURCE=..\..\src\math\MathMLWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Rule.cpp
+SOURCE=..\..\src\util\memory.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\RuleType.c
+SOURCE=..\..\src\sbml\Model.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBase.cpp
+SOURCE=..\..\src\sbml\ModifierSpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLConvert.c
+SOURCE=..\..\src\sbml\Parameter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLDocument.cpp
+SOURCE=..\..\src\sbml\ParameterRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLFormatter.cpp
+SOURCE=..\..\src\xml\ParseMessage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLHandler.cpp
+SOURCE=..\..\src\sbml\RateRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLReader.cpp
+SOURCE=..\..\src\sbml\Reaction.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLTagCodes.cpp
+SOURCE=..\..\src\sbml\Rule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SBMLWriter.cpp
+SOURCE=..\..\src\sbml\RuleType.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SimpleSpeciesReference.cpp
+SOURCE=..\..\src\sbml\SBase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Species.cpp
+SOURCE=..\..\src\sbml\SBMLConvert.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SpeciesConcentrationRule.cpp
+SOURCE=..\..\src\sbml\SBMLDocument.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\SpeciesReference.cpp
+SOURCE=..\..\src\sbml\SBMLFormatter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Stack.c
+SOURCE=..\..\src\sbml\SBMLHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\StreamFormatTarget.cpp
+SOURCE=..\..\src\sbml\SBMLReader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\StringBuffer.c
+SOURCE=..\..\src\sbml\SBMLTagCodes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\StringMap.c
+SOURCE=..\..\src\sbml\SBMLTypeCodes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Unit.cpp
+SOURCE=..\..\src\sbml\SBMLVisitor.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\UnitDefinition.cpp
+SOURCE=..\..\src\sbml\SBMLWriter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\UnitKind.c
+SOURCE=..\..\src\sbml\SimpleSpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\util.c
+SOURCE=..\..\src\sbml\Species.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\ValidationRules.c
+SOURCE=..\..\src\sbml\SpeciesConcentrationRule.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\Validator.c
+SOURCE=..\..\src\sbml\SpeciesReference.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\XMLNamespace.cpp
+SOURCE=..\..\src\util\Stack.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\XMLNamespaceList.cpp
+SOURCE=..\..\src\xml\StreamFormatTarget.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\XMLStringFormatter.cpp
+SOURCE=..\..\src\util\StringBuffer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\XMLUtil.cpp
+SOURCE=..\..\src\util\StringMap.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueIdBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueIdsForUnitDefinitions.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueIdsInKineticLaw.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueIdsInModel.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueVarsInEventAssignments.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueVarsInRules.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\sbml\Unit.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\sbml\UnitDefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\sbml\UnitKind.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\util\util.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\Validator.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\xml\XMLNamespace.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\xml\XMLNamespaceList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\xml\XMLStringFormatter.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\xml\XMLUtil.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -337,35 +393,19 @@ SOURCE=..\..\src\sbml\AlgebraicRule.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\AlgebraicRule.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\AssignmentRule.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\AssignmentRule.hpp
+SOURCE=..\..\src\math\ASTNode.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\ASTNode.h
+SOURCE=..\..\src\math\ASTNodeType.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\ASTNode.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\ASTNodeType.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\common.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\common.hpp
+SOURCE=..\..\src\xml\common.h
 # End Source File
 # Begin Source File
 
@@ -373,7 +413,7 @@ SOURCE=..\..\src\sbml\Compartment.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Compartment.hpp
+SOURCE=..\..\src\validator\constraints\CompartmentOutsideCycles.h
 # End Source File
 # Begin Source File
 
@@ -381,11 +421,15 @@ SOURCE=..\..\src\sbml\CompartmentVolumeRule.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\CompartmentVolumeRule.hpp
+SOURCE=..\..\src\validator\ConsistencyValidator.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\config.h
+SOURCE=..\..\src\validator\Constraint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\ConstraintMacros.h
 # End Source File
 # Begin Source File
 
@@ -393,51 +437,43 @@ SOURCE=..\..\src\sbml\Event.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Event.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\EventAssignment.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\EventAssignment.hpp
+SOURCE=..\..\src\xml\Expat.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\Expat.hpp
+SOURCE=..\..\src\xml\ExpatAttributes.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\ExpatAttributes.hpp
+SOURCE=..\..\src\xml\ExpatFormatter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\ExpatFormatter.hpp
+SOURCE=..\..\src\xml\ExpatToXerces.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\ExpatUnicodeChars.hpp
+SOURCE=..\..\src\xml\ExpatUnicodeChars.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\expat\ExpatXMLString.hpp
+SOURCE=..\..\src\xml\ExpatXMLString.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\extern.h
+SOURCE=..\..\src\math\FormulaFormatter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\FormulaFormatter.h
+SOURCE=..\..\src\math\FormulaParser.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\FormulaParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\FormulaTokenizer.h
+SOURCE=..\..\src\math\FormulaTokenizer.h
 # End Source File
 # Begin Source File
 
@@ -445,7 +481,15 @@ SOURCE=..\..\src\sbml\FunctionDefinition.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\FunctionDefinition.hpp
+SOURCE=..\..\src\validator\GlobalConstraint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\IdBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\IdList.h
 # End Source File
 # Begin Source File
 
@@ -453,15 +497,11 @@ SOURCE=..\..\src\sbml\KineticLaw.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\KineticLaw.hpp
+SOURCE=..\..\src\validator\L1CompatibilityValidator.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\List.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\List.hpp
+SOURCE=..\..\src\util\List.h
 # End Source File
 # Begin Source File
 
@@ -469,43 +509,39 @@ SOURCE=..\..\src\sbml\ListOf.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\ListOf.hpp
+SOURCE=..\..\src\validator\LocalConstraint.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLDocument.h
+SOURCE=..\..\src\math\MathMLDocument.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLDocument.hpp
+SOURCE=..\..\src\math\MathMLFormatter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLFormatter.hpp
+SOURCE=..\..\src\math\MathMLHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLHandler.hpp
+SOURCE=..\..\src\math\MathMLReader.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLReader.h
+SOURCE=..\..\src\math\MathMLTagCodes.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLTagCodes.hpp
+SOURCE=..\..\src\math\MathMLUnicodeConstants.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLUnicodeConstants.hpp
+SOURCE=..\..\src\math\MathMLWriter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\MathMLWriter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\memory.h
+SOURCE=..\..\src\util\memory.h
 # End Source File
 # Begin Source File
 
@@ -513,15 +549,7 @@ SOURCE=..\..\src\sbml\Model.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Model.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\ModifierSpeciesReference.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\ModifierSpeciesReference.hpp
 # End Source File
 # Begin Source File
 
@@ -529,23 +557,11 @@ SOURCE=..\..\src\sbml\Parameter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Parameter.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\ParameterRule.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\ParameterRule.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\ParseMessage.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\ParseMessage.hpp
+SOURCE=..\..\src\xml\ParseMessage.h
 # End Source File
 # Begin Source File
 
@@ -553,15 +569,7 @@ SOURCE=..\..\src\sbml\RateRule.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\RateRule.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\Reaction.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\Reaction.hpp
 # End Source File
 # Begin Source File
 
@@ -569,23 +577,11 @@ SOURCE=..\..\src\sbml\Rule.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Rule.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\RuleType.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SAX2AttributesMock.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\SBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\SBase.hpp
 # End Source File
 # Begin Source File
 
@@ -597,15 +593,11 @@ SOURCE=..\..\src\sbml\SBMLDocument.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SBMLDocument.hpp
+SOURCE=..\..\src\sbml\SBMLFormatter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SBMLFormatter.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\SBMLHandler.hpp
+SOURCE=..\..\src\sbml\SBMLHandler.h
 # End Source File
 # Begin Source File
 
@@ -613,11 +605,7 @@ SOURCE=..\..\src\sbml\SBMLReader.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SBMLReader.hpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\SBMLTagCodes.hpp
+SOURCE=..\..\src\sbml\SBMLTagCodes.h
 # End Source File
 # Begin Source File
 
@@ -629,11 +617,11 @@ SOURCE=..\..\src\sbml\SBMLTypes.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SBMLTypes.hpp
+SOURCE=..\..\src\sbml\SBMLUnicodeConstants.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SBMLUnicodeConstants.hpp
+SOURCE=..\..\src\sbml\SBMLVisitor.h
 # End Source File
 # Begin Source File
 
@@ -641,15 +629,7 @@ SOURCE=..\..\src\sbml\SBMLWriter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SBMLWriter.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\SimpleSpeciesReference.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\SimpleSpeciesReference.hpp
 # End Source File
 # Begin Source File
 
@@ -657,15 +637,7 @@ SOURCE=..\..\src\sbml\Species.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Species.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\SpeciesConcentrationRule.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\SpeciesConcentrationRule.hpp
 # End Source File
 # Begin Source File
 
@@ -673,23 +645,43 @@ SOURCE=..\..\src\sbml\SpeciesReference.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\SpeciesReference.hpp
+SOURCE=..\..\src\util\Stack.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Stack.h
+SOURCE=..\..\src\xml\StreamFormatTarget.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\StreamFormatTarget.hpp
+SOURCE=..\..\src\util\StringBuffer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\StringBuffer.h
+SOURCE=..\..\src\util\StringMap.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\StringMap.h
+SOURCE=..\..\src\validator\constraints\UniqueIdBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueIdsForUnitDefinitions.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueIdsInKineticLaw.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueIdsInModel.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueVarsInEventAssignments.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\UniqueVarsInRules.h
 # End Source File
 # Begin Source File
 
@@ -697,15 +689,7 @@ SOURCE=..\..\src\sbml\Unit.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Unit.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\UnitDefinition.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\sbml\UnitDefinition.hpp
 # End Source File
 # Begin Source File
 
@@ -713,40 +697,36 @@ SOURCE=..\..\src\sbml\UnitKind.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\util.h
+SOURCE=..\..\src\util\util.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\Validator.h
+SOURCE=..\..\src\validator\Validator.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\XMLNamespace.hpp
+SOURCE=..\..\src\xml\XMLNamespace.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\XMLNamespaceList.hpp
+SOURCE=..\..\src\xml\XMLNamespaceList.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\XMLSchemaValidation.h
+SOURCE=..\..\src\xml\XMLSchemaValidation.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\XMLStringFormatter.hpp
+SOURCE=..\..\src\xml\XMLStringFormatter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\XMLUnicodeConstants.hpp
+SOURCE=..\..\src\xml\XMLUnicodeConstants.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\sbml\XMLUtil.hpp
+SOURCE=..\..\src\xml\XMLUtil.h
 # End Source File
 # End Group
-# Begin Source File
-
-SOURCE=..\..\src\Makefile.in
-# End Source File
 # End Target
 # End Project
