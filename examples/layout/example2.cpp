@@ -292,30 +292,30 @@ layout->setDimensions(Dimensions(800.0,1600.0));
 
 // create the CompartmentGlyph
 
-//CompartmentGlyph* compartmentGlyph=&layout->createCompartmentGlyph();
+//CompartmentGlyph* compartmentGlyph=layout->createCompartmentGlyph();
 //compartmentGlyph->setId("CompartmentGlyph_1");
 //compartmentGlyph->setCompartmentId(compartment->getId());
 //compartmentGlyph->setBoundingBox(BoundingBox("bb_00",5,5,20,20));
 
 // create the SpeciesGlyphs
 
-SpeciesGlyph* glyph_Gluc=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_Gluc=layout->createSpeciesGlyph();
 glyph_Gluc->setId("glyph_Gluc");
 glyph_Gluc->setSpeciesId(species_Gluc->getId());
 glyph_Gluc->setBoundingBox(BoundingBox("bb_01",105,20,130,20));
 
-TextGlyph* tGlyph=&layout->createTextGlyph();
+TextGlyph* tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_01");
 tGlyph->setBoundingBox(BoundingBox("bbT_01",115,20,110,20));
 tGlyph->setOriginOfTextId(species_Gluc->getId());
 tGlyph->setGraphicalObjectId(glyph_Gluc->getId());
 
-SpeciesGlyph* glyph_ATP_1=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ATP_1=layout->createSpeciesGlyph();
 glyph_ATP_1->setId("glyph_ATP_1");
 glyph_ATP_1->setSpeciesId(species_ATP->getId());
 glyph_ATP_1->setBoundingBox(BoundingBox("bb_02",270,70,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_02");
 tGlyph->setBoundingBox(BoundingBox("bbT_02",280,70,60,20));
 tGlyph->setOriginOfTextId(species_ATP->getId());
@@ -323,31 +323,31 @@ tGlyph->setGraphicalObjectId(glyph_ATP_1->getId());
 
 
 
-SpeciesGlyph* glyph_ADP_1=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ADP_1=layout->createSpeciesGlyph();
 glyph_ADP_1->setId("glyph_ADP_1");
 glyph_ADP_1->setSpeciesId(species_ADP->getId());
 glyph_ADP_1->setBoundingBox(BoundingBox("bb_03",270,140,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_03");
 tGlyph->setBoundingBox(BoundingBox("bbT_03",280,140,60,20));
 tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP_1->getId());
 
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph+_01");
 tGlyph->setBoundingBox(BoundingBox("bb+_01",350,140,20,20));
 tGlyph->setText("+");
 
 
 
-SpeciesGlyph* glyph_H_1=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_H_1=layout->createSpeciesGlyph();
 glyph_H_1->setId("glyph_H_1");
 glyph_H_1->setSpeciesId(species_H->getId());
 glyph_H_1->setBoundingBox(BoundingBox("bb_04",380,140,60,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_04");
 tGlyph->setBoundingBox(BoundingBox("bbT_04",390,140,40,20));
 tGlyph->setOriginOfTextId(species_H->getId());
@@ -355,12 +355,12 @@ tGlyph->setGraphicalObjectId(glyph_H_1->getId());
 
 
 
-SpeciesGlyph* glyph_G6P=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_G6P=layout->createSpeciesGlyph();
 glyph_G6P->setId("glyph_G6P");
 glyph_G6P->setSpeciesId(species_G6P->getId());
 glyph_G6P->setBoundingBox(BoundingBox("bb_05",50,190,270,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_05");
 tGlyph->setBoundingBox(BoundingBox("bbT_05",60,190,250,20));
 tGlyph->setOriginOfTextId(species_G6P->getId());
@@ -368,12 +368,12 @@ tGlyph->setGraphicalObjectId(glyph_G6P->getId());
 
 
 
-SpeciesGlyph* glyph_F6P=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_F6P=layout->createSpeciesGlyph();
 glyph_F6P->setId("glyph_F6P");
 glyph_F6P->setSpeciesId(species_F6P->getId());
 glyph_F6P->setBoundingBox(BoundingBox("bb_06",50,360,270,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_06");
 tGlyph->setBoundingBox(BoundingBox("bbT_06",60,360,250,20));
 tGlyph->setOriginOfTextId(species_F6P->getId());
@@ -381,12 +381,12 @@ tGlyph->setGraphicalObjectId(glyph_F6P->getId());
 
 
 
-SpeciesGlyph* glyph_ATP_2=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ATP_2=layout->createSpeciesGlyph();
 glyph_ATP_2->setId("glyph_ATP_2");
 glyph_ATP_2->setSpeciesId(species_ATP->getId());
 glyph_ATP_2->setBoundingBox(BoundingBox("bb_07",270,410,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_07");
 tGlyph->setBoundingBox(BoundingBox("bbT_07",280,410,60,20));
 tGlyph->setOriginOfTextId(species_ATP->getId());
@@ -394,30 +394,30 @@ tGlyph->setGraphicalObjectId(glyph_ATP_2->getId());
 
 
 
-SpeciesGlyph* glyph_ADP_2=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ADP_2=layout->createSpeciesGlyph();
 glyph_ADP_2->setId("glyph_ADP_2");
 glyph_ADP_2->setSpeciesId(species_ADP->getId());
 glyph_ADP_2->setBoundingBox(BoundingBox("bb_08",270,480,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_08");
 tGlyph->setBoundingBox(BoundingBox("bbT_08",280,480,60,20));
 tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP_2->getId());
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph+_02");
 tGlyph->setBoundingBox(BoundingBox("bb+_02",350,480,20,20));
 tGlyph->setText("+");
 
 
 
-SpeciesGlyph* glyph_H_2=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_H_2=layout->createSpeciesGlyph();
 glyph_H_2->setId("glyph_H_2");
 glyph_H_2->setSpeciesId(species_H->getId());
 glyph_H_2->setBoundingBox(BoundingBox("bb_09",380,480,60,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_09");
 tGlyph->setBoundingBox(BoundingBox("bbT_09",390,480,40,20));
 tGlyph->setOriginOfTextId(species_H->getId());
@@ -425,12 +425,12 @@ tGlyph->setGraphicalObjectId(glyph_H_2->getId());
 
 
 
-SpeciesGlyph* glyph_F16BP=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_F16BP=layout->createSpeciesGlyph();
 glyph_F16BP->setId("glyph_F16BP");
 glyph_F16BP->setSpeciesId(species_F16BP->getId());
 glyph_F16BP->setBoundingBox(BoundingBox("bb_10",20,530,340,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_10");
 tGlyph->setBoundingBox(BoundingBox("bbT_10",30,530,320,20));
 tGlyph->setOriginOfTextId(species_F16BP->getId());
@@ -438,12 +438,12 @@ tGlyph->setGraphicalObjectId(glyph_F16BP->getId());
 
 
 
-SpeciesGlyph* glyph_DHAP=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_DHAP=layout->createSpeciesGlyph();
 glyph_DHAP->setId("glyph_DHAP");
 glyph_DHAP->setSpeciesId(species_DHAP->getId());
 glyph_DHAP->setBoundingBox(BoundingBox("bb_11",380,595,340,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_11");
 tGlyph->setBoundingBox(BoundingBox("bbT_11",390,595,320,20));
 tGlyph->setOriginOfTextId(species_DHAP->getId());
@@ -451,83 +451,83 @@ tGlyph->setGraphicalObjectId(glyph_DHAP->getId());
 
 
 
-SpeciesGlyph* glyph_GAP=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_GAP=layout->createSpeciesGlyph();
 glyph_GAP->setId("glyph_GAP");
 glyph_GAP->setSpeciesId(species_GAP->getId());
 glyph_GAP->setBoundingBox(BoundingBox("bb_12",20,700,340,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_12");
 tGlyph->setBoundingBox(BoundingBox("bbT_12",30,700,320,20));
 tGlyph->setOriginOfTextId(species_GAP->getId());
 tGlyph->setGraphicalObjectId(glyph_GAP->getId());
 
 
-SpeciesGlyph* glyph_NAD_1=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_NAD_1=layout->createSpeciesGlyph();
 glyph_NAD_1->setId("glyph_NAD_1");
 glyph_NAD_1->setSpeciesId(species_NAD->getId());
 glyph_NAD_1->setBoundingBox(BoundingBox("bb_13",270,750,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_13");
 tGlyph->setBoundingBox(BoundingBox("bbT_13",280,750,60,20));
 tGlyph->setOriginOfTextId(species_NAD->getId());
 tGlyph->setGraphicalObjectId(glyph_NAD_1->getId());
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph+_06");
 tGlyph->setBoundingBox(BoundingBox("bb+_06",350,750,20,20));
 tGlyph->setText("+");
 
 
-SpeciesGlyph* glyph_PI_1=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_PI_1=layout->createSpeciesGlyph();
 glyph_PI_1->setId("glyph_PI_1");
 glyph_PI_1->setSpeciesId(species_PI->getId());
 glyph_PI_1->setBoundingBox(BoundingBox("bb_14",380,750,60,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_14");
 tGlyph->setBoundingBox(BoundingBox("bbT_14",390,750,40,20));
 tGlyph->setOriginOfTextId(species_PI->getId());
 tGlyph->setGraphicalObjectId(glyph_PI_1->getId());
 
 
-SpeciesGlyph* glyph_NADH_1=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_NADH_1=layout->createSpeciesGlyph();
 glyph_NADH_1->setId("glyph_NADH_1");
 glyph_NADH_1->setSpeciesId(species_NADH->getId());
 glyph_NADH_1->setBoundingBox(BoundingBox("bb_15",270,820,100,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_15");
 tGlyph->setBoundingBox(BoundingBox("bbT_15",280,820,80,20));
 tGlyph->setOriginOfTextId(species_NADH->getId());
 tGlyph->setGraphicalObjectId(glyph_NADH_1->getId());
 
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph+_06");
 tGlyph->setBoundingBox(BoundingBox("bb+_06",365,820,20,20));
 tGlyph->setText("+");
 
 
-SpeciesGlyph* glyph_H_5=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_H_5=layout->createSpeciesGlyph();
 glyph_H_5->setId("glyph_H_5");
 glyph_H_5->setSpeciesId(species_H->getId());
 glyph_H_5->setBoundingBox(BoundingBox("bb_16",390,820,60,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_16");
 tGlyph->setBoundingBox(BoundingBox("bbT_16",400,820,40,20));
 tGlyph->setOriginOfTextId(species_H->getId());
 tGlyph->setGraphicalObjectId(glyph_H_5->getId());
 
 
-SpeciesGlyph* glyph_BPG=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_BPG=layout->createSpeciesGlyph();
 glyph_BPG->setId("glyph_BPG");
 glyph_BPG->setSpeciesId(species_BPG->getId());
 glyph_BPG->setBoundingBox(BoundingBox("bb_17",30,870,310,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_17");
 tGlyph->setBoundingBox(BoundingBox("bbT_17",40,870,290,20));
 tGlyph->setOriginOfTextId(species_BPG->getId());
@@ -535,53 +535,53 @@ tGlyph->setGraphicalObjectId(glyph_BPG->getId());
 
 
 
-SpeciesGlyph* glyph_ADP_3=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ADP_3=layout->createSpeciesGlyph();
 glyph_ADP_3->setId("glyph_ADP_3");
 glyph_ADP_3->setSpeciesId(species_ADP->getId());
 glyph_ADP_3->setBoundingBox(BoundingBox("bb_18",270,920,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_18");
 tGlyph->setBoundingBox(BoundingBox("bbT_18",280,920,60,20));
 tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP_3->getId());
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph+_03");
 tGlyph->setBoundingBox(BoundingBox("bb+_03",350,920,20,20));
 tGlyph->setText("+");
 
 
-SpeciesGlyph* glyph_H_3=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_H_3=layout->createSpeciesGlyph();
 glyph_H_3->setId("glyph_H_3");
 glyph_H_3->setSpeciesId(species_H->getId());
 glyph_H_3->setBoundingBox(BoundingBox("bb_19",380,920,60,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_19");
 tGlyph->setBoundingBox(BoundingBox("bbT_19",390,920,40,20));
 tGlyph->setOriginOfTextId(species_H->getId());
 tGlyph->setGraphicalObjectId(glyph_H_3->getId());
 
 
-SpeciesGlyph* glyph_ATP_3=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ATP_3=layout->createSpeciesGlyph();
 glyph_ATP_3->setId("glyph_ATP_3");
 glyph_ATP_3->setSpeciesId(species_ATP->getId());
 glyph_ATP_3->setBoundingBox(BoundingBox("bb_20",270,990,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_20");
 tGlyph->setBoundingBox(BoundingBox("bbT_20",280,990,60,20));
 tGlyph->setOriginOfTextId(species_ATP->getId());
 tGlyph->setGraphicalObjectId(glyph_ATP_3->getId());
 
 
-SpeciesGlyph* glyph_3PG=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_3PG=layout->createSpeciesGlyph();
 glyph_3PG->setId("glyph_3PG");
 glyph_3PG->setSpeciesId(species_3PG->getId());
 glyph_3PG->setBoundingBox(BoundingBox("bb_21",50,1040,250,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_21");
 tGlyph->setBoundingBox(BoundingBox("bbT_21",60,1040,230,20));
 tGlyph->setOriginOfTextId(species_3PG->getId());
@@ -589,12 +589,12 @@ tGlyph->setGraphicalObjectId(glyph_3PG->getId());
 
 
 
-SpeciesGlyph* glyph_2PG=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_2PG=layout->createSpeciesGlyph();
 glyph_2PG->setId("glyph_2PG");
 glyph_2PG->setSpeciesId(species_2PG->getId());
 glyph_2PG->setBoundingBox(BoundingBox("bb_22",50,1210,250,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_22");
 tGlyph->setBoundingBox(BoundingBox("bbT_22",60,1210,230,20));
 tGlyph->setOriginOfTextId(species_2PG->getId());
@@ -602,24 +602,24 @@ tGlyph->setGraphicalObjectId(glyph_2PG->getId());
 
 
 
-SpeciesGlyph* glyph_H2O_1=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_H2O_1=layout->createSpeciesGlyph();
 glyph_H2O_1->setId("glyph_H2O_1");
 glyph_H2O_1->setSpeciesId(species_H2O->getId());
 glyph_H2O_1->setBoundingBox(BoundingBox("bb_23",270,1350,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_23");
 tGlyph->setBoundingBox(BoundingBox("bbT_23",280,1350,60,20));
 tGlyph->setOriginOfTextId(species_H2O->getId());
 tGlyph->setGraphicalObjectId(glyph_H2O_1->getId());
 
 
-SpeciesGlyph* glyph_PEP=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_PEP=layout->createSpeciesGlyph();
 glyph_PEP->setId("glyph_PEP");
 glyph_PEP->setSpeciesId(species_PEP->getId());
 glyph_PEP->setBoundingBox(BoundingBox("bb_24",40,1380,265,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_24");
 tGlyph->setBoundingBox(BoundingBox("bbT_24",50,1380,245,20));
 tGlyph->setOriginOfTextId(species_PEP->getId());
@@ -627,53 +627,53 @@ tGlyph->setGraphicalObjectId(glyph_PEP->getId());
 
 
 
-SpeciesGlyph* glyph_ADP_4=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ADP_4=layout->createSpeciesGlyph();
 glyph_ADP_4->setId("glyph_ADP_4");
 glyph_ADP_4->setSpeciesId(species_ADP->getId());
 glyph_ADP_4->setBoundingBox(BoundingBox("bb_25",270,1430,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_25");
 tGlyph->setBoundingBox(BoundingBox("bbT_25",280,1430,60,20));
 tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP_4->getId());
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph+_04");
 tGlyph->setBoundingBox(BoundingBox("bb+_04",345,1430,20,20));
 tGlyph->setText("+");
 
 
-SpeciesGlyph* glyph_H_4=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_H_4=layout->createSpeciesGlyph();
 glyph_H_4->setId("glyph_H_4");
 glyph_H_4->setSpeciesId(species_H->getId());
 glyph_H_4->setBoundingBox(BoundingBox("bb_26",370,1430,60,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_26");
 tGlyph->setBoundingBox(BoundingBox("bbT_26",380,1430,40,20));
 tGlyph->setOriginOfTextId(species_H->getId());
 tGlyph->setGraphicalObjectId(glyph_H_4->getId());
 
 
-SpeciesGlyph* glyph_ATP_4=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ATP_4=layout->createSpeciesGlyph();
 glyph_ATP_4->setId("glyph_ATP_4");
 glyph_ATP_4->setSpeciesId(species_ATP->getId());
 glyph_ATP_4->setBoundingBox(BoundingBox("bb_27",270,1520,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_27");
 tGlyph->setBoundingBox(BoundingBox("bbT_27",280,1520,60,20));
 tGlyph->setOriginOfTextId(species_ATP->getId());
 tGlyph->setGraphicalObjectId(glyph_ATP_4->getId());
 
 
-SpeciesGlyph* glyph_Pyr=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_Pyr=layout->createSpeciesGlyph();
 glyph_Pyr->setId("glyph_Pyr");
 glyph_Pyr->setSpeciesId(species_Pyr->getId());
 glyph_Pyr->setBoundingBox(BoundingBox("bb_28",100,1550,140,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_28");
 tGlyph->setBoundingBox(BoundingBox("bbT_28",110,1550,120,20));
 tGlyph->setOriginOfTextId(species_Pyr->getId());
@@ -682,110 +682,100 @@ tGlyph->setGraphicalObjectId(glyph_Pyr->getId());
 
 // create the ReactionGlyphs
 
-ReactionGlyph* glyph_Hexokinase=&layout->createReactionGlyph();
+ReactionGlyph* glyph_Hexokinase=layout->createReactionGlyph();
 glyph_Hexokinase->setId("glyph_Hexokinase");
 glyph_Hexokinase->setReactionId(reaction_Hexokinase->getId());
 
 Curve* curve_Hexokinase=glyph_Hexokinase->getCurve();
-curve_Hexokinase->setId("curve_Hexokinase");
 LineSegment* ls=&curve_Hexokinase->createLineSegment();
 ls->setStart(Point(170,100));
 ls->setEnd(Point(170,130));
 
-ReactionGlyph* glyph_PGIsomerase=&layout->createReactionGlyph();
+ReactionGlyph* glyph_PGIsomerase=layout->createReactionGlyph();
 glyph_PGIsomerase->setId("glyph_PGIsomerase");
 glyph_PGIsomerase->setReactionId(reaction_PGIsomerase->getId());
 
 Curve* curve_PGIsomerase=glyph_PGIsomerase->getCurve();
-curve_PGIsomerase->setId("curve_PGIsomerase");
 ls=&curve_PGIsomerase->createLineSegment();
 ls->setStart(Point(170,270));
 ls->setEnd(Point(170,300));
 
 
-ReactionGlyph* glyph_PFK=&layout->createReactionGlyph();
+ReactionGlyph* glyph_PFK=layout->createReactionGlyph();
 glyph_PFK->setId("glyph_PFK");
 glyph_PFK->setReactionId(reaction_PFK->getId());
 
 Curve* curve_PFK=glyph_PFK->getCurve();
-curve_PFK->setId("curve_PFK");
 ls=&curve_PFK->createLineSegment();
 ls->setStart(Point(170,440));
 ls->setEnd(Point(170,470));
 
 
-ReactionGlyph* glyph_Aldolase=&layout->createReactionGlyph();
+ReactionGlyph* glyph_Aldolase=layout->createReactionGlyph();
 glyph_Aldolase->setId("glyph_Aldolase");
 glyph_Aldolase->setReactionId(reaction_Aldolase->getId());
 
 Curve* curve_Aldolase=glyph_Aldolase->getCurve();
-curve_Aldolase->setId("curve_Aldolase");
 ls=&curve_Aldolase->createLineSegment();
 ls->setStart(Point(170,610));
 ls->setEnd(Point(170,640));
 
-ReactionGlyph* glyph_TPI=&layout->createReactionGlyph();
+ReactionGlyph* glyph_TPI=layout->createReactionGlyph();
 glyph_TPI->setId("glyph_TPI");
 glyph_TPI->setReactionId(reaction_TPI->getId());
 
 
 Curve* curve_TPI=glyph_TPI->getCurve();
-curve_TPI->setId("curve_TPI");
 ls=&curve_TPI->createLineSegment();
 ls->setStart(Point(515,700));
 ls->setEnd(Point(515,700));
 
 
-ReactionGlyph* glyph_GAPDeh=&layout->createReactionGlyph();
+ReactionGlyph* glyph_GAPDeh=layout->createReactionGlyph();
 glyph_GAPDeh->setId("glyph_GAPDeh");
 glyph_GAPDeh->setReactionId(reaction_GAPDeh->getId());
 
 Curve* curve_GAPDeh=glyph_GAPDeh->getCurve();
-curve_GAPDeh->setId("curve_GAPDeh");
 ls=&curve_GAPDeh->createLineSegment();
 ls->setStart(Point(170,780));
 ls->setEnd(Point(170,810));
 
 
-ReactionGlyph* glyph_PGK=&layout->createReactionGlyph();
+ReactionGlyph* glyph_PGK=layout->createReactionGlyph();
 glyph_PGK->setId("glyph_PGK");
 glyph_PGK->setReactionId(reaction_PGK->getId());
 
 Curve* curve_PGK=glyph_PGK->getCurve();
-curve_PGK->setId("curve_PGK");
 ls=&curve_PGK->createLineSegment();
 ls->setStart(Point(170,950));
 ls->setEnd(Point(170,980));
 
 
-ReactionGlyph* glyph_PGM=&layout->createReactionGlyph();
+ReactionGlyph* glyph_PGM=layout->createReactionGlyph();
 glyph_PGM->setId("glyph_PGM");
 glyph_PGM->setReactionId(reaction_PGM->getId());
 
 Curve* curve_PGM=glyph_PGM->getCurve();
-curve_PGM->setId("curve_PGM");
 ls=&curve_PGM->createLineSegment();
 ls->setStart(Point(170,1120));
 ls->setEnd(Point(170,1150));
 
 
-ReactionGlyph* glyph_Enolase=&layout->createReactionGlyph();
+ReactionGlyph* glyph_Enolase=layout->createReactionGlyph();
 glyph_Enolase->setId("glyph_Enolase");
 glyph_Enolase->setReactionId(reaction_Enolase->getId());
 
 Curve* curve_Enolase=glyph_Enolase->getCurve();
-curve_Enolase->setId("curve_Enolase");
 ls=&curve_Enolase->createLineSegment();
 ls->setStart(Point(170,1290));
 ls->setEnd(Point(170,1320));
 
 
-ReactionGlyph* glyph_PK=&layout->createReactionGlyph();
+ReactionGlyph* glyph_PK=layout->createReactionGlyph();
 glyph_PK->setId("glyph_PK");
 glyph_PK->setReactionId(reaction_PK->getId());
 
 Curve* curve_PK=glyph_PK->getCurve();
-curve_PK->setId("curve_PK");
 ls=&curve_PK->createLineSegment();
 ls->setStart(Point(170,1460));
 ls->setEnd(Point(170,1490));

@@ -170,7 +170,6 @@ public class example1
         reactionGlyph1.setReactionId(reaction1.getId());
 
         Curve reactionCurve1=reactionGlyph1.getCurve();
-        reactionCurve1.setId("ReactionCurve_1");
         LineSegment ls=reactionCurve1.createLineSegment();
         ls.setStart(new Point(165.0,105.0));
         ls.setEnd(new Point(165.0,115.0));
@@ -180,7 +179,6 @@ public class example1
         reactionGlyph2.setReactionId(reaction2.getId());
 
         Curve reactionCurve2=reactionGlyph2.getCurve();
-        reactionCurve2.setId("ReactionCurve_2");
         ls=reactionCurve2.createLineSegment();
         ls.setStart(new Point(235.0,105.0));
         ls.setEnd(new Point(235.0,115.0));

@@ -97,7 +97,7 @@ compartment->setId("Yeast");
 
 // create the CompartmentGlyph
 
-CompartmentGlyph* compartmentGlyph=&layout->createCompartmentGlyph();
+CompartmentGlyph* compartmentGlyph=layout->createCompartmentGlyph();
 compartmentGlyph->setId("CompartmentGlyph_1");
 compartmentGlyph->setCompartmentId(compartment->getId());
 compartmentGlyph->setBoundingBox(BoundingBox("bb1",5,5,390,220));
@@ -111,12 +111,12 @@ Species* species_Gluc=&model->createSpecies();
 species_Gluc->setId("Glucose");
 species_Gluc->setCompartment(compartment->getId());
 
-SpeciesGlyph* glyph_Gluc=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_Gluc=layout->createSpeciesGlyph();
 glyph_Gluc->setId("SpeciesGlyph_Glucose");
 glyph_Gluc->setSpeciesId(species_Gluc->getId());
 glyph_Gluc->setBoundingBox(BoundingBox("bb2",105,20,130,20));
 
-TextGlyph* tGlyph=&layout->createTextGlyph();
+TextGlyph* tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_Glucose");
 tGlyph->setBoundingBox(BoundingBox("bbA",115,20,110,20));
 tGlyph->setOriginOfTextId(species_Gluc->getId());
@@ -128,12 +128,12 @@ Species* species_G6P=&model->createSpecies();
 species_G6P->setId("Glucose-6-phosphate");
 species_G6P->setCompartment(compartment->getId());
 
-SpeciesGlyph* glyph_G6P=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_G6P=layout->createSpeciesGlyph();
 glyph_G6P->setId("SpeciesGlyph_G6P");
 glyph_G6P->setSpeciesId(species_G6P->getId());
 glyph_G6P->setBoundingBox(BoundingBox("bb5",50,190,270,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_G6P");
 tGlyph->setBoundingBox(BoundingBox("bbD",60,190,250,20));
 tGlyph->setOriginOfTextId(species_G6P->getId());
@@ -145,12 +145,12 @@ Species* species_ATP=&model->createSpecies();
 species_ATP->setId("ATP");
 species_ATP->setCompartment(compartment->getId());
 
-SpeciesGlyph* glyph_ATP=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ATP=layout->createSpeciesGlyph();
 glyph_ATP->setId("SpeciesGlyph_ATP");
 glyph_ATP->setSpeciesId(species_ATP->getId());
 glyph_ATP->setBoundingBox(BoundingBox("bb3",270,70,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_ATP");
 tGlyph->setBoundingBox(BoundingBox("bbB",280,70,60,20));
 tGlyph->setOriginOfTextId(species_ATP->getId());
@@ -162,12 +162,12 @@ Species* species_ADP=&model->createSpecies();
 species_ADP->setId("ADP");
 species_ADP->setCompartment(compartment->getId());
 
-SpeciesGlyph* glyph_ADP=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_ADP=layout->createSpeciesGlyph();
 glyph_ADP->setId("glyph_ADP");
 glyph_ADP->setSpeciesId(species_ADP->getId());
 glyph_ADP->setBoundingBox(BoundingBox("bb4",270,140,80,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_ADP");
 tGlyph->setBoundingBox(BoundingBox("bbC",280,140,60,20));
 tGlyph->setOriginOfTextId(species_ADP->getId());
@@ -180,12 +180,12 @@ Species* species_Pi=&model->createSpecies();
 species_Pi->setId("Pi");
 species_Pi->setCompartment(compartment->getId());
 
-SpeciesGlyph* glyph_Pi=&layout->createSpeciesGlyph();
+SpeciesGlyph* glyph_Pi=layout->createSpeciesGlyph();
 glyph_Pi->setId("SpeciesGlyph_Pi");
 glyph_Pi->setSpeciesId(species_Pi->getId());
 glyph_Pi->setBoundingBox(BoundingBox("bb6",50,100,60,20));
 
-tGlyph=&layout->createTextGlyph();
+tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_PI");
 tGlyph->setBoundingBox(BoundingBox("bbE",60,100,40,20));
 tGlyph->setOriginOfTextId(species_Pi->getId());
@@ -198,12 +198,11 @@ Reaction* reaction_Hexokinase=&model->createReaction();
 reaction_Hexokinase->setId("Hexokinase");
 reaction_Hexokinase->setReversible(false);
 
-ReactionGlyph* glyph_Hexokinase=&layout->createReactionGlyph();
+ReactionGlyph* glyph_Hexokinase=layout->createReactionGlyph();
 glyph_Hexokinase->setId("glyph_Hexokinase");
 glyph_Hexokinase->setReactionId(reaction_Hexokinase->getId());
 
 Curve* curve_Hexokinase=glyph_Hexokinase->getCurve();
-curve_Hexokinase->setId("curve_Hexokinase");
 LineSegment* ls=&curve_Hexokinase->createLineSegment();
 ls->setStart(Point(170,100));
 ls->setEnd(Point(170,130));

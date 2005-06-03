@@ -138,7 +138,7 @@ layout->setDimensions(Dimensions(400.0,220.0));
 
 // create the CompartmentGlyph
 
-CompartmentGlyph* compartmentGlyph=&layout->createCompartmentGlyph();
+CompartmentGlyph* compartmentGlyph=layout->createCompartmentGlyph();
 compartmentGlyph->setId("CompartmentGlyph_1");
 compartmentGlyph->setCompartmentId(compartment->getId());
 compartmentGlyph->setBoundingBox(BoundingBox("bb1",5,5,390,210));
@@ -146,23 +146,23 @@ compartmentGlyph->setBoundingBox(BoundingBox("bb1",5,5,390,210));
 
 // create the SpeciesGlyphs
 
-SpeciesGlyph* speciesGlyph1=&layout->createSpeciesGlyph();
+SpeciesGlyph* speciesGlyph1=layout->createSpeciesGlyph();
 speciesGlyph1->setId("SpeciesGlyph_1");
 speciesGlyph1->setSpeciesId(species1->getId());
 speciesGlyph1->setBoundingBox(BoundingBox("bb2",80,26,240,24));
 
-TextGlyph* textGlyph1=&layout->createTextGlyph();
+TextGlyph* textGlyph1=layout->createTextGlyph();
 textGlyph1->setId("TextGlyph_01");
 textGlyph1->setBoundingBox(BoundingBox("bbA",92,26,228,24));
 textGlyph1->setOriginOfTextId(speciesGlyph1->getId());
 textGlyph1->setGraphicalObjectId(speciesGlyph1->getId());
 
-SpeciesGlyph* speciesGlyph2=&layout->createSpeciesGlyph();
+SpeciesGlyph* speciesGlyph2=layout->createSpeciesGlyph();
 speciesGlyph2->setId("SpeciesGlyph_2");
 speciesGlyph2->setSpeciesId(species2->getId());
 speciesGlyph2->setBoundingBox(BoundingBox("bb3",80,170,240,24));
 
-TextGlyph* textGlyph2=&layout->createTextGlyph();
+TextGlyph* textGlyph2=layout->createTextGlyph();
 textGlyph2->setId("TextGlyph_02");
 textGlyph2->setBoundingBox(BoundingBox("bbB",92,170,228,24));
 textGlyph2->setOriginOfTextId(speciesGlyph2->getId());
@@ -170,22 +170,20 @@ textGlyph2->setGraphicalObjectId(speciesGlyph2->getId());
 
 // create the ReactionGlyphs
 
-ReactionGlyph* reactionGlyph1=&layout->createReactionGlyph();
+ReactionGlyph* reactionGlyph1=layout->createReactionGlyph();
 reactionGlyph1->setId("ReactionGlyph_1");
 reactionGlyph1->setReactionId(reaction1->getId());
 
 Curve* reactionCurve1=reactionGlyph1->getCurve();
-reactionCurve1->setId("ReactionCurve_1");
 LineSegment* ls=&reactionCurve1->createLineSegment();
 ls->setStart(Point(165,105));
 ls->setEnd(Point(165,115));
 
-ReactionGlyph* reactionGlyph2=&layout->createReactionGlyph();
+ReactionGlyph* reactionGlyph2=layout->createReactionGlyph();
 reactionGlyph2->setId("ReactionGlyph_1");
 reactionGlyph2->setReactionId(reaction2->getId());
 
 Curve* reactionCurve2=reactionGlyph2->getCurve();
-reactionCurve2->setId("ReactionCurve_2");
 ls=&reactionCurve2->createLineSegment();
 ls->setStart(Point(235,105));
 ls->setEnd(Point(235,115));
