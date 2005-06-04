@@ -61,7 +61,7 @@ WriteMakefile(
 package MY;
 sub postamble {
 	return <<'MAKE_FRAG';
-LibSBML_wrap.cxx:
+LibSBML_wrap.cxx: local.i
 	@SWIG@ @SWIGFLAGS@ -Wall -c++ -perl5 -proxy -I../.. LibSBML.i
 MAKE_FRAG
 }
