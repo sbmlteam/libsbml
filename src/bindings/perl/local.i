@@ -50,6 +50,15 @@
 }
 
 /**
+ * typemap to handle functions which take a FILE*
+ */
+%typemap(perl5,in) FILE * {
+  if (SvOK($input)) /* check for undef */
+        $1 = PerlIO_findFILE(IoIFP(sv_2io($input)));
+  else  $1 = NULL;
+}
+
+/**
  * Unfortunately SWIG Version 1.3.21 supports %feature only for python and
  * java therefore we need to patch LibSBML.pm by ourself
  * (do not remove the following empty line)
@@ -339,48 +348,51 @@
 %}
 
 %inline %{
-  void printFatals (SBMLDocument_t *d)
+  void printFatals (SBMLDocument_t *d, FILE *stream)
   {
     unsigned int n, size;
+    if (stream == NULL) stream = stderr;
     if ((size = SBMLDocument_getNumFatals(d)) > 0)
     {
-      fprintf(stderr, "%d Fatal(s):\n", size);
+      fprintf(stream, "%d Fatal(s):\n", size);
       for (n = 0; n < size; n++)
       {
-        fprintf(stderr, "  ");
-        ParseMessage_print(SBMLDocument_getFatal(d, n), stderr);
+        fprintf(stream, "  ");
+        ParseMessage_print(SBMLDocument_getFatal(d, n), stream);
       }
     }
   }
 %}
 
 %inline %{
-  void printErrors (SBMLDocument_t *d)
+  void printErrors (SBMLDocument_t *d, FILE *stream)
   {
     unsigned int n, size;
+    if (stream == NULL) stream = stderr;
     if ((size = SBMLDocument_getNumErrors(d)) > 0)
     {
-      fprintf(stderr, "%d Error(s):\n", size);
+      fprintf(stream, "%d Error(s):\n", size);
       for (n = 0; n < size; n++)
       {
-        fprintf(stderr, "  ");
-        ParseMessage_print(SBMLDocument_getError(d, n), stderr);
+        fprintf(stream, "  ");
+        ParseMessage_print(SBMLDocument_getError(d, n), stream);
       }
     }
   }
 %}
 
 %inline %{
-  void printWarnings (SBMLDocument_t *d)
+  void printWarnings (SBMLDocument_t *d, FILE *stream)
   {
     unsigned int n, size;
+    if (stream == NULL) stream = stderr;
     if ((size = SBMLDocument_getNumWarnings(d)) > 0)
     {
-      fprintf(stderr, "%d Warning(s):\n", size);
+      fprintf(stream, "%d Warning(s):\n", size);
       for (n = 0; n < size; n++)
       {
-        fprintf(stderr, "  ");
-        ParseMessage_print(SBMLDocument_getWarning(d, n), stderr);
+        fprintf(stream, "  ");
+        ParseMessage_print(SBMLDocument_getWarning(d, n), stream);
       }
     }
   }
