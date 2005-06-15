@@ -71,9 +71,9 @@ printf( "  read time (%s): %lu\n", $tu, $ellapsed*1000);
 printf( "        error(s): %u\n" , $errors            );
 
 if ($errors > 0) {
-  $d->LibSBML::printWarnings();
-  $d->LibSBML::printErrors();
-  $d->LibSBML::printFatals();
+  $d->LibSBML::printWarnings(\*STDOUT);
+  $d->LibSBML::printErrors(\*STDOUT);
+  $d->LibSBML::printFatals(\*STDOUT);
 }
 
 printf("\n");

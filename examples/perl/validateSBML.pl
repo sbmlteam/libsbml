@@ -2,8 +2,8 @@
 # -*-Perl-*-
 
 ##
-## \file    convertSBML.pl
-## \brief   Converts SBML L1 documents (any version) to L2v1
+## \file    validateSBML.pl
+## \brief   Validates an SBML file against the appropriate schema
 ## \author  TBI {xtof,raim}@tbi.univie.ac.at
 ##
 ## $Id$
@@ -45,49 +45,50 @@
 ##     A-1090 Wien, Austria
 
 use File::Basename;
+use Benchmark qw/:hireswallclock/;
 use blib '../../src/bindings/perl';
 use LibSBML;
 use strict;
-use vars qw/@ARGV/;
+use vars qw/$tu/;
 
-unless (@ARGV == 2) {
-  printf STDERR
-      "\n  usage: @{[basename($0)]} <input-filename> <output-filename>\n\n";
-  exit (1);
-};
+my $filename = shift()
+    || do { printf STDERR "\n  usage: @{[basename($0)]} <filename>\n\n";
+	    exit (1);
+	  };
 
-my ($inFileName, $outFileName) = (shift(),shift());
+my $t0        = new Benchmark;
 my $rd        = new LibSBML::SBMLReader();
-my $d         = $rd->readSBML($inFileName);
+my $d         = $rd->readSBML($filename);
+my $t1        = new Benchmark;
+(my $ellapsed = timestr(timediff($t1, $t0), 'nop')) =~ s/\A([\d\.]+)/$1/;
 my $errors    = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
+$errors      += $d->checkConsistency();
+my $size      = -s $filename;
+
+printf( "\n" );
+printf( "        filename: %s\n" , $filename          );
+printf( "       file size: %lu\n", $size              );
+printf( "  read time (%s): %lu\n", $tu, $ellapsed*1000);
+printf( "        error(s): %u\n" , $errors            );
+
+my $m  = $d->getModel();
+my $ar = defined($m) ? $m->getRule(0) : undef;
+printf( " expr = '%s'", $ar->getFormula()) if defined $ar;
 
 if ($errors > 0) {
-  printf( "Read Error(s):\n" );
-  
   $d->LibSBML::printWarnings(\*STDOUT);
   $d->LibSBML::printErrors(\*STDOUT);
   $d->LibSBML::printFatals(\*STDOUT);
-  
-  printf("Conversion skipped.  Correct the above and re-run.\n");
 }
-else {
-  $d->setLevel($d->getLevel() == 2 ? 1 : 2);
-  
-  $errors    = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
-  if ($errors > 0) {
-    printf( "Conversion Error(s):\n" );
-    
-    $d->LibSBML::printWarnings(\*STDOUT);
-    $d->LibSBML::printErrors(\*STDOUT);
-    $d->LibSBML::printFatals(\*STDOUT);
 
-    printf("Conversion skipped.  Either libSBML does not (yet) have ");
-    printf("ability to convert this model or (automatic) conversion ");
-    printf("is not possible.");
-  }
-  else {
-    $d->writeSBML($outFileName);
-  }
+printf("\n");
+
+BEGIN {
+  $main::tu = 'ms';
+  eval "use Time::HiRes";
+  warn "\nModule Time::HiRes not installed.\n"
+      . "Time granularity will be integer seconds not milliseconds!\n" if $@;
+   $main::tu = ' s' if $@;
 }
 
 __END__
