@@ -199,11 +199,6 @@ $LibSBML::AST_LOGICAL_XOR      => sub { !(evalAST($_[0]->getChild(0))  &&
 					    (evalAST($_[0]->getChild(0)) &&
 					     !evalAST($_[0]->getChild(1)));
 					},
-$LibSBML::LOGICAL_XOR          => sub { (!evalAST($_[0]->getChild(0)) &&
-					   evalAST($_[0]->getChild(1))) ||
-					   (evalAST($_[0]->getChild(0)) &&
-					    !evalAST($_[0]->getChild(1)));
-					},
 # relational operators
 $LibSBML::AST_RELATIONAL_EQ    => sub { evalAST($_[0]->getChild(0))
 					      == evalAST($_[0]->getChild(1));
