@@ -125,11 +125,42 @@ XMLReader_create (DefaultHandler* h)
 
   xr->setContentHandler(h);
   xr->setErrorHandler  (h);
+
 #endif  // USE_EXPAT
 
   return xr;
 }
 
+/**
+ * Identical to XMLReader_create with the addition:
+ *
+ * in the case where in memory schema are to be used the DefaultHandler
+ * must also be set as the EntityResolver
+ */
+SAX2XMLReader*
+XMLReader_createWithEntityResolver (DefaultHandler* h)
+{
+  SAX2XMLReader* xr;
+
+
+#ifdef USE_EXPAT
+  xr = NULL;
+#else
+  xr = XMLReaderFactory::createXMLReader();
+
+
+  xr->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
+  xr->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes, true );
+
+  xr->setContentHandler(h);
+  xr->setErrorHandler  (h);
+
+  xr->setEntityResolver(h);
+
+#endif  // USE_EXPAT
+
+  return xr;
+}
 
 #ifndef USE_EXPAT
 /**
@@ -185,7 +216,6 @@ void
 XMLReader_setSchemaLocation (SAX2XMLReader* xr, const char* location)
 {
   XMLCh* s = XMLString::transcode(location);
-      
 
   xr->setProperty(XMLUni::fgXercesSchemaExternalSchemaLocation, s);
 
@@ -272,13 +302,32 @@ SBMLReader::getSchemaLocation (SBMLDocument* d) const
   if (level == 1)
   {
     xmlns    = "http://www.sbml.org/sbml/level1 ";
+
+    /* 
+     * if in memory schema are to be used the schema 
+     * filenames will be empty
+     * check this and then allocate the appropriate tag
+     */
+
     filename = (version == 1) ? schemaFilenameL1v1.c_str() :
                                 schemaFilenameL1v2.c_str();
+    if (strlen(filename) == 0)
+    {
+      filename = (version == 1) ? "l1v1" : "l1v2";
+    }
+ 
   }
   else if (level == 2)
   {
     xmlns    = "http://www.sbml.org/sbml/level2 ";
     filename = schemaFilenameL2v1.c_str();
+ 
+    if (strlen(filename) == 0)
+    {
+      filename = "l2v1";
+    }
+
+
   }
 
   //
@@ -394,7 +443,21 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
 
 
   DefaultHandler*    handler = new SBMLHandler(d);
-  SAX2XMLReader*     reader  = XMLReader_create(handler);
+  SAX2XMLReader*     reader;
+  /* 
+   * check whether schema files have been supplied
+   * or whether to use in memory schema
+   */
+  if ((strlen(this->schemaFilenameL1v1.c_str()) == 0) &&
+      (strlen(this->schemaFilenameL1v2.c_str()) == 0) &&
+      (strlen(this->schemaFilenameL2v1.c_str()) == 0))
+  {
+    reader  = XMLReader_createWithEntityResolver(handler);
+  }
+  else
+  {
+    reader  = XMLReader_create(handler);
+  }
   MemBufInputSource* input   = NULL;
 
 
@@ -421,7 +484,20 @@ SBMLReader::readSBML_internal (const char* filename, const char* xml)
     XMLReader_readSBMLElement(reader, filename, input);
 
     delete reader;
-    reader = XMLReader_create(handler);
+    /* 
+    * check whether schema files have been supplied
+    * or whether to use in memory schema
+    */
+    if ((strlen(this->schemaFilenameL1v1.c_str()) == 0) &&
+        (strlen(this->schemaFilenameL1v2.c_str()) == 0) &&
+        (strlen(this->schemaFilenameL2v1.c_str()) == 0))
+    {
+      reader  = XMLReader_createWithEntityResolver(handler);
+    }
+    else
+    {
+      reader  = XMLReader_create(handler);
+    }
 
     XMLReader_setSchema(reader, this);
 
