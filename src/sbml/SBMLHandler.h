@@ -152,6 +152,8 @@ public:
 
   void setDocumentLocator (const Locator *const locator);
 
+#ifndef USE_EXPAT
+
   /* 
    * to use in memory schemas the handler must
    * resolve the entity
@@ -159,7 +161,6 @@ public:
   InputSource* resolveEntity(const XMLCh* const    publicId,
                              const XMLCh* const    systemId);
 
-#ifndef USE_EXPAT
   void warning    (const SAXParseException&);
   void error      (const SAXParseException&);
   void fatalError (const SAXParseException&);

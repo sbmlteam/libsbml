@@ -1882,6 +1882,7 @@ SBMLHandler::setDocumentLocator (const Locator *const locator)
   fLocator = locator;
   fMathHandler->setDocumentLocator(locator);
 }
+#ifndef USE_EXPAT
 
 /**
  * A SAX2 XMLReader uses this method to resolve the entity (ie schema) with
@@ -1925,7 +1926,6 @@ SBMLHandler::resolveEntity(const XMLCh* const    publicId,
  */
 
 
-#ifndef USE_EXPAT
 void
 SBMLHandler::warning (const SAXParseException& e)
 {
