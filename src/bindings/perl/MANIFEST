@@ -25,5 +25,6 @@ t/05__EventAssignment.t
 t/05__Formula.t
 t/05__FunctionDefinition.t
 t/05__KineticLaw.t
+t/05__Model.t
 t/05__SBMLDocument.t
 t/l1v1-branch.xml
