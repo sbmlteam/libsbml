@@ -163,6 +163,9 @@
 				RelativePath="..\src\math\ASTNodeType.h">
 			</File>
 			<File
+				RelativePath="..\src\validator\constraints\BooleanReturnFromEventTrigger.h">
+			</File>
+			<File
 				RelativePath="..\src\common\common.h">
 			</File>
 			<File
@@ -298,6 +301,12 @@
 				RelativePath="..\src\sbml\SBMLReader.h">
 			</File>
 			<File
+				RelativePath="..\src\sbml\SBMLSchemaInputSource.h">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLSchemaInputStream.h">
+			</File>
+			<File
 				RelativePath="..\src\sbml\SBMLTagCodes.h">
 			</File>
 			<File
@@ -388,6 +397,9 @@
 			</File>
 			<File
 				RelativePath="..\src\math\ASTNode.cpp">
+			</File>
+			<File
+				RelativePath="..\src\validator\constraints\BooleanReturnFromEventTrigger.cpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\Compartment.cpp">
@@ -502,6 +514,12 @@
 			</File>
 			<File
 				RelativePath="..\src\sbml\SBMLReader.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLSchemaInputSource.cpp">
+			</File>
+			<File
+				RelativePath="..\src\sbml\SBMLSchemaInputStream.cpp">
 			</File>
 			<File
 				RelativePath="..\src\sbml\SBMLTagCodes.cpp">
