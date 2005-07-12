@@ -94,6 +94,8 @@ headers =                      \
   SBMLFormatter.h              \
   SBMLHandler.h                \
   SBMLReader.h                 \
+  SBMLSchemaInputSource.h      \
+  SBMLSchemaInputStream.h      \
   SBMLTagCodes.h               \
   SBMLTypeCodes.h              \
   SBMLTypes.h                  \
@@ -132,6 +134,8 @@ sources =                      \
   SBMLFormatter.cpp            \
   SBMLHandler.cpp              \
   SBMLReader.cpp               \
+  SBMLSchemaInputSource.cpp    \
+  SBMLSchemaInputStream.cpp    \
   SBMLTagCodes.cpp             \
   SBMLTypeCodes.cpp            \
   SBMLVisitor.cpp              \
