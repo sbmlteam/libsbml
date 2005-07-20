@@ -9,9 +9,23 @@ LibSBML  -- interface to the libSBML library
   use strict;
 
   my $file     = File::Spec->rel2abs('FOO.xml');
-  my $reader   = new LibSBML::SBMLReader;
+  my $rd       = new LibSBML::SBMLReader;
   my $document = $rd->readSBML($file);
-  my $model    = $document->getModel();
+  
+  # check for reading errors here
+  my $errors   = $document->getNumWarnings()
+                 + $document->getNumErrors()
+                 + $document->getNumFatals();
+
+  # print errors to stderr if any
+  if ($errors > 0) {
+    $document->LibSBML::printWarnings();
+    $document->LibSBML::printErrors();
+    $document->LibSBML::printFatals();
+    die "Errors while reading $file";
+  }
+
+  my $model = $document->getModel() || die "No Model found in $file";
   ... 
 
 =head1 DESCRIPTION
