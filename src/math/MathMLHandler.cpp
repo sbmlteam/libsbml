@@ -288,7 +288,7 @@ MathMLHandler::startElement (const XMLCh* const  uri,
   {
     Stack_push(fTagStack, (void*) currTag);
     Stack_push(fObjStack, currNode);
-  }
+ }
 }
 
 
@@ -325,6 +325,7 @@ MathMLHandler::endElement (const XMLCh* const  uri,
     case MATHML_TAG_NOT_A_NUMBER:
     case MATHML_TAG_PI:
     case MATHML_TAG_TRUE:
+    case MATHML_TAG_PIECEWISE:
       reduceExpression();
       fSeenSep = false;
       break;
