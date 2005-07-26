@@ -57,13 +57,16 @@ CPPFLAGS   = @CPPFLAGS@ -I$(INCLUDEDIR)
 LDFLAGS    = @LDFLAGS@  -L$(SRCDIR)
 LIBS       = -lsbml @XERCES_LIBS@ @EXPAT_LIBS@ -lstdc++
 
-programs   = convertSBML evaluateMath printMath printSBML readSBML \
-             translateMath validateSBML
+programs   = convertSBML drawMath evaluateMath printMath printSBML \
+             readSBML translateMath validateSBML 
 
 
 all: $(programs)
 
 convertSBML: convertSBML.c util.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+drawMath: drawMath.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 evaluateMath: evaluateMath.c util.c
