@@ -302,6 +302,86 @@ START_TEST (test_readSBMLFromString_empty)
 END_TEST
 
 
+START_TEST (test_SBMLReader_readSBML_schema_full_inmemory_l1v1)
+{
+  SBMLDocument_t *d;
+  SBMLReader_t   *sr = SBMLReader_create();
+
+
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
+
+  d = SBMLReader_readSBML(sr, "test-data/l1v1-branch.xml");
+
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
+
+  SBMLDocument_free(d);
+  SBMLReader_free(sr);
+}
+END_TEST
+
+
+START_TEST (test_SBMLReader_readSBML_schema_full_inmemory_l1v2)
+{
+  SBMLDocument_t *d;
+  SBMLReader_t   *sr = SBMLReader_create();
+
+
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
+
+  d = SBMLReader_readSBML(sr, "test-data/l1v2-branch.xml");
+
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
+
+  SBMLDocument_free(d);
+  SBMLReader_free(sr);
+}
+END_TEST
+
+
+START_TEST (test_SBMLReader_readSBML_schema_full_inmemory_l2v1)
+{
+  SBMLDocument_t *d;
+  SBMLReader_t   *sr = SBMLReader_create();
+
+
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
+
+  d = SBMLReader_readSBML(sr, "test-data/l2v1-branch.xml");
+
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 0 );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
+
+  SBMLDocument_free(d);
+  SBMLReader_free(sr);
+}
+END_TEST
+
+
+START_TEST (test_SBMLReader_readSBML_schema_full_inmemory_with_error)
+{
+  SBMLDocument_t *d;
+  SBMLReader_t   *sr = SBMLReader_create();
+
+
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
+
+  d = SBMLReader_readSBML(sr, "test-data/l1v1-branch-schema-error.xml.xml");
+
+  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
+  fail_unless( SBMLDocument_getNumErrors(d)   == 1 );
+  fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
+
+  SBMLDocument_free(d);
+  SBMLReader_free(sr);
+}
+END_TEST
+
+
 Suite *
 create_suite_SBMLReader (void) 
 { 
@@ -309,19 +389,23 @@ create_suite_SBMLReader (void)
   TCase *tcase = tcase_create("SBMLReader");
 
 
-  tcase_add_test(tcase, test_SBMLReader_create                           );
-  tcase_add_test(tcase, test_SBMLReader_setSchemaFilename                );
-  tcase_add_test(tcase, test_SBMLReader_free_NULL                        );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic            );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_L1v2       );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full             );
-  tcase_add_test(tcase, test_readSBML_NULL                               );
-  tcase_add_test(tcase, test_readSBML_file_not_found_1                   );
-  tcase_add_test(tcase, test_readSBML_file_not_found_2                   );
-  tcase_add_test(tcase, test_readSBML_file_not_SBML_1                    );
-  tcase_add_test(tcase, test_readSBML_file_not_SBML_2                    );
-  tcase_add_test(tcase, test_readSBMLFromString_empty                    );
+  tcase_add_test(tcase, test_SBMLReader_create                                    );
+  tcase_add_test(tcase, test_SBMLReader_setSchemaFilename                         );
+  tcase_add_test(tcase, test_SBMLReader_free_NULL                                 );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic                     );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_L1v2                );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error          );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full                      );
+  tcase_add_test(tcase, test_readSBML_NULL                                        );
+  tcase_add_test(tcase, test_readSBML_file_not_found_1                            );
+  tcase_add_test(tcase, test_readSBML_file_not_found_2                            );
+  tcase_add_test(tcase, test_readSBML_file_not_SBML_1                             );
+  tcase_add_test(tcase, test_readSBML_file_not_SBML_2                             );
+  tcase_add_test(tcase, test_readSBMLFromString_empty                             );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l1v1        );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l1v2        );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l2v1        );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_with_error  );
 
   suite_add_tcase(suite, tcase);
 
