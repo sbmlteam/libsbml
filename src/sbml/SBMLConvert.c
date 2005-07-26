@@ -554,8 +554,10 @@ SBML_convertReactionsInModelToL1 (Model_t *m)
   unsigned int  numReactions = Model_getNumReactions(m);
   ListOf_t     *reactions    = Model_getListOfReactions(m);
 
-  unsigned int  n;
+  unsigned int  n, mod;
   Reaction_t   *r;
+  ListOf_t *modifiers;
+  unsigned int numModifiers;
 /*
   unsigned int numReactants, numProducts;
   ListOf_t *reactants;
@@ -571,6 +573,21 @@ SBML_convertReactionsInModelToL1 (Model_t *m)
     
     SBML_convertToL1    ( m, (SBase_t *) Reaction_getKineticLaw(r) );
   
+    /*
+     * if there are modifiers empty the list
+     */
+    numModifiers = Reaction_getNumModifiers(r);
+    
+    if (numModifiers > 0)
+    {
+      modifiers = Reaction_getListOfModifiers(r);
+    }
+
+    for (mod = numModifiers; mod > 0; mod--)
+    {
+      ListOf_remove(modifiers, mod-1);
+    } 
+
     /*
      * code left in as will be necessary when allow
      * the option of converting a rational stoichiometry 
