@@ -104,6 +104,10 @@ SOURCE=..\src\math\ASTNode.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\constraints\BooleanReturnFromEventTrigger.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\Compartment.cpp
 # End Source File
 # Begin Source File
@@ -253,6 +257,14 @@ SOURCE=..\src\sbml\SBMLHandler.cpp
 # Begin Source File
 
 SOURCE=..\src\sbml\SBMLReader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLSchemaInputSource.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\sbml\SBMLSchemaInputStream.cpp
 # End Source File
 # Begin Source File
 
