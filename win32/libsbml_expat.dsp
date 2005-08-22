@@ -104,6 +104,10 @@ SOURCE=..\src\math\ASTNode.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\constraints\BooleanReturnFromEventTrigger.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\Compartment.cpp
 # End Source File
 # Begin Source File
@@ -113,6 +117,10 @@ SOURCE=..\src\validator\constraints\CompartmentOutsideCycles.cpp
 # Begin Source File
 
 SOURCE=..\src\sbml\CompartmentVolumeRule.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\ConsistencyConstraints.cpp
 # End Source File
 # Begin Source File
 
@@ -173,6 +181,10 @@ SOURCE=..\src\validator\constraints\IdList.cpp
 # Begin Source File
 
 SOURCE=..\src\sbml\KineticLaw.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\L1CompatibilityConstraints.cpp
 # End Source File
 # Begin Source File
 
@@ -404,6 +416,10 @@ SOURCE=..\src\math\ASTNodeType.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\constraints\BooleanReturnFromEventTrigger.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\xml\common.h
 # End Source File
 # Begin Source File
@@ -412,7 +428,23 @@ SOURCE=..\src\sbml\Compartment.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\constraints\CompartmentOutsideCycles.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\CompartmentVolumeRule.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\ConsistencyValidator.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\Constraint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\ConstraintMacros.h
 # End Source File
 # Begin Source File
 
@@ -460,11 +492,31 @@ SOURCE=..\src\sbml\FunctionDefinition.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\GlobalConstraint.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\IdBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\IdList.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\KineticLaw.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\L1CompatibilityValidator.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\ListOf.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\LocalConstraint.h
 # End Source File
 # Begin Source File
 
@@ -600,6 +652,30 @@ SOURCE=..\src\xml\StreamFormatTarget.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\validator\constraints\UniqueIdBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueIdsForUnitDefinitions.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueIdsInKineticLaw.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueIdsInModel.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueVarsInEventAssignments.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\constraints\UniqueVarsInRules.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\Unit.h
 # End Source File
 # Begin Source File
@@ -609,6 +685,10 @@ SOURCE=..\src\sbml\UnitDefinition.h
 # Begin Source File
 
 SOURCE=..\src\sbml\UnitKind.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\validator\Validator.h
 # End Source File
 # Begin Source File
 
