@@ -56,6 +56,7 @@
 
 #ifdef __cplusplus
 
+#include <sstream>
 
 #ifdef USE_EXPAT
 #  include <expat.h>
@@ -149,9 +150,7 @@ private:
 
   bool fSeenSep;
 
-#ifdef USE_EXPAT
-  std::string mCharacterData;
-#endif  /* USE_EXPAT */
+  std::ostringstream mCharacterData;
 };
 
 

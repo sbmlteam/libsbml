@@ -201,6 +201,10 @@ MathMLHandler::startElement (const XMLCh* const  uri,
                              const XMLCh* const  qname,
                              const Attributes&   attrs)
 {
+  // At the beginning of an element we can discard all collected
+  // character data.
+  mCharacterData.str("");
+
   MathMLTagCode_t currTag  = getTagCode(uri, localname);
   MathMLTagCode_t prevTag  = MATHML_TAG_UNKNOWN;
   ASTNode*        currNode = NULL;
@@ -307,16 +311,22 @@ MathMLHandler::endElement (const XMLCh* const  uri,
       reduceExpression();
       break;
 
-    case MATHML_TAG_CI:
     case MATHML_TAG_CN:
+      parseCN(mCharacterData.str().c_str());
+      reduceExpression();
+      fSeenSep = false;
+      break;
+
+    case MATHML_TAG_CI:
+      parseCI(mCharacterData.str().c_str());
       reduceExpression();
       fSeenSep = false;
       break;
 
     case MATHML_TAG_CSYMBOL:
+      parseCI(mCharacterData.str().c_str());
       reduceExpression();
       break;
-
 
     case MATHML_TAG_LAMBDA:
     case MATHML_TAG_EXPONENTIALE:
@@ -365,18 +375,7 @@ MathMLHandler::characters(const XMLCh* const  chars,
     char* s = XMLString::transcode(chars);
 #endif  // USE_EXPAT
 
-    //
-    // If there is a <cn> or <ci> on top of the tag stack parse its character
-    // data to populate the corresponding ASTNode on top of the object stack.
-    //
-    if (tag == MATHML_TAG_CN)
-    {
-      parseCN(s);
-    }
-    else if (tag == MATHML_TAG_CI || tag == MATHML_TAG_CSYMBOL)
-    {
-      parseCI(s);
-    }
+    mCharacterData << s;
 
     XMLString::release(&s);
   }
