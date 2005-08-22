@@ -54,7 +54,6 @@
 
 #include "common/common.h"
 #include "util/List.h"
-#include "SBMLSchemaInputSource.h"
 
 #ifdef USE_EXPAT
 #  include <expat.h>
@@ -66,6 +65,7 @@
 #  include <xercesc/framework/MemBufInputSource.hpp>
 #  include <xercesc/util/TransService.hpp>
    using namespace xercesc;
+#  include "SBMLSchemaInputSource.h"
 #endif  // USE_EXPAT
 
 #ifdef USE_LAYOUT
