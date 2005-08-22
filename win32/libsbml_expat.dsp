@@ -396,6 +396,14 @@ SOURCE=..\src\sbml\AssignmentRule.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\math\ASTNode.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\ASTNodeType.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\xml\common.h
 # End Source File
 # Begin Source File
@@ -436,6 +444,18 @@ SOURCE=..\src\xml\ExpatXMLString.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\math\FormulaFormatter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\FormulaParser.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\FormulaTokenizer.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\sbml\FunctionDefinition.h
 # End Source File
 # Begin Source File
@@ -445,6 +465,34 @@ SOURCE=..\src\sbml\KineticLaw.h
 # Begin Source File
 
 SOURCE=..\src\sbml\ListOf.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\MathMLDocument.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\MathMLFormatter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\MathMLHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\MathMLReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\MathMLTagCodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\MathMLUnicodeConstants.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\math\MathMLWriter.h
 # End Source File
 # Begin Source File
 
