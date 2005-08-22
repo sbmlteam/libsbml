@@ -97,6 +97,10 @@ SOURCE=..\..\src\math\ASTNode.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\validator\constraints\BooleanReturnFromEventTrigger.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sbml\Compartment.cpp
 # End Source File
 # Begin Source File
@@ -402,6 +406,10 @@ SOURCE=..\..\src\math\ASTNode.h
 # Begin Source File
 
 SOURCE=..\..\src\math\ASTNodeType.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\BooleanReturnFromEventTrigger.h
 # End Source File
 # Begin Source File
 
