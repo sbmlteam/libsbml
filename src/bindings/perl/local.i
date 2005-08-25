@@ -307,6 +307,16 @@
   }
 %}
 
+%feature("shadow") RateRule::RateRule
+%{
+  sub new {
+    my $pkg = shift;
+    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
+    my $self = LibSBMLc::new_RateRule(@_);
+    bless $self, $pkg if defined($self);
+  }
+%}
+
 %feature("shadow") FunctionDefinition::FunctionDefinition
 %{
   sub new {
