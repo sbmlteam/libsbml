@@ -20,11 +20,15 @@ t/05__AlgebraicRule.t
 t/05__AssignmentRule.t
 t/05__Compartment.t
 t/05__CompartmentVolumeRule.t
-t/05__Event.t
 t/05__EventAssignment.t
+t/05__Event.t
 t/05__Formula.t
 t/05__FunctionDefinition.t
 t/05__KineticLaw.t
 t/05__Model.t
+t/05__ModifierSpeciesReference.t
+t/05__ParameterRule.t
+t/05__Parameter.t
+t/05__RateRule.t
 t/05__SBMLDocument.t
 t/l1v1-branch.xml
