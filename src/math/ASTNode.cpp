@@ -783,7 +783,7 @@ ASTNode::getReal () const
 
   if (mType == AST_REAL_E)
   {
-    result *= pow(10,  mExponent);
+    result *= pow(10.0,  mExponent);
   }
   else if (mType == AST_RATIONAL)
   {
