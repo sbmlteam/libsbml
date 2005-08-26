@@ -201,21 +201,29 @@ MathMLHandler::startElement (const XMLCh* const  uri,
                              const XMLCh* const  qname,
                              const Attributes&   attrs)
 {
-  // At the beginning of an element we can discard all collected
-  // character data.
-  mCharacterData.str("");
-
   MathMLTagCode_t currTag  = getTagCode(uri, localname);
   MathMLTagCode_t prevTag  = MATHML_TAG_UNKNOWN;
   ASTNode*        currNode = NULL;
   ASTNode*        prevNode = NULL;
   ASTNodeType_t   type     = AST_TYPE_TABLE[currTag];
 
+
   if (Stack_size(fTagStack) > 0)
   {
     prevTag  = (MathMLTagCode_t) Stack_peek(fTagStack);
     prevNode = (ASTNode*)        Stack_peek(fObjStack);
   }
+
+  if ( (currTag == MATHML_TAG_SEP) && (prevTag == MATHML_TAG_CN) )
+  {
+    parseCN( mCharacterData.str().c_str() );
+  }
+   
+  //
+  // At the beginning of an element we can discard all collected
+  // character data.
+  //
+  mCharacterData.str("");
 
   //
   // When <apply> is seen, an AST_FUNCTION is created and pushed onto the
@@ -312,19 +320,19 @@ MathMLHandler::endElement (const XMLCh* const  uri,
       break;
 
     case MATHML_TAG_CN:
-      parseCN(mCharacterData.str().c_str());
+      parseCN( mCharacterData.str().c_str() );
       reduceExpression();
       fSeenSep = false;
       break;
 
     case MATHML_TAG_CI:
-      parseCI(mCharacterData.str().c_str());
+      parseCI( mCharacterData.str().c_str() );
       reduceExpression();
       fSeenSep = false;
       break;
 
     case MATHML_TAG_CSYMBOL:
-      parseCI(mCharacterData.str().c_str());
+      parseCI( mCharacterData.str().c_str() );
       reduceExpression();
       break;
 
