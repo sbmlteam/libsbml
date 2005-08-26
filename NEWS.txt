@@ -2,6 +2,53 @@
 
                               D R A F T
 
+=== Version 2.3.4 ===
+
+* New Features:
+
+  - The SBML and MathML XML Schemas are now stored in the libSBML
+    Xerces library itself.  This vastly simplifies XML Schema
+    validation as it is no longer necessary to store and locate the
+    XML Schemas on the end-users filesystem.
+
+  - Validator Constraint 1801, which ensures an event trigger is a
+    boolean now takes into account FunctionDefinitions and piecewise
+    functions, in additional to inline MathML.  Sarah Keating provided
+    this extra functionality.
+
+
+* Bug Fixes:
+
+  - When reading nested <piecewise> elements, libSBML looses the outer
+    piecewise elements.  Thanks to Martin Ginkel for reporting this
+    bug and providing a test case.  Sarah Keating tracked down the
+    cause of the bug and provided a fix.
+
+  - In some rare cases libSBML Expat would not be able to read all
+    characters between <cn> and </cn> or <ci> and </ci> elements which
+    would cause their contents to be parsed incorrectly.  Thanks to
+    Ralph Gauges for reporting this bug and Stefan Hoops for providing
+    a fix.
+
+  - When compiled with MSVC++ on Windows libSBML's ASTNode.getReal()
+    would return zero when the ASTNode represented a
+    <cn type="e-notation">.  This bug did *not* manifest itself on
+    Linux, Mac OS X (gcc compiler) systems.  Thanks to Andrew Finney
+    and Jordan Atlas for reporting this bug and Andrew Finney for
+    suggesting a fix.
+
+
+* Changes:
+
+
+* Known Bugs:
+
+
+* Released September xx, 2005
+
+
+
+
 === Version 2.3.2 ===
 
 * New Features:
