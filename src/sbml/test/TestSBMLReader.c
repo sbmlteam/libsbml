@@ -370,7 +370,7 @@ START_TEST (test_SBMLReader_readSBML_schema_full_inmemory_with_error)
 
   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
 
-  d = SBMLReader_readSBML(sr, "test-data/l1v1-branch-schema-error.xml.xml");
+  d = SBMLReader_readSBML(sr, "test-data/l1v1-branch-schema-error.xml");
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
   fail_unless( SBMLDocument_getNumErrors(d)   == 1 );
