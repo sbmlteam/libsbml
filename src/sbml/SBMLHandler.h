@@ -69,6 +69,7 @@
 #  include <xercesc/sax2/DefaultHandler.hpp>
    using xercesc::Attributes;
    using xercesc::DefaultHandler;
+   using xercesc::InputSource;
    using xercesc::Locator;
    using xercesc::SAXParseException;
 #endif  /* USE_EXPAT */
