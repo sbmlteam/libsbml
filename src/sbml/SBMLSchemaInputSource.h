@@ -51,34 +51,40 @@
 #ifndef SBMLSchemaInputSource_h
 #define SBMLSchemaInputSource_h
 
+
 #ifndef USE_EXPAT
-#  include <xercesc/sax/InputSource.hpp>
-#  include <xercesc/util/BinMemInputStream.hpp>
-   using namespace xercesc;
-#endif  /* !USE_EXPAT */
+
+
+#include <xercesc/sax/InputSource.hpp>
+#include <xercesc/util/BinMemInputStream.hpp>
+
+
+using namespace xercesc;
+
 
 /**
- *  This class is a derivative of the standard xerces c 
- *  input source (InputSource) class. 
+ * This class is a derivative of the standard Xerces-C++ InputSource class.
  */
 class SBMLSchemaInputSource: public InputSource
 {
 public :
-  SBMLSchemaInputSource (const char* *         srcDocBytes
-                       , const char* const     bufId
-                       , const unsigned int    byteCount
-                       , MemoryManager* const  manager = XMLPlatformUtils::fgMemoryManager);
+  SBMLSchemaInputSource (  const char**          srcDocBytes
+                         , const char* const     bufId
+                         , const unsigned int    byteCount
+                         , MemoryManager* const  manager =
+                             XMLPlatformUtils::fgMemoryManager);
 
-  ~SBMLSchemaInputSource();
+  ~SBMLSchemaInputSource ();
 
-  BinInputStream* SBMLSchemaInputSource::makeStream() const;
+  BinInputStream* SBMLSchemaInputSource::makeStream () const;
 
 
-private :
+private:
 
-    unsigned int    fByteCount;
-    const char **   fBytes;
+  unsigned int    fByteCount;
+  const char **   fBytes;
 };
 
 
-#endif
+#endif  /* !USE_EXPAT */
+#endif  /* SBMLSchemaInputSource_h */

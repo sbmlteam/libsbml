@@ -51,45 +51,49 @@
 #ifndef SBMLSchemaInputStream_h
 #define SBMLSchemaInputStream_h
 
-#ifndef USE_EXPAT
-#  include <xercesc/util/XMemory.hpp>
-#  include <xercesc/util/BinMemInputStream.hpp>
-   using namespace xercesc;
-#endif  /* !USE_EXPAT */
 
-# include <string.h>
+#ifndef USE_EXPAT
+
+
+#include <xercesc/util/XMemory.hpp>
+#include <xercesc/util/BinMemInputStream.hpp>
+#include <string.h>
+
+
+using namespace xercesc;
+
 
 /**
- *  This class is a derivative of the standard xerces c 
- *  input source (InputStream) class. 
+ * This class is a derivative of the standard Xerces-C++ InputStream class.
  */
 class SBMLSchemaInputStream: public BinInputStream
 {
-public :
+public:
   
-    // -----------------------------------------------------------------------
-    //  Constructors and Destructor
-    // -----------------------------------------------------------------------
+  // -----------------------------------------------------------------------
+  //  Constructors and Destructor
+  // -----------------------------------------------------------------------
 
-     SBMLSchemaInputStream (const char * *        srcDocBytes
-                          , const unsigned int    byteCount
-                          , MemoryManager* const  manager = XMLPlatformUtils::fgMemoryManager);
+  SBMLSchemaInputStream (  const char * *        srcDocBytes
+                         , const unsigned int    byteCount
+                         , MemoryManager* const  manager =
+                             XMLPlatformUtils::fgMemoryManager );
 
-    ~SBMLSchemaInputStream();
+  ~SBMLSchemaInputStream ();
+
+  unsigned int curPos    () const;
+  unsigned int readBytes (XMLByte* const toFill, const unsigned int maxToRead);
 
 
-    unsigned int curPos() const;
-    
-    unsigned int readBytes (XMLByte* const  toFill, const unsigned int  maxToRead);
+private:
 
-
-private :
-    const XMLByte*  fBuffer;
-    unsigned int    fCapacity;
-    unsigned int    fCurIndex;
-    MemoryManager*  fMemoryManager;
-    const char **   fSchema;
-
+  const XMLByte*  fBuffer;
+  unsigned int    fCapacity;
+  unsigned int    fCurIndex;
+  MemoryManager*  fMemoryManager;
+  const char **   fSchema;
 };
 
-#endif
+
+#endif  /* !USE_EXPAT */
+#endif  /* SBMLSchemaInputStream_h */

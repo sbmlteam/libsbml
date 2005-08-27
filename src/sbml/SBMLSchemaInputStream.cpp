@@ -47,25 +47,23 @@
  * Contributor(s):
  */
 
-// ---------------------------------------------------------------------------
-//  Includes
-// ---------------------------------------------------------------------------
 
 #include "xml/common.h"
 #include "SBMLSchemaInputStream.h"
 
-// ---------------------------------------------------------------------------
-//  SBMLSchemaInputStream: Constructors and Destructor
-// ---------------------------------------------------------------------------
- SBMLSchemaInputStream::SBMLSchemaInputStream(const char**         srcDocBytes
-                                            , const unsigned int   byteCount
-                                            , MemoryManager* const manager) :
-      fBuffer(0)
-    , fCapacity(byteCount)
-    , fCurIndex(0)
-    , fMemoryManager(manager)
+
+#ifndef USE_EXPAT
+
+
+SBMLSchemaInputStream::SBMLSchemaInputStream ( const char**         srcDocBytes
+                                             , const unsigned int   byteCount
+                                             , MemoryManager* const manager) :
+   fBuffer(0)
+ , fCapacity(byteCount)
+ , fCurIndex(0)
+ , fMemoryManager(manager)
 {
-      fSchema = srcDocBytes;
+  fSchema = srcDocBytes;
 }
 
 
@@ -74,42 +72,46 @@ SBMLSchemaInputStream::~SBMLSchemaInputStream()
 }
 
 
-// ---------------------------------------------------------------------------
-//  SBMLSchemaInputStream: Implementation of the input stream interface
-// ---------------------------------------------------------------------------
 unsigned int 
-SBMLSchemaInputStream ::readBytes(XMLByte* const  toFill, const unsigned int    maxToRead)
+SBMLSchemaInputStream ::readBytes(  XMLByte* const     toFill
+                                  , const unsigned int maxToRead )
 {
-    //
-    //  Figure out how much we can really read. Its the smaller of the
-    //  amount available and the amount asked for.
-    //
-    const unsigned int available = (fCapacity - fCurIndex);
-    if (!available)
-        return 0;
+  //
+  //  Figure out how much we can really read. Its the smaller of the
+  //  amount available and the amount asked for.
+  //
+  const unsigned int available = (fCapacity - fCurIndex);
+  if (!available)
+    return 0;
 
-    const unsigned int actualToRead = available < maxToRead ?
-                                      available : maxToRead;
+  const unsigned int actualToRead =
+    available < maxToRead ? available : maxToRead;
 
-    // create a non constant pointer to the XMLByte buffer
-    XMLByte * pp = toFill;
+  // create a non constant pointer to the XMLByte buffer
+  XMLByte * pp = toFill;
 
 
-    // loop through each element of the const char * []
-    // and copy to the buffer as XMLBytes
-    int i = 0;
-    while (strlen(fSchema[i]) > 0) {
-      memcpy(pp, (const XMLByte*)&fSchema[i][fCurIndex], strlen(fSchema[i]));
-      pp = pp+strlen(fSchema[i]);
-      i++;
-    }
+  // loop through each element of the const char * []
+  // and copy to the buffer as XMLBytes
+  int i = 0;
+  while (strlen(fSchema[i]) > 0)
+  {
+    memcpy(pp, (const XMLByte*)&fSchema[i][fCurIndex], strlen(fSchema[i]));
+    pp = pp+strlen(fSchema[i]);
+    i++;
+  }
     
-    fCurIndex += actualToRead;
+  fCurIndex += actualToRead;
     
-    return actualToRead;
+  return actualToRead;
 }
 
-unsigned int SBMLSchemaInputStream::curPos() const
+
+unsigned int
+SBMLSchemaInputStream::curPos () const
 {
   return fCurIndex;
 }
+
+
+#endif /* !USE_EXPAT */

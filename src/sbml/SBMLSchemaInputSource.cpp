@@ -47,21 +47,19 @@
  * Contributor(s):
  */
 
-// ---------------------------------------------------------------------------
-//  Includes
-// ---------------------------------------------------------------------------
 
 #include "xml/common.h"
 #include "SBMLSchemaInputSource.h"
 #include "SBMLSchemaInputStream.h"
 
-// ---------------------------------------------------------------------------
-//  SBMLSchemaInputSource: Constructors and Destructor
-// ---------------------------------------------------------------------------
- SBMLSchemaInputSource::SBMLSchemaInputSource(const char* *         srcDocBytes
-                                            , const char* const     bufId
-                                            , const unsigned int    byteCount
-                                            , MemoryManager* const  manager) : 
+
+#ifndef USE_EXPAT
+
+
+SBMLSchemaInputSource::SBMLSchemaInputSource ( const char**         srcDocBytes
+                                             , const char* const    bufId
+                                             , const unsigned int   byteCount
+                                             , MemoryManager* const manager) : 
 
    InputSource(bufId, manager)
  , fBytes(srcDocBytes)
@@ -71,19 +69,17 @@
 }
 
 
-SBMLSchemaInputSource::~SBMLSchemaInputSource()
+SBMLSchemaInputSource::~SBMLSchemaInputSource ()
 {
 }
 
 
-// ---------------------------------------------------------------------------
-//  SBMLSchemaInputSource: InputSource interface implementation
-// ---------------------------------------------------------------------------
 BinInputStream* 
-SBMLSchemaInputSource::makeStream() const
+SBMLSchemaInputSource::makeStream () const
 {
-
-    return new (getMemoryManager()) SBMLSchemaInputStream(fBytes, fByteCount
-                                                        , getMemoryManager());
+  return new (getMemoryManager())
+    SBMLSchemaInputStream( fBytes, fByteCount, getMemoryManager() );
 }
 
+
+#endif /* !USE_EXPAT */
