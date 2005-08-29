@@ -507,7 +507,7 @@ SBML_convertSpeciesToL1 (Model_t *m, Species_t *s)
   }
   else if (Species_isSetInitialConcentration(s) == 0)
   {
-    amount = 0.0;
+    amount = Species_getInitialAmount(s);
   }
   Species_setInitialAmount(s, amount);
 
