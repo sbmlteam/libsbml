@@ -81,7 +81,7 @@ Pass: (1801) An Event trigger must return a boolean value
         </trigger>
       </event>
 
-      <event id="e9">
+      <event id="e10">
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply> <not/> <true/> </apply>
@@ -89,7 +89,7 @@ Pass: (1801) An Event trigger must return a boolean value
         </trigger>
       </event>
 
-      <event id="e10">
+      <event id="e11">
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply> <true/> </apply>
@@ -97,7 +97,7 @@ Pass: (1801) An Event trigger must return a boolean value
         </trigger>
       </event>
 
-      <event id="e11">
+      <event id="e12">
         <trigger>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply> <false/> </apply>
