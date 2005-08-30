@@ -125,6 +125,7 @@ BooleanReturnFromEventTrigger::doCheck (const Model& m)
     Event *e = m.getEvent(n);
     if ( e->isSetTrigger())
     {
+      p = 0;
       const ASTNode *t = e->getTrigger();
       const ASTNodeType_t type = t->getType();
       const char *name = t->getName();
@@ -138,13 +139,7 @@ BooleanReturnFromEventTrigger::doCheck (const Model& m)
         }
         else 
         {
-          validOutput = checkBooleanReturn(t->getChild(p), m, e);
-          p++;
-          while (validOutput && p < t->getNumChildren()) {
-            validOutput = checkBooleanReturn(t->getChild(p), m, e);
-            p++;
-          }
-
+           validOutput = checkBooleanReturn((ASTNode *)t, m, e);
         }// end of else isFunction
       }// end of isBoolean
     } // end of is setTrigger
@@ -170,11 +165,6 @@ BooleanReturnFromEventTrigger::checkBooleanReturn(ASTNode * function, const Mode
       p = 0;
       validOutput = checkBooleanReturn(function->getChild(p), m, e);
       
-      while (validOutput && p < function->getNumChildren()) {
-        p++;
-        validOutput = checkBooleanReturn(function->getChild(p), m, e);
-      }
-
       if (!validOutput)
         logFailure("The piecewise function does not return a boolean.", e);
     
