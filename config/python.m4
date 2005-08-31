@@ -47,6 +47,9 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 
     if test $with_python != yes;
     then
+      dnl Remove needless trailing slashes because it can confuse tests later.
+      with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
+
       AC_PATH_PROG([PYTHON], [python], [$with_python/bin/python],
                      [no-python-found], [$with_python/bin])
     else

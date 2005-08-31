@@ -60,6 +60,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     if test $with_java != yes;
     then
+      dnl Remove needless trailing slashes because it can confuse tests later.
+      with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
+
       dnl Users seems to have supplied a prefix directory path.  See if we can 
       dnl find Java somewhere in the given tree.
 

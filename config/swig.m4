@@ -99,6 +99,9 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     if test $with_swig != yes;
     then
+      dnl Remove needless trailing slashes because it can confuse tests later.
+      with_swig=`echo $with_swig | sed -e 's,\(.*\)/$,\1,g'`
+
       AC_PATH_PROG([SWIG], [swig], [$with_swig/bin/swig],
                      [no-swig-found], [$with_swig/bin])
     else
