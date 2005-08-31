@@ -215,15 +215,15 @@ recursive_targets = all-recursive include-recursive install-data-recursive \
 
 $(recursive_targets): subdirs
 
-subdirs_recursive = $(addsuffix -recursive,$(subdirs))
+subdirs_recurse = $(addsuffix -recurse,$(subdirs))
 
-subdirs: $(subdirs_recursive)
+subdirs: $(subdirs_recurse)
 
-$(subdirs_recursive): 
+$(subdirs_recurse): 
 ifneq "$(MAKEFLAGS)" ""
-	$(MAKE) -w -C $(subst -recursive,,$@) -$(MAKEFLAGS) $(MAKECMDGOALS)
+	$(MAKE) -w -C $(subst -recurse,,$@) -$(MAKEFLAGS) $(MAKECMDGOALS)
 else
-	$(MAKE) -w -C $(subst -recursive,,$@) $(MAKECMDGOALS)
+	$(MAKE) -w -C $(subst -recurse,,$@) $(MAKECMDGOALS)
 endif
 
 
@@ -565,7 +565,7 @@ CTAGS: $(headers) $(sources)
 # Common special targets.
 # -----------------------------------------------------------------------------
 
-.PHONY: $(recursive_targets) CTAGS GTAGS all all-am check check-am docs \
+.PHONY: $(recursive_targets) CTAGS GTAGS all all-am check check-am \
 	include clean clean-generic clean-libtool ctags \
 	dist dist-all dist-gzip distcheck distclean \
 	distclean-generic distclean-libtool distclean-tags distcleancheck \
@@ -576,7 +576,7 @@ CTAGS: $(headers) $(sources)
 	installdirs-am maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags uninstall uninstall-am uninstall-info-am \
-	clean-extras subdirs $(subdirs_recursive) subdist subdistcheck
+	clean-extras subdirs $(subdirs_recurse) subdist subdistcheck
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
