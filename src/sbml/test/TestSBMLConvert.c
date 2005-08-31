@@ -366,6 +366,68 @@ START_TEST (test_SBMLConvert_convertRuleToL2_ParameterRule)
 }
 END_TEST
 
+START_TEST (test_SBMLConvert_convertToL1_SBMLDocument)
+{
+  SBMLDocument_t *d = SBMLDocument_createWith(2, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+
+
+  SBML_convertToL1( m, (SBase_t *) d);
+
+  fail_unless( SBMLDocument_getLevel  (d) == 1, NULL );
+  fail_unless( SBMLDocument_getVersion(d) == 2, NULL );
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+START_TEST (test_SBMLConvert_convertToL1_Species_Amount)
+{
+  SBMLDocument_t *d = SBMLDocument_createWith(2, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  const char   *sid = "C";
+  Compartment_t  *c = Compartment_create();
+  Species_t      *s = Species_create();
+
+  Compartment_setId    (c, sid); 
+  Model_addCompartment ( m, c);
+
+  Species_setCompartment  ( s, sid); 
+  Species_setInitialAmount( s, 2.34);
+  Model_addSpecies        ( m, s);
+  
+  SBML_convertToL1( m, (SBase_t *) d);
+
+  fail_unless( Species_getInitialAmount (s) == 2.34, NULL );
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
+START_TEST (test_SBMLConvert_convertToL1_Species_Concentration)
+{
+  SBMLDocument_t *d = SBMLDocument_createWith(2, 1);
+  Model_t        *m = SBMLDocument_createModel(d);
+  const char   *sid = "C";
+  Compartment_t  *c = Compartment_create();
+  Species_t      *s = Species_create();
+
+  Compartment_setId    (c, sid);
+  Compartment_setSize  (c, 1.2); 
+  Model_addCompartment ( m, c);
+
+  Species_setCompartment         ( s, sid); 
+  Species_setInitialConcentration( s, 2.34);
+  Model_addSpecies               ( m, s);
+  
+  SBML_convertToL1( m, (SBase_t *) d);
+
+  fail_unless( Species_getInitialAmount (s) == 2.808, NULL );
+
+  SBMLDocument_free(d);
+}
+END_TEST
+
 
 Suite *
 create_suite_SBMLConvert (void) 
@@ -390,6 +452,10 @@ create_suite_SBMLConvert (void)
                   test_SBMLConvert_convertRuleToL2_CompartmentVolumeRule );
 
   tcase_add_test( tcase, test_SBMLConvert_convertRuleToL2_ParameterRule  );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL1_SBMLDocument       );
+  tcase_add_test( tcase, test_SBMLConvert_convertToL1_Species_Amount     );
+  tcase_add_test( tcase, 
+                  test_SBMLConvert_convertToL1_Species_Concentration       );
 
 
   suite_add_tcase(suite, tcase);
