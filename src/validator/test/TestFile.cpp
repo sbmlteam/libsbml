@@ -51,7 +51,7 @@
 
 #include <cstdlib>
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(CYGWIN)
 #  include "tps/dirent.h"
 #else
 #  include <sys/types.h>
