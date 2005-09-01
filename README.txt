@@ -15,7 +15,7 @@
 
 
        Please join the libsbml-discuss mailing list by visiting
-    https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
+	    http://www.sbml.org/forums/index.php?t=pre_reg
 
 
 --------------
@@ -37,10 +37,10 @@ library instead:
   ./configure --with-expat
 
 By default, libSBML only builds the C and C++ API library.  If you
-want to configure libSBML to build the Java, Python, Lisp and/or
+want to configure libSBML to build the Java, Python, Perl, Lisp and/or
 MATLAB API libraries as well, add the flags --with-java,
---with-python, --with-lisp and/or --with-matlab to the configure
-command.  For example,
+--with-python, --with-perl, --with-lisp and/or --with-matlab to the
+configure command.  For example,
 
   ./configure --with-expat --with-java --with-python
 
@@ -49,22 +49,22 @@ Once you've successfully configured libSBML, type:
   make
   make install
 
+Optionally, to install the documentation files, also do
+
+  make install-docs
+
 To compile C or C++ programs that use libSBML with GCC, use a command
 such as:
 
   gcc -o myapp.c myapp.c -lsbml
-
-Note: A Perl binding is available but is not yet hooked into the
-configuration system.  See the file bindings/perl/README.txt for
-information about building and installing the Perl bindings
 
 
 1.2 Windows
 -----------
 
 Unzip the libSBML distribution and open the resulting folder (which
-will have a name such as 'libsbml-2.1.0-expat' or
-'libsbml-2.1.0-xerces').  There are debug (libsbmld) and release
+will have a name such as 'libsbml-2.3.0-expat' or
+'libsbml-2.3.0-xerces').  There are debug (libsbmld) and release
 (libsbml) versions of libSBML, with .dll and .lib files for both
 versions in the 'win32' subdirectory of the libSBML distribution.
 Header files are located in the subdirectory 'src/sbml'.
@@ -81,11 +81,11 @@ runtime, respectively.
 
 This README file describes libSBML, a library for reading, writing and
 manipulating files and data streams containing the Systems Biology
-Markup Language (SBML).  The library supports both SBML Level 1 (version
-1 and 2) and SBML Level 2.
+Markup Language (SBML).  The library supports both SBML Level 1 and
+SBML Level 2.
 
 The library is written in ISO C and C++ and currently provides an API
-for the languages C, C++, Java, Python, Lisp, Perl and MATLAB.
+for the languages C, C++, Java, Lisp, Perl, Python and MATLAB.
 LibSBML is known to run on Linux, Windows, and MacOS X, but is
 portable and support for other platforms should be straightforward to
 implement.
@@ -101,7 +101,9 @@ Feature Highlights:
 
       Documentation is available in the "docs" subdirectory in both
       pre-formatted and source form.  Pre-formatted documents are
-      available in PDF, TeX DVI, and HTML formats.
+      available in PDF, TeX DVI, and HTML formats.  Full
+      documentation, including copies of the API references, are also
+      available online from http://sbml.org/software/libsbml/.
 
   - Small memory footprint and fast runtime
 
@@ -133,17 +135,17 @@ Feature Highlights:
       for efficiency (this is Xerces-C++ native format); however,
       strings are transcoded to the local code page for SBML structures.
 
-  - Well tested: 760 unit tests, 3426 individual assertions.
+  - Well tested: over 760 unit tests, over 3400 individual assertions.
 
       The entire library was written using the test-first approach
       popularized by Kent Beck and eXtreme Programming, where it's one
       of the 12 principles.
 
       Five test cases are responsible for reading entire SBML files
-      (three are examples from the L1 document) into memory and
+      (three are examples from the Level 1 document) into memory and
       verifying every field of the resulting structures.
 
-  - Memory tests: 7536 allocations and frees, 0 leaks.
+  - Memory tests: over 7500 allocations and frees, 0 leaks.
 
       For use by developers, a custom memory trace facility tracks all
       memory allocated and freed in both the library and all test
@@ -228,9 +230,13 @@ as the user 'root' on your system if you used the default installation
 directory (/usr/local) or you set --prefix to a system directory that
 only root is permitted to write into.
 
+Optionally, to install local copies of the documentation, execute
+
+  make docs
+
 Finally, on most platforms, you will also need to either run the
-command ldconfig as user 'root' (consult the man page for ldconfig if
-this is unfamiliar), or else set the environment variable
+system program 'ldconfig' as user 'root' (consult the man page for
+ldconfig if this is unfamiliar), or else set the environment variable
 LD_LIBRARY_PATH in your terminal shell window.  (On MacOS X, the
 variable is named DYLD_LIBRARY_PATH.)  If you do not do this,
 attempting to link other programs with the libSBML library will fail
@@ -250,20 +256,20 @@ already described, the libSBML configuration command supports the
 options described below.
 
 
-3.3.1 Interfaces to Java, Python, Lisp and MATLAB
-.................................................
+3.3.1 Interfaces to Java, Lisp, Perl, Python and MATLAB
+.......................................................
 
-libSBML includes language bindings for Java, Python, Common Lisp and
-MATLAB, enabling you to write Java, Python, Lisp and MATLAB programs
-that call libSBML methods, and work with libSBML through Python's and
-MATLAB's interactive modes.  Short tutorials for how to use these
-facilities are available in the libSBML directory 'docs/formatted'.
+libSBML includes language bindings for Java, Perl, Python, Common Lisp
+and MATLAB, enabling you to write Java, Perl, Python, Lisp and MATLAB
+programs that call libSBML methods, and work with libSBML through
+Python's and MATLAB's interactive modes.  Short tutorials for how to
+use these facilities are available in the libSBML documentation.
 
 To enable the library extensions for Java, Python, Lisp and MATLAB,
 you need to supply additional options to configure.  These options are
---with-java, --with-python, --with-lisp, and --with-matlab.  As with
-other configure options, these three take an optional prefix argument;
-for example,
+--with-java, --with-perl, --with-python, --with-lisp, and
+--with-matlab.  As with other configure options, these three take an
+optional prefix argument; for example,
 
   ./configure --with-java="DIR"
 
@@ -272,14 +278,10 @@ multiple flags together as in the following example:
 
   ./configure --with-java --with-python
 
-A Perl language binding is available but is not yet hooked into the
-configuration system.  See the file bindings/perl/README.txt for
-information about building and installing the Perl bindings
-
 The libSBML distribution ships with certain interface files provided,
 so that you do not need to have the software necessary to recreate
 them.  However, if you obtained the libSBML distribution from CVS or
-want to recreate the files deliberately, you will need need SWIG, the
+want to recreate the files deliberately, you will need SWIG, the
 Simplified Wrapper and Interface Generator.  More information about
 SWIG is available from http://www.swig.org.  At this time, libSBML is
 known to work only with the latest stable version of SWIG (1.3.24);
@@ -327,7 +329,7 @@ are meant primarily for developers of libSBML and running them is not
 required for the library to function properly.  All tests should pass
 with no failures or errors.  If for some reason this is not the case
 on your system, please submit a bug report using the facilities at
-http://www.sf.net/projects/sbml.
+http://sbml.org/software/libsbml/.
 
 
 3.3.3 Memory Tracing
@@ -349,7 +351,7 @@ library and all test suites is tracked.  At the end of the test run,
 statistics are printed on total memory allocations, deallocations and
 leaks.  The memory statistics for the test suites should report zero
 leaks.  If for some reason this is not the case, please submit a
-report at http://www.sf.net/projects/sbml.
+report using the facilities at http://sbml.org/software/libsbml/.
 
 For performance reasons, memory tracing should be disabled in production
 environments.  It is disabled by default in libSBML, but if enabled it,
@@ -404,7 +406,7 @@ To build libsbml on Windows:
 
 Please join the libsbml-discuss mailing list by visiting the URL
 
-  https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
+  http://www.sbml.org/forums/index.php?t=pre_reg
 
 Being a member of libsbml-discuss will enable you to keep in touch with
 the latest developments in LibSBML as well as to ask questions and share
