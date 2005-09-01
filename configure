@@ -3393,6 +3393,8 @@ fi;
 
     if test $with_swig != yes;
     then
+            with_swig=`echo $with_swig | sed -e 's,\(.*\)/$,\1,g'`
+
       # Extract the first word of "swig", so it can be a program name with args.
 set dummy swig; ac_word=$2
 echo "$as_me:$LINENO: checking for $ac_word" >&5
@@ -3561,6 +3563,8 @@ fi;
 
     if test $with_python != yes;
     then
+            with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
+
       # Extract the first word of "python", so it can be a program name with args.
 set dummy python; ac_word=$2
 echo "$as_me:$LINENO: checking for $ac_word" >&5
@@ -3661,7 +3665,7 @@ echo "${ECHO_T}$PYTHON_PREFIX" >&6
     case $host in
     *darwin*)
 
-	if test `expr ${PYTHON} ':' '/usr/bin/.*'` -ne 0; then
+	if test `expr ${PYTHON} ':' '/usr/bin/.*' '|' ${PYTHON} ':' '/System/.*'` -ne 0; then
 	     	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
 	else
@@ -3838,6 +3842,8 @@ fi;
 
     if test $with_java != yes;
     then
+            with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
+
 
       # Extract the first word of "java", so it can be a program name with args.
 set dummy java; ac_word=$2
@@ -4287,6 +4293,8 @@ fi;
 
     if test $with_matlab != yes;
     then
+            with_matlab=`echo $with_matlab | sed -e 's,\(.*\)/$,\1,g'`
+
       # Extract the first word of "mex", so it can be a program name with args.
 set dummy mex; ac_word=$2
 echo "$as_me:$LINENO: checking for $ac_word" >&5
@@ -4600,7 +4608,7 @@ if test "${ac_cv_FUNC_LISPEXIT+set}" = set; then
 else
   ac_cv_FUNC_LISPEXIT=no-exit
     for ex in "sb-ext:quit :unix-status" "lisp:exit" "excl:exit" "sys:exit" "ext:quit" "unix:unix-exit" "no-exit" ; do
-      echo "configure:4603 trying $ex ..." >&5
+      echo "configure:4611 trying $ex ..." >&5
       echo "(ignore-errors ($ex 127))"|$LISP 2>&5 1>&5
       if test "$?" = "127" ; then
         ac_cv_FUNC_LISPEXIT=$ex
@@ -5790,15 +5798,15 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
+    LIBCHECK_LIBS="-lcheck"
+
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
 
   RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
 
-
       LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
       LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
-      LIBCHECK_LIBS="-lcheck"
     else
 
 
@@ -5808,10 +5816,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
   RUN_LDPATH="$RUN_LDPATH:$libcheck_root/lib"
 
-
         LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
         LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
-        LIBCHECK_LIBS="-lcheck"
 	;;
       esac
 

@@ -218,6 +218,9 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 
     if test $with_java != yes;
     then
+      dnl Remove needless trailing slashes because it can confuse tests later.
+      with_java=`echo $with_java | sed -e 's,\(.*\)/$,\1,g'`
+
       dnl Users seems to have supplied a prefix directory path.  See if we can 
       dnl find Java somewhere in the given tree.
 
@@ -511,13 +514,13 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
     AC_LANG_PUSH(C)
 
+    LIBCHECK_LIBS="-lcheck"
+
     if test $with_libcheck != yes; then
       libcheck_root="$with_libcheck"
       CONFIG_ADD_LDPATH($libcheck_root/lib)
-
       LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
       LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
-      LIBCHECK_LIBS="-lcheck"
     else
       dnl On the Macs, if the user has installed libcheck via Fink and they
       dnl used the default Fink install path of /sw, the following should
@@ -531,10 +534,8 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
       *darwin*) 
         libcheck_root="/sw"
         CONFIG_ADD_LDPATH($libcheck_root/lib)
-
         LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
         LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
-        LIBCHECK_LIBS="-lcheck"
 	;;
       esac    
 
@@ -977,6 +978,9 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
 
     if test $with_matlab != yes;
     then
+      dnl Remove needless trailing slashes because it can confuse tests later.
+      with_matlab=`echo $with_matlab | sed -e 's,\(.*\)/$,\1,g'`
+
       AC_PATH_PROG([MEX], [mex], [$with_matlab/bin/mex],
                      [no-mex-found], [$with_matlab/bin])
       AC_PATH_PROG([MATLAB], [matlab], [$with_matlab/bin/matlab],
@@ -1160,6 +1164,9 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 
     if test $with_python != yes;
     then
+      dnl Remove needless trailing slashes because it can confuse tests later.
+      with_python=`echo $with_python | sed -e 's,\(.*\)/$,\1,g'`
+
       AC_PATH_PROG([PYTHON], [python], [$with_python/bin/python],
                      [no-python-found], [$with_python/bin])
     else
@@ -1201,7 +1208,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	dnl it's either the Fink version or something else, and don't use
 	dnl -framework.
 
-	if test `expr ${PYTHON} ':' '/usr/bin/.*'` -ne 0; then
+	if test `expr ${PYTHON} ':' '/usr/bin/.*' '|' ${PYTHON} ':' '/System/.*'` -ne 0; then
 	  dnl MacOSX-installed version of Python (we hope).
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
@@ -1421,6 +1428,9 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     if test $with_swig != yes;
     then
+      dnl Remove needless trailing slashes because it can confuse tests later.
+      with_swig=`echo $with_swig | sed -e 's,\(.*\)/$,\1,g'`
+
       AC_PATH_PROG([SWIG], [swig], [$with_swig/bin/swig],
                      [no-swig-found], [$with_swig/bin])
     else
