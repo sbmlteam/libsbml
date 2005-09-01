@@ -490,6 +490,14 @@ ifeq "$(HOST_TYPE)" "linux"
   endef
 
 endif
+ifeq "$(HOST_TYPE)" "cygwin"
+
+  define libsbmlrun
+	LD_LIBRARY_PATH="$(TOP_BUILDDIR)/src:$(RUN_LDPATH):."; export LD_LIBRARY_PATH; export srcdir=.; \
+	$(1)
+  endef
+
+endif
 
 
 # -----------------------------------------------------------------------------
