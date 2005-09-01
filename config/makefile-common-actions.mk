@@ -73,11 +73,19 @@
 
 default_includes ?= -I.
 
+# Compiling under cygwin doesn't need -fPIC.
+
+ifneq "$(HOST_TYPE)" "cygwin"
+  FPIC = -fPIC
+endif
+
+# Here follow the generic compilation commands.
+
 compile ?= $(CC) $(extra_CPPFLAGS) $(extra_CFLAGS) $(default_includes) \
-	$(CPPFLAGS) $(CFLAGS) $(INCLUDES) -fPIC
+	$(CPPFLAGS) $(CFLAGS) $(INCLUDES) $(FPIC)
 
 cxxcompile ?= $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
-	 $(CPPFLAGS) $(CXXFLAGS) $(INCLUDES) -fPIC
+	 $(CPPFLAGS) $(CXXFLAGS) $(INCLUDES) $(FPIC)
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
