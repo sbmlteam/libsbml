@@ -163,7 +163,8 @@ BooleanReturnFromEventTrigger::checkBooleanReturn(ASTNode * function, const Mode
 
     case AST_FUNCTION_PIECEWISE:
       p = 0;
-      validOutput = checkBooleanReturn(function->getChild(p), m, e);
+      validOutput = (function->getChild(p))->isBoolean();
+ //     validOutput = checkBooleanReturn(function->getChild(p), m, e);
       
       if (!validOutput)
         logFailure("The piecewise function does not return a boolean.", e);
