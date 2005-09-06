@@ -428,6 +428,121 @@ START_TEST (test_SBMLConvert_convertToL1_Species_Concentration)
 }
 END_TEST
 
+START_TEST (test_SBMLConvert_convertRuleToL1_SpeciesConcentrationRule)
+{
+  AssignmentRule_t *ar;
+  RateRule_t *rr;
+  SpeciesConcentrationRule_t *scr, *scr1;
+  const char *s, *ss;
+
+  Model_t      *m  = Model_create();
+  Species_t    *s1 = Model_createSpecies(m);
+  Species_t    *s2 = Model_createSpecies(m);
+
+  Species_setId(s1, "s1");
+  Species_setId(s2, "s2");
+
+  ar = Model_createAssignmentRule(m);
+  AssignmentRule_setVariable(ar, "s1");
+
+  rr = Model_createRateRule(m);
+  RateRule_setVariable(rr, "s2");
+
+  SBML_convertAllRulesToL1(m);
+
+  scr = (SpeciesConcentrationRule_t *)Model_getRule(m,0);
+  scr1 = (SpeciesConcentrationRule_t *)Model_getRule(m,1);
+  s = SpeciesConcentrationRule_getSpecies(scr);
+  ss = SpeciesConcentrationRule_getSpecies(scr1);
+
+  fail_unless( !strcmp(s, "s1") );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) scr) ==
+               RULE_TYPE_SCALAR );
+  fail_unless( !strcmp(ss, "s2") );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) scr1) ==
+               RULE_TYPE_RATE );
+
+  Model_free(m);
+}
+END_TEST
+
+START_TEST (test_SBMLConvert_convertRuleToL1_CompartmentVolumeRule)
+{
+  AssignmentRule_t *ar;
+  RateRule_t *rr;
+  CompartmentVolumeRule_t *cvr, *cvr1;
+  const char *s, *ss;
+
+  Model_t      *m  = Model_create();
+  Compartment_t    *s1 = Model_createCompartment(m);
+  Compartment_t    *s2 = Model_createCompartment(m);
+
+  Compartment_setId(s1, "s1");
+  Compartment_setId(s2, "s2");
+
+
+  ar = Model_createAssignmentRule(m);
+  AssignmentRule_setVariable(ar, "s1");
+
+  rr = Model_createRateRule(m);
+  RateRule_setVariable(rr, "s2");
+
+  SBML_convertAllRulesToL1(m);
+
+  cvr = (CompartmentVolumeRule_t *)Model_getRule(m,0);
+  cvr1 = (CompartmentVolumeRule_t *)Model_getRule(m,1);
+  s = CompartmentVolumeRule_getCompartment(cvr);
+  ss = CompartmentVolumeRule_getCompartment(cvr1);
+
+  fail_unless( !strcmp(s, "s1") );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) cvr) ==
+               RULE_TYPE_SCALAR );
+  fail_unless( !strcmp(ss, "s2") );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) cvr1) ==
+               RULE_TYPE_RATE );
+
+  Model_free(m);
+}
+END_TEST
+
+START_TEST (test_SBMLConvert_convertRuleToL1_ParameterRule)
+{
+  AssignmentRule_t *ar;
+  RateRule_t *rr;
+  ParameterRule_t *pr, *pr1;
+  const char *s, *ss;
+
+  Model_t      *m  = Model_create();
+  Parameter_t    *s1 = Model_createParameter(m);
+  Parameter_t    *s2 = Model_createParameter(m);
+
+  Parameter_setId(s1, "s1");
+  Parameter_setId(s2, "s2");
+
+
+  ar = Model_createAssignmentRule(m);
+  AssignmentRule_setVariable(ar, "s1");
+
+  rr = Model_createRateRule(m);
+  RateRule_setVariable(rr, "s2");
+
+  SBML_convertAllRulesToL1(m);
+
+  pr = (ParameterRule_t *)Model_getRule(m,0);
+  pr1 = (ParameterRule_t *)Model_getRule(m,1);
+  s = ParameterRule_getName(pr);
+  ss = ParameterRule_getName(pr1);
+
+  fail_unless( !strcmp(s, "s1") );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) pr) ==
+               RULE_TYPE_SCALAR );
+  fail_unless( !strcmp(ss, "s2") );
+  fail_unless( AssignmentRule_getType((AssignmentRule_t *) pr1) ==
+               RULE_TYPE_RATE );
+
+  Model_free(m);
+}
+END_TEST
 
 Suite *
 create_suite_SBMLConvert (void) 
@@ -456,6 +571,12 @@ create_suite_SBMLConvert (void)
   tcase_add_test( tcase, test_SBMLConvert_convertToL1_Species_Amount     );
   tcase_add_test( tcase, 
                   test_SBMLConvert_convertToL1_Species_Concentration       );
+  tcase_add_test( tcase, 
+                  test_SBMLConvert_convertRuleToL1_SpeciesConcentrationRule);
+  tcase_add_test( tcase, 
+                  test_SBMLConvert_convertRuleToL1_CompartmentVolumeRule);
+  tcase_add_test( tcase, 
+                  test_SBMLConvert_convertRuleToL1_ParameterRule);
 
 
   suite_add_tcase(suite, tcase);
