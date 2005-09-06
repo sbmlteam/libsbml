@@ -50,7 +50,64 @@
 
 
 #include <check.h>
+#include <locale.h>
+
 #include "common/common.h"
+
+
+START_TEST (test_c_locale_snprintf)
+{
+  char s[32];
+
+
+  setlocale(LC_ALL, "de_DE");
+
+  fail_unless( snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
+  fail_unless( !strcmp(s, "3,14")                         );
+  
+  fail_unless( c_locale_snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
+  fail_unless( !strcmp(s, "3.14")                                  );
+
+  setlocale(LC_ALL, "C");
+}
+END_TEST
+
+
+/**
+ * The nature of vsnprintf makes it difficult to unit test using the
+ * 'check' framework.  For now, since c_local_snprintf is written in terms
+ * of c_locale_vsnprintf, if the "sn" test succeeds, we assume "vsn" is
+ * correct.
+ *
+START_TEST (test_c_locale_vsnprintf)
+{
+}
+END_TEST
+*/
+
+
+START_TEST (test_c_locale_strtod)
+{
+  const char *de = "2,72";
+  const char *en = "2.72";
+  char *endptr;
+
+
+  setlocale(LC_ALL, "de_DE");
+
+  endptr = NULL;
+  fail_unless( strtod(de, &endptr) == 2.72 );
+  fail_unless( (endptr - de)       == 4    );
+  fail_unless( errno != ERANGE             );
+
+  endptr = NULL;
+  fail_unless( c_locale_strtod(en, &endptr) == 2.72 );
+  fail_unless( (endptr - en)                == 4    );
+  fail_unless( errno != ERANGE                      );
+
+  setlocale(LC_ALL, "C");
+}
+END_TEST
 
 
 START_TEST (test_util_file_exists)
@@ -247,6 +304,8 @@ create_suite_util (void)
   TCase *tcase = tcase_create("util");
 
 
+  tcase_add_test( tcase, test_c_locale_snprintf       );
+  tcase_add_test( tcase, test_c_locale_strtod         );
   tcase_add_test( tcase, test_util_file_exists        );
   tcase_add_test( tcase, test_util_strcmp_insensitive );
   tcase_add_test( tcase, test_util_safe_strcat        );
