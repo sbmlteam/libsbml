@@ -70,11 +70,6 @@
 #include "SBMLUnicodeConstants.h"
 
 
-#ifdef _MSC_VER
-#  define snprintf _snprintf
-#endif
-
-
 using namespace std;
 
 
@@ -2532,7 +2527,7 @@ SBMLFormatter::attribute (const XMLCh* name, bool value)
 void
 SBMLFormatter::attribute (const XMLCh* name, int value)
 {
-  snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%d", value);
+  c_locale_snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%d", value);
   attribute(name, mNumberBuffer);
 }
 
@@ -2544,7 +2539,7 @@ SBMLFormatter::attribute (const XMLCh* name, int value)
 void
 SBMLFormatter::attribute (const XMLCh* name, unsigned int value)
 {
-  snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%u", value);
+  c_locale_snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%u", value);
   attribute(name, mNumberBuffer);
 }
 
@@ -2574,7 +2569,8 @@ SBMLFormatter::attribute (const XMLCh* name, double value)
   }
   else
   {
-    snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT, value);
+    c_locale_snprintf( mNumberBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT,
+                       value );
     attribute(name, mNumberBuffer);
   }
 }

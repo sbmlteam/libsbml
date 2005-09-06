@@ -1689,6 +1689,24 @@ START_TEST (test_SBMLFormatter_xmlns)
 END_TEST
 
 
+START_TEST (test_SBMLFormatter_locale)
+{
+  const char* s = wrapXML("<parameter name=\"p\" value=\"3.31\"/>\n");
+  Parameter   p = Parameter("p", 3.31);
+
+
+  setlocale(LC_NUMERIC, "de_DE");
+
+  *formatter << SBMLFormatter::Level1 << SBMLFormatter::Version2;
+  *formatter << p;
+
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
+
+  setlocale(LC_NUMERIC, "C");
+}
+END_TEST
+
+
 /**
  * A <rateRule> with a <notes> and/or <annotation> is not formatted with a
  * closing angle bracket, e.g.:
@@ -1913,6 +1931,7 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_NegINF                );
   tcase_add_test( tcase, test_SBMLFormatter_NegZero               );
   tcase_add_test( tcase, test_SBMLFormatter_xmlns                 );
+  tcase_add_test( tcase, test_SBMLFormatter_locale                );
 
   /* Bugs */
   tcase_add_test( tcase, test_SBMLFormatter_nonempty_RateRule_bug             );
