@@ -50,6 +50,7 @@
 
 
 #include <check.h>
+#include <locale.h>
 
 #include "common/common.h"
 #include "FormulaTokenizer.h"
@@ -61,8 +62,8 @@ START_TEST (test_FormulaTokenizer_create)
   FormulaTokenizer_t *ft      = FormulaTokenizer_create(formula);
 
 
-  fail_unless( !strcmp(ft->formula, formula), NULL );
-  fail_unless( ft->pos == 0, NULL );
+  fail_unless( !strcmp(ft->formula, formula) );
+  fail_unless( ft->pos == 0 );
 
   FormulaTokenizer_free(ft);
 }
@@ -81,12 +82,12 @@ START_TEST (test_Token_create)
   Token_t *t = Token_create();
 
 
-  fail_unless( t->type          == TT_UNKNOWN, NULL );
-  fail_unless( t->value.ch      == '\0'      , NULL );
-  fail_unless( t->value.name    == NULL      , NULL );
-  fail_unless( t->value.integer == 0         , NULL );
-  fail_unless( t->value.real    == 0.0       , NULL );
-  fail_unless( t->exponent      == 0         , NULL );
+  fail_unless( t->type          == TT_UNKNOWN );
+  fail_unless( t->value.ch      == '\0'       );
+  fail_unless( t->value.name    == NULL       );
+  fail_unless( t->value.integer == 0          );
+  fail_unless( t->value.real    == 0.0        );
+  fail_unless( t->exponent      == 0          );
 
   Token_free(t);
 }
@@ -120,8 +121,8 @@ START_TEST (test_FormulaTokenizer_empty)
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_END, NULL );
-  fail_unless( t->value.ch == '\0'  , NULL );
+  fail_unless( t->type     == TT_END );
+  fail_unless( t->value.ch == '\0'   );
   Token_free(t);
 
   /**
@@ -129,13 +130,13 @@ START_TEST (test_FormulaTokenizer_empty)
    * return TT_END.
    */
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_END, NULL );
-  fail_unless( t->value.ch == '\0'  , NULL );
+  fail_unless( t->type     == TT_END );
+  fail_unless( t->value.ch == '\0'   );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_END, NULL );
-  fail_unless( t->value.ch == '\0'  , NULL );
+  fail_unless( t->type     == TT_END );
+  fail_unless( t->value.ch == '\0'   );
   Token_free(t);
 
   FormulaTokenizer_free(ft);
@@ -151,8 +152,8 @@ START_TEST (test_FormulaTokenizer_whitespace)
 
   t = FormulaTokenizer_nextToken(ft);
 
-  fail_unless( t->type     == TT_END, NULL );
-  fail_unless( t->value.ch == '\0'  , NULL );
+  fail_unless( t->type     == TT_END );
+  fail_unless( t->value.ch == '\0'   );
 
   Token_free(t);
   FormulaTokenizer_free(ft);
@@ -167,48 +168,48 @@ START_TEST (test_FormulaTokenizer_operators)
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_PLUS, NULL );
-  fail_unless( t->value.ch == '+'    , NULL );
+  fail_unless( t->type     == TT_PLUS );
+  fail_unless( t->value.ch == '+'     );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_MINUS, NULL );
-  fail_unless( t->value.ch == '-'     , NULL );
+  fail_unless( t->type     == TT_MINUS );
+  fail_unless( t->value.ch == '-'      );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_TIMES, NULL );
-  fail_unless( t->value.ch == '*'     , NULL );
+  fail_unless( t->type     == TT_TIMES );
+  fail_unless( t->value.ch == '*'      );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_DIVIDE, NULL );
-  fail_unless( t->value.ch == '/'      , NULL );
+  fail_unless( t->type     == TT_DIVIDE );
+  fail_unless( t->value.ch == '/'       );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_POWER, NULL );
-  fail_unless( t->value.ch == '^'     , NULL );
+  fail_unless( t->type     == TT_POWER );
+  fail_unless( t->value.ch == '^'      );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_LPAREN, NULL );
-  fail_unless( t->value.ch == '('      , NULL );
+  fail_unless( t->type     == TT_LPAREN );
+  fail_unless( t->value.ch == '('       );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_RPAREN, NULL );
-  fail_unless( t->value.ch == ')'      , NULL );
+  fail_unless( t->type     == TT_RPAREN );
+  fail_unless( t->value.ch == ')'       );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_COMMA, NULL );
-  fail_unless( t->value.ch == ','     , NULL );
+  fail_unless( t->type     == TT_COMMA );
+  fail_unless( t->value.ch == ','      );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless(t->type      == TT_END, NULL );
-  fail_unless( t->value.ch == '\0'  , NULL );
+  fail_unless(t->type      == TT_END );
+  fail_unless( t->value.ch == '\0'   );
   Token_free(t);
 
   FormulaTokenizer_free(ft);
@@ -223,22 +224,22 @@ START_TEST (test_FormulaTokenizer_names)
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type == TT_NAME              , NULL );
-  fail_unless( !strcmp(t->value.name, "foobar"), NULL );
+  fail_unless( t->type == TT_NAME               );
+  fail_unless( !strcmp(t->value.name, "foobar") );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type == TT_NAME               , NULL );
-  fail_unless( !strcmp(t->value.name, "Foo2Bar"), NULL );
+  fail_unless( t->type == TT_NAME                );
+  fail_unless( !strcmp(t->value.name, "Foo2Bar") );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type == TT_NAME                , NULL );
-  fail_unless( !strcmp(t->value.name, "_Foo_Bar"), NULL );
+  fail_unless( t->type == TT_NAME                 );
+  fail_unless( !strcmp(t->value.name, "_Foo_Bar") );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless(t->type == TT_END, NULL);
+  fail_unless( t->type == TT_END );
   Token_free(t);
 
   FormulaTokenizer_free(ft);
@@ -253,32 +254,32 @@ START_TEST (test_FormulaTokenizer_numbers)
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type          == TT_INTEGER, NULL );
-  fail_unless( t->value.integer == 123       , NULL );
+  fail_unless( t->type          == TT_INTEGER );
+  fail_unless( t->value.integer == 123        );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 3.14   , NULL );
+  fail_unless( t->type       == TT_REAL );
+  fail_unless( t->value.real == 3.14    );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == .007   , NULL );
+  fail_unless( t->type       == TT_REAL );
+  fail_unless( t->value.real == .007    );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 6.7    , NULL );
+  fail_unless( t->type       == TT_REAL );
+  fail_unless( t->value.real == 6.7     );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL, NULL );
-  fail_unless( t->value.real == 5.0    , NULL );
+  fail_unless( t->type       == TT_REAL );
+  fail_unless( t->value.real == 5.0     );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless(t->type == TT_END, NULL);
+  fail_unless( t->type == TT_END );
   Token_free(t);
 
   FormulaTokenizer_free(ft);
@@ -293,17 +294,17 @@ START_TEST (test_FormulaTokenizer_numbers_nan_inf)
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL      , NULL );
-  fail_unless( t->value.real != t->value.real, NULL );
+  fail_unless( t->type       == TT_REAL       );
+  fail_unless( t->value.real != t->value.real );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type                   == TT_REAL, NULL );
-  fail_unless( util_isInf(t->value.real) == 1, NULL );
+  fail_unless( t->type                   == TT_REAL );
+  fail_unless( util_isInf(t->value.real) == 1       );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless(t->type == TT_END, NULL);
+  fail_unless( t->type == TT_END );
   Token_free(t);
 
   FormulaTokenizer_free(ft);
@@ -319,45 +320,45 @@ START_TEST (test_FormulaTokenizer_numbers_exp)
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL_E, NULL );
-  fail_unless( t->value.real == 12.3, NULL );
-  fail_unless( t->exponent   == 1   , NULL );
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == 12.3      );
+  fail_unless( t->exponent   == 1         );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL_E, NULL );
-  fail_unless( t->value.real == .314, NULL );
-  fail_unless( t->exponent   == 1   , NULL );
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == .314      );
+  fail_unless( t->exponent   == 1         );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL_E, NULL );
-  fail_unless( t->value.real ==  7, NULL );
-  fail_unless( t->exponent   == -3, NULL );
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real ==  7        );
+  fail_unless( t->exponent   == -3        );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL_E, NULL );
-  fail_unless( t->value.real == .067, NULL );
-  fail_unless( t->exponent   == 2   , NULL );
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == .067      );
+  fail_unless( t->exponent   == 2         );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL_E, NULL );
-  fail_unless( t->value.real == 5.0, NULL );
-  fail_unless( t->exponent   == 0  , NULL );
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == 5.0       );
+  fail_unless( t->exponent   == 0         );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL_E, NULL );
-  fail_unless( t->value.real == 2 , NULL );
-  fail_unless( t->exponent   == 12, NULL );
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == 2         );
+  fail_unless( t->exponent   == 12        );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type       == TT_REAL_E, NULL );
-  fail_unless( t->value.real == 3.0, NULL );
-  fail_unless( t->exponent   == 0  , NULL );
+  fail_unless( t->type       == TT_REAL_E );
+  fail_unless( t->value.real == 3.0       );
+  fail_unless( t->exponent   == 0         );
   Token_free(t);
 
   /**
@@ -365,14 +366,38 @@ START_TEST (test_FormulaTokenizer_numbers_exp)
    * previous token is not interpreted as 3e4.
    */
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type          == TT_INTEGER, NULL );
-  fail_unless( t->value.integer == 4, NULL );
+  fail_unless( t->type          == TT_INTEGER );
+  fail_unless( t->value.integer == 4          );
   Token_free(t);
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless(t->type == TT_END, NULL);
+  fail_unless( t->type == TT_END );
   Token_free(t);
+
+  FormulaTokenizer_free(ft);
+}
+END_TEST
+
+
+START_TEST (test_FormulaTokenizer_numbers_locale)
+{
+  FormulaTokenizer_t *ft = FormulaTokenizer_create("2.72");
+  Token_t            *t;
+
+
+  setlocale(LC_NUMERIC, "de_DE");
+
+  t = FormulaTokenizer_nextToken(ft);
+  fail_unless( t->type       == TT_REAL );
+  fail_unless( t->value.real == 2.72    );
+  Token_free(t);
+
+  t = FormulaTokenizer_nextToken(ft);
+  fail_unless( t->type == TT_END );
+  Token_free(t);
+
+  setlocale(LC_NUMERIC, "C");
 
   FormulaTokenizer_free(ft);
 }
@@ -386,32 +411,32 @@ START_TEST (test_FormulaTokenizer_unknown)
 
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type == TT_NAME, NULL );
-  fail_unless( !strcmp(t->value.name, "bbornstein"), NULL );
+  fail_unless( t->type == TT_NAME                   );
+  fail_unless( !strcmp(t->value.name, "bbornstein") );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_UNKNOWN, NULL );
-  fail_unless( t->value.ch == '@'       , NULL );
+  fail_unless( t->type     == TT_UNKNOWN );
+  fail_unless( t->value.ch == '@'        );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type == TT_NAME, NULL );
-  fail_unless( !strcmp(t->value.name, "acm"), NULL );
+  fail_unless( t->type == TT_NAME            );
+  fail_unless( !strcmp(t->value.name, "acm") );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type     == TT_UNKNOWN, NULL );
-  fail_unless( t->value.ch == '.'       , NULL );
+  fail_unless( t->type     == TT_UNKNOWN );
+  fail_unless( t->value.ch == '.'        );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless( t->type == TT_NAME, NULL );
-  fail_unless( !strcmp(t->value.name, "org"), NULL );
+  fail_unless( t->type == TT_NAME            );
+  fail_unless( !strcmp(t->value.name, "org") );
   Token_free(t);
 
   t = FormulaTokenizer_nextToken(ft);
-  fail_unless(t->type == TT_END, NULL);
+  fail_unless( t->type == TT_END );
   Token_free(t);
 
   FormulaTokenizer_free(ft);
@@ -439,6 +464,7 @@ create_suite_FormulaTokenizer (void)
   tcase_add_test( tcase, test_FormulaTokenizer_numbers         );
   tcase_add_test( tcase, test_FormulaTokenizer_numbers_exp     );
   tcase_add_test( tcase, test_FormulaTokenizer_numbers_nan_inf );
+  tcase_add_test( tcase, test_FormulaTokenizer_numbers_locale  );
   tcase_add_test( tcase, test_FormulaTokenizer_unknown         );
 
   suite_add_tcase(suite, tcase);

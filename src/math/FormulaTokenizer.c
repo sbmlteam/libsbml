@@ -240,7 +240,7 @@ FormulaTokenizer_getNumber (FormulaTokenizer_t *ft, Token_t *t)
     }
 
     t->type       = TT_REAL;
-    t->value.real = strtod(ft->formula + start, &endptr);
+    t->value.real = c_locale_strtod(ft->formula + start, &endptr);
 
     /**
      * Convert the exponent part and "unhide" it.
