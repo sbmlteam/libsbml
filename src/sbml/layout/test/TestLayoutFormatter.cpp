@@ -42,8 +42,12 @@
  *
  * Contributor(s):
  */
+
+
 #include <iostream>
+
 #include <check.h>
+#include <locale.h>
 
 #include <common/common.h>
 
