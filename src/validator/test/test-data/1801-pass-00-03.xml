@@ -3,8 +3,9 @@
 <!--
 Fail: (1801) An Event trigger must return a boolean value
 (L2v1 Section 4.10.2)
-      Additional case where the event trigger is a piecewise function that 
-        includes a function definition
+
+Additional case where the event trigger is a piecewise function that
+includes a function definition.
 -->
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
@@ -42,10 +43,14 @@ Fail: (1801) An Event trigger must return a boolean value
                   <ci> f </ci>
                   <ci> S1 </ci>
                 </apply>
-                <cn> 1.5 </cn>
+                <apply>
+                  <gt/>
+                  <ci> S1 </ci>
+                  <cn> 1.5 </cn>
+                </apply>
               </piece>
               <otherwise>
-                <cn>0.05</cn> 
+                <false/> 
               </otherwise>
             </piecewise>
           </math>
