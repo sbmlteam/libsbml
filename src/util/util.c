@@ -55,8 +55,78 @@
 
 
 #include <ctype.h>
+#include <locale.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
+
+/**
+ * Identical to snprintf except printing always occurs according to the
+ * "C" locale.  This function does not affect the locale of the calling
+ * program.
+ */
+int
+c_locale_snprintf (char *str, size_t size, const char *format, ...)
+{
+  int result;
+  va_list ap;
+
+  va_start(ap, format);
+  result = c_locale_vsnprintf(str, size, format, ap);
+  va_end(ap);
+
+  return result;
+}
+
+
+/**
+ * Identical to vsnprintf except printing always occurs according to the
+ * "C" locale.  This function does not affect the locale of the calling
+ * program.
+ */
+int
+c_locale_vsnprintf (char *str, size_t size, const char *format, va_list ap)
+{
+#ifdef _MSC_VER
+#  define vsnprintf _vsnprintf
+#endif
+
+  int result;
+  const char *locale;
+
+
+  locale = setlocale(LC_ALL, NULL);
+  setlocale(LC_ALL, "C");
+
+  result = vsnprintf(str, size, format, ap);
+
+  setlocale(LC_ALL, locale);
+
+  return result;
+}
+
+
+/**
+ * Identical to strtod except conversion always occurs according to the
+ * "C" locale.  This function does not affect the locale of the calling
+ * program.
+ */
+double
+c_locale_strtod (const char *nptr, char **endptr)
+{
+  double result;
+  const char *locale;
+
+
+  locale = setlocale(LC_ALL, NULL);
+  setlocale(LC_ALL, "C");
+
+  result = strtod(nptr, endptr);
+
+  setlocale(LC_ALL, locale);
+
+  return result;
+}
 
 
 /**

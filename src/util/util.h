@@ -54,6 +54,8 @@
 
 
 #include <stdio.h>
+#include <stdarg.h>
+
 #include "../common/extern.h"
 
 
@@ -79,6 +81,31 @@ streq (const char *s, const char *t);
 
 
 BEGIN_C_DECLS
+
+
+/**
+ * Identical to snprintf except printing always occurs according to the
+ * "C" locale.  This function does not affect the locale of the calling
+ * program.
+ */
+int
+c_locale_snprintf (char *str, size_t size, const char *format, ...);
+
+/**
+ * Identical to vsnprintf except printing always occurs according to the
+ * "C" locale.  This function does not affect the locale of the calling
+ * program.
+ */
+int
+c_locale_vsnprintf (char *str, size_t size, const char *format, va_list ap);
+
+/**
+ * Identical to strtod except conversion always occurs according to the
+ * "C" locale.  This function does not affect the locale of the calling
+ * program.
+ */
+double
+c_locale_strtod (const char *nptr, char **endptr);
 
 
 /**
