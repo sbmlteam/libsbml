@@ -341,7 +341,7 @@ XMLUtil::scanAttr (const Attributes& attrs, const XMLCh* name, double* value)
       }
       else
       {
-        double result = strtod(nptr, &endptr);
+        double result = c_locale_strtod(nptr, &endptr);
         int    len    = endptr - nptr;
 
         if ( (len == (int) trimmedLen) && (errno != ERANGE) )

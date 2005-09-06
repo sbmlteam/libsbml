@@ -52,6 +52,7 @@
 
 #include <iostream>
 #include <check.h>
+#include <locale.h>
 
 #include "common/common.h"
 
@@ -511,6 +512,24 @@ START_TEST (test_scanAttr_double_inf)
 END_TEST
 
 
+START_TEST (test_scanAttr_double_locale)
+{
+  double volume = 1.41;
+  SAX2AttributesMock attrs(1);
+
+
+  setlocale(LC_NUMERIC, "de_DE");
+
+  attrs.add("volume", "3.14");
+
+  fail_unless( XMLUtil::scanAttr(attrs, ATTR_VOLUME, &volume) == true, NULL );
+  fail_unless( volume == 3.14, NULL );
+
+  setlocale(LC_NUMERIC, "C");
+}
+END_TEST
+
+
 START_TEST (test_scanAttr_double_nan)
 {
   double volume = 2.72;
@@ -659,6 +678,7 @@ create_suite_XMLUtil (void)
   tcase_add_test( tcase, test_scanAttr_double_empty     );
   tcase_add_test( tcase, test_scanAttr_double_formatted );
   tcase_add_test( tcase, test_scanAttr_double_inf       );
+  tcase_add_test( tcase, test_scanAttr_double_locale    );
   tcase_add_test( tcase, test_scanAttr_double_nan       );
   tcase_add_test( tcase, test_scanAttr_double_negZero   );
   tcase_add_test( tcase, test_scanAttr_double_notFound  );
