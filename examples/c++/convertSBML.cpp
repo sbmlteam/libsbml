@@ -48,13 +48,19 @@
  * Contributor(s):
  */
 
+#ifdef _MSC_VER
+  #include "common/common.h"
+  #include "util/util.h"
+#else
+  #include "sbml/common/common.h"
+  #include "sbml/util/util.h"
+#endif
 
-#include "sbml/common/common.h"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLWriter.h"
 #include "sbml/SBMLTypes.h"
 
-#include "sbml/util/util.h"
+
 
 #include <iostream>
 

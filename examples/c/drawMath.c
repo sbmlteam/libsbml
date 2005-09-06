@@ -48,13 +48,17 @@
  * Contributor(s):
  */
 
+#ifdef _MSC_VER
+  #include "common/common.h"
+  #include "util/util.h"
+#else
+  #include "sbml/common/common.h"
+  #include "sbml/util/util.h"
+#endif
 
-#include "sbml/common/common.h"
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLWriter.h"
 #include "sbml/SBMLTypes.h"
-
-#include "sbml/util/util.h"
 
 #include "FormulaGraphvizFormatter.h"
 
@@ -893,9 +897,12 @@ main (int argc, char *argv[])
   SBMLDocument_t *d;
   Model_t        *m;
 
-  if (argc != 2)
+  argc = 3;
+  argv[1] = "C:\\libsbml\\src\\validator\\test\\test-data\\1801-pass-00-03.xml";
+  argv[2] = "C:\\out.dot";
+  if (argc != 3)
   {
-    printf("\n  usage: drawMath <filename, outputfilename>\n\n");
+    printf("\n  usage: drawMath <filename>\n\n");
     return 1;
   }
   

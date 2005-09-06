@@ -49,7 +49,12 @@
  */
 
 
-#include "sbml/common/common.h"
+#ifdef _MSC_VER
+  #include "common/common.h"
+#else
+  #include "sbml/common/common.h"
+#endif
+
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
 
