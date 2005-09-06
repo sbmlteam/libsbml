@@ -37,6 +37,11 @@
     and Jordan Atlas for reporting this bug and Andrew Finney for
     suggesting a fix.
 
+  - ASTNode::swapChildren() and ASTNode_swapChildren() are now
+    accessible (public) in the libSBML Windows DLL.  These functions
+    were already public on Linux and Mac OS X.  Thanks to Rainer
+    Machne and Akira Funahashi for reporting this problem.
+
 
 * Changes:
 
