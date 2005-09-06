@@ -154,17 +154,48 @@ BooleanReturnFromEventTrigger::doCheck (const Model& m)
 bool
 BooleanReturnFromEventTrigger::checkBooleanReturn(ASTNode * function, const Model& m, Event* e)
 {
-  unsigned int fd, p;
+  unsigned int fd, p, flag;
   const ASTNodeType_t type = function->getType();
   const char *name = function->getName();
   bool validOutput = true;
+  ASTNode *child;
+  const char *childname;
 
   switch (type) {
 
     case AST_FUNCTION_PIECEWISE:
       p = 0;
-      validOutput = (function->getChild(p))->isBoolean();
- //     validOutput = checkBooleanReturn(function->getChild(p), m, e);
+
+      /* there is an issue here
+         if the picewise applies a function definition function
+         just checking that the function is boolean will not check the function
+         however if the we use a recursive call to checkBooleanReturn function
+         and the piecewise does not apply a function definition we get two errors
+      */
+  
+      child = function->getChild(p);
+      childname = child->getName();
+      flag = 0;
+
+      // check whether child is a function definition
+      for (fd = 0; fd < m.getNumFunctionDefinitions(); fd++)
+      {
+        FunctionDefinition *f = m.getFunctionDefinition(fd);
+
+        if (childname==f->getId())
+        {
+          flag = 1;
+        }
+      }
+  
+      if (flag == 1)
+      {
+        validOutput = checkBooleanReturn(function->getChild(p), m, e);
+      }
+      else
+      {
+        validOutput = (function->getChild(p))->isBoolean();
+      }
       
       if (!validOutput)
         logFailure("The piecewise function does not return a boolean.", e);
