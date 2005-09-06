@@ -849,7 +849,7 @@ LayoutFormatter::attribute (const XMLCh* name, bool value)
 void
 LayoutFormatter::attribute (const XMLCh* name, int value)
 {
-  snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%d", value);
+  c_locale_snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%d", value);
   attribute(name, mNumberBuffer);
 }
 
@@ -861,7 +861,7 @@ LayoutFormatter::attribute (const XMLCh* name, int value)
 void
 LayoutFormatter::attribute (const XMLCh* name, unsigned int value)
 {
-  snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%u", value);
+  c_locale_snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%u", value);
   attribute(name, mNumberBuffer);
 }
 
@@ -890,7 +890,7 @@ LayoutFormatter::attribute (const XMLCh* name, double value)
   }
   else
   {
-    snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%g", value);
+    c_locale_snprintf(mNumberBuffer, NUMBER_BUFFER_SIZE, "%g", value);
     attribute(name, mNumberBuffer);
   }
 }

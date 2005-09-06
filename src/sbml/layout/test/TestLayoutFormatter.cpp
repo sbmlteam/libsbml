@@ -181,7 +181,7 @@ START_TEST (test_LayoutFormatter_Layout_notes)
       "  <notes>\n"
       "    Test note.\n"
       "</notes>\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
+      "  <dimensions width=\"200\" height=\"400\"/>\n"
       "</layout>\n"     
     );
 
@@ -1545,6 +1545,21 @@ START_TEST (test_LayoutFormatter_BoundingBox_skipOptional)
 END_TEST
 
 
+START_TEST (test_LayoutFormatter_locale)
+{
+  const char* s = wrapXML("<dimensions width=\"1.2\" height=\"3.4\"/>\n");
+
+
+  setlocale(LC_NUMERIC, "de_DE");
+
+  *LF << Dimensions(1.2, 3.4);
+  fail_unless( !strcmp((char*) target->getRawBuffer(), s) );
+
+  setlocale(LC_NUMERIC, "C");
+}
+END_TEST
+
+
 Suite *
 create_suite_LayoutFormatter (void)
 {
@@ -1608,6 +1623,7 @@ create_suite_LayoutFormatter (void)
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_notes                 );
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_annotation            );
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_skipOptional          );
+  tcase_add_test( tcase, test_LayoutFormatter_locale                            );
   
   suite_add_tcase(suite, tcase);
 
