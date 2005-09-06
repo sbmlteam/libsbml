@@ -59,6 +59,7 @@
 #  include <expat.h>
 #  include "xml/ExpatXMLString.h"
 #else
+#  include <xercesc/sax/InputSource.hpp>
 #  include <xercesc/sax2/Attributes.hpp>
 #  include <xercesc/util/XMLString.hpp>
 #  include <xercesc/framework/LocalFileInputSource.hpp>
@@ -1882,6 +1883,8 @@ SBMLHandler::setDocumentLocator (const Locator *const locator)
   fLocator = locator;
   fMathHandler->setDocumentLocator(locator);
 }
+
+
 #ifndef USE_EXPAT
 
 /**
@@ -1903,23 +1906,30 @@ SBMLHandler::resolveEntity(const XMLCh* const    publicId,
    * specified and return an InputSource accordingly
    */
 
-  if (XMLString::compareString(l1v1, s2)==0) {
+  if (XMLString::compareString(l1v1, s2) == 0)
+  {
     return new SBMLSchemaInputSource( xsd, "FromString", 9299);
   }
-  else if (XMLString::compareString(l1v2, s2) == 0) {
+  else if (XMLString::compareString(l1v2, s2) == 0)
+  {
     return new SBMLSchemaInputSource( xsd_l1v2, "FromString", 9303);
   }
-  else if (XMLString::compareString(l2v1, s2) == 0) {
+  else if (XMLString::compareString(l2v1, s2) == 0)
+  {
     return new SBMLSchemaInputSource( xsd_l2v1, "FromString", 13749);
   }
-  else if (XMLString::compareString(math, s2) == 0) {
+  else if (XMLString::compareString(math, s2) == 0)
+  {
     return new SBMLSchemaInputSource( xsd_math, "FromString", 7295);
   }
-  else {
+  else
+  {
     return NULL;
   }
 }
-///////////////////////////////////////////////////////////////////////////////
+
+
+
 /* ----------------------------------------------------------------------
  *                         SAX2 Error Handlers
  * ----------------------------------------------------------------------
