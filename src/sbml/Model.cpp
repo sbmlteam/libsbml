@@ -69,6 +69,9 @@
 #include "Event.h"
 #include "EventAssignment.h"
 
+#include "math/ASTNode.h"
+
+
 #ifdef USE_LAYOUT
 #  include "layout/Layout.h"
 #endif  /* USE_LAYOUT */
@@ -1487,6 +1490,55 @@ unsigned int
 Model::getNumEvents () const
 {
   return event.getNumItems();
+}
+
+
+/**
+ * @return true if the given ASTNode is a boolean.  Often times, this
+ * question can be answered with the ASTNode's own isBoolean() method,
+ * but if the AST is an expression that calls a function defined in the
+ * Model's ListOf FunctionDefinitions, the model is needed for lookup
+ * context.
+ */
+LIBSBML_EXTERN
+bool
+Model::isBoolean (const ASTNode* node) const
+{
+  if ( !node )
+  {
+    return false;
+  }
+
+  else if ( node->isBoolean() )
+  {
+    return true;
+  }
+
+  else if (node->getType() == AST_FUNCTION)
+  {
+    FunctionDefinition* fd = getFunctionDefinition( node->getName() );
+
+    if (fd && fd->isSetMath())
+    {
+      return isBoolean( fd->getMath()->getRightChild() );
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  else if (node->getType() == AST_FUNCTION_PIECEWISE)
+  {
+    for (unsigned int c = 0; c < node->getNumChildren(); c += 2)
+    {
+      if ( !isBoolean( node->getChild(c) ) ) return false;
+    }
+
+    return true;
+  }
+
+  return false;
 }
 
 

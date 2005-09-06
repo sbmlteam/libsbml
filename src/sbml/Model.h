@@ -703,6 +703,16 @@ public:
   LIBSBML_EXTERN
   unsigned int getNumEvents () const;
 
+  /**
+   * @return true if the given ASTNode is a boolean.  Often times, this
+   * question can be answered with the ASTNode's own isBoolean() method,
+   * but if the AST is an expression that calls a function defined in the
+   * Model's ListOf FunctionDefinitions, the model is needed for lookup
+   * context.
+   */
+  LIBSBML_EXTERN
+  bool isBoolean (const ASTNode* node) const;
+
 
 #ifdef USE_LAYOUT
 
