@@ -42,6 +42,15 @@
     were already public on Linux and Mac OS X.  Thanks to Rainer
     Machne and Akira Funahashi for reporting this problem.
 
+  - When formatting numbers, libSBML would not obey the "C" locale if
+    another locale was set.  For example, if a program using libSBML
+    called, setlocale(LC_ALL, "de_DE") (or setlocale(LC_ALL, "German")
+    under Windows), thereafter libSBML would only read and write
+    floating point numbers where the decimal was a comma (instead of a
+    period).  Such behavior is in violation of the SBML
+    specifications.  Thanks to Pedro Mendes for asking a question (via
+    sbml-discuss) that lead to the discovery of this bug.
+
 
 * Changes:
 
