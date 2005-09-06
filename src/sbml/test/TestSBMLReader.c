@@ -163,9 +163,7 @@ START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
   d = SBMLReader_readSBML(sr, "test-data/l1v1-branch-schema-error.xml");
 
   fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
-#ifndef USE_EXPAT  /* No schema verification possible. */
   fail_unless( SBMLDocument_getNumErrors(d)   == 1 );
-#endif  /* !USE_EXPAT */
   fail_unless( SBMLDocument_getNumFatals(d)   == 0 );
 
   SBMLDocument_free(d);
@@ -389,23 +387,31 @@ create_suite_SBMLReader (void)
   TCase *tcase = tcase_create("SBMLReader");
 
 
-  tcase_add_test(tcase, test_SBMLReader_create                                    );
-  tcase_add_test(tcase, test_SBMLReader_setSchemaFilename                         );
-  tcase_add_test(tcase, test_SBMLReader_free_NULL                                 );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic                     );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_L1v2                );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error          );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full                      );
-  tcase_add_test(tcase, test_readSBML_NULL                                        );
-  tcase_add_test(tcase, test_readSBML_file_not_found_1                            );
-  tcase_add_test(tcase, test_readSBML_file_not_found_2                            );
-  tcase_add_test(tcase, test_readSBML_file_not_SBML_1                             );
-  tcase_add_test(tcase, test_readSBML_file_not_SBML_2                             );
-  tcase_add_test(tcase, test_readSBMLFromString_empty                             );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l1v1        );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l1v2        );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l2v1        );
-  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_with_error  );
+  tcase_add_test(tcase, test_SBMLReader_create            );
+  tcase_add_test(tcase, test_SBMLReader_setSchemaFilename );
+  tcase_add_test(tcase, test_SBMLReader_free_NULL         );
+  tcase_add_test(tcase, test_readSBML_NULL                );
+  tcase_add_test(tcase, test_readSBML_file_not_found_1    );
+  tcase_add_test(tcase, test_readSBML_file_not_found_2    );
+  tcase_add_test(tcase, test_readSBML_file_not_SBML_1     );
+  tcase_add_test(tcase, test_readSBML_file_not_SBML_2     );
+  tcase_add_test(tcase, test_readSBMLFromString_empty     );
+
+
+#ifndef USE_EXPAT  /* No XML Schema validation possible with Expat. */
+
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic              );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_L1v2         );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error   );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full               );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l1v1 );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l1v2 );
+  tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full_inmemory_l2v1 );
+  tcase_add_test(tcase,
+                 test_SBMLReader_readSBML_schema_full_inmemory_with_error  );
+
+#endif  /* !USE_EXPAT */
+
 
   suite_add_tcase(suite, tcase);
 
