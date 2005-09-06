@@ -484,6 +484,7 @@ public:
   /**
    * Swap the children of this ASTNode with the children of that ASTNode.
    */
+  LIBSBML_EXTERN
   void swapChildren (ASTNode *that);
 
 
@@ -994,6 +995,7 @@ ASTNode_setType (ASTNode_t *node, ASTNodeType_t type);
 /**
  * Swap the children of this ASTNode with the children of that ASTNode.
  */
+LIBSBML_EXTERN
 void
 ASTNode_swapChildren (ASTNode_t *node, ASTNode_t *that);
 
