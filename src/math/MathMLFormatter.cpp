@@ -68,11 +68,6 @@
 #include "MathMLUnicodeConstants.h" 
 
 
-#ifdef _MSC_VER
-#  define snprintf _snprintf
-#endif
-
-
 const unsigned int
 MathMLFormatter::NUMBER_BUFFER_SIZE = 100;
 
@@ -868,7 +863,7 @@ MathMLFormatter::doFunctionRoot (const ASTNode* node)
 char*
 MathMLFormatter::toString (long value)
 {
-  snprintf(mIntBuffer, NUMBER_BUFFER_SIZE, "%ld", value);
+  c_locale_snprintf(mIntBuffer, NUMBER_BUFFER_SIZE, "%ld", value);
   return mIntBuffer;
 }
 
@@ -879,7 +874,9 @@ MathMLFormatter::toString (long value)
 char*
 MathMLFormatter::toString (double value)
 {
-  snprintf(mFloatBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT, value);
+  c_locale_snprintf( mFloatBuffer, NUMBER_BUFFER_SIZE, LIBSBML_FLOAT_FORMAT,
+                     value );
+
   return mFloatBuffer;
 }
 

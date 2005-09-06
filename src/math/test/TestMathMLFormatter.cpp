@@ -149,6 +149,24 @@ START_TEST (test_MathMLFormatter_cn_real_3)
 END_TEST
 
 
+START_TEST (test_MathMLFormatter_cn_real_locale)
+{
+  ASTNode_t  *n = SBML_parseFormula("2.72");
+  const char *s = wrapXML("<cn> 2.72 </cn>\n");
+
+
+  setlocale(LC_NUMERIC, "de_DE");
+
+  *formatter << n;
+  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL);
+
+  setlocale(LC_NUMERIC, "C");
+
+  ASTNode_free(n);
+}
+END_TEST
+
+
 START_TEST (test_MathMLFormatter_cn_e_notation_1)
 {
   ASTNode_t  *n = SBML_parseFormula("0e3");
@@ -860,6 +878,7 @@ create_suite_MathMLFormatter (void)
   tcase_add_test( tcase, test_MathMLFormatter_cn_real_1             );
   tcase_add_test( tcase, test_MathMLFormatter_cn_real_2             );
   tcase_add_test( tcase, test_MathMLFormatter_cn_real_3             );
+  tcase_add_test( tcase, test_MathMLFormatter_cn_real_locale        );
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_1       );
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_2       );
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_3       );
