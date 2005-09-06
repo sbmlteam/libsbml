@@ -64,7 +64,7 @@
 #include "UniqueVarsInEventAssignments.h"
 #include "UniqueVarsInRules.h"
 
-#include "BooleanReturnFromEventTrigger.h"
+// #include "BooleanReturnFromEventTrigger.h"
 
 #endif
 
@@ -80,7 +80,7 @@ EXTERN_CONSTRAINT( 901, UniqueIdsForUnitDefinitions  )
 EXTERN_CONSTRAINT( 902, UniqueIdsInKineticLaw        )
 EXTERN_CONSTRAINT( 903, UniqueVarsInRules            )
 EXTERN_CONSTRAINT( 904, UniqueVarsInEventAssignments )
-EXTERN_CONSTRAINT(1801, BooleanReturnFromEventTrigger)
+// EXTERN_CONSTRAINT(1801, BooleanReturnFromEventTrigger)
 
 
 //
@@ -693,8 +693,6 @@ START_CONSTRAINT (1703, RateRule, r)
 END_CONSTRAINT
 
 
-
-
 START_CONSTRAINT (1800, Event, e)
 {
   msg =
@@ -713,20 +711,17 @@ START_CONSTRAINT (1800, Event, e)
 }
 END_CONSTRAINT
 
-/*
+
 START_CONSTRAINT (1801, Event, e)
 {
   msg =
     "An Event trigger must return a boolean value (L2v1 Section 4.10.2).";
 
-//  pre(m.getNumEvents()>0);
-  pre( e.isSetTrigger()            );
-
-  inv_or( e.getTrigger()->isBoolean() );
-  inv_or( e.getTrigger()->isFunction());
+  pre( e.isSetTrigger() );
+  inv( m.isBoolean( e.getTrigger() ) );
 }
 END_CONSTRAINT
-*/
+
 
 START_CONSTRAINT (1802, EventAssignment, ea)
 {
