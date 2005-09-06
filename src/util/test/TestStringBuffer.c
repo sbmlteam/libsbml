@@ -50,6 +50,7 @@
 
 
 #include <check.h>
+#include <locale.h>
 
 #include "common/common.h"
 #include "StringBuffer.h"
@@ -212,6 +213,38 @@ START_TEST (test_StringBuffer_appendReal)
 END_TEST
 
 
+START_TEST (test_StringBuffer_appendReal_locale)
+{
+  char *s, *t;
+
+
+  setlocale(LC_NUMERIC, "de_DE");
+
+  StringBuffer_appendReal(SB, 1.2);
+
+  fail_unless( StringBuffer_length(SB)   ==  3 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
+
+  s = StringBuffer_toString(SB);
+  fail_unless( !strcmp(s, "1.2") );
+
+  StringBuffer_appendChar(SB, ' ');
+  StringBuffer_appendReal(SB, 3);
+
+  fail_unless( StringBuffer_length(SB)   ==  5 );
+  fail_unless( StringBuffer_capacity(SB) == 20 );
+
+  t = StringBuffer_toString(SB);
+  fail_unless( !strcmp(t, "1.2 3") );
+
+  setlocale(LC_NUMERIC, "C");
+
+  safe_free(s);
+  safe_free(t);
+}
+END_TEST
+
+
 START_TEST (test_StringBuffer_grow)
 {
   char *s;
@@ -349,17 +382,18 @@ create_suite_StringBuffer (void)
                              StringBufferTest_setup,
                              StringBufferTest_teardown );
 
-  tcase_add_test( tcase, test_StringBuffer_create          );
-  tcase_add_test( tcase, test_StringBuffer_free_NULL       );
-  tcase_add_test( tcase, test_StringBuffer_append          );
-  tcase_add_test( tcase, test_StringBuffer_appendChar      );
-  tcase_add_test( tcase, test_StringBuffer_appendInt       );
-  tcase_add_test( tcase, test_StringBuffer_appendReal      );
-  tcase_add_test( tcase, test_StringBuffer_grow            );
-  tcase_add_test( tcase, test_StringBuffer_append_grow     );
-  tcase_add_test( tcase, test_StringBuffer_appendChar_grow );
-  tcase_add_test( tcase, test_StringBuffer_reset           );
-  tcase_add_test( tcase, test_StringBuffer_toString        );
+  tcase_add_test( tcase, test_StringBuffer_create            );
+  tcase_add_test( tcase, test_StringBuffer_free_NULL         );
+  tcase_add_test( tcase, test_StringBuffer_append            );
+  tcase_add_test( tcase, test_StringBuffer_appendChar        );
+  tcase_add_test( tcase, test_StringBuffer_appendInt         );
+  tcase_add_test( tcase, test_StringBuffer_appendReal        );
+  tcase_add_test( tcase, test_StringBuffer_appendReal_locale );
+  tcase_add_test( tcase, test_StringBuffer_grow              );
+  tcase_add_test( tcase, test_StringBuffer_append_grow       );
+  tcase_add_test( tcase, test_StringBuffer_appendChar_grow   );
+  tcase_add_test( tcase, test_StringBuffer_reset             );
+  tcase_add_test( tcase, test_StringBuffer_toString          );
 
   suite_add_tcase(suite, tcase);
 

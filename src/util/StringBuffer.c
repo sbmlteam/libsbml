@@ -156,7 +156,7 @@ StringBuffer_appendNumber (StringBuffer_t *sb, const char *format, ...)
   StringBuffer_ensureCapacity(sb, size);
 
   va_start(ap, format);
-  len = vsnprintf(sb->buffer + sb->length, size, format, ap);
+  len = c_locale_vsnprintf(sb->buffer + sb->length, size, format, ap);
   va_end(ap);
 
   sb->length += (len < 0 || len > size) ? size : len;
