@@ -388,15 +388,7 @@ create_suite_StringBuffer (void)
   tcase_add_test( tcase, test_StringBuffer_appendChar        );
   tcase_add_test( tcase, test_StringBuffer_appendInt         );
   tcase_add_test( tcase, test_StringBuffer_appendReal        );
-
-  /**
-   * This test will fail under Cygwin because of a minimal setlocale()
-   * implementation (see setlocale manpage).
-   */
-#ifndef CYGWIN
   tcase_add_test( tcase, test_StringBuffer_appendReal_locale );
-#endif
-
   tcase_add_test( tcase, test_StringBuffer_grow              );
   tcase_add_test( tcase, test_StringBuffer_append_grow       );
   tcase_add_test( tcase, test_StringBuffer_appendChar_grow   );

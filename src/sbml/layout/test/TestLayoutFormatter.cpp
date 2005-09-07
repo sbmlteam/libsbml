@@ -1627,14 +1627,8 @@ create_suite_LayoutFormatter (void)
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_notes                 );
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_annotation            );
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_skipOptional          );
+  tcase_add_test( tcase, test_LayoutFormatter_locale                            );
 
-  /**
-   * This test will fail under Cygwin because of a minimal setlocale()
-   * implementation (see setlocale manpage).
-   */
-#ifndef CYGWIN
-  tcase_add_test( tcase, test_LayoutFormatter_locale );
-#endif
 
   suite_add_tcase(suite, tcase);
 

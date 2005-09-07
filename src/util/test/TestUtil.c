@@ -62,9 +62,15 @@ START_TEST (test_c_locale_snprintf)
 
   setlocale(LC_ALL, "de_DE");
 
+  /**
+   * These tests will fail under Cygwin because of a minimal
+   * setlocale() implementation (see setlocale manpage).
+   */
+#ifndef CYGWIN
   fail_unless( snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
   fail_unless( !strcmp(s, "3,14")                         );
-  
+#endif
+
   fail_unless( c_locale_snprintf(s, sizeof(s), "%3.2f", 3.14) == 4 );
   fail_unless( !strcmp(s, "3.14")                                  );
 
@@ -95,10 +101,16 @@ START_TEST (test_c_locale_strtod)
 
   setlocale(LC_ALL, "de_DE");
 
+  /**
+   * These tests will fail under Cygwin because of a minimal
+   * setlocale() implementation (see setlocale manpage).
+   */
+#ifndef CYGWIN
   endptr = NULL;
   fail_unless( strtod(de, &endptr) == 2.72 );
   fail_unless( (endptr - de)       == 4    );
   fail_unless( errno != ERANGE             );
+#endif
 
   endptr = NULL;
   fail_unless( c_locale_strtod(en, &endptr) == 2.72 );
@@ -304,15 +316,8 @@ create_suite_util (void)
   TCase *tcase = tcase_create("util");
 
 
-  /**
-   * These tests will fail under Cygwin because of a minimal
-   * setlocale() implementation (see setlocale manpage).
-   */
-#ifndef CYGWIN
   tcase_add_test( tcase, test_c_locale_snprintf       );
   tcase_add_test( tcase, test_c_locale_strtod         );
-#endif
-
   tcase_add_test( tcase, test_util_file_exists        );
   tcase_add_test( tcase, test_util_strcmp_insensitive );
   tcase_add_test( tcase, test_util_safe_strcat        );

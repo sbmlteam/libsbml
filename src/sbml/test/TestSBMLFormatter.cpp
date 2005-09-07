@@ -1931,14 +1931,7 @@ create_suite_SBMLFormatter (void)
   tcase_add_test( tcase, test_SBMLFormatter_NegINF                );
   tcase_add_test( tcase, test_SBMLFormatter_NegZero               );
   tcase_add_test( tcase, test_SBMLFormatter_xmlns                 );
-
-  /**
-   * This test will fail under Cygwin because of a minimal setlocale()
-   * implementation (see setlocale manpage).
-   */
-#ifndef CYGWIN
   tcase_add_test( tcase, test_SBMLFormatter_locale                );
-#endif
 
   /* Bugs */
   tcase_add_test( tcase, test_SBMLFormatter_nonempty_RateRule_bug             );

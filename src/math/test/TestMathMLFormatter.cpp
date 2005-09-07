@@ -878,15 +878,7 @@ create_suite_MathMLFormatter (void)
   tcase_add_test( tcase, test_MathMLFormatter_cn_real_1             );
   tcase_add_test( tcase, test_MathMLFormatter_cn_real_2             );
   tcase_add_test( tcase, test_MathMLFormatter_cn_real_3             );
-
-  /**
-   * This test will fail under Cygwin because of a minimal setlocale()
-   * implementation (see setlocale manpage).
-   */
-#ifndef CYGWIN
   tcase_add_test( tcase, test_MathMLFormatter_cn_real_locale        );
-#endif
-
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_1       );
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_2       );
   tcase_add_test( tcase, test_MathMLFormatter_cn_e_notation_3       );
