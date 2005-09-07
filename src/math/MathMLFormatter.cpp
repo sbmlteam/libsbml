@@ -151,8 +151,8 @@ MathMLFormatter::MathMLFormatter (XMLFormatTarget* target, bool outputXMLDecl) :
 MathMLFormatter::~MathMLFormatter ()
 {
   delete mFormatter;
-  delete mFloatBuffer;
-  delete mIntBuffer;
+  delete [] mFloatBuffer;
+  delete [] mIntBuffer;
 }
 
 
