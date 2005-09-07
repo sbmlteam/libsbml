@@ -565,6 +565,30 @@ ASTNode::prependChild (ASTNode* child)
 
 
 /**
+ * @return a copy of this ASTNode and all its children.  The caller owns
+ * the returned ASTNode and is reponsible for deleting it.
+ */
+LIBSBML_EXTERN
+ASTNode*
+ASTNode::deepCopy () const
+{
+  ASTNode* copy = new ASTNode;
+
+
+  copy->mType     = mType;
+  copy->mReal     = mReal;
+  copy->mExponent = mExponent;
+
+  for (unsigned int c = 0; c < getNumChildren(); ++c)
+  {
+    copy->addChild( getChild(c)->deepCopy() );
+  }
+
+  return copy;
+}
+
+
+/**
  * @return the nth child of this ASTNode or NULL if this node has no nth
  * child (n > getNumChildren() - 1).
  */
@@ -1406,6 +1430,7 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child)
   static_cast<ASTNode*>(node)->addChild( static_cast<ASTNode*>(child) );
 }
 
+
 /**
  * Adds the given node as a child of this ASTNode.  This method adds child
  * nodes from "right-to-left".
@@ -1415,6 +1440,19 @@ void
 ASTNode_prependChild (ASTNode_t *node, ASTNode_t *child)
 {
   static_cast<ASTNode*>(node)->prependChild( static_cast<ASTNode*>(child) );
+}
+
+
+/**
+ * @return a copy of this ASTNode and all its children.  The caller owns
+ * the returned ASTNode and is reponsible for freeing it.
+ */
+LIBSBML_EXTERN
+ASTNode_t *
+ASTNode_deepCopy (const ASTNode_t *node)
+{
+  return
+    static_cast<ASTNode_t *>( static_cast<const ASTNode*>(node)->deepCopy() );
 }
 
 

@@ -931,6 +931,63 @@ START_TEST (test_ASTNode_canonicalizeRelational)
 END_TEST
 
 
+START_TEST (test_ASTNode_deepCopy)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *child, *copy;
+
+
+  /** 1 + 2 **/
+  ASTNode_setCharacter(node, '+');
+  ASTNode_addChild( node, ASTNode_create() );
+  ASTNode_addChild( node, ASTNode_create() );
+
+  ASTNode_setInteger( ASTNode_getLeftChild (node), 1 );
+  ASTNode_setInteger( ASTNode_getRightChild(node), 2 );
+
+  fail_unless( ASTNode_getType       (node) == AST_PLUS );
+  fail_unless( ASTNode_getCharacter  (node) == '+'      );
+  fail_unless( ASTNode_getNumChildren(node) == 2        );
+
+  child = ASTNode_getLeftChild(node);
+
+  fail_unless( ASTNode_getType       (child) == AST_INTEGER );
+  fail_unless( ASTNode_getInteger    (child) == 1           );
+  fail_unless( ASTNode_getNumChildren(child) == 0           );
+
+  child = ASTNode_getRightChild(node);
+
+  fail_unless( ASTNode_getType       (child) == AST_INTEGER );
+  fail_unless( ASTNode_getInteger    (child) == 2           );
+  fail_unless( ASTNode_getNumChildren(child) == 0           );
+
+  /** deepCopy() **/
+  copy = ASTNode_deepCopy(node);
+
+  fail_unless( copy != node );
+  fail_unless( ASTNode_getType       (copy) == AST_PLUS );
+  fail_unless( ASTNode_getCharacter  (copy) == '+'      );
+  fail_unless( ASTNode_getNumChildren(copy) == 2        );
+
+  child = ASTNode_getLeftChild(copy);
+
+  fail_unless( child != ASTNode_getLeftChild(node) );
+  fail_unless( ASTNode_getType       (child) == AST_INTEGER );
+  fail_unless( ASTNode_getInteger    (child) == 1           );
+  fail_unless( ASTNode_getNumChildren(child) == 0           );
+
+  child = ASTNode_getRightChild(copy);
+  fail_unless( child != ASTNode_getRightChild(node) );
+  fail_unless( ASTNode_getType       (child) == AST_INTEGER );
+  fail_unless( ASTNode_getInteger    (child) == 2           );
+  fail_unless( ASTNode_getNumChildren(child) == 0           );
+
+  ASTNode_free(node);
+  ASTNode_free(copy);
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_getName)
 {
   ASTNode_t *n = ASTNode_create();
@@ -1520,6 +1577,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_canonicalizeFunctionsL1 );
   tcase_add_test( tcase, test_ASTNode_canonicalizeLogical     );
   tcase_add_test( tcase, test_ASTNode_canonicalizeRelational  );
+  tcase_add_test( tcase, test_ASTNode_deepCopy                );
   tcase_add_test( tcase, test_ASTNode_getName                 );
   tcase_add_test( tcase, test_ASTNode_getReal                 );
   tcase_add_test( tcase, test_ASTNode_getPrecedence           );

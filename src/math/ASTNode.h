@@ -156,6 +156,13 @@ public:
   void prependChild (ASTNode* child);
 
   /**
+   * @return a copy of this ASTNode and all its children.  The caller owns
+   * the returned ASTNode and is reponsible for deleting it.
+   */
+  LIBSBML_EXTERN
+  ASTNode* deepCopy () const;
+
+  /**
    * @return the nth child of this ASTNode or NULL if this node has no nth
    * child (n > ASTNode_getNumChildren() - 1).
    */
@@ -619,6 +626,14 @@ ASTNode_addChild (ASTNode_t *node, ASTNode_t *child);
 LIBSBML_EXTERN
 void
 ASTNode_prependChild (ASTNode_t *node, ASTNode_t *child);
+
+/**
+ * @return a copy of this ASTNode and all its children.  The caller owns
+ * the returned ASTNode and is reponsible for freeing it.
+ */
+LIBSBML_EXTERN
+ASTNode_t *
+ASTNode_deepCopy (const ASTNode_t *node);
 
 
 /**

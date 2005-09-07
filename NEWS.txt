@@ -16,6 +16,10 @@
     functions, in additional to inline MathML.  Sarah Keating provided
     this extra functionality.
 
+  - ASTNode now has a deepCopy() method which will clone an ASTNode
+    and all of its children, and so on.  Thanks to Andrew Finney for
+    suggesting this feature.
+
 
 * Bug Fixes:
 
