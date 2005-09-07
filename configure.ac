@@ -110,22 +110,24 @@ dnl ---------------------------------------------------------------------------
 AC_CANONICAL_HOST
 
 TestDataDirectory="\$(srcdir)"
-SHAREDLIBEXT="so"
 
 case $host_os in
   *linux*)
     CPPFLAGS="-DLINUX $CPPFLAGS"
     HOST_TYPE="linux"
+    SHAREDLIBEXT="so"
     ;;
 
   *solaris*)
     CPPFLAGS="-DSOLARIS $CPPFLAGS"
     HOST_TYPE="solaris"
+    SHAREDLIBEXT="so"
     ;;
 
   *cygwin*)
     CPPFLAGS="-DWIN32 -DCYGWIN -DLIBSBML_EXPORTS $CPPFLAGS"
     HOST_TYPE="cygwin"
+    SHAREDLIBEXT="dll"
     ;;
 
   *darwin*)
