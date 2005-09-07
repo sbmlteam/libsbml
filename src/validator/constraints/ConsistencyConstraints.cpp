@@ -64,8 +64,6 @@
 #include "UniqueVarsInEventAssignments.h"
 #include "UniqueVarsInRules.h"
 
-// #include "BooleanReturnFromEventTrigger.h"
-
 #endif
 
 
@@ -80,7 +78,6 @@ EXTERN_CONSTRAINT( 901, UniqueIdsForUnitDefinitions  )
 EXTERN_CONSTRAINT( 902, UniqueIdsInKineticLaw        )
 EXTERN_CONSTRAINT( 903, UniqueVarsInRules            )
 EXTERN_CONSTRAINT( 904, UniqueVarsInEventAssignments )
-// EXTERN_CONSTRAINT(1801, BooleanReturnFromEventTrigger)
 
 
 //
