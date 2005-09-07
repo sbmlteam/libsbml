@@ -988,6 +988,34 @@ START_TEST (test_ASTNode_deepCopy)
 END_TEST
 
 
+START_TEST (test_ASTNode_deepCopy_1)
+{
+  ASTNode_t *node = ASTNode_create();
+  ASTNode_t *copy;
+
+
+  ASTNode_setName(node, "Foo");
+
+  fail_unless( ASTNode_getType(node) == AST_NAME     );
+  fail_unless( !strcmp(ASTNode_getName(node), "Foo") );
+  fail_unless( ASTNode_getNumChildren(node) == 0     );
+
+  /** deepCopy() **/
+  copy = ASTNode_deepCopy(node);
+
+  fail_unless( copy != node );
+  fail_unless( ASTNode_getType(copy) == AST_NAME     );
+  fail_unless( !strcmp(ASTNode_getName(copy), "Foo") );
+  fail_unless( ASTNode_getNumChildren(copy) == 0     );
+
+  fail_unless( ASTNode_getName(copy) != ASTNode_getName(node) );
+
+  ASTNode_free(node);
+  ASTNode_free(copy);
+}
+END_TEST
+
+
 START_TEST (test_ASTNode_getName)
 {
   ASTNode_t *n = ASTNode_create();
@@ -1578,6 +1606,7 @@ create_suite_ASTNode (void)
   tcase_add_test( tcase, test_ASTNode_canonicalizeLogical     );
   tcase_add_test( tcase, test_ASTNode_canonicalizeRelational  );
   tcase_add_test( tcase, test_ASTNode_deepCopy                );
+  tcase_add_test( tcase, test_ASTNode_deepCopy_1              );
   tcase_add_test( tcase, test_ASTNode_getName                 );
   tcase_add_test( tcase, test_ASTNode_getReal                 );
   tcase_add_test( tcase, test_ASTNode_getPrecedence           );

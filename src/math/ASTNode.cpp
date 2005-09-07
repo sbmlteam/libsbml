@@ -576,8 +576,16 @@ ASTNode::deepCopy () const
 
 
   copy->mType     = mType;
-  copy->mReal     = mReal;
   copy->mExponent = mExponent;
+
+  if (mType == AST_NAME)
+  {
+    copy->mName = safe_strdup(mName);
+  }
+  else
+  {
+    copy->mReal = mReal;
+  }
 
   for (unsigned int c = 0; c < getNumChildren(); ++c)
   {
