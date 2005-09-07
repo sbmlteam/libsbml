@@ -73,7 +73,6 @@ thisdir   = src/validator/constraints
 # rules in `makefile-common-actions.mk' included at the end.
 
 sources =                           \
-  BooleanReturnFromEventTrigger.cpp \
   CompartmentOutsideCycles.cpp      \
   ConsistencyConstraints.cpp        \
   IdBase.cpp                        \
@@ -101,7 +100,6 @@ extra_CPPFLAGS = -I../..
 # they appear in `distfiles', they will not be copied in the distribution.
 
 distfiles = $(sources) $(headers) Makefile.in \
-  BooleanReturnFromEventTrigger.h \
   CompartmentOutsideCycles.h     \
   UniqueIdsForUnitDefinitions.h  \
   UniqueIdsInKineticLaw.h        \
