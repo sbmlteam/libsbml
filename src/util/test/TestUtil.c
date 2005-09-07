@@ -304,8 +304,15 @@ create_suite_util (void)
   TCase *tcase = tcase_create("util");
 
 
+  /**
+   * These tests will fail under Cygwin because of a minimal
+   * setlocale() implementation (see setlocale manpage).
+   */
+#ifndef CYGWIN
   tcase_add_test( tcase, test_c_locale_snprintf       );
   tcase_add_test( tcase, test_c_locale_strtod         );
+#endif
+
   tcase_add_test( tcase, test_util_file_exists        );
   tcase_add_test( tcase, test_util_strcmp_insensitive );
   tcase_add_test( tcase, test_util_safe_strcat        );

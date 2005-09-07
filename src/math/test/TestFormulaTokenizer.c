@@ -464,8 +464,15 @@ create_suite_FormulaTokenizer (void)
   tcase_add_test( tcase, test_FormulaTokenizer_numbers         );
   tcase_add_test( tcase, test_FormulaTokenizer_numbers_exp     );
   tcase_add_test( tcase, test_FormulaTokenizer_numbers_nan_inf );
-  tcase_add_test( tcase, test_FormulaTokenizer_numbers_locale  );
   tcase_add_test( tcase, test_FormulaTokenizer_unknown         );
+
+  /**
+   * This test will fail under Cygwin because of a minimal setlocale()
+   * implementation (see setlocale manpage).
+   */
+#ifndef CYGWIN
+  tcase_add_test( tcase, test_FormulaTokenizer_numbers_locale  );
+#endif
 
   suite_add_tcase(suite, tcase);
 

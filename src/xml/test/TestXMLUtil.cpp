@@ -678,7 +678,15 @@ create_suite_XMLUtil (void)
   tcase_add_test( tcase, test_scanAttr_double_empty     );
   tcase_add_test( tcase, test_scanAttr_double_formatted );
   tcase_add_test( tcase, test_scanAttr_double_inf       );
+
+  /**
+   * This test will fail under Cygwin because of a minimal setlocale()
+   * implementation (see setlocale manpage).
+   */
+#ifndef CYGWIN
   tcase_add_test( tcase, test_scanAttr_double_locale    );
+#endif
+
   tcase_add_test( tcase, test_scanAttr_double_nan       );
   tcase_add_test( tcase, test_scanAttr_double_negZero   );
   tcase_add_test( tcase, test_scanAttr_double_notFound  );
