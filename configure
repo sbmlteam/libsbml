@@ -7170,6 +7170,7 @@ _ACEOF
 
 
           ac_config_files="$ac_config_files src/bindings/matlab/Makefile"
+          ac_config_files="$ac_config_files src/bindings/matlab/test/Makefile"
 
 
           ac_config_files="$ac_config_files src/bindings/java/Makefile"

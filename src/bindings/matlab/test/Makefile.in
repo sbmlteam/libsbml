@@ -1,14 +1,14 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml Python bindings
+## Description : Makefile template for libsbml src/bindings/matlab/test 
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
-## Created     : 2004-06-17
+## Created     : 2005-03-02
 ## Revision    : $Id$
 ## Source      : $Source$
 ##
-## Copyright 2004 California Institute of Technology and
+## Copyright 2005 California Institute of Technology and
 ## Japan Science and Technology Corporation.
 ##
 ## This library is free software; you can redistribute it and/or modify it
@@ -37,7 +37,7 @@
 ##
 ## The original code contained here was initially developed by:
 ##
-##     Ben Bornstein and Sarah Keating
+##     Ben Bornstein
 ##     SBML Team
 ##     Control and Dynamical Systems, MC 107-81
 ##     California Institute of Technology
@@ -62,84 +62,121 @@
 include @top_srcdir@/config/makefile-common-vars.mk
 
 # `srcdir' points to the current directory, but should be set by configure.
-# `subdir' must be set manually to the relative dir under srcdir.  Don't 
-# set `subdir' to an absolute path, or some make actions will fail.
+# `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
+# set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
-thisdir = src/bindings/matlab
+srcdir    = @srcdir@
+thisdir   = src/bindings/matlab/test
 
-sources = TranslateSBML.c
+# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
+# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
+# rules in `makefile-common-actions.mk' included at the end.
 
-# This use of $(libraries) is slightly inconsistent with the other makefiles,
-# but for Matlab, these object files act a lot like dynamic libraries and
-# we're installing them in the same place as the other libraries, so....
-
-libraries = $(sources:.c=.$(MEXEXT))
-
-subdirs = test
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
+test_data_files = \
+  $(wildcard test-data/*.xml) \
 
 distfiles = \
-        BuildTranslate_Win32.c \
-        BuildTranslate_Win32.m \
-        Contents.m             \
-        install.m              \
-        make.bat               \
-	  mexopts-libsbml.sh     \
-        README.txt             \
-        test.xml               \
-        TranslateSBML.c        \
-	TranslateSBML.m          \
-      CheckAndConvert.m        \
-      Makefile.in
+        testBinding.m      \
+        testReadFromFile1  \
+        testReadFromFile2  \
+        testReadFromFile3  \
+        testReadFromFile4  \
+        testReadFromFile5  \
+        Makefile.in \
+        test-data/l1v1-branch.xml
 
-
-# `extra_clean' and `extra_distclean' determine the files and directories
-# removed during "make clean" and "make distclean".
-
-extra_clean = TranslateSBML.$(MEXTEXT)
+
 
 
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-all: Makefile $(libraries)
+# The default action is to do nothing except maybe remake the Makefile.  The
+# real actions are triggered by 'make check'.
 
-flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -L../..
-
-%.$(MEXEXT): %.c
-	$(MEX) -f mexopts-libsbml.sh $(flags) $^ -lsbml $(MATLAB_LIBS)
+all: Makefile
 
 
 # -----------------------------------------------------------------------------
-# Targets for checking/testing.
+# Checking.
 # -----------------------------------------------------------------------------
 
-check: all
+# Variables $(test_objfiles), $(check_driver), and the rest of the code
+# for running check are abstracted out into makefile-common-actions.mk,
+# which is included at the bottom of this file.  Here we just need to construct
+# the appropriate list of object files to link together.  Because there are
+# dependencies on other subdirectoris of the source tree, we do some rummaging
+# around in .. and ../../subdirs.
+
+tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
+localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+
+otherdirs     = ..  ../../util ../../xml
+otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+
+test_objfiles = $(localobjfiles) $(otherobjfiles)
+
+ifdef USE_LIBCHECK
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
 
 
 # -----------------------------------------------------------------------------
-# Installation.
+# Formatting documentation.
 # -----------------------------------------------------------------------------
 
-install: all install-libraries
+dvi:
+
+pdf:
+
+ps:
+
+info:
+
+html:
+
+
+# -----------------------------------------------------------------------------
+# Installation
+# -----------------------------------------------------------------------------
+
+# This library doesn't actually get installed.  The main libsbml library
+# (in ../src) slurps in the contents when it's built.
+
+install:
 
 uninstall:
 
-installdirs: all
+installcheck:
+
+
+# -----------------------------------------------------------------------------
+# Cleaning.
+# -----------------------------------------------------------------------------
+
+clean: clean-normal
+
+distclean: distclean-normal
+
+mostlyclean: mostlyclean-normal
+
+maintainer-clean: maintainer-clean-normal
 
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: all dist-normal
 
-distcheck: all distcheck-normal distcheck-recursive
+distcheck: all distcheck-normal
 
 
 # -----------------------------------------------------------------------------
@@ -152,3 +189,4 @@ include @top_srcdir@/config/makefile-common-actions.mk
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
+
