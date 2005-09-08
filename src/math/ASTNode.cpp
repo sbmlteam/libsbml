@@ -578,7 +578,7 @@ ASTNode::deepCopy () const
   copy->mType     = mType;
   copy->mExponent = mExponent;
 
-  if (mType == AST_NAME)
+  if ( !(isOperator() || isNumber() || isUnknown()) && mName)
   {
     copy->mName = safe_strdup(mName);
   }
