@@ -63,14 +63,14 @@ START_TEST (test_ASTNode_create)
   ASTNode_t *n = ASTNode_create();
 
 
-  fail_unless( ASTNode_getType(n) == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_UNKNOWN );
 
-  fail_unless( ASTNode_getCharacter(n) == '\0', NULL );
-  fail_unless( ASTNode_getName     (n) == NULL, NULL );
-  fail_unless( ASTNode_getInteger  (n) == 0   , NULL );
-  fail_unless( ASTNode_getExponent (n) == 0   , NULL );
+  fail_unless( ASTNode_getCharacter(n) == '\0' );
+  fail_unless( ASTNode_getName     (n) == NULL );
+  fail_unless( ASTNode_getInteger  (n) == 0    );
+  fail_unless( ASTNode_getExponent (n) == 0    );
 
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getNumChildren(n) == 0 );
 
   ASTNode_free(n);
 }
@@ -97,9 +97,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType(n) == AST_NAME    , NULL );
-  fail_unless( !strcmp(ASTNode_getName(n), "foo"), NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0    , NULL );
+  fail_unless( ASTNode_getType(n) == AST_NAME     );
+  fail_unless( !strcmp(ASTNode_getName(n), "foo") );
+  fail_unless( ASTNode_getNumChildren(n) == 0     );
 
   Token_free(t);
   ASTNode_free(n);
@@ -108,9 +108,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger    (n) == 2, NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0, NULL );
+  fail_unless( ASTNode_getType       (n) == AST_INTEGER );
+  fail_unless( ASTNode_getInteger    (n) == 2 );
+  fail_unless( ASTNode_getNumChildren(n) == 0 );
 
   Token_free(t);
   ASTNode_free(n);
@@ -119,9 +119,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_REAL, NULL );
-  fail_unless( ASTNode_getReal       (n) == 4.0, NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_REAL );
+  fail_unless( ASTNode_getReal       (n) == 4.0 );
+  fail_unless( ASTNode_getNumChildren(n) == 0   );
 
   Token_free(t);
   ASTNode_free(n);
@@ -130,10 +130,10 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_REAL_E, NULL );
-  fail_unless( ASTNode_getMantissa   (n) == .272, NULL );
-  fail_unless( ASTNode_getExponent   (n) == 1   , NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0   , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_REAL_E );
+  fail_unless( ASTNode_getMantissa   (n) == .272 );
+  fail_unless( ASTNode_getExponent   (n) == 1    );
+  fail_unless( ASTNode_getNumChildren(n) == 0    );
 
   Token_free(t);
   ASTNode_free(n);
@@ -142,9 +142,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_PLUS, NULL );
-  fail_unless( ASTNode_getCharacter  (n) == '+', NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_PLUS );
+  fail_unless( ASTNode_getCharacter  (n) == '+' );
+  fail_unless( ASTNode_getNumChildren(n) == 0   );
 
   Token_free(t);
   ASTNode_free(n);
@@ -153,9 +153,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_MINUS, NULL );
-  fail_unless( ASTNode_getCharacter  (n) == '-', NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_MINUS );
+  fail_unless( ASTNode_getCharacter  (n) == '-' );
+  fail_unless( ASTNode_getNumChildren(n) == 0   );
 
   Token_free(t);
   ASTNode_free(n);
@@ -164,9 +164,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_TIMES, NULL );
-  fail_unless( ASTNode_getCharacter  (n) == '*', NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_TIMES );
+  fail_unless( ASTNode_getCharacter  (n) == '*' );
+  fail_unless( ASTNode_getNumChildren(n) == 0   );
 
   Token_free(t);
   ASTNode_free(n);
@@ -175,9 +175,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_DIVIDE, NULL );
-  fail_unless( ASTNode_getCharacter  (n) == '/', NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_DIVIDE );
+  fail_unless( ASTNode_getCharacter  (n) == '/' );
+  fail_unless( ASTNode_getNumChildren(n) == 0   );
 
   Token_free(t);
   ASTNode_free(n);
@@ -186,9 +186,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_POWER, NULL );
-  fail_unless( ASTNode_getCharacter  (n) == '^', NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_POWER );
+  fail_unless( ASTNode_getCharacter  (n) == '^' );
+  fail_unless( ASTNode_getNumChildren(n) == 0   );
 
   Token_free(t);
   ASTNode_free(n);
@@ -197,9 +197,9 @@ START_TEST (test_ASTNode_createFromToken)
   t = FormulaTokenizer_nextToken(ft);
   n = ASTNode_createFromToken(t);
 
-  fail_unless( ASTNode_getType       (n) == AST_UNKNOWN, NULL );
-  fail_unless( ASTNode_getCharacter  (n) == '@', NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 0  , NULL );
+  fail_unless( ASTNode_getType       (n) == AST_UNKNOWN );
+  fail_unless( ASTNode_getCharacter  (n) == '@' );
+  fail_unless( ASTNode_getNumChildren(n) == 0   );
 
   Token_free(t);
   ASTNode_free(n);
@@ -216,50 +216,50 @@ START_TEST (test_ASTNode_canonicalizeConstants)
 
   /** ExponentialE **/
   ASTNode_setName(n, "ExponentialE");
-  fail_unless( ASTNode_isName(n), NULL);
+  fail_unless( ASTNode_isName(n));
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_CONSTANT_E, NULL );
+  fail_unless( ASTNode_getType(n) == AST_CONSTANT_E );
 
   ASTNode_setType(n, AST_NAME);
 
 
   /** False **/
   ASTNode_setName(n, "False");
-  fail_unless( ASTNode_isName(n), NULL);
+  fail_unless( ASTNode_isName(n));
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_CONSTANT_FALSE, NULL );
+  fail_unless( ASTNode_getType(n) == AST_CONSTANT_FALSE );
 
   ASTNode_setType(n, AST_NAME);
 
 
   /** Pi **/
   ASTNode_setName(n, "Pi");
-  fail_unless( ASTNode_isName(n), NULL);
+  fail_unless( ASTNode_isName(n));
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_CONSTANT_PI, NULL );
+  fail_unless( ASTNode_getType(n) == AST_CONSTANT_PI );
 
   ASTNode_setType(n, AST_NAME);
 
 
   /** True **/
   ASTNode_setName(n, "True");
-  fail_unless( ASTNode_isName(n), NULL);
+  fail_unless( ASTNode_isName(n));
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_CONSTANT_TRUE, NULL );
+  fail_unless( ASTNode_getType(n) == AST_CONSTANT_TRUE );
 
   ASTNode_setType(n, AST_NAME);
 
 
   /** Foo **/
   ASTNode_setName(n, "Foo");
-  fail_unless( ASTNode_isName(n), NULL);
+  fail_unless( ASTNode_isName(n));
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_isName(n), NULL);
+  fail_unless( ASTNode_isName(n));
 
 
   ASTNode_free(n);
@@ -274,360 +274,360 @@ START_TEST (test_ASTNode_canonicalizeFunctions)
 
   /** abs **/
   ASTNode_setName(n, "abs");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ABS, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ABS );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arccos **/
   ASTNode_setName(n, "arccos");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOS, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOS );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arccosh **/
   ASTNode_setName(n, "arccosh");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOSH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOSH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arccot **/
   ASTNode_setName(n, "arccot");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOT, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOT );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arccoth **/
   ASTNode_setName(n, "arccoth");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOTH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOTH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arccsc **/
   ASTNode_setName(n, "arccsc");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCSC, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCSC );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arccsch **/
   ASTNode_setName(n, "arccsch");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCSCH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCSCH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arcsec **/
   ASTNode_setName(n, "arcsec");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSEC, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSEC );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arcsech **/
   ASTNode_setName(n, "arcsech");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSECH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSECH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arcsin **/
   ASTNode_setName(n, "arcsin");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSIN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSIN );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arcsinh **/
   ASTNode_setName(n, "arcsinh");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSINH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSINH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arctan **/
   ASTNode_setName(n, "arctan");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCTAN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCTAN );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** arctanh **/
   ASTNode_setName(n, "arctanh");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCTANH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCTANH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** ceiling **/
   ASTNode_setName(n, "ceiling");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CEILING, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CEILING );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** cos **/
   ASTNode_setName(n, "cos");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COS, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COS );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** cosh **/
   ASTNode_setName(n, "cosh");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COSH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COSH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** cot **/
   ASTNode_setName(n, "cot");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COT, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COT );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** coth **/
   ASTNode_setName(n, "coth");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COTH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_COTH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** csc **/
   ASTNode_setName(n, "csc");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CSC, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CSC );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** csch **/
   ASTNode_setName(n, "csch");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CSCH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CSCH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** exp **/
   ASTNode_setName(n, "exp");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_EXP, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_EXP );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** factorial **/
   ASTNode_setName(n, "factorial");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_FACTORIAL, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_FACTORIAL );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** floor **/
   ASTNode_setName(n, "floor");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_FLOOR, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_FLOOR );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** lambda **/
   ASTNode_setName(n, "lambda");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_LAMBDA, NULL );
+  fail_unless( ASTNode_getType(n) == AST_LAMBDA );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** ln **/
   ASTNode_setName(n, "ln");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LN );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** log **/
   ASTNode_setName(n, "log");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LOG, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LOG );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** piecewise **/
   ASTNode_setName(n, "piecewise");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_PIECEWISE, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_PIECEWISE );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** power **/
   ASTNode_setName(n, "power");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_POWER, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_POWER );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** root **/
   ASTNode_setName(n, "root");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ROOT, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ROOT );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** sec **/
   ASTNode_setName(n, "sec");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SEC, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SEC );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** sech **/
   ASTNode_setName(n, "sech");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SECH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SECH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** sin **/
   ASTNode_setName(n, "sin");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SIN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SIN );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** sinh **/
   ASTNode_setName(n, "sinh");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SINH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_SINH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** tan **/
   ASTNode_setName(n, "tan");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_TAN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_TAN );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** tanh **/
   ASTNode_setName(n, "tanh");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_TANH, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_TANH );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** Foo **/
   ASTNode_setName(n, "Foo");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL);
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION);
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
 
   ASTNode_free(n);
@@ -643,49 +643,49 @@ START_TEST (test_ASTNode_canonicalizeFunctionsL1)
 
   /** acos **/
   ASTNode_setName(n, "acos");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOS, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCCOS );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** asin **/
   ASTNode_setName(n, "asin");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSIN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCSIN );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** atan **/
   ASTNode_setName(n, "atan");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCTAN, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ARCTAN );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** ceil **/
   ASTNode_setName(n, "ceil");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CEILING, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_CEILING );
 
   ASTNode_setType(n, AST_FUNCTION);
 
   /** pow **/
   ASTNode_setName(n, "pow");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_POWER, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_POWER );
 
   ASTNode_free(n);
 
@@ -703,13 +703,13 @@ START_TEST (test_ASTNode_canonicalizeFunctionsL1)
   ASTNode_setName (c, "x");
   ASTNode_addChild(n, c);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 1, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );  
+  fail_unless( ASTNode_getNumChildren(n) == 1 );
 
   ASTNode_canonicalize(n);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LN, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 1, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LN );  
+  fail_unless( ASTNode_getNumChildren(n) == 1 );
 
   /** log(x, y) (continued) **/
   ASTNode_setType(n, AST_FUNCTION);
@@ -718,12 +718,12 @@ START_TEST (test_ASTNode_canonicalizeFunctionsL1)
   ASTNode_setName (c, "y");
   ASTNode_addChild(n, c);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
-  fail_unless( ASTNode_getNumChildren(n) == 2, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
+  fail_unless( ASTNode_getNumChildren(n) == 2 );
 
   ASTNode_canonicalize(n);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LOG, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LOG );
 
   ASTNode_free(n);
 
@@ -736,21 +736,21 @@ START_TEST (test_ASTNode_canonicalizeFunctionsL1)
   ASTNode_setName (c, "x");
   ASTNode_addChild(n, c);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 1, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );  
+  fail_unless( ASTNode_getNumChildren(n) == 1 );
 
   ASTNode_canonicalize(n);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LOG, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 2, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_LOG );  
+  fail_unless( ASTNode_getNumChildren(n) == 2 );
 
   c = ASTNode_getLeftChild(n);
-  fail_unless( ASTNode_getType(c)    == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger(c) == 10, NULL );
+  fail_unless( ASTNode_getType(c)    == AST_INTEGER );
+  fail_unless( ASTNode_getInteger(c) == 10 );
 
   c = ASTNode_getRightChild(n);
-  fail_unless( ASTNode_getType(c) == AST_NAME  , NULL );
-  fail_unless( !strcmp(ASTNode_getName(c), "x"), NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME   );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") );
 
   ASTNode_free(n);
 
@@ -763,21 +763,21 @@ START_TEST (test_ASTNode_canonicalizeFunctionsL1)
   ASTNode_setName (c, "x");
   ASTNode_addChild(n, c);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 1, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );  
+  fail_unless( ASTNode_getNumChildren(n) == 1 );
 
   ASTNode_canonicalize(n);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_POWER, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 2, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_POWER );  
+  fail_unless( ASTNode_getNumChildren(n) == 2 );
 
   c = ASTNode_getLeftChild(n);
-  fail_unless( ASTNode_getType(c) == AST_NAME  , NULL );
-  fail_unless( !strcmp(ASTNode_getName(c), "x"), NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME   );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") );
 
   c = ASTNode_getRightChild(n);
-  fail_unless( ASTNode_getType(c)    == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger(c) == 2, NULL );
+  fail_unless( ASTNode_getType(c)    == AST_INTEGER );
+  fail_unless( ASTNode_getInteger(c) == 2 );
 
   ASTNode_free(n);
 
@@ -790,21 +790,21 @@ START_TEST (test_ASTNode_canonicalizeFunctionsL1)
   ASTNode_setName (c, "x");
   ASTNode_addChild(n, c);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 1, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );  
+  fail_unless( ASTNode_getNumChildren(n) == 1 );
 
   ASTNode_canonicalize(n);
 
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ROOT, NULL );  
-  fail_unless( ASTNode_getNumChildren(n) == 2, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_ROOT );  
+  fail_unless( ASTNode_getNumChildren(n) == 2 );
 
   c = ASTNode_getLeftChild(n);
-  fail_unless( ASTNode_getType(c)    == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger(c) == 2, NULL );
+  fail_unless( ASTNode_getType(c)    == AST_INTEGER );
+  fail_unless( ASTNode_getInteger(c) == 2 );
 
   c = ASTNode_getRightChild(n);
-  fail_unless( ASTNode_getType(c) == AST_NAME  , NULL );
-  fail_unless( !strcmp(ASTNode_getName(c), "x"), NULL );
+  fail_unless( ASTNode_getType(c) == AST_NAME   );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") );
 
   ASTNode_free(n);
 }
@@ -818,40 +818,40 @@ START_TEST (test_ASTNode_canonicalizeLogical)
 
   /** and **/
   ASTNode_setName(n, "and");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_LOGICAL_AND, NULL );
+  fail_unless( ASTNode_getType(n) == AST_LOGICAL_AND );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** not **/
   ASTNode_setName(n, "not");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_LOGICAL_NOT, NULL );
+  fail_unless( ASTNode_getType(n) == AST_LOGICAL_NOT );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** or **/
   ASTNode_setName(n, "or");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_LOGICAL_OR, NULL );
+  fail_unless( ASTNode_getType(n) == AST_LOGICAL_OR );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** xor **/
   ASTNode_setName(n, "xor");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_LOGICAL_XOR, NULL );
+  fail_unless( ASTNode_getType(n) == AST_LOGICAL_XOR );
 
   ASTNode_setType(n, AST_FUNCTION);
 
@@ -868,60 +868,60 @@ START_TEST (test_ASTNode_canonicalizeRelational)
 
   /** eq **/
   ASTNode_setName(n, "eq");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_EQ, NULL );
+  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_EQ );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** geq **/
   ASTNode_setName(n, "geq");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_GEQ, NULL );
+  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_GEQ );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** gt **/
   ASTNode_setName(n, "gt");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_GT, NULL );
+  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_GT );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** leq **/
   ASTNode_setName(n, "leq");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_LEQ, NULL );
+  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_LEQ );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** lt **/
   ASTNode_setName(n, "lt");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_LT, NULL );
+  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_LT );
 
   ASTNode_setType(n, AST_FUNCTION);
 
 
   /** neq **/
   ASTNode_setName(n, "neq");
-  fail_unless( ASTNode_getType(n) == AST_FUNCTION, NULL );
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION );
 
   ASTNode_canonicalize(n);
-  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_NEQ, NULL );
+  fail_unless( ASTNode_getType(n) == AST_RELATIONAL_NEQ );
 
   ASTNode_setType(n, AST_FUNCTION);
 
@@ -1077,89 +1077,89 @@ START_TEST (test_ASTNode_getName)
 
   /** AST_NAMEs **/
   ASTNode_setName(n, "foo");
-  fail_unless( !strcmp(ASTNode_getName(n), "foo"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "foo") );
 
   ASTNode_setType(n, AST_NAME_TIME);
-  fail_unless( !strcmp(ASTNode_getName(n), "foo"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "foo") );
 
   ASTNode_setName(n, NULL);
-  fail_unless( ASTNode_getName(n) == NULL, NULL );
+  fail_unless( ASTNode_getName(n) == NULL );
 
 
   /** AST_CONSTANTs **/
   ASTNode_setType(n, AST_CONSTANT_E);
-  fail_unless( !strcmp(ASTNode_getName(n), "exponentiale"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "exponentiale") );
 
   ASTNode_setType(n, AST_CONSTANT_FALSE);
-  fail_unless( !strcmp(ASTNode_getName(n), "false"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "false") );
 
   ASTNode_setType(n, AST_CONSTANT_PI);
-  fail_unless( !strcmp(ASTNode_getName(n), "pi"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "pi") );
 
   ASTNode_setType(n, AST_CONSTANT_TRUE);
-  fail_unless( !strcmp(ASTNode_getName(n), "true"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "true") );
 
 
   /** AST_LAMBDA **/
   ASTNode_setType(n, AST_LAMBDA);
-  fail_unless( !strcmp(ASTNode_getName(n), "lambda"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "lambda") );
 
 
   /** AST_FUNCTION (user-defined) **/
   ASTNode_setType(n, AST_FUNCTION);
   ASTNode_setName(n, "f");
-  fail_unless( !strcmp(ASTNode_getName(n), "f"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "f") );
 
   ASTNode_setType(n, AST_FUNCTION_DELAY);
-  fail_unless( !strcmp(ASTNode_getName(n), "f"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "f") );
 
   ASTNode_setName(n, NULL);
-  fail_unless( !strcmp(ASTNode_getName(n), "delay"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "delay") );
 
   ASTNode_setType(n, AST_FUNCTION);
-  fail_unless( ASTNode_getName(n) == NULL, NULL );
+  fail_unless( ASTNode_getName(n) == NULL );
 
 
   /** AST_FUNCTIONs (builtin)  **/
   ASTNode_setType(n, AST_FUNCTION_ABS);
-  fail_unless( !strcmp(ASTNode_getName(n), "abs"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "abs") );
 
   ASTNode_setType(n, AST_FUNCTION_ARCCOS);
-  fail_unless( !strcmp(ASTNode_getName(n), "arccos"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "arccos") );
 
   ASTNode_setType(n, AST_FUNCTION_TAN);
-  fail_unless( !strcmp(ASTNode_getName(n), "tan"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "tan") );
 
   ASTNode_setType(n, AST_FUNCTION_TANH);
-  fail_unless( !strcmp(ASTNode_getName(n), "tanh"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "tanh") );
 
 
   /** AST_LOGICALs **/
   ASTNode_setType(n, AST_LOGICAL_AND);
-  fail_unless( !strcmp(ASTNode_getName(n), "and"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "and") );
 
   ASTNode_setType(n, AST_LOGICAL_NOT);
-  fail_unless( !strcmp(ASTNode_getName(n), "not"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "not") );
 
   ASTNode_setType(n, AST_LOGICAL_OR);
-  fail_unless( !strcmp(ASTNode_getName(n), "or") , NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "or")  );
 
   ASTNode_setType(n, AST_LOGICAL_XOR);
-  fail_unless( !strcmp(ASTNode_getName(n), "xor"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "xor") );
 
 
   /** AST_RELATIONALs **/
   ASTNode_setType(n, AST_RELATIONAL_EQ);
-  fail_unless( !strcmp(ASTNode_getName(n), "eq"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "eq") );
 
   ASTNode_setType(n, AST_RELATIONAL_GEQ);
-  fail_unless( !strcmp(ASTNode_getName(n), "geq"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "geq") );
 
   ASTNode_setType(n, AST_RELATIONAL_LT);
-  fail_unless( !strcmp(ASTNode_getName(n), "lt"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "lt") );
 
   ASTNode_setType(n, AST_RELATIONAL_NEQ);
-  fail_unless( !strcmp(ASTNode_getName(n), "neq"), NULL );
+  fail_unless( !strcmp(ASTNode_getName(n), "neq") );
 
   ASTNode_free(n);
 }
@@ -1175,19 +1175,19 @@ START_TEST (test_ASTNode_getReal)
   ASTNode_setType(n, AST_REAL);
   ASTNode_setReal(n, 1.6);
 
-  fail_unless(ASTNode_getReal(n) == 1.6, NULL);
+  fail_unless(ASTNode_getReal(n) == 1.6);
 
   /** 12.3e3 **/
   ASTNode_setType(n, AST_REAL_E);
   ASTNode_setRealWithExponent(n, 12.3, 3.0);
 
-  fail_unless(abs(ASTNode_getReal(n) - 12300.0) < DBL_EPSILON, NULL);
+  fail_unless(abs(ASTNode_getReal(n) - 12300.0) < DBL_EPSILON);
 
   /** 1/2 **/
   ASTNode_setType(n, AST_RATIONAL);
   ASTNode_setRational(n, 1, 2);
 
-  fail_unless(ASTNode_getReal(n) == 0.5, NULL);
+  fail_unless(ASTNode_getReal(n) == 0.5);
 
   ASTNode_free(n);
 }
@@ -1200,30 +1200,30 @@ START_TEST (test_ASTNode_getPrecedence)
 
 
   ASTNode_setType(n, AST_PLUS);
-  fail_unless( ASTNode_getPrecedence(n) == 2, NULL );
+  fail_unless( ASTNode_getPrecedence(n) == 2 );
 
   ASTNode_setType(n, AST_MINUS);
-  fail_unless( ASTNode_getPrecedence(n) == 2, NULL );
+  fail_unless( ASTNode_getPrecedence(n) == 2 );
 
   ASTNode_setType(n, AST_TIMES);
-  fail_unless( ASTNode_getPrecedence(n) == 3, NULL );
+  fail_unless( ASTNode_getPrecedence(n) == 3 );
 
   ASTNode_setType(n, AST_DIVIDE);
-  fail_unless( ASTNode_getPrecedence(n) == 3, NULL );
+  fail_unless( ASTNode_getPrecedence(n) == 3 );
 
   ASTNode_setType(n, AST_POWER);
-  fail_unless( ASTNode_getPrecedence(n) == 4, NULL );
+  fail_unless( ASTNode_getPrecedence(n) == 4 );
 
   ASTNode_setType (n, AST_MINUS);
   ASTNode_addChild(n, ASTNode_createWithType(AST_NAME));
-  fail_unless( ASTNode_isUMinus(n)      == 1, NULL );
-  fail_unless( ASTNode_getPrecedence(n) == 5, NULL );
+  fail_unless( ASTNode_isUMinus(n)      == 1 );
+  fail_unless( ASTNode_getPrecedence(n) == 5 );
 
   ASTNode_setType(n, AST_NAME);
-  fail_unless( ASTNode_getPrecedence(n) == 6, NULL );
+  fail_unless( ASTNode_getPrecedence(n) == 6 );
 
   ASTNode_setType(n, AST_FUNCTION);
-  fail_unless( ASTNode_getPrecedence(n) == 6, NULL );
+  fail_unless( ASTNode_getPrecedence(n) == 6 );
 
   ASTNode_free(n);
 }
@@ -1237,26 +1237,26 @@ START_TEST (test_ASTNode_isLog10)
 
 
   ASTNode_setType(n, AST_FUNCTION);
-  fail_unless( ASTNode_isLog10(n) == 0, NULL );
+  fail_unless( ASTNode_isLog10(n) == 0 );
 
   /** log() **/
   ASTNode_setType(n, AST_FUNCTION_LOG);
-  fail_unless( ASTNode_isLog10(n) == 0, NULL );
+  fail_unless( ASTNode_isLog10(n) == 0 );
 
   /** log(10) **/
   c = ASTNode_create();
   ASTNode_addChild(n, c);
 
   ASTNode_setInteger(c, 10);
-  fail_unless( ASTNode_isLog10(n) == 0, NULL );
+  fail_unless( ASTNode_isLog10(n) == 0 );
 
   /** log(10, x) -> ASTNode_isLog10() == 1 **/
   ASTNode_addChild(n, ASTNode_create());
-  fail_unless( ASTNode_isLog10(n) == 1, NULL );
+  fail_unless( ASTNode_isLog10(n) == 1 );
 
   /** log(2, x) **/
   ASTNode_setInteger(c, 2);
-  fail_unless( ASTNode_isLog10(n) == 0, NULL );
+  fail_unless( ASTNode_isLog10(n) == 0 );
 
   ASTNode_free(n);
 }
@@ -1270,26 +1270,26 @@ START_TEST (test_ASTNode_isSqrt)
 
 
   ASTNode_setType(n, AST_FUNCTION);
-  fail_unless( ASTNode_isSqrt(n) == 0, NULL );
+  fail_unless( ASTNode_isSqrt(n) == 0 );
 
   /** root() **/
   ASTNode_setType(n, AST_FUNCTION_ROOT);
-  fail_unless( ASTNode_isSqrt(n) == 0, NULL );
+  fail_unless( ASTNode_isSqrt(n) == 0 );
 
   /** root(2) **/
   c = ASTNode_create();
   ASTNode_addChild(n, c);
 
   ASTNode_setInteger(c, 2);
-  fail_unless( ASTNode_isSqrt(n) == 0, NULL );
+  fail_unless( ASTNode_isSqrt(n) == 0 );
 
   /** root(2, x) -> ASTNode_isSqrt() == 1 **/
   ASTNode_addChild(n, ASTNode_create());
-  fail_unless( ASTNode_isSqrt(n) == 1, NULL );
+  fail_unless( ASTNode_isSqrt(n) == 1 );
 
   /** root(3, x) **/
   ASTNode_setInteger(c, 3);
-  fail_unless( ASTNode_isSqrt(n) == 0, NULL );
+  fail_unless( ASTNode_isSqrt(n) == 0 );
 
   ASTNode_free(n);
 }
@@ -1302,10 +1302,10 @@ START_TEST (test_ASTNode_isUMinus)
 
 
   ASTNode_setType(n, AST_MINUS);
-  fail_unless( ASTNode_isUMinus(n) == 0, NULL );
+  fail_unless( ASTNode_isUMinus(n) == 0 );
 
   ASTNode_addChild(n, ASTNode_createWithType(AST_NAME));
-  fail_unless( ASTNode_isUMinus(n) == 1, NULL );
+  fail_unless( ASTNode_isUMinus(n) == 1 );
 
   ASTNode_free(n);
 }
@@ -1321,31 +1321,31 @@ START_TEST (test_ASTNode_setCharacter)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME );
 
   ASTNode_setCharacter(node, '+');
-  fail_unless( ASTNode_getType     (node) == AST_PLUS, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '+'     , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_PLUS );
+  fail_unless( ASTNode_getCharacter(node) == '+'      );
 
   ASTNode_setCharacter(node, '-');
-  fail_unless( ASTNode_getType     (node) == AST_MINUS, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '-'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_MINUS );
+  fail_unless( ASTNode_getCharacter(node) == '-'       );
 
   ASTNode_setCharacter(node, '*');
-  fail_unless( ASTNode_getType     (node) == AST_TIMES, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '*'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_TIMES );
+  fail_unless( ASTNode_getCharacter(node) == '*'       );
 
   ASTNode_setCharacter(node, '/');
-  fail_unless( ASTNode_getType     (node) == AST_DIVIDE, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '/'       , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_DIVIDE );
+  fail_unless( ASTNode_getCharacter(node) == '/'        );
 
   ASTNode_setCharacter(node, '^');
-  fail_unless( ASTNode_getType     (node) == AST_POWER, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '^'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_POWER );
+  fail_unless( ASTNode_getCharacter(node) == '^'       );
 
   ASTNode_setCharacter(node, '$');
-  fail_unless( ASTNode_getType     (node) == AST_UNKNOWN, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '$'        , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_UNKNOWN );
+  fail_unless( ASTNode_getCharacter(node) == '$'         );
 
   ASTNode_free(node);
 }
@@ -1358,12 +1358,12 @@ START_TEST (test_ASTNode_setName)
   ASTNode_t  *node = ASTNode_create();
 
 
-  fail_unless( ASTNode_getType(node) == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getType(node) == AST_UNKNOWN );
 
   ASTNode_setName(node, name);
 
-  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
-  fail_unless( !strcmp(ASTNode_getName(node), name), NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME );
+  fail_unless( !strcmp(ASTNode_getName(node), name) );
 
   if (ASTNode_getName(node) == name)
   {
@@ -1371,7 +1371,7 @@ START_TEST (test_ASTNode_setName)
   }
 
   ASTNode_setName(node, NULL);
-  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME );
 
   if (ASTNode_getName(node) != NULL)
   {
@@ -1388,18 +1388,18 @@ START_TEST (test_ASTNode_setName_override)
   ASTNode_t  *node = ASTNode_createWithType(AST_FUNCTION_SIN);
 
 
-  fail_unless( !strcmp(ASTNode_getName(node), "sin")    , NULL );
-  fail_unless( ASTNode_getType(node) == AST_FUNCTION_SIN, NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "sin")     );
+  fail_unless( ASTNode_getType(node) == AST_FUNCTION_SIN );
 
   ASTNode_setName(node, "MySinFunc");
 
-  fail_unless( !strcmp(ASTNode_getName(node), "MySinFunc"), NULL );
-  fail_unless( ASTNode_getType(node) == AST_FUNCTION_SIN  , NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "MySinFunc") );
+  fail_unless( ASTNode_getType(node) == AST_FUNCTION_SIN   );
 
   ASTNode_setName(node, NULL);
 
-  fail_unless( !strcmp(ASTNode_getName(node), "sin")    , NULL );
-  fail_unless( ASTNode_getType(node) == AST_FUNCTION_SIN, NULL );
+  fail_unless( !strcmp(ASTNode_getName(node), "sin")     );
+  fail_unless( ASTNode_getType(node) == AST_FUNCTION_SIN );
 
   ASTNode_free(node);
 }
@@ -1415,11 +1415,11 @@ START_TEST (test_ASTNode_setInteger)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME );
 
   ASTNode_setInteger(node, 321);
-  fail_unless( ASTNode_getType   (node) == AST_INTEGER, NULL );
-  fail_unless( ASTNode_getInteger(node) == 321        , NULL );
+  fail_unless( ASTNode_getType   (node) == AST_INTEGER );
+  fail_unless( ASTNode_getInteger(node) == 321         );
 
   ASTNode_free(node);
 }
@@ -1435,11 +1435,11 @@ START_TEST (test_ASTNode_setReal)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME );
 
   ASTNode_setReal(node, 32.1);
-  fail_unless( ASTNode_getType(node) == AST_REAL, NULL );
-  fail_unless( ASTNode_getReal(node) == 32.1    , NULL );
+  fail_unless( ASTNode_getType(node) == AST_REAL );
+  fail_unless( ASTNode_getReal(node) == 32.1     );
 
   ASTNode_free(node);
 }
@@ -1456,54 +1456,54 @@ START_TEST (test_ASTNode_setType)
    * Ensure "foo" is cleared in subsequent sets.
    */
   ASTNode_setName(node, "foo");
-  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME );
 
   /**
    * node->value.name should not to cleared or changed as we toggle from
    * AST_FUNCTION to and from AST_NAME.
    */
   ASTNode_setType(node, AST_FUNCTION);
-  fail_unless( ASTNode_getType(node) == AST_FUNCTION, NULL );
-  fail_unless( !strcmp(ASTNode_getName(node), "foo"), NULL );
+  fail_unless( ASTNode_getType(node) == AST_FUNCTION );
+  fail_unless( !strcmp(ASTNode_getName(node), "foo") );
 
   ASTNode_setType(node, AST_NAME);
-  fail_unless( ASTNode_getType(node) == AST_NAME, NULL );
-  fail_unless( !strcmp(ASTNode_getName(node), "foo"), NULL );
+  fail_unless( ASTNode_getType(node) == AST_NAME );
+  fail_unless( !strcmp(ASTNode_getName(node), "foo") );
 
   /**
    * But now it should...
    */
   ASTNode_setType(node, AST_INTEGER);
-  fail_unless( ASTNode_getType(node) == AST_INTEGER, NULL );
+  fail_unless( ASTNode_getType(node) == AST_INTEGER );
 
   ASTNode_setType(node, AST_REAL);
-  fail_unless( ASTNode_getType(node) == AST_REAL, NULL );
+  fail_unless( ASTNode_getType(node) == AST_REAL );
 
   ASTNode_setType(node, AST_UNKNOWN);
-  fail_unless( ASTNode_getType(node) == AST_UNKNOWN, NULL );
+  fail_unless( ASTNode_getType(node) == AST_UNKNOWN );
 
   /**
    * Setting these types should also set node->value.ch
    */
   ASTNode_setType(node, AST_PLUS);
-  fail_unless( ASTNode_getType     (node) == AST_PLUS, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '+'     , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_PLUS );
+  fail_unless( ASTNode_getCharacter(node) == '+'      );
 
   ASTNode_setType(node, AST_MINUS);
-  fail_unless( ASTNode_getType     (node) == AST_MINUS, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '-'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_MINUS );
+  fail_unless( ASTNode_getCharacter(node) == '-'       );
 
   ASTNode_setType(node, AST_TIMES);
-  fail_unless( ASTNode_getType     (node) == AST_TIMES, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '*'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_TIMES );
+  fail_unless( ASTNode_getCharacter(node) == '*'       );
 
   ASTNode_setType(node, AST_DIVIDE);
-  fail_unless( ASTNode_getType     (node) == AST_DIVIDE, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '/'       , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_DIVIDE );
+  fail_unless( ASTNode_getCharacter(node) == '/'        );
 
   ASTNode_setType(node, AST_POWER);
-  fail_unless( ASTNode_getType     (node) == AST_POWER, NULL );
-  fail_unless( ASTNode_getCharacter(node) == '^'      , NULL );
+  fail_unless( ASTNode_getType     (node) == AST_POWER );
+  fail_unless( ASTNode_getCharacter(node) == '^'       );
 
   ASTNode_free(node);
 }
@@ -1515,12 +1515,12 @@ START_TEST (test_ASTNode_no_children)
   ASTNode_t *node = ASTNode_create();
 
 
-  fail_unless( ASTNode_getNumChildren(node) == 0, NULL );
+  fail_unless( ASTNode_getNumChildren(node) == 0 );
 
-  fail_unless( ASTNode_getLeftChild (node) == NULL, NULL );
-  fail_unless( ASTNode_getRightChild(node) == NULL, NULL );
+  fail_unless( ASTNode_getLeftChild (node) == NULL );
+  fail_unless( ASTNode_getRightChild(node) == NULL );
 
-  fail_unless( ASTNode_getChild(node, 0) == NULL, NULL );
+  fail_unless( ASTNode_getChild(node, 0) == NULL );
 
   ASTNode_free(node);
 }
@@ -1535,13 +1535,13 @@ START_TEST (test_ASTNode_one_child)
 
   ASTNode_addChild(node, child);
 
-  fail_unless( ASTNode_getNumChildren(node) == 1, NULL );
+  fail_unless( ASTNode_getNumChildren(node) == 1 );
 
-  fail_unless( ASTNode_getLeftChild (node) == child, NULL );
-  fail_unless( ASTNode_getRightChild(node) == NULL , NULL );
+  fail_unless( ASTNode_getLeftChild (node) == child );
+  fail_unless( ASTNode_getRightChild(node) == NULL  );
 
-  fail_unless( ASTNode_getChild(node, 0) == child, NULL );
-  fail_unless( ASTNode_getChild(node, 1) == NULL , NULL );
+  fail_unless( ASTNode_getChild(node, 0) == child );
+  fail_unless( ASTNode_getChild(node, 1) == NULL  );
 
   ASTNode_free(node);
 }
@@ -1567,34 +1567,34 @@ START_TEST (test_ASTNode_children)
   ASTNode_addChild( parent, left  );
   ASTNode_addChild( parent, right );
 
-  fail_unless( ASTNode_getNumChildren(parent) == 2, NULL );
-  fail_unless( ASTNode_getNumChildren(left)   == 0, NULL );
-  fail_unless( ASTNode_getNumChildren(right)  == 0, NULL );
+  fail_unless( ASTNode_getNumChildren(parent) == 2 );
+  fail_unless( ASTNode_getNumChildren(left)   == 0 );
+  fail_unless( ASTNode_getNumChildren(right)  == 0 );
 
-  fail_unless( ASTNode_getLeftChild (parent) == left , NULL );
-  fail_unless( ASTNode_getRightChild(parent) == right, NULL );
+  fail_unless( ASTNode_getLeftChild (parent) == left  );
+  fail_unless( ASTNode_getRightChild(parent) == right );
 
-  fail_unless( ASTNode_getChild(parent, 0) == left , NULL );
-  fail_unless( ASTNode_getChild(parent, 1) == right, NULL );
-  fail_unless( ASTNode_getChild(parent, 2) == NULL , NULL );
+  fail_unless( ASTNode_getChild(parent, 0) == left  );
+  fail_unless( ASTNode_getChild(parent, 1) == right );
+  fail_unless( ASTNode_getChild(parent, 2) == NULL  );
 
   /**
    * Three Children
    */
   ASTNode_addChild(parent, right2);
 
-  fail_unless( ASTNode_getNumChildren(parent) == 3, NULL );
-  fail_unless( ASTNode_getNumChildren(left)   == 0, NULL );
-  fail_unless( ASTNode_getNumChildren(right)  == 0, NULL );
-  fail_unless( ASTNode_getNumChildren(right2) == 0, NULL );
+  fail_unless( ASTNode_getNumChildren(parent) == 3 );
+  fail_unless( ASTNode_getNumChildren(left)   == 0 );
+  fail_unless( ASTNode_getNumChildren(right)  == 0 );
+  fail_unless( ASTNode_getNumChildren(right2) == 0 );
 
-  fail_unless( ASTNode_getLeftChild (parent) == left  , NULL );
-  fail_unless( ASTNode_getRightChild(parent) == right2, NULL );
+  fail_unless( ASTNode_getLeftChild (parent) == left   );
+  fail_unless( ASTNode_getRightChild(parent) == right2 );
 
-  fail_unless( ASTNode_getChild(parent, 0) == left  , NULL );
-  fail_unless( ASTNode_getChild(parent, 1) == right , NULL );
-  fail_unless( ASTNode_getChild(parent, 2) == right2, NULL );
-  fail_unless( ASTNode_getChild(parent, 3) == NULL  , NULL );
+  fail_unless( ASTNode_getChild(parent, 0) == left   );
+  fail_unless( ASTNode_getChild(parent, 1) == right  );
+  fail_unless( ASTNode_getChild(parent, 2) == right2 );
+  fail_unless( ASTNode_getChild(parent, 3) == NULL   );
 
   ASTNode_free(parent);
 }
@@ -1615,28 +1615,28 @@ START_TEST (test_ASTNode_getListOfNodes)
   root = SBML_parseFormula(gaussian);
   list = ASTNode_getListOfNodes(root, (ASTNodePredicate) ASTNode_isName);
 
-  fail_unless( List_size(list) == 4, NULL );
+  fail_unless( List_size(list) == 4 );
 
 
   node = (ASTNode_t *) List_get(list, 0);
 
-  fail_unless( ASTNode_isName(node), NULL );
-  fail_unless( !strcmp(ASTNode_getName(node), "sigma"), NULL );
+  fail_unless( ASTNode_isName(node) );
+  fail_unless( !strcmp(ASTNode_getName(node), "sigma") );
 
   node = (ASTNode_t *) List_get(list, 1);
 
-  fail_unless( ASTNode_isName(node), NULL );
-  fail_unless( !strcmp(ASTNode_getName(node), "x"), NULL );
+  fail_unless( ASTNode_isName(node) );
+  fail_unless( !strcmp(ASTNode_getName(node), "x") );
 
   node = (ASTNode_t *) List_get(list, 2);
 
-  fail_unless( ASTNode_isName(node), NULL );
-  fail_unless( !strcmp(ASTNode_getName(node), "mu"), NULL );
+  fail_unless( ASTNode_isName(node) );
+  fail_unless( !strcmp(ASTNode_getName(node), "mu") );
 
   node = (ASTNode_t *) List_get(list, 3);
 
-  fail_unless( ASTNode_isName(node), NULL );
-  fail_unless( !strcmp(ASTNode_getName(node), "sigma"), NULL );
+  fail_unless( ASTNode_isName(node) );
+  fail_unless( !strcmp(ASTNode_getName(node), "sigma") );
 
   List_free(list);
   ASTNode_free(root);
