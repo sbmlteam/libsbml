@@ -38,12 +38,12 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpat.lib odbc32.lib odbccp32.lib"
-				OutputFile="bin/libsbmlD.dll"
+				OutputFile="../bin/libsbmlD.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\bin/libsbmlD.pdb"
-				ImportLibrary=".\bin/libsbmlD.lib"
+				ImportLibrary="../bin/libsbmlD.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -102,11 +102,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpat.lib odbc32.lib odbccp32.lib"
-				OutputFile="bin/libsbml.dll"
+				OutputFile="../bin/libsbml.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\bin/libsbml.pdb"
-				ImportLibrary=".\bin/libsbml.lib"
+				ImportLibrary="../bin/libsbml.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -145,7 +145,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\src\sbml\AlgebraicRule.cpp">
+				RelativePath="..\..\src\sbml\AlgebraicRule.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -163,7 +163,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\AssignmentRule.cpp">
+				RelativePath="..\..\src\sbml\AssignmentRule.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -181,7 +181,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\ASTNode.cpp">
+				RelativePath="..\..\src\math\ASTNode.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -199,7 +199,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\Compartment.cpp">
+				RelativePath="..\..\src\sbml\Compartment.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -217,7 +217,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\CompartmentOutsideCycles.cpp">
+				RelativePath="..\..\src\validator\constraints\CompartmentOutsideCycles.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -235,7 +235,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\CompartmentVolumeRule.cpp">
+				RelativePath="..\..\src\sbml\CompartmentVolumeRule.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -253,7 +253,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\validator\ConsistencyValidator.cpp">
+				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -271,7 +271,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\Event.cpp">
+				RelativePath="..\..\src\sbml\Event.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -289,7 +289,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\EventAssignment.cpp">
+				RelativePath="..\..\src\sbml\EventAssignment.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -307,7 +307,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\Expat.cpp">
+				RelativePath="..\..\src\xml\Expat.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -325,7 +325,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\ExpatAttributes.cpp">
+				RelativePath="..\..\src\xml\ExpatAttributes.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -343,7 +343,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\ExpatFormatter.cpp">
+				RelativePath="..\..\src\xml\ExpatFormatter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -361,10 +361,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\ExpatToXerces.cpp">
+				RelativePath="..\..\src\xml\ExpatToXerces.cpp">
 			</File>
 			<File
-				RelativePath="..\src\xml\ExpatXMLString.cpp">
+				RelativePath="..\..\src\xml\ExpatXMLString.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -382,7 +382,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\FormulaFormatter.c">
+				RelativePath="..\..\src\math\FormulaFormatter.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -400,7 +400,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\FormulaParser.c">
+				RelativePath="..\..\src\math\FormulaParser.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -418,7 +418,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\FormulaTokenizer.c">
+				RelativePath="..\..\src\math\FormulaTokenizer.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -436,7 +436,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\FunctionDefinition.cpp">
+				RelativePath="..\..\src\sbml\FunctionDefinition.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -454,10 +454,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\IdBase.cpp">
+				RelativePath="..\..\src\validator\constraints\IdBase.cpp">
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\IdList.cpp">
+				RelativePath="..\..\src\validator\constraints\IdList.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -475,7 +475,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\KineticLaw.cpp">
+				RelativePath="..\..\src\sbml\KineticLaw.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -493,7 +493,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\validator\L1CompatibilityValidator.cpp">
+				RelativePath="..\..\src\validator\L1CompatibilityValidator.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -511,7 +511,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\util\List.cpp">
+				RelativePath="..\..\src\util\List.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -529,7 +529,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\ListOf.cpp">
+				RelativePath="..\..\src\sbml\ListOf.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -547,7 +547,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\MathMLDocument.cpp">
+				RelativePath="..\..\src\math\MathMLDocument.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -565,7 +565,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\MathMLFormatter.cpp">
+				RelativePath="..\..\src\math\MathMLFormatter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -583,7 +583,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\MathMLHandler.cpp">
+				RelativePath="..\..\src\math\MathMLHandler.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -601,7 +601,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\MathMLReader.cpp">
+				RelativePath="..\..\src\math\MathMLReader.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -619,7 +619,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\MathMLTagCodes.cpp">
+				RelativePath="..\..\src\math\MathMLTagCodes.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -637,7 +637,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\math\MathMLWriter.cpp">
+				RelativePath="..\..\src\math\MathMLWriter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -655,7 +655,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\util\memory.c">
+				RelativePath="..\..\src\util\memory.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -673,7 +673,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\Model.cpp">
+				RelativePath="..\..\src\sbml\Model.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -691,7 +691,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\ModifierSpeciesReference.cpp">
+				RelativePath="..\..\src\sbml\ModifierSpeciesReference.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -709,7 +709,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\Parameter.cpp">
+				RelativePath="..\..\src\sbml\Parameter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -727,7 +727,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\ParameterRule.cpp">
+				RelativePath="..\..\src\sbml\ParameterRule.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -745,7 +745,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\ParseMessage.cpp">
+				RelativePath="..\..\src\xml\ParseMessage.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -763,7 +763,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\RateRule.cpp">
+				RelativePath="..\..\src\sbml\RateRule.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -781,7 +781,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\Reaction.cpp">
+				RelativePath="..\..\src\sbml\Reaction.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -799,7 +799,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\Rule.cpp">
+				RelativePath="..\..\src\sbml\Rule.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -817,7 +817,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\RuleType.c">
+				RelativePath="..\..\src\sbml\RuleType.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -835,7 +835,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBase.cpp">
+				RelativePath="..\..\src\sbml\SBase.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -853,7 +853,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLConvert.c">
+				RelativePath="..\..\src\sbml\SBMLConvert.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -871,7 +871,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLDocument.cpp">
+				RelativePath="..\..\src\sbml\SBMLDocument.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -889,7 +889,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLFormatter.cpp">
+				RelativePath="..\..\src\sbml\SBMLFormatter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -907,7 +907,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLHandler.cpp">
+				RelativePath="..\..\src\sbml\SBMLHandler.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -925,7 +925,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLReader.cpp">
+				RelativePath="..\..\src\sbml\SBMLReader.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -943,7 +943,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLTagCodes.cpp">
+				RelativePath="..\..\src\sbml\SBMLTagCodes.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -961,10 +961,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLTypeCodes.cpp">
+				RelativePath="..\..\src\sbml\SBMLTypeCodes.cpp">
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLVisitor.cpp">
+				RelativePath="..\..\src\sbml\SBMLVisitor.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -982,7 +982,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SBMLWriter.cpp">
+				RelativePath="..\..\src\sbml\SBMLWriter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1000,7 +1000,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SimpleSpeciesReference.cpp">
+				RelativePath="..\..\src\sbml\SimpleSpeciesReference.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1018,7 +1018,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\Species.cpp">
+				RelativePath="..\..\src\sbml\Species.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1036,7 +1036,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SpeciesConcentrationRule.cpp">
+				RelativePath="..\..\src\sbml\SpeciesConcentrationRule.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1054,7 +1054,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\SpeciesReference.cpp">
+				RelativePath="..\..\src\sbml\SpeciesReference.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1072,7 +1072,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\util\Stack.c">
+				RelativePath="..\..\src\util\Stack.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1090,7 +1090,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\StreamFormatTarget.cpp">
+				RelativePath="..\..\src\xml\StreamFormatTarget.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1108,7 +1108,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\util\StringBuffer.c">
+				RelativePath="..\..\src\util\StringBuffer.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1126,7 +1126,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\util\StringMap.c">
+				RelativePath="..\..\src\util\StringMap.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1144,25 +1144,25 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\UniqueIdBase.cpp">
+				RelativePath="..\..\src\validator\constraints\UniqueIdBase.cpp">
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\UniqueIdsForUnitDefinitions.cpp">
+				RelativePath="..\..\src\validator\constraints\UniqueIdsForUnitDefinitions.cpp">
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\UniqueIdsInKineticLaw.cpp">
+				RelativePath="..\..\src\validator\constraints\UniqueIdsInKineticLaw.cpp">
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\UniqueIdsInModel.cpp">
+				RelativePath="..\..\src\validator\constraints\UniqueIdsInModel.cpp">
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\UniqueVarsInEventAssignments.cpp">
+				RelativePath="..\..\src\validator\constraints\UniqueVarsInEventAssignments.cpp">
 			</File>
 			<File
-				RelativePath="..\src\validator\constraints\UniqueVarsInRules.cpp">
+				RelativePath="..\..\src\validator\constraints\UniqueVarsInRules.cpp">
 			</File>
 			<File
-				RelativePath="..\src\sbml\Unit.cpp">
+				RelativePath="..\..\src\sbml\Unit.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1180,7 +1180,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\UnitDefinition.cpp">
+				RelativePath="..\..\src\sbml\UnitDefinition.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1198,7 +1198,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\sbml\UnitKind.c">
+				RelativePath="..\..\src\sbml\UnitKind.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1216,7 +1216,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\util\util.c">
+				RelativePath="..\..\src\util\util.c">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1234,7 +1234,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\validator\Validator.cpp">
+				RelativePath="..\..\src\validator\Validator.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1252,7 +1252,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\XMLNamespace.cpp">
+				RelativePath="..\..\src\xml\XMLNamespace.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1270,7 +1270,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\XMLNamespaceList.cpp">
+				RelativePath="..\..\src\xml\XMLNamespaceList.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1288,7 +1288,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\XMLStringFormatter.cpp">
+				RelativePath="..\..\src\xml\XMLStringFormatter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1306,7 +1306,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\xml\XMLUtil.cpp">
+				RelativePath="..\..\src\xml\XMLUtil.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -1333,7 +1333,7 @@
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 		<File
-			RelativePath="..\src\sbml\config.h.in">
+			RelativePath="..\..\src\sbml\config.h.in">
 		</File>
 	</Files>
 	<Globals>

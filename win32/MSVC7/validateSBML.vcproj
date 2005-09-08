@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="printMath"
-	ProjectGUID="{1574F9F3-425F-4726-A338-C6EBB3076BAF}"
+	Name="validateSBML"
+	ProjectGUID="{BEE99AD9-8649-48CA-A095-9A80AC0FDFDF}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -14,7 +14,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\printMath___Win32_Debug"
+			IntermediateDirectory=".\validateSBML___Win32_Debug"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -23,14 +23,17 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="FALSE"
+				RuntimeTypeInfo="FALSE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\printMath___Win32_Debug/printMath.pch"
-				AssemblerListingLocation=".\printMath___Win32_Debug/"
-				ObjectFile=".\printMath___Win32_Debug/"
-				ProgramDataBaseFileName=".\printMath___Win32_Debug/"
+				PrecompiledHeaderFile=".\validateSBML___Win32_Debug/validateSBML.pch"
+				AssemblerListingLocation=".\validateSBML___Win32_Debug/"
+				ObjectFile=".\validateSBML___Win32_Debug/"
+				ProgramDataBaseFileName=".\validateSBML___Win32_Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -39,17 +42,17 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbmlD.lib odbc32.lib odbccp32.lib"
-				OutputFile="bin/printMathD.exe"
+				AdditionalDependencies="../bin/libsbmlD.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/validateSBMLD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\bin/printMathD.pdb"
+				ProgramDatabaseFile=".\bin/validateSBMLD.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/printMath.tlb"
+				TypeLibraryName=".\bin/validateSBML.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -75,7 +78,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\printMath___Win32_Release"
+			IntermediateDirectory=".\validateSBML___Win32_Release"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -92,10 +95,10 @@
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\printMath___Win32_Release/printMath.pch"
-				AssemblerListingLocation=".\printMath___Win32_Release/"
-				ObjectFile=".\printMath___Win32_Release/"
-				ProgramDataBaseFileName=".\printMath___Win32_Release/"
+				PrecompiledHeaderFile=".\validateSBML___Win32_Release/validateSBML.pch"
+				AssemblerListingLocation=".\validateSBML___Win32_Release/"
+				ObjectFile=".\validateSBML___Win32_Release/"
+				ProgramDataBaseFileName=".\validateSBML___Win32_Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="2"/>
@@ -103,16 +106,16 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbml.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\bin/printMath.exe"
+				AdditionalDependencies="../bin/libsbml.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/validateSBML.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\bin/printMath.pdb"
+				ProgramDatabaseFile=".\bin/validateSBML.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/printMath.tlb"
+				TypeLibraryName=".\bin/validateSBML.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -143,14 +146,17 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\examples\C++\printMath.cpp">
+				RelativePath="..\..\examples\c++\util.c">
+			</File>
+			<File
+				RelativePath="..\..\examples\C++\validateSBML.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\examples\util.h">
+				RelativePath="..\..\examples\util.h">
 			</File>
 		</Filter>
 		<Filter

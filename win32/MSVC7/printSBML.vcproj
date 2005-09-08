@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="convertSBML"
-	ProjectGUID="{1574F9F3-425F-4726-A338-C6EBB3076BAF}"
+	Name="printSBML"
+	ProjectGUID="{0B6BDAA2-C9A5-4A5C-AF0E-9AB8E081DDCC}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -14,7 +14,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\convertSBML___Win32_Debug"
+			IntermediateDirectory=".\printSBML___Win32_Debug"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -27,10 +27,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\convertSBML___Win32_Debug/convertSBML.pch"
-				AssemblerListingLocation=".\convertSBML___Win32_Debug/"
-				ObjectFile=".\convertSBML___Win32_Debug/"
-				ProgramDataBaseFileName=".\convertSBML___Win32_Debug/"
+				PrecompiledHeaderFile=".\printSBML___Win32_Debug/printSBML.pch"
+				AssemblerListingLocation=".\printSBML___Win32_Debug/"
+				ObjectFile=".\printSBML___Win32_Debug/"
+				ProgramDataBaseFileName=".\printSBML___Win32_Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -39,17 +39,17 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbmlD.lib odbc32.lib odbccp32.lib"
-				OutputFile="bin/convertSBMLD.exe"
+				AdditionalDependencies="../bin/libsbmlD.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/printSBMLD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\bin/convertSBMLD.pdb"
+				ProgramDatabaseFile=".\bin/printSBMLD.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/convertSBML.tlb"
+				TypeLibraryName=".\bin/printSBML.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -75,7 +75,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\convertSBML___Win32_Release"
+			IntermediateDirectory=".\printSBML___Win32_Release"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -92,10 +92,10 @@
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\convertSBML___Win32_Release/convertSBML.pch"
-				AssemblerListingLocation=".\convertSBML___Win32_Release/"
-				ObjectFile=".\convertSBML___Win32_Release/"
-				ProgramDataBaseFileName=".\convertSBML___Win32_Release/"
+				PrecompiledHeaderFile=".\printSBML___Win32_Release/printSBML.pch"
+				AssemblerListingLocation=".\printSBML___Win32_Release/"
+				ObjectFile=".\printSBML___Win32_Release/"
+				ProgramDataBaseFileName=".\printSBML___Win32_Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="2"/>
@@ -103,16 +103,16 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbml.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\bin/convertSBML.exe"
+				AdditionalDependencies="../bin/libsbml.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/printSBML.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\bin/convertSBML.pdb"
+				ProgramDatabaseFile=".\bin/printSBML.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/convertSBML.tlb"
+				TypeLibraryName=".\bin/printSBML.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -143,14 +143,17 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\examples\C++\convertSBML.cpp">
+				RelativePath="..\..\examples\C++\printSBML.cpp">
+			</File>
+			<File
+				RelativePath="..\..\examples\c++\util.c">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\examples\util.h">
+				RelativePath="..\..\examples\util.h">
 			</File>
 		</Filter>
 		<Filter

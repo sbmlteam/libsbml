@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="printSBML"
-	ProjectGUID="{0B6BDAA2-C9A5-4A5C-AF0E-9AB8E081DDCC}"
+	Name="translateMath"
+	ProjectGUID="{0885C55A-AF70-4CD1-B45A-B01168E9158A}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -14,7 +14,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\printSBML___Win32_Debug"
+			IntermediateDirectory=".\translateMath___Win32_Debug"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -23,14 +23,17 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				EnableFunctionLevelLinking="FALSE"
+				RuntimeTypeInfo="FALSE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\printSBML___Win32_Debug/printSBML.pch"
-				AssemblerListingLocation=".\printSBML___Win32_Debug/"
-				ObjectFile=".\printSBML___Win32_Debug/"
-				ProgramDataBaseFileName=".\printSBML___Win32_Debug/"
+				PrecompiledHeaderFile=".\translateMath___Win32_Debug/translateMath.pch"
+				AssemblerListingLocation=".\translateMath___Win32_Debug/"
+				ObjectFile=".\translateMath___Win32_Debug/"
+				ProgramDataBaseFileName=".\translateMath___Win32_Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -39,17 +42,17 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbmlD.lib odbc32.lib odbccp32.lib"
-				OutputFile="bin/printSBMLD.exe"
+				AdditionalDependencies="../bin/libsbmlD.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/translateMathD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\bin/printSBMLD.pdb"
+				ProgramDatabaseFile=".\bin/translateMathD.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/printSBML.tlb"
+				TypeLibraryName=".\bin/translateMath.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -60,7 +63,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="2057"/>
+				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -75,7 +78,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\printSBML___Win32_Release"
+			IntermediateDirectory=".\translateMath___Win32_Release"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -87,15 +90,14 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="FALSE"
 				ExceptionHandling="TRUE"
-				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\printSBML___Win32_Release/printSBML.pch"
-				AssemblerListingLocation=".\printSBML___Win32_Release/"
-				ObjectFile=".\printSBML___Win32_Release/"
-				ProgramDataBaseFileName=".\printSBML___Win32_Release/"
+				PrecompiledHeaderFile=".\translateMath___Win32_Release/translateMath.pch"
+				AssemblerListingLocation=".\translateMath___Win32_Release/"
+				ObjectFile=".\translateMath___Win32_Release/"
+				ProgramDataBaseFileName=".\translateMath___Win32_Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="2"/>
@@ -103,16 +105,16 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbml.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\bin/printSBML.exe"
+				AdditionalDependencies="../bin/libsbml.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/translateMath.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\bin/printSBML.pdb"
+				ProgramDatabaseFile=".\bin/translateMath.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/printSBML.tlb"
+				TypeLibraryName=".\bin/translateMath.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -123,7 +125,7 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="2057"/>
+				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -143,17 +145,14 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\examples\C++\printSBML.cpp">
-			</File>
-			<File
-				RelativePath="..\examples\c++\util.c">
+				RelativePath="..\..\examples\c++\translateMath.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\examples\util.h">
+				RelativePath="..\..\src\sbml\util.h">
 			</File>
 		</Filter>
 		<Filter

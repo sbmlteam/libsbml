@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="readSBML"
-	ProjectGUID="{31BE2651-FFE9-4466-BA1A-B732E6BDF7E3}"
+	Name="printMath"
+	ProjectGUID="{1574F9F3-425F-4726-A338-C6EBB3076BAF}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -14,7 +14,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\readSBML___Win32_Debug"
+			IntermediateDirectory=".\printMath___Win32_Debug"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -27,10 +27,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\readSBML___Win32_Debug/readSBML.pch"
-				AssemblerListingLocation=".\readSBML___Win32_Debug/"
-				ObjectFile=".\readSBML___Win32_Debug/"
-				ProgramDataBaseFileName=".\readSBML___Win32_Debug/"
+				PrecompiledHeaderFile=".\printMath___Win32_Debug/printMath.pch"
+				AssemblerListingLocation=".\printMath___Win32_Debug/"
+				ObjectFile=".\printMath___Win32_Debug/"
+				ProgramDataBaseFileName=".\printMath___Win32_Debug/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -39,17 +39,17 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbmlD.lib odbc32.lib odbccp32.lib"
-				OutputFile="bin/readSBMLD.exe"
+				AdditionalDependencies="../bin/libsbmlD.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/printMathD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\bin/readSBMLD.pdb"
+				ProgramDatabaseFile=".\bin/printMathD.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/readSBML.tlb"
+				TypeLibraryName=".\bin/printMath.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -75,7 +75,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\bin"
-			IntermediateDirectory=".\readSBML___Win32_Release"
+			IntermediateDirectory=".\printMath___Win32_Release"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -92,10 +92,10 @@
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\readSBML___Win32_Release/readSBML.pch"
-				AssemblerListingLocation=".\readSBML___Win32_Release/"
-				ObjectFile=".\readSBML___Win32_Release/"
-				ProgramDataBaseFileName=".\readSBML___Win32_Release/"
+				PrecompiledHeaderFile=".\printMath___Win32_Release/printMath.pch"
+				AssemblerListingLocation=".\printMath___Win32_Release/"
+				ObjectFile=".\printMath___Win32_Release/"
+				ProgramDataBaseFileName=".\printMath___Win32_Release/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="2"/>
@@ -103,16 +103,16 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="bin/libsbml.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\bin/readSBML.exe"
+				AdditionalDependencies="../bin/libsbml.lib odbc32.lib odbccp32.lib"
+				OutputFile="../bin/printMath.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\bin/readSBML.pdb"
+				ProgramDatabaseFile=".\bin/printMath.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\bin/readSBML.tlb"
+				TypeLibraryName=".\bin/printMath.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -143,17 +143,14 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\examples\C++\readSBML.cpp">
-			</File>
-			<File
-				RelativePath="..\examples\c++\util.c">
+				RelativePath="..\..\examples\C++\printMath.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\examples\util.h">
+				RelativePath="..\..\examples\util.h">
 			</File>
 		</Filter>
 		<Filter
