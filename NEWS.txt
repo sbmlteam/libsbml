@@ -58,6 +58,10 @@
 
 * Changes:
 
+  - The xml-schema files are no longer included as part of the libSBML
+    download as these are no longer necessary for validation. However 
+    the files are available via the SBML website.
+ 
 
 * Known Bugs:
 

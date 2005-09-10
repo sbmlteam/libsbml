@@ -69,6 +69,7 @@ srcdir  = @srcdir@
 thisdir = .
 
 # Variables `examples' and `xml-schemas' are local variables reused below.
+# SK removed xml-schema files
 
 examples = \
   examples/README.txt              \
@@ -111,40 +112,6 @@ examples = \
   examples/perl/printSBML.pl       \
   examples/perl/readSBML.pl
 
-xml-schemas = \
-        xml-schemas/mathml2/common/common-attribs.xsd        \
-        xml-schemas/mathml2/common/math.xsd                  \
-        xml-schemas/mathml2/common/xlink-href.xsd            \
-        xml-schemas/mathml2/content/arith.xsd                \
-        xml-schemas/mathml2/content/calculus.xsd             \
-        xml-schemas/mathml2/content/common-attrib.xsd        \
-        xml-schemas/mathml2/content/constants.xsd            \
-        xml-schemas/mathml2/content/constructs.xsd           \
-        xml-schemas/mathml2/content/elementary-functions.xsd \
-        xml-schemas/mathml2/content/functions.xsd            \
-        xml-schemas/mathml2/content/linear-algebra.xsd       \
-        xml-schemas/mathml2/content/logic.xsd                \
-        xml-schemas/mathml2/content/relations.xsd            \
-        xml-schemas/mathml2/content/semantics.xsd            \
-        xml-schemas/mathml2/content/sets.xsd                 \
-        xml-schemas/mathml2/content/statistics.xsd           \
-        xml-schemas/mathml2/content/tokens.xsd               \
-        xml-schemas/mathml2/content/vector-calculus.xsd      \
-        xml-schemas/mathml2/mathml2.xsd                      \
-        xml-schemas/mathml2/presentation/action.xsd          \
-        xml-schemas/mathml2/presentation/characters.xsd      \
-        xml-schemas/mathml2/presentation/common-attribs.xsd  \
-        xml-schemas/mathml2/presentation/common-types.xsd    \
-        xml-schemas/mathml2/presentation/error.xsd           \
-        xml-schemas/mathml2/presentation/layout.xsd          \
-        xml-schemas/mathml2/presentation/scripts.xsd         \
-        xml-schemas/mathml2/presentation/space.xsd           \
-        xml-schemas/mathml2/presentation/style.xsd           \
-        xml-schemas/mathml2/presentation/table.xsd           \
-        xml-schemas/mathml2/presentation/tokens.xsd          \
-        xml-schemas/sbml/sbml-l1v1.xsd                       \
-        xml-schemas/sbml/sbml-l1v2.xsd                       \
-        xml-schemas/sbml/sbml-l2v1.xsd
 
 # The files listed in `docs' are copied to the documentation directory
 # during a `make install'.
@@ -157,8 +124,7 @@ docs = \
   README.txt                                           \
   VERSION.txt                                          \
   FUNDING.txt                                          \
-  $(examples)                                          \
-  $(xml-schemas)
+  $(examples)                                          
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS', `extra_clean', and `distfiles' are
@@ -200,8 +166,7 @@ distfiles = \
         config/xercesc.m4                                    \
         configure                                            \
         configure.ac                                         \
-	$(examples)                                          \
-	$(xml-schemas)
+	$(examples)                                          
 
 # The files listed in `extra_distclean' are items created by configure or
 # make, and that are removed by the default rules for `make distclean' in
