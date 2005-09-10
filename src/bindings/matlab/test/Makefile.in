@@ -81,13 +81,13 @@ test_data_files = \
 
 distfiles = \
         testBinding.m      \
-        testReadFromFile1  \
-        testReadFromFile2  \
-        testReadFromFile3  \
-        testReadFromFile4  \
-        testReadFromFile5  \
+        testReadFromFile1.m  \
+        testReadFromFile2.m  \
+        testReadFromFile3.m  \
+        testReadFromFile4.m  \
+        testReadFromFile5.m  \
         Makefile.in \
-        test-data/l1v1-branch.xml
+        test-data/*.xml
 
 
 
