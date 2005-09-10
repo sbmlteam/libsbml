@@ -7228,6 +7228,10 @@ _ACEOF
 
           ac_config_files="$ac_config_files win32/Makefile"
 
+          ac_config_files="$ac_config_files win32/MSVC6/Makefile"
+  
+          ac_config_files="$ac_config_files win32/MSVC7/Makefile"
+
 
           ac_config_files="$ac_config_files examples/c/Makefile"
 
@@ -7776,6 +7780,7 @@ do
   "src/bindings/perl/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/perl/Makefile" ;;
   "src/bindings/perl/Makefile.PL" ) CONFIG_FILES="$CONFIG_FILES src/bindings/perl/Makefile.PL" ;;
   "src/bindings/matlab/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/matlab/Makefile" ;;
+  "src/bindings/matlab/test/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/matlab/test/Makefile" ;;
   "src/bindings/java/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/java/Makefile" ;;
   "src/bindings/lisp/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/Makefile" ;;
   "src/bindings/lisp/libsbml-config.lisp" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/libsbml-config.lisp" ;;
@@ -7799,6 +7804,8 @@ do
   "docs/src/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/src/Makefile" ;;
   "docs/src/tex/libsbmlextras.sty" ) CONFIG_FILES="$CONFIG_FILES docs/src/tex/libsbmlextras.sty" ;;
   "win32/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/Makefile" ;;
+  "win32/MSVC6/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/MSVC6/Makefile" ;;
+  "win32/MSVC7/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/MSVC7/Makefile" ;;
   "examples/c/Makefile" ) CONFIG_FILES="$CONFIG_FILES examples/c/Makefile" ;;
   "examples/c++/Makefile" ) CONFIG_FILES="$CONFIG_FILES examples/c++/Makefile" ;;
   "examples/java/Makefile" ) CONFIG_FILES="$CONFIG_FILES examples/java/Makefile" ;;

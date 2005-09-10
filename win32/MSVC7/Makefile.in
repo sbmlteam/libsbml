@@ -61,17 +61,23 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
-thisdir = win32
-
-subdirs = MSVC6 MSVC7
+thisdir = win32/MSVC7
 
 # This makefile only serves a role for `make dist'.
 
 distfiles = \
-        createInclude.bat               \
-        README.txt             \
-  Makefile.in  
-
+  convertSBML.vcproj   \
+  libsbml.vcproj       \
+  libsbml_expat.vcproj \
+  printMath.vcproj     \
+  printSBML.vcproj     \
+  readSBML.vcproj      \
+  sbmlj.vcproj         \
+  translateMath.vcproj \
+  validateSBML.vcproj  \
+  libsbml.sln          \
+  libsbml_expat.sln    \
+Makefile.in
 
 
 # -----------------------------------------------------------------------------
@@ -124,9 +130,9 @@ installcheck:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: all dist-normal dist-recursive
+dist: dist-normal
 
-distcheck: all distcheck-normal distcheck-recursive
+distcheck: distcheck-normal
 
 
 # -----------------------------------------------------------------------------

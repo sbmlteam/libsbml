@@ -291,6 +291,8 @@ AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([docs/src/tex/libsbmlextras.sty])
 
 AC_CONFIG_FILES([win32/Makefile])
+AC_CONFIG_FILES([win32/MSVC6/Makefile])
+AC_CONFIG_FILES([win32/MSVC7/Makefile])
 
 AC_CONFIG_FILES([examples/c/Makefile])
 AC_CONFIG_FILES([examples/c++/Makefile])
