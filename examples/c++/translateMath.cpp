@@ -52,21 +52,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef _MSC_VER
-  #include "util/util.h"
-  #include "math/FormulaFormatter.h"
-  #include "math/FormulaParser.h"
-  #include "math/MathMLReader.h"
-  #include "math/MathMLWriter.h"
-  #include "util/StringBuffer.h"
-#else
-  #include "sbml/util/util.h"
-  #include "sbml/math/FormulaFormatter.h"
-  #include "sbml/math/FormulaParser.h"
-  #include "sbml/math/MathMLReader.h"
-  #include "sbml/math/MathMLWriter.h"
-  #include "sbml/util/StringBuffer.h"
-#endif
+
+#include "sbml/util/util.h"
+#include "sbml/math/FormulaFormatter.h"
+#include "sbml/math/FormulaParser.h"
+#include "sbml/math/MathMLReader.h"
+#include "sbml/math/MathMLWriter.h"
+#include "sbml/util/StringBuffer.h"
 
 #define BUFFER_SIZE 1024
 
