@@ -4,5 +4,4 @@ Makefile
 *.ncb
 *.opt
 *.plg
-*.sln
 *.suo
