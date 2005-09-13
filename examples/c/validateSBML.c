@@ -68,8 +68,6 @@ main (int argc, char *argv[])
   unsigned long start, stop, size;
   unsigned int  errors = 0;
 
-  AssignmentRule_t *ar;
-
   SBMLDocument_t *d;
   SBMLReader_t   *sr;
 
@@ -105,10 +103,6 @@ main (int argc, char *argv[])
   printf( "       file size: %lu\n", size         );
   printf( "  read time (ms): %lu\n", stop - start );
   printf( "        error(s): %u\n" , errors       );
-
-  ar = (AssignmentRule_t *) Model_getRule(SBMLDocument_getModel(d), 0);
-
-  printf( " expr = '%s'", Rule_getFormula((Rule_t *)ar));
 
   if (errors > 0)
   {
