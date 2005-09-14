@@ -270,7 +270,9 @@ run-checks: $(check_driver) $(libraries)
 # we can figure out something better.
 
 ifneq "$(HOST_TYPE)" "darwin"
-  install_strip = -s
+  install_strip = strip -S
+else
+  install_strip = echo
 endif
 
 # The following defines a macro that is invoked like this:
@@ -280,13 +282,15 @@ define install_library
   $(MKINSTALLDIRS) $(DESTDIR)$(LIBDIR)
   @if test "$(suffix $(1))" = ".so" -o "$(suffix $(1))" = ".dylib" -o "$(suffix $(1))" = ".jnilib"; then \
     finalname="$(notdir $(basename $(1))).$(library_version)$(suffix $(1))"; \
-    echo $(INSTALL) $(install_strip) $(1) $(2)/$$finalname; \
-    $(INSTALL) $(install_strip) $(1) $(2)/$$finalname; \
+    echo $(INSTALL_SH) $(1) $(2)/$$finalname; \
+    $(INSTALL_SH) $(1) $(2)/$$finalname; \
+    echo $(install_strip) $(1) $(2)/$$finalname; \
+    $(install_strip) $(1) $(2)/$$finalname; \
     echo ln -fs $$finalname $(2)/$(notdir $(1)); \
     ln -fs $$finalname $(2)/$(notdir $(1)); \
   else \
-    echo $(INSTALL) $(install_strip) $(1) $(2); \
-    $(INSTALL) $(install_strip) $(1) $(2); \
+    echo $(INSTALL_SH) $(1) $(2); \
+    $(INSTALL_SH) $(1) $(2); \
   fi
 endef
 
@@ -320,13 +324,13 @@ define install_includes
   if test -d $$d/$$file; then \
     if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
       echo Copying $(srcdir)/$$file; \
-      $(INSTALL) -m 644 $(srcdir)/$$file $$targetdir$$dir || exit 1; \
+      $(INSTALL_SH) -m 644 $(srcdir)/$$file $$targetdir$$dir || exit 1; \
     fi; \
-    $(INSTALL) -m 644 $$d/$$file $$targetdir$$dir || exit 1; \
+    $(INSTALL_SH) -m 644 $$d/$$file $$targetdir$$dir || exit 1; \
   else \
     echo Copying $$targetdir/$$file; \
     test -f $$targetdir/$$file \
-    || $(INSTALL) -m 644 $$d/$$file $$targetdir/$$file \
+    || $(INSTALL_SH) -m 644 $$d/$$file $$targetdir/$$file \
     || exit 1; \
   fi;
 endef
@@ -393,9 +397,9 @@ dist-normal: $(distfiles)
 	  fi; \
 	done
 
-#	      $(INSTALL) --mode="u+X,g+X,o+X" $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
-#	    $(INSTALL) -d $$d/$$file $(DESTINATION)/$$dir || exit 1; \
-#	    || $(INSTALL) --mode="u+X,g+X,o+X" $$d/$$file $(DESTINATION)/$$file \
+#	      $(INSTALL_SH) --mode="u+X,g+X,o+X" $(srcdir)/$$file $(DESTINATION)/$$dir || exit 1; \
+#	    $(INSTALL_SH) -d $$d/$$file $(DESTINATION)/$$dir || exit 1; \
+#	    || $(INSTALL_SH) --mode="u+X,g+X,o+X" $$d/$$file $(DESTINATION)/$$file \
 
 
 # -----------------------------------------------------------------------------
