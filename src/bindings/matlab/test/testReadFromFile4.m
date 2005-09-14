@@ -48,7 +48,7 @@ Totalfail = Totalfail + fail_unless(m.SBML_version == 1);
 
   Totalfail = Totalfail + fail_unless( length(m.reaction) == 1);
 
-  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).name, 'x'));
+  Totalfail = Totalfail + fail_unless( strcmp(m.reaction(1).name, 'x1'));
   Totalfail = Totalfail + fail_unless( m.reaction(1).reversible ~= 0);
   Totalfail = Totalfail + fail_unless( m.reaction(1).fast == 0);
 
