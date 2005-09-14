@@ -81,11 +81,19 @@ main (int argc, char *argv[])
 
 
   SBMLReader sr;
-  sr.setSchemaValidationLevel(XML_SCHEMA_VALIDATION_BASIC);
+  sr.setSchemaValidationLevel(XML_SCHEMA_VALIDATION_FULL);
+
+  /* this code is needed if schema validation is from 
+     the files
+
+     with this code commented out the validation occurs from in-memory
+
 
   sr.setSchemaFilenameL1v1("sbml-l1v1.xsd");
   sr.setSchemaFilenameL1v2("sbml-l1v2.xsd");
   sr.setSchemaFilenameL2v1("sbml-l2v1.xsd");
+
+  */
 
   filename = argv[1];
 
