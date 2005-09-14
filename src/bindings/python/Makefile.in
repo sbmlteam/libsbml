@@ -77,7 +77,7 @@ sources = libsbml.py libsbml_wrap.cpp
 # The leading underscore below is a Python convention.
 # MacOS X note: this MUST remain .so even though we use .dylib for libsbml.
 
-libraries = _libsbml.so
+libraries = _libsbml.$(SHAREDLIBEXT)
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
