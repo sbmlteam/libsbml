@@ -1240,9 +1240,9 @@ void GetReaction ( Model_t      *pModel,
     GetReactants(pReaction, unSBMLLevel, unSBMLVersion);
     GetProducts(pReaction, unSBMLLevel, unSBMLVersion);
     
-    if (Reaction_isSetKineticLaw(pReaction)) {
+ //   if (Reaction_isSetKineticLaw(pReaction)) {
         GetKineticLaw(pReaction, unSBMLLevel, unSBMLVersion);
-    }
+ //   }
     
     if (unSBMLLevel == 2) {
        pacId = Reaction_getId(pReaction);
@@ -1668,12 +1668,12 @@ GetKineticLaw ( Reaction_t   *pReaction,
 									"timeUnits", 
 									"substanceUnits"};
   /* determine the values */
-  const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
-  const char * pacFormula = NULL;
-  const char * pacTimeUnits;
-  const char * pacSubstanceUnits;
+  const char * pacTypecode = NULL;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
+  const char * pacFormula;
+  const char * pacTimeUnits = NULL;
+  const char * pacSubstanceUnits = NULL;
   const char * pacMathFormula = NULL;
 
   KineticLaw_t *pKineticLaw;
@@ -1696,6 +1696,8 @@ GetKineticLaw ( Reaction_t   *pReaction,
     
   pKineticLaw = Reaction_getKineticLaw(pReaction);
 
+  if (pKineticLaw != NULL)
+  {
   pacTypecode = TypecodeToChar(SBase_getTypeCode(pKineticLaw));
   pacNotes = SBase_getNotes(pKineticLaw);
   pacAnnotations = SBase_getAnnotation(pKineticLaw);
@@ -1732,11 +1734,20 @@ GetKineticLaw ( Reaction_t   *pReaction,
   }
 
   /* END OF HACK */
-  
+  }
+  else 
+  {
+    pacFormula = NULL;
+    pacMathFormula = NULL;
+    mxKineticLawParameterReturn = NULL;
+  }
   /**
    * check for NULL strings - Matlab doesnt like creating 
    * a string that is NULL
    */
+  if (pacTypecode == NULL) {
+    pacTypecode = "SBML_KINETIC_LAW";
+  }
   if (pacFormula == NULL) {
     pacFormula = "";
   }
