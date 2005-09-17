@@ -1,8 +1,7 @@
            libsbml NEWS -- History of user-visible changes
 
-                              D R A F T
 
-=== Version 2.3.4 ===
+=== Version 2.3.3 ===
 
 * New Features:
 
@@ -64,6 +63,25 @@
  
 
 * Known Bugs:
+
+  - Qualified (prefixed) element names are broken in the Xerces-C++
+    2.6.0 SAX2 handler.  Currently, libSBML does not work around this
+    bug.  As a result, when libSBML converts <annotation>s to strings,
+    qualified element names with intervening element content
+    (e.g. <foo:bar> <baz:bop> </foo:bar>) will result in end elements
+    with incorrect prefixes (e.g. </baz:bar>).  If you prefer
+    Xerces-C++, for now please use 2.5.0 or earlier.
+
+  - In libSBML C++, adding objects created on the *stack* to a
+    container object (e.g. adding a Species to a Model or a Unit to a
+    UnitDefinition) may cause libSBML to crash.  LibSBML assumes:
+    i) container objects adopt the the objects they contain
+    (i.e. container objects will freeing objects they contain) and
+    ii) all such objects are heap based (e.g. created with new).
+
+    This bug will be fixed in a future release (2.4.0?) with reference
+    counted objects.  Note this bug *does not occur* in any of LibSBML
+    C, Java, Python, Perl, Lisp, or Matlab.
 
 
 * Released September xx, 2005
