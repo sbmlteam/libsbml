@@ -54,6 +54,13 @@
     specifications.  Thanks to Pedro Mendes for asking a question (via
     sbml-discuss) that lead to the discovery of this bug.
 
+  - Thanks to Ralph Gauges for reporting i) a discrepancy between the
+    Xerces-C++ Attributes and the ExpatAttributes interface which was
+    causing the layout extension to occassionally malfunction, and ii)
+    for reporting a mismatched new / free in ExpatXMLString.  These
+    were bugs that only a libSBML extension developer is likely to
+    notice. ;)  They have been fixed.
+
 
 * Changes:
 
