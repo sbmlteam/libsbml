@@ -996,6 +996,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\sbml\SBMLSchemaInputSource.cpp">
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLSchemaInputStream.cpp">
+			</File>
+			<File
 				RelativePath="..\..\sbml\SBMLTagCodes.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">

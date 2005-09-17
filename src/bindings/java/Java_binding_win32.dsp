@@ -275,6 +275,14 @@ SOURCE=..\..\sbml\SBMLReader.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\sbml\SBMLSchemaInputSource.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\sbml\SBMLSchemaInputStream.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\sbml\SBMLTagCodes.cpp
 # End Source File
 # Begin Source File
