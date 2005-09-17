@@ -34,6 +34,8 @@
 
 
 #include <cstring>
+#include <cstdlib>
+
 #include "ExpatXMLString.h"
 
 
@@ -160,7 +162,7 @@ XMLString::transcode (const XML_Char* str, const int& length)
     }
     else
     {
-      char * tmp = new char[length + 1];
+      char* tmp   = (char*) malloc( (length + 1) * sizeof(char) );
       memcpy(tmp, str, length);
       tmp[length] = 0;
       return tmp;
