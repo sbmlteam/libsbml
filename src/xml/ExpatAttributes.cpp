@@ -182,17 +182,17 @@ Attributes::getQName (const unsigned int index) const
 
 
 /**
- * Lookup the index of an attribute by name.
+ * Lookup the index of an attribute by XML 1.0 qualified name.
  *
  * @return the index of the attribute, or -1 if it does not appear in the
  * list.
  */
 int
-Attributes::getIndex (const XML_Char* name) const
+Attributes::getIndex (const XML_Char* qname) const
 {
   for (int index = 0; index < mSize; ++index)
   {
-    if ( !strcmp(mLocalNames[index], name) ) return index;
+    if ( !strcmp(getQName(index), qname) ) return index;
   }
   
   return -1;
@@ -200,15 +200,15 @@ Attributes::getIndex (const XML_Char* name) const
 
 
 /**
- * Lookup an Attributes value by name.
+ * Lookup an Attributes value by XML 1.0 qualified name.
  *
  * @return The attribute value as a string or NULL if the attribute is
  * not in the list.
  */
 const XML_Char*
-Attributes::getValue (const XML_Char* const name) const
+Attributes::getValue (const XML_Char* const qname) const
 {
-  return getValue( getIndex(name) );
+  return getValue( getIndex(qname) );
 }
 
 

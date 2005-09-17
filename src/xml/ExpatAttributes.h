@@ -89,20 +89,20 @@ public:
   virtual const XML_Char* getQName (const unsigned int index) const;
 
   /**
-   * Lookup the index of an attribute by name.
+   * Lookup the index of an attribute by XML 1.0 qualified name.
    *
    * @return the index of the attribute, or -1 if it does not appear in the
    * list.
    */
-  virtual int getIndex (const XML_Char* const name) const;
+  virtual int getIndex (const XML_Char* const qname) const;
 
   /**
-   * Lookup an Attributes value by name.
+   * Lookup an Attributes value by XML 1.0 qualified name.
    *
    * @return The attribute value as a string or NULL if the attribute is
    * not in the list.
    */
-  virtual const XML_Char* getValue (const XML_Char* name) const;
+  virtual const XML_Char* getValue (const XML_Char* qname) const;
 
   /**
    * @return the value of an attribute in the list (by position), or NULL
