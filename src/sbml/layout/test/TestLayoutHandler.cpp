@@ -54,29 +54,1167 @@
 
 BEGIN_C_DECLS
 
-static ListOf*         list;
-static LayoutHandler * LH;
+#define XML_HEADER    "<?xml version='1.0' encoding='UTF-8'?>\n"
+#define SBML_HEADER2  //"<sbml level='2' version='1'> <model name='testModel'> <annotation xmlns=\"http://projects.eml.org/bcb/sbml/level2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+#define SBML_FOOTER   //"</annotation></model> </sbml>"
 
+/**
+ * Wraps the string s in the appropriate XML or SBML boilerplate.
+ */
+#define wrapSBML2(s)  XML_HEADER SBML_HEADER2 s SBML_FOOTER
+
+
+static LayoutHandler         *LH;  
+static ListOf                *LISTOFLAYOUTS;
 
 void
 LayoutHandlerTest_setup (void)
 {
-    list=new ListOf();
-    LH = new(std::nothrow )LayoutHandler(list);
-
-    if (LH == NULL)
-    {
-        fail("new(std::nothrow) LayoutHandler() returned a NULL pointer.");
-    }
-
+    LISTOFLAYOUTS=new ListOf();
+    LH=new LayoutHandler(LISTOFLAYOUTS);
+    LH->startDocument();
+    LH->enableElementHandler();
 }
 
 void 
 LayoutHandlerTest_teardown (void)
 {
+    LH->endDocument();
     delete LH;
-    delete list;
+    delete LISTOFLAYOUTS;
 }
+
+START_TEST (test_LayoutHandler_Layout)
+{
+    const char* s = wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
+      "  <listOfCompartmentGlyphs>\n"
+      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"0\" y=\"0\"/>\n"
+      "        <dimensions width=\"0\" height=\"0\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </compartmentGlyph>\n"
+      "  </listOfCompartmentGlyphs>\n"
+      "  <listOfSpeciesGlyphs>\n"
+      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"0\" y=\"0\"/>\n"
+      "        <dimensions width=\"0\" height=\"0\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </speciesGlyph>\n"
+      "  </listOfSpeciesGlyphs>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"0\" y=\"0\"/>\n"
+      "        <dimensions width=\"0\" height=\"0\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "  <listOfTextGlyphs>\n"
+      "    <textGlyph id=\"textGlyph_1\" text=\"test\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"0\" y=\"0\"/>\n"
+      "        <dimensions width=\"0\" height=\"0\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </textGlyph>\n"
+      "  </listOfTextGlyphs>\n"
+      "  <listOfAdditionalGraphicalObjects>\n"
+      "    <graphicalObject id=\"graphicalObject_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"0\" y=\"0\"/>\n"
+      "        <dimensions width=\"0\" height=\"0\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </graphicalObject>\n"
+      "  </listOfAdditionalGraphicalObjects>\n"
+      "</layout>\n"
+    );
+    
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Layout_notes)
+{
+    const char* s = wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <notes>\n"
+      "    Test note.\n"
+      "</notes>\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
+      "</layout>\n"     
+    );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Layout_annotation)
+{
+    const char* s = wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
+      "</layout>\n"     
+    );
+
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Layout_skipOptional)
+{
+    const char* s = wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
+      "</layout>\n"     
+    );
+
+}
+END_TEST
+
+
+START_TEST (test_LayoutHandler_CompartmentGlyph)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfCompartmentGlyphs>\n"
+      "    <compartmentGlyph id=\"compartmentGlyph_1\" compartment=\"compartment_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </compartmentGlyph>\n"
+      "  </listOfCompartmentGlyphs>\n"
+      "</layout>\n"
+    );
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_CompartmentGlyph_notes)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfCompartmentGlyphs>\n"
+      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "      <notes>\n"
+      "        Test note.\n"
+      "</notes>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </compartmentGlyph>\n"
+      "  </listOfCompartmentGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfCompartmentGlyphs>\n"
+      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "      <annotation>\n"
+      "        <this-is-a-test/>\n"
+      "      </annotation>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </compartmentGlyph>\n"
+      "  </listOfCompartmentGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_CompartmentGlyph_skipOptional)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfCompartmentGlyphs>\n"
+      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </compartmentGlyph>\n"
+      "  </listOfCompartmentGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesGlyph)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfSpeciesGlyphs>\n"
+      "    <speciesGlyph id=\"speciesGlyph_1\" species=\"species_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </speciesGlyph>\n"
+      "  </listOfSpeciesGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesGlyph_notes)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfSpeciesGlyphs>\n"
+      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
+      "      <notes>\n"
+      "        Test note.\n"
+      "</notes>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </speciesGlyph>\n"
+      "  </listOfSpeciesGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfSpeciesGlyphs>\n"
+      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
+      "      <annotation>\n"
+      "        <this-is-a-test/>\n"
+      "      </annotation>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </speciesGlyph>\n"
+      "  </listOfSpeciesGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesGlyph_skipOptional)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfSpeciesGlyphs>\n"
+      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </speciesGlyph>\n"
+      "  </listOfSpeciesGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_ReactionGlyph_Curve)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"LineSegment\">\n" 
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_ReactionGlyph_BoundingBox)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_ReactionGlyph_notes)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "      <notes>\n"
+      "        Test note.\n"
+      "</notes>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "      <annotation>\n"
+      "        <this-is-a-test/>\n"
+      "      </annotation>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_ReactionGlyph_skipOptional)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_Curve)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"
+      "      <listOfSpeciesReferenceGlyphs>\n"
+      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"undefined\">\n"
+      "          <curve>\n"
+      "            <listOfCurveSegments>\n"
+      "              <curveSegment xsi:type=\"LineSegment\">\n" 
+      "                <start x=\"10\" y=\"10\"/>\n" 
+      "                <end x=\"20\" y=\"10\"/>\n" 
+      "              </curveSegment>\n"
+      "            </listOfCurveSegments>\n"
+      "          </curve>\n"
+      "        </speciesReferenceGlyph>\n"
+      "      </listOfSpeciesReferenceGlyphs>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+    );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_BoundingBox)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"
+      "      <listOfSpeciesReferenceGlyphs>\n"
+      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"undefined\">\n"
+      "          <boundingBox>\n"
+      "            <position x=\"10.3\" y=\"20\"/>\n"
+      "            <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "          </boundingBox>\n"  
+      "        </speciesReferenceGlyph>\n"
+      "      </listOfSpeciesReferenceGlyphs>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_notes)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"
+      "      <listOfSpeciesReferenceGlyphs>\n"
+      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
+      "          <notes>\n"
+      "            Test note.\n"
+      "          </notes>\n"
+      "          <boundingBox>\n"
+      "            <position x=\"10.3\" y=\"20\"/>\n"
+      "            <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "          </boundingBox>\n"  
+      "        </speciesReferenceGlyph>\n"
+      "      </listOfSpeciesReferenceGlyphs>\n"
+      "    </reactionGlyph><\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"
+      "      <listOfSpeciesReferenceGlyphs>\n"
+      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
+      "          <annotation>\n"
+      "            <this-is-a-test/>\n"
+      "          </annotation>\n"
+      "          <boundingBox>\n"
+      "            <position x=\"10.3\" y=\"20\"/>\n"
+      "            <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "          </boundingBox>\n"  
+      "        </speciesReferenceGlyph>\n"
+      "      </listOfSpeciesReferenceGlyphs>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_skipOptional)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"
+      "      <listOfSpeciesReferenceGlyphs>\n"
+      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
+      "          <boundingBox>\n"
+      "            <position x=\"10.3\" y=\"20\"/>\n"
+      "            <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "          </boundingBox>\n"  
+      "        </speciesReferenceGlyph>\n"
+      "      </listOfSpeciesReferenceGlyphs>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_TextGlyph_text)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfTextGlyphs>\n"
+      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" text=\"test text\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </textGlyph>\n"
+      "  </listOfTextGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_TextGlyph_originOfText)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfTextGlyphs>\n"
+      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </textGlyph>\n"
+      "  </listOfTextGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_TextGlyph_notes)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfTextGlyphs>\n"
+      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
+      "      <notes>\n"
+      "        Test note.\n"
+      "</notes>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </textGlyph>\n"
+      "  </listOfTextGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_TextGlyph_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfTextGlyphs>\n"
+      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
+      "      <annotation>\n"
+      "        <this-is-a-test/>\n"
+      "      </annotation>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </textGlyph>\n"
+      "  </listOfTextGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_TextGlyph_skipOptional)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfTextGlyphs>\n"
+      "    <textGlyph id=\"textGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </textGlyph>\n"
+      " </listOfTextGlyphs>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_GraphicalObject)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfAdditionalGraphicalObjects>\n"
+      "    <graphicalObject id=\"graphicalObject_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </graphicalObject>\n"
+      "  </listOfAdditionalGraphicalObjects>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_GraphicalObject_notes)
+{
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfAdditionalGraphicalObjects>\n"
+      "    <graphicalObject id=\"graphicalObject_1\">\n"
+      "      <notes>\n"
+      "        Test note.\n"
+      "</notes>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </graphicalObject>\n"
+      "  </listOfAdditionalGraphicalObjects>\n"
+      "</layout>\n"
+   );
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_GraphicalObject_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    ( "<layout>\n"
+      "  <listOfAdditionalGraphicalObjects>\n"
+      "    <graphicalObject id=\"graphicalObject_1\">\n"
+      "      <annotation>\n"
+      "        <this-is-a-test/>\n"
+      "      </annotation>\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </graphicalObject>\n"
+      "  </listOfAdditionalGraphicalObjects>\n"
+      "</layout>\n"
+   );
+
+    
+    
+    
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Curve)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"LineSegment\">\n" 
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Curve_notes)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <notes>\n"
+      "          Test note.\n"
+      "</notes>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"LineSegment\">\n" 
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Curve_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <annotation>\n"
+      "          <this-is-a-test/>\n"
+      "        </annotation>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"LineSegment\">\n" 
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+    );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Curve_skipOptional)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_LineSegment)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"LineSegment\">\n" 
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+  );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_LineSegment_notes)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"LineSegment\">\n" 
+      "            <notes>\n"
+      "              Test note.\n"
+      "</notes>\n"
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+  );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_LineSegment_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"LineSegment\">\n" 
+      "            <annotation>\n"
+      "              <this-is-a-test/>\n"
+      "            </annotation>\n"
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+  );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_CubicBezier)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"CubicBezier\">\n" 
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "            <basePoint1 x=\"15\" y=\"5\"/>\n" 
+      "            <basePoint2 x=\"15\" y=\"15\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+  );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_CubicBezier_notes)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"CubicBezier\">\n" 
+      "            <notes>\n"
+      "              Test note.\n"
+      "</notes>\n"
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "            <basePoint1 x=\"15\" y=\"5\"/>\n" 
+      "            <basePoint2 x=\"15\" y=\"15\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+  );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_CubicBezier_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <curve>\n"
+      "        <listOfCurveSegments>\n"
+      "          <curveSegment xsi:type=\"CubicBezier\">\n" 
+      "            <annotation>\n"
+      "              <this-is-a-test/>\n"
+      "            </annotation>\n"
+      "            <start x=\"10\" y=\"10\"/>\n" 
+      "            <end x=\"20\" y=\"10\"/>\n" 
+      "            <basePoint1 x=\"15\" y=\"5\"/>\n" 
+      "            <basePoint2 x=\"15\" y=\"15\"/>\n" 
+      "          </curveSegment>\n"
+      "        </listOfCurveSegments>\n"
+      "      </curve>\n"
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+  );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Dimensions)
+{
+    char* s=wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\"/>\n" 
+      "</layout>\n"
+    );
+
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Dimensions_notes)
+{
+    char* s=wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
+      "    <notes>\n"
+      "      Test note.\n"
+      "</notes>\n"
+      "  </dimensions>\n"
+      "</layout>\n"
+    );
+
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Dimensions_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
+      "    <annotation>\n"
+      "      <this-is-a-test/>\n"
+      "    </annotation>\n"
+      "  </dimensions>\n"
+       "</layout>\n"
+   );
+
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_Dimensions_skipOptional)
+{
+    char* s=wrapSBML2
+    (
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "</layout>\n"
+    );
+
+
+}
+END_TEST
+
+
+START_TEST (test_LayoutHandler_BoundingBox)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox id=\"boundingBox_1\">\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_BoundingBox_notes)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <notes>\n"
+      "          Test note.\n"
+      "</notes>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_BoundingBox_annotation)
+{
+    const char* a =
+      "<annotation>\n"
+      "    <this-is-a-test/>\n"
+      "  </annotation>";
+
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <annotation>\n"
+      "          <this-is-a-test/>\n"
+      "        </annotation>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+
+}
+END_TEST
+
+START_TEST (test_LayoutHandler_BoundingBox_skipOptional)
+{
+    char* s=wrapSBML2
+    (
+      "<layout>\n"
+      "  <listOfReactionGlyphs>\n"
+      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "      <boundingBox>\n"
+      "        <position x=\"10.3\" y=\"20\"/>\n"
+      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "      </boundingBox>\n"  
+      "    </reactionGlyph>\n"
+      "  </listOfReactionGlyphs>\n"
+      "</layout>\n"
+   );
+
+}
+END_TEST
 
 
 Suite *
@@ -90,10 +1228,60 @@ create_suite_LayoutHandler (void)
                              LayoutHandlerTest_teardown );
 
 
+  tcase_add_test( tcase, test_LayoutHandler_Layout                            );
+  tcase_add_test( tcase, test_LayoutHandler_Layout_notes                      );
+  tcase_add_test( tcase, test_LayoutHandler_Layout_annotation                 );
+  tcase_add_test( tcase, test_LayoutHandler_Layout_skipOptional               );
+  tcase_add_test( tcase, test_LayoutHandler_CompartmentGlyph                  );
+  tcase_add_test( tcase, test_LayoutHandler_CompartmentGlyph_notes            );
+  tcase_add_test( tcase, test_LayoutHandler_CompartmentGlyph_annotation       );
+  tcase_add_test( tcase, test_LayoutHandler_CompartmentGlyph_skipOptional     );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesGlyph                      );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesGlyph_notes                );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesGlyph_annotation           );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesGlyph_skipOptional         );
+  tcase_add_test( tcase, test_LayoutHandler_ReactionGlyph_Curve               );
+  tcase_add_test( tcase, test_LayoutHandler_ReactionGlyph_BoundingBox         );
+  tcase_add_test( tcase, test_LayoutHandler_ReactionGlyph_notes               );
+  tcase_add_test( tcase, test_LayoutHandler_ReactionGlyph_annotation          );
+  tcase_add_test( tcase, test_LayoutHandler_ReactionGlyph_skipOptional        );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesReferenceGlyph_Curve       );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesReferenceGlyph_BoundingBox );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesReferenceGlyph_notes       );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesReferenceGlyph_annotation  );
+  tcase_add_test( tcase, test_LayoutHandler_SpeciesReferenceGlyph_skipOptional);
+  tcase_add_test( tcase, test_LayoutHandler_TextGlyph_text                    );
+  tcase_add_test( tcase, test_LayoutHandler_TextGlyph_notes                   );
+  tcase_add_test( tcase, test_LayoutHandler_TextGlyph_annotation              );
+  tcase_add_test( tcase, test_LayoutHandler_TextGlyph_originOfText            );
+  tcase_add_test( tcase, test_LayoutHandler_TextGlyph_skipOptional            );
+  tcase_add_test( tcase, test_LayoutHandler_GraphicalObject                   );
+  tcase_add_test( tcase, test_LayoutHandler_GraphicalObject_notes             );
+  tcase_add_test( tcase, test_LayoutHandler_GraphicalObject_annotation        );
+  tcase_add_test( tcase, test_LayoutHandler_Curve                             );
+  tcase_add_test( tcase, test_LayoutHandler_Curve_notes                       );
+  tcase_add_test( tcase, test_LayoutHandler_Curve_annotation                  );
+  tcase_add_test( tcase, test_LayoutHandler_Curve_skipOptional                );
+  tcase_add_test( tcase, test_LayoutHandler_LineSegment                       );
+  tcase_add_test( tcase, test_LayoutHandler_LineSegment_notes                 );
+  tcase_add_test( tcase, test_LayoutHandler_LineSegment_annotation            );
+  tcase_add_test( tcase, test_LayoutHandler_CubicBezier                       );
+  tcase_add_test( tcase, test_LayoutHandler_CubicBezier_notes                 );
+  tcase_add_test( tcase, test_LayoutHandler_CubicBezier_annotation            );
+  tcase_add_test( tcase, test_LayoutHandler_Dimensions                        );
+  tcase_add_test( tcase, test_LayoutHandler_Dimensions_notes                  );
+  tcase_add_test( tcase, test_LayoutHandler_Dimensions_annotation             );
+  tcase_add_test( tcase, test_LayoutHandler_Dimensions_skipOptional           );
+  tcase_add_test( tcase, test_LayoutHandler_BoundingBox                       );
+  tcase_add_test( tcase, test_LayoutHandler_BoundingBox_notes                 );
+  tcase_add_test( tcase, test_LayoutHandler_BoundingBox_annotation            );
+  tcase_add_test( tcase, test_LayoutHandler_BoundingBox_skipOptional          );
+  
   suite_add_tcase(suite, tcase);
 
   return suite;
 }
+
 
 
 
