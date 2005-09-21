@@ -160,6 +160,10 @@ LayoutHandler::startElement (const XMLCh* const  uri,
         obj=(SBase*)doDimensions(attrs);
         break;      
 
+      case TAG_GRAPHICAL_OBJECT:
+        obj=(SBase*)doGraphicalObject(attrs);  
+        break;
+
       case TAG_LAYOUT:
         obj=(SBase*)doLayout(attrs);
         break;
@@ -321,7 +325,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_COMPARTMENT_GLYPH:
-              if(prevTag!=TAG_LIST_OF_COMPARTMENT_GLYPHS){
+              if(prevTag && prevTag!=TAG_LIST_OF_COMPARTMENT_GLYPHS){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. CompartmentGlyph not inside ListOfCompartments.\n");
                   fclose(errStream);
@@ -329,7 +333,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_CURVE:
-              if(!(prevTag==TAG_SPECIES_REFERENCE_GLYPH || prevTag==TAG_REACTION_GLYPH)){
+              if(prevTag && !(prevTag==TAG_SPECIES_REFERENCE_GLYPH || prevTag==TAG_REACTION_GLYPH)){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. Curve does not belong to a SpeciesReferenceGlyph.\n");
                   fclose(errStream);
@@ -337,7 +341,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_CURVE_SEGMENT:
-              if(prevTag!=TAG_LIST_OF_CURVE_SEGMENTS){
+              if(prevTag && prevTag!=TAG_LIST_OF_CURVE_SEGMENTS){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. CurveSegment does not belong to a listOfCurveSegments.\n");
                   fclose(errStream);
@@ -346,15 +350,24 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               break;
           case TAG_DIMENSIONS:
               /* either prevNode is Layout or BoundingBox */
-              if(!(prevTag==TAG_BOUNDING_BOX || prevTag==TAG_LAYOUT)){
+              if(prevTag && !(prevTag==TAG_BOUNDING_BOX || prevTag==TAG_LAYOUT)){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. Dimensions not inside Layout or BoundingBox.\n");
                   fclose(errStream);
                   exit(1);
               }
+              break;  
+          case TAG_GRAPHICAL_OBJECT:
+              if(prevTag!=TAG_LIST_OF_ADDITIONAL_GRAPHICAL_OBJECTS){
+                  errStream=fdopen(2,"w");
+                  fprintf(errStream,"Error. GraphicalObject not inside listOfAdditionalGraphicalObjects.\n");
+        		  fprintf(errStream,"Tag: %d\n",prevTag);
+                  fclose(errStream);
+                  exit(1);
+              }
               break;    
           case TAG_LAYOUT:
-              if(prevTag!=TAG_LIST_OF_LAYOUTS){
+              if(prevTag && prevTag!=TAG_LIST_OF_LAYOUTS){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. Layout not inside listOfLayouts.\n");
                   fclose(errStream);
@@ -362,7 +375,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_LIST_OF_ADDITIONAL_GRAPHICAL_OBJECTS:
-              if(prevTag!=TAG_LAYOUT){
+              if(prevTag && prevTag!=TAG_LAYOUT){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ListOfAdditionalGraphicalObujects not inside a layout.\n");
                   fclose(errStream);
@@ -370,7 +383,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_LIST_OF_COMPARTMENT_GLYPHS:
-              if(prevTag!=TAG_LAYOUT){
+              if(prevTag && prevTag!=TAG_LAYOUT){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ListOfCompartmentGlyphs not inside a layout.\n");
                   fclose(errStream);
@@ -378,7 +391,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_LIST_OF_CURVE_SEGMENTS:
-              if(prevTag!=TAG_CURVE){
+              if(prevTag && prevTag!=TAG_CURVE){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ListOfCurveSegments not inside a curve.\n");
                   fprintf(errStream,"Tag: %d != %d\n",prevTag,TAG_CURVE);
@@ -389,7 +402,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
           case TAG_LIST_OF_LAYOUTS:
               break;
           case TAG_LIST_OF_REACTION_GLYPHS:
-              if(prevTag!=TAG_LAYOUT){
+              if(prevTag && prevTag!=TAG_LAYOUT){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ListOfReactionGlyphs not inside a layout.\n");
                   fclose(errStream);
@@ -397,7 +410,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_LIST_OF_SPECIES_GLYPHS:
-              if(prevTag!=TAG_LAYOUT){
+              if(prevTag && prevTag!=TAG_LAYOUT){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ListOfSpeciesGlyphs not inside a layout.\n");
                   fclose(errStream);
@@ -406,7 +419,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               break;
           case TAG_BOUNDING_BOX_POSITION:
               /* prevNode is BoundingBox*/
-              if(prevTag!=TAG_BOUNDING_BOX){
+              if(prevTag && prevTag!=TAG_BOUNDING_BOX){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. Position not inside BoundingBox.\n");
                   fclose(errStream);
@@ -454,16 +467,16 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;     
           case TAG_SPECIES_GLYPH:
-              if(prevTag!=TAG_LIST_OF_SPECIES_GLYPHS){
+              if(prevTag && prevTag!=TAG_LIST_OF_SPECIES_GLYPHS){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. SpeciesGlyph not inside listOfSpeciesGlyphs.\n");
-		  fprintf(errStream,"Tag: %d\n",prevTag);
+        		  fprintf(errStream,"Tag: %d\n",prevTag);
                   fclose(errStream);
                   exit(1);
               }
               break;
           case TAG_LIST_OF_SPECIES_REFERENCE_GLYPHS:
-              if(prevTag!=TAG_REACTION_GLYPH){
+              if(prevTag && prevTag!=TAG_REACTION_GLYPH){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ListOfSpeciesReferenceGlyphs not inside a reactionGlyph.\n");
                   fclose(errStream);
@@ -471,7 +484,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_LIST_OF_TEXT_GLYPHS:
-              if(prevTag!=TAG_LAYOUT){
+              if(prevTag && prevTag!=TAG_LAYOUT){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ListOfTextGlyphs not inside a layout.\n");
                   fclose(errStream);
@@ -479,7 +492,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_REACTION_GLYPH:
-              if(prevTag!=TAG_LIST_OF_REACTION_GLYPHS){
+              if(prevTag && prevTag!=TAG_LIST_OF_REACTION_GLYPHS){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. ReactionGlyph not inside listOfReactionGlyphs.\n");
                   fclose(errStream);
@@ -487,7 +500,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_SPECIES_REFERENCE_GLYPH:
-              if(prevTag!=TAG_LIST_OF_SPECIES_REFERENCE_GLYPHS){
+              if(prevTag && prevTag!=TAG_LIST_OF_SPECIES_REFERENCE_GLYPHS){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. SpeciesReferenceGlyph not inside listOfSpeciesReferenceGlyphs.\n");
                   fclose(errStream);
@@ -495,7 +508,7 @@ LayoutHandler::endElement (const XMLCh* const  uri,
               }
               break;
           case TAG_TEXT_GLYPH:
-              if(prevTag!=TAG_LIST_OF_TEXT_GLYPHS){
+              if(prevTag && prevTag!=TAG_LIST_OF_TEXT_GLYPHS){
                   errStream=fdopen(2,"w");
                   fprintf(errStream,"Error. TextGlyph not inside listOfTextGlyphs.\n");
                   fclose(errStream);
