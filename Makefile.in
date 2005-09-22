@@ -388,7 +388,7 @@ dist-all: $(distfiles)
 
 
 # -----------------------------------------------------------------------------
-# Miscellaneous.
+# Common default rules.
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
