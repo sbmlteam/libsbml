@@ -213,7 +213,7 @@
             ;;
         glnx86)
 #----------------------------------------------------------------------------
-            RPATH="-Wl,--rpath-link,$TMW_ROOT/extern/lib/glnx86,--rpath-link,$TMW_ROOT/bin/glnx86"
+            RPATH="-Wl,-rpath-link,$TMW_ROOT/extern/lib/glnx86,-rpath-link,$TMW_ROOT/bin/glnx86"
 #           gcc -v
 #           gcc version 2.95.2 19991024 (release)
             CC='gcc'
@@ -242,6 +242,7 @@
             FDEBUGFLAGS='-g'
 #
             LD="$COMPILER"
+            LDEXTENSION='.mexglx'
             LDFLAGS="-pthread -shared -Wl,--version-script,$TMW_ROOT/extern/lib/glnx86/$MAPFILE"
             LDOPTIMFLAGS='-O'
             LDDEBUGFLAGS='-g'
@@ -257,7 +258,7 @@
 	        MLIBS="-L$TMW_ROOT/bin/glnx86 -lmx -lmex -lmat -lm"
 	    fi
 
-            RPATH="-Wl,--rpath-link,$TMW_ROOT/extern/lib/glnx86,--rpath-link,$TMW_ROOT/bin/glnx86"
+            RPATH="-Wl,-rpath-link,$TMW_ROOT/extern/lib/glnx86,-rpath-link,$TMW_ROOT/bin/glnx86"
 #           gcc -v
 #           gcc version 2.95.2 19991024 (release)
             CC='gcc'
@@ -286,6 +287,7 @@
             FDEBUGFLAGS='-g'
 #
             LD="$COMPILER"
+            LDEXTENSION='.mexa64'
             LDFLAGS="-m32 -pthread -shared -Wl,--version-script,$TMW_ROOT/extern/lib/glnx86/$MAPFILE"
             LDOPTIMFLAGS='-O'
             LDDEBUGFLAGS='-g'
@@ -360,6 +362,7 @@
             FDEBUGFLAGS='-g'
 #
             LD="$COMPILER"
+            LDEXTENSION='.mexsol'
             LDFLAGS="-G -mt -M$TMW_ROOT/extern/lib/$Arch/$MAPFILE"
             LDOPTIMFLAGS='-O'
             LDDEBUGFLAGS='-g'
@@ -395,6 +398,7 @@
             FDEBUGFLAGS='-g'
 #
             LD="$CC"
+            LDEXTENSION='.mexmac'
             LDFLAGS="-bundle -Wl,-flat_namespace -undefined suppress"
             LDOPTIMFLAGS='-O'
             LDDEBUGFLAGS='-g'
