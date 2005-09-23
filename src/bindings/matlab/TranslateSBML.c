@@ -1240,9 +1240,9 @@ void GetReaction ( Model_t      *pModel,
     GetReactants(pReaction, unSBMLLevel, unSBMLVersion);
     GetProducts(pReaction, unSBMLLevel, unSBMLVersion);
     
- //   if (Reaction_isSetKineticLaw(pReaction)) {
+    /*   if (Reaction_isSetKineticLaw(pReaction)) { */
         GetKineticLaw(pReaction, unSBMLLevel, unSBMLVersion);
- //   }
+    /*   } */
     
     if (unSBMLLevel == 2) {
        pacId = Reaction_getId(pReaction);
