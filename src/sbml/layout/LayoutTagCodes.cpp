@@ -57,6 +57,7 @@
 
 
 #include "sbml/SBMLTagCodes.h"
+#include "sbml/SBMLUnicodeConstants.h"
 
 #include "LayoutTagCodes.h"
 #include "LayoutUnicodeConstants.h"
@@ -125,6 +126,21 @@ LayoutTagCode_forElement (const XMLCh* name)
         hc = mid;
         break;
       }
+    }
+  }
+  if(hc==TAG_UNKNOWN)
+  {
+    if(!XMLString::compareString(name, ELEM_NOTES))
+    {
+        hc=TAG_NOTES;
+    }
+    else if(!XMLString::compareString(name, ELEM_ANNOTATIONS))
+    {
+        hc=TAG_ANNOTATIONS;
+    }
+    else if(!XMLString::compareString(name, ELEM_ANNOTATION))
+    {
+        hc=TAG_ANNOTATIONS;
     }
   }
   return hc;

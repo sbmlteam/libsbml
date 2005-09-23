@@ -136,8 +136,93 @@ START_TEST (test_LayoutHandler_Layout)
     fail_unless(LH->parse(s,-1,true));
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
+    fail_unless(l->getNumCompartmentGlyphs()==1);
+    CompartmentGlyph* cg=l->getCompartmentGlyph(0);
+    fail_unless(cg!=NULL);
+    fail_unless(cg->getId()=="compartmentGlyph_1");
+    BoundingBox* box=&cg->getBoundingBox();
+    fail_unless(!box->isSetId());
+    Point* position=&box->getPosition();
+    fail_unless(position->getXOffset()==0.0);
+    fail_unless(position->getYOffset()==0.0);
+    fail_unless(position->getZOffset()==0.0);
+    dimensions=&box->getDimensions();
+    fail_unless(dimensions->getWidth()==0.0);
+    fail_unless(dimensions->getHeight()==0.0);
+    fail_unless(dimensions->getDepth()==0.0);
     
+    fail_unless(l->getNumSpeciesGlyphs()==1);
+    SpeciesGlyph* sg=l->getSpeciesGlyph(0);
+    fail_unless(sg!=NULL);
+    fail_unless(sg->getId()=="speciesGlyph_1");
+    box=&sg->getBoundingBox();
+    fail_unless(!box->isSetId());
+    position=&box->getPosition();
+    fail_unless(position->getXOffset()==0.0);
+    fail_unless(position->getYOffset()==0.0);
+    fail_unless(position->getZOffset()==0.0);
+    dimensions=&box->getDimensions();
+    fail_unless(dimensions->getWidth()==0.0);
+    fail_unless(dimensions->getHeight()==0.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
+    fail_unless(l->getNumReactionGlyphs()==1);
+    ReactionGlyph* rg=l->getReactionGlyph(0);
+    fail_unless(rg!=NULL);
+    fail_unless(rg->getId()=="reactionGlyph_1");
+    box=&rg->getBoundingBox();
+    fail_unless(!box->isSetId());
+    position=&box->getPosition();
+    fail_unless(position->getXOffset()==0.0);
+    fail_unless(position->getYOffset()==0.0);
+    fail_unless(position->getZOffset()==0.0);
+    dimensions=&box->getDimensions();
+    fail_unless(dimensions->getWidth()==0.0);
+    fail_unless(dimensions->getHeight()==0.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
+    
+    fail_unless(l->getNumTextGlyphs()==1);
+    TextGlyph* tg=l->getTextGlyph(0);
+    fail_unless(tg!=NULL);
+    fail_unless(tg->getId()=="textGlyph_1");
+    box=&tg->getBoundingBox();
+    fail_unless(!box->isSetId());
+    position=&box->getPosition();
+    fail_unless(position->getXOffset()==0.0);
+    fail_unless(position->getYOffset()==0.0);
+    fail_unless(position->getZOffset()==0.0);
+    dimensions=&box->getDimensions();
+    fail_unless(dimensions->getWidth()==0.0);
+    fail_unless(dimensions->getHeight()==0.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
+    
+    fail_unless(l->getNumAdditionalGraphicalObjects()==1);
+    GraphicalObject* go=l->getAdditionalGraphicalObject(0);
+    fail_unless(go!=NULL);
+    fail_unless(go->getId()=="graphicalObject_1");
+    box=&go->getBoundingBox();
+    fail_unless(!box->isSetId());
+    position=&box->getPosition();
+    fail_unless(position->getXOffset()==0.0);
+    fail_unless(position->getYOffset()==0.0);
+    fail_unless(position->getZOffset()==0.0);
+    dimensions=&box->getDimensions();
+    fail_unless(dimensions->getWidth()==0.0);
+    fail_unless(dimensions->getHeight()==0.0);
+    fail_unless(dimensions->getDepth()==0.0);
 }
 END_TEST
 
@@ -152,6 +237,19 @@ START_TEST (test_LayoutHandler_Layout_notes)
       "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "</layout>\n"     
     );
+
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
 
 }
 END_TEST
@@ -173,6 +271,19 @@ START_TEST (test_LayoutHandler_Layout_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -185,6 +296,19 @@ START_TEST (test_LayoutHandler_Layout_skipOptional)
       "</layout>\n"     
     );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -192,7 +316,8 @@ END_TEST
 START_TEST (test_LayoutHandler_CompartmentGlyph)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfCompartmentGlyphs>\n"
       "    <compartmentGlyph id=\"compartmentGlyph_1\" compartment=\"compartment_1\">\n"
       "      <boundingBox>\n"
@@ -204,13 +329,27 @@ START_TEST (test_LayoutHandler_CompartmentGlyph)
       "</layout>\n"
     );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
 START_TEST (test_LayoutHandler_CompartmentGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfCompartmentGlyphs>\n"
       "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "      <notes>\n"
@@ -225,6 +364,19 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_notes)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -237,7 +389,8 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
       "  </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfCompartmentGlyphs>\n"
       "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "      <annotation>\n"
@@ -252,6 +405,19 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -259,7 +425,8 @@ END_TEST
 START_TEST (test_LayoutHandler_CompartmentGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfCompartmentGlyphs>\n"
       "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -271,6 +438,19 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_skipOptional)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -278,7 +458,8 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesGlyph)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfSpeciesGlyphs>\n"
       "    <speciesGlyph id=\"speciesGlyph_1\" species=\"species_1\">\n"
       "      <boundingBox>\n"
@@ -290,6 +471,19 @@ START_TEST (test_LayoutHandler_SpeciesGlyph)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -297,7 +491,8 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfSpeciesGlyphs>\n"
       "    <speciesGlyph id=\"speciesGlyph_1\">\n"
       "      <notes>\n"
@@ -312,6 +507,19 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_notes)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -324,7 +532,8 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
       "  </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfSpeciesGlyphs>\n"
       "    <speciesGlyph id=\"speciesGlyph_1\">\n"
       "      <annotation>\n"
@@ -339,6 +548,19 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -346,7 +568,8 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfSpeciesGlyphs>\n"
       "    <speciesGlyph id=\"speciesGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -358,6 +581,19 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_skipOptional)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -365,7 +601,8 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_Curve)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "      <curve>\n"
@@ -381,6 +618,19 @@ START_TEST (test_LayoutHandler_ReactionGlyph_Curve)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -388,7 +638,8 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_BoundingBox)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "      <boundingBox>\n"
@@ -400,6 +651,19 @@ START_TEST (test_LayoutHandler_ReactionGlyph_BoundingBox)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -407,7 +671,8 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "      <notes>\n"
@@ -422,6 +687,19 @@ START_TEST (test_LayoutHandler_ReactionGlyph_notes)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -434,7 +712,8 @@ START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
       "  </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "      <annotation>\n"
@@ -449,6 +728,19 @@ START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -456,7 +748,8 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -468,6 +761,19 @@ START_TEST (test_LayoutHandler_ReactionGlyph_skipOptional)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -475,7 +781,8 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_Curve)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -499,6 +806,19 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_Curve)
       "</layout>\n"
     );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -506,7 +826,8 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_BoundingBox)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -526,6 +847,19 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_BoundingBox)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -533,7 +867,8 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -544,18 +879,31 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_notes)
       "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
       "          <notes>\n"
       "            Test note.\n"
-      "          </notes>\n"
+      "</notes>\n"
       "          <boundingBox>\n"
       "            <position x=\"10.3\" y=\"20\"/>\n"
       "            <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "          </boundingBox>\n"  
       "        </speciesReferenceGlyph>\n"
       "      </listOfSpeciesReferenceGlyphs>\n"
-      "    </reactionGlyph><\n"
+      "    </reactionGlyph>\n"
       "  </listOfReactionGlyphs>\n"
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -568,7 +916,8 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
       "  </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -591,6 +940,19 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -598,7 +960,8 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -618,6 +981,19 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_skipOptional)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -625,7 +1001,8 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_text)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfTextGlyphs>\n"
       "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" text=\"test text\">\n"
       "      <boundingBox>\n"
@@ -637,6 +1014,19 @@ START_TEST (test_LayoutHandler_TextGlyph_text)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -644,7 +1034,8 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_originOfText)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfTextGlyphs>\n"
       "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -656,6 +1047,19 @@ START_TEST (test_LayoutHandler_TextGlyph_originOfText)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -663,7 +1067,8 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfTextGlyphs>\n"
       "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "      <notes>\n"
@@ -678,6 +1083,19 @@ START_TEST (test_LayoutHandler_TextGlyph_notes)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -690,7 +1108,8 @@ START_TEST (test_LayoutHandler_TextGlyph_annotation)
       "  </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfTextGlyphs>\n"
       "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "      <annotation>\n"
@@ -705,6 +1124,19 @@ START_TEST (test_LayoutHandler_TextGlyph_annotation)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -712,7 +1144,8 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfTextGlyphs>\n"
       "    <textGlyph id=\"textGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -724,6 +1157,19 @@ START_TEST (test_LayoutHandler_TextGlyph_skipOptional)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -731,7 +1177,8 @@ END_TEST
 START_TEST (test_LayoutHandler_GraphicalObject)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfAdditionalGraphicalObjects>\n"
       "    <graphicalObject id=\"graphicalObject_1\">\n"
       "      <boundingBox>\n"
@@ -743,6 +1190,19 @@ START_TEST (test_LayoutHandler_GraphicalObject)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -750,7 +1210,8 @@ END_TEST
 START_TEST (test_LayoutHandler_GraphicalObject_notes)
 {
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfAdditionalGraphicalObjects>\n"
       "    <graphicalObject id=\"graphicalObject_1\">\n"
       "      <notes>\n"
@@ -765,6 +1226,19 @@ START_TEST (test_LayoutHandler_GraphicalObject_notes)
       "</layout>\n"
    );
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
 }
 END_TEST
@@ -777,7 +1251,8 @@ START_TEST (test_LayoutHandler_GraphicalObject_annotation)
       "  </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout>\n"
+    ( "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfAdditionalGraphicalObjects>\n"
       "    <graphicalObject id=\"graphicalObject_1\">\n"
       "      <annotation>\n"
@@ -793,6 +1268,19 @@ START_TEST (test_LayoutHandler_GraphicalObject_annotation)
    );
 
     
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
     
     
 }
@@ -802,7 +1290,8 @@ START_TEST (test_LayoutHandler_Curve)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -818,6 +1307,20 @@ START_TEST (test_LayoutHandler_Curve)
       "</layout>\n"
    );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
+
 }
 END_TEST
 
@@ -825,7 +1328,8 @@ START_TEST (test_LayoutHandler_Curve_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -844,6 +1348,20 @@ START_TEST (test_LayoutHandler_Curve_notes)
       "</layout>\n"
    );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
+
 }
 END_TEST
 
@@ -856,7 +1374,8 @@ START_TEST (test_LayoutHandler_Curve_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -875,6 +1394,19 @@ START_TEST (test_LayoutHandler_Curve_annotation)
       "</layout>\n"
     );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -882,7 +1414,8 @@ START_TEST (test_LayoutHandler_Curve_skipOptional)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -892,6 +1425,19 @@ START_TEST (test_LayoutHandler_Curve_skipOptional)
       "</layout>\n"
    );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -899,7 +1445,8 @@ START_TEST (test_LayoutHandler_LineSegment)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -915,6 +1462,19 @@ START_TEST (test_LayoutHandler_LineSegment)
       "</layout>\n"
   );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -922,7 +1482,8 @@ START_TEST (test_LayoutHandler_LineSegment_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -940,6 +1501,19 @@ START_TEST (test_LayoutHandler_LineSegment_notes)
       "  </listOfReactionGlyphs>\n"
       "</layout>\n"
   );
+
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
 
 }
 END_TEST
@@ -953,7 +1527,8 @@ START_TEST (test_LayoutHandler_LineSegment_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -972,6 +1547,19 @@ START_TEST (test_LayoutHandler_LineSegment_annotation)
       "</layout>\n"
   );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -979,7 +1567,8 @@ START_TEST (test_LayoutHandler_CubicBezier)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -997,6 +1586,19 @@ START_TEST (test_LayoutHandler_CubicBezier)
       "</layout>\n"
   );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -1004,7 +1606,8 @@ START_TEST (test_LayoutHandler_CubicBezier_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -1025,6 +1628,19 @@ START_TEST (test_LayoutHandler_CubicBezier_notes)
       "</layout>\n"
   );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -1037,7 +1653,8 @@ START_TEST (test_LayoutHandler_CubicBezier_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
@@ -1058,6 +1675,19 @@ START_TEST (test_LayoutHandler_CubicBezier_annotation)
       "</layout>\n"
   );
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.0);
+    fail_unless(dimensions->getHeight()==400.0);
+    fail_unless(dimensions->getDepth()==0.0);
+
 }
 END_TEST
 
@@ -1069,6 +1699,19 @@ START_TEST (test_LayoutHandler_Dimensions)
       "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\"/>\n" 
       "</layout>\n"
     );
+
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.5);
+    fail_unless(dimensions->getHeight()==400.5);
+    fail_unless(dimensions->getDepth()==455.2);
 
 
 }
@@ -1086,6 +1729,20 @@ START_TEST (test_LayoutHandler_Dimensions_notes)
       "  </dimensions>\n"
       "</layout>\n"
     );
+
+
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.5);
+    fail_unless(dimensions->getHeight()==400.5);
+    fail_unless(dimensions->getDepth()==455.2);
 
 
 }
@@ -1110,6 +1767,20 @@ START_TEST (test_LayoutHandler_Dimensions_annotation)
    );
 
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.5);
+    fail_unless(dimensions->getHeight()==400.5);
+    fail_unless(dimensions->getDepth()==455.2);
+
+
 }
 END_TEST
 
@@ -1123,6 +1794,20 @@ START_TEST (test_LayoutHandler_Dimensions_skipOptional)
     );
 
 
+    fail_unless(LH->parse(s,-1,true));
+
+    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+
+    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+
+    fail_unless(l!=NULL);
+
+    Dimensions* dimensions=&l->getDimensions();
+    fail_unless(dimensions->getWidth()==200.5);
+    fail_unless(dimensions->getHeight()==400.5);
+    fail_unless(dimensions->getDepth()==0.0);
+
+
 }
 END_TEST
 
@@ -1131,7 +1816,8 @@ START_TEST (test_LayoutHandler_BoundingBox)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox id=\"boundingBox_1\">\n"
@@ -1151,7 +1837,8 @@ START_TEST (test_LayoutHandler_BoundingBox_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -1179,7 +1866,8 @@ START_TEST (test_LayoutHandler_BoundingBox_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
@@ -1201,7 +1889,8 @@ START_TEST (test_LayoutHandler_BoundingBox_skipOptional)
 {
     char* s=wrapSBML2
     (
-      "<layout>\n"
+      "<layout id=\"layout_1\">\n"
+      "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"

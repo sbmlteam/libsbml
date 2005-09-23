@@ -235,7 +235,12 @@ LayoutHandler::startElement (const XMLCh* const  uri,
       case TAG_TEXT_GLYPH:
         obj=(SBase*)doTextGlyph(attrs);
         break;
-
+      case TAG_NOTES:
+        inNotes++;
+        break;
+      case TAG_ANNOTATIONS:  
+        inAnnotation++;
+        break;
       default:
         errStream=fdopen(2,"w");
         char* c=XMLString::transcode(qname);
@@ -303,12 +308,24 @@ LayoutHandler::endElement (const XMLCh* const  uri,
 
     inAnnotation--;
   }
+
+  else if (inNotes || inAnnotation)
+  {
+    fFormatter->endElement(qname);
+  }
+
   else
   {
     node = (SBase*) Stack_pop(fObjStack);
     prevNode=(SBase*)Stack_peek(fObjStack);
     Stack_pop(fTagStack);
-    prevTag=(LayoutTagCode_t)Stack_peek(fTagStack);
+    if(Stack_size(fTagStack)==0){
+        prevTag=0;
+    }
+    else
+    {
+      prevTag=(LayoutTagCode_t)Stack_peek(fTagStack);
+    }
       GraphicalObject* go;
       CubicBezier* cb;
       LineSegment* ls;
@@ -515,6 +532,10 @@ LayoutHandler::endElement (const XMLCh* const  uri,
                   exit(1);
               }
               break;
+          case TAG_NOTES:
+            break;
+          case TAG_ANNOTATIONS:
+            break;      
           default:
               errStream=fdopen(2,"w");
               char* c=XMLString::transcode(qname);
@@ -532,6 +553,7 @@ void
 LayoutHandler::characters (const XMLCh* const  chars,
                            const unsigned int  length)
 {
+/*
 #ifdef USE_EXPAT
   if (XMLString::isAllWhiteSpace(chars, length) == false)
   {
@@ -542,6 +564,11 @@ LayoutHandler::characters (const XMLCh* const  chars,
     char* s = XMLString::transcode(chars);
 #endif  // USE_EXPAT
     XMLString::release(&s);
+  }
+  */
+  if (inNotes || inAnnotation)
+  {
+    fFormatter->characters(chars, length);
   }
 }
 
@@ -649,7 +676,7 @@ LayoutHandler::getTagCode (const XMLCh *uri, const XMLCh* localname)
   }
   else
   {
-      tag = LayoutTagCode_forElement(localname);
+    tag = LayoutTagCode_forElement(localname);
   }
 
   return tag;
