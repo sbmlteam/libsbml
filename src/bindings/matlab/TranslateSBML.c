@@ -348,7 +348,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   }
 
 
-  if (stricmp(pacReply, "y") == 0) 
+  if (strcmp_insensitive(pacReply, "y") == 0) 
   {
     sbmlModel = SBMLDocument_getModel(sbmlDocument);
 
