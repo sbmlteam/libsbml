@@ -280,6 +280,7 @@ dist-gzip: config-check dist-all
 dist dist-zip: config-check dist-all
 	if test -d $(DISTDIR); then \
 	  (cd $(DISTDIR); zip -vr9 $(zip_archive) .); \
+	  (cd $(DISTDIR); zip -vlr9 $(zip_archive) `find . -name '*.dsp' -o -name '*.dsw'`); \
 	  $(remove_distdir); \
 	fi
 
