@@ -9,3 +9,5 @@ Makefile
 *.dll
 *.mexhpux
 *.mexhp7
+CTAGS
+TAGS

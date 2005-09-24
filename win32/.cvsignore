@@ -5,3 +5,5 @@ Makefile
 *.opt
 *.plg
 *.suo
+TAGS
+CTAGS
