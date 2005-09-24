@@ -61,6 +61,12 @@
     were bugs that only a libSBML extension developer is likely to
     notice. ;)  They have been fixed.
 
+  - 'make tags' now creates tags files, for use with [X]Emacs.  The
+    tags files are created in the individual source directories,
+    however.  To use them, visit the individual tags files needed.  
+    In the future there will be a scheme for creating one master tags
+    file.
+
 
 * Changes:
 
@@ -1101,4 +1107,10 @@
 
 === Version 1.0.0 ===
 
+
+
 * Initial release, March 12, 2003.
+# The following is for [X]Emacs users.  Please leave in place.
+# Local Variables:
+# fill-column: 70
+# End:
