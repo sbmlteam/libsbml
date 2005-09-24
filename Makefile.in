@@ -268,11 +268,18 @@ remove_distdir = \
     || { find $(DISTDIR) -type d ! -perm -200 -exec chmod u+w {} ';' \
          && rm -fr $(DISTDIR); }; }
 
-distarchive = $(DISTDIR).tar.gz
+tar_archive = $(DISTDIR).tar.gz
+zip_archive = $(DISTDIR).zip
 
-dist dist-gzip: config-check dist-all
+dist-gzip: config-check dist-all
 	if test -d $(DISTDIR); then \
-	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(distarchive) $(notdir $(DISTDIR)); \
+	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(tar_archive) $(notdir $(DISTDIR)); \
+	  $(remove_distdir); \
+	fi
+
+dist dist-zip: config-check dist-all
+	if test -d $(DISTDIR); then \
+	  (cd $(DISTDIR); zip -vr9 $(zip_archive) .); \
 	  $(remove_distdir); \
 	fi
 
