@@ -1,2 +1,4 @@
 *.x86f
 cparse-config.lisp
+TAGS
+CTAGS

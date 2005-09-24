@@ -11,3 +11,5 @@ Makefile
 *.mexhp7
 CTAGS
 TAGS
+TAGS
+CTAGS

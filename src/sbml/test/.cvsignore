@@ -6,3 +6,5 @@ Makefile
 TestRunner
 *.dylib
 
+TAGS
+CTAGS

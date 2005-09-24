@@ -8,3 +8,5 @@ libsbml.py
 pydoc.i
 build
 setup.py
+TAGS
+CTAGS

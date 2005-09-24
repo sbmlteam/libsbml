@@ -7,3 +7,5 @@ readSBML
 translateMath
 .gdb_history
 Makefile
+TAGS
+CTAGS

@@ -24,3 +24,5 @@ Doxyfile
 Makefile
 .deps
 *.tar.gz
+TAGS
+CTAGS

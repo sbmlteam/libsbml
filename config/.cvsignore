@@ -1,1 +1,3 @@
 makefile-common-vars.mk
+TAGS
+CTAGS

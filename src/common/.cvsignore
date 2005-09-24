@@ -7,3 +7,5 @@ TestRunner
 *.dylib
 libsbml-config-unix.h
 libsbml-package.h
+TAGS
+CTAGS
