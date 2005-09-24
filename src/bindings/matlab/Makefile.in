@@ -116,6 +116,18 @@ flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -L../..
 
 
 # -----------------------------------------------------------------------------
+# Tags.
+# -----------------------------------------------------------------------------
+
+matlab-tags-extra-flags = *.c --lang=none --regex=@matlab-tags-regexp.txt *.m
+
+etags-command = $(ETAGS) $(ETAGSFLAGS) $(matlab-tags-extra-flags)
+ctags-command = $(CTAGS) $(CTAGSFLAGS) $(matlab-tags-extra-flags)
+
+tags: etags ctags
+
+
+# -----------------------------------------------------------------------------
 # Targets for checking/testing.
 # -----------------------------------------------------------------------------
 

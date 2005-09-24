@@ -218,8 +218,9 @@ recursive_targets = all-recursive include-recursive install-data-recursive \
 	ps-recursive info-recursive dvi-recursive pdf-recursive \
 	check-recursive installcheck-recursive mostlyclean-recursive \
 	clean-recursive distclean-recursive maintainer-clean-recursive \
-	install-man-recursive tags-recursive ctags-recursive docs-recursive \
-	install-docs-recursive dist-recursive distcheck-recursive
+	install-man-recursive tags-recursive etags-recursive ctags-recursive \
+	docs-recursive install-docs-recursive \
+	dist-recursive distcheck-recursive
 
 $(recursive_targets): subdirs
 
@@ -459,7 +460,7 @@ ifdef extra_distclean
 endif
 
 distclean-tags:
-	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
+	-rm -f TAGS CTAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
 distclean-libtool:
 	-rm -f libtool
@@ -537,39 +538,31 @@ $(TOP_SRCDIR)/src/sbml/stamp-h1: $(TOP_SRCDIR)/./src/sbml/config.h.in \
 # Tags files.
 # -----------------------------------------------------------------------------
 
-tags: TAGS
-ctags: CTAGS
+etags-version-check: 
+	@if test -z "`$(ETAGS) --version |2>&1 grep 'Free Software'`"; then \
+	  echo "Your 'etags' command is not the GNU [X]Emacs version,"; \
+	  echo "and I'm afraid I don't know how to work with it. Quitting."; \
+	  exit 2; \
+	fi
 
-ID: $(headers) $(sources)
-	list='$(sources) $(headers)'; \
-	unique=`for i in $$list; do \
-	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
-	  done | \
-	  $(AWK) '    { files[$$0] = 1; } \
-	       END { for (i in files) print i; }'`; \
-	mkid -fID $$unique
+ctags-version-check: 
+	@if test -z "`$(CTAGS) --version |2>&1 grep 'Free Software'`"; then \
+	  echo "Your 'ctags' command is not the GNU version, and"; \
+	  echo "I'm afraid I don't know how to work with it. Quitting."; \
+	  exit 2; \
+	fi
+
+etags: etags-version-check TAGS
+ctags: ctags-version-check CTAGS
+
+etags-command ?= $(ETAGS) $(ETAGSFLAGS) $(headers) $(sources)
+ctags-command ?= $(CTAGS) $(CTAGSFLAGS) $(headers) $(sources)
 
 TAGS: $(headers) $(sources)
-	tags=; \
-	here=`pwd`; \
-	list='$(sources) $(headers)'; \
-	unique=`for i in $$list; do \
-	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
-	  done | \
-	  $(AWK) '    { files[$$0] = 1; } \
-	       END { for (i in files) print i; }'`; \
-	test -z "$$tags$$unique" || $(ETAGS) $(ETAGSFLAGS) $$tags $$unique
+	$(etags-command)
 
 CTAGS: $(headers) $(sources)
-	tags=; \
-	here=`pwd`; \
-	list='$(sources) $(headers)'; \
-	unique=`for i in $$list; do \
-	    if test -f "$$i"; then echo $$i; else echo $(srcdir)/$$i; fi; \
-	  done | \
-	  $(AWK) '    { files[$$0] = 1; } \
-	       END { for (i in files) print i; }'`; \
-	test -z "$$tags$$unique" || $(CTAGS) $(CTAGSFLAGS) $$tags $$unique
+	$(ctags-command)
 
 
 # -----------------------------------------------------------------------------
