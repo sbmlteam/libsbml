@@ -56,7 +56,7 @@
 
   - Thanks to Ralph Gauges for reporting i) a discrepancy between the
     Xerces-C++ Attributes and the ExpatAttributes interface which was
-    causing the layout extension to occassionally malfunction, and ii)
+    causing the layout extension to occasionally malfunction, and ii)
     for reporting a mismatched new / free in ExpatXMLString.  These
     were bugs that only a libSBML extension developer is likely to
     notice. ;)  They have been fixed.
@@ -72,7 +72,7 @@
 
   - The xml-schema files are no longer included as part of the libSBML
     download as these are no longer necessary for validation. However 
-    the files are available via the SBML website.
+    the files are available via the SBML web-site.
  
 
 * Known Bugs:
@@ -97,7 +97,7 @@
     C, Java, Python, Perl, Lisp, or Matlab.
 
 
-* Released September xx, 2005
+* Released September 26, 2005
 
 
 
