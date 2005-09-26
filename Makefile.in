@@ -268,22 +268,27 @@ remove_distdir = \
     || { find $(DISTDIR) -type d ! -perm -200 -exec chmod u+w {} ';' \
          && rm -fr $(DISTDIR); }; }
 
-tar_archive = $(DISTDIR).tar.gz
-zip_archive = $(DISTDIR).zip
+# Don't use GNU make's $(basename ...) command in the following; it behaves
+# differently in a critical way.
+
+archive_basename = $(shell basename $(DISTDIR))
+tar_archive      = $(archive_basename).tar.gz
+zip_archive      = $(archive_basename).zip
 
 dist-gzip: config-check dist-all
 	if test -d $(DISTDIR); then \
-	  GZIP="--best" tar -C $(DISTDIR)/.. -chozf $(tar_archive) $(notdir $(DISTDIR)); \
+	  GZIP="--best" tar -C $(DISTDIR)/.. \
+		-chozf $(tar_archive) $(notdir $(DISTDIR)); \
 	  $(remove_distdir); \
 	fi
 
 dist dist-zip: config-check dist-all
-	if test -d $(DISTDIR); then            \
-	  ( base=`basename $(DISTDIR)`;        \
-      cd $(DISTDIR)/..;                  \
-      zip -vr9  $(zip_archive) "$$base"; \
-      zip -vlr9 $(zip_archive) `find "$$base" -name '*.dsp' -o -name '*.dsw'` );\
-	  $(remove_distdir); \
+	if test -d $(DISTDIR); then				\
+	  cd $(DISTDIR)/..					\
+	  && zip -vr9  $(zip_archive) "$(archive_basename)"	\
+	  && zip -vlr9 $(zip_archive)				\
+	   `find "$(archive_basename)" -name '*.dsp' -o -name '*.dsw' -o -name '*.vcproj'`\
+	  && $(remove_distdir); \
 	fi
 
 # For `make dist' to work properly, we need the developer to configure
