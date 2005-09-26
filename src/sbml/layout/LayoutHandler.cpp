@@ -832,7 +832,6 @@ SBase*
 LayoutHandler::doSpeciesReferenceGlyph(const Attributes& a){
     SpeciesReferenceGlyph* srg=currentLayout->createSpeciesReferenceGlyph();
     std::string s;
-    SpeciesReferenceRole_t role;
 
     
     XMLUtil::scanAttr(a, ATTR_ID, srg->id);
@@ -842,8 +841,8 @@ LayoutHandler::doSpeciesReferenceGlyph(const Attributes& a){
     if(XMLUtil::scanAttr(a, ATTR_SPECIES_GLYPH, s)==true){
         srg->setSpeciesGlyphId(s);
     }
-    if(XMLUtil::scanAttr(a, ATTR_ROLE, (unsigned int*)(&role))==true){
-        srg->setRole(role);
+    if(XMLUtil::scanAttr(a, ATTR_ROLE, s)==true){
+        srg->setRole(s);
     }
     return (SBase*)srg;
 }
