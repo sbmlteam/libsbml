@@ -74,26 +74,42 @@ sources = LibSBML.i LibSBML.pod LibSBML_wrap.cxx LibSBML.pm
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles =              \
-  $(sources)             \
-  LibSBML.i              \
-  LibSBML.pm             \
-  LibSBML.pod            \
-  LibSBML_wrap.cxx       \
-  MANIFEST               \
-  Makefile.in            \
-  Makefile.PL.in         \
-  README.txt             \
-  local.cpp              \
-  local.i                \
-  patchLibSBML.pl        \
-  t/01__LoadModule.t     \
-  t/02__CreateDocument.t \
-  t/02__ReadFromFile.t   \
-  t/03__DowncastRule.t   \
-  t/03__DowncastSBase.t  \
-  t/04__ListOf.t         \
-  t/l1v1-branch.xml
+distfiles =                        \
+  $(sources)                       \
+  LibSBML.i                        \
+  LibSBML.pm                       \
+  LibSBML.pod                      \
+  LibSBML.txt                      \
+  LibSBML_wrap.cxx                 \
+  local.cpp                        \
+  local.i                          \
+  Makefile.in                      \
+  Makefile.PL.in                   \
+  MANIFEST                         \
+  README.txt                       \
+  t/01__LoadModule.t               \
+  t/02__CreateDocument.t           \
+  t/02__ReadFromFile.t             \
+  t/02__WriteToFile.t              \
+  t/03__ChangeValues.t             \
+  t/03__DowncastRule.t             \
+  t/03__DowncastSBase.t            \
+  t/04__ListOf.t                   \
+  t/05__AlgebraicRule.t            \
+  t/05__AssignmentRule.t           \
+  t/05__Compartment.t              \
+  t/05__CompartmentVolumeRule.t    \
+  t/05__EventAssignment.t          \
+  t/05__Event.t                    \
+  t/05__Formula.t                  \
+  t/05__FunctionDefinition.t       \
+  t/05__KineticLaw.t               \
+  t/05__Model.t                    \
+  t/05__ModifierSpeciesReference.t \
+  t/05__ParameterRule.t            \
+  t/05__Parameter.t                \
+  t/05__RateRule.t                 \
+  t/05__SBMLDocument.t
 
 
 extra_distclean = Makefile-perl Makefile-perl.old
