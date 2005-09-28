@@ -109,8 +109,12 @@ examples = \
   examples/layout/example1.py      \
   examples/layout/layout2svg.xsl   \
   examples/perl/convertSBML.pl     \
+  examples/perl/evaluateMath.pl    \
+  examples/perl/printMath.pl       \
   examples/perl/printSBML.pl       \
-  examples/perl/readSBML.pl
+  examples/perl/readSBML.pl        \
+  examples/perl/translateMath.pl   \
+  examples/perl/validateSBML.pl
 
 
 # The files listed in `docs' are copied to the documentation directory
