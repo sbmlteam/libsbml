@@ -67,6 +67,10 @@
     In the future there will be a scheme for creating one master tags
     file.
 
+  - 'make uninstall' was actually not implemented almost anywhere
+    (except for the implementation contributed by Martin Ginkel for
+    the Lisp bindings).  There is now a mostly-complete implementation
+    (but it has not seen significant testing, so caveats apply).
 
 * Changes:
 
