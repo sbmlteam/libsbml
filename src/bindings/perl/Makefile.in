@@ -188,9 +188,10 @@ tags: etags ctags
 install: Makefile.PL Makefile-perl
 	$(MAKE) -f Makefile-perl install
 
-uninstall:
-
 installcheck:
+
+uninstall:
+	$(MAKE) -f Makefile-perl uninstall
 
 
 # -----------------------------------------------------------------------------

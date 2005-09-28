@@ -273,8 +273,6 @@ tags: etags ctags
 install: setup.py create-build-dir
 	$(PYTHON) setup.py install --skip-build --prefix=$(prefix)
 
-uninstall:
-
 installcheck:
 
 create-build-dir: $(libraries)
@@ -282,6 +280,9 @@ create-build-dir: $(libraries)
 	echo "libsbml" > build/libsbml.pth
 	cp $(libraries)  build
 	cp libsbml.py    build/libsbml
+
+uninstall: setup.py
+	$(PYTHON) setup.py uninstall --prefix=$(prefix)
 
 
 # -----------------------------------------------------------------------------

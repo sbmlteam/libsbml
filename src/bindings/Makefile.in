@@ -151,9 +151,9 @@ tags: tags-recursive
 
 install: all install-recursive
 
-uninstall: all uninstall-recursive 
-
 installdirs: all installdirs-recursive
+
+uninstall: uninstall-recursive 
 
 
 # -----------------------------------------------------------------------------

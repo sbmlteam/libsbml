@@ -229,8 +229,6 @@ install: all install-recursive install-warnings
 
 install-docs: install-docs-recursive
 
-uninstall: uninstall-recursive
-
 installcheck: installcheck-recursive
 
 install-warnings:
@@ -242,6 +240,32 @@ ifneq "$(HOST_TYPE)" "darwin"
 	@echo "2) set the LD_LIBRARY_PATH (or equivalent) environment variable"
 	@echo ""
 endif
+
+uninstall: uninstall-recursive
+	@if test -d "$(DESTDIR)$(LIBDIR)"; then \
+	  if test -n "`find $(DESTDIR)$(LIBDIR) -empty -maxdepth 0`"; then \
+	    echo rmdir $(DESTDIR)$(LIBDIR); \
+	    rmdir $(DESTDIR)$(LIBDIR); \
+	  else \
+	    echo "Directory $(DESTDIR)$(LIBDIR) not empty; leaving it alone"; \
+	  fi; \
+	fi; \
+	if test -d "$(DESTDIR)$(INCLUDEDIR)"; then \
+	  if test -n "`find $(DESTDIR)$(INCLUDEDIR) -empty -maxdepth 0`"; then \
+	    echo rmdir $(DESTDIR)$(INCLUDEDIR); \
+	    rmdir $(DESTDIR)$(INCLUDEDIR); \
+	  else \
+	    echo "Directory $(DESTDIR)$(INCLUDEDIR) not empty; leaving it alone"; \
+	  fi; \
+	fi; \
+	if test -d "$(DESTDIR)"; then \
+	  if test -n "`find $(DESTDIR) -empty -maxdepth 0`"; then \
+	    echo rmdir $(DESTDIR); \
+	    rmdir $(DESTDIR); \
+	  else \
+	    echo "Directory $(DESTDIR) not empty; leaving it alone"; \
+	  fi; \
+	fi;
 
 
 # -----------------------------------------------------------------------------
@@ -269,7 +293,7 @@ remove_distdir = \
          && rm -fr $(DISTDIR); }; }
 
 # Don't use GNU make's $(basename ...) command in the following; it behaves
-# differently in a critical way.
+# differently in a critical way (specifically, in its handling of dots).
 
 archive_basename = $(shell basename $(DISTDIR))
 tar_archive      = $(archive_basename).tar.gz

@@ -353,6 +353,100 @@ include: $(addprefix $(include_root),$(headers))
 $(addprefix $(include_root),$(headers)): $(headers)
 	$(call install_includes,$(@F),$(TOP_SRCDIR)/include)
 
+#
+# And now, code for uninstalling.
+#
+
+# The following defines a macro that is invoked like this:
+# $(call install_library,$(libname),$(dest))
+
+# The goofiness involving find ... -empty is because rmdir will fail if the
+# directory's not empty, and we can't count on the host system having a
+# version of GNU rmdir with its --ignore-fail-on-non-empty flag.  This
+# is just a more portable way of detecting whether a directory is empty.
+
+define uninstall_library
+  @if test -f $(1); then \
+    finalname="$(notdir $(basename $(1))).$(library_version)$(suffix $(1))"; \
+    target="$(2)/$$finalname"; \
+    if test -f $$target ; then \
+      echo rm $$target; \
+      rm $$target; \
+    fi; \
+    target="$(2)/$(notdir $(1))"; \
+    if test -L $$target ; then \
+      echo rm $$target; \
+      rm $$target; \
+    fi; \
+    if test -f $$target ; then \
+      echo rm $$target; \
+      rm $$target; \
+    fi; \
+  else \
+    if test -d $(2) && test -n "`find $(2) -empty -maxdepth 0`"; then \
+      echo rmdir $(2); \
+      rmdir $(2); \
+    fi; \
+  fi; \
+  if test -n "`find $(DESTDIR)$(LIBDIR) -empty -maxdepth 0`"; then \
+    echo rmdir $(DESTDIR)$(LIBDIR); \
+    rmdir $(DESTDIR)$(LIBDIR); \
+  else \
+    echo "Directory $(DESTDIR)$(LIBDIR) not empty; leaving it alone"; \
+  fi;
+endef
+
+to_uninstall_libraries = $(addprefix uninstall-,$(libraries))
+
+$(to_uninstall_libraries): $(libraries)
+	$(call uninstall_library,$(subst uninstall-,,$@),$(DESTDIR)$(LIBDIR))
+
+uninstall-libraries: $(libraries) $(to_uninstall_libraries)
+
+# 'install_includes takes one argument, the root of the destination directory.
+
+define uninstall_includes
+  @file="$(1)"; \
+  targetdir="$(2)"; \
+  if test -n '$(INCLUDEPREFIX)'; then \
+    targetdir="$$targetdir/$(INCLUDEPREFIX)"; \
+  fi; \
+  if test -n '$(header_inst_prefix)'; then \
+    targetdir="$$targetdir/$(header_inst_prefix)"; \
+  fi; \
+  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
+    dir="/$$dir"; \
+  else \
+    dir=''; \
+  fi; \
+  if test -f $$targetdir/$$file; then \
+    echo rm $$targetdir/$$file; \
+    rm $$targetdir/$$file; \
+  elif test -d $$targetdir/$$file; then \
+    if test -n "`find $$targetdir/$$file -empty`"; then \
+      echo rmdir $$targetdir/$$file; \
+      rmdir $$targetdir/$$file; \
+    else \
+      echo "Directory $$targetdir/$$file not empty; leaving it alone"; \
+    fi; \
+  fi; \
+  if test -d $$targetdir; then \
+    if test -n "`find $$targetdir -empty -maxdepth 0`"; then \
+      echo rmdir $$targetdir; \
+      rmdir $$targetdir; \
+    fi; \
+  fi;
+endef
+
+to_uninstall_headers = $(addprefix uninstall-,$(headers))
+
+$(to_uninstall_headers): $(headers) 
+	$(call uninstall_includes,$(subst uninstall-,,$@),$(DESTDIR)$(INCLUDEDIR))
+
+uninstall-headers: $(headers) $(to_uninstall_headers)
+
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)

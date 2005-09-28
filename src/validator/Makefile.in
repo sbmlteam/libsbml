@@ -143,9 +143,9 @@ tags: etags ctags
 
 install: all install-headers
 
-uninstall: all uninstall-headers
-
 installcheck: all installcheck-headers
+
+uninstall: uninstall-recursive uninstall-headers
 
 
 # -----------------------------------------------------------------------------

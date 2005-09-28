@@ -253,9 +253,9 @@ tags: etags ctags
 
 install: all install-libraries install-headers
 
-uninstall: all uninstall-libraries uninstall-headers
-
 installcheck: all installcheck-libraries installcheck-headers
+
+uninstall: uninstall-headers uninstall-libraries
 
 
 # -----------------------------------------------------------------------------

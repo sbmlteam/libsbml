@@ -319,6 +319,12 @@ install: $(libraries)
 	done;
 
 uninstall:
+	@list='$(libraries)'; for lib in $$list; do \
+	  if test -f "$(DESTDIR)$(LIBDIR)/$$lib"; then \
+	    echo rm "$(DESTDIR)$(LIBDIR)/$$lib"; \
+	    rm $(DESTDIR)$(LIBDIR)/$$lib; \
+          fi; \
+	done;
 
 installcheck:
 

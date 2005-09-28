@@ -140,9 +140,9 @@ check: all
 
 install: all install-libraries
 
-uninstall:
-
 installdirs: all
+
+uninstall: uninstall-libraries
 
 
 # -----------------------------------------------------------------------------
