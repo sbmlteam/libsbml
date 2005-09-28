@@ -3667,7 +3667,7 @@ echo "${ECHO_T}$PYTHON_PREFIX" >&6
     case $host in
     *darwin*)
 
-	if test `expr ${PYTHON} ':' '/usr/bin/.*' '|' ${PYTHON} ':' '/System/.*'` -ne 0; then
+	if test `expr ${PYTHON_PREFIX} ':' '/System/.*'` -ne 0; then
 	     	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
 	else
