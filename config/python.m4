@@ -86,12 +86,12 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	dnl on whether the system-installed or Fink-installed version of
 	dnl Python is being used.  The following is a heuristic approach
 	dnl that may not be correct for all situations.  The heuristic is:
-	dnl if the Python executable is /usr/something, assume it's the
+	dnl if the Python system prefix begins with /System/, assume it's the
 	dnl system-installed version and use -framework; otherwise, assume
 	dnl it's either the Fink version or something else, and don't use
 	dnl -framework.
 
-	if test `expr ${PYTHON} ':' '/usr/bin/.*' '|' ${PYTHON} ':' '/System/.*'` -ne 0; then
+	if test `expr ${PYTHON_PREFIX} ':' '/System/.*'` -ne 0; then
 	  dnl MacOSX-installed version of Python (we hope).
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
