@@ -70,12 +70,11 @@ such as:
 1.2 Windows
 -----------
 
-Unzip the libSBML distribution and open the resulting folder (which
-will have a name such as 'libsbml-2.3.0-expat' or
-'libsbml-2.3.0-xerces').  There are debug (libsbmld) and release
-(libsbml) versions of libSBML, with .dll and .lib files for both
-versions in the 'win32' subdirectory of the libSBML distribution.
-Header files are located in the subdirectory 'src/sbml'.
+Download and run the self-extracting windows installer for libSBML.
+There are debug (libsbmld) and release (libsbml) versions of libSBML,
+with .dll and .lib files for both versions in the 'win32/bin' 
+subdirectory of the libSBML distribution.
+Header files are located in the subdirectory 'win32/include/sbml'.
 
 Users of Visual C++ should make their Visual C++ projects link with
 the files libsbml.lib or libsbmld.lib and generate code for the
@@ -385,27 +384,30 @@ attempting to compile libSBML.  The DLL for xerces or expat must be
 placed in the win32/bin subdirectory of the libSBML directory.
 
 To build libsbml on Windows:
+   1. You need to create the include directory structure.
+      In (libsbml)/win32 run the createInclude batch file.
 
-   1. In Visual Studio 7, open (libsbml)/win32/libsbml.vcproj.
-      In Visual Studio 6, open (libsbml)/win32/libsbml.dsw.
 
-   2. Select Tools->Options, and select Projects/Directories (VS7) or
+   2. In Visual Studio 7, open (libsbml)/win32/MSVC7/libsbml.sln.
+      In Visual Studio 6, open (libsbml)/win32/MSVC6/libsbml.dsw.
+
+   3. Select Tools->Options, and select Projects/Directories (VS7) or
    click the Directories tab (VS6).
 
    The screen for indicating which directories contain project-relevant
    files appears.
 
-   3. At "Show Directories For:", select "Include Files".  Add the
+   4. At "Show Directories For:", select "Include Files".  Add the
    following if they're not already shown:
 
-      (libsbml)/win32/include
+      (libsbml)/src
 
-   4. At "Show Directories For:", select "Library Files".  Add the
+   5. At "Show Directories For:", select "Library Files".  Add the
    following it's not already shown:
 
       (libsbml)/win32/bin
 
-   5. Select Build->Rebuild All from the Visual Studio main menu.
+   6. Select Build->Rebuild All from the Visual Studio main menu.
 
 
 -----------------------------------
