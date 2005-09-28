@@ -57,8 +57,64 @@
 # work with SWIG and C++ (it doesn't generate the appropriate
 # compilation and link commands).  This is a known bug with Distutils.
 
+import sys, os
+
+from os.path import abspath, exists
+
+from distutils.sysconfig import get_python_lib
 from distutils.core import setup, Extension
 from distutils import sysconfig
+
+# Distutils does not define an 'uninstall'.  The following code was
+# borrowed heavily from similar code in the setup.py.in file of
+# "libprelude" (http://www.prelude-ids.com), written by Yoann
+# Vandoorselaere.  Libprelude is Copyright (C) 2005 PreludeIDS Technologies
+# SARL and released under the LGPL version 2.
+
+installed_files = ["libsbml/_libsbml.@SHAREDLIBEXT@", 
+		   "libsbml/libsbml.py", 
+		   "libsbml/libsbml.pyc",
+		   "libsbml.pth"]
+
+def get_root():
+    try:
+        return sys.argv[sys.argv.index("--root") + 1]
+    except ValueError:
+        return ""
+
+def is_system_wide_install():
+    return os.access(get_python_lib(), os.W_OK)
+
+def uninstall():
+    if is_system_wide_install():
+        prefix = None
+    else:
+        prefix = "@prefix@"
+    
+    r = get_root() + "/"
+
+    for f in installed_files:
+        ppath = get_python_lib(prefix=prefix)
+        file = r + ppath + "/" + f
+        exists(file) and os.remove(file)
+	dir = r + ppath + "/libsbml"
+        exists(dir) and os.rmdir(dir)
+
+	ppath = get_python_lib(plat_specific=True, prefix=prefix)
+        file = r + ppath + "/" + f
+        exists(file) and os.remove(file)
+	dir = r + ppath + "/libsbml"
+        exists(dir) and os.rmdir(dir)
+
+    sys.exit(0)
+
+commands = {
+    "uninstall": uninstall,
+}
+
+if len(sys.argv) > 1 and commands.has_key(sys.argv[1]):
+    commands[sys.argv[1]]()
+
 
 setup(name             = "libsbml", 
       version          = "@PACKAGE_VERSION@",
@@ -78,3 +134,4 @@ setup(name             = "libsbml",
                                     ["libsbml.i", "libsbml.cpp"],
                                     include_dirs="../../src")]
 )
+
