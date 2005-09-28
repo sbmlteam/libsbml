@@ -855,7 +855,18 @@ void
 printMath (const Model_t *m)
 {
   unsigned int  n;
-  fprintf(fout, "digraph %s {\n", Model_getId(m));
+
+  /* a digraph must have a name thus
+   * need to check that Model_getId does not return NULL
+   * and provide a name if it does
+   */
+
+  if (Model_getId(m) != NULL) {
+    fprintf(fout, "digraph %s {\n", Model_getId(m));
+  }
+  else {
+    fprintf(fout, "digraph example {\n");
+  }
   fprintf(fout, "compound=true;\n");
 
   for (n = 0; n < Model_getNumFunctionDefinitions(m); ++n)
@@ -892,9 +903,6 @@ main (int argc, char *argv[])
   SBMLDocument_t *d;
   Model_t        *m;
 
-  argc = 3;
-  argv[1] = "C:\\libsbml\\src\\validator\\test\\test-data\\1801-pass-00-03.xml";
-  argv[2] = "C:\\out.dot";
   if (argc != 3)
   {
     printf("\n  usage: drawMath <filename>\n\n");
