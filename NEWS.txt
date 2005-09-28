@@ -72,6 +72,7 @@
     the Lisp bindings).  There is now a mostly-complete implementation
     (but it has not seen significant testing, so caveats apply).
 
+
 * Changes:
 
   - The xml-schema files are no longer included as part of the libSBML
