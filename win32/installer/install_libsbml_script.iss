@@ -4,7 +4,7 @@
 ;************************************************************************************
 
 ;************************************************************************************
-; the version number appears 5 times. It is currently reading 2.3.2
+; the version number appears 5 times. It is currently reading 2.3.3
 ;************************************************************************************
 
 
@@ -18,7 +18,7 @@ AppName=libSBML
 ; this must read libsbml 'space' version number
 
 ;***********************************************************************************
-AppVerName=libSBML 2.3.2
+AppVerName=libSBML 2.3.3
 
 
 AppPublisher=SBML Team
@@ -35,13 +35,14 @@ AppUpdatesURL=http://www.sbml.org
 ; Note this directory name includes the version number
 
 ;***********************************************************************************
-DefaultDirName={pf}\SBML\libsbml-2.3.2-xerces
-;DefaultDirName={pf}\SBML\libsbml-2.3.2-expat
+;DefaultDirName={pf}\SBML\libsbml-2.3.3-xerces
+DefaultDirName={pf}\SBML\libsbml-2.3.3-expat
 
 DefaultGroupName=libsbml
 DisableProgramGroupPage=yes
 WizardSmallImageFile=libsbml-installer-mini-logo.bmp
 WizardImageFile=libsbml-installer-graphic-v3.bmp
+UsePreviousAppDir=no
 
 
 [Files]
@@ -54,13 +55,13 @@ WizardImageFile=libsbml-installer-graphic-v3.bmp
 
 
 ; this direction copies the whole tree to the directory specified by the user
-; default Program Files/SBML/libsbml-2.3.2-xerces
+; default Program Files/SBML/libsbml-2.3.3-xerces
 ;
 ;****************************************************************************************
-Source: "C:\libsbml_for_xerces_release\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+;Source: "C:\libsbml_for_xerces_release_skel1\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 
-;Source: "C:\libsbml_for_expat_release\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "C:\libsbml_for_expat_release_skel1\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 
 
 
@@ -75,34 +76,34 @@ Source: "C:\libsbml_for_xerces_release\*.*"; DestDir: "{app}"; Flags: ignorevers
 
 ; FILES FOR XERCES RELEASE
 
-Source: "C:\libsbml_for_xerces_release\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
-Source: "C:\libsbml_for_xerces_release\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
-Source: "C:\libsbml_for_xerces_release\win32\bin\xerces-c*.dll"; DestDir: "{sys}"; Check: GetValue;
-Source: "C:\libsbml_for_xerces_release\win32\bin\xerces-c*.lib"; DestDir: "{sys}"; Check: GetValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\win32\bin\xerces-c*.dll"; DestDir: "{sys}"; Check: GetValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\win32\bin\xerces-c*.lib"; DestDir: "{sys}"; Check: GetValue;
 
-Source: "C:\libsbml_for_xerces_release\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
+;Source: "C:\libsbml_for_xerces_release_skel1\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
 
-Source: "C:\libsbml_for_xerces_release\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
-Source: "C:\libsbml_for_xerces_release\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
 
 
-Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
-Source: "C:\libsbml_for_xerces_release\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
+;Source: "C:\libsbml_for_xerces_release_skel1\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
 
 ; FILES FOR EXPAT RELEASE
-;Source: "C:\libsbml_for_expat_release\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
-;Source: "C:\libsbml_for_expat_release\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
-;Source: "C:\libsbml_for_expat_release\win32\bin\libexpat.dll"; DestDir: "{sys}"; Check: GetValue;
-;Source: "C:\libsbml_for_expat_release\win32\bin\libexpat.lib"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\libsbml_for_expat_release_skel1\win32\bin\libsbml*.dll"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\libsbml_for_expat_release_skel1\win32\bin\libsbml*.lib"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\libsbml_for_expat_release_skel1\win32\bin\libexpat.dll"; DestDir: "{sys}"; Check: GetValue;
+Source: "C:\libsbml_for_expat_release_skel1\win32\bin\libexpat.lib"; DestDir: "{sys}"; Check: GetValue;
 
-;Source: "C:\libsbml_for_expat_release\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
+Source: "C:\libsbml_for_expat_release_skel1\bindings\matlab\*.*"; DestDir: "{code:GetMatlabRoot}\SBMLBinding"; Check: GetML;
 
-;Source: "C:\libsbml_for_expat_release\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
-;Source: "C:\libsbml_for_expat_release\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
+Source: "C:\libsbml_for_expat_release_skel1\win32\bin\sbmlj*.dll"; DestDir: "{sys}"; Check: GetJavaValue;
+Source: "C:\libsbml_for_expat_release_skel1\win32\bin\sbmlj*.lib"; DestDir: "{sys}"; Check: GetJavaValue;
 
 
-;Source: "C:\libsbml_for_expat_release\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
-;Source: "C:\libsbml_for_expat_release\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
+Source: "C:\libsbml_for_expat_release_skel1\bindings\python\_libsbml.dll"; DestDir: "{sys}"; Check: GetPythonValue;
+Source: "C:\libsbml_for_expat_release_skel1\bindings\python\_libsbml.lib"; DestDir: "{sys}"; Check: GetPythonValue;
 
 
 
@@ -116,7 +117,7 @@ Root: HKLM; Subkey: "Software\SBML\libSBML"; Flags: uninsdeletekey
 
 ; version number is inserted here as a string
 ;**********************************************************************************************************
-Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "Version"; ValueData: "2.3.2"
+Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "Version"; ValueData: "2.3.3"
 Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
 
 
@@ -239,8 +240,8 @@ begin
  
   Note: it includes a version number
 **********************************************************************************************************}
-  MsgBox('This setup installs the Windows release of libSBML 2.3.2 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
- { MsgBox('This setup installs the Windows release of libSBML 2.3.2 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);}
+ { MsgBox('This setup installs the Windows release of libSBML 2.3.3 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);}
+  MsgBox('This setup installs the Windows release of libSBML 2.3.3 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
 end;
 
 procedure URLLabelOnClick(Sender: TObject);
@@ -293,7 +294,7 @@ begin
 this is the version number for the current installation
 
 *************************************************************************}
-  ThisVersionNumber := '2.3.2';
+  ThisVersionNumber := '2.3.3';
   
   MLRoot := GetMatlabRoot('1');
   if (MLRoot = '') then begin
