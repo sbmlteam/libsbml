@@ -64,6 +64,10 @@ sub postamble {
 LibSBML_wrap.cxx: local.i
 	@SWIG@ @SWIGFLAGS@ -Wall -c++ -perl5 -proxy -I../.. LibSBML.i
 LibSBML.pm: LibSBML_wrap.cxx
+MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
+myuninstall:
+	$(NOECHO) $(PERLRUN) -MExtUtils::Install -e \
+	'uninstall('\''$(MYPACKLIST)'\',1,0')'
 MAKE_FRAG
 }
 # End of file
