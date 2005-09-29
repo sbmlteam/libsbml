@@ -311,7 +311,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         sprintf(pacError, "%u: (%u) %s\n", ParseMessage_getLine(SBMLDocument_getWarning(sbmlDocument, i)),
           ParseMessage_getId(SBMLDocument_getWarning(sbmlDocument, i)), 
           ParseMessage_getMessage(SBMLDocument_getWarning(sbmlDocument, i)));
-        pacErrors = strcat(pacErrors, pacError);
+        pacErrors = safe_strcat(pacErrors, pacError);
     }
     
     for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
@@ -319,7 +319,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         sprintf(pacError, "%u: (%u) %s\n", ParseMessage_getLine(SBMLDocument_getError(sbmlDocument, i)),
           ParseMessage_getId(SBMLDocument_getError(sbmlDocument, i)), 
           ParseMessage_getMessage(SBMLDocument_getError(sbmlDocument, i)));
-        pacErrors = strcat(pacErrors, pacError);
+        pacErrors = safe_strcat(pacErrors, pacError);
     }
     
     for (i = 0; i < SBMLDocument_getNumFatals(sbmlDocument); i++)
@@ -327,7 +327,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         sprintf(pacError, "%u: (%u) %s\n", ParseMessage_getLine(SBMLDocument_getFatal(sbmlDocument, i)),
           ParseMessage_getId(SBMLDocument_getFatal(sbmlDocument, i)), 
           ParseMessage_getMessage(SBMLDocument_getFatal(sbmlDocument, i)));
-        pacErrors = strcat(pacErrors, pacError);
+        pacErrors = safe_strcat(pacErrors, pacError);
     }
 
     mxErrors[0] = mxCreateString(pacErrors);
