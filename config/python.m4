@@ -91,7 +91,7 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	dnl it's either the Fink version or something else, and don't use
 	dnl -framework.
 
-	if test `expr ${PYTHON_PREFIX} ':' '/System/.*'` -ne 0; then
+	if test `expr "${PYTHON_PREFIX}" ':' '.*/System/Library/Frameworks/.*'` -ne 0; then
 	  dnl MacOSX-installed version of Python (we hope).
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
 	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
