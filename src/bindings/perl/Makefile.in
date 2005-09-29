@@ -191,7 +191,7 @@ install: Makefile.PL Makefile-perl
 installcheck:
 
 uninstall:
-	$(MAKE) -f Makefile-perl uninstall
+	$(MAKE) -f Makefile-perl myuninstall
 
 
 # -----------------------------------------------------------------------------
