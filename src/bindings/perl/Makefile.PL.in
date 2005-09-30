@@ -49,7 +49,7 @@ WriteMakefile(
 	      PREFIX      => "@prefix@",
               MAKEFILE    => 'Makefile-perl',
               INSTALLDIRS => "site",
-              LIBS        => ["-lxerces-c", "-lm"],
+              LIBS        => ["@XERCES_LIBS@ @EXPAT_LIBS@", "-lm"],
 	      CCFLAGS     => "@PERL_CPPFLAGS@",
               INC         => "-I../swig -I../..",
               MYEXTLIB    => "../../libsbml.a",
@@ -69,11 +69,22 @@ ifndef USE_SWIG
 else
 	@SWIG@ @SWIGFLAGS@ -Wall -c++ -perl5 -proxy -I../.. LibSBML.i
 endif
+
 LibSBML.pm: LibSBML_wrap.cxx
 MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
+
 myuninstall:
-	$(NOECHO) $(PERLRUN) -MExtUtils::Install -e \
-	'uninstall('\''$(MYPACKLIST)'\',1,0')'
+	$(NOECHO) dirs=`cat $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist | xargs -L 1 dirname`; \
+	echo $$dirs; \
+	$(PERLRUN) -MExtUtils::Install -e \
+	  'uninstall('\''$(MYPACKLIST)'\',1,0')'; \
+	for d in $$dirs; do \
+          if test -d $$d && test -n "`find $$d -empty -maxdepth 0`"; then \
+	    echo rmdir $$d; \
+	    rmdir $$d; \
+          fi; \
+        done
+
 MAKE_FRAG
 }
 # End of file
