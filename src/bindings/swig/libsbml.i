@@ -153,6 +153,8 @@ void SBaseTest_setup() { /* empty, but required to link. */ }
 %newobject SBML_formulaToString;
 %newobject SBML_parseFormula;
 
+%newobject ASTNode::deepCopy;
+
 
 /**
  * In the wrapped languages, these methods will appear as:
