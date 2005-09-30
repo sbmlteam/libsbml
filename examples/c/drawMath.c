@@ -122,7 +122,7 @@ char *
 FormulaGraphvizFormatter_format (const ASTNode_t *node)
 {
   StringBuffer_t *p = StringBuffer_create(128);
-  char           *s;
+  char           *s = NULL;
  
   if (ASTNode_isOperator(node))
   {
@@ -179,7 +179,7 @@ char *
 FormulaGraphvizFormatter_getUniqueName (const ASTNode_t *node)
 {
   StringBuffer_t *p = StringBuffer_create(128);
-  char           *s;
+  char           *s = NULL;
   
   if (ASTNode_isOperator(node))
   {
