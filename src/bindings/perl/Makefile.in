@@ -139,7 +139,7 @@ swig_sources = \
 	  ../swig/libsbml.h \
 	  ../swig/libsbml.i
 
-LibSBML_wrap.cxx: LibSBML.i $(swig_sources)
+LibSBML_wrap.cxx: LibSBML.i local.i $(swig_sources)
 ifndef USE_SWIG
 	echo "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
 	exit 1
