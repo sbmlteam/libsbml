@@ -9,3 +9,4 @@ translateMath
 Makefile
 TAGS
 CTAGS
+*.class
