@@ -619,6 +619,96 @@ ASTNode::prependChild(ASTNode*)
     return _libsbml.ASTNode_prependChild(*args)
 %}
 
+
+
+// ----------------------------------------------------------------------
+// SBMLReader
+// ----------------------------------------------------------------------
+
+
+%pythoncode
+%{
+import sys
+import os.path
+
+
+def conditional_abspath (filename):
+  """conditional_abspath (filename) -> filename
+
+  Returns filename with an absolute path prepended, if necessary.
+  Some combinations of platforms and underlying XML parsers *require*
+  an absolute path to a filename while others do not.  This function
+  encapsulates the appropriate logic.  It is used by readSBML() and
+  SBMLReader.readSBML().
+  """
+  if sys.platform.find('cygwin') != -1:
+    return filename
+  else:
+    return os.path.abspath(filename)
+%}
+
+%feature("shadow")
+SBMLReader::readSBML(const std::string&)
+%{
+  def readSBML(*args):
+    """readSBML(filename) -> SBMLDocument
+
+    Reads an SBML document from the given file.  If filename does not exist
+    or is not an SBML file, a fatal error will be logged.  Errors can be
+    identified by their unique ids, e.g.:
+
+      reader = libsbml.SBMLReader()
+      d      = reader.readSBML(filename)
+
+      if d.getNumFatals() > 0:
+        pm = d.getFatal(0)
+        if pm.getId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ..
+        if pm.getId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
+    """
+    args_copy    = list(args)
+    args_copy[1] = conditional_abspath(args[1])
+    return _libsbml.SBMLReader_readSBML(*args_copy)
+%}
+
+
+/**
+ * Since we cannot seem to "shadow" readSBML() (maybe because it's
+ * not a method of some object, but rather a top-level function, we
+ * employ the following HACK: Tell SWIG to ignore readSBML and just
+ * define it in terms of SBMLReader.readSBML().  This is less than
+ * ideal, because the libSBML C/C++ core does essentially the same
+ * thing, so now we're repeating ourselves.
+ */
+
+%ignore readSBML(const char*);
+
+%pythoncode
+%{
+def readSBML(*args):
+  """readSBML(filename) -> SBMLDocument
+
+  Reads an SBML document from the given file.  If filename does not exist
+  or is not an SBML file, a fatal error will be logged.  Errors can be
+  identified by their unique ids, e.g.:
+
+    d = readSBML(filename)
+
+    if d.getNumFatals() > 0:
+      pm = d.getFatal(0)
+      if pm.getId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ...
+      if pm.getId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
+  """
+  reader = SBMLReader()
+  return reader.readSBML(args[0])
+%}
+
+
+
+// ----------------------------------------------------------------------
+// Layout Extension
+// ----------------------------------------------------------------------
+
+
 #ifdef USE_LAYOUT
 %include layout_local.i
 #endif

@@ -53,7 +53,6 @@ import sys
 import operator
 import re
 import string
-import os.path
 
 import libsbml
 
@@ -585,9 +584,8 @@ def testSBMLReader():
    str(reader)
    str(doc)
 
-   # test for relative-path discovered on 15-Jul-2004
    filename = "../../sbml/test/test-data/l1v1-branch.xml"
-   doc      = reader.readSBML(os.path.abspath(filename))
+   doc      = reader.readSBML(filename)
    assert doc.getNumFatals() == 0
    assert doc.getModel()
 
