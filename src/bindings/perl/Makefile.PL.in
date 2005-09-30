@@ -53,6 +53,7 @@ WriteMakefile(
 	      CCFLAGS     => "@PERL_CPPFLAGS@",
               INC         => "-I../swig -I../..",
               MYEXTLIB    => "../../libsbml.a",
+              macro       => {USE_SWIG => q[@USE_SWIG@]},
               OBJECT      => "LibSBML_wrap.o",
               AUTHOR      => "Christoph Flamm <xtof@tbi.univie.ac.at>",
               VERSION     => "@PACKAGE_VERSION@",
@@ -62,7 +63,12 @@ package MY;
 sub postamble {
 	return <<'MAKE_FRAG';
 LibSBML_wrap.cxx: local.i
+ifndef USE_SWIG
+	$(NOECHO) $(ECHO) "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
+	exit 1
+else
 	@SWIG@ @SWIGFLAGS@ -Wall -c++ -perl5 -proxy -I../.. LibSBML.i
+endif
 LibSBML.pm: LibSBML_wrap.cxx
 MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
 myuninstall:
