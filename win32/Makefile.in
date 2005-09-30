@@ -126,9 +126,11 @@ tags:
 
 install:
 
-uninstall:
+install-docs:
 
 installcheck:
+
+uninstall:
 
 
 # -----------------------------------------------------------------------------
