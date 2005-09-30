@@ -125,11 +125,17 @@ extra_distclean = Makefile-perl Makefile-perl.old
 # The default action is to remake everything.
 
 all: Makefile-perl LibSBML_wrap.cxx LibSBML.pod
+	$(MAKE) -f Makefile-perl
 
 # The Perl-created Makefile is named 'Makefile-perl'.
 
 Makefile-perl: Makefile.PL
-	$(PERL) Makefile.PL
+ifndef USE_PERL
+	@ echo "Reconfigure --with-perl in order to build the perl-bindings"
+	exit 1
+else
+	$(PERL) Makefile.PL $(if $(LIB),LIB=$(LIB),)
+endif
 
 Makefile.PL: Makefile.PL.in $(TOP_SRCDIR)/configure \
 	     $(TOP_SRCDIR)/config/makefile-common-vars.mk
@@ -141,7 +147,7 @@ swig_sources = \
 
 LibSBML_wrap.cxx: LibSBML.i local.i $(swig_sources)
 ifndef USE_SWIG
-	echo "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
+	@ echo "Reconfigure --with-swig in order to rebuild LibSBML_wrap.cxx"
 	exit 1
 else
 	$(MAKE) -f Makefile-perl
@@ -200,7 +206,6 @@ uninstall:
 
 clean: Makefile-perl
 	$(MAKE) -f Makefile-perl clean
-	mv -f Makefile-perl.old Makefile-perl
 
 distclean: Makefile-perl distclean-normal
 
