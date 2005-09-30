@@ -287,7 +287,7 @@
             FDEBUGFLAGS='-g'
 #
             LD="$COMPILER"
-            LDEXTENSION='.mexa64'
+            LDEXTENSION='.mexglx'
             LDFLAGS="-m32 -pthread -shared -Wl,--version-script,$TMW_ROOT/extern/lib/glnx86/$MAPFILE"
             LDOPTIMFLAGS='-O'
             LDDEBUGFLAGS='-g'
