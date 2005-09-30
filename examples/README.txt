@@ -4,57 +4,66 @@
                            Example Programs
 
                             Ben Bornstein
+	   with contributions from (in alphabetical order)
+	    Christoph Flamm, Ralph Gauges, Michael Hucka,
+		 Rainer Machne and Nicolas Rodriguez
 
-			     The SBML Team
-		Control and Dynamical Systems, MC 107-81
-		   California Institute of Technology
-			Pasadena, CA, 91125, USA
-
-			  http://www.sbml.org/
+			    The SBML Team
+			 http://www.sbml.org/
 		     mailto:sbml-team@caltech.edu
 
+       Please join the libsbml-discuss mailing list by visiting
+	    http://www.sbml.org/forums/index.php?t=pre_reg
 
---------------
-0. Quick Start
---------------
+    Date of last update to this file: $Date$
 
-The Makefile in this directory is kept simple for illustrative
-purposes.  For this reason, it is not machine generated (Automake) and
-as such you may need to modify the variables LDFLAGS and CPPFLAGS (in
-the Makefile) to point to the library and include directories,
-respectively, where libsbml was installed.  If libsbml was installed
-in /usr/local (the default) you will not need to change anything.
 
-At the Unix command prompt, type:
+There are separate subdirectories for different programming languages:
+"c" for example programs in the C language, "c++" for examples in C++,
+"java" for examples in Java, etc.  You will first need to change your
+working directory to one of these subdirectories.
 
+The Makefile in each subdirectory is kept simple for illustrative
+purposes.  For this reason, you may need to modify some of the values
+assigned to variables in the Makefiles in order that they correspond
+to your particular environment.
+
+Once this is done, at the Unix command prompt, you should be able to
+type the following command to compile the example programs in a given
+language subdirectory:
 
   % make
 
+Next, you may wish to try running the example programs on some SBML
+files.  There are a number of sample models used for testing the rest
+of libSBML in src/sbml/test/test-data.  So for example, you could do
+try the following:
 
-Run the examples on some SBML files.  A number of files are readily
-available in ../src/test-data.  For example:
+  % printSBML     ../../src/sbml/test/test-data/l2v1-branch.xml
+  % readSBML      ../../src/sbml/test/test-data/l2v1-delay.xml
+  % convertSBML   ../../src/sbml/test/test-data/l1v1-rules.xml l2v1-rules.xml
+  % validateSBML  ../../src/sbml/test/test-data/l2v1-branch.xml
+  % validateSBML  ../../src/sbml/test/test-data/l1v1-branch.xml
+  % validateSBML  ../../src/sbml/test/test-data/l1v1-branch-schema-error.xml
+
+More models may be obtained from a number of other sources, including
+the BioModels Database (http://www.ebi.ac.uk/biomodels/).
 
 
-  % printSBML     ../src/test-data/l1v1-branch.xml
-  % readSBML      ../src/test-data/l2v1-delay.xml
-  % convertSBML   ../src/test-data/l1v1-rules.xml l2v1-rules.xml
-  % validateSBML  ../src/test-data/l2v1-branch.xml
-  % validateSBML  ../src/test-data/l1v1-branch.xml
-  % validateSBML  ../src/test-data/l1v1-branch-schema-error.xml
 
 
-NOTE:
 
-For validateSBML, the three XML Schema files (sbml-l1v1.xsd,
-sbml-l1v2.xsd and sbml-l2v1.xsd) are hard-coded with their basenames
-only.  If Schema filenames are not absolute paths (as in this case)
-the Xerces-C Schema validation engine only looks for them in the same
-directory as the XML file being read.  This is why validateSBML works
-above, but will not work if you try it on other SBML files without the
-Schema filename in the same directory.
+
+
 
 
 -------------------------------------------
-File author: B. Bornstein
+File authors: B. Bornstein, M. Hucka
 Last Modified: $Date$
+Last Modified By: $Author$
 -------------------------------------------
+
+# The following is for [X]Emacs users.  Please leave in place.
+# Local Variables:
+# fill-column: 70
+# End:
