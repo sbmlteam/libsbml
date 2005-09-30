@@ -48,18 +48,29 @@
 ## Contributor(s):
 ##  <mhucka@caltech.edu> Created the Makefile.in version of this file.
 
+# The values of the following variables are obtained using the libSBML
+# configuration program.
 
 SRCDIR     = ../../src
 INCLUDEDIR = ../../include
 
 CXX        = @CXX@
 CXXFLAGS   = @CXXFLAGS@ -Wall
-CPPFLAGS   = @CPPFLAGS@ -I$(INCLUDEDIR)
-LDFLAGS    = @LDFLAGS@  -L$(SRCDIR)
-LIBS       = -lsbml @XERCES_LIBS@ @EXPAT_LIBS@ -lstdc++
+
+ifdef USE_EXPAT
+  CPPFLAGS = @EXPAT_CPPFLAGS@ -I$(INCLUDEDIR)
+  LDFLAGS  = @EXPAT_LDFLAGS@ -L$(SRCDIR)
+  LIBS     = @EXPAT_LIBS@ -lsbml -lstdc++ -lm
+else
+  CPPFLAGS = @XERCES_CPPFLAGS@ -I$(INCLUDEDIR)
+  LDFLAGS  = @XERCES_LDFLAGS@ -L$(SRCDIR)
+  LIBS     = @XERCES_LIBS@ -lsbml -lstdc++ -lm
+endif
 
 programs   = convertSBML printSBML readSBML translateMath validateSBML
 
+# The rest of this Makefile remains static regardless of the values
+# assigned to the variables above.
 
 all: $(programs)
 
