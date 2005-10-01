@@ -71,20 +71,23 @@ else
 endif
 
 LibSBML.pm: LibSBML_wrap.cxx
-MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
 
+MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
+MYPERLLOCAL = $(INSTALLARCHLIB)/perllocal.pod
 myuninstall:
-	$(NOECHO) dirs=`cat $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist | xargs -L 1 dirname`; \
+	$(NOECHO) dirs=`cat $(MYPACKLIST) | xargs -L 1 dirname`; \
 	echo $$dirs; \
 	$(PERLRUN) -MExtUtils::Install -e \
 	  'uninstall('\''$(MYPACKLIST)'\',1,0')'; \
 	for d in $$dirs; do \
-          if test -d $$d && test -n "`find $$d -empty -maxdepth 0`"; then \
+          if test -d $$d && test -n "`find $$d -maxdepth 0 -empty`"; then \
 	    echo rmdir $$d; \
 	    rmdir $$d; \
           fi; \
         done
-
+	$(PERLRUN) -MPod::Select -e \
+	'podselect({-output=>'\''$(MYPERLLOCAL).tmp'\'',-sections=>[qq[/\!.*LibSBML.*/]]},'\''$(MYPERLLOCAL)'\'')';
+	$(MV) $(MYPERLLOCAL).tmp $(MYPERLLOCAL);
 MAKE_FRAG
 }
 # End of file
