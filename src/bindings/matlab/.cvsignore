@@ -6,10 +6,10 @@ Makefile
 *.mexrs6
 *.mexsg
 *.mexaxp
+*.mexa64
 *.dll
 *.mexhpux
 *.mexhp7
 CTAGS
 TAGS
-TAGS
-CTAGS
+
