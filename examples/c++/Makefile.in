@@ -67,10 +67,10 @@ else
   LIBS     = @XERCES_LIBS@ -lsbml -lstdc++ -lm
 endif
 
-programs   = convertSBML printSBML readSBML translateMath validateSBML
-
 # The rest of this Makefile remains static regardless of the values
 # assigned to the variables above.
+
+programs   = convertSBML printSBML readSBML translateMath validateSBML
 
 all: $(programs)
 
