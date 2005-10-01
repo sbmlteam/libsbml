@@ -1,6 +1,7 @@
 .deps
 *.so
 *.dylib
+*.dll
 *.pyc
 Makefile
 libsbml_wrap.cpp
