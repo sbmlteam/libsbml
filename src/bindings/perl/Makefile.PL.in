@@ -75,8 +75,7 @@ LibSBML.pm: LibSBML_wrap.cxx
 MYPACKLIST = $(DESTINSTALLSITEARCH)/auto/$(FULLEXT)/.packlist
 MYPERLLOCAL = $(INSTALLARCHLIB)/perllocal.pod
 myuninstall:
-	$(NOECHO) dirs=`cat $(MYPACKLIST) | xargs -L 1 dirname`; \
-	echo $$dirs; \
+	$(NOECHO) dirs=`cat $(MYPACKLIST) | xargs -n 1 dirname`; \
 	$(PERLRUN) -MExtUtils::Install -e \
 	  'uninstall('\''$(MYPACKLIST)'\',1,0')'; \
 	for d in $$dirs; do \
@@ -84,7 +83,7 @@ myuninstall:
 	    echo rmdir $$d; \
 	    rmdir $$d; \
           fi; \
-        done
+        done; \
 	$(PERLRUN) -MPod::Select -e \
 	'podselect({-output=>'\''$(MYPERLLOCAL).tmp'\'',-sections=>[qq[/\!.*LibSBML.*/]]},'\''$(MYPERLLOCAL)'\'')';
 	$(MV) $(MYPERLLOCAL).tmp $(MYPERLLOCAL);
