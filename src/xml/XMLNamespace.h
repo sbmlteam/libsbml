@@ -57,7 +57,7 @@
 
 
 #include <string>
-#include "../common/extern.h"
+#include "common/extern.h"
 
 
 /**
