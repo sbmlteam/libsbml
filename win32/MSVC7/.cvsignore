@@ -1,3 +1,4 @@
 Makefile
 TAGS
 CTAGS
+.deps
