@@ -1,7 +1,7 @@
            libsbml NEWS -- History of user-visible changes
 
 
-=== Version 2.3.3 ===
+=== Version 2.3.4 ===
 
 * New Features:
 
@@ -100,6 +100,20 @@
     This bug will be fixed in a future release (2.4.0?) with reference
     counted objects.  Note this bug *does not occur* in any of LibSBML
     C, Java, Python, Perl, Lisp, or Matlab.
+
+
+* Released October 3, 2005
+
+
+
+
+=== Version 2.3.3 ===
+
+* libSBML 2.3.3 was a prerelease for libSBML 2.3.4.  Thanks to Frank
+  Bergmann, Christoph Flamm, Ed Frank, Ralph Gauges, Herbert Sauro,
+  Jeremy Zucker, Tim (?), and other members of the libsbml-discuss
+  mailing list for taking the time to test this release and report and
+  fix problems.
 
 
 * Released September 26, 2005
