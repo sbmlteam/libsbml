@@ -430,3 +430,42 @@ SWIGJAVA_ATTRIBS(TYPENAME, public, public)
  */
 %typemap(javain) SBMLDocument   * "SBMLDocument.getCPtr($javainput)";
 %typemap(javain) MathMLDocument * "MathMLDocument.getCPtr($javainput)";
+
+
+/**
+ * Some combinations of platforms and underlying XML parsers *require*
+ * an absolute path to a filename while others do not.  It's best to
+ * hide this from the end-user by making SBMLReader.readSBML() and
+ * readSBML() always compute an absolute path and filename.
+ */
+
+%typemap("javaimports") SBMLReader "
+import java.io.File;
+"
+
+%javamethodmodifiers       SBMLReader::readSBML "private";
+%rename(readSBMLInternal)  SBMLReader::readSBML;
+
+%typemap("javacode") SBMLReader
+%{
+  public SBMLDocument readSBML (String filename)
+  {
+    File   file    = new java.io.File(filename);
+    String abspath = file.getAbsolutePath();
+    long   cPtr    = libsbmlJNI.SBMLReader_readSBMLInternal(swigCPtr, abspath);
+    return (cPtr == 0) ? null : new SBMLDocument(cPtr, true);
+  }
+%}
+
+
+%javamethodmodifiers       readSBML "private";
+%rename(readSBMLInternal)  readSBML;
+
+%pragma(java) modulecode =
+%{
+  public static SBMLDocument readSBML (String filename)
+  {
+    SBMLReader reader = new SBMLReader();
+    return reader.readSBML(filename);
+  }
+%}
