@@ -91,6 +91,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Release/Python_binding_Win32.pch"
 				AssemblerListingLocation=".\Release/"
@@ -970,6 +971,12 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LIBSBML_EXPORTS;$(NoInherit)"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLSchemaInputSource.cpp">
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLSchemaInputStream.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLTagCodes.cpp">
