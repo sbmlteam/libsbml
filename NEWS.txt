@@ -19,6 +19,10 @@
     and all of its children, and so on.  Thanks to Andrew Finney for
     suggesting this feature.
 
+  - In libSBML Java and Python it is no longer necessary to pass an
+    absolute path and filename to readSBML() and SBMLReader.readSBML().
+    Relative path and filenames now work as expected.
+
 
 * Bug Fixes:
 
