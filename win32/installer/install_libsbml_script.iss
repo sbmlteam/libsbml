@@ -4,7 +4,7 @@
 ;************************************************************************************
 
 ;************************************************************************************
-; the version number appears 5 times. It is currently reading 2.3.3
+; the version number appears 5 times. It is currently reading 2.3.4
 ;************************************************************************************
 
 
@@ -18,7 +18,7 @@ AppName=libSBML
 ; this must read libsbml 'space' version number
 
 ;***********************************************************************************
-AppVerName=libSBML 2.3.3
+AppVerName=libSBML 2.3.4
 
 
 AppPublisher=SBML Team
@@ -35,8 +35,8 @@ AppUpdatesURL=http://www.sbml.org
 ; Note this directory name includes the version number
 
 ;***********************************************************************************
-;DefaultDirName={pf}\SBML\libsbml-2.3.3-xerces
-DefaultDirName={pf}\SBML\libsbml-2.3.3-expat
+;DefaultDirName={pf}\SBML\libsbml-2.3.4-xerces
+DefaultDirName={pf}\SBML\libsbml-2.3.4-expat
 
 DefaultGroupName=libsbml
 DisableProgramGroupPage=yes
@@ -55,7 +55,7 @@ UsePreviousAppDir=no
 
 
 ; this direction copies the whole tree to the directory specified by the user
-; default Program Files/SBML/libsbml-2.3.3-xerces
+; default Program Files/SBML/libsbml-2.3.4-xerces
 ;
 ;****************************************************************************************
 ;Source: "C:\libsbml_for_xerces_release_skel1\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
@@ -117,7 +117,7 @@ Root: HKLM; Subkey: "Software\SBML\libSBML"; Flags: uninsdeletekey
 
 ; version number is inserted here as a string
 ;**********************************************************************************************************
-Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "Version"; ValueData: "2.3.3"
+Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "Version"; ValueData: "2.3.4"
 Root: HKLM; Subkey: "Software\SBML\libSBML"; ValueType: string; ValueName: "InstallPath"; ValueData: "{app}"
 
 
@@ -240,8 +240,8 @@ begin
  
   Note: it includes a version number
 **********************************************************************************************************}
- { MsgBox('This setup installs the Windows release of libSBML 2.3.3 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);}
-  MsgBox('This setup installs the Windows release of libSBML 2.3.3 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
+ { MsgBox('This setup installs the Windows release of libSBML 2.3.4 built using the Xerces XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);  }
+  MsgBox('This setup installs the Windows release of libSBML 2.3.4 built using the Expat XML Parser libraries. All the necessary libraries are included. The source code is available as a seperate download.', mbInformation, mb_Ok);
 end;
 
 procedure URLLabelOnClick(Sender: TObject);
@@ -294,7 +294,7 @@ begin
 this is the version number for the current installation
 
 *************************************************************************}
-  ThisVersionNumber := '2.3.3';
+  ThisVersionNumber := '2.3.4';
   
   MLRoot := GetMatlabRoot('1');
   if (MLRoot = '') then begin
