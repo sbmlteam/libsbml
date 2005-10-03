@@ -49,7 +49,7 @@ WriteMakefile(
 	      PREFIX      => "@prefix@",
               MAKEFILE    => 'Makefile-perl',
               INSTALLDIRS => "site",
-              LIBS        => ["@XERCES_LIBS@ @EXPAT_LIBS@", "-lm", "-lstdc++"],
+              LIBS        => "@XERCES_LIBS@ @EXPAT_LIBS@ -lm -lstdc++",
 	      CC          => "@CXX@",
 	      CCFLAGS     => "@PERL_CPPFLAGS@",
               INC         => "-I../swig -I../..",
