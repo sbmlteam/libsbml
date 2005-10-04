@@ -8,8 +8,8 @@ use vars qw/$testDataDir $perlTestDir $file $schema $rd $d $fatals $str $pm/;
     
 #########################
 
-$testDataDir = File::Spec->rel2abs('../../sbml/test/test-data');
-$perlTestDir = File::Spec->rel2abs('./t');
+$testDataDir = File::Spec->rel2abs(File::Spec->catfile(qw/.. .. sbml test test-data/));
+$perlTestDir = File::Spec->rel2abs(File::Spec->catfile(qw/. t/));
 $rd = new LibSBML::SBMLReader;
 $rd->setSchemaFilenameL1v1(File::Spec->catfile($testDataDir, 'sbml-l1v1.xsd'));
 $rd->setSchemaFilenameL1v2(File::Spec->catfile($testDataDir, 'sbml-l1v2.xsd'));

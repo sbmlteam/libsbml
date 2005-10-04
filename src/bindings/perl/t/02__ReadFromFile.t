@@ -8,7 +8,7 @@ use vars qw/$testDataDir @files $rd $level $version/;
 
 #########################
 
-$testDataDir = File::Spec->rel2abs('../../sbml/test/test-data');
+$testDataDir = File::Spec->rel2abs(File::Spec->catfile(qw/.. .. sbml test test-data/));
 $level = 1;
 $version = 1;
 $rd = new LibSBML::SBMLReader;
