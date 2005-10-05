@@ -4,16 +4,17 @@ BEGIN { plan tests => 64 };
 use File::Spec;
 use LibSBML;
 use strict;
-use vars qw/$testDataDir $perlTestDir $file $schema $rd $d $fatals $str $pm/;
+use vars qw/$testDataDir $perlTestDir $file $rd $d $fatals $str $pm/;
     
 #########################
 
-$testDataDir = File::Spec->rel2abs(File::Spec->catfile(qw/.. .. sbml test test-data/));
-$perlTestDir = File::Spec->rel2abs(File::Spec->catfile(qw/. t/));
+my @dataPathFrags = (File::Spec->updir(),
+                     File::Spec->updir(),
+                     qw/sbml test test-data/);
+my @testPathFrags = (File::Spec->curdir(), 't');
+$testDataDir = File::Spec->catdir(@dataPathFrags);
+$perlTestDir = File::Spec->catdir(@testPathFrags);
 $rd = new LibSBML::SBMLReader;
-$rd->setSchemaFilenameL1v1(File::Spec->catfile($testDataDir, 'sbml-l1v1.xsd'));
-$rd->setSchemaFilenameL1v2(File::Spec->catfile($testDataDir, 'sbml-l1v2.xsd'));
-$rd->setSchemaFilenameL2v1(File::Spec->catfile($testDataDir, 'sbml-l2v1.xsd'));
 
 # nonexisting file
 $file = File::Spec->catfile($testDataDir, 'nonexistent.xml');
@@ -49,13 +50,14 @@ ok($pm->getColumn() == 1);
 
 # turn on basic validation
 ok($rd->getSchemaValidationLevel == $LibSBML::XML_SCHEMA_VALIDATION_NONE);
-$rd->setSchemaValidationLevel($LibSBML::XML_SCHEMA_VALIDATION_BASIC);
+$rd->setSchemaValidationLevel($LibSBML::XML_SCHEMA_VALIDATION_BASIC)
+    unless($^O eq 'cygwin');
 
 # sbml file l1v1 from file: schema error
 $file = File::Spec->catfile($testDataDir, 'l1v1-branch-schema-error.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumFatals(), 0);
-ok($d->getNumErrors(), 1);
+$^O eq 'cygwin' ? ok($d->getNumErrors(), 0) : ok($d->getNumErrors(), 1);
 ok($d->getNumWarnings(), 0);
 ok($d->checkConsistency(), 0);
 ok($d->getLevel(), 1);
@@ -64,7 +66,7 @@ ok($d->getVersion(), 1);
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumFatals(), 0);
-skip(!defined($str), $d->getNumErrors(), 1);
+$^O eq 'cygwin' ? skip(!defined($str), $d->getNumErrors(), 0) : skip(!defined($str), $d->getNumErrors(), 1);
 skip(!defined($str), $d->getNumWarnings(), 0);
 skip(!defined($str), $d->checkConsistency(), 0);
 skip(!defined($str), $d->getLevel(), 1);
@@ -73,7 +75,7 @@ skip(!defined($str), $d->getVersion(), 1);
 # proper sbml file l1v1 from file
 $file = File::Spec->catfile($testDataDir,'l1v1-branch.xml');
 $d = $rd->readSBML($file);
-ok($d->getNumFatals(), 0);
+ok($d->getNumFatals(), 0, $d->LibSBML::printFatals(\*STDERR));
 ok($d->getNumErrors(), 0);
 ok($d->getNumWarnings(), 0);
 ok($d->checkConsistency(), 0);
@@ -109,7 +111,11 @@ skip(!defined($str), $d->getLevel(), 1);
 skip(!defined($str), $d->getVersion(), 2);
 
 # turn of schema validation (takes quite a )
-ok($rd->getSchemaValidationLevel == $LibSBML::XML_SCHEMA_VALIDATION_BASIC);
+$^O eq 'cygwin' 
+    ? ok($rd->getSchemaValidationLevel(),
+	 $LibSBML::XML_SCHEMA_VALIDATION_NONE) 
+    : ok($rd->getSchemaValidationLevel(),
+	 $LibSBML::XML_SCHEMA_VALIDATION_BASIC);
 $rd->setSchemaValidationLevel($LibSBML::XML_SCHEMA_VALIDATION_NONE);
 ok($rd->getSchemaValidationLevel == $LibSBML::XML_SCHEMA_VALIDATION_NONE);
 
@@ -135,6 +141,6 @@ skip(!defined($str), $d->getVersion(), 1);
 #---
 sub slurp_file {
     # file is automatically close at block exit
-    return do { local $/; <FH> } if open(FH, "< @{[shift()]}");
+    return do { local $/; <FH> } if open(FH, '<', "@{[shift()]}");
     return undef;
 }
