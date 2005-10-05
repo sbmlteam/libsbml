@@ -22,7 +22,7 @@ my $m = $d->createModel();
 $m->setId('xtof');
 my $s = $m->createSpecies();
 $s->setId('rainer');
-my $file = File::Spec->catfile(File::Spec->rel2abs('t'),'tmpfile');
+my $file = File::Spec->catfile('t','tmpfile');
 $d->writeSBML($file);
 
 my $rd   = new LibSBML::SBMLReader;
