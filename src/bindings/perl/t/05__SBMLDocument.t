@@ -8,6 +8,7 @@ use vars qw/$testDataDir $perlTestDir $file $rd $d $fatals $str $pm/;
     
 #########################
 
+my $os = 'cygwin';
 my @dataPathFrags = (File::Spec->updir(),
                      File::Spec->updir(),
                      qw/sbml test test-data/);
@@ -51,13 +52,15 @@ ok($pm->getColumn() == 1);
 # turn on basic validation
 ok($rd->getSchemaValidationLevel == $LibSBML::XML_SCHEMA_VALIDATION_NONE);
 $rd->setSchemaValidationLevel($LibSBML::XML_SCHEMA_VALIDATION_BASIC)
-    unless($^O eq 'cygwin');
+    unless($os =~ m/cygwin/);
 
 # sbml file l1v1 from file: schema error
 $file = File::Spec->catfile($testDataDir, 'l1v1-branch-schema-error.xml');
 $d = $rd->readSBML($file);
 ok($d->getNumFatals(), 0);
-$^O eq 'cygwin' ? ok($d->getNumErrors(), 0) : ok($d->getNumErrors(), 1);
+$os =~ m/cygwin/
+    ? ok($d->getNumErrors(), 0)
+    : ok($d->getNumErrors(), 1);
 ok($d->getNumWarnings(), 0);
 ok($d->checkConsistency(), 0);
 ok($d->getLevel(), 1);
@@ -66,7 +69,9 @@ ok($d->getVersion(), 1);
 $str  = slurp_file($file);
 $d = $rd->readSBMLFromString($str) if defined($str);
 skip(!defined($str), $d->getNumFatals(), 0);
-$^O eq 'cygwin' ? skip(!defined($str), $d->getNumErrors(), 0) : skip(!defined($str), $d->getNumErrors(), 1);
+$os =~ m/cygwin/
+    ? skip(!defined($str), $d->getNumErrors(), 0)
+    : skip(!defined($str), $d->getNumErrors(), 1);
 skip(!defined($str), $d->getNumWarnings(), 0);
 skip(!defined($str), $d->checkConsistency(), 0);
 skip(!defined($str), $d->getLevel(), 1);
@@ -110,8 +115,8 @@ skip(!defined($str), $d->checkConsistency(), 0);
 skip(!defined($str), $d->getLevel(), 1);
 skip(!defined($str), $d->getVersion(), 2);
 
-# turn of schema validation (takes quite a )
-$^O eq 'cygwin' 
+# turn off schema validation
+$os =~ m/cygwin/ # is never true
     ? ok($rd->getSchemaValidationLevel(),
 	 $LibSBML::XML_SCHEMA_VALIDATION_NONE) 
     : ok($rd->getSchemaValidationLevel(),
