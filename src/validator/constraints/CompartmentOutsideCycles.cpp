@@ -99,7 +99,7 @@ CompartmentOutsideCycles::reset ()
  * Checks that no Compartments in Model form a cycle via their 'outside'
  * attribute.
  *
- * @return true if at least one cycle is found, false otherwise.
+ * @return true if no cycles are found, false otherwise.
  */
 bool
 CompartmentOutsideCycles::check (const Model& m)

@@ -94,7 +94,7 @@ protected:
    * Checks that no Compartments in Model have a cycle via their 'outside'
    * attribute.
    *
-   * @return true if at least one cycle is found, false otherwise.
+   * @return true if no cycles are found, false otherwise.
    */
   virtual bool check (const Model& m);
 
