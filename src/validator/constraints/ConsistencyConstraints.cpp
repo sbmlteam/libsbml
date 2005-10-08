@@ -57,6 +57,7 @@
 #include "validator/LocalConstraint.h"
 
 #include "CompartmentOutsideCycles.h"
+#include "FunctionDefinitionVars.h"
 
 #include "UniqueIdsForUnitDefinitions.h"
 #include "UniqueIdsInKineticLaw.h"
@@ -80,6 +81,7 @@ EXTERN_CONSTRAINT( 903, UniqueVarsInRules            )
 EXTERN_CONSTRAINT( 904, UniqueVarsInEventAssignments )
 
 
+
 //
 // Constraint 1000 is: No Model Present and is caught before validation
 // begins.  This is because the validator framework assumes a Model.
@@ -95,6 +97,22 @@ START_CONSTRAINT (1001, Model, x)
   inv( m.getNumCompartments() > 0 );
 }
 END_CONSTRAINT
+
+
+
+START_CONSTRAINT (1100, FunctionDefinition, fd)
+{
+  msg =
+    "<lambda> must be the top-level element of a FunctionDefinition "
+    "(L2v1 Section 4.3.2).";
+
+  pre( fd.isSetMath()           );
+  inv( fd.getMath()->isLambda() );
+}
+END_CONSTRAINT
+
+
+EXTERN_CONSTRAINT(1101, FunctionDefinitionVars)
 
 
 
