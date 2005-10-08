@@ -1,5 +1,41 @@
            libsbml NEWS -- History of user-visible changes
 
+                              D R A F T
+
+
+=== Version 2.3.5 ===
+
+* New Features:
+
+  - FunctionDefinitions now have convenience methods to access
+    function arguments (getArgument() and getNumArguments()) and the
+    function body (getBody()) directly.  Arguments may be accessed by
+    position or variable name.  Corresponding functions for the
+    libSBML C interface exist as well.
+
+  - The remaining consistency checks have been completed:
+
+      - In FunctionDefinitions <lambda> must be the top-level element.
+      - FunctionDefinitions are checked for undefined variables.
+
+      * BELOW NOT YET DONE *
+
+      - FunctionDefinitions may not be recursive or mutually recursive.
+
+      - <lambda> may not be used anywhere else in libSBML
+
+      - Variables in <math> must refer  to Species, Compartments,
+        or Parameters.  KineticLaw <math> may refer to local
+        Parameters.
+
+      - User-defined functions called in <math> must refer to
+        FunctionDefinitions in the Model.
+
+
+* Released October x, 2005
+
+
+
 
 === Version 2.3.4 ===
 
