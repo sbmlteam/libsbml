@@ -209,14 +209,14 @@ public:
    * still belong to the tree itself) and therefore should not be deleted.
    */
   LIBSBML_EXTERN
-  List* getListOfNodes (ASTNodePredicate predicate);
+  List* getListOfNodes (ASTNodePredicate predicate) const;
 
   /**
    * This method is identical in functionality to getListOfNodes(), except
    * the List is passed-in by the caller.
    */
   LIBSBML_EXTERN
-  void fillListOfNodes (ASTNodePredicate predicate, List* lst);
+  void fillListOfNodes (ASTNodePredicate predicate, List* lst) const;
 
   /**
    * @return the value of this ASTNode as a single character.  This
@@ -690,7 +690,7 @@ ASTNode_getNumChildren (const ASTNode_t *node);
  */
 LIBSBML_EXTERN
 List_t *
-ASTNode_getListOfNodes (ASTNode_t *node, ASTNodePredicate predicate);
+ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate);
 
 /**
  * This method is identical in functionality to ASTNode_getListOfNodes(),
@@ -698,7 +698,7 @@ ASTNode_getListOfNodes (ASTNode_t *node, ASTNodePredicate predicate);
  */
 LIBSBML_EXTERN
 void
-ASTNode_fillListOfNodes ( ASTNode_t        *node,
+ASTNode_fillListOfNodes ( const ASTNode_t  *node,
                           ASTNodePredicate predicate,
                           List_t           *lst );
 

@@ -666,7 +666,7 @@ ASTNode::getNumChildren () const
  */
 LIBSBML_EXTERN
 List*
-ASTNode::getListOfNodes (ASTNodePredicate predicate)
+ASTNode::getListOfNodes (ASTNodePredicate predicate) const
 {
   List* lst = new List;
 
@@ -683,7 +683,7 @@ ASTNode::getListOfNodes (ASTNodePredicate predicate)
  */
 LIBSBML_EXTERN
 void
-ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst)
+ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst) const
 {
   ASTNode*     child;
   unsigned int c;
@@ -693,7 +693,7 @@ ASTNode::fillListOfNodes (ASTNodePredicate predicate, List* lst)
 
   if (predicate(this) != 0)
   {
-    lst->add(this);
+    lst->add( const_cast<ASTNode*>(this) );
   }
 
   for (c = 0; c < numChildren; c++)
@@ -1533,9 +1533,9 @@ ASTNode_getNumChildren (const ASTNode_t *node)
  */
 LIBSBML_EXTERN
 List_t *
-ASTNode_getListOfNodes (ASTNode_t *node, ASTNodePredicate predicate)
+ASTNode_getListOfNodes (const ASTNode_t *node, ASTNodePredicate predicate)
 {
-  return static_cast<ASTNode*>(node)->getListOfNodes(predicate);
+  return static_cast<const ASTNode*>(node)->getListOfNodes(predicate);
 }
 
 
@@ -1545,13 +1545,13 @@ ASTNode_getListOfNodes (ASTNode_t *node, ASTNodePredicate predicate)
  */
 LIBSBML_EXTERN
 void
-ASTNode_fillListOfNodes ( ASTNode_t        *node,
+ASTNode_fillListOfNodes ( const ASTNode_t  *node,
                           ASTNodePredicate predicate,
                           List_t           *lst )
 {
   List* x = static_cast<List*>(lst);
 
-  static_cast<ASTNode*>(node)->fillListOfNodes(predicate, x);
+  static_cast<const ASTNode*>(node)->fillListOfNodes(predicate, x);
 }
 
 
