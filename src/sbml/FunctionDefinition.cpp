@@ -49,6 +49,8 @@
  */
 
 
+#include <cstring>
+
 #include "math/FormulaParser.h"
 #include "math/ASTNode.h"
 
@@ -117,6 +119,60 @@ FunctionDefinition::accept (SBMLVisitor& v) const
 
 
 /**
+ * @return the nth argument (bound variable) passed to this
+ * FunctionDefinition.
+ */
+LIBSBML_EXTERN
+const ASTNode*
+FunctionDefinition::getArgument (unsigned int n) const
+{
+  if (n < getNumArguments())
+  {
+    return math->getChild(n);
+  }
+}
+
+
+/**
+ * @return the argument (bound variable) in this FunctionDefinition with
+ * the given name or NULL if no such argument exists.
+ */
+LIBSBML_EXTERN
+const ASTNode*
+FunctionDefinition::getArgument (const std::string& name) const
+{
+  const char*    cname = name.c_str();
+  const ASTNode* found = 0;
+
+
+  for (unsigned int n = 0; n < getNumArguments(); ++n)
+  {
+    const ASTNode* node = getArgument(n);
+
+    if (node && node->isName() && !strcmp(node->getName(), cname))
+    {
+      found = node;
+      break;
+    }
+  }
+
+  return found;
+}
+
+
+/**
+ * @return the body of this FunctionDefinition, or NULL if no body is
+ * defined.
+ */
+LIBSBML_EXTERN
+const ASTNode*
+FunctionDefinition::getBody () const
+{
+  return math->getRightChild();
+}
+
+
+/**
  * @return the id of this FunctionDefinition.
  */
 LIBSBML_EXTERN
@@ -146,6 +202,19 @@ const ASTNode*
 FunctionDefinition::getMath () const
 {
   return math;
+}
+
+
+/**
+ * @return the number of arguments (bound variables) that must be passed
+ * to this FunctionDefinition.
+ */
+LIBSBML_EXTERN
+unsigned int
+FunctionDefinition::getNumArguments () const
+{
+  if (!isSetMath() || math->getNumChildren() == 0) return 0;
+  else return math->getNumChildren() - 1;
 }
 
 
@@ -283,6 +352,52 @@ FunctionDefinition_free (FunctionDefinition_t *fd)
 
 
 /**
+ * @return the nth argument (bound variable) passed to this
+ * FunctionDefinition.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+FunctionDefinition_getArgument (const FunctionDefinition_t *fd, unsigned int n)
+{
+  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
+
+
+  return static_cast<const ASTNode_t*>( x->getArgument(n) );
+}
+
+
+/**
+ * @return the argument (bound variable) in this FunctionDefinition with
+ * the given name or NULL if no such argument exists.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+FunctionDefinition_getArgumentByName ( FunctionDefinition_t *fd,
+                                       const char *name )
+{
+  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
+
+
+  return static_cast<const ASTNode_t*>( x->getArgument(name ? name : "") );
+}
+
+
+/**
+ * @return the body of this FunctionDefinition, or NULL if no body is
+ * defined.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+FunctionDefinition_getBody (const FunctionDefinition_t *fd)
+{
+  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
+
+
+  return static_cast<const ASTNode_t*>( x->getBody() );
+}
+
+
+/**
  * @return the id of this FunctionDefinition.
  */
 LIBSBML_EXTERN
@@ -307,6 +422,18 @@ FunctionDefinition_getName (const FunctionDefinition_t *fd)
 
 
   return x->isSetName() ? x->getName().c_str() : NULL;
+}
+
+
+/**
+ * @return the number of arguments (bound variables) that must be passed
+ * to this FunctionDefinition.
+ */
+LIBSBML_EXTERN
+unsigned int
+FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd)
+{
+  return static_cast<const FunctionDefinition*>(fd)->getNumArguments();
 }
 
 

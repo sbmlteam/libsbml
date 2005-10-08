@@ -104,6 +104,27 @@ public:
   bool accept (SBMLVisitor& v) const;
 
   /**
+   * @return the nth argument (bound variable) passed to this
+   * FunctionDefinition.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getArgument (unsigned int n) const;
+
+  /**
+   * @return the argument (bound variable) in this FunctionDefinition with
+   * the given name or NULL if no such argument exists.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getArgument (const std::string& name) const;
+
+  /**
+   * @return the body of this FunctionDefinition, or NULL if no body is
+   * defined.
+   */
+  LIBSBML_EXTERN
+  const ASTNode* getBody () const;
+
+  /**
    * @return the id of this FunctionDefinition.
    */
   LIBSBML_EXTERN
@@ -120,6 +141,13 @@ public:
    */
   LIBSBML_EXTERN
   const ASTNode* getMath () const;
+
+  /**
+   * @return the number of arguments (bound variables) that must be passed
+   * to this FunctionDefinition.
+   */
+  LIBSBML_EXTERN
+  unsigned int getNumArguments () const;
 
   /**
    * @return true if the id of this FunctionDefinition has been set, false
@@ -224,6 +252,31 @@ FunctionDefinition_free (FunctionDefinition_t *fd);
 
 
 /**
+ * @return the nth argument (bound variable) passed to this
+ * FunctionDefinition.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+FunctionDefinition_getArgument (const FunctionDefinition_t *fd, unsigned int n);
+
+/**
+ * @return the argument (bound variable) in this FunctionDefinition with
+ * the given name or NULL if no such argument exists.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+FunctionDefinition_getArgumentByName ( FunctionDefinition_t *fd,
+                                       const char *name );
+
+/**
+ * @return the body of this FunctionDefinition, or NULL if no body is
+ * defined.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+FunctionDefinition_getBody (const FunctionDefinition_t *fd);
+
+/**
  * @return the id of this FunctionDefinition.
  */
 LIBSBML_EXTERN
@@ -243,6 +296,14 @@ FunctionDefinition_getName (const FunctionDefinition_t *fd);
 LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getMath (const FunctionDefinition_t *fd);
+
+/**
+ * @return the number of arguments (bound variables) that must be passed
+ * to this FunctionDefinition.
+ */
+LIBSBML_EXTERN
+unsigned int
+FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd);
 
 
 /**

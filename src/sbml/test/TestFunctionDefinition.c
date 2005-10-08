@@ -125,6 +125,55 @@ START_TEST (test_FunctionDefinition_free_NULL)
 END_TEST
 
 
+START_TEST (test_FunctionDefinition_getArguments)
+{
+  const ASTNode_t *math;
+
+
+  FunctionDefinition_setMath(FD, SBML_parseFormula("lambda(x, y, x^y)") );
+
+  fail_unless( FunctionDefinition_getNumArguments(FD) == 2 );
+
+
+  math = FunctionDefinition_getArgument(FD, 0);
+
+  fail_unless( math != NULL                        );
+  fail_unless( ASTNode_isName(math)                );
+  fail_unless( !strcmp(ASTNode_getName(math), "x") );
+  fail_unless( ASTNode_getNumChildren(math) == 0   );
+
+  math = FunctionDefinition_getArgument(FD, 1);
+
+  fail_unless( math != NULL                        );
+  fail_unless( ASTNode_isName(math)                );
+  fail_unless( !strcmp(ASTNode_getName(math), "y") );
+  fail_unless( ASTNode_getNumChildren(math) == 0   );
+
+  fail_unless( FunctionDefinition_getArgument(FD, 0) ==
+               FunctionDefinition_getArgumentByName(FD, "x") );
+
+  fail_unless( FunctionDefinition_getArgument(FD, 1) ==
+               FunctionDefinition_getArgumentByName(FD, "y") );
+}
+END_TEST
+
+
+START_TEST (test_FunctionDefinition_getBody)
+{
+  const ASTNode_t *math;
+
+
+  FunctionDefinition_setMath(FD, SBML_parseFormula("lambda(x, x)") );
+  math = FunctionDefinition_getBody(FD);
+
+  fail_unless( math != NULL                        );
+  fail_unless( ASTNode_isName(math)                );
+  fail_unless( !strcmp(ASTNode_getName(math), "x") );
+  fail_unless( ASTNode_getNumChildren(math) == 0   );
+}
+END_TEST
+
+
 START_TEST (test_FunctionDefinition_setId)
 {
   char *id = "pow3";
@@ -221,12 +270,14 @@ create_suite_FunctionDefinition (void)
                              FunctionDefinitionTest_setup,
                              FunctionDefinitionTest_teardown );
 
-  tcase_add_test( tcase, test_FunctionDefinition_create     );
-  tcase_add_test( tcase, test_FunctionDefinition_createWith );
-  tcase_add_test( tcase, test_FunctionDefinition_free_NULL  );
-  tcase_add_test( tcase, test_FunctionDefinition_setId      );
-  tcase_add_test( tcase, test_FunctionDefinition_setName    );
-  tcase_add_test( tcase, test_FunctionDefinition_setMath    );
+  tcase_add_test( tcase, test_FunctionDefinition_create       );
+  tcase_add_test( tcase, test_FunctionDefinition_createWith   );
+  tcase_add_test( tcase, test_FunctionDefinition_free_NULL    );
+  tcase_add_test( tcase, test_FunctionDefinition_getArguments );
+  tcase_add_test( tcase, test_FunctionDefinition_getBody      );
+  tcase_add_test( tcase, test_FunctionDefinition_setId        );
+  tcase_add_test( tcase, test_FunctionDefinition_setName      );
+  tcase_add_test( tcase, test_FunctionDefinition_setMath      );
 
   suite_add_tcase(suite, tcase);
 
