@@ -268,7 +268,9 @@ START_TEST (test_LayoutHandler_Layout_annotation)
     (
       "<layout id=\"layout_1\">\n"
       "  <annotation>\n"
-      "    <this-is-a-test/>\n"
+      "    <this-is-a-test>\n"
+      "      <another-level> level2 </another-level>\n"
+      "    </this-is-a-test>\n"
       "  </annotation>\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "</layout>\n"     
@@ -276,7 +278,9 @@ START_TEST (test_LayoutHandler_Layout_annotation)
 
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
+      "    <this-is-a-test>\n"
+      "      <another-level> level2 </another-level>\n"
+      "    </this-is-a-test>\n"
       "  </annotation>";
 
     fail_unless(LH->parse(s,-1,true));
@@ -291,6 +295,8 @@ START_TEST (test_LayoutHandler_Layout_annotation)
     fail_unless(dimensions->getWidth()==200.0);
     fail_unless(dimensions->getHeight()==400.0);
     fail_unless(dimensions->getDepth()==0.0);
+
+    fail_unless(l->getAnnotation()==a);
 
 }
 END_TEST
@@ -436,8 +442,10 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
+      "      </annotation>";
 
     char* s=wrapSBML2
     ( "<layout id=\"layout_1\">\n"
@@ -445,7 +453,9 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
       "  <listOfCompartmentGlyphs>\n"
       "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "      <annotation>\n"
-      "        <this-is-a-test/>\n"
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
       "      </annotation>\n"
       "      <boundingBox>\n"
       "        <position x=\"10.3\" y=\"20\"/>\n"
@@ -485,6 +495,8 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
     fail_unless(dimensions2.getWidth()==200.5); 
     fail_unless(dimensions2.getHeight()==400.5); 
     fail_unless(dimensions2.getDepth()==0.0); 
+    
+    fail_unless(cg->getAnnotation()==a);
     
 }
 END_TEST
@@ -647,8 +659,10 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
+      "      </annotation>";
 
     char* s=wrapSBML2
     ( "<layout id=\"layout_1\">\n"
@@ -656,7 +670,9 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
       "  <listOfSpeciesGlyphs>\n"
       "    <speciesGlyph id=\"speciesGlyph_1\">\n"
       "      <annotation>\n"
-      "        <this-is-a-test/>\n"
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
       "      </annotation>\n"
       "      <boundingBox>\n"
       "        <position x=\"10.3\" y=\"20\"/>\n"
@@ -697,7 +713,7 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
     fail_unless(dimensions2.getHeight()==400.5); 
     fail_unless(dimensions2.getDepth()==0.0); 
 
-    
+    fail_unless(sg->getAnnotation()==a); 
 }
 END_TEST
 
@@ -918,8 +934,10 @@ START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
+      "      </annotation>";
 
     char* s=wrapSBML2
     ( "<layout id=\"layout_1\">\n"
@@ -927,7 +945,9 @@ START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
       "  <listOfReactionGlyphs>\n"
       "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "      <annotation>\n"
-      "        <this-is-a-test/>\n"
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
       "      </annotation>\n"
       "      <boundingBox>\n"
       "        <position x=\"10.3\" y=\"20\"/>\n"
@@ -967,6 +987,8 @@ START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
     fail_unless(dimensions2.getWidth()==200.5); 
     fail_unless(dimensions2.getHeight()==400.5); 
     fail_unless(dimensions2.getDepth()==0.0); 
+    
+    fail_unless(rg->getAnnotation()==a); 
     
 }
 END_TEST
@@ -1259,8 +1281,10 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "            <this-is-a-test>\n"
+      "              <another-level> level2 </another-level>\n"
+      "            </this-is-a-test>\n"
+      "          </annotation>";
 
     char* s=wrapSBML2
     ( "<layout id=\"layout_1\">\n"
@@ -1274,7 +1298,9 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
       "      <listOfSpeciesReferenceGlyphs>\n"
       "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"sideproduct\">\n"
       "          <annotation>\n"
-      "            <this-is-a-test/>\n"
+      "            <this-is-a-test>\n"
+      "              <another-level> level2 </another-level>\n"
+      "            </this-is-a-test>\n"
       "          </annotation>\n"
       "          <boundingBox>\n"
       "            <position x=\"110.3\" y=\"120\"/>\n"
@@ -1333,6 +1359,8 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
     fail_unless(dimensions2.getWidth()==20.5); 
     fail_unless(dimensions2.getHeight()==40.5); 
     fail_unless(dimensions2.getDepth()==0.0); 
+    
+    fail_unless(srg->getAnnotation()==a); 
 }
 END_TEST
 
@@ -1573,8 +1601,10 @@ START_TEST (test_LayoutHandler_TextGlyph_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
+      "      </annotation>";
 
     char* s=wrapSBML2
     ( "<layout id=\"layout_1\">\n"
@@ -1582,7 +1612,9 @@ START_TEST (test_LayoutHandler_TextGlyph_annotation)
       "  <listOfTextGlyphs>\n"
       "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "      <annotation>\n"
-      "        <this-is-a-test/>\n"
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
       "      </annotation>\n"
       "      <boundingBox>\n"
       "        <position x=\"10.3\" y=\"20\"/>\n"
@@ -1624,6 +1656,8 @@ START_TEST (test_LayoutHandler_TextGlyph_annotation)
     fail_unless(dimensions2.getWidth()==200.5); 
     fail_unless(dimensions2.getHeight()==400.5); 
     fail_unless(dimensions2.getDepth()==0.0); 
+    
+    fail_unless(tg->getAnnotation()==a); 
     
 }
 END_TEST
@@ -1785,8 +1819,10 @@ START_TEST (test_LayoutHandler_GraphicalObject_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
+      "      </annotation>";
 
     char* s=wrapSBML2
     ( "<layout id=\"layout_1\">\n"
@@ -1794,7 +1830,9 @@ START_TEST (test_LayoutHandler_GraphicalObject_annotation)
       "  <listOfAdditionalGraphicalObjects>\n"
       "    <graphicalObject id=\"graphicalObject_1\">\n"
       "      <annotation>\n"
-      "        <this-is-a-test/>\n"
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
       "      </annotation>\n"
       "      <boundingBox>\n"
       "        <position x=\"10.3\" y=\"20\"/>\n"
@@ -1834,6 +1872,7 @@ START_TEST (test_LayoutHandler_GraphicalObject_annotation)
     fail_unless(dimensions2.getHeight()==400.5); 
     fail_unless(dimensions2.getDepth()==0.0); 
     
+    fail_unless(go->getAnnotation()==a); 
     
 }
 END_TEST
@@ -1965,8 +2004,10 @@ START_TEST (test_LayoutHandler_Curve_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
+      "        </annotation>";
 
     char* s=wrapSBML2
     (
@@ -1976,7 +2017,9 @@ START_TEST (test_LayoutHandler_Curve_annotation)
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <curve>\n"
       "        <annotation>\n"
-      "          <this-is-a-test/>\n"
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
       "        </annotation>\n"
       "        <listOfCurveSegments>\n"
       "          <curveSegment xsi:type=\"LineSegment\">\n" 
@@ -2021,6 +2064,8 @@ START_TEST (test_LayoutHandler_Curve_annotation)
     const Point& end=ls->getEnd(); 
     fail_unless(end.getXOffset()==20.0);
     fail_unless(end.getYOffset()==30.0);
+    
+    fail_unless(curve->getAnnotation()==a); 
 }
 END_TEST
 
@@ -2184,8 +2229,10 @@ START_TEST (test_LayoutHandler_LineSegment_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "              <this-is-a-test>\n"
+      "                <another-level> level2 </another-level>\n"
+      "              </this-is-a-test>\n"
+      "            </annotation>";
 
     char* s=wrapSBML2
     (
@@ -2197,7 +2244,9 @@ START_TEST (test_LayoutHandler_LineSegment_annotation)
       "        <listOfCurveSegments>\n"
       "          <curveSegment xsi:type=\"LineSegment\">\n" 
       "            <annotation>\n"
-      "              <this-is-a-test/>\n"
+      "              <this-is-a-test>\n"
+      "                <another-level> level2 </another-level>\n"
+      "              </this-is-a-test>\n"
       "            </annotation>\n"
       "            <start x=\"10\" y=\"15\"/>\n" 
       "            <end x=\"20\" y=\"30\"/>\n" 
@@ -2240,6 +2289,8 @@ START_TEST (test_LayoutHandler_LineSegment_annotation)
     const Point& end=ls->getEnd(); 
     fail_unless(end.getXOffset()==20.0);
     fail_unless(end.getYOffset()==30.0);
+    
+    fail_unless(ls->getAnnotation()==a); 
 }
 END_TEST
 
@@ -2394,8 +2445,10 @@ START_TEST (test_LayoutHandler_CubicBezier_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "              <this-is-a-test>\n"
+      "                <another-level> level2 </another-level>\n"
+      "              </this-is-a-test>\n"
+      "            </annotation>";
 
     char* s=wrapSBML2
     (
@@ -2407,7 +2460,9 @@ START_TEST (test_LayoutHandler_CubicBezier_annotation)
       "        <listOfCurveSegments>\n"
       "          <curveSegment xsi:type=\"CubicBezier\">\n" 
       "            <annotation>\n"
-      "              <this-is-a-test/>\n"
+      "              <this-is-a-test>\n"
+      "                <another-level> level2 </another-level>\n"
+      "              </this-is-a-test>\n"
       "            </annotation>\n"
       "            <start x=\"10\" y=\"15\"/>\n" 
       "            <end x=\"20\" y=\"30\"/>\n" 
@@ -2464,6 +2519,7 @@ START_TEST (test_LayoutHandler_CubicBezier_annotation)
     fail_unless(base2.getYOffset()==17.0);
     fail_unless(base2.getZOffset()==0.0);
 
+    fail_unless(cb->getAnnotation()==a); 
 }
 END_TEST
 
@@ -2536,15 +2592,19 @@ START_TEST (test_LayoutHandler_Dimensions_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "      <this-is-a-test>\n"
+      "        <another-level> level2 </another-level>\n"
+      "      </this-is-a-test>\n"
+      "    </annotation>";
 
     char* s=wrapSBML2
     (
       "<layout id=\"layout_1\">\n"
       "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "    <annotation>\n"
-      "      <this-is-a-test/>\n"
+      "      <this-is-a-test>\n"
+      "        <another-level> level2 </another-level>\n"
+      "      </this-is-a-test>\n"
       "    </annotation>\n"
       "  </dimensions>\n"
        "</layout>\n"
@@ -2565,6 +2625,8 @@ START_TEST (test_LayoutHandler_Dimensions_annotation)
     fail_unless(dimensions->getWidth()==200.5);
     fail_unless(dimensions->getHeight()==400.5);
     fail_unless(dimensions->getDepth()==455.2);
+    
+    fail_unless(dimensions->getAnnotation()==a);
 
 
 }
@@ -2713,8 +2775,10 @@ START_TEST (test_LayoutHandler_BoundingBox_annotation)
 {
     const char* a =
       "<annotation>\n"
-      "    <this-is-a-test/>\n"
-      "  </annotation>";
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
+      "        </annotation>";
 
     char* s=wrapSBML2
     (
@@ -2724,7 +2788,9 @@ START_TEST (test_LayoutHandler_BoundingBox_annotation)
       "    <reactionGlyph id=\"reactionGlyph_1\">\n"
       "      <boundingBox>\n"
       "        <annotation>\n"
-      "          <this-is-a-test/>\n"
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
       "        </annotation>\n"
       "        <position x=\"10.3\" y=\"20\"/>\n"
       "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
@@ -2763,6 +2829,8 @@ START_TEST (test_LayoutHandler_BoundingBox_annotation)
     fail_unless(dimensions2.getWidth()==200.5); 
     fail_unless(dimensions2.getHeight()==400.5); 
     fail_unless(dimensions2.getDepth()==0.0); 
+    
+    fail_unless(bb.getAnnotation()==a);
 
 }
 END_TEST
