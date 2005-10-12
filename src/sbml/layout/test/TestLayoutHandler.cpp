@@ -168,8 +168,8 @@ LayoutHandlerTest_setup (void)
 {
     LISTOFLAYOUTS=new ListOf();
     LH=new LayoutHandler(LISTOFLAYOUTS);
-    LH->startDocument();
 #ifdef USE_EXPAT    
+    LH->startDocument();
     LH->enableElementHandler();
 #endif // USE_EXPAT    
 }
@@ -177,7 +177,9 @@ LayoutHandlerTest_setup (void)
 void 
 LayoutHandlerTest_teardown (void)
 {
+#ifdef USE_EXPAT
     LH->endDocument();
+#endif // USE_EXPAT
     delete LH;
     delete LISTOFLAYOUTS;
 }
