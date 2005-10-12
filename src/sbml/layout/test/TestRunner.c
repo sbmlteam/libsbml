@@ -76,6 +76,7 @@ Suite *create_suite_TextGlyph             (void);
 Suite *create_suite_Layout                (void);
 Suite *create_suite_LayoutHandler         (void);
 Suite *create_suite_LayoutFormatter       (void);
+Suite *create_suite_SBMLHandler           (void);
 
 END_C_DECLS
 
@@ -137,6 +138,7 @@ main (void)
   srunner_add_suite( runner, create_suite_Layout                () );
   srunner_add_suite( runner, create_suite_LayoutHandler         () );
   srunner_add_suite( runner, create_suite_LayoutFormatter       () );
+  srunner_add_suite( runner, create_suite_SBMLHandler           () );
 
   setTestDataDirectory();
 
