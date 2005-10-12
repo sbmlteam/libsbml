@@ -77,6 +77,7 @@ test_sources =                   \
   TestLineSegment.cpp            \
   TestPoint.cpp                  \
   TestReactionGlyph.cpp          \
+  TestSBMLHandler.cpp            \
   TestSpeciesGlyph.cpp           \
   TestSpeciesReferenceGlyph.cpp  \
   TestTextGlyph.cpp              \
