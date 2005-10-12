@@ -52,6 +52,19 @@
 #include "LayoutHandler.h"
 #include "sbml/ListOf.h"
 
+#ifdef USE_EXPAT
+typedef void SAX2XMLReader;
+#else
+#  include <xercesc/framework/MemBufInputSource.hpp>
+#  include <xercesc/sax2/DefaultHandler.hpp>
+#  include <xercesc/sax2/SAX2XMLReader.hpp>
+#  include <xercesc/sax2/XMLReaderFactory.hpp>
+#  include <xercesc/util/PlatformUtils.hpp>
+#  include <xercesc/util/XMLString.hpp>
+   using namespace xercesc;
+#endif  // USE_EXPAT
+
+   
 BEGIN_C_DECLS
 
 #define XML_HEADER    "<?xml version='1.0' encoding='UTF-8'?>\n"
@@ -69,13 +82,96 @@ BEGIN_C_DECLS
 static LayoutHandler         *LH;  
 static ListOf                *LISTOFLAYOUTS;
 
+bool
+readLayout (LayoutHandler* LH,const char* xml)
+{
+
+  bool result=true;  
+#ifdef USE_EXPAT
+
+  try
+  {
+    if (xml)
+    {
+      if (!LH->parse(xml, -1, true))
+        throw LH->getErrorString();
+    }
+  }
+  catch (...)
+  {
+    return false;
+  }
+
+
+#else
+
+
+  try
+  {
+    XML_PLATFORM_UTILS_INIT();
+  }
+  catch (const XMLException& e)
+  {
+    return false;
+  }
+
+
+  SAX2XMLReader*     reader =  XMLReaderFactory::createXMLReader();
+
+  reader->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
+  reader->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes, true );
+
+  reader->setContentHandler(LH);
+  reader->setErrorHandler  (LH);
+
+
+  MemBufInputSource* input   = NULL;
+
+
+  if (xml != NULL)
+  {
+    input = new MemBufInputSource( (const XMLByte*) xml,
+                                   strlen(xml),
+                                   "FromString",
+                                   false );
+  }
+
+  //
+  // Read Layout
+  //
+  try
+  {
+    reader->parse(*input);
+  }
+  catch (const XMLException& e)
+  {
+    result=false;
+  }
+  catch (...)
+  {
+    result=false;
+  }
+
+  delete input;
+  delete reader;
+
+#endif  // USE_EXPAT
+
+  return result;
+}
+
+
+
+
 void
 LayoutHandlerTest_setup (void)
 {
     LISTOFLAYOUTS=new ListOf();
     LH=new LayoutHandler(LISTOFLAYOUTS);
     LH->startDocument();
+#ifdef USE_EXPAT    
     LH->enableElementHandler();
+#endif // USE_EXPAT    
 }
 
 void 
@@ -134,8 +230,8 @@ START_TEST (test_LayoutHandler_Layout)
       "  </listOfAdditionalGraphicalObjects>\n"
       "</layout>\n"
     );
-    
-    fail_unless(LH->parse(s,-1,true));
+   
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -244,7 +340,7 @@ START_TEST (test_LayoutHandler_Layout_notes)
       "</layout>\n"     
     );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -283,7 +379,7 @@ START_TEST (test_LayoutHandler_Layout_annotation)
       "    </this-is-a-test>\n"
       "  </annotation>";
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -310,7 +406,7 @@ START_TEST (test_LayoutHandler_Layout_skipOptional)
       "</layout>\n"     
     );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -349,7 +445,7 @@ START_TEST (test_LayoutHandler_CompartmentGlyph)
       "</layout>\n"
     );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -403,7 +499,7 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_notes)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -466,7 +562,7 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -517,7 +613,7 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_skipOptional)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -566,7 +662,7 @@ START_TEST (test_LayoutHandler_SpeciesGlyph)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -620,7 +716,7 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_notes)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -683,7 +779,7 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -733,7 +829,7 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_skipOptional)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -787,8 +883,8 @@ START_TEST (test_LayoutHandler_ReactionGlyph_Curve)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
-
+    fail_unless(readLayout(LH,s));  
+    
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
     Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
@@ -841,7 +937,7 @@ START_TEST (test_LayoutHandler_ReactionGlyph_BoundingBox)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -895,7 +991,7 @@ START_TEST (test_LayoutHandler_ReactionGlyph_notes)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -958,7 +1054,7 @@ START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1009,7 +1105,7 @@ START_TEST (test_LayoutHandler_ReactionGlyph_skipOptional)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1070,7 +1166,7 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_Curve)
       "</layout>\n"
     );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1148,7 +1244,7 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_BoundingBox)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1226,7 +1322,7 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_notes)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1313,7 +1409,7 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1388,7 +1484,7 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_skipOptional)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1453,7 +1549,7 @@ START_TEST (test_LayoutHandler_TextGlyph_text)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1504,7 +1600,7 @@ START_TEST (test_LayoutHandler_TextGlyph_originOfText)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1560,7 +1656,7 @@ START_TEST (test_LayoutHandler_TextGlyph_notes)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1625,7 +1721,7 @@ START_TEST (test_LayoutHandler_TextGlyph_annotation)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1678,7 +1774,7 @@ START_TEST (test_LayoutHandler_TextGlyph_skipOptional)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1730,7 +1826,7 @@ START_TEST (test_LayoutHandler_GraphicalObject)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1782,7 +1878,7 @@ START_TEST (test_LayoutHandler_GraphicalObject_notes)
       "</layout>\n"
    );
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1844,7 +1940,7 @@ START_TEST (test_LayoutHandler_GraphicalObject_annotation)
    );
 
     
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1898,7 +1994,7 @@ START_TEST (test_LayoutHandler_Curve)
       "</layout>\n"
    );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -1961,7 +2057,7 @@ START_TEST (test_LayoutHandler_Curve_notes)
       "</layout>\n"
    );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2033,7 +2129,7 @@ START_TEST (test_LayoutHandler_Curve_annotation)
       "</layout>\n"
     );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2084,7 +2180,7 @@ START_TEST (test_LayoutHandler_Curve_skipOptional)
       "</layout>\n"
    );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2129,7 +2225,7 @@ START_TEST (test_LayoutHandler_LineSegment)
       "</layout>\n"
   );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2189,7 +2285,7 @@ START_TEST (test_LayoutHandler_LineSegment_notes)
       "</layout>\n"
   );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2258,7 +2354,7 @@ START_TEST (test_LayoutHandler_LineSegment_annotation)
       "</layout>\n"
   );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2317,7 +2413,7 @@ START_TEST (test_LayoutHandler_CubicBezier)
       "</layout>\n"
   );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2393,7 +2489,7 @@ START_TEST (test_LayoutHandler_CubicBezier_notes)
       "</layout>\n"
   );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2476,7 +2572,7 @@ START_TEST (test_LayoutHandler_CubicBezier_annotation)
       "</layout>\n"
   );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2532,7 +2628,7 @@ START_TEST (test_LayoutHandler_Dimensions)
       "</layout>\n"
     );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2567,7 +2663,7 @@ START_TEST (test_LayoutHandler_Dimensions_notes)
     );
 
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2611,7 +2707,7 @@ START_TEST (test_LayoutHandler_Dimensions_annotation)
    );
 
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2642,7 +2738,7 @@ START_TEST (test_LayoutHandler_Dimensions_skipOptional)
     );
 
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2679,7 +2775,7 @@ START_TEST (test_LayoutHandler_BoundingBox)
       "</layout>\n"
    );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2736,7 +2832,7 @@ START_TEST (test_LayoutHandler_BoundingBox_notes)
       "</layout>\n"
    );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2800,7 +2896,7 @@ START_TEST (test_LayoutHandler_BoundingBox_annotation)
       "</layout>\n"
    );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
@@ -2852,7 +2948,7 @@ START_TEST (test_LayoutHandler_BoundingBox_skipOptional)
       "</layout>\n"
    );
 
-    fail_unless(LH->parse(s,-1,true));
+    fail_unless(readLayout(LH,s));  
 
     fail_unless(LISTOFLAYOUTS->getNumItems()==1);
 
