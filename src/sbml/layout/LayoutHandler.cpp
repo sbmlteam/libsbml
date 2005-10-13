@@ -689,6 +689,9 @@ LayoutHandler::LayoutHandler (ListOf* l) : DefaultHandler(), listOfLayouts(l)
   this->errors     = new List();
   this->warnings   = new List();
   this->fatalErrors= new List();
+#ifndef USE_EXPAT
+  this->fLocator=NULL;
+#endif // !USE_EXPAT  
 }
 
 
