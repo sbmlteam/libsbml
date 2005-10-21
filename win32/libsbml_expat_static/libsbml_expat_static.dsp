@@ -97,10 +97,6 @@ SOURCE=..\..\src\math\ASTNode.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\validator\constraints\BooleanReturnFromEventTrigger.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\sbml\Compartment.cpp
 # End Source File
 # Begin Source File
@@ -162,6 +158,10 @@ SOURCE=..\..\src\math\FormulaTokenizer.c
 # Begin Source File
 
 SOURCE=..\..\src\sbml\FunctionDefinition.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\FunctionDefinitionVars.cpp
 # End Source File
 # Begin Source File
 
@@ -409,10 +409,6 @@ SOURCE=..\..\src\math\ASTNodeType.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\validator\constraints\BooleanReturnFromEventTrigger.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\xml\common.h
 # End Source File
 # Begin Source File
@@ -486,6 +482,10 @@ SOURCE=..\..\src\math\FormulaTokenizer.h
 # Begin Source File
 
 SOURCE=..\..\src\sbml\FunctionDefinition.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\validator\constraints\FunctionDefinitionVars.h
 # End Source File
 # Begin Source File
 
