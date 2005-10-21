@@ -84,18 +84,10 @@ readMathMLFromString (const char *xml)
 
   MathMLDocument_t* d = MathMLDocument_create();
   
-  static MathMLHandler* handler = NULL;
+  MathMLHandler* handler = NULL;
 
-  if (!handler)
-  {
-    handler = new MathMLHandler( static_cast<MathMLDocument*>(d) );
-    handler->enableElementHandler();
-  }
-  else
-  {
-    handler->create();
-    handler->enableElementHandler();
-  }
+  handler = new MathMLHandler( static_cast<MathMLDocument*>(d) );
+  handler->enableElementHandler();
 
   try
   {
@@ -107,6 +99,8 @@ readMathMLFromString (const char *xml)
   {
 
   }
+
+  delete handler;
 
 #else
 
