@@ -92,16 +92,17 @@ c_locale_vsnprintf (char *str, size_t size, const char *format, va_list ap)
 #endif
 
   int result;
-  const char *locale;
+  char *locale;
 
 
-  locale = setlocale(LC_ALL, NULL);
+  locale = strdup(setlocale(LC_ALL, NULL));
   setlocale(LC_ALL, "C");
 
   result = vsnprintf(str, size, format, ap);
 
   setlocale(LC_ALL, locale);
-
+  free(locale);
+  
   return result;
 }
 
