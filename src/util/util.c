@@ -116,15 +116,16 @@ double
 c_locale_strtod (const char *nptr, char **endptr)
 {
   double result;
-  const char *locale;
+  char *locale;
 
 
-  locale = setlocale(LC_ALL, NULL);
+  locale = strdup(setlocale(LC_ALL, NULL));
   setlocale(LC_ALL, "C");
 
   result = strtod(nptr, endptr);
 
   setlocale(LC_ALL, locale);
+  free(locale);
 
   return result;
 }
