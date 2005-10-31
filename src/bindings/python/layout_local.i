@@ -50,6 +50,14 @@
   $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
 }
 
+/**
+ * Convert GraphicalObject objects into the most specific type possible.
+ */
+%typemap(out) GraphicalObject*
+{
+  $result = SWIG_NewPointerObj($1, GetDowncastSwigType($1), 0);
+}
+
 
 %feature("shadow") Layout::addCompartmentGlyph(CompartmentGlyph&)
 %{
