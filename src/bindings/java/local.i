@@ -320,6 +320,25 @@
   return (Rule) libsbml.DowncastSBase($jnicall, $owner);
 }
 
+#ifdef USE_LAYOUT
+/**
+ * Convert LineSegment objects into the most specific object possible.
+ */
+%typemap("javaout") LineSegment*
+{
+  return (LineSegment) libsbml.DowncastSBase($jnicall, $owner);
+}
+
+/**
+ * Convert LineSegment objects into the most specific object possible.
+ */
+%typemap("javaout") GraphicalObject*
+{
+  return (GraphicalObject) libsbml.DowncastSBase($jnicall, $owner);
+}
+
+#endif /* USE_LAYOUT */
+
 
 /**
  * getCPtrAndDisown() is like getCPtr() but it also sets the SWIG memory
