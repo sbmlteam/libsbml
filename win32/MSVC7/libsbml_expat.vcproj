@@ -456,6 +456,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\FunctionDefinitionVars.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\IdBase.cpp">
 			</File>
 			<File
