@@ -56,7 +56,8 @@
 				TypeLibraryName=".\bin/libsbml.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="..\createInclude.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -123,7 +124,8 @@
 				TypeLibraryName=".\bin/libsbml.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="..\createInclude.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -188,6 +190,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\FunctionDefinition.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\FunctionDefinitionVars.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\IdBase.cpp">

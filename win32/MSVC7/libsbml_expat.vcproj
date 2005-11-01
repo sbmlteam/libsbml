@@ -54,7 +54,8 @@
 				TypeLibraryName=".\bin/libsbml_expat.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="..\createInclude.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -117,7 +118,8 @@
 				TypeLibraryName=".\bin/libsbml_expat.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="..\createInclude.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
