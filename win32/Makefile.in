@@ -69,6 +69,7 @@ subdirs = MSVC6 MSVC7
 
 distfiles = \
         createInclude.bat               \
+        createIncludeFromMSVC.bat       \
         README.txt             \
   Makefile.in  
 

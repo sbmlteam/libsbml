@@ -27,9 +27,15 @@ To build any of the example projects the release include directory
 structure needs to be created and this directory also added to the
 include list.
 
-To create the directory ..\libsbml\include run createInclude.bat from
-the ..\libsbml\win32 directory.
+To create the directory ..\libsbml\include 
+either 
 
+run createInclude.bat from the ..\libsbml\win32 directory
+
+or 
+
+build libSBML from MSVC which includes a postbuild step 
+that creates the directory
 
 -----
 MSVC6

@@ -1,5 +1,4 @@
 cd ..
-cd ..
 mkdir include
 cd include
 mkdir sbml

@@ -55,7 +55,7 @@
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="..\createInclude.bat"/>
+				CommandLine="..\createIncludeFromMSVC.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -119,7 +119,7 @@
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="..\createInclude.bat"/>
+				CommandLine="..\createIncludeFromMSVC.bat"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
