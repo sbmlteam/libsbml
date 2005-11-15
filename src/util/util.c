@@ -95,7 +95,7 @@ c_locale_vsnprintf (char *str, size_t size, const char *format, va_list ap)
   char *locale;
 
 
-  locale = strdup(setlocale(LC_ALL, NULL));
+  locale = safe_strdup(setlocale(LC_ALL, NULL));
   setlocale(LC_ALL, "C");
 
   result = vsnprintf(str, size, format, ap);
@@ -119,7 +119,7 @@ c_locale_strtod (const char *nptr, char **endptr)
   char *locale;
 
 
-  locale = strdup(setlocale(LC_ALL, NULL));
+  locale = safe_strdup(setlocale(LC_ALL, NULL));
   setlocale(LC_ALL, "C");
 
   result = strtod(nptr, endptr);
