@@ -284,154 +284,89 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   sbmlDocument = readSBML(pacFilename);
 
-  /* check for errors in the sbml document */
-  errors = SBMLDocument_getNumWarnings(sbmlDocument) + SBMLDocument_getNumErrors(sbmlDocument) +
-  SBMLDocument_getNumFatals(sbmlDocument);
+  sbmlModel = SBMLDocument_getModel(sbmlDocument);
 
-  errors += SBMLDocument_checkConsistency(sbmlDocument);
+  pacName        = Model_getName(sbmlModel);
+  pacTypecode    = TypecodeToChar(SBase_getTypeCode((SBase_t*) sbmlModel));
+  pacNotes       = SBase_getNotes((SBase_t*) sbmlModel);
+  pacAnnotations = SBase_getAnnotation((SBase_t*) sbmlModel);
 
-  /**
-   *  if errors occur report these 
-   *  promt user as to whether to import the model    
-   */
-
-  if (errors != 0)
+  if (pacName == NULL)
   {
-    pacErrors = (char *) mxCalloc(errors * 100, sizeof(char));
-    pacError  = (char *) mxCalloc(100, sizeof(char));
-    
-    mxPrompt[0]= mxCreateString(pacPrompt);
-    mxPrompt[1]= mxCreateString("s");
-
-    sprintf(pacErrors, "\n%s","*********************\nThis model contains errors\n");
-
-    for (i = 0; i < SBMLDocument_getNumWarnings(sbmlDocument); i++)
-    {
-      sprintf(pacError, "%u: (%u) %s\n", ParseMessage_getLine(SBMLDocument_getWarning(sbmlDocument, i)),
-      ParseMessage_getId(SBMLDocument_getWarning(sbmlDocument, i)), 
-      ParseMessage_getMessage(SBMLDocument_getWarning(sbmlDocument, i)));
-      pacErrors = safe_strcat(pacErrors, pacError);
-    }
-
-    for (i = 0; i < SBMLDocument_getNumErrors(sbmlDocument); i++)
-    {
-      sprintf(pacError, "%u: (%u) %s\n", ParseMessage_getLine(SBMLDocument_getError(sbmlDocument, i)),
-      ParseMessage_getId(SBMLDocument_getError(sbmlDocument, i)), 
-      ParseMessage_getMessage(SBMLDocument_getError(sbmlDocument, i)));
-      pacErrors = safe_strcat(pacErrors, pacError);
-    }
-
-    for (i = 0; i < SBMLDocument_getNumFatals(sbmlDocument); i++)
-    {
-      sprintf(pacError, "%u: (%u) %s\n", ParseMessage_getLine(SBMLDocument_getFatal(sbmlDocument, i)),
-      ParseMessage_getId(SBMLDocument_getFatal(sbmlDocument, i)), 
-      ParseMessage_getMessage(SBMLDocument_getFatal(sbmlDocument, i)));
-      pacErrors = safe_strcat(pacErrors, pacError);
-    }
-
-    mxErrors[0] = mxCreateString(pacErrors);
-
-    mexCallMATLAB(0, NULL, 1, mxErrors, "disp");
-    mexCallMATLAB(1, mxReply, 2, mxPrompt, "input");
-
-    nBufferLen = (mxGetM(mxReply[0])*mxGetN(mxReply[0])+1);
-    pacReply = (char *) mxCalloc(nBufferLen, sizeof(char));
-    mxGetString(mxReply[0], pacReply, nBufferLen);
-
+    pacName = "";
   }
-  else
+  if (pacTypecode == NULL)
   {
-    pacReply = (char *)mxCalloc(3,sizeof(char));
-    pacReply = "y";
+    pacTypecode = "";
+  }
+  if (pacNotes == NULL)
+  {
+    pacNotes = "";
+  }
+  if (pacAnnotations == NULL)
+  {
+    pacAnnotations = "";
   }
 
+  unSBMLLevel   = SBMLDocument_getLevel(sbmlDocument);
+  unSBMLVersion = SBMLDocument_getVersion(sbmlDocument);
 
-  if (strcmp_insensitive(pacReply, "y") == 0) 
+  GetCompartment   (sbmlModel, unSBMLLevel, unSBMLVersion);
+  GetParameter     (sbmlModel, unSBMLLevel, unSBMLVersion);
+  GetSpecies       (sbmlModel, unSBMLLevel, unSBMLVersion);
+  GetUnitDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
+  GetReaction      (sbmlModel, unSBMLLevel, unSBMLVersion);
+  GetRule      (sbmlModel, unSBMLLevel, unSBMLVersion);
+
+  if (unSBMLLevel == 2)
   {
-    sbmlModel = SBMLDocument_getModel(sbmlDocument);
+    pacId = Model_getId(sbmlModel);
+    GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
+    GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
 
-    pacName        = Model_getName(sbmlModel);
-    pacTypecode    = TypecodeToChar(SBase_getTypeCode((SBase_t*) sbmlModel));
-    pacNotes       = SBase_getNotes((SBase_t*) sbmlModel);
-    pacAnnotations = SBase_getAnnotation((SBase_t*) sbmlModel);
-
-    if (pacName == NULL)
+    if (pacId == NULL)
     {
-      pacName = "";
+      pacId = "";
     }
-    if (pacTypecode == NULL)
-    {
-      pacTypecode = "";
-    }
-    if (pacNotes == NULL)
-    {
-      pacNotes = "";
-    }
-    if (pacAnnotations == NULL)
-    {
-      pacAnnotations = "";
-    }
+  }
 
-    unSBMLLevel   = SBMLDocument_getLevel(sbmlDocument);
-    unSBMLVersion = SBMLDocument_getVersion(sbmlDocument);
+  if (unSBMLLevel == 1)
+  {
+    plhs[0] = mxCreateStructArray(2, dims, nNoFields_l1v1, field_names_l1v1);
+  }
+  else if (unSBMLLevel == 2 && unSBMLVersion == 1)
+  {
+    plhs[0] = mxCreateStructArray(2, dims, nNoFields_l2v1, field_names_l2v1);
+  }
 
-    GetCompartment   (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetParameter     (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetSpecies       (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetUnitDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetReaction      (sbmlModel, unSBMLLevel, unSBMLVersion);
-    GetRule      (sbmlModel, unSBMLLevel, unSBMLVersion);
+  mxSetField( plhs[0], 0, "typecode", mxCreateString(pacTypecode) ); 
+  mxSetField( plhs[0], 0, "name"    , mxCreateString(pacName)     );
 
-    if (unSBMLLevel == 2)
-    {
-      pacId = Model_getId(sbmlModel);
-      GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
-      GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
+  if (unSBMLLevel == 2)
+  {
+    mxSetField(plhs[0], 0, "id", mxCreateString(pacId));
+  }
 
-      if (pacId == NULL)
-      {
-        pacId = "";
-      }
-    }
+  mxSetField( plhs[0], 0, "SBML_level"      , CreateIntScalar(unSBMLLevel)   ); 
+  mxSetField( plhs[0], 0, "SBML_version"    , CreateIntScalar(unSBMLVersion) );
+  mxSetField( plhs[0], 0, "notes"      , mxCreateString(pacNotes)       );
+  mxSetField( plhs[0], 0, "annotation", mxCreateString(pacAnnotations) );
 
-    if (unSBMLLevel == 1)
-    {
-      plhs[0] = mxCreateStructArray(2, dims, nNoFields_l1v1, field_names_l1v1);
-    }
-    else if (unSBMLLevel == 2 && unSBMLVersion == 1)
-    {
-      plhs[0] = mxCreateStructArray(2, dims, nNoFields_l2v1, field_names_l2v1);
-    }
+  if (unSBMLLevel == 2)
+  {
+    mxSetField(plhs[0], 0,"functionDefinition", mxFunctionDefReturn);
+  }
 
-    mxSetField( plhs[0], 0, "typecode", mxCreateString(pacTypecode) ); 
-    mxSetField( plhs[0], 0, "name"    , mxCreateString(pacName)     );
+  mxSetField( plhs[0], 0, "unitDefinition", mxUnitDefReturn   );
+  mxSetField( plhs[0], 0, "compartment"   , mxCompartReturn   );
+  mxSetField( plhs[0], 0, "species"       , mxSpeciesReturn   );
+  mxSetField( plhs[0], 0, "parameter"     , mxParameterReturn );
+  mxSetField( plhs[0], 0, "rule"          , mxListRuleReturn  );
+  mxSetField( plhs[0], 0, "reaction"      , mxReactionReturn  );
 
-    if (unSBMLLevel == 2)
-    {
-      mxSetField(plhs[0], 0, "id", mxCreateString(pacId));
-    }
-
-    mxSetField( plhs[0], 0, "SBML_level"      , CreateIntScalar(unSBMLLevel)   ); 
-    mxSetField( plhs[0], 0, "SBML_version"    , CreateIntScalar(unSBMLVersion) );
-    mxSetField( plhs[0], 0, "notes"      , mxCreateString(pacNotes)       );
-    mxSetField( plhs[0], 0, "annotation", mxCreateString(pacAnnotations) );
-
-    if (unSBMLLevel == 2)
-    {
-      mxSetField(plhs[0], 0,"functionDefinition", mxFunctionDefReturn);
-    }
-
-    mxSetField( plhs[0], 0, "unitDefinition", mxUnitDefReturn   );
-    mxSetField( plhs[0], 0, "compartment"   , mxCompartReturn   );
-    mxSetField( plhs[0], 0, "species"       , mxSpeciesReturn   );
-    mxSetField( plhs[0], 0, "parameter"     , mxParameterReturn );
-    mxSetField( plhs[0], 0, "rule"          , mxListRuleReturn  );
-    mxSetField( plhs[0], 0, "reaction"      , mxReactionReturn  );
-
-    if (unSBMLLevel == 2)
-    {
-      mxSetField(plhs[0], 0, "event", mxEventReturn);
-    }
+  if (unSBMLLevel == 2)
+  {
+    mxSetField(plhs[0], 0, "event", mxEventReturn);
   }
 }
 
