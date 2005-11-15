@@ -32,7 +32,15 @@
         FunctionDefinitions in the Model.
 
 
-* Released October x, 2005
+* Bug Fixes:
+
+   - MathML <csymbol> delay functions were incorrectly converted to
+     user-defined functions, i.e. their type was AST_FUNCTION instead
+     of AST_FUNCTION_DELAY.  Thanks to Nicolas Rodriguez for reporting
+     this bug.
+
+
+* Released XXX x, 2005
 
 
 
