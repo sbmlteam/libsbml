@@ -584,6 +584,12 @@ MathMLHandler::reduceExpression ()
     if ( (parentType == AST_FUNCTION) && (parent->getName() == NULL) )
     {
       parent->setName( child->getName() );
+
+      if (child->getType() == AST_FUNCTION_DELAY)
+      {
+        parent->setType(AST_FUNCTION_DELAY);
+      }
+
       delete child;
     }
 

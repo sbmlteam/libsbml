@@ -1820,6 +1820,64 @@ START_TEST (test_element_bug_cn_e_notation_3)
 END_TEST
 
 
+/**
+ * When constructing a function call to an AST_FUNCTION_DELAY (<csymbol>
+ * delay), the MathMLHandler clobbered the node type and replaced it with
+ * AST_FUNCTION.  This bug was missed by previous csymbol unit tests
+ * because they simply converted the formula tree to an infix string to
+ * check its structure (which loses the csymbol metadata necessary to
+ * detect this bug).
+ *
+ * Reported by Nicolas Rodriguez on 11-Nov-2005.
+ */
+START_TEST (test_element_bug_csymbol_delay_1)
+{
+  const ASTNode_t* n;
+  const ASTNode_t* c;
+
+  const char* s = wrapMathML
+  (
+    "<apply>"
+    "  <csymbol encoding='text' definitionURL='http://www.sbml.org/sbml/"
+    "symbols/delay'> my_delay </csymbol>"
+    "  <ci> x </ci>"
+    "  <cn> 0.1 </cn>"
+    "</apply>\n"
+  );
+
+
+
+  D = readMathMLFromString(s);
+  n = MathMLDocument_getMath(D);
+
+
+  fail_unless( n != NULL );
+
+  fail_unless( ASTNode_getType(n) == AST_FUNCTION_DELAY );
+  fail_unless( !strcmp(ASTNode_getName(n), "my_delay")  );
+  fail_unless( ASTNode_getNumChildren(n) == 2           );
+
+
+  c = ASTNode_getLeftChild(n);
+
+  fail_unless( c != NULL );
+
+  fail_unless( ASTNode_getType(c) == AST_NAME   );
+  fail_unless( !strcmp(ASTNode_getName(c), "x") );
+  fail_unless( ASTNode_getNumChildren(c) == 0   );
+
+
+  c = ASTNode_getRightChild(n);
+
+  fail_unless( c != NULL );
+
+  fail_unless( ASTNode_getType(c)        == AST_REAL );
+  fail_unless( ASTNode_getReal(c)        == 0.1      );
+  fail_unless( ASTNode_getNumChildren(c) == 0        );
+}
+END_TEST
+
+
 Suite *
 create_suite_MathMLHandler (void)
 {
@@ -1909,6 +1967,7 @@ create_suite_MathMLHandler (void)
   tcase_add_test( tcase, test_element_bug_cn_e_notation_1       );
   tcase_add_test( tcase, test_element_bug_cn_e_notation_2       );
   tcase_add_test( tcase, test_element_bug_cn_e_notation_3       );
+  tcase_add_test( tcase, test_element_bug_csymbol_delay_1       );
 
   suite_add_tcase(suite, tcase);
 
