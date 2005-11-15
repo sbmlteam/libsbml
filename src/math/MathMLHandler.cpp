@@ -587,7 +587,7 @@ MathMLHandler::reduceExpression ()
 
       if (child->getType() == AST_FUNCTION_DELAY)
       {
-        parent->setType(AST_FUNCTION_DELAY);
+        parent->setType( child->getType() );
       }
 
       delete child;
