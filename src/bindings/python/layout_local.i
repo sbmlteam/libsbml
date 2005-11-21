@@ -102,7 +102,7 @@
 %{
   def setCurve(*args):
     if args[1] is not None: args[1].thisown = 0
-    return _libsbml.Layout_setCurve(*args)
+    return _libsbml.SpeciesReferenceGlyph_setCurve(*args)
 %}
 
 
