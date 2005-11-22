@@ -130,6 +130,7 @@ FunctionDefinition::getArgument (unsigned int n) const
   {
     return math->getChild(n);
   }
+  return NULL;
 }
 
 
