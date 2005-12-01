@@ -67,7 +67,7 @@ void GetCompartment        (Model_t *, unsigned int, unsigned int);
 void GetParameter          (Model_t *, unsigned int, unsigned int);
 void GetReaction           (Model_t *, unsigned int, unsigned int);
 void GetSpecies            (Model_t *, unsigned int, unsigned int);
-void GetRule           (Model_t *, unsigned int, unsigned int);
+void GetRule               (Model_t *, unsigned int, unsigned int);
 void GetFunctionDefinition (Model_t *, unsigned int, unsigned int);
 void GetEvent              (Model_t *, unsigned int, unsigned int);
 
@@ -101,6 +101,7 @@ static mxArray * mxEventReturn               = NULL;
 static mxArray * mxModifierReturn            = NULL;
 static mxArray * mxEventAssignReturn         = NULL;
 
+static mxArray * mxCSymbolTime               = NULL;
 
 /**
 * NAME:        mexFunction
@@ -125,7 +126,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   mxArray * mxFilename[2], * mxExt[1];
 
   int nNoFields_l1v1 = 12;
-  int nNoFields_l2v1 = 15;
+  int nNoFields_l2v1 = 16;
 
   const char *field_names_l1v1[] =
   {
@@ -159,7 +160,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     "parameter",
     "rule",
     "reaction",
-    "event"
+    "event",
+    "time_symbol"
   };
 
   int dims[2] = {1, 1};
@@ -174,14 +176,6 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
 
-  unsigned int errors = 0;
-  mxArray * mxErrors[1];
-  char * pacErrors, * pacError;
-  unsigned int i;
-
-  mxArray *mxPrompt[2], *mxReply[1];
-  char *pacPrompt = "Do you want to load the model anyway? Enter y/n ";
-  char *pacReply;
 
   /**
    * check number and type of arguments
@@ -367,6 +361,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   if (unSBMLLevel == 2)
   {
     mxSetField(plhs[0], 0, "event", mxEventReturn);
+    mxSetField(plhs[0], 0, "time_symbol", mxCSymbolTime);
   }
 }
 
@@ -1649,12 +1644,19 @@ GetKineticLaw ( Reaction_t   *pReaction,
   const char * pacTimeUnits = NULL;
   const char * pacSubstanceUnits = NULL;
   const char * pacMathFormula = NULL;
+  const char * pacTimeCSymbol = "";
 
   KineticLaw_t *pKineticLaw;
 
   /* variables for mathML - matlab hack */
   int nStatus, nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
+
+  /* variables to check for csymbol time */
+  const ASTNode_t *astMath;
+  ASTNode_t *astChild;
+  unsigned int nChild, nC;
+  ASTNodeType_t type;
 
   /* create the structure array */
   if (unSBMLLevel == 1) {
@@ -1683,6 +1685,20 @@ GetKineticLaw ( Reaction_t   *pReaction,
     /* if level two set the math formula */
     if (unSBMLLevel == 2 && KineticLaw_isSetMath(pKineticLaw)) {
       KineticLaw_setFormulaFromMath(pKineticLaw);
+
+      /* look for csymbol time */
+      astMath = KineticLaw_getMath(pKineticLaw);
+      nChild = ASTNode_getNumChildren(astMath);
+      for (nC = 0; nC < nChild; nC++)
+      {
+        astChild = ASTNode_getChild(astMath, nC);
+        type = ASTNode_getType(astChild);
+        if (type == AST_NAME_TIME)
+        {
+          pacTimeCSymbol = ASTNode_getName(astChild);
+        }
+      }
+      mxCSymbolTime = mxCreateString(pacTimeCSymbol);
       pacMathFormula  = KineticLaw_getFormula(pKineticLaw);
     }
 
