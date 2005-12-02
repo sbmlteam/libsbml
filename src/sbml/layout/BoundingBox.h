@@ -178,6 +178,82 @@ public:
    */ 
   LIBSBML_EXTERN
   void initDefaults ();
+
+
+  /**
+   * Get the x offset of the bounding box.
+   */
+  LIBSBML_EXTERN
+  double x() const;
+  
+  /**
+   * Get the y offset of the bounding box.
+   */
+  LIBSBML_EXTERN
+  double y() const;
+  
+  /**
+   * Get the z offset of the bounding box.
+   */
+  LIBSBML_EXTERN
+  double z() const;
+  
+  /**
+   * Get the width of the bounding box.
+   */
+  LIBSBML_EXTERN
+  double width() const;
+  
+  /**
+   * Get the height of the bounding box.
+   */
+  LIBSBML_EXTERN
+  double height() const;
+  
+  /**
+   * Get the depth of the bounding box.
+   */
+  LIBSBML_EXTERN
+  double depth() const;
+
+  /**
+   * Set x offset of the bounding box
+   */
+  LIBSBML_EXTERN
+  void setX(double x);
+
+  /**
+   * Set y offset of the bounding box
+   */
+  LIBSBML_EXTERN
+  void setY(double y);
+
+  /**
+   * Set z offset of the bounding box
+   */
+  LIBSBML_EXTERN
+  void setZ(double z);
+
+  /**
+   * Set width of the bounding box
+   */
+  LIBSBML_EXTERN
+  void setWidth(double width);
+
+  /**
+   * Set height of the bounding box
+   */
+  LIBSBML_EXTERN
+  void setHeight(double height);
+
+  /**
+   * Set depth of the bounding box
+   */
+  LIBSBML_EXTERN
+  void setDepth(double depth);
+
+
+  
 };
 
 
@@ -284,6 +360,98 @@ BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p);
 LIBSBML_EXTERN
 void
 BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d);
+
+/**
+ * Sets the x offset of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setX(BoundingBox_t* bb,double x);
+
+
+/**
+ * Sets the y offset of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setY(BoundingBox_t* bb,double y);
+
+
+/**
+ * Sets the z offset of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setZ(BoundingBox_t* bb,double z);
+
+
+/**
+ * Sets the width of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setWidth(BoundingBox_t* bb,double width);
+
+
+/**
+ * Sets the height of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setHeight(BoundingBox_t* bb,double height);
+
+
+/**
+ * Sets the depth of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setDepth(BoundingBox_t* bb,double depth);
+
+/**
+ * Returns the x offset of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_x(BoundingBox_t* bb);
+
+
+/**
+ * Returns the y offset of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_y(BoundingBox_t* bb);
+
+
+/**
+ * Returns the z offset of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_z(BoundingBox_t* bb);
+
+
+/**
+ * Returns the width of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_width(BoundingBox_t* bb);
+
+/**
+ * Returns the height of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_height(BoundingBox_t* bb);
+
+/**
+ * Returns the depth of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_depth(BoundingBox_t* bb);
 
 
 END_C_DECLS

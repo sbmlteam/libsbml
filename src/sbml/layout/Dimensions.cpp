@@ -52,7 +52,7 @@
  * Creates a new Dimensions object with all sizes set to 0.0.
  */ 
 LIBSBML_EXTERN
-Dimensions::Dimensions (): SBase(), width(0.0), height(0.0), depth(0.0)
+Dimensions::Dimensions (): SBase(), w(0.0), h(0.0), d(0.0)
 {
   init(SBML_LAYOUT_DIMENSIONS);
 }
@@ -62,8 +62,8 @@ Dimensions::Dimensions (): SBase(), width(0.0), height(0.0), depth(0.0)
  * Creates a new Dimensions object with the given sizes.
  */ 
 LIBSBML_EXTERN
-Dimensions::Dimensions (double w, double h, double d) :
-  SBase(), width(w), height(h), depth(d)
+Dimensions::Dimensions (double width, double height, double depth) :
+  SBase(), w(width), h(height), d(depth)
 {
   init(SBML_LAYOUT_DIMENSIONS);
 }
@@ -83,9 +83,42 @@ Dimensions::~Dimensions ()
  */
 LIBSBML_EXTERN
 double
+Dimensions::width() const
+{
+  return this->w;
+}
+
+
+/**
+ * Returns the height.
+ */
+LIBSBML_EXTERN
+double
+Dimensions::height() const
+{
+  return this->h;
+}
+
+
+/**
+ * Returns the depth.
+ */
+LIBSBML_EXTERN
+double
+Dimensions::depth () const
+{
+  return this->d;
+}
+
+
+/**
+ * Returns the width.
+ */
+LIBSBML_EXTERN
+double
 Dimensions::getWidth() const
 {
-  return this->width;
+  return this->width();
 }
 
 
@@ -96,7 +129,7 @@ LIBSBML_EXTERN
 double
 Dimensions::getHeight() const
 {
-  return this->height;
+  return this->height();
 }
 
 
@@ -107,7 +140,7 @@ LIBSBML_EXTERN
 double
 Dimensions::getDepth () const
 {
-  return this->depth;
+  return this->depth();
 }
 
 
@@ -116,9 +149,9 @@ Dimensions::getDepth () const
  */ 
 LIBSBML_EXTERN
 void
-Dimensions::setWidth (double w)
+Dimensions::setWidth (double width)
 {
-  this->width = w;
+  this->w = width;
 }
 
 
@@ -127,9 +160,9 @@ Dimensions::setWidth (double w)
  */ 
 LIBSBML_EXTERN
 void
-Dimensions::setHeight (double h)
+Dimensions::setHeight (double height)
 {
-  this->height = h;
+  this->h = height;
 }
 
 
@@ -137,9 +170,9 @@ Dimensions::setHeight (double h)
  * Sets the depth to the given value.
  */ 
 LIBSBML_EXTERN
-void Dimensions::setDepth (double d)
+void Dimensions::setDepth (double depth)
 {
-  this->depth = d;
+  this->d = depth;
 }
 
 
@@ -259,9 +292,40 @@ Dimensions_setDepth (Dimensions_t *dim, double d)
  */
 LIBSBML_EXTERN
 double
+Dimensions_width (const Dimensions_t *d)
+{
+  return d->width();
+}
+
+
+/**
+ * Returns the height.
+ */
+LIBSBML_EXTERN
+double
+Dimensions_height(const Dimensions_t *d)
+{
+  return d->height();
+}
+
+/**
+ * Returns the depth.
+ */
+LIBSBML_EXTERN
+double
+Dimensions_depth (const Dimensions_t *d)
+{
+  return d->depth();
+}
+
+/**
+ * Returns the width.
+ */
+LIBSBML_EXTERN
+double
 Dimensions_getWidth (const Dimensions_t *d)
 {
-  return d->getWidth();
+  return d->width();
 }
 
 
@@ -272,7 +336,7 @@ LIBSBML_EXTERN
 double
 Dimensions_getHeight(const Dimensions_t *d)
 {
-  return d->getHeight();
+  return d->height();
 }
 
 /**
@@ -282,5 +346,5 @@ LIBSBML_EXTERN
 double
 Dimensions_getDepth (const Dimensions_t *d)
 {
-  return d->getDepth();
+  return d->depth();
 }

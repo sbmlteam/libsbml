@@ -378,3 +378,129 @@ BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d)
 {
   bb->setDimensions(d ? *d : Dimensions());
 }
+
+/**
+ * Sets the x offset of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setX(BoundingBox_t* bb,double x)
+{
+    bb->setX(x);
+}
+
+/**
+ * Sets the y offset of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setY(BoundingBox_t* bb,double y)
+{
+    bb->setY(y);
+}
+
+
+/**
+ * Sets the z offset of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setZ(BoundingBox_t* bb,double z)
+{
+    bb->setZ(z);
+}
+
+
+/**
+ * Sets the width of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setWidth(BoundingBox_t* bb,double width)
+{
+    bb->setWidth(width);
+}
+
+
+/**
+ * Sets the height of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setHeight(BoundingBox_t* bb,double height)
+{
+    bb->setHeight(height);
+}
+
+
+/**
+ * Sets the depth of the bounding box.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox_setDepth(BoundingBox_t* bb,double depth)
+{
+    bb->setDepth(depth);
+}
+
+/**
+ * Returns the x offset of the bounding box
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_x(BoundingBox_t* bb)
+{
+    return bb->x();
+}
+
+/**
+ * Returns the y offset of the bounding box
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_y(BoundingBox_t* bb)
+{
+    return bb->y();
+}
+
+/**
+ * Returns the z offset of the bounding box
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_z(BoundingBox_t* bb)
+{
+    return bb->z();
+}
+
+/**
+ * Returns the width of the bounding box
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_width(BoundingBox_t* bb)
+{
+    return bb->width();
+}
+
+/**
+ * Returns the height of the bounding box
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_height(BoundingBox_t* bb)
+{
+    return bb->height();
+}
+
+/**
+ * Returns the depth of the bounding box
+ */
+LIBSBML_EXTERN
+double
+BoundingBox_depth(BoundingBox_t* bb)
+{
+    return bb->depth();
+}
+
+

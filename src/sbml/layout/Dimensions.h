@@ -61,9 +61,9 @@ class Dimensions : public SBase
 {
 protected:
 
-  double width;
-  double height;
-  double depth;
+  double w;
+  double h;
+  double d;
 
 
 public:
@@ -85,6 +85,24 @@ public:
    */ 
   LIBSBML_EXTERN
   virtual ~Dimensions ();
+
+  /**
+   * Returns the width.
+   */
+  LIBSBML_EXTERN
+  double width () const;
+
+  /**
+   * Returns the height.
+   */
+  LIBSBML_EXTERN
+  double height () const;
+
+  /**
+   * Returns the depth.
+   */
+  LIBSBML_EXTERN
+  double depth () const;
 
   /**
    * Returns the width.
@@ -203,6 +221,27 @@ Dimensions_setHeight (Dimensions_t *p, double h);
 LIBSBML_EXTERN
 void
 Dimensions_setDepth (Dimensions_t *dim, double d);
+
+/**
+ * Returns the height.
+ */
+LIBSBML_EXTERN
+double
+Dimensions_height (const Dimensions_t *p);
+
+/**
+ * Returns the width.
+ */
+LIBSBML_EXTERN
+double
+Dimensions_width (const Dimensions_t *p);
+
+/**
+ * Returns the depth.
+ */ 
+LIBSBML_EXTERN
+double
+Dimensions_depth (const Dimensions_t *p);
 
 /**
  * Returns the height.
