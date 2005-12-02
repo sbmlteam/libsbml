@@ -274,6 +274,63 @@ ReactionGlyph::createCubicBezier ()
   return this->curve->createCubicBezier();
 }
 
+/**
+ * Remove the species reference glyph with the given index.
+ * A pointer to the object is returned. If no object has been removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph*
+ReactionGlyph::removeSpeciesReferenceGlyph(unsigned int index)
+{
+    SpeciesReferenceGlyph* srg=NULL;
+    if(index < this->getNumSpeciesReferenceGlyphs())
+    {
+        srg=dynamic_cast<SpeciesReferenceGlyph*>(this->getListOfSpeciesReferenceGlyphs().remove(index));
+    }
+    return srg;
+}
+
+/**
+ * Remove the species reference glyph with the given id.
+ * A pointer to the object is returned. If no object has been removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph*
+ReactionGlyph::removeSpeciesReferenceGlyph(const std::string& id)
+{
+    SpeciesReferenceGlyph* srg=NULL;
+    unsigned int index=this->getIndexForSpeciesReferenceGlyph(id);
+    if(index!=std::numeric_limits<unsigned int>::max())
+    {
+        srg=this->removeSpeciesReferenceGlyph(index);
+    }
+    return srg;
+}
+
+/**
+ * Returns the index of the species reference glyph with the given id.
+ * If the reaction glyph does not contain a species reference glyph with this
+ * id, numreic_limits<int>::max() is returned.
+ */
+LIBSBML_EXTERN
+unsigned int
+ReactionGlyph::getIndexForSpeciesReferenceGlyph(const std::string& id) const
+{
+    unsigned int i,iMax=this->getNumSpeciesReferenceGlyphs();
+    unsigned int index=std::numeric_limits<unsigned int>::max();
+    for(i=0;i<iMax;++i)
+    {
+        SpeciesReferenceGlyph* srg=this->getSpeciesReferenceGlyph(i);
+        if(srg->getId()==id)
+        {
+            index=i;
+            break;
+        }
+    }
+    return index;
+}
 
 /**
  * Creates a new ReactionGlyph and returns the pointer to it.
@@ -492,3 +549,42 @@ ReactionGlyph_createCubicBezier (ReactionGlyph_t *rg)
 {
   return & rg->getCurve()->createCubicBezier();
 }
+
+
+/**
+ * Remove the species reference glyph with the given index.
+ * A pointer to the object is returned. If no object has been removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t*
+ReactionGlyph_removeSpeciesReferenceGlyph(ReactionGlyph_t* rg,unsigned int index)
+{
+    return rg->removeSpeciesReferenceGlyph(index);
+}
+
+/**
+ * Remove the species reference glyph with the given id.
+ * A pointer to the object is returned. If no object has been removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t*
+ReactionGlyph_removeSpeciesReferenceGlyphWithId(ReactionGlyph_t* rg,const char* id)
+{
+    return rg->removeSpeciesReferenceGlyph(id);
+}
+
+/**
+ * Returns the index of the species reference glyph with the given id.
+ * If the reaction glyph does not contain a species reference glyph with this
+ * id, UINT_MAX from limits.h is returned.
+ */
+LIBSBML_EXTERN
+unsigned int
+ReactionGlyph_getIndexForSpeciesReferenceGlyph(ReactionGlyph_t* rg,const char* id)
+{
+    return rg->getIndexForSpeciesReferenceGlyph(id);
+}
+
+

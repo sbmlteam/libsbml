@@ -199,6 +199,33 @@ public:
    * newly created object.
    */
   LIBSBML_EXTERN CubicBezier& createCubicBezier();
+
+  /**
+   * Remove the species reference glyph with the given index.
+   * A pointer to the object is returned. If no object has been removed, NULL
+   * is returned.
+   */
+  LIBSBML_EXTERN
+  SpeciesReferenceGlyph*
+  removeSpeciesReferenceGlyph(unsigned int index);
+
+  /**
+   * Remove the species reference glyph with the given id.
+   * A pointer to the object is returned. If no object has been removed, NULL
+   * is returned.
+   */
+  LIBSBML_EXTERN
+  SpeciesReferenceGlyph*
+  removeSpeciesReferenceGlyph(const std::string& id);
+
+  /**
+   * Returns the index of the species reference glyph with the given id.
+   * If the reaction glyph does not contain a species reference glyph with this
+   * id, numeric_limits<unsigned int>::max() is returned.
+   */
+  LIBSBML_EXTERN
+  unsigned int
+  getIndexForSpeciesReferenceGlyph(const std::string& id) const;
 };
 
 
@@ -385,6 +412,32 @@ LIBSBML_EXTERN
 CubicBezier_t *
 ReactionGlyph_createCubicBezier (ReactionGlyph_t *rg);
 
+/**
+ * Remove the species reference glyph with the given index.
+ * A pointer to the object is returned. If no object has been removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t*
+ReactionGlyph_removeSpeciesReferenceGlyph(ReactionGlyph_t* rg,unsigned int index);
+
+/**
+ * Remove the species reference glyph with the given id.
+ * A pointer to the object is returned. If no object has been removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t*
+ReactionGlyph_removeSpeciesReferenceGlyphWithId(ReactionGlyph_t* rg,const char* id);
+
+/**
+ * Returns the index of the species reference glyph with the given id.
+ * If the reaction glyph does not contain a species reference glyph with this
+ * id, UINT_MAX from limits.h is returned.
+ */
+LIBSBML_EXTERN
+unsigned int
+ReactionGlyph_getIndexForSpeciesReferenceGlyph(ReactionGlyph_t* rg,const char* id);
 
 END_C_DECLS
 
