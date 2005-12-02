@@ -46,7 +46,7 @@
 
 #include "common/common.h"
 #include "Layout.h"
-
+#include <climits> 
 #include <iostream>
 
 
@@ -336,6 +336,187 @@ Layout::getObjectWithId (const ListOf& list,const std::string& id) const
   return object;
 }
 
+LIBSBML_EXTERN
+GraphicalObject*
+Layout::removeObjectWithId (ListOf& list,const std::string& id)
+{
+  GraphicalObject* object=NULL;
+  unsigned int counter=0;
+  while(counter < list.getNumItems()) {
+    GraphicalObject* tmp=(GraphicalObject*)list.get(counter);
+    if(tmp->getId()==id){
+      object=tmp;
+      list.remove(counter);
+      break;
+    }
+    ++counter;
+  }    
+  return object;
+}
+
+/**
+ * Removes the compartment glyph with the given index from the layout.
+ * A pointer to the compartment glyph that was removed is returned.
+ * If no compartment glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+CompartmentGlyph* Layout::removeCompartmentGlyph(unsigned int index)
+{
+    CompartmentGlyph* glyph=NULL;
+    if(index < this->getNumCompartmentGlyphs())
+    {
+      glyph=dynamic_cast<CompartmentGlyph*>(this->getListOfCompartmentGlyphs().remove(index));
+    }
+    return glyph;
+}
+
+/**
+ * Removes the species glyph with the given index from the layout.
+ * A pointer to the species glyph that was removed is returned.
+ * If no species glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+SpeciesGlyph* Layout::removeSpeciesGlyph(unsigned int index)
+{
+    SpeciesGlyph* glyph=NULL;
+    if(index < this->getNumSpeciesGlyphs())
+    {
+      glyph=dynamic_cast<SpeciesGlyph*>(this->getListOfSpeciesGlyphs().remove(index));
+    }
+    return glyph;
+}
+
+/**
+ * Removes the reaction glyph with the given index from the layout.
+ * A pointer to the reaction glyph that was removed is returned.
+ * If no reaction glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+ReactionGlyph* Layout::removeReactionGlyph(unsigned int index)
+{
+    ReactionGlyph* glyph=NULL;
+    if(index < this->getNumReactionGlyphs())
+    {
+      glyph=dynamic_cast<ReactionGlyph*>(this->getListOfReactionGlyphs().remove(index));
+    }
+    return glyph;
+}
+
+/**
+ * Removes the text glyph with the given index from the layout.
+ * A pointer to the text glyph that was removed is returned.
+ * If no text glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+TextGlyph* Layout::removeTextGlyph(unsigned int index)
+{
+    TextGlyph* glyph=NULL;
+    if(index < this->getNumTextGlyphs())
+    {
+      glyph=dynamic_cast<TextGlyph*>(this->getListOfTextGlyphs().remove(index));
+    }
+    return glyph;
+}
+
+/**
+ * Removes the graphical object with the given index from the layout.
+ * A pointer to the graphical object that was removed is returned.
+ * If no graphical object has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+GraphicalObject* Layout::removeAdditionalGraphicalObject(unsigned int index)
+{
+    GraphicalObject* go=NULL;
+    if(index < this->getNumAdditionalGraphicalObjects())
+    {
+      go=dynamic_cast<GraphicalObject*>(this->getListOfAdditionalGraphicalObjects().remove(index));
+    }
+    return go;
+}
+
+/**
+ * Remove the compartment glyph with the given id.
+ * A pointer to the removed compartment glyph is returned.
+ * If no compartment glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+CompartmentGlyph*
+Layout::removeCompartmentGlyph(const std::string id)
+{
+    return dynamic_cast<CompartmentGlyph*>(this->removeObjectWithId(this->getListOfCompartmentGlyphs(),id));
+}
+
+/**
+ * Remove the species glyph with the given id.
+ * A pointer to the removed species glyph is returned.
+ * If no species glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+SpeciesGlyph*
+Layout::removeSpeciesGlyph(const std::string id)
+{
+    return dynamic_cast<SpeciesGlyph*>(this->removeObjectWithId(this->getListOfSpeciesGlyphs(),id));
+}
+
+/**
+ * Remove the species reference glyph with the given id.
+ * A pointer to the removed species glyph is returned.
+ * If no species glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph*
+Layout::removeSpeciesReferenceGlyph(const std::string id)
+{
+    SpeciesReferenceGlyph *srg=NULL;
+    unsigned int i,iMax=this->getNumReactionGlyphs();
+    for(i=0;i<iMax;++i)
+    {
+        ReactionGlyph* rg=this->getReactionGlyph(i);
+        unsigned int index=rg->getIndexForSpeciesReferenceGlyph(id);
+        if(index!=std::numeric_limits<int>::max())
+        {
+            srg=rg->removeSpeciesReferenceGlyph(index);
+            break;
+        }
+    }
+    return srg;
+}
+
+/**
+ * Remove the reaction glyph with the given id.
+ * A pointer to the removed reaction glyph is returned.
+ * If no reaction glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+ReactionGlyph*
+Layout::removeReactionGlyph(const std::string id)
+{
+    return dynamic_cast<ReactionGlyph*>(this->removeObjectWithId(this->getListOfReactionGlyphs(),id));
+}
+
+/**
+ * Remove the text glyph with the given id.
+ * A pointer to the removed text glyph is returned.
+ * If no text glyph has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+TextGlyph*
+Layout::removeTextGlyph(const std::string id)
+{
+    return dynamic_cast<TextGlyph*>(this->removeObjectWithId(this->getListOfTextGlyphs(),id));
+}
+
+/**
+ * Remove the graphical object with the given id.
+ * A pointer to the removed graphical object is returned.
+ * If no graphical object has been removed, NULL is returned.
+ */
+LIBSBML_EXTERN
+GraphicalObject*
+Layout::removeAdditionalGraphicalObject(const std::string id)
+{
+    return this->removeObjectWithId(this->getListOfAdditionalGraphicalObjects(),id);
+}
 
 /**
  * Returns the compartment glyph that has the given id, or NULL if no
@@ -1069,3 +1250,137 @@ Layout_createAdditionalGraphicalObject (Layout_t *l)
 {
   return l->createAdditionalGraphicalObject();
 }
+
+/**
+ * Remove the compartment glyph with the given index.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+CompartmentGlyph_t*
+Layout_removeCompartmentGlyph(Layout_t* l, unsigned int index)
+{
+    return l->removeCompartmentGlyph(index);
+}
+
+/**
+ * Remove the species glyph with the given index.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesGlyph_t*
+Layout_removeSpeciesGlyph(Layout_t* l, unsigned int index)
+{
+    return l->removeSpeciesGlyph(index);
+}
+
+/**
+ * Remove the reaction glyph with the given index.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+ReactionGlyph_t*
+Layout_removeReactionGlyph(Layout_t* l, unsigned int index)
+{
+    return l->removeReactionGlyph(index);
+}
+
+/**
+ * Remove the text glyph with the given index.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+TextGlyph_t*
+Layout_removeTextGlyph(Layout_t* l, unsigned int index)
+{
+    return l->removeTextGlyph(index);
+}
+
+/**
+ * Remove the graphical object with the given index.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+GraphicalObject_t*
+Layout_removeAdditionalGraphicalObject(Layout_t* l, unsigned int index)
+{
+    return l->removeAdditionalGraphicalObject(index);
+}
+
+/**
+ * Remove the compartment glyph with the given id.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+CompartmentGlyph_t*
+Layout_removeCompartmentGlyphWithId(Layout_t* l, const char* id)
+{
+    return l->removeCompartmentGlyph(id);
+}
+
+/**
+ * Remove the species glyph with the given id.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesGlyph_t*
+Layout_removeSpeciesGlyphWithId(Layout_t* l, const char* id)
+{
+    return l->removeSpeciesGlyph(id);
+}
+
+/**
+ * Remove the reaction glyph with the given id.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+ReactionGlyph_t*
+Layout_removeReactionGlyphWithId(Layout_t* l, const char* id)
+{
+    return l->removeReactionGlyph(id);
+}
+
+/**
+ * Remove the text glyph with the given id.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+TextGlyph_t*
+Layout_removeTextGlyphWithId(Layout_t* l, const char* id)
+{
+    return l->removeTextGlyph(id);
+}
+
+/**
+ * Remove the species reference glyph with the given id.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t*
+Layout_removeSpeciesReferenceGlyphWithId(Layout_t* l, const char* id)
+{
+    return l->removeSpeciesReferenceGlyph(id);
+}
+
+/**
+ * Remove the graphical object with the given id.
+ * A pointer to the removed object is returned. If no object was removed, NULL
+ * is returned.
+ */
+LIBSBML_EXTERN
+GraphicalObject_t*
+Layout_removeAdditionalGraphicalObjectWithId(Layout_t* l, const char* id)
+{
+    return l->removeAdditionalGraphicalObject(id);
+}
+
+
