@@ -85,6 +85,8 @@ void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 mxArray * CreateIntScalar (int);
 char    * TypecodeToChar  (SBMLTypeCode_t);
 
+void LookForCSymbolTime(const ASTNode_t *);
+
 static mxArray * mxSpeciesReturn             = NULL;
 static mxArray * mxCompartReturn             = NULL;
 static mxArray * mxParameterReturn           = NULL;
@@ -101,7 +103,7 @@ static mxArray * mxEventReturn               = NULL;
 static mxArray * mxModifierReturn            = NULL;
 static mxArray * mxEventAssignReturn         = NULL;
 
-static mxArray * mxCSymbolTime               = NULL;
+char * pacCSymbolTime = NULL;
 
 /**
 * NAME:        mexFunction
@@ -176,6 +178,7 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
 
+  pacCSymbolTime = NULL;
 
   /**
    * check number and type of arguments
@@ -318,9 +321,11 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     GetFunctionDefinition(sbmlModel, unSBMLLevel, unSBMLVersion);
     GetEvent(sbmlModel, unSBMLLevel, unSBMLVersion);
 
-    if (pacId == NULL)
-    {
+    if (pacId == NULL){
       pacId = "";
+    }
+    if (pacCSymbolTime == NULL) {
+        pacCSymbolTime = "";
     }
   }
 
@@ -360,8 +365,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   if (unSBMLLevel == 2)
   {
-    mxSetField(plhs[0], 0, "event", mxEventReturn);
-    mxSetField(plhs[0], 0, "time_symbol", mxCSymbolTime);
+    mxSetField(plhs[0], 0, "event"      , mxEventReturn);
+    mxSetField(plhs[0], 0, "time_symbol", mxCreateString(pacCSymbolTime));
   }
 }
 
@@ -1644,7 +1649,6 @@ GetKineticLaw ( Reaction_t   *pReaction,
   const char * pacTimeUnits = NULL;
   const char * pacSubstanceUnits = NULL;
   const char * pacMathFormula = NULL;
-  const char * pacTimeCSymbol = "";
 
   KineticLaw_t *pKineticLaw;
 
@@ -1652,11 +1656,6 @@ GetKineticLaw ( Reaction_t   *pReaction,
   int nStatus, nBuflen;
   mxArray * mxInput[1], * mxOutput[1];
 
-  /* variables to check for csymbol time */
-  const ASTNode_t *astMath;
-  ASTNode_t *astChild;
-  unsigned int nChild, nC;
-  ASTNodeType_t type;
 
   /* create the structure array */
   if (unSBMLLevel == 1) {
@@ -1684,22 +1683,11 @@ GetKineticLaw ( Reaction_t   *pReaction,
 
     /* if level two set the math formula */
     if (unSBMLLevel == 2 && KineticLaw_isSetMath(pKineticLaw)) {
-      KineticLaw_setFormulaFromMath(pKineticLaw);
-
-      /* look for csymbol time */
-      astMath = KineticLaw_getMath(pKineticLaw);
-      nChild = ASTNode_getNumChildren(astMath);
-      for (nC = 0; nC < nChild; nC++)
-      {
-        astChild = ASTNode_getChild(astMath, nC);
-        type = ASTNode_getType(astChild);
-        if (type == AST_NAME_TIME)
-        {
-          pacTimeCSymbol = ASTNode_getName(astChild);
-        }
-      }
-      mxCSymbolTime = mxCreateString(pacTimeCSymbol);
-      pacMathFormula  = KineticLaw_getFormula(pKineticLaw);
+        KineticLaw_setFormulaFromMath(pKineticLaw);
+        pacMathFormula = KineticLaw_getFormula(pKineticLaw);
+        
+        /* look for csymbol time */
+        LookForCSymbolTime(KineticLaw_getMath(pKineticLaw));
     }
 
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
@@ -2062,11 +2050,11 @@ GetRule ( Model_t      *pModel,
     }
     else if (unSBMLLevel == 2) {
       if (Rule_isSetFormula(pRule) == 1){
-        pacFormula  = Rule_getFormula(pRule);
-      }
-      else if (Rule_isSetMath(pRule) == 1) {
         Rule_setFormulaFromMath(pRule);
         pacFormula  = Rule_getFormula(pRule);
+        
+        /* look for csymbol time */
+        LookForCSymbolTime(Rule_getMath(pRule));
       }
     }
 
@@ -2297,7 +2285,11 @@ GetFunctionDefinition ( Model_t      *pModel,
 
     if (FunctionDefinition_isSetMath(pFuncDefinition)) {
       pacFormula        = SBML_formulaToString(FunctionDefinition_getMath(pFuncDefinition));
+        
+      /* look for csymbol time */
+      LookForCSymbolTime(FunctionDefinition_getMath(pFuncDefinition));
     }
+
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
 
     mxInput[0] = mxCreateString(pacFormula);
@@ -2319,6 +2311,7 @@ GetFunctionDefinition ( Model_t      *pModel,
     }
 
     /* END OF HACK */
+
     /**
      * check for NULL strings - Matlab doesnt like creating
      * a string that is NULL
@@ -2417,10 +2410,12 @@ GetEvent (Model_t      *pModel,
  
     if (Event_isSetTrigger(pEvent)) {
       pacTrigger    = SBML_formulaToString(Event_getTrigger(pEvent));
+      LookForCSymbolTime(Event_getTrigger(pEvent));
     }
 
     if (Event_isSetDelay(pEvent)) {
       pacDelay      = SBML_formulaToString(Event_getDelay(pEvent));
+      LookForCSymbolTime(Event_getDelay(pEvent));
     }
 
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula 
@@ -2549,10 +2544,14 @@ GetEventAssignment (  Event_t      *pEvent,
   const char * pacNotes;
   const char * pacAnnotations;
   const char * pacVariable;
-  const char * pacFormula;
+  const char * pacFormula = NULL;
 
   EventAssignment_t * pEventAssignment;
   int i;
+  
+  /* variables for mathML - matlab hack */
+  int nStatus, nBuflen;
+  mxArray * mxInput[1], * mxOutput[1];
 
   mxEventAssignReturn = mxCreateStructArray(2, dims, nNoFields_l2, field_names_l2);
 
@@ -2566,7 +2565,30 @@ GetEventAssignment (  Event_t      *pEvent,
 
     if (EventAssignment_isSetMath(pEventAssignment)) {
       pacFormula      = SBML_formulaToString(EventAssignment_getMath(pEventAssignment));
+      LookForCSymbolTime(EventAssignment_getMath(pEventAssignment));
     }
+      
+    /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
+    
+    mxInput[0] = mxCreateString(pacFormula);
+    nStatus = mexCallMATLAB(1, mxOutput, 1, mxInput, "CheckAndConvert");
+    
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Failed to convert formula");
+    }
+    
+    /* get the formula returned */
+    nBuflen = (mxGetM(mxOutput[0])*mxGetN(mxOutput[0])+1);
+    pacFormula = (char *) mxCalloc(nBuflen, sizeof(char));
+    nStatus = mxGetString(mxOutput[0], (char *) pacFormula, nBuflen);
+    
+    if (nStatus != 0)
+    {
+        mexErrMsgTxt("Cannot copy formula");
+    }
+
+    /* END OF HACK */
 
     /**
      * check for NULL strings - Matlab doesnt like creating 
@@ -2591,5 +2613,46 @@ GetEventAssignment (  Event_t      *pEvent,
     mxSetField(mxEventAssignReturn, i, "annotation",  mxCreateString(pacAnnotations));
     mxSetField(mxEventAssignReturn, i, "variable",    mxCreateString(pacVariable)); 
     mxSetField(mxEventAssignReturn, i, "math",        mxCreateString(pacFormula)); 
+  }
+}
+
+/**
+* NAME:       LookForCSymbolTime
+*
+* PARAMETERS: Pointer to a astNode (ie mathml)
+*
+* RETURNS:    void
+*
+* FUNCTION:   loops through the ASTNode to see if
+*             it declares the csymbol time
+*             copies it to global char * if found
+*/
+void
+LookForCSymbolTime(const ASTNode_t * astMath)
+{
+  unsigned int nChild, i;
+  ASTNode_t * astChild;
+  ASTNodeType_t type;
+
+  nChild = ASTNode_getNumChildren(astMath);
+
+  if (nChild == 0)
+    return;
+  
+  for (i = 0; i < nChild; i++)
+  {
+    astChild = ASTNode_getChild(astMath, i);
+    if (ASTNode_getNumChildren(astChild) > 0)
+    {
+      LookForCSymbolTime(astChild);
+    }
+    else
+    {
+      type = ASTNode_getType(astChild);
+      if (type == AST_NAME_TIME)
+      {
+        pacCSymbolTime = ASTNode_getName(astChild);
+      }
+    }
   }
 }
