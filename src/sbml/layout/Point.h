@@ -91,6 +91,23 @@ public:
    * Returns the x offset.
    */ 
   LIBSBML_EXTERN
+  double x () const;
+        
+  /**
+   * Returns the y offset.
+   */ 
+  LIBSBML_EXTERN
+  double y () const;
+        
+  /**
+   * Returns the z offset.
+   */ 
+  LIBSBML_EXTERN
+  double z () const;
+   /**
+   * Returns the x offset.
+   */ 
+  LIBSBML_EXTERN
   double getXOffset () const;
         
   /**
@@ -105,6 +122,24 @@ public:
   LIBSBML_EXTERN
   double getZOffset () const;
         
+  /**
+   * Sets the x offset.
+   */ 
+  LIBSBML_EXTERN
+  void setX (double x);
+        
+  /**
+   * Sets the y offset.
+   */ 
+  LIBSBML_EXTERN
+  void setY (double y);
+        
+  /**
+   * Sets the z offset.
+   */ 
+  LIBSBML_EXTERN
+  void setZ (double z);
+
   /**
    * Sets the x offset.
    */ 
@@ -183,6 +218,49 @@ Point_initDefaults (Point_t *p);
 LIBSBML_EXTERN
 void
 Point_setOffsets (Point_t *p, double x, double y, double z);
+
+/**
+ * Sets the x offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point_setX (Point_t *p, double x);
+
+/**
+ * Sets the y offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point_setY (Point_t *p, double y);
+
+/**
+ * Sets the z offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point_setZ (Point_t *p, double z);
+
+/**
+ * Gets the x offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point_x (const Point_t *p);
+
+/**
+ * Gets the y offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point_y (const Point_t *p);
+
+/**
+ * Gets the z offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point_z (const Point_t *p);
+
 
 /**
  * Sets the x offset.

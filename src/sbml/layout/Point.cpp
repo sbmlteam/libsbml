@@ -111,7 +111,7 @@ LIBSBML_EXTERN
 void
 Point::setXOffset (double x)
 {
-  this->xOffset = x;
+  this->setX(x);
 }
 
 
@@ -122,7 +122,7 @@ LIBSBML_EXTERN
 void
 Point::setYOffset (double y)
 {
-  this->yOffset = y;
+  this->setY(y);
 }
 
 
@@ -132,6 +132,39 @@ Point::setYOffset (double y)
 LIBSBML_EXTERN
 void
 Point::setZOffset (double z)
+{
+  this->setZ(z);
+}
+
+
+/**
+ * Sets the x offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point::setX (double x)
+{
+  this->xOffset = x;
+}
+
+
+/**
+ * Sets the y offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point::setY (double y)
+{
+  this->yOffset = y;
+}
+
+
+/**
+ * Sets the z offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point::setZ (double z)
 {
   this->zOffset = z;
 }
@@ -144,7 +177,7 @@ LIBSBML_EXTERN
 double
 Point::getXOffset () const
 {
-  return this->xOffset;
+  return this->x();
 }
 
 
@@ -155,7 +188,7 @@ LIBSBML_EXTERN
 double
 Point::getYOffset () const
 {
-  return this->yOffset;
+  return this->y();
 }
 
 
@@ -166,8 +199,41 @@ LIBSBML_EXTERN
 double
 Point::getZOffset () const
 {
+  return this->z();
+}
+
+/**
+ * Returns the x offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point::x () const
+{
+  return this->xOffset;
+}
+
+
+/**
+ * Returns the y offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point::y () const
+{
+  return this->yOffset;
+}
+
+
+/**
+ * Returns the z offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point::z () const
+{
   return this->zOffset;
 }
+
 
 
 
@@ -234,7 +300,7 @@ LIBSBML_EXTERN
 void
 Point_setXOffset (Point_t *p, double x)
 {
-  p->setXOffset(x);
+  p->setX(x);
 }
 
 
@@ -245,7 +311,7 @@ LIBSBML_EXTERN
 void
 Point_setYOffset (Point_t *p, double y)
 {
-  p->setXOffset(y);
+  p->setY(y);
 }
 
 
@@ -256,7 +322,7 @@ LIBSBML_EXTERN
 void
 Point_setZOffset (Point_t *p, double z)
 {
-  p->setXOffset(z);
+  p->setZ(z);
 }
 
 
@@ -267,7 +333,7 @@ LIBSBML_EXTERN
 double
 Point_getXOffset (const Point_t *p)
 {
-  return p->getXOffset();
+  return p->x();
 }
 
 
@@ -278,7 +344,7 @@ LIBSBML_EXTERN
 double
 Point_getYOffset (const Point_t *p)
 {
-  return p->getYOffset();
+  return p->y();
 }
 
 
@@ -289,5 +355,73 @@ LIBSBML_EXTERN
 double
 Point_getZOffset (const Point_t *p)
 {
-  return p->getZOffset();
+  return p->z();
 }
+
+
+/**
+ * Sets the x offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point_setX (Point_t *p, double x)
+{
+  p->setX(x);
+}
+
+
+/**
+ * Sets the y offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point_setY (Point_t *p, double y)
+{
+  p->setY(y);
+}
+
+
+/**
+ * Sets the z offset.
+ */ 
+LIBSBML_EXTERN
+void
+Point_setZ (Point_t *p, double z)
+{
+  p->setZ(z);
+}
+
+
+/**
+ * Gets the x offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point_x (const Point_t *p)
+{
+  return p->x();
+}
+
+
+/**
+ * Gets the y offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point_y (const Point_t *p)
+{
+  return p->y();
+}
+
+
+/**
+ * Gets the z offset.
+ */ 
+LIBSBML_EXTERN
+double
+Point_z (const Point_t *p)
+{
+  return p->z();
+}
+
+
