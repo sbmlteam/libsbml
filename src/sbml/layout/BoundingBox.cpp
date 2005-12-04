@@ -240,6 +240,131 @@ BoundingBox::setDimensions (const Dimensions& d)
 
 
 /**
+ * Sets the x offset of the BoundingBox.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox::setX(double x)
+{
+  this->position.setX(x);
+}
+
+
+/**
+ * Sets the y offset of the BoundingBox.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox::setY(double y)
+{
+  this->position.setY(y);
+}
+
+
+/**
+ * Sets the z offset of the BoundingBox.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox::setZ(double z)
+{
+  this->position.setZ(z);
+}
+
+
+/**
+ * Sets the width of the BoundingBox.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox::setWidth(double width)
+{
+  this->dimensions.setWidth(width);
+}
+
+
+/**
+ * Sets the height of the BoundingBox.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox::setHeight(double height)
+{
+  this->dimensions.setHeight(height);
+}
+
+
+/**
+ * Sets the depth of the BoundingBox.
+ */
+LIBSBML_EXTERN
+void
+BoundingBox::setDepth(double depth)
+{
+  this->dimensions.setDepth(depth);
+}
+
+/**
+ * Returns the x offset of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox::x() const
+{
+  return this->position.x();
+}
+
+/**
+ * Returns the y offset of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox::y() const
+{
+  return this->position.y();
+}
+
+/**
+ * Returns the z offset of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox::z() const
+{
+  return this->position.z();
+}
+
+/**
+ * Returns the width of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox::width() const
+{
+  return this->dimensions.width();
+}
+
+/**
+ * Returns the height of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox::height() const
+{
+  return this->dimensions.height();
+}
+
+/**
+ * Returns the depth of the bounding box.
+ */
+LIBSBML_EXTERN
+double
+BoundingBox::depth() const
+{
+  return this->dimensions.depth();
+}
+
+/**
  * Function that creates a BoundingBox_t object with position set to
  * (0.0,0.0,0.0) and dimensions set to (0.0,0.0,0.0). The id is set to the
  * empty string.
