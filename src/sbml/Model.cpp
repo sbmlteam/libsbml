@@ -286,11 +286,8 @@ LIBSBML_EXTERN
 void
 Model::moveAllIdsToNames ()
 {
-  int n, n1;
-  int size;
-  
-  KineticLaw*  kl   = NULL;
-  Reaction*    r    = NULL;
+  unsigned int n, p;
+  unsigned int size;
 
 
   moveIdToName();
@@ -307,14 +304,20 @@ Model::moveAllIdsToNames ()
   size = getNumParameters();
   for (n = 0; n < size; n++) getParameter(n)->moveIdToName();
 
-  size = getNumReactions();
-  for (n = 0; n < size; n++){
-    r = getReaction(n);
+  for (n = 0; n < getNumReactions(); n++)
+  {
+    Reaction* r = getReaction(n);
     r->moveIdToName();
  
-    kl = r->getKineticLaw();
-    for (n1 = 0; n1 < (int)kl->getNumParameters(); n1++)
-      kl->getParameter(n)->moveIdToName();
+    if (r->isSetKineticLaw())
+    {
+      KineticLaw* kl = r->getKineticLaw();
+
+      for (p = 0; p < kl->getNumParameters(); p++)
+      {
+        kl->getParameter(p)->moveIdToName();
+      }
+    }
   }
 }
 
@@ -332,11 +335,8 @@ LIBSBML_EXTERN
 void
 Model::moveAllNamesToIds ()
 {
-  int n, n1;
-  int size;
-  
-  KineticLaw*  kl   = NULL;
-  Reaction*    r    = NULL;
+  unsigned int n, p;
+  unsigned int size;
 
 
   moveNameToId();
@@ -354,13 +354,21 @@ Model::moveAllNamesToIds ()
   for (n = 0; n < size; n++) getParameter(n)->moveNameToId();
 
   size = getNumReactions();
-  for (n = 0; n < size; n++){
-    r = getReaction(n);
-    r->moveNameToId();
 
-    kl = r->getKineticLaw();
-    for (n1 = 0; n1 < (int)kl->getNumParameters(); n1++)
-      kl->getParameter(n)->moveNameToId();
+  for (n = 0; n < getNumReactions(); n++)
+  {
+    Reaction* r = getReaction(n);
+    r->moveNameToId();
+ 
+    if (r->isSetKineticLaw())
+    {
+      KineticLaw* kl = r->getKineticLaw();
+
+      for (p = 0; p < kl->getNumParameters(); p++)
+      {
+        kl->getParameter(p)->moveNameToId();
+      }
+    }
   }
 }
 
@@ -2704,7 +2712,7 @@ LIBSBML_EXTERN
 Layout_t *
 Model_createLayout (Model_t *m)
 {
-	return & m->createLayout();
+  return & m->createLayout();
 }
 
 
