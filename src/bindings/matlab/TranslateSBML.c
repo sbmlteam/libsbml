@@ -85,7 +85,7 @@ void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 mxArray * CreateIntScalar (int);
 char    * TypecodeToChar  (SBMLTypeCode_t);
 
-void LookForCSymbolTime(const ASTNode_t *);
+void LookForCSymbolTime(ASTNode_t *);
 
 static mxArray * mxSpeciesReturn             = NULL;
 static mxArray * mxCompartReturn             = NULL;
@@ -1683,11 +1683,10 @@ GetKineticLaw ( Reaction_t   *pReaction,
 
     /* if level two set the math formula */
     if (unSBMLLevel == 2 && KineticLaw_isSetMath(pKineticLaw)) {
-        KineticLaw_setFormulaFromMath(pKineticLaw);
-        pacMathFormula = KineticLaw_getFormula(pKineticLaw);
-        
         /* look for csymbol time */
         LookForCSymbolTime(KineticLaw_getMath(pKineticLaw));
+        KineticLaw_setFormulaFromMath(pKineticLaw);
+        pacMathFormula = KineticLaw_getFormula(pKineticLaw);
     }
 
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
@@ -2050,11 +2049,9 @@ GetRule ( Model_t      *pModel,
     }
     else if (unSBMLLevel == 2) {
       if (Rule_isSetFormula(pRule) == 1){
-        Rule_setFormulaFromMath(pRule);
-        pacFormula  = Rule_getFormula(pRule);
-        
-        /* look for csymbol time */
         LookForCSymbolTime(Rule_getMath(pRule));
+        Rule_setFormulaFromMath(pRule);
+        pacFormula = Rule_getFormula(pRule);
       }
     }
 
@@ -2284,10 +2281,10 @@ GetFunctionDefinition ( Model_t      *pModel,
     pacId               = FunctionDefinition_getId(pFuncDefinition);
 
     if (FunctionDefinition_isSetMath(pFuncDefinition)) {
-      pacFormula        = SBML_formulaToString(FunctionDefinition_getMath(pFuncDefinition));
         
       /* look for csymbol time */
       LookForCSymbolTime(FunctionDefinition_getMath(pFuncDefinition));
+      pacFormula = SBML_formulaToString(FunctionDefinition_getMath(pFuncDefinition));
     }
 
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
@@ -2409,13 +2406,13 @@ GetEvent (Model_t      *pModel,
     GetEventAssignment(pEvent, unSBMLLevel, unSBMLVersion);
  
     if (Event_isSetTrigger(pEvent)) {
-      pacTrigger    = SBML_formulaToString(Event_getTrigger(pEvent));
       LookForCSymbolTime(Event_getTrigger(pEvent));
+      pacTrigger = SBML_formulaToString(Event_getTrigger(pEvent));
     }
-
+    
     if (Event_isSetDelay(pEvent)) {
-      pacDelay      = SBML_formulaToString(Event_getDelay(pEvent));
       LookForCSymbolTime(Event_getDelay(pEvent));
+      pacDelay      = SBML_formulaToString(Event_getDelay(pEvent));
     }
 
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula 
@@ -2564,8 +2561,8 @@ GetEventAssignment (  Event_t      *pEvent,
     pacVariable       = EventAssignment_getVariable(pEventAssignment);
 
     if (EventAssignment_isSetMath(pEventAssignment)) {
-      pacFormula      = SBML_formulaToString(EventAssignment_getMath(pEventAssignment));
       LookForCSymbolTime(EventAssignment_getMath(pEventAssignment));
+      pacFormula = SBML_formulaToString(EventAssignment_getMath(pEventAssignment));
     }
       
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
@@ -2628,7 +2625,7 @@ GetEventAssignment (  Event_t      *pEvent,
 *             copies it to global char * if found
 */
 void
-LookForCSymbolTime(const ASTNode_t * astMath)
+LookForCSymbolTime(ASTNode_t * astMath)
 {
   unsigned int nChild, i;
   ASTNode_t * astChild;
@@ -2651,7 +2648,15 @@ LookForCSymbolTime(const ASTNode_t * astMath)
       type = ASTNode_getType(astChild);
       if (type == AST_NAME_TIME)
       {
-        pacCSymbolTime = ASTNode_getName(astChild);
+        /* csymbol time found -if it has already been found
+         * replace the name in this instance
+         */
+        if (pacCSymbolTime == NULL) {
+          pacCSymbolTime = ASTNode_getName(astChild);
+        }
+        else {
+          ASTNode_setName(astChild, pacCSymbolTime);
+        }
       }
     }
   }
