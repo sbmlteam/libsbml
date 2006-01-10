@@ -75,6 +75,7 @@ examples = \
   examples/README.txt              \
   examples/c/Makefile.in           \
   examples/c/convertSBML.c         \
+  examples/c/drawMath.c            \
   examples/c/evaluateMath.c        \
   examples/c/printMath.c           \
   examples/c/printSBML.c           \
