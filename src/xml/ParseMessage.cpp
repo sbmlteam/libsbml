@@ -94,6 +94,7 @@ ParseMessage::ParseMessage (const ParseMessage& msg) :
 /**
  * Destroys this ParseMessage.
  */
+LIBSBML_EXTERN
 ParseMessage::~ParseMessage ()
 {
 }

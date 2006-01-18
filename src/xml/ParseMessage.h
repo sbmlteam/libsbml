@@ -90,6 +90,7 @@ public:
   /**
    * Destroys this ParseMessage.
    */
+  LIBSBML_EXTERN
   virtual ~ParseMessage ();
 
 
