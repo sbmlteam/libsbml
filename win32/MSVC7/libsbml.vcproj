@@ -171,6 +171,9 @@
 				RelativePath="..\..\src\sbml\CompartmentVolumeRule.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\ConsistencyConstraints.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 			</File>
 			<File
@@ -202,6 +205,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\KineticLaw.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\L1CompatibilityConstraints.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\L1CompatibilityValidator.cpp">
@@ -424,7 +430,13 @@
 				RelativePath="..\..\src\sbml\FunctionDefinition.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\FunctionDefinitionVars.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\GlobalConstraint.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\IdBase.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\IdList.h">
@@ -563,6 +575,24 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\StringMap.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueIdBase.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueIdsForUnitDefinitions.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueIdsInKineticLaw.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueIdsInModel.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueVarsInEventAssignments.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueVarsInRules.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Unit.h">
