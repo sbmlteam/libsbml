@@ -38,7 +38,7 @@
  *     Sarah Keating
  *
  *     The SBML Team
- *     Scince and Technology Research Institute
+ *     Science and Technology Research Institute
  *     University of Hertfordshire
  *     Hatfield, UK
  *
@@ -54,24 +54,60 @@
 
 #include <math.h>
 
+#include "common/extern.h"
+
 #include "sbml/UnitDefinition.h"
 #include "sbml/Unit.h"
 #include "sbml/ListOf.h"
 
 #include "UnitKindList.h"
 
+#ifdef __cplusplus
+
   /** 
    * alters the multiplier so that scale = 0
    * eg 1 mm can be expressed as multipier = 1 scale = -3 exponent = 1
-   * or as multiplier = 10^-3 scale = 0
+   * or as multiplier = 0.001 scale = 0
    */
+  //LIBSBML_EXTERN
   void removeScale(Unit *);
 
   /** 
    * returns a unit which is the product of the first unit by the second
    * this function applies both units are of the same kind
    */
+  //LIBSBML_EXTERN
   void mergeUnits(Unit * unit1, Unit * unit2);
+
+/**
+ * returns a unitdefinition which is the 
+ * argument converted to SI units
+ */
+  //LIBSBML_EXTERN
+  UnitDefinition * convertUnitToSI(Unit *);
+
+  /** 
+  * returns true if units are identical
+  */
+  //LIBSBML_EXTERN
+  int areIdentical(Unit *, Unit *);
+
+#endif /* __cplusplus */
+
+BEGIN_C_DECLS
+
+  /** 
+   * alters the multiplier so that scale = 0
+   * eg 1 mm can be expressed as multipier = 1 scale = -3 exponent = 1
+   * or as multiplier = 0.001 scale = 0
+   */  
+
+  //LIBSBML_EXTERN
+  void Unit_removeScale(Unit_t *);
+
+
+END_C_DECLS
+
 
 
 #endif  /* Utils_Unit_h */

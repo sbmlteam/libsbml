@@ -38,7 +38,7 @@
  *     Sarah Keating
  *
  *     The SBML Team
- *     Scince and Technology Research Institute
+ *     Science and Technology Research Institute
  *     University of Hertfordshire
  *     Hatfield, UK
  *
@@ -54,11 +54,19 @@
 /**
  *  constructs a UnitFormulaFormatter
  */
+//LIBSBML_EXTERN
 UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 {
   model = m;
 }
 
+/**
+ *  destructor
+ */
+//LIBSBML_EXTERN
+UnitFormulaFormatter::~UnitFormulaFormatter()
+{
+}
 /** 
  * returns true (non-zero) if math represents a function
  */ 
@@ -232,6 +240,7 @@ UnitFormulaFormatter::isArgUnitsReturnFunction(const ASTNode * node)
   * this function is really a dispatcher to the other
   * UnitFormulaFormatter::getUnitdefinition functions
   */
+//LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
 {  
@@ -642,6 +651,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
 /** 
   * returns the unitDefinition for the units of the compartment
   */
+//LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compartment)
 {
@@ -714,6 +724,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
 /** 
   * returns the unitDefinition for the units of the species
   */
+//LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 {
@@ -830,6 +841,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 /** 
   * returns the unitDefinition for the units of the parameter
   */
+//LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter)
 {

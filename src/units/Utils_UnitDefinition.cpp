@@ -38,7 +38,7 @@
  *     Sarah Keating
  *
  *     The SBML Team
- *     Scince and Technology Research Institute
+ *     Science and Technology Research Institute
  *     University of Hertfordshire
  *     Hatfield, UK
  *
@@ -50,10 +50,50 @@
 
 
 #include "Utils_UnitDefinition.h"
+const char* UNIT_KIND_STRINGS[] =
+{
+    "ampere"
+  , "becquerel"
+  , "candela"
+  , "Celsius"
+  , "coulomb"
+  , "dimensionless"
+  , "farad"
+  , "gram"
+  , "gray"
+  , "henry"
+  , "hertz"
+  , "item"
+  , "joule"
+  , "katal"
+  , "kelvin"
+  , "kilogram"
+  , "liter"
+  , "litre"
+  , "lumen"
+  , "lux"
+  , "meter"
+  , "metre"
+  , "mole"
+  , "newton"
+  , "ohm"
+  , "pascal"
+  , "radian"
+  , "second"
+  , "siemens"
+  , "sievert"
+  , "steradian"
+  , "tesla"
+  , "volt"
+  , "watt"
+  , "weber"
+  , "(Invalid UnitKind)"
+};
 
 /** 
   * simplifies the unitDefinition
   */
+//LIBSBML_EXTERN
 void
 simplifyUnitDefinition(UnitDefinition * ud)
 {
@@ -119,4 +159,116 @@ simplifyUnitDefinition(UnitDefinition * ud)
       units.remove(n);
     }
   }
+}
+
+/**
+ * returns a unitDefinition which is the argument converted to SI units
+ */
+//LIBSBML_EXTERN
+UnitDefinition * 
+convertToSI(UnitDefinition * ud)
+{
+  unsigned int n, p;
+  UnitDefinition * newUd = new UnitDefinition();
+  UnitDefinition * tempUd;
+
+  newUd = convertUnitToSI(ud->getUnit(0));
+  newUd->setId(ud->getId());
+  newUd->setName(ud->getName());
+
+  for (n = 1; n < ud->getNumUnits(); n++)
+  {
+    tempUd = convertUnitToSI(ud->getUnit(n));
+    for (p = 0; p < tempUd->getNumUnits(); p++)
+    {
+      newUd->addUnit(*(tempUd->getUnit(p)));
+    }
+  }
+
+  simplifyUnitDefinition(newUd);
+  return newUd;
+}
+
+
+/** 
+  * returns the unitDefinition with unit kinds in alphabetical order
+  */
+  //LIBSBML_EXTERN
+void 
+orderUnitDefinition(UnitDefinition *ud)
+{
+  unsigned int n;
+  ListOf & units = ud->getListOfUnits();
+  Unit * unit;
+  const char * unitKind;
+  const UnitKind_t lo = UNIT_KIND_AMPERE;
+  const UnitKind_t hi = UNIT_KIND_WEBER;
+
+  int sorted = 0;
+  int first, next, prev, count;
+  unit = (Unit *) units.get(0);
+  unitKind = UnitKind_toString(unit->getKind());
+
+  first = util_bsearchStringsI(UNIT_KIND_STRINGS, unitKind, lo, hi);
+
+  while (sorted < 1)
+  {
+    prev = first;
+    count = 0;
+    for (n = 1; n < ud->getNumUnits(); n++)
+    {
+      unit = (Unit *) units.get(n);
+      unitKind = UnitKind_toString(unit->getKind());
+      next = util_bsearchStringsI(UNIT_KIND_STRINGS, unitKind, lo, hi);
+
+      if (next < prev)
+      {
+        units.remove(n);
+        units.prepend(unit);
+        first = next;
+        count = count + 1;
+      }
+    }
+    if (count == 0)
+    {
+      sorted = 1;
+    }
+  }
+}
+
+
+/** 
+  * returns true if unit definitions are identical
+  */
+//LIBSBML_EXTERN
+int 
+areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
+{
+  int identical = 0;
+  unsigned int n;
+
+  if (ud1->getNumUnits() == ud2->getNumUnits())
+  {
+    orderUnitDefinition(ud1);
+    orderUnitDefinition(ud2);
+    
+    n = 0;
+    while (n < ud1->getNumUnits())
+    {
+      if (!areIdentical(ud1->getUnit(n), ud2->getUnit(n)))
+      {
+        break;
+      }
+      else
+      {
+        n++;
+      }
+    }
+    if (n == ud1->getNumUnits())
+    {
+      identical = 1;
+    }
+  }
+
+  return identical;
 }

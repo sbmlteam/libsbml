@@ -38,7 +38,7 @@
  *     Sarah Keating
  *
  *     The SBML Team
- *     Scince and Technology Research Institute
+ *     Science and Technology Research Institute
  *     University of Hertfordshire
  *     Hatfield, UK
  *
@@ -69,7 +69,7 @@
 
 #include "Utils_UnitDefinition.h"
 
-#ifndef SWIG
+#ifdef __cplusplus
 
 class UnitFormulaFormatter
 {
@@ -77,7 +77,15 @@ public:
   /** 
    * constructor
    */
+  //LIBSBML_EXTERN
   UnitFormulaFormatter(const Model *);
+
+
+  /** 
+   * destructor
+   */
+  //LIBSBML_EXTERN
+  ~UnitFormulaFormatter();
 
 
   /** 
@@ -140,6 +148,7 @@ public:
    * this function is really a dispatcher to the other
    * getUnitdefinition functions
    */
+  //LIBSBML_EXTERN
   UnitDefinition * getUnitDefinition(const ASTNode *);
 
   /** 
@@ -193,16 +202,19 @@ public:
   /** 
     * returns the unitDefinition for the units of the compartment
     */
+  //LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromCompartment(const Compartment *);
 
  /** 
   * returns the unitDefinition for the units of the species
   */
+  //LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromSpecies(const Species *);
 
   /** 
     * returns the unitDefinition for the units of the parameter
     */
+  //LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromParameter(const Parameter *);
 
 
@@ -213,5 +225,5 @@ private:
 };
 
 
-#endif  /* !SWIG */
+#endif  /* !cplusplus */
 #endif  /* UnitFormulaFormatter_h */

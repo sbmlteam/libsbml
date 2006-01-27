@@ -38,7 +38,7 @@
  *     Sarah Keating
  *
  *     The SBML Team
- *     Scince and Technology Research Institute
+ *     Science and Technology Research Institute
  *     University of Hertfordshire
  *     Hatfield, UK
  *
@@ -52,17 +52,43 @@
 #ifndef Utils_UnitDefinition_h
 #define Utils_UnitDefinition_h
 
+#include "common/extern.h"
 
 #include "sbml/UnitDefinition.h"
 #include "sbml/Unit.h"
+#include "sbml/UnitKind.h"
 #include "sbml/ListOf.h"
 
+#include "util/util.h"
 #include "UnitKindList.h"
 #include "Utils_Unit.h"
-  /** 
-    * returns the unitDefinition simplified
-    */
+#ifdef __cplusplus
+
+
+/** 
+  * returns the unitDefinition simplified
+  */
+  //LIBSBML_EXTERN
   void simplifyUnitDefinition(UnitDefinition *);
 
+/** 
+  * returns the unitDefinition with unit kinds in alphabetical order
+  */
+  //LIBSBML_EXTERN
+  void orderUnitDefinition(UnitDefinition *);
+/**
+ * returns a unitDefinition which is the 
+ * argument converted to SI units
+ */
+  //LIBSBML_EXTERN
+  UnitDefinition * convertToSI(UnitDefinition *);
 
+
+  /** 
+  * returns true if unit definitions are identical
+  */
+//LIBSBML_EXTERN
+int areIdentical(UnitDefinition *, UnitDefinition *);
+
+#endif
 #endif  /* Utils_UnitDefinition_h */
