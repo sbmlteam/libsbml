@@ -1,14 +1,14 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml src/sbml directory
+## Description : Makefile template for libsbml main sources
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
-## Created     : 2005-03-15
+## Created     : 2004-06-11
 ## Revision    : $Id$
 ## Source      : $Source$
 ##
-## Copyright 2005 California Institute of Technology and
+## Copyright 2004 California Institute of Technology and
 ## Japan Science and Technology Corporation.
 ##
 ## This library is free software; you can redistribute it and/or modify it
@@ -65,95 +65,31 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
 srcdir  = @srcdir@
-thisdir = src/sbml
+thisdir = src/units
 
-# The `headers' list is not actually used for analyzing source dependencies
-# (a separate mechanism is used for that), but for other things such as what
-# to distribute and install.
+# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
+# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
+# rules in `makefile-common-actions.mk' included at the end.
 
-headers =                      \
-  AlgebraicRule.h              \
-  AssignmentRule.h             \
-  Compartment.h                \
-  CompartmentVolumeRule.h      \
-  Event.h                      \
-  EventAssignment.h            \
-  FunctionDefinition.h         \
-  KineticLaw.h                 \
-  ListOf.h                     \
-  Model.h                      \
-  ModifierSpeciesReference.h   \
-  Parameter.h                  \
-  ParameterRule.h              \
-  RateRule.h                   \
-  Reaction.h                   \
-  Rule.h                       \
-  RuleType.h                   \
-  SBMLConvert.h                \
-  SBMLDocument.h               \
-  SBMLFormatter.h              \
-  SBMLHandler.h                \
-  SBMLReader.h                 \
-  SBMLSchemaInputSource.h      \
-  SBMLSchemaInputStream.h      \
-  SBMLTagCodes.h               \
-  SBMLTypeCodes.h              \
-  SBMLTypes.h                  \
-  SBMLUnicodeConstants.h       \
-  SBMLVisitor.h                \
-  SBMLWriter.h                 \
-  SBase.h                      \
-  SimpleSpeciesReference.h     \
-  Species.h                    \
-  SpeciesConcentrationRule.h   \
-  SpeciesReference.h           \
-  Unit.h                       \
-  UnitDefinition.h             \
-  UnitKind.h
+headers =                    \
+  UnitFormulaFormatter.h     \
+  Utils_Unit.h		     \
+  Utils_UnitDefinition.h     \
+  UnitKindList.h
 
-sources =                      \
-  AlgebraicRule.cpp            \
-  AssignmentRule.cpp           \
-  Compartment.cpp              \
-  CompartmentVolumeRule.cpp    \
-  Event.cpp                    \
-  EventAssignment.cpp          \
-  FunctionDefinition.cpp       \
-  KineticLaw.cpp               \
-  ListOf.cpp                   \
-  Model.cpp                    \
-  ModifierSpeciesReference.cpp \
-  Parameter.cpp                \
-  ParameterRule.cpp            \
-  RateRule.cpp                 \
-  Reaction.cpp                 \
-  Rule.cpp                     \
-  RuleType.c                   \
-  SBMLConvert.c                \
-  SBMLDocument.cpp             \
-  SBMLFormatter.cpp            \
-  SBMLHandler.cpp              \
-  SBMLReader.cpp               \
-  SBMLSchemaInputSource.cpp    \
-  SBMLSchemaInputStream.cpp    \
-  SBMLTagCodes.cpp             \
-  SBMLTypeCodes.cpp            \
-  SBMLVisitor.cpp              \
-  SBMLWriter.cpp               \
-  SBase.cpp                    \
-  SimpleSpeciesReference.cpp   \
-  Species.cpp                  \
-  SpeciesConcentrationRule.cpp \
-  SpeciesReference.cpp         \
-  Unit.cpp                     \
-  UnitDefinition.cpp           \
-  UnitKind.c
+header_inst_prefix = units
+
+sources =                    \
+  UnitFormulaFormatter.cpp   \
+  Utils_Unit.cpp		     \
+  Utils_UnitDefinition.cpp   \
+  UnitKindList.cpp
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CPPFLAGS = -I.. -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\"
+extra_CPPFLAGS = -I..
 
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
@@ -165,38 +101,7 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-ifneq "$(MAKECMDGOALS)" "dist"
-  ifdef USE_LAYOUT
-    subdirs = layout
-  endif
-else
-  subdirs = layout
-endif
-
-ifneq "$(MAKECMDGOALS)" "all"
-  subdirs += test
-endif
-
-# The libsbml build is a little more complicated than it used to be.  The
-# library is assembled after compiling the object files in this directory.
-# However, to link the library, we have to assemble it out of pieces coming
-# from sibling directories.  And we put the results in ../.  The following
-# redefines the defaults from makefile-common-actions.mk to accomplish this.
-
-objects   = $(call make_objects_list,$(sources))
-otherdirs = ../common ../util ../xml ../math ../validator \
-            ../validator/constraints ../units
-
-ifdef USE_LAYOUT
-  otherdirs += ./layout
-endif
-
-objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
-
-
-# The libraries are actually placed in the parent directory.
-
-libraries = ../$(PACKAGE).a ../$(PACKAGE).$(SHAREDLIBEXT)
+subdirs = test
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
@@ -212,20 +117,14 @@ distfiles = $(sources) $(headers) Makefile.in
 # The default action is to remake everything.  Those rules which are not
 # defined below are defined in makefile-common-actions.mk.
 
-all: Makefile all-recursive all-this-dir
-
-all-this-dir: ;
-	make default
+all: Makefile default
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: all check-recursive
-	make include
-
-include: include-recursive
+check: check-recursive
 
 
 # -----------------------------------------------------------------------------
@@ -254,11 +153,16 @@ tags: etags ctags
 # Installation
 # -----------------------------------------------------------------------------
 
-install: all install-libraries install-headers
+# This doesn't actually get installed as a library.  The main libsbml library
+# (in ../sbml) slurps in the object files when it's built.  Here we just put
+# in 'all' as a default to make sure files get compiled if someone does
+# 'make install' from the top level without first doing a 'make'.
 
-installcheck: all installcheck-libraries installcheck-headers
+install: all install-headers
 
-uninstall: uninstall-headers uninstall-libraries
+installcheck: all installcheck-headers
+
+uninstall: uninstall-headers
 
 
 # -----------------------------------------------------------------------------
@@ -278,9 +182,9 @@ maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal dist-recursive
+dist: all dist-normal dist-recursive
 
-distcheck: distcheck-normal distcheck-recursive
+distcheck: all distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------

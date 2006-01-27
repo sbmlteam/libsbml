@@ -269,6 +269,9 @@ AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
 AC_CONFIG_FILES([src/math/Makefile])
 AC_CONFIG_FILES([src/math/test/Makefile])
 
+AC_CONFIG_FILES([src/units/Makefile])
+AC_CONFIG_FILES([src/units/test/Makefile])
+
 AC_CONFIG_FILES([src/sbml/Makefile])
 AC_CONFIG_FILES([src/sbml/test/Makefile])
 

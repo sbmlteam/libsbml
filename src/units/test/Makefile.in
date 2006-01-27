@@ -1,10 +1,10 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml src/sbml directory
+## Description : Makefile template for libsbml src/units/test 
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
-## Created     : 2005-03-15
+## Created     : 2005-03-02
 ## Revision    : $Id$
 ## Source      : $Source$
 ##
@@ -49,6 +49,7 @@
 ## Contributor(s):
 ##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
 ##
+
 
 # -----------------------------------------------------------------------------
 # Configuration variables
@@ -64,96 +65,32 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
-thisdir = src/sbml
+srcdir    = @srcdir@
+thisdir   = src/units/test
 
-# The `headers' list is not actually used for analyzing source dependencies
-# (a separate mechanism is used for that), but for other things such as what
-# to distribute and install.
-
-headers =                      \
-  AlgebraicRule.h              \
-  AssignmentRule.h             \
-  Compartment.h                \
-  CompartmentVolumeRule.h      \
-  Event.h                      \
-  EventAssignment.h            \
-  FunctionDefinition.h         \
-  KineticLaw.h                 \
-  ListOf.h                     \
-  Model.h                      \
-  ModifierSpeciesReference.h   \
-  Parameter.h                  \
-  ParameterRule.h              \
-  RateRule.h                   \
-  Reaction.h                   \
-  Rule.h                       \
-  RuleType.h                   \
-  SBMLConvert.h                \
-  SBMLDocument.h               \
-  SBMLFormatter.h              \
-  SBMLHandler.h                \
-  SBMLReader.h                 \
-  SBMLSchemaInputSource.h      \
-  SBMLSchemaInputStream.h      \
-  SBMLTagCodes.h               \
-  SBMLTypeCodes.h              \
-  SBMLTypes.h                  \
-  SBMLUnicodeConstants.h       \
-  SBMLVisitor.h                \
-  SBMLWriter.h                 \
-  SBase.h                      \
-  SimpleSpeciesReference.h     \
-  Species.h                    \
-  SpeciesConcentrationRule.h   \
-  SpeciesReference.h           \
-  Unit.h                       \
-  UnitDefinition.h             \
-  UnitKind.h
-
-sources =                      \
-  AlgebraicRule.cpp            \
-  AssignmentRule.cpp           \
-  Compartment.cpp              \
-  CompartmentVolumeRule.cpp    \
-  Event.cpp                    \
-  EventAssignment.cpp          \
-  FunctionDefinition.cpp       \
-  KineticLaw.cpp               \
-  ListOf.cpp                   \
-  Model.cpp                    \
-  ModifierSpeciesReference.cpp \
-  Parameter.cpp                \
-  ParameterRule.cpp            \
-  RateRule.cpp                 \
-  Reaction.cpp                 \
-  Rule.cpp                     \
-  RuleType.c                   \
-  SBMLConvert.c                \
-  SBMLDocument.cpp             \
-  SBMLFormatter.cpp            \
-  SBMLHandler.cpp              \
-  SBMLReader.cpp               \
-  SBMLSchemaInputSource.cpp    \
-  SBMLSchemaInputStream.cpp    \
-  SBMLTagCodes.cpp             \
-  SBMLTypeCodes.cpp            \
-  SBMLVisitor.cpp              \
-  SBMLWriter.cpp               \
-  SBase.cpp                    \
-  SimpleSpeciesReference.cpp   \
-  Species.cpp                  \
-  SpeciesConcentrationRule.cpp \
-  SpeciesReference.cpp         \
-  Unit.cpp                     \
-  UnitDefinition.cpp           \
-  UnitKind.c
-
-# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CPPFLAGS = -I.. -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\"
+test_sources =            \
+  TestUtilsUnit.c           \
+  TestRunner.c
+
+extra_CPPFLAGS = -I.. -I../..
+
+ifdef USE_LIBCHECK
+  check_driver       = TestRunner
+  ifeq "$(findstring $(LIBCHECK_CPPFLAGS),$(extra_CPPFLAGS))" ""
+    extra_CPPFLAGS  += $(LIBCHECK_CPPFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LDFLAGS),$(extra_LDFLAGS))" ""
+    extra_LDFLAGS   += $(LIBCHECK_LDFLAGS)
+  endif
+  ifeq "$(findstring $(LIBCHECK_LIBS),$(extra_LIBS))" ""
+    extra_LIBS      += $(LIBCHECK_LIBS)
+  endif
+  extra_clean       += $(check_driver)
+endif
 
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
@@ -165,67 +102,47 @@ else
   extra_LIBS      += $(XERCES_LIBS)
 endif
 
-ifneq "$(MAKECMDGOALS)" "dist"
-  ifdef USE_LAYOUT
-    subdirs = layout
-  endif
-else
-  subdirs = layout
-endif
-
-ifneq "$(MAKECMDGOALS)" "all"
-  subdirs += test
-endif
-
-# The libsbml build is a little more complicated than it used to be.  The
-# library is assembled after compiling the object files in this directory.
-# However, to link the library, we have to assemble it out of pieces coming
-# from sibling directories.  And we put the results in ../.  The following
-# redefines the defaults from makefile-common-actions.mk to accomplish this.
-
-objects   = $(call make_objects_list,$(sources))
-otherdirs = ../common ../util ../xml ../math ../validator \
-            ../validator/constraints ../units
-
-ifdef USE_LAYOUT
-  otherdirs += ./layout
-endif
-
-objfiles  = $(objects) $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
-
-
-# The libraries are actually placed in the parent directory.
-
-libraries = ../$(PACKAGE).a ../$(PACKAGE).$(SHAREDLIBEXT)
-
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) Makefile.in
+distfiles = $(test_sources) Makefile.in
 
 
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to remake everything.  Those rules which are not
-# defined below are defined in makefile-common-actions.mk.
+# The default action is to do nothing except maybe remake the Makefile.  The
+# real actions are triggered by 'make check'.
 
-all: Makefile all-recursive all-this-dir
-
-all-this-dir: ;
-	make default
+all: Makefile
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: all check-recursive
-	make include
+# Variables $(test_objfiles), $(check_driver), and the rest of the code
+# for running check are abstracted out into makefile-common-actions.mk,
+# which is included at the bottom of this file.  Here we just need to construct
+# the appropriate list of object files to link together.  Because there are
+# dependencies on other subdirectoris of the source tree, we do some rummaging
+# around in .. and ../../subdirs.
 
-include: include-recursive
+tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
+localobjfiles = $(filter %.$(OBJEXT),$(tmp))
+
+otherdirs     = ..  ../../util ../../xml
+otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
+
+test_objfiles = $(localobjfiles) $(otherobjfiles)
+
+ifdef USE_LIBCHECK
+  check: all run-checks
+else
+  check:; @echo Please first rerun 'configure' with the --with-check flag; exit 1
+endif
 
 
 # -----------------------------------------------------------------------------
@@ -244,43 +161,39 @@ html:
 
 
 # -----------------------------------------------------------------------------
-# Tags.
-# -----------------------------------------------------------------------------
-
-tags: etags ctags
-
-
-# -----------------------------------------------------------------------------
 # Installation
 # -----------------------------------------------------------------------------
 
-install: all install-libraries install-headers
+# This library doesn't actually get installed.  The main libsbml library
+# (in ../src) slurps in the contents when it's built.
 
-installcheck: all installcheck-libraries installcheck-headers
+install:
 
-uninstall: uninstall-headers uninstall-libraries
+uninstall:
+
+installcheck:
 
 
 # -----------------------------------------------------------------------------
 # Cleaning.
 # -----------------------------------------------------------------------------
 
-clean: clean-normal clean-recursive
+clean: clean-normal
 
-distclean: distclean-normal distclean-recursive
+distclean: distclean-normal
 
-mostlyclean: mostlyclean-normal mostlyclean-recursive
+mostlyclean: mostlyclean-normal
 
-maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
+maintainer-clean: maintainer-clean-normal
 
 
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal dist-recursive
+dist: all dist-normal
 
-distcheck: distcheck-normal distcheck-recursive
+distcheck: all distcheck-normal
 
 
 # -----------------------------------------------------------------------------
