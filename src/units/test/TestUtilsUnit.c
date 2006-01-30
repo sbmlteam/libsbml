@@ -62,7 +62,7 @@ START_TEST(test_unit_remove_scale)
 {
     Unit_t * u = Unit_createWith(UNIT_KIND_LITRE, 1, -3);
     
- //   Unit_removeScale(u);
+    /* Unit_removeScale(u); */
     fail_unless(Unit_getMultiplier(u) == 1);
     fail_unless(Unit_getScale(u) == -3);
 
