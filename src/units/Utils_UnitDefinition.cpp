@@ -50,49 +50,19 @@
 
 
 #include "Utils_UnitDefinition.h"
-const char* UNIT_KIND_STRINGS[] =
-{
-    "ampere"
-  , "becquerel"
-  , "candela"
-  , "Celsius"
-  , "coulomb"
-  , "dimensionless"
-  , "farad"
-  , "gram"
-  , "gray"
-  , "henry"
-  , "hertz"
-  , "item"
-  , "joule"
-  , "katal"
-  , "kelvin"
-  , "kilogram"
-  , "liter"
-  , "litre"
-  , "lumen"
-  , "lux"
-  , "meter"
-  , "metre"
-  , "mole"
-  , "newton"
-  , "ohm"
-  , "pascal"
-  , "radian"
-  , "second"
-  , "siemens"
-  , "sievert"
-  , "steradian"
-  , "tesla"
-  , "volt"
-  , "watt"
-  , "weber"
-  , "(Invalid UnitKind)"
-};
+
+
+//
+// FIXME: UNIT_KIND_STRINGS should really be private to UnitKind.c.  Can we
+// FIXME: remove the dependence on UNIT_KIND_STRINGS in
+// FIXME: orderUnitDefinition()?
+//
+extern const char** UNIT_KIND_STRINGS;
+
 
 /** 
-  * simplifies the unitDefinition
-  */
+ * simplifies the unitDefinition
+ */
 //LIBSBML_EXTERN
 void
 simplifyUnitDefinition(UnitDefinition * ud)
