@@ -1,0 +1,10 @@
+.deps
+.libs
+*.dylib
+*.so
+*.a
+config.h
+stamp-h1
+Makefile
+TAGS
+CTAGS
