@@ -77,14 +77,14 @@ public:
   /** 
    * constructor
    */
-  //LIBSBML_EXTERN
+  LIBSBML_EXTERN
   UnitFormulaFormatter(const Model *);
 
 
   /** 
    * destructor
    */
-  //LIBSBML_EXTERN
+  LIBSBML_EXTERN
   ~UnitFormulaFormatter();
 
 
@@ -148,7 +148,7 @@ public:
    * this function is really a dispatcher to the other
    * getUnitdefinition functions
    */
-  //LIBSBML_EXTERN
+  LIBSBML_EXTERN
   UnitDefinition * getUnitDefinition(const ASTNode *);
 
   /** 
@@ -202,19 +202,19 @@ public:
   /** 
     * returns the unitDefinition for the units of the compartment
     */
-  //LIBSBML_EXTERN
+  LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromCompartment(const Compartment *);
 
  /** 
   * returns the unitDefinition for the units of the species
   */
-  //LIBSBML_EXTERN
+  LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromSpecies(const Species *);
 
   /** 
     * returns the unitDefinition for the units of the parameter
     */
-  //LIBSBML_EXTERN
+  LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromParameter(const Parameter *);
 
 

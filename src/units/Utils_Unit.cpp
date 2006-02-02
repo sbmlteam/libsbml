@@ -57,7 +57,7 @@
   * eg 1 mm can be expressed as multipier = 1 scale = -3
   * or as multiplier = 0.001 scale = 0
   */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 void 
 removeScale(Unit * unit)
 {
@@ -72,7 +72,7 @@ removeScale(Unit * unit)
   * returns a unit which is the product of the first unit by the second
   * this function applies both units are of the same kind
   */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 void
 mergeUnits(Unit * unit1, Unit * unit2)
 {
@@ -110,7 +110,7 @@ mergeUnits(Unit * unit1, Unit * unit2)
 /**
  * returns a unitdefinition which is the argument converted to SI units
  */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 UnitDefinition * 
 convertUnitToSI(Unit * unit)
 {
@@ -274,7 +274,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_LITER:
     case UNIT_KIND_LITRE:
       /* 1 litre = 0.001 m^3 = (0.1 m)^3*/ 
-      newUnit->setKind(UNIT_KIND_METER);
+      newUnit->setKind(UNIT_KIND_METRE);
       newUnit->setExponent(newUnit->getExponent()*3);
       newUnit->setMultiplier(pow((newUnit->getMultiplier() * 0.001), 1.0/3.0)); 
       ud->addUnit(*newUnit);
@@ -300,6 +300,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_METER:
     case UNIT_KIND_METRE:
       /* metre is the SI unit of length */
+      newUnit->setKind(UNIT_KIND_METRE);
       ud->addUnit(*newUnit);
       break;
 
@@ -477,7 +478,7 @@ convertUnitToSI(Unit * unit)
 /** 
   * returns true if units are identical
   */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 int 
 areIdentical(Unit * unit1, Unit * unit2)
 {
@@ -497,16 +498,38 @@ areIdentical(Unit * unit1, Unit * unit2)
   return identical;
 }
 
+
+/** 
+  * returns true if units are equivalent
+  * units are equivalent if they have same 
+  * kind and same exponent (and same offset)
+  */
+LIBSBML_EXTERN
+int 
+areEquivalent(Unit * unit1, Unit * unit2)
+{
+  int equivalent = 0;
+
+  if (!strcmp(UnitKind_toString(unit1->getKind()), UnitKind_toString(unit2->getKind())))
+  {
+    if ( (unit1->getOffset()    == unit2->getOffset())
+      && (unit1->getExponent()  == unit2->getExponent()))
+    {
+      equivalent = 1;
+    }
+  }
+
+  return equivalent;
+}
+
+
 /** 
   * alters the multiplier so that scale = 0
   * eg 1 mm can be expressed as multipier = 1 scale = -3
   * or as multiplier = 0.001 scale = 0
   */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 void Unit_removeScale(Unit_t * unit)
 {
-  double scaleFactor = pow(10.0, Unit_getScale(unit));
-  double newMultiplier = Unit_getMultiplier(unit) * scaleFactor;
-  Unit_setMultiplier(unit, newMultiplier);
-  Unit_setScale(unit, 0);
+  removeScale(static_cast<Unit*>(unit));
 }

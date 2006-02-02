@@ -52,18 +52,10 @@
 #include "Utils_UnitDefinition.h"
 
 
-//
-// FIXME: UNIT_KIND_STRINGS should really be private to UnitKind.c.  Can we
-// FIXME: remove the dependence on UNIT_KIND_STRINGS in
-// FIXME: orderUnitDefinition()?
-//
-extern const char** UNIT_KIND_STRINGS;
-
-
 /** 
  * simplifies the unitDefinition
  */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 void
 simplifyUnitDefinition(UnitDefinition * ud)
 {
@@ -134,7 +126,7 @@ simplifyUnitDefinition(UnitDefinition * ud)
 /**
  * returns a unitDefinition which is the argument converted to SI units
  */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 UnitDefinition * 
 convertToSI(UnitDefinition * ud)
 {
@@ -163,46 +155,51 @@ convertToSI(UnitDefinition * ud)
 /** 
   * returns the unitDefinition with unit kinds in alphabetical order
   */
-  //LIBSBML_EXTERN
+int compareKinds(const void * u1, const void * u2)
+{
+  return (*(int*)u1 - *(int*)u2);
+}
+LIBSBML_EXTERN
 void 
 orderUnitDefinition(UnitDefinition *ud)
 {
-  unsigned int n;
+  unsigned int n, p;
   ListOf & units = ud->getListOfUnits();
   Unit * unit;
-  const char * unitKind;
-  const UnitKind_t lo = UNIT_KIND_AMPERE;
-  const UnitKind_t hi = UNIT_KIND_WEBER;
+  unsigned int numUnits = ud->getNumUnits();
 
-  int sorted = 0;
-  int first, next, prev, count;
-  unit = (Unit *) units.get(0);
-  unitKind = UnitKind_toString(unit->getKind());
+  int *indexArray = NULL;
+  indexArray = new int[units.getNumItems()];
 
-  first = util_bsearchStringsI(UNIT_KIND_STRINGS, unitKind, lo, hi);
+  int *initialIndexArray = NULL;
+  initialIndexArray = new int[units.getNumItems()];
 
-  while (sorted < 1)
+  for (n = 0; n < numUnits; n++)
   {
-    prev = first;
-    count = 0;
-    for (n = 1; n < ud->getNumUnits(); n++)
-    {
-      unit = (Unit *) units.get(n);
-      unitKind = UnitKind_toString(unit->getKind());
-      next = util_bsearchStringsI(UNIT_KIND_STRINGS, unitKind, lo, hi);
+    indexArray[n] = ((Unit *)units.get(n))->getKind();
+    initialIndexArray[n] = ((Unit *)units.get(n))->getKind();
+  }
 
-      if (next < prev)
+  qsort(indexArray, numUnits, sizeof(int), compareKinds);
+ 
+  /* append units in correct order */
+  for (n = 0; n < numUnits; n++)
+  {
+    for (p = 0; p < numUnits; p++)
+    {
+      if (indexArray[n] == initialIndexArray[p])
       {
-        units.remove(n);
-        units.prepend(unit);
-        first = next;
-        count = count + 1;
+        unit = (Unit *) units.get(p);
+        units.append(unit);
+        break;
       }
     }
-    if (count == 0)
-    {
-      sorted = 1;
-    }
+  }
+
+  /* remove originals */
+  for (n = 0; n < numUnits; n++)
+  {
+    units.remove(0);
   }
 }
 
@@ -210,7 +207,7 @@ orderUnitDefinition(UnitDefinition *ud)
 /** 
   * returns true if unit definitions are identical
   */
-//LIBSBML_EXTERN
+LIBSBML_EXTERN
 int 
 areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 {
@@ -241,4 +238,44 @@ areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
   }
 
   return identical;
+}
+
+
+/** 
+  * returns true if unit definitions are equivalent
+  */
+LIBSBML_EXTERN
+int 
+areEquivalent(UnitDefinition * ud1, UnitDefinition * ud2)
+{
+  int equivalent = 0;
+  unsigned int n;
+
+  UnitDefinition * ud1Temp = convertToSI(ud1);
+  UnitDefinition * ud2Temp = convertToSI(ud2);
+
+  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
+  {
+    orderUnitDefinition(ud1Temp);
+    orderUnitDefinition(ud2Temp);
+    
+    n = 0;
+    while (n < ud1Temp->getNumUnits())
+    {
+      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      {
+        break;
+      }
+      else
+      {
+        n++;
+      }
+    }
+    if (n == ud1Temp->getNumUnits())
+    {
+      equivalent = 1;
+    }
+  }
+
+  return equivalent;
 }

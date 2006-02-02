@@ -62,33 +62,41 @@
 #include "util/util.h"
 #include "UnitKindList.h"
 #include "Utils_Unit.h"
+
 #ifdef __cplusplus
 
+/** 
+ * returns the unitDefinition simplified
+ */
+LIBSBML_EXTERN
+void simplifyUnitDefinition(UnitDefinition *);
 
 /** 
-  * returns the unitDefinition simplified
-  */
-  //LIBSBML_EXTERN
-  void simplifyUnitDefinition(UnitDefinition *);
+ * returns the unitDefinition with unit kinds in alphabetical order
+ */
+LIBSBML_EXTERN
+void orderUnitDefinition(UnitDefinition *);
 
-/** 
-  * returns the unitDefinition with unit kinds in alphabetical order
-  */
-  //LIBSBML_EXTERN
-  void orderUnitDefinition(UnitDefinition *);
 /**
  * returns a unitDefinition which is the 
  * argument converted to SI units
  */
-  //LIBSBML_EXTERN
-  UnitDefinition * convertToSI(UnitDefinition *);
+LIBSBML_EXTERN
+UnitDefinition * convertToSI(UnitDefinition *);
 
-
-  /** 
-  * returns true if unit definitions are identical
-  */
-//LIBSBML_EXTERN
+/** 
+ * returns true if unit definitions are identical
+ */
+LIBSBML_EXTERN
 int areIdentical(UnitDefinition *, UnitDefinition *);
+
+/** 
+ * returns true if unit definitions are equivalent
+ * unit definitions will equivalent if they contain
+ * equivalent units
+ */
+LIBSBML_EXTERN
+int areEquivalent(UnitDefinition *, UnitDefinition *);
 
 #endif
 #endif  /* Utils_UnitDefinition_h */
