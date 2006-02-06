@@ -100,7 +100,7 @@ test_sources =                   \
   TestSBMLDocument.c             \
   TestSBMLFormatter.cpp          \
   TestSBMLHandler.cpp            \
-  TestSBMLReader.c               \
+  TestSBMLReader.cpp             \
   TestSBMLWriter.c               \
   TestSimpleSpeciesReference.c   \
   TestSpecies.c                  \
