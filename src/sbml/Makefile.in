@@ -93,6 +93,7 @@ headers =                      \
   SBMLDocument.h               \
   SBMLFormatter.h              \
   SBMLHandler.h                \
+  SBMLParser.h                 \
   SBMLReader.h                 \
   SBMLSchemaInputSource.h      \
   SBMLSchemaInputStream.h      \
@@ -133,6 +134,7 @@ sources =                      \
   SBMLDocument.cpp             \
   SBMLFormatter.cpp            \
   SBMLHandler.cpp              \
+  SBMLParser.cpp               \
   SBMLReader.cpp               \
   SBMLSchemaInputSource.cpp    \
   SBMLSchemaInputStream.cpp    \
@@ -185,7 +187,7 @@ endif
 
 objects   = $(call make_objects_list,$(sources))
 otherdirs = ../common ../util ../xml ../math ../validator \
-            ../validator/constraints ../units
+            ../validator/constraints
 
 ifdef USE_LAYOUT
   otherdirs += ./layout
