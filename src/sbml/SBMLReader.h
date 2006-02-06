@@ -64,9 +64,16 @@
  */
 typedef enum
 {
-    SBML_READ_ERROR_UNKNOWN        = 0
-  , SBML_READ_ERROR_FILE_NOT_FOUND = 1
-  , SBML_READ_ERROR_NOT_SBML       = 2
+    SBML_READ_ERROR_NONE
+  , SBML_READ_ERROR_OUT_OF_MEMORY
+  , SBML_READ_ERROR_FILE_NOT_FOUND
+  , SBML_READ_ERROR_NOT_XML
+  , SBML_READ_ERROR_NO_ENCODING
+  , SBML_READ_ERROR_NOT_UTF_8
+  , SBML_READ_ERROR_UNKNOWN_ENCODING
+  , SBML_READ_ERROR_NOT_SBML
+  , SBML_READ_ERROR_UNKNOWN_SBML
+  , SBML_READ_ERROR_UNKNOWN
 } SBMLReadError_t;
 
 
@@ -86,8 +93,7 @@ public:
   /**
    * Creates a new SBMLReader and returns it.
    *
-   * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE) and
-   * schemaFilenames are empty.
+   * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE).
    */
   LIBSBML_EXTERN
   SBMLReader (XMLSchemaValidation_t level = XML_SCHEMA_VALIDATION_NONE);
@@ -98,27 +104,6 @@ public:
   LIBSBML_EXTERN
   virtual ~SBMLReader ();
 
-
-  /**
-   * @return the schema filename used by this SBMLReader to validate SBML
-   * Level 1 version 1 documents.
-   */
-  LIBSBML_EXTERN
-  const std::string& getSchemaFilenameL1v1 () const;
-
-  /**
-   * @return the schema filename used by this SBMLReader to validate SBML
-   * Level 1 version 2 documents.
-   */
-  LIBSBML_EXTERN
-  const std::string& getSchemaFilenameL1v2 () const;
-
-  /**
-   * @return the schema filename used by this SBMLReader to validate SBML
-   * Level 2 version 1 documents.
-   */
-  LIBSBML_EXTERN
-  const std::string& getSchemaFilenameL2v1 () const;
 
   /**
    * Sets the schema validation level used by this SBMLReader.
@@ -164,36 +149,6 @@ public:
   SBMLDocument* readSBMLFromString (const std::string& xml);
 
   /**
-   * Sets the schema filename used by this SBMLReader to validate SBML
-   * Level 1 version 1 documents.
-   *
-   * The filename should be either i) an absolute path or ii) relative to
-   * the directory contain the SBML file(s) to be read.
-   */
-  LIBSBML_EXTERN
-  void setSchemaFilenameL1v1 (const std::string& filename);
-
-  /**
-   * Sets the schema filename used by this SBMLReader to validate SBML
-   * Level 1 version 2 documents.
-   *
-   * The filename should be either i) an absolute path or ii) relative to
-   * the directory contain the SBML file(s) to be read.
-   */
-  LIBSBML_EXTERN
-  void setSchemaFilenameL1v2 (const std::string& filename);
-
-  /**
-   * Sets the schema filename used by this SBMLReader to validate SBML Level
-   * 2 version 1 documents.
-   *
-   * The filename should be either i) an absolute path or ii) relative to the
-   * directory contain the SBML file(s) to be read.
-   */
-  LIBSBML_EXTERN
-  void setSchemaFilenameL2v1 (const std::string& filename);
-
-  /**
    * Sets the schema validation level used by this SBMLReader.
    *
    * The levels are:
@@ -216,15 +171,26 @@ public:
 
 protected:
 
-  char*          getSchemaLocation (SBMLDocument* d) const;
-  SBMLDocument*  readSBML_internal (const char* filename, const char* xml);
+  /**
+   * Logs the given fatal error to the SBMLDocument's list of fatal errors.
+   * If message is not given, a message will be provided based on the error
+   * code.
+   */
+  void logFatal(SBMLDocument* d, SBMLReadError_t code, const char* msg = 0);
+
+  /**
+   * Used by readSBML() and readSBMLFromString()  Pass in either:
+   *
+   *   - a filename to read and a NULL XML string, or
+   *   - a NULL filename and an XML string
+   */
+  SBMLDocument* read_internal (const char* filename, const char* xml);
+
+  void read_expat  (SBMLDocument* d, const char* filename, const char* xml);
+  void read_xerces (SBMLDocument* d, const char* filename, const char* xml);
 
 
-  XMLSchemaValidation_t schemaValidationLevel;
-
-  std::string schemaFilenameL1v1;
-  std::string schemaFilenameL1v2;
-  std::string schemaFilenameL2v1;
+  XMLSchemaValidation_t mValidationLevel;
 };
 
 
@@ -243,8 +209,7 @@ BEGIN_C_DECLS
 /**
  * Creates a new SBMLReader and returns a pointer to it.
  *
- * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE) and
- * schemaFilename is NULL.
+ * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE).
  */
 LIBSBML_EXTERN
 SBMLReader_t *
@@ -257,30 +222,6 @@ LIBSBML_EXTERN
 void
 SBMLReader_free (SBMLReader_t *sr);
 
-
-/**
- * @return the schema filename used by this SBMLReader to validate SBML
- * Level 1 version 1 documents.
- */
-LIBSBML_EXTERN
-const char *
-SBMLReader_getSchemaFilenameL1v1 (const SBMLReader_t *sr);
-
-/**
- * @return the schema filename used by this SBMLReader to validate SBML
- * Level 1 version 2 documents.
- */
-LIBSBML_EXTERN
-const char *
-SBMLReader_getSchemaFilenameL1v2 (const SBMLReader_t *sr);
-
-/**
- * @return the schema filename used by this SBMLReader to validate SBML Level
- * 2 version 1 documents.
- */
-LIBSBML_EXTERN
-const char *
-SBMLReader_getSchemaFilenameL2v1 (const SBMLReader_t *sr);
 
 /**
  * @return the schema validation level used by this SBMLReader.
@@ -300,9 +241,6 @@ SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr);
  *
  *   sr = SBMLReader_create();
  *   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
- *   SBMLReader_setSchemaFilenameL1v1("sbml-l1v1.xsd");
- *   SBMLReader_setSchemaFilenameL1v2("sbml-l1v2.xsd");
- *   SBMLReader_setSchemaFilenameL2v1("sbml-l2v1.xsd");
  *
  *   d = SBMLReader_readSBML(reader, filename);
  *
@@ -337,39 +275,6 @@ SBMLReader_readSBML (SBMLReader_t *sr, const char *filename);
 LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml);
-
-/**
- * Sets the schema filename used by this SBMLReader to validate SBML Level
- * 1 version 1 documents.
- *
- * The filename should be either i) an absolute path or ii) relative to the
- * directory contain the SBML file(s) to be read.
- */
-LIBSBML_EXTERN
-void
-SBMLReader_setSchemaFilenameL1v1 (SBMLReader_t *sr, const char *filename);
-
-/**
- * Sets the schema filename used by this SBMLReader to validate SBML Level
- * 1 version 2 documents.
- *
- * The filename should be either i) an absolute path or ii) relative to the
- * directory contain the SBML file(s) to be read.
- */
-LIBSBML_EXTERN
-void
-SBMLReader_setSchemaFilenameL1v2 (SBMLReader_t *sr, const char *filename);
-
-/**
- * Sets the schema filename used by this SBMLReader to validate SBML Level
- * 2 version 1 documents.
- *
- * The filename should be either i) an absolute path or ii) relative to the
- * directory contain the SBML file(s) to be read.
- */
-LIBSBML_EXTERN
-void
-SBMLReader_setSchemaFilenameL2v1 (SBMLReader_t *sr, const char *filename);
 
 
 /**
