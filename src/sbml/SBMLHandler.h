@@ -162,6 +162,25 @@ public:
   InputSource* resolveEntity(const XMLCh* const    publicId,
                              const XMLCh* const    systemId);
 
+
+  /**
+   * Called to report errors from the scanner or validator.
+   *
+   * This method is called back on by the scanner or validator (or any
+   * other internal parser component which might need to report an error in
+   * the future.) It contains all the information that the client code
+   * might need to report or log the error.
+   */
+  virtual
+  void error (  const unsigned int  code
+              , const XMLCh* const  domain
+              , const unsigned int  severity
+              , const XMLCh* const  message
+              , const XMLCh* const  sysId
+              , const XMLCh* const  pubId
+              , const XMLSSize_t    line
+              , const XMLSSize_t    col );
+
   void warning    (const SAXParseException&);
   void error      (const SAXParseException&);
   void fatalError (const SAXParseException&);
@@ -175,6 +194,7 @@ public:
 
   ParseMessage* ParseMessage_createFrom (const char* message);
 
+  bool sawSBML () { return mSawSBML; }
 
 private:
 
@@ -295,6 +315,8 @@ private:
 #ifdef USE_LAYOUT
   int inLayout;
 #endif  /* USE_LAYOUT */
+
+  bool mSawSBML;
 };
 
 

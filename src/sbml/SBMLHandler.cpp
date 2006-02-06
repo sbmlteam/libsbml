@@ -1396,17 +1396,29 @@ const char * xsd_math[230] = {
 // ---------------------------------------------------------------------------
 static const XMLCh  gFilel1v1[] =
 {
-  chLatin_l, chDigit_1, chLatin_v, chDigit_1, chNull
+  chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chDash,
+  chLatin_l, chDigit_1, chLatin_v, chDigit_1,
+  chPeriod,
+  chLatin_x, chLatin_s, chLatin_d, chNull
 };
 
 static const XMLCh  gFilel1v2[] =
 {
-  chLatin_l, chDigit_1, chLatin_v, chDigit_2, chNull
+  chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chDash,
+  chLatin_l, chDigit_1, chLatin_v, chDigit_2,
+  chPeriod,
+  chLatin_x, chLatin_s, chLatin_d, chNull
 };
 
 static const XMLCh  gFilel2v1[] =
 {
-  chLatin_l, chDigit_2, chLatin_v, chDigit_1, chNull
+  chLatin_s, chLatin_b, chLatin_m, chLatin_l,
+  chDash,
+  chLatin_l, chDigit_2, chLatin_v, chDigit_1,
+  chPeriod,
+  chLatin_x, chLatin_s, chLatin_d, chNull
 };
 
 static const XMLCh  gFilemath[] =
@@ -1465,6 +1477,8 @@ SBMLHandler::SBMLHandler (SBMLDocument* d) : fDocument(d)
   fLayoutHandler = 0;
   inLayout       = 0;
 #endif  // USE_LAYOUT
+
+  mSawSBML = false;
 }
 
 
@@ -1901,6 +1915,7 @@ SBMLHandler::resolveEntity(const XMLCh* const    publicId,
   const XMLCh* math = gFilemath;
   const XMLCh* s2 = systemId;
 
+
   /*
    * determine which level and version have been
    * specified and return an InputSource accordingly
@@ -1934,6 +1949,38 @@ SBMLHandler::resolveEntity(const XMLCh* const    publicId,
  *                         SAX2 Error Handlers
  * ----------------------------------------------------------------------
  */
+
+
+/**
+ * Called to report errors from the scanner or validator.
+ *
+ * This method is called back on by the scanner or validator (or any
+ * other internal parser component which might need to report an error in
+ * the future.) It contains all the information that the client code
+ * might need to report or log the error.
+ */
+void
+SBMLHandler::error (  const unsigned int  code
+                    , const XMLCh* const  domain
+                    , const unsigned int  severity
+                    , const XMLCh* const  message
+                    , const XMLCh* const  sysId
+                    , const XMLCh* const  pubId
+                    , const XMLSSize_t    line
+                    , const XMLSSize_t    col )
+{
+  char*         msg = XMLString::transcode(message);
+  ParseMessage* pm  = new ParseMessage(code, msg, line, col);
+  XMLString::release(&msg);
+
+
+  switch (severity)
+  {
+    case 0: fDocument->warning.add(pm); break;
+    case 1: fDocument->error  .add(pm); break;
+    case 2: fDocument->fatal  .add(pm); break;
+  }
+}
 
 
 void
@@ -2048,6 +2095,8 @@ SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
 SBase*
 SBMLHandler::doSBML (const Attributes& a)
 {
+  mSawSBML = true;
+
   XMLUtil::scanAttr( a, ATTR_LEVEL  , &(fDocument->level)   );
   XMLUtil::scanAttr( a, ATTR_VERSION, &(fDocument->version) );
 
