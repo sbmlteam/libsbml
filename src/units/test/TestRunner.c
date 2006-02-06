@@ -79,7 +79,7 @@ main (void)
   SRunner *runner = srunner_create( create_suite_UtilsUnit() );
 
 
-  //srunner_add_suite( runner, create_suite_FormulaFormatter () );
+  /* srunner_add_suite( runner, create_suite_FormulaFormatter () ); */
   
 
 #ifdef TRACE_MEMORY
