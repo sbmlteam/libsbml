@@ -81,9 +81,7 @@ main (int argc, char *argv[])
 
   sr = SBMLReader_create();
 
-  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_FULL);
-
-  SBMLReader_setSchemaFilenameL2v1(sr, "sbml-l2v1.xsd");
+  SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
 
   filename = argv[1];
 

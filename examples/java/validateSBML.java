@@ -76,9 +76,6 @@ public class validateSBML
     SBMLReader   sr = new SBMLReader();
 
     sr.setSchemaValidationLevel(libsbmlConstants.XML_SCHEMA_VALIDATION_FULL);
-    sr.setSchemaFilenameL1v1("sbml-l1v1.xsd");
-    sr.setSchemaFilenameL1v2("sbml-l1v2.xsd");
-    sr.setSchemaFilenameL2v1("sbml-l2v1.xsd");
 
     String filename = args[0];
 
