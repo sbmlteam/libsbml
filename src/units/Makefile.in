@@ -73,7 +73,7 @@ thisdir = src/units
 
 headers =                    \
   UnitFormulaFormatter.h     \
-  Utils_Unit.h		     \
+  Utils_Unit.h               \
   Utils_UnitDefinition.h     \
   UnitKindList.h
 
@@ -81,7 +81,7 @@ header_inst_prefix = units
 
 sources =                    \
   UnitFormulaFormatter.cpp   \
-  Utils_Unit.cpp		     \
+  Utils_Unit.cpp             \
   Utils_UnitDefinition.cpp   \
   UnitKindList.cpp
 
