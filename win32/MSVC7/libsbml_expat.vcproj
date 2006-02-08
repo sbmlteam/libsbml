@@ -255,6 +255,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\ConsistencyConstraints.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -496,6 +499,9 @@
 						Optimization="2"
 						PreprocessorDefinitions="USE_EXPAT;WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;_MSC_EXTENSIONS;$(NoInherit)"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\L1CompatibilityConstraints.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\L1CompatibilityValidator.cpp">
@@ -928,6 +934,9 @@
 						Optimization="2"
 						PreprocessorDefinitions="USE_EXPAT;WIN32;NDEBUG;_WINDOWS;_MBCS;_USRDLL;LIBSBML_EXPORTS;_MSC_EXTENSIONS;$(NoInherit)"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLParser.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLReader.cpp">

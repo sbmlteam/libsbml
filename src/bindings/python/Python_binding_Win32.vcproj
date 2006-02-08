@@ -270,6 +270,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\ConsistencyConstraints.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\ConsistencyValidator.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -410,6 +413,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\FunctionDefinitionVars.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\IdBase.cpp">
 			</File>
 			<File
@@ -453,6 +459,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\L1CompatibilityConstraints.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\L1CompatibilityValidator.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -473,24 +482,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="libsbml_wrap.cxx">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;LIBSBML_EXPORTS;$(NoInherit)"
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LIBSBML_EXPORTS;$(NoInherit)"/>
-				</FileConfiguration>
+				RelativePath=".\libsbml_wrap.cxx">
 			</File>
 			<File
 				RelativePath="..\..\util\List.cpp">
@@ -951,6 +943,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LIBSBML_EXPORTS;$(NoInherit)"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLParser.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLReader.cpp">

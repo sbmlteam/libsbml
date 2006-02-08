@@ -282,6 +282,9 @@
 				RelativePath="..\..\src\sbml\SBMLHandler.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\SBMLParser.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\SBMLReader.cpp">
 			</File>
 			<File
@@ -524,6 +527,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLHandler.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLParser.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLReader.h">
