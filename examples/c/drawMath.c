@@ -395,6 +395,7 @@ char *
 FormulaGraphvizFormatter_OperatorGetUniqueName (const ASTNode_t *node)
 {
   char           *s;
+  char           number[10];
   StringBuffer_t *p   = StringBuffer_create(128);
   ASTNodeType_t  type = ASTNode_getType(node);
   
@@ -405,7 +406,20 @@ FormulaGraphvizFormatter_OperatorGetUniqueName (const ASTNode_t *node)
   }
   else
   {
-    StringBuffer_append(p, ASTNode_getName(ASTNode_getChild(node,0)));
+    if (ASTNode_isInteger(ASTNode_getChild(node, 0)))
+    {
+      _itoa(ASTNode_getInteger(ASTNode_getChild(node, 0)), number, 10);
+      StringBuffer_append(p, number);
+    }
+    else if (ASTNode_isReal(ASTNode_getChild(node, 0)))
+    {
+      _ltoa(ASTNode_getNumerator(ASTNode_getChild(node, 0)), number, 10);
+      StringBuffer_append(p, number);
+    }
+    else
+    {
+      StringBuffer_append(p, ASTNode_getName(ASTNode_getChild(node,0)));
+    }
   }
 
   switch (type)
