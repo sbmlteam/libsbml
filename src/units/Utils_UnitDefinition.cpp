@@ -134,11 +134,10 @@ convertToSI(UnitDefinition * ud)
   UnitDefinition * newUd = new UnitDefinition();
   UnitDefinition * tempUd;
 
-  newUd = convertUnitToSI(ud->getUnit(0));
   newUd->setId(ud->getId());
   newUd->setName(ud->getName());
 
-  for (n = 1; n < ud->getNumUnits(); n++)
+  for (n = 0; n < ud->getNumUnits(); n++)
   {
     tempUd = convertUnitToSI(ud->getUnit(n));
     for (p = 0; p < tempUd->getNumUnits(); p++)
@@ -243,6 +242,7 @@ areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 
 /** 
   * returns true if unit definitions are equivalent
+  * i.e. identical having been converted to SI
   */
 LIBSBML_EXTERN
 int 
@@ -262,7 +262,7 @@ areEquivalent(UnitDefinition * ud1, UnitDefinition * ud2)
     n = 0;
     while (n < ud1Temp->getNumUnits())
     {
-      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      if (!areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
       {
         break;
       }
