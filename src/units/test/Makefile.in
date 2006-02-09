@@ -73,7 +73,7 @@ thisdir   = src/units/test
 # rules in `makefile-common-actions.mk' included at the end.
 
 test_sources =            \
-  TestUtilsUnit.c           \
+  TestUtilsUnit.cpp           \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..

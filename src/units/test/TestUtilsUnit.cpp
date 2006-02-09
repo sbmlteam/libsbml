@@ -58,15 +58,28 @@
 
 #include "../Utils_Unit.h"
 
+BEGIN_C_DECLS
+
 START_TEST(test_unit_remove_scale)
 {
-    Unit_t * u = Unit_createWith(UNIT_KIND_LITRE, 1, -3);
+ /*   Unit_t * u = Unit_createWith(UNIT_KIND_LITRE, 1, -3);
     
-    /* Unit_removeScale(u); */
-    fail_unless(Unit_getMultiplier(u) == 1);
-    fail_unless(Unit_getScale(u) == -3);
+    Unit_removeScale(u);
+
+    fail_unless(Unit_getMultiplier(u) == 0.001);
+    fail_unless(Unit_getScale(u) == 0);
 
     Unit_free(u);
+    */
+    Unit * u = new Unit(UNIT_KIND_LITRE, 1, -3);
+    
+    removeScale(u);
+
+    fail_unless(u->getMultiplier() == 0.001);
+    fail_unless(u->getScale() == 0);
+
+    delete u;
+    
 }
 END_TEST
 
@@ -83,3 +96,6 @@ create_suite_UtilsUnit (void)
 
   return suite;
 }
+
+
+END_C_DECLS
