@@ -69,7 +69,7 @@ removeScale(Unit * unit)
 
 
 /** 
-  * returns a unit which is the product of the first unit by the second
+  * multiplies the first unit by the second
   * this function applies both units are of the same kind
   */
 LIBSBML_EXTERN
@@ -143,8 +143,9 @@ convertUnitToSI(Unit * unit)
       break;
 
     case UNIT_KIND_CELSIUS:
-      /* 1 celsius = 1 Kelvin */
+      /* 1 celsius = 1 Kelvin + 273.15*/
       newUnit->setKind(UNIT_KIND_KELVIN);
+      newUnit->setOffset(273.15);
       ud->addUnit(*newUnit);
       break;
 

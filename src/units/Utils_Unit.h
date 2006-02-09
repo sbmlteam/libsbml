@@ -73,7 +73,7 @@ LIBSBML_EXTERN
 void removeScale(Unit *);
 
 /** 
- * returns a unit which is the product of the first unit by the second
+ * multiplies the first unit by the second
  * this function applies both units are of the same kind
  */
 LIBSBML_EXTERN

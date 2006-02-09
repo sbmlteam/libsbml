@@ -66,6 +66,7 @@
 BEGIN_C_DECLS
 
 Suite *create_suite_UtilsUnit (void);
+Suite *create_suite_UtilsUnitDefinition (void);
 
 END_C_DECLS
 
@@ -78,8 +79,7 @@ main (void)
 
   SRunner *runner = srunner_create( create_suite_UtilsUnit() );
 
-
-  /* srunner_add_suite( runner, create_suite_FormulaFormatter () ); */
+  srunner_add_suite( runner, create_suite_UtilsUnitDefinition() );
   
 
 #ifdef TRACE_MEMORY
