@@ -216,7 +216,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_HENRY:
       /* 1 Henry = 1 m^2 kg s^-2 A^-2 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(pow(newUnit->getMultiplier(), -1.0/2.0));
+      newUnit->setMultiplier(1.0/sqrt(newUnit->getMultiplier()));
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(*newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier(), unit->getOffset());
@@ -328,7 +328,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_OHM:
       /* 1 ohm = 1 m^2 kg s^-3 A^-2 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(pow(newUnit->getMultiplier(), -1.0/2.0));
+      newUnit->setMultiplier(1.0/sqrt(newUnit->getMultiplier()));
       newUnit->setExponent(-2*newUnit->getExponent());  
       ud->addUnit(*newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier(), unit->getOffset());
@@ -371,7 +371,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_SIEMENS:
       /* 1 siemen = 1 m^-2 kg^-1 s^3 A^2 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(pow(newUnit->getMultiplier(), 1.0/2.0));
+      newUnit->setMultiplier(sqrt(newUnit->getMultiplier()));
       newUnit->setExponent(2*newUnit->getExponent());  
       ud->addUnit(*newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier(), unit->getOffset());
@@ -394,7 +394,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_TESLA:
       /* 1 tesla = 1 kg s^-2 A^-1 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(pow(newUnit->getMultiplier(), -1.0));
+      newUnit->setMultiplier(1.0/(newUnit->getMultiplier()));
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(*newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier(), unit->getOffset());
@@ -411,7 +411,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_VOLT:
       /* 1 volt = 1 m^2 kg s^-3 A^-1 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(pow(newUnit->getMultiplier(), -1.0));
+      newUnit->setMultiplier(1.0/(newUnit->getMultiplier()));
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(*newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier(), unit->getOffset());
@@ -449,7 +449,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_WEBER:
       /* 1 weber = 1 m^2 kg s^-2 A^-1 */
       newUnit->setKind(UNIT_KIND_AMPERE);
-      newUnit->setMultiplier(pow(newUnit->getMultiplier(), -1.0));
+      newUnit->setMultiplier(1.0/(newUnit->getMultiplier()));
       newUnit->setExponent(-1*newUnit->getExponent());  
       ud->addUnit(*newUnit);
       newUnit = new Unit(uKind, unit->getExponent(), unit->getScale(), unit->getMultiplier(), unit->getOffset());

@@ -135,24 +135,6 @@ START_TEST(test_unit_convert_SI)
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
     fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
-    /* hertz */
-    /* 1 hertz = 1 sec^-1 = (0.1 sec)^-1 */
-    u->setKind(UNIT_KIND_HERTZ);
-    u->setMultiplier(1);
-    u->setScale(0);
-    u->setExponent(1);
-    u->setOffset(0.0);
-    
-    ud = convertUnitToSI(u);
-
-    fail_unless(ud->getNumUnits() == 1);
-
-    fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-    fail_unless(ud->getUnit(0)->getScale() == 0);
-    fail_unless(ud->getUnit(0)->getExponent() == -1);
-    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
-
     /* candela */
     u->setKind(UNIT_KIND_CANDELA);
     u->setMultiplier(2);
@@ -229,57 +211,6 @@ START_TEST(test_unit_convert_SI)
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
     fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
     
-    /* item */
-    u->setKind(UNIT_KIND_ITEM);
-    u->setMultiplier(2);
-    u->setScale(0);
-    u->setExponent(1);
-    u->setOffset(0.0);
-    
-    ud = convertUnitToSI(u);
-
-    fail_unless(ud->getNumUnits() == 1);
-
-    fail_unless(ud->getUnit(0)->getMultiplier() == 2);
-    fail_unless(ud->getUnit(0)->getScale() == 0);
-    fail_unless(ud->getUnit(0)->getExponent() == 1);
-    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
-    
-    /* radian */
-    u->setKind(UNIT_KIND_RADIAN);
-    u->setMultiplier(2);
-    u->setScale(0);
-    u->setExponent(1);
-    u->setOffset(0.0);
-    
-    ud = convertUnitToSI(u);
-
-    fail_unless(ud->getNumUnits() == 1);
-
-    fail_unless(ud->getUnit(0)->getMultiplier() == 2);
-    fail_unless(ud->getUnit(0)->getScale() == 0);
-    fail_unless(ud->getUnit(0)->getExponent() == 1);
-    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
-    
-    /* steradian */
-    u->setKind(UNIT_KIND_STERADIAN);
-    u->setMultiplier(2);
-    u->setScale(0);
-    u->setExponent(1);
-    u->setOffset(0.0);
-    
-    ud = convertUnitToSI(u);
-
-    fail_unless(ud->getNumUnits() == 1);
-
-    fail_unless(ud->getUnit(0)->getMultiplier() == 2);
-    fail_unless(ud->getUnit(0)->getScale() == 0);
-    fail_unless(ud->getUnit(0)->getExponent() == 1);
-    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
-
     /* farad */
     /* 1 Farad = 1 m^-2 kg^-1 s^4 A^2 */
     u->setKind(UNIT_KIND_FARAD);
@@ -358,34 +289,10 @@ START_TEST(test_unit_convert_SI)
     fail_unless(ud->getUnit(1)->getOffset() == 0.0);
     fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
 
-    /* sievert */
-    /* 1 Sievert = 1 m^2 sec^-2 */
-    u->setKind(UNIT_KIND_SIEVERT);
-    u->setMultiplier(2);
-    u->setScale(0);
-    u->setExponent(1);
-    u->setOffset(0.0);
-    
-    ud = convertUnitToSI(u);
-
-    fail_unless(ud->getNumUnits() == 2);
-
-    fail_unless(ud->getUnit(0)->getMultiplier() == sqrt(2));
-    fail_unless(ud->getUnit(0)->getScale() == 0);
-    fail_unless(ud->getUnit(0)->getExponent() == 2);
-    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
-
-    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
-    fail_unless(ud->getUnit(1)->getScale() == 0);
-    fail_unless(ud->getUnit(1)->getExponent() == -2);
-    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
-    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
- 
     /* henry */
     /* 1 Henry = 1 m^2 kg s^-2 A^-2 */
     u->setKind(UNIT_KIND_HENRY);
-    u->setMultiplier(2);
+    u->setMultiplier(4);
     u->setScale(0);
     u->setExponent(1);
     u->setOffset(0.0);
@@ -394,7 +301,7 @@ START_TEST(test_unit_convert_SI)
 
     fail_unless(ud->getNumUnits() == 4);
 
-    fail_unless(ud->getUnit(0)->getMultiplier() == (pow(2.0, -1.0/2.0)));
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.5);
     fail_unless(ud->getUnit(0)->getScale() == 0);
     fail_unless(ud->getUnit(0)->getExponent() == -2);
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
@@ -418,6 +325,41 @@ START_TEST(test_unit_convert_SI)
     fail_unless(ud->getUnit(3)->getOffset() == 0.0);
     fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
 
+    /* hertz */
+    /* 1 hertz = 1 sec^-1 = (0.1 sec)^-1 */
+    u->setKind(UNIT_KIND_HERTZ);
+    u->setMultiplier(1);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == -1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+    /* item */
+    u->setKind(UNIT_KIND_ITEM);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+    
     /* joule */
     /* 1 joule = 1 m^2 kg s^-2 */
     u->setKind(UNIT_KIND_JOULE);
@@ -472,6 +414,508 @@ START_TEST(test_unit_convert_SI)
     fail_unless(ud->getUnit(1)->getOffset() == 0.0);
     fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
  
+    /* kelvin */
+    u->setKind(UNIT_KIND_KELVIN);
+    u->setMultiplier(2);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.002);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_KELVIN);
+
+    /* kilogram */
+    u->setKind(UNIT_KIND_KILOGRAM);
+    u->setMultiplier(2);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.002);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_KILOGRAM);
+
+    /* litre */
+    /* 1 litre = 0.001 m^3 = (0.1 m)^3*/ 
+    u->setKind(UNIT_KIND_LITRE);
+    u->setMultiplier(8);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == pow(0.000008, (1.0/3.0)));
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 3);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+     /* litre */
+    /* 1 litre = 0.001 m^3 = (0.1 m)^3*/ 
+    u->setKind(UNIT_KIND_LITER);
+    u->setMultiplier(8);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == pow(0.000008, (1.0/3.0)));
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 3);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+    /* lumen */
+    /* 1 lumen = 1 candela*/ 
+    u->setKind(UNIT_KIND_LUMEN);
+    u->setMultiplier(2);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.002);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_CANDELA);
+
+    /* lux */
+    /* 1 lux = 1 candela m^-2*/ 
+    u->setKind(UNIT_KIND_LUX);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 2);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2.0);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_CANDELA);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == -2);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
+ 
+    /* metre */
+    u->setKind(UNIT_KIND_METRE);
+    u->setMultiplier(2);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.002);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+    /* meter */
+    u->setKind(UNIT_KIND_METER);
+    u->setMultiplier(2);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.002);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+    /* mole */
+    u->setKind(UNIT_KIND_MOLE);
+    u->setMultiplier(2);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.002);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+
+    /* newton */
+    /* 1 newton = 1 m kg s^-2 */
+    u->setKind(UNIT_KIND_NEWTON);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 3);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2.0);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == 1);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == -2);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+
+    /* ohm */
+    /* 1 ohm = 1 m^2 kg s^-3 A^-2 */
+    u->setKind(UNIT_KIND_OHM);
+    u->setMultiplier(4);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 4);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.5);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == -2);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == 1);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == 2);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(3)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(3)->getScale() == 0);
+    fail_unless(ud->getUnit(3)->getExponent() == -3);
+    fail_unless(ud->getUnit(3)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+
+    /* pascal */
+    /* 1 pascal = 1 m^-1 kg s^-2 */
+    u->setKind(UNIT_KIND_PASCAL);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 3);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2.0);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == -1);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == -2);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+
+    /* radian */
+    u->setKind(UNIT_KIND_RADIAN);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+
+    /* second */
+    u->setKind(UNIT_KIND_SECOND);
+    u->setMultiplier(2);
+    u->setScale(-3);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.002);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+    /* siemens */
+    /* 1 siemen = 1 m^-2 kg^-1 s^3 A^2 */
+    u->setKind(UNIT_KIND_SIEMENS);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 4);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == sqrt(2));
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 2);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == -1);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == -2);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(3)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(3)->getScale() == 0);
+    fail_unless(ud->getUnit(3)->getExponent() == 3);
+    fail_unless(ud->getUnit(3)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+
+    /* sievert */
+    /* 1 Sievert = 1 m^2 sec^-2 */
+    u->setKind(UNIT_KIND_SIEVERT);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 2);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == sqrt(2));
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 2);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == -2);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+ 
+    /* steradian */
+    u->setKind(UNIT_KIND_STERADIAN);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 1);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+
+    /* tesla */
+    /* 1 tesla = 1 kg s^-2 A^-1 */
+    u->setKind(UNIT_KIND_TESLA);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 3);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.5);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == -1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == 1);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == -2);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+
+    /* volt */
+    /* 1 volt = 1 m^2 kg s^-3 A^-1 */
+    u->setKind(UNIT_KIND_VOLT);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 4);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.5);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == -1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == 1);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == 2);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(3)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(3)->getScale() == 0);
+    fail_unless(ud->getUnit(3)->getExponent() == -3);
+    fail_unless(ud->getUnit(3)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+
+    /* watt */
+    /* 1 watt = 1 m^2 kg s^-3 */
+    u->setKind(UNIT_KIND_WATT);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 3);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 2.0);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == 1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == 2);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == -3);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+
+    /* weber */
+    /* 1 weber = 1 m^2 kg s^-2 A^-1 */
+    u->setKind(UNIT_KIND_WEBER);
+    u->setMultiplier(2);
+    u->setScale(0);
+    u->setExponent(1);
+    u->setOffset(0.0);
+    
+    ud = convertUnitToSI(u);
+
+    fail_unless(ud->getNumUnits() == 4);
+
+    fail_unless(ud->getUnit(0)->getMultiplier() == 0.5);
+    fail_unless(ud->getUnit(0)->getScale() == 0);
+    fail_unless(ud->getUnit(0)->getExponent() == -1);
+    fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_AMPERE);
+
+    fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(1)->getScale() == 0);
+    fail_unless(ud->getUnit(1)->getExponent() == 1);
+    fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_KILOGRAM);
+
+    fail_unless(ud->getUnit(2)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(2)->getScale() == 0);
+    fail_unless(ud->getUnit(2)->getExponent() == 2);
+    fail_unless(ud->getUnit(2)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
+
+    fail_unless(ud->getUnit(3)->getMultiplier() == 1);
+    fail_unless(ud->getUnit(3)->getScale() == 0);
+    fail_unless(ud->getUnit(3)->getExponent() == -2);
+    fail_unless(ud->getUnit(3)->getOffset() == 0.0);
+    fail_unless(ud->getUnit(3)->getKind() == UNIT_KIND_SECOND);
+
 
 
     delete u; 
