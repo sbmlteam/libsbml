@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Author:         Andrew Finney
+  Organisation:   SBMLTeam (http://sbml.org)
+  (C) 2004 - 2005 California Institute of Technology and University of Hertfordshire
+  This is free software;
+  see the file "LICENSE.txt" or the URL http://sbml.org/software/LICENSE.html
+  for licensing and distribution terms.
+-->
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="algebraicRules_basic">
+  <listOfCompartments>
+    <compartment id="cell" size="1"/>
+  </listOfCompartments>
+  <listOfSpecies>
+    <species id="x" compartment="cell" initialConcentration="0.5"/>
+    <species id="y" compartment="cell" initialConcentration="0.5" units="mole" hasOnlySubstanceUnits="1"/>
+    <species id="z" compartment="cell" initialConcentration="1" constant="true"/>
+  </listOfSpecies>
+  <listOfRules>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <times/>
+          <ci> y </ci>
+          <ci> z </ci>
+        </apply>
+      </math>
+    </rateRule>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <and/>
+          <ci> y </ci>
+          <ci> z </ci>
+        </apply>
+      </math>
+    </rateRule>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <cos/>
+          <ci> y </ci>
+        </apply>
+      </math>
+    </rateRule>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <arccos/>
+          <ci> y </ci>
+        </apply>
+      </math>
+    </rateRule>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <plus/>
+          <ci> y </ci>
+          <ci> z </ci>
+        </apply>
+      </math>
+    </rateRule>
+    <algebraicRule>
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <minus/>
+          <apply>
+            <plus/>
+            <ci> x </ci>
+            <ci> y </ci>
+          </apply>
+          <ci> z </ci>
+        </apply>
+      </math>
+    </algebraicRule>
+  </listOfRules>
+</model>
+</sbml>

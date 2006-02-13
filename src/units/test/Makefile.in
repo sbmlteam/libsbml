@@ -75,6 +75,7 @@ thisdir   = src/units/test
 test_sources =                 \
   TestUtilsUnit.cpp            \
   TestUtilsUnitDefinition.cpp  \
+  TestUnitFormulaFormatter.cpp \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
