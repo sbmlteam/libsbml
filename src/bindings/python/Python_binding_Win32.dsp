@@ -117,6 +117,10 @@ SOURCE=..\..\sbml\CompartmentVolumeRule.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\validator\constraints\ConsistencyConstraints.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\validator\ConsistencyValidator.cpp
 # End Source File
 # Begin Source File
@@ -145,6 +149,10 @@ SOURCE=..\..\sbml\FunctionDefinition.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\validator\constraints\FunctionDefinitionVars.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\validator\constraints\IdBase.cpp
 # End Source File
 # Begin Source File
@@ -154,6 +162,10 @@ SOURCE=..\..\validator\constraints\IdList.cpp
 # Begin Source File
 
 SOURCE=..\..\sbml\KineticLaw.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\validator\constraints\L1CompatibilityConstraints.cpp
 # End Source File
 # Begin Source File
 
@@ -254,6 +266,10 @@ SOURCE=..\..\sbml\SBMLFormatter.cpp
 # Begin Source File
 
 SOURCE=..\..\sbml\SBMLHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\sbml\SBMLParser.cpp
 # End Source File
 # Begin Source File
 

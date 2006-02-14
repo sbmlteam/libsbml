@@ -277,6 +277,10 @@ SOURCE=..\..\src\sbml\SBMLHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\sbml\SBMLParser.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sbml\SBMLReader.cpp
 # End Source File
 # Begin Source File
