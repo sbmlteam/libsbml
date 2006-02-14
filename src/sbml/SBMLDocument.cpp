@@ -384,7 +384,7 @@ SBMLDocument::checkConsistency ()
 
   if (getModel() == NULL)
   {
-    List_add(&error, ParseMessage_createWith(1000, "No model present.", 0, 0));
+    error.add( new ParseMessage(1000, "No model present.", 0, 0) );
     nerrors = 1;
   }
   else
@@ -451,7 +451,7 @@ SBMLDocument::checkL1Compatibility ()
 
   if (getModel() == NULL)
   {
-    List_add(&error, ParseMessage_createWith(1000, "No model present.", 0, 0));
+    error.add( new ParseMessage(1000, "No model present.", 0, 0) );
     nerrors = 1;
   }
   else
