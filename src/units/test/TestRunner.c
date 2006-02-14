@@ -68,6 +68,7 @@ BEGIN_C_DECLS
 Suite *create_suite_UtilsUnit (void);
 Suite *create_suite_UtilsUnitDefinition (void);
 Suite *create_suite_UnitFormulaFormatter (void);
+Suite *create_suite_UnitFormulaFormatter1 (void);
 
 END_C_DECLS
 /**
@@ -115,6 +116,7 @@ main (void)
 
   srunner_add_suite( runner, create_suite_UtilsUnitDefinition() );
   srunner_add_suite( runner, create_suite_UnitFormulaFormatter() );
+  srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
   
   setTestDataDirectory();
 

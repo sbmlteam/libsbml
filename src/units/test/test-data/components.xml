@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<model id="algebraicRules_basic">
+  <listOfUnitDefinitions>
+    <unitDefinition id="m_per_sec">
+      <listOfUnits>
+        <unit kind="metre"/>
+        <unit kind="second" exponent="-1"/>
+      </listOfUnits>
+    </unitDefinition>
+    <unitDefinition id="volt_sq">
+      <listOfUnits>
+        <unit kind="volt" exponent="2"/>
+      </listOfUnits>
+    </unitDefinition>
+  </listOfUnitDefinitions>
+  <listOfCompartments>
+    <compartment id="cell" size="1" units="litre"/>
+    <compartment id="cell1" size="1" units="m_per_sec"/>
+    <compartment id="cell2" size="1" spatialDimensions="0"/>
+    <compartment id="cell3" size="1" spatialDimensions="1"/>
+    <compartment id="cell4" size="1" spatialDimensions="2"/>
+    <compartment id="cell5" size="1" spatialDimensions="3"/>
+  </listOfCompartments>
+  <listOfSpecies>
+    <species id="x" compartment="cell" initialConcentration="0.5" units="mole" spatialSizeUnits="litre"/>
+    <species id="y" compartment="cell" initialConcentration="0.5" units="mole" hasOnlySubstanceUnits="1"/>
+    <species id="y1" compartment="cell" initialConcentration="0.5" units="volt_sq" hasOnlySubstanceUnits="1"/>
+    <species id="x1" compartment="cell4" initialConcentration="0.5" units="mole"/>
+    <species id="z" compartment="cell" initialConcentration="1" spatialSizeUnits="litre"/>
+    <species id="z1" compartment="cell" initialConcentration="1" spatialSizeUnits="volt_sq"/>
+    <species id="z2" compartment="cell" initialConcentration="1"/>
+  </listOfSpecies>
+  <listOfParameters>
+    <parameter id="k" units="metre"/>
+    <parameter id="k2" units="m_per_sec"/>
+    <parameter id="k3"/>
+  </listOfParameters>
+</model>
+</sbml>

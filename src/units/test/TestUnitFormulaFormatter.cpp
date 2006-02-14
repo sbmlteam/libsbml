@@ -67,7 +67,11 @@ extern char *TestDataDirectory;
 static UnitFormulaFormatter *uff;
 static Model *m;
 
-
+/* 
+ * tests the results from different mathematical functions
+ * components that have units
+ * e.g. times
+ */
 BEGIN_C_DECLS
 
 
@@ -113,7 +117,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_boolean)
 {
   UnitDefinition * ud = new UnitDefinition();
 
-  ud = uff->getUnitDefinition(m->getRule(1)->getMath());
+  ud = uff->getUnitDefinition(m->getRule(0)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
 
@@ -132,7 +136,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_dimensionless)
 {
   UnitDefinition * ud = new UnitDefinition();
 
-  ud = uff->getUnitDefinition(m->getRule(2)->getMath());
+  ud = uff->getUnitDefinition(m->getRule(1)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
 
@@ -151,7 +155,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_invtrig)
 {
   UnitDefinition * ud = new UnitDefinition();
 
-  ud = uff->getUnitDefinition(m->getRule(3)->getMath());
+  ud = uff->getUnitDefinition(m->getRule(2)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
 
@@ -170,20 +174,122 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
 {
   UnitDefinition * ud = new UnitDefinition();
 
-  ud = uff->getUnitDefinition(m->getRule(4)->getMath());
+  ud = uff->getUnitDefinition(m->getRule(3)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
 }
 END_TEST
+
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_power)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  ud = uff->getUnitDefinition(m->getRule(4)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "power"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 2);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+}
+END_TEST
+
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  ud = uff->getUnitDefinition(m->getRule(5)->getMath());
+
+  fail_unless(ud->getNumUnits() == 2);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 2);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(ud->getUnit(1)->getExponent() == -1);
+  fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+
+}
+END_TEST
+
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_divide)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  ud = uff->getUnitDefinition(m->getRule(6)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+}
+END_TEST
+
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  ud = uff->getUnitDefinition(m->getRule(7)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+}
+END_TEST
+
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_root)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  ud = uff->getUnitDefinition(m->getRule(8)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "root"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_VOLT);
+
+}
+END_TEST
+
 
 Suite *
 create_suite_UnitFormulaFormatter (void)
@@ -200,6 +306,11 @@ create_suite_UnitFormulaFormatter (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_dimensionless );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_invtrig );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_plus );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_power );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_times );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_divide );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_piecewise );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_root );
 
   suite_add_tcase(suite, tcase);
 

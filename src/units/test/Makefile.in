@@ -72,10 +72,11 @@ thisdir   = src/units/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =                 \
-  TestUtilsUnit.cpp            \
-  TestUtilsUnitDefinition.cpp  \
-  TestUnitFormulaFormatter.cpp \
+test_sources =                  \
+  TestUtilsUnit.cpp             \
+  TestUtilsUnitDefinition.cpp   \
+  TestUnitFormulaFormatter.cpp  \
+  TestUnitFormulaFormatter1.cpp \
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
