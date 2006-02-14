@@ -1969,9 +1969,13 @@ SBMLHandler::error (  const unsigned int  code
                     , const XMLSSize_t    line
                     , const XMLSSize_t    col )
 {
-  char*         msg = XMLString::transcode(message);
-  ParseMessage* pm  = new ParseMessage(code, msg, line, col);
+  char* msg = XMLString::transcode(message);
+  char* dom = XMLString::transcode(domain);
+
+  ParseMessage* pm = new ParseMessage(code, msg, line, col, severity + 1, dom);
+
   XMLString::release(&msg);
+  XMLString::release(&dom);
 
 
   switch (severity)
@@ -1980,27 +1984,6 @@ SBMLHandler::error (  const unsigned int  code
     case 1: fDocument->error  .add(pm); break;
     case 2: fDocument->fatal  .add(pm); break;
   }
-}
-
-
-void
-SBMLHandler::warning (const SAXParseException& e)
-{
-  fDocument->warning.add( ParseMessage_createFrom(e) );
-}
-
-
-void
-SBMLHandler::error (const SAXParseException& e)
-{
-  fDocument->error.add( ParseMessage_createFrom(e) );
-}
-
-
-void
-SBMLHandler::fatalError (const SAXParseException& e)
-{
-  fDocument->fatal.add( ParseMessage_createFrom(e) );
 }
 #endif  // !USE_EXPAT
 
@@ -2052,35 +2035,6 @@ SBMLHandler::ParseMessage_createFrom (const char* message)
                   (unsigned int) fLocator->getColumnNumber() );
 #endif  // USE_EXPAT
 }
-
-
-#ifndef USE_EXPAT
-/**
- * Creates a new ParseMessage from the given SAXException and returns a
- * pointer to it.
- *
- * The exception's message will be the text of the ParseMessage.  The line
- * and column number where the error occurred are obtained from this
- * handler's document Locator and are also stored in the ParseMessage.
- */
-ParseMessage*
-SBMLHandler::ParseMessage_createFrom (const SAXParseException& e)
-{
-  char*         message;
-  ParseMessage* pm;
-
-
-  message = XMLString::transcode( e.getMessage() );
-
-  pm = new ParseMessage( 100, message, 
-                         (unsigned int) e.getLineNumber(),
-                         (unsigned int) e.getColumnNumber() );
-
-  XMLString::release(&message);
-
-  return pm;
-}
-#endif  // !USE_EXPAT
 
 
 /* ----------------------------------------------------------------------

@@ -181,11 +181,6 @@ public:
               , const XMLSSize_t    line
               , const XMLSSize_t    col );
 
-  void warning    (const SAXParseException&);
-  void error      (const SAXParseException&);
-  void fatalError (const SAXParseException&);
-
-  ParseMessage* ParseMessage_createFrom (const SAXParseException& e);
 #endif  /* !USE_EXPAT */
 
   void warning    (const char* message);
