@@ -51,7 +51,7 @@
 
 #ifndef AddingConstraintsToValidator
 #include "sbml/SBMLTypes.h"
-#include "validator/LocalConstraint.h"
+#include "validator/Constraint.h"
 #include <math.h>
 #endif
 
