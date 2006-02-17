@@ -61,19 +61,23 @@ using namespace std;
 
 
 /**
- * Creates a new ParseMessage reporting that message occurred at the given
- * line and column.  Each ParseMessage has an identification number
- * associated with it.
+ * Creates a new ParseMessage reporting that message occurred at the
+ * given line and column.  Each ParseMessage also has an identification
+ * number, a category, and a severity level associated with it.
  */
 LIBSBML_EXTERN
-ParseMessage::ParseMessage (   unsigned int  id
-                             , const string& message
-                             , unsigned int  line
-                             , unsigned int  column) :
-    mId     ( id      )
-  , mMessage( message )
-  , mLine   ( line    )
-  , mColumn ( column  )
+ParseMessage::ParseMessage (   unsigned int   id
+                             , const string&  message
+                             , unsigned int   line
+                             , unsigned int   column
+                             , unsigned int   severity
+                             , const string&  category ) :
+    mId      ( id       )
+  , mMessage ( message  )
+  , mLine    ( line     )
+  , mColumn  ( column   )
+  , mSeverity( severity )
+  , mCategory( category )
 {
 }
 
@@ -83,10 +87,12 @@ ParseMessage::ParseMessage (   unsigned int  id
  */
 LIBSBML_EXTERN
 ParseMessage::ParseMessage (const ParseMessage& msg) :
-    mId     ( msg.mId      )
-  , mMessage( msg.mMessage )
-  , mLine   ( msg.mLine    )
-  , mColumn ( msg.mColumn  )
+    mId      ( msg.mId       )
+  , mMessage ( msg.mMessage  )
+  , mLine    ( msg.mLine     )
+  , mColumn  ( msg.mColumn   )
+  , mSeverity( msg.mSeverity )
+  , mCategory( msg.mCategory )
 {
 }
 
@@ -115,7 +121,7 @@ ParseMessage::getId () const
  * @return the message text of this ParseMessage.
  */
 LIBSBML_EXTERN
-const string&
+const string
 ParseMessage::getMessage () const
 {
   return mMessage;
@@ -145,6 +151,41 @@ ParseMessage::getColumn () const
 
 
 /**
+ * @return the severity of this ParseMessage.  ParseMessages severity
+ * levels correspond to those defined in the XML specification (with the
+ * addition of Info for informational messages).
+ *
+ *   0 - Info
+ *   1 - Warning
+ *   2 - Error
+ *   3 - Fatal
+ */
+LIBSBML_EXTERN
+unsigned int
+ParseMessage::getSeverity () const
+{
+  return mSeverity;
+}
+
+
+/**
+ * @return the category of this ParseMessage.  A category is a string,
+ * similiar in spirit to an XML namespace, which partitions error
+ * messages to prevent id conflicts.  Example categories include:
+ *
+ *   http://sbml.org/validator/consistency
+ *   http://sbml.org/validator/consistency/units
+ *   http://sbml.org/validator/compatibility/L1
+ */
+LIBSBML_EXTERN
+const std::string
+ParseMessage::getCategory () const
+{
+  return mCategory;
+}
+
+
+/**
  * Outputs this ParseMessage to stream in the following format (and
  * followed by a newline):
  *
@@ -169,17 +210,19 @@ ParseMessage_create (void)
 
 
 /**
- * Creates a new ParseMessage reporting that message occurred at the given
- * line and column.  Each ParseMessage has an identification number
- * associated with it.
+ * Creates a new ParseMessage reporting that message occurred at the
+ * given line and column.  Each ParseMessage also has an identification
+ * number, a category, and a severity level associated with it.
  */
 ParseMessage_t *
-ParseMessage_createWith (   unsigned int  id
-                          , const char   *message
-                          , unsigned int  line
-                          , unsigned int  column )
+ParseMessage_createWith (  unsigned int  id
+                         , const char    *message
+                         , unsigned int  line
+                         , unsigned int  column
+                         , unsigned int  severity
+                         , const char    *category )
 {
-  return new ParseMessage(id, message, line, column);
+  return new ParseMessage(id, message, line, column, severity, category);
 }
 
 
@@ -211,7 +254,7 @@ LIBSBML_EXTERN
 const char *
 ParseMessage_getMessage (const ParseMessage_t *pm)
 {
-  const std::string& s = static_cast<const ParseMessage*>(pm)->getMessage();
+  const std::string s = static_cast<const ParseMessage*>(pm)->getMessage();
 
 
   return s.empty() ? NULL : s.c_str();
@@ -237,6 +280,44 @@ unsigned int
 ParseMessage_getColumn (const ParseMessage_t *pm)
 {
   return static_cast<const ParseMessage*>(pm)->getColumn();
+}
+
+
+/**
+ * @return the severity of this ParseMessage.  ParseMessages severity
+ * levels correspond to those defined in the XML specification (with the
+ * addition of Info for informational messages).
+ *
+ *   0 - Info
+ *   1 - Warning
+ *   2 - Error
+ *   3 - Fatal
+ */
+LIBSBML_EXTERN
+unsigned int
+ParseMessage_getSeverity (const ParseMessage_t *pm)
+{
+  return static_cast<const ParseMessage*>(pm)->getSeverity();
+}
+
+
+/**
+ * @return the category of this ParseMessage.  A category is a string,
+ * similiar in spirit to an XML namespace, which partitions error
+ * messages to prevent id conflicts.  Example categories include:
+ *
+ *   http://sbml.org/validator/consistency
+ *   http://sbml.org/validator/consistency/units
+ *   http://sbml.org/validator/compatibility/L1
+ */
+LIBSBML_EXTERN
+const char *
+ParseMessage_getCategory (const ParseMessage_t *pm)
+{
+  const std::string s = static_cast<const ParseMessage*>(pm)->getCategory();
+
+
+  return s.empty() ? NULL : s.c_str();
 }
 
 

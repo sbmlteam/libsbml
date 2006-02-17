@@ -60,10 +60,12 @@ START_TEST (test_ParseMessage_create)
   ParseMessage_t *pm = ParseMessage_create();
 
 
-  fail_unless( ParseMessage_getId     (pm) == 0    );
-  fail_unless( ParseMessage_getMessage(pm) == NULL );
-  fail_unless( ParseMessage_getLine   (pm) == 0    );
-  fail_unless( ParseMessage_getColumn (pm) == 0    );
+  fail_unless( ParseMessage_getId      (pm) == 0    );
+  fail_unless( ParseMessage_getMessage (pm) == NULL );
+  fail_unless( ParseMessage_getLine    (pm) == 0    );
+  fail_unless( ParseMessage_getColumn  (pm) == 0    );
+  fail_unless( ParseMessage_getSeverity(pm) == 0    );
+  fail_unless( ParseMessage_getCategory(pm) == NULL );
 
   ParseMessage_free(pm);
 }
@@ -72,14 +74,19 @@ END_TEST
 
 START_TEST (test_ParseMessage_createWith)
 {
-  ParseMessage_t *pm = ParseMessage_createWith(1, "Error!", 10, 5);
+  const char *category = "http://sbml.org/validaator/constraints";
+  const char *message  = "Id conflict";
+
+  ParseMessage_t *pm = ParseMessage_createWith(1, message, 10, 5, 2, category);
 
 
-  fail_unless( !strcmp(ParseMessage_getMessage(pm), "Error!") );
+  fail_unless( !strcmp(ParseMessage_getMessage (pm), message)  );
+  fail_unless( !strcmp(ParseMessage_getCategory(pm), category) );
 
-  fail_unless( ParseMessage_getId    (pm) ==  1 );
-  fail_unless( ParseMessage_getLine  (pm) == 10 );
-  fail_unless( ParseMessage_getColumn(pm) ==  5 );
+  fail_unless( ParseMessage_getId      (pm) ==  1 );
+  fail_unless( ParseMessage_getLine    (pm) == 10 );
+  fail_unless( ParseMessage_getColumn  (pm) ==  5 );
+  fail_unless( ParseMessage_getSeverity(pm) ==  2 );
 
   ParseMessage_free(pm);
 }

@@ -68,17 +68,19 @@ class ParseMessage
 public:
 
   /**
-   * Creates a new ParseMessage reporting that message occurred at the given
-   * line and column.  Each ParseMessage has an identification number
-   * associated with it.
+   * Creates a new ParseMessage reporting that message occurred at the
+   * given line and column.  Each ParseMessage also has an identification
+   * number, a category, and a severity level associated with it.
    */
   LIBSBML_EXTERN
   ParseMessage
   (
-      unsigned int       id      = 0
-    , const std::string& message = ""
-    , unsigned int       line    = 0
-    , unsigned int       col     = 0
+      unsigned int        id       = 0
+    , const std::string&  message  = ""
+    , unsigned int        line     = 0
+    , unsigned int        col      = 0
+    , unsigned int        severity = 0
+    , const std::string&  category = ""
   );
 
   /**
@@ -104,7 +106,7 @@ public:
    * @return the message text of this ParseMessage.
    */
   LIBSBML_EXTERN
-  const std::string& getMessage () const;
+  const std::string getMessage () const;
 
   /**
    * @return the line number where this ParseMessage ocurred.
@@ -117,6 +119,31 @@ public:
    */
   LIBSBML_EXTERN
   unsigned int getColumn () const;
+
+  /**
+   * @return the severity of this ParseMessage.  ParseMessages severity
+   * levels correspond to those defined in the XML specification (with the
+   * addition of Info for informational messages).
+   *
+   *   0 - Info
+   *   1 - Warning
+   *   2 - Error
+   *   3 - Fatal
+   */
+  LIBSBML_EXTERN
+  unsigned int getSeverity () const;
+
+  /**
+   * @return the category of this ParseMessage.  A category is a string,
+   * similiar in spirit to an XML namespace, which partitions error
+   * messages to prevent id conflicts.  Example categories include:
+   *
+   *   http://sbml.org/validator/consistency
+   *   http://sbml.org/validator/consistency/units
+   *   http://sbml.org/validator/compatibility/L1
+   */
+  LIBSBML_EXTERN
+  const std::string getCategory () const;
 
 
 #ifndef SWIG
@@ -136,11 +163,11 @@ public:
 protected:
 
   unsigned int mId;
-
   std::string  mMessage;
-
   unsigned int mLine;
   unsigned int mColumn;
+  unsigned int mSeverity;
+  std::string  mCategory;
 };
 
 
@@ -164,15 +191,17 @@ ParseMessage_t *
 ParseMessage_create (void);
 
 /**
- * Creates a new ParseMessage reporting that message occurred at the given
- * line and column.  Each ParseMessage has an identification number
- * associated with it.
+ * Creates a new ParseMessage reporting that message occurred at the
+ * given line and column.  Each ParseMessage also has an identification
+ * number, a category, and a severity level associated with it.
  */
 ParseMessage_t *
-ParseMessage_createWith (   unsigned int  id
-                          , const char   *message
-                          , unsigned int  line
-                          , unsigned int  column );
+ParseMessage_createWith (  unsigned int  id
+                         , const char    *message
+                         , unsigned int  line
+                         , unsigned int  column
+                         , unsigned int  severity
+                         , const char    *category );
 
 /**
  * Frees the given ParseMessage.
@@ -207,6 +236,33 @@ ParseMessage_getLine (const ParseMessage_t *pm);
 LIBSBML_EXTERN
 unsigned int
 ParseMessage_getColumn (const ParseMessage_t *pm);
+
+/**
+ * @return the severity of this ParseMessage.  ParseMessages severity
+ * levels correspond to those defined in the XML specification (with the
+ * addition of Info for informational messages).
+ *
+ *   0 - Info
+ *   1 - Warning
+ *   2 - Error
+ *   3 - Fatal
+ */
+LIBSBML_EXTERN
+unsigned int
+ParseMessage_getSeverity (const ParseMessage_t *pm);
+
+/**
+ * @return the category of this ParseMessage.  A category is a string,
+ * similiar in spirit to an XML namespace, which partitions error
+ * messages to prevent id conflicts.  Example categories include:
+ *
+ *   http://sbml.org/validator/consistency
+ *   http://sbml.org/validator/consistency/units
+ *   http://sbml.org/validator/compatibility/L1
+ */
+LIBSBML_EXTERN
+const char *
+ParseMessage_getCategory (const ParseMessage_t *pm);
 
 /**
  * Outputs this ParseMessage to stream in the following format (and
