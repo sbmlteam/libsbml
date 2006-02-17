@@ -61,9 +61,8 @@ using namespace std;
 /**
  * Creates a new IdBase with the given constraint id.
  */
-IdBase::IdBase (unsigned int id) : GlobalConstraint(id)
+IdBase::IdBase (unsigned int id, Validator& v) : TConstraint<Model>(id, v)
 {
-  mHolds = false;
 }
 
 
@@ -101,20 +100,17 @@ IdBase::getPreamble ()
 /**
  * Checks that all ids for some given subset of the Model adhere to this
  * Constraint.  Override the doCheck() method to define your own subset.
- *
- * @return true if at all ids adhere to this constriant, false otherwise.
  */
-bool
-IdBase::check (const Model& m)
+void
+IdBase::check_ (const Model& m, const Model& object)
 {
   doCheck(m);
-  return mHolds;
 }
 
 
 /*
  * These convenience methods simply wrap (delegate to) doCheckId(const
- * std::string&, const SBase* object).  This is necessary because getId()
+ * std::string&, const SBase& object).  This is necessary because getId()
  * is not (yet) defined on SBase for SBML objects.
  *
  * For Rules and EventAssignments, it calls getVariable() instead.
@@ -122,74 +118,74 @@ IdBase::check (const Model& m)
 
 
 void
-IdBase::checkId (const Model* x)
+IdBase::checkId (const Model& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const FunctionDefinition* x)
+IdBase::checkId (const FunctionDefinition& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const UnitDefinition* x)
+IdBase::checkId (const UnitDefinition& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const Compartment* x)
+IdBase::checkId (const Compartment& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const Species* x)
+IdBase::checkId (const Species& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const Parameter* x)
+IdBase::checkId (const Parameter& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const Rule* x)
+IdBase::checkId (const Rule& x)
 {
-  switch (x->getTypeCode())
+  switch (x.getTypeCode())
   {
     case SBML_ASSIGNMENT_RULE:
-      doCheckId(static_cast<const AssignmentRule*>(x)->getVariable(), x);
+      doCheckId(static_cast<const AssignmentRule&>(x).getVariable(), x);
       break;
 
     case SBML_RATE_RULE:
-      doCheckId(static_cast<const RateRule*>(x)->getVariable(), x);
+      doCheckId(static_cast<const RateRule&>(x).getVariable(), x);
       break;
 
     case SBML_SPECIES_CONCENTRATION_RULE:
       doCheckId
       (
-        static_cast<const SpeciesConcentrationRule*>(x)->getSpecies(), x
+        static_cast<const SpeciesConcentrationRule&>(x).getSpecies(), x
       );
       break;
 
     case SBML_COMPARTMENT_VOLUME_RULE:
-      doCheckId(static_cast<const CompartmentVolumeRule*>(x)->getCompartment(),
+      doCheckId(static_cast<const CompartmentVolumeRule&>(x).getCompartment(),
               x);
       break;
 
     case SBML_PARAMETER_RULE:
-      doCheckId(static_cast<const ParameterRule*>(x)->getName(), x);
+      doCheckId(static_cast<const ParameterRule&>(x).getName(), x);
       break;
 
     default:
@@ -199,23 +195,23 @@ IdBase::checkId (const Rule* x)
 
 
 void
-IdBase::checkId (const Reaction* x)
+IdBase::checkId (const Reaction& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const Event* x)
+IdBase::checkId (const Event& x)
 {
-  if (x->isSetId()) doCheckId(x->getId(), x);
+  if (x.isSetId()) doCheckId(x.getId(), x);
 }
 
 
 void
-IdBase::checkId (const EventAssignment* x)
+IdBase::checkId (const EventAssignment& x)
 {
-  if (x->isSetVariable()) doCheckId(x->getVariable(), x);
+  if (x.isSetVariable()) doCheckId(x.getVariable(), x);
 }
 
 
@@ -223,9 +219,9 @@ IdBase::checkId (const EventAssignment* x)
  * @return the typename of the given SBase object.
  */
 const char*
-IdBase::getTypename (const SBase* object)
+IdBase::getTypename (const SBase& object)
 {
-  return SBMLTypeCode_toString( object->getTypeCode() );
+  return SBMLTypeCode_toString( object.getTypeCode() );
 }
 
 
@@ -234,18 +230,7 @@ IdBase::getTypename (const SBase* object)
  * failed to satisfy this constraint.
  */
 void
-IdBase::logFailure (const std::string& id, const SBase* object)
+IdBase::logIdConflict (const std::string& id, const SBase& object)
 {
-  const string& msg = getMessage(id, object);
-
-
-  //
-  // Here getId() refers to this Constraints unique identifier.
-  //
-  logMessage
-  (
-    ParseMessage(getId(), msg, object->getLine(), object->getColumn())
-  );
-
-  mHolds = false;
+  logFailure(object, getMessage(id, object));
 }

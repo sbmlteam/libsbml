@@ -55,9 +55,7 @@
 #include "sbml/SBMLTypes.h"
 #include "sbml/SBMLVisitor.h"
 
-#include "LocalConstraint.h"
-#include "GlobalConstraint.h"
-
+#include "Constraint.h"
 #include "Validator.h"
 
 
@@ -74,82 +72,27 @@ using namespace std;
 
 
 // ----------------------------------------------------------------------
-// ConstraintSet
+// Apply<T> and ConstraintSet<T>
 // ----------------------------------------------------------------------
 
 
 /**
- * Logs a ParseMessage to the given Validator.  It's used by
- * Apply<GlobalConstraints>() to log multiple messages on constraint
- * failure.
- */
-struct LogMessageTo : public unary_function<const ParseMessage&, void>
-{
-  LogMessageTo (Validator& v) : validator(v) { }
-
-
-  void operator() (const ParseMessage& msg)
-  {
-    validator.logMessage(msg);
-  }
-
-
-  Validator& validator;
-};
-
-
-/**
- * Applies a LocalConstraint<T> to an SBML object of type T.
+ * Applies a Constraint<T> to an SBML object of type T.
  */
 template <typename T>
-struct Apply : public unary_function<LocalConstraint<T>*, void>
+struct Apply : public unary_function<TConstraint<T>*, void>
 {
-  Apply (const Model& m, const T& obj, Validator& v) :
-    model(m), object(obj), validator(v) { }
+  Apply (const Model& m, const T& o) : model(m), object(o) { }
 
 
-  void operator() (LocalConstraint<T>* constraint)
+  void operator() (TConstraint<T>* constraint)
   {
-    if (!constraint->holds(model, object))
-      validator.logMessage
-      (
-        ParseMessage(  constraint->getId     ()
-                     , constraint->getMessage()
-                     , object.getLine        ()
-                     , object.getColumn      () )
-      );
+    constraint->check(model, object);
   }
 
 
   const Model& model;
   const T&     object;
-  Validator&   validator;
-};
-
-
-/**
- * Applies a GlobalConstraint to an SBML Model.
- */
-template <>
-struct Apply<GlobalConstraint>: public unary_function<GlobalConstraint*, void>
-{
-  Apply (const Model& m, Validator& v) : model(m), validator(v) { }
-
-
-  void operator() (GlobalConstraint* constraint)
-  {
-    if (!constraint->holds(model))
-    {
-      const list<ParseMessage>& messages = constraint->getMessages();
-      for_each(messages.begin(), messages.end(), LogMessageTo(validator));
-
-      constraint->reset();
-    }
-  }
-
-
-  const Model& model;
-  Validator&   validator;
 };
 
 
@@ -165,18 +108,18 @@ public:
   /**
    * Adds a Constraint to this ConstraintSet.
    */
-  void add (LocalConstraint<T>* c)
+  void add (TConstraint<T>* c)
   {
-    mConstraints.push_back(c);
+    constraints.push_back(c);
   }
 
   /**
    * Applies all Constraints in this ConstraintSet to the given SBML object
    * of type T.  Constraint violations are logged to Validator.
    */
-  void applyTo (const Model& m, const T& x, Validator& v)
+  void applyTo (const Model& model, const T& object)
   {
-    for_each(mConstraints.begin(), mConstraints.end(), Apply<T>(m, x, v));
+    for_each(constraints.begin(), constraints.end(), Apply<T>(model, object));
   }
 
   /**
@@ -184,62 +127,19 @@ public:
    */
   bool empty () const
   {
-    return mConstraints.empty();
+    return constraints.empty();
   }
 
 
 protected:
 
-  std::list< LocalConstraint<T>* > mConstraints;
+  std::list< TConstraint<T>* > constraints;
 
 
   friend class Validator;
 };
 
 
-template <>
-class ConstraintSet<GlobalConstraint>
-{
-public:
-
-   ConstraintSet () { }
-  ~ConstraintSet () { }
-
-
-  /**
-   * Adds a GlobalConstraint to this ConstraintSet.
-   */
-  void add (GlobalConstraint* c)
-  {
-    mConstraints.push_back(c);
-  }
-
-  /**
-   * Applies all GlobalConstraints in this ConstraintSet to the given SBML
-   * Model.  Constraint violations are logged to Validator.
-   */
-  void applyTo (const Model& m, Validator& v)
-  {
-    Apply<GlobalConstraint> apply(m, v);
-    for_each( mConstraints.begin(), mConstraints.end(), apply);
-  }
-
-  /**
-   * @return true if this ConstraintSet is empty, false otherwise.
-   */
-  bool empty () const
-  {
-    return mConstraints.empty();
-  }
-
-
-protected:
-
-  std::list<GlobalConstraint*> mConstraints;
-
-
-  friend class Validator;
-};
 
 // ----------------------------------------------------------------------
 
@@ -257,7 +157,6 @@ protected:
  */
 struct ValidatorConstraints
 {
-  ConstraintSet<GlobalConstraint>         mGlobal;
   ConstraintSet<SBMLDocument>             mSBMLDocument;
   ConstraintSet<Model>                    mModel;
   ConstraintSet<FunctionDefinition>       mFunctionDefinition;
@@ -291,159 +190,153 @@ struct ValidatorConstraints
 void
 ValidatorConstraints::add (Constraint* c)
 {
-  if (dynamic_cast<GlobalConstraint*>(c))
+  if (dynamic_cast< TConstraint<SBMLDocument>* >(c))
   {
-    mGlobal.add( static_cast<GlobalConstraint*>(c) );
+    mSBMLDocument.add( static_cast< TConstraint<SBMLDocument>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<SBMLDocument>* >(c))
+  if (dynamic_cast< TConstraint<Model>* >(c))
   {
-    mSBMLDocument.add( static_cast< LocalConstraint<SBMLDocument>* >(c) );
+    mModel.add( static_cast< TConstraint<Model>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Model>* >(c))
-  {
-    mModel.add( static_cast< LocalConstraint<Model>* >(c) );
-    return;
-  }
-
-  if (dynamic_cast< LocalConstraint<FunctionDefinition>* >(c))
+  if (dynamic_cast< TConstraint<FunctionDefinition>* >(c))
   {
     mFunctionDefinition.add
     (
-      static_cast< LocalConstraint<FunctionDefinition>* >(c)
+      static_cast< TConstraint<FunctionDefinition>* >(c)
     );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<UnitDefinition>* >(c))
+  if (dynamic_cast< TConstraint<UnitDefinition>* >(c))
   {
-    mUnitDefinition.add( static_cast< LocalConstraint<UnitDefinition>* >(c) );
+    mUnitDefinition.add( static_cast< TConstraint<UnitDefinition>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Unit>* >(c))
+  if (dynamic_cast< TConstraint<Unit>* >(c))
   {
-    mUnit.add( static_cast< LocalConstraint<Unit>* >(c) );
+    mUnit.add( static_cast< TConstraint<Unit>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Compartment>* >(c))
+  if (dynamic_cast< TConstraint<Compartment>* >(c))
   {
-    mCompartment.add( static_cast< LocalConstraint<Compartment>* >(c) );
+    mCompartment.add( static_cast< TConstraint<Compartment>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Species>* >(c))
+  if (dynamic_cast< TConstraint<Species>* >(c))
   {
-    mSpecies.add( static_cast< LocalConstraint<Species>* >(c) );
+    mSpecies.add( static_cast< TConstraint<Species>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Parameter>* >(c))
+  if (dynamic_cast< TConstraint<Parameter>* >(c))
   {
-    mParameter.add( static_cast< LocalConstraint<Parameter>* >(c) );
+    mParameter.add( static_cast< TConstraint<Parameter>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Rule>* >(c))
+  if (dynamic_cast< TConstraint<Rule>* >(c))
   {
-    mRule.add( static_cast< LocalConstraint<Rule>* >(c) );
+    mRule.add( static_cast< TConstraint<Rule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<AlgebraicRule>* >(c))
+  if (dynamic_cast< TConstraint<AlgebraicRule>* >(c))
   {
-    mAlgebraicRule.add( static_cast< LocalConstraint<AlgebraicRule>* >(c) );
+    mAlgebraicRule.add( static_cast< TConstraint<AlgebraicRule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<AssignmentRule>* >(c))
+  if (dynamic_cast< TConstraint<AssignmentRule>* >(c))
   {
-    mAssignmentRule.add( static_cast< LocalConstraint<AssignmentRule>* >(c) );
+    mAssignmentRule.add( static_cast< TConstraint<AssignmentRule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<SpeciesConcentrationRule>* >(c))
+  if (dynamic_cast< TConstraint<SpeciesConcentrationRule>* >(c))
   {
     mSpeciesConcentrationRule.add
     (
-      static_cast< LocalConstraint<SpeciesConcentrationRule>* >(c)
+      static_cast< TConstraint<SpeciesConcentrationRule>* >(c)
     );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<CompartmentVolumeRule>* >(c))
+  if (dynamic_cast< TConstraint<CompartmentVolumeRule>* >(c))
   {
     mCompartmentVolumeRule.add
     (
-      static_cast< LocalConstraint<CompartmentVolumeRule>* >(c)
+      static_cast< TConstraint<CompartmentVolumeRule>* >(c)
     );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<ParameterRule>* >(c))
+  if (dynamic_cast< TConstraint<ParameterRule>* >(c))
   {
-    mParameterRule.add( static_cast< LocalConstraint<ParameterRule>* >(c) );
+    mParameterRule.add( static_cast< TConstraint<ParameterRule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<RateRule>* >(c))
+  if (dynamic_cast< TConstraint<RateRule>* >(c))
   {
-    mRateRule.add( static_cast< LocalConstraint<RateRule>* >(c) );
+    mRateRule.add( static_cast< TConstraint<RateRule>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Reaction>* >(c))
+  if (dynamic_cast< TConstraint<Reaction>* >(c))
   {
-    mReaction.add( static_cast< LocalConstraint<Reaction>* >(c) );
+    mReaction.add( static_cast< TConstraint<Reaction>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<KineticLaw>* >(c))
+  if (dynamic_cast< TConstraint<KineticLaw>* >(c))
   {
-    mKineticLaw.add( static_cast< LocalConstraint<KineticLaw>* >(c) );
+    mKineticLaw.add( static_cast< TConstraint<KineticLaw>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<SimpleSpeciesReference>* >(c))
+  if (dynamic_cast< TConstraint<SimpleSpeciesReference>* >(c))
   {
     mSimpleSpeciesReference.add
     (
-      static_cast< LocalConstraint<SimpleSpeciesReference>* >(c)
+      static_cast< TConstraint<SimpleSpeciesReference>* >(c)
     );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<SpeciesReference>* >(c))
+  if (dynamic_cast< TConstraint<SpeciesReference>* >(c))
   {
     mSpeciesReference.add
     (
-      static_cast< LocalConstraint<SpeciesReference>* >(c)
+      static_cast< TConstraint<SpeciesReference>* >(c)
     );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<ModifierSpeciesReference>* >(c))
+  if (dynamic_cast< TConstraint<ModifierSpeciesReference>* >(c))
   {
     mModifierSpeciesReference.add
     (
-      static_cast< LocalConstraint<ModifierSpeciesReference>* >(c)
+      static_cast< TConstraint<ModifierSpeciesReference>* >(c)
     );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<Event>* >(c))
+  if (dynamic_cast< TConstraint<Event>* >(c))
   {
-    mEvent.add( static_cast< LocalConstraint<Event>* >(c) );
+    mEvent.add( static_cast< TConstraint<Event>* >(c) );
     return;
   }
 
-  if (dynamic_cast< LocalConstraint<EventAssignment>* >(c))
+  if (dynamic_cast< TConstraint<EventAssignment>* >(c))
   {
-    mEventAssignment.add( static_cast< LocalConstraint<EventAssignment>* >(c) );
+    mEventAssignment.add( static_cast< TConstraint<EventAssignment>* >(c) );
     return;
   }
 }
@@ -474,20 +367,19 @@ public:
 
   void visit (const SBMLDocument& x)
   {
-    v.mConstraints->mGlobal      .applyTo(m, v);
-    v.mConstraints->mSBMLDocument.applyTo(m, x, v);
+    v.mConstraints->mSBMLDocument.applyTo(m, x);
   }
 
 
   void visit (const Model& x)
   {
-    v.mConstraints->mModel.applyTo(m, x, v);
+    v.mConstraints->mModel.applyTo(m, x);
   }
 
 
   void visit (const KineticLaw& x)
   {
-    v.mConstraints->mKineticLaw.applyTo(m, x, v);
+    v.mConstraints->mKineticLaw.applyTo(m, x);
   }
 
 
@@ -502,7 +394,7 @@ public:
 
   bool visit (const FunctionDefinition& x)
   {
-    v.mConstraints->mFunctionDefinition.applyTo(m, x, v);
+    v.mConstraints->mFunctionDefinition.applyTo(m, x);
     return !v.mConstraints->mFunctionDefinition.empty();
   }
 
@@ -516,7 +408,7 @@ public:
 
   bool visit (const UnitDefinition& x)
   {
-    v.mConstraints->mUnitDefinition.applyTo(m, x, v);
+    v.mConstraints->mUnitDefinition.applyTo(m, x);
 
     return
       !v.mConstraints->mUnitDefinition.empty() ||
@@ -526,39 +418,43 @@ public:
 
   bool visit (const Unit& x)
   {
-    v.mConstraints->mUnit.applyTo(m, x, v);
+    v.mConstraints->mUnit.applyTo(m, x);
     return !v.mConstraints->mUnit.empty();
   }
 
 
   bool visit (const Compartment &x)
   {
-    v.mConstraints->mCompartment.applyTo(m, x, v);
+    v.mConstraints->mCompartment.applyTo(m, x);
     return !v.mConstraints->mCompartment.empty();
   }
 
 
   bool visit (const Species& x)
   {
-    v.mConstraints->mSpecies.applyTo(m, x, v);
+    v.mConstraints->mSpecies.applyTo(m, x);
     return !v.mConstraints->mSpecies.empty();
   }
 
 
   bool visit (const Parameter& x)
   {
-    v.mConstraints->mParameter.applyTo(m, x, v);
+    v.mConstraints->mParameter.applyTo(m, x);
     return !v.mConstraints->mParameter.empty();
+  }
+
+
+  bool visit (const Rule& x)
+  {
+    v.mConstraints->mRule.applyTo(m, x);
+    return true;
   }
 
 
   bool visit (const AlgebraicRule& x)
   {
-    const Rule& r = static_cast<const Rule&>(x);
-
-
-    v.mConstraints->mRule         .applyTo(m, r, v);
-    v.mConstraints->mAlgebraicRule.applyTo(m, x, v);
+    visit( static_cast<const Rule&>(x) );
+    v.mConstraints->mAlgebraicRule.applyTo(m, x);
 
     return true;
   }
@@ -566,11 +462,8 @@ public:
 
   bool visit (const AssignmentRule& x)
   {
-    const Rule& r = static_cast<const Rule&>(x);
-
-
-    v.mConstraints->mRule          .applyTo(m, r, v);
-    v.mConstraints->mAssignmentRule.applyTo(m, x, v);
+    visit( static_cast<const Rule&>(x) );
+    v.mConstraints->mAssignmentRule.applyTo(m, x);
 
     return true;
   }
@@ -578,11 +471,8 @@ public:
 
   bool visit (const SpeciesConcentrationRule& x)
   {
-    const Rule& r = static_cast<const Rule&>(x);
-
-
-    v.mConstraints->mRule                    .applyTo(m, r, v);
-    v.mConstraints->mSpeciesConcentrationRule.applyTo(m, x, v);
+    visit( static_cast<const Rule&>(x) );
+    v.mConstraints->mSpeciesConcentrationRule.applyTo(m, x);
 
     return true;
   }
@@ -590,11 +480,8 @@ public:
 
   bool visit (const CompartmentVolumeRule& x)
   {
-    const Rule& r = static_cast<const Rule&>(x);
-
-
-    v.mConstraints->mRule                 .applyTo(m, r, v);
-    v.mConstraints->mCompartmentVolumeRule.applyTo(m, x, v);
+    visit( static_cast<const Rule&>(x) );
+    v.mConstraints->mCompartmentVolumeRule.applyTo(m, x);
 
     return true;
   }
@@ -602,11 +489,8 @@ public:
 
   bool visit (const ParameterRule& x)
   {
-    const Rule& r = static_cast<const Rule&>(x);
-
-
-    v.mConstraints->mRule         .applyTo(m, r, v);
-    v.mConstraints->mParameterRule.applyTo(m, x, v);
+    visit( static_cast<const Rule&>(x) );
+    v.mConstraints->mParameterRule.applyTo(m, x);
 
     return true;
   }
@@ -614,11 +498,8 @@ public:
 
   bool visit (const RateRule& x)
   {
-    const Rule& r = static_cast<const Rule&>(x);
-
-
-    v.mConstraints->mRule    .applyTo(m, r, v);
-    v.mConstraints->mRateRule.applyTo(m, x, v);
+    visit( static_cast<const Rule&>(x) );
+    v.mConstraints->mRateRule.applyTo(m, x);
 
     return true;
   }
@@ -626,18 +507,22 @@ public:
 
   bool visit (const Reaction& x)
   {
-    v.mConstraints->mReaction.applyTo(m, x, v);
+    v.mConstraints->mReaction.applyTo(m, x);
+    return true;
+  }
+
+
+  bool visit (const SimpleSpeciesReference& x)
+  {
+    v.mConstraints->mSimpleSpeciesReference.applyTo(m, x);
     return true;
   }
 
 
   bool visit (const SpeciesReference& x)
   {
-    const SimpleSpeciesReference& s =
-      static_cast<const SimpleSpeciesReference&>(x);
-
-    v.mConstraints->mSimpleSpeciesReference.applyTo(m, s, v);
-    v.mConstraints->mSpeciesReference      .applyTo(m, x, v);
+    visit( static_cast<const SimpleSpeciesReference&>(x) );
+    v.mConstraints->mSpeciesReference.applyTo(m, x);
 
     return
       !v.mConstraints->mSimpleSpeciesReference.empty() ||
@@ -647,12 +532,8 @@ public:
 
   bool visit (const ModifierSpeciesReference& x)
   {
-    const SimpleSpeciesReference& s =
-      static_cast<const SimpleSpeciesReference&>(x);
-
-
-    v.mConstraints->mSimpleSpeciesReference  .applyTo(m, s, v);
-    v.mConstraints->mModifierSpeciesReference.applyTo(m, x, v);
+    visit( static_cast<const SimpleSpeciesReference&>(x) );
+    v.mConstraints->mModifierSpeciesReference.applyTo(m, x);
 
     return
       !v.mConstraints->mSimpleSpeciesReference  .empty() ||
@@ -662,7 +543,7 @@ public:
 
   bool visit (const Event& x)
   {
-    v.mConstraints->mEvent.applyTo(m, x, v);
+    v.mConstraints->mEvent.applyTo(m, x);
 
     return
       !v.mConstraints->mEvent          .empty() ||
@@ -672,7 +553,7 @@ public:
 
   bool visit (const EventAssignment& x)
   {
-    v.mConstraints->mEventAssignment.applyTo(m, x, v);
+    v.mConstraints->mEventAssignment.applyTo(m, x);
     return !v.mConstraints->mEventAssignment.empty();
   }
 
@@ -694,7 +575,7 @@ protected:
 // ----------------------------------------------------------------------
 
 
-Validator::Validator ()
+Validator::Validator (const std::string& category) : mCategory(category)
 {
   mConstraints = new ValidatorConstraints();
 }
@@ -727,6 +608,22 @@ void
 Validator::clearMessages ()
 {
   mMessages.clear();
+}
+
+
+/**
+ * @return the category covered by this Validator.  A category is a
+ * string, similiar in spirit to an XML namespace, which partitions error
+ * messages to prevent id conflicts.  Example categories include:
+ *
+ *   http://sbml.org/validator/consistency
+ *   http://sbml.org/validator/consistency/units
+ *   http://sbml.org/validator/compatibility/L1
+ */
+const std::string
+Validator::getCategory () const
+{
+  return mCategory;
 }
 
 

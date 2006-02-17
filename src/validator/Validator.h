@@ -57,6 +57,7 @@
 
 
 #include <list>
+#include <string>
 #include "../xml/ParseMessage.h"
 
 
@@ -68,7 +69,7 @@ class Validator
 {
 public:
 
-  Validator ();
+  Validator (const std::string& category = "");
   virtual ~Validator ();
 
   /**
@@ -92,6 +93,17 @@ public:
    * the last Validation run and before validating the next document.
    */
   void clearMessages ();
+
+  /**
+   * @return the category covered by this Validator.  A category is a
+   * string, similiar in spirit to an XML namespace, which partitions error
+   * messages to prevent id conflicts.  Example categories include:
+   *
+   *   http://sbml.org/validator/consistency
+   *   http://sbml.org/validator/consistency/units
+   *   http://sbml.org/validator/compatibility/L1
+   */
+  const std::string getCategory () const;
 
   /**
    * @return a list of messages logged during validation.
@@ -125,6 +137,7 @@ protected:
 
   ValidatorConstraints*   mConstraints;
   std::list<ParseMessage> mMessages;
+  std::string             mCategory;
 
 
   friend class ValidatingVisitor;

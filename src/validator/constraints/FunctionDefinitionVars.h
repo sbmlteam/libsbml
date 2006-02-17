@@ -57,20 +57,20 @@
 
 
 #include <string>
-#include "validator/GlobalConstraint.h"
+#include "validator/Constraint.h"
 
 
 class FunctionDefinition;
 
 
-class FunctionDefinitionVars: public GlobalConstraint
+class FunctionDefinitionVars: public TConstraint<FunctionDefinition>
 {
 public:
 
   /**
    * Creates a new Constraint with the given id.
    */
-  FunctionDefinitionVars (unsigned int id);
+  FunctionDefinitionVars (unsigned int id, Validator& v);
 
   /**
    * Destroys this Constraint.
@@ -83,24 +83,14 @@ protected:
   /**
    * Checks that all variables referenced in FunctionDefinition bodies are
    * bound variables (function arguments).
-   *
-   * @return true if no unbound variable are found, false otherwise.
    */
-  virtual bool check (const Model& m);
-
-  /**
-   * Checks that all variables referenced in a given FunctionDefinitions'
-   * body are bound variables (function arguments).
-   *
-   * If an unbound variable is found, an error message is logged.
-   */
-  void checkVars (const Model& m, const FunctionDefinition* fd);
+  virtual void check_ (const Model& m, const FunctionDefinition& object);
 
   /**
    * Logs a message about an undefined variable in the given
    * FunctionDefinition.
    */
-  void logUndefined (const FunctionDefinition* fd, const std::string& varname);
+  void logUndefined (const FunctionDefinition& fd, const std::string& varname);
 };
 
 

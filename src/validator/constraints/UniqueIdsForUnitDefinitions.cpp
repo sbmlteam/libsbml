@@ -67,8 +67,9 @@ static const char* PREAMBLE =
 /**
  * Creates a new Constraint with the given constraint id.
  */
-UniqueIdsForUnitDefinitions::UniqueIdsForUnitDefinitions (unsigned int id) :
-  UniqueIdBase(id)
+UniqueIdsForUnitDefinitions::UniqueIdsForUnitDefinitions ( unsigned int id,
+                                                           Validator& v ) :
+  UniqueIdBase(id, v)
 {
 }
 
@@ -101,5 +102,5 @@ UniqueIdsForUnitDefinitions::doCheck (const Model& m)
 
 
   size = m.getNumUnitDefinitions();
-  for (n = 0; n < size; ++n) checkId( m.getUnitDefinition(n) );
+  for (n = 0; n < size; ++n) checkId( *m.getUnitDefinition(n) );
 }

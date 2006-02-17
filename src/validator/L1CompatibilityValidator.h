@@ -64,7 +64,9 @@ class L1CompatibilityValidator: public Validator
 {
 public:
 
-  L1CompatibilityValidator () : Validator() { }
+  L1CompatibilityValidator () :
+    Validator("http://sbml.org/validator/compatibility/L1") { }
+
   virtual ~L1CompatibilityValidator () { }
 
   /**

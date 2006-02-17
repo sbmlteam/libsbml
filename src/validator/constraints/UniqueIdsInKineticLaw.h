@@ -66,7 +66,7 @@ public:
   /**
    * Creates a new Constraint with the given constraint id.
    */
-  UniqueIdsInKineticLaw (unsigned int id);
+  UniqueIdsInKineticLaw (unsigned int id, Validator& v);
 
   /**
    * Destroys this Constraint.

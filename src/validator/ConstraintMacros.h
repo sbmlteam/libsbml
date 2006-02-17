@@ -61,34 +61,34 @@
 #ifndef AddingConstraintsToValidator
 
 
-#define START_CONSTRAINT(Id, Typename, Varname)           \
-struct Constraint ## Id: public LocalConstraint<Typename> \
-{                                                         \
-  Constraint ## Id () : LocalConstraint<Typename>(Id) { } \
-protected:                                                \
-  void check (const Model& m, const Typename& Varname)
+#define START_CONSTRAINT(Id, Typename, Varname)                      \
+struct Constraint ## Id: public TConstraint<Typename>                \
+{                                                                    \
+  Constraint ## Id (Validator& V) : TConstraint<Typename>(Id, V) { } \
+protected:                                                           \
+  void check_ (const Model& m, const Typename& Varname)
 
 #define END_CONSTRAINT };
 
 #define EXTERN_CONSTRAINT(Id, Name)
 
-#define fail()        mHolds = false; return;
-#define pre(expr)     if (!(expr)) return;
-#define inv(expr)     if (!(expr)) { mHolds = false; return; }
-#define inv_or(expr)  if (expr) { mHolds = true; return; } else mHolds = false;
+#define fail()       mLogMsg = true; return;
+#define pre(expr)    if (!(expr)) return;
+#define inv(expr)    if (!(expr)) { mLogMsg = true; return; }
+#define inv_or(expr) if (expr) { mLogMsg = false; return; } else mLogMsg = true;
 
 
 #else
 
 
 #define START_CONSTRAINT(Id, Typename, Varname) \
-  addConstraint( new Constraint ## Id () );     \
+  addConstraint( new Constraint ## Id (*this) ); \
   if (0) { const Model m; const Typename Varname; std::string msg;
 
 #define END_CONSTRAINT }
 
 #define EXTERN_CONSTRAINT(Id, Name) \
-  addConstraint( new Name(Id) );
+  addConstraint( new Name(Id, *this) );
 
 #define pre(expr)
 #define inv(expr)

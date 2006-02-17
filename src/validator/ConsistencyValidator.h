@@ -63,7 +63,9 @@ class ConsistencyValidator: public Validator
 {
 public:
 
-  ConsistencyValidator () : Validator() { }
+  ConsistencyValidator () :
+    Validator("http://sbml.org/validator/consistency") { }
+
   virtual ~ConsistencyValidator () { }
 
   /**

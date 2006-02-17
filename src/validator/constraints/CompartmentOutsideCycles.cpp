@@ -69,8 +69,9 @@ using namespace std;
 /**
  * Creates a new Constraint with the given id.
  */
-CompartmentOutsideCycles::CompartmentOutsideCycles (unsigned int id) :
-  GlobalConstraint(id)
+CompartmentOutsideCycles::CompartmentOutsideCycles ( unsigned int id,
+                                                     Validator& v ) :
+  TConstraint<Model>(id, v)
 {
 }
 
@@ -84,32 +85,20 @@ CompartmentOutsideCycles::~CompartmentOutsideCycles ()
 
 
 /**
- * Resets the state of this GlobalConstraint by clearing its internal
- * list of error messages.
- */
-void
-CompartmentOutsideCycles::reset ()
-{
-  GlobalConstraint::reset();
-  mCycles.clear();
-}
-
-
-/**
- * Checks that no Compartments in Model form a cycle via their 'outside'
+ * Checks that no Compartments in Model have a cycle via their 'outside'
  * attribute.
  *
- * @return true if no cycles are found, false otherwise.
+ * Sets mHolds to true if no cycles are found, false otherwise.
  */
-bool
-CompartmentOutsideCycles::check (const Model& m)
+void
+CompartmentOutsideCycles::check_ (const Model& m, const Model& object)
 {
   for (unsigned int n = 0; n < m.getNumCompartments(); n++)
   {
     checkForCycle(m, m.getCompartment(n));
   }
 
-  return mCycles.empty();
+  mCycles.clear();
 }
 
 
@@ -178,9 +167,6 @@ CompartmentOutsideCycles::isInCycle (const Compartment* c)
 void
 CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
 {
-  string msg;
-
-
   msg  = "A Compartment may not enclose itself via its 'outside' attribute ";
   msg += "(L2v1 erratum).  Compartment '" + c->getId() + "' encloses itself";
 
@@ -196,5 +182,5 @@ CompartmentOutsideCycles::logCycle (const Compartment* c, const IdList& cycle)
 
   msg += '.';
 
-  logMessage( ParseMessage(getId(), msg, c->getLine(), c->getColumn()) );
+  logFailure(*c);
 }

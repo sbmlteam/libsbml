@@ -67,8 +67,8 @@ static const char* PREAMBLE =
 /**
  * Creates a new Constraint with the given constraint id.
  */
-UniqueVarsInRules::UniqueVarsInRules (unsigned int id) :
-  UniqueIdBase(id)
+UniqueVarsInRules::UniqueVarsInRules (unsigned int id, Validator& v) :
+  UniqueIdBase(id, v)
 {
 }
 
@@ -108,5 +108,5 @@ UniqueVarsInRules::getPreamble ()
 void
 UniqueVarsInRules::doCheck (const Model& m)
 {
-  for (unsigned int n = 0; n < m.getNumRules(); ++n) checkId( m.getRule(n) );
+  for (unsigned int n = 0; n < m.getNumRules(); ++n) checkId( *m.getRule(n) );
 }

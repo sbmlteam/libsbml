@@ -66,7 +66,7 @@ public:
   /**
    * Creates a new Constraint with the given constraint id.
    */
-  UniqueIdsInModel (unsigned int id);
+  UniqueIdsInModel (unsigned int id, Validator& v);
 
   /**
    * Destroys this Constraint.

@@ -56,19 +56,88 @@
 #ifdef __cplusplus
 
 
+#include <string>
+
+#include "sbml/SBase.h"
+#include "Validator.h"
+
+
+class Model;
+
+
 class Constraint
 {
 public:
 
-  Constraint (unsigned int id) : mId(id), mHolds(true) { }
-  virtual ~Constraint () { }
+  Constraint (unsigned int id, Validator& v);
+  virtual ~Constraint ();
 
-  unsigned int getId () const { return mId; }
+
+  /**
+   * @return the id of this Constraint.
+   */
+  unsigned int getId () const;
+
+  /**
+   * @return the severity for violating this Constraint.
+   */
+  unsigned int getSeverity () const;
+
 
 protected:
 
+  /**
+   * Logs a constraint failure to the validator for the given SBML object.
+   */
+  void logFailure (const SBase& object);
+
+  /**
+   * Logs a constraint failure to the validator for the given SBML object.
+   * The parameter message is used instead of the constraint's member
+   * variable msg.
+   */
+  void logFailure (const SBase& object, const std::string& message);
+
+
   unsigned int mId;
-  bool         mHolds;
+  unsigned int mSeverity;
+  Validator&   mValidator;
+  bool         mLogMsg;
+
+  std::string  msg;
+};
+
+
+template <typename T>
+class TConstraint : public Constraint
+{
+public:
+
+  TConstraint (unsigned int id, Validator& v) : Constraint(id, v) { }
+  virtual ~TConstraint () { };
+
+  /**
+   * Checks to see if this Contraint holds when applied to the given SBML
+   * object of type T.  The Model object should contain object and is
+   * passed in to provide additional context information, should the
+   * contraint need it.
+   */
+  void check (const Model& m, const T& object)
+  {
+    mLogMsg = false;
+
+    check_(m, object);
+
+    if (mLogMsg) logFailure(object);
+  }
+
+
+protected:
+
+  /**
+   * The check method delegates to this virtual method.
+   */
+  virtual void check_ (const Model& m, const T& object) { };
 };
 
 

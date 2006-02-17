@@ -65,7 +65,7 @@ using namespace std;
 /**
  * Creates a new UniqueIdBase with the given constraint id.
  */
-UniqueIdBase::UniqueIdBase (unsigned int  id) : IdBase(id)
+UniqueIdBase::UniqueIdBase (unsigned int id, Validator& v) : IdBase(id, v)
 {
 }
 
@@ -85,7 +85,6 @@ UniqueIdBase::~UniqueIdBase ()
 void
 UniqueIdBase::reset ()
 {
-  IdBase::reset();
   mIdObjectMap.clear();
 }
 
@@ -95,11 +94,11 @@ UniqueIdBase::reset ()
  * is not, logIdConflict is called.
  */
 void
-UniqueIdBase::doCheckId (const string& id, const SBase* object)
+UniqueIdBase::doCheckId (const string& id, const SBase& object)
 {
-  if (mIdObjectMap.insert( make_pair(id, object) ).second == false)
+  if (mIdObjectMap.insert( make_pair(id, &object) ).second == false)
   {
-    logFailure(id, object);
+    logIdConflict(id, object);
   }
 }
 
@@ -112,7 +111,7 @@ UniqueIdBase::doCheckId (const string& id, const SBase* object)
  * in  conflict with an object previously defined.
  */
 const string
-UniqueIdBase::getMessage (const string& id, const SBase* object)
+UniqueIdBase::getMessage (const string& id, const SBase& object)
 {
   IdObjectMap::iterator iter = mIdObjectMap.find(id);
 
@@ -127,7 +126,7 @@ UniqueIdBase::getMessage (const string& id, const SBase* object)
 
 
   ostringstream msg;
-  const SBase*  previous = iter->second;
+  const SBase&  previous = *(iter->second);
 
 
   msg << getPreamble();
@@ -144,9 +143,9 @@ UniqueIdBase::getMessage (const string& id, const SBase* object)
       << getTypename(previous) << ' ' << getFieldname()
       << " '" << id << "'";
 
-  if (previous->getLine() != 0)
+  if (previous.getLine() != 0)
   {
-    msg << " at line " << previous->getLine();
+    msg << " at line " << previous.getLine();
   }
 
   msg << '.';

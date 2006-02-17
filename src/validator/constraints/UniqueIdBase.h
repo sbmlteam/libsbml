@@ -63,6 +63,7 @@
 
 
 class SBase;
+class Validator;
 
 
 class UniqueIdBase: public IdBase
@@ -72,7 +73,7 @@ public:
   /**
    * Creates a new UniqueIdBase with the given constraint id.
    */
-  UniqueIdBase (unsigned int id);
+  UniqueIdBase (unsigned int id, Validator& v);
 
   /**
    * Destroys this Constraint.
@@ -80,14 +81,13 @@ public:
   virtual ~UniqueIdBase ();
 
 
+protected:
+
   /**
    * Resets the state of this GlobalConstraint by clearing its internal
    * list of error messages.
    */
-  virtual void reset ();
-
-
-protected:
+  void reset ();
 
   /**
    * Called by check().  Override this method to define your own subset.
@@ -98,7 +98,7 @@ protected:
    * Checks that the id associated with the given object is unique.  If it
    * is not, logFailure is called.
    */
-  void doCheckId (const std::string& id, const SBase* object);
+  void doCheckId (const std::string& id, const SBase& object);
 
 
   /**
@@ -109,7 +109,7 @@ protected:
    * in  conflict with an object previously defined.
    */
   virtual const std::string
-  getMessage (const std::string& id, const SBase* object);
+  getMessage (const std::string& id, const SBase& object);
 
 
   typedef std::map<const std::string, const SBase*> IdObjectMap;

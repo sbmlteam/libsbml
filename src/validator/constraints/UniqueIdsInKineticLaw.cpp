@@ -70,8 +70,8 @@ static const char* PREAMBLE =
 /**
  * Creates a new Constraint with the given constraint id.
  */
-UniqueIdsInKineticLaw::UniqueIdsInKineticLaw (unsigned int id) :
-  UniqueIdBase(id)
+UniqueIdsInKineticLaw::UniqueIdsInKineticLaw (unsigned int id, Validator& v) :
+  UniqueIdBase(id, v)
 {
 }
 
@@ -107,9 +107,9 @@ UniqueIdsInKineticLaw::doCheck (const Model& m)
 
     for (unsigned int p = 0; p < kl->getNumParameters(); ++p)
     {
-      checkId( kl->getParameter(p) );
+      checkId( *kl->getParameter(p) );
     }
 
-    mIdObjectMap.clear();
+    reset();
   }
 }

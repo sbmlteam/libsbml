@@ -54,7 +54,7 @@
 #include <string>
 
 #include "sbml/SBMLTypes.h"
-#include "validator/LocalConstraint.h"
+#include "validator/Constraint.h"
 
 #include "CompartmentOutsideCycles.h"
 #include "FunctionDefinitionVars.h"
@@ -622,6 +622,38 @@ START_CONSTRAINT (1605, KineticLaw, kl)
   inv_or( defn  != NULL && defn->isVariantOfTime() );
 }
 END_CONSTRAINT
+
+
+/*
+START_CONSTRAINT (1606, Reaction, r)
+{
+  msg =
+    "All Species referenced in a Reaction's KineticLaw must be listed as a "
+    "reactant, product, or modifier of the Reaction (L2v1 Section x.y.z)";
+
+
+  pre( r.isSetKineticLaw()            );
+  pre( r.getKineticLaw()->isSetMath() );
+
+
+  ASTNode* math  = r.getKineticLaw()->getMath();
+  List*    names = math->getListOfNodes( ASTNode_isName );
+
+  for (unsigned int n = 0; n < names.getSize(); ++n)
+  {
+    ASTNode*    node = static_cast<ASTNode*>( names.get(n) );
+    const char* name = node->getName();
+
+    if ( m.getSpecies(name) )
+    {
+      inv_or( r.getReactant(name) != NULL );
+      inv_or( r.getProduct (name) != NULL );
+      inv_or( r.getModifier(name) != NULL );
+    }
+  }
+}
+END_CONSTRAINT
+*/
 
 
 START_CONSTRAINT (1700, AssignmentRule, r)

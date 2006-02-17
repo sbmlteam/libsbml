@@ -60,32 +60,27 @@
 #include <vector>
 
 #include "IdList.h"
-#include "validator/GlobalConstraint.h"
+#include "validator/Constraint.h"
 
 
+class Model;
 class Compartment;
+class Validator;
 
 
-class CompartmentOutsideCycles: public GlobalConstraint
+class CompartmentOutsideCycles: public TConstraint<Model>
 {
 public:
 
   /**
    * Creates a new Constraint with the given id.
    */
-  CompartmentOutsideCycles (unsigned int id);
+  CompartmentOutsideCycles (unsigned int id, Validator& v);
 
   /**
    * Destroys this Constraint.
    */
   virtual ~CompartmentOutsideCycles ();
-
-
-  /**
-   * Resets the state of this GlobalConstraint by clearing its internal
-   * list of error messages.
-   */
-  virtual void reset ();
 
 
 protected:
@@ -94,9 +89,9 @@ protected:
    * Checks that no Compartments in Model have a cycle via their 'outside'
    * attribute.
    *
-   * @return true if no cycles are found, false otherwise.
+   * Sets mHolds to true if no cycles are found, false otherwise.
    */
-  virtual bool check (const Model& m);
+  virtual void check_ (const Model& m, const Model& object);
 
   /**
    * Checks for a cycle by following Compartment c's 'outside' attribute.

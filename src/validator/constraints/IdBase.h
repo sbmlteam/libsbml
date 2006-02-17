@@ -57,16 +57,17 @@
 
 
 #include <string>
-#include "validator/GlobalConstraint.h"
+#include "validator/Constraint.h"
 
 
 class SBase;
+class Validator;
 
 
 /**
- * The IdBase GlobalCosntraint is the base class for all SBML id
- * constraints.  It provides mechanisms for checking only certain subsets
- * of ids within an SBML model and tailoring the error messages logged.
+ * The IdBase Cosntraint is the base class for all SBML id constraints.  It
+ * provides mechanisms for checking only certain subsets of ids within an
+ * SBML model and tailoring the error messages logged.
  *
  * To customize:
  *
@@ -80,7 +81,7 @@ class SBase;
  *   2.  Override doCheckId() to perform the actual check.  If the check
  *       fails, call logFailure().
  *
- *   3.  Override getMeesage() to log error messages.  GetMessage() should
+ *   3.  Override getMesage() to log error messages.  GetMessage() should
  *       use getPreamble() and getFieldName() when constructing the error
  *       message.
  *
@@ -95,14 +96,14 @@ class SBase;
  * e.g. 'Compartment' or 'Species', when constructing an error message,
  * call getTypename().
  */
-class IdBase: public GlobalConstraint
+class IdBase: public TConstraint<Model>
 {
 public:
 
   /**
    * Creates a new IdBase with the given constraint id.
    */
-  IdBase (unsigned int id);
+  IdBase (unsigned int id, Validator& v);
 
   /**
    * Destroys this Constraint.
@@ -122,7 +123,7 @@ protected:
    * Checks that the id associated with the given object adheres to this
    * constraint.  If it does not, logFailure is called.
    */
-  virtual void doCheckId (const std::string& id, const SBase* object) = 0;
+  virtual void doCheckId (const std::string& id, const SBase& object) = 0;
 
   /**
    * @return the fieldname to use logging constraint violations.  If not
@@ -146,7 +147,7 @@ protected:
    * easily customizable.
    */
   virtual const std::string
-  getMessage (const std::string& id, const SBase* object) = 0;
+  getMessage (const std::string& id, const SBase& object) = 0;
 
 
 
@@ -158,40 +159,38 @@ protected:
   /**
    * Checks that all ids for some given subset of the Model adhere to this
    * Constraint.  Override the doCheck() method to define your own subset.
-   *
-   * @return true if at all ids adhere to this constriant, false otherwise.
    */
-  virtual bool check (const Model& m);
+  virtual void check_ (const Model& m, const Model& object);
 
   /*
    * These convenience methods simply wrap (delegate to) doCheckId(const
-   * std::string&, const SBase* object).  This is necessary because getId()
+   * std::string&, const SBase& object).  This is necessary because getId()
    * is not (yet) defined on SBase for SBML objects.
    *
    * For Rules and EventAssignments, it calls getVariable() instead.
    */
 
-  void checkId (const Model*              x);
-  void checkId (const FunctionDefinition* x);
-  void checkId (const UnitDefinition*     x);
-  void checkId (const Compartment*        x);
-  void checkId (const Species*            x);
-  void checkId (const Parameter*          x);
-  void checkId (const Rule*               x);
-  void checkId (const Reaction*           x);
-  void checkId (const Event*              x);
-  void checkId (const EventAssignment*    x);
+  void checkId (const Model&              x);
+  void checkId (const FunctionDefinition& x);
+  void checkId (const UnitDefinition&     x);
+  void checkId (const Compartment&        x);
+  void checkId (const Species&            x);
+  void checkId (const Parameter&          x);
+  void checkId (const Rule&               x);
+  void checkId (const Reaction&           x);
+  void checkId (const Event&              x);
+  void checkId (const EventAssignment&    x);
 
   /**
    * @return the typename of the given SBase object.
    */
-  const char* getTypename (const SBase* object);
+  const char* getTypename (const SBase& object);
 
   /**
    * Logs a message that the given id (and its corresponding object) have
    * failed to satisfy this constraint.
    */
-  void logFailure (const std::string& id, const SBase* object);
+  void logIdConflict (const std::string& id, const SBase& object);
 };
 
 

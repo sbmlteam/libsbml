@@ -69,8 +69,9 @@ static const char* PREAMBLE =
 /**
  * Creates a new Constraint with the given constraint id.
  */
-UniqueVarsInEventAssignments::UniqueVarsInEventAssignments (unsigned int id) :
-  UniqueIdBase(id)
+UniqueVarsInEventAssignments::UniqueVarsInEventAssignments ( unsigned int id,
+                                                             Validator& v ) :
+  UniqueIdBase(id, v)
 {
 }
 
@@ -116,7 +117,7 @@ UniqueVarsInEventAssignments::doCheck (const Model& m)
 
     for (unsigned int ea = 0; ea < e->getNumEventAssignments(); ++ea)
     {
-      checkId( e->getEventAssignment(ea) );
+      checkId( *e->getEventAssignment(ea) );
     }
 
     mIdObjectMap.clear();

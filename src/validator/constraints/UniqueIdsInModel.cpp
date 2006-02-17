@@ -66,7 +66,8 @@ static const char* PREAMBLE =
 /**
  * Creates a new Constraint with the given constraint id.
  */
-UniqueIdsInModel::UniqueIdsInModel (unsigned int id) : UniqueIdBase(id)
+UniqueIdsInModel::UniqueIdsInModel (unsigned int id, Validator& v) :
+  UniqueIdBase(id, v)
 {
 }
 
@@ -100,23 +101,25 @@ UniqueIdsInModel::doCheck (const Model& m)
   unsigned int n, size;
 
 
-  checkId( &m );
+  checkId( m );
 
   size = m.getNumFunctionDefinitions();
-  for (n = 0; n < size; ++n) checkId( m.getFunctionDefinition(n) );
+  for (n = 0; n < size; ++n) checkId( *m.getFunctionDefinition(n) );
 
   size = m.getNumCompartments();
-  for (n = 0; n < size; ++n) checkId( m.getCompartment(n) );
+  for (n = 0; n < size; ++n) checkId( *m.getCompartment(n) );
 
   size = m.getNumSpecies();
-  for (n = 0; n < size; ++n) checkId( m.getSpecies(n) );
+  for (n = 0; n < size; ++n) checkId( *m.getSpecies(n) );
 
   size = m.getNumParameters();
-  for (n = 0; n < size; ++n) checkId( m.getParameter(n) );
+  for (n = 0; n < size; ++n) checkId( *m.getParameter(n) );
 
   size = m.getNumReactions();
-  for (n = 0; n < size; ++n) checkId( m.getReaction(n) );
+  for (n = 0; n < size; ++n) checkId( *m.getReaction(n) );
 
   size = m.getNumEvents();
-  for (n = 0; n < size; ++n) checkId( m.getEvent(n) );
+  for (n = 0; n < size; ++n) checkId( *m.getEvent(n) );
+
+  reset();
 }

@@ -65,8 +65,8 @@ using namespace std;
 /**
  * Creates a new Constraint with the given id.
  */
-FunctionDefinitionVars::FunctionDefinitionVars (unsigned int id) :
-  GlobalConstraint(id)
+FunctionDefinitionVars::FunctionDefinitionVars (unsigned int id, Validator& v) :
+  TConstraint<FunctionDefinition>(id, v)
 {
 }
 
@@ -82,36 +82,16 @@ FunctionDefinitionVars::~FunctionDefinitionVars ()
 /**
  * Checks that all variables referenced in FunctionDefinition bodies are
  * bound variables (function arguments).
- *
- * @return true if no unbound variable are found, false otherwise.
- */
-bool
-FunctionDefinitionVars::check (const Model& m)
-{
-  for (unsigned int n = 0; n < m.getNumFunctionDefinitions(); ++n)
-  {
-    checkVars(m, m.getFunctionDefinition(n));
-  }
-
-  return mMessages.empty();
-}
-
-
-/**
- * Checks that all variables referenced in a given FunctionDefinitions'
- * body are bound variables (function arguments).
- *
- * If an unbound variable is found, an error message is logged.
  */
 void
-FunctionDefinitionVars::checkVars (const Model& m, const FunctionDefinition* fd)
+FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
 {
-  if ( !fd->isSetMath()            ) return;
-  if ( !fd->getBody()              ) return;
-  if (  fd->getNumArguments() == 0 ) return;
+  if ( !fd.isSetMath()            ) return;
+  if ( !fd.getBody()              ) return;
+  if (  fd.getNumArguments() == 0 ) return;
 
 
-  List* variables = fd->getBody()->getListOfNodes( ASTNode_isName );
+  List* variables = fd.getBody()->getListOfNodes( ASTNode_isName );
 
 
   for (unsigned int n = 0; n < variables->getSize(); ++n)
@@ -119,7 +99,7 @@ FunctionDefinitionVars::checkVars (const Model& m, const FunctionDefinition* fd)
     ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
     string   name = node->getName() ? node->getName() : "";
 
-    if ( !fd->getArgument(name) ) logUndefined(fd, name);
+    if ( !fd.getArgument(name) ) logUndefined(fd, name);
   }
 }
 
@@ -129,18 +109,18 @@ FunctionDefinitionVars::checkVars (const Model& m, const FunctionDefinition* fd)
  * FunctionDefinition.
  */
 void
-FunctionDefinitionVars::logUndefined ( const FunctionDefinition* fd,
+FunctionDefinitionVars::logUndefined ( const FunctionDefinition& fd,
                                        const string& varname )
 {
-  string msg =
+  msg =
     "A FunctionDefinition may only reference variables declared in its "
     "list of bound variables (function parameters) (L2v1 Section 3.6.3).  "
     "The variable '";
 
   msg += varname;
   msg += "' is not listed as a <bvar> of FunctionDefinition '";
-  msg += fd->getId();
+  msg += fd.getId();
   msg += "'.";
   
-  logMessage( ParseMessage(getId(), msg, fd->getLine(), fd->getColumn()) );
+  logFailure(fd);
 }
