@@ -51,6 +51,7 @@
 
 #include <check.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "common/extern.h"
 #include "util/memory.h"
