@@ -436,6 +436,40 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 }
 END_TEST
 
+START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
+{
+  UnitDefinition * ud = new UnitDefinition();
+ 
+  /* function applied to numbers only */
+  ud = uff->getUnitDefinition(m->getRule(0)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "number"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+
+  /* function applied to components */
+  ud = uff->getUnitDefinition(m->getRule(1)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+
+}
+END_TEST
+
 
 Suite *
 create_suite_UnitFormulaFormatter1 (void)
@@ -450,6 +484,7 @@ create_suite_UnitFormulaFormatter1 (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_compartment );
   tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_species );
   tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_parameter );
+  tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_function );
 
   suite_add_tcase(suite, tcase);
 
