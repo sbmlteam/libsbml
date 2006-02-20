@@ -18,6 +18,7 @@ Pass: (3101) The units returned by the rate rule that assigns a rate
     <listOfParameters>
       <parameter id="p" value="1" units="litre" constant="false"/>
       <parameter id="p1" value="1" units="second" constant="false"/>
+      <parameter id="p2" value="1" units="mole" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <rateRule variable="s1">
@@ -25,7 +26,11 @@ Pass: (3101) The units returned by the rate rule that assigns a rate
           <apply>
             <divide/>
             <ci> p </ci>
-            <ci> p1 </ci>
+            <apply>
+              <divide/>
+              <ci> p2 </ci>
+              <ci> p1 </ci>
+            <apply/>
           </apply>
         </math>
       </rateRule>
