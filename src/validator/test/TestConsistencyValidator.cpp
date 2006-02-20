@@ -120,6 +120,18 @@ main (int argc, char* argv[])
   cout << static_cast<int>(percent) << "%: Checks: " << files.size();
   cout << ", Failures: " << failures << endl;
 
+  cout << "Testing Unit Consistency Constraints (3000 - 3999)." << endl;
+
+
+  set<TestFile> files_units    = TestFile::getFilesIn("test-data", 3000, 3999);
+  unsigned int  passes_units   = count_if(files_units.begin(), files_units.end(), runTest);
+  unsigned int  failures_units = files_units.size() - passes_units;
+  double        percent_units  = (static_cast<double>(passes_units) / files_units.size()) * 100;
+
+
+  cout << static_cast<int>(percent_units) << "%: Checks: " << files_units.size();
+  cout << ", Failures: " << failures_units << endl;
+
   cout << "Testing Consistency Constraints (2000-2999)." << endl;
 
 
