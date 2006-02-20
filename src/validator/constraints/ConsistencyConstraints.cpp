@@ -1000,9 +1000,37 @@ START_CONSTRAINT (3102, RateRule, rr)
   /* special case where no units have been declared for parameter */
   pre (variableUnits->getNumUnits() != 0);
   
-  /* add per time to the units from the species */
+  /* add per time to the units from the parameter */
   variableUnits->addUnit(*time);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (3200, KineticLaw, kl)
+{
+  msg =
+    "The units returned by the formula of a kinetic law "
+    "must be 'substance per time' unless the formula contains a "
+    " parameter for which units have not been declared.";
+
+  pre ( kl.isSetMath() == 1 );
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  pre (unitFormat->hasUndeclaredUnits(kl.getMath()) == 0);
+
+  UnitDefinition * formulaUnits = new UnitDefinition();
+  
+  UnitDefinition * SubsTime = new UnitDefinition();
+  Unit * subs = new Unit("mole");
+  Unit * time = new Unit("second", -1);
+  SubsTime->addUnit(*subs);
+  SubsTime->addUnit(*time);
+
+
+  formulaUnits  = unitFormat->getUnitDefinition(kl.getMath());
+
+  inv (areEquivalent(formulaUnits, SubsTime) == 1)
 }
 END_CONSTRAINT
