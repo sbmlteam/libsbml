@@ -187,6 +187,44 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
 
+  /* compartment with builtin units volume*/
+  ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(6));
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "cell6"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_LITRE);
+
+  /* compartment with builtin units area*/
+  ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(7));
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "cell7"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 2);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  /* compartment with builtin units length*/
+  ud = uff->getUnitDefinitionFromCompartment(m->getCompartment(8));
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "cell8"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
 }
 END_TEST
@@ -316,6 +354,24 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_LITRE);
 
+  /* species with builtin units for substance and spatialSize*/
+  ud = uff->getUnitDefinitionFromSpecies(m->getSpecies(7));
+
+  fail_unless(ud->getNumUnits() == 2);
+
+  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
+
+  fail_unless(ud->getUnit(1)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(1)->getScale() == 0);
+  fail_unless(ud->getUnit(1)->getExponent() == -1);
+  fail_unless(ud->getUnit(1)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_LITRE);
 
 }
 END_TEST
@@ -361,7 +417,21 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 
   fail_unless(ud->getNumUnits() == 0);
 
+  fail_unless(!strcmp(ud->getId().c_str(), "k2"), NULL);
+ 
+  /* parameter with builtin units time */
+  ud = uff->getUnitDefinitionFromParameter(m->getParameter(3));
+
+  fail_unless(ud->getNumUnits() == 1);
+
   fail_unless(!strcmp(ud->getId().c_str(), "k3"), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
 
 }
 END_TEST

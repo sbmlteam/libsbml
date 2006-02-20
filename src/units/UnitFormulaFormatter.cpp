@@ -655,38 +655,14 @@ LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compartment)
 {
-  UnitDefinition * ud;
+  UnitDefinition * ud = NULL;
   Unit * unit;
   unsigned int n, p;
 
   const char * units = compartment->getUnits().c_str();
 
-  if (UnitKind_isValidUnitKindString(units))
-  {
-    unit = new Unit(units);
-    ud   = new UnitDefinition(compartment->getId());
-    
-    ud->addUnit(*unit);
-  }
-  else 
-  {
-    for (n = 0; n < model->getNumUnitDefinitions(); n++)
-    {
-      if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
-      {
-        ud = new UnitDefinition(model->getUnitDefinition(n)->getId(), 
-          model->getUnitDefinition(n)->getName());
-        
-        for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
-        {
-          ud->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
-        }
-      }
-    }
-  }
-
- /* no units declared implies they default to the value appropriate
-    * to the spatialDimensions of the compartment */
+  /* no units declared implies they default to the value appropriate
+   * to the spatialDimensions of the compartment */
   if (!strcmp(units, ""))
   {
     switch (compartment->getSpatialDimensions())
@@ -717,6 +693,60 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         break;
     }
   }
+  else
+  {
+    /* units can be a predefined unit kind
+    * a unit definition id or a builtin unit
+    */
+    if (UnitKind_isValidUnitKindString(units))
+    {
+      unit = new Unit(units);
+      ud   = new UnitDefinition(compartment->getId());
+      
+      ud->addUnit(*unit);
+    }
+    else 
+    {
+      for (n = 0; n < model->getNumUnitDefinitions(); n++)
+      {
+        if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
+        {
+          ud = new UnitDefinition(model->getUnitDefinition(n)->getId(), 
+            model->getUnitDefinition(n)->getName());
+          
+          for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
+          {
+            ud->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+          }
+        }
+      }
+    }
+    /* now check for builtin units 
+     * this check is left until now as it is possible for a builtin 
+     * unit to be reassigned using a unit definition and thus will have 
+     * been picked up above
+     */
+    if (Unit_isBuiltIn(units) && ud == NULL)
+    {
+      ud   = new UnitDefinition(compartment->getId());
+
+      if (!strcmp(units, "volume"))
+      {
+        unit = new Unit("litre");
+        ud->addUnit(*unit);
+      }
+      else if (!strcmp(units, "area"))
+      {
+        unit = new Unit("metre", 2);
+        ud->addUnit(*unit);
+      }
+      else if (!strcmp(units, "length"))
+      {
+        unit = new Unit("metre");
+        ud->addUnit(*unit);
+      }
+    }
+  }
 
   return ud;
 }
@@ -728,7 +758,9 @@ LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 {
-  UnitDefinition * ud, *subsUD, *sizeUD;
+  UnitDefinition * ud;
+  UnitDefinition *subsUD = NULL;
+  UnitDefinition *sizeUD = NULL;
   Unit * unit;
   Compartment * c;
   unsigned int n, p;
@@ -738,31 +770,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 
 
   /* deal with substance units */
-
-  if (UnitKind_isValidUnitKindString(units))
-  {
-    unit = new Unit(units);
-    subsUD   = new UnitDefinition("species_subs");
-    
-    subsUD->addUnit(*unit);
-  }
-  else 
-  {
-    for (n = 0; n < model->getNumUnitDefinitions(); n++)
-    {
-      if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
-      {
-        subsUD = new UnitDefinition("species_subs");
-        
-        for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
-        {
-          subsUD->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
-        }
-      }
-    }
-  }
-
- /* no units declared implies they default to the value substance */
+ 
+  /* no units declared implies they default to the value substance */
   if (!strcmp(units, ""))
   {
     unit = new Unit("mole");
@@ -770,7 +779,49 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 
     subsUD->addUnit(*unit);
   }
+  else
+  {
+    /* units can be a predefined unit kind
+    * a unit definition id or a builtin unit
+    */
+    if (UnitKind_isValidUnitKindString(units))
+    {
+      unit = new Unit(units);
+      subsUD   = new UnitDefinition("species_subs");
+      
+      subsUD->addUnit(*unit);
+    }
+    else 
+    {
+      for (n = 0; n < model->getNumUnitDefinitions(); n++)
+      {
+        if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
+        {
+          subsUD = new UnitDefinition("species_subs");
+          
+          for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
+          {
+            subsUD->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+          }
+        }
+      }
+    }
+    /* now check for builtin units 
+     * this check is left until now as it is possible for a builtin 
+     * unit to be reassigned using a unit definition and thus will have 
+     * been picked up above
+     */
+    if (Unit_isBuiltIn(units) && subsUD == NULL)
+    {
+      subsUD   = new UnitDefinition("species_subs");
 
+      if (!strcmp(units, "substance"))
+      {
+        unit = new Unit("mole");
+        subsUD->addUnit(*unit);
+      }
+    }
+  }
   if (species->getHasOnlySubstanceUnits())
   {
     ud = subsUD;
@@ -778,14 +829,15 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   }
 
   /* get the compartment containing the species */
-  for (n = 0; n < model->getNumCompartments(); n++)
-  {
-    if (!strcmp(species->getCompartment().c_str(), model->getCompartment(n)->getId().c_str()))
-    {
-      c = model->getCompartment(n);
-      break;
-    }
-  }
+  c = model->getCompartment(species->getCompartment().c_str());
+  //for (n = 0; n < model->getNumCompartments(); n++)
+  //{
+  //  if (!strcmp(species->getCompartment().c_str(), model->getCompartment(n)->getId().c_str()))
+  //  {
+  //    c = model->getCompartment(n);
+  //    break;
+  //  }
+  //}
 
   if (c->getSpatialDimensions() == 0)
   {
@@ -795,33 +847,60 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 
   /* deal with spatial size units */
 
-  if (UnitKind_isValidUnitKindString(spatialUnits))
-  {
-    unit = new Unit(spatialUnits);
-    sizeUD   = new UnitDefinition("species_subs");
-    
-    sizeUD->addUnit(*unit);
-  }
-  else 
-  {
-    for (n = 0; n < model->getNumUnitDefinitions(); n++)
-    {
-      if (!strcmp(spatialUnits, model->getUnitDefinition(n)->getId().c_str()))
-      {
-        sizeUD = new UnitDefinition("species_subs");
-        
-        for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
-        {
-          sizeUD->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
-        }
-      }
-    }
-  }
-
   /* no units declared implies they default to the value of compartment size */
   if (!strcmp(spatialUnits, ""))
   {
     sizeUD   = getUnitDefinitionFromCompartment(c);
+  }
+  else
+  {
+    if (UnitKind_isValidUnitKindString(spatialUnits))
+    {
+      unit = new Unit(spatialUnits);
+      sizeUD   = new UnitDefinition("species_subs");
+      
+      sizeUD->addUnit(*unit);
+    }
+    else 
+    {
+      for (n = 0; n < model->getNumUnitDefinitions(); n++)
+      {
+        if (!strcmp(spatialUnits, model->getUnitDefinition(n)->getId().c_str()))
+        {
+          sizeUD = new UnitDefinition("species_subs");
+          
+          for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
+          {
+            sizeUD->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+          }
+        }
+      }
+    }
+    /* now check for builtin units 
+     * this check is left until now as it is possible for a builtin 
+     * unit to be reassigned using a unit definition and thus will have 
+     * been picked up above
+     */
+    if (Unit_isBuiltIn(spatialUnits) && sizeUD == NULL)
+    {
+      sizeUD   = new UnitDefinition("species_subs");
+
+      if (!strcmp(spatialUnits, "volume"))
+      {
+        unit = new Unit("litre");
+        sizeUD->addUnit(*unit);
+      }
+      else if (!strcmp(spatialUnits, "area"))
+      {
+        unit = new Unit("metre", 2);
+        sizeUD->addUnit(*unit);
+      }
+      else if (!strcmp(spatialUnits, "length"))
+      {
+        unit = new Unit("metre");
+        sizeUD->addUnit(*unit);
+      }
+    }
   }
 
   /* units of the species are units substance/size */
@@ -845,40 +924,82 @@ LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter)
 {
-  UnitDefinition * ud;
+  UnitDefinition * ud = NULL;
   Unit * unit;
   unsigned int n, p;
 
   const char * units = parameter->getUnits().c_str();
 
-  if (UnitKind_isValidUnitKindString(units))
-  {
-    unit = new Unit(units);
-    ud   = new UnitDefinition(parameter->getId());
-    
-    ud->addUnit(*unit);
-  }
-  else 
-  {
-    for (n = 0; n < model->getNumUnitDefinitions(); n++)
-    {
-      if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
-      {
-        ud = new UnitDefinition(model->getUnitDefinition(n)->getId(), 
-          model->getUnitDefinition(n)->getName());
-        
-        for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
-        {
-          ud->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
-        }
-      }
-    }
-  }
-
  /* no units declared */
   if (!strcmp(units, ""))
   {
     ud   = new UnitDefinition(parameter->getId());
+  }
+  else
+  {
+    /* units can be a predefined unit kind
+    * a unit definition id or a builtin unit
+    */
+
+    if (UnitKind_isValidUnitKindString(units))
+    {
+      unit = new Unit(units);
+      ud   = new UnitDefinition(parameter->getId());
+      
+      ud->addUnit(*unit);
+    }
+    else 
+    {
+      for (n = 0; n < model->getNumUnitDefinitions(); n++)
+      {
+        if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
+        {
+          ud = new UnitDefinition(model->getUnitDefinition(n)->getId(), 
+            model->getUnitDefinition(n)->getName());
+          
+          for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
+          {
+            ud->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+          }
+        }
+      }
+    }
+    /* now check for builtin units 
+     * this check is left until now as it is possible for a builtin 
+     * unit to be reassigned using a unit definition and thus will have 
+     * been picked up above
+     */
+    if (Unit_isBuiltIn(units) && ud == NULL)
+    {
+      ud   = new UnitDefinition(parameter->getId());
+
+      if (!strcmp(units, "substance"))
+      {
+        unit = new Unit("mole");
+        ud->addUnit(*unit);
+      }
+      else if (!strcmp(units, "volume"))
+      {
+        unit = new Unit("litre");
+        ud->addUnit(*unit);
+      }
+      else if (!strcmp(units, "area"))
+      {
+        unit = new Unit("metre", 2);
+        ud->addUnit(*unit);
+      }
+      else if (!strcmp(units, "length"))
+      {
+        unit = new Unit("metre");
+        ud->addUnit(*unit);
+      }
+      else if (!strcmp(units, "time"))
+      {
+        unit = new Unit("second");
+        ud->addUnit(*unit);
+      }
+    }
+
   }
 
   return ud;
