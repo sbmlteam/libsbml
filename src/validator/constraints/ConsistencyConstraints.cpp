@@ -55,6 +55,7 @@
 
 #include "sbml/SBMLTypes.h"
 #include "validator/Constraint.h"
+#include "units/UnitFormulaFormatter.h"
 
 #include "CompartmentOutsideCycles.h"
 #include "FunctionDefinitionVars.h"
@@ -808,5 +809,200 @@ START_CONSTRAINT (1803, EventAssignment, ea)
   inv_or( c && c->getConstant() == false );
   inv_or( s && s->getConstant() == false );
   inv_or( p && p->getConstant() == false );
+}
+END_CONSTRAINT
+START_CONSTRAINT (3000, AssignmentRule, ar)
+{
+  msg =
+    "The units returned by the assignment rule that assigns value "
+    "to a compartment must be consistent with either the units "
+    "declared for that compartment or the default units for the "
+    "compartment.";
+   
+
+  const string& variable = ar.getVariable();
+  Compartment * c = m.getCompartment(variable);
+
+  pre ( c != NULL);
+  pre ( ar.isSetMath() == 1 );
+
+  /* get the unitDefinition from the compartment and  
+   * that returned by the math formula 
+   */
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (3001, AssignmentRule, ar)
+{
+  msg =
+    "The units returned by the assignment rule that assigns value "
+    "to a species must be consistent with either the units "
+    "declared for that species or the default units for the "
+    "species.";
+   
+
+  const string& variable = ar.getVariable();
+  Species * s = m.getSpecies(variable);
+
+  pre ( s != NULL);
+  pre ( ar.isSetMath() == 1 );
+
+  /* get the unitDefinition from the species and  
+   * that returned by the math formula 
+   */
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (3002, AssignmentRule, ar)
+{
+  msg =
+    "The units returned by the assignment rule that assigns value "
+    "to a parameter must be consistent with the units declared for "
+    "that parameter provided units have been declared.";
+   
+
+  const string& variable = ar.getVariable();
+  Parameter * p = m.getParameter(variable);
+
+  pre ( p != NULL);
+  pre ( ar.isSetMath() == 1 );
+
+  /* get the unitDefinition from the parameter and  
+   * that returned by the math formula 
+   */
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
+
+  /* special case where no units have been declared for parameter */
+  pre (variableUnits->getNumUnits() != 0);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (3100, RateRule, rr)
+{
+  msg =
+    "The units returned by the rate rule that assigns a rate "
+    "to a compartment must be consistent with either the units "
+    "declared for that compartment or the default units for the "
+    "compartment per unit time.";
+   
+
+  const string& variable = rr.getVariable();
+  Compartment * c = m.getCompartment(variable);
+
+  pre ( c != NULL);
+  pre ( rr.isSetMath() == 1 );
+
+  /* get the unitDefinition from the compartment and  
+   * that returned by the math formula 
+   */
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+  Unit * time = new Unit("second", -1);
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
+
+  /* add per time to the units from the compartment */
+  variableUnits->addUnit(*time);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (3101, RateRule, rr)
+{
+  msg =
+    "The units returned by the rate rule that assigns a rate "
+    "to a species must be consistent with either the units "
+    "declared for that species or the default units for the "
+    "species per unit time.";
+ 
+
+  const string& variable = rr.getVariable();
+  Species * s = m.getSpecies(variable);
+
+  pre ( s != NULL);
+  pre ( rr.isSetMath() == 1 );
+
+  /* get the unitDefinition from the species and  
+   * that returned by the math formula 
+   */
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+  Unit * time = new Unit("second", -1);
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
+
+  /* add per time to the units from the species */
+  variableUnits->addUnit(*time);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (3102, RateRule, rr)
+{
+  msg =
+    "The units returned by the rate rule that assigns a rate "
+    "to a parameter must be consistent with the units declared for "
+    "that parameter per unit time; provided units have been declared.";
+   
+
+  const string& variable = rr.getVariable();
+  Parameter * p = m.getParameter(variable);
+
+  pre ( p != NULL);
+  pre ( rr.isSetMath() == 1 );
+
+  /* get the unitDefinition from the parameter and  
+   * that returned by the math formula 
+   */
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+  Unit * time = new Unit("second", -1);
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
+
+  /* special case where no units have been declared for parameter */
+  pre (variableUnits->getNumUnits() != 0);
+  
+  /* add per time to the units from the species */
+  variableUnits->addUnit(*time);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
 }
 END_CONSTRAINT

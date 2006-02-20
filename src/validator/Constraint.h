@@ -60,7 +60,7 @@
 
 #include "sbml/SBase.h"
 #include "Validator.h"
-
+#include "units/UnitFormulaFormatter.h"
 
 class Model;
 

@@ -50,6 +50,7 @@
 
 
 #include "sbml/SBMLTypes.h"
+#include "units/UnitFormulaFormatter.h"
 #include "ConsistencyValidator.h"
 
 
