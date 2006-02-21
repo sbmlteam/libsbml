@@ -224,7 +224,7 @@ void
 SBMLReader::logFatal (SBMLDocument* d, SBMLReadError_t code, const char* msg)
 {
   if (!msg) msg = getMessage(code);
-  d->fatal.add( new ParseMessage(code, msg) );
+  d->fatal.add( new ParseMessage(code, msg, 0, 0, 3) );
 }
 
 
