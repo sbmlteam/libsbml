@@ -217,10 +217,17 @@ public:
   LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromParameter(const Parameter *);
 
+  /** 
+    * returns 1 if the math contains 
+    * a parameter that has undeclared units 0 otherwise
+    */
+  LIBSBML_EXTERN
+  unsigned int hasUndeclaredUnits(const ASTNode *);
 
 
 private:
   const Model * model;
+  unsigned int undeclaredUnits;
 
 };
 

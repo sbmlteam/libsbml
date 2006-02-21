@@ -242,7 +242,7 @@ areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 
 /** 
   * returns true if unit definitions are equivalent
-  * i.e. identical having been converted to SI
+  * i.e. having been converted to SI kinds/offsets are identical
   */
 LIBSBML_EXTERN
 int 
@@ -262,7 +262,7 @@ areEquivalent(UnitDefinition * ud1, UnitDefinition * ud2)
     n = 0;
     while (n < ud1Temp->getNumUnits())
     {
-      if (!areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
       {
         break;
       }

@@ -58,6 +58,7 @@ LIBSBML_EXTERN
 UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 {
   model = m;
+  undeclaredUnits = 0;
 }
 
 /**
@@ -934,6 +935,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
   if (!strcmp(units, ""))
   {
     ud   = new UnitDefinition(parameter->getId());
+    undeclaredUnits = 1;
   }
   else
   {
@@ -1005,6 +1007,19 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
   return ud;
 }
 
+/** 
+  * returns 1 if the math contains 
+  * a parameter that has undeclared units 0 otherwise
+  */
+LIBSBML_EXTERN
+unsigned int 
+UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
+{
+  undeclaredUnits = 0;
+  UnitDefinition * ud = getUnitDefinition(node);
+
+  return undeclaredUnits;
+}
 
 
 
