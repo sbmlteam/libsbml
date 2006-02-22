@@ -66,6 +66,9 @@
 #include "UniqueVarsInEventAssignments.h"
 #include "UniqueVarsInRules.h"
 
+//#include "FormulaUnitsCheck.h"
+
+
 #endif
 
 
@@ -811,6 +814,8 @@ START_CONSTRAINT (1803, EventAssignment, ea)
   inv_or( p && p->getConstant() == false );
 }
 END_CONSTRAINT
+
+
 START_CONSTRAINT (3000, AssignmentRule, ar)
 {
   msg =
@@ -838,6 +843,10 @@ START_CONSTRAINT (3000, AssignmentRule, ar)
   variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
+
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -868,6 +877,10 @@ START_CONSTRAINT (3001, AssignmentRule, ar)
   variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
+
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -900,6 +913,10 @@ START_CONSTRAINT (3002, AssignmentRule, ar)
   pre (variableUnits->getNumUnits() != 0);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
+
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -934,6 +951,10 @@ START_CONSTRAINT (3100, RateRule, rr)
   variableUnits->addUnit(*time);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
+
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -968,6 +989,10 @@ START_CONSTRAINT (3101, RateRule, rr)
   variableUnits->addUnit(*time);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
+  
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -1004,6 +1029,10 @@ START_CONSTRAINT (3102, RateRule, rr)
   variableUnits->addUnit(*time);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
+  
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -1032,5 +1061,9 @@ START_CONSTRAINT (3200, KineticLaw, kl)
   formulaUnits  = unitFormat->getUnitDefinition(kl.getMath());
 
   inv (areEquivalent(formulaUnits, SubsTime) == 1)
+
+  delete unitFormat;
 }
 END_CONSTRAINT
+
+//EXTERN_CONSTRAINT(3300, FormulaUnitsCheck)
