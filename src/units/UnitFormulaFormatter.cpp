@@ -538,7 +538,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
 { 
-  UnitDefinition * ud;
+  UnitDefinition * ud = NULL;
   Unit * unit;
 
   unsigned int n, p, found;
@@ -636,15 +636,20 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
               found = 1;
               break;
             }
-            else
-            {
-              p++;
-            }
           }
         }
         n++;
       }
     }
+  }
+
+  /* catch case where a user has used a name in a formula that 
+   * has not been declared anywhere in the model
+   * return a unit definition with no units
+   */
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition("empty");
   }
   return ud;
 }

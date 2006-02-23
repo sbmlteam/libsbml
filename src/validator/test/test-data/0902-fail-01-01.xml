@@ -23,7 +23,7 @@ unique (L2v1 Sections 3.5 and 4.9.7).
           <apply>
             <times/>
             <ci> k1 </ci>
-            <ci> X0 </ci>
+            <ci> s </ci>
           </apply>
         </math>
         <listOfParameters>

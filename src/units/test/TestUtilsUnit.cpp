@@ -214,7 +214,7 @@ START_TEST(test_unit_convert_SI)
     /* farad */
     /* 1 Farad = 1 m^-2 kg^-1 s^4 A^2 */
     u->setKind(UNIT_KIND_FARAD);
-    u->setMultiplier(2);
+    u->setMultiplier(1);
     u->setScale(0);
     u->setExponent(1);
     u->setOffset(0.0);
@@ -223,7 +223,7 @@ START_TEST(test_unit_convert_SI)
 
     fail_unless(ud->getNumUnits() == 4);
 
-    fail_unless(ud->getUnit(0)->getMultiplier() == sqrt(2));
+    fail_unless(ud->getUnit(0)->getMultiplier() == 1);
     fail_unless(ud->getUnit(0)->getScale() == 0);
     fail_unless(ud->getUnit(0)->getExponent() == 2);
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
@@ -268,7 +268,7 @@ START_TEST(test_unit_convert_SI)
     /* gray */
     /* 1 Gray = 1 m^2 sec^-2 */
     u->setKind(UNIT_KIND_GRAY);
-    u->setMultiplier(2);
+    u->setMultiplier(1);
     u->setScale(0);
     u->setExponent(1);
     u->setOffset(0.0);
@@ -277,7 +277,7 @@ START_TEST(test_unit_convert_SI)
 
     fail_unless(ud->getNumUnits() == 2);
 
-    fail_unless(ud->getUnit(0)->getMultiplier() == sqrt(2));
+    fail_unless(ud->getUnit(0)->getMultiplier() == 1);
     fail_unless(ud->getUnit(0)->getScale() == 0);
     fail_unless(ud->getUnit(0)->getExponent() == 2);
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
@@ -710,7 +710,7 @@ START_TEST(test_unit_convert_SI)
     /* siemens */
     /* 1 siemen = 1 m^-2 kg^-1 s^3 A^2 */
     u->setKind(UNIT_KIND_SIEMENS);
-    u->setMultiplier(2);
+    u->setMultiplier(1);
     u->setScale(0);
     u->setExponent(1);
     u->setOffset(0.0);
@@ -719,7 +719,7 @@ START_TEST(test_unit_convert_SI)
 
     fail_unless(ud->getNumUnits() == 4);
 
-    fail_unless(ud->getUnit(0)->getMultiplier() == sqrt(2));
+    fail_unless(ud->getUnit(0)->getMultiplier() == 1);
     fail_unless(ud->getUnit(0)->getScale() == 0);
     fail_unless(ud->getUnit(0)->getExponent() == 2);
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
@@ -746,7 +746,7 @@ START_TEST(test_unit_convert_SI)
     /* sievert */
     /* 1 Sievert = 1 m^2 sec^-2 */
     u->setKind(UNIT_KIND_SIEVERT);
-    u->setMultiplier(2);
+    u->setMultiplier(1);
     u->setScale(0);
     u->setExponent(1);
     u->setOffset(0.0);
@@ -755,7 +755,7 @@ START_TEST(test_unit_convert_SI)
 
     fail_unless(ud->getNumUnits() == 2);
 
-    fail_unless(ud->getUnit(0)->getMultiplier() == sqrt(2));
+    fail_unless(ud->getUnit(0)->getMultiplier() == 1);
     fail_unless(ud->getUnit(0)->getScale() == 0);
     fail_unless(ud->getUnit(0)->getExponent() == 2);
     fail_unless(ud->getUnit(0)->getOffset() == 0.0);
