@@ -223,8 +223,11 @@ SBMLReader::setSchemaValidationLevel (XMLSchemaValidation_t level)
 void
 SBMLReader::logFatal (SBMLDocument* d, SBMLReadError_t code, const char* msg)
 {
+  static const string category = "libSBML";
+
+
   if (!msg) msg = getMessage(code);
-  d->fatal.add( new ParseMessage(code, msg, 0, 0, 3) );
+  d->fatal.add( new ParseMessage(code, msg, 0, 0, 3, category) );
 }
 
 
