@@ -662,13 +662,17 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compartment)
 {
   UnitDefinition * ud = NULL;
+  UnitDefinition * tempUD;
   Unit * unit;
   unsigned int n, p;
 
   const char * units = compartment->getUnits().c_str();
 
   /* no units declared implies they default to the value appropriate
-   * to the spatialDimensions of the compartment */
+   * to the spatialDimensions of the compartment 
+   * noting that it is possible that these have been overridden
+   * using builtin units 
+   */
   if (!strcmp(units, ""))
   {
     switch (compartment->getSpatialDimensions())
@@ -680,22 +684,73 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         ud->addUnit(*unit);
         break;
       case 1: 
-        unit = new Unit("metre");
-        ud   = new UnitDefinition(compartment->getId());
+        /* check for builtin unit length redefined */
+        tempUD = model->getUnitDefinition("length");
+        if (!tempUD) 
+        {
+          unit = new Unit("metre");
+          ud   = new UnitDefinition(compartment->getId());
         
-        ud->addUnit(*unit);
+          ud->addUnit(*unit);
+        }
+        else
+        {
+          ud   = new UnitDefinition("length");
+
+          unit = new Unit(tempUD->getUnit(0)->getKind());
+          unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
+          unit->setScale(tempUD->getUnit(0)->getScale());
+          unit->setExponent(tempUD->getUnit(0)->getExponent());
+          unit->setOffset(tempUD->getUnit(0)->getOffset());
+
+          ud->addUnit(*unit);
+        }
         break;
       case 2:
-        unit = new Unit("metre", 2);
-        ud   = new UnitDefinition(compartment->getId());
-        
-        ud->addUnit(*unit);
+        /* check for builtin unit area redefined */
+        tempUD = model->getUnitDefinition("area");
+        if (!tempUD) 
+        {
+          unit = new Unit("metre", 2);
+          ud   = new UnitDefinition(compartment->getId());
+          
+          ud->addUnit(*unit);
+        }
+        else
+        {
+          ud   = new UnitDefinition("area");
+
+          unit = new Unit(tempUD->getUnit(0)->getKind());
+          unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
+          unit->setScale(tempUD->getUnit(0)->getScale());
+          unit->setExponent(tempUD->getUnit(0)->getExponent());
+          unit->setOffset(tempUD->getUnit(0)->getOffset());
+
+          ud->addUnit(*unit);
+        }
         break;
       default:
-        unit = new Unit("litre");
-        ud   = new UnitDefinition(compartment->getId());
+        /* check for builtin unit volume redefined */
+        tempUD = model->getUnitDefinition("volume");
+        if (!tempUD) 
+        {
+          unit = new Unit("litre");
+          ud   = new UnitDefinition(compartment->getId());
         
-        ud->addUnit(*unit);
+          ud->addUnit(*unit);
+        }
+        else
+        {
+          ud   = new UnitDefinition("volume");
+
+          unit = new Unit(tempUD->getUnit(0)->getKind());
+          unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
+          unit->setScale(tempUD->getUnit(0)->getScale());
+          unit->setExponent(tempUD->getUnit(0)->getExponent());
+          unit->setOffset(tempUD->getUnit(0)->getOffset());
+
+          ud->addUnit(*unit);
+        }
         break;
     }
   }
@@ -722,7 +777,13 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            ud->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+
+            ud->addUnit(*unit);
           }
         }
       }
@@ -780,10 +841,28 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   /* no units declared implies they default to the value substance */
   if (!strcmp(units, ""))
   {
-    unit = new Unit("mole");
-    subsUD   = new UnitDefinition("species_subs");
+    /* check for builtin unit substance redefined */
+    ud = model->getUnitDefinition("substance");
+    if (!ud) 
+    {
+      unit = new Unit("mole");
+      subsUD   = new UnitDefinition("species_subs");
 
-    subsUD->addUnit(*unit);
+      subsUD->addUnit(*unit);
+    }
+    else
+    {
+      subsUD   = new UnitDefinition("substance");
+
+      unit = new Unit(ud->getUnit(0)->getKind());
+      unit->setMultiplier(ud->getUnit(0)->getMultiplier());
+      unit->setScale(ud->getUnit(0)->getScale());
+      unit->setExponent(ud->getUnit(0)->getExponent());
+      unit->setOffset(ud->getUnit(0)->getOffset());
+
+      subsUD->addUnit(*unit);
+
+    }
   }
   else
   {
@@ -807,7 +886,13 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            subsUD->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+
+            subsUD->addUnit(*unit);
           }
         }
       }
@@ -836,14 +921,6 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 
   /* get the compartment containing the species */
   c = model->getCompartment(species->getCompartment().c_str());
-  //for (n = 0; n < model->getNumCompartments(); n++)
-  //{
-  //  if (!strcmp(species->getCompartment().c_str(), model->getCompartment(n)->getId().c_str()))
-  //  {
-  //    c = model->getCompartment(n);
-  //    break;
-  //  }
-  //}
 
   if (c->getSpatialDimensions() == 0)
   {
@@ -877,7 +954,13 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            sizeUD->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+
+            sizeUD->addUnit(*unit);
           }
         }
       }
@@ -966,7 +1049,13 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
-            ud->addUnit(*(model->getUnitDefinition(n)->getUnit(p)));
+            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+
+            ud->addUnit(*unit);
           }
         }
       }

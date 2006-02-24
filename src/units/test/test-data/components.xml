@@ -15,6 +15,7 @@
       </lambda>
     </math>
   </functionDefinition>
+  </listOfFunctionDefinitions>
   <listOfUnitDefinitions>
     <unitDefinition id="m_per_sec">
       <listOfUnits>
@@ -25,6 +26,16 @@
     <unitDefinition id="volt_sq">
       <listOfUnits>
         <unit kind="volt" exponent="2"/>
+      </listOfUnits>
+    </unitDefinition>
+    <unitDefinition id="length">
+      <listOfUnits>
+        <unit kind="metre" scale="-2"/>
+      </listOfUnits>
+    </unitDefinition>
+    <unitDefinition id="substance">
+      <listOfUnits>
+        <unit kind="mole" scale="-2"/>
       </listOfUnits>
     </unitDefinition>
   </listOfUnitDefinitions>
@@ -41,7 +52,7 @@
  </listOfCompartments>
   <listOfSpecies>
     <species id="x" compartment="cell" initialConcentration="0.5" substanceUnits="mole" spatialSizeUnits="litre"/>
-    <species id="y" compartment="cell" initialConcentration="0.5" substanceUnits="mole" hasOnlySubstanceUnits="1"/>
+    <species id="y" compartment="cell" initialConcentration="0.5" hasOnlySubstanceUnits="1"/>
     <species id="y1" compartment="cell" initialConcentration="0.5" substanceUnits="volt_sq" hasOnlySubstanceUnits="1"/>
     <species id="x1" compartment="cell4" initialConcentration="0.5" substanceUnits="mole"/>
     <species id="z" compartment="cell" initialConcentration="1" spatialSizeUnits="litre"/>

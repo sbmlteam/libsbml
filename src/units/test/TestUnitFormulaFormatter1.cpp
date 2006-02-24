@@ -153,10 +153,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell3"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), "length"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -218,10 +218,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell8"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), "length"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
@@ -257,10 +257,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
@@ -302,10 +302,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
@@ -321,10 +321,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
@@ -340,10 +340,10 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
@@ -362,7 +362,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
   fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getScale() == -2);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_MOLE);
