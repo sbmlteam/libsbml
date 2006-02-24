@@ -58,6 +58,9 @@
 #include <functional>
 #include <iterator>
 
+#include "sbml/SBMLDocument.h"
+#include "sbml/SBMLReader.h"
+
 #include "TestFile.h"
 #include "Validator.h"
 
@@ -107,7 +110,7 @@ struct ToId : public unary_function<ParseMessage, unsigned int>
 bool
 TestValidator::test (const TestFile& file)
 {
-  bool error = false;
+  bool error = testReadSBML(file);
 
   unsigned int id       = file.getConstraintId();
   unsigned int expected = file.getNumFailures();
@@ -151,6 +154,37 @@ TestValidator::test (const TestFile& file)
   mValidator.clearMessages();
 
   return error == false;
+}
+
+
+/**
+ * Calls readSBML() with TestFile.  The readSBML() function reports basic
+ * XML Validity and XML Schema errors.
+ *
+ * @return true if no errors were encountered, false otherwise.
+ */
+bool
+TestValidator::testReadSBML (const TestFile& file)
+{
+  unsigned int  errors = 0;
+  unsigned int  id     = file.getConstraintId();
+  SBMLDocument& d      = *readSBML( file.getFullname().c_str() );
+
+  errors = d.getNumWarnings() + d.getNumErrors() + d.getNumFatals();
+
+  if ( errors > 0 || isVerbose(id) )
+  {
+    cout << endl;
+    cout << "Error: " << file.getFilename() << endl;
+
+    d.printWarnings(cout);
+    d.printErrors  (cout);
+    d.printFatals  (cout);
+
+    cout << endl;
+  }
+
+  return errors > 0;
 }
 
 

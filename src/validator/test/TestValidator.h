@@ -80,6 +80,14 @@ public:
 private:
 
   /**
+   * Calls readSBML() with TestFile.  The readSBML() function reports basic
+   * XML Validity and XML Schema errors.
+   *
+   * @return true if no errors were encountered, false otherwise.
+   */
+  bool testReadSBML (const TestFile& file);
+
+  /**
    * @return true if the all Validator messages for the given Constraint id
    * test cases should be printed, false otherwise.
    */
