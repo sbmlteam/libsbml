@@ -9,8 +9,9 @@ AssignmentRule must have constant='false'.
   <model>
     <listOfCompartments>
       <compartment id="c" constant="false"/>
+    </listOfCompartments>
     <listOfRules>
       <rateRule variable="c"/>
-    </lassignmentfRules>
+    </listOfRules>
   </model>
 </sbml>

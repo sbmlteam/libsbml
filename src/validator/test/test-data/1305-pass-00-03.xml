@@ -9,7 +9,7 @@ variant of 'metre' with exponent='1' (L2v1 Section 4.5.4).
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
     <listOfUnitDefinitions>
-      <unitDefinition id="mm"/>
+      <unitDefinition id="mm">
         <listOfUnits>
           <unit kind="metre" exponent="1" scale="-3"/>
         </listOfUnits>

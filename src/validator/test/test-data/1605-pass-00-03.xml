@@ -28,6 +28,6 @@ exponent='1'.
         </listOfReactants>
         <kineticLaw timeUnits="ms"/>
       </reaction>
-    <listOfReactions>
+    </listOfReactions>
   </model>
 </sbml>

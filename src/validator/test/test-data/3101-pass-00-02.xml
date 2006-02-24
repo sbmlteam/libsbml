@@ -30,7 +30,7 @@ Pass: (3101) The units returned by the rate rule that assigns a rate
               <divide/>
               <ci> p2 </ci>
               <ci> p1 </ci>
-            <apply/>
+            </apply>
           </apply>
         </math>
       </rateRule>
