@@ -526,8 +526,15 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode * node)
 { 
   UnitDefinition * ud;
+  unsigned int i = 0;
  
-  ud = getUnitDefinition(node->getChild(0));
+  /* get first arg that is not a parameter with undeclared units */
+  ud = getUnitDefinition(node->getChild(i));
+  while (hasUndeclaredUnits(node->getChild(i)))
+  {
+    i++;
+    ud = getUnitDefinition(node->getChild(i));
+  }
 
   return ud;
 }

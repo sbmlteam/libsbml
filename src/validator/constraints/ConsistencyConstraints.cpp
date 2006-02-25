@@ -66,7 +66,7 @@
 #include "UniqueVarsInEventAssignments.h"
 #include "UniqueVarsInRules.h"
 
-//#include "FormulaUnitsCheck.h"
+#include "FormulaUnitsCheck.h"
 
 
 #endif
@@ -841,6 +841,8 @@ START_CONSTRAINT (3000, AssignmentRule, ar)
 
   formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
+  
+  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
 
@@ -875,6 +877,8 @@ START_CONSTRAINT (3001, AssignmentRule, ar)
 
   formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
+  
+  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
 
@@ -946,6 +950,8 @@ START_CONSTRAINT (3100, RateRule, rr)
 
   formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
+  
+  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0);
 
   /* add per time to the units from the compartment */
   variableUnits->addUnit(*time);
@@ -984,6 +990,8 @@ START_CONSTRAINT (3101, RateRule, rr)
 
   formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
+  
+  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0);
 
   /* add per time to the units from the species */
   variableUnits->addUnit(*time);

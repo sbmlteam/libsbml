@@ -25,7 +25,8 @@
     <parameter id="k1" units="metre"/>
     <parameter id="k2" units="m_per_sec"/>
     <parameter id="k3" units="volt_sq"/>
-  </listOfParameters>
+    <parameter id="k4"/>
+ </listOfParameters>
   <listOfRules>
     <rateRule variable="x">
       <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -111,6 +112,15 @@
           <root/>
           <cn> 2 </cn>
           <ci> k3 </ci>
+        </apply>
+      </math>
+    </rateRule>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <plus/>
+          <ci> k4 </ci>
+          <ci> k1 </ci>
         </apply>
       </math>
     </rateRule>
