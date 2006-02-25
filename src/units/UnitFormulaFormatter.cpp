@@ -546,7 +546,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
   KineticLaw * kl;
 
   /** 
-   * ASTNode represents a number, a constant, TIME, or
+   * ASTNode represents a number, a constant, TIME, DELAY, or
    * the name of another element of the model
    */
 
@@ -632,7 +632,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
           {
             if (!strcmp(node->getName(), kl->getParameter(p)->getId().c_str()))
             {
-              ud = getUnitDefinitionFromParameter(kl->getParameter(n));
+              ud = getUnitDefinitionFromParameter(kl->getParameter(p));
               found = 1;
               break;
             }
