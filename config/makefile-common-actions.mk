@@ -181,6 +181,9 @@ include $(wildcard $(DEPDIR)/*.$(DEPEXT)) /dev/null
 .cpp.$(OBJEXT):
 	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
 
+.cxx.$(OBJEXT):
+	$(cxxcompile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.$(DEPEXT)" -c -o $@ $<
+
 .c.obj:
 	if $(compile) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" \
 	  -c -o $@ `if test -f '$<'; then $(CYGPATH_W) '$<'; else $(CYGPATH_W) '$(srcdir)/$<'; fi`; \
