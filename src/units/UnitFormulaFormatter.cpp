@@ -205,6 +205,10 @@ UnitFormulaFormatter::isDimensionlessReturnFunction(const ASTNode * node)
   {
     dimensionless = 1;
   }
+  else if  (type == AST_FUNCTION_FACTORIAL)
+  {
+    dimensionless = 1;
+  }
 
   return dimensionless;
 }
@@ -530,7 +534,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
  
   /* get first arg that is not a parameter with undeclared units */
   ud = getUnitDefinition(node->getChild(i));
-  while (hasUndeclaredUnits(node->getChild(i)))
+  while (hasUndeclaredUnits(node->getChild(i)) && i < node->getNumChildren()-1)
   {
     i++;
     ud = getUnitDefinition(node->getChild(i));
