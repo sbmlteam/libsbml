@@ -117,6 +117,10 @@ SOURCE=..\..\src\validator\ConsistencyValidator.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\validator\Constraint.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sbml\Event.cpp
 # End Source File
 # Begin Source File
@@ -365,11 +369,27 @@ SOURCE=..\..\src\sbml\UnitDefinition.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\units\UnitFormulaFormatter.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sbml\UnitKind.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\units\UnitKindList.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\util\util.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\units\Utils_Unit.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\units\Utils_UnitDefinition.cpp
 # End Source File
 # Begin Source File
 
@@ -493,10 +513,6 @@ SOURCE=..\..\src\validator\constraints\FunctionDefinitionVars.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\validator\GlobalConstraint.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\validator\constraints\IdBase.h
 # End Source File
 # Begin Source File
@@ -518,10 +534,6 @@ SOURCE=..\..\src\util\List.h
 # Begin Source File
 
 SOURCE=..\..\src\sbml\ListOf.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\validator\LocalConstraint.h
 # End Source File
 # Begin Source File
 
@@ -705,11 +717,27 @@ SOURCE=..\..\src\sbml\UnitDefinition.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\units\UnitFormulaFormatter.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\sbml\UnitKind.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\units\UnitKindList.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\util\util.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\units\Utils_Unit.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\units\Utils_UnitDefinition.h
 # End Source File
 # Begin Source File
 
