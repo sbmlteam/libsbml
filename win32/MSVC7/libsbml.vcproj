@@ -57,7 +57,8 @@
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="..\createIncludeFromMSVC.bat"/>
+				CommandLine="..\createIncludeFromMSVC.bat"
+				ExcludedFromBuild="FALSE"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -177,6 +178,9 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\Constraint.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Event.cpp">
 			</File>
 			<File
@@ -190,6 +194,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\math\FormulaTokenizer.c">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\FormulaUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\FunctionDefinition.cpp">
@@ -354,10 +361,22 @@
 				RelativePath="..\..\src\sbml\UnitDefinition.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\units\UnitFormulaFormatter.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\UnitKind.c">
 			</File>
 			<File
+				RelativePath="..\..\src\units\UnitKindList.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\util\util.c">
+			</File>
+			<File
+				RelativePath="..\..\src\units\Utils_Unit.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\units\Utils_UnitDefinition.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\Validator.cpp">
@@ -430,13 +449,13 @@
 				RelativePath="..\..\src\math\FormulaTokenizer.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\FormulaUnitsCheck.h">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\FunctionDefinition.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\FunctionDefinitionVars.h">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\GlobalConstraint.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\IdBase.h">
@@ -455,9 +474,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\ListOf.h">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\LocalConstraint.h">
 			</File>
 			<File
 				RelativePath="..\..\src\math\MathMLDocument.h">
@@ -607,10 +623,22 @@
 				RelativePath="..\..\src\sbml\UnitDefinition.h">
 			</File>
 			<File
+				RelativePath="..\..\src\units\UnitFormulaFormatter.h">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\UnitKind.h">
 			</File>
 			<File
+				RelativePath="..\..\src\units\UnitKindList.h">
+			</File>
+			<File
 				RelativePath="..\..\src\util\util.h">
+			</File>
+			<File
+				RelativePath="..\..\src\units\Utils_Unit.h">
+			</File>
+			<File
+				RelativePath="..\..\src\units\Utils_UnitDefinition.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\Validator.h">
