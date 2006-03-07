@@ -316,7 +316,7 @@ SBMLDocument::setLevel (unsigned int level)
       SBML_convertToL2((Model_t *) model, (SBase_t *) this);
     }
   }
-  else if (curLevel == 2 && newlevel == 1)
+  else if (curLevel == 2 && newLevel == 1)
   {
     int nerrors = this->checkL1Compatibility();
 
