@@ -107,7 +107,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -120,7 +120,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "m_per_sec"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -139,7 +139,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell2"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -153,7 +153,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "length"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == -2);
@@ -166,7 +166,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell4"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -179,7 +179,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell5"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -192,7 +192,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell6"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -205,7 +205,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "cell7"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -218,7 +218,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "length"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == -2);
@@ -238,7 +238,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -257,7 +257,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == -2);
@@ -270,7 +270,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -283,7 +283,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -302,7 +302,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == -2);
@@ -321,7 +321,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == -2);
@@ -340,7 +340,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "substance"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == -2);
@@ -359,7 +359,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "species_subs"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == -2);
@@ -385,7 +385,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -398,7 +398,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "m_per_sec"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -417,14 +417,14 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
 
   fail_unless(ud->getNumUnits() == 0);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k2"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
  
   /* parameter with builtin units time */
   ud = uff->getUnitDefinitionFromParameter(m->getParameter(3));
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k3"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -445,7 +445,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "number"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -458,7 +458,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);

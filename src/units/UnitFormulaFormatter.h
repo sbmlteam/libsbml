@@ -88,60 +88,6 @@ public:
   ~UnitFormulaFormatter();
 
 
-  /** 
-  * returns true (non-zero) if math represents a function
-  */ 
-  int   isFunction(const ASTNode *);
-
-
-  /** 
-  * returns true (non-zero) if math represents an inverse trigonometric function 
-  */ 
-  int isInverseTrigFunction(const ASTNode *);
-
-
-  /** 
-  * returns true (non-zero) if math represents a times function 
-  */ 
-  int isTimes(const ASTNode *);
-
-
-  /** 
-  * returns true (non-zero) if math represents a division function 
-  */ 
-  int isDivide(const ASTNode *);
-
-
-  /** 
-  * returns true (non-zero) if math represents a power function  
-  */ 
-  int isPower(const ASTNode *);
-
-
-  /** 
-  * returns true (non-zero) if math represents a piecewise function 
-  */ 
-  int isPiecewise(const ASTNode *);
-
-
-  /**
-  * returns true (non-zero) if math represents a root function 
-  */ 
-  int isRoot(const ASTNode *);
-
-
-  /**
-  * returns true (non-zero) if math represents a function 
-  * that has a dimensionless return value
-  */ 
-  int isDimensionlessReturnFunction(const ASTNode *);
-
-
-  /** 
-  * returns true (non-zero) if math represents a function 
-  * that has same units as the function argument(s)
-  */ 
-  int isArgUnitsReturnFunction(const ASTNode *);
 
   /**
    * visits the ASTNode and returns the unitDefinition of the formula
@@ -193,6 +139,12 @@ public:
    * a function returning value with same units as argument(s)
    */
   UnitDefinition * getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode *);
+
+  /** 
+   * returns the unitDefinition for the ASTNode from 
+   * a delay function
+   */
+  UnitDefinition * getUnitDefinitionFromDelay(const ASTNode * node);
 
   /** 
    * returns the unitDefinition for the ASTNode from anything else

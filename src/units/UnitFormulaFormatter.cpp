@@ -68,177 +68,6 @@ LIBSBML_EXTERN
 UnitFormulaFormatter::~UnitFormulaFormatter()
 {
 }
-/** 
- * returns true (non-zero) if math represents a function
- */ 
-int 
-UnitFormulaFormatter::isFunction(const ASTNode * node)
-{
-  return
-    node->isFunction   () ||
-    node->isLambda     () ||
-    node->isLogical    () ||
-    node->isOperator   () ||
-    node->isRelational ();
-}
-
-/** 
- * returns true (non-zero) if node represents an inverse trigonometric function 
- */ 
-int 
-UnitFormulaFormatter::isInverseTrigFunction(const ASTNode * node)
-{  
-  int inverseTrig = 0;
-  ASTNodeType_t type = node->getType();
-
-  if ((type == AST_FUNCTION_ARCCOS) ||
-      (type == AST_FUNCTION_ARCCOT) ||
-      (type == AST_FUNCTION_ARCCSC) ||
-      (type == AST_FUNCTION_ARCSEC) ||
-      (type == AST_FUNCTION_ARCSIN) ||
-      (type == AST_FUNCTION_ARCTAN)) 
-  {
-    inverseTrig = 1;
-  }
-
-  return inverseTrig;
-}
-
-/** 
- * returns true (non-zero) if node represents a times function 
- */ 
-int 
-UnitFormulaFormatter::isTimes(const ASTNode * node)
-{
-  return (node->getType() == AST_TIMES);
-}
-
-/** 
- * returns true (non-zero) if node represents a division function 
- */ 
-int 
-UnitFormulaFormatter::isDivide(const ASTNode * node)
-{
-  return (node->getType() == AST_DIVIDE);
-}
-
-/** 
- * returns true (non-zero) if node represents a power function  
- */ 
-int 
-UnitFormulaFormatter::isPower(const ASTNode * node)
-{
-  int power = 0;
-  ASTNodeType_t type = node->getType();
-
-  if ((type == AST_POWER) ||
-      (type == AST_FUNCTION_POWER)) 
-  {
-    power = 1;
-  }
-
-  return power;
-}
-
-/** 
- * returns true (non-zero) if node represents a piecewise function 
- */ 
-int 
-UnitFormulaFormatter::isPiecewise(const ASTNode * node)
-{
-  return (node->getType() == AST_FUNCTION_PIECEWISE);
-}
-
-/**
- * returns true (non-zero) if node represents a root function 
- */ 
-int 
-UnitFormulaFormatter::isRoot(const ASTNode * node)
-{
-  return (node->getType() == AST_FUNCTION_ROOT);
-}
-
-/**
- * returns true (non-zero) if node represents a function 
- * that has a dimensionless return value
- */ 
-int 
-UnitFormulaFormatter::isDimensionlessReturnFunction(const ASTNode * node)
-{
-  int dimensionless = 0;
-  ASTNodeType_t type = node->getType();
-
-  /* inverse hyperbolic functions */
-  if ((type == AST_FUNCTION_ARCCOSH) ||
-      (type == AST_FUNCTION_ARCCOTH) ||
-      (type == AST_FUNCTION_ARCCSCH) ||
-      (type == AST_FUNCTION_ARCSECH) ||
-      (type == AST_FUNCTION_ARCSINH) ||
-      (type == AST_FUNCTION_ARCTANH)) 
-  {
-    dimensionless = 1;
-  }
-  /* hyperbolic functions */
-  else if  ((type == AST_FUNCTION_COSH) ||
-            (type == AST_FUNCTION_COTH) ||
-            (type == AST_FUNCTION_CSCH) ||
-            (type == AST_FUNCTION_SECH) ||
-            (type == AST_FUNCTION_SINH) ||
-            (type == AST_FUNCTION_TANH)) 
-  {
-    dimensionless = 1;
-  }
-  /* trigonometry functions */
-  else if  ((type == AST_FUNCTION_COS) ||
-            (type == AST_FUNCTION_COT) ||
-            (type == AST_FUNCTION_CSC) ||
-            (type == AST_FUNCTION_SEC) ||
-            (type == AST_FUNCTION_SIN) ||
-            (type == AST_FUNCTION_TAN)) 
-  {
-    dimensionless = 1;
-  }
-  /* logarithmic functions */
-  else if  ((type == AST_FUNCTION_EXP) ||
-            (type == AST_FUNCTION_LN) ||
-            (type == AST_FUNCTION_LOG)) 
-  {
-    dimensionless = 1;
-  }
-  else if  (type == AST_FUNCTION_FACTORIAL)
-  {
-    dimensionless = 1;
-  }
-
-  return dimensionless;
-}
-
-/** 
- * returns true (non-zero) if node represents a function 
- * that has same units as the function arguments
- */ 
-int 
-UnitFormulaFormatter::isArgUnitsReturnFunction(const ASTNode * node)
-{
-  int sameUnits = 0;
-  ASTNodeType_t type = node->getType();
-
-  /* value functions */
-  if ((type == AST_FUNCTION_ABS)     ||
-      (type == AST_FUNCTION_CEILING) ||
-      (type == AST_FUNCTION_FLOOR)) 
-  {
-    sameUnits = 1;
-  }
-  /* operator functions */
-  else if ((type == AST_PLUS) ||
-           (type == AST_MINUS)) 
-  {
-    sameUnits = 1;
-  }
-
-  return sameUnits;
-}
 
 /**
   * visits the ASTNode and returns the unitDefinition of the formula
@@ -251,53 +80,150 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
 {  
   UnitDefinition * ud;
 
-  if (node->getType() == AST_UNKNOWN)
+  ASTNodeType_t type = node->getType();
+
+  switch (type) 
   {
-    ud = new UnitDefinition("unknown");
-  }
-  else if (node->isBoolean())
-  {
-    ud = getUnitDefinitionFromDimensionlessReturnFunction(node);
-  }
-  else if (isDimensionlessReturnFunction(node))
-  {
-    ud = getUnitDefinitionFromDimensionlessReturnFunction(node);
-  }
-  else if (isInverseTrigFunction(node))
-  {
-    ud = getUnitDefinitionFromDimensionlessReturnFunction(node);
-  }
-  else if (isArgUnitsReturnFunction(node))
-  {
-    ud = getUnitDefinitionFromArgUnitsReturnFunction(node);
-  }
-  else if (isPower(node))
-  {
-    ud = getUnitDefinitionFromPower(node);
-  }
-  else if (isTimes(node))
-  {
-    ud = getUnitDefinitionFromTimes(node);
-  }
-  else if (isDivide(node))
-  {
-    ud = getUnitDefinitionFromDivide(node);
-  }
-  else if (isPiecewise(node))
-  {
-    ud = getUnitDefinitionFromPiecewise(node);
-  }
-  else if (isRoot(node))
-  {
-    ud = getUnitDefinitionFromRoot(node);
-  }
-  else if (isFunction(node))
-  {
-    ud = getUnitDefinitionFromFunction(node);
-  }
-  else
-  {
-    ud = getUnitDefinitionFromOther(node);
+  /* functions that return a dimensionless result */
+    case AST_FUNCTION_FACTORIAL:
+
+    /* inverse hyerbolic functions */
+    case AST_FUNCTION_ARCCOSH:
+    case AST_FUNCTION_ARCCOTH:
+    case AST_FUNCTION_ARCCSCH:
+    case AST_FUNCTION_ARCSECH:
+    case AST_FUNCTION_ARCSINH:
+    case AST_FUNCTION_ARCTANH:
+
+    /* inverse trig functions */
+    case AST_FUNCTION_ARCCOS:
+    case AST_FUNCTION_ARCCOT:
+    case AST_FUNCTION_ARCCSC:
+    case AST_FUNCTION_ARCSEC:
+    case AST_FUNCTION_ARCSIN:
+    case AST_FUNCTION_ARCTAN: 
+
+    /* hyperbolic functions */
+    case AST_FUNCTION_COSH:
+    case AST_FUNCTION_COTH:
+    case AST_FUNCTION_CSCH:
+    case AST_FUNCTION_SECH:
+    case AST_FUNCTION_SINH:
+    case AST_FUNCTION_TANH: 
+
+    /* trigonometry functions */
+    case AST_FUNCTION_COS:
+    case AST_FUNCTION_COT:
+    case AST_FUNCTION_CSC:
+    case AST_FUNCTION_SEC:
+    case AST_FUNCTION_SIN:
+    case AST_FUNCTION_TAN: 
+
+    /* logarithmic functions */
+    case AST_FUNCTION_EXP:
+    case AST_FUNCTION_LN:
+    case AST_FUNCTION_LOG:
+
+    /* boolean */
+    case AST_LOGICAL_AND:
+    case AST_LOGICAL_NOT:
+    case AST_LOGICAL_OR:
+    case AST_LOGICAL_XOR:
+    case AST_CONSTANT_FALSE:
+    case AST_CONSTANT_TRUE:
+
+    /* relational */
+    case AST_RELATIONAL_EQ:
+    case AST_RELATIONAL_GEQ:
+    case AST_RELATIONAL_GT:
+    case AST_RELATIONAL_LEQ:
+    case AST_RELATIONAL_LT:
+    case AST_RELATIONAL_NEQ:
+
+      ud = getUnitDefinitionFromDimensionlessReturnFunction(node);
+      break;
+
+  /* functions that return same units */
+    case AST_PLUS:
+    case AST_MINUS:
+    case AST_FUNCTION_ABS:
+    case AST_FUNCTION_CEILING:
+    case AST_FUNCTION_FLOOR:
+  
+      ud = getUnitDefinitionFromArgUnitsReturnFunction(node);
+      break;
+
+  /* power functions */
+    case AST_POWER:
+    case AST_FUNCTION_POWER:
+  
+      ud = getUnitDefinitionFromPower(node);
+      break;
+
+  /* times functions */
+    case AST_TIMES:
+  
+      ud = getUnitDefinitionFromTimes(node);
+      break;
+
+  /* divide functions */
+    case AST_DIVIDE:
+  
+      ud = getUnitDefinitionFromDivide(node);
+      break;
+
+  /* piecewise functions */
+    case AST_FUNCTION_PIECEWISE:
+  
+      ud = getUnitDefinitionFromPiecewise(node);
+      break;
+
+  /* root functions */
+    case AST_FUNCTION_ROOT:
+  
+      ud = getUnitDefinitionFromRoot(node);
+      break;
+
+  /* functions */
+    case AST_LAMBDA:
+    case AST_FUNCTION:
+  
+      ud = getUnitDefinitionFromFunction(node);
+      break;
+    
+  /* delay */
+    case AST_FUNCTION_DELAY:
+  
+      ud = getUnitDefinitionFromDelay(node);
+      break;
+
+
+  /* others */
+
+    /* numbers */
+    case AST_INTEGER:
+    case AST_REAL:
+    case AST_REAL_E:
+    case AST_RATIONAL:
+
+    /* time */
+    case AST_NAME_TIME:
+
+    /* constants */
+    case AST_CONSTANT_E:
+    case AST_CONSTANT_PI:
+
+    /* name of another component in the model */
+    case AST_NAME:
+
+      ud = getUnitDefinitionFromOther(node);
+      break;
+
+    case AST_UNKNOWN:
+    default:
+    
+      ud = new UnitDefinition();
+      break;
   }
 
   simplifyUnitDefinition(ud);
@@ -312,7 +238,7 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
 { 
   UnitDefinition * ud;
-  unsigned int n, i;
+  unsigned int i;
   Unit * unit;
   const ASTNode * fdMath;
   ASTNode *newMath;
@@ -320,29 +246,23 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
   if(node->getType() == AST_FUNCTION)
   {
     /**
-     * find corresponding func def which will have
-     * the formula as the rightChild of ASTNode
-     */
-    for (n = 0; n < model->getNumFunctionDefinitions(); n++)
+    * find corresponding func def which will have
+    * the formula as the rightChild of ASTNode
+    */
+    fdMath = model->getFunctionDefinition(node->getName())->getMath()
+                      ->getRightChild();
+
+    /**
+    * create a new ASTNode of this type but with the children
+    * from the original function
+    */
+    newMath = new ASTNode(fdMath->getType());
+    for (i = 0; i < node->getNumChildren(); i++)
     {
-      if (!strcmp(node->getName(), model->getFunctionDefinition(n)->getId().c_str()))
-      {
-        fdMath = model->getFunctionDefinition(n)->getMath()->getRightChild();
-        
-        /**
-         * create a new ASTNode of this type but with the children
-         * from the original function
-         */
-        newMath = new ASTNode(fdMath->getType());
-        for (i = 0; i < node->getNumChildren(); i++)
-        {
-          newMath->addChild(node->getChild(i));
-        }
-        
-        ud = getUnitDefinition(newMath);
-      }
-      break;
+      newMath->addChild(node->getChild(i));
     }
+
+    ud = getUnitDefinition(newMath);
   }
   else
   {
@@ -350,7 +270,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
      * function is a lambda function - which wont have any units
      */
     unit = new Unit("dimensionless");
-    ud   = new UnitDefinition("lambda_function");
+    ud   = new UnitDefinition();
     
     ud->addUnit(*unit);
   }
@@ -428,7 +348,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node)
   ASTNode * child;
 
   tempUD = getUnitDefinition(node->getLeftChild());
-  ud = new UnitDefinition("power");
+  ud = new UnitDefinition();
 
   child = node->getRightChild();
   for (i = 0; i < tempUD->getNumUnits(); i++)
@@ -483,7 +403,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
   ASTNode * child;
 
   tempUD = getUnitDefinition(node->getRightChild());
-  ud = new UnitDefinition("root");
+  ud = new UnitDefinition();
 
   child = node->getLeftChild();
   for (i = 0; i < tempUD->getNumUnits(); i++)
@@ -506,6 +426,20 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
 
 /** 
   * returns the unitDefinition for the ASTNode from 
+  * a delay function
+  */
+UnitDefinition * 
+UnitFormulaFormatter::getUnitDefinitionFromDelay(const ASTNode * node)
+{ 
+  UnitDefinition * ud;
+  
+  ud = getUnitDefinition(node->getLeftChild());
+
+  return ud;
+}
+
+/** 
+  * returns the unitDefinition for the ASTNode from 
   * a function returning dimensionless value
   */
 UnitDefinition * 
@@ -515,7 +449,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(const AST
   Unit *unit;
     
   unit = new Unit("dimensionless");
-  ud   = new UnitDefinition("dimless_ret_func");
+  ud   = new UnitDefinition();
     
   ud->addUnit(*unit);
 
@@ -564,14 +498,14 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
   if ((node->isNumber()) || (node->getType() == AST_CONSTANT_E))
   {
     unit = new Unit("dimensionless");
-    ud   = new UnitDefinition("number");
+    ud   = new UnitDefinition();
     
     ud->addUnit(*unit);
   }
   else if (node->getType() == AST_CONSTANT_PI)
   {
     unit = new Unit("radian");
-    ud   = new UnitDefinition("PI");
+    ud   = new UnitDefinition();
     
     ud->addUnit(*unit);
   }
@@ -580,7 +514,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
     if (node->getType() == AST_NAME_TIME)
     {
       unit = new Unit("second");
-      ud   = new UnitDefinition("time");
+      ud   = new UnitDefinition();
       
       ud->addUnit(*unit);
     }
@@ -660,7 +594,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
    */
   if (ud == NULL)
   {
-    ud = new UnitDefinition("empty");
+    ud = new UnitDefinition();
   }
   return ud;
 }
@@ -690,7 +624,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
     {
       case 0:
         unit = new Unit("dimensionless");
-        ud   = new UnitDefinition(compartment->getId());
+        ud   = new UnitDefinition();
       
         ud->addUnit(*unit);
         break;
@@ -700,13 +634,13 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         if (!tempUD) 
         {
           unit = new Unit("metre");
-          ud   = new UnitDefinition(compartment->getId());
+          ud   = new UnitDefinition();
         
           ud->addUnit(*unit);
         }
         else
         {
-          ud   = new UnitDefinition("length");
+          ud   = new UnitDefinition();
 
           unit = new Unit(tempUD->getUnit(0)->getKind());
           unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
@@ -723,13 +657,13 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         if (!tempUD) 
         {
           unit = new Unit("metre", 2);
-          ud   = new UnitDefinition(compartment->getId());
+          ud   = new UnitDefinition();
           
           ud->addUnit(*unit);
         }
         else
         {
-          ud   = new UnitDefinition("area");
+          ud   = new UnitDefinition();
 
           unit = new Unit(tempUD->getUnit(0)->getKind());
           unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
@@ -746,13 +680,13 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         if (!tempUD) 
         {
           unit = new Unit("litre");
-          ud   = new UnitDefinition(compartment->getId());
+          ud   = new UnitDefinition();
         
           ud->addUnit(*unit);
         }
         else
         {
-          ud   = new UnitDefinition("volume");
+          ud   = new UnitDefinition();
 
           unit = new Unit(tempUD->getUnit(0)->getKind());
           unit->setMultiplier(tempUD->getUnit(0)->getMultiplier());
@@ -773,7 +707,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
     if (UnitKind_isValidUnitKindString(units))
     {
       unit = new Unit(units);
-      ud   = new UnitDefinition(compartment->getId());
+      ud   = new UnitDefinition();
       
       ud->addUnit(*unit);
     }
@@ -783,8 +717,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
       {
         if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
         {
-          ud = new UnitDefinition(model->getUnitDefinition(n)->getId(), 
-            model->getUnitDefinition(n)->getName());
+          ud = new UnitDefinition();
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
@@ -806,7 +739,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
      */
     if (Unit_isBuiltIn(units) && ud == NULL)
     {
-      ud   = new UnitDefinition(compartment->getId());
+      ud   = new UnitDefinition();
 
       if (!strcmp(units, "volume"))
       {
@@ -857,13 +790,13 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     if (!ud) 
     {
       unit = new Unit("mole");
-      subsUD   = new UnitDefinition("species_subs");
+      subsUD   = new UnitDefinition();
 
       subsUD->addUnit(*unit);
     }
     else
     {
-      subsUD   = new UnitDefinition("substance");
+      subsUD   = new UnitDefinition();
 
       unit = new Unit(ud->getUnit(0)->getKind());
       unit->setMultiplier(ud->getUnit(0)->getMultiplier());
@@ -883,7 +816,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     if (UnitKind_isValidUnitKindString(units))
     {
       unit = new Unit(units);
-      subsUD   = new UnitDefinition("species_subs");
+      subsUD   = new UnitDefinition();
       
       subsUD->addUnit(*unit);
     }
@@ -893,7 +826,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       {
         if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
         {
-          subsUD = new UnitDefinition("species_subs");
+          subsUD = new UnitDefinition();
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
@@ -915,7 +848,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
      */
     if (Unit_isBuiltIn(units) && subsUD == NULL)
     {
-      subsUD   = new UnitDefinition("species_subs");
+      subsUD   = new UnitDefinition();
 
       if (!strcmp(units, "substance"))
       {
@@ -951,7 +884,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     if (UnitKind_isValidUnitKindString(spatialUnits))
     {
       unit = new Unit(spatialUnits);
-      sizeUD   = new UnitDefinition("species_subs");
+      sizeUD   = new UnitDefinition();
       
       sizeUD->addUnit(*unit);
     }
@@ -961,7 +894,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       {
         if (!strcmp(spatialUnits, model->getUnitDefinition(n)->getId().c_str()))
         {
-          sizeUD = new UnitDefinition("species_subs");
+          sizeUD = new UnitDefinition();
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
@@ -983,7 +916,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
      */
     if (Unit_isBuiltIn(spatialUnits) && sizeUD == NULL)
     {
-      sizeUD   = new UnitDefinition("species_subs");
+      sizeUD   = new UnitDefinition();
 
       if (!strcmp(spatialUnits, "volume"))
       {
@@ -1033,7 +966,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
  /* no units declared */
   if (!strcmp(units, ""))
   {
-    ud   = new UnitDefinition(parameter->getId());
+    ud   = new UnitDefinition();
     undeclaredUnits = 1;
   }
   else
@@ -1045,7 +978,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
     if (UnitKind_isValidUnitKindString(units))
     {
       unit = new Unit(units);
-      ud   = new UnitDefinition(parameter->getId());
+      ud   = new UnitDefinition();
       
       ud->addUnit(*unit);
     }
@@ -1055,8 +988,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
       {
         if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
         {
-          ud = new UnitDefinition(model->getUnitDefinition(n)->getId(), 
-            model->getUnitDefinition(n)->getName());
+          ud = new UnitDefinition();
           
           for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
           {
@@ -1078,7 +1010,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
      */
     if (Unit_isBuiltIn(units) && ud == NULL)
     {
-      ud   = new UnitDefinition(parameter->getId());
+      ud   = new UnitDefinition();
 
       if (!strcmp(units, "substance"))
       {

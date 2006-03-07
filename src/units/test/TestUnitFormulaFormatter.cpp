@@ -108,7 +108,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_unknown)
 
   fail_unless(ud->getNumUnits() == 0);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "unknown"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
 }
 END_TEST
@@ -121,7 +121,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_boolean)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "dimless_ret_func"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -140,7 +140,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_dimensionless)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "dimless_ret_func"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -159,7 +159,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_invtrig)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "dimless_ret_func"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -178,7 +178,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -190,7 +190,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k1"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -209,7 +209,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_power)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "power"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -228,7 +228,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
 
   fail_unless(ud->getNumUnits() == 2);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -253,7 +253,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_divide)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -272,7 +272,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "k"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
@@ -291,13 +291,33 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_root)
 
   fail_unless(ud->getNumUnits() == 1);
 
-  fail_unless(!strcmp(ud->getId().c_str(), "root"), NULL);
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
 
   fail_unless(ud->getUnit(0)->getMultiplier() == 1);
   fail_unless(ud->getUnit(0)->getScale() == 0);
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_VOLT);
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_delay)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  ud = uff->getUnitDefinition(m->getRule(10)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
 }
 END_TEST
@@ -323,6 +343,7 @@ create_suite_UnitFormulaFormatter (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_divide );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_piecewise );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_root );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_delay );
 
   suite_add_tcase(suite, tcase);
 
