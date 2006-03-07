@@ -303,38 +303,49 @@ LIBSBML_EXTERN
 void
 SBMLDocument::setLevel (unsigned int level)
 {
-  if (this->level == 1 && level == 2)
+  unsigned int curLevel = this->level;
+  unsigned int newLevel = level;
+
+
+  if (curLevel == 1 && newLevel == 2)
   {
     this->level = 2;
-    if (model != NULL) SBML_convertToL2((Model_t *) model, (SBase_t *) this);
+
+    if (model != NULL)
+    {
+      SBML_convertToL2((Model_t *) model, (SBase_t *) this);
+    }
   }
-  else if (this->level == 2 && level == 1)
+  else if (curLevel == 2 && newlevel == 1)
   {
-	  /* put in consistency check */
     int nerrors = this->checkL1Compatibility();
 
 	  if (nerrors == 0)
 	  {
 		  this->level = 1;
-		  this->version = 2;
 
-		  if (model != NULL) SBML_convertModelToL1((Model_t *) model, (SBase_t *) this);
+		  if (model != NULL)
+      {
+        SBML_convertModelToL1((Model_t *) model, (SBase_t *) this);
+      }
 	  }
-
   }
   else
   {
-    this->level = level;
-
-    if (this->level == 2)
-    {
-      version = 1;
-    }
-    else if (this->level == 1)
-    {
-      version = 2;
-    }
+    this->level = newLevel;
   }
+
+  if (this->level == 2)
+  {
+    version = 1;
+  }
+  else if (this->level == 1)
+  {
+    version = 2;
+  }
+
+  model->mLevel   = this->level;
+  model->mVersion = this->version;
 }
 
 
@@ -347,6 +358,11 @@ void
 SBMLDocument::setVersion (unsigned int version)
 {
   this->version = version;
+
+  if (model != 0)
+  {
+    model->mVersion = version;
+  }
 }
 
 

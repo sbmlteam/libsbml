@@ -2073,6 +2073,8 @@ SBMLHandler::doModel (const Attributes& a)
     new LayoutHandler( &fDocument->getModel()->getListOfLayouts() );
 #endif  // USE_LAYOUT
 
+  fModel->mLevel   = mDocument->getLevel();
+  fModel->mVersion = mDocument->getVersion();
 
   //
   // id: SId  { use="optional" }  (L2v1)

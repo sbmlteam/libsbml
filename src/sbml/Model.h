@@ -130,6 +130,19 @@ public:
   const std::string& getName () const;
 
   /**
+   * @return the SBML Level of this Model.
+   */
+  LIBSBML_EXTERN
+  unsigned int getLevel () const;
+
+  /**
+   * @return the SBML Level of this Model.
+   */
+  LIBSBML_EXTERN
+  unsigned int getVersion () const;
+
+
+  /**
    * @return true if the id of this Model has been set, false otherwise.
    */
   LIBSBML_EXTERN
@@ -769,6 +782,10 @@ protected:
 #endif  /* USE_LAYOUT */
 
 
+  unsigned int mLevel;
+  unsigned int mVersion;
+
+  friend class SBMLDocument;
   friend class SBMLFormatter;
   friend class SBMLHandler;
 };
@@ -834,6 +851,20 @@ Model_getId (const Model_t *m);
 LIBSBML_EXTERN
 const char *
 Model_getName (const Model_t *m);
+
+/**
+ * @return the SBML Level of this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getLevel (const Model_t *m);
+
+/**
+ * @return the SBML Level of this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getVersion (const Model_t *m);
 
 
 /**

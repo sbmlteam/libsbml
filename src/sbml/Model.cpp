@@ -252,6 +252,29 @@ Model::getName () const
 
 
 /**
+ * @return the SBML Level of this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model::getLevel () const
+{
+  return mLevel;
+}
+
+
+/**
+ * @return the SBML Level of this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model::getVersion () const
+{
+  return mVersion;
+}
+
+
+
+/**
  * @return true if the id of this Model has been set, false otherwise.
  */
 LIBSBML_EXTERN
@@ -1715,6 +1738,28 @@ Model_getName (const Model_t *m)
 
 
   return x->isSetName() ? x->getName().c_str() : NULL;
+}
+
+
+/**
+ * @return the SBML Level of this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getLevel (const Model_t *m)
+{
+  return static_cast<const Model*>(m)->getLevel();
+}
+
+
+/**
+ * @return the SBML Level of this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getVersion (const Model_t *m)
+{
+  return static_cast<const Model*>(m)->getVersion();
 }
 
 
