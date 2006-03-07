@@ -819,11 +819,12 @@ END_CONSTRAINT
 START_CONSTRAINT (3000, AssignmentRule, ar)
 {
   msg =
-    "The units returned by the assignment rule that assigns value "
-    "to a compartment must be consistent with either the units "
-    "declared for that compartment or the default units for the "
-    "compartment.";
-   
+    "When the 'variable' field of an assignment rule refers to a "
+    "compartment, the units of the rule's right-hand side must be "
+    "consistent with either the units declared for that "
+    "compartment, or (in the absence of explicit units declared "
+    "for the compartment) the default units for that compartment.";
+
 
   const string& variable = ar.getVariable();
   Compartment * c = m.getCompartment(variable);
@@ -855,10 +856,11 @@ END_CONSTRAINT
 START_CONSTRAINT (3001, AssignmentRule, ar)
 {
   msg =
-    "The units returned by the assignment rule that assigns value "
-    "to a species must be consistent with either the units "
-    "declared for that species or the default units for the "
-    "species.";
+    "When the 'variable' field of an assignment rule refers to a "
+    "species, the units of the rule's right-hand side must be "
+    "consistent with either the units declared for that "
+    "species, or (in the absence of explicit units declared "
+    "for the species) the default units for that species.";
    
 
   const string& variable = ar.getVariable();
@@ -891,9 +893,10 @@ END_CONSTRAINT
 START_CONSTRAINT (3002, AssignmentRule, ar)
 {
   msg =
-    "The units returned by the assignment rule that assigns value "
-    "to a parameter must be consistent with the units declared for "
-    "that parameter provided units have been declared.";
+    "When the 'variable' field of an assignment rule refers to a "
+    "parameter, and the parameter's definition includes explicit "
+    "units, then the units of the rule's right-hand side must be "
+    "consistent the units declared for that parameter.";
    
 
   const string& variable = ar.getVariable();
@@ -927,10 +930,13 @@ END_CONSTRAINT
 START_CONSTRAINT (3100, RateRule, rr)
 {
   msg =
-    "The units returned by the rate rule that assigns a rate "
-    "to a compartment must be consistent with either the units "
-    "declared for that compartment or the default units for the "
-    "compartment per unit time.";
+    "When the 'variable' field of a rate rule refers to a "
+    "compartment, the units of the rule's right-hand side must be "
+    "of the form 'x' per 'time', where 'x' refers to either the units "
+    "declared for that compartment, or (in the absence of "
+    "explicit units declared for the compartment) the default "
+    "units for that compartment, and 'time' refers to the units "
+    "of time for the model.";
    
 
   const string& variable = rr.getVariable();
@@ -967,12 +973,14 @@ END_CONSTRAINT
 START_CONSTRAINT (3101, RateRule, rr)
 {
   msg =
-    "The units returned by the rate rule that assigns a rate "
-    "to a species must be consistent with either the units "
-    "declared for that species or the default units for the "
-    "species per unit time.";
+    "When the 'variable' field of a rate rule refers to a "
+    "species, the units of the rule's right-hand side must be "
+    "of the form 'x' per 'time', where 'x' refers to either the units "
+    "declared for that species, or (in the absence of "
+    "explicit units declared for the species) the default "
+    "units for that species, and 'time' refers to the units "
+    "of time for the model.";
  
-
   const string& variable = rr.getVariable();
   Species * s = m.getSpecies(variable);
 
@@ -1007,9 +1015,12 @@ END_CONSTRAINT
 START_CONSTRAINT (3102, RateRule, rr)
 {
   msg =
-    "The units returned by the rate rule that assigns a rate "
-    "to a parameter must be consistent with the units declared for "
-    "that parameter per unit time; provided units have been declared.";
+    "When the 'variable' field of a rate rule refers to a "
+    "parameter, and the parameter's definition includes explicit "
+    "units, the units of the rule's right-hand side must be "
+    "of the form 'x' per 'time', where 'x' refers to the units "
+    "declared for that parameter, and 'time' refers to "
+    "the units of time for the model.";
    
 
   const string& variable = rr.getVariable();
@@ -1047,9 +1058,8 @@ END_CONSTRAINT
 START_CONSTRAINT (3200, KineticLaw, kl)
 {
   msg =
-    "The units returned by the formula of a kinetic law "
-    "must be 'substance per time' unless the formula contains a "
-    " parameter for which units have not been declared.";
+    "The units of the formula of a kinetic law "
+    "must be 'substance per time'.";
 
   pre ( kl.isSetMath() == 1 );
 
