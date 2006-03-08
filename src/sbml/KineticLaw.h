@@ -216,6 +216,13 @@ public:
   Parameter* getParameter (unsigned int n) const;
 
   /**
+   * @return the Parameter in this kineticLaw with the given id or NULL if no
+   * such Parameter exists.
+   */
+  LIBSBML_EXTERN
+  Parameter* getParameter (const std::string& sid) const;
+
+  /**
    * @return the number of Parameters in this KineticLaw.
    */
   LIBSBML_EXTERN
@@ -426,6 +433,14 @@ KineticLaw_addParameter (KineticLaw_t *kl, Parameter_t *p);
 LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameter (const KineticLaw_t *kl, unsigned int n);
+
+/**
+ * @return the Parameter in this kineticLaw with the given id or NULL if no such
+ * Parameter exists.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_getParameterById (const KineticLaw_t *kl, const char *sid);
 
 /**
  * @return the number of Parameters in this KineticLaw.

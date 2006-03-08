@@ -364,6 +364,33 @@ START_TEST (test_KineticLaw_getParameter)
 END_TEST
 
 
+START_TEST (test_KineticLaw_getParameterById)
+{
+  Parameter_t *k1 = Parameter_create();
+  Parameter_t *k2 = Parameter_create();
+
+  Parameter_setId(k1, "k1");
+  Parameter_setId(k2, "k2");
+
+  Parameter_setValue(k1, 3.14);
+  Parameter_setValue(k2, 2.72);
+
+  KineticLaw_addParameter(KL, k1);
+  KineticLaw_addParameter(KL, k2);
+
+  fail_unless( KineticLaw_getNumParameters(KL) == 2 );
+
+  k1 = KineticLaw_getParameterById(KL, "k1");
+  k2 = KineticLaw_getParameterById(KL, "k2");
+
+  fail_unless( !strcmp(Parameter_getId(k1), "k1") );
+  fail_unless( !strcmp(Parameter_getId(k2), "k2") );
+  fail_unless( Parameter_getValue(k1) == 3.14 );
+  fail_unless( Parameter_getValue(k2) == 2.72 );
+}
+END_TEST
+
+
 Suite *
 create_suite_KineticLaw (void)
 {
@@ -386,6 +413,7 @@ create_suite_KineticLaw (void)
   tcase_add_test( tcase, test_KineticLaw_setSubstanceUnits  );
   tcase_add_test( tcase, test_KineticLaw_addParameter       );
   tcase_add_test( tcase, test_KineticLaw_getParameter       );
+  tcase_add_test( tcase, test_KineticLaw_getParameterById   );
 
   suite_add_tcase(suite, tcase);
 

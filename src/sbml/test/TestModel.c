@@ -988,6 +988,51 @@ START_TEST (test_Model_getReactionById)
 }
 END_TEST
 
+/* THIS IS NOT LOGICAL BUT NEEDS A WHOLE MODEL TO TEST */
+START_TEST (test_KineticLaw_getParameterById)
+{
+  Parameter_t *k1 = Parameter_create();
+  Parameter_t *k2 = Parameter_create();
+
+  Parameter_setId(k1, "k1");
+  Parameter_setId(k2, "k2");
+
+  Parameter_setValue(k1, 3.14);
+  Parameter_setValue(k2, 2.72);
+
+  Model_addParameter(M, k1);
+  Model_addParameter(M, k2);
+
+  Reaction_t *r1 = Reaction_create();
+
+  Reaction_setId( r1, "reaction_1" );
+
+  KineticLaw_t *kl = KineticLaw_createWith("k1 * X0", "seconds", "ug");
+  
+  Parameter_t *k3 = Parameter_create();
+  Parameter_t *k4 = Parameter_create();
+
+  Parameter_setId(k3, "k1");
+  Parameter_setId(k4, "k2");
+
+  Parameter_setValue(k3, 2.72);
+  Parameter_setValue(k4, 3.14);
+
+  KineticLaw_addParameter(kl, k3);
+  KineticLaw_addParameter(kl, k4);
+
+  Reaction_setKineticLaw(r1, kl);
+  Model_addReaction(M, r1);
+
+  KineticLaw_t * kl1 = Reaction_getKineticLaw(Model_getReaction(M,0));
+
+  fail_unless( KineticLaw_getParameterById(kl1, "k1" ) == k3   );
+  fail_unless( KineticLaw_getParameterById(kl1, "k1" ) != k1   );
+  fail_unless( KineticLaw_getParameterById(kl1, "k2" ) == k4   );
+  fail_unless( KineticLaw_getParameterById(kl1, "k3" ) == NULL );
+}
+END_TEST
+
 
 START_TEST (test_Model_getEventById)
 {
@@ -1114,6 +1159,8 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_getReaction               );
   tcase_add_test( t, test_Model_getReactionById           );
   tcase_add_test( t, test_Model_getEventById              );
+ 
+  tcase_add_test( t, test_KineticLaw_getParameterById              );
 
   tcase_add_test( t, test_Model_getNumSpeciesWithBoundaryCondition );
 

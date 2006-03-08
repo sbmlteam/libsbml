@@ -354,6 +354,20 @@ KineticLaw::getParameter (unsigned int n) const
 
 
 /**
+ * @return the Parameter in this KineticLaw with the given id or NULL if no such
+ * Parameter exists.
+ */
+LIBSBML_EXTERN
+Parameter*
+KineticLaw::getParameter (const std::string& sid) const
+{
+  void* x = parameter.find( sid.c_str(), (ListItemComparator) ParameterIdCmp );
+
+
+  return static_cast<Parameter*>(x);
+}
+
+/**
  * @return the number of Parameters in this KineticLaw.
  */
 LIBSBML_EXTERN
@@ -631,6 +645,18 @@ Parameter_t *
 KineticLaw_getParameter (const KineticLaw_t *kl, unsigned int n)
 {
   return kl->getParameter(n);
+}
+
+
+/**
+ * @return the Parameter in this KineticLaw with the given id or NULL if no such
+ * Parameter exists.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_getParameterById (const KineticLaw_t *kl, const char *sid)
+{
+  return static_cast<const KineticLaw*>(kl)->getParameter(sid ? sid : "");
 }
 
 
