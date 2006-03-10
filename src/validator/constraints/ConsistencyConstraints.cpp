@@ -658,6 +658,61 @@ START_CONSTRAINT (1606, Reaction, r)
 }
 END_CONSTRAINT
 */
+START_CONSTRAINT (1606, KineticLaw, kl)
+{
+  msg =
+    "In a Level 1 model only predefined functions are permitted "
+     "within the KineticLaw formula. (L1V2 Appendix C)";
+
+  pre (m.getLevel() == 1);
+
+  pre (kl.isSetFormula() == 1);
+
+  FormulaTokenizer_t * ft = FormulaTokenizer_create (kl.getFormula().c_str());
+  Token_t * t = FormulaTokenizer_nextToken (ft);
+
+  const Compartment * c;
+  const Species * s;
+  const Parameter * p, * p1;
+
+  /* loop through each token of the formula
+   * if it has type TT_NAME then it is either the id of some component
+   * of the model or the name of a function in which case 
+   * need to check whether it is defined
+   */
+  while (t->type != TT_END)
+  {
+    if (t->type == TT_NAME)
+    {
+      c = m.getCompartment(t->value.name);
+      s = m.getSpecies    (t->value.name);
+      p = m.getParameter  (t->value.name);
+      p1 = kl.getParameter(t->value.name);
+
+      if (!c && !s && !p && !p1)
+      {
+        inv_or (strcmp(t->value.name, "abs") == 0);
+        inv_or (strcmp(t->value.name, "acos") == 0);
+        inv_or (strcmp(t->value.name, "asin") == 0);
+        inv_or (strcmp(t->value.name, "atan") == 0);
+        inv_or (strcmp(t->value.name, "ceil") == 0);
+        inv_or (strcmp(t->value.name, "cos") == 0);
+        inv_or (strcmp(t->value.name, "exp") == 0);
+        inv_or (strcmp(t->value.name, "floor") == 0);
+        inv_or (strcmp(t->value.name, "log") == 0);
+        inv_or (strcmp(t->value.name, "log10") == 0);
+        inv_or (strcmp(t->value.name, "pow") == 0);
+        inv_or (strcmp(t->value.name, "sqr") == 0);
+        inv_or (strcmp(t->value.name, "sqrt") == 0);
+        inv_or (strcmp(t->value.name, "sin") == 0);
+        inv_or (strcmp(t->value.name, "tan") == 0);
+      }
+    }
+
+    t = FormulaTokenizer_nextToken(ft);
+  }
+}
+END_CONSTRAINT
 
 
 START_CONSTRAINT (1700, AssignmentRule, r)
