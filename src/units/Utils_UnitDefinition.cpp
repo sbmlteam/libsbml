@@ -200,6 +200,9 @@ orderUnitDefinition(UnitDefinition *ud)
   {
     units.remove(0);
   }
+
+  delete indexArray;
+  delete initialIndexArray;
 }
 
 

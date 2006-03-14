@@ -66,6 +66,7 @@ extern char *TestDataDirectory;
 
 static UnitFormulaFormatter *uff;
 static Model *m;
+static SBMLDocument* d;
 
 /* 
  * tests the results from different mathematical functions
@@ -73,12 +74,12 @@ static Model *m;
  * e.g. times
  */
 BEGIN_C_DECLS
-
+static 
 
 void
 UnitFormulaFormatterTest_setup (void)
 {
-  SBMLDocument     *d = new SBMLDocument();
+  d = new SBMLDocument();
  
   char *filename = safe_strcat(TestDataDirectory, "rules.xml");
 
@@ -95,6 +96,8 @@ void
 UnitFormulaFormatterTest_teardown (void)
 {
   delete uff;
+  delete m;
+  delete d;
 }
 
 /* put in a test for each possible type of ASTNode
@@ -109,6 +112,9 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_unknown)
   fail_unless(ud->getNumUnits() == 0);
 
   fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  delete node;
+  delete ud;
 
 }
 END_TEST
@@ -129,6 +135,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_boolean)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
+  delete ud;
+
 }
 END_TEST
 
@@ -147,6 +155,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_dimensionless)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+  
+  delete ud;
 
 }
 END_TEST
@@ -167,6 +177,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_invtrig)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
 
+  delete ud;
+
 }
 END_TEST
 
@@ -186,6 +198,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  delete ud;
+
 }
 END_TEST
 
@@ -204,6 +218,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_power)
   fail_unless(ud->getUnit(0)->getExponent() == 2);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete ud;
 
 }
 END_TEST
@@ -242,6 +258,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  delete ud;
+
 }
 END_TEST
 
@@ -260,6 +278,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_divide)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  delete ud;
 
 }
 END_TEST
@@ -280,6 +300,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_piecewise)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  delete ud;
+
 }
 END_TEST
 
@@ -298,6 +320,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_root)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_VOLT);
+
+  delete ud;
 
 }
 END_TEST
@@ -318,6 +342,8 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_delay)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete ud;
 
 }
 END_TEST

@@ -175,6 +175,8 @@ START_TEST(test_unitdefinition_areIdentical)
  
   fail_unless(identical == 0);
 
+  delete ud; 
+
 }
 END_TEST
 
@@ -202,6 +204,8 @@ START_TEST(test_unitdefinition_areEquivalent)
  
   fail_unless(equivalent == 0);
 
+  delete ud;
+  delete ud1;
 }
 END_TEST
 

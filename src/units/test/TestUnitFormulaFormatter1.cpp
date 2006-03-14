@@ -66,6 +66,7 @@ extern char *TestDataDirectory;
 
 static UnitFormulaFormatter *uff;
 static Model *m;
+static SBMLDocument* d;
 
 /* 
  * tests the results from different model
@@ -79,7 +80,7 @@ BEGIN_C_DECLS
 void
 UnitFormulaFormatter1Test_setup (void)
 {
-  SBMLDocument     *d = new SBMLDocument();
+  d = new SBMLDocument();
  
   char *filename = safe_strcat(TestDataDirectory, "components.xml");
 
@@ -96,6 +97,8 @@ void
 UnitFormulaFormatter1Test_teardown (void)
 {
   delete uff;
+  delete m;
+  delete d;
 }
 
 START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
@@ -225,6 +228,8 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_compartment)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  delete ud;
 
 }
 END_TEST
@@ -373,6 +378,8 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_species)
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_LITRE);
 
+  delete ud;
+
 }
 END_TEST
 
@@ -432,6 +439,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_parameter)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
+  delete ud;
 
 }
 END_TEST
@@ -466,6 +474,109 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
+  /* function with two arguments but only one bvar */
+  ud = uff->getUnitDefinition(m->getRule(2)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 3);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+
+  /* function with two arguments but only one bvar */
+  ud = uff->getUnitDefinition(m->getRule(3)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == -1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  /* function with two arguments but no bvar */
+  ud = uff->getUnitDefinition(m->getRule(4)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == -1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
+
+  delete ud;
+
+}
+END_TEST
+
+
+START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_event)
+{
+  UnitDefinition * ud = new UnitDefinition();
+
+  /* event with no time units */
+  ud = uff->getUnitDefinitionFromEventTime(m->getEvent(0));
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  /* event with declared units from unit definition */
+  ud = uff->getUnitDefinitionFromEventTime(m->getEvent(1));
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 60);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  /* event with declared units second */
+  ud = uff->getUnitDefinitionFromEventTime(m->getEvent(2));
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+
+  /* event with declared units time */
+  ud = uff->getUnitDefinitionFromEventTime(m->getEvent(3));
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+
+  delete ud;
 
 }
 END_TEST
@@ -485,6 +596,7 @@ create_suite_UnitFormulaFormatter1 (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_species );
   tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_parameter );
   tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_function );
+  tcase_add_test(tcase, test_UnitFormulaFormatter1_getUnitDefinition_event);
 
   suite_add_tcase(suite, tcase);
 

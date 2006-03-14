@@ -239,7 +239,7 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
 { 
   UnitDefinition * ud;
-  unsigned int i;
+  unsigned int i, nodeCount;
   Unit * unit;
   const ASTNode * fdMath;
   ASTNode *newMath;
@@ -265,9 +265,18 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
       * from the original function
       */
       newMath = new ASTNode(fdMath->getType());
-      for (i = 0; i < node->getNumChildren(); i++)
+      nodeCount = 0;
+      for (i = 0; i < fdMath->getNumChildren(); i++)
       {
-        newMath->addChild(node->getChild(i));
+        if (fdMath->getChild(i)->isName())
+        {
+          newMath->addChild(node->getChild(nodeCount));
+          nodeCount++;
+        }
+        else
+        {
+          newMath->addChild(fdMath->getChild(i));
+        }
       }
     }
     ud = getUnitDefinition(newMath);
@@ -1077,6 +1086,89 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
         ud->addUnit(*unit);
       }
       else if (!strcmp(units, "time"))
+      {
+        unit = new Unit("second");
+        ud->addUnit(*unit);
+      }
+    }
+
+  }
+
+  return ud;
+}
+
+/** 
+  * returns the unitDefinition for the time units of the event
+  */
+LIBSBML_EXTERN
+UnitDefinition * 
+UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
+{
+  UnitDefinition * ud = NULL;
+  Unit * unit;
+  unsigned int n, p;
+
+  const char * units = event->getTimeUnits().c_str();
+
+ /* no units declared */
+  if (!strcmp(units, ""))
+  {
+    /* defaults to time
+    * check for redefinition of time
+    */
+    ud = model->getUnitDefinition("time");
+
+    if (ud == NULL) {
+      unit = new Unit("second");
+      ud   = new UnitDefinition();
+      
+      ud->addUnit(*unit);
+    }
+  }
+  else
+  {
+    /* units can be a predefined unit kind
+    * a unit definition id or a builtin unit
+    */
+
+    if (UnitKind_isValidUnitKindString(units))
+    {
+      unit = new Unit(units);
+      ud   = new UnitDefinition();
+      
+      ud->addUnit(*unit);
+    }
+    else 
+    {
+      for (n = 0; n < model->getNumUnitDefinitions(); n++)
+      {
+        if (!strcmp(units, model->getUnitDefinition(n)->getId().c_str()))
+        {
+          ud = new UnitDefinition();
+          
+          for (p = 0; p < model->getUnitDefinition(n)->getNumUnits(); p++)
+          {
+            unit = new Unit(model->getUnitDefinition(n)->getUnit(p)->getKind());
+            unit->setMultiplier(model->getUnitDefinition(n)->getUnit(p)->getMultiplier());
+            unit->setScale(model->getUnitDefinition(n)->getUnit(p)->getScale());
+            unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
+            unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
+
+            ud->addUnit(*unit);
+          }
+        }
+      }
+    }
+    /* now check for builtin units 
+     * this check is left until now as it is possible for a builtin 
+     * unit to be reassigned using a unit definition and thus will have 
+     * been picked up above
+     */
+    if (Unit_isBuiltIn(units) && ud == NULL)
+    {
+      ud   = new UnitDefinition();
+
+      if (!strcmp(units, "time"))
       {
         unit = new Unit("second");
         ud->addUnit(*unit);

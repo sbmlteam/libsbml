@@ -64,6 +64,7 @@
 #include "sbml/Parameter.h"
 #include "sbml/Reaction.h"
 #include "sbml/KineticLaw.h"
+#include "sbml/Event.h"
 
 #include "math/ASTNode.h"
 
@@ -168,6 +169,12 @@ public:
     */
   LIBSBML_EXTERN
   UnitDefinition * getUnitDefinitionFromParameter(const Parameter *);
+
+  /** 
+    * returns the unitDefinition for the time units of the event
+    */
+  LIBSBML_EXTERN
+  UnitDefinition * getUnitDefinitionFromEventTime(const Event * event);
 
   /** 
     * returns 1 if the math contains 
