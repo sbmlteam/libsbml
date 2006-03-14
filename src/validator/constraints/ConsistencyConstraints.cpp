@@ -66,7 +66,7 @@
 #include "UniqueVarsInEventAssignments.h"
 #include "UniqueVarsInRules.h"
 
-//#include "FormulaUnitsCheck.h"
+#include "FormulaUnitsCheck.h"
 
 
 #endif
@@ -1145,4 +1145,31 @@ START_CONSTRAINT (3200, KineticLaw, kl)
 }
 END_CONSTRAINT
 
-//EXTERN_CONSTRAINT(3300, FormulaUnitsCheck)
+START_CONSTRAINT (3400, Event, e)
+{
+  msg =
+    "When a delay is specified within an event the units "
+    "of the delay formula must correspond to the timeUnits "
+    "specified within the event or, if no timeUnits are "
+    "specified, correspond to the builtin unit 'time'.";
+
+  pre ( e.isSetDelay() == 1 );
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  pre (unitFormat->hasUndeclaredUnits(e.getDelay()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
+  
+  UnitDefinition * formulaUnits = new UnitDefinition();
+  formulaUnits  = unitFormat->getUnitDefinition(e.getDelay());
+
+  UnitDefinition * timeUnits = 
+    unitFormat->getUnitDefinitionFromEventTime(&e);
+
+    inv (areIdentical(formulaUnits, timeUnits) == 1)
+
+  delete unitFormat;
+}
+END_CONSTRAINT
+
+EXTERN_CONSTRAINT(3300, FormulaUnitsCheck)
