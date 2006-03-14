@@ -76,6 +76,7 @@ sources =                           \
   CompartmentOutsideCycles.cpp      \
   ConsistencyConstraints.cpp        \
   FunctionDefinitionVars.cpp        \
+  FormulaUnitsCheck.cpp             \
   IdBase.cpp                        \
   IdList.cpp                        \
   L1CompatibilityConstraints.cpp    \
@@ -88,9 +89,10 @@ sources =                           \
 
 header_inst_prefix = validator/constraints
 
-headers =        \
-  IdBase.h       \
-  IdList.h       \
+headers =              \
+  FormulaUnitsCheck.h  \
+  IdBase.h             \
+  IdList.h             \
   UniqueIdBase.h
 
 

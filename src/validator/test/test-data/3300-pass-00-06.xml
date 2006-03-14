@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Pass: (3300) Inconsistent math
+-->
+
+<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+  <model>
+    <listOfFunctionDefinitions>
+      <functionDefinition id="fpow">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <lambda>
+            <bvar> <ci> x </ci> <ci> y </ci> </bvar>
+            <apply>
+              <power/> <ci> x </ci> <ci> y </ci>
+            </apply>
+          </lambda>
+        </math>
+      </functionDefinition>
+    </listOfFunctionDefinitions>
+    <listOfCompartments>
+      <compartment id="c" constant="false"/>
+    </listOfCompartments>
+    <listOfParameters>
+      <parameter id="p" value="1" units="litre" constant="false"/>
+    </listOfParameters>
+    <listOfRules>
+      <algebraicRule>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <ci> fpow </ci>
+              <ci> p </ci>
+              <cn> 2 </cn>
+            </apply>
+        </math>
+      </algebraicRule>
+    </listOfRules>
+  </model>
+</sbml>
