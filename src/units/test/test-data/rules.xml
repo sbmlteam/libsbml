@@ -139,6 +139,28 @@
         </apply>
       </math>
     </rateRule>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+        <times/>
+        <ci> k4 </ci>
+        <apply>
+          <plus/>
+          <ci> k4 </ci>
+          <ci> k1 </ci>
+        </apply>
+        </apply>
+      </math>
+    </rateRule>
+    <rateRule variable="x">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <apply>
+          <plus/>
+          <ci> k1 </ci>
+          <ci> k4 </ci>
+        </apply>
+      </math>
+    </rateRule>
   </listOfRules>
 </model>
 </sbml>

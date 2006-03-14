@@ -59,6 +59,7 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 {
   model = m;
   undeclaredUnits = 0;
+  canIgnoreUndeclaredUnits = 0;
 }
 
 /**
@@ -251,17 +252,24 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
     */
     fdMath = model->getFunctionDefinition(node->getName())->getMath()
                       ->getRightChild();
-
-    /**
-    * create a new ASTNode of this type but with the children
-    * from the original function
-    */
-    newMath = new ASTNode(fdMath->getType());
-    for (i = 0; i < node->getNumChildren(); i++)
+    /* if function has no variables then this will be null */
+    if (fdMath == NULL)
     {
-      newMath->addChild(node->getChild(i));
+      newMath = model->getFunctionDefinition(node->getName())->getMath()
+                        ->getLeftChild();
     }
-
+    else
+    {
+      /**
+      * create a new ASTNode of this type but with the children
+      * from the original function
+      */
+      newMath = new ASTNode(fdMath->getType());
+      for (i = 0; i < node->getNumChildren(); i++)
+      {
+        newMath->addChild(node->getChild(i));
+      }
+    }
     ud = getUnitDefinition(newMath);
   }
   else
@@ -465,14 +473,49 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
 { 
   UnitDefinition * ud;
   unsigned int i = 0;
+  unsigned int n = 0;
  
+  /* save any existing value of undeclaredUnits/canIgnoreUndeclaredUnits */
+  unsigned int originalUndeclaredValue = undeclaredUnits;
+  unsigned int currentIgnore = canIgnoreUndeclaredUnits;
+  unsigned int currentUndeclared = undeclaredUnits;
+
   /* get first arg that is not a parameter with undeclared units */
   ud = getUnitDefinition(node->getChild(i));
   while (hasUndeclaredUnits(node->getChild(i)) && i < node->getNumChildren()-1)
   {
+    if (originalUndeclaredValue == 1)
+      currentIgnore = 0;
+    else
+      currentIgnore = 1;
+
+    currentUndeclared = 1;
+
     i++;
     ud = getUnitDefinition(node->getChild(i));
   }
+
+  /* loop thru remain children to determine undeclaredUnit status */
+  if (undeclaredUnits == 1 && i == node->getNumChildren()-1)
+  {
+    /* all children are parameters with undeclared units */
+    currentIgnore = 0;
+  }
+  else
+  {
+    for (n = i+1; n < node->getNumChildren(); n++)
+    {
+      if (hasUndeclaredUnits(node->getChild(n)))
+      {
+        currentUndeclared = 1;
+        currentIgnore = 1;
+      }
+    }
+  }
+
+  /* restore original value of undeclaredUnits */
+  undeclaredUnits = currentUndeclared;
+  canIgnoreUndeclaredUnits = currentIgnore;
 
   return ud;
 }
@@ -968,6 +1011,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
   {
     ud   = new UnitDefinition();
     undeclaredUnits = 1;
+    canIgnoreUndeclaredUnits = 0;
   }
   else
   {
@@ -1053,9 +1097,20 @@ unsigned int
 UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
 {
   undeclaredUnits = 0;
+  canIgnoreUndeclaredUnits = 0;
+
   UnitDefinition * ud = getUnitDefinition(node);
 
   return undeclaredUnits;
+}
+/** 
+  * returns canIgnoreUndeclaredUnits value
+  */
+LIBSBML_EXTERN
+unsigned int 
+UnitFormulaFormatter::getCanIgnoreUndeclaredUnits()
+{
+  return canIgnoreUndeclaredUnits;
 }
 
 

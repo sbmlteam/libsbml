@@ -175,11 +175,19 @@ public:
     */
   LIBSBML_EXTERN
   unsigned int hasUndeclaredUnits(const ASTNode *);
+  
 
+  /** 
+    * returns canIgnoreUndeclaredUnits value
+    */
+  LIBSBML_EXTERN
+  unsigned int getCanIgnoreUndeclaredUnits();
+  
 
 private:
   const Model * model;
   unsigned int undeclaredUnits;
+  unsigned int canIgnoreUndeclaredUnits;
 
 };
 

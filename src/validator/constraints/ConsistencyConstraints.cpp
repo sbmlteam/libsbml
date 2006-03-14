@@ -898,7 +898,8 @@ START_CONSTRAINT (3000, AssignmentRule, ar)
   formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
   
-  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0);
+  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
 
@@ -935,7 +936,8 @@ START_CONSTRAINT (3001, AssignmentRule, ar)
   formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
   
-  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0);
+  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
 
@@ -1012,7 +1014,8 @@ START_CONSTRAINT (3100, RateRule, rr)
   formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
   
-  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0);
+  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
 
   /* add per time to the units from the compartment */
   variableUnits->addUnit(*time);
@@ -1054,7 +1057,9 @@ START_CONSTRAINT (3101, RateRule, rr)
   formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
   
-  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0);
+  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
+
 
   /* add per time to the units from the species */
   variableUnits->addUnit(*time);
@@ -1120,7 +1125,8 @@ START_CONSTRAINT (3200, KineticLaw, kl)
 
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
-  pre (unitFormat->hasUndeclaredUnits(kl.getMath()) == 0);
+  pre (unitFormat->hasUndeclaredUnits(kl.getMath()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
 
   UnitDefinition * formulaUnits = new UnitDefinition();
   

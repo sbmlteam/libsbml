@@ -186,18 +186,6 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_plus)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
-  ud = uff->getUnitDefinition(m->getRule(9)->getMath());
-
-  fail_unless(ud->getNumUnits() == 1);
-
-  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
-
-  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
-  fail_unless(ud->getUnit(0)->getScale() == 0);
-  fail_unless(ud->getUnit(0)->getExponent() == 1);
-  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
-  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
-
 }
 END_TEST
 
@@ -241,6 +229,18 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_times)
   fail_unless(ud->getUnit(1)->getExponent() == -1);
   fail_unless(ud->getUnit(1)->getOffset() == 0.0);
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_SECOND);
+
+  ud = uff->getUnitDefinition(m->getRule(9)->getMath());
+
+  fail_unless(ud->getNumUnits() == 1);
+
+  fail_unless(!strcmp(ud->getId().c_str(), ""), NULL);
+
+  fail_unless(ud->getUnit(0)->getMultiplier() == 1);
+  fail_unless(ud->getUnit(0)->getScale() == 0);
+  fail_unless(ud->getUnit(0)->getExponent() == 1);
+  fail_unless(ud->getUnit(0)->getOffset() == 0.0);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
 }
 END_TEST
@@ -323,6 +323,19 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_delay)
 END_TEST
 
 
+START_TEST (test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits)
+{
+  fail_unless(uff->hasUndeclaredUnits(m->getRule(9)->getMath()) == 1);
+  fail_unless(uff->getCanIgnoreUndeclaredUnits() == 0);
+  fail_unless(uff->hasUndeclaredUnits(m->getRule(11)->getMath()) == 1);
+  fail_unless(uff->getCanIgnoreUndeclaredUnits() == 0);
+  fail_unless(uff->hasUndeclaredUnits(m->getRule(12)->getMath()) == 1);
+  fail_unless(uff->getCanIgnoreUndeclaredUnits() == 1);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_UnitFormulaFormatter (void)
 {
@@ -344,6 +357,7 @@ create_suite_UnitFormulaFormatter (void)
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_piecewise );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_root );
   tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_delay );
+  tcase_add_test(tcase, test_UnitFormulaFormatter_getUnitDefinition_hasUndeclaredUnits );
 
   suite_add_tcase(suite, tcase);
 
