@@ -80,9 +80,11 @@ protected:
   ListOf textGlyphs;
   ListOf additionalGraphicalObjects;
 
+  LIBSBML_EXTERN
   GraphicalObject*
   removeObjectWithId (ListOf& list, const std::string& id);
 
+  LIBSBML_EXTERN
   GraphicalObject*
   getObjectWithId (const ListOf& list, const std::string& id) const;
 

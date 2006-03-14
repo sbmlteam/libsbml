@@ -113,10 +113,10 @@ public:
    */
   void setIndentLevel (unsigned int n) { mIndentLevel = n; }
 
-
   void startLayout();
-
+  
   void endLayout();
+
   void doListOfLayouts(const ListOf& l);
 
   

@@ -48,7 +48,7 @@
 #include "Layout.h"
 #include <climits> 
 #include <iostream>
-
+#include <limits>
 
 /**
  * Creates a new Layout.

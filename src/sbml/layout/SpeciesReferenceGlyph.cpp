@@ -465,7 +465,7 @@ LIBSBML_EXTERN
 int
 SpeciesReferenceGlyph_isSetCurve (SpeciesReferenceGlyph_t *srg)
 {
-  static_cast<int>( srg->isSetCurve() );
+  return static_cast<int>( srg->isSetCurve() );
 }
 
 
