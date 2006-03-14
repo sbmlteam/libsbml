@@ -74,7 +74,7 @@ printFunctionDefinition (unsigned int n, const FunctionDefinition *fd)
     /* Print function arguments. */
     if (math->getNumChildren() > 1)
     {
-      cout << ( math->getLeftChild() )->getName();
+      cout << "(" << ( math->getLeftChild() )->getName();
 
       for (n = 1; n < math->getNumChildren() - 1; ++n)
       {
