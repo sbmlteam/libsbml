@@ -22,7 +22,7 @@ Fail: (3000) The units returned by the assignment rule that assigns value
           <apply>
             <plus/>
             <ci> p </ci>
-            <cn> p1 </cn>
+            <ci> p1 </ci>
           </apply>
         </math>
       </assignmentRule>
