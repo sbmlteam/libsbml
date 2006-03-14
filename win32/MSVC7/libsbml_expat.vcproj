@@ -444,6 +444,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\FormulaUnitsCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\FunctionDefinition.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">

@@ -149,7 +149,7 @@
 				RelativePath="..\..\examples\c++\util.c">
 			</File>
 			<File
-				RelativePath="..\..\examples\C++\validateSBML.cpp">
+				RelativePath="..\..\examples\c++\validateSBML.cpp">
 			</File>
 		</Filter>
 		<Filter
