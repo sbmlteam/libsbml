@@ -57,7 +57,7 @@
 
 
 #include <string>
-#include "common/extern.h"
+#include "sbml/common/extern.h"
 
 
 /**

@@ -53,7 +53,7 @@
 #define ParseMessage_h
 
 
-#include "common/extern.h"
+#include "sbml/common/extern.h"
 
 
 #ifdef __cplusplus
