@@ -71,14 +71,16 @@ int main(int argc,char** argv){
 // create the document
 
 SBMLDocument *document=new SBMLDocument();
-document->setLevel(2);
-document->setVersion(1);
 
 // create the Model
 
 Model* model=new Model();
 model->setId("TestModel");
 document->setModel(model);
+
+document->setLevel(2);
+document->setVersion(1);
+
 
 // create the Compartment
 
