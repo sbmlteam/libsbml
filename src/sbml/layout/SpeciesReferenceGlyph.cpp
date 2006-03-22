@@ -47,6 +47,7 @@
 #include "common/common.h"
 #include "SpeciesReferenceGlyph.h"
 
+LIBSBML_EXTERN
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
     "undefined" 
    ,"substrate"

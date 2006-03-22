@@ -68,6 +68,7 @@ protected:
   Curve* curve;
 
 public:
+  LIBSBML_EXTERN
   static const std::string SPECIES_REFERENCE_ROLE_STRING[];
 
 public:
