@@ -54,14 +54,14 @@ from libsbml import *
 # create the document
 
 document=SBMLDocument()
-document.setLevel(2)
-document.setVersion(1)
-
 # create the Model
 
 model=Model()
 model.setId("TestModel")
 document.setModel(model)
+document.setLevel(2)
+document.setVersion(1)
+
 
 # create the Compartment
 
