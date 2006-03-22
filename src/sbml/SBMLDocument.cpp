@@ -344,8 +344,11 @@ SBMLDocument::setLevel (unsigned int level)
     version = 2;
   }
 
-  model->mLevel   = this->level;
-  model->mVersion = this->version;
+  if (model != NULL)
+  {
+    model->mLevel   = this->level;
+    model->mVersion = this->version;
+  }
 }
 
 
