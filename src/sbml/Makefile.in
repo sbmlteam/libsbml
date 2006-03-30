@@ -71,85 +71,46 @@ thisdir = src/sbml
 # (a separate mechanism is used for that), but for other things such as what
 # to distribute and install.
 
-headers =                      \
-  AlgebraicRule.h              \
-  AssignmentRule.h             \
-  Compartment.h                \
-  CompartmentVolumeRule.h      \
-  Event.h                      \
-  EventAssignment.h            \
-  FunctionDefinition.h         \
-  KineticLaw.h                 \
-  ListOf.h                     \
-  Model.h                      \
-  ModifierSpeciesReference.h   \
-  Parameter.h                  \
-  ParameterRule.h              \
-  RateRule.h                   \
-  Reaction.h                   \
-  Rule.h                       \
-  RuleType.h                   \
-  SBMLConvert.h                \
-  SBMLDocument.h               \
-  SBMLFormatter.h              \
-  SBMLHandler.h                \
-  SBMLParser.h                 \
-  SBMLReader.h                 \
-  SBMLSchemaInputSource.h      \
-  SBMLSchemaInputStream.h      \
-  SBMLTagCodes.h               \
-  SBMLTypeCodes.h              \
-  SBMLTypes.h                  \
-  SBMLUnicodeConstants.h       \
-  SBMLVisitor.h                \
-  SBMLWriter.h                 \
-  SBase.h                      \
-  SimpleSpeciesReference.h     \
-  Species.h                    \
-  SpeciesConcentrationRule.h   \
-  SpeciesReference.h           \
-  Unit.h                       \
-  UnitDefinition.h             \
+headers =              \
+  Compartment.h        \
+  Event.h              \
+  EventAssignment.h    \
+  FunctionDefinition.h \
+  KineticLaw.h         \
+  ListOf.h             \
+  Model.h              \
+  Parameter.h          \
+  Reaction.h           \
+  Rule.h               \
+  SBML.h               \
+  SBMLDocument.h       \
+  SBase.h              \
+  Species.h            \
+  SpeciesReference.h   \
+  Unit.h               \
+  UnitDefinition.h     \
   UnitKind.h
 
-sources =                      \
-  AlgebraicRule.cpp            \
-  AssignmentRule.cpp           \
-  Compartment.cpp              \
-  CompartmentVolumeRule.cpp    \
-  Event.cpp                    \
-  EventAssignment.cpp          \
-  FunctionDefinition.cpp       \
-  KineticLaw.cpp               \
-  ListOf.cpp                   \
-  Model.cpp                    \
-  ModifierSpeciesReference.cpp \
-  Parameter.cpp                \
-  ParameterRule.cpp            \
-  RateRule.cpp                 \
-  Reaction.cpp                 \
-  Rule.cpp                     \
-  RuleType.c                   \
-  SBMLConvert.c                \
-  SBMLDocument.cpp             \
-  SBMLFormatter.cpp            \
-  SBMLHandler.cpp              \
-  SBMLParser.cpp               \
-  SBMLReader.cpp               \
-  SBMLSchemaInputSource.cpp    \
-  SBMLSchemaInputStream.cpp    \
-  SBMLTagCodes.cpp             \
-  SBMLTypeCodes.cpp            \
-  SBMLVisitor.cpp              \
-  SBMLWriter.cpp               \
-  SBase.cpp                    \
-  SimpleSpeciesReference.cpp   \
-  Species.cpp                  \
-  SpeciesConcentrationRule.cpp \
-  SpeciesReference.cpp         \
-  Unit.cpp                     \
-  UnitDefinition.cpp           \
-  UnitKind.c
+sources =                \
+  Compartment.cpp        \
+  Event.cpp              \
+  EventAssignment.cpp    \
+  FunctionDefinition.cpp \
+  KineticLaw.cpp         \
+  ListOf.cpp             \
+  Model.cpp              \
+  Parameter.cpp          \
+  Reaction.cpp           \
+  Rule.cpp               \
+  SBML.cpp               \
+  SBMLDocument.cpp       \
+  SBase.cpp              \
+  Species.cpp            \
+  SpeciesReference.cpp   \
+  Unit.cpp               \
+  UnitDefinition.cpp     \
+  UnitKind.cpp
+
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
