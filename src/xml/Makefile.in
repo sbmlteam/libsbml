@@ -1,49 +1,26 @@
 ## @configure_input@
 ##
-## Filename    : Makefile.in
-## Description : Makefile template for libsbml src/xml directory
-## Author(s)   : SBML Team <sbml-team@caltech.edu>
-## Organization: California Institute of Technology
-## Created     : 2005-03-02
-## Revision    : $Id$
-## Source      : $Source$
+## \file    Makefile.in
+## \brief   Makefile template for libsbml src/xml directory
+## \author  Michael Hucka <mhucka@caltech.edu>
+## 
+## $Id$
+## $Source$
 ##
-## Copyright 2005 California Institute of Technology and
-## Japan Science and Technology Corporation.
+## Copyright 2006 California Institute of Technology and Japan Science
+## and Technology Corporation.
 ##
-## This library is free software; you can redistribute it and/or modify it
-## under the terms of the GNU Lesser General Public License as published
-## by the Free Software Foundation; either version 2.1 of the License, or
-## any later version.
+## This library is free software; you can redistribute it and/or
+## modify it under the terms of the GNU Lesser General Public License
+## as published by the Free Software Foundation.  A copy of the license
+## agreement is provided in the file named "LICENSE.txt" included with
+## this software distribution.  It is also available online at
+## http://sbml.org/software/libsbml/license.html
 ##
-## This library is distributed in the hope that it will be useful, but
-## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
-## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
-## documentation provided hereunder is on an "as is" basis, and the
-## California Institute of Technology and Japan Science and Technology
-## Corporation have no obligations to provide maintenance, support,
-## updates, enhancements or modifications.  In no event shall the
-## California Institute of Technology or the Japan Science and Technology
-## Corporation be liable to any party for direct, indirect, special,
-## incidental or consequential damages, including lost profits, arising
-## out of the use of this software and its documentation, even if the
-## California Institute of Technology and/or Japan Science and Technology
-## Corporation have been advised of the possibility of such damage.  See
-## the GNU Lesser General Public License for more details.
-##
-## You should have received a copy of the GNU Lesser General Public License
-## along with this library; if not, write to the Free Software Foundation,
-## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-##
-## The original code contained here was initially developed by:
-##
-##     Stefan Hoops <shoops@vt.edu>
-##     Virginia Bioinformatics Institute
-##     Blacksburg, VA
-##
-## Contributor(s):
-##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
-##
+## You should have received a copy of the GNU Lesser General Public
+## License along with this library; if not, write to the Free Software
+## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+## USA.
 
 
 # -----------------------------------------------------------------------------
@@ -63,65 +40,120 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir    = @srcdir@
 thisdir   = src/xml
 
-# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
-# `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
-# rules in `makefile-common-actions.mk' included at the end.
+common_headers =       \
+  XMLAttributes.h      \
+  XMLBuffer.h          \
+  XMLError.h           \
+  XMLErrorLog.h        \
+  XMLExtern.h          \
+  XMLFileBuffer.h      \
+  XMLHandler.h         \
+  XMLInputStream.h     \
+  XMLMemoryBuffer.h    \
+  XMLNamespaces.h      \
+  XMLNode.h            \
+  XMLOutputStream.h    \
+  XMLParser.h          \
+  XMLToken.h           \
+  XMLTokenizer.h       \
+  XMLTriple.h
 
-headers =                \
-  common.h               \
-  ParseMessage.h         \
-  StreamFormatTarget.h   \
-  XMLNamespace.h         \
-  XMLNamespaceList.h     \
-  XMLSchemaValidation.h  \
-  XMLStringFormatter.h   \
-  XMLUnicodeConstants.h  \
-  XMLUtil.h
+common_sources =       \
+  XMLAttributes.cpp    \
+  XMLBuffer.cpp        \
+  XMLError.cpp         \
+  XMLErrorLog.cpp      \
+  XMLFileBuffer.cpp    \
+  XMLHandler.cpp       \
+  XMLInputStream.cpp   \
+  XMLMemoryBuffer.cpp  \
+  XMLNamespaces.cpp    \
+  XMLNode.cpp          \
+  XMLOutputStream.cpp  \
+  XMLParser.cpp        \
+  XMLToken.cpp         \
+  XMLTokenizer.cpp     \
+  XMLTriple.cpp
 
-header_inst_prefix = xml
+xerces_headers =       \
+  XercesAttributes.h   \
+  XercesHandler.h      \
+  XercesNamespaces.h   \
+  XercesParser.h       \
+  XercesTranscode.h
 
-expat_headers =          \
-  Expat.h                \
-  ExpatAttributes.h      \
-  ExpatFormatter.h       \
-  ExpatToXerces.h        \
-  ExpatUnicodeChars.h    \
-  ExpatXMLString.h       \
+xerces_sources =       \
+  XercesAttributes.cpp \
+  XercesHandler.cpp    \
+  XercesNamespaces.cpp \
+  XercesParser.cpp
 
-sources   =              \
-  ParseMessage.cpp       \
-  StreamFormatTarget.cpp \
-  XMLNamespace.cpp       \
-  XMLNamespaceList.cpp   \
-  XMLStringFormatter.cpp \
-  XMLUtil.cpp
+expat_headers =        \
+  ExpatAttributes.h    \
+  ExpatHandler.h       \
+  ExpatParser.h
 
-expat_sources =           \
-  Expat.cpp               \
-  ExpatAttributes.cpp     \
-  ExpatFormatter.cpp      \
-  ExpatToXerces.cpp       \
-  ExpatXMLString.cpp
+expat_sources =        \
+  ExpatAttributes.cpp  \
+  ExpatHandler.cpp     \
+  ExpatParser.cpp
+
+libxml_headers =       \
+  LibXMLAttributes.h   \
+  LibXMLHandler.h      \
+  LibXMLNamespaces.h   \
+  LibXMLParser.h       \
+  LibXMLTranscode.h
+
+libxml_sources =       \
+  LibXMLAttributes.cpp \
+  LibXMLHandler.cpp    \
+  LibXMLNamespaces.cpp \
+  LibXMLParser.cpp
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
+sources = $(common_sources)
+headers = $(common_headers)
+
 ifdef USE_EXPAT
   sources += $(expat_sources)
+  headers += $(expat_headers)
+endif
+
+ifdef USE_XERCES
+  sources += $(xerces_sources)
+  headers += $(xerces_headers)
+endif
+
+ifdef USE_LIBXML
+  sources += $(libxml_sources)
+  headers += $(libxml_headers)
 endif
 
 extra_CPPFLAGS = -I..
 
 ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
-  extra_LIBS      += $(EXPAT_LIBS)
-else
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS   += $(XERCES_LDFLAGS)
-  extra_LIBS      += $(XERCES_LIBS)
+  extra_CPPFLAGS += $(EXPAT_CPPFLAGS) -DUSE_EXPAT
+  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
+  extra_LIBS     += $(EXPAT_LIBS)
 endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += $(XERCES_CPPFLAGS) -DUSE_XERCES
+  extra_LDFLAGS  += $(XERCES_LDFLAGS)
+  extra_LIBS     += $(XERCES_LIBS)
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS) -DUSE_LIBXML
+  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
+  extra_LIBS     += $(LIBXML_LIBS)
+endif
+
+header_inst_prefix = xml
 
 subdirs = test
 
@@ -129,9 +161,9 @@ subdirs = test
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(expat_sources) \
-	    $(headers) $(expat_headers) \
-	    Makefile.in expat-COPYING.txt
+distfiles = $(sources) $(expat_sources) $(xerces_sources) $(libxml_sources) \
+	    $(headers) $(expat_headers) $(xerces_headers) $(libxml_headers) \
+	    Makefile.in
 
 
 # -----------------------------------------------------------------------------
