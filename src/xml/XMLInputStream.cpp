@@ -1,0 +1,191 @@
+/**
+ * \file    XMLInputStream.cpp
+ * \brief   XMLInputStream
+ * \author  Ben Bornstein
+ *
+ * $Id$
+ * $Source$
+ */
+/* Copyright 2006 California Institute of Technology and Japan Science and
+ * Technology Corporation.
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ */
+
+
+#include "XMLErrorLog.h"
+#include "XMLParser.h"
+
+#include "XMLInputStream.h"
+
+
+using namespace std;
+
+
+class XMLParser;
+
+
+/**
+ * Creates a new XMLInputStream.
+ */
+XMLInputStream::XMLInputStream (  const char*   content
+                                , bool          isFile
+                                , const string  library ) :
+   mIsError ( false )
+ , mParser  ( XMLParser::create( mTokenizer, library) )
+{
+  if ( !isGood() ) return;
+  mParser->parseFirst(content, isFile);
+}
+
+
+/**
+ * Destroys this XMLInputStream.
+ */
+XMLInputStream::~XMLInputStream ()
+{
+  delete mParser;
+}
+
+
+/**
+ * @return the encoding of the XML stream.
+ */
+const std::string&
+XMLInputStream::getEncoding ()
+{
+  return mTokenizer.getEncoding();
+}
+
+
+/**
+ * @return an XMLErrorLog which can be used to log XML parse errors and
+ * other validation errors (and messages).
+ */
+XMLErrorLog*
+XMLInputStream::getErrorLog ()
+{
+  return mParser->getErrorLog();
+}
+
+
+/**
+ * @return true if end of file (stream) has been reached, false otherwise.
+ */
+bool
+XMLInputStream::isEOF () const
+{
+  return mTokenizer.isEOF();
+}
+
+
+/**
+ * @return true if a fatal error occurred while reading from this stream.
+ */
+bool
+XMLInputStream::isError () const
+{
+  return (mIsError || mParser == 0);
+}
+
+
+/**
+ * @return true if the stream is in a good state (i.e. isEOF() and
+ * isError() are both false), false otherwise.
+ */
+bool
+XMLInputStream::isGood () const
+{
+  return (isError() == false && isEOF() == false);
+}
+
+
+/**
+ * Consumes the next XMLToken and return it.
+ *
+ * @return the next XMLToken or EOF (XMLToken.isEOF() == true).
+ */
+XMLToken
+XMLInputStream::next ()
+{
+  queueToken();
+  return mTokenizer.hasNext() ? mTokenizer.next() : XMLToken();
+}
+
+
+/**
+ * Returns the next XMLToken without consuming it.  A subsequent call to
+ * either peek() or next() will return the same token.
+ *
+ * @return the next XMLToken or EOF (XMLToken.isEOF() == true).
+ */
+const XMLToken&
+XMLInputStream::peek ()
+{
+  queueToken();
+  return mTokenizer.hasNext() ? mTokenizer.peek() : mEOF;
+}
+
+
+/**
+ * Runs mParser until mTokenizer is ready to deliver at least one XMLToken
+ * or a fatal error occurs.
+ */
+void
+XMLInputStream::queueToken ()
+{
+  if ( !isGood() ) return;
+
+  bool success = true;
+
+  while ( success && mTokenizer.hasNext() == false )
+  {
+    success = mParser->parseNext();
+  }
+
+  if (success == false && isEOF() == false)
+  {
+    mIsError = true;
+  }
+}
+
+
+/**
+ * Sets the XMLErrorLog this stream will use to log errors.
+ */
+void
+XMLInputStream::setErrorLog (XMLErrorLog* log)
+{
+  mParser->setErrorLog(log);
+}
+
+
+/**
+ * Consume zero or more XMLTokens up to and including the corresponding
+ * end XML element or EOF.
+ */
+void
+XMLInputStream::skipPast (const XMLToken& element)
+{
+  while ( isGood() && !next().isEndFor(element) );
+}
+
+
+/**
+ * Consume zero or more XMLTokens up to but not including the next XML
+ * element or EOF.
+ */
+void
+XMLInputStream::skipText ()
+{
+  while ( isGood() && peek().isText() ) next();
+}
