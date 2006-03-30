@@ -76,14 +76,15 @@ headers =                    \
   ASTNodeType.h              \
   FormulaFormatter.h         \
   FormulaParser.h            \
-  FormulaTokenizer.h         \
-  MathMLDocument.h           \
-  MathMLFormatter.h          \
-  MathMLHandler.h            \
-  MathMLReader.h             \
-  MathMLTagCodes.h           \
-  MathMLUnicodeConstants.h   \
-  MathMLWriter.h
+  FormulaTokenizer.h
+
+#  MathMLDocument.h           \
+#  MathMLFormatter.h          \
+#  MathMLHandler.h            \
+#  MathMLReader.h             \
+#  MathMLTagCodes.h           \
+#  MathMLUnicodeConstants.h   \
+#  MathMLWriter.h
 
 header_inst_prefix = math
 
@@ -91,13 +92,14 @@ sources =                    \
   ASTNode.cpp                \
   FormulaFormatter.c         \
   FormulaParser.c            \
-  FormulaTokenizer.c         \
-  MathMLDocument.cpp         \
-  MathMLFormatter.cpp        \
-  MathMLHandler.cpp          \
-  MathMLReader.cpp           \
-  MathMLTagCodes.cpp         \
-  MathMLWriter.cpp
+  FormulaTokenizer.c
+
+#  MathMLDocument.cpp         \
+#  MathMLFormatter.cpp        \
+#  MathMLHandler.cpp          \
+#  MathMLReader.cpp           \
+#  MathMLTagCodes.cpp         \
+#  MathMLWriter.cpp
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
