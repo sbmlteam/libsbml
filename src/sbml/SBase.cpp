@@ -6,628 +6,715 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
-#include "common/common.h"
+#include "xml/XMLError.h"
+#include "xml/XMLErrorLog.h"
+#include "xml/XMLOutputStream.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLToken.h"
+#include "xml/XMLNode.h"
 
-#include "SBMLFormatter.h"
+#include "SBMLDocument.h"
 #include "SBase.h"
 
 
-SBase::SBase (): line(0), column(0), mNamespaces(0)
+using namespace std;
+
+
+/**
+ * Only subclasses may create SBase objects.
+ */
+SBase::SBase (const string& id, const string& name) :
+   mId        ( id   )
+ , mName      ( name )
+ , mNotes     ( 0 )
+ , mAnnotation( 0 )
+ , mNamespaces( 0 )
+ , mSBML      ( 0 )
+ , mLine      ( 0 )
+ , mColumn    ( 0 )
 {
 }
 
 
+/**
+ * Destroy this SBase object.
+ */
+LIBSBML_EXTERN
 SBase::~SBase ()
 {
+  delete mNotes;
+  delete mAnnotation;
   delete mNamespaces;
 }
 
 
 /**
- * SBase "objects" are abstract, i.e., they are not created.  Rather,
- * specific "subclasses" are created (e.g., Model) and their SBASE_FIELDS
- * are initialized with this function.  The type of the specific "subclass"
- * is indicated by the given SBMLTypeCode.
+ * @return the metaid of this SBML object.
  */
-void
-SBase::init (SBMLTypeCode_t tc)
-{
-  typecode = tc;
-  line     = 0;
-  column   = 0;
-}
-
-
-/**
- * @return the type of this SBML object.
- */
-LIBSBML_EXTERN
-SBMLTypeCode_t
-SBase::getTypeCode () const
-{
-  return typecode;
-}
-
-
-/**
- * @return the column number for this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase::getColumn () const
-{
-  return column;
-}
-
-
-/**
- * @return the line number for this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase::getLine () const
-{
-  return line;
-}
-
-
-/**
- * @return the metaid for this SBML object.
- */
-LIBSBML_EXTERN
-const std::string&
+const string&
 SBase::getMetaId () const
 {
-  return metaid;
+  return mMetaId;
 }
 
 
 /**
- * @return the notes for this SBML object.
+ * @return the id of this SBML object.
  */
-LIBSBML_EXTERN
-const std::string&
-SBase::getNotes () const
+const string&
+SBase::getId () const
 {
-  return notes;
+  return mId;
 }
 
 
 /**
- * @return the annotation for this SBML object.
+ * @return the name of this SBML object.
  */
-LIBSBML_EXTERN
-const std::string&
-SBase::getAnnotation () const
+const string&
+SBase::getName () const
 {
-  return annotation;
+  return (getLevel() == 1) ? mId : mName;
 }
 
 
 /**
- * @return a list of XML namespaces defined on this SBML object.
- */
-LIBSBML_EXTERN
-XMLNamespaceList&
-SBase::getNamespaces ()
-{
-  if (mNamespaces == NULL) mNamespaces = new XMLNamespaceList;
-  return *mNamespaces;
-}
-
-
-/**
- * @return true if this SBML object has any XML namespaces defined on it,
- * false otherwise.
- */
-LIBSBML_EXTERN
-bool
-SBase::hasNamespaces () const
-{
-  return (mNamespaces != NULL);
-}
-
-
-/**
- * @return true if the metaid for this SBML object has been set, false
+ * @return true if the metaid of this SBML object has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 SBase::isSetMetaId () const
 {
-  return ! metaid.empty();
+  return (mMetaId.empty() == false);
 }
 
 
 /**
- * @return true if the notes for this SBML object has been set, false
+ * @return true if the id of this SBML object has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
+bool
+SBase::isSetId () const
+{
+  return (mId.empty() == false);
+}
+
+
+/**
+ * @return true if the name of this SBML object has been set, false
+ * otherwise.
+ */
+bool
+SBase::isSetName () const
+{
+  return (mName.empty() == false);
+}
+
+
+/**
+ * @return true if the notes of this SBML object has been set, false
+ * otherwise.
+ */
 bool
 SBase::isSetNotes () const
 {
-  return ! notes.empty();
+  return (mNotes != 0);
 }
 
 
 /**
- * @return true if the annotation for this SBML object has been set, false
- * otherwise.
+ * @return true if the annotation of this SBML object has been set,
+ * false otherwise.
  */
 bool
 SBase::isSetAnnotation () const
 {
-  return ! annotation.empty();
+  return (mAnnotation != 0);
 }
 
 
 /**
- * Sets the metaid field of the given SBML object to a copy of metaid.  If
- * object already has a metaid, the existing string is freed before the new
- * one is copied.
+ * Sets the metaid field of the given SBML object to a copy of metaid.
  */
-LIBSBML_EXTERN
 void
-SBase::setMetaId (const std::string& id)
+SBase::setMetaId (const string& id)
 {
-  metaid = id;
+  mMetaId = id;
 }
 
 
 /**
- * Sets the notes field of the given SBML object to a copy of notes.  If
- * object already has notes, the existing string is freed before the new
- * one is copied.
+ * Sets the id of this SBML object to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-SBase::setNotes (const std::string& xhtml)
+SBase::setId (const string& sid)
 {
-  notes = xhtml;
+  mId = sid;
 }
 
 
 /**
- * Sets the annotation field of the given SBML object to a copy of
- * annotations.  If object already has an annotation, the existing string
- * is freed before the new one is copied.
+ * Sets the name of this SBML object to a copy of name.
  */
-LIBSBML_EXTERN
 void
-SBase::setAnnotation (const std::string& xml)
+SBase::setName (const string& name)
 {
-  annotation = xml;
+  if (getLevel() == 1) mId = name;
+  else mName = name;
 }
 
 
 /**
- * @return the partial SBML that describes this SBML object.
+ * Unsets the metaid of this SBML object.
  */
-LIBSBML_EXTERN
-char*
-SBase::toSBML (unsigned int level, unsigned int version)
-{
-  MemBufFormatTarget* target;
-  SBMLFormatter*      formatter;
-  char*               result;
-
-
-  XML_PLATFORM_UTILS_INIT();
-
-  target    = new MemBufFormatTarget();
-  formatter = new SBMLFormatter(target, false);
-
-  *formatter <<
-    ((level == 1) ? SBMLFormatter::Level1 : SBMLFormatter::Level2);
-
-  *formatter <<
-    ((version == 1) ? SBMLFormatter::Version1 : SBMLFormatter::Version2);
-
-  switch ( this->getTypeCode() )
-  {
-    case SBML_COMPARTMENT:
-      *formatter << static_cast<Compartment&>(*this);
-      break;
-
-    case SBML_DOCUMENT:
-      *formatter << static_cast<SBMLDocument&>(*this);
-      break;
-
-    case SBML_EVENT:
-      *formatter << static_cast<Event&>(*this);
-      break;
-      
-    case SBML_EVENT_ASSIGNMENT:
-      *formatter << static_cast<EventAssignment&>(*this);
-      break;
-
-    case SBML_FUNCTION_DEFINITION:
-      *formatter << static_cast<FunctionDefinition&>(*this);
-      break;
-
-    case SBML_KINETIC_LAW:
-      *formatter << static_cast<KineticLaw&>(*this);
-      break;
-
-    case SBML_MODEL:
-      *formatter << static_cast<Model&>(*this);
-      break;
-      
-    case SBML_PARAMETER:
-      *formatter << static_cast<Parameter&>(*this);
-      break;
-      
-    case SBML_REACTION:
-      *formatter << static_cast<Reaction&>(*this);
-      break;      
-
-    case SBML_SPECIES:
-      *formatter << static_cast<Species&>(*this);
-      break;
-
-    case SBML_SPECIES_REFERENCE:
-      *formatter << static_cast<SpeciesReference&>(*this);
-      break;
-
-    case SBML_MODIFIER_SPECIES_REFERENCE:
-      *formatter << static_cast<ModifierSpeciesReference&>(*this);
-      break;      
-
-    case SBML_UNIT_DEFINITION:
-      *formatter << static_cast<UnitDefinition&>(*this);
-      break;
-
-    case SBML_UNIT:
-      *formatter << static_cast<Unit&>(*this);
-      break;
-      
-    case SBML_ALGEBRAIC_RULE:
-      *formatter << static_cast<AlgebraicRule&>(*this);
-      break;
-      
-    case SBML_ASSIGNMENT_RULE:
-      *formatter << static_cast<AssignmentRule&>(*this);
-      break;
-
-    case SBML_RATE_RULE:
-      *formatter << static_cast<RateRule&>(*this);
-      break;
-      
-    case SBML_SPECIES_CONCENTRATION_RULE:
-      *formatter << static_cast<SpeciesConcentrationRule&>(*this);
-      break;
-      
-    case SBML_COMPARTMENT_VOLUME_RULE:
-      *formatter << static_cast<CompartmentVolumeRule&>(*this);
-      break;
-
-    case SBML_PARAMETER_RULE:
-      *formatter << static_cast<ParameterRule&>(*this);
-      break;
-
-    case SBML_LIST_OF:
-      break;
-  }
-
-  result = safe_strdup( (char *) target->getRawBuffer() );
-
-  delete target;
-  delete formatter;
-
-  return result;
-}
-
-
-/**
- * Unsets the metaid for this SBML object.
- */
-LIBSBML_EXTERN
 void
 SBase::unsetMetaId ()
 {
-  metaid.erase();
+  mMetaId.erase();
 }
 
 
 /**
- * Unsets the notes for this SBML object.
+ * Unsets the id of this SBML object.
+ */
+void
+SBase::unsetId ()
+{
+  mId.erase();
+}
+
+
+/**
+ * Unsets the name of this SBML object.
+ */
+void
+SBase::unsetName ()
+{
+  if (getLevel() == 1) mId.erase();
+  else mName.erase();
+}
+
+
+/**
+ * Unsets the notes of this SBML object.
  */
 LIBSBML_EXTERN
 void
 SBase::unsetNotes ()
 {
-  notes.erase();
+  delete mNotes;
 }
 
 /**
- * Unsets the annotation for this SBML object.
+ * Unsets the annotation of this SBML object.
  */
 LIBSBML_EXTERN
 void
 SBase::unsetAnnotation ()
 {
-  annotation.erase();
+  delete mAnnotation;
 }
 
 
 /**
- * SBase "objects" are abstract, i.e., they are not created.  Rather,
- * specific "subclasses" are created (e.g., Model) and their SBASE_FIELDS
- * are initialized with this function.  The type of the specific "subclass"
- * is indicated by the given SBMLTypeCode.
+ * @return the parent SBMLDocument of this SBML object.
  */
-LIBSBML_EXTERN
-void
-SBase_init (SBase_t *sb, SBMLTypeCode_t tc)
+const SBMLDocument*
+SBase::getSBMLDocument () const
 {
-  static_cast<SBase*>(sb)->init(tc);
+  return mSBML;
 }
 
 
 /**
- * Clears (frees) only the SBASE_FIELDS of sb.
+ * @return the parent Model of this SBML object.
  */
-LIBSBML_EXTERN
-void
-SBase_clear (SBase_t *sb)
+const Model*
+SBase::getModel () const
 {
-  if (sb == NULL) return;
-
-
-  SBase *x = static_cast<SBase*>(sb);
-
-
-  x->unsetMetaId();
-  x->unsetNotes();
-  x->unsetAnnotation();
+  return (mSBML != 0) ? mSBML->getModel() : 0;
 }
 
 
 /**
- * @return the type of this SBML object.
+ * @return the SBML level of this SBML object.
  */
-LIBSBML_EXTERN
+unsigned int
+SBase::getLevel () const
+{
+  return (mSBML) ? mSBML->mLevel : SBMLDocument::getDefaultLevel();
+}
+
+
+/**
+ * @return the SBML version of this SBML object.
+ */
+unsigned int
+SBase::getVersion () const
+{
+  return (mSBML) ? mSBML->mVersion : SBMLDocument::getDefaultVersion();
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ */
 SBMLTypeCode_t
-SBase_getTypeCode (const SBase_t *sb)
+SBase::getTypeCode () const
 {
-  return static_cast<const SBase*>(sb)->getTypeCode();
+  return SBML_UNKNOWN;
 }
 
 
 /**
- * @return the column number for this SBML object.
+ * @return the line number of this SBML object.
  */
-LIBSBML_EXTERN
 unsigned int
-SBase_getColumn (const SBase_t *sb)
+SBase::getLine () const
 {
-  return static_cast<const SBase*>(sb)->getColumn();
+  return mLine;
 }
 
 
 /**
- * @return the line number for this SBML object.
+ * @return the column number of this SBML object.
  */
-LIBSBML_EXTERN
 unsigned int
-SBase_getLine (const SBase_t *sb)
+SBase::getColumn () const
 {
-  return static_cast<const SBase*>(sb)->getLine();
+  return mColumn;
 }
 
 
 /**
- * @return the metaid for this SBML object.
+ * Subclasses should override this method to create, store, and then
+ * return an SBML object corresponding to the next XMLToken in the
+ * XMLInputStream.
+ *
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+SBase::createObject (XMLInputStream&)
+{
+  return 0;
+}
+
+
+/**
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
+ */
+int
+SBase::getElementPosition () const
+{
+  return -1;
+}
+
+
+/**
+ * Stores the location (line and column) and any XML namespaces (for
+ * roundtripping) declared on this SBML (XML) element.
+ */
+void
+SBase::setSBaseFields (const XMLToken& element)
+{
+  mLine   = element.getLine  ();
+  mColumn = element.getColumn();
+
+  if (element.getNamespaces().getLength() > 0)
+  {
+    mNamespaces = new XMLNamespaces( element.getNamespaces() );
+  }
+}
+
+
+/**
+ * Reads (initializes) this SBML object by reading from XMLInputStream.
+ */
+void
+SBase::read (XMLInputStream& stream)
+{
+  if ( !stream.peek().isStart() ) return;
+
+  const XMLToken  element  = stream.next();
+  int             position = 0;
+
+  setSBaseFields( element );
+  readAttributes( element.getAttributes() );
+
+  if ( element.isEnd() ) return;
+
+  while ( stream.isGood() )
+  {
+    stream.skipText();
+    const XMLToken& next = stream.peek();
+
+    if ( next.isStart() )
+    {
+      SBase* object = createObject(stream);
+
+      if (object)
+      {
+        // checkOrder( position, object->getElementPosition(),  log);
+        // position = object->getElementPosition();
+
+        object->mSBML = mSBML;
+        object->read(stream);
+      }
+      else
+      {
+        // logUnrecognized(next, log);
+        stream.skipPast( stream.next() );
+      }
+    }
+
+    if ( next.isEndFor(element) )
+    {
+      stream.next();
+      break;
+    }
+  }
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+SBase::readAttributes (const XMLAttributes& attributes)
+{
+  attributes.readInto("metaid", mMetaId);
+}
+
+
+/**
+ * Writes (serializes) this SBML object by writing it to XMLOutputStream.
+ */
+void
+SBase::write (XMLOutputStream& stream)
+{
+  stream.startElement( getElementName() );
+
+  writeAttributes( stream );
+  writeElements  ( stream );
+
+  stream.endElement( getElementName() );
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+SBase::writeAttributes (XMLOutputStream& stream)
+{
+  if (mNamespaces) stream << *mNamespaces;
+
+  if ( getLevel() == 2 && !mMetaId.empty() )
+  {
+    stream.writeAttribute("metaid", mMetaId);
+  }
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+SBase::writeElements (XMLOutputStream& stream)
+{
+  if ( mNotes      ) stream << *mNotes;
+  if ( mAnnotation ) stream << *mAnnotation;
+}
+
+
+
+
+/**
+ * @return the metaid of this SBML object.
  */
 LIBSBML_EXTERN
 const char *
 SBase_getMetaId (const SBase_t *sb)
 {
-  const SBase *x = static_cast<const SBase*>(sb);
-
-
-  return x->isSetMetaId() ? x->getMetaId().c_str() : NULL;
+  return sb->isSetMetaId() ? sb->getMetaId().c_str() : NULL;
 }
 
 
 /**
- * @return the notes for this SBML object.
+ * @return the id of this SBML object.
  */
 LIBSBML_EXTERN
 const char *
-SBase_getNotes (const SBase_t *sb)
+SBase_getId (const SBase_t *sb)
 {
-  const SBase *x = static_cast<const SBase*>(sb);
-
-
-  return x->isSetNotes() ? x->getNotes().c_str() : NULL;
+  return sb->isSetId() ? sb->getId().c_str() : NULL;
 }
 
 
 /**
- * @return the annotation for this SBML object.
+ * @return the name of this SBML object.
  */
 LIBSBML_EXTERN
 const char *
-SBase_getAnnotation (const SBase_t *sb)
+SBase_getName (const SBase_t *sb)
 {
-  const SBase *x = static_cast<const SBase*>(sb);
-
-
-  return x->isSetAnnotation() ? x->getAnnotation().c_str() : NULL;
+  return sb->isSetName() ? sb->getName().c_str() : NULL;
 }
 
 
 /**
- * @return 1 if the metaid for this SBML object has been set, 0 otherwise.
+ * @return 1 if the metaid of this SBML object has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
 int
 SBase_isSetMetaId (const SBase_t *sb)
 {
-  return static_cast<const SBase*>(sb)->isSetMetaId();
+  return static_cast<int>( sb->isSetMetaId() );
 }
 
 
 /**
- * @return 1 if the notes for this SBML object has been set, 0 otherwise.
+ * @return 1 if the id of this SBML object has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBase_isSetId (const SBase_t *sb)
+{
+  return static_cast<int>( sb->isSetId() );
+}
+
+
+/**
+ * @return 1 if the name of this SBML object has been set, 0 otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBase_isSetName (const SBase_t *sb)
+{
+  return static_cast<int>( sb->isSetName() );
+}
+
+
+/**
+ * @return 1 if the notes of this SBML object has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
 int
 SBase_isSetNotes (const SBase_t *sb)
 {
-  return static_cast<const SBase*>(sb)->isSetNotes();
+  return static_cast<int>( sb->isSetNotes() );
 }
 
 
 /**
- * @return 1 if the annotation for this SBML object has been set, 0
+ * @return 1 if the annotation of this SBML object has been set, 0
  * otherwise.
  */
 LIBSBML_EXTERN
 int
 SBase_isSetAnnotation (const SBase_t *sb)
 {
-  return static_cast<const SBase*>(sb)->isSetAnnotation();
+  return static_cast<int>( sb->isSetAnnotation() );
 }
 
 
 /**
- * Sets the metaid field of the given SBML object to a copy of metaid.  If
- * object already has a metaid, the existing string is freed before the new
- * one is copied.
+ * Sets the metaid field of the given SBML object to a copy of metaid.
  */
 LIBSBML_EXTERN
 void
 SBase_setMetaId (SBase_t *sb, const char *metaid)
 {
-  if (metaid == NULL)
-  {
-    static_cast<SBase*>(sb)->unsetMetaId();
-  }
-  else
-  {
-    static_cast<SBase*>(sb)->setMetaId(metaid);
-  }
+  (metaid == NULL) ? sb->unsetMetaId() : sb->setMetaId(metaid);
 }
 
 
 /**
- * Sets the notes field of the given SBML object to a copy of notes.  If
- * object already has notes, the existing string is freed before the new
- * one is copied.
+ * Sets the id field of the given SBML object to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-SBase_setNotes (SBase_t *sb, const char *notes)
+SBase_setId (SBase_t *sb, const char *sid)
 {
-  if (notes == NULL)
-  {
-    static_cast<SBase*>(sb)->unsetNotes();
-  }
-  else
-  {
-    static_cast<SBase*>(sb)->setNotes(notes);
-  }
+  (sid == NULL) ? sb->unsetId() : sb->setId(sid);
 }
 
 
 /**
- * Sets the annotation field of the given SBML object to a copy of
- * annotations.  If object already has an annotation, the existing string
- * is freed before the new one is copied.
+ * Sets the name field of the given SBML object to a copy of name.
  */
 LIBSBML_EXTERN
 void
-SBase_setAnnotation (SBase_t *sb, const char *annotation)
+SBase_setName (SBase_t *sb, const char *name)
 {
-  if (annotation == NULL)
-  {
-    static_cast<SBase*>(sb)->unsetAnnotation();
-  }
-  else
-  {
-    static_cast<SBase*>(sb)->setAnnotation(annotation);
-  }
+  (name == NULL) ? sb->unsetName() : sb->setName(name);
 }
 
 
 /**
- * Unsets the metaid for this SBML object.  This is equivalent to:
- * safe_free(sb->metaid); s->metaid = NULL;
+ * Unsets the metaid of this SBML object.
  */
 LIBSBML_EXTERN
 void
 SBase_unsetMetaId (SBase_t *sb)
 {
-  static_cast<SBase*>(sb)->unsetMetaId();
+  sb->unsetMetaId();
 }
 
 
 /**
- * Unsets the notes for this SBML object.  This is equivalent to:
- * safe_free(sb->notes); s->notes = NULL;
+ * Unsets the id of this SBML object.
+ */
+LIBSBML_EXTERN
+void
+SBase_unsetId (SBase_t *sb)
+{
+  sb->unsetId();
+}
+
+
+/**
+ * Unsets the name of this SBML object.
+ */
+LIBSBML_EXTERN
+void
+SBase_unsetName (SBase_t *sb)
+{
+  sb->unsetName();
+}
+
+
+/**
+ * Unsets the notes of this SBML object.
  */
 LIBSBML_EXTERN
 void
 SBase_unsetNotes (SBase_t *sb)
 {
-  static_cast<SBase*>(sb)->unsetNotes();
+  sb->unsetNotes();
 }
 
 
 /**
- * Unsets the annotation for this SBML object.  This is equivalent to:
- * safe_free(sb->annotation); s->annotation = NULL;
+ * Unsets the annotation of this SBML object.
  */
 LIBSBML_EXTERN
 void
 SBase_unsetAnnotation (SBase_t *sb)
 {
-  static_cast<SBase*>(sb)->unsetAnnotation();
+  sb->unsetAnnotation();
+}
+
+
+/**
+ * @return the parent SBMLDocument of this SBML object.
+ */
+LIBSBML_EXTERN
+const SBMLDocument_t *
+SBase_getSBMLDocument (const SBase_t *sb)
+{
+  return sb->getSBMLDocument();
+}
+
+
+/**
+ * @return the parent Model of this SBML object.
+ */
+LIBSBML_EXTERN
+const Model_t *
+SBase_getModel (const SBase_t *sb)
+{
+  return sb->getModel();
+}
+
+
+/**
+ * @return the SBML level of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getLevel (const SBase_t *sb)
+{
+  return sb->getLevel();
+}
+
+
+/**
+ * @return the SBML version of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getVersion (const SBase_t *sb)
+{
+  return sb->getVersion();
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ */
+LIBSBML_EXTERN
+SBMLTypeCode_t
+SBase_getTypeCode (const SBase_t *sb)
+{
+  return sb->getTypeCode();
+}
+
+
+/**
+ * @return the XML element name of this SBML object.
+ */
+LIBSBML_EXTERN
+const char *
+SBase_getElementName (const SBase_t *sb)
+{
+  return sb->getElementName().empty() ? NULL : sb->getElementName().c_str();
+}
+
+
+/**
+ * @return the line number of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getLine (const SBase_t *sb)
+{
+  return sb->getLine();
+}
+
+
+/**
+ * @return the column number of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getColumn (const SBase_t *sb)
+{
+  return sb->getColumn();
 }

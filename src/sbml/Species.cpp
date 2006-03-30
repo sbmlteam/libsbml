@@ -6,81 +6,56 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
-#include "util/util.h"
-#include "SBMLVisitor.h"
+#include <limits>
 
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
+#include "SBMLVisitor.h"
 #include "Species.h"
 
 
+using namespace std;
+
+
 /**
- * Creates a new Species, optionally with its id attribute set..
+ * Creates a new Species, optionally with its id and name attributes set.
  */
-LIBSBML_EXTERN
-Species::Species (const std::string& id) :
-    SBase                 ()
-  , id                    ( id    )
-  , hasOnlySubstanceUnits ( false )
-  , boundaryCondition     ( false )
-  , charge                ( 0     )
-  , constant              ( false )
+Species::Species (const string& id, const string& name) :
+    SBase                     ( id, name )
+  , mInitialAmount            ( 0.0   )
+  , mInitialConcentration     ( 0.0   )
+  , mHasOnlySubstanceUnits    ( false )
+  , mBoundaryCondition        ( false )
+  , mCharge                   ( 0     )
+  , mConstant                 ( false )
+  , mIsSetInitialAmount       ( false )
+  , mIsSetInitialConcentration( false )
+  , mIsSetCharge              ( false )
 {
-  init(SBML_SPECIES);
-
-  initial.Amount = 0.0;
-
-  isSet.initialAmount        = 0;
-  isSet.initialConcentration = 0;
-  isSet.charge               = 0;
 }
 
 
 /**
  * Destroys this Species.
  */
-LIBSBML_EXTERN
 Species::~Species ()
 {
 }
@@ -93,11 +68,20 @@ Species::~Species ()
  * whether or not the Visitor would like to visit the Model's next
  * Species (if available).
  */
-LIBSBML_EXTERN
 bool
 Species::accept (SBMLVisitor& v) const
 {
   return v.visit(*this);
+}
+
+
+/**
+ * @return a (deep) copy of this Species.
+ */
+SBase*
+Species::clone () const
+{
+  return new Species(*this);
 }
 
 
@@ -107,7 +91,6 @@ Species::accept (SBMLVisitor& v) const
  *   - boundaryCondition = false
  *   - constant          = false  (L2 only)
  */
-LIBSBML_EXTERN
 void
 Species::initDefaults ()
 {
@@ -117,159 +100,123 @@ Species::initDefaults ()
 
 
 /**
- * @return the id of this Species
+ * @return the speciesType of this Species.
  */
-LIBSBML_EXTERN
-const std::string&
-Species::getId () const
+const string&
+Species::getSpeciesType () const
 {
-  return id;
-}
-
-
-/**
- * @return the name of this Species.
- */
-LIBSBML_EXTERN
-const std::string&
-Species::getName () const
-{
-  return name;
+  return mSpeciesType;
 }
 
 
 /**
  * @return the compartment of this Species.
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 Species::getCompartment () const
 {
-  return compartment;
+  return mCompartment;
 }
 
 
 /**
  * @return the initialAmount of this Species.
  */
-LIBSBML_EXTERN
 double
 Species::getInitialAmount () const
 {
-  return initial.Amount;
+  return mInitialAmount;
 }
 
 
 /**
  * @return the initialConcentration of this Species.
  */
-LIBSBML_EXTERN
 double
 Species::getInitialConcentration () const
 {
-  return initial.Concentration;
+  return mInitialConcentration;
 }
 
 
 /**
  * @return the substanceUnits of this Species.
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 Species::getSubstanceUnits () const
 {
-  return substanceUnits;
+  return mSubstanceUnits;
 }
 
 
 /**
  * @return the spatialSizeUnits of this Species.
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 Species::getSpatialSizeUnits () const
 {
-  return spatialSizeUnits;
+  return mSpatialSizeUnits;
 }
 
 
 /**
  * @return the units of this Species (L1 only).
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 Species::getUnits () const
 {
-  return substanceUnits;
+  return mSubstanceUnits;
 }
 
 
 /**
  * @return true if this Species hasOnlySubstanceUnits, false otherwise.
  */
-LIBSBML_EXTERN
 bool
 Species::getHasOnlySubstanceUnits () const
 {
-  return hasOnlySubstanceUnits;
+  return mHasOnlySubstanceUnits;
 }
 
 
 /**
  * @return the boundaryCondition of this Species.
  */
-LIBSBML_EXTERN
 bool
 Species::getBoundaryCondition () const
 {
-  return boundaryCondition;
+  return mBoundaryCondition;
 }
 
 
 /**
  * @return the charge of this Species.
  */
-LIBSBML_EXTERN
 int
 Species::getCharge () const
 {
-  return charge;
+  return mCharge;
 }
 
 
 /**
  * @return true if this Species is constant, false otherwise.
  */
-LIBSBML_EXTERN
 bool
 Species::getConstant () const
 {
-  return constant;
+  return mConstant;
 }
 
 
 /**
- * @return true if the id of this Species has been set, false otherwise.
+ * @return true if the speciesType of this Species has been set, false
+ * otherwise.
  */
-LIBSBML_EXTERN
 bool
-Species::isSetId () const
+Species::isSetSpeciesType () const
 {
-  return ! id.empty();
-}
-
-
-/**
- * @return true if the name of this Species has been set, false otherwise.
- *
- * In SBML L1, a Species name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
- */
-LIBSBML_EXTERN
-bool
-Species::isSetName () const
-{
-  return ! name.empty();
+  return (mSpeciesType.empty() == false);
 }
 
 
@@ -277,11 +224,10 @@ Species::isSetName () const
  * @return true if the compartment of this Species has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 Species::isSetCompartment () const
 {
-  return ! compartment.empty();
+  return (mCompartment.empty() == false);
 }
 
 
@@ -293,11 +239,10 @@ Species::isSetCompartment () const
  * always be set</b>.  In L2, initialAmount is optional and as such may or
  * may not be set.
  */
-LIBSBML_EXTERN
 bool
 Species::isSetInitialAmount () const
 {
-  return (bool) isSet.initialAmount;
+  return mIsSetInitialAmount;
 }
 
 
@@ -305,11 +250,10 @@ Species::isSetInitialAmount () const
  * @return true if the initialConcentration of this Species has been set,
  * false otherwise.
  */
-LIBSBML_EXTERN
 bool
 Species::isSetInitialConcentration () const
 {
-  return (bool) isSet.initialConcentration;
+  return mIsSetInitialConcentration;
 }
 
 
@@ -317,11 +261,10 @@ Species::isSetInitialConcentration () const
  * @return true if the substanceUnits of this Species has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 Species::isSetSubstanceUnits () const
 {
-  return ! substanceUnits.empty();
+  return (mSubstanceUnits.empty() == false);
 }
 
 
@@ -329,11 +272,10 @@ Species::isSetSubstanceUnits () const
  * @return true if the spatialSizeUnits of this Species has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 Species::isSetSpatialSizeUnits () const
 {
-  return ! spatialSizeUnits.empty();
+  return (mSpatialSizeUnits.empty() == false);
 }
 
 
@@ -341,7 +283,6 @@ Species::isSetSpatialSizeUnits () const
  * @return true if the units of this Species has been set, false otherwise
  * (L1 only).
  */
-LIBSBML_EXTERN
 bool
 Species::isSetUnits () const
 {
@@ -353,74 +294,30 @@ Species::isSetUnits () const
  * @return true if the charge of this Species has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 Species::isSetCharge () const
 {
-  return isSet.charge;
+  return mIsSetCharge;
 }
 
 
 /**
- * Moves the id field of this Species to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
+ * Sets the speciesType field of this Species to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-Species::moveIdToName ()
+Species::setSpeciesType (const string& sid)
 {
-  if ( isSetName() ) return;
-
-  setName( getId() );
-  setId  ( "" );
-}
-
-
-/**
- * Moves the name field of this Species to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
- */
-LIBSBML_EXTERN
-void
-Species::moveNameToId ()
-{
-  if ( isSetId() ) return;
-
-  setId  ( getName() );
-  setName( "" );
-}
-
-
-/**
- * Sets the id of this Species to a copy of sid.
- */
-LIBSBML_EXTERN
-void
-Species::setId (const std::string& sid)
-{
-  id = sid;
-}
-
-
-/**
- * Sets the name of this Species to a copy of string (SName in L1).
- */
-LIBSBML_EXTERN
-void
-Species::setName (const std::string& string)
-{
-  name = string;
+  mSpeciesType = sid;
 }
 
 
 /**
  * Sets the compartment of this Species to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-Species::setCompartment (const std::string& sid)
+Species::setCompartment (const string& sid)
 {
-  compartment = sid;
+  mCompartment = sid;
 }
 
 
@@ -428,13 +325,13 @@ Species::setCompartment (const std::string& sid)
  * Sets the initialAmount of this Species to value and marks the field as
  * set.  This method also unsets the initialConentration field.
  */
-LIBSBML_EXTERN
 void
 Species::setInitialAmount (double value)
 {
-  initial.Amount             = value;
-  isSet.initialAmount        = 1;
-  isSet.initialConcentration = 0;
+  mInitialAmount      = value;
+  mIsSetInitialAmount = true;
+
+  unsetInitialConcentration();
 }
 
 
@@ -442,44 +339,41 @@ Species::setInitialAmount (double value)
  * Sets the initialConcentration of this Species to value and marks the
  * field as set.  This method also unsets the initialAmount field.
  */
-LIBSBML_EXTERN
 void
 Species::setInitialConcentration (double value)
 {
-  initial.Concentration      = value;
-  isSet.initialAmount        = 0;
-  isSet.initialConcentration = 1;
+  mInitialConcentration      = value;
+  mIsSetInitialConcentration = true;
+
+  unsetInitialAmount();
 }
 
 
 /**
  * Sets the substanceUnits of this Species to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-Species::setSubstanceUnits (const std::string& sid)
+Species::setSubstanceUnits (const string& sid)
 {
-  substanceUnits = sid;
+  mSubstanceUnits = sid;
 }
 
 
 /**
  * Sets the spatialSizeUnits of this Species to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-Species::setSpatialSizeUnits (const std::string& sid)
+Species::setSpatialSizeUnits (const string& sid)
 {
-  spatialSizeUnits = sid;
+  mSpatialSizeUnits = sid;
 }
 
 
 /**
  * Sets the units of this Species to a copy of sname (L1 only).
  */
-LIBSBML_EXTERN
 void
-Species::setUnits (const std::string& sname)
+Species::setUnits (const string& sname)
 {
   setSubstanceUnits(sname);
 }
@@ -488,112 +382,99 @@ Species::setUnits (const std::string& sname)
 /**
  * Sets the hasOnlySubstanceUnits field of this Species to value.
  */
-LIBSBML_EXTERN
 void
 Species::setHasOnlySubstanceUnits (bool value)
 {
-  hasOnlySubstanceUnits = value;
+  mHasOnlySubstanceUnits = value;
 }
 
 
 /**
  * Sets the boundaryCondition of this Species to value.
  */
-LIBSBML_EXTERN
 void
 Species::setBoundaryCondition (bool value)
 {
-  boundaryCondition = value;
+  mBoundaryCondition = value;
 }
 
 
 /**
  * Sets the charge of this Species to value and marks the field as set.
  */
-LIBSBML_EXTERN
 void
 Species::setCharge (int value)
 {
-  charge       = value;
-  isSet.charge = 1;
+  mCharge      = value;
+  mIsSetCharge = true;
 }
 
 
 /**
  * Sets the constant field of this Species to value.
  */
-LIBSBML_EXTERN
 void
 Species::setConstant (bool value)
 {
-  constant = value;
+  mConstant = value;
 }
 
 
 /**
- * Unsets the name of this Species.
- *
- * In SBML L1, a Species name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
+ * Unsets the speciesType of this Species.
  */
-LIBSBML_EXTERN
 void
-Species::unsetName ()
+Species::unsetSpeciesType ()
 {
-  name.erase();
+  mSpeciesType.erase();
 }
 
 
 /**
  * Marks the initialAmount of this Species as unset.
  */
-LIBSBML_EXTERN
 void
 Species::unsetInitialAmount ()
 {
-  initial.Amount      = util_NaN();
-  isSet.initialAmount = 0;
+  mInitialAmount      = numeric_limits<double>::quiet_NaN();
+  mIsSetInitialAmount = false;
 }
 
 
 /**
  * Unsets the initialConcentration of this Species.
  */
-LIBSBML_EXTERN
 void
 Species::unsetInitialConcentration ()
 {
-  initial.Concentration      = util_NaN();
-  isSet.initialConcentration = 0;
+  mInitialConcentration      = numeric_limits<double>::quiet_NaN();
+  mIsSetInitialConcentration = false;
 }
 
 
 /**
  * Unsets the substanceUnits of this Species.
  */
-LIBSBML_EXTERN
 void
 Species::unsetSubstanceUnits ()
 {
-  substanceUnits.erase();
+  mSubstanceUnits.erase();
 }
 
 
 /**
  * Unsets the spatialSizeUnits of this Species.
  */
-LIBSBML_EXTERN
 void
 Species::unsetSpatialSizeUnits ()
 {
-  spatialSizeUnits.erase();
+  mSpatialSizeUnits.erase();
 }
 
 
 /**
  * Unsets the units of this Species (L1 only).
  */
-LIBSBML_EXTERN
 void
 Species::unsetUnits ()
 {
@@ -604,12 +485,297 @@ Species::unsetUnits ()
 /**
  * Unsets the charge of this Species.
  */
-LIBSBML_EXTERN
 void
 Species::unsetCharge ()
 {
-  charge       = 0;
-  isSet.charge = 0;
+  mCharge      = 0;
+  mIsSetCharge = false;
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Species::getTypeCode () const
+{
+  return SBML_SPECIES;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+Species::getElementName () const
+{
+  static const string specie  = "specie";
+  static const string species = "species";
+
+  return (getLevel() == 1 && getVersion() == 1) ? specie : species;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Species::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  attributes.readInto(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) attributes.readInto("name", mName);
+
+  //
+  // speciesType: SId  { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2)
+  {
+    attributes.readInto("speciesType", mSpeciesType);
+  }
+
+  //
+  // compartment: SName  { use="required" }  (L1v1, L2v1)
+  // compartment: SId    { use="required" }  (L2v1, L2v2)
+  //
+  attributes.readInto("compartment", mCompartment);
+
+  //
+  // initialAmount: double  { use="required" }  (L1v1, L1v2)
+  // initialAmount: double  { use="optional" }  (L2v1, L2v2)
+  //
+  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
+
+  //
+  // initialConcentration: double  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2)
+  {
+    mIsSetInitialConcentration =
+      attributes.readInto("initialConcentration", mInitialConcentration);
+  }
+
+  //
+  //          units: SName  { use="optional" }  (L1v1, L1v2)
+  // substanceUntis: SId    { use="optional" }  (L2v1, L2v2)
+  //
+  const string units = (level == 1) ? "units" : "substanceUnits";
+  attributes.readInto(units, mSubstanceUnits);
+
+  if (level == 2)
+  {
+    //
+    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2)
+    //
+    attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+
+    //
+    // hasOnlySubstanceUnits: boolean
+    // { use="optional" default="false" }  (L2v1, L2v2)
+    //
+    attributes.readInto("hasOnlySubstanceUnits", mHasOnlySubstanceUnits);
+  }
+
+  //
+  // boundaryCondition: boolean
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  attributes.readInto("boundaryCondition", mBoundaryCondition);
+
+  //
+  // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
+  // charge: integer  { use="optional" }  deprecated (L2v2)
+  //
+  attributes.readInto("charge", mCharge);
+
+  if (level == 2)
+  {
+    //
+    // constant: boolean  { use="optional" default="false" }  (L2v1, L2v2)
+    //
+    attributes.readInto("constant", mConstant);
+  }
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+Species::writeAttributes (XMLOutputStream& stream)
+{
+  SBase::writeAttributes(stream);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  stream.writeAttribute(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) stream.writeAttribute("name", mName);
+
+  //
+  // speciesType: SId  { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2)
+  {
+    stream.writeAttribute("speciesType", mSpeciesType);
+  }
+
+  //
+  // compartment: SName  { use="required" }  (L1v1, L2v1)
+  // compartment: SId    { use="required" }  (L2v1, L2v2)
+  //
+  stream.writeAttribute("compartment", mCompartment);
+
+  //
+  // initialAmount: double  { use="required" }  (L1v1, L1v2)
+  // initialAmount: double  { use="optional" }  (L2v1, L2v2)
+  //
+  if ( isSetInitialAmount() )
+  {
+    stream.writeAttribute("initialAmount", mInitialAmount);
+  }
+
+  //
+  // initialConcentration: double  { use="optional" }  (L2v1, L2v2)
+  //
+  else if ( level == 2 && isSetInitialConcentration() )
+  {
+    stream.writeAttribute("initialConcentration", mInitialConcentration);
+  }
+
+  //
+  //          units: SName  { use="optional" }  (L1v1, L1v2)
+  // substanceUntis: SId    { use="optional" }  (L2v1, L2v2)
+  //
+  const string units = (level == 1) ? "units" : "substanceUnits";
+  stream.writeAttribute( units, getUnits() );
+
+  if (level == 2)
+  {
+    //
+    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2)
+    //
+    stream.writeAttribute("spatialSizeUnits", mSpatialSizeUnits);
+
+    //
+    // hasOnlySubstanceUnits: boolean
+    // { use="optional" default="false" }  (L2v1, L2v2)
+    //
+    if (mHasOnlySubstanceUnits)
+    {
+      stream.writeAttribute( "hasOnlySubstanceUnits", mHasOnlySubstanceUnits );
+    }
+  }
+
+  //
+  // boundaryCondition: boolean
+  // { use="optional" default="false" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  if (mBoundaryCondition)
+  {
+    stream.writeAttribute("boundaryCondition", mBoundaryCondition);
+  }
+
+  //
+  // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
+  // charge: integer  { use="optional" }  deprecated (L2v2)
+  //
+  if ( isSetCharge() )
+  {
+    stream.writeAttribute("charge", mCharge);
+  }
+
+  //
+  // constant: boolean  { use="optional" default="false" }  (L2v1, L2v2)
+  //
+  if (mConstant)
+  {
+    stream.writeAttribute("constant", mConstant);
+  }
+}
+
+
+/**
+ * @return a (deep) copy of this ListOfSpecies.
+ */
+SBase*
+ListOfSpecies::clone () const
+{
+  return new ListOfSpecies(*this);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+SBMLTypeCode_t
+ListOfSpecies::getItemTypeCode () const
+{
+  return SBML_SPECIES;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+ListOfSpecies::getElementName () const
+{
+  static const string name = "listOfSpecies";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfSpecies::createObject (XMLInputStream& stream)
+{
+  const string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "species" || name == "specie")
+  {
+    object = new Species();
+    mItems.push_back(object);
+  }
+
+  return object;
 }
 
 
@@ -620,43 +786,9 @@ Species::unsetCharge ()
  */
 LIBSBML_EXTERN
 Species_t *
-Species_create (void)
+Species_create ()
 {
-  return new(std::nothrow) Species;
-}
-
-
-/**
- * Creates a new Species with the given id, compartment, initialAmount,
- * substanceUnits, boundaryCondition and charge and returns a pointer to
- * it.  This convenience function is functionally equivalent to:
- *
- *   Species_t *s = Species_create();
- *   Species_setId(s, sid); Species_setCompartment(s, compartment); ...;
- */
-LIBSBML_EXTERN
-Species_t *
-Species_createWith( const char *sid,
-                    const char *compartment,
-                    double      initialAmount,
-                    const char *substanceUnits,
-                    int         boundaryCondition,
-                    int         charge )
-{
-  Species* s = new(std::nothrow) Species;
-
-
-  if (s != 0)
-  {
-    s->setId                ( sid            ? sid            : "" );
-    s->setCompartment       ( compartment    ? compartment    : "" );
-    s->setSubstanceUnits    ( substanceUnits ? substanceUnits : "" );
-    s->setInitialAmount     ( initialAmount );
-    s->setBoundaryCondition ( (bool) boundaryCondition  );
-    s->setCharge            ( charge );
-  }
-
-  return s;
+  return new(nothrow) Species;
 }
 
 
@@ -667,7 +799,17 @@ LIBSBML_EXTERN
 void
 Species_free (Species_t *s)
 {
-  delete static_cast<Species*>(s);
+  delete s;
+}
+
+
+/**
+ * @return a (deep) copy of this Species.
+ */
+Species_t *
+Species_clone (const Species_t *s)
+{
+  return static_cast<Species*>( s->clone() );
 }
 
 
@@ -681,7 +823,7 @@ LIBSBML_EXTERN
 void
 Species_initDefaults (Species_t *s)
 {
-  static_cast<Species*>(s)->initDefaults();
+  s->initDefaults();
 }
 
 
@@ -692,10 +834,7 @@ LIBSBML_EXTERN
 const char *
 Species_getId (const Species_t *s)
 {
-  const Species* x = static_cast<const Species*>(s);
-
-
-  return x->isSetId() ? x->getId().c_str() : NULL;
+  return s->isSetId() ? s->getId().c_str() : NULL;
 }
 
 
@@ -706,10 +845,18 @@ LIBSBML_EXTERN
 const char *
 Species_getName (const Species_t *s)
 {
-  const Species* x = static_cast<const Species*>(s);
+  return s->isSetName() ? s->getName().c_str() : NULL;
+}
 
 
-  return x->isSetName() ? x->getName().c_str() : NULL;
+/**
+ * @return the speciesType of this Species.
+ */
+LIBSBML_EXTERN
+const char *
+Species_getSpeciesType (const Species_t *s)
+{
+  return s->isSetSpeciesType() ? s->getSpeciesType().c_str() : NULL;
 }
 
 
@@ -720,10 +867,7 @@ LIBSBML_EXTERN
 const char *
 Species_getCompartment (const Species_t *s)
 {
-  const Species* x = static_cast<const Species*>(s);
-
-
-  return x->isSetCompartment() ? x->getCompartment().c_str() : NULL;
+  return s->isSetCompartment() ? s->getCompartment().c_str() : NULL;
 }
 
 
@@ -734,7 +878,7 @@ LIBSBML_EXTERN
 double
 Species_getInitialAmount (const Species_t *s)
 {
-  return static_cast<const Species*>(s)->getInitialAmount();
+  return s->getInitialAmount();
 }
 
 
@@ -745,7 +889,7 @@ LIBSBML_EXTERN
 double
 Species_getInitialConcentration (const Species_t *s)
 {
-  return static_cast<const Species*>(s)->getInitialConcentration();
+  return s->getInitialConcentration();
 }
 
 
@@ -756,10 +900,7 @@ LIBSBML_EXTERN
 const char *
 Species_getSubstanceUnits (const Species_t *s)
 {
-  const Species* x = static_cast<const Species*>(s);
-
-
-  return x->isSetSubstanceUnits() ? x->getSubstanceUnits().c_str() : NULL;
+  return s->isSetSubstanceUnits() ? s->getSubstanceUnits().c_str() : NULL;
 }
 
 
@@ -770,10 +911,7 @@ LIBSBML_EXTERN
 const char *
 Species_getSpatialSizeUnits (const Species_t *s)
 {
-  const Species* x = static_cast<const Species*>(s);
-
-
-  return x->isSetSpatialSizeUnits() ? x->getSpatialSizeUnits().c_str() : NULL;
+  return s->isSetSpatialSizeUnits() ? s->getSpatialSizeUnits().c_str() : NULL;
 }
 
 
@@ -784,10 +922,7 @@ LIBSBML_EXTERN
 const char *
 Species_getUnits (const Species_t *s)
 {
-  const Species* x = static_cast<const Species*>(s);
-
-
-  return x->isSetUnits() ? x->getUnits().c_str() : NULL;
+  return s->isSetUnits() ? s->getUnits().c_str() : NULL;
 }
 
 
@@ -799,7 +934,7 @@ LIBSBML_EXTERN
 int
 Species_getHasOnlySubstanceUnits (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->getHasOnlySubstanceUnits();
+  return static_cast<int>( s->getHasOnlySubstanceUnits() );
 }
 
 
@@ -810,7 +945,7 @@ LIBSBML_EXTERN
 int
 Species_getBoundaryCondition (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->getBoundaryCondition();
+  return static_cast<int>( s->getBoundaryCondition() );
 }
 
 
@@ -821,7 +956,7 @@ LIBSBML_EXTERN
 int
 Species_getCharge (const Species_t *s)
 { 
-  return (int) static_cast<const Species*>(s)->getCharge();
+  return s->getCharge();
 }
 
 
@@ -833,23 +968,25 @@ LIBSBML_EXTERN
 int
 Species_getConstant (const Species_t *s)
 {
-  return static_cast<const Species*>(s)->getConstant();
+  return static_cast<int>( s->getConstant() );
 }
 
 
 /**
- * @return 1 if the id of this Species has been set, 0 otherwise.
+ * @return true (non-zero) if the id of this Species has been set, false
+ * (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Species_isSetId (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetId();
+  return static_cast<int>( s->isSetId() );
 }
 
 
 /**
- * @return 1 if the name of this Species has been set, 0 otherwise.
+ * @return true (non-zero) if the name of this Species has been set, false
+ * (0) otherwise.
  *
  * In SBML L1, a Species name is required and therefore <b>should always be
  * set</b>.  In L2, name is optional and as such may or may not be set.
@@ -858,25 +995,37 @@ LIBSBML_EXTERN
 int
 Species_isSetName (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetName();
+  return static_cast<int>( s->isSetName() );
 }
 
 
 /**
- * @return 1 if the compartment of this Species has been set, 0
- * otherwise.
+ * @return true (non-zero) if the speciesType of this Species has
+ * been set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Species_isSetSpeciesType (const Species_t *s)
+{
+  return static_cast<int>( s->isSetSpeciesType() );
+}
+
+
+/**
+ * @return true (non-zero) if the compartment of this Species has been set,
+ * false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Species_isSetCompartment (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetCompartment();
+  return static_cast<int>( s->isSetCompartment() );
 }
 
 
 /**
- * @return 1 if the initialAmount of this Species has been set, 0
- * otherwise.
+ * @return true (non-zero) if the initialAmount of this Species has been
+ * set, false (0) otherwise.
  *
  * In SBML L1, a Species initialAmount is required and therefore <b>should
  * always be set</b>.  In L2, initialAmount is optional and as such may or
@@ -886,89 +1035,67 @@ LIBSBML_EXTERN
 int
 Species_isSetInitialAmount (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetInitialAmount();
+  return static_cast<int>( s->isSetInitialAmount() );
 }
 
 
 /**
- * @return 1 if the initialConcentration of this Species has been set, 0
- * otherwise.
+ * @return true (non-zero) if the initialConcentration of this Species has
+ * been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Species_isSetInitialConcentration (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetInitialConcentration();
+  return static_cast<int>( s->isSetInitialConcentration() );
 }
 
 
 /**
- * @return 1 if the substanceUnits of this Species has been set, 0
- * otherwise.
+ * @return true (non-zero) if the substanceUnits of this Species has been
+ * set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Species_isSetSubstanceUnits (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetSubstanceUnits();
+  return static_cast<int>( s->isSetSubstanceUnits() );
 }
 
+
 /**
- * @return 1 if the spatialSizeUnits of this Species has been set, 0
- * otherwise.
+ * @return true (non-zero) if the spatialSizeUnits of this Species has been
+ * set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Species_isSetSpatialSizeUnits (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetSpatialSizeUnits();
+  return static_cast<int>( s->isSetSpatialSizeUnits() );
 }
 
 
 /**
- * @return 1 if the units of this Species has been set, 0 otherwise
- * (L1 only).
+ * @return true (non-zero) if the units of this Species has been set, false
+ * (0) otherwise (L1 only).
  */
 LIBSBML_EXTERN
 int
 Species_isSetUnits (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetUnits();
+  return static_cast<int>( s->isSetUnits() );
 }
 
 
 /**
- * @return 1 if the charge of this Species has been set, 0 otherwise.
+ * @return true (non-zero) if the charge of this Species has been set,
+ * false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Species_isSetCharge (const Species_t *s)
 {
-  return (int) static_cast<const Species*>(s)->isSetCharge();
-}
-
-
-/**
- * Moves the id field of this Species to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
- */
-LIBSBML_EXTERN
-void
-Species_moveIdToName (Species_t *s)
-{
-  static_cast<Species*>(s)->moveIdToName();
-}
-
-
-/**
- * Moves the name field of this Species to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
- */
-LIBSBML_EXTERN
-void
-Species_moveNameToId (Species_t *s)
-{
-  static_cast<Species*>(s)->moveNameToId();
+  return static_cast<int>( s->isSetCharge() );
 }
 
 
@@ -979,14 +1106,7 @@ LIBSBML_EXTERN
 void
 Species_setId (Species_t *s, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Species*>(s)->setId("");
-  }
-  else
-  {
-    static_cast<Species*>(s)->setId(sid);
-  }
+  (sid == NULL) ? s->unsetId() : s->setId(sid);
 }
 
 
@@ -995,16 +1115,20 @@ Species_setId (Species_t *s, const char *sid)
  */
 LIBSBML_EXTERN
 void
-Species_setName (Species_t *s, const char *string)
+Species_setName (Species_t *s, const char *str)
 {
-  if (string == NULL)
-  {
-    static_cast<Species*>(s)->unsetName();
-  }
-  else
-  {
-    static_cast<Species*>(s)->setName(string);
-  }
+  (str == NULL) ? s->unsetName() : s->setName(str);
+}
+
+
+/**
+ * Sets the speciesType of this Species to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+Species_setSpeciesType (Species_t *s, const char *sid)
+{
+  (sid == NULL) ? s->unsetSpeciesType() : s->setSpeciesType(sid);
 }
 
 
@@ -1015,14 +1139,7 @@ LIBSBML_EXTERN
 void
 Species_setCompartment (Species_t *s, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Species*>(s)->setCompartment("");
-  }
-  else
-  {
-    static_cast<Species*>(s)->setCompartment(sid);
-  }
+  (sid == NULL) ? s->setCompartment("") : s->setCompartment(sid);
 }
 
 
@@ -1034,7 +1151,7 @@ LIBSBML_EXTERN
 void
 Species_setInitialAmount (Species_t *s, double value)
 {
-  static_cast<Species*>(s)->setInitialAmount(value);
+  s->setInitialAmount(value);
 }
 
 
@@ -1046,7 +1163,7 @@ LIBSBML_EXTERN
 void
 Species_setInitialConcentration (Species_t *s, double value)
 {
-  static_cast<Species*>(s)->setInitialConcentration(value);
+  s->setInitialConcentration(value);
 }
 
 
@@ -1057,14 +1174,7 @@ LIBSBML_EXTERN
 void
 Species_setSubstanceUnits (Species_t *s, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Species*>(s)->unsetSubstanceUnits();
-  }
-  else
-  {
-    static_cast<Species*>(s)->setSubstanceUnits(sid);
-  }
+  (sid == NULL) ? s->unsetSubstanceUnits() : s->setSubstanceUnits(sid);
 }
 
 
@@ -1075,14 +1185,7 @@ LIBSBML_EXTERN
 void
 Species_setSpatialSizeUnits (Species_t *s, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Species*>(s)->unsetSpatialSizeUnits();
-  }
-  else
-  {
-    static_cast<Species*>(s)->setSpatialSizeUnits(sid);
-  }
+  (sid == NULL) ? s->unsetSpatialSizeUnits() : s->setSpatialSizeUnits(sid);
 }
 
 
@@ -1093,14 +1196,7 @@ LIBSBML_EXTERN
 void
 Species_setUnits (Species_t *s, const char *sname)
 {
-  if (sname == NULL)
-  {
-    static_cast<Species*>(s)->unsetUnits();
-  }
-  else
-  {
-    static_cast<Species*>(s)->setUnits(sname);
-  }
+  (sname == NULL) ? s->unsetUnits() : s->setUnits(sname);
 }
 
 
@@ -1111,7 +1207,7 @@ LIBSBML_EXTERN
 void
 Species_setHasOnlySubstanceUnits (Species_t *s, int value)
 {
-  static_cast<Species*>(s)->setHasOnlySubstanceUnits((bool) value);
+  s->setHasOnlySubstanceUnits( static_cast<bool>(value) );
 }
 
 
@@ -1122,7 +1218,7 @@ LIBSBML_EXTERN
 void
 Species_setBoundaryCondition (Species_t *s, int value)
 {
-  static_cast<Species*>(s)->setBoundaryCondition((bool) value);
+  s->setBoundaryCondition( static_cast<bool>(value) );
 }
 
 
@@ -1133,7 +1229,7 @@ LIBSBML_EXTERN
 void
 Species_setCharge (Species_t *s, int value)
 {
-  static_cast<Species*>(s)->setCharge(value);
+  s->setCharge(value);
 }
 
 
@@ -1144,13 +1240,12 @@ LIBSBML_EXTERN
 void
 Species_setConstant (Species_t *s, int value)
 {
-  static_cast<Species*>(s)->setConstant((bool) value);
+  s->setConstant( static_cast<bool>(value) );
 }
 
 
 /**
- * Unsets the name of this Species.  This is equivalent to:
- * safe_free(s->name); s->name = NULL;
+ * Unsets the name of this Species.
  *
  * In SBML L1, a Species name is required and therefore <b>should always be
  * set</b>.  In L2, name is optional and as such may or may not be set.
@@ -1159,7 +1254,18 @@ LIBSBML_EXTERN
 void
 Species_unsetName (Species_t *s)
 {
-  static_cast<Species*>(s)->unsetName();
+  s->unsetName();
+}
+
+
+/**
+ * Unsets the speciesType of this Species.
+ */
+LIBSBML_EXTERN
+void
+Species_unsetSpeciesType (Species_t *s)
+{
+  s->unsetSpeciesType();
 }
 
 
@@ -1170,7 +1276,7 @@ LIBSBML_EXTERN
 void
 Species_unsetInitialAmount (Species_t *s)
 {
-  static_cast<Species*>(s)->unsetInitialAmount();
+  s->unsetInitialAmount();
 }
 
 
@@ -1181,31 +1287,29 @@ LIBSBML_EXTERN
 void
 Species_unsetInitialConcentration (Species_t *s)
 {
-  static_cast<Species*>(s)->unsetInitialConcentration();
+  s->unsetInitialConcentration();
 }
 
 
 /**
- * Unsets the substanceUnits of this Species.  This is equivalent to:
- * safe_free(s->substanceUnits); s->substanceUnits = NULL;
+ * Unsets the substanceUnits of this Species.
  */
 LIBSBML_EXTERN
 void
 Species_unsetSubstanceUnits (Species_t *s)
 {
-  static_cast<Species*>(s)->unsetSubstanceUnits();
+  s->unsetSubstanceUnits();
 }
 
 
 /**
- * Unsets the spatialSizeUnits of this Species.  This is equivalent to:
- * safe_free(s->spatialSizeUnits); s->spatialSizeUnits = NULL;
+ * Unsets the spatialSizeUnits of this Species.
  */
 LIBSBML_EXTERN
 void
 Species_unsetSpatialSizeUnits (Species_t *s)
 {
-  static_cast<Species*>(s)->unsetSpatialSizeUnits();
+  s->unsetSpatialSizeUnits();
 }
 
 
@@ -1216,7 +1320,7 @@ LIBSBML_EXTERN
 void
 Species_unsetUnits (Species_t *s)
 {
-  static_cast<Species*>(s)->unsetUnits();
+  s->unsetUnits();
 }
 
 
@@ -1227,28 +1331,5 @@ LIBSBML_EXTERN
 void
 Species_unsetCharge (Species_t *s)
 {
-  static_cast<Species*>(s)->unsetCharge();
-}
-
-
-/**
- * The SpeciesIdCmp function compares the string sid to s->id.
- *
- * @returns an integer less than, equal to, or greater than zero if sid is
- * found to be, respectively, less than, to match or be greater than s->id.
- * Returns -1 if either sid or s->id is NULL.
- */
-LIBSBML_EXTERN
-int
-SpeciesIdCmp (const char *sid, const Species_t *s)
-{
-  int result = -1;
-
-
-  if (sid != NULL && Species_isSetId(s))
-  {
-    result = strcmp(sid, Species_getId(s));
-  }
-
-  return result;
+  s->unsetCharge();
 }

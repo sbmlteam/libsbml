@@ -6,48 +6,25 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2003 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
+
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 #include "math/FormulaParser.h"
 #include "math/ASTNode.h"
@@ -57,31 +34,19 @@
 #include "Event.h"
 
 
+using namespace std;
+
+
 /**
  * Creates a new Event, optionally with its id, trigger and delay
  * attribute set.  Trigger and delay may be specified as infix formula
  * strings.
  */
-LIBSBML_EXTERN
-Event::Event (   const std::string&  id
-               , const std::string&  trigger_
-               , const std::string&  delay_   ) :
-    SBase   ()
-  , id      ( id   )
-  , trigger ( NULL )
-  , delay   ( NULL )
+Event::Event (const string& id, const string& trigger, const string& delay) :
+   SBase   ( id )
+ , mTrigger( SBML_parseFormula( trigger.c_str() ) )
+ , mDelay  ( SBML_parseFormula( trigger.c_str() ) )
 {
-  init(SBML_EVENT);
-
-  if ( !trigger_.empty() )
-  {
-    setTrigger( (ASTNode*) SBML_parseFormula( trigger_.c_str() ) );
-  }
-
-  if ( !delay_.empty() )
-  {
-    setDelay( (ASTNode*) SBML_parseFormula( delay_.c_str() ) );
-  }
 }
 
 
@@ -89,27 +54,37 @@ Event::Event (   const std::string&  id
  * Creates a new Event with an id and trigger and (optionally) delay
  * attributes set.
  */
-LIBSBML_EXTERN
-Event::Event (   const std::string&  id
-               , ASTNode*            trigger
-               , ASTNode*            delay   ) :
-    SBase   ()
-  , id      ( id      )
-  , trigger ( trigger )
-  , delay   ( delay   )
+Event::Event (const string& id, ASTNode* trigger, ASTNode* delay) :
+    SBase   ( id )
+  , mTrigger( 0  )
+  , mDelay  ( 0  )
 {
-  init(SBML_EVENT);
+  if (trigger) mTrigger = trigger->deepCopy();
+  if (delay)   mDelay   = delay  ->deepCopy();
 }
 
 
 /**
+ * Copies this Event.
+ */
+Event::Event (const Event& rhs) :
+   mTrigger         ( 0 )
+ , mDelay           ( 0 )
+ , mTimeUnits       ( rhs.mTimeUnits        )
+ , mEventAssignments( rhs.mEventAssignments )
+{
+  if (rhs.mTrigger) mTrigger = rhs.mTrigger->deepCopy();
+  if (rhs.mDelay)   mDelay   = rhs.mDelay  ->deepCopy();
+}
+ 
+
+/**
  * Destroys this Event.
  */
-LIBSBML_EXTERN
 Event::~Event ()
 {
-  delete trigger;
-  delete delay;
+  delete mTrigger;
+  delete mDelay;
 }
 
 
@@ -120,129 +95,73 @@ Event::~Event ()
  * whether or not the Visitor would like to visit the Model's next Event
  * (if available).
  */
-LIBSBML_EXTERN
 bool
 Event::accept (SBMLVisitor& v) const
 {
-  unsigned int n;
-  bool next, result;
-
-
-  result = v.visit(*this);
-
-  //
-  // EventAssignment
-  //
-
-  getListOfEventAssignments().accept(v, SBML_EVENT_ASSIGNMENT);
-
-  for (n = 0, next = true; n < getNumEventAssignments() && next; n++)
-  {
-    next = getEventAssignment(n)->accept(v);
-  }
-
-  v.leave(getListOfEventAssignments(), SBML_EVENT_ASSIGNMENT);
+  bool result = v.visit(*this);
+  mEventAssignments.accept(v);
 
   return result;
 }
 
 
 /**
- * @return the id of this Event.
+ * @return a (deep) copy of this Event.
  */
-LIBSBML_EXTERN
-const std::string&
-Event::getId () const
+SBase*
+Event::clone () const
 {
-  return id;
-}
-
-
-/**
- * @return the name of this Event.
- */
-LIBSBML_EXTERN
-const std::string&
-Event::getName () const
-{
-  return name;
+  return new Event(*this);
 }
 
 
 /**
  * @return the trigger of this Event.
  */
-LIBSBML_EXTERN
 const ASTNode*
 Event::getTrigger () const
 {
-  return trigger;
+  return mTrigger;
 }
 
 
 /**
  * @return the delay of this Event.
  */
-LIBSBML_EXTERN
 const ASTNode*
 Event::getDelay () const
 {
-  return delay;
+  return mDelay;
 }
 
 
 /**
  * @return the timeUnits of this Event
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 Event::getTimeUnits () const
 {
-  return timeUnits;
-}
-
-
-/**
- * @return true if the id of this Event has been set, false otherwise.
- */
-LIBSBML_EXTERN
-bool
-Event::isSetId () const
-{
-  return ! id.empty();
-}
-
-
-/**
- * @return true if the name of this Event has been set, false otherwise.
- */
-LIBSBML_EXTERN
-bool
-Event::isSetName () const
-{
-  return ! name.empty();
+  return mTimeUnits;
 }
 
 
 /**
  * @return true if the trigger of this Event has been set, false otherwise.
  */
-LIBSBML_EXTERN
 bool
 Event::isSetTrigger () const
 {
-  return (trigger != NULL);
+  return (mTrigger != 0);
 }
 
 
 /**
  * @return true if the delay of this Event has been set, false otherwise.
  */
-LIBSBML_EXTERN
 bool
 Event::isSetDelay () const
 {
-  return (delay != NULL);
+  return (mDelay != 0);
 }
 
 
@@ -250,184 +169,311 @@ Event::isSetDelay () const
  * @return true if the timeUnits of this Event has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 Event::isSetTimeUnits () const
 {
-  return ! timeUnits.empty();
+  return (mTimeUnits.empty() == false);
 }
 
 
 /**
- * Sets the id of this Event to a copy of sid.
+ * Sets the trigger of this Event to a copy of the given ASTNode.
  */
-LIBSBML_EXTERN
 void
-Event::setId (const std::string& sid)
+Event::setTrigger (const ASTNode* math)
 {
-  id = sid;
+  if (mTrigger == math) return;
+
+  delete mTrigger;
+  mTrigger = (math != 0) ? math->deepCopy() : 0;
 }
 
 
 /**
- * Sets the name of this Event to a copy of string.
+ * Sets the delay of this Event to a copy of the given ASTNode.
  */
-LIBSBML_EXTERN
 void
-Event::setName (const std::string& string)
+Event::setDelay (const ASTNode* math)
 {
-  name = string;
-}
+  if (mDelay == math) return;
 
 
-/**
- * Sets the trigger of this Event to the given ASTNode.
- *
- * The node <b>is not copied</b> and this Event <b>takes ownership</b> of
- * it; i.e. subsequent calls to this function or a call to Event_free()
- * will free the ASTNode (and any child nodes).
- */
-LIBSBML_EXTERN
-void
-Event::setTrigger (ASTNode* math)
-{
-  if (trigger == math) return;
-
-
-
-  delete trigger;
-  trigger = math;
-}
-
-
-/**
- * Sets the delay of this Event to the given ASTNode.
- *
- * The node <b>is not copied</b> and this Event <b>takes ownership</b> of
- * it; i.e. subsequent calls to this function or a call to Event_free()
- * will free the ASTNode (and any child nodes).
- */
-LIBSBML_EXTERN
-void
-Event::setDelay (ASTNode* math)
-{
-  if (delay == math) return;
-
-
-  delete delay;
-  delay = math;
+  delete mDelay;
+  mDelay = (math != 0) ? math->deepCopy() : 0;
 }
 
 
 /**
  * Sets the timeUnits of this Event to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-Event::setTimeUnits (const std::string& sid)
+Event::setTimeUnits (const string& sid)
 {
-  timeUnits = sid;
-}
-
-
-/**
- * Unsets the id of this Event.
- */
-LIBSBML_EXTERN
-void
-Event::unsetId ()
-{
-  id.erase();
-
-}
-
-
-/**
- * Unsets the name of this Event.
- */
-LIBSBML_EXTERN
-void
-Event::unsetName ()
-{
-  name.erase();
+  mTimeUnits = sid;
 }
 
 
 /**
  * Unsets the delay of this Event.
  */
-LIBSBML_EXTERN
 void
 Event::unsetDelay ()
 {
-  delete delay;
-  delay = NULL;
+  delete mDelay;
+  mDelay = 0;
 }
 
 
 /**
  * Unsets the timeUnits of this Event.
  */
-LIBSBML_EXTERN
 void
 Event::unsetTimeUnits ()
 {
-  timeUnits.erase();
+  mTimeUnits.erase();
 }
 
 
 /**
- * Appends the given EventAssignment to this Event.
+ * Appends a copy of the given EventAssignment to this Event.
  */
-LIBSBML_EXTERN
 void
-Event::addEventAssignment (EventAssignment& ea)
+Event::addEventAssignment (const EventAssignment* ea)
 {
-  eventAssignment.append(&ea);
+  mEventAssignments.append(ea);
 }
 
 
 /**
  * @return the list of EventAssignments for this Event.
  */
-LIBSBML_EXTERN
-ListOf&
-Event::getListOfEventAssignments ()
-{
-  return eventAssignment;
-}
-
-
-/**
- * @return the list of EventAssignments for this Event.
- */
-LIBSBML_EXTERN
-const ListOf&
+const ListOfEventAssignments*
 Event::getListOfEventAssignments () const
 {
-  return eventAssignment;
+  return &mEventAssignments;
+}
+
+
+/**
+ * @return the list of EventAssignments for this Event.
+ */
+ListOfEventAssignments*
+Event::getListOfEventAssignments ()
+{
+  return &mEventAssignments;
 }
 
 
 /**
  * @return the nth EventAssignment of this Event.
  */
-LIBSBML_EXTERN
-EventAssignment*
+const EventAssignment*
 Event::getEventAssignment (unsigned int n) const
 {
-  return static_cast<EventAssignment*>( eventAssignment.get(n) );
+  return static_cast<const EventAssignment*>( mEventAssignments.get(n) );
+}
+
+
+/**
+ * @return the nth EventAssignment of this Event.
+ */
+EventAssignment*
+Event::getEventAssignment (unsigned int n)
+{
+  return static_cast<EventAssignment*>( mEventAssignments.get(n) );
+}
+
+
+/**
+ * @return the EventAssignment for the given variable, or NULL if no such
+ * EventAssignment exits.
+ */
+const EventAssignment*
+Event::getEventAssignment (const string& variable) const
+{
+  return
+    static_cast<const EventAssignment*>( mEventAssignments.get(variable) );
+}
+
+
+/**
+ * @return the EventAssignment for the given variable, or NULL if no such
+ * EventAssignment exits.
+ */
+EventAssignment*
+Event::getEventAssignment (const string& variable)
+{
+  return static_cast<EventAssignment*>( mEventAssignments.get(variable) );
 }
 
 
 /**
  * @return the number of EventAssignments in this Event.
  */
-LIBSBML_EXTERN
 unsigned int
 Event::getNumEventAssignments () const
 {
-  return eventAssignment.getNumItems();
+  return mEventAssignments.size();
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Event::getTypeCode () const
+{
+  return SBML_EVENT;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+Event::getElementName () const
+{
+  static const string name = "event";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+Event::createObject (XMLInputStream& stream)
+{
+  const string& name = stream.peek().getName();
+  return (name == "listOfEventAssignments") ? &mEventAssignments : 0;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Event::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  //
+  // id: SId  { use="optional" }  (L2v1, L2v2)
+  //
+  attributes.readInto("id", mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  attributes.readInto("name", mName);
+
+  //
+  // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
+  //
+  attributes.readInto("timeUnits", mTimeUnits);
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+Event::writeAttributes (XMLOutputStream& stream)
+{
+  SBase::writeAttributes(stream);
+
+  //
+  // id: SId  { use="optional" }  (L2v1, L2v2)
+  //
+  stream.writeAttribute("id", mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  stream.writeAttribute("name", mName);
+
+  //
+  // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
+  //
+  stream.writeAttribute("timeUnits", mTimeUnits);
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+Event::writeElements (XMLOutputStream& stream)
+{
+  SBase::writeElements(stream);
+  if ( getNumEventAssignments() > 0 ) mEventAssignments.write(stream);
+}
+
+
+
+
+/**
+ * @return a (deep) copy of this ListOfEvents.
+ */
+SBase*
+ListOfEvents::clone () const
+{
+  return new ListOfEvents(*this);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+SBMLTypeCode_t
+ListOfEvents::getItemTypeCode () const
+{
+  return SBML_EVENT;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+ListOfEvents::getElementName () const
+{
+  static const string name = "listOfEvents";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfEvents::createObject (XMLInputStream& stream)
+{
+  const string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "event")
+  {
+    object = new Event();
+    mItems.push_back(object);
+  }
+
+  return object;
 }
 
 
@@ -440,7 +486,7 @@ LIBSBML_EXTERN
 Event_t *
 Event_create (void)
 {
-  return new(std::nothrow) Event;
+  return new(nothrow) Event;
 }
 
 
@@ -455,8 +501,7 @@ LIBSBML_EXTERN
 Event_t *
 Event_createWith (const char *sid, ASTNode_t *trigger)
 {
-  ASTNode* x = static_cast<ASTNode*>(trigger);
-  return new(std::nothrow) Event(sid ? sid : "", x);
+  return new(nothrow) Event(sid ? sid : "", trigger);
 }
 
 
@@ -467,7 +512,18 @@ LIBSBML_EXTERN
 void
 Event_free (Event_t *e)
 {
-  delete static_cast<Event*>(e);
+  delete e;
+}
+
+
+/**
+ * @return a (deep) copy of this Event.
+ */
+LIBSBML_EXTERN
+Event_t *
+Event_clone (const Event_t *e)
+{
+  return static_cast<Event_t*>( e->clone() );
 }
 
 
@@ -478,10 +534,7 @@ LIBSBML_EXTERN
 const char *
 Event_getId (const Event_t *e)
 {
-  const Event* x = static_cast<const Event*>(e);
-
-
-  return x->isSetId() ? x->getId().c_str() : NULL;
+  return e->isSetId() ? e->getId().c_str() : NULL;
 }
 
 
@@ -492,10 +545,7 @@ LIBSBML_EXTERN
 const char *
 Event_getName (const Event_t *e)
 {
-  const Event* x = static_cast<const Event*>(e);
-
-
-  return x->isSetName() ? x->getName().c_str() : NULL;
+  return e->isSetName() ? e->getName().c_str() : NULL;
 }
 
 
@@ -506,7 +556,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Event_getTrigger (const Event_t *e)
 {
-  return static_cast<const Event*>(e)->getTrigger();
+  return e->getTrigger();
 }
 
 
@@ -517,7 +567,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 Event_getDelay (const Event_t *e)
 {
-  return static_cast<const Event*>(e)->getDelay();
+  return e->getDelay();
 }
 
 
@@ -528,10 +578,7 @@ LIBSBML_EXTERN
 const char *
 Event_getTimeUnits (const Event_t *e)
 {
-  const Event* x = static_cast<const Event*>(e);
-
-
-  return x->isSetTimeUnits() ? x->getTimeUnits().c_str() : NULL;
+  return e->isSetTimeUnits() ? e->getTimeUnits().c_str() : NULL;
 }
 
 
@@ -542,7 +589,7 @@ LIBSBML_EXTERN
 int
 Event_isSetId (const Event_t *e)
 {
-  return (int) static_cast<const Event*>(e)->isSetId();
+  return static_cast<int>( e->isSetId() );
 }
 
 
@@ -553,7 +600,7 @@ LIBSBML_EXTERN
 int
 Event_isSetName (const Event_t *e)
 {
-  return (int) static_cast<const Event*>(e)->isSetName();
+  return static_cast<int>( e->isSetName() );
 }
 
 
@@ -564,7 +611,7 @@ LIBSBML_EXTERN
 int
 Event_isSetTrigger (const Event_t *e)
 {
-  return (int) static_cast<const Event*>(e)->isSetTrigger();
+  return static_cast<int>( e->isSetTrigger() );
 }
 
 
@@ -575,7 +622,7 @@ LIBSBML_EXTERN
 int
 Event_isSetDelay (const Event_t *e)
 {
-  return (int) static_cast<const Event*>(e)->isSetDelay();
+  return static_cast<int>( e->isSetDelay() );
 }
 
 
@@ -586,7 +633,7 @@ LIBSBML_EXTERN
 int
 Event_isSetTimeUnits (const Event_t *e)
 {
-  return (int) static_cast<const Event*>(e)->isSetTimeUnits();
+  return static_cast<int>( e->isSetTimeUnits() );
 }
 
 
@@ -597,62 +644,40 @@ LIBSBML_EXTERN
 void
 Event_setId (Event_t *e, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Event*>(e)->unsetId();
-  }
-  else
-  {
-    static_cast<Event*>(e)->setId(sid);
-  }
+  (sid == NULL) ? e->unsetId() : e->setId(sid);
 }
 
 
 /**
- * Sets the name of this Event to a copy of string.
+ * Sets the name of this Event to a copy of name.
  */
 LIBSBML_EXTERN
 void
-Event_setName (Event_t *e, const char *string)
+Event_setName (Event_t *e, const char *name)
 {
-  if (string == NULL)
-  {
-    static_cast<Event*>(e)->unsetName();
-  }
-  else
-  {
-    static_cast<Event*>(e)->setName(string);
-  }
+  (name == NULL) ? e->unsetName() : e->setName(name);
 }
 
 
 /**
- * Sets the trigger of this Event to the given ASTNode.
- *
- * The node <b>is not copied</b> and this Event <b>takes ownership</b> of
- * it; i.e. subsequent calls to this function or a call to Event_free()
- * will free the ASTNode (and any child nodes).
+ * Sets the trigger of this Event to a copy of the given ASTNode.
  */
 LIBSBML_EXTERN
 void
-Event_setTrigger (Event_t *e, ASTNode_t *math)
+Event_setTrigger (Event_t *e, const ASTNode_t *math)
 {
-  static_cast<Event*>(e)->setTrigger( static_cast<ASTNode*>(math) );
+  e->setTrigger(math);
 }
 
 
 /**
- * Sets the delay of this Event to the given ASTNode.
- *
- * The node <b>is not copied</b> and this Event <b>takes ownership</b> of
- * it; i.e. subsequent calls to this function or a call to Event_free()
- * will free the ASTNode (and any child nodes).
+ * Sets the delay of this Event to a copy of the given ASTNode.
  */
 LIBSBML_EXTERN
 void
-Event_setDelay (Event_t *e, ASTNode_t *math)
+Event_setDelay (Event_t *e, const ASTNode_t *math)
 {
-  static_cast<Event*>(e)->setDelay( static_cast<ASTNode*>(math) );
+  e->setDelay(math);
 }
 
 
@@ -663,79 +688,62 @@ LIBSBML_EXTERN
 void
 Event_setTimeUnits (Event_t *e, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Event*>(e)->unsetTimeUnits();
-  }
-  else
-  {
-    static_cast<Event*>(e)->setTimeUnits(sid);
-  }
+  (sid == NULL) ? e->unsetTimeUnits() : e->setTimeUnits(sid);
 }
 
 
 /**
- * Unsets the id of this Event.  This is equivalent to:
- * safe_free(e->id); e->id = NULL;
+ * Unsets the id of this Event.
  */
 LIBSBML_EXTERN
 void
 Event_unsetId (Event_t *e)
 {
-  static_cast<Event*>(e)->unsetId();
+  e->unsetId();
 }
 
 
 /**
- * Unsets the name of this Event.  This is equivalent to:
- * safe_free(e->name); e->name = NULL;
+ * Unsets the name of this Event.
  */
 LIBSBML_EXTERN
 void
 Event_unsetName (Event_t *e)
 {
-  static_cast<Event*>(e)->unsetName();
+  e->unsetName();
 }
 
 
 /**
- * Unsets the delay of this Event.  This is equivalent to:
- * ASTNode_free(e->delay); e->delay = NULL;
+ * Unsets the delay of this Event.
  */
 LIBSBML_EXTERN
 void
 Event_unsetDelay (Event_t *e)
 {
-  static_cast<Event*>(e)->unsetDelay();
+  e->unsetDelay();
 }
 
 
 /**
- * Unsets the timeUnits of this Event.  This is equivalent to:
- * safe_free(e->timeUnits); e->timeUnits = NULL;
+ * Unsets the timeUnits of this Event.
  */
 LIBSBML_EXTERN
 void
 Event_unsetTimeUnits (Event_t *e)
 {
-  static_cast<Event*>(e)->unsetTimeUnits();
+  e->unsetTimeUnits();
 }
 
 
 /**
- * Appends the given EventAssignment to this Event.
+ * Appends a copy of the given EventAssignment to this Event.
  */
 LIBSBML_EXTERN
 void
-Event_addEventAssignment (Event_t *e, EventAssignment_t *ea)
+Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea)
 {
-  if (ea != NULL)
-  {
-    EventAssignment* x = static_cast<EventAssignment*>(ea);
-
-  
-    static_cast<Event*>(e)->addEventAssignment(*x);
-  }
+  if (ea != NULL) e->addEventAssignment(ea);
 }
 
 
@@ -746,8 +754,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Event_getListOfEventAssignments (Event_t *e)
 {
-  return (ListOf_t *) &
-  static_cast<Event*>(e)->getListOfEventAssignments();
+  return e->getListOfEventAssignments();
 }
 
 
@@ -756,10 +763,21 @@ Event_getListOfEventAssignments (Event_t *e)
  */
 LIBSBML_EXTERN
 EventAssignment_t *
-Event_getEventAssignment (const Event_t *e, unsigned int n)
+Event_getEventAssignment (Event_t *e, unsigned int n)
 {
-  return static_cast<const Event*>(e)->getEventAssignment(n);
-  
+  return e->getEventAssignment(n);
+}
+
+
+/**
+ * @return the EventAssignment for the given variable, or NULL if no such
+ * EventAssignment exits.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+Event_getEventAssignmentByVar (Event_t *e, const char *variable)
+{
+  return (variable != NULL) ? e->getEventAssignment(variable) : NULL;
 }
 
 
@@ -770,28 +788,5 @@ LIBSBML_EXTERN
 unsigned int
 Event_getNumEventAssignments (const Event_t *e)
 {
-  return static_cast<const Event*>(e)->getNumEventAssignments();
-}
-
-
-/**
- * The EventIdCmp function compares the string sid to e->id.
- *
- * @returns an integer less than, equal to, or greater than zero if sid is
- * found to be, respectively, less than, to match or be greater than e->id.
- * Returns -1 if either sid or e->id is NULL.
- */
-LIBSBML_EXTERN
-int
-EventIdCmp (const char *sid, const Event_t *e)
-{
-  int result = -1;
-
-
-  if (sid != NULL && Event_isSetId(e))
-  {
-    result = strcmp(sid, Event_getId(e));
-  }
-
-  return result;
+  return e->getNumEventAssignments();
 }

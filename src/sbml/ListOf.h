@@ -6,46 +6,19 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
@@ -54,11 +27,12 @@
 
 
 #include "common/extern.h"
-#include "util/List.h"
 
 
 #ifdef __cplusplus
 
+
+#include <vector>
 
 #include "SBMLTypeCodes.h"
 #include "SBase.h"
@@ -67,105 +41,121 @@
 class SBMLVisitor;
 
 
-class ListOf : public SBase
+class LIBSBML_EXTERN ListOf : public SBase
 {
 public:
 
   /**
-   * Creates a new ListOf.
+   * Creates a new ListOf items.
    */
-  LIBSBML_EXTERN
   ListOf ();
+
+  /**
+   * Copies this ListOf items.
+   */
+  ListOf (const ListOf& rhs);
 
   /**
    * Destroys the given ListOf and its constituent items.
    */
-  LIBSBML_EXTERN
   virtual ~ListOf ();
 
 
   /**
    * Accepts the given SBMLVisitor.
    */
-  LIBSBML_EXTERN
-  void accept (SBMLVisitor& v, SBMLTypeCode_t type) const;
+  bool accept (SBMLVisitor& v) const;
 
   /**
-   * Adds item to the end of this List.
+   * @return a (deep) copy of this ListOf items.
    */
-  LIBSBML_EXTERN
-  void append (SBase* item);
+  virtual SBase* clone () const;
+
 
   /**
-   * @return the number of items in this List for which predicate(item)
-   * returns true.
-   *
-   * The typedef for ListItemPredicate is:
-   *
-   *   int (*ListItemPredicate) (const void *item);
-   *
-   * where a return value of non-zero represents true and zero represents
-   * false.
+   * Adds a copy of item to the end of this ListOf items.
    */
-  LIBSBML_EXTERN
-  unsigned int countIf (ListItemPredicate predicate) const;
+  void append (const SBase* item);
 
   /**
-   * @return the first occurrence of item1 in this List or NULL if item was
-   * not found.  ListItemComparator is a pointer to a function used to find
-   * item.  The typedef for ListItemComparator is:
-   *
-   *   int (*ListItemComparator) (const void *item1, const void *item2);
-   *
-   * The return value semantics are the same as for strcmp:
-   *
-   *   -1    item1 <  item2,
-   *    0    item1 == item 2
-   *    1    item1 >  item2
+   * Adds item to the end of this ListOf items.  This ListOf items assumes
+   * ownership of item and will delete it.
    */
-  LIBSBML_EXTERN
-  void* find (const void *item1, ListItemComparator comparator) const;
+  void appendAndOwn (SBase* item);
+
 
   /**
-   * Removes and deletes each item in this List.
+   * @return the nth item in this ListOf items.
    */
-  void
-  freeItems ();
+  const SBase* get (unsigned int n) const;
 
   /**
-   * @return the nth item in this List.  If n > ListOf.getNumItems()
-   * returns 0.
+   * @return the nth item in this ListOf items.
    */
-  LIBSBML_EXTERN
-  SBase* get (unsigned int n) const;
+  SBase* get (unsigned int n);
 
   /**
-   * @return the number of items in this List.
+   * @return item in this ListOf items with the given id or NULL if no such
+   * item exists.
    */
-  LIBSBML_EXTERN
-  unsigned int getNumItems () const;
+  const SBase* get (const std::string& sid) const;
 
   /**
-   * Adds item to the beginning of this ListOf.
+   * @return item in this ListOf items with the given id or NULL if no such
+   * item exists.
    */
-  LIBSBML_EXTERN
-  void prepend (SBase* item);
+  SBase* get (const std::string& sid);
 
   /**
-   * Removes the nth item from this List and returns a pointer to it.  If n
-   * > ListOf.getNumItems() returns 0.
+   * Removes the nth item from this ListOf items and returns a pointer to
+   * it.  The caller owns the returned item and is responsible for deleting
+   * it.
    */
-  LIBSBML_EXTERN
   SBase* remove (unsigned int n);
+
+  /**
+   * Removes item in this ListOf items with the given id or NULL if no such
+   * item exists.  The caller owns the returned item and is repsonsible for
+   * deleting it.
+   */
+  SBase* remove (const std::string& sid);
+
+  /**
+   * @return the number of items in this ListOf items.
+   */
+  unsigned int size () const;
+
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   */
+  virtual SBMLTypeCode_t getTypeCode () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream);
 
 
 protected:
 
-  List items;
+  std::vector<SBase*> mItems;
 };
-
-
-#endif  /* __cplusplus */
 
 
 #ifndef SWIG
@@ -194,77 +184,74 @@ void
 ListOf_free (ListOf_t *lo);
 
 /**
- * Adds item to the end of this List.
+ * @return a (deep) copy of this ListOf items.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+ListOf_clone (const ListOf_t *lo);
+
+
+/**
+ * Adds a copy of item to the end of this ListOf items.
  */
 LIBSBML_EXTERN
 void
-ListOf_append (ListOf_t *lo, void *item);
+ListOf_append (ListOf_t *lo, const SBase *item);
 
 /**
- * @return the number of items in this List for which predicate(item)
- * returns true.
- *
- * The typedef for ListItemPredicate is:
- *
- *   int (*ListItemPredicate) (const void *item);
- *
- * where a return value of non-zero represents true and zero represents
- * false.
- */
-unsigned int
-ListOf_countIf (const ListOf_t *lo, ListItemPredicate predicate);
-
-/**
- * @return the first occurrence of item1 in this List or NULL if item was
- * not found.  ListItemComparator is a pointer to a function used to find
- * item.  The typedef for ListItemComparator is:
- *
- *   int (*ListItemComparator) (const void *item1, const void *item2);
- *
- * The return value semantics are the same as for strcmp:
- *
- *   -1    item1 <  item2,
- *    0    item1 == item 2
- *    1    item1 >  item2
- */
-void *
-ListOf_find ( const ListOf_t    *lo,
-              const void        *item1,
-              ListItemComparator comparator );
-
-/**
- * Returns the nth item in this List.  If n > ListOf_getNumItems(list)
- * returns NULL.
+ * Returns the nth item in this ListOf items.
  */
 LIBSBML_EXTERN
-void *
-ListOf_get (const ListOf_t *lo, unsigned int n);
+SBase *
+ListOf_get (ListOf_t *lo, unsigned int n);
 
 /**
- * Returns the number of items in this List.
+ * @return item in this ListOf items with the given id or NULL if no such
+ * item exists.
  */
 LIBSBML_EXTERN
-unsigned int
-ListOf_getNumItems (const ListOf_t *lo);
+SBase *
+ListOf_getById (ListOf_t *lo, const char *sid);
 
 /**
- * Adds item to the beginning of this ListOf.
+ * Removes the nth item from this ListOf items and returns a pointer to
+ * it.  The caller owns the returned item and is responsible for deleting
+ * it.
  */
 LIBSBML_EXTERN
-void
-ListOf_prepend (ListOf_t *lo, void *item);
-
-/**
- * Removes the nth item from this List and returns a pointer to it.  If n >
- * ListOf_getNumItems(list) returns NULL.
- */
-LIBSBML_EXTERN
-void *
+SBase *
 ListOf_remove (ListOf_t *lo, unsigned int n);
+
+/**
+ * Removes item in this ListOf items with the given id or NULL if no such
+ * item exists.  The caller owns the returned item and is repsonsible for
+ * deleting it.
+ */
+LIBSBML_EXTERN
+SBase *
+ListOf_removeById (ListOf_t *lo, const char *sid);
+
+/**
+ * Returns the number of items in this ListOf items.
+ */
+LIBSBML_EXTERN
+unsigned int
+ListOf_size (const ListOf_t *lo);
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+LIBSBML_EXTERN
+SBMLTypeCode_t
+ListOf_getItemTypeCode (const ListOf_t *lo);
 
 
 END_C_DECLS
 
 
 #endif  /* !SWIG */
+
+
+#endif  /* __cplusplus */
 #endif  /* ListOf_h */

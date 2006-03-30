@@ -6,183 +6,182 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
-#include "common/common.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 #include "math/FormulaFormatter.h"
 #include "math/FormulaParser.h"
 #include "math/ASTNode.h"
 
+#include "SBML.h"
 #include "SBMLVisitor.h"
 #include "Parameter.h"
 #include "KineticLaw.h"
+
+
+using namespace std;
 
 
 /**
  * Creates a new KineticLaw, optionally with its formula, timeUnits and/or
  * substanceUnits set.
  */
-LIBSBML_EXTERN
-KineticLaw::KineticLaw (   const std::string& formula
-                         , const std::string& timeUnits
-                         , const std::string& substanceUnits ) :
-    SBase()
-  , formula        ( formula        )
-  , math           ( 0              )
-  , timeUnits      ( timeUnits      )
-  , substanceUnits ( substanceUnits )
+KineticLaw::KineticLaw (   const string& formula
+                         , const string& timeUnits
+                         , const string& substanceUnits ) :
+   mFormula       ( formula        )
+ , mMath          ( 0              )
+ , mTimeUnits     ( timeUnits      )
+ , mSubstanceUnits( substanceUnits )
 {
-  init(SBML_KINETIC_LAW);
+}
+
+
+/**
+ * Copies this KineticLaw.
+ */
+KineticLaw::KineticLaw (const KineticLaw& rhs) :
+   mFormula       ( rhs.mFormula        )
+ , mMath          ( 0                   )
+ , mTimeUnits     ( rhs.mTimeUnits      )
+ , mSubstanceUnits( rhs.mSubstanceUnits )  
+{
+  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
 
 
 /**
  * Destroys this KineticLaw.
  */
-LIBSBML_EXTERN
 KineticLaw::~KineticLaw ()
 {
-  delete math;
+  delete mMath;
 }
 
 
 /**
  * Accepts the given SBMLVisitor.
  */
-LIBSBML_EXTERN
-void
+bool
 KineticLaw::accept (SBMLVisitor& v) const
 {
-  unsigned int n;
-  bool next;
-
-
   v.visit(*this);
-
-  //
-  // Parameter
-  //
-
-  getListOfParameters().accept(v, SBML_PARAMETER);
-
-  for (n = 0, next = true; n < getNumParameters() && next; n++)
-  {
-    next = getParameter(n)->accept(v);
-  }
-
-  v.leave(getListOfParameters(), SBML_PARAMETER);
-
+  mParameters.accept(v);
   v.leave(*this);
+
+  return true;
+}
+
+
+/**
+ * @return a (deep) copy of this KineticLaw.
+ */
+SBase*
+KineticLaw::clone () const
+{
+  return new KineticLaw(*this);
 }
 
 
 /**
  * @return the formula of this KineticLaw.
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 KineticLaw::getFormula () const
 {
-  if (formula.empty() && math) setFormulaFromMath();
-  return formula;
+  if (mFormula.empty() == true && mMath != 0)
+  {
+    char* s  = SBML_formulaToString(mMath);
+    mFormula = s;
+
+    free(s);
+  }
+
+  return mFormula;
 }
 
 
 /**
  * @return the math of this KineticLaw.
  */
-LIBSBML_EXTERN
 const ASTNode*
 KineticLaw::getMath () const
 {
-  if (!math && !formula.empty()) setMathFromFormula();
-  return math;
+  if (mMath == 0 && mFormula.empty() == false)
+  {
+    mMath = SBML_parseFormula( mFormula.c_str() );
+  }
+
+  return mMath;
 }
 
 
 /**
  * @return the list of Parameters for this KineticLaw.
  */
-LIBSBML_EXTERN
-ListOf&
-KineticLaw::getListOfParameters ()
-{
-  return parameter;
-}
-
-
-/**
- * @return the list of Parameters for this KineticLaw.
- */
-LIBSBML_EXTERN
-const ListOf&
+const ListOfParameters*
 KineticLaw::getListOfParameters () const
 {
-  return parameter;
+  return &mParameters;
+}
+
+
+/**
+ * @return the list of Parameters for this KineticLaw.
+ */
+ListOfParameters*
+KineticLaw::getListOfParameters ()
+{
+  return &mParameters;
 }
 
 
 /**
  * @return the timeUnits of this KineticLaw.
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 KineticLaw::getTimeUnits () const
 {
-  return timeUnits;
+  return mTimeUnits;
 }
 
 
 /**
  * @return the substanceUnits of this KineticLaw.
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 KineticLaw::getSubstanceUnits () const
 {
-  return substanceUnits;
+  return mSubstanceUnits;
+}
+
+
+/**
+ * @return the sboTerm of this KineticLaw as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
+ */
+int
+KineticLaw::getSBOTerm () const
+{
+  return mSBOTerm;
 }
 
 
@@ -190,11 +189,10 @@ KineticLaw::getSubstanceUnits () const
  * @return true if the formula (or equivalently the math) of this
  * KineticLaw has been set, false otherwise.
  */
-LIBSBML_EXTERN
 bool
 KineticLaw::isSetFormula () const
 {
-  return !formula.empty() || math;
+  return (mFormula.empty() == false) || (mMath != 0);
 }
 
 
@@ -202,7 +200,6 @@ KineticLaw::isSetFormula () const
  * @return true if the math (or equivalently the formula) of this
  * KineticLaw has been set, false otherwise.
  */
-LIBSBML_EXTERN
 bool
 KineticLaw::isSetMath () const
 {
@@ -214,11 +211,10 @@ KineticLaw::isSetMath () const
  * @return true if the timeUnits of this KineticLaw has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 KineticLaw::isSetTimeUnits () const
 {
-  return ! timeUnits.empty();
+  return (mTimeUnits.empty() == false);
 }
 
 
@@ -226,178 +222,297 @@ KineticLaw::isSetTimeUnits () const
  * @return true if the substanceUnits of this KineticLaw has been set,
  * false otherwise.
  */
-LIBSBML_EXTERN
 bool
 KineticLaw::isSetSubstanceUnits () const
 {
-  return ! substanceUnits.empty();
+  return (mSubstanceUnits.empty() == false);
 }
 
 
 /**
- * Sets the formula of this KineticLaw to a copy of string.
+ * @return true if the sboTerm of this KineticLaw has been set, false
+ * otherwise.
  */
-LIBSBML_EXTERN
-void
-KineticLaw::setFormula (const std::string& string)
+bool
+KineticLaw::isSetSBOTerm () const
 {
-  formula = string;
+  return (mSBOTerm != -1);
+}
 
-  if (math)
+
+/**
+ * Sets the formula of this KineticLaw to a copy of formula.
+ */
+void
+KineticLaw::setFormula (const string& formula)
+{
+  mFormula = formula;
+
+  if (mMath)
   {
-    delete math;
-    math = 0;
+    delete mMath;
+    mMath = 0;
   }
 }
 
 
 /**
- * Sets the math of this KineticLaw to the given ASTNode.
- *
- * The node <b>is not copied</b> and this KineticLaw <b>takes ownership</b>
- * of it; i.e. subsequent calls to this method or deleting this
- * KineticLaw will delete the ASTNode (and any child nodes).
+ * Sets the math of this KineticLaw to a copy of the given ASTNode.
  */
-LIBSBML_EXTERN
 void
-KineticLaw::setMath (ASTNode* math)
+KineticLaw::setMath (const ASTNode* math)
 {
-  if (this->math == math) return;
+  if (mMath == math) return;
 
 
-  delete this->math;
-  this->math = math;
+  delete mMath;
+  mMath = (math != 0) ? math->deepCopy() : 0;
 
-  formula.erase();
+  mFormula.erase();
 }
 
 
 /**
- * This method is no longer necessary.  LibSBML now keeps formula strings
- * and math ASTs synchronized automatically.  The method is kept around for
- * backward compatibility (and is used internally).
+ * Sets the timeUnits of this KineticLaw to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-KineticLaw::setFormulaFromMath () const
+KineticLaw::setTimeUnits (const string& sid)
 {
-  if (math)
-  {
-    char* s = SBML_formulaToString(math);
-    formula = s;
-
-    safe_free(s);
-  }
-  else
-  {
-    formula.erase();
-  }
+  mTimeUnits = sid;
 }
 
 
 /**
- * This method is no longer necessary.  LibSBML now keeps formula strings
- * and math ASTs synchronized automatically.  The method is kept around for
- * backward compatibility (and is used internally).
+ * Sets the substanceUnits of this KineticLaw to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-KineticLaw::setMathFromFormula () const
+KineticLaw::setSubstanceUnits (const string& sid)
 {
-  delete math;
-  math = formula.empty() ? 0 : SBML_parseFormula( formula.c_str() );
+  mSubstanceUnits = sid;
 }
 
 
 /**
- * Sets the timeUnits of this KineticLaw to a copy of sname.
+ * Sets the sboTerm field of this KineticLaw to value.
  */
-LIBSBML_EXTERN
 void
-KineticLaw::setTimeUnits (const std::string& sname)
+KineticLaw::setSBOTerm (int sboTerm)
 {
-  timeUnits = sname;
+  mSBOTerm = sboTerm;
 }
 
 
 /**
- * Sets the substanceUnits of this KineticLaw to a copy of sname.
+ * Adds a copy of the given Parameter to this KineticLaw.
  */
-LIBSBML_EXTERN
 void
-KineticLaw::setSubstanceUnits (const std::string& sname)
+KineticLaw::addParameter (const Parameter* p)
 {
-  substanceUnits = sname;
-}
-
-
-/**
- * Adds the given Parameter to this KineticLaw.
- */
-LIBSBML_EXTERN
-void
-KineticLaw::addParameter (Parameter& p)
-{
-  parameter.append(&p);
+  mParameters.append(p);
 }
 
 
 /**
  * @return the nth Parameter of this KineticLaw.
  */
-LIBSBML_EXTERN
-Parameter*
+const Parameter*
 KineticLaw::getParameter (unsigned int n) const
 {
-  return static_cast<Parameter*>( parameter.get(n) );
+  return static_cast<const Parameter*>( mParameters.get(n) );
 }
 
 
 /**
- * @return the Parameter in this KineticLaw with the given id or NULL if no such
- * Parameter exists.
+ * @return the nth Parameter of this KineticLaw.
  */
-LIBSBML_EXTERN
 Parameter*
-KineticLaw::getParameter (const std::string& sid) const
+KineticLaw::getParameter (unsigned int n)
 {
-  void* x = parameter.find( sid.c_str(), (ListItemComparator) ParameterIdCmp );
-
-
-  return static_cast<Parameter*>(x);
+  return static_cast<Parameter*>( mParameters.get(n) );
 }
+
+
+/**
+ * @return the Parameter in this kineticLaw with the given id or NULL if
+ * no such Parameter exists.
+ */
+const Parameter*
+KineticLaw::getParameter (const string& sid) const
+{
+  return static_cast<const Parameter*>( mParameters.get(sid) );
+}
+
+
+/**
+ * @return the Parameter in this kineticLaw with the given id or NULL if
+ * no such Parameter exists.
+ */
+Parameter*
+KineticLaw::getParameter (const string& sid)
+{
+  return static_cast<Parameter*>( mParameters.get(sid) );
+}
+
 
 /**
  * @return the number of Parameters in this KineticLaw.
  */
-LIBSBML_EXTERN
 unsigned int
 KineticLaw::getNumParameters () const
 {
-  return parameter.getNumItems();
+  return mParameters.size();
 }
 
 
 /**
  * Unsets the timeUnits of this KineticLaw.
  */
-LIBSBML_EXTERN
 void
 KineticLaw::unsetTimeUnits ()
 {
-  timeUnits.erase();
+  mTimeUnits.erase();
 }
 
 
 /**
  * Unsets the substanceUnits of this KineticLaw.
  */
-LIBSBML_EXTERN
 void
 KineticLaw::unsetSubstanceUnits ()
 {
-  substanceUnits.erase();
+  mSubstanceUnits.erase();
 }
+
+
+/**
+ * Unsets the sboTerm of this KineticLaw.
+ */
+void
+KineticLaw::unsetSBOTerm ()
+{
+  mSBOTerm = -1;
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+KineticLaw::getTypeCode () const
+{
+  return SBML_KINETIC_LAW;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+KineticLaw::getElementName () const
+{
+  static const string name = "kineticLaw";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+KineticLaw::createObject (XMLInputStream& stream)
+{
+  const string& name = stream.peek().getName();
+  return (name == "listOfParameters") ? &mParameters : 0;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+KineticLaw::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // formula: string  { use="required" }  (L1v1, L1v2)
+  //
+  if (level == 1) attributes.readInto("formula", mFormula);
+
+  //
+  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  attributes.readInto("timeUnits", mTimeUnits);
+
+  //
+  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  attributes.readInto("substanceUnits", mSubstanceUnits);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes);
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+KineticLaw::writeAttributes (XMLOutputStream& stream)
+{
+  SBase::writeAttributes(stream);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // formula: string  { use="required" }  (L1v1, L1v2)
+  //
+  if (getLevel() == 1) stream.writeAttribute("formula", mFormula);
+
+  //
+  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  stream.writeAttribute("timeUnits", mTimeUnits);
+
+  //
+  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  //
+  stream.writeAttribute("substanceUnits", mSubstanceUnits);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) SBML::writeSBOTerm(stream, mSBOTerm);
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+KineticLaw::writeElements (XMLOutputStream& stream)
+{
+  SBase::writeElements(stream);
+  if ( getNumParameters() > 0 ) mParameters.write(stream);
+}
+
 
 
 
@@ -409,7 +524,7 @@ LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_create (void)
 {
-  return new(std::nothrow) KineticLaw;
+  return new(nothrow) KineticLaw;
 }
 
 
@@ -429,11 +544,11 @@ KineticLaw_createWith ( const char *formula,
                         const char *timeUnits,
                         const char *substanceUnits )
 {
-  std::string f  = formula        ? formula        : "";
-  std::string tu = timeUnits      ? timeUnits      : "";
-  std::string su = substanceUnits ? substanceUnits : "";
+  string f  = formula        ? formula        : "";
+  string tu = timeUnits      ? timeUnits      : "";
+  string su = substanceUnits ? substanceUnits : "";
 
-  return new(std::nothrow) KineticLaw(f, tu, su);
+  return new(nothrow) KineticLaw(f, tu, su);
 }
 
 
@@ -445,6 +560,17 @@ void
 KineticLaw_free (KineticLaw_t *kl)
 {
   delete kl;
+}
+
+
+/**
+ * @return a (deep) copy of this KineticLaw.
+ */
+LIBSBML_EXTERN
+SBase*
+KineticLaw_clone (const KineticLaw_t *kl)
+{
+  return kl->clone();
 }
 
 
@@ -477,7 +603,7 @@ LIBSBML_EXTERN
 ListOf_t *
 KineticLaw_getListOfParameters (KineticLaw_t *kl)
 {
-  return & kl->getListOfParameters();
+  return kl->getListOfParameters();
 }
 
 
@@ -504,6 +630,18 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
 
 
 /**
+ * @return the sboTerm of this KineticLaw as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
+ * to a zero-padded, seven digit string.
+ */
+int
+KineticLaw_getSBOTerm (const KineticLaw_t *kl)
+{
+  return kl->getSBOTerm();
+}
+
+
+/**
  * @return true (non-zero) if the formula (or equivalently the math) of
  * this KineticLaw has been set, false (0) otherwise.
  */
@@ -516,8 +654,8 @@ KineticLaw_isSetFormula (const KineticLaw_t *kl)
 
 
 /**
- * @return true if the math (or equivalently the formula) of this
- * KineticLaw has been set, false otherwise.
+ * @return true (non-zero) if the math (or equivalently the formula) of
+ * this KineticLaw has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -528,7 +666,8 @@ KineticLaw_isSetMath (const KineticLaw_t *kl)
 
 
 /**
- * @return 1 if the timeUnits of this KineticLaw has been set, 0 otherwise.
+ * @return true (non-zero) if the timeUnits of this KineticLaw has been
+ * set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -539,8 +678,8 @@ KineticLaw_isSetTimeUnits (const KineticLaw_t *kl)
 
 
 /**
- * @return 1 if the substanceUnits of this KineticLaw has been set, 0
- * otherwise.
+ * @return true (non-zero) if the substanceUnits of this KineticLaw has
+ * been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -551,89 +690,80 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
 
 
 /**
- * Sets the formula of this KineticLaw to a copy of string.
+ * @return true (non-zero) if the substanceUnits of this KineticLaw has
+ * been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
-void
-KineticLaw_setFormula (KineticLaw_t *kl, const char *string)
+int
+KineticLaw_isSetSBOTerm (const KineticLaw_t *kl)
 {
-  kl->setFormula(string ? string : "");
+  return static_cast<int>( kl->isSetSBOTerm() );
 }
 
 
 /**
- * Sets the math of this KineticLaw to the given ASTNode.
- *
- * The node <b>is not copied</b> and this KineticLaw <b>takes ownership</b>
- * of it; i.e. subsequent calls to this function or a call to
- * KineticLaw_free() will free the ASTNode (and any child nodes).
+ * Sets the formula of this KineticLaw to a copy of formula.
  */
 LIBSBML_EXTERN
 void
-KineticLaw_setMath (KineticLaw_t *kl, ASTNode_t *math)
+KineticLaw_setFormula (KineticLaw_t *kl, const char *formula)
+{
+  kl->setFormula(formula ? formula : "");
+}
+
+
+/**
+ * Sets the math of this KineticLaw to a copy of the given ASTNode.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_setMath (KineticLaw_t *kl, const ASTNode_t *math)
 {
   kl->setMath(math);
 }
 
 
 /**
- * This function is no longer necessary.  LibSBML now keeps formula strings
- * and math ASTs synchronized automatically.  The function is kept around
- * for backward compatibility (and is used internally).
+ * Sets the timeUnits of this KineticLaw to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-KineticLaw_setFormulaFromMath (const KineticLaw_t *kl)
+KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sid)
 {
-  kl->setFormulaFromMath();
+  (sid == NULL) ? kl->unsetTimeUnits() : kl->setTimeUnits(sid);
 }
 
 
 /**
- * This function is no longer necessary.  LibSBML now keeps formula strings
- * and math ASTs synchronized automatically.  The function is kept around
- * for backward compatibility (and is used internally).
+ * Sets the substanceUnits of this KineticLaw to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-KineticLaw_setMathFromFormula (const KineticLaw_t *kl)
+KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
 {
-  kl->setMathFromFormula();
+  (sid == NULL) ? kl->unsetSubstanceUnits() : kl->setSubstanceUnits(sid);
 }
 
 
 /**
- * Sets the timeUnits of this KineticLaw to a copy of sname.
+ * Sets the sboTerm field of this KineticLaw to value.
  */
 LIBSBML_EXTERN
 void
-KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sname)
+KineticLaw_setSBOTerm (KineticLaw_t *kl, int sboTerm)
 {
-  if (sname == NULL) kl->unsetTimeUnits();
-  else kl->setTimeUnits(sname);
+  kl->setSBOTerm(sboTerm);
 }
 
 
 /**
- * Sets the substanceUnits of this KineticLaw to a copy of sname.
+ * Adds a copy of the given Parameter to this KineticLaw.
  */
 LIBSBML_EXTERN
 void
-KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sname)
+KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p)
 {
-  if (sname == NULL) kl->unsetSubstanceUnits();
-  else kl->setSubstanceUnits(sname);
-}
-
-
-/**
- * Adds the given Parameter to this KineticLaw.
- */
-LIBSBML_EXTERN
-void
-KineticLaw_addParameter (KineticLaw_t *kl, Parameter_t *p)
-{
-  if (p != NULL) kl->addParameter(*p);
+  if (p != NULL) kl->addParameter(p);
 }
 
 
@@ -642,21 +772,21 @@ KineticLaw_addParameter (KineticLaw_t *kl, Parameter_t *p)
  */
 LIBSBML_EXTERN
 Parameter_t *
-KineticLaw_getParameter (const KineticLaw_t *kl, unsigned int n)
+KineticLaw_getParameter (KineticLaw_t *kl, unsigned int n)
 {
   return kl->getParameter(n);
 }
 
 
 /**
- * @return the Parameter in this KineticLaw with the given id or NULL if no such
- * Parameter exists.
+ * @return the Parameter in this KineticLaw with the given id or NULL if no
+ * such Parameter exists.
  */
 LIBSBML_EXTERN
 Parameter_t *
-KineticLaw_getParameterById (const KineticLaw_t *kl, const char *sid)
+KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid)
 {
-  return static_cast<const KineticLaw*>(kl)->getParameter(sid ? sid : "");
+  return (sid != NULL) ? kl->getParameter(sid) : 0;
 }
 
 
@@ -672,8 +802,7 @@ KineticLaw_getNumParameters (const KineticLaw_t *kl)
 
 
 /**
- * Unsets the timeUnits of this KineticLaw.  This is equivalent to:
- * safe_free(kl->timeUnits); kl->timeUnits = NULL;
+ * Unsets the timeUnits of this KineticLaw.
  */
 LIBSBML_EXTERN
 void
@@ -684,12 +813,22 @@ KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
 
 
 /**
- * Unsets the substanceUnits of this KineticLaw.  This is equivalent to:
- * safe_free(kl->substanceUnits); kl->substanceUnits = NULL;
+ * Unsets the substanceUnits of this KineticLaw.
  */
 LIBSBML_EXTERN
 void
 KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
 {
   kl->unsetSubstanceUnits();
+}
+
+
+/**
+ * Unsets the sboTerm of this KineticLaw.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_unsetSBOTerm (KineticLaw_t *kl)
+{
+  kl->unsetSBOTerm();
 }

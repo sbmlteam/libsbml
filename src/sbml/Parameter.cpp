@@ -6,67 +6,47 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
-#include "util/util.h"
-#include "SBMLVisitor.h"
+#include <limits>
 
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
+#include "SBML.h"
+#include "SBMLVisitor.h"
 #include "Parameter.h"
 
 
+using namespace std;
+
+
 /**
- * Creates a new Parameter, optionally with its id attribute set.
+ * Creates a new Parameter, optionally with its id and name attributes
+ * set.
  */
-LIBSBML_EXTERN
-Parameter::Parameter (const std::string& id) :
-    SBase   ()
-  , id      ( id   )
-  , value   ( 0.0  )
-  , constant( true )
+Parameter::Parameter (const string& id, const string& name) :
+    SBase      ( id, name )
+  , mValue     ( 0.0      )
+  , mConstant  ( true     )
+  , mSBOTerm   ( -1       )
+  , mIsSetValue( false    )
 {
-  init(SBML_PARAMETER);
-  isSet.value = 0;
 }
 
 
@@ -74,26 +54,24 @@ Parameter::Parameter (const std::string& id) :
  * Creates a new Parameter, with its id and value attributes set and
  * optionally its units and constant attributes.
  */
-LIBSBML_EXTERN
-Parameter::Parameter (   const std::string&  id
-                       , double              value
-                       , const std::string&  units
-                       , bool                constant ) :
-    SBase   ()
-  , id      ( id       )
-  , value   ( value    )
-  , units   ( units    )
-  , constant( constant )
+Parameter::Parameter (   const string&  id
+                       , double         value
+                       , const string&  units
+                       , bool           constant ) :
+    SBase      ( id       )
+  , mValue     ( value    )
+  , mUnits     ( units    )
+  , mConstant  ( constant )
+  , mSBOTerm   ( -1       )
+  , mIsSetValue( true     )
+
 {
-  init(SBML_PARAMETER);
-  isSet.value = 1;
 }
 
 
 /**
  * Destroys this Parameter.
  */
-LIBSBML_EXTERN
 Parameter::~Parameter ()
 {
 }
@@ -106,7 +84,6 @@ Parameter::~Parameter ()
  * whether or not the Visitor would like to visit the parent Model's or
  * KineticLaw's next Parameter (if available).
  */
-LIBSBML_EXTERN
 bool
 Parameter::accept (SBMLVisitor& v) const
 {
@@ -115,11 +92,20 @@ Parameter::accept (SBMLVisitor& v) const
 
 
 /**
+ * @return a (deep) copy of this Parameter.
+ */
+SBase*
+Parameter::clone () const
+{
+  return new Parameter(*this);
+}
+
+
+/**
  * Initializes the fields of this Parameter to their defaults:
  *
  *   - constant = true  (L2 only)
  */
-LIBSBML_EXTERN
 void
 Parameter::initDefaults ()
 {
@@ -128,82 +114,44 @@ Parameter::initDefaults ()
 
 
 /**
- * @return the id of this Parameter
- */
-LIBSBML_EXTERN
-const std::string&
-Parameter::getId () const
-{
-  return id;
-}
-
-
-/**
- * @return the name of this Parameter.
- */
-LIBSBML_EXTERN
-const std::string&
-Parameter::getName () const
-{
-  return name;
-}
-
-
-/**
  * @return the value of this Parameter.
  */
-LIBSBML_EXTERN
 double
 Parameter::getValue () const
 {
-  return value;
+  return mValue;
 }
 
 
 /**
  * @return the units of this Parameter.
  */
-LIBSBML_EXTERN
-const std::string&
+const string&
 Parameter::getUnits () const
 {
-  return units;
+  return mUnits;
 }
 
 
 /**
  * @return true if this Parameter is constant, false otherwise.
  */
-LIBSBML_EXTERN
 bool
 Parameter::getConstant () const
 {
-  return constant;
+  return mConstant;
 }
 
 
 /**
- * @return true if the id of this Parameter has been set, false otherwise.
+ * @return the sboTerm of this Parameter as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
  */
-LIBSBML_EXTERN
-bool
-Parameter::isSetId () const
+int
+Parameter::getSBOTerm () const
 {
-  return ! id.empty();
-}
-
-
-/**
- * @return true if the name of this Parameter has been set, false otherwise.
- *
- * In SBML L1, a Parameter name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
- */
-LIBSBML_EXTERN
-bool
-Parameter::isSetName () const
-{
-  return ! name.empty();
+  return mSBOTerm;
 }
 
 
@@ -215,11 +163,10 @@ Parameter::isSetName () const
  * always be set</b>.  In L1v2 and beyond, a value is optional and as such
  * may or may not be set.
  */
-LIBSBML_EXTERN
 bool
 Parameter::isSetValue () const
 {
-  return (bool) isSet.value;
+  return mIsSetValue;
 }
 
 
@@ -227,111 +174,62 @@ Parameter::isSetValue () const
  * @return true if the units of this Parameter has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 Parameter::isSetUnits () const
 {
-  return ! units.empty();
+  return (mUnits.empty() == false);
 }
 
 
 /**
- * Moves the id field of this Parameter to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
+ * @return true if the sboTerm of this Parameter has been set, false
+ * otherwise.
  */
-LIBSBML_EXTERN
-void
-Parameter::moveIdToName ()
+bool
+Parameter::isSetSBOTerm () const
 {
-  if ( isSetName() ) return;
-
-  setName( getId() );
-  setId  ( "" );
-}
-
-
-/**
- * Moves the name field of this Parameter to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
- */
-LIBSBML_EXTERN
-void
-Parameter::moveNameToId ()
-{
-  if ( isSetId() ) return;
-
-  setId  ( getName() );
-  setName( "" );
-}
-
-
-/**
- * Sets the id of this Parameter to a copy of sid.
- */
-LIBSBML_EXTERN
-void
-Parameter::setId (const std::string& sid)
-{
-  id = sid;
-}
-
-
-/**
- * Sets the name of this Parameter to a copy of string (SName in L1).
- */
-LIBSBML_EXTERN
-void
-Parameter::setName (const std::string& string)
-{
-  name = string;
+  return SBML::checkSBOTerm(mSBOTerm);
 }
 
 
 /**
  * Sets the value of this Parameter to value and marks the field as set.
  */
-LIBSBML_EXTERN
 void
 Parameter::setValue (double value)
 {
-  this->value       = value;
-  this->isSet.value = 1;
+  mValue      = value;
+  mIsSetValue = true;
 }
 
 
 /**
  * Sets the units of this Parameter to a copy of sid.
  */
-LIBSBML_EXTERN
 void
-Parameter::setUnits (const std::string& sid)
+Parameter::setUnits (const string& sid)
 {
-  units = sid;
+  mUnits = sid;
 }
 
 
 /**
  * Sets the constant field of this Parameter to value.
  */
-LIBSBML_EXTERN
 void
 Parameter::setConstant (bool value)
 {
-  constant = value;
+  mConstant = value;
 }
 
 
 /**
- * Unsets the name of this Parameter.
- *
- * In SBML L1, a Parameter name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
+ * Sets the sboTerm field of this Parameter to value.
  */
-LIBSBML_EXTERN
 void
-Parameter::unsetName ()
+Parameter::setSBOTerm (int sboTerm)
 {
-  name.erase();
+  mSBOTerm = sboTerm;
 }
 
 
@@ -342,23 +240,213 @@ Parameter::unsetName ()
  * always be set</b>.  In L1v2 and beyond, a value is optional and as such
  * may or may not be set.
  */
-LIBSBML_EXTERN
 void
 Parameter::unsetValue ()
 {
-  value       = util_NaN();
-  isSet.value = 0;
+  mValue      = numeric_limits<double>::quiet_NaN();
+  mIsSetValue = false;
 }
 
 
 /**
  * Unsets the units of this Parameter.
  */
-LIBSBML_EXTERN
 void
 Parameter::unsetUnits ()
 {
-  units.erase();
+  mUnits.erase();
+}
+
+
+/**
+ * Unsets the sboTerm of this Parameter.
+ */
+void
+Parameter::unsetSBOTerm ()
+{
+  mSBOTerm = -1;
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Parameter::getTypeCode () const
+{
+  return SBML_PARAMETER;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+Parameter::getElementName () const
+{
+  static const string name = "parameter";
+  return name;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Parameter::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  attributes.readInto(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) attributes.readInto("name", mName);
+
+  //
+  // value: double  { use="required" }  (L1v2)
+  // value: double  { use="optional" }  (L1v2, L2v1, L2v2)
+  //
+  mIsSetValue = attributes.readInto("value", mValue);
+
+  //
+  // units: SName  { use="optional" }  (L1v1, L1v2)
+  // units: SId    { use="optional" }  (L2v1, L2v2)
+  //
+  attributes.readInto("units", mUnits);
+
+  //
+  // constant: boolean  { use="optional" default="true" }  (L2v1, L2v2)
+  //
+  if (level == 2) attributes.readInto("constant", mConstant);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes);
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+Parameter::writeAttributes (XMLOutputStream& stream)
+{
+  SBase::writeAttributes(stream);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  stream.writeAttribute(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) stream.writeAttribute("name", mName);
+
+  //
+  // value: double  { use="required" }  (L1v2)
+  // value: double  { use="optional" }  (L1v2, L2v1, L2v2)
+  //
+  if (mIsSetValue) stream.writeAttribute("value", mValue);
+
+  //
+  // units: SName  { use="optional" }  (L1v1, L1v2)
+  // units: SId    { use="optional" }  (L2v1, L2v2)
+  //
+  stream.writeAttribute("units", mUnits);
+
+  //
+  // constant: boolean  { use="optional" default="true" }  (L2v1, L2v2)
+  //
+  if (level == 2 && mConstant != true)
+  {
+    stream.writeAttribute("constant", mConstant);
+  }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) SBML::writeSBOTerm(stream, mSBOTerm);
+}
+
+
+
+
+/**
+ * @return a (deep) copy of this ListOfParameters.
+ */
+SBase*
+ListOfParameters::clone () const
+{
+  return new ListOfParameters(*this);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+SBMLTypeCode_t
+ListOfParameters::getItemTypeCode () const
+{
+  return SBML_UNIT;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+ListOfParameters::getElementName () const
+{
+  static const string name = "listOfParameters";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfParameters::createObject (XMLInputStream& stream)
+{
+  const string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "parameter")
+  {
+    object = new Parameter();
+    mItems.push_back(object);
+  }
+
+  return object;
 }
 
 
@@ -371,7 +459,7 @@ LIBSBML_EXTERN
 Parameter_t *
 Parameter_create (void)
 {
-  return new(std::nothrow) Parameter;
+  return new(nothrow) Parameter;
 }
 
 
@@ -387,7 +475,7 @@ Parameter_t *
 Parameter_createWith (const char *sid, double value, const char *units)
 {
   return
-    new(std::nothrow) Parameter(sid ? sid : "", value, units ? units : "");
+    new(nothrow) Parameter(sid ? sid : "", value, units ? units : "");
 }
 
 
@@ -398,7 +486,18 @@ LIBSBML_EXTERN
 void
 Parameter_free (Parameter_t *p)
 {
-  delete static_cast<Parameter*>(p);
+  delete p;
+}
+
+
+/**
+ * @return a (deep) copy of the given Parameter.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+Parameter_clone (const Parameter_t *p)
+{
+  return static_cast<Parameter_t*>( p->clone() );
 }
 
 
@@ -411,7 +510,7 @@ LIBSBML_EXTERN
 void
 Parameter_initDefaults (Parameter_t *p)
 {
-  static_cast<Parameter*>(p)->initDefaults();
+  p->initDefaults();
 }
 
 
@@ -422,10 +521,7 @@ LIBSBML_EXTERN
 const char *
 Parameter_getId (const Parameter_t *p)
 {
-  const Parameter* x = static_cast<const Parameter*>(p);
-
-
-  return x->isSetId() ? x->getId().c_str() : NULL;
+  return p->isSetId() ? p->getId().c_str() : NULL;
 }
 
 
@@ -436,10 +532,7 @@ LIBSBML_EXTERN
 const char *
 Parameter_getName (const Parameter_t *p)
 {
-  const Parameter* x = static_cast<const Parameter*>(p);
-
-
-  return x->isSetName() ? x->getName().c_str() : NULL;
+  return p->isSetName() ? p->getName().c_str() : NULL;
 }
 
 
@@ -450,7 +543,7 @@ LIBSBML_EXTERN
 double
 Parameter_getValue (const Parameter_t *p)
 {
-  return static_cast<const Parameter*>(p)->getValue();
+  return p->getValue();
 }
 
 
@@ -461,10 +554,7 @@ LIBSBML_EXTERN
 const char *
 Parameter_getUnits (const Parameter_t *p)
 {
-  const Parameter* x = static_cast<const Parameter*>(p);
-
-
-  return x->isSetUnits() ? x->getUnits().c_str() : NULL;
+  return p->isSetUnits() ? p->getUnits().c_str() : NULL;
 }
 
 
@@ -476,23 +566,37 @@ LIBSBML_EXTERN
 int
 Parameter_getConstant (const Parameter_t *p)
 {
-  return static_cast<const Parameter*>(p)->getConstant();
+  return p->getConstant();
+}
+
+/**
+ * @return the sboTerm of this Parameter as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
+ */
+LIBSBML_EXTERN
+int
+Parameter_getSBOTerm (const Parameter_t *p)
+{
+  return p->getSBOTerm();
 }
 
 
 /**
- * @return 1 if the id of this Parameter has been set, 0 otherwise.
+ * @return true (non-zero) if the id of this Parameter has been set, false
+ * (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Parameter_isSetId (const Parameter_t *p)
 {
-  return (int) static_cast<const Parameter*>(p)->isSetId();
+  return static_cast<int>( p->isSetId() );
 }
 
 
 /**
- * @return 1 if the name of this Parameter has been set, 0 otherwise.
+ * @return true (non-zero) if the name of this Parameter has been set,
+ * false (0) otherwise.
  *
  * In SBML L1, a Parameter name is required and therefore <b>should always be
  * set</b>.  In L2, name is optional and as such may or may not be set.
@@ -501,12 +605,13 @@ LIBSBML_EXTERN
 int
 Parameter_isSetName (const Parameter_t *p)
 {
-  return (int) static_cast<const Parameter*>(p)->isSetName();
+  return static_cast<int>( p->isSetName() );
 }
 
 
 /**
- * @return 1 if the value of this Parameter has been set, 0 otherwise.
+ * @return true (non-zero) if the value of this Parameter has been set,
+ * false (0) otherwise.
  *
  * In SBML L1v1, a Parameter value is required and therefore <b>should
  * always be set</b>.  In L1v2 and beyond, a value is optional and as such
@@ -516,42 +621,31 @@ LIBSBML_EXTERN
 int
 Parameter_isSetValue (const Parameter_t *p)
 {
-  return (int) static_cast<const Parameter*>(p)->isSetValue();
+  return static_cast<int>( p->isSetValue() );
 }
 
 
 /**
- * @return 1 if the units of this Parameter has been set, 0 otherwise.
+ * @return true (non-zero) if the units of this Parameter has been set,
+ * false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Parameter_isSetUnits (const Parameter_t *p)
 {
-  return (int) static_cast<const Parameter*>(p)->isSetUnits();
+  return static_cast<int>( p->isSetUnits() );
 }
 
 
 /**
- * Moves the id field of this Parameter to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
+ * @return true (non-zero) if the sboTerm of this Parameter has been set,
+ * false (0) otherwise.
  */
 LIBSBML_EXTERN
-void
-Parameter_moveIdToName (Parameter_t *p)
+int
+Parameter_isSetSBOTerm (const Parameter_t *p)
 {
-  static_cast<Parameter*>(p)->moveIdToName();
-}
-
-
-/**
- * Moves the name field of this Parameter to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
- */
-LIBSBML_EXTERN
-void
-Parameter_moveNameToId (Parameter_t *p)
-{
-  static_cast<Parameter*>(p)->moveNameToId();
+  return static_cast<int>( p->isSetSBOTerm() );
 }
 
 
@@ -562,14 +656,7 @@ LIBSBML_EXTERN
 void
 Parameter_setId (Parameter_t *p, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Parameter*>(p)->setId("");
-  }
-  else
-  {
-    static_cast<Parameter*>(p)->setId(sid);
-  }
+  (sid == NULL) ? p->unsetId() : p->setId(sid);
 }
 
 
@@ -578,16 +665,9 @@ Parameter_setId (Parameter_t *p, const char *sid)
  */
 LIBSBML_EXTERN
 void
-Parameter_setName (Parameter_t *p, const char *string)
+Parameter_setName (Parameter_t *p, const char *str)
 {
-  if (string == NULL)
-  {
-    static_cast<Parameter*>(p)->unsetName();
-  }
-  else
-  {
-    static_cast<Parameter*>(p)->setName(string);
-  }
+  (str == NULL) ? p->unsetName() : p->setName(str);
 }
 
 
@@ -598,7 +678,7 @@ LIBSBML_EXTERN
 void
 Parameter_setValue (Parameter_t *p, double value)
 {
-  static_cast<Parameter*>(p)->setValue(value);
+  p->setValue(value);
 }
 
 
@@ -609,14 +689,7 @@ LIBSBML_EXTERN
 void
 Parameter_setUnits (Parameter_t *p, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Parameter*>(p)->unsetUnits();
-  }
-  else
-  {
-    static_cast<Parameter*>(p)->setUnits(sid);
-  }
+  (sid == NULL) ? p->unsetUnits() : p->setUnits(sid);
 }
 
 
@@ -627,7 +700,18 @@ LIBSBML_EXTERN
 void
 Parameter_setConstant (Parameter_t *p, int value)
 {
-  static_cast<Parameter*>(p)->setConstant((bool) value);
+  p->setConstant( static_cast<bool>(value) );
+}
+
+
+/**
+ * Sets the sboTerm field of this Parameter to value.
+ */
+LIBSBML_EXTERN
+void
+Parameter_setSBOTerm (Parameter_t *p, int sboTerm)
+{
+  p->setSBOTerm(sboTerm);
 }
 
 
@@ -642,7 +726,7 @@ LIBSBML_EXTERN
 void
 Parameter_unsetName (Parameter_t *p)
 {
-  static_cast<Parameter*>(p)->unsetName();
+  p->unsetName();
 }
 
 
@@ -657,7 +741,7 @@ LIBSBML_EXTERN
 void
 Parameter_unsetValue (Parameter_t *p)
 {
-  static_cast<Parameter*>(p)->unsetValue();
+  p->unsetValue();
 }
 
 
@@ -669,28 +753,16 @@ LIBSBML_EXTERN
 void
 Parameter_unsetUnits (Parameter_t *p)
 {
-  static_cast<Parameter*>(p)->unsetUnits();
+  p->unsetUnits();
 }
 
 
 /**
- * The ParameterIdCmp function compares the string sid to p->id.
- *
- * @returns an integer less than, equal to, or greater than zero if sid is
- * found to be, respectively, less than, to match or be greater than p->id.
- * Returns -1 if either sid or p->id is NULL.
+ * Unsets the sboTerm of this Parameter.
  */
 LIBSBML_EXTERN
-int
-ParameterIdCmp (const char *sid, const Parameter_t *p)
+void
+Parameter_unsetSBOTerm (Parameter_t *p)
 {
-  int result = -1;
-
-
-  if (sid != NULL && Parameter_isSetId(p))
-  {
-    result = strcmp(sid, Parameter_getId(p));
-  }
-
-  return result;
+  p->unsetSBOTerm();
 }

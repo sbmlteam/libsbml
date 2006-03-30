@@ -6,70 +6,30 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
-#include "SBMLVisitor.h"
-#include "FunctionDefinition.h"
-#include "UnitDefinition.h"
-#include "Unit.h"
-#include "Compartment.h"
-#include "Species.h"
-#include "Parameter.h"
-#include "AssignmentRule.h"
-#include "RateRule.h"
-#include "AlgebraicRule.h"
-#include "CompartmentVolumeRule.h"
-#include "ParameterRule.h"
-#include "SpeciesConcentrationRule.h"
-#include "Reaction.h"
-#include "SpeciesReference.h"
-#include "ModifierSpeciesReference.h"
-#include "KineticLaw.h"
-#include "Event.h"
-#include "EventAssignment.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 #include "math/ASTNode.h"
+
+#include "SBML.h"
+#include "SBMLVisitor.h"
 
 
 #ifdef USE_LAYOUT
@@ -79,23 +39,20 @@
 #include "Model.h"
 
 
+using namespace std;
+
+
 /**
  * Creates a new Model, optionally with its id and name attributes set.
  */
-LIBSBML_EXTERN
-Model::Model (const std::string& id, const std::string& name) :
-    SBase ()
-  , id    ( id   )
-  , name  ( name )
+Model::Model (const string& id, const string& name) : SBase (id, name)
 {
-  init(SBML_MODEL);
 }
 
 
 /**
  * Destroys this Model.
  */
-LIBSBML_EXTERN
 Model::~Model ()
 {
 }
@@ -104,405 +61,182 @@ Model::~Model ()
 /**
  * Accepts the given SBMLVisitor.
  */
-LIBSBML_EXTERN
-void
+bool
 Model::accept (SBMLVisitor& v) const
 {
-  unsigned int n;
-  bool next;
-
-
   v.visit(*this);
 
-  //
-  // FunctionDefinition
-  //
-
-  getListOfFunctionDefinitions().accept(v, SBML_FUNCTION_DEFINITION);
-
-  for (n = 0, next = true; n < getNumFunctionDefinitions() && next; n++)
-  {
-    next = getFunctionDefinition(n)->accept(v);
-  }
-
-  v.leave(getListOfFunctionDefinitions(), SBML_FUNCTION_DEFINITION);
-
-
-  //
-  // UnitDefinition
-  //
-
-  getListOfUnitDefinitions().accept(v, SBML_UNIT_DEFINITION);
-
-  for (n = 0, next = true; n < getNumUnitDefinitions()  && next; n++)
-  {
-    next = getUnitDefinition(n)->accept(v);
-  }
-
-  v.leave(getListOfUnitDefinitions(), SBML_UNIT_DEFINITION);
-
-
-  //
-  // Compartment
-  //
-
-  getListOfCompartments().accept(v, SBML_COMPARTMENT);
-
-  for (n = 0, next = true; n < getNumCompartments() && next; n++)
-  {
-    next = getCompartment(n)->accept(v);
-  }
-
-  v.leave(getListOfCompartments(), SBML_COMPARTMENT);
-
-
-  //
-  // Species
-  //
-
-  getListOfSpecies().accept(v, SBML_SPECIES);
-
-  for (n = 0, next = true; n < getNumSpecies() && next; n++)
-  {
-    next = getSpecies(n)->accept(v);
-  }
-
-  v.leave(getListOfSpecies(), SBML_SPECIES);
-
-
-  //
-  // Parameter
-  //
-
-  getListOfParameters().accept(v, SBML_PARAMETER);
-
-  for (n = 0, next = true; n < getNumParameters() && next; n++)
-  {
-    next = getParameter(n)->accept(v);
-  }
-
-  v.leave(getListOfParameters(), SBML_PARAMETER);
-
-
-  //
-  // Rule
-  //
-
-  getListOfRules().accept(v, SBML_ALGEBRAIC_RULE);
-
-  for (n = 0, next = true; n < getNumRules() && next; n++)
-  {
-    next = getRule(n)->accept(v);
-  }
-
-  v.leave(getListOfRules(), SBML_ALGEBRAIC_RULE);
-
-
-  //
-  // Reaction
-  //
-
-  getListOfReactions().accept(v, SBML_REACTION);
-
-  for (n = 0, next = true; n < getNumReactions() && next; n++)
-  {
-    next = getReaction(n)->accept(v);
-  }
-
-  v.leave(getListOfReactions(), SBML_REACTION);
-
-
-  //
-  // Event
-  //
-
-  getListOfEvents().accept(v, SBML_EVENT);
-
-  for (n = 0, next = true; n < getNumEvents() && next; n++)
-  {
-    next = getEvent(n)->accept(v);
-  }
-
-  v.leave(getListOfEvents(), SBML_EVENT);
+  mFunctionDefinitions.accept(v);
+  mUnitDefinitions    .accept(v);
+  mCompartments       .accept(v);
+  mSpecies            .accept(v);
+  mParameters         .accept(v);
+  mRules              .accept(v);
+  mReactions          .accept(v);
+  mEvents             .accept(v);
 
   v.leave(*this);
+
+  return true;
 }
 
 
 /**
- * @return the id of this Model.
+ * @return a (deep) copy of this Model.
  */
-LIBSBML_EXTERN
-const std::string&
-Model::getId () const
+SBase*
+Model::clone () const
 {
-  return id;
+  return new Model(*this);
 }
 
 
 /**
- * @return the name of this Model.
+ * @return the sboTerm of this KineticLaw as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
  */
-LIBSBML_EXTERN
-const std::string&
-Model::getName () const
+int
+Model::getSBOTerm () const
 {
-  return name;
+  return mSBOTerm;
 }
 
 
 /**
- * @return the SBML Level of this Model.
+ * @return true if the sboTerm of this KineticLaw has been set, false
+ * otherwise.
  */
-LIBSBML_EXTERN
-unsigned int
-Model::getLevel () const
-{
-  return mLevel;
-}
-
-
-/**
- * @return the SBML Level of this Model.
- */
-LIBSBML_EXTERN
-unsigned int
-Model::getVersion () const
-{
-  return mVersion;
-}
-
-
-
-/**
- * @return true if the id of this Model has been set, false otherwise.
- */
-LIBSBML_EXTERN
 bool
-Model::isSetId () const
+Model::isSetSBOTerm () const
 {
-  return ! id.empty();
+  return (mSBOTerm != -1);
 }
 
 
 /**
- * @return true if the name of this Model has been set, false otherwise.
+ * Sets the sboTerm field of this KineticLaw to value.
  */
-LIBSBML_EXTERN
-bool
-Model::isSetName () const
-{
-  return ! name.empty();
-}
-
-
-/**
- * Moves the id field to the name field for this Model and all of its
- * contituent UnitDefinitions, Compartments, Species, Parameters, and
- * Reactions.  This method is used for converting from L2 to L1.
- *
- * NOTE: Any object with its name field already set will be skipped.
- *
- * @see moveIdToName
- */
-LIBSBML_EXTERN
 void
-Model::moveAllIdsToNames ()
+Model::setSBOTerm (int sboTerm)
 {
-  unsigned int n, p;
-  unsigned int size;
-
-
-  moveIdToName();
-
-  size = getNumUnitDefinitions();
-  for (n = 0; n < size; n++) getUnitDefinition(n)->moveIdToName();
-
-  size = getNumCompartments();
-  for (n = 0; n < size; n++) getCompartment(n)->moveIdToName();
-
-  size = getNumSpecies();
-  for (n = 0; n < size; n++) getSpecies(n)->moveIdToName();
-
-  size = getNumParameters();
-  for (n = 0; n < size; n++) getParameter(n)->moveIdToName();
-
-  for (n = 0; n < getNumReactions(); n++)
-  {
-    Reaction* r = getReaction(n);
-    r->moveIdToName();
- 
-    if (r->isSetKineticLaw())
-    {
-      KineticLaw* kl = r->getKineticLaw();
-
-      for (p = 0; p < kl->getNumParameters(); p++)
-      {
-        kl->getParameter(p)->moveIdToName();
-      }
-    }
-  }
+  mSBOTerm = sboTerm;
 }
 
 
 /**
- * Moves the name field to the id field for this Model and all of its
- * contituent UnitDefinitions, Compartments, Species, Parameters, and
- * Reactions.  This method is used for converting from L1 to L2.
- *
- * NOTE: Any object with its id field already set will be skipped.
- *
- * @see moveNameToId
+ * Unsets the sboTerm of this KineticLaw.
  */
-LIBSBML_EXTERN
 void
-Model::moveAllNamesToIds ()
+Model::unsetSBOTerm ()
 {
-  unsigned int n, p;
-  unsigned int size;
-
-
-  moveNameToId();
-
-  size = getNumUnitDefinitions();
-  for (n = 0; n < size; n++) getUnitDefinition(n)->moveNameToId();
-
-  size = getNumCompartments();
-  for (n = 0; n < size; n++) getCompartment(n)->moveNameToId();
-
-  size = getNumSpecies();
-  for (n = 0; n < size; n++) getSpecies(n)->moveNameToId();
-
-  size = getNumParameters();
-  for (n = 0; n < size; n++) getParameter(n)->moveNameToId();
-
-  size = getNumReactions();
-
-  for (n = 0; n < getNumReactions(); n++)
-  {
-    Reaction* r = getReaction(n);
-    r->moveNameToId();
- 
-    if (r->isSetKineticLaw())
-    {
-      KineticLaw* kl = r->getKineticLaw();
-
-      for (p = 0; p < kl->getNumParameters(); p++)
-      {
-        kl->getParameter(p)->moveNameToId();
-      }
-    }
-  }
+  mSBOTerm = -1;
 }
 
 
 /**
- * Moves the id field of this Model to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
+ * Adds a copy of the given FunctionDefinition to this Model.
  */
-LIBSBML_EXTERN
 void
-Model::moveIdToName ()
+Model::addFunctionDefinition (const FunctionDefinition* fd)
 {
-  if ( isSetName() ) return;
-
-  setName( getId() );
-  setId  ( "" );
+  mFunctionDefinitions.append(fd);
 }
 
 
 /**
- * Moves the name field of this Model to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
+ * Adds a copy of the given UnitDefinition to this Model.
  */
-LIBSBML_EXTERN
 void
-Model::moveNameToId ()
+Model::addUnitDefinition (const UnitDefinition* ud)
 {
-  if ( isSetId() ) return;
-
-  setId  ( getName() );
-  setName( "" );
+  mUnitDefinitions.append(ud);
 }
 
 
 /**
- * Sets the id of this Model to a copy of sid.
+ * Adds a copy of the given Compartment to this Model.
  */
-LIBSBML_EXTERN
 void
-Model::setId (const std::string& sid)
+Model::addCompartment (const Compartment* c)
 {
-  id = sid;
+  mCompartments.append(c);
 }
 
 
 /**
- * Sets the name of this Model to a copy of string (SName in L1).
+ * Adds a copy of the given Species to this Model.
  */
-LIBSBML_EXTERN
 void
-Model::setName (const std::string& string)
+Model::addSpecies (const Species* s)
 {
-  name = string;
+  mSpecies.append(s);
 }
 
 
 /**
- * Unsets the id of this Model.
+ * Adds a copy of the given Parameter to this Model.
  */
-LIBSBML_EXTERN
 void
-Model::unsetId ()
+Model::addParameter (const Parameter* p)
 {
-  id.erase();
+  mParameters.append(p);
 }
 
 
 /**
- * Unsets the name of this Model.
+ * Adds a copy of the given Rule to this Model.
  */
-LIBSBML_EXTERN
 void
-Model::unsetName ()
+Model::addRule (const Rule* r)
 {
-  name.erase();
+  mRules.append(r);
 }
 
 
 /**
- * Creates a new FunctionDefinition inside this Model and returns it.  This
- * covenience method is equivalent to:
- *
- *   addFunctionDefinition( FunctionDefinition() );
+ * Adds a copy of the given Reaction to this Model.
  */
-LIBSBML_EXTERN
-FunctionDefinition&
+void
+Model::addReaction (const Reaction* r)
+{
+  mReactions.append(r);
+}
+
+
+/**
+ * Adds a copy of the given Event to this Model.
+ */
+void
+Model::addEvent (const Event* e)
+{
+  mEvents.append(e);
+}
+
+
+/**
+ * Creates a new FunctionDefinition inside this Model and returns it.
+ */
+FunctionDefinition*
 Model::createFunctionDefinition ()
 {
   FunctionDefinition* fd = new FunctionDefinition;
+  mFunctionDefinitions.appendAndOwn(fd);
 
-
-  addFunctionDefinition(*fd);
-  return *fd;
+  return fd;
 }
 
 
 /**
- * Creates a new UnitDefinition inside this Model and returns it.  This
- * covenience method is equivalent to:
- *
- *   addUnitDefinition( UnitDefinition() );
+ * Creates a new UnitDefinition inside this Model and returns it.
  */
-LIBSBML_EXTERN
-UnitDefinition&
+UnitDefinition*
 Model::createUnitDefinition ()
 {
   UnitDefinition* ud = new UnitDefinition;
+  mUnitDefinitions.appendAndOwn(ud);
 
-
-  addUnitDefinition(*ud);
-  return *ud;
+   return ud;
 }
 
 
@@ -513,12 +247,13 @@ Model::createUnitDefinition ()
  * If a UnitDefinitions does not exist for this model, a new Unit is not
  * created and NULL is returned.
  */
-LIBSBML_EXTERN
 Unit*
-Model::createUnit ()
+Model::createUnit ()  // FIXME
 {
-  Unit*           u    = NULL;
-  UnitDefinition* ud   = NULL;
+  return 0;
+  /*
+  Unit*           u    = 0;
+  UnitDefinition* ud   = 0;
   unsigned int    size = getNumUnitDefinitions();
 
 
@@ -527,194 +262,102 @@ Model::createUnit ()
     u  = new Unit;
     ud = getUnitDefinition(size - 1);
 
-    ud->addUnit(*u);
+    ud->getListOfUnits()->appendAndOwn(u);  // FIXME: Need createUnit()
   }
 
   return u;
+  */
 }
 
 
 /**
- * Creates a new Compartment inside this Model and returns it.  This
- * covenience method is equivalent to:
- *
- *   addCompartment( Compartment() );
+ * Creates a new Compartment inside this Model and returns it.
  */
-LIBSBML_EXTERN
-Compartment&
+Compartment*
 Model::createCompartment ()
 {
   Compartment* c = new Compartment;
+  mCompartments.appendAndOwn(c);
 
-
-  addCompartment(*c);
-  return *c;
+  return c;
 }
 
 
 /**
- * Creates a new Species inside this Model and returns .  This covenience
- * method is equivalent to:
- *
- *   addSpecies( Species() );
+ * Creates a new Species inside this Model and returns it.
  */
-LIBSBML_EXTERN
-Species&
+Species*
 Model::createSpecies ()
 {
   Species* s = new Species;
+  mSpecies.appendAndOwn(s);
 
-
-  addSpecies(*s);
-  return *s;
+  return s;
 }
 
 
 /**
- * Creates a new Parameter inside this Model and returns.  This covenience
- * method is equivalent to:
- *
- *   addParameter( Parameter() );
+ * Creates a new Parameter inside this Model and returns.
  */
-LIBSBML_EXTERN
-Parameter&
+Parameter*
 Model::createParameter ()
 {
   Parameter* p = new Parameter;
+  mParameters.appendAndOwn(p);
 
-
-  addParameter(*p);
-  return *p;
+  return p;
 }
 
 
 /**
- * Creates a new AssignmentRule inside this Model and returns .  This
- * covenience method is equivalent to:
- *
- *   addRule( AssignmentRule() );
- *
- * (L2 only)
+ * Creates a new AlgebraicRule inside this Model and returns it.
  */
-LIBSBML_EXTERN
-AssignmentRule&
-Model::createAssignmentRule ()
-{
-  AssignmentRule* ar = new AssignmentRule;
-
-
-  addRule(*ar);
-  return *ar;
-}
-
-
-/**
- * Creates a new RateRule inside this Model and returns it.  This
- * covenience method is equivalent to:
- *
- *   addRule( RateRule() );
- *
- * (L2 only)
- */
-LIBSBML_EXTERN
-RateRule&
-Model::createRateRule ()
-{
-  RateRule* rr = new RateRule();
-
-
-  addRule(*rr);
-  return *rr;
-}
-
-
-/**
- * Creates a new AlgebraicRule inside this Model and returns it.  This
- * covenience method is equivalent to:
- *
- *   addRule( AlgebraicRule() );
- */
-LIBSBML_EXTERN
-AlgebraicRule&
+AlgebraicRule*
 Model::createAlgebraicRule ()
 {
   AlgebraicRule* ar = new AlgebraicRule;
+  mRules.appendAndOwn(ar);
 
-
-  addRule(*ar);
-  return *ar;
+  return ar;
 }
 
 
 /**
- * Creates a new CompartmentVolumeRule inside this Model and returns.  This
- * covenience method is equivalent to:
- *
- *   addRule( CompartmentVolumeRule() );
+ * Creates a new AssignmentRule inside this Model and returns it.
  */
-LIBSBML_EXTERN
-CompartmentVolumeRule&
-Model::createCompartmentVolumeRule ()
+AssignmentRule*
+Model::createAssignmentRule ()
 {
-  CompartmentVolumeRule* cvr = new CompartmentVolumeRule;
+  AssignmentRule* ar = new AssignmentRule;
+  mRules.appendAndOwn(ar);
 
-
-  addRule(*cvr);
-  return *cvr;
+  return ar;
 }
 
 
 /**
- * Creates a new ParameterRule inside this Model and returns it.  This
- * covenience method is equivalent to:
- *
- *   addRule( ParameterRule() );
+ * Creates a new RateRule inside this Model and returns it.
  */
-LIBSBML_EXTERN
-ParameterRule&
-Model::createParameterRule ()
+RateRule*
+Model::createRateRule ()
 {
-  ParameterRule* pr = new ParameterRule;
+  RateRule* rr = new RateRule();
+  mRules.appendAndOwn(rr);
 
-
-  addRule(*pr);
-  return *pr;
+  return rr;
 }
 
 
 /**
- * Creates a new SpeciesConcentrationRule inside this Model and returns it.
- * This covenience method is equivalent to:
- *
- *   addRule( SpeciesConcentrationRule() );
+ * Creates a new Reaction inside this Model and returns it.
  */
-LIBSBML_EXTERN
-SpeciesConcentrationRule&
-Model::createSpeciesConcentrationRule ()
-{
-  SpeciesConcentrationRule* scr = new SpeciesConcentrationRule;
-
-
-  addRule(*scr);
-  return *scr;
-}
-
-
-/**
- * Creates a new Reaction inside this Model and returns.  This covenience
- * method is equivalent to:
- *
- *   addReaction( Reaction() );
- */
-LIBSBML_EXTERN
-Reaction&
+Reaction*
 Model::createReaction ()
 {
   Reaction* r = new Reaction;
+  mReactions.appendAndOwn(r);
 
-
-  addReaction(*r);
-  return *r;
+  return r;
 }
 
 
@@ -726,24 +369,11 @@ Model::createReaction ()
  * If a Reaction does not exist for this model, a new SpeciesReference is
  * not created and NULL is returned.
  */
-LIBSBML_EXTERN
 SpeciesReference*
 Model::createReactant ()
 {
-  SpeciesReference* sr   = NULL;
-  Reaction*         r    = NULL;
-  unsigned int      size = getNumReactions();
-
-
-  if (size > 0)
-  {
-    sr = new SpeciesReference;
-    r  = getReaction(size - 1);
-
-    r->addReactant(*sr);
-  }
-
-  return sr;
+  unsigned int size = getNumReactions();
+  return (size > 0) ? getReaction(size - 1)->createReactant() : 0;
 }
 
 
@@ -755,24 +385,11 @@ Model::createReactant ()
  * If a Reaction does not exist for this model, a new SpeciesReference is
  * not created and NULL is returned.
  */
-LIBSBML_EXTERN
 SpeciesReference*
 Model::createProduct ()
 {
-  SpeciesReference* sr   = NULL;
-  Reaction*         r    = NULL;
-  unsigned int      size = getNumReactions();
-
-
-  if (size > 0)
-  {
-    sr = new SpeciesReference;
-    r  = getReaction(size - 1);
-
-    r->addProduct(*sr);
-  }
-
-  return sr;
+  unsigned int size = getNumReactions();
+  return (size > 0) ? getReaction(size - 1)->createProduct() : 0;
 }
 
 
@@ -784,24 +401,11 @@ Model::createProduct ()
  * If a Reaction does not exist for this model, a new
  * ModifierSpeciesReference is not created and NULL is returned.
  */
-LIBSBML_EXTERN
 ModifierSpeciesReference*
 Model::createModifier ()
 {
-  ModifierSpeciesReference* msr   = NULL;
-  Reaction*                 r     = NULL;
-  unsigned int              size  = getNumReactions();
-
-
-  if (size > 0)
-  {
-    msr = new ModifierSpeciesReference;
-    r   = getReaction(size - 1);
-
-    r->addModifier(*msr);
-  }
-
-  return msr;
+  unsigned int size = getNumReactions();
+  return (size > 0) ? getReaction(size - 1)->createModifier() : 0;
 }
 
 
@@ -813,12 +417,13 @@ Model::createModifier ()
  * but already has a KineticLaw, a new KineticLaw is not created and NULL
  * is returned.
  */
-LIBSBML_EXTERN
 KineticLaw*
-Model::createKineticLaw ()
+Model::createKineticLaw ()  // FIXME
 {
-  KineticLaw*  kl   = NULL;
-  Reaction*    r    = NULL;
+  return 0;
+  /*
+  KineticLaw*  kl   = 0;
+  Reaction*    r    = 0;
   unsigned int size = getNumReactions();
 
 
@@ -827,18 +432,19 @@ Model::createKineticLaw ()
     r  = getReaction(size - 1);
     kl = r->getKineticLaw();
 
-    if (kl == NULL)
+    if (kl == 0)
     {
       kl = new KineticLaw;
-      r->setKineticLaw(*kl);
+      r->setKineticLaw(*kl); // FIXME: Need Reaction.createKineticLaw
     }
     else
     {
-      kl = NULL;
+      kl = 0;
     }
   }
 
   return kl;
+  */
 }
 
 
@@ -850,13 +456,14 @@ Model::createKineticLaw ()
  * If a Reaction does not exist for this model, or a KineticLaw for the
  * Reaction, a new Parameter is not created and NULL is returned.
  */
-LIBSBML_EXTERN
 Parameter*
-Model::createKineticLawParameter ()
+Model::createKineticLawParameter ()  // FIXME
 {
-  Parameter*   p    = NULL;
-  KineticLaw*  kl   = NULL;
-  Reaction*    r    = NULL;
+  return 0;
+  /*
+  Parameter*   p    = 0;
+  KineticLaw*  kl   = 0;
+  Reaction*    r    = 0;
   unsigned int size = getNumReactions();
 
 
@@ -865,32 +472,28 @@ Model::createKineticLawParameter ()
     r  = getReaction(size - 1);
     kl = r->getKineticLaw();
 
-    if (kl != NULL)
+    if (kl != 0)
     {
       p = new Parameter;
-      kl->addParameter(*p);
+      kl->addParameter(*p);  // FIXME: Need KineticLaw.createParameter()
     }
   }
 
   return p;
+  */
 }
 
 
 /**
- * Creates a new Event inside this Model and returns.  This covenience
- * function is functionally equivalent to:
- *
- *   addEvent( Event() );
+ * Creates a new Event inside this Model and returns it.
  */
-LIBSBML_EXTERN
-Event&
+Event*
 Model::createEvent ()
 {
   Event* e = new Event;
+  mEvents.appendAndOwn(e);
 
-
-  addEvent(*e);
-  return *e;
+  return e;
 }
 
 
@@ -901,12 +504,13 @@ Model::createEvent ()
  * If an Event does not exist for this model, a new EventAssignment is not
  * created and NULL is returned.
  */
-LIBSBML_EXTERN
 EventAssignment*
-Model::createEventAssignment ()
+Model::createEventAssignment ()  // FIXME
 {
-  EventAssignment* ea   = NULL;
-  Event*           e    = NULL;
+  return 0;
+  /*
+  EventAssignment* ea   = 0;
+  Event*           e    = 0;
   unsigned int     size = getNumEvents();
 
 
@@ -915,344 +519,191 @@ Model::createEventAssignment ()
     ea = new EventAssignment;
     e  = getEvent(size - 1);
 
-    e->addEventAssignment(*ea);
+    e->addEventAssignment(*ea);  // Need Event->createEventAssignment()
   }
 
   return ea;
-}
-
-
-/**
- * Adds the given FunctionDefinition to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addFunctionDefinition (FunctionDefinition& fd)
-{
-  functionDefinition.append(&fd);
-}
-
-
-/**
- * Adds the given UnitDefinition to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addUnitDefinition (UnitDefinition& ud)
-{
-  unitDefinition.append(&ud);
-}
-
-
-/**
- * Adds the given Compartment to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addCompartment (Compartment& c)
-{
-  compartment.append(&c);
-}
-
-
-/**
- * Adds the given Species to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addSpecies (Species& s)
-{
-  species.append(&s);
-}
-
-
-/**
- * Adds the given Parameter to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addParameter (Parameter& p)
-{
-  parameter.append(&p);
-}
-
-
-/**
- * Adds the given Rule to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addRule (Rule& r)
-{
-  rule.append(&r);
-}
-
-
-/**
- * Adds the given Reaction to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addReaction (Reaction& r)
-{
-  reaction.append(&r);
-}
-
-
-/**
- * Adds the given Event to this Model.
- */
-LIBSBML_EXTERN
-void
-Model::addEvent (Event& e)
-{
-  event.append(&e);
+  */
 }
 
 
 /**
  * @return the list of FunctionDefinitions for this Model.
  */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfFunctionDefinitions ()
-{
-  return functionDefinition;
-}
-
-
-/**
- * @return the list of FunctionDefinitions for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
+const ListOf*
 Model::getListOfFunctionDefinitions () const
 {
-  return functionDefinition;
+  return &mFunctionDefinitions;
 }
 
 
 /**
- * @return the list of UnitDefinitions for this Model.
- */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfUnitDefinitions ()
-{
-  return unitDefinition;
-}
-
-
-/**
- * @return the list of UnitDefinitions for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
-Model::getListOfUnitDefinitions () const
-{
-  return unitDefinition;
-}
-
-
-/**
- * @return the list of Compartments for this Model.
- */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfCompartments ()
-{
-  return compartment;
-}
-
-
-/**
- * @return the list of Compartments for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
-Model::getListOfCompartments () const
-{
-  return compartment;
-}
-
-
-/**
- * @return the list of Species for this Model.
- */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfSpecies ()
-{
-  return species;
-}
-
-
-/**
- * @return the list of Species for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
-Model::getListOfSpecies () const
-{
-  return species;
-}
-
-
-/**
- * @return the list of Parameters for this Model.
- */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfParameters ()
-{
-  return parameter;
-}
-
-
-/**
- * @return the list of Parameters for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
-Model::getListOfParameters () const
-{
-  return parameter;
-}
-
-
-/**
- * @return the list of Rules for this Model.
- */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfRules ()
-{
-  return rule;
-}
-
-
-/**
- * @return the list of Rules for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
-Model::getListOfRules () const
-{
-  return rule;
-}
-
-
-/**
- * @return the list of Rules for this Model.
- */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfReactions ()
-{
-  return reaction;
-}
-
-
-/**
- * @return the list of Rules for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
-Model::getListOfReactions () const
-{
-  return reaction;
-}
-
-
-/**
- * @return the list of Rules for this Model.
- */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfEvents ()
-{
-  return event;
-}
-
-
-/**
- * @return the list of Rules for this Model.
- */
-LIBSBML_EXTERN
-const ListOf&
-Model::getListOfEvents () const
-{
-  return event;
-}
-
-
-/**
- * @return the list of items of the given type for this Model.  If the
- * given SBMLTypeCode does not correspond to a ListOf contained in SBML
- * Models, NULL is returned.
+ * @return the list of FunctionDefinitions for this Model.
  */
 ListOf*
-Model::getListOfByTypecode (SBMLTypeCode_t type)
+Model::getListOfFunctionDefinitions ()
 {
-  ListOf* result;
+  return &mFunctionDefinitions;
+}
 
 
-  switch (type)
-  {
-    case SBML_FUNCTION_DEFINITION:
-      result = &functionDefinition;
-      break;
+/**
+ * @return the list of UnitDefinitions for this Model.
+ */
+const ListOf*
+Model::getListOfUnitDefinitions () const
+{
+  return &mUnitDefinitions;
+}
 
-    case SBML_UNIT_DEFINITION:
-      result = &unitDefinition;
-      break;
 
-    case SBML_COMPARTMENT:
-      result = &compartment;
-      break;
+/**
+ * @return the list of UnitDefinitions for this Model.
+ */
+ListOf*
+Model::getListOfUnitDefinitions ()
+{
+  return &mUnitDefinitions;
+}
 
-    case SBML_SPECIES:
-      result = &species;
-      break;
 
-    case SBML_PARAMETER:
-      result = &parameter;
-      break;
+/**
+ * @return the list of Compartments for this Model.
+ */
+const ListOf*
+Model::getListOfCompartments () const
+{
+  return &mCompartments;
+}
 
-    case SBML_REACTION:
-      result = &reaction;
-      break;
 
-    case SBML_EVENT:
-      result = &event;
-      break;
+/**
+ * @return the list of Compartments for this Model.
+ */
+ListOf*
+Model::getListOfCompartments ()
+{
+  return &mCompartments;
+}
 
-    case SBML_ALGEBRAIC_RULE:
-    case SBML_ASSIGNMENT_RULE:
-    case SBML_RATE_RULE:
-    case SBML_SPECIES_CONCENTRATION_RULE:
-    case SBML_COMPARTMENT_VOLUME_RULE:
-    case SBML_PARAMETER_RULE:
-      result = &rule;
-      break;
 
-    default:
-      result = NULL;
-      break;
-  }
+/**
+ * @return the list of Species for this Model.
+ */
+const ListOf*
+Model::getListOfSpecies () const
+{
+  return &mSpecies;
+}
 
-  return result;
+
+/**
+ * @return the list of Species for this Model.
+ */
+ListOf*
+Model::getListOfSpecies ()
+{
+  return &mSpecies;
+}
+
+
+/**
+ * @return the list of Parameters for this Model.
+ */
+const ListOf*
+Model::getListOfParameters () const
+{
+  return &mParameters;
+}
+
+
+/**
+ * @return the list of Parameters for this Model.
+ */
+ListOf*
+Model::getListOfParameters ()
+{
+  return &mParameters;
+}
+
+
+/**
+ * @return the list of Rules for this Model.
+ */
+const ListOf*
+Model::getListOfRules () const
+{
+  return &mRules;
+}
+
+
+/**
+ * @return the list of Rules for this Model.
+ */
+ListOf*
+Model::getListOfRules ()
+{
+  return &mRules;
+}
+
+
+/**
+ * @return the list of Reactions for this Model.
+ */
+const ListOf*
+Model::getListOfReactions () const
+{
+  return &mReactions;
+}
+
+
+/**
+ * @return the list of Reactions for this Model.
+ */
+ListOf*
+Model::getListOfReactions ()
+{
+  return &mReactions;
+}
+
+
+/**
+ * @return the list of Events for this Model.
+ */
+const ListOf*
+Model::getListOfEvents () const
+{
+  return &mEvents;
+}
+
+
+/**
+ * @return the list of Events for this Model.
+ */
+ListOf*
+Model::getListOfEvents ()
+{
+  return &mEvents;
 }
 
 
 /**
  * @return the nth FunctionDefinition of this Model.
  */
-LIBSBML_EXTERN
-FunctionDefinition*
+const FunctionDefinition*
 Model::getFunctionDefinition (unsigned int n) const
 {
-  return static_cast<FunctionDefinition*>( functionDefinition.get(n) );
+  return static_cast<const FunctionDefinition*>( mFunctionDefinitions.get(n) );
+}
+
+
+/**
+ * @return the nth FunctionDefinition of this Model.
+ */
+FunctionDefinition*
+Model::getFunctionDefinition (unsigned int n)
+{
+  return static_cast<FunctionDefinition*>( mFunctionDefinitions.get(n) );
 }
 
 
@@ -1260,27 +711,41 @@ Model::getFunctionDefinition (unsigned int n) const
  * @return the FunctionDefinition in this Model with the given id or NULL
  * if no such FunctionDefinition exists.
  */
-LIBSBML_EXTERN
-FunctionDefinition*
-Model::getFunctionDefinition (const std::string& sid) const
+const FunctionDefinition*
+Model::getFunctionDefinition (const string& sid) const
 {
-  void* x =
-    functionDefinition.find( sid.c_str(),
-                             (ListItemComparator) FunctionDefinitionIdCmp );
+  return static_cast<const FunctionDefinition*>(mFunctionDefinitions.get(sid));
+}
 
 
-  return static_cast<FunctionDefinition*>(x);
+/**
+ * @return the FunctionDefinition in this Model with the given id or NULL
+ * if no such FunctionDefinition exists.
+ */
+FunctionDefinition*
+Model::getFunctionDefinition (const string& sid)
+{
+  return static_cast<FunctionDefinition*>( mFunctionDefinitions.get(sid) );
 }
 
 
 /**
  * @return the nth UnitDefinition of this Model.
  */
-LIBSBML_EXTERN
-UnitDefinition*
+const UnitDefinition*
 Model::getUnitDefinition (unsigned int n) const
 {
-  return static_cast<UnitDefinition*>( unitDefinition.get(n) );
+  return static_cast<const UnitDefinition*>( mUnitDefinitions.get(n) );
+}
+
+
+/**
+ * @return the nth UnitDefinition of this Model.
+ */
+UnitDefinition*
+Model::getUnitDefinition (unsigned int n)
+{
+  return static_cast<UnitDefinition*>( mUnitDefinitions.get(n) );
 }
 
 
@@ -1288,27 +753,41 @@ Model::getUnitDefinition (unsigned int n) const
  * @return the UnitDefinition in this Model with the given id or NULL if no
  * such UnitDefinition exists.
  */
-LIBSBML_EXTERN
-UnitDefinition*
-Model::getUnitDefinition (const std::string& sid) const
+const UnitDefinition*
+Model::getUnitDefinition (const string& sid) const
 {
-  void* x =
-    unitDefinition.find( sid.c_str(),
-                         (ListItemComparator) UnitDefinitionIdCmp );
+  return static_cast<const UnitDefinition*>( mUnitDefinitions.get(sid) );
+}
 
 
-  return static_cast<UnitDefinition*>(x);
+/**
+ * @return the UnitDefinition in this Model with the given id or NULL if no
+ * such UnitDefinition exists.
+ */
+UnitDefinition*
+Model::getUnitDefinition (const string& sid)
+{
+  return static_cast<UnitDefinition*>( mUnitDefinitions.get(sid) );
 }
 
 
 /**
  * @return the nth Compartment of this Model.
  */
-LIBSBML_EXTERN
-Compartment*
+const Compartment*
 Model::getCompartment (unsigned int n) const
 {
-  return static_cast<Compartment*>( compartment.get(n) );
+  return static_cast<const Compartment*>( mCompartments.get(n) );
+}
+
+
+/**
+ * @return the nth Compartment of this Model.
+ */
+Compartment*
+Model::getCompartment (unsigned int n)
+{
+  return static_cast<Compartment*>( mCompartments.get(n) );
 }
 
 
@@ -1316,26 +795,41 @@ Model::getCompartment (unsigned int n) const
  * @return the Compartment in this Model with the given id or NULL if no
  * such Compartment exists.
  */
-LIBSBML_EXTERN
-Compartment*
-Model::getCompartment (const std::string& sid) const
+const Compartment*
+Model::getCompartment (const string& sid) const
 {
-  void* x =
-    compartment.find( sid.c_str(), (ListItemComparator) CompartmentIdCmp );
+  return static_cast<const Compartment*>( mCompartments.get(sid) );
+}
 
 
-  return static_cast<Compartment*>(x);
+/**
+ * @return the Compartment in this Model with the given id or NULL if no
+ * such Compartment exists.
+ */
+Compartment*
+Model::getCompartment (const string& sid)
+{
+  return static_cast<Compartment*>( mCompartments.get(sid) );
 }
 
 
 /**
  * @return the nth Species of this Model.
  */
-LIBSBML_EXTERN
-Species*
+const Species*
 Model::getSpecies (unsigned int n) const
 {
-  return static_cast<Species*>( species.get(n) );
+  return static_cast<const Species*>( mSpecies.get(n) );
+}
+
+
+/**
+ * @return the nth Species of this Model.
+ */
+Species*
+Model::getSpecies (unsigned int n)
+{
+  return static_cast<Species*>( mSpecies.get(n) );
 }
 
 
@@ -1343,25 +837,41 @@ Model::getSpecies (unsigned int n) const
  * @return the Species in this Model with the given id or NULL if no such
  * Species exists.
  */
-LIBSBML_EXTERN
-Species*
-Model::getSpecies (const std::string& sid) const
+const Species*
+Model::getSpecies (const string& sid) const
 {
-  void* x = species.find( sid.c_str(), (ListItemComparator) SpeciesIdCmp );
+  return static_cast<const Species*>( mSpecies.get(sid) );
+}
 
 
-  return static_cast<Species*>(x);
+/**
+ * @return the Species in this Model with the given id or NULL if no such
+ * Species exists.
+ */
+Species*
+Model::getSpecies (const string& sid)
+{
+  return static_cast<Species*>( mSpecies.get(sid) );
 }
 
 
 /**
  * @return the nth Parameter of this Model.
  */
-LIBSBML_EXTERN
-Parameter*
+const Parameter*
 Model::getParameter (unsigned int n) const
 {
-  return static_cast<Parameter*>( parameter.get(n) );
+  return static_cast<const Parameter*>( mParameters.get(n) );
+}
+
+
+/**
+ * @return the nth Parameter of this Model.
+ */
+Parameter*
+Model::getParameter (unsigned int n)
+{
+  return static_cast<Parameter*>( mParameters.get(n) );
 }
 
 
@@ -1369,36 +879,61 @@ Model::getParameter (unsigned int n) const
  * @return the Parameter in this Model with the given id or NULL if no such
  * Parameter exists.
  */
-LIBSBML_EXTERN
-Parameter*
-Model::getParameter (const std::string& sid) const
+const Parameter*
+Model::getParameter (const string& sid) const
 {
-  void* x = parameter.find( sid.c_str(), (ListItemComparator) ParameterIdCmp );
+  return static_cast<const Parameter*>( mParameters.get(sid) );
+}
 
 
-  return static_cast<Parameter*>(x);
+/**
+ * @return the Parameter in this Model with the given id or NULL if no such
+ * Parameter exists.
+ */
+Parameter*
+Model::getParameter (const string& sid)
+{
+  return static_cast<Parameter*>( mParameters.get(sid) );
 }
 
 
 /**
  * @return the nth Rule of this Model.
  */
-LIBSBML_EXTERN
-Rule*
+const Rule*
 Model::getRule (unsigned int n) const
 {
-  return static_cast<Rule*>( rule.get(n) );
+  return static_cast<const Rule*>( mRules.get(n) );
+}
+
+
+/**
+ * @return the nth Rule of this Model.
+ */
+Rule*
+Model::getRule (unsigned int n)
+{
+  return static_cast<Rule*>( mRules.get(n) );
 }
 
 
 /**
  * @return the nth Reaction of this Model.
  */
-LIBSBML_EXTERN
-Reaction*
+const Reaction*
 Model::getReaction (unsigned int n) const
 {
-  return static_cast<Reaction*>( reaction.get(n) );
+  return static_cast<const Reaction*>( mReactions.get(n) );
+}
+
+
+/**
+ * @return the nth Reaction of this Model.
+ */
+Reaction*
+Model::getReaction (unsigned int n)
+{
+  return static_cast<Reaction*>( mReactions.get(n) );
 }
 
 
@@ -1406,25 +941,41 @@ Model::getReaction (unsigned int n) const
  * @return the Reaction in this Model with the given id or NULL if no such
  * Reaction exists.
  */
-LIBSBML_EXTERN
-Reaction*
-Model::getReaction (const std::string& sid) const
+const Reaction*
+Model::getReaction (const string& sid) const
 {
-  void* x = reaction.find( sid.c_str(), (ListItemComparator) ReactionIdCmp );
+  return static_cast<const Reaction*>( mReactions.get(sid) );
+}
 
 
-  return static_cast<Reaction*>(x);
+/**
+ * @return the Reaction in this Model with the given id or NULL if no such
+ * Reaction exists.
+ */
+Reaction*
+Model::getReaction (const string& sid)
+{
+  return static_cast<Reaction*>( mReactions.get(sid) );
 }
 
 
 /**
  * @return the nth Event of this Model.
  */
-LIBSBML_EXTERN
-Event*
+const Event*
 Model::getEvent (unsigned int n) const
 {
-  return static_cast<Event*>( event.get(n) );
+  return static_cast<const Event*>( mEvents.get(n) );
+}
+
+
+/**
+ * @return the nth Event of this Model.
+ */
+Event*
+Model::getEvent (unsigned int n)
+{
+  return static_cast<Event*>( mEvents.get(n) );
 }
 
 
@@ -1432,58 +983,61 @@ Model::getEvent (unsigned int n) const
  * @return the Event in this Model with the given id or NULL if no such
  * Event exists.
  */
-LIBSBML_EXTERN
-Event*
-Model::getEvent (const std::string& sid) const
+const Event*
+Model::getEvent (const string& sid) const
 {
-  void* x = event.find( sid.c_str(), (ListItemComparator) EventIdCmp );
+  return static_cast<const Event*>( mEvents.get(sid) );
+}
 
 
-  return static_cast<Event*>(x);
+/**
+ * @return the Event in this Model with the given id or NULL if no such
+ * Event exists.
+ */
+Event*
+Model::getEvent (const string& sid)
+{
+  return static_cast<Event*>( mEvents.get(sid) );
 }
 
 
 /**
  * @return the number of FunctionDefinitions in this Model.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumFunctionDefinitions () const
 {
-  return functionDefinition.getNumItems();
+  return mFunctionDefinitions.size();
 }
 
 
 /**
  * @return the number of UnitDefinitions in this Model.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumUnitDefinitions () const
 {
-  return unitDefinition.getNumItems();
+  return mUnitDefinitions.size();
 }
 
 
 /**
  * @return the number of Compartments in this Model.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumCompartments () const
 {
-  return compartment.getNumItems();
+  return mCompartments.size();
 }
 
 
 /**
  * @return the number of Species in this Model.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumSpecies () const
 {
-  return species.getNumItems();
+  return mSpecies.size();
 }
 
 
@@ -1491,11 +1045,11 @@ Model::getNumSpecies () const
  * @return the number of Species in this Model with boundaryCondition set
  * to true.
  */
-LIBSBML_EXTERN
 unsigned int
-Model::getNumSpeciesWithBoundaryCondition () const
+Model::getNumSpeciesWithBoundaryCondition () const // FIXME
 {
-  return species.countIf( (ListItemPredicate) Species_getBoundaryCondition );
+  return 0;
+  //return species.countIf( (ListItemPredicate) Species_getBoundaryCondition );
 }
 
 
@@ -1503,44 +1057,40 @@ Model::getNumSpeciesWithBoundaryCondition () const
  * @return the number of Parameters in this Model.  Parameters defined in
  * KineticLaws are not included.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumParameters () const
 {
-  return parameter.getNumItems();
+  return mParameters.size();
 }
 
 
 /**
  * @return the number of Rules in this Model.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumRules () const
 {
-  return rule.getNumItems();
+  return mRules.size();
 }
 
 
 /**
  * @return the number of Reactions in this Model.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumReactions () const
 {
-  return reaction.getNumItems();
+  return mReactions.size();
 }
 
 
 /**
  * @return the number of Events in this Model.
  */
-LIBSBML_EXTERN
 unsigned int
 Model::getNumEvents () const
 {
-  return event.getNumItems();
+  return mEvents.size();
 }
 
 
@@ -1567,7 +1117,7 @@ Model::isBoolean (const ASTNode* node) const
 
   else if (node->getType() == AST_FUNCTION)
   {
-    FunctionDefinition* fd = getFunctionDefinition( node->getName() );
+    const FunctionDefinition* fd = getFunctionDefinition( node->getName() );
 
     if (fd && fd->isSetMath())
     {
@@ -1593,29 +1143,167 @@ Model::isBoolean (const ASTNode* node) const
 }
 
 
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Model::getTypeCode () const
+{
+  return SBML_MODEL;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+Model::getElementName () const
+{
+  static const string name = "model";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+Model::createObject (XMLInputStream& stream)
+{
+  const string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  if (name == "listOfFunctionDefinitions")
+  {
+    object = &mFunctionDefinitions;
+  }
+  else if ( name == "listOfUnitDefinitions" ) object = &mUnitDefinitions;
+  else if ( name == "listOfCompartments"    ) object = &mCompartments;
+  else if ( name == "listOfSpecies"         ) object = &mSpecies;
+  else if ( name == "listOfParameters"      ) object = &mParameters;
+  else if ( name == "listOfRules"           ) object = &mRules;
+  else if ( name == "listOfReactions"       ) object = &mReactions;
+  else if ( name == "listOfEvents"          ) object = &mEvents;
+
+  return object;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Model::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName  { use="optional" }  (L1v1, L1v2)
+  //   id: SId    { use="optional" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  attributes.readInto(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) attributes.readInto("name", mName);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes);
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+Model::writeAttributes (XMLOutputStream& stream)
+{
+  SBase::writeAttributes(stream);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  stream.writeAttribute(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) stream.writeAttribute("name", mName);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) SBML::writeSBOTerm(stream, mSBOTerm);
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+Model::writeElements (XMLOutputStream& stream)
+{
+  SBase::writeElements(stream);
+
+  if (getNumFunctionDefinitions() > 0)
+  {
+    mFunctionDefinitions.writeElements(stream);
+  }
+
+  if ( getNumUnitDefinitions() > 0 ) mUnitDefinitions.write(stream);
+  if ( getNumCompartments   () > 0 ) mCompartments   .write(stream);
+  if ( getNumSpecies        () > 0 ) mSpecies        .write(stream);
+  if ( getNumParameters     () > 0 ) mParameters     .write(stream);
+  if ( getNumRules          () > 0 ) mRules          .write(stream);
+  if ( getNumReactions      () > 0 ) mReactions      .write(stream);
+  if ( getNumEvents         () > 0 ) mEvents         .write(stream);
+}
+
+
 
 #ifdef USE_LAYOUT
 
 
 /**
- * Returns a reference to the ListOf object that holds the layouts.
+ * Returns the ListOf Layouts for this Model.
  */
-LIBSBML_EXTERN
-ListOf&
-Model::getListOfLayouts ()
-{
-  return layouts;
-}
-
-     
-/**
- * Returns a reference to the ListOf object that holds the layouts.
- */
-LIBSBML_EXTERN
-const ListOf&
+const ListOf*
 Model::getListOfLayouts () const
 {
-  return layouts;
+  return mLayouts;
+}
+
+
+/**
+ * Returns the ListOf Layouts for this Model.
+ */
+ListOf*
+Model::getListOfLayouts ()
+{
+  return &mLayouts;
 }
 
 
@@ -1623,22 +1311,31 @@ Model::getListOfLayouts () const
  * Returns the layout object that belongs to the given index. If the index
  * is invalid, NULL is returned.
  */
-LIBSBML_EXTERN
-Layout*
+const Layout*
 Model::getLayout (unsigned int index) const
 {
-  return static_cast<Layout*>( layouts.get(index) );
+  return static_cast<const Layout*>( mLayouts.get(index) );
+}
+
+
+/**
+ * Returns the layout object that belongs to the given index. If the index
+ * is invalid, NULL is returned.
+ */
+Layout*
+Model::getLayout (unsigned int index)
+{
+  return static_cast<Layout*>( mLayouts.get(index) );
 }
 
 
 /**
  * Adds a copy of the layout object to the list of layouts.
  */ 
-LIBSBML_EXTERN
 void
-Model::addLayout (Layout& layout)
+Model::addLayout (const Layout* layout)
 {
-  layouts.append(&layout);
+  mLayouts.append(layout);
 }
 
 
@@ -1646,15 +1343,13 @@ Model::addLayout (Layout& layout)
  * Creates a new layout object and adds it to the list of layout objects.
  * A reference to the newly created object is returned.
  */
-LIBSBML_EXTERN
-Layout&
+Layout*
 Model::createLayout ()
 {
   Layout* l = new Layout();
+  mLayout.appendAndOwn(l);
 
-
-  addLayout(*l);
-  return *l;
+  return l;
 }
 
 
@@ -1668,37 +1363,31 @@ Model::createLayout ()
  */
 LIBSBML_EXTERN
 Model_t *
-Model_create (void)
+Model_create ()
 {
-  return new(std::nothrow) Model;
+  return new(nothrow) Model;
 }
 
 
 /**
  * Creates a new Model with the given id and returns a pointer to it.
- * This convenience function is functionally equivalent to:
- *
- *   Model_setId(Model_create(), sid);
  */
 LIBSBML_EXTERN
 Model_t *
 Model_createWith (const char *sid)
 {
-  return new(std::nothrow) Model(sid ? sid : "");
+  return new(nothrow) Model(sid ? sid : "");
 }
 
 
 /**
- * Creates a new Model with the given name and returns a pointer to it.
- * This convenience function is functionally equivalent to:
- *
- *   Model_setName(Model_create(), string);
+ * @return a (deep) copy of this Model.
  */
 LIBSBML_EXTERN
 Model_t *
-Model_createWithName (const char *string)
+Model_clone (const Model_t *m)
 {
-  return new(std::nothrow) Model("", string ? string : "");
+  return static_cast<Model*>( m->clone() );
 }
 
 
@@ -1709,7 +1398,7 @@ LIBSBML_EXTERN
 void
 Model_free (Model_t *m)
 {
-  delete static_cast<Model*>(m);
+  delete m;
 }
 
 
@@ -1720,10 +1409,7 @@ LIBSBML_EXTERN
 const char *
 Model_getId (const Model_t *m)
 {
-  const Model* x = static_cast<const Model*>(m);
-
-
-  return x->isSetId() ? x->getId().c_str() : NULL;
+  return m->isSetId() ? m->getId().c_str() : NULL;
 }
 
 
@@ -1734,112 +1420,56 @@ LIBSBML_EXTERN
 const char *
 Model_getName (const Model_t *m)
 {
-  const Model* x = static_cast<const Model*>(m);
-
-
-  return x->isSetName() ? x->getName().c_str() : NULL;
+  return m->isSetName() ? m->getName().c_str() : NULL;
 }
 
 
 /**
- * @return the SBML Level of this Model.
+ * @return the sboTerm of this Reaction as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
  */
 LIBSBML_EXTERN
-unsigned int
-Model_getLevel (const Model_t *m)
+int
+Model_getSBOTerm (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getLevel();
+  return m->getSBOTerm();
 }
 
 
 /**
- * @return the SBML Level of this Model.
- */
-LIBSBML_EXTERN
-unsigned int
-Model_getVersion (const Model_t *m)
-{
-  return static_cast<const Model*>(m)->getVersion();
-}
-
-
-/**
- * @return 1 if the id of this Model has been set, 0 otherwise.
+ * @return true (non-zero) if the id of this Model has been set, false (0)
+ * otherwise.
  */
 LIBSBML_EXTERN
 int
 Model_isSetId (const Model_t *m)
 {
-  return (int) static_cast<const Model*>(m)->isSetId();
+  return static_cast<int>( m->isSetId() );
 }
 
 
 /**
- * @return 1 if the name of this Model has been set, 0 otherwise.
+ * @return true (non-zero) if the name of this Model has been set, false
+ * (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 Model_isSetName (const Model_t *m)
 {
-  return (int) static_cast<const Model*>(m)->isSetName();
+  return static_cast<int>( m->isSetName() );
 }
 
 
 /**
- * Moves the id field to the name field for this Model and all of its
- * contituent UnitDefinitions, Compartments, Species, Parameters, and
- * Reactions.  This method is used for converting from L2 to L1.
- *
- * NOTE: Any object with its name field already set will be skipped.
- *
- * @see moveIdToName
+ * @return true (non-zero) if the sboTerm of this Model has been set, false
+ * (0) otherwise.
  */
 LIBSBML_EXTERN
-void
-Model_moveAllIdsToNames (Model_t *m)
+int
+Model_isSetSBOTerm (const Model_t *m)
 {
-  static_cast<Model*>(m)->moveAllIdsToNames();
-}
-
-
-/**
- * Moves the name field to the id field for this Model and all of its
- * contituent UnitDefinitions, Compartments, Species, Parameters, and
- * Reactions.  This method is used for converting from L1 to L2.
- *
- * NOTE: Any object with its id field already set will be skipped.
- *
- * @see moveNameToId
- */
-LIBSBML_EXTERN
-void
-Model_moveAllNamesToIds (Model_t *m)
-{
-  static_cast<Model*>(m)->moveAllNamesToIds();
-}
-
-
-/**
- * Moves the id field of this Model to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
- */
-LIBSBML_EXTERN
-void
-Model_moveIdToName (Model_t *m)
-{
-  static_cast<Model*>(m)->moveIdToName();
-}
-
-
-/**
- * Moves the name field of this Model to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
- */
-LIBSBML_EXTERN
-void
-Model_moveNameToId (Model_t *m)
-{
-  static_cast<Model*>(m)->moveNameToId();
+  return static_cast<int>( m->isSetSBOTerm() );
 }
 
 
@@ -1850,86 +1480,174 @@ LIBSBML_EXTERN
 void
 Model_setId (Model_t *m, const char *sid)
 {
-  if (sid == NULL)
-  {
-    static_cast<Model*>(m)->unsetId();
-  }
-  else
-  {
-    static_cast<Model*>(m)->setId(sid);
-  }
+  (sid == NULL) ? m->unsetId() : m->setId(sid);
 }
 
 
 /**
- * Sets the name of this Model to a copy of string (SName in L1).
+ * Sets the name of this Model to a copy of name.
  */
 LIBSBML_EXTERN
 void
-Model_setName (Model_t *m, const char *string)
+Model_setName (Model_t *m, const char *name)
 {
-  if (string == NULL)
-  {
-    static_cast<Model*>(m)->unsetName();
-  }
-  else
-  {
-    static_cast<Model*>(m)->setName(string);
-  }
+  (name == NULL) ? m->unsetName() : m->setName(name);
 }
 
 
 /**
- * Unsets the id of this Model.  This is equivalent to:
- * safe_free(m->id); m->id = NULL;
+ * Sets the sboTerm field of this Model to value.
+ */
+LIBSBML_EXTERN
+void
+Model_setSBOTerm (Model_t *m, int sboTerm)
+{
+  m->setSBOTerm(sboTerm);
+}
+
+
+/**
+ * Unsets the id of this Model.
  */
 LIBSBML_EXTERN
 void
 Model_unsetId (Model_t *m)
 {
-  static_cast<Model*>(m)->unsetId();
+  m->unsetId();
 }
 
 
 /**
- * Unsets the name of this Model.  This is equivalent to:
- * safe_free(m->name); m->name = NULL;
+ * Unsets the name of this Model.
  */
 LIBSBML_EXTERN
 void
 Model_unsetName (Model_t *m)
 {
-  static_cast<Model*>(m)->unsetName();
+  m->unsetName();
+}
+
+
+/**
+ * Unsets the sboTerm of this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_unsetSBOTerm (Model_t *m)
+{
+  m->unsetSBOTerm();
+}
+
+
+/**
+ * Adds a copy of the given FunctionDefinition to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addFunctionDefinition (Model_t *m, const FunctionDefinition_t *fd)
+{
+  if (fd != NULL) m->addFunctionDefinition(fd);
+}
+
+
+/**
+ * Adds a copy of the given UnitDefinition to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud)
+{
+  if (ud != NULL) m->addUnitDefinition(ud);
+}
+
+
+/**
+ * Adds a copy of the given Compartment to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addCompartment (Model_t *m, const Compartment_t *c)
+{
+  if (c != NULL) m->addCompartment(c);
+}
+
+
+/**
+ * Adds a copy of the given Species to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addSpecies (Model_t *m, const Species_t *s)
+{
+  if (s != NULL) m->addSpecies(s);
+}
+
+
+/**
+ * Adds a copy of the given Parameter to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addParameter (Model_t *m, const Parameter_t *p)
+{
+  if (p != NULL) m->addParameter(p);
+}
+
+
+/**
+ * Adds a copy of the given Rule to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addRule (Model_t *m, const Rule_t *r)
+{
+  if (r != NULL) m->addRule(r);
+}
+
+
+/**
+ * Adds a copy of the given Reaction to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addReaction (Model_t *m, const Reaction_t *r)
+{
+  if (r != NULL) m->addReaction(r);
+}
+
+
+/**
+ * Adds a copy of the given Event to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addEvent (Model_t *m, const Event_t *e)
+{
+  if (e != NULL) m->addEvent(e);
 }
 
 
 /**
  * Creates a new FunctionDefinition inside this Model and returns a pointer
- * to it.  This covenience function is functionally equivalent to:
- *
- *   Model_addFunctionDefinition(m, FunctionDefinition_create());
+ * to it.
  */
 LIBSBML_EXTERN
 FunctionDefinition_t *
 Model_createFunctionDefinition (Model_t *m)
 {
-  return (FunctionDefinition_t *) &
-         static_cast<Model*>(m)->createFunctionDefinition();
+  return m->createFunctionDefinition();
 }
 
 
 /**
  * Creates a new UnitDefinition inside this Model and returns a pointer to
- * it.  This covenience function is functionally equivalent to:
- *
- *   Model_addUnitDefinition(m, UnitDefinition_create());
+ * it.
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
 Model_createUnitDefinition (Model_t *m)
 {
-  return (UnitDefinition_t *) &
-         static_cast<Model*>(m)->createUnitDefinition();
+  return m->createUnitDefinition();
 }
 
 
@@ -1944,156 +1662,86 @@ LIBSBML_EXTERN
 Unit_t *
 Model_createUnit (Model_t *m)
 {
-  return (Unit_t *) static_cast<Model*>(m)->createUnit();
+  return m->createUnit();
 }
 
 
 /**
  * Creates a new Compartment inside this Model and returns a pointer to it.
- * This covenience function is functionally equivalent to:
- *
- *   Model_addCompartment(m, Compartment_create());
  */
 LIBSBML_EXTERN
 Compartment_t *
 Model_createCompartment (Model_t *m)
 {
-  return (Compartment_t *) & static_cast<Model*>(m)->createCompartment();
+  return m->createCompartment();
 }
 
 
 /**
  * Creates a new Species inside this Model and returns a pointer to it.
- * This covenience function is functionally equivalent to:
- *
- *   Model_addSpecies(m, Species_create());
  */
 LIBSBML_EXTERN
 Species_t *
 Model_createSpecies (Model_t *m)
 {
-  return (Species_t *) & static_cast<Model*>(m)->createSpecies();
+  return m->createSpecies();
 }
 
 
 /**
  * Creates a new Parameter inside this Model and returns a pointer to it.
- * This covenience function is functionally equivalent to:
- *
- *   Model_addParameter(m, Parameter_create());
  */
 LIBSBML_EXTERN
 Parameter_t *
 Model_createParameter (Model_t *m)
 {
-  return (Parameter_t *) & static_cast<Model*>(m)->createParameter();
-}
-
-
-/**
- * Creates a new AssignmentRule inside this Model and returns a pointer to
- * it.  This covenience function is functionally equivalent to:
- *
- *   Model_addRule(m, AssignmentRule_create());
- *
- * (L2 only)
- */
-LIBSBML_EXTERN
-AssignmentRule_t *
-Model_createAssignmentRule (Model_t *m)
-{
-  return (AssignmentRule_t *) &
-         static_cast<Model*>(m)->createAssignmentRule();
-}
-
-
-/**
- * Creates a new RateRule inside this Model and returns a pointer to it.
- * This covenience function is functionally equivalent to:
- *
- *   Model_addRule(m, RateRule_create());
- *
- * (L2 only)
- */
-LIBSBML_EXTERN
-RateRule_t *
-Model_createRateRule (Model_t *m)
-{
-  return (RateRule_t *) & static_cast<Model*>(m)->createRateRule();
+  return m->createParameter();
 }
 
 
 /**
  * Creates a new AlgebraicRule inside this Model and returns a pointer to
- * it.  This covenience function is functionally equivalent to:
- *
- *   Model_addRule(m, AlgebraicRule_create());
+ * it.
  */
 LIBSBML_EXTERN
 AlgebraicRule_t *
 Model_createAlgebraicRule (Model_t *m)
 {
-  return (AlgebraicRule_t *) &
-         static_cast<Model*>(m)->createAlgebraicRule();
+  return m->createAlgebraicRule();
 }
 
 
 /**
- * Creates a new CompartmentVolumeRule inside this Model and returns a
- * pointer to it.  This covenience function is functionally equivalent to:
- *
- *   Model_addRule(m, CompartmentVolumeRule_create());
+ * Creates a new AssignmentRule inside this Model and returns a pointer to
+ * it.
  */
 LIBSBML_EXTERN
-CompartmentVolumeRule_t *
-Model_createCompartmentVolumeRule (Model_t *m)
+AssignmentRule_t *
+Model_createAssignmentRule (Model_t *m)
 {
-  return (CompartmentVolumeRule_t *) &
-         static_cast<Model*>(m)->createCompartmentVolumeRule();
+  return m->createAssignmentRule();
 }
 
 
 /**
- * Creates a new ParameterRule inside this Model and returns a pointer to
- * it.  This covenience function is functionally equivalent to:
- *
- *   Model_addRule(m, ParameterRule_create());
+ * Creates a new RateRule inside this Model and returns a pointer to it.
  */
 LIBSBML_EXTERN
-ParameterRule_t *
-Model_createParameterRule (Model_t *m)
+RateRule_t *
+Model_createRateRule (Model_t *m)
 {
-  return (ParameterRule_t *) &
-         static_cast<Model*>(m)->createParameterRule();
-}
-
-
-/**
- * Creates a new SpeciesConcentrationRule inside this Model and returns a
- * pointer to it.  This covenience function is functionally equivalent to:
- *
- *   Model_addRule(m, SpeciesConcentrationRule_create());
- */
-LIBSBML_EXTERN
-SpeciesConcentrationRule_t *
-Model_createSpeciesConcentrationRule (Model_t *m)
-{
-  return (SpeciesConcentrationRule_t *) &
-         static_cast<Model*>(m)->createSpeciesConcentrationRule();
+  return m->createRateRule();
 }
 
 
 /**
  * Creates a new Reaction inside this Model and returns a pointer to it.
- * This covenience function is functionally equivalent to:
- *
- *   Model_addReaction(m, Reaction_create());
  */
 LIBSBML_EXTERN
 Reaction_t *
 Model_createReaction (Model_t *m)
 {
-  return (Reaction_t *) & static_cast<Model*>(m)->createReaction();
+  return m->createReaction();
 }
 
 
@@ -2109,7 +1757,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createReactant (Model_t *m)
 {
-  return (SpeciesReference_t *) static_cast<Model*>(m)->createReactant();
+  return m->createReactant();
 }
 
 
@@ -2125,7 +1773,7 @@ LIBSBML_EXTERN
 SpeciesReference_t *
 Model_createProduct (Model_t *m)
 {
-  return (SpeciesReference_t *) static_cast<Model*>(m)->createProduct();
+  return m->createProduct();
 }
 
 
@@ -2138,11 +1786,10 @@ Model_createProduct (Model_t *m)
  * ModifierSpeciesReference is not created and NULL is returned.
  */
 LIBSBML_EXTERN
-ModifierSpeciesReference_t *
+SpeciesReference_t *
 Model_createModifier (Model_t *m)
 {
-  return (ModifierSpeciesReference_t *)
-         static_cast<Model*>(m)->createModifier();
+  return static_cast<SpeciesReference_t*>( m->createModifier() );
 }
 
 
@@ -2158,7 +1805,7 @@ LIBSBML_EXTERN
 KineticLaw_t *
 Model_createKineticLaw (Model_t *m)
 {
-  return (KineticLaw_t *) static_cast<Model*>(m)->createKineticLaw();
+  return m->createKineticLaw();
 }
 
 
@@ -2174,22 +1821,18 @@ LIBSBML_EXTERN
 Parameter_t *
 Model_createKineticLawParameter (Model_t *m)
 {
-  return (Parameter_t *)
-         static_cast<Model*>(m)->createKineticLawParameter();
+  return m->createKineticLawParameter();
 }
 
 
 /**
  * Creates a new Event inside this Model and returns a pointer to it.
- * This covenience function is functionally equivalent to:
- *
- *   Model_addEvent(m, Event_create());
  */
 LIBSBML_EXTERN
 Event_t *
 Model_createEvent (Model_t *m)
 {
-  return (Event_t *) & static_cast<Model*>(m)->createEvent();
+  return m->createEvent();
 }
 
 
@@ -2204,129 +1847,10 @@ LIBSBML_EXTERN
 EventAssignment_t *
 Model_createEventAssignment (Model_t *m)
 {
-  return (EventAssignment_t *)
-         static_cast<Model*>(m)->createEventAssignment();
+  return m->createEventAssignment();
 }
 
 
-/**
- * Adds the given FunctionDefinition to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addFunctionDefinition (Model_t *m, FunctionDefinition_t *fd)
-{
-  if (fd != NULL)
-  {
-    FunctionDefinition* x = static_cast<FunctionDefinition*>(fd);
-    static_cast<Model*>(m)->addFunctionDefinition(*x);
-  }
-}
-
-
-/**
- * Adds the given UnitDefinition to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addUnitDefinition (Model_t *m, UnitDefinition_t *ud)
-{
-  if (ud != NULL)
-  {
-    UnitDefinition* x = static_cast<UnitDefinition*>(ud);
-    static_cast<Model*>(m)->addUnitDefinition(*x);
-  }
-}
-
-
-/**
- * Adds the given Compartment to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addCompartment (Model_t *m, Compartment_t *c)
-{
-  if (c != NULL)
-  {
-    Compartment* x = static_cast<Compartment*>(c);
-    static_cast<Model*>(m)->addCompartment(*x);
-  }
-}
-
-
-/**
- * Adds the given Species to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addSpecies (Model_t *m, Species_t *s)
-{
-  if (s != NULL)
-  {
-    Species* x = static_cast<Species*>(s);
-    static_cast<Model*>(m)->addSpecies(*x);
-  }
-}
-
-
-/**
- * Adds the given Parameter to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addParameter (Model_t *m, Parameter_t *p)
-{
-  if (p != NULL)
-  {
-    Parameter* x = static_cast<Parameter*>(p);
-    static_cast<Model*>(m)->addParameter(*x);
-  }
-}
-
-
-/**
- * Adds the given Rule to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addRule (Model_t *m, Rule_t *r)
-{
-  if (r != NULL)
-  {
-    Rule* x = static_cast<Rule*>(r);
-    static_cast<Model*>(m)->addRule(*x);
-  }
-}
-
-
-/**
- * Adds the given Reaction to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addReaction (Model_t *m, Reaction_t *r)
-{
-  if (r != NULL)
-  {
-    Reaction* x = static_cast<Reaction*>(r);
-    static_cast<Model*>(m)->addReaction(*x);
-  }
-}
-
-
-/**
- * Adds the given Event to this Model.
- */
-LIBSBML_EXTERN
-void
-Model_addEvent (Model_t *m, Event_t *e)
-{
-  if (e != NULL)
-  {
-    Event* x = static_cast<Event*>(e);
-    static_cast<Model*>(m)->addEvent(*x);
-  }
-}
 
 
 /**
@@ -2336,8 +1860,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfFunctionDefinitions (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfFunctionDefinitions();
+  return m->getListOfFunctionDefinitions();
 }
 
 
@@ -2348,8 +1871,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfUnitDefinitions (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfUnitDefinitions();
+  return m->getListOfUnitDefinitions();
 }
 
 
@@ -2360,8 +1882,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfCompartments (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfCompartments();
+  return m->getListOfCompartments();
 }
 
 
@@ -2372,8 +1893,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfSpecies (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfSpecies();
+  return m->getListOfSpecies();
 }
 
 
@@ -2384,8 +1904,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfParameters (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfParameters();
+  return m->getListOfParameters();
 }
 
 
@@ -2396,8 +1915,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfRules (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfRules();
+  return m->getListOfRules();
 }
 
 
@@ -2408,8 +1926,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfReactions (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfReactions();
+  return m->getListOfReactions();
 }
 
 
@@ -2420,21 +1937,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfEvents (Model_t *m)
 {
-  return (ListOf_t *) &
-         static_cast<Model*>(m)->getListOfEvents();
-}
-
-
-/**
- * @return the list of items of the given type for this Model.  If the
- * given SBMLTypeCode does not correspond to a ListOf contained in SBML
- * Models, NULL is returned.
- */
-ListOf_t *
-Model_getListOfByTypecode (Model_t *m, SBMLTypeCode_t type)
-{
-  return (ListOf_t *)
-         static_cast<Model*>(m)->getListOfByTypecode(type);
+  return m->getListOfEvents();
 }
 
 
@@ -2443,9 +1946,9 @@ Model_getListOfByTypecode (Model_t *m, SBMLTypeCode_t type)
  */
 LIBSBML_EXTERN
 FunctionDefinition_t *
-Model_getFunctionDefinition (const Model_t *m, unsigned int n)
+Model_getFunctionDefinition (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getFunctionDefinition(n);
+  return m->getFunctionDefinition(n);
 }
 
 
@@ -2455,9 +1958,9 @@ Model_getFunctionDefinition (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 FunctionDefinition_t *
-Model_getFunctionDefinitionById (const Model_t *m, const char *sid)
+Model_getFunctionDefinitionById (Model_t *m, const char *sid)
 {
-  return static_cast<const Model*>(m)->getFunctionDefinition(sid ? sid : "");
+  return (sid != NULL) ? m->getFunctionDefinition(sid) : NULL;
 }
 
 
@@ -2466,9 +1969,9 @@ Model_getFunctionDefinitionById (const Model_t *m, const char *sid)
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
-Model_getUnitDefinition (const Model_t *m, unsigned int n)
+Model_getUnitDefinition (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getUnitDefinition(n);
+  return m->getUnitDefinition(n);
 }
 
 
@@ -2478,9 +1981,9 @@ Model_getUnitDefinition (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
-Model_getUnitDefinitionById (const Model_t *m, const char *sid)
+Model_getUnitDefinitionById (Model_t *m, const char *sid)
 {
-  return static_cast<const Model*>(m)->getUnitDefinition(sid ? sid : "");
+  return (sid != NULL) ? m->getUnitDefinition(sid) : NULL;
 }
 
 
@@ -2489,9 +1992,9 @@ Model_getUnitDefinitionById (const Model_t *m, const char *sid)
  */
 LIBSBML_EXTERN
 Compartment_t *
-Model_getCompartment (const Model_t *m, unsigned int n)
+Model_getCompartment (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getCompartment(n);
+  return m->getCompartment(n);
 }
 
 
@@ -2501,9 +2004,9 @@ Model_getCompartment (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 Compartment_t *
-Model_getCompartmentById (const Model_t *m, const char *sid)
+Model_getCompartmentById (Model_t *m, const char *sid)
 {
-  return static_cast<const Model*>(m)->getCompartment(sid ? sid : "");
+  return (sid != NULL) ? m->getCompartment(sid) : NULL;
 }
 
 
@@ -2512,9 +2015,9 @@ Model_getCompartmentById (const Model_t *m, const char *sid)
  */
 LIBSBML_EXTERN
 Species_t *
-Model_getSpecies (const Model_t *m, unsigned int n)
+Model_getSpecies (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getSpecies(n);
+  return m->getSpecies(n);
 }
 
 
@@ -2524,9 +2027,9 @@ Model_getSpecies (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 Species_t *
-Model_getSpeciesById (const Model_t *m, const char *sid)
+Model_getSpeciesById (Model_t *m, const char *sid)
 {
-  return static_cast<const Model*>(m)->getSpecies(sid ? sid : "");
+  return (sid != NULL) ? m->getSpecies(sid) : NULL;
 }
 
 
@@ -2535,9 +2038,9 @@ Model_getSpeciesById (const Model_t *m, const char *sid)
  */
 LIBSBML_EXTERN
 Parameter_t *
-Model_getParameter (const Model_t *m, unsigned int n)
+Model_getParameter (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getParameter(n);
+  return m->getParameter(n);
 }
 
 
@@ -2547,9 +2050,9 @@ Model_getParameter (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 Parameter_t *
-Model_getParameterById (const Model_t *m, const char *sid)
+Model_getParameterById (Model_t *m, const char *sid)
 {
-  return static_cast<const Model*>(m)->getParameter(sid ? sid : "");
+  return (sid != NULL) ? m->getParameter(sid) : NULL;
 }
 
 
@@ -2558,9 +2061,9 @@ Model_getParameterById (const Model_t *m, const char *sid)
  */
 LIBSBML_EXTERN
 Rule_t *
-Model_getRule (const Model_t *m, unsigned int n)
+Model_getRule (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getRule(n);
+  return m->getRule(n);
 }
 
 
@@ -2569,9 +2072,9 @@ Model_getRule (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 Reaction_t *
-Model_getReaction (const Model_t *m, unsigned int n)
+Model_getReaction (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getReaction(n);
+  return m->getReaction(n);
 }
 
 
@@ -2581,9 +2084,9 @@ Model_getReaction (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 Reaction_t *
-Model_getReactionById (const Model_t *m, const char *sid)
+Model_getReactionById (Model_t *m, const char *sid)
 {
-  return static_cast<const Model*>(m)->getReaction(sid ? sid : "");
+  return (sid != NULL) ? m->getReaction(sid) : NULL;
 }
 
 
@@ -2592,9 +2095,9 @@ Model_getReactionById (const Model_t *m, const char *sid)
  */
 LIBSBML_EXTERN
 Event_t *
-Model_getEvent (const Model_t *m, unsigned int n)
+Model_getEvent (Model_t *m, unsigned int n)
 {
-  return static_cast<const Model*>(m)->getEvent(n);
+  return m->getEvent(n);
 }
 
 
@@ -2604,9 +2107,9 @@ Model_getEvent (const Model_t *m, unsigned int n)
  */
 LIBSBML_EXTERN
 Event_t *
-Model_getEventById (const Model_t *m, const char *sid)
+Model_getEventById (Model_t *m, const char *sid)
 {
-  return static_cast<const Model*>(m)->getEvent(sid ? sid : "");
+  return (sid != NULL) ? m->getEvent(sid) : NULL;
 }
 
 
@@ -2617,7 +2120,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumFunctionDefinitions (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumFunctionDefinitions();
+  return m->getNumFunctionDefinitions();
 }
 
 
@@ -2628,7 +2131,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumUnitDefinitions (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumUnitDefinitions();
+  return m->getNumUnitDefinitions();
 }
 
 
@@ -2639,7 +2142,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumCompartments (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumCompartments();
+  return m->getNumCompartments();
 }
 
 
@@ -2650,7 +2153,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumSpecies (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumSpecies();
+  return m->getNumSpecies();
 }
 
 
@@ -2662,7 +2165,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumSpeciesWithBoundaryCondition (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumSpeciesWithBoundaryCondition();
+  return m->getNumSpeciesWithBoundaryCondition();
 }
 
 
@@ -2674,7 +2177,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumParameters (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumParameters();
+  return m->getNumParameters();
 }
 
 
@@ -2685,7 +2188,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumRules (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumRules();
+  return m->getNumRules();
 }
 
 
@@ -2696,7 +2199,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumReactions (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumReactions();
+  return m->getNumReactions();
 }
 
 
@@ -2707,7 +2210,7 @@ LIBSBML_EXTERN
 unsigned int
 Model_getNumEvents (const Model_t *m)
 {
-  return static_cast<const Model*>(m)->getNumEvents();
+  return m->getNumEvents();
 }
 
 
@@ -2722,7 +2225,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfLayouts (Model_t *m)
 {
-  return & m->getListOfLayouts();
+  return m->getListOfLayouts();
 }
 
 
@@ -2743,9 +2246,9 @@ Model_getLayout (Model_t *m, unsigned int index)
  */ 
 LIBSBML_EXTERN
 void 
-Model_addLayout (Model_t *m, Layout_t *layout)
+Model_addLayout (Model_t *m, const Layout_t *layout)
 {
-  m->addLayout(*layout);
+  m->addLayout(layout);
 }
 
 
@@ -2757,7 +2260,7 @@ LIBSBML_EXTERN
 Layout_t *
 Model_createLayout (Model_t *m)
 {
-  return & m->createLayout();
+  return m->createLayout();
 }
 
 

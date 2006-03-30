@@ -72,18 +72,9 @@
 
 #include "Reaction.h"
 #include "KineticLaw.h"
-#include "SimpleSpeciesReference.h"
-#include "ModifierSpeciesReference.h"
 #include "SpeciesReference.h"
 
-#include "RuleType.h"
 #include "Rule.h"
-#include "AssignmentRule.h"
-#include "AlgebraicRule.h"
-#include "RateRule.h"
-#include "CompartmentVolumeRule.h"
-#include "ParameterRule.h"
-#include "SpeciesConcentrationRule.h"
 
 #include "Event.h"
 #include "EventAssignment.h"

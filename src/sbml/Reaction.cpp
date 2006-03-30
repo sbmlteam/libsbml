@@ -6,85 +6,80 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
+#include "SBML.h"
 #include "SBMLVisitor.h"
 #include "SpeciesReference.h"
-#include "ModifierSpeciesReference.h"
 #include "KineticLaw.h"
 
 #include "Reaction.h"
+
+
+using namespace std;
 
 
 /**
  * Creates a new Reaction, optionally with its id, KineticLaw, and
  * reversible attributes set.
  */
-LIBSBML_EXTERN
-Reaction::Reaction (   const std::string&  id
-                     , KineticLaw*         kl
-                     , bool                reversible ) :
-    SBase()
-  , id        ( id         )
-  , kineticLaw( kl         )
-  , reversible( reversible )
+Reaction::Reaction (const string& id, const KineticLaw* kl, bool reversible) :
+    SBase      ( id         )
+  , mKineticLaw( 0          )
+  , mReversible( reversible )
+  , mFast      ( false      )
+  , mSBOTerm   ( -1         )
+  , mIsSetFast ( false      )
 {
-  init(SBML_REACTION);
+  if (kl) mKineticLaw = static_cast<KineticLaw*>( kl->clone() );
 
-  // See comment block in initDefaults() for rationale.
-  fast       = false;
-  isSet.fast = 0;
+  mReactants.setType( ListOfSpeciesReferences::Reactant );
+  mProducts .setType( ListOfSpeciesReferences::Product  );
+  mModifiers.setType( ListOfSpeciesReferences::Modifier );
+}
+
+
+/**
+ * Copies this Reaction.
+ */
+Reaction::Reaction (const Reaction& rhs) :
+    mKineticLaw( 0               )
+  , mReversible( rhs.mReversible )
+  , mFast      ( rhs.mFast       )
+  , mSBOTerm   ( rhs.mSBOTerm    )
+  , mIsSetFast ( rhs.mIsSetFast  )
+{
+  if (rhs.mKineticLaw)
+  {
+    mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
+  }
 }
 
 
 /**
  * Destroys this Reaction.
  */
-LIBSBML_EXTERN
 Reaction::~Reaction ()
 {
-  delete kineticLaw;
+  delete mKineticLaw;
 }
 
 
@@ -95,62 +90,30 @@ Reaction::~Reaction ()
  * whether or not the Visitor would like to visit the Model's next
  * Reaction (if available).
  */
-LIBSBML_EXTERN
 bool
 Reaction::accept (SBMLVisitor& v) const
 {
-  unsigned int n;
-  bool next, result;
+  bool result = v.visit(*this);
 
+  mReactants.accept(v);
+  mProducts .accept(v);
+  mModifiers.accept(v);
 
-  result = v.visit(*this);
-
-  //
-  // Reactant
-  //
-
-  getListOfReactants().accept(v, SBML_SPECIES_REFERENCE);
-
-  for (n = 0, next = true; n < getNumReactants() && next; n++)
-  {
-    next = getReactant(n)->accept(v);
-  }
-
-  v.leave(getListOfReactants(), SBML_SPECIES_REFERENCE);
-
-
-  //
-  // Product
-  //
-
-  getListOfProducts().accept(v, SBML_SPECIES_REFERENCE);
-
-  for (n = 0, next = true; n < getNumProducts() && next; n++)
-  {
-    next = getProduct(n)->accept(v);
-  }
-
-  v.leave(getListOfProducts(), SBML_SPECIES_REFERENCE);
-
-
-  //
-  // Modifier
-  //
-
-  getListOfModifiers().accept(v, SBML_MODIFIER_SPECIES_REFERENCE);
-
-  for (n = 0, next = true; n < getNumModifiers() && next; n++)
-  {
-    next = getModifier(n)->accept(v);
-  }
-
-  v.leave(getListOfModifiers(), SBML_MODIFIER_SPECIES_REFERENCE);
-
-  if (kineticLaw != NULL) kineticLaw->accept(v);
+  if (mKineticLaw) mKineticLaw->accept(v);
 
   v.leave(*this);
 
   return result;
+}
+
+
+/**
+ * @return a (deep) copy of this Reaction.
+ */
+SBase*
+Reaction::clone () const
+{
+  return new Reaction(*this);
 }
 
 
@@ -160,105 +123,262 @@ Reaction::accept (SBMLVisitor& v) const
  *   - reversible = true
  *   - fast       = false  (L1 only)
  */
-LIBSBML_EXTERN
 void
 Reaction::initDefaults ()
 {
   setReversible(true);
 
-  /**
-   * Set fast explicitly and make sure isSet.fast is false.  This preserves
-   * backward compatibility with L1 where fast defaulted to false and such
-   * Reaction_isSetFast() was not available.  E.g.:
-   *
-   *   Level 1                          Level 2
-   *   ---------------------------      -------------------------------
-   *   r = Reaction_create();           r = Reaction_create();
-   *   Reaction_getFast(r)   == false;  Reaction_getFast(r)   == false, but
-   *   Reaction_isSetFast(r) == N/A     Reaction_isSetFast(r) == 0
-   */
-  fast       = false;
-  isSet.fast = 0;
-}
-
-
-/**
- * @return the id of this Reaction.
- */
-LIBSBML_EXTERN
-const std::string&
-Reaction::getId () const
-{
-  return id;
-}
-
-
-/**
- * @return the name of this Reaction.
- */
-LIBSBML_EXTERN
-const std::string&
-Reaction::getName () const
-{
-  return name;
+  //
+  // Set fast explicitly and make sure mIsSetFast is false.  This preserves
+  // backward compatibility with L1 where fast defaulted to false and such
+  // Reaction.isSetFast() was not available.  E.g.:
+  //
+  //   Level 1                          Level 2
+  //   ---------------------------      -------------------------------
+  //   Reaction r;                      Reaction r;
+  //   r.getFast()   == false;          r.getFast()   == false, but
+  //   r.isSetFast() == N/A             r.isSetFast() == false
+  //
+  mFast      = false;
+  mIsSetFast = false;
 }
 
 
 /**
  * @return the KineticLaw of this Reaction.
  */
-LIBSBML_EXTERN
-KineticLaw*
+const KineticLaw*
 Reaction::getKineticLaw () const
 {
-  return kineticLaw;
+  return mKineticLaw;
+}
+
+
+/**
+ * @return the KineticLaw of this Reaction.
+ */
+KineticLaw*
+Reaction::getKineticLaw ()
+{
+  return mKineticLaw;
 }
 
 
 /**
  * @return the reversible status of this Reaction.
  */
-LIBSBML_EXTERN
 bool
 Reaction::getReversible () const
 {
-  return reversible;
+  return mReversible;
 }
 
 
 /**
  * @return the fast status of this Reaction.
  */
-LIBSBML_EXTERN
 bool
 Reaction::getFast () const
 {
-  return fast;
+  return mFast;
 }
 
 
 /**
- * @return true if the id of this Reaction has been set, false otherwise.
+ * @return the sboTerm of this Reaction as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
  */
-LIBSBML_EXTERN
-bool
-Reaction::isSetId () const
+int
+Reaction::getSBOTerm () const
 {
-  return ! id.empty();
+  return mSBOTerm;
 }
 
 
 /**
- * @return true if the name of this Reaction has been set, false otherwise.
- *
- * In SBML L1, a Reaction name is required and therefore <b>should always
- * be set</b>.  In L2, name is optional and as such may or may not be set.
+ * @return the list of Reactants for this Reaction.
  */
-LIBSBML_EXTERN
-bool
-Reaction::isSetName () const
+const ListOfSpeciesReferences*
+Reaction::getListOfReactants () const
 {
-  return ! name.empty();
+  return &mReactants;
+}
+
+
+/**
+ * @return the list of Reactants for this Reaction.
+ */
+ListOfSpeciesReferences*
+Reaction::getListOfReactants ()
+{
+  return &mReactants;
+}
+
+
+/**
+ * @return the list of Products for this Reaction.
+ */
+const ListOfSpeciesReferences*
+Reaction::getListOfProducts () const
+{
+  return &mProducts;
+}
+
+
+/**
+ * @return the list of Products for this Reaction.
+ */
+ListOfSpeciesReferences*
+Reaction::getListOfProducts ()
+{
+  return &mProducts;
+}
+
+
+/**
+ * @return the list of Modifiers for this Reaction.
+ */
+const ListOfSpeciesReferences*
+Reaction::getListOfModifiers () const
+{
+  return &mModifiers;
+}
+
+
+/**
+ * @return the list of Modifiers for this Reaction.
+ */
+ListOfSpeciesReferences*
+Reaction::getListOfModifiers ()
+{
+  return &mModifiers;
+}
+
+
+/**
+ * @return the nth reactant (SpeciesReference) of this Reaction.
+ */
+const SpeciesReference*
+Reaction::getReactant (unsigned int n) const
+{
+  return static_cast<const SpeciesReference*>( mReactants.get(n) );
+}
+
+
+/**
+ * @return the nth reactant (SpeciesReference) of this Reaction.
+ */
+SpeciesReference*
+Reaction::getReactant (unsigned int n)
+{
+  return static_cast<SpeciesReference*>( mReactants.get(n) );
+}
+
+
+/**
+ * @return the reactant (SpeciesReference) in this Reaction with the given
+ * id or NULL if no such reactant exists.
+ */
+const SpeciesReference*
+Reaction::getReactant (const string& sid) const
+{
+  return static_cast<const SpeciesReference*>( mReactants.get(sid) );
+}
+
+
+/**
+ * @return the reactant (SpeciesReference) in this Reaction with the given
+ * id or NULL if no such reactant exists.
+ */
+SpeciesReference*
+Reaction::getReactant (const string& sid)
+{
+  return static_cast<SpeciesReference*>( mReactants.get(sid) );
+}
+
+
+/**
+ * @return the nth product (SpeciesReference) of this Reaction.
+ */
+const SpeciesReference*
+Reaction::getProduct (unsigned int n) const
+{
+  return static_cast<const SpeciesReference*>( mProducts.get(n) );
+}
+
+
+/**
+ * @return the nth product (SpeciesReference) of this Reaction.
+ */
+SpeciesReference*
+Reaction::getProduct (unsigned int n)
+{
+  return static_cast<SpeciesReference*>( mProducts.get(n) );
+}
+
+
+/**
+ * @return the product (SpeciesReference) in this Reaction with the given
+ * id or NULL if no such product exists.
+ */
+const SpeciesReference*
+Reaction::getProduct (const string& sid) const
+{
+  return static_cast<const SpeciesReference*>( mProducts.get(sid) );
+}
+
+
+/**
+ * @return the product (SpeciesReference) in this Reaction with the given
+ * id or NULL if no such product exists.
+ */
+SpeciesReference*
+Reaction::getProduct (const string& sid)
+{
+  return static_cast<SpeciesReference*>( mProducts.get(sid) );
+}
+
+
+/**
+ * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
+ */
+const ModifierSpeciesReference*
+Reaction::getModifier (unsigned int n) const
+{
+  return static_cast<const ModifierSpeciesReference*>( mModifiers.get(n) );
+}
+
+
+/**
+ * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
+ */
+ModifierSpeciesReference*
+Reaction::getModifier (unsigned int n)
+{
+  return static_cast<ModifierSpeciesReference*>( mModifiers.get(n) );
+}
+
+
+/**
+ * @return the modifier (ModifierSpeciesReference) in this Reaction with
+ * the given id or NULL if no such modifier exists.
+ */
+const ModifierSpeciesReference*
+Reaction::getModifier (const string& sid) const
+{
+  return static_cast<const ModifierSpeciesReference*>( mModifiers.get(sid) );
+}
+
+
+/**
+ * @return the modifier (ModifierSpeciesReference) in this Reaction with
+ * the given id or NULL if no such modifier exists.
+ */
+ModifierSpeciesReference*
+Reaction::getModifier (const string& sid)
+{
+  return static_cast<ModifierSpeciesReference*>( mModifiers.get(sid) );
 }
 
 
@@ -266,11 +386,10 @@ Reaction::isSetName () const
  * @return true if the KineticLaw of this Reaction has been set, false
  * otherwise.
  */
-LIBSBML_EXTERN
 bool
 Reaction::isSetKineticLaw () const
 {
-  return (kineticLaw != NULL);
+  return (mKineticLaw != 0);
 }
 
 
@@ -282,299 +401,158 @@ Reaction::isSetKineticLaw () const
  * effectively always set.  In L2, however, fast is optional with no
  * default value, so it may or may not be set to a specific value.
  */
-LIBSBML_EXTERN
 bool
 Reaction::isSetFast () const
 {
-  return isSet.fast;
+  return mIsSetFast;
 }
 
 
 /**
- * Moves the id field of this Reaction to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
+ * @return true if the sboTerm of this Reaction has been set, false
+ * otherwise.
  */
-LIBSBML_EXTERN
-void
-Reaction::moveIdToName ()
+bool
+Reaction::isSetSBOTerm () const
 {
-  if ( isSetName() ) return;
-
-  setName( getId() );
-  setId  ( "" );
+  return (mSBOTerm != -1);
 }
 
 
 /**
- * Moves the name field of this Reaction to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
+ * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
  */
-LIBSBML_EXTERN
 void
-Reaction::moveNameToId ()
+Reaction::setKineticLaw (const KineticLaw* kl)
 {
-  if ( isSetId() ) return;
+  if (mKineticLaw == kl) return;
 
-  setId  ( getName() );
-  setName( "" );
-}
-
-
-/**
- * Sets the id of this Reaction to a copy of sid.
- */
-LIBSBML_EXTERN
-void
-Reaction::setId (const std::string& sid)
-{
-  id = sid;
-}
-
-
-/**
- * Sets the name of this Reaction to a copy of string (SName in L1).
- */
-LIBSBML_EXTERN
-void
-Reaction::setName (const std::string& string)
-{
-  name = string;
-}
-
-
-/**
- * Sets the KineticLaw of this Reaction to the given KineticLaw.
- */
-LIBSBML_EXTERN
-void
-Reaction::setKineticLaw (KineticLaw& kl)
-{
-  kineticLaw = &kl;
+  delete mKineticLaw;
+  mKineticLaw = (kl != 0) ? static_cast<KineticLaw*>( kl->clone() ) : 0;
 }
 
 
 /**
  * Sets the reversible status of this Reaction to value.
  */
-LIBSBML_EXTERN
 void
 Reaction::setReversible (bool value)
 {
-  reversible = value;
+  mReversible = value;
 }
 
 
 /**
  * Sets the fast status of this Reaction to value.
  */
-LIBSBML_EXTERN
 void
 Reaction::setFast (bool value)
 {
-  fast       = value;
-  isSet.fast = 1;
+  mFast      = value;
+  mIsSetFast = true;
 }
 
 
 /**
- * Adds the given reactant (SpeciesReference) to this Reaction.
+ * Sets the sboTerm field of this Reaction to value.
  */
-LIBSBML_EXTERN
 void
-Reaction::addReactant (SpeciesReference& sr)
+Reaction::setSBOTerm (int sboTerm)
 {
-  reactant.append(&sr);
+  mSBOTerm = sboTerm;
 }
 
 
 /**
- * Adds the given product (SpeciesReference) to this Reaction.
+ * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
  */
-LIBSBML_EXTERN
 void
-Reaction::addProduct (SpeciesReference& sr)
+Reaction::addReactant (const SpeciesReference* sr)
 {
-  product.append(&sr);
+  mReactants.append(sr);
 }
 
 
 /**
- * Adds the given modifier (ModifierSpeciesReference) to this Reaction.
+ * Adds a copy of the given product (SpeciesReference) to this Reaction.
  */
-LIBSBML_EXTERN
 void
-Reaction::addModifier (ModifierSpeciesReference& msr)
+Reaction::addProduct (const SpeciesReference* sr)
 {
-  modifier.append(&msr);
+  mProducts.append(sr);
 }
 
 
 /**
- * @return the list of Reactants for this Reaction.
+ * Adds a copy of the given modifier (ModifierSpeciesReference) to this
+ * Reaction.
  */
-LIBSBML_EXTERN
-ListOf&
-Reaction::getListOfReactants ()
+void
+Reaction::addModifier (const ModifierSpeciesReference* msr)
 {
-  return reactant;
+  mModifiers.append(msr);
 }
 
 
 /**
- * @return the list of Reactants for this Reaction.
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * reactants and returns it.
  */
-LIBSBML_EXTERN
-const ListOf&
-Reaction::getListOfReactants () const
-{
-  return reactant;
-}
-
-
-/**
- * @return the list of Products for this Reaction.
- */
-LIBSBML_EXTERN
-ListOf&
-Reaction::getListOfProducts ()
-{
-  return product;
-}
-
-
-/**
- * @return the list of Products for this Reaction.
- */
-LIBSBML_EXTERN
-const ListOf&
-Reaction::getListOfProducts () const
-{
-  return product;
-}
-
-
-/**
- * @return the list of Modifiers for this Reaction.
- */
-LIBSBML_EXTERN
-ListOf&
-Reaction::getListOfModifiers ()
-{
-  return modifier;
-}
-
-
-/**
- * @return the list of Modifiers for this Reaction.
- */
-LIBSBML_EXTERN
-const ListOf&
-Reaction::getListOfModifiers () const
-{
-  return modifier;
-}
-
-
-/**
- * @return the nth reactant (SpeciesReference) of this Reaction.
- */
-LIBSBML_EXTERN
 SpeciesReference*
-Reaction::getReactant (unsigned int n) const
+Reaction::createReactant ()
 {
-  return static_cast<SpeciesReference*>( reactant.get(n) );
+  SpeciesReference* species = new SpeciesReference;
+  mReactants.appendAndOwn(species);
+
+  return species;
 }
 
 
 /**
- * @return the reactant (SpeciesReference) in this Reaction with the given
- * id or NULL if no such reactant exists.
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * products and returns it.
  */
-LIBSBML_EXTERN
 SpeciesReference*
-Reaction::getReactant (const std::string& sid) const
+Reaction::createProduct ()
 {
-  void* x =
-    reactant.find(sid.c_str(), (ListItemComparator) SimpleSpeciesReferenceCmp);
+  SpeciesReference* species = new SpeciesReference;
+  mProducts.appendAndOwn(species);
 
-
-  return static_cast<SpeciesReference*>(x);
+  return species;
 }
 
 
 /**
- * @return the nth product (SpeciesReference) of this Reaction.
+ * Creates a new ModifierSpeciesReference, adds it to this Reaction's
+ * list of modifiers and returns it.
  */
-LIBSBML_EXTERN
-SpeciesReference*
-Reaction::getProduct (unsigned int n) const
-{
-  return static_cast<SpeciesReference*>( product.get(n) );
-}
-
-
-/**
- * @return the product (SpeciesReference) in this Reaction with the given
- * id or NULL if no such product exists.
- */
-LIBSBML_EXTERN
-SpeciesReference*
-Reaction::getProduct (const std::string& sid) const
-{
-  void* x =
-    product.find(sid.c_str(), (ListItemComparator) SimpleSpeciesReferenceCmp);
-
-
-  return static_cast<SpeciesReference*>(x);
-}
-
-
-/**
- * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
- */
-LIBSBML_EXTERN
 ModifierSpeciesReference*
-Reaction::getModifier (unsigned int n) const
+Reaction::createModifier ()
 {
-  return static_cast<ModifierSpeciesReference*>( modifier.get(n) );
-}
+  ModifierSpeciesReference* species = new ModifierSpeciesReference;
+  mModifiers.appendAndOwn(species);
 
-
-/**
- * @return the modifier (ModifierSpeciesReference) in this Reaction with
- * the given id or NULL if no such modifier exists.
- */
-LIBSBML_EXTERN
-ModifierSpeciesReference*
-Reaction::getModifier (const std::string& sid) const
-{
-  void* x =
-    modifier.find(sid.c_str(), (ListItemComparator) SimpleSpeciesReferenceCmp);
-
-
-  return static_cast<ModifierSpeciesReference*>(x);
+  return species;
 }
 
 
 /**
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
-LIBSBML_EXTERN
 unsigned int
 Reaction::getNumReactants () const
 {
-  return reactant.getNumItems();
+  return mReactants.size();
 }
 
 
 /**
  * @return the number of products (SpeciesReferences) in this Reaction.
  */
-LIBSBML_EXTERN
 unsigned int
 Reaction::getNumProducts () const
 {
-  return product.getNumItems();
+  return mProducts.size();
 }
 
 
@@ -582,36 +560,21 @@ Reaction::getNumProducts () const
  * @return the number of modifiers (ModifierSpeciesReferences) in this
  * Reaction.
  */
-LIBSBML_EXTERN
 unsigned int
 Reaction::getNumModifiers () const
 {
-  return modifier.getNumItems();
-}
-
-
-/**
- * Unsets the name of this Reaction.
- *
- * In SBML L1, a Reaction name is required and therefore <b>should always
- * be set</b>.  In L2, name is optional and as such may or may not be set.
- */
-LIBSBML_EXTERN
-void
-Reaction::unsetName ()
-{
-  name.erase();
+  return mModifiers.size();
 }
 
 
 /**
  * Unsets the KineticLaw of this Reaction.
  */
-LIBSBML_EXTERN
 void
 Reaction::unsetKineticLaw ()
 {
-  kineticLaw = NULL;
+  delete mKineticLaw;
+  mKineticLaw = 0;
 }
 
 
@@ -622,11 +585,244 @@ Reaction::unsetKineticLaw ()
  * effectively always set.  In L2, however, fast is optional with no
  * default value, so it may or may not be set to a specific value.
  */
-LIBSBML_EXTERN
 void
 Reaction::unsetFast ()
 {
-  isSet.fast = 0;
+  mIsSetFast = false;
+}
+
+
+/**
+ * Unsets the sboTerm of this KineticLaw.
+ */
+void
+Reaction::unsetSBOTerm ()
+{
+  mSBOTerm = -1;
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Reaction::getTypeCode () const
+{
+  return SBML_REACTION;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+Reaction::getElementName () const
+{
+  static const string name = "reaction";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+Reaction::createObject (XMLInputStream& stream)
+{
+  const string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "listOfReactants")
+  {
+    object = &mReactants;
+  }
+  else if (name == "listOfProducts")
+  {
+    object = &mProducts;
+  }
+  else if (name == "listOfModifiers")
+  {
+    object = &mModifiers;
+  }
+  else if (name == "kineticLaw")
+  {
+    delete mKineticLaw;
+
+    mKineticLaw = new KineticLaw();
+    object      = mKineticLaw;
+  }
+
+  return object;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+Reaction::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName  { use="required" }  (L1v1, L1v2)
+  //   id: SId    { use="required" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  attributes.readInto(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) attributes.readInto("name", mName);
+
+  //
+  // reversible: boolean  { use="optional"  default="true" }
+  // (L1v1, L1v2, L2v1, L2v2)
+  //
+  attributes.readInto("reversible", mReversible);
+
+  //
+  // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
+  // fast: boolean  { use="optional" }                  (L2v1, L2v2)
+  //
+  mIsSetFast = attributes.readInto("fast", mFast);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes);
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+Reaction::writeAttributes (XMLOutputStream& stream)
+{
+  SBase::writeAttributes(stream);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  //
+  // name: SName   { use="required" }  (L1v1, L1v2)
+  //   id: SId     { use="required" }  (L2v1, L2v2)
+  //
+  const string id = (level == 1) ? "name" : "id";
+  stream.writeAttribute(id, mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  if (level == 2) stream.writeAttribute("name", mName);
+
+  //
+  // reversible: boolean  { use="optional"  default="true" }
+  // (L1v1, L1v2, L2v1, L2v2)
+  //
+  if (mReversible != true) stream.writeAttribute("reversible", mReversible);
+
+  //
+  // fast: boolean  { use="optional" default="false" }  (L1v1, L1v2)
+  // fast: boolean  { use="optional" }                  (L2v1, L2v2)
+  //
+  if (mIsSetFast)
+  {
+    if (level != 1 || mFast != false) stream.writeAttribute("fast", mFast);
+  }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 2) SBML::writeSBOTerm(stream, mSBOTerm);
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+Reaction::writeElements (XMLOutputStream& stream)
+{
+  SBase::writeElements(stream);
+
+  if ( getNumReactants () > 0) mReactants.write(stream);
+  if ( getNumProducts  () > 0) mProducts .write(stream);
+  if ( getNumModifiers () > 0) mModifiers.write(stream);
+
+  if ( mKineticLaw ) mKineticLaw->write(stream);
+}
+
+
+
+
+/**
+ * @return a (deep) copy of this ListOfReactions.
+ */
+SBase*
+ListOfReactions::clone () const
+{
+  return new ListOfReactions(*this);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+SBMLTypeCode_t
+ListOfReactions::getItemTypeCode () const
+{
+  return SBML_REACTION;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+ListOfReactions::getElementName () const
+{
+  static const string name = "listOfReactions";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfReactions::createObject (XMLInputStream& stream)
+{
+  const string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  if (name == "reaction")
+  {
+    object = new Reaction();
+    mItems.push_back(object);
+  }
+
+  return object;
 }
 
 
@@ -637,9 +833,9 @@ Reaction::unsetFast ()
  */
 LIBSBML_EXTERN
 Reaction_t *
-Reaction_create (void)
+Reaction_create ()
 {
-  return new(std::nothrow) Reaction;
+  return new(nothrow) Reaction;
 }
 
 
@@ -659,7 +855,7 @@ Reaction_createWith ( const char   *sid,
                       int          fast )
 {
   KineticLaw* k = static_cast<KineticLaw*>(kl);
-  Reaction*   r = new(std::nothrow) Reaction(sid ? sid : "", k, reversible);
+  Reaction*   r = new(nothrow) Reaction(sid ? sid : "", k, reversible);
 
 
   r->setFast(fast);
@@ -676,7 +872,18 @@ LIBSBML_EXTERN
 void
 Reaction_free (Reaction_t *r)
 {
-  delete static_cast<Reaction*>(r);
+  delete r;
+}
+
+
+/**
+ * @return a (deep) copy of this Reaction.
+ */
+LIBSBML_EXTERN
+Reaction_t *
+Reaction_clone (const Reaction_t *r)
+{
+  return static_cast<Reaction*>( r->clone() );
 }
 
 
@@ -690,7 +897,7 @@ LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r)
 {
-  static_cast<Reaction*>(r)->initDefaults();
+  r->initDefaults();
 }
 
 
@@ -701,10 +908,7 @@ LIBSBML_EXTERN
 const char *
 Reaction_getId (const Reaction_t *r)
 {
-  const Reaction* x = static_cast<const Reaction*>(r);
-
-
-  return x->isSetId() ? x->getId().c_str() : NULL;
+  return r->isSetId() ? r->getId().c_str() : NULL;
 }
 
 
@@ -715,10 +919,7 @@ LIBSBML_EXTERN
 const char *
 Reaction_getName (const Reaction_t *r)
 {
-  const Reaction* x = static_cast<const Reaction*>(r);
-
-
-  return x->isSetName() ? x->getName().c_str() : NULL;
+  return r->isSetName() ? r->getName().c_str() : NULL;
 }
 
 
@@ -727,9 +928,9 @@ Reaction_getName (const Reaction_t *r)
  */
 LIBSBML_EXTERN
 KineticLaw_t *
-Reaction_getKineticLaw (const Reaction_t *r)
+Reaction_getKineticLaw (Reaction_t *r)
 {
-  return static_cast<const Reaction*>(r)->getKineticLaw();
+  return r->getKineticLaw();
 }
 
 
@@ -740,7 +941,7 @@ LIBSBML_EXTERN
 int
 Reaction_getReversible (const Reaction_t *r)
 {
-  return (int) static_cast<const Reaction*>(r)->getReversible();
+  return static_cast<int>( r->getReversible() );
 }
 
 
@@ -751,197 +952,20 @@ LIBSBML_EXTERN
 int
 Reaction_getFast (const Reaction_t *r)
 {
-  return (int) static_cast<const Reaction*>(r)->getFast();
+  return static_cast<int>( r->getFast() );
 }
 
 
 /**
- * @return 1 if the id of this Reaction has been set, 0 otherwise.
+ * @return the sboTerm of this Reaction as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
  */
 LIBSBML_EXTERN
 int
-Reaction_isSetId (const Reaction_t *r)
+Reaction_getSBOTerm (const Reaction_t *r)
 {
-  return (int) static_cast<const Reaction*>(r)->isSetId();
-}
-
-
-/**
- * @return 1 if the name of this Reaction has been set, 0 otherwise.
- *
- * In SBML L1, a Reaction name is required and therefore <b>should always
- * be set</b>.  In L2, name is optional and as such may or may not be set.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetName (const Reaction_t *r)
-{
-  return (int) static_cast<const Reaction*>(r)->isSetName();
-}
-
-
-/**
- * @return 1 if the KineticLaw of this Reaction has been set, 0 otherwise.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetKineticLaw (const Reaction_t *r)
-{
-  return (int) static_cast<const Reaction*>(r)->isSetKineticLaw();
-}
-
-
-/**
- * @return 1 if the fast status of this Reation has been set, 0 otherwise.
- *
- * In L1, fast is optional with a default of false, which means it is
- * effectively always set.  In L2, however, fast is optional with no
- * default value, so it may or may not be set to a specific value.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetFast (const Reaction_t *r)
-{
-  return (int) static_cast<const Reaction*>(r)->isSetFast();
-}
-
-
-/**
- * Moves the id field of this Reaction to its name field (iff name is not
- * already set).  This method is used for converting from L2 to L1.
- */
-LIBSBML_EXTERN
-void
-Reaction_moveIdToName (Reaction_t *r)
-{
-  static_cast<Reaction*>(r)->moveIdToName();
-}
-
-
-/**
- * Moves the name field of this Reaction to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
- */
-LIBSBML_EXTERN
-void
-Reaction_moveNameToId (Reaction_t *r)
-{
-  static_cast<Reaction*>(r)->moveNameToId();
-}
-
-
-/**
- * Sets the id of this Reaction to a copy of sid.
- */
-LIBSBML_EXTERN
-void
-Reaction_setId (Reaction_t *r, const char *sid)
-{
-  static_cast<Reaction*>(r)->setId(sid ? sid : "");
-}
-
-
-/**
- * Sets the name of this Reaction to a copy of string (SName in L1).
- */
-LIBSBML_EXTERN
-void
-Reaction_setName (Reaction_t *r, const char *string)
-{
-  if (string == NULL)
-  {
-    static_cast<Reaction*>(r)->unsetName();
-  }
-  else
-  {
-    static_cast<Reaction*>(r)->setName(string);
-  }
-}
-
-
-/**
- * Sets the KineticLaw of this Reaction to the given KineticLaw.
- */
-LIBSBML_EXTERN
-void
-Reaction_setKineticLaw (Reaction_t *r, KineticLaw_t *kl)
-{
-  if (kl == NULL)
-  {
-    static_cast<Reaction*>(r)->unsetKineticLaw();
-  }
-  else
-  {
-    KineticLaw* x = static_cast<KineticLaw*>(kl);
-    static_cast<Reaction*>(r)->setKineticLaw(*x);
-  }
-}
-
-
-/**
- * Sets the reversible status of this Reaction to value (boolean).
- */
-LIBSBML_EXTERN
-void
-Reaction_setReversible (Reaction_t *r, int value)
-{
-  static_cast<Reaction*>(r)->setReversible((bool) value);
-}
-
-
-/**
- * Sets the fast status of this Reaction to value (boolean).
- */
-LIBSBML_EXTERN
-void
-Reaction_setFast (Reaction_t *r, int value)
-{
-  static_cast<Reaction*>(r)->setFast((bool) value);
-}
-
-
-/**
- * Adds the given reactant (SpeciesReference) to this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_addReactant (Reaction_t *r, SpeciesReference_t *sr)
-{
-  if (sr != NULL)
-  {
-    SpeciesReference* x = static_cast<SpeciesReference*>(sr);
-    static_cast<Reaction*>(r)->addReactant(*x);
-  }
-}
-
-
-/**
- * Adds the given product (SpeciesReference) to this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_addProduct (Reaction_t *r, SpeciesReference_t *sr)
-{
-  if (sr != NULL)
-  {
-    SpeciesReference* x = static_cast<SpeciesReference*>(sr);
-    static_cast<Reaction*>(r)->addProduct(*x);
-  }
-}
-
-
-/**
- * Adds the given modifier (ModifierSpeciesReference) to this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_addModifier (Reaction_t *r, ModifierSpeciesReference_t *msr)
-{
-  if (msr != NULL)
-  {
-    ModifierSpeciesReference* x = static_cast<ModifierSpeciesReference*>(msr);
-    static_cast<Reaction*>(r)->addModifier(*x);
-  }
+  return r->getSBOTerm();
 }
 
 
@@ -952,8 +976,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfReactants (Reaction_t *r)
 {
-  return (ListOf_t *) &
-  static_cast<Reaction*>(r)->getListOfReactants();
+  return r->getListOfReactants();
 }
 
 
@@ -964,8 +987,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfProducts (Reaction_t *r)
 {
-  return (ListOf_t *) &
-  static_cast<Reaction*>(r)->getListOfProducts();
+  return r->getListOfProducts();
 }
 
 
@@ -976,8 +998,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfModifiers (Reaction_t *r)
 {
-  return (ListOf_t *) &
-  static_cast<Reaction*>(r)->getListOfModifiers();
+  return r->getListOfModifiers();
 }
 
 
@@ -986,9 +1007,9 @@ Reaction_getListOfModifiers (Reaction_t *r)
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getReactant (const Reaction_t *r, unsigned int n)
+Reaction_getReactant (Reaction_t *r, unsigned int n)
 {
-  return static_cast<const Reaction*>(r)->getReactant(n);
+  return r->getReactant(n);
 }
 
 
@@ -998,12 +1019,9 @@ Reaction_getReactant (const Reaction_t *r, unsigned int n)
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getReactantById (const Reaction_t *r, const char *sid)
+Reaction_getReactantById (Reaction_t *r, const char *sid)
 {
-  if (sid == NULL) return NULL;
-
-
-  return static_cast<const Reaction*>(r)->getReactant(sid);
+  return (sid != NULL) ? r->getReactant(sid) : NULL;
 }
 
 
@@ -1012,9 +1030,9 @@ Reaction_getReactantById (const Reaction_t *r, const char *sid)
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getProduct (const Reaction_t *r, unsigned int n)
+Reaction_getProduct (Reaction_t *r, unsigned int n)
 {
-  return static_cast<const Reaction*>(r)->getProduct(n);
+  return r->getProduct(n);
 }
 
 
@@ -1024,12 +1042,9 @@ Reaction_getProduct (const Reaction_t *r, unsigned int n)
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getProductById (const Reaction_t *r, const char *sid)
+Reaction_getProductById (Reaction_t *r, const char *sid)
 {
-  if (sid == NULL) return NULL;
-
-
-  return static_cast<const Reaction*>(r)->getProduct(sid);
+  return (sid != NULL) ? r->getProduct(sid) : NULL;
 }
 
 
@@ -1037,10 +1052,10 @@ Reaction_getProductById (const Reaction_t *r, const char *sid)
  * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
  */
 LIBSBML_EXTERN
-ModifierSpeciesReference_t *
-Reaction_getModifier (const Reaction_t *r, unsigned int n)
+SpeciesReference_t *
+Reaction_getModifier (Reaction_t *r, unsigned int n)
 {
-  return static_cast<const Reaction*>(r)->getModifier(n);
+  return r->getModifier(n);
 }
 
 
@@ -1049,13 +1064,219 @@ Reaction_getModifier (const Reaction_t *r, unsigned int n)
  * the given id or NULL if no such modifier exists.
  */
 LIBSBML_EXTERN
-ModifierSpeciesReference_t *
-Reaction_getModifierById (const Reaction_t *r, const char *sid)
+SpeciesReference_t *
+Reaction_getModifierById (Reaction_t *r, const char *sid)
 {
-  if (sid == NULL) return NULL;
+  return (sid != NULL) ? r->getModifier(sid) : NULL;
+}
 
 
-  return static_cast<const Reaction*>(r)->getModifier(sid);
+/**
+ * @return true (non-zero) if the id of this Reaction has been set, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetId (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetId() );
+}
+
+
+/**
+ * @return true (non-zero) if the name of this Reaction has been set, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetName (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetName() );
+}
+
+
+/**
+ * @return true (non-zero) if the KineticLaw of this Reaction has been set,
+ * false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetKineticLaw (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetKineticLaw() );
+}
+
+
+/**
+ * @return true (non-zero) if the fast status of this Reation has been set,
+ * false (0) otherwise.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetFast (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetFast() );
+}
+
+
+/**
+ * @return true (non-zero) if the sboTerm of this Reaction has been set,
+ * false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetSBOTerm (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetSBOTerm() );
+}
+
+
+/**
+ * Sets the id of this Reaction to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setId (Reaction_t *r, const char *sid)
+{
+  (sid == NULL) ? r->unsetId() : r->setId(sid);
+}
+
+
+/**
+ * Sets the name of this Reaction to a copy of name.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setName (Reaction_t *r, const char *name)
+{
+  (name == NULL) ? r->unsetName() : r->setName(name);
+}
+
+
+/**
+ * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl)
+{
+  (kl == NULL) ? r->unsetKineticLaw() : r->setKineticLaw(kl);
+}
+
+
+/**
+ * Sets the reversible status of this Reaction to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Reaction_setReversible (Reaction_t *r, int value)
+{
+  r->setReversible( static_cast<bool>(value) );
+}
+
+
+/**
+ * Sets the fast status of this Reaction to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Reaction_setFast (Reaction_t *r, int value)
+{
+  r->setFast( static_cast<bool>(value) );
+}
+
+
+/**
+ * Sets the sboTerm field of this Reaction to value.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setSBOTerm (Reaction_t *r, int sboTerm)
+{
+  r->setSBOTerm(sboTerm);
+}
+
+
+/**
+ * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr)
+{
+  if (sr != NULL)
+  {
+    r->addReactant( static_cast<const SpeciesReference*>(sr) );
+  }
+}
+
+
+/**
+ * Adds a copy of the given product (SpeciesReference) to this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr)
+{
+  if (sr != NULL)
+  {
+    r->addProduct( static_cast<const SpeciesReference*>(sr) );
+  }
+}
+
+
+/**
+ * Adds a copy of the given modifier (ModifierSpeciesReference) to this
+ * Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr)
+{
+  if (msr != NULL && msr->isModifier())
+  {
+    r->addModifier( static_cast<const ModifierSpeciesReference*>(msr) );
+  }
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * reactants and returns it.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_createReactant (Reaction_t *r)
+{
+  return r->createReactant();
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * products and returns it.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_createProduct (Reaction_t *r)
+{
+  return r->createProduct();
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * modifiers and returns it.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_createModifier (Reaction_t *r)
+{
+  return r->createModifier();
 }
 
 
@@ -1066,7 +1287,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumReactants (const Reaction_t *r)
 {
-  return static_cast<const Reaction*>(r)->getNumReactants();
+  return r->getNumReactants();
 }
 
 
@@ -1077,7 +1298,7 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumProducts (const Reaction_t *r)
 {
-  return static_cast<const Reaction*>(r)->getNumProducts();
+  return r->getNumProducts();
 }
 
 
@@ -1089,34 +1310,29 @@ LIBSBML_EXTERN
 unsigned int
 Reaction_getNumModifiers (const Reaction_t *r)
 {
-  return static_cast<const Reaction*>(r)->getNumModifiers();
+  return r->getNumModifiers();
 }
 
 
 /**
- * Unsets the name of this Reaction.  This is equivalent to:
- * safe_free(r->name); r->name = NULL;
- *
- * In SBML L1, a Reaction name is required and therefore <b>should always
- * be set</b>.  In L2, name is optional and as such may or may not be set.
+ * Unsets the name of this Reaction.
  */
 LIBSBML_EXTERN
 void
 Reaction_unsetName (Reaction_t *r)
 {
-  static_cast<Reaction*>(r)->unsetName();
+  r->unsetName();
 }
 
 
 /**
- * Unsets the KineticLaw of this Reaction.  This is equivalent to:
- * r->kineticLaw = NULL;
+ * Unsets the KineticLaw of this Reaction.
  */
 LIBSBML_EXTERN
 void
 Reaction_unsetKineticLaw (Reaction_t *r)
 {
-  static_cast<Reaction*>(r)->unsetKineticLaw();
+  r->unsetKineticLaw();
 }
 
 
@@ -1131,28 +1347,16 @@ LIBSBML_EXTERN
 void
 Reaction_unsetFast (Reaction_t *r)
 {
-  static_cast<Reaction*>(r)->unsetFast();
+  r->unsetFast();
 }
 
 
 /**
- * The ReactionIdCmp function compares the string sid to r->id.
- *
- * @returns an integer less than, equal to, or greater than zero if sid is
- * found to be, respectively, less than, to match or be greater than r->id.
- * Returns -1 if either sid or r->id is NULL.
+ * Unsets the sboTerm of this Reaction.
  */
 LIBSBML_EXTERN
-int
-ReactionIdCmp (const char *sid, const Reaction_t *r)
+void
+Reaction_unsetSBOTerm (Reaction_t *r)
 {
-  int result = -1;
-
-
-  if (sid != NULL && Reaction_isSetId(r))
-  {
-    result = strcmp(sid, Reaction_getId(r));
-  }
-
-  return result;
+  r->unsetSBOTerm();
 }

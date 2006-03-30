@@ -6,50 +6,27 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2003 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
 #include <cstring>
+
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 #include "math/FormulaParser.h"
 #include "math/ASTNode.h"
@@ -58,18 +35,19 @@
 #include "FunctionDefinition.h"
 
 
+using namespace std;
+
+
 /**
  * Creates a new FunctionDefinition, optionally with its id and math
  * attributes set.
  */
-LIBSBML_EXTERN
-FunctionDefinition::FunctionDefinition (   const std::string& id
-                                         , ASTNode*           math  ) :
-    SBase()
-  , id   ( id   )
-  , math ( math )
+FunctionDefinition::FunctionDefinition (  const string&  id
+                                        , const ASTNode* math ) :
+   SBase( id )
+ , mMath( 0  )
 {
-  init(SBML_FUNCTION_DEFINITION);
+  if (math) mMath = math->deepCopy();
 }
 
 
@@ -77,29 +55,30 @@ FunctionDefinition::FunctionDefinition (   const std::string& id
  * Creates a new FunctionDefinition, optionally with its id and math (via
  * an infix formula string) attributes set.
  */
-LIBSBML_EXTERN
-FunctionDefinition::FunctionDefinition (   const std::string& id
-                                         , const std::string& formula ) :
-    SBase()
-  , id   ( id   )
-  , math ( NULL )
+FunctionDefinition::FunctionDefinition (  const string& id
+                                        , const string& formula ) :
+    SBase( id )
+  , mMath( SBML_parseFormula( formula.c_str() ) )
 {
-  init(SBML_FUNCTION_DEFINITION);
+}
 
-  if ( !formula.empty() )
-  {
-    setMath( (ASTNode*) SBML_parseFormula( formula.c_str() ) );
-  }
+
+/**
+ * Copies this FunctionDefinition.
+ */
+FunctionDefinition::FunctionDefinition (const FunctionDefinition& rhs) :
+  mMath( 0 )
+{
+  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
 
 
 /**
  * Destroys this FunctionDefinition.
  */
-LIBSBML_EXTERN
 FunctionDefinition::~FunctionDefinition ()
 {
-  delete math;
+  delete mMath;
 }
 
 
@@ -110,7 +89,6 @@ FunctionDefinition::~FunctionDefinition ()
  * whether or not the Visitor would like to visit the Model's next
  * FunctionDefinition (if available).
  */
-LIBSBML_EXTERN
 bool
 FunctionDefinition::accept (SBMLVisitor& v) const
 {
@@ -119,18 +97,57 @@ FunctionDefinition::accept (SBMLVisitor& v) const
 
 
 /**
+ * @return a (deep) copy of this FunctionDefinition.
+ */
+SBase*
+FunctionDefinition::clone () const
+{
+  return new FunctionDefinition(*this);
+}
+
+
+/**
+ * @return the math of this FunctionDefinition.
+ */
+const ASTNode*
+FunctionDefinition::getMath () const
+{
+  return mMath;
+}
+
+
+/**
+ * @return true if the math of this FunctionDefinition has been set, false
+ * otherwise.
+ */
+bool
+FunctionDefinition::isSetMath () const
+{
+  return (mMath != 0);
+}
+
+
+/**
+ * Sets the math of this FunctionDefinition to the given ASTNode.
+ */
+void
+FunctionDefinition::setMath (const ASTNode* math)
+{
+  if (mMath == math) return;
+
+  delete mMath;
+  mMath = (math != 0) ? math->deepCopy() : 0;
+}
+
+
+/**
  * @return the nth argument (bound variable) passed to this
  * FunctionDefinition.
  */
-LIBSBML_EXTERN
 const ASTNode*
 FunctionDefinition::getArgument (unsigned int n) const
 {
-  if (n < getNumArguments())
-  {
-    return math->getChild(n);
-  }
-  return NULL;
+  return (n < getNumArguments()) ? mMath->getChild(n) : 0;
 }
 
 
@@ -138,9 +155,8 @@ FunctionDefinition::getArgument (unsigned int n) const
  * @return the argument (bound variable) in this FunctionDefinition with
  * the given name or NULL if no such argument exists.
  */
-LIBSBML_EXTERN
 const ASTNode*
-FunctionDefinition::getArgument (const std::string& name) const
+FunctionDefinition::getArgument (const string& name) const
 {
   const char*    cname = name.c_str();
   const ASTNode* found = 0;
@@ -165,44 +181,10 @@ FunctionDefinition::getArgument (const std::string& name) const
  * @return the body of this FunctionDefinition, or NULL if no body is
  * defined.
  */
-LIBSBML_EXTERN
 const ASTNode*
 FunctionDefinition::getBody () const
 {
-  return math->getRightChild();
-}
-
-
-/**
- * @return the id of this FunctionDefinition.
- */
-LIBSBML_EXTERN
-const std::string& 
-FunctionDefinition::getId () const
-{
-  return id;
-}
-
-
-/**
- * @return the name of this FunctionDefinition.
- */
-LIBSBML_EXTERN
-const std::string&
-FunctionDefinition::getName () const
-{
-  return name;
-}
-
-
-/**
- * @return the math of this FunctionDefinition.
- */
-LIBSBML_EXTERN
-const ASTNode*
-FunctionDefinition::getMath () const
-{
-  return math;
+  return mMath->getRightChild();
 }
 
 
@@ -210,101 +192,136 @@ FunctionDefinition::getMath () const
  * @return the number of arguments (bound variables) that must be passed
  * to this FunctionDefinition.
  */
-LIBSBML_EXTERN
 unsigned int
 FunctionDefinition::getNumArguments () const
 {
-  if (!isSetMath() || math->getNumChildren() == 0) return 0;
-  else return math->getNumChildren() - 1;
+  if (!isSetMath() || mMath->getNumChildren() == 0) return 0;
+  else return mMath->getNumChildren() - 1;
 }
 
 
 /**
- * @return true if the id of this FunctionDefinition has been set, false
- * otherwise.
- */
-LIBSBML_EXTERN
-bool
-FunctionDefinition::isSetId () const
-{
-  return ! id.empty();
-}
-
-
-/**
- * @return true if the name of this FunctionDefinition has been set, false
- * otherwise.
- */
-LIBSBML_EXTERN
-bool
-FunctionDefinition::isSetName () const
-{
-  return ! name.empty();
-}
-
-
-/**
- * @return true if the math of this FunctionDefinition has been set, false
- * otherwise.
- */
-LIBSBML_EXTERN
-bool
-FunctionDefinition::isSetMath () const
-{
-  return (math != NULL);
-}
-
-
-/**
- * Sets the id of this FunctionDefinition to a copy of sid.
- */
-LIBSBML_EXTERN
-void
-FunctionDefinition::setId (const std::string& sid)
-{
-  id = sid;
-}
-
-
-/**
- * Sets the name of this FunctionDefinition to a copy of string.
- */
-LIBSBML_EXTERN
-void
-FunctionDefinition::setName (const std::string& string)
-{
-  name = string;
-}
-
-
-/**
- * Sets the math of this FunctionDefinition to the given ASTNode.
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
  *
- * The node <b>is not copied</b> and this FunctionDefinition <b>takes
- * ownership</b> of it; i.e. subsequent calls to this function or a call to
- * FunctionDefinition_free() will free the ASTNode (and any child nodes).
+ * @see getElementName()
  */
-LIBSBML_EXTERN
-void
-FunctionDefinition::setMath (ASTNode* math)
+SBMLTypeCode_t
+FunctionDefinition::getTypeCode () const
 {
-  if (this->math == math) return;
-
-
-
-  delete this->math;
-  this->math = math;
+  return SBML_FUNCTION_DEFINITION;
 }
 
 
 /**
- * Unsets the name of this FunctionDefinition.
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
  */
-LIBSBML_EXTERN
-void
-FunctionDefinition::unsetName ()
+const string&
+FunctionDefinition::getElementName () const
 {
-  name.erase();
+  static const string name = "functionDefinition";
+  return name;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+FunctionDefinition::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  //
+  // id: SId  { use="required" }  (L2v1, L2v2)
+  //
+  attributes.readInto("id", mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  attributes.readInto("name", mName);
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+FunctionDefinition::writeAttributes (XMLOutputStream& stream)
+{
+  SBase::writeAttributes(stream);
+
+  //
+  // id: SId  { use="required" }  (L2v1, L2v2)
+  //
+  stream.writeAttribute("id", mId);
+
+  //
+  // name: string  { use="optional" }  (L2v1, L2v2)
+  //
+  stream.writeAttribute("name", mName);
+}
+
+
+
+
+/**
+ * @return a (deep) copy of this ListOfFunctionDefinitions.
+ */
+SBase*
+ListOfFunctionDefinitions::clone () const
+{
+  return new ListOfFunctionDefinitions(*this);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+SBMLTypeCode_t
+ListOfFunctionDefinitions::getItemTypeCode () const
+{
+  return SBML_FUNCTION_DEFINITION;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const string&
+ListOfFunctionDefinitions::getElementName () const
+{
+  static const string name = "listOfFunctionDefinitions";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
+{
+  const string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "functionDefinition")
+  {
+    object = new FunctionDefinition();
+    mItems.push_back(object);
+  }
+
+  return object;
 }
 
 
@@ -317,7 +334,7 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_create (void)
 {
-  return new(std::nothrow) FunctionDefinition("", "");
+  return new(nothrow) FunctionDefinition("", "");
 }
 
 
@@ -333,11 +350,7 @@ LIBSBML_EXTERN
 FunctionDefinition_t *
 FunctionDefinition_createWith (const char *sid, ASTNode_t *math)
 {
-  ASTNode* x = static_cast<ASTNode*>(math);
-
-
-  return
-    new(std::nothrow) FunctionDefinition(sid ? sid : "", x);
+  return new(nothrow) FunctionDefinition(sid ? sid : "", math);
 }
 
 
@@ -348,7 +361,120 @@ LIBSBML_EXTERN
 void
 FunctionDefinition_free (FunctionDefinition_t *fd)
 {
-  delete static_cast<FunctionDefinition*>(fd);
+  delete fd;
+}
+
+
+/**
+ * @return the id of this FunctionDefinition.
+ */
+LIBSBML_EXTERN
+const char *
+FunctionDefinition_getId (const FunctionDefinition_t *fd)
+{
+  return fd->isSetId() ? fd->getId().c_str() : NULL;
+}
+
+
+/**
+ * @return the name of this FunctionDefinition.
+ */
+LIBSBML_EXTERN
+const char *
+FunctionDefinition_getName (const FunctionDefinition_t *fd)
+{
+  return fd->isSetName() ? fd->getName().c_str() : NULL;
+}
+
+
+/**
+ * @return the math of this FunctionDefinition.
+ */
+LIBSBML_EXTERN
+const ASTNode_t *
+FunctionDefinition_getMath (const FunctionDefinition_t *fd)
+{
+  return fd->getMath();
+}
+
+
+/**
+ * @return 1 if the id of this FunctionDefinition has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+FunctionDefinition_isSetId (const FunctionDefinition_t *fd)
+{
+  return static_cast<int>( fd->isSetId() );
+}
+
+
+/**
+ * @return 1 if the name of this FunctionDefinition has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+FunctionDefinition_isSetName (const FunctionDefinition_t *fd)
+{
+  return static_cast<int>( fd->isSetName() );
+}
+
+
+/**
+ * @return 1 if the math of this FunctionDefinition has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
+{
+  return static_cast<int>( fd->isSetMath() );
+}
+
+
+/**
+ * Sets the id of this FunctionDefinition to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
+{
+  fd->setId(sid ? sid : "");
+}
+
+
+/**
+ * Sets the name of this FunctionDefinition to a copy of name.
+ */
+LIBSBML_EXTERN
+void
+FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
+{
+  (name == NULL) ? fd->unsetName() : fd->setName(name);
+}
+
+
+/**
+ * Sets the math of this FunctionDefinition to the given ASTNode.
+ */
+LIBSBML_EXTERN
+void
+FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
+{
+  fd->setMath(math);
+}
+
+
+/**
+ * Unsets the name of this FunctionDefinition.
+ */
+LIBSBML_EXTERN
+void
+FunctionDefinition_unsetName (FunctionDefinition_t *fd)
+{
+  fd->unsetName();
 }
 
 
@@ -360,10 +486,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getArgument (const FunctionDefinition_t *fd, unsigned int n)
 {
-  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
-
-
-  return static_cast<const ASTNode_t*>( x->getArgument(n) );
+  return fd->getArgument(n);
 }
 
 
@@ -376,10 +499,7 @@ const ASTNode_t *
 FunctionDefinition_getArgumentByName ( FunctionDefinition_t *fd,
                                        const char *name )
 {
-  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
-
-
-  return static_cast<const ASTNode_t*>( x->getArgument(name ? name : "") );
+  return fd->getArgument(name ? name : "");
 }
 
 
@@ -391,38 +511,7 @@ LIBSBML_EXTERN
 const ASTNode_t *
 FunctionDefinition_getBody (const FunctionDefinition_t *fd)
 {
-  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
-
-
-  return static_cast<const ASTNode_t*>( x->getBody() );
-}
-
-
-/**
- * @return the id of this FunctionDefinition.
- */
-LIBSBML_EXTERN
-const char *
-FunctionDefinition_getId (const FunctionDefinition_t *fd)
-{
-  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
-
-
-  return x->isSetId() ? x->getId().c_str() : NULL;
-}
-
-
-/**
- * @return the name of this FunctionDefinition.
- */
-LIBSBML_EXTERN
-const char *
-FunctionDefinition_getName (const FunctionDefinition_t *fd)
-{
-  const FunctionDefinition* x = static_cast<const FunctionDefinition*>(fd);
-
-
-  return x->isSetName() ? x->getName().c_str() : NULL;
+  return fd->getBody();
 }
 
 
@@ -434,131 +523,5 @@ LIBSBML_EXTERN
 unsigned int
 FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd)
 {
-  return static_cast<const FunctionDefinition*>(fd)->getNumArguments();
-}
-
-
-/**
- * @return the math of this FunctionDefinition.
- */
-LIBSBML_EXTERN
-const ASTNode_t *
-FunctionDefinition_getMath (const FunctionDefinition_t *fd)
-{
-  return static_cast<const FunctionDefinition*>(fd)->getMath();
-}
-
-
-/**
- * @return 1 if the id of this FunctionDefinition has been set, 0
- * otherwise.
- */
-LIBSBML_EXTERN
-int
-FunctionDefinition_isSetId (const FunctionDefinition_t *fd)
-{
-  return (int) static_cast<const FunctionDefinition*>(fd)->isSetId();
-}
-
-
-/**
- * @return 1 if the name of this FunctionDefinition has been set, 0
- * otherwise.
- */
-LIBSBML_EXTERN
-int
-FunctionDefinition_isSetName (const FunctionDefinition_t *fd)
-{
-  return (int) static_cast<const FunctionDefinition*>(fd)->isSetName();
-}
-
-
-/**
- * @return 1 if the math of this FunctionDefinition has been set, 0
- * otherwise.
- */
-LIBSBML_EXTERN
-int
-FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
-{
-  return (int) static_cast<const FunctionDefinition*>(fd)->isSetMath();
-}
-
-
-/**
- * Sets the id of this FunctionDefinition to a copy of sid.
- */
-LIBSBML_EXTERN
-void
-FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
-{
-  static_cast<FunctionDefinition*>(fd)->setId(sid ? sid : "");
-}
-
-
-/**
- * Sets the name of this FunctionDefinition to a copy of string.
- */
-LIBSBML_EXTERN
-void
-FunctionDefinition_setName (FunctionDefinition_t *fd, const char *string)
-{
-  if (string == NULL)
-  {
-    static_cast<FunctionDefinition*>(fd)->unsetName();
-  }
-  else
-  {
-    static_cast<FunctionDefinition*>(fd)->setName(string);
-  }
-}
-
-
-/**
- * Sets the math of this FunctionDefinition to the given ASTNode.
- *
- * The node <b>is not copied</b> and this FunctionDefinition <b>takes
- * ownership</b> of it; i.e. subsequent calls to this function or a call to
- * FunctionDefinition_free() will free the ASTNode (and any child nodes).
- */
-LIBSBML_EXTERN
-void
-FunctionDefinition_setMath (FunctionDefinition_t *fd, ASTNode_t *math)
-{
-  static_cast<FunctionDefinition*>(fd)->setMath( static_cast<ASTNode*>(math) );
-}
-
-
-/**
- * Unsets the name of this FunctionDefinition.  This is equivalent to:
- * safe_free(fd->name); fd->name = NULL;
- */
-LIBSBML_EXTERN
-void
-FunctionDefinition_unsetName (FunctionDefinition_t *fd)
-{
-  static_cast<FunctionDefinition*>(fd)->unsetName();
-}
-
-
-/**
- * The FunctionDefinitionIdCmp function compares the string sid to fd->id.
- *
- * @returns an integer less than, equal to, or greater than zero if sid is
- * found to be, respectively, less than, to match or be greater than
- * fd->id.  Returns -1 if either sid or fd->id is NULL.
- */
-LIBSBML_EXTERN
-int
-FunctionDefinitionIdCmp (const char *sid, const FunctionDefinition_t *fd)
-{
-  int result = -1;
-
-
-  if (sid != NULL && FunctionDefinition_isSetId(fd))
-  {
-    result = strcmp(sid, FunctionDefinition_getId(fd));
-  }
-
-  return result;
+  return fd->getNumArguments();
 }

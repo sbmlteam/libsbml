@@ -6,46 +6,19 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
@@ -63,13 +36,13 @@
 
 #include "SBase.h"
 #include "ListOf.h"
+#include "Unit.h"
 
 
-class Unit;
 class SBMLVisitor;
 
 
-class UnitDefinition : public SBase
+class LIBSBML_EXTERN UnitDefinition : public SBase
 {
 public:
 
@@ -77,13 +50,11 @@ public:
    * Creates a new UnitDefinition, optionally with its id and name
    * attributes set.
    */
-  LIBSBML_EXTERN
   UnitDefinition (const std::string& id = "", const std::string& name = "");
 
   /**
    * Destroys this UnitDefinition.
    */
-  LIBSBML_EXTERN
   virtual ~UnitDefinition ();
 
 
@@ -94,45 +65,19 @@ public:
    * whether or not the Visitor would like to visit the Model's next
    * UnitDefinition (if available).
    */
-  LIBSBML_EXTERN
   bool accept (SBMLVisitor& v) const;
 
   /**
-   * @return the id of this UnitDefinition.
+   * @return a (deep) copy of this UnitDefinition.
    */
-  LIBSBML_EXTERN
-  const std::string& getId () const;
+  virtual SBase* clone () const;
 
-  /**
-   * @return the name of this UnitDefinition.
-   */
-  LIBSBML_EXTERN
-  const std::string& getName () const;
-
-  /**
-   * @return true if the id of this UnitDefinition has been set, false
-   * otherwise.
-   */
-  LIBSBML_EXTERN
-  bool isSetId () const;
-
-  /**
-   * @return true if the name of this UnitDefinition has been set, false
-   * otherwise.
-   *
-   * In SBML L1, a UnitDefinition name is required and therefore <b>should
-   * always be set</b>.  In L2, name is optional and as such may or may not
-   * be set.
-   */
-  LIBSBML_EXTERN
-  bool isSetName () const;
 
   /**
    * @return true if this UnitDefinition is a variant of the builtin type
    * area, i.e. square metres with only abritrary variations in scale,
    * multiplier, or offset values, false otherwise.
    */
-  LIBSBML_EXTERN
   bool isVariantOfArea () const;
 
   /**
@@ -140,7 +85,6 @@ public:
    * length, i.e. metres with only abritrary variations in scale,
    * multiplier, or offset values, false otherwise.
    */
-  LIBSBML_EXTERN
   bool isVariantOfLength () const;
 
   /**
@@ -148,7 +92,6 @@ public:
    * substance, i.e. moles or items with only abritrary variations in
    * scale, multiplier, or offset values, false otherwise.
    */
-  LIBSBML_EXTERN
   bool isVariantOfSubstance () const;
 
   /**
@@ -156,7 +99,6 @@ public:
    * time, i.e. seconds with only abritrary variations in scale,
    * multiplier, or offset values, false otherwise.
    */
-  LIBSBML_EXTERN
   bool isVariantOfTime () const;
 
   /**
@@ -164,88 +106,122 @@ public:
    * volume, i.e. litre or cubic metre with only abritrary variations in
    * scale, multiplier, or offset values, false otherwise.
    */
-  LIBSBML_EXTERN
   bool isVariantOfVolume () const;
 
-  /**
-   * Moves the id field of this UnitDefinition to its name field (iff name
-   * is not already set).  This method is used for converting from L2 to
-   * L1.
-   */
-  LIBSBML_EXTERN
-  void moveIdToName ();
 
   /**
-   * Moves the name field of this UnitDefinition to its id field (iff id is
-   * not already set).  This method is used for converting from L1 to L2.
+   * Adds a copy of the given Unit to this UnitDefinition.
    */
-  LIBSBML_EXTERN
-  void moveNameToId ();
+  void addUnit (const Unit* u);
 
-  /**
-   * Sets the id of this UnitDefinition to a copy of sid.
-   */
-  LIBSBML_EXTERN
-  void setId (const std::string& sid);
-
-  /**
-   * Sets the name of this UnitDefinition to a copy of string (SName in
-   * L1).
-   */
-  LIBSBML_EXTERN
-  void setName (const std::string& str);
-
-  /**
-   * Unsets the name of this UnitDefinition.
-   *
-   * In SBML L1, a UnitDefinition name is required and therefore <b>should
-   * always be set</b>.  In L2, name is optional and as such may or may not
-   * be set.
-   */
-  LIBSBML_EXTERN
-  void unsetName ();
-
-  /**
-   * Adds the given Unit to this UnitDefinition.
-   */
-  LIBSBML_EXTERN
-  void addUnit (Unit& u);
 
   /**
    * @return the list of Units for this UnitDefinition.
    */
-  LIBSBML_EXTERN
-  ListOf& getListOfUnits ();
+  const ListOfUnits* getListOfUnits () const;
 
   /**
    * @return the list of Units for this UnitDefinition.
    */
-  LIBSBML_EXTERN
-  const ListOf& getListOfUnits () const;
+  ListOfUnits* getListOfUnits ();
 
 
   /**
    * @return the nth Unit of this UnitDefinition
    */
-  LIBSBML_EXTERN
-  Unit* getUnit (unsigned int n) const;
+  Unit* getUnit (unsigned int n);
+
+  /**
+   * @return the nth Unit of this UnitDefinition
+   */
+  const Unit* getUnit (unsigned int n) const;
+
 
   /**
    * @return the number of Units in this UnitDefinition.
    */
-  LIBSBML_EXTERN
   unsigned int getNumUnits () const;
+
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  virtual SBMLTypeCode_t getTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream);
 
 
 protected:
 
-  std::string id;
-  std::string name;
-  ListOf      unit;
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream);
 
 
-  friend class SBMLFormatter;
-  friend class SBMLHandler;
+  ListOfUnits mUnits;
+};
+
+
+
+class LIBSBML_EXTERN ListOfUnitDefinitions : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
 };
 
 
@@ -282,11 +258,11 @@ UnitDefinition_createWith (const char *sid);
  * Creates a new UnitDefinition with the given name and returns a pointer
  * to it.  This convenience function is functionally equivalent to:
  *
- *   UnitDefinition_setName(UnitDefinition_create(), string);
+ *   UnitDefinition_setName(UnitDefinition_create(), name);
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
-UnitDefinition_createWithName (const char *string);
+UnitDefinition_createWithName (const char *name);
 
 /**
  * Frees the given UnitDefinition.
@@ -294,6 +270,13 @@ UnitDefinition_createWithName (const char *string);
 LIBSBML_EXTERN
 void
 UnitDefinition_free (UnitDefinition_t *ud);
+
+/**
+ * @return a (deep) copy of this UnitDefinition.
+ */
+LIBSBML_EXTERN
+UnitDefinition_t*
+UnitDefinition_clone (const UnitDefinition_t *ud);
 
 
 /**
@@ -407,7 +390,7 @@ UnitDefinition_setId (UnitDefinition_t *ud, const char *sid);
  */
 LIBSBML_EXTERN
 void
-UnitDefinition_setName (UnitDefinition_t *ud, const char *string);
+UnitDefinition_setName (UnitDefinition_t *ud, const char *name);
 
 
 /**
@@ -424,11 +407,11 @@ UnitDefinition_unsetName (UnitDefinition_t *ud);
 
 
 /**
- * Adds the given Unit to this UnitDefinition.
+ * Adds a copy of the given Unit to this UnitDefinition.
  */
 LIBSBML_EXTERN
 void
-UnitDefinition_addUnit (UnitDefinition_t *ud, Unit_t *u);
+UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u);
 
 /**
  * @return the list of Units for this UnitDefinition.
@@ -442,7 +425,7 @@ UnitDefinition_getListOfUnits (UnitDefinition_t *ud);
  */
 LIBSBML_EXTERN
 Unit_t *
-UnitDefinition_getUnit (const UnitDefinition_t *ud, unsigned int n);
+UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n);
 
 /**
  * @return the number of Units in this UnitDefinition.

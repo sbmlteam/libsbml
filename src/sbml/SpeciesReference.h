@@ -6,46 +6,19 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
@@ -60,14 +33,112 @@
 
 
 #include <string>
-#include "SimpleSpeciesReference.h"
+
+#include "SBase.h"
+#include "ListOf.h"
 
 
 class ASTNode;
 class SBMLVisitor;
 
 
-class SpeciesReference : public SimpleSpeciesReference
+class LIBSBML_EXTERN SimpleSpeciesReference : public SBase
+{
+public:
+
+  /**
+   * Creates a new SimpleSpeciesReference, optionally with its species
+   * attribute set.
+   */
+  SimpleSpeciesReference (const std::string& species = "");
+
+  /**
+   * Destroys this SimpleSpeciesReference.
+   */
+  virtual ~SimpleSpeciesReference ();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return the species for this SimpleSpeciesReference.
+   */
+  const std::string& getSpecies () const;
+
+  /**
+   * @return the sboTerm of this SimpleSpeciesReference as an integer.  If
+   * not set, sboTerm will be -1.  Use SBML::sboTermToString() to convert
+   * the sboTerm to a zero-padded, seven digit string.
+   */
+  int getSBOTerm () const;
+
+
+  /**
+   * @return true if the species for this SimpleSpeciesReference has been
+   * set, false otherwise.
+   */
+  bool isSetSpecies () const;
+
+  /**
+   * @return true if the sboTerm of this SimpleSpeciesReference has been
+   * set, false otherwise.
+   */
+  bool isSetSBOTerm () const;
+
+
+  /**
+   * Sets the species of this SimpleSpeciesReference to a copy of sid.
+   */
+  void setSpecies (const std::string& sid);
+
+  /**
+   * Sets the sboTerm field of this SimpleSpeciesReference to value.
+   */
+  void setSBOTerm (int sboTerm);
+
+
+  /**
+   * Unsets the sboTerm of this SimpleSpeciesReference.
+   */
+  void unsetSBOTerm ();
+
+  /**
+   * @return true if this SpeciesReference is a ModiferSpeciesReference,
+   * false otherwise.
+   */
+  bool isModifier () const;
+
+
+protected:
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream);
+
+  std::string  mSpecies;
+  int          mSBOTerm;
+};
+
+
+
+class LIBSBML_EXTERN SpeciesReference : public SimpleSpeciesReference
 {
 public:
 
@@ -75,15 +146,18 @@ public:
    * Creates a new SpeciesReference, optionally with its species,
    * stoichiometry, and denominator attributes set.
    */
-  LIBSBML_EXTERN
   SpeciesReference (   const std::string& species       = ""
                      , double             stoichiometry = 1.0
                      , int                denominator   = 1   );
 
   /**
+   * Copies this SpeciesReference.
+   */
+  SpeciesReference (const SpeciesReference& rhs);
+
+  /**
    * Destroys this SpeciesReference.
    */
-  LIBSBML_EXTERN
   virtual ~SpeciesReference ();
 
 
@@ -94,8 +168,12 @@ public:
    * whether or not the Visitor would like to visit the Reaction's next
    * SimpleSpeciesReference (if available).
    */
-  LIBSBML_EXTERN
   virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return a (deep) copy of this SpeciesReference.
+   */
+  virtual SBase* clone () const;
 
   /**
    * Initializes the fields of this SpeciesReference to their defaults:
@@ -103,75 +181,187 @@ public:
    *   - stoichiometry = 1
    *   - denominator   = 1
    */
-  LIBSBML_EXTERN
   void initDefaults ();
 
   /**
    * @return the stoichiometry of this SpeciesReference.
    */
-  LIBSBML_EXTERN
   double getStoichiometry () const;
 
   /**
    * @return the stoichiometryMath of this SpeciesReference.
    */
-  LIBSBML_EXTERN
   const ASTNode* getStoichiometryMath () const;
 
   /**
    * @return the denominator of this SpeciesReference.
    */
-  LIBSBML_EXTERN
   int getDenominator () const;
+
 
   /**
    * @return true if the stoichiometryMath of this SpeciesReference has
    * been set, false otherwise.
    */
-  LIBSBML_EXTERN
   bool isSetStoichiometryMath () const;
+
 
   /**
    * Sets the stoichiometry of this SpeciesReference to value.
    */
-  LIBSBML_EXTERN
   void setStoichiometry (double value);
 
   /**
-   * Sets the stoichiometryMath of this SpeciesReference to the given
-   * ASTNode.
-   *
-   * The node <b>is not copied</b> and this SpeciesReference <b>takes
-   * ownership</b> of it; i.e. subsequent calls to this function or a call
-   * to SpeciesReference_free() will free the ASTNode (and any child
-   * nodes).
+   * Sets the stoichiometryMath of this SpeciesReference to a copy of the
+   * given ASTNode.
    */
-  LIBSBML_EXTERN
-  void setStoichiometryMath (ASTNode* math);
+  void setStoichiometryMath (const ASTNode* math);
 
   /**
    * Sets the stoichiometryMath of this SpeciesReference to the given
    * formula string.
    */
-  LIBSBML_EXTERN
   void setStoichiometryMath (const std::string& formula);
 
   /**
    * Sets the denominator of this SpeciesReference to value.
    */
-  LIBSBML_EXTERN
   void setDenominator (int value);
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  virtual SBMLTypeCode_t getTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
 
 
 protected:
 
-  double    stoichiometry;
-  int       denominator;
-  ASTNode*  stoichiometryMath;
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream);
 
 
-  friend class SBMLFormatter;
-  friend class SBMLHandler;
+  double    mStoichiometry;
+  int       mDenominator;
+  ASTNode*  mStoichiometryMath;
+};
+
+
+
+class LIBSBML_EXTERN ModifierSpeciesReference : public SimpleSpeciesReference
+{
+public:
+
+  /**
+   * Creates a new ModifierSpeciesReference, optionally with its species
+   * attribute set.
+   */
+  ModifierSpeciesReference (const std::string& species = "");
+
+  /**
+   * Destroys this ModifierSpeciesReference.
+   */
+  virtual ~ModifierSpeciesReference();
+
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Reaction's next
+   * SimpleSpeciesReference (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return a (deep) copy of this SpeciesReference.
+   */
+  virtual SBase* clone () const;
+
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  virtual SBMLTypeCode_t getTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+};
+
+
+
+class LIBSBML_EXTERN ListOfSpeciesReferences : public ListOf
+{
+public:
+
+  /**
+   * Creates a new ListOfSpeciesReferences.
+   */
+  ListOfSpeciesReferences ();
+
+  /**
+   * @return a (deep) copy of this ListOfUnits.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  enum SpeciesType { Unknown, Reactant, Product, Modifier };
+
+  /**
+   * Sets type of this ListOfSpeciesReferences.
+   */
+  void setType (SpeciesType type);
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+
+
+  SpeciesType mType;
+
+
+  friend class Reaction;
 };
 
 
@@ -195,20 +385,21 @@ SpeciesReference_t *
 SpeciesReference_create (void);
 
 /**
+ * Creates a new ModifierSpeciesReference and returns a pointer to it.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_createModifier (void);
+
+/**
  * Creates a new SpeciesReference with the given species, stoichiometry and
- * denominator and returns a pointer to it.  This convenience function is
- * functionally equivalent to:
- *
- *   SpeciesReference_t *r = SpeciesReference_create();
- *   SpeciesReference_setSpecies(r, species);
- *   r->stoichiometry = stoichiometry;
- *   ...;
+ * denominator and returns a pointer to it.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createWith ( const char *species,
-                              double     stoichiometry,
-                              int        denominator );
+                              double      stoichiometry,
+                              int         denominator );
 
 /**
  * Frees the given SpeciesReference.
@@ -218,14 +409,46 @@ void
 SpeciesReference_free (SpeciesReference_t *sr);
 
 /**
+ * @return a (deep) copy of this SpeciesReference
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+SpeciesReference_clone (const SpeciesReference_t *sr);
+
+/**
  * Initializes the fields of this SpeciesReference to their defaults:
  *
  *   - stoichiometry = 1
  *   - denominator   = 1
+ *
+ * This function has no effect if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 void
 SpeciesReference_initDefaults (SpeciesReference_t *sr);
+
+/**
+ * @return true (non-zero) if the SpeciesReference is a
+ * ModiferSpeciesReference, false otherwise.
+ */
+bool
+SpeciesReference_isModifier (const SpeciesReference_t *sr);
+
+
+/**
+ * @return the id of this SpeciesReference.
+ */
+LIBSBML_EXTERN
+const char *
+SpeciesReference_getId (const SpeciesReference_t *sr);
+
+/**
+ * @return the name of this SpeciesReference.
+ */
+LIBSBML_EXTERN
+const char *
+SpeciesReference_getName (const SpeciesReference_t *sr);
 
 
 /**
@@ -236,7 +459,19 @@ const char *
 SpeciesReference_getSpecies (const SpeciesReference_t *sr);
 
 /**
- * @return the stoichiometry of this SpeciesReference.
+ * @return the sboTerm of this SpeciesReference as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
+ * to a zero-padded, seven digit string.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_getSBOTerm (const SpeciesReference_t *sr);
+
+/**
+ * @return the stoichiometry of this SpeciesReference or zero if.
+ *
+ * This function returns zero if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 double
@@ -244,6 +479,9 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
 
 /**
  * @return the stoichiometryMath of this SpeciesReference.
+ *
+ * This function returns NULL if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -251,6 +489,9 @@ SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr);
 
 /**
  * @return the denominator of this SpeciesReference.
+ *
+ * This function returns 0 if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 int
@@ -258,16 +499,44 @@ SpeciesReference_getDenominator (const SpeciesReference_t *sr);
 
 
 /**
- * @return 1 if the species of this SpeciesReference has been set, 0
- * otherwise.
+ * @return true (non-zero) if the id for this SpeciesReference has been
+ * set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetId (const SpeciesReference_t *sr);
+
+/**
+ * @return true (non-zero) if the name for this SpeciesReference has been
+ * set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetName (const SpeciesReference_t *sr);
+
+
+/**
+ * @return true (non-zero) if the species for this SpeciesReference
+ * has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
 SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
 
 /**
- * @return 1 if the stoichiometryMath of this SpeciesReference has been
- * set, 0 otherwise.
+ * @return true (non-zero) if the sboTerm for this SpeciesReference has
+ * been set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+SpeciesReference_isSetSBOTerm (const SpeciesReference_t *sr);
+
+/**
+ * @return true (non-zero) if the stoichiometryMath of this
+ * SpeciesReference has been set, false (0) otherwise.
+ *
+ * This function returns false if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 int
@@ -275,37 +544,86 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr);
 
 
 /**
- * Sets the species of this SpeciesReference to a copy of sname.
+ * Sets the id of this SpeciesReference to a copy of sid.
  */
 LIBSBML_EXTERN
 void
-SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sname);
+SpeciesReference_setId (SpeciesReference_t *sr, const char *sid);
+
+/**
+ * Sets the name of this SpeciesReference to a copy of name.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_setName (SpeciesReference_t *sr, const char *name);
+
+/**
+ * Sets the species of this SpeciesReference to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid);
+
+/**
+ * Sets the sboTerm field of this SimpleSpeciesReference to value.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_setSBOTerm (SpeciesReference_t *sr, int sboTerm);
 
 /**
  * Sets the stoichiometry of this SpeciesReference to value.
+ *
+ * This function has no effect if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 void
 SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value);
 
 /**
- * Sets the stoichiometryMath of this SpeciesReference to the given
- * ASTNode.
+ * Sets the stoichiometryMath of this SpeciesReference to a copy of the
+ * given ASTNode.
  *
- * The node <b>is not copied</b> and this SpeciesReference <b>takes
- * ownership</b> of it; i.e. subsequent calls to this function or a call to
- * SpeciesReference_free() will free the ASTNode (and any child nodes).
+ * This function has no effect if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 void
-SpeciesReference_setStoichiometryMath (SpeciesReference_t *sr, ASTNode_t *math);
+SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
+                                       , const ASTNode_t    *math );
 
 /**
  * Sets the denominator of this SpeciesReference to value.
+ *
+ * This function has no effect if the SpeciesReference is a Modifer (see
+ * SpeciesReference_isModifier()).
  */
 LIBSBML_EXTERN
 void
 SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
+
+
+/**
+ * Unsets the id of this Species.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_unsetId (SpeciesReference_t *sr);
+
+/**
+ * Unsets the name of this Species.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_unsetName (SpeciesReference_t *sr);
+
+/**
+ * Unsets the sboTerm of this Species.
+ */
+LIBSBML_EXTERN
+void
+SpeciesReference_unsetSBOTerm (SpeciesReference_t *sr);
 
 
 END_C_DECLS

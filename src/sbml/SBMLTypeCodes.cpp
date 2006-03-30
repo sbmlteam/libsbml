@@ -67,6 +67,7 @@ const char* SBML_TYPE_CODE_STRINGS[] =
   , "Model"
   , "Parameter"
   , "Reaction"
+  , "Rule"
   , "Species"
   , "SpeciesReference"
   , "ModifierSpeciesReference"

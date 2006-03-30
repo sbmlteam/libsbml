@@ -6,46 +6,19 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2003 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
@@ -60,14 +33,16 @@
 
 
 #include <string>
+
 #include "SBase.h"
+#include "ListOf.h"
 
 
 class ASTNode;
 class SBMLVisitor;
 
 
-class EventAssignment : public SBase
+class LIBSBML_EXTERN EventAssignment : public SBase
 {
 public:
 
@@ -75,21 +50,22 @@ public:
    * Creates a new EventAssignment, optionally with its variable and math
    * (via infix formula string) attributes set.
    */
-  LIBSBML_EXTERN
-  EventAssignment (   const std::string& variable = ""
-                    , const std::string& formula  = "" );
+  EventAssignment (  const std::string& variable = ""
+                   , const std::string& formula  = "" );
   /**
    * Creates a new EventAssignment with its variable and math attributes
    * set.
    */
-  LIBSBML_EXTERN
-  EventAssignment (   const std::string& variable
-                    , ASTNode*           math     );
+  EventAssignment (const std::string& variable, const ASTNode* math);
+
+  /**
+   * Copies this EventAssignment.
+   */
+  EventAssignment (const EventAssignment& rhs);
 
   /**
    * Destroys this EventAssignment.
    */
-  LIBSBML_EXTERN
   virtual ~EventAssignment ();
 
 
@@ -100,60 +76,115 @@ public:
    * whether or not the Visitor would like to visit the Event's next
    * EventAssignment (if available).
    */
-  LIBSBML_EXTERN
   bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return a (deep) copy of this EventAssignment.
+   */
+  virtual SBase* clone () const;
+
 
   /**
    * @return the variable of this EventAssignment.
    */
-  LIBSBML_EXTERN
   const std::string& getVariable () const;
 
   /**
    * @return the math of this EventAssignment.
    */
-  LIBSBML_EXTERN
   const ASTNode* getMath () const;
+
 
   /**
    * @return true if the variable of this EventAssignment has been set, false
    * otherwise.
    */
-  LIBSBML_EXTERN
   bool isSetVariable () const;
 
   /**
    * @return true if the math of this EventAssignment has been set, false
    * otherwise.
    */
-  LIBSBML_EXTERN
   bool isSetMath () const;
+
 
   /**
    * Sets the variable of this EventAssignment to a copy of sid.
    */
-  LIBSBML_EXTERN
   void setVariable (const std::string& sid);
 
   /**
-   * Sets the math of this EventAssignment to the given ASTNode.
-   *
-   * The node <b>is not copied</b> and this EventAssignment <b>takes
-   * ownership</b> of it; i.e. subsequent calls to this function or a call
-   * to EventAssignment_free() will free the ASTNode (and any child nodes).
+   * Sets the math of this EventAssignment to a copy of the given ASTNode.
    */
-  LIBSBML_EXTERN
-  void setMath (ASTNode* math);
+  void setMath (const ASTNode* math);
+
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  virtual SBMLTypeCode_t getTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
 
 
 protected:
 
-  std::string variable;
-  ASTNode*    math;
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.
+   */
+  virtual void writeAttributes (XMLOutputStream& stream);
 
 
-  friend class SBMLFormatter;
-  friend class SBMLHandler;
+  ASTNode*  mMath;
+};
+
+
+
+class LIBSBML_EXTERN ListOfEventAssignments : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfEventAssignments.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
 };
 
 
@@ -196,6 +227,13 @@ LIBSBML_EXTERN
 void
 EventAssignment_free (EventAssignment_t *ea);
 
+/**
+ * @return a (deep) copy of this EventAssignment.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+EventAssignment_clone (const EventAssignment_t *ea);
+
 
 /**
  * @return the variable of this EventAssignment.
@@ -236,15 +274,11 @@ void
 EventAssignment_setVariable (EventAssignment_t *ea, const char *sid);
 
 /**
- * Sets the math of this EventAssignment to the given ASTNode.
- *
- * The node <b>is not copied</b> and this EventAssignment <b>takes
- * ownership</b> of it; i.e. subsequent calls to this function or a call to
- * EventAssignment_free() will free the ASTNode (and any child nodes).
+ * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
 LIBSBML_EXTERN
 void
-EventAssignment_setMath (EventAssignment_t *ea, ASTNode_t *math);
+EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math);
 
 
 END_C_DECLS
