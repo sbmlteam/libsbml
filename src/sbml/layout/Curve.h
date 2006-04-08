@@ -57,17 +57,52 @@
 #include <string>
 
 #include "sbml/SBase.h"
+#include "sbml/SBMLVisitor.h"
 #include "sbml/ListOf.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 
 #include "LineSegment.h"
 #include "CubicBezier.h"
 
+class LIBSBML_EXTERN ListOfLineSegments : public ListOf
+{
+ public:
 
-class Curve : public SBase
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+class LIBSBML_EXTERN Curve : public SBase
 {
 protected:
 
-  ListOf curveSegments;
+  ListOfLineSegments mCurveSegments;
 
 
 public:
@@ -75,52 +110,57 @@ public:
   /**
    * Creates a curve with an empty list of segments.
    */ 
-  LIBSBML_EXTERN
+  
   Curve ();
 
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~Curve ();
 
   /**
    * Does nothing since no defaults are defined for Curve.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
 
   /**
    * Returns a reference to the ListOf object that holds all the curve
    * segments.
    */
-  LIBSBML_EXTERN
-  const ListOf& getListOfCurveSegments () const;
+  
+  const ListOfLineSegments* getListOfCurveSegments () const;
        
   /**
    * Returns a refernce to the ListOf object That holds all the curve
    * segments.
    */
-  LIBSBML_EXTERN
-  ListOf& getListOfCurveSegments ();
+  
+  ListOfLineSegments* getListOfCurveSegments ();
 
   /**
    * Returns a pointer to the curve segment with the given index.
    * If the index is invalid, NULL is returned.
    */  
-  LIBSBML_EXTERN
-  LineSegment* getCurveSegment (unsigned int index) const;
+  const LineSegment* getCurveSegment (unsigned int index) const;
+
+  /**
+   * Returns a pointer to the curve segment with the given index.
+   * If the index is invalid, NULL is returned.
+   */  
+  LineSegment* getCurveSegment (unsigned int index);
 
   /**
    * Adds a new CurveSegment to the end of the list.
    */ 
-  LIBSBML_EXTERN
-  void addCurveSegment (LineSegment& segment);
+  
+  void addCurveSegment (const LineSegment* segment);
   
   /**
    * Returns the number of curve segments.
    */ 
-  LIBSBML_EXTERN
+  
   unsigned int getNumCurveSegments () const;
 
 
@@ -128,16 +168,91 @@ public:
    * Creates a new LineSegment and adds it to the end of the list.  A
    * reference to the new LineSegment object is returned.
    */
-  LIBSBML_EXTERN
-  LineSegment& createLineSegment ();
+  
+  LineSegment* createLineSegment ();
 
   /**
    * Creates a new CubicBezier and adds it to the end of the list.  A
    * reference to the new CubicBezier object is returned.
    */
-  LIBSBML_EXTERN
-  CubicBezier& createCubicBezier ();
+  
+  CubicBezier* createCubicBezier ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const {};
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 };
+  
+
+
+
+
 
 
 #endif /* __cplusplus */
@@ -232,6 +347,14 @@ Curve_createLineSegment (Curve_t *c);
 LIBSBML_EXTERN
 CubicBezier_t *
 Curve_createCubicBezier (Curve_t *c);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Curve_t *
+Curve_clone (const Curve_t *m);
+
 
 
 END_C_DECLS

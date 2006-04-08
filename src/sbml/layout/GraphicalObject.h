@@ -57,17 +57,20 @@
 #include <string>
 
 #include "sbml/SBase.h"
+#include "sbml/SBMLVisitor.h"
 #include "BoundingBox.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 
-class GraphicalObject : public SBase
+
+class LIBSBML_EXTERN GraphicalObject : public SBase
 {
 protected:
 
-  std::string id;
-  BoundingBox boundingBox;
-
-  friend class LayoutHandler;
+  std::string mId;
+  BoundingBox mBoundingBox;
         
 
 public:
@@ -75,20 +78,20 @@ public:
   /**
    * Creates a new GraphicalObject.
    */
-  LIBSBML_EXTERN
+  
   GraphicalObject ();
 
   /**
    * Creates a new GraphicalObject with the given id.
    */
-  LIBSBML_EXTERN
+  
   GraphicalObject (const std::string& id);
 
   /**
    * Creates a new GraphicalObject with the given id and 2D coordinates for
    * the bounding box.
    */
-  LIBSBML_EXTERN
+  
   GraphicalObject (const std::string& id,
                    double x, double y, double w, double h);
 
@@ -96,7 +99,7 @@ public:
    * Creates a new GraphicalObject with the given id and 3D coordinates for
    * the bounding box.
    */
-  LIBSBML_EXTERN
+  
   GraphicalObject (const std::string& id,
                    double x, double y, double z,
                    double w, double h, double d);
@@ -105,63 +108,135 @@ public:
    * Creates a new GraphicalObject with the given id and 3D coordinates for
    * the bounding box.
    */
-  LIBSBML_EXTERN
-  GraphicalObject (const std::string& id, const Point& p, const Dimensions& d);
+  
+  GraphicalObject (const std::string& id, const Point* p, const Dimensions* d);
 
   /**
    * Creates a new GraphicalObject with the given id and 3D coordinates for
    * the bounding box.
    */
-  LIBSBML_EXTERN
-  GraphicalObject (const std::string& id, const BoundingBox& bb);
+  
+  GraphicalObject (const std::string& id, const BoundingBox* bb);
 
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~GraphicalObject ();
 
   /**
    * Does nothing. No defaults are defined for GraphicalObject.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
 
   /**
    * Gets the id for the GraphicalObject.
    */
-  LIBSBML_EXTERN
+  
   const std::string& getId () const;
 
   /**
    * Sets the id for the GraphicalObject.
    */
-  LIBSBML_EXTERN
+  
   void setId (const std::string& id);
 
   /**
    * Returns true if the id is not the empty string.
    */
-  LIBSBML_EXTERN
+  
   bool isSetId () const;
 
   /**
    * Sets the boundingbox for the GraphicalObject.
    */ 
-  LIBSBML_EXTERN
-  void setBoundingBox (const BoundingBox& bb);
+  
+  void setBoundingBox (const BoundingBox* bb);
 
   /**
    * Returns the bounding box for the GraphicalObject.
    */ 
-  LIBSBML_EXTERN
-  BoundingBox& getBoundingBox ();
+  
+  BoundingBox* getBoundingBox ();
 
   /**
    * Returns the bounding box for the GraphicalObject.
    */ 
-  LIBSBML_EXTERN
-  const BoundingBox& getBoundingBox() const;
+  
+  const BoundingBox* getBoundingBox() const;
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const {};
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
 
 
@@ -234,6 +309,13 @@ GraphicalObject_getBoundingBox (GraphicalObject_t *go);
 LIBSBML_EXTERN
 void
 GraphicalObject_initDefaults (GraphicalObject_t *go);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+GraphicalObject_t *
+GraphicalObject_clone (const GraphicalObject_t *m);
 
 
 END_C_DECLS

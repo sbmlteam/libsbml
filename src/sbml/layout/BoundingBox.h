@@ -57,18 +57,23 @@
 #include <string>
 
 #include "sbml/SBase.h"
+#include "sbml/SBMLVisitor.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 
 #include "Point.h"
 #include "Dimensions.h"
 
 
-class BoundingBox : public SBase
+class LIBSBML_EXTERN BoundingBox : public SBase
 {
 protected:
 
-  std::string id;
-  Point position;
-  Dimensions dimensions;
+  std::string mId;
+  Point mPosition;
+  Dimensions mDimensions;
 
 
 public:
@@ -77,21 +82,21 @@ public:
    * Default Constructor set position and dimensions to (0.0,0.0,0.0) and
    * the id to an empty string.
    */ 
-  LIBSBML_EXTERN
+  
   BoundingBox ();
         
   /**
    * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to
    * a copy of the given string.
    */ 
-  LIBSBML_EXTERN
+  
   BoundingBox (const std::string id);
         
   /**
    * Constructor which sets the id, the coordinates and the dimensions to
    * the given 2D values.
    */ 
-  LIBSBML_EXTERN
+  
   BoundingBox (const std::string id, double x, double y,
                double width, double height);
         
@@ -99,7 +104,7 @@ public:
    * Constructor which sets the id, the coordinates and the dimensions to
    * the given 3D values.
    */ 
-  LIBSBML_EXTERN
+  
   BoundingBox (const std::string id, double x, double y, double z,
                double width, double height, double depth);
   
@@ -107,150 +112,220 @@ public:
    * Constructor which sets the id, the coordinates and the dimensions to
    * the given values.
    */ 
-  LIBSBML_EXTERN
-  BoundingBox (const std::string id, const Point& p, const Dimensions& d);
+  
+  BoundingBox (const std::string id, const Point* p, const Dimensions* d);
 
   /**
    * Destructor which does nothing.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~BoundingBox ();
         
   /**
    * Sets the id to a copy of the given string.
    */  
-  LIBSBML_EXTERN
+  
   void setId (const std::string& id);
         
   /**
    * Returns the id of the BoundingBox.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string getId () const;
         
   /**
    * Returns true if the id is not the empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetId () const;    
 
   /**
    * Returns the position of the BoundingBox as const referece to a Point
    * object.
    */ 
-  LIBSBML_EXTERN
-  const Point& getPosition () const;
+  
+  const Point* getPosition () const;
 
   /**
    * Returns the dimensions of the BoundingBox as const referece to a
    * Dimensions object.
    */ 
-  LIBSBML_EXTERN
-  const Dimensions& getDimensions () const;
+  
+  const Dimensions* getDimensions () const;
         
   /**
    * Returns the position of the BoundingBox as referece to a Point object.
    */ 
-  LIBSBML_EXTERN
-  Point& getPosition ();
+  
+  Point* getPosition ();
         
   /**
    * Returns the dimensions of the BoundingBox as referece to a Dimensions
    * object.
    */ 
-  LIBSBML_EXTERN
-  Dimensions& getDimensions ();
+  
+  Dimensions* getDimensions ();
         
   /**
    * Sets the position to a copy of the Point object given.
    */ 
-  LIBSBML_EXTERN
-  void setPosition (const Point& p);
+  
+  void setPosition (const Point* p);
         
   /**
    * Sets the dimensions to a copy of the Dimensions object given.
    */ 
-  LIBSBML_EXTERN
-  void setDimensions (const Dimensions& d);  
+  
+  void setDimensions (const Dimensions* d);  
         
   /**
    * Does nothing yet since there are no defaults fo a BoundingBox. 
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
 
 
   /**
    * Get the x offset of the bounding box.
    */
-  LIBSBML_EXTERN
+  
   double x() const;
   
   /**
    * Get the y offset of the bounding box.
    */
-  LIBSBML_EXTERN
+  
   double y() const;
   
   /**
    * Get the z offset of the bounding box.
    */
-  LIBSBML_EXTERN
+  
   double z() const;
   
   /**
    * Get the width of the bounding box.
    */
-  LIBSBML_EXTERN
+  
   double width() const;
   
   /**
    * Get the height of the bounding box.
    */
-  LIBSBML_EXTERN
+  
   double height() const;
   
   /**
    * Get the depth of the bounding box.
    */
-  LIBSBML_EXTERN
+  
   double depth() const;
 
   /**
    * Set x offset of the bounding box
    */
-  LIBSBML_EXTERN
+  
   void setX(double x);
 
   /**
    * Set y offset of the bounding box
    */
-  LIBSBML_EXTERN
+  
   void setY(double y);
 
   /**
    * Set z offset of the bounding box
    */
-  LIBSBML_EXTERN
+  
   void setZ(double z);
 
   /**
    * Set width of the bounding box
    */
-  LIBSBML_EXTERN
+  
   void setWidth(double width);
 
   /**
    * Set height of the bounding box
    */
-  LIBSBML_EXTERN
+  
   void setHeight(double height);
 
   /**
    * Set depth of the bounding box
    */
-  LIBSBML_EXTERN
+  
   void setDepth(double depth);
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const {};
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   
@@ -452,6 +527,13 @@ BoundingBox_height(BoundingBox_t* bb);
 LIBSBML_EXTERN
 double
 BoundingBox_depth(BoundingBox_t* bb);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+BoundingBox_t *
+BoundingBox_clone (const BoundingBox_t *m);
 
 
 END_C_DECLS

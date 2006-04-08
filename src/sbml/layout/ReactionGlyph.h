@@ -57,21 +57,55 @@
 #include <string>
 
 #include "sbml/ListOf.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 
 #include "GraphicalObject.h"
 #include "SpeciesReferenceGlyph.h"
 
+class LIBSBML_EXTERN ListOfSpeciesReferenceGlyphs : public ListOf
+{
+public:
 
-class ReactionGlyph : public GraphicalObject
+  /**
+   * @return a (deep) copy of this ListOfSpeciesReferenceGlyphs.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+
+
+class LIBSBML_EXTERN ReactionGlyph : public GraphicalObject
 {
 protected:
 
-  std::string reaction;
-  ListOf speciesReferenceGlyphs;
-  Curve* curve;
+  std::string mReaction;
+  ListOfSpeciesReferenceGlyphs mSpeciesReferenceGlyphs;
+  Curve mCurve;
         
-  friend class LayoutHandler;
-
 
 public:
 
@@ -80,101 +114,112 @@ public:
    * empty and the id of the associated reaction is set to the empty
    * string.
    */ 
-  LIBSBML_EXTERN 
+   
   ReactionGlyph ();
        
   /**
    * Creates a ResctionGlyph with the given id.
    */ 
-  LIBSBML_EXTERN 
+   
   ReactionGlyph (const std::string& id);
 
   /**
    * Creates a ResctionGlyph with the given id and set the id of the
    * associated reaction to the second argument.
    */ 
-  LIBSBML_EXTERN 
+   
   ReactionGlyph (const std::string& id, const std::string& reactionId);
        
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN 
+   
   virtual ~ReactionGlyph(); 
        
 
   /**
    * Returns the id of the associated reaction.
    */  
-  LIBSBML_EXTERN 
+   
   const std::string& getReactionId () const;
        
   /**
    * Sets the id of the associated reaction.
    */ 
-  LIBSBML_EXTERN 
+   
   void setReactionId (const std::string& id);
 
   /**
    * Returns true if the id of the associated reaction is not the empty
    * string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetReactionId () const;
        
   /**
    * Returns the ListOf object that hold the species reference glyphs.
    */  
-  LIBSBML_EXTERN 
-  const ListOf& getListOfSpeciesReferenceGlyphs () const;
+   
+  const ListOfSpeciesReferenceGlyphs* getListOfSpeciesReferenceGlyphs () const;
 
   /**
    * Returns the ListOf object that hold the species reference glyphs.
    */  
-  LIBSBML_EXTERN 
-  ListOf& getListOfSpeciesReferenceGlyphs ();
+   
+  ListOfSpeciesReferenceGlyphs* getListOfSpeciesReferenceGlyphs ();
        
   /**
    * Returns the species reference glyph with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-  LIBSBML_EXTERN 
-  SpeciesReferenceGlyph* getSpeciesReferenceGlyph (unsigned int index) const;
+   
+  const SpeciesReferenceGlyph* getSpeciesReferenceGlyph (unsigned int index) const;
+
+  /**
+   * Returns the species reference glyph with the given index.
+   * If the index is invalid, NULL is returned.
+   */ 
+   
+  SpeciesReferenceGlyph* getSpeciesReferenceGlyph (unsigned int index) ;
 
   /**
    * Adds a new species reference glyph to the list.
    */
-  LIBSBML_EXTERN 
-  void addSpeciesReferenceGlyph (SpeciesReferenceGlyph& glyph);
+   
+  void addSpeciesReferenceGlyph (const SpeciesReferenceGlyph* glyph);
        
   /**
    * Returns the number of species reference glyph objects.
    */ 
-  LIBSBML_EXTERN 
+   
   unsigned int getNumSpeciesReferenceGlyphs () const;
        
   /**
    * Calls initDefaults from GraphicalObject.
    */ 
-  LIBSBML_EXTERN 
+   
   void initDefaults (); 
 
   /**
    * Returns the curve object for the reaction glyph
    */ 
-  LIBSBML_EXTERN
-  Curve* getCurve () const;
+  const Curve* getCurve () const;
+
+  /**
+   * Returns the curve object for the reaction glyph
+   */ 
+  Curve* getCurve () ;
 
   /**
    * Sets the curve object for the reaction glyph.
    */ 
-  LIBSBML_EXTERN
-  void setCurve (Curve* curve);
+  
+  void setCurve (const Curve* curve);
        
   /**
    * Returns true if the curve consists of one or more segments.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetCurve () const;
 
   /**
@@ -182,30 +227,30 @@ public:
    * list of species reference objects and returns a reference to the newly
    * created object.
    */
-  LIBSBML_EXTERN
-  SpeciesReferenceGlyph& createSpeciesReferenceGlyph ();
+  
+  SpeciesReferenceGlyph* createSpeciesReferenceGlyph ();
         
   /**
    * Creates a new LineSegment object, adds it to the end of the list of
    * curve segment objects of the curve and returns a reference to the
    * newly created object.
    */
-  LIBSBML_EXTERN
-  LineSegment& createLineSegment();
+  
+  LineSegment* createLineSegment();
     
   /**
    * Creates a new CubicBezier object, adds it to the end of the list of
    * curve segment objects of the curve and returns a reference to the
    * newly created object.
    */
-  LIBSBML_EXTERN CubicBezier& createCubicBezier();
+   CubicBezier* createCubicBezier();
 
   /**
    * Remove the species reference glyph with the given index.
    * A pointer to the object is returned. If no object has been removed, NULL
    * is returned.
    */
-  LIBSBML_EXTERN
+  
   SpeciesReferenceGlyph*
   removeSpeciesReferenceGlyph(unsigned int index);
 
@@ -214,7 +259,7 @@ public:
    * A pointer to the object is returned. If no object has been removed, NULL
    * is returned.
    */
-  LIBSBML_EXTERN
+  
   SpeciesReferenceGlyph*
   removeSpeciesReferenceGlyph(const std::string& id);
 
@@ -223,10 +268,76 @@ public:
    * If the reaction glyph does not contain a species reference glyph with this
    * id, numeric_limits<unsigned int>::max() is returned.
    */
-  LIBSBML_EXTERN
+  
   unsigned int
   getIndexForSpeciesReferenceGlyph(const std::string& id) const;
+
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
+
+
 
 
 #endif /* __cplusplus */
@@ -438,6 +549,14 @@ ReactionGlyph_removeSpeciesReferenceGlyphWithId(ReactionGlyph_t* rg,const char* 
 LIBSBML_EXTERN
 unsigned int
 ReactionGlyph_getIndexForSpeciesReferenceGlyph(ReactionGlyph_t* rg,const char* id);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+ReactionGlyph_t *
+ReactionGlyph_clone (const ReactionGlyph_t *m);
+
 
 END_C_DECLS
 

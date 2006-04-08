@@ -70,10 +70,6 @@ headers   = \
   Dimensions.h                \
   GraphicalObject.h           \
   Layout.h                    \
-  LayoutFormatter.h           \
-  LayoutHandler.h             \
-  LayoutTagCodes.h            \
-  LayoutUnicodeConstants.h    \
   LineSegment.h               \
   Point.h                     \
   ReactionGlyph.h             \
@@ -93,9 +89,6 @@ sources   = \
   Dimensions.cpp            \
   GraphicalObject.cpp       \
   Layout.cpp                \
-  LayoutFormatter.cpp       \
-  LayoutHandler.cpp         \
-  LayoutTagCodes.cpp        \
   LineSegment.cpp           \
   Point.cpp                 \
   ReactionGlyph.cpp         \

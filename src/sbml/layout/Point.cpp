@@ -46,36 +46,32 @@
 
 #include "common/common.h"
 #include "Point.h"
-
+#include "sbml/SBMLErrorLog.h"
 
 /**
  * Creates a new point with x,y and z set  to 0.0.
  */ 
-LIBSBML_EXTERN
-Point::Point() : SBase(), xOffset(0.0), yOffset(0.0), zOffset(0.0)
+Point::Point() : SBase(), mXOffset(0.0), mYOffset(0.0), mZOffset(0.0),mElementName("point")
 {
-  init(SBML_LAYOUT_POINT);
 }
 
 
 /**
  * Creates a new point with the given ccordinates.
  */ 
-LIBSBML_EXTERN
 Point::Point(double x, double y, double z) :
     SBase  ()
-  , xOffset(x)
-  , yOffset(y)
-  , zOffset(z)
+  , mXOffset(x)
+  , mYOffset(y)
+  , mZOffset(z)
+  , mElementName("point")  
 {
-  init(SBML_LAYOUT_POINT);
 }
 
 
 /**
  * Sets the Z offset to 0.0.
  */
-LIBSBML_EXTERN
 void Point::initDefaults ()
 {
   this->setZOffset(0.0);
@@ -85,7 +81,6 @@ void Point::initDefaults ()
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 Point::~Point()
 {
 }
@@ -94,7 +89,6 @@ Point::~Point()
 /**
  * Sets the coordinates to the given values.
  */ 
-LIBSBML_EXTERN
 void
 Point::setOffsets (double x, double y, double z)
 {
@@ -107,7 +101,6 @@ Point::setOffsets (double x, double y, double z)
 /**
  * Sets the x offset.
  */ 
-LIBSBML_EXTERN
 void
 Point::setXOffset (double x)
 {
@@ -118,7 +111,6 @@ Point::setXOffset (double x)
 /**
  * Sets the y offset.
  */ 
-LIBSBML_EXTERN
 void
 Point::setYOffset (double y)
 {
@@ -129,7 +121,6 @@ Point::setYOffset (double y)
 /**
  * Sets the z offset.
  */ 
-LIBSBML_EXTERN
 void
 Point::setZOffset (double z)
 {
@@ -140,40 +131,36 @@ Point::setZOffset (double z)
 /**
  * Sets the x offset.
  */ 
-LIBSBML_EXTERN
 void
 Point::setX (double x)
 {
-  this->xOffset = x;
+  this->mXOffset = x;
 }
 
 
 /**
  * Sets the y offset.
  */ 
-LIBSBML_EXTERN
 void
 Point::setY (double y)
 {
-  this->yOffset = y;
+  this->mYOffset = y;
 }
 
 
 /**
  * Sets the z offset.
  */ 
-LIBSBML_EXTERN
 void
 Point::setZ (double z)
 {
-  this->zOffset = z;
+  this->mZOffset = z;
 }
 
 
 /**
  * Returns the x offset.
  */ 
-LIBSBML_EXTERN
 double
 Point::getXOffset () const
 {
@@ -184,7 +171,6 @@ Point::getXOffset () const
 /**
  * Returns the y offset.
  */ 
-LIBSBML_EXTERN
 double
 Point::getYOffset () const
 {
@@ -195,7 +181,6 @@ Point::getYOffset () const
 /**
  * Returns the z offset.
  */ 
-LIBSBML_EXTERN
 double
 Point::getZOffset () const
 {
@@ -205,34 +190,141 @@ Point::getZOffset () const
 /**
  * Returns the x offset.
  */ 
-LIBSBML_EXTERN
 double
 Point::x () const
 {
-  return this->xOffset;
+  return this->mXOffset;
 }
 
 
 /**
  * Returns the y offset.
  */ 
-LIBSBML_EXTERN
 double
 Point::y () const
 {
-  return this->yOffset;
+  return this->mYOffset;
 }
 
 
 /**
  * Returns the z offset.
  */ 
-LIBSBML_EXTERN
 double
 Point::z () const
 {
-  return this->zOffset;
+  return this->mZOffset;
 }
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.  For example:
+ *
+ *   SBase::writeElements(stream);
+ *   mReactans.write(stream);
+ *   mProducts.write(stream);
+ *   ...
+ */
+void Point::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+}
+
+/**
+ * Sets the element name to be returned by getElementName.
+ */
+void Point::setElementName(const std::string& name)
+{
+    this->mElementName=name;
+}
+ 
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& Point::getElementName () const 
+{
+  return this->mElementName;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+Point::clone () const
+{
+    return new Point(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+Point::createObject (XMLInputStream& stream)
+{
+  SBase*        object = 0;
+
+  object=SBase::createObject(stream);
+  
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void Point::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  attributes.readInto("x", mXOffset,this->getErrorLog(),true);
+  attributes.readInto("y", mYOffset,this->getErrorLog(),true);
+  if(!attributes.readInto("z", mZOffset))
+  {
+      this->mZOffset=0.0;
+  }
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void Point::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+  stream.writeAttribute("x", mXOffset);
+  stream.writeAttribute("y", mYOffset);
+  if(this->mZOffset!=0.0)
+  {
+    stream.writeAttribute("z", mZOffset);
+  }
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Point::getTypeCode () const
+{
+  return SBML_LAYOUT_POINT;
+}
+
 
 
 
@@ -422,6 +514,16 @@ double
 Point_z (const Point_t *p)
 {
   return p->z();
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Point_t *
+Point_clone (const Point_t *m)
+{
+  return static_cast<Point*>( m->clone() );
 }
 
 

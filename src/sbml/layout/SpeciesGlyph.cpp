@@ -52,41 +52,34 @@
  * Creates a new SpeciesGlyph with the id of the associated species set to
  * the empty string.
  */        
-LIBSBML_EXTERN
 SpeciesGlyph::SpeciesGlyph ()
 {
-  init(SBML_LAYOUT_SPECIESGLYPH);
 }
 
 
 /**
  * Creates a new SpeciesGlyph with the given id.
  */ 
-LIBSBML_EXTERN
 SpeciesGlyph::SpeciesGlyph (const std::string& sid):
     GraphicalObject( sid )
 {
-  init(SBML_LAYOUT_SPECIESGLYPH);
 }
 
 /**
  * Creates a new SpeciesGlyph with the given id and the id of the
  * associated species object set to the second argument.
  */ 
-LIBSBML_EXTERN
 SpeciesGlyph::SpeciesGlyph (const std::string& sid,
                             const std::string& speciesId) : 
     GraphicalObject( sid )
-  , species        ( speciesId )
+  , mSpecies        ( speciesId )
 {
-  init(SBML_LAYOUT_SPECIESGLYPH);
 }
 
 
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 SpeciesGlyph::~SpeciesGlyph ()
 {
 } 
@@ -95,22 +88,20 @@ SpeciesGlyph::~SpeciesGlyph ()
 /**
  * Returns the id of the associated species object.
  */ 
-LIBSBML_EXTERN
 const std::string&
 SpeciesGlyph::getSpeciesId () const
 {
-  return this->species;
+  return this->mSpecies;
 }
 
 
 /**
  * Sets the id of the associated species object.
  */ 
-LIBSBML_EXTERN
 void
 SpeciesGlyph::setSpeciesId (const std::string& id)
 {
-  this->species=id;
+  this->mSpecies=id;
 } 
 
 
@@ -118,22 +109,101 @@ SpeciesGlyph::setSpeciesId (const std::string& id)
  * Returns true if the id of the associated species object is not the empty
  * string.
  */ 
-LIBSBML_EXTERN
 bool
 SpeciesGlyph::isSetSpeciesId () const
 {
-  return ! this->species.empty();
+  return ! this->mSpecies.empty();
 }
 
 
 /**
  * Calls initDefaults from GraphicalObject.
  */ 
-LIBSBML_EXTERN
 void SpeciesGlyph::initDefaults ()
 {
   GraphicalObject::initDefaults();
 }
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& SpeciesGlyph::getElementName () const 
+{
+  static const std::string name = "speciesGlyph";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+SpeciesGlyph::clone () const
+{
+    return new SpeciesGlyph(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+SpeciesGlyph::createObject (XMLInputStream& stream)
+{
+  SBase*        object = 0;
+
+  object=GraphicalObject::createObject(stream);
+  
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void SpeciesGlyph::readAttributes (const XMLAttributes& attributes)
+{
+  GraphicalObject::readAttributes(attributes);
+
+  attributes.readInto("species", mSpecies);
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void SpeciesGlyph::writeAttributes (XMLOutputStream& stream) const
+{
+  GraphicalObject::writeAttributes(stream);
+  if(this->isSetSpeciesId())
+  {
+    stream.writeAttribute("species", mSpecies);
+  }
+}
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+SpeciesGlyph::getTypeCode () const
+{
+  return SBML_LAYOUT_SPECIESGLYPH;
+}
+
+
+
 
 
 /**
@@ -235,3 +305,16 @@ SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg)
 {
   sg->initDefaults();
 }
+
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+SpeciesGlyph_t *
+SpeciesGlyph_clone (const SpeciesGlyph_t *m)
+{
+  return static_cast<SpeciesGlyph*>( m->clone() );
+}
+
+

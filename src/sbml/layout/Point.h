@@ -55,120 +55,207 @@
 
 
 #include "sbml/SBase.h"
+#include "sbml/SBMLVisitor.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 
-class Point : public SBase
+
+class LIBSBML_EXTERN Point : public SBase
 {
 protected:
 
-  double xOffset;
-  double yOffset;
-  double zOffset;
-
+  double mXOffset;
+  double mYOffset;
+  double mZOffset;
+  std::string mElementName;
 
 public:
 
   /**
    * Creates a new point with x,y and z set to 0.0.
    */ 
-  LIBSBML_EXTERN
+  
   Point ();
         
   /**
    * Creates a new point with the given ccordinates.
    */ 
-  LIBSBML_EXTERN
+  
   Point (double x, double y, double z = 0.0);
         
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~Point ();
 
 
   /**
    * Returns the x offset.
    */ 
-  LIBSBML_EXTERN
+  
   double x () const;
         
   /**
    * Returns the y offset.
    */ 
-  LIBSBML_EXTERN
+  
   double y () const;
         
   /**
    * Returns the z offset.
    */ 
-  LIBSBML_EXTERN
+  
   double z () const;
    /**
    * Returns the x offset.
    */ 
-  LIBSBML_EXTERN
+  
   double getXOffset () const;
         
   /**
    * Returns the y offset.
    */ 
-  LIBSBML_EXTERN
+  
   double getYOffset () const;
         
   /**
    * Returns the z offset.
    */ 
-  LIBSBML_EXTERN
+  
   double getZOffset () const;
         
   /**
    * Sets the x offset.
    */ 
-  LIBSBML_EXTERN
+  
   void setX (double x);
         
   /**
    * Sets the y offset.
    */ 
-  LIBSBML_EXTERN
+  
   void setY (double y);
         
   /**
    * Sets the z offset.
    */ 
-  LIBSBML_EXTERN
+  
   void setZ (double z);
 
   /**
    * Sets the x offset.
    */ 
-  LIBSBML_EXTERN
+  
   void setXOffset (double x);
         
   /**
    * Sets the y offset.
    */ 
-  LIBSBML_EXTERN
+  
   void setYOffset (double y);
         
   /**
    * Sets the z offset.
    */ 
-  LIBSBML_EXTERN
+  
   void setZOffset (double z);
         
   /**
    * Sets the coordinates to the given values.
    */ 
-  LIBSBML_EXTERN
+  
   void setOffsets (double x, double y, double z = 0.0);
         
   /**
    * Sets the Z offset to 0.0.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  
+  /**
+   * Sets the element name to be returned by getElementName.
+   */
+  virtual void setElementName(const std::string& name);
+  
+  
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+
+
+  
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const { return false;}
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
 
 
@@ -303,6 +390,13 @@ Point_getYOffset (const Point_t *p);
 LIBSBML_EXTERN
 double
 Point_getZOffset (const Point_t *p);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Point_t *
+Point_clone (const Point_t *m);
 
 
 END_C_DECLS

@@ -64,20 +64,19 @@
 #endif  /* __cplusplus */
 
 
-typedef CLASS_OR_STRUCT BoundingBox             BoundingBox_t;
-typedef CLASS_OR_STRUCT CompartmentGlyph        CompartmentGlyph_t;
-typedef CLASS_OR_STRUCT CubicBezier             CubicBezier_t;
-typedef CLASS_OR_STRUCT Curve                   Curve_t;
-typedef CLASS_OR_STRUCT Dimensions              Dimensions_t;
-typedef CLASS_OR_STRUCT GraphicalObject         GraphicalObject_t;
-typedef CLASS_OR_STRUCT Layout                  Layout_t;
-typedef CLASS_OR_STRUCT LineSegment             LineSegment_t;
-typedef CLASS_OR_STRUCT Point                   Point_t;
-typedef CLASS_OR_STRUCT ReactionGlyph           ReactionGlyph_t;
-typedef CLASS_OR_STRUCT SpeciesGlyph            SpeciesGlyph_t;
-typedef CLASS_OR_STRUCT SpeciesReferenceGlyph   SpeciesReferenceGlyph_t;
-typedef CLASS_OR_STRUCT TextGlyph               TextGlyph_t;
-
+typedef CLASS_OR_STRUCT BoundingBox                     BoundingBox_t;
+typedef CLASS_OR_STRUCT CompartmentGlyph                CompartmentGlyph_t;
+typedef CLASS_OR_STRUCT CubicBezier                     CubicBezier_t;
+typedef CLASS_OR_STRUCT Curve                           Curve_t;
+typedef CLASS_OR_STRUCT Dimensions                      Dimensions_t;
+typedef CLASS_OR_STRUCT GraphicalObject                 GraphicalObject_t;
+typedef CLASS_OR_STRUCT Layout                          Layout_t;
+typedef CLASS_OR_STRUCT LineSegment                     LineSegment_t;
+typedef CLASS_OR_STRUCT Point                           Point_t;
+typedef CLASS_OR_STRUCT ReactionGlyph                   ReactionGlyph_t;
+typedef CLASS_OR_STRUCT SpeciesGlyph                    SpeciesGlyph_t;
+typedef CLASS_OR_STRUCT SpeciesReferenceGlyph           SpeciesReferenceGlyph_t;
+typedef CLASS_OR_STRUCT TextGlyph                       TextGlyph_t;
 
 #undef CLASS_OR_STRUCT
 

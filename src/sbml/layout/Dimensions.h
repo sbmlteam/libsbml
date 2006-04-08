@@ -55,15 +55,20 @@
 
 
 #include "sbml/SBase.h"
+#include "sbml/SBMLVisitor.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 
-class Dimensions : public SBase
+
+class LIBSBML_EXTERN Dimensions : public SBase
 {
 protected:
 
-  double w;
-  double h;
-  double d;
+  double mW;
+  double mH;
+  double mD;
 
 
 public:
@@ -71,86 +76,158 @@ public:
   /**
    * Creates a new Dimensions object with all sizes set to 0.0.
    */ 
-  LIBSBML_EXTERN
+  
   Dimensions ();
 
   /**
    * Creates a new Dimensions object with the given sizes.
    */ 
-  LIBSBML_EXTERN
+  
   Dimensions (double w, double h, double d = 0.0);
 
   /**
    * Frees memory taken up by the Dimensions object.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~Dimensions ();
 
   /**
    * Returns the width.
    */
-  LIBSBML_EXTERN
+  
   double width () const;
 
   /**
    * Returns the height.
    */
-  LIBSBML_EXTERN
+  
   double height () const;
 
   /**
    * Returns the depth.
    */
-  LIBSBML_EXTERN
+  
   double depth () const;
 
   /**
    * Returns the width.
    */
-  LIBSBML_EXTERN
+  
   double getWidth () const;
 
   /**
    * Returns the height.
    */
-  LIBSBML_EXTERN
+  
   double getHeight () const;
 
   /**
    * Returns the depth.
    */
-  LIBSBML_EXTERN
+  
   double getDepth () const;
 
   /**
    * Sets the width to the given value.
    */ 
-  LIBSBML_EXTERN
+  
   void setWidth (double w);
 
   /**
    * Sets the height to the given value.
    */ 
-  LIBSBML_EXTERN
+  
   void setHeight (double h);
 
   /**
    * Sets the depth to the given value.
    */ 
-  LIBSBML_EXTERN
+  
   void setDepth (double d);
 
   /**
    * Sets all sizes of the Dimensions object to the given values.
    */ 
-  LIBSBML_EXTERN
+  
   void setBounds (double w, double h, double d = 0.0);
 
   /**
    * Sets the depth to 0.0
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const {};
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
 
 
@@ -263,6 +340,14 @@ Dimensions_getWidth (const Dimensions_t *p);
 LIBSBML_EXTERN
 double
 Dimensions_getDepth (const Dimensions_t *p);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Dimensions_t *
+Dimensions_clone (const Dimensions_t *m);
+
 
 
 END_C_DECLS

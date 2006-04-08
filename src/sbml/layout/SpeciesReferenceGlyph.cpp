@@ -47,7 +47,6 @@
 #include "common/common.h"
 #include "SpeciesReferenceGlyph.h"
 
-LIBSBML_EXTERN
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
     "undefined" 
    ,"substrate"
@@ -67,12 +66,10 @@ const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
  * reference and the id of the associated species glyph are set to the
  * empty string.  The role is set to SPECIES_ROLE_UNDEFINED.
  */
-LIBSBML_EXTERN
 SpeciesReferenceGlyph::SpeciesReferenceGlyph () :
-    role  ( SPECIES_ROLE_UNDEFINED )
-  , curve ( new Curve()            )
+    mRole  ( SPECIES_ROLE_UNDEFINED )
+  
 {
-  init(SBML_LAYOUT_SPECIESREFERENCEGLYPH);
 }
 
 
@@ -82,7 +79,6 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph () :
  * second argument.  The third argument is the id of the associated species
  * glpyh and the fourth argument is the role.
  */ 
-LIBSBML_EXTERN
 SpeciesReferenceGlyph::SpeciesReferenceGlyph
 (
   const std::string& sid,
@@ -91,85 +87,75 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph
   SpeciesReferenceRole_t role
 ) :
     GraphicalObject ( sid                )
-  , speciesReference( speciesReferenceId )
-  , speciesGlyph    ( speciesGlyphId     )
-  , role            ( role               )
-  , curve           ( new Curve()        )
+  , mSpeciesReference( speciesReferenceId )
+  , mSpeciesGlyph    ( speciesGlyphId     )
+  , mRole            ( role               )
 {
-  init(SBML_LAYOUT_SPECIESREFERENCEGLYPH);
 }
 
 
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 SpeciesReferenceGlyph::~SpeciesReferenceGlyph ()
 {
-  delete this->curve;
 }
 
 
 /**
  * Returns the id of the associated SpeciesGlyph.
  */ 
-LIBSBML_EXTERN
 const std::string&
 SpeciesReferenceGlyph::getSpeciesGlyphId () const
 {
-  return this->speciesGlyph;
+  return this->mSpeciesGlyph;
 }
 
 
 /**
  * Sets the id of the associated species glyph.
  */ 
-LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph::setSpeciesGlyphId (const std::string& speciesGlyphId)
 {
-  this->speciesGlyph = speciesGlyphId;
+  this->mSpeciesGlyph = speciesGlyphId;
 }
 
 
 /**
  * Returns the id of the associated species reference.
  */ 
-LIBSBML_EXTERN
 const std::string&
 SpeciesReferenceGlyph::getSpeciesReferenceId () const
 {
-  return this->speciesReference;
+  return this->mSpeciesReference;
 }
 
 
 /**
  * Sets the id of the associated species reference.
  */ 
-LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph::setSpeciesReferenceId (const std::string& id)
 {
-  this->speciesReference=id;
+  this->mSpeciesReference=id;
 }
 
 
 /**
  * Returns the role.
  */ 
-LIBSBML_EXTERN
 SpeciesReferenceRole_t
 SpeciesReferenceGlyph::getRole() const
 {
-  return this->role;
+  return this->mRole;
 }
 
 /**
  * Returns a string representation for the role
  */
-LIBSBML_EXTERN
 const std::string& SpeciesReferenceGlyph::getRoleString() const{
-    return SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[this->role];
+    return SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[this->mRole];
 }
 
 /**
@@ -183,64 +169,65 @@ const std::string& SpeciesReferenceGlyph::getRoleString() const{
  * ACTIVATOR
  * INHIBITOR    
  */ 
-LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph::setRole (const std::string& role)
 {
-       if ( role == "substrate"     ) this->role = SPECIES_ROLE_SUBSTRATE;
-  else if ( role == "product"       ) this->role = SPECIES_ROLE_PRODUCT;
-  else if ( role == "sidesubstrate" ) this->role = SPECIES_ROLE_SIDESUBSTRATE;
-  else if ( role == "sideproduct"   ) this->role = SPECIES_ROLE_SIDEPRODUCT;
-  else if ( role == "modifier"      ) this->role = SPECIES_ROLE_MODIFIER;
-  else if ( role == "activator"     ) this->role = SPECIES_ROLE_ACTIVATOR;
-  else if ( role == "inhibitor"     ) this->role = SPECIES_ROLE_INHIBITOR;
-  else                                this->role = SPECIES_ROLE_UNDEFINED;
+       if ( role == "substrate"     ) this->mRole = SPECIES_ROLE_SUBSTRATE;
+  else if ( role == "product"       ) this->mRole = SPECIES_ROLE_PRODUCT;
+  else if ( role == "sidesubstrate" ) this->mRole = SPECIES_ROLE_SIDESUBSTRATE;
+  else if ( role == "sideproduct"   ) this->mRole = SPECIES_ROLE_SIDEPRODUCT;
+  else if ( role == "modifier"      ) this->mRole = SPECIES_ROLE_MODIFIER;
+  else if ( role == "activator"     ) this->mRole = SPECIES_ROLE_ACTIVATOR;
+  else if ( role == "inhibitor"     ) this->mRole = SPECIES_ROLE_INHIBITOR;
+  else                                this->mRole = SPECIES_ROLE_UNDEFINED;
 }
 
 
 /**
  * Sets the role.
  */ 
-LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph::setRole (SpeciesReferenceRole_t role)
 {
-  this->role=role;
+  this->mRole=role;
 }
 
 
 /**
  * Returns the curve object for the species reference glyph
  */ 
-LIBSBML_EXTERN
-Curve* SpeciesReferenceGlyph::getCurve() const
+Curve* SpeciesReferenceGlyph::getCurve() 
 {
-  return this->curve;
+  return &this->mCurve;
+}
+
+/**
+ * Returns the curve object for the species reference glyph
+ */ 
+const Curve* SpeciesReferenceGlyph::getCurve() const
+{
+  return &this->mCurve;
 }
 
 
 /**
  * Sets the curve object for the species reference glyph.
  */ 
-LIBSBML_EXTERN
 void
-SpeciesReferenceGlyph::setCurve (Curve* curve)
+SpeciesReferenceGlyph::setCurve (const Curve* curve)
 {
   if(!curve) return;
-
-  delete this->curve;
-  this->curve = curve;
+  this->mCurve = *curve;
 }
 
 
 /**
  * Returns true if the curve consists of one or more segments.
  */ 
-LIBSBML_EXTERN
 bool
 SpeciesReferenceGlyph::isSetCurve () const
 {
-  return this->curve->getNumCurveSegments() > 0;
+  return this->mCurve.getNumCurveSegments() > 0;
 }
 
 
@@ -248,11 +235,10 @@ SpeciesReferenceGlyph::isSetCurve () const
  * Returns true if the id of the associated species glpyh is not the empty
  * string.
  */ 
-LIBSBML_EXTERN
 bool
 SpeciesReferenceGlyph::isSetSpeciesGlyphId () const
 {
-  return ! this->speciesGlyph.empty();
+  return ! this->mSpeciesGlyph.empty();
 }
 
 
@@ -260,21 +246,19 @@ SpeciesReferenceGlyph::isSetSpeciesGlyphId () const
  * Returns true if the id of the associated species reference is not the
  * empty string.
  */ 
-LIBSBML_EXTERN
 bool
 SpeciesReferenceGlyph::isSetSpeciesReferenceId () const
 {
-  return ! this->speciesReference.empty();
+  return ! this->mSpeciesReference.empty();
 }
 
 
 /**
  * Returns true of role is different from SPECIES_ROLE_UNDEFINED.
  */ 
-LIBSBML_EXTERN
 bool SpeciesReferenceGlyph::isSetRole () const
 {
-  return ! (this->role == SPECIES_ROLE_UNDEFINED);
+  return ! (this->mRole == SPECIES_ROLE_UNDEFINED);
 }
 
 
@@ -282,12 +266,11 @@ bool SpeciesReferenceGlyph::isSetRole () const
  * Calls initDefaults on GraphicalObject and sets role to
  * SPECIES_ROLE_UNDEFINED.
  */ 
-LIBSBML_EXTERN
 void
 SpeciesReferenceGlyph::initDefaults ()
 {
     GraphicalObject::initDefaults();
-    this->role = SPECIES_ROLE_UNDEFINED;
+    this->mRole = SPECIES_ROLE_UNDEFINED;
 }
 
 
@@ -296,11 +279,10 @@ SpeciesReferenceGlyph::initDefaults ()
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
  */
-LIBSBML_EXTERN
-LineSegment&
+LineSegment*
 SpeciesReferenceGlyph::createLineSegment ()
 {
-  return this->curve->createLineSegment();
+  return this->mCurve.createLineSegment();
 }
 
 
@@ -309,12 +291,125 @@ SpeciesReferenceGlyph::createLineSegment ()
  * curve segment objects of the curve and returns a reference to the newly
  * created object.
  */
-LIBSBML_EXTERN
-CubicBezier&
+CubicBezier*
 SpeciesReferenceGlyph::createCubicBezier ()
 {
-  return this->curve->createCubicBezier();
+  return this->mCurve.createCubicBezier();
 }
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& SpeciesReferenceGlyph::getElementName () const 
+{
+  static const std::string name = "speciesReferenceGlyph";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+SpeciesReferenceGlyph::clone () const
+{
+    return new SpeciesReferenceGlyph(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+SpeciesReferenceGlyph::createObject (XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  
+  SBase*        object = 0;
+
+  if (name == "curve")
+  {
+    object = &mCurve;
+  }
+  else
+  {
+    object=GraphicalObject::createObject(stream);
+  }
+  
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes)
+{
+  GraphicalObject::readAttributes(attributes);
+
+  
+  attributes.readInto("speciesReference", mSpeciesReference);
+  attributes.readInto("speciesGlyph", mSpeciesGlyph);
+  
+  std::string role;
+  if(attributes.readInto("role", role))
+  {
+    this->setRole(role);
+  }
+  else
+  {
+    this->setRole(SPECIES_ROLE_UNDEFINED);
+  }
+  
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void SpeciesReferenceGlyph::writeAttributes (XMLOutputStream& stream) const
+{
+  GraphicalObject::writeAttributes(stream);
+  if(this->isSetSpeciesReferenceId())
+  {
+    stream.writeAttribute("speciesReference", mSpeciesReference);
+  }
+  if(this->isSetSpeciesGlyphId())
+  {
+    stream.writeAttribute("speciesGlyph", mSpeciesGlyph);
+  }
+  if(this->isSetRole())
+  {
+    stream.writeAttribute("role", this->getRoleString().c_str() );
+  }
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+SpeciesReferenceGlyph::getTypeCode () const
+{
+  return SBML_LAYOUT_SPECIESREFERENCEGLYPH;
+}
+
+
+
+
 
 
 /**
@@ -538,7 +633,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 SpeciesReferenceGlyph_createLineSegment (SpeciesReferenceGlyph_t *srg)
 {
-  return & srg->getCurve()->createLineSegment();
+  return srg->getCurve()->createLineSegment();
 }  
 
 
@@ -551,5 +646,18 @@ LIBSBML_EXTERN
 CubicBezier_t *
 SpeciesReferenceGlyph_createCubicBezier (SpeciesReferenceGlyph_t *srg)
 {
-  return & srg->getCurve()->createCubicBezier();
+  return srg->getCurve()->createCubicBezier();
 }
+
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t *
+SpeciesReferenceGlyph_clone (const SpeciesReferenceGlyph_t *m)
+{
+  return static_cast<SpeciesReferenceGlyph*>( m->clone() );
+}
+
+

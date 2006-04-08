@@ -51,60 +51,59 @@
 /**
  * Creates a line segment with both points set to (0.0,0.0,0.0)
  */ 
-LIBSBML_EXTERN
 LineSegment::LineSegment () :
     SBase     ()
-  , startPoint( Point(0.0, 0.0, 0.0) )
-  , endPoint  ( Point(0.0, 0.0, 0.0) )
+  , mStartPoint( 0.0, 0.0, 0.0 )
+  , mEndPoint  ( 0.0, 0.0, 0.0 )
 {
-  init(SBML_LAYOUT_LINESEGMENT);
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
 }
 
 
 /**
  * Creates a new line segment with the given 2D coordinates.
  */ 
-LIBSBML_EXTERN
 LineSegment::LineSegment (double x1, double y1, double x2, double y2) :
     SBase     ()
-  , startPoint( Point(x1, y1, 0.0) )
-  , endPoint  ( Point(x2, y2, 0.0) )
+  , mStartPoint(x1, y1, 0.0 )
+  , mEndPoint  ( x2, y2, 0.0 )
 {
-  init(SBML_LAYOUT_LINESEGMENT);
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
 }
 
 
 /**
  * Creates a new line segment with the given 3D coordinates.
  */ 
-LIBSBML_EXTERN
 LineSegment::LineSegment (double x1, double y1, double z1,
                           double x2, double y2, double z2) :
     SBase()
-  , startPoint( Point(x1, y1, z1) )
-  , endPoint  ( Point(x2, y2, z2))
+  , mStartPoint( x1, y1, z1)
+  , mEndPoint  ( x2, y2, z2)
 {
-  init(SBML_LAYOUT_LINESEGMENT);
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
 }
 
 
 /**
  * Creates a new line segment with the two given points.
  */ 
-LIBSBML_EXTERN
-LineSegment::LineSegment (const Point& start, const Point& end) : 
+LineSegment::LineSegment (const Point* start, const Point* end) : 
     SBase     ()
-  , startPoint( start )
-  , endPoint  ( end   )
+  , mStartPoint( *start )
+  , mEndPoint  ( *end   )
 {
-  init(SBML_LAYOUT_LINESEGMENT);
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
 }
 
 
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 LineSegment::~LineSegment ()
 {
 }
@@ -113,7 +112,6 @@ LineSegment::~LineSegment ()
 /**
  * Does nothing since no defaults are defined for LineSegment.
  */ 
-LIBSBML_EXTERN
 void LineSegment::initDefaults ()
 {
 }
@@ -122,22 +120,20 @@ void LineSegment::initDefaults ()
 /**
  * Sets the id to a copy of the given string.
  */     
-LIBSBML_EXTERN
 void
 LineSegment::setId (const std::string& id)
 {
-  this->id = id;
+  this->mId = id;
 }
 
 
 /**
  * Returns the id.
  */ 
-LIBSBML_EXTERN
 const std::string&
 LineSegment::getId () const
 {
-  return this->id;
+  return this->mId;
 }
 
 
@@ -145,99 +141,178 @@ LineSegment::getId () const
  * Returns false if the id has been set and 
  * true otherwise.
  */
-LIBSBML_EXTERN
 int
 LineSegment::isSetId() const
 {
-    return !this->id.empty();
+    return !this->mId.empty();
 }
 
 /**
  * Returns the start point of the line.
  */ 
-LIBSBML_EXTERN
-const Point&
+const Point*
 LineSegment::getStart () const
 {
-  return this->startPoint;
+  return &this->mStartPoint;
 }
 
 
 /**
  * Returns the start point of the line.
  */ 
-LIBSBML_EXTERN
-Point&
+Point*
 LineSegment::getStart()
 {
-  return this->startPoint;
+  return &this->mStartPoint;
 }
 
 
 /**
  * Initializes the start point with a copy of the given Point object.
  */
-LIBSBML_EXTERN
 void
-LineSegment::setStart (const Point& start)
+LineSegment::setStart (const Point* start)
 {
-  this->startPoint = start;
+  this->mStartPoint=*start;
+  this->mStartPoint.setElementName("start");
 }
 
 
 /**
  * Initializes the start point with the given coordinates.
  */
-LIBSBML_EXTERN
 void
 LineSegment::setStart (double x, double y, double z)
 {
-  this->startPoint.setOffsets(x, y, z);
+  this->mStartPoint.setOffsets(x, y, z);
 }
 
 
 /**
  * Returns the end point of the line.
  */ 
-LIBSBML_EXTERN
-const Point&
+const Point*
 LineSegment::getEnd () const
 {
-  return this->endPoint;
+  return &this->mEndPoint;
 }
 
 
 /**
  * Returns the end point of the line.
  */ 
-LIBSBML_EXTERN
-Point&
+Point*
 LineSegment::getEnd ()
 {
-  return this->endPoint;
+  return &this->mEndPoint;
 }
 
 
 /**
  * Initializes the end point with a copy of the given Point object.
  */
-LIBSBML_EXTERN
 void
-LineSegment::setEnd (const Point& end)
+LineSegment::setEnd (const Point* end)
 {
-  this->endPoint = end;
+  this->mEndPoint = *end;
+  this->mEndPoint.setElementName("end");
 }
 
 
 /**
  * Initializes the end point with the given coordinates.
  */
-LIBSBML_EXTERN
 void
 LineSegment::setEnd (double x, double y, double z)
 {
-  this->endPoint.setOffsets(x, y, z);
+  this->mEndPoint.setOffsets(x, y, z);
 }
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& LineSegment::getElementName () const 
+{
+  static const std::string name = "curveSegment";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+LineSegment::clone () const
+{
+    return new LineSegment(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+LineSegment::createObject (XMLInputStream& stream)
+{
+
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  if (name == "start")
+  {
+    object = &mStartPoint;
+  }
+  else if(name == "end")
+  {
+    object = &mEndPoint;
+  }
+
+ 
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void LineSegment::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void LineSegment::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+  stream.writeAttribute("xsi:type", "LineSegment");
+}
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+LineSegment::getTypeCode () const
+{
+  return SBML_LAYOUT_LINESEGMENT;
+}
+
 
 
 
@@ -271,7 +346,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 LineSegment_createWithPoints (const Point_t *start, const Point_t *end)
 {
-  return new(std::nothrow) LineSegment (start ? *start : Point(), end ? *end : Point());
+  return new(std::nothrow) LineSegment (start, end );
 }
 
 
@@ -305,7 +380,7 @@ LIBSBML_EXTERN
 void
 LineSegment_setStart (LineSegment_t *ls, const Point_t *start)
 {
-  ls->setStart(start ? *start : Point() );
+  ls->setStart(start);
 }
 
 
@@ -316,7 +391,7 @@ LIBSBML_EXTERN
 void
 LineSegment_setEnd (LineSegment_t *ls, const Point_t *end)
 {
-  ls->setEnd(end ? *end : Point() );
+  ls->setEnd(end);
 }
 
 
@@ -327,7 +402,7 @@ LIBSBML_EXTERN
 Point_t *
 LineSegment_getStart (LineSegment_t *ls)
 {
-  return & ls->getStart();
+  return ls->getStart();
 }
 
 
@@ -338,7 +413,7 @@ LIBSBML_EXTERN
 Point_t *
 LineSegment_getEnd (LineSegment_t *ls)
 {
-  return & ls->getEnd();
+  return ls->getEnd();
 }
 
 
@@ -381,6 +456,16 @@ int
 LineSegment_isSetId(LineSegment_t* ls)
 {
     return (int)ls->isSetId();
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+LineSegment_t *
+LineSegment_clone (const LineSegment_t *m)
+{
+  return static_cast<LineSegment*>( m->clone() );
 }
 
 

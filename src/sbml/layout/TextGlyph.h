@@ -55,16 +55,20 @@
 
 
 #include <string>
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 #include "GraphicalObject.h"
 
 
-class TextGlyph : public GraphicalObject
+class LIBSBML_EXTERN TextGlyph : public GraphicalObject
 {
 protected:
 
-  std::string text;
-  std::string graphicalObject;
-  std::string originOfText;
+  std::string mText;
+  std::string mGraphicalObject;
+  std::string mOriginOfText;
 
 
 public:
@@ -74,13 +78,13 @@ public:
    * the originOfText are set to the empty string. The actual text is set
    * to the empty string as well.
    */  
-  LIBSBML_EXTERN
+  
   TextGlyph ();
         
   /**
    * Creates a new TextGlpyh. The id is given as the first argument.
    */ 
-  LIBSBML_EXTERN
+  
   TextGlyph (const std::string& id);
 
   /**
@@ -88,75 +92,138 @@ public:
    * text to be displayed as the second.  All other attirbutes are set to
    * the empty string.
    */ 
-  LIBSBML_EXTERN
+  
   TextGlyph (const std::string& id, const std::string& text);
         
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~TextGlyph ();
         
   /**
    * Returns the text to be displayed by the text glyph.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getText () const;
         
   /**
    * Sets the text to be displayed by the text glyph.
    */ 
-  LIBSBML_EXTERN
+  
   void setText (const std::string& text); 
         
   /**
    * Returns the id of the associated graphical object.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getGraphicalObjectId () const;
         
   /**
    * Sets the id of the associated graphical object.
    */ 
-  LIBSBML_EXTERN
+  
   void setGraphicalObjectId (const std::string& id);
         
   /**
    * Returns the id of the origin of text.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getOriginOfTextId () const;
         
   /**
    * Sets the id of the origin of text.
    */ 
-  LIBSBML_EXTERN
+  
   void setOriginOfTextId (const std::string& orig); 
         
   /**
    * Returns true if the text is not the empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetText () const;
         
   /**
    * Returns true if the id of the origin of text is not the empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetOriginOfTextId () const;
         
   /**
    * Returns true if the id of the associated graphical object is not the
    * empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetGraphicalObjectId () const;
         
   /**
    * Calls initDefaults from GraphicalObject.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
 
 
@@ -287,6 +354,13 @@ TextGlyph_isSetGraphicalObjectId (const TextGlyph_t *tg);
 LIBSBML_EXTERN
 void
 TextGlyph_initDefaults (TextGlyph_t *tg);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+TextGlyph_t *
+TextGlyph_clone (const TextGlyph_t *m);
 
 
 END_C_DECLS

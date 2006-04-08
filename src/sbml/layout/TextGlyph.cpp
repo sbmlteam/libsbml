@@ -53,21 +53,17 @@
  * the originOfText are set to the empty string. The actual text is set to
  * the empty string as well.
  */  
-LIBSBML_EXTERN
 TextGlyph::TextGlyph ()
 {
-  init(SBML_LAYOUT_TEXTGLYPH);
 }
 
 
 /**
  * Creates a new TextGlpyh. The id is given as the first argument.
  */ 
-LIBSBML_EXTERN
 TextGlyph::TextGlyph (const std::string& id):
   GraphicalObject(id)
 {
-  init(SBML_LAYOUT_TEXTGLYPH);
 }
 
 /**
@@ -75,18 +71,15 @@ TextGlyph::TextGlyph (const std::string& id):
  * to be displayed as the second.  All other attirbutes are set to the
  * empty string.
  */ 
-LIBSBML_EXTERN
 TextGlyph::TextGlyph (const std::string& id, const std::string& text):
-  GraphicalObject(id), text(text)
+  GraphicalObject(id), mText(text)
 {
-  init(SBML_LAYOUT_TEXTGLYPH);
 }
 
 
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 TextGlyph::~TextGlyph()
 {
 } 
@@ -95,88 +88,80 @@ TextGlyph::~TextGlyph()
 /**
  * Returns the text to be displayed by the text glyph.
  */ 
-LIBSBML_EXTERN
 const std::string&
 TextGlyph::getText() const
 {
-  return this->text;
+  return this->mText;
 }
 
 
 /**
  * Sets the text to be displayed by the text glyph.
  */ 
-LIBSBML_EXTERN
 void
 TextGlyph::setText (const std::string& text)
 {
-  this->text = text;
+  this->mText = text;
 } 
 
 
 /**
  * Returns the id of the associated graphical object.
  */ 
-LIBSBML_EXTERN
 const std::string&
 TextGlyph::getGraphicalObjectId () const
 {
-  return this->graphicalObject;
+  return this->mGraphicalObject;
 }
 
 
 /**
  * Sets the id of the associated graphical object.
  */ 
-LIBSBML_EXTERN
 void
 TextGlyph::setGraphicalObjectId (const std::string& id)
 {
-  this->graphicalObject = id;
+  this->mGraphicalObject = id;
 }
 
 
 /**
  * Returns the id of the origin of text.
  */ 
-LIBSBML_EXTERN
 const std::string&
 TextGlyph::getOriginOfTextId () const
 {
-  return this->originOfText;
+  return this->mOriginOfText;
 }
 
 
 /**
  * Sets the id of the origin of text.
  */ 
-LIBSBML_EXTERN
 void
 TextGlyph::setOriginOfTextId (const std::string& orig)
 {
-  this->originOfText = orig;
+  this->mOriginOfText = orig;
 }
 
 
 /**
  * Returns true if the text is not the empty string.
  */ 
-LIBSBML_EXTERN
 bool
 TextGlyph::isSetText () const
 {
-  return ! this->text.empty();
+  return ! this->mText.empty();
 }
 
 
 /**
  * Returns true if the id of the origin of text is not the empty string.
  */ 
-LIBSBML_EXTERN
 bool
 TextGlyph::isSetOriginOfTextId () const
 {
-  return ! this->originOfText.empty();
+  return ! this->mOriginOfText.empty();
 }
 
 
@@ -184,23 +169,113 @@ TextGlyph::isSetOriginOfTextId () const
  * Returns true if the id of the associated graphical object is not the
  * empty string.
  */ 
-LIBSBML_EXTERN
 bool
 TextGlyph::isSetGraphicalObjectId () const
 {
-  return ! this->graphicalObject.empty();
+  return ! this->mGraphicalObject.empty();
 }
 
 
 /**
  * Calls initDefaults from GraphicalObject.
  */ 
-LIBSBML_EXTERN
 void
 TextGlyph::initDefaults()
 {
   GraphicalObject::initDefaults();
 }
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& TextGlyph::getElementName () const 
+{
+  static const std::string name = "textGlyph";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+TextGlyph::clone () const
+{
+    return new TextGlyph(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+TextGlyph::createObject (XMLInputStream& stream)
+{
+  SBase*        object = 0;
+
+  object=GraphicalObject::createObject(stream);
+  
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void TextGlyph::readAttributes (const XMLAttributes& attributes)
+{
+  GraphicalObject::readAttributes(attributes);
+
+  attributes.readInto("text", mText);
+  attributes.readInto("graphicalObject", mGraphicalObject);
+  attributes.readInto("originOfText", mOriginOfText);
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void TextGlyph::writeAttributes (XMLOutputStream& stream) const
+{
+  GraphicalObject::writeAttributes(stream);
+  if(this->isSetText())
+  {
+     stream.writeAttribute("text", mText);
+  }
+  else if(this->isSetOriginOfTextId())
+  {
+     stream.writeAttribute("originOfText", mOriginOfText);
+  }
+  if(this->isSetGraphicalObjectId())
+  {
+    stream.writeAttribute("graphicalObject", mGraphicalObject);
+  }
+}
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+TextGlyph::getTypeCode () const
+{
+  return SBML_LAYOUT_TEXTGLYPH;
+}
+
+
+
+
 
 
 /**
@@ -373,3 +448,15 @@ TextGlyph_initDefaults (TextGlyph_t *tg)
 {
   tg->initDefaults();
 }
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+TextGlyph_t *
+TextGlyph_clone (const TextGlyph_t *m)
+{
+  return static_cast<TextGlyph*>( m->clone() );
+}
+
+

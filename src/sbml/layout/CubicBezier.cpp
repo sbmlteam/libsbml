@@ -51,10 +51,12 @@
 /**
  * Creates a CubicBezier and returns the pointer.
  */
-LIBSBML_EXTERN
 CubicBezier::CubicBezier()
 {
-  init(SBML_LAYOUT_CUBICBEZIER);
+  this->mStartPoint.setElementName("start");
+  this->mEndPoint.setElementName("end");
+  this->mBasePoint1.setElementName("basePoint1");
+  this->mBasePoint2.setElementName("basePoint2");
 }
 
 
@@ -62,12 +64,12 @@ CubicBezier::CubicBezier()
  * Creates a CubicBezier with the given 2D coordinates and returns the
  * pointer.
  */
-LIBSBML_EXTERN
 CubicBezier::CubicBezier (double x1, double y1, double x2, double y2)
-  : LineSegment( Point(x1, y1, 0.0), Point(x2, y2, 0.0) )
+  : LineSegment( x1, y1, 0.0, x2, y2, 0.0 )
 {
-  init(SBML_LAYOUT_CUBICBEZIER);
   this->straighten();
+  this->mBasePoint1.setElementName("basePoint1");
+  this->mBasePoint2.setElementName("basePoint2");
 }
 
 
@@ -75,13 +77,13 @@ CubicBezier::CubicBezier (double x1, double y1, double x2, double y2)
  * Creates a CubicBezier with the given 3D coordinates and returns the
  * pointer.
  */
-LIBSBML_EXTERN
 CubicBezier::CubicBezier (double x1, double y1, double z1,
                           double x2, double y2, double z2)
-  : LineSegment( Point(x1, y1, z1), Point(x2, y2, z2) )
+  : LineSegment( x1, y1, z1, x2, y2, z2 )
 {
-  init(SBML_LAYOUT_CUBICBEZIER);
   this->straighten();
+  this->mBasePoint1.setElementName("basePoint1");
+  this->mBasePoint2.setElementName("basePoint2");
 }
 
 
@@ -89,48 +91,46 @@ CubicBezier::CubicBezier (double x1, double y1, double z1,
  * Makes a line from a CubicBezier by setting both base points into the
  * middle between the start and the end point.
  */
-LIBSBML_EXTERN
 void CubicBezier::straighten ()
 {
-  double x = (this->endPoint.getXOffset()+this->startPoint.getXOffset()) / 2.0;
-  double y = (this->endPoint.getYOffset()+this->startPoint.getYOffset()) / 2.0;
-  double z = (this->endPoint.getZOffset()+this->startPoint.getZOffset()) / 2.0;
+  double x = (this->mEndPoint.getXOffset()+this->mStartPoint.getXOffset()) / 2.0;
+  double y = (this->mEndPoint.getYOffset()+this->mStartPoint.getYOffset()) / 2.0;
+  double z = (this->mEndPoint.getZOffset()+this->mStartPoint.getZOffset()) / 2.0;
 
-  this->basePoint1.setOffsets(x, y, z);
-  this->basePoint2.setOffsets(x, y, z);
+  this->mBasePoint1.setOffsets(x, y, z);
+  this->mBasePoint2.setOffsets(x, y, z);
 }
 
 
 /**
  * Creates a CubicBezier with the given points and returns the pointer.
  */
-LIBSBML_EXTERN
-CubicBezier::CubicBezier (const Point& start, const Point& end)
+CubicBezier::CubicBezier (const Point* start, const Point* end)
   : LineSegment(start, end)
 {
-  init(SBML_LAYOUT_CUBICBEZIER); 
   this->straighten();
+  this->mBasePoint1.setElementName("basePoint1");
+  this->mBasePoint2.setElementName("basePoint2");
 }
 
 
 /**
  * Creates a CubicBezier with the given points and returns the pointer.
  */
-LIBSBML_EXTERN
-CubicBezier::CubicBezier (const Point& start, const Point& base1,
-                          const Point& base2, const Point& end)
+CubicBezier::CubicBezier (const Point* start, const Point* base1,
+                          const Point* base2, const Point* end)
   : LineSegment( start ,end )
-  , basePoint1 ( base1 )
-  , basePoint2 ( base2 )
+  , mBasePoint1 ( *base1 )
+  , mBasePoint2 ( *base2 )
 {
-  init(SBML_LAYOUT_CUBICBEZIER);
+  this->mBasePoint1.setElementName("basePoint1");
+  this->mBasePoint2.setElementName("basePoint2");
 }
 
 
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 CubicBezier::~CubicBezier ()
 {
 }
@@ -139,7 +139,6 @@ CubicBezier::~CubicBezier ()
 /**
  * Calls initDefaults from LineSegment.
  */ 
-LIBSBML_EXTERN
 void
 CubicBezier::initDefaults()
 {
@@ -151,11 +150,10 @@ CubicBezier::initDefaults()
  * Returns the first base point of the curve (the one closer to the
  * starting point).
  */ 
-LIBSBML_EXTERN
-const Point&
+const Point*
 CubicBezier::getBasePoint1() const
 {
-  return this->basePoint1;
+  return &this->mBasePoint1;
 }
 
 
@@ -163,33 +161,31 @@ CubicBezier::getBasePoint1() const
  * Returns the first base point of the curve (the one closer to the
  * starting point).
  */ 
-LIBSBML_EXTERN
-Point&
+Point*
 CubicBezier::getBasePoint1 ()
 {
-  return this->basePoint1;
+  return &this->mBasePoint1;
 }
 
 
 /**
  * Initializes first base point with a copy of the given point.
  */
-LIBSBML_EXTERN
 void
-CubicBezier::setBasePoint1 (const Point& p)
+CubicBezier::setBasePoint1 (const Point* p)
 {
-  this->basePoint1 = Point(p);
+  this->mBasePoint1 = *p;
+  this->mBasePoint1.setElementName("basePoint1");
 }
 
 
 /**
  * Initializes first base point with the given ccordinates.
  */
-LIBSBML_EXTERN
 void
 CubicBezier::setBasePoint1 (double x, double y, double z)
 {
-  this->basePoint1.setOffsets(x, y ,z);
+  this->mBasePoint1.setOffsets(x, y ,z);
 }
 
 
@@ -197,11 +193,10 @@ CubicBezier::setBasePoint1 (double x, double y, double z)
  * Returns the second base point of the curve (the one closer to the
  * starting point).
  */ 
-LIBSBML_EXTERN
-const Point&
+const Point*
 CubicBezier::getBasePoint2 () const
 {
-  return this->basePoint2;
+  return &this->mBasePoint2;
 }
 
 
@@ -209,33 +204,119 @@ CubicBezier::getBasePoint2 () const
  * Returns the second base point of the curve (the one closer to the
  * starting point).
  */ 
-LIBSBML_EXTERN
-Point&
+Point*
 CubicBezier::getBasePoint2 ()
 {
-  return this->basePoint2;
+  return &this->mBasePoint2;
 }
 
 
 /**
  * Initializes second base point with a copy of the given point.
  */
-LIBSBML_EXTERN
-void CubicBezier::setBasePoint2 (const Point& p)
+void CubicBezier::setBasePoint2 (const Point* p)
 {
-  this->basePoint2 = Point(p);
+  this->mBasePoint2 = *p;
+  this->mBasePoint2.setElementName("basePoint2");
 }
 
 
 /**
  * Initializes second base point with the given ccordinates.
  */
-LIBSBML_EXTERN
 void
 CubicBezier::setBasePoint2 (double x, double y, double z)
 {
-  this->basePoint2.setOffsets(x, y, z);
+  this->mBasePoint2.setOffsets(x, y, z);
 }
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& CubicBezier::getElementName () const 
+{
+  static const std::string name = "curveSegment";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+CubicBezier::clone () const
+{
+    return new CubicBezier(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+CubicBezier::createObject (XMLInputStream& stream)
+{
+
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  if (name == "basePoint1")
+  {
+    object = &mBasePoint1;
+  }
+  else if(name == "basePoint2")
+  {
+    object = &mBasePoint2;
+  }
+  else
+  {
+      object = LineSegment::createObject(stream);
+  }
+ 
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void CubicBezier::readAttributes (const XMLAttributes& attributes)
+{
+  LineSegment::readAttributes(attributes);
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void CubicBezier::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+  stream.writeAttribute("xsi:type", "CubicBezier");
+}
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+CubicBezier::getTypeCode () const
+{
+  return SBML_LAYOUT_CUBICBEZIER;
+}
+
 
 
 
@@ -259,7 +340,7 @@ CubicBezier_t *
 CubicBezier_createWithPoints (const Point_t *start, const Point_t *base1,
                               const Point_t *base2, const Point_t *end)
 {
-  return new(std::nothrow)CubicBezier(start ? *start : Point() , base1 ? *base1 : Point(), base2 ? *base2 : Point(), end ? *end: Point());
+  return new(std::nothrow)CubicBezier(start , base1, base2 , end );
 }
 
 
@@ -274,9 +355,16 @@ CubicBezier_createWithCoordinates (double x1, double y1, double z1,
                                    double x3, double y3, double z3,
                                    double x4, double y4, double z4)
 {
-  return new(std::nothrow)
-    CubicBezier( Point(x1,y1,z1), Point(x2,y2,z2),
-                 Point(x3,y3,z3), Point(x4,y4,z4) );
+  Point* p1=new Point(x1,y1,z1);  
+  Point* p2=new Point(x2,y2,z2);  
+  Point* p3=new Point(x3,y3,z3);  
+  Point* p4=new  Point(x4,y4,z4);  
+  CubicBezier* cb=new(std::nothrow)CubicBezier( p1,p2,p3,p4);
+  delete p1;
+  delete p2;
+  delete p3;
+  delete p4;
+  return cb;
 }
 
 
@@ -353,7 +441,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint1 (CubicBezier_t *cb, const Point_t *point)
 {
-  cb->setBasePoint1(point ? *point : Point());
+  cb->setBasePoint1(point);
 }
 
 
@@ -365,7 +453,7 @@ LIBSBML_EXTERN
 Point_t *
 CubicBezier_getBasePoint1 (CubicBezier_t *cb)
 {
-  return & cb->getBasePoint1();
+  return cb->getBasePoint1();
 }
 
 
@@ -376,7 +464,7 @@ LIBSBML_EXTERN
 void
 CubicBezier_setBasePoint2 (CubicBezier_t *cb, const Point_t *point)
 {
-  cb->setBasePoint2(point ? *point : Point());
+  cb->setBasePoint2(point );
 }
 
 
@@ -388,7 +476,7 @@ LIBSBML_EXTERN
 Point_t *
 CubicBezier_getBasePoint2 (CubicBezier_t *cb)
 {
-  return & cb->getBasePoint2();
+  return cb->getBasePoint2();
 }
 
 
@@ -401,3 +489,15 @@ CubicBezier_initDefaults (CubicBezier_t *cb)
 {
   cb->initDefaults();
 }
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+CubicBezier_t *
+CubicBezier_clone (const CubicBezier_t *m)
+{
+  return static_cast<CubicBezier*>( m->clone() );
+}
+
+

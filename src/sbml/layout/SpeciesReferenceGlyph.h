@@ -55,20 +55,24 @@
 
 #include "GraphicalObject.h"
 #include "SpeciesReferenceRole.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 #include "Curve.h"
 
 
-class SpeciesReferenceGlyph : public GraphicalObject
+class LIBSBML_EXTERN SpeciesReferenceGlyph : public GraphicalObject
 {
 protected:
 
-  std::string speciesReference;
-  std::string speciesGlyph;
-  SpeciesReferenceRole_t role;
-  Curve* curve;
+  std::string mSpeciesReference;
+  std::string mSpeciesGlyph;
+  SpeciesReferenceRole_t mRole;
+  Curve mCurve;
 
 public:
-  LIBSBML_EXTERN
+  
   static const std::string SPECIES_REFERENCE_ROLE_STRING[];
 
 public:
@@ -78,7 +82,7 @@ public:
    * reference and the id of the associated species glyph are set to the
    * empty string.  The role is set to SPECIES_ROLE_UNDEFINED.
    */
-  LIBSBML_EXTERN
+  
   SpeciesReferenceGlyph ();
         
   /**
@@ -87,7 +91,7 @@ public:
    * second argument.  The third argument is the id of the associated
    * species glpyh and the fourth argument is the role.
    */ 
-  LIBSBML_EXTERN
+  
   SpeciesReferenceGlyph ( const std::string& sid,
                           const std::string& speciesReferenceId,
                           const std::string& speciesGlyphId,
@@ -96,45 +100,45 @@ public:
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~SpeciesReferenceGlyph (); 
 
         
   /**
    * Returns the id of the associated SpeciesGlyph.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getSpeciesGlyphId () const;
         
   /**
    * Sets the id of the associated species glyph.
    */ 
-  LIBSBML_EXTERN
+  
   void setSpeciesGlyphId (const std::string& speciesGlyphId);
         
   /**
    * Returns the id of the associated species reference.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getSpeciesReferenceId() const;
         
   /**
    * Sets the id of the associated species reference.
    */ 
-  LIBSBML_EXTERN
+  
   void setSpeciesReferenceId (const std::string& id);
 
   /**
    * Returns a string representation of the role.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getRoleString() const;
 
         
   /**
    * Returns the role.
    */ 
-  LIBSBML_EXTERN
+  
   SpeciesReferenceRole_t getRole() const;
         
   /**
@@ -148,58 +152,62 @@ public:
    * ACTIVATOR
    * INHIBITOR    
    */ 
-  LIBSBML_EXTERN
+  
   void setRole (const std::string& role);
 
   /**
    * Sets the role.
    */ 
-  LIBSBML_EXTERN
+  
   void setRole (SpeciesReferenceRole_t role);
         
   /**
    * Returns the curve object for the species reference glyph
    */ 
-  LIBSBML_EXTERN
-  Curve* getCurve () const;
+  Curve* getCurve () ;
+
+  /**
+   * Returns the curve object for the species reference glyph
+   */ 
+  const Curve* getCurve () const;
 
   /**
    * Sets the curve object for the species reference glyph.
    */ 
-  LIBSBML_EXTERN
-  void setCurve (Curve* curve);
+  
+  void setCurve (const Curve* curve);
        
   /**
    * Returns true if the curve consists of one or more segments.
    */ 
-  LIBSBML_EXTERN
+  
     bool isSetCurve () const;
 
   /**
    * Returns true if the id of the associated species glpyh is not the
    * empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetSpeciesGlyphId () const;
         
   /**
    * Returns true if the id of the associated species reference is not the
    * empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetSpeciesReferenceId() const;
         
   /**
    * Returns true of role is different from SPECIES_ROLE_UNDEFINED.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetRole () const;
         
   /**
    * Calls initDefaults on GraphicalObject and sets role to
    * SPECIES_ROLE_UNDEFINED.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
 
   /**
@@ -207,16 +215,79 @@ public:
    * curve segment objects of the curve and returns a reference to the
    * newly created object.
    */
-  LIBSBML_EXTERN
-  LineSegment& createLineSegment ();
+  
+  LineSegment* createLineSegment ();
 
   /**
    * Creates a new CubicBezier object, adds it to the end of the list of
    * curve segment objects of the curve and returns a reference to the
    * newly created object.
    */
-  LIBSBML_EXTERN
-  CubicBezier& createCubicBezier ();
+  
+  CubicBezier* createCubicBezier ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
 
 
@@ -390,6 +461,13 @@ SpeciesReferenceGlyph_createLineSegment (SpeciesReferenceGlyph_t *srg);
 LIBSBML_EXTERN
 CubicBezier_t *
 SpeciesReferenceGlyph_createCubicBezier (SpeciesReferenceGlyph_t *srg);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+SpeciesReferenceGlyph_t *
+SpeciesReferenceGlyph_clone (const SpeciesReferenceGlyph_t *m);
 
 
 END_C_DECLS

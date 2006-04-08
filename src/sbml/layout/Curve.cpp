@@ -53,17 +53,14 @@
 /**
  * Creates a curve with an empty list of segments.
  */ 
-LIBSBML_EXTERN
 Curve::Curve () : SBase ()
 {
-  init(SBML_LAYOUT_CURVE);
 }
 
 
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 Curve::~Curve ()
 {
 }
@@ -72,7 +69,6 @@ Curve::~Curve ()
 /**
  * Does nothing since no defaults are defined for Curve.
  */ 
-LIBSBML_EXTERN
 void Curve::initDefaults ()
 {
 }
@@ -82,11 +78,10 @@ void Curve::initDefaults ()
  * Returns a reference to the ListOf object that holds all the curve
  * segments.
  */
-LIBSBML_EXTERN
-const ListOf&
+const ListOfLineSegments*
 Curve::getListOfCurveSegments () const
 {
-  return this->curveSegments;
+  return & this->mCurveSegments;
 }
 
 
@@ -94,11 +89,10 @@ Curve::getListOfCurveSegments () const
  * Returns a reference to the ListOf object that holds all the curve
  * segments.
  */
-LIBSBML_EXTERN
-ListOf&
+ListOfLineSegments*
 Curve::getListOfCurveSegments ()
 {
-  return this->curveSegments;
+  return &this->mCurveSegments;
 }
 
 
@@ -106,33 +100,41 @@ Curve::getListOfCurveSegments ()
  * Returns a pointer to the curve segment with the given index.  If the
  * index is invalid, NULL is returned.
  */  
-LIBSBML_EXTERN
-LineSegment*
+const LineSegment*
 Curve::getCurveSegment (unsigned int index) const
 {
-  return static_cast<LineSegment*>( this->curveSegments.get(index) );
+  return dynamic_cast<const LineSegment*>( this->mCurveSegments.get(index) );
+}
+
+
+/**
+ * Returns a pointer to the curve segment with the given index.  If the
+ * index is invalid, NULL is returned.
+ */  
+LineSegment*
+Curve::getCurveSegment (unsigned int index)
+{
+  return static_cast<LineSegment*>( this->mCurveSegments.get(index) );
 }
 
 
 /**
  * Adds a new CurveSegment to the end of the list.
  */ 
-LIBSBML_EXTERN
 void
-Curve::addCurveSegment (LineSegment& segment)
+Curve::addCurveSegment (const LineSegment* segment)
 {
-  this->curveSegments.append(&segment);
+  this->mCurveSegments.append(segment);
 }
 
 
 /**
  * Returns the number of curve segments.
  */ 
-LIBSBML_EXTERN
 unsigned int
 Curve::getNumCurveSegments () const
 {
-  return this->curveSegments.getNumItems();
+  return this->mCurveSegments.size();
 }
 
 
@@ -140,14 +142,13 @@ Curve::getNumCurveSegments () const
  * Creates a new LineSegment and adds it to the end of the list.  A
  * reference to the new LineSegment object is returned.
  */
-LIBSBML_EXTERN
-LineSegment&
+LineSegment*
 Curve::createLineSegment ()
 {
   LineSegment* ls = new LineSegment();
 
-  this->addCurveSegment(*ls);
-  return *ls;
+  this->addCurveSegment(ls);
+  return ls;
 }
 
 
@@ -155,14 +156,166 @@ Curve::createLineSegment ()
  * Creates a new CubicBezier and adds it to the end of the list.  A
  * reference to the new CubicBezier object is returned.
  */
-LIBSBML_EXTERN
-CubicBezier& Curve::createCubicBezier ()
+CubicBezier* Curve::createCubicBezier ()
 {
   CubicBezier* cb = new CubicBezier();
 
-  this->addCurveSegment(*cb);
-  return *cb;
+  this->addCurveSegment(cb);
+  return cb;
 }
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& Curve::getElementName () const 
+{
+  static const std::string name = "curve";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+Curve::clone () const
+{
+    return new Curve(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+Curve::createObject (XMLInputStream& stream)
+{
+
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  if (name == "listOfCurveSegments")
+  {
+    object = &mCurveSegments;
+  }
+ 
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void Curve::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void Curve::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+}
+
+
+
+/**
+ * @return a (deep) copy of this ListOfUnitDefinitions.
+ */
+SBase*
+ListOfLineSegments::clone () const
+{
+  return new ListOfLineSegments(*this);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+SBMLTypeCode_t
+ListOfLineSegments::getItemTypeCode () const
+{
+  return SBML_LAYOUT_LINESEGMENT;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string&
+ListOfLineSegments::getElementName () const
+{
+  static const std::string name = "listOfCurveSegments";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfLineSegments::createObject (XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "curveSegment")
+  {
+    std::string type = "LineSegment";
+    stream.peek().getAttributes().readInto("xsi:type", type);
+
+    if(type=="LineSegment")
+    {
+      object = new LineSegment();
+    }
+    else if(type=="CubicBezier")
+    {
+      object = new CubicBezier();
+    }
+  }
+  
+  if(object) mItems.push_back(object);
+
+  return object;
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Curve::getTypeCode () const
+{
+  return SBML_LAYOUT_CURVE;
+}
+
+
+
+
+
+
+
 
 
 
@@ -207,7 +360,7 @@ LIBSBML_EXTERN
 void
 Curve_addCurveSegment (Curve_t *c, LineSegment_t *ls)
 {
-  c->addCurveSegment(ls ? *ls : *(new LineSegment()));
+  c->addCurveSegment(ls);
 }
 
 
@@ -229,7 +382,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 Curve_getCurveSegment (const Curve_t *c, unsigned int index)
 {
-  return c->getCurveSegment(index);
+  return const_cast<LineSegment*>(c->getCurveSegment(index));
 }
 
 
@@ -240,7 +393,7 @@ LIBSBML_EXTERN
 ListOf_t *
 Curve_getListOfCurveSegments (Curve_t *c)
 {
-  return & c->getListOfCurveSegments();
+  return c->getListOfCurveSegments();
 }
 
 
@@ -263,7 +416,7 @@ LIBSBML_EXTERN
 LineSegment_t *
 Curve_createLineSegment (Curve_t *c)
 {
-  return & c->createLineSegment();
+  return c->createLineSegment();
 }
 
 
@@ -275,5 +428,17 @@ LIBSBML_EXTERN
 CubicBezier_t *
 Curve_createCubicBezier (Curve_t *c)
 {
-  return & c->createCubicBezier();
+  return c->createCubicBezier();
 }
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Curve_t *
+Curve_clone (const Curve_t *m)
+{
+  return static_cast<Curve*>( m->clone() );
+}
+
+

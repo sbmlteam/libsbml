@@ -52,40 +52,33 @@
  * Default Constructor which creates a new CompartmentGlyph.  Id and
  * associated compartment id are unset.
  */
-LIBSBML_EXTERN
 CompartmentGlyph::CompartmentGlyph ()
 {
-	init(SBML_LAYOUT_COMPARTMENTGLYPH);
 }
 
 
 /**
  * Constructor which creates a new CompartmentGlyph with the given id.
  */
-LIBSBML_EXTERN
 CompartmentGlyph::CompartmentGlyph (const std::string& id):
   GraphicalObject(id)
 {
-  init(SBML_LAYOUT_COMPARTMENTGLYPH);
 }
 
 /**
  * Constructor which creates a new CompartmentGlyph.  Id and associated
  * compartment id are set to copies of the values given as arguments.
  */
-LIBSBML_EXTERN
 CompartmentGlyph::CompartmentGlyph (const std::string& id,
                                     const std::string& compId) : 
-  GraphicalObject(id), compartment(compId)
+  GraphicalObject(id), mCompartment(compId)
 {
-  init(SBML_LAYOUT_COMPARTMENTGLYPH);
 }
 
 
 /**
  * Destructor.
  */        
-LIBSBML_EXTERN
 CompartmentGlyph::~CompartmentGlyph ()
 {
 } 
@@ -94,22 +87,20 @@ CompartmentGlyph::~CompartmentGlyph ()
 /**
  * Returns the id of the associated compartment.
  */        
-LIBSBML_EXTERN
 const std::string&
 CompartmentGlyph::getCompartmentId () const
 {
-  return this->compartment;
+  return this->mCompartment;
 }
 
 
 /**
  * Sets the id of the associated compartment.
  */ 
-LIBSBML_EXTERN
 void
 CompartmentGlyph::setCompartmentId (const std::string& id)
 {
-  this->compartment = id;
+  this->mCompartment = id;
 }
 
 
@@ -117,21 +108,113 @@ CompartmentGlyph::setCompartmentId (const std::string& id)
  * Returns true if the id of the associated compartment is not the empty
  * string.
  */  
-LIBSBML_EXTERN
 bool 
 CompartmentGlyph::isSetCompartmentId () const
 {
-  return ! this->compartment.empty();
+  return ! this->mCompartment.empty();
 }
 
 
 /**
  * Calls initDefaults from GraphicalObject.
  */ 
-LIBSBML_EXTERN
 void CompartmentGlyph::initDefaults ()
 {
   GraphicalObject::initDefaults();
+}
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.  For example:
+ *
+ *   SBase::writeElements(stream);
+ *   mReactans.write(stream);
+ *   mProducts.write(stream);
+ *   ...
+ */
+void CompartmentGlyph::writeElements (XMLOutputStream& stream) const
+{
+  GraphicalObject::writeElements(stream);
+}
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& CompartmentGlyph::getElementName () const 
+{
+  static const std::string name = "compartmentGlyph";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+CompartmentGlyph::clone () const
+{
+    return new CompartmentGlyph(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+CompartmentGlyph::createObject (XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  object=GraphicalObject::createObject(stream);
+  
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void CompartmentGlyph::readAttributes (const XMLAttributes& attributes)
+{
+  GraphicalObject::readAttributes(attributes);
+
+  attributes.readInto("compartment", mCompartment);
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void CompartmentGlyph::writeAttributes (XMLOutputStream& stream) const
+{
+  GraphicalObject::writeAttributes(stream);
+  if(this->isSetCompartmentId())
+  {
+    stream.writeAttribute("compartment", mCompartment);
+  }
+}
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+CompartmentGlyph::getTypeCode () const
+{
+  return SBML_LAYOUT_COMPARTMENTGLYPH;
 }
 
 
@@ -235,3 +318,15 @@ CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg)
 {
   cg->initDefaults();
 }
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+CompartmentGlyph_t *
+CompartmentGlyph_clone (const CompartmentGlyph_t *m)
+{
+  return static_cast<CompartmentGlyph*>( m->clone() );
+}
+
+

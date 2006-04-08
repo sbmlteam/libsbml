@@ -57,7 +57,11 @@
 #include <string>
 
 #include "sbml/SBase.h"
+#include "sbml/SBMLVisitor.h"
 #include "sbml/ListOf.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
 
 #include "Dimensions.h"
 #include "CompartmentGlyph.h"
@@ -67,26 +71,184 @@
 #include "GraphicalObject.h"
 #include "SpeciesReferenceGlyph.h"
 
+class LIBSBML_EXTERN ListOfCompartmentGlyphs : public ListOf
+{
+public:
 
-class Layout : public SBase
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+class LIBSBML_EXTERN ListOfSpeciesGlyphs : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+class LIBSBML_EXTERN ListOfReactionGlyphs : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+class LIBSBML_EXTERN ListOfTextGlyphs : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+class LIBSBML_EXTERN ListOfGraphicalObjects : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
+
+class LIBSBML_EXTERN Layout : public SBase
 {
 protected:
 
-  std::string id;
-  Dimensions dimensions;
-  ListOf compartmentGlyphs;
-  ListOf speciesGlyphs;
-  ListOf reactionGlyphs;
-  ListOf textGlyphs;
-  ListOf additionalGraphicalObjects;
+  std::string mId;
+  Dimensions mDimensions;
+  ListOfCompartmentGlyphs mCompartmentGlyphs;
+  ListOfSpeciesGlyphs mSpeciesGlyphs;
+  ListOfReactionGlyphs mReactionGlyphs;
+  ListOfTextGlyphs mTextGlyphs;
+  ListOfGraphicalObjects mAdditionalGraphicalObjects;
 
-  LIBSBML_EXTERN
+  
   GraphicalObject*
-  removeObjectWithId (ListOf& list, const std::string& id);
+  removeObjectWithId (ListOf* list, const std::string& id);
 
-  LIBSBML_EXTERN
+  
+  const GraphicalObject*
+  getObjectWithId (const ListOf* list, const std::string& id) const;
+
   GraphicalObject*
-  getObjectWithId (const ListOf& list, const std::string& id) const;
+  getObjectWithId (ListOf* list, const std::string& id) ;
 
 
 public:
@@ -94,259 +256,320 @@ public:
   /**
    * Creates a new Layout.
    */
-  LIBSBML_EXTERN
+  
   Layout ();
 
   /**
    * Creates a new Layout with the given id and dimensions.
    */
-  LIBSBML_EXTERN
-  Layout (const std::string& id, const Dimensions& dimensions);
+  
+  Layout (const std::string& id, const Dimensions* dimensions);
 
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~Layout ();
 
 
   /**
    * Does nothing since no defaults are defined for Layout.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();    
 
         
   /**
    * Returns the id.
    */ 
-  LIBSBML_EXTERN        
+          
   const std::string& getId () const;
         
   /**
    * Sets the id to a copy of the given string.
    */ 
-  LIBSBML_EXTERN  
+    
   void setId (const std::string& id);
 
   /**
    * Returns the dimensions of the layout.
    */ 
-  LIBSBML_EXTERN
-  const Dimensions& getDimensions () const;
+  
+  const Dimensions* getDimensions () const;
 
   /**
    * Returns the dimensions of the layout.
    */ 
-  LIBSBML_EXTERN
-  Dimensions& getDimensions ();
+  
+  Dimensions* getDimensions ();
 
   /**
    * Sets the dimensions of the layout.
    */ 
-  LIBSBML_EXTERN  
-  void setDimensions (const Dimensions& dimensions);
+    
+  void setDimensions (const Dimensions* dimensions);
 
 
   /**
    * Returns the ListOf object that holds all compartment glyphs.
    */ 
-  LIBSBML_EXTERN
-  const ListOf& getListOfCompartmentGlyphs () const;
+  
+  const ListOfCompartmentGlyphs* getListOfCompartmentGlyphs () const;
 
   /**
    * Returns the ListOf object that holds all species glyphs.
    */ 
-  LIBSBML_EXTERN 
-  const ListOf& getListOfSpeciesGlyphs () const;
+   
+  const ListOfSpeciesGlyphs* getListOfSpeciesGlyphs () const;
 
   /**
    * Returns the ListOf object that holds all reaction glyphs.
    */ 
-  LIBSBML_EXTERN 
-  const ListOf& getListOfReactionGlyphs () const;
+   
+  const ListOfReactionGlyphs* getListOfReactionGlyphs () const;
 
   /**
    * Returns the ListOf object that holds all text glyphs.
    */ 
-  LIBSBML_EXTERN 
-  const ListOf& getListOfTextGlyphs () const;
+   
+  const ListOfTextGlyphs* getListOfTextGlyphs () const;
 
   /**
    * Returns the ListOf object that holds all additonal graphical objects.
    */ 
-  LIBSBML_EXTERN 
-  const ListOf& getListOfAdditionalGraphicalObjects () const;
+   
+  const ListOfGraphicalObjects* getListOfAdditionalGraphicalObjects () const;
   
   /**
    * Returns the ListOf object that holds all compartment glyphs.
    */ 
-  LIBSBML_EXTERN
-  ListOf& getListOfCompartmentGlyphs ();
+  
+  ListOfCompartmentGlyphs* getListOfCompartmentGlyphs ();
 
   /**
    * Returns the ListOf object that holds all species glyphs.
    */ 
-  LIBSBML_EXTERN 
-  ListOf& getListOfSpeciesGlyphs ();
+   
+  ListOfSpeciesGlyphs* getListOfSpeciesGlyphs ();
 
   /**
    * Returns the ListOf object that holds all reaction glyphs.
    */ 
-  LIBSBML_EXTERN 
-  ListOf& getListOfReactionGlyphs ();
+   
+  ListOfReactionGlyphs* getListOfReactionGlyphs ();
 
   /**
    * Returns the ListOf object that holds all text glyphs.
    */ 
-  LIBSBML_EXTERN 
-  ListOf& getListOfTextGlyphs ();
+   
+  ListOfTextGlyphs* getListOfTextGlyphs ();
 
   /**
    * Returns the ListOf object that holds all additional graphical objects.
    */ 
-  LIBSBML_EXTERN 
-  ListOf& getListOfAdditionalGraphicalObjects ();
+   
+  ListOfGraphicalObjects* getListOfAdditionalGraphicalObjects ();
 
 
   /**
    * Returns the compartment glyph with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-  LIBSBML_EXTERN 
-  CompartmentGlyph* getCompartmentGlyph (unsigned int index) const;
+  const CompartmentGlyph* getCompartmentGlyph (unsigned int index) const;
+
+  /**
+   * Returns the compartment glyph with the given index.
+   * If the index is invalid, NULL is returned.
+   */ 
+  CompartmentGlyph* getCompartmentGlyph (unsigned int index) ;
 
   /**
    * Returns the species glyph with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-  LIBSBML_EXTERN
-  SpeciesGlyph* getSpeciesGlyph (unsigned int index) const;
+  SpeciesGlyph* getSpeciesGlyph (unsigned int index) ;
+
+  /**
+   * Returns the species glyph with the given index.
+   * If the index is invalid, NULL is returned.
+   */ 
+  const SpeciesGlyph* getSpeciesGlyph (unsigned int index) const;
 
   /**
    * Returns the reaction glyph with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-  LIBSBML_EXTERN
-  ReactionGlyph* getReactionGlyph (unsigned int index) const;
+  const ReactionGlyph* getReactionGlyph (unsigned int index) const;
+
+  /**
+   * Returns the reaction glyph with the given index.
+   * If the index is invalid, NULL is returned.
+   */ 
+  ReactionGlyph* getReactionGlyph (unsigned int index) ;
 
   /**
    * Returns the text glyph with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-  LIBSBML_EXTERN
-  TextGlyph* getTextGlyph (unsigned int index) const;
+  const TextGlyph* getTextGlyph (unsigned int index) const;
+
+  /**
+   * Returns the text glyph with the given index.
+   * If the index is invalid, NULL is returned.
+   */ 
+  TextGlyph* getTextGlyph (unsigned int index) ;
 
   /**
    * Returns the additional graphical object with the given index.
    * If the index is invalid, NULL is returned.
    */ 
-  LIBSBML_EXTERN 
-  GraphicalObject* getAdditionalGraphicalObject (unsigned int index) const;
+  const GraphicalObject* getAdditionalGraphicalObject (unsigned int index) const;
+
+  /**
+   * Returns the additional graphical object with the given index.
+   * If the index is invalid, NULL is returned.
+   */ 
+  GraphicalObject* getAdditionalGraphicalObject (unsigned int index) ;
 
 
   /**
    * Returns the compartment glyph that has the given id, or NULL if no
    * compartment glyph has the id.
    */
-  LIBSBML_EXTERN
-  CompartmentGlyph* getCompartmentGlyph (const std::string& id) const;
+  
+  const CompartmentGlyph* getCompartmentGlyph (const std::string& id) const;
 
   /**
    * Returns the species glyph that has the given id, or NULL if no species
    * glyph has the id.
    */
-  LIBSBML_EXTERN
-  SpeciesGlyph* getSpeciesGlyph (const std::string& id) const;
+  
+  const SpeciesGlyph* getSpeciesGlyph (const std::string& id) const;
         
   /**
    * Returns the reaction glyph that has the given id, or NULL if no
    * reaction glyph has the id.
    */
-  LIBSBML_EXTERN
-  ReactionGlyph* getReactionGlyph (const std::string& id) const;
+  
+  const ReactionGlyph* getReactionGlyph (const std::string& id) const;
 
   /**
    * Returns the text glyph that has the given id, or NULL if no text glyph
    * has the id.
    */
-  LIBSBML_EXTERN
-  TextGlyph* getTextGlyph (const std::string& id) const;
+  
+  const TextGlyph* getTextGlyph (const std::string& id) const;
 
   /**
    * Returns the additional graphical object that has the given id, or NULL
    * if no graphical object has the id.
    */
-  LIBSBML_EXTERN
-  GraphicalObject* getAdditionalGraphicalObject (const std::string& id) const;
+  
+  const GraphicalObject* getAdditionalGraphicalObject (const std::string& id) const;
+
+
+  /**
+   * Returns the compartment glyph that has the given id, or NULL if no
+   * compartment glyph has the id.
+   */
+  
+  CompartmentGlyph* getCompartmentGlyph (const std::string& id) ;
+
+  /**
+   * Returns the species glyph that has the given id, or NULL if no species
+   * glyph has the id.
+   */
+  
+  SpeciesGlyph* getSpeciesGlyph (const std::string& id) ;
+        
+  /**
+   * Returns the reaction glyph that has the given id, or NULL if no
+   * reaction glyph has the id.
+   */
+  
+  ReactionGlyph* getReactionGlyph (const std::string& id) ;
+
+  /**
+   * Returns the text glyph that has the given id, or NULL if no text glyph
+   * has the id.
+   */
+  
+  TextGlyph* getTextGlyph (const std::string& id) ;
+
+  /**
+   * Returns the additional graphical object that has the given id, or NULL
+   * if no graphical object has the id.
+   */
+  
+  GraphicalObject* getAdditionalGraphicalObject (const std::string& id) ;
 
 
   /**
    * Adds a new compartment glyph.
    */
-  LIBSBML_EXTERN
-  void addCompartmentGlyph (CompartmentGlyph& glyph);
+  
+  void addCompartmentGlyph (const CompartmentGlyph* glyph);
 
   /**
    * Adds a new species glyph.
    */
-  LIBSBML_EXTERN
-  void addSpeciesGlyph (SpeciesGlyph& glyph);
+  
+  void addSpeciesGlyph (const SpeciesGlyph* glyph);
 
   /**
    * Adds a new reaction glyph.
    */
-  LIBSBML_EXTERN
-  void addReactionGlyph (ReactionGlyph& glyph);
+  
+  void addReactionGlyph (const ReactionGlyph* glyph);
 
   /**
    * Adds a new text glyph.
    */
-  LIBSBML_EXTERN
-  void addTextGlyph (TextGlyph& glyph);
+  
+  void addTextGlyph (const TextGlyph* glyph);
 
   /**
    * Adds a new additional graphical object glyph.
    */
-  LIBSBML_EXTERN
-  void addAdditionalGraphicalObject (GraphicalObject& glyph);
+  
+  void addAdditionalGraphicalObject (const GraphicalObject* glyph);
 
 
   /**
    * Returns the number of compartment glyphs for the layout.
    */
-  LIBSBML_EXTERN
+  
   unsigned int getNumCompartmentGlyphs () const;
 
   /**
    * Returns the number of species glyphs for the layout.
    */
-  LIBSBML_EXTERN 
+   
   unsigned int getNumSpeciesGlyphs () const;
 
   /**
    * Returns the number of reaction glyphs for the layout.
    */
-  LIBSBML_EXTERN
+  
   unsigned int getNumReactionGlyphs () const;
 
   /**
    * Returns the number of text glyphs for the layout.
    */
-  LIBSBML_EXTERN 
+   
   unsigned int getNumTextGlyphs () const;
 
   /**
    * Returns the number of additional graphical objects for the layout.
    */
-  LIBSBML_EXTERN
+  
   unsigned int getNumAdditionalGraphicalObjects () const;
 
 
   /**
    * Returns true if the id is not the empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetId () const;    
 
 
@@ -355,14 +578,14 @@ public:
    * compartment glyph objects list and returns a pointer to the newly
    * created object.
    */
-  LIBSBML_EXTERN
+  
   CompartmentGlyph* createCompartmentGlyph ();
 
   /**
    * Creates a SpeciesGlyph object, adds it to the end of the species glyph
    * objects list and returns a pointer to the newly created object.
    */
-  LIBSBML_EXTERN
+  
   SpeciesGlyph* createSpeciesGlyph ();
 
   /**
@@ -370,14 +593,14 @@ public:
    * glyph objects list and returns a pointer to the newly created
    * object.
    */
-  LIBSBML_EXTERN
+  
   ReactionGlyph* createReactionGlyph ();
 
   /**
    * Creates a TextGlyph object, adds it to the end of the text glyph
    * objects list and returns a pointer to the newly created object.
    */
-  LIBSBML_EXTERN
+  
   TextGlyph* createTextGlyph ();
 
   /**
@@ -385,7 +608,7 @@ public:
    * graphical objects list and returns a pointer to the newly created
    * object.
    */
-  LIBSBML_EXTERN
+  
   GraphicalObject* createAdditionalGraphicalObject ();
 
   /**
@@ -393,7 +616,7 @@ public:
    * adds it to its list of SpeciesReferenceGlyph objects.  A pointer to
    * the newly created object is returned.
    */
-  LIBSBML_EXTERN
+  
   SpeciesReferenceGlyph* createSpeciesReferenceGlyph();
 
   /**
@@ -402,7 +625,7 @@ public:
    * ReactionGlyph and adds it to its list of SpeciesReferenceGlyph
    * objects.  A pointer to the newly created object is returned.
    */
-  LIBSBML_EXTERN
+  
   LineSegment* createLineSegment ();
 
   /**
@@ -411,7 +634,7 @@ public:
    * ReactionGlyph and adds it to its list of SpeciesReferenceGlyph
    * objects.  A pointer to the newly created object is returned.
    */
-  LIBSBML_EXTERN
+  
   CubicBezier* createCubicBezier ();
 
   /**
@@ -419,7 +642,7 @@ public:
    * A pointer to the compartment glyph that was removed is returned.
    * If no compartment glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   CompartmentGlyph* removeCompartmentGlyph(unsigned int index);
 
   /**
@@ -427,7 +650,7 @@ public:
    * A pointer to the species glyph that was removed is returned.
    * If no species glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   SpeciesGlyph* removeSpeciesGlyph(unsigned int index);
   
   /**
@@ -435,7 +658,7 @@ public:
    * A pointer to the reaction glyph that was removed is returned.
    * If no reaction glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   ReactionGlyph* removeReactionGlyph(unsigned int index);
   
   /**
@@ -443,7 +666,7 @@ public:
    * A pointer to the text glyph that was removed is returned.
    * If no text glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   TextGlyph* removeTextGlyph(unsigned int index);
   
   /**
@@ -451,7 +674,7 @@ public:
    * A pointer to the graphical object that was removed is returned.
    * If no graphical object has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   GraphicalObject* removeAdditionalGraphicalObject(unsigned int index);
 
   /**
@@ -459,7 +682,7 @@ public:
    * A pointer to the removed compartment glyph is returned.
    * If no compartment glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   CompartmentGlyph*
   removeCompartmentGlyph(const std::string id);
 
@@ -469,7 +692,7 @@ public:
    * A pointer to the removed species glyph is returned.
    * If no species glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   SpeciesGlyph*
   removeSpeciesGlyph(const std::string id);
 
@@ -479,7 +702,7 @@ public:
    * A pointer to the removed reaction glyph is returned.
    * If no reaction glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   ReactionGlyph*
   removeReactionGlyph(const std::string id);
 
@@ -489,7 +712,7 @@ public:
    * A pointer to the removed species reference glyph is returned.
    * If no species reference glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   SpeciesReferenceGlyph*
   removeSpeciesReferenceGlyph(const std::string id);
 
@@ -499,7 +722,7 @@ public:
    * A pointer to the removed text glyph is returned.
    * If no text glyph has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   TextGlyph*
   removeTextGlyph(const std::string id);
 
@@ -509,9 +732,79 @@ public:
    * A pointer to the removed graphical object is returned.
    * If no graphical object has been removed, NULL is returned.
    */
-  LIBSBML_EXTERN
+  
   GraphicalObject*
   removeAdditionalGraphicalObject(const std::string id);
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const {return false;}
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
 };
@@ -889,6 +1182,22 @@ Layout_createTextGlyph (Layout_t *);
 LIBSBML_EXTERN
 GraphicalObject_t *
 Layout_createAdditionalGraphicalObject (Layout_t *);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Layout_clone (const Layout_t *m);
+
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Layout_t *
+Layout_clone (const Layout_t *m);
+
 
 
 END_C_DECLS

@@ -56,16 +56,20 @@
 
 #include <string>
 
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 #include "LineSegment.h"
 #include "Point.h"
 
 
-class CubicBezier : public LineSegment
+class LIBSBML_EXTERN CubicBezier : public LineSegment
 {
 protected:
 
-  Point basePoint1;
-  Point basePoint2;
+  Point mBasePoint1;
+  Point mBasePoint2;
 
 
 public:
@@ -73,41 +77,41 @@ public:
   /**
    * Creates a CubicBezier and returns the pointer.
    */
-  LIBSBML_EXTERN
+  
   CubicBezier ();
 
   /**
    * Creates a CubicBezier with the given 2D coordinates and returns the
    * pointer.
    */
-  LIBSBML_EXTERN
+  
   CubicBezier (double x1, double y1, double x2, double y2);
 
   /**
    * Creates a CubicBezier with the given 3D coordinates and returns the
    * pointer.
    */
-  LIBSBML_EXTERN
+  
   CubicBezier (double x1, double y1, double z1,
                double x2, double y2, double z2);
 
   /**
    * Creates a CubicBezier with the given points and returns the pointer.
    */
-  LIBSBML_EXTERN
-  CubicBezier (const Point& start, const Point& end);
+  
+  CubicBezier (const Point* start, const Point* end);
 
   /**
    * Creates a CubicBezier with the given points and returns the pointer.
    */
-  LIBSBML_EXTERN
-  CubicBezier (const Point& start, const Point& base1,
-               const Point& base2, const Point& end);
+  
+  CubicBezier (const Point* start, const Point* base1,
+               const Point* base2, const Point* end);
 
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~CubicBezier ();
 
 
@@ -115,66 +119,128 @@ public:
    * Returns the first base point of the curve (the one closer to the
    * starting point).
    */ 
-  LIBSBML_EXTERN
-  const Point& getBasePoint1 () const;
+  
+  const Point* getBasePoint1 () const;
 
   /**
    * Returns the first base point of the curve (the one closer to the
    * starting point).
    */ 
-  LIBSBML_EXTERN
-  Point& getBasePoint1 ();
+  
+  Point* getBasePoint1 ();
 
   /**
    * Initializes first base point with a copy of the given point.
    */
-  LIBSBML_EXTERN
-  void setBasePoint1 (const Point& p);
+  
+  void setBasePoint1 (const Point* p);
 
   /**
    * Initializes first base point with the given coordinates.
    */
-  LIBSBML_EXTERN
+  
   void setBasePoint1 (double x, double y, double z = 0.0);
 
   /**
    * Returns the second base point of the curve (the one closer to the end
    * point).
    */ 
-  LIBSBML_EXTERN
-  const Point& getBasePoint2 () const;
+  
+  const Point* getBasePoint2 () const;
 
   /**
    * Returns the second base point of the curve (the one closer to the end
    * point).
    */ 
-  LIBSBML_EXTERN
-  Point& getBasePoint2 ();
+  
+  Point* getBasePoint2 ();
 
   /**
    * Initializes second base point with a copy of the given point.
    */
-  LIBSBML_EXTERN
-  void setBasePoint2 (const Point& p);
+  
+  void setBasePoint2 (const Point* p);
 
   /**
    * Initializes second base point with the given coordinates.
    */
-  LIBSBML_EXTERN
+  
   void setBasePoint2 (double x, double y, double z = 0.0);
 
   /**
    * Calls initDefaults from LineSegment.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
 
   /**
    * Makes a line from a CubicBezier by setting both base points into the
    * middle between the start and the end point.
    */
-  LIBSBML_EXTERN
+  
   void straighten ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
 
 };
 
@@ -297,6 +363,13 @@ CubicBezier_getBasePoint2 (CubicBezier_t *cb);
 LIBSBML_EXTERN
 void
 CubicBezier_initDefaults (CubicBezier_t *cb);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+CubicBezier_t *
+CubicBezier_clone (const CubicBezier_t *m);
 
 
 END_C_DECLS

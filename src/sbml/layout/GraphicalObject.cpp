@@ -46,27 +46,23 @@
 
 #include "common/common.h"
 #include "GraphicalObject.h"
-
+#include "sbml/SBMLErrorLog.h"
 
 /**
  * Creates a new GraphicalObject.
  */
-LIBSBML_EXTERN
 GraphicalObject::GraphicalObject() : SBase ()
 {
-  init(SBML_LAYOUT_GRAPHICALOBJECT);
 }
 
 
 /**
  * Creates a new GraphicalObject with the given id.
  */
-LIBSBML_EXTERN
 GraphicalObject::GraphicalObject (const std::string& id) : 
     SBase()
-  , id   (id)
+  , mId   (id)
 {
-  init(SBML_LAYOUT_GRAPHICALOBJECT);
 }
 
 
@@ -74,14 +70,12 @@ GraphicalObject::GraphicalObject (const std::string& id) :
  * Creates a new GraphicalObject with the given id and 2D coordinates for
  * the bounding box.
  */
-LIBSBML_EXTERN
 GraphicalObject::GraphicalObject (const std::string& id,
                                   double x, double y, double w, double h) :
     SBase      ()
-  , id         ( id )
-  , boundingBox( BoundingBox("", x, y, 0.0, w, h, 0.0) )
+  , mId         ( id )
+  , mBoundingBox( BoundingBox("", x, y, 0.0, w, h, 0.0) )
 {
-  init(SBML_LAYOUT_GRAPHICALOBJECT);
 }
 
 
@@ -89,15 +83,13 @@ GraphicalObject::GraphicalObject (const std::string& id,
  * Creates a new GraphicalObject with the given id and 3D coordinates for
  * the bounding box.
  */
-LIBSBML_EXTERN
 GraphicalObject::GraphicalObject (const std::string& id,
                                   double x, double y, double z,
                                   double w, double h, double d) :
     SBase      ()
-  , id         ( id )
-  , boundingBox( BoundingBox("", x, y, z, w, h, d) )
+  , mId         ( id )
+  , mBoundingBox( BoundingBox("", x, y, z, w, h, d) )
 {
-  init(SBML_LAYOUT_GRAPHICALOBJECT);
 }
 
 
@@ -105,15 +97,13 @@ GraphicalObject::GraphicalObject (const std::string& id,
  * Creates a new GraphicalObject with the given id and 3D coordinates for
  * the bounding box.
  */
-LIBSBML_EXTERN
 GraphicalObject::GraphicalObject (const std::string& id,
-                                  const Point&       p,
-                                  const Dimensions&  d) : 
+                                  const Point*       p,
+                                  const Dimensions*  d) : 
     SBase      ()
-  , id         ( id )
-  , boundingBox( BoundingBox("", p, d) )
+  , mId         ( id )
+  , mBoundingBox( BoundingBox("", p, d) )
 {
-  init(SBML_LAYOUT_GRAPHICALOBJECT);
 }
 
 
@@ -121,20 +111,17 @@ GraphicalObject::GraphicalObject (const std::string& id,
  * Creates a new GraphicalObject with the given id and 3D coordinates for
  * the bounding box.
  */
-LIBSBML_EXTERN
-GraphicalObject::GraphicalObject (const std::string& id, const BoundingBox& bb)
+GraphicalObject::GraphicalObject (const std::string& id, const BoundingBox* bb)
   : SBase      ()
-  , id         ( id )
-  , boundingBox( bb )
+  , mId         ( id )
+  , mBoundingBox( *bb )
 {
-  init(SBML_LAYOUT_GRAPHICALOBJECT);
 }
 
 
 /**
  * Destructor.
  */ 
-LIBSBML_EXTERN
 GraphicalObject::~GraphicalObject ()
 {
 }
@@ -143,74 +130,150 @@ GraphicalObject::~GraphicalObject ()
 /**
  * Gets the id for the GraphicalObject.
  */
-LIBSBML_EXTERN
 const std::string&
 GraphicalObject::getId () const
 {
-  return this->id;
+  return this->mId;
 }
 
 /**
  * returns true if the id is not the empty string
  */
-LIBSBML_EXTERN
 bool GraphicalObject::isSetId() const{
-    return !this->id.empty();
+    return !this->mId.empty();
 }
 
 
 /**
  * Sets the id for the GraphicalObject.
  */
-LIBSBML_EXTERN
 void
 GraphicalObject::setId (const std::string& id)
 {
-  this->id = id;
+  this->mId = id;
 }
 
 
 /**
  * Sets the boundingbox for the GraphicalObject.
  */ 
-LIBSBML_EXTERN
 void
-GraphicalObject::setBoundingBox (const BoundingBox& bb)
+GraphicalObject::setBoundingBox (const BoundingBox* bb)
 {
-  this->boundingBox = bb;
+  this->mBoundingBox = *bb;
 }
 
 
 /**
  * Returns the bounding box for the GraphicalObject.
  */ 
-LIBSBML_EXTERN
-const BoundingBox&
+const BoundingBox*
 GraphicalObject::getBoundingBox () const
 {
-  return this->boundingBox;
+  return &this->mBoundingBox;
 } 
 
 
 /**
  * Returns the bounding box for the GraphicalObject.
  */ 
-LIBSBML_EXTERN
-BoundingBox&
+BoundingBox*
 GraphicalObject::getBoundingBox ()
 {
-  return this->boundingBox;
+  return &this->mBoundingBox;
 }
 
 
 /**
  * Does nothing. No defaults are defined for GraphicalObject.
  */ 
-LIBSBML_EXTERN
 void
 GraphicalObject::initDefaults ()
 {
 }
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& GraphicalObject::getElementName () const 
+{
+  static const std::string name = "graphicalObject";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+GraphicalObject::clone () const
+{
+    return new GraphicalObject(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+GraphicalObject::createObject (XMLInputStream& stream)
+{
+
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  if (name == "boundingBox")
+  {
+    object = &mBoundingBox;
+  }
+
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void GraphicalObject::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  attributes.readInto("id", mId,this->getErrorLog(),true);
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void GraphicalObject::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+  stream.writeAttribute("id", mId);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+GraphicalObject::getTypeCode () const
+{
+  return SBML_LAYOUT_GRAPHICALOBJECT;
+}
+
+
 
 
 /**
@@ -274,7 +337,7 @@ LIBSBML_EXTERN
 void
 GraphicalObject_setBoundingBox (GraphicalObject_t *go, const BoundingBox_t *bb)
 {
-  go->setBoundingBox(*bb);
+  go->setBoundingBox(bb);
 }
 
 
@@ -285,7 +348,7 @@ LIBSBML_EXTERN
 BoundingBox_t *
 GraphicalObject_getBoundingBox (GraphicalObject_t *go)
 {
-  return & go->getBoundingBox();
+  return go->getBoundingBox();
 }
 
 
@@ -306,6 +369,16 @@ LIBSBML_EXTERN
 int
 GraphicalObject_isSetId(GraphicalObject_t* go){
     return (int)go->isSetId();
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+GraphicalObject_t *
+GraphicalObject_clone (const GraphicalObject_t *m)
+{
+  return static_cast<GraphicalObject*>( m->clone() );
 }
 
 

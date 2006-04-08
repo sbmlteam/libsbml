@@ -57,16 +57,21 @@
 #include <string>
 
 #include "sbml/SBase.h"
+#include "sbml/SBMLVisitor.h"
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 #include "Point.h"
 
 
-class LineSegment : public SBase
+class LIBSBML_EXTERN LineSegment : public SBase
 {
 protected:
 
-  std::string id;
-  Point startPoint;
-  Point endPoint;
+  std::string mId;
+  Point mStartPoint;
+  Point mEndPoint;
 
 
 public:
@@ -74,108 +79,180 @@ public:
   /**
    * Creates a line segment with both points set to (0.0,0.0,0.0)
    */ 
-  LIBSBML_EXTERN
+  
   LineSegment ();
 
   /**
    * Creates a new line segment with the given 2D coordinates.
    */ 
-  LIBSBML_EXTERN
+  
   LineSegment (double x1, double y1, double x2, double y2);
 
 
   /**
    * Creates a new line segment with the given 3D coordinates.
    */ 
-  LIBSBML_EXTERN
+  
   LineSegment(double x1, double y1, double z1, double x2, double y2, double z2);
 
   /**
    * Creates a new line segment with the two given points.
    */ 
-  LIBSBML_EXTERN
-  LineSegment (const Point& start, const Point& end);
+  
+  LineSegment (const Point* start, const Point* end);
 
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~LineSegment ();
 
 
   /**
    * Sets the id to a copy of the given string.
    */     
-  LIBSBML_EXTERN
+  
   void setId (const std::string& id);
 
   /**
    * Returns the id.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getId () const;
 
   /**
    * Returns false if the id has been set and 
    * true otherwise.
    */
-  LIBSBML_EXTERN
+  
   int
   isSetId() const;
 
   /**
    * Returns the start point of the line.
    */ 
-  LIBSBML_EXTERN
-  const Point& getStart () const;
+  
+  const Point* getStart () const;
 
   /**
    * Returns the start point of the line.
    */ 
-  LIBSBML_EXTERN
-  Point& getStart ();
+  
+  Point* getStart ();
 
   /**
    * Initializes the start point with a copy of the given Point object.
    */
-  LIBSBML_EXTERN
-  void setStart (const Point& start);
+  
+  void setStart (const Point* start);
 
   /**
    * Initializes the start point with the given coordinates.
    */
-  LIBSBML_EXTERN
+  
   void setStart (double x, double y, double z = 0.0);
 
   /**
    * Returns the end point of the line.
    */ 
-  LIBSBML_EXTERN
-  const Point& getEnd () const;
+  
+  const Point* getEnd () const;
 
   /**
    * Returns the end point of the line.
    */ 
-  LIBSBML_EXTERN
-  Point& getEnd ();
+  
+  Point* getEnd ();
 
   /**
    * Initializes the end point with a copy of the given Point object.
    */
-  LIBSBML_EXTERN
-  void setEnd (const Point& end);
+  
+  void setEnd (const Point* end);
 
   /**
    * Initializes the end point with the given coordinates.
    */
-  LIBSBML_EXTERN
+  
   void setEnd (double x, double y, double z = 0.0);
 
   /**
    * Does noting since no defaults are defined for LineSegment.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const {};
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
 
 
@@ -287,6 +364,14 @@ LineSegment_setId(LineSegment_t* ls,const char* id);
 LIBSBML_EXTERN
 int
 LineSegment_isSetId(LineSegment_t* ls);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+LineSegment_t *
+LineSegment_clone (const LineSegment_t *m);
+
 
 END_C_DECLS
 

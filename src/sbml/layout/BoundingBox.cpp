@@ -52,10 +52,8 @@
  * Default Constructor set position and dimensions to (0.0,0.0,0.0) and the
  * id to an empty string.
  */ 
-LIBSBML_EXTERN
 BoundingBox::BoundingBox() : SBase()
 {
-  init(SBML_LAYOUT_BOUNDINGBOX);
 }
 
 
@@ -63,10 +61,8 @@ BoundingBox::BoundingBox() : SBase()
  * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to a
  * copy of the given string.
  */ 
-LIBSBML_EXTERN
-BoundingBox::BoundingBox (const std::string id) : SBase(), id(id)
+BoundingBox::BoundingBox (const std::string id) : SBase(), mId(id)
 {
-  init(SBML_LAYOUT_BOUNDINGBOX);
 }
 
 
@@ -74,16 +70,14 @@ BoundingBox::BoundingBox (const std::string id) : SBase(), id(id)
  * Constructor which sets the id, the coordinates and the dimensions to the
  * given 2D values.
  */ 
-LIBSBML_EXTERN
 BoundingBox::BoundingBox (const std::string id,
                           double x, double y,
                           double width, double height)
   : SBase     ()
-  , id        ( id )
-  , position  ( Point(x, y, 0.0)               )
-  , dimensions( Dimensions(width, height, 0.0) )
+  , mId        ( id )
+  , mPosition  ( x, y, 0.0               )
+  , mDimensions( width, height, 0.0 )
 {
-  init(SBML_LAYOUT_BOUNDINGBOX);
 }
 
 
@@ -91,16 +85,14 @@ BoundingBox::BoundingBox (const std::string id,
  * Constructor which sets the id, the coordinates and the dimensions to the
  * given 3D values.
  */ 
-LIBSBML_EXTERN
 BoundingBox::BoundingBox (const std::string id,
                           double x, double y, double z,
                           double width, double height, double depth)
   : SBase()
-  , id        ( id )
-  , position  ( Point(x, y, z)                   )
-  , dimensions( Dimensions(width, height, depth) )
+  , mId        ( id )
+  , mPosition  (x, y, z)                   
+  , mDimensions( width, height, depth )
 {
-  init(SBML_LAYOUT_BOUNDINGBOX);
 }
 
         
@@ -108,23 +100,20 @@ BoundingBox::BoundingBox (const std::string id,
  * Constructor which sets the id, the coordinates and the dimensions to the
  * given 3D values.
  */ 
-LIBSBML_EXTERN
 BoundingBox::BoundingBox (const std::string id,
-                          const Point&      p,
-                          const Dimensions& d)
+                          const Point*      p,
+                          const Dimensions* d)
   : SBase     ()
-  , id        ( id )
-  , position  ( p  )
-  , dimensions( d  )
+  , mId        ( id )
+  , mPosition  ( *p  )
+  , mDimensions( *d  )
 {
-  init(SBML_LAYOUT_BOUNDINGBOX);
 }
 
 
 /**
  * Destructor which does nothing.
  */ 
-LIBSBML_EXTERN
 BoundingBox::~BoundingBox ()
 {
 }
@@ -133,7 +122,6 @@ BoundingBox::~BoundingBox ()
 /**
  * Does nothing since no defaults are defined for a BundingBox.
  */ 
-LIBSBML_EXTERN
 void BoundingBox::initDefaults ()
 {
 }
@@ -142,32 +130,29 @@ void BoundingBox::initDefaults ()
 /**
  * Sets the id to a copy of the given string.
  */  
-LIBSBML_EXTERN
 void BoundingBox::setId (const std::string& id)
 {
-  this->id = id;
+  this->mId = id;
 }
 
 
 /**
  * Returns the id of the BOundingBox.
  */ 
-LIBSBML_EXTERN
 const std::string
 BoundingBox::getId () const
 {
-  return this->id;
+  return this->mId;
 }
 
 
 /**
  * Returns true if the id is not the empty string.
  */ 
-LIBSBML_EXTERN
 bool
 BoundingBox::isSetId () const
 {
-  return ! this->id.empty();
+  return ! this->mId.empty();
 }
 
 
@@ -175,11 +160,10 @@ BoundingBox::isSetId () const
  * Returns the position of the BoundingBox as const referece to a Point
  * object.
  */ 
-LIBSBML_EXTERN
-const Point&
+const Point*
 BoundingBox::getPosition () const
 {
-  return this->position;
+  return &this->mPosition;
 }
 
 
@@ -187,22 +171,20 @@ BoundingBox::getPosition () const
  * Returns the dimensions of the BoundingBox as const referece to a
  * Dimensions object.
  */ 
-LIBSBML_EXTERN
-const Dimensions&
+const Dimensions*
 BoundingBox::getDimensions () const
 {
-  return this->dimensions;
+  return &this->mDimensions;
 }
 
 
 /**
  * Returns the position of the BoundingBox as referece to a Point object.
  */ 
-LIBSBML_EXTERN
-Point&
+Point*
 BoundingBox::getPosition ()
 {
-  return this->position;
+  return &this->mPosition;
 }
 
 
@@ -210,159 +192,251 @@ BoundingBox::getPosition ()
  * Returns the dimensions of the BoundingBox as referece to a Dimensions
  * object.
  */ 
-LIBSBML_EXTERN
-Dimensions&
+Dimensions*
 BoundingBox::getDimensions ()
 {
-  return this->dimensions;
+  return &this->mDimensions;
 }
 
 
 /**
  * Sets the position to a copy of the Point object given.
  */ 
-LIBSBML_EXTERN
-void BoundingBox::setPosition (const Point& p)
+void BoundingBox::setPosition (const Point* p)
 {
-  this->position = Point(p);
+    if(!p) return;  
+    this->mPosition = Point(*p);
 }
 
 
 /**
  * Sets the dimensions to a copy of the Dimensions object given.
  */ 
-LIBSBML_EXTERN
 void
-BoundingBox::setDimensions (const Dimensions& d)
+BoundingBox::setDimensions (const Dimensions* d)
 {
-  this->dimensions = Dimensions(d);
+  if(!d) return;
+  this->mDimensions = Dimensions(*d);
 }
 
 
 /**
  * Sets the x offset of the BoundingBox.
  */
-LIBSBML_EXTERN
 void
 BoundingBox::setX(double x)
 {
-  this->position.setX(x);
+  this->mPosition.setX(x);
 }
 
 
 /**
  * Sets the y offset of the BoundingBox.
  */
-LIBSBML_EXTERN
 void
 BoundingBox::setY(double y)
 {
-  this->position.setY(y);
+  this->mPosition.setY(y);
 }
 
 
 /**
  * Sets the z offset of the BoundingBox.
  */
-LIBSBML_EXTERN
 void
 BoundingBox::setZ(double z)
 {
-  this->position.setZ(z);
+  this->mPosition.setZ(z);
 }
 
 
 /**
  * Sets the width of the BoundingBox.
  */
-LIBSBML_EXTERN
 void
 BoundingBox::setWidth(double width)
 {
-  this->dimensions.setWidth(width);
+  this->mDimensions.setWidth(width);
 }
 
 
 /**
  * Sets the height of the BoundingBox.
  */
-LIBSBML_EXTERN
 void
 BoundingBox::setHeight(double height)
 {
-  this->dimensions.setHeight(height);
+  this->mDimensions.setHeight(height);
 }
 
 
 /**
  * Sets the depth of the BoundingBox.
  */
-LIBSBML_EXTERN
 void
 BoundingBox::setDepth(double depth)
 {
-  this->dimensions.setDepth(depth);
+  this->mDimensions.setDepth(depth);
 }
 
 /**
  * Returns the x offset of the bounding box.
  */
-LIBSBML_EXTERN
 double
 BoundingBox::x() const
 {
-  return this->position.x();
+  return this->mPosition.x();
 }
 
 /**
  * Returns the y offset of the bounding box.
  */
-LIBSBML_EXTERN
 double
 BoundingBox::y() const
 {
-  return this->position.y();
+  return this->mPosition.y();
 }
 
 /**
  * Returns the z offset of the bounding box.
  */
-LIBSBML_EXTERN
 double
 BoundingBox::z() const
 {
-  return this->position.z();
+  return this->mPosition.z();
 }
 
 /**
  * Returns the width of the bounding box.
  */
-LIBSBML_EXTERN
 double
 BoundingBox::width() const
 {
-  return this->dimensions.width();
+  return this->mDimensions.width();
 }
 
 /**
  * Returns the height of the bounding box.
  */
-LIBSBML_EXTERN
 double
 BoundingBox::height() const
 {
-  return this->dimensions.height();
+  return this->mDimensions.height();
 }
 
 /**
  * Returns the depth of the bounding box.
  */
-LIBSBML_EXTERN
 double
 BoundingBox::depth() const
 {
-  return this->dimensions.depth();
+  return this->mDimensions.depth();
 }
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.  For example:
+ *
+ *   SBase::writeElements(stream);
+ *   mReactans.write(stream);
+ *   mProducts.write(stream);
+ *   ...
+ */
+void BoundingBox::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+  this->mPosition.write(stream);
+  this->mDimensions.write(stream);
+}
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& BoundingBox::getElementName () const 
+{
+  static const std::string name = "boundingBox";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+BoundingBox::clone () const
+{
+    return new BoundingBox(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+BoundingBox::createObject (XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+  if (name == "dimensions")
+  {
+    object = &mDimensions;
+  }
+
+  else if ( name == "position"    )
+  {
+      object = &mPosition;
+  }
+
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void BoundingBox::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  attributes.readInto("id", mId);
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void BoundingBox::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+  stream.writeAttribute("id", mId);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+BoundingBox::getTypeCode () const
+{
+  return SBML_LAYOUT_BOUNDINGBOX;
+}
+
+
+
 
 /**
  * Function that creates a BoundingBox_t object with position set to
@@ -468,7 +542,7 @@ LIBSBML_EXTERN
 Point_t *
 BoundingBox_getPosition (BoundingBox_t *bb)
 {
-  return & bb->getPosition();
+  return bb->getPosition();
 }
 
 
@@ -479,7 +553,7 @@ LIBSBML_EXTERN
 Dimensions_t *
 BoundingBox_getDimensions (BoundingBox_t *bb)
 {
-  return & bb->getDimensions();
+  return bb->getDimensions();
 }
 
 
@@ -490,7 +564,7 @@ LIBSBML_EXTERN
 void
 BoundingBox_setPosition (BoundingBox_t *bb, const Point_t *p)
 {
-  bb->setPosition(p ? *p : Point());
+   bb->setPosition(p);
 }
 
 
@@ -501,7 +575,7 @@ LIBSBML_EXTERN
 void
 BoundingBox_setDimensions (BoundingBox_t *bb, const Dimensions_t *d)
 {
-  bb->setDimensions(d ? *d : Dimensions());
+  bb->setDimensions(d);
 }
 
 /**
@@ -626,6 +700,16 @@ double
 BoundingBox_depth(BoundingBox_t* bb)
 {
     return bb->depth();
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+BoundingBox_t *
+BoundingBox_clone (const BoundingBox_t *m)
+{
+  return static_cast<BoundingBox*>( m->clone() );
 }
 
 

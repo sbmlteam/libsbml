@@ -55,14 +55,18 @@
 
 
 #include <string>
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 #include "GraphicalObject.h"
 
 
-class CompartmentGlyph : public GraphicalObject
+class LIBSBML_EXTERN CompartmentGlyph : public GraphicalObject
 {
 protected:
 
-  std::string compartment;
+  std::string mCompartment;
         
   friend class LayoutHandler;
 
@@ -73,52 +77,115 @@ public:
    * Default Constructor which creates a new CompartmentGlyph.  Id and
    * associated compartment id are unset.
    */
-  LIBSBML_EXTERN
+  
   CompartmentGlyph ();
         
   /**
    * Constructor which creates a new CompartmentGlyph with the given id.
    */
-  LIBSBML_EXTERN
+  
   CompartmentGlyph (const std::string& id);
 
   /**
    * Constructor which creates a new CompartmentGlyph.  Id and associated
    * compartment id are set to copies of the values given as arguments.
    */
-  LIBSBML_EXTERN
+  
   CompartmentGlyph (const std::string& id, const std::string& compartmentId);
 
   /**
    * Destructor.
    */        
-  LIBSBML_EXTERN
+  
     virtual ~CompartmentGlyph ();
 
   /**
    * Returns the id of the associated compartment.
    */        
-  LIBSBML_EXTERN
+  
   const std::string& getCompartmentId () const;
         
   /**
    * Sets the id of the associated compartment.
    */ 
-  LIBSBML_EXTERN
+  
   void setCompartmentId (const std::string& id);
 
   /**
    * Returns true if the id of the associated compartment is not the empty
    * string.
    */  
-  LIBSBML_EXTERN
+  
   bool isSetCompartmentId () const;
         
   /**
    * Calls initDefaults from GraphicalObject.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
+
 };
 
 
@@ -200,6 +267,13 @@ CompartmentGlyph_isSetCompartmentId (const CompartmentGlyph_t *cg);
 LIBSBML_EXTERN
 void
 CompartmentGlyph_initDefaults (CompartmentGlyph_t *cg);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+CompartmentGlyph_t *
+CompartmentGlyph_clone (const CompartmentGlyph_t *m);
 
 
 END_C_DECLS

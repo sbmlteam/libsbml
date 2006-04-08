@@ -55,15 +55,18 @@
 
 
 #include <string>
+#include "xml/XMLAttributes.h"
+#include "xml/XMLInputStream.h"
+#include "xml/XMLOutputStream.h"
+
 #include "GraphicalObject.h"
 
 
-class SpeciesGlyph : public GraphicalObject
+class LIBSBML_EXTERN SpeciesGlyph : public GraphicalObject
 {
 protected:
 
-  std::string species;        
-  friend class LayoutHandler;
+  std::string mSpecies;        
 
 
 public:
@@ -72,52 +75,115 @@ public:
    * Creates a new SpeciesGlyph with the id of the associated species set
    * to the empty string.
    */        
-  LIBSBML_EXTERN
+  
   SpeciesGlyph ();
 
   /**
    * Creates a new SpeciesGlyph with the given id. 
    */ 
-  LIBSBML_EXTERN
+  
   SpeciesGlyph (const std::string& id);
 
   /**
    * Creates a new SpeciesGlyph with the given id and the id of the
    * associated species object set to the second argument.
    */ 
-  LIBSBML_EXTERN
+  
   SpeciesGlyph (const std::string& id, const std::string& speciesId);
         
   /**
    * Destructor.
    */ 
-  LIBSBML_EXTERN
+  
   virtual ~SpeciesGlyph ();
         
   /**
    * Returns the id of the associated species object.
    */ 
-  LIBSBML_EXTERN
+  
   const std::string& getSpeciesId () const;
         
   /**
    * Sets the id of the associated species object.
    */ 
-  LIBSBML_EXTERN
+  
   void setSpeciesId (const std::string& id);
         
   /**
    * Returns true if the id of the associated species object is not the
    * empty string.
    */ 
-  LIBSBML_EXTERN
+  
   bool isSetSpeciesId () const;    
 
   /**
    * Calls initDefaults from GraphicalObject.
    */ 
-  LIBSBML_EXTERN
+  
   void initDefaults ();
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.  For example:
+   *
+   *   SBase::writeElements(stream);
+   *   mReactans.write(stream);
+   *   mProducts.write(stream);
+   *   ...
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const ;
+
+  /**
+   * @return a (deep) copy of this Model.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
+   * @see getElementName()
+   */
+  SBMLTypeCode_t
+  getTypeCode () const;
+
+
+protected:
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase*
+  createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read values from the given
+   * XMLAttributes set into their specific fields.  Be sure to call your
+   * parents implementation of this method as well.
+   */
+  virtual
+  void readAttributes (const XMLAttributes& attributes);
+
+  /**
+   * Subclasses should override this method to write their XML attributes
+   * to the XMLOutputStream.  Be sure to call your parents implementation
+   * of this method as well.  For example:
+   *
+   *   SBase::writeAttributes(stream);
+   *   stream.writeAttribute( "id"  , mId   );
+   *   stream.writeAttribute( "name", mName );
+   *   ...
+   */
+  virtual void writeAttributes (XMLOutputStream& stream) const;
+
+
 };
 
 
@@ -198,6 +264,13 @@ SpeciesGlyph_isSetSpeciesId (const SpeciesGlyph_t *sg);
 LIBSBML_EXTERN
 void
 SpeciesGlyph_initDefaults (SpeciesGlyph_t *sg);
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+SpeciesGlyph_t *
+SpeciesGlyph_clone (const SpeciesGlyph_t *m);
 
 
 END_C_DECLS

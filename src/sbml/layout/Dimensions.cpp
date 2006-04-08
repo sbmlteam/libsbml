@@ -46,33 +46,29 @@
 
 #include "common/common.h"
 #include "Dimensions.h"
-
+#include "sbml/xml/XMLErrorLog.h"
+#include "sbml/SBMLErrorLog.h"
 
 /**
  * Creates a new Dimensions object with all sizes set to 0.0.
  */ 
-LIBSBML_EXTERN
-Dimensions::Dimensions (): SBase(), w(0.0), h(0.0), d(0.0)
+Dimensions::Dimensions (): SBase(), mW(0.0), mH(0.0), mD(0.0)
 {
-  init(SBML_LAYOUT_DIMENSIONS);
 }
 
 
 /**
  * Creates a new Dimensions object with the given sizes.
  */ 
-LIBSBML_EXTERN
 Dimensions::Dimensions (double width, double height, double depth) :
-  SBase(), w(width), h(height), d(depth)
+  SBase(), mW(width), mH(height), mD(depth)
 {
-  init(SBML_LAYOUT_DIMENSIONS);
 }
 
 
 /**
  * Frees memory taken up by the Dimensions object.
  */ 
-LIBSBML_EXTERN
 Dimensions::~Dimensions ()
 {
 }
@@ -81,40 +77,36 @@ Dimensions::~Dimensions ()
 /**
  * Returns the width.
  */
-LIBSBML_EXTERN
 double
 Dimensions::width() const
 {
-  return this->w;
+  return this->mW;
 }
 
 
 /**
  * Returns the height.
  */
-LIBSBML_EXTERN
 double
 Dimensions::height() const
 {
-  return this->h;
+  return this->mH;
 }
 
 
 /**
  * Returns the depth.
  */
-LIBSBML_EXTERN
 double
 Dimensions::depth () const
 {
-  return this->d;
+  return this->mD;
 }
 
 
 /**
  * Returns the width.
  */
-LIBSBML_EXTERN
 double
 Dimensions::getWidth() const
 {
@@ -125,7 +117,6 @@ Dimensions::getWidth() const
 /**
  * Returns the height.
  */
-LIBSBML_EXTERN
 double
 Dimensions::getHeight() const
 {
@@ -136,7 +127,6 @@ Dimensions::getHeight() const
 /**
  * Returns the depth.
  */
-LIBSBML_EXTERN
 double
 Dimensions::getDepth () const
 {
@@ -147,39 +137,35 @@ Dimensions::getDepth () const
 /**
  * Sets the width to the given value.
  */ 
-LIBSBML_EXTERN
 void
 Dimensions::setWidth (double width)
 {
-  this->w = width;
+  this->mW = width;
 }
 
 
 /**
  * Sets the height to the given value.
  */ 
-LIBSBML_EXTERN
 void
 Dimensions::setHeight (double height)
 {
-  this->h = height;
+  this->mH = height;
 }
 
 
 /**
  * Sets the depth to the given value.
  */ 
-LIBSBML_EXTERN
 void Dimensions::setDepth (double depth)
 {
-  this->d = depth;
+  this->mD = depth;
 }
 
 
 /**
  * Sets all sizes of the Dimensions object to the given values.
  */ 
-LIBSBML_EXTERN
 void
 Dimensions::setBounds (double w, double h, double d)
 {
@@ -196,6 +182,93 @@ void Dimensions::initDefaults ()
 {
   this->setDepth(0.0);
 }
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string& Dimensions::getElementName () const 
+{
+  static const std::string name = "dimensions";
+  return name;
+}
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+SBase* 
+Dimensions::clone () const
+{
+    return new Dimensions(*this);
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+Dimensions::createObject (XMLInputStream& stream)
+{
+  SBase*        object = 0;
+
+  object=SBase::createObject(stream);
+  
+  return object;
+}
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+
+void Dimensions::readAttributes (const XMLAttributes& attributes)
+{
+  SBase::readAttributes(attributes);
+
+  attributes.readInto(std::string("width"), mW,dynamic_cast<XMLErrorLog*>(this->getErrorLog()),true);
+  attributes.readInto(std::string("height"), mH,this->getErrorLog(),true);
+  if(!attributes.readInto("depth", mD))
+  {
+      this->mD=0.0;
+  }
+}
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.  For example:
+ *
+ *   SBase::writeAttributes(stream);
+ *   stream.writeAttribute( "id"  , mId   );
+ *   stream.writeAttribute( "name", mName );
+ *   ...
+ */
+void Dimensions::writeAttributes (XMLOutputStream& stream) const
+{
+  SBase::writeAttributes(stream);
+  stream.writeAttribute("width", mW);
+  stream.writeAttribute("height", mH);
+  if(this->mD!=0.0)
+  {
+    stream.writeAttribute("depth", mD);
+  }
+}
+
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+Dimensions::getTypeCode () const
+{
+  return SBML_LAYOUT_DIMENSIONS;
+}
+
+
 
 
 
@@ -348,3 +421,16 @@ Dimensions_getDepth (const Dimensions_t *d)
 {
   return d->depth();
 }
+
+
+/**
+ * @return a (deep) copy of this Model.
+ */
+LIBSBML_EXTERN
+Dimensions_t *
+Dimensions_clone (const Dimensions_t *m)
+{
+  return static_cast<Dimensions*>( m->clone() );
+}
+
+
