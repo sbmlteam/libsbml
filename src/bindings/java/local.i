@@ -6,56 +6,32 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2004 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2004 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein and Ben Kovitz
- *     
- *     The SBML Team
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://sbml.org
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
 %include "javadoc.i"
 
+%ignore *::clone;
 
 /**
  * Turns off object destruction.  For testing purposes only.
+ *
+ * FIXME: Disable for the final 3.0 release.
  */
-/* %typemap (javafinalize) SWIGTYPE %{ %} */
+%typemap (javafinalize) SWIGTYPE %{ %}
 
 
 /**
@@ -115,6 +91,12 @@
       case libsbmlConstants.SBML_COMPARTMENT:
         return new Compartment(cPtr, owner);
 
+      case libsbmlConstants.SBML_COMPARTMENT_TYPE:
+        return new CompartmentType(cPtr, owner);
+
+      case libsbmlConstants.SBML_CONSTRAINT:
+        return new Constraint(cPtr, owner);
+
       case libsbmlConstants.SBML_DOCUMENT:
         return new SBMLDocument(cPtr, owner);
 
@@ -126,6 +108,9 @@
 
       case libsbmlConstants.SBML_FUNCTION_DEFINITION:
         return new FunctionDefinition(cPtr, owner);
+
+      case libsbmlConstants.SBML_INITIAL_ASSIGNMENT:
+        return new InitialAssignment(cPtr, owner);
 
       case libsbmlConstants.SBML_KINETIC_LAW:
         return new KineticLaw(cPtr, owner);
@@ -151,6 +136,9 @@
       case libsbmlConstants.SBML_MODIFIER_SPECIES_REFERENCE:
         return new ModifierSpeciesReference(cPtr, owner);
 
+      case libsbmlConstants.SBML_SPECIES_TYPE:
+        return new SpeciesType(cPtr, owner);
+
       case libsbmlConstants.SBML_UNIT_DEFINITION:
         return new UnitDefinition(cPtr, owner);
 
@@ -165,15 +153,6 @@
 
       case libsbmlConstants.SBML_RATE_RULE:
         return new RateRule(cPtr, owner);
-
-      case libsbmlConstants.SBML_SPECIES_CONCENTRATION_RULE:
-        return new SpeciesConcentrationRule(cPtr, owner);
-
-      case libsbmlConstants.SBML_COMPARTMENT_VOLUME_RULE:
-        return new CompartmentVolumeRule(cPtr, owner);
-
-      case libsbmlConstants.SBML_PARAMETER_RULE:
-        return new ParameterRule(cPtr, owner);
 
       default:
         return new SBase(cPtr, owner);
@@ -198,6 +177,12 @@
       case libsbmlConstants.SBML_COMPARTMENT:
         return new Compartment(cPtr, owner);
 
+      case libsbmlConstants.SBML_COMPARTMENT_TYPE:
+        return new CompartmentType(cPtr, owner);
+
+      case libsbmlConstants.SBML_CONSTRAINT:
+        return new Constraint(cPtr, owner);
+
       case libsbmlConstants.SBML_DOCUMENT:
         return new SBMLDocument(cPtr, owner);
 
@@ -209,6 +194,9 @@
 
       case libsbmlConstants.SBML_FUNCTION_DEFINITION:
         return new FunctionDefinition(cPtr, owner);
+
+      case libsbmlConstants.SBML_INITIAL_ASSIGNMENT:
+        return new InitialAssignment(cPtr, owner);
 
       case libsbmlConstants.SBML_KINETIC_LAW:
         return new KineticLaw(cPtr, owner);
@@ -234,6 +222,9 @@
       case libsbmlConstants.SBML_MODIFIER_SPECIES_REFERENCE:
         return new ModifierSpeciesReference(cPtr, owner);
 
+      case libsbmlConstants.SBML_SPECIES_TYPE:
+        return new SpeciesType(cPtr, owner);
+
       case libsbmlConstants.SBML_UNIT_DEFINITION:
         return new UnitDefinition(cPtr, owner);
 
@@ -248,15 +239,6 @@
 
       case libsbmlConstants.SBML_RATE_RULE:
         return new RateRule(cPtr, owner);
-
-      case libsbmlConstants.SBML_SPECIES_CONCENTRATION_RULE:
-        return new SpeciesConcentrationRule(cPtr, owner);
-
-      case libsbmlConstants.SBML_COMPARTMENT_VOLUME_RULE:
-        return new CompartmentVolumeRule(cPtr, owner);
-
-      case libsbmlConstants.SBML_PARAMETER_RULE:
-        return new ParameterRule(cPtr, owner);
 
       case libsbmlConstants.SBML_LAYOUT_BOUNDINGBOX:
         return new BoundingBox(cPtr, owner);
@@ -432,9 +414,10 @@ SWIGJAVA_ATTRIBS(TYPENAME, public, public)
 /**
  * Most libSBML methods takeover ownership of passed-in objects, so we need
  * to make sure SWIG disowns the object.
- */
+ *
 %typemap(javain) SWIGTYPE *, SWIGTYPE &
                  "$javaclassname.getCPtrAndDisown($javainput)";
+ */
 
 /**
  * Of course, there are some exceptions to the above rule.  These typemaps
