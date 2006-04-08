@@ -56,7 +56,7 @@ class SBMLVisitor;
 
 
 #ifdef USE_LAYOUT
-  class Layout;
+#include "sbml/layout/Layout.h"
 #endif  /* USE_LAYOUT */
 
 
@@ -825,12 +825,12 @@ public:
   /**
    * Returns the ListOf Layouts for this Model.
    */
-  const ListOf* getListOfLayouts () const;
+  const ListOfLayouts* getListOfLayouts () const;
 
   /**
    * Returns the ListOf Layouts for this Model.
    */
-  ListOf* getListOfLayouts ();
+  ListOfLayouts* getListOfLayouts ();
 
   /**
    * Returns the layout object that belongs to the given index. If the
@@ -897,7 +897,7 @@ protected:
   ListOfEvents               mEvents;
 
 #ifdef USE_LAYOUT
-  ListOf mLayouts;
+  ListOfLayouts mLayouts;
 #endif  /* USE_LAYOUT */
 };
 

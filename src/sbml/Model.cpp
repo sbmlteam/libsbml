@@ -32,11 +32,6 @@
 #include "SBMLVisitor.h"
 
 
-#ifdef USE_LAYOUT
-#  include <sbml/layout/Layout.h>
-#endif  /* USE_LAYOUT */
-
-
 #include "KineticLaw.h"
 #include "Model.h"
 
@@ -1545,7 +1540,9 @@ Model::createObject (XMLInputStream& stream)
   {
     if (name == "listOfSpecie") object = &mSpecies;
   }
-
+#ifdef USE_LAYOUT
+  else if ( name == "listOfLayouts"             ) object = &mLayouts;
+#endif /* USE_LAYOUT */  
 
   return object;
 }
@@ -1672,20 +1669,20 @@ Model::writeElements (XMLOutputStream& stream) const
 /**
  * Returns the ListOf Layouts for this Model.
  */
-const ListOf*
+const ListOfLayouts*
 Model::getListOfLayouts () const
 {
-  return mLayouts;
+  return &this->mLayouts;
 }
 
 
 /**
  * Returns the ListOf Layouts for this Model.
  */
-ListOf*
+ListOfLayouts*
 Model::getListOfLayouts ()
 {
-  return &mLayouts;
+  return &this->mLayouts;
 }
 
 
@@ -1729,7 +1726,7 @@ Layout*
 Model::createLayout ()
 {
   Layout* l = new Layout();
-  mLayout.appendAndOwn(l);
+  mLayouts.appendAndOwn(l);
 
   return l;
 }

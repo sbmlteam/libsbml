@@ -1024,6 +1024,60 @@ Layout::getTypeCode () const
  * @return a (deep) copy of this ListOfUnitDefinitions.
  */
 SBase*
+ListOfLayouts::clone () const
+{
+  return new ListOfLayouts(*this);
+}
+
+
+/**
+ * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+ * SBML_UNKNOWN (default).
+ */
+SBMLTypeCode_t
+ListOfLayouts::getItemTypeCode () const
+{
+  return SBML_LAYOUT_LAYOUT;
+}
+
+
+/**
+ * Subclasses should override this method to return XML element name of
+ * this SBML object.
+ */
+const std::string&
+ListOfLayouts::getElementName () const
+{
+  static const std::string name = "listOfLayouts";
+  return name;
+}
+
+
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+ListOfLayouts::createObject (XMLInputStream& stream)
+{
+  const std::string& name   = stream.peek().getName();
+  SBase*        object = 0;
+
+
+  if (name == "layout")
+  {
+    object = new Layout();
+    mItems.push_back(object);
+  }
+
+  return object;
+}
+
+
+/**
+ * @return a (deep) copy of this ListOfUnitDefinitions.
+ */
+SBase*
 ListOfCompartmentGlyphs::clone () const
 {
   return new ListOfCompartmentGlyphs(*this);

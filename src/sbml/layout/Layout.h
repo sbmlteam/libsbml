@@ -71,6 +71,37 @@
 #include "GraphicalObject.h"
 #include "SpeciesReferenceGlyph.h"
 
+class LIBSBML_EXTERN ListOfLayouts : public ListOf
+{
+public:
+
+  /**
+   * @return a (deep) copy of this ListOfUnitDefinitions.
+   */
+  virtual SBase* clone () const;
+
+  /**
+   * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
+   * SBML_UNKNOWN (default).
+   */
+  virtual SBMLTypeCode_t getItemTypeCode () const;
+
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
+
+
+protected:
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
+};
+
 class LIBSBML_EXTERN ListOfCompartmentGlyphs : public ListOf
 {
 public:
