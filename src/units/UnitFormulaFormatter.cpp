@@ -6,46 +6,19 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2005 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Sarah Keating
- *
- *     The SBML Team
- *     Science and Technology Research Institute
- *     University of Hertfordshire
- *     Hatfield, UK
- *
- *     http://sbml.org
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
@@ -54,7 +27,6 @@
 /**
  *  constructs a UnitFormulaFormatter
  */
-LIBSBML_EXTERN
 UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 {
   model = m;
@@ -65,7 +37,6 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 /**
  *  destructor
  */
-LIBSBML_EXTERN
 UnitFormulaFormatter::~UnitFormulaFormatter()
 {
 }
@@ -75,7 +46,6 @@ UnitFormulaFormatter::~UnitFormulaFormatter()
   * this function is really a dispatcher to the other
   * UnitFormulaFormatter::getUnitdefinition functions
   */
-LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
 {  
@@ -289,7 +259,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
     unit = new Unit("dimensionless");
     ud   = new UnitDefinition();
     
-    ud->addUnit(*unit);
+    ud->addUnit(unit);
   }
   
   return ud;
@@ -314,7 +284,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node)
     tempUD = getUnitDefinition(node->getChild(n));
     for (i = 0; i < tempUD->getNumUnits(); i++)
     {
-      ud->addUnit(*(tempUD->getUnit(i)));
+      ud->addUnit(tempUD->getUnit(i));
     }
   }
 
@@ -339,7 +309,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node)
   {
     unit = tempUD->getUnit(i);
     unit->setExponent(-1 * unit->getExponent());
-    ud->addUnit(*unit);
+    ud->addUnit(unit);
   }
 
   return ud;
@@ -380,7 +350,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node)
     {
       unit->setExponent((int)(child->getReal())* unit->getExponent());
     }
-    ud->addUnit(*unit);
+    ud->addUnit(unit);
   }
 
   return ud;
@@ -435,7 +405,7 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
     {
       unit->setExponent((int)(unit->getExponent()/child->getReal()));
     }
-    ud->addUnit(*unit);
+    ud->addUnit(unit);
   }
 
   return ud;
@@ -468,7 +438,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(const AST
   unit = new Unit("dimensionless");
   ud   = new UnitDefinition();
     
-  ud->addUnit(*unit);
+  ud->addUnit(unit);
 
   return ud;
 }
@@ -540,7 +510,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
 
   unsigned int n, p, found;
 
-  KineticLaw * kl;
+  const KineticLaw * kl;
 
   /** 
    * ASTNode represents a number, a constant, TIME, DELAY, or
@@ -552,14 +522,14 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
     unit = new Unit("dimensionless");
     ud   = new UnitDefinition();
     
-    ud->addUnit(*unit);
+    ud->addUnit(unit);
   }
   else if (node->getType() == AST_CONSTANT_PI)
   {
     unit = new Unit("radian");
     ud   = new UnitDefinition();
     
-    ud->addUnit(*unit);
+    ud->addUnit(unit);
   }
   else if (node->isName())
   {
@@ -568,7 +538,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
       unit = new Unit("second");
       ud   = new UnitDefinition();
       
-      ud->addUnit(*unit);
+      ud->addUnit(unit);
     }
     /* must be the name of a compartment, species or parameter */
     else
@@ -654,12 +624,11 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
 /** 
   * returns the unitDefinition for the units of the compartment
   */
-LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compartment)
 {
   UnitDefinition * ud = NULL;
-  UnitDefinition * tempUD;
+  const UnitDefinition * tempUD;
   Unit * unit;
   unsigned int n, p;
 
@@ -678,7 +647,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         unit = new Unit("dimensionless");
         ud   = new UnitDefinition();
       
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
         break;
       case 1: 
         /* check for builtin unit length redefined */
@@ -688,7 +657,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
           unit = new Unit("metre");
           ud   = new UnitDefinition();
         
-          ud->addUnit(*unit);
+          ud->addUnit(unit);
         }
         else
         {
@@ -700,7 +669,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
           unit->setExponent(tempUD->getUnit(0)->getExponent());
           unit->setOffset(tempUD->getUnit(0)->getOffset());
 
-          ud->addUnit(*unit);
+          ud->addUnit(unit);
         }
         break;
       case 2:
@@ -711,7 +680,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
           unit = new Unit("metre", 2);
           ud   = new UnitDefinition();
           
-          ud->addUnit(*unit);
+          ud->addUnit(unit);
         }
         else
         {
@@ -723,7 +692,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
           unit->setExponent(tempUD->getUnit(0)->getExponent());
           unit->setOffset(tempUD->getUnit(0)->getOffset());
 
-          ud->addUnit(*unit);
+          ud->addUnit(unit);
         }
         break;
       default:
@@ -734,7 +703,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
           unit = new Unit("litre");
           ud   = new UnitDefinition();
         
-          ud->addUnit(*unit);
+          ud->addUnit(unit);
         }
         else
         {
@@ -746,7 +715,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
           unit->setExponent(tempUD->getUnit(0)->getExponent());
           unit->setOffset(tempUD->getUnit(0)->getOffset());
 
-          ud->addUnit(*unit);
+          ud->addUnit(unit);
         }
         break;
     }
@@ -761,7 +730,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
       unit = new Unit(units);
       ud   = new UnitDefinition();
       
-      ud->addUnit(*unit);
+      ud->addUnit(unit);
     }
     else 
     {
@@ -779,7 +748,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
             unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
-            ud->addUnit(*unit);
+            ud->addUnit(unit);
           }
         }
       }
@@ -796,17 +765,17 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
       if (!strcmp(units, "volume"))
       {
         unit = new Unit("litre");
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
       else if (!strcmp(units, "area"))
       {
         unit = new Unit("metre", 2);
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
       else if (!strcmp(units, "length"))
       {
         unit = new Unit("metre");
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
     }
   }
@@ -817,15 +786,15 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
 /** 
   * returns the unitDefinition for the units of the species
   */
-LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 {
   UnitDefinition * ud;
+  const UnitDefinition * tempUd;
   UnitDefinition *subsUD = NULL;
   UnitDefinition *sizeUD = NULL;
   Unit * unit;
-  Compartment * c;
+  const Compartment * c;
   unsigned int n, p;
 
   const char * units        = species->getSubstanceUnits().c_str();
@@ -838,25 +807,25 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   if (!strcmp(units, ""))
   {
     /* check for builtin unit substance redefined */
-    ud = model->getUnitDefinition("substance");
-    if (!ud) 
+    tempUd = model->getUnitDefinition("substance");
+    if (!tempUd) 
     {
       unit = new Unit("mole");
       subsUD   = new UnitDefinition();
 
-      subsUD->addUnit(*unit);
+      subsUD->addUnit(unit);
     }
     else
     {
       subsUD   = new UnitDefinition();
 
-      unit = new Unit(ud->getUnit(0)->getKind());
-      unit->setMultiplier(ud->getUnit(0)->getMultiplier());
-      unit->setScale(ud->getUnit(0)->getScale());
-      unit->setExponent(ud->getUnit(0)->getExponent());
-      unit->setOffset(ud->getUnit(0)->getOffset());
+      unit = new Unit(tempUd->getUnit(0)->getKind());
+      unit->setMultiplier(tempUd->getUnit(0)->getMultiplier());
+      unit->setScale(tempUd->getUnit(0)->getScale());
+      unit->setExponent(tempUd->getUnit(0)->getExponent());
+      unit->setOffset(tempUd->getUnit(0)->getOffset());
 
-      subsUD->addUnit(*unit);
+      subsUD->addUnit(unit);
 
     }
   }
@@ -870,7 +839,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       unit = new Unit(units);
       subsUD   = new UnitDefinition();
       
-      subsUD->addUnit(*unit);
+      subsUD->addUnit(unit);
     }
     else 
     {
@@ -888,7 +857,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
-            subsUD->addUnit(*unit);
+            subsUD->addUnit(unit);
           }
         }
       }
@@ -905,7 +874,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       if (!strcmp(units, "substance"))
       {
         unit = new Unit("mole");
-        subsUD->addUnit(*unit);
+        subsUD->addUnit(unit);
       }
     }
   }
@@ -938,7 +907,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       unit = new Unit(spatialUnits);
       sizeUD   = new UnitDefinition();
       
-      sizeUD->addUnit(*unit);
+      sizeUD->addUnit(unit);
     }
     else 
     {
@@ -956,7 +925,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
-            sizeUD->addUnit(*unit);
+            sizeUD->addUnit(unit);
           }
         }
       }
@@ -973,17 +942,17 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       if (!strcmp(spatialUnits, "volume"))
       {
         unit = new Unit("litre");
-        sizeUD->addUnit(*unit);
+        sizeUD->addUnit(unit);
       }
       else if (!strcmp(spatialUnits, "area"))
       {
         unit = new Unit("metre", 2);
-        sizeUD->addUnit(*unit);
+        sizeUD->addUnit(unit);
       }
       else if (!strcmp(spatialUnits, "length"))
       {
         unit = new Unit("metre");
-        sizeUD->addUnit(*unit);
+        sizeUD->addUnit(unit);
       }
     }
   }
@@ -996,7 +965,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     unit = sizeUD->getUnit(n);
     unit->setExponent(-1 * unit->getExponent());
 
-    ud->addUnit(*unit);
+    ud->addUnit(unit);
   }
 
   return ud;
@@ -1005,7 +974,6 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 /** 
   * returns the unitDefinition for the units of the parameter
   */
-LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter)
 {
@@ -1033,7 +1001,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
       unit = new Unit(units);
       ud   = new UnitDefinition();
       
-      ud->addUnit(*unit);
+      ud->addUnit(unit);
     }
     else 
     {
@@ -1051,7 +1019,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
             unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
-            ud->addUnit(*unit);
+            ud->addUnit(unit);
           }
         }
       }
@@ -1068,27 +1036,27 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
       if (!strcmp(units, "substance"))
       {
         unit = new Unit("mole");
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
       else if (!strcmp(units, "volume"))
       {
         unit = new Unit("litre");
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
       else if (!strcmp(units, "area"))
       {
         unit = new Unit("metre", 2);
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
       else if (!strcmp(units, "length"))
       {
         unit = new Unit("metre");
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
       else if (!strcmp(units, "time"))
       {
         unit = new Unit("second");
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
     }
 
@@ -1100,11 +1068,11 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
 /** 
   * returns the unitDefinition for the time units of the event
   */
-LIBSBML_EXTERN
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
 {
   UnitDefinition * ud = NULL;
+  const UnitDefinition * tempUd;
   Unit * unit;
   unsigned int n, p;
 
@@ -1116,13 +1084,13 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     /* defaults to time
     * check for redefinition of time
     */
-    ud = model->getUnitDefinition("time");
+    tempUd = model->getUnitDefinition("time");
 
-    if (ud == NULL) {
+    if (tempUd == NULL) {
       unit = new Unit("second");
       ud   = new UnitDefinition();
       
-      ud->addUnit(*unit);
+      ud->addUnit(unit);
     }
   }
   else
@@ -1136,7 +1104,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
       unit = new Unit(units);
       ud   = new UnitDefinition();
       
-      ud->addUnit(*unit);
+      ud->addUnit(unit);
     }
     else 
     {
@@ -1154,7 +1122,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
             unit->setExponent(model->getUnitDefinition(n)->getUnit(p)->getExponent());
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
-            ud->addUnit(*unit);
+            ud->addUnit(unit);
           }
         }
       }
@@ -1171,7 +1139,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
       if (!strcmp(units, "time"))
       {
         unit = new Unit("second");
-        ud->addUnit(*unit);
+        ud->addUnit(unit);
       }
     }
 
@@ -1184,7 +1152,6 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
   * returns 1 if the math contains 
   * a parameter that has undeclared units 0 otherwise
   */
-LIBSBML_EXTERN
 unsigned int 
 UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
 {
@@ -1198,7 +1165,6 @@ UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
 /** 
   * returns canIgnoreUndeclaredUnits value
   */
-LIBSBML_EXTERN
 unsigned int 
 UnitFormulaFormatter::getCanIgnoreUndeclaredUnits()
 {
