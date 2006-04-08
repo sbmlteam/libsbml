@@ -29,7 +29,7 @@
 #include <string>
 #include <vector>
 
-#include "XMLExtern.h"
+#include <sbml/xml/XMLExtern.h>
 
 
 class XMLOutputStream;
@@ -105,6 +105,9 @@ public:
    */
   bool isEmpty () const;
 
+
+#ifndef SWIG
+
   /**
    * Writes the XML namespace declarations to stream.
    */
@@ -113,11 +116,20 @@ public:
   /**
    * Inserts this XML namespace declarations into stream.
    */
+  LIBLAX_EXTERN
   friend XMLOutputStream&
   operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces);
 
+#endif  /* !SWIG */
+
 
 protected:
+
+  /**
+   * Removes the default XML namespace.
+   */
+  void removeDefault ();
+
 
   typedef std::pair<std::string, std::string> PrefixURIPair;
   std::vector<PrefixURIPair> mNamespaces;

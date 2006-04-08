@@ -51,8 +51,8 @@ XercesNamespaces::XercesNamespaces (const xercesc::Attributes& attrs)
 
     const string prefix = (pos != string::npos) ? qname.substr(0, pos) : "";
 
-         if (prefix == "xmlns") add( name, value );
-    else if (name   == "xmlns") add( ""  , value );
+         if (prefix == "xmlns") add( value, name );
+    else if (name   == "xmlns") add( value );
   }
 }
 

@@ -27,7 +27,7 @@
 
 
 #include <xercesc/sax2/Attributes.hpp>
-#include "XMLAttributes.h"
+#include <sbml/xml/XMLAttributes.h>
 
 
 class XercesAttributes : public XMLAttributes

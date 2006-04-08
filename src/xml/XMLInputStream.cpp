@@ -60,7 +60,7 @@ XMLInputStream::~XMLInputStream ()
 /**
  * @return the encoding of the XML stream.
  */
-const std::string&
+const string&
 XMLInputStream::getEncoding ()
 {
   return mTokenizer.getEncoding();
@@ -174,9 +174,12 @@ XMLInputStream::setErrorLog (XMLErrorLog* log)
  * end XML element or EOF.
  */
 void
-XMLInputStream::skipPast (const XMLToken& element)
+XMLInputStream::skipPastEnd (const XMLToken& element)
 {
-  while ( isGood() && !next().isEndFor(element) );
+  if ( element.isEnd() ) return;
+
+  while ( isGood() && !peek().isEndFor(element) ) next();
+  next();
 }
 
 
@@ -188,4 +191,15 @@ void
 XMLInputStream::skipText ()
 {
   while ( isGood() && peek().isText() ) next();
+}
+
+
+/**
+ * Prints a string representation of the underlying token stream, for
+ * debugging purposes.
+ */
+string
+XMLInputStream::toString ()
+{
+  return mTokenizer.toString();
 }

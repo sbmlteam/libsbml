@@ -28,11 +28,12 @@
 
 #include <string>
 #include <vector>
+#include <list>
 
-#include "XMLExtern.h"
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLError.h>
 
 
-class XMLError;
 class XMLParser;
 
 
@@ -46,11 +47,9 @@ public:
   enum DataType { Boolean, Double, Integer };
 
   /**
-   * Creates a new empty XMLErrorLog.  The XMLParser will be used to obtain
-   * the current line and column number as XMLErrors are logged (if they
-   * have a line and column number of zero).
+   * Creates a new empty XMLErrorLog.
    */
-  XMLErrorLog (const XMLParser& parser);
+  XMLErrorLog ();
 
   /**
    * Destroys this XMLErrorLog.
@@ -62,6 +61,13 @@ public:
    * Logs the given XMLError.
    */
   void add (const XMLError& error);
+
+  /**
+   * Logs (copies) the XMLErrors in the given XMLError list to this
+   * XMLErrorLog.
+   */
+  void add (const std::list<XMLError>& errors);
+
 
   /**
    * Logs an attribute datatype error.
@@ -81,7 +87,7 @@ public:
   /**
    * @return the nth XMLError in this log.
    */
-  const XMLError& getError (unsigned int n) const;
+  const XMLError* getError (unsigned int n) const;
 
   /**
    * @return the number of errors that have been logged.
@@ -94,12 +100,21 @@ public:
    */
   void setElement (const std::string& name);
 
+  /**
+   * Sets the XMLParser for this XMLErrorLog.
+   *
+   * The XMLParser will be used to obtain the current line and column
+   * number as XMLErrors are logged (if they have a line and column number
+   * of zero).
+   */
+  void setParser (const XMLParser* p);
+
 
 protected:
 
   std::vector<XMLError>  mErrors;
   std::string            mElement;
-  const XMLParser&       mParser;
+  const XMLParser*       mParser;
 };
 
 

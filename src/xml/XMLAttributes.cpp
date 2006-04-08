@@ -487,6 +487,7 @@ XMLAttributes::write (XMLOutputStream& stream) const
 /**
  * Inserts this XMLAttributes set into stream.
  */
+LIBLAX_EXTERN
 XMLOutputStream&
 operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
 {

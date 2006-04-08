@@ -26,8 +26,8 @@
 #define ExpatHandler_h
 
 
-#include "XMLNamespaces.h"
 #include <expat.h>
+#include <sbml/xml/XMLNamespaces.h>
 
 
 class  XMLHandler;

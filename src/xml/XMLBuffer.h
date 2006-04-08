@@ -26,7 +26,7 @@
 #define XMLBuffer_h
 
 
-#include "XMLExtern.h"
+#include <sbml/xml/XMLExtern.h>
 
 
 class LIBLAX_EXTERN XMLBuffer

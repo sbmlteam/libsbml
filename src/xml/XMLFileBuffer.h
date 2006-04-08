@@ -29,7 +29,7 @@
 #include <string>
 #include <cstdio>
 
-#include "XMLBuffer.h"
+#include <sbml/xml/XMLBuffer.h>
 
 
 class XMLFileBuffer : public XMLBuffer

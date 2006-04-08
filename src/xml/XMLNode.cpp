@@ -136,6 +136,7 @@ XMLNode::write (XMLOutputStream& stream) const
 /**
  * Inserts this XMLNode and its children into stream.
  */
+LIBLAX_EXTERN
 XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node)
 {
   node.write(stream);

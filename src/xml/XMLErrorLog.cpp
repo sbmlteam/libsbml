@@ -34,11 +34,9 @@ using namespace std;
 
 
 /**
- * Creates a new empty XMLErrorLog.  The XMLParser will be used to obtain
- * the current line and column number as XMLErrors are logged (if they have
- * a line and column number of zero).
+ * Creates a new empty XMLErrorLog.
  */
-XMLErrorLog::XMLErrorLog (const XMLParser& parser) : mParser(parser)
+XMLErrorLog::XMLErrorLog ()
 {
 }
 
@@ -59,13 +57,27 @@ XMLErrorLog::add (const XMLError& error)
 {
   mErrors.push_back(error);
 
-  if (error.getLine() == 0 && error.getColumn() == 0)
+  if (error.getLine() == 0 && error.getColumn() == 0 && mParser)
   {
     XMLError& e = mErrors.back();
 
-    e.setLine  ( mParser.getLine()   );
-    e.setColumn( mParser.getColumn() );
+    e.setLine  ( mParser->getLine()   );
+    e.setColumn( mParser->getColumn() );
   }
+}
+
+
+/**
+ * Logs (copies) the XMLErrors in the given XMLError list to this
+ * XMLErrorLog.
+ */
+void
+XMLErrorLog::add (const list<XMLError>& errors)
+{
+  list<XMLError>::const_iterator end = errors.end();
+  list<XMLError>::const_iterator iter;
+
+  for (iter = errors.begin(); iter != end; ++iter) add( XMLError(*iter) );
 }
 
 
@@ -136,10 +148,10 @@ XMLErrorLog::attributeRequired (const string& name)
 /**
  * @return the nth XMLError in this log.
  */
-const XMLError&
+const XMLError*
 XMLErrorLog::getError (unsigned int n) const
 {
-  return mErrors[n];
+  return (n < mErrors.size()) ? &mErrors[n] : 0;
 }
 
 
@@ -161,4 +173,18 @@ void
 XMLErrorLog::setElement (const string& name)
 {
   mElement = name;
+}
+
+
+/**
+ * Sets the XMLParser for this XMLErrorLog.
+ *
+ * The XMLParser will be used to obtain the current line and column
+ * number as XMLErrors are logged (if they have a line and column number
+ * of zero).
+ */
+void
+XMLErrorLog::setParser (const XMLParser* p)
+{
+  mParser = p;
 }

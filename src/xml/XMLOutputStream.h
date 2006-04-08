@@ -29,7 +29,7 @@
 #include <iostream>
 #include <string>
 
-#include "XMLExtern.h"
+#include <sbml/xml/XMLExtern.h>
 
 
 class XMLTriple;
@@ -46,11 +46,6 @@ public:
                    , const std::string&  encoding     = "UTF-8"
                    , bool                writeXMLDecl = true );
 
-
-  /**
-   * Decreases the indentation level for this XMLOutputStream.
-   */
-  void downIndent ();
 
   /**
    * Writes the given XML end element name to this XMLOutputStream.
@@ -80,9 +75,16 @@ public:
   void startElement (const XMLTriple& triple);
 
   /**
-   * Increases the indentation level for this XMLOutputStream.
+   * Writes the given XML start and end element name to this XMLOutputStream.
    */
-  void upIndent ();
+  void startEndElement (const std::string& name);
+
+  /**
+   * Writes the given XML start and end element 'prefix:name' to this
+   * XMLOutputStream.
+   */
+  void startEndElement (const XMLTriple& triple);
+
 
   /**
    * Writes the given attribute, name="value" to this XMLOutputStream.
@@ -151,16 +153,28 @@ public:
    */
   void writeAttribute (const XMLTriple& triple, const unsigned int& value);
 
+
   /**
    * Writes the XML declaration:
    * <?xml version="1.0" encoding="..."?>
    */
   void writeXMLDecl ();
 
+
   /**
    * Outputs the given characters to the underlying stream.
    */
   XMLOutputStream& operator<< (const std::string& chars);
+
+  /**
+   * Outputs the given double to the underlying stream.
+   */
+  XMLOutputStream& operator<< (const double& value);
+
+  /**
+   * Outputs the given long to the underlying stream.
+   */
+  XMLOutputStream& operator<< (const long& value);
 
   /**
    * Outputs a single character to the underlying stream.
@@ -179,6 +193,17 @@ public:
 
     return *this;
   }
+
+
+  /**
+   * Decreases the indentation level for this XMLOutputStream.
+   */
+  void downIndent ();
+
+  /**
+   * Increases the indentation level for this XMLOutputStream.
+   */
+  void upIndent ();
 
 
 protected:

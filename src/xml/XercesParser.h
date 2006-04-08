@@ -29,8 +29,8 @@
 #include <string>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
-#include "XMLParser.h"
-#include "XercesHandler.h"
+#include <sbml/xml/XMLParser.h>
+#include <sbml/xml/XercesHandler.h>
 
 
 class xercesc::SAX2XMLReader;

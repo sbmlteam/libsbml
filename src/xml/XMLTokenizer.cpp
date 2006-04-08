@@ -22,6 +22,8 @@
  */
 
 
+#include <sstream>
+
 #include "XMLToken.h"
 #include "XMLTokenizer.h"
 
@@ -51,7 +53,7 @@ XMLTokenizer::~XMLTokenizer ()
 /**
  * @return the encoding of the underlying XML document.
  */
-const std::string&
+const string&
 XMLTokenizer::getEncoding ()
 {
   return mEncoding;
@@ -113,11 +115,29 @@ XMLTokenizer::peek ()
 
 
 /**
+ * Prints a string representation of the underlying token stream, for
+ * debugging purposes.
+ */
+string
+XMLTokenizer::toString ()
+{
+  ostringstream stream;
+
+  for (unsigned int n = 0; n < mTokens.size(); ++n)
+  {
+    stream << '[' << mTokens[n].toString() << ']' << endl;
+  }
+
+  return stream.str();
+}
+
+
+/**
  * Receive notification of the XML declaration, i.e.
  * <?xml version="1.0" encoding="UTF-8"?>
  */
 void
-XMLTokenizer::XML (const std::string& version, const std::string& encoding)
+XMLTokenizer::XML (const string& version, const string& encoding)
 {
   mEncoding = encoding;
 }
@@ -129,7 +149,7 @@ XMLTokenizer::XML (const std::string& version, const std::string& encoding)
 void
 XMLTokenizer::startElement (const XMLToken& element)
 {
-  if (mInChars)
+  if (mInChars || mInStart)
   {
     mInChars = false;
     mTokens.push_back( mCurrent );

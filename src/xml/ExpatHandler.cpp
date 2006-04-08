@@ -148,7 +148,7 @@ ExpatHandler::startElement (const XML_Char* name, const XML_Char** attrs)
 void
 ExpatHandler::startNamespace (const XML_Char* prefix, const XML_Char* uri)
 {
-  mNamespaces.add(prefix ? prefix : "", uri ? uri : "");
+  mNamespaces.add(uri ? uri : "", prefix ? prefix : "");
 }
 
 

@@ -27,7 +27,7 @@
 
 
 #include <xercesc/sax2/Attributes.hpp>
-#include "XMLNamespaces.h"
+#include <sbml/xml/XMLNamespaces.h>
 
 
 

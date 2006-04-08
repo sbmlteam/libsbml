@@ -34,6 +34,7 @@
 #include "XercesParser.h"
 #endif
 
+#include "XMLErrorLog.h"
 #include "XMLParser.h"
 
 
@@ -107,4 +108,5 @@ void
 XMLParser::setErrorLog (XMLErrorLog* log)
 {
   mErrorLog = log;
+  if (mErrorLog) mErrorLog->setParser(this);
 }

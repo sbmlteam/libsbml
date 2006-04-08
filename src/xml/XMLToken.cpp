@@ -22,6 +22,8 @@
  */
 
 
+#include <sstream>
+
 #include "XMLOutputStream.h"
 #include "XMLToken.h"
 
@@ -324,8 +326,37 @@ XMLToken::write (XMLOutputStream& stream) const
 
 
 /**
+ * Prints a string representation of the underlying token stream, for
+ * debugging purposes.
+ */
+string
+XMLToken::toString ()
+{
+  ostringstream stream;
+
+  if ( isText() )
+  {
+    stream << getCharacters();
+  }
+  else
+  {
+    stream << '<';
+    if ( !isStart() && isEnd() ) stream << '/';
+
+    stream << getName();
+
+    if (  isStart() && isEnd() ) stream << '/';
+    stream << '>';
+  }
+
+  return stream.str();
+}
+
+
+/**
  * Inserts this XMLToken into stream.
  */
+LIBLAX_EXTERN
 XMLOutputStream&
 operator<< (XMLOutputStream& stream, const XMLToken& token)
 {

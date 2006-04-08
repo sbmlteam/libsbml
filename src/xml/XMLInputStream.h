@@ -28,9 +28,9 @@
 
 #include <string>
 
-#include "XMLExtern.h"
-#include "XMLToken.h"
-#include "XMLTokenizer.h"
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLTokenizer.h>
 
 
 class XMLErrorLog;
@@ -100,7 +100,7 @@ public:
    * Consume zero or more XMLTokens up to and including the corresponding
    * end XML element or EOF.
    */
-  void skipPast (const XMLToken& element);
+  void skipPastEnd (const XMLToken& element);
 
   /**
    * Consume zero or more XMLTokens up to but not including the next XML
@@ -112,6 +112,13 @@ public:
    * Sets the XMLErrorLog this stream will use to log errors.
    */
   void setErrorLog (XMLErrorLog* log);
+
+
+  /**
+   * Prints a string representation of the underlying token stream, for
+   * debugging purposes.
+   */
+  std::string toString ();
 
 
 protected:

@@ -45,7 +45,7 @@ LibXMLNamespaces::LibXMLNamespaces (  const xmlChar**     namespaces
     const string prefix = LibXMLTranscode( namespaces[2 * n]     );
     const string uri    = LibXMLTranscode( namespaces[2 * n + 1] );
 
-    add(prefix, uri);
+    add(uri, prefix);
   }
 }
 

@@ -28,8 +28,8 @@
 
 #include <vector>
 
-#include "XMLExtern.h"
-#include "XMLToken.h"
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLToken.h>
 
 
 class XMLInputStream;
@@ -82,11 +82,17 @@ public:
    */
   void write (XMLOutputStream& stream) const;
 
+
+#ifndef SWIG
+
   /**
    * Inserts this XMLNode and its children into stream.
    */
+  LIBLAX_EXTERN
   friend
   XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node);
+
+#endif  /* !SWIG */
 
 
 protected:

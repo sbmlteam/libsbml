@@ -29,8 +29,8 @@
 #include <string>
 #include <vector>
 
-#include "XMLExtern.h"
-#include "XMLTriple.h"
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLTriple.h>
 
 
 class XMLErrorLog;
@@ -228,11 +228,17 @@ public:
    */
   void write (XMLOutputStream& stream) const;
 
+
+#ifndef SWIG
+
   /**
    * Inserts this XMLAttributes set into stream.
    */
+  LIBLAX_EXTERN
   friend XMLOutputStream&
   operator<< (XMLOutputStream& stream, const XMLAttributes& attributes);
+
+#endif  /* !SWIG */
 
 
 protected:

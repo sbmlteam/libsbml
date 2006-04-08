@@ -28,11 +28,11 @@
 
 #include <string>
 
-#include "XMLExtern.h"
-#include "XMLAttributes.h"
-#include "XMLNamespaces.h"
-#include "XMLOutputStream.h"
-#include "XMLTriple.h"
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLTriple.h>
 
 
 class XMLOutputStream;
@@ -182,11 +182,24 @@ public:
    */
   void write (XMLOutputStream& stream) const;
 
+
+  /**
+   * Prints a string representation of the underlying token stream, for
+   * debugging purposes.
+   */
+  std::string toString ();
+
+
+#ifndef SWIG
+
   /**
    * Inserts this XMLToken into stream.
    */
+  LIBLAX_EXTERN
   friend
   XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLToken& token);
+
+#endif  /* !SWIG */
 
 
 protected:

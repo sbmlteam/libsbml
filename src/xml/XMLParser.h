@@ -27,7 +27,7 @@
 
 
 #include <string>
-#include "XMLExtern.h"
+#include <sbml/xml/XMLExtern.h>
 
 
 class XMLErrorLog;

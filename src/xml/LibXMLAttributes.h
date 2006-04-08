@@ -27,7 +27,7 @@
 
 
 #include <libxml/parser.h>
-#include "XMLAttributes.h"
+#include <sbml/xml/XMLAttributes.h>
 
 
 class LibXMLAttributes : public XMLAttributes

@@ -46,4 +46,23 @@
 # endif
 
 
+#if __cplusplus
+#  define BEGIN_C_DECLS extern "C" {
+#  define END_C_DECLS   }
+#else
+#  define BEGIN_C_DECLS
+#  define END_C_DECLS
+#endif
+
+
+/**
+ * Disable MSVC++ warning C4251: class 'type' needs to have dll-interface
+ * to be used by clients of class 'type2'.
+ *
+ * For an explanation of why this is safe, see:
+ *   - http://www.unknownroad.com/rtfm/VisualStudio/warningC4251.html
+ */
+#pragma warning(disable: 4251)
+
+
 #endif  /* XMLExtern_h */

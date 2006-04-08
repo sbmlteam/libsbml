@@ -29,7 +29,7 @@
 #include <string>
 #include <expat.h>
 
-#include "XMLAttributes.h"
+#include <sbml/xml/XMLAttributes.h>
 
 
 class ExpatAttributes : public XMLAttributes

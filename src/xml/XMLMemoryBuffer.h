@@ -26,7 +26,7 @@
 #define XMLMemoryBuffer_h
 
 
-#include "XMLBuffer.h"
+#include <sbml/xml/XMLBuffer.h>
 
 
 class XMLMemoryBuffer : public XMLBuffer

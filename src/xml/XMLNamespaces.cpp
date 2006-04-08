@@ -52,8 +52,9 @@ XMLNamespaces::~XMLNamespaces ()
  * declarations.
  */
 void
-XMLNamespaces::add (const string& prefix, const string& uri)
+XMLNamespaces::add (const string& uri, const string& prefix)
 {
+  if ( prefix.empty() ) removeDefault();
   mNamespaces.push_back( make_pair(prefix, uri) );
 }
 
@@ -158,6 +159,25 @@ XMLNamespaces::isEmpty () const
 
 
 /**
+ * Removes the default XML namespace.
+ */
+void
+XMLNamespaces::removeDefault ()
+{
+  vector<PrefixURIPair>::iterator i;
+
+  for (i = mNamespaces.begin(); i != mNamespaces.end(); ++i)
+  {
+    if (i->first.empty())
+    {
+      mNamespaces.erase(i);
+      break;
+    }
+  }
+}
+
+
+/**
  * Writes the XML namespace declarations to stream.
  */
 void
@@ -181,6 +201,7 @@ XMLNamespaces::write (XMLOutputStream& stream) const
 /**
  * Inserts this XML namespace declarations into stream.
  */
+LIBLAX_EXTERN
 XMLOutputStream&
 operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
 {

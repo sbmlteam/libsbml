@@ -22,6 +22,7 @@
  */
 
 
+#include <limits>
 #include <locale>
 #include <string>
 
@@ -46,16 +47,6 @@ XMLOutputStream::XMLOutputStream (  ostream&       stream
 {
   mStream.imbue( locale::classic() );
   if (writeXMLDecl) this->writeXMLDecl();
-}
-
-
-/**
- * Decreases the indentation level for this XMLOutputStream.
- */
-void
-XMLOutputStream::downIndent ()
-{
-  if (mIndent) --mIndent;
 }
 
 
@@ -160,12 +151,47 @@ XMLOutputStream::startElement (const XMLTriple& triple)
 
 
 /**
- * Increases the indentation level for this XMLOutputStream.
+ * Writes the given XML start and end element name to this XMLOutputStream.
  */
 void
-XMLOutputStream::upIndent ()
+XMLOutputStream::startEndElement (const string& name)
 {
-  ++mIndent;
+  if (mInStart)
+  {
+    mStream << '>';
+    upIndent();
+  }
+
+  mInStart = false;
+
+  writeIndent();
+
+  mStream << '<';
+  writeName(name);
+  mStream << '/' << '>';
+}
+
+
+/**
+ * Writes the given XML start and end element 'prefix:name' to this
+ * XMLOutputStream.
+ */
+void
+XMLOutputStream::startEndElement (const XMLTriple& triple)
+{
+  if (mInStart)
+  {
+    mStream << '>';
+    upIndent();
+  }
+
+  mInStart = false;
+
+  writeIndent();
+
+  mStream << '<';
+  writeName(triple);
+  mStream << '/' << '>';
 }
 
 
@@ -334,6 +360,26 @@ XMLOutputStream::writeAttribute (  const XMLTriple&     triple
 
 
 /**
+ * Decreases the indentation level for this XMLOutputStream.
+ */
+void
+XMLOutputStream::downIndent ()
+{
+  if (mDoIndent && mIndent) --mIndent;
+}
+
+
+/**
+ * Increases the indentation level for this XMLOutputStream.
+ */
+void
+XMLOutputStream::upIndent ()
+{
+  if (mDoIndent) ++mIndent;
+}
+
+
+/**
  * Outputs indentation whitespace.
  */
 void
@@ -496,6 +542,42 @@ XMLOutputStream::operator<< (const string& chars)
   }
 
   writeChars(chars);
+
+  return *this;
+}
+
+
+/**
+ * Outputs the given double to the underlying stream.
+ */
+XMLOutputStream&
+XMLOutputStream::operator<< (const double& value)
+{
+  if (mInStart)
+  {
+    mInStart = false;
+    mStream << '>';
+  }
+
+  mStream << value;
+
+  return *this;
+}
+
+
+/**
+ * Outputs the given long to the underlying stream.
+ */
+XMLOutputStream&
+XMLOutputStream::operator<< (const long& value)
+{
+  if (mInStart)
+  {
+    mInStart = false;
+    mStream << '>';
+  }
+
+  mStream << value;
 
   return *this;
 }

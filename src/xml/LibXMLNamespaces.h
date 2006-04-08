@@ -27,7 +27,7 @@
 
 
 #include <libxml/parser.h>
-#include "XMLNamespaces.h"
+#include <sbml/xml/XMLNamespaces.h>
 
 
 

@@ -27,8 +27,8 @@
 
 #include <deque>
 
-#include "XMLExtern.h"
-#include "XMLHandler.h"
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLHandler.h>
 
 
 class LIBLAX_EXTERN XMLToken;
@@ -84,6 +84,13 @@ public:
    * @return the next XMLToken.
    */
   const XMLToken& peek ();
+
+  /**
+   * Prints a string representation of the underlying token stream, for
+   * debugging purposes.
+   */
+  std::string toString ();
+
 
   /**
    * Receive notification of the XML declaration, i.e.

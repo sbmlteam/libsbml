@@ -29,8 +29,8 @@
 #include <string>
 #include <expat.h>
 
-#include "XMLParser.h"
-#include "LibXMLHandler.h"
+#include <sbml/xml/XMLParser.h>
+#include <sbml/xml/LibXMLHandler.h>
 
 
 class XMLBuffer;
