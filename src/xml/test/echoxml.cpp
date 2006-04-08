@@ -25,11 +25,11 @@
 #include <iostream>
 #include <string>
 
-#include <XMLNode.h>
-#include <XMLParser.h>
+#include <sbml/xml/XMLNode.h>
+#include <sbml/xml/XMLParser.h>
 
-#include <XMLInputStream.h>
-#include <XMLOutputStream.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "EchoHandler.h"
 

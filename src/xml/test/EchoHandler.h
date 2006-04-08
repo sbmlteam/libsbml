@@ -27,7 +27,7 @@
 
 
 #include <string>
-#include <XMLHandler.h>
+#include <sbml/xml/XMLHandler.h>
 
 
 class EchoHandler : public XMLHandler
