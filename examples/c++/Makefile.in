@@ -70,11 +70,14 @@ endif
 # The rest of this Makefile remains static regardless of the values
 # assigned to the variables above.
 
-programs   = convertSBML printSBML readSBML translateMath validateSBML
+programs   = convertSBML echoSBML printSBML readSBML translateMath validateSBML
 
 all: $(programs)
 
 convertSBML: convertSBML.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+echoSBML: echoSBML.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 printSBML: printSBML.cpp util.c
