@@ -67,11 +67,16 @@
 .SUFFIXES:
 .SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .o .obj .Po .py .pyc .pyo .i
 
+# The TOP_SRCDIR variable frequently looks like /foo/config/../include
+# and this is kind of ugly, so let's get a cleaned up path first:
+
+top_include := $(shell cd $(TOP_SRCDIR)/include; /bin/pwd)
+
 # The following define default values of variables like `cxxcompile'.  An
 # enclosing makefile can define other values, in which case those
 # definitions will override what's given here.
 
-default_includes ?= -I.
+default_includes ?= -I. -I$(top_include)
 
 # Compiling under cygwin doesn't need -fPIC.
 
@@ -225,7 +230,14 @@ recursive_targets = all-recursive include-recursive install-data-recursive \
 	docs-recursive install-docs-recursive \
 	dist-recursive distcheck-recursive
 
-$(recursive_targets): subdirs
+# Notes about the following:
+#
+# include-recursive is split out as a separate target, so that
+# it is not made to depend on $(subdirs) targets.  Instead, if
+# include-recursive is a command, a separate set of logic below
+# causes a 'make include' to be performed in $(subdirs)
+
+$(filter-out include-recursive,$(recursive_targets)): subdirs
 
 subdirs_recurse = $(addsuffix -recurse,$(subdirs))
 
@@ -236,6 +248,19 @@ ifneq "$(MAKEFLAGS)" ""
 	$(MAKE) -w -C $(subst -recurse,,$@) -$(MAKEFLAGS) $(MAKECMDGOALS)
 else
 	$(MAKE) -w -C $(subst -recurse,,$@) $(MAKECMDGOALS)
+endif
+
+# Now here's the separate logic for include-recursive:
+
+subdirs_recurse_inc = $(addsuffix -recurse-inc,$(subdirs))
+
+include-recursive: $(subdirs_recurse_inc)
+
+$(subdirs_recurse_inc): 
+ifneq "$(MAKEFLAGS)" ""
+	$(MAKE) -w -C $(subst -recurse-inc,,$@) -$(MAKEFLAGS) include
+else
+	$(MAKE) -w -C $(subst -recurse-inc,,$@) include
 endif
 
 
