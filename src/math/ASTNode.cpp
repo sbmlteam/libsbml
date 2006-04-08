@@ -6,55 +6,33 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2003 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
 #include <new>
+#include <cmath>
 
-#include "common/common.h"
-#include "util/List.h"
+#include <sbml/common/common.h>
+#include <sbml/util/List.h>
+
 
 #include "ASTNode.h"
+
+
+using namespace std;
 
 
 /**
@@ -811,15 +789,15 @@ double
 ASTNode::getReal () const
 {
   double result = mReal;
-
+  
 
   if (mType == AST_REAL_E)
   {
-    result *= pow(10.0,  mExponent);
+    result *= pow(10.0,  static_cast<double>(mExponent) );
   }
   else if (mType == AST_RATIONAL)
   {
-    result = (double) mInteger / mDenominator;
+    result = static_cast<double>(mInteger) / mDenominator;
   }
 
   return result;
@@ -946,6 +924,18 @@ ASTNode::isFunction () const
 
 
 /**
+ * @return true if this ASTNode is the special IEEE 754 value infinity,
+ * false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isInfinity () const
+{
+  return isReal() ? util_isInf( getReal() ) > 0 : false;
+}
+
+
+/**
  * @return true if this ASTNode is of type AST_INTEGER, false otherwise.
  */
 LIBSBML_EXTERN
@@ -1023,6 +1013,36 @@ ASTNode::isName () const
 
 
 /**
+ * @return true if this ASTNode is the special IEEE 754 value not a
+ * number, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isNaN () const
+{
+  if ( isReal() )
+  {
+    double value = getReal();
+    return (value != value);
+  }
+
+  return false;
+}
+
+
+/**
+ * @return true if this ASTNode is the special IEEE 754 value negative
+ * infinity, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isNegInfinity () const
+{
+  return isReal() ? util_isInf( getReal() ) < 0 : false;
+}
+
+
+/**
  * @return true if this ASTNode is a number, false otherwise.
  *
  * This is functionally equivalent to:
@@ -1046,6 +1066,17 @@ bool
 ASTNode::isOperator () const
 {
   return ASTNodeType_isOperator(mType);
+}
+
+
+/**
+ * @return true if this ASTNode is a piecewise function, false otherwise.
+ */
+LIBSBML_EXTERN
+bool
+ASTNode::isPiecewise () const
+{
+  return (mType == AST_FUNCTION_PIECEWISE);
 }
 
 
@@ -1336,6 +1367,8 @@ ASTNode::swapChildren (ASTNode *that)
 
 
 
+
+
 /**
  * Creates a new ASTNode and returns a pointer to it.  The returned node
  * will have a type of AST_UNKNOWN and should be set to something else as
@@ -1345,7 +1378,7 @@ LIBSBML_EXTERN
 ASTNode_t *
 ASTNode_create (void)
 {
-  return new(std::nothrow) ASTNode;
+  return new(nothrow) ASTNode;
 }
 
 
@@ -1355,7 +1388,7 @@ ASTNode_create (void)
 ASTNode_t *
 ASTNode_createWithType (ASTNodeType_t type)
 {
-  return new(std::nothrow) ASTNode(type);
+  return new(nothrow) ASTNode(type);
 }
 
 
@@ -1366,7 +1399,7 @@ ASTNode_createWithType (ASTNodeType_t type)
 ASTNode_t *
 ASTNode_createFromToken (Token_t *token)
 {
-  return new(std::nothrow) ASTNode(token);
+  return new(nothrow) ASTNode(token);
 }
 
 
@@ -1720,6 +1753,18 @@ ASTNode_isFunction (const ASTNode_t *node)
 
 
 /**
+ * @return true if this ASTNode is the special IEEE 754 value infinity,
+ * false otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isInfinity (const ASTNode_t *node)
+{
+  return static_cast<int>( node->isInfinity() );
+}
+
+
+/**
  * @return true (non-zero) if this ASTNode is of type AST_INTEGER, false
  * (0) otherwise.
  */
@@ -1784,6 +1829,30 @@ ASTNode_isName (const ASTNode_t *node)
 
 
 /**
+ * @return true (non-zero) if this ASTNode is the special IEEE 754 value
+ * not a number, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isNaN (const ASTNode_t *node)
+{
+  return static_cast<int>( node->isNaN() );
+}
+
+
+/**
+ * @return true if this ASTNode is the special IEEE 754 value negative
+ * infinity, false otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isNegInfinity (const ASTNode_t *node)
+{
+  return static_cast<int>( node->isNegInfinity() );
+}
+
+
+/**
  * @return true (non-zero) if this ASTNode is a number, false (0)
  * otherwise.
  *
@@ -1808,6 +1877,18 @@ int
 ASTNode_isOperator (const ASTNode_t *node)
 {
   return (int) static_cast<const ASTNode*>(node)->isOperator();
+}
+
+
+/**
+ * @return true (non-zero) if this ASTNode is a piecewise function, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+ASTNode_isPiecewise (const ASTNode_t *node)
+{
+  return static_cast<int>( node->isPiecewise() );
 }
 
 
