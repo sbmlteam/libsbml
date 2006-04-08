@@ -58,7 +58,6 @@
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
-#include "xml/ParseMessage.h"
 #include "util/util.h"
 
 
@@ -84,8 +83,9 @@ void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 
 mxArray * CreateIntScalar (int);
 char    * TypecodeToChar  (SBMLTypeCode_t);
+char    * RuleType_toString (RuleType_t);
 
-void LookForCSymbolTime(ASTNode_t *);
+void LookForCSymbolTime(const ASTNode_t *);
 
 static mxArray * mxSpeciesReturn             = NULL;
 static mxArray * mxCompartReturn             = NULL;
@@ -172,8 +172,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
   Model_t *sbmlModel;
   const char * pacName;
   const char * pacId = NULL;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacTypecode;
   unsigned int unSBMLLevel;
   unsigned int unSBMLVersion;
@@ -285,9 +285,9 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
   pacName        = Model_getName(sbmlModel);
   pacTypecode    = TypecodeToChar(SBase_getTypeCode((SBase_t*) sbmlModel));
-  pacNotes       = SBase_getNotes((SBase_t*) sbmlModel);
+/*  pacNotes       = SBase_getNotes((SBase_t*) sbmlModel);
   pacAnnotations = SBase_getAnnotation((SBase_t*) sbmlModel);
-
+*/
   if (pacName == NULL)
   {
     pacName = "";
@@ -554,8 +554,8 @@ GetSpecies ( Model_t      *pModel,
 
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
   const char * pacCompartment;
@@ -591,9 +591,9 @@ GetSpecies ( Model_t      *pModel,
     /* determine the values */
     pSpecies            = Model_getSpecies(pModel, i);
     pacTypecode         = TypecodeToChar(SBase_getTypeCode((SBase_t*) pSpecies));
-    pacNotes            = SBase_getNotes((SBase_t*) pSpecies);
+  /*  pacNotes            = SBase_getNotes((SBase_t*) pSpecies);
     pacAnnotations      = SBase_getAnnotation((SBase_t*) pSpecies);
-    pacName             = Species_getName(pSpecies);
+  */  pacName             = Species_getName(pSpecies);
     pacCompartment      = Species_getCompartment(pSpecies);
     dInitialAmount      = Species_getInitialAmount(pSpecies);
     nBoundaryCondition  = Species_getBoundaryCondition(pSpecies);
@@ -732,8 +732,8 @@ GetUnitDefinition ( Model_t      *pModel,
 
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
 
@@ -755,9 +755,9 @@ GetUnitDefinition ( Model_t      *pModel,
     /* determine the values */
     pUnitDefinition = Model_getUnitDefinition(pModel, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pUnitDefinition));
-    pacNotes        = SBase_getNotes((SBase_t*) pUnitDefinition);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pUnitDefinition);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pUnitDefinition);
-    pacName         = UnitDefinition_getName(pUnitDefinition);
+  */  pacName         = UnitDefinition_getName(pUnitDefinition);
 
     GetUnit(pUnitDefinition, unSBMLLevel, unSBMLVersion);
 
@@ -847,8 +847,8 @@ GetCompartment ( Model_t      *pModel,
 
   /* field values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
   const char * pacUnits;
@@ -880,9 +880,9 @@ GetCompartment ( Model_t      *pModel,
     /* determine the values */
     pCompartment    = Model_getCompartment(pModel, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pCompartment));
-    pacNotes        = SBase_getNotes((SBase_t*) pCompartment);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pCompartment);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pCompartment);
-    pacName         = Compartment_getName(pCompartment);
+  */  pacName         = Compartment_getName(pCompartment);
     pacUnits        = Compartment_getUnits(pCompartment);
     pacOutside      = Compartment_getOutside(pCompartment);
     unIsSetVolume   = Compartment_isSetVolume(pCompartment);
@@ -1003,8 +1003,8 @@ GetParameter ( Model_t      *pModel,
     "isSetValue"};
 
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
   const char * pacUnits;
@@ -1032,9 +1032,9 @@ GetParameter ( Model_t      *pModel,
     /* determine the values */
     pParameter      = Model_getParameter(pModel, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pParameter));
-    pacNotes        = SBase_getNotes((SBase_t*) pParameter);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pParameter);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pParameter);
-    pacName         = Parameter_getName(pParameter);
+  */  pacName         = Parameter_getName(pParameter);
     dValue          = Parameter_getValue(pParameter);
     pacUnits        = Parameter_getUnits(pParameter);
     unIsSetValue    = Parameter_isSetValue(pParameter);
@@ -1140,8 +1140,8 @@ void GetReaction ( Model_t      *pModel,
     "isSetFast"};
 
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
 
@@ -1168,9 +1168,9 @@ void GetReaction ( Model_t      *pModel,
     /* determine the values */
     pReaction       = Model_getReaction(pModel, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pReaction));
-    pacNotes        = SBase_getNotes((SBase_t*) pReaction);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pReaction);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pReaction);
-    pacName         = Reaction_getName(pReaction);
+ */   pacName         = Reaction_getName(pReaction);
     nReversible     = Reaction_getReversible(pReaction);
     nFast           = Reaction_getFast(pReaction);
     
@@ -1284,8 +1284,8 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
 
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacUnitKind;
   
   int nExponent;
@@ -1309,9 +1309,9 @@ GetUnit ( UnitDefinition_t *pUnitDefinition,
     /* determine the values */
     pUnit           = UnitDefinition_getUnit(pUnitDefinition, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pUnit));
-    pacNotes        = SBase_getNotes((SBase_t*) pUnit);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pUnit);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pUnit);
-    pacUnitKind     = UnitKind_toString(Unit_getKind(pUnit));
+ */   pacUnitKind     = UnitKind_toString(Unit_getKind(pUnit));
     nExponent       = Unit_getExponent(pUnit);
     nScale          = Unit_getScale(pUnit);
 
@@ -1393,8 +1393,8 @@ GetReactants ( Reaction_t   *pReaction,
 
   /*values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacSpecies;
   const char * pacStoichMath = NULL;
   
@@ -1418,9 +1418,9 @@ GetReactants ( Reaction_t   *pReaction,
     /* determine the values */
     pReactant       = Reaction_getReactant(pReaction, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pReactant));
-    pacNotes        = SBase_getNotes((SBase_t*) pReactant);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pReactant);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pReactant);
-    pacSpecies      = SpeciesReference_getSpecies(pReactant);
+  */  pacSpecies      = SpeciesReference_getSpecies(pReactant);
  
     if (unSBMLLevel == 1) {
       nStoichiometry = (int) SpeciesReference_getStoichiometry(pReactant);
@@ -1517,8 +1517,8 @@ GetProducts ( Reaction_t   *pReaction,
 
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacSpecies;
   const char * pacStoichMath = NULL;
   
@@ -1543,9 +1543,9 @@ GetProducts ( Reaction_t   *pReaction,
     /* determine the values */
     pProduct        = Reaction_getProduct(pReaction, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pProduct));
-    pacNotes        = SBase_getNotes((SBase_t*) pProduct);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pProduct);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pProduct);
-    pacSpecies      = SpeciesReference_getSpecies(pProduct);
+*/    pacSpecies      = SpeciesReference_getSpecies(pProduct);
 
     if (unSBMLLevel == 1) {
       nStoichiometry = (int) SpeciesReference_getStoichiometry(pProduct);
@@ -1650,7 +1650,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
   const char * pacSubstanceUnits = NULL;
   const char * pacMathFormula = NULL;
 
-  KineticLaw_t *pKineticLaw;
+  const KineticLaw_t *pKineticLaw;
 
   /* variables for mathML - matlab hack */
   int nStatus, nBuflen;
@@ -1673,9 +1673,9 @@ GetKineticLaw ( Reaction_t   *pReaction,
   if (pKineticLaw != NULL)
   {
     pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t*) pKineticLaw));
-    pacNotes          = SBase_getNotes((SBase_t*) pKineticLaw);
+/*    pacNotes          = SBase_getNotes((SBase_t*) pKineticLaw);
     pacAnnotations    = SBase_getAnnotation((SBase_t*) pKineticLaw);
-    pacFormula        = KineticLaw_getFormula(pKineticLaw);
+*/    pacFormula        = KineticLaw_getFormula(pKineticLaw);
     pacTimeUnits      = KineticLaw_getTimeUnits(pKineticLaw);
     pacSubstanceUnits = KineticLaw_getSubstanceUnits(pKineticLaw);
 
@@ -1685,8 +1685,8 @@ GetKineticLaw ( Reaction_t   *pReaction,
     if (unSBMLLevel == 2 && KineticLaw_isSetMath(pKineticLaw)) {
         /* look for csymbol time */
         LookForCSymbolTime(KineticLaw_getMath(pKineticLaw));
-        KineticLaw_setFormulaFromMath(pKineticLaw);
-        pacMathFormula = KineticLaw_getFormula(pKineticLaw);
+      /*  KineticLaw_setFormulaFromMath(pKineticLaw); */
+        pacMathFormula = SBML_formulaToString(KineticLaw_getMath(pKineticLaw));
     }
 
     /* temporary hack to convert MathML in-fix to MATLAB compatible formula */
@@ -1803,8 +1803,8 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     "isSetValue"};
 
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
   const char * pacUnits;
@@ -1833,9 +1833,9 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
     /* values */
     pParameter      = KineticLaw_getParameter(pKineticLaw, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pParameter));
-    pacNotes        = SBase_getNotes((SBase_t*) pParameter);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pParameter);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pParameter);
-    pacName         = Parameter_getName(pParameter);
+*/    pacName         = Parameter_getName(pParameter);
     dValue          = Parameter_getValue(pParameter);
     pacUnits        = Parameter_getUnits(pParameter);
     unIsSetValue    = Parameter_isSetValue(pParameter);
@@ -1923,11 +1923,11 @@ GetModifier ( Reaction_t   *pReaction,
   
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacSpecies;
 
-  ModifierSpeciesReference_t *pModifier;
+  SpeciesReference_t *pModifier;
   int i;
 
   /* create the structure array */
@@ -1937,9 +1937,9 @@ GetModifier ( Reaction_t   *pReaction,
     /* determine the values */
     pModifier       = Reaction_getModifier(pReaction, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pModifier));
-    pacNotes        = SBase_getNotes((SBase_t*) pModifier);
+/*    pacNotes        = SBase_getNotes((SBase_t*) pModifier);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pModifier);
-    pacSpecies      = ModifierSpeciesReference_getSpecies(pModifier);
+*/    pacSpecies      = SpeciesReference_getSpecies(pModifier);
 
     /**
      * check for NULL strings - Matlab doesnt like creating 
@@ -2012,8 +2012,8 @@ GetRule ( Model_t      *pModel,
 
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacType = NULL;
   const char * pacFormula = NULL;
   const char * pacVariable = NULL;
@@ -2040,18 +2040,20 @@ GetRule ( Model_t      *pModel,
   for (i = 0; i < n; i++) {
     /* determine the values */
     pRule           = Model_getRule(pModel, i);
-    pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t*) pRule));
-    pacNotes        = SBase_getNotes((SBase_t*) pRule);
+    if (unSBMLLevel == 2)
+      pacTypecode     = TypecodeToChar(Rule_getTypeCode(pRule));
+    else
+      pacTypecode     = TypecodeToChar(Rule_getL1TypeCode(pRule));
+/*    pacNotes        = SBase_getNotes((SBase_t*) pRule);
     pacAnnotations  = SBase_getAnnotation((SBase_t*) pRule);
-    
+*/    
     if (unSBMLLevel == 1) {
       pacFormula    = Rule_getFormula(pRule);
     }
     else if (unSBMLLevel == 2) {
       if (Rule_isSetFormula(pRule) == 1){
         LookForCSymbolTime(Rule_getMath(pRule));
-        Rule_setFormulaFromMath(pRule);
-        pacFormula = Rule_getFormula(pRule);
+        pacFormula = SBML_formulaToString(Rule_getMath(pRule));
       }
     }
 
@@ -2077,14 +2079,16 @@ GetRule ( Model_t      *pModel,
     /* END OF HACK */    
     
     /* values for different types of rules */
-    switch(SBase_getTypeCode((SBase_t*) pRule)) {
+  if (unSBMLLevel == 1)
+  {
+    switch(Rule_getL1TypeCode(pRule)) {
       case SBML_ASSIGNMENT_RULE:
         if (unSBMLLevel == 1) {
-          pacType = RuleType_toString(AssignmentRule_getType((AssignmentRule_t *) pRule));
+          pacType = RuleType_toString(Rule_getType(pRule));
         }
 
-        if (AssignmentRule_isSetVariable((AssignmentRule_t *) pRule) == 1) {
-          pacVariable = AssignmentRule_getVariable((AssignmentRule_t *) pRule);
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacVariable = Rule_getVariable( pRule);
         }
         else {
           pacVariable = "";
@@ -2103,8 +2107,8 @@ GetRule ( Model_t      *pModel,
         pacUnits = "";
       break;
       case SBML_RATE_RULE:
-        if (RateRule_isSetVariable((RateRule_t *) pRule) == 1) {
-          pacVariable = RateRule_getVariable((RateRule_t *) pRule);
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacVariable = Rule_getVariable( pRule);
         }
         else {
           pacVariable = "";
@@ -2117,13 +2121,13 @@ GetRule ( Model_t      *pModel,
       break;
       case SBML_SPECIES_CONCENTRATION_RULE:
         if (unSBMLLevel == 1) {
-          pacType = RuleType_toString(AssignmentRule_getType((AssignmentRule_t *) pRule));
+          pacType = RuleType_toString(Rule_getType( pRule));
         }
 
         pacVariable = "";
  
-        if (SpeciesConcentrationRule_isSetSpecies((SpeciesConcentrationRule_t *) pRule) == 1) {
-          pacSpecies = SpeciesConcentrationRule_getSpecies((SpeciesConcentrationRule_t *) pRule);
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacSpecies = Rule_getVariable( pRule);
         }
         else {
           pacSpecies = "";
@@ -2135,14 +2139,14 @@ GetRule ( Model_t      *pModel,
       break;
       case SBML_COMPARTMENT_VOLUME_RULE:
         if (unSBMLLevel == 1) {
-          pacType = RuleType_toString(AssignmentRule_getType((AssignmentRule_t *) pRule));
+          pacType = RuleType_toString(Rule_getType(pRule));
         }
 
         pacVariable = "";
         pacSpecies = "";
 
-        if (CompartmentVolumeRule_isSetCompartment((CompartmentVolumeRule_t *) pRule) == 1) {
-          pacCompartment = CompartmentVolumeRule_getCompartment((CompartmentVolumeRule_t *) pRule);
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacCompartment = Rule_getVariable( pRule);
         }
         else {
           pacCompartment = "";
@@ -2153,22 +2157,22 @@ GetRule ( Model_t      *pModel,
       break;
       case SBML_PARAMETER_RULE:
         if (unSBMLLevel == 1) {
-          pacType = RuleType_toString(AssignmentRule_getType((AssignmentRule_t *) pRule));
+          pacType = RuleType_toString(Rule_getType(pRule));
         }
 
         pacVariable = "";
         pacSpecies = "";
         pacCompartment = "";
 
-        if (ParameterRule_isSetName((ParameterRule_t *)pRule) == 1) {
-          pacName = ParameterRule_getName((ParameterRule_t *) pRule);
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacName = Rule_getVariable( pRule);
         }
         else {
           pacName = "";
         }
     
-        if (ParameterRule_isSetUnits((ParameterRule_t *) pRule) == 1) {
-          pacUnits = ParameterRule_getUnits((ParameterRule_t *) pRule);
+        if (Rule_isSetUnits(pRule) == 1) {
+          pacUnits = Rule_getUnits( pRule);
         }
         else {
           pacUnits = "";
@@ -2181,6 +2185,106 @@ GetRule ( Model_t      *pModel,
         pacName = "";
         pacUnits = "";
       break;
+    }
+  }
+  else
+  {    switch(Rule_getTypeCode(pRule)) {
+      case SBML_ASSIGNMENT_RULE:
+        if (unSBMLLevel == 1) {
+          pacType = RuleType_toString(Rule_getType(pRule));
+        }
+
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacVariable = Rule_getVariable( pRule);
+        }
+        else {
+          pacVariable = "";
+        }
+        pacSpecies = "";
+        pacCompartment = "";
+        pacName = "";
+        pacUnits = "";
+        break;
+      case SBML_ALGEBRAIC_RULE:
+        pacVariable = "";
+        pacSpecies = "";
+        pacCompartment = "";
+        pacName = "";
+        pacUnits = "";
+        break;
+      case SBML_RATE_RULE:
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacVariable = Rule_getVariable( pRule);
+        }
+        else {
+          pacVariable = "";
+        }
+        pacSpecies = "";
+        pacCompartment = "";
+        pacName = "";
+        pacUnits = "";
+        break;
+      case SBML_SPECIES_CONCENTRATION_RULE:
+        if (unSBMLLevel == 1) {
+          pacType = RuleType_toString(Rule_getType( pRule));
+        }
+        pacVariable = "";
+  
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacSpecies = Rule_getVariable( pRule);
+        }
+        else {
+          pacSpecies = "";
+        }
+        pacCompartment = "";
+        pacName = "";
+        pacUnits = "";
+        break;
+      case SBML_COMPARTMENT_VOLUME_RULE:
+        if (unSBMLLevel == 1) {
+          pacType = RuleType_toString(Rule_getType(pRule));
+        }
+      pacVariable = "";
+        pacSpecies = "";
+
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacCompartment = Rule_getVariable( pRule);
+        }
+        else {
+          pacCompartment = "";
+        }
+        pacName = "";
+        pacUnits = "";
+        break;
+      case SBML_PARAMETER_RULE:
+        if (unSBMLLevel == 1) {
+          pacType = RuleType_toString(Rule_getType(pRule));
+        }
+        pacVariable = "";
+        pacSpecies = "";
+        pacCompartment = "";
+
+        if (Rule_isSetVariable( pRule) == 1) {
+          pacName = Rule_getVariable( pRule);
+        }
+        else {
+          pacName = "";
+        }
+        if (Rule_isSetUnits(pRule) == 1) {
+          pacUnits = Rule_getUnits( pRule);
+        }
+        else {
+          pacUnits = "";
+        }
+        break;
+      default:
+        pacVariable = "";
+        pacSpecies = "";
+        pacCompartment = "";
+        pacName = "";
+        pacUnits = "";
+        break;
+    }
     }
 
     /**
@@ -2255,8 +2359,8 @@ GetFunctionDefinition ( Model_t      *pModel,
 
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
   const char * pacFormula;
@@ -2275,9 +2379,9 @@ GetFunctionDefinition ( Model_t      *pModel,
     /* determine the values */
     pFuncDefinition     = Model_getFunctionDefinition(pModel, i);
     pacTypecode         = TypecodeToChar(SBase_getTypeCode((SBase_t *) pFuncDefinition));
-    pacNotes            = SBase_getNotes((SBase_t *) pFuncDefinition);
+/*    pacNotes            = SBase_getNotes((SBase_t *) pFuncDefinition);
     pacAnnotations      = SBase_getAnnotation((SBase_t *) pFuncDefinition);
-    pacName             = FunctionDefinition_getName(pFuncDefinition);
+*/    pacName             = FunctionDefinition_getName(pFuncDefinition);
     pacId               = FunctionDefinition_getId(pFuncDefinition);
 
     if (FunctionDefinition_isSetMath(pFuncDefinition)) {
@@ -2375,8 +2479,8 @@ GetEvent (Model_t      *pModel,
 
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacName;
   const char * pacId = NULL;
   const char * pacTrigger = NULL;
@@ -2397,9 +2501,9 @@ GetEvent (Model_t      *pModel,
     /* determine the values */
     pEvent          = Model_getEvent(pModel, i);
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pEvent));
-    pacNotes        = SBase_getNotes((SBase_t *) pEvent);
+ /*   pacNotes        = SBase_getNotes((SBase_t *) pEvent);
     pacAnnotations  = SBase_getAnnotation((SBase_t *) pEvent);
-    pacName         = Event_getName(pEvent);
+ */   pacName         = Event_getName(pEvent);
     pacId           = Event_getId(pEvent);
     pacTimeUnits    = Event_getTimeUnits(pEvent);
 
@@ -2538,8 +2642,8 @@ GetEventAssignment (  Event_t      *pEvent,
   
   /* values */
   const char * pacTypecode;
-  const char * pacNotes;
-  const char * pacAnnotations;
+  const char * pacNotes = NULL;
+  const char * pacAnnotations = NULL;
   const char * pacVariable;
   const char * pacFormula = NULL;
 
@@ -2556,9 +2660,9 @@ GetEventAssignment (  Event_t      *pEvent,
     /* determine the values */
     pEventAssignment  = Event_getEventAssignment(pEvent, i);
     pacTypecode       = TypecodeToChar(SBase_getTypeCode((SBase_t *) pEventAssignment));
-    pacNotes          = SBase_getNotes((SBase_t *) pEventAssignment);
+/*    pacNotes          = SBase_getNotes((SBase_t *) pEventAssignment);
     pacAnnotations    = SBase_getAnnotation((SBase_t *) pEventAssignment);
-    pacVariable       = EventAssignment_getVariable(pEventAssignment);
+*/    pacVariable       = EventAssignment_getVariable(pEventAssignment);
 
     if (EventAssignment_isSetMath(pEventAssignment)) {
       LookForCSymbolTime(EventAssignment_getMath(pEventAssignment));
@@ -2625,7 +2729,7 @@ GetEventAssignment (  Event_t      *pEvent,
 *             copies it to global char * if found
 */
 void
-LookForCSymbolTime(ASTNode_t * astMath)
+LookForCSymbolTime(const ASTNode_t * astMath)
 {
   unsigned int nChild, i;
   ASTNode_t * astChild;
@@ -2660,4 +2764,35 @@ LookForCSymbolTime(ASTNode_t * astMath)
       }
     }
   }
+}
+/**
+* NAME:       RuleType_toString
+*
+* PARAMETERS: RuleType_t typecode 
+*
+* RETURNS:    char *
+*
+* FUNCTION:   converts typecode to humanly readable string
+*/
+char *
+RuleType_toString (RuleType_t typecode)
+{
+  char * pacTypecode;
+
+  switch (typecode)
+  {
+    case RULE_TYPE_RATE:
+      pacTypecode = "rate";
+    break;
+
+    case RULE_TYPE_SCALAR:
+      pacTypecode = "scalar";
+    break;
+
+    default:
+      pacTypecode = "ERROR";
+    break;
+  }
+
+  return pacTypecode;
 }
