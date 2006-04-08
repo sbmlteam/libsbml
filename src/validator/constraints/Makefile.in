@@ -76,7 +76,6 @@ sources =                           \
   CompartmentOutsideCycles.cpp      \
   ConsistencyConstraints.cpp        \
   FunctionDefinitionVars.cpp        \
-  FormulaUnitsCheck.cpp             \
   IdBase.cpp                        \
   IdList.cpp                        \
   L1CompatibilityConstraints.cpp    \
@@ -86,6 +85,7 @@ sources =                           \
   UniqueIdsInModel.cpp              \
   UniqueVarsInEventAssignments.cpp  \
   UniqueVarsInRules.cpp
+#  FormulaUnitsCheck.cpp             \
 
 header_inst_prefix = validator/constraints
 

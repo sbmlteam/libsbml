@@ -6,46 +6,19 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2005 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2005 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
 
@@ -53,9 +26,9 @@
 
 #include <string>
 
-#include "sbml/SBMLTypes.h"
-#include "validator/Constraint.h"
-#include "units/UnitFormulaFormatter.h"
+#include <sbml/SBMLTypes.h>
+#include <sbml/validator/Constraint.h>
+#include <sbml/units/UnitFormulaFormatter.h>
 
 #include "CompartmentOutsideCycles.h"
 #include "FunctionDefinitionVars.h"
@@ -72,7 +45,7 @@
 #endif
 
 
-#include "validator/ConstraintMacros.h"
+#include <sbml/validator/ConstraintMacros.h>
 
 
 using namespace std;
@@ -548,7 +521,7 @@ START_CONSTRAINT (1600, Reaction, r)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1601, SimpleSpeciesReference, sr)
+START_CONSTRAINT (1601, SpeciesReference, sr)  // FIXME
 {
   msg =
     "Species '" + sr.getSpecies() + "' is undefined.  A SpeciesReference "
@@ -870,7 +843,7 @@ START_CONSTRAINT (1803, EventAssignment, ea)
 }
 END_CONSTRAINT
 
-
+/*
 START_CONSTRAINT (3000, AssignmentRule, ar)
 {
   msg =
@@ -882,14 +855,14 @@ START_CONSTRAINT (3000, AssignmentRule, ar)
 
 
   const string& variable = ar.getVariable();
-  Compartment * c = m.getCompartment(variable);
+  const Compartment* c = m.getCompartment(variable);
 
   pre ( c != NULL);
   pre ( ar.isSetMath() == 1 );
 
-  /* get the unitDefinition from the compartment and  
-   * that returned by the math formula 
-   */
+  // get the unitDefinition from the compartment and  
+  // that returned by the math formula 
+  //
   UnitDefinition * variableUnits = new UnitDefinition();
   UnitDefinition * formulaUnits = new UnitDefinition();
 
@@ -920,14 +893,14 @@ START_CONSTRAINT (3001, AssignmentRule, ar)
    
 
   const string& variable = ar.getVariable();
-  Species * s = m.getSpecies(variable);
+  const Species * s = m.getSpecies(variable);
 
   pre ( s != NULL);
   pre ( ar.isSetMath() == 1 );
 
-  /* get the unitDefinition from the species and  
-   * that returned by the math formula 
-   */
+  // get the unitDefinition from the species and  
+  // that returned by the math formula 
+  //
   UnitDefinition * variableUnits = new UnitDefinition();
   UnitDefinition * formulaUnits = new UnitDefinition();
 
@@ -957,14 +930,14 @@ START_CONSTRAINT (3002, AssignmentRule, ar)
    
 
   const string& variable = ar.getVariable();
-  Parameter * p = m.getParameter(variable);
+  const Parameter* p = m.getParameter(variable);
 
   pre ( p != NULL);
   pre ( ar.isSetMath() == 1 );
 
-  /* get the unitDefinition from the parameter and  
-   * that returned by the math formula 
-   */
+  // get the unitDefinition from the parameter and  
+  // that returned by the math formula 
+  //
   UnitDefinition * variableUnits = new UnitDefinition();
   UnitDefinition * formulaUnits = new UnitDefinition();
 
@@ -973,7 +946,7 @@ START_CONSTRAINT (3002, AssignmentRule, ar)
   formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
 
-  /* special case where no units have been declared for parameter */
+  // special case where no units have been declared for parameter
   pre (variableUnits->getNumUnits() != 0);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
@@ -997,14 +970,14 @@ START_CONSTRAINT (3100, RateRule, rr)
    
 
   const string& variable = rr.getVariable();
-  Compartment * c = m.getCompartment(variable);
+  const Compartment* c = m.getCompartment(variable);
 
   pre ( c != NULL);
   pre ( rr.isSetMath() == 1 );
 
-  /* get the unitDefinition from the compartment and  
-   * that returned by the math formula 
-   */
+  // get the unitDefinition from the compartment and  
+  // that returned by the math formula 
+  //
   UnitDefinition * variableUnits = new UnitDefinition();
   UnitDefinition * formulaUnits = new UnitDefinition();
   Unit * time = new Unit("second", -1);
@@ -1017,8 +990,8 @@ START_CONSTRAINT (3100, RateRule, rr)
   pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0
     || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
 
-  /* add per time to the units from the compartment */
-  variableUnits->addUnit(*time);
+  // add per time to the units from the compartment
+  variableUnits->addUnit(time);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
 
@@ -1040,14 +1013,14 @@ START_CONSTRAINT (3101, RateRule, rr)
     "of time for the model.";
  
   const string& variable = rr.getVariable();
-  Species * s = m.getSpecies(variable);
+  const Species* s = m.getSpecies(variable);
 
   pre ( s != NULL);
   pre ( rr.isSetMath() == 1 );
 
-  /* get the unitDefinition from the species and  
-   * that returned by the math formula 
-   */
+  // get the unitDefinition from the species and  
+  // that returned by the math formula 
+  //
   UnitDefinition * variableUnits = new UnitDefinition();
   UnitDefinition * formulaUnits = new UnitDefinition();
   Unit * time = new Unit("second", -1);
@@ -1061,8 +1034,8 @@ START_CONSTRAINT (3101, RateRule, rr)
     || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
 
 
-  /* add per time to the units from the species */
-  variableUnits->addUnit(*time);
+  // add per time to the units from the species
+  variableUnits->addUnit(time);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
   
@@ -1084,14 +1057,14 @@ START_CONSTRAINT (3102, RateRule, rr)
    
 
   const string& variable = rr.getVariable();
-  Parameter * p = m.getParameter(variable);
+  const Parameter* p = m.getParameter(variable);
 
   pre ( p != NULL);
   pre ( rr.isSetMath() == 1 );
 
-  /* get the unitDefinition from the parameter and  
-   * that returned by the math formula 
-   */
+  // get the unitDefinition from the parameter and  
+  // that returned by the math formula 
+  //
   UnitDefinition * variableUnits = new UnitDefinition();
   UnitDefinition * formulaUnits = new UnitDefinition();
   Unit * time = new Unit("second", -1);
@@ -1101,11 +1074,11 @@ START_CONSTRAINT (3102, RateRule, rr)
   formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
   variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
 
-  /* special case where no units have been declared for parameter */
+  // special case where no units have been declared for parameter
   pre (variableUnits->getNumUnits() != 0);
   
-  /* add per time to the units from the parameter */
-  variableUnits->addUnit(*time);
+  // add per time to the units from the parameter
+  variableUnits->addUnit(time);
 
   inv (areEquivalent(formulaUnits, variableUnits) == 1)
   
@@ -1133,8 +1106,8 @@ START_CONSTRAINT (3200, KineticLaw, kl)
   UnitDefinition * SubsTime = new UnitDefinition();
   Unit * subs = new Unit("mole");
   Unit * time = new Unit("second", -1);
-  SubsTime->addUnit(*subs);
-  SubsTime->addUnit(*time);
+  SubsTime->addUnit(subs);
+  SubsTime->addUnit(time);
 
 
   formulaUnits  = unitFormat->getUnitDefinition(kl.getMath());
@@ -1173,3 +1146,4 @@ START_CONSTRAINT (3400, Event, e)
 END_CONSTRAINT
 
 EXTERN_CONSTRAINT(3300, FormulaUnitsCheck)
+*/

@@ -120,6 +120,7 @@ main (int argc, char* argv[])
   cout << static_cast<int>(percent) << "%: Checks: " << files.size();
   cout << ", Failures: " << failures << endl;
 
+  /*
   cout << "Testing Unit Consistency Constraints (3000 - 3999)." << endl;
 
 
@@ -143,7 +144,7 @@ main (int argc, char* argv[])
 
   cout << static_cast<int>(percent_conv) << "%: Checks: " << files_conv.size();
   cout << ", Failures: " << failures_conv << endl;
-
+  */
 
   return failures;
 }

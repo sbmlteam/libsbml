@@ -82,24 +82,24 @@ TestValidator::~TestValidator ()
 
 
 /**
- * Function Object: Return true if the given ParseMessage has the given
+ * Function Object: Return true if the given XMLError has the given
  * id, false otherwise.
  */
-struct HasId : public unary_function<ParseMessage, bool>
+struct HasId : public unary_function<XMLError, bool>
 {
   unsigned int id;
 
   HasId (unsigned int id) : id(id) { }
-  bool operator() (const ParseMessage& msg) { return msg.getId() == id; }
+  bool operator() (const XMLError& msg) { return msg.getId() == id; }
 };
 
 
 /**
- * Function Object: Takes a ParseMessage and returns its integer id.
+ * Function Object: Takes a XMLError and returns its integer id.
  */
-struct ToId : public unary_function<ParseMessage, unsigned int>
+struct ToId : public unary_function<XMLError, unsigned int>
 {
-  unsigned int operator() (const ParseMessage& msg) { return msg.getId(); }
+  unsigned int operator() (const XMLError& msg) { return msg.getId(); }
 };
 
 
@@ -116,8 +116,8 @@ TestValidator::test (const TestFile& file)
   unsigned int expected = file.getNumFailures();
   unsigned int actual   = mValidator.validate( file.getFullname() );
 
-  list<ParseMessage>::const_iterator begin = mValidator.getMessages().begin();
-  list<ParseMessage>::const_iterator end   = mValidator.getMessages().end();
+  list<XMLError>::const_iterator begin = mValidator.getMessages().begin();
+  list<XMLError>::const_iterator end   = mValidator.getMessages().end();
 
 
   if (expected != actual)
@@ -148,7 +148,7 @@ TestValidator::test (const TestFile& file)
 
   if ( error || isVerbose(id) )
   {
-    copy(begin, end, ostream_iterator<ParseMessage>(cout, "\n"));
+    copy(begin, end, ostream_iterator<XMLError>(cout, "\n"));
   }
 
   mValidator.clearMessages();
@@ -170,17 +170,14 @@ TestValidator::testReadSBML (const TestFile& file)
   unsigned int  id     = file.getConstraintId();
   SBMLDocument& d      = *readSBML( file.getFullname().c_str() );
 
-  errors = d.getNumWarnings() + d.getNumErrors() + d.getNumFatals();
+  errors = d.getNumErrors();
 
   if ( errors > 0 || isVerbose(id) )
   {
     cout << endl;
     cout << "Error: " << file.getFilename() << endl;
 
-    d.printWarnings(cout);
-    d.printErrors  (cout);
-    d.printFatals  (cout);
-
+    d.printErrors(cout);
     cout << endl;
   }
 
