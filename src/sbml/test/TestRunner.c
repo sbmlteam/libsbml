@@ -66,6 +66,9 @@
  */
 BEGIN_C_DECLS
 
+Suite *create_suite_ReadSBML                 (void);
+Suite *create_suite_WriteSBML                (void);
+
 Suite *create_suite_AlgebraicRule            (void);
 Suite *create_suite_AssignmentRule           (void);
 Suite *create_suite_Compartment              (void);
@@ -148,8 +151,12 @@ main (void)
   int num_failed;
 
 
-  SRunner *runner = srunner_create( create_suite_AlgebraicRule() );
+  SRunner *runner = srunner_create( create_suite_ReadSBML() );
 
+  srunner_add_suite( runner, create_suite_WriteSBML() );
+
+  /* SRunner *runner = srunner_create( create_suite_AlgebraicRule() ); */
+  /*
   srunner_add_suite( runner, create_suite_AssignmentRule           () );
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
@@ -186,7 +193,7 @@ main (void)
   srunner_add_suite( runner, create_suite_TestReadFromFile3() );
   srunner_add_suite( runner, create_suite_TestReadFromFile4() );
   srunner_add_suite( runner, create_suite_TestReadFromFile5() );
-
+  */
 
   setTestDataDirectory();
 
