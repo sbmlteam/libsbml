@@ -6,59 +6,30 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2003 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2003 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Sarah Keating
- *
- *     The SBML Team
- *     STRI
- *     University of Hertfordshire
- *     Hatfield, UK
- *
- *     http://sbml.org
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
  */
 
-#include "sbml/common/common.h"
-#include "sbml/util/util.h"
-
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLWriter.h"
-#include "sbml/SBMLTypes.h"
-
-#include "FormulaGraphvizFormatter.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <sbml/util/util.h>
+#include <sbml/SBMLTypes.h>
+
+#include "FormulaGraphvizFormatter.h"
+
 
 #ifdef _MSC_VER
 #  define isnan _isnan
@@ -73,7 +44,7 @@ FILE * fout;
  * owns the returned string and is responsible for freeing it.
  */
 char *
-SBML_formulaToDot (const ASTNode_t *tree)
+SBML_formulaToDot (ASTNode_t *tree)
 {
   StringBuffer_t *sb = StringBuffer_create(128);
   char           *name;
@@ -93,7 +64,7 @@ SBML_formulaToDot (const ASTNode_t *tree)
   StringBuffer_append(sb, "}\n");
 
   s = StringBuffer_getBuffer(sb);
-  safe_free(sb);
+  free(sb);
 
   return s;
 }
@@ -104,7 +75,7 @@ SBML_formulaToDot (const ASTNode_t *tree)
  * function.
  */
 int
-FormulaGraphvizFormatter_isFunction (const ASTNode_t *node)
+FormulaGraphvizFormatter_isFunction (ASTNode_t *node)
 {
   return
     ASTNode_isFunction  (node) ||
@@ -119,7 +90,7 @@ FormulaGraphvizFormatter_isFunction (const ASTNode_t *node)
  * a string.
  */
 char *
-FormulaGraphvizFormatter_format (const ASTNode_t *node)
+FormulaGraphvizFormatter_format (ASTNode_t *node)
 {
   StringBuffer_t *p = StringBuffer_create(128);
   char           *s = NULL;
@@ -159,7 +130,7 @@ FormulaGraphvizFormatter_format (const ASTNode_t *node)
     s = StringBuffer_toString(p);
   }
   
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -176,7 +147,7 @@ FormulaGraphvizFormatter_format (const ASTNode_t *node)
  * THIS COULD BE DONE BETTER
  */
 char *
-FormulaGraphvizFormatter_getUniqueName (const ASTNode_t *node)
+FormulaGraphvizFormatter_getUniqueName (ASTNode_t *node)
 {
   StringBuffer_t *p = StringBuffer_create(128);
   char           *s = NULL;
@@ -208,7 +179,7 @@ FormulaGraphvizFormatter_getUniqueName (const ASTNode_t *node)
     s = StringBuffer_toString(p);
   }
 
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -218,7 +189,7 @@ FormulaGraphvizFormatter_getUniqueName (const ASTNode_t *node)
  * result as a string.
  */
 char *
-FormulaGraphvizFormatter_formatFunction (const ASTNode_t *node)
+FormulaGraphvizFormatter_formatFunction (ASTNode_t *node)
 {
   char           *s;
   StringBuffer_t *p   = StringBuffer_create(128);
@@ -263,7 +234,7 @@ FormulaGraphvizFormatter_formatFunction (const ASTNode_t *node)
       break;
   }
 
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -280,7 +251,7 @@ FormulaGraphvizFormatter_formatFunction (const ASTNode_t *node)
  * THIS COULD BE DONE BETTER
  */
 char *
-FormulaGraphvizFormatter_FunctionGetUniqueName (const ASTNode_t *node)
+FormulaGraphvizFormatter_FunctionGetUniqueName (ASTNode_t *node)
 {
   char           *s;
   StringBuffer_t *p   = StringBuffer_create(128);
@@ -331,7 +302,7 @@ FormulaGraphvizFormatter_FunctionGetUniqueName (const ASTNode_t *node)
   
   s = StringBuffer_toString(p);
 
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -342,7 +313,7 @@ FormulaGraphvizFormatter_FunctionGetUniqueName (const ASTNode_t *node)
  * as a string.
  */
 char *
-FormulaGraphvizFormatter_formatOperator (const ASTNode_t *node)
+FormulaGraphvizFormatter_formatOperator (ASTNode_t *node)
 {
   char           *s;
   ASTNodeType_t  type = ASTNode_getType(node);
@@ -376,7 +347,7 @@ FormulaGraphvizFormatter_formatOperator (const ASTNode_t *node)
       break;
   }
 
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -392,7 +363,7 @@ FormulaGraphvizFormatter_formatOperator (const ASTNode_t *node)
  * THIS COULD BE DONE BETTER
  */
 char *
-FormulaGraphvizFormatter_OperatorGetUniqueName (const ASTNode_t *node)
+FormulaGraphvizFormatter_OperatorGetUniqueName (ASTNode_t *node)
 {
   char           *s;
   char           number[10];
@@ -451,7 +422,7 @@ FormulaGraphvizFormatter_OperatorGetUniqueName (const ASTNode_t *node)
   
   s = StringBuffer_toString(p);
 
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -464,7 +435,7 @@ FormulaGraphvizFormatter_OperatorGetUniqueName (const ASTNode_t *node)
  *   "(numerator/denominator)"
  */
 char *
-FormulaGraphvizFormatter_formatRational (const ASTNode_t *node)
+FormulaGraphvizFormatter_formatRational (ASTNode_t *node)
 {
   char           *s;
   StringBuffer_t *p = StringBuffer_create(128);
@@ -477,7 +448,7 @@ FormulaGraphvizFormatter_formatRational (const ASTNode_t *node)
 
   s = StringBuffer_toString(p);
 
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -488,7 +459,7 @@ FormulaGraphvizFormatter_formatRational (const ASTNode_t *node)
  * a string.
  */
 char *
-FormulaGraphvizFormatter_formatReal (const ASTNode_t *node)
+FormulaGraphvizFormatter_formatReal (ASTNode_t *node)
 {
   StringBuffer_t *p    = StringBuffer_create(128);
   double         value = ASTNode_getReal(node);
@@ -520,7 +491,7 @@ FormulaGraphvizFormatter_formatReal (const ASTNode_t *node)
     s = StringBuffer_toString(p);
   }
 
-  safe_free(p);
+  free(p);
 
   return s;
 }
@@ -532,9 +503,9 @@ FormulaGraphvizFormatter_formatReal (const ASTNode_t *node)
  * FormulaGraphvizFormatter_visitOther().
  */
 void
-FormulaGraphvizFormatter_visit ( const ASTNode_t *parent,
-                         const ASTNode_t *node,
-                         StringBuffer_t  *sb )
+FormulaGraphvizFormatter_visit (ASTNode_t *parent,
+                                ASTNode_t *node,
+                                StringBuffer_t  *sb )
 {
   if (ASTNode_isLog10(node))
   {
@@ -566,9 +537,9 @@ FormulaGraphvizFormatter_visit ( const ASTNode_t *parent,
  * to the StringBuffer.
  */
 void
-FormulaGraphvizFormatter_visitFunction ( const ASTNode_t *parent,
-                                 const ASTNode_t *node,
-                                 StringBuffer_t  *sb )
+FormulaGraphvizFormatter_visitFunction (ASTNode_t *parent,
+                                        ASTNode_t *node,
+                                        StringBuffer_t  *sb )
 {
   unsigned int numChildren = ASTNode_getNumChildren(node);
   unsigned int n;
@@ -619,9 +590,9 @@ FormulaGraphvizFormatter_visitFunction ( const ASTNode_t *parent,
  * A seperate function may not be strictly speaking necessary for graphs
  */
 void
-FormulaGraphvizFormatter_visitLog10 ( const ASTNode_t *parent,
-                              const ASTNode_t *node,
-                              StringBuffer_t  *sb )
+FormulaGraphvizFormatter_visitLog10 (ASTNode_t *parent,
+                                     ASTNode_t *node,
+                                     StringBuffer_t  *sb )
 {
   char *uniqueName = FormulaGraphvizFormatter_getUniqueName(node);
   char *name       = FormulaGraphvizFormatter_format(node);
@@ -644,9 +615,9 @@ FormulaGraphvizFormatter_visitLog10 ( const ASTNode_t *parent,
  * A seperate function may not be strictly speaking necessary for graphs
  */
 void
-FormulaGraphvizFormatter_visitSqrt ( const ASTNode_t *parent,
-                             const ASTNode_t *node,
-                             StringBuffer_t  *sb )
+FormulaGraphvizFormatter_visitSqrt (ASTNode_t *parent,
+                                    ASTNode_t *node,
+                                    StringBuffer_t  *sb )
 {
   char *uniqueName = FormulaGraphvizFormatter_getUniqueName(node);
   char *name       = FormulaGraphvizFormatter_format(node);
@@ -667,9 +638,9 @@ FormulaGraphvizFormatter_visitSqrt ( const ASTNode_t *parent,
  * to the StringBuffer.
  */
 void
-FormulaGraphvizFormatter_visitUMinus ( const ASTNode_t *parent,
-                               const ASTNode_t *node,
-                               StringBuffer_t  *sb )
+FormulaGraphvizFormatter_visitUMinus (ASTNode_t *parent,
+                                      ASTNode_t *node,
+                                      StringBuffer_t  *sb )
 {
   char *uniqueName = FormulaGraphvizFormatter_getUniqueName(node);
   char *name       = FormulaGraphvizFormatter_format(node);
@@ -703,9 +674,9 @@ FormulaGraphvizFormatter_visitUMinus ( const ASTNode_t *parent,
  * to the StringBuffer.
  */
 void
-FormulaGraphvizFormatter_visitOther ( const ASTNode_t *parent,
-                              const ASTNode_t *node,
-                              StringBuffer_t  *sb )
+FormulaGraphvizFormatter_visitOther (ASTNode_t *parent,
+                                     ASTNode_t *node,
+                                     StringBuffer_t  *sb )
 {
   unsigned int numChildren = ASTNode_getNumChildren(node);
   char         *name;
@@ -746,7 +717,7 @@ FormulaGraphvizFormatter_visitOther ( const ASTNode_t *parent,
 
 
 void
-printFunctionDefinition (unsigned int n, const FunctionDefinition_t *fd)
+printFunctionDefinition (unsigned int n, FunctionDefinition_t *fd)
 {
   const ASTNode_t *math;
   char *formula;
@@ -775,7 +746,7 @@ printFunctionDefinition (unsigned int n, const FunctionDefinition_t *fd)
 
 
 void
-printRuleMath (unsigned int n, const Rule_t *r)
+printRuleMath (unsigned int n, Rule_t *r)
 {
   char *formula;
 
@@ -791,7 +762,7 @@ printRuleMath (unsigned int n, const Rule_t *r)
 
 
 void
-printReactionMath (unsigned int n, const Reaction_t *r)
+printReactionMath (unsigned int n, Reaction_t *r)
 {
   char         *formula;
   KineticLaw_t *kl;
@@ -814,7 +785,7 @@ printReactionMath (unsigned int n, const Reaction_t *r)
 
 
 void
-printEventAssignmentMath (unsigned int n, const EventAssignment_t *ea)
+printEventAssignmentMath (unsigned int n, EventAssignment_t *ea)
 {
   const char *variable;
   char       *formula;
@@ -834,7 +805,7 @@ printEventAssignmentMath (unsigned int n, const EventAssignment_t *ea)
 
 
 void
-printEventMath (unsigned int n, const Event_t *e)
+printEventMath (unsigned int n, Event_t *e)
 {
   char         *formula;
   unsigned int i;
@@ -866,7 +837,7 @@ printEventMath (unsigned int n, const Event_t *e)
 
 
 void
-printMath (const Model_t *m)
+printMath (Model_t *m)
 {
   unsigned int  n;
 
@@ -926,9 +897,7 @@ main (int argc, char *argv[])
   d = readSBML(argv[1]);
   m = SBMLDocument_getModel(d);
 
-  SBMLDocument_printWarnings(d, stdout);
-  SBMLDocument_printErrors  (d, stdout);
-  SBMLDocument_printFatals  (d, stdout);
+  SBMLDocument_printErrors(d, stdout);
 
   if ((fout  = fopen( argv[2], "w" )) == NULL )
   {
