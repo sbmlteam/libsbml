@@ -13,7 +13,8 @@ FunctionDefinition 'pow'.
       <functionDefinition id="pow">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
-            <bvar> <ci> x </ci> <ci> y </ci> </bvar>
+            <bvar> <ci> x </ci> </bvar>
+            <bvar> <ci> y </ci> </bvar>
             <apply>
               <power/> <ci> x </ci> <ci> y </ci>
             </apply>
