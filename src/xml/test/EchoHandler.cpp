@@ -24,8 +24,8 @@
 
 #include <iostream>
 
-#include <XMLToken.h>
-#include <XMLAttributes.h>
+#include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLAttributes.h>
 
 #include "EchoHandler.h"
 
@@ -76,6 +76,12 @@ EchoHandler::startDocument ()
 void
 EchoHandler::startElement (const XMLToken& element)
 {
+  if (mInStart)
+  {
+    mInStart = false;
+    cout << ">";
+  }
+
   mInStart = true;
   const XMLAttributes& attributes = element.getAttributes();
   const XMLNamespaces& namespaces = element.getNamespaces();
