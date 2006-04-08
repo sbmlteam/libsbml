@@ -26,7 +26,8 @@
 #define SpeciesReference_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class ASTNode;
@@ -130,7 +131,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
   std::string  mSpecies;
   int          mSBOTerm;
@@ -242,8 +243,23 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
 
 protected:
+
+  /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  bool readOtherXML (XMLInputStream& stream);
 
   /**
    * Subclasses should override this method to read values from the given
@@ -257,7 +273,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   double    mStoichiometry;
@@ -374,9 +390,6 @@ protected:
 BEGIN_C_DECLS
 
 
-#include "common/sbmlfwd.h"
-
-
 /**
  * Creates a new SpeciesReference and returns a pointer to it.
  */
@@ -432,7 +445,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr);
  * @return true (non-zero) if the SpeciesReference is a
  * ModiferSpeciesReference, false otherwise.
  */
-bool
+int
 SpeciesReference_isModifier (const SpeciesReference_t *sr);
 
 

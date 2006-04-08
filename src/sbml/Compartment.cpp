@@ -24,9 +24,9 @@
 
 #include <limits>
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
 #include "Compartment.h"
@@ -455,7 +455,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-Compartment::writeAttributes (XMLOutputStream& stream)
+Compartment::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -746,10 +746,6 @@ Compartment_isSetId (const Compartment_t *c)
 /**
  * @return true (non-zero) if the name of this Compartment has been set,
  * false (0) otherwise.
- *
- * In SBML L1, a Compartment name is required and therefore <b>should
- * always be set</b>.  In L2, name is optional and as such may or may not
- * be set.
  */
 LIBSBML_EXTERN
 int
@@ -834,7 +830,7 @@ Compartment_setId (Compartment_t *c, const char *sid)
 
 
 /**
- * Sets the name of this Compartment to a copy of string (SName in L1).
+ * Sets the name of this Compartment to a copy of string.
  */
 LIBSBML_EXTERN
 void

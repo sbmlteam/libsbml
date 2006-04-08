@@ -26,18 +26,20 @@
 #define SBMLDocument_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
 
 
 #include <iosfwd>
-#include "SBase.h"
+
+#include <sbml/SBMLErrorLog.h>
+#include <sbml/SBase.h>
 
 
 class Model;
-class SBMLErrorLog;
 class SBMLVisitor;
 class XMLError;
 
@@ -125,16 +127,16 @@ public:
 
   /**
    * Performs a set of semantic consistency checks on the document.  Query
-   * the results by calling getWarning(), getNumError(),and getNumFatal().
+   * the results by calling getNumErrors() and getError().
    *
    * @return the number of failed checks (errors) encountered.
    */
   unsigned int checkConsistency ();
 
   /**
-   * Performs a set of semantic consistency checks on the document to establish
-   * whether it is compatible with L1 and can be converted.  Query
-   * the results by calling getWarning(), getNumError(),and getNumFatal().
+   * Performs a set of semantic consistency checks on the document to
+   * establish whether it is compatible with L1 and can be converted.
+   * Query the results by calling getNumErrors() and getError().
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -145,7 +147,7 @@ public:
    * @return the nth error encountered during the parse of this
    * SBMLDocument or NULL if n > getNumErrors() - 1.
    */
-  XMLError* getError (unsigned int n);
+  const XMLError* getError (unsigned int n) const;
 
   /**
    * @return the number of errors encountered during the parse of this
@@ -161,7 +163,13 @@ public:
    *   N Error(s):
    *     line: (id) message
    */
-  void printErrors (std::ostream& stream);
+  void printErrors (std::ostream& stream) const;
+
+
+  /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
 
 
   /**
@@ -183,7 +191,7 @@ public:
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 protected:
@@ -193,6 +201,12 @@ protected:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
+  /**
+   * @return the SBMLErrorLog used to log errors during while reading and
+   * validating SBML.
+   */
+  SBMLErrorLog* getErrorLog ();
 
   /**
    * Subclasses should override this method to read values from the given
@@ -207,7 +221,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   int mLevel;
@@ -215,9 +229,10 @@ protected:
 
   Model* mModel;
 
-  SBMLErrorLog* mErrorLog;
+  SBMLErrorLog mErrorLog;
 
   friend class SBase;
+  friend class SBMLReader;
 };
 
 
@@ -231,7 +246,6 @@ BEGIN_C_DECLS
 
 
 #include <stdio.h>
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -311,7 +325,7 @@ SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m);
 /**
  * Creates a new Model inside this SBMLDocument and returns it.
  */
-Model*
+Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d);
 
 
@@ -325,14 +339,14 @@ LIBSBML_EXTERN
 unsigned int
 SBMLDocument_checkConsistency (SBMLDocument_t *d);
 
+
 /**
  * @return the nth error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumErrors() - 1.
- *
+ */
 LIBSBML_EXTERN
-ParseMessage_t *
-SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);  // FIXME
-*/
+const XMLError_t *
+SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
 
 /**
  * @return the number of errors encountered during the parse of this

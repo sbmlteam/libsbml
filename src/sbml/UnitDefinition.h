@@ -26,7 +26,8 @@
 #define UnitDefinition_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,9 +35,9 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
-#include "Unit.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
+#include <sbml/Unit.h>
 
 
 class SBMLVisitor;
@@ -65,7 +66,7 @@ public:
    * whether or not the Visitor would like to visit the Model's next
    * UnitDefinition (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this UnitDefinition.
@@ -114,6 +115,12 @@ public:
    */
   void addUnit (const Unit* u);
 
+  /**
+   * Creates a new Unit, adds it to this UnitDefinition's list of units and
+   * returns it.
+   */
+  Unit* createUnit ();
+
 
   /**
    * @return the list of Units for this UnitDefinition.
@@ -144,6 +151,12 @@ public:
 
 
   /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
    * (default).
    *
@@ -162,7 +175,7 @@ public:
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 protected:
@@ -185,7 +198,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   ListOfUnits mUnits;
@@ -232,9 +245,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -305,10 +315,6 @@ UnitDefinition_isSetId (const UnitDefinition_t *ud);
 /**
  * @return non-zero if the name of this UnitDefinition has been set, zero
  * otherwise.
- *
- * In SBML L1, a UnitDefinition name is required and therefore <b>should
- * always be set</b>.  In L2, name is optional and as such may or may not
- * be set.
  */
 LIBSBML_EXTERN
 int
@@ -362,23 +368,6 @@ UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
 
 
 /**
- * Moves the id field of this UnitDefinition to its name field (iff name is
- * not already set).  This method is used for converting from L2 to L1.
- */
-LIBSBML_EXTERN
-void
-UnitDefinition_moveIdToName (UnitDefinition_t *ud);
-
-/**
- * Moves the name field of this UnitDefinition to its id field (iff id is not
- * already set).  This method is used for converting from L1 to L2.
- */
-LIBSBML_EXTERN
-void
-UnitDefinition_moveNameToId (UnitDefinition_t *ud);
-
-
-/**
  * Sets the id of this UnitDefinition to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -386,7 +375,7 @@ void
 UnitDefinition_setId (UnitDefinition_t *ud, const char *sid);
 
 /**
- * Sets the name of this UnitDefinition to a copy of string (SName in L1).
+ * Sets the name of this UnitDefinition to a copy of string.
  */
 LIBSBML_EXTERN
 void
@@ -394,12 +383,7 @@ UnitDefinition_setName (UnitDefinition_t *ud, const char *name);
 
 
 /**
- * Unsets the name of this UnitDefinition.  This is equivalent to:
- * safe_free(ud->name); ud->name = NULL;
- *
- * In SBML L1, a UnitDefinition name is required and therefore <b>should
- * always be set</b>.  In L2, name is optional and as such may or may not
- * be set.
+ * Unsets the name of this UnitDefinition.
  */
 LIBSBML_EXTERN
 void
@@ -412,6 +396,15 @@ UnitDefinition_unsetName (UnitDefinition_t *ud);
 LIBSBML_EXTERN
 void
 UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u);
+
+/**
+ * Creates a new Unit, adds it to this UnitDefinition's list of units and
+ * returns it.
+ */
+LIBSBML_EXTERN
+Unit_t *
+UnitDefinition_createUnit (UnitDefinition_t *ud);
+
 
 /**
  * @return the list of Units for this UnitDefinition.
@@ -433,18 +426,6 @@ UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n);
 LIBSBML_EXTERN
 unsigned int
 UnitDefinition_getNumUnits (const UnitDefinition_t *ud);
-
-
-/**
- * The UnitDefinitionIdCmp function compares the string sid to ud->id.
- *
- * @returns an integer less than, equal to, or greater than zero if sid is
- * found to be, respectively, less than, to match or be greater than ud->id.
- * Returns -1 if either sid or ud->id is NULL.
- */
-LIBSBML_EXTERN
-int
-UnitDefinitionIdCmp (const char *sid, const UnitDefinition_t *ud);
 
 
 END_C_DECLS

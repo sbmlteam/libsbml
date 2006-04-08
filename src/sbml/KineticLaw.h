@@ -26,7 +26,8 @@
 #define KineticLaw_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "Parameter.h"
+#include <sbml/SBase.h>
+#include <sbml/Parameter.h>
 
 
 class ASTNode;
@@ -179,6 +180,13 @@ public:
   void addParameter (const Parameter* p);
 
   /**
+   * Creates a new Parameter, adds it to this KineticLaw's list of
+   * parameters and returns it.
+   */
+  Parameter* createParameter ();
+
+
+  /**
    * @return the nth Parameter of this KineticLaw.
    */
   const Parameter* getParameter (unsigned int n) const;
@@ -222,6 +230,11 @@ public:
   void unsetSBOTerm ();
 
 
+  /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
 
   /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -242,10 +255,18 @@ public:
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 protected:
+
+  /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  virtual bool readOtherXML (XMLInputStream& stream);
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -265,7 +286,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   mutable std::string  mFormula;
@@ -285,9 +306,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -324,7 +342,7 @@ KineticLaw_free (KineticLaw_t *kl);
  * @return a (deep) copy of this KineticLaw.
  */
 LIBSBML_EXTERN
-SBase*
+SBase_t *
 KineticLaw_clone (const KineticLaw_t *kl);
 
 
@@ -457,6 +475,15 @@ KineticLaw_setSBOTerm (KineticLaw_t *kl, int sboTerm);
 LIBSBML_EXTERN
 void
 KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p);
+
+/**
+ * Creates a new Parameter, adds it to this KineticLaw's list of
+ * parameters and returns it.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_createParameter (KineticLaw_t *kl);
+
 
 /**
  * @return the nth Parameter of this KineticLaw.

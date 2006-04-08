@@ -21,13 +21,16 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
 
-#include "math/FormulaParser.h"
-#include "math/ASTNode.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/MathML.h>
+#include <sbml/math/ASTNode.h>
+
+#include "SBML.h"
 #include "SBMLVisitor.h"
 #include "EventAssignment.h"
 
@@ -63,7 +66,9 @@ EventAssignment::EventAssignment (const string& variable, const ASTNode* math)
 /**
  * Copies this EventAssignment.
  */
-EventAssignment::EventAssignment (const EventAssignment& rhs) : mMath(0)
+EventAssignment::EventAssignment (const EventAssignment& rhs) :
+   SBase( rhs )
+ , mMath( 0   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -113,6 +118,18 @@ EventAssignment::getVariable () const
 
 
 /**
+ * @return the sboTerm of this EventAssignment as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML::sboTermToString() to convert the sboTerm
+ * to a zero-padded, seven digit string.
+ */
+int
+EventAssignment::getSBOTerm () const
+{
+  return mSBOTerm;
+}
+
+
+/**
  * @return the math of this EventAssignment.
  */
 const ASTNode*
@@ -130,6 +147,17 @@ bool
 EventAssignment::isSetVariable () const
 {
   return isSetId();
+}
+
+
+/**
+ * @return true if the sboTerm of this EventAssignment has been set,
+ * false otherwise.
+ */
+bool
+EventAssignment::isSetSBOTerm () const
+{
+  return (mSBOTerm != -1);
 }
 
 
@@ -155,6 +183,16 @@ EventAssignment::setVariable (const string& sid)
 
 
 /**
+ * Sets the sboTerm field of this EventAssignment to value.
+ */
+void
+EventAssignment::setSBOTerm (int sboTerm)
+{
+  mSBOTerm = sboTerm;
+}
+
+
+/**
  * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
 void
@@ -165,6 +203,16 @@ EventAssignment::setMath (const ASTNode* math)
 
   delete mMath;
   mMath = (math != 0) ? math->deepCopy() : 0;
+}
+
+
+/**
+ * Unsets the sboTerm of this EventAssignment.
+ */
+void
+EventAssignment::unsetSBOTerm ()
+{
+  mSBOTerm = -1;
 }
 
 
@@ -194,6 +242,30 @@ EventAssignment::getElementName () const
 
 
 /**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+EventAssignment::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "math")
+  {
+    delete mMath;
+    mMath = readMathML(stream);
+    read  = true;
+  }
+
+  return read;
+}
+
+
+/**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -207,6 +279,11 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   // variable: SId  { use="required" }  (L2v1, L2v2)
   //
   attributes.readInto("variable", mId);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (getVersion() == 2) mSBOTerm = SBML::readSBOTerm(attributes);
 }
 
 
@@ -216,7 +293,7 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-EventAssignment::writeAttributes (XMLOutputStream& stream)
+EventAssignment::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -224,6 +301,23 @@ EventAssignment::writeAttributes (XMLOutputStream& stream)
   // variable: SId  { use="required" }  (L2v1, L2v2)
   //
   stream.writeAttribute("variable", mId);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (getVersion() == 2) SBML::writeSBOTerm(stream, mSBOTerm);
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+EventAssignment::writeElements (XMLOutputStream& stream) const
+{
+  if (mMath) writeMathML(mMath, stream);
 }
 
 
@@ -347,6 +441,19 @@ EventAssignment_getVariable (const EventAssignment_t *ea)
 
 
 /**
+ * @return the sboTerm of this EventAssignment as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
+ * to a zero-padded, seven digit string.
+ */
+LIBSBML_EXTERN
+int
+EventAssignment_getSBOTerm (const EventAssignment_t *ea)
+{
+  return ea->getSBOTerm();
+}
+
+
+/**
  * @return the math of this EventAssignment.
  */
 LIBSBML_EXTERN
@@ -366,6 +473,18 @@ int
 EventAssignment_isSetVariable (const EventAssignment_t *ea)
 {
   return static_cast<int>( ea->isSetVariable() );
+}
+
+
+/**
+ * @return true (non-zero) if the sboTerm of this EventAssignment has been
+ * set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+EventAssignment_isSetSBOTerm (const EventAssignment_t *ea)
+{
+  return static_cast<int>( ea->isSetSBOTerm() );
 }
 
 
@@ -392,6 +511,17 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
 
 
 /**
+ * Sets the sboTerm field of this EventAssignment to value.
+ */
+LIBSBML_EXTERN
+void
+EventAssignment_setSBOTerm (EventAssignment_t *ea, int sboTerm)
+{
+  ea->setSBOTerm(sboTerm);
+}
+
+
+/**
  * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
 LIBSBML_EXTERN
@@ -399,4 +529,15 @@ void
 EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math)
 {
   ea->setMath(math);
+}
+
+
+/**
+ * Unsets the sboTerm of this EventAssignment.
+ */
+LIBSBML_EXTERN
+void
+EventAssignment_unsetSBOTerm (EventAssignment_t *ea)
+{
+  ea->unsetSBOTerm();
 }

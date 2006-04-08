@@ -26,7 +26,8 @@
 #define Event_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,9 +35,9 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
-#include "EventAssignment.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
+#include <sbml/EventAssignment.h>
 
 
 class ASTNode;
@@ -82,7 +83,7 @@ public:
    * whether or not the Visitor would like to visit the Model's next Event
    * (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this Event.
@@ -105,6 +106,13 @@ public:
    */
   const std::string& getTimeUnits () const;
 
+  /**
+   * @return the sboTerm of this Event as an integer.  If not set, sboTerm
+   * will be -1.  Use SBML::sboTermToString() to convert the sboTerm to a
+   * zero-padded, seven digit string.
+   */
+  int getSBOTerm () const;
+
 
   /**
    * @return true if the trigger of this Event has been set, false
@@ -123,6 +131,12 @@ public:
    */
   bool isSetTimeUnits () const;
 
+  /**
+   * @return true if the sboTerm of this Event has been set, false
+   * otherwise.
+   */
+  bool isSetSBOTerm () const;
+
 
   /**
    * Sets the trigger of this Event to a copy of the given ASTNode.
@@ -131,10 +145,6 @@ public:
 
   /**
    * Sets the delay of this Event to a copy of the given ASTNode.
-   *
-   * The node <b>is not copied</b> and this Event <b>takes ownership</b> of
-   * it; i.e. subsequent calls to this function or a call to Event_free()
-   * will free the ASTNode (and any child nodes).
    */
   void setDelay (const ASTNode* math);
 
@@ -142,6 +152,11 @@ public:
    * Sets the timeUnits of this Event to a copy of sid.
    */
   void setTimeUnits (const std::string& sid);
+
+  /**
+   * Sets the sboTerm field of this Event to value.
+   */
+  void setSBOTerm (int sboTerm);
 
 
   /**
@@ -155,9 +170,21 @@ public:
   void unsetTimeUnits ();
 
   /**
+   * Unsets the sboTerm of this Event.
+   */
+  void unsetSBOTerm ();
+
+
+  /**
    * Appends a copy of the given EventAssignment to this Event.
    */
   void addEventAssignment (const EventAssignment* ea);
+
+  /**
+   * Creates a new EventAssignment, adds it to this Event's list of event
+   * assignments and returns it.
+   */
+  EventAssignment* createEventAssignment ();
 
 
   /**
@@ -201,6 +228,12 @@ public:
 
 
   /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
    * (default).
    *
@@ -219,7 +252,7 @@ public:
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 protected:
@@ -229,6 +262,14 @@ protected:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
+  /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  virtual bool readOtherXML (XMLInputStream& stream);
 
   /**
    * Subclasses should override this method to read values from the given
@@ -242,12 +283,13 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   ASTNode*                mTrigger;
   ASTNode*                mDelay;
   std::string             mTimeUnits;
+  int                     mSBOTerm;
   ListOfEventAssignments  mEventAssignments;
 };
 
@@ -292,9 +334,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -365,6 +404,15 @@ LIBSBML_EXTERN
 const char *
 Event_getTimeUnits (const Event_t *e);
 
+/**
+ * @return the sboTerm of this Event as an integer.  If not set, sboTerm
+ * will be -1.  Use SBML_sboTermToString() to convert the sboTerm to a
+ * zero-padded, seven digit string.
+ */
+LIBSBML_EXTERN
+int
+Event_getSBOTerm (const Event_t *e);
+
 
 /**
  * @return 1 if the id of this Event has been set, 0 otherwise.
@@ -400,6 +448,14 @@ Event_isSetDelay (const Event_t *e);
 LIBSBML_EXTERN
 int
 Event_isSetTimeUnits (const Event_t *e);
+
+/**
+ * @return true (non-zero) if the sboTerm of this Event has been set, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Event_isSetSBOTerm (const Event_t *e);
 
 
 /**
@@ -437,6 +493,13 @@ LIBSBML_EXTERN
 void
 Event_setTimeUnits (Event_t *e, const char *sid);
 
+/**
+ * Sets the sboTerm field of this Event to value.
+ */
+LIBSBML_EXTERN
+void
+Event_setSBOTerm (Event_t *e, int sboTerm);
+
 
 /**
  * Unsets the id of this Event.
@@ -466,6 +529,13 @@ LIBSBML_EXTERN
 void
 Event_unsetTimeUnits (Event_t *e);
 
+/**
+ * Unsets the sboTerm of this Event.
+ */
+LIBSBML_EXTERN
+void
+Event_unsetSBOTerm (Event_t *e);
+
 
 /**
  * Appends a copy of the given EventAssignment to this Event.
@@ -473,6 +543,15 @@ Event_unsetTimeUnits (Event_t *e);
 LIBSBML_EXTERN
 void
 Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea);
+
+/**
+ * Creates a new EventAssignment, adds it to this Event's list of event
+ * assignments and returns it.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+Event_createEventAssignment (Event_t *e);
+
 
 /**
  * @return the list of EventAssignments for this Event.
@@ -503,18 +582,6 @@ Event_getEventAssignmentByVar (Event_t *e, const char *variable);
 LIBSBML_EXTERN
 unsigned int
 Event_getNumEventAssignments (const Event_t *e);
-
-
-/**
- * The EventIdCmp function compares the string sid to e->id.
- *
- * @returns an integer less than, equal to, or greater than zero if sid is
- * found to be, respectively, less than, to match or be greater than e->id.
- * Returns -1 if either sid or e->id is NULL.
- */
-LIBSBML_EXTERN
-int
-EventIdCmp (const char *sid, const Event_t *e);
 
 
 END_C_DECLS

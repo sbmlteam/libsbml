@@ -26,8 +26,9 @@
 #define Unit_h
 
 
-#include "common/extern.h"
-#include "UnitKind.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/UnitKind.h>
 
 
 #ifdef __cplusplus
@@ -35,8 +36,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class SBMLVisitor;
@@ -78,7 +79,7 @@ public:
    * whether or not the Visitor would like to visit the UnitDefinition's
    * next Unit (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this Unit.
@@ -362,7 +363,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   UnitKind_t  mKind;
@@ -413,9 +414,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

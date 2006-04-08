@@ -22,13 +22,14 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "math/FormulaFormatter.h"
-#include "math/FormulaParser.h"
-#include "math/ASTNode.h"
+#include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/MathML.h>
+#include <sbml/math/ASTNode.h>
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
@@ -50,6 +51,7 @@ KineticLaw::KineticLaw (   const string& formula
  , mMath          ( 0              )
  , mTimeUnits     ( timeUnits      )
  , mSubstanceUnits( substanceUnits )
+ , mSBOTerm       ( -1             )
 {
 }
 
@@ -58,10 +60,12 @@ KineticLaw::KineticLaw (   const string& formula
  * Copies this KineticLaw.
  */
 KineticLaw::KineticLaw (const KineticLaw& rhs) :
-   mFormula       ( rhs.mFormula        )
+   SBase          ( rhs                 )
+ , mFormula       ( rhs.mFormula        )
  , mMath          ( 0                   )
  , mTimeUnits     ( rhs.mTimeUnits      )
- , mSubstanceUnits( rhs.mSubstanceUnits )  
+ , mSubstanceUnits( rhs.mSubstanceUnits )
+ , mSBOTerm       ( rhs.mSBOTerm        )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -313,6 +317,20 @@ KineticLaw::addParameter (const Parameter* p)
 
 
 /**
+ * Creates a new Parameter, adds it to this KineticLaw's list of
+ * parameters and returns it.
+ */
+Parameter*
+KineticLaw::createParameter ()
+{
+  Parameter* p = new Parameter();
+  mParameters.appendAndOwn(p);
+
+  return p;
+}
+
+
+/**
  * @return the nth Parameter of this KineticLaw.
  */
 const Parameter*
@@ -395,6 +413,17 @@ KineticLaw::unsetSBOTerm ()
 
 
 /**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+KineticLaw::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+  mParameters.setSBMLDocument(d);
+}
+
+
+/**
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -428,6 +457,30 @@ KineticLaw::createObject (XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
   return (name == "listOfParameters") ? &mParameters : 0;
+}
+
+
+/**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+KineticLaw::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "math")
+  {
+    delete mMath;
+    mMath = readMathML(stream);
+    read  = true;
+  }
+
+  return read;
 }
 
 
@@ -472,7 +525,7 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-KineticLaw::writeAttributes (XMLOutputStream& stream)
+KineticLaw::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -482,7 +535,7 @@ KineticLaw::writeAttributes (XMLOutputStream& stream)
   //
   // formula: string  { use="required" }  (L1v1, L1v2)
   //
-  if (getLevel() == 1) stream.writeAttribute("formula", mFormula);
+  if (getLevel() == 1) stream.writeAttribute("formula", getFormula());
 
   //
   // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
@@ -507,9 +560,11 @@ KineticLaw::writeAttributes (XMLOutputStream& stream)
  * implementation of this method as well.
  */
 void
-KineticLaw::writeElements (XMLOutputStream& stream)
+KineticLaw::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
+  if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
   if ( getNumParameters() > 0 ) mParameters.write(stream);
 }
 
@@ -567,7 +622,7 @@ KineticLaw_free (KineticLaw_t *kl)
  * @return a (deep) copy of this KineticLaw.
  */
 LIBSBML_EXTERN
-SBase*
+SBase_t *
 KineticLaw_clone (const KineticLaw_t *kl)
 {
   return kl->clone();
@@ -764,6 +819,18 @@ void
 KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p)
 {
   if (p != NULL) kl->addParameter(p);
+}
+
+
+/**
+ * Creates a new Parameter, adds it to this KineticLaw's list of
+ * parameters and returns it.
+ */
+LIBSBML_EXTERN
+Parameter_t *
+KineticLaw_createParameter (KineticLaw_t *kl)
+{
+  return kl->createParameter();
 }
 
 

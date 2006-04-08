@@ -24,11 +24,12 @@
 
 #include <limits>
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
+#include "Model.h"
 #include "Species.h"
 
 
@@ -605,7 +606,7 @@ Species::readAttributes (const XMLAttributes& attributes)
   // charge: integer  { use="optional" }  (L1v1, L1v2, L2v1)
   // charge: integer  { use="optional" }  deprecated (L2v2)
   //
-  attributes.readInto("charge", mCharge);
+  mIsSetCharge = attributes.readInto("charge", mCharge);
 
   if (level == 2)
   {
@@ -623,7 +624,7 @@ Species::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-Species::writeAttributes (XMLOutputStream& stream)
+Species::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -671,6 +672,39 @@ Species::writeAttributes (XMLOutputStream& stream)
   else if ( level == 2 && isSetInitialConcentration() )
   {
     stream.writeAttribute("initialConcentration", mInitialConcentration);
+  }
+
+  //
+  // If user is converting a model from L2 to L1, two possiblities exist
+  // that have not been covered:
+  //
+  //   1.  InitialConcentration has been used, so it must be converted to
+  //       initialAmount
+  //
+  //   2.  No initialAmount/initialAmount has been set, but initialAmount
+  //       is required in L1
+  //
+  else if (level == 1)
+  {
+    if ( isSetInitialConcentration() )
+    {
+      const Model*       m = getModel();
+      const Compartment* c = m ? m->getCompartment( getCompartment() ) : 0;
+
+      if (c)
+      {
+        double amount = mInitialConcentration * c->getSize();
+        stream.writeAttribute("initialAmount", amount);
+      }
+      else
+      {
+        stream.writeAttribute("initialAmount", mInitialConcentration);
+      }
+    }
+    else
+    {
+      stream.writeAttribute("initialAmount", mInitialAmount);
+    }
   }
 
   //
@@ -987,9 +1021,6 @@ Species_isSetId (const Species_t *s)
 /**
  * @return true (non-zero) if the name of this Species has been set, false
  * (0) otherwise.
- *
- * In SBML L1, a Species name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -1111,7 +1142,7 @@ Species_setId (Species_t *s, const char *sid)
 
 
 /**
- * Sets the name of this Species to a copy of string (SName in L1).
+ * Sets the name of this Species to a copy of string.
  */
 LIBSBML_EXTERN
 void
@@ -1246,9 +1277,6 @@ Species_setConstant (Species_t *s, int value)
 
 /**
  * Unsets the name of this Species.
- *
- * In SBML L1, a Species name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 void

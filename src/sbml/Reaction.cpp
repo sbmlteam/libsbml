@@ -22,9 +22,9 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
@@ -61,7 +61,8 @@ Reaction::Reaction (const string& id, const KineticLaw* kl, bool reversible) :
  * Copies this Reaction.
  */
 Reaction::Reaction (const Reaction& rhs) :
-    mKineticLaw( 0               )
+    SBase      ( rhs             )
+  , mKineticLaw( 0               )
   , mReversible( rhs.mReversible )
   , mFast      ( rhs.mFast       )
   , mSBOTerm   ( rhs.mSBOTerm    )
@@ -257,6 +258,39 @@ Reaction::getListOfModifiers ()
 
 
 /**
+ * Used by getReactant(species), getProduct(species), and
+ * getModifier(species).
+ */
+static SBase*
+GetSpeciesRef (ListOf& items, const string& species)
+{
+  // TODO: Maybe ListOf should return begin and end iterators to the
+  // underlying container.  Then this loop could be rewritten with
+  // a find_if() algorithm.
+
+  unsigned int size = items.size();
+
+  for (unsigned int n = 0; n < size; ++n)
+  {
+    SpeciesReference* sr = static_cast<SpeciesReference*>( items.get(n) );
+    if (sr->getSpecies() == species) return sr;
+  }
+
+  return 0;
+}
+
+
+/**
+ * Simply calls non-const version above.
+ */
+static const SBase*
+GetSpeciesRef (const ListOf& items, const string& species)
+{
+  return GetSpeciesRef(const_cast<ListOf&>(items), species);
+}
+
+
+/**
  * @return the nth reactant (SpeciesReference) of this Reaction.
  */
 const SpeciesReference*
@@ -278,23 +312,24 @@ Reaction::getReactant (unsigned int n)
 
 /**
  * @return the reactant (SpeciesReference) in this Reaction with the given
- * id or NULL if no such reactant exists.
+ * species or NULL if no such reactant exists.
  */
 const SpeciesReference*
-Reaction::getReactant (const string& sid) const
+Reaction::getReactant (const string& species) const
 {
-  return static_cast<const SpeciesReference*>( mReactants.get(sid) );
+  return
+    static_cast<const SpeciesReference*>( GetSpeciesRef(mReactants, species) );
 }
 
 
 /**
  * @return the reactant (SpeciesReference) in this Reaction with the given
- * id or NULL if no such reactant exists.
+ * species or NULL if no such reactant exists.
  */
 SpeciesReference*
-Reaction::getReactant (const string& sid)
+Reaction::getReactant (const string& species)
 {
-  return static_cast<SpeciesReference*>( mReactants.get(sid) );
+  return static_cast<SpeciesReference*>( GetSpeciesRef(mReactants, species) );
 }
 
 
@@ -320,23 +355,24 @@ Reaction::getProduct (unsigned int n)
 
 /**
  * @return the product (SpeciesReference) in this Reaction with the given
- * id or NULL if no such product exists.
+ * species or NULL if no such product exists.
  */
 const SpeciesReference*
-Reaction::getProduct (const string& sid) const
+Reaction::getProduct (const string& species) const
 {
-  return static_cast<const SpeciesReference*>( mProducts.get(sid) );
+  return
+    static_cast<const SpeciesReference*>( GetSpeciesRef(mProducts, species) );
 }
 
 
 /**
  * @return the product (SpeciesReference) in this Reaction with the given
- * id or NULL if no such product exists.
+ * species or NULL if no such product exists.
  */
 SpeciesReference*
-Reaction::getProduct (const string& sid)
+Reaction::getProduct (const string& species)
 {
-  return static_cast<SpeciesReference*>( mProducts.get(sid) );
+  return static_cast<SpeciesReference*>( GetSpeciesRef(mProducts, species) );
 }
 
 
@@ -362,23 +398,29 @@ Reaction::getModifier (unsigned int n)
 
 /**
  * @return the modifier (ModifierSpeciesReference) in this Reaction with
- * the given id or NULL if no such modifier exists.
+ * the given species or NULL if no such modifier exists.
  */
 const ModifierSpeciesReference*
-Reaction::getModifier (const string& sid) const
+Reaction::getModifier (const string& species) const
 {
-  return static_cast<const ModifierSpeciesReference*>( mModifiers.get(sid) );
+  return static_cast<const ModifierSpeciesReference*>
+  (
+    GetSpeciesRef(mModifiers, species)
+  );
 }
 
 
 /**
  * @return the modifier (ModifierSpeciesReference) in this Reaction with
- * the given id or NULL if no such modifier exists.
+ * the given species or NULL if no such modifier exists.
  */
 ModifierSpeciesReference*
-Reaction::getModifier (const string& sid)
+Reaction::getModifier (const string& species)
 {
-  return static_cast<ModifierSpeciesReference*>( mModifiers.get(sid) );
+  return static_cast<ModifierSpeciesReference*>
+  (
+    GetSpeciesRef(mModifiers, species)
+  );
 }
 
 
@@ -429,6 +471,8 @@ Reaction::setKineticLaw (const KineticLaw* kl)
 
   delete mKineticLaw;
   mKineticLaw = (kl != 0) ? static_cast<KineticLaw*>( kl->clone() ) : 0;
+
+  if (mKineticLaw) mKineticLaw->setSBMLDocument(mSBML);
 }
 
 
@@ -537,6 +581,22 @@ Reaction::createModifier ()
 
 
 /**
+ * Creates a new KineticLaw for this Reaction and returns it.  If this
+ * Reaction had a previous KineticLaw, it will be destroyed.
+ */
+KineticLaw*
+Reaction::createKineticLaw ()
+{
+  delete mKineticLaw;
+  mKineticLaw = new KineticLaw;
+
+  mKineticLaw->setSBMLDocument(mSBML);
+
+  return mKineticLaw;
+}
+
+
+/**
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
 unsigned int
@@ -599,6 +659,22 @@ void
 Reaction::unsetSBOTerm ()
 {
   mSBOTerm = -1;
+}
+
+
+/**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+Reaction::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+
+  mReactants.setSBMLDocument(d);
+  mProducts .setSBMLDocument(d);
+  mModifiers.setSBMLDocument(d);
+
+  if (mKineticLaw) mKineticLaw->setSBMLDocument(d);
 }
 
 
@@ -712,7 +788,7 @@ Reaction::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-Reaction::writeAttributes (XMLOutputStream& stream)
+Reaction::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -759,15 +835,18 @@ Reaction::writeAttributes (XMLOutputStream& stream)
  * implementation of this method as well.
  */
 void
-Reaction::writeElements (XMLOutputStream& stream)
+Reaction::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if ( getNumReactants () > 0) mReactants.write(stream);
-  if ( getNumProducts  () > 0) mProducts .write(stream);
-  if ( getNumModifiers () > 0) mModifiers.write(stream);
+  const unsigned int level = getLevel();
 
-  if ( mKineticLaw ) mKineticLaw->write(stream);
+  if (getNumReactants () > 0) mReactants.write(stream);
+  if (getNumProducts  () > 0) mProducts .write(stream);
+
+  if (level == 2 && getNumModifiers () > 0) mModifiers.write(stream);
+
+  if (mKineticLaw) mKineticLaw->write(stream);
 }
 
 
@@ -1015,13 +1094,13 @@ Reaction_getReactant (Reaction_t *r, unsigned int n)
 
 /**
  * @return the reactant (SpeciesReference) in this Reaction with the given
- * id or NULL if no such reactant exists.
+ * species or NULL if no such reactant exists.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getReactantById (Reaction_t *r, const char *sid)
+Reaction_getReactantBySpecies (Reaction_t *r, const char *species)
 {
-  return (sid != NULL) ? r->getReactant(sid) : NULL;
+  return (species != NULL) ? r->getReactant(species) : NULL;
 }
 
 
@@ -1038,13 +1117,13 @@ Reaction_getProduct (Reaction_t *r, unsigned int n)
 
 /**
  * @return the product (SpeciesReference) in this Reaction with the given
- * id or NULL if no such product exists.
+ * species or NULL if no such product exists.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getProductById (Reaction_t *r, const char *sid)
+Reaction_getProductBySpecies (Reaction_t *r, const char *species)
 {
-  return (sid != NULL) ? r->getProduct(sid) : NULL;
+  return (species != NULL) ? r->getProduct(species) : NULL;
 }
 
 
@@ -1061,13 +1140,13 @@ Reaction_getModifier (Reaction_t *r, unsigned int n)
 
 /**
  * @return the modifier (ModifierSpeciesReference) in this Reaction with
- * the given id or NULL if no such modifier exists.
+ * the given species or NULL if no such modifier exists.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getModifierById (Reaction_t *r, const char *sid)
+Reaction_getModifierBySpecies (Reaction_t *r, const char *species)
 {
-  return (sid != NULL) ? r->getModifier(sid) : NULL;
+  return (species != NULL) ? r->getModifier(species) : NULL;
 }
 
 
@@ -1277,6 +1356,18 @@ SpeciesReference_t *
 Reaction_createModifier (Reaction_t *r)
 {
   return r->createModifier();
+}
+
+
+/**
+ * Creates a new KineticLaw for this Reaction and returns it.  If this
+ * Reaction had a previous KineticLaw, it will be destroyed.
+ */
+LIBSBML_EXTERN
+KineticLaw_t *
+Reaction_createKineticLaw (Reaction_t *r)
+{
+  return r->createKineticLaw();
 }
 
 

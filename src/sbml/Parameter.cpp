@@ -24,9 +24,9 @@
 
 #include <limits>
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
@@ -348,7 +348,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-Parameter::writeAttributes (XMLOutputStream& stream)
+Parameter::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -368,10 +368,13 @@ Parameter::writeAttributes (XMLOutputStream& stream)
   if (level == 2) stream.writeAttribute("name", mName);
 
   //
-  // value: double  { use="required" }  (L1v2)
+  // value: double  { use="required" }  (L1v1)
   // value: double  { use="optional" }  (L1v2, L2v1, L2v2)
   //
-  if (mIsSetValue) stream.writeAttribute("value", mValue);
+  if (mIsSetValue || (level == 1 && version == 1))
+  {
+    stream.writeAttribute("value", mValue);
+  }
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)
@@ -597,9 +600,6 @@ Parameter_isSetId (const Parameter_t *p)
 /**
  * @return true (non-zero) if the name of this Parameter has been set,
  * false (0) otherwise.
- *
- * In SBML L1, a Parameter name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -661,7 +661,7 @@ Parameter_setId (Parameter_t *p, const char *sid)
 
 
 /**
- * Sets the name of this Parameter to a copy of string (SName in L1).
+ * Sets the name of this Parameter to a copy of string.
  */
 LIBSBML_EXTERN
 void
@@ -716,11 +716,7 @@ Parameter_setSBOTerm (Parameter_t *p, int sboTerm)
 
 
 /**
- * Unsets the name of this Parameter.  This is equivalent to:
- * safe_free(s->name); s->name = NULL;
- *
- * In SBML L1, a Parameter name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
+ * Unsets the name of this Parameter.
  */
 LIBSBML_EXTERN
 void
@@ -746,8 +742,7 @@ Parameter_unsetValue (Parameter_t *p)
 
 
 /**
- * Unsets the units of this Parameter.  This is equivalent to:
- * safe_free(p->units); p->units = NULL;
+ * Unsets the units of this Parameter.
  */
 LIBSBML_EXTERN
 void

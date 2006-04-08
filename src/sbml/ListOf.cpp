@@ -52,7 +52,7 @@ struct Clone : public unary_function<SBase*, SBase*>
 /**
  * Copies this ListOf items.
  */
-ListOf::ListOf (const ListOf& rhs)
+ListOf::ListOf (const ListOf& rhs) : SBase(rhs)
 {
   mItems.reserve( rhs.size() );
   transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
@@ -107,7 +107,7 @@ ListOf::clone () const
 void
 ListOf::append (const SBase* item)
 {
-  if (item) mItems.push_back( item->clone() );
+  appendAndOwn( item->clone() );
 }
 
 
@@ -118,7 +118,8 @@ ListOf::append (const SBase* item)
 void
 ListOf::appendAndOwn (SBase* item)
 {
-  if (item) mItems.push_back( item );
+  mItems.push_back( item );
+  item->setSBMLDocument(mSBML);
 }
 
 
@@ -128,7 +129,7 @@ ListOf::appendAndOwn (SBase* item)
 const SBase*
 ListOf::get (unsigned int n) const
 {
-  return mItems[n];
+  return (n < mItems.size()) ? mItems[n] : 0;
 }
 
 
@@ -227,6 +228,29 @@ ListOf::size () const
 
 
 /**
+ * Used by ListOf::setSBMLDocument().
+ */
+struct SetSBMLDocument : public unary_function<SBase*, void>
+{
+  SBMLDocument* d;
+
+  SetSBMLDocument (SBMLDocument* d) : d(d) { }
+  void operator() (SBase* sbase) { sbase->setSBMLDocument(d); }
+};
+
+
+/**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+ListOf::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+  for_each( mItems.begin(), mItems.end(), SetSBMLDocument(d) );
+}
+
+
+/**
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  */
@@ -278,7 +302,7 @@ struct Write : public unary_function<SBase*, void>
  * implementation of this method as well.
  */
 void
-ListOf::writeElements (XMLOutputStream& stream)
+ListOf::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
   for_each( mItems.begin(), mItems.end(), Write(stream) );

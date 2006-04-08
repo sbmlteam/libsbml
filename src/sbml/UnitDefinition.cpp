@@ -22,9 +22,9 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
 #include "Unit.h"
@@ -196,6 +196,20 @@ UnitDefinition::addUnit (const Unit* u)
 
 
 /**
+ * Creates a new Unit, adds it to this UnitDefinition's list of units and
+ * returns it.
+ */
+Unit*
+UnitDefinition::createUnit ()
+{
+  Unit* u = new Unit;
+  mUnits.appendAndOwn(u);
+
+  return u;
+}
+
+
+/**
  * @return the list of Units for this UnitDefinition.
  */
 const ListOfUnits*
@@ -242,6 +256,17 @@ unsigned int
 UnitDefinition::getNumUnits () const
 {
   return mUnits.size();
+}
+
+
+/**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+UnitDefinition::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+  mUnits.setSBMLDocument(d);
 }
 
 
@@ -315,7 +340,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-UnitDefinition::writeAttributes (XMLOutputStream& stream)
+UnitDefinition::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -341,7 +366,7 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream)
  * implementation of this method as well.
  */
 void
-UnitDefinition::writeElements (XMLOutputStream& stream)
+UnitDefinition::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
   if ( getNumUnits() > 0 ) mUnits.write(stream);
@@ -504,10 +529,6 @@ UnitDefinition_isSetId (const UnitDefinition_t *ud)
 /**
  * @return non-zero if the name of this UnitDefinition has been set, zero
  * otherwise.
- *
- * In SBML L1, a UnitDefinition name is required and therefore <b>should
- * always be set</b>.  In L2, name is optional and as such may or may not
- * be set.
  */
 LIBSBML_EXTERN
 int
@@ -594,7 +615,7 @@ UnitDefinition_setId (UnitDefinition_t *ud, const char *sid)
 
 
 /**
- * Sets the name of this UnitDefinition to a copy of string (SName in L1).
+ * Sets the name of this UnitDefinition to a copy of string.
  */
 LIBSBML_EXTERN
 void
@@ -605,12 +626,7 @@ UnitDefinition_setName (UnitDefinition_t *ud, const char *name)
 
 
 /**
- * Unsets the name of this UnitDefinition.  This is equivalent to:
- * safe_free(ud->name); ud->name = NULL;
- *
- * In SBML L1, a UnitDefinition name is required and therefore <b>should
- * always be set</b>.  In L2, name is optional and as such may or may not
- * be set.
+ * Unsets the name of this UnitDefinition.
  */
 LIBSBML_EXTERN
 void
@@ -632,6 +648,18 @@ UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u)
 
 
 /**
+ * Creates a new Unit, adds it to this UnitDefinition's list of units and
+ * returns it.
+ */
+LIBSBML_EXTERN
+Unit_t *
+UnitDefinition_createUnit (UnitDefinition_t *ud)
+{
+  return ud->createUnit();
+}
+
+
+/**
  * @return the list of Units for this UnitDefinition.
  */
 LIBSBML_EXTERN
@@ -649,7 +677,7 @@ LIBSBML_EXTERN
 Unit_t *
 UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n)
 {
-  ud->getUnit(n);
+  return ud->getUnit(n);
 }
 
 

@@ -6,74 +6,27 @@
  * $Id$
  * $Source$
  */
-/* Copyright 2002 California Institute of Technology and
- * Japan Science and Technology Corporation.
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
  *
  * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation; either version 2.1 of the License, or
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising
- * out of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *     The Systems Biology Markup Language Development Group
- *     ERATO Kitano Symbiotic Systems Project
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://www.cds.caltech.edu/erato
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
- *   Stefan Hoops
  */
 
 
-#include <ios>
-#include <fstream>
-#include <sstream>
-
-#include "common/common.h"
-
-// This needs to be before the Xerces-C++ includes for Visual C++ 6.0 
-#include "xml/ParseMessage.h"
-
-#ifdef USE_EXPAT
-typedef void SAX2XMLReader;
-#else
-#  include <xercesc/util/PlatformUtils.hpp>
-#endif  // USE_EXPAT
+#include <sbml/xml/XMLInputStream.h>
 
 #include "SBMLDocument.h"
-#include "SBMLHandler.h"
-#include "SBMLParser.h"
 #include "SBMLReader.h"
 
-
-#ifndef USE_EXPAT
-using namespace xercesc;
-#endif // !USE_EXPAT
 
 using namespace std;
 
@@ -113,12 +66,11 @@ getMessage (SBMLReadError_t code)
 
 
 /**
- * Creates a new SBMLReader and returns it.
- *
- * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE).
+ * Creates a new SBMLReader and returns it.  By default XML Schema
+ * validation is off.
  */
-LIBSBML_EXTERN
-SBMLReader::SBMLReader (XMLSchemaValidation_t level) : mValidationLevel(level)
+SBMLReader::SBMLReader (bool doSchemaValidation) :
+  mDoSchemaValidation(doSchemaValidation)
 {
 }
 
@@ -126,20 +78,8 @@ SBMLReader::SBMLReader (XMLSchemaValidation_t level) : mValidationLevel(level)
 /**
  * Destorys this SBMLReader.
  */
-LIBSBML_EXTERN
 SBMLReader::~SBMLReader ()
 {
-}
-
-
-/**
- * @return the schema validation level used by this SBMLReader.
- */
-LIBSBML_EXTERN
-XMLSchemaValidation_t
-SBMLReader::getSchemaValidationLevel() const
-{
-  return mValidationLevel;
 }
 
 
@@ -160,21 +100,21 @@ SBMLReader::getSchemaValidationLevel() const
  *
  * @return a pointer to the SBMLDocument read.
  */
-LIBSBML_EXTERN
 SBMLDocument*
-SBMLReader::readSBML (const std::string& filename)
+SBMLReader::readSBML (const string& filename)
 {
-  return read_internal(filename.c_str(), NULL);
+  return readInternal(filename.c_str(), true);
 }
 
 
 /**
  * Reads an SBML document from the given XML string.
  *
- * The XML string must be complete and legal XML document.  Among other
- * things, it must start with an XML processing instruction.  For e.g.,:
+ * If the string does not begin with XML declaration:
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
+ *
+ * it will be prepended.
  *
  * This method will log a fatal error if the XML string is not SBML.  See
  * the method documentation for readSBML(filename) for example error
@@ -182,201 +122,68 @@ SBMLReader::readSBML (const std::string& filename)
  *
  * @return a pointer to the SBMLDocument read.
  */
-LIBSBML_EXTERN
 SBMLDocument*
-SBMLReader::readSBMLFromString (const std::string& xml)
+SBMLReader::readSBMLFromString (const string& xml)
 {
-  return read_internal(NULL, xml.c_str());
+  return readInternal(xml.c_str(), false);
 }
 
 
 /**
- * Sets the schema validation level used by this SBMLReader.
- *
- * The levels are:
- *
- *   XML_SCHEMA_VALIDATION_NONE (0) turns schema validation off.
- *
- *   XML_SCHEMA_VALIDATION_BASIC (1) validates an XML instance document
- *   against an XML Schema.  Those who wish to perform schema checking on
- *   SBML documents should use this option.
- *
- *   XML_SCHEMA_VALIDATION_FULL (2) validates both the instance document
- *   itself *and* the XML Schema document.  The XML Schema document is
- *   checked for violation of particle unique attribution constraints and
- *   particle derivation restrictions, which is both time-consuming and
- *   memory intensive.
+ * @return true if this SBMLReader will perform XML Schema validation,
+ * false otherwise.
  */
-LIBSBML_EXTERN
-void
-SBMLReader::setSchemaValidationLevel (XMLSchemaValidation_t level)
+bool
+SBMLReader::doSchemaValidation () const
 {
-  mValidationLevel = level;
+  return mDoSchemaValidation;
 }
 
 
 /**
- * Logs the given fatal error to the SBMLDocument's list of fatal errors.
- * If message is not given, a message will be provided based on the error
- * code.
+ * Indicates whether or not this SBMLReader should perform XML Schema
+ * validation.
  */
 void
-SBMLReader::logFatal (SBMLDocument* d, SBMLReadError_t code, const char* msg)
+SBMLReader::setSchemaValidation (bool doSchemaValidation)
 {
-  static const string category = "libSBML";
-
-
-  if (!msg) msg = getMessage(code);
-  d->fatal.add( new ParseMessage(code, msg, 0, 0, 3, category) );
+  mDoSchemaValidation = doSchemaValidation;
 }
 
 
 /**
- * Used by readSBML() and readSBMLFromString()  Pass in either:
- *
- *   - a filename to read and a NULL XML string, or
- *   - a NULL filename and an XML string
+ * Used by readSBML() and readSBMLFromString().
  */
 SBMLDocument*
-SBMLReader::read_internal (const char* filename, const char* xml)
+SBMLReader::readInternal (const char* content, bool isFile)
 {
   SBMLDocument* d = new SBMLDocument();
 
-  if (filename && (util_file_exists(filename) == false))
+  // FIXME
+  /*
+  if (isFile && content && (util_file_exists(conent) == false))
   {
     logFatal(d, SBML_READ_ERROR_FILE_NOT_FOUND);
-  }
-  else
-  {
-    #ifdef USE_EXPAT
-      read_expat (d, filename, xml);
-    #else
-      read_xerces(d, filename, xml);
-    #endif  // USE_EXPAT
-  }
+  }*/
+
+  XMLInputStream stream(content, isFile);
+
+  stream.setErrorLog( d->getErrorLog() );
+  d->read(stream);
 
   return d;
 }
 
 
-void
-SBMLReader::read_expat (SBMLDocument* d, const char* filename, const char* xml)
-{
-#ifdef USE_EXPAT
-
-  const int BUFFER_SIZE = 0xfffe;
-  char*     pBuffer     = 0;
-
-
-  SBMLHandler handler(d);
-  handler.enableElementHandler();
-
-  try
-  {
-    if (xml)
-    {
-      if (!handler.parse(xml, -1, true))
-        throw handler.getErrorString();
-    }
-    else if (filename)
-    {
-      std::ifstream is(filename);
-      is.exceptions(ios_base::badbit | ios_base::failbit);
-
-      pBuffer   = new char[BUFFER_SIZE + 1];
-      bool done = false;
-
-      while (!done)
-      {
-        is.get(pBuffer, BUFFER_SIZE, 0);
-        done = is.eof();
-            
-        if (!handler.parse(pBuffer, -1, done))
-          throw handler.getErrorString();
-      }
-    }
-  }
-  catch (const char* msg)
-  {
-    logFatal(d, SBML_READ_ERROR_UNKNOWN, msg);
-  }
-  catch (...)
-  {
-    logFatal(d, SBML_READ_ERROR_UNKNOWN);
-  }
-
-  if (handler.sawSBML() == false)
-  {
-    logFatal(d, SBML_READ_ERROR_NOT_SBML);
-  }
-
-  delete [] pBuffer;
-#endif  // USE_EXPAT
-}
-
-
-void
-SBMLReader::read_xerces (SBMLDocument* d, const char* filename, const char* xml)
-{
-#ifndef USE_EXPAT
-  try
-  {
-    XML_PLATFORM_UTILS_INIT();
-
-    const char* content = filename;
-    bool        isFile  = true;
-
-    if (xml)
-    {
-      content = xml;
-      isFile  = false;
-    }
-
-    SBMLParser  parser(d, content, isFile);
-
-    parser.setSchemaValidation(mValidationLevel);
-    parser.parse();
-  }
-  catch (std::bad_alloc& e)
-  {
-    logFatal(d, SBML_READ_ERROR_OUT_OF_MEMORY);
-  }
-  catch (NotXMLException& e)
-  {
-    logFatal(d, SBML_READ_ERROR_NOT_XML);
-  }
-  catch (UnknownEncodingException& e)
-  {
-    logFatal(d, SBML_READ_ERROR_UNKNOWN_ENCODING);
-  }
-  catch (NotSBMLException& e)
-  {
-    logFatal(d, SBML_READ_ERROR_NOT_SBML);
-  }
-  catch (UnknownSBMLException& e)
-  {
-    logFatal(d, SBML_READ_ERROR_UNKNOWN_SBML);
-  }
-  catch (...)
-  {
-    logFatal(d, SBML_READ_ERROR_UNKNOWN);
-  }
-#endif  // !USE_EXPAT
-}
-
-
-
-
 /**
- * Creates a new SBMLReader and returns a pointer to it.
- *
- * By default schema validation is off (XML_SCHEMA_VALIDATION_NONE).
+ * Creates a new SBMLReader and returns it.  By default XML Schema
+ * validation is off.
  */
 LIBSBML_EXTERN
 SBMLReader_t *
-SBMLReader_create (void)
+SBMLReader_create ()
 {
-  return new (std::nothrow) SBMLReader;
+  return new (nothrow) SBMLReader;
 }
 
 
@@ -388,17 +195,6 @@ void
 SBMLReader_free (SBMLReader_t *sr)
 {
   delete sr;
-}
-
-
-/**
- * @return the schema validation level used by this SBMLReader.
- */
-LIBSBML_EXTERN
-XMLSchemaValidation_t
-SBMLReader_getSchemaValidationLevel(const SBMLReader_t *sr)
-{
-  return sr->getSchemaValidationLevel();
 }
 
 
@@ -430,21 +226,22 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBML (SBMLReader_t *sr, const char *filename)
 {
-  return (filename != NULL) ? sr->readSBML(filename) : NULL;
+  return (filename != NULL) ? sr->readSBML(filename) : sr->readSBML("");
 }
 
 
 /**
  * Reads an SBML document from the given XML string.
  *
- * The XML string must be complete and legal XML document.  Among other
- * things, it must start with an XML processing instruction.  For e.g.,:
+ * If the string does not begin with XML declaration:
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
  *
+ * it will be prepended.
+ *
  * This method will log a fatal error if the XML string is not SBML.  See
- * the function documentation for SBMLReader_readSBML(filename) for example
- * error checking code.
+ * the method documentation for readSBML(filename) for example error
+ * checking code.
  *
  * @return a pointer to the SBMLDocument read.
  */
@@ -452,7 +249,32 @@ LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 {
-  return (xml != NULL) ? sr->readSBMLFromString(xml) : NULL;
+  return (xml != NULL) ? sr->readSBMLFromString(xml) :
+                         sr->readSBMLFromString("");
+}
+
+
+/**
+ * @return true if this SBMLReader will perform XML Schema validation,
+ * false otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBMLReader_doSchemaValidation (const SBMLReader_t *sr)
+{
+  return static_cast<int>( sr->doSchemaValidation() );
+}
+
+
+/**
+ * Indicates whether or not this SBMLReader should perform XML Schema
+ * validation.
+ */
+LIBSBML_EXTERN
+void
+SBMLReader_setSchemaValidation (SBMLReader_t *sr, int doSchemaValidation)
+{
+  sr->setSchemaValidation( static_cast<bool>(doSchemaValidation) );
 }
 
 
@@ -479,20 +301,21 @@ SBMLDocument_t *
 readSBML (const char *filename)
 {
   SBMLReader sr;
-  return SBMLReader_readSBML(&sr, filename);
+  return sr.readSBML(filename);
 }
 
 
 /**
  * Reads an SBML document from the given XML string.
  *
- * The XML string must be complete and legal XML document.  Among other
- * things, it must start with an XML processing instruction.  For e.g.,:
+ * If the string does not begin with XML declaration:
  *
  *   <?xml version='1.0' encoding='UTF-8'?>
  *
+ * it will be prepended.
+ *
  * This method will log a fatal error if the XML string is not SBML.  See
- * the function documentation for readSBML(filename) for example error
+ * the method documentation for readSBML(filename) for example error
  * checking code.
  *
  * @return a pointer to the SBMLDocument read.
@@ -502,31 +325,5 @@ SBMLDocument_t *
 readSBMLFromString (const char *xml)
 {
   SBMLReader sr;
-  return SBMLReader_readSBMLFromString(&sr, xml);
-}
-
-
-/**
- * Sets the schema validation level used by this SBMLReader.
- *
- * The levels are:
- *
- *   XML_SCHEMA_VALIDATION_NONE (0) turns schema validation off.
- *
- *   XML_SCHEMA_VALIDATION_BASIC (1) validates an XML instance document
- *   against an XML Schema.  Those who wish to perform schema checking on
- *   SBML documents should use this option.
- *
- *   XML_SCHEMA_VALIDATION_FULL (2) validates both the instance document
- *   itself *and* the XML Schema document.  The XML Schema document is
- *   checked for violation of particle unique attribution constraints and
- *   particle derivation restrictions, which is both time-consuming and
- *   memory intensive.
- */
-LIBSBML_EXTERN
-void
-SBMLReader_setSchemaValidationLevel ( SBMLReader_t *sr,
-                                      XMLSchemaValidation_t level )
-{
-  sr->setSchemaValidationLevel(level);
+  return sr.readSBMLFromString(xml);
 }

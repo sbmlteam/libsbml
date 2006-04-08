@@ -26,7 +26,8 @@
 #define EventAssignment_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class ASTNode;
@@ -76,7 +77,7 @@ public:
    * whether or not the Visitor would like to visit the Event's next
    * EventAssignment (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this EventAssignment.
@@ -88,6 +89,13 @@ public:
    * @return the variable of this EventAssignment.
    */
   const std::string& getVariable () const;
+
+  /**
+   * @return the sboTerm of this EventAssignment as an integer.  If not
+   * set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+   * sboTerm to a zero-padded, seven digit string.
+   */
+  int getSBOTerm () const;
 
   /**
    * @return the math of this EventAssignment.
@@ -102,6 +110,12 @@ public:
   bool isSetVariable () const;
 
   /**
+   * @return true if the sboTerm of this EventAssignment has been set,
+   * false otherwise.
+   */
+  bool isSetSBOTerm () const;
+
+  /**
    * @return true if the math of this EventAssignment has been set, false
    * otherwise.
    */
@@ -114,9 +128,20 @@ public:
   void setVariable (const std::string& sid);
 
   /**
+   * Sets the sboTerm field of this EventAssignment to value.
+   */
+  void setSBOTerm (int sboTerm);
+
+  /**
    * Sets the math of this EventAssignment to a copy of the given ASTNode.
    */
   void setMath (const ASTNode* math);
+
+
+  /**
+   * Unsets the sboTerm of this EventAssignment.
+   */
+  void unsetSBOTerm ();
 
 
   /**
@@ -133,8 +158,23 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
 
 protected:
+
+  /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  virtual bool readOtherXML (XMLInputStream& stream);
 
   /**
    * Subclasses should override this method to read values from the given
@@ -148,9 +188,10 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
+  int       mSBOTerm;
   ASTNode*  mMath;
 };
 
@@ -197,9 +238,6 @@ protected:
 BEGIN_C_DECLS
 
 
-#include "common/sbmlfwd.h"
-
-
 /**
  * Creates a new EventAssignment and returns a pointer to it.
  */
@@ -243,6 +281,15 @@ const char *
 EventAssignment_getVariable (const EventAssignment_t *ea);
 
 /**
+ * @return the sboTerm of this EventAssignment as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
+ * to a zero-padded, seven digit string.
+ */
+LIBSBML_EXTERN
+int
+EventAssignment_getSBOTerm (const EventAssignment_t *ea);
+
+/**
  * @return the math of this EventAssignment.
  */
 LIBSBML_EXTERN
@@ -257,6 +304,14 @@ EventAssignment_getMath (const EventAssignment_t *ea);
 LIBSBML_EXTERN
 int
 EventAssignment_isSetVariable (const EventAssignment_t *ea);
+
+/**
+ * @return true (non-zero) if the sboTerm of this EventAssignment has been
+ * set, false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+EventAssignment_isSetSBOTerm (const EventAssignment_t *ea);
 
 /**
  * @return 1 if the math of this EventAssignment has been set, 0 otherwise.
@@ -274,11 +329,26 @@ void
 EventAssignment_setVariable (EventAssignment_t *ea, const char *sid);
 
 /**
+ * Sets the sboTerm field of this EventAssignment to value.
+ */
+LIBSBML_EXTERN
+void
+EventAssignment_setSBOTerm (EventAssignment_t *ea, int sboTerm);
+
+/**
  * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
 LIBSBML_EXTERN
 void
 EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math);
+
+
+/**
+ * Unsets the sboTerm of this EventAssignment.
+ */
+LIBSBML_EXTERN
+void
+EventAssignment_unsetSBOTerm (EventAssignment_t *ea);
 
 
 END_C_DECLS

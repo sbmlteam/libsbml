@@ -24,12 +24,13 @@
 
 #include <cstring>
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "math/FormulaParser.h"
-#include "math/ASTNode.h"
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/ASTNode.h>
+#include <sbml/math/MathML.h>
 
 #include "SBMLVisitor.h"
 #include "FunctionDefinition.h"
@@ -67,7 +68,8 @@ FunctionDefinition::FunctionDefinition (  const string& id
  * Copies this FunctionDefinition.
  */
 FunctionDefinition::FunctionDefinition (const FunctionDefinition& rhs) :
-  mMath( 0 )
+   SBase( rhs )
+ , mMath( 0   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -226,6 +228,30 @@ FunctionDefinition::getElementName () const
 
 
 /**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+FunctionDefinition::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "math")
+  {
+    delete mMath;
+    mMath = readMathML(stream);
+    read  = true;
+  }
+
+  return read;
+}
+
+
+/**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -253,7 +279,7 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-FunctionDefinition::writeAttributes (XMLOutputStream& stream)
+FunctionDefinition::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -268,6 +294,17 @@ FunctionDefinition::writeAttributes (XMLOutputStream& stream)
   stream.writeAttribute("name", mName);
 }
 
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+FunctionDefinition::writeElements (XMLOutputStream& stream) const
+{
+  if (mMath) writeMathML(mMath, stream);
+}
 
 
 

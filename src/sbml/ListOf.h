@@ -26,7 +26,8 @@
 #define ListOf_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <vector>
 
-#include "SBMLTypeCodes.h"
-#include "SBase.h"
+#include <sbml/SBMLTypeCodes.h>
+#include <sbml/SBase.h>
 
 
 class SBMLVisitor;
@@ -64,7 +65,7 @@ public:
   /**
    * Accepts the given SBMLVisitor.
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this ListOf items.
@@ -127,6 +128,12 @@ public:
 
 
   /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
    * (default).
    */
@@ -149,7 +156,7 @@ public:
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 protected:
@@ -162,9 +169,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

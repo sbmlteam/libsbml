@@ -25,8 +25,8 @@
 #include <iomanip>
 #include <sstream>
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "SBML.h"
 
@@ -44,7 +44,7 @@ SBML::checkSBOTerm (const string& sboTerm)
   unsigned int size = sboTerm.size();
   bool         okay = (size == 7);
 
-  for (unsigned int n = 0; okay && n < size; ++n, okay = isdigit(sboTerm[n]));
+  for (unsigned int n = 0; okay && n < size; ++n) okay = isdigit(sboTerm[n]);
 
   return okay;
 }
@@ -123,7 +123,7 @@ SBML::sboTermToString (int sboTerm)
   if ( checkSBOTerm(sboTerm) )
   {
     ostringstream stream;
-    stream << setw(9) << setfill('0') << sboTerm;
+    stream << setw(7) << setfill('0') << sboTerm;
     result = stream.str();
   }
 

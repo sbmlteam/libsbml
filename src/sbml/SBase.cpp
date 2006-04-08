@@ -22,12 +22,12 @@
  */
 
 
-#include "xml/XMLError.h"
-#include "xml/XMLErrorLog.h"
-#include "xml/XMLOutputStream.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLToken.h"
-#include "xml/XMLNode.h"
+#include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLErrorLog.h>
+#include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLNode.h>
 
 #include "SBMLDocument.h"
 #include "SBase.h"
@@ -319,6 +319,19 @@ SBase::createObject (XMLInputStream&)
 
 
 /**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+SBase::readOtherXML (XMLInputStream&)
+{
+  return false;
+}
+
+
+/**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
  */
@@ -326,6 +339,17 @@ int
 SBase::getElementPosition () const
 {
   return -1;
+}
+
+
+/**
+ * @return the SBMLErrorLog used to log errors during while reading and
+ * validating SBML.
+ */
+SBMLErrorLog*
+SBase::getErrorLog ()
+{
+  return (mSBML != 0) ? mSBML->getErrorLog() : 0;
 }
 
 
@@ -343,6 +367,16 @@ SBase::setSBaseFields (const XMLToken& element)
   {
     mNamespaces = new XMLNamespaces( element.getNamespaces() );
   }
+}
+
+
+/**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+SBase::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
 }
 
 
@@ -367,7 +401,12 @@ SBase::read (XMLInputStream& stream)
     stream.skipText();
     const XMLToken& next = stream.peek();
 
-    if ( next.isStart() )
+    if ( next.isEndFor(element) )
+    {
+      stream.next();
+      break;
+    }
+    else if ( next.isStart() )
     {
       SBase* object = createObject(stream);
 
@@ -379,17 +418,11 @@ SBase::read (XMLInputStream& stream)
         object->mSBML = mSBML;
         object->read(stream);
       }
-      else
+      else if ( !readOtherXML(stream) )
       {
         // logUnrecognized(next, log);
-        stream.skipPast( stream.next() );
+        stream.skipPastEnd( stream.next() );
       }
-    }
-
-    if ( next.isEndFor(element) )
-    {
-      stream.next();
-      break;
     }
   }
 }
@@ -411,7 +444,7 @@ SBase::readAttributes (const XMLAttributes& attributes)
  * Writes (serializes) this SBML object by writing it to XMLOutputStream.
  */
 void
-SBase::write (XMLOutputStream& stream)
+SBase::write (XMLOutputStream& stream) const
 {
   stream.startElement( getElementName() );
 
@@ -428,7 +461,7 @@ SBase::write (XMLOutputStream& stream)
  * of this method as well.
  */
 void
-SBase::writeAttributes (XMLOutputStream& stream)
+SBase::writeAttributes (XMLOutputStream& stream) const
 {
   if (mNamespaces) stream << *mNamespaces;
 
@@ -445,7 +478,7 @@ SBase::writeAttributes (XMLOutputStream& stream)
  * implementation of this method as well.
  */
 void
-SBase::writeElements (XMLOutputStream& stream)
+SBase::writeElements (XMLOutputStream& stream) const
 {
   if ( mNotes      ) stream << *mNotes;
   if ( mAnnotation ) stream << *mAnnotation;

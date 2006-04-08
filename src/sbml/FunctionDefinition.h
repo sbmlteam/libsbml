@@ -26,7 +26,8 @@
 #define FunctionDefinition_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class ASTNode;
@@ -77,7 +78,7 @@ public:
    * whether or not the Visitor would like to visit the Model's next
    * FunctionDefinition (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this FunctionDefinition.
@@ -141,8 +142,23 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
 
 protected:
+
+  /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  virtual bool readOtherXML (XMLInputStream& stream);
 
   /**
    * Subclasses should override this method to read values from the given
@@ -156,7 +172,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   ASTNode*  mMath;
@@ -203,9 +219,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

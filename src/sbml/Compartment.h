@@ -26,7 +26,8 @@
 #define Compartment_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class SBMLVisitor;
@@ -64,7 +65,7 @@ public:
    * whether or not the Visitor would like to visit the Model's next
    * Compartment (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this Compartment.
@@ -250,7 +251,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   std::string   mCompartmentType;
@@ -304,9 +305,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -419,10 +417,6 @@ Compartment_isSetId (const Compartment_t *c);
 /**
  * @return true (non-zero) if the name of this Compartment has been set,
  * false (0) otherwise.
- *
- * In SBML L1, a Compartment name is required and therefore <b>should
- * always be set</b>.  In L2, name is optional and as such may or may not
- * be set.
  */
 LIBSBML_EXTERN
 int
@@ -481,7 +475,7 @@ void
 Compartment_setId (Compartment_t *c, const char *sid);
 
 /**
- * Sets the name of this Compartment to a copy of string (SName in L1).
+ * Sets the name of this Compartment to a copy of string.
  */
 LIBSBML_EXTERN
 void

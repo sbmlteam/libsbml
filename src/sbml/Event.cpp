@@ -22,13 +22,15 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "math/FormulaParser.h"
-#include "math/ASTNode.h"
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/MathML.h>
+#include <sbml/math/ASTNode.h>
 
+#include "SBML.h"
 #include "SBMLVisitor.h"
 #include "EventAssignment.h"
 #include "Event.h"
@@ -45,7 +47,8 @@ using namespace std;
 Event::Event (const string& id, const string& trigger, const string& delay) :
    SBase   ( id )
  , mTrigger( SBML_parseFormula( trigger.c_str() ) )
- , mDelay  ( SBML_parseFormula( trigger.c_str() ) )
+ , mDelay  ( SBML_parseFormula( delay  .c_str() ) )
+ , mSBOTerm( -1 )
 {
 }
 
@@ -58,6 +61,7 @@ Event::Event (const string& id, ASTNode* trigger, ASTNode* delay) :
     SBase   ( id )
   , mTrigger( 0  )
   , mDelay  ( 0  )
+ , mSBOTerm ( -1 )
 {
   if (trigger) mTrigger = trigger->deepCopy();
   if (delay)   mDelay   = delay  ->deepCopy();
@@ -68,10 +72,12 @@ Event::Event (const string& id, ASTNode* trigger, ASTNode* delay) :
  * Copies this Event.
  */
 Event::Event (const Event& rhs) :
-   mTrigger         ( 0 )
- , mDelay           ( 0 )
+   SBase            ( rhs )
+ , mTrigger         ( 0   )
+ , mDelay           ( 0   )
  , mTimeUnits       ( rhs.mTimeUnits        )
  , mEventAssignments( rhs.mEventAssignments )
+ , mSBOTerm         ( rhs.mSBOTerm          )
 {
   if (rhs.mTrigger) mTrigger = rhs.mTrigger->deepCopy();
   if (rhs.mDelay)   mDelay   = rhs.mDelay  ->deepCopy();
@@ -146,6 +152,18 @@ Event::getTimeUnits () const
 
 
 /**
+ * @return the sboTerm of this Event as an integer.  If not set, sboTerm
+ * will be -1.  Use SBML::sboTermToString() to convert the sboTerm to a
+ * zero-padded, seven digit string.
+ */
+int
+Event::getSBOTerm () const
+{
+  return mSBOTerm;
+}
+
+
+/**
  * @return true if the trigger of this Event has been set, false otherwise.
  */
 bool
@@ -173,6 +191,17 @@ bool
 Event::isSetTimeUnits () const
 {
   return (mTimeUnits.empty() == false);
+}
+
+
+/**
+ * @return true if the sboTerm of this Event has been set, false
+ * otherwise.
+ */
+bool
+Event::isSetSBOTerm () const
+{
+  return (mSBOTerm != -1);
 }
 
 
@@ -214,6 +243,16 @@ Event::setTimeUnits (const string& sid)
 
 
 /**
+ * Sets the sboTerm field of this Event to value.
+ */
+void
+Event::setSBOTerm (int sboTerm)
+{
+  mSBOTerm = sboTerm;
+}
+
+
+/**
  * Unsets the delay of this Event.
  */
 void
@@ -235,12 +274,36 @@ Event::unsetTimeUnits ()
 
 
 /**
+ * Unsets the sboTerm of this Event.
+ */
+void
+Event::unsetSBOTerm ()
+{
+  mSBOTerm = -1;
+}
+
+
+/**
  * Appends a copy of the given EventAssignment to this Event.
  */
 void
 Event::addEventAssignment (const EventAssignment* ea)
 {
   mEventAssignments.append(ea);
+}
+
+
+/**
+ * Creates a new EventAssignment, adds it to this Event's list of event
+ * assignments and returns it.
+ */
+EventAssignment*
+Event::createEventAssignment ()
+{
+  EventAssignment* ea = new EventAssignment;
+  mEventAssignments.appendAndOwn(ea);
+
+  return ea;
 }
 
 
@@ -318,6 +381,17 @@ Event::getNumEventAssignments () const
 
 
 /**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+Event::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+  mEventAssignments.setSBMLDocument(d);
+}
+
+
+/**
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -355,6 +429,44 @@ Event::createObject (XMLInputStream& stream)
 
 
 /**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+Event::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "trigger")
+  {
+    const XMLToken elem = stream.next();
+
+    delete mTrigger;
+    mTrigger = readMathML(stream);
+    read     = true;
+
+    stream.skipPastEnd(elem);
+  }
+  else if (name == "delay")
+  {
+    const XMLToken elem = stream.next();
+
+    delete mDelay;
+    mDelay = readMathML(stream);
+    read   = true;
+
+    stream.skipPastEnd(elem);
+  }
+
+  return read;
+}
+
+
+/**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -378,6 +490,11 @@ Event::readAttributes (const XMLAttributes& attributes)
   // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
   //
   attributes.readInto("timeUnits", mTimeUnits);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (getVersion() == 2) mSBOTerm = SBML::readSBOTerm(attributes);
 }
 
 
@@ -387,7 +504,7 @@ Event::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-Event::writeAttributes (XMLOutputStream& stream)
+Event::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -405,6 +522,11 @@ Event::writeAttributes (XMLOutputStream& stream)
   // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
   //
   stream.writeAttribute("timeUnits", mTimeUnits);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (getVersion() == 2) SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -414,9 +536,24 @@ Event::writeAttributes (XMLOutputStream& stream)
  * implementation of this method as well.
  */
 void
-Event::writeElements (XMLOutputStream& stream)
+Event::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
+
+  if (mTrigger)
+  {
+    stream.startElement("trigger");
+    writeMathML(mTrigger, stream);
+    stream.endElement("trigger");
+  }
+
+  if (mDelay)
+  {
+    stream.startElement("delay");
+    writeMathML(mDelay, stream);
+    stream.endElement("delay");
+  }
+
   if ( getNumEventAssignments() > 0 ) mEventAssignments.write(stream);
 }
 
@@ -583,6 +720,19 @@ Event_getTimeUnits (const Event_t *e)
 
 
 /**
+ * @return the sboTerm of this Event as an integer.  If not set, sboTerm
+ * will be -1.  Use SBML_sboTermToString() to convert the sboTerm to a
+ * zero-padded, seven digit string.
+ */
+LIBSBML_EXTERN
+int
+Event_getSBOTerm (const Event_t *e)
+{
+  return e->getSBOTerm();
+}
+
+
+/**
  * @return 1 if the id of this Event has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -634,6 +784,18 @@ int
 Event_isSetTimeUnits (const Event_t *e)
 {
   return static_cast<int>( e->isSetTimeUnits() );
+}
+
+
+/**
+ * @return true (non-zero) if the sboTerm of this Event has been set, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Event_isSetSBOTerm (const Event_t *e)
+{
+  return static_cast<int>( e->isSetSBOTerm() );
 }
 
 
@@ -693,6 +855,17 @@ Event_setTimeUnits (Event_t *e, const char *sid)
 
 
 /**
+ * Sets the sboTerm field of this Event to value.
+ */
+LIBSBML_EXTERN
+void
+Event_setSBOTerm (Event_t *e, int sboTerm)
+{
+  e->setSBOTerm(sboTerm);
+}
+
+
+/**
  * Unsets the id of this Event.
  */
 LIBSBML_EXTERN
@@ -737,6 +910,17 @@ Event_unsetTimeUnits (Event_t *e)
 
 
 /**
+ * Unsets the sboTerm of this Event.
+ */
+LIBSBML_EXTERN
+void
+Event_unsetSBOTerm (Event_t *e)
+{
+  e->unsetSBOTerm();
+}
+
+
+/**
  * Appends a copy of the given EventAssignment to this Event.
  */
 LIBSBML_EXTERN
@@ -744,6 +928,18 @@ void
 Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea)
 {
   if (ea != NULL) e->addEventAssignment(ea);
+}
+
+
+/**
+ * Creates a new EventAssignment, adds it to this Event's list of event
+ * assignments and returns it.
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+Event_createEventAssignment (Event_t *e)
+{
+  return e->createEventAssignment();
 }
 
 

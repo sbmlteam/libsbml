@@ -26,14 +26,17 @@
 #define Reaction_h
 
 
+#include <sbml/common/sbmlfwd.h>
+
+
 #ifdef __cplusplus
 
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
-#include "SpeciesReference.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
+#include <sbml/SpeciesReference.h>
 
 class KineticLaw;
 class SBMLVisitor;
@@ -69,7 +72,7 @@ public:
    * whether or not the Visitor would like to visit the Model's next
    * Reaction (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this Reaction.
@@ -156,15 +159,15 @@ public:
 
   /**
    * @return the reactant (SpeciesReference) in this Reaction with the
-   * given id or NULL if no such reactant exists.
+   * given species or NULL if no such reactant exists.
    */
-  const SpeciesReference* getReactant (const std::string& sid) const;
+  const SpeciesReference* getReactant (const std::string& species) const;
 
   /**
    * @return the reactant (SpeciesReference) in this Reaction with the
-   * given id or NULL if no such reactant exists.
+   * given species or NULL if no such reactant exists.
    */
-  SpeciesReference* getReactant (const std::string& sid);
+  SpeciesReference* getReactant (const std::string& species);
 
 
   /**
@@ -179,15 +182,15 @@ public:
 
   /**
    * @return the product (SpeciesReference) in this Reaction with the given
-   * id or NULL if no such product exists.
+   * species or NULL if no such product exists.
    */
-  const SpeciesReference* getProduct (const std::string& sid) const;
+  const SpeciesReference* getProduct (const std::string& species) const;
 
   /**
    * @return the product (SpeciesReference) in this Reaction with the given
-   * id or NULL if no such product exists.
+   * species or NULL if no such product exists.
    */
-  SpeciesReference* getProduct (const std::string& sid);
+  SpeciesReference* getProduct (const std::string& species);
 
 
   /**
@@ -202,15 +205,16 @@ public:
 
   /**
    * @return the modifier (ModifierSpeciesReference) in this Reaction with
-   * the given id or NULL if no such modifier exists.
+   * the given species or NULL if no such modifier exists.
    */
-  const ModifierSpeciesReference* getModifier (const std::string& sid) const;
+  const ModifierSpeciesReference*
+  getModifier (const std::string& species) const;
 
   /**
    * @return the modifier (ModifierSpeciesReference) in this Reaction with
-   * the given id or NULL if no such modifier exists.
+   * the given species or NULL if no such modifier exists.
    */
-  ModifierSpeciesReference* getModifier (const std::string& sid);
+  ModifierSpeciesReference* getModifier (const std::string& species);
 
 
   /**
@@ -293,6 +297,11 @@ public:
    */
   ModifierSpeciesReference* createModifier ();
 
+  /**
+   * Creates a new KineticLaw for this Reaction and returns it.  If this
+   * Reaction had a previous KineticLaw, it will be destroyed.
+   */
+  KineticLaw* createKineticLaw ();
 
   /**
    * @return the number of reactants (SpeciesReferences) in this Reaction.
@@ -332,6 +341,12 @@ public:
 
 
   /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
    * (default).
    *
@@ -350,7 +365,7 @@ public:
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 protected:
@@ -373,7 +388,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   ListOfSpeciesReferences  mReactants;
@@ -429,9 +444,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -557,11 +569,11 @@ Reaction_getReactant (Reaction_t *r, unsigned int n);
 
 /**
  * @return the reactant (SpeciesReference) in this Reaction with the given
- * id or NULL if no such reactant exists.
+ * species or NULL if no such reactant exists.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getReactantById (Reaction_t *r, const char *sid);
+Reaction_getReactantBySpecies (Reaction_t *r, const char *species);
 
 /**
  * @return the nth product (SpeciesReference) of this Reaction.
@@ -572,11 +584,11 @@ Reaction_getProduct (Reaction_t *r, unsigned int n);
 
 /**
  * @return the product (SpeciesReference) in this Reaction with the given
- * id or NULL if no such product exists.
+ * species or NULL if no such product exists.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getProductById (Reaction_t *r, const char *sid);
+Reaction_getProductBySpecies (Reaction_t *r, const char *species);
 
 /**
  * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
@@ -587,11 +599,11 @@ Reaction_getModifier (Reaction_t *r, unsigned int n);
 
 /**
  * @return the modifier (ModifierSpeciesReference) in this Reaction with
- * the given id or NULL if no such modifier exists.
+ * the given species or NULL if no such modifier exists.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-Reaction_getModifierById (Reaction_t *r, const char *sid);
+Reaction_getModifierBySpecies (Reaction_t *r, const char *species);
 
 
 /**
@@ -728,6 +740,14 @@ Reaction_createProduct (Reaction_t *r);
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createModifier (Reaction_t *r);
+
+/**
+ * Creates a new KineticLaw for this Reaction and returns it.  If this
+ * Reaction had a previous KineticLaw, it will be destroyed.
+ */
+LIBSBML_EXTERN
+KineticLaw_t *
+Reaction_createKineticLaw (Reaction_t *r);
 
 
 /**

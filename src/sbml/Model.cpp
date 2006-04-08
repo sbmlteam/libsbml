@@ -22,20 +22,22 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "math/ASTNode.h"
+#include <sbml/math/ASTNode.h>
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
 
 
 #ifdef USE_LAYOUT
-#  include "layout/Layout.h"
+#  include <sbml/layout/Layout.h>
 #endif  /* USE_LAYOUT */
 
+
+#include "KineticLaw.h"
 #include "Model.h"
 
 
@@ -45,7 +47,9 @@ using namespace std;
 /**
  * Creates a new Model, optionally with its id and name attributes set.
  */
-Model::Model (const string& id, const string& name) : SBase (id, name)
+Model::Model (const string& id, const string& name) :
+   SBase   ( id, name )
+ , mSBOTerm( -1       )
 {
 }
 
@@ -68,10 +72,14 @@ Model::accept (SBMLVisitor& v) const
 
   mFunctionDefinitions.accept(v);
   mUnitDefinitions    .accept(v);
+  mCompartmentTypes   .accept(v);
+  mSpeciesTypes       .accept(v);
   mCompartments       .accept(v);
   mSpecies            .accept(v);
   mParameters         .accept(v);
+  mInitialAssignments .accept(v);
   mRules              .accept(v);
+  mConstraints        .accept(v);
   mReactions          .accept(v);
   mEvents             .accept(v);
 
@@ -155,6 +163,26 @@ Model::addUnitDefinition (const UnitDefinition* ud)
 
 
 /**
+ * Adds a copy of the given CompartmentType to this Model.
+ */
+void
+Model::addCompartmentType (const CompartmentType* ct)
+{
+  mCompartmentTypes.append(ct);
+}
+
+
+/**
+ * Adds a copy of the given SpeciesType to this Model.
+ */
+void
+Model::addSpeciesType (const SpeciesType* st)
+{
+  mSpeciesTypes.append(st);
+}
+
+
+/**
  * Adds a copy of the given Compartment to this Model.
  */
 void
@@ -185,12 +213,32 @@ Model::addParameter (const Parameter* p)
 
 
 /**
+ * Adds a copy of the given InitialAssignment to this Model.
+ */
+void
+Model::addInitialAssignment (const InitialAssignment* ia)
+{
+  mInitialAssignments.append(ia);
+}
+
+
+/**
  * Adds a copy of the given Rule to this Model.
  */
 void
 Model::addRule (const Rule* r)
 {
   mRules.append(r);
+}
+
+
+/**
+ * Adds a copy of the given Constraint to this Model.
+ */
+void
+Model::addConstraint (const Constraint* c)
+{
+  mConstraints.append(c);
 }
 
 
@@ -236,7 +284,7 @@ Model::createUnitDefinition ()
   UnitDefinition* ud = new UnitDefinition;
   mUnitDefinitions.appendAndOwn(ud);
 
-   return ud;
+  return ud;
 }
 
 
@@ -248,25 +296,36 @@ Model::createUnitDefinition ()
  * created and NULL is returned.
  */
 Unit*
-Model::createUnit ()  // FIXME
+Model::createUnit ()
 {
-  return 0;
-  /*
-  Unit*           u    = 0;
-  UnitDefinition* ud   = 0;
-  unsigned int    size = getNumUnitDefinitions();
+  unsigned int size = getNumUnitDefinitions();
+  return (size > 0) ? getUnitDefinition(size - 1)->createUnit() : 0;
+}
 
 
-  if (size > 0)
-  {
-    u  = new Unit;
-    ud = getUnitDefinition(size - 1);
+/**
+ * Creates a new CompartmentType inside this Model and returns it.
+ */
+CompartmentType*
+Model::createCompartmentType ()
+{
+  CompartmentType* ct = new CompartmentType;
+  mCompartmentTypes.appendAndOwn(ct);
 
-    ud->getListOfUnits()->appendAndOwn(u);  // FIXME: Need createUnit()
-  }
+  return ct;
+}
 
-  return u;
-  */
+
+/**
+ * Creates a new SpeciesType inside this Model and returns it.
+ */
+SpeciesType*
+Model::createSpeciesType ()
+{
+  SpeciesType* st = new SpeciesType;
+  mSpeciesTypes.appendAndOwn(st);
+
+  return st;
 }
 
 
@@ -310,6 +369,19 @@ Model::createParameter ()
 
 
 /**
+ * Creates a new InitialAssignment inside this Model and returns it.
+ */
+InitialAssignment*
+Model::createInitialAssignment ()
+{
+  InitialAssignment* ia = new InitialAssignment;
+  mInitialAssignments.appendAndOwn(ia);
+
+  return ia;
+}
+
+
+/**
  * Creates a new AlgebraicRule inside this Model and returns it.
  */
 AlgebraicRule*
@@ -345,6 +417,19 @@ Model::createRateRule ()
   mRules.appendAndOwn(rr);
 
   return rr;
+}
+
+
+/**
+ * Creates a new Constraint inside this Model and returns it.
+ */
+Constraint*
+Model::createConstraint ()
+{
+  Constraint* c = new Constraint;
+  mConstraints.appendAndOwn(c);
+
+  return c;
 }
 
 
@@ -418,33 +503,10 @@ Model::createModifier ()
  * is returned.
  */
 KineticLaw*
-Model::createKineticLaw ()  // FIXME
+Model::createKineticLaw ()
 {
-  return 0;
-  /*
-  KineticLaw*  kl   = 0;
-  Reaction*    r    = 0;
   unsigned int size = getNumReactions();
-
-
-  if (size > 0)
-  {
-    r  = getReaction(size - 1);
-    kl = r->getKineticLaw();
-
-    if (kl == 0)
-    {
-      kl = new KineticLaw;
-      r->setKineticLaw(*kl); // FIXME: Need Reaction.createKineticLaw
-    }
-    else
-    {
-      kl = 0;
-    }
-  }
-
-  return kl;
-  */
+  return (size > 0) ? getReaction(size - 1)->createKineticLaw() : 0;
 }
 
 
@@ -457,30 +519,17 @@ Model::createKineticLaw ()  // FIXME
  * Reaction, a new Parameter is not created and NULL is returned.
  */
 Parameter*
-Model::createKineticLawParameter ()  // FIXME
+Model::createKineticLawParameter ()
 {
-  return 0;
-  /*
-  Parameter*   p    = 0;
-  KineticLaw*  kl   = 0;
-  Reaction*    r    = 0;
   unsigned int size = getNumReactions();
-
 
   if (size > 0)
   {
-    r  = getReaction(size - 1);
-    kl = r->getKineticLaw();
-
-    if (kl != 0)
-    {
-      p = new Parameter;
-      kl->addParameter(*p);  // FIXME: Need KineticLaw.createParameter()
-    }
+    KineticLaw* kl = getReaction(size - 1)->getKineticLaw();
+    if (kl) return kl->createParameter();
   }
 
-  return p;
-  */
+  return 0;
 }
 
 
@@ -505,32 +554,17 @@ Model::createEvent ()
  * created and NULL is returned.
  */
 EventAssignment*
-Model::createEventAssignment ()  // FIXME
+Model::createEventAssignment ()
 {
-  return 0;
-  /*
-  EventAssignment* ea   = 0;
-  Event*           e    = 0;
-  unsigned int     size = getNumEvents();
-
-
-  if (size > 0)
-  {
-    ea = new EventAssignment;
-    e  = getEvent(size - 1);
-
-    e->addEventAssignment(*ea);  // Need Event->createEventAssignment()
-  }
-
-  return ea;
-  */
+  unsigned int size = getNumEvents();
+  return (size > 0) ? getEvent(size - 1)->createEventAssignment() : 0;
 }
 
 
 /**
  * @return the list of FunctionDefinitions for this Model.
  */
-const ListOf*
+const ListOfFunctionDefinitions*
 Model::getListOfFunctionDefinitions () const
 {
   return &mFunctionDefinitions;
@@ -540,7 +574,7 @@ Model::getListOfFunctionDefinitions () const
 /**
  * @return the list of FunctionDefinitions for this Model.
  */
-ListOf*
+ListOfFunctionDefinitions*
 Model::getListOfFunctionDefinitions ()
 {
   return &mFunctionDefinitions;
@@ -550,7 +584,7 @@ Model::getListOfFunctionDefinitions ()
 /**
  * @return the list of UnitDefinitions for this Model.
  */
-const ListOf*
+const ListOfUnitDefinitions*
 Model::getListOfUnitDefinitions () const
 {
   return &mUnitDefinitions;
@@ -560,7 +594,7 @@ Model::getListOfUnitDefinitions () const
 /**
  * @return the list of UnitDefinitions for this Model.
  */
-ListOf*
+ListOfUnitDefinitions*
 Model::getListOfUnitDefinitions ()
 {
   return &mUnitDefinitions;
@@ -568,9 +602,49 @@ Model::getListOfUnitDefinitions ()
 
 
 /**
+ * @return the list of CompartmentTypes for this Model.
+ */
+const ListOfCompartmentTypes*
+Model::getListOfCompartmentTypes () const
+{
+  return &mCompartmentTypes;
+}
+
+
+/**
+ * @return the list of CompartmentTypes for this Model.
+ */
+ListOfCompartmentTypes*
+Model::getListOfCompartmentTypes ()
+{
+  return &mCompartmentTypes;
+}
+
+
+/**
+ * @return the list of SpeciesTypes for this Model.
+ */
+const ListOfSpeciesTypes*
+Model::getListOfSpeciesTypes () const
+{
+  return &mSpeciesTypes;
+}
+
+ 
+/**
+ * @return the list of SpeciesTypes for this Model.
+ */
+ListOfSpeciesTypes*
+Model::getListOfSpeciesTypes ()
+{
+  return &mSpeciesTypes;
+}
+
+
+/**
  * @return the list of Compartments for this Model.
  */
-const ListOf*
+const ListOfCompartments*
 Model::getListOfCompartments () const
 {
   return &mCompartments;
@@ -580,7 +654,7 @@ Model::getListOfCompartments () const
 /**
  * @return the list of Compartments for this Model.
  */
-ListOf*
+ListOfCompartments*
 Model::getListOfCompartments ()
 {
   return &mCompartments;
@@ -590,7 +664,7 @@ Model::getListOfCompartments ()
 /**
  * @return the list of Species for this Model.
  */
-const ListOf*
+const ListOfSpecies*
 Model::getListOfSpecies () const
 {
   return &mSpecies;
@@ -600,7 +674,7 @@ Model::getListOfSpecies () const
 /**
  * @return the list of Species for this Model.
  */
-ListOf*
+ListOfSpecies*
 Model::getListOfSpecies ()
 {
   return &mSpecies;
@@ -610,7 +684,7 @@ Model::getListOfSpecies ()
 /**
  * @return the list of Parameters for this Model.
  */
-const ListOf*
+const ListOfParameters*
 Model::getListOfParameters () const
 {
   return &mParameters;
@@ -620,7 +694,7 @@ Model::getListOfParameters () const
 /**
  * @return the list of Parameters for this Model.
  */
-ListOf*
+ListOfParameters*
 Model::getListOfParameters ()
 {
   return &mParameters;
@@ -628,9 +702,29 @@ Model::getListOfParameters ()
 
 
 /**
+ * @return the list of InitialAssignments for this Model.
+ */
+const ListOfInitialAssignments*
+Model::getListOfInitialAssignments () const
+{
+  return &mInitialAssignments;
+}
+
+
+/**
+ * @return the list of InitialAssignment for this Model.
+ */
+ListOfInitialAssignments*
+Model::getListOfInitialAssignments ()
+{
+  return &mInitialAssignments;
+}
+
+
+/**
  * @return the list of Rules for this Model.
  */
-const ListOf*
+const ListOfRules*
 Model::getListOfRules () const
 {
   return &mRules;
@@ -640,7 +734,7 @@ Model::getListOfRules () const
 /**
  * @return the list of Rules for this Model.
  */
-ListOf*
+ListOfRules*
 Model::getListOfRules ()
 {
   return &mRules;
@@ -648,9 +742,29 @@ Model::getListOfRules ()
 
 
 /**
+ * @return the list of Constraints for this Model.
+ */
+const ListOfConstraints*
+Model::getListOfConstraints () const
+{
+  return &mConstraints;
+}
+
+ 
+/**
+ * @return the list of Constraints for this Model.
+ */
+ListOfConstraints*
+Model::getListOfConstraints ()
+{
+  return &mConstraints;
+}
+
+
+/**
  * @return the list of Reactions for this Model.
  */
-const ListOf*
+const ListOfReactions*
 Model::getListOfReactions () const
 {
   return &mReactions;
@@ -660,7 +774,7 @@ Model::getListOfReactions () const
 /**
  * @return the list of Reactions for this Model.
  */
-ListOf*
+ListOfReactions*
 Model::getListOfReactions ()
 {
   return &mReactions;
@@ -670,7 +784,7 @@ Model::getListOfReactions ()
 /**
  * @return the list of Events for this Model.
  */
-const ListOf*
+const ListOfEvents*
 Model::getListOfEvents () const
 {
   return &mEvents;
@@ -680,7 +794,7 @@ Model::getListOfEvents () const
 /**
  * @return the list of Events for this Model.
  */
-ListOf*
+ListOfEvents*
 Model::getListOfEvents ()
 {
   return &mEvents;
@@ -768,6 +882,90 @@ UnitDefinition*
 Model::getUnitDefinition (const string& sid)
 {
   return static_cast<UnitDefinition*>( mUnitDefinitions.get(sid) );
+}
+
+
+/**
+ * @return the nth CompartmentType of this Model.
+ */
+const CompartmentType*
+Model::getCompartmentType (unsigned int n) const
+{
+  return static_cast<const CompartmentType*>( mCompartmentTypes.get(n) );
+}
+
+
+/**
+ * @return the nth CompartmentType of this Model.
+ */
+CompartmentType*
+Model::getCompartmentType (unsigned int n)
+{
+  return static_cast<CompartmentType*>( mCompartmentTypes.get(n) );
+}
+
+
+/**
+ * @return the CompartmentType in this Model with the given id or NULL if
+ * no such CompartmentType exists.
+ */
+const CompartmentType*
+Model::getCompartmentType (const string& sid) const
+{
+  return static_cast<const CompartmentType*>( mCompartmentTypes.get(sid) );
+}
+
+
+/**
+ * @return the CompartmentType in this Model with the given id or NULL if
+ * no such CompartmentType exists.
+ */
+CompartmentType*
+Model::getCompartmentType (const string& sid)
+{
+  return static_cast<CompartmentType*>( mCompartmentTypes.get(sid) );
+}
+
+
+/**
+ * @return the nth SpeciesType of this Model.
+ */
+const SpeciesType*
+Model::getSpeciesType (unsigned int n) const
+{
+  return static_cast<const SpeciesType*>( mSpeciesTypes.get(n) );
+}
+
+
+/**
+ * @return the nth SpeciesType of this Model.
+ */
+SpeciesType*
+Model::getSpeciesType (unsigned int n)
+{
+  return static_cast<SpeciesType*>( mSpeciesTypes.get(n) );
+}
+
+
+/**
+ * @return the SpeciesType in this Model with the given id or NULL if
+ * no such SpeciesType exists.
+ */
+const SpeciesType*
+Model::getSpeciesType (const string& sid) const
+{
+  return static_cast<const SpeciesType*>( mSpeciesTypes.get(sid) );
+}
+
+
+/**
+ * @return the SpeciesType in this Model with the given id or NULL if
+ * no such SpeciesType exists.
+ */
+SpeciesType*
+Model::getSpeciesType (const string& sid)
+{
+  return static_cast<SpeciesType*>( mSpeciesTypes.get(sid) );
 }
 
 
@@ -898,6 +1096,51 @@ Model::getParameter (const string& sid)
 
 
 /**
+ * @return the nth InitialAssignment of this Model.
+ */
+const InitialAssignment*
+Model::getInitialAssignment (unsigned int n) const
+{
+  return static_cast<const InitialAssignment*>( mInitialAssignments.get(n) );
+}
+
+
+/**
+ * @return the nth InitialAssignment of this Model.
+ */
+InitialAssignment*
+Model::getInitialAssignment (unsigned int n)
+{
+  return static_cast<InitialAssignment*>( mInitialAssignments.get(n) );
+}
+
+
+/**
+ * @return the InitialAssignment in this Model with the given symbol or
+ * NULL if no such InitialAssignment exists.
+ */
+const InitialAssignment*
+Model::getInitialAssignment (const string& symbol) const
+{
+  return static_cast<const InitialAssignment*>
+  (
+    mInitialAssignments.get(symbol)
+  );
+}
+
+ 
+/**
+ * @return the InitialAssignment in this Model with the given symbol or
+ * NULL if no such InitialAssignment exists.
+ */
+InitialAssignment*
+Model::getInitialAssignment (const string& symbol)
+{
+  return static_cast<InitialAssignment*>( mInitialAssignments.get(symbol) );
+}
+
+
+/**
  * @return the nth Rule of this Model.
  */
 const Rule*
@@ -914,6 +1157,48 @@ Rule*
 Model::getRule (unsigned int n)
 {
   return static_cast<Rule*>( mRules.get(n) );
+}
+
+
+/**
+ * @return the Rule in this Model with the given variable or NULL if no
+ * such Rule exists.
+ */
+const Rule*
+Model::getRule (const string& variable) const
+{
+  return static_cast<const Rule*>( mRules.get(variable) );
+}
+
+ 
+/**
+ * @return the Rule in this Model with the given symbol or NULL if no
+ * such Rule exists.
+ */
+Rule*
+Model::getRule (const string& variable)
+{
+  return static_cast<Rule*>( mRules.get(variable) );
+}
+
+
+/**
+ * @return the nth Constraint of this Model.
+ */
+const Constraint*
+Model::getConstraint (unsigned int n) const
+{
+  return static_cast<const Constraint*>( mConstraints.get(n) );
+}
+
+
+/**
+ * @return the nth Constraint of this Model.
+ */
+Constraint*
+Model::getConstraint (unsigned int n)
+{
+  return static_cast<Constraint*>( mConstraints.get(n) );
 }
 
 
@@ -1022,6 +1307,26 @@ Model::getNumUnitDefinitions () const
 
 
 /**
+ * @return the number of CompartmentTypes in this Model.
+ */
+unsigned int
+Model::getNumCompartmentTypes () const
+{
+  return mCompartmentTypes.size();
+}
+
+
+/**
+ * @return the number of SpeciesTypes in this Model.
+ */
+unsigned int
+Model::getNumSpeciesTypes () const
+{
+  return mSpeciesTypes.size();
+}
+
+
+/**
  * @return the number of Compartments in this Model.
  */
 unsigned int
@@ -1065,12 +1370,32 @@ Model::getNumParameters () const
 
 
 /**
+ * @return the number of InitialAssignments in this Model.
+ */
+unsigned int
+Model::getNumInitialAssignments () const
+{
+  return mInitialAssignments.size();
+}
+
+
+/**
  * @return the number of Rules in this Model.
  */
 unsigned int
 Model::getNumRules () const
 {
   return mRules.size();
+}
+
+
+/**
+ * @return the number of Constraints in this Model.
+ */
+unsigned int
+Model::getNumConstraints () const
+{
+  return mConstraints.size();
 }
 
 
@@ -1144,6 +1469,29 @@ Model::isBoolean (const ASTNode* node) const
 
 
 /**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+Model::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+
+  mFunctionDefinitions.setSBMLDocument(d);
+  mUnitDefinitions    .setSBMLDocument(d);
+  mCompartmentTypes   .setSBMLDocument(d);
+  mSpeciesTypes       .setSBMLDocument(d);
+  mCompartments       .setSBMLDocument(d);
+  mSpecies            .setSBMLDocument(d);
+  mParameters         .setSBMLDocument(d);
+  mInitialAssignments .setSBMLDocument(d);
+  mRules              .setSBMLDocument(d);
+  mConstraints        .setSBMLDocument(d);
+  mReactions          .setSBMLDocument(d);
+  mEvents             .setSBMLDocument(d);
+}
+
+
+/**
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -1182,13 +1530,22 @@ Model::createObject (XMLInputStream& stream)
   {
     object = &mFunctionDefinitions;
   }
-  else if ( name == "listOfUnitDefinitions" ) object = &mUnitDefinitions;
-  else if ( name == "listOfCompartments"    ) object = &mCompartments;
-  else if ( name == "listOfSpecies"         ) object = &mSpecies;
-  else if ( name == "listOfParameters"      ) object = &mParameters;
-  else if ( name == "listOfRules"           ) object = &mRules;
-  else if ( name == "listOfReactions"       ) object = &mReactions;
-  else if ( name == "listOfEvents"          ) object = &mEvents;
+
+  else if ( name == "listOfUnitDefinitions"    ) object = &mUnitDefinitions;
+  else if ( name == "listOfCompartments"       ) object = &mCompartments;
+  else if ( name == "listOfSpecies"            ) object = &mSpecies;
+  else if ( name == "listOfParameters"         ) object = &mParameters;
+  else if ( name == "listOfInitialAssignments" ) object = &mInitialAssignments;
+  else if ( name == "listOfRules"              ) object = &mRules;
+  else if ( name == "listOfConstraints"        ) object = &mConstraints;
+  else if ( name == "listOfReactions"          ) object = &mReactions;
+  else if ( name == "listOfEvents"             ) object = &mEvents;
+
+  else if ( getLevel() == 1 && getVersion() == 1 )
+  {
+    if (name == "listOfSpecie") object = &mSpecies;
+  }
+
 
   return object;
 }
@@ -1232,7 +1589,7 @@ Model::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-Model::writeAttributes (XMLOutputStream& stream)
+Model::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -1264,24 +1621,49 @@ Model::writeAttributes (XMLOutputStream& stream)
  * implementation of this method as well.
  */
 void
-Model::writeElements (XMLOutputStream& stream)
+Model::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if (getNumFunctionDefinitions() > 0)
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  if (level == 2 && getNumFunctionDefinitions() > 0)
   {
-    mFunctionDefinitions.writeElements(stream);
+    mFunctionDefinitions.write(stream);
   }
 
   if ( getNumUnitDefinitions() > 0 ) mUnitDefinitions.write(stream);
-  if ( getNumCompartments   () > 0 ) mCompartments   .write(stream);
-  if ( getNumSpecies        () > 0 ) mSpecies        .write(stream);
-  if ( getNumParameters     () > 0 ) mParameters     .write(stream);
-  if ( getNumRules          () > 0 ) mRules          .write(stream);
-  if ( getNumReactions      () > 0 ) mReactions      .write(stream);
-  if ( getNumEvents         () > 0 ) mEvents         .write(stream);
-}
 
+  if (level == 2 && version == 2)
+  {
+    if ( getNumCompartmentTypes() > 0 ) mCompartmentTypes.write(stream);
+    if ( getNumSpeciesTypes    () > 0 ) mSpeciesTypes    .write(stream);
+  }
+
+  if ( getNumCompartments() > 0 ) mCompartments.write(stream);
+  if ( getNumSpecies     () > 0 ) mSpecies     .write(stream);
+  if ( getNumParameters  () > 0 ) mParameters  .write(stream);
+
+  if (level == 2 && version == 2)
+  {
+    if ( getNumInitialAssignments() > 0 ) mInitialAssignments.write(stream);
+  }
+
+  if ( getNumRules() > 0 ) mRules.write(stream);
+
+  if (level == 2 && version == 2)
+  {
+    if ( getNumConstraints() > 0 ) mConstraints.write(stream);
+  }
+
+  if ( getNumReactions() > 0 ) mReactions.write(stream);
+
+  if (level == 2 && getNumEvents () > 0 )
+  {
+    mEvents.write(stream);
+  }
+}
 
 
 #ifdef USE_LAYOUT
@@ -1562,6 +1944,28 @@ Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud)
 
 
 /**
+ * Adds a copy of the given CompartmentType to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct)
+{
+  if (ct != NULL) m->addCompartmentType(ct);
+}
+
+
+/**
+ * Adds a copy of the given SpeciesType to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addSpeciesType (Model_t *m, const SpeciesType_t *st)
+{
+  if (st != NULL) m->addSpeciesType(st);
+}
+
+
+/**
  * Adds a copy of the given Compartment to this Model.
  */
 LIBSBML_EXTERN
@@ -1595,6 +1999,17 @@ Model_addParameter (Model_t *m, const Parameter_t *p)
 
 
 /**
+ * Adds a copy of the given InitialAssignment to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia)
+{
+  if (ia != NULL) m->addInitialAssignment(ia);
+}
+
+
+/**
  * Adds a copy of the given Rule to this Model.
  */
 LIBSBML_EXTERN
@@ -1602,6 +2017,17 @@ void
 Model_addRule (Model_t *m, const Rule_t *r)
 {
   if (r != NULL) m->addRule(r);
+}
+
+
+/**
+ * Adds a copy of the given Constraint to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addConstraint (Model_t *m, const Constraint_t *c)
+{
+  if (c != NULL) m->addConstraint(c);
 }
 
 
@@ -1667,6 +2093,30 @@ Model_createUnit (Model_t *m)
 
 
 /**
+ * Creates a new CompartmentType inside this Model and returns a pointer to
+ * it.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+Model_createCompartmentType (Model_t *m)
+{
+  return m->createCompartmentType();
+}
+
+
+/**
+ * Creates a new SpeciesType inside this Model and returns a pointer to
+ * it.
+ */
+LIBSBML_EXTERN
+SpeciesType_t *
+Model_createSpeciesType (Model_t *m)
+{
+  return m->createSpeciesType();
+}
+
+
+/**
  * Creates a new Compartment inside this Model and returns a pointer to it.
  */
 LIBSBML_EXTERN
@@ -1700,11 +2150,22 @@ Model_createParameter (Model_t *m)
 
 
 /**
+ * Creates a new InitialAssignment inside this Model and returns it.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+Model_createInitialAssignment (Model_t *m)
+{
+  return m->createInitialAssignment();
+}
+
+
+/**
  * Creates a new AlgebraicRule inside this Model and returns a pointer to
  * it.
  */
 LIBSBML_EXTERN
-AlgebraicRule_t *
+Rule_t *
 Model_createAlgebraicRule (Model_t *m)
 {
   return m->createAlgebraicRule();
@@ -1716,7 +2177,7 @@ Model_createAlgebraicRule (Model_t *m)
  * it.
  */
 LIBSBML_EXTERN
-AssignmentRule_t *
+Rule_t *
 Model_createAssignmentRule (Model_t *m)
 {
   return m->createAssignmentRule();
@@ -1727,12 +2188,22 @@ Model_createAssignmentRule (Model_t *m)
  * Creates a new RateRule inside this Model and returns a pointer to it.
  */
 LIBSBML_EXTERN
-RateRule_t *
+Rule_t *
 Model_createRateRule (Model_t *m)
 {
   return m->createRateRule();
 }
 
+
+/**
+ * Creates a new Constraint inside this Model and returns it.
+ */
+LIBSBML_EXTERN
+Constraint_t *
+Model_createConstraint (Model_t *m)
+{
+  return m->createConstraint();
+}
 
 /**
  * Creates a new Reaction inside this Model and returns a pointer to it.
@@ -1876,6 +2347,28 @@ Model_getListOfUnitDefinitions (Model_t *m)
 
 
 /**
+ * @return the list of CompartmentTypes for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfCompartmentTypes (Model_t *m)
+{
+  return m->getListOfCompartmentTypes();
+}
+
+
+/**
+ * @return the list of SpeciesTypes for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfSpeciesTypes (Model_t *m)
+{
+  return m->getListOfSpeciesTypes();
+}
+
+
+/**
  * @return the list of Compartments for this Model.
  */
 LIBSBML_EXTERN
@@ -1909,6 +2402,17 @@ Model_getListOfParameters (Model_t *m)
 
 
 /**
+ * @return the list of InitialAssignments for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfInitialAssignments (Model_t* m)
+{
+  return m->getListOfInitialAssignments();
+}
+
+
+/**
  * @return the list of Rules for this Model.
  */
 LIBSBML_EXTERN
@@ -1916,6 +2420,17 @@ ListOf_t *
 Model_getListOfRules (Model_t *m)
 {
   return m->getListOfRules();
+}
+
+
+/**
+ * @return the list of Constraints for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfConstraints (Model_t* m)
+{
+  return m->getListOfConstraints();
 }
 
 
@@ -1984,6 +2499,52 @@ UnitDefinition_t *
 Model_getUnitDefinitionById (Model_t *m, const char *sid)
 {
   return (sid != NULL) ? m->getUnitDefinition(sid) : NULL;
+}
+
+
+/**
+ * @return the nth CompartmentType of this Model.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+Model_getCompartmentType (Model_t *m, unsigned int n)
+{
+  return m->getCompartmentType(n);
+}
+
+
+/**
+ * @return the CompartmentType in this Model with the given id or NULL if no
+ * such CompartmentType exists.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+Model_getCompartmentTypeById (Model_t *m, const char *sid)
+{
+  return (sid != NULL) ? m->getCompartmentType(sid) : NULL;
+}
+
+
+/**
+ * @return the nth SpeciesType of this Model.
+ */
+LIBSBML_EXTERN
+SpeciesType_t *
+Model_getSpeciesType (Model_t *m, unsigned int n)
+{
+  return m->getSpeciesType(n);
+}
+
+
+/**
+ * @return the SpeciesType in this Model with the given id or NULL if no
+ * such SpeciesType exists.
+ */
+LIBSBML_EXTERN
+SpeciesType_t *
+Model_getSpeciesTypeById (Model_t *m, const char *sid)
+{
+  return (sid != NULL) ? m->getSpeciesType(sid) : NULL;
 }
 
 
@@ -2057,6 +2618,29 @@ Model_getParameterById (Model_t *m, const char *sid)
 
 
 /**
+ * @return the nth InitialAssignment of this Model.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+Model_getInitialAssignment (Model_t *m, unsigned int n)
+{
+  return m->getInitialAssignment(n);
+}
+
+
+/**
+ * @return the InitialAssignment in this Model with the given symbol or
+ * NULL if no such InitialAssignment exists.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+Model_getInitialAssignmentBySym (Model_t *m, const char *symbol)
+{
+  return (symbol != NULL) ? m->getInitialAssignment(symbol) : NULL;
+}
+
+
+/**
  * @return the nth Rule of this Model.
  */
 LIBSBML_EXTERN
@@ -2064,6 +2648,29 @@ Rule_t *
 Model_getRule (Model_t *m, unsigned int n)
 {
   return m->getRule(n);
+}
+
+
+/**
+ * @return the Rule in this Model with the given symbol or NULL if no
+ * such Rule exists.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Model_getRuleByVar (Model_t *m, const char *variable)
+{
+  return (variable != NULL) ? m->getRule(variable) : NULL;
+}
+
+
+/**
+ * @return the nth Constraint of this Model.
+ */
+LIBSBML_EXTERN
+Constraint_t *
+Model_getConstraint (Model_t *m, unsigned int n)
+{
+  return m->getConstraint(n);
 }
 
 
@@ -2136,6 +2743,28 @@ Model_getNumUnitDefinitions (const Model_t *m)
 
 
 /**
+ * @return the number of CompartmentTypes in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumCompartmentTypes (const Model_t *m)
+{
+  return m->getNumCompartmentTypes();
+}
+
+
+/**
+ * @return the number of SpeciesTypes in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumSpeciesTypes (const Model_t *m)
+{
+  return m->getNumSpeciesTypes();
+}
+
+
+/**
  * @return the number of Compartments in this Model.
  */
 LIBSBML_EXTERN
@@ -2182,6 +2811,17 @@ Model_getNumParameters (const Model_t *m)
 
 
 /**
+ * @return the number of InitialAssignments in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumInitialAssignments (const Model_t *m)
+{
+  return m->getNumInitialAssignments();
+}
+
+
+/**
  * @return the number of Rules in this Model.
  */
 LIBSBML_EXTERN
@@ -2191,6 +2831,16 @@ Model_getNumRules (const Model_t *m)
   return m->getNumRules();
 }
 
+
+/**
+ * @return the number of Constraints in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumConstraints (const Model_t *m)
+{
+  return m->getNumConstraints();
+}
 
 /**
  * @return the number of Reactions in this Model.

@@ -26,7 +26,8 @@
 #define Parameter_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class SBMLVisitor;
@@ -73,7 +74,7 @@ public:
    * whether or not the Visitor would like to visit the parent Model's or
    * KineticLaw's next Parameter (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this Parameter.
@@ -205,7 +206,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   double       mValue;
@@ -257,9 +258,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -362,9 +360,6 @@ Parameter_isSetId (const Parameter_t *p);
 /**
  * @return true (non-zero) if the name of this Parameter has been set,
  * false (0) otherwise.
- *
- * In SBML L1, a Parameter name is required and therefore <b>should always
- * be set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -407,7 +402,7 @@ void
 Parameter_setId (Parameter_t *p, const char *sid);
 
 /**
- * Sets the name of this Parameter to a copy of string (SName in L1).
+ * Sets the name of this Parameter to a copy of string.
  */
 LIBSBML_EXTERN
 void
@@ -443,11 +438,7 @@ Parameter_setSBOTerm (Parameter_t *p, int sboTerm);
 
 
 /**
- * Unsets the name of this Parameter.  This is equivalent to:
- * safe_free(p->name); p->name = NULL;
- *
- * In SBML L1, a Parameter name is required and therefore <b>should always
- * be set</b>.  In L2, name is optional and as such may or may not be set.
+ * Unsets the name of this Parameter.
  */
 LIBSBML_EXTERN
 void
@@ -466,8 +457,7 @@ Parameter_unsetValue (Parameter_t *p);
 
 
 /**
- * Unsets the units of this Parameter.  This is equivalent to:
- * safe_free(p->units); p->units = NULL;
+ * Unsets the units of this Parameter.
  */
 LIBSBML_EXTERN
 void

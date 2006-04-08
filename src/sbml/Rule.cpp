@@ -22,16 +22,19 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "math/FormulaFormatter.h"
-#include "math/FormulaParser.h"
-#include "math/ASTNode.h"
+#include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/MathML.h>
+#include <sbml/math/ASTNode.h>
 
 #include "SBML.h"
+#include "SBMLTypeCodes.h"
 #include "SBMLVisitor.h"
+#include "Model.h"
 #include "Rule.h"
 
 
@@ -72,7 +75,8 @@ Rule::Rule (SBMLTypeCode_t type, const string& variable, const ASTNode* math)
  * Copies this Rule.
  */
 Rule::Rule (const Rule& rhs) :
-   mFormula( rhs.mFormula )
+   SBase   ( rhs          )
+ , mFormula( rhs.mFormula )
  , mMath   ( 0            )
  , mSBOTerm( rhs.mSBOTerm )
  , mUnits  ( rhs.mUnits   )
@@ -356,7 +360,7 @@ Rule::isAssignment () const
  * @return true if this Rule is a CompartmentVolumeRule, false otherwise.
  */
 bool
-Rule::isCompartmentVolume () const  // FIXME
+Rule::isCompartmentVolume () const
 {
   if (mL1Type == SBML_COMPARTMENT_VOLUME_RULE)
   {
@@ -365,8 +369,7 @@ Rule::isCompartmentVolume () const  // FIXME
   else
   {
     const Model* model = getModel();
-    return (model == 0) ? false : true;
-    // model->getCompartment( getVariable() ) != 0;
+    return (model == 0) ? false : model->getCompartment( getVariable() ) != 0;
   }
 }
 
@@ -375,7 +378,7 @@ Rule::isCompartmentVolume () const  // FIXME
  * @return true if this Rule is a ParameterRule, false otherwise.
  */
 bool
-Rule::isParameter () const  // FIXME
+Rule::isParameter () const
 {
   if (mL1Type == SBML_PARAMETER_RULE)
   {
@@ -384,8 +387,7 @@ Rule::isParameter () const  // FIXME
   else
   {
     const Model* model = getModel();
-    return (model == 0) ? false : false;
-    // model->getParameter( getVariable() ) != 0;
+    return (model == 0) ? false : model->getParameter( getVariable() ) != 0;
   }
 }
 
@@ -417,7 +419,7 @@ Rule::isScalar () const
  * otherwise.
  */
 bool
-Rule::isSpeciesConcentration () const  // FIXME
+Rule::isSpeciesConcentration () const
 {
   if (mL1Type == SBML_SPECIES_CONCENTRATION_RULE)
   {
@@ -426,8 +428,7 @@ Rule::isSpeciesConcentration () const  // FIXME
   else
   {
     const Model* model = getModel();
-    return (model == 0) ? false : false;
-    // model->getSpecies( getVariable() ) != 0;
+    return (model == 0) ? false : model->getSpecies( getVariable() ) != 0;
   }
 }
 
@@ -508,12 +509,36 @@ Rule::getElementName () const
 
 
 /**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+Rule::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "math")
+  {
+    delete mMath;
+    mMath = readMathML(stream);
+    read  = true;
+  }
+
+  return read;
+}
+
+
+/**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
  */
 void
-Rule::readAttributes (const XMLAttributes& attributes)  // FIXME
+Rule::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
 
@@ -585,7 +610,7 @@ Rule::readAttributes (const XMLAttributes& attributes)  // FIXME
  * of this method as well.
  */
 void
-Rule::writeAttributes (XMLOutputStream& stream)
+Rule::writeAttributes (XMLOutputStream& stream) const
 {
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
@@ -601,6 +626,11 @@ Rule::writeAttributes (XMLOutputStream& stream)
     //
     // type { use="optional" default="scalar" }  (L1v1, L1v2)
     //
+    if (getType() == RULE_TYPE_RATE)
+    {
+      const string rate = "rate";
+      stream.writeAttribute("type", rate);
+    }
 
     //
     // specie : SName   { use="required" }  (L1v1)
@@ -645,6 +675,18 @@ Rule::writeAttributes (XMLOutputStream& stream)
     //
     if (version == 2) SBML::writeSBOTerm(stream, mSBOTerm);
   }
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+Rule::writeElements (XMLOutputStream& stream) const
+{
+  if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
 }
 
 
@@ -884,6 +926,8 @@ ListOfRules::createObject (XMLInputStream& stream)
     }
   }
 
+  if (object) mItems.push_back(object);
+
   return object;
 }
 
@@ -1090,7 +1134,7 @@ Rule_setFormula (Rule_t *r, const char *formula)
  */
 LIBSBML_EXTERN
 void
-Rule_setMath (Rule_t *r, const ASTNode *math)
+Rule_setMath (Rule_t *r, const ASTNode_t *math)
 {
   r->setMath(math);
 }

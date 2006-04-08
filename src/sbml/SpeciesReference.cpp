@@ -22,12 +22,13 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "math/FormulaParser.h"
-#include "math/ASTNode.h"
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/MathML.h>
+#include <sbml/math/ASTNode.h>
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
@@ -202,7 +203,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream)
+SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -258,7 +259,8 @@ SpeciesReference::SpeciesReference (  const string& species
  * Copies this SpeciesReference.
  */
 SpeciesReference::SpeciesReference (const SpeciesReference& rhs) :
-   mStoichiometry        ( rhs.mStoichiometry )
+   SimpleSpeciesReference( rhs                )
+ , mStoichiometry        ( rhs.mStoichiometry )
  , mDenominator          ( rhs.mDenominator   )
  , mStoichiometryMath    ( 0                  )
 {
@@ -435,6 +437,43 @@ SpeciesReference::getElementName () const
 
 
 /**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+SpeciesReference::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "stoichiometryMath")
+  {
+    const XMLToken elem = stream.next();
+
+    delete mStoichiometryMath;
+    mStoichiometryMath = readMathML(stream);
+    read               = true;
+
+    stream.skipPastEnd(elem);
+
+    if (mStoichiometryMath && mStoichiometryMath->isRational())
+    {
+      mStoichiometry = mStoichiometryMath->getNumerator();
+      mDenominator   = mStoichiometryMath->getDenominator();
+
+      delete mStoichiometryMath;
+      mStoichiometryMath = 0;
+    }
+  }
+
+  return read;
+}
+
+
+/**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -463,7 +502,7 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-SpeciesReference::writeAttributes (XMLOutputStream& stream)
+SpeciesReference::writeAttributes (XMLOutputStream& stream) const
 {
   SimpleSpeciesReference::writeAttributes(stream);
 
@@ -485,9 +524,41 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream)
     //
     // stoichiometry: double   { use="optional" default="1" }  (L2v1, L2v2)
     //
-    if (mStoichiometry != 1)
+    if (mStoichiometry != 1 && mDenominator == 1)
     {
       stream.writeAttribute("stoichiometry", mStoichiometry);
+    }
+  }
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+SpeciesReference::writeElements (XMLOutputStream& stream) const
+{
+  if (getLevel() == 2)
+  {
+    if (mStoichiometryMath || mDenominator != 1)
+    {
+      stream.startElement("stoichiometryMath");
+
+      if (mStoichiometryMath) 
+      {
+        writeMathML(mStoichiometryMath, stream);
+      }
+      else
+      {
+        ASTNode node;
+        node.setValue(static_cast<long>(mStoichiometry), mDenominator);
+
+        writeMathML(&node, stream);
+      }
+
+      stream.endElement("stoichiometryMath");
     }
   }
 }
@@ -744,7 +815,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr)
  * @return true (non-zero) if the SpeciesReference is a
  * ModiferSpeciesReference, false otherwise.
  */
-bool
+int
 SpeciesReference_isModifier (const SpeciesReference_t *sr)
 {
   return static_cast<int>( sr->isModifier() );

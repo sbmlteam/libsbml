@@ -24,14 +24,17 @@
 
 #include <iostream>
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLNamespaces.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-// #include "validator/ConsistencyValidator.h"      FIXME
-// #include "validator/L1CompatibilityValidator.h"  FIXME
+#include <sbml/validator/ConsistencyValidator.h>
+#include <sbml/validator/L1CompatibilityValidator.h>
 
 #include "Model.h"
+
+#include "SBMLErrorLog.h"
 #include "SBMLVisitor.h"
 #include "SBMLDocument.h"
 
@@ -67,10 +70,12 @@ SBMLDocument::getDefaultVersion ()
  * time this libSBML was released).
  */
 SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
-   mLevel  ( level   )
- , mVersion( version )
- , mModel  ( 0       )
+   mLevel   ( level   )
+ , mVersion ( version )
+ , mModel   ( 0       )
 {
+  mSBML = this;
+
   if (mLevel   == 0)  mLevel   = getDefaultLevel  ();
   if (mVersion == 0)  mVersion = getDefaultVersion();
 }
@@ -80,10 +85,13 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
  * Copies this SBMLDocument.
  */
 SBMLDocument::SBMLDocument (const SBMLDocument& rhs) :
-   mLevel   ( rhs.mLevel   )
+   SBase    ( rhs          )
+ , mLevel   ( rhs.mLevel   )
  , mVersion ( rhs.mVersion )
  , mModel   ( 0            )
 {
+  mSBML = this;
+
   if (rhs.mModel) mModel = static_cast<Model*>( rhs.mModel->clone() );
 }
 
@@ -153,8 +161,39 @@ SBMLDocument::getModel ()
 void
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
 {
+  if (mModel != 0)
+  {
+    if (mLevel == 1 && level == 2)
+    {
+      mModel->convertToL2();
+    }
+    else if (mLevel == 2 && level == 1 && checkL1Compatibility() == 0)
+    {
+      mModel->convertToL1();
+    }
+  }
+
   mLevel   = level;
   mVersion = version;
+
+  // FIXME: Who sets mNamespaces for SBMLDocument, SBase.read() or
+  // FIXME: SBMLDocument ctor?
+  if (mNamespaces == 0) mNamespaces = new XMLNamespaces;
+
+
+
+  if (mLevel == 1)
+  {
+    mNamespaces->add("http://www.sbml.org/sbml/level1");
+  }
+  else if (mLevel == 2 && mVersion == 1)
+  {
+    mNamespaces->add("http://www.sbml.org/sbml/level2");
+  }
+  else if (mLevel == 2 && mVersion == 2)
+  {
+    mNamespaces->add("http://www.sbml.org/sbml/level2/version2");
+  }
 }
 
 /**
@@ -168,6 +207,8 @@ SBMLDocument::setModel (const Model* m)
 
   delete mModel;
   mModel = (m != 0) ? new Model(*m) : 0;
+
+  if (mModel) mModel->setSBMLDocument(this);
 }
 
 
@@ -181,119 +222,61 @@ SBMLDocument::createModel (const string& sid)
   if (mModel) delete mModel;
   mModel = new Model(sid);
 
+  mModel->setSBMLDocument(this);
+
   return mModel;
 }
 
 
 /**
  * Performs a set of semantic consistency checks on the document.  Query
- * the results by calling getWarning(), getNumError(),and getNumFatal().
+ * the results by calling getNumErrors() and getError().
  *
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkConsistency ()  // FIXME
+SBMLDocument::checkConsistency ()
 {
-  return 0;
-  /*
   unsigned int nerrors = 0;
 
   ConsistencyValidator validator;
   validator.init();
 
 
-  if (getModel() == NULL)
+  if (getModel() == 0)
   {
-    error.add( new ParseMessage(1000, "No model present.", 0, 0) );
+    mErrorLog.add( XMLError(1000, "No model present.") );
     nerrors = 1;
   }
   else
   {
-    // HACK: Currently, the Validator uses 'id' instead of 'name',
-    // irrespective of Level.
-    if (level == 1) getModel()->moveAllNamesToIds();
-
     nerrors = validator.validate(*this);
-
-    //
-    // Add the Validator messages to the SBMLDocument's list of error
-    // messages.
-    //
-    // FIXME: When the custom List class is replaced with an STL List, the
-    // code below can be replaced with:
-    //
-    //   copy(messages.begin(), messages.end(), back_inserter(error));
-    //
-    const list<ParseMessage>& messages = validator.getMessages();
-
-    list<ParseMessage>::const_iterator end = messages.end();
-    list<ParseMessage>::const_iterator iter;
-
-    for (iter = messages.begin(); iter != end; iter++)
-    {
-      error.add( new ParseMessage(*iter) );
-    }
-
-    // HACK: Change back...
-    if (level == 1) getModel()->moveAllIdsToNames();
+    if (nerrors) mErrorLog.add( validator.getMessages() );
   }
 
   return nerrors;
-  */
 }
 
 
 /**
  * Performs a set of semantic consistency checks on the document to establish
  * whether it is compatible with L1 and can be converted.  Query
- * the results by calling getWarning(), getNumError(),and getNumFatal().
+ * the results by calling getNumErrors() and getError().
  *
  * @return the number of failed checks (errors) encountered.
  */
 unsigned int
-SBMLDocument::checkL1Compatibility ()  // FIXME
+SBMLDocument::checkL1Compatibility ()
 {
-  return 0;
-  /*
-  unsigned int nerrors = 0;
+  if (mModel == 0) return 0;
 
   L1CompatibilityValidator validator;
   validator.init();
 
-
-  if (getModel() == NULL)
-  {
-    error.add( new ParseMessage(1000, "No model present.", 0, 0) );
-    nerrors = 1;
-  }
-  else
-  {
-
-    nerrors = validator.validate(*this);
-
-    //
-    // Add the Validator messages to the SBMLDocument's list of error
-    // messages.
-    //
-    // FIXME: When the custom List class is replaced with an STL List, the
-    // code below can be replaced with:
-    //
-    //   copy(messages.begin(), messages.end(), back_inserter(error));
-    //
-    const list<ParseMessage>& messages = validator.getMessages();
-
-    list<ParseMessage>::const_iterator end = messages.end();
-    list<ParseMessage>::const_iterator iter;
-
-    for (iter = messages.begin(); iter != end; iter++)
-    {
-      error.add( new ParseMessage(*iter) );
-    }
-
-  }
+  unsigned int nerrors = validator.validate(*this);
+  if (nerrors) mErrorLog.add( validator.getMessages() );
 
   return nerrors;
-  */
 }
 
 
@@ -301,10 +284,10 @@ SBMLDocument::checkL1Compatibility ()  // FIXME
  * @return the nth error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumErrors() - 1.
  */
-XMLError*
-SBMLDocument::getError (unsigned int n)  // FIXME
+const XMLError*
+SBMLDocument::getError (unsigned int n) const
 {
-  return 0;
+  return mErrorLog.getError(n);
 }
 
 
@@ -313,9 +296,9 @@ SBMLDocument::getError (unsigned int n)  // FIXME
  * SBMLDocument.
  */
 unsigned int
-SBMLDocument::getNumErrors () const  // FIXME
+SBMLDocument::getNumErrors () const
 {
-  return 0;
+  return mErrorLog.getNumErrors();
 }
 
 
@@ -328,17 +311,25 @@ SBMLDocument::getNumErrors () const  // FIXME
  *     line: (id) message
  */
 void
-SBMLDocument::printErrors (ostream& stream)  // FIXME
+SBMLDocument::printErrors (ostream& stream) const
 {
-  /*
   unsigned int n, size;
 
   if ((size = getNumErrors()) > 0)
 	{
-      stream << size << " Error(s):" << endl;
-      for (n = 0; n < size; n++) stream << "  " << *(getError(n));
+    stream << size << " Error(s):" << endl;
+    for (n = 0; n < size; n++) stream << "  " << *(getError(n));
 	}
-  */
+}
+
+
+/**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+SBMLDocument::setSBMLDocument (SBMLDocument* d)
+{
+  // No-op
 }
 
 
@@ -391,6 +382,17 @@ SBMLDocument::createObject (XMLInputStream& stream)
 
 
 /**
+ * @return the SBMLErrorLog used to log errors during while reading and
+ * validating SBML.
+ */
+SBMLErrorLog*
+SBMLDocument::getErrorLog ()
+{
+  return &mErrorLog;
+}
+
+
+/**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -420,7 +422,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-SBMLDocument::writeAttributes (XMLOutputStream& stream)
+SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -444,87 +446,11 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream)
  * implementation of this method as well.
  */
 void
-SBMLDocument::writeElements (XMLOutputStream& stream)
+SBMLDocument::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
   if (mModel) mModel->write(stream);
 }
-
-
-/**
- * Sets the level of this SBMLDocument to the given level number.  Valid
- * levels are currently 1 and 2.
- *
-void
-SBMLDocument::setLevel (unsigned int level)  // FIXME
-{
-  mLevel = level;
-
-  unsigned int curLevel = this->level;
-  unsigned int newLevel = level;
-
-
-  if (curLevel == 1 && newLevel == 2)
-  {
-    this->level = 2;
-
-    if (model != NULL)
-    {
-      SBML_convertToL2((Model_t *) model, (SBase_t *) this);
-    }
-  }
-  else if (curLevel == 2 && newLevel == 1)
-  {
-    int nerrors = this->checkL1Compatibility();
-
-	  if (nerrors == 0)
-	  {
-		  this->level = 1;
-
-		  if (model != NULL)
-      {
-        SBML_convertModelToL1((Model_t *) model, (SBase_t *) this);
-      }
-	  }
-  }
-  else
-  {
-    this->level = newLevel;
-  }
-
-  if (this->level == 2)
-  {
-    version = 1;
-  }
-  else if (this->level == 1)
-  {
-    version = 2;
-  }
-
-  if (model != NULL)
-  {
-    model->mLevel   = this->level;
-    model->mVersion = this->version;
-  }
-}*/
-
-
-/**
- * Sets the version of this SBMLDocument to the given version number.
- * Valid versions are currently 1 and 2 for SBML L1 and 1 for SBML L2.
- *
-void
-SBMLDocument::setVersion (unsigned int version)  // FIXME
-{
-  mVersion = version;
-
-  this->version = version;
-
-  if (model != 0)
-  {
-    model->mVersion = version;
-  }
-}*/
 
 
 
@@ -639,7 +565,7 @@ SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m)
 /**
  * Creates a new Model inside this SBMLDocument and returns it.
  */
-Model*
+Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d)
 {
   return d->createModel();
@@ -663,14 +589,14 @@ SBMLDocument_checkConsistency (SBMLDocument_t *d)
 /**
  * @return the nth error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumErrors() - 1.
- *
+ */
 LIBSBML_EXTERN
-XMLError_t *
-SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)  // FIXME
+const XMLError_t *
+SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 {
-  return 0;
+  return d->getError(n);
 }
-*/
+
 
 /**
  * @return the number of errors encountered during the parse of this
@@ -697,19 +623,17 @@ LIBSBML_EXTERN
 void
 SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
 {
-  /*
-  unsigned int n, size;
+  unsigned int size = d->getNumErrors();
 
 
-  if ((size = SBMLDocument_getNumErrors(d)) > 0)
+  if (size > 0)
   {
     printf("%d Error(s):\n", size);
   
-    for (n = 0; n < size; n++)
+    for (unsigned int n = 0; n < size; n++)
     {
       fprintf(stream, "  ");
-      ParseMessage_print(SBMLDocument_getError(d, n), stream);
+      XMLError_print(d->getError(n), stream);
     }
   }
-  */
 }

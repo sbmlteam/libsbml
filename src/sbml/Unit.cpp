@@ -22,9 +22,9 @@
  */
 
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
 #include "Unit.h"
@@ -665,14 +665,15 @@ Unit::readAttributes (const XMLAttributes& attributes)
  * of this method as well.
  */
 void
-Unit::writeAttributes (XMLOutputStream& stream)
+Unit::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
   //
   // kind: UnitKind  { use="required" }  (L1v1, L1v2, L2v1, L2v2)
   //
-  stream.writeAttribute("kind", UnitKind_toString(mKind));
+  const string kind = UnitKind_toString(mKind);
+  stream.writeAttribute("kind", kind);
 
   //
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1, L2v2)
@@ -689,12 +690,12 @@ Unit::writeAttributes (XMLOutputStream& stream)
     //
     // multiplier  { use="optional" default="1" }  (L2v1, L2v2)
     //
-    stream.writeAttribute("multiplier", mMultiplier);
+    if (mMultiplier != 1) stream.writeAttribute("multiplier", mMultiplier);
 
     //
     // offset  { use="optional" default="0" }  (L2v1, L2v2)
     //
-    stream.writeAttribute("offset", mOffset);
+    if (mOffset != 0) stream.writeAttribute("offset", mOffset);
   }
 }
 

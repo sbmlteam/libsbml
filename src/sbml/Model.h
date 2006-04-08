@@ -26,10 +26,11 @@
 #define Model_h
 
 
-#include "common/libsbml-config.h"
-#include "common/extern.h"
+#include <sbml/common/libsbml-config.h>
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
-#include "SBMLTypeCodes.h"
+#include <sbml/SBMLTypeCodes.h>
 
 
 #ifdef __cplusplus
@@ -37,14 +38,18 @@
 
 #include <string>
 
-#include "FunctionDefinition.h"
-#include "UnitDefinition.h"
-#include "Compartment.h"
-#include "Species.h"
-#include "Parameter.h"
-#include "Rule.h"
-#include "Reaction.h"
-#include "Event.h"
+#include <sbml/FunctionDefinition.h>
+#include <sbml/UnitDefinition.h>
+#include <sbml/CompartmentType.h>
+#include <sbml/SpeciesType.h>
+#include <sbml/Compartment.h>
+#include <sbml/Species.h>
+#include <sbml/Parameter.h>
+#include <sbml/InitialAssignment.h>
+#include <sbml/Rule.h>
+#include <sbml/Constraint.h>
+#include <sbml/Reaction.h>
+#include <sbml/Event.h>
 
 
 class SBMLVisitor;
@@ -116,6 +121,16 @@ public:
   void addUnitDefinition (const UnitDefinition* ud);
 
   /**
+   * Adds a copy of the given CompartmentType to this Model.
+   */
+  void addCompartmentType (const CompartmentType* ct);
+
+  /**
+   * Adds a copy of the given SpeciesType to this Model.
+   */
+  void addSpeciesType (const SpeciesType* st);
+
+  /**
    * Adds a copy of the given Compartment to this Model.
    */
   void addCompartment (const Compartment* c);
@@ -131,9 +146,19 @@ public:
   void addParameter (const Parameter* p);
 
   /**
+   * Adds a copy of the given InitialAssignment to this Model.
+   */
+  void addInitialAssignment (const InitialAssignment* ia);
+
+  /**
    * Adds a copy of the given Rule to this Model.
    */
   void addRule (const Rule* r);
+
+  /**
+   * Adds a copy of the given Constraint to this Model.
+   */
+  void addConstraint (const Constraint* c);
 
   /**
    * Adds a copy of the given Reaction to this Model.
@@ -166,6 +191,16 @@ public:
   Unit* createUnit ();
 
   /**
+   * Creates a new CompartmentType inside this Model and returns it.
+   */
+  CompartmentType* createCompartmentType ();
+
+  /**
+   * Creates a new SpeciesType inside this Model and returns it.
+   */
+  SpeciesType* createSpeciesType ();
+
+  /**
    * Creates a new Compartment inside this Model and returns it.
    */
   Compartment* createCompartment ();
@@ -181,6 +216,11 @@ public:
   Parameter* createParameter ();
 
   /**
+   * Creates a new InitialAssignment inside this Model and returns it.
+   */
+  InitialAssignment* createInitialAssignment ();
+
+  /**
    * Creates a new AlgebraicRule inside this Model and returns it.
    */
   AlgebraicRule* createAlgebraicRule ();
@@ -194,6 +234,11 @@ public:
    * Creates a new RateRule inside this Model and returns it.
    */
   RateRule* createRateRule ();
+
+  /**
+   * Creates a new Constraint inside this Model and returns it.
+   */
+  Constraint* createConstraint ();
 
   /**
    * Creates a new Reaction inside this Model and returns it.
@@ -268,82 +313,122 @@ public:
   /**
    * @return the list of FunctionDefinitions for this Model.
    */
-  const ListOf* getListOfFunctionDefinitions () const;
+  const ListOfFunctionDefinitions* getListOfFunctionDefinitions () const;
 
   /**
    * @return the list of FunctionDefinitions for this Model.
    */
-  ListOf* getListOfFunctionDefinitions ();
+  ListOfFunctionDefinitions* getListOfFunctionDefinitions ();
 
   /**
    * @return the list of UnitDefinitions for this Model.
    */
-  const ListOf* getListOfUnitDefinitions () const;
+  const ListOfUnitDefinitions* getListOfUnitDefinitions () const;
 
   /**
    * @return the list of UnitDefinitions for this Model.
    */
-  ListOf* getListOfUnitDefinitions ();
+  ListOfUnitDefinitions* getListOfUnitDefinitions ();
+
+  /**
+   * @return the list of CompartmentTypes for this Model.
+   */
+  const ListOfCompartmentTypes* getListOfCompartmentTypes () const;
+
+  /**
+   * @return the list of CompartmentTypes for this Model.
+   */
+  ListOfCompartmentTypes* getListOfCompartmentTypes ();
+
+  /**
+   * @return the list of SpeciesTypes for this Model.
+   */
+  const ListOfSpeciesTypes* getListOfSpeciesTypes () const;
+
+  /**
+   * @return the list of SpeciesTypes for this Model.
+   */
+  ListOfSpeciesTypes* getListOfSpeciesTypes ();
 
   /**
    * @return the list of Compartments for this Model.
    */
-  const ListOf* getListOfCompartments () const;
+  const ListOfCompartments* getListOfCompartments () const;
 
   /**
    * @return the list of Compartments for this Model.
    */
-  ListOf* getListOfCompartments ();
+  ListOfCompartments* getListOfCompartments ();
 
   /**
    * @return the list of Species for this Model.
    */
-  const ListOf* getListOfSpecies () const;
+  const ListOfSpecies* getListOfSpecies () const;
 
   /**
    * @return the list of Species for this Model.
    */
-  ListOf* getListOfSpecies ();
+  ListOfSpecies* getListOfSpecies ();
 
   /**
    * @return the list of Parameters for this Model.
    */
-  const ListOf* getListOfParameters () const;
+  const ListOfParameters* getListOfParameters () const;
 
   /**
    * @return the list of Parameters for this Model.
    */
-  ListOf* getListOfParameters ();
+  ListOfParameters* getListOfParameters ();
+
+  /**
+   * @return the list of InitialAssignments for this Model.
+   */
+  const ListOfInitialAssignments* getListOfInitialAssignments () const;
+
+  /**
+   * @return the list of InitialAssignment for this Model.
+   */
+  ListOfInitialAssignments* getListOfInitialAssignments ();
 
   /**
    * @return the list of Rules for this Model.
    */
-  const ListOf* getListOfRules () const;
+  const ListOfRules* getListOfRules () const;
 
   /**
    * @return the list of Rules for this Model.
    */
-  ListOf* getListOfRules ();
+  ListOfRules* getListOfRules ();
+
+  /**
+   * @return the list of Constraints for this Model.
+   */
+  const ListOfConstraints* getListOfConstraints () const;
+
+  /**
+   * @return the list of Constraints for this Model.
+   */
+  ListOfConstraints* getListOfConstraints ();
 
   /**
    * @return the list of Reactions for this Model.
    */
-  const ListOf* getListOfReactions () const;
+  const ListOfReactions* getListOfReactions () const;
 
   /**
    * @return the list of Reactions for this Model.
    */
-  ListOf* getListOfReactions ();
+  ListOfReactions* getListOfReactions ();
 
   /**
    * @return the list of Events for this Model.
    */
-  const ListOf* getListOfEvents () const;
+  const ListOfEvents* getListOfEvents () const;
 
   /**
    * @return the list of Events for this Model.
    */
-  ListOf* getListOfEvents ();
+  ListOfEvents* getListOfEvents ();
 
 
   /**
@@ -391,6 +476,52 @@ public:
    * no such UnitDefinition exists.
    */
   UnitDefinition* getUnitDefinition (const std::string& sid);
+
+
+  /**
+   * @return the nth CompartmentType of this Model.
+   */
+  const CompartmentType* getCompartmentType (unsigned int n) const;
+
+  /**
+   * @return the nth CompartmentType of this Model.
+   */
+  CompartmentType* getCompartmentType (unsigned int n);
+
+  /**
+   * @return the CompartmentType in this Model with the given id or NULL if
+   * no such CompartmentType exists.
+   */
+  const CompartmentType* getCompartmentType (const std::string& sid) const;
+
+  /**
+   * @return the CompartmentType in this Model with the given id or NULL if
+   * no such CompartmentType exists.
+   */
+  CompartmentType* getCompartmentType (const std::string& sid);
+
+
+  /**
+   * @return the nth SpeciesType of this Model.
+   */
+  const SpeciesType* getSpeciesType (unsigned int n) const;
+
+  /**
+   * @return the nth SpeciesType of this Model.
+   */
+  SpeciesType* getSpeciesType (unsigned int n);
+
+  /**
+   * @return the SpeciesType in this Model with the given id or NULL if
+   * no such SpeciesType exists.
+   */
+  const SpeciesType* getSpeciesType (const std::string& sid) const;
+
+  /**
+   * @return the SpeciesType in this Model with the given id or NULL if
+   * no such SpeciesType exists.
+   */
+  SpeciesType* getSpeciesType (const std::string& sid);
 
 
   /**
@@ -463,6 +594,30 @@ public:
 
 
   /**
+   * @return the nth InitialAssignment of this Model.
+   */
+  const InitialAssignment* getInitialAssignment (unsigned int n) const;
+
+  /**
+   * @return the nth InitialAssignment of this Model.
+   */
+  InitialAssignment* getInitialAssignment (unsigned int n);
+
+  /**
+   * @return the InitialAssignment in this Model with the given symbol or
+   * NULL if no such InitialAssignment exists.
+   */
+  const InitialAssignment*
+  getInitialAssignment (const std::string& symbol) const;
+
+  /**
+   * @return the InitialAssignment in this Model with the given symbol or
+   * NULL if no such InitialAssignment exists.
+   */
+  InitialAssignment* getInitialAssignment (const std::string& symbol);
+
+
+  /**
    * @return the nth Rule of this Model.
    */
   const Rule* getRule (unsigned int n) const;
@@ -471,6 +626,29 @@ public:
    * @return the nth Rule of this Model.
    */
   Rule* getRule (unsigned int n);
+
+  /**
+   * @return the Rule in this Model with the given variable or NULL if no
+   * such Rule exists.
+   */
+  const Rule* getRule (const std::string& variable) const;
+
+  /**
+   * @return the Rule in this Model with the given symbol or NULL if no
+   * such Rule exists.
+   */
+  Rule* getRule (const std::string& variable);
+
+
+  /**
+   * @return the nth Constraint of this Model.
+   */
+  const Constraint* getConstraint (unsigned int n) const;
+
+  /**
+   * @return the nth Constraint of this Model.
+   */
+  Constraint* getConstraint (unsigned int n);
 
 
   /**
@@ -530,6 +708,16 @@ public:
   unsigned int getNumUnitDefinitions () const;
 
   /**
+   * @return the number of CompartmentTypes in this Model.
+   */
+  unsigned int getNumCompartmentTypes () const;
+
+  /**
+   * @return the number of SpeciesTypes in this Model.
+   */
+  unsigned int getNumSpeciesTypes () const;
+
+  /**
    * @return the number of Compartments in this Model.
    */
   unsigned int getNumCompartments () const;
@@ -552,9 +740,19 @@ public:
   unsigned int getNumParameters () const;
 
   /**
+   * @return the number of InitialAssignments in this Model.
+   */
+  unsigned int getNumInitialAssignments () const;
+
+  /**
    * @return the number of Rules in this Model.
    */
   unsigned int getNumRules () const;
+
+  /**
+   * @return the number of Constraints in this Model.
+   */
+  unsigned int getNumConstraints () const;
 
   /**
    * @return the number of Reactions in this Model.
@@ -568,6 +766,23 @@ public:
 
 
   /**
+   * Converts the model to a from SBML L2 to L1.  Most of the necessary
+   * changes occur during the various writeAttributes() methods, however
+   * there are some difference between L1 and L2 that require the
+   * underlying Model to be changed.
+   */
+  void convertToL1 ();
+
+  /**
+   * Converts the model to a from SBML L1 to L2.  Most of the necessary
+   * changes occur during the various writeAttributes() methods, however
+   * there are some difference between L1 and L2 that require the
+   * underlying Model to be changed.
+   */
+  void convertToL2 ();
+
+
+  /**
    * @return true if the given ASTNode is a boolean.  Often times, this
    * question can be answered with the ASTNode's own isBoolean() method,
    * but if the AST is an expression that calls a function defined in the
@@ -575,6 +790,13 @@ public:
    * context.
    */
   bool isBoolean (const ASTNode* node) const;
+
+
+  /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
 
   /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -595,7 +817,7 @@ public:
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 #ifdef USE_LAYOUT
@@ -656,17 +878,21 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   int mSBOTerm;
 
   ListOfFunctionDefinitions  mFunctionDefinitions;
   ListOfUnitDefinitions      mUnitDefinitions;
+  ListOfCompartmentTypes     mCompartmentTypes;
+  ListOfSpeciesTypes         mSpeciesTypes;
   ListOfCompartments         mCompartments;
   ListOfSpecies              mSpecies;
   ListOfParameters           mParameters;
+  ListOfInitialAssignments   mInitialAssignments;
   ListOfRules                mRules;
+  ListOfConstraints          mConstraints;
   ListOfReactions            mReactions;
   ListOfEvents               mEvents;
 
@@ -683,9 +909,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -825,6 +1048,20 @@ void
 Model_addUnitDefinition (Model_t *m, const UnitDefinition_t *ud);
 
 /**
+ * Adds a copy of the given CompartmentType to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addCompartmentType (Model_t *m, const CompartmentType_t *ct);
+
+/**
+ * Adds a copy of the given SpeciesType to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addSpeciesType (Model_t *m, const SpeciesType_t *st);
+
+/**
  * Adds a copy of the given Compartment to this Model.
  */
 LIBSBML_EXTERN
@@ -846,11 +1083,25 @@ void
 Model_addParameter (Model_t *m, const Parameter_t *p);
 
 /**
+ * Adds a copy of the given InitialAssignment to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addInitialAssignment (Model_t *m, const InitialAssignment_t *ia);
+
+/**
  * Adds a copy of the given Rule to this Model.
  */
 LIBSBML_EXTERN
 void
 Model_addRule (Model_t *m, const Rule_t *r);
+
+/**
+ * Adds a copy of the given Constraint to this Model.
+ */
+LIBSBML_EXTERN
+void
+Model_addConstraint (Model_t *m, const Constraint_t *c);
 
 /**
  * Adds a copy of the given Reaction to this Model.
@@ -895,6 +1146,22 @@ Unit_t *
 Model_createUnit (Model_t *m);
 
 /**
+ * Creates a new CompartmentType inside this Model and returns a pointer to
+ * it.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+Model_createCompartmentType (Model_t *m);
+
+/**
+ * Creates a new SpeciesType inside this Model and returns a pointer to
+ * it.
+ */
+LIBSBML_EXTERN
+SpeciesType_t *
+Model_createSpeciesType (Model_t *m);
+
+/**
  * Creates a new Compartment inside this Model and returns a pointer to it.
  */
 LIBSBML_EXTERN
@@ -916,11 +1183,18 @@ Parameter_t *
 Model_createParameter (Model_t *m);
 
 /**
+ * Creates a new InitialAssignment inside this Model and returns it.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+Model_createInitialAssignment (Model_t *m);
+
+/**
  * Creates a new AlgebraicRule inside this Model and returns a pointer to
  * it.
  */
 LIBSBML_EXTERN
-AlgebraicRule_t *
+Rule_t *
 Model_createAlgebraicRule (Model_t *m);
 
 /**
@@ -928,15 +1202,22 @@ Model_createAlgebraicRule (Model_t *m);
  * it.
  */
 LIBSBML_EXTERN
-AssignmentRule_t *
+Rule_t *
 Model_createAssignmentRule (Model_t *m);
 
 /**
  * Creates a new RateRule inside this Model and returns a pointer to it.
  */
 LIBSBML_EXTERN
-RateRule_t *
+Rule_t *
 Model_createRateRule (Model_t *m);
+
+/**
+ * Creates a new Constraint inside this Model and returns it.
+ */
+LIBSBML_EXTERN
+Constraint_t *
+Model_createConstraint (Model_t *m);
 
 /**
  * Creates a new Reaction inside this Model and returns a pointer to it.
@@ -1039,6 +1320,20 @@ ListOf_t *
 Model_getListOfUnitDefinitions (Model_t *m);
 
 /**
+ * @return the list of CompartmentTypes for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfCompartmentTypes (Model_t *m);
+
+/**
+ * @return the list of SpeciesTypes for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfSpeciesTypes (Model_t *m);
+
+/**
  * @return the list of Compartments for this Model.
  */
 LIBSBML_EXTERN
@@ -1060,11 +1355,25 @@ ListOf_t *
 Model_getListOfParameters (Model_t *m);
 
 /**
+ * @return the list of InitialAssignments for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfInitialAssignments (Model_t* m);
+
+/**
  * @return the list of Rules for this Model.
  */
 LIBSBML_EXTERN
 ListOf_t *
 Model_getListOfRules (Model_t *m);
+
+/**
+ * @return the list of Constraints for this Model.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+Model_getListOfConstraints (Model_t* m);
 
 /**
  * @return the list of Rules for this Model.
@@ -1112,6 +1421,36 @@ UnitDefinition_t *
 Model_getUnitDefinitionById (Model_t *m, const char *sid);
 
 /**
+ * @return the nth CompartmentType of this Model.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+Model_getCompartmentType (Model_t *m, unsigned int n);
+
+/**
+ * @return the CompartmentType in this Model with the given id or NULL if no
+ * such CompartmentType exists.
+ */
+LIBSBML_EXTERN
+CompartmentType_t *
+Model_getCompartmentTypeById (Model_t *m, const char *sid);
+
+/**
+ * @return the nth SpeciesType of this Model.
+ */
+LIBSBML_EXTERN
+SpeciesType_t *
+Model_getSpeciesType (Model_t *m, unsigned int n);
+
+/**
+ * @return the SpeciesType in this Model with the given id or NULL if no
+ * such SpeciesType exists.
+ */
+LIBSBML_EXTERN
+SpeciesType_t *
+Model_getSpeciesTypeById (Model_t *m, const char *sid);
+
+/**
  * @return the nth Compartment of this Model.
  */
 LIBSBML_EXTERN
@@ -1157,11 +1496,41 @@ Parameter_t *
 Model_getParameterById (Model_t *m, const char *sid);
 
 /**
+ * @return the nth InitialAssignment of this Model.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+Model_getInitialAssignment (Model_t *m, unsigned int n);
+
+/**
+ * @return the InitialAssignment in this Model with the given symbol or
+ * NULL if no such InitialAssignment exists.
+ */
+LIBSBML_EXTERN
+InitialAssignment_t *
+Model_getInitialAssignmentBySym (Model_t *m, const char *symbol);
+
+/**
  * @return the nth Rule of this Model.
  */
 LIBSBML_EXTERN
 Rule_t *
 Model_getRule (Model_t *m, unsigned int n);
+
+/**
+ * @return the Rule in this Model with the given symbol or NULL if no such
+ * Rule exists.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Model_getRuleByVar (Model_t *m, const char *variable);
+
+/**
+ * @return the nth Constraint of this Model.
+ */
+LIBSBML_EXTERN
+Constraint_t *
+Model_getConstraint (Model_t *m, unsigned int n);
 
 /**
  * @return the nth Reaction of this Model.
@@ -1209,6 +1578,20 @@ unsigned int
 Model_getNumUnitDefinitions (const Model_t *m);
 
 /**
+ * @return the number of CompartmentTypes in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumCompartmentTypes (const Model_t *m);
+
+/**
+ * @return the number of SpeciesTypes in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumSpeciesTypes (const Model_t *m);
+
+/**
  * @return the number of Compartments in this Model.
  */
 LIBSBML_EXTERN
@@ -1239,11 +1622,25 @@ unsigned int
 Model_getNumParameters (const Model_t *m);
 
 /**
+ * @return the number of InitialAssignments in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumInitialAssignments (const Model_t *m);
+
+/**
  * @return the number of Rules in this Model.
  */
 LIBSBML_EXTERN
 unsigned int
 Model_getNumRules (const Model_t *m);
+
+/**
+ * @return the number of Constraints in this Model.
+ */
+LIBSBML_EXTERN
+unsigned int
+Model_getNumConstraints (const Model_t *m);
 
 /**
  * @return the number of Reactions in this Model.

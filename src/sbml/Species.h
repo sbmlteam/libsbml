@@ -26,7 +26,8 @@
 #define Species_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -34,8 +35,8 @@
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class SBMLVisitor;
@@ -63,7 +64,7 @@ public:
    * whether or not the Visitor would like to visit the Model's next
    * Species (if available).
    */
-  bool accept (SBMLVisitor& v) const;
+  virtual bool accept (SBMLVisitor& v) const;
 
   /**
    * @return a (deep) copy of this Species.
@@ -311,7 +312,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   std::string  mSpeciesType;
@@ -374,9 +375,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**
@@ -516,9 +514,6 @@ Species_isSetId (const Species_t *s);
 /**
  * @return true (non-zero) if the name of this Species has been set, false
  * (0) otherwise.
- *
- * In SBML L1, a Species name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 int
@@ -601,7 +596,7 @@ void
 Species_setId (Species_t *s, const char *sid);
 
 /**
- * Sets the name of this Species to a copy of string (SName in L1).
+ * Sets the name of this Species to a copy of string.
  */
 LIBSBML_EXTERN
 void
@@ -689,9 +684,6 @@ Species_setConstant (Species_t *s, int value);
 
 /**
  * Unsets the name of this Species.
- *
- * In SBML L1, a Species name is required and therefore <b>should always be
- * set</b>.  In L2, name is optional and as such may or may not be set.
  */
 LIBSBML_EXTERN
 void

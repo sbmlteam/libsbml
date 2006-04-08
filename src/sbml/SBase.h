@@ -26,8 +26,9 @@
 #define SBase_h
 
 
-#include "common/extern.h"
-#include "SBMLTypeCodes.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+#include <sbml/SBMLTypeCodes.h>
 
 
 #ifdef __cplusplus
@@ -36,6 +37,7 @@
 #include <string>
 
 
+class SBMLErrorLog;
 class SBMLVisitor;
 class SBMLDocument;
 class Model;
@@ -208,10 +210,17 @@ public:
 
 
   /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+
+  /**
    * Subclasses should override this method to return XML element name of
    * this SBML object.
    */
   virtual const std::string& getElementName () const = 0;
+
 
   /**
    * Reads (initializes) this SBML object by reading from XMLInputStream.
@@ -221,7 +230,7 @@ public:
   /**
    * Writes (serializes) this SBML object by writing it to XMLOutputStream.
    */
-  void write (XMLOutputStream& stream);
+  void write (XMLOutputStream& stream) const;
 
   /**
    * Subclasses should override this method to write out their contained
@@ -233,7 +242,7 @@ public:
    *   mProducts.write(stream);
    *   ...
    */
-  virtual void writeElements (XMLOutputStream& stream);
+  virtual void writeElements (XMLOutputStream& stream) const;
 
 
 protected:
@@ -242,6 +251,7 @@ protected:
    * Only subclasses may create SBase objects.
    */
   SBase (const std::string& id = "", const std::string& name = "");
+
 
   /**
    * Subclasses should override this method to create, store, and then
@@ -254,6 +264,14 @@ protected:
   virtual SBase* createObject (XMLInputStream& stream);
 
   /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  virtual bool readOtherXML (XMLInputStream& stream);
+
+  /**
    * The SBML XML Schema is written such that the order of child elements
    * is significant.  LibSBML can read elements out of order.  If you
    * override this method to indicate the ordinal position of element with
@@ -264,6 +282,12 @@ protected:
    * siblings or -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
+
+  /**
+   * @return the SBMLErrorLog used to log errors during while reading and
+   * validating SBML.
+   */
+  SBMLErrorLog* getErrorLog ();
 
   /**
    * Subclasses should override this method to read values from the given
@@ -283,7 +307,7 @@ protected:
    *   stream.writeAttribute( "name", mName );
    *   ...
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
   std::string mMetaId;
@@ -318,9 +342,6 @@ private:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

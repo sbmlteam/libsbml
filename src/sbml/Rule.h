@@ -26,7 +26,8 @@
 #define Rule_h
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 BEGIN_C_DECLS
@@ -46,8 +47,8 @@ END_C_DECLS
 
 #include <string>
 
-#include "SBase.h"
-#include "ListOf.h"
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
 
 
 class ASTNode;
@@ -158,7 +159,7 @@ public:
   /**
    * Sets the math of this Rule to a copy of the given ASTNode.
    */
-  void setMath (const ASTNode *math);
+  void setMath (const ASTNode* math);
 
   /**
    * Sets the sboTerm field of this Rule to value.
@@ -248,6 +249,13 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
 
 protected:
 
@@ -267,6 +275,14 @@ protected:
 
 
   /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  virtual bool readOtherXML (XMLInputStream& stream);
+
+  /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.
@@ -278,7 +294,7 @@ protected:
    * to the XMLOutputStream.  Be sure to call your parents implementation
    * of this method as well.
    */
-  virtual void writeAttributes (XMLOutputStream& stream);
+  virtual void writeAttributes (XMLOutputStream& stream) const;
 
   /**
    * Sets the SBML Level 1 typecode for this Rule.
@@ -439,9 +455,6 @@ protected:
 BEGIN_C_DECLS
 
 
-#include "common/sbmlfwd.h"
-
-
 /**
  * Creates a new AlgebraicRule and returns a pointer to it.
  */
@@ -591,7 +604,7 @@ Rule_setFormula (Rule_t *r, const char *formula);
  */
 LIBSBML_EXTERN
 void
-Rule_setMath (Rule_t *r, const ASTNode *math);
+Rule_setMath (Rule_t *r, const ASTNode_t *math);
 
 
 /**
