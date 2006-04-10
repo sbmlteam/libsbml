@@ -395,6 +395,7 @@ Species_free (Species_t *s);
 /**
  * @return a (deep) copy of this Species.
  */
+LIBSBML_EXTERN
 Species_t *
 Species_clone (const Species_t *s);
 

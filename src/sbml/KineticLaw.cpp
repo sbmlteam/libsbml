@@ -689,6 +689,7 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
  * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
  * to a zero-padded, seven digit string.
  */
+LIBSBML_EXTERN
 int
 KineticLaw_getSBOTerm (const KineticLaw_t *kl)
 {

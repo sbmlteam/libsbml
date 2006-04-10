@@ -445,6 +445,7 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr);
  * @return true (non-zero) if the SpeciesReference is a
  * ModiferSpeciesReference, false otherwise.
  */
+LIBSBML_EXTERN
 int
 SpeciesReference_isModifier (const SpeciesReference_t *sr);
 

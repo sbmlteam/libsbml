@@ -274,6 +274,7 @@ SBMLDocument_free (SBMLDocument_t *d);
 /**
  * @return a (deep) copy of this SBMLDocument.
  */
+LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_clone (const SBMLDocument_t *d);
 
@@ -309,6 +310,7 @@ SBMLDocument_getModel (SBMLDocument_t *d);
  *   - Level 2 Version 1
  *   - Level 2 Version 2
  */
+LIBSBML_EXTERN
 void
 SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
                                  , unsigned int    level
@@ -325,6 +327,7 @@ SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m);
 /**
  * Creates a new Model inside this SBMLDocument and returns it.
  */
+LIBSBML_EXTERN
 Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d);
 
