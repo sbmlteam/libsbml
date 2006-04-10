@@ -146,7 +146,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\examples\c++\util.c">
+				RelativePath="..\..\examples\c++\util.cpp">
 			</File>
 			<File
 				RelativePath="..\..\examples\c++\validateSBML.cpp">

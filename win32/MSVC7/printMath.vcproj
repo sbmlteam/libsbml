@@ -143,7 +143,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\examples\C++\printMath.cpp">
+				RelativePath="..\..\examples\c++\printMath.cpp">
 			</File>
 		</Filter>
 		<Filter
