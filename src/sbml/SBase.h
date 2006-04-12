@@ -214,6 +214,10 @@ public:
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
+  /**
+   * @return the partial SBML that describes this SBML object.
+   */
+  char* toSBML ();
 
   /**
    * Subclasses should override this method to return XML element name of

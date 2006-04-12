@@ -22,12 +22,16 @@
  */
 
 
+#include <sstream>
+
 #include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLErrorLog.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
+
+#include <sbml/util/util.h>
 
 #include "SBMLDocument.h"
 #include "SBase.h"
@@ -377,6 +381,21 @@ void
 SBase::setSBMLDocument (SBMLDocument* d)
 {
   mSBML = d;
+}
+
+
+/**
+ * @return the partial SBML that describes this SBML object.
+ */
+char*
+SBase::toSBML ()
+{
+  ostringstream    os;
+  XMLOutputStream  stream(os, "UTF-8", false);
+
+  write(stream);
+
+  return safe_strdup( os.str().c_str() );
 }
 
 
