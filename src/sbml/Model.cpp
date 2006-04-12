@@ -1527,6 +1527,8 @@ Model::createObject (XMLInputStream& stream)
   }
 
   else if ( name == "listOfUnitDefinitions"    ) object = &mUnitDefinitions;
+  else if ( name == "listOfCompartmentTypes"   ) object = &mCompartmentTypes;
+  else if ( name == "listOfSpeciesTypes"       ) object = &mSpeciesTypes;
   else if ( name == "listOfCompartments"       ) object = &mCompartments;
   else if ( name == "listOfSpecies"            ) object = &mSpecies;
   else if ( name == "listOfParameters"         ) object = &mParameters;
