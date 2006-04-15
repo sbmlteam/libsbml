@@ -215,6 +215,21 @@ void Curve::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
 }
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+Curve::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+
+  mCurveSegments.write(stream);
+
+}
+
+
 
 /**
  * Subclasses should override this method to write their XML attributes

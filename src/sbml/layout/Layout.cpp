@@ -1018,7 +1018,11 @@ Layout::getTypeCode () const
   return SBML_LAYOUT_LAYOUT;
 }
 
-
+SBase*
+Layout::clone() const
+{
+    return new Layout(*this);
+}
 
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
@@ -1167,7 +1171,7 @@ ListOfSpeciesGlyphs::getElementName () const
  * XMLInputStream or NULL if the token was not recognized.
  */
 SBase*
-ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
+ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
 {
   const std::string& name   = stream.peek().getName();
   SBase*        object = 0;

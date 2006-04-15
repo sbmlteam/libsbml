@@ -368,6 +368,27 @@ void SpeciesReferenceGlyph::readAttributes (const XMLAttributes& attributes)
 }
 
 /**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+SpeciesReferenceGlyph::writeElements (XMLOutputStream& stream) const
+{
+  if(this->isSetCurve())
+  {
+      SBase::writeElements(stream);
+      mCurve.write(stream);
+  }
+  else
+  {
+    GraphicalObject::writeElements(stream);
+  }
+}
+
+
+
+/**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.  For example:

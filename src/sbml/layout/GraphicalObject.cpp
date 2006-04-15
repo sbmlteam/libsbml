@@ -245,6 +245,22 @@ void GraphicalObject::readAttributes (const XMLAttributes& attributes)
 }
 
 /**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+GraphicalObject::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+
+  mBoundingBox.write(stream);
+
+}
+
+
+
+/**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.  For example:
