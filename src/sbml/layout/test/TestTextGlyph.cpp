@@ -45,19 +45,15 @@
 
 #include <check.h>
 
-#include <common/common.h>
-#include <common/extern.h>
-
 #include "TextGlyph.h"
 
-BEGIN_C_DECLS
 
 static TextGlyph * TG;
 
 void
 TextGlyphTest_setup (void)
 {
-    TG = new(std::nothrow )TextGlyph();
+    TG = new TextGlyph();
 
     if (TG == NULL)
     {
@@ -73,12 +69,14 @@ TextGlyphTest_teardown (void)
 }
 
 
+CK_CPPSTART
+
 START_TEST ( test_TextGlyph_new )
 {
     fail_unless( TG->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
     fail_unless( TG->getMetaId()      == "" );
-    fail_unless( TG->getNotes()       == "" );
-    fail_unless( TG->getAnnotation()  == "" );
+//    fail_unless( TG->getNotes()       == "" );
+//    fail_unless( TG->getAnnotation()  == "" );
     fail_unless( TG->getId()          == "" );
     fail_unless( !TG->isSetId());
     fail_unless( !TG->isSetText());
@@ -94,8 +92,8 @@ START_TEST ( test_TextGlyph_new_with_text )
     TextGlyph* tg=new TextGlyph(id,text);
     fail_unless( tg->getTypeCode()    == SBML_LAYOUT_TEXTGLYPH );
     fail_unless( tg->getMetaId()      == "" );
-    fail_unless( tg->getNotes()       == "" );
-    fail_unless( tg->getAnnotation()  == "" );
+//    fail_unless( tg->getNotes()       == "" );
+//    fail_unless( tg->getAnnotation()  == "" );
     fail_unless( tg->getId()          == id );
     fail_unless( tg->isSetId());
     fail_unless( tg->isSetText());
@@ -158,4 +156,5 @@ create_suite_TextGlyph (void)
 
 
 
-END_C_DECLS
+
+CK_CPPEND

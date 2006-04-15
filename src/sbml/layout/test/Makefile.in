@@ -72,8 +72,6 @@ test_sources =                   \
   TestDimensions.cpp             \
   TestGraphicalObject.cpp        \
   TestLayout.cpp                 \
-  TestLayoutFormatter.cpp        \
-  TestLayoutHandler.cpp          \
   TestLineSegment.cpp            \
   TestPoint.cpp                  \
   TestReactionGlyph.cpp          \
@@ -82,6 +80,8 @@ test_sources =                   \
   TestSpeciesReferenceGlyph.cpp  \
   TestTextGlyph.cpp              \
   TestRunner.c
+#  TestLayoutFormatter.cpp        \
+#  TestLayoutHandler.cpp          \
 
 extra_CPPFLAGS = -I.. -I../../..
 

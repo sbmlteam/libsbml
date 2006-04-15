@@ -49,20 +49,7 @@
 #include <common/common.h>
 #include <common/extern.h>
 
-#include "LayoutHandler.h"
-#include "sbml/ListOf.h"
-
-#ifdef USE_EXPAT
-typedef void SAX2XMLReader;
-#else
-#  include <xercesc/framework/MemBufInputSource.hpp>
-#  include <xercesc/sax2/DefaultHandler.hpp>
-#  include <xercesc/sax2/SAX2XMLReader.hpp>
-#  include <xercesc/sax2/XMLReaderFactory.hpp>
-#  include <xercesc/util/PlatformUtils.hpp>
-#  include <xercesc/util/XMLString.hpp>
-   using namespace xercesc;
-#endif  // USE_EXPAT
+#include "sbml/xml/XMLInputStream.h"
 
    
 BEGIN_C_DECLS
@@ -78,166 +65,64 @@ BEGIN_C_DECLS
  */
 #define wrapSBML2(s)  XML_HEADER SBML_HEADER2 s SBML_FOOTER
 
-
-static LayoutHandler         *LH;  
-static ListOf                *LISTOFLAYOUTS;
-
-bool
-readLayout (LayoutHandler* LH,const char* xml)
-{
-
-  bool result=true;  
-#ifdef USE_EXPAT
-
-  try
-  {
-    if (xml)
-    {
-      if (!LH->parse(xml, -1, true))
-        throw LH->getErrorString();
-    }
-  }
-  catch (...)
-  {
-    return false;
-  }
-
-
-#else
-
-
-  try
-  {
-    XML_PLATFORM_UTILS_INIT();
-  }
-  catch (const XMLException& e)
-  {
-    return false;
-  }
-
-
-  SAX2XMLReader*     reader =  XMLReaderFactory::createXMLReader();
-
-  reader->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
-  reader->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes, true );
-
-  reader->setContentHandler(LH);
-  reader->setErrorHandler  (LH);
-
-
-  MemBufInputSource* input   = NULL;
-
-
-  if (xml != NULL)
-  {
-    input = new MemBufInputSource( (const XMLByte*) xml,
-                                   strlen(xml),
-                                   "FromString",
-                                   false );
-  }
-
-  //
-  // Read Layout
-  //
-  try
-  {
-    reader->parse(*input);
-  }
-  catch (const XMLException& e)
-  {
-    result=false;
-  }
-  catch (...)
-  {
-    result=false;
-  }
-
-  delete input;
-  delete reader;
-
-#endif  // USE_EXPAT
-
-  return result;
-}
-
-
-
-
-void
-LayoutHandlerTest_setup (void)
-{
-    LISTOFLAYOUTS=new ListOf();
-    LH=new LayoutHandler(LISTOFLAYOUTS);
-#ifdef USE_EXPAT    
-    LH->startDocument();
-    LH->enableElementHandler();
-#endif // USE_EXPAT    
-}
-
-void 
-LayoutHandlerTest_teardown (void)
-{
-#ifdef USE_EXPAT
-    LH->endDocument();
-#endif // USE_EXPAT
-    delete LH;
-    delete LISTOFLAYOUTS;
-}
-
 START_TEST (test_LayoutHandler_Layout)
 {
     const char* s = wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfCompartmentGlyphs>\n"
-      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"0\" y=\"0\"/>\n"
-      "        <dimensions width=\"0\" height=\"0\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </compartmentGlyph>\n"
-      "  </listOfCompartmentGlyphs>\n"
-      "  <listOfSpeciesGlyphs>\n"
-      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"0\" y=\"0\"/>\n"
-      "        <dimensions width=\"0\" height=\"0\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </speciesGlyph>\n"
-      "  </listOfSpeciesGlyphs>\n"
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"0\" y=\"0\"/>\n"
-      "        <dimensions width=\"0\" height=\"0\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "  <listOfTextGlyphs>\n"
-      "    <textGlyph id=\"textGlyph_1\" text=\"test\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"0\" y=\"0\"/>\n"
-      "        <dimensions width=\"0\" height=\"0\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </textGlyph>\n"
-      "  </listOfTextGlyphs>\n"
-      "  <listOfAdditionalGraphicalObjects>\n"
-      "    <graphicalObject id=\"graphicalObject_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"0\" y=\"0\"/>\n"
-      "        <dimensions width=\"0\" height=\"0\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </graphicalObject>\n"
-      "  </listOfAdditionalGraphicalObjects>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfCompartmentGlyphs>\n"
+      "      <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"0\" y=\"0\"/>\n"
+      "          <dimensions width=\"0\" height=\"0\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </compartmentGlyph>\n"
+      "    </listOfCompartmentGlyphs>\n"
+      "    <listOfSpeciesGlyphs>\n"
+      "      <speciesGlyph id=\"speciesGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"0\" y=\"0\"/>\n"
+      "          <dimensions width=\"0\" height=\"0\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </speciesGlyph>\n"
+      "    </listOfSpeciesGlyphs>\n"
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"0\" y=\"0\"/>\n"
+      "          <dimensions width=\"0\" height=\"0\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "    <listOfTextGlyphs>\n"
+      "      <textGlyph id=\"textGlyph_1\" text=\"test\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"0\" y=\"0\"/>\n"
+      "          <dimensions width=\"0\" height=\"0\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </textGlyph>\n"
+      "    </listOfTextGlyphs>\n"
+      "    <listOfAdditionalGraphicalObjects>\n"
+      "      <graphicalObject id=\"graphicalObject_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"0\" y=\"0\"/>\n"
+      "          <dimensions width=\"0\" height=\"0\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </graphicalObject>\n"
+      "    </listOfAdditionalGraphicalObjects>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
-   
-    fail_unless(readLayout(LH,s));  
+  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(list->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)list->get(0);
 
     fail_unless(l!=NULL);
 
@@ -332,21 +217,25 @@ START_TEST (test_LayoutHandler_Layout_notes)
     
     const char* s = wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <notes>"   
-           "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-           " <p>Testnote</p>\n"
-           "</body>"
-        "</notes>\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "</layout>\n"     
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <notes>"   
+           "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+           "   <p>Testnote</p>\n"
+           "  </body>"
+        "  </notes>\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -364,14 +253,16 @@ START_TEST (test_LayoutHandler_Layout_annotation)
 {
     const char* s = wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <annotation>\n"
-      "    <this-is-a-test>\n"
-      "      <another-level> level2 </another-level>\n"
-      "    </this-is-a-test>\n"
-      "  </annotation>\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "</layout>\n"     
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <annotation>\n"
+      "      <this-is-a-test>\n"
+      "        <another-level> level2 </another-level>\n"
+      "      </this-is-a-test>\n"
+      "    </annotation>\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
 
     const char* a =
@@ -381,11 +272,13 @@ START_TEST (test_LayoutHandler_Layout_annotation)
       "    </this-is-a-test>\n"
       "  </annotation>";
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -403,16 +296,20 @@ START_TEST (test_LayoutHandler_Layout_skipOptional)
 {
     const char* s = wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "</layout>\n"     
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "  </layout>\n" 
+      "</listOfLayouts>\n"
     );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -434,24 +331,29 @@ END_TEST
 START_TEST (test_LayoutHandler_CompartmentGlyph)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfCompartmentGlyphs>\n"
-      "    <compartmentGlyph id=\"compartmentGlyph_1\" compartment=\"compartment_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </compartmentGlyph>\n"
-      "  </listOfCompartmentGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfCompartmentGlyphs>\n"
+      "      <compartmentGlyph id=\"compartmentGlyph_1\" compartment=\"compartment_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </compartmentGlyph>\n"
+      "    </listOfCompartmentGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -483,29 +385,34 @@ END_TEST
 START_TEST (test_LayoutHandler_CompartmentGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfCompartmentGlyphs>\n"
-      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
-      "      <notes>"   
-              "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-              " <p>Testnote</p>\n"
-              "</body>"
-             "</notes>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </compartmentGlyph>\n"
-      "  </listOfCompartmentGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfCompartmentGlyphs>\n"
+      "      <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "        <notes>"   
+              "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+              "   <p>Testnote</p>\n"
+              "  </body>"
+             "  </notes>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </compartmentGlyph>\n"
+      "    </listOfCompartmentGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -546,29 +453,34 @@ START_TEST (test_LayoutHandler_CompartmentGlyph_annotation)
       "      </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfCompartmentGlyphs>\n"
-      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
-      "      <annotation>\n"
-      "        <this-is-a-test>\n"
-      "          <another-level> level2 </another-level>\n"
-      "        </this-is-a-test>\n"
-      "      </annotation>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </compartmentGlyph>\n"
-      "  </listOfCompartmentGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfCompartmentGlyphs>\n"
+      "      <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "        <annotation>\n"
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
+      "        </annotation>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </compartmentGlyph>\n"
+      "    </listOfCompartmentGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -602,24 +514,29 @@ END_TEST
 START_TEST (test_LayoutHandler_CompartmentGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfCompartmentGlyphs>\n"
-      "    <compartmentGlyph id=\"compartmentGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </compartmentGlyph>\n"
-      "  </listOfCompartmentGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfCompartmentGlyphs>\n"
+      "      <compartmentGlyph id=\"compartmentGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </compartmentGlyph>\n"
+      "    </listOfCompartmentGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -651,24 +568,29 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesGlyph)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfSpeciesGlyphs>\n"
-      "    <speciesGlyph id=\"speciesGlyph_1\" species=\"species_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </speciesGlyph>\n"
-      "  </listOfSpeciesGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfSpeciesGlyphs>\n"
+      "      <speciesGlyph id=\"speciesGlyph_1\" species=\"species_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </speciesGlyph>\n"
+      "    </listOfSpeciesGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -700,29 +622,34 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfSpeciesGlyphs>\n"
-      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
-          "  <notes>"   
-              "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-              " <p>Testnote</p>\n"
-              "</body>"
-            "</notes>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </speciesGlyph>\n"
-      "  </listOfSpeciesGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfSpeciesGlyphs>\n"
+      "      <speciesGlyph id=\"speciesGlyph_1\">\n"
+          "    <notes>"   
+              "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+              "   <p>Testnote</p>\n"
+              "  </body>"
+            "  </notes>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </speciesGlyph>\n"
+      "    </listOfSpeciesGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -763,29 +690,34 @@ START_TEST (test_LayoutHandler_SpeciesGlyph_annotation)
       "      </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfSpeciesGlyphs>\n"
-      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
-      "      <annotation>\n"
-      "        <this-is-a-test>\n"
-      "          <another-level> level2 </another-level>\n"
-      "        </this-is-a-test>\n"
-      "      </annotation>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </speciesGlyph>\n"
-      "  </listOfSpeciesGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfSpeciesGlyphs>\n"
+      "      <speciesGlyph id=\"speciesGlyph_1\">\n"
+      "        <annotation>\n"
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
+      "        </annotation>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </speciesGlyph>\n"
+      "    </listOfSpeciesGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -818,24 +750,29 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfSpeciesGlyphs>\n"
-      "    <speciesGlyph id=\"speciesGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </speciesGlyph>\n"
-      "  </listOfSpeciesGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfSpeciesGlyphs>\n"
+      "      <speciesGlyph id=\"speciesGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </speciesGlyph>\n"
+      "    </listOfSpeciesGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -868,28 +805,33 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_Curve)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"LineSegment\">\n" 
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"LineSegment\">\n" 
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
-    
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    fail_unless(pListOfLayouts->getNumItems()==1);
+
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -926,24 +868,29 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_BoundingBox)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -975,29 +922,34 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
-      "      <notes>"   
-              "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-              " <p>Testnote</p>\n"
-              "</body>"
-            "</notes>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "        <notes>"   
+              "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+              "   <p>Testnote</p>\n"
+              "  </body>"
+            "  </notes>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1038,29 +990,34 @@ START_TEST (test_LayoutHandler_ReactionGlyph_annotation)
       "      </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
-      "      <annotation>\n"
-      "        <this-is-a-test>\n"
-      "          <another-level> level2 </another-level>\n"
-      "        </this-is-a-test>\n"
-      "      </annotation>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
+      "        <annotation>\n"
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
+      "        </annotation>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1094,24 +1051,29 @@ END_TEST
 START_TEST (test_LayoutHandler_ReactionGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1143,36 +1105,42 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_Curve)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"
-      "      <listOfSpeciesReferenceGlyphs>\n"
-      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"activator\">\n"
-      "          <curve>\n"
-      "            <listOfCurveSegments>\n"
-      "              <curveSegment xsi:type=\"LineSegment\">\n" 
-      "                <start x=\"10\" y=\"15\"/>\n" 
-      "                <end x=\"20\" y=\"30\"/>\n" 
-      "              </curveSegment>\n"
-      "            </listOfCurveSegments>\n"
-      "          </curve>\n"
-      "        </speciesReferenceGlyph>\n"
-      "      </listOfSpeciesReferenceGlyphs>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+     
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"
+      "        <listOfSpeciesReferenceGlyphs>\n"
+      "          <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"activator\">\n"
+      "            <curve>\n"
+      "              <listOfCurveSegments>\n"
+      "                <curveSegment xsi:type=\"LineSegment\">\n" 
+      "                  <start x=\"10\" y=\"15\"/>\n" 
+      "                  <end x=\"20\" y=\"30\"/>\n" 
+      "                </curveSegment>\n"
+      "              </listOfCurveSegments>\n"
+      "            </curve>\n"
+      "          </speciesReferenceGlyph>\n"
+      "        </listOfSpeciesReferenceGlyphs>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1225,32 +1193,37 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_BoundingBox)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"
-      "      <listOfSpeciesReferenceGlyphs>\n"
-      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
-      "          <boundingBox>\n"
-      "            <position x=\"110.3\" y=\"120\"/>\n"
-      "            <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
-      "          </boundingBox>\n"  
-      "        </speciesReferenceGlyph>\n"
-      "      </listOfSpeciesReferenceGlyphs>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"
+      "        <listOfSpeciesReferenceGlyphs>\n"
+      "          <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
+      "            <boundingBox>\n"
+      "              <position x=\"110.3\" y=\"120\"/>\n"
+      "              <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
+      "            </boundingBox>\n"  
+      "          </speciesReferenceGlyph>\n"
+      "        </listOfSpeciesReferenceGlyphs>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1298,37 +1271,42 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"
-      "      <listOfSpeciesReferenceGlyphs>\n"
-      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"substrate\">\n"
-      "          <notes>"   
-                  "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-                  " <p>Testnote</p>\n"
-                  "</body>"
-                "</notes>\n"
-      "          <boundingBox>\n"
-      "            <position x=\"110.3\" y=\"120\"/>\n"
-      "            <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
-      "          </boundingBox>\n"  
-      "        </speciesReferenceGlyph>\n"
-      "      </listOfSpeciesReferenceGlyphs>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"
+      "        <listOfSpeciesReferenceGlyphs>\n"
+      "          <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"substrate\">\n"
+      "            <notes>"   
+                  "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                  "   <p>Testnote</p>\n"
+                  "  </body>"
+                "  </notes>\n"
+      "            <boundingBox>\n"
+      "              <position x=\"110.3\" y=\"120\"/>\n"
+      "              <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
+      "            </boundingBox>\n"  
+      "          </speciesReferenceGlyph>\n"
+      "        </listOfSpeciesReferenceGlyphs>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1385,37 +1363,42 @@ START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_annotation)
       "          </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"
-      "      <listOfSpeciesReferenceGlyphs>\n"
-      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"sideproduct\">\n"
-      "          <annotation>\n"
-      "            <this-is-a-test>\n"
-      "              <another-level> level2 </another-level>\n"
-      "            </this-is-a-test>\n"
-      "          </annotation>\n"
-      "          <boundingBox>\n"
-      "            <position x=\"110.3\" y=\"120\"/>\n"
-      "            <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
-      "          </boundingBox>\n"  
-      "        </speciesReferenceGlyph>\n"
-      "      </listOfSpeciesReferenceGlyphs>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"
+      "        <listOfSpeciesReferenceGlyphs>\n"
+      "          <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"sideproduct\">\n"
+      "            <annotation>\n"
+      "              <this-is-a-test>\n"
+      "                <another-level> level2 </another-level>\n"
+      "              </this-is-a-test>\n"
+      "            </annotation>\n"
+      "            <boundingBox>\n"
+      "              <position x=\"110.3\" y=\"120\"/>\n"
+      "              <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
+      "            </boundingBox>\n"  
+      "          </speciesReferenceGlyph>\n"
+      "        </listOfSpeciesReferenceGlyphs>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1465,32 +1448,37 @@ END_TEST
 START_TEST (test_LayoutHandler_SpeciesReferenceGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"
-      "      <listOfSpeciesReferenceGlyphs>\n"
-      "        <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"sidesubstrate\">\n"
-      "          <boundingBox>\n"
-      "            <position x=\"110.3\" y=\"120\"/>\n"
-      "            <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
-      "          </boundingBox>\n"  
-      "        </speciesReferenceGlyph>\n"
-      "      </listOfSpeciesReferenceGlyphs>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"
+      "        <listOfSpeciesReferenceGlyphs>\n"
+      "          <speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"sidesubstrate\">\n"
+      "            <boundingBox>\n"
+      "              <position x=\"110.3\" y=\"120\"/>\n"
+      "              <dimensions width=\"20.5\" height=\"40.5\"/>\n" 
+      "            </boundingBox>\n"  
+      "          </speciesReferenceGlyph>\n"
+      "        </listOfSpeciesReferenceGlyphs>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1538,24 +1526,29 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_text)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfTextGlyphs>\n"
-      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" text=\"test text\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </textGlyph>\n"
-      "  </listOfTextGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfTextGlyphs>\n"
+      "      <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" text=\"test text\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </textGlyph>\n"
+      "    </listOfTextGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1589,24 +1582,29 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_originOfText)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfTextGlyphs>\n"
-      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </textGlyph>\n"
-      "  </listOfTextGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfTextGlyphs>\n"
+      "      <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </textGlyph>\n"
+      "    </listOfTextGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1640,29 +1638,34 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_notes)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfTextGlyphs>\n"
-      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
-      "      <notes>"   
-              "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-              " <p>Testnote</p>\n"
-              "</body>"
-            "</notes>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </textGlyph>\n"
-      "  </listOfTextGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfTextGlyphs>\n"
+      "      <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
+      "        <notes>"   
+              "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+              "   <p>Testnote</p>\n"
+              "  </body>"
+            "  </notes>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </textGlyph>\n"
+      "    </listOfTextGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1705,29 +1708,34 @@ START_TEST (test_LayoutHandler_TextGlyph_annotation)
       "      </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfTextGlyphs>\n"
-      "    <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
-      "      <annotation>\n"
-      "        <this-is-a-test>\n"
-      "          <another-level> level2 </another-level>\n"
-      "        </this-is-a-test>\n"
-      "      </annotation>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </textGlyph>\n"
-      "  </listOfTextGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfTextGlyphs>\n"
+      "      <textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
+      "        <annotation>\n"
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
+      "        </annotation>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </textGlyph>\n"
+      "    </listOfTextGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1763,24 +1771,29 @@ END_TEST
 START_TEST (test_LayoutHandler_TextGlyph_skipOptional)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfTextGlyphs>\n"
-      "    <textGlyph id=\"textGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </textGlyph>\n"
-      " </listOfTextGlyphs>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfTextGlyphs>\n"
+      "      <textGlyph id=\"textGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </textGlyph>\n"
+      "   </listOfTextGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1815,24 +1828,29 @@ END_TEST
 START_TEST (test_LayoutHandler_GraphicalObject)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfAdditionalGraphicalObjects>\n"
-      "    <graphicalObject id=\"graphicalObject_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </graphicalObject>\n"
-      "  </listOfAdditionalGraphicalObjects>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfAdditionalGraphicalObjects>\n"
+      "      <graphicalObject id=\"graphicalObject_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </graphicalObject>\n"
+      "    </listOfAdditionalGraphicalObjects>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1862,29 +1880,34 @@ END_TEST
 START_TEST (test_LayoutHandler_GraphicalObject_notes)
 {
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfAdditionalGraphicalObjects>\n"
-      "    <graphicalObject id=\"graphicalObject_1\">\n"
-      "      <notes>"   
-              "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-              " <p>Testnote</p>\n"
-              "</body>"
-            "</notes>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </graphicalObject>\n"
-      "  </listOfAdditionalGraphicalObjects>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfAdditionalGraphicalObjects>\n"
+      "      <graphicalObject id=\"graphicalObject_1\">\n"
+      "        <notes>"   
+              "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+              "   <p>Testnote</p>\n"
+              "  </body>"
+            "  </notes>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </graphicalObject>\n"
+      "    </listOfAdditionalGraphicalObjects>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1923,30 +1946,35 @@ START_TEST (test_LayoutHandler_GraphicalObject_annotation)
       "      </annotation>";
 
     char* s=wrapSBML2
-    ( "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfAdditionalGraphicalObjects>\n"
-      "    <graphicalObject id=\"graphicalObject_1\">\n"
-      "      <annotation>\n"
-      "        <this-is-a-test>\n"
-      "          <another-level> level2 </another-level>\n"
-      "        </this-is-a-test>\n"
-      "      </annotation>\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </graphicalObject>\n"
-      "  </listOfAdditionalGraphicalObjects>\n"
-      "</layout>\n"
+    ( 
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfAdditionalGraphicalObjects>\n"
+      "      <graphicalObject id=\"graphicalObject_1\">\n"
+      "        <annotation>\n"
+      "          <this-is-a-test>\n"
+      "            <another-level> level2 </another-level>\n"
+      "          </this-is-a-test>\n"
+      "        </annotation>\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </graphicalObject>\n"
+      "    </listOfAdditionalGraphicalObjects>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
     
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -1979,28 +2007,32 @@ START_TEST (test_LayoutHandler_Curve)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"LineSegment\">\n" 
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"LineSegment\">\n" 
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2037,33 +2069,37 @@ START_TEST (test_LayoutHandler_Curve_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <notes>"   
-                "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-                " <p>Testnote</p>\n"
-                "</body>"
-              "</notes>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"LineSegment\">\n" 
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <notes>"   
+                "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                "   <p>Testnote</p>\n"
+                "  </body>"
+              "  </notes>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"LineSegment\">\n" 
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2109,33 +2145,37 @@ START_TEST (test_LayoutHandler_Curve_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <annotation>\n"
-      "          <this-is-a-test>\n"
-      "            <another-level> level2 </another-level>\n"
-      "          </this-is-a-test>\n"
-      "        </annotation>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"LineSegment\">\n" 
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <annotation>\n"
+      "            <this-is-a-test>\n"
+      "              <another-level> level2 </another-level>\n"
+      "            </this-is-a-test>\n"
+      "          </annotation>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"LineSegment\">\n" 
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2171,22 +2211,26 @@ START_TEST (test_LayoutHandler_Curve_skipOptional)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2210,28 +2254,32 @@ START_TEST (test_LayoutHandler_LineSegment)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"LineSegment\">\n" 
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"LineSegment\">\n" 
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
   );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2265,33 +2313,37 @@ START_TEST (test_LayoutHandler_LineSegment_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"LineSegment\">\n" 
-      "            <notes>"   
-                    "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-                    " <p>Testnote</p>\n"
-                    "</body>"
-                  "</notes>\n"
-"                  <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"LineSegment\">\n" 
+      "              <notes>"   
+                    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                    "   <p>Testnote</p>\n"
+                    "  </body>"
+                  "  </notes>\n"
+"                    <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
   );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2334,33 +2386,37 @@ START_TEST (test_LayoutHandler_LineSegment_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"LineSegment\">\n" 
-      "            <annotation>\n"
-      "              <this-is-a-test>\n"
-      "                <another-level> level2 </another-level>\n"
-      "              </this-is-a-test>\n"
-      "            </annotation>\n"
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"LineSegment\">\n" 
+      "              <annotation>\n"
+      "                <this-is-a-test>\n"
+      "                  <another-level> level2 </another-level>\n"
+      "                </this-is-a-test>\n"
+      "              </annotation>\n"
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
   );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2396,30 +2452,34 @@ START_TEST (test_LayoutHandler_CubicBezier)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"CubicBezier\">\n" 
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "            <basePoint1 x=\"15\" y=\"5\"/>\n" 
-      "            <basePoint2 x=\"15\" y=\"17\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"CubicBezier\">\n" 
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "              <basePoint1 x=\"15\" y=\"5\"/>\n" 
+      "              <basePoint2 x=\"15\" y=\"17\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
   );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2467,35 +2527,39 @@ START_TEST (test_LayoutHandler_CubicBezier_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"CubicBezier\">\n" 
-      "            <notes>"   
-                    "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-                    " <p>Testnote</p>\n"
-                    "</body>"
-                  "</notes>\n"
-"                  <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "            <basePoint1 x=\"15\" y=\"5\"/>\n" 
-      "            <basePoint2 x=\"16\" y=\"17\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"CubicBezier\">\n" 
+      "              <notes>"   
+                    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                    "   <p>Testnote</p>\n"
+                    "  </body>"
+                  "  </notes>\n"
+"                    <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "              <basePoint1 x=\"15\" y=\"5\"/>\n" 
+      "              <basePoint2 x=\"16\" y=\"17\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
   );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2550,35 +2614,39 @@ START_TEST (test_LayoutHandler_CubicBezier_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
-      "  <dimensions width=\"200\" height=\"400\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <curve>\n"
-      "        <listOfCurveSegments>\n"
-      "          <curveSegment xsi:type=\"CubicBezier\">\n" 
-      "            <annotation>\n"
-      "              <this-is-a-test>\n"
-      "                <another-level> level2 </another-level>\n"
-      "              </this-is-a-test>\n"
-      "            </annotation>\n"
-      "            <start x=\"10\" y=\"15\"/>\n" 
-      "            <end x=\"20\" y=\"30\"/>\n" 
-      "            <basePoint1 x=\"15\" y=\"5\"/>\n" 
-      "            <basePoint2 x=\"16\" y=\"17\"/>\n" 
-      "          </curveSegment>\n"
-      "        </listOfCurveSegments>\n"
-      "      </curve>\n"
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n"
+      "    <dimensions width=\"200\" height=\"400\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <curve>\n"
+      "          <listOfCurveSegments>\n"
+      "            <curveSegment xsi:type=\"CubicBezier\">\n" 
+      "              <annotation>\n"
+      "                <this-is-a-test>\n"
+      "                  <another-level> level2 </another-level>\n"
+      "                </this-is-a-test>\n"
+      "              </annotation>\n"
+      "              <start x=\"10\" y=\"15\"/>\n" 
+      "              <end x=\"20\" y=\"30\"/>\n" 
+      "              <basePoint1 x=\"15\" y=\"5\"/>\n" 
+      "              <basePoint2 x=\"16\" y=\"17\"/>\n" 
+      "            </curveSegment>\n"
+      "          </listOfCurveSegments>\n"
+      "        </curve>\n"
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
   );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2625,16 +2693,20 @@ START_TEST (test_LayoutHandler_Dimensions)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\"/>\n" 
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\"/>\n" 
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2653,23 +2725,27 @@ START_TEST (test_LayoutHandler_Dimensions_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
-      "    <notes>"   
-             "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-             " <p>Testnote</p>\n"
-             "</body>"
-          "</notes>\n"
-      "  </dimensions>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
+      "      <notes>"   
+             "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+             "   <p>Testnote</p>\n"
+             "  </body>"
+          "  </notes>\n"
+      "    </dimensions>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
 
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
     
@@ -2697,23 +2773,27 @@ START_TEST (test_LayoutHandler_Dimensions_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
-      "    <annotation>\n"
-      "      <this-is-a-test>\n"
-      "        <another-level> level2 </another-level>\n"
-      "      </this-is-a-test>\n"
-      "    </annotation>\n"
-      "  </dimensions>\n"
-       "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
+      "      <annotation>\n"
+      "        <this-is-a-test>\n"
+      "          <another-level> level2 </another-level>\n"
+      "        </this-is-a-test>\n"
+      "      </annotation>\n"
+      "    </dimensions>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
     
@@ -2734,17 +2814,21 @@ START_TEST (test_LayoutHandler_Dimensions_skipOptional)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "  </layout>\n"
+      "</listOfLayouts>\n"
     );
 
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2764,24 +2848,28 @@ START_TEST (test_LayoutHandler_BoundingBox)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox id=\"boundingBox_1\">\n"
-      "        <position x=\"10.3\" y=\"20\" z=\"30.23\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\" depth=\"100.2\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox id=\"boundingBox_1\">\n"
+      "          <position x=\"10.3\" y=\"20\" z=\"30.23\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\" depth=\"100.2\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2816,29 +2904,33 @@ START_TEST (test_LayoutHandler_BoundingBox_notes)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <notes>"   
-                "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-                " <p>Testnote</p>\n"
-                "</body>"
-              "</notes>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <notes>"   
+                "  <body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
+                "   <p>Testnote</p>\n"
+                "  </body>"
+              "  </notes>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2880,29 +2972,33 @@ START_TEST (test_LayoutHandler_BoundingBox_annotation)
 
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <annotation>\n"
-      "          <this-is-a-test>\n"
-      "            <another-level> level2 </another-level>\n"
-      "          </this-is-a-test>\n"
-      "        </annotation>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"layout_1\">\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <annotation>\n"
+      "            <this-is-a-test>\n"
+      "              <another-level> level2 </another-level>\n"
+      "            </this-is-a-test>\n"
+      "          </annotation>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 
@@ -2937,24 +3033,28 @@ START_TEST (test_LayoutHandler_BoundingBox_skipOptional)
 {
     char* s=wrapSBML2
     (
-      "<layout id=\"layout_1\">\n"
-      "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "  <listOfReactionGlyphs>\n"
-      "    <reactionGlyph id=\"reactionGlyph_1\">\n"
-      "      <boundingBox>\n"
-      "        <position x=\"10.3\" y=\"20\"/>\n"
-      "        <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-      "      </boundingBox>\n"  
-      "    </reactionGlyph>\n"
-      "  </listOfReactionGlyphs>\n"
-      "</layout>\n"
+      "<listOfLayouts>\n"
+      "  <layout id=\"  layout_1\"  >\n"
+      "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "    <listOfReactionGlyphs>\n"
+      "      <reactionGlyph id=\"reactionGlyph_1\">\n"
+      "        <boundingBox>\n"
+      "          <position x=\"10.3\" y=\"20\"/>\n"
+      "          <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
+      "        </boundingBox>\n"  
+      "      </reactionGlyph>\n"
+      "    </listOfReactionGlyphs>\n"
+      "  </layout>\n"
+      "</listOfLayouts>\n"
    );
 
-    fail_unless(readLayout(LH,s));  
+    XMLInputStream stream=XMLInputStream(content,false);
+    ListOfLayouts* pListOfLayouts=new ListOfLayouts();
+    pListOfLayouts->read(stream);
 
-    fail_unless(LISTOFLAYOUTS->getNumItems()==1);
+    fail_unless(pListOfLayouts->getNumItems()==1);
 
-    Layout* l=(Layout*)LISTOFLAYOUTS->get(0);
+    Layout* l=(Layout*)pListOfLayouts->get(0);
 
     fail_unless(l!=NULL);
 

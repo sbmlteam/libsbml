@@ -82,8 +82,8 @@ START_TEST ( test_ReactionGlyph_new )
 {
     fail_unless( RG->getTypeCode()    == SBML_LAYOUT_REACTIONGLYPH );
     fail_unless( RG->getMetaId()      == "" );
-    fail_unless( RG->getNotes()       == "" );
-    fail_unless( RG->getAnnotation()  == "" );
+//    fail_unless( RG->getNotes()       == "" );
+//    fail_unless( RG->getAnnotation()  == "" );
     fail_unless( RG->getId()          == "" );
     fail_unless( !RG->isSetId());
     fail_unless( !RG->isSetReactionId());
@@ -99,8 +99,8 @@ START_TEST ( test_ReactionGlyph_new_with_reactionId )
     ReactionGlyph* rg=new ReactionGlyph(id,reactionId);
     fail_unless( rg->getTypeCode()    == SBML_LAYOUT_REACTIONGLYPH );
     fail_unless( rg->getMetaId()      == "" );
-    fail_unless( rg->getNotes()       == "" );
-    fail_unless( rg->getAnnotation()  == "" );
+//    fail_unless( rg->getNotes()       == "" );
+//    fail_unless( rg->getAnnotation()  == "" );
     fail_unless( rg->isSetId());
     fail_unless( rg->getId()          == id );
     fail_unless( rg->isSetReactionId());

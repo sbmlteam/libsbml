@@ -77,8 +77,8 @@ START_TEST ( test_LineSegment_create )
 {
    fail_unless( SBase_getTypeCode   ((SBase_t*) LS) == SBML_LAYOUT_LINESEGMENT );
    fail_unless( SBase_getMetaId     ((SBase_t*) LS) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) LS) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) LS) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) LS) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) LS) == NULL );
 
    fail_unless( LineSegment_isSetId(LS) == 0 );
    
@@ -124,8 +124,8 @@ START_TEST ( test_LineSegment_createWithPoints )
    
    fail_unless( SBase_getTypeCode   ((SBase_t*) ls) == SBML_LAYOUT_LINESEGMENT );
    fail_unless( SBase_getMetaId     ((SBase_t*) ls) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
 
    fail_unless( LineSegment_isSetId(ls) == 0 );
    
@@ -150,8 +150,8 @@ START_TEST ( test_LineSegment_createWithPoints_NULL )
    
    fail_unless( SBase_getTypeCode   ((SBase_t*) ls) == SBML_LAYOUT_LINESEGMENT );
    fail_unless( SBase_getMetaId     ((SBase_t*) ls) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
 
    fail_unless( LineSegment_isSetId(ls) == 0 );
    
@@ -176,8 +176,8 @@ START_TEST ( test_LineSegment_createWithCoordinates )
     
    fail_unless( SBase_getTypeCode   ((SBase_t*) ls) == SBML_LAYOUT_LINESEGMENT );
    fail_unless( SBase_getMetaId     ((SBase_t*) ls) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) ls) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) ls) == NULL );
 
    fail_unless( LineSegment_isSetId(ls) == 0 );
    
@@ -249,29 +249,29 @@ START_TEST ( test_LineSegment_createFrom )
    {
      fail_unless(!(c1 || c2));
    }
-   c1=SBase_getNotes((SBase_t*)LS);
-   c2=SBase_getNotes((SBase_t*)ls);
-   
-   if(SBase_isSetNotes((SBase_t*)LS))
-   {
-     fail_unless( strncmp(c1 , c2 ,strlen( c1 ) + 1 ) );
-   }
-   else
-   {
-     fail_unless(!(c1 || c2));
-   }
-   
-   c1=SBase_getAnnotation((SBase_t*)LS);
-   c2=SBase_getAnnotation((SBase_t*)ls);
-   
-   if(SBase_isSetAnnotation((SBase_t*)LS))
-   {
-     fail_unless( strncmp(c1 , c2 ,strlen( c1 ) + 1) );
-   }
-   else
-   {
-     fail_unless(!(c1 || c2));
-   }
+//   c1=SBase_getNotes((SBase_t*)LS);
+//   c2=SBase_getNotes((SBase_t*)ls);
+//   
+//   if(SBase_isSetNotes((SBase_t*)LS))
+//   {
+//     fail_unless( strncmp(c1 , c2 ,strlen( c1 ) + 1 ) );
+//   }
+//   else
+//   {
+//     fail_unless(!(c1 || c2));
+//   }
+//   
+//   c1=SBase_getAnnotation((SBase_t*)LS);
+//   c2=SBase_getAnnotation((SBase_t*)ls);
+//   
+//   if(SBase_isSetAnnotation((SBase_t*)LS))
+//   {
+//     fail_unless( strncmp(c1 , c2 ,strlen( c1 ) + 1) );
+//   }
+//   else
+//   {
+//     fail_unless(!(c1 || c2));
+//   }
    
    fail_unless( LineSegment_isSetId(ls) == LineSegment_isSetId(LS) );
    if( LineSegment_isSetId(ls) )

@@ -77,8 +77,8 @@ START_TEST ( test_CubicBezier_create )
 {
    fail_unless( SBase_getTypeCode   ((SBase_t*) CB) == SBML_LAYOUT_CUBICBEZIER );
    fail_unless( SBase_getMetaId     ((SBase_t*) CB) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) CB) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) CB) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) CB) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) CB) == NULL );
 
    fail_unless( LineSegment_isSetId((LineSegment_t*)CB) == 0 );
    
@@ -120,8 +120,8 @@ START_TEST ( test_CubicBezier_createWithPoints )
    
    fail_unless( SBase_getTypeCode   ((SBase_t*) cb) == SBML_LAYOUT_CUBICBEZIER );
    fail_unless( SBase_getMetaId     ((SBase_t*) cb) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
 
    fail_unless( LineSegment_isSetId(cb) == 0 );
    
@@ -158,8 +158,8 @@ START_TEST ( test_CubicBezier_createWithPoints_NULL )
    
    fail_unless( SBase_getTypeCode   ((SBase_t*) cb) == SBML_LAYOUT_CUBICBEZIER );
    fail_unless( SBase_getMetaId     ((SBase_t*) cb) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
 
    fail_unless( LineSegment_isSetId((LineSegment_t*)cb) == 0 );
    
@@ -199,8 +199,8 @@ START_TEST ( test_CubicBezier_createWithCoordinates )
     
    fail_unless( SBase_getTypeCode   ((SBase_t*) cb) == SBML_LAYOUT_CUBICBEZIER );
    fail_unless( SBase_getMetaId     ((SBase_t*) cb) == NULL );
-   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
-   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
+//   fail_unless( SBase_getNotes      ((SBase_t*) cb) == NULL );
+//   fail_unless( SBase_getAnnotation ((SBase_t*) cb) == NULL );
 
    fail_unless( LineSegment_isSetId((LineSegment_t*)cb) == 0 );
    
@@ -311,25 +311,25 @@ START_TEST ( test_CubicBezier_createFrom )
        fail_unless(!(c1 || c2));
    }
 
-   c1=SBase_getNotes((SBase_t*)CB);
-   c2=SBase_getNotes((SBase_t*)cb);
-   if(SBase_isSetNotes((SBase_t*)CB))
-   {
-       fail_unless( strncmp(c1 , c2 ,strlen( c1)+1 )==0 );
-   }
-   else{
-       fail_unless(!(c1 || c2));
-   }
+//   c1=SBase_getNotes((SBase_t*)CB);
+//   c2=SBase_getNotes((SBase_t*)cb);
+//   if(SBase_isSetNotes((SBase_t*)CB))
+//   {
+//       fail_unless( strncmp(c1 , c2 ,strlen( c1)+1 )==0 );
+//   }
+//   else{
+//       fail_unless(!(c1 || c2));
+//   }
 
-   c1=SBase_getAnnotation((SBase_t*)CB);
-   c2=SBase_getAnnotation((SBase_t*)cb);
-   if(SBase_isSetAnnotation((SBase_t*)CB))
-   {
-       fail_unless( strncmp(c1 , c2 ,strlen( c1)+1 )==0 );
-   }
-   else{
-       fail_unless(!(c1 || c2));
-   }
+//   c1=SBase_getAnnotation((SBase_t*)CB);
+//   c2=SBase_getAnnotation((SBase_t*)cb);
+//   if(SBase_isSetAnnotation((SBase_t*)CB))
+//   {
+//       fail_unless( strncmp(c1 , c2 ,strlen( c1)+1 )==0 );
+//   }
+//   else{
+//       fail_unless(!(c1 || c2));
+//   }
 
    fail_unless( LineSegment_isSetId((LineSegment_t*)cb) == LineSegment_isSetId((LineSegment_t*)CB) );
    if( LineSegment_isSetId((LineSegment_t*)cb) )

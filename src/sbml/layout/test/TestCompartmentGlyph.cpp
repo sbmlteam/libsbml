@@ -77,8 +77,8 @@ START_TEST ( test_CompartmentGlyph_new )
 {
     fail_unless( CG->getTypeCode()    == SBML_LAYOUT_COMPARTMENTGLYPH );
     fail_unless( CG->getMetaId()      == "" );
-    fail_unless( CG->getNotes()       == "" );
-    fail_unless( CG->getAnnotation()  == "" );
+//    fail_unless( CG->getNotes()       == "" );
+//    fail_unless( CG->getAnnotation()  == "" );
     fail_unless( CG->getId()          == "" );
     fail_unless( !CG->isSetId());
     fail_unless( !CG->isSetCompartmentId());
