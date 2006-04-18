@@ -48,7 +48,9 @@
 #define ReactionGlyph_H__
 
 
-#include "common/libsbml-config.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+
 
 
 #ifdef __cplusplus
@@ -56,14 +58,14 @@
 
 #include <string>
 
-#include "sbml/ListOf.h"
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/ListOf.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 
-#include "GraphicalObject.h"
-#include "SpeciesReferenceGlyph.h"
+#include <sbml/layout/GraphicalObject.h>
+#include <sbml/layout/SpeciesReferenceGlyph.h>
 
 class LIBSBML_EXTERN ListOfSpeciesReferenceGlyphs : public ListOf
 {
@@ -347,9 +349,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

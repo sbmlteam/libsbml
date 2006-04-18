@@ -48,17 +48,19 @@
 #define Dimensions_H__
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+
 
 
 #ifdef __cplusplus
 
 
-#include "sbml/SBase.h"
-#include "sbml/SBMLVisitor.h"
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/SBase.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 
 
@@ -238,9 +240,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

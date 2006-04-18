@@ -44,7 +44,6 @@
  */
 
 
-#include "common/common.h"
 #include "SpeciesReferenceGlyph.h"
 
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={

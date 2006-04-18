@@ -44,7 +44,7 @@
  */
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
 
 
 #ifndef SpeciesReferenceRole_H__

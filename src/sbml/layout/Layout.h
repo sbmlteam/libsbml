@@ -48,7 +48,9 @@
 #define Layout_H__
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+
 
 
 #ifdef __cplusplus
@@ -56,20 +58,20 @@
 
 #include <string>
 
-#include "sbml/SBase.h"
-#include "sbml/SBMLVisitor.h"
-#include "sbml/ListOf.h"
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/SBase.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/ListOf.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "Dimensions.h"
-#include "CompartmentGlyph.h"
-#include "SpeciesGlyph.h"
-#include "ReactionGlyph.h"
-#include "TextGlyph.h"
-#include "GraphicalObject.h"
-#include "SpeciesReferenceGlyph.h"
+#include <sbml/layout/Dimensions.h>
+#include <sbml/layout/CompartmentGlyph.h>
+#include <sbml/layout/SpeciesGlyph.h>
+#include <sbml/layout/ReactionGlyph.h>
+#include <sbml/layout/TextGlyph.h>
+#include <sbml/layout/GraphicalObject.h>
+#include <sbml/layout/SpeciesReferenceGlyph.h>
 
 class LIBSBML_EXTERN ListOfLayouts : public ListOf
 {
@@ -848,9 +850,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

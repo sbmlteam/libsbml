@@ -45,7 +45,6 @@
 
 
 #include <limits>
-#include "common/common.h"
 #include "ReactionGlyph.h"
 
 

@@ -44,9 +44,8 @@
  */
 
 
-#include "common/common.h"
 #include "GraphicalObject.h"
-#include "sbml/SBMLErrorLog.h"
+#include <sbml/SBMLErrorLog.h>
 
 /**
  * Creates a new GraphicalObject.

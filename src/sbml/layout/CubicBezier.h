@@ -48,7 +48,8 @@
 #define CubicBezier_H__
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -56,12 +57,12 @@
 
 #include <string>
 
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "LineSegment.h"
-#include "Point.h"
+#include <sbml/layout/LineSegment.h>
+#include <sbml/layout/Point.h>
 
 
 class LIBSBML_EXTERN CubicBezier : public LineSegment
@@ -252,9 +253,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

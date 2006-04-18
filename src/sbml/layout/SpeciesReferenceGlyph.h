@@ -47,19 +47,22 @@
 #ifndef SpeciesReferenceGlyph_H__
 #define SpeciesReferenceGlyph_H__
 
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
+
 
 #ifdef __cplusplus
 
 
 #include <string>
 
-#include "GraphicalObject.h"
-#include "SpeciesReferenceRole.h"
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/layout/GraphicalObject.h>
+#include <sbml/layout/SpeciesReferenceRole.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "Curve.h"
+#include <sbml/layout/Curve.h>
 
 
 class LIBSBML_EXTERN SpeciesReferenceGlyph : public GraphicalObject
@@ -298,9 +301,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

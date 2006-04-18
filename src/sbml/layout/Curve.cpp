@@ -44,7 +44,6 @@
  */
 
 
-#include "common/common.h"
 
 #include "Curve.h"
 #include "CubicBezier.h"

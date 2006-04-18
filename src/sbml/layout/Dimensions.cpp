@@ -44,10 +44,9 @@
  */
 
 
-#include "common/common.h"
 #include "Dimensions.h"
-#include "sbml/xml/XMLErrorLog.h"
-#include "sbml/SBMLErrorLog.h"
+#include <sbml/xml/XMLErrorLog.h>
+#include <sbml/SBMLErrorLog.h>
 
 /**
  * Creates a new Dimensions object with all sizes set to 0.0.

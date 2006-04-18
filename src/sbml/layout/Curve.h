@@ -48,7 +48,8 @@
 #define Curve_H__
 
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -56,16 +57,16 @@
 
 #include <string>
 
-#include "sbml/SBase.h"
-#include "sbml/SBMLVisitor.h"
-#include "sbml/ListOf.h"
-#include "xml/XMLAttributes.h"
-#include "xml/XMLInputStream.h"
-#include "xml/XMLOutputStream.h"
+#include <sbml/SBase.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/ListOf.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 
-#include "LineSegment.h"
-#include "CubicBezier.h"
+#include <sbml/layout/LineSegment.h>
+#include <sbml/layout/CubicBezier.h>
 
 class LIBSBML_EXTERN ListOfLineSegments : public ListOf
 {
@@ -262,9 +263,6 @@ protected:
 
 
 BEGIN_C_DECLS
-
-
-#include "common/sbmlfwd.h"
 
 
 /**

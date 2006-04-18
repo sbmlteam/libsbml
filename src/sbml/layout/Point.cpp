@@ -44,9 +44,8 @@
  */
 
 
-#include "common/common.h"
 #include "Point.h"
-#include "sbml/SBMLErrorLog.h"
+#include <sbml/SBMLErrorLog.h>
 
 /**
  * Creates a new point with x,y and z set  to 0.0.
