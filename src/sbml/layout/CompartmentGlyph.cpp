@@ -46,6 +46,10 @@
 
 #include "CompartmentGlyph.h"
 
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
+
 
 /**
  * Default Constructor which creates a new CompartmentGlyph.  Id and

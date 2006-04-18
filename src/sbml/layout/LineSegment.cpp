@@ -45,6 +45,11 @@
 
 
 #include "LineSegment.h"
+#include <sbml/SBMLVisitor.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
+
 
 
 /**
@@ -92,11 +97,14 @@ LineSegment::LineSegment (double x1, double y1, double z1,
  */ 
 LineSegment::LineSegment (const Point* start, const Point* end) : 
     SBase     ()
-  , mStartPoint( *start )
-  , mEndPoint  ( *end   )
 {
-  this->mStartPoint.setElementName("start");
-  this->mEndPoint.setElementName("end");
+  if(start && end)
+  {  
+    this->mStartPoint=*start;  
+    this->mStartPoint.setElementName("start");
+    this->mEndPoint=*end;  
+    this->mEndPoint.setElementName("end");
+  }
 }
 
 
@@ -172,8 +180,11 @@ LineSegment::getStart()
 void
 LineSegment::setStart (const Point* start)
 {
-  this->mStartPoint=*start;
-  this->mStartPoint.setElementName("start");
+  if(start)
+  {  
+    this->mStartPoint=*start;
+    this->mStartPoint.setElementName("start");
+  }
 }
 
 
@@ -213,8 +224,11 @@ LineSegment::getEnd ()
 void
 LineSegment::setEnd (const Point* end)
 {
-  this->mEndPoint = *end;
-  this->mEndPoint.setElementName("end");
+  if(end)
+  {  
+    this->mEndPoint = *end;
+    this->mEndPoint.setElementName("end");
+  }
 }
 
 

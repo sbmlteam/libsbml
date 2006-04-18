@@ -58,15 +58,7 @@
 #include <string>
 
 #include <sbml/SBase.h>
-#include <sbml/SBMLVisitor.h>
 #include <sbml/ListOf.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
-
-#include <sbml/layout/LineSegment.h>
-#include <sbml/layout/CubicBezier.h>
 
 class LIBSBML_EXTERN ListOfLineSegments : public ListOf
 {

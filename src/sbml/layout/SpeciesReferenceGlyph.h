@@ -58,10 +58,6 @@
 
 #include <sbml/layout/GraphicalObject.h>
 #include <sbml/layout/SpeciesReferenceRole.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
 #include <sbml/layout/Curve.h>
 
 

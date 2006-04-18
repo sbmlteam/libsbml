@@ -59,12 +59,7 @@
 #include <string>
 
 #include <sbml/SBase.h>
-#include <sbml/SBMLVisitor.h>
 #include <sbml/ListOf.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
 #include <sbml/layout/Dimensions.h>
 #include <sbml/layout/CompartmentGlyph.h>
 #include <sbml/layout/SpeciesGlyph.h>

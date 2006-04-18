@@ -59,13 +59,8 @@
 #include <string>
 
 #include <sbml/ListOf.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
-
-#include <sbml/layout/GraphicalObject.h>
-#include <sbml/layout/SpeciesReferenceGlyph.h>
+#include "Curve.h"
+#include "GraphicalObject.h"
 
 class LIBSBML_EXTERN ListOfSpeciesReferenceGlyphs : public ListOf
 {

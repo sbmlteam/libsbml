@@ -46,6 +46,11 @@
 
 #include "GraphicalObject.h"
 #include <sbml/SBMLErrorLog.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
+
 
 /**
  * Creates a new GraphicalObject.
@@ -113,8 +118,11 @@ GraphicalObject::GraphicalObject (const std::string& id,
 GraphicalObject::GraphicalObject (const std::string& id, const BoundingBox* bb)
   : SBase      ()
   , mId         ( id )
-  , mBoundingBox( *bb )
 {
+    if(bb)
+    {
+        this->mBoundingBox=*bb;
+    }
 }
 
 
@@ -159,6 +167,7 @@ GraphicalObject::setId (const std::string& id)
 void
 GraphicalObject::setBoundingBox (const BoundingBox* bb)
 {
+  if(bb==NULL) return;  
   this->mBoundingBox = *bb;
 }
 

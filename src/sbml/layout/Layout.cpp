@@ -44,10 +44,16 @@
  */
 
 
-#include "Layout.h"
 #include <climits> 
 #include <iostream>
 #include <limits>
+
+#include "Layout.h"
+#include <sbml/SBMLVisitor.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
+
 
 /**
  * Creates a new Layout.
@@ -63,8 +69,11 @@ Layout::Layout () : SBase ()
 Layout::Layout (const std::string& id, const Dimensions* dimensions) :
     SBase      ()
   , mId         ( id )
-  , mDimensions ( *dimensions )
 {
+    if(dimensions)
+    {
+        this->mDimensions=*dimensions;
+    }
 }
 
 

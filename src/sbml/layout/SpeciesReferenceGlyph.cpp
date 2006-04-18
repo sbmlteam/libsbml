@@ -46,6 +46,11 @@
 
 #include "SpeciesReferenceGlyph.h"
 
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
+
+
 const std::string SpeciesReferenceGlyph::SPECIES_REFERENCE_ROLE_STRING[]={
     "undefined" 
    ,"substrate"

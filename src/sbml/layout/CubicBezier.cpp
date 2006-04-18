@@ -46,6 +46,10 @@
 
 #include "CubicBezier.h"
 
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
+
 
 /**
  * Creates a CubicBezier and returns the pointer.
@@ -118,12 +122,20 @@ CubicBezier::CubicBezier (const Point* start, const Point* end)
  */
 CubicBezier::CubicBezier (const Point* start, const Point* base1,
                           const Point* base2, const Point* end)
-  : LineSegment( start ,end )
-  , mBasePoint1 ( *base1 )
-  , mBasePoint2 ( *base2 )
+  : LineSegment(start ,end )
 {
-  this->mBasePoint1.setElementName("basePoint1");
-  this->mBasePoint2.setElementName("basePoint2");
+    if(base1 && base2 && start && end)
+    {
+      this->mBasePoint1=*base1;
+      this->mBasePoint1.setElementName("basePoint1");
+      this->mBasePoint2=*base2;
+      this->mBasePoint2.setElementName("basePoint2");
+    }
+    else
+    {
+        this->mStartPoint=Point();
+        this->mEndPoint=Point();
+    }
 }
 
 
@@ -173,8 +185,11 @@ CubicBezier::getBasePoint1 ()
 void
 CubicBezier::setBasePoint1 (const Point* p)
 {
-  this->mBasePoint1 = *p;
-  this->mBasePoint1.setElementName("basePoint1");
+  if(p)
+  {  
+    this->mBasePoint1 = *p;
+    this->mBasePoint1.setElementName("basePoint1");
+  }
 }
 
 
@@ -215,8 +230,11 @@ CubicBezier::getBasePoint2 ()
  */
 void CubicBezier::setBasePoint2 (const Point* p)
 {
-  this->mBasePoint2 = *p;
-  this->mBasePoint2.setElementName("basePoint2");
+  if(p)
+  {  
+    this->mBasePoint2 = *p;
+    this->mBasePoint2.setElementName("basePoint2");
+  }
 }
 
 

@@ -46,6 +46,12 @@
 
 #include "BoundingBox.h"
 
+#include <sbml/SBMLVisitor.h>
+#include <sbml/xml/XMLAttributes.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
+
+
 
 /**
  * Default Constructor set position and dimensions to (0.0,0.0,0.0) and the
@@ -104,9 +110,15 @@ BoundingBox::BoundingBox (const std::string id,
                           const Dimensions* d)
   : SBase     ()
   , mId        ( id )
-  , mPosition  ( *p  )
-  , mDimensions( *d  )
 {
+    if(p)
+    {
+        this->mPosition=*p;   
+    }
+    if(d)
+    {
+        this->mDimensions=*d;   
+    }
 }
 
 

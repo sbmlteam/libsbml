@@ -59,12 +59,7 @@
 #include <string>
 
 #include <sbml/SBase.h>
-#include <sbml/SBMLVisitor.h>
 #include <sbml/layout/BoundingBox.h>
-#include <sbml/xml/XMLAttributes.h>
-#include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLOutputStream.h>
-
 
 
 class LIBSBML_EXTERN GraphicalObject : public SBase
