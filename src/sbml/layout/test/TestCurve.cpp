@@ -129,7 +129,7 @@ START_TEST (test_Curve_getListOfCurveSegments )
     Curve_createLineSegment(C);
     ListOf* l=Curve_getListOfCurveSegments(C);
     fail_unless(l != NULL);
-    fail_unless(ListOf_getNumItems(l) == 1);
+    fail_unless(ListOf_size(l) == 1);
 }
 END_TEST
 

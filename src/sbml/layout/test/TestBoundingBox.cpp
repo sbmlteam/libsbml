@@ -45,51 +45,50 @@
 
 #include <check.h>
 
-#include <common/common.h>
-#include <common/extern.h>
 
-#include "sbml/SBase.h"
+#include "common/common.h"
+
 #include "BoundingBox.h"
-#include "Point.h"
-#include "Dimensions.h"
 
-BEGIN_C_DECLS
 
-static BoundingBox_t* BB;
+static BoundingBox* BB;
 
-void
+static void
 BoundingBoxTest_setup (void)
 {
-    BB = BoundingBox_create();
+    BB = new BoundingBox();
 
     if(BB == NULL)
     {
-        fail("BoundingBox_create(); returned a NULL pointer.");
+        fail("BoundingBox(); returned a NULL pointer.");
     }
 }
 
-void
+static void
 BoundingBoxTest_teardown (void)
 {
-    BoundingBox_free(BB);
+    delete BB;
 }
+
+
+CK_CPPSTART
 
 START_TEST ( test_BoundingBox_create )
 {
-   fail_unless( SBase_getTypeCode   ((SBase_t*) BB) == SBML_LAYOUT_BOUNDINGBOX );
-   fail_unless( SBase_getMetaId     ((SBase_t*) BB) == NULL );
+   fail_unless( BB->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( BB->getMetaId() == "" );
 //   fail_unless( SBase_getNotes      ((SBase_t*) BB) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) BB) == NULL );
 
-   fail_unless( BoundingBox_isSetId(BB) == 0 );
+   fail_unless(BB->isSetId() == false );
    
-   Point_t *pos=BoundingBox_getPosition(BB);
+   Point* pos=BB->getPosition();
    fail_unless(pos != NULL);
    fail_unless(pos->getXOffset() == 0.0);  
    fail_unless(pos->getYOffset() == 0.0);  
    fail_unless(pos->getZOffset() == 0.0);  
    
-   Dimensions_t *dim=BoundingBox_getDimensions(BB); 
+   Dimensions *dim=BB->getDimensions(); 
    fail_unless(dim != NULL);
    fail_unless(dim->getWidth () == 0.0);  
    fail_unless(dim->getHeight() == 0.0);  
@@ -102,170 +101,170 @@ END_TEST
 START_TEST ( test_BoundingBox_createWith )
 {
    const char* id="BoundingBox"; 
-   BoundingBox_t *bb=BoundingBox_createWith(id); 
-   fail_unless( SBase_getTypeCode   ((SBase_t*) bb) == SBML_LAYOUT_BOUNDINGBOX );
-   fail_unless( SBase_getMetaId     ((SBase_t*) bb) == NULL );
+   BoundingBox *bb=new BoundingBox(id); 
+   fail_unless( bb->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId()   == "" );
 //   fail_unless( SBase_getNotes      ((SBase_t*) bb) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) bb) == NULL );
 
-   fail_unless( BoundingBox_isSetId(bb) != 0 );
-   fail_unless( strncmp(BoundingBox_getId(bb),id,strlen(id)+1) == 0);
+   fail_unless( bb->isSetId() == true );
+   fail_unless( bb->getId() == id);
    
-   Point_t *pos=BoundingBox_getPosition(bb);
+   Point *pos=bb->getPosition();
    fail_unless(pos != NULL);
    fail_unless(pos->getXOffset() == 0.0);  
    fail_unless(pos->getYOffset() == 0.0);  
    fail_unless(pos->getZOffset() == 0.0);  
    
-   Dimensions_t *dim=BoundingBox_getDimensions(bb); 
+   Dimensions *dim=bb->getDimensions(); 
    fail_unless(dim != NULL);
    fail_unless(dim->getWidth () == 0.0);  
    fail_unless(dim->getHeight() == 0.0);  
    fail_unless(dim->getDepth () == 0.0);  
-   
+   delete bb;
 }
 END_TEST
 
 START_TEST ( test_BoundingBox_createWith_NULL )
 {
-   BoundingBox_t *bb=BoundingBox_createWith(NULL); 
-   fail_unless( SBase_getTypeCode   ((SBase_t*) bb) == SBML_LAYOUT_BOUNDINGBOX );
-   fail_unless( SBase_getMetaId     ((SBase_t*) bb) == NULL );
+   BoundingBox *bb=new BoundingBox(""); 
+   fail_unless( bb->getTypeCode()    == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId()  == "" );
 //   fail_unless( SBase_getNotes      ((SBase_t*) bb) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) bb) == NULL );
 
-   fail_unless( BoundingBox_isSetId(bb) == 0 );
+   fail_unless( bb->isSetId() == false );
    
-   Point_t *pos=BoundingBox_getPosition(bb);
+   Point *pos=bb->getPosition();
    fail_unless(pos != NULL);
    fail_unless(pos->getXOffset() == 0.0);  
    fail_unless(pos->getYOffset() == 0.0);  
    fail_unless(pos->getZOffset() == 0.0);  
    
-   Dimensions_t *dim=BoundingBox_getDimensions(bb); 
+   Dimensions *dim=bb->getDimensions(); 
    fail_unless(dim != NULL);
    fail_unless(dim->getWidth () == 0.0);  
    fail_unless(dim->getHeight() == 0.0);  
    fail_unless(dim->getDepth () == 0.0);  
+
+   delete bb;
  }
 END_TEST
 
 START_TEST ( test_BoundingBox_createWithCoordinates )
 {
    const char* id="BoundingBox";
-   BoundingBox_t *bb=BoundingBox_createWithCoordinates(id,1.1,-2.2,3.3,-4.4,5.5,-6.6);
-   fail_unless( SBase_getTypeCode   ((SBase_t*) bb) == SBML_LAYOUT_BOUNDINGBOX );
-   fail_unless( SBase_getMetaId     ((SBase_t*) bb) == NULL );
+   BoundingBox *bb=new BoundingBox(id,1.1,-2.2,3.3,-4.4,5.5,-6.6);
+   fail_unless( bb->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId() == "" );
 //   fail_unless( SBase_getNotes      ((SBase_t*) bb) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) bb) == NULL );
 
-   fail_unless( BoundingBox_isSetId(bb) != 0 );
-   fail_unless( strncmp(BoundingBox_getId(bb),id,strlen(id)+1) == 0);
+   fail_unless( bb->isSetId() == true );
+   fail_unless( bb->getId() == id);
    
-   Point_t *pos=BoundingBox_getPosition(bb);
+   Point *pos=bb->getPosition();
    fail_unless(pos != NULL);
    fail_unless(pos->getXOffset() ==  1.1);  
    fail_unless(pos->getYOffset() == -2.2);  
    fail_unless(pos->getZOffset() ==  3.3);  
    
-   Dimensions_t *dim=BoundingBox_getDimensions(bb); 
+   Dimensions *dim=bb->getDimensions(); 
    fail_unless(dim != NULL);
    fail_unless(dim->getWidth () == -4.4);  
    fail_unless(dim->getHeight() ==  5.5);  
    fail_unless(dim->getDepth () == -6.6);  
+
+   delete bb;
  }
 END_TEST
 
 START_TEST ( test_BoundingBox_createWithCoordinates_NULL )
 {
-   BoundingBox_t *bb=BoundingBox_createWithCoordinates(NULL,1.1,-2.2,3.3,-4.4,5.5,-6.6);
-   fail_unless( SBase_getTypeCode   ((SBase_t*) bb) == SBML_LAYOUT_BOUNDINGBOX );
-   fail_unless( SBase_getMetaId     ((SBase_t*) bb) == NULL );
+   BoundingBox *bb=new BoundingBox("",1.1,-2.2,3.3,-4.4,5.5,-6.6);
+   fail_unless( bb->getTypeCode() == SBML_LAYOUT_BOUNDINGBOX );
+   fail_unless( bb->getMetaId() == "" );
 //   fail_unless( SBase_getNotes      ((SBase_t*) bb) == NULL );
 //   fail_unless( SBase_getAnnotation ((SBase_t*) bb) == NULL );
 
-   fail_unless( BoundingBox_isSetId(bb) == 0 );
+   fail_unless( bb->isSetId() == false );
    
-   Point_t *pos=BoundingBox_getPosition(bb);
+   Point *pos=bb->getPosition();
    fail_unless(pos != NULL);
    fail_unless(pos->getXOffset() ==  1.1);  
    fail_unless(pos->getYOffset() == -2.2);  
    fail_unless(pos->getZOffset() ==  3.3);  
    
-   Dimensions_t *dim=BoundingBox_getDimensions(bb); 
+   Dimensions *dim=bb->getDimensions(); 
    fail_unless(dim != NULL);
    fail_unless(dim->getWidth () == -4.4);  
    fail_unless(dim->getHeight() ==  5.5);  
    fail_unless(dim->getDepth () == -6.6);  
-}
-END_TEST
 
-START_TEST ( test_BoundingBox_free_NULL )
-{
-    BoundingBox_free(NULL);
+   delete bb;
 }
 END_TEST
 
 START_TEST ( test_BoundingBox_setId )
 {
     const char* id="BoundingBox";
-    BoundingBox_setId(BB,id);
-    fail_unless(BoundingBox_isSetId(BB) != 0);
-    fail_unless(strncmp(BoundingBox_getId(BB),id,strlen(id)+1)==0);
+    BB->setId(id);
+    fail_unless(BB->isSetId() == true);
+    fail_unless(BB->getId() == id);
 }
 END_TEST
 
 START_TEST ( test_BoundingBox_setId_NULL )
 {
-    BoundingBox_setId(BB,NULL);
-    fail_unless(BoundingBox_isSetId(BB) == 0);
-    fail_unless(BoundingBox_getId(BB) == NULL);
+    BB->setId("");
+    fail_unless(BB->isSetId() == false);
+    fail_unless(BB->getId() == "");
 }
 END_TEST
 
 START_TEST ( test_BoundingBox_setPosition )
 {
-    Point_t *pos=Point_createWithCoordinates(-1.1,2.2,-3.3);
-    BoundingBox_setPosition(BB,pos);
-    Point_t *pos2=BoundingBox_getPosition(BB);
+    Point pos=Point(-1.1,2.2,-3.3);
+    BB->setPosition(&pos);
+    Point *pos2=BB->getPosition();
     fail_unless(pos2 != NULL);
-    fail_unless(Point_getXOffset(pos) == Point_getXOffset(pos2) );
-    fail_unless(Point_getYOffset(pos) == Point_getYOffset(pos2) );
-    fail_unless(Point_getZOffset(pos) == Point_getZOffset(pos2) );
+    fail_unless(pos.getXOffset() == pos2->getXOffset() );
+    fail_unless(pos.getYOffset() == pos2->getYOffset() );
+    fail_unless(pos.getZOffset() == pos2->getZOffset() );
 }
 END_TEST
 
 START_TEST ( test_BoundingBox_setPosition_NULL )
 {
-    BoundingBox_setPosition(BB,NULL);
-    Point_t *pos=BoundingBox_getPosition(BB);
+    BB->setPosition(NULL);
+    Point *pos=BB->getPosition();
     fail_unless(pos != NULL);
-    fail_unless(Point_getXOffset(pos) == 0.0 );
-    fail_unless(Point_getYOffset(pos) == 0.0 );
-    fail_unless(Point_getZOffset(pos) == 0.0 );
+    fail_unless(pos->getXOffset() == 0.0 );
+    fail_unless(pos->getYOffset() == 0.0 );
+    fail_unless(pos->getZOffset() == 0.0 );
 }
 END_TEST
 
 START_TEST ( test_BoundingBox_setDimensions )
 {
-    Dimensions_t *dim=Dimensions_createWithSize(-4.4,5.5,-6.6);
-    BoundingBox_setDimensions(BB,dim);
-    Dimensions_t *dim2=BoundingBox_getDimensions(BB);
+    Dimensions dim=Dimensions(-4.4,5.5,-6.6);
+    BB->setDimensions(&dim);
+    Dimensions *dim2=BB->getDimensions();
     fail_unless(dim2 != NULL);
-    fail_unless(Dimensions_getWidth (dim) == Dimensions_getWidth (dim2) );
-    fail_unless(Dimensions_getHeight(dim) == Dimensions_getHeight(dim2) );
-    fail_unless(Dimensions_getDepth (dim) == Dimensions_getDepth (dim2) );
+    fail_unless(dim.getWidth () == dim2->getWidth () );
+    fail_unless(dim.getHeight() == dim2->getHeight() );
+    fail_unless(dim.getDepth () == dim2->getDepth () );
 }
 END_TEST
 
 START_TEST ( test_BoundingBox_setDimensions_NULL )
 {
-    BoundingBox_setDimensions(BB,NULL);
-    Dimensions_t *dim=BoundingBox_getDimensions(BB);
+    BB->setDimensions(NULL);
+    Dimensions *dim=BB->getDimensions();
     fail_unless(dim != NULL);
-    fail_unless(Dimensions_getWidth (dim) == 0.0 );
-    fail_unless(Dimensions_getHeight(dim) == 0.0 );
-    fail_unless(Dimensions_getDepth (dim) == 0.0 );
+    fail_unless(dim->getWidth () == 0.0 );
+    fail_unless(dim->getHeight() == 0.0 );
+    fail_unless(dim->getDepth () == 0.0 );
 }
 END_TEST
 
@@ -284,7 +283,6 @@ create_suite_BoundingBox (void)
   tcase_add_test( tcase, test_BoundingBox_createWith                 );
   tcase_add_test( tcase, test_BoundingBox_createWith_NULL            );
   tcase_add_test( tcase, test_BoundingBox_createWithCoordinates_NULL );
-  tcase_add_test( tcase, test_BoundingBox_free_NULL                  );
   tcase_add_test( tcase, test_BoundingBox_setId                      );
   tcase_add_test( tcase, test_BoundingBox_setId_NULL                 );
   tcase_add_test( tcase, test_BoundingBox_setPosition                );
@@ -297,4 +295,5 @@ create_suite_BoundingBox (void)
   return suite;
 }
 
-END_C_DECLS
+
+CK_CPPEND

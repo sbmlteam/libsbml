@@ -85,9 +85,9 @@ START_TEST (test_GraphicalObject_new)
 //    fail_unless( GO->getAnnotation()  == "" );
     fail_unless( GO->getId()          == "" );
     fail_unless( !GO->isSetId());
-    BoundingBox bb=GO->getBoundingBox();
-    Point pos=bb.getPosition();
-    Dimensions dim=bb.getDimensions();
+    const BoundingBox& bb=*(GO->getBoundingBox());
+    const Point& pos=*(bb.getPosition());
+    const Dimensions& dim=*(bb.getDimensions());
     fail_unless(pos.getXOffset() == 0.0);
     fail_unless(pos.getYOffset() == 0.0);
     fail_unless(pos.getZOffset() == 0.0);
@@ -109,9 +109,9 @@ START_TEST (test_GraphicalObject_new_with_id)
     fail_unless( go->isSetId());
     fail_unless( go->getId() == id );
     
-    BoundingBox bb=go->getBoundingBox();
-    Point pos=bb.getPosition();
-    Dimensions dim=bb.getDimensions();
+    const BoundingBox& bb=*(go->getBoundingBox());
+    const Point& pos=*(bb.getPosition());
+    const Dimensions& dim=*(bb.getDimensions());
     fail_unless(pos.getXOffset() == 0.0);
     fail_unless(pos.getYOffset() == 0.0);
     fail_unless(pos.getZOffset() == 0.0);
@@ -134,9 +134,9 @@ START_TEST (test_GraphicalObject_new_with_id_and_2D_coordinates)
     fail_unless( go->isSetId());
     fail_unless( go->getId() == id );
     
-    BoundingBox bb=go->getBoundingBox();
-    Point pos=bb.getPosition();
-    Dimensions dim=bb.getDimensions();
+    const BoundingBox& bb=*(go->getBoundingBox());
+    const Point& pos=*(bb.getPosition());
+    const Dimensions& dim=*(bb.getDimensions());
     fail_unless(pos.getXOffset() ==  1.1);
     fail_unless(pos.getYOffset() == -2.2);
     fail_unless(pos.getZOffset() ==  0.0);
@@ -160,9 +160,9 @@ START_TEST (test_GraphicalObject_new_with_id_and_3D_coordinates)
     fail_unless( go->isSetId());
     fail_unless( go->getId() == id );
     
-    BoundingBox bb=go->getBoundingBox();
-    Point pos=bb.getPosition();
-    Dimensions dim=bb.getDimensions();
+    const BoundingBox& bb=*(go->getBoundingBox());
+    const Point& pos=*(bb.getPosition());
+    const Dimensions& dim=*(bb.getDimensions());
     fail_unless(pos.getXOffset() ==  1.1);
     fail_unless(pos.getYOffset() == -2.2);
     fail_unless(pos.getZOffset() ==  3.3);
@@ -180,7 +180,7 @@ START_TEST (test_GraphicalObject_new_with_id_point_and_dimensions)
     Point pos2=Point(1.1,-2.2,3.3);
     Dimensions dim2=Dimensions(-4.4,5.5,-6.6);
     std::string id="TestGraphicalObject";
-    GraphicalObject* go=new GraphicalObject(id,pos2,dim2);
+    GraphicalObject* go=new GraphicalObject(id,&pos2,&dim2);
     fail_unless( go->getTypeCode()    == SBML_LAYOUT_GRAPHICALOBJECT );
     fail_unless( go->getMetaId()      == "" );
 //    fail_unless( go->getNotes()       == "" );
@@ -188,9 +188,9 @@ START_TEST (test_GraphicalObject_new_with_id_point_and_dimensions)
     fail_unless( go->isSetId());
     fail_unless( go->getId() == id );
     
-    BoundingBox bb=go->getBoundingBox();
-    Point pos=bb.getPosition();
-    Dimensions dim=bb.getDimensions();
+    const BoundingBox& bb=*(go->getBoundingBox());
+    const Point& pos=*(bb.getPosition());
+    const Dimensions& dim=*(bb.getDimensions());
     fail_unless(pos.getXOffset() == pos2.getXOffset());
     fail_unless(pos.getYOffset() == pos2.getYOffset());
     fail_unless(pos.getZOffset() == pos2.getZOffset());
@@ -206,11 +206,11 @@ START_TEST (test_GraphicalObject_new_with_id_and_boundingbox )
 {
     BoundingBox bb2=BoundingBox();
     Point pos2=Point(1.1,-2.2,3.3);
-    bb2.setPosition(pos2);
+    bb2.setPosition(&pos2);
     Dimensions dim2=Dimensions(-4.4,5.5,-6.6);
-    bb2.setDimensions(dim2);
+    bb2.setDimensions(&dim2);
     std::string id="TestGraphicalObject";
-    GraphicalObject* go=new GraphicalObject(id,bb2);
+    GraphicalObject* go=new GraphicalObject(id,&bb2);
     fail_unless( go->getTypeCode()    == SBML_LAYOUT_GRAPHICALOBJECT );
     fail_unless( go->getMetaId()      == "" );
 //    fail_unless( go->getNotes()       == "" );
@@ -218,9 +218,9 @@ START_TEST (test_GraphicalObject_new_with_id_and_boundingbox )
     fail_unless( go->isSetId());
     fail_unless( go->getId() == id );
     
-    BoundingBox bb=go->getBoundingBox();
-    Point pos=bb.getPosition();
-    Dimensions dim=bb.getDimensions();
+    const BoundingBox& bb=*(go->getBoundingBox());
+    const Point& pos=*(bb.getPosition());
+    const Dimensions& dim=*(bb.getDimensions());
     fail_unless(pos.getXOffset() == pos2.getXOffset());
     fail_unless(pos.getYOffset() == pos2.getYOffset());
     fail_unless(pos.getZOffset() == pos2.getZOffset());
@@ -245,16 +245,19 @@ END_TEST
 START_TEST (test_GraphicalObject_setBoundingBox)
 {
     BoundingBox bb=BoundingBox();
-    bb.setPosition(Point(1.1,-2.2,3.3));
-    bb.setDimensions(Dimensions(-4.4,5.5,-6.6));
-    GO->setBoundingBox(bb);
-    BoundingBox bb2=GO->getBoundingBox();
-    fail_unless(bb.getPosition().getXOffset() == bb2.getPosition().getXOffset());
-    fail_unless(bb.getPosition().getYOffset() == bb2.getPosition().getYOffset());
-    fail_unless(bb.getPosition().getZOffset() == bb2.getPosition().getZOffset());
-    fail_unless(bb.getDimensions().getWidth() == bb2.getDimensions().getWidth());
-    fail_unless(bb.getDimensions().getHeight() == bb2.getDimensions().getHeight());
-    fail_unless(bb.getDimensions().getDepth() == bb2.getDimensions().getDepth());
+    Point* p=new Point(1.1,-2.2,3.3);
+    bb.setPosition(p);
+    delete p;
+    Dimensions* d=new Dimensions(-4.4,5.5,-6.6);
+    bb.setDimensions(d);
+    GO->setBoundingBox(&bb);
+    const BoundingBox& bb2=*(GO->getBoundingBox());
+    fail_unless(bb.getPosition()->getXOffset() == bb2.getPosition()->getXOffset());
+    fail_unless(bb.getPosition()->getYOffset() == bb2.getPosition()->getYOffset());
+    fail_unless(bb.getPosition()->getZOffset() == bb2.getPosition()->getZOffset());
+    fail_unless(bb.getDimensions()->getWidth() == bb2.getDimensions()->getWidth());
+    fail_unless(bb.getDimensions()->getHeight() == bb2.getDimensions()->getHeight());
+    fail_unless(bb.getDimensions()->getDepth() == bb2.getDimensions()->getDepth());
 }
 END_TEST
 

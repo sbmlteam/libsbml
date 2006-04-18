@@ -129,7 +129,7 @@ START_TEST ( test_ReactionGlyph_addSpeciesReferenceGlyph )
     std::string srgId="TestSpeciesReferenceGlyph";
     SpeciesReferenceGlyph* srg=new SpeciesReferenceGlyph();
     srg->setId(srgId);
-    RG->addSpeciesReferenceGlyph(*srg);
+    RG->addSpeciesReferenceGlyph(srg);
     fail_unless(RG->getNumSpeciesReferenceGlyphs() == 1);
     fail_unless(RG->getSpeciesReferenceGlyph(0)->getId() == srgId); 
     
@@ -190,23 +190,23 @@ START_TEST ( test_ReactionGlyph_createLineSegment )
     fail_unless(RG->getCurve()->getNumCurveSegments() == 2);
 
     LineSegment* ls=RG->getCurve()->getCurveSegment(0);
-    Point p=ls->getStart();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    const Point* p=ls->getStart();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=ls->getEnd();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     ls=RG->getCurve()->getCurveSegment(1);
     p=ls->getStart();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=ls->getEnd();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
 }
 END_TEST
 
@@ -219,40 +219,40 @@ START_TEST ( test_ReactionGlyph_createCubicBezier )
     fail_unless(RG->getCurve()->getCurveSegment(0)->getTypeCode() == SBML_LAYOUT_CUBICBEZIER );
     
     CubicBezier* cb=(CubicBezier*)RG->getCurve()->getCurveSegment(0);
-    Point p=cb->getStart();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    Point* p=cb->getStart();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=cb->getBasePoint1();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=cb->getBasePoint2();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=cb->getEnd();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     fail_unless(RG->getCurve()->getCurveSegment(1)->getTypeCode() == SBML_LAYOUT_CUBICBEZIER );
     cb=(CubicBezier*)RG->getCurve()->getCurveSegment(1);
     p=cb->getStart();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=cb->getBasePoint1();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=cb->getBasePoint2();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
     p=cb->getEnd();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
 }
 END_TEST
 

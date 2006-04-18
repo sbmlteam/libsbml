@@ -85,7 +85,7 @@ START_TEST ( test_Layout_new )
 //    fail_unless( L->getAnnotation()  == "" );
     fail_unless( L->getId()          == "" );
     fail_unless( !L->isSetId());
-    Dimensions dim=L->getDimensions();
+    const Dimensions& dim=*(L->getDimensions());
     fail_unless (dim.getWidth()  == 0.0 );
     fail_unless (dim.getHeight() == 0.0 );
     fail_unless (dim.getDepth()  == 0.0 );
@@ -102,14 +102,14 @@ START_TEST ( test_Layout_new_with_id_and_dimensions )
 {
     std::string id="TestLayoutId";
     Dimensions dimensions=Dimensions(-1.1,2.2,3.3);
-    Layout* l=new Layout(id,dimensions);
+    Layout* l=new Layout(id,&dimensions);
     fail_unless( l->getTypeCode()    == SBML_LAYOUT_LAYOUT );
     fail_unless( l->getMetaId()      == "" );
 //    fail_unless( l->getNotes()       == "" );
 //    fail_unless( l->getAnnotation()  == "" );
     fail_unless( l->getId()          == id );
     fail_unless( l->isSetId());
-    Dimensions dim=l->getDimensions();
+    const Dimensions& dim=*(l->getDimensions());
     fail_unless (dim.getWidth()  == dimensions.getWidth() );
     fail_unless (dim.getHeight() == dimensions.getHeight() );
     fail_unless (dim.getDepth()  == dimensions.getDepth() );
@@ -135,8 +135,8 @@ END_TEST
 START_TEST ( test_Layout_setDimensions )
 {
     Dimensions dimensions=Dimensions(-1.1,2.2,-3.3);
-    L->setDimensions(dimensions);
-    Dimensions dim=L->getDimensions();
+    L->setDimensions(&dimensions);
+    const Dimensions& dim=*(L->getDimensions());
     fail_unless(dim.getWidth()  == dimensions.getWidth());
     fail_unless(dim.getHeight() == dimensions.getHeight());
     fail_unless(dim.getDepth()  == dimensions.getDepth());
@@ -146,45 +146,47 @@ END_TEST
 START_TEST ( test_Layout_addCompartmentGlyph )
 {
     CompartmentGlyph* cg=new CompartmentGlyph();
-    L->addCompartmentGlyph(*cg);
+    L->addCompartmentGlyph(cg);
     fail_unless ( L->getNumCompartmentGlyphs() == 1 );
-    fail_unless ( L->getCompartmentGlyph(0)    == cg);
+    delete cg;
 }
 END_TEST
 
 START_TEST ( test_Layout_addSpeciesGlyph )
 {
     SpeciesGlyph* sg=new SpeciesGlyph();
-    L->addSpeciesGlyph(*sg);
+    L->addSpeciesGlyph(sg);
     fail_unless ( L->getNumSpeciesGlyphs() == 1 );
-    fail_unless ( L->getSpeciesGlyph(0)    == sg);
+    delete sg;
 }
 END_TEST
 
 START_TEST ( test_Layout_addReactionGlyph )
 {
     ReactionGlyph* rg=new ReactionGlyph();
-    L->addReactionGlyph(*rg);
+    L->addReactionGlyph(rg);
     fail_unless ( L->getNumReactionGlyphs() == 1 );
-    fail_unless ( L->getReactionGlyph(0)    == rg);
+
+    delete rg;
 }
 END_TEST
 
 START_TEST ( test_Layout_addTextGlyph )
 {
     TextGlyph* tg=new TextGlyph();
-    L->addTextGlyph(*tg);
+    L->addTextGlyph(tg);
     fail_unless ( L->getNumTextGlyphs() == 1 );
-    fail_unless ( L->getTextGlyph(0)    == tg);
+
+    delete tg;
 }
 END_TEST
 
 START_TEST ( test_Layout_addAdditionalGraphicalObject )
 {
     GraphicalObject* ago=new GraphicalObject();
-    L->addAdditionalGraphicalObject(*ago);
+    L->addAdditionalGraphicalObject(ago);
     fail_unless ( L->getNumAdditionalGraphicalObjects() == 1 );
-    fail_unless ( L->getAdditionalGraphicalObject(0)    == ago);
+    delete ago;
 }
 END_TEST
 
@@ -200,12 +202,17 @@ START_TEST ( test_Layout_getNumCompartmentGlyphs )
     CompartmentGlyph* cg3=new CompartmentGlyph(id3); 
     CompartmentGlyph* cg4=new CompartmentGlyph(id4); 
     CompartmentGlyph* cg5=new CompartmentGlyph(id5); 
-    L->addCompartmentGlyph(*cg1);
-    L->addCompartmentGlyph(*cg2);
-    L->addCompartmentGlyph(*cg3);
-    L->addCompartmentGlyph(*cg4);
-    L->addCompartmentGlyph(*cg5);
+    L->addCompartmentGlyph(cg1);
+    L->addCompartmentGlyph(cg2);
+    L->addCompartmentGlyph(cg3);
+    L->addCompartmentGlyph(cg4);
+    L->addCompartmentGlyph(cg5);
     fail_unless( L->getNumCompartmentGlyphs() == 5);
+    delete cg1;
+    delete cg2;
+    delete cg3;
+    delete cg4;
+    delete cg5;
 }
 END_TEST
 
@@ -221,12 +228,17 @@ START_TEST ( test_Layout_getNumSpeciesGlyphs )
     SpeciesGlyph* sg3=new SpeciesGlyph(id3); 
     SpeciesGlyph* sg4=new SpeciesGlyph(id4); 
     SpeciesGlyph* sg5=new SpeciesGlyph(id5); 
-    L->addSpeciesGlyph(*sg1);
-    L->addSpeciesGlyph(*sg2);
-    L->addSpeciesGlyph(*sg3);
-    L->addSpeciesGlyph(*sg4);
-    L->addSpeciesGlyph(*sg5);
+    L->addSpeciesGlyph(sg1);
+    L->addSpeciesGlyph(sg2);
+    L->addSpeciesGlyph(sg3);
+    L->addSpeciesGlyph(sg4);
+    L->addSpeciesGlyph(sg5);
     fail_unless( L->getNumSpeciesGlyphs() == 5);
+    delete sg1;
+    delete sg2;
+    delete sg3;
+    delete sg4;
+    delete sg5;
 }
 END_TEST
 
@@ -243,12 +255,17 @@ START_TEST ( test_Layout_getNumReactionGlyphs )
     ReactionGlyph* rg3=new ReactionGlyph(id3); 
     ReactionGlyph* rg4=new ReactionGlyph(id4); 
     ReactionGlyph* rg5=new ReactionGlyph(id5); 
-    L->addReactionGlyph(*rg1);
-    L->addReactionGlyph(*rg2);
-    L->addReactionGlyph(*rg3);
-    L->addReactionGlyph(*rg4);
-    L->addReactionGlyph(*rg5);
+    L->addReactionGlyph(rg1);
+    L->addReactionGlyph(rg2);
+    L->addReactionGlyph(rg3);
+    L->addReactionGlyph(rg4);
+    L->addReactionGlyph(rg5);
     fail_unless( L->getNumReactionGlyphs() == 5);
+    delete rg1;
+    delete rg2;
+    delete rg3;
+    delete rg4;
+    delete rg5;
 }
 END_TEST
 
@@ -265,12 +282,17 @@ START_TEST ( test_Layout_getNumTextGlyphs )
     TextGlyph* tg3=new TextGlyph(id3); 
     TextGlyph* tg4=new TextGlyph(id4); 
     TextGlyph* tg5=new TextGlyph(id5); 
-    L->addTextGlyph(*tg1);
-    L->addTextGlyph(*tg2);
-    L->addTextGlyph(*tg3);
-    L->addTextGlyph(*tg4);
-    L->addTextGlyph(*tg5);
+    L->addTextGlyph(tg1);
+    L->addTextGlyph(tg2);
+    L->addTextGlyph(tg3);
+    L->addTextGlyph(tg4);
+    L->addTextGlyph(tg5);
     fail_unless( L->getNumTextGlyphs() == 5);
+    delete tg1;
+    delete tg2;
+    delete tg3;
+    delete tg4;
+    delete tg5;
 }
 END_TEST
 
@@ -287,12 +309,17 @@ START_TEST ( test_Layout_getNumAdditionalGraphicalObjects )
     GraphicalObject* go3=new GraphicalObject(id3); 
     GraphicalObject* go4=new GraphicalObject(id4); 
     GraphicalObject* go5=new GraphicalObject(id5); 
-    L->addAdditionalGraphicalObject(*go1);
-    L->addAdditionalGraphicalObject(*go2);
-    L->addAdditionalGraphicalObject(*go3);
-    L->addAdditionalGraphicalObject(*go4);
-    L->addAdditionalGraphicalObject(*go5);
+    L->addAdditionalGraphicalObject(go1);
+    L->addAdditionalGraphicalObject(go2);
+    L->addAdditionalGraphicalObject(go3);
+    L->addAdditionalGraphicalObject(go4);
+    L->addAdditionalGraphicalObject(go5);
     fail_unless( L->getNumAdditionalGraphicalObjects() == 5);
+    delete go1;
+    delete go2;
+    delete go3;
+    delete go4;
+    delete go5;
 }
 END_TEST
 

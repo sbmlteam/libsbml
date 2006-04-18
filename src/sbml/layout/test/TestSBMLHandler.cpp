@@ -56,7 +56,6 @@
 #include "sbml/Compartment.h"
 #include "sbml/Species.h"
 #include "sbml/SpeciesReference.h"
-#include "sbml/ModifierSpeciesReference.h"
 
 #include "sbml/layout/Layout.h"
 #include "sbml/layout/Dimensions.h"
@@ -64,7 +63,8 @@
 #include "sbml/layout/SpeciesGlyph.h"
 #include "sbml/layout/ReactionGlyph.h"
 #include "sbml/layout/TextGlyph.h"
-
+#include "sbml/layout/LineSegment.h"
+#include "sbml/layout/CubicBezier.h"
 
 BEGIN_C_DECLS
 
@@ -528,7 +528,7 @@ START_TEST (test_SBMLHandler_Layout)
   fail_unless(msr->getId()=="ModifierSpeciesReference_Pi");
  
   // test layout
-  fail_unless(model->getListOfLayouts().getNumItems()==1);
+  fail_unless(model->getListOfLayouts()->size()==1);
 
   Layout* l=model->getLayout(0);
 
@@ -538,7 +538,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(l->getId()=="Layout_1");
   
-  Dimensions* dimensions=&l->getDimensions();
+  Dimensions* dimensions=l->getDimensions();
 
   fail_unless(dimensions!=NULL);  
   
@@ -563,7 +563,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(cg->getCompartmentId()=="Yeast");
  
-  BoundingBox* bb=&cg->getBoundingBox();
+  BoundingBox* bb=cg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -571,7 +571,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bb1");
 
-  Point* position=&bb->getPosition();
+  Point* position=bb->getPosition();
 
   fail_unless(position->getXOffset()==5.0);
   
@@ -581,7 +581,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -609,7 +609,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(sg->getSpeciesId()=="Glucose");
       
-  bb=&sg->getBoundingBox();
+  bb=sg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -617,7 +617,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bb2");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==105.0);
   
@@ -625,7 +625,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(position->getZOffset()==0.0);
   
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -647,7 +647,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(sg->getSpeciesId()=="Glucose-6-phosphate");
       
-  bb=&sg->getBoundingBox();
+  bb=sg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -655,7 +655,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bb5");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==50.0);
   
@@ -665,7 +665,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -687,7 +687,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(sg->getSpeciesId()=="ATP");
       
-  bb=&sg->getBoundingBox();
+  bb=sg->getBoundingBox();
 
   fail_unless(bb->isSetId());
 
@@ -695,7 +695,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb!=NULL);
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==270.0);
   
@@ -705,7 +705,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -727,7 +727,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(sg->getSpeciesId()=="ADP");
       
-  bb=&sg->getBoundingBox();
+  bb=sg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -735,7 +735,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bb4");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==270.0);
   
@@ -745,7 +745,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -767,7 +767,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(sg->getSpeciesId()=="Pi");
       
-  bb=&sg->getBoundingBox();
+  bb=sg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -775,7 +775,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bb6");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==50.0);
   
@@ -785,7 +785,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -825,7 +825,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(ls->getTypeCode()==SBML_LAYOUT_LINESEGMENT);
 
-  Point* p=&ls->getStart();
+  Point* p=ls->getStart();
 
   fail_unless(p!=NULL);
 
@@ -835,7 +835,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&ls->getEnd();
+  p=ls->getEnd();
   
   fail_unless(p->getXOffset()==170.0);
   
@@ -877,7 +877,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(ls->getTypeCode()==SBML_LAYOUT_LINESEGMENT);
 
-  p=&ls->getStart();
+  p=ls->getStart();
 
   fail_unless(p!=NULL);
 
@@ -887,7 +887,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&ls->getEnd();
+  p=ls->getEnd();
   
   fail_unless(p->getXOffset()==170.0);
   
@@ -927,7 +927,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(ls->getTypeCode()==SBML_LAYOUT_CUBICBEZIER);
 
-  p=&ls->getStart();
+  p=ls->getStart();
 
   fail_unless(p!=NULL);
 
@@ -937,7 +937,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&ls->getEnd();
+  p=ls->getEnd();
   
   fail_unless(p->getXOffset()==260.0);
   
@@ -945,7 +945,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
   
   fail_unless(p->getXOffset()==170.0);
   
@@ -953,7 +953,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
 
   fail_unless(p->getXOffset()==170.0);
   
@@ -993,7 +993,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(ls->getTypeCode()==SBML_LAYOUT_LINESEGMENT);
 
-  p=&ls->getStart();
+  p=ls->getStart();
 
   fail_unless(p!=NULL);
 
@@ -1003,7 +1003,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&ls->getEnd();
+  p=ls->getEnd();
   
   fail_unless(p->getXOffset()==170.0);
   
@@ -1043,7 +1043,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(ls->getTypeCode()==SBML_LAYOUT_CUBICBEZIER);
 
-  p=&ls->getStart();
+  p=ls->getStart();
 
   fail_unless(p!=NULL);
 
@@ -1053,7 +1053,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&ls->getEnd();
+  p=ls->getEnd();
   
   fail_unless(p->getXOffset()==260.0);
   
@@ -1061,7 +1061,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
   
   fail_unless(p->getXOffset()==170.0);
   
@@ -1069,7 +1069,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
 
   fail_unless(p->getXOffset()==170.0);
   
@@ -1109,7 +1109,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(ls->getTypeCode()==SBML_LAYOUT_CUBICBEZIER);
 
-  p=&ls->getStart();
+  p=ls->getStart();
 
   fail_unless(p!=NULL);
 
@@ -1119,7 +1119,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&ls->getEnd();
+  p=ls->getEnd();
   
   fail_unless(p->getXOffset()==165.0);
   
@@ -1127,7 +1127,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
   
   fail_unless(p->getXOffset()==0.0);
   
@@ -1135,7 +1135,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
 
   fail_unless(p->getXOffset()==0.0);
   
@@ -1175,7 +1175,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(ls->getTypeCode()==SBML_LAYOUT_CUBICBEZIER);
 
-  p=&ls->getStart();
+  p=ls->getStart();
 
   fail_unless(p!=NULL);
 
@@ -1185,7 +1185,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&ls->getEnd();
+  p=ls->getEnd();
   
   fail_unless(p->getXOffset()==165.0);
   
@@ -1193,7 +1193,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint1();
   
   fail_unless(p->getXOffset()==140.0);
   
@@ -1201,7 +1201,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(p->getZOffset()==0.0);
 
-  p=&dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
+  p=dynamic_cast<CubicBezier*>(ls)->getBasePoint2();
 
   fail_unless(p->getXOffset()==140.0);
   
@@ -1228,7 +1228,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(tg->getOriginOfTextId()=="Glucose");
   
-  bb=&tg->getBoundingBox();
+  bb=tg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -1236,7 +1236,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bbA");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==115.0);
   
@@ -1246,7 +1246,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -1272,7 +1272,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(tg->getOriginOfTextId()=="Glucose-6-phosphate");
   
-  bb=&tg->getBoundingBox();
+  bb=tg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -1280,7 +1280,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bbD");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==60.0);
   
@@ -1290,7 +1290,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -1316,7 +1316,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(tg->getOriginOfTextId()=="ATP");
   
-  bb=&tg->getBoundingBox();
+  bb=tg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -1324,7 +1324,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bbB");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==280.0);
   
@@ -1334,7 +1334,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -1360,7 +1360,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(tg->getOriginOfTextId()=="ADP");
   
-  bb=&tg->getBoundingBox();
+  bb=tg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -1368,7 +1368,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bbC");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==280.0);
   
@@ -1378,7 +1378,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 
@@ -1404,7 +1404,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(tg->getOriginOfTextId()=="Pi");
   
-  bb=&tg->getBoundingBox();
+  bb=tg->getBoundingBox();
 
   fail_unless(bb!=NULL);
 
@@ -1412,7 +1412,7 @@ START_TEST (test_SBMLHandler_Layout)
 
   fail_unless(bb->getId()=="bbE");
 
-  position=&bb->getPosition();
+  position=bb->getPosition();
 
   fail_unless(position->getXOffset()==60.0);
   
@@ -1422,7 +1422,7 @@ START_TEST (test_SBMLHandler_Layout)
   
   fail_unless(bb!=NULL);
 
-  dimensions=&bb->getDimensions();
+  dimensions=bb->getDimensions();
 
   fail_unless(dimensions!=NULL);
 

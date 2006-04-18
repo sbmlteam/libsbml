@@ -205,9 +205,11 @@ START_TEST (test_SpeciesReferenceGlyph_setCurve)
 {
     Curve* c=new Curve();
     LineSegment* ls=new LineSegment();
-    c->addCurveSegment(*ls);
+    c->addCurveSegment(ls);
+    delete ls;
     ls=new LineSegment();
-    c->addCurveSegment(*ls);
+    c->addCurveSegment(ls);
+    delete ls;
     SRG->setCurve(c);
     fail_unless(SRG->isSetCurve());
     fail_unless(SRG->getCurve()->getNumCurveSegments() == 2);
@@ -224,39 +226,39 @@ END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_createLineSegment)
 {
-    LineSegment& ls=SRG->createLineSegment();
+    LineSegment* ls=SRG->createLineSegment();
     fail_unless(SRG->isSetCurve());
-    Point p=ls.getStart();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
-    p=ls.getEnd();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    Point* p=ls->getStart();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
+    p=ls->getEnd();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
 }
 END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_createCubicBezier)
 {
-    CubicBezier& cb=SRG->createCubicBezier();
+    CubicBezier* cb=SRG->createCubicBezier();
     fail_unless(SRG->isSetCurve());
-    Point p=cb.getStart();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
-    p=cb.getBasePoint1();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
-    p=cb.getBasePoint2();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
-    p=cb.getEnd();
-    fail_unless(p.getXOffset() == 0.0);
-    fail_unless(p.getYOffset() == 0.0);
-    fail_unless(p.getZOffset() == 0.0);
+    Point* p=cb->getStart();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
+    p=cb->getBasePoint1();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
+    p=cb->getBasePoint2();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
+    p=cb->getEnd();
+    fail_unless(p->getXOffset() == 0.0);
+    fail_unless(p->getYOffset() == 0.0);
+    fail_unless(p->getZOffset() == 0.0);
 }
 END_TEST
 
