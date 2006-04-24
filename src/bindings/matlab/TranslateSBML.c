@@ -1,53 +1,25 @@
 /**
-* Filename    : TranslateSBML.c
-* Description : MATLAB code for translating SBML document into MATLAB structure
-* Author(s)   : SBML Team <sbml-team@caltech.edu>
-* Organization: University of Hertfordshire STRC
-* Created     : 2003-09-15
-* Revision    : $Id$
-* Source      : $Source$
-*
-* Copyright 2003 California Institute of Technology, the Japan Science
-* and Technology Corporation, and the University of Hertfordshire
-*
-* This library is free software; you can redistribute it and/or modify it
-* under the terms of the GNU Lesser General Public License as published
-* by the Free Software Foundation; either version 2.1 of the License, or
-* any later version.
-*
-* This library is distributed in the hope that it will be useful, but
-* WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
-* MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
-* documentation provided hereunder is on an "as is" basis, and the
-* California Institute of Technology, the Japan Science and Technology
-* Corporation, and the University of Hertfordshire have no obligations to
-* provide maintenance, support, updates, enhancements or modifications.  In
-* no event shall the California Institute of Technology, the Japan Science
-* and Technology Corporation or the University of Hertfordshire be liable
-* to any party for direct, indirect, special, incidental or consequential
-* damages, including lost profits, arising out of the use of this software
-* and its documentation, even if the California Institute of Technology
-* and/or Japan Science and Technology Corporation and/or University of
-* Hertfordshire have been advised of the possibility of such damage.  See
-* the GNU Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public License
-* along with this library; if not, write to the Free Software Foundation,
-* Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-*
-* The original code contained here was initially developed by:
-*
-*     Sarah Keating
-*     Science and Technology Research Centre
-*     University of Hertfordshire
-*     Hatfield, AL10 9AB
-*     United Kingdom
-*
-*     http://www.sbml.org
-*     mailto:sbml-team@caltech.edu
-*
-* Contributor(s): Ben Bornstein
+ * \file    TranslateSBML.c
+ * \brief   MATLAB code for translating SBML document into MATLAB structure
+ * \author  Sarah Keating
+ *
+ * $Id$
+ * $Source$
 */
+/* Copyright 2002 California Institute of Technology and Japan Science and
+ * Technology Corporation.
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.  A copy of the license agreement is
+ * provided in the file named "LICENSE.txt" included with this software
+ * distribution.  It is also available online at
+ * http://sbml.org/software/libsbml/license.html
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; if not, write to the Free Software Foundation,
+ * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ */
 
 #include <stdio.h>
 #include <string.h>
@@ -67,7 +39,7 @@ void GetCompartment        (Model_t *, unsigned int, unsigned int);
 void GetParameter          (Model_t *, unsigned int, unsigned int);
 void GetReaction           (Model_t *, unsigned int, unsigned int);
 void GetSpecies            (Model_t *, unsigned int, unsigned int);
-void GetRule           (Model_t *, unsigned int, unsigned int);
+void GetRule               (Model_t *, unsigned int, unsigned int);
 void GetFunctionDefinition (Model_t *, unsigned int, unsigned int);
 void GetEvent              (Model_t *, unsigned int, unsigned int);
 void GetCompartmentType    (Model_t *, unsigned int, unsigned int);
@@ -82,7 +54,7 @@ void GetProducts   (Reaction_t *, unsigned int, unsigned int);
 void GetKineticLaw (Reaction_t *, unsigned int, unsigned int);
 void GetModifier   (Reaction_t *, unsigned int, unsigned int);
 
-void GetKineticLawParameters (KineticLaw_t *, unsigned int, unsigned int);
+void GetKineticLawParameters (const KineticLaw_t *, unsigned int, unsigned int);
 
 void GetEventAssignment (Event_t *, unsigned int, unsigned int);
 
@@ -386,8 +358,8 @@ mexFunction (int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     if (unSBMLLevel == 2 && unSBMLVersion == 2)
     {
       if (Model_isSetSBOTerm(sbmlModel)) {
-  /*     nSBO = SBML_sboTermToInt(Model_getSBOTerm(sbmlModel));
-   */   }
+        nSBO = Model_getSBOTerm(sbmlModel);
+      }
       GetCompartmentType  (sbmlModel, unSBMLLevel, unSBMLVersion);
       GetSpeciesType      (sbmlModel, unSBMLLevel, unSBMLVersion);
       GetInitialAssignment(sbmlModel, unSBMLLevel, unSBMLVersion);
@@ -1218,8 +1190,8 @@ GetParameter ( Model_t      *pModel,
 
         if (unSBMLVersion == 2) {
           if (Parameter_isSetSBOTerm(pParameter)) {
-  /*          nSBO = SBML_sboTermToInt(Parameter_getSBOTerm(pParameter));
-   */       }
+            nSBO = Parameter_getSBOTerm(pParameter);
+          }
         }
     }
 
@@ -1383,9 +1355,9 @@ void GetReaction ( Model_t      *pModel,
             nFast = -1;
         }
          if (unSBMLVersion == 2) {
-          if (Reaction_isSetSBOTerm(pReaction)) {
-  /*          nSBO = SBML_sboTermToInt(Reaction_getSBOTerm(pReaction));
-   */       }
+           if (Reaction_isSetSBOTerm(pReaction)) {
+             nSBO = Reaction_getSBOTerm(pReaction);
+           }
          }
    }
 
@@ -1659,8 +1631,8 @@ GetReactants ( Reaction_t   *pReaction,
         pacId = SpeciesReference_getId(pReactant);
         pacName = SpeciesReference_getName(pReactant);
         if (SpeciesReference_isSetSBOTerm(pReactant)) {
-        /* nSBO = SBML_sboTermToInt(SpeciesReference_getSBOTerm(pReactant));
-        */}
+          nSBO = SpeciesReference_getSBOTerm(pReactant);
+        }
       }
    }
         
@@ -1816,8 +1788,8 @@ GetProducts ( Reaction_t   *pReaction,
         pacId = SpeciesReference_getId(pProduct);
         pacName = SpeciesReference_getName(pProduct);
         if (SpeciesReference_isSetSBOTerm(pProduct)) {
-       /* nSBO = SBML_sboTermToInt(SpeciesReference_getSBOTerm(pProduct));
-       */}
+          nSBO = SpeciesReference_getSBOTerm(pProduct);
+        }
       }
    }
 
@@ -1998,8 +1970,8 @@ GetKineticLaw ( Reaction_t   *pReaction,
     /* END OF HACK */
    if (unSBMLLevel ==2 && unSBMLVersion == 2) {
           if (KineticLaw_isSetSBOTerm(pKineticLaw)) {
-        /* nSBO = SBML_sboTermToInt(KineticLaw_getSBOTerm(pKineticLaw));
-        */}
+            nSBO = KineticLaw_getSBOTerm(pKineticLaw);
+          }
   }
  }
   else 
@@ -2071,7 +2043,7 @@ GetKineticLaw ( Reaction_t   *pReaction,
  *            listed as for the kinetic law
  */
 void
-GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
+GetKineticLawParameters ( const KineticLaw_t *pKineticLaw,
                           unsigned int unSBMLLevel,
                           unsigned int unSBMLVersion )
 {
@@ -2164,8 +2136,8 @@ GetKineticLawParameters ( KineticLaw_t *pKineticLaw,
         nConstant = Parameter_getConstant(pParameter);
         if (unSBMLVersion == 2) {
           if (Parameter_isSetSBOTerm(pParameter)) {
-  /*          nSBO = SBML_sboTermToInt(Parameter_getSBOTerm(pParameter));
-   */       }
+            nSBO = Parameter_getSBOTerm(pParameter);
+          }
         }
     }
 
@@ -2280,8 +2252,8 @@ GetModifier ( Reaction_t   *pReaction,
         pacId = SpeciesReference_getId(pModifier);
         pacName = SpeciesReference_getName(pModifier);
         if (SpeciesReference_isSetSBOTerm(pModifier)) {
-       /* nSBO = SBML_sboTermToInt(SpeciesReference_getSBOTerm(pModifier));
-       */}
+          nSBO = SpeciesReference_getSBOTerm(pModifier);
+        }
        }
 
     /**
@@ -2656,8 +2628,8 @@ GetRule ( Model_t      *pModel,
   {
     if (Rule_isSetSBOTerm(pRule))
     {
-  /*    nSBO = SBML_sboTermToInt(Rule_getSBOTerm(pRule));
-    */}
+      nSBO = Rule_getSBOTerm(pRule);
+    }
   }
 }
 
@@ -2957,11 +2929,11 @@ GetEvent (Model_t      *pModel,
 
   if (unSBMLVersion == 2)
   {
-/*    if (Event_isSetSBOTerm(pEvent))
+    if (Event_isSetSBOTerm(pEvent))
     {
- /*     nSBO = SBML_sboTermToInt(Event_getSBOTerm(pEvent));
+      nSBO = Event_getSBOTerm(pEvent);
     }
-  */}
+  }
 
     /**        
      * check for NULL strings - Matlab doesnt like creating 
@@ -3104,11 +3076,11 @@ GetEventAssignment ( Event_t      *pEvent,
 
   if (unSBMLVersion == 2)
   {
- /*   if (EventAssignment_isSetSBOTerm(pEventAssignment))
+    if (EventAssignment_isSetSBOTerm(pEventAssignment))
     {
-      nSBO = SBML_sboTermToInt(EventAssignment_getSBOTerm(pEvenetAssignment));
+      nSBO = EventAssignment_getSBOTerm(pEventAssignment);
     }
- */ }
+  }
     /**
      * check for NULL strings - Matlab doesnt like creating 
      * a string that is NULL
@@ -3258,7 +3230,7 @@ GetCompartmentType (Model_t      *pModel,
      * a string that is NULL
      */
     if (pacName == NULL) {
-      pacName = "ssss";
+      pacName = "";
     }
     if (pacNotes == NULL) {
       pacNotes = "";
@@ -3413,9 +3385,11 @@ GetInitialAssignment (Model_t      *pModel,
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pInitialAssignment));
  /*   pacNotes        = SBase_getNotes((SBase_t *) pInitialAssignment);
     pacAnnotations  = SBase_getAnnotation((SBase_t *) pInitialAssignment);
- */   pacSymbol         = InitialAssignment_getSymbol(pInitialAssignment);
- /*   nSBO = SBML_sboTermToInt(InitialAssignment_getSBOTerm(pInitialAssignment));
-*/
+ */ pacSymbol         = InitialAssignment_getSymbol(pInitialAssignment);
+    if (InitialAssignment_isSetSBOTerm(pInitialAssignment)){
+      nSBO = InitialAssignment_getSBOTerm(pInitialAssignment);
+    }
+
     if (InitialAssignment_isSetMath(pInitialAssignment)) {
       LookForCSymbolTime(InitialAssignment_getMath(pInitialAssignment));
       pacMath = SBML_formulaToString(InitialAssignment_getMath(pInitialAssignment));
@@ -3527,9 +3501,17 @@ GetConstraint (Model_t      *pModel,
     pacTypecode     = TypecodeToChar(SBase_getTypeCode((SBase_t *) pConstraint));
  /*   pacNotes        = SBase_getNotes((SBase_t *) pConstraint);
     pacAnnotations  = SBase_getAnnotation((SBase_t *) pConstraint);
-    pacMessage         = Constraint_getMessage(pConstraint);
-    nSBO = SBML_sboTermToInt(Constraint_getSBOTerm(pConstraint));
 */
+    if (Constraint_isSetMessage(pConstraint)) {
+      /* need to think about this one 
+      pacMessage = Constraint_getMessage(pConstraint);
+      */
+    }
+
+    if (Constraint_isSetSBOTerm(pConstraint)) {
+      nSBO = Constraint_getSBOTerm(pConstraint);
+    }
+
     if (Constraint_isSetMath(pConstraint)) {
       LookForCSymbolTime(Constraint_getMath(pConstraint));
       pacMath = SBML_formulaToString(Constraint_getMath(pConstraint));

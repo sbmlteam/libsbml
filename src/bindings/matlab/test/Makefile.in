@@ -86,6 +86,8 @@ distfiles = \
         testReadFromFile3.m  \
         testReadFromFile4.m  \
         testReadFromFile5.m  \
+        testReadFromFile6.m  \
+        testReadFromFile7.m  \
         Makefile.in \
         test-data/*.xml
 

@@ -1,6 +1,6 @@
 function testBinding
 
-test = 6;
+test = 7;
 Totalfail = 0;
 
 Totalfail = Totalfail + testReadFromFile1;
@@ -9,6 +9,7 @@ Totalfail = Totalfail + testReadFromFile3;
 Totalfail = Totalfail + testReadFromFile4;
 Totalfail = Totalfail + testReadFromFile5;
 Totalfail = Totalfail + testReadFromFile6;
+Totalfail = Totalfail + testReadFromFile7;
 
 disp('Overall tests:');
 disp(sprintf('Number tests: %d', test));
