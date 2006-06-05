@@ -72,11 +72,14 @@ END_CONSTRAINT
 */
 
 
-START_CONSTRAINT (2003, SpeciesReference, sr)
+START_CONSTRAINT (2003, SpeciesReference, sr) 
 {
   msg =
     "A SpeciesReference containing a non-integer or non-rational "
     "'stoichiometryMath' subelement cannot be represented in Level 1.";
+
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
 
   pre( sr.isSetStoichiometryMath() );
 
