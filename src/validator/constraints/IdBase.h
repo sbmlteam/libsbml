@@ -153,6 +153,7 @@ protected:
   void checkId (const Reaction&           x);
   void checkId (const Event&              x);
   void checkId (const EventAssignment&    x);
+  void checkId (const SBase&    x);
 
   /**
    * @return the typename of the given SBase object.

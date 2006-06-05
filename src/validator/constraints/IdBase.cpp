@@ -91,6 +91,13 @@ IdBase::check_ (const Model& m, const Model& object)
 
 
 void
+IdBase::checkId (const SBase& x)
+{
+  if (x.isSetId()) doCheckId(x.getId(), x);
+}
+
+
+void
 IdBase::checkId (const Model& x)
 {
   if (x.isSetId()) doCheckId(x.getId(), x);
