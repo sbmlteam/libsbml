@@ -186,6 +186,28 @@ UnitDefinition::isVariantOfVolume () const
 
 
 /**
+ * @return true if this UnitDefinition is a variant of dimensionless
+ * i.e. dimensionless with only abritrary variations in
+ * scale, multiplier, or offset values, false otherwise.
+ */
+bool 
+UnitDefinition::isVariantOfDimensionless () const
+{
+  bool result = false;
+
+
+  if (getNumUnits() == 1)
+  {
+    const Unit* u = getUnit(0);
+    result        = u->isDimensionless();
+  }
+
+  return result;
+
+}
+
+
+/**
  * Adds a copy of the given Unit to this UnitDefinition.
  */
 void

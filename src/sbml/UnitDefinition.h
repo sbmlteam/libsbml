@@ -111,6 +111,14 @@ public:
 
 
   /**
+   * @return true if this UnitDefinition is a variant of dimensionless
+   * i.e. dimensionless with only abritrary variations in
+   * scale, multiplier, or offset values, false otherwise.
+   */
+  bool isVariantOfDimensionless () const;
+
+
+  /**
    * Adds a copy of the given Unit to this UnitDefinition.
    */
   void addUnit (const Unit* u);
