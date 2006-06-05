@@ -30,6 +30,8 @@
 #include <sbml/validator/Constraint.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 
+#include <util/List.h>
+
 #include "CompartmentOutsideCycles.h"
 #include "FunctionDefinitionVars.h"
 
@@ -38,8 +40,23 @@
 #include "UniqueIdsInModel.h"
 #include "UniqueVarsInEventAssignments.h"
 #include "UniqueVarsInRules.h"
+#include "UniqueVarsInEventsAndRules.h"
+#include "UniqueMetaId.h"
 
-#include "FormulaUnitsCheck.h"
+#include "FunctionReferredToExists.h"
+#include "SpeciesReactionOrRule.h"
+#include "UniqueSpeciesTypesInCompartment.h"
+#include "UniqueSymbolsInInitialAssignments.h"
+#include "UniqueVarsInInitialAssignmentsAndRules.h"
+#include "StoichiometryMathVars.h"
+#include "KineticLawVars.h"
+#include "AssignmentCycles.h"
+
+//#include "FormulaUnitsCheck.h"
+
+#include "PowerUnitsCheck.h"
+#include "ExponentUnitsCheck.h"
+#include "ArgumentsUnitsCheck.h"
 
 
 #endif
@@ -56,6 +73,8 @@ EXTERN_CONSTRAINT( 901, UniqueIdsForUnitDefinitions  )
 EXTERN_CONSTRAINT( 902, UniqueIdsInKineticLaw        )
 EXTERN_CONSTRAINT( 903, UniqueVarsInRules            )
 EXTERN_CONSTRAINT( 904, UniqueVarsInEventAssignments )
+EXTERN_CONSTRAINT( 905, UniqueVarsInEventsAndRules   )
+EXTERN_CONSTRAINT( 907, UniqueMetaId                 )
 
 
 
@@ -88,9 +107,52 @@ START_CONSTRAINT (1100, FunctionDefinition, fd)
 }
 END_CONSTRAINT
 
+EXTERN_CONSTRAINT(1101, FunctionReferredToExists)
 
-EXTERN_CONSTRAINT(1101, FunctionDefinitionVars)
 
+START_CONSTRAINT (1102, FunctionDefinition, fd)
+{
+  msg =
+    "Inside the lambda of a FunctionDefinition, the identifier of that "
+    "FunctionDefinition cannot appear as the value of a ci element. "
+    "SBML functions are not permitted to be recursive (L2V2 Section 4.3.2).";
+
+  pre( fd.isSetMath()            );
+  pre( fd.getBody() != NULL      );
+  pre( fd.getNumArguments() != 0 );
+  
+  const string  id = fd.getId();
+
+  List* variables = fd.getBody()->getListOfNodes( ASTNode_isFunction );
+  for (unsigned int n = 0; n < variables->getSize(); ++n)
+  {
+    ASTNode* node = static_cast<ASTNode*>( variables->get(n) );
+    const char *   name = node->getName() ? node->getName() : "";
+
+    inv(strcmp(name, id.c_str()));
+ }
+
+}
+END_CONSTRAINT
+
+// This was 1101 but the new spec rephrases it
+EXTERN_CONSTRAINT(1103, FunctionDefinitionVars)
+
+START_CONSTRAINT (1104, FunctionDefinition, fd)
+{
+  msg =
+    "The value type returned by a FunctionDefinition's lambda "
+    "must be either boolean or numeric (L2V2 Section 3.5.6).";
+
+  pre( fd.isSetMath()           );
+  pre( fd.getBody() != NULL      );
+
+  inv_or( fd.getBody()->isBoolean() );
+  inv_or( fd.getBody()->isNumber()  );
+  inv_or( fd.getBody()->isFunction());
+  inv_or( fd.getBody()->isOperator());
+}
+END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models (replacing name with id).
@@ -132,8 +194,19 @@ START_CONSTRAINT (1203, UnitDefinition, ud)
   pre( ud.getId() == "length" );
 
   inv( ud.getNumUnits() == 1             );
-  inv( ud.getUnit(0)->isMetre()          );
-  inv( ud.getUnit(0)->getExponent() == 1 );
+
+  /* dimensionless is allowable in L2V2 */
+  if (  ud.getLevel() == 2 
+    &&  ud.getVersion() == 2
+    &&  !ud.getUnit(0)->isMetre())
+  {
+    inv(ud.getUnit(0)->isDimensionless());
+  }
+  else
+  {
+    inv( ud.getUnit(0)->isMetre()          );
+    inv( ud.getUnit(0)->getExponent() == 1 );
+  }
 }
 END_CONSTRAINT
 
@@ -148,8 +221,19 @@ START_CONSTRAINT (1204, UnitDefinition, ud)
   pre( ud.getId() == "area" );
 
   inv( ud.getNumUnits() == 1             );
-  inv( ud.getUnit(0)->isMetre()          );
-  inv( ud.getUnit(0)->getExponent() == 2 );
+
+  /* dimensionless is allowable in L2V2 */
+  if (  ud.getLevel() == 2 
+    &&  ud.getVersion() == 2
+    &&  !ud.getUnit(0)->isMetre())
+  {
+    inv(ud.getUnit(0)->isDimensionless());
+  }
+  else
+  {
+    inv( ud.getUnit(0)->isMetre()          );
+    inv( ud.getUnit(0)->getExponent() == 2 );
+  }
 }
 END_CONSTRAINT
 
@@ -164,7 +248,19 @@ START_CONSTRAINT (1205, UnitDefinition, ud)
   pre( ud.getId() == "volume" );
 
   inv( ud.getNumUnits() == 1 );
-  inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+  
+  /* dimensionless is allowable in L2V2 */
+  if (  ud.getLevel() == 2 
+    &&  ud.getVersion() == 2)
+  {
+    inv( ud.getUnit(0)->isLitre() 
+      || ud.getUnit(0)->isMetre() 
+      || ud.getUnit(0)->isDimensionless() );
+  }
+  else
+  {
+    inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+  }
 }
 END_CONSTRAINT
 
@@ -211,12 +307,38 @@ START_CONSTRAINT (1208, UnitDefinition, ud)
   pre( ud.getId() == "time" );
 
   inv( ud.getNumUnits() == 1             );
-  inv( ud.getUnit(0)->isSecond()         );
-  inv( ud.getUnit(0)->getExponent() == 1 );
+
+  /* dimensionless is allowable in L2V2 */
+  if (  ud.getLevel() == 2 
+    &&  ud.getVersion() == 2
+    &&  !ud.getUnit(0)->isSecond())
+  {
+    inv(ud.getUnit(0)->isDimensionless());
+  }
+  else
+  {
+    inv( ud.getUnit(0)->isSecond()         );
+    inv( ud.getUnit(0)->getExponent() == 1 );
+  }
 }
 END_CONSTRAINT
 
 
+START_CONSTRAINT (1209, UnitDefinition, ud)
+{
+  msg =
+    "The offset field in Unit is deprecated as of SBML Level 2 Version 2. "
+    "Software tools should not generate models containing deprecated features. "
+    "(L2V2 Section 4.4).";
+
+  pre( ud.getLevel() == 2 && ud.getVersion() == 2 );
+
+  for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
+  {
+    inv(ud.getUnit(n)->getOffset() == 0);
+  }
+}
+END_CONSTRAINT
 
 
 START_CONSTRAINT (1300, Compartment, c)
@@ -238,7 +360,22 @@ START_CONSTRAINT (1301, Compartment, c)
     "(L2v1 Section 4.5.4).";
 
   pre( c.getSpatialDimensions() == 0 );
-  inv( c.isSetUnits() == false       );
+  
+  /* dimensionless is allowable in L2V2 */
+  if (  c.getLevel() == 2 
+    &&  c.getVersion() == 2
+    &&  c.isSetUnits() )
+  {
+    const string&         units = c.getUnits();
+    const UnitDefinition* defn  = m.getUnitDefinition(units);
+ 
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv( c.isSetUnits() == false       );
+  }
 }
 END_CONSTRAINT
 
@@ -285,9 +422,22 @@ START_CONSTRAINT (1305, Compartment, c)
   const string&         units = c.getUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "length" );
-  inv_or( units == "metre"  );
-  inv_or( defn  != NULL && defn->isVariantOfLength() );
+  /* dimensionless is allowable in L2V2 */
+  if (  c.getLevel() == 2 
+    &&  c.getVersion() == 2)
+  {
+    inv_or( units == "length" );
+    inv_or( units == "metre"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfLength() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "length" );
+    inv_or( units == "metre"  );
+    inv_or( defn  != NULL && defn->isVariantOfLength() );
+  }
 }
 END_CONSTRAINT
 
@@ -305,8 +455,20 @@ START_CONSTRAINT (1306, Compartment, c)
   const string&         units = c.getUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "area" );
-  inv_or( defn  != NULL && defn->isVariantOfArea() );
+  /* dimensionless is allowable in L2V2 */
+  if (  c.getLevel() == 2 
+    &&  c.getVersion() == 2)
+  {
+    inv_or( units == "area" );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfArea() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "area" );
+    inv_or( defn  != NULL && defn->isVariantOfArea() );
+  }
 }
 END_CONSTRAINT
 
@@ -324,9 +486,38 @@ START_CONSTRAINT (1307, Compartment, c)
   const string&         units = c.getUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "volume" );
-  inv_or( units == "litre"  );
-  inv_or( defn  != NULL && defn->isVariantOfVolume() );
+  /* dimensionless is allowable in L2V2 */
+  if (  c.getLevel() == 2 
+    &&  c.getVersion() == 2)
+  {
+    inv_or( units == "volume" );
+    inv_or( units == "litre"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfVolume() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "volume" );
+    inv_or( units == "litre"  );
+    inv_or( defn  != NULL && defn->isVariantOfVolume() );
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (1308, Compartment, c)
+{
+  msg =
+    "CompartmentType '" + c.getCompartmentType() + "' is undefined. "
+    "If the compartmentType field is given a value in a Compartment definition "
+    "it must contain the identifier of an existing compartmentType. "
+    "(L2V2 Section 4.7.2).";
+
+  pre( c.getLevel() == 2 && c.getVersion() == 2 );
+  pre( c.isSetCompartmentType());
+
+  inv( m.getCompartmentType( c.getCompartmentType() ) != NULL );
 }
 END_CONSTRAINT
 
@@ -415,9 +606,22 @@ START_CONSTRAINT (1405, Species, s)
   const string&         units = s.getSpatialSizeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "length" );
-  inv_or( units == "metre"  );
-  inv_or( defn  != NULL && defn->isVariantOfLength() );
+  /* dimensionless is allowable in L2V2 */
+  if (  s.getLevel() == 2 
+    &&  s.getVersion() == 2)
+  {
+    inv_or( units == "length" );
+    inv_or( units == "metre"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfLength() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "length" );
+    inv_or( units == "metre"  );
+    inv_or( defn  != NULL && defn->isVariantOfLength() );
+  }
 }
 END_CONSTRAINT
 
@@ -439,8 +643,20 @@ START_CONSTRAINT (1406, Species, s)
   const string&         units = s.getSpatialSizeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "area" );
-  inv_or( defn  != NULL && defn->isVariantOfArea() );
+  /* dimensionless is allowable in L2V2 */
+  if (  s.getLevel() == 2 
+    &&  s.getVersion() == 2)
+  {
+    inv_or( units == "area" );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfArea() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "area" );
+    inv_or( defn  != NULL && defn->isVariantOfArea() );
+  }
 }
 END_CONSTRAINT
 
@@ -462,9 +678,22 @@ START_CONSTRAINT (1407, Species, s)
   const string&         units = s.getSpatialSizeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "volume" );
-  inv_or( units == "litre"  );
-  inv_or( defn  != NULL && defn->isVariantOfVolume() );
+  /* dimensionless is allowable in L2V2 */
+  if (  s.getLevel() == 2 
+    &&  s.getVersion() == 2)
+  {
+    inv_or( units == "volume" );
+    inv_or( units == "litre"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfVolume() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "volume" );
+    inv_or( units == "litre"  );
+    inv_or( defn  != NULL && defn->isVariantOfVolume() );
+  }
 }
 END_CONSTRAINT
 
@@ -482,12 +711,62 @@ START_CONSTRAINT (1408, Species, s)
   const string&         units = s.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "substance" );
-  inv_or( units == "item"      );
-  inv_or( units == "mole"      );
-  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  /* dimensionless is allowable in L2V2 */
+  if (  s.getLevel() == 2 
+    &&  s.getVersion() == 2)
+  {
+    inv_or( units == "substance"      );
+    inv_or( units == "item"           );
+    inv_or( units == "mole"           );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance()     );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "substance" );
+    inv_or( units == "item"      );
+    inv_or( units == "mole"      );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  }
 }
 END_CONSTRAINT
+
+
+START_CONSTRAINT (1409, Species, s)
+{
+  msg =
+    "A Species cannot set values for both initialConcentration and "
+    "initial amount "
+    "(L2v1 Section 4.6.3)";
+
+  pre(s.isSetInitialAmount());
+
+  inv (!s.isSetInitialConcentration());
+}
+END_CONSTRAINT
+
+
+EXTERN_CONSTRAINT(1410, SpeciesReactionOrRule)
+
+
+START_CONSTRAINT (1411, Species, s)
+{
+  msg =
+    "SpeciesType '" + s.getSpeciesType() + "' is undefined. "
+    "If the SpeciesType field is given a value in a Species definition "
+    "it must contain the identifier of an existing SpeciesType. "
+    "(L2V2 Section 4.7.2).";
+
+  pre( s.getLevel() == 2 && s.getVersion() == 2 );
+  pre( s.isSetSpeciesType());
+
+  inv( m.getSpeciesType( s.getSpeciesType() ) != NULL );
+}
+END_CONSTRAINT
+
+
+EXTERN_CONSTRAINT(1412, UniqueSpeciesTypesInCompartment)
 
 
 // NOTE: This constraint also applies to L1 Models.
@@ -521,7 +800,7 @@ START_CONSTRAINT (1600, Reaction, r)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1601, SpeciesReference, sr)  // FIXME
+START_CONSTRAINT (1601, SpeciesReference, sr)
 {
   msg =
     "Species '" + sr.getSpecies() + "' is undefined.  A SpeciesReference "
@@ -538,6 +817,8 @@ START_CONSTRAINT (1602, SpeciesReference, sr)
     "A SpeciesReference may not refer to a Species with constant='true' "
     "and boundaryCondition='false' (L2v1 Section 4.6.5).";
 
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
 
   const Species* s = m.getSpecies( sr.getSpecies() );
 
@@ -553,6 +834,8 @@ START_CONSTRAINT (1603, SpeciesReference, sr)
     "A SpeciesReference may not contain both a 'stoichiometry' attribute "
     "and a 'stoichiometryMath' subelement (L2v1 Section 4.9.5).";
 
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
 
   pre( sr.isSetStoichiometryMath()  );
   inv( sr.getStoichiometry() == 1.0 );
@@ -573,10 +856,24 @@ START_CONSTRAINT (1604, KineticLaw, kl)
   const string&         units = kl.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "substance" );
-  inv_or( units == "item"      );
-  inv_or( units == "mole"      );
-  inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  /* dimensionless is allowable in L2V2 */
+  if (  kl.getLevel() == 2 
+    &&  kl.getVersion() == 2)
+  {
+    inv_or( units == "substance" );
+    inv_or( units == "item"  );
+    inv_or( units == "mole"      );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "substance" );
+    inv_or( units == "item"      );
+    inv_or( units == "mole"      );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  }
 }
 END_CONSTRAINT
 
@@ -594,9 +891,22 @@ START_CONSTRAINT (1605, KineticLaw, kl)
   const string&         units = kl.getTimeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "time"   );
-  inv_or( units == "second" );
-  inv_or( defn  != NULL && defn->isVariantOfTime() );
+  /* dimensionless is allowable in L2V2 */
+  if (  kl.getLevel() == 2 
+    &&  kl.getVersion() == 2)
+  {
+    inv_or( units == "time" );
+    inv_or( units == "second"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfTime() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "time"   );
+    inv_or( units == "second" );
+    inv_or( defn  != NULL && defn->isVariantOfTime() );
+  }
 }
 END_CONSTRAINT
 
@@ -631,7 +941,13 @@ START_CONSTRAINT (1606, Reaction, r)
 }
 END_CONSTRAINT
 */
-START_CONSTRAINT (1606, KineticLaw, kl)
+
+EXTERN_CONSTRAINT(1606, KineticLawVars)
+
+EXTERN_CONSTRAINT(1607, StoichiometryMathVars)
+
+
+START_CONSTRAINT (1610, KineticLaw, kl)
 {
   msg =
     "In a Level 1 model only predefined functions are permitted "
@@ -732,6 +1048,7 @@ START_CONSTRAINT (1702, AssignmentRule, r)
 
 
   pre( r.isSetVariable() );
+  pre( r.getLevel() == 2);
 
   const string& id = r.getVariable();
 
@@ -771,6 +1088,7 @@ START_CONSTRAINT (1703, RateRule, r)
 }
 END_CONSTRAINT
 
+EXTERN_CONSTRAINT(1705, AssignmentCycles)
 
 START_CONSTRAINT (1800, Event, e)
 {
@@ -784,9 +1102,22 @@ START_CONSTRAINT (1800, Event, e)
   const string&         units = e.getTimeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  inv_or( units == "time"   );
-  inv_or( units == "second" );
-  inv_or( defn  != NULL && defn->isVariantOfTime() );
+  /* dimensionless is allowable in L2V2 */
+  if (  e.getLevel() == 2 
+    &&  e.getVersion() == 2)
+  {
+    inv_or( units == "time" );
+    inv_or( units == "second"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfTime() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "time"   );
+    inv_or( units == "second" );
+    inv_or( defn  != NULL && defn->isVariantOfTime() );
+  }
 }
 END_CONSTRAINT
 
@@ -843,7 +1174,40 @@ START_CONSTRAINT (1803, EventAssignment, ea)
 }
 END_CONSTRAINT
 
-/*
+
+START_CONSTRAINT (1900, InitialAssignment, ia)
+{
+  msg =
+    "The value of symbol in an InitialAssignment must be the id of a Compartment, Species, "
+    "or Parameter (L2V2 Section 4.10).";
+
+
+  pre( ia.isSetSymbol() );
+
+  const string& id = ia.getSymbol();
+
+  inv_or( m.getCompartment(id) );
+  inv_or( m.getSpecies    (id) );
+  inv_or( m.getParameter  (id) );
+}
+END_CONSTRAINT
+
+
+EXTERN_CONSTRAINT(1901, UniqueSymbolsInInitialAssignments)
+EXTERN_CONSTRAINT(1902, UniqueVarsInInitialAssignmentsAndRules)
+
+
+START_CONSTRAINT (2100, Constraint, c)
+{
+  msg =
+    "A Constraint math expression must return a boolean value (L2V2 Section 4.12).";
+
+  pre( c.isSetMath() );
+  inv( m.isBoolean( c.getMath() ) );
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (3000, AssignmentRule, ar)
 {
   msg =
@@ -881,6 +1245,7 @@ START_CONSTRAINT (3000, AssignmentRule, ar)
   delete formulaUnits;
 }
 END_CONSTRAINT
+
 
 START_CONSTRAINT (3001, AssignmentRule, ar)
 {
@@ -920,6 +1285,7 @@ START_CONSTRAINT (3001, AssignmentRule, ar)
 }
 END_CONSTRAINT
 
+
 START_CONSTRAINT (3002, AssignmentRule, ar)
 {
   msg =
@@ -956,6 +1322,125 @@ START_CONSTRAINT (3002, AssignmentRule, ar)
   delete formulaUnits;
 }
 END_CONSTRAINT
+
+
+
+
+START_CONSTRAINT (3003, InitialAssignment, ia)
+{
+  msg =
+    "When the 'variable' field of an initial assignment refers to a "
+    "compartment, the units of the rule's right-hand side must be "
+    "consistent with either the units declared for that "
+    "compartment, or (in the absence of explicit units declared "
+    "for the compartment) the default units for that compartment.";
+
+
+  const string& variable = ia.getSymbol();
+  const Compartment* c = m.getCompartment(variable);
+
+  pre ( c != NULL);
+  pre ( ia.isSetMath() == 1 );
+
+  // get the unitDefinition from the compartment and  
+  // that returned by the math formula 
+  //
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(ia.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
+  
+  pre (unitFormat->hasUndeclaredUnits(ia.getMath()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (3004, InitialAssignment, ia)
+{
+  msg =
+    "When the 'variable' field of an initial assignment refers to a "
+    "species, the units of the rule's right-hand side must be "
+    "consistent with either the units declared for that "
+    "species, or (in the absence of explicit units declared "
+    "for the species) the default units for that species.";
+   
+
+  const string& variable = ia.getSymbol();
+  const Species * s = m.getSpecies(variable);
+
+  pre ( s != NULL);
+  pre ( ia.isSetMath() == 1 );
+
+  // get the unitDefinition from the species and  
+  // that returned by the math formula 
+  //
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(ia.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
+  
+  pre (unitFormat->hasUndeclaredUnits(ia.getMath()) == 0
+    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (3005, InitialAssignment, ia)
+{
+  msg =
+    "When the 'variable' field of an initial assignment refers to a "
+    "parameter, and the parameter's definition includes explicit "
+    "units, then the units of the rule's right-hand side must be "
+    "consistent the units declared for that parameter.";
+   
+
+  const string& variable = ia.getSymbol();
+  const Parameter* p = m.getParameter(variable);
+
+  pre ( p != NULL);
+  pre ( ia.isSetMath() == 1 );
+
+  // get the unitDefinition from the parameter and  
+  // that returned by the math formula 
+  //
+  UnitDefinition * variableUnits = new UnitDefinition();
+  UnitDefinition * formulaUnits = new UnitDefinition();
+
+  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+  formulaUnits  = unitFormat->getUnitDefinition(ia.getMath());
+  variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
+
+  // special case where no units have been declared for parameter
+  pre (variableUnits->getNumUnits() != 0);
+
+  inv (areEquivalent(formulaUnits, variableUnits) == 1)
+
+  delete unitFormat;
+  delete variableUnits;
+  delete formulaUnits;
+}
+END_CONSTRAINT
+
 
 START_CONSTRAINT (3100, RateRule, rr)
 {
@@ -1118,6 +1603,10 @@ START_CONSTRAINT (3200, KineticLaw, kl)
 }
 END_CONSTRAINT
 
+EXTERN_CONSTRAINT(3302, PowerUnitsCheck)
+EXTERN_CONSTRAINT(3303, ExponentUnitsCheck)
+EXTERN_CONSTRAINT(3304, ArgumentsUnitsCheck)
+ 
 START_CONSTRAINT (3400, Event, e)
 {
   msg =
@@ -1145,5 +1634,5 @@ START_CONSTRAINT (3400, Event, e)
 }
 END_CONSTRAINT
 
-EXTERN_CONSTRAINT(3300, FormulaUnitsCheck)
-*/
+
+

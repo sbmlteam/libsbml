@@ -72,28 +72,42 @@ thisdir   = src/validator/constraints
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-sources =                           \
-  CompartmentOutsideCycles.cpp      \
-  ConsistencyConstraints.cpp        \
-  FunctionDefinitionVars.cpp        \
-  IdBase.cpp                        \
-  IdList.cpp                        \
-  L1CompatibilityConstraints.cpp    \
-  UniqueIdBase.cpp                  \
-  UniqueIdsForUnitDefinitions.cpp   \
-  UniqueIdsInKineticLaw.cpp         \
-  UniqueIdsInModel.cpp              \
-  UniqueVarsInEventAssignments.cpp  \
-  UniqueVarsInRules.cpp
-#  FormulaUnitsCheck.cpp             \
+sources =                                     \
+  CompartmentOutsideCycles.cpp                \
+  ConsistencyConstraints.cpp                  \
+  FunctionDefinitionVars.cpp                  \
+  IdBase.cpp                                  \
+  IdList.cpp                                  \
+  L1CompatibilityConstraints.cpp              \
+  UniqueIdBase.cpp                            \
+  UniqueIdsForUnitDefinitions.cpp             \
+  UniqueIdsInKineticLaw.cpp                   \
+  UniqueIdsInModel.cpp                        \
+  UniqueVarsInEventAssignments.cpp            \
+  UniqueVarsInRules.cpp                       \
+  UniqueVarsInEventsAndRules.cpp              \
+  UniqueMetaId.cpp                            \
+  UnitsBase.cpp                               \
+  FunctionReferredToExists.cpp                \
+  SpeciesReactionOrRule.cpp                   \
+  UniqueSpeciesTypesInCompartment.cpp         \
+  UniqueSymbolsInInitialAssignments.cpp       \
+  UniqueVarsInInitialAssignmentsAndRules.cpp  \
+  ArgumentsUnitsCheck.cpp                     \
+  ExponentUnitsCheck.cpp                      \
+  StoichiometryMathVars.cpp                   \
+  KineticLawVars.cpp                          \
+  AssignmentCycles.cpp                        \
+  PowerUnitsCheck.cpp                          
 
 header_inst_prefix = validator/constraints
 
 headers =              \
-  FormulaUnitsCheck.h  \
   IdBase.h             \
   IdList.h             \
-  UniqueIdBase.h
+  UniqueMetaId.h       \
+  UniqueIdBase.h       \
+  UnitsBase.h
 
 
 extra_CPPFLAGS = -I../..
