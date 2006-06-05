@@ -49,7 +49,7 @@ UnitFormulaFormatter::~UnitFormulaFormatter()
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
 {  
-  UnitDefinition * ud;
+  UnitDefinition * ud = NULL;
 
   ASTNodeType_t type = node->getType();
 
@@ -195,6 +195,11 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
     
       ud = new UnitDefinition();
       break;
+  }
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition();
   }
 
   simplifyUnitDefinition(ud);
@@ -780,6 +785,12 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
     }
   }
 
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition();
+  }
+
   return ud;
 }
 
@@ -789,7 +800,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
 {
-  UnitDefinition * ud;
+  UnitDefinition * ud = NULL;
   const UnitDefinition * tempUd;
   UnitDefinition *subsUD = NULL;
   UnitDefinition *sizeUD = NULL;
@@ -968,6 +979,12 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     ud->addUnit(unit);
   }
 
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition();
+  }
+
   return ud;
 }
 
@@ -1061,6 +1078,11 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
     }
 
   }
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition();
+  }
 
   return ud;
 }
@@ -1143,6 +1165,11 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
       }
     }
 
+  }
+  // as a safety catch 
+  if (ud == NULL)
+  {
+    ud = new UnitDefinition();
   }
 
   return ud;
