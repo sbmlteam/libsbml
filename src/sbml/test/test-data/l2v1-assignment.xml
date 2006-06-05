@@ -72,7 +72,7 @@
                         <apply>
                             <times/>
                             <ci> k2 </ci>
-                            <ci> S2 </ci>
+                            <ci> T </ci>
                         </apply>
                     </math>
                     <listOfParameters>

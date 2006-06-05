@@ -17,6 +17,7 @@
             </unitDefinition>
             <unitDefinition id="mm">
                 <listOfUnits>
+                    <unit kind="litre" exponent="-1"/>
                     <unit kind="mole" scale="-3"/>
                 </listOfUnits>
             </unitDefinition>

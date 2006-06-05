@@ -32,11 +32,18 @@
                 </listOfProducts>
                 <kineticLaw>
                     <math xmlns="http://www.w3.org/1998/Math/MathML">
-                        <apply>
-                            <ci> f </ci>
-                            <ci> S1 </ci>
-                         </apply>
+ 				<apply>
+				    <divide/>
+                        	<apply>
+                            	  <ci> f </ci>
+                                <ci> S1 </ci>
+                              </apply>
+                              <ci> t </ci>
+				</apply>	
                     </math>
+                    <listOfParameters>
+				<parameter id="t"/>
+			  </listOfParameters>
                 </kineticLaw>
             </reaction>
         </listOfReactions>

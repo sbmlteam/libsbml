@@ -9,18 +9,22 @@
       <specie name="s2" compartment="cell" initialAmount="2"/>
       <specie name="x0" compartment="cell" initialAmount="1"/>
       <specie name="x1" compartment="cell" initialAmount="0"/>
+      <specie name="x2" compartment="cell" initialAmount="1"/>
+      <specie name="x3" compartment="cell" initialAmount="0"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter name="k1" value="1.2"/>
       <parameter name="k2" value="1000"/>
       <parameter name="k3" value="3000"/>
       <parameter name="k4" value="4.5"/>
-    </listOfParameters>
+      <parameter name="k"/>
+      <parameter name="t"/>
+   </listOfParameters>
     <listOfRules>
       <parameterRule name="t" formula="s1 + s2"/>
       <parameterRule name="k" formula="k3/k2"/>
-      <specieConcentrationRule specie="s2" formula="k * t/(1 + k)"/>
-      <specieConcentrationRule specie="s1" formula="t - s2"/>
+      <specieConcentrationRule specie="x2" formula="k * (s1+s2)/(1 + k)"/>
+      <specieConcentrationRule specie="x3" formula="t - s2"/>
     </listOfRules>
     <listOfReactions>
       <reaction name="j1">

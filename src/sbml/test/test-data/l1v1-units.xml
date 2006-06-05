@@ -36,7 +36,7 @@
                 <listOfProducts>
                     <specieReference specie="s1"/>
                 </listOfProducts>
-                <kineticLaw formula="(vm * s1)/(km + s1)"/>
+                <kineticLaw formula="cell * (vm * s1)/(km + s1)"/>
             </reaction>
             <reaction name="v2">
                 <listOfReactants>
@@ -45,7 +45,7 @@
                 <listOfProducts>
                     <specieReference specie="s2"/>
                 </listOfProducts>
-                <kineticLaw formula="(vm * s2)/(km + s2)"/>
+                <kineticLaw formula="cell * (vm * s2)/(km + s2)"/>
             </reaction>
             <reaction name="v3">
                 <listOfReactants>
@@ -54,7 +54,7 @@
                 <listOfProducts>
                     <specieReference specie="x1"/>
                 </listOfProducts>
-                <kineticLaw formula="(vm * s1)/(km + s1)"/>
+                <kineticLaw formula="cell * (vm * s1)/(km + s1)"/>
             </reaction>
         </listOfReactions>
     </model>

@@ -18,18 +18,18 @@
             <rateRule variable="P1">
                 <math:math>
                     <math:apply>
-                        <math:minus/>
-                        <math:ci> k1 </math:ci>
+                        <math:divide/>
                         <math:ci> P1 </math:ci>
+                        <math:ci> k1 </math:ci>
                     </math:apply>
                 </math:math>
             </rateRule>
             <rateRule variable="P2">
                 <math:math>
                     <math:apply>
-                        <math:minus/>
-                        <math:ci> k2 </math:ci>
+                        <math:divide/>
                         <math:ci> P2 </math:ci>
+                        <math:ci> k2 </math:ci>
                     </math:apply>
                 </math:math>
             </rateRule>

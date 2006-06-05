@@ -8,7 +8,7 @@
       <specie name="y" compartment="x" initialAmount="1"/>
     </listOfSpecies>
     <listOfReactions>
-      <reaction name="x">
+      <reaction name="r">
         <listOfReactants>
           <specieReference specie="y"/>
         </listOfReactants>
