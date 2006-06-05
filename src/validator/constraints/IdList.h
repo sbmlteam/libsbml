@@ -77,6 +77,8 @@ public:
   }
 
 
+  void clear() { mIds.clear(); }
+
 private:
 
   std::vector<std::string> mIds;
