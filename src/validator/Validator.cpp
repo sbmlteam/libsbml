@@ -149,6 +149,8 @@ struct ValidatorConstraints
   ConstraintSet<ModifierSpeciesReference> mModifierSpeciesReference;
   ConstraintSet<Event>                    mEvent;
   ConstraintSet<EventAssignment>          mEventAssignment;
+  ConstraintSet<InitialAssignment>        mInitialAssignment;
+  ConstraintSet<Constraint>               mConstraint;
 
   void add (VConstraint* c);
 };
@@ -253,6 +255,11 @@ ValidatorConstraints::add (VConstraint* c)
     (
       static_cast< TConstraint<SimpleSpeciesReference>* >(c)
     );
+    /* forces constraints to be applied to modifiers */
+    mModifierSpeciesReference.add
+    (
+      static_cast< TConstraint<ModifierSpeciesReference>* >(c)
+    );
     return;
   }
 
@@ -261,6 +268,11 @@ ValidatorConstraints::add (VConstraint* c)
     mSpeciesReference.add
     (
       static_cast< TConstraint<SpeciesReference>* >(c)
+    );
+    /* forces constraints to be applied to modifiers */
+    mModifierSpeciesReference.add
+    (
+      static_cast< TConstraint<ModifierSpeciesReference>* >(c)
     );
     return;
   }
@@ -283,6 +295,18 @@ ValidatorConstraints::add (VConstraint* c)
   if (dynamic_cast< TConstraint<EventAssignment>* >(c))
   {
     mEventAssignment.add( static_cast< TConstraint<EventAssignment>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<InitialAssignment>* >(c))
+  {
+    mInitialAssignment.add( static_cast< TConstraint<InitialAssignment>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<Constraint>* >(c))
+  {
+    mConstraint.add( static_cast< TConstraint<Constraint>* >(c) );
     return;
   }
 }
@@ -474,6 +498,18 @@ public:
   {
     v.mConstraints->mEventAssignment.applyTo(m, x);
     return !v.mConstraints->mEventAssignment.empty();
+  }
+
+  bool visit (const InitialAssignment& x)
+  {
+    v.mConstraints->mInitialAssignment.applyTo(m, x);
+    return !v.mConstraints->mInitialAssignment.empty();
+  }
+
+  bool visit (const Constraint& x)
+  {
+    v.mConstraints->mConstraint.applyTo(m, x);
+    return !v.mConstraints->mConstraint.empty();
   }
 
 
