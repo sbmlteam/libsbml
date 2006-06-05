@@ -71,8 +71,7 @@ UniqueIdsInModel::getPreamble ()
 void
 UniqueIdsInModel::doCheck (const Model& m)
 {
-  unsigned int n, size;
-
+  unsigned int n, size, sr, sr_size;
 
   checkId( m );
 
@@ -89,10 +88,38 @@ UniqueIdsInModel::doCheck (const Model& m)
   for (n = 0; n < size; ++n) checkId( *m.getParameter(n) );
 
   size = m.getNumReactions();
-  for (n = 0; n < size; ++n) checkId( *m.getReaction(n) );
+  for (n = 0; n < size; ++n) 
+  {
+    checkId( *m.getReaction(n) );
+
+    sr_size = m.getReaction(n)->getNumReactants();
+    for (sr = 0; sr < sr_size; sr++)
+    {
+      checkId(*m.getReaction(n)->getReactant(sr));
+    }
+
+    sr_size = m.getReaction(n)->getNumProducts();
+    for (sr = 0; sr < sr_size; sr++)
+    {
+      checkId(*m.getReaction(n)->getProduct(sr));
+    }
+
+    sr_size = m.getReaction(n)->getNumModifiers();
+    for (sr = 0; sr < sr_size; sr++)
+    {
+      checkId(*m.getReaction(n)->getModifier(sr));
+    }
+
+  }
 
   size = m.getNumEvents();
   for (n = 0; n < size; ++n) checkId( *m.getEvent(n) );
+
+  size = m.getNumCompartmentTypes();
+  for (n = 0; n < size; ++n) checkId( *m.getCompartmentType(n) );
+
+  size = m.getNumSpeciesTypes();
+  for (n = 0; n < size; ++n) checkId( *m.getSpeciesType(n) );
 
   reset();
 }
