@@ -72,6 +72,8 @@ main (int argc, char *argv[])
   cout << "         ";
   cout << "  model id: " <<  (m->isSetId() ? m->getId() : "(empty)") << endl;
 
+  if (m->isSetSBOTerm())
+    cout << "sboTerm: " << m->getSBOTerm() << endl;
   cout << "functionDefinitions: " << m->getNumFunctionDefinitions() << endl;
   cout << "    unitDefinitions: " << m->getNumUnitDefinitions    () << endl;
   cout << "   compartmentTypes: " << m->getNumCompartmentTypes   () << endl;
