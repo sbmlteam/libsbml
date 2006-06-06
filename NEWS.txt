@@ -39,6 +39,11 @@
      of AST_FUNCTION_DELAY.  Thanks to Nicolas Rodriguez for reporting
      this bug.
 
+   - The Matlab configuration scripts did not account for the
+     possibility of having a 64-bit Matlab on Linux (e.g., SuSE Linux
+     on AMD Opteron systems).  Thanks to Martin Monaghan for reporting
+     the problem and Mike Hucka for fixing it.
+
 
 * Released XXX x, 2005
 
