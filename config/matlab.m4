@@ -77,6 +77,11 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       AC_MSG_ERROR([Could not find 'mex' executable for MATLAB.])
     fi
 
+    dnl The mex extension really should be obtained using matlab's
+    dnl "mexext", but it lives in the matlab directory and there's no way
+    dnl to know where that is.  Users may only give --with-matlab without
+    dnl specifying the matlab installation directory.
+
     case $host in
     *darwin*) 
       MEXEXT="mexmac"
@@ -85,7 +90,12 @@ AC_DEFUN([CONFIG_PROG_MATLAB],
       MEXEXT="dll"
       ;;
     *) 
-      MEXEXT="mexglx"
+      arch=`uname -m`;
+      if test "$arch" = "x86_64"; then
+        MEXEXT="mexa64";
+      else 
+        MEXEXT="mexglx";
+      fi
       ;;
     esac
 
