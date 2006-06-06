@@ -88,13 +88,13 @@ distfiles = \
         Contents.m             \
         install.m              \
         make.bat               \
-	  mexopts-libsbml.sh     \
+        mexopts-libsbml.sh     \
         README.txt             \
         test.xml               \
         TranslateSBML.c        \
-	TranslateSBML.m          \
-      CheckAndConvert.m        \
-      Makefile.in
+        TranslateSBML.m        \
+        CheckAndConvert.m      \
+        Makefile.in
 
 
 # `extra_clean' and `extra_distclean' determine the files and directories
@@ -112,7 +112,7 @@ all: Makefile $(libraries)
 flags = $(MEX_FLAGS) $(MATLAB_CPPFLAGS) -I../.. -L../..
 
 %.$(MEXEXT): %.c
-	$(MEX) -f mexopts-libsbml.sh $(flags) $^ -lsbml $(MATLAB_LIBS)
+	$(MEX) $(flags) $^ -lsbml $(MATLAB_LIBS)
 
 
 # -----------------------------------------------------------------------------
