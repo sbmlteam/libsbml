@@ -172,7 +172,7 @@ distfiles = $(sources) $(headers) Makefile.in
 all: Makefile all-recursive all-this-dir
 
 all-this-dir: ;
-	make default
+	$(MAKE) default
 
 
 # -----------------------------------------------------------------------------
@@ -180,7 +180,7 @@ all-this-dir: ;
 # -----------------------------------------------------------------------------
 
 check: all check-recursive
-	make include
+	$(MAKE) include
 
 include: include-recursive
 

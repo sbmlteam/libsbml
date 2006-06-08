@@ -111,7 +111,7 @@ include: include-recursive
 check: check-prereq check-recursive
 
 check-prereq: ;
-	make all
+	$(MAKE) all
 
 
 # -----------------------------------------------------------------------------
