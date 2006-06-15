@@ -221,40 +221,47 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
 
   if(node->getType() == AST_FUNCTION)
   {
-    /**
-    * find corresponding func def which will have
-    * the formula as the rightChild of ASTNode
-    */
-    fdMath = model->getFunctionDefinition(node->getName())->getMath()
-                      ->getRightChild();
-    /* if function has no variables then this will be null */
-    if (fdMath == NULL)
+    if (model->getFunctionDefinition(node->getName()))
     {
-      newMath = model->getFunctionDefinition(node->getName())->getMath()
-                        ->getLeftChild();
+      /**
+      * find corresponding func def which will have
+      * the formula as the rightChild of ASTNode
+      */
+      fdMath = model->getFunctionDefinition(node->getName())->getMath()
+                        ->getRightChild();
+      /* if function has no variables then this will be null */
+      if (fdMath == NULL)
+      {
+        newMath = model->getFunctionDefinition(node->getName())->getMath()
+                          ->getLeftChild();
+      }
+      else
+      {
+        /**
+        * create a new ASTNode of this type but with the children
+        * from the original function
+        */
+        newMath = new ASTNode(fdMath->getType());
+        nodeCount = 0;
+        for (i = 0; i < fdMath->getNumChildren(); i++)
+        {
+          if (fdMath->getChild(i)->isName())
+          {
+            newMath->addChild(node->getChild(nodeCount));
+            nodeCount++;
+          }
+          else
+          {
+            newMath->addChild(fdMath->getChild(i));
+          }
+        }
+      }
+      ud = getUnitDefinition(newMath);
     }
     else
     {
-      /**
-      * create a new ASTNode of this type but with the children
-      * from the original function
-      */
-      newMath = new ASTNode(fdMath->getType());
-      nodeCount = 0;
-      for (i = 0; i < fdMath->getNumChildren(); i++)
-      {
-        if (fdMath->getChild(i)->isName())
-        {
-          newMath->addChild(node->getChild(nodeCount));
-          nodeCount++;
-        }
-        else
-        {
-          newMath->addChild(fdMath->getChild(i));
-        }
-      }
+      ud = new UnitDefinition();
     }
-    ud = getUnitDefinition(newMath);
   }
   else
   {
