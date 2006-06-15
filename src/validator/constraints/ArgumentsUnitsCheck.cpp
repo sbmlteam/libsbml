@@ -431,7 +431,7 @@ ArgumentsUnitsCheck::logInconsistentPiecewiseCondition (const ASTNode & node,
                                           const SBase & sb)
 {
   msg = getPreamble();
-  msg += "The formula ";
+  msg += "The formula '";
   msg += SBML_formulaToString(&node);
   msg += "' in the math element of the ";
   msg += getTypename(sb);

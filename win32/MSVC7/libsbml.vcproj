@@ -163,6 +163,9 @@
 				RelativePath="..\..\src\math\ASTNode.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\CiElementMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Compartment.cpp">
 			</File>
 			<File
@@ -196,6 +199,9 @@
 				RelativePath="..\..\src\sbml\Constraint.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Event.cpp">
 			</File>
 			<File
@@ -212,6 +218,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\math\FormulaTokenizer.c">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\FunctionApplyMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\FunctionDefinition.cpp">
@@ -244,13 +253,22 @@
 				RelativePath="..\..\src\validator\L1CompatibilityValidator.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LambdaMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\util\List.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\ListOf.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\math\MathML.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\MathMLBase.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\util\memory.c">
@@ -259,7 +277,19 @@
 				RelativePath="..\..\src\sbml\Model.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\NumericArgsMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\NumericReturnMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Parameter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PieceBooleanMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.cpp">
@@ -452,6 +482,9 @@
 				RelativePath="..\..\src\math\ASTNode.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\CiElementMathCheck.h">
+			</File>
+			<File
 				RelativePath="..\..\src\common\common.h">
 			</File>
 			<File
@@ -467,10 +500,13 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\Constraint.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\Constraint.h">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\Constraint.h">
+				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Event.h">
@@ -492,6 +528,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\math\FormulaTokenizer.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\FunctionApplyMathCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\FunctionDefinition.h">
@@ -521,6 +560,9 @@
 				RelativePath="..\..\src\validator\L1CompatibilityValidator.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LambdaMathCheck.h">
+			</File>
+			<File
 				RelativePath="..\..\src\common\libsbml-config-win.h">
 			</File>
 			<File
@@ -533,7 +575,13 @@
 				RelativePath="..\..\src\sbml\ListOf.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.h">
+			</File>
+			<File
 				RelativePath="..\..\src\math\MathML.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\MathMLBase.h">
 			</File>
 			<File
 				RelativePath="..\..\src\util\memory.h">
@@ -542,7 +590,19 @@
 				RelativePath="..\..\src\sbml\Model.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\NumericArgsMathCheck.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\NumericReturnMathCheck.h">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Parameter.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PieceBooleanMathCheck.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.h">

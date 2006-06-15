@@ -98,6 +98,16 @@ sources =                                     \
   StoichiometryMathVars.cpp                   \
   KineticLawVars.cpp                          \
   AssignmentCycles.cpp                        \
+  MathMLBase.cpp                              \
+  LogicalArgsMathCheck.cpp                    \
+  NumericArgsMathCheck.cpp                    \
+  PieceBooleanMathCheck.cpp                   \
+  PiecewiseValueMathCheck.cpp                 \
+  EqualityArgsMathCheck.cpp                   \
+  FunctionApplyMathCheck.cpp                  \
+  CiElementMathCheck.cpp                      \
+  LambdaMathCheck.cpp                         \
+  NumericReturnMathCheck.cpp                  \
   PowerUnitsCheck.cpp                          
 
 header_inst_prefix = validator/constraints
@@ -107,6 +117,7 @@ headers =              \
   IdList.h             \
   UniqueMetaId.h       \
   UniqueIdBase.h       \
+  MathMLBase.h         \
   UnitsBase.h
 
 

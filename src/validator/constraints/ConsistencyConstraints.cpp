@@ -58,6 +58,15 @@
 #include "ExponentUnitsCheck.h"
 #include "ArgumentsUnitsCheck.h"
 
+#include "LogicalArgsMathCheck.h"
+#include "NumericArgsMathCheck.h"
+#include "PieceBooleanMathCheck.h"
+#include "PiecewiseValueMathCheck.h"
+#include "EqualityArgsMathCheck.h"
+#include "FunctionApplyMathCheck.h"
+#include "CiElementMathCheck.h"
+#include "LambdaMathCheck.h"
+#include "NumericReturnMathCheck.h"
 
 #endif
 
@@ -67,6 +76,15 @@
 
 using namespace std;
 
+EXTERN_CONSTRAINT( 2006, LambdaMathCheck)
+EXTERN_CONSTRAINT( 2007, FunctionApplyMathCheck)
+EXTERN_CONSTRAINT( 2008, CiElementMathCheck)
+EXTERN_CONSTRAINT( 2011, LogicalArgsMathCheck)
+EXTERN_CONSTRAINT( 2012, PieceBooleanMathCheck)
+EXTERN_CONSTRAINT( 2015, NumericArgsMathCheck)
+EXTERN_CONSTRAINT( 2017, PiecewiseValueMathCheck)
+EXTERN_CONSTRAINT( 2018, EqualityArgsMathCheck)
+EXTERN_CONSTRAINT( 2019, NumericReturnMathCheck)
 
 EXTERN_CONSTRAINT( 900, UniqueIdsInModel             )
 EXTERN_CONSTRAINT( 901, UniqueIdsForUnitDefinitions  )
