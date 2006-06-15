@@ -27,7 +27,7 @@ Fail: (1801) An Event trigger must return a boolean value
                   <cn> 2 </cn>
                   <cn> 1 </cn>
                 </apply>
-		    <cn> 1.5 </cn>
+		            <true/>
               </piece>
               <otherwise>
                 <cn>0.05</cn> 

@@ -19,7 +19,7 @@ attribute and a 'stoichiometryMath' subelement.
           <speciesReference species="s" stoichiometry="2">
             <stoichiometryMath>
               <math xmlns="http://www.w3.org/1998/Math/MathML">
-                <ci> x </ci>
+                <ci> c </ci>
               </math>
             </stoichiometryMath>
           </speciesReference>

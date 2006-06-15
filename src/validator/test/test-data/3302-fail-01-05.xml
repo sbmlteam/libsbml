@@ -16,12 +16,9 @@ Fail: (3300) Inconsistent math
     <listOfRules>
       <algebraicRule>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <lambda>
-            <bvar> <ci> x </ci> <ci> y </ci> </bvar>
             <apply>
               <power/> <ci> c </ci> <ci> p </ci>
             </apply>
-          </lambda>
         </math>
       </algebraicRule>
     </listOfRules>
