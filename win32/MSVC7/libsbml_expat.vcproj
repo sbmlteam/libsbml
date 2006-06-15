@@ -55,9 +55,10 @@
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="..\createIncludeFromMSVC.bat"/>
+				ExcludedFromBuild="FALSE"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\createIncludeFromMSVC.bat"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -91,6 +92,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Release/libsbml_expat.pch"
 				AssemblerListingLocation=".\Release/"
@@ -118,10 +120,10 @@
 				TypeLibraryName=".\bin/libsbml_expat.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"
-				CommandLine="..\createIncludeFromMSVC.bat"/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\createIncludeFromMSVC.bat"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -147,7 +149,16 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\src\validator\constraints\ArgumentsUnitsCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\AssignmentCycles.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\math\ASTNode.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\CiElementMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Compartment.cpp">
@@ -207,13 +218,16 @@
 				RelativePath="..\..\src\math\FormulaTokenizer.c">
 			</File>
 			<File
-				RelativePath="..\..\src\validator\constraints\FormulaUnitsCheck.cpp">
+				RelativePath="..\..\src\validator\constraints\FunctionApplyMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\FunctionDefinition.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\FunctionDefinitionVars.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\FunctionReferredToExists.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\IdBase.cpp">
@@ -228,10 +242,16 @@
 				RelativePath="..\..\src\sbml\KineticLaw.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\KineticLawVars.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\L1CompatibilityConstraints.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\L1CompatibilityValidator.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\LambdaMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\util\List.cpp">
@@ -240,7 +260,13 @@
 				RelativePath="..\..\src\sbml\ListOf.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\math\MathML.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\MathMLBase.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\util\memory.c">
@@ -249,7 +275,22 @@
 				RelativePath="..\..\src\sbml\Model.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\NumericArgsMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\NumericReturnMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Parameter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PieceBooleanMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.cpp">
@@ -288,6 +329,9 @@
 				RelativePath="..\..\src\sbml\Species.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\SpeciesReactionOrRule.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\SpeciesReference.cpp">
 			</File>
 			<File
@@ -295,6 +339,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\Stack.c">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\StoichiometryMathVars.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\util\StringBuffer.c">
@@ -315,7 +362,22 @@
 				RelativePath="..\..\src\validator\constraints\UniqueIdsInModel.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\UniqueMetaId.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueSpeciesTypesInCompartment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueSymbolsInInitialAssignments.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\UniqueVarsInEventAssignments.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueVarsInEventsAndRules.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UniqueVarsInInitialAssignmentsAndRules.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\UniqueVarsInRules.cpp">
