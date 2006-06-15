@@ -208,41 +208,44 @@ UnitsBase::checkFunction (const Model& m,
   const ASTNode * fdMath;
   ASTNode *newMath;
 
-  /**
-    * find corresponding func def which will have
-    * the formula as the rightChild of ASTNode
-    */
-  fdMath = m.getFunctionDefinition(node.getName())
-    ->getMath()->getRightChild();
-  
-  /* if function has no variables then this will be null */
-  if (fdMath == NULL)
-  {
-    newMath = m.getFunctionDefinition(node.getName())
-    ->getMath()->getLeftChild();
-  }
-  else
+  if (m.getFunctionDefinition(node.getName()))
   {
     /**
-      * create a new ASTNode of this type but with the children
-      * from the original function
+      * find corresponding func def which will have
+      * the formula as the rightChild of ASTNode
       */
-    newMath = new ASTNode(fdMath->getType());
-    nodeCount = 0;
-    for (i = 0; i < fdMath->getNumChildren(); i++)
+    fdMath = m.getFunctionDefinition(node.getName())
+      ->getMath()->getRightChild();
+    
+    /* if function has no variables then this will be null */
+    if (fdMath == NULL)
     {
-      if (fdMath->getChild(i)->isName())
+      newMath = m.getFunctionDefinition(node.getName())
+      ->getMath()->getLeftChild();
+    }
+    else
+    {
+      /**
+        * create a new ASTNode of this type but with the children
+        * from the original function
+        */
+      newMath = new ASTNode(fdMath->getType());
+      nodeCount = 0;
+      for (i = 0; i < fdMath->getNumChildren(); i++)
       {
-        newMath->addChild(node.getChild(nodeCount));
-        nodeCount++;
-      }
-      else
-      {
-        newMath->addChild(fdMath->getChild(i));
+        if (fdMath->getChild(i)->isName())
+        {
+          newMath->addChild(node.getChild(nodeCount));
+          nodeCount++;
+        }
+        else
+        {
+          newMath->addChild(fdMath->getChild(i));
+        }
       }
     }
+    checkUnits(m, *newMath, sb);
   }
-  checkUnits(m, *newMath, sb);
 }
 
 /**
