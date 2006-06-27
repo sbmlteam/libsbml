@@ -30,7 +30,7 @@
 #include <sbml/validator/Constraint.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 
-#include <util/List.h>
+#include <sbml/util/List.h>
 
 #include "CompartmentOutsideCycles.h"
 #include "FunctionDefinitionVars.h"
