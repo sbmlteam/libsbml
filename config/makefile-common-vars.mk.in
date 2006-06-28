@@ -65,10 +65,14 @@
 prefix            = @prefix@
 exec_prefix       = @exec_prefix@
 
+# The TOP_SRCDIR and TOP_BUILDDIR variables frequently looks like
+# /foo/config/.. and this is kind of ugly (and leads to other paths looking
+# confusing), so let's get a cleaned up path first:
+
 top_srcdir        = @abs_top_srcdir@
 top_builddir      = @abs_top_builddir@
-TOP_SRCDIR        = $(top_srcdir)
-TOP_BUILDDIR      = $(top_builddir)
+TOP_SRCDIR        := $(shell cd $(top_srcdir); /bin/pwd)
+TOP_BUILDDIR      := $(shell cd $(top_builddir); /bin/pwd)
 DISTDIR           = $(top_srcdir)/$(PACKAGE_TARNAME)-$(PACKAGE_VERSION)
 VPATH             = $(srcdir)
 
