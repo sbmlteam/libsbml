@@ -67,11 +67,6 @@
 .SUFFIXES:
 .SUFFIXES: .a .so .dylib .jnilib .c .h .cpp .hpp .o .obj .Po .py .pyc .pyo .i
 
-# The TOP_SRCDIR variable frequently looks like /foo/config/../include
-# and this is kind of ugly, so let's get a cleaned up path first:
-
-top_include := $(shell cd $(TOP_SRCDIR)/include; /bin/pwd)
-
 # The following define default values of variables like `cxxcompile'.  An
 # enclosing makefile can define other values, in which case those
 # definitions will override what's given here.
@@ -358,9 +353,7 @@ define install_includes
     $(INSTALL_SH) -m 644 $$d/$$file $$targetdir$$dir || exit 1; \
   else \
     echo Copying $$targetdir/$$file; \
-    test -f $$targetdir/$$file \
-    || $(INSTALL_SH) -m 644 $$d/$$file $$targetdir/$$file \
-    || exit 1; \
+    $(INSTALL_SH) -m 644 $$d/$$file $$targetdir/$$file || exit 1; \
   fi;
 endef
 
