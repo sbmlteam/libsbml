@@ -71,6 +71,8 @@
 # enclosing makefile can define other values, in which case those
 # definitions will override what's given here.
 
+top_include := $(TOP_SRCDIR)/include
+
 default_includes ?= -I. -I$(top_include)
 
 # Compiling under cygwin doesn't need -fPIC.
