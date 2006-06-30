@@ -79,6 +79,8 @@ public:
 
   void clear() { mIds.clear(); }
 
+  std::string at(int n) { return mIds.at(n); }
+
 private:
 
   std::vector<std::string> mIds;
