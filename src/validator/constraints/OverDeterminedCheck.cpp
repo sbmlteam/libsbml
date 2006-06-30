@@ -36,22 +36,8 @@
 #include "OverDeterminedCheck.h"
 
 #include <iostream>
+
 using namespace std;
-void PrintOut(graph GG)
-{
-  for (graph::iterator iter = GG.begin(); 
-    iter != GG.end(); iter++)
-  {
-    std::cout << "Equation vertex: " << (*iter).first << std::endl;
-
-    for (unsigned int p = 0; p < (*iter).second.size(); p++)
-    {
-      std::cout << GG[(*iter).first].at(p) << "\t";
-    }
-    std::cout << std::endl;
-  }
-
-}
 
 
 /**
@@ -73,11 +59,8 @@ OverDeterminedCheck::~OverDeterminedCheck ()
 
 
 /**
- * Checks that no Compartments in Model have a cycle via their 'outside'
- * attribute.
- *
- * Sets mHolds to true if no cycles are found, false otherwise.
- */
+  * Checks that a model is not over determined
+  */
 void
 OverDeterminedCheck::check_ (const Model& m, const Model& object)
 {
@@ -232,10 +215,15 @@ OverDeterminedCheck::writeVariableVertexes(const Model& m)
 }
 
 
+/**
+  * creates a bipartite graph according to the L2V2 spec 4.11.5 
+  * creates edges between the equation vertexes and the variable vertexes
+  * graph produced is an id representimg the equation and an IdList
+  * listing the edges the equation vertex is connected to
+*/
 void
 OverDeterminedCheck::createGraph(const Model& m)
 {
-//  edges Edge;
   IdList joined;
   IdList speciesAdded;
   unsigned int n, sr;
@@ -421,9 +409,14 @@ OverDeterminedCheck::createGraph(const Model& m)
 }
 
 /**
- * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
- * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
- */ 
+  * finds a maximal matching of the bipartite graph
+  * adapted from the only implementation I could find:
+  * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
+  * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
+  *
+  * returns an IdList of any equation vertexes that are unconnected 
+  * in the maximal matching
+  */ 
 IdList 
 OverDeterminedCheck::findMatching()
 {
@@ -552,6 +545,11 @@ OverDeterminedCheck::findMatching()
 
 }
 
+
+/**
+ * function that looks for alternative paths and adds these to the matching
+ * where necessary
+ */
 unsigned int
 OverDeterminedCheck::Recurse(std::string v)
 {
@@ -601,85 +599,20 @@ OverDeterminedCheck::Recurse(std::string v)
       }
     }
   }
-
   return rec;
-
-}
-
-/**
- * Checks for a cycle by following Compartment c's 'outside' attribute.  If
- * a cycle is found, it is added to the list of found cycles, mCycles.
- */
-void
-OverDeterminedCheck::checkForCycle (const Model& m, const Compartment* c)
-{
-  //IdList visited;
-
-
-  //while (c && !isInCycle(c))
-  //{
-  //  const string& id = c->getId();
-
-  //  if ( visited.contains(id) )
-  //  {
-  //    visited.removeIdsBefore(id);
-
-  //    mCycles.push_back(visited);
-  //    logOverDetermined(c, visited);
-
-  //    break;
-  //  }
-
-  //  visited.append(id);
-  //  c = c->isSetOutside() ? m.getCompartment( c->getOutside() ) : 0;
-  //}
 }
 
 
 /**
- * Function Object: Returns true if Compartment c is contained in the given
- * IdList cycle.
- */
-struct CycleContains : public unary_function<IdList, bool>
-{
-  CycleContains (const Compartment* c) : id(c->getId()) { }
-
-  bool operator() (const IdList& lst) const
-  {
-    return lst.contains(id);
-  }
-
-  const string& id;
-};
-
-
-/**
- * @return true if Compartment c is contained in one of the already found
- * cycles, false otherwise.
- */
-bool
-OverDeterminedCheck::isInCycle (const Compartment* c)
-{
-  //vector<IdList>::iterator end = mCycles.end();
-  //return find_if(mCycles.begin(), end, CycleContains(c)) != end;
-  return true;
-}
-
-
-/**
- * Logs a message about a cycle found starting at Compartment c.
- */
+  * Logs a message about overdetermined model.
+  * As yet this only reports the problem - it doesnt really give
+  * any additional information
+  */
 void
 OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& unmatch)
 {
   msg  = "SBML models cannot be overdetermined as defined in the specification."; 
   msg += "See the detailed exposition of this rule in Section 4.11.5. ";
-
-  //  msg += " via '" + *iter++ + "'";
-  //  while (iter != end) msg += " -> '" + *iter++ + "'";
-  //  msg += " -> '" + c->getId() + "'";
-
-  //msg += '.';
 
   logFailure(m);
 }

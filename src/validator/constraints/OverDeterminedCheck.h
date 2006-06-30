@@ -37,11 +37,9 @@
 #include "IdList.h"
 
 typedef std::map< std::string, IdList> graph;
-//typedef std::vector<edges>  graph;
 
 
 class Model;
-class Compartment;
 class Validator;
 
 
@@ -63,10 +61,7 @@ public:
 protected:
 
   /**
-   * Checks that no Compartments in Model have a cycle via their 'outside'
-   * attribute.
-   *
-   * Sets mHolds to true if no cycles are found, false otherwise.
+   * Checks that a model is not over determined
    */
   virtual void check_ (const Model& m, const Model& object);
 
@@ -88,31 +83,41 @@ protected:
    */
   void writeVariableVertexes(const Model &);
 
-  IdList findMatching();
-
+  /**
+   * creates a bipartite graph according to the L2V2 spec 4.11.5 
+   * creates edges between the equation vertexes and the variable vertexes
+   * graph produced is an id representimg the equation and an IdList
+   * listing the edges the equation vertex is connected to
+   */
   void createGraph(const Model &);
 
+  /**
+   * finds a maximal matching of the bipartite graph
+   * adapted from the only implementation I could find:
+   * # Hopcroft-Karp bipartite max-cardinality mMatching and max independent set
+   * # David Eppstein, UC Irvine, 27 Apr 2002 - Python Cookbook
+   *
+   * returns an IdList of any equation vertexes that are unconnected 
+   * in the maximal matching
+   */ 
+  IdList findMatching();
+
+  /**
+  * function that looks for alternative paths and adds these to the matching
+  * where necessary
+  */
   unsigned int Recurse(std::string);
-  /**
-   * Checks for a cycle by following Compartment c's 'outside' attribute.
-   * If a cycle is found, it is added to the list of found cycles, mCycles.
-   */
-  void checkForCycle (const Model& m, const Compartment* c);
 
   /**
-   * @return true if Compartment c is contained in one of the already found
-   * cycles, false otherwise.
-   */
-  bool isInCycle (const Compartment* c);
-
-  /**
-   * Logs a message about a cycle found starting at Compartment c.
+   * Logs a message about overdetermined model.
+   * As yet this only reports the problem - it doesnt really give
+   * any additional information
    */
   void logOverDetermined (const Model &, const IdList& unmatched);
 
 
-  IdList mEquations;
-  IdList mVariables;
+  IdList mEquations; // list of equation vertexes
+  IdList mVariables; // list of variable vertexes
   graph mGraph;
 
   /* these are to enable the bipartite matching without passing variables */
