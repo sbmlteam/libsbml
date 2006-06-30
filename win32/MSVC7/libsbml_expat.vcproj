@@ -25,6 +25,7 @@
 				PreprocessorDefinitions="USE_EXPAT;WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug/libsbml_expat.pch"
 				AssemblerListingLocation=".\Debug/"
@@ -194,10 +195,16 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Event.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\EventAssignment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\ExponentUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\xml\ExpatAttributes.cpp">
@@ -279,6 +286,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\NumericReturnMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\OverDeterminedCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Parameter.cpp">
@@ -396,6 +406,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\units\UnitKindList.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UnitsBase.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\util\util.c">
