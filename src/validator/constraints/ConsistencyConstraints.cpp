@@ -68,6 +68,8 @@
 #include "LambdaMathCheck.h"
 #include "NumericReturnMathCheck.h"
 
+#include "OverDeterminedCheck.h"
+
 #endif
 
 
@@ -76,15 +78,15 @@
 
 using namespace std;
 
-EXTERN_CONSTRAINT( 2006, LambdaMathCheck)
-EXTERN_CONSTRAINT( 2007, FunctionApplyMathCheck)
-EXTERN_CONSTRAINT( 2008, CiElementMathCheck)
-EXTERN_CONSTRAINT( 2011, LogicalArgsMathCheck)
-EXTERN_CONSTRAINT( 2012, PieceBooleanMathCheck)
-EXTERN_CONSTRAINT( 2015, NumericArgsMathCheck)
+EXTERN_CONSTRAINT( 2006, LambdaMathCheck        )
+EXTERN_CONSTRAINT( 2007, FunctionApplyMathCheck )
+EXTERN_CONSTRAINT( 2008, CiElementMathCheck     )
+EXTERN_CONSTRAINT( 2011, LogicalArgsMathCheck   )
+EXTERN_CONSTRAINT( 2012, PieceBooleanMathCheck  )
+EXTERN_CONSTRAINT( 2015, NumericArgsMathCheck   )
 EXTERN_CONSTRAINT( 2017, PiecewiseValueMathCheck)
-EXTERN_CONSTRAINT( 2018, EqualityArgsMathCheck)
-EXTERN_CONSTRAINT( 2019, NumericReturnMathCheck)
+EXTERN_CONSTRAINT( 2018, EqualityArgsMathCheck  )
+EXTERN_CONSTRAINT( 2019, NumericReturnMathCheck )
 
 EXTERN_CONSTRAINT( 900, UniqueIdsInModel             )
 EXTERN_CONSTRAINT( 901, UniqueIdsForUnitDefinitions  )
@@ -93,6 +95,8 @@ EXTERN_CONSTRAINT( 903, UniqueVarsInRules            )
 EXTERN_CONSTRAINT( 904, UniqueVarsInEventAssignments )
 EXTERN_CONSTRAINT( 905, UniqueVarsInEventsAndRules   )
 EXTERN_CONSTRAINT( 907, UniqueMetaId                 )
+
+EXTERN_CONSTRAINT( 9999, OverDeterminedCheck)
 
 
 

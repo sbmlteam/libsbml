@@ -108,6 +108,7 @@ sources =                                     \
   CiElementMathCheck.cpp                      \
   LambdaMathCheck.cpp                         \
   NumericReturnMathCheck.cpp                  \
+  OverDeterminedCheck.cpp					  \
   PowerUnitsCheck.cpp                          
 
 header_inst_prefix = validator/constraints
@@ -118,6 +119,7 @@ headers =              \
   UniqueMetaId.h       \
   UniqueIdBase.h       \
   MathMLBase.h         \
+  OverDeterminedCheck.h\
   UnitsBase.h
 
 

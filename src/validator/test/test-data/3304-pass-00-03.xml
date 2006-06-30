@@ -10,13 +10,13 @@ Pass: (3300) Inconsistent math
       <compartment id="c" constant="true" spatialDimensions="0"/>
     </listOfCompartments>
     <listOfParameters>
-      <parameter id="p" value="1" units="litre" constant="false"/>
+      <parameter id="p" value="1" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfRules>
       <algebraicRule>
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <apply>
-            <arccosh/> <ci> c </ci>
+            <arccosh/> <ci> p </ci>
           </apply>
         </math>
       </algebraicRule>
