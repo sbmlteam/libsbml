@@ -229,18 +229,25 @@ UnitsBase::checkFunction (const Model& m,
         * create a new ASTNode of this type but with the children
         * from the original function
         */
-      newMath = new ASTNode(fdMath->getType());
-      nodeCount = 0;
-      for (i = 0; i < fdMath->getNumChildren(); i++)
+      if (fdMath->getType() == AST_NAME)
       {
-        if (fdMath->getChild(i)->isName())
+        newMath = node.getLeftChild();
+      }
+      else
+      {
+        newMath = new ASTNode(fdMath->getType());
+        nodeCount = 0;
+        for (i = 0; i < fdMath->getNumChildren(); i++)
         {
-          newMath->addChild(node.getChild(nodeCount));
-          nodeCount++;
-        }
-        else
-        {
-          newMath->addChild(fdMath->getChild(i));
+          if (fdMath->getChild(i)->isName())
+          {
+            newMath->addChild(node.getChild(nodeCount));
+            nodeCount++;
+          }
+          else
+          {
+            newMath->addChild(fdMath->getChild(i));
+          }
         }
       }
     }

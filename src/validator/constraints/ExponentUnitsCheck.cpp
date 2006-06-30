@@ -123,7 +123,7 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
    * the exponent of the resulting unit must be integral
    */
 
-  int root;
+  int root = 1;
   unsigned int n;
   UnitDefinition * tempUD;
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
