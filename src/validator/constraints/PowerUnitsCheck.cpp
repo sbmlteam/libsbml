@@ -119,6 +119,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
                                         const ASTNode& node, 
                                         const SBase & sb)
 {
+  double value;
   /* power (v, n) = v^n 
    * if v has units other than dimensionless then
    * n must be an integer
@@ -137,11 +138,25 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   if (!areEquivalent(dim, tempUD)) 
   {
     /* check that the power is not a parameter
-     * with undeclared units which would be okay
+     * with undeclared units 
+     * or a parameter with dimensionless units
+     * and if so that the value is an integer
      */
     if (child->isName() && m.getParameter(child->getName()))
     {
-      if (!unitFormat->hasUndeclaredUnits(child))
+      if (areEquivalent(dim, tempUD1) || unitFormat->hasUndeclaredUnits(child))
+      {
+        value = m.getParameter(child->getName())->getValue();
+        if (value != 0)
+        {
+          if (ceil(value) != value)
+          {
+            logUnitConflict(node, sb);
+          }
+        }
+
+      }
+      else
       {
         logUnitConflict(node, sb);
       }
