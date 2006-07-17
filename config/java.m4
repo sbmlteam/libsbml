@@ -184,18 +184,28 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
   _jtopdir=`echo "$JAVA_FOLLOWED" | sed -e 's://*:/:g' -e 's:/[[^/]]*$::'`
   case "$host_os" in
     *darwin*)
-	dnl MacOS X's installation of Java 1.4.2 is broken: the header
-	dnl files are missing entirely, and there are dangling symlinks.
-	dnl The following are ugly kludges to try to do the best we can.
-	dnl One of the things this does deliberately is use the 1.4.1
-	dnl headers directory on the Mac even for Java 1.4.2 if the 
-	dnl 1.4.2 headers directory can't be found.  Yuck.
-	dnl 2004-07-07 <mhucka@caltech.edu>
-
 	java_bail=no
 	java_mac_prefix="/System/Library/Frameworks/JavaVM.framework"
 	case $JAVA_VER_MINOR in
+	  5) 
+	    if test -e "$java_mac_prefix/Versions/CurrentJDK/Headers"; then
+	      _jinc="$java_mac_prefix/Versions/CurrentJDK/Headers"
+	    elif test -e "$java_mac_prefix/Versions/1.5.0/Headers"; then
+	      _jinc="$java_mac_prefix/Versions/1.5.0/Headers"
+	    elif test -e "$java_mac_prefix/Versions/1.5/Headers"; then
+	      _jinc="$java_mac_prefix/Versions/1.5/Headers"
+	    else
+	      java_bail=yes
+	    fi
+	    ;;
 	  4)
+            dnl MacOS X's installation of Java 1.4.2 is broken: the header
+            dnl files are missing entirely, and there are dangling symlinks.
+            dnl The following are ugly kludges to try to do the best we can.
+            dnl One of the things this does deliberately is use the 1.4.1
+            dnl headers directory on the Mac even for Java 1.4.2 if the 
+            dnl 1.4.2 headers directory can't be found.  Yuck.
+            dnl 2004-07-07 <mhucka@caltech.edu>
 	    if test $JAVA_VER_SUBMINOR -eq 2; then
 	      if test -e "$java_mac_prefix/Versions/1.4.2/Headers"; then
 	        _jinc="$java_mac_prefix/Versions/1.4.2/Headers"
@@ -225,7 +235,7 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
 	    ;;
 	  *)
              _jtopdir=`echo "$_jtopdir" | sed -e 's:/[[^/]]*$::'`
-	     _jinc="$_jtopdir/Versions/Headers"
+	     _jinc="$_jtopdir/Versions/Current/Headers"
 	     ;;
 	esac
 
