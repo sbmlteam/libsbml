@@ -44,6 +44,12 @@
      on AMD Opteron systems).  Thanks to Martin Monaghan for reporting
      the problem and Mike Hucka for fixing it.
 
+   - The Java version detection code for the --with-java configure
+     flag was unable to properly find the Java 1.5 that was installed
+     with recent versions of MacOSX.  This should be fixed.  Thanks to
+     Jeremy Purvis for finding the problem and providing an initial
+     patch to libsbml-discuss.  The final fix was done slightly
+     differently by Mike Hucka and affects config/java.m4.
 
 * Released XXX x, 2005
 
