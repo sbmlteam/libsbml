@@ -67,4 +67,11 @@ Schema filename in the same directory.
 -------------------------------------------
 File author: B. Bornstein
 Last Modified: $Date$
+Last Modified By: $Author$
+$Source$
 -------------------------------------------
+
+# The following is for [X]Emacs users.  Please leave in place.
+# Local Variables:
+# fill-column: 70
+# End:

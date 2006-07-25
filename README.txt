@@ -438,13 +438,13 @@ join the list by visiting the following URL:
 
 
 
+
 -------------------------------------------
 File author: B. Bornstein, M. Hucka
 Last Modified: $Date$
+Last Modified By: $Author$
+$Source$
 -------------------------------------------
-
-
-
 
 # The following is for [X]Emacs users.  Please leave in place.
 # Local Variables:

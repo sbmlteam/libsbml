@@ -61,6 +61,7 @@ the BioModels Database (http://www.ebi.ac.uk/biomodels/).
 File authors: B. Bornstein, M. Hucka
 Last Modified: $Date$
 Last Modified By: $Author$
+$Source$
 -------------------------------------------
 
 # The following is for [X]Emacs users.  Please leave in place.
