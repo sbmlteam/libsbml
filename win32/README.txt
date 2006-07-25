@@ -119,10 +119,9 @@ which builds the java binding dll.
 -------------------------------------------
 File author: S. Keating
 Last Modified: $Date$
+Last Modified By: $Author$
+$Source$
 -------------------------------------------
-
-
-
 
 # The following is for [X]Emacs users.  Please leave in place.
 # Local Variables:
