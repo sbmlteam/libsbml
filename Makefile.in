@@ -149,6 +149,7 @@ distfiles = \
         COPYING.html                                         \
         COPYING.txt                                          \
         FUNDING.txt                                          \
+        LICENSE.txt                                          \
         Makefile.in                                          \
         NEWS.txt                                             \
         README.txt                                           \
