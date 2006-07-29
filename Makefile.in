@@ -166,7 +166,9 @@ distfiles = \
         config/matlab.m4                                     \
         config/missing                                       \
         config/mkinstalldirs                                 \
+        config/perl.m4                                       \
         config/python.m4                                     \
+        config/runldpath.m4                                  \
         config/swig.m4                                       \
         config/xercesc.m4                                    \
         configure                                            \
