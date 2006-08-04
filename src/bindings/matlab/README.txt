@@ -1,14 +1,14 @@
-	  MATLAB application programming interface for libSBML
+	 MATLAB application programming interface for libSBML
 
-			     Sarah Keating
+			    Sarah Keating
 
-		 Science and Technology Research Centre
-		      University of Hertfordshire
-			   Hatfield, AL10 9AB
-			     United Kingdom
+		Science and Technology Research Centre
+		     University of Hertfordshire
+			  Hatfield, AL10 9AB
+			    United Kingdom
 
-			     The SBML Team
-			  http://www.sbml.org/
+			    The SBML Team
+			 http://www.sbml.org/
 		     mailto:sbml-team@caltech.edu
 
 
@@ -16,61 +16,75 @@
 1.  Quick Start
 ---------------
 
-The binding provides a MATLAB function (TranslateSBML) that imports an
-SBML model into the MATLAB environment as a Matlab structure.  After
-building and installing libSBML with 
+The libSBML MATLAB binding provides a MATLAB function called
+TranslateSBML.  This function can be used to import an SBML model 
+into the MATLAB environment as a MATLAB data structure.
+
+The Windows distribution of libSBML includes a precompiled copy of
+TranslateSBML.  The source distribution of libSBML for Linux, MacOS X
+and other Unix-like environments does not come with precompiled
+executables and you will need to build TranslateSBML as described
+below.
 
 
 ----------------------------------
 2.  Configuration and Installation
 ----------------------------------
 
-
 Windows
 -------
 
-At the command prompt change to directory '..libsbml-   \binding\matlab'
+A precompiled version of the Windows .dll file is available; you
+should not need to follow these instructions in most circumstances.
 
-Run make.bat
+Start a Windows command shell.
 
-This will start MATLAB and run a script that 
+At the command prompt, change to the directory holding the file you
+are reading right now, i.e., 'libsbml-VERSION\src\binding\matlab'
+where "VERSION" is the version of libSBML you have obtained.
 
-  1) adds the directory to the MATLAB search path
+Execute "make.bat".  This will start MATLAB and run a script that 
+
+  1) adds the directory to the MATLAB search path,
 
   2) checks whether the necessary libraries are on the PATH and if not
-     copies the files to the matlabroot\bin\win32 directory as this must be
-     on the PATH if MATLAB is installed.
+  copies the files to the matlabroot\bin\win32 directory as this must
+  be on the PATH if MATLAB is installed,
 
-  3) Prompts user to close MATLAB
+  3) prompts user to close MATLAB.
 
-The TranslateSBML executable is provided with the download and it is not
-necessary to build it in order to use it. However the script
-BuildTranslate_Win32 can be used within MATLAB to build TranslateSBML.dll
-provided the C compiler that MATLAB uses is compatible (Working on this!)
+The TranslateSBML executable is provided with the download and it is
+not necessary to build it in order to use it.  However the script
+BuildTranslate_Win32 can be used within MATLAB to build
+TranslateSBML.dll provided the C compiler that MATLAB uses is
+compatible.
 
-(Use mex -setup in MATLAB to chose a default compiler)
+(Rest of Windows instructions incomplete.)
 
 
 Linux and MacOS X
 -----------------
 
-The first step is to run the top-level 'configure' script with the
---with-matlab option.  (See the top-level README.txt file.)  You will
-probably have to supply the pathname of the directory tree where MATLAB is
-installed on your system.  For example, on MacOS X with release R13sp1 of
-MATLAB, run the following shell command in the top-level libsbml directory:
+The first step is to run the top-level libSBML 'configure' script with
+the --with-matlab option.  (See the top-level README.txt file in the
+libSBML source distribution.)  You will probably have to supply the
+pathname of the directory tree where MATLAB is installed on your
+system.  For example, on MacOS X with release R14sp3 of MATLAB, run
+the following shell command in the top-level libsbml directory:
 
-    ./configure --with-matlab=/Applications/MATLAB6p5p1/
+    ./configure --with-matlab=/Applications/MATLAB704
 
-The 'configure' script will construct a Makefile in this directory, and a
-'make' from the top level will run the MATLAB mex compiler to create an
-object file for use with MATLAB.  The 'make install' step will then copy
-this object file to the library installation directory chosen by the user.
-(This directory is /usr/local/lib by default.)
+The libSBML 'configure' script will construct a Makefile in this
+directory (i.e., the directory containing the file you are reading
+right now), and executing 'make' from the top level will run the
+MATLAB mex compiler to create an object file for use with MATLAB.  The
+'make install' step will then copy this object file to the library
+installation directory chosen by the user.  (This directory is
+/usr/local/lib by default.)
 
-To use the MATLAB functionality, you need to configure MATLAB to look
-for extension programs in the library installation directory.  Do this by
-using a command such as
+The second step is to configure MATLAB to look for the TranslateSBML
+function in the libSBML library installation directory.  You can do
+this by using a MATLAB command such as
 
     addpath('/usr/local/lib');
 
@@ -82,13 +96,22 @@ startup script in ${HOME}/matlab/startup.m.
 3.  Licensing, Copyrights and Distribution
 ------------------------------------------
 
-The terms of redistribution for this software are stated in the file
-COPYING.txt at the top level of the libSBML distribution.
+The terms of redistribution for this software are stated in the files
+LICENSE.txt and COPYING.txt at the top level of the libSBML
+distribution.
+
 
 
 
 
 -----------------------------------------------------------------------------
-Revision: $Id$
-Source:   $Source$
+File author: B. Bornstein, S. Keating, M. Hucka
+Last Modified: $Date$
+Last Modified By: $Author$
+$Source$
 -----------------------------------------------------------------------------
+
+# The following is for [X]Emacs users.  Please leave in place.
+# Local Variables:
+# fill-column: 70
+# End:
