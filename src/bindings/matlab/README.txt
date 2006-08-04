@@ -12,6 +12,9 @@
 		     mailto:sbml-team@caltech.edu
 
 
+    Date of last update to this file: $Date$
+
+
 ---------------
 1.  Quick Start
 ---------------
