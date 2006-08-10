@@ -103,7 +103,7 @@ sources =                \
   SpeciesType.cpp        \
   Unit.cpp               \
   UnitDefinition.cpp     \
-  UnitKind.cpp
+  UnitKind.c
 
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
