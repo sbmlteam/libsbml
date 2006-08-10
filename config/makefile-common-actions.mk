@@ -655,6 +655,13 @@ $(TOP_SRCDIR)/src/sbml/stamp-h1: $(TOP_SRCDIR)/./src/sbml/config.h.in \
 # Tags files.
 # -----------------------------------------------------------------------------
 
+# 2006-08-09 <mhucka@caltech.edu> Previously I had it create tags in each
+# source directory separately, but that turns out to be very inconvenient
+# when using tags.  The new formulation is designed to create only one tags
+# file, recursively looking in subdirectories for source files to use as
+# input.  This is therefore really only meant to be used in the libsbml
+# 'src' directory.
+
 etags-version-check: 
 	@if test -z "`$(ETAGS) --version |2>&1 grep 'Free Software'`"; then \
 	  echo "Your 'etags' command is not the GNU [X]Emacs version,"; \
@@ -672,14 +679,16 @@ ctags-version-check:
 etags: etags-version-check TAGS
 ctags: ctags-version-check CTAGS
 
-etags-command ?= $(ETAGS) $(ETAGSFLAGS) $(headers) $(sources)
-ctags-command ?= $(CTAGS) $(CTAGSFLAGS) $(headers) $(sources)
+etags-command ?= $(ETAGS) $(ETAGSFLAGS)
+ctags-command ?= $(CTAGS) $(CTAGSFLAGS)
 
-TAGS: $(headers) $(sources)
-	$(etags-command)
+files-to-tag := $(shell find . -name '*.c' -o -name '*.cpp' -o -name '*.h')
 
-CTAGS: $(headers) $(sources)
-	$(ctags-command)
+TAGS: $(files-to-tag)
+	$(etags-command) $(files-to-tag)
+
+CTAGS: $(files-to-tag)
+	$(ctags-command) $(files-to-tag)
 
 
 # -----------------------------------------------------------------------------
