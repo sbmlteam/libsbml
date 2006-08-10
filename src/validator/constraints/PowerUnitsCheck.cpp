@@ -124,29 +124,59 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
    * if v has units other than dimensionless then
    * n must be an integer
    */
-  UnitDefinition * dim = new UnitDefinition();
-  UnitDefinition * tempUD, *tempUD1;
-  Unit * unit = new Unit("dimensionless");
+  UnitDefinition *dim = new UnitDefinition();
+  Unit *unit = new Unit("dimensionless");
   dim->addUnit(unit);
-  
+
   UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
 
+  UnitDefinition *tempUD, *tempUD1;
   tempUD = unitFormat->getUnitDefinition(node.getLeftChild());
-  ASTNode * child = node.getRightChild();
+  ASTNode *child = node.getRightChild();
   tempUD1 = unitFormat->getUnitDefinition(child);
-  
+
   if (!areEquivalent(dim, tempUD)) 
   {
-    /* check that the power is not a parameter
-     * with undeclared units 
-     * or a parameter with dimensionless units
-     * and if so that the value is an integer
+    /* 'v' does not have units of dimensionless. */
+
+    /* If the power 'n' is a parameter, check if its units are either
+     * undeclared or declared as dimensionless.  If either is the case,
+     * the value of 'n' must be an integer.
      */
-    if (child->isName() && m.getParameter(child->getName()))
+
+    const Parameter *param = NULL;
+
+    if (child->isName())
     {
+      /* Parameters may be declared in two places (the model and the
+       * kinetic law's local parameter list), so we have to check both.
+       */
+
+      if (sb.getTypeCode() == SBML_KINETIC_LAW)
+      {
+	const KineticLaw* kl = dynamic_cast<const KineticLaw*>(&sb);
+
+	/* First try local parameters and if null is returned, try
+	 * the global parameters */
+	if (kl != NULL)
+	{
+	  param = kl->getParameter(child->getName());
+	}
+
+	if (param == NULL)
+	{
+	  param = m.getParameter(child->getName());
+	}
+      }
+    }
+
+    if (param != NULL)
+    {
+      /* We found a parameter with this identifier. */
+
       if (areEquivalent(dim, tempUD1) || unitFormat->hasUndeclaredUnits(child))
       {
-        value = m.getParameter(child->getName())->getValue();
+        value = param->getValue();
         if (value != 0)
         {
           if (ceil(value) != value)
@@ -158,6 +188,7 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
       }
       else
       {
+	/* No parameter definition found for child->getName() */
         logUnitConflict(node, sb);
       }
     }
