@@ -154,20 +154,21 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
 
       if (sb.getTypeCode() == SBML_KINETIC_LAW)
       {
-	const KineticLaw* kl = dynamic_cast<const KineticLaw*>(&sb);
+	      const KineticLaw* kl = dynamic_cast<const KineticLaw*>(&sb);
 
-	/* First try local parameters and if null is returned, try
-	 * the global parameters */
-	if (kl != NULL)
-	{
-	  param = kl->getParameter(child->getName());
-	}
-
-	if (param == NULL)
-	{
-	  param = m.getParameter(child->getName());
-	}
+	      /* First try local parameters and if null is returned, try
+	      * the global parameters */
+	      if (kl != NULL)
+	      {
+	        param = kl->getParameter(child->getName());
+	      }
       }
+
+	    if (param == NULL)
+	    {
+	      param = m.getParameter(child->getName());
+	    }
+      
     }
 
     if (param != NULL)
