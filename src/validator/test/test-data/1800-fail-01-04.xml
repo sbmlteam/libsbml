@@ -15,8 +15,20 @@ exponent='1'.
         </listOfUnits>
       </unitDefinition>
     </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="c" constant="false"/>
+    </listOfCompartments>
     <listOfEvents>
-      <event timeUnits="minutes"/>
+      <event timeUnits="minutes">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+          </math>
+        </trigger>
+        <listOfEventAssignments>
+          <eventAssignment variable="c"/>
+        </listOfEventAssignments>
+      </event>
     </listOfEvents>
   </model>
 </sbml>

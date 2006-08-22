@@ -253,7 +253,6 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-
   std::string   mCompartmentType;
   unsigned int  mSpatialDimensions;
   double        mSize;
@@ -287,6 +286,10 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * returns expected position of ListOfCompartments in the model
+   */
+  virtual int getElementPosition() const;
 
 protected:
 

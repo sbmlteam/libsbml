@@ -235,6 +235,10 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * returns expected position of ListOfUnitDefinitions in the model
+   */
+  virtual int getElementPosition() const;
 
 protected:
 

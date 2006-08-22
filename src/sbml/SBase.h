@@ -276,6 +276,13 @@ protected:
   virtual bool readOtherXML (XMLInputStream& stream);
 
   /**
+   * this function uses static variables to keep track of the position
+   * of each element being read into the Model
+   */
+  int getCurrentElementPosition(SBase*, unsigned int, unsigned int, 
+    unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
+
+  /**
    * The SBML XML Schema is written such that the order of child elements
    * is significant.  LibSBML can read elements out of order.  If you
    * override this method to indicate the ordinal position of element with
@@ -284,8 +291,12 @@ protected:
    *
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
+   *
+   * overloaded version allows a number in a list to be passed
+   * which is needed for example when checking elements in a reaction
    */
   virtual int getElementPosition () const;
+  virtual int getElementPosition (unsigned int) const;
 
   /**
    * @return the SBMLErrorLog used to log errors during while reading and
@@ -313,6 +324,20 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
+  /**
+   * checks the order in which elements are read into a model
+   * flags are necessary as it is only as the sbml is being read that
+   * the order can be checked
+   */
+  void checkOrder (int position, SBase* object, SBMLErrorLog* log, 
+                   unsigned int inReaction, unsigned int reactionNo, 
+                   unsigned int inKineticLaw,
+                   unsigned int inConstraint, unsigned int constraintNo,
+                   unsigned int inEvent, unsigned int eventNo,
+                   unsigned int inUnitDefinition,
+                   unsigned int messageFlag = 0, unsigned int delayFlag = 0);
+
+
 
   std::string mMetaId;
   std::string mId;
@@ -327,6 +352,7 @@ protected:
   unsigned int mColumn;
 
   XMLNamespaces* mNamespaces;
+
 
 
 private:

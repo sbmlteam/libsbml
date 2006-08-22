@@ -27,6 +27,8 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
+#include "Model.h"
 #include "Unit.h"
 #include "UnitDefinition.h"
 
@@ -427,6 +429,30 @@ ListOfUnitDefinitions::getElementName () const
 {
   static const string name = "listOfUnitDefinitions";
   return name;
+}
+
+
+/**
+ * returns expected position of ListOfUnitDefinitions in a model
+ */
+int
+ListOfUnitDefinitions::getElementPosition() const
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  int position = 1;
+  /**
+   * the expected position of each element depends on the level and version
+   * and also on whether other preceding elements have been declared
+   * since other elements are optional 
+   */
+
+  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
+    position++;
+
+  return position;
+
 }
 
 

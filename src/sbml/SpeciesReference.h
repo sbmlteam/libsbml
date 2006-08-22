@@ -357,6 +357,10 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * returns expected position of ListOfSpeciesReference in the model
+   */
+  virtual int getElementPosition(unsigned int) const;
 
 protected:
 

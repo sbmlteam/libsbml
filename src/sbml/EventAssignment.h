@@ -218,6 +218,11 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * returns expected position of ListOfEventAssignments in a event
+    */
+  virtual int getElementPosition(unsigned int eventNo) const;
+
 
 protected:
 

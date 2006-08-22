@@ -30,6 +30,9 @@
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
+#include "Model.h"
+#include "KineticLaw.h"
 #include "Parameter.h"
 
 
@@ -429,6 +432,77 @@ ListOfParameters::getElementName () const
 {
   static const string name = "listOfParameters";
   return name;
+}
+
+
+/**
+ * returns expected position of ListOfParameters in a model
+ */
+int
+ListOfParameters::getElementPosition() const
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  int position = 1;
+  /**
+   * the expected position of each element depends on the level and version
+   * and also on whether other preceding elements have been declared
+   * since other elements are optional 
+   */
+
+  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumCompartmentTypes() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumSpeciesTypes() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumCompartments() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumSpecies() != 0)
+    position++;
+
+  return position;
+
+}
+
+
+/**
+ * returns expected position of ListOfParameters in a kinetic law
+ */
+int
+ListOfParameters::getElementPosition(unsigned int reactionNo) const
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  int position = 1;
+  /**
+   * the expected position of each element depends on the type
+   * and any lists ahead
+   */
+
+  const Reaction * r = this->getSBMLDocument()->getModel()->getReaction(reactionNo-1);
+
+  /**
+   * in a level 1 model the kineticLaw is a formula NOT mathML
+   * and so is not counted as an element
+   */
+  if (level == 2) 
+  {
+    if (r->isSetKineticLaw() && r->getKineticLaw()->isSetMath())
+      position++;
+  }
+  
+  return position;
+
 }
 
 

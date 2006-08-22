@@ -426,6 +426,10 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * returns expected position of ListOfReactions in the model
+   */
+  virtual int getElementPosition() const;
 
 protected:
 

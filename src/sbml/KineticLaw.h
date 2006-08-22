@@ -251,6 +251,11 @@ public:
   virtual const std::string& getElementName () const;
 
   /**
+   * returns expected position of Kinetic Law in the reaction
+   */
+  virtual int getElementPosition(unsigned int) const;
+
+  /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.

@@ -34,6 +34,8 @@
 
 #include "SBMLVisitor.h"
 #include "FunctionDefinition.h"
+#include "SBMLDocument.h"
+#include "Model.h"
 
 
 using namespace std;
@@ -338,6 +340,27 @@ ListOfFunctionDefinitions::getElementName () const
 {
   static const string name = "listOfFunctionDefinitions";
   return name;
+}
+
+
+/**
+ * returns expected position of ListOfFunctionDefinitions in a model
+ */
+int
+ListOfFunctionDefinitions::getElementPosition() const
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  int position = 1;
+  /**
+   * the expected position of each element depends on the level and version
+   * and also on whether other preceding elements have been declared
+   * since other elements are optional 
+   */
+
+  return position;
+
 }
 
 

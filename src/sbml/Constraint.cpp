@@ -32,6 +32,8 @@
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
+#include "Model.h"
 #include "Constraint.h"
 
 
@@ -338,6 +340,54 @@ ListOfConstraints::getElementName () const
 {
   static const string name = "listOfConstraints";
   return name;
+}
+
+
+/**
+ * returns expected position of ListOfConstraints in a model
+ */
+int
+ListOfConstraints::getElementPosition() const
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  int position = 1;
+  /**
+   * the expected position of each element depends on the level and version
+   * and also on whether other preceding elements have been declared
+   * since other elements are optional 
+   */
+
+  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumCompartmentTypes() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumSpeciesTypes() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumCompartments() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumSpecies() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumParameters() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumInitialAssignments() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumRules() != 0)
+    position++;
+
+  return position;
+
 }
 
 

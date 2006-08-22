@@ -27,6 +27,8 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
+#include "Model.h"
 #include "CompartmentType.h"
 
 
@@ -176,6 +178,33 @@ ListOfCompartmentTypes::getElementName () const
 {
   static const string name = "listOfCompartmentTypes";
   return name;
+}
+
+
+/**
+ * returns expected position of ListOfCompartmentTypes in a model
+ */
+int
+ListOfCompartmentTypes::getElementPosition() const
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  int position = 1;
+  /**
+   * the expected position of each element depends on the level and version
+   * and also on whether other preceding elements have been declared
+   * since other elements are optional 
+   */
+
+  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
+    position++;
+
+  return position;
+
 }
 
 

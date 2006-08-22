@@ -1665,6 +1665,16 @@ Model::writeElements (XMLOutputStream& stream) const
 }
 
 
+/**
+ * returns expected position of compartment in a model
+ */
+int
+Model::getElementPosition()
+{
+  return -1;
+}
+
+
 #ifdef USE_LAYOUT
 
 

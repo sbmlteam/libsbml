@@ -34,6 +34,7 @@
 #include "SBML.h"
 #include "SBMLTypeCodes.h"
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
 #include "Model.h"
 #include "Rule.h"
 
@@ -860,6 +861,51 @@ ListOfRules::getElementName () const
   static const string name = "listOfRules";
   return name;
 }
+
+/**
+ * returns expected position of ListOfRules in a model
+ */
+int
+ListOfRules::getElementPosition() const
+{
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+  int position = 1;
+  /**
+   * the expected position of each element depends on the level and version
+   * and also on whether other preceding elements have been declared
+   * since other elements are optional 
+   */
+
+  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumCompartmentTypes() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumSpeciesTypes() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumCompartments() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumSpecies() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumParameters() != 0)
+    position++;
+
+  if (this->getSBMLDocument()->getModel()->getNumInitialAssignments() != 0)
+    position++;
+
+  return position;
+
+}
+
 
 
 /**

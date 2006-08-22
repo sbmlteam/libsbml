@@ -28,6 +28,7 @@
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLError.h>
 
 #include <sbml/validator/ConsistencyValidator.h>
 #include <sbml/validator/L1CompatibilityValidator.h>
@@ -245,7 +246,11 @@ SBMLDocument::checkConsistency ()
 
   if (getModel() == 0)
   {
-    mErrorLog.add( XMLError(1000, "No model present.") );
+    // BEN SHOULD LOOK
+    /* added line and column number as this blows up when adding
+       the error since there is no active parser */
+    mErrorLog.add( XMLError(1000, "No model present.", 
+      XMLError::Error, "", 1, 1) );
     nerrors = 1;
   }
   else

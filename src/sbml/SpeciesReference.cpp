@@ -32,6 +32,8 @@
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
+#include "Model.h"
 #include "SpeciesReference.h"
 
 
@@ -692,6 +694,37 @@ ListOfSpeciesReferences::getElementName () const
   else return unknown;
 }
 
+/**
+ * returns expected position of ListOfSpeciesReference in a model
+ */
+int
+ListOfSpeciesReferences::getElementPosition(unsigned int reactionNo) const
+{
+  int position = 1;
+  /**
+   * the expected position of each element depends on the type
+   * and any lists ahead
+   */
+
+  const Reaction * r = this->getSBMLDocument()->getModel()->getReaction(reactionNo-1);
+
+  if (mType == Product)
+  {
+    if (r->getNumReactants() != 0)
+      position++;
+  }
+  else if (mType == Modifier)
+  {
+    if (r->getNumReactants() != 0)
+      position++;
+    
+    if (r->getNumProducts() != 0)
+      position++;
+  }
+
+  return position;
+
+}
 
 /**
  * Sets type of this ListOfSpeciesReferences.

@@ -819,6 +819,11 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  /**
+   * returns expected position of compartment in a model
+   */
+  virtual int getElementPosition();
+
 
 #ifdef USE_LAYOUT
 

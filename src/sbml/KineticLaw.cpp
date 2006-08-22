@@ -33,6 +33,8 @@
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
+#include "Model.h"
 #include "Parameter.h"
 #include "KineticLaw.h"
 
@@ -447,6 +449,33 @@ KineticLaw::getElementName () const
   return name;
 }
 
+
+/**
+  * returns expected position of Kinetic Law in the reaction
+  */
+int
+KineticLaw::getElementPosition(unsigned int reactionNo) const
+{
+  int position = 1;
+  /**
+   * the expected position of each element depends on the type
+   * and any lists ahead
+   */
+
+  const Reaction * r = this->getSBMLDocument()->getModel()->getReaction(reactionNo-1);
+
+  if (r->getNumReactants() != 0)
+    position++;
+  
+  if (r->getNumProducts() != 0)
+    position++;
+
+  if (r->getNumModifiers() != 0)
+    position++;
+
+  return position;
+
+}
 
 /**
  * @return the SBML object corresponding to next XMLToken in the

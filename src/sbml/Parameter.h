@@ -240,6 +240,15 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /**
+   * returns expected position of ListOfParameters in the model
+   */
+  virtual int getElementPosition() const;
+
+  /**
+   * returns expected position of ListOfParameters in the kinetic law
+   */
+  virtual int getElementPosition(unsigned int) const;
 
 protected:
 

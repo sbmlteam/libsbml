@@ -32,6 +32,8 @@
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
+#include "Model.h"
 #include "EventAssignment.h"
 
 
@@ -353,6 +355,31 @@ ListOfEventAssignments::getElementName () const
 {
   static const string name = "listOfEventAssignments";
   return name;
+}
+
+
+/**
+ * returns expected position of ListOfEventAssignments in a event
+ */
+int
+ListOfEventAssignments::getElementPosition(unsigned int eventNo) const
+{
+  int position = 1;
+  /**
+   * the expected position of each element depends on the type
+   * and any lists ahead
+   */
+
+  const Event * e = this->getSBMLDocument()->getModel()->getEvent(eventNo-1);
+
+  if (e->isSetTrigger())
+    position++;
+
+  if (e->isSetDelay())
+    position++;
+
+  return position;
+
 }
 
 

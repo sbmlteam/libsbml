@@ -160,17 +160,30 @@ SBMLReader::readInternal (const char* content, bool isFile)
   SBMLDocument* d = new SBMLDocument();
 
   // FIXME
-  /*
-  if (isFile && content && (util_file_exists(conent) == false))
+  
+  if (isFile && content && (util_file_exists(content) == false))
   {
-    logFatal(d, SBML_READ_ERROR_FILE_NOT_FOUND);
-  }*/
+//    logFatal(d, SBML_READ_ERROR_FILE_NOT_FOUND);
+//    d->getErrorLog()->add(XMLError(0001, 
+//                       getMessage(SBML_READ_ERROR_FILE_NOT_FOUND)));
+    // BEN SHOULD LOOK
+    /* added line and column number as this blows up when adding
+       the error since there is no active parser */
+    d->getErrorLog()->add( XMLError(0001, getMessage(SBML_READ_ERROR_FILE_NOT_FOUND), 
+      XMLError::Error, "", 1, 1) );
+ 
+    XMLInputStream stream(content, isFile);
 
-  XMLInputStream stream(content, isFile);
+    stream.setErrorLog( d->getErrorLog() );
+  }
+  else
+  {
+  
+    XMLInputStream stream(content, isFile);
 
-  stream.setErrorLog( d->getErrorLog() );
-  d->read(stream);
-
+    stream.setErrorLog( d->getErrorLog() );
+    d->read(stream);
+  }
   return d;
 }
 
