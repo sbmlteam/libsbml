@@ -363,6 +363,20 @@ START_CONSTRAINT (1209, UnitDefinition, ud)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (1210, UnitDefinition, ud)
+{
+  msg =
+    "The kind field in Unit can can only be one of the predefined "
+    "UnitKind values. (L2V2 Section 4.4.2).";
+
+  for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
+  {
+    inv(Unit::isUnitKind(UnitKind_toString(ud.getUnit(n)->getKind())));
+  }
+}
+END_CONSTRAINT
+
+
 START_CONSTRAINT (1300, Compartment, c)
 {
   msg =
@@ -378,26 +392,14 @@ END_CONSTRAINT
 START_CONSTRAINT (1301, Compartment, c)
 {
   msg =
-    "Compartment units must not be set if spatialDimensions is zero "
-    "(L2v1 Section 4.5.4).";
+    "If a Compartment definition has a spatialDimensions value of 0,"
+    "then its units field must not be set: the compartment has  "
+    "no dimensions and no units can be associated with a non-existent size. "
+    "L2V1 Section 4.5.4.";
 
   pre( c.getSpatialDimensions() == 0 );
   
-  /* dimensionless is allowable in L2V2 */
-  if (  c.getLevel() == 2 
-    &&  c.getVersion() == 2
-    &&  c.isSetUnits() )
-  {
-    const string&         units = c.getUnits();
-    const UnitDefinition* defn  = m.getUnitDefinition(units);
- 
-    inv_or( units == "dimensionless"  );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-  }
-  else
-  {
-    inv( c.isSetUnits() == false       );
-  }
+  inv( c.isSetUnits() == false       );
 }
 END_CONSTRAINT
 
@@ -540,6 +542,22 @@ START_CONSTRAINT (1308, Compartment, c)
   pre( c.isSetCompartmentType());
 
   inv( m.getCompartmentType( c.getCompartmentType() ) != NULL );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (1309, Compartment, c)
+{
+  msg =
+    "The outside field value of a Compartment cannot be a compartment "
+    "whose spatialDimensions value is 0, unless both compartments "
+    "have spatialDimensions=0.  Simply put, a zero-dimensional compartment "
+    "cannot enclose compartments that have anything other than zero "
+    "dimensions themselves.  (L2V2 Section 4.7.7).";
+
+  pre( c.isSetOutside() && c.getSpatialDimensions() == 0 );
+
+  inv( m.getCompartment( c.getOutside() )->getSpatialDimensions() == 0 );
 }
 END_CONSTRAINT
 
