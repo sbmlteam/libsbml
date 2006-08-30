@@ -31,6 +31,7 @@
 
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLErrorLog.h>
 
 #include <sbml/util/util.h>
 
@@ -317,6 +318,11 @@ reduceBinary (ASTNode& node)
 static void
 setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
+  string msg = "In SBML Level 2 Versions 1 and Version 2, the only values "
+    "permitted for definitionURL on a csymbol are "
+    "\"http://www.sbml.org/sbml/symbols/time\" and "
+    "\"http://www.sbml.org/sbml/symbols/delay\".(References: L2V2 Section 3.5.5.).";
+
   if (element.getName() == "csymbol")
   {
     string url;
@@ -324,6 +330,10 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
          if ( url == URL_DELAY ) node.setType(AST_FUNCTION_DELAY);
     else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
+    else 
+    {
+      stream.getErrorLog()->add(XMLError(2010, msg));
+    }
 
   }
 
@@ -338,6 +348,10 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
+  string msg = "The only permitted values for the type attribute on MathML "
+    "cn elements are \"e-notation\", \"real\", \"integer\", and \"rational\". "
+    "(References: L2V2 Section 3.5.3.).";
+
   string type = "real";
   element.getAttributes().readInto("type", type);
 
@@ -387,6 +401,10 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
     node.setValue(numerator, denominator);
   }
+  else
+  {
+    stream.getErrorLog()->add(XMLError(2005, msg));
+  }
 }
 
 
@@ -395,8 +413,18 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
  * or <cn>).
  */
 static void
-setTypeOther (ASTNode& node, const XMLToken& element)
+setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
+  string msg = "The only permitted MathML 2.0 elements in SBML Level 2 are "
+    "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
+    "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
+    "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
+    "logbase, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, "
+    "coth, arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, "
+    "arctanh, arcsech, arccsch, arccoth, true, false, notanumber, pi, "
+    "infinity, exponentiale, semantics, annotation, and annotation-xml. "
+    "(References: L2V2 Section 3.5.1.)";
+
   static const int size = sizeof(MATHML_ELEMENTS) / sizeof(MATHML_ELEMENTS[0]);
   const char*      name = element.getName().c_str();
 
@@ -404,6 +432,8 @@ setTypeOther (ASTNode& node, const XMLToken& element)
   bool found = (index < size);
 
   if (found) node.setType(MATHML_TYPES[index]);
+  else stream.getErrorLog()->add(XMLError(2001, msg));
+
 }
 
 
@@ -434,7 +464,7 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   }
   else
   {
-    setTypeOther(node, element);
+    setTypeOther(node, element, stream);
   }
 }
 
