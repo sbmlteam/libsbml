@@ -475,10 +475,52 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 readMathML (ASTNode& node, XMLInputStream& stream)
 {
+  string msg2002 = "In the SBML subset of MathML 2.0, the MathML attribute "
+    "encoding is only permitted on csymbol. No other MathML elements may "
+    "have a encoding attribute. (References: L2V2 Section 3.5.1.).";
+
+  string msg2003 = "In the SBML subset of MathML 2.0, the MathML attribute "
+    "definitionURL is only permitted on csymbol. No other MathML elements "
+    "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.).";
+
+  string msg2004 = "In the SBML subset of MathML 2.0, the MathML attribute "
+    "type is only permitted on the cn construct. No other MathML elements "
+    "may have a type attribute. (References: L2V2 Section 3.5.1.).";
+
   stream.skipText();
  
   const XMLToken elem = stream.next ();
   const string&  name = elem.getName();
+
+
+  /* do checks for unauthorised attributes */
+  string type = "";
+  elem.getAttributes().readInto("type", type);
+
+  string url = "";
+  elem.getAttributes().readInto("definitionURL", url);
+
+  string encoding = "";
+  elem.getAttributes().readInto("encoding", encoding);
+
+  if (strcmp(type.c_str(), ""))
+  {
+    if (strcmp(name.c_str(), "cn"))
+      stream.getErrorLog()->add(XMLError(2004, msg2004));
+  }
+
+  if (strcmp(encoding.c_str(), ""))
+  {
+    if (strcmp(name.c_str(), "csymbol"))
+      stream.getErrorLog()->add(XMLError(2002, msg2002));
+  }
+
+  if (strcmp(url.c_str(), ""))
+  {
+    if (strcmp(name.c_str(), "csymbol"))
+      stream.getErrorLog()->add(XMLError(2003, msg2003));
+  }
+
 
   if (name == "apply" || name == "lambda" || name == "piecewise")
   {
