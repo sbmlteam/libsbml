@@ -24,7 +24,7 @@
 
 #include <new>
 #include <cmath>
-#include <malloc.h>
+#include <stdlib.h>
 
 #include <sbml/common/common.h>
 #include <sbml/util/List.h>
