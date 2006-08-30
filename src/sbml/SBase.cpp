@@ -586,7 +586,7 @@ SBase::read (XMLInputStream& stream)
       }
       else if ( !readOtherXML(stream) )
       {
-        // logUnrecognized(next, log);
+        logUnrecognized(next);
         stream.skipPastEnd( stream.next() );
       }
     }
@@ -958,6 +958,20 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
 
 
 /**
+  * logs unrecognised xml element
+  */
+void 
+SBase::logUnrecognized(const XMLToken& next)
+{
+  string msg = "The element '";
+  msg += next.getName();
+  msg += "' is not recognised.";
+  
+  mSBML->getErrorLog()->add(XMLError(0005, msg));
+}
+
+
+  /**
  * @return the metaid of this SBML object.
  */
 LIBSBML_EXTERN

@@ -248,6 +248,10 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  /**
+   * logs unrecognised xml element
+   */
+  void logUnrecognized(const XMLToken& next);
 
 protected:
 
