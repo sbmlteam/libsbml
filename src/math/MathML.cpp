@@ -415,16 +415,6 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
-  string msg = "The only permitted MathML 2.0 elements in SBML Level 2 are "
-    "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
-    "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
-    "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
-    "logbase, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, "
-    "coth, arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, "
-    "arctanh, arcsech, arccsch, arccoth, true, false, notanumber, pi, "
-    "infinity, exponentiale, semantics, annotation, and annotation-xml. "
-    "(References: L2V2 Section 3.5.1.)";
-
   static const int size = sizeof(MATHML_ELEMENTS) / sizeof(MATHML_ELEMENTS[0]);
   const char*      name = element.getName().c_str();
 
@@ -432,7 +422,6 @@ setTypeOther (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   bool found = (index < size);
 
   if (found) node.setType(MATHML_TYPES[index]);
-  else stream.getErrorLog()->add(XMLError(2001, msg));
 
 }
 
@@ -475,6 +464,16 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 readMathML (ASTNode& node, XMLInputStream& stream)
 {
+  string msg2001 = "The only permitted MathML 2.0 elements in SBML Level 2 are "
+    "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
+    "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
+    "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
+    "logbase, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, "
+    "coth, arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, "
+    "arctanh, arcsech, arccsch, arccoth, true, false, notanumber, pi, "
+    "infinity, exponentiale, semantics, annotation, and annotation-xml. "
+    "(References: L2V2 Section 3.5.1.)";
+
   string msg2002 = "In the SBML subset of MathML 2.0, the MathML attribute "
     "encoding is only permitted on csymbol. No other MathML elements may "
     "have a encoding attribute. (References: L2V2 Section 3.5.1.).";
@@ -494,6 +493,13 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
 
   /* do checks for unauthorised attributes */
+  static const int size = sizeof(MATHML_ELEMENTS) / sizeof(MATHML_ELEMENTS[0]);
+
+  int  index = util_bsearchStringsI(MATHML_ELEMENTS, name.c_str(), 0, size - 1);
+  bool found = (index < size);
+  if (!found)
+    stream.getErrorLog()->add(XMLError(2001, msg2001));
+
   string type = "";
   elem.getAttributes().readInto("type", type);
 
@@ -526,6 +532,10 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   {
     if (name == "apply")
     {
+      /* catch case where user has used <apply/> */
+      if (elem.isEndFor(elem))
+        return;
+
       readMathML(node, stream);
       if (node.isName()) node.setType(AST_FUNCTION);
     }
