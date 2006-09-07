@@ -17,7 +17,7 @@
           <speciesReference species="s"/>
         </listOfReactants>
         <listOfModifiers>
-          <speciesReference species="t"/>
+          <modifierSpeciesReference species="t"/>
         </listOfModifiers>
       </reaction>
     </listOfReactions>

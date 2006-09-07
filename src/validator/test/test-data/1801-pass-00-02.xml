@@ -162,7 +162,7 @@ Pass: (1801) An Event trigger must return a boolean value
     </listOfFunctionDefinitions>
  
     <listOfCompartments>
-      <compartment id="compartment" size="1"/>
+      <compartment id="compartment" size="1" constant="false"/>
     </listOfCompartments>
  
     <listOfSpecies>
@@ -179,6 +179,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e2">
@@ -190,6 +193,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
  
       <event id="e3">
@@ -201,6 +207,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e4">
@@ -212,6 +221,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e5">
@@ -223,6 +235,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e6">
@@ -234,6 +249,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e7">
@@ -245,6 +263,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e8">
@@ -256,6 +277,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e9">
@@ -267,6 +291,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e10">
@@ -278,6 +305,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e11">
@@ -289,6 +319,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e12">
@@ -300,6 +333,9 @@ Pass: (1801) An Event trigger must return a boolean value
             </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
     </listOfEvents>

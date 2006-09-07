@@ -16,7 +16,7 @@ its list of reactants or products.
     <listOfReactions>
       <reaction id="r">
         <listOfModifiers>
-          <speciesReference species="s"/>
+          <modifierSpeciesReference species="s"/>
         </listOfModifiers>
       </reaction>
     </listOfReactions>

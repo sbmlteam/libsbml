@@ -12,6 +12,11 @@ EventAssignment must have constant='false'.
     </listOfParameters>
     <listOfEvents>
       <event id="e">
+        <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+          </math>
+        </trigger>
         <listOfEventAssignments>
           <eventAssignment variable="p"/>
         </listOfEventAssignments>

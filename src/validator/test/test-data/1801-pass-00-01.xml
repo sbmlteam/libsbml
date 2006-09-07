@@ -7,6 +7,10 @@ Pass: (1801) An Event trigger must return a boolean value
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
+    <listOfCompartments>
+      <compartment id="compartment" size="1" constant="false"/>
+    </listOfCompartments>
+   
     <listOfEvents>
 
       <event id="e1">
@@ -15,7 +19,10 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <eq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
         </trigger>
-      </event>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
+     </event>
 
       <event id="e2">
         <trigger>
@@ -23,6 +30,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e3">
@@ -31,6 +41,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <gt/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e4">
@@ -39,7 +52,10 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <lt/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
         </trigger>
-      </event>
+         <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
+     </event>
 
       <event id="e5">
         <trigger>
@@ -47,6 +63,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <geq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e6">
@@ -55,6 +74,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <leq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e7">
@@ -63,6 +85,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <and/> <true/> <false/> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e8">
@@ -71,6 +96,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <or/> <true/> <false/> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e9">
@@ -79,6 +107,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <xor/> <true/> <false/> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e10">
@@ -87,6 +118,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <not/> <true/> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e11">
@@ -95,6 +129,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <true/> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
       <event id="e12">
@@ -103,6 +140,9 @@ Pass: (1801) An Event trigger must return a boolean value
             <apply> <false/> </apply>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
 
     </listOfEvents>

@@ -13,7 +13,12 @@ Event) must be unique (L2v1 erratum).
     </listOfCompartments>
     <listOfEvents>
       <event id="e">
-        <listOfEventAssignments>
+         <trigger>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+          </math>
+        </trigger>
+       <listOfEventAssignments>
           <eventAssignment variable="c"/>
           <eventAssignment variable="d"/>
         </listOfEventAssignments>

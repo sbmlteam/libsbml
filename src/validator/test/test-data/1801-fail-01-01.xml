@@ -7,6 +7,9 @@ Fail: (1801) An Event trigger must return a boolean value
 
 <sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
   <model>
+    <listOfCompartments>
+      <compartment id="c" constant="false"/>
+    </listOfCompartments>
     <listOfEvents>
       <event id="e">
         <trigger>
@@ -14,7 +17,10 @@ Fail: (1801) An Event trigger must return a boolean value
             <apply> <plus/> <cn> 1 </cn> <cn> 2 </cn> </apply>
           </math>
         </trigger>
-      </event>
+        <listOfEventAssignments>
+          <eventAssignment variable="c"/>
+        </listOfEventAssignments>
+     </event>
     </listOfEvents>
   </model>
 </sbml>

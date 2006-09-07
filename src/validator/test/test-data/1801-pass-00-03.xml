@@ -26,7 +26,7 @@ includes a function definition.
     </listOfFunctionDefinitions>
 
     <listOfCompartments>
-      <compartment id="compartment" size="1"/>
+      <compartment id="compartment" size="1" constant="false"/>
     </listOfCompartments>
  
     <listOfSpecies>
@@ -55,6 +55,9 @@ includes a function definition.
             </piecewise>
           </math>
         </trigger>
+        <listOfEventAssignments>
+		  <eventAssignment variable="compartment"/>
+		</listOfEventAssignments>
       </event>
     </listOfEvents>
   </model>

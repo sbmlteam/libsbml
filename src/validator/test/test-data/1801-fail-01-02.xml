@@ -20,7 +20,7 @@ Additional case where the event trigger is a function definition
     </listOfFunctionDefinitions>
 
     <listOfCompartments>
-      <compartment id="compartment" size="1"/>
+      <compartment id="compartment" size="1" constant="false"/>
     </listOfCompartments>
  
     <listOfSpecies>
@@ -37,7 +37,10 @@ Additional case where the event trigger is a function definition
             </apply>
           </math>
         </trigger>
-      </event>
+          <listOfEventAssignments>
+          <eventAssignment variable="compartment"/>
+        </listOfEventAssignments>
+     </event>
     </listOfEvents>
   </model>
 </sbml>
