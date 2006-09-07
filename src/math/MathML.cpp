@@ -552,6 +552,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     {
       ASTNodeType_t type = node.getType();
       if (type == AST_PLUS || type == AST_TIMES) reduceBinary(node);
+      if (type == AST_CONSTANT_TRUE || type == AST_CONSTANT_FALSE) break;
 
       ASTNode* child = new ASTNode();
       node.addChild(child);
