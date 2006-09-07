@@ -780,7 +780,7 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes);
+  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 

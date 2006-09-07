@@ -496,7 +496,7 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (getVersion() == 2) mSBOTerm = SBML::readSBOTerm(attributes);
+  if (getVersion() == 2) mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 

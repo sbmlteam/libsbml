@@ -37,6 +37,8 @@
 
 class XMLAttributes;
 class XMLOutputStream;
+class SBMLErrorLog;
+
 
 
 class LIBSBML_EXTERN SBML
@@ -61,7 +63,7 @@ public:
    * @return the sboTerm as an integer or -1 if the sboTerm was not in the
    * correct format or not found.
    */
-  static int readSBOTerm (const XMLAttributes& attributes);
+  static int readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log);
 
   /**
    * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.

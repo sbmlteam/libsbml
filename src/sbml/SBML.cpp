@@ -27,6 +27,9 @@
 
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLErrorLog.h>
+
+#include <sbml/SBMLErrorLog.h>
 
 #include "SBML.h"
 
@@ -36,15 +39,23 @@ using namespace std;
 
 /**
  * @return true if sboTerm is in the correct format (a zero-padded, seven
- * digit string), false otherwise.
+ * digit string preceded by SBO:), false otherwise.
  */
 bool
 SBML::checkSBOTerm (const string& sboTerm)
 {
   unsigned int size = sboTerm.size();
-  bool         okay = (size == 7);
+  bool         okay = (size == 11);
 
-  for (unsigned int n = 0; okay && n < size; ++n) okay = isdigit(sboTerm[n]);
+  unsigned int sbo[4] = {83, 66, 79, 58};
+  unsigned int n = 0;
+  while (okay && n < 4)
+  {
+    okay = (sboTerm[n] == sbo[n]);
+    n++;
+  }
+  
+  for (n = 4; okay && n < size; ++n) okay = isdigit(sboTerm[n]);
 
   return okay;
 }
@@ -68,10 +79,26 @@ SBML::checkSBOTerm (int sboTerm)
  * correct format or not found.
  */
 int
-SBML::readSBOTerm (const XMLAttributes& attributes)
+SBML::readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
 {
+  const string msg0906 = "The value of a sboTerm attribute must have the data "
+    "type SBOTerm, which is a string consisting of the characters 'S', 'B', "
+    "'O', ':' followed by exactly seven digits. (References: L2V2 Section 3.1.8.)";
+
   int index = attributes.getIndex("sboTerm");
-  return (index == -1) ? -1 : sboTermToInt( attributes.getValue(index) );
+  if (index == -1)
+  {
+    return -1;
+  }
+  else if (!checkSBOTerm(attributes.getValue(index)))
+  {
+    log->add(XMLError(906, msg0906));
+    return -1;
+  }
+  else
+  {
+    return sboTermToInt( attributes.getValue(index) );
+  }
 }
 
 
@@ -97,13 +124,13 @@ SBML::sboTermToInt (const string& sboTerm)
 
   if ( checkSBOTerm(sboTerm) )
   {
-    result  = (sboTerm[6] - 48);
-    result += (sboTerm[5] - 48) * 10;
-    result += (sboTerm[4] - 48) * 100;
-    result += (sboTerm[3] - 48) * 1000;
-    result += (sboTerm[2] - 48) * 10000;
-    result += (sboTerm[1] - 48) * 100000;
-    result += (sboTerm[0] - 48) * 1000000;
+    result  = (sboTerm[10] - 48);
+    result += (sboTerm[9] - 48) * 10;
+    result += (sboTerm[8] - 48) * 100;
+    result += (sboTerm[7] - 48) * 1000;
+    result += (sboTerm[6] - 48) * 10000;
+    result += (sboTerm[5] - 48) * 100000;
+    result += (sboTerm[4] - 48) * 1000000;
   }
 
   return result;

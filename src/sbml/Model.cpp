@@ -28,6 +28,8 @@
 
 #include <sbml/math/ASTNode.h>
 
+#include <sbml/SBMLDocument.h>
+
 #include "SBML.h"
 #include "SBMLVisitor.h"
 
@@ -1578,7 +1580,8 @@ Model::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes);
+  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+
 }
 
 

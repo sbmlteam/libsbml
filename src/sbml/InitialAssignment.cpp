@@ -272,7 +272,7 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  mSBOTerm = SBML::readSBOTerm(attributes);
+  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
