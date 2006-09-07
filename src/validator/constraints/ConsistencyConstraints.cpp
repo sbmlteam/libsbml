@@ -366,8 +366,10 @@ END_CONSTRAINT
 START_CONSTRAINT (1210, UnitDefinition, ud)
 {
   msg =
-    "The kind field in Unit can can only be one of the predefined "
-    "UnitKind values. (L2V2 Section 4.4.2).";
+    "The value of the kind field of a UnitDefinition can only be "
+    "one of the predefined units enumerated by UnitKind; that is, "
+    "the SBML unit system is not hierarchical and user-defined units "
+    "cannot be defined using other user-defined units.(L2V2 Section 4.4.2.).";
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
   {
@@ -990,6 +992,25 @@ EXTERN_CONSTRAINT(1607, StoichiometryMathVars)
 START_CONSTRAINT (1610, KineticLaw, kl)
 {
   msg =
+    "Parameters local to a reaction (i.e., those defined within a "
+    "Reaction's KineticLaw structure, as described in Section 4.13.9 "
+    "cannot be changed by rules and therefore are implicitly always "
+    "constant; thus, parameter definitions within Reaction structures "
+    "should not have their constant field set to false.";
+
+  pre(kl.getNumParameters() != 0);
+
+  for (unsigned int n = 0; n < kl.getNumParameters(); ++n)
+  {
+    inv(kl.getParameter(n)->getConstant() == true);
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (1611, KineticLaw, kl)
+{
+  msg =
     "In a Level 1 model only predefined functions are permitted "
      "within the KineticLaw formula. (L1V2 Appendix C)";
 
@@ -1169,6 +1190,26 @@ START_CONSTRAINT (1801, Event, e)
 
   pre( e.isSetTrigger() );
   inv( m.isBoolean( e.getTrigger() ) );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (1805, Event, e)
+{
+  msg =
+    "An Event must have a trigger.";
+
+  inv( e.isSetTrigger() != 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (1806, Event, e)
+{
+  msg =
+    "An Event must have at least one event assignment.";
+
+  inv( e.getNumEventAssignments() != 0 );
 }
 END_CONSTRAINT
 
