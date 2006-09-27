@@ -94,7 +94,6 @@ sources =                                     \
   UniqueSymbolsInInitialAssignments.cpp       \
   UniqueVarsInInitialAssignmentsAndRules.cpp  \
   ArgumentsUnitsCheck.cpp                     \
-  ExponentUnitsCheck.cpp                      \
   StoichiometryMathVars.cpp                   \
   KineticLawVars.cpp                          \
   AssignmentCycles.cpp                        \
@@ -108,8 +107,7 @@ sources =                                     \
   CiElementMathCheck.cpp                      \
   LambdaMathCheck.cpp                         \
   NumericReturnMathCheck.cpp                  \
-  OverDeterminedCheck.cpp					  \
-  PowerUnitsCheck.cpp                          
+  OverDeterminedCheck.cpp					  
 
 header_inst_prefix = validator/constraints
 

@@ -181,9 +181,6 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\Constraint.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\validator\Constraint.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -199,6 +196,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\Constraint.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.cpp">
 			</File>
 			<File
@@ -206,9 +206,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\EventAssignment.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\constraints\ExponentUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\math\FormulaFormatter.c">
@@ -293,9 +290,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.cpp">
@@ -503,10 +497,10 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.h">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\Constraint.h">
+				RelativePath="..\..\src\validator\Constraint.h">
 			</File>
 			<File
-				RelativePath="..\..\src\validator\Constraint.h">
+				RelativePath="..\..\src\sbml\Constraint.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.h">
@@ -516,9 +510,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\EventAssignment.h">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\constraints\ExponentUnitsCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\src\common\extern.h">
@@ -609,9 +600,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.h">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.h">

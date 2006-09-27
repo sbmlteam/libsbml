@@ -177,9 +177,6 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\validator\Constraint.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\sbml\Constraint.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -195,6 +192,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\src\validator\Constraint.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.cpp">
 			</File>
 			<File
@@ -202,9 +202,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\EventAssignment.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\constraints\ExponentUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\xml\ExpatAttributes.cpp">
@@ -298,9 +295,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\constraints\PowerUnitsCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.cpp">
