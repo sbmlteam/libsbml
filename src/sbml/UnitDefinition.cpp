@@ -210,6 +210,26 @@ UnitDefinition::isVariantOfDimensionless () const
 
 
 /**
+  * @return true if this UnitDefinition is a variant of mass
+  * i.e. gram or kilogram with only abritrary variations in
+  * scale, multiplier, or offset values, false otherwise.
+  */
+bool 
+UnitDefinition::isVariantOfMass () const
+{
+  bool result = false;
+
+
+  if (getNumUnits() == 1)
+  {
+    const Unit* u = getUnit(0);
+    result        = (u->isGram() || u->isKilogram());
+  }
+
+  return result;
+
+}
+/**
  * Adds a copy of the given Unit to this UnitDefinition.
  */
 void
@@ -648,6 +668,18 @@ int
 UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud)
 {
   return static_cast<int>( ud->isVariantOfVolume() );
+}
+
+/**
+ * @return non-zero if this UnitDefinition is a variant of mass
+ * i.e. gram or kilogram with only abritrary variations in
+ * scale, multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud)
+{
+  return static_cast<int>( ud->isVariantOfMass() );
 }
 
 

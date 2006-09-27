@@ -119,6 +119,13 @@ public:
 
 
   /**
+   * @return true if this UnitDefinition is a variant of mass
+   * i.e. gram or kilogram with only abritrary variations in
+   * scale, multiplier, or offset values, false otherwise.
+   */
+  bool isVariantOfMass () const;
+
+  /**
    * Adds a copy of the given Unit to this UnitDefinition.
    */
   void addUnit (const Unit* u);
@@ -378,6 +385,14 @@ LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
 
+/**
+ * @return non-zero if this UnitDefinition is a variant of mass
+ * i.e. gram or kilogram with only abritrary variations in
+ * scale, multiplier, or offset values, zero otherwise.
+ */
+LIBSBML_EXTERN
+int
+UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud);
 
 /**
  * Sets the id of this UnitDefinition to a copy of sid.
