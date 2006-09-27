@@ -92,7 +92,7 @@ SBML::readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
   }
   else if (!checkSBOTerm(attributes.getValue(index)))
   {
-    log->add(XMLError(906, msg0906));
+    log->add(XMLError(10308, msg0906));
     return -1;
   }
   else

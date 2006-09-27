@@ -832,7 +832,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
         
         if (position != expected_pos)
         {
-          log->add(XMLError(1609, msg1609));
+          log->add(XMLError(21122, msg1609));
         }
       }
       else if (!strcmp(object->getElementName().c_str(), "listOfParameters"))
@@ -841,7 +841,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
         
         if (position != expected_pos)
         {
-          log->add(XMLError(1609, msg1609));
+          log->add(XMLError(21122, msg1609));
         }
       }
       else
@@ -853,7 +853,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
         
         if (position != expected_pos)
         {
-          log->add(XMLError(1609, msg1609));
+          log->add(XMLError(21122, msg1609));
         }
       }
     }
@@ -865,7 +865,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
       
       if (position != expected_pos)
       {
-        log->add(XMLError(1608, msg1608));
+        log->add(XMLError(21102, msg1608));
       }
     }
     else
@@ -877,7 +877,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
         
       if (position != expected_pos)
       {
-        log->add(XMLError(1608, msg1608));
+        log->add(XMLError(21102, msg1608));
       }
     }
   }
@@ -894,7 +894,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
         
           if (position != expected_pos)
           {
-            log->add(XMLError(2101, msg2101));
+            log->add(XMLError(21001, msg2101));
           }
        }
      }
@@ -910,7 +910,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
                 
         if (position != expected_pos)
         {
-          log->add(XMLError(1804, msg1804));
+          log->add(XMLError(21205, msg1804));
         }
       }
     }
@@ -920,7 +920,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
       
       if (position != expected_pos)
       {
-        log->add(XMLError(1804, msg1804));
+        log->add(XMLError(21205, msg1804));
       }
     }
     else
@@ -932,7 +932,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
       
       if (position != expected_pos)
       {
-        log->add(XMLError(1804, msg1804));
+        log->add(XMLError(21205, msg1804));
       }
     }
  
@@ -951,7 +951,7 @@ SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log,
 
     if (position != expected_pos)
     {
-      log->add(XMLError(1002, msg1002));
+      log->add(XMLError(20202, msg1002));
     }
   }
 }
@@ -967,7 +967,7 @@ SBase::logUnrecognized(const XMLToken& next)
   msg += next.getName();
   msg += "' is not recognised.";
   
-  mSBML->getErrorLog()->add(XMLError(0005, msg));
+  mSBML->getErrorLog()->add(XMLError(10102, msg));
 }
 
 

@@ -54,8 +54,8 @@
 
 //#include "FormulaUnitsCheck.h"
 
-#include "PowerUnitsCheck.h"
-#include "ExponentUnitsCheck.h"
+//#include "PowerUnitsCheck.h"
+//#include "ExponentUnitsCheck.h"
 #include "ArgumentsUnitsCheck.h"
 
 #include "LogicalArgsMathCheck.h"
@@ -78,25 +78,25 @@
 
 using namespace std;
 
-EXTERN_CONSTRAINT( 2006, LambdaMathCheck        )
-EXTERN_CONSTRAINT( 2007, FunctionApplyMathCheck )
-EXTERN_CONSTRAINT( 2008, CiElementMathCheck     )
-EXTERN_CONSTRAINT( 2011, LogicalArgsMathCheck   )
-EXTERN_CONSTRAINT( 2012, PieceBooleanMathCheck  )
-EXTERN_CONSTRAINT( 2015, NumericArgsMathCheck   )
-EXTERN_CONSTRAINT( 2017, PiecewiseValueMathCheck)
-EXTERN_CONSTRAINT( 2018, EqualityArgsMathCheck  )
-EXTERN_CONSTRAINT( 2019, NumericReturnMathCheck )
+EXTERN_CONSTRAINT( 10208, LambdaMathCheck        )
+EXTERN_CONSTRAINT( 10214, FunctionApplyMathCheck )
+EXTERN_CONSTRAINT( 10215, CiElementMathCheck     )
+EXTERN_CONSTRAINT( 10209, LogicalArgsMathCheck   )
+EXTERN_CONSTRAINT( 10213, PieceBooleanMathCheck  )
+EXTERN_CONSTRAINT( 10210, NumericArgsMathCheck   )
+EXTERN_CONSTRAINT( 10212, PiecewiseValueMathCheck)
+EXTERN_CONSTRAINT( 10211, EqualityArgsMathCheck  )
+EXTERN_CONSTRAINT( 10217, NumericReturnMathCheck )
 
-EXTERN_CONSTRAINT( 900, UniqueIdsInModel             )
-EXTERN_CONSTRAINT( 901, UniqueIdsForUnitDefinitions  )
-EXTERN_CONSTRAINT( 902, UniqueIdsInKineticLaw        )
-EXTERN_CONSTRAINT( 903, UniqueVarsInRules            )
-EXTERN_CONSTRAINT( 904, UniqueVarsInEventAssignments )
-EXTERN_CONSTRAINT( 905, UniqueVarsInEventsAndRules   )
-EXTERN_CONSTRAINT( 907, UniqueMetaId                 )
+EXTERN_CONSTRAINT( 10301, UniqueIdsInModel             )
+EXTERN_CONSTRAINT( 10302, UniqueIdsForUnitDefinitions  )
+EXTERN_CONSTRAINT( 10303, UniqueIdsInKineticLaw        )
+EXTERN_CONSTRAINT( 10304, UniqueVarsInRules            )
+EXTERN_CONSTRAINT( 10305, UniqueVarsInEventAssignments )
+EXTERN_CONSTRAINT( 10306, UniqueVarsInEventsAndRules   )
+EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 
-EXTERN_CONSTRAINT( 9999, OverDeterminedCheck)
+EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
 
 
 
@@ -105,7 +105,7 @@ EXTERN_CONSTRAINT( 9999, OverDeterminedCheck)
 // begins.  This is because the validator framework assumes a Model.
 //
 
-START_CONSTRAINT (1001, Model, x)
+START_CONSTRAINT (20204, Model, x)
 {
   msg =
     "A Model that has a Species must also have at least one Compartment "
@@ -118,7 +118,7 @@ END_CONSTRAINT
 
 
 
-START_CONSTRAINT (1100, FunctionDefinition, fd)
+START_CONSTRAINT (20301, FunctionDefinition, fd)
 {
   msg =
     "<lambda> must be the top-level element of a FunctionDefinition "
@@ -129,10 +129,10 @@ START_CONSTRAINT (1100, FunctionDefinition, fd)
 }
 END_CONSTRAINT
 
-EXTERN_CONSTRAINT(1101, FunctionReferredToExists)
+EXTERN_CONSTRAINT(20302, FunctionReferredToExists)
 
 
-START_CONSTRAINT (1102, FunctionDefinition, fd)
+START_CONSTRAINT (20303, FunctionDefinition, fd)
 {
   msg =
     "Inside the lambda of a FunctionDefinition, the identifier of that "
@@ -158,9 +158,9 @@ START_CONSTRAINT (1102, FunctionDefinition, fd)
 END_CONSTRAINT
 
 // This was 1101 but the new spec rephrases it
-EXTERN_CONSTRAINT(1103, FunctionDefinitionVars)
+EXTERN_CONSTRAINT(20304, FunctionDefinitionVars)
 
-START_CONSTRAINT (1104, FunctionDefinition, fd)
+START_CONSTRAINT (20305, FunctionDefinition, fd)
 {
   msg =
     "The value type returned by a FunctionDefinition's lambda "
@@ -178,7 +178,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models (replacing name with id).
-START_CONSTRAINT (1201, UnitDefinition, ud)
+START_CONSTRAINT (20401, UnitDefinition, ud)
 {
   msg =
     "The id of a UnitDefinition must not be a predefined kind of unit "
@@ -191,7 +191,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1202, UnitDefinition, ud)
+START_CONSTRAINT (20402, UnitDefinition, ud)
 {
   msg =
     "A 'substance' UnitDefinition must simplify to a single Unit of kind "
@@ -200,14 +200,29 @@ START_CONSTRAINT (1202, UnitDefinition, ud)
   pre( ud.getId() == "substance" );
 
   inv( ud.getNumUnits() == 1                              );
-  inv( ud.getUnit(0)->isMole() || ud.getUnit(0)->isItem() );
   inv( ud.getUnit(0)->getExponent() == 1                  );
+
+    /* dimensionless/gram/kilogram are allowable in L2V2 */
+  if (  ud.getLevel() == 2 
+    &&  ud.getVersion() == 2)
+  {
+    inv_or ( ud.getUnit(0)->isMole());
+    inv_or ( ud.getUnit(0)->isItem() );
+    inv_or ( ud.getUnit(0)->isGram() );
+    inv_or ( ud.getUnit(0)->isKilogram() );
+    inv_or ( ud.getUnit(0)->isDimensionless());
+  }
+  else
+  {
+    inv( ud.getUnit(0)->isMole() || ud.getUnit(0)->isItem() );
+  }
+
 }
 END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1203, UnitDefinition, ud)
+START_CONSTRAINT (20403, UnitDefinition, ud)
 {
   msg =
     "A 'length' UnitDefinition must simplify to a single Unit of kind "
@@ -234,7 +249,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1204, UnitDefinition, ud)
+START_CONSTRAINT (20404, UnitDefinition, ud)
 {
   msg =
     "An 'area' UnitDefinition must simplify to a single Unit of kind "
@@ -261,7 +276,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1205, UnitDefinition, ud)
+START_CONSTRAINT (20406, UnitDefinition, ud)
 {
   msg =
     "A 'volume' UnitDefinition must simplify to a single Unit of kind "
@@ -288,7 +303,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1206, UnitDefinition, ud)
+START_CONSTRAINT (20407, UnitDefinition, ud)
 {
   msg =
     "A 'volume' UnitDefinition that simplifies to a single Unit of kind "
@@ -304,7 +319,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1207, UnitDefinition, ud)
+START_CONSTRAINT (20408, UnitDefinition, ud)
 {
   msg =
     "A 'volume' UnitDefinition that simplifies to a single Unit of kind "
@@ -320,7 +335,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1208, UnitDefinition, ud)
+START_CONSTRAINT (20405, UnitDefinition, ud)
 {
   msg =
     "A 'time' UnitDefinition must simplify to a single Unit of kind "
@@ -346,7 +361,7 @@ START_CONSTRAINT (1208, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1209, UnitDefinition, ud)
+START_CONSTRAINT (20411, UnitDefinition, ud)
 {
   msg =
     "The offset field in Unit is deprecated as of SBML Level 2 Version 2. "
@@ -363,7 +378,7 @@ START_CONSTRAINT (1209, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1210, UnitDefinition, ud)
+START_CONSTRAINT (20410, UnitDefinition, ud)
 {
   msg =
     "The value of the kind field of a UnitDefinition can only be "
@@ -379,7 +394,24 @@ START_CONSTRAINT (1210, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1300, Compartment, c)
+START_CONSTRAINT (20412, UnitDefinition, ud)
+{
+  msg =
+    "Celsius is removed as of SBML Level 2 Version 2. "
+    "Software tools should not generate models containing deprecated features. "
+    "(L2V2 Section 4.4).";
+
+  pre( ud.getLevel() == 2 && ud.getVersion() == 2 );
+
+  for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
+  {
+    inv(ud.getUnit(n)->isCelsius());
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20501, Compartment, c)
 {
   msg =
     "Compartment size must not be set if spatialDimensions is zero "
@@ -391,7 +423,7 @@ START_CONSTRAINT (1300, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1301, Compartment, c)
+START_CONSTRAINT (20502, Compartment, c)
 {
   msg =
     "If a Compartment definition has a spatialDimensions value of 0,"
@@ -406,7 +438,7 @@ START_CONSTRAINT (1301, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1302, Compartment, c)
+START_CONSTRAINT (20503, Compartment, c)
 {
   msg =
     "A Compartment must be constant if spatialDimensions is zero "
@@ -419,7 +451,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1303, Compartment, c)
+START_CONSTRAINT (20504, Compartment, c)
 {
   msg =
     "A Compartment's 'outside' must be the id of another Compartment "
@@ -432,10 +464,10 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-EXTERN_CONSTRAINT(1304, CompartmentOutsideCycles)
+EXTERN_CONSTRAINT(20505, CompartmentOutsideCycles)
 
 
-START_CONSTRAINT (1305, Compartment, c)
+START_CONSTRAINT (20507, Compartment, c)
 {
   msg =
     "A Compartment with spatialDimensions='1' must have units of 'length', "
@@ -468,7 +500,7 @@ START_CONSTRAINT (1305, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1306, Compartment, c)
+START_CONSTRAINT (20508, Compartment, c)
 {
   msg =
     "A Compartment with spatialDimensions='2' must have units of 'area' "
@@ -499,7 +531,7 @@ START_CONSTRAINT (1306, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1307, Compartment, c)
+START_CONSTRAINT (20509, Compartment, c)
 {
   msg =
     "A Compartment with spatialDimensions='3' must have units of 'volume', "
@@ -532,7 +564,7 @@ START_CONSTRAINT (1307, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1308, Compartment, c)
+START_CONSTRAINT (20510, Compartment, c)
 {
   msg =
     "CompartmentType '" + c.getCompartmentType() + "' is undefined. "
@@ -548,7 +580,7 @@ START_CONSTRAINT (1308, Compartment, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1309, Compartment, c)
+START_CONSTRAINT (20506, Compartment, c)
 {
   msg =
     "The outside field value of a Compartment cannot be a compartment "
@@ -565,7 +597,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1400, Species, s)
+START_CONSTRAINT (20601, Species, s)
 {
   msg =
     "Compartment '" + s.getCompartment() + "' is undefined.  If a Species "
@@ -577,7 +609,7 @@ START_CONSTRAINT (1400, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1401, Species, s)
+START_CONSTRAINT (20602, Species, s)
 {
   msg =
     "A Species with hasOnlySubstanceUnits='true' must not have "
@@ -589,7 +621,7 @@ START_CONSTRAINT (1401, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1402, Species, s)
+START_CONSTRAINT (20603, Species, s)
 {
   msg =
     "A Species must not have spatialSizeUnits if its Compartment has "
@@ -603,7 +635,7 @@ START_CONSTRAINT (1402, Species, s)
 }
 END_CONSTRAINT
 
-
+/* removed for l2v2
 START_CONSTRAINT (1403, Species, s)
 {
   msg =
@@ -614,9 +646,9 @@ START_CONSTRAINT (1403, Species, s)
   inv( !s.isSetInitialConcentration()       );
 }
 END_CONSTRAINT
+*/
 
-
-START_CONSTRAINT (1404, Species, s)
+START_CONSTRAINT (20604, Species, s)
 {
   msg =
     "A Species whose Compartment has spatialDimensions='0' must not have an "
@@ -631,7 +663,7 @@ START_CONSTRAINT (1404, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1405, Species, s)
+START_CONSTRAINT (20605, Species, s)
 {
   msg =
     "A Species whose Compartment has spatialDimensions='1' must have "
@@ -668,7 +700,7 @@ START_CONSTRAINT (1405, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1406, Species, s)
+START_CONSTRAINT (20606, Species, s)
 {
   msg =
     "A Species whose Compartment has spatialDimensions='2' must have "
@@ -703,7 +735,7 @@ START_CONSTRAINT (1406, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1407, Species, s)
+START_CONSTRAINT (20607, Species, s)
 {
   msg =
     "A Species whose Compartment has spatialDimensions=3 must have "
@@ -740,7 +772,7 @@ START_CONSTRAINT (1407, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1408, Species, s)
+START_CONSTRAINT (20608, Species, s)
 {
   msg =
     "A Species' substanceUnits must be 'substance', 'item', 'mole', or the "
@@ -753,7 +785,7 @@ START_CONSTRAINT (1408, Species, s)
   const string&         units = s.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
-  /* dimensionless is allowable in L2V2 */
+  /* dimensionless/gram/kilogram are allowable in L2V2 */
   if (  s.getLevel() == 2 
     &&  s.getVersion() == 2)
   {
@@ -761,8 +793,11 @@ START_CONSTRAINT (1408, Species, s)
     inv_or( units == "item"           );
     inv_or( units == "mole"           );
     inv_or( units == "dimensionless"  );
+    inv_or( units == "gram"           );
+    inv_or( units == "kilogram"       );
     inv_or( defn  != NULL && defn->isVariantOfSubstance()     );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+    inv_or( defn  != NULL && defn->isVariantOfMass()          );
   }
   else
   {
@@ -775,7 +810,7 @@ START_CONSTRAINT (1408, Species, s)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1409, Species, s)
+START_CONSTRAINT (20609, Species, s)
 {
   msg =
     "A Species cannot set values for both initialConcentration and "
@@ -789,10 +824,10 @@ START_CONSTRAINT (1409, Species, s)
 END_CONSTRAINT
 
 
-EXTERN_CONSTRAINT(1410, SpeciesReactionOrRule)
+EXTERN_CONSTRAINT(20610, SpeciesReactionOrRule)
 
 
-START_CONSTRAINT (1411, Species, s)
+START_CONSTRAINT (20612, Species, s)
 {
   msg =
     "SpeciesType '" + s.getSpeciesType() + "' is undefined. "
@@ -808,11 +843,11 @@ START_CONSTRAINT (1411, Species, s)
 END_CONSTRAINT
 
 
-EXTERN_CONSTRAINT(1412, UniqueSpeciesTypesInCompartment)
+EXTERN_CONSTRAINT(20613, UniqueSpeciesTypesInCompartment)
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1500, Parameter, p)
+START_CONSTRAINT (20701, Parameter, p)
 {
   msg =
     "A Parameter's 'units' must be a UnitKind, a built-in unit, or the id "
@@ -831,7 +866,7 @@ END_CONSTRAINT
 
 
 // NOTE: This constraint also applies to L1 Models.
-START_CONSTRAINT (1600, Reaction, r)
+START_CONSTRAINT (21101, Reaction, r)
 {
   msg =
     "A Reaction must contain at least one SpeciesReference in its list "
@@ -842,7 +877,7 @@ START_CONSTRAINT (1600, Reaction, r)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1601, SpeciesReference, sr)
+START_CONSTRAINT (21111, SpeciesReference, sr)
 {
   msg =
     "Species '" + sr.getSpecies() + "' is undefined.  A SpeciesReference "
@@ -853,7 +888,7 @@ START_CONSTRAINT (1601, SpeciesReference, sr)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1602, SpeciesReference, sr)
+START_CONSTRAINT (21112, SpeciesReference, sr)
 {
   msg =
     "A SpeciesReference may not refer to a Species with constant='true' "
@@ -870,7 +905,7 @@ START_CONSTRAINT (1602, SpeciesReference, sr)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1603, SpeciesReference, sr)
+START_CONSTRAINT (21113, SpeciesReference, sr)
 {
   msg =
     "A SpeciesReference may not contain both a 'stoichiometry' attribute "
@@ -883,7 +918,6 @@ START_CONSTRAINT (1603, SpeciesReference, sr)
   inv( sr.getStoichiometry() == 1.0 );
 }
 END_CONSTRAINT
-
 
 START_CONSTRAINT (1604, KineticLaw, kl)
 {
@@ -902,12 +936,15 @@ START_CONSTRAINT (1604, KineticLaw, kl)
   if (  kl.getLevel() == 2 
     &&  kl.getVersion() == 2)
   {
+ /*   removed in l2v2 - need to think about
+ 
     inv_or( units == "substance" );
     inv_or( units == "item"  );
     inv_or( units == "mole"      );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfSubstance() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+ */
   }
   else
   {
@@ -937,11 +974,14 @@ START_CONSTRAINT (1605, KineticLaw, kl)
   if (  kl.getLevel() == 2 
     &&  kl.getVersion() == 2)
   {
+ /*   removed in l2v2 - need to think about
+ 
     inv_or( units == "time" );
     inv_or( units == "second"  );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfTime() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+*/
   }
   else
   {
@@ -953,43 +993,12 @@ START_CONSTRAINT (1605, KineticLaw, kl)
 END_CONSTRAINT
 
 
-/*
-START_CONSTRAINT (1606, Reaction, r)
-{
-  msg =
-    "All Species referenced in a Reaction's KineticLaw must be listed as a "
-    "reactant, product, or modifier of the Reaction (L2v1 Section x.y.z)";
+EXTERN_CONSTRAINT(21121, KineticLawVars)
+
+EXTERN_CONSTRAINT(21131, StoichiometryMathVars)
 
 
-  pre( r.isSetKineticLaw()            );
-  pre( r.getKineticLaw()->isSetMath() );
-
-
-  ASTNode* math  = r.getKineticLaw()->getMath();
-  List*    names = math->getListOfNodes( ASTNode_isName );
-
-  for (unsigned int n = 0; n < names.getSize(); ++n)
-  {
-    ASTNode*    node = static_cast<ASTNode*>( names.get(n) );
-    const char* name = node->getName();
-
-    if ( m.getSpecies(name) )
-    {
-      inv_or( r.getReactant(name) != NULL );
-      inv_or( r.getProduct (name) != NULL );
-      inv_or( r.getModifier(name) != NULL );
-    }
-  }
-}
-END_CONSTRAINT
-*/
-
-EXTERN_CONSTRAINT(1606, KineticLawVars)
-
-EXTERN_CONSTRAINT(1607, StoichiometryMathVars)
-
-
-START_CONSTRAINT (1610, KineticLaw, kl)
+START_CONSTRAINT (21124, KineticLaw, kl)
 {
   msg =
     "Parameters local to a reaction (i.e., those defined within a "
@@ -1065,7 +1074,7 @@ START_CONSTRAINT (1611, KineticLaw, kl)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1700, AssignmentRule, r)
+START_CONSTRAINT (20901, AssignmentRule, r)
 {
   msg =
     "An AssignmentRule's variable must be the id of a Compartment, Species, "
@@ -1083,7 +1092,7 @@ START_CONSTRAINT (1700, AssignmentRule, r)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1701, RateRule, r)
+START_CONSTRAINT (20902, RateRule, r)
 {
   msg =
     "A RateRule's variable must be the id of a Compartment, Species, "
@@ -1101,7 +1110,7 @@ START_CONSTRAINT (1701, RateRule, r)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1702, AssignmentRule, r)
+START_CONSTRAINT (20903, AssignmentRule, r)
 {
   msg =
     "A Compartment, Species, or Parameter referenced by an AssignmentRule "
@@ -1126,7 +1135,7 @@ START_CONSTRAINT (1702, AssignmentRule, r)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1703, RateRule, r)
+START_CONSTRAINT (20904, RateRule, r)
 {
   msg =
     "A Compartment, Species, or Parameter referenced by a RateRule "
@@ -1149,9 +1158,9 @@ START_CONSTRAINT (1703, RateRule, r)
 }
 END_CONSTRAINT
 
-EXTERN_CONSTRAINT(1705, AssignmentCycles)
+EXTERN_CONSTRAINT(20906, AssignmentCycles)
 
-START_CONSTRAINT (1800, Event, e)
+START_CONSTRAINT (21204, Event, e)
 {
   msg =
     "An Event's timeUnits must be 'time', 'second', or the id of a "
@@ -1183,7 +1192,7 @@ START_CONSTRAINT (1800, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1801, Event, e)
+START_CONSTRAINT (21202, Event, e)
 {
   msg =
     "An Event trigger must return a boolean value (L2v1 Section 4.10.2).";
@@ -1194,7 +1203,7 @@ START_CONSTRAINT (1801, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1805, Event, e)
+START_CONSTRAINT (21201, Event, e)
 {
   msg =
     "An Event must have a trigger.";
@@ -1204,7 +1213,7 @@ START_CONSTRAINT (1805, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1806, Event, e)
+START_CONSTRAINT (21203, Event, e)
 {
   msg =
     "An Event must have at least one event assignment.";
@@ -1214,7 +1223,7 @@ START_CONSTRAINT (1806, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1802, EventAssignment, ea)
+START_CONSTRAINT (21211, EventAssignment, ea)
 {
   msg = 
     "An EventAssignment's variable must be the id of a Compartment, Species, "
@@ -1232,7 +1241,7 @@ START_CONSTRAINT (1802, EventAssignment, ea)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1803, EventAssignment, ea)
+START_CONSTRAINT (21212, EventAssignment, ea)
 {
   msg =
     "A Compartment, Species, or Parameter referenced by an EventAssignment "
@@ -1256,7 +1265,7 @@ START_CONSTRAINT (1803, EventAssignment, ea)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (1900, InitialAssignment, ia)
+START_CONSTRAINT (20801, InitialAssignment, ia)
 {
   msg =
     "The value of symbol in an InitialAssignment must be the id of a Compartment, Species, "
@@ -1274,11 +1283,11 @@ START_CONSTRAINT (1900, InitialAssignment, ia)
 END_CONSTRAINT
 
 
-EXTERN_CONSTRAINT(1901, UniqueSymbolsInInitialAssignments)
-EXTERN_CONSTRAINT(1902, UniqueVarsInInitialAssignmentsAndRules)
+EXTERN_CONSTRAINT(20802, UniqueSymbolsInInitialAssignments)
+EXTERN_CONSTRAINT(20803, UniqueVarsInInitialAssignmentsAndRules)
 
 
-START_CONSTRAINT (2100, Constraint, c)
+START_CONSTRAINT (21001, Constraint, c)
 {
   msg =
     "A Constraint math expression must return a boolean value (L2V2 Section 4.12).";
@@ -1289,7 +1298,7 @@ START_CONSTRAINT (2100, Constraint, c)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (3000, AssignmentRule, ar)
+START_CONSTRAINT (10511, AssignmentRule, ar)
 {
   msg =
     "When the 'variable' field of an assignment rule refers to a "
@@ -1328,7 +1337,7 @@ START_CONSTRAINT (3000, AssignmentRule, ar)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (3001, AssignmentRule, ar)
+START_CONSTRAINT (10512, AssignmentRule, ar)
 {
   msg =
     "When the 'variable' field of an assignment rule refers to a "
@@ -1367,7 +1376,7 @@ START_CONSTRAINT (3001, AssignmentRule, ar)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (3002, AssignmentRule, ar)
+START_CONSTRAINT (10513, AssignmentRule, ar)
 {
   msg =
     "When the 'variable' field of an assignment rule refers to a "
@@ -1407,7 +1416,7 @@ END_CONSTRAINT
 
 
 
-START_CONSTRAINT (3003, InitialAssignment, ia)
+START_CONSTRAINT (10521, InitialAssignment, ia)
 {
   msg =
     "When the 'variable' field of an initial assignment refers to a "
@@ -1446,7 +1455,7 @@ START_CONSTRAINT (3003, InitialAssignment, ia)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (3004, InitialAssignment, ia)
+START_CONSTRAINT (10522, InitialAssignment, ia)
 {
   msg =
     "When the 'variable' field of an initial assignment refers to a "
@@ -1485,7 +1494,7 @@ START_CONSTRAINT (3004, InitialAssignment, ia)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (3005, InitialAssignment, ia)
+START_CONSTRAINT (10523, InitialAssignment, ia)
 {
   msg =
     "When the 'variable' field of an initial assignment refers to a "
@@ -1523,7 +1532,7 @@ START_CONSTRAINT (3005, InitialAssignment, ia)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (3100, RateRule, rr)
+START_CONSTRAINT (10531, RateRule, rr)
 {
   msg =
     "When the 'variable' field of a rate rule refers to a "
@@ -1567,7 +1576,7 @@ START_CONSTRAINT (3100, RateRule, rr)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (3101, RateRule, rr)
+START_CONSTRAINT (10532, RateRule, rr)
 {
   msg =
     "When the 'variable' field of a rate rule refers to a "
@@ -1611,7 +1620,7 @@ START_CONSTRAINT (3101, RateRule, rr)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (3102, RateRule, rr)
+START_CONSTRAINT (10533, RateRule, rr)
 {
   msg =
     "When the 'variable' field of a rate rule refers to a "
@@ -1654,7 +1663,7 @@ START_CONSTRAINT (3102, RateRule, rr)
 }
 END_CONSTRAINT
 
-START_CONSTRAINT (3200, KineticLaw, kl)
+START_CONSTRAINT (10541, KineticLaw, kl)
 {
   msg =
     "The units of the formula of a kinetic law "
@@ -1683,12 +1692,13 @@ START_CONSTRAINT (3200, KineticLaw, kl)
   delete unitFormat;
 }
 END_CONSTRAINT
-
+/*
 EXTERN_CONSTRAINT(3302, PowerUnitsCheck)
 EXTERN_CONSTRAINT(3303, ExponentUnitsCheck)
-EXTERN_CONSTRAINT(3304, ArgumentsUnitsCheck)
+*/
+EXTERN_CONSTRAINT(10501, ArgumentsUnitsCheck)
  
-START_CONSTRAINT (3400, Event, e)
+START_CONSTRAINT (10551, Event, e)
 {
   msg =
     "When a delay is specified within an event the units "

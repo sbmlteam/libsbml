@@ -332,7 +332,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
     else 
     {
-      stream.getErrorLog()->add(XMLError(2010, msg));
+      stream.getErrorLog()->add(XMLError(10205, msg));
     }
 
   }
@@ -403,7 +403,7 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   }
   else
   {
-    stream.getErrorLog()->add(XMLError(2005, msg));
+    stream.getErrorLog()->add(XMLError(10207, msg));
   }
 }
 
@@ -498,7 +498,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   int  index = util_bsearchStringsI(MATHML_ELEMENTS, name.c_str(), 0, size - 1);
   bool found = (index < size);
   if (!found)
-    stream.getErrorLog()->add(XMLError(2001, msg2001));
+    stream.getErrorLog()->add(XMLError(10202, msg2001));
 
   string type = "";
   elem.getAttributes().readInto("type", type);
@@ -512,19 +512,19 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   if (strcmp(type.c_str(), ""))
   {
     if (strcmp(name.c_str(), "cn"))
-      stream.getErrorLog()->add(XMLError(2004, msg2004));
+      stream.getErrorLog()->add(XMLError(10206, msg2004));
   }
 
   if (strcmp(encoding.c_str(), ""))
   {
     if (strcmp(name.c_str(), "csymbol"))
-      stream.getErrorLog()->add(XMLError(2002, msg2002));
+      stream.getErrorLog()->add(XMLError(10203, msg2002));
   }
 
   if (strcmp(url.c_str(), ""))
   {
     if (strcmp(name.c_str(), "csymbol"))
-      stream.getErrorLog()->add(XMLError(2003, msg2003));
+      stream.getErrorLog()->add(XMLError(10204, msg2003));
   }
 
 
