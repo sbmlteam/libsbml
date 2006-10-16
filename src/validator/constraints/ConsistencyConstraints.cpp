@@ -394,19 +394,15 @@ START_CONSTRAINT (20410, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (20412, UnitDefinition, ud)
+START_CONSTRAINT (20412, Unit, u)
 {
   msg =
     "Celsius is removed as of SBML Level 2 Version 2. "
     "Software tools should not generate models containing deprecated features. "
     "(L2V2 Section 4.4).";
 
-  pre( ud.getLevel() == 2 && ud.getVersion() == 2 );
-
-  for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
-  {
-    inv(ud.getUnit(n)->isCelsius());
-  }
+  pre( u.getLevel() == 2 && u.getVersion() == 2 );
+  inv( u.isCelsius() == false );
 }
 END_CONSTRAINT
 
