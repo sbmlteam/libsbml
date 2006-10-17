@@ -108,10 +108,10 @@ main (int argc, char* argv[])
   cout.precision(0);
   cout.width(3);
 
-  cout << "Testing Consistency Constraints (900 - 2999)." << endl;
+  cout << "Testing Consistency Constraints (10000 - 30000)." << endl;
 
 
-  set<TestFile> files    = TestFile::getFilesIn("test-data", 900, 2199);
+  set<TestFile> files    = TestFile::getFilesIn("test-data", 10000, 30000);
   unsigned int  passes   = count_if(files.begin(), files.end(), runTest);
   unsigned int  failures = files.size() - passes;
   double        percent  = (static_cast<double>(passes) / files.size()) * 100;
@@ -119,32 +119,6 @@ main (int argc, char* argv[])
 
   cout << static_cast<int>(percent) << "%: Checks: " << files.size();
   cout << ", Failures: " << failures << endl;
-
-  
-  cout << "Testing Unit Consistency Constraints (3000 - 3999)." << endl;
-
-
-  set<TestFile> files_units    = TestFile::getFilesIn("test-data", 3000, 9999);
-  unsigned int  passes_units   = count_if(files_units.begin(), files_units.end(), runTest);
-  unsigned int  failures_units = files_units.size() - passes_units;
-  double        percent_units  = (static_cast<double>(passes_units) / files_units.size()) * 100;
-
-
-  cout << static_cast<int>(percent_units) << "%: Checks: " << files_units.size();
-  cout << ", Failures: " << failures_units << endl;
-
-  cout << "Testing Consistency Constraints (2000-2999)." << endl;
-
-
-  set<TestFile> files_conv    = TestFile::getFilesIn("test-data-l2-l1-conversion", 2000, 2999);
-  unsigned int  passes_conv   = count_if(files_conv.begin(), files_conv.end(), runL1Test);
-  unsigned int  failures_conv = files_conv.size() - passes_conv;
-  double        percent_conv  = (static_cast<double>(passes_conv) / files_conv.size()) * 100;
-
-
-  cout << static_cast<int>(percent_conv) << "%: Checks: " << files_conv.size();
-  cout << ", Failures: " << failures_conv << endl;
-  
 
   return failures;
 }

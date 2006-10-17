@@ -69,27 +69,27 @@ using namespace std;
  * TestFiles (e.g. in the test-data/ directory) have the following naming
  * convention:
  *
- *   cccc-pass-00-nn.xml, or
- *   cccc-fail-ff-nn.xml
+ *   ccccc-pass-00-nn.xml, or
+ *   ccccc-fail-ff-nn.xml
  *
  * Where:
  *
- *   cccc  is the four digit constraint id the file is designed to test
+ *   ccccc  is the four digit constraint id the file is designed to test
  *
- *   pass  indicates the file must pass validation without error
+ *   pass   indicates the file must pass validation without error
  *
- *   fail  indicates the file must fail validation with extactly ff errors
- *         all with constraint id cccc.
+ *   fail   indicates the file must fail validation with extactly ff errors
+ *          all with constraint id ccccc.
  *
- *   nn    is the sequence id (to allow multiple test files per constraint).
+ *   nn     is the sequence id (to allow multiple test files per constraint).
  *
  *
  * Offsets within mFilename:
  *
- *           1       1
- * 0123456789012345678
- * cccc-pass-00-nn.xmL
- * cccc-fail-ff-nn.xml
+ *           1        1
+ * 01234567890123456789
+ * ccccc-pass-00-nn.xml
+ * ccccc-fail-ff-nn.xml
  */
 
 
@@ -103,21 +103,21 @@ TestFile::getFullname () const
 unsigned int
 TestFile::getConstraintId () const
 {
-  return atol( mFilename.substr(0, 4).c_str() );
+  return atol( mFilename.substr(0, 5).c_str() );
 }
 
 
 unsigned int
 TestFile::getSequenceId () const
 {
-  return atol( mFilename.substr(13, 2).c_str() );
+  return atol( mFilename.substr(14, 2).c_str() );
 }
 
 
 unsigned int
 TestFile::getNumFailures () const
 {
-  return atol( mFilename.substr(10, 2).c_str() );
+  return atol( mFilename.substr(11, 2).c_str() );
 }
 
 
@@ -128,7 +128,7 @@ TestFile::getNumFailures () const
 bool
 TestFile::isValid (const string& filename)
 {
-  return filename.length() == 19 && filename.substr(15, 4) == ".xml";
+  return filename.length() == 20 && filename.substr(16, 4) == ".xml";
 }
 
 
