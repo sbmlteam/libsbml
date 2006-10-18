@@ -94,7 +94,7 @@ Pass: (1801) An Event trigger must return a boolean value
               <apply>
                 <and/>
                 <ci> x </ci>
-                <cn> 1 </cn>
+                <true/>
               </apply>
           </lambda>
         </math>
@@ -107,8 +107,8 @@ Pass: (1801) An Event trigger must return a boolean value
               <apply>
                 <or/>
                 <ci> x </ci>
-                <cn> 1 </cn>
-              </apply>
+                <true/>
+               </apply>
           </lambda>
         </math>
       </functionDefinition>
@@ -120,7 +120,7 @@ Pass: (1801) An Event trigger must return a boolean value
               <apply>
                 <xor/>
                 <ci> x </ci>
-                <cn> 1 </cn>
+                <true/>
               </apply>
           </lambda>
         </math>
@@ -259,7 +259,7 @@ Pass: (1801) An Event trigger must return a boolean value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f7 </ci>
-              <ci> S1 </ci>
+              <true/>
             </apply>
           </math>
         </trigger>
@@ -273,7 +273,7 @@ Pass: (1801) An Event trigger must return a boolean value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f8 </ci>
-              <ci> S1 </ci>
+              <true/>
             </apply>
           </math>
         </trigger>
@@ -287,7 +287,7 @@ Pass: (1801) An Event trigger must return a boolean value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f9 </ci>
-              <ci> S1 </ci>
+              <true/>
             </apply>
           </math>
         </trigger>
@@ -301,7 +301,7 @@ Pass: (1801) An Event trigger must return a boolean value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f10 </ci>
-              <ci> S1 </ci>
+              <true/>
             </apply>
           </math>
         </trigger>
@@ -315,7 +315,7 @@ Pass: (1801) An Event trigger must return a boolean value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f11 </ci>
-              <ci> S1 </ci>
+              <true/>
             </apply>
           </math>
         </trigger>
@@ -329,7 +329,7 @@ Pass: (1801) An Event trigger must return a boolean value
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <ci> f12 </ci>
-              <ci> S1 </ci>
+              <true/>
             </apply>
           </math>
         </trigger>
