@@ -150,6 +150,7 @@ SBML::sboTermToString (int sboTerm)
   if ( checkSBOTerm(sboTerm) )
   {
     ostringstream stream;
+    stream << "SBO:";
     stream << setw(7) << setfill('0') << sboTerm;
     result = stream.str();
   }
