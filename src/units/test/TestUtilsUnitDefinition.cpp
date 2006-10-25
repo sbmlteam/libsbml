@@ -50,11 +50,11 @@
 
 
 #include <check.h>
-#include "common/common.h"
+#include "sbml/common/common.h"
 
 #include "sbml/Unit.h"
 #include "sbml/UnitDefinition.h"
-#include "math/ASTNode.h"
+#include "sbml/math/ASTNode.h"
 
 #include "../Utils_UnitDefinition.h"
 
@@ -68,7 +68,7 @@ START_TEST(test_unitdefinition_simplify)
   Unit * u2 = new Unit(UNIT_KIND_METRE, 2);
 
   /* case with only one unit */
-  ud->addUnit(*u);
+  ud->addUnit(u);
 
   simplifyUnitDefinition(ud);
 
@@ -76,7 +76,7 @@ START_TEST(test_unitdefinition_simplify)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
   /* case with one unit plus a dimensionless unit */
-  ud->addUnit(*u1);
+  ud->addUnit(u1);
 
   simplifyUnitDefinition(ud);
   
@@ -84,7 +84,7 @@ START_TEST(test_unitdefinition_simplify)
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
   /* case with two units of same kind */
-  ud->addUnit(*u2);
+  ud->addUnit(u2);
 
   simplifyUnitDefinition(ud);
   
@@ -94,7 +94,7 @@ START_TEST(test_unitdefinition_simplify)
 
   /* case with two units of same kind that cancel*/
   u2->setExponent(-3);
-  ud->addUnit(*u2);
+  ud->addUnit(u2);
 
   simplifyUnitDefinition(ud);
   
@@ -114,9 +114,9 @@ START_TEST(test_unitdefinition_order)
   Unit * u1 = new Unit(UNIT_KIND_AMPERE);
   Unit * u2 = new Unit(UNIT_KIND_HERTZ);
 
-  ud->addUnit(*u);
-  ud->addUnit(*u1);
-  ud->addUnit(*u2);
+  ud->addUnit(u);
+  ud->addUnit(u1);
+  ud->addUnit(u2);
 
   orderUnitDefinition(ud);
 
@@ -137,8 +137,8 @@ START_TEST(test_unitdefinition_convert_SI)
   Unit * u1 = new Unit(UNIT_KIND_NEWTON);
   u1->setExponent(-1);
 
-  ud->addUnit(*u);
-  ud->addUnit(*u1);
+  ud->addUnit(u);
+  ud->addUnit(u1);
 
   ud1 = convertToSI(ud);
 
@@ -159,17 +159,17 @@ START_TEST(test_unitdefinition_areIdentical)
   Unit * u1 = new Unit(UNIT_KIND_NEWTON);
   Unit * u2 = new Unit(UNIT_KIND_METRE);
   
-  ud->addUnit(*u);
-  ud->addUnit(*u1);
+  ud->addUnit(u);
+  ud->addUnit(u1);
 
-  ud1->addUnit(*u);
-  ud1->addUnit(*u1);
+  ud1->addUnit(u);
+  ud1->addUnit(u1);
 
   int identical = areIdentical(ud, ud1);
 
   fail_unless(identical == 1);
 
-  ud->addUnit(*u2);
+  ud->addUnit(u2);
 
   identical = areIdentical(ud, ud1);
  
@@ -189,16 +189,16 @@ START_TEST(test_unitdefinition_areEquivalent)
   Unit * u2 = new Unit(UNIT_KIND_METRE);
   u1->setExponent(-1);
 
-  ud->addUnit(*u);
-  ud->addUnit(*u1);
+  ud->addUnit(u);
+  ud->addUnit(u1);
 
-  ud1->addUnit(*u2);
+  ud1->addUnit(u2);
 
   int equivalent = areEquivalent(ud, ud1);
 
   fail_unless(equivalent == 1);
 
-  ud->addUnit(*u2);
+  ud->addUnit(u2);
 
   equivalent = areEquivalent(ud, ud1);
  

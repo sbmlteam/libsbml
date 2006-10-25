@@ -51,8 +51,8 @@
 
 #include <check.h>
 
-#include "common/common.h"
-#include "common/extern.h"
+#include "sbml/common/common.h"
+#include "sbml/common/extern.h"
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
@@ -60,7 +60,7 @@
 #include "sbml/SBMLDocument.h"
 #include "sbml/Model.h"
 
-#include "UnitFormulaFormatter.h"
+#include "../UnitFormulaFormatter.h"
 
 extern char *TestDataDirectory;
 
@@ -97,7 +97,6 @@ void
 UnitFormulaFormatter1Test_teardown (void)
 {
   delete uff;
-  delete m;
   delete d;
 }
 
@@ -500,7 +499,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
 
-  /* function with two arguments but no bvar */
+  /* function with two arguments but no bvar 
   ud = uff->getUnitDefinition(m->getRule(4)->getMath());
 
   fail_unless(ud->getNumUnits() == 1);
@@ -512,7 +511,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_function)
   fail_unless(ud->getUnit(0)->getExponent() == -1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_DIMENSIONLESS);
-
+*/
   delete ud;
 
 }
@@ -575,6 +574,7 @@ START_TEST (test_UnitFormulaFormatter1_getUnitDefinition_event)
   fail_unless(ud->getUnit(0)->getExponent() == 1);
   fail_unless(ud->getUnit(0)->getOffset() == 0.0);
   fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_SECOND);
+  
 
   delete ud;
 

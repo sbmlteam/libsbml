@@ -141,20 +141,55 @@
         </apply>
       </math>
     </assignmentRule>
-    <assignmentRule variable="y">
+ <!--   <assignmentRule variable="y">
       <math xmlns="http://www.w3.org/1998/Math/MathML">
         <apply>
           <ci> j </ci>
         </apply>
       </math>
-    </assignmentRule>
+    </assignmentRule>-->
  </listOfRules>
-    <listOfEvents>
-    <event/>
-      <event timeUnits="minutes"/>
-            <event timeUnits="second"/>
-      <event timeUnits="time"/>
-
-    </listOfEvents>
+ <listOfEvents>
+  <event>
+	<trigger>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+		<apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+		</math>
+	</trigger>
+	<listOfEventAssignments>
+		<eventAssignment variable="cell"/>
+	</listOfEventAssignments>
+  </event>
+  <event timeUnits="minutes">
+	<trigger>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+		<apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+		</math>
+	</trigger>
+	<listOfEventAssignments>
+		<eventAssignment variable="cell"/>
+	</listOfEventAssignments>
+  </event>
+  <event timeUnits="second">
+	<trigger>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+		<apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+		</math>
+	</trigger>
+	<listOfEventAssignments>
+		<eventAssignment variable="cell"/>
+	</listOfEventAssignments>
+  </event>
+  <event timeUnits="time">
+	<trigger>
+		<math xmlns="http://www.w3.org/1998/Math/MathML">
+		<apply> <neq/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+		</math>
+	</trigger>
+	<listOfEventAssignments>
+		<eventAssignment variable="cell"/>
+	</listOfEventAssignments>
+  </event>
+ </listOfEvents>
 </model>
 </sbml>

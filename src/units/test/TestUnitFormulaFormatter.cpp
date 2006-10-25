@@ -51,8 +51,8 @@
 
 #include <check.h>
 
-#include "common/common.h"
-#include "common/extern.h"
+#include "sbml/common/common.h"
+#include "sbml/common/extern.h"
 
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
@@ -60,7 +60,7 @@
 #include "sbml/SBMLDocument.h"
 #include "sbml/Model.h"
 
-#include "UnitFormulaFormatter.h"
+#include "../UnitFormulaFormatter.h"
 
 extern char *TestDataDirectory;
 
@@ -96,7 +96,7 @@ void
 UnitFormulaFormatterTest_teardown (void)
 {
   delete uff;
-  delete m;
+ /* delete m;*/
   delete d;
 }
 
@@ -104,7 +104,7 @@ UnitFormulaFormatterTest_teardown (void)
    this will facilitate the transition to ucar library if necessary */
 START_TEST (test_UnitFormulaFormatter_getUnitDefinition_unknown)
 {
-  ASTNode * node = new ASTNode();
+  ASTNode * node = new ASTNode(AST_UNKNOWN);
   UnitDefinition * ud = new UnitDefinition();
 
   ud = uff->getUnitDefinition(node);

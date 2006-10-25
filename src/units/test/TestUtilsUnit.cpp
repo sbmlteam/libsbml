@@ -50,11 +50,11 @@
 
 
 #include <check.h>
-#include "common/common.h"
+#include "sbml/common/common.h"
 
 #include "sbml/Unit.h"
 #include "sbml/UnitDefinition.h"
-#include "math/ASTNode.h"
+#include "sbml/math/ASTNode.h"
 
 #include "../Utils_Unit.h"
 
