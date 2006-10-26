@@ -64,22 +64,24 @@ XMLNode::XMLNode (XMLInputStream& stream) : XMLToken( stream.next() )
 {
   if ( isEnd() ) return;
 
+
   while ( stream.isGood() )
   {
     const XMLToken& next = stream.peek();
+
 
     if ( next.isStart() )
     {
       addChild( XMLNode(stream) );
     }
-    else if ( next.isEnd() )
-    {
-      if ( next.isEndFor(*this) ) break;
-      stream.next();
-    }
     else if ( next.isText() )
     {
       addChild( stream.next() );
+    }
+    else if ( next.isEnd() )
+    {
+      stream.next();
+      break;
     }
   }
 }
