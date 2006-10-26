@@ -123,3 +123,4 @@ UniqueSpeciesTypesInCompartment::logConflict (const Species& s, const Compartmen
   
   logFailure(s);
 }
+
