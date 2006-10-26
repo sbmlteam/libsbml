@@ -187,11 +187,23 @@ public:
   virtual const std::string& getElementName () const;
 
   /**
+   * @return the ordinal position of the element with respect to its
+   * siblings or -1 (default) to indicate the position is not significant.
+   */
+  int getElementPosition () const;
+
+  /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+
+  /**
+   * @return the SBMLErrorLog used to log errors during while reading and
+   * validating SBML.
+   */
+  SBMLErrorLog* getErrorLog ();
 
 
 protected:
@@ -201,12 +213,6 @@ protected:
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
-
-  /**
-   * @return the SBMLErrorLog used to log errors during while reading and
-   * validating SBML.
-   */
-  SBMLErrorLog* getErrorLog ();
 
   /**
    * Subclasses should override this method to read values from the given

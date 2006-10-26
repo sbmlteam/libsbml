@@ -561,35 +561,13 @@ ListOfCompartments::getElementName () const
 
 
 /**
- * returns expected position of ListOfCompartments in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfCompartments::getElementPosition() const
+ListOfCompartments::getElementPosition () const
 {
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  int position = 1;
-  /**
-   * the expected position of each element depends on the level and version
-   * and also on whether other preceding elements have been declared
-   * since other elements are optional 
-   */
-
-  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumCompartmentTypes() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumSpeciesTypes() != 0)
-    position++;
-
-  return position;
-
+  return 5;
 }
 
 

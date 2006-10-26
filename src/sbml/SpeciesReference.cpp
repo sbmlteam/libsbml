@@ -694,37 +694,27 @@ ListOfSpeciesReferences::getElementName () const
   else return unknown;
 }
 
+
 /**
- * returns expected position of ListOfSpeciesReference in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfSpeciesReferences::getElementPosition(unsigned int reactionNo) const
+ListOfSpeciesReferences::getElementPosition () const
 {
-  int position = 1;
-  /**
-   * the expected position of each element depends on the type
-   * and any lists ahead
-   */
+  int position;
 
-  const Reaction * r = this->getSBMLDocument()->getModel()->getReaction(reactionNo-1);
-
-  if (mType == Product)
+  switch (mType)
   {
-    if (r->getNumReactants() != 0)
-      position++;
-  }
-  else if (mType == Modifier)
-  {
-    if (r->getNumReactants() != 0)
-      position++;
-    
-    if (r->getNumProducts() != 0)
-      position++;
+    case Reactant: position =  1; break;
+    case Product:  position =  2; break;
+    case Modifier: position =  3; break;
+    default:       position = -1; break;
   }
 
   return position;
-
 }
+
 
 /**
  * Sets type of this ListOfSpeciesReferences.

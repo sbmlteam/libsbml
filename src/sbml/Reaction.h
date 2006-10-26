@@ -427,9 +427,11 @@ public:
   virtual const std::string& getElementName () const;
 
   /**
-   * returns expected position of ListOfReactions in the model
+   * @return the ordinal position of the element with respect to its
+   * siblings or -1 (default) to indicate the position is not significant.
    */
-  virtual int getElementPosition() const;
+  virtual int getElementPosition () const;
+
 
 protected:
 

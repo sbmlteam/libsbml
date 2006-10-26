@@ -862,50 +862,16 @@ ListOfRules::getElementName () const
   return name;
 }
 
+
 /**
- * returns expected position of ListOfRules in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfRules::getElementPosition() const
+ListOfRules::getElementPosition () const
 {
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  int position = 1;
-  /**
-   * the expected position of each element depends on the level and version
-   * and also on whether other preceding elements have been declared
-   * since other elements are optional 
-   */
-
-  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumCompartmentTypes() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumSpeciesTypes() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumCompartments() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumSpecies() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumParameters() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumInitialAssignments() != 0)
-    position++;
-
-  return position;
-
+  return 9;
 }
-
 
 
 /**

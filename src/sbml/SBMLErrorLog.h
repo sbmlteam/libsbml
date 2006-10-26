@@ -30,6 +30,9 @@
 #include <sbml/xml/XMLErrorLog.h>
 
 
+class XMLToken;
+
+
 class LIBSBML_EXTERN SBMLErrorLog : public XMLErrorLog
 {
 public:
@@ -43,6 +46,17 @@ public:
    * Destroys this SBMLErrorLog.
    */
   virtual ~SBMLErrorLog ();
+
+
+  /**
+   * Logs an error message for the given SBML error code.
+   */
+  void logError (unsigned int error);
+
+  /**
+   * Logs an error message indicating the XML element is unrecognized.
+   */
+  void unrecognizedElement (const XMLToken& element);
 };
 
 

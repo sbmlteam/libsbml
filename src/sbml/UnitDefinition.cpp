@@ -27,8 +27,6 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
-#include "SBMLDocument.h"
-#include "Model.h"
 #include "Unit.h"
 #include "UnitDefinition.h"
 
@@ -189,10 +187,10 @@ UnitDefinition::isVariantOfVolume () const
 
 /**
  * @return true if this UnitDefinition is a variant of dimensionless
- * i.e. dimensionless with only abritrary variations in
- * scale, multiplier, or offset values, false otherwise.
+ * i.e. dimensionless with only abritrary variations in scale, multiplier,
+ * or offset values, false otherwise.
  */
-bool 
+bool
 UnitDefinition::isVariantOfDimensionless () const
 {
   bool result = false;
@@ -205,16 +203,15 @@ UnitDefinition::isVariantOfDimensionless () const
   }
 
   return result;
-
 }
 
 
 /**
-  * @return true if this UnitDefinition is a variant of mass
-  * i.e. gram or kilogram with only abritrary variations in
-  * scale, multiplier, or offset values, false otherwise.
-  */
-bool 
+ * @return true if this UnitDefinition is a variant of mass i.e. gram or
+ * kilogram with only abritrary variations in scale, multiplier, or offset
+ * values, false otherwise.
+ */
+bool
 UnitDefinition::isVariantOfMass () const
 {
   bool result = false;
@@ -227,8 +224,9 @@ UnitDefinition::isVariantOfMass () const
   }
 
   return result;
-
 }
+
+
 /**
  * Adds a copy of the given Unit to this UnitDefinition.
  */
@@ -453,26 +451,13 @@ ListOfUnitDefinitions::getElementName () const
 
 
 /**
- * returns expected position of ListOfUnitDefinitions in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfUnitDefinitions::getElementPosition() const
+ListOfUnitDefinitions::getElementPosition () const
 {
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  int position = 1;
-  /**
-   * the expected position of each element depends on the level and version
-   * and also on whether other preceding elements have been declared
-   * since other elements are optional 
-   */
-
-  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
-    position++;
-
-  return position;
-
+  return 2;
 }
 
 
@@ -668,18 +653,6 @@ int
 UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud)
 {
   return static_cast<int>( ud->isVariantOfVolume() );
-}
-
-/**
- * @return non-zero if this UnitDefinition is a variant of mass
- * i.e. gram or kilogram with only abritrary variations in
- * scale, multiplier, or offset values, zero otherwise.
- */
-LIBSBML_EXTERN
-int
-UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud)
-{
-  return static_cast<int>( ud->isVariantOfMass() );
 }
 
 

@@ -251,9 +251,10 @@ public:
   virtual const std::string& getElementName () const;
 
   /**
-   * returns expected position of Kinetic Law in the reaction
+   * @return the ordinal position of the element with respect to its
+   * siblings or -1 (default) to indicate the position is not significant.
    */
-  virtual int getElementPosition(unsigned int) const;
+  virtual int getElementPosition () const;
 
   /**
    * Subclasses should override this method to write out their contained

@@ -451,31 +451,15 @@ KineticLaw::getElementName () const
 
 
 /**
-  * returns expected position of Kinetic Law in the reaction
-  */
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
+ */
 int
-KineticLaw::getElementPosition(unsigned int reactionNo) const
+KineticLaw::getElementPosition () const
 {
-  int position = 1;
-  /**
-   * the expected position of each element depends on the type
-   * and any lists ahead
-   */
-
-  const Reaction * r = this->getSBMLDocument()->getModel()->getReaction(reactionNo-1);
-
-  if (r->getNumReactants() != 0)
-    position++;
-  
-  if (r->getNumProducts() != 0)
-    position++;
-
-  if (r->getNumModifiers() != 0)
-    position++;
-
-  return position;
-
+  return 4;
 }
+
 
 /**
  * @return the SBML object corresponding to next XMLToken in the
@@ -504,6 +488,8 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
 
   if (name == "math")
   {
+    if (getNumParameters() > 0) mSBML->getErrorLog()->logError(21122);
+
     delete mMath;
     mMath = readMathML(stream);
     read  = true;

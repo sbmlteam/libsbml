@@ -439,13 +439,17 @@ Event::createObject (XMLInputStream& stream)
 bool
 Event::readOtherXML (XMLInputStream& stream)
 {
-  bool          read = false;
-  const string& name = stream.peek().getName();
+  bool          read  = false;
+  bool          error = false;
+  const string& name  = stream.peek().getName();
 
 
   if (name == "trigger")
   {
+    error               = (getNumEventAssignments() > 0 || isSetDelay());
     const XMLToken elem = stream.next();
+
+    stream.skipText();
 
     delete mTrigger;
     mTrigger = readMathML(stream);
@@ -455,7 +459,10 @@ Event::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "delay")
   {
+    error               = (getNumEventAssignments() > 0);
     const XMLToken elem = stream.next();
+
+    stream.skipText();
 
     delete mDelay;
     mDelay = readMathML(stream);
@@ -463,6 +470,8 @@ Event::readOtherXML (XMLInputStream& stream)
 
     stream.skipPastEnd(elem);
   }
+
+  if (error) mSBML->getErrorLog()->logError(21205);
 
   return read;
 }
@@ -596,56 +605,13 @@ ListOfEvents::getElementName () const
 
 
 /**
- * returns expected position of ListOfEvents in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfEvents::getElementPosition() const
+ListOfEvents::getElementPosition () const
 {
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  int position = 1;
-  /**
-   * the expected position of each element depends on the level and version
-   * and also on whether other preceding elements have been declared
-   * since other elements are optional 
-   */
-
-  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumCompartmentTypes() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumSpeciesTypes() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumCompartments() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumSpecies() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumParameters() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumInitialAssignments() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumRules() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumConstraints() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumReactions() != 0)
-    position++;
-
-  return position;
-
+  return 12;
 }
 
 

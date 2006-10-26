@@ -1669,12 +1669,13 @@ Model::writeElements (XMLOutputStream& stream) const
 
 
 /**
- * returns expected position of compartment in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-Model::getElementPosition()
+Model::getElementPosition () const
 {
-  return -1;
+  return 2;
 }
 
 

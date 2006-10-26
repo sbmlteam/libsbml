@@ -344,23 +344,13 @@ ListOfFunctionDefinitions::getElementName () const
 
 
 /**
- * returns expected position of ListOfFunctionDefinitions in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfFunctionDefinitions::getElementPosition() const
+ListOfFunctionDefinitions::getElementPosition () const
 {
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  int position = 1;
-  /**
-   * the expected position of each element depends on the level and version
-   * and also on whether other preceding elements have been declared
-   * since other elements are optional 
-   */
-
-  return position;
-
+  return 1;
 }
 
 

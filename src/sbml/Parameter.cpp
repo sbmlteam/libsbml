@@ -436,73 +436,13 @@ ListOfParameters::getElementName () const
 
 
 /**
- * returns expected position of ListOfParameters in a model
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfParameters::getElementPosition() const
+ListOfParameters::getElementPosition () const
 {
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  int position = 1;
-  /**
-   * the expected position of each element depends on the level and version
-   * and also on whether other preceding elements have been declared
-   * since other elements are optional 
-   */
-
-  if (this->getSBMLDocument()->getModel()->getNumFunctionDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumUnitDefinitions() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumCompartmentTypes() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumSpeciesTypes() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumCompartments() != 0)
-    position++;
-
-  if (this->getSBMLDocument()->getModel()->getNumSpecies() != 0)
-    position++;
-
-  return position;
-
-}
-
-
-/**
- * returns expected position of ListOfParameters in a kinetic law
- */
-int
-ListOfParameters::getElementPosition(unsigned int reactionNo) const
-{
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  int position = 1;
-  /**
-   * the expected position of each element depends on the type
-   * and any lists ahead
-   */
-
-  const Reaction * r = this->getSBMLDocument()->getModel()->getReaction(reactionNo-1);
-
-  /**
-   * in a level 1 model the kineticLaw is a formula NOT mathML
-   * and so is not counted as an element
-   */
-  if (level == 2) 
-  {
-    if (r->isSetKineticLaw() && r->getKineticLaw()->isSetMath())
-      position++;
-  }
-  
-  return position;
-
+  return 7;
 }
 
 

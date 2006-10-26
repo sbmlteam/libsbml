@@ -46,8 +46,9 @@ using namespace std;
  */
 EventAssignment::EventAssignment (  const string& variable
                                   , const string& formula  ) :
-   SBase( variable )
- , mMath( SBML_parseFormula( formula.c_str() ) )
+   SBase   ( variable )
+ , mSBOTerm( -1       )
+ , mMath   ( SBML_parseFormula( formula.c_str() ) )
 {
 }
 
@@ -58,8 +59,9 @@ EventAssignment::EventAssignment (  const string& variable
  */
 EventAssignment::EventAssignment (const string& variable, const ASTNode* math)
  :
-   SBase( variable )
- , mMath( 0        )
+   SBase   ( variable )
+ , mSBOTerm( -1       )
+ , mMath   ( 0        )
 {
   if (math) mMath = math->deepCopy();
 }
@@ -69,8 +71,9 @@ EventAssignment::EventAssignment (const string& variable, const ASTNode* math)
  * Copies this EventAssignment.
  */
 EventAssignment::EventAssignment (const EventAssignment& rhs) :
-   SBase( rhs )
- , mMath( 0   )
+   SBase   ( rhs )
+ , mSBOTerm( -1  )
+ , mMath   ( 0   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -359,27 +362,13 @@ ListOfEventAssignments::getElementName () const
 
 
 /**
- * returns expected position of ListOfEventAssignments in a event
+ * @return the ordinal position of the element with respect to its
+ * siblings or -1 (default) to indicate the position is not significant.
  */
 int
-ListOfEventAssignments::getElementPosition(unsigned int eventNo) const
+ListOfEventAssignments::getElementPosition () const
 {
-  int position = 1;
-  /**
-   * the expected position of each element depends on the type
-   * and any lists ahead
-   */
-
-  const Event * e = this->getSBMLDocument()->getModel()->getEvent(eventNo-1);
-
-  if (e->isSetTrigger())
-    position++;
-
-  if (e->isSetDelay())
-    position++;
-
-  return position;
-
+  return 3;
 }
 
 

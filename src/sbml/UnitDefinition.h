@@ -109,21 +109,20 @@ public:
    */
   bool isVariantOfVolume () const;
 
-
   /**
    * @return true if this UnitDefinition is a variant of dimensionless
-   * i.e. dimensionless with only abritrary variations in
-   * scale, multiplier, or offset values, false otherwise.
+   * i.e. dimensionless with only abritrary variations in scale,
+   * multiplier, or offset values, false otherwise.
    */
   bool isVariantOfDimensionless () const;
 
-
   /**
-   * @return true if this UnitDefinition is a variant of mass
-   * i.e. gram or kilogram with only abritrary variations in
-   * scale, multiplier, or offset values, false otherwise.
+   * @return true if this UnitDefinition is a variant of mass i.e. gram or
+   * kilogram with only abritrary variations in scale, multiplier, or
+   * offset values, false otherwise.
    */
   bool isVariantOfMass () const;
+
 
   /**
    * Adds a copy of the given Unit to this UnitDefinition.
@@ -243,9 +242,11 @@ public:
   virtual const std::string& getElementName () const;
 
   /**
-   * returns expected position of ListOfUnitDefinitions in the model
+   * @return the ordinal position of the element with respect to its
+   * siblings or -1 (default) to indicate the position is not significant.
    */
-  virtual int getElementPosition() const;
+  virtual int getElementPosition () const;
+
 
 protected:
 

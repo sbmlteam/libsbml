@@ -364,6 +364,17 @@ SBMLDocument::getElementName () const
 
 
 /**
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
+ */
+int
+SBMLDocument::getElementPosition () const
+{
+  return 1;
+}
+
+
+/**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */

@@ -34,9 +34,7 @@
 #include <sbml/util/util.h>
 
 #include "SBMLDocument.h"
-#include "Model.h"
-#include "KineticLaw.h"
-#include "SBMLTypeCodes.h"
+#include "ListOf.h"
 #include "SBase.h"
 
 
@@ -55,7 +53,6 @@ SBase::SBase (const string& id, const string& name) :
  , mSBML      ( 0 )
  , mLine      ( 0 )
  , mColumn    ( 0 )
- //, inReaction ( 0 )
 {
 }
 
@@ -349,12 +346,6 @@ SBase::getElementPosition () const
   return -1;
 }
 
-int
-SBase::getElementPosition (unsigned int n) const
-{
-  return -1;
-}
-
 
 /**
  * @return the SBMLErrorLog used to log errors during while reading and
@@ -415,17 +406,6 @@ SBase::toSBML ()
 void
 SBase::read (XMLInputStream& stream)
 {
-  /* flags for ordering checks */
-  static unsigned int inReaction = 0;
-  static unsigned int inKineticLaw = 0;
-  static unsigned int inConstraint = 0;
-  static unsigned int inEvent = 0;
-  static unsigned int inUnitDefinition = 0;
-  static unsigned int ignoreMath = 0;
-  static unsigned int reactionNo = 0;
-  static unsigned int constraintNo = 0;
-  static unsigned int eventNo = 0;
-
   if ( !stream.peek().isStart() ) return;
 
   const XMLToken  element  = stream.next();
@@ -434,28 +414,7 @@ SBase::read (XMLInputStream& stream)
   setSBaseFields( element );
   readAttributes( element.getAttributes() );
 
-  if ( element.isEnd() ) 
-  {
-    /* catch case where element ends on same line as start */
-    if (!strcmp(element.getName().c_str(), "reaction"))
-      inReaction = 0;
-    else if (!strcmp(element.getName().c_str(), "kineticLaw"))
-      inKineticLaw = 0;
-    else if (!strcmp(element.getName().c_str(), "constraint"))
-      inConstraint = 0;
-    else if (!strcmp(element.getName().c_str(), "event"))
-      inEvent = 0;
-    else if (!strcmp(element.getName().c_str(), "unitDefinition"))
-      inUnitDefinition = 0;
-    else if (!strcmp(element.getName().c_str(), "rateRule")
-      || !strcmp(element.getName().c_str(), "algebraicRule")
-      || !strcmp(element.getName().c_str(), "assignmentRule")
-      || !strcmp(element.getName().c_str(), "functionDefinition")
-      || !strcmp(element.getName().c_str(), "initialAssignment"))
-      ignoreMath = 0;
-
-    return;
-  }
+  if ( element.isEnd() ) return;
 
   while ( stream.isGood() )
   {
@@ -464,24 +423,6 @@ SBase::read (XMLInputStream& stream)
 
     if ( next.isEndFor(element) )
     {
-      /* unset flags */
-      if (!strcmp(element.getName().c_str(), "reaction"))
-        inReaction = 0;
-      else if (!strcmp(element.getName().c_str(), "kineticLaw"))
-        inKineticLaw = 0;
-      else if (!strcmp(element.getName().c_str(), "constraint"))
-        inConstraint = 0;
-      else if (!strcmp(element.getName().c_str(), "event"))
-        inEvent = 0;
-      else if (!strcmp(element.getName().c_str(), "unitDefinition"))
-        inUnitDefinition = 0;
-      else if (!strcmp(element.getName().c_str(), "rateRule")
-        || !strcmp(element.getName().c_str(), "algebraicRule")
-        || !strcmp(element.getName().c_str(), "assignmentRule")
-        || !strcmp(element.getName().c_str(), "functionDefinition")
-        || !strcmp(element.getName().c_str(), "initialAssignment"))
-        ignoreMath = 0;
-
       stream.next();
       break;
     }
@@ -489,237 +430,23 @@ SBase::read (XMLInputStream& stream)
     {
       SBase* object = createObject(stream);
 
-      /* need to catch other xml elements to increment order counts */
-      if (!object)
-      {
-        if(!strcmp(next.getName().c_str(), "math"))
-        {
-          if(!ignoreMath) 
-          {
-            position = getCurrentElementPosition(object, inReaction, reactionNo,
-              inKineticLaw, inConstraint, constraintNo, inEvent, eventNo, inUnitDefinition);
-          
-            checkOrder( position, object,  mSBML->getErrorLog(), inReaction, 
-              reactionNo, inKineticLaw, inConstraint, constraintNo, inEvent, eventNo, inUnitDefinition);
-          }
-        }
-        else if(!strcmp(next.getName().c_str(), "trigger"))
-        {
-          position = getCurrentElementPosition(object, inReaction, reactionNo,
-            inKineticLaw, inConstraint, constraintNo, inEvent, eventNo, inUnitDefinition);
-        
-          checkOrder( position, object,  mSBML->getErrorLog(), inReaction, 
-            reactionNo, inKineticLaw, inConstraint, constraintNo, inEvent, eventNo, inUnitDefinition);
-        }
-       else if (!strcmp(next.getName().c_str(), "message"))
-        {
-          position = getCurrentElementPosition(object, inReaction, reactionNo,
-            inKineticLaw, inConstraint, constraintNo, inEvent, eventNo, inUnitDefinition);
-        
-          checkOrder( position, object,  mSBML->getErrorLog(), inReaction, 
-            reactionNo, inKineticLaw, inConstraint, constraintNo, inEvent, 
-            eventNo, inUnitDefinition, 1);
-        }
-       else if (!strcmp(next.getName().c_str(), "delay"))
-        {
-          position = getCurrentElementPosition(object, inReaction, reactionNo,
-            inKineticLaw, inConstraint, constraintNo, inEvent, eventNo, inUnitDefinition);
-        
-          checkOrder( position, object,  mSBML->getErrorLog(), inReaction, 
-            reactionNo, inKineticLaw, inConstraint, constraintNo, inEvent, 
-            eventNo, inUnitDefinition, 0, 1);
-        }
-      }
-
       if (object)
       {
-        /* set flags */
-        /* need to reset the count of reactions etc within model */
-        if (object->getTypeCode() == SBML_MODEL)
-        {
-          reactionNo = 0;
-          constraintNo = 0;
-          eventNo = 0;
-        }
-        else if (object->getTypeCode() == SBML_REACTION)
-        {
-          inReaction = 1;
-          reactionNo++;
-        }
-        else if (object->getTypeCode() == SBML_KINETIC_LAW)
-        {
-          inKineticLaw = 1;
-        }
-        else if (object->getTypeCode() == SBML_CONSTRAINT)
-        {
-          inConstraint = 1;
-          constraintNo++;
-        }
-        else if (object->getTypeCode() == SBML_EVENT)
-        {
-          inEvent = 1;
-          eventNo++;
-        }
-        else if (object->getTypeCode() == SBML_UNIT_DEFINITION)
-        {
-          inUnitDefinition = 1;
-        }
-        else if (object->getTypeCode() == SBML_RATE_RULE
-          || object->getTypeCode() == SBML_ASSIGNMENT_RULE
-          || object->getTypeCode() == SBML_ALGEBRAIC_RULE
-          || object->getTypeCode() == SBML_FUNCTION_DEFINITION
-          || object->getTypeCode() == SBML_INITIAL_ASSIGNMENT)
-        {
-          ignoreMath = 1;
-        }
-
-        position = getCurrentElementPosition(object, inReaction, reactionNo,
-          inKineticLaw, inConstraint, constraintNo, inEvent, eventNo, inUnitDefinition);
+        checkOrderAndLogError(object, position);
+        position = object->getElementPosition();
 
         object->mSBML = mSBML;
         object->read(stream);
-
-        checkOrder( position, object,  mSBML->getErrorLog(), inReaction, 
-          reactionNo, inKineticLaw, inConstraint, constraintNo, inEvent, 
-          eventNo, inUnitDefinition);
-
       }
       else if ( !readOtherXML(stream) )
       {
-        logUnrecognized(next);
+        mSBML->getErrorLog()->unrecognizedElement(next);
         stream.skipPastEnd( stream.next() );
       }
     }
   }
 }
 
-
-/**
-  * this function uses static variables to keep track of the position
-  * of each element being read into the Model
-  */
-int
-SBase::getCurrentElementPosition(SBase* object, unsigned int inReaction,
-                                 unsigned int reactionNo, unsigned int inKineticLaw,
-                                 unsigned int inConstraint, unsigned int constraintNo,
-                                 unsigned int inEvent, unsigned int eventNo,
-                                 unsigned int inUnitDefinition)
-{
-
-  static unsigned int countReact = 0;
-  static unsigned int countConst = 0;
-  static unsigned int countEvent = 0;
-  static unsigned int position_in_model = 0;
-  static unsigned int position_in_reaction = 0;
-  static unsigned int position_in_kl = 0;
-  static unsigned int position_in_constraint = 0;
-  static unsigned int position_in_event = 0;
-
-  /** reset the count of elements inside elements
-   * eg reaction, kineticLaw, constraint, event 
-   */
-  if (reactionNo > countReact)
-  {
-    countReact++;
-    position_in_reaction = 0;
-    position_in_kl = 0;
-  }
-  else if (constraintNo > countConst)
-  {
-    countConst++;
-    position_in_constraint = 0;
-  }
-  else if (eventNo > countEvent)
-  {
-    countEvent++;
-    position_in_event = 0;
-  }
-
-  /** math elements will be NULL but need to be counted */
-
-  if (!object)
-  {
-    if (inKineticLaw)
-    {
-      position_in_kl++;
-      return position_in_kl;
-    }
-
-    if (inConstraint)
-    {
-      position_in_constraint++;
-      return position_in_constraint;
-    }
-
-    if (inEvent)
-    {
-      position_in_event++;
-      return position_in_event;
-    }
-  }
-  /**
-  * to enable the order of certain elements to be checked
-  * we need to keep track of what position we are in
-  *
-  * objects created here will be either listOf or sbml objects
-  * to track order in the model we need to keep count of listOf
-  */
-  SBMLTypeCode_t type = object->getTypeCode();
-
-  switch(type)
-  {
-    case SBML_MODEL:
-      /* need to reset all position pointers */
-     countReact = 0;
-     countConst = 0;
-     countEvent = 0;
-     position_in_model = 0;
-     position_in_reaction = 0;
-     position_in_kl = 0;
-     position_in_constraint = 0;
-     position_in_event = 0;
-     return -1;
-    break;
-
-    case SBML_LIST_OF:
-      if (inReaction)
-      {
-        if (inKineticLaw)
-        {
-          ++position_in_kl;
-          return position_in_kl;
-        }
-        
-        ++position_in_reaction;
-        return position_in_reaction;
-      }
-      else if (inEvent)
-      {
-        ++position_in_event;
-        return position_in_event;
-      }
-      else if (inUnitDefinition)
-      {
-        return -1;
-      }
-      else
-      {
-        ++position_in_model;
-        return position_in_model;
-      }
-      break;
-    case SBML_KINETIC_LAW:
-      ++position_in_reaction;
-      return position_in_reaction;
-      break;
-    default:
-      return -1;
-      break;
-
-  }
-  
-
-}
 
 /**
  * Subclasses should override this method to read values from the given
@@ -779,199 +506,34 @@ SBase::writeElements (XMLOutputStream& stream) const
 
 
 /**
- * checks the order in which elements are read into a model
- * flags are necessary as it is only as the sbml is being read that
- * the order can be checked
+ * Checks that SBML element has was read in the proper order.  If object
+ * is not in the expected position, an error is logged.
  */
 void
-SBase::checkOrder (int position, SBase* object, SBMLErrorLog* log, 
-                   unsigned int inReaction, unsigned int reactionNo, 
-                   unsigned int inKineticLaw,
-                   unsigned int inConstraint, unsigned int constraintNo,
-                   unsigned int inEvent, unsigned int eventNo, 
-                   unsigned int inUnitDefinition,
-                   unsigned int messageFlag, unsigned int delayFlag)
+SBase::checkOrderAndLogError (SBase* object, int expected)
 {
-  const string msg1002 = "The order of subelements within Model must be the "
-    "following (where any one may be optional, but the ordering must be "
-    "maintained): listOfFunctionDefinitions, listOfUnitDefinitions, "
-    "listOfCompartmentTypes, listOfSpeciesTypes, listOfCompartments, "
-    "listOfSpecies, listOfParameters, listOfInitialAssignments, "
-    "listOfRules, listOfConstraints, listOfReactions and listOfEvents. "
-    "(References: L2V2 Section 4.2.)";
+  int actual = object->getElementPosition();
 
-  const string msg1608 = "The order of subelements within Reaction must be the "
-    "following: listOfReactants (optional), listOfProducts (optional), "
-    "listOfModifiers (optional), kineticLaw. (References: L2V2 Section 4.13.)";
-
-  const string msg1609 = "The order of subelements within KineticLaw must be "
-    "the following: math, listOfParameters. The listOfParameters is optional, "
-    "but if present, must follow math. (References: L2V2 Section 4.13.9.).";
-
-  const string msg2101 = "The order of subelements within Constraint must be "
-    "the following: math, message. The message element is optional, but if "
-    "present, must follow the math element. (References: L2V2 Section 4.12.)";
-
-  const string msg1804 = "The order of subelements within Event must be the "
-    "following: trigger, delay, listOfEventAssignments. The delay element "
-    "is optional, but if present, must follow trigger. "
-    "(References: L2V2 Section 4.14.)";
-
-  int expected_pos = -1;
-
-
-  /* inside reaction */
-  if (inReaction)
+  if (actual != -1 && actual < expected)
   {
-    if (inKineticLaw)
-    {
-      /* math element will be a null object */
-      if (!object)
-      {
-        expected_pos = 1;
-        
-        if (position != expected_pos)
-        {
-          log->add(XMLError(21122, msg1609));
-        }
-      }
-      else if (!strcmp(object->getElementName().c_str(), "listOfParameters"))
-      {
-        expected_pos = object->getElementPosition(reactionNo);
-        
-        if (position != expected_pos)
-        {
-          log->add(XMLError(21122, msg1609));
-        }
-      }
-      else
-      {
-        expected_pos = object->getElementPosition();
-        
-        if (expected_pos == -1)
-          return;
-        
-        if (position != expected_pos)
-        {
-          log->add(XMLError(21122, msg1609));
-        }
-      }
-    }
-    else if (!strcmp(object->getElementName().c_str(), "listOfReactants")
-      || !strcmp(object->getElementName().c_str(), "listOfProducts")
-      || !strcmp(object->getElementName().c_str(), "listOfModifiers"))
-    {
-      expected_pos = object->getElementPosition(reactionNo);
-      
-      if (position != expected_pos)
-      {
-        log->add(XMLError(21102, msg1608));
-      }
-    }
-    else
-    {
-      expected_pos = object->getElementPosition();
-      
-      if (expected_pos == -1)
-        return;
-        
-      if (position != expected_pos)
-      {
-        log->add(XMLError(21102, msg1608));
-      }
-    }
-  }
-  else if (inConstraint)
-  {
-      /* math and message element will be a null object 
-       * only need to check once 
-       */
-      if (!object)
-      {
-        if (messageFlag)
-        {
-          expected_pos = 2;
-        
-          if (position != expected_pos)
-          {
-            log->add(XMLError(21001, msg2101));
-          }
-       }
-     }
-  }
-  else if (inEvent)
-  {
-    /* math will be null */
-    if (!object)
-    {
-      if (delayFlag)
-      {
-        expected_pos = 2;
-                
-        if (position != expected_pos)
-        {
-          log->add(XMLError(21205, msg1804));
-        }
-      }
-    }
-    else if (!strcmp(object->getElementName().c_str(), "listOfEventAssignments"))
-    {
-      expected_pos = object->getElementPosition(eventNo);
-      
-      if (position != expected_pos)
-      {
-        log->add(XMLError(21205, msg1804));
-      }
-    }
-    else
-    {
-      expected_pos = object->getElementPosition();
-      
-      if (expected_pos == -1)
-        return;
-      
-      if (position != expected_pos)
-      {
-        log->add(XMLError(21205, msg1804));
-      }
-    }
- 
-  }
-  else if (inUnitDefinition)
-  {
-    return;
-  }
+    unsigned int error = 20202;
 
-  else
-  {
-    expected_pos = object->getElementPosition();
-
-    if (expected_pos == -1)
-      return;
-
-    if (position != expected_pos)
+    if (object->getTypeCode() == SBML_LIST_OF)
     {
-      log->add(XMLError(20202, msg1002));
+      SBMLTypeCode_t tc = static_cast<ListOf*>(object)->getItemTypeCode();
+
+      if (tc == SBML_SPECIES_REFERENCE || tc == SBML_MODIFIER_SPECIES_REFERENCE)
+      {
+        error = 21102;
+      }
     }
+
+    mSBML->getErrorLog()->logError(error);
   }
 }
 
 
 /**
-  * logs unrecognised xml element
-  */
-void 
-SBase::logUnrecognized(const XMLToken& next)
-{
-  string msg = "The element '";
-  msg += next.getName();
-  msg += "' is not recognised.";
-  
-  mSBML->getErrorLog()->add(XMLError(10102, msg));
-}
-
-
-  /**
  * @return the metaid of this SBML object.
  */
 LIBSBML_EXTERN

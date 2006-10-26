@@ -820,9 +820,10 @@ public:
   virtual void writeElements (XMLOutputStream& stream) const;
 
   /**
-   * returns expected position of compartment in a model
+   * @return the ordinal position of the element with respect to its
+   * siblings or -1 (default) to indicate the position is not significant.
    */
-  virtual int getElementPosition();
+  virtual int getElementPosition () const;
 
 
 #ifdef USE_LAYOUT
