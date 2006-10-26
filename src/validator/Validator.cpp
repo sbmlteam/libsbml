@@ -636,6 +636,12 @@ Validator::validate (const std::string& filename)
   SBMLReader    reader;
   SBMLDocument& d = *reader.readSBML(filename);
 
+
+  for (int n = 0; n < d.getNumErrors(); ++n)
+  {
+    logMessage( *d.getError(n) );
+  }
+
   return validate(d);
 }
 
