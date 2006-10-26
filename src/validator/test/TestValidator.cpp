@@ -110,7 +110,7 @@ struct ToId : public unary_function<XMLError, unsigned int>
 bool
 TestValidator::test (const TestFile& file)
 {
-  bool error = testReadSBML(file);
+  bool error = false;
 
   unsigned int id       = file.getConstraintId();
   unsigned int expected = file.getNumFailures();
@@ -154,34 +154,6 @@ TestValidator::test (const TestFile& file)
   mValidator.clearMessages();
 
   return error == false;
-}
-
-
-/**
- * Calls readSBML() with TestFile.  The readSBML() function reports basic
- * XML Validity and XML Schema errors.
- *
- * @return true if no errors were encountered, false otherwise.
- */
-bool
-TestValidator::testReadSBML (const TestFile& file)
-{
-  unsigned int  errors = 0;
-  unsigned int  id     = file.getConstraintId();
-  SBMLDocument& d      = *readSBML( file.getFullname().c_str() );
-
-  errors = d.getNumErrors();
-
-  if ( errors > 0 || isVerbose(id) )
-  {
-    cout << endl;
-    cout << "Error: " << file.getFilename() << endl;
-
-    d.printErrors(cout);
-    cout << endl;
-  }
-
-  return errors > 0;
 }
 
 

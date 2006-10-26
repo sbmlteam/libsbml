@@ -88,7 +88,7 @@ bool
 runL1Test (const TestFile& file)
 {
   L1CompatibilityValidator validator;
-  TestValidator        tester(validator);
+  TestValidator            tester(validator);
 
 
   validator.init();
