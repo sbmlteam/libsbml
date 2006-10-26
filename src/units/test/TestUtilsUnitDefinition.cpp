@@ -62,10 +62,11 @@ BEGIN_C_DECLS
 
 START_TEST(test_unitdefinition_simplify)
 {
-  UnitDefinition * ud = new UnitDefinition();
-  Unit * u = new Unit(UNIT_KIND_METRE);
-  Unit * u1 = new Unit(UNIT_KIND_DIMENSIONLESS);
-  Unit * u2 = new Unit(UNIT_KIND_METRE, 2);
+  UnitDefinition* ud = new UnitDefinition();
+
+  Unit* u  = new Unit(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(UNIT_KIND_DIMENSIONLESS);
+  Unit* u2 = new Unit(UNIT_KIND_METRE, 2);
 
   /* case with only one unit */
   ud->addUnit(u);
@@ -109,10 +110,11 @@ END_TEST
 
 START_TEST(test_unitdefinition_order)
 {
-  UnitDefinition * ud = new UnitDefinition();
-  Unit * u = new Unit(UNIT_KIND_METRE);
-  Unit * u1 = new Unit(UNIT_KIND_AMPERE);
-  Unit * u2 = new Unit(UNIT_KIND_HERTZ);
+  UnitDefinition* ud = new UnitDefinition();
+
+  Unit* u  = new Unit(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(UNIT_KIND_AMPERE);
+  Unit* u2 = new Unit(UNIT_KIND_HERTZ);
 
   ud->addUnit(u);
   ud->addUnit(u1);
@@ -131,10 +133,12 @@ END_TEST
 
 START_TEST(test_unitdefinition_convert_SI)
 {
-  UnitDefinition * ud = new UnitDefinition();
-  UnitDefinition * ud1 = new UnitDefinition();
-  Unit * u = new Unit(UNIT_KIND_JOULE);
-  Unit * u1 = new Unit(UNIT_KIND_NEWTON);
+  UnitDefinition* ud  = new UnitDefinition();
+  UnitDefinition* ud1 = new UnitDefinition();
+
+  Unit* u  = new Unit(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(UNIT_KIND_NEWTON);
+
   u1->setExponent(-1);
 
   ud->addUnit(u);
@@ -153,11 +157,12 @@ END_TEST
 
 START_TEST(test_unitdefinition_areIdentical)
 {
-  UnitDefinition * ud = new UnitDefinition();
-  UnitDefinition * ud1 = new UnitDefinition();
-  Unit * u = new Unit(UNIT_KIND_JOULE);
-  Unit * u1 = new Unit(UNIT_KIND_NEWTON);
-  Unit * u2 = new Unit(UNIT_KIND_METRE);
+  UnitDefinition* ud  = new UnitDefinition();
+  UnitDefinition* ud1 = new UnitDefinition();
+
+  Unit* u  = new Unit(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(UNIT_KIND_NEWTON);
+  Unit* u2 = new Unit(UNIT_KIND_METRE);
   
   ud->addUnit(u);
   ud->addUnit(u1);
@@ -182,11 +187,13 @@ END_TEST
 
 START_TEST(test_unitdefinition_areEquivalent)
 {
-  UnitDefinition * ud = new UnitDefinition();
-  UnitDefinition * ud1 = new UnitDefinition();
-  Unit * u = new Unit(UNIT_KIND_JOULE);
-  Unit * u1 = new Unit(UNIT_KIND_NEWTON);
-  Unit * u2 = new Unit(UNIT_KIND_METRE);
+  UnitDefinition* ud  = new UnitDefinition();
+  UnitDefinition* ud1 = new UnitDefinition();
+
+  Unit* u  = new Unit(UNIT_KIND_JOULE);
+  Unit* u1 = new Unit(UNIT_KIND_NEWTON);
+  Unit* u2 = new Unit(UNIT_KIND_METRE);
+
   u1->setExponent(-1);
 
   ud->addUnit(u);
@@ -217,11 +224,11 @@ create_suite_UtilsUnitDefinition (void)
   TCase *tcase = tcase_create("UtilsUnitDefinition");
  
 
-  tcase_add_test( tcase, test_unitdefinition_simplify     );
-  tcase_add_test( tcase, test_unitdefinition_order      );
-  tcase_add_test( tcase, test_unitdefinition_convert_SI       );
-  tcase_add_test( tcase, test_unitdefinition_areIdentical     );
-  tcase_add_test( tcase, test_unitdefinition_areEquivalent    );
+  tcase_add_test( tcase, test_unitdefinition_simplify      );
+  tcase_add_test( tcase, test_unitdefinition_order         );
+  tcase_add_test( tcase, test_unitdefinition_convert_SI    );
+  tcase_add_test( tcase, test_unitdefinition_areIdentical  );
+  tcase_add_test( tcase, test_unitdefinition_areEquivalent );
 
   suite_add_tcase(suite, tcase);
 

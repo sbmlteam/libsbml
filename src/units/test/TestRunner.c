@@ -115,8 +115,8 @@ main (void)
 
   SRunner *runner = srunner_create( create_suite_UtilsUnit() );
 
-  srunner_add_suite( runner, create_suite_UtilsUnitDefinition() );
-  srunner_add_suite( runner, create_suite_UnitFormulaFormatter() );
+  srunner_add_suite( runner, create_suite_UtilsUnitDefinition  () );
+  srunner_add_suite( runner, create_suite_UnitFormulaFormatter () );
   srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
   
   setTestDataDirectory();
