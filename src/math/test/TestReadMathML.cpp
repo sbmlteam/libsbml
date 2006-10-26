@@ -75,6 +75,8 @@ START_TEST (test_element_math)
   
 
   N = readMathMLFromString(s);
+
+  fail_unless(N != 0);
   fail_unless(N->getType() == AST_UNKNOWN);
 }
 END_TEST
