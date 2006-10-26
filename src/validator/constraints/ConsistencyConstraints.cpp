@@ -397,15 +397,28 @@ END_CONSTRAINT
 START_CONSTRAINT (20412, Unit, u)
 {
   msg =
-    "Celsius is removed as of SBML Level 2 Version 2. "
-    "Software tools should not generate models containing deprecated features. "
-    "(L2V2 Section 4.4).";
+    "The predefined unit \"Celsius\", previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level "
+    "2 Version 2 (References: L2V2 Section 4.4.)";
 
   pre( u.getLevel() == 2 && u.getVersion() == 2 );
   inv( u.isCelsius() == false );
 }
 END_CONSTRAINT
 
+/*
+START_CONSTRAINT (20412, Parameter, p)
+{
+  msg =
+    "The predefined unit \"Celsius\", previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level "
+    "2 Version 2 (References: L2V2 Section 4.4.)";
+
+  pre( p.getLevel() == 2 && p.getVersion() == 2 && p.isSetUnits()    );
+  inv( UnitKind_forName( p.getUnits().c_str() ) != UNIT_KIND_CELSIUS );
+}
+END_CONSTRAINT
+*/
 
 START_CONSTRAINT (20501, Compartment, c)
 {
@@ -631,18 +644,6 @@ START_CONSTRAINT (20603, Species, s)
 }
 END_CONSTRAINT
 
-/* removed for l2v2
-START_CONSTRAINT (1403, Species, s)
-{
-  msg =
-    "A Species with hasOnlySubstanceUnits='true' must not have an "
-    "initialConcentration (L2v1 Section 4.6.3).";
-
-  pre( s.getHasOnlySubstanceUnits() == true );
-  inv( !s.isSetInitialConcentration()       );
-}
-END_CONSTRAINT
-*/
 
 START_CONSTRAINT (20604, Species, s)
 {
@@ -677,8 +678,7 @@ START_CONSTRAINT (20605, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (  s.getLevel() == 2 
-    &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  s.getVersion() == 2)
   {
     inv_or( units == "length" );
     inv_or( units == "metre"  );
@@ -714,8 +714,7 @@ START_CONSTRAINT (20606, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (  s.getLevel() == 2 
-    &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  s.getVersion() == 2)
   {
     inv_or( units == "area" );
     inv_or( units == "dimensionless"  );
@@ -749,8 +748,7 @@ START_CONSTRAINT (20607, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (  s.getLevel() == 2 
-    &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  s.getVersion() == 2)
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
@@ -782,8 +780,7 @@ START_CONSTRAINT (20608, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless/gram/kilogram are allowable in L2V2 */
-  if (  s.getLevel() == 2 
-    &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  s.getVersion() == 2)
   {
     inv_or( units == "substance"      );
     inv_or( units == "item"           );
@@ -813,9 +810,8 @@ START_CONSTRAINT (20609, Species, s)
     "initial amount "
     "(L2v1 Section 4.6.3)";
 
-  pre(s.isSetInitialAmount());
-
-  inv (!s.isSetInitialConcentration());
+  pre(  s.isSetInitialAmount()        );
+  inv( !s.isSetInitialConcentration() );
 }
 END_CONSTRAINT
 
@@ -832,7 +828,7 @@ START_CONSTRAINT (20612, Species, s)
     "(L2V2 Section 4.7.2).";
 
   pre( s.getLevel() == 2 && s.getVersion() == 2 );
-  pre( s.isSetSpeciesType());
+  pre( s.isSetSpeciesType() );
 
   inv( m.getSpeciesType( s.getSpeciesType() ) != NULL );
 }
