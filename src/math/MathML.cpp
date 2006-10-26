@@ -464,7 +464,8 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 readMathML (ASTNode& node, XMLInputStream& stream)
 {
-  string msg2001 = "The only permitted MathML 2.0 elements in SBML Level 2 are "
+  const string msg10202 =
+    "The only permitted MathML 2.0 elements in SBML Level 2 are "
     "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
     "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
     "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
@@ -474,15 +475,18 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     "infinity, exponentiale, semantics, annotation, and annotation-xml. "
     "(References: L2V2 Section 3.5.1.)";
 
-  string msg2002 = "In the SBML subset of MathML 2.0, the MathML attribute "
+  const string msg2002 =
+    "In the SBML subset of MathML 2.0, the MathML attribute "
     "encoding is only permitted on csymbol. No other MathML elements may "
     "have a encoding attribute. (References: L2V2 Section 3.5.1.).";
 
-  string msg2003 = "In the SBML subset of MathML 2.0, the MathML attribute "
+  const string msg2003 =
+    "In the SBML subset of MathML 2.0, the MathML attribute "
     "definitionURL is only permitted on csymbol. No other MathML elements "
     "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.).";
 
-  string msg2004 = "In the SBML subset of MathML 2.0, the MathML attribute "
+  const string msg2004 =
+    "In the SBML subset of MathML 2.0, the MathML attribute "
     "type is only permitted on the cn construct. No other MathML elements "
     "may have a type attribute. (References: L2V2 Section 3.5.1.).";
 
@@ -491,40 +495,37 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   const XMLToken elem = stream.next ();
   const string&  name = elem.getName();
 
-
-  /* do checks for unauthorised attributes */
   static const int size = sizeof(MATHML_ELEMENTS) / sizeof(MATHML_ELEMENTS[0]);
 
   int  index = util_bsearchStringsI(MATHML_ELEMENTS, name.c_str(), 0, size - 1);
   bool found = (index < size);
+
   if (!found)
-    stream.getErrorLog()->add(XMLError(10202, msg2001));
-
-  string type = "";
-  elem.getAttributes().readInto("type", type);
-
-  string url = "";
-  elem.getAttributes().readInto("definitionURL", url);
-
-  string encoding = "";
-  elem.getAttributes().readInto("encoding", encoding);
-
-  if (strcmp(type.c_str(), ""))
   {
-    if (strcmp(name.c_str(), "cn"))
-      stream.getErrorLog()->add(XMLError(10206, msg2004));
+    stream.getErrorLog()->add( XMLError(10202, msg10202) );
   }
 
-  if (strcmp(encoding.c_str(), ""))
+  string encoding;
+  string type;
+  string url;
+
+  elem.getAttributes().readInto( "encoding"     , encoding );
+  elem.getAttributes().readInto( "type"         , type     );
+  elem.getAttributes().readInto( "definitionURL", url      );
+
+  if ( !type.empty() && name != "cn")
   {
-    if (strcmp(name.c_str(), "csymbol"))
-      stream.getErrorLog()->add(XMLError(10203, msg2002));
+    stream.getErrorLog()->add( XMLError(10206, msg2004) );
   }
 
-  if (strcmp(url.c_str(), ""))
+  if ( !encoding.empty() && name != "csymbol")
   {
-    if (strcmp(name.c_str(), "csymbol"))
-      stream.getErrorLog()->add(XMLError(10204, msg2003));
+    stream.getErrorLog()->add( XMLError(10203, msg2002) );
+  }
+
+  if ( !url.empty() && name != "csymbol")
+  {
+    stream.getErrorLog()->add( XMLError(10204, msg2003) );
   }
 
 
@@ -533,8 +534,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     if (name == "apply")
     {
       /* catch case where user has used <apply/> */
-      if (elem.isEndFor(elem))
-        return;
+      if (elem.isStart() && elem.isEnd()) return;
 
       readMathML(node, stream);
       if (node.isName()) node.setType(AST_FUNCTION);
@@ -1097,6 +1097,10 @@ readMathMLFromString (const char *xml)
   if (xml == 0) return 0;
 
   XMLInputStream stream(xml, false);
+  XMLErrorLog    log;
+
+  stream.setErrorLog(&log);
+
   return readMathML(stream);
 }
 
