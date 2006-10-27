@@ -611,8 +611,9 @@ OverDeterminedCheck::Recurse(std::string v)
 void
 OverDeterminedCheck::logOverDetermined (const Model& m, const IdList& unmatch)
 {
-  msg  = "SBML models cannot be overdetermined as defined in the specification."; 
-  msg += "See the detailed exposition of this rule in Section 4.11.5. ";
+  msg =
+    "The system of equations created from an SBML model must not be "
+    "overdetermined. (References: L2V2 Section 4.11.5.)";
 
   logFailure(m);
 }

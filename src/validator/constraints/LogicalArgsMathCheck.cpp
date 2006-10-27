@@ -43,8 +43,8 @@
 #include "LogicalArgsMathCheck.h"
 
 static const char* PREAMBLE =
-  "The arguments of the MathML logical operators and, or, xor, and not "
-  "must have boolean values. (References: L2V2 Section 3.5.6.)";
+    "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
+    "'not' must have boolean values. (References: L2V2 Section 3.5.8.)";
 
 using namespace std;
 

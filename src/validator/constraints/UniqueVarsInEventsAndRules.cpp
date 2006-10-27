@@ -36,9 +36,9 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "An identifier used as the value of the variable in an EventAssignment "
-  "cannot also appear as the value of a variable in an assignment rule "
-  "(L2V1 Section 4.10.5; L2V2 Section 4.1.4).";
+    "An identifier used as the value of 'variable' in an <eventAssignment> "
+    "cannot also appear as the value of 'variable' in an <assignmentRule>. "
+    "(References: L2V1 Section 4.10.5; L2V2 Section 4.14.)";
 
 
 /**

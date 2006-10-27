@@ -553,8 +553,16 @@ AssignmentCycles::logUndefined ( const SBase& object,
                                        const SBase& conflict )
 {
   msg =
-    "Cannot be cycles in InitialAssignment, AssignmentRules"
-    " and Reactions. The ";
+    "There must not be circular dependencies in the combined set of "
+    "<initialAssignment>, <assignmentRule> and <kineticLaw> definitions in a "
+    "model. Each of these constructs has the effect of assigning a value to "
+    "an identifier (i.e. the identifier given in the field 'symbol' in "
+    "<initialAssignment>, the field 'variable' in <assignmentRule>, and the "
+    "field 'id' on the <kineticLaw>'s enclosing <reaction>). Each of these "
+    "constructs computes the value using a mathematical formula. The formula "
+    "for a given identifier cannot make reference to a second identifier "
+    "whose own definition depends directly or indirectly on the first "
+    "identifier. (References: L2V2 Section 4.11.5.) The ";
 
   msg += SBMLTypeCode_toString( object.getTypeCode());
   msg += " with id '";

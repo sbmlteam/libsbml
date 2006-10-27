@@ -43,10 +43,10 @@
 #include "FunctionApplyMathCheck.h"
 
 static const char* PREAMBLE =
-  "Outside of a FunctionDefinition, if a ci element is the first element "
-  "within a MathML apply, then the ci’s value can only be chosen from the "
-  "set of identifiers of FunctionDefinitions defined in the SBML model. "
-  "(References: L2V2 Section 4.3.2.)";
+    "Outside of a <functionDefinition>, if a 'ci' element is the first "
+    "element within a MathML 'apply', then the 'ci''s value can only be "
+    "chosen from the set of identifiers of <functionDefinition>s defined in "
+    "the SBML model. (References: L2V2 Section 4.3.2.)";
 
 using namespace std;
 

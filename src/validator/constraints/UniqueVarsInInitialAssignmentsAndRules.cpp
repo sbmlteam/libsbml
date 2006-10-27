@@ -36,9 +36,9 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "An identifier used as the value of the symbol in an InitialAssignment "
-  "cannot also appear as the value of a variable in an assignment rule "
-  "(L2V2 Section 4.10).";
+    "The value of a 'symbol' field in any <initialAssignment> definition "
+    "cannot also appear as the value of a 'variable' field in an "
+    "<assignmentRule>. (References: L2V2 Section 4.10.)";
 
 
 /**

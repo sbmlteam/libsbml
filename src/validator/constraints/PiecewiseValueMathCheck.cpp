@@ -43,10 +43,11 @@
 #include "PiecewiseValueMathCheck.h"
 
 static const char* PREAMBLE =
-  "The types of values within piecewise operators should all be consistent: "
-  "the set of expressions that make up the first arguments of the piece and "
-  "otherwise operators within the same piecewise operator should all return "
-  "values of the same type. (References: L2V2 Section 3.5.6.)";
+    "The types of values within 'piecewise' operators should all be "
+    "consistent: the set of expressions that make up the first arguments of "
+    "the 'piece' and 'otherwise' operators within the same 'piecewise' "
+    "operator should all return values of the same type. (References: L2V2 "
+    "Section 3.5.8.)";
 
 using namespace std;
 

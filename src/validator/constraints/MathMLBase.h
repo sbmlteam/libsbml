@@ -137,7 +137,15 @@ protected:
    */
   bool checkNumericFunction (const Model& m, const ASTNode* node);
 
-  /* occasionally a mathML constraint will need to know which reaction
+  /**
+  * Checks that the math will uses numeric functions 
+  * forces recursion thru the AST tree
+  * 
+  * returns true if numeric functions; false otherwise
+  */
+  bool isNumericFunction(const Model & m, const ASTNode* node);
+
+ /* occasionally a mathML constraint will need to know which reaction
    * the kineticLaw it is testing comes from
    * or whether the math from an event is a trigger or a delay
    *

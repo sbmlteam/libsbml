@@ -44,9 +44,9 @@
 #include "LambdaMathCheck.h"
 
 static const char* PREAMBLE =
-  "MathML lambda elements are only permitted as the first element inside "
-  "the math element of a FunctionDefinition; they may not be used elsewhere "
-  "in an SBML model. (References: L2V2 Section 4.3.2.)";
+    "MathML 'lambda' elements are only permitted as the first element inside "
+    "the 'math' element of a <functionDefinition>; they may not be used "
+    "elsewhere in an SBML model. (References: L2V2 Section 4.3.2.)";
 
 using namespace std;
 

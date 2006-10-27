@@ -159,6 +159,14 @@ SBMLReader::readInternal (const char* content, bool isFile)
 {
   SBMLDocument* d = new SBMLDocument();
 
+  const char * msg10101 = 
+    "An SBML XML file must use UTF-8 as the character encoding. More "
+    "precisely, the 'encoding' attribute of the XML declaration at the "
+    "beginning of the XML data stream cannot have a value other than "
+    "'UTF-8'. An example valid declaration is "
+    "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
+    "4.1.)";
+
   // FIXME
   
   if (isFile && content && (util_file_exists(content) == false))
@@ -190,7 +198,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
     //else 
     if (stream.getEncoding() != "UTF-8")
     {
-      d->getErrorLog()->add( XMLError(10101, getMessage(SBML_READ_ERROR_NOT_UTF_8), 
+      d->getErrorLog()->add( XMLError(10101, msg10101, 
         XMLError::Error, "", 1, 1) );
     }
     else

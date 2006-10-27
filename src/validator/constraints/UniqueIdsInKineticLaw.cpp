@@ -36,8 +36,10 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "The ids of all Parameters within a KineticLaw must be unique "
-  "(L2v1 Sections 3.5 and 4.9.7).";
+    "The value of the 'id' field of each parameter defined locally within a "
+    "<kineticLaw> must be unique across the set of all such parameter "
+    "definitions in that <kineticLaw>. (References: L2V2 Sections 3.4.1 and "
+    "4.13.9; L2V1 Sections 3.4.1 and 4.13.5.)";
 
 
 /**

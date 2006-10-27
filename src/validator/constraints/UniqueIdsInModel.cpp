@@ -32,8 +32,13 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "Ids must be unique among FunctionDefinitions, Compartments, Species, "
-  "global Parameters, Reactions, and Events (L2v1 Section 3.5).";
+    "The value of the 'id' field on every instance of the following type of "
+    "object in a model must be unique: <model>, <functionDefinition>, "
+    "<compartmentType>, <compartment>, <speciesType>, <species>, <reaction>, "
+    "<speciesReference>, <modifierSpeciesReference>, <event>, and model-wide "
+    "<parameter>s. Note that <unitDefinition> and parameters defined inside "
+    "a reaction are treated separately. (References: L2V1 Section 3.5; L2V2 "
+    "Section 3.4)";
 
 
 /**

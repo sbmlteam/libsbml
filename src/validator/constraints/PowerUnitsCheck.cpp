@@ -40,6 +40,8 @@
 
 #include <sbml/units/UnitFormulaFormatter.h>
 
+#include <sbml/util/List.h>
+
 #include "PowerUnitsCheck.h"
 
 static const char* PREAMBLE =
@@ -89,6 +91,9 @@ PowerUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBase & 
 
   switch (type) 
   {
+    case AST_DIVIDE:
+      checkForPowersBeingDivided(m, node, sb);
+      break;
     case AST_POWER:
     case AST_FUNCTION_POWER:
 
@@ -193,6 +198,14 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
         logUnitConflict(node, sb);
       }
     }
+    else if (child->isFunction() || child->isOperator())
+    {
+      /* cannot test whether the value will be appropriate */
+      if (!areEquivalent(dim, tempUD1))
+      {
+        logUnitConflict(node, sb);
+      }
+    }
     /* power must be an integer
      * but need to check that it is not a real
      * number that is integral
@@ -241,4 +254,64 @@ PowerUnitsCheck::getMessage (const ASTNode& node, const SBase& object)
   msg << "invalid units.";
 
   return msg.str();
+}
+
+
+void 
+PowerUnitsCheck::checkForPowersBeingDivided (const Model& m, const ASTNode& node, 
+                              const SBase & sb)
+{
+  ASTNode* left = node.getLeftChild();
+  ASTNode* right = node.getRightChild();
+
+  if (left->getType() == AST_POWER || left->getType() == AST_FUNCTION_POWER)
+  {
+    if (right->getType() == AST_POWER || right->getType() == AST_FUNCTION_POWER)
+    {
+      /* have a power divided by a power */
+      /* check whether objects have same units */
+        UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+
+        UnitDefinition *tempUD, *tempUD1, *tempUD2, *tempUD3;
+        tempUD = unitFormat->getUnitDefinition(left->getLeftChild());
+        tempUD1 = unitFormat->getUnitDefinition(right->getLeftChild());
+        tempUD2 = unitFormat->getUnitDefinition(right->getRightChild());
+        tempUD3 = unitFormat->getUnitDefinition(left->getRightChild());
+
+        if (!areEquivalent(tempUD, tempUD1))
+        {
+          checkChildren(m, node, sb);
+        }
+        else
+        {
+          if(!areEquivalent(tempUD2, tempUD3))
+          {
+            logUnitConflict(node, sb);
+          }
+          else
+          {
+            /* create an ASTNode with pow(object, left_exp - right_exp) */
+            ASTNode *newPower = new ASTNode(AST_POWER);
+            ASTNode * newMinus = new ASTNode(AST_MINUS);
+            newMinus->addChild(left->getRightChild()->deepCopy());
+            newMinus->addChild(right->getRightChild()->deepCopy());
+            newPower->addChild(left->getLeftChild()->deepCopy());
+            newPower->addChild(newMinus);
+
+            checkUnitsFromPower(m, *newPower, sb);
+
+            delete newPower;
+          }
+        }
+
+    }
+    else
+    {
+      checkChildren(m, node, sb);
+    }
+  }
+  else 
+  {
+    checkChildren(m, node, sb);
+  }
 }

@@ -35,8 +35,10 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "The variables (LHS) for EventAssignments (within each Event) must be unique "
-  "(L2v1 erratum).";
+    "In each <event>, the value of the 'variable' field within every "
+    "<eventAssignment> definition must be unique across the set of all "
+    "<eventAssignment>s within that <event>. (References: L2V1 erratum 17; "
+    "L2V2 Section 4.14.)";
 
 
 /**

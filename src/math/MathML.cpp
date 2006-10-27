@@ -475,17 +475,17 @@ readMathML (ASTNode& node, XMLInputStream& stream)
     "infinity, exponentiale, semantics, annotation, and annotation-xml. "
     "(References: L2V2 Section 3.5.1.)";
 
-  const string msg2002 =
+  const string msg10203 =
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "encoding is only permitted on csymbol. No other MathML elements may "
     "have a encoding attribute. (References: L2V2 Section 3.5.1.).";
 
-  const string msg2003 =
+  const string msg10204 =
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "definitionURL is only permitted on csymbol. No other MathML elements "
     "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.).";
 
-  const string msg2004 =
+  const string msg10206 =
     "In the SBML subset of MathML 2.0, the MathML attribute "
     "type is only permitted on the cn construct. No other MathML elements "
     "may have a type attribute. (References: L2V2 Section 3.5.1.).";
@@ -515,17 +515,17 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   if ( !type.empty() && name != "cn")
   {
-    stream.getErrorLog()->add( XMLError(10206, msg2004) );
+    stream.getErrorLog()->add( XMLError(10206, msg10206) );
   }
 
   if ( !encoding.empty() && name != "csymbol")
   {
-    stream.getErrorLog()->add( XMLError(10203, msg2002) );
+    stream.getErrorLog()->add( XMLError(10203, msg10203) );
   }
 
   if ( !url.empty() && name != "csymbol")
   {
-    stream.getErrorLog()->add( XMLError(10204, msg2003) );
+    stream.getErrorLog()->add( XMLError(10204, msg10204) );
   }
 
 

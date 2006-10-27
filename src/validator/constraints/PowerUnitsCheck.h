@@ -92,6 +92,13 @@ protected:
 
 
 
+  /* HACK: until I rewrite the unit stuff
+   * if a mathml has pow(p, 0.5)/ pow (p, 0.5) then its valid
+   * at moment it will fire this constraint twice
+   */
+
+  void checkForPowersBeingDivided (const Model& m, const ASTNode& node, 
+                              const SBase & sb);
 };
 
 

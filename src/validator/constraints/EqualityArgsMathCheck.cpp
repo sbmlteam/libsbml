@@ -43,8 +43,9 @@
 #include "EqualityArgsMathCheck.h"
 
 static const char* PREAMBLE =
-  "The values of all arguments to eq and neq operators should have the "
-  "same type (either all boolean or all numeric). (References: L2V2 Section 3.5.6.)";
+    "The values of all arguments to 'eq' and 'neq' operators should have the "
+    "same type (either all boolean or all numeric). (References: L2V2 "
+    "Section 3.5.8.)";
 
 
 using namespace std;

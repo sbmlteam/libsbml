@@ -44,10 +44,11 @@
 #include "NumericReturnMathCheck.h"
 
 static const char* PREAMBLE =
-  "The followingMathML elements must yield numeric expressions: math in "
-  "KineticLaw, stoichiometryMath in SpeciesReference, math in InitialAssignment, "
-  "math in AssignmentRule, math in RateRule, math in AlgebraicRule, delay in "
-  "Event, and math in EventAssignment.";
+    "The MathML formulas in the following elements must yield numeric "
+    "expressions: 'math' in <kineticLaw>, 'stoichiometryMath' in "
+    "<speciesReference>, 'math' in <initialAssignment>, 'math' in "
+    "<assignmentRule>, 'math' in <rateRule>, 'math' in <algebraicRule>, and "
+    "'delay' in <event>, and 'math' in <eventAssignment>.";
 
 using namespace std;
 

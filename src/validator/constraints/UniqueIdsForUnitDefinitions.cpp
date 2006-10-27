@@ -34,7 +34,9 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "The ids of all UnitDefinitions must be unique. (L2v1 Section 4.4.1).";
+    "The value of the 'id' field of every <unitDefinition> must be unique "
+    "across the set of all <unitDefinition>s in the entire model. "
+    "(References: L2V2 Section 4.4; L2V1 Section 3.4.1 and 4.4.1.)";
 
 
 /**

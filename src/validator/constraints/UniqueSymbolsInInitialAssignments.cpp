@@ -34,7 +34,9 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "The symbols of all InitialAssignments must be unique. (L2v1 Section 4.4.1).";
+    "A given identifier cannot appear as the value of more than one 'symbol' "
+    "field across the set of <initialAssignment>s in a model. (References: "
+    "L2V2 Section 4.10.)";
 
 
 /**

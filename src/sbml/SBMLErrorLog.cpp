@@ -104,6 +104,11 @@ SBMLErrorLog::logError (unsigned int error)
 void
 SBMLErrorLog::unrecognizedElement (const XMLToken& element)
 {
-  string msg = "The element '" + element.getName() + "' is not recognised.";
+  string msg = "The element '" + element.getName() + "' is not recognised. "
+        "An SBML XML document must not contain undefined elements or attributes "
+    "in the SBML namespace. Documents containing unknown elements or "
+    "attributes placed in the SBML namespace do not conform to the SBML "
+    "Level 2 specification. (References: L2V2 Section 4.1.)";
+
   add( XMLError(10102, msg) );
 }

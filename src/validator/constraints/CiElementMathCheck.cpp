@@ -44,10 +44,11 @@
 #include "CiElementMathCheck.h"
 
 static const char* PREAMBLE =
-  "Outside of a FunctionDefinition, if a ci element is not the first element "
-  "within a MathML apply, then the ci’s value can only be chosen from the "
-  "set of identifiers of Species, Compartment, Parameter or Reaction objects "
-  "defined in the SBML model. (References: L2V2 Section 3.5.4.)";
+    "Outside of a <functionDefinition>, if a 'ci' element is not the first "
+    "element within a MathML 'apply', then the 'ci''s value can only be "
+    "chosen from the set of identifiers of <species>, <compartment>, "
+    "<parameter> or <reaction> objects defined in the SBML model. "
+    "(References: L2V2 Section 3.5.3.)";
 
 using namespace std;
 

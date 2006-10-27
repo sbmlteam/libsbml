@@ -43,8 +43,9 @@
 #include "ArgumentsUnitsCheck.h"
 
 static const char* PREAMBLE =
-  "The units of an expression used as an argument to a function must match "
-  "the units expected for the arguments of that function.";
+    "The units of the expressions used as arguments to a function call must "
+    "match the units expected for the arguments of that function. "
+    "(References: L2V2 Section 3.5.)";
 
 
 using namespace std;

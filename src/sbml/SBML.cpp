@@ -81,7 +81,7 @@ SBML::checkSBOTerm (int sboTerm)
 int
 SBML::readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
 {
-  const string msg0906 = "The value of a sboTerm attribute must have the data "
+  const string msg10308 = "The value of a sboTerm attribute must have the data "
     "type SBOTerm, which is a string consisting of the characters 'S', 'B', "
     "'O', ':' followed by exactly seven digits. (References: L2V2 Section 3.1.8.)";
 
@@ -92,7 +92,7 @@ SBML::readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
   }
   else if (!checkSBOTerm(attributes.getValue(index)))
   {
-    log->add(XMLError(10308, msg0906));
+    log->add(XMLError(10308, msg10308));
     return -1;
   }
   else

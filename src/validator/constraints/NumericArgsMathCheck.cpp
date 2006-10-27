@@ -43,11 +43,13 @@
 #include "NumericArgsMathCheck.h"
 
 static const char* PREAMBLE =
-  "The arguments to the following MathML constructs must have a numeric type: "
-  "plus, minus, times, divide, power, root, abs, exp, ln, log, floor, ceiling, "
-  "factorial, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, coth, "
-  "arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, arctanh, "
-  "arcsech, arccsch, arccoth. (References: L2V2 Section 3.5.6.)";
+    "The arguments to the following MathML constructs must have a numeric "
+    "type: 'plus', 'minus', 'times', 'divide', 'power', 'root', 'abs', "
+    "'exp', 'ln', 'log', 'floor', 'ceiling', 'factorial', 'sin', 'cos', "
+    "'tan', 'sec', 'csc', 'cot', 'sinh', 'cosh', 'tanh', 'sech', 'csch', "
+    "'coth', 'arcsin', 'arccos', 'arctan', 'arcsec', 'arccsc', 'arccot', "
+    "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. "
+    "(References: L2V2 Section 3.5.8.)";
 
 using namespace std;
 

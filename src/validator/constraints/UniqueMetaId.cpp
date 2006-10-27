@@ -35,7 +35,9 @@
 using namespace std;
 
 static const char* PREAMBLE =
-  "Metaids must be unique among all metaid values in a model (L2V2 Section 3.3.1).";
+    "Every 'metaid' field value must be unique across the set of all "
+    "'metaid' values in a model. (References: L2V2 Sections 3.3.1 and "
+    "3.1.6.)";
 
 
 /**

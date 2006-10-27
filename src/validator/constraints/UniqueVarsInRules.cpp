@@ -34,7 +34,10 @@ using namespace std;
 
 
 static const char* PREAMBLE =
-  "The variables (LHS) for Rules must be unique (L2v1 Section 4.8.4).";
+    "The value of the 'variable' field in all <assignmentRule> and "
+    "<rateRule> definitions must be unique across the set of all such rule "
+    "definitions in a model. (References: L2V1 Section 4.8.4; L2V2 Section "
+    "4.11.3.)";
 
 
 /**

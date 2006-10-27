@@ -89,9 +89,12 @@ FunctionReferredToExists::logUndefined ( const FunctionDefinition& fd,
                                        const string& varname )
 {
   msg =
-    "A FunctionDefinition may only reference function definitions "
-    "that have already been defined (L2V2 Section 4.3.2).  "
-    "The function '";
+    "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is the "
+    "first element within a MathML 'apply', then the 'ci''s value can only "
+    "be chosen from the set of identifiers of other SBML "
+    "<functionDefinition>s defined prior to that point in the SBML model. In "
+    "other words, forward references to user-functions are not permitted. "
+    "(References: L2V2 Section 4.3.2.)";
 
   msg += varname;
   msg += "' is not listed as the id of an existing FunctionDefinition.";

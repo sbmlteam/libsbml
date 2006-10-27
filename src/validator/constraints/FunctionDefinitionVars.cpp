@@ -86,8 +86,13 @@ FunctionDefinitionVars::logUndefined ( const FunctionDefinition& fd,
                                        const string& varname )
 {
   msg =
-    "A FunctionDefinition may only reference variables declared in its "
-    "list of bound variables (function parameters) (L2v1 Section 3.6.3).  "
+  msg =
+    "Inside the 'lambda' of a <functionDefinition>, if a 'ci' element is not "
+    "the first element within a MathML 'apply', then the 'ci''s value can "
+    "only be the value of a 'bvar' element declared in that 'lambda'. In "
+    "other words, all model entities referenced inside a function definition "
+    "must be passed arguments to that function. (References: L2V2 Section "
+    "4.3.2.)" 
     "The variable '";
 
   msg += varname;
