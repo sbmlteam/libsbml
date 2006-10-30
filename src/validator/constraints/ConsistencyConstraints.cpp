@@ -904,9 +904,7 @@ START_CONSTRAINT (20412, Unit, u)
 }
 END_CONSTRAINT
 
-/*
-// TO DO
-// NEED TO CATCH CELSIUS ON A PARAMETER
+
 START_CONSTRAINT (20412, Parameter, p)
 {
   msg =
@@ -918,7 +916,7 @@ START_CONSTRAINT (20412, Parameter, p)
   inv( UnitKind_forName( p.getUnits().c_str() ) != UNIT_KIND_CELSIUS );
 }
 END_CONSTRAINT
-*/
+
 
 // Compartment validation
 
