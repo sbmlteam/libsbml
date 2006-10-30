@@ -35,9 +35,9 @@
 
 
 #define START_CONSTRAINT(Id, Typename, Varname)                      \
-struct Constraint ## Id: public TConstraint<Typename>                \
+struct Constraint ## Typename ## Id: public TConstraint<Typename>    \
 {                                                                    \
-  Constraint ## Id (Validator& V) : TConstraint<Typename>(Id, V) { } \
+  Constraint ## Typename ## Id (Validator& V) : TConstraint<Typename>(Id, V) { } \
 protected:                                                           \
   void check_ (const Model& m, const Typename& Varname)
 
@@ -55,7 +55,7 @@ protected:                                                           \
 
 
 #define START_CONSTRAINT(Id, Typename, Varname) \
-  addConstraint( new Constraint ## Id (*this) ); \
+  addConstraint( new Constraint ## Typename ## Id (*this) ); \
   if (0) { const Model m; const Typename Varname; std::string msg;
 
 #define END_CONSTRAINT }
