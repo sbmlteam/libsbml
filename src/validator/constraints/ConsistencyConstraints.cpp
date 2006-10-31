@@ -540,6 +540,13 @@ START_CONSTRAINT (10551, Event, e)
   UnitDefinition * formulaUnits = new UnitDefinition();
   formulaUnits  = unitFormat->getUnitDefinition(e.getDelay());
 
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units of time
+   * so shouldnt fail the constraint
+   */
+  pre (formulaUnits->getNumUnits() == 1 && 
+    strcmp(UnitKind_toString(formulaUnits->getUnit(0)->getKind()), "dimensionless")); 
+
   UnitDefinition * timeUnits = 
     unitFormat->getUnitDefinitionFromEventTime(&e);
 
@@ -555,9 +562,16 @@ END_CONSTRAINT
 EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
 
 
+// SBML container validation
+
+// 20101: sbml namespace - TO DO
+// 20102: level declared and consistent - TO DO
+// 20103: version declared and consistent - TO DO
+
+
 // Model validation
 
-// 20201: must constain model - caught prioir to validation
+// 20201: must contain model - caught prior to validation
 
 // 20202: ordering - caught at read
 
