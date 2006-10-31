@@ -34,11 +34,12 @@
 #ifndef AddingConstraintsToValidator
 
 
-#define START_CONSTRAINT(Id, Typename, Varname)                      \
-struct Constraint ## Typename ## Id: public TConstraint<Typename>    \
-{                                                                    \
-  Constraint ## Typename ## Id (Validator& V) : TConstraint<Typename>(Id, V) { } \
-protected:                                                           \
+#define START_CONSTRAINT(Id, Typename, Varname)                   \
+struct Constraint ## Typename ## Id: public TConstraint<Typename> \
+{                                                                 \
+  Constraint ## Typename ## Id (Validator& V) :                   \
+    TConstraint<Typename>(Id, V) { }                              \
+protected:                                                        \
   void check_ (const Model& m, const Typename& Varname)
 
 #define END_CONSTRAINT };
@@ -54,7 +55,7 @@ protected:                                                           \
 #else
 
 
-#define START_CONSTRAINT(Id, Typename, Varname) \
+#define START_CONSTRAINT(Id, Typename, Varname)              \
   addConstraint( new Constraint ## Typename ## Id (*this) ); \
   if (0) { const Model m; const Typename Varname; std::string msg;
 
