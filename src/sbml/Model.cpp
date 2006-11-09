@@ -48,6 +48,7 @@ Model::Model (const string& id, const string& name) :
    SBase   ( id, name )
  , mSBOTerm( -1       )
 {
+    mFormulaUnitsData = new ListFormulaUnitsData;
 }
 
 
@@ -56,6 +57,12 @@ Model::Model (const string& id, const string& name) :
  */
 Model::~Model ()
 {
+  unsigned int size = getNumFormulaUnitsData();
+
+
+  while (size--) delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
+  delete static_cast<ListFormulaUnitsData *> (mFormulaUnitsData);
+
 }
 
 

@@ -51,6 +51,8 @@
 #include <sbml/Reaction.h>
 #include <sbml/Event.h>
 
+#include <sbml/units/FormulaUnitsData.h>
+
 
 class SBMLVisitor;
 
@@ -863,6 +865,73 @@ public:
 
 #endif  /* USE_LAYOUT */  
 
+  /**************************************************************
+   *
+   *  FUNCTIONS on ListFormulaDataUnits are all defined in
+   *  file units/FormulaUnitsData.cpp
+   *
+   **************************************************************/
+
+  /**
+   * Populates the ListFormulaDataUnits with the units of each 
+   * set of math encountered in the model
+   */
+  void createListFormulaUnitsData();
+
+  /**
+   * Adds a copy of the given FormulaUnitsData to this Model.
+   */
+  void addFormulaUnitsData (const FormulaUnitsData* e);
+
+  /**
+   * Creates a new FormulaUnitsData inside this Model and returns it.
+   */
+  FormulaUnitsData* createFormulaUnitsData ();
+
+  /**
+   * @return the list of FormulaUnitsData for this Model.
+   */
+  const ListFormulaUnitsData* getListFormulaUnitsData () const;
+
+  /**
+   * @return the list of FormulaUnitsData for this Model.
+   */
+  ListFormulaUnitsData* getListFormulaUnitsData ();
+
+
+  /**
+   * @return the nth FormulaUnitsData of this Model.
+   */
+  const FormulaUnitsData* getFormulaUnitsData (unsigned int n) const;
+
+  /**
+   * @return the nth FormulaUnitsData of this Model.
+   */
+  FormulaUnitsData* getFormulaUnitsData (unsigned int n);
+
+  /**
+   * @return the FormulaUnitsData in this Model with the given id and typecode
+   * or NULL if no such FormulaUnitsData exists.
+   */
+  const FormulaUnitsData* getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t) const;
+
+  /**
+   * @return the FormulaUnitsData in this Model with the given id and typecode
+   * or NULL if no such FormulaUnitsData exists.
+   */
+  FormulaUnitsData* getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t);
+
+  /**
+   * @return the number of FormulaUnitsData in this Model.
+   */
+  unsigned int getNumFormulaUnitsData () const;
+
+  /**
+  * returns true if the list has been populated, false otherwise
+  */
+  bool isWrittenFormulaUnitsData();
+
+
 
 protected:
 
@@ -901,6 +970,9 @@ protected:
   ListOfConstraints          mConstraints;
   ListOfReactions            mReactions;
   ListOfEvents               mEvents;
+
+  ListFormulaUnitsData*      mFormulaUnitsData;
+
 
 #ifdef USE_LAYOUT
   ListOfLayouts mLayouts;
