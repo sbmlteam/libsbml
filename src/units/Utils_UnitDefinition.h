@@ -57,11 +57,17 @@ void orderUnitDefinition(UnitDefinition *);
 LIBSBML_EXTERN
 UnitDefinition * convertToSI(UnitDefinition *);
 
+LIBSBML_EXTERN
+UnitDefinition * convertToSI(const UnitDefinition *);
+
 /** 
  * returns true if unit definitions are identical
  */
 LIBSBML_EXTERN
 int areIdentical(UnitDefinition *, UnitDefinition *);
+
+LIBSBML_EXTERN
+int areIdentical(const UnitDefinition *, const UnitDefinition *);
 
 /** 
  * returns true if unit definitions are equivalent
@@ -69,7 +75,17 @@ int areIdentical(UnitDefinition *, UnitDefinition *);
  * equivalent units
  */
 LIBSBML_EXTERN
-int areEquivalent(UnitDefinition *, UnitDefinition *);
+int areEquivalent(const UnitDefinition *, const UnitDefinition *);
+
+LIBSBML_EXTERN
+int areEquivalent(const UnitDefinition *, UnitDefinition *);
+
+/** 
+ * combines the unitDefinitions 
+ */
+LIBSBML_EXTERN
+void combine(UnitDefinition *, UnitDefinition *);
+
 
 #endif
 #endif  /* Utils_UnitDefinition_h */

@@ -155,7 +155,17 @@ public:
     * returns canIgnoreUndeclaredUnits value
     */
   unsigned int getCanIgnoreUndeclaredUnits();
-  
+
+  /**
+   * returns the undeclaredUnits flag
+   */
+  unsigned int getUndeclaredUnits();
+
+  /** 
+   * resets the undeclaredUnits and canIgnoreUndeclaredUnits flags
+   * since these will different for each math formula
+   */
+  void resetFlags();
 
 private:
   const Model * model;

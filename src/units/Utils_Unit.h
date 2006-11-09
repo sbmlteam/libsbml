@@ -58,6 +58,8 @@ void mergeUnits(Unit * unit1, Unit * unit2);
  */
 LIBSBML_EXTERN
 UnitDefinition * convertUnitToSI(Unit *);
+LIBSBML_EXTERN
+UnitDefinition * convertUnitToSI(const Unit *);
 
 /** 
  * returns true if units are identical

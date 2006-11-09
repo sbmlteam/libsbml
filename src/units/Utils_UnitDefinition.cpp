@@ -123,6 +123,29 @@ convertToSI(UnitDefinition * ud)
   return newUd;
 }
 
+LIBSBML_EXTERN
+UnitDefinition * 
+convertToSI(const UnitDefinition * ud)
+{
+  unsigned int n, p;
+  UnitDefinition * newUd = new UnitDefinition();
+  UnitDefinition * tempUd;
+
+  newUd->setId(ud->getId());
+  newUd->setName(ud->getName());
+
+  for (n = 0; n < ud->getNumUnits(); n++)
+  {
+    tempUd = convertUnitToSI(ud->getUnit(n));
+    for (p = 0; p < tempUd->getNumUnits(); p++)
+    {
+      newUd->addUnit(tempUd->getUnit(p));
+    }
+  }
+
+  simplifyUnitDefinition(newUd);
+  return newUd;
+}
 
 /** 
   * returns the unitDefinition with unit kinds in alphabetical order
@@ -138,7 +161,7 @@ orderUnitDefinition(UnitDefinition *ud)
   unsigned int n, p;
   ListOfUnits * units = ud->getListOfUnits();
   Unit * unit;
-  unsigned int numUnits = ud->getNumUnits();
+  unsigned int numUnits = units->size();
 
   int *indexArray = NULL;
   indexArray = new int[units->size()];
@@ -217,12 +240,59 @@ areIdentical(UnitDefinition * ud1, UnitDefinition * ud2)
 
 
 /** 
+  * returns true if unit definitions are identical
+  */
+LIBSBML_EXTERN
+int 
+areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2)
+{
+  int identical = 0;
+  unsigned int n;
+
+  /* need to order the unitDefinitions so make copies */
+  UnitDefinition * ud1Temp = new UnitDefinition();//(UnitDefinition*) ud1->clone();
+  UnitDefinition * ud2Temp = new UnitDefinition();//(UnitDefinition*) ud2->clone();
+
+  for ( n = 0; n < ud1->getNumUnits(); n++)
+    ud1Temp->addUnit(ud1->getUnit(n));
+  for ( n = 0; n < ud2->getNumUnits(); n++)
+    ud2Temp->addUnit(ud2->getUnit(n));
+
+
+  if (ud1->getNumUnits() == ud2->getNumUnits())
+  {
+    orderUnitDefinition(ud1Temp);
+    orderUnitDefinition(ud2Temp);
+    
+    n = 0;
+    while (n < ud1->getNumUnits())
+    {
+      if (!areIdentical(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      {
+        break;
+      }
+      else
+      {
+        n++;
+      }
+    }
+    if (n == ud1->getNumUnits())
+    {
+      identical = 1;
+    }
+  }
+
+  return identical;
+}
+
+
+/** 
   * returns true if unit definitions are equivalent
   * i.e. having been converted to SI kinds/offsets are identical
   */
 LIBSBML_EXTERN
 int 
-areEquivalent(UnitDefinition * ud1, UnitDefinition * ud2)
+areEquivalent(const UnitDefinition * ud1, const UnitDefinition * ud2)
 {
   int equivalent = 0;
   unsigned int n;
@@ -254,4 +324,60 @@ areEquivalent(UnitDefinition * ud1, UnitDefinition * ud2)
   }
 
   return equivalent;
+}
+
+/** 
+  * returns true if unit definitions are equivalent
+  * i.e. having been converted to SI kinds/offsets are identical
+  */
+LIBSBML_EXTERN
+int 
+areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2)
+{
+  int equivalent = 0;
+  unsigned int n;
+
+  UnitDefinition * ud1Temp = convertToSI(ud1);
+  UnitDefinition * ud2Temp = convertToSI(ud2);
+
+  if (ud1Temp->getNumUnits() == ud2Temp->getNumUnits())
+  {
+    orderUnitDefinition(ud1Temp);
+    orderUnitDefinition(ud2Temp);
+    
+    n = 0;
+    while (n < ud1Temp->getNumUnits())
+    {
+      if (!areEquivalent(ud1Temp->getUnit(n), ud2Temp->getUnit(n)))
+      {
+        break;
+      }
+      else
+      {
+        n++;
+      }
+    }
+    if (n == ud1Temp->getNumUnits())
+    {
+      equivalent = 1;
+    }
+  }
+
+  return equivalent;
+}
+
+
+
+/** 
+ * combines the unitDefinitions 
+ */
+LIBSBML_EXTERN
+void combine(UnitDefinition *ud1, UnitDefinition *ud2)
+{
+  for (unsigned int n = 0; n < ud2->getNumUnits(); n++)
+  {
+    ud1->addUnit(ud2->getUnit(n));
+  }
+
+  simplifyUnitDefinition(ud1);
 }

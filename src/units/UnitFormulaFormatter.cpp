@@ -1215,4 +1215,24 @@ UnitFormulaFormatter::getCanIgnoreUndeclaredUnits()
 }
 
 
+/** 
+  * returns undeclaredUnits value
+  */
+unsigned int 
+UnitFormulaFormatter::getUndeclaredUnits()
+{
+  return undeclaredUnits;
+}
+
+/** 
+  * resets the undeclaredUnits and canIgnoreUndeclaredUnits flags
+  * since these will different for each math formula
+  */
+void 
+UnitFormulaFormatter::resetFlags()
+{
+  undeclaredUnits = 0;
+  canIgnoreUndeclaredUnits = 0;
+}
+
 
