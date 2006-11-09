@@ -72,14 +72,13 @@ public:
 #endif  /* !SWIG */
 
 
-class List
+class LIBSBML_EXTERN List
 {
 public:
 
   /**
    * Creates a new List.
    */
-  LIBSBML_EXTERN
   List ();
 
   /**
@@ -93,14 +92,12 @@ public:
    * longer or ii) the list has no items (List.size() == 0).  If neither
    * are true, try List_freeItems() instead.
    */
-  LIBSBML_EXTERN
   virtual ~List ();
 
 
   /**
    * Adds item to the end of this List.
    */
-  LIBSBML_EXTERN
   void add (void *item);
 
   /**
@@ -114,7 +111,6 @@ public:
    * where a return value of non-zero represents true and zero represents
    * false.
    */
-  LIBSBML_EXTERN
   unsigned int countIf (ListItemPredicate  predicate) const;
 
   /**
@@ -130,7 +126,6 @@ public:
    *    0    item1 == item 2
    *    1    item1 >  item2
    */
-  LIBSBML_EXTERN
   void* find (const void *item1, ListItemComparator comparator) const;
 
   /**
@@ -142,32 +137,27 @@ public:
    * The caller owns the returned list (but not its constituent items) and
    * is responsible for deleting it.
    */
-  LIBSBML_EXTERN
   List* findIf (ListItemPredicate  predicate) const;
 
   /**
    * Returns the nth item in this List.  If n > List.size() returns 0.
    */
-  LIBSBML_EXTERN
   void* get (unsigned int n) const;
 
   /**
    * Adds item to the beginning of this List.
    */
-  LIBSBML_EXTERN
   void prepend (void *item);
 
   /**
    * Removes the nth item from this List and returns a pointer to it.  If n
    * > List.size(), returns 0.
    */
-  LIBSBML_EXTERN
   void* remove (unsigned int n);
 
   /**
    * @return the number of elements in this List.
    */
-  LIBSBML_EXTERN
   unsigned int getSize () const;
 
 
