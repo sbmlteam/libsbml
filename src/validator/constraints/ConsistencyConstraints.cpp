@@ -27,8 +27,10 @@
 #include <string>
 
 #include <sbml/SBMLTypes.h>
+#include <sbml/SBMLTypeCodes.h>
 #include <sbml/validator/Constraint.h>
 #include <sbml/units/UnitFormulaFormatter.h>
+#include <sbml/units/FormulaUnitsData.h>
 
 #include <sbml/util/List.h>
 
@@ -148,25 +150,17 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   pre ( c != NULL);
   pre ( ar.isSetMath() == 1 );
 
-  // get the unitDefinition from the compartment and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
-  
-  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
 
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -185,25 +179,16 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   pre ( s != NULL);
   pre ( ar.isSetMath() == 1 );
 
-  // get the unitDefinition from the species and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
-  
-  pre (unitFormat->hasUndeclaredUnits(ar.getMath()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -221,26 +206,19 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
 
   pre ( p != NULL);
   pre ( ar.isSetMath() == 1 );
+  /* check that the parameter has units declared */
+  pre ( p->isSetUnits());
 
-  // get the unitDefinition from the parameter and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(ar.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
-
-  // special case where no units have been declared for parameter
-  pre (variableUnits->getNumUnits() != 0);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -260,25 +238,17 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
   pre ( c != NULL);
   pre ( ia.isSetMath() == 1 );
 
-  // get the unitDefinition from the compartment and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
+  const FormulaUnitsData * formulaUnits = 
+                                    m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(ia.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
-  
-  pre (unitFormat->hasUndeclaredUnits(ia.getMath()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -298,25 +268,17 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
   pre ( s != NULL);
   pre ( ia.isSetMath() == 1 );
 
-  // get the unitDefinition from the species and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
+  const FormulaUnitsData * formulaUnits = 
+                                    m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(ia.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
-  
-  pre (unitFormat->hasUndeclaredUnits(ia.getMath()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -335,26 +297,20 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
 
   pre ( p != NULL);
   pre ( ia.isSetMath() == 1 );
+  /* check that the parameter has units declared */
+  pre ( p->isSetUnits());
 
-  // get the unitDefinition from the parameter and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
+  const FormulaUnitsData * formulaUnits = 
+                                    m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
+  
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
-
-  formulaUnits  = unitFormat->getUnitDefinition(ia.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
-
-  // special case where no units have been declared for parameter
-  pre (variableUnits->getNumUnits() != 0);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -377,29 +333,17 @@ START_CONSTRAINT (10531, RateRule, rr)
   pre ( c != NULL);
   pre ( rr.isSetMath() == 1 );
 
-  // get the unitDefinition from the compartment and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
-  Unit * time = new Unit("second", -1);
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromCompartment(c);
-  
-  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                                           variableUnits->getPerTimeUnitDefinition()) == 1);
 
-  // add per time to the units from the compartment
-  variableUnits->addUnit(time);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
 }
 END_CONSTRAINT
 
@@ -419,30 +363,16 @@ START_CONSTRAINT (10532, RateRule, rr)
   pre ( s != NULL);
   pre ( rr.isSetMath() == 1 );
 
-  // get the unitDefinition from the species and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
-  Unit * time = new Unit("second", -1);
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromSpecies(s);
-  
-  pre (unitFormat->hasUndeclaredUnits(rr.getMath()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
-
-
-  // add per time to the units from the species
-  variableUnits->addUnit(time);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-  
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                                           variableUnits->getPerTimeUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -462,30 +392,19 @@ START_CONSTRAINT (10533, RateRule, rr)
 
   pre ( p != NULL);
   pre ( rr.isSetMath() == 1 );
+  /* check that the parameter has units declared */
+  pre ( p->isSetUnits());
 
-  // get the unitDefinition from the parameter and  
-  // that returned by the math formula 
-  //
-  UnitDefinition * variableUnits = new UnitDefinition();
-  UnitDefinition * formulaUnits = new UnitDefinition();
-  Unit * time = new Unit("second", -1);
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  formulaUnits  = unitFormat->getUnitDefinition(rr.getMath());
-  variableUnits = unitFormat->getUnitDefinitionFromParameter(p);
-
-  // special case where no units have been declared for parameter
-  pre (variableUnits->getNumUnits() != 0);
-  
-  // add per time to the units from the parameter
-  variableUnits->addUnit(time);
-
-  inv (areEquivalent(formulaUnits, variableUnits) == 1)
-  
-  delete unitFormat;
-  delete variableUnits;
-  delete formulaUnits;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                                           variableUnits->getPerTimeUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -499,25 +418,18 @@ START_CONSTRAINT (10541, KineticLaw, kl)
 
   pre ( kl.isSetMath() == 1 );
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(kl.getId(), 
+                                                                          SBML_KINETIC_LAW);
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData("subs_per_time", 
+                                                                              SBML_UNKNOWN);
 
-  pre (unitFormat->hasUndeclaredUnits(kl.getMath()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-  UnitDefinition * formulaUnits = new UnitDefinition();
-  
-  UnitDefinition * SubsTime = new UnitDefinition();
-  Unit * subs = new Unit("mole");
-  Unit * time = new Unit("second", -1);
-  SubsTime->addUnit(subs);
-  SubsTime->addUnit(time);
-
-
-  formulaUnits  = unitFormat->getUnitDefinition(kl.getMath());
-
-  inv (areEquivalent(formulaUnits, SubsTime) == 1)
-
-  delete unitFormat;
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                                           variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -532,27 +444,24 @@ START_CONSTRAINT (10551, Event, e)
 
   pre ( e.isSetDelay() == 1 );
 
-  UnitFormulaFormatter *unitFormat = new UnitFormulaFormatter(&m);
-
-  pre (unitFormat->hasUndeclaredUnits(e.getDelay()) == 0
-    || unitFormat->getCanIgnoreUndeclaredUnits() == 1);
-  
-  UnitDefinition * formulaUnits = new UnitDefinition();
-  formulaUnits  = unitFormat->getUnitDefinition(e.getDelay());
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(e.getId(), SBML_EVENT);
 
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units of time
    * so shouldnt fail the constraint
    */
-  pre (formulaUnits->getNumUnits() == 1 && 
-    strcmp(UnitKind_toString(formulaUnits->getUnit(0)->getKind()), "dimensionless")); 
+  pre (formulaUnits->getUnitDefinition()->getNumUnits() == 1 && 
+    strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
 
-  UnitDefinition * timeUnits = 
-    unitFormat->getUnitDefinitionFromEventTime(&e);
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
 
-    inv (areIdentical(formulaUnits, timeUnits) == 1)
+  inv (areIdentical(formulaUnits->getUnitDefinition(), 
+                                        formulaUnits->getEventTimeUnitDefinition()) == 1);
 
-  delete unitFormat;
 }
 END_CONSTRAINT
 
