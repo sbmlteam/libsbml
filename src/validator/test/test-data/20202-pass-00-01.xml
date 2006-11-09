@@ -18,7 +18,7 @@ listOfEvents. (References: L2V2 Section 4.2.)
     </listOfCompartments>
 
     <listOfSpecies>
-      <species id="s"/>
+      <species id="s" compartment="c"/>
     </listOfSpecies>
 
     <listOfParameters>

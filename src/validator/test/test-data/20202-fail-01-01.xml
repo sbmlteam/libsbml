@@ -14,7 +14,7 @@ listOfEvents. (References: L2V2 Section 4.2.)
   <model>
 
     <listOfSpecies>
-      <species id="s"/>
+      <species id="s" compartment="c"/>
     </listOfSpecies>
 
     <listOfCompartments>
