@@ -216,6 +216,45 @@ START_TEST(test_unitdefinition_areEquivalent)
 }
 END_TEST
 
+START_TEST(test_unitdefinition_combine)
+{
+  UnitDefinition* ud = new UnitDefinition();
+  UnitDefinition* ud1 = new UnitDefinition();
+
+  Unit* u  = new Unit(UNIT_KIND_METRE);
+  Unit* u1 = new Unit(UNIT_KIND_MOLE);
+  Unit* u2 = new Unit(UNIT_KIND_SECOND, 2);
+
+  ud->addUnit(u);
+  ud1->addUnit(u1);
+  
+  combine(ud, ud1);
+
+  fail_unless(ud->getNumUnits() == 2);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+
+  /* case with two units of same kind */
+  ud1->addUnit(u2);
+
+  combine(ud, ud1);
+
+  fail_unless(ud->getNumUnits() == 3);
+  fail_unless(ud->getUnit(0)->getKind() == UNIT_KIND_METRE);
+  fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_MOLE);
+  fail_unless(ud->getUnit(1)->getExponent() == 2);
+  fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_SECOND);
+  fail_unless(ud->getUnit(2)->getExponent() == 2);
+
+
+  delete u;
+  delete ud1;
+  delete u1;
+  delete u2;
+  delete ud;
+ }
+END_TEST
+
 
 Suite *
 create_suite_UtilsUnitDefinition (void) 
@@ -229,6 +268,7 @@ create_suite_UtilsUnitDefinition (void)
   tcase_add_test( tcase, test_unitdefinition_convert_SI    );
   tcase_add_test( tcase, test_unitdefinition_areIdentical  );
   tcase_add_test( tcase, test_unitdefinition_areEquivalent );
+  tcase_add_test( tcase, test_unitdefinition_combine );
 
   suite_add_tcase(suite, tcase);
 
