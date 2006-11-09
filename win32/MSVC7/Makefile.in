@@ -75,6 +75,7 @@ distfiles = \
   sbmlj.vcproj         \
   translateMath.vcproj \
   validateSBML.vcproj  \
+  printUnits.vcproj    \
   libsbml.sln          \
   libsbml_expat.sln    \
 Makefile.in

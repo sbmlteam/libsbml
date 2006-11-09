@@ -222,6 +222,9 @@
 				RelativePath="..\..\src\math\FormulaTokenizer.c">
 			</File>
 			<File
+				RelativePath="..\..\src\units\FormulaUnitsData.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\FunctionApplyMathCheck.cpp">
 			</File>
 			<File
