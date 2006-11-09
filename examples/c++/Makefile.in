@@ -83,6 +83,9 @@ echoSBML: echoSBML.cpp
 printSBML: printSBML.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
+printUnits: printUnits.cpp util.c
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
 readSBML: readSBML.cpp util.c
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
