@@ -28,6 +28,8 @@
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLVisitor.h>
 
+#include <sbml/units/FormulaUnitsData.h>
+
 #include "Constraint.h"
 #include "Validator.h"
 
@@ -613,6 +615,10 @@ Validator::validate (const SBMLDocument& d)
 {
   using namespace std;
   Model* m = const_cast<SBMLDocument&>(d).getModel();
+  
+  /* create list of formula units for validation */
+  if (!m->isWrittenFormulaUnitsData())
+    m->createListFormulaUnitsData();
 
   if (m != NULL)
   {
