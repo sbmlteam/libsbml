@@ -181,9 +181,6 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\Constraint.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\validator\Constraint.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -197,6 +194,9 @@
 						Name="VCCLCompilerTool"
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\Constraint.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.cpp">
@@ -260,6 +260,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\ListOf.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\LocalParameterMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.cpp">
@@ -573,6 +576,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\ListOf.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\LocalParameterMathCheck.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.h">

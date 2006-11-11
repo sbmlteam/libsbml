@@ -267,6 +267,9 @@
 				RelativePath="..\..\src\sbml\ListOf.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\LocalParameterMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\LogicalArgsMathCheck.cpp">
 			</File>
 			<File
