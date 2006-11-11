@@ -198,14 +198,12 @@ SBMLReader::readInternal (const char* content, bool isFile)
     //else 
     if (stream.getEncoding() != "UTF-8")
     {
-      d->getErrorLog()->add( XMLError(10101, msg10101, 
+      d->mSBML->getErrorLog()->add( XMLError(10101, msg10101, 
         XMLError::Error, "", 1, 1) );
     }
-    else
-    {
-      stream.setErrorLog( d->getErrorLog() );
-      d->read(stream);
-    }
+
+    stream.setErrorLog( d->getErrorLog() );
+    d->read(stream);
   }
   return d;
 }
