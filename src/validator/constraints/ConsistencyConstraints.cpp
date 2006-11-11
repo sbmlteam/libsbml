@@ -69,6 +69,7 @@
 #include "CiElementMathCheck.h"
 #include "LambdaMathCheck.h"
 #include "NumericReturnMathCheck.h"
+#include "LocalParameterMathCheck.h"
 
 #include "OverDeterminedCheck.h"
 
@@ -103,6 +104,7 @@ EXTERN_CONSTRAINT( 10212, PiecewiseValueMathCheck)
 EXTERN_CONSTRAINT( 10213, PieceBooleanMathCheck  )
 EXTERN_CONSTRAINT( 10214, FunctionApplyMathCheck )
 EXTERN_CONSTRAINT( 10215, CiElementMathCheck     )
+EXTERN_CONSTRAINT( 10216, LocalParameterMathCheck)
 
 
 // 10216: id of local parameter not visibe - TO DO

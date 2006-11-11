@@ -105,6 +105,7 @@ sources =                                     \
   EqualityArgsMathCheck.cpp                   \
   FunctionApplyMathCheck.cpp                  \
   CiElementMathCheck.cpp                      \
+  LocalParameterMathCheck.cpp				  \
   LambdaMathCheck.cpp                         \
   NumericReturnMathCheck.cpp                  \
   OverDeterminedCheck.cpp					  

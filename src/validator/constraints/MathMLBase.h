@@ -31,6 +31,7 @@
 
 #include <string>
 #include <sbml/validator/Constraint.h>
+#include "IdList.h"
 
 
 class ASTNode;
@@ -154,6 +155,9 @@ protected:
    */
   unsigned int mKLCount;
   unsigned int mIsTrigger;
+
+  IdList mLocalParameters;
+
 };
 
 

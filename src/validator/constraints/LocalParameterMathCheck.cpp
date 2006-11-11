@@ -1,6 +1,6 @@
 /**
- * \file    CiElementMathCheck.cpp
- * \brief   checks <ci> element is the id of a component
+ * \file    LocalParameterMathCheck.cpp
+ * \brief   checks <ci> element of local parameter not used elsewhere
  * \author  Sarah Keating
  *
  * $Id$
@@ -41,14 +41,13 @@
 
 #include <sbml/units/UnitFormulaFormatter.h>
 
-#include "CiElementMathCheck.h"
+#include "LocalParameterMathCheck.h"
 
 static const char* PREAMBLE =
-    "Outside of a <functionDefinition>, if a 'ci' element is not the first "
-    "element within a MathML 'apply', then the 'ci''s value can only be "
-    "chosen from the set of identifiers of <species>, <compartment>, "
-    "<parameter> or <reaction> objects defined in the SBML model. "
-    "(References: L2V2 Section 3.5.3.)";
+    "The 'id' value of a <parameter> defined within a <kineticLaw> can only "
+    "be used in 'ci' elements within the MathML content of that same "
+    "<kineticLaw>; the identifier is not visible to other parts of the "
+    "model. (References: L2V2 Section 3.5.3.)";
 
 using namespace std;
 
@@ -56,7 +55,7 @@ using namespace std;
 /**
  * Creates a new Constraint with the given id.
  */
-CiElementMathCheck::CiElementMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
+LocalParameterMathCheck::LocalParameterMathCheck (unsigned int id, Validator& v) : MathMLBase(id, v)
 {
 }
 
@@ -64,7 +63,7 @@ CiElementMathCheck::CiElementMathCheck (unsigned int id, Validator& v) : MathMLB
 /**
  * Destroys this Constraint.
  */
-CiElementMathCheck::~CiElementMathCheck ()
+LocalParameterMathCheck::~LocalParameterMathCheck ()
 {
 }
 
@@ -73,7 +72,7 @@ CiElementMathCheck::~CiElementMathCheck ()
  * @return the preamble to use when logging constraint violations.
  */
 const char*
-CiElementMathCheck::getPreamble ()
+LocalParameterMathCheck::getPreamble ()
 {
   return PREAMBLE;
 }
@@ -86,12 +85,13 @@ CiElementMathCheck::getPreamble ()
   * If an inconsistency is found, an error message is logged.
   */
 void
-CiElementMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
+LocalParameterMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
   ASTNodeType_t type = node.getType();
     
   /* if the node is a <ci> element it will have type AST_NAME
    * check that this name is an appropriate component of the model */
+    
   switch (type) 
   {
     case AST_NAME:
@@ -115,40 +115,35 @@ CiElementMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase 
   * If an inconsistency is found, an error message is logged.
   */
 void 
-CiElementMathCheck::checkCiElement (const Model& m, 
+LocalParameterMathCheck::checkCiElement (const Model& m, 
                                         const ASTNode& node, 
                                         const SBase & sb)
 {
   std::string name = node.getName();
   const KineticLaw * kl;
 
-  /* leave out this check if the ci element is a local parameter in a kineticLaw
-   * caught by LocalParameterMathCheck instead
-   */
-  if (!mLocalParameters.contains(name))
+  if (!m.getCompartment(name) &&
+      !m.getSpecies(name)     &&
+      !m.getParameter(name)   &&
+      !m.getReaction(name))
   {
-    if (!m.getCompartment(name) &&
-        !m.getSpecies(name)     &&
-        !m.getParameter(name)   &&
-        !m.getReaction(name))
+
+    /* check whether we are in a kinetic law since there
+     * may be local parameters to this law that are allowed
+     */
+
+    if (sb.getTypeCode() == SBML_KINETIC_LAW)
     {
-      /* check whether we are in a kinetic law since there
-      * may be local parameters
-      */
+      kl = m.getReaction(mKLCount)->getKineticLaw();
 
-      if (sb.getTypeCode() == SBML_KINETIC_LAW)
+      if (!kl->getParameter(name) && mLocalParameters.contains(name))
       {
-        kl = m.getReaction(mKLCount)->getKineticLaw();
-
-        if (!kl->getParameter(name))
-        {
-          logMathConflict(node, sb);
-        }
+        logMathConflict(node, sb);
       }
-      else
-      {
-          logMathConflict(node, sb);
-      }
+    }
+    else if (mLocalParameters.contains(name))
+    {
+        logMathConflict(node, sb);
     }
   }
     
@@ -163,16 +158,16 @@ CiElementMathCheck::checkCiElement (const Model& m,
  * in  conflict with an object previously defined.
  */
 const string
-CiElementMathCheck::getMessage (const ASTNode& node, const SBase& object)
+LocalParameterMathCheck::getMessage (const ASTNode& node, const SBase& object)
 {
 
   ostringstream msg;
 
   msg << getPreamble();
 
-  msg << "\nThe formula '" << SBML_formulaToString(&node);
+  msg << "\nThe formula '";
   msg << "' in the " << getFieldname() << " element of the " << getTypename(object);
-  msg << " uses '" << node.getName() << "' that is not the id of a species/compartment/parameter/reaction.";
+  msg << " uses '" << node.getName() << "' that is the id of a local parameter.";
 
   return msg.str();
 }

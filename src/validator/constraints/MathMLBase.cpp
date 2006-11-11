@@ -78,7 +78,20 @@ MathMLBase::getPreamble ()
 void
 MathMLBase::check_ (const Model& m, const Model& object)
 {
-  unsigned int n, ea, sr;
+  unsigned int n, ea, sr, p;
+
+  /* create a list of local parameters ids */
+  for (n = 0; n < m.getNumReactions(); n++)
+  {
+    if (m.getReaction(n)->isSetKineticLaw())
+    {
+      for (p = 0; p < m.getReaction(n)->getKineticLaw()->getNumParameters(); p++)
+      {
+        mLocalParameters.append(m.getReaction(n)->getKineticLaw()->getParameter(p)->getId());
+      }
+    }
+  }
+
   
   /* check all math within a model */
 
