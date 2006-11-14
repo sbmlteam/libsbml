@@ -33,6 +33,8 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLErrorLog.h>
 
+#include <sbml/SBMLErrorLog.h>
+
 #include <sbml/util/util.h>
 
 #include "ASTNode.h"
@@ -348,10 +350,6 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
-  string msg = "The only permitted values for the type attribute on MathML "
-    "cn elements are \"e-notation\", \"real\", \"integer\", and \"rational\". "
-    "(References: L2V2 Section 3.5.3.).";
-
   string type = "real";
   element.getAttributes().readInto("type", type);
 
@@ -403,7 +401,7 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   }
   else
   {
-    stream.getErrorLog()->add(XMLError(10207, msg));
+    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10207);
   }
 }
 
@@ -464,32 +462,6 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 static void
 readMathML (ASTNode& node, XMLInputStream& stream)
 {
-  const string msg10202 =
-    "The only permitted MathML 2.0 elements in SBML Level 2 are "
-    "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
-    "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
-    "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
-    "logbase, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, "
-    "coth, arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, "
-    "arctanh, arcsech, arccsch, arccoth, true, false, notanumber, pi, "
-    "infinity, exponentiale, semantics, annotation, and annotation-xml. "
-    "(References: L2V2 Section 3.5.1.)";
-
-  const string msg10203 =
-    "In the SBML subset of MathML 2.0, the MathML attribute "
-    "encoding is only permitted on csymbol. No other MathML elements may "
-    "have a encoding attribute. (References: L2V2 Section 3.5.1.).";
-
-  const string msg10204 =
-    "In the SBML subset of MathML 2.0, the MathML attribute "
-    "definitionURL is only permitted on csymbol. No other MathML elements "
-    "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.).";
-
-  const string msg10206 =
-    "In the SBML subset of MathML 2.0, the MathML attribute "
-    "type is only permitted on the cn construct. No other MathML elements "
-    "may have a type attribute. (References: L2V2 Section 3.5.1.).";
-
   stream.skipText();
  
   const XMLToken elem = stream.next ();
@@ -502,7 +474,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   if (!found)
   {
-    stream.getErrorLog()->add( XMLError(10202, msg10202) );
+    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10202);
   }
 
   string encoding;
@@ -515,17 +487,17 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   if ( !type.empty() && name != "cn")
   {
-    stream.getErrorLog()->add( XMLError(10206, msg10206) );
+    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10206);
   }
 
   if ( !encoding.empty() && name != "csymbol")
   {
-    stream.getErrorLog()->add( XMLError(10203, msg10203) );
+    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10203);
   }
 
   if ( !url.empty() && name != "csymbol")
   {
-    stream.getErrorLog()->add( XMLError(10204, msg10204) );
+    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10204);
   }
 
 

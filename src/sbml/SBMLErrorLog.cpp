@@ -83,6 +83,68 @@ SBMLErrorLog::logError (unsigned int error)
     "delay, listOfEventAssignments. The delay element is optional, but if "
     "present, must follow trigger. (References: L2V2 Section 4.14.)";
 
+  const string msg10309 =
+    "The syntax of 'metaid' field values must conform to the syntax of the "
+    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6.)";
+
+   const string msg10310 =
+   "The syntax of 'id' field values must conform to the syntax of the SBML "
+    "type 'SId'. (References: L2V2 Sections 3.1.7.)";
+
+   const string msg20203 =
+    "The 'listOf___' containers in a <model> are optional, but if present, "
+    "the lists cannot be empty. Specifically, if any of the following are "
+    "present in a <model>, they must not be empty: "
+    "'listOfFunctionDefinitions', 'listOfUnitDefinitions', "
+    "'listOfCompartmentTypes', 'listOfSpeciesTypes', 'listOfCompartments',  "
+    "'listOfSpecies', 'listOfParameters', 'listOfInitialAssignments', "
+    "'listOfRules', 'listOfConstraints', 'listOfReactions' and "
+    "'listOfEvents'. (References: This is a requirement stemming from the "
+    "XML Schema used for SBML.)";
+
+   const string msg20409 =
+    "The 'listOfUnits' container in a <unitDefinition> cannot be empty. "
+    "(References: L2V2 Section 4.4.)";
+  
+   const string msg21103 =
+    "The following containers are all optional in a <reaction>, but if any "
+    "present is, it must not be empty: 'listOfReactants', 'listOfProducts', "
+    "'listOfModifiers', 'kineticLaw'. (References: L2V2 Section 4.13.)";
+
+   const string msg21123 =
+    "If present, the 'listOfParameters' in a <kineticLaw> must not be an "
+    "empty list. (References: L2V2 Section 4.13.)";
+     
+  const string msg10202 =
+    "The only permitted MathML 2.0 elements in SBML Level 2 are "
+    "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
+    "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
+    "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
+    "logbase, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, "
+    "coth, arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, "
+    "arctanh, arcsech, arccsch, arccoth, true, false, notanumber, pi, "
+    "infinity, exponentiale, semantics, annotation, and annotation-xml. "
+    "(References: L2V2 Section 3.5.1.)";
+
+  const string msg10203 =
+    "In the SBML subset of MathML 2.0, the MathML attribute "
+    "encoding is only permitted on csymbol. No other MathML elements may "
+    "have a encoding attribute. (References: L2V2 Section 3.5.1.).";
+
+  const string msg10204 =
+    "In the SBML subset of MathML 2.0, the MathML attribute "
+    "definitionURL is only permitted on csymbol. No other MathML elements "
+    "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.).";
+
+  const string msg10206 =
+    "In the SBML subset of MathML 2.0, the MathML attribute "
+    "type is only permitted on the cn construct. No other MathML elements "
+    "may have a type attribute. (References: L2V2 Section 3.5.1.).";
+
+  const string msg10207 =
+    "The only permitted values for the 'type' attribute on MathML 'cn' "
+    "elements are 'e-notation', 'real', 'integer', and 'rational'. "
+    "(References: L2V2 Section 3.5.2.)";
 
   switch (error)
   {
@@ -91,6 +153,18 @@ SBMLErrorLog::logError (unsigned int error)
     case 21102: msg = msg21102; break;
     case 21122: msg = msg21122; break;
     case 21205: msg = msg21205; break;
+    case 10309: msg = msg10309; break;
+    case 10310: msg = msg10310; break;
+    case 20203: msg = msg20203; break;
+    case 20409: msg = msg20409; break;
+    case 21103: msg = msg21103; break;
+    case 21123: msg = msg21123; break;
+    case 10202: msg = msg10202; break;
+    case 10203: msg = msg10203; break;
+    case 10204: msg = msg10204; break;
+    case 10206: msg = msg10206; break;
+    case 10207: msg = msg10207; break;
+
     default:    msg = "Unrecognized error code."; break;
   }
 
