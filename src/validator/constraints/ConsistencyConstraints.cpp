@@ -105,10 +105,6 @@ EXTERN_CONSTRAINT( 10213, PieceBooleanMathCheck  )
 EXTERN_CONSTRAINT( 10214, FunctionApplyMathCheck )
 EXTERN_CONSTRAINT( 10215, CiElementMathCheck     )
 EXTERN_CONSTRAINT( 10216, LocalParameterMathCheck)
-
-
-// 10216: id of local parameter not visibe - TO DO
-
 EXTERN_CONSTRAINT( 10217, NumericReturnMathCheck )
 
 
@@ -122,9 +118,8 @@ EXTERN_CONSTRAINT( 10306, UniqueVarsInEventsAndRules   )
 EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 
 // 10308: SBO term - caught at read
-// 10309: syntax of metid - TO DO
-// 10310: sntax of id - TO DO
-
+// 10309: syntax of metid - caught at read but not finished TO DO
+// 10310: sntax of id - caught at read
 
 // General annotation validation
 
@@ -486,7 +481,7 @@ EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
 
 // 20202: ordering - caught at read
 
-// 20203: no empty listOf - TO DO
+// 20203: no empty listOf - caught at read
 
 START_CONSTRAINT (20204, Model, x)
 {
@@ -781,7 +776,7 @@ START_CONSTRAINT (20408, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-// 20409: ListofUnits cannot be empty - TO DO
+// 20409: ListofUnits cannot be empty - caught at read
 
 
 START_CONSTRAINT (20410, UnitDefinition, ud)
@@ -1473,9 +1468,9 @@ END_CONSTRAINT
 
 
 // 21102: ordering - caught at read
-// 21103: non empty listOf - TO DO
-// 21104: non empty listOf - TO DO
-// 21105: non empty listOf - TO DO
+// 21103: non empty listOf - caught at read apart from KineticLaw TO DO
+// 21104: listOfReactants/Products must be speciesReference - caught at read
+// 21105: listOfModifiers must be ModifierSppeciesreference - caught at read 
 
 
 // SpeciesReference Validation
