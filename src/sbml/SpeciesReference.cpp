@@ -178,6 +178,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
     // id: SId  { use="optional" }  (L2v2)
     //
     attributes.readInto("id" , mId);
+    SBase::checkIdSyntax();
 
     //
     // name: string  { use="optional" }  (L2v2)
@@ -743,10 +744,26 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
     {
       object = new SpeciesReference();
     }
+    else
+    {
+      /* create the object anyway - or will also get unrecognized element message 
+       * which is confusion if user has merely reversed modifierSpeciesReference
+       * and speciesReference */
+      object = new SpeciesReference();
+      mSBML->getErrorLog()->logError(21104);
+    }
   }
-  else if (mType == Modifier && name == "modifierSpeciesReference")
+  else if (mType == Modifier)
   {
-    object = new ModifierSpeciesReference();
+    if (name == "modifierSpeciesReference")
+    {
+      object = new ModifierSpeciesReference();
+    }
+    else
+    {
+      object = new ModifierSpeciesReference();
+      mSBML->getErrorLog()->logError(21105);
+    }
   }
 
   if (object) mItems.push_back(object);

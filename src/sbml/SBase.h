@@ -326,6 +326,33 @@ protected:
    */
   void checkOrderAndLogError (SBase* object, int expected);
 
+  /**
+   * Checks that an SBML ListOf element has been populated.  
+   * If not, an error is logged.
+   */
+  void checkListOfPopulated(SBase* object);
+  
+  /**
+   * Checks the syntax of a "metaid"
+   * if incorrect, an error is logged
+   */
+  void checkMetaIdSyntax();
+
+  /**
+   * Checks the syntax of a "id"
+   * if incorrect, an error is logged
+   */
+  void checkIdSyntax();
+
+  /**
+   * checks if a character is part of the CombiningCharacter set
+   */
+  bool isCombiningChar(char);
+
+  /**
+   * checks if a character is part of the Extender set
+   */
+  bool isExtender(char);
 
   std::string mMetaId;
   std::string mId;

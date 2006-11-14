@@ -55,66 +55,6 @@ SBMLErrorLog::logError (unsigned int error)
 {
   string msg;
 
-  const string msg20202 =
-    "The order of subelements within Model must be the following (where any "
-    "one may be optional, but the ordering must be maintained): "
-    "listOfFunctionDefinitions, listOfUnitDefinitions, listOfCompartmentTypes, "
-    "listOfSpeciesTypes, listOfCompartments, listOfSpecies, listOfParameters, "
-    "listOfInitialAssignments, listOfRules, listOfConstraints, listOfReactions "
-    "and listOfEvents. (References: L2V2 Section 4.2.)";
-
-  const string msg21002 =
-    "The order of subelements within Constraint must be the following: math, "
-    "message. The message element is optional, but if present, must follow the "
-    "math element. (References: L2V2 Section 4.12.)";
-
-  const string msg21102 =
-    "The order of subelements within Reaction must be the following: "
-    "listOfReactants (optional), listOfProducts (optional), "
-    "listOfModifiers (optional), kineticLaw. (References: L2V2 Section 4.13.)";
-
-  const string msg21122 =
-    "The order of subelements within KineticLaw must be the following: math, "
-    "listOfParameters. The listOfParameters is optional, but if present, must "
-    "follow math. (References: L2V2 Section 4.13.9.).";
-
-  const string msg21205 =
-    "The order of subelements within Event must be the following: trigger, "
-    "delay, listOfEventAssignments. The delay element is optional, but if "
-    "present, must follow trigger. (References: L2V2 Section 4.14.)";
-
-  const string msg10309 =
-    "The syntax of 'metaid' field values must conform to the syntax of the "
-    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6.)";
-
-   const string msg10310 =
-   "The syntax of 'id' field values must conform to the syntax of the SBML "
-    "type 'SId'. (References: L2V2 Sections 3.1.7.)";
-
-   const string msg20203 =
-    "The 'listOf___' containers in a <model> are optional, but if present, "
-    "the lists cannot be empty. Specifically, if any of the following are "
-    "present in a <model>, they must not be empty: "
-    "'listOfFunctionDefinitions', 'listOfUnitDefinitions', "
-    "'listOfCompartmentTypes', 'listOfSpeciesTypes', 'listOfCompartments',  "
-    "'listOfSpecies', 'listOfParameters', 'listOfInitialAssignments', "
-    "'listOfRules', 'listOfConstraints', 'listOfReactions' and "
-    "'listOfEvents'. (References: This is a requirement stemming from the "
-    "XML Schema used for SBML.)";
-
-   const string msg20409 =
-    "The 'listOfUnits' container in a <unitDefinition> cannot be empty. "
-    "(References: L2V2 Section 4.4.)";
-  
-   const string msg21103 =
-    "The following containers are all optional in a <reaction>, but if any "
-    "present is, it must not be empty: 'listOfReactants', 'listOfProducts', "
-    "'listOfModifiers', 'kineticLaw'. (References: L2V2 Section 4.13.)";
-
-   const string msg21123 =
-    "If present, the 'listOfParameters' in a <kineticLaw> must not be an "
-    "empty list. (References: L2V2 Section 4.13.)";
-     
   const string msg10202 =
     "The only permitted MathML 2.0 elements in SBML Level 2 are "
     "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
@@ -146,6 +86,76 @@ SBMLErrorLog::logError (unsigned int error)
     "elements are 'e-notation', 'real', 'integer', and 'rational'. "
     "(References: L2V2 Section 3.5.2.)";
 
+  const string msg10309 =
+    "The syntax of 'metaid' field values must conform to the syntax of the "
+    "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6.)";
+
+  const string msg10310 =
+    "The syntax of 'id' field values must conform to the syntax of the SBML "
+    "type 'SId'. (References: L2V2 Sections 3.1.7.)";
+
+  const string msg20202 =
+    "The order of subelements within Model must be the following (where any "
+    "one may be optional, but the ordering must be maintained): "
+    "listOfFunctionDefinitions, listOfUnitDefinitions, listOfCompartmentTypes, "
+    "listOfSpeciesTypes, listOfCompartments, listOfSpecies, listOfParameters, "
+    "listOfInitialAssignments, listOfRules, listOfConstraints, listOfReactions "
+    "and listOfEvents. (References: L2V2 Section 4.2.)";
+
+  const string msg20203 =
+    "The 'listOf___' containers in a <model> are optional, but if present, "
+    "the lists cannot be empty. Specifically, if any of the following are "
+    "present in a <model>, they must not be empty: "
+    "'listOfFunctionDefinitions', 'listOfUnitDefinitions', "
+    "'listOfCompartmentTypes', 'listOfSpeciesTypes', 'listOfCompartments',  "
+    "'listOfSpecies', 'listOfParameters', 'listOfInitialAssignments', "
+    "'listOfRules', 'listOfConstraints', 'listOfReactions' and "
+    "'listOfEvents'. (References: This is a requirement stemming from the "
+    "XML Schema used for SBML.)";
+
+  const string msg20409 =
+    "The 'listOfUnits' container in a <unitDefinition> cannot be empty. "
+    "(References: L2V2 Section 4.4.)";
+  
+  const string msg21002 =
+    "The order of subelements within Constraint must be the following: math, "
+    "message. The message element is optional, but if present, must follow the "
+    "math element. (References: L2V2 Section 4.12.)";
+
+  const string msg21102 =
+    "The order of subelements within Reaction must be the following: "
+    "listOfReactants (optional), listOfProducts (optional), "
+    "listOfModifiers (optional), kineticLaw. (References: L2V2 Section 4.13.)";
+
+  const string msg21103 =
+    "The following containers are all optional in a <reaction>, but if any "
+    "present is, it must not be empty: 'listOfReactants', 'listOfProducts', "
+    "'listOfModifiers', 'kineticLaw'. (References: L2V2 Section 4.13.)";
+
+  const string msg21104 =
+    "The list of reactants ('listOfReactants') and list of products "
+    "('listOfProducts') in a <reaction> can only contain 'speciesReference' "
+    "elements. (References: L2V1 Section 4.9; L2V2 Section 4.13.)";
+
+  const string msg21105 =
+    "The list of modifiers ('listOfModifiers') in a <reaction> can only "
+    "contain 'modifierSpeciesReference' elements. (References: L2V1 Section "
+    "4.9; L2V2 Section 4.13.)";
+
+  const string msg21122 =
+    "The order of subelements within KineticLaw must be the following: math, "
+    "listOfParameters. The listOfParameters is optional, but if present, must "
+    "follow math. (References: L2V2 Section 4.13.9.).";
+
+  const string msg21123 =
+    "If present, the 'listOfParameters' in a <kineticLaw> must not be an "
+    "empty list. (References: L2V2 Section 4.13.)";
+     
+  const string msg21205 =
+    "The order of subelements within Event must be the following: trigger, "
+    "delay, listOfEventAssignments. The delay element is optional, but if "
+    "present, must follow trigger. (References: L2V2 Section 4.14.)";
+
   switch (error)
   {
     case 20202: msg = msg20202; break;
@@ -158,6 +168,8 @@ SBMLErrorLog::logError (unsigned int error)
     case 20203: msg = msg20203; break;
     case 20409: msg = msg20409; break;
     case 21103: msg = msg21103; break;
+    case 21104: msg = msg21104; break;
+    case 21105: msg = msg21105; break;
     case 21123: msg = msg21123; break;
     case 10202: msg = msg10202; break;
     case 10203: msg = msg10203; break;

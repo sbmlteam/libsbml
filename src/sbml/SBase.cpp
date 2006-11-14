@@ -423,6 +423,7 @@ SBase::read (XMLInputStream& stream)
 
     if ( next.isEndFor(element) )
     {
+      checkListOfPopulated(this);
       stream.next();
       break;
     }
@@ -437,6 +438,7 @@ SBase::read (XMLInputStream& stream)
 
         object->mSBML = mSBML;
         object->read(stream);
+
       }
       else if ( !readOtherXML(stream) )
       {
@@ -457,6 +459,8 @@ void
 SBase::readAttributes (const XMLAttributes& attributes)
 {
   attributes.readInto("metaid", mMetaId);
+  if (isSetMetaId())
+    checkMetaIdSyntax();
 }
 
 
@@ -533,6 +537,134 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 }
 
 
+/**
+  * Checks that an SBML ListOf element has been populated.  
+  * If not, an error is logged.
+  */
+void 
+SBase::checkListOfPopulated(SBase* object)
+{
+  unsigned int error = 20203;
+
+  if (object->getTypeCode() == SBML_LIST_OF)
+  {
+    SBMLTypeCode_t tc = static_cast<ListOf*>(object)->getItemTypeCode();
+    
+    /* check that list has at least one element */
+    if (static_cast <ListOf*> (object)->size() == 0)
+    {
+      if (tc == SBML_UNIT)
+      {
+        error = 20409;
+      }
+      else if (tc == SBML_SPECIES_REFERENCE || tc == SBML_MODIFIER_SPECIES_REFERENCE)
+      {
+        error = 21103;
+      }
+
+      mSBML->getErrorLog()->logError(error);
+    }
+  }
+  else if (object->getTypeCode() == SBML_KINETIC_LAW)
+  {
+    /* TO DO: how do we know a kineticLaw is empty */
+ //   error = 21103;
+ //   mSBML->getErrorLog()->logError(error);
+  }
+}
+
+
+/**
+  * Checks the syntax of a "metaid"
+  * if incorrect, an error is logged
+  */
+void 
+SBase::checkMetaIdSyntax()
+{
+  const string& metaid = getMetaId();
+  unsigned int size = metaid.size();
+
+  if (size == 0)
+    return;
+  
+  unsigned int n = 0;
+
+  unsigned char c = metaid[n];
+  bool okay = (isalpha(c) || (c == '_'));
+  n++;
+
+  while (okay && n < size)
+  {
+    c = metaid[n];
+    okay = (
+            isalnum(c)          || 
+            c == '.'            ||
+            c == '-'            ||
+            c == '_'            ||
+            c == ':'            ||
+            isCombiningChar(c)  ||
+            isExtender(c)
+            );  
+    n++;
+  }
+
+  if (!okay)   
+    mSBML->getErrorLog()->logError(10309);
+}
+
+  
+/**
+  * checks if a character is part of the CombiningCharacter set
+  */
+bool 
+SBase::isCombiningChar(char)
+{
+  /* need to think about this */
+  return true; 
+}
+
+/**
+  * checks if a character is part of the Extender set
+  */
+bool 
+SBase::isExtender(char)
+{
+  /* need to think about this */
+  return true; 
+}
+
+  
+/**
+  * Checks the syntax of a "metaid"
+  * if incorrect, an error is logged
+  */
+void 
+SBase::checkIdSyntax()
+{
+  const string& id = getId();
+  unsigned int size = id.size();
+
+  if (size == 0)
+    return;
+
+  unsigned int n = 0;
+
+  char c = id[n];
+  bool okay = (isalpha(c) || (c == '_'));
+  n++;
+
+  while (okay && n < size)
+  {
+    c = id[n];
+    okay = (isalnum(c) || c == '_');
+    n++;
+  }
+
+  if (!okay)   
+    mSBML->getErrorLog()->logError(10310);
+}
+
+  
 /**
  * @return the metaid of this SBML object.
  */

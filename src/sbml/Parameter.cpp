@@ -315,6 +315,7 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   //
   const string id = (level == 1) ? "name" : "id";
   attributes.readInto(id, mId);
+  SBase::checkIdSyntax();
 
   //
   // name: string  { use="optional" }  (L2v1, L2v2)
@@ -419,7 +420,7 @@ ListOfParameters::clone () const
 SBMLTypeCode_t
 ListOfParameters::getItemTypeCode () const
 {
-  return SBML_UNIT;
+  return SBML_PARAMETER;
 }
 
 

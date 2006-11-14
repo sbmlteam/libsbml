@@ -116,6 +116,7 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   // id: SId  { use="required" }  (L2v2)
   //
   attributes.readInto("id", mId);
+  SBase::checkIdSyntax();
 
   //
   // name: string  { use="optional" }  (L2v2)
