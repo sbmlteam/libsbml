@@ -72,6 +72,8 @@ using namespace std;
  *   ccccc-pass-00-nn.xml, or
  *   ccccc-fail-ff-nn.xml
  *
+ *   ccccc-fail-ff-nn-xxxxx.xml
+ *
  * Where:
  *
  *   ccccc  is the four digit constraint id the file is designed to test
@@ -83,13 +85,16 @@ using namespace std;
  *
  *   nn     is the sequence id (to allow multiple test files per constraint).
  *
+ *   xxxxx  is the number of an additional constraint that this test fails
+ *
  *
  * Offsets within mFilename:
  *
  *           1        1
- * 01234567890123456789
+ * 012345678901234567890123456
  * ccccc-pass-00-nn.xml
  * ccccc-fail-ff-nn.xml
+ * ccccc-fail-ff-nn-xxxxx.xml
  */
 
 
@@ -118,6 +123,16 @@ unsigned int
 TestFile::getNumFailures () const
 {
   return atol( mFilename.substr(11, 2).c_str() );
+}
+
+unsigned int
+TestFile::getAdditionalFailId () const
+{
+  if (mFilename.length() > 20)
+    return atol( mFilename.substr(17, 5).c_str() );
+  else
+    return 0;
+
 }
 
 

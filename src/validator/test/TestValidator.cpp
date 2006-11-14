@@ -114,6 +114,8 @@ TestValidator::test (const TestFile& file)
 
   unsigned int id       = file.getConstraintId();
   unsigned int expected = file.getNumFailures();
+  unsigned int others   = file.getAdditionalFailId();
+
   unsigned int actual   = mValidator.validate( file.getFullname() );
 
   list<XMLError>::const_iterator begin = mValidator.getMessages().begin();
@@ -140,10 +142,15 @@ TestValidator::test (const TestFile& file)
     vector<unsigned int> ids;
     transform(begin, end, back_inserter(ids), ToId());
 
-    cout << "  - Constraints:  Expected: " << id << "  Actual: ";
-    cout << endl;
-    copy(ids.begin(), ids.end(), ostream_iterator<unsigned int>(cout, " "));
-    cout << endl;
+    if (ids.size() != 1 || ids.at(0) != others)
+    {
+      cout << endl;
+      cout << "Error: " << file.getFilename() << endl;
+      cout << "  - Constraints:  Expected: " << id << "  Actual: ";
+      cout << endl;
+      copy(ids.begin(), ids.end(), ostream_iterator<unsigned int>(cout, " "));
+      cout << endl;
+    }
   }
 
   if ( error || isVerbose(id) )

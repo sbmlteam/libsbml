@@ -87,9 +87,10 @@ public:
   
   std::string getFullname () const;
 
-  unsigned int  getConstraintId () const;
-  unsigned int  getNumFailures  () const;
-  unsigned int  getSequenceId   () const;
+  unsigned int  getConstraintId     () const;
+  unsigned int  getNumFailures      () const;
+  unsigned int  getSequenceId       () const;
+  unsigned int  getAdditionalFailId () const;
 
   /**
    * @return the set of TestFiles in the given directory.
