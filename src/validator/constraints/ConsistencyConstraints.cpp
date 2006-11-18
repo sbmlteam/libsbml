@@ -1550,6 +1550,36 @@ START_CONSTRAINT (21124, KineticLaw, kl)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (21125, KineticLaw, kl)
+{
+  msg =
+    "The 'substanceUnits' field on <kineticLaw>, previously available in "
+    "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
+    "rate expression are those of the global 'substance' units of the model. "
+    "(References: L2V2 Section 4.13.5.)";
+
+  pre( kl.getLevel() == 2 && kl.getVersion() == 2 );
+  inv( kl.isSetSubstanceUnits() == false );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21126, KineticLaw, kl)
+{
+  msg =
+    "The 'timeUnits' field on <kineticLaw>, previously available in SBML "
+    "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
+    "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
+    "expression are those of the global 'time' units of the model. "
+    "(References: L2V2 Section 4.13.5.)";
+
+  pre( kl.getLevel() == 2 && kl.getVersion() == 2 );
+  inv( kl.isSetTimeUnits() == false );
+}
+END_CONSTRAINT
+
+
 // StoichiometryMath validation
 
 EXTERN_CONSTRAINT(21131, StoichiometryMathVars)
