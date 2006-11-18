@@ -208,7 +208,11 @@ public:
    */
   unsigned int getColumn () const;
 
-
+  /**
+   * @return the Namespaces associated with this SBML object
+   */
+  virtual XMLNamespaces* getNamespaces() const ;
+ 
   /**
    * Sets the parent SBMLDocument of this SBML object.
    */

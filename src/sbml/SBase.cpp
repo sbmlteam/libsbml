@@ -309,6 +309,16 @@ SBase::getColumn () const
 
 
 /**
+  * @return the Namespaces associated with this SBML object
+  */
+XMLNamespaces*
+SBase::getNamespaces() const
+{
+  return mNamespaces;
+}
+
+
+/**
  * Subclasses should override this method to create, store, and then
  * return an SBML object corresponding to the next XMLToken in the
  * XMLInputStream.

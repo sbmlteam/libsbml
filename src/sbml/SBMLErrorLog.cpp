@@ -55,6 +55,20 @@ SBMLErrorLog::logError (unsigned int error)
 {
   string msg;
 
+  const string msg10101 = 
+    "An SBML XML file must use UTF-8 as the character encoding. More "
+    "precisely, the 'encoding' attribute of the XML declaration at the "
+    "beginning of the XML data stream cannot have a value other than "
+    "'UTF-8'. An example valid declaration is "
+    "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
+    "4.1.)";
+
+  const string msg10201 =
+    "All MathML content in SBML must appear within a 'math' element, and the "
+    "'math' element must be either explicitly or implicitly in the XML "
+    "namespace 'http://www.w3.org/1998/Math/MathML'. (References: L2V2 "
+    "Section 3.5.)";
+
   const string msg10202 =
     "The only permitted MathML 2.0 elements in SBML Level 2 are "
     "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
@@ -93,6 +107,24 @@ SBMLErrorLog::logError (unsigned int error)
   const string msg10310 =
     "The syntax of 'id' field values must conform to the syntax of the SBML "
     "type 'SId'. (References: L2V2 Sections 3.1.7.)";
+
+  const string msg20101 =
+    "The 'sbml' container element must declare the XML Namespace for SBML, "
+    "and this declaration must be consistent with the values of the 'level' "
+    "and 'version' attributes on the 'sbml' element. (References: L2V2 "
+    "Section 4.1.)";
+
+  const string msg20102 =
+    "The 'sbml' container element must declare the SBML Level using the "
+    "attribute 'level', and this declaration must be consistent with the XML "
+    "Namespace declared for the 'sbml' element. (References: L2V2 Section "
+    "4.1.)";
+
+  const string msg20103 =
+    "The 'sbml' container element must declare the SBML Version using the "
+    "attribute 'version', and this declaration must be consistent with the "
+    "XML Namespace declared for the 'sbml' element. (References: L2V2 "
+    "Section 4.1.)";
 
   const string msg20202 =
     "The order of subelements within Model must be the following (where any "
@@ -172,10 +204,15 @@ SBMLErrorLog::logError (unsigned int error)
     case 21105: msg = msg21105; break;
     case 21123: msg = msg21123; break;
     case 10202: msg = msg10202; break;
+    case 10101: msg = msg10202; break;
     case 10203: msg = msg10203; break;
+    case 10201: msg = msg10201; break;
     case 10204: msg = msg10204; break;
     case 10206: msg = msg10206; break;
     case 10207: msg = msg10207; break;
+    case 20101: msg = msg20101; break;
+    case 20102: msg = msg20102; break;
+    case 20103: msg = msg20103; break;
 
     default:    msg = "Unrecognized error code."; break;
   }

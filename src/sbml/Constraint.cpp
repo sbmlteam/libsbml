@@ -255,8 +255,47 @@ Constraint::readOtherXML (XMLInputStream& stream)
   {
     if (mMessage) mSBML->getErrorLog()->logError(21002);
 
-    delete mMath;
+    /* check for MathML namespace 
+     * this may be explicitly declared here
+     * or implicitly declared on the whole document
+     */
+    const XMLToken elem = stream.peek();
+    unsigned int match = 0;
+    int n;
+    if (elem.getNamespaces().getLength() != 0)
+    {
+      for (n = 0; n < elem.getNamespaces().getLength(); n++)
+      {
+        if (!strcmp(elem.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
+        {
+          match = 1;
+          break;
+        }
+      }
+    }
+    if (match == 0)
+    {
+      if( mSBML->getNamespaces() != NULL)
+      /* check for implicit declaration */
+      {
+        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+        {
+          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
+                                                     "http://www.w3.org/1998/Math/MathML"))
+          {
+            match = 1;
+            break;
+          }
+        }
+      }
+    }
+    if (match == 0)
+    {
+      mSBML->getErrorLog()->logError(10201);
+    }
 
+    delete mMath;
+  
     mMath = readMathML(stream);
     read  = true;
   }

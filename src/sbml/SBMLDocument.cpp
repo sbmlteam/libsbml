@@ -398,6 +398,16 @@ SBMLDocument::createObject (XMLInputStream& stream)
 
 
 /**
+  * @return the Namespaces associated with this SBML object
+  */
+XMLNamespaces* 
+SBMLDocument::getNamespaces() const
+{
+  return SBase::mNamespaces;
+}
+
+
+/**
  * @return the SBMLErrorLog used to log errors during while reading and
  * validating SBML.
  */
@@ -429,6 +439,63 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
   //
   attributes.readInto("version", mVersion);
+
+  /* check that sbml namespace has been set */
+  unsigned int match = 0;
+  if (mNamespaces == NULL)
+  {
+    getErrorLog()->logError(20101);
+  }
+  else 
+  {
+    for (int n = 0; n < mNamespaces->getLength(); n++)
+    {
+      if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level1"))
+      {
+        match = 1;
+        if (mLevel != 1)
+        {
+          getErrorLog()->logError(20102);
+        }
+        if (mVersion != 2)
+        {
+          getErrorLog()->logError(20103);
+        }
+        break;
+      }
+      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2"))
+      {
+        match = 1;
+        if (mLevel != 2)
+        {
+          getErrorLog()->logError(20102);
+        }
+        if (mVersion != 1)
+        {
+          getErrorLog()->logError(20103);
+        }
+        break;
+      }
+      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version2"))
+      {
+        match = 1;
+        if (mLevel != 2)
+        {
+          getErrorLog()->logError(20102);
+        }
+        if (mVersion != 2)
+        {
+          getErrorLog()->logError(20103);
+        }
+        break;
+      }
+    }
+    if (match == 0)
+    {
+      getErrorLog()->logError(20101);
+    }
+
+  }
 }
 
 

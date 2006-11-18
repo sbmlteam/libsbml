@@ -205,6 +205,11 @@ public:
    */
   SBMLErrorLog* getErrorLog ();
 
+  /**
+   * @return the Namespaces associated with this SBML object
+   */
+  virtual XMLNamespaces* getNamespaces() const;
+
 
 protected:
 

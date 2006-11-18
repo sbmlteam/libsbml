@@ -455,6 +455,53 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
   if (name == "stoichiometryMath")
   {
     const XMLToken elem = stream.next();
+    stream.skipText();
+   
+    /* check for MathML namespace 
+     * this may be explicitly declared here
+     * or implicitly declared on the whole document
+     */
+    const XMLToken element = stream.peek();
+    unsigned int match = 0;
+    unsigned int math = 0;
+
+    if (element.getName() == "math")
+    {
+      math = 1;
+    }
+
+    int n;
+    if (math == 1 && element.getNamespaces().getLength() != 0)
+    {
+      for (n = 0; n < element.getNamespaces().getLength(); n++)
+      {
+        if (!strcmp(element.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
+        {
+          match = 1;
+          break;
+        }
+      }
+    }
+    if (math == 1 && match == 0)
+    {
+      if( mSBML->getNamespaces() != NULL)
+      /* check for implicit declaration */
+      {
+        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+        {
+          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
+                                                     "http://www.w3.org/1998/Math/MathML"))
+          {
+            match = 1;
+            break;
+          }
+        }
+      }
+    }
+    if (math == 0 || match == 0)
+    {
+      static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
+    }
 
     delete mStoichiometryMath;
     mStoichiometryMath = readMathML(stream);
