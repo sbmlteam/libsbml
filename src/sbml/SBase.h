@@ -351,12 +351,12 @@ protected:
   /**
    * checks if a character is part of the CombiningCharacter set
    */
-  bool isCombiningChar(char);
+  bool isCombiningChar(unsigned char);
 
   /**
    * checks if a character is part of the Extender set
    */
-  bool isExtender(char);
+  bool isExtender(unsigned char);
 
   std::string mMetaId;
   std::string mId;

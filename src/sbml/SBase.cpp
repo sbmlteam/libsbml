@@ -33,6 +33,7 @@
 
 #include <sbml/util/util.h>
 
+#include "KineticLaw.h"
 #include "SBMLDocument.h"
 #include "ListOf.h"
 #include "SBase.h"
@@ -433,13 +434,12 @@ SBase::read (XMLInputStream& stream)
 
     if ( next.isEndFor(element) )
     {
-      checkListOfPopulated(this);
       stream.next();
       break;
     }
     else if ( next.isStart() )
     {
-      SBase* object = createObject(stream);
+      SBase * object = createObject(stream);
 
       if (object)
       {
@@ -448,6 +448,7 @@ SBase::read (XMLInputStream& stream)
 
         object->mSBML = mSBML;
         object->read(stream);
+        checkListOfPopulated(object);
 
       }
       else if ( !readOtherXML(stream) )
@@ -571,15 +572,33 @@ SBase::checkListOfPopulated(SBase* object)
       {
         error = 21103;
       }
-
+      else if (tc == SBML_PARAMETER)
+      {
+        /* if the listOfParameters is inside a KineticLaw
+        */
+        if (this->getTypeCode() == SBML_KINETIC_LAW)
+        {
+          error = 21123;
+        }
+      }
       mSBML->getErrorLog()->logError(error);
     }
   }
   else if (object->getTypeCode() == SBML_KINETIC_LAW)
   {
-    /* TO DO: how do we know a kineticLaw is empty */
- //   error = 21103;
- //   mSBML->getErrorLog()->logError(error);
+    /* 
+     * if nothing has been set in the kineticLaw we assume its is empty
+     */
+    if (reinterpret_cast <KineticLaw *> (object)->isSetMath()           == 0  &&
+        reinterpret_cast <KineticLaw *> (object)->isSetFormula()        == 0  &&
+        reinterpret_cast <KineticLaw *> (object)->isSetTimeUnits()      == 0  &&
+        reinterpret_cast <KineticLaw *> (object)->isSetSubstanceUnits() == 0  &&
+        reinterpret_cast <KineticLaw *> (object)->isSetSBOTerm()        == 0  &&
+        reinterpret_cast <KineticLaw *> (object)->getNumParameters()    == 0)
+    {
+        error = 21103;
+        mSBML->getErrorLog()->logError(error);
+    }
   }
 }
 
@@ -596,11 +615,12 @@ SBase::checkMetaIdSyntax()
 
   if (size == 0)
     return;
+
   
   unsigned int n = 0;
 
   unsigned char c = metaid[n];
-  bool okay = (isalpha(c) || (c == '_'));
+  bool okay = (isalpha(c) || (c == '_') || (c == ":"));
   n++;
 
   while (okay && n < size)
@@ -627,25 +647,26 @@ SBase::checkMetaIdSyntax()
   * checks if a character is part of the CombiningCharacter set
   */
 bool 
-SBase::isCombiningChar(char)
+SBase::isCombiningChar(unsigned char c)
 {
   /* need to think about this */
-  return true; 
+  return false; 
 }
 
 /**
   * checks if a character is part of the Extender set
+  * Extender ::=  #x00B7 | #x02D0 | #x02D1 | #x0387 | #x0640 | 
+  * #x0E46 | #x0EC6 | #x3005 | [#x3031-#x3035] | [#x309D-#x309E] | [#x30FC-#x30FE] 
   */
 bool 
-SBase::isExtender(char)
+SBase::isExtender(unsigned char c)
 {
-  /* need to think about this */
-  return true; 
+      return false; 
 }
 
   
 /**
-  * Checks the syntax of a "metaid"
+  * Checks the syntax of a "id"
   * if incorrect, an error is logged
   */
 void 
