@@ -589,12 +589,12 @@ SBase::checkListOfPopulated(SBase* object)
     /* 
      * if nothing has been set in the kineticLaw we assume its is empty
      */
-    if (reinterpret_cast <KineticLaw *> (object)->isSetMath()           == 0  &&
-        reinterpret_cast <KineticLaw *> (object)->isSetFormula()        == 0  &&
-        reinterpret_cast <KineticLaw *> (object)->isSetTimeUnits()      == 0  &&
-        reinterpret_cast <KineticLaw *> (object)->isSetSubstanceUnits() == 0  &&
-        reinterpret_cast <KineticLaw *> (object)->isSetSBOTerm()        == 0  &&
-        reinterpret_cast <KineticLaw *> (object)->getNumParameters()    == 0)
+    if (static_cast <KineticLaw *> (object)->isSetMath()           == 0  &&
+        static_cast <KineticLaw *> (object)->isSetFormula()        == 0  &&
+        static_cast <KineticLaw *> (object)->isSetTimeUnits()      == 0  &&
+        static_cast <KineticLaw *> (object)->isSetSubstanceUnits() == 0  &&
+        static_cast <KineticLaw *> (object)->isSetSBOTerm()        == 0  &&
+        static_cast <KineticLaw *> (object)->getNumParameters()    == 0)
     {
         error = 21103;
         mSBML->getErrorLog()->logError(error);
@@ -620,7 +620,7 @@ SBase::checkMetaIdSyntax()
   unsigned int n = 0;
 
   unsigned char c = metaid[n];
-  bool okay = (isalpha(c) || (c == '_') || (c == ":"));
+  bool okay = (isalpha(c) || (c == '_') || (c == ':'));
   n++;
 
   while (okay && n < size)
