@@ -62,6 +62,7 @@ FunctionDefinition::FunctionDefinition (  const string& id
                                         , const string& formula ) :
     SBase( id )
   , mMath( SBML_parseFormula( formula.c_str() ) )
+ , mSBOTerm( -1 )
 {
 }
 
@@ -72,6 +73,7 @@ FunctionDefinition::FunctionDefinition (  const string& id
 FunctionDefinition::FunctionDefinition (const FunctionDefinition& rhs) :
    SBase( rhs )
  , mMath( 0   )
+ , mSBOTerm( rhs.mSBOTerm )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -121,6 +123,18 @@ FunctionDefinition::getMath () const
 
 
 /**
+ * @return the sboTerm of this FunctionDefinition as an integer.  If not
+ * set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
+ */
+int
+FunctionDefinition::getSBOTerm () const
+{
+  return mSBOTerm;
+}
+
+
+/**
  * @return true if the math of this FunctionDefinition has been set, false
  * otherwise.
  */
@@ -130,6 +144,15 @@ FunctionDefinition::isSetMath () const
   return (mMath != 0);
 }
 
+/**
+ * @return true if the sboTerm of this FunctionDefinition has been set,
+ * false otherwise.
+ */
+bool
+FunctionDefinition::isSetSBOTerm () const
+{
+  return (mSBOTerm != -1);
+}
 
 /**
  * Sets the math of this FunctionDefinition to the given ASTNode.
@@ -143,6 +166,24 @@ FunctionDefinition::setMath (const ASTNode* math)
   mMath = (math != 0) ? math->deepCopy() : 0;
 }
 
+/**
+ * Sets the sboTerm field of this FunctionDefinition to value.
+ */
+void
+FunctionDefinition::setSBOTerm (int sboTerm)
+{
+  mSBOTerm = sboTerm;
+}
+
+
+/**
+ * Unsets the sboTerm of this FunctionDefinition.
+ */
+void
+FunctionDefinition::unsetSBOTerm ()
+{
+  mSBOTerm = -1;
+}
 
 /**
  * @return the nth argument (bound variable) passed to this
@@ -312,6 +353,11 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
   // name: string  { use="optional" }  (L2v1, L2v2)
   //
   attributes.readInto("name", mName);
+
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+
 }
 
 
@@ -334,6 +380,11 @@ FunctionDefinition::writeAttributes (XMLOutputStream& stream) const
   // name: string  { use="optional" }  (L2v1, L2v2)
   //
   stream.writeAttribute("name", mName);
+
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  SBML::writeSBOTerm(stream, mSBOTerm);
+
 }
 
 

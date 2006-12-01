@@ -35,6 +35,8 @@
 
 #include <string>
 
+#include "SBML.h"
+
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 
@@ -92,15 +94,44 @@ public:
   const ASTNode* getMath () const;
 
   /**
+   * @return the sboTerm of this Constraint as an integer.  If not
+   * set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+   * sboTerm to a zero-padded, seven digit string.
+   */
+  int getSBOTerm () const;
+
+
+  /**
    * @return true if the math of this FunctionDefinition has been set, false
    * otherwise.
    */
   bool isSetMath () const;
 
   /**
+   * @return true if the sboTerm of this Constraint has been set,
+   * false otherwise.
+   */
+  bool isSetSBOTerm () const;
+
+
+
+
+  /**
    * Sets the math of this FunctionDefinition to the given ASTNode.
    */
   void setMath (const ASTNode* math);
+
+  /**
+   * Sets the sboTerm field of this Constraint to value.
+   */
+  void setSBOTerm (int sboTerm);
+
+  /**
+   * Unsets the sboTerm of this Constraint.
+   */
+  void unsetSBOTerm ();
+
+
 
 
   /**
@@ -176,6 +207,7 @@ protected:
 
 
   ASTNode*  mMath;
+  int      mSBOTerm;
 };
 
 
