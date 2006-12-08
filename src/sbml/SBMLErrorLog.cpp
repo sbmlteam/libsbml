@@ -24,6 +24,7 @@
 
 #include <string>
 #include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLParser.h>
 
 #include "SBMLErrorLog.h"
 
@@ -51,9 +52,15 @@ SBMLErrorLog::~SBMLErrorLog ()
  * Logs an error message for the given SBML error code.
  */
 void
-SBMLErrorLog::logError (unsigned int error)
+SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
 {
   string msg;
+
+  const string msg00001 = 
+    "File not found.";
+
+  const string msg00002 = 
+    "No encoding specified.";
 
   const string msg10101 = 
     "An SBML XML file must use UTF-8 as the character encoding. More "
@@ -126,6 +133,10 @@ SBMLErrorLog::logError (unsigned int error)
     "XML Namespace declared for the 'sbml' element. (References: L2V2 "
     "Section 4.1.)";
 
+  const string msg20201 =
+    "An SBML document must contain a <model> definition. (References: L2V1 "
+    "and L2V2 Section 4.1).";
+
   const string msg20202 =
     "The order of subelements within Model must be the following (where any "
     "one may be optional, but the ordering must be maintained): "
@@ -188,36 +199,54 @@ SBMLErrorLog::logError (unsigned int error)
     "delay, listOfEventAssignments. The delay element is optional, but if "
     "present, must follow trigger. (References: L2V2 Section 4.14.)";
 
+  const string msg99999 =
+    "The value of the sboTerm field on a Model must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a modeling framework "
+    "defined in SBO (i.e., terms derived from SBO:0000004, “modeling framework”). "
+    "(References: L2V2 Section 4.2.1.)";
+
+
   switch (error)
   {
-    case 20202: msg = msg20202; break;
-    case 21002: msg = msg21002; break;
-    case 21102: msg = msg21102; break;
-    case 21122: msg = msg21122; break;
-    case 21205: msg = msg21205; break;
+    case 00001: msg = msg00001; break;
+    case 00002: msg = msg00002; break;
+    case 10101: msg = msg10202; break;
+    case 10201: msg = msg10201; break;
+    case 10202: msg = msg10202; break;
+    case 10203: msg = msg10203; break;
     case 10309: msg = msg10309; break;
     case 10310: msg = msg10310; break;
-    case 20203: msg = msg20203; break;
-    case 20409: msg = msg20409; break;
-    case 21103: msg = msg21103; break;
-    case 21104: msg = msg21104; break;
-    case 21105: msg = msg21105; break;
-    case 21123: msg = msg21123; break;
-    case 10202: msg = msg10202; break;
-    case 10101: msg = msg10202; break;
-    case 10203: msg = msg10203; break;
-    case 10201: msg = msg10201; break;
     case 10204: msg = msg10204; break;
     case 10206: msg = msg10206; break;
     case 10207: msg = msg10207; break;
     case 20101: msg = msg20101; break;
     case 20102: msg = msg20102; break;
     case 20103: msg = msg20103; break;
+    case 20201: msg = msg20201; break;
+    case 20202: msg = msg20202; break;
+    case 20203: msg = msg20203; break;
+    case 20409: msg = msg20409; break;
+    case 21002: msg = msg21002; break;
+    case 21102: msg = msg21102; break;
+    case 21122: msg = msg21122; break;
+    case 21103: msg = msg21103; break;
+    case 21104: msg = msg21104; break;
+    case 21105: msg = msg21105; break;
+    case 21123: msg = msg21123; break;
+    case 21205: msg = msg21205; break;
+    case 99999: msg = msg99999; break;
 
     default:    msg = "Unrecognized error code."; break;
   }
 
-  add( XMLError(error, msg) );
+  if (inRead == 1)
+  {
+    add( XMLError(error, msg) );
+  }
+  else
+  {
+    add( XMLError(error, msg, XMLError::Error, "", 1, 1));
+  }
 }
 
 

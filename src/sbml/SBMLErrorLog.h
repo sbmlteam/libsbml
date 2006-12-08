@@ -51,7 +51,7 @@ public:
   /**
    * Logs an error message for the given SBML error code.
    */
-  void logError (unsigned int error);
+  void logError (unsigned int error, unsigned int inRead = 1);
 
   /**
    * Logs an error message indicating the XML element is unrecognized.

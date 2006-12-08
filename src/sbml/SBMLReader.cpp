@@ -159,51 +159,32 @@ SBMLReader::readInternal (const char* content, bool isFile)
 {
   SBMLDocument* d = new SBMLDocument();
 
-  const char * msg10101 = 
-    "An SBML XML file must use UTF-8 as the character encoding. More "
-    "precisely, the 'encoding' attribute of the XML declaration at the "
-    "beginning of the XML data stream cannot have a value other than "
-    "'UTF-8'. An example valid declaration is "
-    "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
-    "4.1.)";
-
-  // FIXME
-  
   if (isFile && content && (util_file_exists(content) == false))
   {
-
-    //logFatal(d, SBML_READ_ERROR_FILE_NOT_FOUND);
-    //d->getErrorLog()->add(XMLError(0001, 
-    //                   getMessage(SBML_READ_ERROR_FILE_NOT_FOUND)));
-    // BEN SHOULD LOOK
-    /* added line and column number as this blows up when adding
-       the error since there is no active parser */
-    d->getErrorLog()->add( XMLError(0003, getMessage(SBML_READ_ERROR_FILE_NOT_FOUND), 
-      XMLError::Error, "", 1, 1) );
- 
-    //XMLInputStream stream(content, isFile);
-
-    //stream.setErrorLog( d->getErrorLog() );
+    d->getErrorLog()->logError(00001, 0);
   }
   else
   {
   
     XMLInputStream stream(content, isFile);
 
-    //if (stream.getEncoding() == "")
-    //{
-    //  d->getErrorLog()->add( XMLError(0004, getMessage(SBML_READ_ERROR_NO_ENCODING), 
-    //    XMLError::Error, "", 1, 1) );
-    //}
-    //else 
-    if (stream.getEncoding() != "UTF-8")
+    if (stream.getEncoding() == "")
     {
-      d->mSBML->getErrorLog()->add( XMLError(10101, msg10101, 
-        XMLError::Error, "", 1, 1) );
+      d->getErrorLog()->logError(00002, 0);
+    }
+    else if (stream.getEncoding() != "UTF-8")
+    {
+      d->getErrorLog()->logError(10101, 0);
     }
 
     stream.setErrorLog( d->getErrorLog() );
     d->read(stream);
+
+    if (d->getModel() == 0)
+    {
+      d->getErrorLog()->logError(20201, 0);
+    }
+
   }
   return d;
 }

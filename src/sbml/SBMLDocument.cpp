@@ -244,18 +244,15 @@ SBMLDocument::checkConsistency ()
   validator.init();
 
 
-  if (getModel() == 0)
+  /* this check has become part of readSBML */
+  //if (getModel() == 0)
+  //{
+  //  getErrorLog()->logError(20201, 0);
+  //  nerrors = 1;
+  //}
+  //else
   {
-    // BEN SHOULD LOOK
-    /* added line and column number as this blows up when adding
-       the error since there is no active parser */
-    mErrorLog.add( XMLError(20201, "No model present.", 
-      XMLError::Error, "", 1, 1) );
-    nerrors = 1;
-  }
-  else
-  {
-    nerrors = validator.validate(*this);
+    nerrors += validator.validate(*this);
     if (nerrors) mErrorLog.add( validator.getMessages() );
   }
 
