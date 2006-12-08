@@ -88,7 +88,7 @@ using namespace std;
 
 //General MathML validation
 
-// 10201: namespace - TO DO
+// 10201: namespace - caught at read
 // 10202: elements - caught at read
 // 10203: encoding - caught at read
 // 10204: url - caught at read
@@ -131,7 +131,6 @@ EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 
 
 EXTERN_CONSTRAINT(10501, ArgumentsUnitsCheck)
-
 
 START_CONSTRAINT (10511, AssignmentRule, ar)
 {
@@ -470,14 +469,14 @@ EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
 
 // SBML container validation
 
-// 20101: sbml namespace - TO DO
-// 20102: level declared and consistent - TO DO
-// 20103: version declared and consistent - TO DO
+// 20101: sbml namespace - caught at read
+// 20102: level declared and consistent - caught at read
+// 20103: version declared and consistent - caught at read
 
 
 // Model validation
 
-// 20201: must contain model - caught prior to validation
+// 20201: must contain model - caught at read
 
 // 20202: ordering - caught at read
 
@@ -1836,5 +1835,180 @@ START_CONSTRAINT (1611, KineticLaw, kl)
 END_CONSTRAINT
 
 
+START_CONSTRAINT(99999, FunctionDefinition, fd)
+{
+  msg = 
+    "Wrong SBO";
 
+  pre(fd.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(fd.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, Parameter, p)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(p.isSetSBOTerm());
+
+  inv(SBML::isQuantitativeParameter(p.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, InitialAssignment, ia)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(ia.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(ia.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, AssignmentRule, r)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, RateRule, r)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, AlgebraicRule, r)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, Constraint, c)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(c.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(c.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, Reaction, r)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isModellingFramework(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99998, Reaction, r)
+{
+  msg = 
+    "SBO conflicts with model";
+
+  pre(m.isSetSBOTerm());
+  pre(r.isSetSBOTerm());
+  pre(SBML::isModellingFramework(r.getSBOTerm()));
+
+  inv(m.getSBOTerm() == r.getSBOTerm());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, SpeciesReference, sr)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(sr.isSetSBOTerm());
+
+  if (!sr.isModifier())
+  {
+    inv_or(SBML::isProduct(sr.getSBOTerm()));
+    inv_or(SBML::isReactant(sr.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBML::isModifier(sr.getSBOTerm()));
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, KineticLaw, kl)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(kl.isSetSBOTerm());
+
+  inv(SBML::isRateLaw(kl.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, Event, e)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(e.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(e.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, EventAssignment, ea)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(ea.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(ea.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(99999, Model, m1)
+{
+  msg = 
+    "Wrong SBO";
+
+  pre(m1.isSetSBOTerm());
+
+  inv(SBML::isModellingFramework(m1.getSBOTerm()));
+}
+END_CONSTRAINT
 
