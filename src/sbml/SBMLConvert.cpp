@@ -88,7 +88,6 @@ Model::convertToL2 ()
   const ASTNode *node;
   List          *names;
   KineticLaw* kl;
-  ModifierSpeciesReference * msr;
 
   for (n = 0; n < getNumReactions(); n++)
   {

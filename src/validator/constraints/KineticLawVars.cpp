@@ -59,7 +59,7 @@ KineticLawVars::~KineticLawVars ()
 void
 KineticLawVars::check_ (const Model& m, const Reaction& r)
 {
-  unsigned int n, ns;
+  unsigned int n;
   
   /* create list of all species in the reaction */
   for (n = 0; n < r.getNumReactants(); n++)
