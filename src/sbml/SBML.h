@@ -34,11 +34,24 @@
 
 #include <string>
 
+#include <cassert>
+#include <algorithm>
+#include <deque>
+#include <map>
+
+using namespace std;
+
 
 class XMLAttributes;
 class XMLOutputStream;
 class SBMLErrorLog;
 
+/* create a map of parent-child sbo terms */
+typedef multimap<int, int>            ParentMap;
+typedef ParentMap::const_iterator     ParentIter;
+typedef pair<ParentIter, ParentIter>  ParentRange;
+
+static ParentMap mParent;
 
 
 class LIBSBML_EXTERN SBML
@@ -83,6 +96,83 @@ public:
    * string is returned.
    */
   static std::string sboTermToString (int sboTerm);
+  
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a parent, false otherwise
+   */
+  static bool isA(unsigned int term, unsigned int parent);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a QuantitativeParameter, false otherwise
+   */
+  static bool isQuantitativeParameter  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a ParticipantRole, false otherwise
+   */
+  static bool isParticipantRole  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a ModellingFramework, false otherwise
+   */
+  static bool isModellingFramework  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a MathematicalExpression, false otherwise
+   */
+  static bool isMathematicalExpression  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a KineticConstant, false otherwise
+   */
+  static bool isKineticConstant  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a Reactant, false otherwise
+   */
+  static bool isReactant  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a Product, false otherwise
+   */
+  static bool isProduct  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a Modifier, false otherwise
+   */
+  static bool isModifier  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a RateLaw, false otherwise
+   */
+  static bool isRateLaw  (unsigned int term);
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a Event, false otherwise
+   */
+  static bool isEvent  (unsigned int term);
+
+protected:
+
+  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * populates the parent-child map
+   */
+  static void populateSBOTree();
+
+
 };
 
 
