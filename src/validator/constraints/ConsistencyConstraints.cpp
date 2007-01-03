@@ -149,6 +149,16 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
@@ -177,6 +187,16 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
+
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -208,6 +228,16 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
@@ -238,6 +268,16 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                                     m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
@@ -267,6 +307,16 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = 
                                     m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
+
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -300,6 +350,16 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                                     m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
   
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
@@ -332,6 +392,16 @@ START_CONSTRAINT (10531, RateRule, rr)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
@@ -361,6 +431,16 @@ START_CONSTRAINT (10532, RateRule, rr)
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
+
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -394,6 +474,16 @@ START_CONSTRAINT (10533, RateRule, rr)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
@@ -419,6 +509,16 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData("subs_per_time", 
                                                                               SBML_UNKNOWN);
 
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
     || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
@@ -443,12 +543,14 @@ START_CONSTRAINT (10551, Event, e)
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(e.getId(), SBML_EVENT);
 
   /* if the formula is dimensionless then we assume that the user
-   * intends it to have default units of time
+   * intends it to have default units
    * so shouldnt fail the constraint
    */
-  pre (formulaUnits->getUnitDefinition()->getNumUnits() == 1 && 
-    strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
+  }
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -458,6 +560,123 @@ START_CONSTRAINT (10551, Event, e)
   inv (areIdentical(formulaUnits->getUnitDefinition(), 
                                         formulaUnits->getEventTimeUnitDefinition()) == 1);
 
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (10561, EventAssignment, ea)
+{
+  msg =
+    "When the 'variable' in an <eventAssignment> refers to a <compartment>, "
+    "the units of the eventAssignment's math expression must be consistent with the "
+    "units of that compartment's size. (References: L2V2 Section 4.14.2.)";
+
+
+  const string& variable = ea.getVariable();
+  const Compartment* c = m.getCompartment(variable);
+
+  pre ( c != NULL);
+  pre ( ea.isSetMath() == 1 );
+
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
+
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (10562, EventAssignment, ea)
+{
+  msg =
+    "When the 'variable' in an <eventAssignment> refers to a <species>, the "
+    "units of the eventAssignment's math expression must be consistent with the units "
+    "of the species' quantity. (References: L2V2 Section 4.14.2.)";
+   
+
+  const string& variable = ea.getVariable();
+  const Species * s = m.getSpecies(variable);
+
+  pre ( s != NULL);
+  pre ( ea.isSetMath() == 1 );
+
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (10563, EventAssignment, ea)
+{
+  msg =
+    "When the 'variable' in an <eventAssignment> refers to a <parameter>, the "
+    "units of the eventAssignment's math expression must be consistent with the units "
+    "declared for that parameter. (References: L2V2 Section 4.11.3.)";
+   
+
+  const string& variable = ea.getVariable();
+  const Parameter* p = m.getParameter(variable);
+
+  pre ( p != NULL);
+  pre ( ea.isSetMath() == 1 );
+  /* check that the parameter has units declared */
+  pre ( p->isSetUnits());
+
+  const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
+  const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+
+  /* if the formula is dimensionless then we assume that the user
+   * intends it to have default units
+   * so shouldnt fail the constraint
+   */
+  if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
+  {
+    pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
+                                                                       "dimensionless")); 
+  }
+
+  /* check that the formula is okay ie has no parameters with undeclared units */
+  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
+        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+
+  inv (areEquivalent(formulaUnits->getUnitDefinition(), 
+                          variableUnits->getUnitDefinition()) == 1);
 }
 END_CONSTRAINT
 
@@ -1285,6 +1504,18 @@ END_CONSTRAINT
 
 
 EXTERN_CONSTRAINT(20613, UniqueSpeciesTypesInCompartment)
+
+
+START_CONSTRAINT (20614, Species, s)
+{
+  msg =
+    "The compartment field in a <species> definition is a required "
+    "field. (References: L2V2 Section 4.8.3.)";
+
+  inv( s.isSetCompartment() != NULL );
+}
+END_CONSTRAINT
+
 
 // Parameter validation
 
