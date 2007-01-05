@@ -1935,6 +1935,235 @@ START_CONSTRAINT (21212, EventAssignment, ea)
 END_CONSTRAINT
 
 
+START_CONSTRAINT(10701, Model, m1)
+{
+  msg = 
+    "The value of the sboTerm field on a Model must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a modeling framework "
+    "defined in SBO (i.e., terms derived from SBO:0000004, “modeling "
+    "framework”). (References: L2V2 Section 4.2.1.)";
+
+  pre(m1.isSetSBOTerm());
+
+  inv(SBML::isModellingFramework(m1.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10702, FunctionDefinition, fd)
+{
+  msg = 
+    "The value of the sboTerm field on a FunctionDefinition must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, “mathematical "
+    "expression”). (References: L2V2 Section 4.3.3.)";
+
+  pre(fd.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(fd.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10703, Parameter, p)
+{
+  msg = 
+    "The value of the sboTerm field on a Parameter must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a quantitative parameter "
+    "defined in SBO (i.e., terms derived from SBO:0000002, “quantitative "
+    "parameter”). (References: L2V2 Section 4.9.5.)";
+
+  pre(p.isSetSBOTerm());
+
+  inv(SBML::isQuantitativeParameter(p.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10704, InitialAssignment, ia)
+{
+  msg = 
+    "The value of the sboTerm field on an InitialAssignment must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, “mathematical "
+    "expression”). (References: L2V2 Section 4.10.3.)";
+
+  pre(ia.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(ia.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10705, AssignmentRule, r)
+{
+  msg = 
+    "The value of the sboTerm field on a Rule must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, “mathematical expression”). Note: "
+    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1.)";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10705, RateRule, r)
+{
+  msg = 
+    "The value of the sboTerm field on a Rule must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, “mathematical expression”). Note: "
+    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1.)";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10705, AlgebraicRule, r)
+{
+  msg = 
+    "The value of the sboTerm field on a Rule must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, “mathematical expression”). Note: "
+    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1.)";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10706, Constraint, c)
+{
+  msg = 
+    "The value of the sboTerm field on a Constraint must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, “mathematical expression”). "
+    "(References: L2V2 Section 4.12.3.)";
+
+  pre(c.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(c.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10707, Reaction, r)
+{
+  msg = 
+    "The value of the sboTerm field on a Reaction must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a modeling framework defined "
+    "in SBO (i.e., terms derived from SBO:0000004, “modeling framework”). "
+    "(References: L2V2 Section 4.13.1.)";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isModellingFramework(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10708, Reaction, r)
+{
+  msg = 
+    "The value of the sboTerm field on a Reaction must be consistent with an "
+    "sboTerm declared on the Model, since the Model’s sboTerm field should be "
+    "interpreted to mean that all the reactions in a model assume the same "
+    "modeling framework. (References: L2V2 Section 4.13.1.)";
+
+  pre(m.isSetSBOTerm());
+  pre(r.isSetSBOTerm());
+  pre(SBML::isModellingFramework(r.getSBOTerm()));
+
+  inv(m.getSBOTerm() == r.getSBOTerm());
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10709, SpeciesReference, sr)
+{
+  msg = 
+    "The value of the sboTerm field on a SpeciesReference must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "role. The appropriate term depends on whether the object is a reactant, "
+    "product or modifier. If a reactant, then it should be a term in the "
+    "SBO:0000010, “reactant” hierarchy; if a product, then it should be a "
+    "term in the SBO:0000011, “product” hierarchy; and if a modifier, then it "
+    "should be a term in the SBO:0000019, “modifier” hierarchy. (References: "
+    "L2V2 Section 4.13.2.)";
+
+  pre(sr.isSetSBOTerm());
+
+  if (!sr.isModifier())
+  {
+    inv_or(SBML::isProduct(sr.getSBOTerm()));
+    inv_or(SBML::isReactant(sr.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBML::isModifier(sr.getSBOTerm()));
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10710, KineticLaw, kl)
+{
+  msg = 
+    "The value of the sboTerm field on a KineticLaw must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring rate law defined in SBO (i.e., "
+    "terms derived from SBO:0000001, “rate law”). (References: L2V2 Section 4.13.5.)";
+
+  pre(kl.isSetSBOTerm());
+
+  inv(SBML::isRateLaw(kl.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10711, Event, e)
+{
+  msg = 
+    "The value of the sboTerm field on an Event must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, “mathematical expression”). "
+    "(References: L2V2 Section 4.14.1.)";
+
+  pre(e.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(e.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10712, EventAssignment, ea)
+{
+  msg = 
+    "The value of the sboTerm field on an EventAssignment must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, “mathematical "
+    "expression”). (References: L2V2 Section 4.14.2.)";
+
+  pre(ea.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(ea.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+
+
+
 // NEED TO SORT OUT NUMBERS
 START_CONSTRAINT (1604, KineticLaw, kl)
 {
@@ -2065,181 +2294,4 @@ START_CONSTRAINT (1611, KineticLaw, kl)
 }
 END_CONSTRAINT
 
-
-START_CONSTRAINT(99999, FunctionDefinition, fd)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(fd.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(fd.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, Parameter, p)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(p.isSetSBOTerm());
-
-  inv(SBML::isQuantitativeParameter(p.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, InitialAssignment, ia)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(ia.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(ia.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, AssignmentRule, r)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, RateRule, r)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, AlgebraicRule, r)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, Constraint, c)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(c.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(c.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, Reaction, r)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isModellingFramework(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99998, Reaction, r)
-{
-  msg = 
-    "SBO conflicts with model";
-
-  pre(m.isSetSBOTerm());
-  pre(r.isSetSBOTerm());
-  pre(SBML::isModellingFramework(r.getSBOTerm()));
-
-  inv(m.getSBOTerm() == r.getSBOTerm());
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, SpeciesReference, sr)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(sr.isSetSBOTerm());
-
-  if (!sr.isModifier())
-  {
-    inv_or(SBML::isProduct(sr.getSBOTerm()));
-    inv_or(SBML::isReactant(sr.getSBOTerm()));
-  }
-  else
-  {
-    inv(SBML::isModifier(sr.getSBOTerm()));
-  }
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, KineticLaw, kl)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(kl.isSetSBOTerm());
-
-  inv(SBML::isRateLaw(kl.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, Event, e)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(e.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(e.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, EventAssignment, ea)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(ea.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(ea.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(99999, Model, m1)
-{
-  msg = 
-    "Wrong SBO";
-
-  pre(m1.isSetSBOTerm());
-
-  inv(SBML::isModellingFramework(m1.getSBOTerm()));
-}
-END_CONSTRAINT
 
