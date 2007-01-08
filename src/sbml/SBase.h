@@ -80,6 +80,12 @@ public:
    */
   const std::string& getMetaId () const;
 
+
+  /**
+   * @return the metaid of this SBML object.
+   */
+  std::string& getMetaId ();
+
   /**
    * @return the id of this SBML object.
    */
@@ -351,12 +357,12 @@ protected:
   /**
    * checks if a character is part of the CombiningCharacter set
    */
-  bool isCombiningChar(unsigned char);
+  bool isCombiningChar(std::string::iterator, unsigned int);
 
   /**
    * checks if a character is part of the Extender set
    */
-  bool isExtender(unsigned char);
+  bool isExtender(std::string::iterator, unsigned int);
 
   std::string mMetaId;
   std::string mId;

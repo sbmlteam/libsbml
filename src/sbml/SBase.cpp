@@ -81,6 +81,16 @@ SBase::getMetaId () const
 
 
 /**
+ * @return the metaid of this SBML object.
+ */
+string&
+SBase::getMetaId ()
+{
+  return mMetaId;
+}
+
+
+/**
  * @return the id of this SBML object.
  */
 const string&
@@ -610,33 +620,57 @@ SBase::checkListOfPopulated(SBase* object)
 void 
 SBase::checkMetaIdSyntax()
 {
-  const string& metaid = getMetaId();
-  unsigned int size = metaid.size();
+  string& metaid = getMetaId();
+  string::iterator it = metaid.begin();
+ 
+  // first character must be a letter or '_' or ':'
+  unsigned char c = *it;
+  bool okay = (isalpha(c) || c == '_' || c == ':');
+  it++;
 
-  if (size == 0)
-    return;
-
-  
-  unsigned int n = 0;
-
-  unsigned char c = metaid[n];
-  bool okay = (isalpha(c) || (c == '_') || (c == ':'));
-  n++;
-
-  while (okay && n < size)
+  // remaining chars must be 
+  // letter | digit | ’.’ | ’-’ | ’ ’ | ':' | CombiningChar | Extender
+  while (okay && it < metaid.end())
   {
-    c = metaid[n];
-    okay = (
-            isalnum(c)          || 
-            c == '.'            ||
-            c == '-'            ||
-            c == '_'            ||
-            c == ':'            ||
-            isCombiningChar(c)  ||
-            isExtender(c)
-            );  
-    n++;
+    c = *it;
+    
+    // need to find multibyte sequences
+    if (c < 0x80)
+    {
+      okay = (
+            isalnum(c) || 
+            c == '.'   ||
+            c == '-'   ||
+            c == '_'   ||
+            c == ':'   );
+    }
+    else if (c >> 5 == 0x6)
+    {
+      okay = (
+          isCombiningChar(it, 2)  ||
+          isExtender(it, 2)       );
+      it++;
+    }
+    else if (c >> 4 == 0xe)
+    {
+      okay = (
+          isCombiningChar(it, 3)  ||
+          isExtender(it, 3)       );
+      it++;
+      it++;
+    }
+    else if (c >> 3 == 0x1e)
+    {
+      okay = (
+          isCombiningChar(it, 4)  ||
+          isExtender(it, 4)       );
+      it += 3;
+    }
+
+    it++;
+
   }
+
 
   if (!okay)   
     mSBML->getErrorLog()->logError(10309);
@@ -645,12 +679,501 @@ SBase::checkMetaIdSyntax()
   
 /**
   * checks if a character is part of the CombiningCharacter set
+  * CombiningChar ::=  [#x0300-#x0345] | [#x0360-#x0361] | [#x0483-#x0486] | 
+  * [#x0591-#x05A1] | [#x05A3-#x05B9] | [#x05BB-#x05BD] | #x05BF | [#x05C1-#x05C2] | 
+  * #x05C4 | [#x064B-#x0652] | #x0670 | [#x06D6-#x06DC] | [#x06DD-#x06DF] | 
+  * [#x06E0-#x06E4] | [#x06E7-#x06E8] | [#x06EA-#x06ED] | [#x0901-#x0903] | #x093C | 
+  * [#x093E-#x094C] | #x094D | [#x0951-#x0954] | [#x0962-#x0963] | [#x0981-#x0983] | 
+  * #x09BC | #x09BE | #x09BF | [#x09C0-#x09C4] | [#x09C7-#x09C8] | [#x09CB-#x09CD] | 
+  * #x09D7 | [#x09E2-#x09E3] | #x0A02 | #x0A3C | #x0A3E | #x0A3F | [#x0A40-#x0A42] | 
+  * [#x0A47-#x0A48] | [#x0A4B-#x0A4D] | [#x0A70-#x0A71] | [#x0A81-#x0A83] | #x0ABC | 
+  * [#x0ABE-#x0AC5] | [#x0AC7-#x0AC9] | [#x0ACB-#x0ACD] | [#x0B01-#x0B03] | #x0B3C | 
+  * [#x0B3E-#x0B43] | [#x0B47-#x0B48] | [#x0B4B-#x0B4D] | [#x0B56-#x0B57] | [#x0B82-#x0B83] | 
+  * [#x0BBE-#x0BC2] | [#x0BC6-#x0BC8] | [#x0BCA-#x0BCD] | #x0BD7 | [#x0C01-#x0C03] | 
+  * [#x0C3E-#x0C44] | [#x0C46-#x0C48] | [#x0C4A-#x0C4D] | [#x0C55-#x0C56] | [#x0C82-#x0C83] | 
+  * [#x0CBE-#x0CC4] | [#x0CC6-#x0CC8] | [#x0CCA-#x0CCD] | [#x0CD5-#x0CD6] | [#x0D02-#x0D03] | 
+  * [#x0D3E-#x0D43] | [#x0D46-#x0D48] | [#x0D4A-#x0D4D] | #x0D57 | #x0E31 | [#x0E34-#x0E3A] |
+  * [#x0E47-#x0E4E] | #x0EB1 | [#x0EB4-#x0EB9] | [#x0EBB-#x0EBC] | [#x0EC8-#x0ECD] | 
+  * [#x0F18-#x0F19] | #x0F35 | #x0F37 | #x0F39 | #x0F3E | #x0F3F | [#x0F71-#x0F84] | 
+  * [#x0F86-#x0F8B] | [#x0F90-#x0F95] | #x0F97 | [#x0F99-#x0FAD] | [#x0FB1-#x0FB7] | #x0FB9 | 
+  * [#x20D0-#x20DC] | #x20E1 | [#x302A-#x302F] | #x3099 | #x309A  
   */
 bool 
-SBase::isCombiningChar(unsigned char c)
+SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
 {
-  /* need to think about this */
-  return false; 
+  bool combiningChar = false;
+
+  /* combiningChar unicodes in UTF-8 decimal form
+
+  UNICODE    UTF-8(1)  UTF-8(2)   UTF-8(3)
+  #x0300 -    204      128 - 191
+    #x0345    205      128 - 133
+  #x0360 - 1  205      160 - 161
+  #x0483 - 6  210      131 - 134
+  #x0591 - A1 214      145 - 161
+  #x05A3 - B9 214      163 - 185
+  #x05BB - D  214      187 - 189
+  #x05BF      214      191
+  #x05C1 - 2  215      129 - 130
+  #x05C4      215      132
+  #x064B - 52 217      139 - 146
+  #x0670      217      176
+  #x06D6 - F  219      150 - 159
+  #x06E0 - 4  219      160 - 164
+  #x06E7 - 8  219      167 - 168
+  #x06EA - D  219      170 - 173
+  #x0901 - 3  224      164        129 - 131
+  #x093C      224      164        188
+  #x093E      224      164        190 - 191
+        - 4C  224      165        128 - 140
+  #x094D      224      165        141
+  #x0951 - 4  224      165        145 - 148
+  #x0962 - 3  224      165        162 - 163
+  #x0981 - 3  224      166        129 - 131
+  #x09BC      224      166        188
+  #x09BE - F  224      166        190 - 191
+  #x09C0 - 4  224      167        128 - 132
+  #x09C7 - 8  224      167        135 - 136
+  #x09CB - D  224      167        139 - 141
+  #x09D7      224      167        151
+  #x09E2 - 3  224      167        162 - 163
+  #x0A02      224      168        130
+  #x0A3C      224      168        188
+  #x0A3E - F  224      168        190 - 191
+  #x0A40 - 2  224      169        128 - 130
+  #x0A47 - 8  224      169        135 - 136
+  #x0A4B - D  224      169        139 - 141
+  #x0A70 - 1  224      169        176 - 177
+  #x0A81 - 3  224      170        129 - 131
+  #x0ABC      224      170        188
+  #x0ABE      224      170        190 - 191
+     -    C5  224      171        128 - 133
+  #x0AC7 - 9  224      171        135 - 137
+  #x0ACB - D  224      171        139 - 141
+  #x0B01 - 3  224      172        129 - 131
+  #x0B3C      224      172        188
+  #x0B3E      224      172        190 - 191
+     -    43  224      173        128 - 131
+  #x0B47 - 8  224      173        135 - 136
+  #x0B4B - D  224      173        139 - 141
+  #x0B56 - 7  224      173        150 - 151
+  #x0B82 - 3  224      174        130 - 131
+  #x0BBE      224      174        190 - 191
+     -    C2  224      175        128 - 130
+  #x0BC6 - 8  224      175        134 - 136
+  #x0BCA - D  224      175        138 - 141
+  #x0BD7      224      175        151
+  #x0C01 - 3  224      176        129 - 131
+  #x0C3E      224      176        190 - 191
+     -    44  224      177        128 - 132
+  #x0C46 - 8  224      177        134 - 136
+  #x0C4A - D  224      177        138 - 141
+  #x0C55 - 6  224      177        149 - 150
+  #x0C82 - 3  224      178        130 - 131
+  #x0CBE      224      178        190 - 191
+     -    C4  224      179        128 - 132
+  #x0CC6 - 8  224      179        134 - 136
+  #x0CCA - D  224      179        138 - 141
+  #x0CD5 - 6  224      179        149 - 150 
+  #x0D02 - 3  224      180        130 - 131
+  #x0D3E      224      180        190 - 191
+     -    43  224      181        128 - 131
+  #x0D46 - 8  224      181        134 - 136
+  #x0D4A - D  224      181        138 - 141
+  #x0D57      224      181        151
+  #x0E31      224      184        177
+  #x0E34 - A  224      184        180 - 186
+  #x0E47 - E  224      185        135 - 142
+  #x0EB1      224      186        177
+  #x0EB4 - 9  224      186        180 - 185
+  #x0EBB - C  224      186        187 - 188
+  #x0EC8 - D  224      187        136 - 141
+  #x0F18 - 9  224      188        152 - 153
+  #x0F35      224      188        181
+  #x0F37      224      188        183
+  #x0F39      224      188        185
+  #x0F3E - F  224      188        190 - 191
+  #x0F71      224      189        177 - 191
+     -    84  224      190        128 - 132
+  #x0F86 - B  224      190        134 - 139
+  #x0F90 - 5  224      190        144 - 149
+  #x0F97      224      190        151
+  #x0F99      224      190        153 - 
+     -    AD  224      190              173
+  #x0FB1 - 7  224      190        177 - 183
+  #x0FB9      224      190        185
+  #x20D0 - C  226      131        144 - 156
+  #x20E1      226      131        161
+  #x302A - F  227      128        170 - 175
+  #x3099 - A  227      130        153 - 154
+
+  */
+
+  unsigned char c1 = *it;
+  unsigned char c2 = *(++it);
+  unsigned char c3 = *(it+2);
+  
+  switch (numBytes)
+  {
+  case 2:
+    if (c1 == 204)
+    {
+      if (c2 >= 128 && c2 <= 191)
+      {
+        combiningChar = true;
+      }
+    }
+    else if (c1 == 205)
+    {
+      if (c2 >= 128 && c2 <= 133)
+      {
+        combiningChar = true;
+      }
+      else if ( c2 == 160 || c2 == 161)
+      {
+        combiningChar = true;
+      }
+    }
+    else if (c1 == 210)
+    {
+      if (c2 >= 131 && c2 <= 134)
+      {
+        combiningChar = true;
+      }
+    }
+    else if (c1 == 214)
+    {
+      if (c2 >= 145 && c2 <= 161)
+      {
+        combiningChar = true;
+      }
+      else if (c2 >= 163 && c2 <= 185)
+      {
+        combiningChar = true;
+      }
+      else if (c2 >= 187 && c2 <= 189)
+      {
+        combiningChar = true;
+      }
+      else if (c2 == 191)
+      {
+        combiningChar = true;
+      }
+    }
+    else if (c1 == 215)
+    {
+      if (c2 >= 129 && c2 <= 130)
+      {
+        combiningChar = true;
+      }
+      else if (c2 == 132)
+      {
+        combiningChar = true;
+      }
+    }
+    else if (c1 == 217)
+    {
+      if (c2 >= 139 && c2 <= 146)
+      {
+        combiningChar = true;
+      }
+      else if (c2 == 176)
+      {
+        combiningChar = true;
+      }
+    }
+    else if (c1 == 219)
+    {
+      if (c2 >= 150 && c2 <= 159)
+      {
+        combiningChar = true;
+      }
+      else if (c2 >= 160 && c2 <= 164)
+      {
+        combiningChar = true;
+      }
+      else if (c2 >= 167 && c2 <= 168)
+      {
+        combiningChar = true;
+      }
+      else if (c2 >= 170 && c2 <= 173)
+      {
+        combiningChar = true;
+      }
+    }
+    break;
+  case 3:
+    if (c1 == 226)
+    { 
+      if (c2 == 131)
+      {
+        if (c3 == 161
+          || (144 <= c3 && 156 >= c3))
+        {
+          combiningChar = true;
+        }
+      }
+    }
+    else if (c1 == 227)
+    {
+      if (c2 == 128)
+      {
+        if (170 <= c3 && 175 >= c3)
+        {
+          combiningChar = true;
+        }
+      }
+      else if (c2 == 130)
+      {
+        if (153 <= c3 && 154 >= c3)
+        {
+          combiningChar = true;
+        }
+      }
+    }
+    else if (c1 == 224)
+    {
+      switch (c2)
+      {
+      case 164:
+        if (  (129 <= c3 && 131 >= c3)  ||
+              (c3 == 188)               ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 165:
+        if (  (128 <= c3 && 140 >= c3)  ||
+              (c3 == 141)               ||
+              (145 <= c3 && 148 >= c3)  ||
+              (162 <= c3 && 163 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 166:
+        if (  (129 <= c3 && 131 >= c3)  ||
+              (c3 == 188)               ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 167:
+        if (  (128 <= c3 && 132 >= c3)  ||
+              (135 <= c3 && 136 >= c3)  ||
+              (139 <= c3 && 141 >= c3)  ||
+              (c3 == 151)               ||
+              (162 <= c3 && 163 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 168:
+        if (  (c3 == 130)               ||
+              (c3 == 188)               ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 169:
+        if (  (128 <= c3 && 130 >= c3)  ||
+              (135 <= c3 && 136 >= c3)  ||
+              (139 <= c3 && 141 >= c3)  ||
+              (176 <= c3 && 177 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 170:
+        if (  (129 <= c3 && 131 >= c3)  ||
+              (c3 == 188)               ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 171:
+        if (  (128 <= c3 && 130 >= c3)  ||
+              (135 <= c3 && 137 >= c3)  ||
+              (139 <= c3 && 141 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 172:
+        if (  (129 <= c3 && 131 >= c3)  ||
+              (c3 == 188)               ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 173:
+        if (  (128 <= c3 && 131 >= c3)  ||
+              (135 <= c3 && 136 >= c3)  ||
+              (139 <= c3 && 141 >= c3)  ||
+              (150 <= c3 && 151 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 174:
+        if (  (130 <= c3 && 131 >= c3)  ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 175:
+        if (  (128 <= c3 && 130 >= c3)  ||
+              (134 <= c3 && 136 >= c3)  ||
+              (138 <= c3 && 141 >= c3)  ||
+              (c3 == 151)               )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 176:
+        if (  (129 <= c3 && 131 >= c3)  ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 177:
+        if (  (128 <= c3 && 132 >= c3)  ||
+              (134 <= c3 && 136 >= c3)  ||
+              (138 <= c3 && 141 >= c3)  ||
+              (149 <= c3 && 150 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 178:
+        if (  (130 <= c3 && 131 >= c3)  ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 179:
+        if (  (128 <= c3 && 132 >= c3)  ||
+              (134 <= c3 && 136 >= c3)  ||
+              (138 <= c3 && 141 >= c3)  ||
+              (149 <= c3 && 150 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 180:
+        if (  (130 <= c3 && 131 >= c3)  ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 181:
+        if (  (128 <= c3 && 131 >= c3)  ||
+              (134 <= c3 && 136 >= c3)  ||
+              (138 <= c3 && 141 >= c3)  ||
+              (c3 == 151)               )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 184:
+        if (  (c3 == 170)               ||
+              (180 <= c3 && 186 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 185:
+        if (  (135 <= c3 && 142 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 186:
+        if (  (c3 == 177)               ||
+              (180 <= c3 && 185 >= c3)  ||
+              (187 <= c3 && 188 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 187:
+        if (  (136 <= c3 && 141 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 188:
+        if (  (152 <= c3 && 153 >= c3)  ||
+              (c3 == 181)               ||
+              (c3 == 183)               ||
+              (c3 == 185)               ||
+              (190 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 189:
+        if (  (177 <= c3 && 191 >= c3)  )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      case 190:
+        if (  (128 <= c3 && 132 >= c3)  ||
+              (134 <= c3 && 139 >= c3)  ||
+              (144 <= c3 && 149 >= c3)  ||
+              (c3 == 151)               ||
+              (153 <= c3 && 173 >= c3)  ||
+              (177 <= c3 && 183 >= c3)  ||
+              (c3 == 185)               )
+        {
+          combiningChar = true;
+        }
+
+        break;
+      default:
+        break;
+      }
+
+    }
+  default:
+    break;
+  }
+      
+  return combiningChar; 
 }
 
 /**
@@ -659,9 +1182,97 @@ SBase::isCombiningChar(unsigned char c)
   * #x0E46 | #x0EC6 | #x3005 | [#x3031-#x3035] | [#x309D-#x309E] | [#x30FC-#x30FE] 
   */
 bool 
-SBase::isExtender(unsigned char c)
+SBase::isExtender(std::string::iterator it, unsigned int numBytes)
 {
-      return false; 
+  bool extender = false;
+
+  /* extender unicodes in UTF-8 decimal form
+
+  UNICODE UTF-8(1)  UTF-8(2)  UTF-8(3)
+  #x00B7  194       183
+  #x02D0  203       144
+  #x02D1  203       145
+  #x0387  206       135
+  #x0640  217       128
+  #x0E46  224       185       134
+  #x0EC6  224       187       134
+  #x3005  227       128       133
+  #x3031- 227       128       177-
+  #x3035                      181
+  #x309D  227       130       157
+  #x309E  227       130       158
+  #x30FC- 227       131       188-
+  #x30FE                      190
+
+  */
+
+  unsigned char c1 = *it;
+  unsigned char c2 = *(++it);
+  unsigned char c3 = *(it+2);
+  
+  switch (numBytes)
+  {
+  case 2:
+    if (c1 == 194 && c2 == 183)
+    {
+      extender = true;
+    }
+    else if (c1 == 203)
+    {
+      if (c2 == 144 || c2 == 145)
+      {
+        extender = true;
+      }
+    }
+    else if (c1 == 206 && c2 == 135)
+    {
+      extender = true;
+    }
+    else if (c1 == 217 && c2 == 128)
+    {
+      extender = true;
+    }
+    break;
+  case 3:
+    if (c1 == 224)
+    {
+      if (c2 == 185 || c2 == 187)
+      {
+        if (c3 == 134)
+        {
+          extender = true;
+        }
+      }
+    }
+    else if (c1 == 227)
+    {
+      if (c2 == 128)
+      {
+        if (c3 == 133 || (c3 >= 177 && c3 <= 181))
+        {
+          extender = true;
+        }
+      }
+      else if (c2 == 130)
+      {
+        if (c3 == 157 || c3 == 158)
+        {
+          extender = true;
+        }
+      }
+      else if (c2 == 131)
+      {
+         if (c3 >= 188 && c3 <= 190)
+        {
+          extender = true;
+        }
+     }
+    }
+  default:
+    break;
+  }
+      
+  return extender; 
 }
 
   

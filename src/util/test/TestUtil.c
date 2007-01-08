@@ -51,6 +51,7 @@
 
 #include <check.h>
 #include <locale.h>
+#include <sys/errno.h>
 
 #include "common/common.h"
 
