@@ -33,6 +33,7 @@
 
 #include <sbml/util/util.h>
 
+#include "RDFAnnotation.h"
 #include "KineticLaw.h"
 #include "SBMLDocument.h"
 #include "ListOf.h"
@@ -625,8 +626,32 @@ SBase::checkMetaIdSyntax()
  
   // first character must be a letter or '_' or ':'
   unsigned char c = *it;
-  bool okay = (isalpha(c) || c == '_' || c == ':');
-  it++;
+  bool okay;
+
+  if (c < 0x80)
+  {
+    okay = (isUnicodeLetter(it, 1) || c == '_' || c == ':');
+    it++;
+  }
+  else if (c >> 5 == 0x6)
+  {
+    okay = (isUnicodeLetter(it, 2));
+    it++;
+    it++;
+  }
+  else if (c >> 4 == 0xe)
+  {
+    okay = (isUnicodeLetter(it, 3));
+    it++;
+    it++;
+    it++;
+  }
+  else
+  {
+    okay = false;
+    it++;
+  }
+
 
   // remaining chars must be 
   // letter | digit | ’.’ | ’-’ | ’ ’ | ':' | CombiningChar | Extender
@@ -638,15 +663,18 @@ SBase::checkMetaIdSyntax()
     if (c < 0x80)
     {
       okay = (
-            isalnum(c) || 
-            c == '.'   ||
-            c == '-'   ||
-            c == '_'   ||
-            c == ':'   );
+          isUnicodeLetter(it, 1)  ||
+          isUnicodeDigit(it, 1)   ||
+            c == '.'              ||
+            c == '-'              ||
+            c == '_'              ||
+            c == ':'              );
     }
     else if (c >> 5 == 0x6)
     {
       okay = (
+          isUnicodeLetter(it, 2)  ||
+          isUnicodeDigit(it, 2)   ||
           isCombiningChar(it, 2)  ||
           isExtender(it, 2)       );
       it++;
@@ -654,6 +682,8 @@ SBase::checkMetaIdSyntax()
     else if (c >> 4 == 0xe)
     {
       okay = (
+          isUnicodeLetter(it, 3)  ||
+          isUnicodeDigit(it, 3)   ||
           isCombiningChar(it, 3)  ||
           isExtender(it, 3)       );
       it++;
@@ -662,6 +692,8 @@ SBase::checkMetaIdSyntax()
     else if (c >> 3 == 0x1e)
     {
       okay = (
+          isUnicodeLetter(it, 4)  ||
+          isUnicodeDigit(it, 4)   ||
           isCombiningChar(it, 4)  ||
           isExtender(it, 4)       );
       it += 3;
@@ -677,6 +709,869 @@ SBase::checkMetaIdSyntax()
 }
 
   
+/**
+  * checks if a character is part of the Unicode Letter set
+  * Letter ::=  BaseChar | Ideographic 
+  * BaseChar ::=  [#x0041-#x005A] | [#x0061-#x007A] | [#x00C0-#x00D6] | 
+  * [#x00D8-#x00F6] | [#x00F8-#x00FF] | [#x0100-#x0131] | [#x0134-#x013E] | 
+  * [#x0141-#x0148] | [#x014A-#x017E] | [#x0180-#x01C3] | [#x01CD-#x01F0] | 
+  * [#x01F4-#x01F5] | [#x01FA-#x0217] | [#x0250-#x02A8] | [#x02BB-#x02C1] | 
+  * #x0386 | [#x0388-#x038A] | #x038C | [#x038E-#x03A1] | [#x03A3-#x03CE] | 
+  * [#x03D0-#x03D6] | #x03DA | #x03DC | #x03DE | #x03E0 | [#x03E2-#x03F3] | 
+  * [#x0401-#x040C] | [#x040E-#x044F] | [#x0451-#x045C] | [#x045E-#x0481] | 
+  * [#x0490-#x04C4] | [#x04C7-#x04C8] | [#x04CB-#x04CC] | [#x04D0-#x04EB] | 
+  * [#x04EE-#x04F5] | [#x04F8-#x04F9] | [#x0531-#x0556] | #x0559 | 
+  * [#x0561-#x0586] | [#x05D0-#x05EA] | [#x05F0-#x05F2] | [#x0621-#x063A] | 
+  * [#x0641-#x064A] | [#x0671-#x06B7] | [#x06BA-#x06BE] | [#x06C0-#x06CE] | 
+  * [#x06D0-#x06D3] | #x06D5 | [#x06E5-#x06E6] | [#x0905-#x0939] | #x093D | 
+  * [#x0958-#x0961] | [#x0985-#x098C] | [#x098F-#x0990] | [#x0993-#x09A8] | 
+  * [#x09AA-#x09B0] | #x09B2 | [#x09B6-#x09B9] | [#x09DC-#x09DD] | 
+  * [#x09DF-#x09E1] | [#x09F0-#x09F1] | [#x0A05-#x0A0A] | [#x0A0F-#x0A10] | 
+  * [#x0A13-#x0A28] | [#x0A2A-#x0A30] | [#x0A32-#x0A33] | [#x0A35-#x0A36] | 
+  * [#x0A38-#x0A39] | [#x0A59-#x0A5C] | #x0A5E | [#x0A72-#x0A74] | 
+  * [#x0A85-#x0A8B] | #x0A8D | [#x0A8F-#x0A91] | [#x0A93-#x0AA8] | 
+  * [#x0AAA-#x0AB0] | [#x0AB2-#x0AB3] | [#x0AB5-#x0AB9] | #x0ABD | #x0AE0 | 
+  * [#x0B05-#x0B0C] | [#x0B0F-#x0B10] | [#x0B13-#x0B28] | [#x0B2A-#x0B30] | 
+  * [#x0B32-#x0B33] | [#x0B36-#x0B39] | #x0B3D | [#x0B5C-#x0B5D] | 
+  * [#x0B5F-#x0B61] | [#x0B85-#x0B8A] | [#x0B8E-#x0B90] | [#x0B92-#x0B95] | 
+  * [#x0B99-#x0B9A] | #x0B9C | [#x0B9E-#x0B9F] | [#x0BA3-#x0BA4] | 
+  * [#x0BA8-#x0BAA] | [#x0BAE-#x0BB5] | [#x0BB7-#x0BB9] | [#x0C05-#x0C0C] | 
+  * [#x0C0E-#x0C10] | [#x0C12-#x0C28] | [#x0C2A-#x0C33] | [#x0C35-#x0C39] | 
+  * [#x0C60-#x0C61] | [#x0C85-#x0C8C] | [#x0C8E-#x0C90] | [#x0C92-#x0CA8] | 
+  * [#x0CAA-#x0CB3] | [#x0CB5-#x0CB9] | #x0CDE | [#x0CE0-#x0CE1] | 
+  * [#x0D05-#x0D0C] | [#x0D0E-#x0D10] | [#x0D12-#x0D28] | [#x0D2A-#x0D39] | 
+  * [#x0D60-#x0D61] | [#x0E01-#x0E2E] | #x0E30 | [#x0E32-#x0E33] | 
+  * [#x0E40-#x0E45] | [#x0E81-#x0E82] | #x0E84 | [#x0E87-#x0E88] | #x0E8A | 
+  * #x0E8D | [#x0E94-#x0E97] | [#x0E99-#x0E9F] | [#x0EA1-#x0EA3] | #x0EA5 | 
+  * #x0EA7 | [#x0EAA-#x0EAB] | [#x0EAD-#x0EAE] | #x0EB0 | [#x0EB2-#x0EB3] | 
+  * #x0EBD | [#x0EC0-#x0EC4] | [#x0F40-#x0F47] | [#x0F49-#x0F69] | 
+  * [#x10A0-#x10C5] | [#x10D0-#x10F6] | #x1100 | [#x1102-#x1103] | 
+  * [#x1105-#x1107] | #x1109 | [#x110B-#x110C] | [#x110E-#x1112] | #x113C | 
+  * #x113E | #x1140 | #x114C | #x114E | #x1150 | [#x1154-#x1155] | #x1159 | 
+  * [#x115F-#x1161] | #x1163 | #x1165 | #x1167 | #x1169 | [#x116D-#x116E] | 
+  * [#x1172-#x1173] | #x1175 | #x119E | #x11A8 | #x11AB | [#x11AE-#x11AF] | 
+  * [#x11B7-#x11B8] | #x11BA | [#x11BC-#x11C2] | #x11EB | #x11F0 | #x11F9 | 
+  * [#x1E00-#x1E9B] | [#x1EA0-#x1EF9] | [#x1F00-#x1F15] | [#x1F18-#x1F1D] | 
+  * [#x1F20-#x1F45] | [#x1F48-#x1F4D] | [#x1F50-#x1F57] | #x1F59 | #x1F5B | 
+  * #x1F5D | [#x1F5F-#x1F7D] | [#x1F80-#x1FB4] | [#x1FB6-#x1FBC] | #x1FBE | 
+  * [#x1FC2-#x1FC4] | [#x1FC6-#x1FCC] | [#x1FD0-#x1FD3] | [#x1FD6-#x1FDB] | 
+  * [#x1FE0-#x1FEC] | [#x1FF2-#x1FF4] | [#x1FF6-#x1FFC] | #x2126 | 
+  * [#x212A-#x212B] | #x212E | [#x2180-#x2182] | [#x3041-#x3094] | 
+  * [#x30A1-#x30FA] | [#x3105-#x312C] | [#xAC00-#xD7A3]  
+  * Ideographic ::=  [#x4E00-#x9FA5] | #x3007 | [#x3021-#x3029]
+  */
+bool 
+SBase::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
+{
+  bool letter = false;
+
+
+  unsigned char c1 = *it;
+  unsigned char c2 = *(it+1);
+  unsigned char c3 = *(it+2);
+  
+  switch (numBytes)
+  {
+  case 1:
+    if (c1 >= 65 && c1 <= 90)
+    {
+      letter = true;
+    }
+    else if (c1 >= 97 && c1 <= 122)
+    {
+      letter = true;
+    }
+  break;
+  case 2:
+    switch (c1)
+    {
+      case 224:
+        if ((128 <= c2 && 150 >= c2)
+        ||  (152 <= c2 && 182 >= c2)
+        ||  (184 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 196:
+        if ((128 <= c2 && 177 >= c2)
+        ||  (180 <= c2 && 190 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 197:
+        if ((129 <= c2 && 136 >= c2)
+        ||  (138 <= c2 && 190 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 198:
+        if ((128 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 199:
+        if ((128 <= c2 && 131 >= c2)
+        ||  (141 <= c2 && 176 >= c2)
+        ||  (180 <= c2 && 181 >= c2)
+        ||  (186 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 200:
+        if ((128 <= c2 && 151 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 201:
+        if ((144 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 202:
+        if ((128 <= c2 && 168 >= c2)
+        ||  (187 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 203:
+        if ((128 <= c2 && 129 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 206:
+        if ((c2 == 134)
+        ||  (136 <= c2 && 138 >= c2)
+        ||  (c2 == 140)
+        ||  (142 <= c2 && 161 >= c2)
+        ||  (163 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 207:
+        if ((128 <= c2 && 142 >= c2)
+        ||  (144 <= c2 && 150 >= c2)
+        ||  (c2 == 154)
+        ||  (c2 == 158)
+        ||  (c2 == 160)
+        ||  (162 <= c2 && 179 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 208:
+        if ((129 <= c2 && 140 >= c2)
+        ||  (142 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 209:
+        if ((128 <= c2 && 143 >= c2)
+        ||  (145 <= c2 && 156 >= c2)
+        ||  (158 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 210:
+        if ((128 <= c2 && 129 >= c2)
+        ||  (144 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 211:
+        if ((128 <= c2 && 132 >= c2)
+        ||  (135 <= c2 && 136 >= c2)
+        ||  (139 <= c2 && 140 >= c2)
+        ||  (144 <= c2 && 171 >= c2)
+        ||  (174 <= c2 && 181 >= c2)
+        ||  (184 <= c2 && 185 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 212:
+        if ((177 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 213:
+        if ((128 <= c2 && 150 >= c2)
+        ||  (c2 == 153)
+        ||  (161 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 214:
+        if ((128 <= c2 && 134 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 215:
+        if ((144 <= c2 && 170 >= c2)
+        ||  (176 <= c2 && 178 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 216:
+        if ((161 <= c2 && 186 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 217:
+        if ((129 <= c2 && 138 >= c2)
+        ||  (177 <= c2 && 191 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 218:
+        if ((128 <= c2 && 183 >= c2)
+        ||  (186 <= c2 && 190 >= c2))
+        {
+          letter = true;
+        }
+      break;
+      case 219:
+        if ((128 <= c2 && 142 >= c2)
+        ||  (144 <= c2 && 147 >= c2)
+        ||  (c2 == 149)
+        ||  (165 <= c2 && 166 >= c2))
+        {
+          letter = true;
+        }
+        break;
+    }
+    break;
+case 3:
+  switch (c1)
+  {
+    case 224:
+      switch (c2)
+      {
+        case 164:
+          if ((133 <= c3 && 185 >= c3)
+          ||  (c3 == 189))
+          {
+            letter = true;
+          }
+          break;
+        case 165:
+          if ((152 <= c3 && 161 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 166:
+          if ((133 <= c3 && 140 >= c3)
+          ||  (143 <= c3 && 144 >= c3)
+          ||  (147 <= c3 && 168 >= c3)
+          ||  (170 <= c3 && 176 >= c3)
+          ||  (c3 == 178)
+          ||  (182 <= c3 && 185 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 167:
+          if ((156 <= c3 && 157 >= c3)
+          ||  (159 <= c3 && 161 >= c3)
+          ||  (176 <= c3 && 177 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 168:
+          if ((133 <= c3 && 138 >= c3)
+          ||  (143 <= c3 && 144 >= c3)
+          ||  (147 <= c3 && 168 >= c3)
+          ||  (170 <= c3 && 176 >= c3)
+          ||  (178 <= c3 && 179 >= c3)
+          ||  (181 <= c3 && 182 >= c3)
+          ||  (184 <= c3 && 185 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 169:
+          if ((153 <= c3 && 156 >= c3)
+          ||  (c3 == 158)
+          ||  (178 <= c3 && 180 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 170:
+          if ((133 <= c3 && 139 >= c3)
+          ||  (c3 == 141)
+          ||  (143 <= c3 && 145 >= c3)
+          ||  (147 <= c3 && 168 >= c3)
+          ||  (170 <= c3 && 176 >= c3)
+          ||  (178 <= c3 && 179 >= c3)
+          ||  (181 <= c3 && 185 >= c3)
+          ||  (c3 == 189))
+          {
+            letter = true;
+          }
+          break;
+        case 171:
+          if ((c3 == 160))
+          {
+            letter = true;
+          }
+          break;
+        case 172:
+          if ((133 <= c3 && 140 >= c3)
+          ||  (143 <= c3 && 144 >= c3)
+          ||  (147 <= c3 && 168 >= c3)
+          ||  (170 <= c3 && 176 >= c3)
+          ||  (178 <= c3 && 179 >= c3)
+          ||  (182 <= c3 && 185 >= c3)
+          ||  (c3 == 189))
+          {
+            letter = true;
+          }
+          break;
+        case 173:
+          if ((156 <= c3 && 157 >= c3)
+          ||  (159 <= c3 && 161 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 174:
+          if ((133 <= c3 && 138 >= c3)
+          ||  (142 <= c3 && 144 >= c3)
+          ||  (146 <= c3 && 149 >= c3)
+          ||  (153 <= c3 && 154 >= c3)
+          ||  (c3 == 156)
+          ||  (158 <= c3 && 159 >= c3)
+          ||  (163 <= c3 && 164 >= c3)
+          ||  (168 <= c3 && 170 >= c3)
+          ||  (174 <= c3 && 181 >= c3)
+          ||  (183 <= c3 && 185 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 176:
+          if ((133 <= c3 && 140 >= c3)
+          ||  (142 <= c3 && 144 >= c3)
+          ||  (146 <= c3 && 168 >= c3)
+          ||  (170 <= c3 && 179 >= c3)
+          ||  (181 <= c3 && 185 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 177:
+          if ((160 <= c3 && 161 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 178:
+          if ((133 <= c3 && 140 >= c3)
+          ||  (142 <= c3 && 144 >= c3)
+          ||  (146 <= c3 && 168 >= c3)
+          ||  (170 <= c3 && 179 >= c3)
+          ||  (181 <= c3 && 185 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 179:
+          if ((c3 == 158)
+          ||  (160 <= c3 && 161 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 180:
+          if ((133 <= c3 && 140 >= c3)
+          ||  (142 <= c3 && 144 >= c3)
+          ||  (146 <= c3 && 168 >= c3)
+          ||  (170 <= c3 && 185 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 181:
+          if ((160 <= c3 && 161 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 184:
+          if ((129 <= c3 && 174 >= c3)
+          ||  (c3 == 176)
+          ||  (178 <= c3 && 179 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 185:
+          if ((128 <= c3 && 133 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 186:
+          if ((129 <= c3 && 130 >= c3)
+          ||  (c3 == 132)
+          ||  (135 <= c3 && 136 >= c3)
+          ||  (c3 == 138)
+          ||  (c3 == 141)
+          ||  (148 <= c3 && 151 >= c3)
+          ||  (153 <= c3 && 159 >= c3)
+          ||  (161 <= c3 && 163 >= c3)
+          ||  (c3 == 165)
+          ||  (c3 == 167)
+          ||  (170 <= c3 && 171 >= c3)
+          ||  (173 <= c3 && 174 >= c3)
+          ||  (c3 == 176)
+          ||  (178 <= c3 && 179 >= c3)
+          ||  (c3 == 189))
+          {
+            letter = true;
+          }
+          break;
+        case 187:
+          if ((128 <= c3 && 132 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 189:
+          if ((128 <= c3 && 135 >= c3)
+          ||  (137 <= c3 && 169 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        default:
+          break;
+        }
+    break;
+    case 225:
+      switch (c2)
+      {
+        case 130:
+          if ((160 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 131:
+          if ((128 <= c3 && 133 >= c3)
+          ||  (144 <= c3 && 182 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 132:
+          if ((c3 == 128)
+          ||  (130 <= c3 && 131 >= c3)
+          ||  (133 <= c3 && 135 >= c3)
+          ||  (c3 == 137)
+          ||  (139 <= c3 && 140 >= c3)
+          ||  (142 <= c3 && 146 >= c3)
+          ||  (c3 == 188)
+          ||  (c3 == 190))
+          {
+            letter = true;
+          }
+          break;
+        case 133:
+          if ((c3 == 128)
+          ||  (c3 == 140)
+          ||  (c3 == 142)
+          ||  (c3 == 144)
+          ||  (148 <= c3 && 149 >= c3)
+          ||  (c3 == 153)
+          ||  (159 <= c3 && 161 >= c3)
+          ||  (c3 == 163)
+          ||  (c3 == 165)
+          ||  (c3 == 167)
+          ||  (c3 == 169)
+          ||  (173 <= c3 && 174 >= c3)
+          ||  (178 <= c3 && 179 >= c3)
+          ||  (c3 == 181))
+          {
+            letter = true;
+          }
+          break;
+        case 134:
+          if ((c3 == 158)
+          ||  (c3 == 168)
+          ||  (c3 == 171)
+          ||  (174 <= c3 && 175 >= c3)
+          ||  (183 <= c3 && 184 >= c3)
+          ||  (c3 == 186)
+          ||  (188 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 135:
+          if ((128 <= c3 && 130 >= c3)
+          ||  (c3 == 171)
+          ||  (c3 == 176)
+          ||  (c3 == 185))
+          {
+            letter = true;
+          }
+          break;
+        case 184:
+          if ((128 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 185:
+          if ((128 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 186:
+          if ((128 <= c3 && 155 >= c3)
+          ||  (160 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 187:
+          if ((128 <= c3 && 185 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 188:
+          if ((128 <= c3 && 149 >= c3)
+          ||  (152 <= c3 && 157 >= c3)
+          ||  (160 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 189:
+          if ((128 <= c3 && 133 >= c3)
+          ||  (136 <= c3 && 141 >= c3)
+          ||  (144 <= c3 && 151 >= c3)
+          ||  (c3 == 153)
+          ||  (c3 == 155)
+          ||  (c3 == 157)
+          ||  (159 <= c3 && 189 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 190:
+          if ((128 <= c3 && 180 >= c3)
+          ||  (182 <= c3 && 188 >= c3)
+          ||  (c3 == 190))
+          {
+            letter = true;
+          }
+          break;
+        case 191:
+          if ((134 <= c3 && 140 >= c3)
+          ||  (144 <= c3 && 147 >= c3)
+          ||  (150 <= c3 && 155 >= c3)
+          ||  (160 <= c3 && 172 >= c3)
+          ||  (178 <= c3 && 180 >= c3)
+          ||  (182 <= c3 && 188 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        default:
+          break;
+        }
+    break;
+    case 212:
+      switch (c2)
+      {
+        case 191:
+          if ((130 <= c3 && 132 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        default:
+          break;
+        }
+    break;
+    case 226:
+      switch (c2)
+      {
+        case 132:
+          if ((c3 == 166)
+          ||  (170 <= c3 && 171 >= c3)
+          ||  (c3 == 174))
+          {
+            letter = true;
+          }
+          break;
+        case 134:
+          if ((128 <= c3 && 130 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        default:
+          break;
+        }
+    break;
+    case 227:
+      switch (c2)
+      {
+        case 128:
+          if ((c3 == 135)
+          ||  (161 <= c3 && 169 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 129:
+          if ((129 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 130:
+          if ((128 <= c3 && 148 >= c3)
+          ||  (161 <= c3 && 191 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 131:
+          if ((128 <= c3 && 186 >= c3))
+          {
+            letter = true;
+          }
+          break;
+        case 132:
+          if ((133 <= c3 && 172 >= c3))
+          {
+            letter = true;
+          }
+          break;
+       default:
+          break;
+        }
+    break;
+    case 228:
+      if (c2 >= 184)
+      {
+        letter = true;
+      }
+    break;
+    case 233:
+      if (128 <= c2 && 189 >= c2)
+      {
+        letter = true;
+      }
+      else if (c2 == 190)
+      {
+        if (128 <= c3 && 165 >= c3)
+        {
+          letter = true;
+        }
+      }
+    break;
+    case 234:
+      if (c2 >= 176)
+      {
+        letter = true;
+      }
+    break;
+    case 229:
+    case 230:
+    case 231:
+    case 232:
+    case 235:
+    case 236:
+      {
+        letter = true;
+      }
+    break;
+    case 237:
+      if (128 <= c2 && 157 >= c2)
+      {
+        letter = true;
+      }
+      else if (c2 == 158)
+      {
+        if (128 <= c3 && 163 >= c3)
+        {
+          letter = true;
+        }
+      }
+    break;
+
+    }
+    break;
+  default:
+    break;
+  }
+      
+  return letter; 
+}
+
+
+/**
+  * checks if a character is part of the Unicode Digit set
+  * Digit ::=  [#x0030-#x0039] | [#x0660-#x0669] | [#x06F0-#x06F9] | 
+  * [#x0966-#x096F] | [#x09E6-#x09EF] | [#x0A66-#x0A6F] | [#x0AE6-#x0AEF] | 
+  * [#x0B66-#x0B6F] | [#x0BE7-#x0BEF] | [#x0C66-#x0C6F] | [#x0CE6-#x0CEF] | 
+  * [#x0D66-#x0D6F] | [#x0E50-#x0E59] | [#x0ED0-#x0ED9] | [#x0F20-#x0F29]    
+  */
+bool 
+SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
+{
+  bool digit = false;
+
+
+  unsigned char c1 = *it;
+  unsigned char c2 = *(it+1);
+  unsigned char c3 = *(it+2);
+  
+  switch (numBytes)
+  {
+  case 1:
+    if (48 <= c1 && 57 >= c1)
+    {
+      digit = true;
+    }
+    break;
+  case 2:
+    switch (c1)
+    {
+      case 217:
+        if ((160 <= c2 && 169 >= c2))
+        {
+          digit = true;
+        }
+      break;
+      case 219:
+        if ((176 <= c2 && 185 >= c2))
+        {
+          digit = true;
+        }
+      break;
+    }
+    break;
+  case 3:
+  switch (c1)
+  {
+    case 224:
+      switch (c2)
+      {
+        case 165:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 167:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 169:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 171:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 173:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 175:
+          if ((167 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 177:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 179:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 181:
+          if ((166 <= c3 && 175 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 185:
+          if ((144 <= c3 && 153 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 187:
+          if ((144 <= c3 && 153 >= c3))
+          {
+            digit = true;
+          }
+          break;
+        case 188:
+          if ((160 <= c3 && 169 >= c3))
+          {
+            digit = true;
+          }
+          break;
+      }
+
+      break;
+    default:
+      break;
+  }
+
+  break;
+  }
+      
+  return digit; 
+}
+
+
 /**
   * checks if a character is part of the CombiningCharacter set
   * CombiningChar ::=  [#x0300-#x0345] | [#x0360-#x0361] | [#x0483-#x0486] | 
@@ -810,7 +1705,7 @@ SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
   */
 
   unsigned char c1 = *it;
-  unsigned char c2 = *(++it);
+  unsigned char c2 = *(it+1);
   unsigned char c3 = *(it+2);
   
   switch (numBytes)
@@ -1207,7 +2102,7 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
   */
 
   unsigned char c1 = *it;
-  unsigned char c2 = *(++it);
+  unsigned char c2 = *(it+1);
   unsigned char c3 = *(it+2);
   
   switch (numBytes)

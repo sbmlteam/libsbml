@@ -355,6 +355,16 @@ protected:
   void checkIdSyntax();
 
   /**
+   * checks if a character is part of the Unicode Letter set
+   */
+  bool isUnicodeLetter(std::string::iterator, unsigned int);
+
+  /**
+   * checks if a character is part of the Unicode Digit set
+   */
+  bool isUnicodeDigit(std::string::iterator, unsigned int);
+
+  /**
    * checks if a character is part of the CombiningCharacter set
    */
   bool isCombiningChar(std::string::iterator, unsigned int);
