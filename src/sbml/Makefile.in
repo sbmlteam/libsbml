@@ -49,6 +49,7 @@ headers =              \
   Compartment.h        \
   CompartmentType.h    \
   Constraint.h         \
+  Delay.h              \
   Event.h              \
   EventAssignment.h    \
   FunctionDefinition.h \
@@ -71,6 +72,7 @@ headers =              \
   Species.h            \
   SpeciesReference.h   \
   SpeciesType.h        \
+  Trigger.h            \
   Unit.h               \
   UnitDefinition.h     \
   UnitKind.h
@@ -79,6 +81,7 @@ sources =                \
   Compartment.cpp        \
   CompartmentType.cpp    \
   Constraint.cpp         \
+  Delay.cpp              \
   Event.cpp              \
   EventAssignment.cpp    \
   FunctionDefinition.cpp \
@@ -101,6 +104,7 @@ sources =                \
   Species.cpp            \
   SpeciesReference.cpp   \
   SpeciesType.cpp        \
+  Trigger.cpp            \
   Unit.cpp               \
   UnitDefinition.cpp     \
   UnitKind.c

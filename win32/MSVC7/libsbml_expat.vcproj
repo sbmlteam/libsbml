@@ -195,6 +195,9 @@
 				RelativePath="..\..\src\validator\Constraint.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\Delay.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\EqualityArgsMathCheck.cpp">
 			</File>
 			<File
@@ -358,6 +361,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\StringMap.c">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\Trigger.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\UniqueIdBase.cpp">
