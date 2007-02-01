@@ -200,7 +200,9 @@ void
 Event::setTrigger (const Trigger* trigger)
 {
   delete mTrigger;
-  mTrigger = trigger;
+  mTrigger = (trigger != 0) ? static_cast<Trigger*>( trigger->clone() ) : 0;
+
+  if (mTrigger) mTrigger->setSBMLDocument(mSBML);
 }
 
 
@@ -211,7 +213,9 @@ void
 Event::setDelay (const Delay* delay)
 {
   delete mDelay;
-  mDelay = delay; 
+  mDelay = (delay != 0) ? static_cast<Delay*>( delay->clone() ) : 0;
+
+  if (mDelay) mDelay->setSBMLDocument(mSBML);
 }
 
 
