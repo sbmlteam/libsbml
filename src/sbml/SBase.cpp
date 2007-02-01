@@ -33,7 +33,6 @@
 
 #include <sbml/util/util.h>
 
-#include "RDFAnnotation.h"
 #include "KineticLaw.h"
 #include "SBMLDocument.h"
 #include "ListOf.h"
@@ -231,7 +230,6 @@ SBase::unsetName ()
 /**
  * Unsets the notes of this SBML object.
  */
-LIBSBML_EXTERN
 void
 SBase::unsetNotes ()
 {
@@ -241,7 +239,6 @@ SBase::unsetNotes ()
 /**
  * Unsets the annotation of this SBML object.
  */
-LIBSBML_EXTERN
 void
 SBase::unsetAnnotation ()
 {
@@ -552,6 +549,10 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
       {
         error = 21102;
       }
+    }
+    else if (object->getTypeCode() == SBML_TRIGGER)
+    {
+      error = 21205;
     }
 
     mSBML->getErrorLog()->logError(error);

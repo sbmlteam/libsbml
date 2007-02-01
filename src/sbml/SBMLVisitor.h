@@ -66,6 +66,9 @@ class KineticLaw;
 class Event;
 class EventAssignment;
 
+class Trigger;
+class Delay;
+
 class ListOf;
 
 
@@ -110,6 +113,8 @@ public:
   virtual bool visit (const ModifierSpeciesReference &x);
   virtual bool visit (const Event                    &x);
   virtual bool visit (const EventAssignment          &x);
+  virtual bool visit (const Trigger                  &x);
+  virtual bool visit (const Delay                    &x);
 
   virtual void leave (const SBMLDocument &x);
   virtual void leave (const Model        &x);

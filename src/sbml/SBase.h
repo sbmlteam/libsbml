@@ -29,6 +29,8 @@
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/SBMLTypeCodes.h>
+#include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/util/List.h>
 
 
 #ifdef __cplusplus
@@ -41,6 +43,8 @@ class SBMLErrorLog;
 class SBMLVisitor;
 class SBMLDocument;
 class Model;
+
+class List;
 
 class XMLAttributes;
 class XMLInputStream;
@@ -98,6 +102,12 @@ public:
 
 
   /**
+   * @return the name of this SBML object.
+   */
+  XMLNode* getAnnotation ();
+
+
+  /**
    * @return true if the metaid of this SBML object has been set, false
    * otherwise.
    */
@@ -143,6 +153,10 @@ public:
    */
   void setName (const std::string& name);
 
+  /**
+   * Sets the name of this SBML object to a copy of name.
+   */
+  void setAnnotation (XMLNode* annotation);
 
   /**
    * Unsets the metaid of this SBML object.
@@ -223,6 +237,13 @@ public:
    * Sets the parent SBMLDocument of this SBML object.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
+
+  /**
+  * adds a CVTerm to the list of CVTerms associated with this object
+  */
+  void addCVTerm(CVTerm * term);
+
+  List* getCVTerms();
 
   /**
    * @return the partial SBML that describes this SBML object.
@@ -387,6 +408,9 @@ protected:
   unsigned int mColumn;
 
   XMLNamespaces* mNamespaces;
+  
+  // make this a list of
+  List * mCVTerms;
 
 
 

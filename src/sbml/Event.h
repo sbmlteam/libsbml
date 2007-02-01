@@ -38,6 +38,8 @@
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 #include <sbml/EventAssignment.h>
+#include <sbml/Trigger.h>
+#include <sbml/Delay.h>
 
 
 class ASTNode;
@@ -53,17 +55,7 @@ public:
    * attribute set.  Trigger and delay may be specified as infix formula
    * strings.
    */
-  Event (  const std::string&  id      = ""
-         , const std::string&  trigger = ""
-         , const std::string&  delay   = "" );
-
-  /**
-   * Creates a new Event with an id and trigger and (optionally) delay
-   * attributes set.
-   */
-  Event (  const std::string&  id
-         , ASTNode*            trigger
-         , ASTNode*            delay   = 0 );
+  Event (  const std::string&  id      = "");
 
   /**
    * Copies this Event.
@@ -94,12 +86,12 @@ public:
   /**
    * @return the trigger of this Event.
    */
-  const ASTNode* getTrigger () const;
+  const Trigger* getTrigger () const;
 
   /**
    * @return the delay of this Event.
    */
-  const ASTNode* getDelay () const;
+  const Delay* getDelay () const;
 
   /**
    * @return the timeUnits of this Event.
@@ -141,12 +133,12 @@ public:
   /**
    * Sets the trigger of this Event to a copy of the given ASTNode.
    */
-  void setTrigger (const ASTNode* math);
+  void setTrigger (const Trigger* trigger);
 
   /**
    * Sets the delay of this Event to a copy of the given ASTNode.
    */
-  void setDelay (const ASTNode* math);
+  void setDelay (const Delay* delay);
 
   /**
    * Sets the timeUnits of this Event to a copy of sid.
@@ -286,8 +278,8 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  ASTNode*                mTrigger;
-  ASTNode*                mDelay;
+  Trigger*                mTrigger;
+  Delay*                  mDelay;
   std::string             mTimeUnits;
   int                     mSBOTerm;
   ListOfEventAssignments  mEventAssignments;
@@ -358,7 +350,7 @@ Event_create (void);
  */
 LIBSBML_EXTERN
 Event_t *
-Event_createWith (const char *sid, ASTNode_t *trigger);
+Event_createWith (const char *sid, Trigger_t *trigger);
 
 /**
  * Frees the given Event.
@@ -393,14 +385,14 @@ Event_getName (const Event_t *e);
  * @return the trigger of this Event.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const Trigger_t *
 Event_getTrigger (const Event_t *e);
 
 /**
  * @return the delay of this Event.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const Delay_t *
 Event_getDelay (const Event_t *e);
 
 /**
@@ -483,14 +475,14 @@ Event_setName (Event_t *e, const char *name);
  */
 LIBSBML_EXTERN
 void
-Event_setTrigger (Event_t *e, ASTNode_t *math);
+Event_setTrigger (Event_t *e, Trigger_t *trigger);
 
 /**
  * Sets the delay of this Event to a copy of the given ASTNode.
  */
 LIBSBML_EXTERN
 void
-Event_setDelay (Event_t *e, const ASTNode_t *math);
+Event_setDelay (Event_t *e, const Delay_t *delay);
 
 /**
  * Sets the timeUnits of this Event to a copy of sid.

@@ -42,31 +42,14 @@ using namespace std;
 
 
 /**
- * Creates a new Event, optionally with its id, trigger and delay
- * attribute set.  Trigger and delay may be specified as infix formula
- * strings.
+ * Creates a new Event, optionally with its id attribute set. 
  */
-Event::Event (const string& id, const string& trigger, const string& delay) :
+Event::Event (const string& id) :
    SBase   ( id )
- , mTrigger( SBML_parseFormula( trigger.c_str() ) )
- , mDelay  ( SBML_parseFormula( delay  .c_str() ) )
+ , mTrigger ( 0 )
+ , mDelay   ( 0 )
  , mSBOTerm( -1 )
 {
-}
-
-
-/**
- * Creates a new Event with an id and trigger and (optionally) delay
- * attributes set.
- */
-Event::Event (const string& id, ASTNode* trigger, ASTNode* delay) :
-    SBase   ( id )
-  , mTrigger( 0  )
-  , mDelay  ( 0  )
- , mSBOTerm ( -1 )
-{
-  if (trigger) mTrigger = trigger->deepCopy();
-  if (delay)   mDelay   = delay  ->deepCopy();
 }
 
 
@@ -75,14 +58,12 @@ Event::Event (const string& id, ASTNode* trigger, ASTNode* delay) :
  */
 Event::Event (const Event& rhs) :
    SBase            ( rhs )
- , mTrigger         ( 0   )
- , mDelay           ( 0   )
+ , mTrigger         ( rhs.mTrigger   )
+ , mDelay           ( rhs.mDelay   )
  , mTimeUnits       ( rhs.mTimeUnits        )
  , mEventAssignments( rhs.mEventAssignments )
  , mSBOTerm         ( rhs.mSBOTerm          )
 {
-  if (rhs.mTrigger) mTrigger = rhs.mTrigger->deepCopy();
-  if (rhs.mDelay)   mDelay   = rhs.mDelay  ->deepCopy();
 }
  
 
@@ -107,6 +88,11 @@ bool
 Event::accept (SBMLVisitor& v) const
 {
   bool result = v.visit(*this);
+
+  mTrigger->accept(v);
+  
+  if (mDelay) mDelay->accept(v);
+
   mEventAssignments.accept(v);
 
   return result;
@@ -126,7 +112,7 @@ Event::clone () const
 /**
  * @return the trigger of this Event.
  */
-const ASTNode*
+const Trigger*
 Event::getTrigger () const
 {
   return mTrigger;
@@ -136,7 +122,7 @@ Event::getTrigger () const
 /**
  * @return the delay of this Event.
  */
-const ASTNode*
+const Delay*
 Event::getDelay () const
 {
   return mDelay;
@@ -208,29 +194,24 @@ Event::isSetSBOTerm () const
 
 
 /**
- * Sets the trigger of this Event to a copy of the given ASTNode.
+ * Sets the trigger of this Event to a copy of the given Trigger.
  */
 void
-Event::setTrigger (const ASTNode* math)
+Event::setTrigger (const Trigger* trigger)
 {
-  if (mTrigger == math) return;
-
   delete mTrigger;
-  mTrigger = (math != 0) ? math->deepCopy() : 0;
+  mTrigger = trigger;
 }
 
 
 /**
- * Sets the delay of this Event to a copy of the given ASTNode.
+ * Sets the delay of this Event to a copy of the given Delay.
  */
 void
-Event::setDelay (const ASTNode* math)
+Event::setDelay (const Delay* delay)
 {
-  if (mDelay == math) return;
-
-
   delete mDelay;
-  mDelay = (math != 0) ? math->deepCopy() : 0;
+  mDelay = delay; 
 }
 
 
@@ -390,6 +371,8 @@ Event::setSBMLDocument (SBMLDocument* d)
 {
   mSBML = d;
   mEventAssignments.setSBMLDocument(d);
+  mTrigger->setSBMLDocument(d);
+  if (mDelay) mDelay->setSBMLDocument(d);
 }
 
 
@@ -426,7 +409,28 @@ SBase*
 Event::createObject (XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
-  return (name == "listOfEventAssignments") ? &mEventAssignments : 0;
+  if (name == "listOfEventAssignments") 
+  {
+    return &mEventAssignments;
+  }
+  else if (name == "trigger")
+  {
+    delete mTrigger;
+
+    mTrigger = new Trigger();
+    return mTrigger;
+  }
+  else if (name == "delay")
+  {
+    delete mDelay;
+
+    mDelay = new Delay();
+    return mDelay;
+  }
+  else
+  {
+    return 0;
+  }
 }
 
 
@@ -442,129 +446,6 @@ Event::readOtherXML (XMLInputStream& stream)
   bool          read  = false;
   bool          error = false;
   const string& name  = stream.peek().getName();
-
-
-  if (name == "trigger")
-  {
-    error               = (getNumEventAssignments() > 0 || isSetDelay());
-     
-    const XMLToken elem = stream.next();
-
-    stream.skipText();
-
-    /* check for MathML namespace 
-     * this may be explicitly declared here
-     * or implicitly declared on the whole document
-     */
-    const XMLToken element = stream.peek();
-    unsigned int match = 0;
-    unsigned int math = 0;
-
-    if (element.getName() == "math")
-    {
-      math = 1;
-    }
-
-    int n;
-    if (math == 1 && element.getNamespaces().getLength() != 0)
-    {
-      for (n = 0; n < element.getNamespaces().getLength(); n++)
-      {
-        if (!strcmp(element.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
-        {
-          match = 1;
-          break;
-        }
-      }
-    }
-    if (math == 1 && match == 0)
-    {
-      if( mSBML->getNamespaces() != NULL)
-      /* check for implicit declaration */
-      {
-        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
-        {
-          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                                     "http://www.w3.org/1998/Math/MathML"))
-          {
-            match = 1;
-            break;
-          }
-        }
-      }
-    }
-    if (math == 0 || match == 0)
-    {
-      static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
-    }
-
-    delete mTrigger;
-    mTrigger = readMathML(stream);
-    read     = true;
-
-    stream.skipPastEnd(elem);
-  }
-  else if (name == "delay")
-  {
-    error               = (getNumEventAssignments() > 0);
-    const XMLToken elem = stream.next();
-
-    stream.skipText();
-
-    /* check for MathML namespace 
-     * this may be explicitly declared here
-     * or implicitly declared on the whole document
-     */
-    const XMLToken element = stream.peek();
-    unsigned int match = 0;
-    unsigned int math = 0;
-
-    if (element.getName() == "math")
-    {
-      math = 1;
-    }
-
-    int n;
-    if (math == 1 && element.getNamespaces().getLength() != 0)
-    {
-      for (n = 0; n < element.getNamespaces().getLength(); n++)
-      {
-        if (!strcmp(element.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
-        {
-          match = 1;
-          break;
-        }
-      }
-    }
-    if (math == 1 && match == 0)
-    {
-      if( mSBML->getNamespaces() != NULL)
-      /* check for implicit declaration */
-      {
-        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
-        {
-          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                                     "http://www.w3.org/1998/Math/MathML"))
-          {
-            match = 1;
-            break;
-          }
-        }
-      }
-    }
-    if (math == 0 || match == 0)
-    {
-      static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
-    }
-
-    delete mDelay;
-    mDelay = readMathML(stream);
-    read   = true;
-
-    stream.skipPastEnd(elem);
-  }
-
-  if (error) mSBML->getErrorLog()->logError(21205);
 
   return read;
 }
@@ -645,18 +526,11 @@ Event::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  if (mTrigger)
-  {
-    stream.startElement("trigger");
-    writeMathML(mTrigger, stream);
-    stream.endElement("trigger");
-  }
+  mTrigger->write(stream);
 
   if (mDelay)
   {
-    stream.startElement("delay");
-    writeMathML(mDelay, stream);
-    stream.endElement("delay");
+    mDelay->write(stream);
   }
 
   if ( getNumEventAssignments() > 0 ) mEventAssignments.write(stream);
@@ -752,9 +626,9 @@ Event_create (void)
  */
 LIBSBML_EXTERN
 Event_t *
-Event_createWith (const char *sid, ASTNode_t *trigger)
+Event_createWith (const char *sid)
 {
-  return new(nothrow) Event(sid ? sid : "", trigger);
+  return new(nothrow) Event(sid ? sid : "");
 }
 
 
@@ -806,7 +680,7 @@ Event_getName (const Event_t *e)
  * @return the trigger of this Event.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const Trigger_t *
 Event_getTrigger (const Event_t *e)
 {
   return e->getTrigger();
@@ -817,7 +691,7 @@ Event_getTrigger (const Event_t *e)
  * @return the delay of this Event.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const Delay_t *
 Event_getDelay (const Event_t *e)
 {
   return e->getDelay();
@@ -942,7 +816,7 @@ Event_setName (Event_t *e, const char *name)
  */
 LIBSBML_EXTERN
 void
-Event_setTrigger (Event_t *e, const ASTNode_t *math)
+Event_setTrigger (Event_t *e, const Trigger_t *math)
 {
   e->setTrigger(math);
 }
@@ -953,7 +827,7 @@ Event_setTrigger (Event_t *e, const ASTNode_t *math)
  */
 LIBSBML_EXTERN
 void
-Event_setDelay (Event_t *e, const ASTNode_t *math)
+Event_setDelay (Event_t *e, const Delay_t *math)
 {
   e->setDelay(math);
 }

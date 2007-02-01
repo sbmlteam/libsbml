@@ -56,6 +56,8 @@ const char* SBML_TYPE_CODE_STRINGS[] =
   , "SpeciesConcentrationRule"
   , "CompartmentVolumeRule"
   , "ParameterRule"
+  , "Trigger"
+  , "Delay"
 
 #ifdef USE_LAYOUT
   , "BoundingBox"

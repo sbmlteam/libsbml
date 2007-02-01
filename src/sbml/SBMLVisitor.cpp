@@ -206,6 +206,20 @@ SBMLVisitor::visit (const EventAssignment& x)
 }
 
 
+bool
+SBMLVisitor::visit (const Trigger& x)
+{
+  return visit( static_cast<const SBase&>(x) );
+}
+
+
+bool
+SBMLVisitor::visit (const Delay& x)
+{
+  return visit( static_cast<const SBase&>(x) );
+}
+
+
 void
 SBMLVisitor::leave (const SBMLDocument& x)
 {
