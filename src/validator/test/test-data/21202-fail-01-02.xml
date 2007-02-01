@@ -13,7 +13,10 @@ Additional case where the event trigger is a function definition
       <functionDefinition id="f">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
           <lambda>
-            <apply> <plus/> <cn> 1 </cn> <cn> 2 </cn> </apply>
+            <bvar><ci> x </ci></bvar>
+            <apply>
+              <power/> <ci> x </ci> <cn> 3 </cn>
+            </apply>
           </lambda>
         </math>
       </functionDefinition>

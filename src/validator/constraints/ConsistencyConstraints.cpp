@@ -70,6 +70,7 @@
 #include "LambdaMathCheck.h"
 #include "NumericReturnMathCheck.h"
 #include "LocalParameterMathCheck.h"
+#include "NumberArgsMathCheck.h"
 
 #include "OverDeterminedCheck.h"
 
@@ -106,6 +107,7 @@ EXTERN_CONSTRAINT( 10214, FunctionApplyMathCheck )
 EXTERN_CONSTRAINT( 10215, CiElementMathCheck     )
 EXTERN_CONSTRAINT( 10216, LocalParameterMathCheck)
 EXTERN_CONSTRAINT( 10217, NumericReturnMathCheck )
+EXTERN_CONSTRAINT( 10218, NumberArgsMathCheck )
 
 
 // General Identifier validation 
@@ -1828,14 +1830,24 @@ START_CONSTRAINT (21201, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (21202, Event, e)
+//START_CONSTRAINT (21202, Event, e)
+//{
+//  msg =
+//    "An <event> 'trigger' expression must evaluate to a value of type "
+//    "'boolean'. (References: L2V1 Section 4.10.2; L2V2 Section 4.14.)";
+//
+//  pre( e.isSetTrigger() );
+//  inv( m.isBoolean( e.getTrigger() ) );
+//}
+//END_CONSTRAINT
+START_CONSTRAINT (21202, Trigger, t)
 {
   msg =
     "An <event> 'trigger' expression must evaluate to a value of type "
     "'boolean'. (References: L2V1 Section 4.10.2; L2V2 Section 4.14.)";
 
-  pre( e.isSetTrigger() );
-  inv( m.isBoolean( e.getTrigger() ) );
+  pre( t.isSetMath() );
+  inv( m.isBoolean( t.getMath() ) );
 }
 END_CONSTRAINT
 
@@ -1940,8 +1952,8 @@ START_CONSTRAINT(10701, Model, m1)
   msg = 
     "The value of the sboTerm field on a Model must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a modeling framework "
-    "defined in SBO (i.e., terms derived from SBO:0000004, “modeling "
-    "framework”). (References: L2V2 Section 4.2.1.)";
+    "defined in SBO (i.e., terms derived from SBO:0000004, \"modeling "
+    "framework\"). (References: L2V2 Section 4.2.1.)";
 
   pre(m1.isSetSBOTerm());
 
@@ -1955,8 +1967,8 @@ START_CONSTRAINT(10702, FunctionDefinition, fd)
   msg = 
     "The value of the sboTerm field on a FunctionDefinition must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, “mathematical "
-    "expression”). (References: L2V2 Section 4.3.3.)";
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V2 Section 4.3.3.)";
 
   pre(fd.isSetSBOTerm());
 
@@ -1970,8 +1982,8 @@ START_CONSTRAINT(10703, Parameter, p)
   msg = 
     "The value of the sboTerm field on a Parameter must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a quantitative parameter "
-    "defined in SBO (i.e., terms derived from SBO:0000002, “quantitative "
-    "parameter”). (References: L2V2 Section 4.9.5.)";
+    "defined in SBO (i.e., terms derived from SBO:0000002, \"quantitative "
+    "parameter\"). (References: L2V2 Section 4.9.5.)";
 
   pre(p.isSetSBOTerm());
 
@@ -1985,8 +1997,8 @@ START_CONSTRAINT(10704, InitialAssignment, ia)
   msg = 
     "The value of the sboTerm field on an InitialAssignment must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, “mathematical "
-    "expression”). (References: L2V2 Section 4.10.3.)";
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V2 Section 4.10.3.)";
 
   pre(ia.isSetSBOTerm());
 
@@ -2000,7 +2012,7 @@ START_CONSTRAINT(10705, AssignmentRule, r)
   msg = 
     "The value of the sboTerm field on a Rule must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, “mathematical expression”). Note: "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
     "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
     "(References: L2V2 Section 4.11.1.)";
 
@@ -2016,7 +2028,7 @@ START_CONSTRAINT(10705, RateRule, r)
   msg = 
     "The value of the sboTerm field on a Rule must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, “mathematical expression”). Note: "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
     "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
     "(References: L2V2 Section 4.11.1.)";
 
@@ -2032,7 +2044,7 @@ START_CONSTRAINT(10705, AlgebraicRule, r)
   msg = 
     "The value of the sboTerm field on a Rule must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, “mathematical expression”). Note: "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
     "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
     "(References: L2V2 Section 4.11.1.)";
 
@@ -2048,7 +2060,7 @@ START_CONSTRAINT(10706, Constraint, c)
   msg = 
     "The value of the sboTerm field on a Constraint must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, “mathematical expression”). "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
     "(References: L2V2 Section 4.12.3.)";
 
   pre(c.isSetSBOTerm());
@@ -2063,7 +2075,7 @@ START_CONSTRAINT(10707, Reaction, r)
   msg = 
     "The value of the sboTerm field on a Reaction must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a modeling framework defined "
-    "in SBO (i.e., terms derived from SBO:0000004, “modeling framework”). "
+    "in SBO (i.e., terms derived from SBO:0000004, \"modeling framework\"). "
     "(References: L2V2 Section 4.13.1.)";
 
   pre(r.isSetSBOTerm());
@@ -2097,9 +2109,9 @@ START_CONSTRAINT(10709, SpeciesReference, sr)
     "identifier (http://www.biomodels.net/SBO/) referring to a participant "
     "role. The appropriate term depends on whether the object is a reactant, "
     "product or modifier. If a reactant, then it should be a term in the "
-    "SBO:0000010, “reactant” hierarchy; if a product, then it should be a "
-    "term in the SBO:0000011, “product” hierarchy; and if a modifier, then it "
-    "should be a term in the SBO:0000019, “modifier” hierarchy. (References: "
+    "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
+    "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then it "
+    "should be a term in the SBO:0000019, \"modifier\" hierarchy. (References: "
     "L2V2 Section 4.13.2.)";
 
   pre(sr.isSetSBOTerm());
@@ -2122,7 +2134,7 @@ START_CONSTRAINT(10710, KineticLaw, kl)
   msg = 
     "The value of the sboTerm field on a KineticLaw must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring rate law defined in SBO (i.e., "
-    "terms derived from SBO:0000001, “rate law”). (References: L2V2 Section 4.13.5.)";
+    "terms derived from SBO:0000001, \"rate law\"). (References: L2V2 Section 4.13.5.)";
 
   pre(kl.isSetSBOTerm());
 
@@ -2136,7 +2148,7 @@ START_CONSTRAINT(10711, Event, e)
   msg = 
     "The value of the sboTerm field on an Event must be an SBO identifier "
     "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, “mathematical expression”). "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
     "(References: L2V2 Section 4.14.1.)";
 
   pre(e.isSetSBOTerm());
@@ -2151,8 +2163,8 @@ START_CONSTRAINT(10712, EventAssignment, ea)
   msg = 
     "The value of the sboTerm field on an EventAssignment must be an SBO "
     "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, “mathematical "
-    "expression”). (References: L2V2 Section 4.14.2.)";
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V2 Section 4.14.2.)";
 
   pre(ea.isSetSBOTerm());
 

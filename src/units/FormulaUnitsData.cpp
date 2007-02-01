@@ -333,7 +333,7 @@ Model::createListFormulaUnitsData()
 
       fud->setTypecode(SBML_EVENT);
       unitFormatter->resetFlags();
-      ud = unitFormatter->getUnitDefinition(e->getDelay());
+      ud = unitFormatter->getUnitDefinition(e->getDelay()->getMath());
       fud->setUnitDefinition(ud);
       fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
       fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());

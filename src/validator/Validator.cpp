@@ -153,6 +153,8 @@ struct ValidatorConstraints
   ConstraintSet<EventAssignment>          mEventAssignment;
   ConstraintSet<InitialAssignment>        mInitialAssignment;
   ConstraintSet<Constraint>               mConstraint;
+  ConstraintSet<Trigger>                  mTrigger;
+  ConstraintSet<Delay>                    mDelay;
 
   void add (VConstraint* c);
 };
@@ -309,6 +311,18 @@ ValidatorConstraints::add (VConstraint* c)
   if (dynamic_cast< TConstraint<Constraint>* >(c))
   {
     mConstraint.add( static_cast< TConstraint<Constraint>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<Trigger>* >(c))
+  {
+    mTrigger.add( static_cast< TConstraint<Trigger>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<Delay>* >(c))
+  {
+    mDelay.add( static_cast< TConstraint<Delay>* >(c) );
     return;
   }
 }
@@ -512,6 +526,18 @@ public:
   {
     v.mConstraints->mConstraint.applyTo(m, x);
     return !v.mConstraints->mConstraint.empty();
+  }
+
+  bool visit (const Trigger& x)
+  {
+    v.mConstraints->mTrigger.applyTo(m, x);
+    return !v.mConstraints->mTrigger.empty();
+  }
+
+  bool visit (const Delay& x)
+  {
+    v.mConstraints->mDelay.applyTo(m, x);
+    return !v.mConstraints->mDelay.empty();
   }
 
 
