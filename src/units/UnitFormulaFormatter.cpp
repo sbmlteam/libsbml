@@ -51,6 +51,10 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
 {  
   UnitDefinition * ud = NULL;
 
+  if (node == NULL)
+    return ud;
+
+
   ASTNodeType_t type = node->getType();
 
   switch (type) 
@@ -325,6 +329,8 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node)
 
   ud = getUnitDefinition(node->getLeftChild());
 
+  if (node->getNumChildren() == 1)
+    return ud;
   tempUD = getUnitDefinition(node->getRightChild());
   for (i = 0; i < tempUD->getNumUnits(); i++)
   {
@@ -357,6 +363,9 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node)
 
   tempUD = getUnitDefinition(node->getLeftChild());
   ud = new UnitDefinition();
+  
+  if (node->getNumChildren() == 1)
+    return ud;
 
   child = node->getRightChild();
   for (i = 0; i < tempUD->getNumUnits(); i++)
@@ -412,6 +421,9 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
 
   tempUD = getUnitDefinition(node->getRightChild());
   ud = new UnitDefinition();
+
+  if (node->getNumChildren() == 1)
+    return ud;
 
   child = node->getLeftChild();
   for (i = 0; i < tempUD->getNumUnits(); i++)
