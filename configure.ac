@@ -246,6 +246,8 @@ AC_CONFIG_FILES([src/Makefile])
 
 AC_CONFIG_FILES([src/common/Makefile])
 
+AC_CONFIG_FILES([src/annotation/Makefile])
+
 AC_CONFIG_FILES([src/bindings/Makefile])
 
 AC_CONFIG_FILES([src/bindings/python/Makefile])

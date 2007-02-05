@@ -1,14 +1,14 @@
 ## @configure_input@
 ##
 ## Filename    : Makefile.in
-## Description : Makefile template for libsbml main sources
+## Description : Makefile template for libsbml src/annotation
 ## Author(s)   : SBML Team <sbml-team@caltech.edu>
 ## Organization: California Institute of Technology
-## Created     : 2004-06-11
+## Created     : 2005-03-02
 ## Revision    : $Id$
 ## Source      : $Source$
 ##
-## Copyright 2004 California Institute of Technology and
+## Copyright 2005 California Institute of Technology and
 ## Japan Science and Technology Corporation.
 ##
 ## This library is free software; you can redistribute it and/or modify it
@@ -49,6 +49,7 @@
 ## Contributor(s):
 ##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
 ##
+
 
 # -----------------------------------------------------------------------------
 # Configuration variables
@@ -64,61 +65,53 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under `srcdir'.  Don't 
 # set `subdir' to an absolute path, or some `make' actions will fail.
 
-srcdir  = @srcdir@
-thisdir = src
+srcdir    = @srcdir@
+thisdir   = src/annotation
 
-# Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
+# Variables `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-subdirs = common util xml math validator units sbml bindings annotation
+headers = \
+  CVTerm.h     \
+  RDFAnnotation.h
 
-ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
-  extra_LIBS      += $(EXPAT_LIBS)
-else
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS   += $(XERCES_LDFLAGS)
-  extra_LIBS      += $(XERCES_LIBS)
-endif
+header_inst_prefix = annotation
+
+sources = \
+  CVTerm.cpp     \
+  RDFAnnotation.cpp
+
+extra_CPPFLAGS = -I..
+
+subdirs = 
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = Makefile.in
+distfiles = $(sources) $(headers) Makefile.in
 
 
 # -----------------------------------------------------------------------------
 # Primary build actions
 # -----------------------------------------------------------------------------
 
-# The default action is to remake everything.  Those rules which are not
-# defined below are defined in makefile-common-actions.mk.  Targets of the
-# form 'foo-recursive' are interpreted by the common makefile rules as meaning
-# "go into every subdir and do 'make foo' in each".
+# The default action is to remake everything.
 
-all: Makefile all-recursive
-
-include: include-recursive
+all: Makefile default all-recursive
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: check-prereq check-recursive
-
-check-prereq: ;
-	$(MAKE) all
+check: all check-recursive
 
 
 # -----------------------------------------------------------------------------
 # Formatting documentation.
 # -----------------------------------------------------------------------------
-
-docs:
 
 dvi:
 
@@ -139,16 +132,17 @@ tags: etags ctags
 
 
 # -----------------------------------------------------------------------------
-# Installation.
+# Installation
 # -----------------------------------------------------------------------------
 
-install: all install-recursive install-libraries
+# This library doesn't actually get installed.  The main libsbml library
+# (in ../src) slurps in the contents when it's built.
 
-install-docs:
+install: all install-headers
 
-installcheck: all installcheck-libraries
+installcheck: all installcheck-headers
 
-uninstall: uninstall-recursive
+uninstall: uninstall-recursive uninstall-headers
 
 
 # -----------------------------------------------------------------------------
@@ -168,13 +162,13 @@ maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-recursive dist-normal
+dist: all dist-normal dist-recursive
 
-distcheck: distcheck-recursive distcheck-normal
+distcheck: all distcheck-normal distcheck-recursive
 
 
 # -----------------------------------------------------------------------------
-# Common default rules.
+# Miscellaneous
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk

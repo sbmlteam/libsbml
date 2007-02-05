@@ -3,6 +3,7 @@ mkdir include
 cd include
 mkdir sbml
 cd sbml
+mkdir annotation
 mkdir common
 mkdir math
 mkdir units
@@ -23,6 +24,8 @@ cd ..\validator
 echo a | xcopy *.h ..\..\include\sbml\validator
 cd ..\xml
 echo a | xcopy *.h ..\..\include\sbml\xml
+cd ..\annotation
+echo a | xcopy *.h ..\..\include\sbml\annotation
 cd ..
 cd ..
 cd win32

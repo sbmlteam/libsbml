@@ -181,6 +181,9 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\Constraint.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\Constraint.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -196,7 +199,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\Constraint.cpp">
+				RelativePath="..\..\src\annotation\CVTerm.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Delay.cpp">
@@ -283,6 +286,9 @@
 				RelativePath="..\..\src\sbml\Model.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\NumericArgsMathCheck.cpp">
 			</File>
 			<File
@@ -299,6 +305,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\annotation\RDFAnnotation.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.cpp">
@@ -509,10 +518,13 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.h">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\Constraint.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\Constraint.h">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\Constraint.h">
+				RelativePath="..\..\src\annotation\CVTerm.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Delay.h">
@@ -605,6 +617,9 @@
 				RelativePath="..\..\src\sbml\Model.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\NumericArgsMathCheck.h">
 			</File>
 			<File
@@ -621,6 +636,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.h">
+			</File>
+			<File
+				RelativePath="..\..\src\annotation\RDFAnnotation.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.h">

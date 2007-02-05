@@ -195,6 +195,9 @@
 				RelativePath="..\..\src\validator\Constraint.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\annotation\CVTerm.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Delay.cpp">
 			</File>
 			<File
@@ -288,6 +291,9 @@
 				RelativePath="..\..\src\sbml\Model.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\NumericArgsMathCheck.cpp">
 			</File>
 			<File
@@ -304,6 +310,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\PiecewiseValueMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\annotation\RDFAnnotation.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Reaction.cpp">
