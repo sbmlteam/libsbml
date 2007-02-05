@@ -33,6 +33,7 @@
 
 #include <sbml/util/util.h>
 
+#include <sbml/annotation/RDFAnnotation.h>
 #include "KineticLaw.h"
 #include "SBMLDocument.h"
 #include "ListOf.h"
@@ -54,6 +55,7 @@ SBase::SBase (const string& id, const string& name) :
  , mSBML      ( 0 )
  , mLine      ( 0 )
  , mColumn    ( 0 )
+ , mCVTerms   ( 0 )
 {
 }
 
@@ -107,6 +109,16 @@ const string&
 SBase::getName () const
 {
   return (getLevel() == 1) ? mId : mName;
+}
+
+
+/**
+ * @return the name of this SBML object.
+ */
+XMLNode* 
+SBase::getAnnotation ()
+{
+  return mAnnotation;
 }
 
 
@@ -193,6 +205,56 @@ SBase::setName (const string& name)
 {
   if (getLevel() == 1) mId = name;
   else mName = name;
+}
+
+
+/**
+ * Sets the annotation of this SBML object to a copy of annotation.
+ */
+void 
+SBase::setAnnotation (XMLNode* annotation)
+{
+  mAnnotation = annotation;
+}
+
+
+/**
+ * appends annotation to the existing annotations.
+ */
+void 
+SBase::appendAnnotation (XMLNode* annotation)
+{
+  const string&  name = annotation->getName();
+
+  if (mAnnotation != 0)
+  {
+    /* check for annotation tags and remove */
+
+    if (name == "annotation")
+    {
+      mAnnotation->addChild(annotation->getChild(0));
+    }
+    else
+    {
+      mAnnotation->addChild(*annotation);
+    }
+  }
+  else
+  {
+    /* check for annotation tags and add if necessary */
+
+    if (name == "annotation")
+    {
+      setAnnotation(annotation);
+    }
+    else
+    {
+      XMLToken ann_t = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+      XMLNode * ann = new XMLNode(ann_t);
+      ann->addChild(*annotation);
+      setAnnotation(ann);
+    }
+  }
 }
 
 
@@ -2202,7 +2264,52 @@ SBase::checkIdSyntax()
     mSBML->getErrorLog()->logError(10310);
 }
 
-  
+
+/**
+ * adds a CVTerm to the list of CVTerms associated with this object
+ */
+void
+SBase::addCVTerm(CVTerm * term)
+{
+  if (mCVTerms == NULL)
+    mCVTerms = new List();
+  mCVTerms->add((void *) term);
+}
+
+List*
+SBase::getCVTerms()
+{
+  return mCVTerms;
+}
+
+
+bool
+SBase::checkAnnotation()
+{
+  const string&  name = mAnnotation->getName();
+  bool namespaces = false;
+
+  if (name == "annotation")
+  {
+    int n;
+    if (mAnnotation->getNamespaces().getLength() != 0)
+    {
+      for (n = 0; n < mAnnotation->getNamespaces().getLength(); n++)
+      {
+        if (!strcmp(mAnnotation->getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
+        {
+          break;
+        }
+      }
+    }
+    
+  }
+  return namespaces;
+}
+
+
+
+
 /**
  * @return the metaid of this SBML object.
  */

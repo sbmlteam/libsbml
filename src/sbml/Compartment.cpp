@@ -24,6 +24,7 @@
 
 #include <limits>
 
+#include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
@@ -381,6 +382,32 @@ Compartment::getElementName () const
 {
   static const string name = "compartment";
   return name;
+}
+
+/**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+Compartment::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "annotation")
+  {
+    delete mAnnotation;
+    mAnnotation = new XMLNode(stream);
+    mCVTerms = new List();
+    parseRDFAnnotation(mAnnotation, mCVTerms);
+    checkAnnotation();
+    read = true;
+  }
+
+  return read;
 }
 
 

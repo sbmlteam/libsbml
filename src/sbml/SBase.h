@@ -29,7 +29,8 @@
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/SBMLTypeCodes.h>
-//#include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/annotation/CVTerm.h>
 #include <sbml/util/List.h>
 
 
@@ -159,6 +160,10 @@ public:
   void setAnnotation (XMLNode* annotation);
 
   /**
+   * appends annotation to the existing annotations.
+   */
+  void appendAnnotation (XMLNode* annotation);
+  /**
    * Unsets the metaid of this SBML object.
    */
   void unsetMetaId ();
@@ -240,11 +245,11 @@ public:
 
   /**
   * adds a CVTerm to the list of CVTerms associated with this object
-  *
+  */
   void addCVTerm(CVTerm * term);
 
   List* getCVTerms();
-  */
+
   /**
    * @return the partial SBML that describes this SBML object.
    */
@@ -395,6 +400,8 @@ protected:
    */
   bool isExtender(std::string::iterator, unsigned int);
 
+  bool checkAnnotation();
+
   std::string mMetaId;
   std::string mId;
   std::string mName;
@@ -409,7 +416,8 @@ protected:
 
   XMLNamespaces* mNamespaces;
   
-  /*List * mCVTerms;*/
+  // make this a list of
+  List * mCVTerms;
 
 
 
