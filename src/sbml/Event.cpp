@@ -451,6 +451,20 @@ Event::readOtherXML (XMLInputStream& stream)
   bool          error = false;
   const string& name  = stream.peek().getName();
 
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "annotation")
+  {
+    delete mAnnotation;
+    mAnnotation = new XMLNode(stream);
+    mCVTerms = new List();
+    parseRDFAnnotation(mAnnotation, mCVTerms);
+    checkAnnotation();
+    read = true;
+  }
+
   return read;
 }
 

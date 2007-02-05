@@ -101,6 +101,32 @@ CompartmentType::getElementName () const
   return name;
 }
 
+/**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+CompartmentType::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "annotation")
+  {
+    delete mAnnotation;
+    mAnnotation = new XMLNode(stream);
+    mCVTerms = new List();
+    parseRDFAnnotation(mAnnotation, mCVTerms);
+    checkAnnotation();
+    read = true;
+  }
+
+  return read;
+}
+
 
 /**
  * Subclasses should override this method to read values from the given

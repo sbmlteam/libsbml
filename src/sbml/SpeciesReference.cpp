@@ -518,6 +518,15 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
       mStoichiometryMath = 0;
     }
   }
+  else if (name == "annotation")
+  {
+    delete mAnnotation;
+    mAnnotation = new XMLNode(stream);
+    mCVTerms = new List();
+    parseRDFAnnotation(mAnnotation, mCVTerms);
+    checkAnnotation();
+    read = true;
+  }
 
   return read;
 }

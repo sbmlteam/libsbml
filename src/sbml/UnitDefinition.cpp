@@ -339,6 +339,33 @@ UnitDefinition::getElementName () const
 
 
 /**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+UnitDefinition::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+
+
+  if (name == "annotation")
+  {
+    delete mAnnotation;
+    mAnnotation = new XMLNode(stream);
+    mCVTerms = new List();
+    parseRDFAnnotation(mAnnotation, mCVTerms);
+    checkAnnotation();
+    read = true;
+  }
+
+  return read;
+}
+
+
+/**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
