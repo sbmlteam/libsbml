@@ -24,6 +24,7 @@
 
 #include <limits>
 
+#include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>

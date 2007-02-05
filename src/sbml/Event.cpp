@@ -22,6 +22,7 @@
  */
 
 
+#include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
@@ -448,11 +449,8 @@ bool
 Event::readOtherXML (XMLInputStream& stream)
 {
   bool          read  = false;
-  bool          error = false;
   const string& name  = stream.peek().getName();
 
-  bool          read = false;
-  const string& name = stream.peek().getName();
 
 
   if (name == "annotation")
