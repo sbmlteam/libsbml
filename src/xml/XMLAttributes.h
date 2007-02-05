@@ -59,6 +59,13 @@ public:
   void add (const std::string& name, const std::string& value);
 
   /**
+  * Adds a name/value pair to this XMLAttributes set.  This
+  * is really the add function but an attribute with same name wont 
+  * be overwritten - this is for annotations
+  */
+  void addResource (const std::string& name, const std::string& value);
+
+/**
    * Lookup the index of an attribute by name.
    *
    * @return the index of the given attribute, or -1 if not present.

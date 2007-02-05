@@ -88,6 +88,19 @@ XMLAttributes::add (const string& name, const string& value)
 
 
 /**
+ * Adds a name/value pair to this XMLAttributes set.  This
+ * is really the add function but an attribute with same name wont 
+ * be overwritten - this is for annotations
+ */
+void
+XMLAttributes::addResource (const string& name, const string& value)
+{
+  mNames .push_back( XMLTriple(name, "", "") );
+  mValues.push_back( value );
+}
+
+
+/**
  * Lookup the index of an attribute by name.
  *
  * @return the index of the given attribute, or -1 if not present.
