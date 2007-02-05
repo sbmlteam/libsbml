@@ -29,7 +29,7 @@
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/SBMLTypeCodes.h>
-#include <sbml/annotation/RDFAnnotation.h>
+//#include <sbml/annotation/RDFAnnotation.h>
 #include <sbml/util/List.h>
 
 
@@ -240,11 +240,11 @@ public:
 
   /**
   * adds a CVTerm to the list of CVTerms associated with this object
-  */
+  *
   void addCVTerm(CVTerm * term);
 
   List* getCVTerms();
-
+  */
   /**
    * @return the partial SBML that describes this SBML object.
    */
@@ -409,8 +409,7 @@ protected:
 
   XMLNamespaces* mNamespaces;
   
-  // make this a list of
-  List * mCVTerms;
+  /*List * mCVTerms;*/
 
 
 
