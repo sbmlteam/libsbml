@@ -32,6 +32,21 @@ using namespace std;
 
 
 /**
+ * @return s with whitespace removed from the beginning and end.
+ */
+static const string
+trim (const string& s)
+{
+  static const string whitespace(" \t\r\n");
+
+  string::size_type begin = s.find_first_not_of(whitespace);
+  string::size_type end   = s.find_last_not_of (whitespace);
+
+  return (begin == string::npos) ? "" : s.substr(begin, end - begin + 1);
+}
+
+
+/**
  * Creates a new empty XMLNode with no children.
  */
 XMLNode::XMLNode ()
@@ -64,6 +79,7 @@ XMLNode::XMLNode (XMLInputStream& stream) : XMLToken( stream.next() )
 {
   if ( isEnd() ) return;
 
+  std::string s;
 
   while ( stream.isGood() )
   {
@@ -76,7 +92,11 @@ XMLNode::XMLNode (XMLInputStream& stream) : XMLToken( stream.next() )
     }
     else if ( next.isText() )
     {
-      addChild( stream.next() );
+      s = trim(next.getCharacters());
+      if (s != "")
+        addChild( stream.next() );
+      else
+        stream.skipText();
     }
     else if ( next.isEnd() )
     {
