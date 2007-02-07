@@ -528,6 +528,12 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     checkAnnotation();
     read = true;
   }
+  else if (name == "notes")
+  {
+    delete mNotes;
+    mNotes = new XMLNode(stream);
+    read = true;
+  }
 
   return read;
 }
