@@ -42,6 +42,7 @@ XMLOutputStream::XMLOutputStream (  ostream&       stream
    mInStart ( false    )
  , mDoIndent( true     )
  , mIndent  ( 0        )
+ , mInText  ( false    )
  , mStream  ( stream   )
  , mEncoding( encoding )
 {
@@ -60,6 +61,13 @@ XMLOutputStream::endElement (const std::string& name)
   {
     mInStart = false;
     mStream << '/' << '>';
+  }
+  else if (mInText)
+  {
+    mInText = false;
+    mStream << '<' << '/';
+    writeName(name);
+    mStream << '>';
   }
   else
   {
@@ -84,6 +92,13 @@ XMLOutputStream::endElement (const XMLTriple& triple)
   {
     mInStart = false;
     mStream << '/' << '>';
+  }
+  else if (mInText)
+  {
+    mInText = false;
+    mStream << '<' << '/';
+    writeName(triple);
+    mStream << '>';
   }
   else
   {
@@ -542,6 +557,7 @@ XMLOutputStream::operator<< (const string& chars)
   }
 
   writeChars(chars);
+  mInText = true;
 
   return *this;
 }

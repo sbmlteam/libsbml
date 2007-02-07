@@ -266,6 +266,7 @@ protected:
 
   bool mInStart;
   bool mDoIndent;
+  bool mInText;
 
   unsigned int mIndent;
 
