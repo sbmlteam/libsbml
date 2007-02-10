@@ -71,7 +71,17 @@ thisdir = src
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-subdirs = common util xml math validator units sbml bindings annotation
+# Warning: the "sbml" subdir is special because it ends up linking all of
+# libsbml.  Anything that goes into libsbml needs to appear on the
+# `subdirs' list before "sbml".  However, the "bindings" directory needs to
+# be very last because it depends on the libsbml library being linked.  So
+# the last two items on this list should always be "sbml" and "bindings",
+# in that order.  Finally, anything added here ahead of "sbml" needs to be
+# also added to the variable "otherdirs" in sbml/Makefile.in, again because
+# that one links all the objects together into libsbml.  (This is confusing
+# and fragile, and should be improved some day.)
+
+subdirs = common util xml math validator units annotation sbml bindings
 
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
