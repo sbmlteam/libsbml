@@ -146,7 +146,7 @@ endif
 
 objects   = $(call make_objects_list,$(sources))
 otherdirs = ../common ../util ../xml ../math ../validator \
-            ../validator/constraints ../units
+            ../validator/constraints ../units ../annotation
 
 ifdef USE_LAYOUT
   otherdirs += ./layout
