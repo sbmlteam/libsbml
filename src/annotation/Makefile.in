@@ -37,17 +37,12 @@
 ##
 ## The original code contained here was initially developed by:
 ##
-##     Ben Bornstein
+##     Sarah Keating
 ##     SBML Team
-##     Control and Dynamical Systems, MC 107-81
-##     California Institute of Technology
-##     Pasadena, CA, 91125, USA
-##
 ##     http://www.sbml.org
 ##     mailto:sbml-team@caltech.edu
 ##
 ## Contributor(s):
-##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
 ##
 
 
@@ -99,14 +94,14 @@ distfiles = $(sources) $(headers) Makefile.in
 
 # The default action is to remake everything.
 
-all: Makefile default all-recursive
+all: Makefile default
 
 
 # -----------------------------------------------------------------------------
 # Checking.
 # -----------------------------------------------------------------------------
 
-check: all check-recursive
+check: check-recursive
 
 
 # -----------------------------------------------------------------------------
