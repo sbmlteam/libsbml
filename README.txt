@@ -17,12 +17,20 @@
        Please join the libsbml-discuss mailing list by visiting
 	    http://www.sbml.org/forums/index.php?t=pre_reg
 
-
+   ,----------------------------------------------------------------.
+  | Table of contents                                               |
+  | 1. Quick start                                                  |
+  | 2. Introduction                                                 |
+  | 3. Detailed instructions for configuring and installing LibSBML |
+  | 4. Building on Windows with Visual C++                          |
+  | 5. The libsbml-discuss mailing list                             |
+  | 6. The sbml-cvs-libsbml mailing list                            |
+   `----------------------------------------------------------------'
     Date of last update to this file: $Date$
 
 
 --------------
-1. Quick Start
+1. QUICK START
 --------------
 
 If you are using the Xerces XML library, beware there is a bug in
@@ -34,7 +42,7 @@ work properly and we recommend Xerces 2.5 as the preferred version.
 ------------------------------
 
 At the Unix command prompt, untar the distribution, cd into it (e.g.,
-libsbml-2.1/), and first type:
+libsbml-2.4/), and first type:
 
   ./configure
 
@@ -48,11 +56,17 @@ By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, Python, Perl, Lisp and/or
 MATLAB API libraries as well, add the flags --with-java,
 --with-python, --with-perl, --with-lisp and/or --with-matlab to the
-configure command.  For example,
+configure command.  You can mix and match options as you need.
 
-  ./configure --with-expat --with-java --with-python
+Depending on your system, you may need to tell the configure program
+where to find some of these extra components by adding a directory
+path after the option.  For example, if you wish to use a copy of Java
+whose components are in /usr/local (with files in /usr/local/lib), use
 
-Once you've successfully configured libSBML, type:
+  ./configure --with-expat --with-python --with-java=/usr/local
+
+Once you've successfully configured libSBML, run the following two
+commands to build and install it:
 
   make
   make install
@@ -62,9 +76,13 @@ Optionally, to install the documentation files, also do
   make install-docs
 
 To compile C or C++ programs that use libSBML with GCC, use a command
-such as:
+such as the following, where -lsbml tells the compiler to link with
+the installed libSBML library:
 
   gcc -o myapp.c myapp.c -lsbml
+
+If the compiler cannot find the library, refer to Section 3.2 below
+for information about ldconfig, LD_LIBRARY_PATH, and related matters.
 
 
 1.2 Windows
@@ -72,9 +90,9 @@ such as:
 
 Download and run the self-extracting windows installer for libSBML.
 There are debug (libsbmld) and release (libsbml) versions of libSBML,
-with .dll and .lib files for both versions in the 'win32/bin' 
-subdirectory of the libSBML distribution.
-Header files are located in the subdirectory 'win32/include/sbml'.
+with .dll and .lib files for both versions in the 'win32/bin'
+subdirectory of the libSBML distribution.  Header files are located in
+the subdirectory 'win32/include/sbml'.
 
 Users of Visual C++ should make their Visual C++ projects link with
 the files libsbml.lib or libsbmld.lib and generate code for the
@@ -83,7 +101,7 @@ runtime, respectively.
 
 
 ---------------
-2. Introduction
+2. INTRODUCTION
 ---------------
 
 This README file describes libSBML, a library for reading, writing and
@@ -129,7 +147,7 @@ Feature Highlights:
       The build system uses GNU tools (Autoconf, GNU Make) to build
       shared and static libraries.
 
-  - Support for both the Expat and Apache Xerces-C++ XML Libraries.
+  - Support for the Apache Xerces-C++, libXML, and Expat XML Libraries.
     
       The Apache Xerces-C++ XML library supports:
         - SAX 1 and 2
@@ -162,23 +180,24 @@ Feature Highlights:
 
 
 ---------------------------------------------------------------
-3. Detailed Instructions for Configuring and Installing LibSBML
+3. DETAILED INSTRUCTIONS FOR CONFIGURING AND INSTALLING LIBSBML
 ---------------------------------------------------------------
 
 LibSBML requires a separate XML library for low-level XML tokenizing
-and Unicode support.  It currently supports the Xerces-C++ and Expat
-XML libraries on Linux, Windows, MacOS X and Solaris.  Many Linux
-systems provide one or both of these libraries either as part of their
-standard distribution or as an optional RPM, Debian, Mandrake or other
-package.  For more information, see http://xml.apache.org/xerces-c/
-for Xerces and http://expat.sf.net for Expat.
+and Unicode support.  As of libSBML 3.0, it supports the Xerces-C++,
+Expat, and libXML XML libraries on Linux, Windows, MacOS X and Solaris.
+Many Linux systems provide one or more of these libraries either as
+part of their standard distribution or as an optional RPM, Debian,
+Mandrake or other package.  For more information, see
+http://xml.apache.org/xerces-c/ for Xerces and http://expat.sf.net for
+Expat.
 
 3.1 Linux, MacOS X and Solaris
 ------------------------------
 
 If you have obtained the libSBML source code distribution, then at
 your Linux, MacOS X or Solaris command prompt, unpack the
-distribution, cd into the directory created (e.g., libsbml-2.1.0), and
+distribution, cd into the directory created (e.g., libsbml-2.4.0), and
 type the following command in a terminal shell window to configure
 libSBML for your system:
 
@@ -309,16 +328,17 @@ SWIG, Python, etc.
 ..................
 
 libSBML provides built-in facilities for testing itself.  To run the
-unit tests, a second library is required, libcheck.  Check is a
-very lightweight C unit test framework based on the xUnit framework
-popularized by Kent Beck and eXtreme Programming.  Check is quite small
-and once installed, it consists of only two files: libcheck.a and
-check.h.  To download Check, visit:
+unit tests, a second library is required, libcheck (version 0.9.2 or
+higher).  Check is a very lightweight C unit test framework based on
+the xUnit framework popularized by Kent Beck and eXtreme Programming.
+Check is quite small and once installed, it consists of only two
+files: libcheck.a and check.h.  To download Check, visit:
 
   http://check.sf.net/
 
-Note: Debian users can find Check as a standard add-on package (.deb).
-MacOS X users can find and install Check using the Fink system.
+(Note: Debian users can find Check as a standard add-on package (.deb).
+As of 11 Feb. 2007, MacOS X users cannot use Fink's version of check
+because it is an old version, 0.8.x.  LibSBML needs version 0.9.x.)
 
 To enable the unit testing facilities in libSBML, add the --with-check
 flag to the configure command:
@@ -368,7 +388,7 @@ you can reconfigure and disable it as follows:
 
 
 --------------------------------------
-4. Building on Windows with Visual C++
+4. BUILDING ON WINDOWS WITH VISUAL C++
 --------------------------------------
 
 The Windows distributions of libSBML come in the form of both
@@ -378,7 +398,7 @@ installed.  The source distribution is a .zip file containing the
 libSBML code that must be extracted in a directory on your system,
 compiled and installed.
 
-As mentioned above, libSBML requires that either the Xerces-C or Expat
+As mentioned above, libSBML requires that the Xerces-C or Expat
 XML parsing libraries be available on your computer prior to
 attempting to compile libSBML.  The DLL for xerces or expat must be
 placed in the win32/bin subdirectory of the libSBML directory.
@@ -411,30 +431,38 @@ To build libsbml on Windows:
 
 
 -----------------------------------
-5. The libsbml-discuss Mailing List
+5. THE libsbml-discuss MAILING LIST
 -----------------------------------
 
 Please join the libsbml-discuss mailing list by visiting the URL
 
   http://www.sbml.org/forums/index.php?t=pre_reg
 
-Being a member of libsbml-discuss will enable you to keep in touch with
-the latest developments in LibSBML as well as to ask questions and share
-your experiences with fellow developers and users of libSBML.
+Being a member of libsbml-discuss will enable you to keep in touch
+with the latest developments in LibSBML as well as to ask questions
+and share your experiences with fellow developers and users of
+libSBML.  The mailing list is vigilantly moderated by humans to remove
+spam and off-topic postings.
+
+A web-based interface is available at http://sbml.org/forums/ for
+those who prefer to interact with the list via a web interface.
 
 The libsbml-discuss archives are available at http://sbml.org/forums/.
 
 
 ------------------------------------
-6. The sbml-cvs-libsbml Mailing List
+6. THE sbml-cvs-libsbml MAILING LIST
 ------------------------------------
 
 If you are obtaining your libSBML files from CVS, you may wish to
-subscribe to the mailing list sbml-cvs-libsbml, to be appraised of
+subscribe to the mailing list sbml-cvs-libsbml, to be apprised of
 changes to the CVS repository as soon as they are committed.  You can
 join the list by visiting the following URL:
 
   https://lists.sourceforge.net/lists/listinfo/sbml-cvs-libsbml
+
+Thank you for your interest in SBML and libSBML.
+
 
 
 
