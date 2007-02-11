@@ -73,54 +73,54 @@ thisdir   = src/validator/constraints
 # rules in `makefile-common-actions.mk' included at the end.
 
 sources =                                     \
+  ArgumentsUnitsCheck.cpp                     \
+  AssignmentCycles.cpp                        \
+  CiElementMathCheck.cpp                      \
   CompartmentOutsideCycles.cpp                \
   ConsistencyConstraints.cpp                  \
+  EqualityArgsMathCheck.cpp                   \
+  FunctionApplyMathCheck.cpp                  \
   FunctionDefinitionVars.cpp                  \
+  FunctionReferredToExists.cpp                \
   IdBase.cpp                                  \
   IdList.cpp                                  \
+  KineticLawVars.cpp                          \
   L1CompatibilityConstraints.cpp              \
+  LambdaMathCheck.cpp                         \
+  LocalParameterMathCheck.cpp                 \
+  LogicalArgsMathCheck.cpp                    \
+  MathMLBase.cpp                              \
+  NumberArgsMathCheck.cpp                     \
+  NumericArgsMathCheck.cpp                    \
+  NumericReturnMathCheck.cpp                  \
+  OverDeterminedCheck.cpp                     \
+  PieceBooleanMathCheck.cpp                   \
+  PiecewiseValueMathCheck.cpp                 \
+  SpeciesReactionOrRule.cpp                   \
+  StoichiometryMathVars.cpp                   \
   UniqueIdBase.cpp                            \
   UniqueIdsForUnitDefinitions.cpp             \
   UniqueIdsInKineticLaw.cpp                   \
   UniqueIdsInModel.cpp                        \
-  UniqueVarsInEventAssignments.cpp            \
-  UniqueVarsInRules.cpp                       \
-  UniqueVarsInEventsAndRules.cpp              \
   UniqueMetaId.cpp                            \
-  UnitsBase.cpp                               \
-  FunctionReferredToExists.cpp                \
-  SpeciesReactionOrRule.cpp                   \
   UniqueSpeciesTypesInCompartment.cpp         \
   UniqueSymbolsInInitialAssignments.cpp       \
+  UniqueVarsInEventAssignments.cpp            \
+  UniqueVarsInEventsAndRules.cpp              \
   UniqueVarsInInitialAssignmentsAndRules.cpp  \
-  ArgumentsUnitsCheck.cpp                     \
-  StoichiometryMathVars.cpp                   \
-  KineticLawVars.cpp                          \
-  AssignmentCycles.cpp                        \
-  MathMLBase.cpp                              \
-  LogicalArgsMathCheck.cpp                    \
-  NumericArgsMathCheck.cpp                    \
-  PieceBooleanMathCheck.cpp                   \
-  PiecewiseValueMathCheck.cpp                 \
-  EqualityArgsMathCheck.cpp                   \
-  FunctionApplyMathCheck.cpp                  \
-  CiElementMathCheck.cpp                      \
-  LocalParameterMathCheck.cpp				  \
-  LambdaMathCheck.cpp                         \
-  NumericReturnMathCheck.cpp                  \
-  OverDeterminedCheck.cpp					  
+  UniqueVarsInRules.cpp                       \
+  UnitsBase.cpp
 
 header_inst_prefix = validator/constraints
 
-headers =              \
-  IdBase.h             \
-  IdList.h             \
-  UniqueMetaId.h       \
-  UniqueIdBase.h       \
-  MathMLBase.h         \
-  OverDeterminedCheck.h\
+headers =               \
+  IdBase.h              \
+  IdList.h              \
+  MathMLBase.h          \
+  OverDeterminedCheck.h \
+  UniqueIdBase.h        \
+  UniqueMetaId.h        \
   UnitsBase.h
-
 
 extra_CPPFLAGS = -I../..
 
