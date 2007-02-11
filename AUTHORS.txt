@@ -2,7 +2,7 @@
  
                             Ben Bornstein
                        with contributions from
-         Ben Kovitz, Stefan Hoops, Sarah Keating, Mike Hucka,
+         Sarah Keating, Ben Kovitz, Stefan Hoops, Mike Hucka,
             Martin Ginkel, Christoph Flamm, Rainer Machne,
                 and many others in the SBML community.
 
@@ -14,5 +14,5 @@
 
 
        Please join the libsbml-discuss mailing list by visiting
-    https://utils.its.caltech.edu/mailman/listinfo/libsbml-discuss
+	    http://www.sbml.org/forums/index.php?t=pre_reg
 
