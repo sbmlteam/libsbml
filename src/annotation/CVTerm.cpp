@@ -64,6 +64,8 @@ CVTerm::CVTerm(QualifierType_t type)
 
 /**
  * create a new CVTerm from an XMLNode
+ * this assumes that the XMLNode has a prefix 
+ * that represents a CV term
  */
 CVTerm::CVTerm(const XMLNode node)
 {
@@ -111,7 +113,7 @@ CVTerm::CVTerm(const XMLNode node)
 
   for (unsigned int n = 0; n < Bag.getNumChildren(); n++)
   {
-    for (unsigned int b = 0; b < Bag.getChild(n).getAttributes().getLength(); b++)
+    for (int b = 0; b < Bag.getChild(n).getAttributes().getLength(); b++)
     {
       mResources->add(Bag.getChild(n).getAttributes().getName(b),
         Bag.getChild(n).getAttributes().getValue(b));
