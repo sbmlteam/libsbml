@@ -69,6 +69,7 @@ SBase::~SBase ()
   delete mNotes;
   delete mAnnotation;
   delete mNamespaces;
+  delete mCVTerms;
 }
 
 

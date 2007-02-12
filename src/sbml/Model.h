@@ -26,6 +26,7 @@
 #define Model_h
 
 
+
 #include <sbml/common/libsbml-config.h>
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
@@ -52,6 +53,8 @@
 #include <sbml/Event.h>
 
 #include <sbml/units/FormulaUnitsData.h>
+
+#include <sbml/annotation/ModelHistory.h>
 
 
 class SBMLVisitor;
@@ -932,6 +935,12 @@ public:
   bool isWrittenFormulaUnitsData();
 
 
+  /**
+   * functions to get and set ModelHistory
+   */
+  void setModelHistory(ModelHistory * history);
+
+  ModelHistory* getModelHistory();
 
 protected:
 
@@ -980,6 +989,8 @@ protected:
   ListOfEvents               mEvents;
 
   ListFormulaUnitsData*      mFormulaUnitsData;
+
+  ModelHistory*              mHistory;
 
 
 #ifdef USE_LAYOUT

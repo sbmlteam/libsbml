@@ -1472,6 +1472,23 @@ Model::isBoolean (const ASTNode* node) const
   return false;
 }
 
+/**
+  * functions to get and set ModelHistory
+  */
+void 
+Model::setModelHistory(ModelHistory * history)
+{
+  mHistory = history;
+}
+
+
+ModelHistory* 
+Model::getModelHistory()
+{
+  return mHistory;
+}
+
+
 
 /**
  * Sets the parent SBMLDocument of this SBML object.
@@ -1538,6 +1555,7 @@ Model::readOtherXML (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
+    mHistory = parseRDFAnnotation(mAnnotation);
     parseRDFAnnotation(mAnnotation, mCVTerms);
     checkAnnotation();
     read = true;
