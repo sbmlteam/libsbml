@@ -820,7 +820,7 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
 
     /* dimensionless/gram/kilogram are allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  ud.getVersion() == 2)
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
   {
     inv_or ( ud.getUnit(0)->isMole());
     inv_or ( ud.getUnit(0)->isItem() );
@@ -855,7 +855,7 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
 
   /* dimensionless is allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  ud.getVersion() == 2
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3)
     &&  !ud.getUnit(0)->isMetre())
   {
     inv(ud.getUnit(0)->isDimensionless());
@@ -886,7 +886,7 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
 
   /* dimensionless is allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  ud.getVersion() == 2
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3)
     &&  !ud.getUnit(0)->isMetre())
   {
     inv(ud.getUnit(0)->isDimensionless());
@@ -917,7 +917,7 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
 
   /* dimensionless is allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  ud.getVersion() == 2
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3)
     &&  !ud.getUnit(0)->isSecond())
   {
     inv(ud.getUnit(0)->isDimensionless());
@@ -948,7 +948,7 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
   
   /* dimensionless is allowable in L2V2 */
   if (  ud.getLevel() == 2 
-    &&  ud.getVersion() == 2)
+    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
   {
     inv( ud.getUnit(0)->isLitre() 
       || ud.getUnit(0)->isMetre() 
@@ -1022,7 +1022,7 @@ START_CONSTRAINT (20411, UnitDefinition, ud)
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
     "L2V2 Section 4.4.)";
 
-  pre( ud.getLevel() == 2 && ud.getVersion() == 2 );
+  pre( ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3) );
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
   {
@@ -1039,7 +1039,7 @@ START_CONSTRAINT (20412, Unit, u)
     "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
     "(References: L2V2 Section 4.4.)";
 
-  pre( u.getLevel() == 2 && u.getVersion() == 2 );
+  pre( u.getLevel() == 2 && (u.getVersion() == 2 || u.getVersion() == 3) );
   inv( u.isCelsius() == false );
 }
 END_CONSTRAINT
@@ -1052,7 +1052,7 @@ START_CONSTRAINT (20412, Parameter, p)
     "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
     "(References: L2V2 Section 4.4.)";
 
-  pre( p.getLevel() == 2 && p.getVersion() == 2 && p.isSetUnits()    );
+  pre( p.getLevel() == 2 && (p.getVersion() == 2 || p.getVersion() == 3) && p.isSetUnits()    );
   inv( UnitKind_forName( p.getUnits().c_str() ) != UNIT_KIND_CELSIUS );
 }
 END_CONSTRAINT
@@ -1153,7 +1153,7 @@ START_CONSTRAINT (20507, Compartment, c)
 
   /* dimensionless is allowable in L2V2 */
   if (  c.getLevel() == 2 
-    &&  c.getVersion() == 2)
+    &&  (c.getVersion() == 2 || c.getVersion() == 3))
   {
     inv_or( units == "length" );
     inv_or( units == "metre"  );
@@ -1188,7 +1188,7 @@ START_CONSTRAINT (20508, Compartment, c)
 
   /* dimensionless is allowable in L2V2 */
   if (  c.getLevel() == 2 
-    &&  c.getVersion() == 2)
+    &&  (c.getVersion() == 2 || c.getVersion() == 3))
   {
     inv_or( units == "area" );
     inv_or( units == "dimensionless"  );
@@ -1221,7 +1221,7 @@ START_CONSTRAINT (20509, Compartment, c)
 
   /* dimensionless is allowable in L2V2 */
   if (  c.getLevel() == 2 
-    &&  c.getVersion() == 2)
+    &&  (c.getVersion() == 2 || c.getVersion() == 3))
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
@@ -1247,7 +1247,7 @@ START_CONSTRAINT (20510, Compartment, c)
     "definition, it must contain the identifier of an existing "
     "<compartmentType>. (References: L2V2 Section 4.7.2.)";
 
-  pre( c.getLevel() == 2 && c.getVersion() == 2 );
+  pre( c.getLevel() == 2 && (c.getVersion() == 2 || c.getVersion() == 3) );
   pre( c.isSetCompartmentType());
 
   inv( m.getCompartmentType( c.getCompartmentType() ) != NULL );
@@ -1337,7 +1337,7 @@ START_CONSTRAINT (20605, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (s.getLevel() == 2 &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
   {
     inv_or( units == "length" );
     inv_or( units == "metre"  );
@@ -1375,7 +1375,7 @@ START_CONSTRAINT (20606, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (s.getLevel() == 2 &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
   {
     inv_or( units == "area" );
     inv_or( units == "dimensionless"  );
@@ -1411,7 +1411,7 @@ START_CONSTRAINT (20607, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (s.getLevel() == 2 &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
@@ -1447,7 +1447,7 @@ START_CONSTRAINT (20608, Species, s)
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless/gram/kilogram are allowable in L2V2 */
-  if (s.getLevel() == 2 &&  s.getVersion() == 2)
+  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
   {
     inv_or( units == "substance"      );
     inv_or( units == "item"           );
@@ -1497,7 +1497,7 @@ START_CONSTRAINT (20612, Species, s)
     "identifier of an existing <speciesType>. (References: L2V2 Section "
     "4.8.2.)";
 
-  pre( s.getLevel() == 2 && s.getVersion() == 2 );
+  pre( s.getLevel() == 2 && (s.getVersion() == 2 || s.getVersion() == 3) );
   pre( s.isSetSpeciesType() );
 
   inv( m.getSpeciesType( s.getSpeciesType() ) != NULL );
@@ -1791,7 +1791,7 @@ START_CONSTRAINT (21125, KineticLaw, kl)
     "rate expression are those of the global 'substance' units of the model. "
     "(References: L2V2 Section 4.13.5.)";
 
-  pre( kl.getLevel() == 2 && kl.getVersion() == 2 );
+  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
   inv( kl.isSetSubstanceUnits() == false );
 }
 END_CONSTRAINT
@@ -1806,7 +1806,7 @@ START_CONSTRAINT (21126, KineticLaw, kl)
     "expression are those of the global 'time' units of the model. "
     "(References: L2V2 Section 4.13.5.)";
 
-  pre( kl.getLevel() == 2 && kl.getVersion() == 2 );
+  pre( kl.getLevel() == 2 && (kl.getVersion() == 2 || kl.getVersion() == 3) );
   inv( kl.isSetTimeUnits() == false );
 }
 END_CONSTRAINT
@@ -1879,7 +1879,7 @@ START_CONSTRAINT (21204, Event, e)
 
   /* dimensionless is allowable in L2V2 */
   if (  e.getLevel() == 2 
-    &&  e.getVersion() == 2)
+    &&  (e.getVersion() == 2 || e.getVersion() == 3))
   {
     inv_or( units == "time" );
     inv_or( units == "second"  );
@@ -2192,7 +2192,7 @@ START_CONSTRAINT (1604, KineticLaw, kl)
 
   /* dimensionless is allowable in L2V2 */
   if (  kl.getLevel() == 2 
-    &&  kl.getVersion() == 2)
+    &&  (kl.getVersion() == 2 || kl.getVersion() == 3))
   {
  /*   removed in l2v2 - need to think about
  
@@ -2230,7 +2230,7 @@ START_CONSTRAINT (1605, KineticLaw, kl)
 
   /* dimensionless is allowable in L2V2 */
   if (  kl.getLevel() == 2 
-    &&  kl.getVersion() == 2)
+    &&  (kl.getVersion() == 2 || kl.getVersion() == 3))
   {
  /*   removed in l2v2 - need to think about
  

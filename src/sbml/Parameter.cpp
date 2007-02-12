@@ -375,7 +375,8 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 2) mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+  if (level == 2 && (version == 2 || version == 3)) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -430,7 +431,8 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 2) SBML::writeSBOTerm(stream, mSBOTerm);
+  if (level == 2 && (version == 2 || version == 3)) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

@@ -502,7 +502,8 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (getVersion() == 2) mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+  if (getVersion() == 2 || getVersion() == 3) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -534,7 +535,8 @@ Event::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (getVersion() == 2) SBML::writeSBOTerm(stream, mSBOTerm);
+  if (getVersion() == 2 || getVersion() == 3) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

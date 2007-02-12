@@ -447,7 +447,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //
   // compartmentType: SId  { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 2)
+  if (level == 2 && (version == 2 || version == 3))
   {
     attributes.readInto("compartmentType", mCompartmentType);
   }
@@ -514,7 +514,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   //
   // compartmentType: SId  { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 2)
+  if (level == 2 && (version == 2 || version == 3))
   {
     stream.writeAttribute("compartmentType", mCompartmentType);
   }

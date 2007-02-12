@@ -61,7 +61,7 @@ SBMLDocument::getDefaultLevel ()
 unsigned int
 SBMLDocument::getDefaultVersion ()
 {
-  return 2;
+  return 3;
 }
 
 
@@ -158,6 +158,7 @@ SBMLDocument::getModel ()
  *   - Level 1 Version 2
  *   - Level 2 Version 1
  *   - Level 2 Version 2
+ *   - Level 2 Version 3
  */
 void
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
@@ -194,6 +195,11 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   else if (mLevel == 2 && mVersion == 2)
   {
     mNamespaces->add("http://www.sbml.org/sbml/level2/version2");
+  }
+  else if (mLevel == 2 && mVersion == 3)
+  {
+    //TO DO - this may not be right check when spec sorted
+    mNamespaces->add("http://www.sbml.org/sbml/level2/version3");
   }
 }
 
@@ -434,6 +440,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
+  // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
   attributes.readInto("version", mVersion);
 
@@ -486,6 +493,20 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
+      // CHECK WHEN SPEC
+      else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version3"))
+      {
+        match = 1;
+        if (mLevel != 2)
+        {
+          getErrorLog()->logError(20102);
+        }
+        if (mVersion != 3)
+        {
+          getErrorLog()->logError(20103);
+        }
+        break;
+      }
     }
     if (match == 0)
     {
@@ -515,6 +536,7 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
   //
   // version: positiveInteger  { use="required" fixed="1" }  (L1v1, L2v1)
   // version: positiveInteger  { use="required" fixed="2" }  (L1v2, L2v2)
+  // version: positiveInteger  { use="required" fixed="3" }  (L2v3)
   //
   stream.writeAttribute("version", mVersion);
 }
