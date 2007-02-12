@@ -291,6 +291,9 @@
 				RelativePath="..\..\src\sbml\Model.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\annotation\ModelHistory.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.cpp">
 			</File>
 			<File

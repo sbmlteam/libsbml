@@ -69,12 +69,14 @@ thisdir   = src/annotation
 
 headers = \
   CVTerm.h     \
+  ModelHistory.h \
   RDFAnnotation.h
 
 header_inst_prefix = annotation
 
 sources = \
   CVTerm.cpp     \
+  ModelHistory.cpp  \
   RDFAnnotation.cpp
 
 extra_CPPFLAGS = -I..

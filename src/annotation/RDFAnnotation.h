@@ -31,6 +31,8 @@
 
 #include <sbml/xml/XMLAttributes.h>
 
+#include <sbml/annotation/ModelHistory.h>
+
 
 #ifdef __cplusplus
 
@@ -41,9 +43,19 @@
  * takes an annotation that has been read into the model
  * identifies the RDF elements
  * and creates a List of CVTerms from the annotation
+ * and creates a Model History from the annotation
  */
 LIBSBML_EXTERN
 void parseRDFAnnotation(XMLNode * annotation, List * CVTerms);
+
+
+/**
+ * takes an annotation that has been read into the model
+ * identifies the RDF elements
+ * and creates a Model History from the annotation
+ */
+LIBSBML_EXTERN
+ModelHistory* parseRDFAnnotation(XMLNode * annotation);
 
 
 /**
@@ -52,6 +64,14 @@ void parseRDFAnnotation(XMLNode * annotation, List * CVTerms);
  */
 LIBSBML_EXTERN
 XMLNode * parseCVTerms(SBase * );
+
+/**
+ * takes a Model creator information
+ * and creates the RDF annotation
+ */
+LIBSBML_EXTERN
+XMLNode * parseModelHistory(Model * );
+
 
 #endif  /* __cplusplus */
 

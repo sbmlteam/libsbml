@@ -181,9 +181,6 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\Constraint.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\validator\Constraint.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -197,6 +194,9 @@
 						Name="VCCLCompilerTool"
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\Constraint.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\annotation\CVTerm.cpp">
@@ -284,6 +284,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Model.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\annotation\ModelHistory.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.cpp">
@@ -615,6 +618,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Model.h">
+			</File>
+			<File
+				RelativePath="..\..\src\annotation\ModelHistory.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\NumberArgsMathCheck.h">
