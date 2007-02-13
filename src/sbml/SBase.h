@@ -409,13 +409,13 @@ protected:
   XMLNode* mNotes;
   XMLNode* mAnnotation;
 
+  XMLNamespaces* mNamespaces;
+
   SBMLDocument* mSBML;
 
   unsigned int mLine;
   unsigned int mColumn;
 
-  XMLNamespaces* mNamespaces;
-  
   // make this a list of
   List * mCVTerms;
 
