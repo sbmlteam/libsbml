@@ -49,12 +49,12 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "common/extern.h"
 
 #include "SBase.h"
+
+#include <check.h>
 
 
 static SBase *S;

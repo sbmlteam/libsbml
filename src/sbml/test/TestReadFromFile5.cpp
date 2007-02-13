@@ -49,8 +49,6 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBMLReader.h"
@@ -58,6 +56,8 @@
 #include "SBMLTypes.h"
 
 #include <string>
+
+#include <check.h>
 
 
 BEGIN_C_DECLS
