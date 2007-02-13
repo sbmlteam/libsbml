@@ -543,6 +543,7 @@ Species::readOtherXML (XMLInputStream& stream)
     mCVTerms = new List();
     parseRDFAnnotation(mAnnotation, mCVTerms);
     checkAnnotation();
+    mAnnotation = deleteRDFAnnotation(mAnnotation);
     read = true;
   }
   else if (name == "notes")

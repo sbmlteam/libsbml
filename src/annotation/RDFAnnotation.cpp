@@ -99,6 +99,40 @@ parseRDFAnnotation(XMLNode * annotation, List * CVTerms)
   
 }
 
+LIBSBML_EXTERN
+XMLNode *
+deleteRDFAnnotation(XMLNode * annotation)
+{
+  XMLNode *newAnnotation = NULL;
+  const string&  name = annotation->getName();
+  unsigned int n = 0;
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+
+  // need to find each annotation and remove it if it is an RDF
+  if (name == "annotation" && annotation->getNumChildren() > 0)
+  {
+    while (n < annotation->getNumChildren())
+    {
+      const string &name1 = annotation->getChild(n).getName();
+      if (name1 != "RDF")
+      {
+        if (!newAnnotation)
+        {
+          newAnnotation = new XMLNode(ann_token);
+          newAnnotation->addChild(annotation->getChild(n));
+        }
+        else
+        {
+          newAnnotation->addChild(annotation->getChild(n));
+        }
+        
+      }
+      n++;
+    }
+  }
+
+  return newAnnotation;
+}
 
 /**
  * takes an annotation that has been read into the model
@@ -181,8 +215,13 @@ parseRDFAnnotation(XMLNode * annotation)
  */
 LIBSBML_EXTERN
 XMLNode * 
-parseCVTerms(SBase * object)
+parseCVTerms(const SBase * object)
 {
+  if (object->getCVTerms() == NULL || object->getCVTerms()->getSize() == 0)
+  {
+    return NULL;
+  }
+
   /* create Namespaces - these go on the RDF element */
   XMLNamespaces xmlns = XMLNamespaces();
   xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
@@ -236,6 +275,7 @@ parseCVTerms(SBase * object)
   XMLAttributes *att;
 
   /* loop through the cv terms and add */
+  /* want to add these in blocks of same qualifier */
   for (unsigned int n = 0; n < object->getCVTerms()->getSize(); n++)
   {
 
@@ -256,6 +296,7 @@ parseCVTerms(SBase * object)
         break;
       case BQM_UNKNOWN:
 	/* 2007-02-12 <mhucka@caltech.edu> what should happen here? */
+        return NULL;
 	break;
       }
     }
@@ -290,6 +331,7 @@ parseCVTerms(SBase * object)
         break;
       case BQB_UNKNOWN:
 	/* 2007-02-12 <mhucka@caltech.edu> what should happen here? */
+        return NULL;
 	break;
       }
     }
@@ -332,9 +374,18 @@ parseCVTerms(SBase * object)
  */
 LIBSBML_EXTERN
 XMLNode * 
-parseModelHistory(Model * model)
+parseModelHistory(const SBase * model)
 {
+  if (model->getTypeCode() != SBML_MODEL)
+  {
+    return NULL;
+  }
+  
   ModelHistory * history = model->getModelHistory();
+  if (history == NULL)
+  {
+    return NULL;
+  }
 
   /* create Namespaces - these go on the RDF element */
   XMLNamespaces xmlns = XMLNamespaces();

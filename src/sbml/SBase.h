@@ -266,6 +266,15 @@ public:
 
   List* getCVTerms();
 
+  List* getCVTerms()  const;
+
+  /**
+   * functions to get and set ModelHistory
+   */
+  void setModelHistory(ModelHistory * history);
+
+  ModelHistory* getModelHistory() const;
+  ModelHistory* getModelHistory();
   /**
    * @return the partial SBML that describes this SBML object.
    */
@@ -425,15 +434,17 @@ protected:
   XMLNode* mNotes;
   XMLNode* mAnnotation;
 
-  XMLNamespaces* mNamespaces;
 
   SBMLDocument* mSBML;
 
   unsigned int mLine;
   unsigned int mColumn;
 
+  XMLNamespaces* mNamespaces;
+  
   /* storing annotations */
   List * mCVTerms;
+  ModelHistory*   mHistory;
 
 
 

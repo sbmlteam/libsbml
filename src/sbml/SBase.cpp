@@ -57,6 +57,7 @@ SBase::SBase (const string& id, const string& name) :
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mCVTerms   ( 0 )
+ , mHistory   ( 0 )
 {
 }
 
@@ -71,6 +72,7 @@ SBase::~SBase ()
   delete mAnnotation;
   delete mNamespaces;
   if (mCVTerms)  delete mCVTerms;
+  if (mHistory) delete mHistory;
 }
 
 
@@ -646,6 +648,37 @@ void
 SBase::writeElements (XMLOutputStream& stream) const
 {
   if ( mNotes      ) stream << *mNotes;
+
+  /**
+   * in order to only save information once RDF annotations are stripped
+   * from the saved annotation
+   */
+  if (this->getTypeCode() == SBML_MODEL)
+  {
+    if (getModelHistory())
+    {
+      XMLNode * history = parseModelHistory(this);
+      if(!mAnnotation)
+      {
+        if (history) const_cast <SBase *> (this)->setAnnotation(history);
+      }
+      else
+      {
+        if (history) const_cast <SBase *> (this)->appendAnnotation(history);
+      }
+    }
+  }
+
+  XMLNode * cvTerms = parseCVTerms(this);
+  if (!mAnnotation)
+  {
+    if (cvTerms)  const_cast <SBase *> (this)->setAnnotation(cvTerms);
+  }
+  else
+  {
+    if (cvTerms)  const_cast <SBase *> (this)->appendAnnotation(cvTerms);
+  }
+
   if ( mAnnotation ) stream << *mAnnotation;
 }
 
@@ -2331,9 +2364,57 @@ SBase::checkIdSyntax()
 void
 SBase::addCVTerm(CVTerm * term)
 {
+  unsigned int added = 0;
   if (mCVTerms == NULL)
+  {
     mCVTerms = new List();
-  mCVTerms->add((void *) term);
+    mCVTerms->add((void *) term);
+  }
+  else
+  {
+    /* check whether there are any other qualifiers of the same sort already in the list */
+    QualifierType_t type = term->getQualifierType();
+    if (type == BIOLOGICAL_QUALIFIER)
+    {
+      BiolQualifierType_t biol = term->getBiologicalQualifierType();
+      
+      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
+      {
+        if (biol == static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType())
+        {
+          for (int r = 0; r < term->getResources()->getLength(); r++)
+          {
+            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+              term->getResources()->getValue(r));
+          }
+          added = 1;
+        }
+      }
+    }
+    else if (type == MODEL_QUALIFIER)
+    {
+      ModelQualifierType_t model = term->getModelQualifierType();
+      
+      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
+      {
+        if (model == static_cast <CVTerm *>(mCVTerms->get(n))->getModelQualifierType())
+        {
+          for (int r = 0; r < term->getResources()->getLength(); r++)
+          {
+            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+              term->getResources()->getValue(r));
+          }
+          added = 1;
+        }
+      }
+    }
+    if (added == 0)
+    {
+      /* no matching terms already in list */
+      mCVTerms->add((void *) term);
+    }
+
+  }
 }
 
 List*
@@ -2341,6 +2422,35 @@ SBase::getCVTerms()
 {
   return mCVTerms;
 }
+
+List*
+SBase::getCVTerms() const
+{
+  return mCVTerms;
+}
+
+/**
+  * functions to get and set ModelHistory
+  */
+void 
+SBase::setModelHistory(ModelHistory * history)
+{
+  mHistory = history;
+}
+
+
+ModelHistory* 
+SBase::getModelHistory() const
+{
+  return mHistory;
+}
+
+ModelHistory* 
+SBase::getModelHistory()
+{
+  return mHistory;
+}
+
 
 
 bool

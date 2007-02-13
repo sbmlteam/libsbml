@@ -115,8 +115,7 @@ CVTerm::CVTerm(const XMLNode node)
   {
     for (int b = 0; b < Bag.getChild(n).getAttributes().getLength(); b++)
     {
-      mResources->add(Bag.getChild(n).getAttributes().getName(b),
-        Bag.getChild(n).getAttributes().getValue(b));
+      addResource(Bag.getChild(n).getAttributes().getValue(b));
     }
   }
 

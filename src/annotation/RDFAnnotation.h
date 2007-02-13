@@ -58,19 +58,23 @@ LIBSBML_EXTERN
 ModelHistory* parseRDFAnnotation(XMLNode * annotation);
 
 
+LIBSBML_EXTERN
+XMLNode *
+deleteRDFAnnotation(XMLNode * annotation);
+
 /**
  * takes a List of CVTerms
  * and creates the RDF annotation
  */
 LIBSBML_EXTERN
-XMLNode * parseCVTerms(SBase * );
+XMLNode * parseCVTerms(const SBase * );
 
 /**
  * takes a Model creator information
  * and creates the RDF annotation
  */
 LIBSBML_EXTERN
-XMLNode * parseModelHistory(Model * );
+XMLNode * parseModelHistory(const SBase * );
 
 
 #endif  /* __cplusplus */

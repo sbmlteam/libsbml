@@ -935,13 +935,6 @@ public:
   bool isWrittenFormulaUnitsData();
 
 
-  /**
-   * functions to get and set ModelHistory
-   */
-  void setModelHistory(ModelHistory * history);
-
-  ModelHistory* getModelHistory();
-
 protected:
 
   /**
@@ -990,7 +983,6 @@ protected:
 
   ListFormulaUnitsData*      mFormulaUnitsData;
 
-  ModelHistory*              mHistory;
 
 
 #ifdef USE_LAYOUT
