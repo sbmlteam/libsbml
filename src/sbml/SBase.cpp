@@ -36,6 +36,7 @@
 #include <sbml/annotation/RDFAnnotation.h>
 #include "KineticLaw.h"
 #include "SBMLDocument.h"
+#include "Model.h"
 #include "ListOf.h"
 #include "SBase.h"
 
@@ -69,7 +70,7 @@ SBase::~SBase ()
   delete mNotes;
   delete mAnnotation;
   delete mNamespaces;
-  delete mCVTerms;
+  if (mCVTerms)  delete mCVTerms;
 }
 
 
@@ -122,6 +123,14 @@ SBase::getAnnotation ()
   return mAnnotation;
 }
 
+/**
+ * gets notes
+ */
+XMLNode*
+SBase::getNotes()
+{
+  return mNotes;
+}
 
 /**
  * @return true if the metaid of this SBML object has been set, false
@@ -256,6 +265,56 @@ SBase::appendAnnotation (XMLNode* annotation)
       setAnnotation(ann);
     }
   }
+}
+
+/**
+ * sets notes to the XMLNode
+ */
+void 
+SBase::setNotes(XMLNode* notes)
+{
+  mNotes = notes;
+}
+
+
+/**
+ * appends notes to existing notes
+ */
+void 
+SBase::appendNotes(XMLNode* notes)
+{
+  const string&  name = notes->getName();
+
+  if (mNotes != 0)
+  {
+    /* check for notes tags and remove */
+
+    if (name == "notes")
+    {
+      mNotes->addChild(notes->getChild(0));
+    }
+    else
+    {
+      mNotes->addChild(*notes);
+    }
+  }
+  else
+  {
+    /* check for notes tags and add if necessary */
+
+    if (name == "notes")
+    {
+      setAnnotation(notes);
+    }
+    else
+    {
+      XMLToken ann_t = XMLToken(XMLTriple("notes", "", ""), XMLAttributes());
+      XMLNode * ann = new XMLNode(ann_t);
+      ann->addChild(*notes);
+      setNotes(ann);
+    }
+  }
+
 }
 
 

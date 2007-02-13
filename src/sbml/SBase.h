@@ -107,6 +107,11 @@ public:
    */
   XMLNode* getAnnotation ();
 
+  /**
+   * returns notes
+   */
+  XMLNode* getNotes();
+
 
   /**
    * @return true if the metaid of this SBML object has been set, false
@@ -163,6 +168,17 @@ public:
    * appends annotation to the existing annotations.
    */
   void appendAnnotation (XMLNode* annotation);
+
+  /**
+   * sets notes to the XMLNode
+   */
+  void setNotes(XMLNode* notes);
+
+  /**
+   * appends notes to existing notes
+   */
+  void appendNotes(XMLNode* notes);
+
   /**
    * Unsets the metaid of this SBML object.
    */
@@ -416,7 +432,9 @@ protected:
   unsigned int mLine;
   unsigned int mColumn;
 
-  // make this a list of
+  XMLNamespaces* mNamespaces;
+  
+  /* storing annotations */
   List * mCVTerms;
 
 
