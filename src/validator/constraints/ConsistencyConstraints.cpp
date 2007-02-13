@@ -1514,7 +1514,7 @@ START_CONSTRAINT (20614, Species, s)
     "The compartment field in a <species> definition is a required "
     "field. (References: L2V2 Section 4.8.3.)";
 
-  inv( s.isSetCompartment() != NULL );
+  inv( s.isSetCompartment() );
 }
 END_CONSTRAINT
 
