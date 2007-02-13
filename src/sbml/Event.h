@@ -281,8 +281,8 @@ protected:
   Trigger*                mTrigger;
   Delay*                  mDelay;
   std::string             mTimeUnits;
-  int                     mSBOTerm;
   ListOfEventAssignments  mEventAssignments;
+  int                     mSBOTerm;
 };
 
 
