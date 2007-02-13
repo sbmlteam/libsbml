@@ -49,7 +49,6 @@
  */
 
 
-#include <check.h>
 #include "sbml/common/common.h"
 
 #include "sbml/Unit.h"
@@ -57,6 +56,8 @@
 #include "sbml/math/ASTNode.h"
 
 #include "../Utils_Unit.h"
+
+#include <check.h>
 
 BEGIN_C_DECLS
 

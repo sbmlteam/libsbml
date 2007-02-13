@@ -22,8 +22,6 @@
  */
 
 
-#include <check.h>
-
 #include "sbml/common/common.h"
 #include "sbml/common/extern.h"
 
@@ -36,6 +34,8 @@
 
 #include "../UnitFormulaFormatter.h"
 #include "../FormulaUnitsData.h"
+
+#include <check.h>
 
 extern char *TestDataDirectory;
 
