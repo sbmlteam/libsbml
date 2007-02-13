@@ -39,12 +39,12 @@ using namespace std;
 XMLOutputStream::XMLOutputStream (  ostream&       stream
                                   , const string&  encoding
                                   , bool           writeXMLDecl ) :
-   mInStart ( false    )
+   mStream  ( stream   )
+ , mEncoding( encoding )
+ , mInStart ( false    )
  , mDoIndent( true     )
  , mIndent  ( 0        )
  , mInText  ( false    )
- , mStream  ( stream   )
- , mEncoding( encoding )
 {
   mStream.imbue( locale::classic() );
   if (writeXMLDecl) this->writeXMLDecl();
