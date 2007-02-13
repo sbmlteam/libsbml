@@ -264,14 +264,13 @@ protected:
   void writeValue (const unsigned int& value);
 
 
-  bool mInStart;
-  bool mDoIndent;
-  bool mInText;
-
-  unsigned int mIndent;
-
   std::ostream& mStream;
   std::string   mEncoding;
+
+  bool mInStart;
+  bool mDoIndent;
+  unsigned int mIndent;
+  bool mInText;
 };
 
 
