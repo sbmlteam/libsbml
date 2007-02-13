@@ -432,8 +432,6 @@ protected:
   unsigned int mLine;
   unsigned int mColumn;
 
-  XMLNamespaces* mNamespaces;
-  
   /* storing annotations */
   List * mCVTerms;
 
