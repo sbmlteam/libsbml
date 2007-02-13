@@ -670,7 +670,7 @@ Validator::validate (const std::string& filename)
   SBMLDocument& d = *reader.readSBML(filename);
 
 
-  for (int n = 0; n < d.getNumErrors(); ++n)
+  for (unsigned int n = 0; n < d.getNumErrors(); ++n)
   {
     logMessage( *d.getError(n) );
   }
