@@ -53,7 +53,6 @@
 #include <iostream>
 #include <check.h>
 
-#include "xml/ParseMessage.h"
 #include "SBMLDocument.h"
 #include "SBMLReader.h"
 
@@ -74,9 +73,7 @@ debugPrint (const char* filename)
 
   if (D)
   {
-    D->printWarnings(cout);
     D->printErrors  (cout);
-    D->printFatals  (cout);
   }
   else
   {
@@ -104,7 +101,9 @@ SBMLReaderTest_teardown ()
 START_TEST (test_SBMLReader_create)
 {
   SBMLReader reader;
+  /* this function no longer exists
   fail_unless(reader.getSchemaValidationLevel() == XML_SCHEMA_VALIDATION_NONE);
+  */
 }
 END_TEST
 
@@ -112,16 +111,15 @@ END_TEST
 START_TEST (test_SBMLReader_readSBML_schema_basic)
 {
   const char* filename = "test-data/l1v1-branch.xml";
-  SBMLReader  reader(XML_SCHEMA_VALIDATION_BASIC);
+ /* SBMLReader  reader(XML_SCHEMA_VALIDATION_BASIC); */
+  SBMLReader  reader();
 
 
   D = reader.readSBML(filename);
   // debugPrint(filename);
 
   fail_unless( D != 0 );
-  fail_unless( D->getNumWarnings() == 0 );
   fail_unless( D->getNumErrors()   == 0 );
-  fail_unless( D->getNumFatals()   == 0 );
 }
 END_TEST
 
@@ -129,16 +127,15 @@ END_TEST
 START_TEST (test_SBMLReader_readSBML_schema_basic_L1v2)
 {
   const char* filename = "test-data/l2v1-branch.xml";
-  SBMLReader  reader(XML_SCHEMA_VALIDATION_BASIC);
+ /* SBMLReader  reader(XML_SCHEMA_VALIDATION_BASIC); */
+  SBMLReader  reader();
 
 
   D = reader.readSBML(filename);
   // debugPrint(filename);
 
   fail_unless( D != 0 );
-  fail_unless( D->getNumWarnings() == 0 );
   fail_unless( D->getNumErrors()   == 0 );
-  fail_unless( D->getNumFatals()   == 0 );
 }
 END_TEST
 
@@ -146,16 +143,15 @@ END_TEST
 START_TEST (test_SBMLReader_readSBML_schema_basic_with_error)
 {
   const char* filename = "test-data/l1v1-branch-schema-error.xml";
-  SBMLReader  reader(XML_SCHEMA_VALIDATION_BASIC);
+ /* SBMLReader  reader(XML_SCHEMA_VALIDATION_BASIC); */
+  SBMLReader  reader();
 
 
   D = reader.readSBML(filename);
   // debugPrint(filename);
 
   fail_unless( D != 0 );
-  fail_unless( D->getNumWarnings() == 0 );
   fail_unless( D->getNumErrors()   == 1 );
-  fail_unless( D->getNumFatals()   == 0 );
 }
 END_TEST
 
@@ -163,16 +159,15 @@ END_TEST
 START_TEST (test_SBMLReader_readSBML_schema_full)
 {
   const char* filename = "test-data/l1v1-branch.xml";
-  SBMLReader  reader(XML_SCHEMA_VALIDATION_FULL);
+ /* SBMLReader  reader(XML_SCHEMA_VALIDATION_BASIC); */
+  SBMLReader  reader();
 
 
   D = reader.readSBML(filename);
   // debugPrint(filename);
 
   fail_unless( D != 0 );
-  fail_unless( D->getNumWarnings() == 0 );
   fail_unless( D->getNumErrors()   == 0 );
-  fail_unless( D->getNumFatals()   == 0 );
 }
 END_TEST
 
@@ -194,14 +189,14 @@ START_TEST (test_readSBML_file_not_found)
   // debugPrint(filename);
 
   fail_unless( D != 0 );
-  fail_unless( D->getNumWarnings() == 0 );
-  fail_unless( D->getNumErrors()   == 0 );
-  fail_unless( D->getNumFatals()   == 1 );
+  fail_unless( D->getNumErrors()   == 1 );
 
+  /*
   fail_unless( D->getFatal(0)->getId() == SBML_READ_ERROR_FILE_NOT_FOUND );
+  */
 }
-END_TEST
-
+END_TES
+/* these all test functions that are not in libSBML in this way
 
 START_TEST (test_readSBML_not_xml)
 {
@@ -311,8 +306,6 @@ START_TEST (test_readSBML_unknown_sbml)
 END_TEST
 
 
-/* TODO: No encoding and not UTF8 */
-
 
 START_TEST (test_readSBMLFromString_empty)
 {
@@ -327,7 +320,7 @@ START_TEST (test_readSBMLFromString_empty)
   fail_unless( D->getFatal(0)->getId() == SBML_READ_ERROR_NOT_XML  );
 }
 END_TEST
-
+*/
 
 Suite *
 create_suite_SBMLReader (void) 
@@ -350,13 +343,13 @@ create_suite_SBMLReader (void)
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_basic_with_error );
   tcase_add_test(tcase, test_SBMLReader_readSBML_schema_full             );
 
-  // libSBML Expat cannot detect these specific error conditions (yet)
+  /* libSBML Expat cannot detect these specific error conditions (yet)
   tcase_add_test(tcase, test_readSBML_not_xml          );
   tcase_add_test(tcase, test_readSBML_no_encoding      );
   tcase_add_test(tcase, test_readSBML_not_utf8         );
   tcase_add_test(tcase, test_readSBML_unknown_encoding );
   tcase_add_test(tcase, test_readSBML_unknown_sbml     );
-  tcase_add_test(tcase, test_readSBMLFromString_empty  );
+  tcase_add_test(tcase, test_readSBMLFromString_empty  );*/
 
 #endif  // !USE_EXPAT
 
