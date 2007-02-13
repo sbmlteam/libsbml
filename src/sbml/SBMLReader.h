@@ -31,26 +31,6 @@
 #include <sbml/util/util.h>
 
 
-/**
- * Warnings, errors and fatal errors are logged to an SBMLDocument while
- * reading.  Three types of fatal errors in particular will be logged
- * immediately.  They have the following ParseMessage ids:
- */
-typedef enum
-{
-    SBML_READ_ERROR_NONE
-  , SBML_READ_ERROR_OUT_OF_MEMORY
-  , SBML_READ_ERROR_FILE_NOT_FOUND
-  , SBML_READ_ERROR_NOT_XML
-  , SBML_READ_ERROR_NO_ENCODING
-  , SBML_READ_ERROR_NOT_UTF_8
-  , SBML_READ_ERROR_UNKNOWN_ENCODING
-  , SBML_READ_ERROR_NOT_SBML
-  , SBML_READ_ERROR_UNKNOWN_SBML
-  , SBML_READ_ERROR_UNKNOWN
-} SBMLReadError_t;
-
-
 #ifdef __cplusplus
 
 

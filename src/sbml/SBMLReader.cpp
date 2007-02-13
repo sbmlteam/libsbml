@@ -32,40 +32,6 @@ using namespace std;
 
 
 /**
- * Maps SBMLReadError_t code to a message
- */
-static
-const char* SBMLReadErrorMessages[] =
-{
-    "No error"
-  , "Out of memory"
-  , "File not found"
-  , "Content is not XML"
-  , "No encoding specified."
-  , "Content is not UTF-8 encoded"
-  , "Unknown encoding"
-  , "Content is not SBML"
-  , "Unknown SBML Level/Version combination"
-  , "Generic Internal Error"
-};
-
-
-/**
- * @return a message for the given SBMLReadError_t code.
- */
-static const char*
-getMessage (SBMLReadError_t code)
-{
-  if (code < SBML_READ_ERROR_NONE || code > SBML_READ_ERROR_UNKNOWN)
-  {
-    code = SBML_READ_ERROR_UNKNOWN;
-  }
-
-  return SBMLReadErrorMessages[code];
-}
-
-
-/**
  * Creates a new SBMLReader and returns it.  By default XML Schema
  * validation is off.
  */
