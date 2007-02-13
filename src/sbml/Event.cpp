@@ -90,7 +90,7 @@ Event::accept (SBMLVisitor& v) const
 {
   bool result = v.visit(*this);
 
-  mTrigger->accept(v);
+  if (mTrigger) mTrigger->accept(v);
   
   if (mDelay) mDelay->accept(v);
 
