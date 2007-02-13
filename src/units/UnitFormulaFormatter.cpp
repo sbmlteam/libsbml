@@ -1213,10 +1213,13 @@ UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
   undeclaredUnits = 0;
   canIgnoreUndeclaredUnits = 0;
 
-  /* This was assigned but never used -- why?  2007-02-12 <mhucka@caltech.edu>
-  UnitDefinition * ud = getUnitDefinition(node);
-  */
-
+  /* This was assigned but never used -- why?  2007-02-12 <mhucka@caltech.edu> */
+  /* This function will change the undeclaredUnits flag
+     if it encounters a parameter with undeclared units
+     it doesnt need to be assigned
+     */
+  getUnitDefinition(node);
+  
   return undeclaredUnits;
 }
 /** 
