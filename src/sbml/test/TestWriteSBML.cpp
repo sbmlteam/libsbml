@@ -1700,7 +1700,7 @@ START_TEST (test_WriteSBML_Event_trigger)
 
   Event e("e");
   Trigger t("leq(P1, t)");
-  e.setTrigger(t);
+  e.setTrigger(*t);
   e.setTimeUnits("second");
 
   e.write(*XOS);
@@ -1725,7 +1725,7 @@ START_TEST (test_WriteSBML_Event_delay)
 
   Event e("e");
   Delay d("5");
-  e.setDelay(d);
+  e.setDelay(*d);
   e.setTimeUnits("second");
 
   e.write(*XOS);
@@ -1760,8 +1760,8 @@ START_TEST (test_WriteSBML_Event_both)
   Event e("e");
   Trigger t("leq(P1, t)");
   Delay d("5");
-  e.setDelay(d);
-  e.setTrigger(t);
+  e.setDelay(*d);
+  e.setTrigger(*t);
   e.setTimeUnits("second");
 
   e.write(*XOS);
@@ -1799,7 +1799,7 @@ START_TEST (test_WriteSBML_Event_full)
   Trigger t("leq(P1, t)");
   EventAssignment ea("k2", "0");
 
-  e.setTrigger(t);
+  e.setTrigger(*t);
   e.addEventAssignment( &ea );
 
   e.write(*XOS);

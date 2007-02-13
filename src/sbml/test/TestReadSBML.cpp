@@ -1584,7 +1584,7 @@ END_TEST
 START_TEST (test_ReadSBML_Event_trigger)
 {
   Event_t*         e;
-  const ASTNode_t* math;
+  const Trigger_t* trigger;
   char*            formula;
 
   const char* s = wrapSBML_L2v1
@@ -1616,9 +1616,9 @@ START_TEST (test_ReadSBML_Event_trigger)
   fail_unless( !Event_isSetDelay  (e) );
   fail_unless(  Event_isSetTrigger(e) );
 
-  math = Event_getTrigger(e);
+  trigger = Event_getTrigger(e);
 
-  formula = SBML_formulaToString(math);
+  formula = SBML_formulaToString(Trigger_getMath(trigger));
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "leq(P1, t)") );
@@ -1631,7 +1631,7 @@ END_TEST
 START_TEST (test_ReadSBML_Event_delay)
 {
   Event_t*         e;
-  const ASTNode_t* math;
+  const Delay_t*   delay;
   char*            formula;
 
   const char* s = wrapSBML_L2v1
@@ -1653,9 +1653,9 @@ START_TEST (test_ReadSBML_Event_delay)
   fail_unless(  Event_isSetDelay  (e) );
   fail_unless( !Event_isSetTrigger(e) );
 
-  math = Event_getDelay(e);
+  delay = Event_getDelay(e);
 
-  formula = SBML_formulaToString(math);
+  formula = SBML_formulaToString(Delay_getMath(delay));
   fail_unless( formula != NULL );
 
   fail_unless( !strcmp(formula, "5") );

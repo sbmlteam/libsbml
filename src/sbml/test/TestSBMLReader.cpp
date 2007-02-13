@@ -195,7 +195,7 @@ START_TEST (test_readSBML_file_not_found)
   fail_unless( D->getFatal(0)->getId() == SBML_READ_ERROR_FILE_NOT_FOUND );
   */
 }
-END_TES
+END_TEST
 /* these all test functions that are not in libSBML in this way
 
 START_TEST (test_readSBML_not_xml)

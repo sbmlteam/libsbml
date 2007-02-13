@@ -77,15 +77,18 @@ SBaseTest_setup (void)
    * SBase_init() requires an SBMLTypeCode_t as its second argument.  Which
    * one doesn't really matter for the purposes of these tests, so one was
    * picked at random.
-   */
+   
   SBase_init(S, SBML_MODEL);
+  */
 }
 
 
 void
 SBaseTest_teardown (void)
 {
+  /* no longer in libSBML
   SBase_clear(S);
+  */
   delete S;
 }
 
