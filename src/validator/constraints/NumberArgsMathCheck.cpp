@@ -85,7 +85,6 @@ void
 NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase & sb)
 {
   ASTNodeType_t type = node.getType();
-  int numExpectedArgs = 0;
 
   switch (type) 
   {
@@ -167,16 +166,17 @@ NumberArgsMathCheck::checkMath (const Model& m, const ASTNode& node, const SBase
 
       if (m.getFunctionDefinition(node.getName()))
       {
-        const FunctionDefinition * fd = m.getFunctionDefinition(node.getName());
         /* functiondefinition math */
         const ASTNode * fdMath = m.getFunctionDefinition(node.getName())->getMath();
         if (fdMath != NULL)
         {
-          numExpectedArgs = fdMath->getNumChildren() - 1;
-        }
-        if (node.getNumChildren() != numExpectedArgs)
-        {
-          logMathConflict(node, sb);
+	  /* We have a definition for this function.  Does the defined number
+	     of arguments equal the number used here? */
+
+          if (node.getNumChildren() + 1 != fdMath->getNumChildren())
+	  {
+            logMathConflict(node, sb);
+	  }
         }
 
       }
