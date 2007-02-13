@@ -522,8 +522,8 @@ FormulaParser_getGoto (long state, long rule)
 ASTNode_t *
 FormulaParser_reduceStackByRule (Stack_t *stack, long rule)
 {
-  ASTNode_t *result, *lexpr, *rexpr, *operator;
-
+  ASTNode_t *result = NULL;
+  ASTNode_t *lexpr, *rexpr, *operator;
 
   /**
    * Rule  1: Stmt    -> Expr
