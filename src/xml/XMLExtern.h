@@ -62,7 +62,9 @@
  * For an explanation of why this is safe, see:
  *   - http://www.unknownroad.com/rtfm/VisualStudio/warningC4251.html
  */
+#if WIN32
 #pragma warning(disable: 4251)
+#endif
 
 
 #endif  /* XMLExtern_h */
