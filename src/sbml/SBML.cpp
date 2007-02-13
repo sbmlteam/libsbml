@@ -44,11 +44,12 @@ using namespace std;
 bool
 SBML::checkSBOTerm (const string& sboTerm)
 {
-  unsigned int size = sboTerm.size();
-  bool         okay = (size == 11);
+  string::size_type size = sboTerm.size();
+  bool              okay = (size == 11);
 
-  unsigned int sbo[4] = {83, 66, 79, 58};
+  char sbo[4]    = {83, 66, 79, 58};
   unsigned int n = 0;
+
   while (okay && n < 4)
   {
     okay = (sboTerm[n] == sbo[n]);
@@ -182,7 +183,7 @@ SBML::isA(unsigned int term, unsigned int parent)
     populateSBOTree();
   }
   ParentRange range  = mParent.equal_range(term);
-  deque<int>  nodes;
+  deque<unsigned int>  nodes;
 
 
   // Copy parents of term to nodes.
@@ -192,7 +193,7 @@ SBML::isA(unsigned int term, unsigned int parent)
   // (For BFS, change back() and pop_back() to front() and pop_front().)
   while ( !nodes.empty() )
   {
-    const int p = nodes.back();
+    const unsigned int p = nodes.back();
     nodes.pop_back();
 
     if (p == parent)
