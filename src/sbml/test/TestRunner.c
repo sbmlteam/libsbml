@@ -89,8 +89,10 @@ Suite *create_suite_RuleType                 (void);
 Suite *create_suite_SBase                    (void);
 Suite *create_suite_SBMLConvert              (void);
 Suite *create_suite_SBMLDocument             (void);
+/* these files no longer exist in libSBML - SK 13/02/2007
 Suite *create_suite_SBMLFormatter            (void);
 Suite *create_suite_SBMLHandler              (void);
+*/
 Suite *create_suite_SBMLReader               (void);
 Suite *create_suite_SBMLWriter               (void);
 Suite *create_suite_SimpleSpeciesReference   (void);
@@ -176,8 +178,11 @@ main (void)
   srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_SBMLConvert              () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
+/* these files no longer exist in libSBML - SK 13/02/2007
   srunner_add_suite( runner, create_suite_SBMLFormatter            () );
   srunner_add_suite( runner, create_suite_SBMLHandler              () );
+*/
+/*
   srunner_add_suite( runner, create_suite_SBMLReader               () );
   srunner_add_suite( runner, create_suite_SBMLWriter               () );
   srunner_add_suite( runner, create_suite_SimpleSpeciesReference   () );
