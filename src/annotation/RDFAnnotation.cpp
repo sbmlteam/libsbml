@@ -254,6 +254,9 @@ parseCVTerms(SBase * object)
       case BQM_IS_DESCRIBED_BY:
         name = "isDescribedBy";
         break;
+      case BQM_UNKNOWN:
+	/* 2007-02-12 <mhucka@caltech.edu> what should happen here? */
+	break;
       }
     }
     else
@@ -285,6 +288,9 @@ parseCVTerms(SBase * object)
       case BQB_IS_DESCRIBED_BY:
         name = "isDescribedBy";
         break;
+      case BQB_UNKNOWN:
+	/* 2007-02-12 <mhucka@caltech.edu> what should happen here? */
+	break;
       }
     }
     type_triple = new XMLTriple(name, uri, prefix);
