@@ -111,10 +111,10 @@ parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
 LIBSBML_EXTERN
 XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
 {
-  XMLNode *newAnnotation = NULL;
   const string&  name = pAnnotation->getName();
   unsigned int n = 0;
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  XMLNode *newAnnotation = new XMLNode(ann_token);
 
   // need to find each annotation and remove it if it is an RDF
   if (name == "annotation" && pAnnotation->getNumChildren() > 0)
@@ -124,15 +124,7 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
       const string &name1 = pAnnotation->getChild(n).getName();
       if (name1 != "listOfLayouts" || pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")==-1)
       {
-        if (!newAnnotation)
-        {
-          newAnnotation = new XMLNode(ann_token);
-          newAnnotation->addChild(pAnnotation->getChild(n));
-        }
-        else
-        {
-          newAnnotation->addChild(pAnnotation->getChild(n));
-        }
+        newAnnotation->addChild(pAnnotation->getChild(n));
       }
       n++;
     }

@@ -103,10 +103,10 @@ LIBSBML_EXTERN
 XMLNode *
 deleteRDFAnnotation(XMLNode * annotation)
 {
-  XMLNode *newAnnotation = NULL;
   const string&  name = annotation->getName();
   unsigned int n = 0;
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  XMLNode * newAnnotation = new XMLNode(ann_token);
 
   // need to find each annotation and remove it if it is an RDF
   if (name == "annotation" && annotation->getNumChildren() > 0)
@@ -116,16 +116,7 @@ deleteRDFAnnotation(XMLNode * annotation)
       const string &name1 = annotation->getChild(n).getName();
       if (name1 != "RDF")
       {
-        if (!newAnnotation)
-        {
-          newAnnotation = new XMLNode(ann_token);
-          newAnnotation->addChild(annotation->getChild(n));
-        }
-        else
-        {
-          newAnnotation->addChild(annotation->getChild(n));
-        }
-        
+        newAnnotation->addChild(annotation->getChild(n));
       }
       n++;
     }
