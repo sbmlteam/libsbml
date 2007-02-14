@@ -38,6 +38,9 @@
 #include "KineticLaw.h"
 #include "Model.h"
 
+#ifdef USE_LAYOUT
+#include "sbml/annotation/LayoutAnnotation.h"
+#endif // USE_LAYOUT
 
 using namespace std;
 
@@ -1542,6 +1545,11 @@ Model::readOtherXML (XMLInputStream& stream)
     parseRDFAnnotation(mAnnotation, mCVTerms);
     checkAnnotation();
     mAnnotation = deleteRDFAnnotation(mAnnotation);
+#ifdef USE_LAYOUT
+    parseLayoutAnnotation(mAnnotation,mLayouts);
+    checkAnnotation();
+    mAnnotation=deleteLayoutAnnotation(mAnnotation);
+#endif // USE_LAYOUT
     read = true;
   }
   else if (name == "notes")
@@ -1684,6 +1692,20 @@ Model::writeElements (XMLOutputStream& stream) const
       if (history) static_cast <SBase *> (m)->appendAnnotation(history);
     }
   }
+#ifdef USE_LAYOUT
+    if (this->getListOfLayouts()->size()!=0)
+    {
+      XMLNode * layouts = parseLayouts(this);
+      if(!mAnnotation)
+      {
+        if (layouts) const_cast <SBase *> (this)->setAnnotation(layouts);
+      }
+      else
+      {
+        if (layouts) const_cast <SBase *> (this)->appendAnnotation(layouts);
+      }
+    }
+#endif // USE_LAYOUT    
 
   SBase::writeElements(stream);
 
