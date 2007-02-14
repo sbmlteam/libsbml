@@ -1695,14 +1695,15 @@ Model::writeElements (XMLOutputStream& stream) const
 #ifdef USE_LAYOUT
     if (this->getListOfLayouts()->size()!=0)
     {
+      Model * m = const_cast <Model *> (this);
       XMLNode * layouts = parseLayouts(this);
       if(!mAnnotation)
       {
-        if (layouts) const_cast <SBase *> (this)->setAnnotation(layouts);
+        if (layouts) static_cast <SBase *> (m)->setAnnotation(layouts);
       }
       else
       {
-        if (layouts) const_cast <SBase *> (this)->appendAnnotation(layouts);
+        if (layouts) static_cast <SBase *> (m)->appendAnnotation(layouts);
       }
     }
 #endif // USE_LAYOUT    
