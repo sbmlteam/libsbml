@@ -34,19 +34,30 @@
 
 #ifdef __cplusplus
 
-
+#ifdef USE_LAYOUT // make the functions inaccesible when the layout is not used
 
 
 /**
  * takes an annotation that has been read into the model
  * identifies the RDF elements
- * and creates a List of CVTerms from the annotation
- * and creates a Model History from the annotation
+ * and creates a List of Layouts from the annotation
  */
 LIBSBML_EXTERN
-void parseLayoutAnnotation(XMLNode * annotation, List * layouts);
+void parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts);
 
+/**
+ * Takes an XMLNode and tries to find the layout annotation node and deletes it if it was found.
+ */
+LIBSBML_EXTERN
+XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation);
 
+/**
+ * Creates an XMLNode that represents the layouts of the model from the given Model object.
+ */
+ LIBSBML_EXTERN
+ XMLNode* parseLayouts(const Model* pModel);
+
+#endif // USE_LAOYUT
 
 #endif  /* __cplusplus */
 

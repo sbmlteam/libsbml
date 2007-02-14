@@ -46,7 +46,8 @@
 #include <sbml/annotation/ModelHistory.h>
 
 #include "LayoutAnnotation.h"
-
+#include "sbml/layout/Layout.h"
+#include "sbml/Model.h"
 
 using namespace std;
 
@@ -57,7 +58,7 @@ using namespace std;
  */
 LIBSBML_EXTERN
 void 
-parseLayoutAnnotation(XMLNode * annotation, ListOf& layouts)
+parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
 {
 
   const string&  name = annotation->getName();
@@ -101,7 +102,63 @@ parseLayoutAnnotation(XMLNode * annotation, ListOf& layouts)
       n++;
     }
   }
-  
 }
+
+  
+/**
+ * Takes an XMLNode and tries to find the layout annotation node and deletes it if it was found.
+ */
+LIBSBML_EXTERN
+XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation)
+{
+  XMLNode *newAnnotation = NULL;
+  const string&  name = pAnnotation->getName();
+  unsigned int n = 0;
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+
+  // need to find each annotation and remove it if it is an RDF
+  if (name == "annotation" && pAnnotation->getNumChildren() > 0)
+  {
+    while (n < pAnnotation->getNumChildren())
+    {
+      const string &name1 = pAnnotation->getChild(n).getName();
+      if (name1 != "listOfLayouts" || pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")==-1)
+      {
+        if (!newAnnotation)
+        {
+          newAnnotation = new XMLNode(ann_token);
+          newAnnotation->addChild(pAnnotation->getChild(n));
+        }
+        else
+        {
+          newAnnotation->addChild(pAnnotation->getChild(n));
+        }
+      }
+      n++;
+    }
+  }
+
+  return newAnnotation;
+}
+
+/**
+ * Creates an XMLNode that represents the layouts of the model from the given Model object.
+ */
+LIBSBML_EXTERN
+XMLNode* parseLayouts(const Model* pModel)
+{
+ 
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes()); 
+  XMLNode* pNode = new XMLNode(ann_token);
+  if(pModel->getListOfLayouts()->size()>0)
+  {
+    pNode->addChild(pModel->getListOfLayouts()->toXML());
+  }
+  return pNode;
+}
+ 
+  
+  
+
 
 
