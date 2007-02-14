@@ -315,7 +315,7 @@ ArgumentsUnitsCheck::checkDimensionlessArgs (const Model& m,
 
   tempUD = unitFormat->getUnitDefinition(node.getChild(0));
   
-  if (!areEquivalent(dim, tempUD)) 
+  if (tempUD->getNumUnits() != 0 && !areEquivalent(dim, tempUD)) 
   {
     logInconsistentDimensionless(node, sb);
   }
