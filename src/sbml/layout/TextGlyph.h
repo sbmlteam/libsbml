@@ -93,6 +93,12 @@ public:
   
   TextGlyph (const std::string& id, const std::string& text);
         
+
+  /**
+   * Creates a new TextGlyph from the given XMLNode
+   */
+   TextGlyph(const XMLNode& node);
+
   /**
    * Destructor.
    */ 

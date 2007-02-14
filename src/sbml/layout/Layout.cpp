@@ -75,6 +75,178 @@ Layout::Layout (const std::string& id, const Dimensions* dimensions) :
         this->mDimensions=*dimensions;
     }
 }
+/**
+ * Creates a new Layout from the given XMLNode
+ */
+Layout::Layout(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="dimensions")
+        {
+            this->mDimensions=Dimensions(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(*child);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(*child);
+        }
+        else if(childName=="listOfCompartmentGlyphs")
+        {
+            const XMLNode* innerChild;
+            unsigned int i=0,iMax=child->getNumChildren();
+            while(i<iMax)
+            {
+                innerChild=&child->getChild(i);
+                const std::string innerChildName=innerChild->getName();
+                ListOf& list=this->mCompartmentGlyphs;
+                if(innerChildName=="compartmentGlyph")
+                {
+                    list.appendAndOwn(new CompartmentGlyph(*innerChild));
+                }
+                else if(innerChildName=="annotation")
+                {
+                    list.setAnnotation(new XMLNode(*innerChild));
+                }
+                else if(innerChildName=="notes")
+                {
+                    list.setNotes(new XMLNode(*innerChild));
+                }
+                else
+                {
+                    // throw
+                }
+                ++i;
+            }
+        }
+        else if(childName=="listOfSpeciesGlyphs")
+        {
+            const XMLNode* innerChild;
+            unsigned int i=0,iMax=child->getNumChildren();
+            while(i<iMax)
+            {
+                innerChild=&child->getChild(i);
+                const std::string innerChildName=innerChild->getName();
+                ListOf& list=this->mSpeciesGlyphs;
+                if(innerChildName=="speciesGlyph")
+                {
+                    list.appendAndOwn(new SpeciesGlyph(*innerChild));
+                }
+                else if(innerChildName=="annotation")
+                {
+                    list.setAnnotation(new XMLNode(*innerChild));
+                }
+                else if(innerChildName=="notes")
+                {
+                    list.setNotes(new XMLNode(*innerChild));
+                }
+                else
+                {
+                    // throw
+                }
+                ++i;
+            }
+        }
+        else if(childName=="listOfReactionGlyphs")
+        {
+            const XMLNode* innerChild;
+            unsigned int i=0,iMax=child->getNumChildren();
+            while(i<iMax)
+            {
+                innerChild=&child->getChild(i);
+                const std::string innerChildName=innerChild->getName();
+                ListOf& list=this->mReactionGlyphs;
+                if(innerChildName=="reactionGlyph")
+                {
+                    list.appendAndOwn(new ReactionGlyph(*innerChild));
+                }
+                else if(innerChildName=="annotation")
+                {
+                    list.setAnnotation(new XMLNode(*innerChild));
+                }
+                else if(innerChildName=="notes")
+                {
+                    list.setNotes(new XMLNode(*innerChild));
+                }
+                else
+                {
+                    // throw
+                }
+                ++i;
+            }
+        }
+        else if(childName=="listOfTextGlyphs")
+        {
+            const XMLNode* innerChild;
+            unsigned int i=0,iMax=child->getNumChildren();
+            while(i<iMax)
+            {
+                innerChild=&child->getChild(i);
+                const std::string innerChildName=innerChild->getName();
+                ListOf& list=this->mTextGlyphs;
+                if(innerChildName=="textGlyph")
+                {
+                    list.appendAndOwn(new TextGlyph(*innerChild));
+                }
+                else if(innerChildName=="annotation")
+                {
+                    list.setAnnotation(new XMLNode(*innerChild));
+                }
+                else if(innerChildName=="notes")
+                {
+                    list.setNotes(new XMLNode(*innerChild));
+                }
+                else
+                {
+                    // throw
+                }
+                ++i;
+            }
+        }
+        else if(childName=="listOfAdditionalGraphicalObjects")
+        {
+            const XMLNode* innerChild;
+            unsigned int i=0,iMax=child->getNumChildren();
+            while(i<iMax)
+            {
+                innerChild=&child->getChild(i);
+                const std::string innerChildName=innerChild->getName();
+                ListOf& list=this->mAdditionalGraphicalObjects;
+                if(innerChildName=="graphicalObject")
+                {
+                    list.appendAndOwn(new GraphicalObject(*innerChild));
+                }
+                else if(innerChildName=="annotation")
+                {
+                    list.setAnnotation(new XMLNode(*innerChild));
+                }
+                else if(innerChildName=="notes")
+                {
+                    list.setNotes(new XMLNode(*innerChild));
+                }
+                else
+                {
+                    // throw
+                }
+                ++i;
+            }
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 
 /**
@@ -516,7 +688,7 @@ Layout::removeSpeciesReferenceGlyph(const std::string id)
     {
         ReactionGlyph* rg=this->getReactionGlyph(i);
         unsigned int index=rg->getIndexForSpeciesReferenceGlyph(id);
-        if(index!=std::numeric_limits<int>::max())
+        if(index!=std::numeric_limits<unsigned int>::max())
         {
             srg=rg->removeSpeciesReferenceGlyph(index);
             break;
@@ -1031,6 +1203,29 @@ Layout::clone() const
 {
     return new Layout(*this);
 }
+
+
+/**
+ * Accepts the given SBMLVisitor.
+ */
+bool
+Layout::accept (SBMLVisitor& v) const
+{
+  /*  
+  bool result=v.visit(*this);
+  this->mDimensions.accept(v);
+  this->mCompartmentGlyphs.accept(v);
+  this->mSpeciesGlyphs.accept(v);
+  this->mReactionGlyphs.accept(v);
+  this->mTextGlyphs.accept(v);
+  this->mAdditionalGraphicalObjects.accept(v);
+  v.leave(*this);*/
+  return false;
+}
+
+
+
+
 
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.

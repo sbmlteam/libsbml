@@ -82,6 +82,11 @@ public:
   Dimensions (double w, double h, double d = 0.0);
 
   /**
+   * Creates a new Dimensions object from the given XMLNode
+   */
+   Dimensions(const XMLNode& node);
+ 
+  /**
    * Frees memory taken up by the Dimensions object.
    */ 
   
@@ -192,8 +197,8 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const {};
-
+  virtual bool accept (SBMLVisitor& v) const;
+   
 
 protected:
   /**

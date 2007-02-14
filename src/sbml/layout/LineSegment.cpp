@@ -107,6 +107,42 @@ LineSegment::LineSegment (const Point* start, const Point* end) :
   }
 }
 
+/**
+ * Creates a new LineSegment from the given XMLNode
+ */
+LineSegment::LineSegment(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="start")
+        {
+            this->mStartPoint=Point(*child);
+        }
+        else if(childName=="end")
+        {
+            this->mEndPoint=Point(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(node);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(node);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor.
@@ -341,6 +377,19 @@ LineSegment::getTypeCode () const
   return SBML_LAYOUT_LINESEGMENT;
 }
 
+/**
+ * Accepts the given SBMLVisitor.
+ */
+bool
+LineSegment::accept (SBMLVisitor& v) const
+{
+   /*
+  bool result=v.visit(*this);
+  this->mStartPoint.accept(v);
+  this->mEndPoint.accept(v);
+  v.leave(*this);*/
+  return false;
+}
 
 
 

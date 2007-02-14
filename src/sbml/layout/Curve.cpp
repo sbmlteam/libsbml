@@ -66,6 +66,82 @@ Curve::Curve () : SBase ()
 
 
 /**
+ * Creates a new ReactionGlyph from the given XMLNode
+ */
+Curve::Curve(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(*child);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(*child);
+        }
+        else if(childName=="listOfCurveSegments")
+        {
+            const XMLNode* innerChild;
+            unsigned int i=0,iMax=child->getNumChildren();
+            while(i<iMax)
+            {
+                innerChild=&child->getChild(i);
+                const std::string innerChildName=innerChild->getName();
+                if(innerChildName=="curveSegment")
+                {
+                    // get the type
+                    const XMLAttributes& innerAttributes=innerChild->getAttributes();
+                    int typeIndex=innerAttributes.getIndex("xsi:type");
+                    if(typeIndex==-1)
+                    {
+                        // throw
+                        continue;
+                    }
+                    if(attributes.getValue(typeIndex)=="LineSegment")
+                    {
+                      this->mCurveSegments.appendAndOwn(new LineSegment(*innerChild));
+                    }
+                    else if(attributes.getValue(typeIndex)=="CubicBezier")
+                    {
+                      this->mCurveSegments.appendAndOwn(new CubicBezier(*innerChild));
+                    }
+                    else
+                    {
+                        // throw
+                    }
+                }
+                else if(innerChildName=="annotation")
+                {
+                    this->mCurveSegments.setAnnotation(new XMLNode(*innerChild));
+                }
+                else if(innerChildName=="notes")
+                {
+                    this->mCurveSegments.setNotes(new XMLNode(*innerChild));
+                }
+                else
+                {
+                    // throw
+                }
+                ++i;
+            }
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
+
+
+/**
  * Destructor.
  */ 
 Curve::~Curve ()
@@ -333,7 +409,18 @@ Curve::getTypeCode () const
 }
 
 
-
+/**
+ * Accepts the given SBMLVisitor.
+ */
+bool
+Curve::accept (SBMLVisitor& v) const
+{
+    
+  /*bool result=v.visit(*this);
+  mCurveSegments.accept(v);
+  v.leave(*this);*/
+  return false;
+}
 
 
 

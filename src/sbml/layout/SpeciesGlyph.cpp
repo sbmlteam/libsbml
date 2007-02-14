@@ -79,6 +79,38 @@ SpeciesGlyph::SpeciesGlyph (const std::string& sid,
 {
 }
 
+/**
+ * Creates a new SpeciesGlyph from the given XMLNode
+ */
+SpeciesGlyph::SpeciesGlyph(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="boundingBox")
+        {
+            this->mBoundingBox=BoundingBox(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(node);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(node);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor.

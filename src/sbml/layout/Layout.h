@@ -294,6 +294,13 @@ public:
   Layout (const std::string& id, const Dimensions* dimensions);
 
   /**
+   * Creates a new Layout from the given XMLNode
+   */
+  Layout (const XMLNode& node);
+
+
+
+  /**
    * Destructor.
    */ 
   
@@ -803,8 +810,8 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const {return false;}
-
+  virtual bool accept (SBMLVisitor& v) const;
+   
 
 protected:
   /**

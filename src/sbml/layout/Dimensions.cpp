@@ -70,6 +70,33 @@ Dimensions::Dimensions (double width, double height, double depth) :
 {
 }
 
+/**
+ * Creates a new Dimensions object from the given XMLNode
+ */
+Dimensions::Dimensions(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(node);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(node);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
 
 /**
  * Frees memory taken up by the Dimensions object.
@@ -286,6 +313,19 @@ Dimensions::getTypeCode () const
   return SBML_LAYOUT_DIMENSIONS;
 }
 
+
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the SBML object's next
+ * sibling object (if available).
+ */
+bool Dimensions::accept (SBMLVisitor& v) const
+{
+    //return v.visit(*this);
+    return false;
+}
 
 
 

@@ -111,6 +111,11 @@ public:
   BoundingBox (const std::string id, const Point* p, const Dimensions* d);
 
   /**
+   * Creates a new BoundingBox from the given XMLNode
+   */
+   BoundingBox(const XMLNode& node);
+
+  /**
    * Destructor which does nothing.
    */ 
   
@@ -291,8 +296,8 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const {};
-
+  virtual bool accept (SBMLVisitor& v) const;
+   
 
 protected:
   /**

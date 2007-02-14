@@ -82,6 +82,12 @@ public:
   
   Point (double x, double y, double z = 0.0);
         
+
+  /**
+   * Creates a new Point from the given XMLNode
+   */
+   Point(const XMLNode& node);
+
   /**
    * Destructor.
    */ 
@@ -221,8 +227,8 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const { return false;}
-
+  virtual bool accept (SBMLVisitor& v) const;
+   
 
 protected:
   /**

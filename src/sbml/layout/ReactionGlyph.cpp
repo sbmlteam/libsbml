@@ -85,6 +85,69 @@ ReactionGlyph::ReactionGlyph (const std::string& id,
 {
 }
 
+/**
+ * Creates a new ReactionGlyph from the given XMLNode
+ */
+ReactionGlyph::ReactionGlyph(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="boundingBox")
+        {
+            this->mBoundingBox=BoundingBox(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(*child);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(*child);
+        }
+        else if(childName=="curve")
+        {
+            this->mCurve=Curve(*child);
+        }
+        else if(childName=="listOfSpeciesReferenceGlyphs")
+        {
+            const XMLNode* innerChild;
+            unsigned int i=0,iMax=child->getNumChildren();
+            while(i<iMax)
+            {
+                innerChild=&child->getChild(i);
+                const std::string innerChildName=innerChild->getName();
+                if(innerChildName=="speciesReferenceGlyph")
+                {
+                    this->mSpeciesReferenceGlyphs.appendAndOwn(new SpeciesReferenceGlyph(*innerChild));
+                }
+                else if(innerChildName=="annotation")
+                {
+                    this->mSpeciesReferenceGlyphs.setAnnotation(new XMLNode(*innerChild));
+                }
+                else if(innerChildName=="notes")
+                {
+                    this->mSpeciesReferenceGlyphs.setNotes(new XMLNode(*innerChild));
+                }
+                else
+                {
+                    // throw
+                }
+                ++i;
+            }
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor.
@@ -503,7 +566,26 @@ ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
 
 
 
-
+/**
+ * Accepts the given SBMLVisitor.
+ 
+bool
+ReactionGlyph::accept (SBMLVisitor& v) const
+{
+  bool result=v.visit(*this);
+  if(this->mCurve.getNumCurveSegments()>0)
+  {
+    this->mCurve.accept(v);
+  }
+  else
+  {
+    this->mBoundingBox.accept(v);
+  }
+  this->mSpeciesReferenceGlyphs.accept(this);
+  v.leave(*this);
+  return result;
+}
+*/
 
 
 

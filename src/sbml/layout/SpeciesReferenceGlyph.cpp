@@ -97,6 +97,42 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph
 {
 }
 
+/**
+ * Creates a new SpeciesReferenceGlyph from the given XMLNode
+ */
+SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="boundingBox")
+        {
+            this->mBoundingBox=BoundingBox(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(*child);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(*child);
+        }
+        else if(childName=="curve")
+        {
+            this->mCurve=Curve(*child);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor.
@@ -433,7 +469,25 @@ SpeciesReferenceGlyph::getTypeCode () const
 }
 
 
+/**
+ * Accepts the given SBMLVisitor.
 
+bool
+SpeciesReferenceGlyph::accept (SBMLVisitor& v) const
+{
+  bool result=v.visit(*this);
+  if(this->mCurve.getNumCurveSegments()>0)
+  {
+    this->mCurve.accept(v);
+  }
+  else
+  {
+    this->mBoundingBox.accept(v);
+  }
+  v.leave(*this);
+  return result;
+}
+*/
 
 
 

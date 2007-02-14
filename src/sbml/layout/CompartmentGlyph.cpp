@@ -78,6 +78,38 @@ CompartmentGlyph::CompartmentGlyph (const std::string& id,
 {
 }
 
+/**
+ * Creates a new CompartmentGlyph from the given XMLNode
+ */
+CompartmentGlyph::CompartmentGlyph(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="boundingBox")
+        {
+            this->mBoundingBox=BoundingBox(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(*child);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(*child);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor.
@@ -168,7 +200,7 @@ CompartmentGlyph::clone () const
 SBase*
 CompartmentGlyph::createObject (XMLInputStream& stream)
 {
-  const std::string& name   = stream.peek().getName();
+  //const std::string& name   = stream.peek().getName();
   SBase*        object = 0;
 
   object=GraphicalObject::createObject(stream);

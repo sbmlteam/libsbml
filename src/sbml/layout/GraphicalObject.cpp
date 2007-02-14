@@ -125,6 +125,37 @@ GraphicalObject::GraphicalObject (const std::string& id, const BoundingBox* bb)
     }
 }
 
+/**
+ * Creates a new GraphicalObject from the given XMLNode
+ */
+GraphicalObject::GraphicalObject(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="boundingBox")
+        {
+            this->mBoundingBox=BoundingBox(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(node);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(node);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
 
 /**
  * Destructor.
@@ -297,6 +328,19 @@ GraphicalObject::getTypeCode () const
   return SBML_LAYOUT_GRAPHICALOBJECT;
 }
 
+/**
+ * Accepts the given SBMLVisitor.
+ */
+bool
+GraphicalObject::accept (SBMLVisitor& v) const
+{
+  /*  
+  bool result=v.visit(*this);
+  this->mBoundingBox.accept(v);
+  v.leave(*this);
+  */
+  return false;
+}
 
 
 

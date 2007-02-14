@@ -121,6 +121,42 @@ BoundingBox::BoundingBox (const std::string id,
     }
 }
 
+/**
+ * Creates a new BoundingBox from the given XMLNode
+ */
+BoundingBox::BoundingBox(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="position")
+        {
+            this->mPosition=Point(*child);
+        }
+        else if(childName=="dimensions")
+        {
+            this->mDimensions=Dimensions(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(node);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(node);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor which does nothing.
@@ -447,6 +483,19 @@ BoundingBox::getTypeCode () const
 }
 
 
+/**
+ * Accepts the given SBMLVisitor.
+ */
+bool
+BoundingBox::accept (SBMLVisitor& v) const
+{
+  /*
+  bool result=v.visit(*this);
+  mPosition.accept(v);
+  mDimensions.accept(v);
+  v.leave(*this);*/
+  return false;
+}
 
 
 /**
@@ -722,5 +771,4 @@ BoundingBox_clone (const BoundingBox_t *m)
 {
   return static_cast<BoundingBox*>( m->clone() );
 }
-
 

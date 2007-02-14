@@ -98,6 +98,12 @@ public:
   
   LineSegment (const Point* start, const Point* end);
 
+
+  /**
+   * Creates a new LineSegment from the given XMLNode
+   */
+   LineSegment(const XMLNode& node);
+
   /**
    * Destructor.
    */ 
@@ -218,8 +224,8 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const {};
-
+  virtual bool accept (SBMLVisitor& v) const;
+   
 
 protected:
   /**

@@ -115,6 +115,12 @@ public:
   
   GraphicalObject (const std::string& id, const BoundingBox* bb);
 
+
+  /**
+   * Creates a new GraphicalObject from the given XMLNode
+   */
+   GraphicalObject(const XMLNode& node);
+
   /**
    * Destructor.
    */ 
@@ -202,8 +208,8 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const {};
-
+  virtual bool accept (SBMLVisitor& v) const;
+    
 
 protected:
   /**

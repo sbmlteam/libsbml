@@ -89,11 +89,16 @@ public:
   
   CompartmentGlyph (const std::string& id, const std::string& compartmentId);
 
+
+  /**
+   * Creates a new CompartmentGlyph from the given XMLNode
+   */
+   CompartmentGlyph(const XMLNode& node);
+
   /**
    * Destructor.
-   */        
-  
-    virtual ~CompartmentGlyph ();
+   */          
+  virtual ~CompartmentGlyph ();
 
   /**
    * Returns the id of the associated compartment.

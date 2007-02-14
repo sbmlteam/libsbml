@@ -89,6 +89,12 @@ public:
   
   SpeciesGlyph (const std::string& id, const std::string& speciesId);
         
+
+  /**
+   * Creates a new SpeciesGlyph from the given XMLNode
+   */
+   SpeciesGlyph(const XMLNode& node);
+
   /**
    * Destructor.
    */ 
@@ -151,6 +157,7 @@ public:
    */
   SBMLTypeCode_t
   getTypeCode () const;
+
 
 
 protected:

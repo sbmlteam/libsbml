@@ -106,6 +106,12 @@ public:
   
   Curve ();
 
+
+  /**
+   * Creates a new Curve from the given XMLNode
+   */
+   Curve(const XMLNode& node);
+
   /**
    * Destructor.
    */ 
@@ -210,8 +216,8 @@ public:
    * whether or not the Visitor would like to visit the SBML object's next
    * sibling object (if available).
    */
-  virtual bool accept (SBMLVisitor& v) const {};
-
+  virtual bool accept (SBMLVisitor& v) const;
+   
 
 protected:
   /**

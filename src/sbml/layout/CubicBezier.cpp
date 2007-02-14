@@ -138,6 +138,50 @@ CubicBezier::CubicBezier (const Point* start, const Point* base1,
     }
 }
 
+/**
+ * Creates a new CubicBezier from the given XMLNode
+ */
+CubicBezier::CubicBezier(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="start")
+        {
+            this->mStartPoint=Point(*child);
+        }
+        else if(childName=="end")
+        {
+            this->mEndPoint=Point(*child);
+        }
+        else if(childName=="basePoint1")
+        {
+            this->mBasePoint1=Point(*child);
+        }
+        else if(childName=="basePoint2")
+        {
+            this->mBasePoint2=Point(*child);
+        }
+        else if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(*child);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(*child);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor.
@@ -349,6 +393,22 @@ CubicBezier::getTypeCode () const
   return SBML_LAYOUT_CUBICBEZIER;
 }
 
+
+/**
+ * Accepts the given SBMLVisitor.
+
+bool
+CubicBezier::accept (SBMLVisitor& v) const
+{
+  bool result=v.visit(*this);
+  this->mStartPoint.accept(v);
+  this->mBasePoint1.accept(v);
+  this->mBasePoint2.accept(v);
+  this->mEndPoint.accept(v);
+  v.leave(*this);
+  return result;
+}
+*/
 
 
 

@@ -105,6 +105,12 @@ public:
   CubicBezier (const Point* start, const Point* base1,
                const Point* base2, const Point* end);
 
+
+  /**
+   * Creates a new Layout from the given XMLNode
+   */
+   CubicBezier(const XMLNode& node);
+
   /**
    * Destructor.
    */ 
@@ -209,7 +215,16 @@ public:
   SBMLTypeCode_t
   getTypeCode () const;
 
-
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the SBML object's next
+   * sibling object (if available).
+   
+  virtual bool accept (SBMLVisitor& v) const;
+   */
+   
 protected:
   /**
    * @return the SBML object corresponding to next XMLToken in the

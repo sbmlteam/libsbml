@@ -81,6 +81,34 @@ void Point::initDefaults ()
   this->setZOffset(0.0);
 }
 
+/**
+ * Creates a new Point from the given XMLNode
+ */
+Point::Point(const XMLNode& node)
+{
+    const XMLAttributes& attributes=node.getAttributes();
+    const XMLNode* child;
+    this->readAttributes(attributes);
+    unsigned int n=0,nMax = node.getNumChildren();
+    while(n<nMax)
+    {
+        child=&node.getChild(n);
+        const std::string& childName=child->getName();
+        if(childName=="annotation")
+        {
+            this->mAnnotation=new XMLNode(node);
+        }
+        else if(childName=="notes")
+        {
+            this->mNotes=new XMLNode(node);
+        }
+        else
+        {
+            //throw;
+        }
+    }    
+}
+
 
 /**
  * Destructor.
@@ -330,6 +358,18 @@ Point::getTypeCode () const
 }
 
 
+/**
+ * Accepts the given SBMLVisitor.
+ *
+ * @return the result of calling <code>v.visit()</code>, which indicates
+ * whether or not the Visitor would like to visit the SBML object's next
+ * sibling object (if available).
+ */
+bool Point::accept (SBMLVisitor& v) const
+{
+    //v.visit(*this);
+    return false;
+}
 
 
 
