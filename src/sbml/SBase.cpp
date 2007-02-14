@@ -651,23 +651,8 @@ SBase::writeElements (XMLOutputStream& stream) const
 
   /**
    * in order to only save information once RDF annotations are stripped
-   * from the saved annotation
+   * from the saved annotation and then must be replaced
    */
-  if (this->getTypeCode() == SBML_MODEL)
-  {
-    if (getModelHistory())
-    {
-      XMLNode * history = parseModelHistory(this);
-      if(!mAnnotation)
-      {
-        if (history) const_cast <SBase *> (this)->setAnnotation(history);
-      }
-      else
-      {
-        if (history) const_cast <SBase *> (this)->appendAnnotation(history);
-      }
-    }
-  }
 
   XMLNode * cvTerms = parseCVTerms(this);
   if (!mAnnotation)

@@ -1669,6 +1669,22 @@ Model::writeAttributes (XMLOutputStream& stream) const
 void
 Model::writeElements (XMLOutputStream& stream) const
 {
+  /* add/append model history to annotation */
+  if (getModelHistory())
+  {
+    Model * m = const_cast <Model *> (this);
+    XMLNode * history = parseModelHistory(this);
+    if(!mAnnotation)
+
+    {
+      if (history) static_cast <SBase *> (m)->setAnnotation(history);
+    }
+    else
+    {
+      if (history) static_cast <SBase *> (m)->appendAnnotation(history);
+    }
+  }
+
   SBase::writeElements(stream);
 
   const unsigned int level   = getLevel  ();
