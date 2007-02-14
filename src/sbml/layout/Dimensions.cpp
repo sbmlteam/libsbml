@@ -43,8 +43,10 @@
  * Contributor(s):
  */
 
+#include <sstream>
 
 #include "Dimensions.h"
+#include "LayoutUtilities.h"
 #include <sbml/xml/XMLErrorLog.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBMLVisitor.h>
@@ -327,6 +329,36 @@ bool Dimensions::accept (SBMLVisitor& v) const
     return false;
 }
 
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode Dimensions::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("dimensions", "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  std::ostringstream os;
+  os << this->mW;
+  att.add("width",os.str());
+  os.str("");
+  os << this->mH;
+  att.add("height",os.str());
+  if(this->mD!=0.0)
+  {
+    os.str("");
+    os << this->mD;
+    att.add("depth",os.str());
+  }
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  return node;
+}
 
 
 

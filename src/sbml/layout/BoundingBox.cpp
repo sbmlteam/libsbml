@@ -45,6 +45,7 @@
 
 
 #include "BoundingBox.h"
+#include "LayoutUtilities.h"
 
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -496,6 +497,34 @@ BoundingBox::accept (SBMLVisitor& v) const
   v.leave(*this);*/
   return false;
 }
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode BoundingBox::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("dimensions", "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  if(this->isSetId())
+  {
+    att.add("id",this->mId);
+  }
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  // add position
+  node.addChild(this->mPosition.toXML("position"));
+  // add dimensions
+  node.addChild(this->mDimensions.toXML());
+  return node;
+}
+
 
 
 /**

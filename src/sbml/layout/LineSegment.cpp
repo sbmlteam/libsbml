@@ -45,6 +45,7 @@
 
 
 #include "LineSegment.h"
+#include "LayoutUtilities.h"
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -391,6 +392,29 @@ LineSegment::accept (SBMLVisitor& v) const
   return false;
 }
 
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode LineSegment::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("curveSegment", "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  att.add("xsi:type","LineSegment");
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  // add start point
+  node.addChild(this->mStartPoint.toXML("start"));
+  // add end point
+  node.addChild(this->mEndPoint.toXML("end"));
+  return node;
+}
 
 
 

@@ -273,6 +273,11 @@ public:
   virtual bool accept (SBMLVisitor& v) const;
    */
 
+   /**
+    * Creates an XMLNode object from this.
+    */
+    XMLNode toXML() const;
+    
 protected:
   /**
    * @return the SBML object corresponding to next XMLToken in the

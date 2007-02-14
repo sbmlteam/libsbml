@@ -49,6 +49,7 @@
 #include <limits>
 
 #include "Layout.h"
+#include "LayoutUtilities.h"
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -1187,6 +1188,54 @@ Layout::writeElements (XMLOutputStream& stream) const
 
 
 /**
+ * Creates an XMLNode object from this.
+ */
+XMLNode Layout::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple layout_triple = XMLTriple("layout", "", "");
+  XMLAttributes id_att = XMLAttributes();
+  id_att.add("id", this->mId);
+  // add the SBase Ids
+  addSBaseAttributes(*this,id_att);
+  XMLToken layout_token = XMLToken(layout_triple, id_att, xmlns); 
+  XMLNode layout_node(layout_token);
+  // add the notes and annotations
+  layout_node.addChild(*this->mNotes);
+  layout_node.addChild(*this->mAnnotation);
+  // add the dimensions
+  layout_node.addChild(this->mDimensions.toXML());
+  // add the list of compartment glyphs
+  if(this->mCompartmentGlyphs.size()>0)
+  {
+    layout_node.addChild(this->mCompartmentGlyphs.toXML());
+  }
+  // add the list of species glyphs
+  if(this->mSpeciesGlyphs.size()>0)
+  {
+    layout_node.addChild(this->mSpeciesGlyphs.toXML());
+  }
+  // add the list of reaction glyphs
+  if(this->mReactionGlyphs.size()>0)
+  {
+    layout_node.addChild(this->mReactionGlyphs.toXML());
+  }
+  // add the list of text glyphs
+  if(this->mTextGlyphs.size()>0)
+  {
+    layout_node.addChild(this->mTextGlyphs.toXML());
+  }
+  // add the list of additional graphical objects
+  if(this->mAdditionalGraphicalObjects.size()>0)
+  {
+    layout_node.addChild(this->mAdditionalGraphicalObjects.toXML());
+  }
+  return layout_node;
+}
+
+
+/**
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -1280,6 +1329,30 @@ ListOfLayouts::createObject (XMLInputStream& stream)
   return object;
 }
 
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfLayouts::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("listOfLayouts", "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  unsigned int i,iMax=this->size();
+  const Layout* layout=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    layout=dynamic_cast<const Layout*>(this->get(i));
+    assert(layout);
+    node.addChild(layout->toXML());
+  }  
+  return node;
+}
 
 /**
  * @return a (deep) copy of this ListOfUnitDefinitions.
@@ -1332,6 +1405,31 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
   }
 
   return object;
+}
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfCompartmentGlyphs::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("listOfCompartmentGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  unsigned int i,iMax=this->size();
+  const CompartmentGlyph* object=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    object=dynamic_cast<const CompartmentGlyph*>(this->get(i));
+    assert(object);
+    node.addChild(object->toXML());
+  }  
+  return node;
 }
 
 
@@ -1389,6 +1487,31 @@ ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
   return object;
 }
 
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfSpeciesGlyphs::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("listOfSpeciesGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  unsigned int i,iMax=this->size();
+  const SpeciesGlyph* object=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    object=dynamic_cast<const SpeciesGlyph*>(this->get(i));
+    assert(object);
+    node.addChild(object->toXML());
+  }  
+  return node;
+}
+
 
 
 /**
@@ -1442,6 +1565,31 @@ ListOfReactionGlyphs::createObject (XMLInputStream& stream)
   }
 
   return object;
+}
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfReactionGlyphs::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("listOfReactionGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  unsigned int i,iMax=this->size();
+  const ReactionGlyph* object=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    object=dynamic_cast<const ReactionGlyph*>(this->get(i));
+    assert(object);
+    node.addChild(object->toXML());
+  }  
+  return node;
 }
 
 
@@ -1499,6 +1647,31 @@ ListOfTextGlyphs::createObject (XMLInputStream& stream)
   return object;
 }
 
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfTextGlyphs::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("listOfTextGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  unsigned int i,iMax=this->size();
+  const TextGlyph* object=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    object=dynamic_cast<const TextGlyph*>(this->get(i));
+    assert(object);
+    node.addChild(object->toXML());
+  }  
+  return node;
+}
+
 
 
 /**
@@ -1554,6 +1727,31 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
   return object;
 }
 
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfGraphicalObjects::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("listOfAdditionalGraphicalObjects", "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  unsigned int i,iMax=this->size();
+  const GraphicalObject* object=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    object=dynamic_cast<const GraphicalObject*>(this->get(i));
+    assert(object);
+    node.addChild(object->toXML());
+  }  
+  return node;
+}
 
 
 

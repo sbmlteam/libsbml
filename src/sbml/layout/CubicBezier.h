@@ -224,6 +224,12 @@ public:
    
   virtual bool accept (SBMLVisitor& v) const;
    */
+ 
+   /**
+    * Creates an XMLNode object from this.
+    */
+    XMLNode toXML() const;
+    
    
 protected:
   /**

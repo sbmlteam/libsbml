@@ -45,6 +45,7 @@
 
 
 #include "CompartmentGlyph.h"
+#include "LayoutUtilities.h"
 
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -253,6 +254,28 @@ CompartmentGlyph::getTypeCode () const
 }
 
 
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode CompartmentGlyph::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("compartmentGlyph", "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  addGraphicalObjectAttributes(*this,att);
+  att.add("compartment",this->mCompartment);
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  // write the bounding box
+  node.addChild(this->mBoundingBox.toXML());
+  return node;
+}
 
 
 /**

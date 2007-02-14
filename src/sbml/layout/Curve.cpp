@@ -49,13 +49,12 @@
 
 #include "LineSegment.h"
 #include "CubicBezier.h"
-
+#include "LayoutUtilities.h"
 
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
-
 
 /**
  * Creates a curve with an empty list of segments.
@@ -329,6 +328,26 @@ void Curve::writeAttributes (XMLOutputStream& stream) const
   SBase::writeAttributes(stream);
 }
 
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode Curve::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("curve", "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  // add the list of line segments
+  node.addChild(this->mCurveSegments.toXML());
+  return node;
+}
 
 
 /**
@@ -393,6 +412,31 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
   if(object) mItems.push_back(object);
 
   return object;
+}
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode ListOfLineSegments::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("listOfCurveSegments", "http://projects.eml.org/bcb/sbml/level2", "");
+  XMLAttributes att = XMLAttributes();
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  unsigned int i,iMax=this->size();
+  const LineSegment* object=NULL;
+  for(i=0;i<iMax;++i)
+  {
+    object=dynamic_cast<const LineSegment*>(this->get(i));
+    assert(object);
+    node.addChild(object->toXML());
+  }  
+  return node;
 }
 
 

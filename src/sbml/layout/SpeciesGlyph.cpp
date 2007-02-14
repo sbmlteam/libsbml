@@ -45,6 +45,7 @@
 
 
 #include "SpeciesGlyph.h"
+#include "LayoutUtilities.h"
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
@@ -251,6 +252,29 @@ SBMLTypeCode_t
 SpeciesGlyph::getTypeCode () const
 {
   return SBML_LAYOUT_SPECIESGLYPH;
+}
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode SpeciesGlyph::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("speciesGlyph", "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  addGraphicalObjectAttributes(*this,att);
+  att.add("species",this->mSpecies);
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  // write the bounding box
+  node.addChild(this->mBoundingBox.toXML());
+  return node;
 }
 
 

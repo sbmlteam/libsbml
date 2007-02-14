@@ -45,6 +45,7 @@
 
 
 #include "SpeciesReferenceGlyph.h"
+#include "LayoutUtilities.h"
 
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -466,6 +467,39 @@ SBMLTypeCode_t
 SpeciesReferenceGlyph::getTypeCode () const
 {
   return SBML_LAYOUT_SPECIESREFERENCEGLYPH;
+}
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode SpeciesReferenceGlyph::toXML() const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("speciesReferenceGlyph", "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  addGraphicalObjectAttributes(*this,att);
+  att.add("speciesReference",this->mSpeciesReference);
+  att.add("speciesGlyph",this->mSpeciesGlyph);
+  att.add("role",this->getRoleString());
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  if(this->mCurve.getNumCurveSegments()==0)
+  {
+    // write the bounding box
+    node.addChild(this->mBoundingBox.toXML());
+  }
+  else
+  {
+    // add the curve
+    node.addChild(this->mCurve.toXML());
+  }
+  return node;
 }
 
 

@@ -43,8 +43,10 @@
  * Contributor(s):
  */
 
+#include <sstream>
 
 #include "Point.h"
+#include "LayoutUtilities.h"
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -343,6 +345,38 @@ void Point::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("z", mZOffset);
   }
 }
+
+/**
+ * Creates an XMLNode object from this.
+ */
+XMLNode Point::toXML(const std::string& name) const
+{
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple(name, "", "");
+  XMLAttributes att = XMLAttributes();
+  // add the SBase Ids
+  addSBaseAttributes(*this,att);
+  std::ostringstream os;
+  os << this->mXOffset;
+  att.add("x",os.str());
+  os.str("");
+  os << this->mYOffset;
+  att.add("y",os.str());
+  if(this->mZOffset!=0.0)
+  {
+    os.str("");
+    os << this->mZOffset;
+    att.add("z",os.str());
+  }
+  XMLToken token = XMLToken(triple, att, xmlns); 
+  XMLNode node(token);
+  // add the notes and annotations
+  node.addChild(*this->mNotes);
+  node.addChild(*this->mAnnotation);
+  return node;
+}
+
 
 
 /**
