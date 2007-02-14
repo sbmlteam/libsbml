@@ -434,14 +434,14 @@ protected:
   XMLNode* mNotes;
   XMLNode* mAnnotation;
 
+  XMLNamespaces* mNamespaces;
 
   SBMLDocument* mSBML;
 
   unsigned int mLine;
   unsigned int mColumn;
 
-  XMLNamespaces* mNamespaces;
-  
+
   /* storing annotations */
   List * mCVTerms;
   ModelHistory*   mHistory;
