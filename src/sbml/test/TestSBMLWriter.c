@@ -49,11 +49,11 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "SBMLReader.h"
 #include "SBMLWriter.h"
+
+#include <check.h>
 
 
 extern char *TestDataDirectory;

@@ -49,8 +49,6 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "math/FormulaFormatter.h"
@@ -59,6 +57,8 @@
 #include "SBase.h"
 #include "Rule.h"
 #include "AlgebraicRule.h"
+
+#include <check.h>
 
 
 static AlgebraicRule_t *AR;

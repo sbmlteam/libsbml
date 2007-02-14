@@ -49,14 +49,14 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "math/FormulaParser.h"
 
 #include "SBase.h"
 #include "Rule.h"
 #include "AssignmentRule.h"
+
+#include <check.h>
 
 
 static AssignmentRule_t *AR;

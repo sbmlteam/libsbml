@@ -49,14 +49,14 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "Rule.h"
 #include "AssignmentRule.h"
 #include "ParameterRule.h"
+
+#include <check.h>
 
 
 static ParameterRule_t *PR;

@@ -51,10 +51,11 @@
 
 
 #include <iostream>
-#include <check.h>
 
 #include "SBMLDocument.h"
 #include "SBMLReader.h"
+
+#include <check.h>
 
 
 BEGIN_C_DECLS

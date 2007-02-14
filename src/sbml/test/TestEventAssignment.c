@@ -49,13 +49,13 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "math/FormulaParser.h"
 
 #include "SBase.h"
 #include "EventAssignment.h"
+
+#include <check.h>
 
 
 static EventAssignment_t *EA;

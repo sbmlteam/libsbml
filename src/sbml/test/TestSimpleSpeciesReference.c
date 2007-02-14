@@ -49,13 +49,13 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "SimpleSpeciesReference.h"
 #include "SpeciesReference.h"
+
+#include <check.h>
 
 
 static SimpleSpeciesReference_t *SSR;

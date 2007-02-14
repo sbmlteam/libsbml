@@ -49,13 +49,13 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "Model.h"
 #include "SBMLDocument.h"
+
+#include <check.h>
 
 
 START_TEST (test_SBMLDocument_create)

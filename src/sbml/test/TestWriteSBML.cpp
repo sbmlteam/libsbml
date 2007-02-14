@@ -24,13 +24,14 @@
 
 #include <iostream>
 #include <sstream>
-#include <check.h>
 
 #include "xml/XMLOutputStream.h"
 #include "util/util.h"
 
 #include "SBMLTypes.h"
 #include "SBMLWriter.h"
+
+#include <check.h>
 
 
 using namespace std;

@@ -49,12 +49,13 @@
  */
 
 
-#include <check.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include "common/extern.h"
 #include "util/memory.h"
+
+#include <check.h>
 
 
 /**

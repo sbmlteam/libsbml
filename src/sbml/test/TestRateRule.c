@@ -49,14 +49,14 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "math/FormulaParser.h"
 
 #include "SBase.h"
 #include "Rule.h"
 #include "RateRule.h"
+
+#include <check.h>
 
 
 static RateRule_t *RR;

@@ -49,13 +49,13 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "Unit.h"
 #include "UnitDefinition.h"
+
+#include <check.h>
 
 
 static UnitDefinition_t *UD;

@@ -49,10 +49,10 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "UnitKind.h"
+
+#include <check.h>
 
 
 START_TEST (test_UnitKind_equals)

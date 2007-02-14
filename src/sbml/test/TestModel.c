@@ -49,10 +49,10 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "SBMLTypes.h"
+
+#include <check.h>
 
 
 static Model_t *M;

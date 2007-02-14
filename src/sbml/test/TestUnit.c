@@ -49,12 +49,12 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "Unit.h"
+
+#include <check.h>
 
 
 static Unit_t *U;

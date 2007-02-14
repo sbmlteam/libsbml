@@ -23,7 +23,6 @@
 
 
 #include <iostream>
-#include <check.h>
 
 #include "common/common.h"
 
@@ -32,6 +31,8 @@
 
 #include "SBMLTypes.h"
 #include "SBMLReader.h"
+
+#include <check.h>
 
 
 using namespace std;

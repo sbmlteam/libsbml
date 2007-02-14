@@ -49,12 +49,12 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "ListOf.h"
+
+#include <check.h>
 
 
 START_TEST (test_ListOf_create)

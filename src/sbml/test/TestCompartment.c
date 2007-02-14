@@ -49,12 +49,12 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "Compartment.h"
+
+#include <check.h>
 
 
 static Compartment_t *C;

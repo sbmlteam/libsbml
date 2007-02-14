@@ -49,12 +49,12 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "SBase.h"
 #include "Parameter.h"
+
+#include <check.h>
 
 
 static Parameter_t *P;

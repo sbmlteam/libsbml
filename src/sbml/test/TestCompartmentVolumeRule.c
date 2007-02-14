@@ -49,7 +49,6 @@
  */
 
 
-#include <check.h>
 #include "common/common.h"
 
 #include "SBase.h"
@@ -57,6 +56,7 @@
 #include "AssignmentRule.h"
 #include "CompartmentVolumeRule.h"
 
+#include <check.h>
 
 static CompartmentVolumeRule_t *CVR;
 

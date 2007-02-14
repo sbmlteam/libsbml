@@ -49,10 +49,10 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "RuleType.h"
+
+#include <check.h>
 
 
 START_TEST (test_RuleType_forName)

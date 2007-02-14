@@ -49,11 +49,11 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 #include "SBMLConvert.h"
 #include "SBMLTypes.h"
+
+#include <check.h>
 
 
 START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)

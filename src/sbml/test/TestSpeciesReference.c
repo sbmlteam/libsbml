@@ -49,14 +49,14 @@
  */
 
 
-#include <check.h>
-
 #include "common/common.h"
 
 #include "math/MathMLReader.h"
 
 #include "SBase.h"
 #include "SpeciesReference.h"
+
+#include <check.h>
 
 
 static SpeciesReference_t *SR;
