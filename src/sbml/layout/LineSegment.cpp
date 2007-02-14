@@ -47,6 +47,8 @@
 #include "LineSegment.h"
 #include "LayoutUtilities.h"
 #include <sbml/SBMLVisitor.h>
+#include <sbml/xml/XMLNode.h>
+#include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>

@@ -44,6 +44,7 @@
  */
 
 #include "LayoutUtilities.h"
+#include <sbml/xml/XMLAttributes.h>
 
 void addSBaseAttributes(const SBase& object,XMLAttributes& att)
 {
