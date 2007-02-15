@@ -53,8 +53,8 @@ using namespace std;
 
 /**
  * takes an annotation that has been read into the model
- * identifies the RDF elements
- * and creates a List of CVTerms from the annotation
+ * identifies the listOfLayouts element and creates a List of 
+ * Layouts from the annotation
  */
 LIBSBML_EXTERN
 void 
@@ -66,7 +66,7 @@ parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
   Layout* layout;
   unsigned int n = 0;
 
-  // need to find the RDF desciption opening annotation
+  // need to find the layout desciption opening annotation
   if (name == "annotation" && annotation->getNumChildren() > 0)
   {
     while (n < annotation->getNumChildren())
@@ -152,5 +152,92 @@ XMLNode* parseLayouts(const Model* pModel)
   
   
 
+/**
+ * takes an annotation that has been read into the species reference
+ * identifies the id elements and set the id of the species reference
+ */
+LIBSBML_EXTERN
+void 
+parseSpeciesReferenceAnnotation(XMLNode * annotation, SpeciesReference& sr)
+{
+
+  const string&  name = annotation->getName();
+  unsigned int n;
+  // need to find the layout desciption opening annotation
+  if (name == "annotation" && annotation->getNumChildren() > 0)
+  {
+    while (n < annotation->getNumChildren())
+    {
+      const string &name1 = annotation->getChild(n).getName();
+      if (name1 == "layoutId") // also check the namespace
+      {
+        const XMLNamespaces& namespaces=annotation->getChild(n).getNamespaces();
+        if(namespaces.getIndex("http://projects.eml.org/bcb/sbml/level2")!=-1)
+        {
+          
+          // set the id of the species reference
+          int index=annotation->getChild(n).getAttributes().getIndex("id");
+          assert(index!=-1);
+          sr.setId(annotation->getChild(n).getAttributes().getValue(index));
+          break;
+        }
+      }
+      n++;
+    }
+  }  
+
+}
+
+  
+/**
+ * Takes an XMLNode and tries to find the layoutId annotation node and deletes it if it was found.
+ */
+LIBSBML_EXTERN
+XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
+{
+  const string&  name = pAnnotation->getName();
+  unsigned int n = 0;
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
+  XMLNode *newAnnotation = new XMLNode(ann_token);
+
+  // need to find the layoutId annotation
+  if (name == "annotation" && pAnnotation->getNumChildren() > 0)
+  {
+    while (n < pAnnotation->getNumChildren())
+    {
+      const string &name1 = pAnnotation->getChild(n).getName();
+      if (name1 != "layoutId" || pAnnotation->getChild(n).getNamespaces().getIndex("http://projects.eml.org/bcb/sbml/level2")==-1)
+      {
+        newAnnotation->addChild(pAnnotation->getChild(n));
+      }
+      n++;
+    }
+  }
+
+  return newAnnotation;
+}
+
+/**
+ * Creates an XMLNode that represents the layoutId annotation of the species reference from the given SpeciesReference object.
+ */
+LIBSBML_EXTERN
+XMLNode* parseLayoutId(const SpeciesReference* sr)
+{
+ 
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes()); 
+  XMLNode* pNode = new XMLNode(ann_token);
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  XMLTriple triple = XMLTriple("layoutId", "", "");
+  XMLAttributes id_att = XMLAttributes();
+  id_att.add("id", sr->getId());
+  XMLToken token = XMLToken(triple, id_att, xmlns); 
+  XMLNode node(token);
+  pNode->addChild(node);
+  return pNode;
+}
+ 
+  
+  
 
 

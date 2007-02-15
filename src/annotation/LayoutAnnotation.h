@@ -31,6 +31,7 @@
 
 #include <sbml/xml/XMLAttributes.h>
 
+#include <sbml/SpeciesReference.h>
 
 #ifdef __cplusplus
 
@@ -56,6 +57,28 @@ XMLNode* deleteLayoutAnnotation(XMLNode* pAnnotation);
  */
  LIBSBML_EXTERN
  XMLNode* parseLayouts(const Model* pModel);
+ 
+/**
+ * takes an annotation that has been read into the species reference
+ * identifies the id elements and set the id of the species reference
+ */
+LIBSBML_EXTERN
+void 
+parseSpeciesReferenceAnnotation(XMLNode * annotation, SpeciesReference& sr);
+
+/**
+ * Takes an XMLNode and tries to find the layoutId annotation node and deletes it if it was found.
+ */
+LIBSBML_EXTERN
+XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation);
+
+/**
+ * Creates an XMLNode that represents the layoutId annotation of the species reference from the given SpeciesReference object.
+ */
+LIBSBML_EXTERN
+XMLNode* parseLayoutId(const SpeciesReference* sr);
+
+ 
 
 #endif // USE_LAOYUT
 
