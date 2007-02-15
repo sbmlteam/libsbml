@@ -147,7 +147,7 @@ tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
 otherdirs     = ..  ../../util ../../xml ../../math ../../units \
-                ../../validator ../../validator/constraints
+                ../../validator ../../validator/constraints ../../annotation
 
 ifdef USE_LAYOUT
   otherdirs += ../layout
