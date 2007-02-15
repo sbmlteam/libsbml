@@ -521,6 +521,12 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -531,8 +537,17 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 

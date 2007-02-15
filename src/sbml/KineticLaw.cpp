@@ -470,7 +470,17 @@ SBase*
 KineticLaw::createObject (XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
-  return (name == "listOfParameters") ? &mParameters : 0;
+
+  if (name == "listOfParameters")
+  {
+    if (mParameters.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    return &mParameters;
+  }
+  
+  return 0;
 }
 
 
@@ -535,6 +545,12 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -545,8 +561,17 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 

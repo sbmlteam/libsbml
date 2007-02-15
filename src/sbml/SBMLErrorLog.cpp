@@ -70,6 +70,13 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
     "4.1.)";
 
+  const string msg10103 =
+    "An SBML XML document must conform to the XML Schema for the corresponding "
+    "SBML Level, Version and Revision. The XML Schema for SBML defines the "
+    "basic SBML object structure, the data types used by those objects, and the "
+    "order in which the objects may appear in an SBML document. (References: "
+    "L2V2 Section 4.1.)";
+
   const string msg10201 =
     "All MathML content in SBML must appear within a 'math' element, and the "
     "'math' element must be either explicitly or implicitly in the XML "
@@ -210,7 +217,8 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
   {
     case 00001: msg = msg00001; break;
     case 00002: msg = msg00002; break;
-    case 10101: msg = msg10202; break;
+    case 10101: msg = msg10101; break;
+    case 10103: msg = msg10103; break;
     case 10201: msg = msg10201; break;
     case 10202: msg = msg10202; break;
     case 10203: msg = msg10203; break;

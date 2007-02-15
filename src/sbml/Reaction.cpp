@@ -720,6 +720,12 @@ Reaction::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -730,8 +736,17 @@ Reaction::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 
@@ -751,18 +766,34 @@ Reaction::createObject (XMLInputStream& stream)
 
   if (name == "listOfReactants")
   {
+    if (mReactants.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     object = &mReactants;
   }
   else if (name == "listOfProducts")
   {
+    if (mProducts.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     object = &mProducts;
   }
   else if (name == "listOfModifiers")
   {
+    if (mModifiers.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     object = &mModifiers;
   }
   else if (name == "kineticLaw")
   {
+    if (mKineticLaw)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mKineticLaw;
 
     mKineticLaw = new KineticLaw();

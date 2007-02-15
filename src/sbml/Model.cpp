@@ -1538,6 +1538,13 @@ Model::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -1554,8 +1561,17 @@ Model::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 
@@ -1574,24 +1590,122 @@ Model::createObject (XMLInputStream& stream)
 
   if (name == "listOfFunctionDefinitions")
   {
+    if (mFunctionDefinitions.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     object = &mFunctionDefinitions;
   }
 
-  else if ( name == "listOfUnitDefinitions"    ) object = &mUnitDefinitions;
-  else if ( name == "listOfCompartmentTypes"   ) object = &mCompartmentTypes;
-  else if ( name == "listOfSpeciesTypes"       ) object = &mSpeciesTypes;
-  else if ( name == "listOfCompartments"       ) object = &mCompartments;
-  else if ( name == "listOfSpecies"            ) object = &mSpecies;
-  else if ( name == "listOfParameters"         ) object = &mParameters;
-  else if ( name == "listOfInitialAssignments" ) object = &mInitialAssignments;
-  else if ( name == "listOfRules"              ) object = &mRules;
-  else if ( name == "listOfConstraints"        ) object = &mConstraints;
-  else if ( name == "listOfReactions"          ) object = &mReactions;
-  else if ( name == "listOfEvents"             ) object = &mEvents;
+  else if ( name == "listOfUnitDefinitions"    ) 
+  {
+    if (mUnitDefinitions.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mUnitDefinitions;
+  }
+
+  else if ( name == "listOfCompartmentTypes"   ) 
+  {
+    if (mCompartmentTypes.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mCompartmentTypes;
+  }
+
+  else if ( name == "listOfSpeciesTypes"       ) 
+  {
+    if (mSpeciesTypes.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mSpeciesTypes;
+  }
+
+  else if ( name == "listOfCompartments"       ) 
+  {
+    if (mCompartments.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mCompartments;
+  }
+  
+  else if ( name == "listOfSpecies"            ) 
+  {
+    if (mSpecies.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mSpecies;
+  }
+
+  else if ( name == "listOfParameters"         ) 
+  {
+    if (mParameters.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mParameters;
+  }
+
+  else if ( name == "listOfInitialAssignments" ) 
+  {
+    if (mInitialAssignments.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mInitialAssignments;
+  }
+
+  else if ( name == "listOfRules"              ) 
+  {
+    if (mRules.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mRules;
+  }
+
+  else if ( name == "listOfConstraints"        ) 
+  {
+    if (mConstraints.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mConstraints;
+  }
+
+  else if ( name == "listOfReactions"          ) 
+  {
+    if (mReactions.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mReactions;
+  }
+
+  else if ( name == "listOfEvents"             ) 
+  {
+    if (mEvents.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    object = &mEvents;
+  }
 
   else if ( getLevel() == 1 && getVersion() == 1 )
   {
-    if (name == "listOfSpecie") object = &mSpecies;
+    if (name == "listOfSpecie") 
+    {
+      if (mSpecies.size() != 0)
+      {
+        mSBML->getErrorLog()->logError(10103);
+      }
+      object = &mSpecies;
+    }
   }
 #ifdef USE_LAYOUT
   else if ( name == "listOfLayouts"             ) object = &mLayouts;

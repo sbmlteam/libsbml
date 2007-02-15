@@ -425,7 +425,15 @@ protected:
    */
   bool isExtender(std::string::iterator, unsigned int);
 
-  bool checkAnnotation();
+  /*
+   * checks the annotation is valid in termsof namespaces
+   */
+  void checkAnnotation();
+
+  /*
+   * checks the notes is valid in termsof namespaces
+   */
+  void checkNotes();
 
   std::string mMetaId;
   std::string mId;

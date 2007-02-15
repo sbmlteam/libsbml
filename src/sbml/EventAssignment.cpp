@@ -307,6 +307,12 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -317,8 +323,17 @@ EventAssignment::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 
@@ -340,6 +355,7 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   // variable: SId  { use="required" }  (L2v1, L2v2)
   //
   attributes.readInto("variable", mId);
+  SBase::checkIdSyntax();
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)

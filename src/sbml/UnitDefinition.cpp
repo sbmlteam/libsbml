@@ -27,6 +27,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 
 #include "SBMLVisitor.h"
+#include "SBMLDocument.h"
 #include "Unit.h"
 #include "UnitDefinition.h"
 
@@ -353,6 +354,12 @@ UnitDefinition::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -363,8 +370,17 @@ UnitDefinition::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 
@@ -380,7 +396,16 @@ SBase*
 UnitDefinition::createObject (XMLInputStream& stream)
 {
   const string& name = stream.peek().getName();
-  return (name == "listOfUnits") ? &mUnits : 0;
+  if (name == "listOfUnits")
+  {
+    if (mUnits.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    return &mUnits;
+  }
+  
+  return 0;
 }
 
 

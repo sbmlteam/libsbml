@@ -574,6 +574,12 @@ Rule::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -584,8 +590,17 @@ Rule::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 
@@ -628,6 +643,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
       //
       const string s = (level == 1 && version == 1) ? "specie" : "species";
       attributes.readInto(s , mId);
+      SBase::checkIdSyntax();
     }
     else if ( isCompartmentVolume() )
     {
@@ -635,6 +651,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
       // compartment: SName  { use="required" }  (L1v1, L1v2)
       //
       attributes.readInto("compartment", mId);
+      SBase::checkIdSyntax();
     }
     else if ( isParameter() )
     {
@@ -642,6 +659,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
       // name: SName  { use="required" } (L1v1, L1v2)
       //
       attributes.readInto("name", mId);
+      SBase::checkIdSyntax();
 
       //
       // units  { use="optional" }  (L1v1, L1v2);
@@ -656,6 +674,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
     // variable: SId  { use="required" }  (L2v1, L2v2)
     //
     attributes.readInto("variable", mId);
+    SBase::checkIdSyntax();
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)

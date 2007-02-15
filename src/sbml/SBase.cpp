@@ -2319,11 +2319,40 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
 void 
 SBase::checkIdSyntax()
 {
-  const string& id = getId();
+    const string& id = getId();
+  //need to check with initial assign/ rules/event assign
+  if (getTypeCode() == SBML_INITIAL_ASSIGNMENT)
+  {
+    const string& id = static_cast <InitialAssignment*> (this)->getSymbol();
+  }
+  else if (getTypeCode() == SBML_EVENT_ASSIGNMENT)
+  {
+    const string& id = static_cast <EventAssignment*> (this)->getVariable();
+  }
+  else if (getTypeCode() == SBML_ASSIGNMENT_RULE || 
+            getTypeCode() == SBML_RATE_RULE)
+  {
+    const string& id = static_cast <Rule*> (this)->getVariable();
+  }
+
   unsigned int size = id.size();
 
   if (size == 0)
-    return;
+  {
+    /* this is a schema error since id is required 
+     * except for Speciesreference/ events/ model*/
+    if (getTypeCode() == SBML_MODEL
+      || getTypeCode() == SBML_EVENT
+      || getTypeCode() == SBML_SPECIES_REFERENCE)
+    {
+      return;
+    }
+    else
+    {
+      mSBML->getErrorLog()->logError(10103);
+      return;
+    }
+  }
 
   unsigned int n = 0;
 
@@ -2437,12 +2466,13 @@ SBase::getModelHistory()
 }
 
 
-
-bool
+/*
+  * checks the annotation is valid in termsof namespaces
+  */
+void
 SBase::checkAnnotation()
 {
   const string&  name = mAnnotation->getName();
-  bool namespaces = false;
 
   if (name == "annotation")
   {
@@ -2459,9 +2489,59 @@ SBase::checkAnnotation()
     }
     
   }
-  return namespaces;
 }
 
+
+/*
+ * checks the notes is valid in termsof namespaces
+ */
+void
+SBase::checkNotes()
+{
+  const string&  name = mNotes->getName();
+
+  if (name == "notes")
+  {
+    /* check for XHTML namespace 
+     * this may be explicitly declared here
+     * or implicitly declared on the whole document
+     */
+    const XMLToken elem = mNotes->getChild(0);
+    unsigned int match = 0;
+    int n;
+    if (elem.getNamespaces().getLength() != 0)
+    {
+      for (n = 0; n < elem.getNamespaces().getLength(); n++)
+      {
+        if (!strcmp(elem.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1999/xhtml"))
+        {
+          match = 1;
+          break;
+        }
+      }
+    }
+    if (match == 0)
+    {
+      if( mSBML->getNamespaces() != NULL)
+      /* check for implicit declaration */
+      {
+        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+        {
+          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
+                                                     "http://www.w3.org/1999/xhtml"))
+          {
+            match = 1;
+            break;
+          }
+        }
+      }
+    }
+    if (match == 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+  }
+}
 
 
 

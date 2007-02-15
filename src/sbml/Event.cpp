@@ -416,6 +416,10 @@ Event::createObject (XMLInputStream& stream)
   const string& name = stream.peek().getName();
   if (name == "listOfEventAssignments") 
   {
+    if (mEventAssignments.size() != 0)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     return &mEventAssignments;
   }
   else if (name == "trigger")
@@ -427,6 +431,10 @@ Event::createObject (XMLInputStream& stream)
   }
   else if (name == "delay")
   {
+    if (mDelay)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mDelay;
 
     mDelay = new Delay();
@@ -455,6 +463,12 @@ Event::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
@@ -465,8 +479,17 @@ Event::readOtherXML (XMLInputStream& stream)
   }
   else if (name == "notes")
   {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
     delete mNotes;
     mNotes = new XMLNode(stream);
+    checkNotes();
     read = true;
   }
 
