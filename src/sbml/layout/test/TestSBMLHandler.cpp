@@ -44,7 +44,6 @@
  */
 
 #include <iostream>
-#include <check.h>
 
 #include <common/common.h>
 #include <common/extern.h>
@@ -65,6 +64,9 @@
 #include "sbml/layout/TextGlyph.h"
 #include "sbml/layout/LineSegment.h"
 #include "sbml/layout/CubicBezier.h"
+
+#include <check.h>
+
 
 BEGIN_C_DECLS
 

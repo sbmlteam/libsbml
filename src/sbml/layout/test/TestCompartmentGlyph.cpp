@@ -44,12 +44,13 @@
  */
 
 #include <string>
-#include <check.h>
 
 #include <common/common.h>
 #include <common/extern.h>
 
 #include "CompartmentGlyph.h"
+
+#include <check.h>
 
 BEGIN_C_DECLS
 

@@ -43,13 +43,13 @@
  * Contributor(s):
  */
 
-#include <check.h>
-
 
 #include "common/common.h"
 
+
 #include "BoundingBox.h"
 
+#include <check.h>
 
 static BoundingBox* BB;
 

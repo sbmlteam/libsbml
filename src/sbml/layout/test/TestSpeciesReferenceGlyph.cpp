@@ -43,7 +43,6 @@
  * Contributor(s):
  */
 
-#include <check.h>
 #include <string>
 
 #include <common/common.h>
@@ -54,6 +53,8 @@
 #include "LineSegment.h"
 #include "CubicBezier.h"
 #include "Point.h"
+
+#include <check.h>
 
 BEGIN_C_DECLS
 

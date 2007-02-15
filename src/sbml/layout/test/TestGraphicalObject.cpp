@@ -43,7 +43,6 @@
  * Contributor(s):
  */
 
-#include <check.h>
 #include <string>
 
 #include <common/common.h>
@@ -53,6 +52,8 @@
 #include "BoundingBox.h"
 #include "Dimensions.h"
 #include "Point.h"
+
+#include <check.h>
 
 
 BEGIN_C_DECLS

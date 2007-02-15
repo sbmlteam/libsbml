@@ -43,7 +43,6 @@
  * Contributor(s):
  */
 
-#include <check.h>
 #include <string>
 
 #include <common/common.h>
@@ -55,6 +54,8 @@
 #include "Curve.h"
 #include "Point.h"
 #include "LineSegment.h"
+
+#include <check.h>
 
 BEGIN_C_DECLS
 

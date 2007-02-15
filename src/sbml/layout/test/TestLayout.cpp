@@ -43,7 +43,6 @@
  * Contributor(s):
  */
 
-#include <check.h>
 
 #include <common/common.h>
 #include <common/extern.h>
@@ -54,6 +53,8 @@
 #include "SpeciesGlyph.h"
 #include "ReactionGlyph.h"
 #include "TextGlyph.h"
+
+#include <check.h>
 
 BEGIN_C_DECLS
 

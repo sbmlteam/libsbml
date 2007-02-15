@@ -46,7 +46,6 @@
 
 #include <iostream>
 
-#include <check.h>
 #include <locale.h>
 
 #include <common/common.h>
@@ -64,6 +63,8 @@
 #include "Curve.h"
 #include "Point.h"
 #include "Dimensions.h"
+
+#include <check.h>
 
 // See TestWriteSBML in Bens Tests!!!!!
 

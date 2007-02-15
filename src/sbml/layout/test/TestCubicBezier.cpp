@@ -43,7 +43,6 @@
  * Contributor(s):
  */
 
-#include <check.h>
 
 #include <common/common.h>
 #include <common/extern.h>
@@ -51,6 +50,8 @@
 #include "sbml/SBase.h"
 #include "CubicBezier.h"
 #include "Point.h"
+
+#include <check.h>
 
 BEGIN_C_DECLS
 

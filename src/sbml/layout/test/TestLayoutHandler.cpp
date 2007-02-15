@@ -44,12 +44,13 @@
  */
 
 #include <iostream>
-#include <check.h>
 
 #include <common/common.h>
 #include <common/extern.h>
 
 #include "sbml/xml/XMLInputStream.h"
+
+#include <check.h>
 
    
 BEGIN_C_DECLS

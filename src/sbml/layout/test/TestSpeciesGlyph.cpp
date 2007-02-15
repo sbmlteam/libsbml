@@ -44,12 +44,14 @@
  */
 
 #include <string>
-#include <check.h>
 
 #include <common/common.h>
 #include <common/extern.h>
 
+
 #include "SpeciesGlyph.h"
+
+#include <check.h>
 
 BEGIN_C_DECLS
 

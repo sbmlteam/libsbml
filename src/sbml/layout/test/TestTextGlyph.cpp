@@ -43,10 +43,10 @@
  * Contributor(s):
  */
 
-#include <check.h>
 
 #include "TextGlyph.h"
 
+#include <check.h>
 
 static TextGlyph * TG;
 
