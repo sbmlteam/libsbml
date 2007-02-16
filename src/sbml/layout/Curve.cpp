@@ -108,11 +108,11 @@ Curve::Curve(const XMLNode& node)
                     }
                     if(innerAttributes.getValue(typeIndex)=="LineSegment")
                     {
-                      this->mCurveSegments.appendAndOwn(new LineSegment(*innerChild));
+                      this->mCurveSegments.append(new LineSegment(*innerChild));
                     }
                     else if(innerAttributes.getValue(typeIndex)=="CubicBezier")
                     {
-                      this->mCurveSegments.appendAndOwn(new CubicBezier(*innerChild));
+                      this->mCurveSegments.append(new CubicBezier(*innerChild));
                     }
                     else
                     {

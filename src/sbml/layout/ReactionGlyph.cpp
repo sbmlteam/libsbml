@@ -115,7 +115,16 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node)
         }
         else if(childName=="curve")
         {
-            this->mCurve=Curve(*child);
+            // since the copy constructor of ListOf does not make deep copies
+            // of the objects, we have to add the individual curveSegments to the 
+            // curve instead of just copying the whole curve.
+            Curve* pTmpCurve=new Curve(*child);
+            unsigned int i,iMax=pTmpCurve->getNumCurveSegments();
+            for(i=0;i<iMax;++i)
+            {
+                this->mCurve.addCurveSegment(pTmpCurve->getCurveSegment(i));
+            }
+            delete pTmpCurve;
         }
         else if(childName=="listOfSpeciesReferenceGlyphs")
         {
