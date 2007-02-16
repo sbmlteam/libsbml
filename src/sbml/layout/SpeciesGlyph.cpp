@@ -111,6 +111,7 @@ SpeciesGlyph::SpeciesGlyph(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

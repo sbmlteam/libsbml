@@ -99,6 +99,7 @@ Dimensions::Dimensions(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

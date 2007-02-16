@@ -111,6 +111,7 @@ TextGlyph::TextGlyph(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

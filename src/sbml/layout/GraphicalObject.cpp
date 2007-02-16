@@ -157,6 +157,7 @@ GraphicalObject::GraphicalObject(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

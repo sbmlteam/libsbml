@@ -248,6 +248,8 @@ Layout::Layout(const XMLNode& node)
         {
             //throw;
         }
+        
+        ++n;
     }    
 }
 

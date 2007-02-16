@@ -143,6 +143,7 @@ LineSegment::LineSegment(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

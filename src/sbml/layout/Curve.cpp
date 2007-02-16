@@ -99,17 +99,18 @@ Curve::Curve(const XMLNode& node)
                 {
                     // get the type
                     const XMLAttributes& innerAttributes=innerChild->getAttributes();
-                    int typeIndex=innerAttributes.getIndex("xsi:type");
-                    if(typeIndex==-1)
+                    int typeIndex=innerAttributes.getIndex("type");
+                    if(typeIndex==-1 || innerAttributes.getURI(typeIndex)!="http://www.w3.org/2001/XMLSchema-instance")
                     {
                         // throw
+                        ++i;
                         continue;
                     }
-                    if(attributes.getValue(typeIndex)=="LineSegment")
+                    if(innerAttributes.getValue(typeIndex)=="LineSegment")
                     {
                       this->mCurveSegments.appendAndOwn(new LineSegment(*innerChild));
                     }
-                    else if(attributes.getValue(typeIndex)=="CubicBezier")
+                    else if(innerAttributes.getValue(typeIndex)=="CubicBezier")
                     {
                       this->mCurveSegments.appendAndOwn(new CubicBezier(*innerChild));
                     }
@@ -137,6 +138,7 @@ Curve::Curve(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

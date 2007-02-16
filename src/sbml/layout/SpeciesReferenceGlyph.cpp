@@ -133,6 +133,7 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

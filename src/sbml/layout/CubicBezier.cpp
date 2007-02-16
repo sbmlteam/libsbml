@@ -182,6 +182,7 @@ CubicBezier::CubicBezier(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

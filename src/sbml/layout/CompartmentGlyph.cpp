@@ -110,6 +110,7 @@ CompartmentGlyph::CompartmentGlyph(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

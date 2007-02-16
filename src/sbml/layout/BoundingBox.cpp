@@ -157,6 +157,7 @@ BoundingBox::BoundingBox(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

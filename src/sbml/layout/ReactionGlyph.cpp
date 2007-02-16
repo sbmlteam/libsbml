@@ -148,6 +148,7 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 

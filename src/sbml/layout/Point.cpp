@@ -110,6 +110,7 @@ Point::Point(const XMLNode& node)
         {
             //throw;
         }
+        ++n;
     }    
 }
 
