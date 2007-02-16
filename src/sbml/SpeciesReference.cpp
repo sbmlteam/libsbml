@@ -774,6 +774,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
       checkAnnotation();
       mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
     }
+    read=true;
   }
   else if (name == "notes")
   {
