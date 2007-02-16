@@ -31,6 +31,8 @@
 #include <sbml/math/MathML.h>
 #include <sbml/math/ASTNode.h>
 
+#include <sbml/annotation/LayoutAnnotation.h>
+
 #include "SBML.h"
 #include "SBMLVisitor.h"
 #include "SBMLDocument.h"
@@ -533,6 +535,16 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     parseRDFAnnotation(mAnnotation, mCVTerms);
     checkAnnotation();
     mAnnotation = deleteRDFAnnotation(mAnnotation);
+#ifdef USE_LAYOUT
+    // only parse the id annotation if it is Level 1 or Level 2 Version 1
+    // everything after Level 2 Version 1 has ids.
+    if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+    {
+      parseSpeciesReferenceAnnotation(mAnnotation,*this);
+      checkAnnotation();
+      mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
+    }
+#endif // USE_LAYOUT
     read = true;
   }
   else if (name == "notes")
@@ -641,6 +653,24 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
       }
 
       stream.endElement("stoichiometryMath");
+#ifdef USE_LAYOUT
+    if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+    {
+      if (this->isSetId())
+      {
+        SpeciesReference * sr = const_cast <SpeciesReference *> (this);
+        XMLNode * idAnnotation = parseLayoutId(this);
+        if(!mAnnotation)
+        {
+          if (idAnnotation) static_cast <SBase *> (sr)->setAnnotation(idAnnotation);
+        }
+        else
+        {
+          if (idAnnotation) static_cast <SBase *> (sr)->appendAnnotation(idAnnotation);
+        }
+      }
+    }
+#endif // USE_LAYOUT    
     }
   }
 }
@@ -714,6 +744,85 @@ ModifierSpeciesReference::getElementName () const
   return name;
 }
 
+
+#ifdef USE_LAYOUT
+
+/**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
+{
+  bool          read = false;
+  const string& name = stream.peek().getName();
+  if (name == "annotation")
+  {
+    /* if annotation already exists then it is an error 
+     */
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+    delete mAnnotation;
+    mAnnotation = new XMLNode(stream);
+    if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+    {
+      parseSpeciesReferenceAnnotation(mAnnotation,*this);
+      checkAnnotation();
+      mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
+    }
+  }
+  else if (name == "notes")
+  {
+    /* if notes already exists then it is an error 
+     * if annotation already exists then ordering is wrong
+     */
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
+    delete mNotes;
+    mNotes = new XMLNode(stream);
+    checkNotes();
+    read = true;
+  }
+
+  return read;
+}
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+ModifierSpeciesReference::writeElements (XMLOutputStream& stream) const
+{
+  if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
+  {
+    if (this->isSetId())
+    {
+      ModifierSpeciesReference * sr = const_cast <ModifierSpeciesReference *> (this);
+      XMLNode * idAnnotation = parseLayoutId(this);
+      if(!mAnnotation)
+      {
+        if (idAnnotation) static_cast <SBase *> (sr)->setAnnotation(idAnnotation);
+      }
+      else
+      {
+        if (idAnnotation) static_cast <SBase *> (sr)->appendAnnotation(idAnnotation);
+      }
+    }
+  }
+  SBase::writeElements(stream);    
+  
+}
+
+#endif // USE_LAYOUT
 
 
 /**

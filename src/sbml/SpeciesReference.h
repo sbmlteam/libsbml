@@ -327,6 +327,26 @@ public:
    * this SBML object.
    */
   virtual const std::string& getElementName () const;
+
+#ifdef USE_LAYOUT
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+protected:
+
+  /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return true if the subclass read from the stream, false otherwise.
+   */
+  bool readOtherXML (XMLInputStream& stream);
+
+#endif // USE_LAYOUT
 };
 
 
