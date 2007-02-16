@@ -77,7 +77,7 @@ parseLayoutAnnotation(XMLNode * annotation, ListOfLayouts& layouts)
         const XMLNamespaces& namespaces=annotation->getChild(n).getNamespaces();
         if(namespaces.getIndex("http://projects.eml.org/bcb/sbml/level2")!=-1)
         {
-          LayoutTop = &(annotation->getChild(n).getChild(0));
+          LayoutTop = &(annotation->getChild(n));
           break;
         }
       }
