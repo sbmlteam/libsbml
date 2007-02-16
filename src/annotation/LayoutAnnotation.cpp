@@ -158,7 +158,7 @@ XMLNode* parseLayouts(const Model* pModel)
  */
 LIBSBML_EXTERN
 void 
-parseSpeciesReferenceAnnotation(XMLNode * annotation, SpeciesReference& sr)
+parseSpeciesReferenceAnnotation(XMLNode * annotation, SimpleSpeciesReference& sr)
 {
 
   const string&  name = annotation->getName();
@@ -221,7 +221,7 @@ XMLNode* deleteLayoutIdAnnotation(XMLNode* pAnnotation)
  * Creates an XMLNode that represents the layoutId annotation of the species reference from the given SpeciesReference object.
  */
 LIBSBML_EXTERN
-XMLNode* parseLayoutId(const SpeciesReference* sr)
+XMLNode* parseLayoutId(const SimpleSpeciesReference* sr)
 {
  
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes()); 
