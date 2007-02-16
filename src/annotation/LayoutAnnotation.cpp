@@ -162,7 +162,7 @@ parseSpeciesReferenceAnnotation(XMLNode * annotation, SimpleSpeciesReference& sr
 {
 
   const string&  name = annotation->getName();
-  unsigned int n;
+  unsigned int n=0;
   // need to find the layout desciption opening annotation
   if (name == "annotation" && annotation->getNumChildren() > 0)
   {
