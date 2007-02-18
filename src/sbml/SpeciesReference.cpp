@@ -31,7 +31,9 @@
 #include <sbml/math/MathML.h>
 #include <sbml/math/ASTNode.h>
 
+#ifdef USE_LAYOUT
 #include <sbml/annotation/LayoutAnnotation.h>
+#endif // USE_LAYOUT
 
 #include "SBML.h"
 #include "SBMLVisitor.h"
