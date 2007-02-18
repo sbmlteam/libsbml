@@ -67,21 +67,33 @@ thisdir   = src/annotation
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-headers = \
+common_headers = \
   CVTerm.h     \
-  LayoutAnnotation.h \
   ModelHistory.h \
   RDFAnnotation.h
 
-header_inst_prefix = annotation
+layout_headers = \
+  LayoutAnnotation.h
 
-sources = \
+common_sources = \
   CVTerm.cpp     \
-  LayoutAnnotation.cpp \
   ModelHistory.cpp  \
   RDFAnnotation.cpp
 
+layout_sources = \
+  LayoutAnnotation.cpp
+
+sources = $(common_sources)
+headers = $(common_headers)
+
+ifdef USE_LAYOUT
+  sources += $(layout_sources)
+  headers += $(layout_headers)
+endif
+
 extra_CPPFLAGS = -I..
+
+header_inst_prefix = annotation
 
 subdirs = 
 
@@ -89,7 +101,9 @@ subdirs =
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) Makefile.in
+distfiles = $(common_sources) $(layout_sources) \
+	    $(common_headers) $(layout_headers) \
+	    Makefile.in
 
 
 # -----------------------------------------------------------------------------
