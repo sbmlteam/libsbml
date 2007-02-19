@@ -2319,36 +2319,42 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
 void 
 SBase::checkIdSyntax()
 {
-    const string& id = getId();
-  //need to check with initial assign/ rules/event assign
+  string& id = const_cast<string &> (getId());
+
+  // need to check inside initial assign/ rules/event assign
+
   if (getTypeCode() == SBML_INITIAL_ASSIGNMENT)
   {
-    const string& id = static_cast <InitialAssignment*> (this)->getSymbol();
+    id = static_cast <InitialAssignment*> (this)->getSymbol();
   }
   else if (getTypeCode() == SBML_EVENT_ASSIGNMENT)
   {
-    const string& id = static_cast <EventAssignment*> (this)->getVariable();
+    id = static_cast <EventAssignment*> (this)->getVariable();
   }
   else if (getTypeCode() == SBML_ASSIGNMENT_RULE || 
-            getTypeCode() == SBML_RATE_RULE)
+	   getTypeCode() == SBML_RATE_RULE)
   {
-    const string& id = static_cast <Rule*> (this)->getVariable();
+    id = static_cast <Rule*> (this)->getVariable();
   }
 
   unsigned int size = id.size();
 
   if (size == 0)
   {
-    /* this is a schema error since id is required 
-     * except for Speciesreference/ events/ model*/
+    // Identifiers are not required on the following objects, so it's ok
+    // if they're zero-length.
+
     if (getTypeCode() == SBML_MODEL
-      || getTypeCode() == SBML_EVENT
-      || getTypeCode() == SBML_SPECIES_REFERENCE)
+	|| getTypeCode() == SBML_ALGEBRAIC_RULE
+	|| getTypeCode() == SBML_EVENT
+	|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
+	|| getTypeCode() == SBML_SPECIES_REFERENCE)
     {
       return;
     }
     else
     {
+      // This is a schema validation error: no id on an object that needs it.
       mSBML->getErrorLog()->logError(10103);
       return;
     }
