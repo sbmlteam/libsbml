@@ -36,6 +36,14 @@
 
 #ifdef __cplusplus
 
+#include <limits>
+#include <iomanip>
+#include <string>
+#include <sstream>
+
+#include <cstdlib>
+
+
 
 
 

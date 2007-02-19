@@ -32,6 +32,14 @@
 
 #ifdef __cplusplus
 
+#include <limits>
+#include <iomanip>
+#include <string>
+#include <sstream>
+
+#include <cstdlib>
+
+
 
 class ASTNode;
 class XMLInputStream;

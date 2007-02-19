@@ -21,15 +21,6 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#ifdef __cplusplus
-
-#include <limits>
-#include <iomanip>
-#include <string>
-#include <sstream>
-
-#include <cstdlib>
-
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLErrorLog.h>
@@ -1120,4 +1111,3 @@ writeMathMLToString (const ASTNode* node)
   return result;
 }
 
-#endif /* __cplusplus */

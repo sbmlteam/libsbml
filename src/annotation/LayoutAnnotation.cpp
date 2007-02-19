@@ -22,13 +22,6 @@
  */
 
 
-#include <limits>
-#include <iomanip>
-#include <string>
-#include <sstream>
-
-#include <cstdlib>
-
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -236,8 +229,4 @@ XMLNode* parseLayoutId(const SimpleSpeciesReference* sr)
   pNode->addChild(node);
   return pNode;
 }
- 
-  
-  
-
 

@@ -21,15 +21,6 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#ifdef __cplusplus
-
-#include <limits>
-#include <iomanip>
-#include <string>
-#include <sstream>
-
-#include <cstdlib>
-
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -561,4 +552,3 @@ parseModelHistory(const SBase * model)
   return ann;
 }
 
-#endif /* __cplusplus */

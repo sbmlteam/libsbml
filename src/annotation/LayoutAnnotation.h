@@ -36,6 +36,13 @@
 
 #ifdef __cplusplus
 
+#include <limits>
+#include <iomanip>
+#include <string>
+#include <sstream>
+
+#include <cstdlib>
+
 #ifdef USE_LAYOUT // make the functions inaccesible when the layout is not used
 
 
