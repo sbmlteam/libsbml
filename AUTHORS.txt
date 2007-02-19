@@ -1,9 +1,9 @@
       The original code contained here was initially developed by:
  
-                            Ben Bornstein
+		   Ben Bornstein and Sarah Keating
                        with contributions from
-         Sarah Keating, Ben Kovitz, Stefan Hoops, Mike Hucka,
-            Martin Ginkel, Christoph Flamm, Rainer Machne,
+	 Mike Hucka, Ben Kovitz, Stefan Hoops, Ralph Gauges,
+	    Martin Ginkel, Christoph Flamm, Rainer Machne,
                 and many others in the SBML community.
 
          For more information about SBML or libSBML, contact:

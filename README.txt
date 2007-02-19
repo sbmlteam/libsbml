@@ -1,9 +1,9 @@
 
                             l i b S B M L
 
-                            Ben Bornstein
+		   Ben Bornstein and Sarah Keating
                        with contributions from
-         Sarah Keating, Ben Kovitz, Stefan Hoops, Mike Hucka,
+         Mike Hucka, Ben Kovitz, Stefan Hoops, Ralph Gauges,
             Martin Ginkel, Christoph Flamm, Rainer Machne,
                 and many others in the SBML community.
 
