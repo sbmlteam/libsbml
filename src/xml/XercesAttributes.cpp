@@ -22,7 +22,6 @@
  */
 
 
-#include <string>
 #include "XercesTranscode.h"
 #include "XercesAttributes.h"
 

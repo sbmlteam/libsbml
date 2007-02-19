@@ -22,10 +22,6 @@
  */
 
 
-#include <string>
-#include <sstream>
-#include <map>
-
 #include <sbml/SBMLTypes.h>
 #include "UniqueMetaId.h"
 

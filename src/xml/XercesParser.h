@@ -26,6 +26,8 @@
 #define XercesParser_h
 
 
+#ifdef __cplusplus
+
 #include <string>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
@@ -132,5 +134,5 @@ protected:
 
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* XercesParser_h */

@@ -25,6 +25,7 @@
 #ifndef XMLErrorLog_h
 #define XMLErrorLog_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <vector>
@@ -117,5 +118,6 @@ protected:
   const XMLParser*       mParser;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLErrorLog_h */

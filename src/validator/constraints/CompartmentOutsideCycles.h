@@ -29,8 +29,12 @@
 #ifdef __cplusplus
 
 
+
 #include <string>
 #include <vector>
+
+#include <algorithm>
+#include <functional>
 
 #include <sbml/validator/Constraint.h>
 #include "IdList.h"

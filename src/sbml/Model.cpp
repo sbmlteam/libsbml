@@ -1546,6 +1546,8 @@ Model::readOtherXML (XMLInputStream& stream)
     }
 
     delete mAnnotation;
+	if (stream.peek().isStart() == true)
+	{
     mAnnotation = new XMLNode(stream);
     mCVTerms = new List();
     mHistory = parseRDFAnnotation(mAnnotation);
@@ -1557,6 +1559,11 @@ Model::readOtherXML (XMLInputStream& stream)
     checkAnnotation();
     mAnnotation=deleteLayoutAnnotation(mAnnotation);
 #endif // USE_LAYOUT
+	}
+	else
+	{
+		stream.peek().getName();
+	}
     read = true;
   }
   else if (name == "notes")

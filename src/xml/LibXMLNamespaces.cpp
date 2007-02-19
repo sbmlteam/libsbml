@@ -22,8 +22,6 @@
  */
 
 
-#include <string>
-
 #include "LibXMLTranscode.h"
 #include "LibXMLNamespaces.h"
 

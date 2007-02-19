@@ -22,8 +22,6 @@
  */
 
 
-#include <string>
-#include <math.h>
 
 #include <sbml/Model.h>
 

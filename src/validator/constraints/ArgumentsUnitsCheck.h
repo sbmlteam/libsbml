@@ -30,6 +30,9 @@
 
 
 #include <string>
+#include <sstream>
+#include <math.h>
+
 #include <sbml/validator/Constraint.h>
 
 #include "UnitsBase.h"

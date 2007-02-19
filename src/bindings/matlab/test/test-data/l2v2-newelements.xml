@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sbml xmlns="http://www.sbml.org/sbml/level2/version2" level="2" version="2"
       xmlns:math="http://www.w3.org/1998/Math/MathML">
-    <model sboTerm="0000004">
+    <model sboTerm="SBO:0000004">
         <listOfCompartmentTypes>
             <compartmentType id="mitochondria"/>
         </listOfCompartmentTypes>
@@ -43,7 +43,7 @@
             </constraint>
         </listOfConstraints>        
         <listOfReactions>
-            <reaction id="in" sboTerm="0000005">
+            <reaction id="in" sboTerm="SBO:0000005">
                 <listOfReactants>
                     <speciesReference species="X0" id="me" name="sarah"/>
                 </listOfReactants>

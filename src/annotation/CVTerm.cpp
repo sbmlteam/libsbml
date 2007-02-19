@@ -21,6 +21,8 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
+#ifdef __cplusplus
+
 
 #include <limits>
 #include <iomanip>
@@ -225,3 +227,6 @@ CVTerm::addResource(std::string resource)
 {
   mResources->addResource("rdf:resource", resource);
 }
+
+#endif /* __cplusplus */
+

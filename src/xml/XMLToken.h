@@ -25,6 +25,7 @@
 #ifndef XMLToken_h
 #define XMLToken_h
 
+#ifdef __cplusplus
 
 #include <string>
 
@@ -218,5 +219,6 @@ protected:
   unsigned int mColumn;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLToken_h */

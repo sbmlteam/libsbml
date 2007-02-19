@@ -25,6 +25,9 @@
 #ifndef XercesHandler_h
 #define XercesHandler_h
 
+#ifdef __cplusplus
+
+#include <string>
 
 #include <xercesc/sax2/DefaultHandler.hpp>
 
@@ -117,5 +120,5 @@ protected:
   const xercesc::Locator*  mLocator;
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* XercesHandler_h */

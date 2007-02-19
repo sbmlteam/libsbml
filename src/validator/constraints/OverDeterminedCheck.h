@@ -29,8 +29,13 @@
 #ifdef __cplusplus
 
 
+
 #include <string>
 #include <vector>
+
+#include <algorithm>
+#include <functional>
+
 #include <map>
 
 #include <sbml/validator/Constraint.h>

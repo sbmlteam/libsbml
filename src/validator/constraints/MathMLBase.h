@@ -30,6 +30,8 @@
 
 
 #include <string>
+#include <math.h>
+
 #include <sbml/validator/Constraint.h>
 #include "IdList.h"
 

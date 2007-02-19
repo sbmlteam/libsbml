@@ -25,6 +25,7 @@
 #ifndef XMLHandler_h
 #define XMLHandler_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <sbml/xml/XMLExtern.h>
@@ -97,5 +98,7 @@ public:
   virtual void characters (const XMLToken& data);
 };
 
+
+#endif  /* __cplusplus */
 
 #endif  /* XMLHandler_h */

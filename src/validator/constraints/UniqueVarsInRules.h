@@ -28,6 +28,7 @@
 
 #ifdef __cplusplus
 
+#include <string>
 
 #include "UniqueIdBase.h"
 

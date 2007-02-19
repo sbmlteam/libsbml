@@ -25,6 +25,7 @@
 #ifndef XMLParser_h
 #define XMLParser_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <sbml/xml/XMLExtern.h>
@@ -140,5 +141,6 @@ protected:
   bool         mOwnLog;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLParser_h */

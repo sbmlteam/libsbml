@@ -22,8 +22,6 @@
  */
 
 
-#include <string>
-
 #include "XercesTranscode.h"
 #include "XercesNamespaces.h"
 

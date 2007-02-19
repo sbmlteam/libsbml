@@ -21,6 +21,7 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
+#ifdef __cplusplus
 
 #include <limits>
 #include <iomanip>
@@ -1118,3 +1119,5 @@ writeMathMLToString (const ASTNode* node)
 
   return result;
 }
+
+#endif /* __cplusplus */

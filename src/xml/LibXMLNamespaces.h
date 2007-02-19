@@ -25,6 +25,9 @@
 #ifndef LibXMLNamespaces_h
 #define LibXMLNamespaces_h
 
+#ifdef __cplusplus
+
+#include <string>
 
 #include <libxml/parser.h>
 #include <sbml/xml/XMLNamespaces.h>
@@ -47,5 +50,5 @@ public:
   virtual ~LibXMLNamespaces ();
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* LibXMLNamespaces_h */

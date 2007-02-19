@@ -30,11 +30,12 @@
 #include <sbml/common/sbmlfwd.h>
 #include <sbml/util/List.h>
 
-#include <string>
 #include <sbml/xml/XMLNode.h>
 
 
 #ifdef __cplusplus
+
+#include <string>
 
 class LIBSBML_EXTERN Date
 {

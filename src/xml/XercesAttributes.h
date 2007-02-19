@@ -24,6 +24,9 @@
 
 #ifndef XercesAttributes_h
 #define XercesAttributes_h
+#ifdef __cplusplus
+
+#include <string>
 
 
 #include <xercesc/sax2/Attributes.hpp>
@@ -46,5 +49,5 @@ public:
   virtual ~XercesAttributes ();
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* XercesAttributes_h */

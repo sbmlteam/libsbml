@@ -24,6 +24,7 @@
 #ifndef XMLTokenizer_h
 #define XMLTokenizer_h
 
+#ifdef __cplusplus
 
 #include <deque>
 
@@ -131,5 +132,6 @@ public:
   std::deque<XMLToken> mTokens;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLTokenizer_h */

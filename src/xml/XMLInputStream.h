@@ -25,6 +25,7 @@
 #ifndef XMLInputStream_h
 #define XMLInputStream_h
 
+#ifdef __cplusplus
 
 #include <string>
 
@@ -142,5 +143,6 @@ protected:
   XMLParser*   mParser;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLInputStream_h */

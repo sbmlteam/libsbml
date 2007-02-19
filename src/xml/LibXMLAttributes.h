@@ -25,6 +25,10 @@
 #ifndef LibXMLAttributes_h
 #define LibXMLAttributes_h
 
+#ifdef __cplusplus
+
+#include <string>
+
 
 #include <libxml/parser.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -45,5 +49,5 @@ public:
   virtual ~LibXMLAttributes ();
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* LibXMLAttributes_h */

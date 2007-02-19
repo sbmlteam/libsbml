@@ -22,10 +22,6 @@
  */
 
 
-#include <limits>
-#include <locale>
-#include <string>
-
 #include "XMLTriple.h"
 #include "XMLOutputStream.h"
 

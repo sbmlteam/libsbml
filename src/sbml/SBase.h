@@ -446,6 +446,8 @@ protected:
 
   SBMLDocument* mSBML;
 
+  int mSBOTerm;
+
   unsigned int mLine;
   unsigned int mColumn;
 

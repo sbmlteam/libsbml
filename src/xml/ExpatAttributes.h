@@ -25,6 +25,7 @@
 #ifndef ExpatAttributes_h
 #define ExpatAttributes_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <expat.h>
@@ -49,5 +50,5 @@ public:
   virtual ~ExpatAttributes ();
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* ExpatAttributes_h */

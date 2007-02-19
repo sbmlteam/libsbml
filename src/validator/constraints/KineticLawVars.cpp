@@ -22,8 +22,6 @@
  */
 
 
-#include <string>
-
 #include <sbml/Model.h>
 #include <sbml/Reaction.h>
 #include <sbml/util/List.h>

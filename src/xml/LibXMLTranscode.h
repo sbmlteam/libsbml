@@ -25,6 +25,7 @@
 #ifndef LibXMLTranscode_h
 #define LibXMLTranscode_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <libxml/parser.h>
@@ -63,5 +64,5 @@ private:
 
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* LibXMLTranscode_h */

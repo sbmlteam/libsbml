@@ -26,6 +26,8 @@
 #define XercesTranscode_h
 
 
+#ifdef __cplusplus
+
 #include <string>
 #include <xercesc/util/XMLString.hpp>
 
@@ -56,5 +58,5 @@ private:
 
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* XercesTranscode_h */

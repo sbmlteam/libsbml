@@ -22,10 +22,6 @@
  */
 
 
-#include <string>
-#include <sstream>
-#include <math.h>
-
 #include <sbml/Model.h>
 #include <sbml/Compartment.h>
 #include <sbml/Species.h>

@@ -25,6 +25,7 @@
 #ifndef XMLNamespaces_h
 #define XMLNamespaces_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <vector>
@@ -135,5 +136,6 @@ protected:
   std::vector<PrefixURIPair> mNamespaces;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLNamespaces_h */

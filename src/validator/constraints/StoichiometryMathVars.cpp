@@ -21,9 +21,6 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-
-#include <string>
-
 #include <sbml/Model.h>
 #include <sbml/Reaction.h>
 #include <sbml/util/List.h>

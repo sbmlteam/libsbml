@@ -22,7 +22,6 @@
  */
 
 
-#include <string>
 #include <xercesc/sax/Locator.hpp>
 
 #include "XMLHandler.h"

@@ -25,6 +25,7 @@
 #ifndef XMLFileBuffer_h
 #define XMLFileBuffer_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <cstdio>
@@ -74,5 +75,6 @@ private:
   FILE*        mStream;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLFileBuffer_h */

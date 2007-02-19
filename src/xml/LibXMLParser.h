@@ -25,6 +25,7 @@
 #ifndef LibXMLParser_h
 #define LibXMLParser_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <expat.h>
@@ -120,5 +121,5 @@ protected:
   XMLBuffer*      mSource;
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* LibXMLParser_h */

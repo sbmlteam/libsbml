@@ -25,6 +25,7 @@
 #ifndef ExpatParser_h
 #define ExpatParser_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <expat.h>
@@ -121,5 +122,5 @@ protected:
   XMLBuffer*    mSource;
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* ExpatParser_h */

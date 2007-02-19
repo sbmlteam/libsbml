@@ -25,6 +25,8 @@
 #ifndef XMLAttributes_h
 #define XMLAttributes_h
 
+#ifdef __cplusplus
+
 
 #include <string>
 #include <vector>
@@ -254,5 +256,6 @@ protected:
   std::vector<std::string>  mValues;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLAttributes_h */

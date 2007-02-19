@@ -21,16 +21,19 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
+
 #include <stdio.h>
 #include <string.h>
-
 
 #include <mex.h>
 #include <matrix.h>
 
+
+
+
 #include "sbml/SBMLReader.h"
 #include "sbml/SBMLTypes.h"
-#include "util/util.h"
+#include "sbml/util/util.h"
 
 
 

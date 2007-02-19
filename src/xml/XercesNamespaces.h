@@ -25,6 +25,9 @@
 #ifndef XercesNamespaces_h
 #define XercesNamespaces_h
 
+#ifdef __cplusplus
+
+#include <string>
 
 #include <xercesc/sax2/Attributes.hpp>
 #include <sbml/xml/XMLNamespaces.h>
@@ -47,5 +50,5 @@ public:
   virtual ~XercesNamespaces ();
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* XercesNamespaces_h */

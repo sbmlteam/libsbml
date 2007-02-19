@@ -22,10 +22,6 @@
  */
 
 
-#include <string>
-#include <sstream>
-#include <map>
-
 #include <sbml/SBase.h>
 
 #include "UniqueIdBase.h"

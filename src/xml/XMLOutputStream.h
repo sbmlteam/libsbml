@@ -25,9 +25,13 @@
 #ifndef XMLOutputStream_h
 #define XMLOutputStream_h
 
+#ifdef __cplusplus
 
 #include <iostream>
+#include <limits>
+#include <locale>
 #include <string>
+
 
 #include <sbml/xml/XMLExtern.h>
 
@@ -273,5 +277,6 @@ protected:
   bool mInText;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLOutputStream_h */

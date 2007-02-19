@@ -25,6 +25,7 @@
 #ifndef XMLTriple_h
 #define XMLTriple_h
 
+#ifdef __cplusplus
 
 #include <string>
 #include <sbml/xml/XMLExtern.h>
@@ -69,5 +70,6 @@ private:
 
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLTriple_h */

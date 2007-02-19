@@ -22,8 +22,6 @@
  */
 
 
-#include <string>
-
 #include <sbml/SBMLTypes.h>
 #include "IdBase.h"
 

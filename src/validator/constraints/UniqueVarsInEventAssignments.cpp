@@ -22,8 +22,6 @@
  */
 
 
-#include <string>
-
 #include <sbml/Model.h>
 #include <sbml/Event.h>
 #include <sbml/EventAssignment.h>

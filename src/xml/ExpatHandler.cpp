@@ -22,7 +22,6 @@
  */
 
 
-#include <string>
 #include <expat.h>
 
 #include "XMLHandler.h"

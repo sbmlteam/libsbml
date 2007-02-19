@@ -25,6 +25,9 @@
 #ifndef ExpatHandler_h
 #define ExpatHandler_h
 
+#ifdef __cplusplus
+
+#include <string>
 
 #include <expat.h>
 #include <sbml/xml/XMLNamespaces.h>
@@ -114,5 +117,5 @@ protected:
   XMLNamespaces mNamespaces;
 };
 
-
+#endif  /* __cplusplus */
 #endif  /* ExpatHandler_h */

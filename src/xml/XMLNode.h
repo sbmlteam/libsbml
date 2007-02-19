@@ -25,6 +25,7 @@
 #ifndef XMLNode_h
 #define XMLNode_h
 
+#ifdef __cplusplus
 
 #include <vector>
 
@@ -100,5 +101,6 @@ protected:
   std::vector<XMLNode> mChildren;
 };
 
+#endif  /* __cplusplus */
 
 #endif  /* XMLNode_h */

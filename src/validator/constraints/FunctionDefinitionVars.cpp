@@ -22,8 +22,6 @@
  */
 
 
-#include <string>
-
 #include <sbml/Model.h>
 #include <sbml/FunctionDefinition.h>
 #include <sbml/util/List.h>
