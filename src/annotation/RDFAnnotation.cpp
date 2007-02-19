@@ -72,15 +72,17 @@ parseRDFAnnotation(XMLNode * annotation, List * CVTerms)
       const string &name1 = annotation->getChild(n).getName();
       if (name1 == "RDF")
       {
-        RDFTop = &(annotation->getChild(n).getChild(0));
-        break;
+	if (annotation->getChild(n).getNumChildren() > 0)
+	{
+	  RDFTop = &(annotation->getChild(n).getChild(0));
+	  break;
+	}
       }
       n++;
     }
   }
 
   // find qualifier nodes and create CVTerms
-
   
   n = 0;
   if (RDFTop)
@@ -142,18 +144,27 @@ parseRDFAnnotation(XMLNode * annotation)
   Date * created = NULL;
   unsigned int n = 0;
 
-  // need to find the RDF desciption opening annotation
-  if (name == "annotation" && annotation->getNumChildren() > 0)
+  // need to find the RDF description opening annotation
+  if (!name.empty())
   {
-    while (n < annotation->getNumChildren())
+    if (name == "annotation" && annotation->getNumChildren() > 0)
     {
-      const string &name1 = annotation->getChild(n).getName();
-      if (name1 == "RDF")
+      while (n < annotation->getNumChildren())
       {
-        RDFTop = &(annotation->getChild(n).getChild(0));
-        break;
+	const string &name1 = annotation->getChild(n).getName();
+	if (!name1.empty())
+	{
+	  if (name1 == "RDF")
+	  {
+	    if (annotation->getChild(n).getNumChildren() > 0)
+	    {
+	      RDFTop = &(annotation->getChild(n).getChild(0));
+	      break;
+	    }
+	  }
+	}
+	n++;
       }
-      n++;
     }
   }
 
@@ -165,30 +176,41 @@ parseRDFAnnotation(XMLNode * annotation)
     while (n < RDFTop->getNumChildren())
     {
       const string &prefix = RDFTop->getChild(n).getPrefix();
-      const string &name2 = RDFTop->getChild(n).getName();
-      if (prefix == "dc")
+      if (!prefix.empty())
       {
-        if (creator == NULL)
-          history = new ModelHistory();
+	if (prefix == "dc")
+	{
+	  if (creator == NULL)
+	  {
+	    history = new ModelHistory();
+	  }
 
-        creator = new ModelCreator(RDFTop->getChild(n));
-        history->addCreator(creator);
-      }
-      else if (prefix == "dcterms")
-      {
-        if (name2 == "created")
-        {
-          created = new Date(RDFTop->getChild(n).
-            getChild(0).getChild(0).getCharacters());
-          history->setCreatedDate(created);
-       }
-        else if (name2 == "modified")
-        {
-          modified = new Date(RDFTop->getChild(n).getChild(0).
-            getChild(0).getCharacters());
-          history->setModifiedDate(modified);
-        }
-
+	  creator = new ModelCreator(RDFTop->getChild(n));
+	  history->addCreator(creator);
+	}
+	else if (prefix == "dcterms")
+	{
+	  const string &name2 = RDFTop->getChild(n).getName();
+	  if (!name2.empty())
+	  {
+	    if (RDFTop->getChild(n).getNumChildren() > 0
+		&& RDFTop->getChild(n).getChild(0).getNumChildren() > 0)
+	    {
+	      if (name2 == "created")
+	      {
+		created = new Date(RDFTop->getChild(n).getChild(0).
+				   getChild(0).getCharacters());
+		history->setCreatedDate(created);
+	      }
+	      else if (name2 == "modified")
+	      {
+		modified = new Date(RDFTop->getChild(n).getChild(0).
+				    getChild(0).getCharacters());
+		history->setModifiedDate(modified);
+	      }
+	    }
+	  }
+	}
       }
       n++;
     }
