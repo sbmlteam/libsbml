@@ -179,7 +179,7 @@ main (void)
   srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_SBMLConvert              () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
-/* these files no longer exist in libSBML - SK 13/02/2007
+ * these files no longer exist in libSBML - SK 13/02/2007
   srunner_add_suite( runner, create_suite_SBMLFormatter            () );
   srunner_add_suite( runner, create_suite_SBMLHandler              () );
 */
