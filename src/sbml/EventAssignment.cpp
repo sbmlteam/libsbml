@@ -311,6 +311,12 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   attributes.readInto("variable", mId);
   SBase::checkIdSyntax();
 
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && (version == 2 || version == 3)) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -329,6 +335,12 @@ EventAssignment::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("variable", mId);
 
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && (version == 2 || version == 3)) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

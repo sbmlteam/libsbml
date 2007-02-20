@@ -667,6 +667,12 @@ Species::readAttributes (const XMLAttributes& attributes)
     //
     attributes.readInto("constant", mConstant);
   }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 3) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -808,6 +814,12 @@ Species::writeAttributes (XMLOutputStream& stream) const
   {
     stream.writeAttribute("constant", mConstant);
   }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v3)
+  //
+  if (level == 2 && version == 3) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

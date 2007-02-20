@@ -478,6 +478,12 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   attributes.readInto("timeUnits", mTimeUnits);
 
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && (version == 2 || version == 3)) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -506,6 +512,12 @@ Event::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("timeUnits", mTimeUnits);
 
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && (version == 2 || version == 3)) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

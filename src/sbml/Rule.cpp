@@ -633,8 +633,8 @@ Rule::readAttributes (const XMLAttributes& attributes)
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-//    if ((version == 2 || version == 3)) 
-//      mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    if ((version == 2 || version == 3)) 
+      mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
   }
 }
 

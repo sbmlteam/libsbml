@@ -170,6 +170,11 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   // name: string  { use="optional" }  (L2v2)
   //
   attributes.readInto("name", mName);
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 3) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -192,6 +197,12 @@ SpeciesType::writeAttributes (XMLOutputStream& stream) const
   // name: string  { use="optional" }  (L2v2)
   //
   stream.writeAttribute("name", mName);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v3)
+  //
+  if (level == 2 && version == 3) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

@@ -331,6 +331,12 @@ void
 Delay::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && (version == 2 || version == 3)) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -343,6 +349,12 @@ void
 Delay::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && (version == 2 || version == 3)) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

@@ -663,8 +663,6 @@ SBase::readAttributes (const XMLAttributes& attributes)
   if (isSetMetaId())
     checkMetaIdSyntax();
 
-  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
-
 }
 
 
@@ -697,9 +695,6 @@ SBase::writeAttributes (XMLOutputStream& stream) const
   {
     stream.writeAttribute("metaid", mMetaId);
   }
-
-  SBML::writeSBOTerm(stream, mSBOTerm);
-
 }
 
 

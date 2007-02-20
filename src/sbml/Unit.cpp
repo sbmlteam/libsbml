@@ -707,6 +707,12 @@ Unit::readAttributes (const XMLAttributes& attributes)
     //
     attributes.readInto("offset", mOffset);
   }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 3) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -748,6 +754,12 @@ Unit::writeAttributes (XMLOutputStream& stream) const
     //
     if (mOffset != 0) stream.writeAttribute("offset", mOffset);
   }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v3)
+  //
+  if (level == 2 && version == 3) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 

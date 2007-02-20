@@ -150,7 +150,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-//    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
   }
 
   //
@@ -191,7 +191,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-//    SBML::writeSBOTerm(stream, mSBOTerm);
+    SBML::writeSBOTerm(stream, mSBOTerm);
   }
 
   //

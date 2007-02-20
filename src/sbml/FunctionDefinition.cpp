@@ -343,9 +343,11 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
   //
   attributes.readInto("name", mName);
 
+  //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  //mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+  if (level == 2 && (version == 2 || version == 3)) 
+    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 
 }
 
@@ -370,9 +372,11 @@ FunctionDefinition::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("name", mName);
 
+  //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  //SBML::writeSBOTerm(stream, mSBOTerm);
+  if (level == 2 && (version == 2 || version == 3)) 
+    SBML::writeSBOTerm(stream, mSBOTerm);
 
 }
 
