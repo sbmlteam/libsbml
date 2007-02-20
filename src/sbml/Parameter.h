@@ -105,14 +105,6 @@ public:
   bool getConstant () const;
 
   /**
-   * @return the sboTerm of this Parameter as an integer.  If not set,
-   * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
-   * sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-
-  /**
    * @return true if the value of this Parameter has been set, false
    * otherwise.
    *
@@ -127,13 +119,6 @@ public:
    * otherwise.
    */
   bool isSetUnits () const;
-
-  /**
-   * @return true if the sboTerm of this Parameter has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
 
   /**
    * Sets the initialAmount of this Parameter to value and marks the field
@@ -152,12 +137,6 @@ public:
   void setConstant (bool value);
 
   /**
-   * Sets the sboTerm field of this Parameter to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-
-  /**
    * Unsets the value of this Parameter.
    *
    * In SBML L1v1, a Parameter value is required and therefore <b>should
@@ -170,12 +149,6 @@ public:
    * Unsets the units of this Parameter.
    */
   void unsetUnits ();
-
-  /**
-   * Unsets the sboTerm of this Parameter.
-   */
-  void unsetSBOTerm ();
-
 
   /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -219,7 +192,6 @@ protected:
   double       mValue;
   std::string  mUnits;
   bool         mConstant;
-  int          mSBOTerm;
 
   bool mIsSetValue;
 };
@@ -353,16 +325,6 @@ int
 Parameter_getConstant (const Parameter_t *p);
 
 /**
- * @return the sboTerm of this Parameter as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Parameter_getSBOTerm (const Parameter_t *p);
-
-
-/**
  * @return true (non-zero) if the id of this Parameter has been set, false
  * (0) otherwise.
  */
@@ -397,15 +359,6 @@ Parameter_isSetValue (const Parameter_t *p);
 LIBSBML_EXTERN
 int
 Parameter_isSetUnits (const Parameter_t *p);
-
-/**
- * @return true (non-zero) if the sboTerm of this Parameter has been set,
- * false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Parameter_isSetSBOTerm (const Parameter_t *p);
-
 
 /**
  * Sets the id of this Parameter to a copy of sid.
@@ -443,14 +396,6 @@ void
 Parameter_setConstant (Parameter_t *p, int value);
 
 /**
- * Sets the sboTerm field of this Parameter to value.
- */
-LIBSBML_EXTERN
-void
-Parameter_setSBOTerm (Parameter_t *p, int sboTerm);
-
-
-/**
  * Unsets the name of this Parameter.
  */
 LIBSBML_EXTERN
@@ -475,13 +420,6 @@ Parameter_unsetValue (Parameter_t *p);
 LIBSBML_EXTERN
 void
 Parameter_unsetUnits (Parameter_t *p);
-
-/**
- * Unsets the sboTerm of this Parameter.
- */
-LIBSBML_EXTERN
-void
-Parameter_unsetSBOTerm (Parameter_t *p);
 
 
 END_C_DECLS

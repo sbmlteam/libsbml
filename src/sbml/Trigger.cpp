@@ -48,9 +48,9 @@ using namespace std;
  * substanceUnits set.
  */
 Trigger::Trigger (   const string& formula ) :
-   mFormula       ( formula        )
+   SBase ( -1)
+ , mFormula       ( formula        )
  , mMath          ( 0              )
- , mSBOTerm       ( -1             )
 {
 }
 
@@ -62,7 +62,6 @@ Trigger::Trigger (const Trigger& rhs) :
    SBase          ( rhs                 )
  , mFormula       ( rhs.mFormula        )
  , mMath          ( 0                   )
- , mSBOTerm       ( rhs.mSBOTerm        )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -131,18 +130,6 @@ Trigger::getMath () const
 
 
 /**
- * @return the sboTerm of this Trigger as an integer.  If not set,
- * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-Trigger::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return true if the formula (or equivalently the math) of this
  * Trigger has been set, false otherwise.
  */
@@ -161,17 +148,6 @@ bool
 Trigger::isSetMath () const
 {
   return isSetFormula();
-}
-
-
-/**
- * @return true if the sboTerm of this Trigger has been set, false
- * otherwise.
- */
-bool
-Trigger::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
 }
 
 
@@ -204,26 +180,6 @@ Trigger::setMath (const ASTNode* math)
   mMath = (math != 0) ? math->deepCopy() : 0;
 
   mFormula.erase();
-}
-
-
-/**
- * Sets the sboTerm field of this Trigger to value.
- */
-void
-Trigger::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
- * Unsets the sboTerm of this Trigger.
- */
-void
-Trigger::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -382,8 +338,8 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+//  if (level == 2 && (version == 2 || version == 3)) 
+//    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -403,8 +359,8 @@ Trigger::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+ // if (level == 2 && (version == 2 || version == 3)) 
+ //   SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -501,19 +457,6 @@ Trigger_getMath (const Trigger_t *t)
 
 
 /**
- * @return the sboTerm of this Trigger as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Trigger_getSBOTerm (const Trigger_t *t)
-{
-  return t->getSBOTerm();
-}
-
-
-/**
  * @return true (non-zero) if the formula (or equivalently the math) of
  * this Trigger has been set, false (0) otherwise.
  */
@@ -538,18 +481,6 @@ Trigger_isSetMath (const Trigger_t *t)
 
 
 /**
- * @return true (non-zero) if the substanceUnits of this Trigger has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Trigger_isSetSBOTerm (const Trigger_t *t)
-{
-  return static_cast<int>( t->isSetSBOTerm() );
-}
-
-
-/**
  * Sets the formula of this Trigger to a copy of formula.
  */
 LIBSBML_EXTERN
@@ -568,26 +499,4 @@ void
 Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
 {
   t->setMath(math);
-}
-
-
-/**
- * Sets the sboTerm field of this Trigger to value.
- */
-LIBSBML_EXTERN
-void
-Trigger_setSBOTerm (Trigger_t *t, int sboTerm)
-{
-  t->setSBOTerm(sboTerm);
-}
-
-
-/**
- * Unsets the sboTerm of this Trigger.
- */
-LIBSBML_EXTERN
-void
-Trigger_unsetSBOTerm (Trigger_t *t)
-{
-  t->unsetSBOTerm();
 }

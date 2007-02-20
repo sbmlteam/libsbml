@@ -45,9 +45,8 @@ using namespace std;
  * set.
  */
 InitialAssignment::InitialAssignment (const string& symbol) :
-   SBase   ( symbol )
+   SBase   ( symbol, "", -1 )
  , mMath   ( 0      )
- , mSBOTerm( -1     )
 {
 }
 
@@ -58,7 +57,6 @@ InitialAssignment::InitialAssignment (const string& symbol) :
 InitialAssignment::InitialAssignment (const InitialAssignment& rhs) :
    SBase   ( rhs )
  , mMath   ( 0   )
- , mSBOTerm( rhs.mSBOTerm )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -117,18 +115,6 @@ InitialAssignment::getMath () const
 
 
 /**
- * @return the sboTerm of this InitialAssignment as an integer.  If not
- * set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-InitialAssignment::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return tru if the symbol of this InitialAssignment has been set,
  * false otherwise.
  */
@@ -147,17 +133,6 @@ bool
 InitialAssignment::isSetMath () const
 {
   return (mMath != 0);
-}
-
-
-/**
- * @return true if the sboTerm of this InitialAssignment has been set,
- * false otherwise.
- */
-bool
-InitialAssignment::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
 }
 
 
@@ -183,26 +158,6 @@ InitialAssignment::setMath (const ASTNode* math)
 
   delete mMath;
   mMath = (math != 0) ? math->deepCopy() : 0;
-}
-
-
-/**
- * Sets the sboTerm field of this InitialAssignment to value.
- */
-void
-InitialAssignment::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
- * Unsets the sboTerm of this InitialAssignment.
- */
-void
-InitialAssignment::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -344,7 +299,7 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+//  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -366,7 +321,7 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  SBML::writeSBOTerm(stream, mSBOTerm);
+ // SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -518,19 +473,6 @@ InitialAssignment_getMath (const InitialAssignment_t *ia)
 
 
 /**
- * @return the sboTerm of this InitialAssignment as an integer.  If not
- * set, sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-InitialAssignment_getSBOTerm (const InitialAssignment_t *ia)
-{
-  return ia->getSBOTerm();
-}
-
-
-/**
  * @return true (non-zero) if the symbol of this InitialAssignment has been
  * set, false (0) otherwise.
  */
@@ -551,18 +493,6 @@ int
 InitialAssignment_isSetMath (const InitialAssignment_t *ia)
 {
   return static_cast<int>( ia->isSetMath() );
-}
-
-
-/**
- * @return true (non-zero) if the sboTerm of this InitialAssignment has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-InitialAssignment_isSetSBOTerm (const InitialAssignment_t *ia)
-{
-  return static_cast<int>( ia->isSetSBOTerm() );
 }
 
 
@@ -589,23 +519,3 @@ InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math)
 }
 
 
-/**
- * Sets the sboTerm field of this InitialAssignment to value.
- */
-LIBSBML_EXTERN
-void
-InitialAssignment_setSBOTerm (InitialAssignment_t *ia, int sboTerm)
-{
-  ia->setSBOTerm(sboTerm);
-}
-
-
-/**
- * Unsets the sboTerm of this InitialAssignment.
- */
-LIBSBML_EXTERN
-void
-InitialAssignment_unsetSBOTerm (InitialAssignment_t *ia)
-{
-  ia->unsetSBOTerm();
-}

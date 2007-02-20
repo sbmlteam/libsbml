@@ -109,6 +109,7 @@ public:
    *   - Level 1 Version 2
    *   - Level 2 Version 1
    *   - Level 2 Version 2
+   *   - Level 2 Version 3
    */
   void setLevelAndVersion (unsigned int level, unsigned int version);
 

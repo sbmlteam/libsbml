@@ -85,14 +85,6 @@ public:
 
 
   /**
-   * @return the sboTerm of this Trigger as an integer.  If not set,
-   * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
-   * sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-
-  /**
    * @return true if the formula (or equivalently the math) of this
    * Trigger has been set, false otherwise.
    */
@@ -105,13 +97,6 @@ public:
   bool isSetMath () const;
 
   /**
-   * @return true if the sboTerm of this Trigger has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-
-  /**
    * Sets the formula of this Trigger to a copy of formula.
    */
   void setFormula (const std::string& formula);
@@ -120,18 +105,6 @@ public:
    * Sets the math of this Trigger to a copy of the given ASTNode.
    */
   void setMath (const ASTNode* math);
-
-
-  /**
-   * Sets the sboTerm field of this Trigger to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-
-  /**
-   * Unsets the sboTerm of this Trigger.
-   */
-  void unsetSBOTerm ();
 
 
   /**
@@ -202,7 +175,6 @@ protected:
   mutable std::string  mFormula;
   mutable ASTNode*     mMath;
 
-  int               mSBOTerm;
 };
 
 
@@ -266,16 +238,6 @@ const ASTNode_t *
 Trigger_getMath (const Trigger_t *t);
 
 /**
- * @return the sboTerm of this Trigger as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Trigger_getSBOTerm (const Trigger_t *t);
-
-
-/**
  * @return true (non-zero) if the formula (or equivalently the math) of
  * this Trigger has been set, false (0) otherwise.
  */
@@ -292,15 +254,6 @@ int
 Trigger_isSetMath (const Trigger_t *t);
 
 /**
- * @return true (non-zero) if the substanceUnits of this Trigger has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Trigger_isSetSBOTerm (const Trigger_t *t);
-
-
-/**
  * Sets the formula of this Trigger to a copy of formula.
  */
 LIBSBML_EXTERN
@@ -313,22 +266,6 @@ Trigger_setFormula (Trigger_t *t, const char *formula);
 LIBSBML_EXTERN
 void
 Trigger_setMath (Trigger_t *t, const ASTNode_t *math);
-
-
-/**
- * Sets the sboTerm field of this Trigger to value.
- */
-LIBSBML_EXTERN
-void
-Trigger_setSBOTerm (Trigger_t *t, int sboTerm);
-
-
-/**
- * Unsets the sboTerm of this Trigger.
- */
-LIBSBML_EXTERN
-void
-Trigger_unsetSBOTerm (Trigger_t *t);
 
 
 END_C_DECLS

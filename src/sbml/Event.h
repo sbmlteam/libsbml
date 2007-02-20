@@ -99,14 +99,6 @@ public:
   const std::string& getTimeUnits () const;
 
   /**
-   * @return the sboTerm of this Event as an integer.  If not set, sboTerm
-   * will be -1.  Use SBML::sboTermToString() to convert the sboTerm to a
-   * zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-
-  /**
    * @return true if the trigger of this Event has been set, false
    * otherwise.
    */
@@ -124,13 +116,6 @@ public:
   bool isSetTimeUnits () const;
 
   /**
-   * @return true if the sboTerm of this Event has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-
-  /**
    * Sets the trigger of this Event to a copy of the given ASTNode.
    */
   void setTrigger (const Trigger* trigger);
@@ -146,12 +131,6 @@ public:
   void setTimeUnits (const std::string& sid);
 
   /**
-   * Sets the sboTerm field of this Event to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-
-  /**
    * Unsets the delay of this Event.
    */
   void unsetDelay ();
@@ -160,12 +139,6 @@ public:
    * Unsets the timeUnits of this Event.
    */
   void unsetTimeUnits ();
-
-  /**
-   * Unsets the sboTerm of this Event.
-   */
-  void unsetSBOTerm ();
-
 
   /**
    * Appends a copy of the given EventAssignment to this Event.
@@ -282,7 +255,6 @@ protected:
   Delay*                  mDelay;
   std::string             mTimeUnits;
   ListOfEventAssignments  mEventAssignments;
-  int                     mSBOTerm;
 };
 
 
@@ -403,16 +375,6 @@ const char *
 Event_getTimeUnits (const Event_t *e);
 
 /**
- * @return the sboTerm of this Event as an integer.  If not set, sboTerm
- * will be -1.  Use SBML_sboTermToString() to convert the sboTerm to a
- * zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Event_getSBOTerm (const Event_t *e);
-
-
-/**
  * @return 1 if the id of this Event has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -446,15 +408,6 @@ Event_isSetDelay (const Event_t *e);
 LIBSBML_EXTERN
 int
 Event_isSetTimeUnits (const Event_t *e);
-
-/**
- * @return true (non-zero) if the sboTerm of this Event has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Event_isSetSBOTerm (const Event_t *e);
-
 
 /**
  * Sets the id of this Event to a copy of sid.
@@ -492,14 +445,6 @@ void
 Event_setTimeUnits (Event_t *e, const char *sid);
 
 /**
- * Sets the sboTerm field of this Event to value.
- */
-LIBSBML_EXTERN
-void
-Event_setSBOTerm (Event_t *e, int sboTerm);
-
-
-/**
  * Unsets the id of this Event.
  */
 LIBSBML_EXTERN
@@ -526,14 +471,6 @@ Event_unsetDelay (Event_t *e);
 LIBSBML_EXTERN
 void
 Event_unsetTimeUnits (Event_t *e);
-
-/**
- * Unsets the sboTerm of this Event.
- */
-LIBSBML_EXTERN
-void
-Event_unsetSBOTerm (Event_t *e);
-
 
 /**
  * Appends a copy of the given EventAssignment to this Event.

@@ -178,8 +178,6 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   mLevel   = level;
   mVersion = version;
 
-  // FIXME: Who sets mNamespaces for SBMLDocument, SBase.read() or
-  // FIXME: SBMLDocument ctor?
   if (mNamespaces == 0) mNamespaces = new XMLNamespaces;
 
 
@@ -198,7 +196,6 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
   }
   else if (mLevel == 2 && mVersion == 3)
   {
-    //TO DO - this may not be right check when spec sorted
     mNamespaces->add("http://www.sbml.org/sbml/level2/version3");
   }
 }

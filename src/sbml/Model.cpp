@@ -49,8 +49,7 @@ using namespace std;
  * Creates a new Model, optionally with its id and name attributes set.
  */
 Model::Model (const string& id, const string& name) :
-   SBase   ( id, name )
- , mSBOTerm( -1       )
+   SBase   ( id, name, -1 )
 {
     mFormulaUnitsData = new ListFormulaUnitsData;
 }
@@ -104,49 +103,6 @@ SBase*
 Model::clone () const
 {
   return new Model(*this);
-}
-
-
-/**
- * @return the sboTerm of this KineticLaw as an integer.  If not set,
- * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-Model::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
- * @return true if the sboTerm of this KineticLaw has been set, false
- * otherwise.
- */
-bool
-Model::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
-}
-
-
-/**
- * Sets the sboTerm field of this KineticLaw to value.
- */
-void
-Model::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
- * Unsets the sboTerm of this KineticLaw.
- */
-void
-Model::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -1751,8 +1707,8 @@ Model::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+  //if (level == 2 && (version == 2 || version == 3)) 
+  //  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 
 }
 
@@ -1785,8 +1741,8 @@ Model::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+  //if (level == 2 && (version == 2 || version == 3)) 
+  //  SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -2024,19 +1980,6 @@ Model_getName (const Model_t *m)
 
 
 /**
- * @return the sboTerm of this Reaction as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Model_getSBOTerm (const Model_t *m)
-{
-  return m->getSBOTerm();
-}
-
-
-/**
  * @return true (non-zero) if the id of this Model has been set, false (0)
  * otherwise.
  */
@@ -2057,18 +2000,6 @@ int
 Model_isSetName (const Model_t *m)
 {
   return static_cast<int>( m->isSetName() );
-}
-
-
-/**
- * @return true (non-zero) if the sboTerm of this Model has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Model_isSetSBOTerm (const Model_t *m)
-{
-  return static_cast<int>( m->isSetSBOTerm() );
 }
 
 
@@ -2095,17 +2026,6 @@ Model_setName (Model_t *m, const char *name)
 
 
 /**
- * Sets the sboTerm field of this Model to value.
- */
-LIBSBML_EXTERN
-void
-Model_setSBOTerm (Model_t *m, int sboTerm)
-{
-  m->setSBOTerm(sboTerm);
-}
-
-
-/**
  * Unsets the id of this Model.
  */
 LIBSBML_EXTERN
@@ -2124,17 +2044,6 @@ void
 Model_unsetName (Model_t *m)
 {
   m->unsetName();
-}
-
-
-/**
- * Unsets the sboTerm of this Model.
- */
-LIBSBML_EXTERN
-void
-Model_unsetSBOTerm (Model_t *m)
-{
-  m->unsetSBOTerm();
 }
 
 

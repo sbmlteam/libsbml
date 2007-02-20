@@ -90,14 +90,6 @@ public:
   const ASTNode* getMath () const;
 
   /**
-   * @return the sboTerm of this InitialAssignment as an integer.  If not
-   * set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
-   * sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-
-  /**
    * @return tru if the symbol of this InitialAssignment has been set,
    * false otherwise.
    */
@@ -110,13 +102,6 @@ public:
   bool isSetMath () const;
 
   /**
-   * @return true if the sboTerm of this InitialAssignment has been set,
-   * false otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-
-  /**
    * Sets the symbol of this InitialAssignment to a copy of sid.
    */
   void setSymbol (const std::string& sid);
@@ -126,18 +111,6 @@ public:
    * ASTNode.
    */
   void setMath (const ASTNode* math);
-
-  /**
-   * Sets the sboTerm field of this InitialAssignment to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-
-  /**
-   * Unsets the sboTerm of this InitialAssignment.
-   */
-  void unsetSBOTerm ();
-
 
   /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
@@ -187,7 +160,6 @@ protected:
 
 
   ASTNode* mMath;
-  int      mSBOTerm;
 };
 
 
@@ -289,16 +261,6 @@ InitialAssignment_getMath (const InitialAssignment_t *ia);
 
 
 /**
- * @return the sboTerm of this InitialAssignment as an integer.  If not
- * set, sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-InitialAssignment_getSBOTerm (const InitialAssignment_t *ia);
-
-
-/**
  * @return true (non-zero) if the symbol of this InitialAssignment has been
  * set, false (0) otherwise.
  */
@@ -317,15 +279,6 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia);
 
 
 /**
- * @return true (non-zero) if the sboTerm of this InitialAssignment has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-InitialAssignment_isSetSBOTerm (const InitialAssignment_t *ia);
-
-
-/**
  * Sets the symbol of this InitialAssignment to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -340,22 +293,6 @@ InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid);
 LIBSBML_EXTERN
 void
 InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math);
-
-
-/**
- * Sets the sboTerm field of this InitialAssignment to value.
- */
-LIBSBML_EXTERN
-void
-InitialAssignment_setSBOTerm (InitialAssignment_t *ia, int sboTerm);
-
-
-/**
- * Unsets the sboTerm of this InitialAssignment.
- */
-LIBSBML_EXTERN
-void
-InitialAssignment_unsetSBOTerm (InitialAssignment_t *ia);
 
 
 END_C_DECLS

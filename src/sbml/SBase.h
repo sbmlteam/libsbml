@@ -101,6 +101,27 @@ public:
    */
   const std::string& getName () const;
 
+  /**
+   * @return the sboTerm of this SBML object.
+   */
+  int getSBOTerm () const;
+
+  /**
+   * @return true if the sboTerm has been set, false
+   * otherwise.
+   */
+  bool isSetSBOTerm () const;
+
+  /**
+   * Sets the sboTerm field to value.
+   */
+  void setSBOTerm (int sboTerm);
+
+  /**
+   * Unsets the sboTerm
+   */
+  void unsetSBOTerm ();
+
 
   /**
    * @return the name of this SBML object.
@@ -320,7 +341,9 @@ protected:
   /**
    * Only subclasses may create SBase objects.
    */
-  SBase (const std::string& id = "", const std::string& name = "");
+  SBase (const std::string& id = "", const std::string& name = "", int sboTerm = -1);
+
+  SBase (int sboTerm);
 
 
   /**

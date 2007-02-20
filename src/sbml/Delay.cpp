@@ -48,9 +48,9 @@ using namespace std;
  * substanceUnits set.
  */
 Delay::Delay (   const string& formula ) :
-   mFormula       ( formula        )
+   SBase		  (  -1 )
+ , mFormula       ( formula        )
  , mMath          ( 0              )
- , mSBOTerm       ( -1             )
 {
 }
 
@@ -62,7 +62,6 @@ Delay::Delay (const Delay& rhs) :
    SBase          ( rhs                 )
  , mFormula       ( rhs.mFormula        )
  , mMath          ( 0                   )
- , mSBOTerm       ( rhs.mSBOTerm        )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -131,18 +130,6 @@ Delay::getMath () const
 
 
 /**
- * @return the sboTerm of this Delay as an integer.  If not set,
- * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-Delay::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return true if the formula (or equivalently the math) of this
  * Delay has been set, false otherwise.
  */
@@ -161,17 +148,6 @@ bool
 Delay::isSetMath () const
 {
   return isSetFormula();
-}
-
-
-/**
- * @return true if the sboTerm of this Delay has been set, false
- * otherwise.
- */
-bool
-Delay::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
 }
 
 
@@ -204,26 +180,6 @@ Delay::setMath (const ASTNode* math)
   mMath = (math != 0) ? math->deepCopy() : 0;
 
   mFormula.erase();
-}
-
-
-/**
- * Sets the sboTerm field of this Delay to value.
- */
-void
-Delay::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
- * Unsets the sboTerm of this Delay.
- */
-void
-Delay::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -375,15 +331,6 @@ void
 Delay::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
-
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -396,14 +343,6 @@ void
 Delay::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
-
-  const unsigned int level   = getLevel  ();
-  const unsigned int version = getVersion();
-
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (level == 2 && (version == 2 || version == 3)) SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -500,19 +439,6 @@ Delay_getMath (const Delay_t *t)
 
 
 /**
- * @return the sboTerm of this Delay as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Delay_getSBOTerm (const Delay_t *t)
-{
-  return t->getSBOTerm();
-}
-
-
-/**
  * @return true (non-zero) if the formula (or equivalently the math) of
  * this Delay has been set, false (0) otherwise.
  */
@@ -537,18 +463,6 @@ Delay_isSetMath (const Delay_t *t)
 
 
 /**
- * @return true (non-zero) if the substanceUnits of this Delay has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Delay_isSetSBOTerm (const Delay_t *t)
-{
-  return static_cast<int>( t->isSetSBOTerm() );
-}
-
-
-/**
  * Sets the formula of this Delay to a copy of formula.
  */
 LIBSBML_EXTERN
@@ -567,26 +481,4 @@ void
 Delay_setMath (Delay_t *t, const ASTNode_t *math)
 {
   t->setMath(math);
-}
-
-
-/**
- * Sets the sboTerm field of this Delay to value.
- */
-LIBSBML_EXTERN
-void
-Delay_setSBOTerm (Delay_t *t, int sboTerm)
-{
-  t->setSBOTerm(sboTerm);
-}
-
-
-/**
- * Unsets the sboTerm of this Delay.
- */
-LIBSBML_EXTERN
-void
-Delay_unsetSBOTerm (Delay_t *t)
-{
-  t->unsetSBOTerm();
 }

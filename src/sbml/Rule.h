@@ -96,13 +96,6 @@ public:
   const ASTNode* getMath () const;
 
   /**
-   * @return the sboTerm of this Rule as an integer.  If not set, sboTerm
-   * will be -1.  Use SBML::sboTermToString() to convert the sboTerm to a
-   * zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-  /**
    * @return the type of this Rule, either RULE_TYPE_RATE or
    * RULE_TYPE_SCALAR.
    */
@@ -133,12 +126,6 @@ public:
   bool isSetMath () const;
 
   /**
-   * @return true if the sboTerm of this Rule has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-  /**
    * @return true if the variable of this Rule has been set, false
    * otherwise.
    */
@@ -162,11 +149,6 @@ public:
   void setMath (const ASTNode* math);
 
   /**
-   * Sets the sboTerm field of this Rule to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-  /**
    * Sets the variable of this RateRule to a copy of sid.
    */
   void setVariable (const std::string& sid);
@@ -177,11 +159,6 @@ public:
    */
   void setUnits (const std::string& sname);
 
-
-  /**
-   * Unsets the sboTerm of this Rule.
-   */
-  void unsetSBOTerm ();
 
   /**
    * Unsets the units for this Rule (L1 ParameterRules only).
@@ -304,7 +281,6 @@ protected:
 
   mutable std::string  mFormula;
   mutable ASTNode*     mMath;
-  int                  mSBOTerm;
   std::string          mUnits;
 
   SBMLTypeCode_t mType;
@@ -518,16 +494,6 @@ Rule_getMath (const Rule_t *r);
 
 
 /**
- * @return the sboTerm of this Rule as an integer.  If not set, sboTerm
- * will be -1.  Use SBML_sboTermToString() to convert the sboTerm to a
- * zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Rule_getSBOTerm (const Rule_t *r);
-
-
-/**
  * @return the type of this Rule, either RULE_TYPE_RATE or
  * RULE_TYPE_SCALAR.
  */
@@ -571,15 +537,6 @@ Rule_isSetMath (const Rule_t *r);
 
 
 /**
- * @return true (non-zero) if the sboTerm of this Rule has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Rule_isSetSBOTerm (const Rule_t *r);
-
-
-/**
  * @return true (non-zero) if the variable of this Rule has been set, false
  * (0) otherwise.
  */
@@ -614,14 +571,6 @@ Rule_setMath (Rule_t *r, const ASTNode_t *math);
 
 
 /**
- * Sets the sboTerm field of this Rule to value.
- */
-LIBSBML_EXTERN
-void
-Rule_setSBOTerm (Rule_t *r, int sboTerm);
-
-
-/**
  * Sets the variable of this RateRule to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -636,14 +585,6 @@ Rule_setVariable (Rule_t *r, const char *sid);
 LIBSBML_EXTERN
 void
 Rule_setUnits (Rule_t *r, const char *sname);
-
-
-/**
- * Unsets the sboTerm of this Rule.
- */
-LIBSBML_EXTERN
-void
-Rule_unsetSBOTerm (Rule_t *r);
 
 
 /**

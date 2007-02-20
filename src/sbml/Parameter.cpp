@@ -45,10 +45,9 @@ using namespace std;
  * set.
  */
 Parameter::Parameter (const string& id, const string& name) :
-    SBase      ( id, name )
+    SBase      ( id, name, -1 )
   , mValue     ( 0.0      )
   , mConstant  ( true     )
-  , mSBOTerm   ( -1       )
   , mIsSetValue( false    )
 {
 }
@@ -62,11 +61,10 @@ Parameter::Parameter (   const string&  id
                        , double         value
                        , const string&  units
                        , bool           constant ) :
-    SBase      ( id       )
+    SBase      ( id  ,"", -1     )
   , mValue     ( value    )
   , mUnits     ( units    )
   , mConstant  ( constant )
-  , mSBOTerm   ( -1       )
   , mIsSetValue( true     )
 
 {
@@ -148,18 +146,6 @@ Parameter::getConstant () const
 
 
 /**
- * @return the sboTerm of this Parameter as an integer.  If not set,
- * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-Parameter::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return true if the value of this Parameter has been set, false
  * otherwise.
  *
@@ -182,17 +168,6 @@ bool
 Parameter::isSetUnits () const
 {
   return (mUnits.empty() == false);
-}
-
-
-/**
- * @return true if the sboTerm of this Parameter has been set, false
- * otherwise.
- */
-bool
-Parameter::isSetSBOTerm () const
-{
-  return SBML::checkSBOTerm(mSBOTerm);
 }
 
 
@@ -228,16 +203,6 @@ Parameter::setConstant (bool value)
 
 
 /**
- * Sets the sboTerm field of this Parameter to value.
- */
-void
-Parameter::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
  * Unsets the value of this Parameter.
  *
  * In SBML L1v1, a Parameter value is required and therefore <b>should
@@ -259,16 +224,6 @@ void
 Parameter::unsetUnits ()
 {
   mUnits.erase();
-}
-
-
-/**
- * Unsets the sboTerm of this Parameter.
- */
-void
-Parameter::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -391,8 +346,8 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+//  if (level == 2 && (version == 2 || version == 3)) 
+//    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -447,8 +402,8 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+//  if (level == 2 && (version == 2 || version == 3)) 
+//    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -639,19 +594,6 @@ Parameter_getConstant (const Parameter_t *p)
 }
 
 /**
- * @return the sboTerm of this Parameter as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Parameter_getSBOTerm (const Parameter_t *p)
-{
-  return p->getSBOTerm();
-}
-
-
-/**
  * @return true (non-zero) if the id of this Parameter has been set, false
  * (0) otherwise.
  */
@@ -700,18 +642,6 @@ int
 Parameter_isSetUnits (const Parameter_t *p)
 {
   return static_cast<int>( p->isSetUnits() );
-}
-
-
-/**
- * @return true (non-zero) if the sboTerm of this Parameter has been set,
- * false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Parameter_isSetSBOTerm (const Parameter_t *p)
-{
-  return static_cast<int>( p->isSetSBOTerm() );
 }
 
 
@@ -771,17 +701,6 @@ Parameter_setConstant (Parameter_t *p, int value)
 
 
 /**
- * Sets the sboTerm field of this Parameter to value.
- */
-LIBSBML_EXTERN
-void
-Parameter_setSBOTerm (Parameter_t *p, int sboTerm)
-{
-  p->setSBOTerm(sboTerm);
-}
-
-
-/**
  * Unsets the name of this Parameter.
  */
 LIBSBML_EXTERN
@@ -815,15 +734,4 @@ void
 Parameter_unsetUnits (Parameter_t *p)
 {
   p->unsetUnits();
-}
-
-
-/**
- * Unsets the sboTerm of this Parameter.
- */
-LIBSBML_EXTERN
-void
-Parameter_unsetSBOTerm (Parameter_t *p)
-{
-  p->unsetSBOTerm();
 }

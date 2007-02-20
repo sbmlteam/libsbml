@@ -47,13 +47,14 @@ using namespace std;
 /**
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (const string& id, const string& name) :
+SBase::SBase (const string& id, const string& name, int sbo) :
    mId        ( id   )
  , mName      ( name )
  , mNotes     ( 0 )
  , mAnnotation( 0 )
  , mNamespaces( 0 )
  , mSBML      ( 0 )
+ , mSBOTerm   ( sbo )
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mCVTerms   ( 0 )
@@ -61,6 +62,20 @@ SBase::SBase (const string& id, const string& name) :
 {
 }
 
+SBase::SBase (int sbo) :
+   mId        ( ""   )
+ , mName      ( "" )
+ , mNotes     ( 0 )
+ , mAnnotation( 0 )
+ , mNamespaces( 0 )
+ , mSBML      ( 0 )
+ , mSBOTerm   ( sbo )
+ , mLine      ( 0 )
+ , mColumn    ( 0 )
+ , mCVTerms   ( 0 )
+ , mHistory   ( 0 )
+{
+}
 
 /**
  * Destroy this SBase object.
@@ -103,6 +118,49 @@ const string&
 SBase::getId () const
 {
   return mId;
+}
+
+
+/**
+ * @return the sboTerm as an integer.  If not set,
+ * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
+ * sboTerm to a zero-padded, seven digit string.
+ */
+int
+SBase::getSBOTerm () const
+{
+  return mSBOTerm;
+}
+
+
+/**
+ * @return true if the sboTerm has been set, false
+ * otherwise.
+ */
+bool
+SBase::isSetSBOTerm () const
+{
+  return (mSBOTerm != -1);
+}
+
+
+/**
+ * Sets the sboTerm field to value.
+ */
+void
+SBase::setSBOTerm (int sboTerm)
+{
+  mSBOTerm = sboTerm;
+}
+
+
+/**
+ * Unsets the sboTerm.
+ */
+void
+SBase::unsetSBOTerm ()
+{
+  mSBOTerm = -1;
 }
 
 
@@ -604,6 +662,9 @@ SBase::readAttributes (const XMLAttributes& attributes)
   attributes.readInto("metaid", mMetaId);
   if (isSetMetaId())
     checkMetaIdSyntax();
+
+  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+
 }
 
 
@@ -636,6 +697,9 @@ SBase::writeAttributes (XMLOutputStream& stream) const
   {
     stream.writeAttribute("metaid", mMetaId);
   }
+
+  SBML::writeSBOTerm(stream, mSBOTerm);
+
 }
 
 

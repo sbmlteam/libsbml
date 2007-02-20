@@ -50,11 +50,11 @@ using namespace std;
 KineticLaw::KineticLaw (   const string& formula
                          , const string& timeUnits
                          , const string& substanceUnits ) :
-   mFormula       ( formula        )
+   SBase          ( -1             )
+ , mFormula       ( formula        )
  , mMath          ( 0              )
  , mTimeUnits     ( timeUnits      )
  , mSubstanceUnits( substanceUnits )
- , mSBOTerm       ( -1             )
 {
 }
 
@@ -68,7 +68,6 @@ KineticLaw::KineticLaw (const KineticLaw& rhs) :
  , mMath          ( 0                   )
  , mTimeUnits     ( rhs.mTimeUnits      )
  , mSubstanceUnits( rhs.mSubstanceUnits )
- , mSBOTerm       ( rhs.mSBOTerm        )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -181,18 +180,6 @@ KineticLaw::getSubstanceUnits () const
 
 
 /**
- * @return the sboTerm of this KineticLaw as an integer.  If not set,
- * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-KineticLaw::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return true if the formula (or equivalently the math) of this
  * KineticLaw has been set, false otherwise.
  */
@@ -233,17 +220,6 @@ bool
 KineticLaw::isSetSubstanceUnits () const
 {
   return (mSubstanceUnits.empty() == false);
-}
-
-
-/**
- * @return true if the sboTerm of this KineticLaw has been set, false
- * otherwise.
- */
-bool
-KineticLaw::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
 }
 
 
@@ -296,16 +272,6 @@ void
 KineticLaw::setSubstanceUnits (const string& sid)
 {
   mSubstanceUnits = sid;
-}
-
-
-/**
- * Sets the sboTerm field of this KineticLaw to value.
- */
-void
-KineticLaw::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
 }
 
 
@@ -402,16 +368,6 @@ void
 KineticLaw::unsetSubstanceUnits ()
 {
   mSubstanceUnits.erase();
-}
-
-
-/**
- * Unsets the sboTerm of this KineticLaw.
- */
-void
-KineticLaw::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -610,8 +566,8 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+//  if (level == 2 && (version == 2 || version == 3)) 
+//    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -646,8 +602,8 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+ // if (level == 2 && (version == 2 || version == 3)) 
+ //   SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -782,19 +738,6 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
 
 
 /**
- * @return the sboTerm of this KineticLaw as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-KineticLaw_getSBOTerm (const KineticLaw_t *kl)
-{
-  return kl->getSBOTerm();
-}
-
-
-/**
  * @return true (non-zero) if the formula (or equivalently the math) of
  * this KineticLaw has been set, false (0) otherwise.
  */
@@ -843,18 +786,6 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
 
 
 /**
- * @return true (non-zero) if the substanceUnits of this KineticLaw has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-KineticLaw_isSetSBOTerm (const KineticLaw_t *kl)
-{
-  return static_cast<int>( kl->isSetSBOTerm() );
-}
-
-
-/**
  * Sets the formula of this KineticLaw to a copy of formula.
  */
 LIBSBML_EXTERN
@@ -895,17 +826,6 @@ void
 KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
 {
   (sid == NULL) ? kl->unsetSubstanceUnits() : kl->setSubstanceUnits(sid);
-}
-
-
-/**
- * Sets the sboTerm field of this KineticLaw to value.
- */
-LIBSBML_EXTERN
-void
-KineticLaw_setSBOTerm (KineticLaw_t *kl, int sboTerm)
-{
-  kl->setSBOTerm(sboTerm);
 }
 
 
@@ -985,15 +905,4 @@ void
 KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
 {
   kl->unsetSubstanceUnits();
-}
-
-
-/**
- * Unsets the sboTerm of this KineticLaw.
- */
-LIBSBML_EXTERN
-void
-KineticLaw_unsetSBOTerm (KineticLaw_t *kl)
-{
-  kl->unsetSBOTerm();
 }

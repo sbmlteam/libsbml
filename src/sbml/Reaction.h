@@ -109,14 +109,6 @@ public:
   bool getFast () const;
 
   /**
-   * @return the sboTerm of this Reaction as an integer.  If not set,
-   * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
-   * sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-
-  /**
    * @return the list of Reactants for this Reaction.
    */
   const ListOfSpeciesReferences* getListOfReactants () const;
@@ -234,13 +226,6 @@ public:
   bool isSetFast () const;
 
   /**
-   * @return true if the sboTerm of this Reaction has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-
-  /**
    * Sets the KineticLaw of this Reaction to a copy of the given
    * KineticLaw.
    */
@@ -255,12 +240,6 @@ public:
    * Sets the fast status of this Reaction to value.
    */
   void setFast (bool value);
-
-  /**
-   * Sets the sboTerm field of this Reaction to value.
-   */
-  void setSBOTerm (int sboTerm);
-
 
   /**
    * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
@@ -335,12 +314,6 @@ public:
   void unsetFast ();
 
   /**
-   * Unsets the sboTerm of this KineticLaw.
-   */
-  void unsetSBOTerm ();
-
-
-  /**
    * Sets the parent SBMLDocument of this SBML object.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
@@ -406,7 +379,6 @@ protected:
   KineticLaw* mKineticLaw;
   bool        mReversible;
   bool        mFast;
-  int         mSBOTerm;
 
   bool mIsSetFast;
 };
@@ -543,16 +515,6 @@ int
 Reaction_getFast (const Reaction_t *r);
 
 /**
- * @return the sboTerm of this Reaction as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Reaction_getSBOTerm (const Reaction_t *r);
-
-
-/**
  * @return the list of Reactants for this Reaction.
  */
 LIBSBML_EXTERN
@@ -657,15 +619,6 @@ int
 Reaction_isSetFast (const Reaction_t *r);
 
 /**
- * @return true (non-zero) if the sboTerm of this Reaction has been set,
- * false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetSBOTerm (const Reaction_t *r);
-
-
-/**
  * Sets the id of this Reaction to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -699,14 +652,6 @@ Reaction_setReversible (Reaction_t *r, int value);
 LIBSBML_EXTERN
 void
 Reaction_setFast (Reaction_t *r, int value);
-
-/**
- * Sets the sboTerm field of this Reaction to value.
- */
-LIBSBML_EXTERN
-void
-Reaction_setSBOTerm (Reaction_t *r, int sboTerm);
-
 
 /**
  * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
@@ -811,14 +756,6 @@ Reaction_unsetKineticLaw (Reaction_t *r);
 LIBSBML_EXTERN
 void
 Reaction_unsetFast (Reaction_t *r);
-
-/**
- * Unsets the sboTerm of this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_unsetSBOTerm (Reaction_t *r);
-
 
 END_C_DECLS
 

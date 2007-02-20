@@ -49,10 +49,9 @@ using namespace std;
  */
 Rule::Rule (SBMLTypeCode_t type, const string& variable, const string& formula)
  :
-   SBase   ( variable )
+   SBase   ( variable , "", -1)
  , mFormula( formula  )
  , mMath   (  0       )
- , mSBOTerm( -1       )
  , mType   ( type     )
  , mL1Type ( SBML_UNKNOWN )
 {
@@ -64,9 +63,8 @@ Rule::Rule (SBMLTypeCode_t type, const string& variable, const string& formula)
  */
 Rule::Rule (SBMLTypeCode_t type, const string& variable, const ASTNode* math)
  :
-   SBase   ( variable         )
+   SBase   ( variable  , "", -1       )
  , mMath   ( 0                )
- , mSBOTerm( -1               )
  , mType   ( type             )
  , mL1Type ( SBML_UNKNOWN     )
 {
@@ -81,7 +79,6 @@ Rule::Rule (const Rule& rhs) :
    SBase   ( rhs          )
  , mFormula( rhs.mFormula )
  , mMath   ( 0            )
- , mSBOTerm( rhs.mSBOTerm )
  , mUnits  ( rhs.mUnits   )
  , mType   ( rhs.mType    )
  , mL1Type ( rhs.mL1Type  )
@@ -157,18 +154,6 @@ Rule::getMath () const
 
 
 /**
- * @return the sboTerm of this Rule as an integer.  If not set, sboTerm
- * will be -1.  Use SBML::sboTermToString() to convert the sboTerm to a
- * zero-padded, seven digit string.
- */
-int
-Rule::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return the type of this Rule, either RULE_TYPE_RATE or
  * RULE_TYPE_SCALAR.
  */
@@ -220,17 +205,6 @@ bool
 Rule::isSetMath () const
 {
   return isSetFormula();
-}
-
-
-/**
- * @return true if the sboTerm of this Rule has been set, false
- * otherwise.
- */
-bool
-Rule::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
 }
 
 
@@ -289,16 +263,6 @@ Rule::setMath (const ASTNode* math)
 
 
 /**
- * Sets the sboTerm field of this Rule to value.
- */
-void
-Rule::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
  * Sets the variable of this RateRule to a copy of sid.
  */
 void
@@ -316,16 +280,6 @@ void
 Rule::setUnits (const string& sname)
 {
   mUnits = sname;
-}
-
-
-/**
- * Unsets the sboTerm of this Rule.
- */
-void
-Rule::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -679,8 +633,8 @@ Rule::readAttributes (const XMLAttributes& attributes)
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    if ((version == 2 || version == 3)) 
-      mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+//    if ((version == 2 || version == 3)) 
+//      mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
   }
 }
 
@@ -754,7 +708,7 @@ Rule::writeAttributes (XMLOutputStream& stream) const
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    if ((version == 2 || version == 3)) SBML::writeSBOTerm(stream, mSBOTerm);
+//    if ((version == 2 || version == 3)) SBML::writeSBOTerm(stream, mSBOTerm);
   }
 }
 
@@ -1104,19 +1058,6 @@ Rule_getMath (const Rule_t *r)
 
 
 /**
- * @return the sboTerm of this Rule as an integer.  If not set, sboTerm
- * will be -1.  Use SBML_sboTermToString() to convert the sboTerm to a
- * zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Rule_getSBOTerm (const Rule_t *r)
-{
-  return r->getSBOTerm();
-}
-
-
-/**
  * @return the type of this Rule, either RULE_TYPE_RATE or
  * RULE_TYPE_SCALAR.
  */
@@ -1175,18 +1116,6 @@ Rule_isSetMath (const Rule_t *r)
 
 
 /**
- * @return true (non-zero) if the sboTerm of this Rule has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Rule_isSetSBOTerm (const Rule_t *r)
-{
-  return static_cast<int>( r->isSetSBOTerm() );
-}
-
-
-/**
  * @return true (non-zero) if the variable of this Rule has been set, false
  * (0) otherwise.
  */
@@ -1233,17 +1162,6 @@ Rule_setMath (Rule_t *r, const ASTNode_t *math)
 
 
 /**
- * Sets the sboTerm field of this Rule to value.
- */
-LIBSBML_EXTERN
-void
-Rule_setSBOTerm (Rule_t *r, int sboTerm)
-{
-  r->setSBOTerm(sboTerm);
-}
-
-
-/**
  * Sets the variable of this RateRule to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -1263,17 +1181,6 @@ void
 Rule_setUnits (Rule_t *r, const char *sname)
 {
   (sname == NULL) ? r->unsetUnits() : r->setUnits(sname);
-}
-
-
-/**
- * Unsets the sboTerm of this Rule.
- */
-LIBSBML_EXTERN
-void
-Rule_unsetSBOTerm (Rule_t *r)
-{
-  r->unsetSBOTerm();
 }
 
 

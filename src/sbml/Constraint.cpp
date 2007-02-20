@@ -45,9 +45,9 @@ using namespace std;
  * set.
  */
 Constraint::Constraint () :
-   mMath   (  0 )
+   SBase   ( -1 )
+ , mMath   (  0 )
  , mMessage(  0 )
- , mSBOTerm( -1 )
 {
 }
 
@@ -59,7 +59,6 @@ Constraint::Constraint (const Constraint& rhs) :
    SBase   ( rhs )
  , mMath   ( 0   )
  , mMessage( 0   )
- , mSBOTerm( rhs.mSBOTerm )
 {
   if (rhs.mMath)    mMath    = rhs.mMath->deepCopy();
   if (rhs.mMessage) mMessage = new XMLNode(*rhs.mMessage);
@@ -119,18 +118,6 @@ Constraint::getMath () const
 
 
 /**
- * @return the sboTerm of this Constraint as an integer.  If not
- * set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-Constraint::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return true if the message of this Constraint has been set,
  * false otherwise.
  */
@@ -149,17 +136,6 @@ bool
 Constraint::isSetMath () const
 {
   return (mMath != 0);
-}
-
-
-/**
- * @return true if the sboTerm of this Constraint has been set,
- * false otherwise.
- */
-bool
-Constraint::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
 }
 
 
@@ -190,26 +166,6 @@ Constraint::setMath (const ASTNode* math)
 
   delete mMath;
   mMath = (math != 0) ? math->deepCopy() : 0;
-}
-
-
-/**
- * Sets the sboTerm field of this Constraint to value.
- */
-void
-Constraint::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
- * Unsets the sboTerm of this Constraint.
- */
-void
-Constraint::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -351,11 +307,6 @@ void
 Constraint::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
-
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -372,7 +323,7 @@ Constraint::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  SBML::writeSBOTerm(stream, mSBOTerm);
+  //SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -513,19 +464,6 @@ Constraint_getMath (const Constraint_t *c)
 
 
 /**
- * @return the sboTerm of this Constraint as an integer.  If not
- * set, sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Constraint_getSBOTerm (const Constraint_t *c)
-{
-  return c->getSBOTerm();
-}
-
-
-/**
  * @return true (non-zero) if the symbol of this Constraint has been
  * set, false (0) otherwise.
  */
@@ -550,18 +488,6 @@ Constraint_isSetMath (const Constraint_t *c)
 
 
 /**
- * @return true (non-zero) if the sboTerm of this Constraint has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Constraint_isSetSBOTerm (const Constraint_t *c)
-{
-  return static_cast<int>( c->isSetSBOTerm() );
-}
-
-
-/**
  * Sets the symbol of this Constraint to a copy of xhtml.
  */
 LIBSBML_EXTERN
@@ -581,26 +507,4 @@ void
 Constraint_setMath (Constraint_t *c, const ASTNode_t *math)
 {
   c->setMath(math);
-}
-
-
-/**
- * Sets the sboTerm field of this Constraint to value.
- */
-LIBSBML_EXTERN
-void
-Constraint_setSBOTerm (Constraint_t *c, int sboTerm)
-{
-  c->setSBOTerm(sboTerm);
-}
-
-
-/**
- * Unsets the sboTerm of this Constraint.
- */
-LIBSBML_EXTERN
-void
-Constraint_unsetSBOTerm (Constraint_t *c)
-{
-  c->unsetSBOTerm();
 }

@@ -45,11 +45,10 @@ using namespace std;
  * reversible attributes set.
  */
 Reaction::Reaction (const string& id, const KineticLaw* kl, bool reversible) :
-    SBase      ( id         )
+    SBase      ( id , "", -1        )
   , mKineticLaw( 0          )
   , mReversible( reversible )
   , mFast      ( false      )
-  , mSBOTerm   ( -1         )
   , mIsSetFast ( false      )
 {
   if (kl) mKineticLaw = static_cast<KineticLaw*>( kl->clone() );
@@ -68,7 +67,6 @@ Reaction::Reaction (const Reaction& rhs) :
   , mKineticLaw( 0               )
   , mReversible( rhs.mReversible )
   , mFast      ( rhs.mFast       )
-  , mSBOTerm   ( rhs.mSBOTerm    )
   , mIsSetFast ( rhs.mIsSetFast  )
 {
   if (rhs.mKineticLaw)
@@ -185,18 +183,6 @@ bool
 Reaction::getFast () const
 {
   return mFast;
-}
-
-
-/**
- * @return the sboTerm of this Reaction as an integer.  If not set,
- * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-Reaction::getSBOTerm () const
-{
-  return mSBOTerm;
 }
 
 
@@ -454,17 +440,6 @@ Reaction::isSetFast () const
 
 
 /**
- * @return true if the sboTerm of this Reaction has been set, false
- * otherwise.
- */
-bool
-Reaction::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
-}
-
-
-/**
  * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
  */
 void
@@ -497,16 +472,6 @@ Reaction::setFast (bool value)
 {
   mFast      = value;
   mIsSetFast = true;
-}
-
-
-/**
- * Sets the sboTerm field of this Reaction to value.
- */
-void
-Reaction::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
 }
 
 
@@ -652,16 +617,6 @@ void
 Reaction::unsetFast ()
 {
   mIsSetFast = false;
-}
-
-
-/**
- * Unsets the sboTerm of this KineticLaw.
- */
-void
-Reaction::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -845,8 +800,8 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+//  if (level == 2 && (version == 2 || version == 3)) 
+//    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -893,8 +848,8 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && (version == 2 || version == 3)) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+//  if (level == 2 && (version == 2 || version == 3)) 
+//    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -1116,19 +1071,6 @@ Reaction_getFast (const Reaction_t *r)
 
 
 /**
- * @return the sboTerm of this Reaction as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Reaction_getSBOTerm (const Reaction_t *r)
-{
-  return r->getSBOTerm();
-}
-
-
-/**
  * @return the list of Reactants for this Reaction.
  */
 LIBSBML_EXTERN
@@ -1283,18 +1225,6 @@ Reaction_isSetFast (const Reaction_t *r)
 
 
 /**
- * @return true (non-zero) if the sboTerm of this Reaction has been set,
- * false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetSBOTerm (const Reaction_t *r)
-{
-  return static_cast<int>( r->isSetSBOTerm() );
-}
-
-
-/**
  * Sets the id of this Reaction to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -1346,17 +1276,6 @@ void
 Reaction_setFast (Reaction_t *r, int value)
 {
   r->setFast( static_cast<bool>(value) );
-}
-
-
-/**
- * Sets the sboTerm field of this Reaction to value.
- */
-LIBSBML_EXTERN
-void
-Reaction_setSBOTerm (Reaction_t *r, int sboTerm)
-{
-  r->setSBOTerm(sboTerm);
 }
 
 
@@ -1519,15 +1438,4 @@ void
 Reaction_unsetFast (Reaction_t *r)
 {
   r->unsetFast();
-}
-
-
-/**
- * Unsets the sboTerm of this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_unsetSBOTerm (Reaction_t *r)
-{
-  r->unsetSBOTerm();
 }

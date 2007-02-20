@@ -50,8 +50,8 @@ using namespace std;
  * attribute set.
  */
 SimpleSpeciesReference::SimpleSpeciesReference (const string& species) :
-   mSpecies( species )
- , mSBOTerm( -1      )
+   SBase (-1)
+ , mSpecies( species )
 {
 }
 
@@ -89,18 +89,6 @@ SimpleSpeciesReference::getSpecies () const
 
 
 /**
- * @return the sboTerm of this SimpleSpeciesReference as an integer.  If
- * not set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-SimpleSpeciesReference::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return true if the species for this SimpleSpeciesReference has been
  * set, false otherwise.
  */
@@ -112,43 +100,12 @@ SimpleSpeciesReference::isSetSpecies () const
 
 
 /**
- * @return true if the sboTerm of this SimpleSpeciesReference has been
- * set, false otherwise.
- */
-bool
-SimpleSpeciesReference::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
-}
-
-
-/**
  * Sets the species of this SimpleSpeciesReference to a copy of sid.
  */
 void
 SimpleSpeciesReference::setSpecies (const string& sid)
 {
   mSpecies = sid;
-}
-
-
-/**
- * Sets the sboTerm field of this SimpleSpeciesReference to value.
- */
-void
-SimpleSpeciesReference::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
- * Unsets the sboTerm of this SimpleSpeciesReference.
- */
-void
-SimpleSpeciesReference::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -193,7 +150,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+//    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
   }
 
   //
@@ -234,7 +191,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    SBML::writeSBOTerm(stream, mSBOTerm);
+//    SBML::writeSBOTerm(stream, mSBOTerm);
   }
 
   //
@@ -1089,19 +1046,6 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr)
 
 
 /**
- * @return the sboTerm of this SpeciesReference as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-SpeciesReference_getSBOTerm (const SpeciesReference_t *sr)
-{
-  return sr->getSBOTerm();
-}
-
-
-/**
  * @return the stoichiometry of this SpeciesReference or zero if.
  *
  * This function returns zero if the SpeciesReference is a Modifer (see
@@ -1183,18 +1127,6 @@ SpeciesReference_isSetSpecies (const SpeciesReference_t *sr)
 
 
 /**
- * @return true (non-zero) if the sboTerm for this SpeciesReference has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-SpeciesReference_isSetSBOTerm (const SpeciesReference_t *sr)
-{
-  return static_cast<int>( sr->isSetSBOTerm() );
-}
-
-
-/**
  * @return true (non-zero) if the stoichiometryMath of this
  * SpeciesReference has been set, false (0) otherwise.
  *
@@ -1244,17 +1176,6 @@ void
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid)
 {
   sr->setSpecies(sid ? sid : "");
-}
-
-
-/**
- * Sets the sboTerm field of this SimpleSpeciesReference to value.
- */
-LIBSBML_EXTERN
-void
-SpeciesReference_setSBOTerm (SpeciesReference_t *sr, int sboTerm)
-{
-  sr->setSBOTerm(sboTerm);
 }
 
 
@@ -1325,15 +1246,4 @@ void
 SpeciesReference_unsetName (SpeciesReference_t *sr)
 {
   sr->unsetName();
-}
-
-
-/**
- * Unsets the sboTerm of this Species.
- */
-LIBSBML_EXTERN
-void
-SpeciesReference_unsetSBOTerm (SpeciesReference_t *sr)
-{
-  sr->unsetSBOTerm();
 }

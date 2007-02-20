@@ -46,10 +46,9 @@ using namespace std;
  * Creates a new Event, optionally with its id attribute set. 
  */
 Event::Event (const string& id) :
-   SBase   ( id )
+   SBase   ( id, "", -1 )
  , mTrigger ( 0 )
  , mDelay   ( 0 )
- , mSBOTerm( -1 )
 {
 }
 
@@ -63,7 +62,6 @@ Event::Event (const Event& rhs) :
  , mDelay           ( rhs.mDelay   )
  , mTimeUnits       ( rhs.mTimeUnits        )
  , mEventAssignments( rhs.mEventAssignments )
- , mSBOTerm         ( rhs.mSBOTerm          )
 {
 }
  
@@ -141,18 +139,6 @@ Event::getTimeUnits () const
 
 
 /**
- * @return the sboTerm of this Event as an integer.  If not set, sboTerm
- * will be -1.  Use SBML::sboTermToString() to convert the sboTerm to a
- * zero-padded, seven digit string.
- */
-int
-Event::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
  * @return true if the trigger of this Event has been set, false otherwise.
  */
 bool
@@ -180,17 +166,6 @@ bool
 Event::isSetTimeUnits () const
 {
   return (mTimeUnits.empty() == false);
-}
-
-
-/**
- * @return true if the sboTerm of this Event has been set, false
- * otherwise.
- */
-bool
-Event::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
 }
 
 
@@ -231,16 +206,6 @@ Event::setTimeUnits (const string& sid)
 
 
 /**
- * Sets the sboTerm field of this Event to value.
- */
-void
-Event::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
  * Unsets the delay of this Event.
  */
 void
@@ -258,16 +223,6 @@ void
 Event::unsetTimeUnits ()
 {
   mTimeUnits.erase();
-}
-
-
-/**
- * Unsets the sboTerm of this Event.
- */
-void
-Event::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
 }
 
 
@@ -523,11 +478,6 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   attributes.readInto("timeUnits", mTimeUnits);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (getVersion() == 2 || getVersion() == 3) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
 
@@ -556,11 +506,6 @@ Event::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("timeUnits", mTimeUnits);
 
-  //
-  // sboTerm: SBOTerm { use="optional" }  (L2v2)
-  //
-  if (getVersion() == 2 || getVersion() == 3) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
 
@@ -758,19 +703,6 @@ Event_getTimeUnits (const Event_t *e)
 
 
 /**
- * @return the sboTerm of this Event as an integer.  If not set, sboTerm
- * will be -1.  Use SBML_sboTermToString() to convert the sboTerm to a
- * zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Event_getSBOTerm (const Event_t *e)
-{
-  return e->getSBOTerm();
-}
-
-
-/**
  * @return 1 if the id of this Event has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -822,18 +754,6 @@ int
 Event_isSetTimeUnits (const Event_t *e)
 {
   return static_cast<int>( e->isSetTimeUnits() );
-}
-
-
-/**
- * @return true (non-zero) if the sboTerm of this Event has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Event_isSetSBOTerm (const Event_t *e)
-{
-  return static_cast<int>( e->isSetSBOTerm() );
 }
 
 
@@ -893,17 +813,6 @@ Event_setTimeUnits (Event_t *e, const char *sid)
 
 
 /**
- * Sets the sboTerm field of this Event to value.
- */
-LIBSBML_EXTERN
-void
-Event_setSBOTerm (Event_t *e, int sboTerm)
-{
-  e->setSBOTerm(sboTerm);
-}
-
-
-/**
  * Unsets the id of this Event.
  */
 LIBSBML_EXTERN
@@ -944,17 +853,6 @@ void
 Event_unsetTimeUnits (Event_t *e)
 {
   e->unsetTimeUnits();
-}
-
-
-/**
- * Unsets the sboTerm of this Event.
- */
-LIBSBML_EXTERN
-void
-Event_unsetSBOTerm (Event_t *e)
-{
-  e->unsetSBOTerm();
 }
 
 

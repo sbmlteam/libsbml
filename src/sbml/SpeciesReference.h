@@ -74,41 +74,15 @@ public:
   const std::string& getSpecies () const;
 
   /**
-   * @return the sboTerm of this SimpleSpeciesReference as an integer.  If
-   * not set, sboTerm will be -1.  Use SBML::sboTermToString() to convert
-   * the sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-
-  /**
    * @return true if the species for this SimpleSpeciesReference has been
    * set, false otherwise.
    */
   bool isSetSpecies () const;
 
   /**
-   * @return true if the sboTerm of this SimpleSpeciesReference has been
-   * set, false otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-
-  /**
    * Sets the species of this SimpleSpeciesReference to a copy of sid.
    */
   void setSpecies (const std::string& sid);
-
-  /**
-   * Sets the sboTerm field of this SimpleSpeciesReference to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-
-  /**
-   * Unsets the sboTerm of this SimpleSpeciesReference.
-   */
-  void unsetSBOTerm ();
 
   /**
    * @return true if this SpeciesReference is a ModiferSpeciesReference,
@@ -134,7 +108,6 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
   std::string  mSpecies;
-  int          mSBOTerm;
 };
 
 
@@ -499,15 +472,6 @@ const char *
 SpeciesReference_getSpecies (const SpeciesReference_t *sr);
 
 /**
- * @return the sboTerm of this SpeciesReference as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-SpeciesReference_getSBOTerm (const SpeciesReference_t *sr);
-
-/**
  * @return the stoichiometry of this SpeciesReference or zero if.
  *
  * This function returns zero if the SpeciesReference is a Modifer (see
@@ -564,14 +528,6 @@ int
 SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
 
 /**
- * @return true (non-zero) if the sboTerm for this SpeciesReference has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-SpeciesReference_isSetSBOTerm (const SpeciesReference_t *sr);
-
-/**
  * @return true (non-zero) if the stoichiometryMath of this
  * SpeciesReference has been set, false (0) otherwise.
  *
@@ -603,13 +559,6 @@ SpeciesReference_setName (SpeciesReference_t *sr, const char *name);
 LIBSBML_EXTERN
 void
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid);
-
-/**
- * Sets the sboTerm field of this SimpleSpeciesReference to value.
- */
-LIBSBML_EXTERN
-void
-SpeciesReference_setSBOTerm (SpeciesReference_t *sr, int sboTerm);
 
 /**
  * Sets the stoichiometry of this SpeciesReference to value.
@@ -657,14 +606,6 @@ SpeciesReference_unsetId (SpeciesReference_t *sr);
 LIBSBML_EXTERN
 void
 SpeciesReference_unsetName (SpeciesReference_t *sr);
-
-/**
- * Unsets the sboTerm of this Species.
- */
-LIBSBML_EXTERN
-void
-SpeciesReference_unsetSBOTerm (SpeciesReference_t *sr);
-
 
 END_C_DECLS
 

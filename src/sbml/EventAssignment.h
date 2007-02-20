@@ -91,13 +91,6 @@ public:
   const std::string& getVariable () const;
 
   /**
-   * @return the sboTerm of this EventAssignment as an integer.  If not
-   * set, sboTerm will be -1.  Use SBML::sboTermToString() to convert the
-   * sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-  /**
    * @return the math of this EventAssignment.
    */
   const ASTNode* getMath () const;
@@ -108,12 +101,6 @@ public:
    * otherwise.
    */
   bool isSetVariable () const;
-
-  /**
-   * @return true if the sboTerm of this EventAssignment has been set,
-   * false otherwise.
-   */
-  bool isSetSBOTerm () const;
 
   /**
    * @return true if the math of this EventAssignment has been set, false
@@ -128,20 +115,9 @@ public:
   void setVariable (const std::string& sid);
 
   /**
-   * Sets the sboTerm field of this EventAssignment to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-  /**
    * Sets the math of this EventAssignment to a copy of the given ASTNode.
    */
   void setMath (const ASTNode* math);
-
-
-  /**
-   * Unsets the sboTerm of this EventAssignment.
-   */
-  void unsetSBOTerm ();
 
 
   /**
@@ -191,7 +167,6 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  int       mSBOTerm;
   ASTNode*  mMath;
 };
 
@@ -287,15 +262,6 @@ const char *
 EventAssignment_getVariable (const EventAssignment_t *ea);
 
 /**
- * @return the sboTerm of this EventAssignment as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-EventAssignment_getSBOTerm (const EventAssignment_t *ea);
-
-/**
  * @return the math of this EventAssignment.
  */
 LIBSBML_EXTERN
@@ -310,14 +276,6 @@ EventAssignment_getMath (const EventAssignment_t *ea);
 LIBSBML_EXTERN
 int
 EventAssignment_isSetVariable (const EventAssignment_t *ea);
-
-/**
- * @return true (non-zero) if the sboTerm of this EventAssignment has been
- * set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-EventAssignment_isSetSBOTerm (const EventAssignment_t *ea);
 
 /**
  * @return 1 if the math of this EventAssignment has been set, 0 otherwise.
@@ -335,26 +293,11 @@ void
 EventAssignment_setVariable (EventAssignment_t *ea, const char *sid);
 
 /**
- * Sets the sboTerm field of this EventAssignment to value.
- */
-LIBSBML_EXTERN
-void
-EventAssignment_setSBOTerm (EventAssignment_t *ea, int sboTerm);
-
-/**
  * Sets the math of this EventAssignment to a copy of the given ASTNode.
  */
 LIBSBML_EXTERN
 void
 EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math);
-
-
-/**
- * Unsets the sboTerm of this EventAssignment.
- */
-LIBSBML_EXTERN
-void
-EventAssignment_unsetSBOTerm (EventAssignment_t *ea);
 
 
 END_C_DECLS

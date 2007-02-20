@@ -92,30 +92,6 @@ public:
 
 
   /**
-   * @return the sboTerm of this KineticLaw as an integer.  If not set,
-   * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
-   * sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-  /**
-   * @return true if the sboTerm of this KineticLaw has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-  /**
-   * Sets the sboTerm field of this KineticLaw to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-  /**
-   * Unsets the sboTerm of this KineticLaw.
-   */
-  void unsetSBOTerm ();
-
-
-  /**
    * Adds a copy of the given FunctionDefinition to this Model.
    */
   void addFunctionDefinition (const FunctionDefinition* fd);
@@ -966,8 +942,6 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  int mSBOTerm;
-
   ListOfFunctionDefinitions  mFunctionDefinitions;
   ListOfUnitDefinitions      mUnitDefinitions;
   ListOfCompartmentTypes     mCompartmentTypes;
@@ -1044,16 +1018,6 @@ const char *
 Model_getName (const Model_t *m);
 
 /**
- * @return the sboTerm of this Reaction as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Model_getSBOTerm (const Model_t *m);
-
-
-/**
  * @return true (non-zero) if the id of this Model has been set, false (0)
  * otherwise.
  */
@@ -1070,15 +1034,6 @@ int
 Model_isSetName (const Model_t *m);
 
 /**
- * @return true (non-zero) if the sboTerm of this Model has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Model_isSetSBOTerm (const Model_t *m);
-
-
-/**
  * Sets the id of this Model to a copy of sid.
  */
 LIBSBML_EXTERN
@@ -1093,14 +1048,6 @@ void
 Model_setName (Model_t *m, const char *name);
 
 /**
- * Sets the sboTerm field of this Model to value.
- */
-LIBSBML_EXTERN
-void
-Model_setSBOTerm (Model_t *m, int sboTerm);
-
-
-/**
  * Unsets the id of this Model.
  */
 LIBSBML_EXTERN
@@ -1113,14 +1060,6 @@ Model_unsetId (Model_t *m);
 LIBSBML_EXTERN
 void
 Model_unsetName (Model_t *m);
-
-/**
- * Unsets the sboTerm of this Model.
- */
-LIBSBML_EXTERN
-void
-Model_unsetSBOTerm (Model_t *m);
-
 
 /**
  * Adds a copy of the given FunctionDefinition to this Model.

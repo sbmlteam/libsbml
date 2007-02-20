@@ -85,14 +85,6 @@ public:
 
 
   /**
-   * @return the sboTerm of this Delay as an integer.  If not set,
-   * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
-   * sboTerm to a zero-padded, seven digit string.
-   */
-  int getSBOTerm () const;
-
-
-  /**
    * @return true if the formula (or equivalently the math) of this
    * Delay has been set, false otherwise.
    */
@@ -105,13 +97,6 @@ public:
   bool isSetMath () const;
 
   /**
-   * @return true if the sboTerm of this Delay has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-
-  /**
    * Sets the formula of this Delay to a copy of formula.
    */
   void setFormula (const std::string& formula);
@@ -120,18 +105,6 @@ public:
    * Sets the math of this Delay to a copy of the given ASTNode.
    */
   void setMath (const ASTNode* math);
-
-
-  /**
-   * Sets the sboTerm field of this Delay to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-
-  /**
-   * Unsets the sboTerm of this Delay.
-   */
-  void unsetSBOTerm ();
 
 
   /**
@@ -202,7 +175,6 @@ protected:
   mutable std::string  mFormula;
   mutable ASTNode*     mMath;
 
-  int               mSBOTerm;
 };
 
 
@@ -266,16 +238,6 @@ const ASTNode_t *
 Delay_getMath (const Delay_t *d);
 
 /**
- * @return the sboTerm of this Delay as an integer.  If not set,
- * sboTerm will be -1.  Use SBML_sboTermToString() to convert the sboTerm
- * to a zero-padded, seven digit string.
- */
-LIBSBML_EXTERN
-int
-Delay_getSBOTerm (const Delay_t *d);
-
-
-/**
  * @return true (non-zero) if the formula (or equivalently the math) of
  * this Delay has been set, false (0) otherwise.
  */
@@ -292,15 +254,6 @@ int
 Delay_isSetMath (const Delay_t *d);
 
 /**
- * @return true (non-zero) if the substanceUnits of this Delay has
- * been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Delay_isSetSBOTerm (const Delay_t *d);
-
-
-/**
  * Sets the formula of this Delay to a copy of formula.
  */
 LIBSBML_EXTERN
@@ -313,22 +266,6 @@ Delay_setFormula (Delay_t *d, const char *formula);
 LIBSBML_EXTERN
 void
 Delay_setMath (Delay_t *d, const ASTNode_t *math);
-
-
-/**
- * Sets the sboTerm field of this Delay to value.
- */
-LIBSBML_EXTERN
-void
-Delay_setSBOTerm (Delay_t *d, int sboTerm);
-
-
-/**
- * Unsets the sboTerm of this Delay.
- */
-LIBSBML_EXTERN
-void
-Delay_unsetSBOTerm (Delay_t *d);
 
 
 END_C_DECLS
