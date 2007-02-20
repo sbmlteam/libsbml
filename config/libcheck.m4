@@ -1,57 +1,20 @@
 dnl
 dnl Filename    : libcheck.m4
-dnl Description : Autoconf macro to check for existence of libcheck library
+dnl Description : Autoconf macro to check for existence of Check library
 dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Organization: California Institute of Technology
-dnl
 dnl $Id$
 dnl $Source$
 dnl
-dnl Copyright 2004 California Institute of Technology and
-dnl Japan Science and Technology Corporation.
-dnl
-dnl This library is free software; you can redistribute it and/or modify it
-dnl under the terms of the GNU Lesser General Public License as published
-dnl by the Free Software Foundation; either version 2.1 of the License, or
-dnl any later version.
-dnl
-dnl This library is distributed in the hope that it will be useful, but
-dnl WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
-dnl MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
-dnl documentation provided hereunder is on an "as is" basis, and the
-dnl California Institute of Technology and Japan Science and Technology
-dnl Corporation have no obligations to provide maintenance, support,
-dnl updates, enhancements or modifications.  In no event shall the
-dnl California Institute of Technology or the Japan Science and Technology
-dnl Corporation be liable to any party for direct, indirect, special,
-dnl incidental or consequential damages, including lost profits, arising
-dnl out of the use of this software and its documentation, even if the
-dnl California Institute of Technology and/or Japan Science and Technology
-dnl Corporation have been advised of the possibility of such damage.  See
-dnl the GNU Lesser General Public License for more details.
-dnl
-dnl You should have received a copy of the GNU Lesser General Public License
-dnl along with this library; if not, write to the Free Software Foundation,
-dnl Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-dnl
-dnl The original code contained here was initially developed by:
-dnl
-dnl     Michael Hucka
-dnl     SBML Team
-dnl     Control and Dynamical Systems, MC 107-81
-dnl     California Institute of Technology
-dnl     Pasadena, CA, 91125, USA
-dnl
-dnl     http://www.sbml.org
-dnl     mailto:sbml-team@caltech.edu
-dnl
-dnl Contributor(s):
-dnl
+dnl Portions of this file originally came from the check 0.9.5
+dnl distribution.  I (Mike Hucka) made some modifications because we
+dnl previously had written our own libcheck.m4 and I wanted to
+dnl preserve some of the features of that one, such as the messages
+dnl it printed and the extra steps it too on MacOS X.
 
-
-dnl
-dnl Check --with-check[=PREFIX] is specified and libcheck is installed.
-dnl
+dnl AM_PATH_CHECK([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
+dnl Test for check, and define LIBCHECK_CPPFLAGS and LIBCHECK_LDFLAGS
+dnl Minimum version can be provided.
 
 AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
@@ -60,6 +23,10 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
                    [Build the test suite using libcheck (default=no)]),
     [with_libcheck=$withval],
     [with_libcheck=no])
+
+  min_check_version=ifelse([$1], ,0.9.2,$1)
+
+  AC_MSG_CHECKING(for check - version >= $min_check_version)
 
   libcheck_found=no
 
@@ -80,7 +47,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
       dnl catch it.  We do this so that Mac users are more likely to find
       dnl success even if they only type --with-check.
 
-      dnl This is a case statement in case we need to do something similar
+      dnl This is a case statement, in case we need to do something similar
       dnl for other host types in the future.
 
       case $host in
@@ -100,10 +67,12 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
     dnl AC_CHECK_LIB use particular library and include paths without
     dnl permanently resetting CPPFLAGS etc.
 
-    tmp_CPPFLAGS=$CPPFLAGS
-    tmp_LDFLAGS=$LDFLAGS
-    CPPFLAGS="$LIBCHECK_CPPFLAGS $CPPFLAGS"
+    tmp_CFLAGS="$CFLAGS"
+    tmp_LDFLAGS="$LDFLAGS"
+    tmp_LIBS="$LIBS"
+    CFLAGS="$LIBCHECK_CPPFLAGS $CFLAGS"
     LDFLAGS="$LIBCHECK_LDFLAGS $LDFLAGS"
+    LIBS="$LIBCHECK_LIBS $LIBS"
 
     AC_CHECK_HEADERS([check.h], [libcheck_found=yes], [libcheck_found=no])
 
@@ -117,9 +86,115 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
       AC_MSG_ERROR([Could not find the libcheck library.])
     fi
 
-    CPPFLAGS=$tmp_CPPFLAGS
-    LDFLAGS=$tmp_LDFLAGS
-    LIBS=$tmp_LIBS
+    rm -f conf.check-test
+    AC_RUN_IFELSE([AC_LANG_SOURCE([
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <check.h>
+
+int main ()
+{
+  int major, minor, micro;
+  char *tmp_version;
+
+  system ("touch conf.check-test");
+
+  /* HP/UX 9 writes to sscanf strings */
+  tmp_version = strdup("$min_check_version");
+  if (sscanf(tmp_version, "%d.%d.%d", &major, &minor, &micro) != 3)
+    {
+      printf("%s, bad version string\n", "$min_check_version");
+      return 1;
+    }
+    
+  if ((CHECK_MAJOR_VERSION != check_major_version) ||
+      (CHECK_MINOR_VERSION != check_minor_version) ||
+      (CHECK_MICRO_VERSION != check_micro_version))
+    {
+      printf("\n*** The Check header file (version %d.%d.%d) does not match\n",
+	     CHECK_MAJOR_VERSION, CHECK_MINOR_VERSION, CHECK_MICRO_VERSION);
+      printf("*** the Check library found (version %d.%d.%d).\n",
+	     check_major_version, check_minor_version, check_micro_version);
+      return 1;
+    }
+
+  if ((check_major_version > major) ||
+      ((check_major_version == major) && (check_minor_version > minor)) ||
+      ((check_major_version == major) && (check_minor_version == minor)
+	&& (check_micro_version >= micro)))
+    {
+      return 0;
+    }
+  else
+    {
+      printf("\n*** An old version of Check (%d.%d.%d) was found.\n",
+             check_major_version, check_minor_version, check_micro_version);
+      printf("*** You need a version of Check that's at least %d.%d.%d.\n", 
+	major, minor, micro);
+      printf("***\n"); 
+      printf("*** If you've already installed a sufficiently new version,\n");
+      printf("*** this error probably means that the wrong copy of the\n");
+      printf("*** Check library and header file are being found.  Re-run\n");
+      printf("*** configure with the --with-check=PATH option to specify\n");
+      printf("*** the prefix where the correct version is installed.\n");
+    }
+
+  return 1;
+}
+])], , no_check=yes)
+
+    CFLAGS="$tmp_CFLAGS"
+    LDFLAGS="$tmp_LDFLAGS"
+    LIBS="$tmp_LIBS"
+
+    if test "x$no_check" = x ; then
+      ifelse([$2], , :, [$2])
+    else
+      if test -f conf.check-test ; then
+        :
+      else
+        echo "*** Could not run Check test program, trying to find out why..."
+
+	CFLAGS="$LIBCHECK_CPPFLAGS $CFLAGS"
+	LDFLAGS="$LIBCHECK_LDFLAGS $LDFLAGS"
+	LIBS="$LIBCHECK_LIBS $LIBS"
+
+        AC_TRY_LINK([
+#include <stdio.h>
+#include <stdlib.h>
+#include <check.h>
+], ,  [ echo "*** The test program compiled, but did not run.  This usually"
+        echo "*** means that the run-time linker is not finding libcheck.  You"
+        echo "*** will need to set your LD_LIBRARY_PATH environment variable,"
+        echo "*** or edit /etc/ld.so.conf to point to the installed location."
+        echo "*** Also, make sure you have run ldconfig if that is required"
+	echo "*** on your operating system."
+	echo "***"
+        echo "*** If you have an old version of Check installed, it is best"
+        echo "*** to remove it, although you may also be able to get things"
+        echo "*** to work by modifying you value of LD_LIBRARY_PATH."],
+
+      [ echo "*** The test program failed to compile or link. See the file"
+        echo "*** 'config.log' for more information about what happened." ])
+      
+	CFLAGS="$tmp_CFLAGS"
+    	LDFLAGS="$tmp_LDFLAGS"
+    	LIBS="$tmp_LIBS"
+
+      fi
+
+      tmp_CFLAGS=""
+      tmp_LDFLAGS=""
+      tmp_LIBS=""
+
+      rm -f conf.check-test
+      ifelse([$3], , AC_MSG_ERROR([check not found]), [$3])
+    fi
+
+    CFLAGS="$tmp_CFLAGS"
+    LDFLAGS="$tmp_LDFLAGS"
+    LIBS="$tmp_LIBS"
 
     AC_LANG_POP(C)
 
