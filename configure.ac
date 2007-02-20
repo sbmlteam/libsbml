@@ -185,7 +185,7 @@ dnl Make sure to test for expat before xerces, because xerces is the default.
 
 CONFIG_LIB_EXPAT
 CONFIG_LIB_XERCES
-CONFIG_LIB_LIBCHECK
+CONFIG_LIB_LIBCHECK(0.9.2)
 
 
 dnl ---------------------------------------------------------------------------
@@ -246,8 +246,6 @@ AC_CONFIG_FILES([src/Makefile])
 
 AC_CONFIG_FILES([src/common/Makefile])
 
-AC_CONFIG_FILES([src/annotation/Makefile])
-
 AC_CONFIG_FILES([src/bindings/Makefile])
 
 AC_CONFIG_FILES([src/bindings/python/Makefile])
@@ -267,6 +265,8 @@ AC_CONFIG_FILES([src/bindings/lisp/libsbml-config.lisp])
 AC_CONFIG_FILES([src/bindings/lisp/build.lisp])
 dnl logical pathnames for installed version
 AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
+
+AC_CONFIG_FILES([src/annotation/Makefile])
 
 AC_CONFIG_FILES([src/math/Makefile])
 AC_CONFIG_FILES([src/math/test/Makefile])
