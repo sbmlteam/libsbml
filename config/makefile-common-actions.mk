@@ -632,7 +632,10 @@ $(TOP_SRCDIR)/config/makefile-common-vars.mk: \
 $(TOP_SRCDIR)/config.status: $(TOP_SRCDIR)/configure $(TOP_SRCDIR)/VERSION.txt
 	$(SHELL) ./config.status --recheck
 
-$(TOP_SRCDIR)/configure: $(TOP_SRCDIR)/configure.ac $(ACLOCAL_M4)
+$(TOP_SRCDIR)/configure: \
+	     $(TOP_SRCDIR)/configure.ac \
+	     $(TOP_SRCDIR)/VERSION.txt \
+	     $(ACLOCAL_M4)
 	cd $(TOP_SRCDIR) && $(AUTOCONF)
 	cd $(TOP_SRCDIR) && $(SHELL) ./config.status --recheck
 
