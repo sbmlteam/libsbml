@@ -2644,6 +2644,17 @@ SBase_getName (const SBase_t *sb)
 
 
 /**
+ * @return the sboTerm of this SBML object.
+ */
+LIBSBML_EXTERN
+int
+SBase_getSBOTerm (const SBase_t *sb)
+{
+  return sb->getSBOTerm();
+}
+
+
+/**
  * @return 1 if the metaid of this SBML object has been set, 0 otherwise.
  */
 LIBSBML_EXTERN
@@ -2700,6 +2711,18 @@ SBase_isSetAnnotation (const SBase_t *sb)
 
 
 /**
+ * @return 1 if the sboTerm of this SBML object has been set, 0
+ * otherwise.
+ */
+LIBSBML_EXTERN
+int
+SBase_isSetSBOTerm (const SBase_t *sb)
+{
+  return static_cast<int>( sb->isSetSBOTerm() );
+}
+
+
+/**
  * Sets the metaid field of the given SBML object to a copy of metaid.
  */
 LIBSBML_EXTERN
@@ -2729,6 +2752,17 @@ void
 SBase_setName (SBase_t *sb, const char *name)
 {
   (name == NULL) ? sb->unsetName() : sb->setName(name);
+}
+
+
+/**
+ * Sets the sboterm field of the given SBML object to value.
+ */
+LIBSBML_EXTERN
+void
+SBase_setSBOTerm (SBase_t *sb, int value)
+{
+  sb->setSBOTerm(value);
 }
 
 
@@ -2784,6 +2818,17 @@ void
 SBase_unsetAnnotation (SBase_t *sb)
 {
   sb->unsetAnnotation();
+}
+
+
+/**
+ * Unsets the annotation of this SBML object.
+ */
+LIBSBML_EXTERN
+void
+SBase_unsetSBOTerm (SBase_t *sb)
+{
+  sb->unsetSBOTerm();
 }
 
 

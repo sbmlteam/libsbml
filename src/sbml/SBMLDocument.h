@@ -145,6 +145,26 @@ public:
 
 
   /**
+   * Performs a set of semantic consistency checks on the document to
+   * establish whether it is compatible with L2v1 and can be converted.
+   * Query the results by calling getNumErrors() and getError().
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkL2v1Compatibility ();
+
+
+  /**
+   * Performs a set of semantic consistency checks on the document to
+   * establish whether it is compatible with L2v1 and can be converted.
+   * Query the results by calling getNumErrors() and getError().
+   *
+   * @return the number of failed checks (errors) encountered.
+   */
+  unsigned int checkL2v2Compatibility ();
+
+
+  /**
    * @return the nth error encountered during the parse of this
    * SBMLDocument or NULL if n > getNumErrors() - 1.
    */

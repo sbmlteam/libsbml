@@ -32,6 +32,8 @@
 
 #include <sbml/validator/ConsistencyValidator.h>
 #include <sbml/validator/L1CompatibilityValidator.h>
+#include <sbml/validator/L2v1CompatibilityValidator.h>
+#include <sbml/validator/L2v2CompatibilityValidator.h>
 
 #include "Model.h"
 
@@ -169,9 +171,21 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     {
       mModel->convertToL2();
     }
-    else if (mLevel == 2 && level == 1 && checkL1Compatibility() == 0)
+    else if (mLevel == 2)
     {
-      mModel->convertToL1();
+      if (level == 1 && checkL1Compatibility() == 0)
+      {
+        mModel->convertToL1();
+      }
+      /* check for conversion between L2 versions */
+      else if (mVersion > 1 && version == 1)
+      {
+        checkL2v1Compatibility();
+      }
+      else if (mVersion == 3 && version == 2)
+      {
+        checkL2v2Compatibility();
+      }
     }
   }
 
@@ -276,6 +290,50 @@ SBMLDocument::checkL1Compatibility ()
   if (mModel == 0) return 0;
 
   L1CompatibilityValidator validator;
+  validator.init();
+
+  unsigned int nerrors = validator.validate(*this);
+  if (nerrors) mErrorLog.add( validator.getMessages() );
+
+  return nerrors;
+}
+
+
+/**
+ * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L2v1 and can be converted.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLDocument::checkL2v1Compatibility ()
+{
+  if (mModel == 0) return 0;
+
+  L2v1CompatibilityValidator validator;
+  validator.init();
+
+  unsigned int nerrors = validator.validate(*this);
+  if (nerrors) mErrorLog.add( validator.getMessages() );
+
+  return nerrors;
+}
+
+
+/**
+ * Performs a set of semantic consistency checks on the document to establish
+ * whether it is compatible with L2v2 and can be converted.  Query
+ * the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+unsigned int
+SBMLDocument::checkL2v2Compatibility ()
+{
+  if (mModel == 0) return 0;
+
+  L2v2CompatibilityValidator validator;
   validator.init();
 
   unsigned int nerrors = validator.validate(*this);

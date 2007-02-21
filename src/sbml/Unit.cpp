@@ -27,6 +27,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include "SBML.h"
 #include "SBMLVisitor.h"
 #include "SBMLDocument.h"
 #include "Unit.h"
@@ -676,6 +677,9 @@ Unit::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
 
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
   //
   // kind: UnitKind  (L1v1, L1v2, L2v1, L2v2)
   //
@@ -695,7 +699,7 @@ Unit::readAttributes (const XMLAttributes& attributes)
   //
   attributes.readInto("scale", mScale);
 
-  if (getLevel() == 2)
+  if (level == 2)
   {
     //
     // multiplier  { use="optional" default="1" }  (L2v1, L2v2)
@@ -706,6 +710,12 @@ Unit::readAttributes (const XMLAttributes& attributes)
     // offset  { use="optional" default="0" }  (L2v1)
     //
     attributes.readInto("offset", mOffset);
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v2)
+    //
+    if (version == 3) 
+        mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
   }
 
   //
@@ -726,6 +736,9 @@ Unit::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
   //
   // kind: UnitKind  { use="required" }  (L1v1, L1v2, L2v1, L2v2)
   //
@@ -742,7 +755,7 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   //
   if (mScale != 0) stream.writeAttribute("scale", mScale);
 
-  if (getLevel() == 2)
+  if (level == 2)
   {
     //
     // multiplier  { use="optional" default="1" }  (L2v1, L2v2)
@@ -753,6 +766,12 @@ Unit::writeAttributes (XMLOutputStream& stream) const
     // offset  { use="optional" default="0" }  (L2v1, L2v2)
     //
     if (mOffset != 0) stream.writeAttribute("offset", mOffset);
+
+    //
+    // sboTerm: SBOTerm { use="optional" }  (L2v3)
+    //
+    if (version == 3) 
+        SBML::writeSBOTerm(stream, mSBOTerm);
   }
 
   //
