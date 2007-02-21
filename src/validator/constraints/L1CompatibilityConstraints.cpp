@@ -36,7 +36,7 @@
 using namespace std;
 
 
-START_CONSTRAINT (2000, Model, x)
+START_CONSTRAINT (91001, Model, x)
 {
   msg =
     "A Model with Events cannot be represented in Level 1.";
@@ -46,10 +46,63 @@ START_CONSTRAINT (2000, Model, x)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (2001, Compartment, c)
+START_CONSTRAINT (91002, Model, x)
 {
   msg =
-    "Compartment with spatialDimensions other than three cannot be "
+    "Conversion of a model with FunctionDefinitions to Level 1 is not yet "
+    "supported.";
+
+  inv( m.getNumFunctionDefinitions() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91003, Model, x)
+{
+  msg =
+    "Conversion of a model with Constraints to Level 1 is not yet "
+    "supported.";
+
+  inv( m.getNumConstraints() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91004, Model, x)
+{
+  msg =
+    "Conversion of a model with InitialAssignments to Level 1 is not yet "
+    "supported.";
+
+  inv( m.getNumInitialAssignments() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91005, Model, x)
+{
+  msg =
+    "SpeciesType information is not represented in Level 1.";
+
+  inv( m.getNumSpeciesTypes() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91006, Model, x)
+{
+  msg =
+    "CompartmentType information is not represented in Level 1.";
+
+  inv( m.getNumCompartmentTypes() == 0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91007, Compartment, c)
+{
+  msg =
+    "A Compartment with 'spatialDimensions' not equal to 3 cannot be "
     "represented in Level 1.";
 
   inv( c.getSpatialDimensions() == 3 );
@@ -57,23 +110,7 @@ START_CONSTRAINT (2001, Compartment, c)
 END_CONSTRAINT
 
 
-/**
- * Taken out as strictly speaking not true L1 models will not list
- * modifiers within a reaction but they are present in the ListOfSpecies
- *
-START_CONSTRAINT (2002, Reaction, r)
-{
-  msg =
-    "A Reaction containing modifiers "
-  "cannot be represented in Level 1.";
-
-  inv( r.getNumModifiers() == 0);
-}
-END_CONSTRAINT
-*/
-
-
-START_CONSTRAINT (2003, SpeciesReference, sr) 
+START_CONSTRAINT (91008, SpeciesReference, sr) 
 {
   msg =
     "A SpeciesReference containing a non-integer or non-rational "
@@ -90,32 +127,7 @@ START_CONSTRAINT (2003, SpeciesReference, sr)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (2004, Unit, u)
-{
-  msg =
-    "A Unit containing multipliers or offsets cannot be represented in "
-    "Level 1.";
-
-
-  inv( u.getMultiplier() == 1.0 );
-  inv( u.getOffset() == 0.0 );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (2005, Species, s)
-{
-  msg =
-    "A Species that does not identify its compartment cannot be "
-    "represented in Level 1.";
-
-
-  inv( s.isSetCompartment() );
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (2006, SpeciesReference, sr)
+START_CONSTRAINT (91009, SpeciesReference, sr)
 {
   msg =
     "A SpeciesReference containing a non-integer 'stoichiometry' subelement "
@@ -128,12 +140,26 @@ START_CONSTRAINT (2006, SpeciesReference, sr)
 END_CONSTRAINT
 
 
-START_CONSTRAINT (2007, Model, x)
+START_CONSTRAINT (91010, Unit, u)
 {
   msg =
-    "Conversion of a model with FunctionDefinitions to Level 1 is not yet "
-    "supported.";
+    "A Unit containing multipliers or offsets cannot be represented in "
+    "Level 1.";
 
-  inv( m.getNumFunctionDefinitions() == 0 );
+
+  inv( u.getMultiplier() == 1.0 );
+  inv( u.getOffset() == 0.0 );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (91011, Species, s)
+{
+  msg =
+    "A Species that does not identify its compartment cannot be "
+    "represented in Level 1.";
+
+
+  inv( s.isSetCompartment() );
 }
 END_CONSTRAINT

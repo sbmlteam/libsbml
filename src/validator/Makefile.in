@@ -77,6 +77,8 @@ headers = \
   Constraint.h               \
   ConstraintMacros.h         \
   L1CompatibilityValidator.h \
+  L2v1CompatibilityValidator.h \
+  L2v2CompatibilityValidator.h \
   Validator.h
 
 header_inst_prefix = validator
@@ -85,6 +87,8 @@ sources = \
   ConsistencyValidator.cpp     \
   Constraint.cpp               \
   L1CompatibilityValidator.cpp \
+  L2v1CompatibilityValidator.cpp \
+  L2v2CompatibilityValidator.cpp \
   Validator.cpp
 
 extra_CPPFLAGS = -I..
