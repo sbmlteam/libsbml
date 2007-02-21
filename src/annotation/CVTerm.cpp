@@ -219,4 +219,15 @@ CVTerm::addResource(std::string resource)
   mResources->addResource("rdf:resource", resource);
 }
 
+#ifdef USE_LAYOUT
+
+CVTerm* CVTerm::clone() const
+{
+    CVTerm* term=new CVTerm(*this);
+    term->mResources=new XMLAttributes(*this->mResources);
+    return term;
+}
+
+#endif // USE_LAYOUT
+
 

@@ -245,6 +245,11 @@ public:
   */
   Date * getModifiedDate();
 
+#ifdef USE_LAYOUT
+
+ModelHistory* clone() const;
+
+#endif // USE_LAYOUT
 
 protected:
 

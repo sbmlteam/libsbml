@@ -130,6 +130,12 @@ public:
    */
   void addResource(std::string resource);
 
+#ifdef USE_LAYOUT
+
+  CVTerm* clone() const; 
+
+#endif // USE_LAYOUT
+
 protected:
 
   XMLAttributes * mResources;

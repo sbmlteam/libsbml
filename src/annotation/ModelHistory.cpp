@@ -609,3 +609,25 @@ ModelHistory::getModifiedDate()
 {
   return mModified;
 }
+
+
+#ifdef USE_LAYOUT
+
+ModelHistory* ModelHistory::clone() const
+{
+    ModelHistory* mh=new ModelHistory();
+    delete mh->mCreated;
+    delete mh->mModified;
+    mh->mCreated=new Date(*this->mCreated);
+    mh->mModified=new Date(*this->mModified);
+    unsigned int i,iMax=this->mCreators->getSize();
+    for(i=0;i<iMax;++i)
+    {
+        mh->mCreators->add(new ModelCreator(*static_cast<ModelCreator*>(this->mCreators->get(i))));
+    }
+    return mh;
+}
+
+#endif // USE_LAYOUT
+
+
