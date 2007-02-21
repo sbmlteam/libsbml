@@ -62,7 +62,7 @@
    
 BEGIN_C_DECLS
 
-#define NOTES       "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n <p>Testnote</p>\n</body>"
+#define NOTES       "<notes><body xmlns=\"http://www.w3.org/1999/xhtml\">\n <p>Testnote</p>\n</body></notes>"
 
 
 static void
@@ -3020,6 +3020,7 @@ START_TEST (test_LayoutCreation_Dimensions_skipOptional)
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </layout>\n"
       "</listOfLayouts>\n"
+      "</annotation>"
     ;
 
 

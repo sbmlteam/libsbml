@@ -93,6 +93,11 @@ public:
                double x2, double y2, double z2);
 
   /**
+   * Copy constructor.
+   */
+  CubicBezier(const CubicBezier& orig);
+
+  /**
    * Creates a CubicBezier with the given points and returns the pointer.
    */
   
@@ -116,6 +121,12 @@ public:
    */ 
   
   virtual ~CubicBezier ();
+
+  /**
+   * Assignment operator
+   */
+  CubicBezier& operator=(const CubicBezier& orig);
+
 
 
   /**

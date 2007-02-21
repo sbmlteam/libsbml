@@ -124,6 +124,21 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node)
             {
                 this->mCurve.addCurveSegment(pTmpCurve->getCurveSegment(i));
             }
+            // we also have to copy mAnnotations, mNotes, mCVTerms and mHistory
+            if(pTmpCurve->isSetNotes()) this->mCurve.setNotes(new XMLNode(*pTmpCurve->getNotes()));
+            if(pTmpCurve->isSetAnnotation()) this->mCurve.setAnnotation(new XMLNode(*pTmpCurve->getAnnotation()));
+            if(pTmpCurve->getCVTerms()!=NULL)
+            {
+              iMax=pTmpCurve->getCVTerms()->getSize(); 
+              for(i=0;i<iMax;++i)
+              {
+                this->mCurve.getCVTerms()->add(static_cast<CVTerm*>(pTmpCurve->getCVTerms()->get(i))->clone());
+              }
+            }
+            if(pTmpCurve->getModelHistory()!=NULL)
+            {
+              this->mCurve.setModelHistory(pTmpCurve->getModelHistory()->clone());
+            }
             delete pTmpCurve;
         }
         else if(childName=="listOfSpeciesReferenceGlyphs")

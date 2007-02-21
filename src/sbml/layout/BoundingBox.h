@@ -79,7 +79,12 @@ public:
    */ 
   
   BoundingBox ();
-        
+  
+  /**
+   * Copy constructor.
+   */
+  BoundingBox(const BoundingBox& orig); 
+
   /**
    * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to
    * a copy of the given string.
@@ -121,6 +126,11 @@ public:
   
   virtual ~BoundingBox ();
         
+  /**
+   * Assignment operator
+   */
+  BoundingBox& operator=(const BoundingBox& orig);
+
   /**
    * Sets the id to a copy of the given string.
    */  

@@ -63,6 +63,89 @@ Point::Point() : SBase(), mXOffset(0.0), mYOffset(0.0), mZOffset(0.0),mElementNa
 {
 }
 
+/**
+ * Copy constructor.
+ */
+Point::Point(const Point& orig):SBase()
+{
+    this->mXOffset=orig.mXOffset;
+    this->mYOffset=orig.mYOffset;
+    this->mZOffset=orig.mZOffset;
+    this->mElementName=orig.mElementName;
+
+    // attributes of SBase
+    this->mId=orig.mId;
+    this->mName=orig.mName;
+    this->mMetaId=orig.mMetaId;
+    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<Point&>(orig).getNotes());
+    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<Point&>(orig).mAnnotation);
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
+    }
+    if(orig.mHistory)
+    {
+      this->mHistory=orig.mHistory->clone();
+    }
+}
+
+Point& Point::operator=(const Point& orig)
+{
+    this->mXOffset=orig.mXOffset;
+    this->mYOffset=orig.mYOffset;
+    this->mZOffset=orig.mZOffset;
+    this->mElementName=orig.mElementName;
+
+    // attributes of SBase
+    this->mId=orig.mId;
+    this->mName=orig.mName;
+    this->mMetaId=orig.mMetaId;
+    delete this->mNotes;
+    this->mNotes=NULL;
+    if(orig.mNotes)
+    {
+        this->mNotes=new XMLNode(*const_cast<Point&>(orig).getNotes());
+    }
+    delete this->mAnnotation;
+    this->mAnnotation=NULL;
+    if(orig.mAnnotation)
+    {
+        this->mAnnotation=new XMLNode(*const_cast<Point&>(orig).mAnnotation);
+    }
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+    delete this->mCVTerms;
+    this->mCVTerms=NULL;
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
+    }
+    delete this->mHistory;
+    this->mHistory=NULL;
+    if(orig.mHistory)
+    {
+      this->mHistory=orig.mHistory->clone();
+    }
+    return *this;
+}
+
 
 /**
  * Creates a new point with the given ccordinates.

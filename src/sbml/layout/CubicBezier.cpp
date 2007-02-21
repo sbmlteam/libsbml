@@ -92,6 +92,88 @@ CubicBezier::CubicBezier (double x1, double y1, double z1,
   this->mBasePoint2.setElementName("basePoint2");
 }
 
+/**
+ * Copy constructor.
+ */
+CubicBezier::CubicBezier(const CubicBezier& orig):LineSegment()
+{
+    this->mId=orig.mId;
+    this->mStartPoint=orig.mStartPoint;
+    this->mEndPoint=orig.mEndPoint;
+    this->mBasePoint1=orig.mBasePoint1;
+    this->mBasePoint2=orig.mBasePoint2;
+    // attributes of SBase
+    this->mId=orig.mId;
+    this->mName=orig.mName;
+    this->mMetaId=orig.mMetaId;
+    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<CubicBezier&>(orig).getNotes());
+    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<CubicBezier&>(orig).mAnnotation);
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
+    }
+    if(orig.mHistory)
+    {
+      this->mHistory=orig.mHistory->clone();
+    }
+}
+
+
+/**
+ * Assignment operator.
+ */
+CubicBezier& CubicBezier::operator=(const CubicBezier& orig)
+{
+    this->mId=orig.mId;
+    this->mStartPoint=orig.mStartPoint;
+    this->mEndPoint=orig.mEndPoint;
+    this->mBasePoint1=orig.mBasePoint1;
+    this->mBasePoint2=orig.mBasePoint2;
+    // attributes of SBase
+    this->mId=orig.mId;
+    this->mName=orig.mName;
+    this->mMetaId=orig.mMetaId;
+    delete this->mNotes;
+    this->mNotes=NULL;
+    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<CubicBezier&>(orig).getNotes());
+    delete this->mAnnotation;
+    this->mAnnotation=NULL;
+    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<CubicBezier&>(orig).mAnnotation);
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+    delete this->mCVTerms;
+    this->mCVTerms=NULL;
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
+    }
+    delete this->mHistory;
+    this->mHistory=NULL;
+    if(orig.mHistory)
+    {
+      this->mHistory=orig.mHistory->clone();
+    }
+    return *this;
+}
+
+
 
 /**
  * Makes a line from a CubicBezier by setting both base points into the

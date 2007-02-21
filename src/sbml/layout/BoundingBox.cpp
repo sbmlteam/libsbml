@@ -64,6 +64,83 @@ BoundingBox::BoundingBox() : SBase()
 {
 }
 
+/**
+ * Copy constructor.
+ */
+BoundingBox::BoundingBox(const BoundingBox& orig):SBase()
+{
+    this->mId=orig.mId;
+    this->mPosition=orig.mPosition;
+    this->mDimensions=orig.mDimensions;
+    // attributes of SBase
+    this->mId=orig.mId;
+    this->mName=orig.mName;
+    this->mMetaId=orig.mMetaId;
+    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<BoundingBox&>(orig).getNotes());
+    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<BoundingBox&>(orig).mAnnotation);
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
+    }
+    if(orig.mHistory)
+    {
+      this->mHistory=orig.mHistory->clone();
+    }
+}
+
+
+/**
+ * Assignment operator
+ */
+BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
+{
+    this->mId=orig.mId;
+    this->mPosition=orig.mPosition;
+    this->mDimensions=orig.mDimensions;
+    // attributes of SBase
+    this->mId=orig.mId;
+    this->mName=orig.mName;
+    this->mMetaId=orig.mMetaId;
+    delete this->mNotes;
+    this->mNotes=NULL;
+    if(orig.mNotes) this->mNotes=new XMLNode(*const_cast<BoundingBox&>(orig).getNotes());
+    delete this->mAnnotation;
+    this->mAnnotation=NULL;
+    if(orig.mAnnotation) this->mAnnotation=new XMLNode(*const_cast<BoundingBox&>(orig).mAnnotation);
+    this->mSBML=orig.mSBML;
+    this->mSBOTerm=orig.mSBOTerm;
+    this->mLine=orig.mLine;
+    this->mColumn=orig.mColumn;
+    delete this->mCVTerms;
+    this->mCVTerms=NULL;
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms=new List();
+      unsigned int i,iMax=orig.mCVTerms->getSize();
+      for(i=0;i<iMax;++i)
+      {
+        this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
+    }
+    delete this->mHistory;
+    this->mHistory=NULL;
+    if(orig.mHistory)
+    {
+      this->mHistory=orig.mHistory->clone();
+    }
+    return *this;
+}
+
 
 /**
  * Constructor set position and dimensions to (0.0,0.0,0.0) and the id to a
@@ -147,11 +224,11 @@ BoundingBox::BoundingBox(const XMLNode& node)
         }
         else if(childName=="annotation")
         {
-            this->mAnnotation=new XMLNode(node);
+            this->mAnnotation=new XMLNode(*child);
         }
         else if(childName=="notes")
         {
-            this->mNotes=new XMLNode(node);
+            this->mNotes=new XMLNode(*child);
         }
         else
         {
@@ -803,4 +880,6 @@ BoundingBox_clone (const BoundingBox_t *m)
 {
   return static_cast<BoundingBox*>( m->clone() );
 }
+
+
 

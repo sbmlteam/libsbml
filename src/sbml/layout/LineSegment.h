@@ -85,6 +85,10 @@ public:
   
   LineSegment (double x1, double y1, double x2, double y2);
 
+  /**
+   * Copy constructor.
+   */
+  LineSegment(const LineSegment& orig);
 
   /**
    * Creates a new line segment with the given 3D coordinates.
@@ -109,6 +113,11 @@ public:
    */ 
   
   virtual ~LineSegment ();
+
+  /**
+   * Assignment operator
+   */
+  LineSegment& operator=(const LineSegment& orig);
 
 
   /**

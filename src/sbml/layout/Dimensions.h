@@ -76,6 +76,11 @@ public:
   Dimensions ();
 
   /**
+   * Copy constructor.
+   */
+  Dimensions(const Dimensions& orig);
+
+  /**
    * Creates a new Dimensions object with the given sizes.
    */ 
   
@@ -91,6 +96,11 @@ public:
    */ 
   
   virtual ~Dimensions ();
+
+  /**
+   * Assignment operator
+   */
+  Dimensions& operator=(const Dimensions& orig);
 
   /**
    * Returns the width.

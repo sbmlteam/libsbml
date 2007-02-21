@@ -77,6 +77,11 @@ public:
   Point ();
         
   /**
+   * Copy constructor.
+   */
+  Point(const Point& orig);
+  
+  /**
    * Creates a new point with the given ccordinates.
    */ 
   
@@ -93,6 +98,12 @@ public:
    */ 
   
   virtual ~Point ();
+
+
+  /**
+   * Assignment operator
+   */
+  Point& operator=(const Point& orig);
 
 
   /**

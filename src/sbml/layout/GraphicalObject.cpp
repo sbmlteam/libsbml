@@ -147,11 +147,11 @@ GraphicalObject::GraphicalObject(const XMLNode& node)
         }
         else if(childName=="annotation")
         {
-            this->mAnnotation=new XMLNode(node);
+            this->mAnnotation=new XMLNode(*child);
         }
         else if(childName=="notes")
         {
-            this->mNotes=new XMLNode(node);
+            this->mNotes=new XMLNode(*child);
         }
         else
         {
