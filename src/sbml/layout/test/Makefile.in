@@ -79,9 +79,10 @@ test_sources =                   \
   TestSpeciesGlyph.cpp           \
   TestSpeciesReferenceGlyph.cpp  \
   TestTextGlyph.cpp              \
+  TestLayoutCreation.cpp         \
+  utility.cpp                    \
   TestRunner.c
 #  TestLayoutFormatter.cpp        \
-#  TestLayoutHandler.cpp          \
 
 extra_CPPFLAGS = -I.. -I../../..
 
