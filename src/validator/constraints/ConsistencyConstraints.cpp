@@ -1486,7 +1486,22 @@ END_CONSTRAINT
 EXTERN_CONSTRAINT(20610, SpeciesReactionOrRule)
 
 
-// 20611 missing as it is a repeat of 21112
+START_CONSTRAINT (20611, SpeciesReference, sr)
+{
+  msg =
+    "A Species having boundaryCondition=\"false\" cannot appear as a "
+    "reactant or product in any reaction if that Species also has "
+    "constant=\"true\". (References: L2V1 Section 4.6.5; L2V2 Section 4.8.6.)";
+
+  /* doesnt apply if the SpeciesReference is a modifier */
+  pre(!sr.isModifier());
+
+  const Species* s = m.getSpecies( sr.getSpecies() );
+
+  pre( s != NULL );
+  inv( ! (s->getConstant() == true && s->getBoundaryCondition() == false) ); 
+}
+END_CONSTRAINT
 
 
 START_CONSTRAINT (20612, Species, s)
@@ -1719,7 +1734,7 @@ START_CONSTRAINT (21111, SpeciesReference, sr)
 }
 END_CONSTRAINT
 
-
+/* agreed to lose this rule and keep its repeat 20611
 START_CONSTRAINT (21112, SpeciesReference, sr)
 {
   msg =
@@ -1728,7 +1743,7 @@ START_CONSTRAINT (21112, SpeciesReference, sr)
     "'true' and a 'boundaryCondition' field value of 'false'. (References: "
     "L2V1 Section 4.6.5; L2V2 Section 4.8.6.)";
 
-  /* doesnt apply if the SpeciesReference is a modifier */
+  /* doesnt apply if the SpeciesReference is a modifier 
   pre(!sr.isModifier());
 
   const Species* s = m.getSpecies( sr.getSpecies() );
@@ -1737,7 +1752,7 @@ START_CONSTRAINT (21112, SpeciesReference, sr)
   inv( ! (s->getConstant() == true && s->getBoundaryCondition() == false) ); 
 }
 END_CONSTRAINT
-
+*/
 
 START_CONSTRAINT (21113, SpeciesReference, sr)
 {
@@ -1761,7 +1776,7 @@ EXTERN_CONSTRAINT(21121, KineticLawVars)
 
 
 // 21122: ordering - caught at read
-// 21123: non empty list - TO DO
+// 21123: non empty list - caught at read
 
 
 START_CONSTRAINT (21124, KineticLaw, kl)
@@ -1830,16 +1845,7 @@ START_CONSTRAINT (21201, Event, e)
 END_CONSTRAINT
 
 
-//START_CONSTRAINT (21202, Event, e)
-//{
-//  msg =
-//    "An <event> 'trigger' expression must evaluate to a value of type "
-//    "'boolean'. (References: L2V1 Section 4.10.2; L2V2 Section 4.14.)";
-//
-//  pre( e.isSetTrigger() );
-//  inv( m.isBoolean( e.getTrigger() ) );
-//}
-//END_CONSTRAINT
+
 START_CONSTRAINT (21202, Trigger, t)
 {
   msg =
@@ -2074,17 +2080,18 @@ START_CONSTRAINT(10707, Reaction, r)
 {
   msg = 
     "The value of the sboTerm field on a Reaction must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a modeling framework defined "
-    "in SBO (i.e., terms derived from SBO:0000004, \"modeling framework\"). "
+    "(http://www.biomodels.net/SBO/) referring to an event defined "
+    "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
     "(References: L2V2 Section 4.13.1.)";
 
+  /* change to event */
   pre(r.isSetSBOTerm());
 
-  inv(SBML::isModellingFramework(r.getSBOTerm()));
+  inv(SBML::isEvent(r.getSBOTerm()));
 }
 END_CONSTRAINT
 
-
+/*
 START_CONSTRAINT(10708, Reaction, r)
 {
   msg = 
@@ -2100,7 +2107,7 @@ START_CONSTRAINT(10708, Reaction, r)
   inv(m.getSBOTerm() == r.getSBOTerm());
 }
 END_CONSTRAINT
-
+*/
 
 START_CONSTRAINT(10709, SpeciesReference, sr)
 {
@@ -2147,13 +2154,13 @@ START_CONSTRAINT(10711, Event, e)
 {
   msg = 
     "The value of the sboTerm field on an Event must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
+    "(http://www.biomodels.net/SBO/) referring to an event defined in SBO "
+    "(i.e., terms derived from SBO:0000231, \"event\"). "
     "(References: L2V2 Section 4.14.1.)";
-
+ 
   pre(e.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(e.getSBOTerm()));
+  inv(SBML::isEvent(e.getSBOTerm()));
 }
 END_CONSTRAINT
 
