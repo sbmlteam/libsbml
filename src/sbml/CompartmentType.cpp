@@ -173,7 +173,7 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 3) 
+  if (this->getLevel() == 2 && this->getVersion() == 3) 
     mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
@@ -200,7 +200,7 @@ CompartmentType::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (level == 2 && version == 3) 
+  if (this->getLevel() == 2 && this->getVersion() == 3) 
     SBML::writeSBOTerm(stream, mSBOTerm);
 }
 

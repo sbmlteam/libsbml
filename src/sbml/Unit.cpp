@@ -30,7 +30,7 @@
 #include "SBMLVisitor.h"
 #include "SBMLDocument.h"
 #include "Unit.h"
-
+#include <sbml/SBML.h>
 
 using namespace std;
 
@@ -711,7 +711,7 @@ Unit::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && version == 3) 
+  if (this->getLevel() == 2 && this->getVersion() == 3) 
     mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
@@ -758,7 +758,7 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (level == 2 && version == 3) 
+  if (this->getLevel() == 2 && this->getVersion() == 3) 
     SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
