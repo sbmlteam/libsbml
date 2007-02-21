@@ -27,6 +27,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include "SBML.h"
 #include "SBMLVisitor.h"
 #include "SBMLDocument.h"
 #include "Model.h"
@@ -160,6 +161,9 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
 
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
   //
   // id: SId  { use="required" }  (L2v2)
   //
@@ -173,7 +177,7 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (this->getLevel() == 2 && this->getVersion() == 3) 
+  if (level == 2 && version == 3) 
     mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
@@ -188,6 +192,9 @@ SpeciesType::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
   //
   // id: SId  { use="required" }  (L2v2)
   //
@@ -201,7 +208,7 @@ SpeciesType::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (this->getLevel() == 2 && this->getVersion() == 3) 
+  if (level == 2 && version == 3) 
     SBML::writeSBOTerm(stream, mSBOTerm);
 }
 

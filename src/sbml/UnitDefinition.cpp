@@ -26,6 +26,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include "SBML.h"
 #include "SBMLVisitor.h"
 #include "SBMLDocument.h"
 #include "Unit.h"
@@ -421,6 +422,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   SBase::readAttributes(attributes);
 
   const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
@@ -436,7 +438,7 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (level == 2 && this->getVersion() == 3) 
+  if (level == 2 && version == 3) 
     mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
@@ -452,6 +454,7 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream) const
   SBase::writeAttributes(stream);
 
   const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
@@ -468,7 +471,7 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream) const
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
-  if (level == 2 && this->getVersion() == 3) 
+  if (level == 2 && version == 3) 
     SBML::writeSBOTerm(stream, mSBOTerm);
 }
 

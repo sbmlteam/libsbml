@@ -308,10 +308,13 @@ Constraint::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
 
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (this->getLevel() == 2 && (this->getVersion() == 2 || this->getVersion() == 3)) 
+  if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
 }
 
@@ -326,10 +329,13 @@ Constraint::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
-  if (this->getLevel() == 2 && (this->getVersion() == 2 || this->getVersion() == 3)) 
+  if (level == 2 && (version == 2 || version == 3)) 
     SBML::writeSBOTerm(stream, mSBOTerm);
 }
 
