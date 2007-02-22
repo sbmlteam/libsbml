@@ -273,7 +273,7 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
    * not report a parse error
    */
 
-#if ((defined(WIN32) && defined(USE_XERCES)) || (defined(CYGWIN) && ! defined(USE_EXPAT)))
+#if ((defined(USE_XERCES)) || (defined(CYGWIN) && ! defined(USE_EXPAT)))
   if (error == 5)
   {
     add( XMLError(error, msg, XMLError::Error, "", 1, 1));

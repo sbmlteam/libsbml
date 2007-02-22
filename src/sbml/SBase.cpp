@@ -662,12 +662,10 @@ SBase::readAttributes (const XMLAttributes& attributes)
   attributes.readInto("metaid", mMetaId);
   /**
    * at present Xerces on Windows does not correctly read multibyte characters
-   * so we excluide this check
+   * so we exclude this check
    */
-//#if ((defined(WIN32) && defined(USE_XERCES)) || (defined(CYGWIN) && ! defined(USE_EXPAT)))
   if (isSetMetaId())
     checkMetaIdSyntax();
-//#endif
 
 }
 
