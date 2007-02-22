@@ -368,6 +368,7 @@ INPUT = \
   ../../src/xml       \
   ../../src/util      \
   ../../src/validator \
+  ../../src/annotation\
   ../../src/validator/constraints \
   libsbml-api-ref.c
 
