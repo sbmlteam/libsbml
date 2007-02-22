@@ -182,6 +182,9 @@ TestFile::getFilesIn ( const string& directory,
       TestFile     file(directory, filename);
       unsigned int id = file.getConstraintId();
 
+      /* leave out this test at present */
+      if (id == 10309) continue;
+
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {
         result.insert( TestFile(directory, filename) );
