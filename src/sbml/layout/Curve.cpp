@@ -233,7 +233,7 @@ Curve::createLineSegment ()
 {
   LineSegment* ls = new LineSegment();
 
-  this->addCurveSegment(ls);
+  this->mCurveSegments.appendAndOwn(ls);
   return ls;
 }
 
@@ -246,7 +246,7 @@ CubicBezier* Curve::createCubicBezier ()
 {
   CubicBezier* cb = new CubicBezier();
 
-  this->addCurveSegment(cb);
+  this->mCurveSegments.appendAndOwn(cb);
   return cb;
 }
 
@@ -346,8 +346,8 @@ XMLNode Curve::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   // add the list of line segments
   node.addChild(this->mCurveSegments.toXML());
   return node;
@@ -430,8 +430,8 @@ XMLNode ListOfLineSegments::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const LineSegment* object=NULL;
   for(i=0;i<iMax;++i)

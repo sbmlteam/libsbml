@@ -340,7 +340,7 @@ ReactionGlyph::createSpeciesReferenceGlyph ()
 {
   SpeciesReferenceGlyph* srg = new SpeciesReferenceGlyph();
 
-  this->addSpeciesReferenceGlyph(srg);
+  this->mSpeciesReferenceGlyphs.appendAndOwn(srg);
   return srg;
 }
 
@@ -548,12 +548,12 @@ XMLNode ReactionGlyph::toXML() const
   // add the SBase Ids
   addSBaseAttributes(*this,att);
   addGraphicalObjectAttributes(*this,att);
-  att.add("reaction",this->mReaction);
+  if(this->isSetReactionId()) att.add("reaction",this->mReaction);
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   if(this->mCurve.getNumCurveSegments()==0)
   {
     // write the bounding box
@@ -639,8 +639,8 @@ XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const SpeciesReferenceGlyph* object=NULL;
   for(i=0;i<iMax;++i)

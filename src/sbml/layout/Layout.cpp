@@ -961,7 +961,7 @@ Layout::createCompartmentGlyph ()
 {
   CompartmentGlyph* p = new CompartmentGlyph();
 
-  this->addCompartmentGlyph(p);
+  this->mCompartmentGlyphs.appendAndOwn(p);
   return p;
 }
 
@@ -975,7 +975,7 @@ Layout::createSpeciesGlyph ()
 {
   SpeciesGlyph* p = new SpeciesGlyph();
 
-  this->addSpeciesGlyph(p);
+  this->mSpeciesGlyphs.appendAndOwn(p);
   return p;
 }
 
@@ -989,7 +989,7 @@ Layout::createReactionGlyph ()
 {
   ReactionGlyph* p = new ReactionGlyph();
 
-  this->addReactionGlyph(p);
+  this->mReactionGlyphs.appendAndOwn(p);
   return p;
 }
 
@@ -1003,7 +1003,7 @@ Layout::createTextGlyph ()
 {
   TextGlyph* p = new TextGlyph();
 
-  this->addTextGlyph(p);
+  this->mTextGlyphs.appendAndOwn(p);
   return p;
 }
 
@@ -1018,7 +1018,7 @@ Layout::createAdditionalGraphicalObject ()
 {
   GraphicalObject* p = new GraphicalObject();
 
-  this->addAdditionalGraphicalObject(p);
+  this->mAdditionalGraphicalObjects.appendAndOwn(p);
   return p;
 }
 
@@ -1207,8 +1207,8 @@ XMLNode Layout::toXML() const
   XMLToken layout_token = XMLToken(layout_triple, id_att, xmlns); 
   XMLNode layout_node(layout_token);
   // add the notes and annotations
-  layout_node.addChild(*this->mNotes);
-  layout_node.addChild(*this->mAnnotation);
+  if(this->mNotes) layout_node.addChild(*this->mNotes);
+  if(this->mAnnotation) layout_node.addChild(*this->mAnnotation);
   // add the dimensions
   layout_node.addChild(this->mDimensions.toXML());
   // add the list of compartment glyphs
@@ -1346,8 +1346,8 @@ XMLNode ListOfLayouts::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const Layout* layout=NULL;
   for(i=0;i<iMax;++i)
@@ -1424,8 +1424,8 @@ XMLNode ListOfCompartmentGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const CompartmentGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1504,8 +1504,8 @@ XMLNode ListOfSpeciesGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const SpeciesGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1584,8 +1584,8 @@ XMLNode ListOfReactionGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const ReactionGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1664,8 +1664,8 @@ XMLNode ListOfTextGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const TextGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1745,8 +1745,8 @@ XMLNode ListOfGraphicalObjects::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   unsigned int i,iMax=this->size();
   const GraphicalObject* object=NULL;
   for(i=0;i<iMax;++i)

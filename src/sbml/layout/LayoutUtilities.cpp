@@ -48,7 +48,10 @@
 
 void addSBaseAttributes(const SBase& object,XMLAttributes& att)
 {
-    att.add("metaid",object.getMetaId());
+   if(object.isSetMetaId())
+   { 
+     att.add("metaid",object.getMetaId());
+   }
 }
 
 void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att)

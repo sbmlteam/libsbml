@@ -428,8 +428,8 @@ XMLNode Dimensions::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  node.addChild(*this->mNotes);
-  node.addChild(*this->mAnnotation);
+  if(this->mNotes) node.addChild(*this->mNotes);
+  if(this->mAnnotation) node.addChild(*this->mAnnotation);
   return node;
 }
 
