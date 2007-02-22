@@ -660,8 +660,14 @@ void
 SBase::readAttributes (const XMLAttributes& attributes)
 {
   attributes.readInto("metaid", mMetaId);
+  /**
+   * at present Xerces on Windows does not correctly read multibyte characters
+   * so we excluide this check
+   */
+//#if ((defined(WIN32) && defined(USE_XERCES)) || (defined(CYGWIN) && ! defined(USE_EXPAT)))
   if (isSetMetaId())
     checkMetaIdSyntax();
+//#endif
 
 }
 
@@ -2538,20 +2544,43 @@ void
 SBase::checkAnnotation()
 {
   const string&  name = mAnnotation->getName();
+  unsigned int n = 0;
+  XMLNode top;
 
   if (name == "annotation")
   {
-    int n;
+    /**
+     * annotation element shouldnt have a namespace
+     * query number of validation rule
+     */
     if (mAnnotation->getNamespaces().getLength() != 0)
     {
-      for (n = 0; n < mAnnotation->getNamespaces().getLength(); n++)
+      mSBML->getErrorLog()->logError(10401);
+    }
+
+    /** 
+     * check that each top level element has a namespace
+     */
+    for (n = 0; n < mAnnotation->getNumChildren(); n++)
+    {
+      top = mAnnotation->getChild(n);
+
+      if (top.getNamespaces().getLength() == 0)
       {
-        if (!strcmp(mAnnotation->getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
-        {
-          break;
-        }
+        mSBML->getErrorLog()->logError(10401);
       }
     }
+
+
+    //  for (n = 0; n < mAnnotation->getNamespaces().getLength(); n++)
+    //  {
+    //    if (!strcmp(mAnnotation->getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
+    //    {
+    //      break;
+    //    }
+    //  }
+    //}
+    //  mSBML->getErrorLog()->logError(error);
     
   }
 }

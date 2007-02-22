@@ -1502,24 +1502,21 @@ Model::readOtherXML (XMLInputStream& stream)
     }
 
     delete mAnnotation;
-	if (stream.peek().isStart() == true)
-	{
     mAnnotation = new XMLNode(stream);
+    if (stream.isError())
+    {
+      getErrorLog()->logError(00005);
+    }
+    checkAnnotation();
     mCVTerms = new List();
     mHistory = parseRDFAnnotation(mAnnotation);
     parseRDFAnnotation(mAnnotation, mCVTerms);
-    checkAnnotation();
     mAnnotation = deleteRDFAnnotation(mAnnotation);
 #ifdef USE_LAYOUT
     parseLayoutAnnotation(mAnnotation,mLayouts);
-    checkAnnotation();
     mAnnotation=deleteLayoutAnnotation(mAnnotation);
 #endif // USE_LAYOUT
-	}
-	else
-	{
-		stream.peek().getName();
-	}
+	
     read = true;
   }
   else if (name == "notes")
@@ -1534,6 +1531,10 @@ Model::readOtherXML (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
+    if (stream.isError())
+    {
+      getErrorLog()->logError(00005);
+    }
     checkNotes();
     read = true;
   }

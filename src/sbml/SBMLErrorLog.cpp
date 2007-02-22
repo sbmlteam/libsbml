@@ -62,6 +62,9 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
   const string msg00002 = 
     "No encoding specified.";
 
+  const string msg00005 =
+    "Parse error encountered.";
+
   const string msg10101 = 
     "An SBML XML file must use UTF-8 as the character encoding. More "
     "precisely, the 'encoding' attribute of the XML declaration at the "
@@ -121,6 +124,20 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
   const string msg10310 =
     "The syntax of 'id' field values must conform to the syntax of the SBML "
     "type 'SId'. (References: L2V2 Sections 3.1.7.)";
+
+  const string msg10401 =
+    "Every top-level element within an annotation element must have a "
+    "namespace declared. (References: L2V2 Section 3.3.3.)";
+
+  const string msg10402 =
+    "There cannot be more than one top-level element using a given namespace "
+    "inside a given annotation element. (References: L2V2 Section 3.3.3.)";
+
+  const string msg10403 = 
+    "Top-level elements within an annotation element cannot use any SBML "
+    "namespace, whether explicitly (by declaring the namespace to be one of "
+    "the URIs, or implicitly (by failing to declare any namespace). "
+    "(References: L2V2 Section 3.3.3.)";
 
   const string msg20101 =
     "The 'sbml' container element must declare the XML Namespace for SBML, "
@@ -217,16 +234,20 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
   {
     case 00001: msg = msg00001; break;
     case 00002: msg = msg00002; break;
+    case 00005: msg = msg00005; break;
     case 10101: msg = msg10101; break;
     case 10103: msg = msg10103; break;
     case 10201: msg = msg10201; break;
     case 10202: msg = msg10202; break;
     case 10203: msg = msg10203; break;
-    case 10309: msg = msg10309; break;
-    case 10310: msg = msg10310; break;
     case 10204: msg = msg10204; break;
     case 10206: msg = msg10206; break;
     case 10207: msg = msg10207; break;
+    case 10309: msg = msg10309; break;
+    case 10310: msg = msg10310; break;
+    case 10401: msg = msg10401; break;
+    case 10402: msg = msg10402; break;
+    case 10403: msg = msg10403; break;
     case 20101: msg = msg20101; break;
     case 20102: msg = msg20102; break;
     case 20103: msg = msg20103; break;
@@ -247,6 +268,25 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     default:    msg = "Unrecognized error code."; break;
   }
 
+  /**
+   * this is a horrible hack to cope with the fact that xerces does 
+   * not report a parse error
+   */
+
+#if ((defined(WIN32) && defined(USE_XERCES)) || (defined(CYGWIN) && ! defined(USE_EXPAT)))
+  if (error == 5)
+  {
+    add( XMLError(error, msg, XMLError::Error, "", 1, 1));
+  }
+  else if (inRead == 1)
+  {
+    add( XMLError(error, msg) );
+  }
+  else
+  {
+    add( XMLError(error, msg, XMLError::Error, "", 1, 1));
+  }
+#else
   if (inRead == 1)
   {
     add( XMLError(error, msg) );
@@ -255,6 +295,8 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
   {
     add( XMLError(error, msg, XMLError::Error, "", 1, 1));
   }
+#endif
+
 }
 
 

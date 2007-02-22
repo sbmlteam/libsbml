@@ -490,9 +490,13 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
+    if (stream.isError())
+    {
+      getErrorLog()->logError(00005);
+    }
+    checkAnnotation();
     mCVTerms = new List();
     parseRDFAnnotation(mAnnotation, mCVTerms);
-    checkAnnotation();
     mAnnotation = deleteRDFAnnotation(mAnnotation);
 #ifdef USE_LAYOUT
     // only parse the id annotation if it is Level 1 or Level 2 Version 1
@@ -518,6 +522,10 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
+    if (stream.isError())
+    {
+      getErrorLog()->logError(00005);
+    }
     checkNotes();
     read = true;
   }
@@ -727,10 +735,18 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
+    if (stream.isError())
+    {
+      getErrorLog()->logError(00005);
+    }
+    checkAnnotation();
+    mCVTerms = new List();
+    parseRDFAnnotation(mAnnotation, mCVTerms);
+    mAnnotation = deleteRDFAnnotation(mAnnotation);
+    
     if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
     {
       parseSpeciesReferenceAnnotation(mAnnotation,*this);
-      checkAnnotation();
       mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
     }
     read=true;
@@ -747,6 +763,10 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
+    if (stream.isError())
+    {
+      getErrorLog()->logError(00005);
+    }
     checkNotes();
     read = true;
   }
