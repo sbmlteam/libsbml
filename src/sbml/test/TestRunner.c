@@ -160,7 +160,7 @@ main (void)
 
   /* SRunner *runner = srunner_create( create_suite_AlgebraicRule() ); */
   
-  srunner_add_suite( runner, create_suite_AssignmentRule           () );
+ /*srunner_add_suite( runner, create_suite_AssignmentRule           () );
   /*srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
   srunner_add_suite( runner, create_suite_Event                    () );
