@@ -190,7 +190,7 @@ ExpatParser::parseNext ()
 
   if ( XML_ParseBuffer(mParser, bytes, done) == XML_STATUS_ERROR )
   {
-    fprintf( stderr, "XML parse error at line %lu:\n%s\n",
+    fprintf( stderr, "XML parse error at line %i:\n%s\n",
              XML_GetCurrentLineNumber(mParser),
              XML_ErrorString(XML_GetErrorCode(mParser)) );
     return false;
