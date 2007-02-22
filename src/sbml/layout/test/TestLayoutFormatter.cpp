@@ -50,7 +50,6 @@
 
 #include <common/common.h>
 
-#include "LayoutFormatter.h"
 #include "Layout.h"
 #include "GraphicalObject.h"
 #include "CompartmentGlyph.h"
@@ -66,8 +65,9 @@
 
 #include <check.h>
 
-// See TestWriteSBML in Bens Tests!!!!!
-
+#include "sbml/xml/XMLInputStream.h"
+#include "sbml/xml/XMLNode.h"
+#include "utility.h"
 
 BEGIN_C_DECLS
 
@@ -75,46 +75,23 @@ BEGIN_C_DECLS
 XERCES_CPP_NAMESPACE_USE
 #endif /* !USE_EXPAT */
 
-#define XML_HEADER   "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-#define wrapXML(s)   XML_HEADER s
-
-static MemBufFormatTarget *target;
-static LayoutFormatter *LF;
 
 void
 LayoutFormatterTest_setup (void)
 {
-  try
-  {
-    XML_PLATFORM_UTILS_INIT();
-  }
-  catch (...)
-  {
-    fail("XMLPlatformUtils::Initialize() threw an Exception.");
-  }
-
-    target    = new MemBufFormatTarget();
-    LF = new(std::nothrow )LayoutFormatter(target);
-
-    if (LF == NULL)
-    {
-        fail("new(std::nothrow) LayoutFormatter() returned a NULL pointer.");
-    }
 
 }
 
 void 
 LayoutFormatterTest_teardown (void)
 {
-    delete LF;
-    delete target;
+
 }
 
 
 START_TEST (test_LayoutFormatter_Layout)
 {
-    const char* s = wrapXML
-    (
+    const char* s = 
       "<layout id=\"layout_1\">\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "  <listOfCompartmentGlyphs>\n"
@@ -158,10 +135,13 @@ START_TEST (test_LayoutFormatter_Layout)
       "    </graphicalObject>\n"
       "  </listOfAdditionalGraphicalObjects>\n"
       "</layout>\n"     
-    );
+    ;
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.0,400.0);
-    Layout l("layout_1",dim);
+    Layout l("layout_1",&dim);
     CompartmentGlyph* cg=l.createCompartmentGlyph();
     cg->setId("compartmentGlyph_1");
     SpeciesGlyph* sg=l.createSpeciesGlyph();
@@ -174,135 +154,151 @@ START_TEST (test_LayoutFormatter_Layout)
     GraphicalObject* go=l.createAdditionalGraphicalObject();
     go->setId("graphicalObject_1");
 
-    *LF << l;
-
-    fail_unless( !strcmp((char*)target->getRawBuffer() , s), NULL );   
+    fail_unless( compareXMLNodes(node,l.toXML()) );   
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Layout_notes)
 {
-    const char* s = wrapXML
-    (
+    const char* s = 
       "<layout id=\"layout_1\">\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n"
       "</layout>\n"     
-    );
+    ;
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
 
     Dimensions dim=Dimensions(200.0,400.0);
-    Layout l("layout_1",dim);
-    l.setNotes("Test note.");
-    
-    *LF << l;
+    Layout l("layout_1",&dim);
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    l.appendNotes(&notes);
 
-    fail_unless( !strcmp((char*)target->getRawBuffer() , s), NULL );   
+    fail_unless( compareXMLNodes(node,l.toXML()) );   
+    
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Layout_annotation)
 {
-    const char* s = wrapXML
-    (
+    const char* s = 
       "<layout id=\"layout_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "</layout>\n"     
-    );
+    ;
 
     const char* a =
       "<annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    Dimensions dim=Dimensions(200.0,400.0);
-    Layout l("layout_1",dim);
-    l.setAnnotation(a);
-    
-    *LF << l;
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
-    fail_unless( !strcmp((char*)target->getRawBuffer() , s), NULL );   
+
+    Dimensions dim=Dimensions(200.0,400.0);
+    Layout l("layout_1",&dim);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    l.appendAnnotation(annotation);
+
+
+    fail_unless( compareXMLNodes(node,l.toXML()) );   
+    
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Layout_skipOptional)
 {
-    const char* s = wrapXML
-    (
+    const char* s = 
       "<layout id=\"layout_1\">\n"
       "  <dimensions width=\"200\" height=\"400\"/>\n" 
       "</layout>\n"     
-    );
+    ;
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
 
     Dimensions dim=Dimensions(200.0,400.0);
-    Layout l("layout_1",dim);
+    Layout l("layout_1",&dim);
 
-    *LF << l;
+    fail_unless( compareXMLNodes(node,l.toXML()) );   
 
-    fail_unless( !strcmp((char*)target->getRawBuffer() , s), NULL );   
 }
 END_TEST
 
 
 START_TEST (test_LayoutFormatter_CompartmentGlyph)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<compartmentGlyph id=\"compartmentGlyph_1\" compartment=\"compartment_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</compartmentGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     CompartmentGlyph cg=CompartmentGlyph();
     cg.setId("compartmentGlyph_1");
     cg.setCompartmentId("compartment_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    cg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    cg.setBoundingBox(&box);
 
-    *LF << cg;
+    fail_unless( compareXMLNodes(node,cg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_CompartmentGlyph_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</compartmentGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     CompartmentGlyph cg=CompartmentGlyph();
     cg.setId("compartmentGlyph_1");
-    cg.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    cg.appendNotes(&notes);
+
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    cg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    cg.setBoundingBox(&box);
 
-    *LF << cg;
+    fail_unless( compareXMLNodes(node,cg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
@@ -313,8 +309,7 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -324,104 +319,119 @@ START_TEST (test_LayoutFormatter_CompartmentGlyph_annotation)
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</compartmentGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     CompartmentGlyph cg=CompartmentGlyph();
     cg.setId("compartmentGlyph_1");
-    cg.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    cg.appendAnnotation(annotation);
+
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    cg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    cg.setBoundingBox(&box);
 
-    *LF << cg;
+    fail_unless( compareXMLNodes(node,cg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_CompartmentGlyph_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<compartmentGlyph id=\"compartmentGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</compartmentGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     CompartmentGlyph cg=CompartmentGlyph();
     cg.setId("compartmentGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    cg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    cg.setBoundingBox(&box);
 
-    *LF << cg;
+    fail_unless( compareXMLNodes(node,cg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesGlyph)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesGlyph id=\"speciesGlyph_1\" species=\"species_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesGlyph sg=SpeciesGlyph();
     sg.setId("speciesGlyph_1");
     sg.setSpeciesId("species_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    sg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    sg.setBoundingBox(&box);
 
-    *LF << sg;
+    fail_unless( compareXMLNodes(node,sg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesGlyph_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesGlyph sg=SpeciesGlyph();
     sg.setId("speciesGlyph_1");
-    sg.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    sg.appendNotes(&notes);
+
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    sg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    sg.setBoundingBox(&box);
 
-    *LF << sg;
+    fail_unless( compareXMLNodes(node,sg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
@@ -432,8 +442,7 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -443,53 +452,61 @@ START_TEST (test_LayoutFormatter_SpeciesGlyph_annotation)
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesGlyph sg=SpeciesGlyph();
     sg.setId("speciesGlyph_1");
-    sg.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    sg.appendAnnotation(annotation);
+
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    sg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    sg.setBoundingBox(&box);
 
-    *LF << sg;
+    fail_unless( compareXMLNodes(node,sg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesGlyph_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesGlyph id=\"speciesGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesGlyph sg=SpeciesGlyph();
     sg.setId("speciesGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    sg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    sg.setBoundingBox(&box);
 
-    *LF << sg;
+    fail_unless( compareXMLNodes(node,sg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_Curve)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <curve>\n"
       "    <listOfCurveSegments>\n"
@@ -500,78 +517,89 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_Curve)
       "    </listOfCurveSegments>\n"
       "  </curve>\n"
       "</reactionGlyph>\n"
-    );
+      "</annotation>"
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     ReactionGlyph rg=ReactionGlyph();
     rg.setId("reactionGlyph_1");
     rg.setReactionId("reaction_1");
-    LineSegment* ls=&rg.createLineSegment();
+    LineSegment* ls=rg.createLineSegment();
     ls->setStart(10.0,10.0);
     ls->setEnd(20.0,10.0);
 
-    *LF << rg;
+    fail_unless( compareXMLNodes(node.getChild(0),rg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_BoundingBox)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</reactionGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     ReactionGlyph rg=ReactionGlyph();
     rg.setId("reactionGlyph_1");
     rg.setReactionId("reaction_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    rg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    rg.setBoundingBox(&box);
 
-    *LF << rg;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,rg.toXML()) );   
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</reactionGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     ReactionGlyph rg=ReactionGlyph();
     rg.setId("reactionGlyph_1");
-    rg.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    rg.appendNotes(&notes);
+
     rg.setReactionId("reaction_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    rg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    rg.setBoundingBox(&box);
 
-    *LF << rg;
+    fail_unless( compareXMLNodes(node,rg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
@@ -582,8 +610,7 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<reactionGlyph id=\"reactionGlyph_1\" reaction=\"reaction_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -593,54 +620,62 @@ START_TEST (test_LayoutFormatter_ReactionGlyph_annotation)
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</reactionGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     ReactionGlyph rg=ReactionGlyph();
     rg.setId("reactionGlyph_1");
     rg.setReactionId("reaction_1");
-    rg.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    rg.appendAnnotation(annotation);
+
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    rg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    rg.setBoundingBox(&box);
 
-    *LF << rg;
+    fail_unless( compareXMLNodes(node,rg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_ReactionGlyph_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<reactionGlyph id=\"reactionGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</reactionGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     ReactionGlyph rg=ReactionGlyph();
     rg.setId("reactionGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    rg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    rg.setBoundingBox(&box);
 
-    *LF << rg;
+    fail_unless( compareXMLNodes(node,rg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_Curve)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"undefined\">\n"
       "  <curve>\n"
       "    <listOfCurveSegments>\n"
@@ -651,36 +686,43 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_Curve)
       "    </listOfCurveSegments>\n"
       "  </curve>\n"
       "</speciesReferenceGlyph>\n"
-    );
+      "</annotation>"
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
     srg.setId("speciesReferenceGlyph_1");
     srg.setSpeciesGlyphId("speciesGlyph_1");
     srg.setSpeciesReferenceId("speciesReference_1");
-    LineSegment* ls=&srg.createLineSegment();
+    LineSegment* ls=srg.createLineSegment();
     ls->setStart(10.0,10.0);
     ls->setEnd(20.0,10.0);
 
-    *LF << srg;
+    fail_unless( compareXMLNodes(node.getChild(0),srg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_BoundingBox)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"undefined\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesReferenceGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
     srg.setId("speciesReferenceGlyph_1");
@@ -688,43 +730,47 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_BoundingBox)
     srg.setSpeciesReferenceId("speciesReference_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    srg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    srg.setBoundingBox(&box);
 
-    *LF << srg;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,srg.toXML()) );   
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesReferenceGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
-    srg.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    srg.appendNotes(&notes);
+
     srg.setId("speciesReferenceGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    srg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    srg.setBoundingBox(&box);
 
-    *LF << srg;
+    fail_unless( compareXMLNodes(node,srg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
@@ -735,8 +781,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -746,61 +791,72 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesReferenceGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
     srg.setId("speciesReferenceGlyph_1");
-    srg.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    srg.appendAnnotation(annotation);
+
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    srg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    srg.setBoundingBox(&box);
 
-    *LF << srg;
+    fail_unless( compareXMLNodes(node,srg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</speciesReferenceGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
     srg.setId("speciesReferenceGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    srg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    srg.setBoundingBox(&box);
 
-    *LF << srg;
+    fail_unless( compareXMLNodes(node,srg.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_text)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" text=\"test text\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</textGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     TextGlyph tg=TextGlyph();
     tg.setId("textGlyph_1");
@@ -808,28 +864,30 @@ START_TEST (test_LayoutFormatter_TextGlyph_text)
     tg.setGraphicalObjectId("speciesGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    tg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    tg.setBoundingBox(&box);
 
-    *LF << tg;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,tg.toXML()) );   
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_originOfText)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</textGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     TextGlyph tg=TextGlyph();
     tg.setId("textGlyph_1");
@@ -837,45 +895,49 @@ START_TEST (test_LayoutFormatter_TextGlyph_originOfText)
     tg.setGraphicalObjectId("speciesGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    tg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    tg.setBoundingBox(&box);
 
-    *LF << tg;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,tg.toXML()) );   
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</textGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     TextGlyph tg=TextGlyph();
     tg.setId("textGlyph_1");
-    tg.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    tg.appendNotes(&notes);
+
     tg.setOriginOfTextId("reactionGlyph_1");
     tg.setGraphicalObjectId("speciesGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    tg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    tg.setBoundingBox(&box);
 
-    *LF << tg;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,tg.toXML()) );   
 
 }
 END_TEST
@@ -887,8 +949,7 @@ START_TEST (test_LayoutFormatter_TextGlyph_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<textGlyph id=\"textGlyph_1\" graphicalObject=\"speciesGlyph_1\" originOfText=\"reactionGlyph_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -898,107 +959,122 @@ START_TEST (test_LayoutFormatter_TextGlyph_annotation)
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</textGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     TextGlyph tg=TextGlyph();
     tg.setId("textGlyph_1");
     tg.setOriginOfTextId("reactionGlyph_1");
     tg.setGraphicalObjectId("speciesGlyph_1");
-    tg.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    tg.appendAnnotation(annotation);
+
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    tg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    tg.setBoundingBox(&box);
 
-    *LF << tg;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,tg.toXML()) );   
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_TextGlyph_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<textGlyph id=\"textGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</textGlyph>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     TextGlyph tg=TextGlyph();
     tg.setId("textGlyph_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    tg.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    tg.setBoundingBox(&box);
 
-    *LF << tg;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,tg.toXML()) );   
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_GraphicalObject)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</graphicalObject>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     GraphicalObject go=GraphicalObject();
     go.setId("graphicalObject_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    go.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    go.setBoundingBox(&box);
 
-    *LF << go;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,go.toXML()) );   
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_GraphicalObject_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</graphicalObject>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     GraphicalObject go=GraphicalObject();
-    go.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    go.appendNotes(&notes);
+
     go.setId("graphicalObject_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    go.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    go.setBoundingBox(&box);
 
-    *LF << go;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
+    fail_unless( compareXMLNodes(node,go.toXML()) );   
 
 }
 END_TEST
@@ -1010,8 +1086,7 @@ START_TEST (test_LayoutFormatter_GraphicalObject_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<graphicalObject id=\"graphicalObject_1\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1021,28 +1096,34 @@ START_TEST (test_LayoutFormatter_GraphicalObject_annotation)
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "  </boundingBox>\n"  
       "</graphicalObject>\n"
-    );
+    ;
     
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
     
     GraphicalObject go=GraphicalObject();
-    go.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    go.appendAnnotation(annotation);
+
     go.setId("graphicalObject_1");
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    go.setBoundingBox(box);
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    go.setBoundingBox(&box);
 
-    *LF << go;
+    fail_unless( compareXMLNodes(node,go.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s) ,NULL);
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Curve)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
       "  <listOfCurveSegments>\n"
       "    <curveSegment xsi:type=\"LineSegment\">\n" 
@@ -1051,27 +1132,31 @@ START_TEST (test_LayoutFormatter_Curve)
       "    </curveSegment>\n"
       "  </listOfCurveSegments>\n"
       "</curve>\n"
-    );
+      "</annotation>"
+    ;
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
 
     Curve c=Curve();
-    LineSegment* ls=&c.createLineSegment();
+    LineSegment* ls=c.createLineSegment();
     ls->setStart(10.0,10.0);
     ls->setEnd(20.0,10.0);
     
-    *LF << c;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node.getChild(0),c.toXML()) );   
     
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Curve_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <listOfCurveSegments>\n"
       "    <curveSegment xsi:type=\"LineSegment\">\n" 
@@ -1080,18 +1165,25 @@ START_TEST (test_LayoutFormatter_Curve_notes)
       "    </curveSegment>\n"
       "  </listOfCurveSegments>\n"
       "</curve>\n"
-    );
+      "</annotation>"
+    ;
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
 
     Curve c=Curve();
-    c.setNotes("Test note.");
-    LineSegment* ls=&c.createLineSegment();
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    c.appendNotes(&notes);
+
+    LineSegment* ls=c.createLineSegment();
     ls->setStart(10.0,10.0);
     ls->setEnd(20.0,10.0);
     
-    
-    *LF << c;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node.getChild(0),c.toXML()) );   
+    
  }
 END_TEST
 
@@ -1102,8 +1194,8 @@ START_TEST (test_LayoutFormatter_Curve_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curve>\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1115,77 +1207,97 @@ START_TEST (test_LayoutFormatter_Curve_annotation)
       "    </curveSegment>\n"
       "  </listOfCurveSegments>\n"
       "</curve>\n"
-    );
+      "</annotation>"
+    ;
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
 
     Curve c=Curve();
-    c.setAnnotation(a);
-    LineSegment* ls=&c.createLineSegment();
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    c.appendAnnotation(annotation);
+
+    LineSegment* ls=c.createLineSegment();
     ls->setStart(10.0,10.0);
     ls->setEnd(20.0,10.0);
-    
-    *LF << c;
-
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+ 
+    fail_unless( compareXMLNodes(node.getChild(0),c.toXML()) );   
+   
  }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Curve_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<curve>\n"
       "</curve>\n"
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Curve c=Curve();
-    
-    *LF << c;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node,c.toXML()) );   
+    
  }
 END_TEST
 
 START_TEST (test_LayoutFormatter_LineSegment)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
       "  <start x=\"10\" y=\"10\"/>\n" 
       "  <end x=\"20\" y=\"10\"/>\n" 
       "</curveSegment>\n"
-    );
+      "</annotation>"
+    ;
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
+
 
     LineSegment ls=LineSegment();
     ls.setStart(10.0,10.0);
     ls.setEnd(20.0,10.0);
-    
-    *LF << ls;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node.getChild(0),ls.toXML()) );   
+    
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_LineSegment_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <start x=\"10\" y=\"10\"/>\n" 
       "  <end x=\"20\" y=\"10\"/>\n" 
       "</curveSegment>\n"
-    );
+      "</annotation>"
+      ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     LineSegment ls=LineSegment();
     ls.setStart(10.0,10.0);
     ls.setEnd(20.0,10.0);
-    ls.setNotes("Test note.");
-    
-    *LF << ls;
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    ls.appendNotes(&notes);
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+
+    fail_unless( compareXMLNodes(node.getChild(0),ls.toXML()) );   
+    
 }
 END_TEST
 
@@ -1196,8 +1308,8 @@ START_TEST (test_LayoutFormatter_LineSegment_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"LineSegment\">\n" 
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1205,68 +1317,86 @@ START_TEST (test_LayoutFormatter_LineSegment_annotation)
       "  <start x=\"10\" y=\"10\"/>\n" 
       "  <end x=\"20\" y=\"10\"/>\n" 
       "</curveSegment>\n"
-    );
+      "</annotation>"
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     LineSegment ls=LineSegment();
     ls.setStart(10.0,10.0);
     ls.setEnd(20.0,10.0);
-    ls.setAnnotation(a);
-    
-    *LF << ls;
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    ls.appendAnnotation(annotation);
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+
+    fail_unless( compareXMLNodes(node.getChild(0),ls.toXML()) );   
+    
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_CubicBezier)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
       "  <start x=\"10\" y=\"10\"/>\n" 
       "  <end x=\"20\" y=\"10\"/>\n" 
       "  <basePoint1 x=\"15\" y=\"5\"/>\n" 
       "  <basePoint2 x=\"15\" y=\"15\"/>\n" 
       "</curveSegment>\n"
-    );
+      "</annotation>"
+     ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     CubicBezier cb=CubicBezier();
     cb.setStart(10.0,10.0);
     cb.setEnd(20.0,10.0);
     cb.setBasePoint1(15.0,5.0);
     cb.setBasePoint2(15.0,15.0);
-    
-    *LF << cb;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node.getChild(0),cb.toXML()) );   
+    
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_CubicBezier_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <start x=\"10\" y=\"10\"/>\n" 
       "  <end x=\"20\" y=\"10\"/>\n" 
       "  <basePoint1 x=\"15\" y=\"5\"/>\n" 
       "  <basePoint2 x=\"15\" y=\"15\"/>\n" 
       "</curveSegment>\n"
-    );
+      "</annotation>"
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     CubicBezier cb=CubicBezier();
     cb.setStart(10.0,10.0);
     cb.setEnd(20.0,10.0);
     cb.setBasePoint1(15.0,5.0);
     cb.setBasePoint2(15.0,15.0);
-    cb.setNotes("Test note.");
-    
-    *LF << cb;
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    cb.appendNotes(&notes);
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+
+    fail_unless( compareXMLNodes(node.getChild(0),cb.toXML()) );   
+    
 }
 END_TEST
 
@@ -1277,8 +1407,8 @@ START_TEST (test_LayoutFormatter_CubicBezier_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
+      "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
       "<curveSegment xsi:type=\"CubicBezier\">\n" 
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1288,54 +1418,67 @@ START_TEST (test_LayoutFormatter_CubicBezier_annotation)
       "  <basePoint1 x=\"15\" y=\"5\"/>\n" 
       "  <basePoint2 x=\"15\" y=\"15\"/>\n" 
       "</curveSegment>\n"
-    );
+      "</annotation>"
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     CubicBezier cb=CubicBezier();
     cb.setStart(10.0,10.0);
     cb.setEnd(20.0,10.0);
     cb.setBasePoint1(15.0,5.0);
     cb.setBasePoint2(15.0,15.0);
-    cb.setAnnotation(a);
-    
-    *LF << cb;
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    cb.appendAnnotation(annotation);
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+
+    fail_unless( compareXMLNodes(node.getChild(0),cb.toXML()) );   
+    
 }
 END_TEST
 
-/*
 START_TEST (test_LayoutFormatter_Point)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\"/>\n" 
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Point p=Point(200.5,400.5,455.2);
 
-    *LF << p;
+    fail_unless( compareXMLNodes(node,p.toXML("point")) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Point_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\">\n" 
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "</point>\n"
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Point p=Point(200.5,400.5,455.2);
-    p.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    p.appendNotes(&notes);
 
-    *LF << p;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node,p.toXML("point")) );   
+
 }
 END_TEST
 
@@ -1346,72 +1489,85 @@ START_TEST (test_LayoutFormatter_Point_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<point x=\"200.5\" y=\"400.5\" z=\"455.2\">\n" 
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>\n"
       "</point>\n"
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Point p=Point(200.5,400.5,455.2);
-    p.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    p.appendAnnotation(annotation);
 
-    *LF << p;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node,p.toXML("point")) );   
+
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Point_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<point x=\"200.5\" y=\"400.5\"/>\n" 
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Point p=Point(200.5,400.5);
 
-    *LF << p;
+    fail_unless( compareXMLNodes(node,p.toXML("point")) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
 }
 END_TEST
-*/
 
 START_TEST (test_LayoutFormatter_Dimensions)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\"/>\n" 
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5,455.2);
 
-    *LF << dim;
+    fail_unless( compareXMLNodes(node,dim.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Dimensions_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "</dimensions>\n"
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5,455.2);
-    dim.setNotes("Test note.");
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    dim.appendNotes(&notes);
 
-    *LF << dim;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node,dim.toXML()) );   
+
 }
 END_TEST
 
@@ -1422,81 +1578,96 @@ START_TEST (test_LayoutFormatter_Dimensions_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<dimensions width=\"200.5\" height=\"400.5\" depth=\"455.2\">\n" 
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>\n"
       "</dimensions>\n"
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5,455.2);
-    dim.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    dim.appendAnnotation(annotation);
 
-    *LF << dim;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node,dim.toXML()) );   
+
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_Dimensions_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<dimensions width=\"200.5\" height=\"400.5\"/>\n" 
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5);
 
-    *LF << dim;
+    fail_unless( compareXMLNodes(node,dim.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
 }
 END_TEST
 
 
 START_TEST (test_LayoutFormatter_BoundingBox)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<boundingBox id=\"boundingBox_1\">\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"
       "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "</boundingBox>\n"  
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("boundingBox_1",pos,dim);
+    BoundingBox box=BoundingBox("boundingBox_1",&pos,&dim);
 
-    *LF << box;
+    fail_unless( compareXMLNodes(node,box.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_BoundingBox_notes)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<boundingBox>\n"
       "  <notes>\n"
-      "    Test note.\n"
+      "    <body>Test note.</body>\n"
       "</notes>\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"
       "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "</boundingBox>\n"  
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
-    box.setNotes("Test note.");
+    BoundingBox box=BoundingBox("",&pos,&dim);
+    XMLInputStream stream2("<body>Test note.</body>",false);
+    XMLNode notes(stream2);
+    box.appendNotes(&notes);
 
-    *LF << box;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+    fail_unless( compareXMLNodes(node,box.toXML()) );   
+
 }
 END_TEST
 
@@ -1507,8 +1678,7 @@ START_TEST (test_LayoutFormatter_BoundingBox_annotation)
       "    <this-is-a-test/>\n"
       "  </annotation>";
 
-    char* s=wrapXML
-    (
+    char* s=
       "<boundingBox>\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
@@ -1516,56 +1686,69 @@ START_TEST (test_LayoutFormatter_BoundingBox_annotation)
       "  <position x=\"10.3\" y=\"20\"/>\n"
       "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "</boundingBox>\n"  
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
+    BoundingBox box=BoundingBox("",&pos,&dim);
 
-    box.setAnnotation(a);
+    XMLInputStream stream2(a,false);
+    XMLNode* annotation=new XMLNode(stream2);
+    box.appendAnnotation(annotation);
 
-    *LF << box;
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+
+    fail_unless( compareXMLNodes(node,box.toXML()) );   
+
 
 }
 END_TEST
 
 START_TEST (test_LayoutFormatter_BoundingBox_skipOptional)
 {
-    char* s=wrapXML
-    (
+    char* s=
       "<boundingBox>\n"
       "  <position x=\"10.3\" y=\"20\"/>\n"
       "  <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
       "</boundingBox>\n"  
-    );
+    ;
+
+
+    XMLInputStream stream(s,false);
+    XMLNode node(stream);
 
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
-    BoundingBox box=BoundingBox("",pos,dim);
+    BoundingBox box=BoundingBox("",&pos,&dim);
 
-    *LF << box;
+    fail_unless( compareXMLNodes(node,box.toXML()) );   
 
-    fail_unless ( !strcmp((char*)target->getRawBuffer(),s),NULL);
+
 }
 END_TEST
 
 
 START_TEST (test_LayoutFormatter_locale)
 {
-  const char* s = wrapXML("<dimensions width=\"1.2\" height=\"3.4\"/>\n");
+  const char* s = "<dimensions width=\"1.2\" height=\"3.4\"/>\n";
 
 
   setlocale(LC_NUMERIC, "de_DE");
 
-  *LF << Dimensions(1.2, 3.4);
-  fail_unless( !strcmp((char*) target->getRawBuffer(), s) );
+  Dimensions d(1.2,3.4);
+
+  XMLInputStream stream(s,false);
+  XMLNode node(stream);
+
+  fail_unless( compareXMLNodes(node,d.toXML()) );
 
   setlocale(LC_NUMERIC, "C");
 }
 END_TEST
-
 
 Suite *
 create_suite_LayoutFormatter (void)
@@ -1618,10 +1801,10 @@ create_suite_LayoutFormatter (void)
   tcase_add_test( tcase, test_LayoutFormatter_CubicBezier                       );
   tcase_add_test( tcase, test_LayoutFormatter_CubicBezier_notes                 );
   tcase_add_test( tcase, test_LayoutFormatter_CubicBezier_annotation            );
-//  tcase_add_test( tcase, test_LayoutFormatter_Point                             );
-//  tcase_add_test( tcase, test_LayoutFormatter_Point_notes                       );
-//  tcase_add_test( tcase, test_LayoutFormatter_Point_annotation                  );
-//  tcase_add_test( tcase, test_LayoutFormatter_Point_skipOptional                );
+  tcase_add_test( tcase, test_LayoutFormatter_Point                             );
+  tcase_add_test( tcase, test_LayoutFormatter_Point_notes                       );
+  tcase_add_test( tcase, test_LayoutFormatter_Point_annotation                  );
+  tcase_add_test( tcase, test_LayoutFormatter_Point_skipOptional                );
   tcase_add_test( tcase, test_LayoutFormatter_Dimensions                        );
   tcase_add_test( tcase, test_LayoutFormatter_Dimensions_notes                  );
   tcase_add_test( tcase, test_LayoutFormatter_Dimensions_annotation             );
@@ -1631,8 +1814,6 @@ create_suite_LayoutFormatter (void)
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_annotation            );
   tcase_add_test( tcase, test_LayoutFormatter_BoundingBox_skipOptional          );
   tcase_add_test( tcase, test_LayoutFormatter_locale                            );
-
-
   suite_add_tcase(suite, tcase);
 
   return suite;
