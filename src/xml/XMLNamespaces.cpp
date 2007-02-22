@@ -208,3 +208,134 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
   namespaces.write(stream);
   return stream;
 }
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLNamespaces_t *
+XMLNamespaces_create (void)
+{
+  return new(nothrow) XMLNamespaces;
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNamespaces_free (XMLNamespaces_t *ns)
+{
+  delete ns;
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNamespaces_add (XMLNamespaces_t *ns, 
+		   const char *uri, const char *prefix)
+{
+  ns->add(uri, prefix);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNamespaces_clear (XMLNamespaces_t *ns)
+{
+  ns->clear();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
+{
+  return ns->getIndex(uri);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLNamespaces_getLength (const XMLNamespaces_t *ns)
+{
+  return ns->getLength();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index)
+{
+  if (ns->getPrefix(index).empty())
+    return NULL;
+  else
+    return ns->getPrefix(index).c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri)
+{
+  if (ns->getPrefix(uri).empty())
+    return NULL;
+  else
+    return ns->getPrefix(uri).c_str();
+}
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index)
+{
+  if (ns->getURI(index).empty())
+    return NULL;
+  else
+    return ns->getURI(index).c_str();
+}
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix)
+{
+  if (ns->getURI(prefix).empty())
+    return NULL;
+  else
+    return ns->getURI(prefix).c_str();
+}
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLNamespaces_isEmpty (const XMLNamespaces_t *ns)
+{
+  return ns->isEmpty();
+}

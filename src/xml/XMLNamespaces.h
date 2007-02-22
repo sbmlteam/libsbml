@@ -25,13 +25,14 @@
 #ifndef XMLNamespaces_h
 #define XMLNamespaces_h
 
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/common/sbmlfwd.h>
+
+
 #ifdef __cplusplus
 
 #include <string>
 #include <vector>
-
-#include <sbml/xml/XMLExtern.h>
-
 
 class XMLOutputStream;
 
@@ -136,6 +137,104 @@ protected:
   std::vector<PrefixURIPair> mNamespaces;
 };
 
+
 #endif  /* __cplusplus */
 
+
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+
+/**
+ * Creates a new XMLNamespaces structure and returns a pointer to it.
+ **/
+LIBLAX_EXTERN
+XMLNamespaces_t *
+XMLNamespaces_create (void);
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNamespaces_free (XMLNamespaces_t *ns);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNamespaces_add (XMLNamespaces_t *ns, 
+		   const char *uri, const char *prefix);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNamespaces_clear (XMLNamespaces_t *ns);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLNamespaces_getLength (const XMLNamespaces_t *ns);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getPrefix (const XMLNamespaces_t *ns, int index);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getPrefixByURI (const XMLNamespaces_t *ns, const char *uri);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getURI (const XMLNamespaces_t *ns, int index);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNamespaces_getURIByPrefix (const XMLNamespaces_t *ns, const char *prefix);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLNamespaces_isEmpty (const XMLNamespaces_t *ns);
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
 #endif  /* XMLNamespaces_h */

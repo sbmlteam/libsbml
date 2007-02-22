@@ -46,6 +46,7 @@ thisdir   = src/xml/test
 
 test_sources =          \
   TestXMLAttributes.cpp \
+  TestXMLNamespaces.c   \
   TestRunner.c
 
 test_headers =
