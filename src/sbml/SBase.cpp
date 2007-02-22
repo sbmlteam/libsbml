@@ -364,7 +364,7 @@ SBase::appendNotes(XMLNode* notes)
 
     if (name == "notes")
     {
-      setAnnotation(notes);
+      setNotes(notes);
     }
     else
     {
