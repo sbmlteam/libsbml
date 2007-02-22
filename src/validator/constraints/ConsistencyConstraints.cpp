@@ -1734,7 +1734,8 @@ START_CONSTRAINT (21111, SpeciesReference, sr)
 }
 END_CONSTRAINT
 
-/* agreed to lose this rule and keep its repeat 20611
+#if 0
+// agreed to lose this rule and keep its repeat 20611
 START_CONSTRAINT (21112, SpeciesReference, sr)
 {
   msg =
@@ -1743,7 +1744,7 @@ START_CONSTRAINT (21112, SpeciesReference, sr)
     "'true' and a 'boundaryCondition' field value of 'false'. (References: "
     "L2V1 Section 4.6.5; L2V2 Section 4.8.6.)";
 
-  /* doesnt apply if the SpeciesReference is a modifier 
+// doesnt apply if the SpeciesReference is a modifier 
   pre(!sr.isModifier());
 
   const Species* s = m.getSpecies( sr.getSpecies() );
@@ -1752,7 +1753,7 @@ START_CONSTRAINT (21112, SpeciesReference, sr)
   inv( ! (s->getConstant() == true && s->getBoundaryCondition() == false) ); 
 }
 END_CONSTRAINT
-*/
+#endif
 
 START_CONSTRAINT (21113, SpeciesReference, sr)
 {
