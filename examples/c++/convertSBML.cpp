@@ -58,20 +58,74 @@ main (int argc, char *argv[])
   }
   else
   {
-    unsigned int level   = d->getLevel() == 2 ? 1 : 2;
-    unsigned int version = 2;
+    unsigned int orig_level = d->getLevel();
+    unsigned int orig_version = d->getVersion();
+
+    unsigned int level   = 2;
+    unsigned int version = 1;
+
     d->setLevelAndVersion(level, version);
   
     errors = d->getNumErrors();
 
+    /**
+     * some conversions will report errors that merely lose information
+     * and do not effect the actual model - and so conversion is possible
+     * whilst in other cases elements have been used that cannot be translated
+     */
+
+    unsigned int fatal = 0;
+    unsigned int errorID;
+
     if (errors > 0)
+    {
+      if (orig_level == 2 && level == 1)
+      {
+        fatal = 1;
+      }
+      else if (orig_level == 2 && level == 2)
+      {
+        if (orig_version == 3 && version == 2)
+        {
+          fatal = 2;
+        }
+        else if ((orig_version == 3 || orig_version == 2) && version == 1)
+        {
+          unsigned int n = 0;
+          while(fatal == 0 && n < d->getNumErrors())
+          {
+            errorID = d->getError(n)->getId();
+
+            if ( (errorID == 92001)
+              || (errorID == 92002))
+            {
+              fatal = 1;
+            }
+            else
+            {
+              fatal = 2;
+            }
+            n++;
+          }
+        }
+      }
+    }
+
+    if (fatal == 1)
     {
       cout << "Conversion Error(s):" << endl;
       d->printErrors(cout);
 
       cout << "Conversion skipped.  Either libSBML does not (yet) have " << endl
-           << "ability to convert this model or (automatic) conversion " << endl
-           << "is not possible." << endl;
+          << "ability to convert this model or (automatic) conversion " << endl
+          << "is not possible." << endl;
+    }
+    else if (fatal == 2)
+    {
+      cout << "Loss of information Error(s):" << endl;
+      d->printErrors(cout);
+
+      writeSBML(d, argv[2]);
     }
     else
     {
