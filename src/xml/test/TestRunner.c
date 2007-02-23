@@ -15,6 +15,7 @@ Suite *create_suite_XMLAttributes (void);
 Suite *create_suite_XMLNamespaces (void);
 Suite *create_suite_XMLNode (void);
 Suite *create_suite_XMLTriple (void);
+Suite *create_suite_XMLToken (void);
 
 int
 main (void) 
