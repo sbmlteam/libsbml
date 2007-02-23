@@ -71,13 +71,21 @@ ifdef USE_LIBCHECK
 endif
 
 ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
-  extra_LIBS      += $(EXPAT_LIBS)
-else
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS   += $(XERCES_LDFLAGS)
-  extra_LIBS      += $(XERCES_LIBS)
+  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
+  extra_LIBS     += $(EXPAT_LIBS)
+endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS  += $(XERCES_LDFLAGS)
+  extra_LIBS     += $(XERCES_LIBS)
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
+  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
+  extra_LIBS     += $(LIBXML_LIBS)
 endif
 
 # `distfiles' determines the files and directories included in a distribution.
