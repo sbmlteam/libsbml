@@ -25,13 +25,16 @@
 #ifndef XMLAttributes_h
 #define XMLAttributes_h
 
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/common/sbmlfwd.h>
+
+
 #ifdef __cplusplus
 
 
 #include <string>
 #include <vector>
 
-#include <sbml/xml/XMLExtern.h>
 #include <sbml/xml/XMLTriple.h>
 
 
@@ -249,7 +252,6 @@ public:
 
 #endif  /* !SWIG */
 
-
 protected:
 
   std::vector<XMLTriple>    mNames;
@@ -258,4 +260,186 @@ protected:
 
 #endif  /* __cplusplus */
 
+
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLAttributes_t *
+XMLAttributes_create (void);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLAttributes_free (XMLAttributes_t *xa);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLAttributes_addResource (XMLAttributes_t *xa, 
+			   const char *name, 
+			   const char *value);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_getLength (const XMLAttributes_t *xa);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getName (const XMLAttributes_t *xa, int index);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getURI (const XMLAttributes_t *xa, int index);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getValue (const XMLAttributes_t *xa, int index);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_isEmpty (const XMLAttributes_t *xa);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
+			       const char *name,
+			       int value,
+			       XMLErrorLog_t *log,
+			       int required);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
+			      const char *name,
+			      double value,
+			      XMLErrorLog_t *log,
+			      int required);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoLong (XMLAttributes_t *xa,
+			    const char *name,
+			    long value,
+			    XMLErrorLog_t *log,
+			    int required);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoInt (XMLAttributes_t *xa,
+			   const char *name,
+			   int value,
+			   XMLErrorLog_t *log,
+			   int required);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
+				   const char *name,
+				   unsigned int value,
+				   XMLErrorLog_t *log,
+				   int required);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoString (XMLAttributes_t *xa,
+			      const char *name,
+			      char *value,
+			      XMLErrorLog_t *log,
+			      int required);
+
+
+
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
 #endif  /* XMLAttributes_h */

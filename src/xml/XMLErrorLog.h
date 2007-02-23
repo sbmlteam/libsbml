@@ -25,14 +25,16 @@
 #ifndef XMLErrorLog_h
 #define XMLErrorLog_h
 
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLError.h>
+#include <sbml/common/sbmlfwd.h>
+
+
 #ifdef __cplusplus
 
 #include <string>
 #include <vector>
 #include <list>
-
-#include <sbml/xml/XMLExtern.h>
-#include <sbml/xml/XMLError.h>
 
 
 class XMLParser;
@@ -45,7 +47,7 @@ public:
   /**
    * Used by attributeTypeError().
    */ 
-  enum DataType { Boolean, Double, Integer };
+  enum DataType { Boolean = 0, Double = 1, Integer = 2 };
 
   /**
    * Creates a new empty XMLErrorLog.
@@ -120,4 +122,76 @@ protected:
 
 #endif  /* __cplusplus */
 
+
+enum XMLErrorLog_DataType { Boolean = 0, Double = 1, Integer = 2 };
+
+
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLErrorLog_t *
+XMLErrorLog_create (void);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_attributeTypeError (XMLErrorLog_t *log,
+				const char *name, 
+				XMLErrorLog_DataType type);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_attributeRequired (XMLErrorLog_t *log, const char *name);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLError_t *
+XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLErrorLog_getNumErrors (const XMLErrorLog_t *log);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_setElement (XMLErrorLog_t *log, const char *name);
+
+
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
 #endif  /* XMLErrorLog_h */

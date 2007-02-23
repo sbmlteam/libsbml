@@ -164,3 +164,84 @@ XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node)
   node.write(stream);
   return stream;
 }
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_create (void)
+{
+  return new(nothrow) XMLNode;
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createFromToken (const XMLToken_t *token)
+{
+  return new(nothrow) XMLNode(*token);
+}
+
+#if 0
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createFromStream (XMLInputStream_t *stream)
+{
+  return new(nothrow) XMLNode(stream);
+}
+
+#endif
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNode_free (XMLNode_t *node)
+{
+  delete static_cast<XMLNode*>(node);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
+{
+  node->addChild(*child);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLNode_t *
+XMLNode_getChild (const XMLNode_t *node, const int n)
+{
+  return &(node->getChild(n));
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLNode_getNumChildren (const XMLNode_t *node)
+{
+  return node->getNumChildren();
+}
+

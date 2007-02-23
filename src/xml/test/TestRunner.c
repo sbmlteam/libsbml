@@ -13,7 +13,8 @@
 
 Suite *create_suite_XMLAttributes (void);
 Suite *create_suite_XMLNamespaces (void);
-
+Suite *create_suite_XMLNode (void);
+Suite *create_suite_XMLTriple (void);
 
 int
 main (void) 
@@ -22,6 +23,10 @@ main (void)
   SRunner *runner = srunner_create(create_suite_XMLAttributes());
 
   srunner_add_suite(runner, create_suite_XMLNamespaces());
+  srunner_add_suite(runner, create_suite_XMLTriple());
+  srunner_add_suite(runner, create_suite_XMLToken());
+  srunner_add_suite(runner, create_suite_XMLNode());
+
 
 #ifdef TRACE_MEMORY
   srunner_set_fork_status(runner, CK_NOFORK);

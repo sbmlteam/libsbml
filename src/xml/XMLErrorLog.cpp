@@ -188,3 +188,82 @@ XMLErrorLog::setParser (const XMLParser* p)
 {
   mParser = p;
 }
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLErrorLog_t *
+XMLErrorLog_create (void)
+{
+  return new(nothrow) XMLErrorLog;
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *xe)
+{
+  log->add(*xe);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_attributeTypeError (XMLErrorLog_t *log,
+				const char *name, 
+				XMLErrorLog_DataType type)
+{
+  log->attributeTypeError(name, static_cast<XMLErrorLog::DataType>(type));
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_attributeRequired (XMLErrorLog_t *log, const char *name)
+{
+  log->attributeRequired(name);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLError_t *
+XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n)
+{
+  return log->getError(n);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
+{
+  return log->getNumErrors();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLErrorLog_setElement (XMLErrorLog_t *log, const char *name)
+{
+  log->setElement(name);
+}

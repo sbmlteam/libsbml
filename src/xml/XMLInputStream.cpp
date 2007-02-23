@@ -203,3 +203,140 @@ XMLInputStream::toString ()
 {
   return mTokenizer.toString();
 }
+
+
+#if 0
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLInputStream_t *
+XMLInputStream_create (const char* content, int isFile, const char *library)
+{
+  return new(nothrow) XMLInputStream(content, isFile, library);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLInputStream_free (XMLInputStream_t *stream)
+{
+  delete static_cast<XMLInputStream*>(stream);
+}  
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLInputStream_getEncoding (XMLInputStream_t *stream)
+{
+  return stream->getEncoding().empty() ? NULL : stream->getEncoding().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLErrorLog_t *
+XMLInputStream_getErrorLog (XMLInputStream_t *stream)
+{
+  return stream->getErrorLog();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLInputStream_isEOF (XMLInputStream_t *stream)
+{
+  return static_cast<int>(stream->isEOF());
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLInputStream_isError (XMLInputStream_t *stream)
+{
+  return static_cast<int>(stream->isError());
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLInputStream_isGood (XMLInputStream_t *stream)
+{
+  return static_cast<int>(stream->isGood());
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t
+XMLInputStream_next (XMLInputStream_t *stream)
+{
+  return stream->next();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLToken_t *
+XMLInputStream_peek (XMLInputStream_t *stream)
+{
+  return &(stream->peek());
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLInputStream_skipPastEnd (XMLInputStream_t *stream,
+			    const XMLToken_t *element)
+{
+  stream->skipPastEnd(*element);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLInputStream_skipText (XMLInputStream_t *stream)
+{
+  stream->skipText();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)
+{
+  stream->setErrorLog(log);
+}
+
+#endif

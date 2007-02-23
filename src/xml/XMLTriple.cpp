@@ -85,3 +85,69 @@ XMLTriple::XMLTriple (const string& triplet, const char sepchar)
     mName = triplet;
   }
 }
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLTriple_t *
+XMLTriple_create (void)
+{
+  return new(nothrow) XMLTriple;
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLTriple_t *
+XMLTriple_createWith (const char *name, const char *uri, const char *prefix)
+{
+  return new(nothrow) XMLTriple(name, uri, prefix);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLTriple_free (XMLTriple_t *triple)
+{
+  delete static_cast<XMLTriple*>( triple );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLTriple_getName (const XMLTriple_t *triple)
+{
+  return triple->getName().empty() ? NULL : triple->getName().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLTriple_getPrefix (const XMLTriple_t *triple)
+{
+  return triple->getPrefix().empty() ? NULL : triple->getPrefix().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLTriple_getURI (const XMLTriple_t *triple)
+{
+  return triple->getURI().empty() ? NULL : triple->getURI().c_str();
+}

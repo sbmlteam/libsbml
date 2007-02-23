@@ -363,3 +363,262 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
   token.write(stream);
   return stream;
 }
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_create (void)
+{
+  return new(nothrow) XMLToken;
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithTriple (const XMLTriple_t *triple)
+{
+  return new(nothrow) XMLToken(*triple);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
+			       const XMLAttributes_t *attr)
+{
+  return new(nothrow) XMLToken(*triple, *attr);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
+				 const XMLAttributes_t *attr,
+				 const XMLNamespaces_t *ns)
+{
+  return new(nothrow) XMLToken(*triple, *attr, *ns);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithText (const char *text)
+{
+  return (text != NULL) ? new(nothrow) XMLToken(text) : new(nothrow) XMLToken;
+}
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_free (XMLToken_t *token)
+{
+  delete static_cast<XMLToken*>( token );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_append (XMLToken_t *token, const char *text)
+{
+  if (text != NULL)
+  {
+    token->append(text);
+  }
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLAttributes_t *
+XMLToken_getAttributes (const XMLToken_t *token)
+{
+  return &(token->getAttributes());
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getCharacters (const XMLToken_t *token)
+{
+  return token->getCharacters().empty() ? NULL : token->getCharacters().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLToken_getColumn (const XMLToken_t *token)
+{
+  return token->getColumn();
+}    
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLToken_getLine (const XMLToken_t *token)
+{
+  return token->getLine();
+}    
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLNamespaces_t *
+XMLToken_getNamespaces (const XMLToken_t *token)
+{
+  return &(token->getNamespaces());
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getName (const XMLToken_t *token)
+{
+  return token->getName().empty() ? NULL : token->getName().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getPrefix (const XMLToken_t *token)
+{
+  return token->getPrefix().empty() ? NULL : token->getPrefix().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getURI (const XMLToken_t *token)
+{
+  return token->getURI().empty() ? NULL : token->getURI().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isElement (const XMLToken_t *token)
+{
+  return static_cast<int>( token->isElement() );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isEnd (const XMLToken_t *token) 
+{
+  return static_cast<int>( token->isEnd() );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isEndFor (const XMLToken_t *token, const XMLToken_t *element)
+{
+  return static_cast<int>( token->isEndFor(*element) );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isEOF (const XMLToken_t *token)
+{
+  return static_cast<int>( token->isEOF() );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isStart (const XMLToken_t *token)
+{
+  return static_cast<int>( token->isStart() );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isText (const XMLToken_t *token)
+{
+  return static_cast<int>( token->isText() );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_setEnd (XMLToken_t *token)
+{
+  token->setEnd();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_setEOF (XMLToken_t *token)
+{
+  token->setEOF();
+}

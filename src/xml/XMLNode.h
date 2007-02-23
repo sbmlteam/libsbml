@@ -25,12 +25,14 @@
 #ifndef XMLNode_h
 #define XMLNode_h
 
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/xml/XMLToken.h>
+#include <sbml/common/sbmlfwd.h>
+
+
 #ifdef __cplusplus
 
 #include <vector>
-
-#include <sbml/xml/XMLExtern.h>
-#include <sbml/xml/XMLToken.h>
 
 
 class XMLInputStream;
@@ -103,4 +105,62 @@ protected:
 
 #endif  /* __cplusplus */
 
+
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_create (void);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_createFromToken (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNode_free (XMLNode_t *node);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLNode_t *
+XMLNode_getChild (const XMLNode_t *node, const int n);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLNode_getNumChildren (const XMLNode_t *node);
+
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
 #endif  /* XMLNode_h */

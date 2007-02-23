@@ -234,6 +234,7 @@ int
 XMLNamespaces_isEmpty (const XMLNamespaces_t *ns);
 
 
+
 END_C_DECLS
 
 #endif  /* !SWIG */

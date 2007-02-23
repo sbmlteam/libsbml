@@ -26,6 +26,7 @@
 #include <clocale>
 #include <cstdlib>
 #include <limits>
+#include <sstream>
 
 #include "XMLErrorLog.h"
 #include "XMLOutputStream.h"
@@ -507,3 +508,228 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
   attributes.write(stream);
   return stream;
 }
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLAttributes_t *
+XMLAttributes_create (void)
+{
+  return new(nothrow) XMLAttributes;
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLAttributes_free (XMLAttributes_t *xa)
+{
+  delete static_cast<XMLAttributes*>(xa);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value)
+{
+  xa->add(name, value);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLAttributes_addResource (XMLAttributes_t *xa, 
+			   const char *name, 
+			   const char *value)
+{
+  xa->addResource(name, value);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name)
+{
+  return xa->getIndex(name);
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_getLength (const XMLAttributes_t *xa)
+{
+  return xa->getLength();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getName (const XMLAttributes_t *xa, int index)
+{
+  return xa->getName(index).empty() ? NULL : xa->getName(index).c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
+{
+  return xa->getPrefix(index).empty() ? NULL : xa->getPrefix(index).c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
+{
+  return xa->getURI(index).empty() ? NULL : xa->getURI(index).c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
+{
+  return xa->getValue(index).empty() ? NULL : xa->getValue(index).c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
+{
+  return xa->getValue(name).empty() ? NULL : xa->getValue(name).c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_isEmpty (const XMLAttributes_t *xa)
+{
+  return static_cast<int>( xa->isEmpty() );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
+			       const char *name,
+			       int &value,
+			       XMLErrorLog_t *log,
+			       int required)
+{
+  return static_cast<int>( xa->readInto(name, value, log, required) );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
+			      const char *name,
+			      double &value,
+			      XMLErrorLog_t *log,
+			      int required)
+{
+  return static_cast<int>( xa->readInto(name, value, log, required) );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoLong (XMLAttributes_t *xa,
+			    const char *name,
+			    long &value,
+			    XMLErrorLog_t *log,
+			    int required)
+{
+  return static_cast<int>( xa->readInto(name, value, log, required) );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoInt (XMLAttributes_t *xa,
+			   const char *name,
+			   int &value,
+			   XMLErrorLog_t *log,
+			   int required)
+{
+  return static_cast<int>( xa->readInto(name, value, log, required) );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
+				   const char *name,
+				   unsigned int &value,
+				   XMLErrorLog_t *log,
+				   int required)
+{
+  return static_cast<int>( xa->readInto(name, value, log, required) );
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLAttributes_readIntoString (XMLAttributes_t *xa,
+			      const char *name,
+			      char *value,
+			      XMLErrorLog_t *log,
+			      int required)
+{
+  //  return static_cast<int>( xa->readInto(name, static_cast<string&>(value), log, required) );
+}
+

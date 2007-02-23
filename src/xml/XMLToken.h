@@ -25,15 +25,18 @@
 #ifndef XMLToken_h
 #define XMLToken_h
 
-#ifdef __cplusplus
-
-#include <string>
-
 #include <sbml/xml/XMLExtern.h>
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLTriple.h>
+#include <sbml/common/sbmlfwd.h>
+
+
+#ifdef __cplusplus
+
+#include <string>
+
 
 
 class XMLOutputStream;
@@ -221,4 +224,201 @@ protected:
 
 #endif  /* __cplusplus */
 
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_create (void);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithTriple (const XMLTriple_t *triple);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
+			       const XMLAttributes_t *attr);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
+				 const XMLAttributes_t *attr,
+				 const XMLNamespaces_t *ns);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_createWithText (const char *text);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_free (XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_append (XMLToken_t *token, const char *text);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLAttributes_t *
+XMLToken_getAttributes (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getCharacters (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLToken_getColumn (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+unsigned int
+XMLToken_getLine (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const XMLNamespaces_t *
+XMLToken_getNamespaces (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getName (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getPrefix (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLToken_getURI (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isElement (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isEnd (const XMLToken_t *token); 
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isEndFor (const XMLToken_t *token, const XMLToken_t *element);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isEOF (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isStart (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+int
+XMLToken_isText (const XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_setEnd (XMLToken_t *token);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLToken_setEOF (XMLToken_t *token);
+
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
 #endif  /* XMLToken_h */

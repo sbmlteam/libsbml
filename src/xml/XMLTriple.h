@@ -25,10 +25,13 @@
 #ifndef XMLTriple_h
 #define XMLTriple_h
 
+#include <sbml/xml/XMLExtern.h>
+#include <sbml/common/sbmlfwd.h>
+
+
 #ifdef __cplusplus
 
 #include <string>
-#include <sbml/xml/XMLExtern.h>
 
 
 class LIBLAX_EXTERN XMLTriple
@@ -72,4 +75,61 @@ private:
 
 #endif  /* __cplusplus */
 
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLTriple_t *
+XMLTriple_create (void);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+XMLTriple_t *
+XMLTriple_createWith (const char *name, const char *uri, const char *prefix);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLTriple_free (XMLTriple_t *triple);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLTriple_getName (const XMLTriple_t *triple);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLTriple_getPrefix (const XMLTriple_t *triple);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLTriple_getURI (const XMLTriple_t *triple);
+
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
 #endif  /* XMLTriple_h */
