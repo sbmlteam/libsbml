@@ -83,9 +83,9 @@ START_TEST (test_Compartment_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) C) == SBML_COMPARTMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) C) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) C) == NULL );
-
+*/
   fail_unless( Compartment_getId     (C) == NULL );
   fail_unless( Compartment_getName   (C) == NULL );
   fail_unless( Compartment_getUnits  (C) == NULL );
@@ -98,7 +98,7 @@ START_TEST (test_Compartment_create)
   fail_unless( !Compartment_isSetId     (C) );
   fail_unless( !Compartment_isSetName   (C) );
   fail_unless( !Compartment_isSetSize   (C) );
-  fail_unless(  Compartment_isSetVolume (C) );
+  fail_unless( !Compartment_isSetVolume (C) );
   fail_unless( !Compartment_isSetUnits  (C) );
   fail_unless( !Compartment_isSetOutside(C) );
 }
@@ -107,30 +107,23 @@ END_TEST
 
 START_TEST (test_Compartment_createWith)
 {
-  Compartment_t *c = Compartment_createWith("A", 3.6, "liter", "B");
+  Compartment_t *c = Compartment_createWith("A", "");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_COMPARTMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) c) == NULL );
-
+*/
   fail_unless( Compartment_getName(c)              == NULL );
   fail_unless( Compartment_getSpatialDimensions(c) == 3    );
 
   fail_unless( !strcmp( Compartment_getId     (c), "A"     ) );
-  fail_unless( !strcmp( Compartment_getUnits  (c), "liter" ) );
-  fail_unless( !strcmp( Compartment_getOutside(c), "B"     ) );
 
-  fail_unless( Compartment_getSize    (c) == 3.6 );
   fail_unless( Compartment_getConstant(c) == 1   );
 
   fail_unless( Compartment_isSetId     (c) );
   fail_unless( !Compartment_isSetName  (c) );
-  fail_unless( Compartment_isSetSize   (c) );
-  fail_unless( Compartment_isSetVolume (c) );
-  fail_unless( Compartment_isSetUnits  (c) );
-  fail_unless( Compartment_isSetOutside(c) );
 
   Compartment_free(c);
 }
@@ -280,6 +273,8 @@ END_TEST
 
 START_TEST (test_Compartment_unsetVolume)
 {
+  Compartment_setVolume(C, 1.0);
+
   fail_unless( Compartment_getVolume(C) == 1.0 );
   fail_unless( Compartment_isSetVolume(C) );
 

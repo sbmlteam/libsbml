@@ -82,9 +82,9 @@ START_TEST (test_Parameter_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) P) == SBML_PARAMETER );
   fail_unless( SBase_getMetaId    ((SBase_t *) P) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) P) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) P) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) P) == NULL );
-
+*/
   fail_unless( Parameter_getId      (P) == NULL );
   fail_unless( Parameter_getName    (P) == NULL );
   fail_unless( Parameter_getUnits   (P) == NULL );
@@ -105,9 +105,9 @@ START_TEST (test_Parameter_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) p) == SBML_PARAMETER );
   fail_unless( SBase_getMetaId    ((SBase_t *) p) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) p) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) p) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) p) == NULL );
-
+*/
   fail_unless( !strcmp(Parameter_getId   (p), "delay" ) );
   fail_unless( !strcmp(Parameter_getUnits(p), "second") );
 

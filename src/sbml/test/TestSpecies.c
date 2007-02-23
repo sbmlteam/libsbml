@@ -83,8 +83,8 @@ START_TEST (test_Species_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) S) == SBML_SPECIES );
   fail_unless( SBase_getMetaId    ((SBase_t *) S) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) S) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) S) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) S) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) S) == NULL );
 
   fail_unless( Species_getId                   (S) == NULL );
   fail_unless( Species_getName                 (S) == NULL );
@@ -113,36 +113,36 @@ END_TEST
 
 START_TEST (test_Species_createWith)
 {
-  Species_t *s = Species_createWith("Ca", "cell", 5.7, "mole", 1, 1);
+  Species_t *s = Species_createWith("Ca", "Calcium");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) s) == SBML_SPECIES );
   fail_unless( SBase_getMetaId    ((SBase_t *) s) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) s) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) s) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) s) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) s) == NULL );
 
-  fail_unless( Species_getName                 (s) == NULL );
+  fail_unless( !strcmp(Species_getName            (s), "Calcium"  ) );
   fail_unless( Species_getSpatialSizeUnits     (s) == NULL );
   fail_unless( Species_getHasOnlySubstanceUnits(s) == 0 );
   fail_unless( Species_getConstant             (s) == 0 );
 
   fail_unless( !strcmp(Species_getId            (s), "Ca"  ) );
-  fail_unless( !strcmp(Species_getCompartment   (s), "cell") );
-  fail_unless( !strcmp(Species_getSubstanceUnits(s), "mole") );
+  //fail_unless( !strcmp(Species_getCompartment   (s), "cell") );
+  //fail_unless( !strcmp(Species_getSubstanceUnits(s), "mole") );
 
-  fail_unless( Species_getInitialAmount    (s) == 5.7  );
-  fail_unless( Species_getBoundaryCondition(s) == 1    );
-  fail_unless( Species_getCharge           (s) == 1    );
+  //fail_unless( Species_getInitialAmount    (s) == 5.7  );
+  //fail_unless( Species_getBoundaryCondition(s) == 1    );
+  //fail_unless( Species_getCharge           (s) == 1    );
 
   fail_unless(   Species_isSetId                   (s) );
-  fail_unless( ! Species_isSetName                 (s) );
-  fail_unless(   Species_isSetCompartment          (s) );
-  fail_unless(   Species_isSetSubstanceUnits       (s) );
+  fail_unless(   Species_isSetName                 (s) );
+  fail_unless( ! Species_isSetCompartment          (s) );
+  fail_unless( ! Species_isSetSubstanceUnits       (s) );
   fail_unless( ! Species_isSetSpatialSizeUnits     (s) );
-  fail_unless(   Species_isSetUnits                (s) );
-  fail_unless(   Species_isSetInitialAmount        (s) );
+  fail_unless( ! Species_isSetUnits                (s) );
+  fail_unless( ! Species_isSetInitialAmount        (s) );
   fail_unless( ! Species_isSetInitialConcentration (s) );
-  fail_unless(   Species_isSetCharge               (s) );
+  fail_unless( ! Species_isSetCharge               (s) );
 
   Species_free(s);
 }

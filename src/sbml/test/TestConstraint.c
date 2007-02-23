@@ -1,7 +1,7 @@
 /**
- * \file    TestListOf.c
- * \brief   ListOf unit tests
- * \author  Ben Bornstein
+ * \file    TestConstraint.c
+ * \brief   SBML Constraint unit tests
+ * \author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -50,46 +50,95 @@
 
 
 #include "common/common.h"
+#include "math/FormulaParser.h"
 
 #include "SBase.h"
-#include "ListOf.h"
+#include "Constraint.h"
 
 #include <check.h>
 
 
-START_TEST (test_ListOf_create)
+static Constraint_t *C;
+
+
+void
+ConstraintTest_setup (void)
 {
-  ListOf_t *lo = ListOf_create();
+  C = Constraint_create();
+
+  if (C == NULL)
+  {
+    fail("Constraint_create() returned a NULL pointer.");
+  }
+}
 
 
-  fail_unless( SBase_getTypeCode  ((SBase_t *) lo) == SBML_LIST_OF );
-/* fail_unless( SBase_getNotes     ((SBase_t *) lo) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) lo) == NULL );
-*/  fail_unless( SBase_getMetaId    ((SBase_t *) lo) == NULL );
+void
+ConstraintTest_teardown (void)
+{
+  Constraint_free(C);
+}
 
-  fail_unless( ListOf_size(lo) == 0 );
 
-  ListOf_free(lo);
+START_TEST (test_Constraint_create)
+{
+  fail_unless( SBase_getTypeCode  ((SBase_t *) C) == SBML_CONSTRAINT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) C) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) C) == NULL );
+*/
+  fail_unless( !Constraint_isSetMessage(C) );
+  fail_unless( !Constraint_isSetMath    (C) );
 }
 END_TEST
 
 
-START_TEST (test_ListOf_free_NULL)
+START_TEST (test_Constraint_free_NULL)
 {
-  ListOf_free(NULL);
+  Constraint_free(NULL);
+}
+END_TEST
+
+
+START_TEST (test_Constraint_setMath)
+{
+  ASTNode_t *math = SBML_parseFormula("2 * k");
+
+  Constraint_setMath(C, math);
+
+  fail_unless( Constraint_getMath(C) != math );
+  fail_unless( Constraint_isSetMath(C) );
+
+  /* Reflexive case (pathological) */
+  Constraint_setMath(C, (ASTNode_t *) Constraint_getMath(C));
+
+  fail_unless( Constraint_getMath(C) != math );
+
+  Constraint_setMath(C, NULL);
+  fail_unless( !Constraint_isSetMath(C) );
+
+  if (Constraint_getMath(C) != NULL)
+  {
+    fail("Constraint_setMath(C, NULL) did not clear ASTNode.");
+  }
 }
 END_TEST
 
 
 Suite *
-create_suite_ListOf (void) 
-{ 
-  Suite *suite = suite_create("ListOf");
-  TCase *tcase = tcase_create("ListOf");
- 
+create_suite_Constraint (void)
+{
+  Suite *suite = suite_create("Constraint");
+  TCase *tcase = tcase_create("Constraint");
 
-  tcase_add_test(tcase, test_ListOf_create    );
-  tcase_add_test(tcase, test_ListOf_free_NULL );
+
+  tcase_add_checked_fixture( tcase,
+                             ConstraintTest_setup,
+                             ConstraintTest_teardown );
+
+  tcase_add_test( tcase, test_Constraint_create      );
+  tcase_add_test( tcase, test_Constraint_free_NULL   );
+  tcase_add_test( tcase, test_Constraint_setMath     );
 
   suite_add_tcase(suite, tcase);
 

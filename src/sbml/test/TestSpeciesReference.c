@@ -51,7 +51,6 @@
 
 #include "common/common.h"
 
-#include "math/MathMLReader.h"
 
 #include "SBase.h"
 #include "SpeciesReference.h"
@@ -85,8 +84,8 @@ START_TEST (test_SpeciesReference_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) SR) == SBML_SPECIES_REFERENCE );
   fail_unless( SBase_getMetaId    ((SBase_t *) SR) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) SR) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) SR) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) SR) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) SR) == NULL );
 
   fail_unless( SpeciesReference_getSpecies          (SR) == NULL );
   fail_unless( SpeciesReference_getStoichiometry    (SR) == 1    );
@@ -106,8 +105,8 @@ START_TEST (test_SpeciesReference_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_SPECIES_REFERENCE );
   fail_unless( SBase_getMetaId    ((SBase_t *) sr) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s3") );
 
@@ -116,6 +115,22 @@ START_TEST (test_SpeciesReference_createWith)
 
   fail_unless( SpeciesReference_isSetSpecies(sr) );
 
+  SpeciesReference_free(sr);
+}
+END_TEST
+
+
+START_TEST (test_SpeciesReference_createModifier)
+{
+  SpeciesReference_t *sr = SpeciesReference_createModifier();
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_MODIFIER_SPECIES_REFERENCE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) sr) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
+
+  fail_unless( SpeciesReference_isModifier(sr));
   SpeciesReference_free(sr);
 }
 END_TEST
@@ -158,38 +173,55 @@ START_TEST (test_SpeciesReference_setSpecies)
 END_TEST
 
 
-START_TEST (test_SpeciesReference_setStoichiometryMath)
+START_TEST (test_SpeciesReference_setId)
 {
-  const ASTNode_t  *n;
-  const ASTNode_t  *math;
-  MathMLDocument_t *d;
+  char *species = "X0";
 
 
-  d    = readMathMLFromString("<cn type='rational'>1<sep/>2</cn>");
-  math = MathMLDocument_getMath(d);
+  SpeciesReference_setId(SR, species);
 
-  SpeciesReference_setStoichiometryMath(SR, (ASTNode_t*) math);
+  fail_unless( !strcmp(SpeciesReference_getId(SR), species) );
+  fail_unless( SpeciesReference_isSetId(SR) );
 
-  fail_unless( SpeciesReference_getStoichiometryMath(SR) == math );
-  fail_unless( SpeciesReference_isSetStoichiometryMath(SR) );
-
-  /* Reflexive case (pathological) */
-  n = SpeciesReference_getStoichiometryMath(SR);
-  SpeciesReference_setStoichiometryMath(SR, (ASTNode_t *) n);
-
-  n = SpeciesReference_getStoichiometryMath(SR);
-  fail_unless( n == math );
-
-  SpeciesReference_setStoichiometryMath(SR, NULL);
-  fail_unless( !SpeciesReference_isSetStoichiometryMath(SR) );
-
-  if (SpeciesReference_getStoichiometryMath(SR) != NULL)
+  if (SpeciesReference_getId(SR) == species)
   {
-    fail( "SpeciesReference_setStoichiometryMath(SR, NULL) "
-          "did not clear ASTNode." );
+    fail("SpeciesReference_setId(...) did not make a copy of string.");
   }
 
-  /* MathMLDocument_free(d); */
+  /* Reflexive case (pathological) */
+  SpeciesReference_setId(SR, SpeciesReference_getId(SR));
+  fail_unless( !strcmp(SpeciesReference_getId(SR), species) );
+
+  SpeciesReference_setId(SR, NULL);
+  fail_unless( !SpeciesReference_isSetId(SR) );
+
+  if (SpeciesReference_getId(SR) != NULL)
+  {
+    fail("SpeciesReference_setId(SR, NULL) did not clear string.");
+  }
+}
+END_TEST
+
+
+START_TEST (test_SpeciesReference_setStoichiometryMath)
+{
+  ASTNode_t *math = SBML_parseFormula("k3 / k2");
+
+  ASTNode_t * math1;
+  char * formula;
+
+
+  SpeciesReference_setStoichiometryMath(SR, math);
+
+  math1 = SpeciesReference_getStoichiometryMath(SR);
+  fail_unless( math1 != NULL );
+
+  formula = SBML_formulaToString(math1);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "k3 / k2") );
+
+  fail_unless( SpeciesReference_isSetStoichiometryMath(SR) );
+
 }
 END_TEST
 
@@ -207,8 +239,10 @@ create_suite_SpeciesReference (void)
 
   tcase_add_test( tcase, test_SpeciesReference_create               );
   tcase_add_test( tcase, test_SpeciesReference_createWith           );
+  tcase_add_test( tcase, test_SpeciesReference_createModifier           );
   tcase_add_test( tcase, test_SpeciesReference_free_NULL            );
   tcase_add_test( tcase, test_SpeciesReference_setSpecies           );
+  tcase_add_test( tcase, test_SpeciesReference_setId           );
   tcase_add_test( tcase, test_SpeciesReference_setStoichiometryMath );
 
   suite_add_tcase(suite, tcase);

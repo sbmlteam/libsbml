@@ -322,7 +322,7 @@ Event_create (void);
  */
 LIBSBML_EXTERN
 Event_t *
-Event_createWith (const char *sid, Trigger_t *trigger);
+Event_createWith (const char *sid);
 
 /**
  * Frees the given Event.

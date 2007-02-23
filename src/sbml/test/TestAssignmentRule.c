@@ -54,22 +54,21 @@
 
 #include "SBase.h"
 #include "Rule.h"
-#include "AssignmentRule.h"
 
 #include <check.h>
 
 
-static AssignmentRule_t *AR;
+static Rule_t *AR;
 
 
 void
 AssignmentRuleTest_setup (void)
 {
-  AR = AssignmentRule_create();
+  AR = Rule_createAssignment();
 
   if (AR == NULL)
   {
-    fail("AssignmentRule_create() returned a NULL pointer.");
+    fail("Rule_createAssignment() returned a NULL pointer.");
   }
 }
 
@@ -77,51 +76,28 @@ AssignmentRuleTest_setup (void)
 void
 AssignmentRuleTest_teardown (void)
 {
-  AssignmentRule_free(AR);
+  Rule_free(AR);
 }
 
 START_TEST (test_AssignmentRule_L2_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) AR) == SBML_ASSIGNMENT_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) AR) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) AR) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) AR) == NULL );
 
   fail_unless( Rule_getFormula((Rule_t *) AR) == NULL );
   fail_unless( Rule_getMath   ((Rule_t *) AR) == NULL );
 
-  fail_unless( AssignmentRule_getVariable(AR) == NULL );
-  fail_unless( AssignmentRule_getType    (AR) == RULE_TYPE_SCALAR );
-}
-END_TEST
-
-
-START_TEST (test_AssignmentRule_L2_createWith)
-{
-  ASTNode_t        *math = SBML_parseFormula("y + 1");
-  AssignmentRule_t *ar   = AssignmentRule_createWith("x", math);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ar) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ar) == NULL );
-
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "y + 1") );
-  fail_unless( Rule_getMath((Rule_t *) ar) == math );
-
-  fail_unless( !strcmp(AssignmentRule_getVariable(ar), "x") );
-
-  fail_unless( AssignmentRule_getType(ar) == RULE_TYPE_SCALAR );
-
-  AssignmentRule_free(ar);
+  fail_unless( Rule_getVariable(AR) == NULL );
+  fail_unless( Rule_getType    (AR) == RULE_TYPE_SCALAR );
 }
 END_TEST
 
 
 START_TEST (test_AssignmentRule_free_NULL)
 {
-  AssignmentRule_free(NULL);
+  Rule_free(NULL);
 }
 END_TEST
 
@@ -131,26 +107,26 @@ START_TEST (test_AssignmentRule_setVariable)
   char *variable = "x";
 
 
-  AssignmentRule_setVariable(AR, variable);
+  Rule_setVariable(AR, variable);
 
-  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable) );
-  fail_unless( AssignmentRule_isSetVariable(AR) );
+  fail_unless( !strcmp(Rule_getVariable(AR), variable) );
+  fail_unless( Rule_isSetVariable(AR) );
 
-  if (AssignmentRule_getVariable(AR) == variable)
+  if (Rule_getVariable(AR) == variable)
   {
-    fail("AssignmentRule_setVariable(...) did not make a copy of string.");
+    fail("Rule_setVariable(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  AssignmentRule_setVariable(AR, AssignmentRule_getVariable(AR));
-  fail_unless( !strcmp(AssignmentRule_getVariable(AR), variable) );
+  Rule_setVariable(AR, Rule_getVariable(AR));
+  fail_unless( !strcmp(Rule_getVariable(AR), variable) );
 
-  AssignmentRule_setVariable(AR, NULL);
-  fail_unless( !AssignmentRule_isSetVariable(AR) );
+  Rule_setVariable(AR, NULL);
+  fail_unless( !Rule_isSetVariable(AR) );
 
-  if (AssignmentRule_getVariable(AR) != NULL)
+  if (Rule_getVariable(AR) != NULL)
   {
-    fail("AssignmentRule_setVariable(AR, NULL) did not clear string.");
+    fail("Rule_setVariable(AR, NULL) did not clear string.");
   }
 }
 END_TEST
@@ -168,7 +144,6 @@ create_suite_AssignmentRule (void)
                              AssignmentRuleTest_teardown );
 
   tcase_add_test( tcase, test_AssignmentRule_L2_create     );
-  tcase_add_test( tcase, test_AssignmentRule_L2_createWith );
   tcase_add_test( tcase, test_AssignmentRule_free_NULL     );
   tcase_add_test( tcase, test_AssignmentRule_setVariable   );
 

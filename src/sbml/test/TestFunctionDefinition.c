@@ -84,9 +84,9 @@ START_TEST (test_FunctionDefinition_create)
 {
   fail_unless( SBase_getTypeCode((SBase_t *) FD) == SBML_FUNCTION_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) FD) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) FD) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) FD) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) FD) == NULL );
-
+*/
   fail_unless( FunctionDefinition_getId  (FD) == NULL );
   fail_unless( FunctionDefinition_getName(FD) == NULL );
   fail_unless( FunctionDefinition_getMath(FD) == NULL );
@@ -99,15 +99,23 @@ START_TEST (test_FunctionDefinition_createWith)
   ASTNode_t            *math = SBML_parseFormula("lambda(x, x^3)");
   FunctionDefinition_t *fd   = FunctionDefinition_createWith("pow3", math);
 
+  ASTNode_t * math1;
+  char * formula;
 
   fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_FUNCTION_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
-
+*/
   fail_unless( FunctionDefinition_getName(fd) == NULL );
 
-  fail_unless( FunctionDefinition_getMath(fd) == math );
+  math1 = FunctionDefinition_getMath(fd);
+  fail_unless( math1 != NULL );
+
+  formula = SBML_formulaToString(math1);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "lambda(x, x^3)") );
+  fail_unless( FunctionDefinition_getMath(fd) != math );
   fail_unless( FunctionDefinition_isSetMath(fd) );
 
   fail_unless( !strcmp(FunctionDefinition_getId(fd), "pow3") );
@@ -238,15 +246,29 @@ START_TEST (test_FunctionDefinition_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("lambda(x, x^3)");
 
+  ASTNode_t * math1;
+  char * formula;
 
   FunctionDefinition_setMath(FD, math);
 
-  fail_unless( FunctionDefinition_getMath(FD) == math );
+  math1 = FunctionDefinition_getMath(FD);
+  fail_unless( math1 != NULL );
+
+  formula = SBML_formulaToString(math1);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "lambda(x, x^3)") );
+  fail_unless( FunctionDefinition_getMath(FD) != math );
   fail_unless( FunctionDefinition_isSetMath(FD) );
 
   /* Reflexive case (pathological) */
   FunctionDefinition_setMath(FD, (ASTNode_t *) FunctionDefinition_getMath(FD));
-  fail_unless( FunctionDefinition_getMath(FD) == math );
+  math1 = FunctionDefinition_getMath(FD);
+  fail_unless( math1 != NULL );
+
+  formula = SBML_formulaToString(math1);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "lambda(x, x^3)") );
+  fail_unless( FunctionDefinition_getMath(FD) != math );
 
   FunctionDefinition_setMath(FD, NULL);
   fail_unless( !FunctionDefinition_isSetMath(FD) );

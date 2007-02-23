@@ -676,6 +676,18 @@ Compartment_create (void)
 
 
 /**
+ * Creates a new Compartment with the given id and name and returns a
+ * pointer to it.
+ */
+LIBSBML_EXTERN
+Compartment_t *
+Compartment_createWith (const char *sid, const char *name)
+{
+  return new(nothrow) Compartment(sid ? sid : "", name ? name : "");
+}
+
+
+/**
  * Frees the given Compartment.
  */
 LIBSBML_EXTERN

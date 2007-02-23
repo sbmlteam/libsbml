@@ -397,6 +397,14 @@ LIBSBML_EXTERN
 Species_t *
 Species_create (void);
 
+/**
+ * Creates a new Species with the given id and name and returns a
+ * pointer to it.
+ */
+LIBSBML_EXTERN
+Species_t *
+Species_createWith (const char *sid, const char *name);
+
 
 /**
  * Frees the given Species.

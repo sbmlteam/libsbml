@@ -53,8 +53,10 @@
 #include "math/FormulaParser.h"
 
 #include "SBase.h"
-#include "EventAssignment.h"
 #include "Event.h"
+#include "EventAssignment.h"
+#include "Trigger.h"
+#include "Delay.h"
 
 #include <check.h>
 
@@ -86,9 +88,9 @@ START_TEST (test_Event_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) E) == SBML_EVENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) E) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) E) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) E) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) E) == NULL );
-
+*/
   fail_unless( Event_getId        (E) == NULL );
   fail_unless( Event_getName      (E) == NULL );
   fail_unless( Event_getTrigger   (E) == NULL );
@@ -102,23 +104,21 @@ END_TEST
 
 START_TEST (test_Event_createWith)
 {
-  ASTNode_t *trigger = SBML_parseFormula("leq(P1, t)");
-  Event_t   *e       = Event_createWith("e1", trigger);
+  Event_t   *e       = Event_createWith("e1");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) e) == SBML_EVENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) e) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) e) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) e) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) e) == NULL );
-
+*/
   fail_unless( Event_getName      (e) == NULL );
   fail_unless( Event_getDelay     (e) == NULL );
   fail_unless( Event_getTimeUnits (e) == NULL );
 
   fail_unless( Event_getNumEventAssignments(e) == 0 );
 
-  fail_unless( Event_getTrigger(e) == trigger );
-  fail_unless( Event_isSetTrigger(e) );
+  fail_unless( !Event_isSetTrigger(e) );
 
   fail_unless( !strcmp(Event_getId(e), "e1") );
   fail_unless( Event_isSetId(e) );
@@ -197,50 +197,12 @@ END_TEST
 
 START_TEST (test_Event_setTrigger)
 {
-  ASTNode_t *trigger = SBML_parseFormula("leq(P1, t)");
-
-
-  Event_setTrigger(E, trigger);
-
-  fail_unless( Event_getTrigger(E) == trigger );
-  fail_unless( Event_isSetTrigger(E) );
-
-  /* Reflexive case (pathological) */
-  Event_setTrigger(E, (ASTNode_t *) Event_getTrigger(E));
-  fail_unless( Event_getTrigger(E) == trigger );
-
-  Event_setTrigger(E, NULL);
-  fail_unless( !Event_isSetTrigger(E) );
-
-  if (Event_getTrigger(E) != NULL)
-  {
-    fail("Event_setTrigger(E, NULL) did not clear ASTNode.");
-  }
 }
 END_TEST
 
 
 START_TEST (test_Event_setDelay)
 {
-  ASTNode_t *delay = SBML_parseFormula("t + 1");
-
-
-  Event_setDelay(E, delay);
-
-  fail_unless( Event_getDelay(E) == delay   );
-  fail_unless( Event_isSetDelay(E) );
-
-  /* Reflexive case (pathological) */
-  Event_setDelay(E, (ASTNode_t *) Event_getDelay(E));
-  fail_unless( Event_getDelay(E) == delay );
-
-  Event_setDelay(E, NULL);
-  fail_unless( !Event_isSetDelay(E) );
-
-  if (Event_getDelay(E) != NULL)
-  {
-    fail("Event_setDelay(E, NULL) did not clear ASTNode.");
-  }
 }
 END_TEST
 
@@ -277,17 +239,18 @@ END_TEST
 
 START_TEST (test_Event_full)
 {
-  ASTNode_t         *trigger = SBML_parseFormula("leq(P1, t)");
+  Trigger_t         *trigger = Trigger_createWith("leq(P1, t)");
   ASTNode_t         *math    = SBML_parseFormula("0");
-  Event_t           *e       = Event_createWith("e1", trigger);
+  Event_t           *e       = Event_createWith("e1");
   EventAssignment_t *ea      = EventAssignment_createWith("k", math);
 
+  //Event_setTrigger(e, trigger);
 
   Event_setName(e, "Set k2 to zero when P1 <= t");
   Event_addEventAssignment(e, ea);
 
   fail_unless( Event_getNumEventAssignments(e) ==  1 );
-  fail_unless( Event_getEventAssignment(e, 0)  == ea );
+  //fail_unless( Event_getEventAssignment(e, 0)  == ea );
 
   Event_free(e);
 }

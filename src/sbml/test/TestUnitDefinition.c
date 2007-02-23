@@ -84,8 +84,8 @@ START_TEST (test_UnitDefinition_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) UD) == SBML_UNIT_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) UD) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) UD) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) UD) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) UD) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) UD) == NULL );
 
   fail_unless( UnitDefinition_getId  (UD) == NULL );
   fail_unless( UnitDefinition_getName(UD) == NULL );
@@ -105,8 +105,8 @@ START_TEST (test_UnitDefinition_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
 
   fail_unless( UnitDefinition_getName(ud) == NULL );
 
@@ -127,8 +127,8 @@ START_TEST (test_UnitDefinition_createWithName)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
 
   fail_unless( UnitDefinition_getId(ud) == NULL );
 
@@ -258,12 +258,13 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfArea)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_METRE, 2, 1);
-
-
+  
+  Unit_t *u = UnitDefinition_createUnit(UD);
   fail_unless( !UnitDefinition_isVariantOfArea(UD) );
+  
+  Unit_setKind(u, UNIT_KIND_METRE);
+  Unit_setExponent(u, 2);
 
-  UnitDefinition_addUnit(UD, u);
   fail_unless(  UnitDefinition_isVariantOfArea(UD) );
 
   Unit_setScale(u, -1);
@@ -283,12 +284,13 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfLength)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_METRE, 1, 1);
-
-
+  Unit_t *u = UnitDefinition_createUnit(UD);
   fail_unless( !UnitDefinition_isVariantOfLength(UD) );
+  
+  Unit_setKind(u, UNIT_KIND_METRE);
+  Unit_setExponent(u, 1);
 
-  UnitDefinition_addUnit(UD, u);
+
   fail_unless(  UnitDefinition_isVariantOfLength(UD) );
 
   Unit_setScale(u, -1);
@@ -308,12 +310,13 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfSubstance_1)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_MOLE, 1, 1);
-
+  Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
 
-  UnitDefinition_addUnit(UD, u);
+  Unit_setKind(u, UNIT_KIND_MOLE);
+  Unit_setExponent(u, 1);
+
   fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
 
   Unit_setScale(u, -1);
@@ -333,12 +336,12 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfSubstance_2)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_ITEM, 1, 1);
-
+  Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfSubstance(UD) );
 
-  UnitDefinition_addUnit(UD, u);
+  Unit_setKind(u, UNIT_KIND_ITEM);
+  Unit_setExponent(u, 1);
   fail_unless(  UnitDefinition_isVariantOfSubstance(UD) );
 
   Unit_setScale(u, -1);
@@ -358,12 +361,12 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfTime)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_SECOND, 1, 1);
-
+  Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfTime(UD) );
 
-  UnitDefinition_addUnit(UD, u);
+  Unit_setKind(u, UNIT_KIND_SECOND);
+  Unit_setExponent(u, 1);
   fail_unless(  UnitDefinition_isVariantOfTime(UD) );
 
   Unit_setScale(u, -10);
@@ -383,12 +386,12 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfVolume_1)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_LITRE, 1, 1);
-
+  Unit_t *u = UnitDefinition_createUnit(UD);
 
   fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
 
-  UnitDefinition_addUnit(UD, u);
+  Unit_setKind(u, UNIT_KIND_LITRE);
+  Unit_setExponent(u, 1);
   fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
 
   Unit_setScale(u, 100);
@@ -408,12 +411,13 @@ END_TEST
 
 START_TEST (test_UnitDefinition_isVariantOfVolume_2)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_METRE, 3, 1);
+  Unit_t *u = UnitDefinition_createUnit(UD);
 
 
   fail_unless( !UnitDefinition_isVariantOfVolume(UD) );
 
-  UnitDefinition_addUnit(UD, u);
+  Unit_setKind(u, UNIT_KIND_METRE);
+  Unit_setExponent(u, 3);
   fail_unless(  UnitDefinition_isVariantOfVolume(UD) );
 
   Unit_setScale(u, 100);

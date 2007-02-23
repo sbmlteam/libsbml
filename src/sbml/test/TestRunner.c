@@ -73,10 +73,13 @@ Suite *create_suite_WriteSBML                (void);
 Suite *create_suite_AlgebraicRule            (void);
 Suite *create_suite_AssignmentRule           (void);
 Suite *create_suite_Compartment              (void);
+Suite *create_suite_CompartmentType          (void);
+Suite *create_suite_Constraint               (void);
 Suite *create_suite_CompartmentVolumeRule    (void);
 Suite *create_suite_Event                    (void);
 Suite *create_suite_EventAssignment          (void);
 Suite *create_suite_FunctionDefinition       (void);
+Suite *create_suite_InitialAssignment        (void);
 Suite *create_suite_KineticLaw               (void);
 Suite *create_suite_ListOf                   (void);
 Suite *create_suite_Model                    (void);
@@ -100,6 +103,7 @@ Suite *create_suite_SimpleSpeciesReference   (void);
 Suite *create_suite_Species                  (void);
 Suite *create_suite_SpeciesConcentrationRule (void);
 Suite *create_suite_SpeciesReference         (void);
+Suite *create_suite_SpeciesType              (void);
 Suite *create_suite_Unit                     (void);
 Suite *create_suite_UnitDefinition           (void);
 Suite *create_suite_UnitKind                 (void);
@@ -158,16 +162,30 @@ main (void)
 
   srunner_add_suite( runner, create_suite_WriteSBML() );
 
-  /* SRunner *runner = srunner_create( create_suite_AlgebraicRule() ); */
+/*  srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
   
- /*srunner_add_suite( runner, create_suite_AssignmentRule           () );
-  /*srunner_add_suite( runner, create_suite_Compartment              () );
-  srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
+ /* srunner_add_suite( runner, create_suite_AssignmentRule           () );
+  */
+  srunner_add_suite( runner, create_suite_AssignmentRule           () );
+  srunner_add_suite( runner, create_suite_Compartment              () );
+  srunner_add_suite( runner, create_suite_CompartmentType          () );
+  srunner_add_suite( runner, create_suite_Constraint                    () );
   srunner_add_suite( runner, create_suite_Event                    () );
   srunner_add_suite( runner, create_suite_EventAssignment          () );
   srunner_add_suite( runner, create_suite_FunctionDefinition       () );
+  srunner_add_suite( runner, create_suite_InitialAssignment       () );
   srunner_add_suite( runner, create_suite_KineticLaw               () );
   srunner_add_suite( runner, create_suite_ListOf                   () );
+  srunner_add_suite( runner, create_suite_Parameter                () );
+  srunner_add_suite( runner, create_suite_Reaction                 () );
+  srunner_add_suite( runner, create_suite_Species                  () );
+  srunner_add_suite( runner, create_suite_SpeciesReference         () );
+  srunner_add_suite( runner, create_suite_SpeciesType                  () );
+  srunner_add_suite( runner, create_suite_Unit                     () );
+  srunner_add_suite( runner, create_suite_UnitDefinition           () );
+  srunner_add_suite( runner, create_suite_UnitKind                 () );
+/*  srunner_add_suite( runner, create_suite_Rule                     () );
+/* srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
   srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
   srunner_add_suite( runner, create_suite_Parameter                () );

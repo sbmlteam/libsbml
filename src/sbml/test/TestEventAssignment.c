@@ -84,9 +84,9 @@ START_TEST (test_EventAssignment_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) EA) == SBML_EVENT_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) EA) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) EA) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) EA) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) EA) == NULL );
-
+*/
   fail_unless( EventAssignment_getVariable(EA) == NULL );
   fail_unless( EventAssignment_getMath    (EA) == NULL );
 }
@@ -98,13 +98,15 @@ START_TEST (test_EventAssignment_createWith)
   ASTNode_t         *math = SBML_parseFormula("0");
   EventAssignment_t *ea   = EventAssignment_createWith("k", math);
 
+  ASTNode_t *math1;
+  char * formula;
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ea) == SBML_EVENT_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) ea) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ea) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) ea) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) ea) == NULL );
-
-  fail_unless( EventAssignment_getMath(ea) == math );
+*/
+  fail_unless( EventAssignment_getMath(ea) != math );
   fail_unless( EventAssignment_isSetMath(ea) );
 
   fail_unless( !strcmp(EventAssignment_getVariable(ea), "k") );
@@ -155,16 +157,31 @@ END_TEST
 START_TEST (test_EventAssignment_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("2 * k");
-
+  char *formula;
+  ASTNode_t *math1;
 
   EventAssignment_setMath(EA, math);
 
-  fail_unless( EventAssignment_getMath(EA) == math );
+  //math1 = EventAssignment_getMath(EA);
+  //fail_unless( math1 != NULL );
+
+  //formula = SBML_formulaToString(math1);
+  //fail_unless( formula != NULL );
+  //fail_unless( !strcmp(formula, "2 * k") );
+
+  fail_unless( EventAssignment_getMath(EA) != math);
   fail_unless( EventAssignment_isSetMath(EA) );
 
   /* Reflexive case (pathological) */
   EventAssignment_setMath(EA, (ASTNode_t *) EventAssignment_getMath(EA));
-  fail_unless( EventAssignment_getMath(EA) == math );
+
+  math1 = EventAssignment_getMath(EA);
+  fail_unless( math1 != NULL );
+
+  formula = SBML_formulaToString(math1);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "2 * k") );
+  fail_unless( EventAssignment_getMath(EA) != math );
 
   EventAssignment_setMath(EA, NULL);
   fail_unless( !EventAssignment_isSetMath(EA) );

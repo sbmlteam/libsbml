@@ -56,7 +56,6 @@
 
 #include "SBase.h"
 #include "Rule.h"
-#include "AlgebraicRule.h"
 
 #include <check.h>
 
@@ -67,11 +66,11 @@ static Rule_t *R;
 void
 RuleTest_setup (void)
 {
-  R = (Rule_t *) AlgebraicRule_create();
+  R = Rule_createAlgebraic();
 
   if (R == NULL)
   {
-    fail("AlgebraicRule_create() returned a NULL pointer.");
+    fail("Rule_createAlgebraic() returned a NULL pointer.");
   }
 }
 
@@ -79,7 +78,7 @@ RuleTest_setup (void)
 void
 RuleTest_teardown (void)
 {
-  AlgebraicRule_free((AlgebraicRule_t *) R);
+  Rule_free(R);
 }
 
 
@@ -87,8 +86,8 @@ START_TEST (test_Rule_init)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) R) == SBML_ALGEBRAIC_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) R) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) R) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) R) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) R) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) R) == NULL );
 
   fail_unless( Rule_getFormula(R) == NULL );
   fail_unless( Rule_getMath   (R) == NULL );
@@ -126,36 +125,6 @@ START_TEST (test_Rule_setFormula)
 END_TEST
 
 
-/**
- * setFormulaFromMath() is no longer necessary.  LibSBML now keeps formula
- * strings and math ASTs synchronized automatically.  This (now modified)
- * test is kept around to demonstrate the behavioral change.
- */
-START_TEST (test_Rule_setFormulaFromMath)
-{
-  ASTNode_t *math = SBML_parseFormula("k1 * X0");
-
-
-  fail_unless( !Rule_isSetMath   (R) );
-  fail_unless( !Rule_isSetFormula(R) );
-
-  Rule_setFormulaFromMath(R);
-  fail_unless( !Rule_isSetMath   (R) );
-  fail_unless( !Rule_isSetFormula(R) );
-
-  Rule_setMath(R, math);
-  fail_unless( Rule_isSetMath(R) );
-  fail_unless( /* ! */ Rule_isSetFormula(R) );
-
-  Rule_setFormulaFromMath(R);
-  fail_unless( Rule_isSetMath   (R) );
-  fail_unless( Rule_isSetFormula(R) );
-
-  fail_unless( !strcmp(Rule_getFormula(R), "k1 * X0") );
-}
-END_TEST
-
-
 START_TEST (test_Rule_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("1 + 1");
@@ -163,12 +132,12 @@ START_TEST (test_Rule_setMath)
 
   Rule_setMath(R, math);
 
-  fail_unless( Rule_getMath(R) == math );
+  fail_unless( Rule_getMath(R) != math );
   fail_unless( Rule_isSetMath(R) );
 
   /* Reflexive case (pathological) */
   Rule_setMath(R, (ASTNode_t *) Rule_getMath(R));
-  fail_unless( Rule_getMath(R) == math );
+  fail_unless( Rule_getMath(R) != math );
 
   Rule_setMath(R, NULL);
   fail_unless( !Rule_isSetMath(R) );
@@ -177,39 +146,6 @@ START_TEST (test_Rule_setMath)
   {
     fail("Rule_setMath(R, NULL) did not clear ASTNode.");
   }
-}
-END_TEST
-
-/**
- * setMathFromFormula() is no longer necessary.  LibSBML now keeps formula
- * strings and math ASTs synchronized automatically.  This (now modified)
- * test is kept around to demonstrate the behavioral change.
- */
-START_TEST (test_Rule_setMathFromFormula)
-{
-  char *formula = "1 + 1";
-
-
-  fail_unless( !Rule_isSetMath   (R) );
-  fail_unless( !Rule_isSetFormula(R) );
-
-  Rule_setMathFromFormula(R);
-  fail_unless( !Rule_isSetMath   (R) );
-  fail_unless( !Rule_isSetFormula(R) );
-
-  Rule_setFormula(R, formula);
-  fail_unless( /* ! */ Rule_isSetMath(R) );
-  fail_unless(  Rule_isSetFormula(R) );
-
-  Rule_setMathFromFormula(R);
-  fail_unless( Rule_isSetMath   (R) );
-  fail_unless( Rule_isSetFormula(R) );
-
-  formula = SBML_formulaToString( Rule_getMath(R) );
-
-  fail_unless( !strcmp(formula, "1 + 1") );
-
-  safe_free(formula);
 }
 END_TEST
 
@@ -225,9 +161,7 @@ create_suite_Rule (void)
 
   tcase_add_test( tcase, test_Rule_init               );
   tcase_add_test( tcase, test_Rule_setFormula         );
-  tcase_add_test( tcase, test_Rule_setFormulaFromMath );
   tcase_add_test( tcase, test_Rule_setMath            );
-  tcase_add_test( tcase, test_Rule_setMathFromFormula );
 
 
   suite_add_tcase(suite, tcase);
