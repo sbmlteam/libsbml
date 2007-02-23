@@ -6,13 +6,13 @@
 /**
  * This function compares two XMLNodes if they have identical content.
  * If the two nodes are identical, the function returns true.
- * This function does not consider namespaces.
  */
 bool compareXMLNodes(const XMLNode& node1,const XMLNode& node2)
 {
    bool equal=true;
-   // check if the nodes have the same name, the same attributes and the same number of children
+   // check if the nodes have the same name, the same namespace uri, the same attributes and the same number of children
    equal=(node1.getName()==node2.getName());
+   equal=(equal && (node1.getURI()==node2.getURI()));
    XMLAttributes attr1=node1.getAttributes(); 
    XMLAttributes attr2=node2.getAttributes();
    int i=0,iMax=attr1.getLength();
@@ -22,6 +22,8 @@ bool compareXMLNodes(const XMLNode& node1,const XMLNode& node2)
    {
       attrName=attr1.getName(i);
       equal=(attr2.getIndex(attrName)!=-1);
+      // also check the namspace
+      equal=(equal && (attr1.getURI(i)==attr2.getURI(i)));
       ++i;
    }
    // recursively check all children
