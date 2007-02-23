@@ -2464,8 +2464,8 @@ START_TEST (test_LayoutWriting)
 
   std::string writtenContent(writer.writeToString(document));
 
-  stream=XMLInputStream(writtenContent.c_str(),false);
-  XMLNode node2(stream);
+  XMLInputStream stream2(writtenContent.c_str(),false);
+  XMLNode node2(stream2);
 
 
   fail_unless( compareXMLNodes(node,node2) );   
