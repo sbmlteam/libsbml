@@ -319,10 +319,19 @@ dnl ---------------------------------------------------------------------------
 
 if test $with_expat != no; then
   xml_library="Expat"
+  xml_cppflags=$EXPAT_CPPFLAGS
+  xml_ldflags=$EXPAT_LDFLAGS
+  xml_libs=$EXPAT_LIBS
 elif test $with_libxml != no; then
   xml_library="libxml2"
+  xml_cppflags=$LIBXML_CPPFLAGS
+  xml_ldflags=$LIBXML_LDFLAGS
+  xml_libs=$LIBXML_LIBS
 else
   xml_library="Xerces-C++"
+  xml_cppflags=$XERCES_CPPFLAGS
+  xml_ldflags=$XERCES_LDFLAGS
+  xml_libs=$XERCES_LIBS
 fi
 
 echo ""
@@ -331,6 +340,9 @@ echo "----------------------------------"
 echo "  host type              = $HOST_TYPE"
 echo "  install dir            = $prefix"
 echo "  XML library            = $xml_library"
+echo "  CPPFLAGS for XML       = $xml_cppflags"
+echo "  LDFLAGS for XML        = $xml_ldflags"
+echo "  LIBS for XML           = $xml_libs"
 echo "  CC                     = $CC"
 echo "  CXX                    = $CXX"
 echo "  CFLAGS                 = $CFLAGS"
