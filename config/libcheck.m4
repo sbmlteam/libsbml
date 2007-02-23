@@ -20,17 +20,14 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
   AC_ARG_WITH([check],
     AC_HELP_STRING([--with-check=PREFIX],
-                   [Use the libcheck unit testing library (default=no)]),
+                   [Use the libcheck unit testing library [[default=no]]]),
     [with_libcheck=$withval],
     [with_libcheck=no])
 
-  min_check_version=ifelse([$1], ,0.9.2,$1)
-
-  AC_MSG_CHECKING(for check - version >= $min_check_version)
-
-  libcheck_found=no
-
   if test $with_libcheck != no; then
+
+    min_check_version=ifelse([$1], ,0.9.2,$1)
+    AC_MSG_CHECKING(for check - version >= $min_check_version)
 
     AC_LANG_PUSH(C)
 
@@ -56,7 +53,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
         CONFIG_ADD_LDPATH($libcheck_root/lib)
         LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
         LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
-	;;
+        ;;
       esac    
 
       dnl Note that CONFIG_ADD_LDPATH is deliberately not called in cases
@@ -73,6 +70,8 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
     CFLAGS="$LIBCHECK_CPPFLAGS $CFLAGS"
     LDFLAGS="$LIBCHECK_LDFLAGS $LDFLAGS"
     LIBS="$LIBCHECK_LIBS $LIBS"
+
+    libcheck_found=no
 
     AC_CHECK_HEADERS([check.h], [libcheck_found=yes], [libcheck_found=no])
 
@@ -113,16 +112,16 @@ int main ()
       (CHECK_MICRO_VERSION != check_micro_version))
     {
       printf("\n*** The Check header file (version %d.%d.%d) does not match\n",
-	     CHECK_MAJOR_VERSION, CHECK_MINOR_VERSION, CHECK_MICRO_VERSION);
+             CHECK_MAJOR_VERSION, CHECK_MINOR_VERSION, CHECK_MICRO_VERSION);
       printf("*** the Check library found (version %d.%d.%d).\n",
-	     check_major_version, check_minor_version, check_micro_version);
+             check_major_version, check_minor_version, check_micro_version);
       return 1;
     }
 
   if ((check_major_version > major) ||
       ((check_major_version == major) && (check_minor_version > minor)) ||
       ((check_major_version == major) && (check_minor_version == minor)
-	&& (check_micro_version >= micro)))
+        && (check_micro_version >= micro)))
     {
       return 0;
     }
@@ -131,7 +130,7 @@ int main ()
       printf("\n*** An old version of Check (%d.%d.%d) was found.\n",
              check_major_version, check_minor_version, check_micro_version);
       printf("*** You need a version of Check that's at least %d.%d.%d.\n", 
-	major, minor, micro);
+        major, minor, micro);
       printf("***\n"); 
       printf("*** If you've already installed a sufficiently new version,\n");
       printf("*** this error probably means that the wrong copy of the\n");
@@ -152,36 +151,36 @@ int main ()
       ifelse([$2], , :, [$2])
     else
       if test -f conf.check-test ; then
-        :
+	:
       else
         echo "*** Could not run Check test program, trying to find out why..."
 
-	CFLAGS="$LIBCHECK_CPPFLAGS $CFLAGS"
-	LDFLAGS="$LIBCHECK_LDFLAGS $LDFLAGS"
-	LIBS="$LIBCHECK_LIBS $LIBS"
+        CFLAGS="$LIBCHECK_CPPFLAGS $CFLAGS"
+        LDFLAGS="$LIBCHECK_LDFLAGS $LDFLAGS"
+        LIBS="$LIBCHECK_LIBS $LIBS"
 
         AC_TRY_LINK([
 #include <stdio.h>
 #include <stdlib.h>
 #include <check.h>
-], ,  [ echo "*** The test program compiled, but did not run.  This usually"
-        echo "*** means that the run-time linker is not finding libcheck.  You"
-        echo "*** will need to set your LD_LIBRARY_PATH environment variable,"
-        echo "*** or edit /etc/ld.so.conf to point to the installed location."
-        echo "*** Also, make sure you have run ldconfig if that is required"
-	echo "*** on your operating system."
-	echo "***"
-        echo "*** If you have an old version of Check installed, it is best"
-        echo "*** to remove it, although you may also be able to get things"
-        echo "*** to work by modifying you value of LD_LIBRARY_PATH."],
-
-      [ echo "*** The test program failed to compile or link. See the file"
-        echo "*** 'config.log' for more information about what happened." ])
-      
-	CFLAGS="$tmp_CFLAGS"
-    	LDFLAGS="$tmp_LDFLAGS"
-    	LIBS="$tmp_LIBS"
-
+], ,    [ echo "*** The test program compiled, but did not run.  This usually"
+          echo "*** means that the run-time linker is not finding libcheck.  You"
+          echo "*** will need to set your LD_LIBRARY_PATH environment variable,"
+          echo "*** or edit /etc/ld.so.conf to point to the installed location."
+          echo "*** Also, make sure you have run ldconfig if that is required"
+          echo "*** on your operating system."
+          echo "***"
+          echo "*** If you have an old version of Check installed, it is best"
+          echo "*** to remove it, although you may also be able to get things"
+          echo "*** to work by modifying you value of LD_LIBRARY_PATH."],
+  
+        [ echo "*** The test program failed to compile or link. See the file"
+          echo "*** 'config.log' for more information about what happened." ])
+        
+        CFLAGS="$tmp_CFLAGS"
+        LDFLAGS="$tmp_LDFLAGS"
+        LIBS="$tmp_LIBS"
+  
       fi
 
       tmp_CFLAGS=""
@@ -191,6 +190,8 @@ int main ()
       rm -f conf.check-test
       ifelse([$3], , AC_MSG_ERROR([check not found]), [$3])
     fi
+
+    rm -f conf.check-test
 
     CFLAGS="$tmp_CFLAGS"
     LDFLAGS="$tmp_LDFLAGS"
