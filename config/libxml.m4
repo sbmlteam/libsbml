@@ -230,6 +230,7 @@ main()
     AC_SUBST(USE_LIBXML, 1)
 
     AC_SUBST(LIBXML_CPPFLAGS)
+    AC_SUBST(LIBXML_LDFLAGS)
     AC_SUBST(LIBXML_LIBS)
     rm -f conf.xmltest
   fi
