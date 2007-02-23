@@ -113,7 +113,7 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 otherdirs     = .. ../../util ../../xml ../../math ../../sbml ../../validator \
-	../../validator/constraints ../../units ../../annotation
+	../../validator/constraints ../../units
 
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 test_objfiles = $(localobjfiles) $(otherobjfiles)
