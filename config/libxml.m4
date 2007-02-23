@@ -21,7 +21,7 @@ dnl to better distinguish the library in the libSBML configure options,
 dnl also changing the name of the macro to CONFIG_LIB_LIBXML
 
 dnl CONFIG_LIB_LIBXML([MIN-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-dnl Test for XML, and define XML_CPPFLAGS and XML_LIBS
+dnl Test for XML, and define LIBXML_CPPFLAGS and LIBXML_LIBS
 
 AC_DEFUN([CONFIG_LIB_LIBXML],
 [ 
@@ -46,8 +46,8 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
     if test "$XML2_CONFIG" = "no" ; then
       no_xml=yes
     else
-      XML_CPPFLAGS=`$XML2_CONFIG $xml_config_args --cflags`
-      XML_LIBS=`$XML2_CONFIG $xml_config_args --libs`
+      LIBXML_CPPFLAGS=`$XML2_CONFIG $xml_config_args --cflags`
+      LIBXML_LIBS=`$XML2_CONFIG $xml_config_args --libs`
       xml_config_major_version=`$XML2_CONFIG $xml_config_args --version | \
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
       xml_config_minor_version=`$XML2_CONFIG $xml_config_args --version | \
@@ -57,8 +57,8 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
       if test "x$enable_xmltest" = "xyes" ; then
         ac_save_CPPFLAGS="$CPPFLAGS"
         ac_save_LIBS="$LIBS"
-        CPPFLAGS="$CPPFLAGS $XML_CPPFLAGS"
-        LIBS="$XML_LIBS $LIBS"
+        CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
+        LIBS="$LIBXML_LIBS $LIBS"
 
         dnl Now check if the installed libxml is sufficiently new.
         dnl (Also sanity checks the results of xml2-config to some extent)
@@ -171,8 +171,8 @@ main()
          :
         else
           echo "*** Could not run libxml test program, checking why..."
-          CPPFLAGS="$CPPFLAGS $XML_CPPFLAGS"
-          LIBS="$LIBS $XML_LIBS"
+          CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
+          LIBS="$LIBS $LIBXML_LIBS"
           AC_TRY_LINK([
 #include <libxml/xmlversion.h>
 #include <stdio.h>
@@ -200,16 +200,16 @@ main()
         fi
       fi
 
-      XML_CPPFLAGS=""
-      XML_LIBS=""
+      LIBXML_CPPFLAGS=""
+      LIBXML_LIBS=""
       ifelse([$3], , :, [$3])
     fi
 
     AC_DEFINE([USE_LIBXML], 1, [Define to 1 to use the libxml2 XML library])
     AC_SUBST(USE_LIBXML, 1)
 
-    AC_SUBST(XML_CPPFLAGS)
-    AC_SUBST(XML_LIBS)
+    AC_SUBST(LIBXML_CPPFLAGS)
+    AC_SUBST(LIBXML_LIBS)
     rm -f conf.xmltest
   fi
 
