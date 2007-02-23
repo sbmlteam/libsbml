@@ -28,7 +28,7 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
   AC_ARG_WITH([libxml],
     AC_HELP_STRING([--with-libxml=PREFIX],
                    [Use the libxml2 XML library [[default=no]]]),
-            with_libxml="$withval", with_libxml="")
+            [with_libxml="$withval"], [with_libxml=no])
 
   if test $with_libxml != no; then
 
@@ -38,6 +38,9 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
         XML2_CONFIG=$with_libxml/bin/xml2-config
       fi
     fi
+
+    ac_save_CPPFLAGS="$CPPFLAGS"
+    ac_save_LIBS="$LIBS"
 
     AC_PATH_PROG(XML2_CONFIG, xml2-config, no)
     min_xml_version=ifelse([$1], ,2.0.0,[$1])
@@ -55,8 +58,6 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
       xml_config_micro_version=`$XML2_CONFIG $xml_config_args --version | \
              sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
       if test "x$enable_xmltest" = "xyes" ; then
-        ac_save_CPPFLAGS="$CPPFLAGS"
-        ac_save_LIBS="$LIBS"
         CPPFLAGS="$CPPFLAGS $LIBXML_CPPFLAGS"
         LIBS="$LIBXML_LIBS $LIBS"
 
@@ -195,8 +196,6 @@ main()
           echo "*** latter case, you may want to edit the xml2-config"
           echo "*** script located in $XML2_CONFIG" ])
 
-          CPPFLAGS="$ac_save_CPPFLAGS"
-          LIBS="$ac_save_LIBS"
         fi
       fi
 
@@ -204,6 +203,9 @@ main()
       LIBXML_LIBS=""
       ifelse([$3], , :, [$3])
     fi
+
+    CPPFLAGS="$ac_save_CPPFLAGS"
+    LIBS="$ac_save_LIBS"
 
     AC_DEFINE([USE_LIBXML], 1, [Define to 1 to use the libxml2 XML library])
     AC_SUBST(USE_LIBXML, 1)
