@@ -81,6 +81,7 @@ test_sources =                   \
   TestTextGlyph.cpp              \
   TestLayoutCreation.cpp         \
   TestLayoutFormatter.cpp        \
+  TestLayoutWriting.cpp          \
   utility.cpp                    \
   TestRunner.c
 
