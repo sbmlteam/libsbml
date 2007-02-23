@@ -711,7 +711,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_BoundingBox)
 {
     char* s=
-      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"undefined\">\n"
+      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
@@ -742,7 +742,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
 {
     char* s=
-      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
+      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <notes>\n"
       "    <body>Test note.</body>\n"
       "</notes>\n"
@@ -782,7 +782,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
       "  </annotation>";
 
     char* s=
-      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
+      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <annotation>\n"
       "    <this-is-a-test/>\n"
       "  </annotation>\n"
@@ -817,7 +817,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_skipOptional)
 {
     char* s=
-      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"undefined\">\n"
+      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
