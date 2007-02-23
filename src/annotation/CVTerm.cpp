@@ -219,8 +219,10 @@ CVTerm::addResource(std::string resource)
   mResources->addResource("rdf:resource", resource);
 }
 
-#ifdef USE_LAYOUT
 
+/**
+  * clones the CVTerm
+  */  
 CVTerm* CVTerm::clone() const
 {
     CVTerm* term=new CVTerm(*this);
@@ -228,6 +230,117 @@ CVTerm* CVTerm::clone() const
     return term;
 }
 
-#endif // USE_LAYOUT
+/**
+ *
+ */
+LIBSBML_EXTERN
+CVTerm_t*
+CVTerm_createWithQualifierType(QualifierType_t type)
+{
+  return new(nothrow) CVTerm(type);
+}
 
+/**
+ *
+ 
+LIBSBML_EXTERN
+CVTerm_t*
+CVTerm_createFromNode(const XMLNode_t *node)
+{
+  return new(nothrow) CVTerm(node);
+}
+/**
+ *
+ */
+LIBSBML_EXTERN
+void
+CVTerm_free(CVTerm_t * term)
+{
+  delete static_cast<CVTerm*>(term);
+}
+
+/**
+ * gets the Qualifier type
+ */
+LIBSBML_EXTERN
+QualifierType_t 
+CVTerm_getQualifierType(CVTerm_t * term)
+{
+  return term->getQualifierType();
+}
+
+/**
+  * gets the Model Qualifier type
+  */
+LIBSBML_EXTERN
+ModelQualifierType_t 
+CVTerm_getModelQualifierType(CVTerm_t * term)
+{
+  return term->getModelQualifierType();
+}
+
+/**
+  * gets the biological Qualifier type
+  */
+LIBSBML_EXTERN
+BiolQualifierType_t 
+CVTerm_getBiologicalQualifierType(CVTerm_t * term)
+{
+  return term->getBiologicalQualifierType();
+}
+
+/**
+* gets the resources
+*/
+LIBSBML_EXTERN
+XMLAttributes_t * 
+CVTerm_getResources(CVTerm_t * term)
+{
+  return term->getResources();
+}
+
+/**
+  * set the qualifier type
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
+{
+  term->setQualifierType(type);
+}
+
+
+/**
+  * set the model qualifier type
+  * this should be consistent with the mQualifier == MODEL_QUALIFIER
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
+{
+  term->setModelQualifierType(type);
+}
+
+
+/**
+  * set the biological qualifier type
+  * this should be consistent with the mQualifier == BIOLOGICAL_QUALIFIER
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
+{
+  term->setBiologicalQualifierType(type);
+}
+
+
+/**
+  * adds a resource to the term
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_addResource(CVTerm_t * term, const char * resource)
+{
+  term->addResource(resource);
+}
 

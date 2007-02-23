@@ -8215,6 +8215,8 @@ _ACEOF
 
           ac_config_files="$ac_config_files src/annotation/Makefile"
 
+          ac_config_files="$ac_config_files src/annotation/test/Makefile"
+
 
           ac_config_files="$ac_config_files src/math/Makefile"
 
@@ -8823,6 +8825,7 @@ do
   "src/bindings/lisp/build.lisp" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/build.lisp" ;;
   "src/bindings/lisp/libsbml-config-run.lisp" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/libsbml-config-run.lisp" ;;
   "src/annotation/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/annotation/Makefile" ;;
+  "src/annotation/test/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/annotation/test/Makefile" ;;
   "src/math/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/math/Makefile" ;;
   "src/math/test/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/math/test/Makefile" ;;
   "src/units/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/units/Makefile" ;;

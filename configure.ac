@@ -270,6 +270,7 @@ dnl logical pathnames for installed version
 AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
 
 AC_CONFIG_FILES([src/annotation/Makefile])
+AC_CONFIG_FILES([src/annotation/test/Makefile])
 
 AC_CONFIG_FILES([src/math/Makefile])
 AC_CONFIG_FILES([src/math/test/Makefile])

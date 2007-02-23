@@ -93,9 +93,19 @@ endif
 
 extra_CPPFLAGS = -I..
 
+ifdef USE_EXPAT
+  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
+  extra_LIBS      += $(EXPAT_LIBS)
+else
+  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS   += $(XERCES_LDFLAGS)
+  extra_LIBS      += $(XERCES_LIBS)
+endif
+
 header_inst_prefix = annotation
 
-subdirs = 
+subdirs = test
 
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if

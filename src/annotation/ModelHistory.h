@@ -268,4 +268,35 @@ protected:
 
 #endif  /* __cplusplus */
 
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+/**
+  * creates a date from the individual fields entered as numbers
+  */
+Date_t *
+Date_createWith(unsigned int year, unsigned int month, 
+    unsigned int day, unsigned int hour, 
+    unsigned int minute, unsigned int second,
+    unsigned int sign, unsigned int hoursOffset,
+    unsigned int minutesOffset);
+
+/**
+  * creates a date from a string
+  */
+Date_t *
+Date_createFromString (char * date); 
+
+
+void
+Date_free(Date_t *);
+
+
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
+
 #endif  /** ModelHistory_h **/

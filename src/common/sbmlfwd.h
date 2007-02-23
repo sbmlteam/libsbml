@@ -85,12 +85,17 @@ typedef CLASS_OR_STRUCT XMLError                  XMLError_t;
 typedef CLASS_OR_STRUCT XMLErrorLog               XMLErrorLog_t;
 typedef CLASS_OR_STRUCT XMLNode                   XMLNode_t;
 typedef CLASS_OR_STRUCT XMLAttributes             XMLAttributes_t;
-typedef CLASS_OR_STRUCT XMLNamespaces		  XMLNamespaces_t;
+typedef CLASS_OR_STRUCT XMLNamespaces		          XMLNamespaces_t;
 typedef CLASS_OR_STRUCT XMLToken                  XMLToken_t;
 typedef CLASS_OR_STRUCT XMLTriple                 XMLTriple_t;
 
 typedef CLASS_OR_STRUCT Trigger                   Trigger_t;
 typedef CLASS_OR_STRUCT Delay                     Delay_t;
+
+typedef CLASS_OR_STRUCT CVTerm                    CVTerm_t;
+typedef CLASS_OR_STRUCT Date                      Date_t;
+typedef CLASS_OR_STRUCT ModelCreator              ModelCreator_t;
+typedef CLASS_OR_STRUCT ModelHistory              ModelHistory_t;
 
 
 #undef CLASS_OR_STRUCT

@@ -130,11 +130,11 @@ public:
    */
   void addResource(std::string resource);
 
-#ifdef USE_LAYOUT
-
+  /**
+   * clones the CVTerm
+   */  
   CVTerm* clone() const; 
 
-#endif // USE_LAYOUT
 
 protected:
 
@@ -149,5 +149,94 @@ protected:
 
 
 #endif  /* __cplusplus */
+
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+/**
+ *
+ */
+LIBSBML_EXTERN
+CVTerm_t*
+CVTerm_createWithQualifierType(QualifierType_t type);
+
+/**
+ * TO DO
+ 
+LIBSBML_EXTERN
+CVTerm_t*
+CVTerm_createFromNode(const XMLNode_t*);
+
+/**
+ *
+ */
+LIBSBML_EXTERN
+void
+CVTerm_free(CVTerm_t *);
+
+/**
+ * gets the Qualifier type
+ */
+LIBSBML_EXTERN
+QualifierType_t 
+CVTerm_getQualifierType(CVTerm_t *);
+
+/**
+  * gets the Model Qualifier type
+  */
+LIBSBML_EXTERN
+ModelQualifierType_t 
+CVTerm_getModelQualifierType(CVTerm_t *);
+
+/**
+  * gets the biological Qualifier type
+  */
+LIBSBML_EXTERN
+BiolQualifierType_t 
+CVTerm_getBiologicalQualifierType(CVTerm_t *);
+
+/**
+* gets the resources
+*/
+LIBSBML_EXTERN
+XMLAttributes_t * 
+CVTerm_getResources(CVTerm_t *); 
+
+/**
+  * set the qualifier type
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_setQualifierType(CVTerm_t * CVT, QualifierType_t type);
+
+/**
+  * set the model qualifier type
+  * this should be consistent with the mQualifier == MODEL_QUALIFIER
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_setModelQualifierType(CVTerm_t * CVT, ModelQualifierType_t type);
+
+/**
+  * set the biological qualifier type
+  * this should be consistent with the mQualifier == BIOLOGICAL_QUALIFIER
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_setBiologicalQualifierType(CVTerm_t * CVT, BiolQualifierType_t type);
+
+/**
+  * adds a resource to the term
+  */
+LIBSBML_EXTERN
+void 
+CVTerm_addResource(CVTerm_t * CVT, const char * resource);
+
+
+
+END_C_DECLS
+
+#endif  /* !SWIG */
 
 #endif  /** CVTerm_h **/
