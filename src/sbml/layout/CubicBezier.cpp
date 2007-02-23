@@ -507,8 +507,7 @@ XMLNode CubicBezier::toXML() const
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids
   addSBaseAttributes(*this,att);
-  att.add("xsi:type","CubicBezier");
-  XMLToken token = XMLToken(triple, att, xmlns); 
+  att.add("type","CubicBezier","http://www.w3.org/2001/XMLSchema-instance","xsi");  XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
   if(this->mNotes) node.addChild(*this->mNotes);

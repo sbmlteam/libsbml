@@ -483,7 +483,7 @@ XMLNode LineSegment::toXML() const
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids
   addSBaseAttributes(*this,att);
-  att.add("xsi:type","LineSegment");
+  att.add("type","LineSegment","http://www.w3.org/2001/XMLSchema-instance","xsi");
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
