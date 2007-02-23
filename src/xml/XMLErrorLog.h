@@ -123,7 +123,7 @@ protected:
 #endif  /* __cplusplus */
 
 
-enum XMLErrorLog_DataType { Boolean = 0, Double = 1, Integer = 2 };
+typedef enum { Boolean = 0, Double = 1, Integer = 2 } XMLErrorLog_DataType;
 
 
 #ifndef SWIG

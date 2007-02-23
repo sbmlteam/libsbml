@@ -260,10 +260,10 @@ XMLError_getColumn (const XMLError_t *xe)
  *   3 - Fatal
  */
 LIBLAX_EXTERN
-unsigned int
+XMLError_Severity
 XMLError_getSeverity (const XMLError_t *xe)
 {
-  return static_cast<unsigned int>( xe->getSeverity() );
+  return static_cast<XMLError_Severity>( xe->getSeverity() );
 }
 
 

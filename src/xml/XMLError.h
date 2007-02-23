@@ -167,6 +167,9 @@ protected:
 #endif  /* __cplusplus */
 
 
+typedef enum { Info = 0, Warning = 1, Error = 2, Fatal = 3 } XMLError_Severity;
+
+
 #ifndef SWIG
 
 
@@ -221,7 +224,7 @@ XMLError_getColumn (const XMLError_t *xe);
  *   3 - Fatal
  */
 LIBLAX_EXTERN
-unsigned int
+XMLError_Severity
 XMLError_getSeverity (const XMLError_t *xe);
 
 
