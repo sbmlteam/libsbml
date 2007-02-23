@@ -287,7 +287,15 @@ XMLAttributes_free (XMLAttributes_t *xa);
  **/
 LIBLAX_EXTERN
 void
-XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value, const char* uri="", const char* prefix="");
+XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+void
+XMLAttributes_addWithNamespace (XMLAttributes_t *xa, const char *name, const char *value, const char* uri, const char* prefix);
 
 
 /**
