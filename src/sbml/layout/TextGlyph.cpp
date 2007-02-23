@@ -333,7 +333,6 @@ TextGlyph::getTypeCode () const
 XMLNode TextGlyph::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("textGlyph", "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids

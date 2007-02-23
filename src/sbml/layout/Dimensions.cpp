@@ -408,7 +408,6 @@ bool Dimensions::accept (SBMLVisitor& v) const
 XMLNode Dimensions::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("dimensions", "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids

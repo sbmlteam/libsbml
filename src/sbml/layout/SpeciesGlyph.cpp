@@ -263,7 +263,6 @@ SpeciesGlyph::getTypeCode () const
 XMLNode SpeciesGlyph::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("speciesGlyph", "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids

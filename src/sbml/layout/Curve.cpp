@@ -338,7 +338,6 @@ void Curve::writeAttributes (XMLOutputStream& stream) const
 XMLNode Curve::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("curve", "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids
@@ -424,7 +423,6 @@ ListOfLineSegments::createObject (XMLInputStream& stream)
 XMLNode ListOfLineSegments::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("listOfCurveSegments", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 

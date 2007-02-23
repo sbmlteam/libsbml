@@ -263,7 +263,6 @@ CompartmentGlyph::getTypeCode () const
 XMLNode CompartmentGlyph::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("compartmentGlyph", "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids

@@ -438,7 +438,6 @@ void Point::writeAttributes (XMLOutputStream& stream) const
 XMLNode Point::toXML(const std::string& name) const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple(name, "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids

@@ -584,8 +584,7 @@ BoundingBox::accept (SBMLVisitor& v) const
 XMLNode BoundingBox::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
-  XMLTriple triple = XMLTriple("dimensions", "", "");
+  XMLTriple triple = XMLTriple("boundingBox", "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids
   addSBaseAttributes(*this,att);

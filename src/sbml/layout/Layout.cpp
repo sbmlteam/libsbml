@@ -1198,7 +1198,6 @@ Layout::writeElements (XMLOutputStream& stream) const
 XMLNode Layout::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple layout_triple = XMLTriple("layout", "", "");
   XMLAttributes id_att = XMLAttributes();
   id_att.add("id", this->mId);
@@ -1418,7 +1417,6 @@ ListOfCompartmentGlyphs::createObject (XMLInputStream& stream)
 XMLNode ListOfCompartmentGlyphs::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("listOfCompartmentGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 
@@ -1498,7 +1496,6 @@ ListOfSpeciesGlyphs::createObject (XMLInputStream& stream)
 XMLNode ListOfSpeciesGlyphs::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("listOfSpeciesGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 
@@ -1578,7 +1575,6 @@ ListOfReactionGlyphs::createObject (XMLInputStream& stream)
 XMLNode ListOfReactionGlyphs::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("listOfReactionGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 
@@ -1658,7 +1654,6 @@ ListOfTextGlyphs::createObject (XMLInputStream& stream)
 XMLNode ListOfTextGlyphs::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("listOfTextGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 
@@ -1739,7 +1734,6 @@ ListOfGraphicalObjects::createObject (XMLInputStream& stream)
 XMLNode ListOfGraphicalObjects::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("listOfAdditionalGraphicalObjects", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 

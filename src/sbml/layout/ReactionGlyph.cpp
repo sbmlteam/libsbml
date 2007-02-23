@@ -542,7 +542,6 @@ ReactionGlyph::getTypeCode () const
 XMLNode ReactionGlyph::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("reactionGlyph", "", "");
   XMLAttributes att = XMLAttributes();
   // add the SBase Ids
@@ -633,7 +632,6 @@ ListOfSpeciesReferenceGlyphs::createObject (XMLInputStream& stream)
 XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
   XMLTriple triple = XMLTriple("listOfSpeciesReferenceGlyphs", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 
