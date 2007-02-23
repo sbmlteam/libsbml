@@ -32,19 +32,6 @@
 #include <sbml/common/extern.h>
 
 
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#ifndef TRUE
-#define TRUE (!FALSE)
-#endif
-
-#ifndef BOOLEAN
-#define BOOLEAN unsigned int
-#endif
-
-
 /**
  * Easier-to-read and NULL-friendly string comparison.
  */
