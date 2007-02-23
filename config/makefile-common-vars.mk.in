@@ -153,7 +153,6 @@ SWIGLIB           = @SWIGLIB@
 SWIGFLAGS         = @SWIGFLAGS@
 
 ACLOCAL           = @ACLOCAL@
-ACLOCAL_FLAGS     = --acdir=$(top_srcdir)/config
 ACLOCAL_M4        = $(top_srcdir)/aclocal.m4
 AUTOCONF          = @AUTOCONF@
 
