@@ -67,18 +67,22 @@ XMLAttributes::~XMLAttributes ()
 }
 
 
+
 /**
- * Adds a name/value pair to this XMLAttributes set.  If name already
+ * Adds a name/value pair to this XMLAttributes set.  If name with the same namespace URI already
  * exists in this attribute set, its value will be replaced.
  */
 void
-XMLAttributes::add (const string& name, const string& value)
+XMLAttributes::add (const string& name, const string& value, const string& namespaceURI, const string& prefix)
 {
   int index = getIndex(name);
 
-  if (index == -1)
+  // since in the old version of the method the XMLTriple was initialized with empty strings
+  // for the prefix and the uri, I assume that only attributes that are not from the default namespace 
+  // should have a set prefix and uri. 
+  if (index == -1 || getURI(index)!=namespaceURI )
   {
-    mNames .push_back( XMLTriple(name, "", "") );
+    mNames .push_back( XMLTriple(name, namespaceURI, prefix) );
     mValues.push_back( value );
   }
   else
@@ -537,9 +541,9 @@ XMLAttributes_free (XMLAttributes_t *xa)
  **/
 LIBLAX_EXTERN
 void
-XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value)
+XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value, const char* uri, const char* prefix)
 {
-  xa->add(name, value);
+  xa->add(name, value, uri, prefix);
 }
 
 
