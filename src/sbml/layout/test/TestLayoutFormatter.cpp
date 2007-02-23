@@ -728,6 +728,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_BoundingBox)
     srg.setId("speciesReferenceGlyph_1");
     srg.setSpeciesGlyphId("speciesGlyph_1");
     srg.setSpeciesReferenceId("speciesReference_1");
+    srg.setRole(SPECIES_ROLE_MODIFIER);
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
     BoundingBox box=BoundingBox("",&pos,&dim);
@@ -764,6 +765,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_notes)
     srg.appendNotes(&notes);
 
     srg.setId("speciesReferenceGlyph_1");
+    srg.setRole(SPECIES_ROLE_MODIFIER);
     Dimensions dim=Dimensions(200.5,400.5);
     Point pos=Point(10.3,20.0);
     BoundingBox box=BoundingBox("",&pos,&dim);
@@ -800,6 +802,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_annotation)
     
     SpeciesReferenceGlyph srg=SpeciesReferenceGlyph();
     srg.setId("speciesReferenceGlyph_1");
+    srg.setRole(SPECIES_ROLE_MODIFIER);
     XMLInputStream stream2(a,false);
     XMLNode* annotation=new XMLNode(stream2);
     srg.appendAnnotation(annotation);
@@ -817,7 +820,7 @@ END_TEST
 START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_skipOptional)
 {
     char* s=
-      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" role=\"modifier\">\n"
+      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\">\n"
       "  <boundingBox>\n"
       "    <position x=\"10.3\" y=\"20\"/>\n"
       "    <dimensions width=\"200.5\" height=\"400.5\"/>\n" 
