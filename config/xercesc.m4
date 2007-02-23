@@ -35,7 +35,7 @@ dnl Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
 dnl
 dnl The original code contained here was initially developed by:
 dnl
-dnl     Ben Bornstein
+dnl     Ben Bornstein and Mike Hucka
 dnl
 dnl     The SBML Team
 dnl     Control and Dynamical Systems, MC 107-81
@@ -44,9 +44,6 @@ dnl     Pasadena, CA, 91125, USA
 dnl
 dnl     http://sbml.org
 dnl     mailto:sbml-team@caltech.edu
-dnl
-dnl Contributor(s):
-dnl   Mike Hucka <mhucka@caltech.edu> Enhancements to this file.
 dnl
 
 dnl
@@ -58,7 +55,7 @@ AC_DEFUN([CONFIG_LIB_XERCES],
   AC_ARG_WITH([xerces],
     AC_HELP_STRING([--with-xerces=PREFIX],
                    [Use the Xerces XML Library [[default=yes]]]),
-    [with_xerces=$withval],
+    [with_xerces="$withval"],
     [with_xerces=yes])
 
   if test $with_expat != no -o $with_libxml != no; then
@@ -67,7 +64,8 @@ AC_DEFUN([CONFIG_LIB_XERCES],
 
   if test $with_xerces != no; then
 
-    AC_MSG_CHECKING([for Apache's Xerces-C XML library])
+    AC_MSG_CHECKING([for Apache's Xerces-C++ XML library])
+    AC_MSG_RESULT([])
 
     AC_LANG_PUSH(C++)
 
@@ -91,22 +89,35 @@ AC_DEFUN([CONFIG_LIB_XERCES],
     LDFLAGS="$LDFLAGS $XERCES_LDFLAGS"
     LIBS="$LIBS $XERCES_LIBS"
 
+    AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp],,
+	AC_MSG_ERROR([unable to find Xerces-C++ header files]))
+
+    AC_MSG_CHECKING([Xerces-C++ library version])
+    AC_PREPROC_IFELSE(
+      [AC_LANG_PROGRAM([#include <xercesc/util/XercesVersion.hpp>], [
+#if  _XERCES_VERSION == 20600
+#error cannot use Xerces version 2.6.0
+#else
+exit(0);
+#endif
+])],
+      [AC_MSG_RESULT(OK)],
+      [ echo "*** Xerces-C++ version 2.6.0 has serious bugs and cannot be"
+	echo "*** used by libSBML.  Please use either versions 2.4 - 2.5 or"
+	echo "*** version 2.7.0"
+	AC_MSG_ERROR([unable to use this version of Xerces-C++ library])])
+
+    AC_MSG_CHECKING([ability to link with Xerces-C++ library])
     AC_TRY_LINK([
 #include <xercesc/util/XercesDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #ifndef XERCES_HAS_CPP_NAMESPACE
 #define XERCES_CPP_NAMESPACE_QUALIFIER
 #endif
-      ],
+],
       [XERCES_CPP_NAMESPACE_QUALIFIER XMLPlatformUtils::Initialize();],
-      [xerces_found=yes],
-      [xerces_found=no])
-
-    if test $xerces_found = yes; then
-      AC_MSG_RESULT([yes])
-    else
-      AC_MSG_ERROR([Could not find the Xerces XML library.])
-    fi
+      [AC_MSG_RESULT([yes])],
+      [AC_MSG_ERROR([unable to link with the Xerces-C++ XML library.])])
 
     CPPFLAGS=$tmp_CPPFLAGS
     LDFLAGS=$tmp_LDFLAGS
