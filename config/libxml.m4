@@ -34,15 +34,34 @@ AC_DEFUN([CONFIG_LIB_LIBXML],
 
     if test $with_libxml != yes; then
       xml_config_args="$xml_config_args --prefix=$with_libxml"
-      if test x${XML2_CONFIG+set} != xset ; then
+      if test -n "$XML2_CONFIG" ; then
+	dnl The XML2_CONFIG environment variable is set, so use that.
         XML2_CONFIG=$with_libxml/bin/xml2-config
+      else
+        dnl The XML2_CONFIG environment variable is not set.  Look for
+	dnl xml2-config in the path given by $with_libxml
+        AC_PATH_PROG(XML2_CONFIG, xml2-config, no, [$with_libxml/bin])
+      fi
+    else
+      dnl User did not supply a path with the flag.
+      if test x${XML2_CONFIG+set} != xset ; then
+        dnl User did not set XML2_CONFIG either.  Try their default path.
+        AC_PATH_PROG(XML2_CONFIG, xml2-config, no)
       fi
     fi
 
     ac_save_CPPFLAGS="$CPPFLAGS"
     ac_save_LIBS="$LIBS"
 
-    AC_PATH_PROG(XML2_CONFIG, xml2-config, no)
+    if test "$XML2_CONFIG" = "no"; then
+      echo "*** Could not find 'xml2-config' in directory $with_libxml/bin/."
+      echo "*** Please check that the PATH supplied to --with-libxml=PATH"
+      echo "*** is of the form '/usr/local' and not '/usr/local/lib'; in"
+      echo "*** other words, omit the 'lib' part of the name.  The 'configure'"
+      echo "*** utility will append 'lib' to the given path automatically."
+      AC_MSG_ERROR([could not find xml2-config in $with_libxml/bin])
+    fi
+
     min_xml_version=ifelse([$1], ,2.0.0,[$1])
     AC_MSG_CHECKING(for libxml2 - version >= $min_xml_version)
     no_xml=""
