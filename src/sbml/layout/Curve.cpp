@@ -349,7 +349,7 @@ XMLNode Curve::toXML() const
   if(this->mNotes) node.addChild(*this->mNotes);
   if(this->mAnnotation) node.addChild(*this->mAnnotation);
   // add the list of line segments
-  node.addChild(this->mCurveSegments.toXML());
+  if(this->mCurveSegments.size()>0) node.addChild(this->mCurveSegments.toXML());
   return node;
 }
 
