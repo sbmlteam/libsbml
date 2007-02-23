@@ -746,5 +746,7 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
 			      int required)
 {
   //  return static_cast<int>( xa->readInto(name, static_cast<string&>(value), log, required) );
+  // for now
+   return 0;
 }
 

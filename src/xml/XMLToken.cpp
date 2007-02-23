@@ -391,7 +391,6 @@ XMLToken_createWithTriple (const XMLTriple_t *triple)
  * 
  **/
 LIBLAX_EXTERN
-LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
 			       const XMLAttributes_t *attr)
