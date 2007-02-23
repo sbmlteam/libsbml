@@ -1089,7 +1089,7 @@ START_TEST (test_LayoutWriting)
 
   // create the Model
 
-  Model* model=new Model();
+  Model* model=document->createModel();
   model->setId("TestModel");
   document->setModel(model);
 
@@ -2461,7 +2461,9 @@ START_TEST (test_LayoutWriting)
   cb->setEnd(&p);
 
   SBMLWriter writer;
-
+    
+  bool result=writer.write(document,"example6.xml");
+  std::cout << "result of writing: " << result << std::endl; 
   std::string writtenContent(writer.writeToString(document));
 
   XMLInputStream stream2(writtenContent.c_str(),false);
