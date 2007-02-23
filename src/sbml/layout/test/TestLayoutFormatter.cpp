@@ -676,7 +676,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_Curve)
 {
     char* s=
       "<annotation xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
-      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"undefined\">\n"
+      "<speciesReferenceGlyph id=\"speciesReferenceGlyph_1\" speciesReference=\"speciesReference_1\" speciesGlyph=\"speciesGlyph_1\" role=\"modifier\">\n"
       "  <curve>\n"
       "    <listOfCurveSegments>\n"
       "      <curveSegment xsi:type=\"LineSegment\">\n" 
@@ -698,6 +698,7 @@ START_TEST (test_LayoutFormatter_SpeciesReferenceGlyph_Curve)
     srg.setId("speciesReferenceGlyph_1");
     srg.setSpeciesGlyphId("speciesGlyph_1");
     srg.setSpeciesReferenceId("speciesReference_1");
+    srg.setRole(SPECIES_ROLE_MODIFIER);
     LineSegment* ls=srg.createLineSegment();
     ls->setStart(10.0,10.0);
     ls->setEnd(20.0,10.0);
