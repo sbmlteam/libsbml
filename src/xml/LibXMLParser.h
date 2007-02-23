@@ -28,7 +28,6 @@
 #ifdef __cplusplus
 
 #include <string>
-#include <expat.h>
 
 #include <sbml/xml/XMLParser.h>
 #include <sbml/xml/LibXMLHandler.h>
