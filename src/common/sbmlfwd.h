@@ -82,8 +82,12 @@ typedef CLASS_OR_STRUCT List                      List_t;
 typedef CLASS_OR_STRUCT ListOf                    ListOf_t;
 
 typedef CLASS_OR_STRUCT XMLError                  XMLError_t;
+typedef CLASS_OR_STRUCT XMLErrorLog               XMLErrorLog_t;
 typedef CLASS_OR_STRUCT XMLNode                   XMLNode_t;
+typedef CLASS_OR_STRUCT XMLAttributes             XMLAttributes_t;
 typedef CLASS_OR_STRUCT XMLNamespaces		  XMLNamespaces_t;
+typedef CLASS_OR_STRUCT XMLToken                  XMLToken_t;
+typedef CLASS_OR_STRUCT XMLTriple                 XMLTriple_t;
 
 typedef CLASS_OR_STRUCT Trigger                   Trigger_t;
 typedef CLASS_OR_STRUCT Delay                     Delay_t;
