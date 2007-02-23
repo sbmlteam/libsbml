@@ -95,7 +95,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
 	rx=`echo $1 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\1/'`
 	ry=`echo $1 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\2/'`
 	rz=`echo $1 | sed -e 's/\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\3/'`
-	version=`$JAVA -version 2>&1 | head -1`
+	version=`$JAVA -version 2>&1 | sed -e 's/\(.*\)$/\1/;q'`
 	jx=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\1/'`
 	jy=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\2/'`
 	jz=`echo $version | sed -e 's/java version \"\([0-9]\)\.\([0-9]\)\.\([0-9]\).*/\3/'`
@@ -187,6 +187,17 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
 	java_bail=no
 	java_mac_prefix="/System/Library/Frameworks/JavaVM.framework"
 	case $JAVA_VER_MINOR in
+	  6) 
+	    if test -e "$java_mac_prefix/Versions/CurrentJDK/Headers"; then
+	      _jinc="$java_mac_prefix/Versions/CurrentJDK/Headers"
+	    elif test -e "$java_mac_prefix/Versions/1.6.0/Headers"; then
+	      _jinc="$java_mac_prefix/Versions/1.6.0/Headers"
+	    elif test -e "$java_mac_prefix/Versions/1.6/Headers"; then
+	      _jinc="$java_mac_prefix/Versions/1.6/Headers"
+	    else
+	      java_bail=yes
+	    fi
+	    ;;
 	  5) 
 	    if test -e "$java_mac_prefix/Versions/CurrentJDK/Headers"; then
 	      _jinc="$java_mac_prefix/Versions/CurrentJDK/Headers"
@@ -285,14 +296,12 @@ AC_DEFUN([_AC_JAVA_FOLLOW_SYMLINKS],[
   dnl find the include directory relative to the javac executable
   _cur="$1"
   while ls -ld "$_cur" 2>/dev/null | grep " -> " >/dev/null; do
-        AC_MSG_CHECKING(symlink for $_cur)
         _slink=`ls -ld "$_cur" | sed 's/.* -> //'`
         case "$_slink" in
           /*) _cur="$_slink";;
           dnl 'X' avoids triggering unwanted echo options.
           *) _cur=`echo "X$_cur" | sed -e 's/^X//' -e 's:[[^/]]*$::'`"$_slink";;
         esac
-        AC_MSG_RESULT($_cur)
   done
   JAVA_FOLLOWED="$_cur"
 ])# _AC_JAVA
