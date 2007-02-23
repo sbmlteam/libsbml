@@ -20,7 +20,7 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
   AC_ARG_WITH([check],
     AC_HELP_STRING([--with-check=PREFIX],
-                   [Build the test suite using libcheck (default=no)]),
+                   [Use the libcheck unit testing library (default=no)]),
     [with_libcheck=$withval],
     [with_libcheck=no])
 
