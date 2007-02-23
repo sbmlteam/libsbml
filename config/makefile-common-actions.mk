@@ -640,7 +640,7 @@ $(TOP_SRCDIR)/configure: \
 	cd $(TOP_SRCDIR) && $(SHELL) ./config.status --recheck
 
 $(ACLOCAL_M4): $(wildcard $(TOP_SRCDIR)/config/*.m4)
-	cd $(TOP_SRCDIR) && $(ACLOCAL) $(ACLOCAL_FLAGS)
+	cd $(TOP_SRCDIR) && $(ACLOCAL) --acdir=config
 
 $(TOP_SRCDIR)/src/sbml/config.h: src/sbml/stamp-h1
 	@if test ! -f $@; then \
