@@ -77,6 +77,7 @@ Suite *create_suite_Layout                (void);
 Suite *create_suite_LayoutCreation        (void);
 Suite *create_suite_LayoutFormatter       (void);
 Suite *create_suite_SBMLHandler           (void);
+Suite *create_suite_LayoutWriting         (void);
 
 END_C_DECLS
 
@@ -139,6 +140,7 @@ main (void)
   srunner_add_suite( runner, create_suite_LayoutCreation        () );
   srunner_add_suite( runner, create_suite_LayoutFormatter       () );
   srunner_add_suite( runner, create_suite_SBMLHandler           () );
+  srunner_add_suite( runner, create_suite_LayoutWriting         () );
 
   setTestDataDirectory();
 

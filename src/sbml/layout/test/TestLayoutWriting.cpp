@@ -67,6 +67,7 @@
 #include "sbml/Compartment.h"
 #include "sbml/Model.h"
 #include "sbml/SBMLDocument.h"
+#include "sbml/SBMLWriter.h"
 
 #include <check.h>
 
@@ -2459,7 +2460,17 @@ START_TEST (test_LayoutWriting)
   p=Point(1550,448);
   cb->setEnd(&p);
 
-  //fail_unless( compareXMLNodes(node,) );   
+  SBMLWriter writer;
+
+  std::string writtenContent(writer.writeToString(document));
+
+  stream=XMLInputStream(writtenContent.c_str(),false);
+  XMLNode node2(stream);
+
+
+  fail_unless( compareXMLNodes(node,node2) );   
+
+  delete document;
 }
 END_TEST
 
