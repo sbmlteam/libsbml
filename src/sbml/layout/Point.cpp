@@ -457,8 +457,19 @@ XMLNode Point::toXML(const std::string& name) const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
+
+  if(end==true) node.setEnd();
   return node;
 }
 

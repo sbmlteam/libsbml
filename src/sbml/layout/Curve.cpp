@@ -345,10 +345,24 @@ XMLNode Curve::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   // add the list of line segments
-  if(this->mCurveSegments.size()>0) node.addChild(this->mCurveSegments.toXML());
+  if(this->mCurveSegments.size()>0)
+  {
+      node.addChild(this->mCurveSegments.toXML());
+      end=false;
+  }
+  if(end==true) node.setEnd();
   return node;
 }
 
@@ -428,8 +442,17 @@ XMLNode ListOfLineSegments::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const LineSegment* object=NULL;
   for(i=0;i<iMax;++i)
@@ -437,7 +460,11 @@ XMLNode ListOfLineSegments::toXML() const
     object=dynamic_cast<const LineSegment*>(this->get(i));
     assert(object);
     node.addChild(object->toXML());
-  }  
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
   return node;
 }
 

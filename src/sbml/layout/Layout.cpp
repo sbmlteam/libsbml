@@ -1345,8 +1345,17 @@ XMLNode ListOfLayouts::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const Layout* layout=NULL;
   for(i=0;i<iMax;++i)
@@ -1355,6 +1364,7 @@ XMLNode ListOfLayouts::toXML() const
     assert(layout);
     node.addChild(layout->toXML());
   }  
+  if(end==true && iMax==0) node.setEnd();
   return node;
 }
 
@@ -1422,8 +1432,17 @@ XMLNode ListOfCompartmentGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const CompartmentGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1431,7 +1450,11 @@ XMLNode ListOfCompartmentGlyphs::toXML() const
     object=dynamic_cast<const CompartmentGlyph*>(this->get(i));
     assert(object);
     node.addChild(object->toXML());
-  }  
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
   return node;
 }
 
@@ -1501,8 +1524,17 @@ XMLNode ListOfSpeciesGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  { 
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const SpeciesGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1510,7 +1542,11 @@ XMLNode ListOfSpeciesGlyphs::toXML() const
     object=dynamic_cast<const SpeciesGlyph*>(this->get(i));
     assert(object);
     node.addChild(object->toXML());
-  }  
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
   return node;
 }
 
@@ -1580,8 +1616,17 @@ XMLNode ListOfReactionGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const ReactionGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1589,7 +1634,11 @@ XMLNode ListOfReactionGlyphs::toXML() const
     object=dynamic_cast<const ReactionGlyph*>(this->get(i));
     assert(object);
     node.addChild(object->toXML());
-  }  
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
   return node;
 }
 
@@ -1659,8 +1708,17 @@ XMLNode ListOfTextGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const TextGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1668,7 +1726,11 @@ XMLNode ListOfTextGlyphs::toXML() const
     object=dynamic_cast<const TextGlyph*>(this->get(i));
     assert(object);
     node.addChild(object->toXML());
-  }  
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
   return node;
 }
 
@@ -1739,8 +1801,17 @@ XMLNode ListOfGraphicalObjects::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const GraphicalObject* object=NULL;
   for(i=0;i<iMax;++i)
@@ -1748,7 +1819,11 @@ XMLNode ListOfGraphicalObjects::toXML() const
     object=dynamic_cast<const GraphicalObject*>(this->get(i));
     assert(object);
     node.addChild(object->toXML());
-  }  
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
   return node;
 }
 

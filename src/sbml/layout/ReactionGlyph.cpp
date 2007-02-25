@@ -637,8 +637,17 @@ XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
   XMLToken token = XMLToken(triple, att, xmlns); 
   XMLNode node(token);
   // add the notes and annotations
-  if(this->mNotes) node.addChild(*this->mNotes);
-  if(this->mAnnotation) node.addChild(*this->mAnnotation);
+  bool end=true;
+  if(this->mNotes)
+  {
+      node.addChild(*this->mNotes);
+      end=false;
+  }
+  if(this->mAnnotation)
+  {
+      node.addChild(*this->mAnnotation);
+      end=false;
+  }
   unsigned int i,iMax=this->size();
   const SpeciesReferenceGlyph* object=NULL;
   for(i=0;i<iMax;++i)
@@ -646,7 +655,11 @@ XMLNode ListOfSpeciesReferenceGlyphs::toXML() const
     object=dynamic_cast<const SpeciesReferenceGlyph*>(this->get(i));
     assert(object);
     node.addChild(object->toXML());
-  }  
+  }
+  if(end==true && iMax==0)
+  {
+    node.setEnd();
+  }
   return node;
 }
 
