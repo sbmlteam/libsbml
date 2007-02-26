@@ -160,7 +160,7 @@ public:
    /**
     * Creates an XMLNode object from this.
     */
-    XMLNode toXML() const;
+    virtual XMLNode toXML() const;
     
 protected:
   /**
