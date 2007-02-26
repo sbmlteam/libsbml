@@ -1340,6 +1340,7 @@ XMLNode ListOfLayouts::toXML() const
 {
   XMLNamespaces xmlns = XMLNamespaces();
   xmlns.add("http://projects.eml.org/bcb/sbml/level2", "");
+  xmlns.add("http://www.w3.org/2001/XMLSchema-instance", "xsi");
   XMLTriple triple = XMLTriple("listOfLayouts", "http://projects.eml.org/bcb/sbml/level2", "");
   XMLAttributes att = XMLAttributes();
   XMLToken token = XMLToken(triple, att, xmlns); 
