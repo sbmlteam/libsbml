@@ -47,6 +47,16 @@
 ##
 ## Contributor(s):
 ##  <mhucka@caltech.edu> Created the Makefile.in version of this file.
+# -----------------------------------------------------------------------------
+# Configuration variables
+# -----------------------------------------------------------------------------
+# Some of the following are substituted automatically by `configure'.  If
+# you are looking at "Makefile", do not edit these values; instead, run the
+# configure script at the top level of the src tree.  It will recreate
+# "Makefile".
+
+include ../../config/makefile-common-vars.mk
+
 
 # The values of the following variables are obtained using the libSBML
 # configuration program.
@@ -56,16 +66,29 @@ INCLUDEDIR = ../../include
 
 CXX        = @CXX@
 CXXFLAGS   = @CXXFLAGS@ -Wall
+extra_CPPFLAGS = -I.. -DPACKAGE_VERSION=\"$(PACKAGE_VERSION)\" -I$(INCLUDEDIR)
+LIBS=-lsbml -L$(SRCDIR)
 
 ifdef USE_EXPAT
-  CPPFLAGS = @EXPAT_CPPFLAGS@ -I$(SRCDIR) -I$(SRCDIR)/sbml
-  LDFLAGS  = @EXPAT_LDFLAGS@ -L$(SRCDIR)
-  LIBS     = @EXPAT_LIBS@ -lsbml -lstdc++ -lm
-else
-  CPPFLAGS = @XERCES_CPPFLAGS@ -I$(SRCDIR) -I$(SRCDIR)/sbml
-  LDFLAGS  = @XERCES_LDFLAGS@ -L$(SRCDIR)
-  LIBS     = @XERCES_LIBS@ -lsbml -lstdc++ -lm
+  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
+  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
+  extra_LIBS     += $(EXPAT_LIBS) 
 endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
+  extra_LDFLAGS  += $(XERCES_LDFLAGS)
+  extra_LIBS     += $(XERCES_LIBS) 
+endif
+
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
+  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
+  extra_LIBS     += $(LIBXML_LIBS) 
+endif
+
+
 
 # The rest of this Makefile remains static regardless of the values
 # assigned to the variables above.
@@ -76,13 +99,15 @@ programs = example1 example2 example3
 all: $(programs)
 
 example1: example1.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CXX) $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
 
 example2: example2.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CXX)  $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
+
 
 example3: example3.cpp
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+	$(CXX)  $(extra_CPPFLAGS) $(extra_LDFLAGS) -o $@ $^ $(extra_LIBS) $(LIBS)
+
 
 
 clean:
