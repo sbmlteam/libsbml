@@ -53,7 +53,6 @@
 #include "sbml/Compartment.h"
 #include "sbml/Species.h"
 #include "sbml/SpeciesReference.h"
-#include "sbml/ModifierSpeciesReference.h"
 #include "sbml/Reaction.h"
 #include "sbml/layout/Layout.h"
 #include "sbml/layout/CompartmentGlyph.h"
@@ -72,27 +71,26 @@ int main(int argc,char** argv){
 
 // create the document
 
-SBMLDocument *document=new SBMLDocument();
+SBMLDocument *document=new SBMLDocument(2,1);
 // create the Model
 
 Model* model=new Model();
 model->setId("TestModel with modifiers");
 document->setModel(model);
-document->setLevel(2);
-document->setVersion(1);
 
 
 // create the Layout
 
-Layout* layout=&model->createLayout();
+Layout* layout=model->createLayout();
 
 layout->setId("Layout_1");
-layout->setDimensions(Dimensions(400.0,230.0));
+Dimensions dim(400.0,230.0);
+layout->setDimensions(&dim);
 
 
 // create the Compartment
 
-Compartment* compartment=&model->createCompartment();
+Compartment* compartment=model->createCompartment();
 compartment->setId("Yeast");
 
 // create the CompartmentGlyph
@@ -100,101 +98,112 @@ compartment->setId("Yeast");
 CompartmentGlyph* compartmentGlyph=layout->createCompartmentGlyph();
 compartmentGlyph->setId("CompartmentGlyph_1");
 compartmentGlyph->setCompartmentId(compartment->getId());
-compartmentGlyph->setBoundingBox(BoundingBox("bb1",5,5,390,220));
+BoundingBox bb("bb1",5,5,390,220);
+compartmentGlyph->setBoundingBox(&bb);
 
 
 
 // create the Species, SpeciesGlyphs and associated TextGlyphs
 
 // Glucose
-Species* species_Gluc=&model->createSpecies();
+Species* species_Gluc=model->createSpecies();
 species_Gluc->setId("Glucose");
 species_Gluc->setCompartment(compartment->getId());
 
 SpeciesGlyph* glyph_Gluc=layout->createSpeciesGlyph();
 glyph_Gluc->setId("SpeciesGlyph_Glucose");
 glyph_Gluc->setSpeciesId(species_Gluc->getId());
-glyph_Gluc->setBoundingBox(BoundingBox("bb2",105,20,130,20));
+bb=BoundingBox("bb2",105,20,130,20);
+glyph_Gluc->setBoundingBox(&bb);
 
 TextGlyph* tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_Glucose");
-tGlyph->setBoundingBox(BoundingBox("bbA",115,20,110,20));
+bb=BoundingBox("bbA",115,20,110,20);
+tGlyph->setBoundingBox(&bb);
 tGlyph->setOriginOfTextId(species_Gluc->getId());
 tGlyph->setGraphicalObjectId(glyph_Gluc->getId());
 
 // Glucose-6-phosphate
 
-Species* species_G6P=&model->createSpecies();
+Species* species_G6P=model->createSpecies();
 species_G6P->setId("Glucose-6-phosphate");
 species_G6P->setCompartment(compartment->getId());
 
 SpeciesGlyph* glyph_G6P=layout->createSpeciesGlyph();
 glyph_G6P->setId("SpeciesGlyph_G6P");
 glyph_G6P->setSpeciesId(species_G6P->getId());
-glyph_G6P->setBoundingBox(BoundingBox("bb5",50,190,270,20));
+bb=BoundingBox("bb5",50,190,270,20);
+glyph_G6P->setBoundingBox(&bb);
 
 tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_G6P");
-tGlyph->setBoundingBox(BoundingBox("bbD",60,190,250,20));
+bb=BoundingBox("bbD",60,190,250,20);
+tGlyph->setBoundingBox(&bb);
 tGlyph->setOriginOfTextId(species_G6P->getId());
 tGlyph->setGraphicalObjectId(glyph_G6P->getId());
 
 
 // ATP
-Species* species_ATP=&model->createSpecies();
+Species* species_ATP=model->createSpecies();
 species_ATP->setId("ATP");
 species_ATP->setCompartment(compartment->getId());
 
 SpeciesGlyph* glyph_ATP=layout->createSpeciesGlyph();
 glyph_ATP->setId("SpeciesGlyph_ATP");
 glyph_ATP->setSpeciesId(species_ATP->getId());
-glyph_ATP->setBoundingBox(BoundingBox("bb3",270,70,80,20));
+bb=BoundingBox("bb3",270,70,80,20);
+glyph_ATP->setBoundingBox(&bb);
 
 tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_ATP");
-tGlyph->setBoundingBox(BoundingBox("bbB",280,70,60,20));
+bb=BoundingBox("bbB",280,70,60,20);
+tGlyph->setBoundingBox(&bb);
 tGlyph->setOriginOfTextId(species_ATP->getId());
 tGlyph->setGraphicalObjectId(glyph_ATP->getId());
 
 // ADP
 
-Species* species_ADP=&model->createSpecies();
+Species* species_ADP=model->createSpecies();
 species_ADP->setId("ADP");
 species_ADP->setCompartment(compartment->getId());
 
 SpeciesGlyph* glyph_ADP=layout->createSpeciesGlyph();
 glyph_ADP->setId("glyph_ADP");
 glyph_ADP->setSpeciesId(species_ADP->getId());
-glyph_ADP->setBoundingBox(BoundingBox("bb4",270,140,80,20));
+bb=BoundingBox("bb4",270,140,80,20);
+glyph_ADP->setBoundingBox(&bb);
 
 tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_ADP");
-tGlyph->setBoundingBox(BoundingBox("bbC",280,140,60,20));
+bb=BoundingBox("bbC",280,140,60,20);
+tGlyph->setBoundingBox(&bb);
 tGlyph->setOriginOfTextId(species_ADP->getId());
 tGlyph->setGraphicalObjectId(glyph_ADP->getId());
 
 
 // Phosphate
 
-Species* species_Pi=&model->createSpecies();
+Species* species_Pi=model->createSpecies();
 species_Pi->setId("Pi");
 species_Pi->setCompartment(compartment->getId());
 
 SpeciesGlyph* glyph_Pi=layout->createSpeciesGlyph();
 glyph_Pi->setId("SpeciesGlyph_Pi");
 glyph_Pi->setSpeciesId(species_Pi->getId());
-glyph_Pi->setBoundingBox(BoundingBox("bb6",50,100,60,20));
+bb=BoundingBox("bb6",50,100,60,20);
+glyph_Pi->setBoundingBox(&bb);
 
 tGlyph=layout->createTextGlyph();
 tGlyph->setId("TextGlyph_PI");
-tGlyph->setBoundingBox(BoundingBox("bbE",60,100,40,20));
+bb=BoundingBox("bbE",60,100,40,20);
+tGlyph->setBoundingBox(&bb);
 tGlyph->setOriginOfTextId(species_Pi->getId());
 tGlyph->setGraphicalObjectId(glyph_Pi->getId());
 
 
 // create the Reaction
 
-Reaction* reaction_Hexokinase=&model->createReaction();
+Reaction* reaction_Hexokinase=model->createReaction();
 reaction_Hexokinase->setId("Hexokinase");
 reaction_Hexokinase->setReversible(false);
 
@@ -203,9 +212,11 @@ glyph_Hexokinase->setId("glyph_Hexokinase");
 glyph_Hexokinase->setReactionId(reaction_Hexokinase->getId());
 
 Curve* curve_Hexokinase=glyph_Hexokinase->getCurve();
-LineSegment* ls=&curve_Hexokinase->createLineSegment();
-ls->setStart(Point(170,100));
-ls->setEnd(Point(170,130));
+LineSegment* ls=curve_Hexokinase->createLineSegment();
+Point p(170,100);
+ls->setStart(&p);
+p=Point(170,130);
+ls->setEnd(&p);
 
 
 
@@ -214,18 +225,20 @@ SpeciesReference* reference_Gluc=new SpeciesReference();
 reference_Gluc->setSpecies(species_Gluc->getId());
 reference_Gluc->setId("SpeciesReference_Glucose");
 
-reaction_Hexokinase->addReactant(*reference_Gluc);
+reaction_Hexokinase->addReactant(reference_Gluc);
 
 // create species reference glyph for glucose
-SpeciesReferenceGlyph* speciesReferenceGlyph=&glyph_Hexokinase->createSpeciesReferenceGlyph();
+SpeciesReferenceGlyph* speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
 speciesReferenceGlyph->setId("SpeciesReferenceGlyph_Glucose");
 speciesReferenceGlyph->setSpeciesGlyphId(glyph_Gluc->getId());
 speciesReferenceGlyph->setSpeciesReferenceId(reference_Gluc->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SUBSTRATE);
 
-ls=&speciesReferenceGlyph->createLineSegment();
-ls->setStart(Point(170,100));
-ls->setEnd(Point(170,50));
+ls=speciesReferenceGlyph->createLineSegment();
+p=Point(170,100);
+ls->setStart(&p);
+p=Point(170,50);
+ls->setEnd(&p);
 
 // create species reference for ATP
 
@@ -233,21 +246,25 @@ SpeciesReference* reference_ATP=new SpeciesReference();
 reference_ATP->setSpecies(species_ATP->getId());
 reference_ATP->setId("SpeciesReference_ATP");
 
-reaction_Hexokinase->addReactant(*reference_ATP);
+reaction_Hexokinase->addReactant(reference_ATP);
 
 // create the species reference glyph for ATP
 
-speciesReferenceGlyph=&glyph_Hexokinase->createSpeciesReferenceGlyph();
+speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
 speciesReferenceGlyph->setId("SpeciesReferenceGlyph_ATP");
 speciesReferenceGlyph->setSpeciesGlyphId(glyph_ATP->getId());
 speciesReferenceGlyph->setSpeciesReferenceId(reference_ATP->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDESUBSTRATE);
 
-CubicBezier* cb=&speciesReferenceGlyph->createCubicBezier();
-cb->setStart(Point(170,100));
-cb->setBasePoint1(Point(170,80));
-cb->setBasePoint2(Point(170,80));
-cb->setEnd(Point(260,80));
+CubicBezier* cb=speciesReferenceGlyph->createCubicBezier();
+p=Point(170,100);
+cb->setStart(&p);
+p=Point(170,80);
+cb->setBasePoint1(&p);
+p=Point(170,80);
+cb->setBasePoint2(&p);
+p=Point(260,80);
+cb->setEnd(&p);
 
 // create species reference for G6P
 
@@ -255,19 +272,21 @@ SpeciesReference* reference_G6P=new SpeciesReference();
 reference_G6P->setSpecies(species_G6P->getId());
 reference_G6P->setId("SpeciesReference_G6P");
 
-reaction_Hexokinase->addProduct(*reference_G6P);
+reaction_Hexokinase->addProduct(reference_G6P);
 
 // create species reference for G6P as product
 
-speciesReferenceGlyph=&glyph_Hexokinase->createSpeciesReferenceGlyph();
+speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
 speciesReferenceGlyph->setId("SpeciesReferenceGlyph_G6P_1");
 speciesReferenceGlyph->setSpeciesGlyphId(glyph_G6P->getId());
 speciesReferenceGlyph->setSpeciesReferenceId(reference_G6P->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_PRODUCT);
 
-ls=&speciesReferenceGlyph->createLineSegment();
-ls->setStart(Point(170,130));
-ls->setEnd(Point(170,180));
+ls=speciesReferenceGlyph->createLineSegment();
+p=Point(170,130);
+ls->setStart(&p);
+p=Point(170,180);
+ls->setEnd(&p);
 
 // create species reference for ADP
 
@@ -275,21 +294,25 @@ SpeciesReference* reference_ADP=new SpeciesReference();
 reference_ADP->setSpecies(species_ADP->getId());
 reference_ADP->setId("SpeciesReference_ADP");
 
-reaction_Hexokinase->addProduct(*reference_ADP);
+reaction_Hexokinase->addProduct(reference_ADP);
 
 // create the species reference glyph for ADP
 
-speciesReferenceGlyph=&glyph_Hexokinase->createSpeciesReferenceGlyph();
+speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
 speciesReferenceGlyph->setId("SpeciesReferenceGlyph_ADP");
 speciesReferenceGlyph->setSpeciesGlyphId(glyph_ADP->getId());
 speciesReferenceGlyph->setSpeciesReferenceId(reference_ADP->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_SIDEPRODUCT);
 
-cb=&speciesReferenceGlyph->createCubicBezier();
-cb->setStart(Point(170,130));
-cb->setBasePoint1(Point(170,150));
-cb->setBasePoint2(Point(170,150));
-cb->setEnd(Point(260,150));
+cb=speciesReferenceGlyph->createCubicBezier();
+p=Point(170,130);
+cb->setStart(&p);
+p=Point(170,150);
+cb->setBasePoint1(&p);
+p=Point(170,150);
+cb->setBasePoint2(&p);
+p=Point(260,150);
+cb->setEnd(&p);
 
 
 // create modifier species reference for glucose-6-phosphate
@@ -298,21 +321,25 @@ ModifierSpeciesReference* reference_G6P_2=new ModifierSpeciesReference();
 reference_G6P_2->setSpecies(species_G6P->getId());
 reference_G6P_2->setId("ModifierSpeciesReference_G6P");
 
-reaction_Hexokinase->addModifier(*reference_G6P_2);
+reaction_Hexokinase->addModifier(reference_G6P_2);
 
 // create species reference glyph for G6P as a modifier
 
-speciesReferenceGlyph=&glyph_Hexokinase->createSpeciesReferenceGlyph();
+speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
 speciesReferenceGlyph->setId("SpeciesReferenceGlyph_G6P_2");
 speciesReferenceGlyph->setSpeciesReferenceId(reference_G6P_2->getId());
 speciesReferenceGlyph->setSpeciesGlyphId(glyph_G6P->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_INHIBITOR);
 
-cb=&speciesReferenceGlyph->createCubicBezier();
-cb->setStart(Point(45,200));
-cb->setBasePoint1(Point(0,200));
-cb->setBasePoint2(Point(0,120));
-cb->setEnd(Point(165,120));
+cb=speciesReferenceGlyph->createCubicBezier();
+p=Point(45,200);
+cb->setStart(&p);
+p=Point(0,200);
+cb->setBasePoint1(&p);
+p=Point(0,120);
+cb->setBasePoint2(&p);
+p=Point(165,120);
+cb->setEnd(&p);
 
 // create modifier species reference for phosphate
 
@@ -320,20 +347,24 @@ ModifierSpeciesReference* reference_Pi=new ModifierSpeciesReference();
 reference_Pi->setSpecies(species_Pi->getId());
 reference_Pi->setId("ModifierSpeciesReference_Pi");
 
-reaction_Hexokinase->addModifier(*reference_Pi);
+reaction_Hexokinase->addModifier(reference_Pi);
 
 // create the species reference glyph for Phosphate
-speciesReferenceGlyph=&glyph_Hexokinase->createSpeciesReferenceGlyph();
+speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
 speciesReferenceGlyph->setId("SpeciesReferenceGlyph_PI");
 speciesReferenceGlyph->setSpeciesReferenceId(reference_Pi->getId());
 speciesReferenceGlyph->setSpeciesGlyphId(glyph_Pi->getId());
 speciesReferenceGlyph->setRole(SPECIES_ROLE_ACTIVATOR);
 
-cb=&speciesReferenceGlyph->createCubicBezier();
-cb->setStart(Point(115,110));
-cb->setBasePoint1(Point(140,110));
-cb->setBasePoint2(Point(140,110));
-cb->setEnd(Point(165,110));
+cb=speciesReferenceGlyph->createCubicBezier();
+p=Point(115,110);
+cb->setStart(&p);
+p=Point(140,110);
+cb->setBasePoint1(&p);
+p=Point(140,110);
+cb->setBasePoint2(&p);
+p=Point(165,110);
+cb->setEnd(&p);
 
 // write model to file
 
