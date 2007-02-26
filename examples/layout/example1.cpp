@@ -32,7 +32,7 @@
  *
  * The original code contained here was initially developed by:
  *
- *     Ralph Gaugess
+ *     Ralph Gauges
  *     Bioinformatics Group
  *     European Media Laboratories Research gGmbH
  *     Schloss-Wolfsbrunnenweg 31c
@@ -73,7 +73,7 @@ SBMLDocument *document=new SBMLDocument(2,1);
 
 // create the Model
 
-Model* model=new Model();
+Model* model=document->createModel();
 model->setId("TestModel");
 document->setModel(model);
 

@@ -72,7 +72,7 @@ int main(int argc,char** argv){
 SBMLDocument *document=new SBMLDocument(2,1);
 // create the Model
 
-Model* model=new Model();
+Model* model=document->createModel();
 model->setId("TestModel with modifiers");
 document->setModel(model);
 
