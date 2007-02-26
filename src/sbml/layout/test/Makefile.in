@@ -105,10 +105,18 @@ ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
   extra_LDFLAGS   += $(EXPAT_LDFLAGS)
   extra_LIBS      += $(EXPAT_LIBS)
-else
+endif
+
+ifdef USE_XERCES
   extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
   extra_LDFLAGS   += $(XERCES_LDFLAGS)
   extra_LIBS      += $(XERCES_LIBS)
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += $(LIBXML_CPPFLAGS)
+  extra_LDFLAGS  += $(LIBXML_LDFLAGS)
+  extra_LIBS     += $(LIBXML_LIBS)
 endif
 
 # `distfiles' determines the files and directories included in a distribution.
@@ -174,7 +182,6 @@ info:
 
 html:
 
-
 # -----------------------------------------------------------------------------
 # Installation
 # -----------------------------------------------------------------------------
@@ -200,7 +207,6 @@ mostlyclean: mostlyclean-normal mostlyclean-recursive
 
 maintainer-clean: maintainer-clean-normal maintainer-clean-recursive
 
-
 # -----------------------------------------------------------------------------
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
@@ -209,14 +215,12 @@ dist: all dist-normal
 
 distcheck: all distcheck-normal
 
-
 # -----------------------------------------------------------------------------
 # Miscellaneous
 # -----------------------------------------------------------------------------
 
 include @top_srcdir@/config/makefile-common-actions.mk
 
-
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
