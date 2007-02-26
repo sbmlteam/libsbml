@@ -129,17 +129,25 @@ Reaction* reaction_Hexokinase=model->createReaction();
 reaction_Hexokinase->setId("Hexokinase");
 reaction_Hexokinase->setReversible(false);
 
-SpeciesReference* reference_Gluc=createSpeciesReference(species_Gluc,"ref_Gluc");
-SpeciesReference* reference_G6P_1=createSpeciesReference(species_G6P,"ref_G6P_1");
-SpeciesReference* reference_ATP_1=createSpeciesReference(species_ATP,"ref_ATP_1");
-SpeciesReference* reference_ADP_1=createSpeciesReference(species_ADP,"ref_ADP_1");
-SpeciesReference* reference_H_1=createSpeciesReference(species_H,"ref_H_1");
+SpeciesReference* reference_Gluc=reaction_Hexokinase->createReactant();
+reference_Gluc->setSpecies(species_Gluc->getId());
+reference_Gluc->setId("ref_Gluc");
 
-reaction_Hexokinase->addReactant(reference_Gluc);
-reaction_Hexokinase->addReactant(reference_ATP_1);
-reaction_Hexokinase->addProduct(reference_G6P_1);
-reaction_Hexokinase->addProduct(reference_ADP_1);
-reaction_Hexokinase->addProduct(reference_H_1);
+SpeciesReference* reference_G6P_1=reaction_Hexokinase->createProduct();
+reference_G6P_1->setSpecies(species_G6P->getId());
+reference_G6P_1->setId("ref_G6P_1");
+
+SpeciesReference* reference_ATP_1=reaction_Hexokinase->createReactant();
+reference_ATP_1->setSpecies(species_ATP->getId());
+reference_ATP_1->setId("ref_ATP_1");
+
+SpeciesReference* reference_ADP_1=reaction_Hexokinase->createProduct();
+reference_ADP_1->setSpecies(species_ADP->getId());
+reference_ADP_1->setId("ref_ADP_1");
+
+SpeciesReference* reference_H_1=reaction_Hexokinase->createProduct();
+reference_H_1->setSpecies(species_H->getId());
+reference_H_1->setId("ref_H_1");
 
 // Phosphoglucoseisomerase Reaction
 
