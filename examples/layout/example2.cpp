@@ -46,7 +46,6 @@
  */
 
 
-#include "common/common.h"
 
 #include "sbml/SBMLDocument.h"
 #include "sbml/Model.h"
