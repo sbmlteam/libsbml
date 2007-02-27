@@ -93,7 +93,7 @@ START_TEST (test_CVTerm_createFromNode)
   xa = CVTerm_getResources(term);
 
   fail_unless(XMLAttributes_getLength(xa) == 1);
-  fail_unless(!strcmp(XMLAttributes_getName(xa, 0), ""));
+  fail_unless(!strcmp(XMLAttributes_getName(xa, 0), "rdf:resource"));
   fail_unless(!strcmp(XMLAttributes_getValue(xa, 0), "This is my resource"));
 
   CVTerm_free(term);
