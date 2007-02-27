@@ -204,14 +204,14 @@ END_TEST
 
 START_TEST (test_SpeciesReferenceGlyph_setCurve)
 {
-    Curve c;
+    Curve* c=new Curve();
     LineSegment* ls=new LineSegment();
-    c.addCurveSegment(ls);
+    c->addCurveSegment(ls);
     delete ls;
     ls=new LineSegment();
-    c.addCurveSegment(ls);
+    c->addCurveSegment(ls);
     delete ls;
-    SRG->setCurve(&c);
+    SRG->setCurve(c);
     fail_unless(SRG->isSetCurve());
     fail_unless(SRG->getCurve()->getNumCurveSegments() == 2);
 }
