@@ -351,9 +351,9 @@ SBMLHandlerTest_teardown (void)
 
 START_TEST (test_SBMLHandler_Layout)
 {
-  SBMLReader* reader=new SBMLReader(); 
+  SBMLReader reader=SBMLReader(); 
 
-  D = reader->readSBMLFromString(s);
+  D = reader.readSBMLFromString(s);
       	
   fail_unless(D!=NULL);
 

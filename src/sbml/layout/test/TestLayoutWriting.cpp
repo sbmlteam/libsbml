@@ -1301,35 +1301,25 @@ START_TEST (test_LayoutWriting)
   malatedh_cyt->setName("malate dehydrogenase");
   malatedh_cyt->setReversible(false);
 
-  SpeciesReference* sr_malate_cyt=new SpeciesReference();
+  SpeciesReference* sr_malate_cyt=malatedh_cyt->createReactant();
   sr_malate_cyt->setSpecies(malate_cyt->getId());
   sr_malate_cyt->setId("sr_malate_cyt");
 
-  malatedh_cyt->addReactant(sr_malate_cyt);
-
-  SpeciesReference* sr_nad_cyt=new SpeciesReference();
+  SpeciesReference* sr_nad_cyt=malatedh_cyt->createReactant();
   sr_nad_cyt->setSpecies(nad_cyt->getId());
   sr_nad_cyt->setId("sr_nad_cyt");
 
-  malatedh_cyt->addReactant(sr_nad_cyt);
-
-  SpeciesReference* sr_nadh_cyt=new SpeciesReference();
+  SpeciesReference* sr_nadh_cyt=malatedh_cyt->createProduct();
   sr_nadh_cyt->setSpecies(nadh_cyt->getId());
   sr_nadh_cyt->setId("sr_nadh_cyt");
 
-  malatedh_cyt->addProduct(sr_nadh_cyt);
-
-  SpeciesReference* sr_h_cyt=new SpeciesReference();
+  SpeciesReference* sr_h_cyt=malatedh_cyt->createProduct();
   sr_h_cyt->setSpecies(h_cyt->getId());
   sr_h_cyt->setId("sr_h_cyt");
 
-  malatedh_cyt->addProduct(sr_h_cyt);
-
-  SpeciesReference* sr_oxaloacetate_cyt_1=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_cyt_1=malatedh_cyt->createProduct();
   sr_oxaloacetate_cyt_1->setSpecies(oxaloacetate_cyt->getId());
   sr_oxaloacetate_cyt_1->setId("sr_oxaloacetate_cyt_1");
-
-  malatedh_cyt->addProduct(sr_oxaloacetate_cyt_1);
 
   //Aspartate Aminotransferase
   Reaction* aspartateat_cyt=model->createReaction();
@@ -1337,29 +1327,21 @@ START_TEST (test_LayoutWriting)
   aspartateat_cyt->setName("aspartate aminotransferase");
   aspartateat_cyt->setReversible(false);
 
-  SpeciesReference* sr_oxaloacetate_cyt_2=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_cyt_2=aspartateat_cyt->createReactant();
   sr_oxaloacetate_cyt_2->setSpecies(oxaloacetate_cyt->getId());
   sr_oxaloacetate_cyt_2->setId("sr_oxaloacetate_cyt_2");
 
-  aspartateat_cyt->addReactant(sr_oxaloacetate_cyt_2);
-
-  SpeciesReference* sr_glutamate_cyt_1=new SpeciesReference();
+  SpeciesReference* sr_glutamate_cyt_1=aspartateat_cyt->createReactant();
   sr_glutamate_cyt_1->setSpecies(glutamate_cyt->getId());
   sr_glutamate_cyt_1->setId("sr_glutamate_cyt_1");
 
-  aspartateat_cyt->addReactant(sr_glutamate_cyt_1);
-
-  SpeciesReference* sr_aspartate_cyt_1=new SpeciesReference();
+  SpeciesReference* sr_aspartate_cyt_1=aspartateat_cyt->createProduct();
   sr_aspartate_cyt_1->setSpecies(aspartate_cyt->getId());
   sr_aspartate_cyt_1->setId("sr_aspartate_cyt_1");
 
-  aspartateat_cyt->addProduct(sr_aspartate_cyt_1);
-
-  SpeciesReference* sr_aKetoglutarate_cyt_1=new SpeciesReference();
+  SpeciesReference* sr_aKetoglutarate_cyt_1=aspartateat_cyt->createProduct();
   sr_aKetoglutarate_cyt_1->setSpecies(aKetoglutarate_cyt->getId());
   sr_aKetoglutarate_cyt_1->setId("sr_aKetoglutarate_cyt_1");
-
-  aspartateat_cyt->addProduct(sr_aKetoglutarate_cyt_1);
 
 
   // Mito 1
@@ -1370,35 +1352,25 @@ START_TEST (test_LayoutWriting)
   malatedh_mito1->setName("malate dehydrogenase");
   malatedh_mito1->setReversible(false);
 
-  SpeciesReference* sr_malate_mito1=new SpeciesReference();
+  SpeciesReference* sr_malate_mito1=malatedh_mito1->createReactant();
   sr_malate_mito1->setSpecies(malate_mito1->getId());
   sr_malate_mito1->setId("sr_malate_mito1");
 
-  malatedh_mito1->addReactant(sr_malate_mito1);
-
-  SpeciesReference* sr_nad_mito1=new SpeciesReference();
+  SpeciesReference* sr_nad_mito1=malatedh_mito1->createReactant();
   sr_nad_mito1->setSpecies(nad_mito1->getId());
   sr_nad_mito1->setId("sr_nad_mito1");
 
-  malatedh_mito1->addReactant(sr_nad_mito1);
-
-  SpeciesReference* sr_nadh_mito1=new SpeciesReference();
+  SpeciesReference* sr_nadh_mito1=malatedh_mito1->createProduct();
   sr_nadh_mito1->setSpecies(nadh_mito1->getId());
   sr_nadh_mito1->setId("sr_nadh_mito1");
 
-  malatedh_mito1->addProduct(sr_nadh_mito1);
-
-  SpeciesReference* sr_h_mito1=new SpeciesReference();
+  SpeciesReference* sr_h_mito1=malatedh_mito1->createProduct();
   sr_h_mito1->setSpecies(h_mito1->getId());
   sr_h_mito1->setId("sr_h_mito1");
 
-  malatedh_mito1->addProduct(sr_h_mito1);
-
-  SpeciesReference* sr_oxaloacetate_mito1_1=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_mito1_1=malatedh_mito1->createProduct();
   sr_oxaloacetate_mito1_1->setSpecies(oxaloacetate_mito1->getId());
   sr_oxaloacetate_mito1_1->setId("sr_oxaloacetate_mito1_1");
-
-  malatedh_mito1->addProduct(sr_oxaloacetate_mito1_1);
 
   //Aspartate Aminotransferase
   Reaction* aspartateat_mito1=model->createReaction();
@@ -1406,29 +1378,21 @@ START_TEST (test_LayoutWriting)
   aspartateat_mito1->setName("aspartate aminotransferase");
   aspartateat_mito1->setReversible(false);
 
-  SpeciesReference* sr_oxaloacetate_mito1_2=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_mito1_2=aspartateat_mito1->createReactant();
   sr_oxaloacetate_mito1_2->setSpecies(oxaloacetate_mito1->getId());
   sr_oxaloacetate_mito1_2->setId("sr_oxaloacetate_mito1_2");
 
-  aspartateat_mito1->addReactant(sr_oxaloacetate_mito1_2);
-
-  SpeciesReference* sr_glutamate_mito1=new SpeciesReference();
+  SpeciesReference* sr_glutamate_mito1=aspartateat_mito1->createReactant();
   sr_glutamate_mito1->setSpecies(glutamate_mito1->getId());
   sr_glutamate_mito1->setId("sr_glutamate_mito1");
 
-  aspartateat_mito1->addReactant(sr_glutamate_mito1);
-
-  SpeciesReference* sr_aspartate_mito1=new SpeciesReference();
+  SpeciesReference* sr_aspartate_mito1=aspartateat_mito1->createProduct();
   sr_aspartate_mito1->setSpecies(aspartate_mito1->getId());
   sr_aspartate_mito1->setId("sr_aspartate_mito1");
 
-  aspartateat_mito1->addProduct(sr_aspartate_mito1);
-
-  SpeciesReference* sr_aKetoglutarate_mito1=new SpeciesReference();
+  SpeciesReference* sr_aKetoglutarate_mito1=aspartateat_mito1->createProduct();
   sr_aKetoglutarate_mito1->setSpecies(aKetoglutarate_mito1->getId());
   sr_aKetoglutarate_mito1->setId("sr_aKetoglutarate_mito1");
-
-  aspartateat_mito1->addProduct(sr_aKetoglutarate_mito1);
 
 
   // Mito 2
@@ -1439,35 +1403,25 @@ START_TEST (test_LayoutWriting)
   malatedh_mito2->setName("malate dehydrogenase");
   malatedh_mito2->setReversible(false);
 
-  SpeciesReference* sr_malate_mito2=new SpeciesReference();
+  SpeciesReference* sr_malate_mito2=malatedh_mito2->createReactant();
   sr_malate_mito2->setSpecies(malate_mito2->getId());
   sr_malate_mito2->setId("sr_malate_mito2");
 
-  malatedh_mito2->addReactant(sr_malate_mito2);
-
-  SpeciesReference* sr_nad_mito2=new SpeciesReference();
+  SpeciesReference* sr_nad_mito2=malatedh_mito2->createReactant();
   sr_nad_mito2->setSpecies(nad_mito2->getId());
   sr_nad_mito2->setId("sr_nad_mito2");
 
-  malatedh_mito2->addReactant(sr_nad_mito2);
-
-  SpeciesReference* sr_nadh_mito2=new SpeciesReference();
+  SpeciesReference* sr_nadh_mito2=malatedh_mito2->createProduct();
   sr_nadh_mito2->setSpecies(nadh_mito2->getId());
   sr_nadh_mito2->setId("sr_nadh_mito2");
 
-  malatedh_mito2->addProduct(sr_nadh_mito2);
-
-  SpeciesReference* sr_h_mito2=new SpeciesReference();
+  SpeciesReference* sr_h_mito2=malatedh_mito2->createProduct();
   sr_h_mito2->setSpecies(h_mito2->getId());
   sr_h_mito2->setId("sr_h_mito2");
 
-  malatedh_mito2->addProduct(sr_h_mito2);
-
-  SpeciesReference* sr_oxaloacetate_mito2_1=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_mito2_1=malatedh_mito2->createProduct();
   sr_oxaloacetate_mito2_1->setSpecies(oxaloacetate_mito2->getId());
   sr_oxaloacetate_mito2_1->setId("sr_oxaloacetate_mito2_1");
-
-  malatedh_mito2->addProduct(sr_oxaloacetate_mito2_1);
 
   //Aspartate Aminotransferase
   Reaction* aspartateat_mito2=model->createReaction();
@@ -1475,29 +1429,21 @@ START_TEST (test_LayoutWriting)
   aspartateat_mito2->setName("aspartate aminotransferase");
   aspartateat_mito2->setReversible(false);
 
-  SpeciesReference* sr_oxaloacetate_mito2_2=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_mito2_2=aspartateat_mito2->createReactant();
   sr_oxaloacetate_mito2_2->setSpecies(oxaloacetate_mito2->getId());
   sr_oxaloacetate_mito2_2->setId("sr_oxaloacetate_mito2_2");
 
-  aspartateat_mito2->addReactant(sr_oxaloacetate_mito2_2);
-
-  SpeciesReference* sr_glutamate_mito2=new SpeciesReference();
+  SpeciesReference* sr_glutamate_mito2=aspartateat_mito2->createReactant();
   sr_glutamate_mito2->setSpecies(glutamate_mito2->getId());
   sr_glutamate_mito2->setId("sr_glutamate_mito2");
 
-  aspartateat_mito2->addReactant(sr_glutamate_mito2);
-
-  SpeciesReference* sr_aspartate_mito2=new SpeciesReference();
+  SpeciesReference* sr_aspartate_mito2=aspartateat_mito2->createProduct();
   sr_aspartate_mito2->setSpecies(aspartate_mito2->getId());
   sr_aspartate_mito2->setId("sr_aspartate_mito2");
 
-  aspartateat_mito2->addProduct(sr_aspartate_mito2);
-
-  SpeciesReference* sr_aKetoglutarate_mito2=new SpeciesReference();
+  SpeciesReference* sr_aKetoglutarate_mito2=aspartateat_mito2->createProduct();
   sr_aKetoglutarate_mito2->setSpecies(aKetoglutarate_mito2->getId());
   sr_aKetoglutarate_mito2->setId("sr_aKetoglutarate_mito2");
-
-  aspartateat_mito2->addProduct(sr_aKetoglutarate_mito2);
 
 
   // Mito 3
@@ -1508,35 +1454,25 @@ START_TEST (test_LayoutWriting)
   malatedh_mito3->setName("malate dehydrogenase");
   malatedh_mito3->setReversible(false);
 
-  SpeciesReference* sr_malate_mito3=new SpeciesReference();
+  SpeciesReference* sr_malate_mito3=malatedh_mito3->createReactant();
   sr_malate_mito3->setSpecies(malate_mito3->getId());
   sr_malate_mito3->setId("sr_malate_mito3");
 
-  malatedh_mito3->addReactant(sr_malate_mito3);
-
-  SpeciesReference* sr_nad_mito3=new SpeciesReference();
+  SpeciesReference* sr_nad_mito3=malatedh_mito3->createReactant();
   sr_nad_mito3->setSpecies(nad_mito3->getId());
   sr_nad_mito3->setId("sr_nad_mito3");
 
-  malatedh_mito3->addReactant(sr_nad_mito3);
-
-  SpeciesReference* sr_nadh_mito3=new SpeciesReference();
+  SpeciesReference* sr_nadh_mito3=malatedh_mito3->createProduct();
   sr_nadh_mito3->setSpecies(nadh_mito3->getId());
   sr_nadh_mito3->setId("sr_nadh_mito3");
 
-  malatedh_mito3->addProduct(sr_nadh_mito3);
-
-  SpeciesReference* sr_h_mito3=new SpeciesReference();
+  SpeciesReference* sr_h_mito3=malatedh_mito3->createProduct();
   sr_h_mito3->setSpecies(h_mito3->getId());
   sr_h_mito3->setId("sr_h_mito3");
 
-  malatedh_mito3->addProduct(sr_h_mito3);
-
-  SpeciesReference* sr_oxaloacetate_mito3_1=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_mito3_1=malatedh_mito3->createProduct();
   sr_oxaloacetate_mito3_1->setSpecies(oxaloacetate_mito3->getId());
   sr_oxaloacetate_mito3_1->setId("sr_oxaloacetate_mito3_1");
-
-  malatedh_mito3->addProduct(sr_oxaloacetate_mito3_1);
 
   //Aspartate Aminotransferase
   Reaction* aspartateat_mito3=model->createReaction();
@@ -1544,29 +1480,25 @@ START_TEST (test_LayoutWriting)
   aspartateat_mito3->setName("aspartate aminotransferase");
   aspartateat_mito3->setReversible(false);
 
-  SpeciesReference* sr_oxaloacetate_mito3_2=new SpeciesReference();
+  SpeciesReference* sr_oxaloacetate_mito3_2=aspartateat_mito3->createReactant();
   sr_oxaloacetate_mito3_2->setSpecies(oxaloacetate_mito3->getId());
   sr_oxaloacetate_mito3_2->setId("sr_oxaloacetate_mito3_2");
 
-  aspartateat_mito3->addReactant(sr_oxaloacetate_mito3_2);
 
-  SpeciesReference* sr_glutamate_mito3_1=new SpeciesReference();
+  SpeciesReference* sr_glutamate_mito3_1=aspartateat_mito3->createReactant();
   sr_glutamate_mito3_1->setSpecies(glutamate_mito3->getId());
   sr_glutamate_mito3_1->setId("sr_glutamate_mito3_1");
 
-  aspartateat_mito3->addReactant(sr_glutamate_mito3_1);
 
-  SpeciesReference* sr_aspartate_mito3_1=new SpeciesReference();
+  SpeciesReference* sr_aspartate_mito3_1=aspartateat_mito3->createProduct();
   sr_aspartate_mito3_1->setSpecies(aspartate_mito3->getId());
   sr_aspartate_mito3_1->setId("sr_aspartate_mito3_1");
 
-  aspartateat_mito3->addProduct(sr_aspartate_mito3_1);
 
-  SpeciesReference* sr_aKetoglutarate_mito3_1=new SpeciesReference();
+  SpeciesReference* sr_aKetoglutarate_mito3_1=aspartateat_mito3->createProduct();
   sr_aKetoglutarate_mito3_1->setSpecies(aKetoglutarate_mito3->getId());
   sr_aKetoglutarate_mito3_1->setId("sr_aKetoglutarate_mito3_1");
 
-  aspartateat_mito3->addProduct(sr_aKetoglutarate_mito3_1);
 
   // aspartate carrier
 
@@ -1575,29 +1507,21 @@ START_TEST (test_LayoutWriting)
   aspartateCarrier->setName("aspartate carrier");
   aspartateCarrier->setReversible(true);
 
-  SpeciesReference* sr_glutamate_mito3_2=new SpeciesReference();
+  SpeciesReference* sr_glutamate_mito3_2=aspartateCarrier->createReactant();
   sr_glutamate_mito3_2->setSpecies(glutamate_mito3->getId());
   sr_glutamate_mito3_2->setId("sr_glutamate_mito3_2");
 
-  aspartateCarrier->addReactant(sr_glutamate_mito3_2);
-
-  SpeciesReference* sr_aspartate_cyt_2=new SpeciesReference();
+  SpeciesReference* sr_aspartate_cyt_2=aspartateCarrier->createReactant();
   sr_aspartate_cyt_2->setSpecies(aspartate_cyt->getId());
   sr_aspartate_cyt_2->setId("sr_aspartate_cyt_2");
 
-  aspartateCarrier->addReactant(sr_aspartate_cyt_2);
-
-  SpeciesReference* sr_glutamate_cyt_2=new SpeciesReference();
+  SpeciesReference* sr_glutamate_cyt_2=aspartateCarrier->createProduct();
   sr_glutamate_cyt_2->setSpecies(glutamate_cyt->getId());
   sr_glutamate_cyt_2->setId("sr_glutamate_cyt_2");
 
-  aspartateCarrier->addProduct(sr_glutamate_cyt_2);
-
-  SpeciesReference* sr_aspartate_mito3_2=new SpeciesReference();
+  SpeciesReference* sr_aspartate_mito3_2=aspartateCarrier->createProduct();
   sr_aspartate_mito3_2->setSpecies(aspartate_mito3->getId());
   sr_aspartate_mito3_2->setId("sr_aspartate_mito3_2");
-
-  aspartateCarrier->addProduct(sr_aspartate_mito3_2);
 
   // malate carrier
 
@@ -1606,29 +1530,22 @@ START_TEST (test_LayoutWriting)
   malateCarrier->setName("malate carrier");
   malateCarrier->setReversible(true);
 
-  SpeciesReference* sr_aKetoglutarate_mito3_2=new SpeciesReference();
+  SpeciesReference* sr_aKetoglutarate_mito3_2=malateCarrier->createReactant();
   sr_aKetoglutarate_mito3_2->setSpecies(aKetoglutarate_mito3->getId());
   sr_aKetoglutarate_mito3_2->setId("sr_aKetoglutarate_mito3_2");
 
-  malateCarrier->addReactant(sr_aKetoglutarate_mito3_2);
-
-  SpeciesReference* sr_malate_cyt_2=new SpeciesReference();
+  SpeciesReference* sr_malate_cyt_2=malateCarrier->createReactant();
   sr_malate_cyt_2->setSpecies(malate_cyt->getId());
   sr_malate_cyt_2->setId("sr_malate_cyt_2");
 
-  malateCarrier->addReactant(sr_malate_cyt_2);
-
-  SpeciesReference* sr_aKetoglutarate_cyt_2=new SpeciesReference();
+  SpeciesReference* sr_aKetoglutarate_cyt_2=malateCarrier->createProduct();
   sr_aKetoglutarate_cyt_2->setSpecies(aKetoglutarate_cyt->getId());
   sr_aKetoglutarate_cyt_2->setId("sr_aKetoglutarate_cyt_2");
 
-  malateCarrier->addProduct(sr_aKetoglutarate_cyt_2);
-
-  SpeciesReference* sr_malate_mito3_2=new SpeciesReference();
+  SpeciesReference* sr_malate_mito3_2=malateCarrier->createProduct();
   sr_malate_mito3_2->setSpecies(malate_mito3->getId());
   sr_malate_mito3_2->setId("sr_malate_mito3_2");
 
-  malateCarrier->addProduct(sr_malate_mito3_2);
 
   /////////// create the Layout
 

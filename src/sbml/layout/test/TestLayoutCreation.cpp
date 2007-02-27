@@ -221,6 +221,7 @@ START_TEST (test_LayoutCreation_Layout)
     fail_unless(dimensions->getWidth()==0.0);
     fail_unless(dimensions->getHeight()==0.0);
     fail_unless(dimensions->getDepth()==0.0);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -264,6 +265,7 @@ START_TEST (test_LayoutCreation_Layout_notes)
     XMLInputStream stream2(NOTES,false);
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*l->getNotes())==true);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -313,6 +315,7 @@ START_TEST (test_LayoutCreation_Layout_annotation)
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*l->getAnnotation(),aNode)==true);
 
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -351,6 +354,7 @@ START_TEST (test_LayoutCreation_Layout_skipOptional)
     fail_unless(l->getNumTextGlyphs()==0);
     fail_unless(l->getNumAdditionalGraphicalObjects()==0);
 
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -409,6 +413,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph)
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
 
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -476,6 +481,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_notes)
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*cg->getNotes())==true);
     
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -549,6 +555,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*cg->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -607,6 +614,7 @@ START_TEST (test_LayoutCreation_CompartmentGlyph_skipOptional)
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
     
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -664,6 +672,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph)
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
     
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -730,6 +739,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_notes)
     XMLInputStream stream2(NOTES,false);
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*sg->getNotes())==true);
+    delete pListOfLayouts;
         
 }
 END_TEST
@@ -804,6 +814,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*sg->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -861,6 +872,7 @@ START_TEST (test_LayoutCreation_SpeciesGlyph_skipOptional)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -927,6 +939,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_Curve)
     fail_unless(end->getYOffset()==30.0);
     fail_unless(end->getZOffset()==0.0);
 
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -984,6 +997,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_BoundingBox)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -1050,6 +1064,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_notes)
     XMLInputStream stream2(NOTES,false);
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*rg->getNotes())==true);
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -1124,6 +1139,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*rg->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -1182,6 +1198,7 @@ START_TEST (test_LayoutCreation_ReactionGlyph_skipOptional)
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
     
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -1272,6 +1289,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_Curve)
     fail_unless(end->getYOffset()==30.0);
     fail_unless(end->getZOffset()==0.0);
     
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -1353,6 +1371,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_BoundingBox)
     fail_unless(dimensions2->getWidth()==20.5); 
     fail_unless(dimensions2->getHeight()==40.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -1444,6 +1463,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_notes)
     XMLInputStream stream2(NOTES,false);
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*srg->getNotes())==true);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -1542,6 +1562,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*srg->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -1623,6 +1644,7 @@ START_TEST (test_LayoutCreation_SpeciesReferenceGlyph_skipOptional)
     fail_unless(dimensions2->getWidth()==20.5); 
     fail_unless(dimensions2->getHeight()==40.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
  }
 END_TEST
 
@@ -1681,6 +1703,7 @@ START_TEST (test_LayoutCreation_TextGlyph_text)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -1740,6 +1763,7 @@ START_TEST (test_LayoutCreation_TextGlyph_originOfText)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -1809,6 +1833,7 @@ START_TEST (test_LayoutCreation_TextGlyph_notes)
     XMLInputStream stream2(NOTES,false);
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*tg->getNotes())==true);
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -1885,6 +1910,7 @@ START_TEST (test_LayoutCreation_TextGlyph_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*tg->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -1945,6 +1971,7 @@ START_TEST (test_LayoutCreation_TextGlyph_skipOptional)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -2000,6 +2027,7 @@ START_TEST (test_LayoutCreation_GraphicalObject)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -2065,6 +2093,7 @@ START_TEST (test_LayoutCreation_GraphicalObject_notes)
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*go->getNotes())==true);
  
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -2138,6 +2167,7 @@ START_TEST (test_LayoutCreation_GraphicalObject_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*go->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
     
 }
 END_TEST
@@ -2203,6 +2233,7 @@ START_TEST (test_LayoutCreation_Curve)
     fail_unless(end->getXOffset()==20.0);
     fail_unless(end->getYOffset()==30.0);
     fail_unless(end->getZOffset()==0.0);
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -2278,6 +2309,7 @@ START_TEST (test_LayoutCreation_Curve_notes)
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*curve->getNotes())==true);
  
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -2358,6 +2390,7 @@ START_TEST (test_LayoutCreation_Curve_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*curve->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -2404,6 +2437,7 @@ START_TEST (test_LayoutCreation_Curve_skipOptional)
     fail_unless(!rg->isSetReactionId());
 
     fail_unless(!rg->isSetCurve());
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -2466,6 +2500,7 @@ START_TEST (test_LayoutCreation_LineSegment)
      Point* end=ls->getEnd(); 
     fail_unless(end->getXOffset()==20.0);
     fail_unless(end->getYOffset()==30.0);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -2537,6 +2572,7 @@ START_TEST (test_LayoutCreation_LineSegment_notes)
     XMLInputStream stream2(NOTES,false);
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*ls->getNotes())==true);
+    delete pListOfLayouts;
  
 }
 END_TEST
@@ -2617,6 +2653,7 @@ START_TEST (test_LayoutCreation_LineSegment_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*ls->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -2693,6 +2730,7 @@ START_TEST (test_LayoutCreation_CubicBezier)
     fail_unless(base2->getYOffset()==17.0);
     fail_unless(base2->getZOffset()==0.0);
 
+    delete pListOfLayouts;
 
 
 }
@@ -2780,6 +2818,7 @@ START_TEST (test_LayoutCreation_CubicBezier_notes)
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*cb->getNotes())==true);
  
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -2873,6 +2912,7 @@ START_TEST (test_LayoutCreation_CubicBezier_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*cb->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
 }
 END_TEST
 
@@ -2907,6 +2947,7 @@ START_TEST (test_LayoutCreation_Dimensions)
     fail_unless(dimensions->getHeight()==400.5);
     fail_unless(dimensions->getDepth()==455.2);
 
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -2953,6 +2994,7 @@ START_TEST (test_LayoutCreation_Dimensions_notes)
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*dimensions->getNotes())==true);
 
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -3006,6 +3048,7 @@ START_TEST (test_LayoutCreation_Dimensions_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*dimensions->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
 
 
 }
@@ -3043,6 +3086,7 @@ START_TEST (test_LayoutCreation_Dimensions_skipOptional)
     fail_unless(dimensions->getHeight()==400.5);
     fail_unless(dimensions->getDepth()==0.0);
 
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -3103,6 +3147,7 @@ START_TEST (test_LayoutCreation_BoundingBox)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==100.2); 
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -3169,6 +3214,7 @@ START_TEST (test_LayoutCreation_BoundingBox_notes)
     XMLInputStream stream2(NOTES,false);
     XMLNode notes=XMLNode(stream2);
     fail_unless(compareXMLNodes(notes,*bb->getNotes())==true);
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -3243,6 +3289,7 @@ START_TEST (test_LayoutCreation_BoundingBox_annotation)
     XMLInputStream stream2(a,false);
     XMLNode aNode=XMLNode(stream2);
     fail_unless(compareXMLNodes(*bb->getAnnotation(),aNode)==true);
+    delete pListOfLayouts;
 
 }
 END_TEST
@@ -3300,6 +3347,8 @@ START_TEST (test_LayoutCreation_BoundingBox_skipOptional)
     fail_unless(dimensions2->getWidth()==200.5); 
     fail_unless(dimensions2->getHeight()==400.5); 
     fail_unless(dimensions2->getDepth()==0.0); 
+
+    delete pListOfLayouts;
 
 }
 END_TEST

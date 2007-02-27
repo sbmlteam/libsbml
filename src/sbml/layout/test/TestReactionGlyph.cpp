@@ -128,9 +128,9 @@ END_TEST
 START_TEST ( test_ReactionGlyph_addSpeciesReferenceGlyph )
 {
     std::string srgId="TestSpeciesReferenceGlyph";
-    SpeciesReferenceGlyph* srg=new SpeciesReferenceGlyph();
-    srg->setId(srgId);
-    RG->addSpeciesReferenceGlyph(srg);
+    SpeciesReferenceGlyph srg;
+    srg.setId(srgId);
+    RG->addSpeciesReferenceGlyph(&srg);
     fail_unless(RG->getNumSpeciesReferenceGlyphs() == 1);
     fail_unless(RG->getSpeciesReferenceGlyph(0)->getId() == srgId); 
     

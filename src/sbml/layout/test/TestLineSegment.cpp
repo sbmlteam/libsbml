@@ -142,6 +142,9 @@ START_TEST ( test_LineSegment_createWithPoints )
    fail_unless(Point_getXOffset(pos) == Point_getXOffset(end));  
    fail_unless(Point_getYOffset(pos) == Point_getYOffset(end));  
    fail_unless(Point_getZOffset(pos) == Point_getZOffset(end));  
+
+   Point_free(start);
+   Point_free(end);
   
 }
 END_TEST
@@ -194,7 +197,8 @@ START_TEST ( test_LineSegment_createWithCoordinates )
    fail_unless(pos->getXOffset() == -4.4);  
    fail_unless(pos->getYOffset() ==  5.5);  
    fail_unless(pos->getZOffset() == -6.6);  
- 
+
+   LineSegment_free(ls); 
 }
 END_TEST
 

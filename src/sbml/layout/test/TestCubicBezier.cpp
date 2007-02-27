@@ -149,7 +149,8 @@ START_TEST ( test_CubicBezier_createWithPoints )
    fail_unless(Point_getXOffset(pos) == Point_getXOffset(end));  
    fail_unless(Point_getYOffset(pos) == Point_getYOffset(end));  
    fail_unless(Point_getZOffset(pos) == Point_getZOffset(end));  
-  
+ 
+    CubicBezier_free(cb);
 }
 END_TEST
 
@@ -228,7 +229,8 @@ START_TEST ( test_CubicBezier_createWithCoordinates )
    fail_unless(pos->getXOffset() == -10.10);  
    fail_unless(pos->getYOffset() ==  11.11);  
    fail_unless(pos->getZOffset() == -12.12);  
- 
+
+   CubicBezier_free(cb); 
 }
 END_TEST
 
@@ -373,7 +375,8 @@ START_TEST ( test_CubicBezier_createFrom )
    fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));  
    fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));  
    fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));  
-   
+  
+  CubicBezier_free(cb); 
 }
 END_TEST
 

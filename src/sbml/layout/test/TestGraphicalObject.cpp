@@ -249,8 +249,8 @@ START_TEST (test_GraphicalObject_setBoundingBox)
     Point* p=new Point(1.1,-2.2,3.3);
     bb.setPosition(p);
     delete p;
-    Dimensions* d=new Dimensions(-4.4,5.5,-6.6);
-    bb.setDimensions(d);
+    Dimensions d=Dimensions(-4.4,5.5,-6.6);
+    bb.setDimensions(&d);
     GO->setBoundingBox(&bb);
     const BoundingBox& bb2=*(GO->getBoundingBox());
     fail_unless(bb.getPosition()->getXOffset() == bb2.getPosition()->getXOffset());
