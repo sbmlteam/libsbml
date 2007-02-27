@@ -219,11 +219,10 @@ ls->setEnd(&p);
 
 
 // create the species reference for glucose
-SpeciesReference* reference_Gluc=new SpeciesReference();
+SpeciesReference* reference_Gluc=reaction_Hexokinase->createReactant();
 reference_Gluc->setSpecies(species_Gluc->getId());
 reference_Gluc->setId("SpeciesReference_Glucose");
 
-reaction_Hexokinase->addReactant(reference_Gluc);
 
 // create species reference glyph for glucose
 SpeciesReferenceGlyph* speciesReferenceGlyph=glyph_Hexokinase->createSpeciesReferenceGlyph();
@@ -240,11 +239,10 @@ ls->setEnd(&p);
 
 // create species reference for ATP
 
-SpeciesReference* reference_ATP=new SpeciesReference();
+SpeciesReference* reference_ATP=reaction_Hexokinase->createReactant();
 reference_ATP->setSpecies(species_ATP->getId());
 reference_ATP->setId("SpeciesReference_ATP");
 
-reaction_Hexokinase->addReactant(reference_ATP);
 
 // create the species reference glyph for ATP
 
@@ -266,11 +264,10 @@ cb->setEnd(&p);
 
 // create species reference for G6P
 
-SpeciesReference* reference_G6P=new SpeciesReference();
+SpeciesReference* reference_G6P=reaction_Hexokinase->createProduct();
 reference_G6P->setSpecies(species_G6P->getId());
 reference_G6P->setId("SpeciesReference_G6P");
 
-reaction_Hexokinase->addProduct(reference_G6P);
 
 // create species reference for G6P as product
 
@@ -288,11 +285,10 @@ ls->setEnd(&p);
 
 // create species reference for ADP
 
-SpeciesReference* reference_ADP=new SpeciesReference();
+SpeciesReference* reference_ADP=reaction_Hexokinase->createProduct();
 reference_ADP->setSpecies(species_ADP->getId());
 reference_ADP->setId("SpeciesReference_ADP");
 
-reaction_Hexokinase->addProduct(reference_ADP);
 
 // create the species reference glyph for ADP
 
@@ -315,7 +311,7 @@ cb->setEnd(&p);
 
 // create modifier species reference for glucose-6-phosphate
 
-ModifierSpeciesReference* reference_G6P_2=new ModifierSpeciesReference();
+ModifierSpeciesReference* reference_G6P_2=reaction_Hexokinase->createModifier();
 reference_G6P_2->setSpecies(species_G6P->getId());
 reference_G6P_2->setId("ModifierSpeciesReference_G6P");
 
@@ -341,7 +337,7 @@ cb->setEnd(&p);
 
 // create modifier species reference for phosphate
 
-ModifierSpeciesReference* reference_Pi=new ModifierSpeciesReference();
+ModifierSpeciesReference* reference_Pi=reaction_Hexokinase->createModifier();
 reference_Pi->setSpecies(species_Pi->getId());
 reference_Pi->setId("ModifierSpeciesReference_Pi");
 
