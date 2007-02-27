@@ -149,7 +149,11 @@ START_TEST ( test_CubicBezier_createWithPoints )
    fail_unless(Point_getXOffset(pos) == Point_getXOffset(end));  
    fail_unless(Point_getYOffset(pos) == Point_getYOffset(end));  
    fail_unless(Point_getZOffset(pos) == Point_getZOffset(end));  
- 
+
+    Point_free(start);
+    Point_free(base1);
+    Point_free(base2);
+    Point_free(end);
     CubicBezier_free(cb);
 }
 END_TEST
@@ -188,7 +192,8 @@ START_TEST ( test_CubicBezier_createWithPoints_NULL )
    fail_unless(Point_getXOffset(pos) == 0.0);  
    fail_unless(Point_getYOffset(pos) == 0.0);  
    fail_unless(Point_getZOffset(pos) == 0.0);  
-  
+ 
+   CubicBezier_free(cb);
 }
 END_TEST
 
@@ -248,7 +253,8 @@ START_TEST (test_CubicBezier_setStart){
 
     fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));
     fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));
-    fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));
+    fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS)); 
+    Point_free(pos);
 
 }
 END_TEST
@@ -262,7 +268,7 @@ START_TEST (test_CubicBezier_setBasePoint1 ){
     fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));
     fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));
     fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));
-
+    Point_free(pos);
 }
 END_TEST
 
@@ -276,6 +282,7 @@ START_TEST (test_CubicBezier_setBasePoint2 ){
     fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));
     fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));
 
+    Point_free(pos);
 }
 END_TEST
 
@@ -288,7 +295,7 @@ START_TEST (test_CubicBezier_setEnd ){
     fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));
     fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));
     fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));
-
+    Point_free(pos);
 }
 END_TEST
 
@@ -375,7 +382,11 @@ START_TEST ( test_CubicBezier_createFrom )
    fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));  
    fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));  
    fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));  
-  
+   Point_free(start);
+   Point_free(base1);
+   Point_free(base2);
+   Point_free(end);
+
   CubicBezier_free(cb); 
 }
 END_TEST

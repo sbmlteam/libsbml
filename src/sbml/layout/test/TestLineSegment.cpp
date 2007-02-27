@@ -145,6 +145,8 @@ START_TEST ( test_LineSegment_createWithPoints )
 
    Point_free(start);
    Point_free(end);
+
+   LineSegment_free(ls);
   
 }
 END_TEST
@@ -171,7 +173,8 @@ START_TEST ( test_LineSegment_createWithPoints_NULL )
    fail_unless(Point_getXOffset(pos) == 0.0);  
    fail_unless(Point_getYOffset(pos) == 0.0);  
    fail_unless(Point_getZOffset(pos) == 0.0);  
-  
+ 
+   LineSegment_free(ls);
 }
 END_TEST
 
@@ -216,8 +219,8 @@ START_TEST (test_LineSegment_setStart){
 
     fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));
     fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));
-    fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));
-
+    fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS)); 
+    Point_free(pos);
 }
 END_TEST
 
@@ -230,7 +233,7 @@ START_TEST (test_LineSegment_setEnd ){
     fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));
     fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));
     fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));
-
+    Point_free(pos);
 }
 END_TEST
 
@@ -301,7 +304,10 @@ START_TEST ( test_LineSegment_createFrom )
    fail_unless(Point_getXOffset(pos) == Point_getXOffset(POS));  
    fail_unless(Point_getYOffset(pos) == Point_getYOffset(POS));  
    fail_unless(Point_getZOffset(pos) == Point_getZOffset(POS));  
-   
+ 
+   Point_free(start);
+   Point_free(end);
+   LineSegment_free(ls);
 }
 END_TEST
 

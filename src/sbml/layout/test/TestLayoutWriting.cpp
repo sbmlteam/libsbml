@@ -2377,11 +2377,11 @@ START_TEST (test_LayoutWriting)
     
   //bool result=writer.write(document,"example6.xml");
   //std::cout << "result of writing: " << result << std::endl; 
-  std::string writtenContent(writer.writeToString(document));
+  char* writtenContent=writer.writeToString(document);
 
-  XMLInputStream stream2(writtenContent.c_str(),false);
+  XMLInputStream stream2(writtenContent,false);
   XMLNode node2(stream2);
-
+  free(writtenContent);
   const XMLNode* listOfLayouts1,*listOfLayouts2;
   listOfLayouts1=&node;
   fail_unless(listOfLayouts1->getName()=="sbml");
