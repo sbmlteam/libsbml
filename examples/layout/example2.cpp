@@ -76,12 +76,6 @@ Species* createSpecies(const char* id, const char* name, const char* compartment
 	return species;
 }
 
-SpeciesReference* createSpeciesReference(const Species* species,const char* id){
-	SpeciesReference* speciesReference=new SpeciesReference();
-	speciesReference->setId(id);
-	speciesReference->setSpecies(species->getId());
-	return speciesReference;
-}
 
 int main(int argc,char** argv){
 
@@ -154,12 +148,13 @@ reference_H_1->setId("ref_H_1");
 Reaction* reaction_PGIsomerase=model->createReaction();
 reaction_PGIsomerase->setId("Phosphoglucoseisomerase");
 
-SpeciesReference* reference_G6P_2=createSpeciesReference(species_G6P,"ref_G6P_2");
+SpeciesReference* reference_G6P_2=reaction_PGIsomerase->createReactant();
+reference_G6P_2->setSpecies(species_G6P->getId());
+reference_G6P_2->setId("ref_G6P_2");
 
-SpeciesReference* reference_F6P_1=createSpeciesReference(species_F6P,"ref_F6P_1");
-
-reaction_PGIsomerase->addReactant(reference_G6P_2);
-reaction_PGIsomerase->addProduct(reference_F6P_1);
+SpeciesReference* reference_F6P_1=reaction_PGIsomerase->createProduct();
+reference_F6P_1->setSpecies(species_F6P->getId());
+reference_F6P_1->setId("ref_F6P_1");
 
 // Phosphofructokinase Reaction
 
@@ -167,42 +162,49 @@ Reaction* reaction_PFK=model->createReaction();
 reaction_PFK->setId("Phosphofructokinase");
 reaction_PFK->setReversible(false);
 
-SpeciesReference* reference_F6P_2=createSpeciesReference(species_F6P,"ref_F6P_2");
-SpeciesReference* reference_F16BP_1=createSpeciesReference(species_F16BP,"ref_F16BP_1");
-SpeciesReference* reference_ATP_2=createSpeciesReference(species_ATP,"ref_ATP_2");
-SpeciesReference* reference_ADP_2=createSpeciesReference(species_ADP,"ref_ADP_2");
-SpeciesReference* reference_H_2=createSpeciesReference(species_H,"ref_H_2");
+SpeciesReference* reference_F6P_2=reaction_PFK->createReactant();
+reference_F6P_2->setSpecies(species_F6P->getId());
+reference_F6P_2->setId("ref_F6P_2");
+SpeciesReference* reference_F16BP_1=reaction_PFK->createProduct();
+reference_F16BP_1->setSpecies(species_F16BP->getId());
+reference_F16BP_1->setId("ref_F16BP_1");
+SpeciesReference* reference_ATP_2=reaction_PFK->createReactant();
+reference_ATP_2->setSpecies(species_ATP->getId());
+reference_ATP_2->setId("ref_ATP_2");
+SpeciesReference* reference_ADP_2=reaction_PFK->createProduct();
+reference_ADP_2->setSpecies(species_ADP->getId());
+reference_ADP_2->setId("ref_ADP_2");
+SpeciesReference* reference_H_2=reaction_PFK->createProduct();
+reference_H_2->setSpecies(species_H->getId());
+reference_H_2->setId("ref_H_2");
 
-
-reaction_PFK->addReactant(reference_F6P_2);
-reaction_PFK->addReactant(reference_ATP_2);
-reaction_PFK->addProduct(reference_F16BP_1);
-reaction_PFK->addProduct(reference_ADP_2);
-reaction_PFK->addProduct(reference_H_2);
 
 // Aldolase Reaction
 
 Reaction* reaction_Aldolase=model->createReaction();
 reaction_Aldolase->setId("Aldolase");
 
-SpeciesReference* reference_F16BP_2=createSpeciesReference(species_F16BP,"ref_F16BP_2");
-SpeciesReference* reference_DHAP_1=createSpeciesReference(species_DHAP,"ref_DHAP_1");
-SpeciesReference* reference_GAP_1=createSpeciesReference(species_GAP,"ref_GAP_1");
-
-reaction_Aldolase->addReactant(reference_F16BP_2);
-reaction_Aldolase->addProduct(reference_DHAP_1);
-reaction_Aldolase->addProduct(reference_GAP_1);
+SpeciesReference* reference_F16BP_2=reaction_Aldolase->createReactant();
+reference_F16BP_2->setSpecies(species_F16BP->getId());
+reference_F16BP_2->setId("ref_F16BP_2");
+SpeciesReference* reference_DHAP_1=reaction_Aldolase->createProduct();
+reference_DHAP_1->setSpecies(species_DHAP->getId());
+reference_DHAP_1->setId("ref_DHAP_1");
+SpeciesReference* reference_GAP_1=reaction_Aldolase->createProduct();
+reference_GAP_1->setSpecies(species_GAP->getId());
+reference_GAP_1->setId("ref_GAP_1");
 
 // Triose phosphate isomerase Reaction
 
 Reaction* reaction_TPI=model->createReaction();
 reaction_TPI->setId("triose_phosphate_isomerase");
 
-SpeciesReference* reference_DHAP_2=createSpeciesReference(species_DHAP,"ref_DHAP_2");
-SpeciesReference* reference_GAP_2=createSpeciesReference(species_GAP,"ref_GAP_2");
-
-reaction_TPI->addReactant(reference_DHAP_2);
-reaction_TPI->addProduct(reference_GAP_2);
+SpeciesReference* reference_DHAP_2=reaction_TPI->createReactant();
+reference_DHAP_2->setSpecies(species_DHAP->getId());
+reference_DHAP_2->setId("ref_DHAP_2");
+SpeciesReference* reference_GAP_2=reaction_TPI->createProduct();
+reference_GAP_2->setSpecies(species_GAP->getId());
+reference_GAP_2->setId("ref_GAP_2");
 
 // Glyceraldehyde-3-phosphatedehydrogenase Reaction
 
@@ -210,19 +212,24 @@ Reaction* reaction_GAPDeh=model->createReaction();
 reaction_GAPDeh->setId("GAP_Dehydrogenase");
 reaction_GAPDeh->setReversible(false);
         
-SpeciesReference* reference_GAP_3=createSpeciesReference(species_GAP,"ref_GAP_3");
-SpeciesReference* reference_BPG_1=createSpeciesReference(species_BPG,"ref_BPG_1");
-SpeciesReference* reference_NAD_1=createSpeciesReference(species_NAD,"ref_NAD_1");
-SpeciesReference* reference_NADH_1=createSpeciesReference(species_NADH,"ref_NADH_1");
-SpeciesReference* reference_H_5=createSpeciesReference(species_H,"ref_H_5");
-SpeciesReference* reference_PI_1=createSpeciesReference(species_PI,"ref_PI_1");
-
-reaction_GAPDeh->addReactant(reference_GAP_3);
-reaction_GAPDeh->addReactant(reference_NAD_1);
-reaction_GAPDeh->addReactant(reference_PI_1);
-reaction_GAPDeh->addProduct(reference_BPG_1);
-reaction_GAPDeh->addProduct(reference_NADH_1);
-reaction_GAPDeh->addProduct(reference_H_5);
+SpeciesReference* reference_GAP_3=reaction_GAPDeh->createReactant();
+reference_GAP_3->setSpecies(species_GAP->getId());
+reference_GAP_3->setId("ref_GAP_3");
+SpeciesReference* reference_BPG_1=reaction_GAPDeh->createProduct();
+reference_BPG_1->setSpecies(species_BPG->getId());
+reference_BPG_1->setId("ref_BPG_1");
+SpeciesReference* reference_NAD_1=reaction_GAPDeh->createReactant();
+reference_NAD_1->setSpecies(species_NAD->getId());
+reference_NAD_1->setId("ref_NAD_1");
+SpeciesReference* reference_NADH_1=reaction_GAPDeh->createProduct();
+reference_NADH_1->setSpecies(species_NADH->getId());
+reference_NADH_1->setId("ref_NADH_1");
+SpeciesReference* reference_H_5=reaction_GAPDeh->createProduct();
+reference_H_5->setSpecies(species_H->getId());
+reference_H_5->setId("ref_H_5");
+SpeciesReference* reference_PI_1=reaction_GAPDeh->createReactant();
+reference_PI_1->setSpecies(species_PI->getId());
+reference_PI_1->setId("ref_PI_1");
 
 // Phosphoglyceratekinase Reaction
 
@@ -230,41 +237,48 @@ Reaction* reaction_PGK=model->createReaction();
 reaction_PGK->setId("Phosphoglyceratekinase");
 reaction_PGK->setReversible(false);
 
-SpeciesReference* reference_BPG_2=createSpeciesReference(species_BPG,"ref_BPG_2");
-SpeciesReference* reference_3PG_1=createSpeciesReference(species_3PG,"ref_3PG_1");
-SpeciesReference* reference_ATP_3=createSpeciesReference(species_ATP,"ref_ATP_3");
-SpeciesReference* reference_ADP_3=createSpeciesReference(species_ADP,"ref_ADP_3");
-SpeciesReference* reference_H_3=createSpeciesReference(species_H,"ref_H_3");
-
-reaction_PGK->addReactant(reference_BPG_2);
-reaction_PGK->addReactant(reference_ADP_3);
-reaction_PGK->addReactant(reference_H_3);
-reaction_PGK->addProduct(reference_3PG_1);
-reaction_PGK->addProduct(reference_ATP_3);
+SpeciesReference* reference_BPG_2=reaction_PGK->createReactant();
+reference_BPG_2->setSpecies(species_BPG->getId());
+reference_BPG_2->setId("ref_BPG_2");
+SpeciesReference* reference_3PG_1=reaction_PGK->createProduct();
+reference_3PG_1->setSpecies(species_3PG->getId());
+reference_3PG_1->setId("ref_3PG_1");
+SpeciesReference* reference_ATP_3=reaction_PGK->createProduct();
+reference_ATP_3->setSpecies(species_ATP->getId());
+reference_ATP_3->setId("ref_ATP_3");
+SpeciesReference* reference_ADP_3=reaction_PGK->createReactant();
+reference_ADP_3->setSpecies(species_ADP->getId());
+reference_ADP_3->setId("ref_ADP_3");
+SpeciesReference* reference_H_3=reaction_PGK->createReactant();
+reference_H_3->setSpecies(species_H->getId());
+reference_H_3->setId("ref_H_3");
 
 // Phosphoglyceratemutase Reaction
 
 Reaction* reaction_PGM=model->createReaction();
 reaction_PGM->setId("Phosphoglyceratemutase");
 
-SpeciesReference* reference_3PG_2=createSpeciesReference(species_3PG,"ref_3PG_2");
-SpeciesReference* reference_2PG_1=createSpeciesReference(species_2PG,"ref_2PG_1");
-
-reaction_PGM->addReactant(reference_3PG_2);
-reaction_PGM->addProduct(reference_2PG_1);
+SpeciesReference* reference_3PG_2=reaction_PGM->createReactant();
+reference_3PG_2->setSpecies(species_3PG->getId());
+reference_3PG_2->setId("ref_3PG_2");
+SpeciesReference* reference_2PG_1=reaction_PGM->createProduct();
+reference_2PG_1->setSpecies(species_2PG->getId());
+reference_2PG_1->setId("ref_2PG_1");
 
 // Enolase Reaction
 
 Reaction* reaction_Enolase=model->createReaction();
 reaction_Enolase->setId("Enolase");
 
-SpeciesReference* reference_2PG_2=createSpeciesReference(species_3PG,"ref_2PG_2");
-SpeciesReference* reference_PEP_1=createSpeciesReference(species_2PG,"ref_PEP_1");
-SpeciesReference* reference_H2O_1=createSpeciesReference(species_H2O,"ref_H2O_1");
-
-reaction_Enolase->addReactant(reference_2PG_2);
-reaction_Enolase->addProduct(reference_PEP_1);
-reaction_Enolase->addProduct(reference_H2O_1);
+SpeciesReference* reference_2PG_2=reaction_Enolase->createReactant();
+reference_2PG_2->setSpecies(species_3PG->getId());
+reference_2PG_2->setId("ref_2PG_2");
+SpeciesReference* reference_PEP_1=reaction_Enolase->createProduct();
+reference_PEP_1->setSpecies(species_2PG->getId());
+reference_PEP_1->setId("ref_PEP_1");
+SpeciesReference* reference_H2O_1=reaction_Enolase->createProduct();
+reference_H2O_1->setSpecies(species_H2O->getId());
+reference_H2O_1->setId("ref_H2O_1");
 
 // Pyruvatekinase Reaction
 
@@ -273,17 +287,21 @@ reaction_PK->setId("Pyruvatekinase");
 reaction_PK->setReversible(false);
 
 
-SpeciesReference* reference_PEP_2=createSpeciesReference(species_3PG,"ref_PEP_2");
-SpeciesReference* reference_Pyr_1=createSpeciesReference(species_2PG,"ref_Pyr_1");
-SpeciesReference* reference_ATP_4=createSpeciesReference(species_ATP,"ref_ATP_4");
-SpeciesReference* reference_ADP_4=createSpeciesReference(species_ADP,"ref_ADP_4");
-SpeciesReference* reference_H_4=createSpeciesReference(species_H,"ref_H_4");
-
-reaction_PK->addReactant(reference_PEP_2);
-reaction_PK->addReactant(reference_ADP_4);
-reaction_PK->addReactant(reference_H_4);
-reaction_PK->addProduct(reference_Pyr_1);
-reaction_PK->addProduct(reference_ATP_4);
+SpeciesReference* reference_PEP_2=reaction_PK->createReactant();
+reference_PEP_2->setSpecies(species_3PG->getId());
+reference_PEP_2->setId("ref_PEP_2");
+SpeciesReference* reference_Pyr_1=reaction_PK->createProduct();
+reference_Pyr_1->setSpecies(species_2PG->getId());
+reference_Pyr_1->setId("ref_Pyr_1");
+SpeciesReference* reference_ATP_4=reaction_PK->createProduct();
+reference_ATP_4->setSpecies(species_ATP->getId());
+reference_ATP_4->setId("ref_ATP_4");
+SpeciesReference* reference_ADP_4=reaction_PK->createReactant();
+reference_ADP_4->setSpecies(species_ADP->getId());
+reference_ADP_4->setId("ref_ADP_4");
+SpeciesReference* reference_H_4=reaction_PK->createProduct();
+reference_H_4->setSpecies(species_H->getId());
+reference_H_4->setId("ref_H_4");
 
 
 // create the Layout

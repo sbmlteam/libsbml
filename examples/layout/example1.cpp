@@ -99,32 +99,27 @@ Reaction* reaction1=model->createReaction();
 reaction1->setId("Reaction_1");
 reaction1->setReversible(false);
 
-SpeciesReference* reference1=new SpeciesReference();
+SpeciesReference* reference1=reaction1->createReactant();
 reference1->setSpecies(species1->getId());
 reference1->setId("SpeciesReference_1");
 
-reaction1->addReactant(reference1);
 
-SpeciesReference* reference2=new SpeciesReference();
+SpeciesReference* reference2=reaction1->createProduct();
 reference2->setSpecies(species2->getId());
 reference2->setId("SpeciesReference_2");
-
-reaction1->addProduct(reference2);
 
 Reaction* reaction2=model->createReaction();
 reaction2->setId("Reaction_2");
 reaction2->setReversible(false);
 
-SpeciesReference* reference3=new SpeciesReference();
+SpeciesReference* reference3=reaction2->createReactant();
 reference3->setSpecies(species2->getId());
 reference3->setId("SpeciesReference_3");
 
-SpeciesReference* reference4=new SpeciesReference();
+SpeciesReference* reference4=reaction2->createProduct();
 reference4->setSpecies(species1->getId());
 reference4->setId("SpeciesReference_4");
 
-reaction2->addReactant(reference3);
-reaction2->addProduct(reference4);
 
 // create the Layout
 
