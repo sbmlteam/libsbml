@@ -242,10 +242,10 @@ CVTerm_createWithQualifierType(QualifierType_t type)
 
 /**
  *
- 
+*/
 LIBSBML_EXTERN
 CVTerm_t*
-CVTerm_createFromNode(const XMLNode_t *node)
+CVTerm_createFromNode(const XMLNode_t node)
 {
   return new(nothrow) CVTerm(node);
 }
