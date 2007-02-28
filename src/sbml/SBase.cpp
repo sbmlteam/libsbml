@@ -2542,44 +2542,34 @@ void
 SBase::checkAnnotation()
 {
   const string&  name = mAnnotation->getName();
-  unsigned int n = 0;
-  XMLNode top;
 
-  if (name == "annotation")
+  unsigned int nNodes = 0;
+  unsigned int match = 0;
+  int n = 0;
+  while (nNodes < mAnnotation->getNumChildren())
   {
-    /**
-     * annotation element shouldnt have a namespace
-     * query number of validation rule
-     */
-    if (mAnnotation->getNamespaces().getLength() != 0)
+    XMLNode topLevel = mAnnotation->getChild(nNodes);
+
+    match = 0;
+    n = 0;
+    while(!match && n < topLevel.getNamespaces().getLength())
     {
-      mSBML->getErrorLog()->logError(10401);
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                          "http://www.sbml.org/sbml/level1");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                          "http://www.sbml.org/sbml/level2");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                "http://www.sbml.org/sbml/level2/version2");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                "http://www.sbml.org/sbml/level2/version3");
+      n++;
     }
-
-    /** 
-     * check that each top level element has a namespace
-     */
-    for (n = 0; n < mAnnotation->getNumChildren(); n++)
+    if (match > 0)
     {
-      top = mAnnotation->getChild(n);
-
-      if (top.getNamespaces().getLength() == 0)
-      {
-        mSBML->getErrorLog()->logError(10401);
-      }
+      mSBML->getErrorLog()->logError(10403);
+      break;
     }
-
-
-    //  for (n = 0; n < mAnnotation->getNamespaces().getLength(); n++)
-    //  {
-    //    if (!strcmp(mAnnotation->getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
-    //    {
-    //      break;
-    //    }
-    //  }
-    //}
-    //  mSBML->getErrorLog()->logError(error);
-    
+    nNodes++;
   }
 }
 

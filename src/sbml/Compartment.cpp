@@ -414,7 +414,6 @@ Compartment::readOtherXML (XMLInputStream& stream)
     checkAnnotation();
     mCVTerms = new List();
     parseRDFAnnotation(mAnnotation, mCVTerms);
-    checkAnnotation();
     mAnnotation = deleteRDFAnnotation(mAnnotation);
     read = true;
   }
