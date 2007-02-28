@@ -170,6 +170,34 @@ START_TEST ( test_Point_setZOffset)
 }
 END_TEST
 
+START_TEST ( test_Point_copyConstructor )
+{
+    Point* p1=new Point();
+    XMLNode* notes=new XMLNode();
+    p1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    p1->setAnnotation(annotation);
+    Point* p2=new Point(*p1);
+    delete p2;
+    delete p1;
+}
+END_TEST
+
+START_TEST ( test_Point_assignmentOperator )
+{
+    Point* p1=new Point();
+    XMLNode* notes=new XMLNode();
+    p1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    p1->setAnnotation(annotation);
+    Point* p2=new Point();
+    (*p2)=(*p1);
+    delete p2;
+    delete p1;
+}
+END_TEST
+
+
 
 Suite *
 create_suite_Point (void)
@@ -189,7 +217,10 @@ create_suite_Point (void)
   tcase_add_test( tcase, test_Point_initDefaults          );
   tcase_add_test( tcase, test_Point_setXOffset            );
   tcase_add_test( tcase, test_Point_setYOffset            );
-  tcase_add_test( tcase, test_Point_setZOffset            );
+  tcase_add_test( tcase, test_Point_setZOffset            );  
+  tcase_add_test( tcase, test_Point_copyConstructor       );
+  tcase_add_test( tcase, test_Point_assignmentOperator    );
+  
 
   suite_add_tcase(suite, tcase);
 

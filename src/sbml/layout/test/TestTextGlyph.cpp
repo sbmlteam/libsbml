@@ -131,6 +131,32 @@ START_TEST ( test_TextGlyph_setOriginOfTextId )
 }
 END_TEST
 
+START_TEST ( test_TextGlyph_copyConstructor )
+{
+    TextGlyph* tg1=new TextGlyph();
+    XMLNode* notes=new XMLNode();
+    tg1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    tg1->setAnnotation(annotation);
+    TextGlyph* tg2=new TextGlyph(*tg1);
+    delete tg2;
+    delete tg1;
+}
+END_TEST
+
+START_TEST ( test_TextGlyph_assignmentOperator )
+{
+    TextGlyph* tg1=new TextGlyph();
+    XMLNode* notes=new XMLNode();
+    tg1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    tg1->setAnnotation(annotation);
+    TextGlyph* tg2=new TextGlyph();
+    (*tg2)=(*tg1);
+    delete tg2;
+    delete tg1;
+}
+END_TEST
 
 Suite *
 create_suite_TextGlyph (void)
@@ -148,6 +174,8 @@ create_suite_TextGlyph (void)
   tcase_add_test(tcase , test_TextGlyph_setText              );
   tcase_add_test(tcase , test_TextGlyph_setGraphicalObjectId );
   tcase_add_test(tcase , test_TextGlyph_setOriginOfTextId    );
+  tcase_add_test( tcase, test_TextGlyph_copyConstructor      );
+  tcase_add_test( tcase, test_TextGlyph_assignmentOperator   );
   
   suite_add_tcase(suite, tcase);
 

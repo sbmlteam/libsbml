@@ -257,6 +257,33 @@ START_TEST ( test_ReactionGlyph_createCubicBezier )
 }
 END_TEST
 
+START_TEST ( test_ReactionGlyph_copyConstructor )
+{
+    ReactionGlyph* rg1=new ReactionGlyph();
+    XMLNode* notes=new XMLNode();
+    rg1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    rg1->setAnnotation(annotation);
+    ReactionGlyph* rg2=new ReactionGlyph(*rg1);
+    delete rg2;
+    delete rg1;
+}
+END_TEST
+
+START_TEST ( test_ReactionGlyph_assignmentOperator )
+{
+    ReactionGlyph* rg1=new ReactionGlyph();
+    XMLNode* notes=new XMLNode();
+    rg1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    rg1->setAnnotation(annotation);
+    ReactionGlyph* rg2=new ReactionGlyph();
+    (*rg2)=(*rg1);
+    delete rg2;
+    delete rg1;
+}
+END_TEST
+
 
 Suite *
 create_suite_ReactionGlyph (void)
@@ -280,6 +307,8 @@ create_suite_ReactionGlyph (void)
   tcase_add_test (tcase , test_ReactionGlyph_createSpeciesReferenceGlyph  );
   tcase_add_test (tcase , test_ReactionGlyph_createLineSegment            );
   tcase_add_test (tcase , test_ReactionGlyph_createCubicBezier            );
+  tcase_add_test( tcase , test_ReactionGlyph_copyConstructor              );
+  tcase_add_test( tcase , test_ReactionGlyph_assignmentOperator           );
 
   
   suite_add_tcase(suite, tcase);

@@ -419,6 +419,34 @@ END_TEST
 
 
 
+START_TEST ( test_Layout_copyConstructor )
+{
+    Layout* l1=new Layout();
+    XMLNode* notes=new XMLNode();
+    l1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    l1->setAnnotation(annotation);
+    Layout* l2=new Layout(*l1);
+    delete l2;
+    delete l1;
+}
+END_TEST
+
+START_TEST ( test_Layout_assignmentOperator )
+{
+    Layout* l1=new Layout();
+    XMLNode* notes=new XMLNode();
+    l1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    l1->setAnnotation(annotation);
+    Layout* l2=new Layout();
+    (*l2)=(*l1);
+    delete l2;
+    delete l1;
+}
+END_TEST
+
+
 Suite *
 create_suite_Layout (void)
 {
@@ -451,6 +479,8 @@ create_suite_Layout (void)
   tcase_add_test ( tcase , test_Layout_getNumReactionGlyphs             );
   tcase_add_test ( tcase , test_Layout_getNumTextGlyphs                 );
   tcase_add_test ( tcase , test_Layout_getNumAdditionalGraphicalObjects );
+  tcase_add_test(  tcase , test_Layout_copyConstructor                  );
+  tcase_add_test(  tcase , test_Layout_assignmentOperator               );
   
   suite_add_tcase(suite, tcase);
 

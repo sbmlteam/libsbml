@@ -152,6 +152,33 @@ START_TEST (test_Curve_createCubicBezier )
 }
 END_TEST
 
+START_TEST ( test_Curve_copyConstructor )
+{
+    Curve* c1=new Curve();
+    XMLNode* notes=new XMLNode();
+    c1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    c1->setAnnotation(annotation);
+    Curve* c2=new Curve(*c1);
+    delete c2;
+    delete c1;
+}
+END_TEST
+
+START_TEST ( test_Curve_assignmentOperator )
+{
+    Curve* c1=new Curve();
+    XMLNode* notes=new XMLNode();
+    c1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    c1->setAnnotation(annotation);
+    Curve* c2=new Curve();
+    (*c2)=(*c1);
+    delete c2;
+    delete c1;
+}
+END_TEST
+
 Suite *
 create_suite_Curve (void)
 {
@@ -173,6 +200,8 @@ create_suite_Curve (void)
   tcase_add_test( tcase, test_Curve_getListOfCurveSegments           );
   tcase_add_test( tcase, test_Curve_createLineSegment                );
   tcase_add_test( tcase, test_Curve_createCubicBezier                );
+  tcase_add_test( tcase, test_Curve_copyConstructor                  );
+  tcase_add_test( tcase, test_Curve_assignmentOperator               );
 
   suite_add_tcase(suite, tcase);
 

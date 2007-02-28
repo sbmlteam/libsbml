@@ -268,6 +268,33 @@ START_TEST ( test_BoundingBox_setDimensions_NULL )
 }
 END_TEST
 
+START_TEST ( test_BoundingBox_copyConstructor )
+{
+    BoundingBox* bb1=new BoundingBox();
+    XMLNode* notes=new XMLNode();
+    bb1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    bb1->setAnnotation(annotation);
+    BoundingBox* bb2=new BoundingBox(*bb1);
+    delete bb2;
+    delete bb1;
+}
+END_TEST
+
+START_TEST ( test_BoundingBox_assignmentOperator )
+{
+    BoundingBox* bb1=new BoundingBox();
+    XMLNode* notes=new XMLNode();
+    bb1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    bb1->setAnnotation(annotation);
+    BoundingBox* bb2=new BoundingBox();
+    (*bb2)=(*bb1);
+    delete bb2;
+    delete bb1;
+}
+END_TEST
+
 Suite *
 create_suite_BoundingBox (void)
 {
@@ -289,6 +316,8 @@ create_suite_BoundingBox (void)
   tcase_add_test( tcase, test_BoundingBox_setPosition_NULL           );
   tcase_add_test( tcase, test_BoundingBox_setDimensions              );
   tcase_add_test( tcase, test_BoundingBox_setDimensions_NULL         );
+  tcase_add_test( tcase, test_BoundingBox_copyConstructor            );
+  tcase_add_test( tcase, test_BoundingBox_assignmentOperator         );
 
   suite_add_tcase(suite, tcase);
 

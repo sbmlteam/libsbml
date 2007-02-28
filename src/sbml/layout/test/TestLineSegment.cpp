@@ -333,6 +333,34 @@ START_TEST (test_LineSegment_setEnd_NULL )
     fail_unless(Point_getZOffset(pos) == 0.0);
 }
 END_TEST
+
+START_TEST ( test_LineSegment_copyConstructor )
+{
+    LineSegment* ls1=new LineSegment();
+    XMLNode* notes=new XMLNode();
+    ls1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    ls1->setAnnotation(annotation);
+    LineSegment* ls2=new LineSegment(*ls1);
+    delete ls2;
+    delete ls1;
+}
+END_TEST
+
+START_TEST ( test_LineSegment_assignmentOperator )
+{
+    LineSegment* ls1=new LineSegment();
+    XMLNode* notes=new XMLNode();
+    ls1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    ls1->setAnnotation(annotation);
+    LineSegment* ls2=new LineSegment();
+    (*ls2)=(*ls1);
+    delete ls2;
+    delete ls1;
+}
+END_TEST
+
    
 Suite *
 create_suite_LineSegment (void)
@@ -357,6 +385,8 @@ create_suite_LineSegment (void)
   tcase_add_test( tcase, test_LineSegment_setEnd                );
   tcase_add_test( tcase, test_LineSegment_setEnd_NULL           );
   tcase_add_test( tcase, test_LineSegment_createFrom            );
+  tcase_add_test( tcase, test_LineSegment_copyConstructor       );
+  tcase_add_test( tcase, test_LineSegment_assignmentOperator    );
 
   suite_add_tcase(suite, tcase);
 

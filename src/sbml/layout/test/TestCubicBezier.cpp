@@ -439,6 +439,33 @@ START_TEST (test_CubicBezier_setEnd_NULL )
 }
 END_TEST
 
+START_TEST ( test_CubicBezier_copyConstructor )
+{
+    CubicBezier* cb1=new CubicBezier();
+    XMLNode* notes=new XMLNode();
+    cb1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    cb1->setAnnotation(annotation);
+    CubicBezier* cb2=new CubicBezier(*cb1);
+    delete cb2;
+    delete cb1;
+}
+END_TEST
+
+START_TEST ( test_CubicBezier_assignmentOperator )
+{
+    CubicBezier* cb1=new CubicBezier();
+    XMLNode* notes=new XMLNode();
+    cb1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    cb1->setAnnotation(annotation);
+    CubicBezier* cb2=new CubicBezier();
+    (*cb2)=(*cb1);
+    delete cb2;
+    delete cb1;
+}
+END_TEST
+
 Suite *
 create_suite_CubicBezier (void)
 {
@@ -464,6 +491,8 @@ create_suite_CubicBezier (void)
   tcase_add_test( tcase, test_CubicBezier_setEnd                );
   tcase_add_test( tcase, test_CubicBezier_setEnd_NULL           );
   tcase_add_test( tcase, test_CubicBezier_createFrom            );
+  tcase_add_test( tcase, test_CubicBezier_copyConstructor       );
+  tcase_add_test( tcase, test_CubicBezier_assignmentOperator    );
 
   suite_add_tcase(suite, tcase);
 

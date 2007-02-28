@@ -166,6 +166,33 @@ START_TEST ( test_Dimensions_setDepth)
 END_TEST
 
 
+START_TEST ( test_Dimensions_copyConstructor )
+{
+    Dimensions* d1=new Dimensions();
+    XMLNode* notes=new XMLNode();
+    d1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    d1->setAnnotation(annotation);
+    Dimensions* d2=new Dimensions(*d1);
+    delete d2;
+    delete d1;
+}
+END_TEST
+
+START_TEST ( test_Dimensions_assignmentOperator )
+{
+    Dimensions* d1=new Dimensions();
+    XMLNode* notes=new XMLNode();
+    d1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    d1->setAnnotation(annotation);
+    Dimensions* d2=new Dimensions();
+    (*d2)=(*d1);
+    delete d2;
+    delete d1;
+}
+END_TEST
+
 Suite *
 create_suite_Dimensions (void)
 {
@@ -178,13 +205,15 @@ create_suite_Dimensions (void)
                              DimensionsTest_teardown );
 
   tcase_add_test( tcase, test_Dimensions_create                );
-  tcase_add_test( tcase, test_Dimensions_createWithSize );
+  tcase_add_test( tcase, test_Dimensions_createWithSize        );
   tcase_add_test( tcase, test_Dimensions_free_NULL             );
-  tcase_add_test( tcase, test_Dimensions_setBounds        );
-  tcase_add_test( tcase, test_Dimensions_initDefaults   );
-  tcase_add_test( tcase, test_Dimensions_setWidth       );
-  tcase_add_test( tcase, test_Dimensions_setHeight      );
-  tcase_add_test( tcase, test_Dimensions_setDepth       );
+  tcase_add_test( tcase, test_Dimensions_setBounds             );
+  tcase_add_test( tcase, test_Dimensions_initDefaults          );
+  tcase_add_test( tcase, test_Dimensions_setWidth              );
+  tcase_add_test( tcase, test_Dimensions_setHeight             );
+  tcase_add_test( tcase, test_Dimensions_setDepth              );
+  tcase_add_test( tcase, test_Dimensions_copyConstructor       );
+  tcase_add_test( tcase, test_Dimensions_assignmentOperator    );
 
   suite_add_tcase(suite, tcase);
 

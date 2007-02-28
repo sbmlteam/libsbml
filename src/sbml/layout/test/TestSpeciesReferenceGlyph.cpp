@@ -263,6 +263,33 @@ START_TEST (test_SpeciesReferenceGlyph_createCubicBezier)
 }
 END_TEST
 
+START_TEST ( test_SpeciesReferenceGlyph_copyConstructor )
+{
+    SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
+    XMLNode* notes=new XMLNode();
+    srg1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    srg1->setAnnotation(annotation);
+    SpeciesReferenceGlyph* srg2=new SpeciesReferenceGlyph(*srg1);
+    delete srg2;
+    delete srg1;
+}
+END_TEST
+
+START_TEST ( test_SpeciesReferenceGlyph_assignmentOperator )
+{
+    SpeciesReferenceGlyph* srg1=new SpeciesReferenceGlyph();
+    XMLNode* notes=new XMLNode();
+    srg1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    srg1->setAnnotation(annotation);
+    SpeciesReferenceGlyph* srg2=new SpeciesReferenceGlyph();
+    (*srg2)=(*srg1);
+    delete srg2;
+    delete srg1;
+}
+END_TEST
+
 
 
 Suite *
@@ -286,6 +313,8 @@ create_suite_SpeciesReferenceGlyph (void)
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_setCurve_NULL         );
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_createLineSegment     );
   tcase_add_test( tcase, test_SpeciesReferenceGlyph_createCubicBezier     );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_copyConstructor       );
+  tcase_add_test( tcase, test_SpeciesReferenceGlyph_assignmentOperator    );
   
   suite_add_tcase(suite, tcase);
 

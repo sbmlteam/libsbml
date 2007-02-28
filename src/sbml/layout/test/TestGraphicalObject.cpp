@@ -262,6 +262,33 @@ START_TEST (test_GraphicalObject_setBoundingBox)
 }
 END_TEST
 
+START_TEST ( test_GraphicalObject_copyConstructor )
+{
+    GraphicalObject* go1=new GraphicalObject();
+    XMLNode* notes=new XMLNode();
+    go1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    go1->setAnnotation(annotation);
+    GraphicalObject* go2=new GraphicalObject(*go1);
+    delete go2;
+    delete go1;
+}
+END_TEST
+
+START_TEST ( test_GraphicalObject_assignmentOperator )
+{
+    GraphicalObject* go1=new GraphicalObject();
+    XMLNode* notes=new XMLNode();
+    go1->setNotes(notes);
+    XMLNode* annotation=new XMLNode();
+    go1->setAnnotation(annotation);
+    GraphicalObject* go2=new GraphicalObject();
+    (*go2)=(*go1);
+    delete go2;
+    delete go1;
+}
+END_TEST
+
 
 Suite *
 create_suite_GraphicalObject (void)
@@ -281,6 +308,8 @@ create_suite_GraphicalObject (void)
   tcase_add_test( tcase, test_GraphicalObject_new_with_id_and_boundingbox      );
   tcase_add_test( tcase, test_GraphicalObject_setId                            );
   tcase_add_test( tcase, test_GraphicalObject_setBoundingBox                   );
+  tcase_add_test( tcase, test_GraphicalObject_copyConstructor                  );
+  tcase_add_test( tcase, test_GraphicalObject_assignmentOperator               );
 
   suite_add_tcase(suite, tcase);
 
