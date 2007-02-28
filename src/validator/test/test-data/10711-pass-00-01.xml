@@ -24,11 +24,6 @@ Section 4.14.)
 						</apply>
 					</math>
 				</trigger>
-				<delay>
-					<math xmlns="http://www.w3.org/1998/Math/MathML">
-						<cn> 1 </cn>
-					</math>
-				</delay>
 				<listOfEventAssignments>
 					<eventAssignment variable="c">
 						<math xmlns="http://www.w3.org/1998/Math/MathML">

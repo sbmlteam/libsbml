@@ -154,12 +154,15 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -193,12 +196,15 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -233,7 +239,9 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -273,7 +281,9 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -313,7 +323,9 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -355,7 +367,9 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -397,7 +411,9 @@ START_CONSTRAINT (10531, RateRule, rr)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -437,7 +453,9 @@ START_CONSTRAINT (10532, RateRule, rr)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -479,7 +497,9 @@ START_CONSTRAINT (10533, RateRule, rr)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -514,7 +534,9 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -547,7 +569,9 @@ START_CONSTRAINT (10551, Event, e)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -586,7 +610,9 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -625,7 +651,9 @@ START_CONSTRAINT (10562, EventAssignment, ea)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
@@ -665,7 +693,9 @@ START_CONSTRAINT (10563, EventAssignment, ea)
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
-   */
+   *
+   * this changed for l2v3
+   *
   if (formulaUnits->getUnitDefinition()->getNumUnits() == 1)
   {
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
