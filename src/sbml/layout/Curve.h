@@ -70,6 +70,21 @@ class LIBSBML_EXTERN ListOfLineSegments : public ListOf
   virtual SBase* clone () const;
 
   /**
+   * Ctor.
+   */
+   ListOfLineSegments():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfLineSegments(const ListOfLineSegments& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfLineSegments& operator=(const ListOfLineSegments& source);
+
+  /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
    */
@@ -118,9 +133,18 @@ public:
    Curve(const XMLNode& node);
 
   /**
+   * Copy constructor.
+   */
+   Curve(const Curve& source);
+
+  /**
+   * Assignment operator.
+   */
+   Curve& operator=(const Curve& source);
+
+  /**
    * Destructor.
    */ 
-  
   virtual ~Curve ();
 
   /**

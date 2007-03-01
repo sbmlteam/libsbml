@@ -60,3 +60,44 @@ void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& a
 }
 
 
+
+// copies the attributes from source to target
+// this is sued in the assignment operators and copy constructors
+void copySBaseAttributes(const SBase& source,SBase& target)
+{
+    target.setMetaId(source.getMetaId());
+    target.setId(source.getId());
+    target.setName(source.getName());
+    target.setSBMLDocument(const_cast<SBMLDocument*>(source.getSBMLDocument()));
+    target.setSBOTerm(source.getSBOTerm());
+    if(source.isSetAnnotation())
+    {
+      target.setAnnotation(new XMLNode(*const_cast<SBase&>(source).getAnnotation()));
+    }
+    if(source.isSetNotes())
+    {
+      target.setNotes(new XMLNode(*const_cast<SBase&>(source).getNotes()));
+    }
+    if(source.getModelHistory()!=NULL)
+    {
+      target.setModelHistory(source.getModelHistory()->clone());
+    }
+    List* pCVTerms=target.getCVTerms();
+    // first delete all the old CVTerms
+    if(pCVTerms)
+    {
+      while(pCVTerms->getSize()>0)
+      {
+        CVTerm* object=static_cast<CVTerm*>(pCVTerms->remove(0));
+        delete object;
+      }
+      // add the cloned CVTerms from source
+      unsigned int i=0,iMax=source.getCVTerms()->getSize();
+      while(i<iMax)
+      {
+        target.addCVTerm(static_cast<CVTerm*>(static_cast<CVTerm*>(source.getCVTerms()->get(i))->clone()));
+        ++i;
+      }
+    }
+}
+

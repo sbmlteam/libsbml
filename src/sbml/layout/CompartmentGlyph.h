@@ -96,6 +96,16 @@ public:
    CompartmentGlyph(const XMLNode& node);
 
   /**
+   * Copy constructor.
+   */
+   CompartmentGlyph(const CompartmentGlyph& source);
+
+  /**
+   * Assignment operator.
+   */
+  virtual  CompartmentGlyph& operator=(const CompartmentGlyph& source);
+
+  /**
    * Destructor.
    */          
   virtual ~CompartmentGlyph ();

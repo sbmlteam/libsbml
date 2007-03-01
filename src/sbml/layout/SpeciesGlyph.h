@@ -96,6 +96,16 @@ public:
    SpeciesGlyph(const XMLNode& node);
 
   /**
+   * Copy constructor.
+   */
+   SpeciesGlyph(const SpeciesGlyph& source);
+
+  /**
+   * Assignment operator.
+   */
+   virtual SpeciesGlyph& operator=(const SpeciesGlyph& source);
+
+  /**
    * Destructor.
    */ 
   

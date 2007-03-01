@@ -114,6 +114,23 @@ CompartmentGlyph::CompartmentGlyph(const XMLNode& node)
     }    
 }
 
+/**
+ * Copy constructor.
+ */
+CompartmentGlyph::CompartmentGlyph(const CompartmentGlyph& source):GraphicalObject(source)
+{
+    this->mCompartment=source.getCompartmentId();
+}
+
+/**
+ * Assignment operator.
+ */
+CompartmentGlyph& CompartmentGlyph::operator=(const CompartmentGlyph& source)
+{
+    GraphicalObject::operator=(source);
+    this->mCompartment=source.getCompartmentId();    
+    return *this;
+}
 
 /**
  * Destructor.

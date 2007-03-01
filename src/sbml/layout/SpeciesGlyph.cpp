@@ -115,6 +115,24 @@ SpeciesGlyph::SpeciesGlyph(const XMLNode& node)
     }    
 }
 
+/**
+ * Copy constructor.
+ */
+SpeciesGlyph::SpeciesGlyph(const SpeciesGlyph& source):GraphicalObject(source)
+{
+    this->mSpecies=source.getSpeciesId();
+}
+
+/**
+ * Assignment operator.
+ */
+SpeciesGlyph& SpeciesGlyph::operator=(const SpeciesGlyph& source)
+{
+    GraphicalObject::operator=(source);
+    this->mSpecies=source.getSpeciesId();    
+    return *this;
+}
+
 
 /**
  * Destructor.

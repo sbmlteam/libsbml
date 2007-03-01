@@ -176,6 +176,29 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node)
     }    
 }
 
+/**
+ * Copy constructor.
+ */
+ReactionGlyph::ReactionGlyph(const ReactionGlyph& source):GraphicalObject(source)
+{
+    this->mReaction=source.getReactionId();
+    this->mCurve=*source.getCurve();
+    this->mSpeciesReferenceGlyphs=*source.getListOfSpeciesReferenceGlyphs();
+}
+
+/**
+ * Assignment operator.
+ */
+ReactionGlyph& ReactionGlyph::operator=(const ReactionGlyph& source)
+{
+    GraphicalObject::operator=(source);
+    this->mReaction=source.getReactionId();
+    this->mCurve=*source.getCurve();
+    this->mSpeciesReferenceGlyphs=*source.getListOfSpeciesReferenceGlyphs();
+    return *this;
+}
+
+
 
 /**
  * Destructor.
@@ -580,6 +603,43 @@ SBase*
 ListOfSpeciesReferenceGlyphs::clone () const
 {
   return new ListOfSpeciesReferenceGlyphs(*this);
+}
+
+ListOfSpeciesReferenceGlyphs& ListOfSpeciesReferenceGlyphs::operator=(const ListOfSpeciesReferenceGlyphs& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        SBase* o=this->remove(0);
+        delete o;
+        ++i;
+    }
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+ListOfSpeciesReferenceGlyphs::ListOfSpeciesReferenceGlyphs(const ListOfSpeciesReferenceGlyphs& source)
+{
+    ListOfSpeciesReferenceGlyphs::operator=(source);
 }
 
 

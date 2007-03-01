@@ -272,6 +272,52 @@ Curve::clone () const
 
 
 /**
+ * Copy constructor.
+ */
+Curve::Curve(const Curve& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // copy the line segments
+    this->mCurveSegments=*source.getListOfCurveSegments();
+}
+
+/**
+ * Assignment operator.
+ */
+Curve& Curve::operator=(const Curve& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // copy the line segments
+    this->mCurveSegments=*source.getListOfCurveSegments();
+    
+    return *this;
+}
+
+
+
+/**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
@@ -364,6 +410,44 @@ XMLNode Curve::toXML() const
   }
   if(end==true) node.setEnd();
   return node;
+}
+
+
+ListOfLineSegments& ListOfLineSegments::operator=(const ListOfLineSegments& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        LineSegment* ls=static_cast<LineSegment*>(this->remove(0));
+        delete ls;
+        ++i;
+    }
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+ListOfLineSegments::ListOfLineSegments(const ListOfLineSegments& source)
+{
+    ListOfLineSegments::operator=(source);
 }
 
 

@@ -125,7 +125,7 @@ public:
   /**
    * Assignment operator
    */
-  CubicBezier& operator=(const CubicBezier& orig);
+  virtual CubicBezier& operator=(const CubicBezier& orig);
 
 
 

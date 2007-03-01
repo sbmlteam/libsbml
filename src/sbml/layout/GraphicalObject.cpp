@@ -160,6 +160,49 @@ GraphicalObject::GraphicalObject(const XMLNode& node)
         ++n;
     }    
 }
+/**
+ * Copy constructor.
+ */
+GraphicalObject::GraphicalObject(const GraphicalObject& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    this->mId=source.getId();
+    this->mBoundingBox=*source.getBoundingBox();
+}
+
+/**
+ * Assignment operator.
+ */
+GraphicalObject& GraphicalObject::operator=(const GraphicalObject& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    this->mId=source.getId();
+    this->mBoundingBox=*source.getBoundingBox();
+        
+    return *this;
+}
 
 /**
  * Destructor.

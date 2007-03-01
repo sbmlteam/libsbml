@@ -100,6 +100,16 @@ public:
    TextGlyph(const XMLNode& node);
 
   /**
+   * Copy constructor.
+   */
+   TextGlyph(const TextGlyph& source);
+
+  /**
+   * Assignment operator.
+   */
+  virtual TextGlyph& operator=(const TextGlyph& source);
+
+  /**
    * Destructor.
    */ 
   

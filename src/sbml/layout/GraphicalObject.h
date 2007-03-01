@@ -122,6 +122,17 @@ public:
    GraphicalObject(const XMLNode& node);
 
   /**
+   * Copy constructor.
+   */
+   GraphicalObject(const GraphicalObject& source);
+
+  /**
+   * Assignment operator.
+   */
+   virtual GraphicalObject& operator=(const GraphicalObject& source);
+
+
+  /**
    * Destructor.
    */ 
   

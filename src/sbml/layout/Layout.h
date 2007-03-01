@@ -78,6 +78,22 @@ public:
   virtual SBase* clone () const;
 
   /**
+   * Ctor.
+   */
+   ListOfLayouts():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfLayouts(const ListOfLayouts& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfLayouts& operator=(const ListOfLayouts& source);
+
+
+  /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
    */
@@ -112,6 +128,22 @@ public:
    * @return a (deep) copy of this ListOfUnitDefinitions.
    */
   virtual SBase* clone () const;
+
+  /**
+   * Ctor.
+   */
+   ListOfCompartmentGlyphs():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfCompartmentGlyphs(const ListOfCompartmentGlyphs& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfCompartmentGlyphs& operator=(const ListOfCompartmentGlyphs& source);
+
 
   /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
@@ -150,6 +182,21 @@ public:
   virtual SBase* clone () const;
 
   /**
+   * Ctor.
+   */
+   ListOfSpeciesGlyphs():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfSpeciesGlyphs(const ListOfSpeciesGlyphs& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfSpeciesGlyphs& operator=(const ListOfSpeciesGlyphs& source);
+
+  /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
    */
@@ -184,6 +231,21 @@ public:
    * @return a (deep) copy of this ListOfUnitDefinitions.
    */
   virtual SBase* clone () const;
+
+  /**
+   * Ctor.
+   */
+   ListOfReactionGlyphs():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfReactionGlyphs(const ListOfReactionGlyphs& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfReactionGlyphs& operator=(const ListOfReactionGlyphs& source);
 
   /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
@@ -222,6 +284,21 @@ public:
   virtual SBase* clone () const;
 
   /**
+   * Ctor.
+   */
+   ListOfTextGlyphs():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfTextGlyphs(const ListOfTextGlyphs& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfTextGlyphs& operator=(const ListOfTextGlyphs& source);
+
+  /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
    */
@@ -256,6 +333,21 @@ public:
    * @return a (deep) copy of this ListOfUnitDefinitions.
    */
   virtual SBase* clone () const;
+
+  /**
+   * Ctor.
+   */
+   ListOfGraphicalObjects():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfGraphicalObjects(const ListOfGraphicalObjects& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfGraphicalObjects& operator=(const ListOfGraphicalObjects& source);
 
   /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
@@ -327,6 +419,16 @@ public:
    * Creates a new Layout from the given XMLNode
    */
   Layout (const XMLNode& node);
+
+  /**
+   * Copy constructor.
+   */
+   Layout(const Layout& source);
+
+  /**
+   * Assignment operator.
+   */
+   Layout& operator=(const Layout& source);
 
 
 

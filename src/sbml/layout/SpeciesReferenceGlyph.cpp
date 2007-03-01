@@ -161,6 +161,29 @@ SpeciesReferenceGlyph::SpeciesReferenceGlyph(const XMLNode& node)
     }    
 }
 
+/**
+ * Copy constructor.
+ */
+SpeciesReferenceGlyph::SpeciesReferenceGlyph(const SpeciesReferenceGlyph& source):GraphicalObject(source)
+{
+    this->mSpeciesReference=source.getSpeciesReferenceId();
+    this->mSpeciesGlyph=source.getSpeciesGlyphId();
+    this->mRole=source.getRole();
+    this->mCurve=*source.getCurve();
+}
+
+/**
+ * Assignment operator.
+ */
+SpeciesReferenceGlyph& SpeciesReferenceGlyph::operator=(const SpeciesReferenceGlyph& source)
+{
+    GraphicalObject::operator=(source);
+    this->mSpeciesReference=source.getSpeciesReferenceId();
+    this->mSpeciesGlyph=source.getSpeciesGlyphId();
+    this->mRole=source.getRole();
+    this->mCurve=*source.getCurve();
+    return *this;
+}
 
 /**
  * Destructor.

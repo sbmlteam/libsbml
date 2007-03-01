@@ -54,5 +54,9 @@ void addSBaseAttributes(const SBase& object,XMLAttributes& att);
 
 void addGraphicalObjectAttributes(const GraphicalObject& object,XMLAttributes& att);
 
+// copies the attributes from source to target
+// this is sued in the assignment operators and copy constructors
+void copySBaseAttributes(const SBase& source,SBase& target);
+
 
 #endif /*LAYOUTUTILITIES_H_*/

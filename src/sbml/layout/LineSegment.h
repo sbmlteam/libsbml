@@ -117,7 +117,7 @@ public:
   /**
    * Assignment operator
    */
-  LineSegment& operator=(const LineSegment& orig);
+  virtual LineSegment& operator=(const LineSegment& orig);
 
 
   /**

@@ -72,6 +72,21 @@ public:
   virtual SBase* clone () const;
 
   /**
+   * Ctor.
+   */
+   ListOfSpeciesReferenceGlyphs():ListOf(){};
+
+  /**
+   * Copy constructor.
+   */
+   ListOfSpeciesReferenceGlyphs(const ListOfSpeciesReferenceGlyphs& source);
+
+  /**
+   * Assignment operator.
+   */
+   ListOfSpeciesReferenceGlyphs& operator=(const ListOfSpeciesReferenceGlyphs& source);
+
+  /**
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
    */
@@ -137,6 +152,16 @@ public:
    * Creates a new ReactionGlyph from the given XMLNode
    */
    ReactionGlyph(const XMLNode& node);
+
+  /**
+   * Copy constructor.
+   */
+   ReactionGlyph(const ReactionGlyph& source);
+
+  /**
+   * Assignment operator.
+   */
+  virtual  ReactionGlyph& operator=(const ReactionGlyph& source);
 
   /**
    * Destructor.

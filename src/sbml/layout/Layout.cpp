@@ -253,6 +253,57 @@ Layout::Layout(const XMLNode& node)
     }    
 }
 
+/**
+ * Copy constructor.
+ */
+Layout::Layout(const Layout& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    this->mDimensions=*source.getDimensions();
+    this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
+    this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
+    this->mReactionGlyphs=*source.getListOfReactionGlyphs();
+    this->mTextGlyphs=*source.getListOfTextGlyphs();
+    this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
+}
+
+/**
+ * Assignment operator.
+ */
+Layout& Layout::operator=(const Layout& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    this->mDimensions=*source.getDimensions();
+    this->mCompartmentGlyphs=*source.getListOfCompartmentGlyphs();
+    this->mSpeciesGlyphs=*source.getListOfSpeciesGlyphs();
+    this->mReactionGlyphs=*source.getListOfReactionGlyphs();
+    this->mTextGlyphs=*source.getListOfTextGlyphs();
+    this->mAdditionalGraphicalObjects=*source.getListOfAdditionalGraphicalObjects();
+       
+    return *this;
+}
 
 
 /**
@@ -1289,6 +1340,43 @@ ListOfLayouts::clone () const
   return new ListOfLayouts(*this);
 }
 
+ListOfLayouts& ListOfLayouts::operator=(const ListOfLayouts& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
+    }
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+ListOfLayouts::ListOfLayouts(const ListOfLayouts& source)
+{
+    ListOfLayouts::operator=(source);
+}
+
 
 /**
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
@@ -1377,6 +1465,44 @@ ListOfCompartmentGlyphs::clone () const
 {
   return new ListOfCompartmentGlyphs(*this);
 }
+
+ListOfCompartmentGlyphs& ListOfCompartmentGlyphs::operator=(const ListOfCompartmentGlyphs& source)
+{
+    copySBaseAttributes(source,*this);
+    // clear the old list
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
+    }
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+ListOfCompartmentGlyphs::ListOfCompartmentGlyphs(const ListOfCompartmentGlyphs& source)
+{
+    ListOfCompartmentGlyphs::operator=(source);
+}
+
 
 
 /**
@@ -1470,6 +1596,43 @@ ListOfSpeciesGlyphs::clone () const
   return new ListOfSpeciesGlyphs(*this);
 }
 
+ListOfSpeciesGlyphs& ListOfSpeciesGlyphs::operator=(const ListOfSpeciesGlyphs& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
+    }
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+
+ListOfSpeciesGlyphs::ListOfSpeciesGlyphs(const ListOfSpeciesGlyphs& source)
+{
+    ListOfSpeciesGlyphs::operator=(source);
+}
 
 /**
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
@@ -1560,6 +1723,43 @@ SBase*
 ListOfReactionGlyphs::clone () const
 {
   return new ListOfReactionGlyphs(*this);
+}
+
+ListOfReactionGlyphs& ListOfReactionGlyphs::operator=(const ListOfReactionGlyphs& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
+    }
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+ListOfReactionGlyphs::ListOfReactionGlyphs(const ListOfReactionGlyphs& source)
+{
+    ListOfReactionGlyphs::operator=(source);
 }
 
 
@@ -1654,6 +1854,41 @@ ListOfTextGlyphs::clone () const
   return new ListOfTextGlyphs(*this);
 }
 
+ListOfTextGlyphs& ListOfTextGlyphs::operator=(const ListOfTextGlyphs& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
+    }
+    i=0;iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+ListOfTextGlyphs::ListOfTextGlyphs(const ListOfTextGlyphs& source)
+{
+    ListOfTextGlyphs::operator=(source);
+}
 
 /**
  * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
@@ -1744,6 +1979,43 @@ SBase*
 ListOfGraphicalObjects::clone () const
 {
   return new ListOfGraphicalObjects(*this);
+}
+
+ListOfGraphicalObjects& ListOfGraphicalObjects::operator=(const ListOfGraphicalObjects& source)
+{
+    copySBaseAttributes(source,*this);
+    this->mLine=source.getLine();
+    this->mColumn=source.getColumn();
+    if(this->mNamespaces!=NULL)
+    {
+        delete this->mNamespaces;
+        this->mNamespaces=NULL;
+    }
+    if(source.getNamespaces()!=NULL)
+    {
+      this->mNamespaces=new XMLNamespaces(*source.getNamespaces());
+    }
+    // clear the old list
+    unsigned int i=0,iMax=this->size();
+    while(i<iMax)
+    {
+        SBase* o=static_cast<SBase*>(this->remove(0));
+        delete o;
+        ++i;
+    }
+    i=0;
+    iMax=source.size();
+    while(i<iMax)
+    {
+      this->append(source.get(i));
+      ++i;
+    }
+    return *this;
+}
+
+ListOfGraphicalObjects::ListOfGraphicalObjects(const ListOfGraphicalObjects& source)
+{
+    ListOfGraphicalObjects::operator=(source);
 }
 
 

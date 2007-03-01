@@ -116,6 +116,28 @@ TextGlyph::TextGlyph(const XMLNode& node)
 }
 
 /**
+ * Copy constructor.
+ */
+TextGlyph::TextGlyph(const TextGlyph& source):GraphicalObject(source)
+{
+    this->mText=source.getText();
+    this->mOriginOfText=source.getOriginOfTextId();
+    this->mGraphicalObject=source.getGraphicalObjectId();    
+}
+
+/**
+ * Assignment operator.
+ */
+TextGlyph& TextGlyph::operator=(const TextGlyph& source)
+{
+    GraphicalObject::operator=(source);
+    this->mText=source.getText();
+    this->mOriginOfText=source.getOriginOfTextId();
+    this->mGraphicalObject=source.getGraphicalObjectId();    
+    return *this;
+}
+
+/**
  * Destructor.
  */ 
 TextGlyph::~TextGlyph()
