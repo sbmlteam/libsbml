@@ -156,6 +156,7 @@ START_TEST ( test_ReactionGlyph_setCurve )
     fail_unless(RG->getCurve() != NULL);
     fail_unless(RG->isSetCurve());
     fail_unless(RG->getCurve()->getNumCurveSegments() == 1);
+    delete c;
 }
 END_TEST
 

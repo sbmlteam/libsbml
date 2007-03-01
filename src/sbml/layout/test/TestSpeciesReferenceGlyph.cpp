@@ -213,7 +213,8 @@ START_TEST (test_SpeciesReferenceGlyph_setCurve)
     delete ls;
     SRG->setCurve(c);
     fail_unless(SRG->isSetCurve());
-    fail_unless(SRG->getCurve()->getNumCurveSegments() == 2);
+    fail_unless(SRG->getCurve()->getNumCurveSegments() == 2); 
+    delete c;
 }
 END_TEST
 
