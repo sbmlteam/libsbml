@@ -159,6 +159,10 @@ START_TEST ( test_Curve_copyConstructor )
     c1->setNotes(notes);
     XMLNode* annotation=new XMLNode();
     c1->setAnnotation(annotation);
+    c1->createLineSegment();
+    c1->createLineSegment();
+    c1->createCubicBezier();
+    c1->createCubicBezier();
     Curve* c2=new Curve(*c1);
     delete c2;
     delete c1;
@@ -172,6 +176,10 @@ START_TEST ( test_Curve_assignmentOperator )
     c1->setNotes(notes);
     XMLNode* annotation=new XMLNode();
     c1->setAnnotation(annotation);
+    c1->createLineSegment();
+    c1->createLineSegment();
+    c1->createCubicBezier();
+    c1->createCubicBezier();
     Curve* c2=new Curve();
     (*c2)=(*c1);
     delete c2;
