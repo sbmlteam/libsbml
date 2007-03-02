@@ -31,6 +31,7 @@
 #include <xercesc/util/PlatformUtils.hpp>
 
 #include "XMLHandler.h"
+#include "XMLErrorLog.h"
 
 #include "XercesTranscode.h"
 #include "XercesParser.h"
@@ -83,6 +84,7 @@ XercesParser::XercesParser (XMLHandler& handler) :
     mReader = new XercesReader(handler); // XMLReaderFactory::createXMLReader();
 
     mReader->setContentHandler( &mHandler );
+    mReader->setErrorHandler(&mHandler);
 
     mReader->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
     mReader->setFeature( XMLUni::fgSAX2CoreNameSpacePrefixes, true );
@@ -246,9 +248,30 @@ XercesParser::parseFirst (const char* content, bool isFile)
 bool
 XercesParser::parseNext ()
 {
+
+  bool result = true;
+  int nError = 5;
   if ( error() ) return false;
 
-  return mReader->parseNext(mToken);
+  try
+  {
+    mReader->parseNext(mToken);
+  }
+  catch (const SAXException& e)
+  {
+    char*           msg = XMLString::transcode( e.getMessage() );
+    result = false;
+    getErrorLog()->add( XMLError(nError, msg, 
+        XMLError::Error, "", 1, 1));
+  }
+  catch (...)
+  {
+    char * msg = "Unknown exception";
+    result = false;
+    getErrorLog()->add( XMLError(nError, msg, 
+        XMLError::Error, "", 1, 1));
+  }
+  return result;
 }
 
 

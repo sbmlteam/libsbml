@@ -1503,10 +1503,6 @@ Model::readOtherXML (XMLInputStream& stream)
 
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
-    if (stream.isError())
-    {
-      getErrorLog()->logError(00005);
-    }
     checkAnnotation();
     mCVTerms = new List();
     mHistory = parseRDFAnnotation(mAnnotation);
@@ -1531,10 +1527,6 @@ Model::readOtherXML (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
-    if (stream.isError())
-    {
-      getErrorLog()->logError(00005);
-    }
     checkNotes();
     read = true;
   }

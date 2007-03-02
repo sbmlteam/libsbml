@@ -26,6 +26,7 @@
 
 #include "XMLFileBuffer.h"
 #include "XMLMemoryBuffer.h"
+#include "XMLErrorLog.h"
 
 #include "ExpatHandler.h"
 #include "ExpatParser.h"
@@ -187,12 +188,36 @@ ExpatParser::parseNext ()
     fprintf(stderr, "error: Could not read from source buffer.\n");
     return false;
   }
-
   if ( XML_ParseBuffer(mParser, bytes, done) == XML_STATUS_ERROR )
   {
-    fprintf( stderr, "XML parse error at line %i:\n%s\n",
-             XML_GetCurrentLineNumber(mParser),
-             XML_ErrorString(XML_GetErrorCode(mParser)) );
+    if (mErrorLog)
+    {
+      /* rather than report the error and continue we catch errors
+       * on the second read and add them to the error log
+       
+      fprintf( stderr, "XML parse error at line %i:\n%s\n",
+               XML_GetCurrentLineNumber(mParser),
+               XML_ErrorString(XML_GetErrorCode(mParser)) );
+      */
+      std::string msg;
+      int error;
+      switch (XML_GetErrorCode(mParser))
+      {
+        case 7:
+          error = 3;
+          msg = "Missing a closing tag";
+        case 27:
+          error = 4;
+          msg = "prefix without a defined ns";
+          break;
+        default:
+          error = 0;
+          msg = "unknown parser error";
+          break;
+      }
+      getErrorLog()->add( XMLError(error, msg, 
+        XMLError::Error, "", XML_GetCurrentLineNumber(mParser), 1));
+    }
     return false;
   }
 
