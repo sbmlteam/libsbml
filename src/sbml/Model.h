@@ -58,7 +58,8 @@
 
 
 class SBMLVisitor;
-
+class FormulaUnitsData;
+class ListFormulaUnitsData;
 
 #ifdef USE_LAYOUT
 #include "sbml/layout/Layout.h"
