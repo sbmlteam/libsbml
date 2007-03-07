@@ -73,6 +73,12 @@ public:
   virtual ~Unit ();
 
   /**
+  * Copy constructor.
+  */
+  Unit(const Unit& orig);
+
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

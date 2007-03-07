@@ -83,6 +83,20 @@ Unit::~Unit ()
 
 
 /**
+ * Copy constructor.
+ */
+Unit::Unit(const Unit& rhs) :
+    SBase      ( rhs)
+  , mKind      ( rhs.mKind       )
+  , mExponent  ( rhs.mExponent   )
+  , mScale     ( rhs.mScale      )
+  , mMultiplier( rhs.mMultiplier )
+  , mOffset    ( rhs.mOffset     )
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

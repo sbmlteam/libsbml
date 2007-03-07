@@ -65,6 +65,16 @@ SimpleSpeciesReference::~SimpleSpeciesReference ()
 
 
 /**
+ * Copy constructor.
+ */
+SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& rhs) :
+          SBase     (rhs)
+        , mSpecies  (rhs.mSpecies)
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

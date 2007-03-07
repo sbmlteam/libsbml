@@ -82,6 +82,11 @@ public:
 
 
   /**
+  * Copy constructor.
+  */
+  Model(const Model& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;

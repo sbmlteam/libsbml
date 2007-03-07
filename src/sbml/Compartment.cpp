@@ -60,6 +60,22 @@ Compartment::~Compartment ()
 
 
 /**
+ * Copy constructor.
+ */
+Compartment::Compartment(const Compartment& rhs) :
+   SBase             ( rhs )
+ , mSpatialDimensions( rhs.mSpatialDimensions  )
+ , mSize             ( rhs.mSize      )
+ , mConstant         ( rhs.mConstant     )
+ , mIsSetSize        ( rhs.mIsSetSize    )
+ , mCompartmentType  ( rhs.mCompartmentType)
+ , mUnits            ( rhs.mUnits )
+ , mOutside          ( rhs.mOutside )
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

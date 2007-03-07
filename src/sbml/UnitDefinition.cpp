@@ -56,6 +56,16 @@ UnitDefinition::~UnitDefinition ()
 
 
 /**
+ * Copy constructor.
+ */
+UnitDefinition::UnitDefinition(const UnitDefinition& rhs) :
+          SBase     (rhs)
+        , mUnits    (rhs.mUnits)
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

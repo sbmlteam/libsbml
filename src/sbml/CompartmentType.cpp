@@ -55,6 +55,15 @@ CompartmentType::~CompartmentType ()
 
 
 /**
+ * Copy constructor.
+ */
+CompartmentType::CompartmentType(const CompartmentType& orig) :
+      SBase(orig)
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

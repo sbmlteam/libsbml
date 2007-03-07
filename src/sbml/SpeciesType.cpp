@@ -56,6 +56,15 @@ SpeciesType::~SpeciesType ()
 
 
 /**
+ * Copy constructor.
+ */
+SpeciesType::SpeciesType(const SpeciesType& orig) :
+      SBase(orig)
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

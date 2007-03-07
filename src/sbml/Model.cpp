@@ -70,6 +70,31 @@ Model::~Model ()
 
 
 /**
+ * Copy constructor.
+ */
+Model::Model(const Model& rhs) :
+       SBase   ( rhs )
+     , mFunctionDefinitions (rhs.mFunctionDefinitions)
+     , mUnitDefinitions     (rhs.mUnitDefinitions)
+     , mCompartmentTypes    (rhs.mCompartmentTypes)
+     , mSpeciesTypes        (rhs.mSpeciesTypes)
+     , mCompartments        (rhs.mCompartments)
+     , mSpecies             (rhs.mSpecies)
+     , mParameters          (rhs.mParameters)
+     , mInitialAssignments  (rhs.mInitialAssignments)
+     , mRules               (rhs.mRules)
+     , mConstraints         (rhs.mConstraints)
+     , mReactions           (rhs.mReactions)
+     , mEvents              (rhs.mEvents)
+     , mFormulaUnitsData    (rhs.mFormulaUnitsData)
+#ifdef USE_LAYOUT
+     , mLayouts             (rhs.mLayouts)
+#endif
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  */
 bool

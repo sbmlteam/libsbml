@@ -65,6 +65,32 @@ Species::~Species ()
 
 
 /**
+ * Copy constructor.
+ */
+Species::Species(const Species& orig) :
+      SBase(orig)
+{
+    this->mSpeciesType = orig.mSpeciesType;
+    this->mCompartment = orig.mCompartment;
+
+    this->mInitialAmount = orig.mInitialAmount;
+    this->mInitialConcentration = orig.mInitialConcentration;
+
+    this->mSubstanceUnits = orig.mSubstanceUnits;
+    this->mSpatialSizeUnits = orig.mSpatialSizeUnits;
+
+    this->mHasOnlySubstanceUnits = orig.mHasOnlySubstanceUnits;
+    this->mBoundaryCondition = orig.mBoundaryCondition;
+    this->mCharge = orig.mCharge;
+    this->mConstant = orig.mConstant;
+
+    this->mIsSetInitialAmount = orig.mIsSetInitialAmount;
+    this->mIsSetInitialConcentration = orig.mIsSetInitialConcentration;
+    this->mIsSetCharge = orig.mIsSetCharge;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

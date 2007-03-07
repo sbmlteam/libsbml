@@ -58,6 +58,12 @@ public:
 
 
   /**
+  * Copy constructor.
+  */
+  Species(const Species& orig);
+
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

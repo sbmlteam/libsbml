@@ -80,6 +80,19 @@ Parameter::~Parameter ()
 
 
 /**
+ * Copy constructor.
+ */
+Parameter::Parameter(const Parameter& rhs) :
+        SBase      ( rhs     )
+      , mValue     ( rhs.mValue    )
+      , mUnits     ( rhs.mUnits    )
+      , mConstant  ( rhs.mConstant )
+      , mIsSetValue( rhs.mIsSetValue)
+{
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

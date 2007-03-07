@@ -345,6 +345,10 @@ protected:
 
   SBase (int sboTerm);
 
+  /**
+  * Copy constructor.
+  */
+  SBase(const SBase& orig);
 
   /**
    * Subclasses should override this method to create, store, and then

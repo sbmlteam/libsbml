@@ -68,6 +68,7 @@ KineticLaw::KineticLaw (const KineticLaw& rhs) :
  , mMath          ( 0                   )
  , mTimeUnits     ( rhs.mTimeUnits      )
  , mSubstanceUnits( rhs.mSubstanceUnits )
+ , mParameters    ( rhs.mParameters     )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
@@ -80,6 +81,8 @@ KineticLaw::~KineticLaw ()
 {
   delete mMath;
 }
+
+
 
 
 /**

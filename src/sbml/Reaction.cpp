@@ -68,6 +68,9 @@ Reaction::Reaction (const Reaction& rhs) :
   , mReversible( rhs.mReversible )
   , mFast      ( rhs.mFast       )
   , mIsSetFast ( rhs.mIsSetFast  )
+  , mReactants ( rhs.mReactants  )
+  , mProducts  ( rhs.mProducts   )
+  , mModifiers ( rhs.mModifiers  )
 {
   if (rhs.mKineticLaw)
   {
