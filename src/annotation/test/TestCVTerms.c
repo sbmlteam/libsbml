@@ -96,8 +96,16 @@ START_TEST (test_CVTerm_createFromNode)
   fail_unless(!strcmp(XMLAttributes_getName(xa, 0), "rdf:resource"));
   fail_unless(!strcmp(XMLAttributes_getValue(xa, 0), "This is my resource"));
 
+  XMLTriple_free(qual_triple);
+  XMLTriple_free(bag_triple);
+  XMLTriple_free(li_triple);
+  XMLToken_free(li_token);
+  XMLToken_free(bag_token);
+  XMLToken_free(qual_token);
+  XMLAttributes_free(att);
   CVTerm_free(term);
   XMLNode_free(node);
+  
 
 }
 END_TEST

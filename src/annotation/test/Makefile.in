@@ -46,6 +46,8 @@ thisdir   = src/annotation/test
 
 test_sources =                  \
   TestCVTerms.cpp             \
+  TestModelHistory.c			\
+  TestRDFAnnotation.cpp			\
   TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..

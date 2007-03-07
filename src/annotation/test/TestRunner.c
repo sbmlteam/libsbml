@@ -67,9 +67,43 @@
 BEGIN_C_DECLS
 
 Suite *create_suite_CVTerms (void);
+Suite *create_suite_RDFAnnotation (void);
+Suite *create_suite_ModelHistory (void);
 
 END_C_DECLS
+/**
+ * Global.
+ *
+ * Declared extern in TestUnitFormulaFormatter suite.
+ */
+char *TestDataDirectory;
 
+
+/**
+ * Sets TestDataDirectory for the the TestUnitFormulaFormatter suite.
+ *
+ * For Automake's distcheck target to work properly, TestDataDirectory must
+ * begin with the value of the environment variable SRCDIR.
+ */
+void
+setTestDataDirectory (void)
+{
+  char *srcdir = getenv("srcdir");
+  int  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
+
+
+  /**
+   * strlen("/test-data/") = 11 + 1 (for NULL) = 12
+   */
+  TestDataDirectory = (char *) safe_calloc( length + 12, sizeof(char) );
+
+  if (srcdir != NULL)
+  {
+    strcpy(TestDataDirectory, srcdir);
+  }
+
+  strcat(TestDataDirectory, "/test-data/");
+}
 int
 main (void) 
 { 
@@ -78,8 +112,8 @@ main (void)
 
   SRunner *runner = srunner_create( create_suite_CVTerms() );
 
-  //srunner_add_suite( runner, create_suite_UtilsUnitDefinition  () );
-  //srunner_add_suite( runner, create_suite_UnitFormulaFormatter () );
+  srunner_add_suite( runner, create_suite_ModelHistory  () );
+//  srunner_add_suite( runner, create_suite_RDFAnnotation () );
   //srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
   //srunner_add_suite( runner, create_suite_FormulaUnitsData() );
   
