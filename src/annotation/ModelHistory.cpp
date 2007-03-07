@@ -611,8 +611,6 @@ ModelHistory::getModifiedDate()
 }
 
 
-#ifdef USE_LAYOUT
-
 ModelHistory* ModelHistory::clone() const
 {
     ModelHistory* mh=new ModelHistory();
@@ -628,6 +626,397 @@ ModelHistory* ModelHistory::clone() const
     return mh;
 }
 
-#endif // USE_LAYOUT
+
+/**
+  * creates a date from the individual fields entered as numbers
+  */
+Date_t *
+Date_createWith(unsigned int year, unsigned int month, 
+    unsigned int day, unsigned int hour, 
+    unsigned int minute, unsigned int second,
+    unsigned int sign, unsigned int hoursOffset,
+    unsigned int minutesOffset)
+{
+  return new(nothrow) Date(year, month, day, hour, minute,
+    second, sign, hoursOffset, minutesOffset);
+}
+
+/**
+  * creates a date from a string
+  */
+Date_t *
+Date_createFromString (const char * date)
+{
+  return new(nothrow) Date(date);
+}
+
+
+void
+Date_free(Date_t * date)
+{
+  delete static_cast<Date*>(date);
+}
+
+/**
+ * returns the date as a string
+ */
+const char *
+Date_getDateAsString(Date_t * date)
+{
+  return date->getDateAsString().c_str();
+}
+
+
+
+/**
+ * returns Year
+ */
+unsigned int
+Date_getYear(Date_t * date)
+{
+  return date->getYear();
+}
+
+/**
+ * returns Month
+ */
+unsigned int
+Date_getMonth(Date_t * date)
+{
+  return date->getMonth();
+}
+
+
+/**
+ * returns Day
+ */
+unsigned int
+Date_getDay(Date_t * date)
+{
+  return date->getDay();
+}
+
+
+/**
+ * returns Hour
+ */
+unsigned int
+Date_getHour(Date_t * date)
+{
+  return date->getHour();
+}
+
+
+/**
+ * returns Minute
+ */
+unsigned int
+Date_getMinute(Date_t * date)
+{
+  return date->getMinute();
+}
+
+
+/**
+ * returns Second
+ */
+unsigned int
+Date_getSecond(Date_t * date) 
+{ 
+  return date->getSecond(); 
+} 
+
+/**
+ * returns SignOffset
+ */
+unsigned int
+Date_getSignOffset(Date_t * date) 
+{ 
+  return date->getSignOffset(); 
+} 
+
+/**
+ * returns HoursOffset
+ */
+unsigned int
+Date_getHoursOffset(Date_t * date) 
+{ 
+  return date->getHoursOffset(); 
+} 
+
+/**
+ * returns MinutesOffset
+ */
+unsigned int
+Date_getMinutesOffset(Date_t * date) 
+{ 
+  return date->getMinutesOffset(); 
+} 
+
+/**
+ * sets the value of Year
+ */
+void
+Date_setYear(Date_t * date, unsigned int value) 
+{ 
+  date->setYear(value); 
+}
+
+/**
+ * sets the value of Month
+ */
+void
+Date_setMonth(Date_t * date, unsigned int value) 
+{ 
+  date->setMonth(value); 
+}
+
+/**
+ * sets the value of Day
+ */
+void
+Date_setDay(Date_t * date, unsigned int value) 
+{ 
+  date->setDay(value); 
+}
+
+/**
+ * sets the value of Hour
+ */
+void
+Date_setHour(Date_t * date, unsigned int value) 
+{ 
+  date->setHour(value); 
+}
+
+/**
+ * sets the value of Minute
+ */
+void
+Date_setMinute(Date_t * date, unsigned int value) 
+{ 
+  date->setMinute(value); 
+}
+
+/**
+ * sets the value of Second
+ */
+void
+Date_setSecond(Date_t * date, unsigned int value) 
+{ 
+  date->setSecond(value); 
+}
+
+/**
+ * sets the value of SignOffset
+ */
+void
+Date_setSignOffset(Date_t * date, unsigned int value) 
+{ 
+  date->setSignOffset(value); 
+}
+
+/**
+ * sets the value of HoursOffset
+ */
+void
+Date_setHoursOffset(Date_t * date, unsigned int value) 
+{ 
+  date->setHoursOffset(value); 
+}
+
+/**
+ * sets the value of MinutesOffset
+ */
+void
+Date_setMinutesOffset(Date_t * date, unsigned int value) 
+{ 
+  date->setMinutesOffset(value); 
+}
+
+
+/**
+ *
+ */
+ModelCreator_t *
+ModelCreator_create()
+{
+  return new(nothrow) ModelCreator();
+}
+
+/**
+ *
+ */
+ModelCreator_t *
+ModelCreator_createFromNode(const XMLNode_t * node)
+{
+  return new(nothrow) ModelCreator(*node);
+}
+
+void
+ModelCreator_free(ModelCreator_t * mc)
+{
+  delete static_cast<ModelCreator*>(mc);
+}
+
+/**
+  * ModelCreator_sets the family name
+  */
+void 
+ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
+{
+  mc->setFamilyName(name);
+}
+
+
+/**
+  * ModelCreator_sets the given name
+  */
+void 
+ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
+{
+  mc->setGivenName(name);
+}
+
+
+/**
+  * ModelCreator_sets the email
+  */
+void 
+ModelCreator_setEmail(ModelCreator_t *mc, char * email)
+{
+  mc->setEmail(email);
+}
+
+
+/**
+  * ModelCreator_sets the org
+  */
+void 
+ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
+{
+  mc->setOrganisation(name);
+}
+
+
+/**
+  * ModelCreator_gets the family name
+  */
+const char * 
+ModelCreator_getFamilyName(ModelCreator_t *mc)
+{
+  return mc->getFamilyName().c_str();
+}
+
+
+/**
+  * ModelCreator_gets the given name
+  */
+const char * 
+ModelCreator_getGivenName(ModelCreator_t *mc)
+{
+  return mc->getGivenName().c_str();
+}
+
+
+/**
+  * ModelCreator_gets the email
+  */
+const char * 
+ModelCreator_getEmail(ModelCreator_t *mc)
+{
+  return mc->getEmail().c_str();
+}
+
+
+/**
+  * ModelCreator_gets the org
+  */
+const char * 
+ModelCreator_getOrganisation(ModelCreator_t *mc)
+{
+  return mc->getOrganisation().c_str();
+}
+
+/**
+  * Creates a new ModelHistory.
+  */
+ModelHistory_t * 
+ModelHistory_create ()
+{
+  return new(nothrow) ModelHistory();
+}
+
+/**
+  * destructor
+  */
+void 
+ModelHistory_free(ModelHistory_t * history)
+{
+  delete static_cast<ModelHistory*>(history);
+}
+
+
+/**
+  * adds the creator to the model history
+  */
+void 
+ModelHistory_addCreator(ModelHistory_t * history, 
+                             ModelCreator_t * mc)
+{
+  history->addCreator(mc);
+}
+
+/**
+  * sets the created date
+  */
+void ModelHistory_setCreatedDate(ModelHistory_t * history, 
+                                 Date_t * date)
+{
+  history->setCreatedDate(date);
+}
+
+
+/**
+  * sets teh modiefied date
+  */
+void ModelHistory_setModifiedDate(ModelHistory_t * history, 
+                                  Date_t * date)
+{
+  history->setModifiedDate(date);
+}
+
+
+/**
+* return the List of creators
+*/
+List_t * ModelHistory_getCreator(ModelHistory_t * history)
+{
+  return history->getCreator();
+}
+
+
+/**
+* return created date
+*/
+Date_t * ModelHistory_getCreatedDate(ModelHistory_t * history)
+{
+  return history->getCreatedDate();
+}
+
+
+/**
+* return modified date
+*/
+Date_t * ModelHistory_getModifiedDate(ModelHistory_t * history)
+{
+  return history->getModifiedDate();
+}
+
+
+
+
+
+
 
 

@@ -51,7 +51,6 @@
  * takes an annotation that has been read into the model
  * identifies the RDF elements
  * and creates a List of CVTerms from the annotation
- * and creates a Model History from the annotation
  */
 LIBSBML_EXTERN
 void parseRDFAnnotation(XMLNode * annotation, List * CVTerms);
