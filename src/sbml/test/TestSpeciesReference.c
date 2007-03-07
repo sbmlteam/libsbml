@@ -222,6 +222,8 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 
   fail_unless( SpeciesReference_isSetStoichiometryMath(SR) );
 
+  ASTNode_free(math);
+
 }
 END_TEST
 

@@ -121,6 +121,8 @@ START_TEST (test_Constraint_setMath)
   {
     fail("Constraint_setMath(C, NULL) did not clear ASTNode.");
   }
+
+  ASTNode_free(math);
 }
 END_TEST
 

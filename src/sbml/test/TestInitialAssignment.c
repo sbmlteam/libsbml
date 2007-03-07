@@ -184,6 +184,8 @@ START_TEST (test_InitialAssignment_setMath)
   {
     fail("InitialAssignment_setMath(IA, NULL) did not clear ASTNode.");
   }
+
+  ASTNode_free(math);
 }
 END_TEST
 

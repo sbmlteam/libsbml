@@ -121,6 +121,7 @@ START_TEST (test_FunctionDefinition_createWith)
   fail_unless( !strcmp(FunctionDefinition_getId(fd), "pow3") );
   fail_unless( FunctionDefinition_isSetId(fd) );
 
+  ASTNode_free(math);
   FunctionDefinition_free(fd);
 }
 END_TEST
@@ -170,14 +171,17 @@ START_TEST (test_FunctionDefinition_getBody)
 {
   const ASTNode_t *math;
 
+  ASTNode_t * math1 = SBML_parseFormula("lambda(x, x)");
 
-  FunctionDefinition_setMath(FD, SBML_parseFormula("lambda(x, x)") );
+  FunctionDefinition_setMath(FD, math1 );
   math = FunctionDefinition_getBody(FD);
 
   fail_unless( math != NULL                        );
   fail_unless( ASTNode_isName(math)                );
   fail_unless( !strcmp(ASTNode_getName(math), "x") );
   fail_unless( ASTNode_getNumChildren(math) == 0   );
+
+  ASTNode_free(math1);
 }
 END_TEST
 

@@ -252,6 +252,9 @@ START_TEST (test_Event_full)
   fail_unless( Event_getNumEventAssignments(e) ==  1 );
   //fail_unless( Event_getEventAssignment(e, 0)  == ea );
 
+  EventAssignment_free(ea);
+  Trigger_free(trigger);
+  ASTNode_free(math);
   Event_free(e);
 }
 END_TEST

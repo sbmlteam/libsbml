@@ -197,6 +197,8 @@ START_TEST (test_KineticLaw_setFormulaFromMath)
   fail_unless( KineticLaw_isSetFormula(KL) );
 
   fail_unless( !strcmp(KineticLaw_getFormula(KL), "k1 * X0") );
+
+  ASTNode_free(math);
 }
 END_TEST
 
@@ -236,6 +238,8 @@ START_TEST (test_KineticLaw_setMath)
   {
     fail( "KineticLaw_setMath(KL, NULL) did not clear ASTNode." );
   }
+
+  ASTNode_free(math);
 }
 END_TEST
 
@@ -269,9 +273,12 @@ END_TEST
 
 START_TEST (test_KineticLaw_addParameter)
 {
-  KineticLaw_addParameter(KL, Parameter_create());
+  Parameter_t * p = Parameter_create();
+  KineticLaw_addParameter(KL, p);
 
   fail_unless( KineticLaw_getNumParameters(KL) == 1 );
+
+  Parameter_free(p);
 }
 END_TEST
 
@@ -299,6 +306,7 @@ START_TEST (test_KineticLaw_getParameter)
   fail_unless( !strcmp(Parameter_getName(k2), "k2") );
   fail_unless( Parameter_getValue(k1) == 3.14 );
   fail_unless( Parameter_getValue(k2) == 2.72 );
+
 }
 END_TEST
 
@@ -326,6 +334,7 @@ START_TEST (test_KineticLaw_getParameterById)
   fail_unless( !strcmp(Parameter_getId(k2), "k2") );
   fail_unless( Parameter_getValue(k1) == 3.14 );
   fail_unless( Parameter_getValue(k2) == 2.72 );
+
 }
 END_TEST
 

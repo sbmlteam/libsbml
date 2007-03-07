@@ -36,7 +36,7 @@
 
 
 using namespace std;
-
+//TO DO - add namespace
 
 #define XML_HEADER        "<?xml version='1.0' encoding='UTF-8'?>\n"
 #define SBML_HEADER_L1v1  "<sbml level='1' version='1'> <model name='m'>\n"

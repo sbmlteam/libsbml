@@ -128,6 +128,7 @@ START_TEST (test_Reaction_createWith)
   fail_unless( Reaction_getNumProducts (r) == 0 );
   fail_unless( Reaction_getNumModifiers(r) == 0 );
 
+  KineticLaw_free(kl);
   Reaction_free(r);
 }
 END_TEST
@@ -202,22 +203,28 @@ END_TEST
 
 START_TEST (test_Reaction_addReactant)
 {
-  Reaction_addReactant(R, SpeciesReference_create());
+  SpeciesReference_t *sr = SpeciesReference_create();
+  Reaction_addReactant(R, sr);
 
   fail_unless( Reaction_getNumReactants(R) == 1 );
   fail_unless( Reaction_getNumProducts (R) == 0 );
   fail_unless( Reaction_getNumModifiers(R) == 0 );
+
+  SpeciesReference_free(sr);
 }
 END_TEST
 
 
 START_TEST (test_Reaction_addProduct)
 {
-  Reaction_addProduct(R, SpeciesReference_create());
+  SpeciesReference_t *sr = SpeciesReference_create();
+  Reaction_addProduct(R, sr);
 
   fail_unless( Reaction_getNumReactants(R) == 0 );
   fail_unless( Reaction_getNumProducts (R) == 1 );
   fail_unless( Reaction_getNumModifiers(R) == 0 );
+
+  SpeciesReference_free(sr);
 }
 END_TEST
 
@@ -254,10 +261,12 @@ START_TEST (test_Reaction_getReactant)
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr1), "R1") );
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr2), "R2") );
+
+
 }
 END_TEST
 
-
+//this is not right
 START_TEST (test_Reaction_getReactantById)
 {
   SpeciesReference_t *sr1 = SpeciesReference_createWith("R1", 1, 1);
@@ -274,6 +283,9 @@ START_TEST (test_Reaction_getReactantById)
   //fail_unless( Reaction_getReactantBySpecies(R, "R1") == sr1  );
   //fail_unless( Reaction_getReactantBySpecies(R, "R2") == sr2  );
   fail_unless( Reaction_getReactantBySpecies(R, "R3") == NULL );
+
+  SpeciesReference_free(sr1);
+  SpeciesReference_free(sr2);
 }
 END_TEST
 
@@ -299,6 +311,9 @@ START_TEST (test_Reaction_getProduct)
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr1), "P1") );
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr2), "P2") );
+
+  //SpeciesReference_free(sr1);
+  //SpeciesReference_free(sr2);
 }
 END_TEST
 
@@ -319,6 +334,9 @@ START_TEST (test_Reaction_getProductById)
   //fail_unless( Reaction_getProductBySpecies(R, "P1") == sr1  );
   //fail_unless( Reaction_getProductBySpecies(R, "P2") == sr2  );
   fail_unless( Reaction_getProductBySpecies(R, "P3") == NULL );
+
+  SpeciesReference_free(sr1);
+  SpeciesReference_free(sr2);
 }
 END_TEST
 

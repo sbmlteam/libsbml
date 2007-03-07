@@ -213,9 +213,12 @@ END_TEST
 
 START_TEST (test_UnitDefinition_addUnit)
 {
-  UnitDefinition_addUnit(UD, Unit_create());
+  Unit_t *u   = Unit_create();
+  UnitDefinition_addUnit(UD, u);
 
   fail_unless( UnitDefinition_getNumUnits(UD) == 1 );
+
+  Unit_free(u);
 }
 END_TEST
 
@@ -252,6 +255,7 @@ START_TEST (test_UnitDefinition_getUnit)
   fail_unless( Unit_getScale(mole)      == -3 );
   fail_unless( Unit_getExponent(litre)  == -1 );
   fail_unless( Unit_getExponent(second) == -1 );
+
 }
 END_TEST
 

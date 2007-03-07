@@ -112,6 +112,7 @@ START_TEST (test_EventAssignment_createWith)
   fail_unless( !strcmp(EventAssignment_getVariable(ea), "k") );
   fail_unless( EventAssignment_isSetVariable(ea) );
 
+  ASTNode_free(math);
   EventAssignment_free(ea);
 }
 END_TEST
@@ -190,6 +191,8 @@ START_TEST (test_EventAssignment_setMath)
   {
     fail("EventAssignment_setMath(EA, NULL) did not clear ASTNode.");
   }
+
+  ASTNode_free(math);
 }
 END_TEST
 
