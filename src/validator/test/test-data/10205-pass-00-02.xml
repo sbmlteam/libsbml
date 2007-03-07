@@ -27,7 +27,6 @@ Pass: (3300) Inconsistent math
              <ci> p1 </ci>
              <ci> delta_t </ci>
             </apply>
-          </apply>
         </math>
       </algebraicRule>
     </listOfRules>

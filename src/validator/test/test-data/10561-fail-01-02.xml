@@ -35,6 +35,7 @@ Fail: (3000) The units returned by the assignment rule that assigns value
             </math>
           </eventAssignment>
         </listOfEventAssignments>
+        </event>
      </listOfEvents>
   </model>
 </sbml>

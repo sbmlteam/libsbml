@@ -34,7 +34,7 @@ but if present, must follow math. (References: L2V2 Section 4.13.9.).
           <modifierSpeciesReference species="e"/>
         </listOfModifiers>
 
-        <kineticLaw sboTerm="SBO:0000192>
+        <kineticLaw sboTerm="SBO:0000192">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <divide/>
