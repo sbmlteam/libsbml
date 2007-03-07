@@ -971,8 +971,8 @@ SBase::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
 
 
   unsigned char c1 = *it;
-  unsigned char c2 = *(it+1);
-  unsigned char c3 = *(it+2);
+  unsigned char c2 ;/* = *(it+1); */
+  unsigned char c3 ;/* = *(it+2); */
   
   switch (numBytes)
   {
@@ -987,6 +987,7 @@ SBase::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
     }
   break;
   case 2:
+    c2 = *(it+1);
     switch (c1)
     {
       case 224:
@@ -1164,6 +1165,8 @@ SBase::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
     }
     break;
 case 3:
+  c2 = *(it+1);
+  c3 = *(it+2);
   switch (c1)
   {
     case 224:
@@ -1656,8 +1659,8 @@ SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
 
 
   unsigned char c1 = *it;
-  unsigned char c2 = *(it+1);
-  unsigned char c3 = *(it+2);
+  unsigned char c2 ;/* = *(it+1); */
+  unsigned char c3 ;/* = *(it+2); */
   
   switch (numBytes)
   {
@@ -1668,6 +1671,7 @@ SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 2:
+    c2 = *(it+1);
     switch (c1)
     {
       case 217:
@@ -1685,6 +1689,8 @@ SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 3:
+  c2 = *(it+1);
+  c3 = *(it+2);
   switch (c1)
   {
     case 224:
@@ -1909,13 +1915,14 @@ SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
   */
 
   unsigned char c1 = *it;
-  unsigned char c2 = *(it+1);
-  unsigned char c3 = *(it+2);
+  unsigned char c2 ;/* = *(it+1); */
+  unsigned char c3 ;/* = *(it+2); */
   
   switch (numBytes)
   {
   case 2:
-    if (c1 == 204)
+   c2 = *(it+1);
+   if (c1 == 204)
     {
       if (c2 >= 128 && c2 <= 191)
       {
@@ -2002,6 +2009,8 @@ SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 3:
+    c2 = *(it+1);
+    c3 = *(it+2);
     if (c1 == 226)
     { 
       if (c2 == 131)
@@ -2306,12 +2315,13 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
   */
 
   unsigned char c1 = *it;
-  unsigned char c2 = *(it+1);
-  unsigned char c3 = *(it+2);
+  unsigned char c2 ;/* = *(it+1); */
+  unsigned char c3 ;/* = *(it+2); */
   
   switch (numBytes)
   {
   case 2:
+    c2 = *(it+1);
     if (c1 == 194 && c2 == 183)
     {
       extender = true;
@@ -2333,6 +2343,8 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
     }
     break;
   case 3:
+    c2 = *(it+1);
+    c3 = *(it+2);
     if (c1 == 224)
     {
       if (c2 == 185 || c2 == 187)
