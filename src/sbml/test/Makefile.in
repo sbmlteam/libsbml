@@ -67,7 +67,8 @@ test_sources =				\
   TestUnit.c                \
   TestUnitDefinition.c      \
   TestUnitKind.c            \
-  TestAssignmentRule.c
+  TestAssignmentRule.c		\
+  TestCopyAndClone.cpp
 # TestAlgebraicRule.c            
 # TestDelay.c        \
 # TestAssignmentRule.c           \

@@ -108,6 +108,7 @@ Suite *create_suite_Unit                     (void);
 Suite *create_suite_UnitDefinition           (void);
 Suite *create_suite_UnitKind                 (void);
 
+Suite *create_suite_CopyAndClone (void);
 Suite *create_suite_TestReadFromFile1 (void);
 Suite *create_suite_TestReadFromFile2 (void);
 Suite *create_suite_TestReadFromFile3 (void);
@@ -165,8 +166,8 @@ main (void)
 /*  srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
   
  /* srunner_add_suite( runner, create_suite_AssignmentRule           () );
+  
   */
-  srunner_add_suite( runner, create_suite_AssignmentRule           () );
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentType          () );
   srunner_add_suite( runner, create_suite_Constraint                    () );
@@ -184,6 +185,7 @@ main (void)
   srunner_add_suite( runner, create_suite_Unit                     () );
   srunner_add_suite( runner, create_suite_UnitDefinition           () );
   srunner_add_suite( runner, create_suite_UnitKind                 () );
+  srunner_add_suite( runner, create_suite_CopyAndClone                    () );
 /*  srunner_add_suite( runner, create_suite_Rule                     () );
 /* srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
   srunner_add_suite( runner, create_suite_Model                    () );
