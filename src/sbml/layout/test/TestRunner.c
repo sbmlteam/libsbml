@@ -142,7 +142,7 @@ main (void)
   srunner_add_suite( runner, create_suite_LayoutFormatter       () );
   srunner_add_suite( runner, create_suite_SBMLHandler           () );
   srunner_add_suite( runner, create_suite_LayoutWriting         () );
-  srunner_add_suite( runner, create_suite_Misc                  () );
+ /* srunner_add_suite( runner, create_suite_Misc                  () ); */
 
   setTestDataDirectory();
 

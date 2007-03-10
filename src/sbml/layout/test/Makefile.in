@@ -82,7 +82,6 @@ test_sources =                   \
   TestLayoutCreation.cpp         \
   TestLayoutFormatter.cpp        \
   TestLayoutWriting.cpp          \
-  TestMisc.cpp                   \
   utility.cpp                    \
   TestRunner.c
 
