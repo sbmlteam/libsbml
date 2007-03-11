@@ -689,10 +689,13 @@ Species::readAttributes (const XMLAttributes& attributes)
 
   if (level == 2)
   {
-    //
-    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2)
-    //
-    attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+    if (version != 3)
+    {
+      //
+      // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
+      //
+      attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
+    }
 
     //
     // hasOnlySubstanceUnits: boolean
@@ -827,10 +830,13 @@ Species::writeAttributes (XMLOutputStream& stream) const
 
   if (level == 2)
   {
-    //
-    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2)
-    //
-    stream.writeAttribute("spatialSizeUnits", mSpatialSizeUnits);
+    if (version != 3)
+    {
+      //
+      // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2)
+      //
+      stream.writeAttribute("spatialSizeUnits", mSpatialSizeUnits);
+    }
 
     //
     // hasOnlySubstanceUnits: boolean

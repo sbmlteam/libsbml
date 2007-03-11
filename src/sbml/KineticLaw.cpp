@@ -571,16 +571,21 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
   //
   if (level == 1) attributes.readInto("formula", mFormula);
 
-  //
-  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-  //
-  attributes.readInto("timeUnits", mTimeUnits);
+  
+  if (version != 3)
+  {
+    //
+    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+    // removed in l2v3
+    //
+    attributes.readInto("timeUnits", mTimeUnits);
 
-  //
-  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-  //
-  attributes.readInto("substanceUnits", mSubstanceUnits);
-
+    //
+    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+    // removed in l2v3
+    //
+    attributes.readInto("substanceUnits", mSubstanceUnits);
+  }
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
@@ -607,15 +612,20 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
   //
   if (getLevel() == 1) stream.writeAttribute("formula", getFormula());
 
-  //
-  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-  //
-  stream.writeAttribute("timeUnits", mTimeUnits);
+  if (version != 3)
+  {
+    //
+    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+    // removed in l2v3
+    //
+    stream.writeAttribute("timeUnits", mTimeUnits);
 
-  //
-  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-  //
-  stream.writeAttribute("substanceUnits", mSubstanceUnits);
+    //
+    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+    // removed in l2v3
+    //
+    stream.writeAttribute("substanceUnits", mSubstanceUnits);
+  }
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)

@@ -496,10 +496,14 @@ Event::readAttributes (const XMLAttributes& attributes)
   //
   attributes.readInto("name", mName);
 
-  //
-  // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
-  //
-  attributes.readInto("timeUnits", mTimeUnits);
+  if (version != 3)
+  {
+    //
+    // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
+    // removed in l2v3
+    //
+    attributes.readInto("timeUnits", mTimeUnits);
+  }
 
 
   //
@@ -533,10 +537,14 @@ Event::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("name", mName);
 
-  //
-  // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
-  //
-  stream.writeAttribute("timeUnits", mTimeUnits);
+  if (version != 3)
+  {
+    //
+    // timeUnits: SId  { use="optional" }  (L2v1, L2v2)
+    // removed in l2v3
+    //
+    stream.writeAttribute("timeUnits", mTimeUnits);
+  }
 
 
   //
