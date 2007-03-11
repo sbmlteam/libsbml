@@ -164,6 +164,11 @@ public:
    */
   static bool isEvent  (unsigned int term);
 
+  /**
+    * functions for checking the SBO term is from correct part of SBO
+    * returns true if the term is-a PhysicalParticipant, false otherwise
+    */
+  static bool isPhysicalParticipant  (unsigned int term);
 protected:
 
   /**

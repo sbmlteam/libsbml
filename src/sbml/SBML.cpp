@@ -373,6 +373,22 @@ SBML::isEvent  (unsigned int sboTerm)
 
 /**
   * functions for checking the SBO term is from correct part of SBO
+  * returns true if the term is-a PhysicalParticipant, false otherwise
+  */
+bool 
+SBML::isPhysicalParticipant  (unsigned int sboTerm)
+{
+  if (sboTerm == 236)
+    return true;
+  else
+  {
+    return isA(sboTerm, 236);
+  }
+}
+
+
+/**
+  * functions for checking the SBO term is from correct part of SBO
   * populates the parent-child map
   */
 void 

@@ -2122,25 +2122,8 @@ START_CONSTRAINT(10707, Reaction, r)
 }
 END_CONSTRAINT
 
-/*
-START_CONSTRAINT(10708, Reaction, r)
-{
-  msg = 
-    "The value of the sboTerm field on a Reaction must be consistent with an "
-    "sboTerm declared on the Model, since the Model’s sboTerm field should be "
-    "interpreted to mean that all the reactions in a model assume the same "
-    "modeling framework. (References: L2V2 Section 4.13.1.)";
 
-  pre(m.isSetSBOTerm());
-  pre(r.isSetSBOTerm());
-  pre(SBML::isModellingFramework(r.getSBOTerm()));
-
-  inv(m.getSBOTerm() == r.getSBOTerm());
-}
-END_CONSTRAINT
-*/
-
-START_CONSTRAINT(10709, SpeciesReference, sr)
+START_CONSTRAINT(10708, SpeciesReference, sr)
 {
   msg = 
     "The value of the sboTerm field on a SpeciesReference must be an SBO "
@@ -2167,7 +2150,7 @@ START_CONSTRAINT(10709, SpeciesReference, sr)
 END_CONSTRAINT
 
 
-START_CONSTRAINT(10710, KineticLaw, kl)
+START_CONSTRAINT(10709, KineticLaw, kl)
 {
   msg = 
     "The value of the sboTerm field on a KineticLaw must be an SBO identifier "
@@ -2181,7 +2164,7 @@ START_CONSTRAINT(10710, KineticLaw, kl)
 END_CONSTRAINT
 
 
-START_CONSTRAINT(10711, Event, e)
+START_CONSTRAINT(10710, Event, e)
 {
   msg = 
     "The value of the sboTerm field on an Event must be an SBO identifier "
@@ -2196,7 +2179,7 @@ START_CONSTRAINT(10711, Event, e)
 END_CONSTRAINT
 
 
-START_CONSTRAINT(10712, EventAssignment, ea)
+START_CONSTRAINT(10711, EventAssignment, ea)
 {
   msg = 
     "The value of the sboTerm field on an EventAssignment must be an SBO "
@@ -2207,6 +2190,96 @@ START_CONSTRAINT(10712, EventAssignment, ea)
   pre(ea.isSetSBOTerm());
 
   inv(SBML::isMathematicalExpression(ea.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10712, Compartment, c)
+{
+  msg = 
+    "The value of the sboTerm field on a Compartment must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(c.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10713, Species, s)
+{
+  msg = 
+    "The value of the sboTerm field on a Species must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(s.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10714, CompartmentType, c)
+{
+  msg = 
+    "The value of the sboTerm field on a CompartmentType must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(c.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10715, SpeciesType, s)
+{
+  msg = 
+    "The value of the sboTerm field on a SpeciesType must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(s.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10716, Trigger, t)
+{
+  msg = 
+    "The value of the sboTerm field on a Trigger must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(t.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(t.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10717, Delay, d)
+{
+  msg = 
+    "The value of the sboTerm field on a Delay must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(d.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(d.getSBOTerm()));
 }
 END_CONSTRAINT
 
