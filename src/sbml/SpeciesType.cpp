@@ -65,6 +65,16 @@ SpeciesType::SpeciesType(const SpeciesType& orig) :
 
 
 /**
+ * Assignment operator
+ */
+SpeciesType& SpeciesType::operator=(const SpeciesType& rhs)
+{
+  this->SBase::operator =(rhs);
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

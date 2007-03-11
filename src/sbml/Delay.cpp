@@ -77,6 +77,18 @@ Delay::~Delay ()
 
 
 /**
+ * Assignment operator
+ */
+Delay& Delay::operator=(const Delay& rhs)
+{
+  this->SBase::operator =(rhs);
+  mFormula = rhs.mFormula;
+  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  */
 bool

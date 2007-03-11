@@ -87,6 +87,11 @@ public:
   Model(const Model& orig);
 
   /**
+   * Assignment operator
+   */
+  Model& operator=(const Model& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;

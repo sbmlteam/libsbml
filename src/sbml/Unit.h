@@ -79,6 +79,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  Unit& operator=(const Unit& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

@@ -77,6 +77,18 @@ Trigger::~Trigger ()
 
 
 /**
+ * Assignment operator
+ */
+Trigger& Trigger::operator=(const Trigger& rhs)
+{
+  this->SBase::operator =(rhs);
+  mFormula  = rhs.mFormula;
+  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  */
 bool

@@ -97,6 +97,21 @@ Rule::~Rule ()
 
 
 /**
+ * Assignment operator
+ */
+Rule& Rule::operator=(const Rule& rhs)
+{
+  this->SBase::operator =(rhs);
+mFormula= rhs.mFormula ;
+mUnits  = rhs.mUnits   ;
+mType   = rhs.mType    ;
+mL1Type = rhs.mL1Type  ;
+  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

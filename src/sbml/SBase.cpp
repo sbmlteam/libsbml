@@ -141,6 +141,58 @@ SBase::~SBase ()
   if (mHistory)     delete mHistory;
 }
 
+/**
+ * Assignment operator
+ */
+SBase& SBase::operator=(const SBase& orig)
+{
+    this->mId     = orig.mId;
+    this->mName   = orig.mName;
+    this->mMetaId = orig.mMetaId;
+
+    if(orig.mNotes) 
+      this->mNotes = new XMLNode(*const_cast<SBase&>(orig).getNotes());
+    else
+      this->mNotes = 0;
+    
+    if(orig.mAnnotation) 
+      this->mAnnotation = new XMLNode(*const_cast<SBase&>(orig).mAnnotation);
+    else
+      this->mAnnotation = 0;
+    
+    this->mSBML       = orig.mSBML;
+    this->mSBOTerm    = orig.mSBOTerm;
+    this->mLine       = orig.mLine;
+    this->mColumn     = orig.mColumn;
+    this->mNamespaces = orig.mNamespaces;
+
+    if(orig.mCVTerms)
+    {
+      this->mCVTerms  = new List();
+      unsigned int i,iMax = orig.mCVTerms->getSize();
+      for(i = 0; i < iMax; ++i)
+      {
+        this->mCVTerms
+          ->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
+      }
+    }
+    else
+    {
+      this->mCVTerms = 0;
+    }
+
+    if(orig.mHistory)
+    {
+      this->mHistory=orig.mHistory->clone();
+    }
+    else
+    {
+      this->mHistory = 0;
+    }
+    return *this;
+
+}
+
 
 /**
  * @return the metaid of this SBML object.

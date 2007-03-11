@@ -76,6 +76,24 @@ Compartment::Compartment(const Compartment& rhs) :
 
 
 /**
+ * Assignment operator
+ */
+Compartment& Compartment::operator=(const Compartment& rhs)
+{
+  this->SBase::operator =(rhs);
+  mSpatialDimensions= rhs.mSpatialDimensions  ;
+  mSize             = rhs.mSize      ;
+  mConstant         = rhs.mConstant     ;
+  mIsSetSize        = rhs.mIsSetSize    ;
+  mCompartmentType  = rhs.mCompartmentType;
+  mUnits            = rhs.mUnits ;
+  mOutside          = rhs.mOutside ;
+  return *this;
+}
+
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

@@ -60,7 +60,7 @@ Model::Model (const string& id, const string& name) :
  */
 Model::~Model ()
 {
-  unsigned int size = getNumFormulaUnitsData();
+  int size = getNumFormulaUnitsData();
 
 
   while (size--) delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
@@ -86,11 +86,42 @@ Model::Model(const Model& rhs) :
      , mConstraints         (rhs.mConstraints)
      , mReactions           (rhs.mReactions)
      , mEvents              (rhs.mEvents)
-     , mFormulaUnitsData    (rhs.mFormulaUnitsData)
 #ifdef USE_LAYOUT
      , mLayouts             (rhs.mLayouts)
 #endif
 {
+  mFormulaUnitsData = new ListFormulaUnitsData();
+  for (unsigned int i = 0; i < rhs.getNumFormulaUnitsData(); i++)
+  {
+    mFormulaUnitsData->add((void *) (rhs.getFormulaUnitsData(i)));
+  }
+}
+
+
+/**
+ * Assignment operator
+ */
+Model& Model::operator=(const Model& rhs)
+{
+  this->SBase::operator =(rhs);
+    mFunctionDefinitions =rhs.mFunctionDefinitions;
+    mUnitDefinitions     =rhs.mUnitDefinitions;
+    mCompartmentTypes    = rhs.mCompartmentTypes;
+    mSpeciesTypes        =rhs.mSpeciesTypes;
+    mCompartments        =rhs.mCompartments;
+    mSpecies             =rhs.mSpecies;
+    mParameters          =rhs.mParameters;
+    mInitialAssignments  =rhs.mInitialAssignments;
+    mRules               =rhs.mRules;
+    mConstraints         =rhs.mConstraints;
+    mReactions           =rhs.mReactions;
+    mEvents              =rhs.mEvents;
+#ifdef USE_LAYOUT
+    mLayouts             =rhs.mLayouts;
+#endif
+    /* TO DO NEED TO DEAL WITH CLONING THIS */
+  mFormulaUnitsData = new ListFormulaUnitsData();
+  return *this;
 }
 
 

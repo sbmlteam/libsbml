@@ -71,6 +71,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  EventAssignment& operator=(const EventAssignment& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

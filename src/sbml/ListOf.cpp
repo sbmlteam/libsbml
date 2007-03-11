@@ -54,11 +54,21 @@ struct Clone : public unary_function<SBase*, SBase*>
  */
 ListOf::ListOf (const ListOf& rhs) : SBase(rhs)
 {
-  mItems.reserve( rhs.size() );
+  mItems.resize( rhs.size() );
   transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
 }
 
 
+/**
+ * Assignment operator
+ */
+ListOf& ListOf::operator=(const ListOf& rhs)
+{
+  this->SBase::operator =(rhs);
+  mItems.resize( rhs.size() );
+  transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
+  return *this;
+}
 /**
  * Used by the Destructor to delete each item in mItems.
  */

@@ -66,6 +66,17 @@ UnitDefinition::UnitDefinition(const UnitDefinition& rhs) :
 
 
 /**
+ * Assignment operator
+ */
+UnitDefinition& UnitDefinition::operator=(const UnitDefinition& rhs)
+{
+  this->SBase::operator =(rhs);
+  mUnits = rhs.mUnits;
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

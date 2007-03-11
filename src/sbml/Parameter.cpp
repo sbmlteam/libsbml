@@ -93,6 +93,20 @@ Parameter::Parameter(const Parameter& rhs) :
 
 
 /**
+ * Assignment operator
+ */
+Parameter& Parameter::operator=(const Parameter& rhs)
+{
+  this->SBase::operator =(rhs);
+     mValue     = rhs.mValue    ;
+     mUnits     = rhs.mUnits    ;
+     mConstant  = rhs.mConstant ;
+     mIsSetValue= rhs.mIsSetValue;
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

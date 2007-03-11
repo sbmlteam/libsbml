@@ -68,6 +68,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  KineticLaw& operator=(const KineticLaw& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;

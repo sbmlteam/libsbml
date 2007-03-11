@@ -74,6 +74,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  FunctionDefinition& operator=(const FunctionDefinition& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

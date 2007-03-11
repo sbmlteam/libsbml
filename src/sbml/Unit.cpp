@@ -97,6 +97,21 @@ Unit::Unit(const Unit& rhs) :
 
 
 /**
+ * Assignment operator
+ */
+Unit& Unit::operator=(const Unit& rhs)
+{
+  this->SBase::operator =(rhs);
+ mKind      = rhs.mKind       ;
+ mExponent  = rhs.mExponent   ;
+ mScale     = rhs.mScale      ;
+ mMultiplier= rhs.mMultiplier ;
+ mOffset    = rhs.mOffset     ;
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

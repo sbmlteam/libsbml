@@ -63,6 +63,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  Delay& operator=(const Delay& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;

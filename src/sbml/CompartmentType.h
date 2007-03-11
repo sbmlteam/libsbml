@@ -65,6 +65,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  CompartmentType& operator=(const CompartmentType& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

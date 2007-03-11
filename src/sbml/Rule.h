@@ -71,6 +71,11 @@ public:
   virtual ~Rule ();
 
   /**
+   * Assignment operator
+   */
+  Rule& operator=(const Rule& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

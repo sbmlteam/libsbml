@@ -66,6 +66,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  Reaction& operator=(const Reaction& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

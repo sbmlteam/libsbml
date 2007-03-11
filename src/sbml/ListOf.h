@@ -62,7 +62,12 @@ public:
   virtual ~ListOf ();
 
 
-  /**
+   /**
+   * Assignment operator
+   */
+  ListOf& operator=(const ListOf& orig);
+
+ /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;

@@ -74,6 +74,20 @@ Constraint::~Constraint ()
 
 
 /**
+ * Assignment operator
+ */
+Constraint& Constraint::operator=(const Constraint& rhs)
+{
+  this->SBase::operator =(rhs);
+
+  if (rhs.mMath)    mMath    = rhs.mMath->deepCopy();
+  if (rhs.mMessage) mMessage = new XMLNode(*rhs.mMessage);
+
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

@@ -87,6 +87,17 @@ EventAssignment::~EventAssignment ()
 
 
 /**
+ * Assignment operator
+ */
+EventAssignment& EventAssignment::operator=(const EventAssignment& rhs)
+{
+  this->SBase::operator =(rhs);
+  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

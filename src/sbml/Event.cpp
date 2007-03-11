@@ -58,11 +58,14 @@ Event::Event (const string& id) :
  */
 Event::Event (const Event& rhs) :
    SBase            ( rhs )
- , mTrigger         ( rhs.mTrigger   )
- , mDelay           ( rhs.mDelay   )
  , mTimeUnits       ( rhs.mTimeUnits        )
  , mEventAssignments( rhs.mEventAssignments )
+ , mTrigger (0)
+ , mDelay (0)
 {
+  if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
+  if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
+
 }
  
 
@@ -73,6 +76,23 @@ Event::~Event ()
 {
   delete mTrigger;
   delete mDelay;
+}
+
+
+/**
+ * Assignment operator
+ */
+Event& Event::operator=(const Event& rhs)
+{
+  this->SBase::operator =(rhs);
+ 
+  mTimeUnits       =rhs.mTimeUnits        ;
+  mEventAssignments= rhs.mEventAssignments ;
+
+  if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
+  if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
+
+  return *this;
 }
 
 

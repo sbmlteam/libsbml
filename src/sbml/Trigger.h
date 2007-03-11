@@ -63,6 +63,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  Trigger& operator=(const Trigger& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    */
   virtual bool accept (SBMLVisitor& v) const;

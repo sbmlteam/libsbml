@@ -65,6 +65,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  Constraint& operator=(const Constraint& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

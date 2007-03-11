@@ -89,6 +89,26 @@ Reaction::~Reaction ()
 
 
 /**
+ * Assignment operator
+ */
+Reaction& Reaction::operator=(const Reaction& rhs)
+{
+  this->SBase::operator =(rhs);
+ mReversible= rhs.mReversible ;
+ mFast      = rhs.mFast       ;
+ mIsSetFast = rhs.mIsSetFast  ;
+ mReactants = rhs.mReactants  ;
+ mProducts  = rhs.mProducts   ;
+ mModifiers = rhs.mModifiers  ;
+  if (rhs.mKineticLaw)
+  {
+    mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
+  }
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates

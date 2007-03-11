@@ -75,6 +75,17 @@ SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& rhs
 
 
 /**
+ * Assignment operator
+ */
+SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesReference& rhs)
+{
+  this->SBase::operator =(rhs);
+  mSpecies = rhs.mSpecies;
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
@@ -252,6 +263,23 @@ SpeciesReference::SpeciesReference (const SpeciesReference& rhs) :
 SpeciesReference::~SpeciesReference ()
 {
   delete mStoichiometryMath;
+}
+
+
+/**
+ * Assignment operator
+ */
+SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
+{
+  this->SBase::operator =(rhs);
+  this->SimpleSpeciesReference::operator = ( rhs );
+  mStoichiometry = rhs.mStoichiometry ;
+  mDenominator = rhs.mDenominator   ;
+  if (rhs.mStoichiometryMath)
+  {
+    mStoichiometryMath = rhs.mStoichiometryMath->deepCopy();
+  }
+  return *this;
 }
 
 

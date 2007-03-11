@@ -66,6 +66,11 @@ public:
 
 
   /**
+   * Assignment operator
+   */
+  SimpleSpeciesReference& operator=(const SimpleSpeciesReference& orig);
+
+  /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
@@ -141,7 +146,12 @@ public:
   virtual ~SpeciesReference ();
 
 
-  /**
+   /**
+   * Assignment operator
+   */
+  SpeciesReference& operator=(const SpeciesReference& orig);
+
+ /**
    * Accepts the given SBMLVisitor.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates

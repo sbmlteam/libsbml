@@ -64,6 +64,16 @@ CompartmentType::CompartmentType(const CompartmentType& orig) :
 
 
 /**
+ * Assignment operator
+ */
+CompartmentType& CompartmentType::operator=(const CompartmentType& rhs)
+{
+  this->SBase::operator =(rhs);
+  return *this;
+}
+
+
+/**
  * Accepts the given SBMLVisitor.
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
