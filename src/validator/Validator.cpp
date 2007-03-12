@@ -155,6 +155,8 @@ struct ValidatorConstraints
   ConstraintSet<Constraint>               mConstraint;
   ConstraintSet<Trigger>                  mTrigger;
   ConstraintSet<Delay>                    mDelay;
+  ConstraintSet<CompartmentType>          mCompartmentType;
+  ConstraintSet<SpeciesType>              mSpeciesType;
 
   void add (VConstraint* c);
 };
@@ -325,6 +327,19 @@ ValidatorConstraints::add (VConstraint* c)
     mDelay.add( static_cast< TConstraint<Delay>* >(c) );
     return;
   }
+ 
+  if (dynamic_cast< TConstraint<CompartmentType>* >(c))
+  {
+    mCompartmentType.add( static_cast< TConstraint<CompartmentType>* >(c) );
+    return;
+  }
+
+  if (dynamic_cast< TConstraint<SpeciesType>* >(c))
+  {
+    mSpeciesType.add( static_cast< TConstraint<SpeciesType>* >(c) );
+    return;
+  }
+
 }
 
 // ----------------------------------------------------------------------
@@ -538,6 +553,18 @@ public:
   {
     v.mConstraints->mDelay.applyTo(m, x);
     return !v.mConstraints->mDelay.empty();
+  }
+
+  bool visit (const CompartmentType& x)
+  {
+    v.mConstraints->mCompartmentType.applyTo(m, x);
+    return !v.mConstraints->mCompartmentType.empty();
+  }
+
+  bool visit (const SpeciesType& x)
+  {
+    v.mConstraints->mSpeciesType.applyTo(m, x);
+    return !v.mConstraints->mSpeciesType.empty();
   }
 
 

@@ -1687,7 +1687,7 @@ START_TEST (test_WriteSBML_Event_trigger)
 {
   const char* expected = wrapXML
   (
-    "<event id=\"e\" timeUnits=\"second\">\n"
+    "<event id=\"e\">\n"
     "  <trigger>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <apply>\n"
@@ -1716,7 +1716,7 @@ START_TEST (test_WriteSBML_Event_delay)
 {
   const char* expected = wrapXML
   (
-    "<event id=\"e\" timeUnits=\"second\">\n"
+    "<event id=\"e\">\n"
     "  <delay>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <cn type=\"integer\"> 5 </cn>\n"
@@ -1741,7 +1741,7 @@ START_TEST (test_WriteSBML_Event_both)
 {
   const char* expected = wrapXML
   (
-    "<event id=\"e\" timeUnits=\"second\">\n"
+    "<event id=\"e\">\n"
     "  <trigger>\n"
     "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
     "      <apply>\n"

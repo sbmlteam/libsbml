@@ -572,20 +572,18 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
   if (level == 1) attributes.readInto("formula", mFormula);
 
   
-  if (version != 3)
-  {
-    //
-    // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-    // removed in l2v3
-    //
-    attributes.readInto("timeUnits", mTimeUnits);
+  //
+  // timeUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  // removed in l2v3
+  //
+  attributes.readInto("timeUnits", mTimeUnits);
 
-    //
-    // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
-    // removed in l2v3
-    //
-    attributes.readInto("substanceUnits", mSubstanceUnits);
-  }
+  //
+  // substanceUnits  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
+  // removed in l2v3
+  //
+  attributes.readInto("substanceUnits", mSubstanceUnits);
+
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //

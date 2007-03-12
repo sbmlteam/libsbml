@@ -86,6 +86,7 @@ using namespace std;
 
 // 10101: utf-8 - caught at read
 // 10102: undfeined element - caught at read
+// 10103: schema conformance - caught in various places
 
 //General MathML validation
 
@@ -125,9 +126,9 @@ EXTERN_CONSTRAINT( 10307, UniqueMetaId                 )
 
 // General annotation validation
 
-// 10401: namespace -  TO DO
-// 10402: single namespace - TO DO
-// 10403: not sbml namespace - TO DO
+// 10401: namespace - caught by parser - so doesnt register this number
+// 10402: single namespace - caught by parser - so doesnt register this number
+// 10403: not sbml namespace - caught at read
 
 // General Unit validation
 
@@ -717,6 +718,313 @@ END_CONSTRAINT
 
 EXTERN_CONSTRAINT( 10601, OverDeterminedCheck)
 
+// General SBO validation
+
+START_CONSTRAINT(10701, Model, m1)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Model must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a modeling framework "
+    "defined in SBO (i.e., terms derived from SBO:0000004, \"modeling "
+    "framework\"). (References: L2V2 Section 4.2.1.)";
+
+  pre(m1.isSetSBOTerm());
+
+  inv(SBML::isModellingFramework(m1.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10702, FunctionDefinition, fd)
+{
+  msg = 
+    "The value of the sboTerm attribute on a FunctionDefinition must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V2 Section 4.3.3.)";
+
+  pre(fd.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(fd.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10703, Parameter, p)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Parameter must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a quantitative parameter "
+    "defined in SBO (i.e., terms derived from SBO:0000002, \"quantitative "
+    "parameter\"). (References: L2V2 Section 4.9.5.)";
+
+  pre(p.isSetSBOTerm());
+
+  inv(SBML::isQuantitativeParameter(p.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10704, InitialAssignment, ia)
+{
+  msg = 
+    "The value of the sboTerm attribute on an InitialAssignment must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V2 Section 4.10.3.)";
+
+  pre(ia.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(ia.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10705, AssignmentRule, r)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Rule must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
+    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1.)";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10705, RateRule, r)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Rule must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
+    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1.)";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10705, AlgebraicRule, r)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Rule must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
+    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
+    "(References: L2V2 Section 4.11.1.)";
+
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10706, Constraint, c)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Constraint must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
+    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
+    "(References: L2V2 Section 4.12.3.)";
+
+  pre(c.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(c.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10707, Reaction, r)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Reaction must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to an event defined "
+    "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
+    "(References: L2V2 Section 4.13.1.)";
+
+  /* change to event */
+  pre(r.isSetSBOTerm());
+
+  inv(SBML::isEvent(r.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10708, SpeciesReference, sr)
+{
+  msg = 
+    "The value of the sboTerm attribute on a SpeciesReference must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "role. The appropriate term depends on whether the object is a reactant, "
+    "product or modifier. If a reactant, then it should be a term in the "
+    "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
+    "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then it "
+    "should be a term in the SBO:0000019, \"modifier\" hierarchy. (References: "
+    "L2V2 Section 4.13.2.)";
+
+  pre(sr.isSetSBOTerm());
+
+  if (!sr.isModifier())
+  {
+    inv_or(SBML::isProduct(sr.getSBOTerm()));
+    inv_or(SBML::isReactant(sr.getSBOTerm()));
+  }
+  else
+  {
+    inv(SBML::isModifier(sr.getSBOTerm()));
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10709, KineticLaw, kl)
+{
+  msg = 
+    "The value of the sboTerm attribute on a KineticLaw must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring rate law defined in SBO (i.e., "
+    "terms derived from SBO:0000001, \"rate law\"). (References: L2V2 Section 4.13.5.)";
+
+  pre(kl.isSetSBOTerm());
+
+  inv(SBML::isRateLaw(kl.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10710, Event, e)
+{
+  msg = 
+    "The value of the sboTerm attribute on an Event must be an SBO identifier "
+    "(http://www.biomodels.net/SBO/) referring to an event defined in SBO "
+    "(i.e., terms derived from SBO:0000231, \"event\"). "
+    "(References: L2V2 Section 4.14.1.)";
+ 
+  pre(e.isSetSBOTerm());
+
+  inv(SBML::isEvent(e.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10711, EventAssignment, ea)
+{
+  msg = 
+    "The value of the sboTerm attribute on an EventAssignment must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V2 Section 4.14.2.)";
+
+  pre(ea.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(ea.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10712, Compartment, c)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Compartment must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(c.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10713, Species, s)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Species must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(s.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10714, CompartmentType, c)
+{
+  msg = 
+    "The value of the sboTerm attribute on a CompartmentType must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(c.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10715, SpeciesType, s)
+{
+  msg = 
+    "The value of the sboTerm attribute on a SpeciesType must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
+    "physical type (i.e., terms derived from SBO:0000236, \"participant "
+    "physical type\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(s.isSetSBOTerm());
+
+  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10716, Trigger, t)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Trigger must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(t.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(t.getSBOTerm()));
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT(10717, Delay, d)
+{
+  msg = 
+    "The value of the sboTerm attribute on a Delay must be an SBO "
+    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
+    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
+    "expression\"). (References: L2V3 Section 5.2.2.)";
+
+  pre(d.isSetSBOTerm());
+
+  inv(SBML::isMathematicalExpression(d.getSBOTerm()));
+}
+END_CONSTRAINT
+
+// General Notes validation
+
+// 10801 - namespace - TO DO
+// 10802 - no XML - TO DO
+// 10803 - no DOCTYPE - TO DO
+// 10804 form of xhtml - TO DO
 
 // SBML container validation
 
@@ -738,7 +1046,7 @@ START_CONSTRAINT (20204, Model, x)
   msg =
     "If a model defines any <species>, then the model must also define at "
     "least one <compartment>. This is an implication of the fact that the "
-    "'compartment' field on <species> is not optional. (References: L2V1 "
+    "'compartment' attribute on <species> is not optional. (References: L2V1 "
     "Section 4.5; Section 4.8.3.)";
 
   pre( m.getNumSpecies()      > 0 );
@@ -817,13 +1125,14 @@ END_CONSTRAINT
 START_CONSTRAINT (20401, UnitDefinition, ud)
 {
   msg =
-    "The value of the 'id' field in a <unitDefinition> must not be identical "
+    "The value of the 'id' attribute in a <unitDefinition> must not be of"
+    " type UnitSId and not be identical "
     "to any unit predefined in SBML. That is, the identifier must not be the "
-    "same as a value from the 'UnitKind' enumeration (i.e., 'ampere' 'gram' "
+    "same as any of the following predefined units: 'ampere' 'gram' "
     "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
     "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
     "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
-    "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'.) "
+    "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
     "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
     
 
@@ -839,8 +1148,8 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
     "Redefinitions of the built-in unit 'substance' must be based on the "
     "units 'mole', 'item', 'gram', 'kilogram', or 'dimensionless'. More "
     "formally, a <unitDefinition> for 'substance' must simplify to a single "
-    "<unit> whose 'kind' field has a value of 'mole', 'item', 'gram', "
-    "'kilogram', or 'dimensionless', and whose 'exponent' field has a value "
+    "<unit> whose 'kind' attribute has a value of 'mole', 'item', 'gram', "
+    "'kilogram', or 'dimensionless', and whose 'exponent' attribute has a value "
     "of '1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
 
   pre( ud.getId() == "substance" );
@@ -874,8 +1183,8 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
     "Redefinitions of the built-in unit 'length' must be based on the unit "
     "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
     "'length' must simplify to a single <unit> in which either (a) the "
-    "'kind' field has a value of 'metre' and the 'exponent' field has a "
-    "value of '1', or (b) the 'kind' field has a value of 'dimensionless' "
+    "'kind' attribute has a value of 'metre' and the 'exponent' attribute has a "
+    "value of '1', or (b) the 'kind' attribute has a value of 'dimensionless' "
     "with any 'exponent' value. (References: L2V1 Section 4.4.3; L2V2 "
     "Section 4.4.3.)";
 
@@ -906,8 +1215,8 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
     "Redefinitions of the built-in unit 'area' must be based on squared "
     "'metre's or 'dimensionless'. More formally, a <unitDefinition> for "
     "'area' must simplify to a single <unit> in which either (a) the 'kind' "
-    "field has a value of 'metre' and the 'exponent' field has a value of "
-    "'2', or (b) the 'kind' field has a value of 'dimensionless' with any "
+    "attribute has a value of 'metre' and the 'exponent' attribute has a value of "
+    "'2', or (b) the 'kind' attribute has a value of 'dimensionless' with any "
     "'exponent' value. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
 
   pre( ud.getId() == "area" );
@@ -936,8 +1245,8 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
   msg =
     "Redefinitions of the built-in unit 'time' must be based on 'second'. "
     "More formally, a <unitDefinition> for 'time' must simplify to a single "
-    "<unit> in which either (a) the 'kind' field has a value of 'second' and "
-    "the 'exponent' field has a value of '1', or (b) the 'kind' field has a "
+    "<unit> in which either (a) the 'kind' attribute has a value of 'second' and "
+    "the 'exponent' attribute has a value of '1', or (b) the 'kind' attribute has a "
     "value of 'dimensionless' with any 'exponent' value. (References: L2V1 "
     "Section 4.4.3; L2V2 Section 4.4.3.)";
 
@@ -967,7 +1276,7 @@ START_CONSTRAINT (20406, UnitDefinition, ud)
   msg =
     "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
     "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
-    "'volume' must simplify to a single <unit> in which the 'kind' field "
+    "'volume' must simplify to a single <unit> in which the 'kind' attribute "
     "value is either 'litre', 'metre', or 'dimensionless'. Additional "
     "constraints apply if the kind is 'litre' or 'metre'. (References: L2V1 "
     "Section 4.4.3; L2V2 Section 4.4.3.)";
@@ -997,7 +1306,7 @@ START_CONSTRAINT (20407, UnitDefinition, ud)
 {
   msg =
     "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
-    "'kind' field value is 'litre', then its 'exponent' field value must be "
+    "'kind' attribute value is 'litre', then its 'exponent' attribute value must be "
     "'1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
 
   pre( ud.getId()       == "volume" );
@@ -1014,7 +1323,7 @@ START_CONSTRAINT (20408, UnitDefinition, ud)
 {
   msg =
     "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
-    "'kind' field value is 'metre', then its 'exponent' field value must be "
+    "'kind' attribute value is 'metre', then its 'exponent' attribute value must be "
     "'3'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
 
   pre( ud.getId()       == "volume" );
@@ -1032,7 +1341,7 @@ END_CONSTRAINT
 START_CONSTRAINT (20410, UnitDefinition, ud)
 {
   msg =
-    "The value of the 'kind' field of a <unit> can only be one of the "
+    "The value of the 'kind' attribute of a <unit> can only be one of the "
     "predefined units enumerated by 'UnitKind'; that is, the SBML unit "
     "system is not hierarchical and user-defined units cannot be defined "
     "using other user-defined units. (References: L2V2 Section 4.4.2.)";
@@ -1048,7 +1357,7 @@ END_CONSTRAINT
 START_CONSTRAINT (20411, UnitDefinition, ud)
 {
   msg =
-    "The 'offset' field on <unit> previously available in SBML Level 2 "
+    "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
     "L2V2 Section 4.4.)";
 
@@ -1094,7 +1403,7 @@ START_CONSTRAINT (20501, Compartment, c)
 {
   msg =
     "The size of a <compartment> must not be set if the compartment's "
-    "'spatialDimensions' field has value '0'. (References: L2V1 Section "
+    "'spatialDimensions' attribute has value '0'. (References: L2V1 Section "
     "4.5.3; L2V2 Section 4.7.5.)";
 
   pre( c.getSpatialDimensions() == 0 );
@@ -1107,7 +1416,7 @@ START_CONSTRAINT (20502, Compartment, c)
 {
   msg =
     "If a <compartment> definition has a 'spatialDimensions' value of '0', "
-    "then its 'units' field must not be set. If the compartment has no "
+    "then its 'units' attribute must not be set. If the compartment has no "
     "dimensions, then no units can be associated with a non-existent size. "
     "(References: L2V1 Section 4.5.4; Section 4.7.5.)";
 
@@ -1122,7 +1431,7 @@ START_CONSTRAINT (20503, Compartment, c)
 {
   msg =
     "If a <compartment> definition has a 'spatialDimensions' value of '0', "
-    "then its 'constant' field value must either default to or be set to "
+    "then its 'constant' attribute value must either default to or be set to "
     "'true'. If the compartment has no dimensions, then its size can never "
     "change. (References: L2V1 Section 4.5.5; L2V2 Section 4.7.6.)";
 
@@ -1136,7 +1445,7 @@ END_CONSTRAINT
 START_CONSTRAINT (20504, Compartment, c)
 {
   msg =
-    "The 'outside' field value of a <compartment> must be the identifier of "
+    "The 'outside' attribute value of a <compartment> must be the identifier of "
     "another <compartment> defined in the model. (References: L2V1 Section "
     "4.5.6; Section 4.7.7.)";
 
@@ -1153,7 +1462,7 @@ EXTERN_CONSTRAINT(20505, CompartmentOutsideCycles)
 START_CONSTRAINT (20506, Compartment, c)
 {
   msg =
-    "The 'outside' field value of a <compartment> cannot be a compartment "
+    "The 'outside' attribute value of a <compartment> cannot be a compartment "
     "whose 'spatialDimensions' value is '0', unless both compartments have "
     "'spatialDimensions'='0'. Simply put, a zero-dimensional compartment "
     "cannot enclose compartments that have anything other than zero "
@@ -1169,7 +1478,7 @@ END_CONSTRAINT
 START_CONSTRAINT (20507, Compartment, c)
 {
   msg =
-    "The value of the 'units' field on a <compartment> having "
+    "The value of the 'units' attribute on a <compartment> having "
     "'spatialDimensions' of '1' must be either 'length', 'metre', "
     "'dimensionless', or the identifier of a <unitDefinition> based on "
     "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'. "
@@ -1204,7 +1513,7 @@ END_CONSTRAINT
 START_CONSTRAINT (20508, Compartment, c)
 {
   msg =
-    "The value of the 'units' field on a <compartment> having "
+    "The value of the 'units' attribute on a <compartment> having "
     "'spatialDimensions' of '2' must be either 'area', 'dimensionless', or "
     "the identifier of a <unitDefinition> based on either 'metre' (with "
     "'exponent' equal to '2') or 'dimensionless'. (References: L2V1 Section "
@@ -1237,7 +1546,7 @@ END_CONSTRAINT
 START_CONSTRAINT (20509, Compartment, c)
 {
   msg =
-    "The value of the 'units' field on a <compartment> having "
+    "The value of the 'units' attribute on a <compartment> having "
     "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
     "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
     "'exponent' equal to '3'), or 'dimensionless'. (References: L2V1 Section "
@@ -1273,7 +1582,7 @@ START_CONSTRAINT (20510, Compartment, c)
 {
   msg =
     "CompartmentType '" + c.getCompartmentType() + "' is undefined. "
-    "If the 'compartmentType' field is given a value in a <compartment> "
+    "If the 'compartmentType' attribute is given a value in a <compartment> "
     "definition, it must contain the identifier of an existing "
     "<compartmentType>. (References: L2V2 Section 4.7.2.)";
 
@@ -1308,6 +1617,9 @@ START_CONSTRAINT (20602, Species, s)
     "it must not have a value for 'spatialSizeUnits'. (References: L2V1 "
     "Section 4.6.4; L2V2 Section 4.8.5.)";
 
+  // does not apply to L2V3 models
+  pre (s.getVersion() != 3);
+
   pre( s.getHasOnlySubstanceUnits() == true );
   inv( !s.isSetSpatialSizeUnits()           );
 }
@@ -1323,6 +1635,9 @@ START_CONSTRAINT (20603, Species, s)
 
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
+
+  // does not apply to L2V3 models
+  pre (s.getVersion() != 3);
 
   pre( c != NULL && c->getSpatialDimensions() == 0 );
   inv( !s.isSetSpatialSizeUnits()                  );
@@ -1357,6 +1672,9 @@ START_CONSTRAINT (20605, Species, s)
     "'exponent' value of '1') or 'dimensionless'. (References: L2V1 Section "
     "4.6.4; L2V2 Section 4.8.5.)";
 
+
+  // does not apply to L2V3 models
+  pre (s.getVersion() != 3);
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
 
@@ -1395,6 +1713,8 @@ START_CONSTRAINT (20606, Species, s)
     "'exponent' value of '2') or 'dimensionless'. (References: L2V1 Section "
     "4.6.4; L2V2 Section 4.8.5.)";
 
+  // does not apply to L2V3 models
+  pre (s.getVersion() != 3);
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
 
@@ -1431,6 +1751,8 @@ START_CONSTRAINT (20607, Species, s)
     "'metre' (with an 'exponent' value of '3') or 'dimensionless'. "
     "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)";
 
+  // does not apply to L2V3 models
+  pre (s.getVersion() != 3);
 
   const Compartment* c = m.getCompartment( s.getCompartment() );
 
@@ -1462,7 +1784,7 @@ END_CONSTRAINT
 START_CONSTRAINT (20608, Species, s)
 {
   msg =
-    "The value of a <species>'s 'substanceUnits' field can only be one of "
+    "The value of a <species>'s 'substanceUnits' attribute can only be one of "
     "the following: 'substance', 'mole', 'item', 'gram', 'kilogram', "
     "'dimensionless', or the identifier of a <unitDefinition> derived from "
     "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1'), "
@@ -1515,7 +1837,7 @@ END_CONSTRAINT
 
 EXTERN_CONSTRAINT(20610, SpeciesReactionOrRule)
 
-
+// TO DO - get this to reference line no of species 
 START_CONSTRAINT (20611, SpeciesReference, sr)
 {
   msg =
@@ -1556,10 +1878,25 @@ EXTERN_CONSTRAINT(20613, UniqueSpeciesTypesInCompartment)
 START_CONSTRAINT (20614, Species, s)
 {
   msg =
-    "The compartment field in a <species> definition is a required "
-    "field. (References: L2V2 Section 4.8.3.)";
+    "The compartment attribute in a Species is mandatory. A species "
+    "definition in a model must include a value for this attribute. "
+    "(References: L2V2 Section 4.8.3.)";
 
   inv( s.isSetCompartment() );
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (20615, Species, s)
+{
+  msg =
+    "The spatialSizeUnits attribute on Species, previously available "
+    "in SBML Level 2 versions prior to Version 3, has been removed as "
+    "of SBML Level 2 Version 3. (References: L2V3 Section 4.8.)";
+
+  pre(s.getLevel() == 2 && s.getVersion() == 3);
+
+  inv( s.isSetSpatialSizeUnits() == false);
 }
 END_CONSTRAINT
 
@@ -1657,7 +1994,7 @@ START_CONSTRAINT (20903, AssignmentRule, r)
 {
   msg =
     "Any <compartment>, <species> or <parameter> whose identifier is the "
-    "value of a 'variable' field in an <assignmentRule>, must have a value "
+    "value of a 'variable' attribute in an <assignmentRule>, must have a value "
     "of 'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 "
     "Section 4.11.3.)";
 
@@ -1684,7 +2021,7 @@ START_CONSTRAINT (20904, RateRule, r)
 {
   msg =
     "Any <compartment>, <species> or <parameter> whose identifier is the "
-    "value of a 'variable' field in an <rateRule>, must have a value of "
+    "value of a 'variable' attribute in an <rateRule>, must have a value of "
     "'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 Section "
     "4.11.4.)";
 
@@ -1725,7 +2062,10 @@ END_CONSTRAINT
 
 
 // 21002: ordering - caught at read
-
+// 21003: message namespace - TO DO
+// 21004: message no XML - TO DO
+// 21005: message - no DOCTYPE - TO DO
+// 21006: message format - TO DO
 
 //Reaction validation
 
@@ -1745,7 +2085,7 @@ END_CONSTRAINT
 
 
 // 21102: ordering - caught at read
-// 21103: non empty listOf - caught at read apart from KineticLaw TO DO
+// 21103: non empty listOf - caught at read
 // 21104: listOfReactants/Products must be speciesReference - caught at read
 // 21105: listOfModifiers must be ModifierSppeciesreference - caught at read 
 
@@ -1756,7 +2096,7 @@ START_CONSTRAINT (21111, SpeciesReference, sr)
 {
   msg =
     "Species '" + sr.getSpecies() + "' is undefined. "
-    "The value of a <speciesReference> 'species' field must be the "
+    "The value of a <speciesReference> 'species' attribute must be the "
     "identifier of an existing <species> in the model. (References: L2V1 "
     "Section 4.9.5; L2V2 Section 4.13.3.)";
 
@@ -1764,26 +2104,7 @@ START_CONSTRAINT (21111, SpeciesReference, sr)
 }
 END_CONSTRAINT
 
-#if 0
-// agreed to lose this rule and keep its repeat 20611
-START_CONSTRAINT (21112, SpeciesReference, sr)
-{
-  msg =
-    "The value of a <speciesReference>'s 'species' field must not be the "
-    "identifier of a <species> having both a 'constant' field value of "
-    "'true' and a 'boundaryCondition' field value of 'false'. (References: "
-    "L2V1 Section 4.6.5; L2V2 Section 4.8.6.)";
-
-// doesnt apply if the SpeciesReference is a modifier 
-  pre(!sr.isModifier());
-
-  const Species* s = m.getSpecies( sr.getSpecies() );
-
-  pre( s != NULL );
-  inv( ! (s->getConstant() == true && s->getBoundaryCondition() == false) ); 
-}
-END_CONSTRAINT
-#endif
+// 21112 - repeat of 20611
 
 START_CONSTRAINT (21113, SpeciesReference, sr)
 {
@@ -1813,7 +2134,7 @@ EXTERN_CONSTRAINT(21121, KineticLawVars)
 START_CONSTRAINT (21124, KineticLaw, kl)
 {
   msg =
-    "The 'constant' field on a <parameter> local to a <kineticLaw> cannot "
+    "The 'constant' attribute on a <parameter> local to a <kineticLaw> cannot "
     "have a value other than 'true'. The values of parameters local to "
     "<kineticLaw> definitions cannot be changed, and therefore they are "
     "always constant. (References: L2V2 Section 4.13.5.)";
@@ -1831,7 +2152,7 @@ END_CONSTRAINT
 START_CONSTRAINT (21125, KineticLaw, kl)
 {
   msg =
-    "The 'substanceUnits' field on <kineticLaw>, previously available in "
+    "The 'substanceUnits' attribute on <kineticLaw>, previously available in "
     "SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the substance units of a reaction "
     "rate expression are those of the global 'substance' units of the model. "
@@ -1846,7 +2167,7 @@ END_CONSTRAINT
 START_CONSTRAINT (21126, KineticLaw, kl)
 {
   msg =
-    "The 'timeUnits' field on <kineticLaw>, previously available in SBML "
+    "The 'timeUnits' attribute on <kineticLaw>, previously available in SBML "
     "Level 1 and Level 2 Version 1, has been removed as of SBML Level 2 "
     "Version 2. In SBML Level 2 Version 2, the time units of a reaction rate "
     "expression are those of the global 'time' units of the model. "
@@ -1909,6 +2230,9 @@ START_CONSTRAINT (21204, Event, e)
     "either 'second' (with an 'exponent' value of '1') or 'dimensionless'. "
     "(References: L2V1 Section 4.10.4; L2V2 Section 4.14.)";
 
+  // does not apply to L2V3 models
+  pre (e.getVersion() != 3);
+
   pre( e.isSetTimeUnits() );
 
   const string&         units = e.getTimeUnits();
@@ -1937,6 +2261,21 @@ END_CONSTRAINT
 // 21205: ordering - caught at read
 
 
+START_CONSTRAINT (21206, Event, e)
+{
+  msg =
+    "The timeUnits attribute on Event, previously available in SBML "
+    "Level 2 versions prior to Version 3, has been removed as of SBML "
+    "Level 2 Version 3. (References: L2V3 Section 4.14.)";
+
+  pre (e.getVersion() == 3);
+
+  inv( e.isSetTimeUnits() == false);
+
+}
+END_CONSTRAINT
+
+
 //EventAssignment validation
 
 START_CONSTRAINT (21211, EventAssignment, ea)
@@ -1963,7 +2302,7 @@ START_CONSTRAINT (21212, EventAssignment, ea)
   msg =
     "Any <compartment>, <species> or <parameter> definition whose identifier "
     "is used as the value of 'variable' in an <eventAssignment> must have a "
-    "value of 'false' for its 'constant' field. (References: L2V1 Section "
+    "value of 'false' for its 'constant' attribute. (References: L2V1 Section "
     "4.10.5; L2V2 Section 4.14.)";
 
 
@@ -1984,304 +2323,6 @@ START_CONSTRAINT (21212, EventAssignment, ea)
 END_CONSTRAINT
 
 
-START_CONSTRAINT(10701, Model, m1)
-{
-  msg = 
-    "The value of the sboTerm field on a Model must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a modeling framework "
-    "defined in SBO (i.e., terms derived from SBO:0000004, \"modeling "
-    "framework\"). (References: L2V2 Section 4.2.1.)";
-
-  pre(m1.isSetSBOTerm());
-
-  inv(SBML::isModellingFramework(m1.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10702, FunctionDefinition, fd)
-{
-  msg = 
-    "The value of the sboTerm field on a FunctionDefinition must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V2 Section 4.3.3.)";
-
-  pre(fd.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(fd.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10703, Parameter, p)
-{
-  msg = 
-    "The value of the sboTerm field on a Parameter must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a quantitative parameter "
-    "defined in SBO (i.e., terms derived from SBO:0000002, \"quantitative "
-    "parameter\"). (References: L2V2 Section 4.9.5.)";
-
-  pre(p.isSetSBOTerm());
-
-  inv(SBML::isQuantitativeParameter(p.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10704, InitialAssignment, ia)
-{
-  msg = 
-    "The value of the sboTerm field on an InitialAssignment must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V2 Section 4.10.3.)";
-
-  pre(ia.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(ia.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10705, AssignmentRule, r)
-{
-  msg = 
-    "The value of the sboTerm field on a Rule must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
-    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
-    "(References: L2V2 Section 4.11.1.)";
-
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10705, RateRule, r)
-{
-  msg = 
-    "The value of the sboTerm field on a Rule must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
-    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
-    "(References: L2V2 Section 4.11.1.)";
-
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10705, AlgebraicRule, r)
-{
-  msg = 
-    "The value of the sboTerm field on a Rule must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). Note: "
-    "This applies to AlgebraicRules in addition to Rate and Assignment Rules. "
-    "(References: L2V2 Section 4.11.1.)";
-
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10706, Constraint, c)
-{
-  msg = 
-    "The value of the sboTerm field on a Constraint must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to a mathematical expression "
-    "(i.e., terms derived from SBO:0000064, \"mathematical expression\"). "
-    "(References: L2V2 Section 4.12.3.)";
-
-  pre(c.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(c.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10707, Reaction, r)
-{
-  msg = 
-    "The value of the sboTerm field on a Reaction must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to an event defined "
-    "in SBO (i.e., terms derived from SBO:0000231, \"event\"). "
-    "(References: L2V2 Section 4.13.1.)";
-
-  /* change to event */
-  pre(r.isSetSBOTerm());
-
-  inv(SBML::isEvent(r.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10708, SpeciesReference, sr)
-{
-  msg = 
-    "The value of the sboTerm field on a SpeciesReference must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
-    "role. The appropriate term depends on whether the object is a reactant, "
-    "product or modifier. If a reactant, then it should be a term in the "
-    "SBO:0000010, \"reactant\" hierarchy; if a product, then it should be a "
-    "term in the SBO:0000011, \"product\" hierarchy; and if a modifier, then it "
-    "should be a term in the SBO:0000019, \"modifier\" hierarchy. (References: "
-    "L2V2 Section 4.13.2.)";
-
-  pre(sr.isSetSBOTerm());
-
-  if (!sr.isModifier())
-  {
-    inv_or(SBML::isProduct(sr.getSBOTerm()));
-    inv_or(SBML::isReactant(sr.getSBOTerm()));
-  }
-  else
-  {
-    inv(SBML::isModifier(sr.getSBOTerm()));
-  }
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10709, KineticLaw, kl)
-{
-  msg = 
-    "The value of the sboTerm field on a KineticLaw must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring rate law defined in SBO (i.e., "
-    "terms derived from SBO:0000001, \"rate law\"). (References: L2V2 Section 4.13.5.)";
-
-  pre(kl.isSetSBOTerm());
-
-  inv(SBML::isRateLaw(kl.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10710, Event, e)
-{
-  msg = 
-    "The value of the sboTerm field on an Event must be an SBO identifier "
-    "(http://www.biomodels.net/SBO/) referring to an event defined in SBO "
-    "(i.e., terms derived from SBO:0000231, \"event\"). "
-    "(References: L2V2 Section 4.14.1.)";
- 
-  pre(e.isSetSBOTerm());
-
-  inv(SBML::isEvent(e.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10711, EventAssignment, ea)
-{
-  msg = 
-    "The value of the sboTerm field on an EventAssignment must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V2 Section 4.14.2.)";
-
-  pre(ea.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(ea.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10712, Compartment, c)
-{
-  msg = 
-    "The value of the sboTerm field on a Compartment must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
-    "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)";
-
-  pre(c.isSetSBOTerm());
-
-  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10713, Species, s)
-{
-  msg = 
-    "The value of the sboTerm field on a Species must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
-    "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)";
-
-  pre(s.isSetSBOTerm());
-
-  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10714, CompartmentType, c)
-{
-  msg = 
-    "The value of the sboTerm field on a CompartmentType must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
-    "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)";
-
-  pre(c.isSetSBOTerm());
-
-  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10715, SpeciesType, s)
-{
-  msg = 
-    "The value of the sboTerm field on a SpeciesType must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a participant "
-    "physical type (i.e., terms derived from SBO:0000236, \"participant "
-    "physical type\"). (References: L2V3 Section 5.2.2.)";
-
-  pre(s.isSetSBOTerm());
-
-  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10716, Trigger, t)
-{
-  msg = 
-    "The value of the sboTerm field on a Trigger must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V3 Section 5.2.2.)";
-
-  pre(t.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(t.getSBOTerm()));
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT(10717, Delay, d)
-{
-  msg = 
-    "The value of the sboTerm field on a Delay must be an SBO "
-    "identifier (http://www.biomodels.net/SBO/) referring to a mathematical "
-    "expression (i.e., terms derived from SBO:0000064, \"mathematical "
-    "expression\"). (References: L2V3 Section 5.2.2.)";
-
-  pre(d.isSetSBOTerm());
-
-  inv(SBML::isMathematicalExpression(d.getSBOTerm()));
-}
-END_CONSTRAINT
 
 
 

@@ -39,8 +39,8 @@
 #include "NumberArgsMathCheck.h"
 
 static const char* PREAMBLE =
-    "The number of arguments to the MathML functions must be appropriate. "
-    "(References: L2V2 Section 3.5.8.)";
+    "A MathML operator must be supplied the number of arguments "
+    "appropriate for that operator. (References: SBML L2v3 Section 3.4.1.)";
 
 using namespace std;
 

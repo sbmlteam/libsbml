@@ -118,11 +118,11 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     "(References: L2V2 Section 3.5.2.)";
 
   const string msg10309 =
-    "The syntax of 'metaid' field values must conform to the syntax of the "
+    "The syntax of 'metaid' attribute values must conform to the syntax of the "
     "XML type 'ID'. (References: L2V2 Sections 3.3.1 and 3.1.6.)";
 
   const string msg10310 =
-    "The syntax of 'id' field values must conform to the syntax of the SBML "
+    "The syntax of 'id' attribute values must conform to the syntax of the SBML "
     "type 'SId'. (References: L2V2 Sections 3.1.7.)";
 
   const string msg10401 =

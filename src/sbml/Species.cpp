@@ -689,13 +689,10 @@ Species::readAttributes (const XMLAttributes& attributes)
 
   if (level == 2)
   {
-    if (version != 3)
-    {
-      //
-      // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
-      //
-      attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
-    }
+    //
+    // spatialSizeUnits: SId  { use="optional" }  (L2v1, L2v2) removed in l2v3
+    //
+    attributes.readInto("spatialSizeUnits", mSpatialSizeUnits);
 
     //
     // hasOnlySubstanceUnits: boolean
