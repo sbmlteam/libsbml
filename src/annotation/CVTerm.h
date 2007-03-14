@@ -168,7 +168,7 @@ LIBSBML_EXTERN
 CVTerm_t*
 CVTerm_createFromNode(const XMLNode_t *);
 
-/**
+
  *
  */
 LIBSBML_EXTERN
