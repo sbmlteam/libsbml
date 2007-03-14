@@ -64,13 +64,13 @@ Reaction::Reaction (const string& id, const KineticLaw* kl, bool reversible) :
  */
 Reaction::Reaction (const Reaction& rhs) :
     SBase      ( rhs             )
+  , mReactants ( rhs.mReactants  )
+  , mProducts  ( rhs.mProducts   )
+  , mModifiers ( rhs.mModifiers  )
   , mKineticLaw( 0               )
   , mReversible( rhs.mReversible )
   , mFast      ( rhs.mFast       )
   , mIsSetFast ( rhs.mIsSetFast  )
-  , mReactants ( rhs.mReactants  )
-  , mProducts  ( rhs.mProducts   )
-  , mModifiers ( rhs.mModifiers  )
 {
   if (rhs.mKineticLaw)
   {
