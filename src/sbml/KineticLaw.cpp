@@ -66,9 +66,9 @@ KineticLaw::KineticLaw (const KineticLaw& rhs) :
    SBase          ( rhs                 )
  , mFormula       ( rhs.mFormula        )
  , mMath          ( 0                   )
+ , mParameters    ( rhs.mParameters     )
  , mTimeUnits     ( rhs.mTimeUnits      )
  , mSubstanceUnits( rhs.mSubstanceUnits )
- , mParameters    ( rhs.mParameters     )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }

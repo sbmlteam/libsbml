@@ -46,9 +46,9 @@ using namespace std;
  * Creates a new Event, optionally with its id attribute set. 
  */
 Event::Event (const string& id) :
-   SBase   ( id, "", -1 )
- , mTrigger ( 0 )
- , mDelay   ( 0 )
+   SBase    ( id, "", -1 )
+ , mTrigger ( 0          )
+ , mDelay   ( 0          )
 {
 }
 
@@ -57,15 +57,14 @@ Event::Event (const string& id) :
  * Copies this Event.
  */
 Event::Event (const Event& rhs) :
-   SBase            ( rhs )
+   SBase            ( rhs                   )
+ , mTrigger         ( 0                     )
+ , mDelay           ( 0                     )
  , mTimeUnits       ( rhs.mTimeUnits        )
  , mEventAssignments( rhs.mEventAssignments )
- , mTrigger (0)
- , mDelay (0)
 {
   if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
   if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
-
 }
  
 
@@ -86,8 +85,8 @@ Event& Event::operator=(const Event& rhs)
 {
   this->SBase::operator =(rhs);
  
-  mTimeUnits       =rhs.mTimeUnits        ;
-  mEventAssignments= rhs.mEventAssignments ;
+  mTimeUnits        = rhs.mTimeUnits        ;
+  mEventAssignments = rhs.mEventAssignments ;
 
   if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
   if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());

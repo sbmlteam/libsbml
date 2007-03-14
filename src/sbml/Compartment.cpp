@@ -64,13 +64,13 @@ Compartment::~Compartment ()
  */
 Compartment::Compartment(const Compartment& rhs) :
    SBase             ( rhs )
+ , mCompartmentType  ( rhs.mCompartmentType)
  , mSpatialDimensions( rhs.mSpatialDimensions  )
  , mSize             ( rhs.mSize      )
- , mConstant         ( rhs.mConstant     )
- , mIsSetSize        ( rhs.mIsSetSize    )
- , mCompartmentType  ( rhs.mCompartmentType)
  , mUnits            ( rhs.mUnits )
  , mOutside          ( rhs.mOutside )
+ , mConstant         ( rhs.mConstant     )
+ , mIsSetSize        ( rhs.mIsSetSize    )
 {
 }
 
