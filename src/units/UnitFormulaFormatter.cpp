@@ -376,7 +376,11 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node)
     {
       unit->setExponent(child->getInteger() * unit->getExponent());
     }
-    else 
+    else if (child->isName())
+    {
+      unit->setExponent((int)(model->getParameter(child->getName())->getValue())* unit->getExponent());
+    }
+    else if (child->isReal())
     {
       unit->setExponent((int)(child->getReal())* unit->getExponent());
     }
