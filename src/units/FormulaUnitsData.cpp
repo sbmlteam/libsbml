@@ -79,10 +79,34 @@ Model::createListFormulaUnitsData()
   fud = new FormulaUnitsData();
   fud->setId("subs_per_time");
   fud->setTypecode(SBML_UNKNOWN);
-  u = new Unit("mole", 1);
-  ud->addUnit(u);
-  u = new Unit("second", -1);
-  ud->addUnit(u);
+  // unless substance has been overridden
+  if (getUnitDefinition("substance"))
+  {
+    for (n = 0; n < getUnitDefinition("substance")->getNumUnits(); n++)
+    {
+      ud->addUnit(getUnitDefinition("substance")->getUnit(n));
+    }
+  }
+  else
+  {
+    u = new Unit("mole", 1);
+    ud->addUnit(u);
+  }
+
+  if (getUnitDefinition("time"))
+  {
+    for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
+    {
+      u = getUnitDefinition("substance")->getUnit(n);
+      u->setExponent(u->getExponent() * -1);
+      ud->addUnit(u);
+    }
+  }
+  else
+  {
+    u = new Unit("second", -1);
+    ud->addUnit(u);
+  }
   fud->setUnitDefinition(ud);
   addFormulaUnitsData(fud);
 
