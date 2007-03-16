@@ -51,6 +51,8 @@ public:
    */
   FormulaUnitsData();
 
+  FormulaUnitsData(const FormulaUnitsData&);
+
   /** 
    * destructor
    */

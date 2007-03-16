@@ -516,12 +516,23 @@ FormulaUnitsData::FormulaUnitsData()
   mCanIgnoreUndeclaredUnits = 1;
   mUnitDefinition = new UnitDefinition();
   mPerTimeUnitDefinition = new UnitDefinition();
+  mEventTimeUnitDefinition = new UnitDefinition();
+}
+
+FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& rhs)
+{
+  mContainsParametersWithUndeclaredUnits = rhs.mContainsParametersWithUndeclaredUnits;
+  mCanIgnoreUndeclaredUnits = rhs.mCanIgnoreUndeclaredUnits;
+  mUnitDefinition = static_cast <UnitDefinition*> (rhs.mUnitDefinition->clone());
+  mPerTimeUnitDefinition = static_cast <UnitDefinition*> (rhs.mPerTimeUnitDefinition->clone());
+  mEventTimeUnitDefinition = static_cast <UnitDefinition*> (rhs.mEventTimeUnitDefinition->clone());
 }
 
 FormulaUnitsData::~FormulaUnitsData()
 {
   delete mUnitDefinition;
   delete mPerTimeUnitDefinition;
+  delete mEventTimeUnitDefinition;
 }
 
 const string&
