@@ -48,6 +48,10 @@ START_TEST (test_XMLNode_create)
 
   XMLNode_addChild(node, node3);
   fail_unless(XMLNode_getNumChildren(node) == 2);
+
+  XMLNode_free(node);
+  XMLNode_free(node2);
+  XMLNode_free(node3);
 }
 END_TEST
 

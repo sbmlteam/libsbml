@@ -54,6 +54,8 @@ START_TEST (test_XMLToken_create)
   const XMLAttributes_t *returnattr = XMLToken_getAttributes(token);
   fail_unless(strcmp(XMLAttributes_getName(returnattr, 0), "attr2") == 0);
   XMLToken_free(token);
+  XMLTriple_free(triple);
+  XMLAttributes_free(attr);
 }
 END_TEST
 
@@ -73,6 +75,7 @@ START_TEST (test_XMLToken_fields)
   fail_unless(XMLToken_isText(token) == 0);
   fail_unless(XMLToken_isEOF(token) == 0);
   XMLToken_free(token);
+  XMLTriple_free(triple);
 }
 END_TEST
 
