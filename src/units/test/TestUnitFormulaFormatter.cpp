@@ -89,6 +89,8 @@ UnitFormulaFormatterTest_setup (void)
 
   uff = new UnitFormulaFormatter(m);
 
+  safe_free(filename);
+
 }
 
 
@@ -105,7 +107,7 @@ START_TEST (test_UnitFormulaFormatter_getUnitDefinition_unknown)
 {
   ASTNode * node = new ASTNode(AST_UNKNOWN);
   UnitDefinition * ud = new UnitDefinition();
-
+    
   ud = uff->getUnitDefinition(node);
 
   fail_unless(ud->getNumUnits() == 0);

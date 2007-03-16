@@ -242,6 +242,10 @@ START_TEST (test_UnitDefinition_getUnit)
   UnitDefinition_addUnit( UD, litre  );
   UnitDefinition_addUnit( UD, second );
 
+  Unit_free(mole);
+  Unit_free(litre);
+  Unit_free(second);
+
   fail_unless( UnitDefinition_getNumUnits(UD) == 3 );
 
   mole   = UnitDefinition_getUnit(UD, 0);

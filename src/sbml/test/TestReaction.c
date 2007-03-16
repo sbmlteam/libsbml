@@ -252,6 +252,9 @@ START_TEST (test_Reaction_getReactant)
   Reaction_addReactant(R, sr1);
   Reaction_addReactant(R, sr2);
 
+  SpeciesReference_free(sr1);
+  SpeciesReference_free(sr2);
+
   fail_unless( Reaction_getNumReactants(R) == 2 );
   fail_unless( Reaction_getNumProducts (R) == 0 );
   fail_unless( Reaction_getNumModifiers(R) == 0 );

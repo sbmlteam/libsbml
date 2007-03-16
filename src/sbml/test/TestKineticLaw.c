@@ -297,6 +297,8 @@ START_TEST (test_KineticLaw_getParameter)
   KineticLaw_addParameter(KL, k1);
   KineticLaw_addParameter(KL, k2);
 
+  Parameter_free(k1);
+  Parameter_free(k2);
   fail_unless( KineticLaw_getNumParameters(KL) == 2 );
 
   k1 = KineticLaw_getParameter(KL, 0);
@@ -306,6 +308,7 @@ START_TEST (test_KineticLaw_getParameter)
   fail_unless( !strcmp(Parameter_getName(k2), "k2") );
   fail_unless( Parameter_getValue(k1) == 3.14 );
   fail_unless( Parameter_getValue(k2) == 2.72 );
+
 
 }
 END_TEST
@@ -325,6 +328,8 @@ START_TEST (test_KineticLaw_getParameterById)
   KineticLaw_addParameter(KL, k1);
   KineticLaw_addParameter(KL, k2);
 
+  Parameter_free(k1);
+  Parameter_free(k2);
   fail_unless( KineticLaw_getNumParameters(KL) == 2 );
 
   k1 = KineticLaw_getParameterById(KL, "k1");

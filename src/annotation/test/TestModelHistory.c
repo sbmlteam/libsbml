@@ -231,6 +231,7 @@ START_TEST (test_ModelHistory_setCreatedDate)
   fail_unless(Date_getMinutesOffset(newdate) == 0);
 
   ModelHistory_free(history);
+
 }
 END_TEST
 

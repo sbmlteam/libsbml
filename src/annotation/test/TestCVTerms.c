@@ -105,6 +105,8 @@ START_TEST (test_CVTerm_createFromNode)
   XMLAttributes_free(att);
   CVTerm_free(term);
   XMLNode_free(node);
+  XMLNode_free(bag);
+  XMLNode_free(li);
   
 
 }
