@@ -122,7 +122,7 @@ Model& Model::operator=(const Model& rhs)
 #endif
   //  /* TO DO NEED TO DEAL WITH CLONING THIS */
   //mFormulaUnitsData = new ListFormulaUnitsData();
-    mFormulaUnitsData     = rhs.mFormulaUnitsData.
+    mFormulaUnitsData     = rhs.mFormulaUnitsData;
   return *this;
 }
 
