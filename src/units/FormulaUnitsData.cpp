@@ -450,7 +450,7 @@ Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode) const
 
   for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
-    fud = mFormulaUnitsData.get(n); 
+    fud = static_cast <const FormulaUnitsData*> (mFormulaUnitsData.get(n)); 
     if (!strcmp(fud->getId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
@@ -474,7 +474,7 @@ Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode)
 
   for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
-    fud = mFormulaUnitsData.get(n);
+    fud = static_cast <FormulaUnitsData*> (mFormulaUnitsData.get(n));
     if (!strcmp(fud->getId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
@@ -524,6 +524,25 @@ FormulaUnitsData::~FormulaUnitsData()
   delete mPerTimeUnitDefinition;
 }
 
+const string&
+FormulaUnitsData::getElementName() const
+{
+  static const string name = "formulaUnits";
+  return name;
+}
+
+bool 
+FormulaUnitsData::accept (SBMLVisitor& v) const
+{
+  return true;
+}
+
+
+SBase*
+FormulaUnitsData::clone() const
+{
+  return new FormulaUnitsData(*this);
+}
 /**
  * @return a (deep) copy of this ListOfCompartments.
  */

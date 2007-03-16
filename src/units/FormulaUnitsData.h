@@ -38,6 +38,8 @@
 
 #include "UnitFormulaFormatter.h"
 
+class SBMLVisitor;
+
 using namespace std;
 
 class LIBSBML_EXTERN FormulaUnitsData : public SBase
