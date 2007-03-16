@@ -96,7 +96,6 @@ void
 UnitFormulaFormatterTest_teardown (void)
 {
   delete uff;
- /* delete m;*/
   delete d;
 }
 

@@ -51,7 +51,7 @@ using namespace std;
 Model::Model (const string& id, const string& name) :
    SBase   ( id, name, -1 )
 {
-    mFormulaUnitsData = new ListFormulaUnitsData;
+    //mFormulaUnitsData = new ListFormulaUnitsData;
 }
 
 
@@ -60,11 +60,11 @@ Model::Model (const string& id, const string& name) :
  */
 Model::~Model ()
 {
-  int size = getNumFormulaUnitsData();
+  //int size = getNumFormulaUnitsData();
 
 
-  while (size--) delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
-  delete static_cast<ListFormulaUnitsData *> (mFormulaUnitsData);
+  //while (size--) delete static_cast<FormulaUnitsData*>( mFormulaUnitsData->remove(0) );
+  //delete static_cast<ListFormulaUnitsData *> (mFormulaUnitsData);
 
 }
 
@@ -86,15 +86,16 @@ Model::Model(const Model& rhs) :
      , mConstraints         (rhs.mConstraints)
      , mReactions           (rhs.mReactions)
      , mEvents              (rhs.mEvents)
+     , mFormulaUnitsData    (rhs.mFormulaUnitsData)
 #ifdef USE_LAYOUT
      , mLayouts             (rhs.mLayouts)
 #endif
 {
-  mFormulaUnitsData = new ListFormulaUnitsData();
-  for (unsigned int i = 0; i < rhs.getNumFormulaUnitsData(); i++)
-  {
-    mFormulaUnitsData->add((void *) (rhs.getFormulaUnitsData(i)));
-  }
+  //mFormulaUnitsData = new ListFormulaUnitsData();
+  //for (unsigned int i = 0; i < rhs.getNumFormulaUnitsData(); i++)
+  //{
+  //  mFormulaUnitsData->add((void *) (rhs.getFormulaUnitsData(i)));
+  //}
 }
 
 
@@ -119,8 +120,9 @@ Model& Model::operator=(const Model& rhs)
 #ifdef USE_LAYOUT
     mLayouts             =rhs.mLayouts;
 #endif
-    /* TO DO NEED TO DEAL WITH CLONING THIS */
-  mFormulaUnitsData = new ListFormulaUnitsData();
+  //  /* TO DO NEED TO DEAL WITH CLONING THIS */
+  //mFormulaUnitsData = new ListFormulaUnitsData();
+    mFormulaUnitsData     = rhs.mFormulaUnitsData.
   return *this;
 }
 

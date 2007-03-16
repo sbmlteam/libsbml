@@ -112,7 +112,7 @@ START_TEST (test_FormulaUnitsData_getdefaults)
   fail_unless(!strcmp(fud->getUnitDefinition()->getId().c_str(), ""), NULL);
 
   fail_unless(fud->getUnitDefinition()->getUnit(0)->getMultiplier() == 1);
-  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == 0);
+  fail_unless(fud->getUnitDefinition()->getUnit(0)->getScale() == -2);
   fail_unless(fud->getUnitDefinition()->getUnit(0)->getExponent() == 1);
   fail_unless(fud->getUnitDefinition()->getUnit(0)->getOffset() == 0.0);
   fail_unless(fud->getUnitDefinition()->getUnit(0)->getKind() == UNIT_KIND_MOLE);

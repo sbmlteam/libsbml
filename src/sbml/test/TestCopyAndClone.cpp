@@ -43,6 +43,7 @@
 #include "SpeciesType.h"
 #include "Unit.h"
 #include "UnitDefinition.h"
+#include "units/FormulaUnitsData.h"
 
 #include "math/ASTNode.h"
 

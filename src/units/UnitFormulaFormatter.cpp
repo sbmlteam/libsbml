@@ -29,7 +29,7 @@
  */
 UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 {
-  model = m;
+  model = (Model *) (m->clone());
   undeclaredUnits = 0;
   canIgnoreUndeclaredUnits = 0;
 }
@@ -39,6 +39,7 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
  */
 UnitFormulaFormatter::~UnitFormulaFormatter()
 {
+  delete model;
 }
 
 /**

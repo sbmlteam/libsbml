@@ -76,7 +76,7 @@ Model::createListFormulaUnitsData()
   //fud->setUnitDefinition(ud);
   //addFormulaUnitsData(fud);
 
-  fud = new FormulaUnitsData();
+  fud = createFormulaUnitsData();
   fud->setId("subs_per_time");
   fud->setTypecode(SBML_UNKNOWN);
   // unless substance has been overridden
@@ -97,7 +97,7 @@ Model::createListFormulaUnitsData()
   {
     for (n = 0; n < getUnitDefinition("time")->getNumUnits(); n++)
     {
-      u = getUnitDefinition("substance")->getUnit(n);
+      u = (Unit *) (getUnitDefinition("time")->getUnit(n))->clone();
       u->setExponent(u->getExponent() * -1);
       ud->addUnit(u);
     }
@@ -108,7 +108,7 @@ Model::createListFormulaUnitsData()
     ud->addUnit(u);
   }
   fud->setUnitDefinition(ud);
-  addFormulaUnitsData(fud);
+//  addFormulaUnitsData(fud);
 
   /* get unit data from each compartment 
    * this is necessary for validation
@@ -116,7 +116,7 @@ Model::createListFormulaUnitsData()
   for (n = 0; n < getNumCompartments(); n++)
   {
     c = getCompartment(n);
-    fud = new FormulaUnitsData();
+    fud = createFormulaUnitsData();
     fud->setId(c->getId());
     fud->setTypecode(SBML_COMPARTMENT);
     ud = unitFormatter->getUnitDefinitionFromCompartment(c);
@@ -129,7 +129,7 @@ Model::createListFormulaUnitsData()
     ud->addUnit(u);
     fud->setPerTimeUnitDefinition(ud);
 
-    addFormulaUnitsData(fud);
+//    addFormulaUnitsData(fud);
   }
 
   /* get unit data from each species 
@@ -138,7 +138,7 @@ Model::createListFormulaUnitsData()
   for (n=0; n < getNumSpecies(); n++)
   {
     s = getSpecies(n);
-    fud = new FormulaUnitsData();
+    fud = createFormulaUnitsData();
     fud->setId(s->getId());
     fud->setTypecode(SBML_SPECIES);
     /* if the species has not been given a compartment
@@ -160,7 +160,7 @@ Model::createListFormulaUnitsData()
       fud->setPerTimeUnitDefinition(ud);
     }
 
-    addFormulaUnitsData(fud);
+    // addFormulaUnitsData(fud);
   }
 
   /* get unit data from each parameter 
@@ -169,7 +169,7 @@ Model::createListFormulaUnitsData()
   for (n=0; n < getNumParameters(); n++)
   {
     p = getParameter(n);
-    fud = new FormulaUnitsData();
+    fud = createFormulaUnitsData();
     fud->setId(p->getId());
     fud->setTypecode(SBML_PARAMETER);
     unitFormatter->resetFlags();
@@ -189,7 +189,7 @@ Model::createListFormulaUnitsData()
     }
     fud->setPerTimeUnitDefinition(ud);
 
-    addFormulaUnitsData(fud);
+    // addFormulaUnitsData(fud);
   }
 
    /* get units returned by the formula given for each initial assignment
@@ -197,7 +197,7 @@ Model::createListFormulaUnitsData()
   for (n=0; n < getNumInitialAssignments(); n++)
   {
     ia = getInitialAssignment(n);
-    fud = new FormulaUnitsData();
+    fud = createFormulaUnitsData();
     fud->setId(ia->getSymbol());
     fud->setTypecode(SBML_INITIAL_ASSIGNMENT);
     unitFormatter->resetFlags();
@@ -213,14 +213,14 @@ Model::createListFormulaUnitsData()
       ud = NULL;
       fud->setUnitDefinition(ud);
     }
-    addFormulaUnitsData(fud);
+    // addFormulaUnitsData(fud);
   }
  /* get units returned by the formula given for each rule
    */
   for (n=0; n < getNumRules(); n++)
   {
     r = getRule(n);
-    fud = new FormulaUnitsData();
+    fud = createFormulaUnitsData();
     typecode = r->getTypeCode();
     if (typecode == SBML_ALGEBRAIC_RULE)
     {
@@ -246,7 +246,7 @@ Model::createListFormulaUnitsData()
       ud = NULL;
       fud->setUnitDefinition(ud);
     }
-    addFormulaUnitsData(fud);
+    // addFormulaUnitsData(fud);
   }
 
 
@@ -261,7 +261,7 @@ Model::createListFormulaUnitsData()
     /* get units returned by kineticLaw formula */
     if (react->isSetKineticLaw())
     {
-      fud = new FormulaUnitsData();
+      fud = createFormulaUnitsData();
       fud->setId(react->getId());
 
       /* set the id of the kinetic law 
@@ -286,7 +286,7 @@ Model::createListFormulaUnitsData()
         ud = NULL;
         fud->setUnitDefinition(ud);
       }
-      addFormulaUnitsData(fud);
+      // addFormulaUnitsData(fud);
     }
 
     /* get units returned by any stoichiometryMath set */
@@ -296,7 +296,7 @@ Model::createListFormulaUnitsData()
 
       if (sr->isSetStoichiometryMath())
       {
-        fud = new FormulaUnitsData();
+        fud = createFormulaUnitsData();
         fud->setId(sr->getSpecies());
         fud->setTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
@@ -304,7 +304,7 @@ Model::createListFormulaUnitsData()
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-        addFormulaUnitsData(fud);
+        // addFormulaUnitsData(fud);
       }
     }
 
@@ -314,7 +314,7 @@ Model::createListFormulaUnitsData()
 
       if (sr->isSetStoichiometryMath())
       {
-        fud = new FormulaUnitsData();
+        fud = createFormulaUnitsData();
         fud->setId(sr->getId());
         fud->setTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
@@ -322,7 +322,7 @@ Model::createListFormulaUnitsData()
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-        addFormulaUnitsData(fud);
+        // addFormulaUnitsData(fud);
       }
     }
   }
@@ -341,7 +341,7 @@ Model::createListFormulaUnitsData()
     /* get units returned by dely */
     if (e->isSetDelay())
     {
-      fud = new FormulaUnitsData();
+      fud = createFormulaUnitsData();
 
       if (e->isSetId())
       {
@@ -367,7 +367,7 @@ Model::createListFormulaUnitsData()
       ud = unitFormatter->getUnitDefinitionFromEventTime(e);
       fud->setEventTimeUnitDefinition(ud);
 
-      addFormulaUnitsData(fud);
+      // addFormulaUnitsData(fud);
     }
 
     /* get units returned by any event assignments */
@@ -377,7 +377,7 @@ Model::createListFormulaUnitsData()
 
       if (ea->isSetMath())    
       {
-        fud = new FormulaUnitsData();
+        fud = createFormulaUnitsData();
         fud->setId(ea->getVariable());
         fud->setTypecode(SBML_EVENT_ASSIGNMENT);
         unitFormatter->resetFlags();
@@ -385,7 +385,7 @@ Model::createListFormulaUnitsData()
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
-        addFormulaUnitsData(fud);
+        // addFormulaUnitsData(fud);
       }
     }
   }
@@ -400,8 +400,22 @@ Model::createListFormulaUnitsData()
 void
 Model::addFormulaUnitsData (const FormulaUnitsData* e)
 {
-  mFormulaUnitsData->add((void *)e);
+  mFormulaUnitsData.append(e);
 }
+
+/**
+  * Creates a new FormulaUnitsData inside this Model and returns it.
+  */
+FormulaUnitsData*
+Model::createFormulaUnitsData ()
+{
+  FormulaUnitsData* fud = new FormulaUnitsData;
+  mFormulaUnitsData.appendAndOwn(fud);
+
+  return fud;
+}
+
+
 
 
 /**
@@ -410,7 +424,7 @@ Model::addFormulaUnitsData (const FormulaUnitsData* e)
 const FormulaUnitsData*
 Model::getFormulaUnitsData (unsigned int n) const
 {
-  return static_cast<const FormulaUnitsData*>( mFormulaUnitsData->get(n) );
+  return static_cast<const FormulaUnitsData*>( mFormulaUnitsData.get(n) );
 }
 
 
@@ -420,7 +434,7 @@ Model::getFormulaUnitsData (unsigned int n) const
 FormulaUnitsData*
 Model::getFormulaUnitsData (unsigned int n)
 {
-  return static_cast<FormulaUnitsData*>( mFormulaUnitsData->get(n) );
+  return static_cast<FormulaUnitsData*>( mFormulaUnitsData.get(n) );
 }
 
 
@@ -434,14 +448,14 @@ Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode) const
 {
   const FormulaUnitsData * fud;
 
-  for (unsigned int n = 0; n < mFormulaUnitsData->getSize(); n++)
+  for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
-    fud = getFormulaUnitsData(n); 
+    fud = mFormulaUnitsData.get(n); 
     if (!strcmp(fud->getId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
       {
-        return static_cast<const FormulaUnitsData*>( mFormulaUnitsData->get(n) );
+        return static_cast<const FormulaUnitsData*>( mFormulaUnitsData.get(n) );
       }
     }
   }
@@ -458,14 +472,14 @@ Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode)
 {
   FormulaUnitsData * fud;
 
-  for (unsigned int n = 0; n < mFormulaUnitsData->getSize(); n++)
+  for (unsigned int n = 0; n < getNumFormulaUnitsData(); n++)
   {
-    fud = getFormulaUnitsData(n);
+    fud = mFormulaUnitsData.get(n);
     if (!strcmp(fud->getId().c_str(), sid.c_str()))
     {
       if (fud->getTypecode() == typecode)
       {
-        return static_cast<FormulaUnitsData*>( mFormulaUnitsData->get(n) );
+        return static_cast<FormulaUnitsData*>( mFormulaUnitsData.get(n) );
       }
     }
   }
@@ -479,7 +493,7 @@ Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode)
 unsigned int
 Model::getNumFormulaUnitsData () const
 {
-  return mFormulaUnitsData->getSize();
+  return mFormulaUnitsData.size();
 }
 
 
@@ -489,7 +503,7 @@ Model::getNumFormulaUnitsData () const
 bool
 Model::isWrittenFormulaUnitsData()
 {
-  if (mFormulaUnitsData->getSize() == 0)
+  if (mFormulaUnitsData.size() == 0)
     return false;
   else
     return true;
@@ -506,5 +520,17 @@ FormulaUnitsData::FormulaUnitsData()
 
 FormulaUnitsData::~FormulaUnitsData()
 {
-
+  delete mUnitDefinition;
+  delete mPerTimeUnitDefinition;
 }
+
+/**
+ * @return a (deep) copy of this ListOfCompartments.
+ */
+SBase*
+ListFormulaUnitsData::clone () const
+{
+  return new ListFormulaUnitsData(*this);
+}
+
+

@@ -40,7 +40,7 @@
 
 using namespace std;
 
- class LIBSBML_EXTERN FormulaUnitsData
+class LIBSBML_EXTERN FormulaUnitsData : public SBase
 {
 public:
    
@@ -52,8 +52,21 @@ public:
   /** 
    * destructor
    */
-  ~FormulaUnitsData();
+  virtual ~FormulaUnitsData();
  
+  /**
+   * Accepts the given SBMLVisitor.
+   *
+   * @return the result of calling <code>v.visit()</code>, which indicates
+   * whether or not the Visitor would like to visit the Model's next
+   * Compartment (if available).
+   */
+  virtual bool accept (SBMLVisitor& v) const;
+
+  /**
+   * @return a (deep) copy of this Compartment.
+   */
+  virtual SBase* clone () const;
   /**
    * returns the id associated with the units data
    * if this is a species/compartment/parameter it will be the id 
@@ -138,6 +151,11 @@ public:
   */
   void setEventTimeUnitDefinition(UnitDefinition * ud) { mEventTimeUnitDefinition = ud; };
 
+  /**
+   * Subclasses should override this method to return XML element name of
+   * this SBML object.
+   */
+  virtual const std::string& getElementName () const;
 
 protected:
 
@@ -154,10 +172,14 @@ protected:
 
 };
 
-class LIBSBML_EXTERN ListFormulaUnitsData : public List
+class LIBSBML_EXTERN ListFormulaUnitsData : public ListOf
 {
 public:
 
+  /**
+   * @return a (deep) copy of this ListOfCompartments.
+   */
+  virtual SBase* clone () const;
 
 
 };

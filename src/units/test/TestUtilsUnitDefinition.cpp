@@ -68,6 +68,7 @@ START_TEST(test_unitdefinition_simplify)
   Unit* u  = new Unit(UNIT_KIND_METRE);
   Unit* u1 = new Unit(UNIT_KIND_DIMENSIONLESS);
   Unit* u2 = new Unit(UNIT_KIND_METRE, 2);
+  Unit* u3 = new Unit(UNIT_KIND_METRE, -3);
 
   /* case with only one unit */
   ud->addUnit(u);
@@ -95,8 +96,7 @@ START_TEST(test_unitdefinition_simplify)
   fail_unless(ud->getUnit(0)->getExponent() == 3);
 
   /* case with two units of same kind that cancel*/
-  u2->setExponent(-3);
-  ud->addUnit(u2);
+  ud->addUnit(u3);
 
   simplifyUnitDefinition(ud);
   
@@ -105,6 +105,7 @@ START_TEST(test_unitdefinition_simplify)
   delete u;
   delete u1;
   delete u2;
+  delete u3;
   delete ud;
  }
 END_TEST
@@ -128,6 +129,9 @@ START_TEST(test_unitdefinition_order)
   fail_unless(ud->getUnit(1)->getKind() == UNIT_KIND_HERTZ);
   fail_unless(ud->getUnit(2)->getKind() == UNIT_KIND_METRE);
 
+  delete u;
+  delete u1;
+  delete u2;
   delete ud;
 }
 END_TEST
@@ -150,7 +154,8 @@ START_TEST(test_unitdefinition_convert_SI)
   fail_unless(ud1->getNumUnits() == 1);
   fail_unless(ud1->getUnit(0)->getKind() == UNIT_KIND_METRE);
 
-  
+  delete u;
+  delete u1;
   delete ud;
   delete ud1;
 }
@@ -181,7 +186,11 @@ START_TEST(test_unitdefinition_areIdentical)
  
   fail_unless(identical == 0);
 
-  delete ud; 
+  delete u;
+  delete u1;
+  delete u2;
+  delete ud;
+  delete ud1;
 
 }
 END_TEST
@@ -212,6 +221,9 @@ START_TEST(test_unitdefinition_areEquivalent)
  
   fail_unless(equivalent == 0);
 
+  delete u;
+  delete u1;
+  delete u2;
   delete ud;
   delete ud1;
 }

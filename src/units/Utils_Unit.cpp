@@ -444,6 +444,7 @@ convertUnitToSI(Unit * unit)
     case UNIT_KIND_INVALID:
       break;
   }
+  delete newUnit;
 
   return ud;
 }
