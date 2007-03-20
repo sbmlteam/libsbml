@@ -257,12 +257,19 @@ XercesParser::parseNext ()
   {
     mReader->parseNext(mToken);
   }
-  catch (const SAXException& e)
+  catch (const SAXParseException& e)
   {
     char*           msg = XMLString::transcode( e.getMessage() );
     result = false;
     getErrorLog()->add( XMLError(nError, msg, 
-        XMLError::Error, "", 1, 1));
+      XMLError::Error, "", e.getLineNumber(), e.getColumnNumber()));
+  }
+  catch (const XMLException& e)
+  {
+    char*           msg = XMLString::transcode( e.getMessage() );
+    result = false;
+    getErrorLog()->add( XMLError(nError, msg, 
+        XMLError::Error, "", e.getSrcLine(), 1));
   }
   catch (...)
   {

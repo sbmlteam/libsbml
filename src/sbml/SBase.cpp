@@ -741,7 +741,10 @@ SBase::read (XMLInputStream& stream)
 
         object->mSBML = mSBML;
         object->read(stream);
-        checkListOfPopulated(object);
+        if (stream.isGood())
+        {
+          checkListOfPopulated(object);
+        }
 
       }
       else if ( !readOtherXML(stream) )
