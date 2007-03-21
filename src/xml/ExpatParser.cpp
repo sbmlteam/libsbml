@@ -199,24 +199,10 @@ ExpatParser::parseNext ()
                XML_GetCurrentLineNumber(mParser),
                XML_ErrorString(XML_GetErrorCode(mParser)) );
       */
-      std::string msg;
-      int error;
-      switch (XML_GetErrorCode(mParser))
-      {
-        case 7:
-          error = 3;
-          msg = "Missing a closing tag";
-        case 27:
-          error = 4;
-          msg = "prefix without a defined ns";
-          break;
-        default:
-          error = 0;
-          msg = "unknown parser error";
-          break;
-      }
-      getErrorLog()->add( XMLError(error, msg, 
-        XMLError::Error, "", XML_GetCurrentLineNumber(mParser), 1));
+      getErrorLog()->add( XMLError(XML_GetErrorCode(mParser), 
+        XML_ErrorString(XML_GetErrorCode(mParser)), 
+        XMLError::Error, "", XML_GetCurrentLineNumber(mParser), 
+        XML_GetCurrentColumnNumber(mParser)));
     }
     return false;
   }
