@@ -131,6 +131,22 @@ runL2v2Test (const TestFile& file)
 }
 
 /**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runTestBadXML (const TestFile& file)
+{
+  ConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
  * Runs the libSBML ConsistencyValidator on all consistency TestFiles in
  * the test-data/ directory.
  * Runs the libSBML L1CompatibilityValidator on all TestFiles in the
@@ -153,6 +169,18 @@ main (int argc, char* argv[])
 
   cout << static_cast<int>(percent) << "%: Checks: " << files.size();
   cout << ", Failures: " << failures << endl;
+
+  cout << "Testing Bad XML Constraints (0000 - 10000)." << endl;
+
+
+  set<TestFile> filesbad    = TestFile::getFilesIn("test-data", 0, 99);
+  unsigned int  passesbad   = count_if(filesbad.begin(), filesbad.end(), runTestBadXML);
+  unsigned int  failuresbad = filesbad.size() - passesbad;
+  double        percentbad  = (static_cast<double>(passesbad) / filesbad.size()) * 100;
+
+
+  cout << static_cast<int>(percentbad) << "%: Checks: " << filesbad.size();
+  cout << ", Failures: " << failuresbad << endl;
 
   cout << "Testing L1 Compatability Constraints (90000 - 91999)." << endl;
 
@@ -189,6 +217,6 @@ main (int argc, char* argv[])
   cout << static_cast<int>(percent3) << "%: Checks: " << files3.size();
   cout << ", Failures: " << failures3 << endl;
 
-  return failures;
+  return failures3;
 }
 

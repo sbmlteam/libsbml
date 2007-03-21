@@ -184,6 +184,7 @@ TestFile::getFilesIn ( const string& directory,
 
       /* leave out this test at present */
       if (id == 10309) continue;
+      else if (id == 10101) continue;
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {
