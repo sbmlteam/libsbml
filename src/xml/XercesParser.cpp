@@ -250,7 +250,7 @@ XercesParser::parseNext ()
 {
 
   bool result = true;
-  int nError = 5;
+  int nError = 0;
   if ( error() ) return false;
 
   try
@@ -259,10 +259,55 @@ XercesParser::parseNext ()
   }
   catch (const SAXParseException& e)
   {
-    char*           msg = XMLString::transcode( e.getMessage() );
-    result = false;
+    std::string  msg = XMLString::transcode( e.getMessage() );
+
+    /* error numbers are from the expat error enumeration
+     * xerces does not enumerate its saxexceptions
+     */
+    if (strncmp(msg.c_str(), "Expected end of tag", 19) == 0)
+    {
+      nError = 7;
+    }
+    else if (strncmp(msg.c_str(), "Expected whitespace", 19) == 0)
+    {
+      msg = "Not well formed";
+      nError = 4;
+    }
+    else if (strncmp(msg.c_str(), "Expected equal sign", 19) == 0)
+    {
+      nError = 4;
+    }
+    else if (strncmp(msg.c_str(), "Expected an attribute value", 27) == 0)
+    {
+      msg += " - Not well formed";
+      nError = 4;
+    }
+    else if (strncmp(msg.c_str(), "The attribute '", 15) == 0)
+    {
+      nError = 8;
+    }
+    else if (strncmp(msg.c_str(), "No processing instruction starts with", 37) == 0)
+    {
+      nError = 17;
+    }
+    else if (strncmp(msg.c_str(), "Entity '", 8) == 0)
+    {
+      nError = 11;
+    }
+    else if (strncmp(msg.c_str(), "The prefix '", 12) == 0)
+    {
+      nError = 27;
+    }
+    else if (strncmp(msg.c_str(), "The value of the attribute '", 28) == 0)
+    {
+      nError = 28;
+    }
+
     getErrorLog()->add( XMLError(nError, msg, 
       XMLError::Error, "", e.getLineNumber(), e.getColumnNumber()));
+    
+    result = false;
+
   }
   catch (const XMLException& e)
   {

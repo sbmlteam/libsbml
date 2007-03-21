@@ -57,12 +57,24 @@ XMLErrorLog::add (const XMLError& error)
 {
   mErrors.push_back(error);
 
-  if (error.getLine() == 0 && error.getColumn() == 0 && mParser)
+  if (error.getLine() == 0 && error.getColumn() == 0)
   {
+    unsigned int line, column;
+    try
+    {
+      line = mParser->getLine();
+      column = mParser->getColumn();
+    }
+    catch (...)
+    {
+      line = 1;
+      column = 1;
+    }
+
     XMLError& e = mErrors.back();
 
-    e.setLine  ( mParser->getLine()   );
-    e.setColumn( mParser->getColumn() );
+    e.setLine  ( line   );
+    e.setColumn( column );
   }
 }
 

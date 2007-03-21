@@ -268,35 +268,7 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     default:    msg = "Unrecognized error code."; break;
   }
 
-  /**
-   * this is a horrible hack to cope with the fact that xerces does 
-   * not report a parse error
-   */
-
-#if ((defined(USE_XERCES)) || (defined(CYGWIN) && ! defined(USE_EXPAT)))
-  if (error == 5)
-  {
-    add( XMLError(error, msg, XMLError::Error, "", 1, 1));
-  }
-  else if (inRead == 1)
-  {
     add( XMLError(error, msg) );
-  }
-  else
-  {
-    add( XMLError(error, msg, XMLError::Error, "", 1, 1));
-  }
-#else
-  if (inRead == 1)
-  {
-    add( XMLError(error, msg) );
-  }
-  else
-  {
-    add( XMLError(error, msg, XMLError::Error, "", 1, 1));
-  }
-#endif
-
 }
 
 
