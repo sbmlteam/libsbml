@@ -274,10 +274,6 @@ Constraint::readOtherXML (XMLInputStream& stream)
     delete mMessage;
 
     mMessage = new XMLNode(stream);
-    if (stream.isError())
-    {
-      getErrorLog()->logError(00005);
-    }
     read     = true;
   }
   else if (name == "annotation")
