@@ -8,3 +8,4 @@ TestConsistencyValidator
 *.dylib
 TAGS
 CTAGS
+.gdb_history
