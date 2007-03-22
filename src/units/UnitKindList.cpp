@@ -23,7 +23,7 @@
 
 
 #include <algorithm>
-#include "UnitKindList.h"
+#include <sbml/units/UnitKindList.h>
 
 
 using std::string;

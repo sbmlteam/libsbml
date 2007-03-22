@@ -34,7 +34,7 @@
 #include <sbml/util/util.h>
 #include <sbml/util/List.h>
 
-#include "CVTerm.h"
+#include <sbml/annotation/CVTerm.h>
 
 
 using namespace std;

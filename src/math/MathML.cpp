@@ -29,8 +29,8 @@
 
 #include <sbml/util/util.h>
 
-#include "ASTNode.h"
-#include "MathML.h"
+#include <sbml/math/ASTNode.h>
+#include <sbml/math/MathML.h>
 
 
 using namespace std;

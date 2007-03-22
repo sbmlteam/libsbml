@@ -35,8 +35,7 @@
 #include <sbml/util/List.h>
 
 #include <sbml/annotation/ModelHistory.h>
-
-#include "RDFAnnotation.h"
+#include <sbml/annotation/RDFAnnotation.h>
 
 
 using namespace std;

@@ -91,8 +91,6 @@ ifdef USE_LAYOUT
   headers += $(layout_headers)
 endif
 
-extra_CPPFLAGS = -I..
-
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
   extra_LDFLAGS   += $(EXPAT_LDFLAGS)

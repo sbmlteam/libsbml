@@ -22,7 +22,7 @@
  */
 
 
-#include "UnitFormulaFormatter.h"
+#include <sbml/units/UnitFormulaFormatter.h>
 
 /**
  *  constructs a UnitFormulaFormatter

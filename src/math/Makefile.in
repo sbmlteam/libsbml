@@ -92,8 +92,6 @@ sources =            \
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CPPFLAGS = -I..
-
 ifdef USE_EXPAT
   extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
   extra_LDFLAGS   += $(EXPAT_LDFLAGS)

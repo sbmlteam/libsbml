@@ -28,19 +28,18 @@
 #include <sbml/xml/XMLErrorLog.h>
 
 #include <sbml/SBase.h>
-#include <sbml/layout/Layout.h>
-
+#include <sbml/Model.h>
 
 #include <sbml/SBMLErrorLog.h>
 
 #include <sbml/util/util.h>
 #include <sbml/util/List.h>
 
-#include <sbml/annotation/ModelHistory.h>
+#include <sbml/layout/Layout.h>
 
-#include "LayoutAnnotation.h"
-#include "sbml/layout/Layout.h"
-#include "sbml/Model.h"
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/LayoutAnnotation.h>
+
 
 using namespace std;
 

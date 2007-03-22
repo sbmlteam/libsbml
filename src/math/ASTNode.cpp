@@ -29,8 +29,7 @@
 #include <sbml/common/common.h>
 #include <sbml/util/List.h>
 
-
-#include "ASTNode.h"
+#include <sbml/math/ASTNode.h>
 
 
 using namespace std;
