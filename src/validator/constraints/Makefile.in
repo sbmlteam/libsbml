@@ -124,8 +124,6 @@ headers =               \
   UniqueMetaId.h        \
   UnitsBase.h
 
-extra_CPPFLAGS = -I../..
-
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.

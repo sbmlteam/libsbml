@@ -30,8 +30,8 @@
 
 #include <sbml/units/FormulaUnitsData.h>
 
-#include "Constraint.h"
-#include "Validator.h"
+#include <sbml/validator/Constraint.h>
+#include <sbml/validator/Validator.h>
 
 
 using namespace std;

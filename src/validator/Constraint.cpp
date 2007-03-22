@@ -22,7 +22,7 @@
  */
 
 
-#include "Constraint.h"
+#include <sbml/validator/Constraint.h>
 
 
 using namespace std;

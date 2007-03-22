@@ -25,7 +25,7 @@
 #include <sbml/SBMLTypes.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 
-#include "ConsistencyValidator.h"
+#include <sbml/validator/ConsistencyValidator.h>
 
 
 /*

@@ -23,7 +23,7 @@
 
 
 #include <sbml/SBMLTypes.h>
-#include "L2v1CompatibilityValidator.h"
+#include <sbml/validator/L2v1CompatibilityValidator.h>
 
 
 /*
