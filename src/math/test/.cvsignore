@@ -7,3 +7,4 @@ TestRunner
 *.dylib
 TAGS
 CTAGS
+.gdb_history
