@@ -22,10 +22,10 @@
  */
 
 
-#include "XMLOutputStream.h"
-#include "XMLTriple.h"
+#include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLTriple.h>
 
-#include "XMLNamespaces.h"
+#include <sbml/xml/XMLNamespaces.h>
 
 
 using namespace std;

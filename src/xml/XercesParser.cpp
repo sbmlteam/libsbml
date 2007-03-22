@@ -30,11 +30,11 @@
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 
-#include "XMLHandler.h"
-#include "XMLErrorLog.h"
+#include <sbml/xml/XMLHandler.h>
+#include <sbml/xml/XMLErrorLog.h>
 
-#include "XercesTranscode.h"
-#include "XercesParser.h"
+#include <sbml/xml/XercesTranscode.h>
+#include <sbml/xml/XercesParser.h>
 
 
 using namespace std;

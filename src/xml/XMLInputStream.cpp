@@ -22,10 +22,10 @@
  */
 
 
-#include "XMLErrorLog.h"
-#include "XMLParser.h"
+#include <sbml/xml/XMLErrorLog.h>
+#include <sbml/xml/XMLParser.h>
 
-#include "XMLInputStream.h"
+#include <sbml/xml/XMLInputStream.h>
 
 
 using namespace std;

@@ -35,11 +35,11 @@
 #include <sbml/annotation/LayoutAnnotation.h>
 #endif // USE_LAYOUT
 
-#include "SBML.h"
-#include "SBMLVisitor.h"
-#include "SBMLDocument.h"
-#include "Model.h"
-#include "SpeciesReference.h"
+#include <sbml/SBML.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/SpeciesReference.h>
 
 
 using namespace std;

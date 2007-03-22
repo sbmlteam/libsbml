@@ -25,7 +25,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "XMLError.h"
+#include <sbml/xml/XMLError.h>
 
 
 using namespace std;

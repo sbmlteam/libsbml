@@ -28,9 +28,9 @@
 #include <limits>
 #include <sstream>
 
-#include "XMLErrorLog.h"
-#include "XMLOutputStream.h"
-#include "XMLAttributes.h"
+#include <sbml/xml/XMLErrorLog.h>
+#include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLAttributes.h>
 
 
 using namespace std;

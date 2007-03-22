@@ -29,10 +29,10 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include "SBMLVisitor.h"
-#include "SBMLDocument.h"
-#include "Model.h"
-#include "Species.h"
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/Species.h>
 
 
 using namespace std;

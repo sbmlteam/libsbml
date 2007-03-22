@@ -23,7 +23,7 @@
 
 
 #include <cstring>
-#include "XMLMemoryBuffer.h"
+#include <sbml/xml/XMLMemoryBuffer.h>
 
 
 /**

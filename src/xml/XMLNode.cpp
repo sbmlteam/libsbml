@@ -22,10 +22,10 @@
  */
 
 
-#include "XMLInputStream.h"
-#include "XMLOutputStream.h"
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLOutputStream.h>
 
-#include "XMLNode.h"
+#include <sbml/xml/XMLNode.h>
 
 
 using namespace std;

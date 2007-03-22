@@ -30,8 +30,8 @@
 #include <sbml/common/common.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include "SBMLDocument.h"
-#include "SBMLWriter.h"
+#include <sbml/SBMLDocument.h>
+#include <sbml/SBMLWriter.h>
 
 
 using namespace std;

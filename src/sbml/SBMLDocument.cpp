@@ -35,11 +35,10 @@
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
 
-#include "Model.h"
-
-#include "SBMLErrorLog.h"
-#include "SBMLVisitor.h"
-#include "SBMLDocument.h"
+#include <sbml/Model.h>
+#include <sbml/SBMLErrorLog.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
 
 
 using namespace std;

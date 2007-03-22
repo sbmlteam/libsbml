@@ -22,14 +22,14 @@
  */
 
 
-#include "XMLHandler.h"
-#include "XMLTriple.h"
-#include "XMLToken.h"
+#include <sbml/xml/XMLHandler.h>
+#include <sbml/xml/XMLTriple.h>
+#include <sbml/xml/XMLToken.h>
 
-#include "LibXMLAttributes.h"
-#include "LibXMLNamespaces.h"
-#include "LibXMLTranscode.h"
-#include "LibXMLHandler.h"
+#include <sbml/xml/LibXMLAttributes.h>
+#include <sbml/xml/LibXMLNamespaces.h>
+#include <sbml/xml/LibXMLTranscode.h>
+#include <sbml/xml/LibXMLHandler.h>
 
 
 using namespace std;

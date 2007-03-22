@@ -26,11 +26,11 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include "SBML.h"
-#include "SBMLVisitor.h"
-#include "SBMLDocument.h"
-#include "Model.h"
-#include "CompartmentType.h"
+#include <sbml/SBML.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/CompartmentType.h>
 
 
 using namespace std;

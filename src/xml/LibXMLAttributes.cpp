@@ -22,8 +22,8 @@
  */
 
 
-#include "LibXMLTranscode.h"
-#include "LibXMLAttributes.h"
+#include <sbml/xml/LibXMLTranscode.h>
+#include <sbml/xml/LibXMLAttributes.h>
 
 
 using namespace std;

@@ -33,12 +33,12 @@
 #include <sbml/math/MathML.h>
 #include <sbml/math/ASTNode.h>
 
-#include "SBML.h"
-#include "SBMLTypeCodes.h"
-#include "SBMLVisitor.h"
-#include "SBMLDocument.h"
-#include "Model.h"
-#include "Rule.h"
+#include <sbml/SBML.h>
+#include <sbml/SBMLTypeCodes.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/Rule.h>
 
 
 using namespace std;

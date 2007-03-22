@@ -32,12 +32,12 @@
 #include <sbml/math/MathML.h>
 #include <sbml/math/ASTNode.h>
 
-#include "SBML.h"
-#include "SBMLVisitor.h"
-#include "SBMLDocument.h"
-#include "Model.h"
-#include "Parameter.h"
-#include "Delay.h"
+#include <sbml/SBML.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/Parameter.h>
+#include <sbml/Delay.h>
 
 
 using namespace std;

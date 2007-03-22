@@ -23,7 +23,7 @@
 
 
 #include <cstdio>
-#include "XMLFileBuffer.h"
+#include <sbml/xml/XMLFileBuffer.h>
 
 
 using namespace std;

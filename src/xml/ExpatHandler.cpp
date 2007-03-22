@@ -24,12 +24,12 @@
 
 #include <expat.h>
 
-#include "XMLHandler.h"
-#include "XMLTriple.h"
-#include "XMLToken.h"
+#include <sbml/xml/XMLHandler.h>
+#include <sbml/xml/XMLTriple.h>
+#include <sbml/xml/XMLToken.h>
 
-#include "ExpatAttributes.h"
-#include "ExpatHandler.h"
+#include <sbml/xml/ExpatAttributes.h>
+#include <sbml/xml/ExpatHandler.h>
 
 
 using namespace std;
@@ -73,6 +73,13 @@ characters (void* userData, const XML_Char* chars, int length)
   static_cast<ExpatHandler*>(userData)->characters(chars, length);
 }
 
+static int
+unknownEncodingHandler(void *encodingHandlerData,
+		       const XML_Char *name,
+		       XML_Encoding *info)
+{
+  return XML_STATUS_ERROR;
+}
 
 /**
  * Creates a new ExpatHandler.  Expat events will be redirected to the
@@ -115,6 +122,7 @@ ExpatHandler::startDocument ()
 void
 ExpatHandler::XML (const XML_Char* version, const XML_Char* encoding)
 {
+  XML_SetUnknownEncodingHandler( mParser, &unknownEncodingHandler, NULL );
   mHandler.XML(version, encoding);
 }
 

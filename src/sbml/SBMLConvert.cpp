@@ -25,10 +25,10 @@
 #include <sbml/util/List.h>
 #include <sbml/math/ASTNode.h>
 
-#include "Model.h"
-#include "KineticLaw.h"
-#include "Compartment.h"
-#include "SpeciesReference.h"
+#include <sbml/Model.h>
+#include <sbml/KineticLaw.h>
+#include <sbml/Compartment.h>
+#include <sbml/SpeciesReference.h>
 
 
 static const char* ASSIGNED_COMPARTMENT = "AssignedName";

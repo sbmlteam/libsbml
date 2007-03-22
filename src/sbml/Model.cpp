@@ -30,13 +30,10 @@
 #include <sbml/math/ASTNode.h>
 
 #include <sbml/SBMLDocument.h>
-
-#include "SBML.h"
-#include "SBMLVisitor.h"
-
-
-#include "KineticLaw.h"
-#include "Model.h"
+#include <sbml/SBML.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/KineticLaw.h>
+#include <sbml/Model.h>
 
 #ifdef USE_LAYOUT
 #include "sbml/annotation/LayoutAnnotation.h"

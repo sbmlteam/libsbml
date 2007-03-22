@@ -24,8 +24,8 @@
 
 #include <sstream>
 
-#include "XMLToken.h"
-#include "XMLTokenizer.h"
+#include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLTokenizer.h>
 
 
 using namespace std;

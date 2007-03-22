@@ -22,7 +22,7 @@
  */
 
 
-#include "ExpatAttributes.h"
+#include <sbml/xml/ExpatAttributes.h>
 
 
 using namespace std;

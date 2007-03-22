@@ -22,8 +22,8 @@
  */
 
 
-#include "XMLTriple.h"
-#include "XMLOutputStream.h"
+#include <sbml/xml/XMLTriple.h>
+#include <sbml/xml/XMLOutputStream.h>
 
 
 using namespace std;

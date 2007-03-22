@@ -24,11 +24,11 @@
 
 #include <iostream>
 
-#include "XMLFileBuffer.h"
-#include "XMLMemoryBuffer.h"
+#include <sbml/xml/XMLFileBuffer.h>
+#include <sbml/xml/XMLMemoryBuffer.h>
 
-#include "LibXMLHandler.h"
-#include "LibXMLParser.h"
+#include <sbml/xml/LibXMLHandler.h>
+#include <sbml/xml/LibXMLParser.h>
 
 
 using namespace std;

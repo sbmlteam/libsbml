@@ -22,8 +22,8 @@
  */
 
 
-#include "XercesTranscode.h"
-#include "XercesAttributes.h"
+#include <sbml/xml/XercesTranscode.h>
+#include <sbml/xml/XercesAttributes.h>
 
 
 using namespace std;

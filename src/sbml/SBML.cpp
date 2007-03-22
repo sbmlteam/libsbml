@@ -31,7 +31,7 @@
 
 #include <sbml/SBMLErrorLog.h>
 
-#include "SBML.h"
+#include <sbml/SBML.h>
 
 
 using namespace std;

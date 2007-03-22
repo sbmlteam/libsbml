@@ -25,8 +25,8 @@
 #include <algorithm>
 #include <functional>
 
-#include "SBMLVisitor.h"
-#include "ListOf.h"
+#include <sbml/SBMLVisitor.h>
+#include <sbml/ListOf.h>
 
 
 using namespace std;

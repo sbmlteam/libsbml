@@ -27,14 +27,13 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include "SBML.h"
-#include "SBMLVisitor.h"
-#include "SpeciesReference.h"
-#include "KineticLaw.h"
-#include "SBMLDocument.h"
-#include "Model.h"
-
-#include "Reaction.h"
+#include <sbml/SBML.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SpeciesReference.h>
+#include <sbml/KineticLaw.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/Reaction.h>
 
 
 using namespace std;

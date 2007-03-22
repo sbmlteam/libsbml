@@ -22,8 +22,8 @@
  */
 
 
-#include "SBMLTypes.h"
-#include "SBMLVisitor.h"
+#include <sbml/SBMLTypes.h>
+#include <sbml/SBMLVisitor.h>
 
 
 SBMLVisitor::~SBMLVisitor ()

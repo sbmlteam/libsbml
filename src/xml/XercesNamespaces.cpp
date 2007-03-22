@@ -22,8 +22,8 @@
  */
 
 
-#include "XercesTranscode.h"
-#include "XercesNamespaces.h"
+#include <sbml/xml/XercesTranscode.h>
+#include <sbml/xml/XercesNamespaces.h>
 
 
 using namespace std;

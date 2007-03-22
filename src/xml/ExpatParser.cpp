@@ -24,12 +24,12 @@
 
 #include <iostream>
 
-#include "XMLFileBuffer.h"
-#include "XMLMemoryBuffer.h"
-#include "XMLErrorLog.h"
+#include <sbml/xml/XMLFileBuffer.h>
+#include <sbml/xml/XMLMemoryBuffer.h>
+#include <sbml/xml/XMLErrorLog.h>
 
-#include "ExpatHandler.h"
-#include "ExpatParser.h"
+#include <sbml/xml/ExpatHandler.h>
+#include <sbml/xml/ExpatParser.h>
 
 
 using namespace std;

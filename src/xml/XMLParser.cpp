@@ -23,19 +23,19 @@
 
 
 #ifdef USE_EXPAT
-#include "ExpatParser.h"
+#include <sbml/xml/ExpatParser.h>
 #endif
 
 #ifdef USE_LIBXML
-#include "LibXMLParser.h"
+#include <sbml/xml/LibXMLParser.h>
 #endif
 
 #ifdef USE_XERCES
-#include "XercesParser.h"
+#include <sbml/xml/XercesParser.h>
 #endif
 
-#include "XMLErrorLog.h"
-#include "XMLParser.h"
+#include <sbml/xml/XMLErrorLog.h>
+#include <sbml/xml/XMLParser.h>
 
 
 using namespace std;

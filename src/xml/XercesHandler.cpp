@@ -24,13 +24,13 @@
 
 #include <xercesc/sax/Locator.hpp>
 
-#include "XMLHandler.h"
-#include "XMLToken.h"
+#include <sbml/xml/XMLHandler.h>
+#include <sbml/xml/XMLToken.h>
 
-#include "XercesAttributes.h"
-#include "XercesNamespaces.h"
-#include "XercesTranscode.h"
-#include "XercesHandler.h"
+#include <sbml/xml/XercesAttributes.h>
+#include <sbml/xml/XercesNamespaces.h>
+#include <sbml/xml/XercesTranscode.h>
+#include <sbml/xml/XercesHandler.h>
 
 
 using namespace std;

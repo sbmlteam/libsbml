@@ -24,8 +24,8 @@
 
 #include <sbml/xml/XMLInputStream.h>
 
-#include "SBMLDocument.h"
-#include "SBMLReader.h"
+#include <sbml/SBMLDocument.h>
+#include <sbml/SBMLReader.h>
 
 
 using namespace std;

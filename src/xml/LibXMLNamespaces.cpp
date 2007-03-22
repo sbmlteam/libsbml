@@ -22,8 +22,8 @@
  */
 
 
-#include "LibXMLTranscode.h"
-#include "LibXMLNamespaces.h"
+#include <sbml/xml/LibXMLTranscode.h>
+#include <sbml/xml/LibXMLNamespaces.h>
 
 
 using namespace std;

@@ -22,8 +22,8 @@
  */
 
 
-#include "XMLHandler.h"
-#include "XMLToken.h"
+#include <sbml/xml/XMLHandler.h>
+#include <sbml/xml/XMLToken.h>
 
 
 using namespace std;

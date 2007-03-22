@@ -22,7 +22,7 @@
  */
 
 
-#include "XMLBuffer.h"
+#include <sbml/xml/XMLBuffer.h>
 
 
 /**

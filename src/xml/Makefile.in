@@ -119,35 +119,27 @@ sources = $(common_sources)
 headers = $(common_headers)
 
 ifdef USE_EXPAT
-  sources += $(expat_sources)
-  headers += $(expat_headers)
-endif
+  sources        += $(expat_sources)
+  headers        += $(expat_headers)
 
-ifdef USE_XERCES
-  sources += $(xerces_sources)
-  headers += $(xerces_headers)
-endif
-
-ifdef USE_LIBXML
-  sources += $(libxml_sources)
-  headers += $(libxml_headers)
-endif
-
-extra_CPPFLAGS = -I..
-
-ifdef USE_EXPAT
   extra_CPPFLAGS += $(EXPAT_CPPFLAGS) -DUSE_EXPAT
   extra_LDFLAGS  += $(EXPAT_LDFLAGS)
   extra_LIBS     += $(EXPAT_LIBS)
 endif
 
 ifdef USE_XERCES
+  sources        += $(xerces_sources)
+  headers        += $(xerces_headers)
+
   extra_CPPFLAGS += $(XERCES_CPPFLAGS) -DUSE_XERCES
   extra_LDFLAGS  += $(XERCES_LDFLAGS)
   extra_LIBS     += $(XERCES_LIBS)
 endif
 
 ifdef USE_LIBXML
+  sources        += $(libxml_sources)
+  headers        += $(libxml_headers)
+
   extra_CPPFLAGS += $(LIBXML_CPPFLAGS) -DUSE_LIBXML
   extra_LDFLAGS  += $(LIBXML_LDFLAGS)
   extra_LIBS     += $(LIBXML_LIBS)

@@ -27,10 +27,10 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include "SBML.h"
-#include "SBMLVisitor.h"
-#include "SBMLDocument.h"
-#include "Unit.h"
+#include <sbml/SBML.h>
+#include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Unit.h>
 #include <sbml/SBML.h>
 
 using namespace std;

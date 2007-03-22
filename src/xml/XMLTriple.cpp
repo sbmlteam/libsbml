@@ -22,7 +22,7 @@
  */
 
 
-#include "XMLTriple.h"
+#include <sbml/xml/XMLTriple.h>
 
 
 using namespace std;

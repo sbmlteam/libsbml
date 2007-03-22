@@ -34,11 +34,12 @@
 #include <sbml/util/util.h>
 
 #include <sbml/annotation/RDFAnnotation.h>
-#include "KineticLaw.h"
-#include "SBMLDocument.h"
-#include "Model.h"
-#include "ListOf.h"
-#include "SBase.h"
+
+#include <sbml/KineticLaw.h>
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/ListOf.h>
+#include <sbml/SBase.h>
 
 
 using namespace std;

@@ -24,10 +24,10 @@
 
 #include <sstream>
 
-#include "XMLError.h"
-#include "XMLParser.h"
+#include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLParser.h>
 
-#include "XMLErrorLog.h"
+#include <sbml/xml/XMLErrorLog.h>
 
 
 using namespace std;

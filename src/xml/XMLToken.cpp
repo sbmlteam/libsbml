@@ -24,8 +24,8 @@
 
 #include <sstream>
 
-#include "XMLOutputStream.h"
-#include "XMLToken.h"
+#include <sbml/xml/XMLOutputStream.h>
+#include <sbml/xml/XMLToken.h>
 
 
 using namespace std;
