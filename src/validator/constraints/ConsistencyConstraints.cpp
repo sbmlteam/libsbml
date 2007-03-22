@@ -248,6 +248,7 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+   */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -290,6 +291,7 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -332,6 +334,7 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -376,6 +379,7 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -420,6 +424,7 @@ START_CONSTRAINT (10531, RateRule, rr)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -462,6 +467,7 @@ START_CONSTRAINT (10532, RateRule, rr)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -506,6 +512,7 @@ START_CONSTRAINT (10533, RateRule, rr)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -543,6 +550,7 @@ START_CONSTRAINT (10541, KineticLaw, kl)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -578,6 +586,7 @@ START_CONSTRAINT (10551, Event, e)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -619,6 +628,7 @@ START_CONSTRAINT (10561, EventAssignment, ea)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -660,6 +670,7 @@ START_CONSTRAINT (10562, EventAssignment, ea)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
@@ -702,6 +713,7 @@ START_CONSTRAINT (10563, EventAssignment, ea)
     pre (strcmp(UnitKind_toString(formulaUnits->getUnitDefinition()->getUnit(0)->getKind()), 
                                                                        "dimensionless")); 
   }
+  */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
   pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
