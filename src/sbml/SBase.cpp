@@ -44,6 +44,78 @@
 
 using namespace std;
 
+/**
+ * elements permitted on the body element of xhtml
+ */
+
+static const char * XHTML_ELEMENTS[] =
+{
+      "a"
+    , "abbr"
+    , "acronym"
+    , "address"
+    , "applet"
+    , "b"
+    , "basefont"
+    , "bdo"
+    , "big"
+    , "blockquote"
+    , "br"
+    , "button"
+    , "center"
+    , "cite"
+    , "code"
+    , "del"
+    , "dfn"
+    , "dir"
+    , "div"
+    , "dl"
+    , "em"
+    , "fieldset"
+    , "font"
+    , "form"
+    , "h1"
+    , "h2"
+    , "h3"
+    , "h4"
+    , "h5"
+    , "h6"
+    , "hr"
+    , "i"
+    , "iframe"
+    , "img"
+    , "input"
+    , "ins"
+    , "isindex"
+    , "kbd"
+    , "label"
+    , "map"
+    , "menu"
+    , "noframes"
+    , "noscript"
+    , "object"
+    , "ol"
+    , "p"
+    , "pre"
+    , "q"
+    , "s"
+    , "samp"
+    , "script"
+    , "select"
+    , "small"
+    , "span"
+    , "strike"
+    , "strong"
+    , "sub"
+    , "sup"
+    , "table"
+    , "textarea"
+    , "tt"
+    , "u"
+    , "ul"
+    , "var"
+};
+
 
 /**
  * Only subclasses may create SBase objects.
@@ -2694,54 +2766,165 @@ SBase::checkAnnotation()
 
 
 /*
- * checks the notes is valid in termsof namespaces
+ * checks the XHTML is valid
  */
 void
-SBase::checkNotes()
+SBase::checkXHTML(const XMLNode * xhtml)
 {
-  const string&  name = mNotes->getName();
+  const string&  name = xhtml->getName();
+  unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
+  int n;
 
   if (name == "notes")
   {
-    /* check for XHTML namespace 
-     * this may be explicitly declared here
-     * or implicitly declared on the whole document
-     */
-    const XMLToken elem = mNotes->getChild(0);
-    unsigned int match = 0;
-    int n;
-    if (elem.getNamespaces().getLength() != 0)
+    errorNS   = 10801;
+    errorXML  = 10802;
+    errorDOC  = 10803;
+    errorELEM = 10804;
+  }
+  else if (name == "message")
+  {
+    errorNS   = 21003;
+    errorXML  = 21004;
+    errorDOC  = 21005;
+    errorELEM = 21006;
+  }
+  else
+  {
+    mSBML->getErrorLog()->logError(00005);
+    return;
+  }
+
+  /**
+   * errors relating to a misplaced XML or DOCTYPE declaration 
+   * will also cause a parser error
+   * since parsing will terminate at this error if it has occurred
+   * it will bein the XML currently being checked and so a more
+   * informative message can be added
+   */
+  for (i = 0; i < mSBML->getErrorLog()->getNumErrors(); i++)
+  {
+    if (mSBML->getErrorLog()->getError(i)->getId() == 17)
     {
-      for (n = 0; n < elem.getNamespaces().getLength(); n++)
+      mSBML->getErrorLog()->logError(errorXML);
+    }
+    if (mSBML->getErrorLog()->getError(i)->getId() == 4)
+    {
+      mSBML->getErrorLog()->logError(errorDOC);
+    }
+  }
+
+  /**
+   * namespace declaration is variable
+   * if a whole html tag has been used
+   * or a whole body tag then namespace can be implicitly declared
+   *
+   * HOWEVER if one or more permitted elements have been used 
+   * each MUST explicitly declare the namespace
+   */
+  bool implicitNSdecl = false;
+  if( mSBML->getNamespaces() != NULL)
+  /* check for implicit declaration */
+  {
+    for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+    {
+      if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
+                                         "http://www.w3.org/1999/xhtml"))
       {
-        if (!strcmp(elem.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1999/xhtml"))
-        {
-          match = 1;
-          break;
-        }
+        implicitNSdecl = true;
+        break;
       }
     }
-    if (match == 0)
+  }
+
+  unsigned int children = xhtml->getNumChildren();
+  static const int size = sizeof(XHTML_ELEMENTS) / sizeof(XHTML_ELEMENTS[0]);
+
+  int index;
+  bool found;
+  bool match;
+  if (children > 1)
+  {
+    /* each element must declare namespace */
+    for (i=0; i < children; i++)
     {
-      if( mSBML->getNamespaces() != NULL)
-      /* check for implicit declaration */
+      const char * top = xhtml->getChild(i).getName().c_str();
+
+      index = util_bsearchStringsI(XHTML_ELEMENTS, top, 0, size - 1);
+      found = (index < size);
+
+      if (!found)
       {
-        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+        mSBML->getErrorLog()->logError(errorELEM);
+      }
+      else
+      {
+        const XMLToken elem = xhtml->getChild(i);
+        match = false;
+        for (n = 0; n < elem.getNamespaces().getLength(); n++)
         {
-          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                                     "http://www.w3.org/1999/xhtml"))
+          if (!strcmp(elem.getNamespaces().getURI(n).c_str(), 
+                                               "http://www.w3.org/1999/xhtml"))
           {
-            match = 1;
+            match = true;
             break;
           }
         }
+        if (!match)
+        {
+          mSBML->getErrorLog()->logError(errorELEM);
+        }
       }
     }
-    if (match == 0)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
+
   }
+  else
+  {
+    /* only one element which can be html or body with either implicit/explicit
+     * namespace declaration
+     * OR could be one of the listed elements in which case must explicitly 
+     * declare the namespace
+     */
+
+    const XMLToken top_elem = xhtml->getChild(0);
+
+    match = false;
+    for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
+    {
+      if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
+                                            "http://www.w3.org/1999/xhtml"))
+      {
+        match = true;
+        break;
+      }
+    }
+    
+    const string& top_name = top_elem.getName();
+
+    if (top_name == "html" || top_name == "body")
+    {
+      if (!match && !implicitNSdecl)
+      {
+        mSBML->getErrorLog()->logError(errorNS);
+      }
+    }
+    else
+    {
+      const char* top_name_c = top_name.c_str();
+      index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
+      found = (index < size);
+
+      if (!found)
+      {
+        mSBML->getErrorLog()->logError(errorELEM);
+      }
+      else if (!match)
+      {
+        mSBML->getErrorLog()->logError(errorELEM);
+      }
+    }
+
+  }  
 }
 
 

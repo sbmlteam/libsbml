@@ -463,9 +463,9 @@ protected:
   void checkAnnotation();
 
   /*
-   * checks the notes is valid in termsof namespaces
+   * checks the XHTML is valid
    */
-  void checkNotes();
+  void checkXHTML(const XMLNode *);
 
   std::string mMetaId;
   std::string mId;

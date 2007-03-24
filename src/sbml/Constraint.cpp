@@ -274,6 +274,7 @@ Constraint::readOtherXML (XMLInputStream& stream)
     delete mMessage;
 
     mMessage = new XMLNode(stream);
+    checkXHTML(mMessage);
     read     = true;
   }
   else if (name == "annotation")
@@ -304,7 +305,7 @@ Constraint::readOtherXML (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
-    checkNotes();
+    checkXHTML(mNotes);
     read = true;
   }
 

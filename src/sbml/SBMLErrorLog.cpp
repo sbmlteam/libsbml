@@ -63,7 +63,7 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     "No encoding specified.";
 
   const string msg00005 =
-    "Parse error encountered.";
+    "Unknown error encountered.";
 
   const string msg10101 = 
     "An SBML XML file must use UTF-8 as the character encoding. More "
@@ -139,6 +139,28 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     "the URIs, or implicitly (by failing to declare any namespace). "
     "(References: L2V2 Section 3.3.3.)";
 
+  const string msg10801 =
+    "The contents of the notes element must be explicitly placed in the XHTML "
+    "XML namespace. (References: L2V3 Section 3.2.3.)";
+
+  const string msg10802 =
+    "The contents of the notes element must not contain an XML declaration "
+    "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
+    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)";
+
+  const string msg10803 = 
+    "The contents of the notes element must not contain an XML DOCTYPE "
+    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
+    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)";
+
+  const string msg10804 = 
+    "The XHTML content inside a notes element can only take one of the "
+    "following general forms: (1) a complete XHTML document beginning with "
+    "the element <html> and ending with </html>; (2) the \"body\" portion of "
+    "a document beginning with the element <body> and ending with </body>; or "
+    "(3) XHTML content that is permitted within a <body> ... </body> elements. "
+    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)";
+
   const string msg20101 =
     "The 'sbml' container element must declare the XML Namespace for SBML, "
     "and this declaration must be consistent with the values of the 'level' "
@@ -188,6 +210,28 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     "The order of subelements within Constraint must be the following: math, "
     "message. The message element is optional, but if present, must follow the "
     "math element. (References: L2V2 Section 4.12.)";
+
+  const string msg21003 =
+    "The contents of the message element in a Constraint must be explicitly "
+    "placed in the XHTML XML namespace. (References: L2V3 Section 3.2.3.)";
+
+  const string msg21004 =
+    "The contents of the message element must not contain an XML declaration "
+    "(i.e., a string of the form \"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\" "
+    "or similar). (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)";
+
+  const string msg21005 = 
+    "The contents of the message element must not contain an XML DOCTYPE "
+    "declaration (i.e., a string beginning with the characters \"<!DOCTYPE\". "
+    "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)";
+
+  const string msg21006 = 
+    "The XHTML content inside a Constraint's message element can only take one "
+    "of the following general forms: (1) a complete XHTML document beginning "
+    "with the element <html> and ending with </html>; (2) the \"body\" portion "
+    "of a document beginning with the element <body> and ending with </body>; "
+    "or (3) XHTML content that is permitted within a <body> ... </body> "
+    "elements. (References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)";
 
   const string msg21102 =
     "The order of subelements within Reaction must be the following: "
@@ -248,6 +292,10 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     case 10401: msg = msg10401; break;
     case 10402: msg = msg10402; break;
     case 10403: msg = msg10403; break;
+    case 10801: msg = msg10801; break;
+    case 10802: msg = msg10802; break;
+    case 10803: msg = msg10803; break;
+    case 10804: msg = msg10804; break;
     case 20101: msg = msg20101; break;
     case 20102: msg = msg20102; break;
     case 20103: msg = msg20103; break;
@@ -256,6 +304,10 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     case 20203: msg = msg20203; break;
     case 20409: msg = msg20409; break;
     case 21002: msg = msg21002; break;
+    case 21003: msg = msg21003; break;
+    case 21004: msg = msg21004; break;
+    case 21005: msg = msg21005; break;
+    case 21006: msg = msg21006; break;
     case 21102: msg = msg21102; break;
     case 21122: msg = msg21122; break;
     case 21103: msg = msg21103; break;
@@ -268,7 +320,7 @@ SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
     default:    msg = "Unrecognized error code."; break;
   }
 
-    add( XMLError(error, msg) );
+  add( XMLError(error, msg) );
 }
 
 

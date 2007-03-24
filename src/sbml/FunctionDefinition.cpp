@@ -326,7 +326,7 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
 
     delete mNotes;
     mNotes = new XMLNode(stream);
-    checkNotes();
+    checkXHTML(mNotes);
     read = true;
   }
 
