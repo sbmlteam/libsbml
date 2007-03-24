@@ -277,6 +277,10 @@ XercesParser::parseNext ()
     {
       nError = 4;
     }
+    else if (strncmp(msg.c_str(), "Expected comment or", 19) == 0)
+    {
+      nError = 4;
+    }
     else if (strncmp(msg.c_str(), "Expected an attribute value", 27) == 0)
     {
       msg += " - Not well formed";
