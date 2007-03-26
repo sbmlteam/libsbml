@@ -192,6 +192,40 @@ MathMLBase::checkChildren (const Model& m,
   }
 }
 
+void
+ReplaceArgument(ASTNode * math, const ASTNode * bvar, ASTNode * arg)
+{
+
+  for (unsigned int i = 0; i < math->getNumChildren(); i++)
+  {
+    if (math->getChild(i)->isName())
+    {
+      if (!strcmp(math->getChild(i)->getName(), bvar->getName()))
+      {
+        if (arg->isName())
+        {
+          math->getChild(i)->setName(arg->getName());
+        }
+        else if (arg->isReal())
+        {
+          math->getChild(i)->setValue(arg->getReal());
+        }
+        else if (arg->isInteger())
+        {
+          math->getChild(i)->setValue(arg->getInteger());
+        }
+        else if (arg->isConstant())
+        {
+          math->getChild(i)->setType(arg->getType());
+        }
+      }
+    }
+    else
+    {
+      ReplaceArgument(math->getChild(i), bvar, arg);
+    }
+  }
+}
 
 /**
   * Checks the MathML of a function definition 
@@ -206,53 +240,33 @@ MathMLBase::checkFunction (const Model& m,
                                   const SBase & sb)
 {
   unsigned int i, nodeCount;
-  const ASTNode * fdMath = NULL;
+  unsigned int noBvars;
+  ASTNode * fdMath;
   ASTNode *newMath;
+  const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
 
-  /* check this function definition exists */
-  if (m.getFunctionDefinition(node.getName()))
+  if (fd)
   {
-    /* formula will be the right child of the functiondefinition math */
-    fdMath = m.getFunctionDefinition(node.getName())->getMath()->getRightChild();
-
-    /* if function has no variables then this will be null */
-    if (fdMath == NULL)
+    noBvars = fd->getNumArguments();
+    if (noBvars == 0)
     {
-      newMath = m.getFunctionDefinition(node.getName())->getMath()->getLeftChild();
+      fdMath = fd->getMath()->getLeftChild()->deepCopy();
     }
     else
     {
-    /**
-      * create a new ASTNode of this type but with the children
-      * from the original function
-      */
-        /* need to catch case where a functionDefinition merely returns the argument */
-      if (fdMath->getType() == AST_NAME)
-      {
-        newMath = node.getLeftChild();
-      }
-      else
-      {
-        newMath = new ASTNode(fdMath->getType());
-        nodeCount = 0;
-        for (i = 0; i < fdMath->getNumChildren(); i++)
-        {
-          if (fdMath->getChild(i)->isName())
-          {
-            newMath->addChild(node.getChild(nodeCount));
-            nodeCount++;
-          }
-          else
-          {
-            newMath->addChild(fdMath->getChild(i));
-          }
-        }
-      }
+      fdMath = fd->getMath()->getRightChild()->deepCopy();
     }
 
+    for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    {
+      ReplaceArgument(fdMath, fd->getArgument(i), 
+                                          node.getChild(nodeCount));
+    }
     /* check the math of the new function */
-    checkMath(m, *newMath, sb);
+    checkMath(m, *fdMath, sb);
   }
+
+
 }
 
 

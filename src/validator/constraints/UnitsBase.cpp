@@ -37,6 +37,7 @@
 #include <sbml/units/UnitFormulaFormatter.h>
 
 #include "UnitsBase.h"
+#include "MathMLBase.h"
 
 
 using namespace std;
@@ -202,53 +203,30 @@ UnitsBase::checkFunction (const Model& m,
                                   const SBase & sb)
 {
   unsigned int i, nodeCount;
-  const ASTNode * fdMath;
+  unsigned int noBvars;
+  ASTNode * fdMath;
   ASTNode *newMath;
+  const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
 
-  if (m.getFunctionDefinition(node.getName()))
+  if (fd)
   {
-    /**
-      * find corresponding func def which will have
-      * the formula as the rightChild of ASTNode
-      */
-    fdMath = m.getFunctionDefinition(node.getName())
-      ->getMath()->getRightChild();
-    
-    /* if function has no variables then this will be null */
-    if (fdMath == NULL)
+    noBvars = fd->getNumArguments();
+    if (noBvars == 0)
     {
-      newMath = m.getFunctionDefinition(node.getName())
-      ->getMath()->getLeftChild();
+      fdMath = fd->getMath()->getLeftChild()->deepCopy();
     }
     else
     {
-      /**
-        * create a new ASTNode of this type but with the children
-        * from the original function
-        */
-      if (fdMath->getType() == AST_NAME)
-      {
-        newMath = node.getLeftChild();
-      }
-      else
-      {
-        newMath = new ASTNode(fdMath->getType());
-        nodeCount = 0;
-        for (i = 0; i < fdMath->getNumChildren(); i++)
-        {
-          if (fdMath->getChild(i)->isName())
-          {
-            newMath->addChild(node.getChild(nodeCount));
-            nodeCount++;
-          }
-          else
-          {
-            newMath->addChild(fdMath->getChild(i));
-          }
-        }
-      }
+      fdMath = fd->getMath()->getRightChild()->deepCopy();
     }
-    checkUnits(m, *newMath, sb);
+
+    for (i = 0, nodeCount = 0; i < noBvars; i++, nodeCount++)
+    {
+      ReplaceArgument(fdMath, fd->getArgument(i), 
+                                          node.getChild(nodeCount));
+    }
+    /* check the math of the new function */
+    checkUnits(m, *fdMath, sb);
   }
 }
 

@@ -162,6 +162,9 @@ protected:
 
 };
 
+void
+ReplaceArgument(ASTNode * math, const ASTNode * bvar, ASTNode * arg);
+
 
 #endif  /* __cplusplus */
 #endif  /* MathMLBase_h */
