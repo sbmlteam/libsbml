@@ -201,6 +201,15 @@ FunctionDefinition::getBody () const
 {
   return mMath->getRightChild();
 }
+/**
+ * @return the body of this FunctionDefinition, or NULL if no body is
+ * defined.
+ */
+ASTNode*
+FunctionDefinition::getBody ()
+{
+  return mMath->getRightChild();
+}
 
 
 /**

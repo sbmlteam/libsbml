@@ -126,6 +126,7 @@ public:
    * defined.
    */
   const ASTNode* getBody () const;
+  ASTNode* getBody ();
 
   /**
    * @return the number of arguments (bound variables) that must be passed
