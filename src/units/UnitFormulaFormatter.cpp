@@ -32,6 +32,8 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
   model = (Model *) (m->clone());
   undeclaredUnits = 0;
   canIgnoreUndeclaredUnits = 0;
+  mInKineticlaw = 0;
+  mReactionNo = -1;
 }
 
 /**
@@ -48,7 +50,8 @@ UnitFormulaFormatter::~UnitFormulaFormatter()
   * UnitFormulaFormatter::getUnitdefinition functions
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinition(const ASTNode * node, 
+                                        unsigned KL, int No)
 {  
   UnitDefinition * ud = NULL;
 
@@ -133,7 +136,7 @@ UnitFormulaFormatter::getUnitDefinition(const ASTNode * node)
     case AST_POWER:
     case AST_FUNCTION_POWER:
   
-      ud = getUnitDefinitionFromPower(node);
+      ud = getUnitDefinitionFromPower(node, KL, No);
       break;
 
   /* times functions */
@@ -347,7 +350,8 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node)
   * returns the unitDefinition for the ASTNode from a power function
   */
 UnitDefinition * 
-UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node)
+UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
+                                                 unsigned int inKL, int ReactNo)
 { 
   UnitDefinition * ud;
   /* this only works is the exponent is an integer - 
@@ -359,6 +363,7 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node)
 
   UnitDefinition * tempUD;
   unsigned int i;
+  unsigned int newExp = 0;
   Unit * unit;
   ASTNode * child;
 
@@ -379,7 +384,34 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node)
     }
     else if (child->isName())
     {
-      unit->setExponent((int)(model->getParameter(child->getName())->getValue())* unit->getExponent());
+      /**
+       * if the child is a name then it will be a parameter 
+       * and may be global or local if we are in a kineticLaw
+       * (possible a species/compartment but unlikely)
+       */
+      if (inKL == 1)
+      {
+        newExp = (int) ((model->getReaction(ReactNo)->
+          getKineticLaw()->getParameter(child->getName()))->getValue());
+      }
+      else
+      {
+        if (model->getParameter(child->getName()))
+        {
+          newExp = (int) (model->getParameter(child->getName())->getValue());
+        }
+        else if (model->getCompartment(child->getName()))
+        {
+          newExp = (int) (model->getCompartment(child->getName())->getSize());
+        }
+        else if (model->getSpecies(child->getName()))
+        {
+          newExp = (int) (model->getSpecies(child->getName())->getInitialConcentration());
+        }
+
+      }
+
+      unit->setExponent(newExp * unit->getExponent());
     }
     else if (child->isReal())
     {

@@ -275,7 +275,8 @@ Model::createListFormulaUnitsData()
       unitFormatter->resetFlags();
       if(react->getKineticLaw()->isSetMath())
       {
-        ud = unitFormatter->getUnitDefinition(react->getKineticLaw()->getMath());
+        ud = unitFormatter->getUnitDefinition(react->getKineticLaw()->getMath(), 
+                                                                          1, n);
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());

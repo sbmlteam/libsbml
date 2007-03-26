@@ -68,7 +68,8 @@ public:
    * this function is really a dispatcher to the other
    * getUnitdefinition functions
    */
-  UnitDefinition * getUnitDefinition(const ASTNode *);
+  UnitDefinition * getUnitDefinition(const ASTNode * node, 
+    unsigned int KL = 0, int ReactNo = -1);
 
   /** 
    * returns the unitDefinition for the ASTNode from a function
@@ -88,7 +89,8 @@ public:
   /** 
    * returns the unitDefinition for the ASTNode from a power function
    */
-  UnitDefinition * getUnitDefinitionFromPower(const ASTNode *);
+  UnitDefinition * getUnitDefinitionFromPower(const ASTNode *, 
+                                                      unsigned int, int);
 
   /** 
    * returns the unitDefinition for the ASTNode from 
@@ -171,6 +173,8 @@ private:
   const Model * model;
   unsigned int undeclaredUnits;
   unsigned int canIgnoreUndeclaredUnits;
+  unsigned int mInKineticlaw;
+  int mReactionNo;
 
 };
 
