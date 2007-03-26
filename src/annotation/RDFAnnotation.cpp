@@ -142,19 +142,19 @@ parseRDFAnnotation(XMLNode * annotation)
     {
       while (n < annotation->getNumChildren())
       {
-	const string &name1 = annotation->getChild(n).getName();
-	if (!name1.empty())
-	{
-	  if (name1 == "RDF")
-	  {
-	    if (annotation->getChild(n).getNumChildren() > 0)
-	    {
-	      RDFTop = &(annotation->getChild(n).getChild(0));
-	      break;
-	    }
-	  }
-	}
-	n++;
+	      const string &name1 = annotation->getChild(n).getName();
+	      if (!name1.empty())
+	      {
+	        if (name1 == "RDF")
+	        {
+	          if (annotation->getChild(n).getNumChildren() > 0)
+	          {
+	            RDFTop = &(annotation->getChild(n).getChild(0));
+	            break;
+	          }
+	        }
+	      }
+	      n++;
       }
     }
   }
@@ -164,44 +164,40 @@ parseRDFAnnotation(XMLNode * annotation)
   n = 0;
   if (RDFTop)
   {
+	  history = new ModelHistory();
     while (n < RDFTop->getNumChildren())
     {
       const string &prefix = RDFTop->getChild(n).getPrefix();
       if (!prefix.empty())
       {
-	if (prefix == "dc")
-	{
-	  if (creator == NULL)
-	  {
-	    history = new ModelHistory();
-	  }
-
-	  creator = new ModelCreator(RDFTop->getChild(n));
-	  history->addCreator(creator);
-	}
-	else if (prefix == "dcterms")
-	{
-	  const string &name2 = RDFTop->getChild(n).getName();
-	  if (!name2.empty())
-	  {
-	    if (RDFTop->getChild(n).getNumChildren() > 0
-		&& RDFTop->getChild(n).getChild(0).getNumChildren() > 0)
-	    {
-	      if (name2 == "created")
+	      if (prefix == "dc")
 	      {
-		created = new Date(RDFTop->getChild(n).getChild(0).
-				   getChild(0).getCharacters());
-		history->setCreatedDate(created);
+	        creator = new ModelCreator(RDFTop->getChild(n));
+	        history->addCreator(creator);
 	      }
-	      else if (name2 == "modified")
+	      else if (prefix == "dcterms")
 	      {
-		modified = new Date(RDFTop->getChild(n).getChild(0).
-				    getChild(0).getCharacters());
-		history->setModifiedDate(modified);
+	        const string &name2 = RDFTop->getChild(n).getName();
+	        if (!name2.empty())
+	        {
+	          if (RDFTop->getChild(n).getNumChildren() > 0
+		          && RDFTop->getChild(n).getChild(0).getNumChildren() > 0)
+	          {
+	            if (name2 == "created")
+	            {
+		            created = new Date(RDFTop->getChild(n).getChild(0).
+				              getChild(0).getCharacters());
+		            history->setCreatedDate(created);
+	            }
+	            else if (name2 == "modified")
+	            {
+		            modified = new Date(RDFTop->getChild(n).getChild(0).
+				                getChild(0).getCharacters());
+		            history->setModifiedDate(modified);
+	            }
+	          }
+	        }
 	      }
-	    }
-	  }
-	}
       }
       n++;
     }
