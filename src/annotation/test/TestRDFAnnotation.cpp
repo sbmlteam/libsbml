@@ -109,15 +109,6 @@ create_suite_RDFAnnotation (void)
                             RDFAnnotation_teardown);
 
   tcase_add_test(tcase, test_RDFAnnotation_getModelHistory );
-  //tcase_add_test(tcase, test_RDFAnnotation_getcompartment );
-  //tcase_add_test(tcase, test_RDFAnnotation_getspecies );
-  //tcase_add_test(tcase, test_RDFAnnotation_getparameter );
-  //tcase_add_test(tcase, test_RDFAnnotation_getinitialassignment );
-  //tcase_add_test(tcase, test_RDFAnnotation_getrule );
-  //tcase_add_test(tcase, test_RDFAnnotation_getreaction );
-  //tcase_add_test(tcase, test_RDFAnnotation_getevent );
-  //tcase_add_test(tcase, test_RDFAnnotation_getById );
-  //tcase_add_test(tcase, test_RDFAnnotation_setters );
   suite_add_tcase(suite, tcase);
 
   return suite;

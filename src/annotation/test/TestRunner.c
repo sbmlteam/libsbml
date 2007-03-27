@@ -69,6 +69,7 @@ BEGIN_C_DECLS
 Suite *create_suite_CVTerms (void);
 Suite *create_suite_RDFAnnotation (void);
 Suite *create_suite_ModelHistory (void);
+Suite *create_suite_CopyAndClone (void);
 
 END_C_DECLS
 /**
@@ -113,29 +114,15 @@ main (void)
   SRunner *runner = srunner_create( create_suite_CVTerms() );
 
   srunner_add_suite( runner, create_suite_ModelHistory  () );
+  srunner_add_suite( runner, create_suite_CopyAndClone  () );
 //  srunner_add_suite( runner, create_suite_RDFAnnotation () );
   //srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
   //srunner_add_suite( runner, create_suite_FormulaUnitsData() );
   
 
-
-#ifdef TRACE_MEMORY
-  srunner_set_fork_status(runner, CK_NOFORK);
-#endif
-
   srunner_run_all(runner, CK_NORMAL);
   num_failed = srunner_ntests_failed(runner);
 
-#ifdef TRACE_MEMORY
-
-  if (MemTrace_getNumLeaks() > 0)
-  {
-    MemTrace_printLeaks(stdout);
-  }
-
-  MemTrace_printStatistics(stdout);
-
-#endif
 
   srunner_free(runner);
 

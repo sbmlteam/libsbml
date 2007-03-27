@@ -65,6 +65,51 @@ Date::Date (std::string date)
 Date::~Date() {}
 
 /**
+* Copy constructor.
+*/
+Date::Date(const Date& orig):
+   mYear            ( orig.mYear )
+ , mMonth           ( orig.mMonth )
+ , mDay             ( orig.mDay )
+ , mHour            ( orig.mHour )  
+ , mMinute          ( orig.mMinute )
+ , mSecond          ( orig.mSecond )
+ , mSignOffset      ( orig.mSignOffset )
+ , mHoursOffset     ( orig.mHoursOffset )
+ , mMinutesOffset   ( orig.mMinutesOffset )
+ , mDate            ( orig.mDate )
+{
+}
+
+/**
+  * Assignment operator
+  */
+Date& Date::operator=(const Date& orig)
+{
+  mYear   = orig.mYear;
+  mMonth  = orig.mMonth;
+  mDay    = orig.mDay;
+  mHour   = orig.mHour;  
+  mMinute = orig.mMinute;
+  mSecond = orig.mSecond;
+  
+  mSignOffset     = orig.mSignOffset;
+  mHoursOffset    = orig.mHoursOffset;
+  mMinutesOffset  = orig.mMinutesOffset;;
+
+  mDate = orig.mDate;
+  return *this;
+}
+
+/**
+  * @return a (deep) copy of this Date.
+  */
+Date* Date::clone () const
+{
+  return new Date(*this);
+}
+
+/**
  * sets the value of the year checking appropriateness
  */
 void 
@@ -373,61 +418,62 @@ Date::parseDateStringToNumbers()
   {
     const char * cdate = mDate.c_str();
     char year[4];
-    char block[2];
+    char block[3];
+    block[2] = '\0';
     
     year[0] = cdate[0];
     year[1] = cdate[1];
     year[2] = cdate[2];
     year[3] = cdate[3];
 
-    mYear = atoi(year);
+    mYear = strtol(year, NULL, 10);
 
     block[0] = cdate[5];
     block[1] = cdate[6];
     
-    mMonth = atoi(block);
+    mMonth = strtol(block, NULL, 10);
 
     block[0] = cdate[8];
     block[1] = cdate[9];
     
-    mDay = atoi(block);
+    mDay = strtol(block, NULL, 10);
 
     block[0] = cdate[11];
     block[1] = cdate[12];
     
-    mHour = atoi(block);
+    mHour = strtol(block, NULL, 10);
 
     block[0] = cdate[14];
     block[1] = cdate[15];
     
-    mMinute = atoi(block);
+    mMinute = strtol(block, NULL, 10);
 
     block[0] = cdate[17];
     block[1] = cdate[18];
     
-    mSecond = atoi(block);
+    mSecond = strtol(block, NULL, 10);
 
     if (cdate[19] == '+')
     {
       mSignOffset = 1;
       block[0] = cdate[20];
       block[1] = cdate[21];
-      mHoursOffset = atoi(block);
+      mHoursOffset = strtol(block, NULL, 10);
 
       block[0] = cdate[23];
       block[1] = cdate[24];
-      mMinutesOffset = atoi(block);
+      mMinutesOffset = strtol(block, NULL, 10);
     }
     else if (cdate[19] == '-')
     {
       mSignOffset = 0;
       block[0] = cdate[20];
       block[1] = cdate[21];
-      mHoursOffset = atoi(block);
+      mHoursOffset = strtol(block, NULL, 10);
 
       block[0] = cdate[23];
       block[1] = cdate[24];
-      mMinutesOffset = atoi(block);
+      mMinutesOffset = strtol(block, NULL, 10);
     }
     else
     {
@@ -491,6 +537,37 @@ ModelCreator::~ModelCreator()
 }
 
 /**
+* Copy constructor.
+*/
+ModelCreator::ModelCreator(const ModelCreator& orig):
+   mFamilyName   ( orig.mFamilyName )
+ , mGivenName    ( orig.mGivenName )
+ , mEmail        ( orig.mEmail )
+ , mOrganisation ( orig.mOrganisation )
+{
+}
+
+/**
+  * Assignment operator
+  */
+ModelCreator& ModelCreator::operator=(const ModelCreator& orig)
+{
+  mFamilyName   = orig.mFamilyName;
+  mGivenName    = orig.mGivenName;
+  mEmail        = orig.mEmail;
+  mOrganisation = orig.mOrganisation;
+  return *this;
+}
+
+/**
+  * @return a (deep) copy of this ModelCreator.
+  */
+ModelCreator* ModelCreator::clone () const
+{
+  return new ModelCreator(*this);
+}
+
+/**
  * sets the family name
  */
 void 
@@ -539,8 +616,8 @@ ModelCreator::setOrganisation(std::string org)
  */
 ModelHistory::ModelHistory ()
 {
-  mCreated = new Date();
-  mModified = new Date();
+  mCreated = NULL;
+  mModified = NULL;
   mCreators = new List();
 }
 
@@ -549,18 +626,70 @@ ModelHistory::ModelHistory ()
  */
 ModelHistory::~ModelHistory()
 {
-  delete mCreators;
-  delete mCreated;
-  delete mModified;
+  if (mCreators) delete mCreators;
+  if (mCreated) delete mCreated;
+  if (mModified) delete mModified;
 }
 
+/**
+* Copy constructor.
+*/
+ModelHistory::ModelHistory(const ModelHistory& orig)
+{
+  mCreators = new List();
+  for (unsigned int i = 0; i < orig.mCreators->getSize(); i++)
+  {
+    this->addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+  }
+  if (orig.mCreated) 
+  {
+    setCreatedDate(orig.mCreated);
+  }
+  else
+  {
+    mCreated = NULL;
+  }
+  if (orig.mModified)
+  {
+    setModifiedDate(orig.mModified);
+  }
+  else
+  {
+    mModified = NULL;
+  }
+}
+
+/**
+  * Assignment operator
+  */
+ModelHistory& 
+ModelHistory::operator=(const ModelHistory& orig)
+{
+  for (unsigned int i = 0; i < orig.mCreators->getSize(); i++)
+  {
+    addCreator(static_cast<ModelCreator*>(orig.mCreators->get(i)));
+  }
+
+  if (orig.mCreated) setCreatedDate(orig.mCreated);
+  if (orig.mModified)setModifiedDate(orig.mModified);
+  return *this;
+}
+
+/**
+  * @return a (deep) copy of this ModelHistory.
+  */
+ModelHistory* 
+ModelHistory::clone() const
+{
+  return new ModelHistory(*this);
+}
 /**
  * adds a creator to the model history
  */
 void 
 ModelHistory::addCreator(ModelCreator * creator)
 {
-  mCreators->add((void *)creator);
+  mCreators->add((void *)(creator->clone()));
 }
 
 /**
@@ -569,7 +698,7 @@ ModelHistory::addCreator(ModelCreator * creator)
 void 
 ModelHistory::setCreatedDate(Date* date)
 {
-  mCreated = date;
+  mCreated = date->clone();
 }
 
 /**
@@ -578,7 +707,7 @@ ModelHistory::setCreatedDate(Date* date)
 void 
 ModelHistory::setModifiedDate(Date* date)
 {
-  mModified = date;
+  mModified = date->clone();
 }
 
 /**
@@ -608,22 +737,6 @@ Date *
 ModelHistory::getModifiedDate()
 {
   return mModified;
-}
-
-
-ModelHistory* ModelHistory::clone() const
-{
-    ModelHistory* mh=new ModelHistory();
-    delete mh->mCreated;
-    delete mh->mModified;
-    mh->mCreated=new Date(*this->mCreated);
-    mh->mModified=new Date(*this->mModified);
-    unsigned int i,iMax=this->mCreators->getSize();
-    for(i=0;i<iMax;++i)
-    {
-        mh->mCreators->add(new ModelCreator(*static_cast<ModelCreator*>(this->mCreators->get(i))));
-    }
-    return mh;
 }
 
 

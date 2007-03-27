@@ -56,6 +56,21 @@ public:
 
   ~Date();
 
+  /**
+  * Copy constructor.
+  */
+  Date(const Date& orig);
+
+  /**
+   * Assignment operator
+   */
+  Date& operator=(const Date& orig);
+
+  /**
+   * @return a (deep) copy of this Date.
+   */
+  Date* clone () const;
+
   unsigned int getYear()    { return mYear;   }
   unsigned int getMonth()   { return mMonth;  }
   unsigned int getDay()     { return mDay;    }
@@ -162,6 +177,21 @@ public:
   ~ModelCreator();
 
   /**
+  * Copy constructor.
+  */
+  ModelCreator(const ModelCreator& orig);
+
+  /**
+   * Assignment operator
+   */
+  ModelCreator& operator=(const ModelCreator& orig);
+
+  /**
+   * @return a (deep) copy of this ModelCreator.
+   */
+  ModelCreator* clone () const;
+
+  /**
    * gets the values
    */
   std::string getFamilyName()   {  return  mFamilyName;  }
@@ -216,6 +246,21 @@ public:
   ~ModelHistory();
 
   /**
+  * Copy constructor.
+  */
+  ModelHistory(const ModelHistory& orig);
+
+  /**
+   * Assignment operator
+   */
+  ModelHistory& operator=(const ModelHistory& orig);
+
+  /**
+   * @return a (deep) copy of this ModelHistory.
+   */
+  ModelHistory* clone () const;
+
+  /**
    * adds the creator to the model history
    */
   void addCreator(ModelCreator *);
@@ -245,8 +290,6 @@ public:
   */
   Date * getModifiedDate();
 
-
-  ModelHistory* clone() const;
 
 protected:
 

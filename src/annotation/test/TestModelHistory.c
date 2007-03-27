@@ -54,13 +54,13 @@ START_TEST (test_Date_createFromString)
   Date_t * date = Date_createFromString(dd);
 
   fail_unless(date != NULL);
-//  fail_unless(!strcmp(Date_getDateAsString(date), "2012-12-02T14:56:11Z"));
+  fail_unless(!strcmp(Date_getDateAsString(date), "2012-12-02T14:56:11Z"));
   fail_unless(Date_getYear(date) == 2012);
-//  fail_unless(Date_getMonth(date) == 12);
-////  fail_unless(Date_getDay(date) == 2);
-//  fail_unless(Date_getHour(date) == 14);
-//  fail_unless(Date_getMinute(date) == 56);
-//  fail_unless(Date_getSecond(date) == 11);
+  fail_unless(Date_getMonth(date) == 12);
+  fail_unless(Date_getDay(date) == 2);
+  fail_unless(Date_getHour(date) == 14);
+  fail_unless(Date_getMinute(date) == 56);
+  fail_unless(Date_getSecond(date) == 11);
   fail_unless(Date_getSignOffset(date) == 0);
   fail_unless(Date_getHoursOffset(date) == 0);
   fail_unless(Date_getMinutesOffset(date) == 0);
@@ -105,16 +105,16 @@ START_TEST (test_Date_getDateAsString)
 
   Date_t * date = Date_createFromString(dd);
 
-  //fail_unless(date != NULL);
-  //fail_unless(Date_getYear(date) == 2005);
-  //fail_unless(Date_getMonth(date) == 2);
-  //fail_unless(Date_getDay(date) == 2);
-  //fail_unless(Date_getHour(date) == 14);
-  //fail_unless(Date_getMinute(date) == 56);
-  //fail_unless(Date_getSecond(date) == 11);
-  //fail_unless(Date_getSignOffset(date) == 0);
-  //fail_unless(Date_getHoursOffset(date) == 0);
-  //fail_unless(Date_getMinutesOffset(date) == 0);
+  fail_unless(date != NULL);
+  fail_unless(Date_getYear(date) == 2005);
+  fail_unless(Date_getMonth(date) == 2);
+  fail_unless(Date_getDay(date) == 2);
+  fail_unless(Date_getHour(date) == 14);
+  fail_unless(Date_getMinute(date) == 56);
+  fail_unless(Date_getSecond(date) == 11);
+  fail_unless(Date_getSignOffset(date) == 0);
+  fail_unless(Date_getHoursOffset(date) == 0);
+  fail_unless(Date_getMinutesOffset(date) == 0);
 
   Date_setYear(date, 2012);
   Date_setMonth(date, 3);
@@ -170,8 +170,8 @@ START_TEST (test_ModelHistory_create)
 
   fail_unless(history != NULL);
   fail_unless(ModelHistory_getCreator(history) != NULL);
-  fail_unless(ModelHistory_getCreatedDate(history) != NULL);
-  fail_unless(ModelHistory_getModifiedDate(history) != NULL);
+  fail_unless(ModelHistory_getCreatedDate(history) == NULL);
+  fail_unless(ModelHistory_getModifiedDate(history) == NULL);
 
   ModelHistory_free(history);
 }
@@ -193,7 +193,7 @@ START_TEST (test_ModelHistory_addCreator)
 
   ModelHistory_addCreator(history, mc);
 
-  //ModelCreator_free(mc);
+  ModelCreator_free(mc);
 
   newMC = List_get(ModelHistory_getCreator(history), 0);
   fail_unless(newMC != NULL);
@@ -218,6 +218,8 @@ START_TEST (test_ModelHistory_setCreatedDate)
   Date_t * date = Date_createWith(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   
   ModelHistory_setCreatedDate(history, date);
+
+  Date_free(date);
 
   Date_t * newdate = ModelHistory_getCreatedDate(history);
   fail_unless(Date_getYear(newdate) == 2005);
@@ -245,17 +247,18 @@ START_TEST (test_ModelHistory_setModifiedDate)
   Date_t * date = Date_createWith(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   
   ModelHistory_setModifiedDate(history, date);
+//  Date_free(date);
 
   Date_t * newdate = ModelHistory_getModifiedDate(history);
-//  fail_unless(Date_getYear(newdate) == 2005);
-  //fail_unless(Date_getMonth(newdate) == 12);
-  //fail_unless(Date_getDay(newdate) == 30);
-  //fail_unless(Date_getHour(newdate) == 12);
-  //fail_unless(Date_getMinute(newdate) == 15);
-  //fail_unless(Date_getSecond(newdate) == 45);
-  //fail_unless(Date_getSignOffset(newdate) == 1);
-  //fail_unless(Date_getHoursOffset(newdate) == 2);
-  //fail_unless(Date_getMinutesOffset(newdate) == 0);
+  fail_unless(Date_getYear(newdate) == 2005);
+  fail_unless(Date_getMonth(newdate) == 12);
+  fail_unless(Date_getDay(newdate) == 30);
+  fail_unless(Date_getHour(newdate) == 12);
+  fail_unless(Date_getMinute(newdate) == 15);
+  fail_unless(Date_getSecond(newdate) == 45);
+  fail_unless(Date_getSignOffset(newdate) == 1);
+  fail_unless(Date_getHoursOffset(newdate) == 2);
+  fail_unless(Date_getMinutesOffset(newdate) == 0);
 
   ModelHistory_free(history);
 }
