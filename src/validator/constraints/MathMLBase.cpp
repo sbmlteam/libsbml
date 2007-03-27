@@ -242,7 +242,6 @@ MathMLBase::checkFunction (const Model& m,
   unsigned int i, nodeCount;
   unsigned int noBvars;
   ASTNode * fdMath;
-  ASTNode *newMath;
   const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
 
   if (fd)
@@ -265,8 +264,6 @@ MathMLBase::checkFunction (const Model& m,
     /* check the math of the new function */
     checkMath(m, *fdMath, sb);
   }
-
-
 }
 
 
