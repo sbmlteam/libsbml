@@ -49,8 +49,9 @@ public:
    * Creates a new XMLInputStream.
    */
   XMLInputStream (  const char*        content
-                  , bool               isFile  = true
-                  , const std::string  library = "" );
+                  , bool               isFile   = true
+                  , const std::string  library  = "" 
+		  , XMLErrorLog*       errorLog = 0 );
 
   /**
    * Destroys this XMLInputStream.

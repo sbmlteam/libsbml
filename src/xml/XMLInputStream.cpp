@@ -39,12 +39,16 @@ class XMLParser;
  */
 XMLInputStream::XMLInputStream (  const char*   content
                                 , bool          isFile
-                                , const string  library ) :
+                                , const string  library 
+		                , XMLErrorLog*  errorLog ) :
+
+
    mIsError ( false )
  , mParser  ( XMLParser::create( mTokenizer, library) )
 {
   if ( !isGood() ) return;
-  mParser->parseFirst(content, isFile);
+  if ( errorLog ) setErrorLog(errorLog);
+  mParser->parseFirst(content, isFile); 
 }
 
 
