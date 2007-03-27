@@ -61,7 +61,10 @@ public:
    * Adds a name/value pair to this XMLAttributes set.  If name already
    * exists in this attribute set, its value will be replaced.
    */
-  void add (const std::string& name, const std::string& value,const std::string& namespaceURI="", const std::string& prefix="");
+  void add (  const std::string& name
+	    , const std::string& value
+	    , const std::string& namespaceURI = ""
+	    , const std::string& prefix = "");
 
   /**
   * Adds a name/value pair to this XMLAttributes set.  This
@@ -295,7 +298,11 @@ XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value);
  **/
 LIBLAX_EXTERN
 void
-XMLAttributes_addWithNamespace (XMLAttributes_t *xa, const char *name, const char *value, const char* uri, const char* prefix);
+XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
+				const char *name,
+				const char *value,
+				const char* uri,
+				const char* prefix);
 
 
 /**
