@@ -23,6 +23,7 @@
 
 
 #include <cstring>
+#include <iostream>
 
 #include <xercesc/framework/LocalFileInputSource.hpp>
 #include <xercesc/framework/MemBufInputSource.hpp>
@@ -39,6 +40,54 @@
 
 using namespace std;
 using namespace xercesc;
+
+
+/**
+ * Subclass of Xerces' `SAXParseException' that can store the error code.
+ */
+class OurSAXParseException : public SAXParseException
+{
+public:
+  /**
+    * Create a new instance of OurSAXParseException.
+    * See also the `SAXParseException' in Xerces 2.7.0.
+    *
+    * @param message The error or warning message.
+    * @param publicId The public identifer of the entity that generated
+    *                 the error or warning.
+    * @param systemId The system identifer of the entity that generated
+    *                 the error or warning.
+    * @param lineNumber The line number of the end of the text that
+    *                   caused the error or warning.
+    * @param columnNumber The column number of the end of the text that
+    *                     caused the error or warning.
+    * @param manager    Pointer to the memory manager to be used to
+    *                   allocate objects.
+    * @param errorCode  Integer error code of what caused this exception.
+    *
+    * @see Parser#setLocale
+    */
+    OurSAXParseException
+    (
+     const int               theErrorCode
+     , const XMLCh* const    theMessage
+     , const XMLCh* const    thePublicId
+     , const XMLCh* const    theSystemId
+     , const XMLSSize_t      theLineNumber
+     , const XMLSSize_t      theColumnNumber 
+    ) : SAXParseException(theMessage, thePublicId, theSystemId,
+			  theLineNumber, theColumnNumber)
+      
+  {
+    lastXercesError = theErrorCode;
+  };
+
+  /**
+   * Last error code returned by the Xerces parser when it threw a
+   * `SAXParseException'.
+   */
+  int lastXercesError;
+};
 
 
 /**
@@ -59,9 +108,34 @@ public:
   virtual void XMLDecl (  const XMLCh* const version
                         , const XMLCh* const encoding
                         , const XMLCh* const standalone
-                        , const XMLCh* const autoEncoding )
+                        , const XMLCh* const autoEncoding
+		       )
   {
     mHandler.XML( XercesTranscode(version), XercesTranscode(encoding) );
+  }
+
+  /**
+   * The default error definition for SAX2XMLReaderImpl throws away the
+   * error code and doesn't report it, even if you install a custom
+   * error handler.  (SAXParseException doesn't even have a field for
+   * the error number.  WTF?)  We want that error code number.  There 
+   * doesn't seem to be a way to get it except by overriding the 
+   * definition of the `error' method.
+   */
+  virtual void error (  const unsigned int                errCode
+		      , const XMLCh* const                msgDomain
+		      , const XMLErrorReporter::ErrTypes  errType
+		      , const XMLCh* const                errorText
+		      , const XMLCh* const                systemId
+		      , const XMLCh* const                publicId
+		      , const XMLSSize_t                  lineNum
+		      , const XMLSSize_t                  colNum
+		     )
+  {
+    OurSAXParseException toThrow =
+      OurSAXParseException(errCode, errorText, publicId, systemId, 
+			   lineNum, colNum);
+    throw toThrow;
   }
 
   XMLHandler&  mHandler;
@@ -73,9 +147,9 @@ public:
  * of parse events and errors.
  */
 XercesParser::XercesParser (XMLHandler& handler) :
-   mReader ( 0       )
- , mSource ( 0       )
- , mHandler( handler )
+   mReader         ( 0       )
+ , mSource         ( 0       )
+ , mHandler        ( handler )
 {
   try
   {
@@ -83,7 +157,7 @@ XercesParser::XercesParser (XMLHandler& handler) :
 
     mReader = new XercesReader(handler); // XMLReaderFactory::createXMLReader();
 
-    mReader->setContentHandler( &mHandler );
+    mReader->setContentHandler(&mHandler);
     mReader->setErrorHandler(&mHandler);
 
     mReader->setFeature( XMLUni::fgSAX2CoreNameSpaces       , true );
@@ -248,84 +322,44 @@ XercesParser::parseFirst (const char* content, bool isFile)
 bool
 XercesParser::parseNext ()
 {
-
   bool result = true;
-  int nError = 0;
+  int nError  = 0;
+
   if ( error() ) return false;
 
   try
   {
     mReader->parseNext(mToken);
   }
-  catch (const SAXParseException& e)
+  catch (const OurSAXParseException& e)
   {
-    std::string  msg = XMLString::transcode( e.getMessage() );
-
-    /* error numbers are from the expat error enumeration
-     * xerces does not enumerate its saxexceptions
-     */
-    if (strncmp(msg.c_str(), "Expected end of tag", 19) == 0)
-    {
-      nError = 7;
-    }
-    else if (strncmp(msg.c_str(), "Expected whitespace", 19) == 0)
-    {
-      msg = "Not well formed";
-      nError = 4;
-    }
-    else if (strncmp(msg.c_str(), "Expected equal sign", 19) == 0)
-    {
-      nError = 4;
-    }
-    else if (strncmp(msg.c_str(), "Expected comment or", 19) == 0)
-    {
-      nError = 4;
-    }
-    else if (strncmp(msg.c_str(), "Expected an attribute value", 27) == 0)
-    {
-      msg += " - Not well formed";
-      nError = 4;
-    }
-    else if (strncmp(msg.c_str(), "The attribute '", 15) == 0)
-    {
-      nError = 8;
-    }
-    else if (strncmp(msg.c_str(), "No processing instruction starts with", 37) == 0)
-    {
-      nError = 17;
-    }
-    else if (strncmp(msg.c_str(), "Entity '", 8) == 0)
-    {
-      nError = 11;
-    }
-    else if (strncmp(msg.c_str(), "The prefix '", 12) == 0)
-    {
-      nError = 27;
-    }
-    else if (strncmp(msg.c_str(), "The value of the attribute '", 28) == 0)
-    {
-      nError = 28;
-    }
-
-    getErrorLog()->add( XMLError(nError, msg, 
-      XMLError::Error, "", e.getLineNumber(), e.getColumnNumber()));
-    
+    reportError(e.lastXercesError, e.getLineNumber(), e.getColumnNumber());
     result = false;
-
   }
   catch (const XMLException& e)
   {
-    char*           msg = XMLString::transcode( e.getMessage() );
-    result = false;
+    // This shouldn't happen.  If it does, we should figure out how to
+    // do the same trick as with OurSAXParseException so that we can
+    // report canonical error numbers for this case too.
+
+    char* msg = XMLString::transcode( e.getMessage() );
     getErrorLog()->add( XMLError(nError, msg, 
         XMLError::Error, "", e.getSrcLine(), 1));
+    result = false;
+  }
+  catch (const SAXParseException& e)
+  {
+    char* msg = "Unknown exception";
+    getErrorLog()->add( XMLError(nError, msg, 
+        XMLError::Error, "", 1, 1));
+    result = false;
   }
   catch (...)
   {
-    char * msg = "Unknown exception";
-    result = false;
+    char* msg = "Unknown exception";
     getErrorLog()->add( XMLError(nError, msg, 
         XMLError::Error, "", 1, 1));
+    result = false;
   }
   return result;
 }
@@ -346,3 +380,153 @@ XercesParser::parseReset ()
   delete mSource;
   mSource = 0;
 }
+
+/*
+ * Table mapping Xerces error codes to ours.  The error code numbers are not
+ * contiguous, hence the table has to map pairs of numbers rather than
+ * simply being an array of codes.  The table is an array of vectors of
+ * items [xerces code, our code], where `our code' is an error code
+ * taken from the enumeration XMLParser::errorCodes.
+ *
+ * See  /include/xercesc/framework/XMLErrorCodes.hpp
+ * and /src/xerces-c-src_2_7_0/src/xercesc/NLS/EN_US/XMLErrList_EN_US.Xml
+ */ 
+static struct xercesError {
+  const int                  xercesCode;
+  enum XMLParser::errorCodes ourCode;
+} xercesErrorTable[] = {
+  { XMLErrs::ExpectedEndOfTagX,       XMLParser::ErrorTagMismatch},
+  { XMLErrs::ExpectedWhitespace,      XMLParser::ErrorNotWellFormed},
+  { XMLErrs::ExpectedEqSign,          XMLParser::ErrorNotWellFormed},
+  { XMLErrs::ExpectedComment,         XMLParser::ErrorNotWellFormed},
+  { XMLErrs::ExpectedCommentOrPI,     XMLParser::ErrorNotWellFormed},
+  { XMLErrs::ExpectedAttrValue,       XMLParser::ErrorNotWellFormed},
+  { XMLErrs::AttrAlreadyUsedInSTag,   XMLParser::ErrorDupAttribute},
+  { XMLErrs::NoPIStartsWithXML,       XMLParser::ErrorBadProcessingInstruction},
+  { XMLErrs::EntityNotFound,          XMLParser::ErrorUndefinedEntity},
+  { XMLErrs::UnknownPrefix,           XMLParser::ErrorBadPrefixDefinition},
+  { XMLErrs::NoUseOfxmlnsAsPrefix,    XMLParser::ErrorBadPrefixDefinition},
+  { XMLErrs::PrefixXMLNotMatchXMLURI, XMLParser::ErrorBadPrefixDefinition},
+  { XMLErrs::NoEmptyStrNamespace,     XMLParser::ErrorBadPrefixValue},
+  // The next one should always be last.  It's used only as a marker.
+  { XMLErrs::F_HighBounds,            XMLParser::UnknownError},
+};
+
+
+void
+XercesParser::reportError (const int code,
+			   const unsigned int lineNumber,
+			   const unsigned int columnNumber)
+{
+  unsigned int tableSize = sizeof(xercesErrorTable)/sizeof(xercesErrorTable[0]);
+
+
+  if (code > 0 && code < XMLErrs::F_HighBounds)
+  {
+    // Iterate through the table, searching for a match for the given code.
+    // Yes, this is inefficient, but if we're already in an exception,
+    // who cares how efficient the error look-up is?
+
+    for (unsigned int i = 0; i < tableSize; i++)
+    {
+      if (xercesErrorTable[i].xercesCode == code)
+      {
+	if (mErrorLog)
+	{
+	  getErrorLog()->add( 
+	      XMLError(xercesErrorTable[i].ourCode,
+		       XMLParser::getErrorMessage(xercesErrorTable[i].ourCode),
+		       XMLError::Error,
+		       "", 
+		       lineNumber,
+		       columnNumber));
+	}
+	else
+	{
+	  // We have no error log, but we can't gloss over this error.  Use
+	  // the measure of last resort.
+
+	  cerr << "XML parsing error at line and column numbers " 
+	       << lineNumber << ":" << columnNumber << ":\n"
+	       << XMLParser::getErrorMessage(xercesErrorTable[i].ourCode)
+	       << endl;
+
+	}
+      }
+    };
+  }
+  else
+  {
+    // The given code doesn't correspond to any known Xerces error code.
+    // This must mean something is wrong with our code.
+    if (mErrorLog)
+    {
+      getErrorLog()->add(
+          XMLError(XMLParser::UnknownError,
+		   XMLParser::getErrorMessage(XMLParser::UnknownError),
+		   XMLError::Error,
+		   "",
+		   lineNumber,
+		   columnNumber));
+    }
+    else
+    {
+      cerr << "Internal error while parsing XML at line and column numbers "
+	   << lineNumber << ":" << columnNumber << ":\n"
+	   << XMLParser::getErrorMessage(XMLParser::UnknownError)
+	   << endl;
+    }
+  }
+};
+
+
+//     /* error numbers are from the expat error enumeration
+//      * xerces does not enumerate its saxexceptions
+//      */
+//     if (strncmp(msg.c_str(), "Expected end of tag", 19) == 0)
+//     {
+//       nError = 7;
+//     }
+//     else if (strncmp(msg.c_str(), "Expected whitespace", 19) == 0)
+//     {
+//       msg = "Not well formed";
+//       nError = 4;
+//     }
+//     else if (strncmp(msg.c_str(), "Expected equal sign", 19) == 0)
+//     {
+//       nError = 4;
+//     }
+//     else if (strncmp(msg.c_str(), "Expected comment or", 19) == 0)
+//     {
+//       nError = 4;
+//     }
+//     else if (strncmp(msg.c_str(), "Expected an attribute value", 27) == 0)
+//     {
+//       msg += " - Not well formed";
+//       nError = 4;
+//     }
+//     else if (strncmp(msg.c_str(), "The attribute '", 15) == 0)
+//     {
+//       nError = 8;
+//     }
+//     else if (strncmp(msg.c_str(), "No processing instruction starts with", 37) == 0)
+//     {
+//       nError = 17;
+//     }
+//     else if (strncmp(msg.c_str(), "Entity '", 8) == 0)
+//     {
+//       nError = 11;
+//     }
+//     else if (strncmp(msg.c_str(), "The prefix '", 12) == 0)
+//     {
+//       nError = 27;
+//     }
+//     else if (strncmp(msg.c_str(), "The value of the attribute '", 28) == 0)
+//     {
+//       nError = 28;
+//     }
+
+//     getErrorLog()->add( XMLError(nError, msg, 
+//       XMLError::Error, "", e.getLineNumber(), e.getColumnNumber()));
+    
+//     result = false;

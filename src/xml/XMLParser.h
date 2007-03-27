@@ -2,6 +2,8 @@
  * \file    XMLParser.h
  * \brief   XMLParser interface and factory
  * \author  Ben Bornstein
+ * \author  Sarah Keating
+ * \author  Michael Hucka
  *
  * $Id$
  * $Source$
@@ -120,6 +122,40 @@ public:
   virtual void parseReset () = 0;
 
   /**
+   * Canonical error codes returned for low-level XML parser errors.
+   * This is an abstraction of errors from the multiple parsers (Xerces,
+   * Expat, libxml2) supported by libSBML.
+   */
+  enum errorCodes
+  {
+      NoError                       = 0
+    , ErrorNoXMLDecl                = 1
+    , ErrorBadXMLDecl               = 2
+    , ErrorInvalidChar              = 3
+    , ErrorNotWellFormed            = 4
+    , ErrorUnclosedToken            = 5
+    , ErrorInvalidConstruct         = 6
+    , ErrorTagMismatch              = 7
+    , ErrorDupAttribute             = 8
+    , ErrorBadDOCTYPE               = 9
+    , ErrorUndefinedEntity          = 11
+    , ErrorBadProcessingInstruction = 17
+    , ErrorBadPrefixDefinition      = 27
+    , ErrorBadPrefixValue           = 28
+    , ErrorOutOfMemory              = 9998
+    // Make sure this is the last and highest-numbered item:
+    , UnknownError                  = 9999
+  };
+
+  /**
+   * Log or otherwise report the error from the parser indicated by the
+   * given integer code.
+   */
+  virtual void reportError (  const int code
+			    , const unsigned int lineNumber
+			    , const unsigned int columnNumber) = 0;
+
+  /**
    * Sets the XMLErrorLog this parser will use to log errors.
    */
   void setErrorLog (XMLErrorLog* log);
@@ -135,6 +171,12 @@ protected:
    * should use XMLParser::create().
    */
   XMLParser ();
+
+  /**
+   * Returns a string message given an error code taken from the
+   * 'errorCodes' enumeration.
+   */
+  const char *getErrorMessage (enum errorCodes code);
 
 
   XMLErrorLog* mErrorLog;

@@ -142,7 +142,6 @@ ExpatParser::parseFirst (const char* content, bool isFile)
 {
   if ( error() ) return false;
 
-
   if (isFile)
   {
     mSource = new XMLFileBuffer(content);
@@ -163,7 +162,7 @@ ExpatParser::parseFirst (const char* content, bool isFile)
     mHandler.startDocument();
   }
 
-  return parseNext();
+  return true;
 }
 
 
@@ -185,25 +184,17 @@ ExpatParser::parseNext ()
 
   if ( mSource->error() )
   {
-    fprintf(stderr, "error: Could not read from source buffer.\n");
+    cerr << "error: Could not read from source buffer." << endl;
     return false;
   }
+
+  // Attempt to parse the content, checking for the Expat return status.
+
   if ( XML_ParseBuffer(mParser, bytes, done) == XML_STATUS_ERROR )
   {
-    if (mErrorLog)
-    {
-      /* rather than report the error and continue we catch errors
-       * on the second read and add them to the error log
-       
-      fprintf( stderr, "XML parse error at line %i:\n%s\n",
-               XML_GetCurrentLineNumber(mParser),
-               XML_ErrorString(XML_GetErrorCode(mParser)) );
-      */
-      getErrorLog()->add( XMLError(XML_GetErrorCode(mParser), 
-        XML_ErrorString(XML_GetErrorCode(mParser)), 
-        XMLError::Error, "", XML_GetCurrentLineNumber(mParser), 
-        XML_GetCurrentColumnNumber(mParser)));
-    }
+    reportError(XML_GetErrorCode(mParser),
+		XML_GetCurrentLineNumber(mParser),
+		XML_GetCurrentColumnNumber(mParser));
     return false;
   }
 
@@ -225,4 +216,109 @@ ExpatParser::parseReset ()
 {
   delete mSource;
   mSource = 0;
+}
+
+
+/*
+ * Expat's error messages are conveniently defined as a consecutive
+ * sequence starting from 0.  This makes a translation table easy to
+ * create.  The indexes into this table are the Expat codes, and the
+ * values are our own error codes.
+ */
+static enum XMLParser::errorCodes expatErrorTable[] = {
+  XMLParser::NoError,                       // XML_ERROR_NONE
+  XMLParser::ErrorOutOfMemory,              // XML_ERROR_NO_MEMORY
+  XMLParser::ErrorNotWellFormed,            // XML_ERROR_SYNTAX
+  XMLParser::ErrorNotWellFormed,            // XML_ERROR_NO_ELEMENTS
+  XMLParser::ErrorNotWellFormed,            // XML_ERROR_INVALID_TOKEN
+  XMLParser::ErrorUnclosedToken,            // XML_ERROR_UNCLOSED_TOKEN
+  XMLParser::ErrorInvalidChar,              // XML_ERROR_PARTIAL_CHAR
+  XMLParser::ErrorTagMismatch,              // XML_ERROR_TAG_MISMATCH
+  XMLParser::ErrorDupAttribute,             // XML_ERROR_DUPLICATE_ATTRIBUTE
+  XMLParser::ErrorBadDOCTYPE,               // XML_ERROR_JUNK_AFTER_DOC_ELEMENT
+  XMLParser::UnknownError,                  // XML_ERROR_PARAM_ENTITY_REF
+  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_UNDEFINED_ENTITY
+  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_RECURSIVE_ENTITY_REF
+  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_ASYNC_ENTITY
+  XMLParser::ErrorInvalidChar,              // XML_ERROR_BAD_CHAR_REF
+  XMLParser::ErrorInvalidChar,              // XML_ERROR_BINARY_ENTITY_REF
+  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_ATTRIBUTE_EXTERNAL_ENTITY_REF
+  XMLParser::ErrorBadProcessingInstruction, // XML_ERROR_MISPLACED_XML_PI
+  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_UNKNOWN_ENCODING
+  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_INCORRECT_ENCODING
+  XMLParser::ErrorNotWellFormed,            // XML_ERROR_UNCLOSED_CDATA_SECTION
+  XMLParser::ErrorInvalidConstruct,         // XML_ERROR_EXTERNAL_ENTITY_HANDLING
+  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_NOT_STANDALONE
+  XMLParser::UnknownError,                  // XML_ERROR_UNEXPECTED_STATE
+  XMLParser::UnknownError,                  // XML_ERROR_ENTITY_DECLARED_IN_PE
+  XMLParser::ErrorInvalidConstruct,         // XML_ERROR_FEATURE_REQUIRES_XML_DTD
+  XMLParser::ErrorInvalidConstruct,         // XML_ERROR_CANT_CHANGE_FEATURE_ONCE_PARSING
+  XMLParser::ErrorBadPrefixDefinition,      // XML_ERROR_UNBOUND_PREFIX
+  XMLParser::ErrorBadPrefixValue,           // XML_ERROR_UNDECLARING_PREFIX
+  XMLParser::ErrorBadProcessingInstruction, // XML_ERROR_INCOMPLETE_PE
+  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_XML_DECL
+  XMLParser::UnknownError,                  // XML_ERROR_TEXT_DECL
+  XMLParser::UnknownError,                  // XML_ERROR_PUBLICID
+  XMLParser::UnknownError,                  // XML_ERROR_SUSPENDED
+  XMLParser::UnknownError,                  // XML_ERROR_NOT_SUSPENDED
+  XMLParser::UnknownError,                  // XML_ERROR_ABORTED
+  XMLParser::UnknownError,                  // XML_ERROR_FINISHED
+  XMLParser::UnknownError                   // XML_ERROR_SUSPEND_PE
+};
+
+
+void
+ExpatParser::reportError (const int expatCode,
+			  const unsigned int lineNumber,
+			  const unsigned int columnNumber)
+{
+  int numTableEntries = sizeof(expatErrorTable)/sizeof(expatErrorTable[0]);
+
+  if (expatCode > 0 && expatCode < numTableEntries)
+  {
+    enum XMLParser::errorCodes code = expatErrorTable[expatCode];
+
+    if (mErrorLog)
+    {
+      getErrorLog()->add(XMLError(code,
+				  XMLParser::getErrorMessage(code),
+				  XMLError::Error,
+				  "", 
+				  lineNumber,
+				  columnNumber));
+    }
+    else
+    {
+      // We have no error log, but we can't gloss over this error.  Use the
+      // measure of last resort.
+
+      cerr << "XML parsing error at line and column numbers " 
+	   << lineNumber << ":" << columnNumber << ":\n"
+	   << XMLParser::getErrorMessage(code)
+	   << endl;
+    }
+  }
+  else
+  {
+    // The given code doesn't correspond to any known Expat error code.
+    // This must mean something is wrong with our code.
+
+    if (mErrorLog)
+    {
+      getErrorLog()->add(
+          XMLError(XMLParser::UnknownError,
+		   XMLParser::getErrorMessage(XMLParser::UnknownError),
+		   XMLError::Error,
+		   "",
+		   lineNumber,
+		   columnNumber));
+    }
+    else
+    {
+      cerr << "Internal error while parsing XML at line and column numbers "
+	   << lineNumber << ":" << columnNumber << ":\n"
+	   << XMLParser::getErrorMessage(XMLParser::UnknownError)
+	   << endl;
+    }
+  }
 }

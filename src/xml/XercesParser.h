@@ -106,7 +106,15 @@ public:
    * Resets the progressive parser.  Call between the last call to
    * parseNext() and the next call to parseFirst().
    */
-  virtual void parseReset ();
+  virtual void parseReset();
+
+  /**
+   * Log or otherwise report the error from the parser indicated by the
+   * given integer code.
+   */
+  virtual void reportError (  const int code
+			    , const unsigned int lineNumber
+			    , const unsigned int columnNumber);
 
 
 protected:
