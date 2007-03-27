@@ -205,7 +205,6 @@ UnitsBase::checkFunction (const Model& m,
   unsigned int i, nodeCount;
   unsigned int noBvars;
   ASTNode * fdMath;
-  ASTNode *newMath;
   const FunctionDefinition *fd = m.getFunctionDefinition(node.getName());
 
   if (fd)
