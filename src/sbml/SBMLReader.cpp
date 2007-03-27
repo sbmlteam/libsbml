@@ -131,26 +131,29 @@ SBMLReader::readInternal (const char* content, bool isFile)
   }
   else
   {
-  
-    XMLInputStream stream(content, isFile);
+    XMLInputStream stream(content, isFile, "", d->getErrorLog());
 
-    if (stream.getEncoding() == "")
-    {
-      d->getErrorLog()->logError(00002, 0);
-    }
-    else if (stream.getEncoding() != "UTF-8")
-    {
-      d->getErrorLog()->logError(10101, 0);
-    }
-
-    stream.setErrorLog( d->getErrorLog() );
     d->read(stream);
+    
+    // Low-level XML errors will have been caught in the first read,
+    // before we even attempt to interpret the content as SBML.
 
-    if (d->getModel() == 0)
+    if (! stream.isError())
     {
-      d->getErrorLog()->logError(20201, 0);
-    }
+      if (stream.getEncoding() == "")
+      {
+	d->getErrorLog()->logError(00002, 0);
+      }
+      else if (stream.getEncoding() != "UTF-8")
+      {
+	d->getErrorLog()->logError(10101, 0);
+      }
 
+      if (d->getModel() == 0)
+      {
+	d->getErrorLog()->logError(20201, 0);
+      }
+    }
   }
   return d;
 }
