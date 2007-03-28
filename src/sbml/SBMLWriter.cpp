@@ -119,7 +119,7 @@ SBMLWriter::write (const SBMLDocument* d, ostream& stream)
 
     result = true;
   }
-  catch (ios_base::failure& e)
+  catch (ios_base::failure&)
   {
   }
 

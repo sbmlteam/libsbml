@@ -347,7 +347,7 @@ XercesParser::parseNext ()
         XMLError::Error, "", e.getSrcLine(), 1));
     result = false;
   }
-  catch (const SAXParseException& e)
+  catch (const SAXParseException&)
   {
     char* msg = "Unknown exception";
     getErrorLog()->add( XMLError(nError, msg, 
