@@ -104,7 +104,7 @@ public:
    * parseNext() and the next call to parseFirst().
    */
   virtual void reportError (  const int code
-			    , const unsigned int lineNumber,
+			    , const unsigned int lineNumber
 			    , const unsigned int columnNumber);
 
   /**
