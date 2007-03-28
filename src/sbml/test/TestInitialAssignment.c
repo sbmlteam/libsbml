@@ -51,6 +51,7 @@
 
 #include "common/common.h"
 #include "math/FormulaParser.h"
+#include "math/FormulaFormatter.h"
 
 #include "SBase.h"
 #include "InitialAssignment.h"
@@ -153,7 +154,7 @@ START_TEST (test_InitialAssignment_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("2 * k");
   char *formula;
-  ASTNode_t *math1;
+  const ASTNode_t *math1;
 
   InitialAssignment_setMath(IA, math);
 

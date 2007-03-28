@@ -51,6 +51,8 @@
 
 #include "common/common.h"
 
+#include "math/FormulaFormatter.h"
+#include "math/FormulaParser.h"
 
 #include "SBase.h"
 #include "SpeciesReference.h"
@@ -207,7 +209,7 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 {
   ASTNode_t *math = SBML_parseFormula("k3 / k2");
 
-  ASTNode_t * math1;
+  const ASTNode_t * math1;
   char * formula;
 
 

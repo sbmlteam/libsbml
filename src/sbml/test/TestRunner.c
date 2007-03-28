@@ -165,9 +165,10 @@ main (void)
 
 /*  srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
   
- /* srunner_add_suite( runner, create_suite_AssignmentRule           () );
-  
+  srunner_add_suite( runner, create_suite_AssignmentRule  () );
   */
+  
+  
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentType          () );
   srunner_add_suite( runner, create_suite_Constraint                    () );
@@ -187,7 +188,7 @@ main (void)
   srunner_add_suite( runner, create_suite_UnitKind                 () );
   srunner_add_suite( runner, create_suite_CopyAndClone                    () );
 /*  srunner_add_suite( runner, create_suite_Rule                     () );
-/* srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
+  srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
   srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
   srunner_add_suite( runner, create_suite_ParameterRule            () );
@@ -197,11 +198,7 @@ main (void)
   srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_SBMLConvert              () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
- * these files no longer exist in libSBML - SK 13/02/2007
-  srunner_add_suite( runner, create_suite_SBMLFormatter            () );
-  srunner_add_suite( runner, create_suite_SBMLHandler              () );
-*/
-/*
+
   srunner_add_suite( runner, create_suite_SBMLReader               () );
   srunner_add_suite( runner, create_suite_SBMLWriter               () );
   srunner_add_suite( runner, create_suite_SimpleSpeciesReference   () );

@@ -207,7 +207,7 @@ START_TEST (test_KineticLaw_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("k3 / k2");
   char *formula;
-  ASTNode_t *math1;
+  const ASTNode_t *math1;
 
 
   KineticLaw_setMath(KL, math);

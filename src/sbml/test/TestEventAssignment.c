@@ -51,6 +51,7 @@
 
 #include "common/common.h"
 #include "math/FormulaParser.h"
+#include "math/FormulaFormatter.h"
 
 #include "SBase.h"
 #include "EventAssignment.h"
@@ -97,9 +98,6 @@ START_TEST (test_EventAssignment_createWith)
 {
   ASTNode_t         *math = SBML_parseFormula("0");
   EventAssignment_t *ea   = EventAssignment_createWith("k", math);
-
-  ASTNode_t *math1;
-  char * formula;
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ea) == SBML_EVENT_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) ea) == NULL );
@@ -159,7 +157,7 @@ START_TEST (test_EventAssignment_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("2 * k");
   char *formula;
-  ASTNode_t *math1;
+  const ASTNode_t *math1;
 
   EventAssignment_setMath(EA, math);
 

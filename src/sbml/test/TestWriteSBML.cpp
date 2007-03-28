@@ -1666,7 +1666,7 @@ START_TEST (test_WriteSBML_KineticLaw_ListOfParameters_notes_L2v1)
   fail_unless( equals(expected) );
 }
 END_TEST
-*/
+
 
 START_TEST (test_WriteSBML_Event)
 {
@@ -1681,7 +1681,7 @@ START_TEST (test_WriteSBML_Event)
   fail_unless( equals(expected) );
 }
 END_TEST
-
+*/
 
 START_TEST (test_WriteSBML_Event_trigger)
 {
@@ -1711,7 +1711,7 @@ START_TEST (test_WriteSBML_Event_trigger)
 }
 END_TEST
 
-
+/*
 START_TEST (test_WriteSBML_Event_delay)
 {
   const char* expected = wrapXML
@@ -1735,7 +1735,7 @@ START_TEST (test_WriteSBML_Event_delay)
   fail_unless( equals(expected) );
 }
 END_TEST
-
+*/
 
 START_TEST (test_WriteSBML_Event_both)
 {
