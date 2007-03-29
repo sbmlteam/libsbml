@@ -163,6 +163,11 @@ LibXMLParser::parseFirst (const char* content, bool isFile)
     mSource = new XMLMemoryBuffer(content, strlen(content));
   }
 
+  if ( !error() )
+  {
+    mHandler.startDocument();
+  }
+
   return true;
 }
 
@@ -189,8 +194,14 @@ LibXMLParser::parseNext ()
 
   if ( xmlParseChunk(mParser, mBuffer, bytes, done) )
   {
-    reportError();
+    reportError(((*mParser).lastError).code ,
+      ((*mParser).lastError).line,((*mParser).lastError).int2);
     return false;
+  }
+
+  if ( !error() && done )
+  {
+    mHandler.endDocument();
   }
 
   return !done;
@@ -210,41 +221,203 @@ LibXMLParser::parseReset ()
   mSource = 0;
 }
 
+/*
+ * Table mapping libXML error codes to ours.  The error code numbers are not
+ * contiguous, hence the table has to map pairs of numbers rather than
+ * simply being an array of codes.  The table is an array of vectors of
+ * items [libxml code, our code], where `our code' is an error code
+ * taken from the enumeration XMLParser::errorCodes.
+ *
+ * See  /include/xercesc/framework/XMLErrorCodes.hpp
+ * and /src/xerces-c-src_2_7_0/src/xercesc/NLS/EN_US/XMLErrList_EN_US.Xml
+ */ 
+static struct libxmlErrors {
+  const int                  libxmlCode;
+  enum XMLParser::errorCodes ourCode;
+} libxmlErrorTable[] = {
+/* XML_ERR_INTERNAL_ERROR */            { 1, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NO_MEMORY */                 { 2, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_DOCUMENT_START */            { 3, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_DOCUMENT_EMPTY */            { 4, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_DOCUMENT_END */              { 5, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_INVALID_HEX_CHARREF */       { 6, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_INVALID_DEC_CHARREF */       { 7, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_INVALID_CHARREF */           { 8, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_INVALID_CHAR */              { 9, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CHARREF_AT_EOF */            { 10, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CHARREF_IN_PROLOG */         { 11, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CHARREF_IN_EPILOG */         { 12, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CHARREF_IN_DTD */            { 13, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITYREF_AT_EOF */          { 14, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITYREF_IN_PROLOG */       { 15, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITYREF_IN_EPILOG */       { 16, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITYREF_IN_DTD */          { 17, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PEREF_AT_EOF */              { 18, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PEREF_IN_PROLOG */           { 19, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PEREF_IN_EPILOG */           { 20, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PEREF_IN_INT_SUBSET */       { 21, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITYREF_NO_NAME */         { 22, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITYREF_SEMICOL_MISSING */ { 23, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PEREF_NO_NAME */             { 24, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PEREF_SEMICOL_MISSING */     { 25, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_UNDECLARED_ENTITY */         { 26, XMLParser::ErrorBadProcessingInstruction},
+/* XML_WAR_UNDECLARED_ENTITY */         { 27, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_UNPARSED_ENTITY */           { 28, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_IS_EXTERNAL */        { 29, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_IS_PARAMETER */       { 30, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_UNKNOWN_ENCODING */          { 31, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_UNSUPPORTED_ENCODING */      { 32, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_STRING_NOT_STARTED */        { 33, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_STRING_NOT_CLOSED */         { 34, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NS_DECL_ERROR */             { 35, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_NOT_STARTED */        { 36, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_NOT_FINISHED */       { 37, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_LT_IN_ATTRIBUTE */           { 38, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ATTRIBUTE_NOT_STARTED */     { 39, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ATTRIBUTE_NOT_FINISHED */    { 40, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ATTRIBUTE_WITHOUT_VALUE */   { 41, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ATTRIBUTE_REDEFINED */       { 42, XMLParser::ErrorDupAttribute},
+/* XML_ERR_LITERAL_NOT_STARTED */       { 43, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_LITERAL_NOT_FINISHED */      { 44, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_COMMENT_NOT_FINISHED */      { 45, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PI_NOT_STARTED */            { 46, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PI_NOT_FINISHED */           { 47, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NOTATION_NOT_STARTED */      { 48, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NOTATION_NOT_FINISHED */     { 49, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ATTLIST_NOT_STARTED */       { 50, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ATTLIST_NOT_FINISHED */      { 51, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_MIXED_NOT_STARTED */         { 52, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_MIXED_NOT_FINISHED */        { 53, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ELEMCONTENT_NOT_STARTED */   { 54, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ELEMCONTENT_NOT_FINISHED */  { 55, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_XMLDECL_NOT_STARTED */       { 56, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_XMLDECL_NOT_FINISHED */      { 57, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CONDSEC_NOT_STARTED */       { 58, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CONDSEC_NOT_FINISHED */      { 59, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_EXT_SUBSET_NOT_FINISHED */   { 60, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_DOCTYPE_NOT_FINISHED */      { 61, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_MISPLACED_CDATA_END */       { 62, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CDATA_NOT_FINISHED */        { 63, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_RESERVED_XML_NAME */         { 64, XMLParser::ErrorBadProcessingInstruction},
+/* XML_ERR_SPACE_REQUIRED */            { 65, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_SEPARATOR_REQUIRED */        { 66, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NMTOKEN_REQUIRED */          { 67, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NAME_REQUIRED */             { 68, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PCDATA_REQUIRED */           { 69, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_URI_REQUIRED */              { 70, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_PUBID_REQUIRED */            { 71, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_LT_REQUIRED */               { 72, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_GT_REQUIRED */               { 73, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_LTSLASH_REQUIRED */          { 74, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_EQUAL_REQUIRED */            { 75, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_TAG_NAME_MISMATCH */         { 76, XMLParser::ErrorBadPrefixDefinition},
+/* XML_ERR_TAG_NOT_FINISHED */          { 77, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_STANDALONE_VALUE */          { 78, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENCODING_NAME */             { 79, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_HYPHEN_IN_COMMENT */         { 80, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_INVALID_ENCODING */          { 81, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_EXT_ENTITY_STANDALONE */     { 82, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CONDSEC_INVALID */           { 83, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_VALUE_REQUIRED */            { 84, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NOT_WELL_BALANCED */         { 85, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_EXTRA_CONTENT */             { 86, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_CHAR_ERROR */         { 87, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_PE_INTERNAL */        { 88, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_LOOP */               { 89, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_BOUNDARY */           { 90, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_INVALID_URI */               { 91, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_URI_FRAGMENT */              { 92, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_CATALOG_PI */                { 93, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NO_DTD */                    { 94, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_CONDSEC_INVALID_KEYWORD */   { 95, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_VERSION_MISSING */           { 96, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_UNKNOWN_VERSION */           { 97, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_LANG_VALUE */                { 98, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_NS_URI */                    { 99, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_NS_URI_RELATIVE */           { 100, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_MISSING_ENCODING */          { 101, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_SPACE_VALUE */               { 102, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NOT_STANDALONE */            { 103, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_ENTITY_PROCESSING */         { 104, XMLParser::ErrorNotWellFormed},
+/* XML_ERR_NOTATION_PROCESSING */       { 105, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_NS_COLUMN */                 { 106, XMLParser::ErrorNotWellFormed},
+/* XML_WAR_ENTITY_REDEFINED */          { 107, XMLParser::ErrorNotWellFormed},
+/* XML_NS_ERR_XML_NAMESPACE */          { 200, XMLParser::ErrorNotWellFormed},
+/* XML_NS_ERR_UNDEFINED_NAMESPACE */    { 201, XMLParser::ErrorBadPrefixDefinition},
+/* XML_NS_ERR_QNAME */                  { 202, XMLParser::ErrorNotWellFormed},
+/* XML_NS_ERR_ATTRIBUTE_REDEFINED */    { 203, XMLParser::ErrorNotWellFormed},
+/* XML_NS_ERR_EMPTY */                  { 204, XMLParser::ErrorNotWellFormed},
+  // The next one should always be last.  It's used only as a marker.
+                                        { 205, XMLParser::UnknownError},
+};
 
 void
 LibXMLParser::reportError (const int code,
 			   const unsigned int lineNumber,
 			   const unsigned int columnNumber)
 {
+  unsigned int tableSize = sizeof(libxmlErrorTable)/sizeof(libxmlErrorTable[0]);
   xmlErrorPtr libxmlError = xmlGetLastError();
 
 
-#if 0
-
-  if (mErrorLog)
+  if (code > 0 && code < 205)
   {
-    getErrorLog()->add(XMLError(code,
-				XMLParser::getErrorMessage(code),
-				XMLError::Error,
-				"",
-				libxmlError.line,
-				libxmlError.int2));
+    // Iterate through the table, searching for a match for the given code.
+    // Yes, this is inefficient, but if we're already in an exception,
+    // who cares how efficient the error look-up is?
+
+    for (unsigned int i = 0; i < tableSize; i++)
+    {
+      if (libxmlErrorTable[i].libxmlCode == code)
+      {
+        if (mErrorLog)
+        {
+	        getErrorLog()->add( 
+	            XMLError(libxmlErrorTable[i].ourCode,
+		            XMLParser::getErrorMessage(libxmlErrorTable[i].ourCode),
+		            XMLError::Error,
+				      "",
+				      libxmlError->line,
+				      libxmlError->int2));
+        }
+        else
+        {
+          // We have no error log, but we can't gloss over this error.  Use the
+          // measure of last resort.
+
+          cerr << "XML parsing error at line and column numbers " 
+	      << libxmlError->line << ":"
+	      << libxmlError->int2 << ":\n"
+	      << XMLParser::getErrorMessage(libxmlErrorTable[i].ourCode) << endl;
+        }
+    }
+      }
   }
   else
   {
-    // We have no error log, but we can't gloss over this error.  Use the
-    // measure of last resort.
+    // The given code doesn't correspond to any known Expat error code.
+    // This must mean something is wrong with our code.
 
-    cerr << "XML parsing error at line and column numbers " 
-	 << libxmlError.line << ":"
-	 << libxmlError.int2 << ":\n"
-	 << XMLParser::getErrorMessage(code) << endl;
+    if (mErrorLog)
+    {
+      getErrorLog()->add(
+          XMLError(XMLParser::UnknownError,
+		  XMLParser::getErrorMessage(XMLParser::UnknownError),
+		  XMLError::Error,
+		  "",
+		  lineNumber,
+		  columnNumber));
+    }
+    else
+    {
+      cerr << "Internal error while parsing XML at line and column numbers "
+	          << lineNumber << ":" << columnNumber << ":\n"
+	          << XMLParser::getErrorMessage(XMLParser::UnknownError)
+	          << endl;
+    }
   }
 
-#endif
-
 }
-
 
 /*
  * Notes about libxml2 data structures.

@@ -183,6 +183,8 @@ TestFile::getFilesIn ( const string& directory,
       unsigned int id = file.getConstraintId();
 
       if (id == 10309) continue;
+      else if (id == 7) continue;
+      else if (id == 28) continue;
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {

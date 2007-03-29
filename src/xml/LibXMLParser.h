@@ -31,10 +31,12 @@
 
 #include <sbml/xml/XMLParser.h>
 #include <sbml/xml/LibXMLHandler.h>
+#include <sbml/xml/XMLErrorLog.h>
 
 
 class XMLBuffer;
 class XMLHandler;
+class XMLErrorLog;
 
 
 class LibXMLParser : public XMLParser
@@ -103,15 +105,15 @@ public:
    * Resets the progressive parser.  Call between the last call to
    * parseNext() and the next call to parseFirst().
    */
-  virtual void reportError (  const int code
-			    , const unsigned int lineNumber
-			    , const unsigned int columnNumber);
-
+  virtual void parseReset ();
   /**
    * Log or otherwise report the error from the parser indicated by the
    * given integer code.
    */
-  virtual void reportError ();
+  virtual void reportError (  const int code
+			    , const unsigned int lineNumber
+			    , const unsigned int columnNumber);
+
 
 
 protected:
