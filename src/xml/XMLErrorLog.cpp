@@ -36,7 +36,7 @@ using namespace std;
 /**
  * Creates a new empty XMLErrorLog.
  */
-XMLErrorLog::XMLErrorLog ()
+XMLErrorLog::XMLErrorLog ():mParser(NULL)
 {
 }
 
@@ -60,12 +60,12 @@ XMLErrorLog::add (const XMLError& error)
   if (error.getLine() == 0 && error.getColumn() == 0)
   {
     unsigned int line, column;
-    try
+    if(mParser!=NULL)
     {
       line = mParser->getLine();
       column = mParser->getColumn();
     }
-    catch (...)
+    else
     {
       line = 1;
       column = 1;
