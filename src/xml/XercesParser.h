@@ -35,7 +35,7 @@
 #include <sbml/xml/XercesHandler.h>
 
 
-class xercesc::SAX2XMLReader;
+class SAX2XMLReader;
 class XMLHandler;
 
 
