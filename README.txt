@@ -17,6 +17,9 @@
        Please join the libsbml-discuss mailing list by visiting
 	    http://www.sbml.org/forums/index.php?t=pre_reg
 
+       Please report problems with libSBML using the tracker at
+	    http://sbml.org/software/libsbml/issue-tracker
+
    ,----------------------------------------------------------------.
   | Table of contents                                               |
   | 1. Quick start                                                  |
@@ -25,6 +28,7 @@
   | 4. Building on Windows with Visual C++                          |
   | 5. The libsbml-discuss mailing list                             |
   | 6. The sbml-cvs-libsbml mailing list                            |
+  | 7. Reporting bugs and other problems                            |
    `----------------------------------------------------------------'
     Date of last update to this file: $Date$
 
@@ -35,8 +39,8 @@
 
 If you are using the Xerces XML library, beware there is a bug in
 Xerces 2.6.0 that cannot be worked around at this time and causes
-errors in software using it.  Xerces versions 2.2 - 2.5 are known to
-work properly and we recommend Xerces 2.5 as the preferred version.
+errors in software using it.  Xerces versions 2.2 - 2.5 and 2.7.0
+are known to work properly.  We recommend Xerces 2.5.
 
 1.1 Linux, MacOS X and Solaris
 ------------------------------
@@ -56,7 +60,7 @@ By default, libSBML only builds the C and C++ API library.  If you
 want to configure libSBML to build the Java, Python, Perl, Lisp and/or
 MATLAB API libraries as well, add the flags --with-java,
 --with-python, --with-perl, --with-lisp and/or --with-matlab to the
-configure command.  You can mix and match options as you need.
+configure command.  You can combine options as you need.
 
 Depending on your system, you may need to tell the configure program
 where to find some of these extra components by adding a directory
@@ -463,6 +467,21 @@ join the list by visiting the following URL:
 
 Thank you for your interest in SBML and libSBML.
 
+
+------------------------------------
+7. REPORTING BUGS AND OTHER PROBLEMS
+------------------------------------
+
+We invite you to report bugs and other problems using the issue
+tracker for libSBML on SourceForge.  The following URL will take you
+there directly:
+
+  http://sbml.org/software/libsbml/issue-tracker
+
+You can also report problems on libsbml-discuss@caltech.edu.  This may
+even have advantages, such as that other people may also have
+experienced the issue and offer a workaround more quickly than the
+libSBML developers can respond.
 
 
 
