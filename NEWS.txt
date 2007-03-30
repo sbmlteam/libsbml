@@ -1,39 +1,60 @@
            libsbml NEWS -- History of user-visible changes
 
  
- === Version 3.0.0 beta ===
+ === Version 3.0.0 beta_2 ===
 
 * New Features:
 
-  - XML Parsing Layer has been completely revamped to provide a top
-    layer with which the user interacts and a lower layer that implements
-    support for Xerces, Expat and libXML parsers.
-    
-  - Notes and Annotations are saved as XMLNodes (based on the parsing layer).
+  - There is a new XML parser abstraction layer, and identical
+    functionality and checking of XML syntax is now available no
+    matter whether you use Expat, Xerces or libxml2 as the underlying
+    XML parser.
   
-  - Trigger and Delay elements of an Event are implemented as SBase objects.
+  - LibSBML now implements a thorough system for dimensional analysis
+    and checking units of quantities in a model.  The validation rules
+    for units that are specified in SBML Level 2 Vers. 2 and Vers.  3
+    are fully implemented, including the checking units in
+    mathematical formulas.
   
-  - Errors/Warnings/Fatals have been amalgamated into one Error class with a
-    Severity field that stores information relating to the type of error.
-    There is only one printError function but the individual errors can be
-    queried to establish their severity.
-    
-  - In order to facilitate the support of MIRIAM compatible annotations there
-    are new classes ModelHistory and CVTerm that facilitate the creation and
-    addition of annotation by providing parsing functions between these classes
-    and XMLNodes to be added to the annotation element. Both ModelHistory and 
-    CVTerm follow the general libSBML format of providing getters and setters
-    for each variable stored within the class.
-
-  - FunctionDefinitions now have convenience methods to access
-    function arguments (getArgument() and getNumArguments()) and the
-    function body (getBody()) directly.  Arguments may be accessed by
-    position or variable name.  Corresponding functions for the
-    libSBML C interface exist as well.
-
-  - All the consistency checks listed in the SBML specification have been
-    implemented.
-
+  - Annotations and notes are now read and manipulated as XML structures
+    instead of text strings.  Further, in order to facilitate the
+    support of MIRIAM compatible annotations, there are new object
+    classes ModelHistory and CVTerm.  These classes facilitate the
+    creation and addition of RDF annotations inside <annotation>
+    elements by providing parsing and manipulation functions that treat
+    the annotations in terms of XMLNode objects implemented by the new
+    XML layer.  Both ModelHistory and CVTerm follow the general libSBML
+    format of providing getters and setters for each variable stored
+    within the class.
+  
+  - LibSBML 3.0.0 implements a number of changes to memory handling
+    improve consistency and memory management.  Examples: LibSBML
+    methods now copy objects passed to them, and classes implement
+    virtual copy constructors via .clone() methods.
+  
+  - The Level 2 and Level 1 object models are now unified.  All objects
+    have .getSBMLDocument(), .getModel(), .getLevel(), and
+    .getVersion(), among other things.  Also, the interface to SBML
+    rules abstracts away some of the individual rule type (assignment,
+    rate, algebraic) differences.
+  
+  - FunctionDefinitions now have convenience methods to access function
+    arguments (getArgument() and getNumArguments()) and the function
+    body (getBody()) directly.  Arguments may be accessed by position or
+    variable name.  Corresponding functions for the libSBML C interface
+    exist as well.
+  
+  - Errors/Warnings/Fatals have been amalgamated into one Error class
+    with a Severity field that stores information relating to the type
+    of error.  There is only one printError function but the individual
+    errors can be queried to determine their severity.
+  
+  - LibSBML 3.0.0 implements all the validation rules defined in the
+    SBML specifications for L2 Version 2 and Version 3.
+  
+  - The Trigger and Delay elements of an Event are now properly
+    implemented as SBase objects.
+  
 
 * Bug Fixes:
 
