@@ -336,8 +336,9 @@ else
 fi
 
 echo ""
-echo "Build Settings for ${PACKAGE_TARNAME} v${PACKAGE_VERSION}:"
-echo "----------------------------------"
+echo "Configure reports host OS as being $host_os."
+echo "Using the following settings for ${PACKAGE_TARNAME} v${PACKAGE_VERSION}:"
+echo "------------------------------------------------"
 echo "  host type              = $HOST_TYPE"
 echo "  install dir            = $prefix"
 echo "  XML library            = $xml_library"
