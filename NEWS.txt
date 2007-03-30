@@ -1,11 +1,29 @@
            libsbml NEWS -- History of user-visible changes
 
-                              D R A F T
-
-
-=== Version 2.3.5 ===
+ 
+ === Version 3.0.0 beta ===
 
 * New Features:
+
+  - XML Parsing Layer has been completely revamped to provide a top
+    layer with which the user interacts and a lower layer that implements
+    support for Xerces, Expat and libXML parsers.
+    
+  - Notes and Annotations are saved as XMLNodes (based on the parsing layer).
+  
+  - Trigger and Delay elements of an Event are implemented as SBase objects.
+  
+  - Errors/Warnings/Fatals have been amalgamated into one Error class with a
+    Severity field that stores information relating to the type of error.
+    There is only one printError function but the individual errors can be
+    queried to establish their severity.
+    
+  - In order to facilitate the support of MIRIAM compatible annotations there
+    are new classes ModelHistory and CVTerm that facilitate the creation and
+    addition of annotation by providing parsing functions between these classes
+    and XMLNodes to be added to the annotation element. Both ModelHistory and 
+    CVTerm follow the general libSBML format of providing getters and setters
+    for each variable stored within the class.
 
   - FunctionDefinitions now have convenience methods to access
     function arguments (getArgument() and getNumArguments()) and the
@@ -13,23 +31,8 @@
     position or variable name.  Corresponding functions for the
     libSBML C interface exist as well.
 
-  - The remaining consistency checks have been completed:
-
-      - In FunctionDefinitions <lambda> must be the top-level element.
-      - FunctionDefinitions are checked for undefined variables.
-
-      * BELOW NOT YET DONE *
-
-      - FunctionDefinitions may not be recursive or mutually recursive.
-
-      - <lambda> may not be used anywhere else in libSBML
-
-      - Variables in <math> must refer  to Species, Compartments,
-        or Parameters.  KineticLaw <math> may refer to local
-        Parameters.
-
-      - User-defined functions called in <math> must refer to
-        FunctionDefinitions in the Model.
+  - All the consistency checks listed in the SBML specification have been
+    implemented.
 
 
 * Bug Fixes:
@@ -39,19 +42,7 @@
      of AST_FUNCTION_DELAY.  Thanks to Nicolas Rodriguez for reporting
      this bug.
 
-   - The Matlab configuration scripts did not account for the
-     possibility of having a 64-bit Matlab on Linux (e.g., SuSE Linux
-     on AMD Opteron systems).  Thanks to Martin Monaghan for reporting
-     the problem and Mike Hucka for fixing it.
-
-   - The Java version detection code for the --with-java configure
-     flag was unable to properly find the Java 1.5 that was installed
-     with recent versions of MacOSX.  This should be fixed.  Thanks to
-     Jeremy Purvis for finding the problem and providing an initial
-     patch to libsbml-discuss.  The final fix was done slightly
-     differently by Mike Hucka and affects config/java.m4.
-
-* Released XXX x, 2005
+* Released March 31, 2007
 
 
 
