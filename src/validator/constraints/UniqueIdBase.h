@@ -86,7 +86,7 @@ protected:
   getMessage (const std::string& id, const SBase& object);
 
 
-  typedef std::map<const std::string, const SBase*> IdObjectMap;
+  typedef std::map<std::string, const SBase*> IdObjectMap;
   IdObjectMap mIdObjectMap;
 };
 
