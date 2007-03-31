@@ -62,8 +62,16 @@ XMLErrorLog::add (const XMLError& error)
     unsigned int line, column;
     if(mParser!=NULL)
     {
-      line = mParser->getLine();
-      column = mParser->getColumn();
+      try
+      {
+        line = mParser->getLine();
+        column = mParser->getColumn();
+      }
+      catch (...)
+      {
+        line = 1;
+        column = 1;
+      }
     }
     else
     {
