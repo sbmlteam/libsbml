@@ -40,7 +40,7 @@
 If you are using the Xerces XML library, beware there is a bug in
 Xerces 2.6.0 that cannot be worked around at this time and causes
 errors in software using it.  Xerces versions 2.2 - 2.5 and 2.7.0
-are known to work properly.  We recommend Xerces 2.5.
+are known to work properly.  We recommend Xerces 2.7.
 
 1.1 Linux, MacOS X and Solaris
 ------------------------------
