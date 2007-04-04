@@ -59,8 +59,8 @@ public:
 
 
   /**
-  * Copy constructor.
-  */
+   * Copy constructor - copies this CompartmentType.
+   */
   CompartmentType(const CompartmentType& orig);
 
 

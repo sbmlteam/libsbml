@@ -60,7 +60,7 @@ public:
   EventAssignment (const std::string& variable, const ASTNode* math);
 
   /**
-   * Copies this EventAssignment.
+   * Copy constructor - copies this EventAssignment.
    */
   EventAssignment (const EventAssignment& rhs);
 

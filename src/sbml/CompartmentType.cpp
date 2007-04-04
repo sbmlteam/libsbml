@@ -55,7 +55,7 @@ CompartmentType::~CompartmentType ()
 
 
 /**
- * Copy constructor.
+ * Copy constructor - copies this CompartmentType.
  */
 CompartmentType::CompartmentType(const CompartmentType& orig) :
       SBase(orig)

@@ -41,7 +41,7 @@ using namespace std;
 
 
 /**
- * Creates a new Constraint, optionally with its symbol attributes
+ * Creates a new Constraint
  * set.
  */
 Constraint::Constraint () :
@@ -53,7 +53,7 @@ Constraint::Constraint () :
 
 
 /**
- * Copies this Constraint.
+ * Copy constructor - copies this Constraint.
  */
 Constraint::Constraint (const Constraint& rhs) :
    SBase   ( rhs )

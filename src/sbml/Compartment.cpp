@@ -60,7 +60,7 @@ Compartment::~Compartment ()
 
 
 /**
- * Copy constructor.
+ * Copy constructor - copies this compartment.
  */
 Compartment::Compartment(const Compartment& rhs) :
    SBase             ( rhs )

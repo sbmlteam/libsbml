@@ -50,15 +50,13 @@ class LIBSBML_EXTERN Event : public SBase
 {
 public:
 
-  /**
-   * Creates a new Event, optionally with its id, trigger and delay
-   * attribute set.  Trigger and delay may be specified as infix formula
-   * strings.
-   */
+/**
+ * Creates a new Event, optionally with its id attribute set. 
+ */
   Event (  const std::string&  id      = "");
 
   /**
-   * Copies this Event.
+   * Copy constructor  - copies this Event.
    */
   Event (const Event& rhs);
 
@@ -429,14 +427,14 @@ void
 Event_setName (Event_t *e, const char *name);
 
 /**
- * Sets the trigger of this Event to a copy of the given ASTNode.
+ * Sets the trigger of this Event to a copy of the given Trigger.
  */
 LIBSBML_EXTERN
 void
 Event_setTrigger (Event_t *e, Trigger_t *trigger);
 
 /**
- * Sets the delay of this Event to a copy of the given ASTNode.
+ * Sets the delay of this Event to a copy of the given Delay.
  */
 LIBSBML_EXTERN
 void

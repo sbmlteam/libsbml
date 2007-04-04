@@ -54,7 +54,7 @@ public:
   Constraint ();
 
   /**
-   * Copies this Constraint.
+   * Copy constructor - copies this Constraint.
    */
   Constraint (const Constraint& rhs);
 

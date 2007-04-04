@@ -67,7 +67,7 @@ EventAssignment::EventAssignment (const string& variable, const ASTNode* math)
 
 
 /**
- * Copies this EventAssignment.
+ * Copy constructor - copies this EventAssignment.
  */
 EventAssignment::EventAssignment (const EventAssignment& rhs) :
    SBase   ( rhs )

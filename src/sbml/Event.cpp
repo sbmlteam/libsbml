@@ -54,7 +54,7 @@ Event::Event (const string& id) :
 
 
 /**
- * Copies this Event.
+ * Copy constructor  - copies this Event.
  */
 Event::Event (const Event& rhs) :
    SBase            ( rhs                   )
@@ -822,7 +822,7 @@ Event_setName (Event_t *e, const char *name)
 
 
 /**
- * Sets the trigger of this Event to a copy of the given ASTNode.
+ * Sets the trigger of this Event to a copy of the given Trigger.
  */
 LIBSBML_EXTERN
 void
@@ -833,7 +833,7 @@ Event_setTrigger (Event_t *e, const Trigger_t *math)
 
 
 /**
- * Sets the delay of this Event to a copy of the given ASTNode.
+ * Sets the delay of this Event to a copy of the given Delay.
  */
 LIBSBML_EXTERN
 void
