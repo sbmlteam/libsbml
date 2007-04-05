@@ -1,5 +1,5 @@
 /**
- * \file    SringBuffer.h
+ * \file    StringBuffer.h
  * \brief   A growable buffer for creating character strings.
  * \author  Ben Bornstein
  *

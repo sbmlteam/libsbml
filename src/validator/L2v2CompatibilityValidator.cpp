@@ -1,5 +1,5 @@
 /**
- * \file    L2v2CompatibilityValidator.h
+ * \file    L2v2CompatibilityValidator.cpp
  * \brief   Checks whether an SBML model can be converted from L2 to L1
  * \author  Sarah Keating
  *

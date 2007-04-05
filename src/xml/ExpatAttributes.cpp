@@ -1,5 +1,5 @@
 /**
- * \file    ExpatAttributes.h
+ * \file    ExpatAttributes.cpp
  * \brief   Creates new XMLAttributes from "raw" Expat attributes.
  * \author  Ben Bornstein
  *

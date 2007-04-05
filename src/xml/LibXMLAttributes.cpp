@@ -1,5 +1,5 @@
 /**
- * \file    LibXMLAttributes.h
+ * \file    LibXMLAttributes.cpp
  * \brief   Creates new XMLAttributes from "raw" LibXML attributes.
  * \author  Ben Bornstein
  *
