@@ -51,7 +51,7 @@ UnitFormulaFormatter::~UnitFormulaFormatter()
   */
 UnitDefinition * 
 UnitFormulaFormatter::getUnitDefinition(const ASTNode * node, 
-                                        unsigned KL, int No)
+                                        unsigned int KL, int No)
 {  
   UnitDefinition * ud = NULL;
 
