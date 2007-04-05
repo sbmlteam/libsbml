@@ -322,7 +322,7 @@ $(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  $(formatted)/libsbml-api-re
 
 doxygen-output-dir = libsbml-api-ref
 
-$(formatted)/libsbml-api-ref libsbml-api-ref: Doxyfile $(wildcard ../../src/*.[cpp,hpp])
+$(formatted)/libsbml-api-ref libsbml-api-ref: Doxyfile $(wildcard ../../src/*/*.[cpp,h])
 	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
 	doxygen Doxyfile
 	cp graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
