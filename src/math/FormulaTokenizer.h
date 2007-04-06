@@ -87,7 +87,7 @@ typedef enum
  *   t.exponent = 3
  *
  * In the case of TT_UNKNOWN, value.ch will contain the unrecognized
- * character.  For TT_END, value.ch will contain '\0'.  For all others, the
+ * character.  For TT_END, value.ch will contain '\\0'.  For all others, the
  * value.ch will contain the corresponding character.
  */
 typedef struct
