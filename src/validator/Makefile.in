@@ -99,6 +99,14 @@ subdirs = constraints test
 
 distfiles = $(sources) $(headers) Makefile.in
 
+# Because of the tricks done with macros, ConsistencyConstraints.cpp ends
+# up causing gcc to issue warnings about unused variables.  Although it
+# would be better to silence the warnings just for that one file, it's not
+# easy to do that in this makefile framework.  For now, the following does
+# it for all files.  This is a fairly minor warning anyway.
+
+CXXFLAGS += -Wno-unused-variable
+
 
 # -----------------------------------------------------------------------------
 # Primary build actions
