@@ -301,9 +301,6 @@
 				RelativePath="..\..\util\StringBuffer.c">
 			</File>
 			<File
-				RelativePath="..\..\util\StringMap.c">
-			</File>
-			<File
 				RelativePath="..\..\validator\constraints\UniqueIdBase.cpp">
 			</File>
 			<File

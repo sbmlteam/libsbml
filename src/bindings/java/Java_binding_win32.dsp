@@ -343,10 +343,6 @@ SOURCE=..\..\util\StringBuffer.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\util\StringMap.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\validator\constraints\UniqueIdBase.cpp
 # End Source File
 # Begin Source File
