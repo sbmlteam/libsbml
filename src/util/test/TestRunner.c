@@ -68,7 +68,6 @@ BEGIN_C_DECLS
 Suite *create_suite_List         (void);
 Suite *create_suite_Stack        (void);
 Suite *create_suite_StringBuffer (void);
-Suite *create_suite_StringMap    (void);
 
 Suite *create_suite_memory (void);
 Suite *create_suite_util   (void);
@@ -88,7 +87,6 @@ main (void)
   srunner_add_suite( runner, create_suite_List                     () );
   srunner_add_suite( runner, create_suite_Stack                    () );
   srunner_add_suite( runner, create_suite_StringBuffer             () );
-  srunner_add_suite( runner, create_suite_StringMap                () );
 
 
 #ifdef TRACE_MEMORY
