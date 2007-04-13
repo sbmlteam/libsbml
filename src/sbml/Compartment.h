@@ -38,6 +38,12 @@
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 
+/** @cond doxygen-ignored */
+
+using namespace std;
+
+/** @endcond doxgen-ignored */
+
 
 class SBMLVisitor;
 
@@ -50,7 +56,7 @@ public:
    * Creates a new Compartment, optionally with its id and name attributes
    * set.
    */
-  Compartment (const std::string& id = "", const std::string& name = "");
+  Compartment (const string& id = "", const string& name = "");
 
   /**
    * Destroys this Compartment.
@@ -96,7 +102,7 @@ public:
   /**
    * @return the compartmentType of this Compartment.
    */
-  const std::string& getCompartmentType () const;
+  const string& getCompartmentType () const;
 
   /**
    * @return the spatialDimensions of this Compartment.
@@ -116,12 +122,12 @@ public:
   /**
    * @return the units of this Compartment.
    */
-  const std::string& getUnits () const;
+  const string& getUnits () const;
 
   /**
    * @return the outside of this Compartment.
    */
-  const std::string& getOutside () const;
+  const string& getOutside () const;
 
   /**
    * @return true if this Compartment is constant, false otherwise.
@@ -167,7 +173,7 @@ public:
   /**
    * Sets the compartmentType field of this Compartment to a copy of sid.
    */
-  void setCompartmentType (const std::string& sid);
+  void setCompartmentType (const string& sid);
 
   /**
    * Sets the spatialDimensions of this Compartment to value.
@@ -190,12 +196,12 @@ public:
   /**
    * Sets the units of this Compartment to a copy of sid.
    */
-  void setUnits (const std::string& sid);
+  void setUnits (const string& sid);
 
   /**
    * Sets the outside of this Compartment to a copy of sid.
    */
-  void setOutside (const std::string& sid);
+  void setOutside (const string& sid);
 
   /**
    * Sets the constant field of this Compartment to value.
@@ -245,7 +251,7 @@ public:
    * Subclasses should override this method to return XML element name of
    * this SBML object.
    */
-  virtual const std::string& getElementName () const;
+  virtual const string& getElementName () const;
 
 
 protected:
@@ -271,11 +277,11 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
-  std::string   mCompartmentType;
+  string        mCompartmentType;
   unsigned int  mSpatialDimensions;
   double        mSize;
-  std::string   mUnits;
-  std::string   mOutside;
+  string        mUnits;
+  string        mOutside;
   bool          mConstant;
 
   bool  mIsSetSize;
@@ -302,7 +308,7 @@ public:
    * Subclasses should override this method to return XML element name of
    * this SBML object.
    */
-  virtual const std::string& getElementName () const;
+  virtual const string& getElementName () const;
 
   /**
    * @return the ordinal position of the element with respect to its
