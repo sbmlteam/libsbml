@@ -23,7 +23,7 @@
 
 
 #ifndef LIBSBML_EXTERN_H
-#define LIBSBML_EXTERN_H 1
+#define LIBSBML_EXTERN_H
 
 
 #if (WIN32 && ! defined CYGWIN && ! defined LIBSBML_STATIC )
