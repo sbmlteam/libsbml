@@ -169,7 +169,7 @@ public:
   /**
    * create a new ModelCreator from an XMLNode
    */
-  ModelCreator(const XMLNode);
+  ModelCreator(const XMLNode node);
 
   /**
    * destructor

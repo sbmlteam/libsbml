@@ -76,12 +76,12 @@ public:
   /**
    * Creates a new CVTerm.
    */
-  CVTerm (QualifierType_t type = UNKNOWN_QUALIFIER);
+  CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 
   /**
    * create a new CVTerm from an XMLNode
    */
-  CVTerm(const XMLNode);
+  CVTerm(const XMLNode node);
 
   /**
    * destructor
