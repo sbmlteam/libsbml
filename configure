@@ -8257,7 +8257,9 @@ _ACEOF
 
           ac_config_files="$ac_config_files docs/Makefile"
 
-          ac_config_files="$ac_config_files docs/src/Doxyfile"
+          ac_config_files="$ac_config_files docs/src/doxygen-config-c.txt"
+
+          ac_config_files="$ac_config_files docs/src/doxygen-config-cpp.txt"
 
           ac_config_files="$ac_config_files docs/src/Makefile"
 
@@ -8842,7 +8844,8 @@ do
   "src/xml/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/xml/Makefile" ;;
   "src/xml/test/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/xml/test/Makefile" ;;
   "docs/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/Makefile" ;;
-  "docs/src/Doxyfile" ) CONFIG_FILES="$CONFIG_FILES docs/src/Doxyfile" ;;
+  "docs/src/doxygen-config-c.txt" ) CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-c.txt" ;;
+  "docs/src/doxygen-config-cpp.txt" ) CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-cpp.txt" ;;
   "docs/src/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/src/Makefile" ;;
   "docs/src/tex/libsbmlextras.sty" ) CONFIG_FILES="$CONFIG_FILES docs/src/tex/libsbmlextras.sty" ;;
   "win32/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/Makefile" ;;

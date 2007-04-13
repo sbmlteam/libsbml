@@ -1,3 +1,19 @@
+BODY {
+  background: white;
+  color: black;
+  font-family: Palatino, serif;
+  font-size: 14px;
+  line-height: 120%;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+P {
+  font-family: Palatino, serif;
+  font-size: 14px;
+  line-height: 120%;
+}
+
 .footer {
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-size: 12px;
@@ -5,7 +21,7 @@
 
 TD.footer {
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .footercomment {
@@ -19,17 +35,24 @@ H1 {
   text-align: center;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-size: 24px;
+  padding-top: 10px;
 }
 
 H2 {
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-size: 18px;
+}
+
+H3 {
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-style: italic;
   font-size: 14px;
 }
 
 CAPTION {
   font-weight: bold;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif; 
-  font-size: 13px;
+  font-size: 12px;
 }
 
 DIV.qindex {
@@ -88,34 +111,41 @@ A.el {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-weight: bold 
-  font-size: 13px;
+  font-size: 12px;
 }
 
 A.elRef {
   font-weight: bold
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 A.code {
   text-decoration: none;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-weight: normal;
-  font-size: 13px;
+  font-size: 12px;
   color: #4444ee 
 }
 
 A.codeRef {
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-weight: normal;
-  font-size: 13px;
+  font-size: 12px;
   color: #4444ee 
 }
 
 A:hover {
   text-decoration: none;
-  background-color: #f2f2ff 
+  background-color: #ffffdd 
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+}
+
+
+DL {
+  font-family: Palatino, serif;
+  padding-left: 20px;
+  margin: 5px;
 }
 
 DL.el {
@@ -139,25 +169,26 @@ DIV.ah {
 }
 
 TD.md {
-  background-color: #f2f2ff;
-  font-weight: bold;
-  font-size: 13px;
+  background-color: #ffffdd;
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-size: 14px;
 }
 
 TD.mdname1 {
-  background-color: #f2f2ff;
+  background-color: #ffffdd;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
   color: #602020;
 }
 
 TD.mdname {
-  background-color: #f2f2ff;
+  background-color: #ffffdd;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
   color: #602020;
-  width: 600px;
+  width: 90%;
 }
+
 
 DIV.groupHeader {
   margin-left: 16px;
@@ -165,28 +196,20 @@ DIV.groupHeader {
   margin-bottom: 6px;
   font-weight: bold
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif; 
-  font-size: 13px;
+  font-size: 12px;
 }
 
 DIV.groupText {
   margin-left: 16px;
   font-style: italic;
-  font-size: smaller
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif; 
-  font-size: 13px;
-}
-
-BODY {
-  background: white;
-  color: black;
-  margin-right: 20px;
-  margin-left: 20px;
+  font-size: 12px;
 }
 
 TD.indexkey { 
   background-color: #eeeeff; 
   font-weight: bold; 
-  font-size: 13px;
+  font-size: 12px;
   padding-right  : 10px; 
   padding-top    : 2px; 
   padding-left   : 10px; 
@@ -200,7 +223,7 @@ TD.indexkey {
 TD.indexvalue { 
   background-color: #eeeeff; 
   font-style: italic; 
-  font-size: 13px;
+  font-size: 12px;
   padding-right  : 10px; 
   padding-top    : 2px; 
   padding-left   : 10px; 
@@ -213,7 +236,7 @@ TD.indexvalue {
 
 TR.memlist {
   background-color: #f0f0f0; 
-  font-size: 13px;
+  font-size: 12px;
 }
 
 P.formulaDsp { text-align: center; }
@@ -228,8 +251,9 @@ SPAN.stringliteral { color: #002080 }
 SPAN.charliteral   { color: #008080 }
 
 .mdTable {
-  border: 1px solid #868686;
-  background-color: #f2f2ff;
+  border: 1px solid #ddddaa;
+  background-color: #ffffdd;
+  width: 90%;
 }
 
 .mdRow {
@@ -259,12 +283,13 @@ SPAN.charliteral   { color: #008080 }
   border-bottom: 1px none #E0E0E0;
   border-left: 1px none #E0E0E0;
   margin: 0px;
-  padding-bottom: 0px;
+  padding-bottom: 4px;
   padding-right: 8px;
+  padding-top: 0px;
 }
 
 .memItemLeft {
-  padding: 1px 0px 0px 8px;
+  padding: 4px 0px 2px 8px;
   margin: 4px;
   border-top-width: 1px;
   border-right-width: 1px;
@@ -284,7 +309,7 @@ SPAN.charliteral   { color: #008080 }
 }
 
 .memItemRight {
-  padding: 1px 0px 0px 8px;
+  padding: 4px 0px 2px 8px;
   margin: 4px;
   border-top-width: 1px;
   border-right-width: 1px;
@@ -300,7 +325,7 @@ SPAN.charliteral   { color: #008080 }
   border-left-style: none;
   background-color: #FAFAFA;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .search {
@@ -322,4 +347,8 @@ INPUT.search {
 
 TD.tiny {
   font-size: 75%;
+}
+
+PRE { 
+  font-size: 12px;
 }

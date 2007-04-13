@@ -1,0 +1,53 @@
+# -----------------------------------------------------------------------------
+# File name         : doxyfile-cpp.txt
+# Description       : Doxygen config for C libSBML API manual 
+# Original author(s): Michael Hucka <mhucka@caltech.edu>
+# Organization      : California Institute of Technology
+# $Id$
+# $Source$
+# -----------------------------------------------------------------------------
+
+# Include libSBML's common Doxygen settings:
+
+@INCLUDE               = doxygen-config-common.txt
+
+# -----------------------------------------------------------------------------
+# Beginning of C++ specific configuration settings
+# -----------------------------------------------------------------------------
+
+# The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
+# by quotes) that should identify the project.
+
+PROJECT_NAME           = @PACKAGE_NAME@&nbsp;C&nbsp;API
+
+# The PROJECT_NUMBER tag can be used to enter a project or revision number. 
+# This could be handy for archiving the generated documentation or 
+# if some version control system is used.
+
+PROJECT_NUMBER         = @PACKAGE_NAME@&nbsp;@PACKAGE_VERSION@&nbsp;C&nbsp;API
+
+# The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
+# If a relative path is entered the value of OUTPUT_DIRECTORY will be 
+# put in front of it. If left blank `html' will be used as the default path.
+
+HTML_OUTPUT            = libsbml-c-api
+
+# Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C sources 
+# only. Doxygen will then generate output that is more tailored for C. 
+# For instance, some of the names that are used will be different. The list 
+# of all members will be omitted, etc.
+
+OPTIMIZE_OUTPUT_FOR_C  = YES
+
+# The ENABLED_SECTIONS tag can be used to enable conditional 
+# documentation sections, marked by \if sectionname ... \endif.
+
+ENABLED_SECTIONS       = doxygen-c-only
+
+# The PREDEFINED tag can be used to specify one or more macro names that 
+# are defined before the preprocessor is started (similar to the -D option of 
+# gcc). The argument of the tag is a list of macros of the form: name 
+# or name=definition (no spaces). If the definition and the = are 
+# omitted =1 is assumed.
+
+PREDEFINED             = 

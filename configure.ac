@@ -295,7 +295,8 @@ AC_CONFIG_FILES([src/xml/Makefile])
 AC_CONFIG_FILES([src/xml/test/Makefile])
 
 AC_CONFIG_FILES([docs/Makefile])
-AC_CONFIG_FILES([docs/src/Doxyfile])
+AC_CONFIG_FILES([docs/src/doxygen-config-c.txt])
+AC_CONFIG_FILES([docs/src/doxygen-config-cpp.txt])
 AC_CONFIG_FILES([docs/src/Makefile])
 AC_CONFIG_FILES([docs/src/tex/libsbmlextras.sty])
 

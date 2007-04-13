@@ -1,24 +1,27 @@
 /**
- * \mainpage LibSBML API Reference Manual
+ * \mainpage Introduction
  *
- * \author Ben Bornstein, <em>with contributions from</em> Ben Kovitz,
- * Stefan Hoops, Sarah Keating, Mike Hucka, and many others in the
- * SBML community.
+ * \author Ben Bornstein and Sarah Keating, 
+ * <em>with contributions from</em> Michael Hucka, Ralph Gauges,
+ * Stefan Hoops, Christoph Flamm, Rainer Machne, Martin Ginkel,
+ * Ben Kovitz, and many others in the SBML community.
  *
  * This manual describes the application programming interface (API) of
  * libSBML, a library for writing and manipulating the Systems Biology
- * Markup Language (SBML).  Currently, the library supports all of SBML
- * Level&nbsp;1 Version&nbsp;1 and Version&nbsp;2, and nearly all of SBML
- * Level&nbsp;2 Version&nbsp;1.  For more information about SBML, please
- * see the references or visit http://www.sbml.org/ on the Internet.
- * LibSBML is entirely open-source under the terms of the GNU LGPL, and all
- * source code and other materials are freely and publicly available.
+ * Markup Language (SBML).  This version of the library supports all
+ * versions of SBML Level&nbsp;1 and Level&nbsp;2.  For more information
+ * about SBML, please see the references or visit http://www.sbml.org/ on
+ * the Internet.  LibSBML is entirely open-source under the terms of the <a
+ * href="http://www.gnu.org/licenses/lgpl.html">GNU LGPL,
+ * version&nbsp;2</a>, and all source code and other materials are freely
+ * and publicly available.
  *
+ * \subpage Features
  * Some of the features of libSBML include:
  * 
- * \li <em>Complete user manual</em>. Documentation is available in
- *   the "docs" subdirectory in both pre-formatted and source form.  Documents
- *   are available in PDF, PostScript and HTML formats.
+ * \li <em>Complete user manual</em>. Documentation is available in the
+ *   "docs" subdirectory in both pre-formatted and source form.  Documents
+ *   are available in PDF and HTML formats.
  *   
  * \li <em>Small memory footprint and fast runtime</em>. The parser
  *   is event-based (SAX2) and loads SBML data into C++ structures that mirror

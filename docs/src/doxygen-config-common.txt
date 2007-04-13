@@ -1,29 +1,27 @@
-# Doxyfile 1.3.4
-
-# This file describes the settings to be used by the documentation system
-# doxygen (www.doxygen.org) for a project
+# -----------------------------------------------------------------------------
+# File name         : doxyfile-config-common.txt
+# Description       : Common elements of doxygen configuration
+# Original author(s): Michael Hucka <mhucka@caltech.edu>
+# Organization      : California Institute of Technology
+# $Id$
+# $Source$
+# -----------------------------------------------------------------------------
 #
-# All text after a hash (#) is considered a comment and will be ignored
-# The format is:
+# Originally based on the sample config file from Doxygen 1.3.4.
+#
+# This file is included by other doxygen configuration files used to
+# generate language-specific API documentation in libSBML.
+# 
+# Notes about Doxygen:
+# - The Doxygen file format is:
 #       TAG = value [value, ...]
-# For lists items can also be appended using:
+#   You can append to items like this:
 #       TAG += value [value, ...]
-# Values that contain spaces should be placed between quotes (" ")
+# - Values that contain spaces should be placed between quotes (" ")
 
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-
-# The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
-# by quotes) that should identify the project.
-
-PROJECT_NAME           = @PACKAGE_NAME@
-
-# The PROJECT_NUMBER tag can be used to enter a project or revision number. 
-# This could be handy for archiving the generated documentation or 
-# if some version control system is used.
-
-PROJECT_NUMBER         = @PACKAGE_VERSION@
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) 
 # base path where the generated documentation will be put. 
@@ -120,7 +118,7 @@ MULTILINE_CPP_IS_BRIEF = NO
 # If set to NO, the detailed description appears after the member 
 # documentation.
 
-DETAILS_AT_TOP         = NO
+DETAILS_AT_TOP         = YES
 
 # If the INHERIT_DOCS tag is set to YES (the default) then an undocumented 
 # member inherits the documentation from any documented member that it 
@@ -147,14 +145,7 @@ TAB_SIZE               = 2
 # will result in a user-defined paragraph with heading "Side Effects:". 
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES                = 
-
-# Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C sources 
-# only. Doxygen will then generate output that is more tailored for C. 
-# For instance, some of the names that are used will be different. The list 
-# of all members will be omitted, etc.
-
-OPTIMIZE_OUTPUT_FOR_C  = NO
+ALIASES                = detailed=""
 
 # Set the OPTIMIZE_OUTPUT_JAVA tag to YES if your project consists of Java sources 
 # only. Doxygen will then generate output that is more tailored for Java. 
@@ -196,7 +187,7 @@ EXTRACT_STATIC         = NO
 # defined locally in source files will be included in the documentation. 
 # If set to NO only classes defined in header files are included.
 
-EXTRACT_LOCAL_CLASSES  = YES
+EXTRACT_LOCAL_CLASSES  = NO
 
 # If the HIDE_UNDOC_MEMBERS tag is set to YES, Doxygen will hide all 
 # undocumented members of documented classes, files or namespaces. 
@@ -240,7 +231,7 @@ INTERNAL_DOCS          = NO
 # in case and if your file system supports case sensitive file names. Windows 
 # users are advised to set this option to NO.
 
-CASE_SENSE_NAMES       = YES
+CASE_SENSE_NAMES       = NO
 
 # If the HIDE_SCOPE_NAMES tag is set to NO (the default) then Doxygen 
 # will show members with their full class and namespace scopes in the 
@@ -264,25 +255,25 @@ INLINE_INFO            = YES
 # alphabetically by member name. If set to NO the members will appear in 
 # declaration order.
 
-SORT_MEMBER_DOCS       = NO
+SORT_MEMBER_DOCS       = YES
 
 # The GENERATE_TODOLIST tag can be used to enable (YES) or 
 # disable (NO) the todo list. This list is created by putting \todo 
 # commands in the documentation.
 
-GENERATE_TODOLIST      = NO
+GENERATE_TODOLIST      = YES
 
 # The GENERATE_TESTLIST tag can be used to enable (YES) or 
 # disable (NO) the test list. This list is created by putting \test 
 # commands in the documentation.
 
-GENERATE_TESTLIST      = NO
+GENERATE_TESTLIST      = YES
 
 # The GENERATE_BUGLIST tag can be used to enable (YES) or 
 # disable (NO) the bug list. This list is created by putting \bug 
 # commands in the documentation.
 
-GENERATE_BUGLIST       = NO
+GENERATE_BUGLIST       = YES
 
 # The GENERATE_DEPRECATEDLIST tag can be used to enable (YES) or 
 # disable (NO) the deprecated list. This list is created by putting 
@@ -344,7 +335,7 @@ WARN_IF_DOC_ERROR      = YES
 # tags, which will be replaced by the file and line number from which the 
 # warning originated and the warning text.
 
-WARN_FORMAT            = 
+WARN_FORMAT            =  $file:$line: $text
 
 # The WARN_LOGFILE tag can be used to specify a file to which warning 
 # and error messages should be written. If left blank the output is written 
@@ -361,29 +352,45 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-INPUT = \
-  ../../src           \
-  ../../src/sbml      \
-  ../../src/math      \
-  ../../src/xml       \
-  ../../src/util      \
-  ../../src/validator \
-  ../../src/annotation\
-  ../../src/validator/constraints \
-  libsbml-api-ref.c
+# In the following list, ../../src/util is deliberately omitted.
 
+INPUT =                      \
+  libsbml-mainpage.txt       \
+  libsbml-features.txt       \
+  libsbml-installation.txt   \
+  libsbml-communications.txt \
+  libsbml-coding.txt         \
+  ../../LICENSE.txt          \
+  ../../src/common           \
+  ../../src/annotation       \
+  ../../src/math             \
+  ../../src/sbml             \
+  ../../src/units            \
+  ../../src/validator        \
+  ../../src/xml
+
+# The EXCLUDE tag can be used to specify files and/or directories that should 
+# excluded from the INPUT source files. This way you can easily exclude a 
+# subdirectory from a directory tree whose root is specified with the INPUT tag.
+
+EXCLUDE                =            \
+  ../../src/math/FormulaTokenizer.c \
+  ../../src/math/FormulaTokenizer.h \
+
+# If the value of the INPUT tag contains directories, you can use the 
+# EXCLUDE_PATTERNS tag to specify one or more wildcard patterns to exclude 
+# certain files from those directories.
+
+EXCLUDE_PATTERNS       = */test/*
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
 # and *.h) to filter out the source-files in the directories. If left 
 # blank the following patterns are tested: 
-# *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh *.hxx *.hpp 
-# *.h++ *.idl *.odl *.cs *.php *.php3 *.inc
+# *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh
+# *.hxx *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc
 
-FILE_PATTERNS          = *.c \
-                         *.cpp \
-                         *.hpp \
-                         *.h
+FILE_PATTERNS          = *.c *.cpp *.hpp *.h
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories 
 # should be searched for input files as well. Possible values are YES and NO. 
@@ -391,22 +398,10 @@ FILE_PATTERNS          = *.c \
 
 RECURSIVE              = NO
 
-# The EXCLUDE tag can be used to specify files and/or directories that should 
-# excluded from the INPUT source files. This way you can easily exclude a 
-# subdirectory from a directory tree whose root is specified with the INPUT tag.
-
-EXCLUDE                = 
-
 # The EXCLUDE_SYMLINKS tag can be used select whether or not files or directories 
 # that are symbolic links (a Unix filesystem feature) are excluded from the input.
 
 EXCLUDE_SYMLINKS       = NO
-
-# If the value of the INPUT tag contains directories, you can use the 
-# EXCLUDE_PATTERNS tag to specify one or more wildcard patterns to exclude 
-# certain files from those directories.
-
-EXCLUDE_PATTERNS       = Test*
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or 
 # directories that contain example code fragments that are included (see 
@@ -445,7 +440,7 @@ INPUT_FILTER           =
 
 # If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using 
 # INPUT_FILTER) will be used to filter the input files when producing source 
-# files to browse (i.e. when SOURCE_BROWSER is set to YES).
+# files to browse (i.e., when SOURCE_BROWSER is set to YES).
 
 FILTER_SOURCE_FILES    = NO
 
@@ -519,12 +514,6 @@ IGNORE_PREFIX          =
 
 GENERATE_HTML          = YES
 
-# The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
-# If a relative path is entered the value of OUTPUT_DIRECTORY will be 
-# put in front of it. If left blank `html' will be used as the default path.
-
-HTML_OUTPUT            = libsbml-api-ref
-
 # The HTML_FILE_EXTENSION tag can be used to specify the file extension for 
 # each generated HTML page (for example: .htm,.php,.asp). If it is left blank 
 # doxygen will generate files with .html extension.
@@ -541,14 +530,14 @@ HTML_HEADER            =
 # each generated HTML page. If it is left blank doxygen will generate a 
 # standard footer.
 
-HTML_FOOTER            = Doxygen-html-footer.html
+HTML_FOOTER            = doxygen-footer.html
 
 # The HTML_STYLESHEET tag can be used to specify a user-defined cascading 
 # style sheet that is used by each HTML page. It can be used to 
 # fine-tune the look of the HTML output. If the tag is left blank doxygen 
 # will generate a default style sheet
 
-HTML_STYLESHEET        = Doxygen.css
+HTML_STYLESHEET        = doxygen-base.css
 
 # If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes, 
 # files or namespaces will be aligned in HTML using tables. If set to 
@@ -856,7 +845,7 @@ ENABLE_PREPROCESSING   = YES
 # compilation will be performed. Macro expansion can be done in a controlled 
 # way by setting EXPAND_ONLY_PREDEF to YES.
 
-MACRO_EXPANSION        = YES
+MACRO_EXPANSION        = NO
 
 # If the EXPAND_ONLY_PREDEF and MACRO_EXPANSION tags are both set to YES 
 # then the macro expansion is limited to the macros specified with the 
@@ -882,14 +871,6 @@ INCLUDE_PATH           =
 
 INCLUDE_FILE_PATTERNS  = 
 
-# The PREDEFINED tag can be used to specify one or more macro names that 
-# are defined before the preprocessor is started (similar to the -D option of 
-# gcc). The argument of the tag is a list of macros of the form: name 
-# or name=definition (no spaces). If the definition and the = are 
-# omitted =1 is assumed.
-
-PREDEFINED             = __cplusplus
-
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 
 # The macro definition that is found in the sources will be used. 
@@ -903,7 +884,7 @@ EXPAND_AS_DEFINED      = LIBSBML_EXTERN
 # function macros are typically used for boiler-plate code, and will confuse the 
 # parser if not removed.
 
-SKIP_FUNCTION_MACROS   = YES
+SKIP_FUNCTION_MACROS   = NO
 
 #---------------------------------------------------------------------------
 # Configuration::addtions related to external references   
@@ -1088,4 +1069,4 @@ DOT_CLEANUP            = YES
 # The SEARCHENGINE tag specifies whether or not a search engine should be 
 # used. If set to NO the values of all tags below this one will be ignored.
 
-SEARCHENGINE           = NO
+SEARCHENGINE           = YES

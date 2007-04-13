@@ -1,0 +1,6 @@
+.el { margin: 0px; margin-top: 0.8em; font-size: 12px; }
+.directory { font-size: 10px; font-weight: bold; }
+.directory h3 { margin: 0px; margin-top: 0.8em; font-size: 12px; }
+.directory p { margin: 0px; white-space: nowrap; }
+.directory div { display: none; margin: 0px; }
+.directory img { vertical-align: middle; }

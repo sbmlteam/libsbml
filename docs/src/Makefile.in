@@ -104,18 +104,24 @@ extra_distclean = \
 	$(formatted)/libsbml-manual.ps \
 	libsbml-api-ref.ps \
 	$(formatted)/libsbml-api-ref.ps \
-	Doxyfile \
+	doxygen-config-c.txt \
+	doxygen-config-cpp.txt \
 	sbmlmanual.perl \
 	libsbmlextras.perl \
+	tmp.html \
 	api/.timestamp
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
 
 distfiles =                                \
-        Doxyfile.in                        \
-        Doxygen-html-footer.html           \
-        Doxygen.css                        \
+        doxygen-base.css                   \
+        doxygen-config-c.txt.in            \
+        doxygen-config-common.txt          \
+        doxygen-config-cpp.txt.in          \
+        doxygen-footer.html                \
+        doxygen-tabs.css                   \
+        doxygen-tree.css                   \
         Makefile.in                        \
         createAPISection.py                \
         createAPISections.sh               \
@@ -235,9 +241,6 @@ tex/libsbmlextras.sty: $(TOP_SRCDIR)/VERSION.txt $(TOP_SRCDIR)/FUNDING.txt
 	cd $(TOP_BUILDDIR) && \
 	    $(SHELL) ./config.status $(thisdir)/tex/libsbmlextras.sty
 
-Doxyfile: $(TOP_SRCDIR)/VERSION.txt Doxyfile.in
-	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/Doxyfile
-
 # Yes, run pdflatex 4 times after running bibtex here.
 
 manual $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
@@ -290,44 +293,37 @@ $(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libs
 # libsbml-api-ref
 # -----------------------------------------------------------------------------
 
-api-tex-files := $(wildcard api/*.tex)
+doxygen-config-c.txt: doxygen-config-c.txt.in doxygen-config-common.txt \
+  $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/doxygen-config-c.txt
 
-api/.timestamp:
-	$(SHELL) createAPISections.sh ../../src/sbml
-	echo `date` > api/.timestamp
+doxygen-config-cpp.txt: doxygen-config-cpp.txt.in doxygen-config-common.txt \
+  $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/doxygen-config-cpp.txt
 
-$(formatted)/libsbml-api-ref.pdf libsbml-api-ref.pdf: libsbml-api-ref.tex \
-  api/.timestamp $(api-tex-files)
-	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
-	$(latex-env) pdflatex libsbml-api-ref
-	$(latex-env) bibtex libsbml-api-ref
-	$(latex-env) pdflatex libsbml-api-ref
-	$(latex-env) pdflatex libsbml-api-ref
-	$(latex-env) pdflatex libsbml-api-ref
-	cp -f libsbml-api-ref.pdf $(formatted)
+api-manuals: libsbml-cpp-api libsbml-c-api
 
-$(formatted)/libsbml-api-ref.dvi: libsbml-api-ref.tex \
-  api/.timestamp $(api-tex-files)
-	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
-	$(latex-env) latex libsbml-api-ref
-	$(latex-env) bibtex libsbml-api-ref
-	$(latex-env) latex libsbml-api-ref
-	$(latex-env) latex libsbml-api-ref
-	$(latex-env) latex libsbml-api-ref
-	cp -f libsbml-api-ref.dvi $(formatted)
+.PHONY: $(api-manuals)
 
-$(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  $(formatted)/libsbml-api-ref.dvi
-	$(latex-env) dvips -o libsbml-api-ref.ps libsbml-api-ref
-	cp -f libsbml-api-ref.ps $(formatted)
+define run_doxygen
+  doxygen $(1)
+  cp -rf doxygen-tabs.css $(2)/tabs.css
+  cp graphics/sbml-logo-long-124x56.gif $(2)
+  head -n 9 $(2)/tree.html > tmp.html
+  cat doxygen-tree.css >> tmp.html
+  tail -n +15 $(2)/tree.html >> tmp.html
+  mv -f tmp.html $(2)/tree.html
+endef
 
-doxygen-output-dir = libsbml-api-ref
+libsbml-cpp-api $(formatted)/libsbml-cpp-api: \
+  doxygen-config-common.txt doxygen-config-cpp.txt \
+  $(wildcard ../../src/*/*.[cpp,h])
+	$(call run_doxygen,doxygen-config-cpp.txt,libsbml-cpp-api)
 
-$(formatted)/libsbml-api-ref libsbml-api-ref: Doxyfile $(wildcard ../../src/*/*.[cpp,h])
-	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
-	doxygen Doxyfile
-	cp graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
-	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
-	cp -rf libsbml-api-ref $(formatted)
+libsbml-c-api $(formatted)/libsbml-c-api: \
+  doxygen-config-common.txt doxygen-config-c.txt \
+  $(wildcard ../../src/*/*.[cpp,h])
+	$(call run_doxygen,doxygen-config-c.txt,libsbml-c-api)
 
 
 # -----------------------------------------------------------------------------
@@ -410,3 +406,46 @@ include @top_srcdir@/config/makefile-common-actions.mk
 # -----------------------------------------------------------------------------
 # End.
 # -----------------------------------------------------------------------------
+
+# No longer used:
+
+#api-tex-files := $(wildcard api/*.tex)
+
+#api/.timestamp:
+#	$(SHELL) createAPISections.sh ../../src/sbml
+#	echo `date` > api/.timestamp
+
+#$(formatted)/libsbml-api-ref.pdf libsbml-api-ref.pdf: libsbml-api-ref.tex \
+#  api/.timestamp $(api-tex-files)
+#	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
+#	$(latex-env) pdflatex libsbml-api-ref
+#	$(latex-env) bibtex libsbml-api-ref
+#	$(latex-env) pdflatex libsbml-api-ref
+#	$(latex-env) pdflatex libsbml-api-ref
+#	$(latex-env) pdflatex libsbml-api-ref
+#	cp -f libsbml-api-ref.pdf $(formatted)
+
+#$(formatted)/libsbml-api-ref.dvi: libsbml-api-ref.tex \
+#  api/.timestamp $(api-tex-files)
+#	-@/bin/rm -f libsbml-api-ref.toc libsbml-api-ref.aux
+#	$(latex-env) latex libsbml-api-ref
+#	$(latex-env) bibtex libsbml-api-ref
+#	$(latex-env) latex libsbml-api-ref
+#	$(latex-env) latex libsbml-api-ref
+#	$(latex-env) latex libsbml-api-ref
+#	cp -f libsbml-api-ref.dvi $(formatted)
+
+#$(formatted)/libsbml-api-ref.ps libsbml-api-ref.ps:  $(formatted)/libsbml-api-ref.dvi
+#	$(latex-env) dvips -o libsbml-api-ref.ps libsbml-api-ref
+#	cp -f libsbml-api-ref.ps $(formatted)
+
+# doxygen-output-dir = libsbml-api-ref
+
+# $(formatted)/libsbml-api-ref libsbml-api-ref: Doxyfile $(wildcard ../../src/*/*.[cpp,h])
+#	$(shell [ -d $(doxygen-output-dir) ] || mkdir $(doxygen-output-dir))
+#	doxygen Doxyfile
+#	cp -rf tabs.css $(doxygen-output-dir)
+#	cp graphics/sbml-logo-long-124x56.gif $(doxygen-output-dir)
+#	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
+#	cp -rf libsbml-api-ref $(formatted)
+
