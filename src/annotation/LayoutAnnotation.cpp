@@ -1,7 +1,7 @@
 /**
- * \file    RDFAnnotation.cpp
- * \brief   RDFAnnotation I/O
- * \author  Sarah Keating
+ * \file    LayoutAnnotation.cpp
+ * \brief   Layout annotation I/O
+ * \author  Ralph Gauges
  *
  * $Id$
  * $Source$
@@ -41,7 +41,12 @@
 #include <sbml/annotation/LayoutAnnotation.h>
 
 
+/** @cond doxygen-ignore */
+
 using namespace std;
+
+/** @endcond doxygen-ignore */
+
 
 /**
  * takes an annotation that has been read into the model

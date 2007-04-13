@@ -1,7 +1,7 @@
 /**
- * \file    RDFAnnotation.h
- * \brief   RDFAnnotation I/O
- * \author  Sarah Keating
+ * \file    LayoutAnnotation.h
+ * \brief   Layout annotation I/O
+ * \author  Ralph Gauges
  *
  * $Id$
  * $Source$
