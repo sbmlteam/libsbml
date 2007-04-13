@@ -61,8 +61,11 @@
 #include <iostream>
 #include "TestFile.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

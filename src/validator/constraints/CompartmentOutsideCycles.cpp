@@ -27,8 +27,11 @@
 #include "IdList.h"
 #include "CompartmentOutsideCycles.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

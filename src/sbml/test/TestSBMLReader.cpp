@@ -67,7 +67,9 @@ static SBMLDocument* D;
 static void
 debugPrint (const char* filename)
 {
+  /** @cond doxygen-ignored */
   using namespace std;
+  /** @endcond doxgen-ignored */
 
 
   cout << endl << endl << filename << ":" << endl;

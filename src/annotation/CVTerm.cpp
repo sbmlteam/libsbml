@@ -37,7 +37,12 @@
 #include <sbml/annotation/CVTerm.h>
 
 
+/** @cond doxygen-ignore */
+
 using namespace std;
+
+/** @endcond doxygen-ignore */
+
 
 /**
  * create a new CVTerm

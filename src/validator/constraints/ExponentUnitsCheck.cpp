@@ -41,8 +41,11 @@
 static const char* PREAMBLE =
   "The use of non-integral exponents may result in incorrect units.";
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

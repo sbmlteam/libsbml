@@ -32,7 +32,11 @@
 #include <sbml/math/ASTNode.h>
 
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxygen-ignored */
 
 
 /**

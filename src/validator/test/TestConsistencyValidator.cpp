@@ -32,8 +32,11 @@
 #include "L2v1CompatibilityValidator.h"
 #include "L2v2CompatibilityValidator.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

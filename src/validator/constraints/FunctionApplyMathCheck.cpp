@@ -43,7 +43,11 @@ static const char* PREAMBLE =
     "chosen from the set of identifiers of <functionDefinition>s defined in "
     "the SBML model. (References: L2V2 Section 4.3.2.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

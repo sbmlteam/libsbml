@@ -39,8 +39,11 @@
 #include "UnitsBase.h"
 #include "MathMLBase.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

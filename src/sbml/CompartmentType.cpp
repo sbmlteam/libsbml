@@ -32,8 +32,11 @@
 #include <sbml/Model.h>
 #include <sbml/CompartmentType.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

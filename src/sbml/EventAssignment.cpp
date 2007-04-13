@@ -37,8 +37,11 @@
 #include <sbml/Model.h>
 #include <sbml/EventAssignment.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

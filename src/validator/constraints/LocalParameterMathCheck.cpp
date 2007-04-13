@@ -45,7 +45,11 @@ static const char* PREAMBLE =
     "<kineticLaw>; the identifier is not visible to other parts of the "
     "model. (References: L2V2 Section 3.5.3.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

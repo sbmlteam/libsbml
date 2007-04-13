@@ -33,8 +33,11 @@
 
 #include <check.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

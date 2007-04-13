@@ -24,8 +24,12 @@
 
 #include "ModelHistory.h"
 
+/** @cond doxygen-ignore */
 
 using namespace std;
+
+/** @endcond doxygen-ignore */
+
 
 /**
   * creates a date from the individual fields entered as numbers

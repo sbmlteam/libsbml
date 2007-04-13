@@ -29,8 +29,11 @@
 
 #include "FunctionDefinitionVars.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

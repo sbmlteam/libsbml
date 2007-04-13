@@ -40,8 +40,11 @@
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

@@ -28,8 +28,11 @@
 #include <sbml/SBMLVisitor.h>
 #include <sbml/ListOf.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

@@ -44,7 +44,11 @@ static const char* PREAMBLE =
     "the 'math' element of a <functionDefinition>; they may not be used "
     "elsewhere in an SBML model. (References: L2V2 Section 4.3.2.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

@@ -66,8 +66,11 @@
 
 #include "TestValidator.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 TestValidator::TestValidator (Validator& v) : mValidator(v), mVerboseAll(false)

@@ -47,7 +47,11 @@ static const char* PREAMBLE =
     "'arcsinh', 'arccosh', 'arctanh', 'arcsech', 'arccsch', 'arccoth'. "
     "(References: L2V2 Section 3.5.8.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

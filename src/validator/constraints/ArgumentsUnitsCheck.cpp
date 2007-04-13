@@ -44,8 +44,11 @@ static const char* PREAMBLE =
     "match the units expected for the arguments of that function. "
     "(References: L2V2 Section 3.5.)";
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

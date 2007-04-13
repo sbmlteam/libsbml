@@ -12,7 +12,11 @@
 #include <check.h>
 #include <XMLAttributes.h>
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 CK_CPPSTART

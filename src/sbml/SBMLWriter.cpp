@@ -33,8 +33,11 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLWriter.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

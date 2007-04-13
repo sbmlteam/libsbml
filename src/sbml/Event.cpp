@@ -38,8 +38,11 @@
 #include <sbml/EventAssignment.h>
 #include <sbml/Event.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

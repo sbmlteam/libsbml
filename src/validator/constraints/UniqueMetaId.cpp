@@ -25,10 +25,12 @@
 #include <sbml/SBMLTypes.h>
 #include "UniqueMetaId.h"
 
-
-
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
+
 
 static const char* PREAMBLE =
     "Every 'metaid' attribute value must be unique across the set of all "

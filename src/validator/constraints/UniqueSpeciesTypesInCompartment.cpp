@@ -30,8 +30,11 @@
 #include "UniqueSpeciesTypesInCompartment.h"
 #include "IdList.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 

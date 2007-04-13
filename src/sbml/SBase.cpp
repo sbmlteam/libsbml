@@ -41,8 +41,11 @@
 #include <sbml/ListOf.h>
 #include <sbml/SBase.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 /**
  * elements permitted on the body element of xhtml

@@ -27,8 +27,11 @@
 
 #include "UniqueSymbolsInInitialAssignments.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 static const char* PREAMBLE =

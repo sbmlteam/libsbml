@@ -42,7 +42,11 @@ static const char* PREAMBLE =
     "The second argument of a MathML 'piece' operator must have a boolean "
     "value. (References: L2V2 Section 3.5.8.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

@@ -30,6 +30,8 @@
 
 BEGIN_C_DECLS
 
+/** @cond doxygen-c */
+
 
 typedef struct
 {
@@ -184,7 +186,8 @@ char *
 StringBuffer_toString (const StringBuffer_t *sb);
 
 
-END_C_DECLS
+/** @endcond doxygen-c */
 
+END_C_DECLS
 
 #endif  /** StringBuffer_h **/

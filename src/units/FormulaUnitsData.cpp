@@ -25,8 +25,12 @@
 #include <sbml/Model.h>
 #include <sbml/units/FormulaUnitsData.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
+
 
 /**
   * Populates the ListFormulaDataUnits with the units of each 

@@ -39,7 +39,11 @@
 #include "sbml/annotation/LayoutAnnotation.h"
 #endif // USE_LAYOUT
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

@@ -42,7 +42,11 @@ static const char* PREAMBLE =
     "A MathML operator must be supplied the number of arguments "
     "appropriate for that operator. (References: SBML L2v3 Section 3.4.1.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

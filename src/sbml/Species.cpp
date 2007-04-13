@@ -34,8 +34,11 @@
 #include <sbml/Model.h>
 #include <sbml/Species.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

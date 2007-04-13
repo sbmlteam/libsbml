@@ -32,8 +32,11 @@
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";

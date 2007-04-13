@@ -43,8 +43,11 @@ static const char* PREAMBLE =
     "same type (either all boolean or all numeric). (References: L2V2 "
     "Section 3.5.8.)";
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

@@ -45,7 +45,11 @@ static const char* PREAMBLE =
     "<assignmentRule>, 'math' in <rateRule>, 'math' in <algebraicRule>, and "
     "'delay' in <event>, and 'math' in <eventAssignment>.";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

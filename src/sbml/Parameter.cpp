@@ -36,8 +36,11 @@
 #include <sbml/KineticLaw.h>
 #include <sbml/Parameter.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

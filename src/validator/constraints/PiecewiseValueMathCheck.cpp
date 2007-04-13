@@ -45,7 +45,11 @@ static const char* PREAMBLE =
     "operator should all return values of the same type. (References: L2V2 "
     "Section 3.5.8.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

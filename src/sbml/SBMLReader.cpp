@@ -27,8 +27,11 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLReader.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

@@ -25,8 +25,11 @@
 #include <sbml/SBMLTypes.h>
 #include "IdBase.h"
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

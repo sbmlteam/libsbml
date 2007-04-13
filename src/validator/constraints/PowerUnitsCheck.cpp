@@ -43,8 +43,11 @@
 static const char* PREAMBLE =
   "A math expression using power with non-integer units may result in incorrect units.";
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

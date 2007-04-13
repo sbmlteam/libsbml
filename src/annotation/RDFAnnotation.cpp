@@ -37,8 +37,12 @@
 #include <sbml/annotation/ModelHistory.h>
 #include <sbml/annotation/RDFAnnotation.h>
 
+/** @cond doxygen-ignore */
 
 using namespace std;
+
+/** @endcond doxygen-ignore */
+
 
 /**
  * takes an annotation that has been read into the model

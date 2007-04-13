@@ -34,8 +34,13 @@
 
 #include <check.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
+
+
 //TO DO - add namespace
 
 #define XML_HEADER        "<?xml version='1.0' encoding='UTF-8'?>\n"

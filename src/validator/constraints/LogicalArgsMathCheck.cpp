@@ -42,7 +42,11 @@ static const char* PREAMBLE =
     "The arguments of the MathML logical operators 'and', 'or', 'xor', and "
     "'not' must have boolean values. (References: L2V2 Section 3.5.8.)";
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

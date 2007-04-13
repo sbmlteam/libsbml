@@ -79,8 +79,12 @@
 
 #include <sbml/validator/ConstraintMacros.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
+
 
 // General XML validation
 

@@ -24,8 +24,11 @@
 
 #include <sbml/validator/Constraint.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 VConstraint::VConstraint (unsigned int id, Validator& v) :

@@ -33,8 +33,11 @@
 #include <sbml/validator/Constraint.h>
 #include <sbml/validator/Validator.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 //
@@ -666,9 +669,11 @@ Validator::logMessage (const XMLError& msg)
 unsigned int
 Validator::validate (const SBMLDocument& d)
 {
+  /** @cond doxygen-ignored */
   using namespace std;
+  /** @endcond doxgen-ignored */
+
   Model* m = const_cast<SBMLDocument&>(d).getModel();
-  
 
   if (m != NULL)
   {

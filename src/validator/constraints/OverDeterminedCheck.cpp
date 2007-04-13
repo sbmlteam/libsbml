@@ -30,7 +30,11 @@
 
 #include <iostream>
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**

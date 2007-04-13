@@ -40,7 +40,12 @@
 
 class SBMLVisitor;
 
+/** @cond doxygen-ignored */
+
 using namespace std;
+
+/** @endcond doxgen-ignored */
+
 
 class LIBSBML_EXTERN FormulaUnitsData : public SBase
 {

@@ -33,8 +33,11 @@
 #include <sbml/UnitDefinition.h>
 #include <sbml/SBML.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
+
+/** @endcond doxgen-ignored */
 
 
 /**
