@@ -70,22 +70,22 @@ EventAssignment::EventAssignment (const string& variable, const ASTNode* math)
 
 
 /**
- * Copy constructor - copies this EventAssignment.
+ * Destroys this EventAssignment.
+ */
+EventAssignment::~EventAssignment ()
+{
+  delete mMath;
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this EventAssignment.
  */
 EventAssignment::EventAssignment (const EventAssignment& rhs) :
    SBase   ( rhs )
  , mMath   ( 0   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
-}
-
-
-/**
- * Destroys this EventAssignment.
- */
-EventAssignment::~EventAssignment ()
-{
-  delete mMath;
 }
 
 
@@ -204,14 +204,25 @@ EventAssignment::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "eventAssignment".
  */
 const string&
 EventAssignment::getElementName () const
 {
   static const string name = "eventAssignment";
   return name;
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+EventAssignment::writeElements (XMLOutputStream& stream) const
+{
+  if (mMath) writeMathML(mMath, stream);
 }
 
 
@@ -365,20 +376,6 @@ EventAssignment::writeAttributes (XMLOutputStream& stream) const
 
 
 /**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
-void
-EventAssignment::writeElements (XMLOutputStream& stream) const
-{
-  if (mMath) writeMathML(mMath, stream);
-}
-
-
-
-
-/**
  * @return a (deep) copy of this ListOfEventAssignments.
  */
 SBase*
@@ -400,8 +397,7 @@ ListOfEventAssignments::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfEventAssignments".
  */
 const string&
 ListOfEventAssignments::getElementName () const

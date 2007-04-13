@@ -63,7 +63,16 @@ KineticLaw::KineticLaw (   const string& formula
 
 
 /**
- * Copies this KineticLaw.
+ * Destroys this KineticLaw.
+ */
+KineticLaw::~KineticLaw ()
+{
+  delete mMath;
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this KineticLaw.
  */
 KineticLaw::KineticLaw (const KineticLaw& rhs) :
    SBase          ( rhs                 )
@@ -75,17 +84,6 @@ KineticLaw::KineticLaw (const KineticLaw& rhs) :
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
-
-
-/**
- * Destroys this KineticLaw.
- */
-KineticLaw::~KineticLaw ()
-{
-  delete mMath;
-}
-
-
 
 
 /**
@@ -157,26 +155,6 @@ KineticLaw::getMath () const
   }
 
   return mMath;
-}
-
-
-/**
- * @return the list of Parameters for this KineticLaw.
- */
-const ListOfParameters*
-KineticLaw::getListOfParameters () const
-{
-  return &mParameters;
-}
-
-
-/**
- * @return the list of Parameters for this KineticLaw.
- */
-ListOfParameters*
-KineticLaw::getListOfParameters ()
-{
-  return &mParameters;
 }
 
 
@@ -297,6 +275,26 @@ KineticLaw::setSubstanceUnits (const string& sid)
 
 
 /**
+ * Unsets the timeUnits of this KineticLaw.
+ */
+void
+KineticLaw::unsetTimeUnits ()
+{
+  mTimeUnits.erase();
+}
+
+
+/**
+ * Unsets the substanceUnits of this KineticLaw.
+ */
+void
+KineticLaw::unsetSubstanceUnits ()
+{
+  mSubstanceUnits.erase();
+}
+
+
+/**
  * Adds a copy of the given Parameter to this KineticLaw.
  */
 void
@@ -317,6 +315,26 @@ KineticLaw::createParameter ()
   mParameters.appendAndOwn(p);
 
   return p;
+}
+
+
+/**
+ * @return the list of Parameters for this KineticLaw.
+ */
+const ListOfParameters*
+KineticLaw::getListOfParameters () const
+{
+  return &mParameters;
+}
+
+
+/**
+ * @return the list of Parameters for this KineticLaw.
+ */
+ListOfParameters*
+KineticLaw::getListOfParameters ()
+{
+  return &mParameters;
 }
 
 
@@ -373,26 +391,6 @@ KineticLaw::getNumParameters () const
 
 
 /**
- * Unsets the timeUnits of this KineticLaw.
- */
-void
-KineticLaw::unsetTimeUnits ()
-{
-  mTimeUnits.erase();
-}
-
-
-/**
- * Unsets the substanceUnits of this KineticLaw.
- */
-void
-KineticLaw::unsetSubstanceUnits ()
-{
-  mSubstanceUnits.erase();
-}
-
-
-/**
  * Sets the parent SBMLDocument of this SBML object.
  */
 void
@@ -417,8 +415,7 @@ KineticLaw::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "kineticLaw".
  */
 const string&
 KineticLaw::getElementName () const
@@ -436,6 +433,21 @@ int
 KineticLaw::getElementPosition () const
 {
   return 4;
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+KineticLaw::writeElements (XMLOutputStream& stream) const
+{
+  SBase::writeElements(stream);
+
+  if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
+  if ( getNumParameters() > 0 ) mParameters.write(stream);
 }
 
 
@@ -637,24 +649,6 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
 
 
 /**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
-void
-KineticLaw::writeElements (XMLOutputStream& stream) const
-{
-  SBase::writeElements(stream);
-
-  if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
-  if ( getNumParameters() > 0 ) mParameters.write(stream);
-}
-
-
-
-
-
-/**
  * Creates a new KineticLaw and returns a pointer to it.
  */
 LIBSBML_EXTERN
@@ -730,17 +724,6 @@ const ASTNode_t *
 KineticLaw_getMath (const KineticLaw_t *kl)
 {
   return kl->getMath();
-}
-
-
-/**
- * @return the list of Parameters for this KineticLaw.
- */
-LIBSBML_EXTERN
-ListOf_t *
-KineticLaw_getListOfParameters (KineticLaw_t *kl)
-{
-  return kl->getListOfParameters();
 }
 
 
@@ -859,6 +842,28 @@ KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
 
 
 /**
+ * Unsets the timeUnits of this KineticLaw.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
+{
+  kl->unsetTimeUnits();
+}
+
+
+/**
+ * Unsets the substanceUnits of this KineticLaw.
+ */
+LIBSBML_EXTERN
+void
+KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
+{
+  kl->unsetSubstanceUnits();
+}
+
+
+/**
  * Adds a copy of the given Parameter to this KineticLaw.
  */
 LIBSBML_EXTERN
@@ -878,6 +883,17 @@ Parameter_t *
 KineticLaw_createParameter (KineticLaw_t *kl)
 {
   return kl->createParameter();
+}
+
+
+/**
+ * @return the list of Parameters for this KineticLaw.
+ */
+LIBSBML_EXTERN
+ListOf_t *
+KineticLaw_getListOfParameters (KineticLaw_t *kl)
+{
+  return kl->getListOfParameters();
 }
 
 
@@ -912,26 +928,4 @@ unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl)
 {
   return kl->getNumParameters();
-}
-
-
-/**
- * Unsets the timeUnits of this KineticLaw.
- */
-LIBSBML_EXTERN
-void
-KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
-{
-  kl->unsetTimeUnits();
-}
-
-
-/**
- * Unsets the substanceUnits of this KineticLaw.
- */
-LIBSBML_EXTERN
-void
-KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
-{
-  kl->unsetSubstanceUnits();
 }

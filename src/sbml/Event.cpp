@@ -57,7 +57,17 @@ Event::Event (const string& id) :
 
 
 /**
- * Copy constructor  - copies this Event.
+ * Destroys this Event.
+ */
+Event::~Event ()
+{
+  delete mTrigger;
+  delete mDelay;
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this Event.
  */
 Event::Event (const Event& rhs) :
    SBase            ( rhs                   )
@@ -70,16 +80,6 @@ Event::Event (const Event& rhs) :
   if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
 }
  
-
-/**
- * Destroys this Event.
- */
-Event::~Event ()
-{
-  delete mTrigger;
-  delete mDelay;
-}
-
 
 /**
  * Assignment operator
@@ -372,8 +372,7 @@ Event::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "event".
  */
 const string&
 Event::getElementName () const
@@ -599,8 +598,7 @@ ListOfEvents::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfEvents".
  */
 const string&
 ListOfEvents::getElementName () const
@@ -656,11 +654,8 @@ Event_create (void)
 
 
 /**
- * Creates a new Event with the given id and trigger and returns a pointer
- * to it.  This convenience function is functionally equivalent to:
- *
- *   e = Event_create();
- *   Event_setId(e, id); Event_setTrigger(e, trigger);
+ * Creates a new Event with the given id and returns
+ * a pointer to it.
  */
 LIBSBML_EXTERN
 Event_t *

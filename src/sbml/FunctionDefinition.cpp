@@ -47,6 +47,18 @@ using namespace std;
 
 
 /**
+ * Creates a new FunctionDefinition, optionally with its id and math (via
+ * an infix formula string) attributes set.
+ */
+FunctionDefinition::FunctionDefinition (  const string& id
+                                        , const string& formula ) :
+    SBase( id, "", -1 )
+  , mMath( SBML_parseFormula( formula.c_str() ) )
+{
+}
+
+
+/**
  * Creates a new FunctionDefinition, optionally with its id and math
  * attributes set.
  */
@@ -60,34 +72,22 @@ FunctionDefinition::FunctionDefinition (  const string&  id
 
 
 /**
- * Creates a new FunctionDefinition, optionally with its id and math (via
- * an infix formula string) attributes set.
+ * Destroys this FunctionDefinition.
  */
-FunctionDefinition::FunctionDefinition (  const string& id
-                                        , const string& formula ) :
-    SBase( id, "", -1 )
-  , mMath( SBML_parseFormula( formula.c_str() ) )
+FunctionDefinition::~FunctionDefinition ()
 {
+  delete mMath;
 }
 
 
 /**
- * Copies this FunctionDefinition.
+ * Copy constructor. Creates a copy of this FunctionDefinition.
  */
 FunctionDefinition::FunctionDefinition (const FunctionDefinition& rhs) :
    SBase( rhs )
  , mMath( 0   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
-}
-
-
-/**
- * Destroys this FunctionDefinition.
- */
-FunctionDefinition::~FunctionDefinition ()
-{
-  delete mMath;
 }
 
 
@@ -204,6 +204,8 @@ FunctionDefinition::getBody () const
 {
   return mMath->getRightChild();
 }
+
+
 /**
  * @return the body of this FunctionDefinition, or NULL if no body is
  * defined.
@@ -241,8 +243,7 @@ FunctionDefinition::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "functionDefinition".
  */
 const string&
 FunctionDefinition::getElementName () const
@@ -446,8 +447,7 @@ ListOfFunctionDefinitions::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfFunctionDefinitions".
  */
 const string&
 ListOfFunctionDefinitions::getElementName () const

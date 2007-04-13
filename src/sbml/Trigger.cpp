@@ -47,26 +47,13 @@ using namespace std;
 
 
 /**
- * Creates a new Trigger, optionally with its formula, timeUnits and/or
- * substanceUnits set.
+ * Creates a new Trigger, optionally with its formula set.
  */
 Trigger::Trigger (   const string& formula ) :
    SBase ( -1)
  , mFormula       ( formula        )
  , mMath          ( 0              )
 {
-}
-
-
-/**
- * Copies this Trigger.
- */
-Trigger::Trigger (const Trigger& rhs) :
-   SBase          ( rhs                 )
- , mFormula       ( rhs.mFormula        )
- , mMath          ( 0                   )
-{
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
 }
 
 
@@ -80,7 +67,19 @@ Trigger::~Trigger ()
 
 
 /**
- * Assignment operator
+ * Copy constructor. Creates a copy of this Trigger.
+ */
+Trigger::Trigger (const Trigger& rhs) :
+   SBase          ( rhs                 )
+ , mFormula       ( rhs.mFormula        )
+ , mMath          ( 0                   )
+{
+  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+}
+
+
+/**
+ * Assignment operator.
  */
 Trigger& Trigger::operator=(const Trigger& rhs)
 {
@@ -222,8 +221,7 @@ Trigger::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "trigger".
  */
 const string&
 Trigger::getElementName () const
@@ -408,14 +406,12 @@ Trigger_create (void)
 
 
 /**
- * Creates a new Trigger with the given formula, timeUnits and
- * substanceUnits and returns a pointer to it.  This convenience function
+ * Creates a new Trigger with the given formula and 
+ * returns a pointer to it.  This convenience function
  * is functionally equivalent to:
  *
  *   Trigger_t *t = Trigger_create();
  *   Trigger_setFormula(t, formula);
- *   Trigger_setTimeUnits(t, timeUnits);
- *   ...;
  */
 LIBSBML_EXTERN
 Trigger_t *

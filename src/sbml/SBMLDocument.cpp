@@ -87,7 +87,16 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 
 
 /**
- * Copies this SBMLDocument.
+ * Destroys this SBMLDocument.
+ */
+SBMLDocument::~SBMLDocument ()
+{
+  delete mModel;
+}
+
+
+/**
+ * Creates a copy of this SBMLDocument.
  */
 SBMLDocument::SBMLDocument (const SBMLDocument& rhs) :
    SBase    ( rhs          )
@@ -98,15 +107,6 @@ SBMLDocument::SBMLDocument (const SBMLDocument& rhs) :
   mSBML = this;
 
   if (rhs.mModel) mModel = static_cast<Model*>( rhs.mModel->clone() );
-}
-
-
-/**
- * Destroys this SBMLDocument.
- */
-SBMLDocument::~SBMLDocument ()
-{
-  delete mModel;
 }
 
 
@@ -163,6 +163,11 @@ SBMLDocument::getModel ()
  *   - Level 2 Version 1
  *   - Level 2 Version 2
  *   - Level 2 Version 3
+ *
+ * @note Some models cannot be converted from their existing
+ * level and version to other particular combinations.
+ * This function checks whether the required conversion 
+ * is possible.
  */
 void
 SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
@@ -412,8 +417,7 @@ SBMLDocument::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name for
- * this SBML object.
+ * @return the name of this element ie "sbml".
  */
 const string&
 SBMLDocument::getElementName () const
@@ -550,7 +554,6 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         }
         break;
       }
-      // CHECK WHEN SPEC
       else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2/version3"))
       {
         match = 1;
@@ -701,6 +704,11 @@ SBMLDocument_getModel (SBMLDocument_t *d)
  *   - Level 1 Version 2
  *   - Level 2 Version 1
  *   - Level 2 Version 2
+ *
+ * @note Some models cannot be converted from their existing
+ * level and version to other particular combinations.
+ * This function checks whether the required conversion 
+ * is possible.
  */
 LIBSBML_EXTERN
 void
@@ -736,7 +744,7 @@ SBMLDocument_createModel (SBMLDocument_t *d)
 
 /**
  * Performs a set of semantic consistency checks on the document.  Query
- * the results by calling getWarning(), getNumError(),and getNumFatal().
+ * the results by calling getNumErrors() and getError().
  *
  * @return the number of failed checks (errors) encountered.
  */

@@ -41,6 +41,39 @@ using namespace std;
 
 /** @endcond doxgen-ignored */
 
+/**
+ * Used by getReactant(species), getProduct(species), and
+ * getModifier(species).
+ */
+static SBase*
+GetSpeciesRef (ListOf& items, const string& species)
+{
+  // TODO: Maybe ListOf should return begin and end iterators to the
+  // underlying container.  Then this loop could be rewritten with
+  // a find_if() algorithm.
+
+  unsigned int size = items.size();
+
+  for (unsigned int n = 0; n < size; ++n)
+  {
+    SpeciesReference* sr = static_cast<SpeciesReference*>( items.get(n) );
+    if (sr->getSpecies() == species) return sr;
+  }
+
+  return 0;
+}
+
+
+/**
+ * Simply calls non-const version above.
+ */
+static const SBase*
+GetSpeciesRef (const ListOf& items, const string& species)
+{
+  return GetSpeciesRef(const_cast<ListOf&>(items), species);
+}
+
+
 
 /**
  * Creates a new Reaction, optionally with its id, KineticLaw, and
@@ -62,7 +95,16 @@ Reaction::Reaction (const string& id, const KineticLaw* kl, bool reversible) :
 
 
 /**
- * Copies this Reaction.
+ * Destroys this Reaction.
+ */
+Reaction::~Reaction ()
+{
+  delete mKineticLaw;
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this Reaction.
  */
 Reaction::Reaction (const Reaction& rhs) :
     SBase      ( rhs             )
@@ -82,16 +124,7 @@ Reaction::Reaction (const Reaction& rhs) :
 
 
 /**
- * Destroys this Reaction.
- */
-Reaction::~Reaction ()
-{
-  delete mKineticLaw;
-}
-
-
-/**
- * Assignment operator
+ * Assignment operator.
  */
 Reaction& Reaction::operator=(const Reaction& rhs)
 {
@@ -212,6 +245,182 @@ Reaction::getFast () const
 
 
 /**
+ * @return true if the KineticLaw of this Reaction has been set, false
+ * otherwise.
+ */
+bool
+Reaction::isSetKineticLaw () const
+{
+  return (mKineticLaw != 0);
+}
+
+
+/**
+ * @return true if the fast status of this Reaction has been set, false
+ * otherwise.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+bool
+Reaction::isSetFast () const
+{
+  return mIsSetFast;
+}
+
+
+/**
+ * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
+ */
+void
+Reaction::setKineticLaw (const KineticLaw* kl)
+{
+  if (mKineticLaw == kl) return;
+
+  delete mKineticLaw;
+  mKineticLaw = (kl != 0) ? static_cast<KineticLaw*>( kl->clone() ) : 0;
+
+  if (mKineticLaw) mKineticLaw->setSBMLDocument(mSBML);
+}
+
+
+/**
+ * Sets the reversible status of this Reaction to value.
+ */
+void
+Reaction::setReversible (bool value)
+{
+  mReversible = value;
+}
+
+
+/**
+ * Sets the fast status of this Reaction to value.
+ */
+void
+Reaction::setFast (bool value)
+{
+  mFast      = value;
+  mIsSetFast = true;
+}
+
+
+/**
+ * Unsets the KineticLaw of this Reaction.
+ */
+void
+Reaction::unsetKineticLaw ()
+{
+  delete mKineticLaw;
+  mKineticLaw = 0;
+}
+
+
+/**
+ * Unsets the fast status of this Reaction.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+void
+Reaction::unsetFast ()
+{
+  mIsSetFast = false;
+}
+
+
+/**
+ * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
+ */
+void
+Reaction::addReactant (const SpeciesReference* sr)
+{
+  mReactants.append(sr);
+}
+
+
+/**
+ * Adds a copy of the given product (SpeciesReference) to this Reaction.
+ */
+void
+Reaction::addProduct (const SpeciesReference* sr)
+{
+  mProducts.append(sr);
+}
+
+
+/**
+ * Adds a copy of the given modifier (ModifierSpeciesReference) to this
+ * Reaction.
+ */
+void
+Reaction::addModifier (const ModifierSpeciesReference* msr)
+{
+  mModifiers.append(msr);
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * reactants and returns it.
+ */
+SpeciesReference*
+Reaction::createReactant ()
+{
+  SpeciesReference* species = new SpeciesReference;
+  mReactants.appendAndOwn(species);
+
+  return species;
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * products and returns it.
+ */
+SpeciesReference*
+Reaction::createProduct ()
+{
+  SpeciesReference* species = new SpeciesReference;
+  mProducts.appendAndOwn(species);
+
+  return species;
+}
+
+
+/**
+ * Creates a new ModifierSpeciesReference, adds it to this Reaction's
+ * list of modifiers and returns it.
+ */
+ModifierSpeciesReference*
+Reaction::createModifier ()
+{
+  ModifierSpeciesReference* species = new ModifierSpeciesReference;
+  mModifiers.appendAndOwn(species);
+
+  return species;
+}
+
+
+/**
+ * Creates a new KineticLaw for this Reaction and returns it.  If this
+ * Reaction had a previous KineticLaw, it will be destroyed.
+ */
+KineticLaw*
+Reaction::createKineticLaw ()
+{
+  delete mKineticLaw;
+  mKineticLaw = new KineticLaw;
+
+  mKineticLaw->setSBMLDocument(mSBML);
+
+  return mKineticLaw;
+}
+
+
+/**
  * @return the list of Reactants for this Reaction.
  */
 const ListOfSpeciesReferences*
@@ -268,39 +477,6 @@ ListOfSpeciesReferences*
 Reaction::getListOfModifiers ()
 {
   return &mModifiers;
-}
-
-
-/**
- * Used by getReactant(species), getProduct(species), and
- * getModifier(species).
- */
-static SBase*
-GetSpeciesRef (ListOf& items, const string& species)
-{
-  // TODO: Maybe ListOf should return begin and end iterators to the
-  // underlying container.  Then this loop could be rewritten with
-  // a find_if() algorithm.
-
-  unsigned int size = items.size();
-
-  for (unsigned int n = 0; n < size; ++n)
-  {
-    SpeciesReference* sr = static_cast<SpeciesReference*>( items.get(n) );
-    if (sr->getSpecies() == species) return sr;
-  }
-
-  return 0;
-}
-
-
-/**
- * Simply calls non-const version above.
- */
-static const SBase*
-GetSpeciesRef (const ListOf& items, const string& species)
-{
-  return GetSpeciesRef(const_cast<ListOf&>(items), species);
 }
 
 
@@ -439,157 +615,6 @@ Reaction::getModifier (const string& species)
 
 
 /**
- * @return true if the KineticLaw of this Reaction has been set, false
- * otherwise.
- */
-bool
-Reaction::isSetKineticLaw () const
-{
-  return (mKineticLaw != 0);
-}
-
-
-/**
- * @return true if the fast status of this Reation has been set, false
- * otherwise.
- *
- * In L1, fast is optional with a default of false, which means it is
- * effectively always set.  In L2, however, fast is optional with no
- * default value, so it may or may not be set to a specific value.
- */
-bool
-Reaction::isSetFast () const
-{
-  return mIsSetFast;
-}
-
-
-/**
- * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
- */
-void
-Reaction::setKineticLaw (const KineticLaw* kl)
-{
-  if (mKineticLaw == kl) return;
-
-  delete mKineticLaw;
-  mKineticLaw = (kl != 0) ? static_cast<KineticLaw*>( kl->clone() ) : 0;
-
-  if (mKineticLaw) mKineticLaw->setSBMLDocument(mSBML);
-}
-
-
-/**
- * Sets the reversible status of this Reaction to value.
- */
-void
-Reaction::setReversible (bool value)
-{
-  mReversible = value;
-}
-
-
-/**
- * Sets the fast status of this Reaction to value.
- */
-void
-Reaction::setFast (bool value)
-{
-  mFast      = value;
-  mIsSetFast = true;
-}
-
-
-/**
- * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
- */
-void
-Reaction::addReactant (const SpeciesReference* sr)
-{
-  mReactants.append(sr);
-}
-
-
-/**
- * Adds a copy of the given product (SpeciesReference) to this Reaction.
- */
-void
-Reaction::addProduct (const SpeciesReference* sr)
-{
-  mProducts.append(sr);
-}
-
-
-/**
- * Adds a copy of the given modifier (ModifierSpeciesReference) to this
- * Reaction.
- */
-void
-Reaction::addModifier (const ModifierSpeciesReference* msr)
-{
-  mModifiers.append(msr);
-}
-
-
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * reactants and returns it.
- */
-SpeciesReference*
-Reaction::createReactant ()
-{
-  SpeciesReference* species = new SpeciesReference;
-  mReactants.appendAndOwn(species);
-
-  return species;
-}
-
-
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * products and returns it.
- */
-SpeciesReference*
-Reaction::createProduct ()
-{
-  SpeciesReference* species = new SpeciesReference;
-  mProducts.appendAndOwn(species);
-
-  return species;
-}
-
-
-/**
- * Creates a new ModifierSpeciesReference, adds it to this Reaction's
- * list of modifiers and returns it.
- */
-ModifierSpeciesReference*
-Reaction::createModifier ()
-{
-  ModifierSpeciesReference* species = new ModifierSpeciesReference;
-  mModifiers.appendAndOwn(species);
-
-  return species;
-}
-
-
-/**
- * Creates a new KineticLaw for this Reaction and returns it.  If this
- * Reaction had a previous KineticLaw, it will be destroyed.
- */
-KineticLaw*
-Reaction::createKineticLaw ()
-{
-  delete mKineticLaw;
-  mKineticLaw = new KineticLaw;
-
-  mKineticLaw->setSBMLDocument(mSBML);
-
-  return mKineticLaw;
-}
-
-
-/**
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
 unsigned int
@@ -617,31 +642,6 @@ unsigned int
 Reaction::getNumModifiers () const
 {
   return mModifiers.size();
-}
-
-
-/**
- * Unsets the KineticLaw of this Reaction.
- */
-void
-Reaction::unsetKineticLaw ()
-{
-  delete mKineticLaw;
-  mKineticLaw = 0;
-}
-
-
-/**
- * Unsets the fast status of this Reation.
- *
- * In L1, fast is optional with a default of false, which means it is
- * effectively always set.  In L2, however, fast is optional with no
- * default value, so it may or may not be set to a specific value.
- */
-void
-Reaction::unsetFast ()
-{
-  mIsSetFast = false;
 }
 
 
@@ -675,8 +675,7 @@ Reaction::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "reaction".
  */
 const string&
 Reaction::getElementName () const
@@ -923,8 +922,7 @@ ListOfReactions::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfReactions".
  */
 const string&
 ListOfReactions::getElementName () const
@@ -1095,6 +1093,242 @@ Reaction_getFast (const Reaction_t *r)
 }
 
 
+
+/**
+ * @return true (non-zero) if the id of this Reaction has been set, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetId (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetId() );
+}
+
+
+/**
+ * @return true (non-zero) if the name of this Reaction has been set, false
+ * (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetName (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetName() );
+}
+
+
+/**
+ * @return true (non-zero) if the KineticLaw of this Reaction has been set,
+ * false (0) otherwise.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetKineticLaw (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetKineticLaw() );
+}
+
+
+/**
+ * @return true (non-zero) if the fast status of this Reaction has been set,
+ * false (0) otherwise.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+LIBSBML_EXTERN
+int
+Reaction_isSetFast (const Reaction_t *r)
+{
+  return static_cast<int>( r->isSetFast() );
+}
+
+
+/**
+ * Sets the id of this Reaction to a copy of sid.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setId (Reaction_t *r, const char *sid)
+{
+  (sid == NULL) ? r->unsetId() : r->setId(sid);
+}
+
+
+/**
+ * Sets the name of this Reaction to a copy of name.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setName (Reaction_t *r, const char *name)
+{
+  (name == NULL) ? r->unsetName() : r->setName(name);
+}
+
+
+/**
+ * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
+ */
+LIBSBML_EXTERN
+void
+Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl)
+{
+  (kl == NULL) ? r->unsetKineticLaw() : r->setKineticLaw(kl);
+}
+
+
+/**
+ * Sets the reversible status of this Reaction to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Reaction_setReversible (Reaction_t *r, int value)
+{
+  r->setReversible( static_cast<bool>(value) );
+}
+
+
+/**
+ * Sets the fast status of this Reaction to value (boolean).
+ */
+LIBSBML_EXTERN
+void
+Reaction_setFast (Reaction_t *r, int value)
+{
+  r->setFast( static_cast<bool>(value) );
+}
+
+
+/**
+ * Unsets the name of this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_unsetName (Reaction_t *r)
+{
+  r->unsetName();
+}
+
+
+/**
+ * Unsets the KineticLaw of this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_unsetKineticLaw (Reaction_t *r)
+{
+  r->unsetKineticLaw();
+}
+
+
+/**
+ * Unsets the fast status of this Reation.
+ *
+ * In L1, fast is optional with a default of false, which means it is
+ * effectively always set.  In L2, however, fast is optional with no
+ * default value, so it may or may not be set to a specific value.
+ */
+LIBSBML_EXTERN
+void
+Reaction_unsetFast (Reaction_t *r)
+{
+  r->unsetFast();
+}
+
+
+/**
+ * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr)
+{
+  if (sr != NULL)
+  {
+    r->addReactant( static_cast<const SpeciesReference*>(sr) );
+  }
+}
+
+
+/**
+ * Adds a copy of the given product (SpeciesReference) to this Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr)
+{
+  if (sr != NULL)
+  {
+    r->addProduct( static_cast<const SpeciesReference*>(sr) );
+  }
+}
+
+
+/**
+ * Adds a copy of the given modifier (ModifierSpeciesReference) to this
+ * Reaction.
+ */
+LIBSBML_EXTERN
+void
+Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr)
+{
+  if (msr != NULL && msr->isModifier())
+  {
+    r->addModifier( static_cast<const ModifierSpeciesReference*>(msr) );
+  }
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * reactants and returns it.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_createReactant (Reaction_t *r)
+{
+  return r->createReactant();
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * products and returns it.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_createProduct (Reaction_t *r)
+{
+  return r->createProduct();
+}
+
+
+/**
+ * Creates a new SpeciesReference, adds it to this Reaction's list of
+ * modifiers and returns it.
+ */
+LIBSBML_EXTERN
+SpeciesReference_t *
+Reaction_createModifier (Reaction_t *r)
+{
+  return r->createModifier();
+}
+
+
+/**
+ * Creates a new KineticLaw for this Reaction and returns it.  If this
+ * Reaction had a previous KineticLaw, it will be destroyed.
+ */
+LIBSBML_EXTERN
+KineticLaw_t *
+Reaction_createKineticLaw (Reaction_t *r)
+{
+  return r->createKineticLaw();
+}
+
+
 /**
  * @return the list of Reactants for this Reaction.
  */
@@ -1196,205 +1430,6 @@ Reaction_getModifierBySpecies (Reaction_t *r, const char *species)
   return (species != NULL) ? r->getModifier(species) : NULL;
 }
 
-
-/**
- * @return true (non-zero) if the id of this Reaction has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetId (const Reaction_t *r)
-{
-  return static_cast<int>( r->isSetId() );
-}
-
-
-/**
- * @return true (non-zero) if the name of this Reaction has been set, false
- * (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetName (const Reaction_t *r)
-{
-  return static_cast<int>( r->isSetName() );
-}
-
-
-/**
- * @return true (non-zero) if the KineticLaw of this Reaction has been set,
- * false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetKineticLaw (const Reaction_t *r)
-{
-  return static_cast<int>( r->isSetKineticLaw() );
-}
-
-
-/**
- * @return true (non-zero) if the fast status of this Reation has been set,
- * false (0) otherwise.
- *
- * In L1, fast is optional with a default of false, which means it is
- * effectively always set.  In L2, however, fast is optional with no
- * default value, so it may or may not be set to a specific value.
- */
-LIBSBML_EXTERN
-int
-Reaction_isSetFast (const Reaction_t *r)
-{
-  return static_cast<int>( r->isSetFast() );
-}
-
-
-/**
- * Sets the id of this Reaction to a copy of sid.
- */
-LIBSBML_EXTERN
-void
-Reaction_setId (Reaction_t *r, const char *sid)
-{
-  (sid == NULL) ? r->unsetId() : r->setId(sid);
-}
-
-
-/**
- * Sets the name of this Reaction to a copy of name.
- */
-LIBSBML_EXTERN
-void
-Reaction_setName (Reaction_t *r, const char *name)
-{
-  (name == NULL) ? r->unsetName() : r->setName(name);
-}
-
-
-/**
- * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
- */
-LIBSBML_EXTERN
-void
-Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl)
-{
-  (kl == NULL) ? r->unsetKineticLaw() : r->setKineticLaw(kl);
-}
-
-
-/**
- * Sets the reversible status of this Reaction to value (boolean).
- */
-LIBSBML_EXTERN
-void
-Reaction_setReversible (Reaction_t *r, int value)
-{
-  r->setReversible( static_cast<bool>(value) );
-}
-
-
-/**
- * Sets the fast status of this Reaction to value (boolean).
- */
-LIBSBML_EXTERN
-void
-Reaction_setFast (Reaction_t *r, int value)
-{
-  r->setFast( static_cast<bool>(value) );
-}
-
-
-/**
- * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr)
-{
-  if (sr != NULL)
-  {
-    r->addReactant( static_cast<const SpeciesReference*>(sr) );
-  }
-}
-
-
-/**
- * Adds a copy of the given product (SpeciesReference) to this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr)
-{
-  if (sr != NULL)
-  {
-    r->addProduct( static_cast<const SpeciesReference*>(sr) );
-  }
-}
-
-
-/**
- * Adds a copy of the given modifier (ModifierSpeciesReference) to this
- * Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr)
-{
-  if (msr != NULL && msr->isModifier())
-  {
-    r->addModifier( static_cast<const ModifierSpeciesReference*>(msr) );
-  }
-}
-
-
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * reactants and returns it.
- */
-LIBSBML_EXTERN
-SpeciesReference_t *
-Reaction_createReactant (Reaction_t *r)
-{
-  return r->createReactant();
-}
-
-
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * products and returns it.
- */
-LIBSBML_EXTERN
-SpeciesReference_t *
-Reaction_createProduct (Reaction_t *r)
-{
-  return r->createProduct();
-}
-
-
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * modifiers and returns it.
- */
-LIBSBML_EXTERN
-SpeciesReference_t *
-Reaction_createModifier (Reaction_t *r)
-{
-  return r->createModifier();
-}
-
-
-/**
- * Creates a new KineticLaw for this Reaction and returns it.  If this
- * Reaction had a previous KineticLaw, it will be destroyed.
- */
-LIBSBML_EXTERN
-KineticLaw_t *
-Reaction_createKineticLaw (Reaction_t *r)
-{
-  return r->createKineticLaw();
-}
-
-
 /**
  * @return the number of reactants (SpeciesReferences) in this Reaction.
  */
@@ -1429,38 +1464,3 @@ Reaction_getNumModifiers (const Reaction_t *r)
 }
 
 
-/**
- * Unsets the name of this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_unsetName (Reaction_t *r)
-{
-  r->unsetName();
-}
-
-
-/**
- * Unsets the KineticLaw of this Reaction.
- */
-LIBSBML_EXTERN
-void
-Reaction_unsetKineticLaw (Reaction_t *r)
-{
-  r->unsetKineticLaw();
-}
-
-
-/**
- * Unsets the fast status of this Reation.
- *
- * In L1, fast is optional with a default of false, which means it is
- * effectively always set.  In L2, however, fast is optional with no
- * default value, so it may or may not be set to a specific value.
- */
-LIBSBML_EXTERN
-void
-Reaction_unsetFast (Reaction_t *r)
-{
-  r->unsetFast();
-}

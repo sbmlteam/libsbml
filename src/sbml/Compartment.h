@@ -65,7 +65,7 @@ public:
 
 
   /**
-   * Copy constructor - copies this compartment.
+   * Copy constructor. Creates a copy of this compartment.
    */
   Compartment(const Compartment& orig);
 
@@ -248,8 +248,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "compartment".
    */
   virtual const string& getElementName () const;
 
@@ -305,8 +304,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "listOfCompartments".
    */
   virtual const string& getElementName () const;
 

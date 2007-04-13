@@ -68,13 +68,13 @@ public:
 
 
   /**
-  * Copy constructor.
+  * Copy constructor. Creates a copy of this Parameter.
   */
   Parameter(const Parameter& orig);
 
 
   /**
-   * Assignment operator
+   * Assignment operator.
    */
   Parameter& operator=(const Parameter& orig);
 
@@ -170,8 +170,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "parameter".
    */
   virtual const std::string& getElementName () const;
 
@@ -225,8 +224,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfParameters".
    */
   virtual const std::string& getElementName () const;
 

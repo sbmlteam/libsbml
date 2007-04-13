@@ -52,17 +52,16 @@ public:
   Delay (   const std::string& formula        = "");
 
   /**
-   * Copies this Delay.
-   */
-  Delay (const Delay& rhs);
-
-  /**
    * Destroys this Delay.
    */
   virtual ~Delay ();
 
+ /**
+  * Copy constructor. Creates a copy of this Delay.
+  */
+  Delay (const Delay& rhs);
 
-  /**
+ /**
    * Assignment operator
    */
   Delay& operator=(const Delay& orig);
@@ -127,8 +126,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "delay".
    */
   virtual const std::string& getElementName () const;
 

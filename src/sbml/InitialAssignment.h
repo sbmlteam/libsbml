@@ -48,21 +48,20 @@ class LIBSBML_EXTERN InitialAssignment : public SBase
 public:
 
   /**
-   * Creates a new InitialAssignment, optionally with its symbol attributes
+   * Creates a new InitialAssignment, optionally with its symbol attribute
    * set.
    */
   InitialAssignment (const std::string& symbol = "");
-
-  /**
-   * Copies this InitialAssignment.
-   */
-  InitialAssignment (const InitialAssignment& rhs);
 
   /**
    * Destroys this InitialAssignment.
    */
   virtual ~InitialAssignment ();
 
+  /**
+   * Copy constructor. Creates a copy of this InitialAssignment.
+   */
+  InitialAssignment (const InitialAssignment& rhs);
 
   /**
    * Assignment operator
@@ -95,7 +94,7 @@ public:
   const ASTNode* getMath () const;
 
   /**
-   * @return tru if the symbol of this InitialAssignment has been set,
+   * @return true if the symbol of this InitialAssignment has been set,
    * false otherwise.
    */
   bool isSetSymbol () const;
@@ -126,8 +125,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "initialAssignment".
    */
   virtual const std::string& getElementName () const;
 
@@ -184,10 +182,9 @@ public:
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   */
+/**
+ * @return the name of this element ie "listOfInitialAssignments".
+ */
   virtual const std::string& getElementName () const;
 
   /**
@@ -225,7 +222,7 @@ InitialAssignment_create (void);
 
 
 /**
- * Creates a new InitialAssignment, optionally with its symbol attributes
+ * Creates a new InitialAssignment, optionally with its symbol attribute
  * set.
  */
 LIBSBML_EXTERN
@@ -250,7 +247,7 @@ InitialAssignment_clone (const InitialAssignment_t *ia);
 
 
 /**
- * @return the symbol for this InitialAssignment
+ * @return the symbol for this InitialAssignment.
  */
 LIBSBML_EXTERN
 const char *

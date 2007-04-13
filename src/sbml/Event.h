@@ -56,15 +56,14 @@ public:
   Event (  const std::string&  id      = "");
 
   /**
-   * Copy constructor  - copies this Event.
-   */
-  Event (const Event& rhs);
-
-  /**
    * Destroys this Event.
    */
   virtual ~Event ();
 
+  /**
+   * Copy constructor. Creates a copy of this Event.
+   */
+  Event (const Event& rhs);
 
   /**
    * Assignment operator
@@ -119,12 +118,12 @@ public:
   bool isSetTimeUnits () const;
 
   /**
-   * Sets the trigger of this Event to a copy of the given ASTNode.
+   * Sets the trigger of this Event to a copy of the given Trigger.
    */
   void setTrigger (const Trigger* trigger);
 
   /**
-   * Sets the delay of this Event to a copy of the given ASTNode.
+   * Sets the delay of this Event to a copy of the given Delay.
    */
   void setDelay (const Delay* delay);
 
@@ -210,8 +209,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "event".
    */
   virtual const std::string& getElementName () const;
 
@@ -278,8 +276,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfEvents".
    */
   virtual const std::string& getElementName () const;
 
@@ -317,11 +314,8 @@ Event_t *
 Event_create (void);
 
 /**
- * Creates a new Event with the given id and trigger and returns a pointer
- * to it.  This convenience function is functionally equivalent to:
- *
- *   e = Event_create();
- *   Event_setId(e, id); Event_setTrigger(e, trigger);
+ * Creates a new Event with the given id and returns
+ * a pointer to it.
  */
 LIBSBML_EXTERN
 Event_t *

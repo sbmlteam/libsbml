@@ -58,7 +58,7 @@ CompartmentType::~CompartmentType ()
 
 
 /**
- * Copy constructor - copies this CompartmentType.
+ * Copy constructor. Creates a copy of this CompartmentType.
  */
 CompartmentType::CompartmentType(const CompartmentType& orig) :
       SBase(orig)
@@ -114,8 +114,7 @@ CompartmentType::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "compartmentType".
  */
 const string&
 CompartmentType::getElementName () const
@@ -258,8 +257,7 @@ ListOfCompartmentTypes::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfCompartmentTypes".
  */
 const string&
 ListOfCompartmentTypes::getElementName () const

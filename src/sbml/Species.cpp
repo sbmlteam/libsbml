@@ -68,7 +68,7 @@ Species::~Species ()
 
 
 /**
- * Copy constructor.
+ * Copy constructor. Creates a copy of this Species.
  */
 Species::Species(const Species& orig) :
       SBase(orig)
@@ -94,7 +94,7 @@ Species::Species(const Species& orig) :
 
 
 /**
- * Assignment operator
+ * Assignment operator.
  */
 Species& Species::operator=(const Species& orig)
 {
@@ -239,7 +239,8 @@ Species::getHasOnlySubstanceUnits () const
 
 
 /**
- * @return the boundaryCondition of this Species.
+ * @return true if this Species has boundaryCondition
+ * true, false otherwise.
  */
 bool
 Species::getBoundaryCondition () const
@@ -382,7 +383,7 @@ Species::setCompartment (const string& sid)
 
 /**
  * Sets the initialAmount of this Species to value and marks the field as
- * set.  This method also unsets the initialConentration field.
+ * set.  This method also unsets the initialConcentration field.
  */
 void
 Species::setInitialAmount (double value)
@@ -490,7 +491,7 @@ Species::unsetSpeciesType ()
 
 
 /**
- * Marks the initialAmount of this Species as unset.
+ * Unsets the initialAmount of this Species.
  */
 void
 Species::unsetInitialAmount ()
@@ -566,8 +567,7 @@ Species::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "specie" (L1) or "species" (L2).
  */
 const string&
 Species::getElementName () const
@@ -904,8 +904,7 @@ ListOfSpecies::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfSpecies".
  */
 const string&
 ListOfSpecies::getElementName () const
@@ -1120,7 +1119,8 @@ Species_getHasOnlySubstanceUnits (const Species_t *s)
 
 
 /**
- * @return the boundaryCondition of this Species.
+ * @return true (non-zero) if this Species has boundaryCondition
+ * true, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1323,7 +1323,7 @@ Species_setCompartment (Species_t *s, const char *sid)
 
 /**
  * Sets the initialAmount of this Species to value and marks the field as
- * set.  This method also unsets the initialConentration field.
+ * set.  This method also unsets the initialConcentration field.
  */
 LIBSBML_EXTERN
 void

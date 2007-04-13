@@ -60,13 +60,13 @@ public:
 
 
   /**
-  * Copy constructor.
+  * Copy constructor. Creates a copy of this UnitDefinition.
   */
   UnitDefinition(const UnitDefinition& orig);
 
 
   /**
-   * Assignment operator
+   * Assignment operator.
    */
   UnitDefinition& operator=(const UnitDefinition& orig);
 
@@ -87,50 +87,50 @@ public:
 
   /**
    * @return true if this UnitDefinition is a variant of the builtin type
-   * area, i.e. square metres with only abritrary variations in scale,
-   * multiplier, or offset values, false otherwise.
+   * area. i.e. square metres with only abritrary variations in scale,
+   * or multiplier values, false otherwise.
    */
   bool isVariantOfArea () const;
 
   /**
    * @return true if this UnitDefinition is a variant of the builtin type
-   * length, i.e. metres with only abritrary variations in scale,
-   * multiplier, or offset values, false otherwise.
+   * length. i.e. metres with only abritrary variations in scale,
+   * or multiplier values, false otherwise.
    */
   bool isVariantOfLength () const;
 
   /**
    * @return true if this UnitDefinition is a variant of the builtin type
-   * substance, i.e. moles or items with only abritrary variations in
-   * scale, multiplier, or offset values, false otherwise.
+   * substance. i.e. moles or items with only abritrary variations in
+   * scale or multiplier values, false otherwise.
    */
   bool isVariantOfSubstance () const;
 
   /**
    * @return true if this UnitDefinition is a variant of the builtin type
-   * time, i.e. seconds with only abritrary variations in scale,
-   * multiplier, or offset values, false otherwise.
+   * time. i.e. seconds with only abritrary variations in scale,
+   * or multiplier values, false otherwise.
    */
   bool isVariantOfTime () const;
 
   /**
    * @return true if this UnitDefinition is a variant of the builtin type
-   * volume, i.e. litre or cubic metre with only abritrary variations in
-   * scale, multiplier, or offset values, false otherwise.
+   * volume. i.e. litre or cubic metre with only abritrary variations in
+   * scale or multiplier values, false otherwise.
    */
   bool isVariantOfVolume () const;
 
   /**
-   * @return true if this UnitDefinition is a variant of dimensionless
+   * @return true if this UnitDefinition is a variant of dimensionless.
    * i.e. dimensionless with only abritrary variations in scale,
-   * multiplier, or offset values, false otherwise.
+   * or multiplier values, false otherwise.
    */
   bool isVariantOfDimensionless () const;
 
   /**
-   * @return true if this UnitDefinition is a variant of mass i.e. gram or
-   * kilogram with only abritrary variations in scale, multiplier, or
-   * offset values, false otherwise.
+   * @return true if this UnitDefinition is a variant of mass. ie gram or
+   * kilogram with only abritrary variations in scale or multiplier
+   * values, false otherwise.
    */
   bool isVariantOfMass () const;
 
@@ -190,8 +190,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "unitDefinition".
    */
   virtual const std::string& getElementName () const;
 
@@ -254,8 +253,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfUnitDefinitions".
    */
   virtual const std::string& getElementName () const;
 
@@ -343,7 +341,7 @@ UnitDefinition_getName (const UnitDefinition_t *ud);
 
 
 /**
- * @return non-zero if the id of this UnitDefinition has been set, zero
+ * @return true (non-zero) if the id of this UnitDefinition has been set, false (0)
  * otherwise.
  */
 LIBSBML_EXTERN
@@ -351,7 +349,7 @@ int
 UnitDefinition_isSetId (const UnitDefinition_t *ud);
 
 /**
- * @return non-zero if the name of this UnitDefinition has been set, zero
+ * @return true (non-zero) if the name of this UnitDefinition has been set, false (0)
  * otherwise.
  */
 LIBSBML_EXTERN
@@ -360,54 +358,54 @@ UnitDefinition_isSetName (const UnitDefinition_t *ud);
 
 
 /**
- * @return non-zero if this UnitDefinition is a variant of the builtin type
- * area, i.e. square metres with only abritrary variations in scale,
- * multiplier, or offset values, zero otherwise.
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * area. i.e. square metres with only abritrary variations in scale,
+ * or multiplier values, false otherwise.
  */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfArea (const UnitDefinition_t *ud);
 
 /**
- * @return non-zero if this UnitDefinition is a variant of the builtin type
- * length, i.e. metres with only abritrary variations in scale, multiplier,
- * or offset values, zero otherwise.
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * length. i.e. metres with only abritrary variations in scale,
+ * or multiplier values, false otherwise.
  */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud);
 
 /**
- * @return non-zero if this UnitDefinition is a variant of the builtin type
- * substance, i.e. moles or items with only abritrary variations in scale,
- * multiplier, or offset values, zero otherwise.
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * substance. i.e. moles or items with only abritrary variations in
+ * scale or multiplier values, false otherwise.
  */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud);
 
 /**
- * @return non-zero if this UnitDefinition is a variant of the builtin type
- * time, i.e. seconds with only abritrary variations in scale, multiplier,
- * or offset values, zero otherwise.
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * time. i.e. seconds with only abritrary variations in scale,
+ * or multiplier values, false otherwise.
  */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud);
 
 /**
- * @return non-zero if this UnitDefinition is a variant of the builtin type
- * volume, i.e. litre or cubic metre with only abritrary variations in
- * scale, multiplier, or offset values, zero otherwise.
+ * @return true if this UnitDefinition is a variant of the builtin type
+ * volume. i.e. litre or cubic metre with only abritrary variations in
+ * scale or multiplier values, false otherwise.
  */
 LIBSBML_EXTERN
 int
 UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
 
 /**
- * @return non-zero if this UnitDefinition is a variant of mass
- * i.e. gram or kilogram with only abritrary variations in
- * scale, multiplier, or offset values, zero otherwise.
+ * @return true if this UnitDefinition is a variant of mass. ie gram or
+ * kilogram with only abritrary variations in scale or multiplier
+ * values, false otherwise.
  */
 LIBSBML_EXTERN
 int

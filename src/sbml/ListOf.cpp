@@ -44,6 +44,24 @@ ListOf::ListOf ()
 
 
 /**
+ * Used by the Destructor to delete each item in mItems.
+ */
+struct Delete : public unary_function<SBase*, void>
+{
+  void operator() (SBase* sb) { delete sb; }
+};
+
+
+/**
+ * Destroys the given ListOf and its constituent items.
+ */
+ListOf::~ListOf ()
+{
+  for_each( mItems.begin(), mItems.end(), Delete() );
+}
+
+
+/**
  * Used by the Copy Constructor to clone each item in mItems.
  */
 struct Clone : public unary_function<SBase*, SBase*>
@@ -53,7 +71,7 @@ struct Clone : public unary_function<SBase*, SBase*>
 
 
 /**
- * Copies this ListOf items.
+ * Copy constructor. Creates a copy of this ListOf items.
  */
 ListOf::ListOf (const ListOf& rhs) : SBase(rhs)
 {
@@ -72,23 +90,6 @@ ListOf& ListOf::operator=(const ListOf& rhs)
   transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
   return *this;
 }
-/**
- * Used by the Destructor to delete each item in mItems.
- */
-struct Delete : public unary_function<SBase*, void>
-{
-  void operator() (SBase* sb) { delete sb; }
-};
-
-
-/**
- * Destroys the given ListOf and its constituent items.
- */
-ListOf::~ListOf ()
-{
-  for_each( mItems.begin(), mItems.end(), Delete() );
-}
-
 
 /**
  * Accepts the given SBMLVisitor.
@@ -115,7 +116,8 @@ ListOf::clone () const
 
 
 /**
- * Adds item to the end of this ListOf items.
+ * Adds item to the end of this ListOf items.  This ListOf items assumes
+ * ownership of item and will delete it.
  */
 void
 ListOf::append (const SBase* item)
@@ -286,8 +288,8 @@ ListOf::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOf".
+ 
  */
 const string&
 ListOf::getElementName () const
@@ -325,7 +327,9 @@ ListOf::writeElements (XMLOutputStream& stream) const
 
 
 /**
- * Creates a new ListOf and returns a pointer to it.
+ * Creates a new ListOf.
+ *
+ * @return a pointer to created ListOf.
  */
 LIBSBML_EXTERN
 ListOf_t *

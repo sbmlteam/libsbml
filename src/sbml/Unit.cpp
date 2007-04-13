@@ -42,13 +42,12 @@ using namespace std;
 
 /**
  * Creates a new Unit, optionally with its kind, exponent, scale,
- * multiplier, and offset attributes set.
+ * and multiplier attributes set.
  */
 Unit::Unit (   UnitKind_t  kind
              , int         exponent
              , int         scale
-             , double      multiplier
-             , double      offset     ) :
+             , double      multiplier ) :
     SBase      ()
   , mKind      ( kind       )
   , mExponent  ( exponent   )
@@ -61,13 +60,12 @@ Unit::Unit (   UnitKind_t  kind
 
 /**
  * Creates a new Unit, optionally with its kind (via string), exponent,
- * scale, multiplier, and offset attributes set.
+ * scale and multiplier attributes set.
  */
 Unit::Unit (   const string&  kind
              , int            exponent 
              , int            scale
-             , double         multiplier
-             , double         offset     ) :
+             , double         multiplier ) :
     SBase      ()
   , mKind      ( UnitKind_forName( kind.c_str() ) )
   , mExponent  ( exponent   )
@@ -87,7 +85,7 @@ Unit::~Unit ()
 
 
 /**
- * Copy constructor.
+ * Copy constructor. Creates a copy of this Unit.
  */
 Unit::Unit(const Unit& rhs) :
     SBase      ( rhs)
@@ -101,7 +99,7 @@ Unit::Unit(const Unit& rhs) :
 
 
 /**
- * Assignment operator
+ * Assignment operator.
  */
 Unit& Unit::operator=(const Unit& rhs)
 {
@@ -145,7 +143,6 @@ Unit::clone () const
  *   - exponent   = 1
  *   - scale      = 0
  *   - multiplier = 1.0
- *   - offset     = 0.0
  */
 void
 Unit::initDefaults ()
@@ -614,8 +611,7 @@ Unit::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "unit".
  */
 const string&
 Unit::getElementName () const
@@ -839,8 +835,7 @@ ListOfUnits::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfUnits".
  */
 const string&
 ListOfUnits::getElementName () const
@@ -916,7 +911,6 @@ Unit_free (Unit_t *u)
  *   - exponent   = 1
  *   - scale      = 0
  *   - multiplier = 1.0
- *   - offset     = 0.0
  */
 LIBSBML_EXTERN
 void
@@ -982,7 +976,7 @@ Unit_getOffset (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'ampere', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'ampere', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -993,7 +987,7 @@ Unit_isAmpere (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'becquerel', zero
+ * @return true (non-zero) if the kind of this Unit is 'becquerel', false (0)
  * otherwise.
  */
 LIBSBML_EXTERN
@@ -1005,7 +999,7 @@ Unit_isBecquerel (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'candela', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'candela', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1016,7 +1010,7 @@ Unit_isCandela (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'Celsius', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'Celsius', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1027,7 +1021,7 @@ Unit_isCelsius (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'coulomb', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'coulomb', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1038,7 +1032,7 @@ Unit_isCoulomb (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'dimensionless', zero
+ * @return true (non-zero) if the kind of this Unit is 'dimensionless', false (0)
  * otherwise.
  */
 LIBSBML_EXTERN
@@ -1050,7 +1044,7 @@ Unit_isDimensionless (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'farad', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'farad', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1061,7 +1055,7 @@ Unit_isFarad (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'gram', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'gram', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1072,7 +1066,7 @@ Unit_isGram (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'gray', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'gray', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1083,7 +1077,7 @@ Unit_isGray (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'henry', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'henry', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1094,7 +1088,7 @@ Unit_isHenry (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'hertz', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'hertz', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1105,7 +1099,7 @@ Unit_isHertz (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'item', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'item', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1116,7 +1110,7 @@ Unit_isItem (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'joule', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'joule', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1127,7 +1121,7 @@ Unit_isJoule (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'katal', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'katal', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1138,7 +1132,7 @@ Unit_isKatal (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'kelvin', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'kelvin', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1149,7 +1143,7 @@ Unit_isKelvin (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'kilogram', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'kilogram', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1160,7 +1154,7 @@ Unit_isKilogram (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'litre' or 'liter', zero
+ * @return true (non-zero) if the kind of this Unit is 'litre' or 'liter', false (0)
  * otherwise.
  */
 LIBSBML_EXTERN
@@ -1172,7 +1166,7 @@ Unit_isLitre (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'lumen', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'lumen', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1183,7 +1177,7 @@ Unit_isLumen (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'lux', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'lux', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1194,7 +1188,7 @@ Unit_isLux (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'metre' or 'meter', zero
+ * @return true (non-zero) if the kind of this Unit is 'metre' or 'meter', false (0)
  * otherwise.
  */
 LIBSBML_EXTERN
@@ -1206,7 +1200,7 @@ Unit_isMetre (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'mole', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'mole', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1217,7 +1211,7 @@ Unit_isMole (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'newton', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'newton', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1228,7 +1222,7 @@ Unit_isNewton (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'ohm', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'ohm', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1239,7 +1233,7 @@ Unit_isOhm (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'pascal', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'pascal', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1250,7 +1244,7 @@ Unit_isPascal (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'radian', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'radian', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1261,7 +1255,7 @@ Unit_isRadian (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'second', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'second', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1272,7 +1266,7 @@ Unit_isSecond (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'siemens', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'siemens', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1283,7 +1277,7 @@ Unit_isSiemens (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'sievert', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'sievert', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1294,7 +1288,7 @@ Unit_isSievert (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'steradian', zero
+ * @return true (non-zero) if the kind of this Unit is 'steradian', false (0)
  * otherwise.
  */
 LIBSBML_EXTERN
@@ -1306,7 +1300,7 @@ Unit_isSteradian (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'tesla', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'tesla', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1317,7 +1311,7 @@ Unit_isTesla (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'volt', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'volt', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1328,7 +1322,7 @@ Unit_isVolt (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'watt', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'watt', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1339,7 +1333,7 @@ Unit_isWatt (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit is 'weber', zero otherwise.
+ * @return true (non-zero) if the kind of this Unit is 'weber', false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1350,7 +1344,7 @@ Unit_isWeber (const Unit_t *u)
 
 
 /**
- * @return non-zero if the kind of this Unit has been set, zero otherwise.
+ * @return true (non-zero) if the kind of this Unit has been set, false (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1416,8 +1410,8 @@ Unit_setOffset (Unit_t *u, double value)
 
 
 /**
- * @return non-zero if name is one of the five SBML builtin Unit names
- * ('substance', 'volume', 'area', 'length' or 'time'), zero otherwise.
+ * @return true (non-zero) if name is one of the five SBML builtin Unit names
+ * ('substance', 'volume', 'area', 'length' or 'time'), false (0) otherwise.
  */
 LIBSBML_EXTERN
 int

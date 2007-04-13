@@ -68,7 +68,7 @@ SimpleSpeciesReference::~SimpleSpeciesReference ()
 
 
 /**
- * Copy constructor.
+ * Copy constructor. Creates a copy of this SimpleSpeciesReference.
  */
 SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& rhs) :
           SBase     (rhs)
@@ -78,7 +78,7 @@ SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& rhs
 
 
 /**
- * Assignment operator
+ * Assignment operator.
  */
 SimpleSpeciesReference& SimpleSpeciesReference::operator=(const SimpleSpeciesReference& rhs)
 {
@@ -245,7 +245,16 @@ SpeciesReference::SpeciesReference (  const string& species
 
 
 /**
- * Copies this SpeciesReference.
+ * Destroys this SpeciesReference.
+ */
+SpeciesReference::~SpeciesReference ()
+{
+  delete mStoichiometryMath;
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this SpeciesReference.
  */
 SpeciesReference::SpeciesReference (const SpeciesReference& rhs) :
    SimpleSpeciesReference( rhs                )
@@ -257,15 +266,6 @@ SpeciesReference::SpeciesReference (const SpeciesReference& rhs) :
   {
     mStoichiometryMath = rhs.mStoichiometryMath->deepCopy();
   }
-}
-
-
-/**
- * Destroys this SpeciesReference.
- */
-SpeciesReference::~SpeciesReference ()
-{
-  delete mStoichiometryMath;
 }
 
 
@@ -291,7 +291,7 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
  * whether or not the Visitor would like to visit the Reaction's next
- * SimpleSpeciesReference (if available).
+ * SpeciesReference (if available).
  */
 bool
 SpeciesReference::accept (SBMLVisitor& v) const
@@ -429,8 +429,8 @@ SpeciesReference::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "speciesReference".
+ 
  */
 const string&
 SpeciesReference::getElementName () const
@@ -701,7 +701,7 @@ ModifierSpeciesReference::~ModifierSpeciesReference ()
  *
  * @return the result of calling <code>v.visit()</code>, which indicates
  * whether or not the Visitor would like to visit the Reaction's next
- * SimpleSpeciesReference (if available).
+ * ModifierSpeciesReference (if available).
  */
 bool
 ModifierSpeciesReference::accept (SBMLVisitor& v) const
@@ -711,7 +711,7 @@ ModifierSpeciesReference::accept (SBMLVisitor& v) const
 
 
 /**
- * @return a (deep) copy of this SpeciesReference.
+ * @return a (deep) copy of this ModifierSpeciesReference.
  */
 SBase*
 ModifierSpeciesReference::clone () const
@@ -734,8 +734,8 @@ ModifierSpeciesReference::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "modifierSpeciesReference".
+ 
  */
 const string&
 ModifierSpeciesReference::getElementName () const
@@ -871,8 +871,7 @@ ListOfSpeciesReferences::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfReactants" or "listOfProducts" etc.
  */
 const string&
 ListOfSpeciesReferences::getElementName () const
@@ -1091,7 +1090,7 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr)
 
 
 /**
- * @return the stoichiometry of this SpeciesReference or zero if.
+ * @return the stoichiometry of this SpeciesReference.
  *
  * This function returns zero if the SpeciesReference is a Modifer (see
  * SpeciesReference_isModifier()).

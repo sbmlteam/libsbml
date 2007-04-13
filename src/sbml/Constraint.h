@@ -54,15 +54,14 @@ public:
   Constraint ();
 
   /**
-   * Copy constructor - copies this Constraint.
-   */
-  Constraint (const Constraint& rhs);
-
-  /**
    * Destroys this Constraint.
    */
   virtual ~Constraint ();
 
+  /**
+   * Copy constructor. Creates a copy of this Constraint.
+   */
+  Constraint (const Constraint& rhs);
 
   /**
    * Assignment operator
@@ -126,8 +125,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "constraint".
    */
   virtual const std::string& getElementName () const;
 
@@ -186,8 +184,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfConstraints".
    */
   virtual const std::string& getElementName () const;
 

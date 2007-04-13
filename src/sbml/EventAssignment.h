@@ -60,15 +60,14 @@ public:
   EventAssignment (const std::string& variable, const ASTNode* math);
 
   /**
-   * Copy constructor - copies this EventAssignment.
-   */
-  EventAssignment (const EventAssignment& rhs);
-
-  /**
    * Destroys this EventAssignment.
    */
   virtual ~EventAssignment ();
 
+  /**
+   * Copy constructor. Creates a copy of this EventAssignment.
+   */
+  EventAssignment (const EventAssignment& rhs);
 
   /**
    * Assignment operator
@@ -134,8 +133,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "eventAssignment".
    */
   virtual const std::string& getElementName () const;
 
@@ -193,8 +191,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfEventAssignments".
    */
   virtual const std::string& getElementName () const;
 

@@ -59,7 +59,16 @@ Delay::Delay (   const string& formula ) :
 
 
 /**
- * Copies this Delay.
+ * Destroys this Delay.
+ */
+Delay::~Delay ()
+{
+  delete mMath;
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this Delay.
  */
 Delay::Delay (const Delay& rhs) :
    SBase          ( rhs                 )
@@ -67,15 +76,6 @@ Delay::Delay (const Delay& rhs) :
  , mMath          ( 0                   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
-}
-
-
-/**
- * Destroys this Delay.
- */
-Delay::~Delay ()
-{
-  delete mMath;
 }
 
 
@@ -222,8 +222,7 @@ Delay::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "delay".
  */
 const string&
 Delay::getElementName () const

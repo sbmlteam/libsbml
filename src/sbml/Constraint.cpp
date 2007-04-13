@@ -56,7 +56,15 @@ Constraint::Constraint () :
 
 
 /**
- * Copy constructor - copies this Constraint.
+ * Destroys this Constraint.
+ */
+Constraint::~Constraint ()
+{
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this Constraint.
  */
 Constraint::Constraint (const Constraint& rhs) :
    SBase   ( rhs )
@@ -65,14 +73,6 @@ Constraint::Constraint (const Constraint& rhs) :
 {
   if (rhs.mMath)    mMath    = rhs.mMath->deepCopy();
   if (rhs.mMessage) mMessage = new XMLNode(*rhs.mMessage);
-}
-
-
-/**
- * Destroys this Constraint.
- */
-Constraint::~Constraint ()
-{
 }
 
 
@@ -200,8 +200,7 @@ Constraint::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "constraint".
  */
 const string&
 Constraint::getElementName () const
@@ -394,8 +393,7 @@ ListOfConstraints::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfConstraints".
  */
 const string&
 ListOfConstraints::getElementName () const
@@ -519,7 +517,7 @@ Constraint_isSetMath (const Constraint_t *c)
 
 
 /**
- * Sets the symbol of this Constraint to a copy of xhtml.
+ * Sets the message of this Constraint to a copy of xhtml.
  */
 LIBSBML_EXTERN
 void

@@ -50,12 +50,6 @@ class LIBSBML_EXTERN FunctionDefinition : public SBase
 public:
 
   /**
-   * Creates a new FunctionDefinition, optionally with its id and math
-   * attributes set.
-   */
-  FunctionDefinition (const std::string& id, const ASTNode* math);
-
-  /**
    * Creates a new FunctionDefinition, optionally with its id and math (via
    * an infix formula string) attributes set.
    */
@@ -63,15 +57,20 @@ public:
                       , const std::string& formula = "" );
 
   /**
-   * Copies this FunctionDefinition.
+   * Creates a new FunctionDefinition, optionally with its id and math
+   * attributes set.
    */
-  FunctionDefinition (const FunctionDefinition& rhs);
+  FunctionDefinition (const std::string& id, const ASTNode* math);
 
   /**
    * Destroys this FunctionDefinition.
    */
   virtual ~FunctionDefinition ();
 
+  /**
+   * Copy constructor. Creates a copy of this FunctionDefinition.
+   */
+  FunctionDefinition (const FunctionDefinition& rhs);
 
   /**
    * Assignment operator
@@ -126,6 +125,11 @@ public:
    * defined.
    */
   const ASTNode* getBody () const;
+
+  /**
+   * @return the body of this FunctionDefinition, or NULL if no body is
+   * defined.
+   */
   ASTNode* getBody ();
 
   /**
@@ -144,8 +148,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "functionDefinition".
    */
   virtual const std::string& getElementName () const;
 
@@ -203,8 +206,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfFunctionDefinitions".
    */
   virtual const std::string& getElementName () const;
 

@@ -83,7 +83,7 @@ Parameter::~Parameter ()
 
 
 /**
- * Copy constructor.
+ * Copy constructor. Creates a copy of this Parameter.
  */
 Parameter::Parameter(const Parameter& rhs) :
         SBase      ( rhs     )
@@ -96,7 +96,7 @@ Parameter::Parameter(const Parameter& rhs) :
 
 
 /**
- * Assignment operator
+ * Assignment operator.
  */
 Parameter& Parameter::operator=(const Parameter& rhs)
 {
@@ -271,8 +271,7 @@ Parameter::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "parameter".
  */
 const string&
 Parameter::getElementName () const
@@ -461,8 +460,7 @@ ListOfParameters::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfParameters".
  */
 const string&
 ListOfParameters::getElementName () const
@@ -522,7 +520,7 @@ Parameter_create (void)
  * pointer to it.  This convenience function is functionally equivalent to:
  *
  *   Parameter_t *p = Parameter_create();
- *   Parameter_setName(p, id); Parameter_setValue(p, value); ... ;
+ *   Parameter_setId(p, id); Parameter_setValue(p, value); ... ;
  */
 LIBSBML_EXTERN
 Parameter_t *
@@ -691,7 +689,7 @@ Parameter_setId (Parameter_t *p, const char *sid)
  */
 LIBSBML_EXTERN
 void
-Parameter_setName (Parameter_t *p, const char *str)
+Parameter_setName (Parameter_t *p, const char *string)
 {
   (str == NULL) ? p->unsetName() : p->setName(str);
 }

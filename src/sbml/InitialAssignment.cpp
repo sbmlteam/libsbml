@@ -44,7 +44,7 @@ using namespace std;
 
 
 /**
- * Creates a new InitialAssignment, optionally with its symbol attributes
+ * Creates a new InitialAssignment, optionally with its symbol attribute
  * set.
  */
 InitialAssignment::InitialAssignment (const string& symbol) :
@@ -55,21 +55,21 @@ InitialAssignment::InitialAssignment (const string& symbol) :
 
 
 /**
- * Copies this InitialAssignment.
+ * Destroys this InitialAssignment.
+ */
+InitialAssignment::~InitialAssignment ()
+{
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this InitialAssignment.
  */
 InitialAssignment::InitialAssignment (const InitialAssignment& rhs) :
    SBase   ( rhs )
  , mMath   ( 0   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
-}
-
-
-/**
- * Destroys this InitialAssignment.
- */
-InitialAssignment::~InitialAssignment ()
-{
 }
 
 
@@ -129,7 +129,7 @@ InitialAssignment::getMath () const
 
 
 /**
- * @return tru if the symbol of this InitialAssignment has been set,
+ * @return true if the symbol of this InitialAssignment has been set,
  * false otherwise.
  */
 bool
@@ -189,14 +189,25 @@ InitialAssignment::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "initialAssignment".
  */
 const string&
 InitialAssignment::getElementName () const
 {
   static const string name = "initialAssignment";
   return name;
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+InitialAssignment::writeElements (XMLOutputStream& stream) const
+{
+  if (mMath) writeMathML(mMath, stream);
 }
 
 
@@ -347,18 +358,6 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-/**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
-void
-InitialAssignment::writeElements (XMLOutputStream& stream) const
-{
-  if (mMath) writeMathML(mMath, stream);
-}
-
-
 
 /**
  * @return a (deep) copy of this ListOfInitialAssignments.
@@ -382,8 +381,7 @@ ListOfInitialAssignments::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfInitialAssignments".
  */
 const string&
 ListOfInitialAssignments::getElementName () const
@@ -439,7 +437,7 @@ InitialAssignment_create ()
 
 
 /**
- * Creates a new InitialAssignment, optionally with its symbol attributes
+ * Creates a new InitialAssignment, optionally with its symbol attribute
  * set.
  */
 LIBSBML_EXTERN
@@ -473,7 +471,7 @@ InitialAssignment_clone (const InitialAssignment_t *ia)
 
 
 /**
- * @return the symbol for this InitialAssignment
+ * @return the symbol for this InitialAssignment.
  */
 LIBSBML_EXTERN
 const char *

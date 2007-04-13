@@ -59,13 +59,13 @@ public:
 
 
   /**
-  * Copy constructor.
+  * Copy constructor. Creates a copy of this SpeciesType.
   */
   SpeciesType(const SpeciesType& orig);
 
 
   /**
-   * Assignment operator
+   * Assignment operator.
    */
   SpeciesType& operator=(const SpeciesType& orig);
 
@@ -93,8 +93,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "speciesType".
    */
   virtual const std::string& getElementName () const;
 
@@ -141,8 +140,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfSpeciesTypes".
    */
   virtual const std::string& getElementName () const;
 

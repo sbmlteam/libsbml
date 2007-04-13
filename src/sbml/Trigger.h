@@ -52,18 +52,17 @@ public:
   Trigger (   const std::string& formula        = "");
 
   /**
-   * Copies this Trigger.
-   */
-  Trigger (const Trigger& rhs);
-
-  /**
    * Destroys this Trigger.
    */
   virtual ~Trigger ();
 
+  /**
+   * Copy constructor. Creates a copy of this Trigger.
+   */
+  Trigger (const Trigger& rhs);
 
   /**
-   * Assignment operator
+   * Assignment operator.
    */
   Trigger& operator=(const Trigger& orig);
 
@@ -127,8 +126,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "trigger".
    */
   virtual const std::string& getElementName () const;
 
@@ -200,15 +198,14 @@ Trigger_t *
 Trigger_create (void);
 
 /**
- * Creates a new Trigger with the given formula, timeUnits and
- * substanceUnits and returns a pointer to it.  This convenience function
+ * Creates a new Trigger with the given formula and 
+ * returns a pointer to it.  This convenience function
  * is functionally equivalent to:
  *
  *   Trigger_t *t = Trigger_create();
- *   Trigger_setFormula(kl, formula);
- *   Trigger_setTimeUnits(kl, timeUnits);
- *   ...;
+ *   Trigger_setFormula(t, formula);
  */
+
 LIBSBML_EXTERN
 Trigger_t *
 Trigger_createWith ( const char *formula);

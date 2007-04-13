@@ -59,7 +59,7 @@ SpeciesType::~SpeciesType ()
 
 
 /**
- * Copy constructor.
+ * Copy constructor. Creates a copy of this SpeciesType.
  */
 SpeciesType::SpeciesType(const SpeciesType& orig) :
       SBase(orig)
@@ -115,8 +115,7 @@ SpeciesType::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "speciesType".
  */
 const string&
 SpeciesType::getElementName () const
@@ -259,8 +258,7 @@ ListOfSpeciesTypes::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfSpeciesTypes".
  */
 const string&
 ListOfSpeciesTypes::getElementName () const

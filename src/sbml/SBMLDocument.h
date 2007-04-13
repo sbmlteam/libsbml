@@ -69,15 +69,15 @@ public:
   SBMLDocument (unsigned int level = 0, unsigned int version = 0);
 
   /**
-   * Copies this SBMLDocument.
-   */
-  SBMLDocument (const SBMLDocument& rhs);
-
-  /**
    * Destroys this SBMLDocument.
    */
   virtual ~SBMLDocument ();
 
+
+  /**
+   * Creates a copy of this SBMLDocument.
+   */
+  SBMLDocument (const SBMLDocument& rhs);
 
   /**
    * Accepts the given SBMLVisitor.
@@ -110,6 +110,11 @@ public:
    *   - Level 2 Version 1
    *   - Level 2 Version 2
    *   - Level 2 Version 3
+   *
+   * @note Some models cannot be converted from their existing
+   * level and version to other particular combinations.
+   * This function checks whether the required conversion 
+   * is possible.
    */
   void setLevelAndVersion (unsigned int level, unsigned int version);
 
@@ -146,7 +151,7 @@ public:
 
   /**
    * Performs a set of semantic consistency checks on the document to
-   * establish whether it is compatible with L2v1 and can be converted.
+   * establish whether it is compatible with L2v2 and can be converted.
    * Query the results by calling getNumErrors() and getError().
    *
    * @return the number of failed checks (errors) encountered.
@@ -202,8 +207,7 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name for
-   * this SBML object.
+   * @return the name of this element ie "sbml".
    */
   virtual const std::string& getElementName () const;
 
@@ -341,6 +345,10 @@ SBMLDocument_getModel (SBMLDocument_t *d);
  *   - Level 1 Version 2
  *   - Level 2 Version 1
  *   - Level 2 Version 2
+ * @note Some models cannot be converted from their existing
+ * level and version to other particular combinations.
+ * This function checks whether the required conversion 
+ * is possible.
  */
 LIBSBML_EXTERN
 void
@@ -366,7 +374,7 @@ SBMLDocument_createModel (SBMLDocument_t *d);
 
 /**
  * Performs a set of semantic consistency checks on the document.  Query
- * the results by calling getWarning(), getNumError(),and getNumFatal().
+ * the results by calling getNumErrors() and getError().
  *
  * @return the number of failed checks (errors) encountered.
  */

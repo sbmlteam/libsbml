@@ -63,7 +63,7 @@ Compartment::~Compartment ()
 
 
 /**
- * Copy constructor - copies this compartment.
+ * Copy constructor. Creates a copy of this compartment.
  */
 Compartment::Compartment(const Compartment& rhs) :
    SBase             ( rhs )
@@ -411,8 +411,7 @@ Compartment::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "compartment".
  */
 const string&
 Compartment::getElementName () const
@@ -647,8 +646,7 @@ ListOfCompartments::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfCompartments".
  */
 const string&
 ListOfCompartments::getElementName () const
@@ -955,7 +953,7 @@ Compartment_setId (Compartment_t *c, const char *sid)
  */
 LIBSBML_EXTERN
 void
-Compartment_setName (Compartment_t *c, const char *str)
+Compartment_setName (Compartment_t *c, const char *string)
 {
   (str == NULL) ? c->unsetName() : c->setName(str);
 }

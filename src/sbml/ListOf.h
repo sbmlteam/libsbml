@@ -52,15 +52,15 @@ public:
   ListOf ();
 
   /**
-   * Copies this ListOf items.
-   */
-  ListOf (const ListOf& rhs);
-
-  /**
    * Destroys the given ListOf and its constituent items.
    */
   virtual ~ListOf ();
 
+
+  /**
+   * Copy constructor. Creates a copy of this ListOf items.
+   */
+  ListOf (const ListOf& rhs);
 
    /**
    * Assignment operator
@@ -79,7 +79,8 @@ public:
 
 
   /**
-   * Adds a copy of item to the end of this ListOf items.
+   * Adds item to the end of this ListOf items.  This ListOf items assumes
+   * ownership of item and will delete it.
    */
   void append (const SBase* item);
 
@@ -151,8 +152,8 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "listOf".
+   
    */
   virtual const std::string& getElementName () const;
 
@@ -177,7 +178,9 @@ BEGIN_C_DECLS
 
 
 /**
- * Creates a new ListOf and returns a pointer to it.
+ * Creates a new ListOf.
+ *
+ * @return a pointer to created ListOf.
  */
 LIBSBML_EXTERN
 ListOf_t *

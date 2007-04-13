@@ -60,13 +60,13 @@ public:
 
 
   /**
-  * Copy constructor.
+  * Copy constructor. Creates a copy of this SimpleSpeciesReference.
   */
   SimpleSpeciesReference(const SimpleSpeciesReference& orig);
 
 
   /**
-   * Assignment operator
+   * Assignment operator.
    */
   SimpleSpeciesReference& operator=(const SimpleSpeciesReference& orig);
 
@@ -136,15 +136,15 @@ public:
                      , int                denominator   = 1   );
 
   /**
-   * Copies this SpeciesReference.
-   */
-  SpeciesReference (const SpeciesReference& rhs);
-
-  /**
    * Destroys this SpeciesReference.
    */
   virtual ~SpeciesReference ();
 
+
+  /**
+   * Copy constructor. Creates a copy of this SpeciesReference.
+   */
+  SpeciesReference (const SpeciesReference& rhs);
 
    /**
    * Assignment operator
@@ -156,7 +156,7 @@ public:
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
    * whether or not the Visitor would like to visit the Reaction's next
-   * SimpleSpeciesReference (if available).
+   * SpeciesReference (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
 
@@ -227,8 +227,8 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "speciesReference".
+   
    */
   virtual const std::string& getElementName () const;
 
@@ -293,12 +293,12 @@ public:
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
    * whether or not the Visitor would like to visit the Reaction's next
-   * SimpleSpeciesReference (if available).
+   * ModifierSpeciesReference (if available).
    */
   virtual bool accept (SBMLVisitor& v) const;
 
   /**
-   * @return a (deep) copy of this SpeciesReference.
+   * @return a (deep) copy of this ModifierSpeciesReference.
    */
   virtual SBase* clone () const;
 
@@ -312,8 +312,8 @@ public:
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "modifierSpeciesReference".
+   
    */
   virtual const std::string& getElementName () const;
 
@@ -361,8 +361,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfReactants" or "listOfProducts" etc.
    */
   virtual const std::string& getElementName () const;
 
@@ -488,7 +487,7 @@ const char *
 SpeciesReference_getSpecies (const SpeciesReference_t *sr);
 
 /**
- * @return the stoichiometry of this SpeciesReference or zero if.
+ * @return the stoichiometry of this SpeciesReference.
  *
  * This function returns zero if the SpeciesReference is a Modifer (see
  * SpeciesReference_isModifier()).
