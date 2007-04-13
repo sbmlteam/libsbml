@@ -26,3 +26,5 @@ Makefile
 *.tar.gz
 TAGS
 CTAGS
+doxygen-config-c.txt
+doxygen-config-cpp.txt
