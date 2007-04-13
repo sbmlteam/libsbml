@@ -1,6 +1,6 @@
 /**
  * \file    FormulaParser.c
- * \brief   Parses an SBML formula string into an AST
+ * \brief   Parses an %SBML formula string into an AST
  * \author  Ben Bornstein
  *
  * $Id$
@@ -33,7 +33,7 @@
  * shift-reduce parser.
  *
  * The Action / Goto table for this parser is shown below:
- *
+ * <pre>
 
 -----+---------------------------------------------+--------------------------
      |                    Action                   |          Goto
@@ -72,21 +72,22 @@ State| Id  Num  (   )   ^   *   /   +   -   ,   $  | Expr  Stmt  Args  OptArgs
 *
 * The Grammar rules are:
 *
-*   Rule 1     Stmt    -> Expr
-*   Rule 2     Expr    -> Expr PLUS   Expr
-*   Rule 3     Expr    -> Expr MINUS  Expr
-*   Rule 4     Expr    -> Expr TIMES  Expr
-*   Rule 5     Expr    -> Expr DIVIDE Expr
-*   Rule 6     Expr    -> Expr POWER  Expr
-*   Rule 7     Expr    -> MINUS Expr
-*   Rule 8     Expr    -> LPAREN Expr RPAREN
-*   Rule 9     Expr    -> NUMBER
-*   Rule 10    Expr    -> NAME
-*   Rule 11    Expr    -> NAME LPAREN OptArgs RPAREN
-*   Rule 12    OptArgs -> <empty>
-*   Rule 13    OptArgs -> Args
-*   Rule 14    Args    -> Expr
-*   Rule 15    Args    -> Args COMMA Expr
+*   %Rule 1     Stmt    -> Expr
+*   %Rule 2     Expr    -> Expr PLUS   Expr
+*   %Rule 3     Expr    -> Expr MINUS  Expr
+*   %Rule 4     Expr    -> Expr TIMES  Expr
+*   %Rule 5     Expr    -> Expr DIVIDE Expr
+*   %Rule 6     Expr    -> Expr POWER  Expr
+*   %Rule 7     Expr    -> MINUS Expr
+*   %Rule 8     Expr    -> LPAREN Expr RPAREN
+*   %Rule 9     Expr    -> NUMBER
+*   %Rule 10    Expr    -> NAME
+*   %Rule 11    Expr    -> NAME LPAREN OptArgs RPAREN
+*   %Rule 12    OptArgs -> [empty]
+*   %Rule 13    OptArgs -> Args
+*   %Rule 14    Args    -> Expr
+*   %Rule 15    Args    -> Args COMMA Expr
+* </pre>
 *
 * Both are implemented in a reasonably compact form in the code below.
 *
@@ -668,7 +669,7 @@ FormulaParser_reduceStackByRule (Stack_t *stack, long rule)
   }
 
   /**
-   * Rule 12: OptArgs -> <empty>
+   * Rule 12: OptArgs -> [empty]
    */
   else if (rule == 12)
   {
