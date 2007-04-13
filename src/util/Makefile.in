@@ -77,7 +77,6 @@ headers   = \
 	memory.h \
 	Stack.h \
 	StringBuffer.h \
-	StringMap.h \
 	util.h
 
 header_inst_prefix = util
@@ -87,7 +86,6 @@ sources   = \
 	memory.c \
 	Stack.c \
 	StringBuffer.c \
-	StringMap.c \
 	util.c \
 
 extra_CPPFLAGS = -DPACKAGE_NAME=\"$(PACKAGE_NAME)\"
