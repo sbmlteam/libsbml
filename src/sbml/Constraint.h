@@ -117,6 +117,11 @@ public:
   void setMath (const ASTNode* math);
 
   /**
+   * Unsets the message of this Constraint.
+   */
+  void unsetMessage ();
+
+  /**
    * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
    * (default).
    *
@@ -286,6 +291,14 @@ Constraint_setMessage (Constraint_t *c, XMLNode_t* xhtml);
 LIBSBML_EXTERN
 void
 Constraint_setMath (Constraint_t *c, const ASTNode_t *math);
+
+/**
+ * Unsets the message of this Constraint.
+ */
+LIBSBML_EXTERN
+void 
+Constraint_unsetMessage (Constraint_t *c);
+
 
 
 END_C_DECLS

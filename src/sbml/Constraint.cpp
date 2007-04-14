@@ -187,6 +187,17 @@ Constraint::setMath (const ASTNode* math)
 
 
 /**
+ * Unsets the message of this Constraint.
+ */
+void 
+Constraint::unsetMessage ()
+{
+  delete mMessage;
+  mMessage = 0;
+}
+
+
+/**
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
@@ -536,4 +547,15 @@ void
 Constraint_setMath (Constraint_t *c, const ASTNode_t *math)
 {
   c->setMath(math);
+}
+
+
+/**
+ * Unsets the message of this Constraint.
+ */
+LIBSBML_EXTERN
+void 
+Constraint_unsetMessage (Constraint_t *c)
+{
+  c->unsetMessage();
 }
