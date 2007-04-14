@@ -46,10 +46,10 @@ using namespace std;
 
 
 /**
- * Creates a new Event, optionally with its id attribute set. 
+ * Creates a new Event, optionally with its id and name attributes set. 
  */
-Event::Event (const string& id) :
-   SBase    ( id, "", -1 )
+Event::Event (const string& id, const string& name) :
+   SBase    ( id, name   )
  , mTrigger ( 0          )
  , mDelay   ( 0          )
 {
@@ -654,14 +654,14 @@ Event_create (void)
 
 
 /**
- * Creates a new Event with the given id and returns
+ * Creates a new Event with the given id and name and returns
  * a pointer to it.
  */
 LIBSBML_EXTERN
 Event_t *
-Event_createWith (const char *sid)
+Event_createWith (const char *sid, const char *name)
 {
-  return new(nothrow) Event(sid ? sid : "");
+  return new(nothrow) Event(sid ? sid : "", name ? name : "");
 }
 
 
