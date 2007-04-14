@@ -233,13 +233,26 @@ EventAssignment_create (void);
  * returns a pointer to it.  This convenience function is functionally
  * equivalent to:
  *
- *   ea = EventAssignment_create();
- *   EventAssignment_setVariable(ea, variable);
- *   EventAssignment_setMath(ea, math);
+ *   ea = EventAssignment_create();\n
+ *   EventAssignment_setVariable(ea, variable);\n
+ *   EventAssignment_setMath(ea, math);\n
  */
 LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_createWith (const char *variable, ASTNode_t *math);
+
+/**
+ * Creates a new EventAssignment with the given variable and formula and
+ * returns a pointer to it.  This convenience function is functionally
+ * equivalent to:
+ *
+ *   ea = EventAssignment_create();\n
+ *   EventAssignment_setVariable(ea, variable);\n
+ *   EventAssignment_setFormula(ea, formula);\n
+ */
+LIBSBML_EXTERN
+EventAssignment_t *
+EventAssignment_createWithFormula (const char *variable, const char *formula);
 
 /**
  * Frees the given EventAssignment.
