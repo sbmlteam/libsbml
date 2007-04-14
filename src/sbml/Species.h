@@ -85,8 +85,9 @@ public:
   /**
    * Initializes the fields of this Species to their defaults:
    *
-   *   - boundaryCondition = false
-   *   - constant          = false  (L2 only)
+   *   - boundaryCondition     = false
+   *   - constant              = false  (L2 only)
+   *   - hasOnlySubstanceUnits = false  (L2 only)
    */
   void initDefaults ();
 
