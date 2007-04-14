@@ -955,7 +955,7 @@ LIBSBML_EXTERN
 void
 Compartment_setName (Compartment_t *c, const char *string)
 {
-  (str == NULL) ? c->unsetName() : c->setName(str);
+  (string == NULL) ? c->unsetName() : c->setName(string);
 }
 
 

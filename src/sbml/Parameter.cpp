@@ -691,7 +691,7 @@ LIBSBML_EXTERN
 void
 Parameter_setName (Parameter_t *p, const char *string)
 {
-  (str == NULL) ? p->unsetName() : p->setName(str);
+  (string == NULL) ? p->unsetName() : p->setName(string);
 }
 
 

@@ -53,7 +53,7 @@ Unit::Unit (   UnitKind_t  kind
   , mExponent  ( exponent   )
   , mScale     ( scale      )
   , mMultiplier( multiplier )
-  , mOffset    ( offset     )
+  , mOffset    ( 0.0     )
 {
 }
 
@@ -71,7 +71,7 @@ Unit::Unit (   const string&  kind
   , mExponent  ( exponent   )
   , mScale     ( scale      )
   , mMultiplier( multiplier )
-  , mOffset    ( offset     )
+  , mOffset    ( 0.0     )
 {
 }
 

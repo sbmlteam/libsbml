@@ -456,7 +456,7 @@ SBase::isSetSBOTerm () const
 void
 SBase::setMetaId (const string& metaid)
 {
-  mMetaId = id;
+  mMetaId = metaid;
 }
 
 
