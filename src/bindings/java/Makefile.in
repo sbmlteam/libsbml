@@ -101,13 +101,21 @@ extra_LDFLAGS  = $(JAVA_LDFLAGS)
 extra_LIBS     = -L../.. -lsbml $(JAVA_LIBS)
 
 ifdef USE_EXPAT
-  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
-  extra_LIBS     += $(EXPAT_LIBS)
-else
-  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS  += $(XERCES_LDFLAGS)
-  extra_LIBS     += $(XERCES_LIBS)
+  extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
+  extra_LDFLAGS  += @EXPAT_LDFLAGS@
+  extra_LIBS     += @EXPAT_LIBS@
+endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
 endif
 
 ifdef USE_LAYOUT

@@ -104,14 +104,22 @@ endif
 extra_LDFLAGS  = $(PYTHON_LDFLAGS)
 extra_LIBS     = -L../.. -lsbml $(PYTHON_LIBS)
 
-ifeq "$(USE_EXPAT)" "1"
-  extra_CPPFLAGS += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS  += $(EXPAT_LDFLAGS)
-  extra_LIBS     += $(EXPAT_LIBS)
-else
-  extra_CPPFLAGS += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS  += $(XERCES_LDFLAGS)
-  extra_LIBS     += $(XERCES_LIBS)
+ifdef USE_EXPAT
+  extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
+  extra_LDFLAGS  += @EXPAT_LDFLAGS@
+  extra_LIBS     += @EXPAT_LIBS@
+endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
 endif
 
 # For Linux/Unix LD_LIBRARY_PATH *may* need to contain one or more library
