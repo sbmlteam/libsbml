@@ -81,13 +81,15 @@ ifneq "$(HOST_TYPE)" "cygwin"
   FPIC = -fPIC
 endif
 
-# Here follow the generic compilation commands.
+# Here follow the generic compilation commands.  (Note: the use of 'sort'
+# here is only to remove duplicates, which the 'sort' function does as a
+# documented side-effect.)
 
-compile ?= $(CC) $(extra_CPPFLAGS) $(extra_CFLAGS) $(default_includes) \
-	$(CPPFLAGS) $(CFLAGS) $(INCLUDES) $(FPIC)
+compile ?= $(CC) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
+	$(CFLAGS) $(extra_CFLAGS) $(sort $(default_includes) $(INCLUDES))
 
-cxxcompile ?= $(CXX) $(extra_CPPFLAGS) $(extra_CXXFLAGS) $(default_includes) \
-	 $(CPPFLAGS) $(CXXFLAGS) $(INCLUDES) $(FPIC)
+cxxcompile ?= $(CXX) $(FPIC) $(CPPFLAGS) $(extra_CPPFLAGS) \
+	$(CXXFLAGS) $(extra_CXXFLAGS) $(sort $(default_includes) $(INCLUDES))
 
 # For linking libraries, we try to follow the result of the libtool
 # numbering scheme, but at the final end, not in the input format.  (The
