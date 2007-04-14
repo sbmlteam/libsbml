@@ -76,7 +76,16 @@ Rule::Rule (SBMLTypeCode_t type, const string& variable, const ASTNode* math)
 
 
 /**
- * Copies this Rule.
+ * Destroys this Rule.
+ */
+Rule::~Rule ()
+{
+  delete mMath;
+}
+
+
+/**
+ * Copy constructor. Creates a copy of this Rule.
  */
 Rule::Rule (const Rule& rhs) :
    SBase   ( rhs          )
@@ -91,16 +100,7 @@ Rule::Rule (const Rule& rhs) :
 
 
 /**
- * Destroys this Rule.
- */
-Rule::~Rule ()
-{
-  delete mMath;
-}
-
-
-/**
- * Assignment operator
+ * Assignment operator.
  */
 Rule& Rule::operator=(const Rule& rhs)
 {
@@ -168,19 +168,6 @@ Rule::getMath () const
   }
 
   return mMath;
-}
-
-
-/**
- * @return the type of this Rule, either RULE_TYPE_RATE or
- * RULE_TYPE_SCALAR.
- */
-RuleType_t
-Rule::getType () const
-{
-  if (mType == SBML_ASSIGNMENT_RULE) return RULE_TYPE_SCALAR;
-  if (mType == SBML_RATE_RULE)       return RULE_TYPE_RATE;
-  return RULE_TYPE_INVALID;
 }
 
 
@@ -281,7 +268,7 @@ Rule::setMath (const ASTNode* math)
 
 
 /**
- * Sets the variable of this RateRule to a copy of sid.
+ * Sets the variable of this Rule to a copy of sid.
  */
 void
 Rule::setVariable (const string& sid)
@@ -308,6 +295,19 @@ void
 Rule::unsetUnits ()
 {
   mUnits.erase();
+}
+
+
+/**
+ * @return the type of this Rule, either RULE_TYPE_RATE or
+ * RULE_TYPE_SCALAR.
+ */
+RuleType_t
+Rule::getType () const
+{
+  if (mType == SBML_ASSIGNMENT_RULE) return RULE_TYPE_SCALAR;
+  if (mType == SBML_RATE_RULE)       return RULE_TYPE_RATE;
+  return RULE_TYPE_INVALID;
 }
 
 
@@ -433,8 +433,8 @@ Rule::getL1TypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element eg "algebraicRule".
+ 
  */
 const string&
 Rule::getElementName () const
@@ -480,6 +480,18 @@ Rule::getElementName () const
   }
 
   return unknown;
+}
+
+
+/**
+ * Subclasses should override this method to write out their contained
+ * SBML objects as XML elements.  Be sure to call your parents
+ * implementation of this method as well.
+ */
+void
+Rule::writeElements (XMLOutputStream& stream) const
+{
+  if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
 }
 
 
@@ -732,18 +744,6 @@ Rule::writeAttributes (XMLOutputStream& stream) const
 
 
 /**
- * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
- * implementation of this method as well.
- */
-void
-Rule::writeElements (XMLOutputStream& stream) const
-{
-  if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
-}
-
-
-/**
  * Sets the SBML Level 1 typecode for this Rule.
  */
 void
@@ -764,7 +764,7 @@ AlgebraicRule::AlgebraicRule (const string& formula) :
 }
 
 /**
- * Creates a new AlgebraicRule and optionally sets its formula.
+ * Creates a new AlgebraicRule and optionally sets its math.
  */
 AlgebraicRule::AlgebraicRule (const ASTNode* math) :
   Rule(SBML_ALGEBRAIC_RULE, "", math)
@@ -808,7 +808,7 @@ AssignmentRule::AssignmentRule (const string& variable, const string& formula)
 
 /**
  * Creates a new AssignmentRule and optionally sets its variable and
- * formula.
+ * math.
  */
 AssignmentRule::AssignmentRule (const string& variable, const ASTNode* math)
   : Rule(SBML_ASSIGNMENT_RULE, variable, math)
@@ -850,7 +850,7 @@ RateRule::RateRule (const string& variable, const string& formula) :
 
 
 /**
- * Creates a new RateRule and optionally sets its variable and formula.
+ * Creates a new RateRule and optionally sets its variable and math.
  */
 RateRule::RateRule (const string& variable, const ASTNode* math) :
   Rule(SBML_RATE_RULE, variable, math)
@@ -904,8 +904,7 @@ ListOfRules::getItemTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "listOfRules".
  */
 const string&
 ListOfRules::getElementName () const

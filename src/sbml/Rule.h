@@ -61,17 +61,17 @@ class LIBSBML_EXTERN Rule : public SBase
 public:
 
   /**
-   * Copies this Rule.
-   */
-  Rule (const Rule& rhs);
-
-  /**
    * Destroys this Rule.
    */
   virtual ~Rule ();
 
   /**
-   * Assignment operator
+   * Copy constructor. Creates a copy of this Rule.
+   */
+  Rule (const Rule& rhs);
+
+  /**
+   * Assignment operator.
    */
   Rule& operator=(const Rule& orig);
 
@@ -99,12 +99,6 @@ public:
    * @return the math for this Rule.
    */
   const ASTNode* getMath () const;
-
-  /**
-   * @return the type of this Rule, either RULE_TYPE_RATE or
-   * RULE_TYPE_SCALAR.
-   */
-  RuleType_t getType () const;
 
   /**
    * @return the variable for this Rule.
@@ -154,7 +148,7 @@ public:
   void setMath (const ASTNode* math);
 
   /**
-   * Sets the variable of this RateRule to a copy of sid.
+   * Sets the variable of this Rule to a copy of sid.
    */
   void setVariable (const std::string& sid);
 
@@ -170,6 +164,12 @@ public:
    */
   void unsetUnits ();
 
+
+  /**
+   * @return the type of this Rule, either RULE_TYPE_RATE or
+   * RULE_TYPE_SCALAR.
+   */
+  RuleType_t getType () const;
 
   /**
    * @return true if this Rule is an AlgebraicRule, false otherwise.
@@ -226,8 +226,8 @@ public:
 
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element eg "algebraicRule".
+   
    */
   virtual const std::string& getElementName () const;
 
@@ -307,7 +307,7 @@ public:
   AlgebraicRule (const std::string& formula = "");
 
   /**
-   * Creates a new AlgebraicRule and optionally sets its formula.
+   * Creates a new AlgebraicRule and optionally sets its math.
    */
   AlgebraicRule (const ASTNode* math);
 
@@ -334,7 +334,7 @@ public:
 
   /**
    * Creates a new AssignmentRule and optionally sets its variable and
-   * formula.
+   * math.
    */
   AssignmentRule (  const std::string& variable = ""
                   , const std::string& formula  = "" );
@@ -373,7 +373,7 @@ public:
 
 
   /**
-   * Creates a new RateRule and optionally sets its variable and formula.
+   * Creates a new RateRule and optionally sets its variable and math.
    */
   RateRule (const std::string& variable, const ASTNode* math);
 
@@ -411,8 +411,7 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+ * @return the name of this element ie "listOfRules".
    */
   virtual const std::string& getElementName () const;
 

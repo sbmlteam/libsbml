@@ -107,37 +107,40 @@ public:
   const std::string& getName () const;
 
   /**
-   * @return the sboTerm of this SBML object.
+   * @return the notes of this SBML object.
    */
-  int getSBOTerm () const;
+  XMLNode* getNotes();
 
   /**
-   * @return true if the sboTerm has been set, false
-   * otherwise.
-   */
-  bool isSetSBOTerm () const;
-
-  /**
-   * Sets the sboTerm field to value.
-   */
-  void setSBOTerm (int sboTerm);
-
-  /**
-   * Unsets the sboTerm
-   */
-  void unsetSBOTerm ();
-
-
-  /**
-   * @return the name of this SBML object.
+   * @return the annotation of this SBML object.
    */
   XMLNode* getAnnotation ();
 
   /**
-   * returns notes
+   * @return the Namespaces associated with this SBML object
    */
-  XMLNode* getNotes();
+  virtual XMLNamespaces* getNamespaces() const ;
+ 
+  /**
+   * @return the parent SBMLDocument of this SBML object.
+   */
+  const SBMLDocument* getSBMLDocument () const;
 
+  /**
+   * @return the sboTerm as an integer.  If not set,
+   * sboTerm will be -1. 
+   */
+  int getSBOTerm () const;
+
+  /**
+   * @return the line number of this SBML object.
+   */
+  unsigned int getLine () const;
+
+  /**
+   * @return the column number of this SBML object.
+   */
+  unsigned int getColumn () const;
 
   /**
    * @return true if the metaid of this SBML object has been set, false
@@ -169,11 +172,16 @@ public:
    */
   bool isSetAnnotation () const;
 
+  /**
+   * @return true if the sboTerm has been set, false
+   * otherwise.
+   */
+  bool isSetSBOTerm () const;
 
   /**
    * Sets the metaid field of the given SBML object to a copy of metaid.
    */
-  void setMetaId (const std::string& id);
+  void setMetaId (const std::string& metaid);
 
   /**
    * Sets the id of this SBML object to a copy of sid.
@@ -186,24 +194,38 @@ public:
   void setName (const std::string& name);
 
   /**
-   * Sets the name of this SBML object to a copy of name.
+   * Sets the annotation of this SBML object to a copy of annotation.
    */
   void setAnnotation (XMLNode* annotation);
 
   /**
-   * appends annotation to the existing annotations.
+   * Appends annotation to the existing annotations.
+   * This allows other annotations to be preserved whilst
+   * adding additional information.
    */
   void appendAnnotation (XMLNode* annotation);
 
   /**
-   * sets notes to the XMLNode
+   * Sets the notes of this SBML object to a copy of notes.
    */
   void setNotes(XMLNode* notes);
 
   /**
-   * appends notes to existing notes
+   * Appends notes to the existing notes.
+   * This allows other notes to be preserved whilst
+   * adding additional information.
    */
   void appendNotes(XMLNode* notes);
+
+  /**
+   * Sets the parent SBMLDocument of this SBML object.
+   */
+  virtual void setSBMLDocument (SBMLDocument* d);
+
+  /**
+   * Sets the sboTerm field to value.
+   */
+  void setSBOTerm (int value);
 
   /**
    * Unsets the metaid of this SBML object.
@@ -230,11 +252,25 @@ public:
    */
   void unsetAnnotation ();
 
+  /**
+   * Unsets the sboTerm of this SBML object.
+   */
+  void unsetSBOTerm ();
 
   /**
-   * @return the parent SBMLDocument of this SBML object.
+   * Adds a copy of the given CVTerm to this SBML object.
    */
-  const SBMLDocument* getSBMLDocument () const;
+  void addCVTerm(CVTerm * term);
+
+  /**
+   * @return the list of CVTerms for this SBML object.
+   */
+  List* getCVTerms();
+
+  /**
+   * @return the list of CVTerms for this SBML object.
+   */
+  List* getCVTerms()  const;
 
   /**
    * @return the parent Model of this SBML object.
@@ -252,48 +288,27 @@ public:
   unsigned int getVersion () const;
 
   /**
+   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+   * (default).
+   *
    * This method MAY return the typecode of this SBML object or it MAY
    * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
    * implement this method to return a typecode.  This method is meant
    * primarily for the LibSBML C interface where class and subclass
    * information is not readily available.
    *
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
-   *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
   /**
-   * @return the line number of this SBML object.
+   * Subclasses should override this method to return the name
+   * of the SBML object.
    */
-  unsigned int getLine () const;
+  virtual const std::string& getElementName () const = 0;
 
-  /**
-   * @return the column number of this SBML object.
-   */
-  unsigned int getColumn () const;
 
-  /**
-   * @return the Namespaces associated with this SBML object
-   */
-  virtual XMLNamespaces* getNamespaces() const ;
- 
-  /**
-   * Sets the parent SBMLDocument of this SBML object.
-   */
-  virtual void setSBMLDocument (SBMLDocument* d);
-
-  /**
-  * adds a CVTerm to the list of CVTerms associated with this object
-  */
-  void addCVTerm(CVTerm * term);
-
-  List* getCVTerms();
-
-  List* getCVTerms()  const;
-
+  //TO DO Move these to Model
   /**
    * functions to get and set ModelHistory
    */
@@ -301,17 +316,11 @@ public:
 
   ModelHistory* getModelHistory() const;
   ModelHistory* getModelHistory();
+  
   /**
    * @return the partial SBML that describes this SBML object.
    */
   char* toSBML ();
-
-  /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
-   */
-  virtual const std::string& getElementName () const = 0;
-
 
   /**
    * Reads (initializes) this SBML object by reading from XMLInputStream.
@@ -335,12 +344,6 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /**
-   * logs unrecognised xml element
-   */
-  void logUnrecognized(const XMLToken& next);
-
-
 protected:
 
   /**
@@ -348,10 +351,14 @@ protected:
    */
   SBase (const std::string& id = "", const std::string& name = "", int sboTerm = -1);
 
+  /**
+   * Creates a new SBase object with the given sboTerm.
+   * Only subclasses may create SBase objects.
+   */
   SBase (int sboTerm);
 
   /**
-  * Copy constructor.
+  * Copy constructor. Creates a copy of this SBase object.
   */
   SBase(const SBase& orig);
 
@@ -414,58 +421,81 @@ protected:
 
 
   /**
-   * Checks that SBML element has was read in the proper order.  If object
+   * Checks that SBML element has been read in the proper order.  If object
    * is not in the expected position, an error is logged.
    */
   void checkOrderAndLogError (SBase* object, int expected);
 
   /**
    * Checks that an SBML ListOf element has been populated.  
-   * If not, an error is logged.
+   * If a listOf element has been declared with no elements, 
+   * an error is logged.
    */
   void checkListOfPopulated(SBase* object);
   
   /**
-   * Checks the syntax of a "metaid"
-   * if incorrect, an error is logged
-   */
+    * Checks the syntax of a metaid attribute.
+    * The syntax of a metaid is XML 1.0 type ID. The literal representation of 
+    * this type consists of strings of characters restricted to:
+    *
+    *  - NCNameChar ::= letter | digit | '.' | '-' | ' ' | ':' | CombiningChar | Extender
+    *  - ID ::= ( letter | ' ' | ':' ) NCNameChar*
+    *
+    * If the syntax of the metaid attribute of this object is incorrect, 
+    * an error is logged
+    */
   void checkMetaIdSyntax();
 
   /**
-   * Checks the syntax of a "id"
-   * if incorrect, an error is logged
-   */
+    * Checks the syntax of the id attribute.
+    * The syntax of an id is of type SId which is defined as:
+    *
+    *  - letter ::= 'a'..'z','A'..'Z'
+    *  - digit  ::= '0'..'9'
+    *  - idChar ::= letter | digit | '_'
+    *  - SId    ::= ( letter | '_' ) idChar*
+    *
+    * If the syntax of the id attribute of this object is incorrect, 
+    * an error is logged
+    */
   void checkIdSyntax();
 
   /**
-   * checks if a character is part of the Unicode Letter set
-   */
+    * Checks the annotation does not declare an sbml namespace.
+    * If the annotation declares an sbml namespace an error is logged.
+    */
+  void checkAnnotation();
+
+  /**
+  * Checks that the XHTML is valid.
+  * If the xhtml does not conform to the specification of valid xhtml within
+  * an sbml document, an error is logged.
+  */
+  void checkXHTML(const XMLNode *);
+
+  /**
+    * Checks if a character is part of the Unicode Letter set.
+    * @return true if the character is a part of the set, false otherwise.
+    */
   bool isUnicodeLetter(std::string::iterator, unsigned int);
 
   /**
-   * checks if a character is part of the Unicode Digit set
-   */
+    * Checks if a character is part of the Unicode Digit set.
+    * @return true if the character is a part of the set, false otherwise.
+    */
   bool isUnicodeDigit(std::string::iterator, unsigned int);
 
   /**
-   * checks if a character is part of the CombiningCharacter set
-   */
+    * Checks if a character is part of the Unicode CombiningChar set.
+    * @return true if the character is a part of the set, false otherwise.
+    */
   bool isCombiningChar(std::string::iterator, unsigned int);
 
   /**
-   * checks if a character is part of the Extender set
-   */
+    * Checks if a character is part of the Unicode Extender set.
+    * @return true if the character is a part of the set, false otherwise.
+    */
   bool isExtender(std::string::iterator, unsigned int);
-
-  /*
-   * checks the annotation is valid in termsof namespaces
-   */
-  void checkAnnotation();
-
-  /*
-   * checks the XHTML is valid
-   */
-  void checkXHTML(const XMLNode *);
 
   std::string mMetaId;
   std::string mId;
@@ -532,11 +562,33 @@ SBase_getName (const SBase_t *sb);
 
 
 /**
+ * @return the parent SBMLDocument of this SBML object.
+ */
+LIBSBML_EXTERN
+SBMLDocument_t *
+SBase_getSBMLDocument (SBase_t *sb);
+
+/**
  * @return the sboTerm of this SBML object.
  */
 LIBSBML_EXTERN
 int
 SBase_getSBOTerm (const SBase_t *sb);
+
+/**
+ * @return the line number of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getLine (const SBase_t *sb);
+
+/**
+ * @return the column number of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getColumn (const SBase_t *sb);
+
 
 /**
  * @return 1 if the metaid of this SBML object has been set, 0 otherwise.
@@ -659,13 +711,6 @@ SBase_unsetSBOTerm (SBase_t *sb);
 
 
 /**
- * @return the parent SBMLDocument of this SBML object.
- */
-LIBSBML_EXTERN
-SBMLDocument_t *
-SBase_getSBMLDocument (SBase_t *sb);
-
-/**
  * @return the parent Model of this SBML object.
  */
 LIBSBML_EXTERN
@@ -701,21 +746,6 @@ SBase_getTypeCode (const SBase_t *sb);
 LIBSBML_EXTERN
 const char *
 SBase_getElementName (const SBase_t *sb);
-
-/**
- * @return the line number of this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase_getLine (const SBase_t *sb);
-
-/**
- * @return the column number of this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase_getColumn (const SBase_t *sb);
-
 
 END_C_DECLS
 

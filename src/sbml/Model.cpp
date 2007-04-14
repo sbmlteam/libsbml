@@ -470,7 +470,7 @@ Model::createReaction ()
 
 
 /**
- * Creates a new Reactant (i.e. SpeciesReference) inside this Model and
+ * Creates a new Reactant (ie SpeciesReference) inside this Model and
  * returns a pointer to it.  The SpeciesReference is added to the reactants
  * of the last Reaction created.
  *
@@ -486,7 +486,7 @@ Model::createReactant ()
 
 
 /**
- * Creates a new Product (i.e. SpeciesReference) inside this Model and
+ * Creates a new Product (ie SpeciesReference) inside this Model and
  * returns a pointer to it.  The SpeciesReference is added to the products
  * of the last Reaction created.
  *
@@ -502,7 +502,7 @@ Model::createProduct ()
 
 
 /**
- * Creates a new Modifer (i.e. ModifierSpeciesReference) inside this Model
+ * Creates a new Modifer (ie ModifierSpeciesReference) inside this Model
  * and returns a pointer to it.  The ModifierSpeciesReference is added to
  * the modifiers of the last Reaction created.
  *
@@ -1528,8 +1528,8 @@ Model::getTypeCode () const
 
 
 /**
- * Subclasses should override this method to return XML element name of
- * this SBML object.
+ * @return the name of this element ie "model".
+ 
  */
 const string&
 Model::getElementName () const
@@ -2395,7 +2395,7 @@ Model_createReaction (Model_t *m)
 
 
 /**
- * Creates a new Reactant (i.e. SpeciesReference) inside this Model and
+ * Creates a new Reactant (ie SpeciesReference) inside this Model and
  * returns a pointer to it.  The SpeciesReference is added to the reactants
  * of the last Reaction created.
  *
@@ -2411,7 +2411,7 @@ Model_createReactant (Model_t *m)
 
 
 /**
- * Creates a new Product (i.e. SpeciesReference) inside this Model and
+ * Creates a new Product (ie SpeciesReference) inside this Model and
  * returns a pointer to it.  The SpeciesReference is added to the products
  * of the last Reaction created.
  *
@@ -2427,7 +2427,7 @@ Model_createProduct (Model_t *m)
 
 
 /**
- * Creates a new Modifer (i.e. ModifierSpeciesReference) inside this Model
+ * Creates a new Modifer (ie ModifierSpeciesReference) inside this Model
  * and returns a pointer to it.  The ModifierSpeciesReference is added to
  * the modifiers of the last Reaction created.
  *

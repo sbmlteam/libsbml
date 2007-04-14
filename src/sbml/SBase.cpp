@@ -138,6 +138,10 @@ SBase::SBase (const string& id, const string& name, int sbo) :
 {
 }
 
+/**
+ * Creates a new SBase object with the given sboTerm.
+ * Only subclasses may create SBase objects.
+ */
 SBase::SBase (int sbo) :
    mId        ( ""   )
  , mName      ( "" )
@@ -153,9 +157,9 @@ SBase::SBase (int sbo) :
 {
 }
 
-  /**
-  * Copy constructor.
-  */
+/**
+ * Copy constructor. Creates a copy of this SBase object.
+ */
 SBase::SBase(const SBase& orig)
 {
     this->mId     = orig.mId;
@@ -301,49 +305,6 @@ SBase::getId () const
 
 
 /**
- * @return the sboTerm as an integer.  If not set,
- * sboTerm will be -1.  Use SBML::sboTermToString() to convert the
- * sboTerm to a zero-padded, seven digit string.
- */
-int
-SBase::getSBOTerm () const
-{
-  return mSBOTerm;
-}
-
-
-/**
- * @return true if the sboTerm has been set, false
- * otherwise.
- */
-bool
-SBase::isSetSBOTerm () const
-{
-  return (mSBOTerm != -1);
-}
-
-
-/**
- * Sets the sboTerm field to value.
- */
-void
-SBase::setSBOTerm (int sboTerm)
-{
-  mSBOTerm = sboTerm;
-}
-
-
-/**
- * Unsets the sboTerm.
- */
-void
-SBase::unsetSBOTerm ()
-{
-  mSBOTerm = -1;
-}
-
-
-/**
  * @return the name of this SBML object.
  */
 const string&
@@ -354,7 +315,16 @@ SBase::getName () const
 
 
 /**
- * @return the name of this SBML object.
+ * @return the notes of this SBML object.
+ */
+XMLNode*
+SBase::getNotes()
+{
+  return mNotes;
+}
+
+/**
+ * @return the annotation of this SBML object.
  */
 XMLNode* 
 SBase::getAnnotation ()
@@ -362,14 +332,57 @@ SBase::getAnnotation ()
   return mAnnotation;
 }
 
+
 /**
- * gets notes
- */
-XMLNode*
-SBase::getNotes()
+  * @return the Namespaces associated with this SBML object
+  */
+XMLNamespaces*
+SBase::getNamespaces() const
 {
-  return mNotes;
+  return mNamespaces;
 }
+
+
+/**
+ * @return the parent SBMLDocument of this SBML object.
+ */
+const SBMLDocument*
+SBase::getSBMLDocument () const
+{
+  return mSBML;
+}
+
+
+/**
+ * @return the sboTerm as an integer.  If not set,
+ * sboTerm will be -1. 
+ */
+int
+SBase::getSBOTerm () const
+{
+  return mSBOTerm;
+}
+
+
+/**
+ * @return the line number of this SBML object.
+ */
+unsigned int
+SBase::getLine () const
+{
+  return mLine;
+}
+
+
+/**
+ * @return the column number of this SBML object.
+ */
+unsigned int
+SBase::getColumn () const
+{
+  return mColumn;
+}
+
 
 /**
  * @return true if the metaid of this SBML object has been set, false
@@ -427,10 +440,21 @@ SBase::isSetAnnotation () const
 
 
 /**
+ * @return true if the sboTerm has been set, false
+ * otherwise.
+ */
+bool
+SBase::isSetSBOTerm () const
+{
+  return (mSBOTerm != -1);
+}
+
+
+/**
  * Sets the metaid field of the given SBML object to a copy of metaid.
  */
 void
-SBase::setMetaId (const string& id)
+SBase::setMetaId (const string& metaid)
 {
   mMetaId = id;
 }
@@ -468,7 +492,9 @@ SBase::setAnnotation (XMLNode* annotation)
 
 
 /**
- * appends annotation to the existing annotations.
+ * Appends annotation to the existing annotations.
+ * This allows other annotations to be preserved whilst
+ * adding additional information.
  */
 void 
 SBase::appendAnnotation (XMLNode* annotation)
@@ -507,7 +533,7 @@ SBase::appendAnnotation (XMLNode* annotation)
 }
 
 /**
- * sets notes to the XMLNode
+ * Sets the notes of this SBML object to a copy of notes.
  */
 void 
 SBase::setNotes(XMLNode* notes)
@@ -517,7 +543,9 @@ SBase::setNotes(XMLNode* notes)
 
 
 /**
- * appends notes to existing notes
+ * Appends notes to the existing notes.
+ * This allows other notes to be preserved whilst
+ * adding additional information.
  */
 void 
 SBase::appendNotes(XMLNode* notes)
@@ -554,6 +582,26 @@ SBase::appendNotes(XMLNode* notes)
     }
   }
 
+}
+
+
+/**
+ * Sets the parent SBMLDocument of this SBML object.
+ */
+void
+SBase::setSBMLDocument (SBMLDocument* d)
+{
+  mSBML = d;
+}
+
+
+/**
+ * Sets the sboTerm field to value.
+ */
+void
+SBase::setSBOTerm (int value)
+{
+  mSBOTerm = value;
 }
 
 
@@ -608,14 +656,93 @@ SBase::unsetAnnotation ()
 
 
 /**
- * @return the parent SBMLDocument of this SBML object.
+ * Unsets the sboTerm of this SBML object.
  */
-const SBMLDocument*
-SBase::getSBMLDocument () const
+void
+SBase::unsetSBOTerm ()
 {
-  return mSBML;
+  mSBOTerm = -1;
 }
 
+
+/**
+ * Adds a copy of the given CVTerm to this SBML object.
+ */
+void
+SBase::addCVTerm(CVTerm * term)
+{
+  unsigned int added = 0;
+  if (mCVTerms == NULL)
+  {
+    mCVTerms = new List();
+    mCVTerms->add((void *) term);
+  }
+  else
+  {
+    /* check whether there are any other qualifiers of the same sort already in the list */
+    QualifierType_t type = term->getQualifierType();
+    if (type == BIOLOGICAL_QUALIFIER)
+    {
+      BiolQualifierType_t biol = term->getBiologicalQualifierType();
+      
+      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
+      {
+        if (biol == static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType())
+        {
+          for (int r = 0; r < term->getResources()->getLength(); r++)
+          {
+            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+              term->getResources()->getValue(r));
+          }
+          added = 1;
+        }
+      }
+    }
+    else if (type == MODEL_QUALIFIER)
+    {
+      ModelQualifierType_t model = term->getModelQualifierType();
+      
+      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
+      {
+        if (model == static_cast <CVTerm *>(mCVTerms->get(n))->getModelQualifierType())
+        {
+          for (int r = 0; r < term->getResources()->getLength(); r++)
+          {
+            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
+              term->getResources()->getValue(r));
+          }
+          added = 1;
+        }
+      }
+    }
+    if (added == 0)
+    {
+      /* no matching terms already in list */
+      mCVTerms->add((void *) term);
+    }
+
+  }
+}
+
+
+/**
+ * @return the list of CVTerms for this SBML object.
+ */
+List*
+SBase::getCVTerms()
+{
+  return mCVTerms;
+}
+
+
+/**
+ * @return the list of CVTerms for this SBML object.
+ */
+List*
+SBase::getCVTerms() const
+{
+  return mCVTerms;
+}
 
 /**
  * @return the parent Model of this SBML object.
@@ -648,120 +775,21 @@ SBase::getVersion () const
 
 
 /**
- * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
- * (default).
- */
+  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+  * (default).
+  *
+  * This method MAY return the typecode of this SBML object or it MAY
+  * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
+  * implement this method to return a typecode.  This method is meant
+  * primarily for the LibSBML C interface where class and subclass
+  * information is not readily available.
+  *
+  * @see getElementName()
+  */
 SBMLTypeCode_t
 SBase::getTypeCode () const
 {
   return SBML_UNKNOWN;
-}
-
-
-/**
- * @return the line number of this SBML object.
- */
-unsigned int
-SBase::getLine () const
-{
-  return mLine;
-}
-
-
-/**
- * @return the column number of this SBML object.
- */
-unsigned int
-SBase::getColumn () const
-{
-  return mColumn;
-}
-
-
-/**
-  * @return the Namespaces associated with this SBML object
-  */
-XMLNamespaces*
-SBase::getNamespaces() const
-{
-  return mNamespaces;
-}
-
-
-/**
- * Subclasses should override this method to create, store, and then
- * return an SBML object corresponding to the next XMLToken in the
- * XMLInputStream.
- *
- * @return the SBML object corresponding to next XMLToken in the
- * XMLInputStream or NULL if the token was not recognized.
- */
-SBase*
-SBase::createObject (XMLInputStream&)
-{
-  return 0;
-}
-
-
-/**
- * Subclasses should override this method to read (and store) XHTML,
- * MathML, etc. directly from the XMLInputStream.
- *
- * @return true if the subclass read from the stream, false otherwise.
- */
-bool
-SBase::readOtherXML (XMLInputStream&)
-{
-  return false;
-}
-
-
-/**
- * @return the ordinal position of the element with respect to its siblings
- * or -1 (default) to indicate the position is not significant.
- */
-int
-SBase::getElementPosition () const
-{
-  return -1;
-}
-
-
-/**
- * @return the SBMLErrorLog used to log errors during while reading and
- * validating SBML.
- */
-SBMLErrorLog*
-SBase::getErrorLog ()
-{
-  return (mSBML != 0) ? mSBML->getErrorLog() : 0;
-}
-
-
-/**
- * Stores the location (line and column) and any XML namespaces (for
- * roundtripping) declared on this SBML (XML) element.
- */
-void
-SBase::setSBaseFields (const XMLToken& element)
-{
-  mLine   = element.getLine  ();
-  mColumn = element.getColumn();
-
-  if (element.getNamespaces().getLength() > 0)
-  {
-    mNamespaces = new XMLNamespaces( element.getNamespaces() );
-  }
-}
-
-
-/**
- * Sets the parent SBMLDocument of this SBML object.
- */
-void
-SBase::setSBMLDocument (SBMLDocument* d)
-{
-  mSBML = d;
 }
 
 
@@ -834,25 +862,6 @@ SBase::read (XMLInputStream& stream)
 
 
 /**
- * Subclasses should override this method to read values from the given
- * XMLAttributes set into their specific fields.  Be sure to call your
- * parents implementation of this method as well.
- */
-void
-SBase::readAttributes (const XMLAttributes& attributes)
-{
-  attributes.readInto("metaid", mMetaId);
-  /**
-   * at present Xerces on Windows does not correctly read multibyte characters
-   * so we exclude this check
-   */
-  if (isSetMetaId())
-    checkMetaIdSyntax();
-
-}
-
-
-/**
  * Writes (serializes) this SBML object by writing it to XMLOutputStream.
  */
 void
@@ -864,23 +873,6 @@ SBase::write (XMLOutputStream& stream) const
   writeElements  ( stream );
 
   stream.endElement( getElementName() );
-}
-
-
-/**
- * Subclasses should override this method to write their XML attributes
- * to the XMLOutputStream.  Be sure to call your parents implementation
- * of this method as well.
- */
-void
-SBase::writeAttributes (XMLOutputStream& stream) const
-{
-  if (mNamespaces) stream << *mNamespaces;
-
-  if ( getLevel() == 2 && !mMetaId.empty() )
-  {
-    stream.writeAttribute("metaid", mMetaId);
-  }
 }
 
 
@@ -913,8 +905,96 @@ SBase::writeElements (XMLOutputStream& stream) const
 }
 
 
+
+
 /**
- * Checks that SBML element has was read in the proper order.  If object
+ * Subclasses should override this method to create, store, and then
+ * return an SBML object corresponding to the next XMLToken in the
+ * XMLInputStream.
+ *
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+SBase::createObject (XMLInputStream&)
+{
+  return 0;
+}
+
+
+/**
+ * Subclasses should override this method to read (and store) XHTML,
+ * MathML, etc. directly from the XMLInputStream.
+ *
+ * @return true if the subclass read from the stream, false otherwise.
+ */
+bool
+SBase::readOtherXML (XMLInputStream&)
+{
+  return false;
+}
+
+
+/**
+ * @return the ordinal position of the element with respect to its siblings
+ * or -1 (default) to indicate the position is not significant.
+ */
+int
+SBase::getElementPosition () const
+{
+  return -1;
+}
+
+
+/**
+ * @return the SBMLErrorLog used to log errors during while reading and
+ * validating SBML.
+ */
+SBMLErrorLog*
+SBase::getErrorLog ()
+{
+  return (mSBML != 0) ? mSBML->getErrorLog() : 0;
+}
+
+
+/**
+ * Subclasses should override this method to read values from the given
+ * XMLAttributes set into their specific fields.  Be sure to call your
+ * parents implementation of this method as well.
+ */
+void
+SBase::readAttributes (const XMLAttributes& attributes)
+{
+  attributes.readInto("metaid", mMetaId);
+  /*
+   * at present Xerces on Windows does not correctly read multibyte characters
+   * so we exclude this check
+   */
+  if (isSetMetaId())
+    checkMetaIdSyntax();
+
+}
+
+
+/**
+ * Subclasses should override this method to write their XML attributes
+ * to the XMLOutputStream.  Be sure to call your parents implementation
+ * of this method as well.
+ */
+void
+SBase::writeAttributes (XMLOutputStream& stream) const
+{
+  if (mNamespaces) stream << *mNamespaces;
+
+  if ( getLevel() == 2 && !mMetaId.empty() )
+  {
+    stream.writeAttribute("metaid", mMetaId);
+  }
+}
+
+
+/**
+ * Checks that SBML element has been read in the proper order.  If object
  * is not in the expected position, an error is logged.
  */
 void
@@ -947,7 +1027,8 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 
 /**
   * Checks that an SBML ListOf element has been populated.  
-  * If not, an error is logged.
+  * If a listOf element has been declared with no elements, 
+  * an error is logged.
   */
 void 
 SBase::checkListOfPopulated(SBase* object)
@@ -1001,8 +1082,15 @@ SBase::checkListOfPopulated(SBase* object)
 
 
 /**
-  * Checks the syntax of a "metaid"
-  * if incorrect, an error is logged
+  * Checks the syntax of a metaid attribute.
+  * The syntax of a metaid is XML 1.0 type ID. The literal representation of 
+  * this type consists of strings of characters restricted to:
+  *
+  *  - NCNameChar ::= letter | digit | '.' | '-' | '_' | ':' | CombiningChar | Extender
+  *  - ID ::= ( letter | '_' | ':' ) NCNameChar*
+  *
+  * If the syntax of the metaid attribute of this object is incorrect, 
+  * an error is logged
   */
 void 
 SBase::checkMetaIdSyntax()
@@ -1040,7 +1128,7 @@ SBase::checkMetaIdSyntax()
 
 
   // remaining chars must be 
-  // letter | digit | ’.’ | ’-’ | ’ ’ | ':' | CombiningChar | Extender
+  // letter | digit | '.' | '-' | ' ' | ':' | CombiningChar | Extender
   while (okay && it < metaid.end())
   {
     c = *it;
@@ -1096,7 +1184,292 @@ SBase::checkMetaIdSyntax()
 
   
 /**
-  * checks if a character is part of the Unicode Letter set
+  * Checks the syntax of the id attribute.
+  * The syntax of an id is of type SId which is defined as:
+  *
+  *  - letter ::= 'a'..'z','A'..'Z'
+  *  - digit  ::= '0'..'9'
+  *  - idChar ::= letter | digit | '_'
+  *  - SId    ::= ( letter | '_' ) idChar*
+  *
+  * If the syntax of the id attribute of this object is incorrect, 
+  * an error is logged
+  */
+void 
+SBase::checkIdSyntax()
+{
+  string& id = const_cast<string &> (getId());
+
+  // need to check inside initial assign/ rules/event assign
+
+  if (getTypeCode() == SBML_INITIAL_ASSIGNMENT)
+  {
+    id = static_cast <InitialAssignment*> (this)->getSymbol();
+  }
+  else if (getTypeCode() == SBML_EVENT_ASSIGNMENT)
+  {
+    id = static_cast <EventAssignment*> (this)->getVariable();
+  }
+  else if (getTypeCode() == SBML_ASSIGNMENT_RULE || 
+	   getTypeCode() == SBML_RATE_RULE)
+  {
+    id = static_cast <Rule*> (this)->getVariable();
+  }
+
+  unsigned int size = id.size();
+
+  if (size == 0)
+  {
+    // Identifiers are not required on the following objects, so it's ok
+    // if they're zero-length.
+
+    if (getTypeCode() == SBML_MODEL
+	|| getTypeCode() == SBML_ALGEBRAIC_RULE
+	|| getTypeCode() == SBML_EVENT
+	|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
+	|| getTypeCode() == SBML_SPECIES_REFERENCE)
+    {
+      return;
+    }
+    else
+    {
+      // This is a schema validation error: no id on an object that needs it.
+      mSBML->getErrorLog()->logError(10103);
+      return;
+    }
+  }
+
+  unsigned int n = 0;
+
+  char c = id[n];
+  bool okay = (isalpha(c) || (c == '_'));
+  n++;
+
+  while (okay && n < size)
+  {
+    c = id[n];
+    okay = (isalnum(c) || c == '_');
+    n++;
+  }
+
+  if (!okay)   
+    mSBML->getErrorLog()->logError(10310);
+}
+
+
+/**
+  * Checks the annotation does not declare an sbml namespace.
+  * If the annotation declares an sbml namespace an error is logged.
+  */
+void
+SBase::checkAnnotation()
+{
+  const string&  name = mAnnotation->getName();
+
+  unsigned int nNodes = 0;
+  unsigned int match = 0;
+  int n = 0;
+  while (nNodes < mAnnotation->getNumChildren())
+  {
+    XMLNode topLevel = mAnnotation->getChild(nNodes);
+
+    match = 0;
+    n = 0;
+    while(!match && n < topLevel.getNamespaces().getLength())
+    {
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                          "http://www.sbml.org/sbml/level1");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                          "http://www.sbml.org/sbml/level2");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                "http://www.sbml.org/sbml/level2/version2");
+      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
+                                "http://www.sbml.org/sbml/level2/version3");
+      n++;
+    }
+    if (match > 0)
+    {
+      mSBML->getErrorLog()->logError(10403);
+      break;
+    }
+    nNodes++;
+  }
+}
+
+
+/**
+ * Checks that the XHTML is valid.
+ * If the xhtml does not conform to the specification of valid xhtml within
+ * an sbml document, an error is logged.
+ */
+void
+SBase::checkXHTML(const XMLNode * xhtml)
+{
+  const string&  name = xhtml->getName();
+  unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
+  int n;
+
+  if (name == "notes")
+  {
+    errorNS   = 10801;
+    errorXML  = 10802;
+    errorDOC  = 10803;
+    errorELEM = 10804;
+  }
+  else if (name == "message")
+  {
+    errorNS   = 21003;
+    errorXML  = 21004;
+    errorDOC  = 21005;
+    errorELEM = 21006;
+  }
+  else
+  {
+    mSBML->getErrorLog()->logError(00005);
+    return;
+  }
+
+  /*
+   * errors relating to a misplaced XML or DOCTYPE declaration 
+   * will also cause a parser error
+   * since parsing will terminate at this error if it has occurred
+   * it will bein the XML currently being checked and so a more
+   * informative message can be added
+   */
+  for (i = 0; i < mSBML->getErrorLog()->getNumErrors(); i++)
+  {
+    if (mSBML->getErrorLog()->getError(i)->getId() == 17)
+    {
+      mSBML->getErrorLog()->logError(errorXML);
+    }
+    if (mSBML->getErrorLog()->getError(i)->getId() == 4)
+    {
+      mSBML->getErrorLog()->logError(errorDOC);
+    }
+  }
+
+  /*
+   * namespace declaration is variable
+   * if a whole html tag has been used
+   * or a whole body tag then namespace can be implicitly declared
+   *
+   * HOWEVER if one or more permitted elements have been used 
+   * each MUST explicitly declare the namespace
+   */
+  bool implicitNSdecl = false;
+  if( mSBML->getNamespaces() != NULL)
+  /* check for implicit declaration */
+  {
+    for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+    {
+      if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
+                                         "http://www.w3.org/1999/xhtml"))
+      {
+        implicitNSdecl = true;
+        break;
+      }
+    }
+  }
+
+  unsigned int children = xhtml->getNumChildren();
+  static const int size = sizeof(XHTML_ELEMENTS) / sizeof(XHTML_ELEMENTS[0]);
+
+  int index;
+  bool found;
+  bool match;
+  if (children > 1)
+  {
+    /* each element must declare namespace */
+    for (i=0; i < children; i++)
+    {
+      const char * top = xhtml->getChild(i).getName().c_str();
+
+      index = util_bsearchStringsI(XHTML_ELEMENTS, top, 0, size - 1);
+      found = (index < size);
+
+      if (!found)
+      {
+        mSBML->getErrorLog()->logError(errorELEM);
+      }
+      else
+      {
+        const XMLToken elem = xhtml->getChild(i);
+        match = false;
+        for (n = 0; n < elem.getNamespaces().getLength(); n++)
+        {
+          if (!strcmp(elem.getNamespaces().getURI(n).c_str(), 
+                                               "http://www.w3.org/1999/xhtml"))
+          {
+            match = true;
+            break;
+          }
+        }
+        if (!match)
+        {
+          mSBML->getErrorLog()->logError(errorELEM);
+        }
+      }
+    }
+
+  }
+  else
+  {
+    /* only one element which can be html or body with either implicit/explicit
+     * namespace declaration
+     * OR could be one of the listed elements in which case must explicitly 
+     * declare the namespace
+     */
+
+    const XMLToken top_elem = xhtml->getChild(0);
+
+    match = false;
+    for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
+    {
+      if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
+                                            "http://www.w3.org/1999/xhtml"))
+      {
+        match = true;
+        break;
+      }
+    }
+    
+    const string& top_name = top_elem.getName();
+
+    if (top_name == "html" || top_name == "body")
+    {
+      if (!match && !implicitNSdecl)
+      {
+        mSBML->getErrorLog()->logError(errorNS);
+      }
+    }
+    else
+    {
+      const char* top_name_c = top_name.c_str();
+      index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
+      found = (index < size);
+
+      if (!found)
+      {
+        mSBML->getErrorLog()->logError(errorELEM);
+      }
+      else if (!match)
+      {
+        mSBML->getErrorLog()->logError(errorELEM);
+      }
+    }
+
+  }  
+}
+
+
+/**
+  * Checks if a character is part of the Unicode Letter set.
+  * @return true if the character is a part of the set, false otherwise.
+  */
+bool 
+SBase::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
+{
+  /*
   * Letter ::=  BaseChar | Ideographic 
   * BaseChar ::=  [#x0041-#x005A] | [#x0061-#x007A] | [#x00C0-#x00D6] | 
   * [#x00D8-#x00F6] | [#x00F8-#x00FF] | [#x0100-#x0131] | [#x0134-#x013E] | 
@@ -1146,9 +1519,6 @@ SBase::checkMetaIdSyntax()
   * [#x30A1-#x30FA] | [#x3105-#x312C] | [#xAC00-#xD7A3]  
   * Ideographic ::=  [#x4E00-#x9FA5] | #x3007 | [#x3021-#x3029]
   */
-bool 
-SBase::isUnicodeLetter(std::string::iterator it, unsigned int numBytes)
-{
   bool letter = false;
 
 
@@ -1828,15 +2198,18 @@ case 3:
 
 
 /**
-  * checks if a character is part of the Unicode Digit set
+  * Checks if a character is part of the Unicode Digit set.
+  * @return true if the character is a part of the set, false otherwise.
+  */
+bool 
+SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
+{
+  /*
   * Digit ::=  [#x0030-#x0039] | [#x0660-#x0669] | [#x06F0-#x06F9] | 
   * [#x0966-#x096F] | [#x09E6-#x09EF] | [#x0A66-#x0A6F] | [#x0AE6-#x0AEF] | 
   * [#x0B66-#x0B6F] | [#x0BE7-#x0BEF] | [#x0C66-#x0C6F] | [#x0CE6-#x0CEF] | 
   * [#x0D66-#x0D6F] | [#x0E50-#x0E59] | [#x0ED0-#x0ED9] | [#x0F20-#x0F29]    
   */
-bool 
-SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
-{
   bool digit = false;
 
 
@@ -1965,25 +2338,8 @@ SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
 
 
 /**
-  * checks if a character is part of the CombiningCharacter set
-  * CombiningChar ::=  [#x0300-#x0345] | [#x0360-#x0361] | [#x0483-#x0486] | 
-  * [#x0591-#x05A1] | [#x05A3-#x05B9] | [#x05BB-#x05BD] | #x05BF | [#x05C1-#x05C2] | 
-  * #x05C4 | [#x064B-#x0652] | #x0670 | [#x06D6-#x06DC] | [#x06DD-#x06DF] | 
-  * [#x06E0-#x06E4] | [#x06E7-#x06E8] | [#x06EA-#x06ED] | [#x0901-#x0903] | #x093C | 
-  * [#x093E-#x094C] | #x094D | [#x0951-#x0954] | [#x0962-#x0963] | [#x0981-#x0983] | 
-  * #x09BC | #x09BE | #x09BF | [#x09C0-#x09C4] | [#x09C7-#x09C8] | [#x09CB-#x09CD] | 
-  * #x09D7 | [#x09E2-#x09E3] | #x0A02 | #x0A3C | #x0A3E | #x0A3F | [#x0A40-#x0A42] | 
-  * [#x0A47-#x0A48] | [#x0A4B-#x0A4D] | [#x0A70-#x0A71] | [#x0A81-#x0A83] | #x0ABC | 
-  * [#x0ABE-#x0AC5] | [#x0AC7-#x0AC9] | [#x0ACB-#x0ACD] | [#x0B01-#x0B03] | #x0B3C | 
-  * [#x0B3E-#x0B43] | [#x0B47-#x0B48] | [#x0B4B-#x0B4D] | [#x0B56-#x0B57] | [#x0B82-#x0B83] | 
-  * [#x0BBE-#x0BC2] | [#x0BC6-#x0BC8] | [#x0BCA-#x0BCD] | #x0BD7 | [#x0C01-#x0C03] | 
-  * [#x0C3E-#x0C44] | [#x0C46-#x0C48] | [#x0C4A-#x0C4D] | [#x0C55-#x0C56] | [#x0C82-#x0C83] | 
-  * [#x0CBE-#x0CC4] | [#x0CC6-#x0CC8] | [#x0CCA-#x0CCD] | [#x0CD5-#x0CD6] | [#x0D02-#x0D03] | 
-  * [#x0D3E-#x0D43] | [#x0D46-#x0D48] | [#x0D4A-#x0D4D] | #x0D57 | #x0E31 | [#x0E34-#x0E3A] |
-  * [#x0E47-#x0E4E] | #x0EB1 | [#x0EB4-#x0EB9] | [#x0EBB-#x0EBC] | [#x0EC8-#x0ECD] | 
-  * [#x0F18-#x0F19] | #x0F35 | #x0F37 | #x0F39 | #x0F3E | #x0F3F | [#x0F71-#x0F84] | 
-  * [#x0F86-#x0F8B] | [#x0F90-#x0F95] | #x0F97 | [#x0F99-#x0FAD] | [#x0FB1-#x0FB7] | #x0FB9 | 
-  * [#x20D0-#x20DC] | #x20E1 | [#x302A-#x302F] | #x3099 | #x309A  
+  * Checks if a character is part of the Unicode CombiningChar set.
+  * @return true if the character is a part of the set, false otherwise.
   */
 bool 
 SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
@@ -2467,9 +2823,8 @@ SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
 }
 
 /**
-  * checks if a character is part of the Extender set
-  * Extender ::=  #x00B7 | #x02D0 | #x02D1 | #x0387 | #x0640 | 
-  * #x0E46 | #x0EC6 | #x3005 | [#x3031-#x3035] | [#x309D-#x309E] | [#x30FC-#x30FE] 
+  * Checks if a character is part of the Unicode Extender set.
+  * @return true if the character is a part of the set, false otherwise.
   */
 bool 
 SBase::isExtender(std::string::iterator it, unsigned int numBytes)
@@ -2569,142 +2924,7 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
 }
 
   
-/**
-  * Checks the syntax of a "id"
-  * if incorrect, an error is logged
-  */
-void 
-SBase::checkIdSyntax()
-{
-  string& id = const_cast<string &> (getId());
 
-  // need to check inside initial assign/ rules/event assign
-
-  if (getTypeCode() == SBML_INITIAL_ASSIGNMENT)
-  {
-    id = static_cast <InitialAssignment*> (this)->getSymbol();
-  }
-  else if (getTypeCode() == SBML_EVENT_ASSIGNMENT)
-  {
-    id = static_cast <EventAssignment*> (this)->getVariable();
-  }
-  else if (getTypeCode() == SBML_ASSIGNMENT_RULE || 
-	   getTypeCode() == SBML_RATE_RULE)
-  {
-    id = static_cast <Rule*> (this)->getVariable();
-  }
-
-  unsigned int size = id.size();
-
-  if (size == 0)
-  {
-    // Identifiers are not required on the following objects, so it's ok
-    // if they're zero-length.
-
-    if (getTypeCode() == SBML_MODEL
-	|| getTypeCode() == SBML_ALGEBRAIC_RULE
-	|| getTypeCode() == SBML_EVENT
-	|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
-	|| getTypeCode() == SBML_SPECIES_REFERENCE)
-    {
-      return;
-    }
-    else
-    {
-      // This is a schema validation error: no id on an object that needs it.
-      mSBML->getErrorLog()->logError(10103);
-      return;
-    }
-  }
-
-  unsigned int n = 0;
-
-  char c = id[n];
-  bool okay = (isalpha(c) || (c == '_'));
-  n++;
-
-  while (okay && n < size)
-  {
-    c = id[n];
-    okay = (isalnum(c) || c == '_');
-    n++;
-  }
-
-  if (!okay)   
-    mSBML->getErrorLog()->logError(10310);
-}
-
-
-/**
- * adds a CVTerm to the list of CVTerms associated with this object
- */
-void
-SBase::addCVTerm(CVTerm * term)
-{
-  unsigned int added = 0;
-  if (mCVTerms == NULL)
-  {
-    mCVTerms = new List();
-    mCVTerms->add((void *) term);
-  }
-  else
-  {
-    /* check whether there are any other qualifiers of the same sort already in the list */
-    QualifierType_t type = term->getQualifierType();
-    if (type == BIOLOGICAL_QUALIFIER)
-    {
-      BiolQualifierType_t biol = term->getBiologicalQualifierType();
-      
-      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
-      {
-        if (biol == static_cast <CVTerm *>(mCVTerms->get(n))->getBiologicalQualifierType())
-        {
-          for (int r = 0; r < term->getResources()->getLength(); r++)
-          {
-            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-              term->getResources()->getValue(r));
-          }
-          added = 1;
-        }
-      }
-    }
-    else if (type == MODEL_QUALIFIER)
-    {
-      ModelQualifierType_t model = term->getModelQualifierType();
-      
-      for (unsigned int n = 0; n < mCVTerms->getSize() && added == 0; n++)
-      {
-        if (model == static_cast <CVTerm *>(mCVTerms->get(n))->getModelQualifierType())
-        {
-          for (int r = 0; r < term->getResources()->getLength(); r++)
-          {
-            static_cast <CVTerm *>(mCVTerms->get(n))->addResource(
-              term->getResources()->getValue(r));
-          }
-          added = 1;
-        }
-      }
-    }
-    if (added == 0)
-    {
-      /* no matching terms already in list */
-      mCVTerms->add((void *) term);
-    }
-
-  }
-}
-
-List*
-SBase::getCVTerms()
-{
-  return mCVTerms;
-}
-
-List*
-SBase::getCVTerms() const
-{
-  return mCVTerms;
-}
 
 /**
   * functions to get and set ModelHistory
@@ -2729,207 +2949,23 @@ SBase::getModelHistory()
 }
 
 
-/*
-  * checks the annotation is valid in termsof namespaces
-  */
-void
-SBase::checkAnnotation()
-{
-  const string&  name = mAnnotation->getName();
-
-  unsigned int nNodes = 0;
-  unsigned int match = 0;
-  int n = 0;
-  while (nNodes < mAnnotation->getNumChildren())
-  {
-    XMLNode topLevel = mAnnotation->getChild(nNodes);
-
-    match = 0;
-    n = 0;
-    while(!match && n < topLevel.getNamespaces().getLength())
-    {
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
-                                          "http://www.sbml.org/sbml/level1");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
-                                          "http://www.sbml.org/sbml/level2");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
-                                "http://www.sbml.org/sbml/level2/version2");
-      match += !strcmp(topLevel.getNamespaces().getURI(n).c_str(), 
-                                "http://www.sbml.org/sbml/level2/version3");
-      n++;
-    }
-    if (match > 0)
-    {
-      mSBML->getErrorLog()->logError(10403);
-      break;
-    }
-    nNodes++;
-  }
-}
 
 
-/*
- * checks the XHTML is valid
+/**
+ * Stores the location (line and column) and any XML namespaces (for
+ * roundtripping) declared on this SBML (XML) element.
  */
 void
-SBase::checkXHTML(const XMLNode * xhtml)
+SBase::setSBaseFields (const XMLToken& element)
 {
-  const string&  name = xhtml->getName();
-  unsigned int i, errorNS, errorXML, errorDOC, errorELEM;
-  int n;
+  mLine   = element.getLine  ();
+  mColumn = element.getColumn();
 
-  if (name == "notes")
+  if (element.getNamespaces().getLength() > 0)
   {
-    errorNS   = 10801;
-    errorXML  = 10802;
-    errorDOC  = 10803;
-    errorELEM = 10804;
+    mNamespaces = new XMLNamespaces( element.getNamespaces() );
   }
-  else if (name == "message")
-  {
-    errorNS   = 21003;
-    errorXML  = 21004;
-    errorDOC  = 21005;
-    errorELEM = 21006;
-  }
-  else
-  {
-    mSBML->getErrorLog()->logError(00005);
-    return;
-  }
-
-  /**
-   * errors relating to a misplaced XML or DOCTYPE declaration 
-   * will also cause a parser error
-   * since parsing will terminate at this error if it has occurred
-   * it will bein the XML currently being checked and so a more
-   * informative message can be added
-   */
-  for (i = 0; i < mSBML->getErrorLog()->getNumErrors(); i++)
-  {
-    if (mSBML->getErrorLog()->getError(i)->getId() == 17)
-    {
-      mSBML->getErrorLog()->logError(errorXML);
-    }
-    if (mSBML->getErrorLog()->getError(i)->getId() == 4)
-    {
-      mSBML->getErrorLog()->logError(errorDOC);
-    }
-  }
-
-  /**
-   * namespace declaration is variable
-   * if a whole html tag has been used
-   * or a whole body tag then namespace can be implicitly declared
-   *
-   * HOWEVER if one or more permitted elements have been used 
-   * each MUST explicitly declare the namespace
-   */
-  bool implicitNSdecl = false;
-  if( mSBML->getNamespaces() != NULL)
-  /* check for implicit declaration */
-  {
-    for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
-    {
-      if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                         "http://www.w3.org/1999/xhtml"))
-      {
-        implicitNSdecl = true;
-        break;
-      }
-    }
-  }
-
-  unsigned int children = xhtml->getNumChildren();
-  static const int size = sizeof(XHTML_ELEMENTS) / sizeof(XHTML_ELEMENTS[0]);
-
-  int index;
-  bool found;
-  bool match;
-  if (children > 1)
-  {
-    /* each element must declare namespace */
-    for (i=0; i < children; i++)
-    {
-      const char * top = xhtml->getChild(i).getName().c_str();
-
-      index = util_bsearchStringsI(XHTML_ELEMENTS, top, 0, size - 1);
-      found = (index < size);
-
-      if (!found)
-      {
-        mSBML->getErrorLog()->logError(errorELEM);
-      }
-      else
-      {
-        const XMLToken elem = xhtml->getChild(i);
-        match = false;
-        for (n = 0; n < elem.getNamespaces().getLength(); n++)
-        {
-          if (!strcmp(elem.getNamespaces().getURI(n).c_str(), 
-                                               "http://www.w3.org/1999/xhtml"))
-          {
-            match = true;
-            break;
-          }
-        }
-        if (!match)
-        {
-          mSBML->getErrorLog()->logError(errorELEM);
-        }
-      }
-    }
-
-  }
-  else
-  {
-    /* only one element which can be html or body with either implicit/explicit
-     * namespace declaration
-     * OR could be one of the listed elements in which case must explicitly 
-     * declare the namespace
-     */
-
-    const XMLToken top_elem = xhtml->getChild(0);
-
-    match = false;
-    for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
-    {
-      if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
-                                            "http://www.w3.org/1999/xhtml"))
-      {
-        match = true;
-        break;
-      }
-    }
-    
-    const string& top_name = top_elem.getName();
-
-    if (top_name == "html" || top_name == "body")
-    {
-      if (!match && !implicitNSdecl)
-      {
-        mSBML->getErrorLog()->logError(errorNS);
-      }
-    }
-    else
-    {
-      const char* top_name_c = top_name.c_str();
-      index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
-      found = (index < size);
-
-      if (!found)
-      {
-        mSBML->getErrorLog()->logError(errorELEM);
-      }
-      else if (!match)
-      {
-        mSBML->getErrorLog()->logError(errorELEM);
-      }
-    }
-
-  }  
 }
-
 
 
 /**
@@ -2966,6 +3002,17 @@ SBase_getName (const SBase_t *sb)
 
 
 /**
+ * @return the parent SBMLDocument of this SBML object.
+ */
+LIBSBML_EXTERN
+const SBMLDocument_t *
+SBase_getSBMLDocument (const SBase_t *sb)
+{
+  return sb->getSBMLDocument();
+}
+
+
+/**
  * @return the sboTerm of this SBML object.
  */
 LIBSBML_EXTERN
@@ -2973,6 +3020,28 @@ int
 SBase_getSBOTerm (const SBase_t *sb)
 {
   return sb->getSBOTerm();
+}
+
+
+/**
+ * @return the SBML level of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getLevel (const SBase_t *sb)
+{
+  return sb->getLevel();
+}
+
+
+/**
+ * @return the SBML version of this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int
+SBase_getVersion (const SBase_t *sb)
+{
+  return sb->getVersion();
 }
 
 
@@ -3155,17 +3224,6 @@ SBase_unsetSBOTerm (SBase_t *sb)
 
 
 /**
- * @return the parent SBMLDocument of this SBML object.
- */
-LIBSBML_EXTERN
-const SBMLDocument_t *
-SBase_getSBMLDocument (const SBase_t *sb)
-{
-  return sb->getSBMLDocument();
-}
-
-
-/**
  * @return the parent Model of this SBML object.
  */
 LIBSBML_EXTERN
@@ -3173,28 +3231,6 @@ const Model_t *
 SBase_getModel (const SBase_t *sb)
 {
   return sb->getModel();
-}
-
-
-/**
- * @return the SBML level of this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase_getLevel (const SBase_t *sb)
-{
-  return sb->getLevel();
-}
-
-
-/**
- * @return the SBML version of this SBML object.
- */
-LIBSBML_EXTERN
-unsigned int
-SBase_getVersion (const SBase_t *sb)
-{
-  return sb->getVersion();
 }
 
 
