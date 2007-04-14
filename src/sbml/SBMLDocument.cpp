@@ -757,6 +757,53 @@ SBMLDocument_checkConsistency (SBMLDocument_t *d)
 
 
 /**
+ * Performs a set of semantic consistency checks on the document to
+ * establish whether it is compatible with L1 and can be converted.
+ * Query the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL1Compatibility (SBMLDocument_t *d)
+{
+  return d->checkL1Compatibility();
+}
+
+
+/**
+ * Performs a set of semantic consistency checks on the document to
+ * establish whether it is compatible with L2v1 and can be converted.
+ * Query the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v1Compatibility (SBMLDocument_t *d)
+{
+  return d->checkL2v1Compatibility();
+}
+
+
+
+/**
+ * Performs a set of semantic consistency checks on the document to
+ * establish whether it is compatible with L2v2 and can be converted.
+ * Query the results by calling getNumErrors() and getError().
+ *
+ * @return the number of failed checks (errors) encountered.
+ */
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d)
+{
+  return d->checkL2v2Compatibility();
+}
+
+
+
+/**
  * @return the nth error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumErrors() - 1.
  */
