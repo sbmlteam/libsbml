@@ -58,14 +58,26 @@ CXX        = @CXX@
 CXXFLAGS   = @CXXFLAGS@ -Wall
 
 ifdef USE_EXPAT
-  CPPFLAGS = @EXPAT_CPPFLAGS@ -I$(INCLUDEDIR)
-  LDFLAGS  = @EXPAT_LDFLAGS@ -L$(SRCDIR)
-  LIBS     = @EXPAT_LIBS@ -lsbml -lstdc++ -lm
-else
-  CPPFLAGS = @XERCES_CPPFLAGS@ -I$(INCLUDEDIR)
-  LDFLAGS  = @XERCES_LDFLAGS@ -L$(SRCDIR)
-  LIBS     = @XERCES_LIBS@ -lsbml -lstdc++ -lm
+  CPPFLAGS += @EXPAT_CPPFLAGS@ 
+  LDFLAGS  += @EXPAT_LDFLAGS@
+  LIBS     += @EXPAT_LIBS@
 endif
+
+ifdef USE_XERCES
+  CPPFLAGS += @XERCES_CPPFLAGS@
+  LDFLAGS  += @XERCES_LDFLAGS@
+  LIBS     += @XERCES_LIBS@
+endif
+
+ifdef USE_LIBXML
+  CPPFLAGS += @XERCES_CPPFLAGS@
+  LDFLAGS  += @XERCES_LDFLAGS@
+  LIBS     += @XERCES_LIBS@
+endif
+
+CPPFLAGS   += -I$(INCLUDEDIR)
+LDFLAGS    += -L$(SRCDIR)
+LIBS       += -lsbml -lstdc++ -lm
 
 # The rest of this Makefile remains static regardless of the values
 # assigned to the variables above.

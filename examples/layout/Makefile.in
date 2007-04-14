@@ -89,7 +89,6 @@ ifdef USE_LIBXML
 endif
 
 
-
 # The rest of this Makefile remains static regardless of the values
 # assigned to the variables above.
 

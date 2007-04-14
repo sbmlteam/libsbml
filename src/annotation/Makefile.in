@@ -91,14 +91,24 @@ ifdef USE_LAYOUT
   headers += $(layout_headers)
 endif
 
+extra_CPPFLAGS += -I../sbml/layout
+
 ifdef USE_EXPAT
-  extra_CPPFLAGS  += $(EXPAT_CPPFLAGS)
-  extra_LDFLAGS   += $(EXPAT_LDFLAGS)
-  extra_LIBS      += $(EXPAT_LIBS)
-else
-  extra_CPPFLAGS  += $(XERCES_CPPFLAGS)
-  extra_LDFLAGS   += $(XERCES_LDFLAGS)
-  extra_LIBS      += $(XERCES_LIBS)
+  extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
+  extra_LDFLAGS  += @EXPAT_LDFLAGS@
+  extra_LIBS     += @EXPAT_LIBS@
+endif
+
+ifdef USE_XERCES
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
+endif
+
+ifdef USE_LIBXML
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
 endif
 
 header_inst_prefix = annotation
