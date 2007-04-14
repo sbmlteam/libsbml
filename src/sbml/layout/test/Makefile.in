@@ -119,6 +119,11 @@ ifdef USE_LIBXML
   extra_LIBS     += $(LIBXML_LIBS)
 endif
 
+# Remove duplicates, just to shorten the command line.
+
+extra_CPPFLAGS := $(sort $(extra_CPPFLAGS))
+extra_LDFLAGS  := $(sort $(extra_LDFLAGS))
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
