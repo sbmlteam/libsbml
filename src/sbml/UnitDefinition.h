@@ -403,6 +403,15 @@ int
 UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
 
 /**
+ * @return true if this UnitDefinition is a variant of dimensionless.
+ * i.e. dimensionless with only abritrary variations in scale,
+ * or multiplier values, false otherwise.
+ */
+LIBSBML_EXTERN
+bool 
+UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud);
+
+/**
  * @return true if this UnitDefinition is a variant of mass. ie gram or
  * kilogram with only abritrary variations in scale or multiplier
  * values, false otherwise.
