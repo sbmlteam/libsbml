@@ -1,26 +1,25 @@
 /**
- * \file    ASTNode.h
- * \brief   Abstract Syntax Tree (AST) for representing formula trees
- * \author  SBML Team <sbml-team@caltech.edu>
+ * @file    ASTNode.h
+ * @brief   Abstract Syntax Tree (AST) for representing formula trees.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2006-2007 California Institute of Technology.
+ * Copyright 2005      California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #ifndef ASTNode_h
 #define ASTNode_h
@@ -33,9 +32,46 @@
 
 
 /**
- * Nodes of type AST_UNKNOWN are used internally as the AST is being
- * constructed.  Trees returned by SBML_parseFormula() will not contain
- * unknown nodes.
+ * ASTNodeType_t is the enumeration of possible ASTNode types.
+ *
+ * Each ASTNode has a type whose value is one of the elements of this
+ * enumeration.  The types have the following meanings:
+ *
+ * @li If the node is basic mathematical operator (e.g., "+"), then the
+ * node's type will be AST_PLUS, AST_MINUS, AST_TIMES, AST_DIVIDE, or
+ * AST_POWER, as appropriate.
+ *
+ * @li If the node is a predefined function or operator from %SBML Level 1
+ * (in the string-based formula syntax used in Level 1) or %SBML Level 2
+ * (in the subset of MathML used in SBML Level 2), then the node's type
+ * will be either AST_FUNCTION_<em>x</em>, AST_LOGICAL_<em>x</em>, or
+ * AST_RELATIONAL_<em>x</em>, as appropriate.  (Examples:
+ * AST_FUNCTION_LOG, AST_RELATIONAL_LEQ.)
+ *
+ * @li If the node refers to a user-defined function, the node's type will
+ * be AST_NAME (because it holds the name of the function).
+ *
+ * @li If the node is a lambda expression, its type will be AST_LAMBDA.
+ * 
+ * @li If the node is a predefined constant ("ExponentialE", "Pi", "True"
+ * or "False"), then the node's type will be AST_CONSTANT_E,
+ * AST_CONSTANT_PI, AST_CONSTANT_TRUE, or AST_CONSTANT_FALSE.
+ * 
+ * @li (Level 2 only) If the node is the special MathML csymbol @c time,
+ * the value of the node will be AST_NAME_TIME.  (Note, however, that the
+ * MathML csymbol @c delay is translated into a node of type
+ * AST_FUNCTION_DELAY.  The difference is due to the fact that @c time is a
+ * single variable, whereas @c delay is actually a function taking
+ * arguments.)
+ *
+ * @li If the node contains a numerical value, its type will be
+ * AST_INTEGER, AST_REAL, AST_REAL_E, or AST_RATIONAL, as appropriate.
+ *
+ * @note Nodes of type AST_UNKNOWN are used internally as the AST is being
+ * constructed, but this will not be exposed to calling code.  ASTNode
+ * trees returned by SBML_parseFormula() will not contain unknown nodes.
+ *
+ * @see ASTNode::getType(), ASTNode::canonicalize()
  */
 typedef enum
 {
@@ -43,7 +79,7 @@ typedef enum
   , AST_MINUS   = '-'
   , AST_TIMES   = '*'
   , AST_DIVIDE  = '/'
-  , AST_POWER   = '^'
+  , AST_POWER   = '^'  
 
   , AST_INTEGER = 256
   , AST_REAL
@@ -114,10 +150,8 @@ typedef enum
 
 
 /**
- * ASTNodePredicate
- *
- * This is a typedef for a pointer to a function that takes an ASTNode and
- * returns true (non-zero) or false (0).
+ * A pointer to a function that takes an ASTNode and returns @c true
+ * (non-zero) or @c false (0).
  *
  * @see ASTNode_getListOfNodes(), ASTNode_fillListOfNodes()
  */
@@ -130,15 +164,70 @@ typedef int (*ASTNodePredicate) (const ASTNode_t *node);
 class List;
 
 
+/**
+ * A node in the Abstract Syntax Tree (AST) representation of a
+ * mathematical expression.
+ *
+ * Abstract Syntax Trees (ASTs) are a simple kind of data structure used in
+ * libSBML for storing mathematical expressions.  The ASTNode is the
+ * cornerstone of libSBML's AST representation.  ASTNodes represent the
+ * most basic, indivisible part of a mathematical formula and come in many
+ * types.  For instance, there are node types to represent numbers (with
+ * subtypes to distinguish integer, real, and rational numbers), names
+ * (e.g., constants or variables), simple mathematical operators, logical
+ * or relational operators and functions. LibSBML ASTs provide a canonical,
+ * in-memory representation for all mathematical formulas regardless of
+ * their original format (which might be MathML or might be text strings).
+ *
+ * An AST @em node in libSBML is a recursive structure containing a pointer
+ * to the node's value (which might be, for example, a number or a symbol)
+ * and a list of children nodes.  Each ASTNode node may have none, one,
+ * two, or more child depending on its type.  The following diagram
+ * illustrates an example of how the mathematical expression "1 + 2" is
+ * represented as an AST with one @em plus node having two @em integer
+ * children nodes for the numbers 1 and 2.  The figure also shows the
+ * corresponding MathML representation:
+ *
+ * @image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
+ *
+ * The following are noteworthy about the AST representation in libSBML:
+ * 
+ * @li A numerical value represented in MathML as a real number with an
+ * exponent is preserved as such in the AST node representation, even if
+ * the number could be stored in a @c double data type.  This is done
+ * so that when an %SBML model is read in and then written out again, the
+ * amount of change introduced by libSBML to the SBML during the round-trip
+ * activity is minimized.
+ *  
+ * @li Rational numbers are represented in an AST node using separate
+ * numerator and denominator values.  These can be retrieved using the
+ * methods getNumerator() and getDenominator()
+ * 
+ * @li The children of an ASTNode are other ASTNode objects.  The list of
+ * children is empty for nodes that are leaf elements, such as numbers.
+ * For nodes that are actually roots of expression subtrees, the list of
+ * children points to the parsed objects that make up the rest of the
+ * expression.
+ *
+ * Finally, for many applications, the details of ASTs are irrelevant
+ * because the applications can use the text-string based translation
+ * functions such as SBML_formulaToString() and readMathMLFromString().  If
+ * you find the complexity of using the AST representation of expressions
+ * too high for your purposes, perhaps the string-based functions will be
+ * more suitable.
+ */
 class ASTNode
 {
 public:
 
   /**
-   * Creates a new ASTNode.
+   * Creates and returns a new ASTNode.
    *
-   * By default, node will have a type of AST_UNKNOWN and should be set to
-   * something else as soon as possible.
+   * By default, the returned node will have a type of AST_UNKNOWN.  The
+   * calling code should set the node type to something else as soon as
+   * possible.
+   *
+   * @see setType()
    */
   LIBSBML_EXTERN
   ASTNode (ASTNodeType_t type = AST_UNKNOWN);
@@ -151,45 +240,51 @@ public:
   ASTNode (Token_t *token);
 
   /**
-   * Destroys this ASTNode including any child nodes.
+   * Destroys this ASTNode, including any child nodes.
    */
   LIBSBML_EXTERN
   virtual ~ASTNode ();
 
 
   /**
-   * Frees the name of this ASTNode and sets it to NULL, if appropriate,
-   * i.e. the node is not an operator, number or AST_UNKNOWN.
+   * Frees the name of this ASTNode and sets it to NULL.
+   * 
+   * This operation is only applicable to ASTNodes corresponding to
+   * operators, numbers, or AST_UNKNOWN.  This method will have no
+   * effect on other types of nodes.
    */
   void
   freeName ();
 
   /**
-   * Attempts to convert this ASTNode to a canonical form and returns true
-   * if the conversion succeeded, false otherwise.
+   * Converts this ASTNode to a canonical form and returns true if
+   * successful, false otherwise.
    *
    * The rules determining the canonical form conversion are as follows:
    *
-   *   1. If the node type is AST_NAME and the node name matches
+   * @li If the node type is AST_NAME and the node name matches
    *   "ExponentialE", "Pi", "True" or "False" the node type is converted
-   *   to the corresponding AST_CONSTANT type.
+   *   to the corresponding AST_CONSTANT_<em>x</em> type.
    *
-   *   2. If the node type is an AST_FUNCTION and the node name matches an
-   *   L1 or L2 (MathML) function name, logical operator name, or
+   * @li If the node type is an AST_FUNCTION and the node name matches an
+   *   %SBML Level 1 or L2 (MathML) function name, logical operator name, or
    *   relational operator name, the node is converted to the correspnding
-   *   AST_FUNCTION, AST_LOGICAL or AST_CONSTANT type.
+   *   AST_FUNCTION_<em>x</em> or AST_LOGICAL_<em>x</em> type.
    *
-   * L1 function names are searched first, so canonicalizing "log" will
-   * result in a node type of AST_FUNCTION_LN (see L1 Specification,
-   * Appendix C).
+   * %SBML Level 1 function names are searched first; thus, for example,
+   * canonicalizing @c log will result in a node type of AST_FUNCTION_LN.
+   * (See the %SBML Level 1 Specification, Appendix C.)
    *
-   * Some canonicalizations result in a structural converion of the nodes
-   * (by adding a child).  For example, a node with L1 function name "sqr"
-   * and a single child node (the argument) will be transformed to a node
-   * of type AST_FUNCTION_POWER with two children.  The first child will
-   * remain unchanged, but the second child will be an ASTNode of type
-   * AST_INTEGER and a value of 2.  The function names that result in
-   * structural changes are: log10, sqr and sqrt.
+   * Sometimes canonicalization of a node results in a structural converion
+   * of the node as a result of adding a child.  For example, a node with
+   * the %SBML Level 1 function name @c sqr and a single child node (the
+   * argument) will be transformed to a node of type AST_FUNCTION_POWER
+   * with two children.  The first child will remain unchanged, but the
+   * second child will be an ASTNode of type AST_INTEGER and a value of 2.
+   * The function names that result in structural changes are: @c log10,
+   * @c sqr, and @c sqrt.
+   *
+   * @see SBML Level 1 and Level 2 (all versions) specification documents.
    */
   LIBSBML_EXTERN
   bool canonicalize ();
@@ -617,8 +712,9 @@ protected:
 
 #ifndef SWIG
 
-
+/** @cond doxygen-ignored */
 BEGIN_C_DECLS
+/** @endcond doxygen-ignored */
 
 
 /**
@@ -652,8 +748,11 @@ void
 ASTNode_free (ASTNode_t *node);
 
 /**
- * Frees the name of this ASTNode and sets it to NULL, if appropriate,
- * i.e. the node is not an operator, number or AST_UNKNOWN.
+ * Frees the name of this ASTNode and sets it to NULL.
+ * 
+ * This operation is only applicable to ASTNodes corresponding to
+ * operators, numbers, or AST_UNKNOWN.  This method will have no
+ * effect on other types of nodes.
  */
 void
 ASTNode_freeName (ASTNode_t *node);
