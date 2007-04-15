@@ -408,7 +408,7 @@ UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud);
  * or multiplier values, false otherwise.
  */
 LIBSBML_EXTERN
-bool 
+int 
 UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud);
 
 /**
