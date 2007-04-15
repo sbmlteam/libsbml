@@ -105,6 +105,32 @@ START_TEST (test_Compartment_create)
 END_TEST
 
 
+START_TEST (test_Compartment_initDefaults)
+{
+  Compartment_t *c = Compartment_createWith("A", "");
+  Compartment_initDefaults(c);
+
+  fail_unless( !strcmp(Compartment_getId     (c), "A"));
+  fail_unless( Compartment_getName   (c) == NULL );
+  fail_unless( Compartment_getUnits  (c) == NULL );
+  fail_unless( Compartment_getOutside(c) == NULL );
+
+  fail_unless( Compartment_getSpatialDimensions(c) == 3   );
+  fail_unless( Compartment_getVolume           (c) == 1.0 );
+  fail_unless( Compartment_getConstant         (c) == 1   );
+
+  fail_unless( Compartment_isSetId     (c) );
+  fail_unless( !Compartment_isSetName   (c) );
+  fail_unless( !Compartment_isSetSize   (c) );
+  fail_unless( !Compartment_isSetVolume (c) );
+  fail_unless( !Compartment_isSetUnits  (c) );
+  fail_unless( !Compartment_isSetOutside(c) );
+  
+  Compartment_free(c);
+}
+END_TEST
+
+
 START_TEST (test_Compartment_createWith)
 {
   Compartment_t *c = Compartment_createWith("A", "");
@@ -285,6 +311,40 @@ START_TEST (test_Compartment_unsetVolume)
 END_TEST
 
 
+START_TEST (test_Compartment_getsetType)
+{
+  Compartment_setCompartmentType(C, "cell");
+
+  fail_unless( !strcmp(Compartment_getCompartmentType(C), "cell" ));
+  fail_unless( Compartment_isSetCompartmentType(C) );
+
+  Compartment_unsetCompartmentType(C);
+
+  fail_unless( !Compartment_isSetCompartmentType(C) );
+}
+END_TEST
+
+
+START_TEST (test_Compartment_getsetConstant)
+{
+  Compartment_setConstant(C, 1);
+
+  fail_unless( Compartment_getConstant(C) == 1);
+
+}
+END_TEST
+
+
+START_TEST (test_Compartment_getSpatialDimensions)
+{
+  Compartment_setSpatialDimensions(C, 1);
+
+  fail_unless( Compartment_getSpatialDimensions(C) == 1);
+
+}
+END_TEST
+
+
 Suite *
 create_suite_Compartment (void)
 {
@@ -296,15 +356,19 @@ create_suite_Compartment (void)
                              CompartmentTest_setup,
                              CompartmentTest_teardown );
 
-  tcase_add_test( tcase, test_Compartment_create      );
-  tcase_add_test( tcase, test_Compartment_createWith  );
-  tcase_add_test( tcase, test_Compartment_free_NULL   );
-  tcase_add_test( tcase, test_Compartment_setId       );
-  tcase_add_test( tcase, test_Compartment_setName     );
-  tcase_add_test( tcase, test_Compartment_setUnits    );
-  tcase_add_test( tcase, test_Compartment_setOutside  );
-  tcase_add_test( tcase, test_Compartment_unsetSize   );
-  tcase_add_test( tcase, test_Compartment_unsetVolume );
+  tcase_add_test( tcase, test_Compartment_create              );
+  tcase_add_test( tcase, test_Compartment_createWith          );
+  tcase_add_test( tcase, test_Compartment_free_NULL           );
+  tcase_add_test( tcase, test_Compartment_setId               );
+  tcase_add_test( tcase, test_Compartment_setName             );
+  tcase_add_test( tcase, test_Compartment_setUnits            );
+  tcase_add_test( tcase, test_Compartment_setOutside          );
+  tcase_add_test( tcase, test_Compartment_unsetSize           );
+  tcase_add_test( tcase, test_Compartment_unsetVolume         );
+  tcase_add_test( tcase, test_Compartment_getsetType          );
+  tcase_add_test( tcase, test_Compartment_getsetConstant      );
+  tcase_add_test( tcase, test_Compartment_getSpatialDimensions);
+  tcase_add_test( tcase, test_Compartment_initDefaults        );
 
   suite_add_tcase(suite, tcase);
 

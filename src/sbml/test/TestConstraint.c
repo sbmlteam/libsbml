@@ -127,6 +127,33 @@ START_TEST (test_Constraint_setMath)
 END_TEST
 
 
+START_TEST (test_Constraint_setMessage)
+{
+  XMLNode_t *node = XMLNode_create();
+  /* compiler is refusing to find this function !!!!
+  Constraint_setMessage(C, node);
+
+  fail_unless( Constraint_getMessage(C) != node );
+  fail_unless( Constraint_isSetMessage(C) );
+
+  /* Reflexive case (pathological) 
+  Constraint_setMessage(C, (XMLNode_t *) Constraint_getMessage(C));
+
+  fail_unless( Constraint_getMessage(C) != node );*/
+
+  Constraint_unsetMessage(C);
+  fail_unless( !Constraint_isSetMessage(C) );
+
+  if (Constraint_getMessage(C) != NULL)
+  {
+    fail("Constraint_unsetMessage(C) did not clear XMLNode.");
+  }
+
+  XMLNode_free(node);
+}
+END_TEST
+
+
 Suite *
 create_suite_Constraint (void)
 {
@@ -141,6 +168,7 @@ create_suite_Constraint (void)
   tcase_add_test( tcase, test_Constraint_create      );
   tcase_add_test( tcase, test_Constraint_free_NULL   );
   tcase_add_test( tcase, test_Constraint_setMath     );
+  tcase_add_test( tcase, test_Constraint_setMessage  );
 
   suite_add_tcase(suite, tcase);
 

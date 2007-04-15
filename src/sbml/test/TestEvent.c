@@ -104,7 +104,7 @@ END_TEST
 
 START_TEST (test_Event_createWith)
 {
-  Event_t   *e       = Event_createWith("e1");
+  Event_t   *e       = Event_createWith("e1", "");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) e) == SBML_EVENT );
@@ -241,7 +241,7 @@ START_TEST (test_Event_full)
 {
   Trigger_t         *trigger = Trigger_createWith("leq(P1, t)");
   ASTNode_t         *math    = SBML_parseFormula("0");
-  Event_t           *e       = Event_createWith("e1");
+  Event_t           *e       = Event_createWith("e1", "");
   EventAssignment_t *ea      = EventAssignment_createWith("k", math);
 
   //Event_setTrigger(e, trigger);

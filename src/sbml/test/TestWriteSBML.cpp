@@ -323,7 +323,8 @@ START_TEST (test_WriteSBML_Unit_L2v1)
 
 
 
-  Unit u("Celsius", 1, 0, 1.8, 32);
+  Unit u("Celsius", 1, 0, 1.8);
+  u.setOffset(32);
 
   u.setSBMLDocument(D);
   u.write(*XOS);
@@ -417,7 +418,8 @@ START_TEST (test_WriteSBML_UnitDefinition_L2v1_full)
     "</unitDefinition>"
   );
 
-  Unit           u1("Celsius", 1, 0, 1.8, 32);
+  Unit           u1("Celsius", 1, 0, 1.8);
+  u1.setOffset(32);
   UnitDefinition ud("Fahrenheit");
 
   ud.addUnit(&u1);

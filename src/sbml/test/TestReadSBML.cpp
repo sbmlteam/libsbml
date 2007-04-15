@@ -2686,15 +2686,15 @@ START_TEST (test_ReadSBML_line_col_numbers)
     "  </model>\n"
     "</sbml>\n";
 
-  /*          1         2         3         4         5         6 */
-  /* 123456789012345678901234567890123456789012345678901234567890 */
+            1         2         3         4         5         6 
+   123456789012345678901234567890123456789012345678901234567890 
 
-/*  D = readSBMLFromString(s);
+  D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
-  /**
+  
    * Xerces-C++ and Expat report line and column numbers differently.
    *
    * Expat reports the line and column numbers at the start of a token
@@ -2706,9 +2706,9 @@ START_TEST (test_ReadSBML_line_col_numbers)
    *   XMLReader.setFeature( XMLUni::fgXercesCalculateSrcOfs, true );
    *
    * but it has no effect.  Perhaps I misunderstood its meaning. :(
-   */
+   
 
-/*  sb = (SBase_t *) M;
+  sb = (SBase_t *) M;
 
 #if USE_EXPAT
   fail_unless ( SBase_getLine  (sb) == 3 );
@@ -2742,13 +2742,13 @@ START_TEST (test_ReadSBML_line_col_numbers)
 #endif
 }
 END_TEST
-*/
 
-/**
+
+
  * This test ensures the SBMLHandler does not invoke the MathML parser if
  * it encounters a <math> element inside <notes> or <annotation> elements.
- */
-/*
+ *
+
 START_TEST (test_ReadSBML_math_in_notes_bug)
 {
   AssignmentRule_t* ar;
@@ -2780,9 +2780,9 @@ START_TEST (test_ReadSBML_math_in_notes_bug)
   fail_unless( !strcmp(SBase_getNotes((SBase_t *) ar), n) );
 }
 END_TEST
-*/
 
-/*
+
+
 START_TEST (test_ReadSBML_SBML_xmlns)
 {
   const char* s = wrapXML

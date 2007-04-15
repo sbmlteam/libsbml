@@ -51,16 +51,15 @@
 
 #include "common/common.h"
 
+#include "ListOf.h"
 #include "SBase.h"
-#include "sbml/Species.h"
-#include "sbml/ListOf.h"
 
 #include <check.h>
 
 
 START_TEST (test_ListOf_create)
 {
-  ListOf_t *lo = (ListOf_t *) ListOf_create();
+  ListOf_t *lo = (ListOf_t*) ListOf_create();
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) lo) == SBML_LIST_OF );
