@@ -62,7 +62,7 @@
  * For an explanation of why this is safe, see:
  *   - http://www.unknownroad.com/rtfm/VisualStudio/warningC4251.html
  */
-#if WIN32
+#if (WIN32 && ! defined CYGWIN)
 #pragma warning(disable: 4251)
 #endif
 
