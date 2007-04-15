@@ -5,7 +5,7 @@ DIV.tabs
    float            : left;
    width            : 100%;
    background       : url("tab_b.gif") repeat-x bottom;
-   margin-bottom    : 10px;
+   margin-bottom    : 15px;
 }
 
 DIV.tabs UL
