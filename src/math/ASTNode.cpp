@@ -1,26 +1,25 @@
 /**
- * \file    ASTNode.cpp
- * \brief   Abstract Syntax Tree (AST) for representing formula trees
- * \author  Ben Bornstein
+ * @file    ASTNode.cpp
+ * @brief   Abstract Syntax Tree (AST) for representing formula trees.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2006-2007 California Institute of Technology.
+ * Copyright 2005      California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <new>
 #include <cmath>
@@ -31,12 +30,7 @@
 
 #include <sbml/math/ASTNode.h>
 
-
-/** @cond doxygen-ignored */
-
 using namespace std;
-
-/** @endcond doxygen-ignored */
 
 
 /**
@@ -228,8 +222,11 @@ ASTNode::~ASTNode ()
 
 
 /**
- * Frees the name of this ASTNode and sets it to NULL, if appropriate,
- * i.e. the node is not an operator, number or AST_UNKNOWN.
+ * Frees the name of this ASTNode and sets it to NULL.
+ * 
+ * This operation is only applicable to ASTNodes corresponding to
+ * operators, numbers, or AST_UNKNOWN.  This method will have no
+ * effect on other types of nodes.
  */
 void
 ASTNode::freeName ()
