@@ -1,9 +1,10 @@
 /** @mainpage General Information
 
-@author Ben Bornstein and Sarah Keating, <em>with contributions from</em>
+@author Ben Bornstein and Sarah Keating, <em>with contributions from
 Michael Hucka, Ralph Gauges, Stefan Hoops, Christoph Flamm, Rainer Machne,
-Martin Ginkel, Ben Kovitz, <em>and many others in the %SBML community</em>.
+Martin Ginkel, Ben Kovitz, and many others in the %SBML community</em>.
 
+@n
 This manual describes the application programming interface (API) of
 libSBML, an open-source (LGPL) library for writing and manipulating the
 Systems Biology Markup Language (%SBML).  This version of the library
