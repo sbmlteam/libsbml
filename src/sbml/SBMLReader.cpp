@@ -35,11 +35,9 @@ using namespace std;
 
 
 /**
- * Creates a new SBMLReader and returns it.  By default XML Schema
- * validation is off.
+ * Creates a new SBMLReader and returns it. 
  */
-SBMLReader::SBMLReader (bool doSchemaValidation) :
-  mDoSchemaValidation(doSchemaValidation)
+SBMLReader::SBMLReader ()
 {
 }
 
@@ -54,17 +52,17 @@ SBMLReader::~SBMLReader ()
 
 /**
  * Reads an SBML document from the given file.  If filename does not exist
- * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * or is not an SBML file, an error will be logged.  Errors can be
  * identified by their unique ids, e.g.:
  *
  * <code>
  *   SBMLDocument* d = reader.readSBML(filename);
  *
- *   if (d->getNumFatals() > 0)
- *   {
- *     if (d->getFatal(0)->getId() == SBML_READ_ERROR_FILE_NOT_FOUND)
- *     if (d->getFatal(0)->getId() == SBML_READ_ERROR_NOT_SBML)
- *   }
+ *   if (d->getNumErrors() > 0)\n
+ *   {\n
+ *     if (d->getError(0)->getId() == SBML_READ_ERROR_FILE_NOT_FOUND)\n
+ *     if (d->getError(0)->getId() == SBML_READ_ERROR_NOT_SBML)\n
+ *   }\n
  * </code>
  *
  * @return a pointer to the SBMLDocument read.
@@ -99,28 +97,6 @@ SBMLReader::readSBMLFromString (const string& xml)
 
 
 /**
- * @return true if this SBMLReader will perform XML Schema validation,
- * false otherwise.
- */
-bool
-SBMLReader::doSchemaValidation () const
-{
-  return mDoSchemaValidation;
-}
-
-
-/**
- * Indicates whether or not this SBMLReader should perform XML Schema
- * validation.
- */
-void
-SBMLReader::setSchemaValidation (bool doSchemaValidation)
-{
-  mDoSchemaValidation = doSchemaValidation;
-}
-
-
-/**
  * Used by readSBML() and readSBMLFromString().
  */
 SBMLDocument*
@@ -130,7 +106,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
   if (isFile && content && (util_file_exists(content) == false))
   {
-    d->getErrorLog()->logError(00001, 0);
+    d->getErrorLog()->logError(00001);
   }
   else
   {
@@ -145,16 +121,16 @@ SBMLReader::readInternal (const char* content, bool isFile)
     {
       if (stream.getEncoding() == "")
       {
-	d->getErrorLog()->logError(00002, 0);
+	      d->getErrorLog()->logError(00002);
       }
       else if (stream.getEncoding() != "UTF-8")
       {
-	d->getErrorLog()->logError(10101, 0);
+	      d->getErrorLog()->logError(10101);
       }
 
       if (d->getModel() == 0)
       {
-	d->getErrorLog()->logError(20201, 0);
+	      d->getErrorLog()->logError(20201);
       }
     }
   }
@@ -163,8 +139,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
 
 /**
- * Creates a new SBMLReader and returns it.  By default XML Schema
- * validation is off.
+ * Creates a new SBMLReader and returns it. 
  */
 LIBSBML_EXTERN
 SBMLReader_t *
@@ -187,24 +162,24 @@ SBMLReader_free (SBMLReader_t *sr)
 
 /**
  * Reads an SBML document from the given file.  If filename does not exist
- * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * or is not an SBML file, an error will be logged.  Errors can be
  * identified by their unique ids, e.g.:
  *
  * <code>
- *   SBMLReader     *sr;
+ *   SBMLReader_t   *sr;\n
  *   SBMLDocument_t *d;
  *
  *   sr = SBMLReader_create();
- *   SBMLReader_setSchemaValidationLevel(sr, XML_SCHEMA_VALIDATION_BASIC);
  *
  *   d = SBMLReader_readSBML(reader, filename);
  *
- *   if (SBMLDocument_getNumFatals(d) > 0)
- *   {
- *     ParseMessage_t *pm = SBMLDocument_getFatal(d, 0);
- *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND)
- *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML)
- *   }
+ *   if (SBMLDocument_getNumErrors(d) > 0)\n
+ *   {\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_FILE_NOT_FOUND)\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_NOT_SBML)\n
+ *   }\n
  * </code>
  *
  * @return a pointer to the SBMLDocument read.
@@ -242,43 +217,25 @@ SBMLReader_readSBMLFromString (SBMLReader_t *sr, const char *xml)
 
 
 /**
- * @return true if this SBMLReader will perform XML Schema validation,
- * false otherwise.
- */
-LIBSBML_EXTERN
-int
-SBMLReader_doSchemaValidation (const SBMLReader_t *sr)
-{
-  return static_cast<int>( sr->doSchemaValidation() );
-}
-
-
-/**
- * Indicates whether or not this SBMLReader should perform XML Schema
- * validation.
- */
-LIBSBML_EXTERN
-void
-SBMLReader_setSchemaValidation (SBMLReader_t *sr, int doSchemaValidation)
-{
-  sr->setSchemaValidation( static_cast<bool>(doSchemaValidation) );
-}
-
-
-/**
  * Reads an SBML document from the given file.  If filename does not exist
- * or is not an SBML file, a fatal error will be logged.  Errors can be
+ * or is not an SBML file, an error will be logged.  Errors can be
  * identified by their unique ids, e.g.:
  *
  * <code>
- *   SBMLDocument_t *d = SBMLReader_readSBML(reader, filename);
+ *   SBMLReader_t   *sr;\n
+ *   SBMLDocument_t *d;
  *
- *   if (SBMLDocument_getNumFatals(d) > 0)
- *   {
- *     ParseMessage_t *pm = SBMLDocument_getFatal(d, 0);
- *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_FILE_NOT_FOUND)
- *     if (ParseMessage_getId(pm) == SBML_READ_ERROR_NOT_SBML)
- *   }
+ *   sr = SBMLReader_create();
+ *
+ *   d = SBMLReader_readSBML(reader, filename);
+ *
+ *   if (SBMLDocument_getNumErrors(d) > 0)\n
+ *   {\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_FILE_NOT_FOUND)\n
+ *     if (XMLError_getId(SBMLDocument_getError(d, 0))
+ *                                           == SBML_READ_ERROR_NOT_SBML)\n
+ *   }\n
  * </code>
  *
  * @return a pointer to the SBMLDocument read.
