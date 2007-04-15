@@ -55,7 +55,7 @@ SBMLErrorLog::~SBMLErrorLog ()
  * Logs an error message for the given SBML error code.
  */
 void
-SBMLErrorLog::logError (unsigned int error, unsigned int inRead)
+SBMLErrorLog::logError (unsigned int error)
 {
   string msg;
 

@@ -73,10 +73,10 @@ class ListOf;
 
 
 /**
- * The Visitor Pattern (Design Patterns, Gamma et al.) allows you to add
+ * The Visitor Pattern (Design Patterns, Gamma et al.\ ) allows you to add
  * operations to an established class hierarchy without actually modifying
  * the classes in heirarchy.  For computer science types, C++
- * implementations of Visitor are a form of double-disptach.
+ * implementations of Visitor are a form of double-dispatch.
  *
  * For convenience, an SBMLVisitor couples the notion of visitation with
  * SBML object tree traversal.

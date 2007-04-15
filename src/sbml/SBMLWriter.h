@@ -56,7 +56,7 @@ public:
 
 
   /**
-   * Sets the name of this program, i.e. the one about to write out the
+   * Sets the name of this program. i.\ e.\ the one about to write out the
    * SBMLDocument.  If the program name and version are set
    * (setProgramVersion()), the following XML comment, intended for human
    * consumption, will be written at the beginning of the document:
@@ -67,7 +67,7 @@ public:
   void setProgramName (const std::string& name);
 
   /**
-   * Sets the version of this program, i.e. the one about to write out the
+   * Sets the version of this program. i.\ e.\ the one about to write out the
    * SBMLDocument.  If the program version and name are set
    * (setProgramName()), the following XML comment, intended for human
    * consumption, will be written at the beginning of the document:
@@ -88,8 +88,8 @@ public:
   /**
    * Writes the given SBML document to the output stream.
    *
-   * @return true on success and false if one of the underlying Xerces or
-   * Expat components fail (rare).
+   * @return true on success and false if one of the underlying parser
+   * components fail (rare).
    */
   bool write (const SBMLDocument* d, std::ostream& stream);
 
@@ -98,8 +98,8 @@ public:
    * pointer to it.  The string is owned by the caller and should be freed
    * (with free()) when no longer needed.
    *
-   * @return the string on success and 0 if one of the underlying Xerces or
-   * Expat components fail (rare).
+   * @return the string on success and 0 if one of the underlying parser
+   * components fail (rare).
    */
   char* writeToString (const SBMLDocument* d);
 
@@ -136,7 +136,7 @@ void
 SBMLWriter_free (SBMLWriter_t *sw);
 
 /**
- * Sets the name of this program, i.e. the one about to write out the
+ * Sets the name of this program. i.\ e.\ the one about to write out the
  * SBMLDocument.  If the program name and version are set
  * (setProgramVersion()), the following XML comment, intended for human
  * consumption, will be written at the beginning of the document:
@@ -149,7 +149,7 @@ void
 SBMLWriter_setProgramName (SBMLWriter_t *sw, const char *name);
 
 /**
- * Sets the version of this program, i.e. the one about to write out the
+ * Sets the version of this program. i.\ e.\ the one about to write out the
  * SBMLDocument.  If the program version and name are set
  * (setProgramName()), the following XML comment, intended for human
  * consumption, will be written at the beginning of the document:
@@ -165,7 +165,7 @@ SBMLWriter_setProgramVersion (SBMLWriter_t *sw, const char *version);
  * Writes the given SBML document to filename.
  *
  * @return non-zero on success and zero if the filename could not be opened
- * for writing.)
+ * for writing.
  */
 LIBSBML_EXTERN
 int
@@ -178,8 +178,8 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
- * @return the string on success and NULL if one of the underlying Xerces or
- * Expat components fail (rare).
+ * @return the string on success and NULL if one of the underlying parser
+ * components fail (rare).
  */
 LIBSBML_EXTERN
 char *
@@ -196,7 +196,7 @@ SBMLWriter_writeSBMLToString (SBMLWriter_t *sw, const SBMLDocument_t *d);
  *   SBMLWriter_writeSBML(SBMLWriter_create(), d, filename);
  *
  * @return non-zero on success and zero if the filename could not be opened
- * for writing.)
+ * for writing.
  */
 LIBSBML_EXTERN
 int
@@ -210,8 +210,8 @@ writeSBML (const SBMLDocument_t *d, const char *filename);
  *
  *   SBMLWriter_writeSBMLToString(SBMLWriter_create(), d);
  *
- * @return the string on success and NULL if one of the underlying Xerces
- * or Expat components fail (rare).
+ * @return the string on success and NULL if one of the underlying parser
+ * components fail (rare).
  */
 LIBSBML_EXTERN
 char *
