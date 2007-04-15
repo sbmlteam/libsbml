@@ -8,6 +8,10 @@ BODY {
   margin-left: 20px;
 }
 
+LI { 
+  font-size: 14px;
+}
+
 P {
   font-family: Palatino, serif;
   font-size: 14px;
@@ -144,12 +148,13 @@ A:hover {
 
 DL {
   font-family: Palatino, serif;
-  padding-left: 20px;
-  margin: 5px;
+  font-size: 14px;
+  margin: 6px 6px 6px 0px;
 }
 
 DL.el {
   margin-left: -1cm 
+  font-size: 14px;
 }
 
 DIV.fragment {
