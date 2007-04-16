@@ -1,5 +1,5 @@
 /**
- * \file    libsbml-config-unix.h.in
+ * \file    libsbml-config-unix.h
  * \brief   Configuration variables for Linux, Mac OS X, Cygwin, etc.
  * \author  Ben Bornstein
  *
