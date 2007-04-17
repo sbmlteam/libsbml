@@ -1,7 +1,7 @@
 /**
- * \file    FormulaUnitsData.cpp
- * \brief   Class for storing information relating to units of a formula
- * \author  SBML Team <sbml-team@caltech.edu>
+ * @file    FormulaUnitsData.cpp
+ * @brief   Class for storing information relating to units of a formula
+ * @author  SBML Team <sbml-team@caltech.edu>
  *
  * $Id$
  * $Source$
@@ -417,6 +417,19 @@ Model::createFormulaUnitsData ()
   mFormulaUnitsData.appendAndOwn(fud);
 
   return fud;
+}
+
+const ListFormulaUnitsData*
+Model::getListFormulaUnitsData() const
+{
+  return &mFormulaUnitsData;
+}
+
+
+ListFormulaUnitsData*
+Model::getListFormulaUnitsData()
+{
+  return &mFormulaUnitsData;
 }
 
 
