@@ -161,6 +161,9 @@ ACLOCAL           = @ACLOCAL@
 ACLOCAL_M4        = $(top_srcdir)/aclocal.m4
 AUTOCONF          = @AUTOCONF@
 
+USE_DOXYGEN       = @USE_DOXYGEN@
+DOXYGEN           = @DOXYGEN@
+
 AR                = @AR@
 AWK               = awk
 BUILD             = @build@
@@ -179,7 +182,6 @@ CYGPATH_W         = @CYGPATH_W@
 DEFS              = @DEFS@
 DEPDIR            = .deps
 DEPEXT            = Po
-DOXYGEN           = @DOXYGEN@
 ETAGS             = etags
 ETAGSFLAGS        = --declarations --ignore-indentation --members
 EXEEXT            = @EXEEXT@
