@@ -290,7 +290,7 @@ $(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libs
 
 
 # -----------------------------------------------------------------------------
-# libsbml-api-ref
+# API references
 # -----------------------------------------------------------------------------
 
 doxygen-config-c.txt: doxygen-config-c.txt.in doxygen-config-common.txt \
@@ -305,8 +305,11 @@ api-manuals: libsbml-cpp-api libsbml-c-api
 
 .PHONY: $(api-manuals)
 
+
+ifneq "$(USE_DOXYGEN)" ""
+
 define run_doxygen
-  doxygen $(1)
+  $(DOXYGEN) $(1)
   cp -rf doxygen-tabs.css $(2)/tabs.css
   cp graphics/sbml-logo-long-124x56.gif $(2)
   head -n 9 $(2)/tree.html > tmp.html
@@ -324,6 +327,17 @@ libsbml-c-api $(formatted)/libsbml-c-api: \
   doxygen-config-common.txt doxygen-config-c.txt \
   $(wildcard ../../src/*/*.[cpp,h])
 	$(call run_doxygen,doxygen-config-c.txt,libsbml-c-api)
+
+
+else
+# Doxygen isn't configured suitably.
+
+libsbml-c-api libsbml-cpp-api:;
+	@echo "Cannot make API reference manuals because 'doxygen' was not"
+	@echo "found or its version is too old.  Please reconfigure with a"
+	@echo "suitable value of the flag --with-doxygen."
+	exit 1
+endif
 
 
 # -----------------------------------------------------------------------------
