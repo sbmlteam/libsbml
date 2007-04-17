@@ -1,7 +1,7 @@
 /**
- * \file    CVTerm.cpp
- * \brief   CVTerm I/O
- * \author  Sarah Keating
+ * @file    CVTerm.cpp
+ * @brief   CVTerm I/O
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -235,8 +235,19 @@ CVTerm* CVTerm::clone() const
     return term;
 }
 
+
+/** @cond doxygen-c-only */
+
+
 /**
+ * Creates a new CVTerm_t with the given @p QualifierType and returns a 
+ * pointer to it.
  *
+ * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.  
+ *
+ * @param type a QualifierType_t
+ *
+ * @return a pointer to the newly created CVTerm_t structure.
  */
 LIBSBML_EXTERN
 CVTerm_t*
@@ -246,7 +257,20 @@ CVTerm_createWithQualifierType(QualifierType_t type)
 }
 
 /**
+ * Create a new CVTerm_t from the given XMLNode_t and returns a 
+ * pointer to it.
  *
+ * RDFAnnotations within a model are stored as a List of CVTerms.  This allows
+ * the user to interact with the %CVTerms directly.  When LibSBML reads in a 
+ * model containing RDFAnnotations it parses them into a %List of CVTerms and
+ * when writing a model it parses the CVTerms into the appropriate annotation
+ * structure.  This function creates a %CVTerm from the %XMLNode supplied.
+ *
+ * @param node an %XMLNode_t representing a %CVTerm_t.
+ *
+ * @return a pointer to the newly created CVTerm_t structure.
+ *
+ * @note this method assumes that the %XMLNode_t is of the correct form
  */
 LIBSBML_EXTERN
 CVTerm_t*
@@ -255,8 +279,11 @@ CVTerm_createFromNode(const XMLNode_t *node)
   return new(nothrow) CVTerm(*node);
 }
 
+
 /**
+ * Frees the given CVTerm_t structure.
  *
+ * @param term the CVTerm_t structure to be freed.
  */
 LIBSBML_EXTERN
 void
@@ -266,7 +293,11 @@ CVTerm_free(CVTerm_t * term)
 }
 
 /**
- * gets the Qualifier type
+ * Takes a CVTerm_t structure and returns the QualifierType.
+ *
+ * @param term the CVTerm_t structure whose QualifierType is sought
+ *
+ * @return the QualifierType_t of this CVTerm_t or UNKNOWN_QUALIFIER (default).
  */
 LIBSBML_EXTERN
 QualifierType_t 
@@ -276,8 +307,12 @@ CVTerm_getQualifierType(CVTerm_t * term)
 }
 
 /**
-  * gets the Model Qualifier type
-  */
+ * Takes a CVTerm_t structure and returns the ModelQualifierType.
+ *
+ * @param term the CVTerm_t structure whose ModelQualifierType is sought.
+ *
+ * @return the ModelQualifierType_t of this CVTerm_t or BQM_UNKNOWN (default).
+ */
 LIBSBML_EXTERN
 ModelQualifierType_t 
 CVTerm_getModelQualifierType(CVTerm_t * term)
@@ -286,8 +321,12 @@ CVTerm_getModelQualifierType(CVTerm_t * term)
 }
 
 /**
-  * gets the biological Qualifier type
-  */
+ * Takes a CVTerm_t structure and returns the BiolQualifierType.
+ *
+ * @param term the CVTerm_t structure whose BiolQualifierType is sought.
+ *
+ * @return the BiolQualifierType_t of this CVTerm_t or BQB_UNKNOWN (default).
+ */
 LIBSBML_EXTERN
 BiolQualifierType_t 
 CVTerm_getBiologicalQualifierType(CVTerm_t * term)
@@ -296,8 +335,12 @@ CVTerm_getBiologicalQualifierType(CVTerm_t * term)
 }
 
 /**
-* gets the resources
-*/
+ * Takes a CVTerm_t structure and returns the resources.
+ * 
+ * @param term the CVTerm_t structure whose reources are sought.
+ *
+ * @return the XMLAttributes_t that store the resources of this CVTerm_t.
+ */
 LIBSBML_EXTERN
 XMLAttributes_t * 
 CVTerm_getResources(CVTerm_t * term)
@@ -306,8 +349,11 @@ CVTerm_getResources(CVTerm_t * term)
 }
 
 /**
-  * set the qualifier type
-  */
+ * Sets the "QualifierType_t" of this %CVTerm_t.
+ *
+ * @param term the CVTerm_t structure to set.
+ * @param type the QualifierType_t 
+ */
 LIBSBML_EXTERN
 void 
 CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
@@ -317,9 +363,14 @@ CVTerm_setQualifierType(CVTerm_t * term, QualifierType_t type)
 
 
 /**
-  * set the model qualifier type
-  * this should be consistent with the mQualifier == MODEL_QUALIFIER
-  */
+ * Sets the "ModelQualifierType_t" of this %CVTerm.
+ *
+ * @param term the CVTerm_t structure to set.
+ * @param type the ModelQualifierType_t
+ *
+ * @note if the QualifierType for this object is not MODEL_QUALIFIER
+ * then the ModelQualifierType will default to BQM_UNKNOWN.
+ */
 LIBSBML_EXTERN
 void 
 CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
@@ -329,9 +380,14 @@ CVTerm_setModelQualifierType(CVTerm_t * term, ModelQualifierType_t type)
 
 
 /**
-  * set the biological qualifier type
-  * this should be consistent with the mQualifier == BIOLOGICAL_QUALIFIER
-  */
+ * Sets the "BiolQualifierType_t" of this %CVTerm_t.
+ *
+ * @param term the CVTerm_t structure to set.
+ * @param type the BiolQualifierType_t
+ *
+ * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
+ * then the BiolQualifierType_t will default to BQB_UNKNOWN.
+ */
 LIBSBML_EXTERN
 void 
 CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
@@ -341,8 +397,15 @@ CVTerm_setBiologicalQualifierType(CVTerm_t * term, BiolQualifierType_t type)
 
 
 /**
-  * adds a resource to the term
-  */
+ * Adds a resource to the CVTerm_t.
+ *
+ * @param term the CVTerm_t structure to set.
+ * @param resource string representing the resource 
+ * e.g. http://www.geneontology.org/#GO:0005892
+ *
+ * @note this method adds the name "rdf:resource" to the attribute prior
+ * to adding it to the resources in this CVTerm.
+ */
 LIBSBML_EXTERN
 void 
 CVTerm_addResource(CVTerm_t * term, const char * resource)
@@ -350,3 +413,4 @@ CVTerm_addResource(CVTerm_t * term, const char * resource)
   term->addResource(resource);
 }
 
+/** @endcond doxygen-c-only */

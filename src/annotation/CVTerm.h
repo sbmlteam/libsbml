@@ -1,26 +1,31 @@
 /**
- * \file    CVTerm.h
- * \brief   CVTerm I/O
- * \author  Sarah Keating
+ * @file    CVTerm.h
+ * @brief   Definition of a CVTerm class for adding annotations to a Model.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
  */
 /* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *------------------------------------------------------------------------- -->
+ * 
+ * @class CVTerm.
+ * @brief LibSBML implementation of a CVTerm construct.
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * A <em>CV term</em> is
  */
-
 
 #ifndef CVTerm_h
 #define CVTerm_h
@@ -74,67 +79,108 @@ class LIBSBML_EXTERN CVTerm
 public:
 
   /**
-   * Creates a new CVTerm.
+   * Creates a new CVTerm, optionally with the given @p QualifierType.
+   *
+   * The possible QualifierTypes are MODEL_QUALIFIER and BIOLOGICAL_QUALIFIER.  
+   * If the QualifierType is not set it will default to UNKNOWN_QUALIFIER.  The
+   * QualifierType can be set using the setQualifierType() method.
+   *
+   * @param type a QualifierType_t
    */
   CVTerm(QualifierType_t type = UNKNOWN_QUALIFIER);
 
   /**
-   * create a new CVTerm from an XMLNode
+   * Create a new CVTerm from the given XMLNode.
+   *
+   * RDFAnnotations within a model are stored as a List of CVTerms.  This allows
+   * the user to interact with the %CVTerms directly.  When LibSBML reads in a 
+   * model containing RDFAnnotations it parses them into a %List of CVTerms and
+   * when writing a model it parses the CVTerms into the appropriate annotation
+   * structure.  This function creates a %CVTerm from the %XMLNode supplied.
+   *
+   * @param node an %XMLNode representing a %CVTerm.
+   *
+   * @note this method assumes that the %XMLNode is of the correct form
    */
   CVTerm(const XMLNode node);
 
   /**
-   * destructor
+   * Destroys this CVTerm.
    */
   ~CVTerm();
 
   /**
-   * gets the Qualifier type
+   * Creates and returns a deep copy of this CVTerm.
+   * 
+   * @return a (deep) copy of this CVTerm.
+   */  
+  CVTerm* clone() const; 
+
+  /**
+   * Returns the Qualifier Type code for this %CVTerm.
+   * 
+   * @return the QualifierType_t of this object or UNKNOWN_QUALIFIER (default).
    */
   QualifierType_t getQualifierType();
 
   /**
-   * gets the Model Qualifier type
+   * Returns the Model QualifierType code for this %CVTerm.
+   * 
+   * @return the ModelQualifierType_t of this object or BQM_UNKNOWN (default).
    */
   ModelQualifierType_t getModelQualifierType();
 
   /**
-   * gets the biological Qualifier type
+   * Returns the Biological QualifierType code for this %CVTerm.
+   * 
+   * @return the BiolQualifierType_t of this object or BQB_UNKNOWN (default).
    */
   BiolQualifierType_t getBiologicalQualifierType();
 
   /**
-  * gets the resources
-  */
+   * Returns the resources for this %CVTerm.
+   * 
+   * @return the XMLAttributes that store the resources of this %CVTerm.
+   */
   XMLAttributes * getResources(); 
   
   /**
-   * set the qualifier type
+   * Sets the "QualifierType_t" of this %CVTerm.
+   *
+   * @param type the QualifierType_t 
    */
   void setQualifierType(QualifierType_t type);
 
   /**
-   * set the model qualifier type
-   * this should be consistent with the mQualifier == MODEL_QUALIFIER
+   * Sets the "ModelQualifierType_t" of this %CVTerm.
+   *
+   * @param type the ModelQualifierType_t
+   *
+   * @note if the QualifierType for this object is not MODEL_QUALIFIER
+   * then the ModelQualifierType will default to BQM_UNKNOWN.
    */
   void setModelQualifierType(ModelQualifierType_t type);
 
   /**
-   * set the biological qualifier type
-   * this should be consistent with the mQualifier == BIOLOGICAL_QUALIFIER
+   * Sets the "BiolQualifierType_t" of this %CVTerm.
+   *
+   * @param type the BiolQualifierType_t
+   *
+   * @note if the QualifierType for this object is not BIOLOGICAL_QUALIFIER
+   * then the BiolQualifierType_t will default to BQB_UNKNOWN.
    */
   void setBiologicalQualifierType(BiolQualifierType_t type);
 
   /**
-   * adds a resource to the term
+   * Adds a resource to the CVTerm.
+   *
+   * @param resource string representing the resource 
+   * e.g. http://www.geneontology.org/#GO:0005892
+   *
+   * @note this method adds the name "rdf:resource" to the attribute prior
+   * to adding it to the resources in this CVTerm.
    */
   void addResource(std::string resource);
-
-  /**
-   * clones the CVTerm
-   */  
-  CVTerm* clone() const; 
-
 
 protected:
 
