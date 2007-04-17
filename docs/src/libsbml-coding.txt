@@ -192,10 +192,11 @@ Formats a reference to another entity in the documentation.  Commonly used
 to refer to related classes or methods.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@remark</td>
+<tr><td class="indexkey">\@note</td>
 <td class="indexvalue">
-Formats the following paragraph with the heading "Remarks:".  Useful to call
-out something special about a class, function, file or other entity.
+Formats the following paragraph with the heading "Note:".  Useful to call
+out something special about a class, function, file or other entity, such
+as a behavior that users should be warned about.
 </td><td></td></tr>
 
 <tr><td class="indexkey">\@bug</td>
@@ -375,6 +376,50 @@ command.  The following example illustrates this:
  */
 CompartmentType (const std::string& id = "", const std::string& name = "");
 @endverbatim
+
+@li Please try to leave 2 blank lines between method declarations and other
+items in the definitions of classes.  This makes it easier for the eye to
+spot transitions between method definitions, despite the blank lines that
+exist within comment blocks.  Here is an example taken from a class
+definition in a .h file:
+@verbatim
+class LIBSBML_EXTERN CompartmentType : public SBase
+{
+public:
+
+  /**
+   * Creates a new CompartmentType, optionally with the given @p id and @p
+   * name attribute values.
+   *
+   * In %SBML, identifiers are required for CompartmentType objects;
+   * however, the identifier does not have to be set at the time of
+   * creation of the object, and instead can be set using the setId()
+   * method on the SBase parent class.
+   *
+   * @param id a string, the identifier of this CompartmentType instance
+   * @param name a string, the optional name of this
+   */
+  CompartmentType (const std::string& id = "", const std::string& name = "");
+
+
+  /**
+   * Destroys this CompartmentType.
+   */
+  virtual ~CompartmentType ();
+
+
+  /**
+   * Copy constructor; creates a copy of this CompartmentType.
+   */
+  CompartmentType(const CompartmentType& orig);
+
+
+  /**
+   * Assignment operator for CompartmentType.
+   */
+  CompartmentType& operator=(const CompartmentType& orig);
+@endverbatim
+
 
 
 
