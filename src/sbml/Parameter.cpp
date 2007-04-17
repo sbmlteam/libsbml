@@ -783,7 +783,7 @@ LIBSBML_EXTERN
 void
 Parameter_setName (Parameter_t *p, const char *name)
 {
-  (string == NULL) ? p->unsetName() : p->setName(name);
+  (name == NULL) ? p->unsetName() : p->setName(name);
 }
 
 
@@ -813,7 +813,7 @@ LIBSBML_EXTERN
 void
 Parameter_setUnits (Parameter_t *p, const char *units)
 {
-  (sid == NULL) ? p->unsetUnits() : p->setUnits(units);
+  (units == NULL) ? p->unsetUnits() : p->setUnits(units);
 }
 
 
