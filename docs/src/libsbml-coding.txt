@@ -18,11 +18,15 @@ their own.
 
 @section coding-general General guidelines
 
-@li Please try to keep lines no longer than 79 characters long.  Shorter
-lines in code and documentation generally work out better for people
-editing code in different environments.  Sometimes it's too difficult to
-avoid a long line, but generally it's possible to reformat the code in such
-away as to keep things to 79 characters.
+@li Doxygen (and some humans) look in the .h file for a C++ class
+definition.  Doxygen is a bit annoying in this regard because the content
+of the .h file overrides the content of the .cpp file for the class members
+(the methods and the data members).  That is, if you only modify the
+comments in the class definition in the .cpp file, the changes will not be
+reflected in the documentation produced by Doxygen.  Thus, when documenting
+a class, concentrate on the .h files.  However, and confusingly, <em> C
+functions must be documented in the .cpp files</em>.  Thus, the rule is:
+document classes in .h files, but document C functions in the .cpp files.
 
 @li Doxygen tags can be prefixed with either @c \@ or @c \\.  Since it
 doesn't matter which, we may as well use the @c \@ form because it's also
@@ -38,17 +42,6 @@ asterisks (@c *) characters, as in the following example:
 If your comment does @em not begin with <code>/**</code>, then it will be
 ignored by Doxygen.  This can be either bad or good, depending on the
 intention behind the comment.
-
-@li Doxygen (and some humans) look in the .h file of a class definition for
-detailed information about the methods and other features of the class.
-Doxygen is a bit annoying in this regard because the content of the .h file
-overrides the content of the .cpp file for the class members.  (That is, if
-you modify the comments in the class definition in the .cpp file, the
-changes will not be reflected in the documentation produced by Doxygen.)
-Thus, when documenting a class, concentrate on the .h files.  (However, do
-no omit code comments from the .cpp file, to inform future programmers and
-readers about the thought process that went into the development of each
-particular part.)
 
 @li Please write in complete sentences, with correct English grammar and
 punctuation.  @em Do @em not treat new lines as new sentences or beginnings
@@ -108,6 +101,12 @@ as in the following example:
  */
 @endverbatim
 The visual split makes it really obvious what's going to happen.
+
+@li Please try to limit lengths of lines to 79 characters long or less.
+This makes code and documentation generally easier to read and edit in
+different software tools.  Sometimes it's too difficult to avoid a long
+line, and then it's okay, but generally it's possible to reformat code in
+such away as to keep things to 79 characters.
 
 
 
