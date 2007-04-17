@@ -19,13 +19,13 @@
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = @PACKAGE_NAME@&nbsp;C++&nbsp;API
+PROJECT_NAME           = "@PACKAGE_NAME@ C++ Public API"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. 
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = @PACKAGE_NAME@&nbsp;@PACKAGE_VERSION@&nbsp;C++&nbsp;API
+PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ C++ Public API"
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
@@ -41,7 +41,15 @@ HTML_OUTPUT            = libsbml-cpp-api
 # inheritance and collaboration diagrams that involve STL classes more
 # complete and accurate.
 
-BUILTIN_STL_SUPPORT    = YES
+# BUILTIN_STL_SUPPORT    = YES
+
+# The MULTILINE_CPP_IS_BRIEF tag can be set to YES to make Doxygen 
+# treat a multi-line C++ special comment block (i.e. a block of //! or /// 
+# comments) as a brief description. This used to be the default behaviour. 
+# The new default is to treat a multi-line C++ comment block as a detailed 
+# description. Set this tag to YES if you prefer the old behaviour instead.
+
+MULTILINE_CPP_IS_BRIEF = NO
 
 # The PREDEFINED tag can be used to specify one or more macro names that 
 # are defined before the preprocessor is started (similar to the -D option of 
@@ -49,7 +57,11 @@ BUILTIN_STL_SUPPORT    = YES
 # or name=definition (no spaces). If the definition and the = are 
 # omitted =1 is assumed.
 
-PREDEFINED             = __cplusplus
+PREDEFINED             = __cplusplus  \
+		         LIBSBML_EXTERN:="" \
+			 BEGIN_C_DECLS:="" \
+			 END_C_DECLS:="" \
+			 SWIG=1
 
 # The ENABLED_SECTIONS tag can be used to enable conditional 
 # documentation sections, marked by \if sectionname ... \endif.

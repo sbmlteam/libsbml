@@ -50,4 +50,8 @@ ENABLED_SECTIONS       = doxygen-c-only
 # or name=definition (no spaces). If the definition and the = are 
 # omitted =1 is assumed.
 
-PREDEFINED             = 
+PREDEFINED             = LIBSBML_EXTERN:="" \
+			 BEGIN_C_DECLS:="" \
+			 END_C_DECLS:=""
+
+#			 __cplusplus 

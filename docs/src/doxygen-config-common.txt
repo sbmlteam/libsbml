@@ -41,16 +41,6 @@ OUTPUT_DIRECTORY       = .
 
 OUTPUT_LANGUAGE        = English
 
-# This tag can be used to specify the encoding used in the generated output. 
-# The encoding is not always determined by the language that is chosen, 
-# but also whether or not the output is meant for Windows or non-Windows users. 
-# In case there is a difference, setting the USE_WINDOWS_ENCODING tag to YES 
-# forces the Windows encoding (this is the default for the Windows binary), 
-# whereas setting the tag to NO uses a Unix-style encoding (the default for 
-# all platforms other than Windows).
-
-USE_WINDOWS_ENCODING   = NO
-
 # If the BRIEF_MEMBER_DESC tag is set to YES (the default) Doxygen will 
 # include brief member descriptions after the members that are listed in 
 # the file and class documentation (similar to JavaDoc). 
@@ -373,9 +363,45 @@ INPUT =                      \
 # excluded from the INPUT source files. This way you can easily exclude a 
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
-EXCLUDE                =            \
-  ../../src/math/FormulaTokenizer.c \
-  ../../src/math/FormulaTokenizer.h \
+EXCLUDE =                            \
+  ../../src/math/FormulaTokenizer.c  \
+  ../../src/math/FormulaTokenizer.h  \
+  ../../src/xml/XercesHandler.h      \
+  ../../src/xml/XercesHandler.cpp    \
+  ../../src/xml/ExpatHandler.h       \
+  ../../src/xml/ExpatHandler.cpp     \
+  ../../src/xml/LibXMLHandler.h      \
+  ../../src/xml/LibXMLHandler.cpp    \
+  ../../src/xml/XercesAttributes.h   \
+  ../../src/xml/XercesAttributes.cpp \
+  ../../src/xml/ExpatAttributes.h    \
+  ../../src/xml/ExpatAttributes.cpp  \
+  ../../src/xml/LibXMLAttributes.h   \
+  ../../src/xml/LibXMLAttributes.cpp \
+  ../../src/xml/XercesNamespaces.h   \
+  ../../src/xml/XercesNamespaces.cpp \
+  ../../src/xml/ExpatNamespaces.h    \
+  ../../src/xml/ExpatNamespaces.cpp  \
+  ../../src/xml/LibXMLNamespaces.h   \
+  ../../src/xml/LibXMLNamespaces.cpp \
+  ../../src/xml/XercesParser.h       \
+  ../../src/xml/XercesParser.cpp     \
+  ../../src/xml/ExpatParser.h        \
+  ../../src/xml/ExpatParser.cpp      \
+  ../../src/xml/LibXMLParser.h       \
+  ../../src/xml/LibXMLParser.cpp     \
+  ../../src/xml/XercesTranscode.h    \
+  ../../src/xml/LibXMLTranscode.h    \
+  ../../src/xml/XMLBuffer.cpp        \
+  ../../src/xml/XMLBuffer.h          \
+  ../../src/xml/XMLFileBuffer.cpp    \
+  ../../src/xml/XMLFileBuffer.h      \
+  ../../src/xml/XMLMemoryBuffer.cpp  \
+  ../../src/xml/XMLMemoryBuffer.h    \
+  ../../src/xml/XMLParser.cpp        \
+  ../../src/xml/XMLParser.h          \
+  ../../src/xml/XMLTokenizer.cpp     \
+  ../../src/xml/XMLTokenizer.h
 
 # If the value of the INPUT tag contains directories, you can use the 
 # EXCLUDE_PATTERNS tag to specify one or more wildcard patterns to exclude 
@@ -845,13 +871,13 @@ ENABLE_PREPROCESSING   = YES
 # compilation will be performed. Macro expansion can be done in a controlled 
 # way by setting EXPAND_ONLY_PREDEF to YES.
 
-MACRO_EXPANSION        = NO
+MACRO_EXPANSION        = YES
 
 # If the EXPAND_ONLY_PREDEF and MACRO_EXPANSION tags are both set to YES 
 # then the macro expansion is limited to the macros specified with the 
 # PREDEFINED and EXPAND_AS_PREDEFINED tags.
 
-EXPAND_ONLY_PREDEF     = YES
+EXPAND_ONLY_PREDEF     = NO
 
 # If the SEARCH_INCLUDES tag is set to YES (the default) the includes files 
 # in the INCLUDE_PATH (see below) will be search if a #include is found.
@@ -876,7 +902,7 @@ INCLUDE_FILE_PATTERNS  =
 # The macro definition that is found in the sources will be used. 
 # Use the PREDEFINED tag if you want to use a different macro definition.
 
-EXPAND_AS_DEFINED      = LIBSBML_EXTERN
+EXPAND_AS_DEFINED      =
 
 # If the SKIP_FUNCTION_MACROS tag is set to YES (the default) then 
 # doxygen's preprocessor will remove all function-like macros that are alone 
@@ -959,14 +985,14 @@ HAVE_DOT               = YES
 # indirect inheritance relations. Setting this tag to YES will force the 
 # the CLASS_DIAGRAMS tag to NO.
 
-CLASS_GRAPH            = YES
+CLASS_GRAPH            = NO
 
 # If the COLLABORATION_GRAPH and HAVE_DOT tags are set to YES then doxygen 
 # will generate a graph for each documented class showing the direct and 
 # indirect implementation dependencies (inheritance, containment, and 
 # class references variables) of the class with other documented classes.
 
-COLLABORATION_GRAPH    = YES
+COLLABORATION_GRAPH    = NO
 
 # If the UML_LOOK tag is set to YES doxygen will generate inheritance and 
 # collaboration diagrams in a style similiar to the OMG's Unified Modeling 
