@@ -184,19 +184,7 @@
 				RelativePath="..\..\src\sbml\Constraint.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\validator\Constraint.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
+				RelativePath="..\..\src\validator\VConstraint.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\annotation\CVTerm.cpp">
@@ -379,9 +367,6 @@
 				RelativePath="..\..\src\util\StringBuffer.c">
 			</File>
 			<File
-				RelativePath="..\..\src\util\StringMap.c">
-			</File>
-			<File
 				RelativePath="..\..\src\sbml\Trigger.cpp">
 			</File>
 			<File
@@ -533,7 +518,7 @@
 				RelativePath="..\..\src\validator\ConsistencyValidator.h">
 			</File>
 			<File
-				RelativePath="..\..\src\validator\Constraint.h">
+				RelativePath="..\..\src\validator\VConstraint.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Constraint.h">
@@ -714,9 +699,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\StoichiometryMathVars.h">
-			</File>
-			<File
-				RelativePath="..\..\src\util\StringBuffer.h">
 			</File>
 			<File
 				RelativePath="..\..\src\util\StringMap.h">

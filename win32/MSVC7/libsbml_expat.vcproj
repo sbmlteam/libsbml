@@ -148,7 +148,7 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			Filter="">
 			<File
 				RelativePath="..\..\src\validator\constraints\ArgumentsUnitsCheck.cpp">
 			</File>
@@ -178,21 +178,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Constraint.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\src\validator\Constraint.cpp">
+				RelativePath="..\..\src\validator\VConstraint.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\annotation\CVTerm.cpp">
@@ -382,9 +370,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\StringBuffer.c">
-			</File>
-			<File
-				RelativePath="..\..\src\util\StringMap.c">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Trigger.cpp">
