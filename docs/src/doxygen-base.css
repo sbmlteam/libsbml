@@ -167,8 +167,9 @@ DIV.fragment {
   width: 98%;
   border: 1px solid #CCCCCC;
   background-color: #f5f5f5;
-  padding-left: 4px;
-  margin: 4px;
+  padding-left: 5px;
+  margin: 7px;
+  padding-above: 4px;
 }
 
 DIV.ah {
