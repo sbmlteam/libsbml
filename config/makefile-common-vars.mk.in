@@ -179,6 +179,7 @@ CYGPATH_W         = @CYGPATH_W@
 DEFS              = @DEFS@
 DEPDIR            = .deps
 DEPEXT            = Po
+DOXYGEN           = @DOXYGEN@
 ETAGS             = etags
 ETAGSFLAGS        = --declarations --ignore-indentation --members
 EXEEXT            = @EXEEXT@
