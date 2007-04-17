@@ -77,13 +77,14 @@ Some of the other features of libSBML include the following:
 
 - <em>Full %SBML Support</em>.  All constructs in %SBML Level 1 (Versions 1
   and 2) and %SBML Level 2 are supported, with the exception of three
-  rarely-used MathML constructs (specifically, @c semantics, @c annotation
-  and @c annotation-xml).  These exceptions will be removed in the near
-  future.  LibSBML handles such %SBML differences as the alternate spellings
-  of @e species and @e annotation between the %SBML specifications.  For
-  compatibility with some technically incorrect but popular Level&nbsp;1
-  documents, the parser recognizes and stores notes and annotations defined
-  for the top-level <tt>&lt;sbml&gt;</tt> element (logging a warning).
+  rarely-used MathML constructs (specifically, @c &lt;semantics&gt;, @c
+  &lt;annotation&gt; and @c &lt;annotation-xml&gt;).  These exceptions will
+  be removed in the near future.  LibSBML handles such %SBML differences as
+  the alternate spellings of @e species and @e annotation between the %SBML
+  specifications.  For compatibility with some technically incorrect but
+  popular Level&nbsp;1 documents, the parser recognizes and stores notes
+  and annotations defined for the top-level <tt>&lt;sbml&gt;</tt> element
+  (logging a warning).
 
 - <em>Dimensional analysis and unit checking</em>.  LibSBML implements a
   thorough system for dimensional analysis and checking units of quantities
@@ -92,10 +93,10 @@ Some of the other features of libSBML include the following:
   including checking units in mathematical formulas.
 
 - <em>Unified %SBML Level&nbsp;2 and Level&nbsp;1 object models</em>.  All
-  objects have @c .getSBMLDocument(), @c .getModel(), @c .getLevel(), and
-  @c .getVersion(), among other things.  Also, the interface to %SBML @e
-  @c Rules abstracts away some of the individual rule type (assignment,
-  rate, algebraic) differences.
+  objects have <code>.getSBMLDocument()</code>, <code>.getModel()</code>,
+  <code>.getLevel()</code>, and <code>.getVersion()</code>, among other
+  things.  Also, the interface to %SBML's @c Rules abstracts away some of the
+  individual rule type (assignment, rate, algebraic) differences.
 
 - <em>Access to %SBML annotations and notes as XML objects</em>.
   Annotations and notes are read and manipulated as XML structures instead
