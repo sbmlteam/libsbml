@@ -1,26 +1,133 @@
 /**
- * \file    Parameter.h
- * \brief   SBML Parameter
- * \author  Ben Bornstein
+ * @file    Parameter.h
+ * @brief   Definitions of Parameter and ListOfParamters.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *------------------------------------------------------------------------- -->
+ * 
+ * @class Parameter.
+ * @brief LibSBML implementation of %SBML's %Parameter construct.
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * A Parameter is used in %SBML to define a symbol associated with a value;
+ * this symbol can then be used in mathematical formulas in a model.  By
+ * default, parameters have constant value for the duration of a
+ * simulation, and for this reason are called @em parameters instead of @em
+ * variables in %SBML, although it is crucial to understand that <em>%SBML
+ * parameters represent both concepts</em>.  Whether a given %SBML
+ * parameter is intended to be constant or variable is indicated by the
+ * value of its "constant" attribute.
+ * 
+ * %SBML's Parameter has one required attribute, "id", to give the
+ * parameter a unique identifier by which other parts of an %SBML model
+ * definition can refer to it.  A parameter can also have an optional
+ * "name" attribute of type @c string.  Identifiers and names must be used
+ * according to the guidelines described in the %SBML specification (e.g.,
+ * Section 3.3 in the Level 2 Version 3 specification).
+ * 
+ * The optional attribute "value" determines the value (of type @c double)
+ * assigned to the identifier.  A missing value for "value" implies that
+ * the value either is unknown, or to be obtained from an external source,
+ * or determined by an initial assignment.  The units associated with the
+ * value of the parameter are specified by the attribute named "units".
+ * The value assigned to the parameter's "units" attribute must be chosen
+ * from one of the following possibilities: one of the base unit
+ * identifiers defined in %SBML; one of the built-in unit identifiers @c
+ * "substance", @c "time", @c "volume", @c "area" or @c "length"; or the
+ * identifier of a new unit defined in the list of unit definitions in the
+ * enclosing Model structure.  There are no constraints on the units that
+ * can be chosen from these sets.  There are no default units for
+ * parameters.  Please consult the %SBML specification documents for more
+ * details about the meanings and implications of the various unit choices.
+ * 
+ * The Parameter structure has an optional boolean attribute named
+ * "constant" that indicates whether the parameter's value can vary during
+ * a simulation.  The attribute's default value is @c true.  A value of @c
+ * false indicates the parameter's value can be changed by Rule constructs
+ * and that the "value" attribute is actually intended to be the initial
+ * value of the parameter. Parameters local to a reaction (that is, those
+ * defined within the KineticLaw structure of a Reaction) cannot be changed
+ * by rules and therefore are implicitly always constant; thus, parameter
+ * definitions within Reaction structures should @em not have their
+ * "constant" attribute set to @c false.
+ * 
+ * What if a global parameter has its "constant" attribute set to @c false,
+ * but the model does not contain any rules, events or other constructs
+ * that ever change its value over time?  Although the model may be
+ * suspect, this situation is not strictly an error.  A value of @c false
+ * for "constant" only indicates that a parameter @em can change value, not
+ * that it @em must.
+ * 
+ * @note The use of the term @em parameter in %SBML sometimes leads to
+ * confusion among readers who have a particular notion of what something
+ * called "parameter" should be.  It has been the source of heated debate,
+ * but despite this, no one has yet found an adequate replacement term that
+ * does not have different connotations to different people and hence leads
+ * to confusion among @em some subset of users.  Perhaps it would have been
+ * better to have two constructs, one called @em constants and the other
+ * called @em variables.  The current approach in %SBML is simply more
+ * parsimonious, using a single Parameter construct with the boolean flag
+ * "constant" indicating which flavor it is.  In any case, readers are
+ * implored to look past their particular definition of a @em parameter and
+ * simply view %SBML's Parameter as a single mechanism for defining both
+ * constants and (additional) variables in a model.  (We write @em
+ * additional because the species in a model are usually considered to be
+ * the central variables.)  After all, software tools are not required to
+ * expose to users the actual names of particular %SBML constructs, and
+ * thus tools can present to their users whatever terms their designers
+ * feel best matches their target audience.
+ *
+ * @n As with all other major %SBML components, Parameter is derived from
+ * SBase, and the methods defined on SBase are available on Parameter.
+ *
+ * @see ListOfParameters, KineticLaw.
+ *
+ *
+ * @class ListOfParameters.
+ * @brief LibSBML implementation of %SBML's %ListOfParameters construct.
+ * 
+ * The various ListOf___ classes in %SBML are merely containers used for
+ * organizing the main components of an %SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * The relationship between the lists and the rest of an %SBML model is
+ * illustrated by the following (for %SBML Level 2 Version 3):
+ *
+ * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
+ * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  We chose instead
+ * to group them within XML elements named after ListOf<em>Classname</em>,
+ * in part because we believe this helps organize the components and makes
+ * visual reading of models in XML easier.  More importantly, the fact that
+ * the container classes are derived from SBase means that software tools
+ * can add information about the lists themselves into each list
+ * container's "annotation".
+ *
+ * @see ListOfFunctionDefinitions, ListOfUnitDefinitions,
+ * ListOfCompartmentTypes, ListOfSpeciesTypes, ListOfCompartments,
+ * ListOfSpecies, ListOfParameters, ListOfInitialAssignments, ListOfRules,
+ * ListOfConstraints, ListOfReactions, and ListOfEvents.
  */
-
 
 #ifndef Parameter_h
 #define Parameter_h
@@ -29,14 +136,14 @@
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
 
+#include <sbml/SBase.h>
+#include <sbml/ListOf.h>
+
 
 #ifdef __cplusplus
 
 
 #include <string>
-
-#include <sbml/SBase.h>
-#include <sbml/ListOf.h>
 
 
 class SBMLVisitor;
@@ -47,19 +154,22 @@ class LIBSBML_EXTERN Parameter : public SBase
 public:
 
   /**
-   * Creates a new Parameter, optionally with its id and name attributes
-   * set.
+   * Creates a new Parameter, optionally with the given @p id and @p name
+   * attribute values.
    */
   Parameter (const std::string& id = "", const std::string& name = "");
 
+
   /**
-   * Creates a new Parameter, with its id and value attributes set and
-   * optionally its units and constant attributes.
+   * Creates a new Parameter with the given @p id and @p value attribute
+   * values, and optionally with the given @p units and @p constant
+   * attribute values.
    */
   Parameter (   const std::string&  id
               , double              value
               , const std::string&  units    = ""
               , bool                constant = true );
+
 
   /**
    * Destroys this Parameter.
@@ -68,119 +178,182 @@ public:
 
 
   /**
-  * Copy constructor. Creates a copy of this Parameter.
+  * Copy constructor; creates a copy of this Parameter.
   */
   Parameter(const Parameter& orig);
 
 
   /**
-   * Assignment operator.
+   * Assignment operator for Parameter.
    */
   Parameter& operator=(const Parameter& orig);
 
+
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor for this instance of Parameter.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the parent Model's or
-   * KineticLaw's next Parameter (if available).
+   * whether the Visitor would like to visit the next Parameter in the list
+   * of parameters within which this Parameter is embedded (i.e., either
+   * the list of parameters in the parent Model or the list of parameters
+   * in the enclosing KineticLaw).
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
+   * Creates and returns a deep copy of this Parameter.
+   * 
    * @return a (deep) copy of this Parameter.
    */
   virtual SBase* clone () const;
 
+
   /**
-   * Initializes the fields of this Parameter to their defaults:
+   * Initializes the fields of this Parameter to the defaults defined in
+   * the specification of the relevant Level/Version of %SBML.
    *
-   *   - constant = true  (L2 only)
+   * The exact actions of this are as follows
+   * @li (%SBML Level 2 only) set the "constant" attribute to @c true.
    */
   void initDefaults ();
 
 
   /**
-   * @return the value of this Parameter.
+   * Gets the numerical value of this Parameter.
+   * 
+   * @return the value of the "value" attribute of this Parameter, as a
+   * number of type @c double.
    */
   double getValue () const;
 
+
   /**
-   * @return the units of this Parameter.
+   * Gets the units defined for this Parameter
+   * 
+   * @return the value of the "units" attribute of this Parameter, as a
+   * string.
    */
   const std::string& getUnits () const;
 
+
   /**
-   * @return true if this Parameter is constant, false otherwise.
+   * Gets the value of the "constant" attribute of this parameter.
+   * 
+   * @return @c true if this Parameter has been declared as being constant,
+   * @c false otherwise.
    */
   bool getConstant () const;
 
+
   /**
-   * @return true if the value of this Parameter has been set, false
-   * otherwise.
+   * Predicate returning @c true or @c false depending on whether the
+   * "value" attribute of this Parameter has been set.
    *
-   * In SBML L1v1, a Parameter value is required and therefore <b>should
-   * always be set</b>.  In L1v2 and beyond, a value is optional and as
-   * such may or may not be set.
+   * In %SBML definitions after %SBML Level 1 Version 1, parameter values
+   * are optional and have no defaults.  If a model read from a file does
+   * not contain a setting for the "value" attribute of a parameter, its
+   * value is considered unset; it does not default to any particular
+   * value.  Similarly, when a Parameter object is created in libSBML, it
+   * has no value until given a value.  The Parameter::isSetValue() method
+   * allows calling applications to determine whether a given parameter's
+   * value has ever been set.
+   *
+   * In SBML Level 1 Version 1, parameters are required to have values and
+   * therefore, the value of a Parameter <b>should always be set</b>.  In
+   * Level 1 Version 2 and beyond, the value is optional and as such, the
+   * "value" attribute may or may not be set.
+   *
+   * @note <b>It is crucial</b> that callers not blindly call
+   * Parameter::getValue() without first checking with
+   * Parameter::isSetValue() to determine whether a value has been set.
+   * Otherwise, the value return by Parameter::getValue() may not actually
+   * represent a value assigned to the parameter.
+   *
+   * @return @c true if the value of this Parameter has been set,
+   * @c false otherwise.
+   *
+   * @see Parameter::getValue()
    */
   bool isSetValue () const;
 
+
   /**
-   * @return true if the units of this Parameter has been set, false
-   * otherwise.
+   * Predicate returning @c true or @c false depending on whether the
+   * "units" attribute of this Parameter has been set.
+   * 
+   * @return @c true if the "units" attribute of this Parameter has been
+   * set, @c false otherwise.
    */
   bool isSetUnits () const;
 
+
   /**
-   * Sets the initialAmount of this Parameter to value and marks the field
-   * as set.
+   * Sets the "value" attribute of this Parameter to the given @c double
+   * value and marks the attribute as set.
    */
   void setValue (double value);
 
+
   /**
-   * Sets the units of this Parameter to a copy of sid.
+   * Sets the "units" attribute of this Parameter to a copy of the given
+   * units identifier @p sname.
    */
   void setUnits (const std::string& sname);
 
+
   /**
-   * Sets the constant field of this Parameter to value.
+   * Sets the "constant" attribute of this Parameter to the given boolean
+   * @p value.
    */
   void setConstant (bool value);
+
 
   /**
    * Unsets the value of this Parameter.
    *
-   * In SBML L1v1, a Parameter value is required and therefore <b>should
-   * always be set</b>.  In L1v2 and beyond, a value is optional and as
-   * such may or may not be set.
+   * In %SBML Level 1 Version 1, parameters are required to have values and
+   * therefore, the value of a Parameter <b>should always be set</b>.  In
+   * %SBML Level 1 Version 2 and beyond, the value is optional and as such,
+   * the "value" attribute may or may not be set.
    */
   void unsetValue ();
 
+
   /**
-   * Unsets the units of this Parameter.
+   * Unsets the "units" attribute of this Parameter.
    */
   void unsetUnits ();
 
+
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "parameter".
+   * Returns the XML element name of this object, which for Parameter, is
+   * always @c "parameter".
+   * 
+   * @return the name of this element, i.e., @c "parameter".
    */
   virtual const std::string& getElementName () const;
 
 
 protected:
+
   /**
-   * Subclasses should override this method to read (and store) XHTML,
-   * MathML, etc. directly from the XMLInputStream.
+   * Method for reading elements whose values are XML content (which, for
+   * Parameter, can be either the XHTML content of the "notes" subelement
+   * or the XML content of the "annotation" subelement).
    *
-   * @return true if the subclass read from the stream, false otherwise.
+   * @return @c true if the subclass successfully read from the stream, @c
+   * false otherwise.
    */
   virtual bool readOtherXML (XMLInputStream& stream);
 
@@ -207,30 +380,48 @@ protected:
 };
 
 
-
 class LIBSBML_EXTERN ListOfParameters : public ListOf
 {
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfParameters instance.
+   *
    * @return a (deep) copy of this ListOfParameters.
    */
   virtual SBase* clone () const;
 
   /**
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Parameter objects, if the list is non-empty).
+   * 
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
+   *
+   * @see getElementName()
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
   /**
- * @return the name of this element ie "listOfParameters".
+   * Returns the XML element name of this object.
+   *
+   * For ListOfParameters, the XML element name is @c "listOfParameters".
+   * 
+   * @return the name of this element, i.e., @c "listOfParameters".
    */
   virtual const std::string& getElementName () const;
 
   /**
+   * Get the ordinal position of this element in the containing object
+   * (which in this case is the Model object).
+   *
+   * The ordering of elements in the XML form of %SBML is generally fixed
+   * for most components in %SBML.  So, for example, the ListOfParameters
+   * in a model is (in %SBML Level 2 Version 3) the seventh ListOf___.
+   * (However, it differs for different Levels and Versions of SBML.)
+   *
    * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
+   * siblings, or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
 
@@ -238,8 +429,11 @@ public:
 protected:
 
   /**
-   * @return the SBML object corresponding to next XMLToken in the
-   * XMLInputStream or NULL if the token was not recognized.
+   * Create a ListOfParameters object corresponding to the next token in
+   * the XML input stream.
+   * 
+   * @return the %SBML object corresponding to next XMLToken in the
+   * XMLInputStream, or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
 };
@@ -250,189 +444,125 @@ protected:
 
 #ifndef SWIG
 
-
 BEGIN_C_DECLS
 
 
-/**
- * Creates a new Parameter and returns a pointer to it.
- */
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
+
+
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_create (void);
 
-/**
- * Creates a new Parameter with the given id, value and units and returns
- * a pointer to it.  This convenience function is functionally equivalent
- * to:
- *
- *   Parameter_t *p = Parameter_create();
- *   Parameter_setId(p, id); Parameter_setValue(p, value); ... ;
- */
+
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_createWith (const char *sid, double value, const char *units);
 
-/**
- * Frees the given Parameter.
- */
+
 LIBSBML_EXTERN
 void
 Parameter_free (Parameter_t *p);
 
-/**
- * @return a (deep) copy of the given Parameter.
- */
+
 LIBSBML_EXTERN
 Parameter_t *
 Parameter_clone (const Parameter_t *p);
 
-/**
- * Initializes the fields of this Parameter to their defaults:
- *
- *   - constant = 1  (true)  (L2 only)
- */
+
 LIBSBML_EXTERN
 void
 Parameter_initDefaults (Parameter_t *p);
 
 
-/**
- * @return the id of this Parameter.
- */
 LIBSBML_EXTERN
 const char *
 Parameter_getId (const Parameter_t *p);
 
-/**
- * @return the name of this Parameter.
- */
+
 LIBSBML_EXTERN
 const char *
 Parameter_getName (const Parameter_t *p);
 
-/**
- * @return the value of this Parameter.
- */
+
 LIBSBML_EXTERN
 double
 Parameter_getValue (const Parameter_t *p);
 
-/**
- * @return the units of this Parameter.
- */
+
 LIBSBML_EXTERN
 const char *
 Parameter_getUnits (const Parameter_t *p);
 
-/**
- * @return true (non-zero) if this Parameter is constant, false (0)
- * otherwise.
- */
+
 LIBSBML_EXTERN
 int
 Parameter_getConstant (const Parameter_t *p);
 
-/**
- * @return true (non-zero) if the id of this Parameter has been set, false
- * (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 Parameter_isSetId (const Parameter_t *p);
 
-/**
- * @return true (non-zero) if the name of this Parameter has been set,
- * false (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 Parameter_isSetName (const Parameter_t *p);
 
-/**
- * @return true (non-zero) if the value of this Parameter has been set,
- * false (0) otherwise.
- *
- * In SBML L1v1, a Parameter value is required and therefore <b>should
- * always be set</b>.  In L1v2 and beyond, a value is optional and as such
- * may or may not be set.
- */
+
 LIBSBML_EXTERN
 int
 Parameter_isSetValue (const Parameter_t *p);
 
-/**
- * @return true (non-zero) if the units of this Parameter has been set,
- * false (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 Parameter_isSetUnits (const Parameter_t *p);
 
-/**
- * Sets the id of this Parameter to a copy of sid.
- */
+
 LIBSBML_EXTERN
 void
 Parameter_setId (Parameter_t *p, const char *sid);
 
-/**
- * Sets the name of this Parameter to a copy of string.
- */
+
 LIBSBML_EXTERN
 void
-Parameter_setName (Parameter_t *p, const char *string);
+Parameter_setName (Parameter_t *p, const char *name);
 
-/**
- * Sets the value of this Parameter to value and marks the field as set.
- */
+
 LIBSBML_EXTERN
 void
 Parameter_setValue (Parameter_t *p, double value);
 
-/**
- * Sets the units of this Parameter to a copy of sid.
- */
+
 LIBSBML_EXTERN
 void
-Parameter_setUnits (Parameter_t *p, const char *sid);
+Parameter_setUnits (Parameter_t *p, const char *units);
 
-/**
- * Sets the constant of this Parameter to value (boolean).
- */
+
 LIBSBML_EXTERN
 void
 Parameter_setConstant (Parameter_t *p, int value);
 
-/**
- * Unsets the name of this Parameter.
- */
+
 LIBSBML_EXTERN
 void
 Parameter_unsetName (Parameter_t *p);
 
-/**
- * Unsets the value of this Parameter.
- *
- * In SBML L1v1, a Parameter value is required and therefore <b>should
- * always be set</b>.  In L1v2 and beyond, a value is optional and as such
- * may or may not be set.
- */
+
 LIBSBML_EXTERN
 void
 Parameter_unsetValue (Parameter_t *p);
 
 
-/**
- * Unsets the units of this Parameter.
- */
 LIBSBML_EXTERN
 void
 Parameter_unsetUnits (Parameter_t *p);
 
 
 END_C_DECLS
-
 
 #endif  /* !SWIG */
 #endif  /* Parameter_h */

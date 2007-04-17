@@ -1,25 +1,25 @@
 /**
- * \file    CompartmentType.cpp
- * \brief   SBML CompartmentType
- * \author  Ben Bornstein
+ * @file    CompartmentType.cpp
+ * @brief   Definitions of CompartmentType and ListOfCompartmentTypes.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -299,10 +299,20 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
 
 
 /**
- * Creates a new CompartmentType and returns a pointer to it.
+ * Creates a new, empty CompartmentType and returns a pointer to it.
+ *
+ * It is worth emphasizing that the structure returned by this constructor
+ * is empty and that there are no default values assigned to such things as
+ * identifiers and names.  Note that in SBML Level 2 and beyond, the
+ * "id" (identifier) attribute of a CompartmentType is required to have a
+ * value.  Thus, callers are cautioned to assign a value after calling this
+ * constructor, for example using CompartmentType_setName().
+ *
+ * @return a pointer to the newly created CompartmentType structure.
  */
 LIBSBML_EXTERN
 CompartmentType_t *
@@ -313,8 +323,18 @@ CompartmentType_create ()
 
 
 /**
- * Creates a new CompartmentType with the given id and name and returns a
- * pointer to it.
+ * Creates a new CompartmentType with the given @p id and @p name attribute
+ * values.
+ *
+ * In SBML Level 2 and beyond, the identifier attribute of a
+ * CompartmentType is required to have a value, but the name is optional.
+ * Programs calling this function can legitimately use an empty string for
+ * the @p name argument.
+ *
+ * @param sid the value to assign as the identifier of this CompartmentType
+ * @param name the value to assign as the name of this CompartmentType
+ *
+ * @return a pointer to the newly created CompartmentType_t structure.
  */
 LIBSBML_EXTERN
 CompartmentType_t *
@@ -325,7 +345,9 @@ CompartmentType_createWith (const char *sid, const char *name)
 
 
 /**
- * Frees the given CompartmentType.
+ * Frees the given CompartmentType_t structure.
+ *
+ * @param ct the CompartmentType_t structure to be freed.
  */
 LIBSBML_EXTERN
 void
@@ -336,7 +358,11 @@ CompartmentType_free (CompartmentType_t *ct)
 
 
 /**
- * @return a (deep) copy of the given CompartmentType.
+ * Creates a deep copy of the given CompartmentType_t structure
+ * 
+ * @param ct the CompartmentType_t structure to be copied
+ * 
+ * @return a (deep) copy of this CompartmentType_t structure.
  */
 LIBSBML_EXTERN
 CompartmentType_t *
@@ -347,7 +373,11 @@ CompartmentType_clone (const CompartmentType_t *ct)
 
 
 /**
- * @return the id of this CompartmentType
+ * Takes a CompartmentType_t structure and returns its identifier.
+ *
+ * @param ct the CompartmentType_t structure whose identifier is sought
+ * 
+ * @return the identifier of this CompartmentType_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -358,7 +388,11 @@ CompartmentType_getId (const CompartmentType_t *ct)
 
 
 /**
- * @return the name of this CompartmentType.
+ * Takes a CompartmentType_t structure and returns its name.
+ *
+ * @param ct the CompartmentType_t whose name is sought.
+
+ * @return the name of this CompartmentType_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -369,8 +403,13 @@ CompartmentType_getName (const CompartmentType_t *ct)
 
 
 /**
- * @return true (non-zero) if the id of this CompartmentType has been set,
- * false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * CompartmentType_t structure's identifier has been set.
+ *
+ * @param ct the CompartmentType_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" field of the given
+ * CompartmentType has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -381,8 +420,13 @@ CompartmentType_isSetId (const CompartmentType_t *ct)
 
 
 /**
- * @return true (non-zero) if the name of this CompartmentType has been set,
- * false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * CompartmentType_t structure's name has been set.
+ *
+ * @param ct the CompartmentType_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" field of the given
+ * CompartmentType has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -393,7 +437,12 @@ CompartmentType_isSetName (const CompartmentType_t *ct)
 
 
 /**
- * Sets the id of this CompartmentType to a copy of sid.
+ * Assigns the identifier of a CompartmentType_t structure.
+ *
+ * This makes a copy of the string passed as the argument @p sid.
+ *
+ * @param ct the CompartmentType_t structure to set.
+ * @param sid the string to use as the identifier.
  */
 LIBSBML_EXTERN
 void
@@ -404,7 +453,12 @@ CompartmentType_setId (CompartmentType_t *ct, const char *sid)
 
 
 /**
- * Sets the name of this CompartmentType to a copy of name.
+ * Assign the name of a CompartmentType_t structure.
+ *
+ * This makes a copy of the string passed as the argument @p name.
+ *
+ * @param ct the CompartmentType_t structure to set.
+ * @param name the string to use as the name.
  */
 LIBSBML_EXTERN
 void
@@ -415,7 +469,9 @@ CompartmentType_setName (CompartmentType_t *ct, const char *name)
 
 
 /**
- * Unsets the name of this CompartmentType.
+ * Unsets the name of a CompartmentType.
+ * 
+ * @param ct the CompartmentType_t structure whose name is to be unset.
  */
 LIBSBML_EXTERN
 void
@@ -423,3 +479,6 @@ CompartmentType_unsetName (CompartmentType_t *ct)
 {
   ct->unsetName();
 }
+
+
+/** @endcond doxygen-c-only */

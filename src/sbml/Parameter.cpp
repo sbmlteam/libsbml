@@ -1,26 +1,25 @@
 /**
- * \file    Parameter.cpp
- * \brief   SBML Parameter
- * \author  Ben Bornstein
+ * @file    Parameter.cpp
+ * @brief   Definitions of Parameter and ListOfParamters.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <limits>
 
@@ -40,7 +39,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 /**
@@ -502,10 +501,20 @@ ListOfParameters::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
 
 
 /**
- * Creates a new Parameter and returns a pointer to it.
+ * Creates a new, empty Parameter_t structure and returns a pointer to it.
+ *
+ * It is worth emphasizing that the structure returned by this constructor
+ * is empty and that there are no default values assigned to such things as
+ * identifiers and names.  Note that in SBML Level 2 and beyond, the
+ * "id" (identifier) attribute of a Parameter is required to have a
+ * value.  Thus, callers are cautioned to assign a value after calling this
+ * constructor, for example using Parameter_setName().
+ *
+ * @return a pointer to the newly created Parameter_t structure.
  */
 LIBSBML_EXTERN
 Parameter_t *
@@ -516,11 +525,29 @@ Parameter_create (void)
 
 
 /**
- * Creates a new Parameter with the given id, value and units and returns a
- * pointer to it.  This convenience function is functionally equivalent to:
+ * Creates a new Parameter_t structure with the given @p id and @p name
+ * attribute values.
  *
+ * In SBML Level 2 and beyond, the identifier attribute of a Parameter is
+ * required to have a value, but the name is optional.  Programs calling
+ * this function can legitimately use an empty string for the @p name
+ * argument.  Likewise, the units of parameters are also optional, and
+ * therefore the @p units argument legitimately can be an empty string in
+ * an invocation.
+ *
+ * This convenience function is functionally equivalent to:
+ * @code
  *   Parameter_t *p = Parameter_create();
- *   Parameter_setId(p, id); Parameter_setValue(p, value); ... ;
+ *   Parameter_setId(p, id);
+ *   Parameter_setValue(p, value);
+ *   Parameter_setUnits(p, units);
+ * @endcode
+ *
+ * @param sid the value to assign as the identifier of this Parameter
+ * @param value the value to assign as the name of this Parameter
+ * @param units the value to assign as the units of this Parameter
+ *
+ * @return a pointer to the newly created Parameter_t structure.
  */
 LIBSBML_EXTERN
 Parameter_t *
@@ -532,7 +559,9 @@ Parameter_createWith (const char *sid, double value, const char *units)
 
 
 /**
- * Frees the given Parameter.
+ * Frees the given Parameter_t structure.
+ *
+ * @param p the Parameter_t structure to be freed.
  */
 LIBSBML_EXTERN
 void
@@ -543,7 +572,11 @@ Parameter_free (Parameter_t *p)
 
 
 /**
- * @return a (deep) copy of the given Parameter.
+ * Creates a deep copy of the given Parameter_t structure
+ * 
+ * @param p the Parameter_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Parameter_t structure.
  */
 LIBSBML_EXTERN
 Parameter_t *
@@ -554,9 +587,14 @@ Parameter_clone (const Parameter_t *p)
 
 
 /**
- * Initializes the fields of this Parameter to their defaults:
+ * Initializes the attributes of this Parameter_t structure to their defaults.
  *
- *   - constant = 1  (true)  (L2 only)
+ * The exact results depends on the %SBML Level and Version in use.  The
+ * cases are currently the following:
+ * 
+ * @li (%SBML Level 2 only) constant = 1 (true)
+ *
+ * @param p the Parameter_t structure to initialize
  */
 LIBSBML_EXTERN
 void
@@ -567,7 +605,11 @@ Parameter_initDefaults (Parameter_t *p)
 
 
 /**
- * @return the id of this Parameter
+ * Takes a Parameter_t structure and returns its identifier.
+ *
+ * @param p the Parameter_t structure whose identifier is sought
+ * 
+ * @return the identifier of this Parameter_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -578,7 +620,11 @@ Parameter_getId (const Parameter_t *p)
 
 
 /**
- * @return the name of this Parameter.
+ * Takes a Parameter_t structure and returns its name.
+ *
+ * @param p the Parameter_t whose name is sought.
+
+ * @return the name of this Parameter_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -589,7 +635,11 @@ Parameter_getName (const Parameter_t *p)
 
 
 /**
- * @return the value of this Parameter.
+ * Takes a Parameter_t structure and returns its value.
+ *
+ * @param p the Parameter_t whose value is sought.
+ *
+ * @return the value assigned to this Parameter_t structure, as a @c double.
  */
 LIBSBML_EXTERN
 double
@@ -600,7 +650,12 @@ Parameter_getValue (const Parameter_t *p)
 
 
 /**
- * @return the units of this Parameter.
+ * Takes a Parameter_t structure and returns its units.
+ *
+ * @param p the Parameter_t whose units are sought.
+ *
+ * @return the units assigned to this Parameter_t structure, as a pointer
+ * to a string.  
  */
 LIBSBML_EXTERN
 const char *
@@ -611,8 +666,13 @@ Parameter_getUnits (const Parameter_t *p)
 
 
 /**
- * @return true (non-zero) if this Parameter is constant, false (0)
- * otherwise.
+ * Takes a Parameter_t structure and returns zero or nonzero, depending
+ * on the value of the parameter's "constant" attribute.
+ *
+ * @param p the Parameter_t whose constant value is sought.
+ *
+ * @return the value of the "constant" attribute, with nonzero meaning
+ * true and zero meaning false.
  */
 LIBSBML_EXTERN
 int
@@ -621,9 +681,15 @@ Parameter_getConstant (const Parameter_t *p)
   return p->getConstant();
 }
 
+
 /**
- * @return true (non-zero) if the id of this Parameter has been set, false
- * (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's identifier has been set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Parameter_t structure has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -634,8 +700,13 @@ Parameter_isSetId (const Parameter_t *p)
 
 
 /**
- * @return true (non-zero) if the name of this Parameter has been set,
- * false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's name has been set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Parameter_t structure has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -646,12 +717,18 @@ Parameter_isSetName (const Parameter_t *p)
 
 
 /**
- * @return true (non-zero) if the value of this Parameter has been set,
- * false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's value has been set.
  *
- * In SBML L1v1, a Parameter value is required and therefore <b>should
- * always be set</b>.  In L1v2 and beyond, a value is optional and as such
- * may or may not be set.
+ * @note In SBML Level 1 Version 1, a Parameter value is required and
+ * therefore <em>should always be set</em>.  In Level 1 Version 2 and
+ * later, the value is optional, and as such, may or may not be set.
+ * 
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "value" attribute of the given
+ * Parameter_t structure has been set, zero (false) otherwise.
+ *
  */
 LIBSBML_EXTERN
 int
@@ -662,8 +739,13 @@ Parameter_isSetValue (const Parameter_t *p)
 
 
 /**
- * @return true (non-zero) if the units of this Parameter has been set,
- * false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Parameter_t structure's units have been set.
+ *
+ * @param p the Parameter_t structure to query
+ * 
+ * @return @c non-zero (true) if the "units" attribute of the given
+ * Parameter_t structure has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -674,7 +756,12 @@ Parameter_isSetUnits (const Parameter_t *p)
 
 
 /**
- * Sets the id of this Parameter to a copy of sid.
+ * Assigns the identifier of a Parameter_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param sid the string to use as the identifier.
  */
 LIBSBML_EXTERN
 void
@@ -685,18 +772,26 @@ Parameter_setId (Parameter_t *p, const char *sid)
 
 
 /**
- * Sets the name of this Parameter to a copy of string.
+ * Assign the name of a Parameter_t structure.
+ *
+ * This makes a copy of the string passed in as the argument @p name.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param name the string to use as the name.
  */
 LIBSBML_EXTERN
 void
-Parameter_setName (Parameter_t *p, const char *string)
+Parameter_setName (Parameter_t *p, const char *name)
 {
-  (string == NULL) ? p->unsetName() : p->setName(string);
+  (string == NULL) ? p->unsetName() : p->setName(name);
 }
 
 
 /**
- * Sets the value of this Parameter to value and marks the field as set.
+ * Assign the value of a Parameter_t structure.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param value the @c double value to use.
  */
 LIBSBML_EXTERN
 void
@@ -707,18 +802,27 @@ Parameter_setValue (Parameter_t *p, double value)
 
 
 /**
- * Sets the units field of this Parameter to a copy of sid.
+ * Assign the units of a Parameter_t structure.
+ *
+ * This makes a copy of the string passed in as the argument @p units.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param units the string to use as the identifier of the units to assign.
  */
 LIBSBML_EXTERN
 void
-Parameter_setUnits (Parameter_t *p, const char *sid)
+Parameter_setUnits (Parameter_t *p, const char *units)
 {
-  (sid == NULL) ? p->unsetUnits() : p->setUnits(sid);
+  (sid == NULL) ? p->unsetUnits() : p->setUnits(units);
 }
 
 
 /**
- * Sets the constant field of this Parameter to value (boolean).
+ * Assign the "constant" attribute of a Parameter_t structure.
+ *
+ * @param p the Parameter_t structure to set.
+ * @param value the value to assign as the "constant" attribute
+ * of the parameter, either zero for false or nonzero for true.
  */
 LIBSBML_EXTERN
 void
@@ -729,7 +833,9 @@ Parameter_setConstant (Parameter_t *p, int value)
 
 
 /**
- * Unsets the name of this Parameter.
+ * Unsets the name of this Parameter_t structure.
+ * 
+ * @param p the Parameter_t structure whose name is to be unset.
  */
 LIBSBML_EXTERN
 void
@@ -740,11 +846,14 @@ Parameter_unsetName (Parameter_t *p)
 
 
 /**
- * Unsets the value of this Parameter.
+ * Unsets the value of this Parameter_t structure.
  *
- * In SBML L1v1, a Parameter value is required and therefore <b>should
- * always be set</b>.  In L1v2 and beyond, a value is optional and as such
- * may or may not be set.
+ * In SBML Level 1 Version 1, a parameter is required to have a value and
+ * therefore this attribute <em>should always be set</em>.  In Level 1
+ * Version 2 and beyond, a value is optional, and as such, may or may not be
+ * set.
+ *
+ * @param p the Parameter_t structure whose value is to be unset.
  */
 LIBSBML_EXTERN
 void
@@ -755,7 +864,9 @@ Parameter_unsetValue (Parameter_t *p)
 
 
 /**
- * Unsets the units of this Parameter.
+ * Unsets the units of this Parameter_t structure.
+ * 
+ * @param p the Parameter_t structure whose units are to be unset.
  */
 LIBSBML_EXTERN
 void
@@ -763,3 +874,6 @@ Parameter_unsetUnits (Parameter_t *p)
 {
   p->unsetUnits();
 }
+
+
+/** @endcond doxygen-c-only */
