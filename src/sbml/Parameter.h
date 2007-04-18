@@ -156,6 +156,16 @@ public:
   /**
    * Creates a new Parameter, optionally with the given @p id and @p name
    * attribute values.
+   *
+   * @param id a string, the identifier to assign to this Parameter
+   * @param name a string, the optional name to assign to this Parameter
+   *
+   * @note It is worth emphasizing that although the identifier is optional
+   * for this constructor, in SBML Level 2 and beyond, the "id"
+   * (identifier) attribute of a Parameter is required to have a value.
+   * Thus, callers are cautioned to assign a value after calling this
+   * constructor if no identifier is provided as an argument.
+   *
    */
   Parameter (const std::string& id = "", const std::string& name = "");
 
@@ -164,6 +174,16 @@ public:
    * Creates a new Parameter with the given @p id and @p value attribute
    * values, and optionally with the given @p units and @p constant
    * attribute values.
+   *
+   * In contrast to the other constructor for this class, the @p id
+   * (identifier) and @p name parameters are required in this call.
+   *
+   * @param id a string, the identifier to assign to this Parameter instance
+   * @param name a string, the name to assign to this Parameter
+   * @param units a string, an optional identifier for units to be assigned
+   * to this Parameter
+   * @param constant a boolean, the optional value to assign to the
+   * "constant" attribute of this Parameter instance
    */
   Parameter (   const std::string&  id
               , double              value
@@ -178,8 +198,10 @@ public:
 
 
   /**
-  * Copy constructor; creates a copy of this Parameter.
-  */
+   * Copy constructor; creates a copy of a Parameter.
+   * 
+   * @param orig the Parameter instance to copy.
+   */
   Parameter(const Parameter& orig);
 
 
@@ -191,6 +213,8 @@ public:
 
   /**
    * Accepts the given SBMLVisitor for this instance of Parameter.
+   *
+   * @param v the SBMLVisitor instance to be used.
    *
    * @return the result of calling <code>v.visit()</code>, which indicates
    * whether the Visitor would like to visit the next Parameter in the list
@@ -224,6 +248,14 @@ public:
    * 
    * @return the value of the "value" attribute of this Parameter, as a
    * number of type @c double.
+   *
+   * @note <b>It is crucial</b> that callers not blindly call
+   * Parameter::getValue() without first checking with
+   * Parameter::isSetValue() to determine whether a value has been set.
+   * Otherwise, the value return by Parameter::getValue() may not actually
+   * represent a value assigned to the parameter.
+   *
+   * @see Parameter::isSetValue()
    */
   double getValue () const;
 
@@ -238,7 +270,12 @@ public:
 
 
   /**
-   * Gets the value of the "constant" attribute of this parameter.
+   * Gets the value of the "constant" attribute of this Parameter instance.
+   *
+   * Note that in SBML Level 2 and beyond, the default value of Parameter's
+   * "constant" attribute is @c true.  Since a boolean value can only be
+   * true or value, there is no isSetConstant() method as is available for
+   * the other attributes on Parameter.
    * 
    * @return @c true if this Parameter has been declared as being constant,
    * @c false otherwise.
@@ -291,26 +328,34 @@ public:
   /**
    * Sets the "value" attribute of this Parameter to the given @c double
    * value and marks the attribute as set.
+   *
+   * @param value a @c double, the value to assign
    */
   void setValue (double value);
 
 
   /**
    * Sets the "units" attribute of this Parameter to a copy of the given
-   * units identifier @p sname.
+   * units identifier @p units.
+   *
+   * @param units, the identifier of the units to assign to this Parameter
+   * instance
    */
-  void setUnits (const std::string& sname);
+  void setUnits (const std::string& units);
 
 
   /**
    * Sets the "constant" attribute of this Parameter to the given boolean
-   * @p value.
+   * @p flag.
+   *
+   * @param flag a boolean, the value for the "constant" attribute of this
+   * Parameter instance
    */
-  void setConstant (bool value);
+  void setConstant (bool flag);
 
 
   /**
-   * Unsets the value of this Parameter.
+   * Unsets the "value" attribute of this Parameter instance.
    *
    * In %SBML Level 1 Version 1, parameters are required to have values and
    * therefore, the value of a Parameter <b>should always be set</b>.  In
@@ -321,7 +366,7 @@ public:
 
 
   /**
-   * Unsets the "units" attribute of this Parameter.
+   * Unsets the "units" attribute of this Parameter instance.
    */
   void unsetUnits ();
 
@@ -346,6 +391,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Method for reading elements whose values are XML content (which, for
@@ -377,6 +423,8 @@ protected:
   bool         mConstant;
 
   bool mIsSetValue;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -427,6 +475,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Create a ListOfParameters object corresponding to the next token in
@@ -436,6 +485,8 @@ protected:
    * XMLInputStream, or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
