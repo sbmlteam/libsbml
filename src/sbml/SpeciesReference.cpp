@@ -1,7 +1,7 @@
 /**
- * \file    SpeciesReference.cpp
- * \brief   SBML SpeciesReference
- * \author  Ben Bornstein
+ * @file    SpeciesReference.cpp
+ * @brief   SBML SpeciesReference
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -35,7 +35,7 @@
 #include <sbml/annotation/LayoutAnnotation.h>
 #endif // USE_LAYOUT
 
-#include <sbml/SBML.h>
+#include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
@@ -174,7 +174,7 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 
   //
@@ -215,7 +215,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
-    SBML::writeSBOTerm(stream, mSBOTerm);
+    SBO::writeTerm(stream, mSBOTerm);
   }
 
   //

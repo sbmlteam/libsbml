@@ -1,7 +1,7 @@
 /**
- * \file    FunctionDefinition.h
- * \brief   SBML FunctionDefinition
- * \author  Ben Bornstein
+ * @file    FunctionDefinition.h
+ * @brief   SBML FunctionDefinition
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

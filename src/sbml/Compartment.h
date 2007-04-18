@@ -1,7 +1,7 @@
 /**
- * \file    Compartment.h
- * \brief   SBML Compartment
- * \author  Ben Bornstein
+ * @file    Compartment.h
+ * @brief   SBML Compartment
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

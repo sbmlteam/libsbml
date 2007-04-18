@@ -1,7 +1,7 @@
 /**
- * \file    SBMLWriter.h
- * \brief   Writes an SBML Document to file or in-memory string
- * \author  Ben Bornstein
+ * @file    SBMLWriter.h
+ * @brief   Writes an SBML Document to file or in-memory string
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

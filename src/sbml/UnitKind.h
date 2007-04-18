@@ -1,7 +1,7 @@
 /**
- * \file    UnitKind.h
- * \brief   SBML UnitKind enumeration
- * \author  Ben Bornstein
+ * @file    UnitKind.h
+ * @brief   SBML UnitKind enumeration
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

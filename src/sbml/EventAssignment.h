@@ -1,7 +1,7 @@
 /**
- * \file    EventAssignment.h
- * \brief   SBML EventAssignment
- * \author  Ben Bornstein
+ * @file    EventAssignment.h
+ * @brief   SBML EventAssignment
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

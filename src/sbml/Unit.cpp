@@ -1,7 +1,7 @@
 /**
- * \file    Unit.cpp
- * \brief   SBML Unit
- * \author  Ben Bornstein
+ * @file    Unit.cpp
+ * @brief   SBML Unit
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -27,11 +27,10 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include <sbml/SBML.h>
+#include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Unit.h>
-#include <sbml/SBML.h>
 
 /** @cond doxygen-ignored */
 
@@ -744,14 +743,14 @@ Unit::readAttributes (const XMLAttributes& attributes)
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
     //
     if (version == 3) 
-        mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+        mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
   if (this->getLevel() == 2 && this->getVersion() == 3) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 
 
@@ -800,14 +799,14 @@ Unit::writeAttributes (XMLOutputStream& stream) const
     // sboTerm: SBOTerm { use="optional" }  (L2v3)
     //
     if (version == 3) 
-        SBML::writeSBOTerm(stream, mSBOTerm);
+        SBO::writeTerm(stream, mSBOTerm);
   }
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
   if (this->getLevel() == 2 && this->getVersion() == 3) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+    SBO::writeTerm(stream, mSBOTerm);
 }
 
 

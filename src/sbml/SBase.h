@@ -1,7 +1,7 @@
 /**
- * \file    SBase.h
- * \brief   Base object of all SBML objects
- * \author  Ben Bornstein
+ * @file    SBase.h
+ * @brief   Base object of all SBML objects
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

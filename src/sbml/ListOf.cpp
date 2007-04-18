@@ -1,7 +1,7 @@
 /**
- * \file    ListOf.cpp
- * \brief   Wraps List and inherits from SBase
- * \author  Ben Bornstein
+ * @file    ListOf.cpp
+ * @brief   Wraps List and inherits from SBase
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

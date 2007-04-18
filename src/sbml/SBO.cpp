@@ -1,7 +1,7 @@
 /**
- * \file    SBML.cpp
- * \brief   SBML utility functions
- * \author  Ben Bornstein
+ * @file    SBML.cpp
+ * @brief   SBML utility functions
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -31,7 +31,7 @@
 
 #include <sbml/SBMLErrorLog.h>
 
-#include <sbml/SBML.h>
+#include <sbml/SBO.h>
 
 /** @cond doxygen-ignored */
 
@@ -45,7 +45,7 @@ using namespace std;
  * digit string preceded by SBO:), false otherwise.
  */
 bool
-SBML::checkSBOTerm (const string& sboTerm)
+SBO::checkTerm (const string& sboTerm)
 {
   string::size_type size = sboTerm.size();
   bool              okay = (size == 11);
@@ -70,7 +70,7 @@ SBML::checkSBOTerm (const string& sboTerm)
  * otherwise.
  */
 bool
-SBML::checkSBOTerm (int sboTerm)
+SBO::checkTerm (int sboTerm)
 {
   return (sboTerm >= 0 && sboTerm <= 9999999);
 }
@@ -83,7 +83,7 @@ SBML::checkSBOTerm (int sboTerm)
  * correct format or not found.
  */
 int
-SBML::readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
+SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
 {
   const string msg10308 = "The value of a sboTerm attribute must have the data "
     "type SBOTerm, which is a string consisting of the characters 'S', 'B', "
@@ -94,14 +94,14 @@ SBML::readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
   {
     return -1;
   }
-  else if (!checkSBOTerm(attributes.getValue(index)))
+  else if (!checkTerm(attributes.getValue(index)))
   {
     log->add(XMLError(10308, msg10308));
     return -1;
   }
   else
   {
-    return sboTermToInt( attributes.getValue(index) );
+    return stringToInt( attributes.getValue(index) );
   }
 }
 
@@ -110,9 +110,9 @@ SBML::readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
  * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
  */
 void
-SBML::writeSBOTerm (XMLOutputStream& stream, int sboTerm)
+SBO::writeTerm (XMLOutputStream& stream, int sboTerm)
 {
-  stream.writeAttribute( "sboTerm", sboTermToString(sboTerm) );
+  stream.writeAttribute( "sboTerm", intToString(sboTerm) );
 }
 
 
@@ -122,11 +122,11 @@ SBML::writeSBOTerm (XMLOutputStream& stream, int sboTerm)
  * returned.
  */
 int
-SBML::sboTermToInt (const string& sboTerm)
+SBO::stringToInt (const string& sboTerm)
 {
   int result = -1;
 
-  if ( checkSBOTerm(sboTerm) )
+  if ( checkTerm(sboTerm) )
   {
     result  = (sboTerm[10] - 48);
     result += (sboTerm[9] - 48) * 10;
@@ -147,11 +147,11 @@ SBML::sboTermToInt (const string& sboTerm)
  * string is returned.
  */
 string
-SBML::sboTermToString (int sboTerm)
+SBO::intToString (int sboTerm)
 {
   string result;
 
-  if ( checkSBOTerm(sboTerm) )
+  if ( checkTerm(sboTerm) )
   {
     ostringstream stream;
     stream << "SBO:";
@@ -178,7 +178,7 @@ struct GetParent : public unary_function<const pair<const int, int>, int>
   * returns true if the term is-a parent, false otherwise
   */
 bool 
-SBML::isA(unsigned int term, unsigned int parent)
+SBO::isChildOf(unsigned int term, unsigned int parent)
 {
   bool        result = false;
   if (mParent.empty())
@@ -219,13 +219,13 @@ SBML::isA(unsigned int term, unsigned int parent)
   * returns true if the term is-a QuantitativeParameter, false otherwise
   */
 bool 
-SBML::isQuantitativeParameter  (unsigned int sboTerm)
+SBO::isQuantitativeParameter  (unsigned int sboTerm)
 {
   if (sboTerm == 2)
     return true;
   else
   {
-    return isA(sboTerm, 2);
+    return isChildOf(sboTerm, 2);
   }
 }
 
@@ -235,13 +235,13 @@ SBML::isQuantitativeParameter  (unsigned int sboTerm)
   * returns true if the term is-a ParticipantRole, false otherwise
   */
 bool 
-SBML::isParticipantRole  (unsigned int sboTerm)
+SBO::isParticipantRole  (unsigned int sboTerm)
 {
   if (sboTerm == 3)
     return true;
   else
   {
-    return isA(sboTerm, 3);
+    return isChildOf(sboTerm, 3);
   }
 }
 
@@ -251,13 +251,13 @@ SBML::isParticipantRole  (unsigned int sboTerm)
   * returns true if the term is-a ModellingFramework, false otherwise
   */
 bool 
-SBML::isModellingFramework  (unsigned int sboTerm)
+SBO::isModellingFramework  (unsigned int sboTerm)
 {
   if (sboTerm == 4)
     return true;
   else
   {
-    return isA(sboTerm, 4);
+    return isChildOf(sboTerm, 4);
   }
 }
 
@@ -267,13 +267,13 @@ SBML::isModellingFramework  (unsigned int sboTerm)
   * returns true if the term is-a MathematicalExpression, false otherwise
   */
 bool 
-SBML::isMathematicalExpression  (unsigned int sboTerm)
+SBO::isMathematicalExpression  (unsigned int sboTerm)
 {
   if (sboTerm == 64)
     return true;
   else
   {
-    return isA(sboTerm, 64);
+    return isChildOf(sboTerm, 64);
   }
 }
 
@@ -283,13 +283,13 @@ SBML::isMathematicalExpression  (unsigned int sboTerm)
   * returns true if the term is-a KineticConstant, false otherwise
   */
 bool 
-SBML::isKineticConstant  (unsigned int sboTerm)
+SBO::isKineticConstant  (unsigned int sboTerm)
 {
   if (sboTerm == 9)
     return true;
   else
   {
-    return isA(sboTerm, 9);
+    return isChildOf(sboTerm, 9);
   }
 }
 
@@ -299,13 +299,13 @@ SBML::isKineticConstant  (unsigned int sboTerm)
   * returns true if the term is-a Reactant, false otherwise
   */
 bool 
-SBML::isReactant  (unsigned int sboTerm)
+SBO::isReactant  (unsigned int sboTerm)
 {
   if (sboTerm == 10)
     return true;
   else
   {
-    return isA(sboTerm, 10);
+    return isChildOf(sboTerm, 10);
   }
 }
 
@@ -315,13 +315,13 @@ SBML::isReactant  (unsigned int sboTerm)
   * returns true if the term is-a Product, false otherwise
   */
 bool 
-SBML::isProduct  (unsigned int sboTerm)
+SBO::isProduct  (unsigned int sboTerm)
 {
   if (sboTerm == 11)
     return true;
   else
   {
-    return isA(sboTerm, 11);
+    return isChildOf(sboTerm, 11);
   }
 }
 
@@ -331,13 +331,13 @@ SBML::isProduct  (unsigned int sboTerm)
   * returns true if the term is-a isModifier, false otherwise
   */
 bool 
-SBML::isModifier  (unsigned int sboTerm)
+SBO::isModifier  (unsigned int sboTerm)
 {
   if (sboTerm == 19)
     return true;
   else
   {
-    return isA(sboTerm, 19);
+    return isChildOf(sboTerm, 19);
   }
 }
 
@@ -347,13 +347,13 @@ SBML::isModifier  (unsigned int sboTerm)
   * returns true if the term is-a RateLaw, false otherwise
   */
 bool 
-SBML::isRateLaw  (unsigned int sboTerm)
+SBO::isRateLaw  (unsigned int sboTerm)
 {
   if (sboTerm == 1)
     return true;
   else
   {
-    return isA(sboTerm, 1);
+    return isChildOf(sboTerm, 1);
   }
 }
 
@@ -363,13 +363,13 @@ SBML::isRateLaw  (unsigned int sboTerm)
   * returns true if the term is-a Event, false otherwise
   */
 bool 
-SBML::isEvent  (unsigned int sboTerm)
+SBO::isEvent  (unsigned int sboTerm)
 {
   if (sboTerm == 231)
     return true;
   else
   {
-    return isA(sboTerm, 231);
+    return isChildOf(sboTerm, 231);
   }
 }
 
@@ -379,13 +379,13 @@ SBML::isEvent  (unsigned int sboTerm)
   * returns true if the term is-a PhysicalParticipant, false otherwise
   */
 bool 
-SBML::isPhysicalParticipant  (unsigned int sboTerm)
+SBO::isPhysicalParticipant  (unsigned int sboTerm)
 {
   if (sboTerm == 236)
     return true;
   else
   {
-    return isA(sboTerm, 236);
+    return isChildOf(sboTerm, 236);
   }
 }
 
@@ -395,7 +395,7 @@ SBML::isPhysicalParticipant  (unsigned int sboTerm)
   * populates the parent-child map
   */
 void 
-SBML::populateSBOTree()
+SBO::populateSBOTree()
 {
   mParent.insert( make_pair(  1,  64) );
   mParent.insert( make_pair(  3, 235) );

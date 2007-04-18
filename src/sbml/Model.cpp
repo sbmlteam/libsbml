@@ -1,7 +1,7 @@
 /**
- * \file    Model.cpp
- * \brief   SBML Model
- * \author  Ben Bornstein
+ * @file    Model.cpp
+ * @brief   SBML Model
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -30,7 +30,7 @@
 #include <sbml/math/ASTNode.h>
 
 #include <sbml/SBMLDocument.h>
-#include <sbml/SBML.h>
+#include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/Model.h>
@@ -1760,7 +1760,7 @@ Model::readAttributes (const XMLAttributes& attributes)
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
   if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 
 }
 
@@ -1794,7 +1794,7 @@ Model::writeAttributes (XMLOutputStream& stream) const
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
   if (level == 2 && (version == 2 || version == 3)) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+    SBO::writeTerm(stream, mSBOTerm);
 }
 
 

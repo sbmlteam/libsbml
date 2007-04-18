@@ -1,7 +1,7 @@
 /**
- * \file    SBMLReader.h
- * \brief   Reads an SBML Document into memory
- * \author  Ben Bornstein
+ * @file    SBMLReader.h
+ * @brief   Reads an SBML Document into memory
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

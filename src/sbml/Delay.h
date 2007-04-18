@@ -1,7 +1,7 @@
 /**
- * \file    Delay.h
- * \brief   SBML Delay
- * \author  Sarah Keating
+ * @file    Delay.h
+ * @brief   SBML Delay
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

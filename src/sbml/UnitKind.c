@@ -1,7 +1,7 @@
 /**
- * \file    UnitKind.c
- * \brief   SBML UnitKind enumeration
- * \author  Ben Bornstein
+ * @file    UnitKind.c
+ * @brief   SBML UnitKind enumeration
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

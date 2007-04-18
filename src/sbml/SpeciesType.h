@@ -1,7 +1,7 @@
 /**
- * \file    SpeciesType.h
- * \brief   SBML SpeciesType
- * \author  Ben Bornstein
+ * @file    SpeciesType.h
+ * @brief   SBML SpeciesType
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

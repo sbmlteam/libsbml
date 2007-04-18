@@ -1,7 +1,7 @@
 /**
- * \file    Constraint.h
- * \brief   SBML Constraint
- * \author  Ben Bornstein
+ * @file    Constraint.h
+ * @brief   SBML Constraint
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

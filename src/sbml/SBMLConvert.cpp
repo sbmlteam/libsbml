@@ -1,7 +1,7 @@
 /**
- * \file    SBMLConvert.cpp
- * \brief   Performs conversion between SBML levels
- * \author  Ben Bornstein and Sarah Keating
+ * @file    SBMLConvert.cpp
+ * @brief   Performs conversion between SBML levels
+ * @author  Ben Bornstein and Sarah Keating
  *
  * $Id$
  * $Source$

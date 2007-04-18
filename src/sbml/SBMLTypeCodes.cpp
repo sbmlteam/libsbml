@@ -1,7 +1,7 @@
 /**
- * \file    SBMLTypeCodes.cpp
- * \brief   Enumeration to identify SBML objects at runtime
- * \author  Ben Bornstein
+ * @file    SBMLTypeCodes.cpp
+ * @brief   Enumeration to identify SBML objects at runtime
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

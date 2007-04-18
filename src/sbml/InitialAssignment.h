@@ -1,7 +1,7 @@
 /**
- * \file    InitialAssignment.h
- * \brief   SBML InitialAssignment
- * \author  Ben Bornstein
+ * @file    InitialAssignment.h
+ * @brief   SBML InitialAssignment
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

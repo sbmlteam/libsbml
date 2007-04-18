@@ -1,7 +1,7 @@
 /**
- * \file    SpeciesType.cpp
- * \brief   SBML SpeciesType
- * \author  Ben Bornstein
+ * @file    SpeciesType.cpp
+ * @brief   SBML SpeciesType
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -27,7 +27,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include <sbml/SBML.h>
+#include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
@@ -199,7 +199,7 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
   if (level == 2 && version == 3) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 
 
@@ -230,7 +230,7 @@ SpeciesType::writeAttributes (XMLOutputStream& stream) const
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
   if (level == 2 && version == 3) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+    SBO::writeTerm(stream, mSBOTerm);
 }
 
 

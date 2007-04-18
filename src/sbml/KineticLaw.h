@@ -1,7 +1,7 @@
 /**
- * \file    KineticLaw.h
- * \brief   SBML KineticLaw
- * \author  Ben Bornstein
+ * @file    KineticLaw.h
+ * @brief   SBML KineticLaw
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    SBMLTypes.h
- * \brief   Include all SBML types in a single header file.
- * \author  Ben Bornstein
+ * @file    SBMLTypes.h
+ * @brief   Include all SBML types in a single header file.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

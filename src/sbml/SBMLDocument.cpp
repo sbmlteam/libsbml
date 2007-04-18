@@ -1,7 +1,7 @@
 /**
- * \file    SBMLDocument.cpp
- * \brief   Top-level container for all things SBML
- * \author  Ben Bornstein
+ * @file    SBMLDocument.cpp
+ * @brief   Top-level container for all things SBML
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

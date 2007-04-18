@@ -1,7 +1,7 @@
 /**
- * \file    SBML.h
- * \brief   SBML utility functions
- * \author  Ben Bornstein
+ * @file    SBML.h
+ * @brief   SBML utility functions
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -58,21 +58,9 @@ typedef pair<ParentIter, ParentIter>  ParentRange;
 static ParentMap mParent;
 
 
-class LIBSBML_EXTERN SBML
+class LIBSBML_EXTERN SBO
 {
 public:
-
-  /**
-   * @return true if sboTerm is in the correct format (a zero-padded, seven
-   * digit string), false otherwise.
-   */
-  static bool checkSBOTerm (const std::string& sboTerm);
-
-  /**
-   * @return true if sboTerm is in the range [0 -- 9999999], false
-   * otherwise.
-   */
-  static bool checkSBOTerm (int sboTerm);
 
   /**
    * Reads (and checks) sboTerm from the given XMLAttributes set.
@@ -80,33 +68,18 @@ public:
    * @return the sboTerm as an integer or -1 if the sboTerm was not in the
    * correct format or not found.
    */
-  static int readSBOTerm (const XMLAttributes& attributes, SBMLErrorLog* log);
+  static int readTerm (const XMLAttributes& attributes, SBMLErrorLog* log);
 
   /**
    * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
    */
-  static void writeSBOTerm (XMLOutputStream& stream, int sboTerm);
-
-  /**
-   * @return the given string sboTerm as an integer.  If the sboTerm is not
-   * in the correct format (a zero-padded, seven digit string), -1 is
-   * returned.
-   */
-  static int sboTermToInt (const std::string& sboTerm);
-
-  /**
-   * @return the given integer sboTerm as a zero-padded seven digit string.
-   * If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
-   * string is returned.
-   */
-  static std::string sboTermToString (int sboTerm);
-  
+  static void writeTerm (XMLOutputStream& stream, int sboTerm);
 
   /**
    * functions for checking the SBO term is from correct part of SBO
    * returns true if the term is-a parent, false otherwise
    */
-  static bool isA(unsigned int term, unsigned int parent);
+  static bool isChildOf(unsigned int term, unsigned int parent);
 
   /**
    * functions for checking the SBO term is from correct part of SBO
@@ -180,6 +153,33 @@ protected:
    * populates the parent-child map
    */
   static void populateSBOTree();
+  /**
+   * @return true if sboTerm is in the correct format (a zero-padded, seven
+   * digit string), false otherwise.
+   */
+  static bool checkTerm (const std::string& sboTerm);
+
+  /**
+   * @return true if sboTerm is in the range [0 -- 9999999], false
+   * otherwise.
+   */
+  static bool checkTerm (int sboTerm);
+
+  /**
+   * @return the given string sboTerm as an integer.  If the sboTerm is not
+   * in the correct format (a zero-padded, seven digit string), -1 is
+   * returned.
+   */
+  static int stringToInt (const std::string& sboTerm);
+
+  /**
+   * @return the given integer sboTerm as a zero-padded seven digit string.
+   * If the sboTerm is not in the correct range ([0 -- 9999999]), an empty
+   * string is returned.
+   */
+  static std::string intToString (int sboTerm);
+  
+
 
 
 };

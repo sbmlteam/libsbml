@@ -1,7 +1,7 @@
 /**
- * \file    Compartment.cpp
- * \brief   SBML Compartment
- * \author  Ben Bornstein
+ * @file    Compartment.cpp
+ * @brief   SBML Compartment
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -538,7 +538,7 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
   if (level == 2 && version == 3) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 
 
@@ -620,7 +620,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   // sboTerm: SBOTerm { use="optional" }  (L2v3)
   //
   if (level == 2 && version == 3) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+    SBO::writeTerm(stream, mSBOTerm);
 }
 
 

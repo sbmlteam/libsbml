@@ -1,7 +1,7 @@
 /**
- * \file    Rule.h
- * \brief   SBML Rule
- * \author  Ben Bornstein
+ * @file    Rule.h
+ * @brief   SBML Rule
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

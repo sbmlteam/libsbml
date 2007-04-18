@@ -1,7 +1,7 @@
 /**
- * \file   SBMLVisitor.h
- * \brief  Visitor Design Pattern for the SBML object tree
- * \author Ben Bornstein
+ * @file   SBMLVisitor.h
+ * @brief  Visitor Design Pattern for the SBML object tree
+ * @author Ben Bornstein
  * 
  * $Id$
  * $Source$

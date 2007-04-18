@@ -1,7 +1,7 @@
 /**
- * \file    Model.h
- * \brief   SBML Model
- * \author  Ben Bornstein
+ * @file    Model.h
+ * @brief   SBML Model
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

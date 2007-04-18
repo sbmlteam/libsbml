@@ -1,7 +1,7 @@
 /**
- * \file    Trigger.h
- * \brief   SBML Trigger
- * \author  Sarah Keating
+ * @file    Trigger.h
+ * @brief   SBML Trigger
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    Reaction.h
- * \brief   SBML Reaction
- * \author  Ben Bornstein
+ * @file    Reaction.h
+ * @brief   SBML Reaction
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

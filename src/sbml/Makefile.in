@@ -60,7 +60,6 @@ headers =              \
   Parameter.h          \
   Reaction.h           \
   Rule.h               \
-  SBML.h               \
   SBMLDocument.h       \
   SBMLErrorLog.h       \
   SBMLReader.h         \
@@ -68,6 +67,7 @@ headers =              \
   SBMLTypes.h          \
   SBMLVisitor.h        \
   SBMLWriter.h         \
+  SBO.h				   \
   SBase.h              \
   Species.h            \
   SpeciesReference.h   \
@@ -92,7 +92,6 @@ sources =                \
   Parameter.cpp          \
   Reaction.cpp           \
   Rule.cpp               \
-  SBML.cpp               \
   SBMLConvert.cpp        \
   SBMLDocument.cpp       \
   SBMLErrorLog.cpp       \
@@ -100,6 +99,7 @@ sources =                \
   SBMLTypeCodes.cpp      \
   SBMLVisitor.cpp        \
   SBMLWriter.cpp         \
+  SBO.cpp                \
   SBase.cpp              \
   Species.cpp            \
   SpeciesReference.cpp   \

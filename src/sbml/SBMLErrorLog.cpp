@@ -1,7 +1,7 @@
 /**
- * \file    SBMLErrorLog.cpp
- * \brief   Stores errors (and messages) encountered during an SBML parse
- * \author  Ben Bornstein
+ * @file    SBMLErrorLog.cpp
+ * @brief   Stores errors (and messages) encountered during an SBML parse
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

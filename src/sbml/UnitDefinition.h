@@ -1,7 +1,7 @@
 /**
- * \file    UnitDefinition.h
- * \brief   SBML UnitDefinition
- * \author  Ben Bornstein
+ * @file    UnitDefinition.h
+ * @brief   SBML UnitDefinition
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

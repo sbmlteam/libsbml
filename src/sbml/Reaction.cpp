@@ -1,7 +1,7 @@
 /**
- * \file    Reaction.cpp
- * \brief   SBML Reaction
- * \author  Ben Bornstein
+ * @file    Reaction.cpp
+ * @brief   SBML Reaction
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -27,7 +27,7 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 
-#include <sbml/SBML.h>
+#include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SpeciesReference.h>
 #include <sbml/KineticLaw.h>
@@ -825,7 +825,7 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
   if (level == 2 && (version == 2 || version == 3)) 
-    mSBOTerm = SBML::readSBOTerm(attributes, this->getErrorLog());
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 
 
@@ -873,7 +873,7 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
   // sboTerm: SBOTerm { use="optional" }  (L2v2)
   //
   if (level == 2 && (version == 2 || version == 3)) 
-    SBML::writeSBOTerm(stream, mSBOTerm);
+    SBO::writeTerm(stream, mSBOTerm);
 }
 
 
