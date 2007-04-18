@@ -74,7 +74,7 @@ thisdir   = src/validator
 
 headers = \
   ConsistencyValidator.h     \
-  Constraint.h               \
+  VConstraint.h               \
   ConstraintMacros.h         \
   L1CompatibilityValidator.h \
   L2v1CompatibilityValidator.h \
@@ -85,7 +85,7 @@ header_inst_prefix = validator
 
 sources = \
   ConsistencyValidator.cpp     \
-  Constraint.cpp               \
+  VConstraint.cpp               \
   L1CompatibilityValidator.cpp \
   L2v1CompatibilityValidator.cpp \
   L2v2CompatibilityValidator.cpp \
