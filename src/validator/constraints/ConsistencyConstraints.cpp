@@ -1,7 +1,7 @@
 /**
- * \file    ConsistencyConstraints.cpp
- * \brief   Consistency check constraints.  See SBML Wiki
- * \author  Ben Bornstein
+ * @file    ConsistencyConstraints.cpp
+ * @brief   Consistency check constraints.  See SBML Wiki
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -746,7 +746,7 @@ START_CONSTRAINT(10701, Model, m1)
 
   pre(m1.isSetSBOTerm());
 
-  inv(SBML::isModellingFramework(m1.getSBOTerm()));
+  inv(SBO::isModellingFramework(m1.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -761,7 +761,7 @@ START_CONSTRAINT(10702, FunctionDefinition, fd)
 
   pre(fd.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(fd.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(fd.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -776,7 +776,7 @@ START_CONSTRAINT(10703, Parameter, p)
 
   pre(p.isSetSBOTerm());
 
-  inv(SBML::isQuantitativeParameter(p.getSBOTerm()));
+  inv(SBO::isQuantitativeParameter(p.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -791,7 +791,7 @@ START_CONSTRAINT(10704, InitialAssignment, ia)
 
   pre(ia.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(ia.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(ia.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -807,7 +807,7 @@ START_CONSTRAINT(10705, AssignmentRule, r)
 
   pre(r.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -823,7 +823,7 @@ START_CONSTRAINT(10705, RateRule, r)
 
   pre(r.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -839,7 +839,7 @@ START_CONSTRAINT(10705, AlgebraicRule, r)
 
   pre(r.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(r.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -854,7 +854,7 @@ START_CONSTRAINT(10706, Constraint, c)
 
   pre(c.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(c.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(c.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -870,7 +870,7 @@ START_CONSTRAINT(10707, Reaction, r)
   /* change to event */
   pre(r.isSetSBOTerm());
 
-  inv(SBML::isEvent(r.getSBOTerm()));
+  inv(SBO::isEvent(r.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -891,12 +891,12 @@ START_CONSTRAINT(10708, SpeciesReference, sr)
 
   if (!sr.isModifier())
   {
-    inv_or(SBML::isProduct(sr.getSBOTerm()));
-    inv_or(SBML::isReactant(sr.getSBOTerm()));
+    inv_or(SBO::isProduct(sr.getSBOTerm()));
+    inv_or(SBO::isReactant(sr.getSBOTerm()));
   }
   else
   {
-    inv(SBML::isModifier(sr.getSBOTerm()));
+    inv(SBO::isModifier(sr.getSBOTerm()));
   }
 }
 END_CONSTRAINT
@@ -911,7 +911,7 @@ START_CONSTRAINT(10709, KineticLaw, kl)
 
   pre(kl.isSetSBOTerm());
 
-  inv(SBML::isRateLaw(kl.getSBOTerm()));
+  inv(SBO::isRateLaw(kl.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -926,7 +926,7 @@ START_CONSTRAINT(10710, Event, e)
  
   pre(e.isSetSBOTerm());
 
-  inv(SBML::isEvent(e.getSBOTerm()));
+  inv(SBO::isEvent(e.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -941,7 +941,7 @@ START_CONSTRAINT(10711, EventAssignment, ea)
 
   pre(ea.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(ea.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(ea.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -956,7 +956,7 @@ START_CONSTRAINT(10712, Compartment, c)
 
   pre(c.isSetSBOTerm());
 
-  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
+  inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -971,7 +971,7 @@ START_CONSTRAINT(10713, Species, s)
 
   pre(s.isSetSBOTerm());
 
-  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
+  inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -986,7 +986,7 @@ START_CONSTRAINT(10714, CompartmentType, c)
 
   pre(c.isSetSBOTerm());
 
-  inv(SBML::isPhysicalParticipant(c.getSBOTerm()));
+  inv(SBO::isPhysicalParticipant(c.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -1001,7 +1001,7 @@ START_CONSTRAINT(10715, SpeciesType, s)
 
   pre(s.isSetSBOTerm());
 
-  inv(SBML::isPhysicalParticipant(s.getSBOTerm()));
+  inv(SBO::isPhysicalParticipant(s.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -1016,7 +1016,7 @@ START_CONSTRAINT(10716, Trigger, t)
 
   pre(t.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(t.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(t.getSBOTerm()));
 }
 END_CONSTRAINT
 
@@ -1031,7 +1031,7 @@ START_CONSTRAINT(10717, Delay, d)
 
   pre(d.isSetSBOTerm());
 
-  inv(SBML::isMathematicalExpression(d.getSBOTerm()));
+  inv(SBO::isMathematicalExpression(d.getSBOTerm()));
 }
 END_CONSTRAINT
 
