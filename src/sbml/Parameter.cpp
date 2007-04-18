@@ -215,9 +215,9 @@ Parameter::setValue (double value)
  * Sets the units of this Parameter to a copy of sid.
  */
 void
-Parameter::setUnits (const string& sid)
+Parameter::setUnits (const string& units)
 {
-  mUnits = sid;
+  mUnits = units;
 }
 
 
@@ -225,9 +225,9 @@ Parameter::setUnits (const string& sid)
  * Sets the constant field of this Parameter to value.
  */
 void
-Parameter::setConstant (bool value)
+Parameter::setConstant (bool flag)
 {
-  mConstant = value;
+  mConstant = flag;
 }
 
 
@@ -283,6 +283,8 @@ Parameter::getElementName () const
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
  *
+ * @param stream the XMLInputStream to use.
+ *
  * @return true if the subclass read from the stream, false otherwise.
  */
 bool
@@ -332,6 +334,8 @@ Parameter::readOtherXML (XMLInputStream& stream)
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
+ *
+ * @param attributes the XMLAttributes object to use
  */
 void
 Parameter::readAttributes (const XMLAttributes& attributes)
@@ -383,6 +387,8 @@ Parameter::readAttributes (const XMLAttributes& attributes)
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
  * of this method as well.
+ *
+ * @param stream the XMLOutputStream to use
  */
 void
 Parameter::writeAttributes (XMLOutputStream& stream) const
@@ -435,8 +441,6 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
 }
 
 
-
-
 /**
  * @return a (deep) copy of this ListOfParameters.
  */
@@ -483,6 +487,8 @@ ListOfParameters::getElementPosition () const
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
+ *
+ * @param stream the XMLInputStream to use
  */
 SBase*
 ListOfParameters::createObject (XMLInputStream& stream)
@@ -551,10 +557,10 @@ Parameter_create (void)
  */
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_createWith (const char *sid, double value, const char *units)
+Parameter_createWith (const char *id, double value, const char *units)
 {
   return
-    new(nothrow) Parameter(sid ? sid : "", value, units ? units : "");
+    new(nothrow) Parameter(id ? id : "", value, units ? units : "");
 }
 
 
