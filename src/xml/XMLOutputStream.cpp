@@ -1,7 +1,7 @@
 /**
- * \file    XMLOutputStream.cpp
- * \brief   XMLOutputStream
- * \author  Ben Bornstein
+ * @file    XMLOutputStream.cpp
+ * @brief   XMLOutputStream
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

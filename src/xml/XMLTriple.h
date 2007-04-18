@@ -1,7 +1,7 @@
 /**
- * \file    XMLTriple.h
- * \brief   Stores an XML namespace triple.
- * \author  Ben Bornstein
+ * @file    XMLTriple.h
+ * @brief   Stores an XML namespace triple.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

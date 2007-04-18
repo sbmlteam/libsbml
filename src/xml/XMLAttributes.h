@@ -1,7 +1,7 @@
 /**
- * \file    XMLAttributes.h
- * \brief   XMLAttributes are a list of name/value pairs for XML elements
- * \author  Ben Bornstein
+ * @file    XMLAttributes.h
+ * @brief   XMLAttributes are a list of name/value pairs for XML elements
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

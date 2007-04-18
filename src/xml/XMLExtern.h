@@ -1,7 +1,7 @@
 /**
- * \file    XMLExtern.h
- * \brief   Defines LIBLAX_EXTERN
- * \author  Ben Bornstein
+ * @file    XMLExtern.h
+ * @brief   Defines LIBLAX_EXTERN
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

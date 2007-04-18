@@ -1,8 +1,8 @@
 /**
- * \file    XMLParser.cpp
- * \brief   XMLParser interface and factory
- * \author  Ben Bornstein
- * \author  Michael Hucka
+ * @file    XMLParser.cpp
+ * @brief   XMLParser interface and factory
+ * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$

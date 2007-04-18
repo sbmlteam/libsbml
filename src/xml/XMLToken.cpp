@@ -1,7 +1,7 @@
 /**
- * \file    XMLToken.cpp
- * \brief   A unit of XML syntax, either an XML element or text.
- * \author  Ben Bornstein
+ * @file    XMLToken.cpp
+ * @brief   A unit of XML syntax, either an XML element or text.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

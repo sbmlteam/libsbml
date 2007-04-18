@@ -1,7 +1,7 @@
 /**
- * \file    XMLMemoryBuffer.cpp
- * \brief   XMLMemoryBuffer implements the XMLBuffer interface for files
- * \author  Ben Bornstein
+ * @file    XMLMemoryBuffer.cpp
+ * @brief   XMLMemoryBuffer implements the XMLBuffer interface for files
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

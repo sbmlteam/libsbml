@@ -1,7 +1,7 @@
 /**
- * \file    XMLHandler.h
- * \brief   XMLHandler interface
- * \author  Ben Bornstein
+ * @file    XMLHandler.h
+ * @brief   XMLHandler interface
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    XMLAttributes.cpp
- * \brief   XMLAttributes are a list of name/value pairs for XMLElements
- * \author  Ben Bornstein
+ * @file    XMLAttributes.cpp
+ * @brief   XMLAttributes are a list of name/value pairs for XMLElements
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

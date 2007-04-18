@@ -1,9 +1,9 @@
 /**
- * \file    XMLParser.h
- * \brief   XMLParser interface and factory
- * \author  Ben Bornstein
- * \author  Sarah Keating
- * \author  Michael Hucka
+ * @file    XMLParser.h
+ * @brief   XMLParser interface and factory
+ * @author  Ben Bornstein
+ * @author  Sarah Keating
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$

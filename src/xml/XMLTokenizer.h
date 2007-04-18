@@ -1,7 +1,7 @@
 /**
- * \file    XMLTokenizer.h
- * \brief   Uses an XMLHandler to deliver an XML stream as a series of tokens
- * \author  Ben Bornstein
+ * @file    XMLTokenizer.h
+ * @brief   Uses an XMLHandler to deliver an XML stream as a series of tokens
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

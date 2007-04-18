@@ -1,7 +1,7 @@
 /**
- * \file    XMLNamespaces.cpp
- * \brief   A list of XMLNamespace declarations (URI/prefix pairs)
- * \author  Ben Bornstein
+ * @file    XMLNamespaces.cpp
+ * @brief   A list of XMLNamespace declarations (URI/prefix pairs)
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

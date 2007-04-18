@@ -1,7 +1,7 @@
 /**
- * \file    XMLToken.h
- * \brief   A unit of XML syntax, either an XML element or text.
- * \author  Ben Bornstein
+ * @file    XMLToken.h
+ * @brief   A unit of XML syntax, either an XML element or text.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

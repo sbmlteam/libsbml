@@ -1,7 +1,7 @@
 /**
- * \file    XMLFileBuffer.cpp
- * \brief   XMLFileBuffer implements the XMLBuffer interface
- * \author  Ben Bornstein
+ * @file    XMLFileBuffer.cpp
+ * @brief   XMLFileBuffer implements the XMLBuffer interface
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

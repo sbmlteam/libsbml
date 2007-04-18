@@ -1,7 +1,7 @@
 /**
- * \file    XMLFileBuffer.h
- * \brief   XMLFileBuffer implements the XMLBuffer interface for files
- * \author  Ben Bornstein
+ * @file    XMLFileBuffer.h
+ * @brief   XMLFileBuffer implements the XMLBuffer interface for files
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

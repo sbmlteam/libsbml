@@ -1,7 +1,7 @@
 /**
- * \file    XMLErrorLog.h
- * \brief   Stores errors (and messages) encountered during an XML parse
- * \author  Ben Bornstein
+ * @file    XMLErrorLog.h
+ * @brief   Stores errors (and messages) encountered during an XML parse
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

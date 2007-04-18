@@ -1,7 +1,7 @@
 /**
- * \file    XMLError.cpp
- * \brief   Represents errors (and messages) encountered during an XML parse
- * \author  Ben Bornstein
+ * @file    XMLError.cpp
+ * @brief   Represents errors (and messages) encountered during an XML parse
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

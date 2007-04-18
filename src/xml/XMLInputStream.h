@@ -1,7 +1,7 @@
 /**
- * \file    XMLInputStream.h
- * \brief   XMLInputStream
- * \author  Ben Bornstein
+ * @file    XMLInputStream.h
+ * @brief   XMLInputStream
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

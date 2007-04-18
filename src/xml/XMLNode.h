@@ -1,7 +1,7 @@
 /**
- * \file    XMLNode.h
- * \brief   A node in an XML document tree
- * \author  Ben Bornstein
+ * @file    XMLNode.h
+ * @brief   A node in an XML document tree
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

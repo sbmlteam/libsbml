@@ -1,7 +1,7 @@
 /**
- * \file    XMLMemoryBuffer.h
- * \brief   XMLMemoryBuffer implements the XMLBuffer interface for files
- * \author  Ben Bornstein
+ * @file    XMLMemoryBuffer.h
+ * @brief   XMLMemoryBuffer implements the XMLBuffer interface for files
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
