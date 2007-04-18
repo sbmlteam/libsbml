@@ -28,6 +28,7 @@
 
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLTypeCodes.h>
+#include <sbml/SBO.h>
 #include <sbml/validator/Constraint.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 #include <sbml/units/FormulaUnitsData.h>
