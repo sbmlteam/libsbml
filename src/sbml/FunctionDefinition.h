@@ -35,7 +35,7 @@
 
 #include <string>
 
-#include "SBML.h"
+#include <sbml/SBO.h>
 
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
