@@ -185,6 +185,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Method for reading elements whose values are XML content (which, for
@@ -217,6 +218,8 @@ protected:
    * @param stream the XMLOutputStream to use.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -270,6 +273,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Create a ListOfCompartmentTypes object corresponding to the next token
@@ -279,6 +283,8 @@ protected:
    * XMLInputStream, or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
