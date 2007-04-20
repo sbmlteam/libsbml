@@ -62,6 +62,7 @@ class LIBSBML_EXTERN SBO
 {
 public:
 
+
   /**
    * Reads (and checks) sboTerm from the given XMLAttributes set.
    *
@@ -74,12 +75,6 @@ public:
    * Writes sboTerm as an XMLAttribute to the given XMLOutputStream.
    */
   static void writeTerm (XMLOutputStream& stream, int sboTerm);
-
-  /**
-   * functions for checking the SBO term is from correct part of SBO
-   * returns true if the term is-a parent, false otherwise
-   */
-  static bool isChildOf(unsigned int term, unsigned int parent);
 
   /**
    * functions for checking the SBO term is from correct part of SBO
@@ -146,9 +141,14 @@ public:
     * returns true if the term is-a PhysicalParticipant, false otherwise
     */
   static bool isPhysicalParticipant  (unsigned int term);
-protected:
 
-  /**
+ protected:  /**
+   * functions for checking the SBO term is from correct part of SBO
+   * returns true if the term is-a parent, false otherwise
+   */
+  static bool isChildOf(unsigned int term, unsigned int parent);
+
+ /**
    * functions for checking the SBO term is from correct part of SBO
    * populates the parent-child map
    */
