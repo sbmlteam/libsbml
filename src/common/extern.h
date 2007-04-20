@@ -21,7 +21,6 @@
  * also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
-
 #ifndef LIBSBML_EXTERN_H
 #define LIBSBML_EXTERN_H
 
@@ -67,6 +66,14 @@
 
 #else
 
+/**
+ * LIBSBML_EXTERN is used under Windows to simplify exporting functions
+ * from a DLL.  When compiling under Windows, all files within this DLL are
+ * compiled with the LIBSBML_EXPORTS symbol defined on the command line.
+ * This in turn cases extern.h to define a different version of
+ * LIBSBML_EXTERN that is appropriate for exporting functions to client
+ * code that uses the DLL.
+ */
 #define LIBSBML_EXTERN
 
 #endif  /* WIN32 */
