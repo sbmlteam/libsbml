@@ -1,7 +1,7 @@
 /**
- * \file    util.c
- * \brief   Utility functions
- * \author  Ben Bornstein
+ * @file    util.c
+ * @brief   Utility functions
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

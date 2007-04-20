@@ -1,7 +1,7 @@
 /**
- * \file    common.h
- * \brief   Common functions and macros for C and C++
- * \author  Ben Bornstein
+ * @file    common.h
+ * @brief   Common functions and macros for C and C++
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

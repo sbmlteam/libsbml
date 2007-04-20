@@ -1,7 +1,7 @@
 /**
- * \file    libsbml-config-unix.h
- * \brief   Configuration variables for Linux, Mac OS X, Cygwin, etc.
- * \author  Ben Bornstein
+ * @file    libsbml-config-unix.h
+ * @brief   Configuration variables for Linux, Mac OS X, Cygwin, etc.
+ * @author  Ben Bornstein
  *
  * If this file is named 'libsbml-config-unix.h', then it was generated from
  * 'libsbml-config-unix.h.in' by configure.

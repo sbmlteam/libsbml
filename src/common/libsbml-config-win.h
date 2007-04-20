@@ -1,7 +1,7 @@
 /**
- * \file    libsbml-config-win.h
- * \brief   Configuration variables for Windows (e.g. MSVC++) builds
- * \author  Ben Bornstein
+ * @file    libsbml-config-win.h
+ * @brief   Configuration variables for Windows (e.g. MSVC++) builds
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    libsbml-package.h
- * \brief   Packages variables
- * \author  Ben Bornstein
+ * @file    libsbml-package.h
+ * @brief   Packages variables
+ * @author  Ben Bornstein
  *
  * If this file is named 'libsbml-package.h', then it was generated from
  * 'libsbml-package.h.in' by configure.

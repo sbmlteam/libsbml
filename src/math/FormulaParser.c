@@ -1,7 +1,7 @@
 /**
- * \file    FormulaParser.c
- * \brief   Parses an %SBML formula string into an AST
- * \author  Ben Bornstein
+ * @file    FormulaParser.c
+ * @brief   Parses an %SBML formula string into an AST
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

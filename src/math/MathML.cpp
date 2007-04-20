@@ -1,7 +1,7 @@
 /**
- * \file    MathML.cpp
- * \brief   MathML I/O
- * \author  Ben Bornstein
+ * @file    MathML.cpp
+ * @brief   MathML I/O
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

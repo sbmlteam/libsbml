@@ -1,7 +1,7 @@
 /**
- * \file    List.h
- * \brief   Generic (void *) List for C structs on the heap
- * \author  Ben Bornstein
+ * @file    List.h
+ * @brief   Generic (void *) List for C structs on the heap
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

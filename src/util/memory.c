@@ -1,7 +1,7 @@
 /**
- * \file    memory.c
- * \brief   Safe (c|m)alloc(), free() and trace functions
- * \author  Ben Bornstein
+ * @file    memory.c
+ * @brief   Safe (c|m)alloc(), free() and trace functions
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

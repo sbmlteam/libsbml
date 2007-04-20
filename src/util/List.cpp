@@ -1,7 +1,7 @@
 /**
- * \file    List.cpp
- * \brief   Generic (void *) List for C structs / C++ objects on the heap
- * \author  Ben Bornstein
+ * @file    List.cpp
+ * @brief   Generic (void *) List for C structs / C++ objects on the heap
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

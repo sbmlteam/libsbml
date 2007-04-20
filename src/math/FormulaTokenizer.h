@@ -1,7 +1,7 @@
 /**
- * \file    FormulaTokenizer.h
- * \brief   Tokenizes an SBML formula string
- * \author  Ben Bornstein
+ * @file    FormulaTokenizer.h
+ * @brief   Tokenizes an SBML formula string
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    libsbml-config.h
- * \brief   Decides whether to #include Unix or Windows configuration variables.
- * \author  Ben Bornstein
+ * @file    libsbml-config.h
+ * @brief   Decides whether to #include Unix or Windows configuration variables.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

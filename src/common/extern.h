@@ -1,7 +1,7 @@
 /**
- * \file    extern.h
- * \brief   Defines common C externs: e.g. LIBSBML_EXTERN
- * \author  Ben Bornstein
+ * @file    extern.h
+ * @brief   Defines common C externs: e.g. LIBSBML_EXTERN
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

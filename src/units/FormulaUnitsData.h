@@ -1,7 +1,7 @@
 /**
- * \file    FormulaUnitsData.h
- * \brief   Class for storing information relating to units of a formula
- * \author  SBML Team <sbml-team@caltech.edu>
+ * @file    FormulaUnitsData.h
+ * @brief   Class for storing information relating to units of a formula
+ * @author  SBML Team <sbml-team@caltech.edu>
  *
  * $Id$
  * $Source$
@@ -161,8 +161,8 @@ public:
   void setEventTimeUnitDefinition(UnitDefinition * ud) { mEventTimeUnitDefinition = ud; };
 
   /**
-   * Subclasses should override this method to return XML element name of
-   * this SBML object.
+   * @return the name of this element ie "".
+   
    */
   virtual const std::string& getElementName () const;
 

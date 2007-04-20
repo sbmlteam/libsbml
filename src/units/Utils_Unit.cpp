@@ -1,7 +1,7 @@
 /**
- * \file    Utils_Unit.cpp
- * \brief   Functions acting on a unit
- * \author  Sarah Keating
+ * @file    Utils_Unit.cpp
+ * @brief   Functions acting on a unit
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

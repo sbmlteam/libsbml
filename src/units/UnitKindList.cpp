@@ -1,7 +1,7 @@
 /**
- * \file    UnitKindList.cpp
- * \brief   Maintains a list of UnitKinds. 
- * \author  Ben Bornstein
+ * @file    UnitKindList.cpp
+ * @brief   Maintains a list of UnitKinds. 
+ * @author  Ben Bornstein
  *
  * $UnitKind:  Exp $
  * $Source$

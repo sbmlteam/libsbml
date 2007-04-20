@@ -1,7 +1,7 @@
 /**
- * \file    Stack.c
- * \brief   Generic (void *) Stack for C structs on the heap
- * \author  Ben Bornstein
+ * @file    Stack.c
+ * @brief   Generic (void *) Stack for C structs on the heap
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

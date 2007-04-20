@@ -1,7 +1,7 @@
 /**
- * \file    UnitKindList.h
- * \brief   Maintains a list of UnitKinds.
- * \author  Ben Bornstein
+ * @file    UnitKindList.h
+ * @brief   Maintains a list of UnitKinds.
+ * @author  Ben Bornstein
  *
  * $UnitKind: $
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    FormulaFormatter.c
- * \brief   Formats an AST formula tree as an SBML formula string
- * \author  Ben Bornstein
+ * @file    FormulaFormatter.c
+ * @brief   Formats an AST formula tree as an SBML formula string
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

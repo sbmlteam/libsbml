@@ -1,7 +1,7 @@
 /**
- * \file    UnitFormulaFormatter.h
- * \brief   Formats an AST formula tree as a unit definition
- * \author  Sarah Keating
+ * @file    UnitFormulaFormatter.h
+ * @brief   Formats an AST formula tree as a unit definition
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
