@@ -45,6 +45,10 @@ START_TEST (test_XMLAttributes_add_get)
   fail_unless( attrs.getValue("xmlns") == "http://foo.org/" );
   fail_unless( attrs.getValue("foo"  ) == "bar"             );
   fail_unless( attrs.getValue("bar"  ) == ""                );
+
+  fail_unless( attrs.getName(0) == "xmlns" );
+  fail_unless( attrs.getName(1) == "foo"   );
+  fail_unless( attrs.getName(2) == ""      );
 }
 END_TEST
 
@@ -211,6 +215,86 @@ START_TEST (test_XMLAttributes_readInto_long)
 END_TEST
 
 
+START_TEST(test_XMLAttributes_copy)
+{
+  XMLAttributes *att1 = new XMLAttributes;
+
+  att1->add("xmlns", "http://foo.org/");
+  fail_unless( att1->getLength() == 1     );
+  fail_unless( att1->isEmpty()   == false );
+  fail_unless( att1->getIndex("xmlns") ==  0 );
+  fail_unless( att1->getName(0) ==  "xmlns" );
+  fail_unless( att1->getValue("xmlns") == "http://foo.org/" );
+    
+  XMLAttributes *att2 = new XMLAttributes(*att1);
+
+  fail_unless( att2->getLength() == 1     );
+  fail_unless( att2->isEmpty()   == false );
+  fail_unless( att2->getIndex("xmlns") ==  0 );
+  fail_unless( att2->getName(0) ==  "xmlns" );
+  fail_unless( att2->getValue("xmlns") == "http://foo.org/" );
+
+  delete att2;
+  delete att1;
+ 
+
+}
+END_TEST
+
+START_TEST(test_XMLAttributes_assignment)
+{
+  XMLAttributes *att1 = new XMLAttributes;
+
+  att1->add("xmlns", "http://foo.org/");
+  fail_unless( att1->getLength() == 1     );
+  fail_unless( att1->isEmpty()   == false );
+  fail_unless( att1->getIndex("xmlns") ==  0 );
+  fail_unless( att1->getName(0) ==  "xmlns" );
+  fail_unless( att1->getValue("xmlns") == "http://foo.org/" );
+    
+  XMLAttributes *att2 = new XMLAttributes();
+  (*att2)=*att1;
+
+  fail_unless( att2->getLength() == 1     );
+  fail_unless( att2->isEmpty()   == false );
+  fail_unless( att2->getIndex("xmlns") ==  0 );
+  fail_unless( att2->getName(0) ==  "xmlns" );
+  fail_unless( att2->getValue("xmlns") == "http://foo.org/" );
+
+  delete att2;
+  delete att1;
+ 
+
+}
+END_TEST
+
+START_TEST(test_XMLAttributes_clone)
+{
+  XMLAttributes *att1 = new XMLAttributes;
+
+  att1->add("xmlns", "http://foo.org/");
+  fail_unless( att1->getLength() == 1     );
+  fail_unless( att1->isEmpty()   == false );
+  fail_unless( att1->getIndex("xmlns") ==  0 );
+  fail_unless( att1->getName(0) ==  "xmlns" );
+  fail_unless( att1->getValue("xmlns") == "http://foo.org/" );
+    
+ XMLAttributes* att2 = static_cast<XMLAttributes*>(att1->clone());
+
+  fail_unless( att2->getLength() == 1     );
+  fail_unless( att2->isEmpty()   == false );
+  fail_unless( att2->getIndex("xmlns") ==  0 );
+  fail_unless( att2->getName(0) ==  "xmlns" );
+  fail_unless( att2->getValue("xmlns") == "http://foo.org/" );
+
+  delete att2;
+  delete att1;
+ 
+
+}
+END_TEST
+
+
 Suite *
 create_suite_XMLAttributes (void)
 {
@@ -222,6 +306,9 @@ create_suite_XMLAttributes (void)
   tcase_add_test( tcase, test_XMLAttributes_readInto_bool   );
   tcase_add_test( tcase, test_XMLAttributes_readInto_double );
   tcase_add_test( tcase, test_XMLAttributes_readInto_long   );
+  tcase_add_test( tcase, test_XMLAttributes_copy            );
+  tcase_add_test( tcase, test_XMLAttributes_assignment      );
+  tcase_add_test( tcase, test_XMLAttributes_clone           );
 
   suite_add_tcase(suite, tcase);
 

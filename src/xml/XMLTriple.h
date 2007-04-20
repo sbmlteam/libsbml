@@ -5,20 +5,23 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *------------------------------------------------------------------------- -->
+ * @class XMLTriple.
+ * @brief Implementation of %XMLTriple construct.
  */
 
 
@@ -44,24 +47,68 @@ public:
   XMLTriple ();
 
   /**
-   * Creates a new XMLTriple.
+   * Creates a new XMLTriple with name, prefix and uri.
+   *
+   * @param name a string, name for the XMLTriple.
+   * @param uri a string, URI of the XMLTriple.
+   * @param prefix a string, prefix for the URI of the XMLTriple,
    */
   XMLTriple (  const std::string&  name
              , const std::string&  uri
              , const std::string&  prefix );
 
   /**
-   * Creates a new XMLTriple by splitting triplet on sepchar.  Triplet
-   * may be in one of the following formats:
+   * Creates a new XMLTriple by splitting triplet on sepchar.  
    *
-   *   name
-   *   uri sepchar name
-   *   uri sepchar name sepchar prefix
+   * Triplet may be in one of the following formats:
+   *
+   * @li name
+   * @li uri sepchar name
+   * @li uri sepchar name sepchar prefix
+   *
+   * @param triplet a string representing the triplet as above
+   * @param sepchar a string, the sepchar used in the triplet
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
+  
+  /**
+   * Copy constructor; creates a copy of this XMLTriple set.
+   */
+  XMLTriple(const XMLTriple& orig);
 
+
+  /**
+   * Assignment operator for XMLTriple.
+   */
+  XMLTriple& operator=(const XMLTriple& orig);
+
+  /**
+   * Creates and returns a deep copy of this XMLTriple set.
+   * 
+   * @return a (deep) copy of this XMLTriple set.
+   */
+  XMLTriple* clone () const;
+
+
+  /**
+   * Returns the name from this XMLTriple.
+   *
+   * @return name from this XMLTriple.
+   */
   const std::string& getName   () const { return mName;   }
+
+  /**
+   * Returns the prefix from this XMLTriple.
+   *
+   * @return prefix from this XMLTriple.
+   */
   const std::string& getPrefix () const { return mPrefix; }
+
+  /**
+   * Returns the URI from this XMLTriple.
+   *
+   * @return URI from this XMLTriple.
+   */
   const std::string& getURI    () const { return mURI;    }
 
 
@@ -79,6 +126,10 @@ private:
 
 BEGIN_C_DECLS
 
+
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
 /**
  * 

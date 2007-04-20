@@ -50,6 +50,7 @@ test_sources =          \
   TestXMLTriple.c   \
   TestXMLToken.c   \
   TestXMLNode.c   \
+  TestCopyAndClone.cpp \
   TestRunner.c
 
 test_headers =

@@ -66,6 +66,38 @@ XMLAttributes::~XMLAttributes ()
 {
 }
 
+/**
+ * Copy constructor; creates a copy of this XMLAttributes set.
+ */
+XMLAttributes::XMLAttributes(const XMLAttributes& orig)
+{
+  this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
+  this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
+}
+
+
+/**
+ * Assignment operator for XMLAttributes.
+ */
+XMLAttributes& 
+XMLAttributes::operator=(const XMLAttributes& orig)
+{
+  this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
+  this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
+  return *this;
+}
+
+/**
+ * Creates and returns a deep copy of this XMLAttributes set.
+ * 
+ * @return a (deep) copy of this XMLAttributes set.
+ */
+XMLAttributes* 
+XMLAttributes::clone () const
+{
+  return new XMLAttributes(*this);
+}
+
 
 
 /**
@@ -513,10 +545,11 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
   return stream;
 }
 
+/** @cond doxygen-c-only */
 
 /**
- * 
- **/
+  * Creates a new empty XMLAttributes_t set.
+  */
 LIBLAX_EXTERN
 XMLAttributes_t *
 XMLAttributes_create (void)
@@ -526,7 +559,9 @@ XMLAttributes_create (void)
 
 
 /**
- * 
+ * Frees the given XMLAttributes_t structure.
+ *
+ * @param xa the XMLAttributes_t structure to be freed.
  **/
 LIBLAX_EXTERN
 void
@@ -537,7 +572,13 @@ XMLAttributes_free (XMLAttributes_t *xa)
 
 
 /**
- * 
+ * Adds a name/value pair to this XMLAttributes_t structure.
+ *
+ * @param xa the XMLAttributes_t structure 
+ * @param name a string, the name of the attribute.
+ * @param value a string, the value of the attribute.
+ *
+ * @note if name already exists in this attribute set, its value will be replaced.
  **/
 LIBLAX_EXTERN
 void
@@ -547,7 +588,16 @@ XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value)
 }
 
 /**
- * 
+   * Adds a name/value pair to this XMLAttributes_t structure with a
+   * prefix and URI defining a namespace.
+   *
+   * @param xa the XMLAttributes_t structure.
+   * @param name a string, the name of the attribute.
+   * @param value a string, the value of the attribute.
+   * @param namespaceURI a string, the namespace URI of the attribute.
+   * @param prefix a string, the prefix of the namespace
+   *
+   * @note if name already exists in this attribute set, its value will be replaced.
  **/
 LIBLAX_EXTERN
 void
@@ -559,7 +609,15 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa, const char *name, const cha
 
 
 /**
- * 
+  * Adds a name/value pair to this XMLAttributes_t structure.  
+  *
+  * This method is similar to the add method but an attribute with same name wont 
+  * be overwritten. This facilitates the addition of multiple resource attributes 
+  * to a annotations.
+  *
+  * @param xa the XMLAttributes_t structure.
+  * @param name a string, the name of the attribute.
+  * @param value a string, the value of the attribute.
  **/
 LIBLAX_EXTERN
 void
@@ -572,8 +630,13 @@ XMLAttributes_addResource (XMLAttributes_t *xa,
 
 
 /**
- * 
- **/
+ * Return the index of an attribute by name.
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute for which the index is required.
+ *
+ * @return the index of the given attribute, or -1 if not present.
+ */
 LIBLAX_EXTERN
 int
 XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name)
@@ -583,7 +646,11 @@ XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name)
 
 
 /**
- * 
+ * Return the number of attributes in the set.
+ *
+ * @param xa the XMLAttributes_t structure.
+ *
+ * @return the number of attributes in this XMLAttributes_t structure.
  **/
 LIBLAX_EXTERN
 int
@@ -594,7 +661,17 @@ XMLAttributes_getLength (const XMLAttributes_t *xa)
 
 
 /**
- * 
+ * Return the name of an attribute in this XMLAttributes_t structure (by position).
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param index an integer, the position of the attribute whose name is 
+ * required.
+ *
+ * @return the name of an attribute in this list (by position).  
+ *
+ * @note If index
+ * is out of range, an empty string will be returned.  Use getIndex() > 0
+ * to test for attribute existence.
  **/
 LIBLAX_EXTERN
 const char *
@@ -605,7 +682,17 @@ XMLAttributes_getName (const XMLAttributes_t *xa, int index)
 
 
 /**
- * 
+ * Return the value of an attribute in this XMLAttributes_t structure (by position).
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param index an integer, the position of the attribute whose value is 
+ * required.
+ *
+ * @return the value of an attribute in the list (by position).  
+ *
+ * @note If index
+ * is out of range, an empty string will be returned.  Use getIndex() > 0
+ * to test for attribute existence.
  **/
 LIBLAX_EXTERN
 const char *
@@ -616,7 +703,16 @@ XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index)
 
 
 /**
- * 
+ * Return the namespace URI of an attribute in this XMLAttributes_t structure (by position).
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param index an integer, the position of the attribute whose namespace URI is 
+ * required.
+ *
+ * @return the namespace URI of an attribute in this list (by position).
+ *
+ * @note If index is out of range, an empty string will be returned.  Use
+ * getIndex() > 0 to test for attribute existence.
  **/
 LIBLAX_EXTERN
 const char *
@@ -627,7 +723,17 @@ XMLAttributes_getURI (const XMLAttributes_t *xa, int index)
 
 
 /**
- * 
+ * Return the value of an attribute in this XMLAttributes_t structure (by position).
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param index an integer, the position of the attribute whose value is 
+ * required.
+ *
+ * @return the value of an attribute in the list (by position).  
+ *
+ * @note If index
+ * is out of range, an empty string will be returned.  Use getIndex() > 0
+ * to test for attribute existence.
  **/
 LIBLAX_EXTERN
 const char *
@@ -638,7 +744,16 @@ XMLAttributes_getValue (const XMLAttributes_t *xa, int index)
 
 
 /**
- * 
+ * Return an attribute's value by name.
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute whose value is required.
+ *
+ * @return The attribute value as a string.  
+ *
+ * @note If an attribute with the
+ * given name does not exist, an empty string will be returned.  Use
+ * getIndex() > 0 to test for attribute existence.
  **/
 LIBLAX_EXTERN
 const char *
@@ -649,7 +764,13 @@ XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLAttributes_t structure is empty.
+ *
+ * @param xa the XMLAttributes_t structure.
  * 
+ * @return @c non-zero (true) if this XMLAttributes_t structure is empty, 
+ * @c zero (false) otherwise.
  **/
 LIBLAX_EXTERN
 int
@@ -660,7 +781,26 @@ XMLAttributes_isEmpty (const XMLAttributes_t *xa)
 
 
 /**
- * 
+ * Reads the value for the attribute name into value.  If name was not
+ * found or value could be interpreted as a boolean, value is not
+ * modified.
+ *
+ * According to the W3C XML Schema, valid boolean values are: "true",
+ * "false", "1", and "0" (case-insensitive).  For more information, see:
+ * http://www.w3.org/TR/xmlschema-2/#boolean
+ *
+ * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * required is true, missing attributes are also logged.
+ *
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute.
+ * @param value a boolean, the value of the attribute.
+ * @param log an XMLErrorLog_t, the error log.
+ * @param required a boolean, indicating whether the attribute is required.
+ *
+ * @returns @c non-zero (true) if the attribute was read into value, 
+ * @c zero (false) otherwise.
  **/
 LIBLAX_EXTERN
 int
@@ -675,7 +815,27 @@ XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
 
 
 /**
- * 
+ * Reads the value for the attribute name into value.  If name was not
+ * found or value could be interpreted as a double, value is not
+ * modified.
+ *
+   * According to the W3C XML Schema, valid doubles are the same as valid
+   * doubles for C and the special values "INF", "-INF", and "NaN"
+   * (case-sensitive).  For more information, see:
+   * http://www.w3.org/TR/xmlschema-2/#double
+ *
+ * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * required is true, missing attributes are also logged.
+ *
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute.
+ * @param value a boolean, the value of the attribute.
+ * @param log an XMLErrorLog_t, the error log.
+ * @param required a boolean, indicating whether the attribute is required.
+ *
+ * @returns @c non-zero (true) if the attribute was read into value, 
+ * @c zero (false) otherwise.
  **/
 LIBLAX_EXTERN
 int
@@ -690,7 +850,27 @@ XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
 
 
 /**
- * 
+ * Reads the value for the attribute name into value.  If name was not
+ * found or value could be interpreted as a long, value is not
+ * modified.
+ *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a long.  For more information,
+   * see: http://www.w3.org/TR/xmlschema-2/#integer
+ *
+ * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * required is true, missing attributes are also logged.
+ *
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute.
+ * @param value a boolean, the value of the attribute.
+ * @param log an XMLErrorLog_t, the error log.
+ * @param required a boolean, indicating whether the attribute is required.
+ *
+ * @returns @c non-zero (true) if the attribute was read into value, 
+ * @c zero (false) otherwise.
  **/
 LIBLAX_EXTERN
 int
@@ -705,7 +885,27 @@ XMLAttributes_readIntoLong (XMLAttributes_t *xa,
 
 
 /**
- * 
+ * Reads the value for the attribute name into value.  If name was not
+ * found or value could be interpreted as an integer, value is not
+ * modified.
+ *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a int.  For more information,
+   * see: http://www.w3.org/TR/xmlschema-2/#integer
+ *
+ * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * required is true, missing attributes are also logged.
+ *
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute.
+ * @param value a boolean, the value of the attribute.
+ * @param log an XMLErrorLog_t, the error log.
+ * @param required a boolean, indicating whether the attribute is required.
+ *
+ * @returns @c non-zero (true) if the attribute was read into value, 
+ * @c zero (false) otherwise.
  **/
 LIBLAX_EXTERN
 int
@@ -720,7 +920,27 @@ XMLAttributes_readIntoInt (XMLAttributes_t *xa,
 
 
 /**
- * 
+ * Reads the value for the attribute name into value.  If name was not
+ * found or value could be interpreted as an unsigned int, value is not
+ * modified.
+ *
+   * According to the W3C XML Schema valid integers include zero, *all*
+   * positive and *all* negative whole numbers.  For practical purposes, we
+   * limit values to what can be stored in a unsigned int.  For more
+   * information, see: http://www.w3.org/TR/xmlschema-2/#integer
+ *
+ * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * required is true, missing attributes are also logged.
+ *
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute.
+ * @param value a boolean, the value of the attribute.
+ * @param log an XMLErrorLog_t, the error log.
+ * @param required a boolean, indicating whether the attribute is required.
+ *
+ * @returns @c non-zero (true) if the attribute was read into value, 
+ * @c zero (false) otherwise.
  **/
 LIBLAX_EXTERN
 int
@@ -735,7 +955,22 @@ XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
 
 
 /**
- * 
+ * Reads the value for the attribute name into value.  If name was not
+ * found or value could be interpreted as a string, value is not
+ * modified.
+ *
+ * If an XMLErrorLog is passed in datatype format errors are logged.  If
+ * required is true, missing attributes are also logged.
+ *
+ *
+ * @param xa the XMLAttributes_t structure.
+ * @param name a string, the name of the attribute.
+ * @param value a boolean, the value of the attribute.
+ * @param log an XMLErrorLog_t, the error log.
+ * @param required a boolean, indicating whether the attribute is required.
+ *
+ * @returns @c non-zero (true) if the attribute was read into value, 
+ * @c zero (false) otherwise.
  **/
 LIBLAX_EXTERN
 int
@@ -750,3 +985,4 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
    return 0;
 }
 
+/** @endcond doxygen-c-only */

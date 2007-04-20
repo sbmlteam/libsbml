@@ -48,6 +48,37 @@ XMLNamespaces::~XMLNamespaces ()
 
 
 /**
+ * Copy constructor; creates a copy of this XMLNamespaces set.
+ */
+XMLNamespaces::XMLNamespaces(const XMLNamespaces& orig)
+{
+  this->mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
+}
+
+
+/**
+ * Assignment operator for XMLNamespaces.
+ */
+XMLNamespaces& 
+XMLNamespaces::operator=(const XMLNamespaces& orig)
+{
+  this->mNamespaces.assign( orig.mNamespaces.begin(), orig.mNamespaces.end() ); 
+  return *this;
+}
+
+/**
+ * Creates and returns a deep copy of this XMLNamespaces set.
+ * 
+ * @return a (deep) copy of this XMLNamespaces set.
+ */
+XMLNamespaces* 
+XMLNamespaces::clone () const
+{
+  return new XMLNamespaces(*this);
+}
+
+
+/**
  * Appends an XML namespace prefix/URI pair to this list of namespace
  * declarations.
  */
@@ -209,10 +240,11 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
   return stream;
 }
 
+/** @cond doxygen-c-only */
 
 /**
- * 
- **/
+ * Creates a new empty XMLNamespaces_t structure.
+ */
 LIBLAX_EXTERN
 XMLNamespaces_t *
 XMLNamespaces_create (void)
@@ -222,7 +254,9 @@ XMLNamespaces_create (void)
 
 
 /**
- * 
+ * Frees the given XMLNamespaces_t structure.
+ *
+ * @param ns XMLNamespaces structure to be freed.
  **/
 LIBLAX_EXTERN
 void
@@ -233,8 +267,13 @@ XMLNamespaces_free (XMLNamespaces_t *ns)
 
 
 /**
- * 
- **/
+ * Appends an XML namespace prefix/URI pair to this XMLNamespaces_t 
+ * structure.
+ *
+ * @param ns XMLNamespaces structure.
+ * @param uri a string, the uri for the namespace.
+ * @param prefix a string, the prefix for the namespace.
+ */
 LIBLAX_EXTERN
 void
 XMLNamespaces_add (XMLNamespaces_t *ns, 
@@ -245,7 +284,9 @@ XMLNamespaces_add (XMLNamespaces_t *ns,
 
 
 /**
- * 
+ * Clears this XMLNamespaces_t structure.
+ *
+ * @param ns XMLNamespaces structure.
  **/
 LIBLAX_EXTERN
 void
@@ -256,8 +297,12 @@ XMLNamespaces_clear (XMLNamespaces_t *ns)
 
 
 /**
- * 
- **/
+ * Lookup the index of an XML namespace declaration by URI.
+ *
+ * @param uri a string, uri of the required namespace.
+ *
+ * @return the index of the given declaration, or -1 if not present.
+ */
 LIBLAX_EXTERN
 int
 XMLNamespaces_getIndex (const XMLNamespaces_t *ns, const char *uri)
@@ -328,3 +373,4 @@ XMLNamespaces_isEmpty (const XMLNamespaces_t *ns)
   return ns->isEmpty();
 }
 
+/** @endcond doxygen-c-only */

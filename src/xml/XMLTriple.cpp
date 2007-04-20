@@ -88,6 +88,41 @@ XMLTriple::XMLTriple (const string& triplet, const char sepchar)
 
 
 /**
+ * Copy constructor; creates a copy of this XMLTriple set.
+ */
+XMLTriple::XMLTriple(const XMLTriple& orig)
+{
+  mName   = orig.mName;
+  mURI    = orig.mURI;
+  mPrefix = orig.mPrefix;
+}
+
+/**
+ * Assignment operator for XMLTriple.
+ */
+XMLTriple& 
+XMLTriple::operator=(const XMLTriple& orig)
+{
+  mName   = orig.mName;
+  mURI    = orig.mURI;
+  mPrefix = orig.mPrefix;
+
+  return *this;
+}
+
+/**
+ * Creates and returns a deep copy of this XMLTriple set.
+ * 
+ * @return a (deep) copy of this XMLTriple set.
+ */
+XMLTriple* 
+XMLTriple::clone () const
+{
+  return new XMLTriple(*this);
+}
+
+
+/**
  * 
  **/
 LIBLAX_EXTERN

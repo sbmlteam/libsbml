@@ -5,20 +5,23 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *------------------------------------------------------------------------- -->
+ * @class XMLAttributes.
+ * @brief Implementation of %XMLAttributes construct.
  */
 
 
@@ -58,8 +61,33 @@ public:
 
 
   /**
-   * Adds a name/value pair to this XMLAttributes set.  If name already
-   * exists in this attribute set, its value will be replaced.
+   * Copy constructor; creates a copy of this XMLAttributes set.
+   */
+  XMLAttributes(const XMLAttributes& orig);
+
+
+  /**
+   * Assignment operator for XMLAttributes.
+   */
+  XMLAttributes& operator=(const XMLAttributes& orig);
+
+  /**
+   * Creates and returns a deep copy of this XMLAttributes set.
+   * 
+   * @return a (deep) copy of this XMLAttributes set.
+   */
+  XMLAttributes* clone () const;
+
+  /**
+   * Adds a name/value pair to this XMLAttributes set optionally with a
+   * prefix and URI defining a namespace.
+   *
+   * @param name a string, the name of the attribute.
+   * @param value a string, the value of the attribute.
+   * @param namespaceURI a string, the namespace URI of the attribute.
+   * @param prefix a string, the prefix of the namespace
+   *
+   * @note if name already exists in this attribute set, its value will be replaced.
    */
   void add (  const std::string& name
 	    , const std::string& value
@@ -67,63 +95,106 @@ public:
 	    , const std::string& prefix = "");
 
   /**
-  * Adds a name/value pair to this XMLAttributes set.  This
-  * is really the add function but an attribute with same name wont 
-  * be overwritten - this is for annotations
+  * Adds a name/value pair to this XMLAttributes set.  
+  *
+  * This method is similar to the add method but an attribute with same name wont 
+  * be overwritten. This facilitates the addition of multiple resource attributes 
+  * to a annotations.
+   *
+   * @param name a string, the name of the attribute.
+   * @param value a string, the value of the attribute.
   */
   void addResource (const std::string& name, const std::string& value);
 
-/**
-   * Lookup the index of an attribute by name.
+  /**
+   * Return the index of an attribute by name.
+   *
+   * @param name a string, the name of the attribute for which the index is required.
    *
    * @return the index of the given attribute, or -1 if not present.
    */
   int getIndex (const std::string name) const;
 
   /**
-   * @return the number of attributes in this list.
+   * Return the number of attributes in the set.
+   *
+   * @return the number of attributes in this XMLAttributes set.
    */
   int getLength () const;
 
   /**
-   * @return the name of an attribute in this list (by position).  If index
+   * Return the name of an attribute in this XMLAttributes set (by position).
+   *
+   * @param index an integer, the position of the attribute whose name is 
+   * required.
+   *
+   * @return the name of an attribute in this list (by position).  
+   *
+   * @note If index
    * is out of range, an empty string will be returned.  Use getIndex() > 0
    * to test for attribute existence.
    */
   std::string getName (int index) const;
 
   /**
+   * Return the prefix of an attribute in this XMLAttributes set (by position).
+   *
+   * @param index an integer, the position of the attribute whose prefix is 
+   * required.
+   *
    * @return the namespace prefix of an attribute in this list (by
-   * position).  If index is out of range, an empty string will be
+   * position).  
+   *
+   * @note If index is out of range, an empty string will be
    * returned.  Use getIndex() > 0 to test for attribute existence.
    */
   std::string getPrefix (int index) const;
 
   /**
+   * Return the namespace URI of an attribute in this XMLAttributes set (by position).
+   *
+   * @param index an integer, the position of the attribute whose namespace URI is 
+   * required.
+   *
    * @return the namespace URI of an attribute in this list (by position).
-   * If index is out of range, an empty string will be returned.  Use
+   *
+   * @note If index is out of range, an empty string will be returned.  Use
    * getIndex() > 0 to test for attribute existence.
    */
   std::string getURI (int index) const;
 
   /**
-   * @return the value of an attribute in the list (by position).  If index
+   * Return the value of an attribute in this XMLAttributes set (by position).
+   *
+   * @param index an integer, the position of the attribute whose value is 
+   * required.
+   *
+   * @return the value of an attribute in the list (by position).  
+   *
+   * @note If index
    * is out of range, an empty string will be returned.  Use getIndex() > 0
    * to test for attribute existence.
    */
   std::string getValue (int index) const;
 
   /**
-   * Lookup an attribute's value by name.
+   * Return an attribute's value by name.
    *
-   * @return The attribute value as a string.  If an attribute with the
+   * @param name a string, the name of the attribute whose value is required.
+   *
+   * @return The attribute value as a string.  
+   *
+   * @note If an attribute with the
    * given name does not exist, an empty string will be returned.  Use
    * getIndex() > 0 to test for attribute existence.
    */
   std::string getValue (const std::string name) const;
 
   /**
-   * @return true if this XMLAttributes set is empty, false otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLAttributes set is empty.
+   * 
+   * @return @c true if this XMLAttributes set is empty, @c false otherwise.
    */
   bool isEmpty () const;
 
@@ -139,7 +210,13 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @returns true if the attribute was read into value, false otherwise.
+   *
+   * @param name a string, the name of the attribute.
+   * @param value a boolean, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  const std::string&  name
                  , bool&               value
@@ -159,7 +236,12 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @returns true if the attribute was read into value, false otherwise.
+   * @param name a string, the name of the attribute.
+   * @param value a double, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  const std::string&  name
                  , double&             value
@@ -178,7 +260,12 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @returns true if the attribute was read into value, false otherwise.
+   * @param name a string, the name of the attribute.
+   * @param value a long, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  const std::string&  name
                  , long&               value
@@ -197,7 +284,12 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @returns true if the attribute was read into value, false otherwise.
+   * @param name a string, the name of the attribute.
+   * @param value an integer, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  const std::string&  name
                  , int&                value
@@ -217,7 +309,12 @@ public:
    * If an XMLErrorLog is passed in datatype format errors are logged.  If
    * required is true, missing attributes are also logged.
    *
-   * @returns true if the attribute was read into value, false otherwise.
+   * @param name a string, the name of the attribute.
+   * @param value an unsigned integer, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  const std::string&  name
                  , unsigned int&       value
@@ -231,7 +328,12 @@ public:
    * If an XMLErrorLog is passed in and required is true, missing
    * attributes are logged.
    *
-   * @returns true if the attribute was read into value, false otherwise.
+   * @param name a string, the name of the attribute.
+   * @param value a string, the value of the attribute.
+   * @param log an XMLErrorLog, the error log.
+   * @param required a boolean, indicating whether the attribute is required.
+   *
+   * @returns @c true if the attribute was read into value, @c false otherwise.
    */
   bool readInto (  const std::string&  name
                  , std::string&        value
@@ -240,6 +342,9 @@ public:
 
   /**
    * Writes this XMLAttributes set to stream.
+   *
+   * @param stream XMLOutputStream, stream to which this XMLAttributes
+   * set is to be written.
    */
   void write (XMLOutputStream& stream) const;
 
@@ -248,6 +353,12 @@ public:
 
   /**
    * Inserts this XMLAttributes set into stream.
+   *
+   * @param stream XMLOutputStream, stream to which the XMLAttributes
+   * set is to be written.
+   * @param attributes XMLAttributes, attributes to be written to stream.
+   *
+   * @return the stream with the attributes inserted.
    */
   LIBLAX_EXTERN
   friend XMLOutputStream&
@@ -268,6 +379,9 @@ protected:
 
 BEGIN_C_DECLS
 
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
 /**
  * 
