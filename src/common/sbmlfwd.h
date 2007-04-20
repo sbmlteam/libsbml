@@ -6,13 +6,6 @@
  * $Id$
  * $Source$
  *
- * Forward declaration of all opaque C types.
- *
- * Declaring all types up-front avoids "redefinition of type 'Foo'" compile
- * errors and allows our combined C/C++ headers to depend minimally upon
- * each other.  Put another way, the type definitions below serve the same
- * purpose as "class Foo;" forward declarations in C++ code.
- *
  *<!---------------------------------------------------------------------------
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
@@ -26,7 +19,14 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ *
+ * Declaring all types up-front avoids compilation errors of the form
+ * <em>"Redefinition of type 'Foo'"</em>, and allows our combined C/C++
+ * headers to depend minimally upon each other.  Put another way, the type
+ * definitions below serve the same purpose as <tt>class Foo;</tt> forward
+ * declarations in C++ code.
+ */
 
 #ifndef sbmlfwd_h
 #define sbmlfwd_h
@@ -36,8 +36,16 @@
 
 
 #ifdef __cplusplus
+/**
+ * Defined as a class when compiling for C++ and as a C struct when
+ * compiling for C.
+ */
 #  define CLASS_OR_STRUCT class
 #else
+/**
+ * Defined as a class when compiling for C++ and as a C struct when
+ * compiling for C.
+ */
 #  define CLASS_OR_STRUCT struct
 #endif  /* __cplusplus */
 
