@@ -1,7 +1,7 @@
 /**
- * \file    FunctionDefinitionVars.cpp
- * \brief   Ensures FunctionDefinitions contain no undefined variables.
- * \author  Ben Bornstein
+ * @file    FunctionDefinitionVars.cpp
+ * @brief   Ensures FunctionDefinitions contain no undefined variables.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

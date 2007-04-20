@@ -1,7 +1,7 @@
 /**
- * \file    KineticLawVars.cpp
- * \brief   Ensures FunctionDefinitions contain no undefined variables.
- * \author  Ben Bornstein
+ * @file    KineticLawVars.cpp
+ * @brief   Ensures FunctionDefinitions contain no undefined variables.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

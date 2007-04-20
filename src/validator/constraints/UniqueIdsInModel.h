@@ -1,7 +1,7 @@
 /**
- * \file    UniqueIdsInModel.h
- * \brief   Ensures the appropriate ids within a Model are unique
- * \author  Ben Bornstein
+ * @file    UniqueIdsInModel.h
+ * @brief   Ensures the appropriate ids within a Model are unique
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

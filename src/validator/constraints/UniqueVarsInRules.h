@@ -1,7 +1,7 @@
 /**
- * \file    UniqueVarsInRules.h
- * \brief   Ensures variables for all Rules are unique
- * \author  Ben Bornstein
+ * @file    UniqueVarsInRules.h
+ * @brief   Ensures variables for all Rules are unique
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

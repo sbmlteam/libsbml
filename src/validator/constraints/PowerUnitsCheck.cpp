@@ -1,7 +1,7 @@
 /**
- * \file    PowerUnitsCheck.cpp
- * \brief   Ensures math units are consistent.
- * \author  Sarah Keating
+ * @file    PowerUnitsCheck.cpp
+ * @brief   Ensures math units are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

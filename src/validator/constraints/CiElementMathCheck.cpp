@@ -1,7 +1,7 @@
 /**
- * \file    CiElementMathCheck.cpp
- * \brief   checks <ci> element is the id of a component
- * \author  Sarah Keating
+ * @file    CiElementMathCheck.cpp
+ * @brief   checks <ci> element is the id of a component
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    Validator.cpp
- * \brief   Base class for all SBML Validators
- * \author  Ben Bornstein
+ * @file    Validator.cpp
+ * @brief   Base class for all SBML Validators
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -30,7 +30,7 @@
 
 #include <sbml/units/FormulaUnitsData.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 #include <sbml/validator/Validator.h>
 
 /** @cond doxygen-ignored */

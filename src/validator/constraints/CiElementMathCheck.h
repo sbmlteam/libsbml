@@ -1,7 +1,7 @@
 /**
- * \file    CiElementMathCheck.h
- * \brief   checks <ci> element is the id of a component
- * \author  Sarah Keating
+ * @file    CiElementMathCheck.h
+ * @brief   checks <ci> element is the id of a component
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "MathMLBase.h"
 

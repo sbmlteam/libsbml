@@ -1,7 +1,7 @@
 /**
- * \file    OverDeterminedCheck.cpp
- * \brief   Checks for over determined models.
- * \author  Sarah Keating
+ * @file    OverDeterminedCheck.cpp
+ * @brief   Checks for over determined models.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

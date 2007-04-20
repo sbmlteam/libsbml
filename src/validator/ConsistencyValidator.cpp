@@ -1,7 +1,7 @@
 /**
- * \file    ConsistencyValidator.cpp
- * \brief   Checks an SBML model for structural consistency
- * \author  Ben Bornstein
+ * @file    ConsistencyValidator.cpp
+ * @brief   Checks an SBML model for structural consistency
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

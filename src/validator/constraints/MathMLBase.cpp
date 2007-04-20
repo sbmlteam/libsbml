@@ -1,7 +1,7 @@
 /**
- * \file    MathMLBase.cpp
- * \brief   Base class for MathML Constraints.
- * \author  Sarah Keating
+ * @file    MathMLBase.cpp
+ * @brief   Base class for MathML Constraints.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    L1CompatibilityConstraints.cpp
- * \brief   L1 compatibility for conversion from L2
- * \author  Sarah Keating
+ * @file    L1CompatibilityConstraints.cpp
+ * @brief   L1 compatibility for conversion from L2
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -25,7 +25,7 @@
 #ifndef AddingConstraintsToValidator
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBase.h>
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 #include <math.h>
 #endif
 

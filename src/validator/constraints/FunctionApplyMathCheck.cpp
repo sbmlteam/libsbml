@@ -1,7 +1,7 @@
 /**
- * \file    FunctionApplyMathCheck.cpp
- * \brief   Ensures <ci> after apply refers to function definition.
- * \author  Sarah Keating
+ * @file    FunctionApplyMathCheck.cpp
+ * @brief   Ensures <ci> after apply refers to function definition.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

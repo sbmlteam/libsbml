@@ -1,7 +1,7 @@
 /**
- * \file    MathMLBase.h
- * \brief   Base class for MathML Constraints
- * \author  Sarah Keating
+ * @file    MathMLBase.h
+ * @brief   Base class for MathML Constraints
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -32,7 +32,7 @@
 #include <string>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 #include "IdList.h"
 
 

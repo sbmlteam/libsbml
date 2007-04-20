@@ -1,7 +1,7 @@
 /**
- * \file    IdList.cpp
- * \brief   Maintains a list of SIds.  Useful for finding cycles.
- * \author  Ben Bornstein
+ * @file    IdList.cpp
+ * @brief   Maintains a list of SIds.  Useful for finding cycles.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

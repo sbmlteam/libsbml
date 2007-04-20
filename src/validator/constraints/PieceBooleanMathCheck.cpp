@@ -1,7 +1,7 @@
 /**
- * \file    PieceBooleanMathCheck.cpp
- * \brief   Ensures piecewise piece element returns boolean.
- * \author  Sarah Keating
+ * @file    PieceBooleanMathCheck.cpp
+ * @brief   Ensures piecewise piece element returns boolean.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

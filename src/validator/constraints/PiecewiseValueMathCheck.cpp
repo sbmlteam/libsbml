@@ -1,7 +1,7 @@
 /**
- * \file    PiecewiseValueMathCheck.cpp
- * \brief   Ensures types returned by branches of a piecewise are consistent.
- * \author  Sarah Keating
+ * @file    PiecewiseValueMathCheck.cpp
+ * @brief   Ensures types returned by branches of a piecewise are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

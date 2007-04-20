@@ -1,7 +1,7 @@
 /**
- * \file    Constraint.h
- * \brief   Base class for all SBML Validator Constraints
- * \author  Ben Bornstein
+ * @file    Constraint.h
+ * @brief   Base class for all SBML Validator Constraints
+ * @author  Ben Bornstein
  * 
  * $Id$
  * $Source$

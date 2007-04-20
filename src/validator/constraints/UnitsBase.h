@@ -1,7 +1,7 @@
 /**
- * \file    UnitsBase.h
- * \brief   Ensures units consistent with math
- * \author  Sarah Keating
+ * @file    UnitsBase.h
+ * @brief   Ensures units consistent with math
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -32,7 +32,7 @@
 #include <string>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 
 class ASTNode;

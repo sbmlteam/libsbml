@@ -1,7 +1,7 @@
 /**
- * \file    UniqueSpeciesTypesInCompartment.cpp
- * \brief   Ensures unique variables assigned by rules and events
- * \author  Sarah Keating
+ * @file    UniqueSpeciesTypesInCompartment.cpp
+ * @brief   Ensures unique variables assigned by rules and events
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

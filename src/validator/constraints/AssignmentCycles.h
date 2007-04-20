@@ -1,7 +1,7 @@
 /**
- * \file    AssignmentCycles.h
- * \brief   Ensures unique variables assigned by rules and events
- * \author  Sarah Keating
+ * @file    AssignmentCycles.h
+ * @brief   Ensures unique variables assigned by rules and events
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -29,7 +29,7 @@
 #ifdef __cplusplus
 
 #include <string>
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "IdList.h"
 

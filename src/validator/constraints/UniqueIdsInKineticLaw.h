@@ -1,7 +1,7 @@
 /**
- * \file    UniqueIdsInKineticLaw.h
- * \brief   Ensures the ids for all Parameters in a KineticLaw are unique
- * \author  Ben Bornstein
+ * @file    UniqueIdsInKineticLaw.h
+ * @brief   Ensures the ids for all Parameters in a KineticLaw are unique
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

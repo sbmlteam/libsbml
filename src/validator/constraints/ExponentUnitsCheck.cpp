@@ -1,7 +1,7 @@
 /**
- * \file    ExponentUnitsCheck.cpp
- * \brief   Ensures math units are consistent.
- * \author  Sarah Keating
+ * @file    ExponentUnitsCheck.cpp
+ * @brief   Ensures math units are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

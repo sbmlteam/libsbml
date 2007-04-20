@@ -1,7 +1,7 @@
 /**
- * \file    UniqueMetaId.cpp
- * \brief   Base class for Id constraints
- * \author  Ben Bornstein
+ * @file    UniqueMetaId.cpp
+ * @brief   Base class for Id constraints
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    ConstraintMacros.h
- * \brief   Defines the contstraint "language"
- * \author  Ben Bornstein
+ * @file    ConstraintMacros.h
+ * @brief   Defines the contstraint "language"
+ * @author  Ben Bornstein
  * 
  * $Id$
  * $Source$

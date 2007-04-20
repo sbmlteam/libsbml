@@ -1,7 +1,7 @@
 /**
- * \file    NumberArgsMathCheck.h
- * \brief   Ensures number of arguments to functions are appropriate.
- * \author  Sarah Keating
+ * @file    NumberArgsMathCheck.h
+ * @brief   Ensures number of arguments to functions are appropriate.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "MathMLBase.h"
 

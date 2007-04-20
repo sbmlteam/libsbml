@@ -1,7 +1,7 @@
 /**
- * \file    CompartmentOutsideCycles.cpp
- * \brief   Ensures no cycles exist via a Compartment's 'outside' attribute.
- * \author  Ben Bornstein
+ * @file    CompartmentOutsideCycles.cpp
+ * @brief   Ensures no cycles exist via a Compartment's 'outside' attribute.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

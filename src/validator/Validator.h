@@ -1,7 +1,7 @@
 /**
- * \file    Validator.h
- * \brief   Base class for all SBML Validators
- * \author  Ben Bornstein
+ * @file    Validator.h
+ * @brief   Base class for all SBML Validators
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

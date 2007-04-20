@@ -1,7 +1,7 @@
 /**
- * \file    Constraint.cpp
- * \brief   Base class for all SBML Validator Constraints
- * \author  Ben Bornstein
+ * @file    Constraint.cpp
+ * @brief   Base class for all SBML Validator Constraints
+ * @author  Ben Bornstein
  * 
  * $Id$
  * $Source$
@@ -22,7 +22,7 @@
  */
 
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 /** @cond doxygen-ignored */
 

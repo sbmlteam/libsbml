@@ -1,7 +1,7 @@
 /**
- * \file    PieceBooleanMathCheck.h
- * \brief   Ensures piecewise piece element returns boolean.
- * \author  Sarah Keating
+ * @file    PieceBooleanMathCheck.h
+ * @brief   Ensures piecewise piece element returns boolean.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "MathMLBase.h"
 

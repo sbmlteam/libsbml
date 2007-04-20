@@ -1,7 +1,7 @@
 /**
- * \file    StoichiometryMathVars.cpp
- * \brief   Ensures FunctionDefinitions contain no undefined variables.
- * \author  Ben Bornstein
+ * @file    StoichiometryMathVars.cpp
+ * @brief   Ensures FunctionDefinitions contain no undefined variables.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    IdBase.cpp
- * \brief   Base class for Id constraints
- * \author  Ben Bornstein
+ * @file    IdBase.cpp
+ * @brief   Base class for Id constraints
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

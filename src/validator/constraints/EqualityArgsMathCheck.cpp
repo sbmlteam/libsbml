@@ -1,7 +1,7 @@
 /**
- * \file    EqualityArgsMathCheck.cpp
- * \brief   Ensures arguments to eq and neq are consistent.
- * \author  Sarah Keating
+ * @file    EqualityArgsMathCheck.cpp
+ * @brief   Ensures arguments to eq and neq are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    NumberArgsMathCheck.cpp
- * \brief   Ensures number of arguments to functions are appropriate.
- * \author  Sarah Keating
+ * @file    NumberArgsMathCheck.cpp
+ * @brief   Ensures number of arguments to functions are appropriate.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

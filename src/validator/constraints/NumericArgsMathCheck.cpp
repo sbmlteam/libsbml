@@ -1,7 +1,7 @@
 /**
- * \file    NumericArgsMathCheck.cpp
- * \brief   Ensures arguments to numeric operators/functions are consistent.
- * \author  Sarah Keating
+ * @file    NumericArgsMathCheck.cpp
+ * @brief   Ensures arguments to numeric operators/functions are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

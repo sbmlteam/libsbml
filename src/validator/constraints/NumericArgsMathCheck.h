@@ -1,7 +1,7 @@
 /**
- * \file    NumericArgsMathCheck.h
- * \brief   Ensures arguments to numeric operators/functions are consistent.
- * \author  Sarah Keating
+ * @file    NumericArgsMathCheck.h
+ * @brief   Ensures arguments to numeric operators/functions are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "MathMLBase.h"
 

@@ -1,7 +1,7 @@
 /**
- * \file    UniqueSymbolsInInitialAssignments.cpp
- * \brief   Ensures the ids for all UnitDefinitions in a Model are unique
- * \author  Ben Bornstein
+ * @file    UniqueSymbolsInInitialAssignments.cpp
+ * @brief   Ensures the ids for all UnitDefinitions in a Model are unique
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

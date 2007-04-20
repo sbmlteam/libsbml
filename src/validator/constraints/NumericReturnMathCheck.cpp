@@ -1,7 +1,7 @@
 /**
- * \file    NumericReturnMathCheck.cpp
- * \brief   Ensures math returns a numeric result.
- * \author  Sarah Keating
+ * @file    NumericReturnMathCheck.cpp
+ * @brief   Ensures math returns a numeric result.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    EqualityArgsMathCheck.h
- * \brief   Ensures arguments to eq and neq are consistent.
- * \author  Sarah Keating
+ * @file    EqualityArgsMathCheck.h
+ * @brief   Ensures arguments to eq and neq are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "MathMLBase.h"
 

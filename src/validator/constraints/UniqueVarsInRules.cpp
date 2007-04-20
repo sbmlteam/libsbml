@@ -1,7 +1,7 @@
 /**
- * \file    UniqueVarsInRules.cpp
- * \brief   Ensures variables for all Rules are unique
- * \author  Ben Bornstein
+ * @file    UniqueVarsInRules.cpp
+ * @brief   Ensures variables for all Rules are unique
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

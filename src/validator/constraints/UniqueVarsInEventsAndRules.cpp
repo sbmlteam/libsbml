@@ -1,7 +1,7 @@
 /**
- * \file    UniqueVarsInEventsAndRules.cpp
- * \brief   Ensures unique variables assigned by rules and events
- * \author  Sarah Keating
+ * @file    UniqueVarsInEventsAndRules.cpp
+ * @brief   Ensures unique variables assigned by rules and events
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

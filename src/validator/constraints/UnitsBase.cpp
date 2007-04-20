@@ -1,7 +1,7 @@
 /**
- * \file    UnitsBase.cpp
- * \brief   Ensures math units are consistent.
- * \author  Sarah Keating
+ * @file    UnitsBase.cpp
+ * @brief   Ensures math units are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

@@ -1,7 +1,7 @@
 /**
- * \file    SpeciesReactionOrRule.h
- * \brief   Ensures unique variables assigned by rules and events
- * \author  Sarah Keating
+ * @file    SpeciesReactionOrRule.h
+ * @brief   Ensures unique variables assigned by rules and events
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -30,7 +30,7 @@
 
 #include <string>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "IdList.h"
 

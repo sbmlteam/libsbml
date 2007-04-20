@@ -1,7 +1,7 @@
 /**
- * \file    StoichiometryMathVars.h
- * \brief   Ensures FunctionDefinitions contain no undefined variables.
- * \author  Ben Bornstein
+ * @file    StoichiometryMathVars.h
+ * @brief   Ensures FunctionDefinitions contain no undefined variables.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -30,7 +30,7 @@
 
 
 #include <string>
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 #include "IdList.h"
 
 

@@ -1,7 +1,7 @@
 /**
- * \file    CompartmentOutsideCycles.h
- * \brief   Ensures no cycles exist via a Compartment's 'outside' attribute.
- * \author  Ben Bornstein
+ * @file    CompartmentOutsideCycles.h
+ * @brief   Ensures no cycles exist via a Compartment's 'outside' attribute.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -36,7 +36,7 @@
 #include <algorithm>
 #include <functional>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 #include "IdList.h"
 
 

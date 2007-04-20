@@ -1,7 +1,7 @@
 /**
- * \file    ConsistencyValidator.h
- * \brief   Performs consistency checks on an SBML model
- * \author  Ben Bornstein
+ * @file    ConsistencyValidator.h
+ * @brief   Performs consistency checks on an SBML model
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

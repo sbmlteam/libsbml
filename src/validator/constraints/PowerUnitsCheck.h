@@ -1,7 +1,7 @@
 /**
- * \file    PowerUnitsCheck.h
- * \brief   Ensures units consistent with math
- * \author  Sarah Keating
+ * @file    PowerUnitsCheck.h
+ * @brief   Ensures units consistent with math
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "UnitsBase.h"
 

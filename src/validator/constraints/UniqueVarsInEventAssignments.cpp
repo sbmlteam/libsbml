@@ -1,7 +1,7 @@
 /**
- * \file    UniqueVarsInEventAssignments.cpp
- * \brief   Ensures variables within a set of EventAssignments are unique
- * \author  Ben Bornstein
+ * @file    UniqueVarsInEventAssignments.cpp
+ * @brief   Ensures variables within a set of EventAssignments are unique
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$

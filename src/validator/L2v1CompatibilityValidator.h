@@ -1,7 +1,7 @@
 /**
- * \file    L2v1CompatibilityValidator.h
- * \brief   Checks whether an SBML model can be converted from L2v2/3 to L2v1
- * \author  Sarah Keating
+ * @file    L2v1CompatibilityValidator.h
+ * @brief   Checks whether an SBML model can be converted from L2v2/3 to L2v1
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

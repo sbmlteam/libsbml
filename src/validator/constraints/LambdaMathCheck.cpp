@@ -1,7 +1,7 @@
 /**
- * \file    LambdaMathCheck.cpp
- * \brief   Ensures a lambda function is not used outside a functionDefinition.
- * \author  Sarah Keating
+ * @file    LambdaMathCheck.cpp
+ * @brief   Ensures a lambda function is not used outside a functionDefinition.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

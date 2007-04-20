@@ -1,7 +1,7 @@
 /**
- * \file    LambdaMathCheck.h
- * \brief   Ensures a lambda function is not used outside a functionDefinition.
- * \author  Sarah Keating
+ * @file    LambdaMathCheck.h
+ * @brief   Ensures a lambda function is not used outside a functionDefinition.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "MathMLBase.h"
 

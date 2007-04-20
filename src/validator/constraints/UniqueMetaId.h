@@ -1,7 +1,7 @@
 /**
- * \file    UniqueMetaId.h
- * \brief   Base class for Id constraints
- * \author  Ben Bornstein
+ * @file    UniqueMetaId.h
+ * @brief   Base class for Id constraints
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <map>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 
 class SBase;

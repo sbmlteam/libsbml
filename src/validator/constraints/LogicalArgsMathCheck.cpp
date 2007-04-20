@@ -1,7 +1,7 @@
 /**
- * \file    LogicalArgsMathCheck.cpp
- * \brief   Ensures arguments to logical operators are consistent.
- * \author  Sarah Keating
+ * @file    LogicalArgsMathCheck.cpp
+ * @brief   Ensures arguments to logical operators are consistent.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

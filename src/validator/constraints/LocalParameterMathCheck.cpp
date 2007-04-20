@@ -1,7 +1,7 @@
 /**
- * \file    LocalParameterMathCheck.cpp
- * \brief   checks <ci> element of local parameter not used elsewhere
- * \author  Sarah Keating
+ * @file    LocalParameterMathCheck.cpp
+ * @brief   checks <ci> element of local parameter not used elsewhere
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

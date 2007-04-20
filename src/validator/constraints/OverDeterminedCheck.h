@@ -1,7 +1,7 @@
 /**
- * \file    OverDeterminedCheck.h
- * \brief   Checks for over determined models.
- * \author  Sarah Keating
+ * @file    OverDeterminedCheck.h
+ * @brief   Checks for over determined models.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -38,7 +38,7 @@
 
 #include <map>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 #include "IdList.h"
 
 typedef std::map< std::string, IdList> graph;

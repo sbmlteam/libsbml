@@ -1,7 +1,7 @@
 /**
- * \file    NumericReturnMathCheck.h
- * \brief   Ensures math returns a numeric result.
- * \author  Sarah Keating
+ * @file    NumericReturnMathCheck.h
+ * @brief   Ensures math returns a numeric result.
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -33,7 +33,7 @@
 #include <sstream>
 #include <math.h>
 
-#include <sbml/validator/Constraint.h>
+#include <sbml/validator/VConstraint.h>
 
 #include "MathMLBase.h"
 
