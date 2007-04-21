@@ -23,12 +23,12 @@ main (void)
 { 
   int num_failed = 0;
   SRunner *runner = srunner_create(create_suite_XMLAttributes());
+  srunner_add_suite(runner, create_suite_CopyAndClone());
 
   srunner_add_suite(runner, create_suite_XMLNamespaces());
   srunner_add_suite(runner, create_suite_XMLTriple());
   srunner_add_suite(runner, create_suite_XMLToken());
   srunner_add_suite(runner, create_suite_XMLNode());
-  srunner_add_suite(runner, create_suite_CopyAndClone());
 
 
 #ifdef TRACE_MEMORY

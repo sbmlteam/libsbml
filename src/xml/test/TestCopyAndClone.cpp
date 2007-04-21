@@ -23,6 +23,7 @@
 #include "common/common.h"
 #include "XMLTriple.h"
 #include "XMLNamespaces.h"
+#include "XMLToken.h"
 
 
 #include <check.h>
@@ -157,6 +158,94 @@ START_TEST ( test_Triple_clone )
 }
 END_TEST
 
+START_TEST (test_Token_copyConstructor)
+{
+  XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
+  XMLToken *token = new XMLToken(*t, 3, 4);
+
+  fail_unless(token->getName() == "sarah");
+  fail_unless(token->getURI() == "http://foo.org/");
+  fail_unless(token->getPrefix() == "bar");
+  fail_unless(token->isEnd() == 1);
+  fail_unless(token->isEOF() == 0);
+  fail_unless(token->getLine() == 3);
+  fail_unless(token->getColumn() == 4);
+
+  XMLToken *token2 = new XMLToken(*token);
+
+  fail_unless(token2->getName() == "sarah");
+  fail_unless(token2->getURI() == "http://foo.org/");
+  fail_unless(token2->getPrefix() == "bar");
+  fail_unless(token2->isEnd() == 1);
+  fail_unless(token2->isEOF() == 0);
+  fail_unless(token2->getLine() == 3);
+  fail_unless(token2->getColumn() == 4);
+
+  delete t;
+  delete token;
+  delete token2;
+}
+END_TEST
+
+START_TEST (test_Token_assignmentOperator)
+{
+  XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
+  XMLToken *token = new XMLToken(*t, 3, 4);
+
+  fail_unless(token->getName() == "sarah");
+  fail_unless(token->getURI() == "http://foo.org/");
+  fail_unless(token->getPrefix() == "bar");
+  fail_unless(token->isEnd() == 1);
+  fail_unless(token->isEOF() == 0);
+  fail_unless(token->getLine() == 3);
+  fail_unless(token->getColumn() == 4);
+
+  XMLToken *token2 = new XMLToken();
+  (*token2) = *token;
+
+  fail_unless(token2->getName() == "sarah");
+  fail_unless(token2->getURI() == "http://foo.org/");
+  fail_unless(token2->getPrefix() == "bar");
+  fail_unless(token2->isEnd() == 1);
+  fail_unless(token2->isEOF() == 0);
+  fail_unless(token2->getLine() == 3);
+  fail_unless(token2->getColumn() == 4);
+
+  delete t;
+  delete token;
+  delete token2;
+}
+END_TEST
+
+START_TEST (test_Token_clone)
+{
+  XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
+  XMLToken *token = new XMLToken(*t, 3, 4);
+
+  fail_unless(token->getName() == "sarah");
+  fail_unless(token->getURI() == "http://foo.org/");
+  fail_unless(token->getPrefix() == "bar");
+  fail_unless(token->isEnd() == 1);
+  fail_unless(token->isEOF() == 0);
+  fail_unless(token->getLine() == 3);
+  fail_unless(token->getColumn() == 4);
+
+  XMLToken *token2 = static_cast<XMLToken*>(token->clone());
+
+  fail_unless(token2->getName() == "sarah");
+  fail_unless(token2->getURI() == "http://foo.org/");
+  fail_unless(token2->getPrefix() == "bar");
+  fail_unless(token2->isEnd() == 1);
+  fail_unless(token2->isEOF() == 0);
+  fail_unless(token2->getLine() == 3);
+  fail_unless(token2->getColumn() == 4);
+
+  delete t;
+  delete token;
+  delete token2;
+}
+END_TEST
+
 Suite *
 create_suite_CopyAndClone (void)
 {
@@ -169,9 +258,9 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_Triple_copyConstructor );
   tcase_add_test( tcase, test_Triple_assignmentOperator );
   tcase_add_test( tcase, test_Triple_clone );
-  //tcase_add_test( tcase, test_ModelHistory_copyConstructor );
-  //tcase_add_test( tcase, test_ModelHistory_assignmentOperator );
-  //tcase_add_test( tcase, test_ModelHistory_clone );
+  tcase_add_test( tcase, test_Token_copyConstructor );
+  tcase_add_test( tcase, test_Token_assignmentOperator );
+  tcase_add_test( tcase, test_Token_clone );
   suite_add_tcase(suite, tcase);
 
   return suite;

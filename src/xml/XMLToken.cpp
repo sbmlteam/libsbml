@@ -35,11 +35,11 @@ using namespace std;
  * Creates a new empty XMLToken.
  */
 XMLToken::XMLToken () :
-   mIsStart( false )
- , mIsEnd  ( false )
- , mIsText ( false )
- , mLine   ( 0     )
- , mColumn ( 0     )
+   mIsStart   ( false )
+ , mIsEnd     ( false )
+ , mIsText    ( false )
+ , mLine      ( 0     )
+ , mColumn    ( 0     )
 {
 }
 
@@ -121,6 +121,82 @@ XMLToken::XMLToken (  const string&       chars
  */
 XMLToken::~XMLToken ()
 {
+}
+
+
+/**
+ * Copy constructor; creates a copy of this XMLToken.
+ */
+XMLToken::XMLToken(const XMLToken& orig)
+{
+  if (orig.mTriple.isEmpty())
+    mTriple = XMLTriple();
+  else
+    mTriple = XMLTriple(orig.getName(), orig.getURI(), orig.getPrefix());
+  
+  if (orig.mAttributes.isEmpty())
+    mAttributes = XMLAttributes();
+  else
+    mAttributes = XMLAttributes(orig.getAttributes());
+  
+  if (orig.mNamespaces.isEmpty())
+    mNamespaces = XMLNamespaces();
+  else
+    mNamespaces = XMLNamespaces(orig.getNamespaces());
+
+  mChars = orig.mChars;
+
+  mIsStart = orig.mIsStart;
+  mIsEnd = orig.mIsEnd;
+  mIsText = orig.mIsText;
+
+  mLine = orig.mLine;
+  mColumn = orig.mColumn;
+}
+
+
+/**
+ * Assignment operator for XMLToken.
+ */
+XMLToken& 
+XMLToken::operator=(const XMLToken& orig)
+{
+  if (orig.mTriple.isEmpty())
+    mTriple = XMLTriple();
+  else
+    mTriple = XMLTriple(orig.getName(), orig.getURI(), orig.getPrefix());
+  
+  if (orig.mAttributes.isEmpty())
+    mAttributes = XMLAttributes();
+  else
+    mAttributes = XMLAttributes(orig.getAttributes());
+  
+  if (orig.mNamespaces.isEmpty())
+    mNamespaces = XMLNamespaces();
+  else
+    mNamespaces = XMLNamespaces(orig.getNamespaces());
+
+  mChars = orig.mChars;
+
+  mIsStart = orig.mIsStart;
+  mIsEnd = orig.mIsEnd;
+  mIsText = orig.mIsText;
+
+  mLine = orig.mLine;
+  mColumn = orig.mColumn;
+
+  return *this;
+}
+
+/**
+ * Creates and returns a deep copy of this XMLToken.
+ * 
+ * @return a (deep) copy of this XMLToken set.
+ */
+XMLToken* 
+XMLToken::clone () const
+{
+  return new XMLToken(*this);
 }
 
 

@@ -32,7 +32,7 @@
 #include <sbml/xml/XMLAttributes.h>
 #include <sbml/xml/XMLNamespaces.h>
 #include <sbml/xml/XMLOutputStream.h>
-#include <sbml/xml/XMLTriple.h>
+#include <sbml/xml/XMLToken.h>
 #include <sbml/common/sbmlfwd.h>
 
 
@@ -57,6 +57,12 @@ public:
   /**
    * Creates a start element XMLToken with the given set of attributes and
    * namespace declarations.
+   *
+   * @param triple XMLTriple.
+   * @param attributes XMLAttributes, the attributes to set.
+   * @param namespaces XMLNamespaces, the namespaces to set.
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
    */
   XMLToken (  const XMLTriple&      triple
             , const XMLAttributes&  attributes
@@ -66,7 +72,12 @@ public:
 
   /**
    * Creates a start element XMLToken with the given set of attributes.
-   */
+   *
+   * @param triple XMLTriple.
+   * @param attributes XMLAttributes, the attributes to set.
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
+  */
   XMLToken (  const XMLTriple&      triple
             , const XMLAttributes&  attributes
             , const unsigned int    line   = 0
@@ -75,6 +86,10 @@ public:
 
   /**
    * Creates an end element XMLToken.
+   *
+   * @param triple XMLTriple.
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
    */
   XMLToken (  const XMLTriple&    triple
             , const unsigned int  line   = 0
@@ -82,7 +97,11 @@ public:
 
   /**
    * Creates a text XMLToken.
-   */
+   *
+   * @param chars a string, the text to be added to the XMLToken
+   * @param line an unsigned int, the line number (default = 0).
+   * @param column an unsigned int, the column number (default = 0).
+  */
   XMLToken (  const std::string&  chars
             , const unsigned int  line   = 0
             , const unsigned int  column = 0 );
@@ -92,85 +111,141 @@ public:
    */
   virtual ~XMLToken ();
 
+  /**
+   * Copy constructor; creates a copy of this XMLToken.
+   */
+  XMLToken(const XMLToken& orig);
+
+
+  /**
+   * Assignment operator for XMLToken.
+   */
+  XMLToken& operator=(const XMLToken& orig);
+
+  /**
+   * Creates and returns a deep copy of this XMLToken.
+   * 
+   * @return a (deep) copy of this XMLToken set.
+   */
+  XMLToken* clone () const;
+
 
   /**
    * Appends characters to this XML text content.
+   *
+   * @param chars string, characters to append
    */
   void append (const std::string& chars);
 
   /**
+   * Returns the attributes of this element.
+   *
    * @return the XMLAttributes of this XML element.
    */
   const XMLAttributes& getAttributes () const;
 
   /**
+   * Returns the text of this element.
+   *
    * @return the characters of this XML text.
    */
   const std::string& getCharacters () const;
 
   /**
+   * Returns the column at which this XMLToken occurred.
+   *
    * @return the column at which this XMLToken occurred.
    */
   unsigned int getColumn () const;
 
   /**
+   * Returns the line at which this XMLToken occurred.
+   *
    * @return the line at which this XMLToken occurred.
    */
   unsigned int getLine () const;
 
   /**
+   * Returns the XML namespace declarations for this XML element.
+   *
    * @return the XML namespace declarations for this XML element.
    */
   const XMLNamespaces& getNamespaces () const;
 
   /**
+   * Returns the (unqualified) name of this XML element.
+   *
    * @return the (unqualified) name of this XML element.
    */
   const std::string& getName () const;
 
   /**
-   * @return the namespace prefix of this XML element.  If no prefix
+   * Returns the namespace prefix of this XML element.
+   *
+   * @return the namespace prefix of this XML element.  
+   *
+   * @note If no prefix
    * exists, an empty string will be return.
    */
   const std::string& getPrefix () const;
 
   /**
+   * Returns the namespace URI of this XML element.
+   *
    * @return the namespace URI of this XML element.
    */
   const std::string& getURI () const;
 
 
   /**
-   * @return true if this XMLToken is an XML element.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLToken is an XML element.
+   * 
+   * @return @c true if this XMLToken is an XML element, @c false otherwise.
    */
   bool isElement () const;
 
   /**
-   * @return true if this XMLToken is an XML end element, false
-   * otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLToken is an XML end element.
+   * 
+   * @return @c true if this XMLToken is an XML end element, @c false otherwise.
    */
   bool isEnd () const;
 
   /**
-   * @return true if this XMLToken is an XML end element for the given XML
-   * start element, false otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLToken is an XML end element for the given start element.
+   * 
+   * @param element XMLToken, element for which query is made.
+   *
+   * @return @c true if this XMLToken is an XML end element for the given
+   * XMLToken start element, @c false otherwise.
    */
   bool isEndFor (const XMLToken& element) const;
 
   /**
-   * @return true if this XMLToken is an end of file (input) marker, false
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLToken is an end of file marker.
+   * 
+   * @return @c true if this XMLToken is an end of file (input) marker, @c false
    * otherwise.
    */
   bool isEOF () const;
 
   /**
-   * @return true if this XMLToken is an XML start element, false
-   * otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLToken is an XML start element.
+   * 
+   * @return @c true if this XMLToken is an XML start element, @c false otherwise.
    */
   bool isStart () const;
 
   /**
-   * @return true if this XMLToken is text, false otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLToken is an XML text element.
+   * 
+   * @return @c true if this XMLToken is an XML text element, @c false otherwise.
    */
   bool isText () const;
 
@@ -186,6 +261,9 @@ public:
 
   /**
    * Writes this XMLToken to stream.
+   *
+   * @param stream XMLOutputStream, stream to which this XMLToken
+   * is to be written.
    */
   void write (XMLOutputStream& stream) const;
 
@@ -201,6 +279,12 @@ public:
 
   /**
    * Inserts this XMLToken into stream.
+   *
+   * @param stream XMLOutputStream, stream to which the XMLToken
+   * set is to be written.
+   * @param token XMLToken, token to be written to stream.
+   *
+   * @return the stream with the token inserted.
    */
   LIBLAX_EXTERN
   friend
