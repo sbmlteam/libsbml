@@ -67,7 +67,7 @@ public:
    * @li uri sepchar name sepchar prefix
    *
    * @param triplet a string representing the triplet as above
-   * @param sepchar a string, the sepchar used in the triplet
+   * @param sepchar a character, the sepchar used in the triplet
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
   
@@ -111,6 +111,13 @@ public:
    */
   const std::string& getURI    () const { return mURI;    }
 
+  /**
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLTriple is empty.
+   * 
+   * @return @c true if this XMLTriple is empty, @c false otherwise.
+   */
+  bool isEmpty () const;
 
 private:
 

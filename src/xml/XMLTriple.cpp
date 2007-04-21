@@ -121,6 +121,16 @@ XMLTriple::clone () const
   return new XMLTriple(*this);
 }
 
+/**
+ * @return true if this XMLTriple set is empty, false otherwise.
+ */
+bool
+XMLTriple::isEmpty () const
+{
+  return ( getName().size() == 0
+        && getURI().size() == 0
+        && getPrefix().size() == 0);
+}
 
 /**
  * 
