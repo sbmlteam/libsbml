@@ -53,13 +53,19 @@ public:
 
   /**
    * Creates a new XMLNode by copying token.
+   *
+   * @param token XMLToken to be copied to XMLNode
    */
   XMLNode (const XMLToken& token);
 
   /**
-   * Creates a new XMLNode by reading XMLTokens from stream.  The stream must
+   * Creates a new XMLNode by reading XMLTokens from stream.  
+   *
+   * The stream must
    * be positioned on a start element (stream.peek().isStart() == true) and
    * will be read until the matching end element is found.
+   *
+   * @param stream XMLInputStream from which XMLNode is to be created.
    */
   XMLNode (XMLInputStream& stream);
 
@@ -67,24 +73,52 @@ public:
    * Destroys this XMLNode.
    */
   virtual ~XMLNode ();
+  
+  /**
+   * Copy constructor; creates a copy of this XMLNode.
+   */
+  XMLNode(const XMLNode& orig);
+
+
+  /**
+   * Assignment operator for XMLNode.
+   */
+  XMLNode& operator=(const XMLNode& orig);
+
+  /**
+   * Creates and returns a deep copy of this XMLNode.
+   * 
+   * @return a (deep) copy of this XMLNode.
+   */
+  XMLNode* clone () const;
+
 
   /**
    * Adds a copy of child node to this XMLNode.
+   *
+   * @param node XMLNode to be added as child.
    */
   void addChild (const XMLNode& node);
 
   /**
    * Returns the nth child of this XMLNode.
+   *
+   * @return the nth child of this XMLNode.
    */
   const XMLNode& getChild (unsigned int n) const;
 
   /**
+   * Returns the number of children for this XMLNode.
+   *
    * @return the number of children for this XMLNode.
    */
   unsigned int getNumChildren () const;
 
   /**
    * Writes this XMLNode and its children to stream.
+   *
+   * @param stream XMLOutputStream, stream to which this XMLNode
+   * is to be written.
    */
   void write (XMLOutputStream& stream) const;
 
@@ -93,6 +127,12 @@ public:
 
   /**
    * Inserts this XMLNode and its children into stream.
+   *
+   * @param stream XMLOutputStream, stream to which the XMLNode
+   * is to be written.
+   * @param node XMLNode, node to be written to stream.
+   *
+   * @return the stream with the node inserted.
    */
   LIBLAX_EXTERN
   friend

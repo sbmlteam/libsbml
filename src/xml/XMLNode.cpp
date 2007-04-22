@@ -108,6 +108,39 @@ XMLNode::XMLNode (XMLInputStream& stream) : XMLToken( stream.next() )
 
 
 /**
+ * Copy constructor; creates a copy of this XMLNode.
+ */
+XMLNode::XMLNode(const XMLNode& orig):
+      XMLToken (orig)
+{
+  this->mChildren.assign( orig.mChildren.begin(), orig.mChildren.end() ); 
+}
+
+
+ /**
+  * Assignment operator for XMLNode.
+  */
+XMLNode& 
+XMLNode::operator=(const XMLNode& orig)
+{
+  this->XMLToken::operator=(orig);
+  this->mChildren.assign( orig.mChildren.begin(), orig.mChildren.end() ); 
+  return *this;
+}
+
+/**
+ * Creates and returns a deep copy of this XMLNode.
+ * 
+ * @return a (deep) copy of this XMLNode.
+ */
+XMLNode* 
+XMLNode::clone () const
+{
+  return new XMLNode(*this);
+}
+
+
+/**
  * Adds a copy of child node to this XMLNode.
  */
 void
@@ -123,7 +156,14 @@ XMLNode::addChild (const XMLNode& node)
 const XMLNode&
 XMLNode::getChild (unsigned int n) const
 {
-  return mChildren[n];
+  if (n < getNumChildren())
+  {
+    return mChildren[n];
+  }
+  else
+  {
+    return *(new XMLNode());
+  }
 }
 
 

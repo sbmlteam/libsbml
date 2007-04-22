@@ -21,6 +21,8 @@
  */
 
 #include "common/common.h"
+#include "XMLTriple.h"
+#include "XMLToken.h"
 #include "XMLNode.h"
 
 #include <check.h>
@@ -56,6 +58,31 @@ START_TEST (test_XMLNode_create)
 END_TEST
 
 
+START_TEST (test_XMLNode_createFromToken)
+{
+  XMLToken_t *token;
+  XMLTriple_t *triple;
+  XMLNode_t *node;
+
+  triple = XMLTriple_createWith("attr", "uri", "prefix");
+  token = XMLToken_createWithTriple(triple);
+  node = XMLNode_createFromToken(token);
+
+  fail_unless(node != NULL);
+  fail_unless(XMLNode_getNumChildren(node) == 0);
+
+  /*fail_unless (XMLToken_getName((XMLToken_t*)(node)) == "attr");*/
+  fail_unless (XMLNode_getChild(node, 1) != NULL);
+
+  XMLToken_free(token);
+  XMLTriple_free(triple);
+  XMLNode_free(node);
+
+
+
+}
+END_TEST
+
 Suite *
 create_suite_XMLNode (void)
 {
@@ -63,6 +90,7 @@ create_suite_XMLNode (void)
   TCase *tcase = tcase_create("XMLNode");
 
   tcase_add_test( tcase, test_XMLNode_create  );
+  tcase_add_test( tcase, test_XMLNode_createFromToken  );
   suite_add_tcase(suite, tcase);
 
   return suite;

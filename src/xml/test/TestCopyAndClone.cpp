@@ -24,6 +24,7 @@
 #include "XMLTriple.h"
 #include "XMLNamespaces.h"
 #include "XMLToken.h"
+#include "XMLNode.h"
 
 
 #include <check.h>
@@ -246,6 +247,115 @@ START_TEST (test_Token_clone)
 }
 END_TEST
 
+START_TEST (test_Node_copyConstructor)
+{
+  XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
+  XMLToken *token = new XMLToken(*t, 3, 4);
+  XMLNode *node = new XMLNode(*token);
+  XMLNode *child = new XMLNode();
+  node->addChild(*child);
+
+  fail_unless(node->getNumChildren() == 1);
+  fail_unless(node->getName() == "sarah");
+  fail_unless(node->getURI() == "http://foo.org/");
+  fail_unless(node->getPrefix() == "bar");
+  fail_unless(node->isEnd() == 1);
+  fail_unless(node->isEOF() == 0);
+  fail_unless(node->getLine() == 3);
+  fail_unless(node->getColumn() == 4);
+
+  XMLNode *node2 = new XMLNode(*node);
+
+  fail_unless(node2->getNumChildren() == 1);
+  fail_unless(node2->getName() == "sarah");
+  fail_unless(node2->getURI() == "http://foo.org/");
+  fail_unless(node2->getPrefix() == "bar");
+  fail_unless(node2->isEnd() == 1);
+  fail_unless(node2->isEOF() == 0);
+  fail_unless(node2->getLine() == 3);
+  fail_unless(node2->getColumn() == 4);
+
+  delete t;
+  delete token;
+  delete node;
+  delete node2;
+
+}
+END_TEST
+  
+START_TEST (test_Node_assignmentOperator)
+{
+  XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
+  XMLToken *token = new XMLToken(*t, 3, 4);
+  XMLNode *node = new XMLNode(*token);
+  XMLNode *child = new XMLNode();
+  node->addChild(*child);
+
+  fail_unless(node->getNumChildren() == 1);
+  fail_unless(node->getName() == "sarah");
+  fail_unless(node->getURI() == "http://foo.org/");
+  fail_unless(node->getPrefix() == "bar");
+  fail_unless(node->isEnd() == 1);
+  fail_unless(node->isEOF() == 0);
+  fail_unless(node->getLine() == 3);
+  fail_unless(node->getColumn() == 4);
+
+  XMLNode *node2 = new XMLNode();
+  (*node2) = *node;
+
+  fail_unless(node2->getNumChildren() == 1);
+  fail_unless(node2->getName() == "sarah");
+  fail_unless(node2->getURI() == "http://foo.org/");
+  fail_unless(node2->getPrefix() == "bar");
+  fail_unless(node2->isEnd() == 1);
+  fail_unless(node2->isEOF() == 0);
+  fail_unless(node2->getLine() == 3);
+  fail_unless(node2->getColumn() == 4);
+
+  delete t;
+  delete token;
+  delete node;
+  delete node2;
+
+}
+END_TEST
+START_TEST (test_Node_clone)
+{
+  XMLTriple *t = new XMLTriple("sarah", "http://foo.org/", "bar");
+  XMLToken *token = new XMLToken(*t, 3, 4);
+  XMLNode *node = new XMLNode(*token);
+  XMLNode *child = new XMLNode();
+  node->addChild(*child);
+
+  fail_unless(node->getNumChildren() == 1);
+  fail_unless(node->getName() == "sarah");
+  fail_unless(node->getURI() == "http://foo.org/");
+  fail_unless(node->getPrefix() == "bar");
+  fail_unless(node->isEnd() == 1);
+  fail_unless(node->isEOF() == 0);
+  fail_unless(node->getLine() == 3);
+  fail_unless(node->getColumn() == 4);
+
+  XMLNode *node2 = static_cast<XMLNode*>(node->clone());
+
+  fail_unless(node2->getNumChildren() == 1);
+  fail_unless(node2->getName() == "sarah");
+  fail_unless(node2->getURI() == "http://foo.org/");
+  fail_unless(node2->getPrefix() == "bar");
+  fail_unless(node2->isEnd() == 1);
+  fail_unless(node2->isEOF() == 0);
+  fail_unless(node2->getLine() == 3);
+  fail_unless(node2->getColumn() == 4);
+
+  delete t;
+  delete token;
+  delete node;
+  delete node2;
+
+}
+END_TEST
+
+
 Suite *
 create_suite_CopyAndClone (void)
 {
@@ -261,6 +371,9 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_Token_copyConstructor );
   tcase_add_test( tcase, test_Token_assignmentOperator );
   tcase_add_test( tcase, test_Token_clone );
+  tcase_add_test( tcase, test_Node_copyConstructor );
+  tcase_add_test( tcase, test_Node_assignmentOperator );
+  tcase_add_test( tcase, test_Node_clone );
   suite_add_tcase(suite, tcase);
 
   return suite;
