@@ -1,6 +1,6 @@
 /**
- * @file    SBML.h
- * @brief   SBML utility functions
+ * @file    SBO.h
+ * @brief   SBO utility functions
  * @author  Ben Bornstein
  *
  * $Id$
