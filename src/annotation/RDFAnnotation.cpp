@@ -1,7 +1,7 @@
 /**
- * \file    RDFAnnotation.cpp
- * \brief   RDFAnnotation I/O
- * \author  Sarah Keating
+ * @file    RDFAnnotation.cpp
+ * @brief   RDFAnnotation I/O
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

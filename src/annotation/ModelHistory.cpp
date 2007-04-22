@@ -1,7 +1,7 @@
 /**
- * \file    ModelHistory.cpp
- * \brief   ModelHistory I/O
- * \author  Sarah Keating
+ * @file    ModelHistory.cpp
+ * @brief   ModelHistory I/O
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$

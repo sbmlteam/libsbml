@@ -1,7 +1,7 @@
 /**
- * \file    LayoutAnnotation.cpp
- * \brief   Layout annotation I/O
- * \author  Ralph Gauges
+ * @file    LayoutAnnotation.cpp
+ * @brief   Layout annotation I/O
+ * @author  Ralph Gauges
  *
  * $Id$
  * $Source$

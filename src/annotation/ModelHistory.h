@@ -1,7 +1,7 @@
 /**
- * \file    ModelHistory.h
- * \brief   ModelHistory I/O
- * \author  Sarah Keating
+ * @file    ModelHistory.h
+ * @brief   ModelHistory I/O
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
