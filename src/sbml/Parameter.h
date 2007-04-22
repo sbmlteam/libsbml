@@ -176,10 +176,10 @@ public:
    * attribute values.
    *
    * In contrast to the other constructor for this class, the @p id
-   * (identifier) and @p name parameters are required in this call.
+   * (identifier) and @p value parameters are required in this call.
    *
    * @param id a string, the identifier to assign to this Parameter instance
-   * @param name a string, the name to assign to this Parameter
+   * @param value a double, the value to assign to this Parameter
    * @param units a string, an optional identifier for units to be assigned
    * to this Parameter
    * @param constant a boolean, the optional value to assign to the
@@ -338,7 +338,7 @@ public:
    * Sets the "units" attribute of this Parameter to a copy of the given
    * units identifier @p units.
    *
-   * @param units, the identifier of the units to assign to this Parameter
+   * @param units a string, the identifier of the units to assign to this Parameter
    * instance
    */
   void setUnits (const std::string& units);
