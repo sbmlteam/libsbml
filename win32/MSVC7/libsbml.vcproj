@@ -184,9 +184,6 @@
 				RelativePath="..\..\src\sbml\Constraint.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\validator\VConstraint.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\annotation\CVTerm.cpp">
 			</File>
 			<File
@@ -322,9 +319,6 @@
 				RelativePath="..\..\src\sbml\SBase.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\SBML.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\sbml\SBMLConvert.cpp">
 			</File>
 			<File
@@ -344,6 +338,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLWriter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBO.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Species.cpp">
@@ -433,6 +430,9 @@
 				RelativePath="..\..\src\validator\Validator.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\VConstraint.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\xml\XercesAttributes.cpp">
 			</File>
 			<File
@@ -516,9 +516,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\ConsistencyValidator.h">
-			</File>
-			<File
-				RelativePath="..\..\src\validator\VConstraint.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Constraint.h">
@@ -659,9 +656,6 @@
 				RelativePath="..\..\src\sbml\SBase.h">
 			</File>
 			<File
-				RelativePath="..\..\src\sbml\SBML.h">
-			</File>
-			<File
 				RelativePath="..\..\src\sbml\SBMLDocument.h">
 			</File>
 			<File
@@ -681,6 +675,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLWriter.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBO.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Species.h">
@@ -768,6 +765,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\Validator.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\VConstraint.h">
 			</File>
 			<File
 				RelativePath="..\..\src\xml\XercesAttributes.h">
