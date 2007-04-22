@@ -34,6 +34,8 @@
 
 class XMLHandler;
 
+  /** @cond doxygen-libsbml-internal */
+
 class XercesHandler : public xercesc::DefaultHandler
 {
 public:
@@ -120,5 +122,6 @@ protected:
   const xercesc::Locator*  mLocator;
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* XercesHandler_h */

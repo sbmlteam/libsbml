@@ -28,6 +28,7 @@
 
 #include <sbml/xml/XMLBuffer.h>
 
+  /** @cond doxygen-libsbml-internal */
 
 class XMLMemoryBuffer : public XMLBuffer
 {
@@ -73,5 +74,6 @@ private:
   unsigned int  mOffset;
 };
 
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* XMLMemoryBuffer_h */

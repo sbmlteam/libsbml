@@ -32,6 +32,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <sbml/xml/XMLAttributes.h>
 
+  /** @cond doxygen-libsbml-internal */
 
 class XercesAttributes : public XMLAttributes
 {
@@ -49,5 +50,6 @@ public:
   virtual ~XercesAttributes ();
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* XercesAttributes_h */

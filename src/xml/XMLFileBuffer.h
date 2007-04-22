@@ -32,6 +32,7 @@
 
 #include <sbml/xml/XMLBuffer.h>
 
+  /** @cond doxygen-libsbml-internal */
 
 class XMLFileBuffer : public XMLBuffer
 {
@@ -74,6 +75,8 @@ private:
   std::string  mFilename;
   FILE*        mStream;
 };
+
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* __cplusplus */
 

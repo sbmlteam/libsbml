@@ -33,6 +33,7 @@
 #include <libxml/parser.h>
 #include <sbml/xml/XMLAttributes.h>
 
+  /** @cond doxygen-libsbml-internal */
 
 class LibXMLAttributes : public XMLAttributes
 {
@@ -49,5 +50,6 @@ public:
   virtual ~LibXMLAttributes ();
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* LibXMLAttributes_h */

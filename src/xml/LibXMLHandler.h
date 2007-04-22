@@ -33,6 +33,7 @@ class XMLHandler;
 class LibXMLAttributes;
 class LibXMLNamespaces;
 
+  /** @cond doxygen-libsbml-internal */
 
 class LibXMLHandler
 {
@@ -144,5 +145,6 @@ protected:
   const xmlSAXLocator* mLocator;
 };
 
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* LibXMLHandler_h */

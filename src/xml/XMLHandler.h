@@ -30,9 +30,9 @@
 #include <string>
 #include <sbml/xml/XMLExtern.h>
 
-
 class XMLToken;
 
+  /** @cond doxygen-libsbml-internal */
 
 class LIBLAX_EXTERN XMLHandler
 {
@@ -98,7 +98,7 @@ public:
   virtual void characters (const XMLToken& data);
 };
 
-
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 
 #endif  /* XMLHandler_h */

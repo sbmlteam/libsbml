@@ -32,7 +32,7 @@
 #include <xercesc/sax2/Attributes.hpp>
 #include <sbml/xml/XMLNamespaces.h>
 
-
+  /** @cond doxygen-libsbml-internal */
 
 class XercesNamespaces : public XMLNamespaces
 {
@@ -50,5 +50,6 @@ public:
   virtual ~XercesNamespaces ();
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* XercesNamespaces_h */

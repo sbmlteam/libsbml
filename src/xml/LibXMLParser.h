@@ -38,6 +38,7 @@ class XMLBuffer;
 class XMLHandler;
 class XMLErrorLog;
 
+  /** @cond doxygen-libsbml-internal */
 
 class LibXMLParser : public XMLParser
 {
@@ -130,5 +131,6 @@ protected:
   XMLBuffer*      mSource;
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* LibXMLParser_h */

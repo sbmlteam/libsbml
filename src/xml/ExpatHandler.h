@@ -35,6 +35,7 @@
 
 class  XMLHandler;
 
+  /** @cond doxygen-libsbml-internal */
 
 class ExpatHandler
 {
@@ -117,5 +118,6 @@ protected:
   XMLNamespaces mNamespaces;
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* ExpatHandler_h */

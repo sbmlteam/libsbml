@@ -37,6 +37,7 @@
 class XMLBuffer;
 class XMLHandler;
 
+  /** @cond doxygen-libsbml-internal */
 
 class ExpatParser : public XMLParser
 {
@@ -130,5 +131,6 @@ protected:
   XMLBuffer*    mSource;
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* ExpatParser_h */

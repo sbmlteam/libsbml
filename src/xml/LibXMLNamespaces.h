@@ -32,7 +32,7 @@
 #include <libxml/parser.h>
 #include <sbml/xml/XMLNamespaces.h>
 
-
+  /** @cond doxygen-libsbml-internal */
 
 class LibXMLNamespaces : public XMLNamespaces
 {
@@ -50,5 +50,6 @@ public:
   virtual ~LibXMLNamespaces ();
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* LibXMLNamespaces_h */

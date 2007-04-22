@@ -34,6 +34,7 @@
 
 class LIBLAX_EXTERN XMLToken;
 
+  /** @cond doxygen-libsbml-internal */
 
 class XMLTokenizer : public XMLHandler
 {
@@ -131,6 +132,8 @@ public:
   XMLToken             mCurrent;
   std::deque<XMLToken> mTokens;
 };
+
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* __cplusplus */
 

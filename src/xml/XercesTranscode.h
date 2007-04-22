@@ -31,7 +31,7 @@
 #include <string>
 #include <xercesc/util/XMLString.hpp>
 
-
+  /** @cond doxygen-libsbml-internal */
 /**
  * Transcodes a Xerces-C++ XMLCh* string to the local code page.  This
  * class offers implicit conversion to a C++ string and destroys the
@@ -58,5 +58,6 @@ private:
 
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* XercesTranscode_h */

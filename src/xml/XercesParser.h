@@ -38,6 +38,7 @@
 class SAX2XMLReader;
 class XMLHandler;
 
+  /** @cond doxygen-libsbml-internal */
 
 class XercesParser : public XMLParser
 {
@@ -142,5 +143,6 @@ protected:
 
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* XercesParser_h */

@@ -31,6 +31,7 @@
 #include <expat.h>
 
 #include <sbml/xml/XMLAttributes.h>
+  /** @cond doxygen-libsbml-internal */
 
 
 class ExpatAttributes : public XMLAttributes
@@ -50,5 +51,6 @@ public:
   virtual ~ExpatAttributes ();
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* ExpatAttributes_h */

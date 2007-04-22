@@ -28,6 +28,7 @@
 
 #include <sbml/xml/XMLExtern.h>
 
+  /** @cond doxygen-libsbml-internal */
 
 class LIBLAX_EXTERN XMLBuffer
 {
@@ -60,5 +61,6 @@ protected:
   XMLBuffer& operator= (const XMLBuffer&);
 };
 
+  /** @endcond doxygen-libsbml-internal */
 
 #endif  /* XMLBuffer_h */

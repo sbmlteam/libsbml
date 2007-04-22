@@ -30,7 +30,7 @@
 #include <string>
 #include <libxml/parser.h>
 
-
+  /** @cond doxygen-libsbml-internal */
 /**
  * Transcodes a LibXML xmlChar* string to UTF-8.  This class offers
  * implicit conversion to a C++ string.
@@ -64,5 +64,6 @@ private:
 
 };
 
+  /** @endcond doxygen-libsbml-internal */
 #endif  /* __cplusplus */
 #endif  /* LibXMLTranscode_h */
