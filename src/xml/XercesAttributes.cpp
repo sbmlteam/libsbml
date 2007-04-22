@@ -25,10 +25,14 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesAttributes.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 using namespace xercesc;
 
+/** @endcond doxgen-ignored */
+
+  /** @cond doxygen-libsbml-internal */
 
 /**
  * Creates a new XMLAttributes set that wraps the given "raw" Xerces-C++
@@ -69,3 +73,4 @@ XercesAttributes::XercesAttributes (const Attributes& attrs)
 XercesAttributes::~XercesAttributes ()
 {
 }
+  /** @endcond doxygen-libsbml-internal */

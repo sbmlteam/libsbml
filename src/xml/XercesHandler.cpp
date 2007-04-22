@@ -32,10 +32,14 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesHandler.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 using namespace xercesc;
 
+/** @endcond doxgen-ignored */
+
+  /** @cond doxygen-libsbml-internal */
 
 /**
  * @return the prefix portion of the XML qualified name, or an empty
@@ -200,3 +204,5 @@ XercesHandler::setDocumentLocator (const xercesc::Locator* const locator)
 {
   mLocator = locator;
 }
+  /** @endcond doxygen-libsbml-internal */
+

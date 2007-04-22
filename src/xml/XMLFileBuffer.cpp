@@ -26,9 +26,12 @@
 #include <sbml/xml/XMLFileBuffer.h>
 
 
+/** @cond doxygen-ignored */
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a XMLBuffer based on the given file.  The file will be opened
  * for reading.
@@ -80,3 +83,4 @@ XMLFileBuffer::error ()
   if (mStream) return ferror(mStream);
   else return true;
 }
+  /** @endcond doxygen-libsbml-internal */

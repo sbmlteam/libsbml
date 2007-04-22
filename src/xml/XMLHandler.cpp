@@ -26,9 +26,12 @@
 #include <sbml/xml/XMLToken.h>
 
 
+/** @cond doxygen-ignored */
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new XMLHandler.
  */
@@ -116,3 +119,4 @@ void
 XMLHandler::characters (const XMLToken& data)
 {
 }
+  /** @endcond doxygen-libsbml-internal */

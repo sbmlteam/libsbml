@@ -25,6 +25,7 @@
 #include <cstring>
 #include <sbml/xml/XMLMemoryBuffer.h>
 
+  /** @cond doxygen-libsbml-internal */
 
 /**
  * Creates a XMLBuffer based on the given sequence of bytes in buffer.
@@ -75,3 +76,4 @@ XMLMemoryBuffer::error ()
 {
   return (mBuffer == 0);
 }
+  /** @endcond doxygen-libsbml-internal */

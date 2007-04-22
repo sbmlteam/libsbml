@@ -41,7 +41,7 @@
 using namespace std;
 using namespace xercesc;
 
-  /** @cond doxygen-libsbml-internal */
+/** @cond doxygen-libsbml-internal */
 
 /**
  * Subclass of Xerces' `SAXParseException' that can store the error code.
@@ -142,7 +142,6 @@ public:
   XMLHandler&  mHandler;
 };
 
-  /** @endcond doxygen-libsbml-internal */
 
 /**
  * Creates a new XercesParser.  The parser will notify the given XMLHandler
@@ -481,6 +480,7 @@ XercesParser::reportError (const int code,
   }
 };
 
+  /** @endcond doxygen-libsbml-internal */
 
 //     /* error numbers are from the expat error enumeration
 //      * xerces does not enumerate its saxexceptions

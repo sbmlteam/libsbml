@@ -25,11 +25,14 @@
 #include <sbml/xml/XercesTranscode.h>
 #include <sbml/xml/XercesNamespaces.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 using namespace xercesc;
 
+/** @endcond doxgen-ignored */
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new list of XML namespaces declarations from a "raw" Xerces-C++
  * Attributes set.
@@ -61,3 +64,4 @@ XercesNamespaces::XercesNamespaces (const xercesc::Attributes& attrs)
 XercesNamespaces::~XercesNamespaces ()
 {
 }
+  /** @endcond doxygen-libsbml-internal */

@@ -31,9 +31,11 @@
 #include <sbml/xml/LibXMLTranscode.h>
 #include <sbml/xml/LibXMLHandler.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
 /**
  * The functions below are internal to this file.  They simply redirect to
@@ -139,6 +141,7 @@ static xmlSAXHandler SAXHandler =
 };
 
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new LibXMLHandler.  LibXML events will be redirected to the
  * given XMLHandler.
@@ -322,3 +325,4 @@ LibXMLHandler::getLine () const
 
   return line;
 }
+  /** @endcond doxygen-libsbml-internal */

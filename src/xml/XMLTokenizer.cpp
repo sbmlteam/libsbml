@@ -27,9 +27,13 @@
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLTokenizer.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 
+/** @endcond doxgen-ignored */
+
+  /** @cond doxygen-libsbml-internal */
 
 /**
  * Creates a new XMLTokenizer.
@@ -222,3 +226,4 @@ XMLTokenizer::characters (const XMLToken& data)
     mCurrent = data;
   }
 }
+  /** @endcond doxygen-libsbml-internal */

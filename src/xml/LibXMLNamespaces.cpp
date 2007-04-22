@@ -25,10 +25,13 @@
 #include <sbml/xml/LibXMLTranscode.h>
 #include <sbml/xml/LibXMLNamespaces.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new list of XML namespaces declarations from a "raw" LibXML
  * prefix/URI pairs.
@@ -54,3 +57,4 @@ LibXMLNamespaces::LibXMLNamespaces (  const xmlChar**     namespaces
 LibXMLNamespaces::~LibXMLNamespaces ()
 {
 }
+  /** @endcond doxygen-libsbml-internal */

@@ -26,9 +26,12 @@
 #include <sbml/xml/LibXMLAttributes.h>
 
 
+/** @cond doxygen-ignored */
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new XMLAttributes set from the given "raw" LibXML attributes.
  */
@@ -62,3 +65,4 @@ LibXMLAttributes::LibXMLAttributes (  const xmlChar**     attributes
 LibXMLAttributes::~LibXMLAttributes ()
 {
 }
+  /** @endcond doxygen-libsbml-internal */

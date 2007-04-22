@@ -31,11 +31,15 @@
 #include <sbml/xml/ExpatAttributes.h>
 #include <sbml/xml/ExpatHandler.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 
 
-/**
+/** @endcond doxgen-ignored */
+
+/** @cond doxygen-libsbml-internal */
+/*
  * The functions below are internal to this file.  They simply redirect to
  * the corresponding ExpatHandler method (assuming UserData contains a
  * pointer to ExpatHandler).  I first saw this redirect scheme used in
@@ -216,3 +220,5 @@ ExpatHandler::getLine () const
 {
   return static_cast<unsigned int>( XML_GetCurrentLineNumber(mParser) );
 }
+
+/** @endcond doxygen-libsbml-internal */

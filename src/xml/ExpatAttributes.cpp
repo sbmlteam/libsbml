@@ -24,10 +24,13 @@
 
 #include <sbml/xml/ExpatAttributes.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new XMLAttributes set from the given "raw" Expat attributes.
  * The Expat attribute names are assumed to be in namespace triplet form
@@ -55,3 +58,4 @@ ExpatAttributes::ExpatAttributes (const XML_Char** attrs, const XML_Char sep)
 ExpatAttributes::~ExpatAttributes ()
 {
 }
+  /** @endcond doxygen-libsbml-internal */

@@ -30,13 +30,15 @@
 #include <sbml/xml/LibXMLHandler.h>
 #include <sbml/xml/LibXMLParser.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
 static const int BUFFER_SIZE = 8192;
 
-
+  /** @cond doxygen-libsbml-internal */
 
 
 /**
@@ -554,4 +556,5 @@ LibXMLParser::reportError (const int code,
  *  * http://stuff.mit.edu/afs/sipb/project/php/share/gtk-doc/html/libxml2/libxml2-parser.html
  */
 
+  /** @endcond doxygen-libsbml-internal */
 

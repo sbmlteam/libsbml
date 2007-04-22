@@ -31,13 +31,15 @@
 #include <sbml/xml/ExpatHandler.h>
 #include <sbml/xml/ExpatParser.h>
 
+/** @cond doxygen-ignored */
 
 using namespace std;
 
+/** @endcond doxgen-ignored */
 
 static const int BUFFER_SIZE = 8192;
 
-
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new ExpatParser.  The parser will notify the given XMLHandler
  * of parse events and errors.
@@ -322,3 +324,6 @@ ExpatParser::reportError (const int expatCode,
     }
   }
 }
+  /** @endcond doxygen-libsbml-internal */
+
+

@@ -25,6 +25,7 @@
 #include <sbml/xml/XMLBuffer.h>
 
 
+  /** @cond doxygen-libsbml-internal */
 /**
  * Creates a new XMLBuffer.
  */
@@ -39,3 +40,4 @@ XMLBuffer::XMLBuffer ()
 XMLBuffer::~XMLBuffer ()
 {
 }
+  /** @endcond doxygen-libsbml-internal */
