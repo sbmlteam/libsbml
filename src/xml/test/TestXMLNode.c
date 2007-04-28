@@ -71,7 +71,9 @@ START_TEST (test_XMLNode_createFromToken)
   fail_unless(node != NULL);
   fail_unless(XMLNode_getNumChildren(node) == 0);
 
-  /*fail_unless (XMLToken_getName((XMLToken_t*)(node)) == "attr");*/
+  fail_unless(strcmp(XMLNode_getName(node), "attr") == 0);
+  fail_unless(strcmp(XMLNode_getPrefix(node), "prefix") == 0);
+  fail_unless(strcmp(XMLNode_getURI(node), "uri") == 0);
   fail_unless (XMLNode_getChild(node, 1) != NULL);
 
   XMLToken_free(token);

@@ -190,6 +190,30 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
  * 
  **/
 LIBLAX_EXTERN
+const char *
+XMLNode_getName (const XMLNode_t *node);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNode_getPrefix (const XMLNode_t *node);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNode_getURI (const XMLNode_t *node);
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n);
 

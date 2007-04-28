@@ -268,6 +268,39 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
  * 
  **/
 LIBLAX_EXTERN
+const char *
+XMLNode_getName (const XMLNode_t *node)
+{
+  return node->getName().empty() ? NULL : node->getName().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNode_getPrefix (const XMLNode_t *node)
+{
+  return node->getPrefix().empty() ? NULL : node->getPrefix().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
+const char *
+XMLNode_getURI (const XMLNode_t *node)
+{
+  return node->getURI().empty() ? NULL : node->getURI().c_str();
+}
+
+
+/**
+ * 
+ **/
+LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n)
 {
@@ -285,3 +318,4 @@ XMLNode_getNumChildren (const XMLNode_t *node)
   return node->getNumChildren();
 }
 
+LIBLAX_EXTERN
