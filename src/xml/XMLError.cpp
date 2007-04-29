@@ -229,6 +229,49 @@ XMLError_createWithIdAndMessage (unsigned int id, const char * message)
 }
 
 /**
+ * Creates a new XMLError to report that something occurred at the given
+ * line and column.  Each XMLError also has an identification number, a
+ * category, and a severity level associated with it.
+ *
+ * @param id an unsigned int, the identification number of the error.
+ * @param message a string, the error message.
+ * @param severity XMLError_Severity, severity of the error.
+ * @param category a string, the category to which the error belongs.
+ * @param line an unsigned int, the line number at which the error occurs.
+ * @param column an unsigned int, the column number at which the error occurs.
+ *
+ */
+
+
+//LIBLAX_EXTERN
+//XMLError_t*
+//XMLError_createWithAll (unsigned int id, const char * message, XMLError_Severity severity,
+//                        const char * category, unsigned int line, unsigned int column)
+//{
+//  XMLError::Severity s;
+//  switch (severity)
+//  {
+//  case Info:
+//    s = XMLError::Severity::Info;
+//    break;
+//  case Warning:
+//    s = XMLError::Severity::Warning;
+//    break;
+//  case Error:
+//    s = XMLError::Severity::Error;
+//    break;
+//  case Fatal:
+//    s = XMLError::Severity::Fatal;
+//    break;
+//  default:
+//    s = XMLError::Severity::Error;
+//    break;
+//  }
+//  return new(nothrow) XMLError(id, message, s, category, line, column);
+//}
+
+
+/**
  * Frees the given XMLError_t structure.
  *
  * @param error the XMLError_t structure to be freed.

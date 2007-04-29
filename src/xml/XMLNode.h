@@ -142,8 +142,10 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   std::vector<XMLNode> mChildren;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
@@ -152,6 +154,9 @@ protected:
 #ifndef SWIG
 
 BEGIN_C_DECLS
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
 
 /**

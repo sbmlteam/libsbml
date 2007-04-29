@@ -440,10 +440,13 @@ operator<< (XMLOutputStream& stream, const XMLToken& token)
   return stream;
 }
 
+/** @cond doxygen-c-only */
 
 /**
- * 
- **/
+ * Creates a new empty XMLToken_t structure and returns a pointer to it.
+ *
+ * @return pointer to new XMLToken_t structure.
+ */
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_create (void)
@@ -453,8 +456,13 @@ XMLToken_create (void)
 
 
 /**
- * 
- **/
+ * Creates a new end element XMLToken_t structure with XMLTriple_t structure set
+ * and returns a pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ *
+ * @return pointer to new XMLToken_t structure.
+ */
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTriple (const XMLTriple_t *triple)
@@ -464,8 +472,14 @@ XMLToken_createWithTriple (const XMLTriple_t *triple)
 
 
 /**
- * 
- **/
+ * Creates a new start element XMLToken_t structure with XMLTriple_t and XMLAttributes_t
+ * structures set and returns a pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ * @param attr XMLAttributes_t structure to be set.
+ *
+ * @return pointer to new XMLToken_t structure.
+ */
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
@@ -476,8 +490,15 @@ XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
 
 
 /**
- * 
- **/
+ * Creates a new start element XMLToken_t structure with XMLTriple_t, XMLAttributes_t
+ * and XMLNamespaces_t structures set and returns a pointer to it.
+ *
+ * @param triple XMLTriple_t structure to be set.
+ * @param attr XMLAttributes_t structure to be set.
+ * @param ns XMLNamespaces_t structure to be set.
+ *
+ * @return pointer to new XMLToken_t structure.
+ */
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
@@ -489,8 +510,12 @@ XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
 
 
 /**
- * 
- **/
+ * Creates a text XMLToken_t structure.
+ *
+ * @param text a string, the text to be added to the XMLToken_t structure
+ *
+ * @return pointer to new XMLToken_t structure.
+ */
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithText (const char *text)
@@ -499,7 +524,9 @@ XMLToken_createWithText (const char *text)
 }
 
 /**
- * 
+ * Destroys this XMLToken_t structure.
+ *
+ * @param token XMLToken_t structure to be freed.
  **/
 LIBLAX_EXTERN
 void
@@ -510,7 +537,10 @@ XMLToken_free (XMLToken_t *token)
 
 
 /**
- * 
+ * Appends characters to this XML text content.
+ *
+ * @param token XMLToken_t structure to be appended to.
+ * @param text string, characters to append
  **/
 LIBLAX_EXTERN
 void
@@ -524,8 +554,12 @@ XMLToken_append (XMLToken_t *token, const char *text)
 
 
 /**
- * 
- **/
+ * Returns the attributes of this element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the XMLAttributes_t of this XML element.
+ */
 LIBLAX_EXTERN
 const XMLAttributes_t *
 XMLToken_getAttributes (const XMLToken_t *token)
@@ -535,8 +569,12 @@ XMLToken_getAttributes (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Returns the text of this element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the characters of this XML text.
+ */
 LIBLAX_EXTERN
 const char *
 XMLToken_getCharacters (const XMLToken_t *token)
@@ -546,8 +584,12 @@ XMLToken_getCharacters (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Returns the column at which this XMLToken_t structure occurred.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the column at which this XMLToken_t structure occurred.
+ */
 LIBLAX_EXTERN
 unsigned int
 XMLToken_getColumn (const XMLToken_t *token)
@@ -557,8 +599,12 @@ XMLToken_getColumn (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Returns the line at which this XMLToken_t structure occurred.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the line at which this XMLToken_t structure occurred.
+ */
 LIBLAX_EXTERN
 unsigned int
 XMLToken_getLine (const XMLToken_t *token)
@@ -568,8 +614,12 @@ XMLToken_getLine (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Returns the XML namespace declarations for this XML element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the XML namespace declarations for this XML element.
+ */
 LIBLAX_EXTERN
 const XMLNamespaces_t *
 XMLToken_getNamespaces (const XMLToken_t *token)
@@ -579,8 +629,12 @@ XMLToken_getNamespaces (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Returns the (unqualified) name of this XML element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the (unqualified) name of this XML element.
+ */
 LIBLAX_EXTERN
 const char *
 XMLToken_getName (const XMLToken_t *token)
@@ -590,8 +644,15 @@ XMLToken_getName (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Returns the namespace prefix of this XML element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the namespace prefix of this XML element.  
+ *
+ * @note If no prefix
+ * exists, an empty string will be return.
+ */
 LIBLAX_EXTERN
 const char *
 XMLToken_getPrefix (const XMLToken_t *token)
@@ -601,8 +662,12 @@ XMLToken_getPrefix (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Returns the namespace URI of this XML element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the namespace URI of this XML element.
+ */
 LIBLAX_EXTERN
 const char *
 XMLToken_getURI (const XMLToken_t *token)
@@ -612,8 +677,13 @@ XMLToken_getURI (const XMLToken_t *token)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLToken_t structure is an XML element.
  * 
- **/
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLToken_t structure is an XML element, @c zero (false) otherwise.
+ */
 LIBLAX_EXTERN
 int
 XMLToken_isElement (const XMLToken_t *token)
@@ -623,8 +693,13 @@ XMLToken_isElement (const XMLToken_t *token)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLToken_t structure is an XML end element.
  * 
- **/
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLToken_t structure is an XML end element, @c zero (false) otherwise.
+ */
 LIBLAX_EXTERN
 int
 XMLToken_isEnd (const XMLToken_t *token) 
@@ -634,8 +709,15 @@ XMLToken_isEnd (const XMLToken_t *token)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLToken_t structure is an XML end element for the given start element.
  * 
- **/
+ * @param token XMLToken_t structure to be queried.
+ * @param element XMLToken_t structure, element for which query is made.
+ *
+ * @return @c non-zero (true) if this XMLToken_t structure is an XML end element for the given
+ * XMLToken_t structure start element, @c zero (false) otherwise.
+ */
 LIBLAX_EXTERN
 int
 XMLToken_isEndFor (const XMLToken_t *token, const XMLToken_t *element)
@@ -645,8 +727,14 @@ XMLToken_isEndFor (const XMLToken_t *token, const XMLToken_t *element)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLToken_t structure is an end of file marker.
  * 
- **/
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLToken_t structure is an end of file (input) marker, @c zero (false)
+ * otherwise.
+ */
 LIBLAX_EXTERN
 int
 XMLToken_isEOF (const XMLToken_t *token)
@@ -656,8 +744,13 @@ XMLToken_isEOF (const XMLToken_t *token)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLToken_t structure is an XML start element.
  * 
- **/
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return @c true if this XMLToken_t structure is an XML start element, @c false otherwise.
+ */
 LIBLAX_EXTERN
 int
 XMLToken_isStart (const XMLToken_t *token)
@@ -667,8 +760,13 @@ XMLToken_isStart (const XMLToken_t *token)
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLToken_t structure is an XML text element.
  * 
- **/
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLToken_t structure is an XML text element, @c zero (false) otherwise.
+ */
 LIBLAX_EXTERN
 int
 XMLToken_isText (const XMLToken_t *token)
@@ -678,8 +776,11 @@ XMLToken_isText (const XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Declares this XML start element is also an end element.
+ *
+ * @param token XMLToken_t structure to be set.
+ *
+ */
 LIBLAX_EXTERN
 void
 XMLToken_setEnd (XMLToken_t *token)
@@ -689,11 +790,15 @@ XMLToken_setEnd (XMLToken_t *token)
 
 
 /**
- * 
- **/
+ * Declares this XMLToken_t structure is an end-of-file (input) marker.
+ *
+ * @param token XMLToken_t structure to be set.
+ *
+ */
 LIBLAX_EXTERN
 void
 XMLToken_setEOF (XMLToken_t *token)
 {
   token->setEOF();
 }
+/** @endcond doxygen-c-only */

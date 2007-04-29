@@ -127,6 +127,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Unitialized XMLInputStreams may only be created by subclasses.
@@ -145,6 +146,7 @@ protected:
   XMLToken     mEOF;
   XMLTokenizer mTokenizer;
   XMLParser*   mParser;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
@@ -154,6 +156,9 @@ protected:
 #ifndef SWIG
 
 BEGIN_C_DECLS
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
 /**
  * 

@@ -209,6 +209,7 @@ XMLErrorLog::setParser (const XMLParser* p)
   mParser = p;
 }
 
+/** @cond doxygen-c-only */
 
 /**
  * Creates a new empty XMLErrorLog_t structure and returns it.
@@ -325,3 +326,4 @@ XMLErrorLog_setElement (XMLErrorLog_t *log, const char *name)
 {
   log->setElement(name);
 }
+/** @endcond doxygen-c-only */

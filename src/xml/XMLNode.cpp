@@ -205,10 +205,14 @@ XMLOutputStream& operator<< (XMLOutputStream& stream, const XMLNode& node)
   return stream;
 }
 
+/** @cond doxygen-c-only */
 
 /**
- * 
- **/
+ * Creates a new empty XMLNode_t structure with no children
+ * and returns a pointer to it.
+ *
+ * @return pointer to the new XMLNode_t structure.
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_create (void)
@@ -218,8 +222,13 @@ XMLNode_create (void)
 
 
 /**
- * 
- **/
+ * Creates a new XMLNode_t structure by copying token and returns a pointer
+ * to it.
+ *
+ * @param token XMLToken_t structure to be copied to XMLNode_t structure.
+ *
+ * @return pointer to the new XMLNode_t structure.
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createFromToken (const XMLToken_t *token)
@@ -230,8 +239,16 @@ XMLNode_createFromToken (const XMLToken_t *token)
 #if 0
 
 /**
- * 
- **/
+ * Creates a new XMLNode_t structure by reading XMLTokens from stream.  
+ *
+ * The stream must
+ * be positioned on a start element (stream.peek().isStart() == true) and
+ * will be read until the matching end element is found.
+ *
+ * @param stream XMLInputStream from which XMLNode_t structure is to be created.
+ *
+ * @return pointer to the new XMLNode_t structure.
+ */
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createFromStream (XMLInputStream_t *stream)
@@ -243,8 +260,10 @@ XMLNode_createFromStream (XMLInputStream_t *stream)
 
 
 /**
- * 
- **/
+ * Destroys this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be freed.
+ */
 LIBLAX_EXTERN
 void
 XMLNode_free (XMLNode_t *node)
@@ -254,8 +273,11 @@ XMLNode_free (XMLNode_t *node)
 
 
 /**
- * 
- **/
+ * Adds a copy of child node to this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to which child is to be added.
+ * @param child XMLNode_t structure to be added as child.
+ */
 LIBLAX_EXTERN
 void
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
@@ -265,8 +287,12 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
 
 
 /**
- * 
- **/
+ * Returns the (unqualified) name of this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the (unqualified) name of this XML element.
+ */
 LIBLAX_EXTERN
 const char *
 XMLNode_getName (const XMLNode_t *node)
@@ -276,8 +302,15 @@ XMLNode_getName (const XMLNode_t *node)
 
 
 /**
- * 
- **/
+ * Returns the namespace prefix of this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the namespace prefix of this XML element.  
+ *
+ * @note If no prefix
+ * exists, an empty string will be return.
+ */
 LIBLAX_EXTERN
 const char *
 XMLNode_getPrefix (const XMLNode_t *node)
@@ -287,8 +320,12 @@ XMLNode_getPrefix (const XMLNode_t *node)
 
 
 /**
- * 
- **/
+ * Returns the namespace URI of this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the namespace URI of this XML element.
+ */
 LIBLAX_EXTERN
 const char *
 XMLNode_getURI (const XMLNode_t *node)
@@ -298,8 +335,12 @@ XMLNode_getURI (const XMLNode_t *node)
 
 
 /**
- * 
- **/
+ * Returns the nth child of this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the nth child of this XMLNode_t structure.
+ */
 LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n)
@@ -309,8 +350,12 @@ XMLNode_getChild (const XMLNode_t *node, const int n)
 
 
 /**
- * 
- **/
+ * Returns the number of children for this XMLNode_t structure.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the number of children for this XMLNode_t structure.
+ */
 LIBLAX_EXTERN
 unsigned int
 XMLNode_getNumChildren (const XMLNode_t *node)
@@ -318,4 +363,5 @@ XMLNode_getNumChildren (const XMLNode_t *node)
   return node->getNumChildren();
 }
 
-LIBLAX_EXTERN
+
+/** @endcond doxygen-c-only */

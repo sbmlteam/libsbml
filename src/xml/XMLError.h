@@ -192,6 +192,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
 
   unsigned int  mId;
@@ -203,6 +204,7 @@ protected:
 
   unsigned int  mLine;
   unsigned int  mColumn;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -233,6 +235,11 @@ LIBLAX_EXTERN
 XMLError_t*
 XMLError_createWithIdAndMessage (unsigned int id, const char * message);
 
+//LIBLAX_EXTERN
+//XMLError_t*
+//XMLError_createWithAll (unsigned int id, const char * message, XMLError_Severity severity,
+//                        const char * category, unsigned int line, unsigned int column);
+//
 LIBLAX_EXTERN
 void
 XMLError_free(XMLError_t* error);

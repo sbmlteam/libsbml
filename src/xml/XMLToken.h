@@ -150,7 +150,7 @@ public:
    * @return the characters of this XML text.
    */
   const std::string& getCharacters () const;
-
+  
   /**
    * Returns the column at which this XMLToken occurred.
    *
@@ -294,6 +294,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   XMLTriple     mTriple;
   XMLAttributes mAttributes;
@@ -307,6 +308,7 @@ protected:
 
   unsigned int mLine;
   unsigned int mColumn;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
@@ -314,9 +316,11 @@ protected:
 #ifndef SWIG
 
 BEGIN_C_DECLS
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
-
-/**
+/*
  * 
  **/
 LIBLAX_EXTERN

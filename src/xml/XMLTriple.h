@@ -120,11 +120,13 @@ public:
   bool isEmpty () const;
 
 private:
+  /** @cond doxygen-libsbml-internal */
 
   std::string  mName;
   std::string  mURI;
   std::string  mPrefix;
 
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */

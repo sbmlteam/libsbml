@@ -210,6 +210,7 @@ XMLInputStream::toString ()
 
 
 #if 0
+/** @cond doxygen-c-only */
 
 /**
  * 
@@ -342,5 +343,6 @@ XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)
 {
   stream->setErrorLog(log);
 }
+/** @endcond doxygen-c-only */
 
 #endif

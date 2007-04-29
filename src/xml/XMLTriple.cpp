@@ -131,10 +131,13 @@ XMLTriple::isEmpty () const
         && getURI().size() == 0
         && getPrefix().size() == 0);
 }
+/** @cond doxygen-c-only */
 
 /**
- * 
- **/
+ * Creates a new empty XMLTriple_t structure and returns a pointer to it.
+ *
+ * @return pointer to created XMLTriple_t structure.
+ */
 LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_create (void)
@@ -144,8 +147,14 @@ XMLTriple_create (void)
 
 
 /**
- * 
- **/
+ * Creates a new XMLTriple_t structure with name, prefix and uri.
+ *
+ * @param name a string, name for the XMLTriple_t structure.
+ * @param uri a string, URI of the XMLTriple_t structure.
+ * @param prefix a string, prefix for the URI of the XMLTriple_t structure.
+ *
+ * @return pointer to the created XMLTriple_t structure.
+   */
 LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_createWith (const char *name, const char *uri, const char *prefix)
@@ -155,7 +164,9 @@ XMLTriple_createWith (const char *name, const char *uri, const char *prefix)
 
 
 /**
- * 
+ * Destroys this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be freed.
  **/
 LIBLAX_EXTERN
 void
@@ -166,8 +177,12 @@ XMLTriple_free (XMLTriple_t *triple)
 
 
 /**
- * 
- **/
+ * Returns the name from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return name from this XMLTriple_t structure.
+ */
 LIBLAX_EXTERN
 const char *
 XMLTriple_getName (const XMLTriple_t *triple)
@@ -177,8 +192,12 @@ XMLTriple_getName (const XMLTriple_t *triple)
 
 
 /**
- * 
- **/
+ * Returns the prefix from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return prefix from this XMLTriple_t structure.
+ */
 LIBLAX_EXTERN
 const char *
 XMLTriple_getPrefix (const XMLTriple_t *triple)
@@ -188,11 +207,16 @@ XMLTriple_getPrefix (const XMLTriple_t *triple)
 
 
 /**
- * 
- **/
+ * Returns the URI from this XMLTriple_t structure.
+ *
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return URI from this XMLTriple_t structure.
+ */
 LIBLAX_EXTERN
 const char *
 XMLTriple_getURI (const XMLTriple_t *triple)
 {
   return triple->getURI().empty() ? NULL : triple->getURI().c_str();
 }
+/** @endcond doxygen-c-only */

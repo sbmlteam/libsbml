@@ -211,6 +211,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Unitialized XMLOutputStreams may only be created by subclasses.
@@ -275,6 +276,7 @@ protected:
   bool mDoIndent;
   unsigned int mIndent;
   bool mInText;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */

@@ -162,6 +162,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Creates a new XMLParser.  The parser will notify the given XMLHandler
@@ -181,6 +182,7 @@ protected:
 
   XMLErrorLog* mErrorLog;
   bool         mOwnLog;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
