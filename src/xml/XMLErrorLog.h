@@ -62,12 +62,16 @@ public:
 
   /**
    * Logs the given XMLError.
+   *
+   * @param error XMLError, the error to be logged.
    */
   void add (const XMLError& error);
 
   /**
    * Logs (copies) the XMLErrors in the given XMLError list to this
    * XMLErrorLog.
+   *
+   * @param errors list, a list of XMLError to be added to the log.
    */
   void add (const std::list<XMLError>& errors);
 
@@ -88,11 +92,17 @@ public:
   void attributeRequired (const std::string& name);
 
   /**
+   * Returns the nth XMLError in this log.
+   *
+   * @param n unsigned int number of the error to retrieve.
+   *
    * @return the nth XMLError in this log.
    */
   const XMLError* getError (unsigned int n) const;
 
   /**
+   * Returns the number of errors that have been logged.
+   *
    * @return the number of errors that have been logged.
    */
   unsigned int getNumErrors () const;
@@ -100,6 +110,8 @@ public:
   /**
    * Sets the element name to use when logging attributeTypeError() and
    * attributeRequired() errors (optional).
+   *
+   * @param name string, the name of the element.
    */
   void setElement (const std::string& name);
 
@@ -109,15 +121,19 @@ public:
    * The XMLParser will be used to obtain the current line and column
    * number as XMLErrors are logged (if they have a line and column number
    * of zero).
+   *
+   * @param p XMLParser, the parser to set.
    */
   void setParser (const XMLParser* p);
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   std::vector<XMLError>  mErrors;
   std::string            mElement;
   const XMLParser*       mParser;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
@@ -129,6 +145,9 @@ typedef enum { Boolean = 0, Double = 1, Integer = 2 } XMLErrorLog_DataType;
 #ifndef SWIG
 
 BEGIN_C_DECLS
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
 
 /**
@@ -137,6 +156,11 @@ BEGIN_C_DECLS
 LIBLAX_EXTERN
 XMLErrorLog_t *
 XMLErrorLog_create (void);
+
+
+LIBLAX_EXTERN
+void
+XMLErrorLog_free (XMLErrorLog_t *log);
 
 
 /**

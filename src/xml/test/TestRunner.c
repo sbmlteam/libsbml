@@ -18,6 +18,7 @@ Suite *create_suite_XMLTriple (void);
 Suite *create_suite_XMLToken (void);
 Suite *create_suite_CopyAndClone (void);
 Suite *create_suite_XMLError (void);
+Suite *create_suite_XMLErrorLog (void);
 
 int
 main (void) 
@@ -31,6 +32,7 @@ main (void)
   srunner_add_suite(runner, create_suite_XMLToken());
   srunner_add_suite(runner, create_suite_XMLNode());
   srunner_add_suite(runner, create_suite_XMLError());
+  srunner_add_suite(runner, create_suite_XMLErrorLog());
 
 
 #ifdef TRACE_MEMORY

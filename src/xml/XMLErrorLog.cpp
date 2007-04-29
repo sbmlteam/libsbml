@@ -211,7 +211,9 @@ XMLErrorLog::setParser (const XMLParser* p)
 
 
 /**
- * 
+ * Creates a new empty XMLErrorLog_t structure and returns it.
+ *
+ * @return the new XMLErrorLog_t structure.
  **/
 LIBLAX_EXTERN
 XMLErrorLog_t *
@@ -222,19 +224,39 @@ XMLErrorLog_create (void)
 
 
 /**
- * 
- **/
+ * Frees the given XMLError_t structure.
+ *
+ * @param log XMLErrorLog_t, the error log to be freed.
+ */
 LIBLAX_EXTERN
 void
-XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *xe)
+XMLErrorLog_free (XMLErrorLog_t *log)
 {
-  log->add(*xe);
+    delete static_cast<XMLErrorLog*>(log);
 }
 
 
 /**
- * 
- **/
+ * Logs the given XMLError_t structure.
+ *
+ * @param log XMLErrorLog_t, the error log to be added to.
+ * @param error XMLError_t, the error to be logged.
+ */
+LIBLAX_EXTERN
+void
+XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error)
+{
+  log->add(*error);
+}
+
+
+/**
+ * Logs an attribute datatype error.
+ *
+ * @param log XMLErrorLog_t, the error log to be added to.
+ * @param  name  Name of the attribute
+ * @param  type  The datatype of the attribute value.
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_attributeTypeError (XMLErrorLog_t *log,
@@ -246,8 +268,11 @@ XMLErrorLog_attributeTypeError (XMLErrorLog_t *log,
 
 
 /**
- * 
- **/
+ * Logs an error indicating a required attribute was missing.
+ *
+ * @param log XMLErrorLog_t, the error log to be added to.
+ * @param  name  Name of the attribute
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_attributeRequired (XMLErrorLog_t *log, const char *name)
@@ -257,8 +282,13 @@ XMLErrorLog_attributeRequired (XMLErrorLog_t *log, const char *name)
 
 
 /**
- * 
- **/
+ * Returns the nth XMLError_t in this log.
+ *
+ * @param log XMLErrorLog_t, the error log to be queried.
+ * @param n unsigned int number of the error to retrieve.
+ *
+ * @return the nth XMLError_t in this log.
+ */
 LIBLAX_EXTERN
 const XMLError_t *
 XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n)
@@ -268,8 +298,12 @@ XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n)
 
 
 /**
- * 
- **/
+ * Returns the number of errors that have been logged.
+ *
+ * @param log XMLErrorLog_t, the error log to be queried.
+ *
+ * @return the number of errors that have been logged.
+ */
 LIBLAX_EXTERN
 unsigned int
 XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
@@ -279,8 +313,12 @@ XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
 
 
 /**
- * 
- **/
+ * Sets the element name to use when logging attributeTypeError() and
+ * attributeRequired() errors (optional).
+ *
+ * @param log XMLErrorLog_t, the error log whose element name is to be set.
+ * @param name string, the name of the element.
+ */
 LIBLAX_EXTERN
 void
 XMLErrorLog_setElement (XMLErrorLog_t *log, const char *name)
