@@ -367,9 +367,11 @@ public:
 #endif  /* !SWIG */
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   std::vector<XMLTriple>    mNames;
   std::vector<std::string>  mValues;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
