@@ -27,6 +27,7 @@
 
 
 #include <sbml/xml/XMLExtern.h>
+#include <sbml/common/sbmlfwd.h>
 
 
 #ifdef __cplusplus
@@ -49,6 +50,14 @@ public:
    * Creates a new XMLError to report that something occurred at the given
    * line and column.  Each XMLError also has an identification number, a
    * category, and a severity level associated with it.
+   *
+   * @param id an unsigned int, the identification number of the error.
+   * @param message a string, the error message.
+   * @param severity XMLError::Severity, severity of the error.
+   * @param category a string, the category to which the error belongs.
+   * @param line an unsigned int, the line number at which the error occurs.
+   * @param column an unsigned int, the column number at which the error occurs.
+    *
    */
   XMLError
   (
@@ -67,69 +76,99 @@ public:
 
 
   /**
+   * Returns the id of this XMLError.
+   *
    * @return the id of this XMLError.
    */
   unsigned int getId () const;
 
   /**
+   * Returns the message text of this XMLError.
+   *
    * @return the message text of this XMLError.
    */
   const std::string& getMessage () const;
 
   /**
-   * @return the line number where this XMLError ocurred.
+   * Return the line number where this XMLError occurred.
+   *
+   * @return the line number where this XMLError occurred.
    */
   unsigned int getLine () const;
 
   /**
+   * Return the column number where this XMLError occurred.
+   *
    * @return the column number where this XMLError occurred.
    */
   unsigned int getColumn () const;
 
   /**
-   * @return the severity of this XMLError.  XMLError severity levels
+   * Return the severity of this XMLError.  XMLError severity levels
    * correspond to those defined in the XML specification (with the
    * addition of Info for informational messages).
+   *
+   * @return the severity of this XMLError.
    */
   Severity getSeverity () const;
 
   /**
-   * @return the category of this XMLError.  A category is a string,
+   * Return the category of this XMLError.  A category is a string,
    * similiar in spirit to an XML namespace, which can be used to partition
    * errors into distinct groups.  Among other things, this can be used to
    * prevent id conflicts by uniquely identifying an XMLError by both id
    * and category.
+   *
+   * @return the category of this XMLError.
    */
   const std::string& getCategory () const;
 
   /**
-   * @return true if this XMLError is for informational purposes only,
-   * false otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLError is for information only.
+   *
+   * @return @c true if this XMLError is for informational purposes only,
+   * @c false otherwise.
    */
   bool isInfo () const;
 
+
   /**
-   * @return true if this XMLError is a warning, false otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLError is a warning.
+   *
+   * @return @c true if this XMLError is a warning, @c false otherwise.
    */
   bool isWarning () const;
 
+
   /**
-   * @return true if this XMLError is an error, false otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLError is an error.
+   *
+   * @return @c true if this XMLError is an error, @c false otherwise.
    */
   bool isError () const;
 
   /**
-   * @return true if this XMLError is a fatal error, false otherwise.
+   * Predicate returning @c true or @c false depending on whether 
+   * this XMLError is a fatal error.
+   *
+   * @return @c true if this XMLError is a fatal error, @c false otherwise.
    */
   bool isFatal () const;
 
   /**
    * Sets the line number where this XMLError occurred.
+   * 
+   * @param line an unsigned int, the line number to set.
    */
   void setLine (unsigned int line);
 
   /**
    * Sets the column number where this XMLError occurred.
+   * 
+   * @param column an unsigned int, the column number to set.
    */
   void setColumn (unsigned int column);
 
@@ -141,6 +180,9 @@ public:
    * by a newline):
    *
    *   line: (id) message
+   *
+   * @param stream the output stream to write to.
+   * @param errorthe XMLError to write.
    */
   LIBLAX_EXTERN
   friend
@@ -174,116 +216,104 @@ typedef enum { Info = 0, Warning = 1, Error = 2, Fatal = 3 } XMLError_Severity;
 
 
 BEGIN_C_DECLS
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
 
-#ifndef __cplusplus
-typedef struct XMLError_t;
-#endif
+//#ifndef __cplusplus
+//typedef struct XMLError_t;
+//#endif
+
+LIBLAX_EXTERN
+XMLError_t*
+XMLError_create (void);
+
+LIBLAX_EXTERN
+XMLError_t*
+XMLError_createWithIdAndMessage (unsigned int id, const char * message);
+
+LIBLAX_EXTERN
+void
+XMLError_free(XMLError_t* error);
 
 
 /**
- * @return the id of this XMLError.
  */
 LIBLAX_EXTERN
 unsigned int
-XMLError_getId (const XMLError_t *xe);
+XMLError_getId (const XMLError_t *error);
 
 
 /**
- * @return the message text of this XMLError.
  */
 LIBLAX_EXTERN
 const char *
-XMLError_getMessage (const XMLError_t *xe);
+XMLError_getMessage (const XMLError_t *error);
 
 
 /**
- * @return the line number where this XMLError ocurred.
  */
 LIBLAX_EXTERN
 unsigned int
-XMLError_getLine (const XMLError_t *xe);
+XMLError_getLine (const XMLError_t *error);
 
 
 /**
- * @return the column number where this XMLError occurred.
  */
 LIBLAX_EXTERN
 unsigned int
-XMLError_getColumn (const XMLError_t *xe);
+XMLError_getColumn (const XMLError_t *error);
 
 
 /**
- * @return the severity of this XMLError.  XMLErrors severity levels
- * correspond to those defined in the XML specification (with the addition
- * of Info for informational messages).
  *
- *   0 - Info
- *   1 - Warning
- *   2 - Error
- *   3 - Fatal
  */
 LIBLAX_EXTERN
 XMLError_Severity
-XMLError_getSeverity (const XMLError_t *xe);
+XMLError_getSeverity (const XMLError_t *error);
 
 
 /**
- * @return the category of this XMLError.  A category is a string, similiar
- * in spirit to an XML namespace, which can be used to partition errors
- * into distinct groups.  Among other things, this can be used to prevent
- * id conflicts by uniquely identifying an XMLError by both id and
- * category.
  */
 LIBLAX_EXTERN
 const char *
-XMLError_getCategory (const XMLError_t *xe);
+XMLError_getCategory (const XMLError_t *error);
 
 
 /**
- * @return true (non-zero) if this XMLError is for informational purposes
- * only, false (0) otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isInfo (const XMLError_t *xe);
+XMLError_isInfo (const XMLError_t *error);
 
 
 /**
- * @return true (non-zero) if this XMLError is a warning, false (0)
- * otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isWarning (const XMLError_t *xe);
+XMLError_isWarning (const XMLError_t *error);
 
 
 /**
- * @return true (non-zero) if this XMLError is an error, false (0) otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isError (const XMLError_t *xe);
+XMLError_isError (const XMLError_t *error);
 
 
 /**
- * @return true (non-zero) if this XMLError is a fatal error, false (0)
- * otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isFatal (const XMLError_t *xe);
+XMLError_isFatal (const XMLError_t *error);
 
 
 /**
- * Outputs this XMLError to stream in the following format (and
- * followed by a newline):
- *
- *   line: (id) message
  */
 LIBLAX_EXTERN
 void
-XMLError_print (const XMLError_t *xe, FILE *stream);
+XMLError_print (const XMLError_t *error, FILE *stream);
 
 
 END_C_DECLS

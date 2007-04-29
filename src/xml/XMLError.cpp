@@ -200,27 +200,73 @@ ostream& operator<< (ostream& s, const XMLError& error)
 }
 
 
-
+/** @cond doxygen-c-only */
 
 /**
- * @return the id of this XMLError.
+ * Creates a new XMLError to report that something occurred.
  */
 LIBLAX_EXTERN
-unsigned int
-XMLError_getId (const XMLError_t *xe)
+XMLError_t*
+XMLError_create (void)
 {
-  return xe->getId();
+  return new(nothrow) XMLError;
 }
 
 
 /**
+ * Creates a new XMLError with the identification number
+ * and message set.
+ *
+ * @param id an unsigned int, the identification number of the error.
+ * @param message a string, the error message.
+ *
+ */
+LIBLAX_EXTERN
+XMLError_t*
+XMLError_createWithIdAndMessage (unsigned int id, const char * message)
+{
+  return new(nothrow) XMLError(id, message);
+}
+
+/**
+ * Frees the given XMLError_t structure.
+ *
+ * @param error the XMLError_t structure to be freed.
+ **/
+LIBLAX_EXTERN
+void
+XMLError_free(XMLError_t* error)
+{
+  delete static_cast<XMLError*>(error);
+}
+
+/**
+ * Returns the id of this XMLError.
+ *
+ * @param error the XMLError_t from which to return the id.
+ *
+ * @return the id of this XMLError.
+ */
+LIBLAX_EXTERN
+unsigned int
+XMLError_getId (const XMLError_t *error)
+{
+  return error->getId();
+}
+
+
+/**
+ * Returns the message text of this XMLError.
+ *
+ * @param error the XMLError_t from which to return the message.
+ *
  * @return the message text of this XMLError.
  */
 LIBLAX_EXTERN
 const char *
-XMLError_getMessage (const XMLError_t *xe)
+XMLError_getMessage (const XMLError_t *error)
 {
-  const string msg = xe->getMessage();
+  const string msg = error->getMessage();
 
 
   return msg.empty() ? 0 : msg.c_str();
@@ -228,57 +274,73 @@ XMLError_getMessage (const XMLError_t *xe)
 
 
 /**
- * @return the line number where this XMLError ocurred.
+ * Return the line number where this XMLError occurred.
+ *
+ * @param error the XMLError_t from which to return the line number.
+ *
+ * @return the line number where this XMLError occurred.
  */
 LIBLAX_EXTERN
 unsigned int
-XMLError_getLine (const XMLError_t *xe)
+XMLError_getLine (const XMLError_t *error)
 {
-  return xe->getLine();
+  return error->getLine();
 }
 
 
 /**
+ * Return the column number where this XMLError occurred.
+ *
+ * @param error the XMLError_t from which to return the column number.
+ *
  * @return the column number where this XMLError occurred.
  */
 LIBLAX_EXTERN
 unsigned int
-XMLError_getColumn (const XMLError_t *xe)
+XMLError_getColumn (const XMLError_t *error)
 {
-  return xe->getColumn();
+  return error->getColumn();
 }
 
 
 /**
- * @return the severity of this XMLError.  XMLErrors severity levels
+ * Return the severity of this XMLError.  XMLErrors severity levels
  * correspond to those defined in the XML specification (with the addition
  * of Info for informational messages).
  *
- *   0 - Info
- *   1 - Warning
- *   2 - Error
- *   3 - Fatal
+ * @li  0 - Info
+ * @li  1 - Warning
+ * @li  2 - Error
+ * @li  3 - Fatal
+ *
+ * @param error the XMLError_t from which to return the severity.
+ *
+ * @return the severity of this XMLError.
  */
 LIBLAX_EXTERN
 XMLError_Severity
-XMLError_getSeverity (const XMLError_t *xe)
+XMLError_getSeverity (const XMLError_t *error)
 {
-  return static_cast<XMLError_Severity>( xe->getSeverity() );
+  return static_cast<XMLError_Severity>( error->getSeverity() );
 }
 
 
 /**
- * @return the category of this XMLError.  A category is a string, similiar
+ * Return the category of this XMLError.  A category is a string, similiar
  * in spirit to an XML namespace, which can be used to partition errors
  * into distinct groups.  Among other things, this can be used to prevent
  * id conflicts by uniquely identifying an XMLError by both id and
  * category.
+ *
+ * @param error the XMLError_t from which to return the category.
+ *
+ * @return the category of this XMLError.
  */
 LIBLAX_EXTERN
 const char *
-XMLError_getCategory (const XMLError_t *xe)
+XMLError_getCategory (const XMLError_t *error)
 {
-  const std::string c = xe->getCategory();
+  const std::string c = error->getCategory();
 
 
   return c.empty() ? 0 : c.c_str();
@@ -286,50 +348,68 @@ XMLError_getCategory (const XMLError_t *xe)
 
 
 /**
- * @return true (non-zero) if this XMLError is for informational purposes
- * only, false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLError_t structure is for information only.
+ *
+ * @param error the XMLError_t.
+ *
+ * @return @c non-zero (true) if this XMLError is for informational purposes
+ * only, @c zero (false) otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isInfo (const XMLError_t *xe)
+XMLError_isInfo (const XMLError_t *error)
 {
-  return static_cast<int>( xe->isInfo() );
+  return static_cast<int>( error->isInfo() );
 }
 
 
 /**
- * @return true (non-zero) if this XMLError is a warning, false (0)
- * otherwise.
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLError_t structure is a warning.
+ *
+ * @param error the XMLError_t.
+ *
+ * @return @c non-zero (true) if this XMLError is a warning, @c zero (false) otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isWarning (const XMLError_t *xe)
+XMLError_isWarning (const XMLError_t *error)
 {
-  return static_cast<int>( xe->isWarning() );
+  return static_cast<int>( error->isWarning() );
 }
 
 
 /**
- * @return true (non-zero) if this XMLError is an error, false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLError_t structure is an error.
+ *
+ * @param error the XMLError_t.
+ *
+ * @return @c non-zero (true) if this XMLError is an error, @c zero (false) otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isError (const XMLError_t *xe)
+XMLError_isError (const XMLError_t *error)
 {
-  return static_cast<int>( xe->isError() );
+  return static_cast<int>( error->isError() );
 }
 
 
 
 /**
- * @return true (non-zero) if this XMLError is a fatal error, false (0)
- * otherwise.
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLError_t structure is a fatal error.
+ *
+ * @param error the XMLError_t.
+ *
+ * @return @c non-zero (true) if this XMLError is a fatal error, @c zero (false) otherwise.
  */
 LIBLAX_EXTERN
 int
-XMLError_isFatal (const XMLError_t *xe)
+XMLError_isFatal (const XMLError_t *error)
 {
-  return static_cast<int>( xe->isFatal() );
+  return static_cast<int>( error->isFatal() );
 }
 
 
@@ -338,14 +418,18 @@ XMLError_isFatal (const XMLError_t *xe)
  * followed by a newline):
  *
  *   line: (id) message
+ *
+ * @param error, the XMLError_t structure to write.
+ * @param stream, the stream to write to.
  */
 LIBLAX_EXTERN
 void
-XMLError_print (const XMLError_t *xe, FILE *stream)
+XMLError_print (const XMLError_t *error, FILE *stream)
 {
   ostringstream os;
-  os << *(static_cast<const XMLError*>(xe));
+  os << *(static_cast<const XMLError*>(error));
 
   fprintf(stream, "%s", os.str().c_str());
 
 }
+/** @endcond doxygen-c-only */

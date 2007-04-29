@@ -51,6 +51,7 @@ test_sources =          \
   TestXMLToken.c   \
   TestXMLNode.c   \
   TestCopyAndClone.cpp \
+  TestXMLError.c       \
   TestRunner.c
 
 test_headers =
