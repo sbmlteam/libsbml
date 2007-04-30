@@ -123,9 +123,9 @@ localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 otherdirs     = .. ../../util ../../xml ../../math ../../sbml ../../validator \
 	../../validator/constraints ../../units
 
-#ifdef USE_LAYOUT
+ifdef USE_LAYOUT
   otherdirs +=	../../sbml/layout
-#endif
+endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 test_objfiles = $(localobjfiles) $(otherobjfiles)
