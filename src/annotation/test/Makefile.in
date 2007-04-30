@@ -44,12 +44,12 @@ thisdir   = src/annotation/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =                  \
-  TestCVTerms.cpp             \
-  TestModelHistory.c			\
-  TestRDFAnnotation.cpp			\
-  TestCopyAndClone.cpp			\
+test_sources =          \
+  TestCVTerms.cpp       \
   TestRunner.c
+  TestModelHistory.c    \
+  TestRDFAnnotation.cpp \
+  TestCopyAndClone.cpp
 
 extra_CPPFLAGS = -I.. -I../..
 
@@ -85,6 +85,11 @@ ifdef USE_LIBXML
   extra_LIBS     += $(LIBXML_LIBS)
 endif
 
+# Remove duplicates, just to shorten the command line.
+
+extra_CPPFLAGS := $(sort $(extra_CPPFLAGS))
+extra_LDFLAGS  := $(sort $(extra_LDFLAGS))
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
@@ -116,10 +121,10 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 otherdirs     = .. ../../util ../../xml ../../math ../../sbml ../../validator \
-	../../validator/constraints ../../units 
+	../../validator/constraints ../../units
 
 #ifdef USE_LAYOUT
- otherdirs +=	../../sbml/layout
+  otherdirs +=	../../sbml/layout
 #endif
 
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
