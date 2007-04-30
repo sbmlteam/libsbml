@@ -191,7 +191,7 @@ public:
    *   line: (id) message
    *
    * @param stream the output stream to write to.
-   * @param errorthe XMLError to write.
+   * @param error the XMLError to write.
    */
   LIBLAX_EXTERN
   friend
