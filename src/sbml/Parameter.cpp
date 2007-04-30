@@ -514,11 +514,11 @@ ListOfParameters::createObject (XMLInputStream& stream)
  * Creates a new, empty Parameter_t structure and returns a pointer to it.
  *
  * It is worth emphasizing that the structure returned by this constructor
- * is empty and that there are no default values assigned to such things as
- * identifiers and names.  Note that in SBML Level 2 and beyond, the
- * "id" (identifier) attribute of a Parameter is required to have a
- * value.  Thus, callers are cautioned to assign a value after calling this
- * constructor, for example using Parameter_setName().
+ * has no attribute values set and that there are no default values
+ * assigned to such things as identifiers and names.  Note that in SBML
+ * Level 2 and beyond, the "id" (identifier) attribute of a Parameter is
+ * required to have a value.  Thus, callers are cautioned to assign a value
+ * after calling this constructor, for example using Parameter_setName().
  *
  * @return a pointer to the newly created Parameter_t structure.
  */
@@ -629,7 +629,7 @@ Parameter_getId (const Parameter_t *p)
  * Takes a Parameter_t structure and returns its name.
  *
  * @param p the Parameter_t whose name is sought.
-
+ *
  * @return the name of this Parameter_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
