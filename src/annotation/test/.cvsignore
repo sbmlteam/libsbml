@@ -1,0 +1,9 @@
+Makefile
+TestRunner
+*.o
+*.lo
+*.la
+.deps
+.libs
+TAGS
+CTAGS
