@@ -1,26 +1,25 @@
 /**
  * @file    Event.cpp
- * @brief   SBML Event
+ * @brief   The libSBML class of object implementing %SBML's Event.
  * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -640,10 +639,13 @@ ListOfEvents::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
 
 
 /**
- * Creates a new Event and returns a pointer to it.
+ * Creates a new, empty Event_t structure and returns a pointer to it.
+ * 
+ * @return the newly-created Event_t structure.
  */
 LIBSBML_EXTERN
 Event_t *
@@ -654,8 +656,13 @@ Event_create (void)
 
 
 /**
- * Creates a new Event with the given id and name and returns
+ * Creates a new Event with a specific identifier and name and returns
  * a pointer to it.
+ *
+ * @param sid a string to be assigned as the identifier of the Event
+ * @param name a string to be assigned as the name of the Event
+ *
+ * @return the newly-created Event_t structure.
  */
 LIBSBML_EXTERN
 Event_t *
@@ -666,7 +673,9 @@ Event_createWith (const char *sid, const char *name)
 
 
 /**
- * Frees the given Event.
+ * Frees the given Event_t structure.
+ *
+ * @param e the Event_t structure to free.
  */
 LIBSBML_EXTERN
 void
@@ -677,7 +686,11 @@ Event_free (Event_t *e)
 
 
 /**
- * @return a (deep) copy of this Event.
+ * Returns a copy of the given Event_t structure.
+ *
+ * @param e the Event_t structure to copy.
+ * 
+ * @return a (deep) copy of the Event_t.
  */
 LIBSBML_EXTERN
 Event_t *
@@ -688,7 +701,11 @@ Event_clone (const Event_t *e)
 
 
 /**
- * @return the id of this Event.
+ * Takes an Event_t structure and returns its identifier.
+ *
+ * @param p the Event_t structure whose identifier is sought
+ * 
+ * @return the identifier of this Event_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -699,7 +716,11 @@ Event_getId (const Event_t *e)
 
 
 /**
- * @return the name of this Event.
+ * Takes a Event_t structure and returns its name.
+ *
+ * @param p the Event_t whose name is sought.
+
+ * @return the name of this Event_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -710,7 +731,11 @@ Event_getName (const Event_t *e)
 
 
 /**
- * @return the trigger of this Event.
+ * Takes an Event_t structure and returns its Trigger_t structure.
+ *
+ * @param e the Event_t structure whose trigger definition is sought.
+ * 
+ * @return the Trigger_t of this Event.
  */
 LIBSBML_EXTERN
 const Trigger_t *
@@ -721,7 +746,11 @@ Event_getTrigger (const Event_t *e)
 
 
 /**
- * @return the delay of this Event.
+ * Takes an Event_t structure and returns its Delay_t structure.
+ *
+ * @param e the Event_t structure whose delay definition is sought.
+ * 
+ * @return the Delay_t of this Event.
  */
 LIBSBML_EXTERN
 const Delay_t *
@@ -732,6 +761,11 @@ Event_getDelay (const Event_t *e)
 
 
 /**
+ * Takes an Event_t structure and returns the value of its "timeUnits"
+ * attribute.
+ *
+ * @param e the Event_t structure whose "timeUnits" value is sought
+ * 
  * @return the timeUnits of this Event
  */
 LIBSBML_EXTERN
@@ -743,7 +777,13 @@ Event_getTimeUnits (const Event_t *e)
 
 
 /**
- * @return 1 if the id of this Event has been set, 0 otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Event_t structure's identifier has been set.
+ *
+ * @param e the Event_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" attribute of the given
+ * Event_t structure has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -754,7 +794,13 @@ Event_isSetId (const Event_t *e)
 
 
 /**
- * @return 1 if the name of this Event has been set, 0 otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Event_t structure's name has been set.
+ *
+ * @param e the Event_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" attribute of the given
+ * Event_t structure has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -765,7 +811,13 @@ Event_isSetName (const Event_t *e)
 
 
 /**
- * @return 1 if the trigger of this Event has been set, 0 otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Event_t structure's trigger has been set.
+ *
+ * @param e the Event_t structure to query
+ * 
+ * @return @c non-zero (true) if a Trigger_t structure has been assigned to
+ * the given Event_t structure, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -776,7 +828,13 @@ Event_isSetTrigger (const Event_t *e)
 
 
 /**
- * @return 1 if the delay of this Event has been set, 0 otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Event_t structure's delay has been set.
+ *
+ * @param e the Event_t structure to query
+ * 
+ * @return @c non-zero (true) if a Delay_t structure has been assigned to
+ * the given Event_t structure, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -787,7 +845,13 @@ Event_isSetDelay (const Event_t *e)
 
 
 /**
- * @return 1 if the timeUnits of this Event has been set, 0 otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Event_t structure's "timeUnits" attribute has been set.
+ *
+ * @param e the Event_t structure to query
+ * 
+ * @return @c non-zero (true) if a value for the "timeUnits" attribute has
+ * been assigned in the given Event_t structure, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -798,7 +862,12 @@ Event_isSetTimeUnits (const Event_t *e)
 
 
 /**
- * Sets the id of this Event to a copy of sid.
+ * Assigns the identifier of an Event_t structure.
+ *
+ * This makes a copy of the string passed in the param @p sid.
+ *
+ * @param e the Event_t structure to set.
+ * @param sid the string to use as the identifier.
  */
 LIBSBML_EXTERN
 void
@@ -809,7 +878,10 @@ Event_setId (Event_t *e, const char *sid)
 
 
 /**
- * Sets the name of this Event to a copy of name.
+ * Sets the name of this Event to a copy of @p name.
+ *
+ * @param e the Event_t structure to set
+ * @param name the name to assign to this Event_t's "name" attribute.
  */
 LIBSBML_EXTERN
 void
@@ -821,28 +893,38 @@ Event_setName (Event_t *e, const char *name)
 
 /**
  * Sets the trigger of this Event to a copy of the given Trigger.
+ *
+ * @param e the Event_t structure to set
+ * @param trigger the Trigger_t structure to use.
  */
 LIBSBML_EXTERN
 void
-Event_setTrigger (Event_t *e, const Trigger_t *math)
+Event_setTrigger (Event_t *e, const Trigger_t *trigger)
 {
-  e->setTrigger(math);
+  e->setTrigger(trigger);
 }
 
 
 /**
  * Sets the delay of this Event to a copy of the given Delay.
+ * 
+ * @param e the Event_t structure to set
+ * @param delay the Delay_t structure to use.
  */
 LIBSBML_EXTERN
 void
-Event_setDelay (Event_t *e, const Delay_t *math)
+Event_setDelay (Event_t *e, const Delay_t *delay)
 {
-  e->setDelay(math);
+  e->setDelay(delay);
 }
 
 
 /**
- * Sets the timeUnits of this Event to a copy of sid.
+ * Sets the "timeUnits" attribute of this Event to a copy of @p sid.
+ * 
+ * @param e the Event_t structure to set
+ * @param sid the identifier of the units to use as the value of the
+ * "timeUnits" attribute
  */
 LIBSBML_EXTERN
 void
@@ -853,7 +935,9 @@ Event_setTimeUnits (Event_t *e, const char *sid)
 
 
 /**
- * Unsets the id of this Event.
+ * Unsets the "id" attribute of this Event_t structure.
+ *
+ * @param e the Event_t structure to unset
  */
 LIBSBML_EXTERN
 void
@@ -864,7 +948,9 @@ Event_unsetId (Event_t *e)
 
 
 /**
- * Unsets the name of this Event.
+ * Unsets the "name" attribute of this Event_t structure.
+ *
+ * @param e the Event_t structure to unset
  */
 LIBSBML_EXTERN
 void
@@ -876,6 +962,8 @@ Event_unsetName (Event_t *e)
 
 /**
  * Unsets the delay of this Event.
+ *
+ * @param e the Event_t structure to unset
  */
 LIBSBML_EXTERN
 void
@@ -886,7 +974,9 @@ Event_unsetDelay (Event_t *e)
 
 
 /**
- * Unsets the timeUnits of this Event.
+ * Unsets the "timeUnits" attribute of this Event.
+ *
+ * @param e the Event_t structure to unset
  */
 LIBSBML_EXTERN
 void
@@ -897,7 +987,13 @@ Event_unsetTimeUnits (Event_t *e)
 
 
 /**
- * Appends a copy of the given EventAssignment to this Event.
+ * Appends a copy of the given EventAssignment_t structure to this Event_t
+ * structure.
+ *
+ * @param e the Event_t structure to which the event assignment should be
+ * added
+ *
+ * @param ea an EventAssignment_t structure to add
  */
 LIBSBML_EXTERN
 void
@@ -908,8 +1004,11 @@ Event_addEventAssignment (Event_t *e, const EventAssignment_t *ea)
 
 
 /**
- * Creates a new EventAssignment, adds it to this Event's list of event
- * assignments and returns it.
+ * Creates a new, empty EventAssignment_t structure, adds it to this
+ * Event's list of event assignments, and returns the EventAssignment_t.
+ *
+ * @param e the Event_t structure to which the event assignment should be
+ * added
  */
 LIBSBML_EXTERN
 EventAssignment_t *
@@ -920,6 +1019,11 @@ Event_createEventAssignment (Event_t *e)
 
 
 /**
+ * Get the list of EventAssignment_t structures from this Event_t
+ * structure.
+ *
+ * @param e the Event_t structure to use.
+ *
  * @return the list of EventAssignments for this Event.
  */
 LIBSBML_EXTERN
@@ -931,7 +1035,13 @@ Event_getListOfEventAssignments (Event_t *e)
 
 
 /**
- * @return the nth EventAssignment of this Event.
+ * Return a specific EventAssignment_t structure of this Event_t.
+ *
+ * @param e the Event_t structure to use
+ *
+ * @param n an integer, the index of the EventAssignment_t structure to return
+ * 
+ * @return the nth EventAssignment_t of this Event.
  */
 LIBSBML_EXTERN
 EventAssignment_t *
@@ -942,8 +1052,15 @@ Event_getEventAssignment (Event_t *e, unsigned int n)
 
 
 /**
- * @return the EventAssignment for the given variable, or NULL if no such
- * EventAssignment exits.
+ * Return the event assignment indicated by the given @p variable.
+ *
+ * @param e the Event_t structure to use
+ *
+ * @param variable a string, the identifier of the variable whose
+ * EventAssignment_t is being sought.
+ *
+ * @return the EventAssignment_t for the given variable, or NULL if no such
+ * EventAssignment_t exits.
  */
 LIBSBML_EXTERN
 EventAssignment_t *
@@ -954,7 +1071,12 @@ Event_getEventAssignmentByVar (Event_t *e, const char *variable)
 
 
 /**
- * @return the number of EventAssignments in this Event.
+ * Returns the number of EventAssignment_t objects attached to this
+ * Event.
+ *
+ * @param e the Event_t structure to use
+ * 
+ * @return the number of EventAssignment_t structures in this Event.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -962,3 +1084,6 @@ Event_getNumEventAssignments (const Event_t *e)
 {
   return e->getNumEventAssignments();
 }
+
+
+/** @endcond doxygen-c-only */

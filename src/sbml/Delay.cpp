@@ -5,22 +5,21 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -392,11 +391,13 @@ Delay::writeElements (XMLOutputStream& stream) const
 }
 
 
-
+/** @cond doxygen-c-only */
 
 
 /**
- * Creates a new Delay and returns a pointer to it.
+ * Creates a new, empty Delay_t structure.
+ *
+ * @return the new Delay_t structure.
  */
 LIBSBML_EXTERN
 Delay_t *
@@ -407,27 +408,33 @@ Delay_create (void)
 
 
 /**
- * Creates a new Delay with the given formula, timeUnits and
- * substanceUnits and returns a pointer to it.  This convenience function
- * is functionally equivalent to:
+ * Creates a new Delay_t structure with the given formula.
  *
+ * This is functionally equivalent to
+ * @code
  *   Delay_t *t = Delay_create();
- *   Delay_setFormula(t, formula);
- *   Delay_setTimeUnits(t, timeUnits);
- *   ...;
+ *   Delay_set_Formula(formula);
+ * @endcode.
+ *
+ * @param formula a string, the mathematical formula for the delay
+ * expressions.
+ *
+ * @return the newly constructed Delay_t structure.
  */
 LIBSBML_EXTERN
 Delay_t *
-Delay_createWith ( const char *formula)
+Delay_createWith (const char *formula)
 {
-  string f  = formula        ? formula        : "";
+  string f  = formula ? formula : "";
 
   return new(nothrow) Delay(f);
 }
 
 
 /**
- * Frees the given Delay.
+ * Frees the given Delay_t structure.
+ *
+ * @param t the Delay_t structure to free.
  */
 LIBSBML_EXTERN
 void
@@ -438,7 +445,11 @@ Delay_free (Delay_t *t)
 
 
 /**
- * @return a (deep) copy of this Delay.
+ * Creates and returns a deep copy of the given Delay_t structure.
+ *
+ * @param t the Delay_t structure to copy. 
+ *
+ * @return a (deep) copy of the given Delay_t structure @p t.
  */
 LIBSBML_EXTERN
 SBase_t *
@@ -449,7 +460,12 @@ Delay_clone (const Delay_t *t)
 
 
 /**
- * @return the formula of this Delay.
+ * Get the mathematical formula for a Delay_t structure and return it as
+ * as a string.
+ *
+ * @param t the Delay_t structure to query.
+ * 
+ * @return a string representing the formula of this delay expression.
  */
 LIBSBML_EXTERN
 const char *
@@ -460,7 +476,12 @@ Delay_getFormula (const Delay_t *t)
 
 
 /**
- * @return the math of this Delay.
+ * Get the mathematical formula for a Delay_t structure and return it as
+ * as an ASTNode structure.
+ *
+ * @param t the Delay_t structure to query.
+ * 
+ * @return an ASTNode_t structure representing the expression tree.
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -471,8 +492,16 @@ Delay_getMath (const Delay_t *t)
 
 
 /**
- * @return true (non-zero) if the formula (or equivalently the math) of
- * this Delay has been set, false (0) otherwise.
+ * Predicate to test whether the formula for the given Delay_t structure
+ * has been set.
+ *
+ * This is identical to the function Delay_isSetMath().  It is provided in
+ * order to mirror the parallel between getFormula() and getMath().
+ *
+ * @param t the Delay_t structure to query
+ *
+ * @return @c true if the formula (meaning the @c math subelement) of
+ * this Delay has been set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -483,8 +512,16 @@ Delay_isSetFormula (const Delay_t *t)
 
 
 /**
- * @return true (non-zero) if the math (or equivalently the formula) of
- * this Delay has been set, false (0) otherwise.
+ * Predicate to test whether the formula for the given Delay_t structure
+ * has been set.
+ *
+ * This is identical to the function Delay_isSetFormula().  It is provided
+ * in order to mirror the parallel between getFormula() and getMath().
+ *
+ * @param t the Delay_t structure to query
+ *
+ * @return @c true if the formula (meaning the @c math subelement) of
+ * this Delay has been set, @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -495,7 +532,13 @@ Delay_isSetMath (const Delay_t *t)
 
 
 /**
- * Sets the formula of this Delay to a copy of formula.
+ * Sets the delay expression of the given Delay_t structure @p t to the
+ * given string @p formula.
+ *
+ * The given @p formula string is copied.
+ *
+ * @param t the Delay_t structure to set.
+ * @param formula the mathematical expression to use.
  */
 LIBSBML_EXTERN
 void
@@ -506,7 +549,11 @@ Delay_setFormula (Delay_t *t, const char *formula)
 
 
 /**
- * Sets the math of this Delay to a copy of the given ASTNode.
+ * Sets the delay expression of the given Delay_t instance to a copy of the
+ * given ASTNode_t structure.
+ *
+ * @param t the Delay_t structure to set.
+ * @param math an ASTNode representing a formula tree.
  */
 LIBSBML_EXTERN
 void
@@ -514,3 +561,6 @@ Delay_setMath (Delay_t *t, const ASTNode_t *math)
 {
   t->setMath(math);
 }
+
+
+/** @endcond doxygen-c-only */

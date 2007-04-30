@@ -5,22 +5,21 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -439,10 +438,20 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
 
 
 /**
- * Creates a new EventAssignment and returns a pointer to it.
+ * Creates a new, empty EventAssignment_t structure and returns a pointer
+ * to it.
+ *
+ * @note It is worth emphasizing that valid EventAssignment definitions
+ * must have a value for the "variable".  If no variable is provided at the
+ * time of an EventAssignment_t's creation, the value is left as the empty
+ * string.  Callers are cautioned to set the value using
+ * EventAssignment_setVariable() soon after invoking this constructor.
+ * 
+ * @return the freshly-created EventAssignment_t structure
  */
 LIBSBML_EXTERN
 EventAssignment_t *
@@ -453,13 +462,17 @@ EventAssignment_create (void)
 
 
 /**
- * Creates a new EventAssignment with the given variable and math and
- * returns a pointer to it.  This convenience function is functionally
- * equivalent to:
+ * Creates a new EventAssignment_t with the given values for the "variable"
+ * attribute and "math" subelement, and returns a pointer to it.
  *
- *   ea = EventAssignment_create();\n
- *   EventAssignment_setId(ea, variable);\n
- *   EventAssignment_setMath(ea, math);\n
+ * This convenience function is functionally equivalent to:
+ * @code
+ *   eventassign = EventAssignment_create();
+ *   EventAssignment_setId(eventassign, variable);
+ *   EventAssignment_setMath(eventassign, math);
+ * @endcode
+ * 
+ * @return the freshly-created EventAssignment_t structure
  */
 LIBSBML_EXTERN
 EventAssignment_t *
@@ -470,13 +483,24 @@ EventAssignment_createWith (const char *variable, ASTNode_t* math)
 
 
 /**
- * Creates a new EventAssignment with the given variable and formula and
- * returns a pointer to it.  This convenience function is functionally
- * equivalent to:
+ * Creates a new EventAssignment_t with the given values for the "variable"
+ * attribute and "math" subelement (here expressed as an infix formula
+ * string), and returns a pointer to it.
  *
- *   ea = EventAssignment_create();\n
- *   EventAssignment_setVariable(ea, variable);\n
- *   EventAssignment_setFormula(ea, formula);\n
+ * The @p formula parameter must be an infix string representation of a
+ * mathematical formula of the sort that can be handed to
+ * SBML_parseFormula().  It is used to set the content of this
+ * EventAssignment_t's "math" subelement.  This is a convenience method
+ * that is approximately equal to the following:
+ * @code
+ *   eventassign = EventAssignment_create();
+ *   EventAssignment_setVariable(eventassign, variable);
+ *   EventAssignment_setFormula(eventassign, formula);
+ * @endcode
+ * 
+ * Both the @p variable and @p math values are copied by this constructor.
+ * 
+ * @return the freshly-created EventAssignment_t structure
  */
 LIBSBML_EXTERN
 EventAssignment_t *
@@ -487,11 +511,10 @@ EventAssignment_createWithFormula (const char *variable, const char *formula)
 }
 
 
-
-
-
 /**
- * Frees the given EventAssignment.
+ * Frees the given EventAssignment_t structure.
+ *
+ * @param ea the EventAssignment_t to be freed.
  */
 LIBSBML_EXTERN
 void
@@ -502,7 +525,11 @@ EventAssignment_free (EventAssignment_t *ea)
 
 
 /**
- * @return a (deep) copy of this EventAssignment.
+ * Creates a (deep) copy of the given EventAssignment_t structure.
+ *
+ * @param ea the EventAssignment_t to be copied
+ * 
+ * @return a (deep) copy of @p ea.
  */
 LIBSBML_EXTERN
 EventAssignment_t *
@@ -513,7 +540,12 @@ EventAssignment_clone (const EventAssignment_t *ea)
 
 
 /**
- * @return the variable of this EventAssignment.
+ * Gets the value of the "variable" attribute of this EventAssignment_t
+ * structure.
+ *
+ * @param ea the EventAssignment_t structure to query.
+ *
+ * @return the identifier stored in the "variable" attribute of @p ea.
  */
 LIBSBML_EXTERN
 const char *
@@ -524,7 +556,12 @@ EventAssignment_getVariable (const EventAssignment_t *ea)
 
 
 /**
- * @return the math of this EventAssignment.
+ * Gets the mathematical formula stored in the given EventAssignment_t
+ * structure.
+ *
+ * @param ea the EventAssignment_t structure to query.
+ *
+ * @return the ASTNode tree stored in @p ea.
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -535,8 +572,13 @@ EventAssignment_getMath (const EventAssignment_t *ea)
 
 
 /**
- * @return 1 if the variable of this EventAssignment has been set, 0
- * otherwise.
+ * Predicate for testing whether the attribute "variable" of the
+ * given EventAssignment_t structure has been set.
+ *
+ * @param ea the EventAssignment_t structure to query.
+ * 
+ * @return nonzero (for true) if the "variable" attribute of @p ea
+ * has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -547,7 +589,13 @@ EventAssignment_isSetVariable (const EventAssignment_t *ea)
 
 
 /**
- * @return 1 if the math of this EventAssignment has been set, 0 otherwise.
+ * Predicate for testing whether the attribute "variable" of the
+ * given EventAssignment_t structure has been set.
+ *
+ * @param ea the EventAssignment_t structure to query.
+ * 
+ * @return nonzero (for true) if the "variable" attribute of @p ea
+ * has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -558,7 +606,12 @@ EventAssignment_isSetMath (const EventAssignment_t *ea)
 
 
 /**
- * Sets the id of this EventAssignment to a copy of sid.
+ * Sets the attribute "variable" of the given EventAssignment_t structure
+ * to a copy of the given identifier string.
+ *
+ * @param ea the EventAssignment_t to set.
+ * @param sid the identifier of a Compartment, Species or (global)
+ * Parameter defined in this model.
  */
 LIBSBML_EXTERN
 void
@@ -569,7 +622,13 @@ EventAssignment_setVariable (EventAssignment_t *ea, const char *sid)
 
 
 /**
- * Sets the math of this EventAssignment to a copy of the given ASTNode.
+ * Sets the "math" subelement content of the given EventAssignment_t
+ * structure to the given ASTNode.
+ *
+ * The given @p math ASTNode is copied.
+ *
+ * @param ea the EventAssignment_t to set.
+ * @param math the ASTNode to copy into @p ea
  */
 LIBSBML_EXTERN
 void
@@ -577,3 +636,6 @@ EventAssignment_setMath (EventAssignment_t *ea, const ASTNode_t *math)
 {
   ea->setMath(math);
 }
+
+
+/** @endcond doxygen-c-only */
