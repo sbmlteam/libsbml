@@ -122,7 +122,7 @@ public:
    * method on the SBase parent class.
    *
    * @param id a string, the identifier of this CompartmentType instance
-   * @param name a string, the optional name of this
+   * @param name a string, the optional name of this CompartmentType instance
    */
   CompartmentType (const std::string& id = "", const std::string& name = "");
 
