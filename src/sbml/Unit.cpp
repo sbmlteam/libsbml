@@ -5,22 +5,21 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -865,10 +864,18 @@ ListOfUnits::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
 
 
 /**
- * Creates a new Unit and returns a pointer to it.
+ * Creates a new, empty Unit_t structure and returns a pointer to it.
+ *
+ * It is worth emphasizing that the structure returned by this constructor
+ * has no attribute values set, and that the "kind" attribute is
+ * initialized to UNIT_KIND_INVALID.  Callers must set the value to
+ * something appropriate using the Unit::setKind() method.
+ *
+ * @return a pointer to the new Unit_t structure.
  */
 LIBSBML_EXTERN
 Unit_t *
@@ -879,11 +886,25 @@ Unit_create (void)
 
 
 /**
- * Creates a new Unit with the given kind, exponent and scale and returns a
- * pointer to it.  This convenience function is functionally equivalent to:
- *
+ * Creates a new Unit with the given @p kind, @p exponent and @p scale
+ * values and returns a pointer to it.  This convenience function is
+ * functionally equivalent to:
+ * @code
  *   Unit_t *u = Unit_create();
- *   Unit_setKind(kind); Unit_setExponent(exponent); ...;
+ *   Unit_setKind(kind);
+ *   Unit_setExponent(exponent);
+ *   Unit_setScale(scale);
+ * @endcode
+ *
+ * @param kind a value from the UnitKind_t enumeration naming the base
+ * unit serving as the basis of this particular unit definition
+ * 
+ * @param exponent an integer, the "exponent" attribute of the unit
+ * definition 
+ * 
+ * @param scale an integer, the "scale" attribute of the unit definition
+ *
+ * @return a pointer to the new Unit_t structure.
  */
 LIBSBML_EXTERN
 Unit_t *
@@ -894,7 +915,9 @@ Unit_createWith (UnitKind_t kind, int exponent, int scale)
 
 
 /**
- * Frees the given Unit.
+ * Frees the given Unit_t structure.
+ *
+ * @param u the Unit_t structure to be freed.
  */
 LIBSBML_EXTERN
 void
@@ -905,11 +928,14 @@ Unit_free (Unit_t *u)
 
 
 /**
- * Initializes the fields of this Unit to their defaults:
+ * Initializes the attributes of this Unit (except for "kind") to their
+ * defaults values.
  *
- *   - exponent   = 1
- *   - scale      = 0
- *   - multiplier = 1.0
+ * The default values are as follows:
+ * 
+ * - exponent   = 1
+ * - scale      = 0
+ * - multiplier = 1.0
  */
 LIBSBML_EXTERN
 void
@@ -920,7 +946,10 @@ Unit_initDefaults (Unit_t *u)
 
 
 /**
- * @return the kind of this Unit.
+ * Returns the "kind" attribute value of the given unit @p u.
+ * 
+ * @return the value of the "kind" attribute of this Unit as a value from
+ * the UnitKind_t enumeration.
  */
 LIBSBML_EXTERN
 UnitKind_t
@@ -931,7 +960,12 @@ Unit_getKind (const Unit_t *u)
 
 
 /**
- * @return the exponent of this Unit.
+ * Returns the value of the "exponent" attribute of the given Unit_t
+ * structure @p u.
+ *
+ * @param u a Unit_t structure
+ *
+ * @return the "exponent" value of this Unit_t structure, as an integer.
  */
 LIBSBML_EXTERN
 int
@@ -942,7 +976,12 @@ Unit_getExponent (const Unit_t *u)
 
 
 /**
- * @return the scale of this Unit.
+ * Returns the value of the "scale" attribute of the given Unit_t structure
+ * @p u.
+ *
+ * @param u a Unit_t structure
+ *
+ * @return the "scale" value of this Unit, as an integer.
  */
 LIBSBML_EXTERN
 int
@@ -953,7 +992,12 @@ Unit_getScale (const Unit_t *u)
 
 
 /**
- * @return the multiplier of this Unit.
+ * Returns the value of the "multiplier" attribute of the given Unit_t
+ * structure @p u.
+ * 
+ * @param u a Unit_t structure
+ *
+ * @return the "multiplier" value of this Unit, as a double
  */
 LIBSBML_EXTERN
 double
@@ -964,7 +1008,19 @@ Unit_getMultiplier (const Unit_t *u)
 
 
 /**
- * @return the offset of this Unit.
+ * Returns the value of the "offset" attribute of the given Unit_t
+ * structure @p u.
+ *
+ * @note The "offset" attribute is only available in SBML Level 2 Version
+ * 1.  This attribute is not present in SBML Level 2 Version 2 or above.
+ * When producing SBML models using these later specifications, Modelers
+ * and software need to account for units with offsets explicitly.  The
+ * %SBML specification document offers a number of suggestions for how
+ * to achieve this.
+ * 
+ * @param u a Unit_t structure
+ *
+ * @return the "offset" value of this Unit, as a double
  */
 LIBSBML_EXTERN
 double
@@ -975,7 +1031,13 @@ Unit_getOffset (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'ampere', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c ampere.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "ampere", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -986,8 +1048,13 @@ Unit_isAmpere (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'becquerel', false (0)
- * otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c becquerel.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "becquerel", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -998,7 +1065,13 @@ Unit_isBecquerel (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'candela', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c candela.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "candela", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1009,7 +1082,17 @@ Unit_isCandela (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'Celsius', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c Celsius.
+ *
+ * @note The predefined unit @c Celsius was removed from the list of
+ * predefined units in SBML Level 2 Version 3 at the same time that
+ * the "offset" attribute was removed from Unit definitions.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "Celsius", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1020,7 +1103,13 @@ Unit_isCelsius (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'coulomb', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c coulomb.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "coulomb", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1031,8 +1120,13 @@ Unit_isCoulomb (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'dimensionless', false (0)
- * otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c dimensionless.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "dimensionless", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1043,7 +1137,13 @@ Unit_isDimensionless (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'farad', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c farad.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "farad", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1054,7 +1154,13 @@ Unit_isFarad (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'gram', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c gram.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "gram", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1065,7 +1171,13 @@ Unit_isGram (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'gray', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c gray.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "gray", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1076,7 +1188,13 @@ Unit_isGray (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'henry', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c henry.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "henry", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1087,7 +1205,13 @@ Unit_isHenry (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'hertz', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c hertz.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "hertz", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1098,7 +1222,13 @@ Unit_isHertz (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'item', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c item.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "item", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1109,7 +1239,13 @@ Unit_isItem (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'joule', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c joule.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "joule", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1120,7 +1256,13 @@ Unit_isJoule (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'katal', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c katal.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "katal", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1131,7 +1273,13 @@ Unit_isKatal (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'kelvin', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c kelvin.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "kelvin", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1142,7 +1290,13 @@ Unit_isKelvin (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'kilogram', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c kilogram.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "kilogram", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1153,8 +1307,13 @@ Unit_isKilogram (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'litre' or 'liter', false (0)
- * otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c litre or @c liter.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given Unit_t
+ * structure is set to @c "litre" or @c "liter", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1165,7 +1324,13 @@ Unit_isLitre (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'lumen', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c lumen.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "lumen", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1176,7 +1341,13 @@ Unit_isLumen (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'lux', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c lux.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "lux", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1187,8 +1358,13 @@ Unit_isLux (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'metre' or 'meter', false (0)
- * otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c metre or @c meter.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given Unit_t
+ * structure is set to @c "metre" or @c "meter", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1199,7 +1375,13 @@ Unit_isMetre (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'mole', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c mole.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "mole", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1210,7 +1392,13 @@ Unit_isMole (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'newton', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c newton.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "newton", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1221,7 +1409,13 @@ Unit_isNewton (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'ohm', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c ohm.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "ohm", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1232,7 +1426,13 @@ Unit_isOhm (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'pascal', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c pascal.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "pascal", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1243,7 +1443,13 @@ Unit_isPascal (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'radian', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c radian.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "radian", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1254,7 +1460,13 @@ Unit_isRadian (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'second', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c second.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "second", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1265,7 +1477,13 @@ Unit_isSecond (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'siemens', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c siemens.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "siemens", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1276,7 +1494,13 @@ Unit_isSiemens (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'sievert', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c sievert.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "sievert", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1287,8 +1511,13 @@ Unit_isSievert (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'steradian', false (0)
- * otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c steradian.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "steradian", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1299,7 +1528,13 @@ Unit_isSteradian (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'tesla', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c tesla.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "tesla", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1310,7 +1545,13 @@ Unit_isTesla (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'volt', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c volt.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "volt", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1321,7 +1562,13 @@ Unit_isVolt (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'watt', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c watt.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "watt", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1332,7 +1579,13 @@ Unit_isWatt (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit is 'weber', false (0) otherwise.
+ * Predicate for testing whether the given Unit_t structure represents a
+ * unit of the kind @c weber.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure is set to @c "weber", zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1343,7 +1596,13 @@ Unit_isWeber (const Unit_t *u)
 
 
 /**
- * @return true (non-zero) if the kind of this Unit has been set, false (0) otherwise.
+ * Predicate to test whether the "kind" attribute of the given Unit_t
+ * structure @p u has been set.
+ *
+ * @param u the Unit_t structure to query
+ * 
+ * @return nonzero (for true) if the "kind" attribute of the given
+ * Unit_t structure has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1354,7 +1613,11 @@ Unit_isSetKind (const Unit_t *u)
 
 
 /**
- * Sets the kind of this Unit to the given UnitKind.
+ * Sets the kind of the given Unit_t structure @p u to the given
+ * UnitKind_t value.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param kind a value from the UnitKind_t enumeration 
  */
 LIBSBML_EXTERN
 void
@@ -1365,7 +1628,10 @@ Unit_setKind (Unit_t *u, UnitKind_t kind)
 
 
 /**
- * Sets the exponent of this Unit to the given value.
+ * Sets the "exponent" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "exponent" should be set
  */
 LIBSBML_EXTERN
 void
@@ -1376,7 +1642,10 @@ Unit_setExponent (Unit_t *u, int value)
 
 
 /**
- * Sets the scale of this Unit to the given value.
+ * Sets the "scale" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "scale" should be set
  */
 LIBSBML_EXTERN
 void
@@ -1387,7 +1656,10 @@ Unit_setScale (Unit_t *u, int value)
 
 
 /**
- * Sets the multiplier of this Unit to the given value.
+ * Sets the "multiplier" attribute value of the given Unit_t structure @p u.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "multiplier" should be set
  */
 LIBSBML_EXTERN
 void
@@ -1398,7 +1670,17 @@ Unit_setMultiplier (Unit_t *u, double value)
 
 
 /**
- * Sets the offset of this Unit to the given value.
+ * Sets the "offset" attribute value of the given Unit_t structure @p u.
+ *
+ * @note The "offset" attribute is only available in SBML Level 2 Version
+ * 1.  This attribute is not present in SBML Level 2 Version 2 or above.
+ * When producing SBML models using these later specifications, Modelers
+ * and software need to account for units with offsets explicitly.  The
+ * %SBML specification document offers a number of suggestions for how
+ * to achieve this.
+ *
+ * @param u the Unit_t structure whose value is to be set
+ * @param value the integer to which the attribute "offset" should be set
  */
 LIBSBML_EXTERN
 void
@@ -1409,8 +1691,14 @@ Unit_setOffset (Unit_t *u, double value)
 
 
 /**
- * @return true (non-zero) if name is one of the five SBML builtin Unit names
- * ('substance', 'volume', 'area', 'length' or 'time'), false (0) otherwise.
+ * Predicate to test whether a given string is the name of a built-in SBML
+ * unit.
+ *
+ * @param name a string to be tested against the built-in unit names
+
+ * @return nonzero (for true) if @p name is one of the five SBML
+ * builtin Unit names (@c "substance", @c "volume, @c "area", @c "length"
+ * or @c "time"), zero (0) otherwise
  */
 LIBSBML_EXTERN
 int
@@ -1418,3 +1706,6 @@ Unit_isBuiltIn (const char *name)
 {
   return Unit::isBuiltIn(name != NULL ? name : "");
 }
+
+
+/** @endcond doxygen-c-only */

@@ -5,21 +5,21 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -577,10 +577,20 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
 
 
 /**
- * Creates a new UnitDefinition and returns a pointer to it.
+ * Creates a new, empty UnitDefinition_t structure.
+ *
+ * @note It is worth emphasizing that the attribute "id" value of a
+ * UnitDefinition_t is a required attribute.  UnitDefinition_create() does
+ * not assign a valid "id" to the constructed unit; instead, it leaves it
+ * as the empty string.  Callers are cautioned to set the newly-constructed
+ * UnitDefinition_t's "id" using UnitDefinition_setId() soon after calling
+ * this function.
+ *
+ * @return the new UnitDefinition_t structure
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
@@ -591,24 +601,77 @@ UnitDefinition_create (void)
 
 
 /**
- * Creates a new UnitDefinition with the given name and returns a pointer
- * to it.  This convenience function is functionally equivalent to:
+ * Creates a new UnitDefinition_t structure with the given identifier @p id
+ * and returns a pointer to the structure.
+ * 
+ * The permitted values of the identifier @p id @em exclude the predefined
+ * base units in SBML and two spelling variants @c "meter" and @c "liter".
+ * The following is the set of base unit names which may @em not be used as
+ * a value of @p id:
  *
- *   UnitDefinition_setId(UnitDefinition_create(), sid);
+ * <table align="center" style="font-family: Courier, fixed; font-weight: bold; font-size: 12px;" cellspacing="7" border="0">
+ * <tr><td>ampere</td><td>gram</td><td>katal</td><td>metre</td><td>second</td><td>watt</td></tr>
+ * <tr><td>becquerel</td><td>gray</td><td>kelvin</td><td>mole</td><td>siemens</td><td>weber</td></tr>
+ * <tr><td>candela</td><td>henry</td><td>kilogram</td><td>newton</td><td>sievert</td><td>Celsius</td></tr>
+ * <tr><td>coulomb</td><td>hertz</td><td>litre</td><td>ohm</td><td>steradian</td><td>meter</td></tr>
+ * <tr><td>dimensionless</td><td>item</td><td>lumen</td><td>pascal</td><td>tesla</td><td>liter</td></tr>
+ * <tr><td>farad</td><td>joule</td><td>lux</td><td>radian</td><td>volt</td></tr>
+ * </table>
+ *
+ * In addition, there is a set of predefined identifiers for the built-in
+ * default units in SBML.  These identifiers are @c substance, @c volume,
+ * @c area, @c length, and @c time.  Using one of these values for the
+ * attribute @p id of a UnitDefinition_t has the effect of redefining the
+ * model-wide default units for the corresponding quantities.  The list
+ * of built-in units is given in the table below:
+ * @image html built-in-units.jpg "SBML's built-in units"
+ * @image latex built-in-units.jpg "SBML's built-in units"
+ * 
+ * Finally, note that SBML imposes two limitations on redefining the
+ * built-in units listed above:
+ * 
+ * - The UnitDefinition_t of a redefined built-in unit can only
+ *   contain a single Unit object within it.
+ * 
+ * - The value of the "kind" attribute in a Unit instance must be drawn
+ *   from one of the values in the second column of the table above.
+ *
+ * This convenience function is functionally equivalent to:
+ * @code
+ *   UnitDefinition_setId(UnitDefinition_create(), id);
+ * @endcode
+ *
+ * @param id the identifier to assign to the new unit definition.
+ *
+ * @return the new UnitDefinition_t structure.
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
-UnitDefinition_createWith (const char *sid)
+UnitDefinition_createWith (const char *id)
 {
-  return new(nothrow) UnitDefinition(sid ? sid : "");
+  return new(nothrow) UnitDefinition(id ? id : "");
 }
 
 
 /**
- * Creates a new UnitDefinition with the given name and returns a pointer
- * to it.  This convenience function is functionally equivalent to:
+ * Creates a new UnitDefinition_t structure with the given @p name
+ * and returns a pointer to the structure.
+ * 
+ * @note It is worth emphasizing that the attribute "id" value of a
+ * UnitDefinition_t is a required attribute.  UnitDefinition_create() does
+ * not assign a valid "id" to the constructed unit; instead, it leaves it
+ * as the empty string.  Callers are cautioned to set the newly-constructed
+ * UnitDefinition_t's "id" using UnitDefinition_setId() soon after calling
+ * this function.
  *
+ * This convenience function is functionally equivalent to:
+ * @code
  *   UnitDefinition_setName(UnitDefinition_create(), name);
+ * @endcode
+ *
+ * @param name the name to assign to the new unit definition.
+ *
+ * @return the new UnitDefinition_t structure.
  */
 LIBSBML_EXTERN
 UnitDefinition_t *
@@ -619,7 +682,7 @@ UnitDefinition_createWithName (const char *name)
 
 
 /**
- * Frees the given UnitDefinition.
+ * Frees the given UnitDefinition_t.
  */
 LIBSBML_EXTERN
 void
@@ -630,7 +693,11 @@ UnitDefinition_free (UnitDefinition_t *ud)
 
 
 /**
- * @return a (deep) copy of this UnitDefinition.
+ * Creates and returns a deep copy of the given UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t structure to copy
+ * 
+ * @return a (deep) copy of UnitDefinition_t.
  */
 LIBSBML_EXTERN
 UnitDefinition_t*
@@ -641,7 +708,11 @@ UnitDefinition_clone (const UnitDefinition_t *ud)
 
 
 /**
- * @return the id of this UnitDefinition.
+ * Returns the identifier of this UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t whose identifier is sought
+ * 
+ * @return the value of the "id" attribute of this UnitDefinition_t.
  */
 LIBSBML_EXTERN
 const char *
@@ -652,7 +723,11 @@ UnitDefinition_getId (const UnitDefinition_t *ud)
 
 
 /**
- * @return the name of this UnitDefinition.
+ * Returns the name of this UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t whose name is sought
+ * 
+ * @return the value of the "name" attribute of this UnitDefinition_t.
  */
 LIBSBML_EXTERN
 const char *
@@ -663,8 +738,13 @@ UnitDefinition_getName (const UnitDefinition_t *ud)
 
 
 /**
- * @return true (non-zero) if the id of this UnitDefinition has been set, false (0)
- * otherwise.
+ * Predicate to test whether the "id" attribute of the given UnitDefinition_t
+ * @p ud has been set.
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return nonzero (true) if the "id" attribute of the given
+ * UnitDefinition_t has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -675,8 +755,13 @@ UnitDefinition_isSetId (const UnitDefinition_t *ud)
 
 
 /**
- * @return true (non-zero) if the name of this UnitDefinition has been set, false (0)
- * otherwise.
+ * Predicate to test whether the "name" attribute of the given
+ * UnitDefinition_t @p ud has been set.
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return nonzero (true) if the "name" attribute of the given
+ * UnitDefinition_t has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -687,9 +772,14 @@ UnitDefinition_isSetName (const UnitDefinition_t *ud)
 
 
 /**
- * @return true if this UnitDefinition is a variant of the builtin type
- * area. i.e. square metres with only abritrary variations in scale,
- * or multiplier values, false otherwise.
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "area".
+ * 
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if the UnitDefinition_t structure @p ud is a variant of
+ * the built-in unit @c area, meaning square metres with only abritrary
+ * variations in scale or multiplier values; @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -700,9 +790,14 @@ UnitDefinition_isVariantOfArea (const UnitDefinition_t *ud)
 
 
 /**
- * @return true if this UnitDefinition is a variant of the builtin type
- * length. i.e. metres with only abritrary variations in scale,
- * or multiplier values, false otherwise.
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "length".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition_t is a variant of the built-in
+ * unit @c length, meaning metres with only abritrary variations in scale
+ * or multiplier values; @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -713,9 +808,14 @@ UnitDefinition_isVariantOfLength (const UnitDefinition_t *ud)
 
 
 /**
- * @return true if this UnitDefinition is a variant of the builtin type
- * substance. i.e. moles or items with only abritrary variations in
- * scale or multiplier values, false otherwise.
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "substance".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit substance, meaning moles or items with only abritrary variations
+ * in scale or multiplier values; @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -726,9 +826,14 @@ UnitDefinition_isVariantOfSubstance (const UnitDefinition_t *ud)
 
 
 /**
- * @return true if this UnitDefinition is a variant of the builtin type
- * time. i.e. seconds with only abritrary variations in scale,
- * or multiplier values, false otherwise.
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "time".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit time, meaning seconds with only abritrary variations in scale or
+ * multiplier values; @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -739,9 +844,14 @@ UnitDefinition_isVariantOfTime (const UnitDefinition_t *ud)
 
 
 /**
- * @return true if this UnitDefinition is a variant of the builtin type
- * volume. i.e. litre or cubic metre with only abritrary variations in
- * scale or multiplier values, false otherwise.
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "volume".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of the built-in
+ * unit volume, meaning litre or cubic metre with only abritrary
+ * variations in scale or multiplier values; @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -752,9 +862,14 @@ UnitDefinition_isVariantOfVolume (const UnitDefinition_t *ud)
 
 
 /**
- * @return true if this UnitDefinition is a variant of dimensionless.
- * i.e. dimensionless with only abritrary variations in scale,
- * or multiplier values, false otherwise.
+ * Convenience function for testing if a given unit definition is a
+ * variant of the unit @c "dimensionless".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of dimensionless,
+ * meaning dimensionless with only abritrary variations in scale or
+ * multiplier values; @c false otherwise.
  */
 LIBSBML_EXTERN
 int 
@@ -765,9 +880,14 @@ UnitDefinition_isVariantOfDimensionless (const UnitDefinition_t *ud)
 
 
 /**
- * @return true if this UnitDefinition is a variant of mass. ie gram or
- * kilogram with only abritrary variations in scale or multiplier
- * values, false otherwise.
+ * Convenience function for testing if a given unit definition is a
+ * variant of the built-in unit @c "mass".
+ *
+ * @param ud the UnitDefinition_t to query.
+ *
+ * @return @c true if this UnitDefinition is a variant of mass, meaning
+ * gram or kilogram with only abritrary variations in scale or multiplier
+ * values; @c false otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -778,18 +898,26 @@ UnitDefinition_isVariantOfMass (const UnitDefinition_t *ud)
 
 
 /**
- * Sets the id of this UnitDefinition to a copy of sid.
+ * Sets the attribute "id" of the given UnitDefinition_t structure to a
+ * copy of the given string.
+ *
+ * @param ud the UnitDefinition_t structure whose id is to be set
+ * @param id a string, the new identifier for the UnitDefinition_t structure
  */
 LIBSBML_EXTERN
 void
-UnitDefinition_setId (UnitDefinition_t *ud, const char *sid)
+UnitDefinition_setId (UnitDefinition_t *ud, const char *id)
 {
-  (sid == NULL) ? ud->unsetId() : ud->setId(sid);
+  (id == NULL) ? ud->unsetId() : ud->setId(id);
 }
 
 
 /**
- * Sets the name of this UnitDefinition to a copy of string.
+ * Sets the attribute "name" of the given UnitDefinition_t structure to a
+ * copy of the given string.
+ *
+ * @param ud the UnitDefinition_t structure whose name is to be set
+ * @param name a string, the new name for the UnitDefinition_t structure
  */
 LIBSBML_EXTERN
 void
@@ -800,7 +928,9 @@ UnitDefinition_setName (UnitDefinition_t *ud, const char *name)
 
 
 /**
- * Unsets the name of this UnitDefinition.
+ * Unsets the name of the given UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t whose name is to be unset.
  */
 LIBSBML_EXTERN
 void
@@ -811,7 +941,10 @@ UnitDefinition_unsetName (UnitDefinition_t *ud)
 
 
 /**
- * Adds a copy of the given Unit to this UnitDefinition.
+ * Adds a copy of the given Unit to the given UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t structure.
+ * @param u the Unit instance to add.
  */
 LIBSBML_EXTERN
 void
@@ -822,8 +955,18 @@ UnitDefinition_addUnit (UnitDefinition_t *ud, const Unit_t *u)
 
 
 /**
- * Creates a new Unit, adds it to this UnitDefinition's list of units and
- * returns it.
+ * Creates a new and empty Unit_t structure, adds it to the given
+ * UnitDefinition_t structure's list of units, and returns the Unit_t
+ * structure.
+ *
+ * @return a newly constructed (and empty) Unit_t structure.
+ * 
+ * @note It is worth emphasizing that the attribute "kind" value of a
+ * Unit_t is a required attribute for a valid Unit_t definition.  The
+ * UnitDefinition_createUnit() method does not assign a valid kind to the
+ * constructed unit (instead, it sets the "kind" to UNIT_KIND_INVALID).
+ * Callers are cautioned to set the newly-constructed Unit's kind using
+ * UnitDefinition_setKind() soon after calling this method.
  */
 LIBSBML_EXTERN
 Unit_t *
@@ -834,7 +977,11 @@ UnitDefinition_createUnit (UnitDefinition_t *ud)
 
 
 /**
- * @return the list of Units for this UnitDefinition.
+ * Returns the list of Units for the given UnitDefinition_t structure.
+ * 
+ * @param ud the UnitDefinition_t to use
+ *
+ * @return the ListOfUnits value for the given UnitDefinition_t.
  */
 LIBSBML_EXTERN
 ListOf_t *
@@ -845,7 +992,15 @@ UnitDefinition_getListOfUnits (UnitDefinition_t *ud)
 
 
 /**
- * @return the nth Unit of this UnitDefinition
+ * Returns a specific Unit_t instance belonging to the given
+ * UnitDefinition_t structure.
+ *
+ * @param ud the UnitDefinition_t structure in question
+ * @param n an integer, the index of the Unit_t structure to be returned.
+ * 
+ * @return the nth Unit_t of this UnitDefinition_t structure.
+ *
+ * @see UnitDefinition_getNumUnits()
  */
 LIBSBML_EXTERN
 Unit_t *
@@ -856,7 +1011,13 @@ UnitDefinition_getUnit (UnitDefinition_t *ud, unsigned int n)
 
 
 /**
- * @return the number of Units in this UnitDefinition.
+ * Returns the number of Unit_t structures contained within this
+ * UnitDefinition_t.
+ *
+ * @param ud the UnitDefinition_t structure in question
+ * 
+ * @return an integer representing the number of Unit_t structures in this
+ * UnitDefinition_t structure.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -864,3 +1025,6 @@ UnitDefinition_getNumUnits (const UnitDefinition_t *ud)
 {
   return ud->getNumUnits();
 }
+
+
+/** @endcond doxygen-c-only */
