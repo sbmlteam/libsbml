@@ -46,7 +46,7 @@ thisdir   = src/annotation/test
 
 test_sources =          \
   TestCVTerms.cpp       \
-  TestRunner.c
+  TestRunner.c          \
   TestModelHistory.c    \
   TestRDFAnnotation.cpp \
   TestCopyAndClone.cpp
