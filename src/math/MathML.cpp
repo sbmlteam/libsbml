@@ -292,7 +292,7 @@ checkFunctionArgs (ASTNode& node)
 
 
 /**
- * In MathML <plus/> and <times/> are n-ary operators but the infix
+ * In MathML, &lt;plus/> and &lt;times/> are n-ary operators but the infix
  * FormulaParser represents them as binary operators.  To ensure a
  * consistent AST representation, this function is part of the n-ary to
  * binary reduction process.
@@ -340,7 +340,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
 
 /**
- * Sets the type of an ASTNode based on the given MathML <cn> element.
+ * Sets the type of an ASTNode based on the given MathML &lt;cn> element.
  */
 static void
 setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)

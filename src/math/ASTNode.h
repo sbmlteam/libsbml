@@ -10,8 +10,8 @@
  * This file is part of libSBML.  Please visit http://sbml.org for more
  * information about SBML, and the latest version of libSBML.
  *
- * Copyright 2006-2007 California Institute of Technology.
- * Copyright 2005      California Institute of Technology and
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
  *                     Japan Science and Technology Corporation.
  * 
  * This library is free software; you can redistribute it and/or modify it
@@ -189,6 +189,7 @@ class List;
  * corresponding MathML representation:
  *
  * @image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
+ * @image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
  *
  * The following are noteworthy about the AST representation in libSBML:
  * 
