@@ -54,6 +54,7 @@ public:
    */
   XMLToken ();
 
+
   /**
    * Creates a start element XMLToken with the given set of attributes and
    * namespace declarations.
@@ -69,6 +70,7 @@ public:
             , const XMLNamespaces&  namespaces
             , const unsigned int    line   = 0
             , const unsigned int    column = 0 );
+
 
   /**
    * Creates a start element XMLToken with the given set of attributes.
@@ -95,6 +97,7 @@ public:
             , const unsigned int  line   = 0
             , const unsigned int  column = 0 );
 
+
   /**
    * Creates a text XMLToken.
    *
@@ -106,10 +109,12 @@ public:
             , const unsigned int  line   = 0
             , const unsigned int  column = 0 );
 
+
   /**
    * Destroys this XMLToken.
    */
   virtual ~XMLToken ();
+
 
   /**
    * Copy constructor; creates a copy of this XMLToken.
@@ -121,6 +126,7 @@ public:
    * Assignment operator for XMLToken.
    */
   XMLToken& operator=(const XMLToken& orig);
+
 
   /**
    * Creates and returns a deep copy of this XMLToken.
@@ -137,6 +143,7 @@ public:
    */
   void append (const std::string& chars);
 
+
   /**
    * Returns the attributes of this element.
    *
@@ -144,12 +151,14 @@ public:
    */
   const XMLAttributes& getAttributes () const;
 
+
   /**
    * Returns the text of this element.
    *
    * @return the characters of this XML text.
    */
   const std::string& getCharacters () const;
+
   
   /**
    * Returns the column at which this XMLToken occurred.
@@ -158,12 +167,14 @@ public:
    */
   unsigned int getColumn () const;
 
+
   /**
    * Returns the line at which this XMLToken occurred.
    *
    * @return the line at which this XMLToken occurred.
    */
   unsigned int getLine () const;
+
 
   /**
    * Returns the XML namespace declarations for this XML element.
@@ -172,12 +183,14 @@ public:
    */
   const XMLNamespaces& getNamespaces () const;
 
+
   /**
    * Returns the (unqualified) name of this XML element.
    *
    * @return the (unqualified) name of this XML element.
    */
   const std::string& getName () const;
+
 
   /**
    * Returns the namespace prefix of this XML element.
@@ -188,6 +201,7 @@ public:
    * exists, an empty string will be return.
    */
   const std::string& getPrefix () const;
+
 
   /**
    * Returns the namespace URI of this XML element.
@@ -205,6 +219,7 @@ public:
    */
   bool isElement () const;
 
+
   /**
    * Predicate returning @c true or @c false depending on whether 
    * this XMLToken is an XML end element.
@@ -212,6 +227,7 @@ public:
    * @return @c true if this XMLToken is an XML end element, @c false otherwise.
    */
   bool isEnd () const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -224,6 +240,7 @@ public:
    */
   bool isEndFor (const XMLToken& element) const;
 
+
   /**
    * Predicate returning @c true or @c false depending on whether 
    * this XMLToken is an end of file marker.
@@ -233,6 +250,7 @@ public:
    */
   bool isEOF () const;
 
+
   /**
    * Predicate returning @c true or @c false depending on whether 
    * this XMLToken is an XML start element.
@@ -240,6 +258,7 @@ public:
    * @return @c true if this XMLToken is an XML start element, @c false otherwise.
    */
   bool isStart () const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -249,15 +268,18 @@ public:
    */
   bool isText () const;
 
+
   /**
    * Declares this XML start element is also an end element.
    */
   void setEnd ();
 
+
   /**
    * Declares this XMLToken is an end-of-file (input) marker.
    */
   void setEOF ();
+
 
   /**
    * Writes this XMLToken to stream.
@@ -308,6 +330,7 @@ protected:
 
   unsigned int mLine;
   unsigned int mColumn;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
@@ -316,38 +339,27 @@ protected:
 #ifndef SWIG
 
 BEGIN_C_DECLS
+
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
-/*
- * 
- **/
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_create (void);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTriple (const XMLTriple_t *triple);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttr (const XMLTriple_t *triple,
 			       const XMLAttributes_t *attr);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
@@ -355,153 +367,96 @@ XMLToken_createWithTripleAttrNS (const XMLTriple_t *triple,
 				 const XMLNamespaces_t *ns);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLToken_t *
 XMLToken_createWithText (const char *text);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLToken_free (XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLToken_append (XMLToken_t *token, const char *text);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const XMLAttributes_t *
 XMLToken_getAttributes (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLToken_getCharacters (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 unsigned int
 XMLToken_getColumn (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 unsigned int
 XMLToken_getLine (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const XMLNamespaces_t *
 XMLToken_getNamespaces (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLToken_getName (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLToken_getPrefix (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLToken_getURI (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLToken_isElement (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLToken_isEnd (const XMLToken_t *token); 
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLToken_isEndFor (const XMLToken_t *token, const XMLToken_t *element);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLToken_isEOF (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLToken_isStart (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLToken_isText (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLToken_setEnd (XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLToken_setEOF (XMLToken_t *token);

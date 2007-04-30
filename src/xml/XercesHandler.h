@@ -1,26 +1,25 @@
 /**
- * \file    XercesHandler.h
- * \brief   Redirect Xerces-C++ SAX2 events to an XMLHandler
- * \author  Ben Bornstein
+ * @file    XercesHandler.h
+ * @brief   Redirect Xerces-C++ SAX2 events to an XMLHandler
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #ifndef XercesHandler_h
 #define XercesHandler_h
@@ -32,9 +31,10 @@
 #include <xercesc/sax2/DefaultHandler.hpp>
 
 
+/** @cond doxygen-libsbml-internal */
+
 class XMLHandler;
 
-  /** @cond doxygen-libsbml-internal */
 
 class XercesHandler : public xercesc::DefaultHandler
 {
@@ -46,6 +46,7 @@ public:
    */
   XercesHandler (XMLHandler& handler);
 
+
   /**
    * Destroys this XercesHandler.
    */
@@ -56,6 +57,7 @@ public:
    * Receive notification of the beginning of the document.
    */
   void startDocument ();
+
 
   /**
    * Receive notification of the start of an element.
@@ -73,10 +75,12 @@ public:
    , const xercesc::Attributes& attrs
   );
 
+
   /**
    * Receive notification of the end of the document.
    */
   void endDocument ();
+
 
   /**
    * Receive notification of the end of an element.
@@ -92,6 +96,7 @@ public:
    , const XMLCh* const  qname
   );
 
+
   /**
    * Receive notification of character data inside an element.
    *
@@ -100,15 +105,18 @@ public:
    */
   void characters (const XMLCh* const chars, const unsigned int length);
 
+
   /**
    * @return the column number of the current XML event.
    */
   unsigned int getColumn () const;
 
+
   /**
    * @return the line number of the current XML event.
    */
   unsigned int getLine () const;
+
 
   /**
    * Receive a Locator object for document events.
@@ -122,6 +130,7 @@ protected:
   const xercesc::Locator*  mLocator;
 };
 
-  /** @endcond doxygen-libsbml-internal */
+/** @endcond doxygen-libsbml-internal */
+
 #endif  /* __cplusplus */
 #endif  /* XercesHandler_h */

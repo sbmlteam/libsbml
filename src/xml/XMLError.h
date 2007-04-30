@@ -5,22 +5,21 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #ifndef XMLError_h
 #define XMLError_h
@@ -69,6 +68,7 @@ public:
     , unsigned int        column   = 0
   );
 
+
   /**
    * Destroys this XMLError.
    */
@@ -82,12 +82,14 @@ public:
    */
   unsigned int getId () const;
 
+
   /**
    * Returns the message text of this XMLError.
    *
    * @return the message text of this XMLError.
    */
   const std::string& getMessage () const;
+
 
   /**
    * Return the line number where this XMLError occurred.
@@ -96,12 +98,14 @@ public:
    */
   unsigned int getLine () const;
 
+
   /**
    * Return the column number where this XMLError occurred.
    *
    * @return the column number where this XMLError occurred.
    */
   unsigned int getColumn () const;
+
 
   /**
    * Return the severity of this XMLError.  XMLError severity levels
@@ -111,6 +115,7 @@ public:
    * @return the severity of this XMLError.
    */
   Severity getSeverity () const;
+
 
   /**
    * Return the category of this XMLError.  A category is a string,
@@ -122,6 +127,7 @@ public:
    * @return the category of this XMLError.
    */
   const std::string& getCategory () const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -150,6 +156,7 @@ public:
    */
   bool isError () const;
 
+
   /**
    * Predicate returning @c true or @c false depending on whether 
    * this XMLError is a fatal error.
@@ -158,12 +165,14 @@ public:
    */
   bool isFatal () const;
 
+
   /**
    * Sets the line number where this XMLError occurred.
    * 
    * @param line an unsigned int, the line number to set.
    */
   void setLine (unsigned int line);
+
 
   /**
    * Sets the column number where this XMLError occurred.
@@ -194,7 +203,6 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
-
   unsigned int  mId;
 
   std::string   mMessage;
@@ -204,6 +212,7 @@ protected:
 
   unsigned int  mLine;
   unsigned int  mColumn;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
@@ -216,8 +225,8 @@ typedef enum { Info = 0, Warning = 1, Error = 2, Fatal = 3 } XMLError_Severity;
 
 #ifndef SWIG
 
-
 BEGIN_C_DECLS
+
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
@@ -245,79 +254,56 @@ void
 XMLError_free(XMLError_t* error);
 
 
-/**
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getId (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 const char *
 XMLError_getMessage (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getLine (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 unsigned int
 XMLError_getColumn (const XMLError_t *error);
 
 
-/**
- *
- */
 LIBLAX_EXTERN
 XMLError_Severity
 XMLError_getSeverity (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 const char *
 XMLError_getCategory (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 int
 XMLError_isInfo (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 int
 XMLError_isWarning (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 int
 XMLError_isError (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 int
 XMLError_isFatal (const XMLError_t *error);
 
 
-/**
- */
 LIBLAX_EXTERN
 void
 XMLError_print (const XMLError_t *error, FILE *stream);

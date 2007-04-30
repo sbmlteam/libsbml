@@ -1,26 +1,26 @@
 /**
- * \file    ExpatParser.cpp
- * \brief   Adapts the Expat XML parser to the XMLParser interface
- * \author  Ben Bornstein
+ * @file    ExpatParser.cpp
+ * @brief   Adapts the Expat XML parser to the XMLParser interface
+ * @author  Ben Bornstein <ben.bornstein@jpl.nasa.gov>
+ * @author  Michael Hucka <mhucka@caltech.edu>
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <iostream>
 
@@ -35,14 +35,17 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
+
+
+/** @cond doxygen-libsbml-internal */
 
 static const int BUFFER_SIZE = 8192;
 
-  /** @cond doxygen-libsbml-internal */
 /**
- * Creates a new ExpatParser.  The parser will notify the given XMLHandler
- * of parse events and errors.
+ * Creates a new ExpatParser given an XMLHandler object.
+ *
+ * The parser will notify the given XMLHandler of parse events and errors.
  */
 ExpatParser::ExpatParser (XMLHandler& handler) :
    mParser ( XML_ParserCreateNS(0, ' ') )
@@ -65,6 +68,11 @@ ExpatParser::~ExpatParser ()
 
 
 /**
+ * Returns true or false depending on whether the last operation
+ * caused the underlying parser to generate an error.  Errors may
+ * result from out-of-memory conditions as well.  This is called
+ * by methods such as @c parse() and @c parseNext().
+ * 
  * @return true if the parser encountered an error, false otherwise.
  */
 bool
@@ -78,7 +86,8 @@ ExpatParser::error () const
 
 
 /**
- * @return the current column position of the parser.
+ * @return the column position of the current parser's location
+ * in the XML input stream.
  */
 unsigned int
 ExpatParser::getColumn () const
@@ -88,7 +97,8 @@ ExpatParser::getColumn () const
 
 
 /**
- * @return the current line position of the parser.
+ * @return the line position of the current parser's location
+ * in the XML input stream.
  */
 unsigned int
 ExpatParser::getLine () const
@@ -100,8 +110,8 @@ ExpatParser::getLine () const
 /**
  * Parses XML content in one fell swoop.
  *
- * If isFile is true (default), content is treated as a filename from
- * which to read the XML content.  Otherwise, content is treated as a
+ * If \p isFile whoa is true (default), \p content is treated as a filename from
+ * which to read the XML content.  Otherwise, \p content is treated as a
  * null-terminated buffer containing XML data and is read directly.
  *
  * @return true if the parse was successful, false otherwise.
@@ -324,6 +334,5 @@ ExpatParser::reportError (const int expatCode,
     }
   }
 }
-  /** @endcond doxygen-libsbml-internal */
 
-
+/** @endcond doxygen-libsbml-internal */

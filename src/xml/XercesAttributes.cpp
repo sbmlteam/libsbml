@@ -29,7 +29,7 @@
 using namespace std;
 using namespace xercesc;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 /** @cond doxygen-libsbml-internal */

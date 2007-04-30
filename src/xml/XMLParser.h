@@ -7,22 +7,21 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #ifndef XMLParser_h
 #define XMLParser_h
@@ -56,6 +55,7 @@ public:
   static XMLParser* create (  XMLHandler&       handler
                             , const std::string library = "" );
 
+
   /**
    * Destroys this XMLParser.
    */
@@ -67,16 +67,19 @@ public:
    */
   virtual unsigned int getColumn () const = 0;
 
+
   /**
    * @return the current line position of the parser.
    */
   virtual unsigned int getLine () const = 0;
+
 
   /**
    * @return an XMLErrorLog which can be used to log XML parse errors and
    * other validation errors (and messages).
    */
   XMLErrorLog* getErrorLog ();
+
 
   /**
    * Parses XML content in one fell swoop.
@@ -88,6 +91,7 @@ public:
    * @return true if the parse was successful, false otherwise.
    */
   virtual bool parse (const char* content, bool isFile = true) = 0;
+
 
   /**
    * Begins a progressive parse of XML content.  This parses the first
@@ -107,6 +111,7 @@ public:
    */
   virtual bool parseFirst (const char* content, bool isFile = true) = 0;
 
+
   /**
    * Parses the next chunk of XML content.
    *
@@ -115,11 +120,13 @@ public:
    */
   virtual bool parseNext () = 0;
 
+
   /**
    * Resets the progressive parser.  Call between the last call to
    * parseNext() and the next call to parseFirst().
    */
   virtual void parseReset () = 0;
+
 
   /**
    * Canonical error codes returned for low-level XML parser errors.
@@ -147,6 +154,7 @@ public:
     , UnknownError                  = 9999
   };
 
+
   /**
    * Log or otherwise report the error from the parser indicated by the
    * given integer code.
@@ -154,6 +162,7 @@ public:
   virtual void reportError (  const int code
 			    , const unsigned int lineNumber
 			    , const unsigned int columnNumber) = 0;
+
 
   /**
    * Sets the XMLErrorLog this parser will use to log errors.
@@ -173,6 +182,7 @@ protected:
    */
   XMLParser ();
 
+
   /**
    * Returns a string message given an error code taken from the
    * 'errorCodes' enumeration.
@@ -182,6 +192,7 @@ protected:
 
   XMLErrorLog* mErrorLog;
   bool         mOwnLog;
+
   /** @endcond doxygen-libsbml-internal */
 };
 

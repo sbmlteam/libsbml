@@ -1,6 +1,6 @@
 /**
  * @file    XMLNode.h
- * @brief   A node in an XML document tree
+ * @brief   Class definition of XMLNode, a node in an XML document tree.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -17,13 +17,12 @@
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.  A copy of the license agreement is provided
- * in the file named "LICENSE.txt" included with this software distribution
- * and also available online as http://sbml.org/software/libsbml/license.html
- *------------------------------------------------------------------------- -->
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->
  * @class XMLNode.
  * @brief Implementation of %XMLNode construct.
  */
-
 
 #ifndef XMLNode_h
 #define XMLNode_h
@@ -42,6 +41,16 @@ class XMLInputStream;
 class XMLOutputStream;
 
 
+/**
+ * Objects of type XMLNode represent a node in an XML document tree.
+ * 
+ * Beginning with version 3.0.0, libSBML implements an XML abstraction
+ * layer; this layer presents a uniform XML interface to calling programs
+ * regardless of which underlying XML parser libSBML has actually been
+ * configured to use.  The basic data object in the XML abstraction is a
+ * @em node, represented by XMLNode.  A node can contain other child nodes,
+ * forming a tree.  XMLNode is subclassed from XMLToken.
+ */
 class LIBLAX_EXTERN XMLNode : public XMLToken
 {
 public:
@@ -51,12 +60,14 @@ public:
    */
   XMLNode ();
 
+
   /**
    * Creates a new XMLNode by copying token.
    *
    * @param token XMLToken to be copied to XMLNode
    */
   XMLNode (const XMLToken& token);
+
 
   /**
    * Creates a new XMLNode by reading XMLTokens from stream.  
@@ -69,10 +80,12 @@ public:
    */
   XMLNode (XMLInputStream& stream);
 
+
   /**
    * Destroys this XMLNode.
    */
   virtual ~XMLNode ();
+
   
   /**
    * Copy constructor; creates a copy of this XMLNode.
@@ -84,6 +97,7 @@ public:
    * Assignment operator for XMLNode.
    */
   XMLNode& operator=(const XMLNode& orig);
+
 
   /**
    * Creates and returns a deep copy of this XMLNode.
@@ -100,6 +114,7 @@ public:
    */
   void addChild (const XMLNode& node);
 
+
   /**
    * Returns the nth child of this XMLNode.
    *
@@ -107,12 +122,14 @@ public:
    */
   const XMLNode& getChild (unsigned int n) const;
 
+
   /**
    * Returns the number of children for this XMLNode.
    *
    * @return the number of children for this XMLNode.
    */
   unsigned int getNumChildren () const;
+
 
   /**
    * Writes this XMLNode and its children to stream.
@@ -145,6 +162,7 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
   std::vector<XMLNode> mChildren;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
@@ -154,78 +172,52 @@ protected:
 #ifndef SWIG
 
 BEGIN_C_DECLS
+
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_create (void);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLNode_t *
 XMLNode_createFromToken (const XMLToken_t *token);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLNode_free (XMLNode_t *node);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLNode_getName (const XMLNode_t *node);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLNode_getPrefix (const XMLNode_t *node);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLNode_getURI (const XMLNode_t *node);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const XMLNode_t *
 XMLNode_getChild (const XMLNode_t *node, const int n);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 unsigned int
 XMLNode_getNumChildren (const XMLNode_t *node);

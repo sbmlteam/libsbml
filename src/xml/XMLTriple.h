@@ -46,6 +46,7 @@ public:
    */
   XMLTriple ();
 
+
   /**
    * Creates a new XMLTriple with name, prefix and uri.
    *
@@ -56,6 +57,7 @@ public:
   XMLTriple (  const std::string&  name
              , const std::string&  uri
              , const std::string&  prefix );
+
 
   /**
    * Creates a new XMLTriple by splitting triplet on sepchar.  
@@ -70,6 +72,7 @@ public:
    * @param sepchar a character, the sepchar used in the triplet
    */
   XMLTriple (const std::string& triplet, const char sepchar = ' ');
+
   
   /**
    * Copy constructor; creates a copy of this XMLTriple set.
@@ -81,6 +84,7 @@ public:
    * Assignment operator for XMLTriple.
    */
   XMLTriple& operator=(const XMLTriple& orig);
+
 
   /**
    * Creates and returns a deep copy of this XMLTriple set.
@@ -97,6 +101,7 @@ public:
    */
   const std::string& getName   () const { return mName;   }
 
+
   /**
    * Returns the prefix from this XMLTriple.
    *
@@ -104,12 +109,14 @@ public:
    */
   const std::string& getPrefix () const { return mPrefix; }
 
+
   /**
    * Returns the URI from this XMLTriple.
    *
    * @return URI from this XMLTriple.
    */
   const std::string& getURI    () const { return mURI;    }
+
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -135,54 +142,36 @@ private:
 
 BEGIN_C_DECLS
 
-
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
-/**
- * 
- **/
+
 LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_create (void);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLTriple_t *
 XMLTriple_createWith (const char *name, const char *uri, const char *prefix);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLTriple_free (XMLTriple_t *triple);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLTriple_getName (const XMLTriple_t *triple);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLTriple_getPrefix (const XMLTriple_t *triple);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLTriple_getURI (const XMLTriple_t *triple);

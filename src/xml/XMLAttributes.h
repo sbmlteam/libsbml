@@ -54,6 +54,7 @@ public:
    */
   XMLAttributes ();
 
+
   /**
    * Destroys this XMLAttributes set.
    */
@@ -71,12 +72,14 @@ public:
    */
   XMLAttributes& operator=(const XMLAttributes& orig);
 
+
   /**
    * Creates and returns a deep copy of this XMLAttributes set.
    * 
    * @return a (deep) copy of this XMLAttributes set.
    */
   XMLAttributes* clone () const;
+
 
   /**
    * Adds a name/value pair to this XMLAttributes set optionally with a
@@ -94,6 +97,7 @@ public:
 	    , const std::string& namespaceURI = ""
 	    , const std::string& prefix = "");
 
+
   /**
   * Adds a name/value pair to this XMLAttributes set.  
   *
@@ -106,6 +110,7 @@ public:
   */
   void addResource (const std::string& name, const std::string& value);
 
+
   /**
    * Return the index of an attribute by name.
    *
@@ -115,12 +120,14 @@ public:
    */
   int getIndex (const std::string name) const;
 
+
   /**
    * Return the number of attributes in the set.
    *
    * @return the number of attributes in this XMLAttributes set.
    */
   int getLength () const;
+
 
   /**
    * Return the name of an attribute in this XMLAttributes set (by position).
@@ -136,6 +143,7 @@ public:
    */
   std::string getName (int index) const;
 
+
   /**
    * Return the prefix of an attribute in this XMLAttributes set (by position).
    *
@@ -150,6 +158,7 @@ public:
    */
   std::string getPrefix (int index) const;
 
+
   /**
    * Return the namespace URI of an attribute in this XMLAttributes set (by position).
    *
@@ -162,6 +171,7 @@ public:
    * getIndex() > 0 to test for attribute existence.
    */
   std::string getURI (int index) const;
+
 
   /**
    * Return the value of an attribute in this XMLAttributes set (by position).
@@ -177,6 +187,7 @@ public:
    */
   std::string getValue (int index) const;
 
+
   /**
    * Return an attribute's value by name.
    *
@@ -190,6 +201,7 @@ public:
    */
   std::string getValue (const std::string name) const;
 
+
   /**
    * Predicate returning @c true or @c false depending on whether 
    * this XMLAttributes set is empty.
@@ -197,6 +209,7 @@ public:
    * @return @c true if this XMLAttributes set is empty, @c false otherwise.
    */
   bool isEmpty () const;
+
 
   /**
    * Reads the value for the attribute name into value.  If name was not
@@ -223,6 +236,7 @@ public:
                  , XMLErrorLog*        log      = 0
                  , bool                required = false ) const;
 
+
   /**
    * Reads the value for the attribute name into value.  If name was not
    * found or value could be interpreted as a double, value is not
@@ -248,6 +262,7 @@ public:
                  , XMLErrorLog*        log      = 0
                  , bool                required = false ) const;
 
+
   /**
    * Reads the value for the attribute name into value.  If name was not
    * found or value could be interpreted as an long, value is not modified.
@@ -272,6 +287,7 @@ public:
                  , XMLErrorLog*        log      = 0
                  , bool                required = false ) const;
 
+
   /**
    * Reads the value for the attribute name into value.  If name was not
    * found or value could be interpreted as an int, value is not modified.
@@ -295,6 +311,7 @@ public:
                  , int&                value
                  , XMLErrorLog*        log      = 0
                  , bool                required = false ) const;
+
 
   /**
    * Reads the value for the attribute name into value.  If name was not
@@ -321,6 +338,7 @@ public:
                  , XMLErrorLog*        log      = 0
                  , bool                required = false ) const;
 
+
   /**
    * Reads the value for the attribute name into value.  If name was not
    * found, value is not modified.
@@ -339,6 +357,7 @@ public:
                  , std::string&        value
                  , XMLErrorLog*        log      = 0
                  , bool                required = false ) const;
+
 
   /**
    * Writes this XMLAttributes set to stream.
@@ -366,11 +385,13 @@ public:
 
 #endif  /* !SWIG */
 
+
 protected:
   /** @cond doxygen-libsbml-internal */
 
   std::vector<XMLTriple>    mNames;
   std::vector<std::string>  mValues;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
@@ -385,33 +406,21 @@ BEGIN_C_DECLS
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 XMLAttributes_t *
 XMLAttributes_create (void);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLAttributes_free (XMLAttributes_t *xa);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
@@ -421,9 +430,6 @@ XMLAttributes_addWithNamespace (XMLAttributes_t *xa,
 				const char* prefix);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 void
 XMLAttributes_addResource (XMLAttributes_t *xa, 
@@ -431,73 +437,46 @@ XMLAttributes_addResource (XMLAttributes_t *xa,
 			   const char *value);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_getIndex (const XMLAttributes_t *xa, const char *name);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_getLength (const XMLAttributes_t *xa);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLAttributes_getName (const XMLAttributes_t *xa, int index);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLAttributes_getPrefix (const XMLAttributes_t *xa, int index);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLAttributes_getURI (const XMLAttributes_t *xa, int index);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLAttributes_getValue (const XMLAttributes_t *xa, int index);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 const char *
 XMLAttributes_getValueByName (const XMLAttributes_t *xa, const char *name);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_isEmpty (const XMLAttributes_t *xa);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
@@ -507,9 +486,6 @@ XMLAttributes_readIntoBoolean (XMLAttributes_t *xa,
 			       int required);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
@@ -519,9 +495,6 @@ XMLAttributes_readIntoDouble (XMLAttributes_t *xa,
 			      int required);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoLong (XMLAttributes_t *xa,
@@ -531,9 +504,6 @@ XMLAttributes_readIntoLong (XMLAttributes_t *xa,
 			    int required);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoInt (XMLAttributes_t *xa,
@@ -543,9 +513,6 @@ XMLAttributes_readIntoInt (XMLAttributes_t *xa,
 			   int required);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
@@ -555,9 +522,6 @@ XMLAttributes_readIntoUnsignedInt (XMLAttributes_t *xa,
 				   int required);
 
 
-/**
- * 
- **/
 LIBLAX_EXTERN
 int
 XMLAttributes_readIntoString (XMLAttributes_t *xa,
@@ -565,9 +529,6 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
 			      char *value,
 			      XMLErrorLog_t *log,
 			      int required);
-
-
-
 
 
 END_C_DECLS

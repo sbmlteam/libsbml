@@ -49,10 +49,12 @@ public:
    */
   XMLNamespaces ();
 
+
   /**
    * Destroys this list of XML namespace declarations.
    */
   virtual ~XMLNamespaces ();
+
 
   /**
    * Copy constructor; creates a copy of this XMLNamespaces set.
@@ -64,6 +66,7 @@ public:
    * Assignment operator for XMLNamespaces.
    */
   XMLNamespaces& operator=(const XMLNamespaces& orig);
+
 
   /**
    * Creates and returns a deep copy of this XMLNamespaces set.
@@ -82,10 +85,12 @@ public:
    */
   void add (const std::string& uri, const std::string& prefix = "");
 
+
   /**
    * Clears (deletes) all XML namespace declarations.
    */
   void clear ();
+
 
   /**
    * Lookup the index of an XML namespace declaration by URI.
@@ -96,12 +101,14 @@ public:
    */
   int getIndex (const std::string uri) const;
 
+
   /**
    * Returns the number of namespaces in the list.
    *
    * @return the number of namespaces in this list.
    */
   int getLength () const;
+
 
   /**
    * Lookup the prefix of an XML namespace declaration by position.
@@ -116,6 +123,7 @@ public:
    */
   std::string getPrefix (int index) const;
 
+
   /**
    * Lookup the prefix of an XML namespace declaration by URI.
    *
@@ -127,6 +135,7 @@ public:
    * URI does not exist, an empty string will be returned.
    */
   std::string getPrefix (const std::string& uri) const;
+
 
   /**
    * Lookup the URI of an XML namespace declaration by position.
@@ -141,6 +150,7 @@ public:
    */
   std::string getURI (int index) const;
 
+
   /**
    * Lookup the URI of an XML namespace declaration by prefix.
    *
@@ -152,6 +162,7 @@ public:
    * prefix does not exist, an empty string will be returned.
    */
   std::string getURI (const std::string& prefix = "") const;
+
 
   /**
    * Predicate returning @c true or @c false depending on whether 
@@ -171,6 +182,7 @@ public:
    * set is to be written.
    */
   void write (XMLOutputStream& stream) const;
+
 
   /**
    * Inserts this XMLNamespaces set into stream.
@@ -199,6 +211,7 @@ protected:
 
   typedef std::pair<std::string, std::string> PrefixURIPair;
   std::vector<PrefixURIPair> mNamespaces;
+
   /** @endcond doxygen-libsbml-internal */
 };
 
@@ -209,15 +222,16 @@ protected:
 #ifndef SWIG
 
 BEGIN_C_DECLS
+
 /*-----------------------------------------------------------------------------
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
 
-
 LIBLAX_EXTERN
 XMLNamespaces_t *
 XMLNamespaces_create (void);
+
 
 LIBLAX_EXTERN
 void

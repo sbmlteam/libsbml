@@ -1,26 +1,25 @@
 /**
- * \file    LibXMLTranscode.h
- * \brief   Transcodes a LibXML xmlChar string to UTF-8.
- * \author  Ben Bornstein
+ * @file    LibXMLTranscode.h
+ * @brief   Transcodes a LibXML xmlChar string to UTF-8.
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2006 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #ifndef LibXMLTranscode_h
 #define LibXMLTranscode_h
@@ -30,7 +29,9 @@
 #include <string>
 #include <libxml/parser.h>
 
-  /** @cond doxygen-libsbml-internal */
+
+/** @cond doxygen-libsbml-internal */
+
 /**
  * Transcodes a LibXML xmlChar* string to UTF-8.  This class offers
  * implicit conversion to a C++ string.
@@ -64,6 +65,7 @@ private:
 
 };
 
-  /** @endcond doxygen-libsbml-internal */
+/** @endcond doxygen-libsbml-internal */
+
 #endif  /* __cplusplus */
 #endif  /* LibXMLTranscode_h */
