@@ -489,7 +489,8 @@ XMLOutputStream::writeValue (const double& value)
   }
   else
   {
-    mStream << value;
+    mStream.precision(16);
+    mStream <<   value;
   }
 
   mStream << '"';
