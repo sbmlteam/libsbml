@@ -372,7 +372,14 @@ Compartment::unsetSize ()
 void
 Compartment::unsetVolume ()
 {
-  unsetSize();
+  if (getLevel() == 1)
+  {
+    setSize(1.0);
+  }
+  else
+  {
+    unsetSize();
+  }
 }
 
 
