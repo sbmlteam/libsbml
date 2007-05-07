@@ -1,6 +1,6 @@
 /**
  * @file    SpeciesType.cpp
- * @brief   SBML SpeciesType
+ * @brief   Definitions of SpeciesType and ListOfSpeciesTypes.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -36,7 +36,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 /**
@@ -300,9 +300,20 @@ ListOfSpeciesTypes::createObject (XMLInputStream& stream)
 
 
 
+/** @cond doxygen-c-only */
+
 
 /**
- * Creates a new SpeciesType and returns a pointer to it.
+ * Creates a new, empty SpeciesType and returns a pointer to it.
+ *
+ * It is worth emphasizing that the structure returned by this constructor
+ * is empty and that there are no default values assigned to such things as
+ * identifiers and names.  Note that in SBML Level 2 and beyond, the
+ * "id" (identifier) attribute of a SpeciesType is required to have a
+ * value.  Thus, callers are cautioned to assign a value after calling this
+ * constructor, for example using SpeciesType_setName().
+ *
+ * @return a pointer to the newly created SpeciesType structure.
  */
 LIBSBML_EXTERN
 SpeciesType_t *
@@ -313,8 +324,18 @@ SpeciesType_create ()
 
 
 /**
- * Creates a new SpeciesType with the given id and name and returns a
- * pointer to it.
+ * Creates a new SpeciesType with the given @p id and @p name attribute
+ * values.
+ *
+ * In SBML Level 2 and beyond, the identifier attribute of a
+ * SpeciesType is required to have a value, but the name is optional.
+ * Programs calling this function can legitimately use an empty string for
+ * the @p name argument.
+ *
+ * @param sid the value to assign as the identifier of this SpeciesType
+ * @param name the value to assign as the name of this SpeciesType
+ *
+ * @return a pointer to the newly created SpeciesType_t structure.
  */
 LIBSBML_EXTERN
 SpeciesType_t *
@@ -325,7 +346,9 @@ SpeciesType_createWith (const char *sid, const char *name)
 
 
 /**
- * Frees the given SpeciesType.
+ * Frees the given SpeciesType_t structure.
+ *
+ * @param ct the SpeciesType_t structure to be freed.
  */
 LIBSBML_EXTERN
 void
@@ -336,7 +359,11 @@ SpeciesType_free (SpeciesType_t *st)
 
 
 /**
- * @return a (deep) copy of the given SpeciesType.
+ * Creates a deep copy of the given SpeciesType_t structure
+ * 
+ * @param ct the SpeciesType_t structure to be copied
+ * 
+ * @return a (deep) copy of this SpeciesType_t structure.
  */
 LIBSBML_EXTERN
 SpeciesType_t *
@@ -347,7 +374,11 @@ SpeciesType_clone (const SpeciesType_t *st)
 
 
 /**
- * @return the id of this SpeciesType
+ * Takes a SpeciesType_t structure and returns its identifier.
+ *
+ * @param ct the SpeciesType_t structure whose identifier is sought
+ * 
+ * @return the identifier of this SpeciesType_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -358,7 +389,11 @@ SpeciesType_getId (const SpeciesType_t *st)
 
 
 /**
- * @return the name of this SpeciesType.
+ * Takes a SpeciesType_t structure and returns its name.
+ *
+ * @param ct the SpeciesType_t whose name is sought.
+ *
+ * @return the name of this SpeciesType_t, as a pointer to a string.
  */
 LIBSBML_EXTERN
 const char *
@@ -369,8 +404,13 @@ SpeciesType_getName (const SpeciesType_t *st)
 
 
 /**
- * @return true (non-zero) if the id of this SpeciesType has been set,
- * false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * SpeciesType_t structure's identifier has been set.
+ *
+ * @param ct the SpeciesType_t structure to query
+ * 
+ * @return @c non-zero (true) if the "id" field of the given
+ * SpeciesType has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -381,8 +421,13 @@ SpeciesType_isSetId (const SpeciesType_t *st)
 
 
 /**
- * @return true (non-zero) if the name of this SpeciesType has been set,
- * false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * SpeciesType_t structure's name has been set.
+ *
+ * @param ct the SpeciesType_t structure to query
+ * 
+ * @return @c non-zero (true) if the "name" field of the given
+ * SpeciesType has been set, zero (false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -393,7 +438,12 @@ SpeciesType_isSetName (const SpeciesType_t *st)
 
 
 /**
- * Sets the id of this SpeciesType to a copy of sid.
+ * Assigns the identifier of a SpeciesType_t structure.
+ *
+ * This makes a copy of the string passed as the argument @p sid.
+ *
+ * @param ct the SpeciesType_t structure to set.
+ * @param sid the string to use as the identifier.
  */
 LIBSBML_EXTERN
 void
@@ -404,7 +454,12 @@ SpeciesType_setId (SpeciesType_t *st, const char *sid)
 
 
 /**
- * Sets the name of this SpeciesType to a copy of name.
+ * Assign the name of a SpeciesType_t structure.
+ *
+ * This makes a copy of the string passed as the argument @p name.
+ *
+ * @param ct the SpeciesType_t structure to set.
+ * @param name the string to use as the name.
  */
 LIBSBML_EXTERN
 void
@@ -415,7 +470,9 @@ SpeciesType_setName (SpeciesType_t *st, const char *name)
 
 
 /**
- * Unsets the name of this SpeciesType.
+ * Unsets the name of a SpeciesType.
+ * 
+ * @param ct the SpeciesType_t structure whose name is to be unset.
  */
 LIBSBML_EXTERN
 void
