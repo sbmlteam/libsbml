@@ -36,7 +36,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 /**
@@ -391,7 +391,7 @@ CompartmentType_getId (const CompartmentType_t *ct)
  * Takes a CompartmentType_t structure and returns its name.
  *
  * @param ct the CompartmentType_t whose name is sought.
-
+ *
  * @return the name of this CompartmentType_t, as a pointer to a string.
  */
 LIBSBML_EXTERN

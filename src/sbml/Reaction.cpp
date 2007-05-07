@@ -38,7 +38,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 /**
  * Used by getReactant(species), getProduct(species), and

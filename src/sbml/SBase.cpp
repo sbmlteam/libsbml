@@ -44,7 +44,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 /**
  * elements permitted on the body element of xhtml
