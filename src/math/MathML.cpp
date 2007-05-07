@@ -496,6 +496,7 @@ readMathML (ASTNode& node, XMLInputStream& stream)
   }
 
 
+
   if (name == "apply" || name == "lambda" || name == "piecewise")
   {
     if (name == "apply")
@@ -1041,6 +1042,9 @@ readMathML (XMLInputStream& stream)
   if (name == "apply" || name == "math")
   {
     const XMLToken elem = stream.next();
+      
+    if (elem.isStart() && elem.isEnd()) return node;
+
     readMathML(*node, stream);
     stream.skipPastEnd(elem);
   }

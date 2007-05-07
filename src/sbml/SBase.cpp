@@ -855,6 +855,12 @@ SBase::read (XMLInputStream& stream)
         mSBML->getErrorLog()->unrecognizedElement(next);
         stream.skipPastEnd( stream.next() );
       }
+
+      else
+      {
+        stream.skipPastEnd( stream.next() );
+      }
+
     }
   }
 }
