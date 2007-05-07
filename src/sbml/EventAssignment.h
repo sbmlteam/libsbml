@@ -197,13 +197,6 @@ public:
    * Creates a new EventAssignment, optionally with its "variable"
    * attribute and math subelement set.
    *
-   * @note Although the value of the "variable" attribute is optional in
-   * this constructor, it is worth emphasizing that valid EventAssignment
-   * definitions must have a value for this attribute.  If no variable is
-   * provided at the time of creation, the value is left as the empty
-   * string.  Callers are cautioned to set the value using setVariable()
-   * soon after invoking this constructor.
-   *
    * @param variable the identifier of a Species, Compartment or Parameter
    * object.
    *

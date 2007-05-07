@@ -550,8 +550,8 @@ Parameter_create (void)
  * @endcode
  *
  * @param sid the value to assign as the identifier of this Parameter
- * @param value the value to assign as the name of this Parameter
- * @param units the value to assign as the units of this Parameter
+ * @param value the value to assign as the value of this Parameter
+ * @param units the value to assign as the units of this Parameter's value
  *
  * @return a pointer to the newly created Parameter_t structure.
  */
