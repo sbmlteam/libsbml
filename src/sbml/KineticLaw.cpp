@@ -62,6 +62,22 @@ KineticLaw::KineticLaw (   const string& formula
 
 
 /**
+ * Creates a new KineticLaw, optionally with its math, timeUnits and/or
+ * substanceUnits set.
+ */
+KineticLaw::KineticLaw (   ASTNode* math
+                         , const string& timeUnits
+                         , const string& substanceUnits ) :
+   SBase          ( -1             )
+ , mMath          ( 0              )
+ , mTimeUnits     ( timeUnits      )
+ , mSubstanceUnits( substanceUnits )
+{
+  if (math) mMath = math->deepCopy();
+}
+
+
+/**
  * Destroys this KineticLaw.
  */
 KineticLaw::~KineticLaw ()
@@ -649,6 +665,8 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
 
 /**
  * Creates a new KineticLaw and returns a pointer to it.
+ *
+ * @return pointer to newly created KineticLaw structure.
  */
 LIBSBML_EXTERN
 KineticLaw_t *
@@ -663,10 +681,20 @@ KineticLaw_create (void)
  * substanceUnits and returns a pointer to it.  This convenience function
  * is functionally equivalent to:
  *
- *   KineticLaw_t *kl = KineticLaw_create();
- *   KineticLaw_setFormula(kl, formula);
- *   KineticLaw_setTimeUnits(kl, timeUnits);
+ *   KineticLaw_t *kl = KineticLaw_create();@n
+ *   KineticLaw_setFormula(kl, formula);@n
+ *   KineticLaw_setTimeUnits(kl, timeUnits);@n
  *   ...;
+ *
+ * @param formula string representing the kinetic law.
+ * @param timeUnits string representing the units of time for this KineticLaw.
+ * @param substanceUnits string representing the units of substance for this KineticLaw.
+ *
+ * @return pointer to newly created KineticLaw structure.
+ * 
+ *
+ * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+ * been removed.
  */
 LIBSBML_EXTERN
 KineticLaw_t *
@@ -679,6 +707,45 @@ KineticLaw_createWith ( const char *formula,
   string su = substanceUnits ? substanceUnits : "";
 
   return new(nothrow) KineticLaw(f, tu, su);
+}
+
+/**
+ * Creates a new KineticLaw with the given math, timeUnits and
+ * substanceUnits and returns a pointer to it.  This convenience function
+ * is functionally equivalent to:
+ *
+ *   KineticLaw_t *kl = KineticLaw_create();@n
+ *   KineticLaw_setMath(kl, math);@n
+ *   KineticLaw_setTimeUnits(kl, timeUnits);@n
+ *   ...;
+ *
+ * @param formula string representing the kinetic law.
+ * @param timeUnits string representing the units of time for this KineticLaw.
+ * @param substanceUnits string representing the units of substance for this KineticLaw.
+ *
+ * @return pointer to newly created KineticLaw structure.
+ * 
+ *
+ * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+ * been removed.
+ */
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithMathAndUnits ( ASTNode_t *math,
+                            const char *timeUnits,
+                            const char *substanceUnits )
+{
+  string tu = timeUnits      ? timeUnits      : "";
+  string su = substanceUnits ? substanceUnits : "";
+
+  return new(nothrow) KineticLaw(math, tu, su);
+}
+
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithMath ( ASTNode_t *math)
+{
+  return new(nothrow) KineticLaw(math);
 }
 
 

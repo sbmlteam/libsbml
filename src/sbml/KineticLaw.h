@@ -50,8 +50,32 @@ public:
   /**
    * Creates a new KineticLaw, optionally with its formula, timeUnits
    * and/or substanceUnits set.
+   *
+   * @param formula string representing the kinetic law.
+   * @param timeUnits string representing the units of time for this KineticLaw.
+   * @param substanceUnits string representing the units of substance for this KineticLaw.
+   * 
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   KineticLaw (   const std::string& formula        = ""
+               , const std::string& timeUnits      = ""
+               , const std::string& substanceUnits = "" );
+
+  /**
+   * Creates a new KineticLaw, optionally with its math, timeUnits
+   * and/or substanceUnits set.
+   *
+   * @param math ASTNode representing the kinetic law.
+   * @param timeUnits string representing the units of time for this KineticLaw.
+   * @param substanceUnits string representing the units of substance for this KineticLaw.
+   * 
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
+   */
+  KineticLaw (   ASTNode*      math
                , const std::string& timeUnits      = ""
                , const std::string& substanceUnits = "" );
 
@@ -61,7 +85,7 @@ public:
   virtual ~KineticLaw ();
 
   /**
-   * Copy constructor. Creates a copy of this KineticLaw.
+   * Copy constructor; creates a copy of this KineticLaw.
    */
   KineticLaw (const KineticLaw& rhs);
 
@@ -71,87 +95,152 @@ public:
   KineticLaw& operator=(const KineticLaw& orig);
 
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor for this instance of KineticLaw.
+   *
+   * @param v the SBMLVisitor instance to be used.
+   *
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
   /**
+   * Creates and returns a deep copy of this KineticLaw.
+   *
    * @return a (deep) copy of this KineticLaw.
    */
   virtual SBase* clone () const;
 
 
   /**
-   * @return the formula of this KineticLaw.
+   * Get the mathematical formula for the kineticlaw and return it as
+   * as a string.
+   * 
+   * @return a string representing the formula of this Kineticlaw.
    */
   const std::string& getFormula () const;
 
   /**
-   * @return the math of this KineticLaw.
+   * Get the mathematical formula for the kineticlaw and return it
+   * as an AST.
+   * 
+   * @return the math of this Kineticlaw.
    */
   const ASTNode* getMath () const;
 
   /**
+   * Return the timeUnits of this KineticLaw.
+   *
    * @return the timeUnits of this KineticLaw.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   const std::string& getTimeUnits () const;
 
   /**
+   * Return the substanceUnits of this KineticLaw.
+   *
    * @return the substanceUnits of this KineticLaw.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   const std::string& getSubstanceUnits () const;
 
   /**
-   * @return true if the formula (or equivalently the math) of this
-   * KineticLaw has been set, false otherwise.
-   */
-  bool isSetFormula () const;
+   * Predicate to test whether the formula for this kineticlaw has been set.
+   *
+   * This is identical to the method isSetMath().  It is provided
+   * in order to mirror the parallel between getFormula() and getMath().
+   *
+   * @return @c true if the formula (meaning the @c math subelement) of
+   * this Kineticlaw has been set, @c false otherwise.
+   */  bool isSetFormula () const;
 
   /**
-   * @return true if the math (or equivalently the formula) of this
-   * KineticLaw has been set, false otherwise.
+   * Predicate to test whether the math for this kineticlaw has been set.
+   *
+   * This is identical to the method isSetFormula().  It is provided
+   * in order to mirror the parallel between getFormula() and getMath().
+   * 
+   * @return @c true if the formula (meaning the @c math subelement) of
+   * this Kineticlaw has been set, @c false otherwise.
    */
   bool isSetMath () const;
 
-  /**
-   * @return true if the timeUnits of this KineticLaw has been set, false
+ /**
+   * Predicate to test whether the timeUnits for this kineticlaw has been set.
+   *
+   * @return @c true if the timeUnits of this KineticLaw has been set, @c false
    * otherwise.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   bool isSetTimeUnits () const;
 
   /**
-   * @return true if the substanceUnits of this KineticLaw has been set,
-   * false otherwise.
+   * Predicate to test whether the substanceUnits for this kineticlaw has been set.
+   *
+   * @return @c true if the substanceUnits of this KineticLaw has been set, @c false
+   * otherwise.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   bool isSetSubstanceUnits () const;
 
   /**
-   * Sets the formula of this KineticLaw to a copy of formula.
+   * Sets the mathematical expression of this Kineticlaw instance to the given string
+   * @p formula.
+   *
+   * The given @p formula string is copied.
+   *
+   * @param formula the mathematical expression to use.
    */
   void setFormula (const std::string& formula);
 
   /**
-   * Sets the math of this KineticLaw to a copy of the given ASTNode.
+   * Sets the mathematical expression of this Kineticlaw instance to a copy of the given
+   * ASTNode.
+   *
+   * @param math an ASTNode representing a formula tree.
    */
   void setMath (const ASTNode* math);
 
   /**
    * Sets the timeUnits of this KineticLaw to a copy of sid.
+   *
+   * @param sid string representing the time units.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   void setTimeUnits (const std::string& sid);
 
   /**
    * Sets the substanceUnits of this KineticLaw to a copy of sid.
+   *
+   * @param sid string representing the time units.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   void setSubstanceUnits (const std::string& sid);
 
   /**
    * Unsets the timeUnits of this KineticLaw.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   void unsetTimeUnits ();
 
   /**
    * Unsets the substanceUnits of this KineticLaw.
+   *
+   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * been removed.
    */
   void unsetSubstanceUnits ();
 
@@ -314,6 +403,16 @@ KineticLaw_t *
 KineticLaw_createWith ( const char *formula,
                         const char *timeUnits,
                         const char *substanceUnits );
+
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithMathAndUnits ( ASTNode_t *math,
+                            const char *timeUnits,
+                            const char *substanceUnits );
+
+LIBSBML_EXTERN
+KineticLaw_t *
+KineticLaw_createWithMath ( ASTNode_t *math);
 
 /**
  * Frees the given KineticLaw.

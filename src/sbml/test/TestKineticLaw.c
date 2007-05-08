@@ -142,6 +142,81 @@ START_TEST (test_KineticLaw_createWith)
 END_TEST
 
 
+START_TEST (test_KineticLaw_createWithMathAndUnits)
+{
+  ASTNode_t *math1 = SBML_parseFormula("k3 / k2");
+  const ASTNode_t *math;
+  char *formula;
+
+  KineticLaw_t *kl = KineticLaw_createWithMathAndUnits(math1, "seconds", "ug");
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) kl) == SBML_KINETIC_LAW );
+  fail_unless( SBase_getMetaId    ((SBase_t *) kl) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) kl) == NULL );
+*/
+  math = KineticLaw_getMath(kl);
+  fail_unless( math != NULL );
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "k3 / k2") );
+
+  fail_unless( !strcmp( KineticLaw_getFormula       (kl), formula  ) );
+  fail_unless( !strcmp( KineticLaw_getTimeUnits     (kl), "seconds") );
+  fail_unless( !strcmp( KineticLaw_getSubstanceUnits(kl), "ug"     ) );
+
+  fail_unless( KineticLaw_isSetMath          (kl) );
+  fail_unless( KineticLaw_isSetFormula       (kl) );
+  fail_unless( KineticLaw_isSetTimeUnits     (kl) );
+  fail_unless( KineticLaw_isSetSubstanceUnits(kl) );
+
+  fail_unless(KineticLaw_getNumParameters(kl) == 0);
+
+  //KineticLaw_free(kl);
+  //safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_KineticLaw_createWithMath)
+{
+  ASTNode_t *math1 = SBML_parseFormula("k3 / k2");
+  const ASTNode_t *math;
+  char *formula;
+
+  KineticLaw_t *kl = KineticLaw_createWithMath(math1);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) kl) == SBML_KINETIC_LAW );
+  fail_unless( SBase_getMetaId    ((SBase_t *) kl) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) kl) == NULL );
+*/
+  math = KineticLaw_getMath(kl);
+  fail_unless( math != NULL );
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "k3 / k2") );
+
+  fail_unless( !strcmp( KineticLaw_getFormula       (kl), formula  ) );
+
+  fail_unless( KineticLaw_isSetMath          (kl) );
+  fail_unless( KineticLaw_isSetFormula       (kl) );
+  fail_unless( !KineticLaw_isSetTimeUnits     (kl) );
+  fail_unless( !KineticLaw_isSetSubstanceUnits(kl) );
+
+  fail_unless(KineticLaw_getNumParameters(kl) == 0);
+
+  KineticLaw_free(kl);
+  safe_free(formula);
+}
+END_TEST
+
+
+
 START_TEST (test_KineticLaw_free_NULL)
 {
   KineticLaw_free(NULL);
@@ -357,6 +432,8 @@ create_suite_KineticLaw (void)
 
   tcase_add_test( tcase, test_KineticLaw_create             );
   tcase_add_test( tcase, test_KineticLaw_createWith         );
+  tcase_add_test( tcase, test_KineticLaw_createWithMathAndUnits );
+  tcase_add_test( tcase, test_KineticLaw_createWithMath         );
   tcase_add_test( tcase, test_KineticLaw_free_NULL          );
   tcase_add_test( tcase, test_KineticLaw_setFormula         );
   tcase_add_test( tcase, test_KineticLaw_setFormulaFromMath );
