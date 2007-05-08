@@ -1,6 +1,6 @@
 /**
  * @file    ConstraintMacros.h
- * @brief   Defines the contstraint "language"
+ * @brief   Defines the validator constraint "language"
  * @author  Ben Bornstein
  * 
  * $Id$
@@ -35,9 +35,9 @@
 
 
 #define START_CONSTRAINT(Id, Typename, Varname)                   \
-struct Constraint ## Typename ## Id: public TConstraint<Typename> \
+struct VConstraint ## Typename ## Id: public TConstraint<Typename> \
 {                                                                 \
-  Constraint ## Typename ## Id (Validator& V) :                   \
+  VConstraint ## Typename ## Id (Validator& V) :                   \
     TConstraint<Typename>(Id, V) { }                              \
 protected:                                                        \
   void check_ (const Model& m, const Typename& Varname)
@@ -56,7 +56,7 @@ protected:                                                        \
 
 
 #define START_CONSTRAINT(Id, Typename, Varname)              \
-  addConstraint( new Constraint ## Typename ## Id (*this) ); \
+  addConstraint( new VConstraint ## Typename ## Id (*this) ); \
   if (0) { const Model m; const Typename Varname; std::string msg;
 
 #define END_CONSTRAINT }
