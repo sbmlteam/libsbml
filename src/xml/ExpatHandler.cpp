@@ -98,6 +98,7 @@ ExpatHandler::ExpatHandler (XML_Parser parser, XMLHandler& handler) :
   XML_SetCharacterDataHandler( mParser, ::characters                 );
   XML_SetNamespaceDeclHandler( mParser, ::startNamespace, 0          );
   XML_SetUserData            ( mParser, static_cast<void*>(this)     );
+  XML_SetReturnNSTriplet     ( mParser, 1                            );
 }
 
 
