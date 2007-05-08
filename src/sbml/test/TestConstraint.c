@@ -100,6 +100,24 @@ START_TEST (test_Constraint_free_NULL)
 END_TEST
 
 
+START_TEST (test_Constraint_createWithMath)
+{
+  ASTNode_t       *math = SBML_parseFormula("1 + 1");
+  Constraint_t *c   = Constraint_createWithMath(math);
+
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_CONSTRAINT );
+  fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
+
+  fail_unless( Constraint_getMath(c) != math );
+  fail_unless( !Constraint_isSetMessage(c) );
+  fail_unless( Constraint_isSetMath    (c) );
+  Constraint_free(c);
+}
+END_TEST
+
+
 START_TEST (test_Constraint_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("2 * k");
@@ -130,16 +148,16 @@ END_TEST
 START_TEST (test_Constraint_setMessage)
 {
   XMLNode_t *node = XMLNode_create();
-  /* compiler is refusing to find this function !!!!
+
   Constraint_setMessage(C, node);
 
   fail_unless( Constraint_getMessage(C) != node );
-  fail_unless( Constraint_isSetMessage(C) );
+  fail_unless( Constraint_isSetMessage(C) == 1);
 
-  /* Reflexive case (pathological) 
+  /* Reflexive case (pathological) */
   Constraint_setMessage(C, (XMLNode_t *) Constraint_getMessage(C));
 
-  fail_unless( Constraint_getMessage(C) != node );*/
+  fail_unless( Constraint_getMessage(C) != node );
 
   Constraint_unsetMessage(C);
   fail_unless( !Constraint_isSetMessage(C) );
@@ -166,6 +184,7 @@ create_suite_Constraint (void)
                              ConstraintTest_teardown );
 
   tcase_add_test( tcase, test_Constraint_create      );
+  tcase_add_test( tcase, test_Constraint_createWithMath      );
   tcase_add_test( tcase, test_Constraint_free_NULL   );
   tcase_add_test( tcase, test_Constraint_setMath     );
   tcase_add_test( tcase, test_Constraint_setMessage  );

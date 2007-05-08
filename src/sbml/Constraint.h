@@ -157,8 +157,16 @@ public:
 
   /**
    * Creates a new, empty Constraint.
-   */
+   *
   Constraint ();
+*/
+
+  /**
+   * Creates a new Constraint optionally with its math set.
+   *
+   * @param math ASTNode representing the math of the Constraint.
+   */
+  Constraint (ASTNode* math = NULL);
 
 
   /**
@@ -413,6 +421,11 @@ Constraint_create (void);
 
 
 LIBSBML_EXTERN
+Constraint_t *
+Constraint_createWithMath (ASTNode_t * math);
+
+
+LIBSBML_EXTERN
 void
 Constraint_free (Constraint_t *c);
 
@@ -444,7 +457,7 @@ Constraint_isSetMath (const Constraint_t *c);
 
 LIBSBML_EXTERN
 void
-Constraint_setMessage (Constraint_t *c, XMLNode_t* xhtml);
+Constraint_setMessage (Constraint_t *c, const XMLNode_t* xhtml);
 
 
 LIBSBML_EXTERN

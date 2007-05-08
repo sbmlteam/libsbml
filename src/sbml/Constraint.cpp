@@ -45,12 +45,25 @@ using namespace std;
 /**
  * Creates a new Constraint
  * set.
- */
+ 
 Constraint::Constraint () :
    SBase   ( -1 )
  , mMath   (  0 )
  , mMessage(  0 )
 {
+}
+*/
+
+/**
+ * Creates a new Constraint
+ * set.
+ */
+Constraint::Constraint (ASTNode* math) :
+   SBase   ( -1 )
+ , mMath   (  0 )
+ , mMessage(  0 )
+{
+  if (math) mMath = math->deepCopy();
 }
 
 
@@ -140,7 +153,7 @@ Constraint::getMath () const
 bool
 Constraint::isSetMessage () const
 {
-  return isSetId();
+  return (mMessage != 0);
 }
 
 
@@ -459,6 +472,22 @@ Constraint_t *
 Constraint_create ()
 {
   return new(nothrow) Constraint;
+}
+
+
+/**
+ * Creates a new Constraint_t structure with the math set
+ * and returns a pointer to it.
+ *
+ * @param math ASTNode_t structure representing the math.
+ *
+ * @return a pointer to a Constraint_t structure
+ */
+LIBSBML_EXTERN
+Constraint_t *
+Constraint_createWithMath (ASTNode_t * math)
+{
+  return new(nothrow) Constraint(math);
 }
 
 
