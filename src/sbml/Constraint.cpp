@@ -446,9 +446,13 @@ ListOfConstraints::createObject (XMLInputStream& stream)
 
 
 
+/** @cond doxygen-c-only */
+
 
 /**
- * Creates a new Constraint and returns a pointer to it.
+ * Creates a new, empty Constraint_t structure and returns a pointer to it.
+ *
+ * @return a pointer to a Constraint_t structure
  */
 LIBSBML_EXTERN
 Constraint_t *
@@ -459,7 +463,7 @@ Constraint_create ()
 
 
 /**
- * Frees the given Constraint.
+ * Frees the given Constraint_t structure.
  */
 LIBSBML_EXTERN
 void
@@ -470,7 +474,11 @@ Constraint_free (Constraint_t *c)
 
 
 /**
- * @return a (deep) copy of the given Constraint.
+ * Creates and returns a deep copy of the given Constraint_t structure.
+ *
+ * @param c the Constraint_t structure to copy
+ * 
+ * @return a (deep) copy of Constraint_t.
  */
 LIBSBML_EXTERN
 Constraint_t *
@@ -481,7 +489,11 @@ Constraint_clone (const Constraint_t *c)
 
 
 /**
- * @return the symbol for this Constraint
+ * Get the message, if any, associated with this Constraint
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return the message for this Constraint, as an XMLNode.
  */
 LIBSBML_EXTERN
 const XMLNode_t *
@@ -492,7 +504,11 @@ Constraint_getMessage (const Constraint_t *c)
 
 
 /**
- * @return the math for this Constraint.
+ * Get the mathematical expression of this Constraint
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return the math for this Constraint, as an ASTNode.
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -503,8 +519,13 @@ Constraint_getMath (const Constraint_t *c)
 
 
 /**
- * @return true (non-zero) if the symbol of this Constraint has been
- * set, false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether a
+ * message has been defined for this Constraint.
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return a nonzero integer if the "message" subelement for this
+ * Constraint has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -515,8 +536,13 @@ Constraint_isSetMessage (const Constraint_t *c)
 
 
 /**
- * @return true (non-zero) if the math of this Constraint has been
- * set, false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether a
+ * mathematical formula has been defined for this Constraint.
+ *
+ * @param c the Constraint_t structure 
+ * 
+ * @return a nonzero integer if the "math" subelement for this Constraint
+ * has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -527,7 +553,11 @@ Constraint_isSetMath (const Constraint_t *c)
 
 
 /**
- * Sets the message of this Constraint to a copy of xhtml.
+ * Sets the message of this Constraint.
+ *
+ * @param c the Constraint_t structure
+ *
+ * @param xhtml an XML tree containing XHTML content.
  */
 LIBSBML_EXTERN
 void
@@ -538,8 +568,12 @@ Constraint_setMessage (Constraint_t *c, const XMLNode_t *xhtml)
 
 
 /**
- * Sets the math of this Constraint to a copy of the given
- * ASTNode.
+ * Sets the mathematical expression of this Constraint.
+ *
+ * @param c the Constraint_t structure
+ *
+ * @param math an ASTNode expression to be assigned as the "math"
+ * subelement of this Constraint
  */
 LIBSBML_EXTERN
 void
@@ -550,7 +584,9 @@ Constraint_setMath (Constraint_t *c, const ASTNode_t *math)
 
 
 /**
- * Unsets the message of this Constraint.
+ * Unsets the "message" subelement of this Constraint.
+ *
+ * @param c the Constraint_t structure
  */
 LIBSBML_EXTERN
 void 
