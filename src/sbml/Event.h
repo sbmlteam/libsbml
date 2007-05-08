@@ -114,7 +114,7 @@ public:
    * @param id a string, the identifier to assign to this Event
    * @param name a string, the name to be assigned to this Event
    */
-  Event ( const std::string&  id = "", const string& name = "");
+  Event ( const std::string&  id = "", const std::string& name = "");
 
 
   /**
