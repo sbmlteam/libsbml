@@ -1,6 +1,6 @@
 /**
  * @file    Constraint.h
- * @brief   Implementation of %SBML's Constraint.
+ * @brief   Definitions of Constraint and ListOfConstraints.
  * @author  Ben Bornstein
  *
  * $Id$
