@@ -741,6 +741,17 @@ KineticLaw_createWithMathAndUnits ( ASTNode_t *math,
   return new(nothrow) KineticLaw(math, tu, su);
 }
 
+/**
+ * Creates a new KineticLaw with the given math and returns a pointer 
+ * to it.  This convenience function is functionally equivalent to:
+ *
+ *   KineticLaw_t *kl = KineticLaw_create();@n
+ *   KineticLaw_setMath(kl, math);@n
+ *
+ * @param math ASTNode_t structure representing the kinetic law.
+ *
+ * @return pointer to newly created KineticLaw structure.
+ */
 LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_createWithMath ( ASTNode_t *math)
