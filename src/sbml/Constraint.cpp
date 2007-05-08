@@ -45,18 +45,6 @@ using namespace std;
 /**
  * Creates a new Constraint
  * set.
- 
-Constraint::Constraint () :
-   SBase   ( -1 )
- , mMath   (  0 )
- , mMessage(  0 )
-{
-}
-*/
-
-/**
- * Creates a new Constraint
- * set.
  */
 Constraint::Constraint (ASTNode* math) :
    SBase   ( -1 )

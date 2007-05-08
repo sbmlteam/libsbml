@@ -156,12 +156,6 @@ class LIBSBML_EXTERN Constraint : public SBase
 public:
 
   /**
-   * Creates a new, empty Constraint.
-   *
-  Constraint ();
-*/
-
-  /**
    * Creates a new Constraint optionally with its math set.
    *
    * @param math ASTNode representing the math of the Constraint.
