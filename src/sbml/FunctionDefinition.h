@@ -1,6 +1,6 @@
 /**
  * @file    FunctionDefinition.h
- * @brief   Definition of FunctionDefinition and ListOfFunctionDefinitions.
+ * @brief   Definitions of FunctionDefinition and ListOfFunctionDefinitions.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  *
  * @class FunctionDefinition
- * @brief  LibSBML implementation of %SBML's FunctionDefinition construct.
+ * @brief LibSBML implementation of %SBML's FunctionDefinition construct.
  *
  * The FunctionDefinition structure associates an identifier with a
  * function definition.  This identifier can then be used as the function
@@ -325,7 +325,6 @@ public:
   /** @endcond doxygen-libsbml-internal */
 
 
-protected:
 protected:
   /** @cond doxygen-libsbml-internal */
 
