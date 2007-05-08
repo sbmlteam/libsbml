@@ -611,3 +611,6 @@ Constraint_unsetMessage (Constraint_t *c)
 {
   c->unsetMessage();
 }
+
+
+/** @endcond doxygen-c-only */
