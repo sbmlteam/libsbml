@@ -1,6 +1,6 @@
 /**
  * @file    InitialAssignment.cpp
- * @brief   SBML InitialAssignment
+ * @brief   Definitions of InitialAssignment and ListOfInitialAssignments
  * @author  Ben Bornstein
  *
  * $Id$
@@ -64,11 +64,11 @@ InitialAssignment::~InitialAssignment ()
 /**
  * Copy constructor. Creates a copy of this InitialAssignment.
  */
-InitialAssignment::InitialAssignment (const InitialAssignment& rhs) :
-   SBase   ( rhs )
+InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
+   SBase   ( orig )
  , mMath   ( 0   )
 {
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if (orig.mMath) mMath = orig.mMath->deepCopy();
 }
 
 
@@ -422,10 +422,13 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
+
 
 
 /**
- * Creates a new InitialAssignment and returns a pointer to it.
+ * Creates a new, empty InitialAssignment_t structure and returns a pointer
+ * to it.
  */
 LIBSBML_EXTERN
 InitialAssignment_t *
@@ -436,8 +439,13 @@ InitialAssignment_create ()
 
 
 /**
- * Creates a new InitialAssignment, optionally with its symbol attribute
- * set.
+ * Creates a new InitialAssignment_t structure, optionally with its "symbol"
+ * attribute value set.
+ *
+ * @param symbol an identifier to assign as the value of the "symbol"
+ * attribute of this InitialAssignment_t structure
+ *
+ * @return the newly-created InitialAssignment_t structure
  */
 LIBSBML_EXTERN
 InitialAssignment_t *
@@ -448,7 +456,9 @@ InitialAssignment_createWith (const char *symbol)
 
 
 /**
- * Frees the given InitialAssignment.
+ * Frees the given InitialAssignment_t structure.
+ *
+ * @param ia the InitialAssignment_t structure to free.
  */
 LIBSBML_EXTERN
 void
@@ -459,7 +469,11 @@ InitialAssignment_free (InitialAssignment_t *ia)
 
 
 /**
- * @return a (deep) copy of the given InitialAssignment.
+ * Copy constructor; creates a copy of this InitialAssignment.
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @return a (deep) copy of the given InitialAssignment_t structure.
  */
 LIBSBML_EXTERN
 InitialAssignment_t *
@@ -470,7 +484,12 @@ InitialAssignment_clone (const InitialAssignment_t *ia)
 
 
 /**
- * @return the symbol for this InitialAssignment.
+ * Get the value of the "symbol" attribute of this InitialAssignment.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return the identifier string stored as the "symbol" attribute value
+ * in this InitialAssignment.
  */
 LIBSBML_EXTERN
 const char *
@@ -481,7 +500,12 @@ InitialAssignment_getSymbol (const InitialAssignment_t *ia)
 
 
 /**
- * @return the math for this InitialAssignment.
+ * Get the mathematical formula of this InitialAssignment.
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @return an ASTNode, the value of the "math" subelement of this
+ * InitialAssignment
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -492,8 +516,13 @@ InitialAssignment_getMath (const InitialAssignment_t *ia)
 
 
 /**
- * @return true (non-zero) if the symbol of this InitialAssignment has been
- * set, false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether this
+ * InitialAssignment's "symbol" attribute has been set.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return nonzero if the "symbol" attribute of this InitialAssignment
+ * has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -504,8 +533,13 @@ InitialAssignment_isSetSymbol (const InitialAssignment_t *ia)
 
 
 /**
- * @return true (non-zero) if the math of this InitialAssignment has been
- * set, false (0) otherwise.
+ * Predicate returning @c true or @c false depending on whether this
+ * InitialAssignment's "math" subelement contains a value.
+ *
+ * @param ia the InitialAssignment_t structure
+ * 
+ * @return nonzero if the "math" for this InitialAssignment has been set,
+ * zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -516,7 +550,12 @@ InitialAssignment_isSetMath (const InitialAssignment_t *ia)
 
 
 /**
- * Sets the symbol of this InitialAssignment to a copy of sid.
+ * Sets the "symbol" attribute value of this InitialAssignment
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @param sid, the identifier of a Species, Compartment or Parameter
+ * object defined elsewhere in this Model.
  */
 LIBSBML_EXTERN
 void
@@ -527,8 +566,14 @@ InitialAssignment_setSymbol (InitialAssignment_t *ia, const char *sid)
 
 
 /**
- * Sets the math of this InitialAssignment to a copy of the given
- * ASTNode.
+ * Sets the "math" subelement of this InitialAssignment
+ *
+ * The ASTNode tree passed in @p math is copied.
+ *
+ * @param ia the InitialAssignment_t structure
+ *
+ * @param math an ASTNode tree containing the mathematical expression to
+ * be used as the formula for this InitialAssignment.
  */
 LIBSBML_EXTERN
 void
