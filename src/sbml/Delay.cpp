@@ -49,11 +49,11 @@ using namespace std;
  * Creates a new Delay, optionally with its formula, timeUnits and/or
  * substanceUnits set.
  */
-Delay::Delay (   const string& formula ) :
+Delay::Delay (   const ASTNode* math ) :
    SBase		  (  -1 )
- , mFormula       ( formula        )
- , mMath          ( 0              )
+ , mMath      ( 0              )
 {
+  if (math) mMath = math->deepCopy();
 }
 
 
@@ -71,7 +71,6 @@ Delay::~Delay ()
  */
 Delay::Delay (const Delay& rhs) :
    SBase          ( rhs                 )
- , mFormula       ( rhs.mFormula        )
  , mMath          ( 0                   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
@@ -84,7 +83,6 @@ Delay::Delay (const Delay& rhs) :
 Delay& Delay::operator=(const Delay& rhs)
 {
   this->SBase::operator =(rhs);
-  mFormula = rhs.mFormula;
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
   return *this;
 }
@@ -110,23 +108,6 @@ Delay::clone () const
 }
 
 
-/**
- * @return the formula of this Delay.
- */
-const string&
-Delay::getFormula () const
-{
-  if (mFormula.empty() == true && mMath != 0)
-  {
-    char* s  = SBML_formulaToString(mMath);
-    mFormula = s;
-
-    free(s);
-  }
-
-  return mFormula;
-}
-
 
 /**
  * @return the math of this Delay.
@@ -134,23 +115,7 @@ Delay::getFormula () const
 const ASTNode*
 Delay::getMath () const
 {
-  if (mMath == 0 && mFormula.empty() == false)
-  {
-    mMath = SBML_parseFormula( mFormula.c_str() );
-  }
-
   return mMath;
-}
-
-
-/**
- * @return true if the formula (or equivalently the math) of this
- * Delay has been set, false otherwise.
- */
-bool
-Delay::isSetFormula () const
-{
-  return (mFormula.empty() == false) || (mMath != 0);
 }
 
 
@@ -161,23 +126,7 @@ Delay::isSetFormula () const
 bool
 Delay::isSetMath () const
 {
-  return isSetFormula();
-}
-
-
-/**
- * Sets the formula of this Delay to a copy of formula.
- */
-void
-Delay::setFormula (const string& formula)
-{
-  mFormula = formula;
-
-  if (mMath)
-  {
-    delete mMath;
-    mMath = 0;
-  }
+  return (mMath != 0);
 }
 
 
@@ -192,8 +141,6 @@ Delay::setMath (const ASTNode* math)
 
   delete mMath;
   mMath = (math != 0) ? math->deepCopy() : 0;
-
-  mFormula.erase();
 }
 
 
@@ -408,26 +355,24 @@ Delay_create (void)
 
 
 /**
- * Creates a new Delay_t structure with the given formula.
+ * Creates a new Delay_t structure with the given math.
  *
  * This is functionally equivalent to
  * @code
  *   Delay_t *t = Delay_create();
- *   Delay_set_Formula(formula);
+ *   Delay_setMath(math);
  * @endcode.
  *
- * @param formula a string, the mathematical formula for the delay
- * expressions.
+ * @param math an ASTNode_t structure representing the mathematical 
+ * formula for the delay expressions.
  *
  * @return the newly constructed Delay_t structure.
  */
 LIBSBML_EXTERN
 Delay_t *
-Delay_createWith (const char *formula)
+Delay_createWithMath (const ASTNode_t *math)
 {
-  string f  = formula ? formula : "";
-
-  return new(nothrow) Delay(f);
+  return new(nothrow) Delay(math);
 }
 
 
@@ -461,22 +406,6 @@ Delay_clone (const Delay_t *t)
 
 /**
  * Get the mathematical formula for a Delay_t structure and return it as
- * as a string.
- *
- * @param t the Delay_t structure to query.
- * 
- * @return a string representing the formula of this delay expression.
- */
-LIBSBML_EXTERN
-const char *
-Delay_getFormula (const Delay_t *t)
-{
-  return t->isSetFormula() ? t->getFormula().c_str() : NULL;
-}
-
-
-/**
- * Get the mathematical formula for a Delay_t structure and return it as
  * as an ASTNode structure.
  *
  * @param t the Delay_t structure to query.
@@ -495,29 +424,6 @@ Delay_getMath (const Delay_t *t)
  * Predicate to test whether the formula for the given Delay_t structure
  * has been set.
  *
- * This is identical to the function Delay_isSetMath().  It is provided in
- * order to mirror the parallel between getFormula() and getMath().
- *
- * @param t the Delay_t structure to query
- *
- * @return @c true if the formula (meaning the @c math subelement) of
- * this Delay has been set, @c false otherwise.
- */
-LIBSBML_EXTERN
-int
-Delay_isSetFormula (const Delay_t *t)
-{
-  return static_cast<int>( t->isSetFormula() );
-}
-
-
-/**
- * Predicate to test whether the formula for the given Delay_t structure
- * has been set.
- *
- * This is identical to the function Delay_isSetFormula().  It is provided
- * in order to mirror the parallel between getFormula() and getMath().
- *
  * @param t the Delay_t structure to query
  *
  * @return @c true if the formula (meaning the @c math subelement) of
@@ -528,23 +434,6 @@ int
 Delay_isSetMath (const Delay_t *t)
 {
   return static_cast<int>( t->isSetMath() );
-}
-
-
-/**
- * Sets the delay expression of the given Delay_t structure @p t to the
- * given string @p formula.
- *
- * The given @p formula string is copied.
- *
- * @param t the Delay_t structure to set.
- * @param formula the mathematical expression to use.
- */
-LIBSBML_EXTERN
-void
-Delay_setFormula (Delay_t *t, const char *formula)
-{
-  t->setFormula(formula ? formula : "");
 }
 
 

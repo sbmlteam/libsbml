@@ -130,12 +130,12 @@ class LIBSBML_EXTERN Delay : public SBase
 public:
 
   /**
-   * Creates a new Delay, optionally with a given formula. 
+   * Creates a new Delay, optionally with the given math. 
    *
-   * @param formula a string representing the mathematical formula for
+   * @param math an ASTNode representing the mathematical formula for
    * the delay expression.
    */
-  Delay (const std::string& formula = "");
+  Delay (const ASTNode* math = NULL);
 
 
   /**
@@ -175,15 +175,6 @@ public:
 
 
   /**
-   * Get the mathematical formula for the delay and return it as
-   * as a string.
-   * 
-   * @return a string representing the formula of this Delay.
-   */
-  const std::string& getFormula () const;
-
-
-  /**
    * Get the mathematical formula for the delay and return it
    * as an AST.
    * 
@@ -195,36 +186,11 @@ public:
   /**
    * Predicate to test whether the formula for this delay has been set.
    *
-   * This is identical to the method isSetMath().  It is provided
-   * in order to mirror the parallel between getFormula() and getMath().
-   *
-   * @return @c true if the formula (meaning the @c math subelement) of
-   * this Delay has been set, @c false otherwise.
-   */
-  bool isSetFormula () const;
-
-
-  /**
-   * Predicate to test whether the formula for this delay has been set.
-   *
-   * This is identical to the method isSetFormula().  It is provided
-   * in order to mirror the parallel between getFormula() and getMath().
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this Delay has been set, @c false otherwise.
    */
   bool isSetMath () const;
-
-
-  /**
-   * Sets the delay expression of this Delay instance to the given string
-   * @p formula.
-   *
-   * The given @p formula string is copied.
-   *
-   * @param formula the mathematical expression to use.
-   */
-  void setFormula (const std::string& formula);
 
 
   /**
@@ -317,8 +283,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  mutable std::string  mFormula;
-  mutable ASTNode*     mMath;
+  ASTNode*     mMath;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -344,7 +309,7 @@ Delay_create (void);
 
 LIBSBML_EXTERN
 Delay_t *
-Delay_createWith ( const char *formula);
+Delay_createWithMath ( const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
@@ -358,28 +323,13 @@ Delay_clone (const Delay_t *d);
 
 
 LIBSBML_EXTERN
-const char *
-Delay_getFormula (const Delay_t *d);
-
-
-LIBSBML_EXTERN
 const ASTNode_t *
 Delay_getMath (const Delay_t *d);
 
 
 LIBSBML_EXTERN
 int
-Delay_isSetFormula (const Delay_t *d);
-
-
-LIBSBML_EXTERN
-int
 Delay_isSetMath (const Delay_t *d);
-
-
-LIBSBML_EXTERN
-void
-Delay_setFormula (Delay_t *d, const char *formula);
 
 
 LIBSBML_EXTERN

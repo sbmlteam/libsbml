@@ -76,6 +76,7 @@ Suite *create_suite_Compartment              (void);
 Suite *create_suite_CompartmentType          (void);
 Suite *create_suite_Constraint               (void);
 Suite *create_suite_CompartmentVolumeRule    (void);
+Suite *create_suite_Delay                    (void);
 Suite *create_suite_Event                    (void);
 Suite *create_suite_EventAssignment          (void);
 Suite *create_suite_FunctionDefinition       (void);
@@ -172,6 +173,7 @@ main (void)
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentType          () );
   srunner_add_suite( runner, create_suite_Constraint                    () );
+  srunner_add_suite( runner, create_suite_Delay                    () );
   srunner_add_suite( runner, create_suite_Event                    () );
   srunner_add_suite( runner, create_suite_EventAssignment          () );
   srunner_add_suite( runner, create_suite_FunctionDefinition       () );
