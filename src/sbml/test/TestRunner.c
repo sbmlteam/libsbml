@@ -163,10 +163,10 @@ main (void)
 
   srunner_add_suite( runner, create_suite_WriteSBML() );
 
-/*  srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
+  srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
   
   srunner_add_suite( runner, create_suite_AssignmentRule  () );
-  */
+  
   
   
   srunner_add_suite( runner, create_suite_Compartment              () );
@@ -179,6 +179,8 @@ main (void)
   srunner_add_suite( runner, create_suite_KineticLaw               () );
   srunner_add_suite( runner, create_suite_ListOf                   () );
   srunner_add_suite( runner, create_suite_Parameter                () );
+  srunner_add_suite( runner, create_suite_RateRule                 () );
+  srunner_add_suite( runner, create_suite_Rule                 () );
   srunner_add_suite( runner, create_suite_Reaction                 () );
   srunner_add_suite( runner, create_suite_Species                  () );
   srunner_add_suite( runner, create_suite_SpeciesReference         () );
@@ -187,8 +189,7 @@ main (void)
   srunner_add_suite( runner, create_suite_UnitDefinition           () );
   srunner_add_suite( runner, create_suite_UnitKind                 () );
   srunner_add_suite( runner, create_suite_CopyAndClone                    () );
-/*  srunner_add_suite( runner, create_suite_Rule                     () );
-  srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
+/*  srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
   srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
   srunner_add_suite( runner, create_suite_ParameterRule            () );

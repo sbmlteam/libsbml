@@ -54,18 +54,17 @@
 
 #include "SBase.h"
 #include "Rule.h"
-#include "RateRule.h"
 
 #include <check.h>
 
 
-static RateRule_t *RR;
+static Rule_t *RR;
 
 
 void
 RateRuleTest_setup (void)
 {
-  RR = RateRule_create();
+  RR = Rule_createRate();
 
   if (RR == NULL)
   {
@@ -77,47 +76,27 @@ RateRuleTest_setup (void)
 void
 RateRuleTest_teardown (void)
 {
-  RateRule_free(RR);
+  Rule_free(RR);
 }
 
 START_TEST (test_RateRule_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) RR) == SBML_RATE_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) RR) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) RR) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) RR) == NULL );
+  //fail_unless( SBase_getNotes     ((SBase_t *) RR) == NULL );
+  //fail_unless( SBase_getAnnotation((SBase_t *) RR) == NULL );
 
   fail_unless( Rule_getFormula     ((Rule_t *) RR) == NULL );
   fail_unless( Rule_getMath        ((Rule_t *) RR) == NULL );
-  fail_unless( RateRule_getVariable(RR) == NULL );
-}
-END_TEST
-
-
-START_TEST (test_RateRule_createWith)
-{
-  ASTNode_t  *math = SBML_parseFormula("f(W)");
-  RateRule_t *rr   = RateRule_createWith("dx", math);
-
-
-  fail_unless( SBase_getTypeCode  ((SBase_t *) rr) == SBML_RATE_RULE );
-  fail_unless( SBase_getMetaId    ((SBase_t *) rr) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) rr) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) rr) == NULL );
-
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) rr), "f(W)") );
-  fail_unless( Rule_getMath((Rule_t *) rr) == math );
-
-  fail_unless( !strcmp(RateRule_getVariable(rr), "dx") );
-
-  RateRule_free(rr);
+  fail_unless( Rule_getVariable(RR) == NULL );
+  fail_unless( Rule_getType    (RR) == RULE_TYPE_RATE );
 }
 END_TEST
 
 
 START_TEST (test_RateRule_free_NULL)
 {
-  RateRule_free(NULL);
+  Rule_free(NULL);
 }
 END_TEST
 
@@ -127,27 +106,74 @@ START_TEST (test_RateRule_setVariable)
   char *variable = "x";
 
 
-  RateRule_setVariable(RR, variable);
+  Rule_setVariable(RR, variable);
 
-  fail_unless( !strcmp(RateRule_getVariable(RR), variable) );
-  fail_unless( RateRule_isSetVariable(RR) );
+  fail_unless( !strcmp(Rule_getVariable(RR), variable) );
+  fail_unless( Rule_isSetVariable(RR) );
 
-  if (RateRule_getVariable(RR) == variable)
+  if (Rule_getVariable(RR) == variable)
   {
-    fail("RateRule_setVariable(...) did not make a copy of string.");
+    fail("Rule_setVariable(...) did not make a copy of string.");
   }
 
   /* Reflexive case (pathological) */
-  RateRule_setVariable(RR, RateRule_getVariable(RR));
-  fail_unless( !strcmp(RateRule_getVariable(RR), variable) );
+  Rule_setVariable(RR, Rule_getVariable(RR));
+  fail_unless( !strcmp(Rule_getVariable(RR), variable) );
 
-  RateRule_setVariable(RR, NULL);
-  fail_unless( !RateRule_isSetVariable(RR) );
+  Rule_setVariable(RR, NULL);
+  fail_unless( !Rule_isSetVariable(RR) );
 
-  if (RateRule_getVariable(RR) != NULL)
+  if (Rule_getVariable(RR) != NULL)
   {
-    fail("RateRule_setVariable(RR, NULL) did not clear string.");
+    fail("Rule_setVariable(RR, NULL) did not clear string.");
   }
+}
+END_TEST
+
+
+START_TEST (test_RateRule_createWithFormula)
+{
+  const ASTNode_t *math;
+  char *formula;
+
+  Rule_t *ar = Rule_createRateWithVariableAndFormula("s", "1 + 1");
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_RATE_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
+  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
+
+  math = Rule_getMath((Rule_t *) ar);
+  fail_unless(math != NULL);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "1 + 1") );
+
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), formula) );
+
+  Rule_free(ar);
+  safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_RateRule_createWithMath)
+{
+  ASTNode_t       *math = SBML_parseFormula("1 + 1");
+  char *formula;
+
+  Rule_t *ar = Rule_createRateWithVariableAndMath("s", math);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_RATE_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
+  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
+  fail_unless( Rule_getMath((Rule_t *) ar) != math );
+
+  Rule_free(ar);
+  safe_free(formula);
 }
 END_TEST
 
@@ -164,9 +190,10 @@ create_suite_RateRule (void)
                              RateRuleTest_teardown );
 
   tcase_add_test( tcase, test_RateRule_create      );
-  tcase_add_test( tcase, test_RateRule_createWith  );
   tcase_add_test( tcase, test_RateRule_free_NULL   );
   tcase_add_test( tcase, test_RateRule_setVariable );
+  tcase_add_test( tcase, test_RateRule_createWithFormula   );
+  tcase_add_test( tcase, test_RateRule_createWithMath   );
 
   suite_add_tcase(suite, tcase);
 

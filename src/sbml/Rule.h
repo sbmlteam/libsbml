@@ -474,6 +474,40 @@ Rule_t *
 Rule_createRate ();
 
 
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithFormula (const char *formula);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithVariableAndFormula (const char *formula,
+                                             const char * variable);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithVariableAndFormula (const char * variable, 
+                                       const char *formula);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithMath (ASTNode_t *math);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithVariableAndMath (const char * variable, 
+                                          ASTNode_t *math);
+
+
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithVariableAndMath (const char * variable, 
+                                    ASTNode_t *math);
+
+
 /**
  * Destroys this Rule.
  */

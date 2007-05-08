@@ -103,7 +103,7 @@ START_TEST (test_Rule_setFormula)
   Rule_setFormula(R, formula);
 
   fail_unless( !strcmp(Rule_getFormula(R), formula) );
-  fail_unless( Rule_isSetFormula(R) );
+  fail_unless( Rule_isSetFormula(R) == 1 );
 
   if (Rule_getFormula(R) == formula)
   {
@@ -114,8 +114,8 @@ START_TEST (test_Rule_setFormula)
   Rule_setFormula(R, Rule_getFormula(R));
   fail_unless( !strcmp(Rule_getFormula(R), formula) );
 
-  Rule_setFormula(R, NULL);
-  fail_unless( !Rule_isSetFormula(R) );
+  Rule_setFormula(R, "");
+  fail_unless( Rule_isSetFormula(R) == 0 );
 
   if (Rule_getFormula(R) != NULL)
   {

@@ -1030,6 +1030,110 @@ Rule_createRate ()
 
 
 /**
+ * Creates a new AlgebraicRule with the given formula 
+ * and returns a pointer to it.
+ *
+ * @return pointer to the newly created Algebraic Rule_t structure.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithFormula (const char *formula)
+{
+  return new(nothrow) AlgebraicRule(formula);
+}
+
+
+/**
+ * Creates a new AssignmentRule with the given formula 
+ * and returns a pointer to it.
+ *
+ * @param variable string representing the variable to be assigned by
+ * the Rule_t structure.
+ * @param formula string representing the formula of the Rule_t structure.
+ *
+ * @return pointer to the newly created Assignment Rule_t structure.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithVariableAndFormula (const char * variable, 
+                                             const char *formula)
+{
+  return new(nothrow) AssignmentRule(variable, formula);
+}
+
+
+/**
+ * Creates a new RateRule with the given formula 
+ * and returns a pointer to it.
+ *
+ * @param variable string representing the variable to be assigned by
+ * the Rule_t structure.
+ * @param formula string representing the formula of the Rule_t structure.
+ *
+ * @return pointer to the newly created Rate Rule_t structure.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithVariableAndFormula (const char * variable, 
+                                       const char *formula)
+{
+  return new(nothrow) RateRule(variable, formula);
+}
+
+
+/**
+ * Creates a new AlgebraicRule with the given math 
+ * and returns a pointer to it.
+ *
+ * @return pointer to the newly created Algebraic Rule_t structure.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAlgebraicWithMath (ASTNode *math)
+{
+  return new(nothrow) AlgebraicRule(math);
+}
+
+
+/**
+ * Creates a new AssignmentRule with the given math 
+ * and returns a pointer to it.
+ *
+ * @param variable string representing the variable to be assigned by
+ * the Rule_t structure.
+ * @param math ASTNode_t structure representing the math of the rule.
+ *
+ * @return pointer to the newly created Assignment Rule_t structure.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createAssignmentWithVariableAndMath (const char * variable, 
+                                             ASTNode *math)
+{
+  return new(nothrow) AssignmentRule(variable, math);
+}
+
+
+/**
+ * Creates a new RateRule with the given math 
+ * and returns a pointer to it.
+ *
+ * @param variable string representing the variable to be assigned by
+ * the Rule_t structure.
+ * @param math ASTNode_t structure representing the math of the rule.
+ *
+ * @return pointer to the newly created Rate Rule_t structure.
+ */
+LIBSBML_EXTERN
+Rule_t *
+Rule_createRateWithVariableAndMath (const char * variable, 
+                                       ASTNode *math)
+{
+  return new(nothrow) RateRule (variable, math);
+}
+
+
+/**
  * Destroys this Rule.
  */
 LIBSBML_EXTERN

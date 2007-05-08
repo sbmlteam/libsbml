@@ -56,18 +56,17 @@
 
 #include "SBase.h"
 #include "Rule.h"
-#include "AlgebraicRule.h"
 
 #include <check.h>
 
 
-static AlgebraicRule_t *AR;
+static Rule_t *AR;
 
 
 void
 AlgebraicRuleTest_setup (void)
 {
-  AR = AlgebraicRule_create();
+  AR = Rule_createAlgebraic();
 
   if (AR == NULL)
   {
@@ -79,7 +78,7 @@ AlgebraicRuleTest_setup (void)
 void
 AlgebraicRuleTest_teardown (void)
 {
-  AlgebraicRule_free(AR);
+  Rule_free(AR);
 }
 
 
@@ -87,27 +86,25 @@ START_TEST (test_AlgebraicRule_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) AR) == SBML_ALGEBRAIC_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) AR) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
+/*  fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) AR) == NULL );
-
+*/
   fail_unless( Rule_getFormula((Rule_t *) AR) == NULL );
   fail_unless( Rule_getMath   ((Rule_t *) AR) == NULL );
 }
 END_TEST
 
 
-START_TEST (test_AlgebraicRule_createWith)
+START_TEST (test_AlgebraicRule_createWithFormula)
 {
   const ASTNode_t *math;
   char *formula;
 
-  AlgebraicRule_t *ar = AlgebraicRule_createWith("1 + 1");
+  Rule_t *ar = Rule_createAlgebraicWithFormula("1 + 1");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ALGEBRAIC_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ar) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ar) == NULL );
 
   math = Rule_getMath((Rule_t *) ar);
   fail_unless(math != NULL);
@@ -118,7 +115,7 @@ START_TEST (test_AlgebraicRule_createWith)
 
   fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), formula) );
 
-  AlgebraicRule_free(ar);
+  Rule_free(ar);
   safe_free(formula);
 }
 END_TEST
@@ -127,25 +124,23 @@ END_TEST
 START_TEST (test_AlgebraicRule_createWithMath)
 {
   ASTNode_t       *math = SBML_parseFormula("1 + 1");
-  AlgebraicRule_t *ar   = AlgebraicRule_createWithMath(math);
+  Rule_t *ar   = Rule_createAlgebraicWithMath(math);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ALGEBRAIC_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) ar) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) ar) == NULL );
 
   fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
-  fail_unless( Rule_getMath((Rule_t *) ar) == math );
+  fail_unless( Rule_getMath((Rule_t *) ar) != math );
 
-  AlgebraicRule_free(ar);
+  Rule_free(ar);
 }
 END_TEST
 
 
 START_TEST (test_AlgebraicRule_free_NULL)
 {
-  AlgebraicRule_free(NULL);
+  Rule_free(NULL);
 }
 END_TEST
 
@@ -162,7 +157,7 @@ create_suite_AlgebraicRule (void)
                              AlgebraicRuleTest_teardown );
 
   tcase_add_test( tcase, test_AlgebraicRule_create         );
-  tcase_add_test( tcase, test_AlgebraicRule_createWith     );
+  tcase_add_test( tcase, test_AlgebraicRule_createWithFormula     );
   tcase_add_test( tcase, test_AlgebraicRule_createWithMath );
   tcase_add_test( tcase, test_AlgebraicRule_free_NULL      );
 

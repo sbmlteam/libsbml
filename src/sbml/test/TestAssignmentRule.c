@@ -132,6 +132,53 @@ START_TEST (test_AssignmentRule_setVariable)
 END_TEST
 
 
+START_TEST (test_AssignmentRule_createWithFormula)
+{
+  const ASTNode_t *math;
+  char *formula;
+
+  Rule_t *ar = Rule_createAssignmentWithVariableAndFormula("s", "1 + 1");
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
+  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
+
+  math = Rule_getMath((Rule_t *) ar);
+  fail_unless(math != NULL);
+
+  formula = SBML_formulaToString(math);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "1 + 1") );
+
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), formula) );
+
+  Rule_free(ar);
+  safe_free(formula);
+}
+END_TEST
+
+
+START_TEST (test_AssignmentRule_createWithMath)
+{
+  ASTNode_t       *math = SBML_parseFormula("1 + 1");
+  char *formula;
+
+  Rule_t *ar = Rule_createAssignmentWithVariableAndMath("s", math);
+
+
+  fail_unless( SBase_getTypeCode  ((SBase_t *) ar) == SBML_ASSIGNMENT_RULE );
+  fail_unless( SBase_getMetaId    ((SBase_t *) ar) == NULL );
+  fail_unless( !strcmp(Rule_getVariable(ar), "s") );
+  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar), "1 + 1") );
+  fail_unless( Rule_getMath((Rule_t *) ar) != math );
+
+  Rule_free(ar);
+  safe_free(formula);
+}
+END_TEST
+
+
 Suite *
 create_suite_AssignmentRule (void)
 {
@@ -146,6 +193,8 @@ create_suite_AssignmentRule (void)
   tcase_add_test( tcase, test_AssignmentRule_L2_create     );
   tcase_add_test( tcase, test_AssignmentRule_free_NULL     );
   tcase_add_test( tcase, test_AssignmentRule_setVariable   );
+  tcase_add_test( tcase, test_AssignmentRule_createWithFormula   );
+  tcase_add_test( tcase, test_AssignmentRule_createWithMath   );
 
   suite_add_tcase(suite, tcase);
 
