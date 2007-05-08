@@ -210,18 +210,6 @@ public:
    */
   virtual const std::string& getElementName () const;
 
-  /**
-   * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
-   */
-  int getElementPosition () const;
-
-  /**
-   * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
-   * implementation of this method as well.
-   */
-  virtual void writeElements (XMLOutputStream& stream) const;
 
   /**
    * @return the SBMLErrorLog used to log errors during while reading and
@@ -233,6 +221,25 @@ public:
    * @return the Namespaces associated with this SBML object
    */
   virtual XMLNamespaces* getNamespaces() const;
+
+
+  /** @cond doxygen-libsbml-internal */
+
+  /**
+   * @return the ordinal position of the element with respect to its
+   * siblings or -1 (default) to indicate the position is not significant.
+   */
+  int getElementPosition () const;
+
+
+  /**
+   * Subclasses should override this method to write out their contained
+   * SBML objects as XML elements.  Be sure to call your parents
+   * implementation of this method as well.
+   */
+  virtual void writeElements (XMLOutputStream& stream) const;
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:

@@ -331,6 +331,9 @@ public:
    */
   void write (XMLOutputStream& stream) const;
 
+
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -343,7 +346,11 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  /** @endcond doxygen-libsbml-internal */
+
+
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Only subclasses may create SBase objects.
@@ -378,6 +385,7 @@ protected:
    * @return true if the subclass read from the stream, false otherwise.
    */
   virtual bool readOtherXML (XMLInputStream& stream);
+
 
   /**
    * The SBML XML Schema is written such that the order of child elements
@@ -526,6 +534,8 @@ private:
    * roundtripping) declared on this SBML (XML) element.
    */
   void setSBaseFields (const XMLToken& element);
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 

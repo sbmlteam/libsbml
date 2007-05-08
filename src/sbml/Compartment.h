@@ -181,8 +181,9 @@
  * definitions in SBML Level 2 do not have any implied spatial
  * relationships between each other.
  *
- * <!---------------------------------------------------------------------- -->
- *
+ * <!-- leave this next break as-is to work around some doxygen bug -->
+ */ 
+/**
  * @class ListOfCompartments
  * @brief Container class for lists of Compartment objects in a Model.
  * 
@@ -650,20 +651,28 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * @return the ordinal position of the element with respect to its
    * siblings or -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
 
+  /** @endcond doxygen-libsbml-internal */
+
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 

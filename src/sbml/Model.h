@@ -802,6 +802,16 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+
+  /** @cond doxygen-libsbml-internal */
+
+  /**
+   * @return the ordinal position of the element with respect to its
+   * siblings or -1 (default) to indicate the position is not significant.
+   */
+  virtual int getElementPosition () const;
+
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -809,11 +819,7 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /**
-   * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
-   */
-  virtual int getElementPosition () const;
+  /** @endcond doxygen-libsbml-internal */
 
 
 #ifdef USE_LAYOUT

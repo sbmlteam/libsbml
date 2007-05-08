@@ -439,6 +439,7 @@ public:
    */
   virtual SBase* clone () const;
 
+
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
    * (i.e., Parameter objects, if the list is non-empty).
@@ -450,6 +451,7 @@ public:
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
+
   /**
    * Returns the XML element name of this object.
    *
@@ -458,6 +460,9 @@ public:
    * @return the name of this element, i.e., @c "listOfParameters".
    */
   virtual const std::string& getElementName () const;
+
+
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Get the ordinal position of this element in the containing object
@@ -472,6 +477,8 @@ public:
    * siblings, or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:

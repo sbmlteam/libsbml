@@ -53,7 +53,7 @@
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesTypes.
- * @brief LibSBML implementation of %SBML's %ListOfSpeciesTypes construct.
+ * @brief Container class for lists of SpeciesType objects in a Model.
  * 
  * The various ListOf___ classes in %SBML are merely containers used for
  * organizing the main components of an %SBML model.  All are derived from
@@ -254,6 +254,8 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -268,6 +270,8 @@ public:
    * siblings, or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:

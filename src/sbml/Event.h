@@ -363,12 +363,16 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:
@@ -446,6 +450,9 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Get the ordinal position of this element in the containing object
    * (which in this case is the Model object).
@@ -460,6 +467,8 @@ public:
    * siblings, or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:

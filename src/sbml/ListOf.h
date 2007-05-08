@@ -156,12 +156,16 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:

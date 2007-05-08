@@ -264,6 +264,8 @@ public:
   virtual const std::string& getElementName () const;
 
 
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Returns the position of this element.
    * 
@@ -279,6 +281,8 @@ public:
    * implementation of this method as well.
    */
   virtual void writeElements (XMLOutputStream& stream) const;
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:
