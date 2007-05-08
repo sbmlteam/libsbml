@@ -350,6 +350,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -389,6 +390,8 @@ protected:
   bool        mFast;
 
   bool mIsSetFast;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -443,22 +446,16 @@ protected:
 
 BEGIN_C_DECLS
 
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
-/**
- * Creates a new Reaction and returns a pointer to it.
- */
+
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_create (void);
 
-/**
- * Creates a new Reaction with the given id, KineticLaw, reversible and
- * fast and returns a pointer to it.  This convenience function is
- * functionally equivalent to:
- *
- *   Reaction_t *r = Reaction_create();
- *   Reaction_setId(r, sid); Reaction_setKineticLaw(r, kl); ...;
- */
+
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWith ( const char   *sid,
@@ -466,304 +463,197 @@ Reaction_createWith ( const char   *sid,
                       int          reversible,
                       int          fast );
 
-/**
- * Frees the given Reaction.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_free (Reaction_t *r);
 
-/**
- * @return a (deep) copy of this Reaction.
- */
+
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_clone (const Reaction_t *r);
 
-/**
- * Initializes the fields of this Reaction to their defaults:
- *
- *   - reversible = 1 (true)
- *   - fast       = 0 (false)  (L1 only)
- */
+
 LIBSBML_EXTERN
 void
 Reaction_initDefaults (Reaction_t *r);
 
 
-/**
- * @return the id of this Reaction.
- */
 LIBSBML_EXTERN
 const char *
 Reaction_getId (const Reaction_t *r);
 
-/**
- * @return the name of this Reaction.
- */
+
 LIBSBML_EXTERN
 const char *
 Reaction_getName (const Reaction_t *r);
 
-/**
- * @return the KineticLaw of this Reaction.
- */
+
 LIBSBML_EXTERN
 KineticLaw_t *
 Reaction_getKineticLaw (Reaction_t *r);
 
-/**
- * @return the reversible status of this Reaction.
- */
+
 LIBSBML_EXTERN
 int
 Reaction_getReversible (const Reaction_t *r);
 
-/**
- * @return the fast status of this Reaction.
- */
+
 LIBSBML_EXTERN
 int
 Reaction_getFast (const Reaction_t *r);
 
-/**
- * @return true (non-zero) if the id of this Reaction has been set, false
- * (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 Reaction_isSetId (const Reaction_t *r);
 
-/**
- * @return true (non-zero) if the name of this Reaction has been set, false
- * (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 Reaction_isSetName (const Reaction_t *r);
 
-/**
- * @return true (non-zero) if the KineticLaw of this Reaction has been set,
- * false (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 Reaction_isSetKineticLaw (const Reaction_t *r);
 
-/**
- * @return true (non-zero) if the fast status of this Reaction has been set,
- * false (0) otherwise.
- *
- * In L1, fast is optional with a default of false, which means it is
- * effectively always set.  In L2, however, fast is optional with no
- * default value, so it may or may not be set to a specific value.
- */
+
 LIBSBML_EXTERN
 int
 Reaction_isSetFast (const Reaction_t *r);
 
-/**
- * Sets the id of this Reaction to a copy of sid.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_setId (Reaction_t *r, const char *sid);
 
-/**
- * Sets the name of this Reaction to a copy of name.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_setName (Reaction_t *r, const char *name);
 
-/**
- * Sets the KineticLaw of this Reaction to a copy of the given KineticLaw.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_setKineticLaw (Reaction_t *r, const KineticLaw_t *kl);
 
-/**
- * Sets the reversible status of this Reaction to value (boolean).
- */
+
 LIBSBML_EXTERN
 void
 Reaction_setReversible (Reaction_t *r, int value);
 
-/**
- * Sets the fast status of this Reaction to value (boolean).
- */
+
 LIBSBML_EXTERN
 void
 Reaction_setFast (Reaction_t *r, int value);
 
-/**
- * Unsets the name of this Reaction.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_unsetName (Reaction_t *r);
 
-/**
- * Unsets the KineticLaw of this Reaction.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_unsetKineticLaw (Reaction_t *r);
 
-/**
- * Unsets the fast status of this Reation.
- *
- * In L1, fast is optional with a default of false, which means it is
- * effectively always set.  In L2, however, fast is optional with no
- * default value, so it may or may not be set to a specific value.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_unsetFast (Reaction_t *r);
 
-/**
- * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_addReactant (Reaction_t *r, const SpeciesReference_t *sr);
 
-/**
- * Adds a copy of the given product (SpeciesReference) to this Reaction.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_addProduct (Reaction_t *r, const SpeciesReference_t *sr);
 
-/**
- * Adds a copy of the given modifier (ModifierSpeciesReference) to this
- * Reaction.
- */
+
 LIBSBML_EXTERN
 void
 Reaction_addModifier (Reaction_t *r, const SpeciesReference_t *msr);
 
 
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * reactants and returns it.
- */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createReactant (Reaction_t *r);
 
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * products and returns it.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createProduct (Reaction_t *r);
 
-/**
- * Creates a new SpeciesReference, adds it to this Reaction's list of
- * modifiers and returns it.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_createModifier (Reaction_t *r);
 
-/**
- * Creates a new KineticLaw for this Reaction and returns it.  If this
- * Reaction had a previous KineticLaw, it will be destroyed.
- */
+
 LIBSBML_EXTERN
 KineticLaw_t *
 Reaction_createKineticLaw (Reaction_t *r);
 
 
-/**
- * @return the list of Reactants for this Reaction.
- */
 LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfReactants (Reaction_t *r);
 
-/**
- * @return the list of Products for this Reaction.
- */
+
 LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfProducts (Reaction_t *r);
 
-/**
- * @return the list of Modifiers for this Reaction.
- */
+
 LIBSBML_EXTERN
 ListOf_t *
 Reaction_getListOfModifiers (Reaction_t *r);
 
 
-/**
- * @return the nth reactant (SpeciesReference) of this Reaction.
- */
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getReactant (Reaction_t *r, unsigned int n);
 
-/**
- * @return the reactant (SpeciesReference) in this Reaction with the given
- * species or NULL if no such reactant exists.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getReactantBySpecies (Reaction_t *r, const char *species);
 
-/**
- * @return the nth product (SpeciesReference) of this Reaction.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getProduct (Reaction_t *r, unsigned int n);
 
-/**
- * @return the product (SpeciesReference) in this Reaction with the given
- * species or NULL if no such product exists.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getProductBySpecies (Reaction_t *r, const char *species);
 
-/**
- * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getModifier (Reaction_t *r, unsigned int n);
 
-/**
- * @return the modifier (ModifierSpeciesReference) in this Reaction with
- * the given species or NULL if no such modifier exists.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 Reaction_getModifierBySpecies (Reaction_t *r, const char *species);
 
 
-/**
- * @return the number of reactants (SpeciesReferences) in this Reaction.
- */
 LIBSBML_EXTERN
 unsigned int
 Reaction_getNumReactants (const Reaction_t *r);
 
-/**
- * @return the number of products (SpeciesReferences) in this Reaction.
- */
+
 LIBSBML_EXTERN
 unsigned int
 Reaction_getNumProducts (const Reaction_t *r);
 
-/**
- * @return the number of modifiers (ModifierSpeciesReferences) in this
- * Reaction.
- */
+
 LIBSBML_EXTERN
 unsigned int
 Reaction_getNumModifiers (const Reaction_t *r);

@@ -547,211 +547,146 @@ private:
 
 BEGIN_C_DECLS
 
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
-/**
- * @return the metaid of this SBML object.
- */
+
 LIBSBML_EXTERN
 const char *
 SBase_getMetaId (const SBase_t *sb);
 
-/**
- * @return the id of this SBML object.
- */
+
 LIBSBML_EXTERN
 const char *
 SBase_getId (const SBase_t *sb);
 
-/**
- * @return the name of this SBML object.
- */
+
 LIBSBML_EXTERN
 const char *
 SBase_getName (const SBase_t *sb);
 
 
-/**
- * @return the parent SBMLDocument of this SBML object.
- */
 LIBSBML_EXTERN
 SBMLDocument_t *
 SBase_getSBMLDocument (SBase_t *sb);
 
-/**
- * @return the sboTerm of this SBML object.
- */
+
 LIBSBML_EXTERN
 int
 SBase_getSBOTerm (const SBase_t *sb);
 
-/**
- * @return the line number of this SBML object.
- */
+
 LIBSBML_EXTERN
 unsigned int
 SBase_getLine (const SBase_t *sb);
 
-/**
- * @return the column number of this SBML object.
- */
+
 LIBSBML_EXTERN
 unsigned int
 SBase_getColumn (const SBase_t *sb);
 
 
-/**
- * @return 1 if the metaid of this SBML object has been set, 0 otherwise.
- */
 LIBSBML_EXTERN
 int
 SBase_isSetMetaId (const SBase_t *sb);
 
-/**
- * @return 1 if the id of this SBML object has been set, 0 otherwise.
- */
+
 LIBSBML_EXTERN
 int
 SBase_isSetId (const SBase_t *sb);
 
-/**
- * @return 1 if the name of this SBML object has been set, 0 otherwise.
- */
+
 LIBSBML_EXTERN
 int
 SBase_isSetName (const SBase_t *sb);
 
-/**
- * @return 1 if the notes of this SBML object has been set, 0 otherwise.
- */
+
 LIBSBML_EXTERN
 int
 SBase_isSetNotes (const SBase_t *sb);
 
-/**
- * @return 1 if the annotation of this SBML object has been set, 0
- * otherwise.
- */
+
 LIBSBML_EXTERN
 int
 SBase_isSetAnnotation (const SBase_t *sb);
 
 
-/**
- * @return 1 if the sboTerm of this SBML object has been set, 0
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 SBase_isSetSBOTerm(const SBase_t *sb);
 
 
-/**
- * Sets the metaid field of the given SBML object to a copy of metaid.
- */
 LIBSBML_EXTERN
 void
 SBase_setMetaId (SBase_t *sb, const char *metaid);
 
-/**
- * Sets the id field of the given SBML object to a copy of sid.
- */
+
 LIBSBML_EXTERN
 void
 SBase_setId (SBase_t *sb, const char *sid);
 
-/**
- * Sets the name field of the given SBML object to a copy of name.
- */
+
 LIBSBML_EXTERN
 void
 SBase_setName (SBase_t *sb, const char *name);
 
 
-/**
- * Sets the sboTerm field of the given SBML object to value.
- */
 LIBSBML_EXTERN
 void
 SBase_setSBOTerm (SBase_t *sb, int value);
 
 
-/**
- * Unsets the metaid of this SBML object.
- */
 LIBSBML_EXTERN
 void
 SBase_unsetMetaId (SBase_t *sb);
 
-/**
- * Unsets the id of this SBML object.
- */
+
 LIBSBML_EXTERN
 void
 SBase_unsetId (SBase_t *sb);
 
-/**
- * Unsets the name of this SBML object.
- */
+
 LIBSBML_EXTERN
 void
 SBase_unsetName (SBase_t *sb);
 
-/**
- * Unsets the notes of this SBML object.
- */
+
 LIBSBML_EXTERN
 void
 SBase_unsetNotes (SBase_t *sb);
 
-/**
- * Unsets the annotation of this SBML object.
- */
+
 LIBSBML_EXTERN
 void
 SBase_unsetAnnotation (SBase_t *sb);
 
 
-/**
- * Unsets the sboTerm of this SBML object.
- */
 LIBSBML_EXTERN
 void
 SBase_unsetSBOTerm (SBase_t *sb);
 
 
-/**
- * @return the parent Model of this SBML object.
- */
 LIBSBML_EXTERN
 const Model_t *
 SBase_getModel (const SBase_t *sb);
 
-/**
- * @return the SBML level of this SBML object.
- */
+
 LIBSBML_EXTERN
 unsigned int
 SBase_getLevel (const SBase_t *sb);
 
-/**
- * @return the SBML version of this SBML object.
- */
+
 LIBSBML_EXTERN
 unsigned int
 SBase_getVersion (const SBase_t *sb);
 
-/**
- * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
- * (default).
- */
+
 LIBSBML_EXTERN
 SBMLTypeCode_t
 SBase_getTypeCode (const SBase_t *sb);
 
 
-/**
- * @return the XML element name of this SBML object.
- */
 LIBSBML_EXTERN
 const char *
 SBase_getElementName (const SBase_t *sb);

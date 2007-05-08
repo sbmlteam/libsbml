@@ -244,6 +244,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Only subclasses may create Rules.
@@ -297,6 +298,8 @@ protected:
 
 
   friend class ListOfRules;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -432,12 +435,15 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -449,26 +455,21 @@ protected:
 
 BEGIN_C_DECLS
 
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
-/**
- * Creates a new AlgebraicRule and returns a pointer to it.
- */
+
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAlgebraic ();
 
 
-/**
- * Creates a new AssignmentRule and returns a pointer to it
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createAssignment ();
 
 
-/**
- * Creates a new RateRule and returns a pointer to it
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_createRate ();
@@ -508,224 +509,126 @@ Rule_createRateWithVariableAndMath (const char * variable,
                                     ASTNode_t *math);
 
 
-/**
- * Destroys this Rule.
- */
 LIBSBML_EXTERN
 void
 Rule_free (Rule_t *r);
 
 
-/**
- * @return a (deep) copy of this Rule.
- */
 LIBSBML_EXTERN
 Rule_t *
 Rule_clone (const Rule_t *r);
 
 
-/**
- * @return the formula for this Rule.
- */
 LIBSBML_EXTERN
 const char *
 Rule_getFormula (const Rule_t *r);
 
 
-/**
- * @return the math for this Rule.
- */
 LIBSBML_EXTERN
 const ASTNode_t *
 Rule_getMath (const Rule_t *r);
 
 
-/**
- * @return the type of this Rule, either RULE_TYPE_RATE or
- * RULE_TYPE_SCALAR.
- */
 LIBSBML_EXTERN
 RuleType_t
 Rule_getType (const Rule_t *r);
 
 
-/**
- * @return the variable for this Rule.
- */
 LIBSBML_EXTERN
 const char *
 Rule_getVariable (const Rule_t *r);
 
 
-/**
- * @return the units for this Rule (L1 ParameterRules only).
- */
 LIBSBML_EXTERN
 const char *
 Rule_getUnits (const Rule_t *r);
 
 
-/**
- * @return true (non-zero) if the formula (or equivalently the math) for
- * this Rule has been set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSetFormula (const Rule_t *r);
 
 
-/**
- * @return true (non-zero) if the math (or equivalently the formula) for
- * this Rule has been set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSetMath (const Rule_t *r);
 
 
-/**
- * @return true (non-zero) if the variable of this Rule has been set, false
- * (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSetVariable (const Rule_t *r);
 
 
-/**
- * @return true (non-zero) if the units for this Rule has been set, false
- * (0) otherwise (L1 ParameterRules only).
- */
 LIBSBML_EXTERN
 int
 Rule_isSetUnits (const Rule_t *r);
 
 
-/**
- * Sets the formula of this Rule to a copy of string.
- */
 LIBSBML_EXTERN
 void
 Rule_setFormula (Rule_t *r, const char *formula);
 
 
-/**
- * Sets the math of this Rule to a copy of the given ASTNode.
- */
 LIBSBML_EXTERN
 void
 Rule_setMath (Rule_t *r, const ASTNode_t *math);
 
 
-/**
- * Sets the variable of this RateRule to a copy of sid.
- */
 LIBSBML_EXTERN
 void
 Rule_setVariable (Rule_t *r, const char *sid);
 
 
-/**
- * Sets the units for this Rule to a copy of sname (L1 ParameterRules
- * only).
- */
 LIBSBML_EXTERN
 void
 Rule_setUnits (Rule_t *r, const char *sname);
 
 
-/**
- * Unsets the units for this Rule (L1 ParameterRules only).
- */
 LIBSBML_EXTERN
 void
 Rule_unsetUnits (Rule_t *r);
 
 
-/**
- * @return true (non-zero) if this Rule is an AlgebraicRule, false (0)
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isAlgebraic (const Rule_t *r);
 
 
-/**
- * @return true (non-zero) if this Rule is an AssignmentRule, false (0)
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isAssignment (const Rule_t *r);
 
 
-/**
- * This method attempts to lookup the Rule's variable in the Model's list
- * of Compartments.
- *
- * @return true (non-zero) if this Rule is a CompartmentVolumeRule, false
- * (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isCompartmentVolume (const Rule_t *r);
 
 
-/**
- * This method attempts to lookup the Rule's variable in the Model's list
- * of Parameters.
- *
- * @return true (non-zero) if this Rule is a ParameterRule, false (0)
- * otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isParameter (const Rule_t *r);
 
 
-/**
- * @return true (non-zero) if this Rule is a RateRule (L2) or has
- * type="rate" (L1), false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isRate (const Rule_t *r);
 
 
-/**
- * @return true (non-zero) if this Rule is an AssignmentRule (L2) has
- * type="scalar" (L1), false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isScalar (const Rule_t *r);
 
 
-/**
- * This method attempts to lookup the Rule's variable in the Model's list
- * of Species.
- *
- * @return true (non-zero) if this Rule is a SpeciesConcentrationRule, false
- * (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 Rule_isSpeciesConcentration (const Rule_t *r);
 
 
-/**
- * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
- * (default).
- */
 LIBSBML_EXTERN
 SBMLTypeCode_t
 Rule_getTypeCode (const Rule_t *r);
 
-/**
- * @return the SBML Level 1 typecode for this Rule or SBML_UNKNOWN
- * (default).
- */
+
 LIBSBML_EXTERN
 SBMLTypeCode_t
 Rule_getL1TypeCode (const Rule_t *r);

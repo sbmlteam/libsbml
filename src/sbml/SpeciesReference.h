@@ -102,6 +102,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Subclasses should override this method to read values from the given
@@ -118,6 +119,8 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
   std::string  mSpecies;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -245,6 +248,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -272,6 +276,8 @@ protected:
   double    mStoichiometry;
   int       mDenominator;
   ASTNode*  mStoichiometryMath;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -322,6 +328,8 @@ public:
   virtual const std::string& getElementName () const;
 
 #ifdef USE_LAYOUT
+  /** @cond doxygen-libsbml-internal */
+
   /**
    * Subclasses should override this method to write out their contained
    * SBML objects as XML elements.  Be sure to call your parents
@@ -340,6 +348,8 @@ protected:
   bool readOtherXML (XMLInputStream& stream);
 
 #endif // USE_LAYOUT
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -382,6 +392,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   enum SpeciesType { Unknown, Reactant, Product, Modifier };
 
@@ -401,6 +412,8 @@ protected:
 
 
   friend class Reaction;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -412,221 +425,134 @@ protected:
 
 BEGIN_C_DECLS
 
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
-/**
- * Creates a new SpeciesReference and returns a pointer to it.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_create (void);
 
-/**
- * Creates a new ModifierSpeciesReference and returns a pointer to it.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createModifier (void);
 
-/**
- * Creates a new SpeciesReference with the given species, stoichiometry and
- * denominator and returns a pointer to it.
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_createWith ( const char *species,
                               double      stoichiometry,
                               int         denominator );
 
-/**
- * Frees the given SpeciesReference.
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_free (SpeciesReference_t *sr);
 
-/**
- * @return a (deep) copy of this SpeciesReference
- */
+
 LIBSBML_EXTERN
 SpeciesReference_t *
 SpeciesReference_clone (const SpeciesReference_t *sr);
 
-/**
- * Initializes the fields of this SpeciesReference to their defaults:
- *
- *   - stoichiometry = 1
- *   - denominator   = 1
- *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_initDefaults (SpeciesReference_t *sr);
 
-/**
- * @return true (non-zero) if the SpeciesReference is a
- * ModiferSpeciesReference, false otherwise.
- */
+
 LIBSBML_EXTERN
 int
 SpeciesReference_isModifier (const SpeciesReference_t *sr);
 
 
-/**
- * @return the id of this SpeciesReference.
- */
 LIBSBML_EXTERN
 const char *
 SpeciesReference_getId (const SpeciesReference_t *sr);
 
-/**
- * @return the name of this SpeciesReference.
- */
+
 LIBSBML_EXTERN
 const char *
 SpeciesReference_getName (const SpeciesReference_t *sr);
 
 
-/**
- * @return the species of this SpeciesReference.
- */
 LIBSBML_EXTERN
 const char *
 SpeciesReference_getSpecies (const SpeciesReference_t *sr);
 
-/**
- * @return the stoichiometry of this SpeciesReference.
- *
- * This function returns zero if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 double
 SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
 
-/**
- * @return the stoichiometryMath of this SpeciesReference.
- *
- * This function returns NULL if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 const ASTNode_t *
 SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr);
 
-/**
- * @return the denominator of this SpeciesReference.
- *
- * This function returns 0 if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 int
 SpeciesReference_getDenominator (const SpeciesReference_t *sr);
 
 
-/**
- * @return true (non-zero) if the id for this SpeciesReference has been
- * set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 SpeciesReference_isSetId (const SpeciesReference_t *sr);
 
-/**
- * @return true (non-zero) if the name for this SpeciesReference has been
- * set, false (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 SpeciesReference_isSetName (const SpeciesReference_t *sr);
 
 
-/**
- * @return true (non-zero) if the species for this SpeciesReference
- * has been set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 SpeciesReference_isSetSpecies (const SpeciesReference_t *sr);
 
-/**
- * @return true (non-zero) if the stoichiometryMath of this
- * SpeciesReference has been set, false (0) otherwise.
- *
- * This function returns false if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 int
 SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr);
 
 
-/**
- * Sets the id of this SpeciesReference to a copy of sid.
- */
 LIBSBML_EXTERN
 void
 SpeciesReference_setId (SpeciesReference_t *sr, const char *sid);
 
-/**
- * Sets the name of this SpeciesReference to a copy of name.
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_setName (SpeciesReference_t *sr, const char *name);
 
-/**
- * Sets the species of this SpeciesReference to a copy of sid.
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid);
 
-/**
- * Sets the stoichiometry of this SpeciesReference to value.
- *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value);
 
-/**
- * Sets the stoichiometryMath of this SpeciesReference to a copy of the
- * given ASTNode.
- *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
                                        , const ASTNode_t    *math );
 
-/**
- * Sets the denominator of this SpeciesReference to value.
- *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_setDenominator (SpeciesReference_t *sr, int value);
 
 
-/**
- * Unsets the id of this Species.
- */
 LIBSBML_EXTERN
 void
 SpeciesReference_unsetId (SpeciesReference_t *sr);
 
-/**
- * Unsets the name of this Species.
- */
+
 LIBSBML_EXTERN
 void
 SpeciesReference_unsetName (SpeciesReference_t *sr);

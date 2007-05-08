@@ -333,6 +333,7 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -369,6 +370,8 @@ protected:
   ListOfParameters  mParameters;
   std::string       mTimeUnits;
   std::string       mSubstanceUnits;
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
@@ -377,27 +380,18 @@ protected:
 
 #ifndef SWIG
 
-
 BEGIN_C_DECLS
 
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
-/**
- * Creates a new KineticLaw and returns a pointer to it.
- */
+
 LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_create (void);
 
-/**
- * Creates a new KineticLaw with the given formula, timeUnits and
- * substanceUnits and returns a pointer to it.  This convenience function
- * is functionally equivalent to:
- *
- *   KineticLaw_t *kl = KineticLaw_create();
- *   KineticLaw_setFormula(kl, formula);
- *   KineticLaw_setTimeUnits(kl, timeUnits);
- *   ...;
- */
+
 LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_createWith ( const char *formula,
@@ -414,165 +408,112 @@ LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_createWithMath ( ASTNode_t *math);
 
-/**
- * Frees the given KineticLaw.
- */
+
 LIBSBML_EXTERN
 void
 KineticLaw_free (KineticLaw_t *kl);
 
-/**
- * @return a (deep) copy of this KineticLaw.
- */
+
 LIBSBML_EXTERN
 SBase_t *
 KineticLaw_clone (const KineticLaw_t *kl);
 
 
-/**
- * @return the formula of this KineticLaw.
- */
 LIBSBML_EXTERN
 const char *
 KineticLaw_getFormula (const KineticLaw_t *kl);
 
-/**
- * @return the math of this KineticLaw.
- */
+
 LIBSBML_EXTERN
 const ASTNode_t *
 KineticLaw_getMath (const KineticLaw_t *kl);
 
-/**
- * @return the timeUnits of this KineticLaw.
- */
+
 LIBSBML_EXTERN
 const char *
 KineticLaw_getTimeUnits (const KineticLaw_t *kl);
 
-/**
- * @return the substanceUnits of this KineticLaw.
- */
+
 LIBSBML_EXTERN
 const char *
 KineticLaw_getSubstanceUnits (const KineticLaw_t *kl);
 
 
-/**
- * @return true (non-zero) if the formula (or equivalently the math) of
- * this KineticLaw has been set, false (0) otherwise.
- */
 LIBSBML_EXTERN
 int
 KineticLaw_isSetFormula (const KineticLaw_t *kl);
 
-/**
- * @return true (non-zero) if the math (or equivalently the formula) of
- * this KineticLaw has been set, false (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 KineticLaw_isSetMath (const KineticLaw_t *kl);
 
-/**
- * @return true (non-zero) if the timeUnits of this KineticLaw has been
- * set, false (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 KineticLaw_isSetTimeUnits (const KineticLaw_t *kl);
 
-/**
- * @return true (non-zero) if the substanceUnits of this KineticLaw has
- * been set, false (0) otherwise.
- */
+
 LIBSBML_EXTERN
 int
 KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl);
 
-/**
- * Sets the formula of this KineticLaw to a copy of formula.
- */
+
 LIBSBML_EXTERN
 void
 KineticLaw_setFormula (KineticLaw_t *kl, const char *formula);
 
-/**
- * Sets the math of this KineticLaw to a copy of the given ASTNode.
- */
+
 LIBSBML_EXTERN
 void
 KineticLaw_setMath (KineticLaw_t *kl, const ASTNode_t *math);
 
 
-/**
- * Sets the timeUnits of this KineticLaw to a copy of sid.
- */
 LIBSBML_EXTERN
 void
 KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sid);
 
-/**
- * Sets the substanceUnits of this KineticLaw to a copy of sid.
- */
+
 LIBSBML_EXTERN
 void
 KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid);
 
-/**
- * Unsets the timeUnits of this KineticLaw.
- */
+
 LIBSBML_EXTERN
 void
 KineticLaw_unsetTimeUnits (KineticLaw_t *kl);
 
-/**
- * Unsets the substanceUnits of this KineticLaw.
- */
+
 LIBSBML_EXTERN
 void
 KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl);
 
-/**
- * Adds a copy of the given Parameter to this KineticLaw.
- */
+
 LIBSBML_EXTERN
 void
 KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p);
 
-/**
- * Creates a new Parameter, adds it to this KineticLaw's list of
- * parameters and returns it.
- */
+
 LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_createParameter (KineticLaw_t *kl);
 
-/**
- * @return the list of Parameters for this KineticLaw.
- */
+
 LIBSBML_EXTERN
 ListOf_t *
 KineticLaw_getListOfParameters (KineticLaw_t *kl);
 
-/**
- * @return the nth Parameter of this KineticLaw.
- */
+
 LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameter (KineticLaw_t *kl, unsigned int n);
 
-/**
- * @return the Parameter in this kineticLaw with the given id or NULL if no
- * such Parameter exists.
- */
+
 LIBSBML_EXTERN
 Parameter_t *
 KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid);
 
-/**
- * @return the number of Parameters in this KineticLaw.
- */
+
 LIBSBML_EXTERN
 unsigned int
 KineticLaw_getNumParameters (const KineticLaw_t *kl);
