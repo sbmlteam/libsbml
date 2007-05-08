@@ -51,7 +51,7 @@
  * evaluates to a value of @c false.  Software tools are not required to
  * display the message, but it is recommended that they do so as a matter
  * of best practice.  The XHTML content within a "message" subelement must
- * follow the same restrictions as for the @c notes element on SBase
+ * follow the same restrictions as for the "notes" element on SBase
  * described in in the SBML Level 2 specification.  For example, "message"
  * must not contain an XML declaration or a DOCTYPE declaration, and the
  * permitted content can only take one of the following general forms: (1)
@@ -239,6 +239,8 @@ public:
   /**
    * Sets the message of this Constraint.
    *
+   * The XMLNode tree passed in @p xhtml is copied.
+   *
    * @param xhtml an XML tree containing XHTML content.
    */
   void setMessage (const XMLNode* xhtml);
@@ -246,6 +248,8 @@ public:
 
   /**
    * Sets the mathematical expression of this Constraint.
+   *
+   * The ASTNode tree passed in @p math is copied.
    *
    * @param math an ASTNode expression to be assigned as the "math"
    * subelement of this Constraint
