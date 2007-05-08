@@ -297,7 +297,7 @@ public:
 
 
   /**
-   * Sets the "symbol" attribute value of this InitialAssignment
+   * Sets the "symbol" attribute value of this InitialAssignment.
    *
    * @param sid, the identifier of a Species, Compartment or Parameter
    * object defined elsewhere in this Model.
@@ -306,7 +306,7 @@ public:
 
 
   /**
-   * Sets the "math" subelement of this InitialAssignment
+   * Sets the "math" subelement of this InitialAssignment.
    *
    * The ASTNode tree passed in @p math is copied.
    *
