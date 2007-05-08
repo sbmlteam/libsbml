@@ -65,13 +65,13 @@ Constraint::~Constraint ()
 /**
  * Copy constructor. Creates a copy of this Constraint.
  */
-Constraint::Constraint (const Constraint& rhs) :
-   SBase   ( rhs )
+Constraint::Constraint (const Constraint& orig) :
+   SBase   ( orig )
  , mMath   ( 0   )
  , mMessage( 0   )
 {
-  if (rhs.mMath)    mMath    = rhs.mMath->deepCopy();
-  if (rhs.mMessage) mMessage = new XMLNode(*rhs.mMessage);
+  if (orig.mMath)    mMath    = orig.mMath->deepCopy();
+  if (orig.mMessage) mMessage = new XMLNode(*orig.mMessage);
 }
 
 

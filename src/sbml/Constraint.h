@@ -170,13 +170,13 @@ public:
   /**
    * Copy constructor; creates a copy of this Constraint.
    */
-  Constraint (const Constraint& rhs);
+  Constraint (const Constraint& orig);
 
 
   /**
    * Assignment operator for Constraint.
    */
-  Constraint& operator=(const Constraint& orig);
+  Constraint& operator=(const Constraint& rhs);
 
 
   /**
