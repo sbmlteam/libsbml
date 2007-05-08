@@ -1106,7 +1106,7 @@ Compartment_isSetOutside (const Compartment_t *c)
 
 
 /**
- * Sets the identifier of this Compartment_t structure.
+ * Sets the identifier of the given Compartment_t structure.
  *
  * @param c the Compartment_t structure.
  * @oaram sid the identifier to which the structures "id" attribute should
@@ -1121,7 +1121,7 @@ Compartment_setId (Compartment_t *c, const char *sid)
 
 
 /**
- * Sets the name of this Compartment_t structure.
+ * Sets the name of the given Compartment_t structure.
  *
  * This function copies the string given in @p string.
  *
@@ -1245,8 +1245,8 @@ Compartment_setOutside (Compartment_t *c, const char *sid)
  * structure.
  *
  * @param c the Compartment_t structure
- * @param value an integer indicating whether the size/volume of this
- * compartment should be considered constant (nonzero) or variable (zero).
+ * @param value an integer indicating whether the size/volume of the
+ * compartment @p c should be considered constant (nonzero) or variable (zero).
  */
 LIBSBML_EXTERN
 void
