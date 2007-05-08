@@ -1,6 +1,6 @@
 /**
  * @file    FunctionDefinition.cpp
- * @brief   SBML FunctionDefinition
+ * @brief   Definition of FunctionDefinition and ListOfFunctionDefinitions.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -488,10 +488,21 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
+
 
 
 /**
- * Creates a new FunctionDefinition and returns a pointer to it.
+ * Creates a new, empty FunctionDefinition_t structure and returns a
+ * pointer to it.
+ * 
+ * @return a pointer to the freshly-created FunctionDefinition_t structure
+ *
+ * @note It is worth emphasizing that although no identifier is supplied in
+ * this constructor and no default identifier is provided, the "id"
+ * (identifier) attribute of a FunctionDefinition_t structure is required
+ * to have a value.  Thus, callers are cautioned to assign a value after
+ * calling this constructor using FunctionDefinition_setId().
  */
 LIBSBML_EXTERN
 FunctionDefinition_t *
@@ -502,12 +513,23 @@ FunctionDefinition_create (void)
 
 
 /**
- * Creates a new FunctionDefinition with the given id and math and returns
- * a pointer to it.  This convenience function is functionally equivalent
- * to:
+ * Creates a new FunctionDefinition_t structure with the given identifier
+ * and mathematical formula.
  *
+ * This convenience function is functionally equivalent to:
+ * @code
  *   fd = FunctionDefinition_create();
- *   FunctionDefinition_setId(fd, id); FunctionDefinition_setMath(fd, math);
+ *   FunctionDefinition_setId(fd, id);
+ *   FunctionDefinition_setMath(fd, math);
+ * @endcode
+ *
+ * @param sid the identifier to be assigned to the FunctionDefinition_t
+ * structure
+ *
+ * @param math an ASTNode_t tree structure defining the mathematical
+ * formula implemented by this function
+ *
+ * @return a pointer to the new FunctionDefinition_t structure.
  */
 LIBSBML_EXTERN
 FunctionDefinition_t *
@@ -519,6 +541,8 @@ FunctionDefinition_createWith (const char *sid, ASTNode_t *math)
 
 /**
  * Frees the given FunctionDefinition.
+ *
+ * @param fd the FunctionDefinition_t structure
  */
 LIBSBML_EXTERN
 void
@@ -529,7 +553,12 @@ FunctionDefinition_free (FunctionDefinition_t *fd)
 
 
 /**
- * @return the id of this FunctionDefinition.
+ * Get the identifier of the given FunctionDefinition_t structure.
+ *
+ * @param fd the FunctionDefinition_t structure
+ * 
+ * @return the value of the "id" attribute of this FunctionDefinition_t
+ * structure.
  */
 LIBSBML_EXTERN
 const char *
@@ -540,7 +569,11 @@ FunctionDefinition_getId (const FunctionDefinition_t *fd)
 
 
 /**
- * @return the name of this FunctionDefinition.
+ * Get the name of the given FunctionDefinition_t structure.
+ *
+ * @param fd the FunctionDefinition_t structure
+ *
+ * @return the name of this FunctionDefinition_t structure.
  */
 LIBSBML_EXTERN
 const char *
@@ -551,7 +584,12 @@ FunctionDefinition_getName (const FunctionDefinition_t *fd)
 
 
 /**
- * @return the math of this FunctionDefinition.
+ * Get the mathematical formula implemented by the given function.
+ *
+ * @param fd the FunctionDefinition_t structure
+ * 
+ * @return an ASTNode_t tree representing the mathematical formula of this
+ * FunctionDefinition_t structure.
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -562,8 +600,13 @@ FunctionDefinition_getMath (const FunctionDefinition_t *fd)
 
 
 /**
- * @return 1 if the id of this FunctionDefinition has been set, 0
- * otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Compartment_t structure's "id" attribute has been set.
+ *
+ * @param fd the FunctionDefinition_t structure
+ *
+ * @return nonzero if the "id" attribute of the FunctionDefinition_t
+ * structure has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -574,8 +617,13 @@ FunctionDefinition_isSetId (const FunctionDefinition_t *fd)
 
 
 /**
- * @return 1 if the name of this FunctionDefinition has been set, 0
- * otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Compartment_t structure's "name" attribute has been set.
+ *
+ * @param fd the FunctionDefinition_t structure
+ *
+ * @return nonzero if the "name" attribute of the FunctionDefinition_t
+ * structure has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -586,8 +634,13 @@ FunctionDefinition_isSetName (const FunctionDefinition_t *fd)
 
 
 /**
- * @return 1 if the math of this FunctionDefinition has been set, 0
- * otherwise.
+ * Predicate returning @c true or @c false depending on whether the given
+ * Compartment_t structure's "math" subelement has been set.
+ *
+ * @param fd the FunctionDefinition_t structure
+ *
+ * @return nonzero if the mathematical expression of this
+ * FunctionDefinition has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -598,7 +651,11 @@ FunctionDefinition_isSetMath (const FunctionDefinition_t *fd)
 
 
 /**
- * Sets the id of this FunctionDefinition to a copy of sid.
+ * Sets the value of the "id" attribute of a FunctionDefinition_t structure.
+ *
+ * @param fd the FunctionDefinition_t structure to set.
+ *
+ * @param sid the identifier to assign to the "id" attribute of @p fd
  */
 LIBSBML_EXTERN
 void
@@ -609,7 +666,11 @@ FunctionDefinition_setId (FunctionDefinition_t *fd, const char *sid)
 
 
 /**
- * Sets the name of this FunctionDefinition to a copy of name.
+ * Sets the value of the "name" attribute of a FunctionDefinition_t structure.
+ *
+ * @param fd the FunctionDefinition_t structure to set.
+ *
+ * @param name the identifier to assign to the "name" attribute of @p fd
  */
 LIBSBML_EXTERN
 void
@@ -620,7 +681,14 @@ FunctionDefinition_setName (FunctionDefinition_t *fd, const char *name)
 
 
 /**
- * Sets the math of this FunctionDefinition to the given ASTNode.
+ * Sets the "math" subelement of a given FunctionDefinition_t structure.
+ *
+ * The ASTNode_t structure given in @p math is copied.
+ *
+ * @param fd the FunctionDefinition_t structure to set.
+ *
+ * @param math the ASTNode_t structure to copy and assign to the "math"
+ * subelement of the given FunctionDefinition_t structure
  */
 LIBSBML_EXTERN
 void
@@ -631,7 +699,9 @@ FunctionDefinition_setMath (FunctionDefinition_t *fd, const ASTNode_t *math)
 
 
 /**
- * Unsets the name of this FunctionDefinition.
+ * Unsets the "name" attribute of the given FunctionDefinition_t structure.
+ * 
+ * @param fd the FunctionDefinition_t structure
  */
 LIBSBML_EXTERN
 void
@@ -642,8 +712,14 @@ FunctionDefinition_unsetName (FunctionDefinition_t *fd)
 
 
 /**
- * @return the nth argument (bound variable) passed to this
- * FunctionDefinition.
+ * Get the nth argument (bound variable) to the given FunctionDefinition_t
+ * structure.
+ * 
+ * @param fd the FunctionDefinition_t structure
+ *
+ * @param n the index of the argument to return
+ *
+ * @return an ASTNode_t tree structure for the argument.
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -654,8 +730,14 @@ FunctionDefinition_getArgument (const FunctionDefinition_t *fd, unsigned int n)
 
 
 /**
- * @return the argument (bound variable) in this FunctionDefinition with
- * the given name or NULL if no such argument exists.
+ * Get the argument named @p name to the given FunctionDefinition_t structure.
+ *
+ * @param fd the FunctionDefinition_t structure
+ *
+ * @param name the exact name (case-sensitive) of the sought-after argument
+ *
+ * @return an ASTNode_t structure representing the argument (bound
+ * variable)
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -667,8 +749,13 @@ FunctionDefinition_getArgumentByName ( FunctionDefinition_t *fd,
 
 
 /**
- * @return the body of this FunctionDefinition, or NULL if no body is
- * defined.
+ * Get the mathematical expression that constitutes the body of the given
+ * function definition.
+ *
+ * @param fd the FunctionDefinition_t structure
+ * 
+ * @return an ASTNode_t tree that is the "math" subelement" of this
+ * FunctionDefinition_t structure
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -679,8 +766,12 @@ FunctionDefinition_getBody (const FunctionDefinition_t *fd)
 
 
 /**
+ * Get the number of arguments that the given function definition takes.
+ *
+ * @param fd the FunctionDefinition_t structure
+ * 
  * @return the number of arguments (bound variables) that must be passed
- * to this FunctionDefinition.
+ * to this FunctionDefinition_t structure.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -688,3 +779,7 @@ FunctionDefinition_getNumArguments (const FunctionDefinition_t *fd)
 {
   return fd->getNumArguments();
 }
+
+
+
+/** @endcond doxygen-c-only */
