@@ -228,8 +228,8 @@ parseCVTerms(const SBase * object)
 
   /* create Namespaces - these go on the RDF element */
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
   xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
+  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
   xmlns.add("http://purl.org/dc/terms/", "dcterms");
   xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
   xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
@@ -253,7 +253,7 @@ parseCVTerms(const SBase * object)
   /* attributes */
   XMLAttributes blank_att = XMLAttributes();
   XMLAttributes desc_att = XMLAttributes();
-  desc_att.add("about", "#" + object->getMetaId());
+  desc_att.add("rdf:about", "#" + object->getMetaId());
  
   /* tokens */
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), blank_att);
@@ -393,8 +393,8 @@ parseModelHistory(const SBase * model)
 
   /* create Namespaces - these go on the RDF element */
   XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
   xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
+  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
   xmlns.add("http://purl.org/dc/terms/", "dcterms");
   xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
   xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
@@ -449,9 +449,9 @@ parseModelHistory(const SBase * model)
   /* attributes */
   XMLAttributes blank_att = XMLAttributes();
   XMLAttributes desc_att = XMLAttributes();
-  desc_att.add("about", "#" + model->getMetaId());
+  desc_att.add("rdf:about", "#" + model->getMetaId());
   XMLAttributes parseType_att = XMLAttributes();
-  parseType_att.add("parseType", "Resource");
+  parseType_att.add("rdf:parseType", "Resource");
  
   /* tokens */
   XMLToken ann_token      = XMLToken(XMLTriple("annotation", "", ""), 
@@ -464,7 +464,7 @@ parseModelHistory(const SBase * model)
   XMLToken creator_token  = XMLToken(creator_triple,  parseType_att);
   XMLToken N_token        = XMLToken(N_triple,        parseType_att);
   XMLToken created_token  = XMLToken(created_triple,  parseType_att);
-  XMLToken modified_token = XMLToken(creator_triple,  parseType_att);
+  XMLToken modified_token = XMLToken(modified_triple,  parseType_att);
   XMLToken Family_token   = XMLToken(Family_triple,   blank_att);
   XMLToken Given_token    = XMLToken(Given_triple,    blank_att);
   XMLToken Email_token    = XMLToken(Email_triple,    blank_att);

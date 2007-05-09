@@ -104,7 +104,7 @@ CVTerm::CVTerm(const XMLNode node)
     
     if      (name == "is")      
       setModelQualifierType(BQM_IS);
-    else if (name == "hasPart") 
+    else if (name == "isDescribedBy") 
       setModelQualifierType(BQM_IS_DESCRIBED_BY);
   }
 
