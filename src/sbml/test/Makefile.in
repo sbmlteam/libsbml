@@ -70,8 +70,9 @@ test_sources =				\
   TestAssignmentRule.c		\
   TestCopyAndClone.cpp		\
   TestAlgebraicRule.c       \
-  TestRateRule.c             \        
+  TestRateRule.c             \
   TestDelay.c        
+
 # TestAssignmentRule.c           \
 # TestCompartment.c              \
 # TestCompartmentVolumeRule.c    \
