@@ -600,7 +600,7 @@ LIBSBML_EXTERN
 void
 Date_setMinutesOffset(Date_t * date, unsigned int value);
 
-
+LIBSBML_EXTERN
 void
 Date_free(Date_t *);
 
