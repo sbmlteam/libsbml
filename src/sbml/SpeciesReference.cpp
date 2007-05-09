@@ -532,8 +532,8 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
     mCVTerms = new List();
-    parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = deleteRDFAnnotation(mAnnotation);
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 #ifdef USE_LAYOUT
     // only parse the id annotation if it is Level 1 or Level 2 Version 1
     // everything after Level 2 Version 1 has ids.
@@ -769,8 +769,8 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
     mCVTerms = new List();
-    parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = deleteRDFAnnotation(mAnnotation);
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
     
     if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
     {

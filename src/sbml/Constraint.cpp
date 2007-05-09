@@ -302,8 +302,8 @@ Constraint::readOtherXML (XMLInputStream& stream)
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
     mCVTerms = new List();
-    parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = deleteRDFAnnotation(mAnnotation);
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
     read = true;
   }
   else if (name == "notes")

@@ -44,45 +44,53 @@
 #include <cstdlib>
 
 
-
-
-
-/**
- * takes an annotation that has been read into the model
- * identifies the RDF elements
- * and creates a List of CVTerms from the annotation
- */
-LIBSBML_EXTERN
-void parseRDFAnnotation(XMLNode * annotation, List * CVTerms);
+class RDFAnnotationParser
+{
+public:
 
 
 /**
- * takes an annotation that has been read into the model
- * identifies the RDF elements
- * and creates a Model History from the annotation
+ * Parses an annotation into a list of CVTerms.
+ *
+ * Takes an annotation that has been read into the model,
+ * identifies the RDF elements and creates a list of CVTerms 
+ * from the annotation.
+ *
+ * @param annotation XMLNode storing the annotation.
+ * @param CVTerms list of CVTerms to be created.
  */
-LIBSBML_EXTERN
-ModelHistory* parseRDFAnnotation(XMLNode * annotation);
+static void parseRDFAnnotation(XMLNode * annotation, List * CVTerms);
 
 
-LIBSBML_EXTERN
-XMLNode *
+/**
+ * Parses an annotation into a ModelHistory class instance.
+ *
+ * Takes an annotation that has been read into the model,
+ * identifies the RDF elements
+ * and creates a Model History from the annotation.
+ *
+ * @param annotation XMLNode storing the annotation.
+ *
+ * @return pointer to the ModelHistory created.
+ */
+static ModelHistory* parseRDFAnnotation(XMLNode * annotation);
+
+
+static XMLNode *
 deleteRDFAnnotation(XMLNode * annotation);
 
 /**
  * takes a List of CVTerms
  * and creates the RDF annotation
  */
-LIBSBML_EXTERN
-XMLNode * parseCVTerms(const SBase * );
+static XMLNode * parseCVTerms(const SBase * );
 
 /**
  * takes a Model creator information
  * and creates the RDF annotation
  */
-LIBSBML_EXTERN
-XMLNode * parseModelHistory(const SBase * );
-
+static XMLNode * parseModelHistory(const SBase * );
+};
 
 #endif  /* __cplusplus */
 

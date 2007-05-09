@@ -897,7 +897,7 @@ SBase::writeElements (XMLOutputStream& stream) const
    * from the saved annotation and then must be replaced
    */
 
-  XMLNode * cvTerms = parseCVTerms(this);
+  XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
   if (!mAnnotation)
   {
     if (cvTerms)  const_cast <SBase *> (this)->setAnnotation(cvTerms);

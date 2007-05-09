@@ -1563,9 +1563,9 @@ Model::readOtherXML (XMLInputStream& stream)
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
     mCVTerms = new List();
-    mHistory = parseRDFAnnotation(mAnnotation);
-    parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = deleteRDFAnnotation(mAnnotation);
+    mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
 #ifdef USE_LAYOUT
     parseLayoutAnnotation(mAnnotation,mLayouts);
     mAnnotation=deleteLayoutAnnotation(mAnnotation);
@@ -1809,7 +1809,7 @@ Model::writeElements (XMLOutputStream& stream) const
   if (getModelHistory())
   {
     Model * m = const_cast <Model *> (this);
-    XMLNode * history = parseModelHistory(this);
+    XMLNode * history = RDFAnnotationParser::parseModelHistory(this);
     if(!mAnnotation)
 
     {

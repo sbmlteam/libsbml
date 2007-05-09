@@ -49,9 +49,8 @@ using namespace std;
  * identifies the RDF elements
  * and creates a List of CVTerms from the annotation
  */
-LIBSBML_EXTERN
 void 
-parseRDFAnnotation(XMLNode * annotation, List * CVTerms)
+RDFAnnotationParser::parseRDFAnnotation(XMLNode * annotation, List * CVTerms)
 {
 
   const string&  name = annotation->getName();
@@ -96,9 +95,9 @@ parseRDFAnnotation(XMLNode * annotation, List * CVTerms)
   
 }
 
-LIBSBML_EXTERN
+
 XMLNode *
-deleteRDFAnnotation(XMLNode * annotation)
+RDFAnnotationParser::deleteRDFAnnotation(XMLNode * annotation)
 {
   const string&  name = annotation->getName();
   unsigned int n = 0;
@@ -127,9 +126,9 @@ deleteRDFAnnotation(XMLNode * annotation)
  * identifies the RDF elements
  * and creates a Model History from the annotation
  */
-LIBSBML_EXTERN
+
 ModelHistory*
-parseRDFAnnotation(XMLNode * annotation)
+RDFAnnotationParser::parseRDFAnnotation(XMLNode * annotation)
 {
   const string&  name = annotation->getName();
   const XMLNode*  RDFTop = NULL;
@@ -217,9 +216,9 @@ parseRDFAnnotation(XMLNode * annotation)
  * takes a List of CVTerms
  * and creates the RDF annotation
  */
-LIBSBML_EXTERN
+
 XMLNode * 
-parseCVTerms(const SBase * object)
+RDFAnnotationParser::parseCVTerms(const SBase * object)
 {
   if (object->getCVTerms() == NULL || object->getCVTerms()->getSize() == 0)
   {
@@ -376,9 +375,8 @@ parseCVTerms(const SBase * object)
  * takes a Model creator information
  * and creates the RDF annotation
  */
-LIBSBML_EXTERN
 XMLNode * 
-parseModelHistory(const SBase * model)
+RDFAnnotationParser::parseModelHistory(const SBase * model)
 {
   if (model->getTypeCode() != SBML_MODEL)
   {
