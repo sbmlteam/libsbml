@@ -73,42 +73,6 @@ test_sources =				\
   TestRateRule.c             \
   TestDelay.c        
 
-# TestAssignmentRule.c           \
-# TestCompartment.c              \
-# TestCompartmentVolumeRule.c    \
-# TestEvent.c                    \
-# TestEventAssignment.c          \
-# TestFunctionDefinition.c       \
-# TestKineticLaw.c               \
-# TestListOf.c                   \
-# TestModel.c                    \
-# TestModifierSpeciesReference.c \
-# TestParameter.c                \
-# TestParameterRule.c            \
-# TestRateRule.c                 \
-# TestReaction.c                 \
-# TestReadFromFile1.c            \
-# TestReadFromFile2.c            \
-# TestReadFromFile3.c            \
-# TestReadFromFile4.c            \
-# TestReadFromFile5.cpp          \
-# TestRule.c                     \
-# TestRuleType.c                 \
-# TestSBase.cpp                  \
-# TestSBMLConvert.c              \
-# TestSBMLDocument.c             \
-# TestSBMLFormatter.cpp          \
-# TestSBMLHandler.cpp            \
-# TestSBMLReader.cpp             \
-# TestSBMLWriter.c               \
-# TestSimpleSpeciesReference.c   \
-# TestSpecies.c                  \
-# TestSpeciesConcentrationRule.c \
-# TestSpeciesReference.c         \
-# TestUnit.c                     \
-# TestUnitDefinition.c           \
-# TestUnitKind.c                 \
-# TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
 
