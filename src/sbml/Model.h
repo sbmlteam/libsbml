@@ -116,8 +116,8 @@ class LIBSBML_EXTERN Model : public SBase
 public:
 
   /**
-   * Creates a new Model, optionally with a given identifier and *
-   * mathematical formula.
+   * Creates a new Model, optionally with a given identifier and
+   * name.
    *
    * @param id a string, the optional identifier of this Model
    * @param name a string, the optional name of this Model.
@@ -138,735 +138,982 @@ public:
 
 
   /**
-   * Assignment operator
+   * Assignment operator for Model.
    */
   Model& operator=(const Model& orig);
 
 
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor for this instance of Constraint.
+   *
+   * @param v the SBMLVisitor instance to be used.
+   *
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
 
   /**
+   * Creates and returns a deep copy of this Model.
+   * 
    * @return a (deep) copy of this Model.
    */
   virtual SBase* clone () const;
 
 
   /**
-   * Adds a copy of the given FunctionDefinition to this Model.
+   * Adds a copy of the given FunctionDefinition object to this Model.
+   *
+   * @param fd the FunctionDefinition to add
    */
   void addFunctionDefinition (const FunctionDefinition* fd);
 
 
   /**
-   * Adds a copy of the given UnitDefinition to this Model.
+   * Adds a copy of the given UnitDefinition object to this Model.
+   *
+   * @param ud the UnitDefinition object to add
    */
   void addUnitDefinition (const UnitDefinition* ud);
 
 
   /**
-   * Adds a copy of the given CompartmentType to this Model.
+   * Adds a copy of the given CompartmentType object to this Model.
+   *
+   * @param ct the CompartmentType object to add
    */
   void addCompartmentType (const CompartmentType* ct);
 
 
   /**
-   * Adds a copy of the given SpeciesType to this Model.
+   * Adds a copy of the given SpeciesType object to this Model.
+   *
+   * @param st the SpeciesType object to add
    */
   void addSpeciesType (const SpeciesType* st);
 
 
   /**
-   * Adds a copy of the given Compartment to this Model.
+   * Adds a copy of the given Compartment object to this Model.
+   *
+   * @param c the Compartment object to add
    */
   void addCompartment (const Compartment* c);
 
 
   /**
-   * Adds a copy of the given Species to this Model.
+   * Adds a copy of the given Species object to this Model.
+   *
+   * @param s the Species object to add
    */
   void addSpecies (const Species* s);
 
 
   /**
-   * Adds a copy of the given Parameter to this Model.
+   * Adds a copy of the given Parameter object to this Model.
+   *
+   * @param p the Parameter object to add
    */
   void addParameter (const Parameter* p);
 
 
   /**
-   * Adds a copy of the given InitialAssignment to this Model.
+   * Adds a copy of the given InitialAssignment object to this Model.
+   *
+   * @param ia the InitialAssignment object to add
    */
   void addInitialAssignment (const InitialAssignment* ia);
 
 
   /**
-   * Adds a copy of the given Rule to this Model.
+   * Adds a copy of the given Rule object to this Model.
+   *
+   * @param r the Rule object to add
    */
   void addRule (const Rule* r);
 
 
   /**
-   * Adds a copy of the given Constraint to this Model.
+   * Adds a copy of the given Constraint object to this Model.
+   *
+   * @param c the Constraint object to add
    */
   void addConstraint (const Constraint* c);
 
 
   /**
-   * Adds a copy of the given Reaction to this Model.
+   * Adds a copy of the given Reaction object to this Model.
+   *
+   * @param r the Reaction object to add
    */
   void addReaction (const Reaction* r);
 
 
   /**
-   * Adds a copy of the given Event to this Model.
+   * Adds a copy of the given Event object to this Model.
+   *
+   * @param e the Event object to add
    */
   void addEvent (const Event* e);
 
 
   /**
    * Creates a new FunctionDefinition inside this Model and returns it.
+   *
+   * @return the FunctionDefinition object created
    */
   FunctionDefinition* createFunctionDefinition ();
 
 
   /**
    * Creates a new UnitDefinition inside this Model and returns it.
+   *
+   * @return the UnitDefinition object created
    */
   UnitDefinition* createUnitDefinition ();
 
 
   /**
-   * Creates a new Unit inside this Model and returns a pointer to it.  The
-   * Unit is added to the last UnitDefinition created.
+   * Creates a new Unit object within the last UnitDefinition object
+   * created in this model and returns a pointer to it.
    *
-   * If a UnitDefinitions does not exist for this model, a new Unit is not
-   * created and NULL is returned.
+   * The mechanism by which the UnitDefinition was created is not
+   * significant.  If a UnitDefinition object does not exist in this model,
+   * a new Unit is @em not created and NULL is returned instead.
+   *
+   * @return the Unit object created
    */
   Unit* createUnit ();
 
 
   /**
    * Creates a new CompartmentType inside this Model and returns it.
+   *
+   * @return the CompartmentType object created
    */
   CompartmentType* createCompartmentType ();
 
 
   /**
    * Creates a new SpeciesType inside this Model and returns it.
+   *
+   * @return the SpeciesType object created
    */
   SpeciesType* createSpeciesType ();
 
 
   /**
    * Creates a new Compartment inside this Model and returns it.
+   *
+   * @return the Compartment object created
    */
   Compartment* createCompartment ();
 
 
   /**
    * Creates a new Species inside this Model and returns it.
+   *
+   * @return the Species object created
    */
   Species* createSpecies ();
 
 
   /**
    * Creates a new Parameter inside this Model and returns it.
+   *
+   * @return the Parameter object created
    */
   Parameter* createParameter ();
 
 
   /**
    * Creates a new InitialAssignment inside this Model and returns it.
+   *
+   * @return the InitialAssignment object created
    */
   InitialAssignment* createInitialAssignment ();
 
 
   /**
    * Creates a new AlgebraicRule inside this Model and returns it.
+   *
+   * @return the AlgebraicRule object created
    */
   AlgebraicRule* createAlgebraicRule ();
 
 
   /**
    * Creates a new AssignmentRule inside this Model and returns it.
+   *
+   * @return the AssignmentRule object created
    */
   AssignmentRule* createAssignmentRule ();
 
 
   /**
    * Creates a new RateRule inside this Model and returns it.
+   *
+   * @return the RateRule object created
    */
   RateRule* createRateRule ();
 
 
   /**
    * Creates a new Constraint inside this Model and returns it.
+   *
+   * @return the Constraint object created
    */
   Constraint* createConstraint ();
 
 
   /**
    * Creates a new Reaction inside this Model and returns it.
+   *
+   * @return the Reaction object created
    */
   Reaction* createReaction ();
 
 
   /**
-   * Creates a new Reactant (ie SpeciesReference) inside this Model and
-   * returns a pointer to it.  The SpeciesReference is added to the
-   * reactants of the last Reaction created.
+   * Creates a new SpeciesReference object for a reactant inside the last
+   * Reaction object in this Model, and returns a pointer to it.
    *
-   * If a Reaction does not exist for this model, a new SpeciesReference is
-   * not created and NULL is returned.
+   * The mechanism by which the last Reaction object was created and added
+   * to this Model is not significant.  It could have been created in a
+   * variety of ways, for example using createReaction().  If a Reaction
+   * does not exist for this model, a new SpeciesReference is @em not
+   * created and NULL is returned instead.
+   *
+   * @return the SpeciesReference object created
    */
   SpeciesReference* createReactant ();
 
 
   /**
-   * Creates a new Product (ie SpeciesReference) inside this Model and
-   * returns a pointer to it.  The SpeciesReference is added to the
-   * products of the last Reaction created.
+   * Creates a new SpeciesReference object for a product inside the last
+   * Reaction object in this Model, and returns a pointer to it.
    *
-   * If a Reaction does not exist for this model, a new SpeciesReference is
-   * not created and NULL is returned.
+   * The mechanism by which the last Reaction object was created and added
+   * to this Model is not significant.  It could have been created in a
+   * variety of ways, for example using createReaction().  If a Reaction
+   * does not exist for this model, a new SpeciesReference is @em not
+   * created and NULL is returned instead.
+   *
+   * @return the SpeciesReference object created
    */
   SpeciesReference* createProduct ();
 
 
   /**
-   * Creates a new Modifer (ie ModifierSpeciesReference) inside this
-   * Model and returns a pointer to it.  The ModifierSpeciesReference is
-   * added to the modifiers of the last Reaction created.
+   * Creates a new ModifierSpeciesReference object for a modifier species
+   * inside the last Reaction object in this Model, and returns a pointer
+   * to it.
    *
-   * If a Reaction does not exist for this model, a new
-   * ModifierSpeciesReference is not created and NULL is returned.
+   * The mechanism by which the last Reaction object was created and added
+   * to this Model is not significant.  It could have been created in a
+   * variety of ways, for example using createReaction().  If a Reaction
+   * does not exist for this model, a new ModifierSpeciesReference is @em
+   * not created and NULL is returned instead.
+   *
+   * @return the SpeciesReference object created
    */
   ModifierSpeciesReference* createModifier ();
 
 
   /**
-   * Creates a new KineticLaw inside this Model and returns a pointer to
-   * it.  The KineticLaw is associated with the last Reaction created.
+   * Creates a new KineticLaw inside the last Reaction object created in
+   * this Model, and returns a pointer to it.
    *
-   * If a Reaction does not exist for this model, or a Reaction does exist,
-   * but already has a KineticLaw, a new KineticLaw is not created and NULL
-   * is returned.
+   * The mechanism by which the last Reaction object was created and added
+   * to this Model is not significant.  It could have been created in a
+   * variety of ways, for example using createReaction().  If a Reaction
+   * does not exist for this model, or a Reaction exists but already has a
+   * KineticLaw, a new KineticLaw is @em not created and NULL is returned
+   * instead.
+   *
+   * @return the KineticLaw object created
    */
   KineticLaw* createKineticLaw ();
 
 
   /**
-   * Creates a new Parameter (of a KineticLaw) inside this Model and
-   * returns a pointer to it.  The Parameter is associated with the
-   * KineticLaw of the last Reaction created.
+   * Creates a new local Parameter inside the KineticLaw object of the last
+   * Reaction created inside this Model, and returns a pointer to it.
    *
-   * If a Reaction does not exist for this model, or a KineticLaw for the
-   * Reaction, a new Parameter is not created and NULL is returned.
+   * The last KineticLaw object in this Model could have been created in a
+   * variety of ways.  For example, it could have been added using
+   * createKineticLaw(), or it could be the result of using
+   * Reaction::createKineticLaw() on the Reaction object created by a
+   * createReaction().  If a Reaction does not exist for this model, or the
+   * last Reaction does not contain a KineticLaw object, a new Parameter is
+   * @em not created and NULL is returned instead.
+   *
+   * @return the Parameter object created
    */
   Parameter* createKineticLawParameter ();
 
 
   /**
    * Creates a new Event inside this Model and returns it.
+   *
+   * @return the Event object created
    */
   Event* createEvent ();
 
 
   /**
-   * Creates a new EventAssignment inside this Model and returns a pointer
-   * to it.  The EventAssignment is added to the the last Event created.
+   * Creates a new EventAssignment inside the last Event object created in
+   * this Model, and returns a pointer to it.
    *
-   * If an Event does not exist for this model, a new EventAssignment is
-   * not created and NULL is returned.
+   * The mechanism by which the last Event object in this model was created
+   * is not significant.  It could have been created in a variety of ways,
+   * for example by using createEvent().  If no Event object exists in this
+   * Model object, a new EventAssignment is @em not created and NULL is
+   * returned instead.
+   *
+   * @return the EventAssignment object created
    */
   EventAssignment* createEventAssignment ();
 
 
   /**
+   * Get the ListOfFunctionDefinitions object in this Model.
+   * 
    * @return the list of FunctionDefinitions for this Model.
    */
   const ListOfFunctionDefinitions* getListOfFunctionDefinitions () const;
 
 
   /**
+   * Get the ListOfFunctionDefinitions object in this Model.
+   * 
    * @return the list of FunctionDefinitions for this Model.
    */
   ListOfFunctionDefinitions* getListOfFunctionDefinitions ();
 
 
   /**
+   * Get the ListOfUnitDefinitions object in this Model.
+   * 
    * @return the list of UnitDefinitions for this Model.
    */
   const ListOfUnitDefinitions* getListOfUnitDefinitions () const;
 
 
   /**
+   * Get the ListOfUnitDefinitions object in this Model.
+   * 
    * @return the list of UnitDefinitions for this Model.
    */
   ListOfUnitDefinitions* getListOfUnitDefinitions ();
 
 
   /**
+   * Get the ListOfCompartmentTypes object in this Model.
+   * 
    * @return the list of CompartmentTypes for this Model.
    */
   const ListOfCompartmentTypes* getListOfCompartmentTypes () const;
 
 
   /**
+   * Get the ListOfCompartmentTypes object in this Model.
+   * 
    * @return the list of CompartmentTypes for this Model.
    */
   ListOfCompartmentTypes* getListOfCompartmentTypes ();
 
 
   /**
+   * Get the ListOfSpeciesTypes object in this Model.
+   * 
    * @return the list of SpeciesTypes for this Model.
    */
   const ListOfSpeciesTypes* getListOfSpeciesTypes () const;
 
 
   /**
+   * Get the ListOfSpeciesTypes object in this Model.
+   * 
    * @return the list of SpeciesTypes for this Model.
    */
   ListOfSpeciesTypes* getListOfSpeciesTypes ();
 
 
   /**
+   * Get the ListOfCompartments object in this Model.
+   * 
    * @return the list of Compartments for this Model.
    */
   const ListOfCompartments* getListOfCompartments () const;
 
 
   /**
+   * Get the ListOfCompartments object in this Model.
+   * 
    * @return the list of Compartments for this Model.
    */
   ListOfCompartments* getListOfCompartments ();
 
 
   /**
+   * Get the ListOfSpecies object in this Model.
+   * 
    * @return the list of Species for this Model.
    */
   const ListOfSpecies* getListOfSpecies () const;
 
 
   /**
+   * Get the ListOfSpecies object in this Model.
+   * 
    * @return the list of Species for this Model.
    */
   ListOfSpecies* getListOfSpecies ();
 
 
   /**
+   * Get the ListOfParameters object in this Model.
+   * 
    * @return the list of Parameters for this Model.
    */
   const ListOfParameters* getListOfParameters () const;
 
 
   /**
+   * Get the ListOfParameters object in this Model.
+   * 
    * @return the list of Parameters for this Model.
    */
   ListOfParameters* getListOfParameters ();
 
 
   /**
+   * Get the ListOfInitialAssignments object in this Model.
+   * 
    * @return the list of InitialAssignments for this Model.
    */
   const ListOfInitialAssignments* getListOfInitialAssignments () const;
 
 
   /**
+   * Get the ListOfInitialAssignments object in this Model.
+   * 
    * @return the list of InitialAssignment for this Model.
    */
   ListOfInitialAssignments* getListOfInitialAssignments ();
 
 
   /**
+   * Get the ListOfRules object in this Model.
+   * 
    * @return the list of Rules for this Model.
    */
   const ListOfRules* getListOfRules () const;
 
 
   /**
+   * Get the ListOfRules object in this Model.
+   * 
    * @return the list of Rules for this Model.
    */
   ListOfRules* getListOfRules ();
 
 
   /**
+   * Get the ListOfConstraints object in this Model.
+   * 
    * @return the list of Constraints for this Model.
    */
   const ListOfConstraints* getListOfConstraints () const;
 
 
   /**
+   * Get the ListOfConstraints object in this Model.
+   * 
    * @return the list of Constraints for this Model.
    */
   ListOfConstraints* getListOfConstraints ();
 
 
   /**
+   * Get the ListOfReactions object in this Model.
+   * 
    * @return the list of Reactions for this Model.
    */
   const ListOfReactions* getListOfReactions () const;
 
 
   /**
+   * Get the ListOfReactions object in this Model.
+   * 
    * @return the list of Reactions for this Model.
    */
   ListOfReactions* getListOfReactions ();
 
 
   /**
+   * Get the ListOfEvents object in this Model.
+   * 
    * @return the list of Events for this Model.
    */
   const ListOfEvents* getListOfEvents () const;
 
 
   /**
+   * Get the ListOfEvents object in this Model.
+   * 
    * @return the list of Events for this Model.
    */
   ListOfEvents* getListOfEvents ();
 
 
   /**
+   * Get the nth FunctionDefinitions object in this Model.
+   * 
    * @return the nth FunctionDefinition of this Model.
    */
   const FunctionDefinition* getFunctionDefinition (unsigned int n) const;
 
 
   /**
+   * Get the nth FunctionDefinitions object in this Model.
+   * 
    * @return the nth FunctionDefinition of this Model.
    */
   FunctionDefinition* getFunctionDefinition (unsigned int n);
 
 
   /**
-   * @return the FunctionDefinition in this Model with the given id or NULL
-   * if no such FunctionDefinition exists.
+   * Get a FunctionDefinition object based on its identifier.
+   * 
+   * @return the FunctionDefinition in this Model with the identifier @p
+   * sid or NULL if no such FunctionDefinition exists.
    */
   const FunctionDefinition*
   getFunctionDefinition (const std::string& sid) const;
 
 
   /**
-   * @return the FunctionDefinition in this Model with the given id or NULL
-   * if no such FunctionDefinition exists.
+   * Get a FunctionDefinition object based on its identifier.
+   * 
+   * @return the FunctionDefinition in this Model with the identifier @p
+   * sid or NULL if no such FunctionDefinition exists.
    */
   FunctionDefinition* getFunctionDefinition (const std::string& sid);
 
 
   /**
+   * Get the nth UnitDefinition object in this Model.
+   * 
    * @return the nth UnitDefinition of this Model.
    */
   const UnitDefinition* getUnitDefinition (unsigned int n) const;
 
 
   /**
+   * Get the nth UnitDefinition object in this Model.
+   * 
    * @return the nth UnitDefinition of this Model.
    */
   UnitDefinition* getUnitDefinition (unsigned int n);
 
 
   /**
-   * @return the UnitDefinition in this Model with the given id or NULL if
-   * no such UnitDefinition exists.
+   * Get a UnitDefinition based on its identifier.
+   * 
+   * @return the UnitDefinition in this Model with the identifier @p sid or
+   * NULL if no such UnitDefinition exists.
    */
   const UnitDefinition* getUnitDefinition (const std::string& sid) const;
 
 
   /**
-   * @return the UnitDefinition in this Model with the given id or NULL if
-   * no such UnitDefinition exists.
+   * Get a UnitDefinition based on its identifier.
+   * 
+   * @return the UnitDefinition in this Model with the identifier @p sid or
+   * NULL if no such UnitDefinition exists.
    */
   UnitDefinition* getUnitDefinition (const std::string& sid);
 
 
   /**
+   * Get the nth CompartmentType object in this Model.
+   * 
    * @return the nth CompartmentType of this Model.
    */
   const CompartmentType* getCompartmentType (unsigned int n) const;
 
 
   /**
+   * Get the nth CompartmentType object in this Model.
+   * 
    * @return the nth CompartmentType of this Model.
    */
   CompartmentType* getCompartmentType (unsigned int n);
 
 
   /**
-   * @return the CompartmentType in this Model with the given id or NULL if
-   * no such CompartmentType exists.
+   * Get a CompartmentType object based on its identifier.
+   * 
+   * @return the CompartmentType in this Model with the identifier @p sid
+   * or NULL if no such CompartmentType exists.
    */
   const CompartmentType* getCompartmentType (const std::string& sid) const;
 
 
   /**
-   * @return the CompartmentType in this Model with the given id or NULL if
-   * no such CompartmentType exists.
+   * Get a CompartmentType object based on its identifier.
+   * 
+   * @return the CompartmentType in this Model with the identifier @p sid
+   * or NULL if no such CompartmentType exists.
    */
   CompartmentType* getCompartmentType (const std::string& sid);
 
 
   /**
+   * Get the nth SpeciesType object in this Model.
+   * 
    * @return the nth SpeciesType of this Model.
    */
   const SpeciesType* getSpeciesType (unsigned int n) const;
 
 
   /**
+   * Get the nth SpeciesType object in this Model.
+   * 
    * @return the nth SpeciesType of this Model.
    */
   SpeciesType* getSpeciesType (unsigned int n);
 
 
   /**
-   * @return the SpeciesType in this Model with the given id or NULL if
-   * no such SpeciesType exists.
+   * Get a SpeciesType object based on its identifier.
+   * 
+   * @return the SpeciesType in this Model with the identifier @p sid or
+   * NULL if no such SpeciesType exists.
    */
   const SpeciesType* getSpeciesType (const std::string& sid) const;
 
 
   /**
-   * @return the SpeciesType in this Model with the given id or NULL if
-   * no such SpeciesType exists.
+   * Get a SpeciesType object based on its identifier.
+   * 
+   * @return the SpeciesType in this Model with the identifier @p sid or
+   * NULL if no such SpeciesType exists.
    */
   SpeciesType* getSpeciesType (const std::string& sid);
 
 
   /**
+   * Get the nth Compartment object in this Model.
+   * 
    * @return the nth Compartment of this Model.
    */
   const Compartment* getCompartment (unsigned int n) const;
 
 
   /**
+   * Get the nth Compartment object in this Model.
+   * 
    * @return the nth Compartment of this Model.
    */
   Compartment* getCompartment (unsigned int n);
 
 
   /**
-   * @return the Compartment in this Model with the given id or NULL if no
-   * such Compartment exists.
+   * Get a Compartment object based on its identifier.
+   * 
+   * @return the Compartment in this Model with the identifier @p sid or
+   * NULL if no such Compartment exists.
    */
   const Compartment* getCompartment (const std::string& sid) const;
 
 
   /**
-   * @return the Compartment in this Model with the given id or NULL if no
-   * such Compartment exists.
+   * Get a Compartment object based on its identifier.
+   * 
+   * @return the Compartment in this Model with the identifier @p sid or
+   * NULL if no such Compartment exists.
    */
   Compartment* getCompartment (const std::string& sid);
 
 
   /**
+   * Get the nth Species object in this Model.
+   * 
    * @return the nth Species of this Model.
    */
   const Species* getSpecies (unsigned int n) const;
 
 
   /**
+   * Get the nth Species object in this Model.
+   * 
    * @return the nth Species of this Model.
    */
   Species* getSpecies (unsigned int n);
 
 
   /**
-   * @return the Species in this Model with the given id or NULL if no such
-   * Species exists.
+   * Get a Species object based on its identifier.
+   * 
+   * @return the Species in this Model with the identifier @p sid or NULL
+   * if no such Species exists.
    */
   const Species* getSpecies (const std::string& sid) const;
 
 
   /**
-   * @return the Species in this Model with the given id or NULL if no such
-   * Species exists.
+   * Get a Species object based on its identifier.
+   * 
+   * @return the Species in this Model with the identifier @p sid or NULL
+   * if no such Species exists.
    */
   Species* getSpecies (const std::string& sid);
 
 
   /**
+   * Get the nth Parameter object in this Model.
+   * 
    * @return the nth Parameter of this Model.
    */
   const Parameter* getParameter (unsigned int n) const;
 
 
   /**
+   * Get the nth Parameter object in this Model.
+   * 
    * @return the nth Parameter of this Model.
    */
   Parameter* getParameter (unsigned int n);
 
 
   /**
-   * @return the Parameter in this Model with the given id or NULL if no
-   * such Parameter exists.
+   * Get a Parameter object based on its identifier.
+   * 
+   * @return the Parameter in this Model with the identifier @p sid or NULL
+   * if no such Parameter exists.
    */
   const Parameter* getParameter (const std::string& sid) const;
 
 
   /**
-   * @return the Parameter in this Model with the given id or NULL if no
-   * such Parameter exists.
+   * Get a Parameter object based on its identifier.
+   * 
+   * @return the Parameter in this Model with the identifier @p sid or NULL
+   * if no such Parameter exists.
    */
   Parameter* getParameter (const std::string& sid);
 
 
   /**
+   * Get the nth InitialAssignment object in this Model.
+   * 
    * @return the nth InitialAssignment of this Model.
    */
   const InitialAssignment* getInitialAssignment (unsigned int n) const;
 
 
   /**
+   * Get the nth InitialAssignment object in this Model.
+   * 
    * @return the nth InitialAssignment of this Model.
    */
   InitialAssignment* getInitialAssignment (unsigned int n);
 
 
   /**
-   * @return the InitialAssignment in this Model with the given symbol or
-   * NULL if no such InitialAssignment exists.
+   * Get an InitialAssignment object based on the symbol to which it
+   * assigns a value.
+   * 
+   * @return the InitialAssignment in this Model with the given "symbol"
+   * attribute value or NULL if no such InitialAssignment exists.
    */
   const InitialAssignment*
   getInitialAssignment (const std::string& symbol) const;
 
 
   /**
-   * @return the InitialAssignment in this Model with the given symbol or
-   * NULL if no such InitialAssignment exists.
+   * Get an InitialAssignment object based on the symbol to which it
+   * assigns a value.
+   * 
+   * @return the InitialAssignment in this Model with the given "symbol"
+   * attribute value or NULL if no such InitialAssignment exists.
    */
   InitialAssignment* getInitialAssignment (const std::string& symbol);
 
 
   /**
+   * Get the nth Rule object in this Model.
+   * 
    * @return the nth Rule of this Model.
    */
   const Rule* getRule (unsigned int n) const;
 
 
   /**
+   * Get the nth Rule object in this Model.
+   * 
    * @return the nth Rule of this Model.
    */
   Rule* getRule (unsigned int n);
 
 
   /**
-   * @return the Rule in this Model with the given variable or NULL if no
-   * such Rule exists.
+   * Get a Rule object based on the variable to which it assigns a value.
+   * 
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or NULL if no such Rule exists.
    */
   const Rule* getRule (const std::string& variable) const;
 
 
   /**
-   * @return the Rule in this Model with the given symbol or NULL if no
-   * such Rule exists.
+   * Get a Rule object based on the variable to which it assigns a value.
+   * 
+   * @return the Rule in this Model with the given "variable" attribute
+   * value or NULL if no such Rule exists.
    */
   Rule* getRule (const std::string& variable);
 
 
   /**
+   * Get the nth Constraint object in this Model.
+   * 
    * @return the nth Constraint of this Model.
    */
   const Constraint* getConstraint (unsigned int n) const;
 
 
   /**
+   * Get the nth Constraint object in this Model.
+   * 
    * @return the nth Constraint of this Model.
    */
   Constraint* getConstraint (unsigned int n);
 
 
   /**
+   * Get the nth Reaction object in this Model.
+   * 
    * @return the nth Reaction of this Model.
    */
   const Reaction* getReaction (unsigned int n) const;
 
 
   /**
+   * Get the nth Reaction object in this Model.
+   * 
    * @return the nth Reaction of this Model.
    */
   Reaction* getReaction (unsigned int n);
 
 
   /**
-   * @return the Reaction in this Model with the given id or NULL if no
-   * such Reaction exists.
+   * Get a Reaction object based on its identifier.
+   * 
+   * @return the Reaction in this Model with the identifier @p sid or NULL
+   * if no such Reaction exists.
    */
   const Reaction* getReaction (const std::string& sid) const;
 
 
   /**
-   * @return the Reaction in this Model with the given id or NULL if no
-   * such Reaction exists.
+   * Get a Reaction object based on its identifier.
+   * 
+   * @return the Reaction in this Model with the identifier @p sid or NULL
+   * if no such Reaction exists.
    */
   Reaction* getReaction (const std::string& sid);
 
 
   /**
+   * Get the nth Event object in this Model.
+   * 
    * @return the nth Event of this Model.
    */
   const Event* getEvent (unsigned int n) const;
 
 
   /**
+   * Get the nth Event object in this Model.
+   * 
    * @return the nth Event of this Model.
    */
   Event* getEvent (unsigned int n);
 
 
   /**
-   * @return the Event in this Model with the given id or NULL if no such
-   * Event exists.
+   * Get an Event object based on its identifier.
+   * 
+   * @return the Event in this Model with the identifier @p sid or NULL if
+   * no such Event exists.
    */
   const Event* getEvent (const std::string& sid) const;
 
 
   /**
-   * @return the Event in this Model with the given id or NULL if no such
-   * Event exists.
+   * Get an Event object based on its identifier.
+   * 
+   * @return the Event in this Model with the identifier @p sid or NULL if
+   * no such Event exists.
    */
   Event* getEvent (const std::string& sid);
 
 
   /**
+   * Get the number of FunctionDefinition objects in this Model.
+   * 
    * @return the number of FunctionDefinitions in this Model.
    */
   unsigned int getNumFunctionDefinitions () const;
 
 
   /**
+   * Get the number of UnitDefinition objects in this Model.
+   * 
    * @return the number of UnitDefinitions in this Model.
    */
   unsigned int getNumUnitDefinitions () const;
 
 
   /**
+   * Get the number of CompartmentType objects in this Model.
+   * 
    * @return the number of CompartmentTypes in this Model.
    */
   unsigned int getNumCompartmentTypes () const;
 
 
   /**
+   * Get the number of SpeciesType objects in this Model.
+   * 
    * @return the number of SpeciesTypes in this Model.
    */
   unsigned int getNumSpeciesTypes () const;
 
 
   /**
+   * Get the number of Compartment objects in this Model.
+   * 
    * @return the number of Compartments in this Model.
    */
   unsigned int getNumCompartments () const;
 
 
   /**
+   * Get the number of Specie objects in this Model.
+   * 
    * @return the number of Species in this Model.
    */
   unsigned int getNumSpecies () const;
 
 
   /**
+   * Get the number of Species in this Model having their
+   * "boundaryCondition" attribute value set to @c true.
+   *
    * @return the number of Species in this Model with boundaryCondition set
    * to true.
    */
@@ -874,6 +1121,8 @@ public:
 
 
   /**
+   * Get the number of Parameter objects in this Model.
+   * 
    * @return the number of Parameters in this Model.  Parameters defined in
    * KineticLaws are not included.
    */
@@ -881,72 +1130,91 @@ public:
 
 
   /**
+   * Get the number of InitialAssignment objects in this Model.
+   * 
    * @return the number of InitialAssignments in this Model.
    */
   unsigned int getNumInitialAssignments () const;
 
 
   /**
+   * Get the number of Rule objects in this Model.
+   * 
    * @return the number of Rules in this Model.
    */
   unsigned int getNumRules () const;
 
 
   /**
+   * Get the number of Constraint objects in this Model.
+   * 
    * @return the number of Constraints in this Model.
    */
   unsigned int getNumConstraints () const;
 
 
   /**
+   * Get the number of Reaction objects in this Model.
+   * 
    * @return the number of Reactions in this Model.
    */
   unsigned int getNumReactions () const;
 
 
   /**
+   * Get the number of Event objects in this Model.
+   * 
    * @return the number of Events in this Model.
    */
   unsigned int getNumEvents () const;
 
 
   /**
-   * Converts the model to a from SBML L2 to L1.  Most of the necessary
-   * changes occur during the various writeAttributes() methods, however
-   * there are some difference between L1 and L2 that require the
-   * underlying Model to be changed.
+   * Converts the model to a from SBML Level 2 to Level 1.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L2 that require the underlying Model to be changed.
    */
   void convertToL1 ();
 
 
   /**
-   * Converts the model to a from SBML L1 to L2.  Most of the necessary
-   * changes occur during the various writeAttributes() methods, however
-   * there are some difference between L1 and L2 that require the
-   * underlying Model to be changed.
+   * Converts the model to a from SBML Level 1 to Level 2.
+   *
+   * Most of the necessary changes occur during the various
+   * writeAttributes() methods, however there are some difference between
+   * L1 and L2 that require the underlying Model to be changed.
    */
   void convertToL2 ();
 
 
   /**
-   * @return true if the given ASTNode is a boolean.  Often times, this
-   * question can be answered with the ASTNode's own isBoolean() method,
-   * but if the AST is an expression that calls a function defined in the
-   * Model's ListOf FunctionDefinitions, the model is needed for lookup
-   * context.
+   * Predicate returning @c true or @c false depending on whether the
+   * given ASTNode is a boolean.
+   *
+   * Often times, this question can be answered with the ASTNode's own
+   * isBoolean() method, but if the AST is an expression that calls a
+   * function defined in the Model's ListOfFunctionDefinitions, the model
+   * is needed for lookup context.
+   * 
+   * @return true if the given ASTNode is a boolean.
    */
   bool isBoolean (const ASTNode* node) const;
 
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
+   *
+   * @param d the SBMLDocument object to set
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
@@ -954,7 +1222,10 @@ public:
 
 
   /**
-   * @return the name of this element ie "model".
+   * Returns the XML element name of this object, which for Model, is
+   * always @c "model".
+   * 
+   * @return the name of this element, i.e., @c "model".
    */
   virtual const std::string& getElementName () const;
 
