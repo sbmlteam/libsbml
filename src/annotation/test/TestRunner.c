@@ -1,7 +1,7 @@
 /**
  * \file    TestRunner.c
  * \brief   Runs all unit tests in the annotation module
- * \author  Ben Bornstein
+ * \author  Sarah Keating
  *
  * $Id$
  * $Source$
@@ -75,13 +75,13 @@ END_C_DECLS
 /**
  * Global.
  *
- * Declared extern in TestUnitFormulaFormatter suite.
+ * Declared extern in TestAnnotation suite.
  */
 char *TestDataDirectory;
 
 
 /**
- * Sets TestDataDirectory for the the TestUnitFormulaFormatter suite.
+ * Sets TestDataDirectory for the the TestAnnotation suite.
  *
  * For Automake's distcheck target to work properly, TestDataDirectory must
  * begin with the value of the environment variable SRCDIR.

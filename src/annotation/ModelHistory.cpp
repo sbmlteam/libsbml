@@ -571,6 +571,32 @@ ModelCreator* ModelCreator::clone () const
   return new ModelCreator(*this);
 }
 
+bool 
+ModelCreator::isSetFamilyName()
+{
+  return (mFamilyName.empty() == false);
+}
+
+
+bool 
+ModelCreator::isSetGivenName()
+{
+  return (mGivenName.empty() == false);
+}
+
+bool 
+ModelCreator::isSetEmail()
+{
+  return (mEmail.empty() == false);
+}
+
+bool 
+ModelCreator::isSetOrganisation()
+{
+  return (mOrganisation.empty() == false);
+}
+
+
 /**
  * sets the family name
  */
@@ -610,6 +636,29 @@ ModelCreator::setOrganisation(std::string org)
   mOrganisation = org;
 }
 
+void 
+ModelCreator::unsetFamilyName()
+{
+  mFamilyName.erase();
+}
+
+void 
+ModelCreator::unsetGivenName()
+{
+  mGivenName.erase();
+}
+
+void 
+ModelCreator::unsetEmail()
+{
+  mEmail.erase();
+}
+
+void 
+ModelCreator::unsetOrganisation()
+{
+  mOrganisation.erase();
+}
 
 
 
@@ -745,8 +794,22 @@ ModelHistory::getModifiedDate()
 
 
 /**
-  * creates a date from the individual fields entered as numbers
-  */
+ * Creates a date optionally from the individual fields entered as numbers.
+ *
+ * @param year an unsigned int representing the year.
+ * @param month an unsigned int representing the month.
+ * @param day an unsigned int representing the day.
+ * @param hour an unsigned int representing the hour.
+ * @param minute an unsigned int representing the minute.
+ * @param second an unsigned int representing the second.
+ * @param sign an unsigned int representing the sign of the offset 
+ * (0/1 equivalent to +/-). 
+ * @param hoursOffset an unsigned int representing the hoursOffset.
+ * @param minutesOffset an unsigned int representing the minutesOffset.
+ *
+ * @return pointer to the newly created Date_t structure.
+ */
+LIBSBML_EXTERN
 Date_t *
 Date_createWith(unsigned int year, unsigned int month, 
     unsigned int day, unsigned int hour, 
@@ -759,24 +822,40 @@ Date_createWith(unsigned int year, unsigned int month,
 }
 
 /**
-  * creates a date from a string
-  */
+ * Creates a date from a string.
+ *
+ * @param date a string representing the date.
+ *
+ * @return pointer to the newly created Date_t structure.
+ *
+ * @note the string should be in W3CDTF format 
+ * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
+ * where TZD is the time zone designator.
+ */
+LIBSBML_EXTERN
 Date_t *
 Date_createFromString (const char * date)
 {
   return new(nothrow) Date(date);
 }
 
-
+/**
+ * Destroys this Date.
+ *
+ * @param date Date_t structure to be freed.
+ */
+LIBSBML_EXTERN
 void
 Date_free(Date_t * date)
 {
   delete static_cast<Date*>(date);
 }
 
+
 /**
  * returns the date as a string
  */
+LIBSBML_EXTERN
 const char *
 Date_getDateAsString(Date_t * date)
 {
@@ -788,6 +867,7 @@ Date_getDateAsString(Date_t * date)
 /**
  * returns Year
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getYear(Date_t * date)
 {
@@ -797,6 +877,7 @@ Date_getYear(Date_t * date)
 /**
  * returns Month
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getMonth(Date_t * date)
 {
@@ -807,6 +888,7 @@ Date_getMonth(Date_t * date)
 /**
  * returns Day
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getDay(Date_t * date)
 {
@@ -817,6 +899,7 @@ Date_getDay(Date_t * date)
 /**
  * returns Hour
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getHour(Date_t * date)
 {
@@ -827,6 +910,7 @@ Date_getHour(Date_t * date)
 /**
  * returns Minute
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getMinute(Date_t * date)
 {
@@ -837,6 +921,7 @@ Date_getMinute(Date_t * date)
 /**
  * returns Second
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getSecond(Date_t * date) 
 { 
@@ -846,6 +931,7 @@ Date_getSecond(Date_t * date)
 /**
  * returns SignOffset
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getSignOffset(Date_t * date) 
 { 
@@ -855,6 +941,7 @@ Date_getSignOffset(Date_t * date)
 /**
  * returns HoursOffset
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getHoursOffset(Date_t * date) 
 { 
@@ -864,6 +951,7 @@ Date_getHoursOffset(Date_t * date)
 /**
  * returns MinutesOffset
  */
+LIBSBML_EXTERN
 unsigned int
 Date_getMinutesOffset(Date_t * date) 
 { 
@@ -873,6 +961,7 @@ Date_getMinutesOffset(Date_t * date)
 /**
  * sets the value of Year
  */
+LIBSBML_EXTERN
 void
 Date_setYear(Date_t * date, unsigned int value) 
 { 
@@ -882,6 +971,7 @@ Date_setYear(Date_t * date, unsigned int value)
 /**
  * sets the value of Month
  */
+LIBSBML_EXTERN
 void
 Date_setMonth(Date_t * date, unsigned int value) 
 { 
@@ -891,6 +981,7 @@ Date_setMonth(Date_t * date, unsigned int value)
 /**
  * sets the value of Day
  */
+LIBSBML_EXTERN
 void
 Date_setDay(Date_t * date, unsigned int value) 
 { 
@@ -900,6 +991,7 @@ Date_setDay(Date_t * date, unsigned int value)
 /**
  * sets the value of Hour
  */
+LIBSBML_EXTERN
 void
 Date_setHour(Date_t * date, unsigned int value) 
 { 
@@ -909,6 +1001,7 @@ Date_setHour(Date_t * date, unsigned int value)
 /**
  * sets the value of Minute
  */
+LIBSBML_EXTERN
 void
 Date_setMinute(Date_t * date, unsigned int value) 
 { 
@@ -918,6 +1011,7 @@ Date_setMinute(Date_t * date, unsigned int value)
 /**
  * sets the value of Second
  */
+LIBSBML_EXTERN
 void
 Date_setSecond(Date_t * date, unsigned int value) 
 { 
@@ -927,6 +1021,7 @@ Date_setSecond(Date_t * date, unsigned int value)
 /**
  * sets the value of SignOffset
  */
+LIBSBML_EXTERN
 void
 Date_setSignOffset(Date_t * date, unsigned int value) 
 { 
@@ -936,6 +1031,7 @@ Date_setSignOffset(Date_t * date, unsigned int value)
 /**
  * sets the value of HoursOffset
  */
+LIBSBML_EXTERN
 void
 Date_setHoursOffset(Date_t * date, unsigned int value) 
 { 
@@ -945,6 +1041,7 @@ Date_setHoursOffset(Date_t * date, unsigned int value)
 /**
  * sets the value of MinutesOffset
  */
+LIBSBML_EXTERN
 void
 Date_setMinutesOffset(Date_t * date, unsigned int value) 
 { 
@@ -953,8 +1050,11 @@ Date_setMinutesOffset(Date_t * date, unsigned int value)
 
 
 /**
+ * Creates a new ModelCreator_t structure and returns a pointer to it.
  *
+ * @return pointer to newly created ModelCreator_t structure.
  */
+LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_create()
 {
@@ -962,14 +1062,19 @@ ModelCreator_create()
 }
 
 /**
+ * Creates a new ModelCreator_t structure from an XMLNode_t structure
+ * and returns a pointer to it.
  *
+ * @return pointer to newly created ModelCreator_t structure.
  */
+LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_createFromNode(const XMLNode_t * node)
 {
   return new(nothrow) ModelCreator(*node);
 }
 
+LIBSBML_EXTERN
 void
 ModelCreator_free(ModelCreator_t * mc)
 {
@@ -977,48 +1082,9 @@ ModelCreator_free(ModelCreator_t * mc)
 }
 
 /**
-  * ModelCreator_sets the family name
-  */
-void 
-ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
-{
-  mc->setFamilyName(name);
-}
-
-
-/**
-  * ModelCreator_sets the given name
-  */
-void 
-ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
-{
-  mc->setGivenName(name);
-}
-
-
-/**
-  * ModelCreator_sets the email
-  */
-void 
-ModelCreator_setEmail(ModelCreator_t *mc, char * email)
-{
-  mc->setEmail(email);
-}
-
-
-/**
-  * ModelCreator_sets the org
-  */
-void 
-ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
-{
-  mc->setOrganisation(name);
-}
-
-
-/**
   * ModelCreator_gets the family name
   */
+LIBSBML_EXTERN
 const char * 
 ModelCreator_getFamilyName(ModelCreator_t *mc)
 {
@@ -1029,6 +1095,7 @@ ModelCreator_getFamilyName(ModelCreator_t *mc)
 /**
   * ModelCreator_gets the given name
   */
+LIBSBML_EXTERN
 const char * 
 ModelCreator_getGivenName(ModelCreator_t *mc)
 {
@@ -1039,6 +1106,7 @@ ModelCreator_getGivenName(ModelCreator_t *mc)
 /**
   * ModelCreator_gets the email
   */
+LIBSBML_EXTERN
 const char * 
 ModelCreator_getEmail(ModelCreator_t *mc)
 {
@@ -1049,15 +1117,117 @@ ModelCreator_getEmail(ModelCreator_t *mc)
 /**
   * ModelCreator_gets the org
   */
+LIBSBML_EXTERN
 const char * 
 ModelCreator_getOrganisation(ModelCreator_t *mc)
 {
   return mc->getOrganisation().c_str();
 }
 
+LIBSBML_EXTERN
+int 
+ModelCreator_isSetFamilyName(ModelCreator_t *mc)
+{
+  return static_cast<int>(mc->isSetFamilyName());
+}
+
+LIBSBML_EXTERN
+int 
+ModelCreator_isSetGivenName(ModelCreator_t *mc)
+{
+  return static_cast<int>(mc->isSetGivenName());
+}
+
+LIBSBML_EXTERN
+int 
+ModelCreator_isSetEmail(ModelCreator_t *mc)
+{
+  return static_cast<int>(mc->isSetEmail());
+}
+
+LIBSBML_EXTERN
+int 
+ModelCreator_isSetOrganisation(ModelCreator_t *mc)
+{
+  return static_cast<int>(mc->isSetOrganisation());
+}
+
+/**
+  * ModelCreator_sets the family name
+  */
+LIBSBML_EXTERN
+void 
+ModelCreator_setFamilyName(ModelCreator_t *mc, char * name)
+{
+  mc->setFamilyName(name);
+}
+
+
+/**
+  * ModelCreator_sets the given name
+  */
+LIBSBML_EXTERN
+void 
+ModelCreator_setGivenName(ModelCreator_t *mc, char * name)
+{
+  mc->setGivenName(name);
+}
+
+
+/**
+  * ModelCreator_sets the email
+  */
+LIBSBML_EXTERN
+void 
+ModelCreator_setEmail(ModelCreator_t *mc, char * email)
+{
+  mc->setEmail(email);
+}
+
+
+/**
+  * ModelCreator_sets the org
+  */
+LIBSBML_EXTERN
+void 
+ModelCreator_setOrganisation(ModelCreator_t *mc, char * name)
+{
+  mc->setOrganisation(name);
+}
+
+
+LIBSBML_EXTERN
+void 
+ModelCreator_unsetFamilyName(ModelCreator_t *mc)
+{
+  mc->unsetFamilyName();
+}
+
+LIBSBML_EXTERN
+void 
+ModelCreator_unsetGivenName(ModelCreator_t *mc)
+{
+  mc->unsetGivenName();
+}
+
+LIBSBML_EXTERN
+void 
+ModelCreator_unsetEmail(ModelCreator_t *mc)
+{
+  mc->unsetEmail();
+}
+
+LIBSBML_EXTERN
+void 
+ModelCreator_unsetOrganisation(ModelCreator_t *mc)
+{
+  mc->unsetOrganisation();
+}
+
 /**
   * Creates a new ModelHistory.
   */
+LIBSBML_EXTERN
 ModelHistory_t * 
 ModelHistory_create ()
 {
@@ -1067,6 +1237,7 @@ ModelHistory_create ()
 /**
   * destructor
   */
+LIBSBML_EXTERN
 void 
 ModelHistory_free(ModelHistory_t * history)
 {
@@ -1077,6 +1248,7 @@ ModelHistory_free(ModelHistory_t * history)
 /**
   * adds the creator to the model history
   */
+LIBSBML_EXTERN
 void 
 ModelHistory_addCreator(ModelHistory_t * history, 
                              ModelCreator_t * mc)
@@ -1087,6 +1259,7 @@ ModelHistory_addCreator(ModelHistory_t * history,
 /**
   * sets the created date
   */
+LIBSBML_EXTERN
 void ModelHistory_setCreatedDate(ModelHistory_t * history, 
                                  Date_t * date)
 {
@@ -1097,6 +1270,7 @@ void ModelHistory_setCreatedDate(ModelHistory_t * history,
 /**
   * sets teh modiefied date
   */
+LIBSBML_EXTERN
 void ModelHistory_setModifiedDate(ModelHistory_t * history, 
                                   Date_t * date)
 {
@@ -1107,6 +1281,7 @@ void ModelHistory_setModifiedDate(ModelHistory_t * history,
 /**
 * return the List of creators
 */
+LIBSBML_EXTERN
 List_t * ModelHistory_getCreator(ModelHistory_t * history)
 {
   return history->getCreator();
@@ -1116,6 +1291,7 @@ List_t * ModelHistory_getCreator(ModelHistory_t * history)
 /**
 * return created date
 */
+LIBSBML_EXTERN
 Date_t * ModelHistory_getCreatedDate(ModelHistory_t * history)
 {
   return history->getCreatedDate();
@@ -1125,6 +1301,7 @@ Date_t * ModelHistory_getCreatedDate(ModelHistory_t * history)
 /**
 * return modified date
 */
+LIBSBML_EXTERN
 Date_t * ModelHistory_getModifiedDate(ModelHistory_t * history)
 {
   return history->getModifiedDate();

@@ -21,11 +21,14 @@
  */
 
 #include "common/common.h"
+#include "sbml/common/extern.h"
 #include "util/List.h"
 #include "ModelHistory.h"
 #include "../../xml/XMLNode.h"
 
+
 #include <check.h>
+
 
 
 START_TEST (test_Date_create)
@@ -143,11 +146,17 @@ START_TEST(test_ModelCreator_create)
 }
 END_TEST
 
+
 START_TEST(test_ModelCreator_setters)
 {
   ModelCreator_t * mc = ModelCreator_create();
 
   fail_unless(mc != NULL);
+
+  fail_unless(ModelCreator_isSetFamilyName(mc) == 0);
+  fail_unless(ModelCreator_isSetGivenName(mc) == 0);
+  fail_unless(ModelCreator_isSetEmail(mc) == 0);
+  fail_unless(ModelCreator_isSetOrganisation(mc) == 0);
 
   ModelCreator_setFamilyName(mc, "Keating");
   ModelCreator_setGivenName(mc, "Sarah");
@@ -159,6 +168,25 @@ START_TEST(test_ModelCreator_setters)
   fail_unless(!strcmp(ModelCreator_getEmail(mc), "sbml-team@caltech.edu"));
   fail_unless(!strcmp(ModelCreator_getOrganisation(mc), "UH"));
 
+  fail_unless(ModelCreator_isSetFamilyName(mc) == 1);
+  fail_unless(ModelCreator_isSetGivenName(mc) == 1);
+  fail_unless(ModelCreator_isSetEmail(mc) == 1);
+  fail_unless(ModelCreator_isSetOrganisation(mc) == 1);
+
+  ModelCreator_unsetFamilyName(mc);
+  ModelCreator_unsetGivenName(mc);
+  ModelCreator_unsetEmail(mc);
+  ModelCreator_unsetOrganisation(mc);
+
+  fail_unless(!strcmp(ModelCreator_getFamilyName(mc), ""));
+  fail_unless(!strcmp(ModelCreator_getGivenName(mc), ""));
+  fail_unless(!strcmp(ModelCreator_getEmail(mc), ""));
+  fail_unless(!strcmp(ModelCreator_getOrganisation(mc), ""));
+
+  fail_unless(ModelCreator_isSetFamilyName(mc) == 0);
+  fail_unless(ModelCreator_isSetGivenName(mc) == 0);
+  fail_unless(ModelCreator_isSetEmail(mc) == 0);
+  fail_unless(ModelCreator_isSetOrganisation(mc) == 0);
   ModelCreator_free(mc);
 
 }
@@ -270,6 +298,7 @@ create_suite_ModelHistory (void)
 {
   Suite *suite = suite_create("ModelHistory");
   TCase *tcase = tcase_create("ModelHistory");
+
 
   tcase_add_test( tcase, test_Date_create  );
   tcase_add_test( tcase, test_Date_createFromString  );
