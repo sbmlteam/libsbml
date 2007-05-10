@@ -36,28 +36,41 @@ public class validateSBML
     OstreamWrapper stderr = new OstreamWrapper(OstreamWrapper.CERR);
     SBMLReader reader     = new SBMLReader();
     SBMLDocument document;
-    Model model;
-    long start, stop, size, errors;
+    long start, stop;
 
     start    = System.currentTimeMillis();
     document = reader.readSBML(filename);
     stop     = System.currentTimeMillis();
-    size     = new File(filename).length();
 
-    errors = document.checkConsistency();
-
-    println("            filename: " + filename);
-    println("           file size: " + size);
-    println("      read time (ms): " + (stop - start));
-    println(" validation error(s): " + errors);
-
-    if (errors > 0 || document.getNumErrors() > 0)
+    if (document.getNumErrors() > 0)
     {
+      print("Unable to validate this file because it contains ");
       document.printErrors(stderr);
       System.exit(1);
     }
+    else
+    {
+      long errors = document.checkConsistency();
+      long size   = new File(filename).length();
+
+      println("            filename: " + filename);
+      println("           file size: " + size);
+      println("      read time (ms): " + (stop - start));
+      println(" validation error(s): " + errors);
+
+      if (errors > 0)
+      {
+	document.printErrors(stderr);
+	System.exit(1);
+      }
+    }
   }
 
+
+  static void print (String msg)
+  {
+    System.out.print(msg);
+  }
 
   static void println (String msg)
   {
