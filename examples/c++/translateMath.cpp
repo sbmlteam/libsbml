@@ -132,22 +132,6 @@ translateMathML (const char *xml)
 {
   char*           result;
   ASTNode_t*      math;
-  StringBuffer_t* sb;
-
-
-  /**
-   * Prepend an XML header if not already present.
-   */
-  if (xml[0] == '<' && xml[1] != '?')
-  {
-    sb = StringBuffer_create(1024);
-
-    StringBuffer_append(sb, "<?xml version='1.0' encoding='ascii'?>\n");
-    StringBuffer_append(sb, xml);
-
-    xml = StringBuffer_getBuffer(sb);
-
-  }
 
   math   = readMathMLFromString(xml);
   result = SBML_formulaToString(math);
