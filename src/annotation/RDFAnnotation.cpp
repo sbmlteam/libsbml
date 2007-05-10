@@ -118,6 +118,11 @@ RDFAnnotationParser::deleteRDFAnnotation(XMLNode * annotation)
     }
   }
 
+  if (newAnnotation->getNumChildren() == 0)
+  {
+    newAnnotation =NULL;
+  }
+
   return newAnnotation;
 }
 
