@@ -22,6 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 
 #include <sbml/xml/XMLError.h>
@@ -197,7 +198,9 @@ XMLError::setColumn (unsigned int column)
  */
 ostream& operator<< (ostream& s, const XMLError& error)
 {
-  s << error.mLine << ": (" << error.mId << ") " << error.mMessage << endl;
+  s << error.mLine << ": ("
+    << setfill('0') << setw(5) << error.mId
+    << ") " << error.mMessage << endl;
   return s;
 }
 
