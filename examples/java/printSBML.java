@@ -1,61 +1,24 @@
 /**
- * \file    printSBML.java
- * \brief   Prints some information about the top-level model
- * \author  Nicolas Rodriguez (translated from libSBML C++ examples)
+ * @file    printSBML.java
+ * @brief   Prints some information about the top-level model
+ * @author  Nicolas Rodriguez (translated from libSBML C++ examples)
+ * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2005 California Institute of Technology and
- * Japan Science and Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or any
- * later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising out
- * of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *
- *     The SBML Team
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://sbml.org
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
- *   Nicolas Rodriguez - Translated from C++ examples to Java
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
 
 
 import java.io.File;
 
 import org.sbml.libsbml.Model;
-import org.sbml.libsbml.ParseMessage;
 import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.SBMLReader;
+import org.sbml.libsbml.OstreamWrapper;
 
 
 public class printSBML
@@ -64,69 +27,58 @@ public class printSBML
   {
     if (args.length != 1)
     {
-      println("  usage: java printSBML <filename>");
-      return;
+      println("Usage: java printSBML <filename>");
+      System.exit(1);
     }
 
 
-    long start, stop, size;
-    long errors;
-    int  level, version;
+    String filename       = args[0];
+    OstreamWrapper stderr = new OstreamWrapper(OstreamWrapper.CERR);
+    SBMLReader reader     = new SBMLReader();
+    SBMLDocument document;
+    Model model;
+    int level, version;
 
-    SBMLDocument d;
-    Model        m;
-    SBMLReader   sr = new SBMLReader();
+    document     = reader.readSBML(filename);
 
-    String filename = args[0];
-
-    start = System.currentTimeMillis();
-    d     = sr.readSBML(filename);
-    stop  = System.currentTimeMillis();
-
-    errors = d.getNumWarnings() + d.getNumErrors() + d.getNumFatals();
-
-    if (errors > 0)
+    if (document.getNumErrors() > 0)
     {
-      libSBMLHelper.printErrors(d);
-      return;
+      document.printErrors(stderr);
+      println("Printing skipped.  Please correct the above problems first.");
+      System.exit(1);
     }
 
-    m = d.getModel();
+    model = document.getModel();
 
-    if (m == null)
+    if (model == null)
     {
-      return;
+      println("There does not appear to be a model in this file");
+      System.exit(1);
     }
 
-    level   = (int) d.getLevel();
-    version = (int) d.getVersion();
+    level   = (int) document.getLevel();
+    version = (int) document.getVersion();
 
     println("File: " + filename +
             " (Level " + level + ", version " + version + ")\n");
 
     if (level == 1)
     {
-      println("model name: " + m.getName());
+      println("model name: " + model.getName());
     }
     else
     {
-      println("  model id: " + (m.isSetId() ? m.getId() : "(empty)"));
+      println("  model id: " + (model.isSetId() ? model.getId() : "(empty)"));
     }
 
-    println("functionDefinitions: " +   m.getNumFunctionDefinitions());
-    println("    unitDefinitions: " +   m.getNumUnitDefinitions()    );
-    println("       compartments: " +   m.getNumCompartments()       );
-    println("            species: " +   m.getNumSpecies()            );
-    println("         parameters: " +   m.getNumParameters()         );
-    println("          reactions: " +   m.getNumReactions()          );
-    println("              rules: " +   m.getNumRules()              );
-    println("             events: " +   m.getNumEvents()             );
-  }
-
-
-  static void print (String msg)
-  {
-    System.out.print(msg);
+    println("functionDefinitions: " +   model.getNumFunctionDefinitions());
+    println("    unitDefinitions: " +   model.getNumUnitDefinitions()    );
+    println("       compartments: " +   model.getNumCompartments()       );
+    println("            species: " +   model.getNumSpecies()            );
+    println("         parameters: " +   model.getNumParameters()         );
+    println("          reactions: " +   model.getNumReactions()          );
+    println("              rules: " +   model.getNumRules()              );
+    println("             events: " +   model.getNumEvents()             );
   }
 
 
@@ -135,12 +87,47 @@ public class printSBML
     System.out.println(msg);
   }
 
+
   /**
-   * Loads the SWIG generated libsbml Java module when this class is
-   * loaded.
+   * Loads the SWIG-generated libSBML Java module when this class is
+   * loaded, or reports a sensible diagnostic message about why it failed.
    */
   static
   {
-    System.loadLibrary("sbmlj");
+    String varname;
+
+    if (System.getProperty("mrj.version") != null)
+      varname = "DYLD_LIBRARY_PATH";	// We're on a Mac.
+    else
+      varname = "LD_LIBRARY_PATH";	// We're not on a Mac.
+
+    try
+    {
+      System.loadLibrary("sbmlj");
+      // For extra safety, check that the jar file is in the classpath.
+      Class.forName("org.sbml.libsbml.libsbml");
+    }
+    catch (SecurityException e)
+    {
+      System.err.println("\nCould not load the libSBML library files due to a"+
+			 " security exception.\n");
+    }
+    catch (UnsatisfiedLinkError e)
+    {
+      System.err.println("\nError: could not link with the libSBML library."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe"+
+			 " directory containing the libsbml.dylib library"+
+			 " file.\n");
+      System.exit(1);
+    }
+    catch (ClassNotFoundException e)
+    {
+      System.err.println("\nError: unable to load the file libsbmlj.jar."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe "+
+			 " directory containing the libsbmlj.jar file.\n");
+      System.exit(1);
+    }
   }
 }

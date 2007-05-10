@@ -1,51 +1,16 @@
 /**
- * \file    evaluateMath.java
- * \brief   Evaluates and outputs infix expressions
- * \author  Nicolas Rodriguez (translated from libSBML C++ examples)
+ * @file    evaluateMath.java
+ * @brief   Evaluates and outputs infix expressions
+ * @author  Nicolas Rodriguez (translated from the libSBML C example)
+ * @author  Rainer Machne (author of original libSBML C example)
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
+ *
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
-/* Copyright 2005 California Institute of Technology and
- * Japan Science and Technology Corporation.
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or any
- * later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising out
- * of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Rainer Machne
- *     Theoretical Biochemistry Group
- *     University of Vienna
- *
- *     http://www.tbi.univie.ac.at/~raim/
- *     mailto:raim@tbi.univie.ac.at
- *
- * Contributor(s):
- *   Nicolas Rodriguez - Translated from C++ examples to Java
- */
-
 
 import java.io.IOException;
 
@@ -67,14 +32,12 @@ public class evaluateMath
 {
   public static void main (String[] args)
   {
-    println( "This program evaluates infix formulas.\n" );
-    println( "Enter triggers evaluation.\n" );
+    println( "This program evaluates infix formulas." );
+    println( "Typing return triggers evaluation." );
     println( "\n" );
 
 
     long start, stop, size;
-    long errors;
-    int  level, version;
 
     int  i = 0;
     char c;
@@ -548,12 +511,6 @@ public class evaluateMath
   }
     
 
-  static void print (String msg)
-  {
-    System.out.print(msg);
-  }
-
-
   static void println (String msg)
   {
     System.out.println(msg);
@@ -561,11 +518,45 @@ public class evaluateMath
 
 
   /**
-   * Loads the SWIG generated libsbml Java module when this class is
-   * loaded.
+   * Loads the SWIG-generated libSBML Java module when this class is
+   * loaded, or reports a sensible diagnostic message about why it failed.
    */
   static
   {
-    System.loadLibrary("sbmlj");
+    String varname;
+
+    if (System.getProperty("mrj.version") != null)
+      varname = "DYLD_LIBRARY_PATH";	// We're on a Mac.
+    else
+      varname = "LD_LIBRARY_PATH";	// We're not on a Mac.
+
+    try
+    {
+      System.loadLibrary("sbmlj");
+      // For extra safety, check that the jar file is in the classpath.
+      Class.forName("org.sbml.libsbml.libsbml");
+    }
+    catch (SecurityException e)
+    {
+      System.err.println("Could not load the libSBML library files due to a"+
+			 " security exception.\n");
+    }
+    catch (UnsatisfiedLinkError e)
+    {
+      System.err.println("Error: could not link with the libSBML library."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe"+
+			 " directory containing the libsbml.dylib library"+
+			 " file.\n");
+      System.exit(1);
+    }
+    catch (ClassNotFoundException e)
+    {
+      System.err.println("Error: unable to load the file libsbmlj.jar."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe "+
+			 " directory containing the libsbmlj.jar file.\n");
+      System.exit(1);
+    }
   }
 }

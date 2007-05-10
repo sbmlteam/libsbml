@@ -1,60 +1,20 @@
 /**
- * \file    translateMath.java
- * \brief   Translates infix formulas into MathML and vice-versa
- * \author  Nicolas Rodriguez (translated from libSBML C++ examples)
+ * @file    translateMath.java
+ * @brief   Translates infix formulas into MathML and vice-versa
+ * @author  Nicolas Rodriguez (translated from libSBML C++ examples)
+ * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2005 California Institute of Technology and
- * Japan Science and Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or any
- * later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising out
- * of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *
- *     The SBML Team
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://sbml.org
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
- *   Nicolas Rodriguez - Translated from C++ examples to Java
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
 
 
 import java.io.IOException;
 
-import org.sbml.libsbml.ASTNode;
-import org.sbml.libsbml.MathMLDocument;
-import org.sbml.libsbml.ParseMessage;
 import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.SBMLReader;
 import org.sbml.libsbml.libsbml;
@@ -66,18 +26,14 @@ public class translateMath
   {
     if (args.length != 0)
     {
-      println("  usage: java translateMath\n");
-      return;
+      println("Usage: java translateMath\n");
+      System.exit(1);
     }
 
     println("This program translates infix formulas into MathML and" +
-            "vice-versa. Ctrl-D or Ctrl-Z quits and triggers"        +
-            "translation.\n");
+            " vice-versa. \nCtrl-D or Ctrl-Z quits and triggers" +
+            " translation.\n");
         
-
-    long start, stop, size;
-    long errors;
-
     char c;
     int  i = 0;
 
@@ -88,10 +44,15 @@ public class translateMath
       // Hit CTRL-Z on PC's to send EOF, CTRL-D on Unix
       while (i != -1)
       {
-        // Read a character from keyboard
+        // Read a character from keyboard.
         i  = System.in.read();
-        // 1 byte character is returned in int.
-        // So cast to char
+
+	// System.in.read() returns everything, including things
+	// like return, backspace, etc.  Filter those out.
+	if (i < 32 || i > 127)
+	  continue;
+
+        // 1 byte character is returned as an int, so cast it to a char.
         c = (char) i;
         mathStr += c;
       }
@@ -101,8 +62,12 @@ public class translateMath
       println( "IO error:" + ioe );
     }
 
+    // If the input starts with '<', assume it's XML content.
     String result = (mathStr.charAt(0) == '<') ?
                     translateMathML(mathStr) : translateInfix(mathStr);
+
+    println("Result:\n");
+    println(result);
   }
 
 
@@ -113,10 +78,7 @@ public class translateMath
    */
   static String translateInfix (String formula)
   {
-    MathMLDocument d = new MathMLDocument();
-
-    d.setMath( libsbml.parseFormula(formula) );
-    return libsbml.writeMathMLToString(d);
+    return libsbml.writeMathMLToString( libsbml.parseFormula(formula) );
   }
 
 
@@ -128,27 +90,7 @@ public class translateMath
    */
   static String translateMathML (String xml)
   {
-    /**
-     * Prepend an XML header if not already present.
-     */
-    if (xml.charAt(0) == '<' && xml.charAt(1) != '?')
-    {
-      StringBuffer sb = new StringBuffer();
-            
-      sb.append("<?xml version='1.0' encoding='ascii'?>\n");
-      sb.append(xml);
-
-      xml = sb.toString();
-    }
-
-    MathMLDocument d = libsbml.readMathMLFromString(xml);
-    return libsbml.formulaToString( d.getMath() );
-  }
-
-
-  static void print (String msg)
-  {
-    System.out.print(msg);
+    return libsbml.formulaToString( libsbml.readMathMLFromString(xml) );
   }
 
 
@@ -159,11 +101,45 @@ public class translateMath
 
 
   /**
-   * Loads the SWIG generated libsbml Java module when this class is
-   * loaded.
+   * Loads the SWIG-generated libSBML Java module when this class is
+   * loaded, or reports a sensible diagnostic message about why it failed.
    */
   static
   {
-    System.loadLibrary("sbmlj");
+    String varname;
+
+    if (System.getProperty("mrj.version") != null)
+      varname = "DYLD_LIBRARY_PATH";	// We're on a Mac.
+    else
+      varname = "LD_LIBRARY_PATH";	// We're not on a Mac.
+
+    try
+    {
+      System.loadLibrary("sbmlj");
+      // For extra safety, check that the jar file is in the classpath.
+      Class.forName("org.sbml.libsbml.libsbml");
+    }
+    catch (SecurityException e)
+    {
+      System.err.println("\nCould not load the libSBML library files due to a"+
+			 " security exception.\n");
+    }
+    catch (UnsatisfiedLinkError e)
+    {
+      System.err.println("\nError: could not link with the libSBML library."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe"+
+			 " directory containing the libsbml.dylib library"+
+			 " file.\n");
+      System.exit(1);
+    }
+    catch (ClassNotFoundException e)
+    {
+      System.err.println("\nError: unable to load the file libsbmlj.jar."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe "+
+			 " directory containing the libsbmlj.jar file.\n");
+      System.exit(1);
+    }
   }
 }

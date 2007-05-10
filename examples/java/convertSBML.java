@@ -1,58 +1,19 @@
 /**
- * \file    convertSBML.java
- * \brief   Converts SBML L1 documents (any version) to L2v1
- * \author  Nicolas Rodriguez (translated from libSBML C++ examples)
+ * @file    convertSBML.java
+ * @brief   Converts SBML L1 documents (any version) to L2v3
+ * @author  Michael Hucka
+ * @author  Nicolas Rodriguez
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2005 California Institute of Technology and
- * Japan Science and Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or any
- * later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
- * California Institute of Technology and Japan Science and Technology
- * Corporation have no obligations to provide maintenance, support,
- * updates, enhancements or modifications.  In no event shall the
- * California Institute of Technology or the Japan Science and Technology
- * Corporation be liable to any party for direct, indirect, special,
- * incidental or consequential damages, including lost profits, arising out
- * of the use of this software and its documentation, even if the
- * California Institute of Technology and/or Japan Science and Technology
- * Corporation have been advised of the possibility of such damage.  See
- * the GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- *
- * The original code contained here was initially developed by:
- *
- *     Ben Bornstein
- *
- *     The SBML Team
- *     Control and Dynamical Systems, MC 107-81
- *     California Institute of Technology
- *     Pasadena, CA, 91125, USA
- *
- *     http://sbml.org
- *     mailto:sbml-team@caltech.edu
- *
- * Contributor(s):
- *   Nicolas Rodriguez - Translated from C++ examples to Java
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
 
-
-import org.sbml.libsbml.ParseMessage;
 import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.SBMLReader;
+import org.sbml.libsbml.OstreamWrapper;
 import org.sbml.libsbml.libsbml;
  
 
@@ -62,58 +23,51 @@ public class convertSBML
   {
     if (args.length != 2)
     {
-      println("  usage: convertSBML <input-filename> <output-filename>\n" +
-              "  Converts an SBML L1 file to L2 or vice versa");
-      return;
+      println("Usage: convertSBML <input-filename> <output-filename>\n" +
+              "Converts an SBML Level 1 model to Level 2 Version 3,\n" +
+	      "and converts a Level 2 model to Level 1 Version 2");
+      System.exit(1);
     }
 
-    
-    long start, stop, size;
-    long errors;
-        
-    SBMLDocument d;
-    SBMLReader   sr = new SBMLReader();
-        
-    String filename = args[0];
-        
-    start = System.currentTimeMillis();
-    d     = sr.readSBML(filename);
-    stop  = System.currentTimeMillis();
-        
-    errors = d.getNumWarnings() + d.getNumErrors() + d.getNumFatals();
-        
-    if (errors > 0)
+    String inputFile      = args[0];
+    String outputFile     = args[1];
+    OstreamWrapper stderr = new OstreamWrapper(OstreamWrapper.CERR);
+    SBMLReader reader     = new SBMLReader();
+    SBMLDocument document;
+
+    document = reader.readSBML(inputFile);
+
+    if (document.getNumErrors() > 0)
     {
-      libSBMLHelper.printErrors(d);
-      println("Conversion skipped.  Correct the above and re-run.");
+      document.printErrors(stderr);
+      println("Conversion skipped.  Please correct the above problems first.");
+      System.exit(1);
     }
     else
     {
-      d.setLevel( d.getLevel() == 2 ? 1 : 2 );
-            
-      errors = d.getNumWarnings() + d.getNumErrors() + d.getNumFatals();
-            
-      if (errors > 0)
+      if (document.getLevel() == 2)
       {
-        println("Conversion Error(s):");
-                
-        libSBMLHelper.printErrors(d);
-                
-        println("Conversion skipped.  Either libSBML does not (yet) have \n" +
-                "ability to convert this model or (automatic) conversion \n" +
-                "is not possible.");
+	document.setLevelAndVersion(1, 2);
       }
       else
       {
-        libsbml.writeSBML(d, args[1]);
+	document.setLevelAndVersion(2, 3);
+      }
+      
+      if (document.getNumErrors() > 0)
+      {
+        println("Conversion Error(s):");
+        document.printErrors(stderr);
+        println("Conversion skipped.  Either libSBML does not (yet) have\n" +
+                "the ability to convert this model, or (automatic) conversion"+
+                "\nis not possible.\n");
+	System.exit(1);
+      }
+      else
+      {
+        libsbml.writeSBML(document, outputFile);
       }
     }
-  }
-
-
-  static void print (String msg)
-  {
-    System.out.print(msg);
   }
 
 
@@ -123,11 +77,45 @@ public class convertSBML
   }
 
   /**
-   * Loads the SWIG generated libsbml Java module when this class is
-   * loaded.
+   * Loads the SWIG-generated libSBML Java module when this class is
+   * loaded, or reports a sensible diagnostic message about why it failed.
    */
   static
   {
-    System.loadLibrary("sbmlj");
+    String varname;
+
+    if (System.getProperty("mrj.version") != null)
+      varname = "DYLD_LIBRARY_PATH";	// We're on a Mac.
+    else
+      varname = "LD_LIBRARY_PATH";	// We're not on a Mac.
+
+    try
+    {
+      System.loadLibrary("sbmlj");
+      // For extra safety, check that the jar file is in the classpath.
+      Class.forName("org.sbml.libsbml.libsbml");
+    }
+    catch (SecurityException e)
+    {
+      System.err.println("Could not load the libSBML library files due to a"+
+			 " security exception.\n");
+    }
+    catch (UnsatisfiedLinkError e)
+    {
+      System.err.println("Error: could not link with the libSBML library."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe"+
+			 " directory containing the libsbml.dylib library"+
+			 " file.\n");
+      System.exit(1);
+    }
+    catch (ClassNotFoundException e)
+    {
+      System.err.println("Error: unable to load the file libsbmlj.jar."+
+			 "  It is likely\nyour " + varname +
+			 " environment variable does not include\nthe "+
+			 " directory containing the libsbmlj.jar file.\n");
+      System.exit(1);
+    }
   }
 }
