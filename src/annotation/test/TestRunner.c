@@ -109,13 +109,14 @@ int
 main (void) 
 { 
   int num_failed;
+setTestDataDirectory();
 
 
   SRunner *runner = srunner_create( create_suite_CVTerms() );
 
   srunner_add_suite( runner, create_suite_ModelHistory  () );
   srunner_add_suite( runner, create_suite_CopyAndClone  () );
-//  srunner_add_suite( runner, create_suite_RDFAnnotation () );
+  srunner_add_suite( runner, create_suite_RDFAnnotation () );
   //srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
   //srunner_add_suite( runner, create_suite_FormulaUnitsData() );
   
