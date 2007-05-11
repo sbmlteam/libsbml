@@ -50,7 +50,7 @@ using namespace std;
  * and creates a List of CVTerms from the annotation
  */
 void 
-RDFAnnotationParser::parseRDFAnnotation(XMLNode * annotation, List * CVTerms)
+RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms)
 {
 
   const string&  name = annotation->getName();
@@ -97,7 +97,7 @@ RDFAnnotationParser::parseRDFAnnotation(XMLNode * annotation, List * CVTerms)
 
 
 XMLNode *
-RDFAnnotationParser::deleteRDFAnnotation(XMLNode * annotation)
+RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
 {
   const string&  name = annotation->getName();
   unsigned int n = 0;
@@ -135,7 +135,7 @@ RDFAnnotationParser::deleteRDFAnnotation(XMLNode * annotation)
  */
 
 ModelHistory*
-RDFAnnotationParser::parseRDFAnnotation(XMLNode * annotation)
+RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
 {
   const string&  name = annotation->getName();
   const XMLNode*  RDFTop = NULL;

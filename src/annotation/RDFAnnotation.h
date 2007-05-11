@@ -59,7 +59,7 @@ public:
  * @param annotation XMLNode storing the annotation.
  * @param CVTerms list of CVTerms to be created.
  */
-static void parseRDFAnnotation(XMLNode * annotation, List * CVTerms);
+static void parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
 
 
 /**
@@ -73,11 +73,11 @@ static void parseRDFAnnotation(XMLNode * annotation, List * CVTerms);
  *
  * @return pointer to the ModelHistory created.
  */
-static ModelHistory* parseRDFAnnotation(XMLNode * annotation);
+static ModelHistory* parseRDFAnnotation(const XMLNode * annotation);
 
 
 static XMLNode *
-deleteRDFAnnotation(XMLNode * annotation);
+deleteRDFAnnotation(const XMLNode * annotation);
 
 /**
  * takes a List of CVTerms
