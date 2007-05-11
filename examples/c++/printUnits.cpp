@@ -42,7 +42,7 @@ main (int argc, char *argv[])
     return 1;
   }
 
-  Model *model = document->getModel();
+  Model* model = document->getModel();
 
   if (model == 0)
   {
@@ -57,7 +57,7 @@ main (int argc, char *argv[])
 
   for (unsigned int n = 0; n < model->getNumFormulaUnitsData(); n++)
   {
-    FormulaUnitsData *fud = model->getFormulaUnitsData(n);
+    FormulaUnitsData* fud = model->getFormulaUnitsData(n);
     unsigned int numUnits = fud->getUnitDefinition()->getNumUnits();
 
     cout << "Formula units case #" << (n+1) << " --" << endl;

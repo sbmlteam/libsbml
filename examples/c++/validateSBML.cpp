@@ -22,7 +22,7 @@ using namespace std;
 
 
 int
-main (int argc, char *argv[])
+main (int argc, char* argv[])
 {
   if (argc != 2)
   {
@@ -31,7 +31,7 @@ main (int argc, char *argv[])
   }
 
   const char* filename = argv[1];
-  SBMLDocument *document;
+  SBMLDocument* document;
   SBMLReader reader;
   unsigned long start, stop;
   unsigned int errors;

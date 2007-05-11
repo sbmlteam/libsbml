@@ -20,10 +20,10 @@ using namespace std;
 
 
 void
-printFunctionDefinition (unsigned int n, const FunctionDefinition *fd)
+printFunctionDefinition (unsigned int n, const FunctionDefinition* fd)
 {
-  const ASTNode *math;
-  char *formula;
+  const ASTNode* math;
+  char* formula;
 
 
   if ( fd->isSetMath() )
@@ -62,9 +62,9 @@ printFunctionDefinition (unsigned int n, const FunctionDefinition *fd)
 
 
 void
-printRuleMath (unsigned int n, const Rule *r)
+printRuleMath (unsigned int n, const Rule* r)
 {
-  char *formula;
+  char* formula;
 
 
   if ( r->isSetMath() )
@@ -88,10 +88,10 @@ printRuleMath (unsigned int n, const Rule *r)
 
 
 void
-printReactionMath (unsigned int n, const Reaction *r)
+printReactionMath (unsigned int n, const Reaction* r)
 {
-  char         *formula;
-  const KineticLaw *kl;
+  char* formula;
+  const KineticLaw* kl;
 
 
   if (r->isSetKineticLaw())
@@ -109,10 +109,10 @@ printReactionMath (unsigned int n, const Reaction *r)
 
 
 void
-printEventAssignmentMath (unsigned int n, const EventAssignment *ea)
+printEventAssignmentMath (unsigned int n, const EventAssignment* ea)
 {
   std::string variable;
-  char       *formula;
+  char* formula;
 
 
   if ( ea->isSetMath() )
@@ -129,9 +129,9 @@ printEventAssignmentMath (unsigned int n, const EventAssignment *ea)
 
 
 void
-printEventMath (unsigned int n, const Event *e)
+printEventMath (unsigned int n, const Event* e)
 {
-  char         *formula;
+  char* formula;
   unsigned int i;
 
 
@@ -159,7 +159,7 @@ printEventMath (unsigned int n, const Event *e)
 
 
 void
-printMath (const Model *m)
+printMath (const Model* m)
 {
   unsigned int  n;
 
@@ -191,7 +191,7 @@ printMath (const Model *m)
 
 
 int
-main (int argc, char *argv[])
+main (int argc, char* argv[])
 {
   if (argc != 2)
   {
@@ -200,7 +200,7 @@ main (int argc, char *argv[])
   }
 
   const char* filename   = argv[1];
-  SBMLDocument *document = readSBML(filename);
+  SBMLDocument* document = readSBML(filename);
 
   if (document->getNumErrors() > 0)
   {
@@ -209,7 +209,7 @@ main (int argc, char *argv[])
     return 1;
   }
 
-  Model *model = document->getModel();
+  Model* model = document->getModel();
 
   if (model == 0)
   {

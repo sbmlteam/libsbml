@@ -21,7 +21,7 @@ using namespace std;
 
 
 int
-main (int argc, char *argv[])
+main (int argc, char* argv[])
 {
   if (argc != 2)
   {
@@ -46,7 +46,7 @@ main (int argc, char *argv[])
        << "File: " << filename
        << " (Level " << level << ", version " << version << ")" << endl;
 
-  Model *model = document->getModel();
+  Model* model = document->getModel();
 
   if (model == 0)
   {

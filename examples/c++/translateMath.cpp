@@ -37,7 +37,7 @@ char *translateMathML (const char *xml);
 
 
 int
-main (int argc, char *argv[])
+main (int argc, char* argv[])
 {
   char            line[BUFFER_SIZE];
   char*           trimmed;
@@ -98,7 +98,7 @@ main (int argc, char *argv[])
  * responsible for freeing it.
  */
 char *
-translateInfix (const char *formula)
+translateInfix (const char* formula)
 {
   char*    result;
   ASTNode* math = SBML_parseFormula(formula);
@@ -118,7 +118,7 @@ translateInfix (const char *formula)
  * is responsible for freeing it.
  */
 char *
-translateMathML (const char *xml)
+translateMathML (const char* xml)
 {
   char*           result;
   ASTNode_t*      math;

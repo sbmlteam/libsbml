@@ -56,7 +56,7 @@ getCurrentMillis (void)
  * @return the size (in bytes) of the given filename.
  */
 unsigned long
-getFileSize (const char *filename)
+getFileSize (const char* filename)
 {
   struct stat   s;
   unsigned long result = 0;
