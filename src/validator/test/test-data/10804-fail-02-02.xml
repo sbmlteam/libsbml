@@ -8,7 +8,8 @@ Pass: (3400) When a delay is specified within an event the units
 <sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	<model>
 		<notes>
-			<xhtml:p > </xhtml:p>
+			<xhtml:p> </xhtml:p>
+			<xhtml:p> </xhtml:p>
 		</notes>
 		<listOfUnitDefinitions>
 			<unitDefinition id="minutes">
