@@ -1359,7 +1359,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
    * if a whole html tag has been used
    * or a whole body tag then namespace can be implicitly declared
    *
-   * HOWEVER if one or more permitted elements have been used 
+   * HOWEVER if more than one permitted elements have been used 
    * each MUST explicitly declare the namespace
    */
   bool implicitNSdecl = false;
@@ -1422,52 +1422,39 @@ SBase::checkXHTML(const XMLNode * xhtml)
   {
     /* only one element which can be html or body with either implicit/explicit
      * namespace declaration
-     * OR could be one of the listed elements in which case must explicitly 
-     * declare the namespace
+     * OR could be one of the listed elements.
      */
 
     const XMLToken top_elem = xhtml->getChild(0);
-
-    match = false;
-    for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
-    {
-      if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
-                                            "http://www.w3.org/1999/xhtml"))
-      {
-        match = true;
-        break;
-      }
-    }
-    
     const string& top_name = top_elem.getName();
+    const char* top_name_c = top_name.c_str();
+    index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
+    found = (index < size);
+  
 
-    if (top_name == "html" || top_name == "body")
+    if (top_name != "html" && top_name != "body" && !found)
     {
-      if (!match && !implicitNSdecl)
+      mSBML->getErrorLog()->logError(errorELEM);
+    }
+    else
+    {
+      match = false;
+      for (n = 0; n < top_elem.getNamespaces().getLength(); n++)
+      {
+        if (!strcmp(top_elem.getNamespaces().getURI(n).c_str(), 
+                                              "http://www.w3.org/1999/xhtml"))
+        {
+          match = true;
+          break;
+        }
+      }
+      if (!implicitNSdecl && !match)
       {
         mSBML->getErrorLog()->logError(errorNS);
       }
     }
-    else
-    {
-      const char* top_name_c = top_name.c_str();
-      index = util_bsearchStringsI(XHTML_ELEMENTS, top_name_c, 0, size - 1);
-      found = (index < size);
-
-      if (!found)
-      {
-        mSBML->getErrorLog()->logError(errorELEM);
-      }
-      else if (!match)
-      {
-        mSBML->getErrorLog()->logError(errorELEM);
-      }
-    }
-
-  }  
+  }
 }
-
-
 /**
   * Checks if a character is part of the Unicode Letter set.
   * @return true if the character is a part of the set, false otherwise.
