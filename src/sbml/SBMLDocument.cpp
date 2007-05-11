@@ -521,7 +521,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         {
           getErrorLog()->logError(20102);
         }
-        break;
+        if (mVersion != 1 && mVersion != 2)
+        {
+          getErrorLog()->logError(20103);
+        }
+       break;
       }
       else if (!strcmp(mNamespaces->getURI(n).c_str(), "http://www.sbml.org/sbml/level2"))
       {
