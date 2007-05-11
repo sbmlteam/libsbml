@@ -1,24 +1,14 @@
 /**
- * \file    printModel.cpp
- * \brief   Prints some information about the top-level model
- * \author  Sarah Keating and Ben Bornstein
+ * @file    printUnits.cpp
+ * @brief   Prints some unit information about the model
+ * @author  Sarah Keating
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
 
 
@@ -36,81 +26,80 @@ using namespace std;
 int
 main (int argc, char *argv[])
 {
-  const char* filename;
-
-  SBMLDocument* d;
-  Model*        m;
-  FormulaUnitsData* fud;
-  unsigned int numUnits;
-
-
   if (argc != 2)
   {
-    cout << endl << "  usage: printUnits <filename>" << endl << endl;
-    return 2;
+    cout << endl << "Usage: printUnits <filename>" << endl << endl;
+    return 1;
   }
 
+  const char* filename   = argv[1];
+  SBMLDocument* document = readSBML(filename);
 
-  filename = argv[1];
-  d        = readSBML(filename);
+  if (document->getNumErrors() > 0)
+  {
+    cerr << "Encountered the following SBML errors:" << endl;
+    document->printErrors(cerr);
+    return 1;
+  }
 
-  d->printErrors(cout);
+  Model *model = document->getModel();
 
-  m = d->getModel();
-
-
-  if (m == 0)
+  if (model == NULL)
   {
     cout << "No model present." << endl;
     return 1;
   }
 
+  model->createListFormulaUnitsData();
 
-  m->createListFormulaUnitsData();
+  cout << "Total number of formula units: "
+       << model->getNumFormulaUnitsData() << endl << endl;
 
-  cout << " formula: " << m->getNumFormulaUnitsData() << endl << endl;
-
-  for (unsigned int n = 0; n < m->getNumFormulaUnitsData(); n++)
+  for (unsigned int n = 0; n < model->getNumFormulaUnitsData(); n++)
   {
-    fud = m->getFormulaUnitsData(n);
-    numUnits = fud->getUnitDefinition()->getNumUnits();
-    cout << "FormulaUnits " << n << ":\n";
-    cout << "id: " << fud->getId() << endl;
-    cout << "type: " << SBMLTypeCode_toString(fud->getTypecode())<< endl;
+    FormulaUnitsData *fud = model->getFormulaUnitsData(n);
+    unsigned int numUnits = fud->getUnitDefinition()->getNumUnits();
+
+    cout << "Formula units case #" << (n+1) << " --" << endl;
+
+    cout << "  class of model entity: "
+	 << SBMLTypeCode_toString(fud->getTypecode())<< endl;
+
+    cout << "  id of entity in model: " << fud->getId() << endl;
 
     if (fud->getContainsParametersWithUndeclaredUnits())
     {
-      cout << "params undeclared: yes\n";
-      
-      if (fud->getCanIgnoreUndeclaredUnits())
-      {
-        cout << "can ignore: yes\n";
-      }
-      else
-      {
-        cout << "can ignore: no\n";
-      }
+      cout << " undeclared parameters?: yes" << endl;
+      cout << "  (can they be ignored?: "
+	   << (fud->getCanIgnoreUndeclaredUnits() ? "yes)" : "no)") << endl;
     }
     else
     {
-      cout << "params undeclared: no\n";
+      cout << " undeclared parameters?: no" << endl;
     }
 
-    cout << "no units: " << numUnits << endl;
     if (numUnits > 0)
     {
-      cout << "units: ";
+      cout << "    units in definition: ";
+
       for (unsigned int p = 0; p < numUnits; p++)
       {
-        cout << "\t" << UnitKind_toString(fud->getUnitDefinition()->getUnit(p)->getKind());
-        cout << "\t" << fud->getUnitDefinition()->getUnit(p)->getExponent();
-        cout << endl;
+	UnitKind_t kind = fud->getUnitDefinition()->getUnit(p)->getKind();
+	int exp = fud->getUnitDefinition()->getUnit(p)->getExponent();
+
+        cout << UnitKind_toString(kind) << " (exponent = " << exp << ")";
+
+	if (p + 1 < numUnits)
+	{
+	  cout << ", ";
+	}	  
+
       }
     }
     
-    cout << endl;
+    cout << endl << endl;
   }
 
-  delete d;
+  delete document;
   return 0;
 }
