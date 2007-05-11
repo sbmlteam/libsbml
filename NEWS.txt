@@ -1,6 +1,60 @@
            libsbml NEWS -- History of user-visible changes
 
  
+ === Version 3.0.0 (when released) ===
+
+* New Features relative to 3.0.0 beta_2:
+
+  - Java bindings are once again available, thanks to work by Akiya
+    Joukarou.  The following is a partial list of API changes relative
+    to previous versions of the Java bindings.  Almost all are due to
+    changes in the core of libSBML itself introduced in version 3.0.0.
+
+    + The classes OstreamWrapper and OfstreamWrapper.
+
+    + SBMLDocument.setLevel(int) and SBMLDocument.setVersion(int) are
+      no longer available because they have been replaced by
+      SBMLDocument.setLevelAndVersion(int, int).
+
+    + The methods Event.getTrigger() and Event.getDelay() now return
+      objects of class Trigger and Delay, respectively.  Previously
+      they returned mathematical formulas directly; now you have to
+      invoke getMath() on the returned objects.
+
+    + The methods KineticLaw.setFormulaFromMath() and
+      KineticLaw.setMathFromFormula() have been removed because they
+      are unnecessary; the methods setMath() and setFormula() can be
+      used in their place.
+
+    + Other API changes:
+
+        const string& SBase::getNotes()           /* libsbml 2.3.4 */
+        XMLNode*      SBase::getNotes()           /* libsbml 3.0.0 */
+    
+        void SBase::setAnnotation(const std::string&) /* libsbml 2.3.4 */
+        void SBase::setAnnotation(XMLNode*)       /* libsbml 3.0.0 */
+    
+        void SBase::setNotes(const std::string&)  /* libsbml 3.0.0 */
+        void SBase::setNotes(XMLNode*)            /* libsbml 2.3.4 */
+
+        const ASTNode* Event::getDelay()          /* libsbml 3.0.0 */
+        const Delay*   Event::getDelay()          /* libsbml 2.3.4 */
+     
+        const ASTNode* Event::getTrigger()        /* libsbml 3.0.0 */
+        const Trigger* Event::getTrigger()        /* libsbml 2.3.4 */
+         
+        void Event::setDelay(ASTNode*)            /* libsbml 3.0.0 */
+        void Event::setDelay(const Delay*)        /* libsbml 2.3.4 */
+    
+        void Event::setTrigger(ASTNode*)          /* libsbml 3.0.0 */
+        void Event::setTrigger(const Trigger*)    /* libsbml 2.3.4 */
+    
+
+
+See the sections below for other changes relative to earlier versions
+of libSBML such as version 2.3.4.
+
+
  === Version 3.0.0 beta_2 ===
 
 * New Features:
@@ -37,6 +91,9 @@
     .getVersion(), among other things.  Also, the interface to SBML
     rules abstracts away some of the individual rule type (assignment,
     rate, algebraic) differences.
+
+  - The setLevel() and setVersion() methods on SBMLDocument have been
+    unified into a single method, setLevelAndVersion().
   
   - FunctionDefinitions now have convenience methods to access function
     arguments (getArgument() and getNumArguments()) and the function
@@ -53,7 +110,16 @@
     SBML specifications for L2 Version 2 and Version 3.
   
   - The Trigger and Delay elements of an Event are now properly
-    implemented as SBase objects.
+    implemented as SBase objects.  By side-effect, this means that the
+    methods on Event called getDelay() and getTrigger() have changed;
+    they now return objects of class Delay and Trigger, respectively.
+    To access the formulas of delays and trigger, use the getMath()
+    methods on the Delay and Trigger classes.
+
+  - The methods KineticLaw::setFormulaFromMath() and
+    KineticLaw::setMathFromFormula() have been removed because they
+    are unnecessary; the methods setMath() and setFormula() can be
+    used in their place.
   
 
 * Bug Fixes:
