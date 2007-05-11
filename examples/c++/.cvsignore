@@ -10,3 +10,6 @@ TAGS
 CTAGS
 printMath
 printUnits
+echoSBML
+addCVTerms
+addModelHistory
