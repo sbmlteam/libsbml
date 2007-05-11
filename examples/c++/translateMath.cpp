@@ -61,7 +61,7 @@ main (int argc, char *argv[])
 
     cin.getline(line, BUFFER_SIZE, '\n');
 
-    while (line != NULL)
+    while (line != 0)
     {
       trimmed = util_trim(line);
       len     = strlen(trimmed);

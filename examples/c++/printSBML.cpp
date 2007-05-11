@@ -48,7 +48,7 @@ main (int argc, char *argv[])
 
   Model *model = document->getModel();
 
-  if (model == NULL)
+  if (model == 0)
   {
     cout << "No model present." << endl;
     return 1;
