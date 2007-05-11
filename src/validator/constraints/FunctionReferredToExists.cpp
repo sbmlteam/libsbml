@@ -94,8 +94,8 @@ FunctionReferredToExists::logUndefined ( const FunctionDefinition& fd,
     "first element within a MathML 'apply', then the 'ci''s value can only "
     "be chosen from the set of identifiers of other SBML "
     "<functionDefinition>s defined prior to that point in the SBML model. In "
-    "other words, forward references to user-functions are not permitted. "
-    "(References: L2V2 Section 4.3.2.)";
+    "other words, forward references to user-defined functions are not "
+    "permitted. (References: L2V2 Section 4.3.2.)";
 
   msg += varname;
   msg += "' is not listed as the id of an existing FunctionDefinition.";
