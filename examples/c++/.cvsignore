@@ -8,3 +8,5 @@ translateMath
 Makefile
 TAGS
 CTAGS
+printMath
+printUnits
