@@ -552,6 +552,19 @@ FormulaUnitsData::~FormulaUnitsData()
   delete mEventTimeUnitDefinition;
 }
 
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+FormulaUnitsData::getTypeCode () const
+{
+  return SBML_FORMULA_UNITS_DATA;
+}
+
+
 const string&
 FormulaUnitsData::getElementName() const
 {
@@ -580,4 +593,15 @@ ListFormulaUnitsData::clone () const
   return new ListFormulaUnitsData(*this);
 }
 
+/**
+ * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
+ * (default).
+ *
+ * @see getElementName()
+ */
+SBMLTypeCode_t
+ListFormulaUnitsData::getTypeCode () const
+{
+  return SBML_LIST_FORMULA_UNITS_DATA;
+}
 

@@ -235,6 +235,15 @@ public:
    */
   virtual SBase* clone () const;
 
+  /**
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
+   *
+   * @see getElementName()
+   */
+  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LISTOF_COMPARTMENT_TYPES; };
+
 
   /**
    * Returns the libSBML type code for the objects contained in this ListOf

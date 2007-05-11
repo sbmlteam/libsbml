@@ -86,7 +86,7 @@ LIBSBML_EXTERN
 const char *
 SBMLTypeCode_toString (SBMLTypeCode_t tc)
 {
-  SBMLTypeCode_t max = SBML_PARAMETER_RULE;
+  SBMLTypeCode_t max = SBML_DELAY;
 
 #ifdef USE_LAYOUT
   max = SBML_LAYOUT_TEXTGLYPH;
