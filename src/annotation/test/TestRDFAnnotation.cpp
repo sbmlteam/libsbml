@@ -314,18 +314,16 @@ START_TEST (test_RDFAnnotation_delete)
 
   XMLNode* n1 = RDFAnnotationParser::deleteRDFAnnotation(node);
 
-  fail_unless (n1 == NULL);
+  const char * expected =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<annotation/>";
 
-  //const char * expected =
-  //  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-  //  "<annotation/>";
+  fail_unless(n1->getNumChildren() == 0);
+  fail_unless(n1->getName() == "annotation");
 
-  //fail_unless(n1->getNumChildren() == 0);
-  //fail_unless(n1->getName() == "annotation");
+  n1->write(*XOS);
 
-  //n1->write(*XOS);
-
-  //fail_unless( equals(expected) );
+  fail_unless( equals(expected) );
 
   delete node;
 }

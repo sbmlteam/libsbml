@@ -120,7 +120,9 @@ RDFAnnotationParser::deleteRDFAnnotation(XMLNode * annotation)
 
   if (newAnnotation->getNumChildren() == 0)
   {
-    newAnnotation =NULL;
+    delete newAnnotation;
+    ann_token.setEnd();
+    XMLNode * newAnnotation = new XMLNode(ann_token);
   }
 
   return newAnnotation;
