@@ -387,7 +387,7 @@ public:
    *
    * @see getElementName()
    */
-  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LISTOF_EVENT_ASSIGNMENTS; };
+  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
 
   /**

@@ -412,7 +412,7 @@ public:
    *
    * @see getElementName()
    */
-  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LISTOF_REACTIONS; };
+  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
 
   /**

@@ -374,7 +374,7 @@ public:
    *
    * @see getElementName()
    */
-  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LISTOF_SPECIES; };
+  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
 
   /**

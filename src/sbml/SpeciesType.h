@@ -237,7 +237,7 @@ public:
    *
    * @see getElementName()
    */
-  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LISTOF_SPECIES_TYPES; };
+  virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
