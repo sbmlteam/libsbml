@@ -49,8 +49,8 @@ using namespace std;
 static void
 XML (void* userData, const XML_Char* version, const XML_Char* encoding, int)
 {
-  if (version == NULL) return;
-  if (encoding == NULL) return;
+  if (version == 0) return;
+  if (encoding == 0) return;
   static_cast<ExpatHandler*>(userData)->XML(version, encoding);
 }
 
@@ -128,8 +128,8 @@ ExpatHandler::startDocument ()
 void
 ExpatHandler::XML (const XML_Char* version, const XML_Char* encoding)
 {
-  XML_SetUnknownEncodingHandler( mParser, &unknownEncodingHandler, NULL );
-  if (encoding == NULL)
+  XML_SetUnknownEncodingHandler( mParser, &unknownEncodingHandler, 0 );
+  if (encoding == 0)
     mHandler.XML(version, "");
   else
     mHandler.XML(version, encoding);
