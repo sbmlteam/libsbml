@@ -1,24 +1,14 @@
 /**
- * \file    printMath.cpp
- * \brief   Prints Rule, Reaction, and Event formulas in a given SBML Document
- * \author  Ben Bornstein and Sarah Keating
+ * @file    printMath.cpp
+ * @brief   Prints Rule, Reaction, and Event formulas in a given SBML Document
+ * @author  Ben Bornstein
+ * @author  Sarah Keating
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
 
 
@@ -80,7 +70,18 @@ printRuleMath (unsigned int n, const Rule *r)
   if ( r->isSetMath() )
   {
     formula = SBML_formulaToString( r->getMath() );
-    cout << "Rule " << n << ", " << formula << endl;
+
+    if (r->getVariable().length() > 0)
+    {
+      cout << "Rule " << n << ", formula: "
+	   << r->getVariable() << " = " << formula << endl;
+    }
+    else
+    {
+      cout << "Rule " << n << ", formula: "
+	   << formula << " = 0" << endl;
+    }
+
     free(formula);
   }
 }
@@ -100,7 +101,7 @@ printReactionMath (unsigned int n, const Reaction *r)
     if ( kl->isSetMath() )
     {
       formula = SBML_formulaToString( kl->getMath() );
-      cout << "Reaction " << n << ", " << formula << endl;
+      cout << "Reaction " << n << ", formula: " << formula << endl;
       free(formula);
     }
   }
@@ -136,14 +137,14 @@ printEventMath (unsigned int n, const Event *e)
 
   if ( e->isSetDelay() )
   {
-    formula = SBML_formulaToString( e->getDelay() );
+    formula = SBML_formulaToString( e->getDelay()->getMath() );
     cout << "Event " << n << " delay: " << formula << endl;
     free(formula);
   }
 
   if ( e->isSetTrigger() )
   {
-    formula = SBML_formulaToString( e->getTrigger() );
+    formula = SBML_formulaToString( e->getTrigger()->getMath() );
     cout << "Event " << n << " trigger: " << formula << endl;
     free(formula);
   }
@@ -192,33 +193,33 @@ printMath (const Model *m)
 int
 main (int argc, char *argv[])
 {
-  const char* filename;
-
-  SBMLDocument* d;
-  Model*        m;
-
   if (argc != 2)
   {
-    cout << endl << "  usage: printMath <filename>" << endl << endl;
+    cout << endl << "Usage: printMath <filename>" << endl << endl;
     return 1;
   }
-    
-  filename = argv[1];
-  d        = readSBML(filename);
 
-  d->printErrors(cout);
+  const char* filename   = argv[1];
+  SBMLDocument *document = readSBML(filename);
 
-  m = d->getModel();
+  if (document->getNumErrors() > 0)
+  {
+    cerr << "Encountered the following SBML errors:" << endl;
+    document->printErrors(cerr);
+    return 1;
+  }
 
-  if (m == 0)
+  Model *model = document->getModel();
+
+  if (model == NULL)
   {
     cout << "No model present." << endl;
     return 1;
   }
 
-  printMath(m);
+  printMath(model);
   cout << endl;
 
-  delete d;
+  delete document;
   return 0;
 }
