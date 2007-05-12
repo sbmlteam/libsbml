@@ -198,7 +198,7 @@ XMLError::setColumn (unsigned int column)
  */
 ostream& operator<< (ostream& s, const XMLError& error)
 {
-  s << error.mLine << ": ("
+  s << "line " << error.mLine << ": ("
     << setfill('0') << setw(5) << error.mId
     << ") " << error.mMessage << endl;
   return s;
