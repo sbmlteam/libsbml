@@ -376,19 +376,22 @@ SBMLDocument::getNumErrors () const
  * the given stream.  If no errors have occurred, i.e.  getNumErrors() ==
  * 0, no output will be sent to stream. The format of the output is:
  *
- *   N Error(s):
- *     line: (id) message
+ *   N error(s):
+ *     line N: (id) message
  */
 void
 SBMLDocument::printErrors (ostream& stream) const
 {
-  unsigned int n, size;
+  unsigned int numErrors = getNumErrors();
 
-  if ((size = getNumErrors()) > 0)
-	{
-    stream << size << " Error(s):" << endl;
-    for (n = 0; n < size; n++) stream << "  " << *(getError(n));
-	}
+  if (numErrors > 0)
+  {
+    stream << numErrors << " error" << ((numErrors > 1) ? "s:" : ":") << endl;
+    for (unsigned int n = 0; n < numErrors; n++)
+    {
+      stream << "  " << *(getError(n));
+    }
+  }
 }
 
 
@@ -832,21 +835,21 @@ SBMLDocument_getNumErrors (const SBMLDocument_t *d)
  * SBMLDocument_getNumErrors(d) == 0, no output will be sent to stream. The
  * format of the output is:
  *
- *   N Error(s):
+ *   N error(s):
  *     line: (id) message
  */
 LIBSBML_EXTERN
 void
 SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
 {
-  unsigned int size = d->getNumErrors();
+  unsigned int numErrors = d->getNumErrors();
 
-
-  if (size > 0)
+  if (numErrors > 0)
   {
-    printf("%d Error(s):\n", size);
+    printf("%d error", numErrors);
+    printf((numErrors > 1) ? "s:\n" : ":\n");
   
-    for (unsigned int n = 0; n < size; n++)
+    for (unsigned int n = 0; n < numErrors; n++)
     {
       fprintf(stream, "  ");
       XMLError_print(d->getError(n), stream);
