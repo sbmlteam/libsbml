@@ -239,7 +239,8 @@ END_TEST
 
 START_TEST (test_Event_full)
 {
-  Trigger_t         *trigger = Trigger_createWith("leq(P1, t)");
+  ASTNode_t         *math1    = SBML_parseFormula("0");
+  Trigger_t         *trigger = Trigger_createWithMath(math1);
   ASTNode_t         *math    = SBML_parseFormula("0");
   Event_t           *e       = Event_createWith("e1", "");
   EventAssignment_t *ea      = EventAssignment_createWith("k", math);

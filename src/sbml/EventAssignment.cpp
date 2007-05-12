@@ -44,18 +44,6 @@ using namespace std;
 
 
 /**
- * Creates a new EventAssignment, optionally with its variable and math
- * (via infix formula string) attributes set.
- */
-EventAssignment::EventAssignment (  const string& variable
-                                  , const string& formula  ) :
-   SBase   ( variable, "", -1 )
- , mMath   ( SBML_parseFormula( formula.c_str() ) )
-{
-}
-
-
-/**
  * Creates a new EventAssignment with its variable and math attributes
  * set.
  */
@@ -479,35 +467,6 @@ EventAssignment_t *
 EventAssignment_createWith (const char *variable, ASTNode_t* math)
 {
   return new(nothrow) EventAssignment(variable ? variable : "", math);
-}
-
-
-/**
- * Creates a new EventAssignment_t with the given values for the "variable"
- * attribute and "math" subelement (here expressed as an infix formula
- * string), and returns a pointer to it.
- *
- * The @p formula parameter must be an infix string representation of a
- * mathematical formula of the sort that can be handed to
- * SBML_parseFormula().  It is used to set the content of this
- * EventAssignment_t's "math" subelement.  This is a convenience method
- * that is approximately equal to the following:
- * @code
- *   eventassign = EventAssignment_create();
- *   EventAssignment_setVariable(eventassign, variable);
- *   EventAssignment_setFormula(eventassign, formula);
- * @endcode
- * 
- * Both the @p variable and @p math values are copied by this constructor.
- * 
- * @return the freshly-created EventAssignment_t structure
- */
-LIBSBML_EXTERN
-EventAssignment_t *
-EventAssignment_createWithFormula (const char *variable, const char *formula)
-{
-  return new(nothrow) EventAssignment(variable ? variable : "", 
-                                                      formula ? formula : "");
 }
 
 

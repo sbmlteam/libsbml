@@ -166,16 +166,6 @@ public:
    * Creates a new EventAssignment, optionally with its "variable"
    * attribute and math subelement set.
    *
-   * The @p formula parameter must be an infix string representation of a
-   * mathematical formula of the sort that can be handed to
-   * SBML_parseFormula().  It is used to set the content of this
-   * EventAssignment's "math" subelement.  This is a convenience method
-   * that is approximately equal to the following:
-   * @code
-   *   EventAssignment eventassign = new EventAssignment(variable);
-   *   eventassign.setMath(SBML_parseFormula(formula));
-   * @endcode
-   *
    * @note Although the value of the "variable" attribute is optional in
    * this constructor, it is worth emphasizing that valid EventAssignment
    * definitions must have a value for this attribute.  If no variable is
@@ -186,24 +176,10 @@ public:
    * @param variable the identifier of a Species, Compartment or Parameter
    * object.
    *
-   * @param formula a string representing a mathematical formula in infix
-   * notation.
-   */
-  EventAssignment (  const std::string& variable = ""
-                   , const std::string& formula  = "" );
-
-
-  /**
-   * Creates a new EventAssignment, optionally with its "variable"
-   * attribute and math subelement set.
-   *
-   * @param variable the identifier of a Species, Compartment or Parameter
-   * object.
-   *
    * @param math an ASTNode tree defining the mathematical formula used
    * as the expression for the event assignment's effect.
    */
-  EventAssignment (const std::string& variable, const ASTNode* math);
+  EventAssignment (const std::string& variable = "", const ASTNode* math = NULL);
 
 
   /**
@@ -460,11 +436,6 @@ EventAssignment_create (void);
 LIBSBML_EXTERN
 EventAssignment_t *
 EventAssignment_createWith (const char *variable, ASTNode_t *math);
-
-
-LIBSBML_EXTERN
-EventAssignment_t *
-EventAssignment_createWithFormula (const char *variable, const char *formula);
 
 
 LIBSBML_EXTERN

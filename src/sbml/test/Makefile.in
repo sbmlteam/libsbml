@@ -71,7 +71,8 @@ test_sources =				\
   TestCopyAndClone.cpp		\
   TestAlgebraicRule.c       \
   TestRateRule.c             \
-  TestDelay.c        
+  TestDelay.c				\
+  TestTrigger.c
 
 
 extra_CPPFLAGS = -I.. -I../..

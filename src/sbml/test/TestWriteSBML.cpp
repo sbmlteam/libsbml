@@ -1671,22 +1671,22 @@ START_TEST (test_WriteSBML_KineticLaw_ListOfParameters_notes_L2v1)
   fail_unless( equals(expected) );
 }
 END_TEST
-
+*/
 
 START_TEST (test_WriteSBML_Event)
 {
-  const char* expected = wrapXML("<event id=\"e\"/>");
+  //const char* expected = wrapXML("<event id=\"e\"/>");
 
 
-  Event e;
-  e.setId("e");
-  
-  e.write(*XOS);
+  //Event e;
+  //e.setId("e");
+  //
+  //e.write(*XOS);
 
-  fail_unless( equals(expected) );
+  //fail_unless( equals(expected) );
 }
 END_TEST
-*/
+
 
 START_TEST (test_WriteSBML_Event_trigger)
 {
@@ -1706,7 +1706,8 @@ START_TEST (test_WriteSBML_Event_trigger)
   );
 
   Event e("e");
-  Trigger t("leq(P1, t)");
+  ASTNode *node = SBML_parseFormula("leq(P1,t)");
+  Trigger t(node);
   e.setTrigger(&t);
   e.setTimeUnits("second");
 
@@ -1803,8 +1804,10 @@ START_TEST (test_WriteSBML_Event_full)
   );
 
   Event e("e");
-  Trigger t("leq(P1, t)");
-  EventAssignment ea("k2", "0");
+  ASTNode *node = SBML_parseFormula("leq(P1,t)");
+  Trigger t(node);
+  ASTNode *math = SBML_parseFormula("0");
+  EventAssignment ea("k2", math);
 
   e.setTrigger(&t);
   e.addEventAssignment( &ea );
