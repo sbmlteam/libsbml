@@ -727,9 +727,7 @@ Compartment_create (void)
  * In SBML Level 2 and beyond, the identifier attribute of a Compartment_t
  * structure is required to have a value, but the name is optional.
  * Programs calling this function can legitimately use an empty string for
- * the @p name argument.  Likewise, the units of compartments are also
- * optional, and therefore the @p units argument legitimately can be an
- * empty string in an invocation.
+ * the @p name argument.
  *
  * This convenience function is functionally equivalent to:
  * @code
@@ -738,8 +736,9 @@ Compartment_create (void)
  *   Compartment_setName(c, name);
  * @endcode
  *
- * @param sid the value to assign as the identifier of this Parameter
- * @param name the value to assign as the name of this Parameter
+ * @param sid the value to assign as the identifier of this compartment
+ *
+ * @param name the value to assign as the name of this compartment
  * 
  * @return a pointer to the newly created Compartment_t structure.
  */
