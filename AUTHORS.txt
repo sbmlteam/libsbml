@@ -1,18 +1,14 @@
-      The original code contained here was initially developed by:
+		 LibSBML was primarily developed by:
  
 		   Ben Bornstein and Sarah Keating
-                       with contributions from
-	 Mike Hucka, Ben Kovitz, Stefan Hoops, Ralph Gauges,
-	    Martin Ginkel, Christoph Flamm, Rainer Machne,
-                and many others in the SBML community.
+
+	   with contributions from (in alphabetical order)
+      Christoph Flamm, Mike Hucka, Ralph Gauges, Martin Ginkel,
+       Stefan Hoops, Akiya Joukaru, Ben Kovitz, Rainer Machne,
+		  and others in the SBML community.
 
          For more information about SBML or libSBML, contact:
 
                             The SBML Team
                          http://www.sbml.org/
                      mailto:sbml-team@caltech.edu
-
-
-       Please join the libsbml-discuss mailing list by visiting
-	    http://www.sbml.org/forums/index.php?t=pre_reg
-
