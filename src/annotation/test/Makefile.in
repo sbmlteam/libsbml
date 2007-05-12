@@ -49,6 +49,7 @@ test_sources =          \
   TestRunner.c          \
   TestModelHistory.c    \
   TestRDFAnnotation.cpp \
+  TestRDFAnnotation2.cpp \
   TestCopyAndClone.cpp
 
 extra_CPPFLAGS = -I.. -I../..

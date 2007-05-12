@@ -182,8 +182,13 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
       {
 	      if (prefix == "dc")
 	      {
-	        creator = new ModelCreator(RDFTop->getChild(n));
-	        history->addCreator(creator);
+          // this should be the Bag node containing the list of creators
+          const XMLNode *creatorNode = &(RDFTop->getChild(n).getChild(0));
+          for (unsigned int c = 0; c < creatorNode->getNumChildren(); c++)
+          {
+	          creator = new ModelCreator(creatorNode->getChild(c));
+	          history->addCreator(creator);
+          }
 	      }
 	      else if (prefix == "dcterms")
 	      {
@@ -240,7 +245,6 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
   xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
   xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
   xmlns.add("http://biomodels.net/model-qualifiers/", "bqmodel");
-
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -305,9 +309,8 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
         name = "isDescribedBy";
         break;
       case BQM_UNKNOWN:
-	/* 2007-02-12 <mhucka@caltech.edu> what should happen here? */
         return NULL;
-	break;
+	      break;
       }
     }
     else
@@ -340,9 +343,8 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
         name = "isDescribedBy";
         break;
       case BQB_UNKNOWN:
-	/* 2007-02-12 <mhucka@caltech.edu> what should happen here? */
         return NULL;
-	break;
+      	break;
       }
     }
     type_triple = new XMLTriple(name, uri, prefix);
@@ -367,7 +369,6 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
     }
 
     type->addChild(*(bag));
-  
     descrip.addChild(*(type));
   }
 
@@ -383,7 +384,7 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
  * and creates the RDF annotation
  */
 XMLNode * 
-RDFAnnotationParser::parseModelHistory(const SBase * model)
+RDFAnnotationParser::parseModelHistory(const Model *model)
 {
   if (model->getTypeCode() != SBML_MODEL)
   {
@@ -404,7 +405,6 @@ RDFAnnotationParser::parseModelHistory(const SBase * model)
   xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
   xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
   xmlns.add("http://biomodels.net/model-qualifiers/", "bqmodel");
-
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -547,6 +547,8 @@ RDFAnnotationParser::parseModelHistory(const SBase * model)
   modified.addChild(W3CDTF2);
   descrip.addChild(created);
   descrip.addChild(modified);
+
+  // add CVTerms here
 
   RDF.addChild(descrip);
   ann->addChild(RDF);

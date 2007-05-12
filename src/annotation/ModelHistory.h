@@ -284,9 +284,9 @@ public:
   /**
    * Creates a new ModelCreator from an XMLNode.
    *
-   * @param node the XMLNode from which to create the ModelCreator.
+   * @param creator the XMLNode from which to create the ModelCreator.
    */
-  ModelCreator(const XMLNode node);
+  ModelCreator(const XMLNode creator);
 
   /**
    * Destroys the ModelCreator.

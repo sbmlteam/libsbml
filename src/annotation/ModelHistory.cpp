@@ -499,36 +499,38 @@ ModelCreator::ModelCreator ()
 /**
  * create a new ModelCreator from an XMLNode
  */
-ModelCreator::ModelCreator(const XMLNode node)
+ModelCreator::ModelCreator(const XMLNode creator)
 {
-  XMLNode creator = (node.getChild(0)).getChild(0);
-
-  for (unsigned int n = 0; n < creator.getNumChildren(); n++)
+  // check that this is the right place in the RDF Annotation
+  if (creator.getName() == "li")
   {
-    const string& name = creator.getChild(n).getName();
-    if (name == "N")
+    for (unsigned int n = 0; n < creator.getNumChildren(); n++)
     {
-      for (unsigned int p = 0; p < creator.getChild(n).getNumChildren(); p++)
+      const string& name = creator.getChild(n).getName();
+      if (name == "N")
       {
-        XMLNode names = creator.getChild(n).getChild(p);
-        if (names.getName() == "Family")
+        for (unsigned int p = 0; p < creator.getChild(n).getNumChildren(); p++)
         {
-          setFamilyName(names.getChild(0).getCharacters());
+          XMLNode names = creator.getChild(n).getChild(p);
+          if (names.getName() == "Family")
+          {
+            setFamilyName(names.getChild(0).getCharacters());
+          }
+          else if (names.getName() == "Given")
+          {
+            setGivenName(names.getChild(0).getCharacters());
+          }
         }
-        else if (names.getName() == "Given")
-        {
-          setGivenName(names.getChild(0).getCharacters());
-        }
-      }
 
-    }
-    else if (name == "EMAIL")
-    {
-      setEmail(creator.getChild(n).getChild(0).getCharacters());
-    }
-    else if (name == "ORG")
-    {
-      setOrganisation(creator.getChild(n).getChild(0).getChild(0).getCharacters());
+      }
+      else if (name == "EMAIL")
+      {
+        setEmail(creator.getChild(n).getChild(0).getCharacters());
+      }
+      else if (name == "ORG")
+      {
+        setOrganisation(creator.getChild(n).getChild(0).getChild(0).getCharacters());
+      }
     }
   }
 }

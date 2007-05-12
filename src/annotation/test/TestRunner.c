@@ -68,6 +68,7 @@ BEGIN_C_DECLS
 
 Suite *create_suite_CVTerms (void);
 Suite *create_suite_RDFAnnotation (void);
+Suite *create_suite_RDFAnnotation2 (void);
 Suite *create_suite_ModelHistory (void);
 Suite *create_suite_CopyAndClone (void);
 
@@ -117,7 +118,7 @@ setTestDataDirectory();
   srunner_add_suite( runner, create_suite_ModelHistory  () );
   srunner_add_suite( runner, create_suite_CopyAndClone  () );
   srunner_add_suite( runner, create_suite_RDFAnnotation () );
-  //srunner_add_suite( runner, create_suite_UnitFormulaFormatter1() );
+  srunner_add_suite( runner, create_suite_RDFAnnotation2() );
   //srunner_add_suite( runner, create_suite_FormulaUnitsData() );
   
 

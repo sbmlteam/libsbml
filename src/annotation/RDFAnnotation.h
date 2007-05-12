@@ -89,7 +89,7 @@ static XMLNode * parseCVTerms(const SBase * );
  * takes a Model creator information
  * and creates the RDF annotation
  */
-static XMLNode * parseModelHistory(const SBase * );
+static XMLNode * parseModelHistory(const Model * );
 };
 
 #endif  /* __cplusplus */
