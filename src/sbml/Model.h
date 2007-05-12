@@ -160,6 +160,26 @@ public:
    */
   virtual SBase* clone () const;
 
+  /**
+   * Returns the ModelHistory of this Model.
+   * 
+   * @return ModelHistory of this Model.
+   */
+  ModelHistory* getModelHistory() const;
+
+  /**
+   * Returns the ModelHistory of this Model.
+   * 
+   * @return ModelHistory of this Model.
+   */
+  ModelHistory* getModelHistory();
+
+  /**
+   * Sets the ModelHistory of this Model.
+   * 
+   * @param history ModelHistory of this Model.
+   */
+  void setModelHistory(ModelHistory * history);
 
   /**
    * Adds a copy of the given FunctionDefinition object to this Model.
@@ -1400,6 +1420,8 @@ protected:
    * of this method as well.
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
+
+  ModelHistory*   mHistory;
 
 
   ListOfFunctionDefinitions  mFunctionDefinitions;

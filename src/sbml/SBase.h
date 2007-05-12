@@ -308,11 +308,6 @@ public:
 
 
   //TO DO Move these to Model
-  /**
-   * functions to get and set ModelHistory
-   */
-  void setModelHistory(ModelHistory * history);
-
   ModelHistory* getModelHistory() const;
   ModelHistory* getModelHistory();
   
@@ -523,7 +518,6 @@ protected:
 
   /* storing annotations */
   List * mCVTerms;
-  ModelHistory*   mHistory;
 
 
 

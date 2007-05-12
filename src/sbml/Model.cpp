@@ -50,6 +50,7 @@ using namespace std;
  */
 Model::Model (const string& id, const string& name) :
    SBase   ( id, name, -1 )
+ , mHistory (0)
 {
     //mFormulaUnitsData = new ListFormulaUnitsData;
 }
@@ -60,6 +61,7 @@ Model::Model (const string& id, const string& name) :
  */
 Model::~Model ()
 {
+  delete mHistory;
   //int size = getNumFormulaUnitsData();
 
 
@@ -91,11 +93,15 @@ Model::Model(const Model& rhs) :
      , mLayouts             (rhs.mLayouts)
 #endif
 {
-  //mFormulaUnitsData = new ListFormulaUnitsData();
-  //for (unsigned int i = 0; i < rhs.getNumFormulaUnitsData(); i++)
-  //{
-  //  mFormulaUnitsData->add((void *) (rhs.getFormulaUnitsData(i)));
-  //}
+    if(rhs.mHistory)
+    {
+      this->mHistory=rhs.mHistory->clone();
+    }
+    else
+    {
+      this->mHistory = 0;
+    }
+
 }
 
 
@@ -123,6 +129,15 @@ Model& Model::operator=(const Model& rhs)
   //  /* TO DO NEED TO DEAL WITH CLONING THIS */
   //mFormulaUnitsData = new ListFormulaUnitsData();
     mFormulaUnitsData     = rhs.mFormulaUnitsData;
+    if(rhs.mHistory)
+    {
+      this->mHistory=rhs.mHistory->clone();
+    }
+    else
+    {
+      this->mHistory = 0;
+    }
+
   return *this;
 }
 
@@ -161,6 +176,25 @@ SBase*
 Model::clone () const
 {
   return new Model(*this);
+}
+
+void 
+Model::setModelHistory(ModelHistory * history)
+{
+  mHistory = history;
+}
+
+
+ModelHistory* 
+Model::getModelHistory() const
+{
+  return mHistory;
+}
+
+ModelHistory* 
+Model::getModelHistory()
+{
+  return mHistory;
 }
 
 

@@ -133,7 +133,6 @@ SBase::SBase (const string& id, const string& name, int sbo) :
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mCVTerms   ( 0 )
- , mHistory   ( 0 )
 {
 }
 
@@ -152,7 +151,6 @@ SBase::SBase (int sbo) :
  , mLine      ( 0 )
  , mColumn    ( 0 )
  , mCVTerms   ( 0 )
- , mHistory   ( 0 )
 {
 }
 
@@ -195,16 +193,6 @@ SBase::SBase(const SBase& orig)
     {
       this->mCVTerms = 0;
     }
-
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
-    }
-    else
-    {
-      this->mHistory = 0;
-    }
-
 }
 
 
@@ -217,7 +205,6 @@ SBase::~SBase ()
   if (mAnnotation)  delete mAnnotation;
   if (mNamespaces)  delete mNamespaces;
   if (mCVTerms)     delete mCVTerms;
-  if (mHistory)     delete mHistory;
 }
 
 /**
@@ -260,14 +247,6 @@ SBase& SBase::operator=(const SBase& orig)
       this->mCVTerms = 0;
     }
 
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
-    }
-    else
-    {
-      this->mHistory = 0;
-    }
     return *this;
 
 }
@@ -2918,28 +2897,6 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
 
   
 
-
-/**
-  * functions to get and set ModelHistory
-  */
-void 
-SBase::setModelHistory(ModelHistory * history)
-{
-  mHistory = history;
-}
-
-
-ModelHistory* 
-SBase::getModelHistory() const
-{
-  return mHistory;
-}
-
-ModelHistory* 
-SBase::getModelHistory()
-{
-  return mHistory;
-}
 
 
 
