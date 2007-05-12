@@ -28,8 +28,8 @@
  * affected by the event, and how the variables are affected.
  *
  * An Event definition has several parts: an optional identifier (defined
- * by the attribute @c id), an optional name (defined by the attribute @c
- * name), a required trigger condition (defined by an object of class
+ * by the attribute "id"), an optional name (defined by the attribute
+ * "name"), a required trigger condition (defined by an object of class
  * Trigger), and at least one EventAssignment.  In addition, an event can
  * include an optional delay (defined by an object of class Delay).
  *
@@ -173,12 +173,12 @@ public:
 
 
   /**
-   * Get the value of the @c timeUnits attribute of this Event.
+   * Get the value of the "timeUnits" attribute of this Event.
    * 
-   * @return the value of @c timeUnits as a string.
+   * @return the value of the attribute "timeUnits" as a string.
    *
    * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
-   * the additional attribute called @c timeUnits, but it was removed in
+   * the additional attribute called "timeUnits", but it was removed in
    * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
    * attribute for compatibility with previous versions of SBML Level 2,
    * but its use is discouraged since models in Level 2 Version 3 cannot
@@ -211,6 +211,13 @@ public:
    *
    * @return @c true if the "timeUnits" attribute of this Event has been
    * set, @c false otherwise.
+   *
+   * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
+   * the additional attribute called "timeUnits, but it was removed in
+   * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
+   * attribute for compatibility with previous versions of SBML Level 2,
+   * but its use is discouraged since models in Level 2 Version 3 cannot
+   * contain it.
    */
   bool isSetTimeUnits () const;
 
@@ -235,6 +242,13 @@ public:
    * Sets the "timeUnits" attribute of this Event to a copy of @p sid.
    *
    * @param sid the identifier of the time units to use.
+   *
+   * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
+   * the additional attribute called "timeUnits, but it was removed in
+   * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
+   * attribute for compatibility with previous versions of SBML Level 2,
+   * but its use is discouraged since models in Level 2 Version 3 cannot
+   * contain it.
    */
   void setTimeUnits (const std::string& sid);
 
@@ -247,6 +261,13 @@ public:
 
   /**
    * Unsets the "timeUnits" attribute of this Event.
+   *
+   * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
+   * the additional attribute called "timeUnits, but it was removed in
+   * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
+   * attribute for compatibility with previous versions of SBML Level 2,
+   * but its use is discouraged since models in Level 2 Version 3 cannot
+   * contain it.
    */
   void unsetTimeUnits ();
 
