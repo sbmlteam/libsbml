@@ -65,13 +65,17 @@
  * of a @c metre.  The "multiplier" attribute has a default value of @c 1
  * (one).
  * 
- * @note In %SBML Level 2 Version 1, Unit had an additional field called
+ * @warning In %SBML Level 2 Version 1, Unit had an additional field called
  * "offset".  This attribute has been removed entirely in Level 2 Versions
  * 2 and 3.  As a necessary consequence, the predefined unit @c Celsius is
  * also not defined in Level 2 Versions 2 and 3.  Modelers and software
  * need to account for units with offsets explicitly.  The %SBML
  * specification document offers a number of suggestions for how to achieve
- * this.
+ * this.  The current version of LibSBML retains methods related to the
+ * "offset" attribute and the predefined unit @c Celsius for compatibility
+ * with earlier versions of SBML Level 2, but their use is strongly
+ * discouraged because the constructs cannot appear directly in SBML Level
+ * 2 Version 3.
  * 
  * @note Another change in SBML Level 2 Version 3 is the removal of the
  * enumeration @c UnitKind and the redefinition of @c UnitSId to include
@@ -287,12 +291,14 @@ public:
   /**
    * Returns the value of the "offset" attribute of this Unit.
    *
-   * @note The "offset" attribute is only available in SBML Level 2 Version
-   * 1.  This attribute is not present in SBML Level 2 Version 2 or above.
-   * When producing SBML models using these later specifications, Modelers
-   * and software need to account for units with offsets explicitly.  The
-   * %SBML specification document offers a number of suggestions for how
-   * to achieve this.
+   * @warning The "offset" attribute is only available in SBML Level 2
+   * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+   * above.  When producing SBML models using these later specifications,
+   * Modelers and software need to account for units with offsets
+   * explicitly.  The %SBML specification document offers a number of
+   * suggestions for how to achieve this.  LibSBML methods such as this one
+   * related to "offset" are retained for compatibility with earlier
+   * versions of SBML Level 2, but their use is strongly discouraged.
    * 
    * @return the "offset" value of this Unit, as a double
    */
@@ -329,9 +335,12 @@ public:
   /**
    * Predicate for testing whether this Unit is of the kind @c Celsius
    *
-   * @note The predefined unit @c Celsius was removed from the list of
-   * predefined units in SBML Level 2 Version 3 at the same time that
-   * the "offset" attribute was removed from Unit definitions.
+   * @warning The predefined unit @c Celsius was removed from the list of
+   * predefined units in SBML Level 2 Version 3 at the same time that the
+   * "offset" attribute was removed from Unit definitions.  LibSBML methods
+   * such as this one related to @c Celsius are retained for compatibility
+   * with earlier versions of SBML Level 2, but their use is strongly
+   * discouraged.
    *
    * @return @c true if the kind of this Unit is @c Celsius, @c false
    * otherwise. 
@@ -649,12 +658,14 @@ public:
   /**
    * Sets the "offset" attribute value of this Unit.
    *
-   * @note The "offset" attribute is only available in SBML Level 2 Version
-   * 1.  This attribute is not present in SBML Level 2 Version 2 or above.
-   * When producing SBML models using these later specifications, Modelers
-   * and software need to account for units with offsets explicitly.  The
-   * %SBML specification document offers a number of suggestions for how
-   * to achieve this.
+   * @warning The "offset" attribute is only available in SBML Level 2
+   * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+   * above.  When producing SBML models using these later specifications,
+   * Modelers and software need to account for units with offsets
+   * explicitly.  The %SBML specification document offers a number of
+   * suggestions for how to achieve this.  LibSBML methods such as this one
+   * related to "offset" are retained for compatibility with earlier
+   * versions of SBML Level 2, but their use is strongly discouraged.
    *
    * @param value the float-point value to which the attribute "offset"
    * should set

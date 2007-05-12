@@ -1021,17 +1021,20 @@ Unit_getMultiplier (const Unit_t *u)
 /**
  * Returns the value of the "offset" attribute of the given Unit_t
  * structure @p u.
- *
- * @note The "offset" attribute is only available in SBML Level 2 Version
- * 1.  This attribute is not present in SBML Level 2 Version 2 or above.
- * When producing SBML models using these later specifications, Modelers
- * and software need to account for units with offsets explicitly.  The
- * %SBML specification document offers a number of suggestions for how
- * to achieve this.
  * 
  * @param u a Unit_t structure
  *
  * @return the "offset" value of this Unit, as a double
+ *
+ * @warning The "offset" attribute is only available in SBML Level 2
+ * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+ * above.  When producing SBML models using these later specifications,
+ * Modelers and software need to account for units with offsets explicitly.
+ * The %SBML specification document offers a number of suggestions for how
+ * to achieve this.  LibSBML functions such as this one related to "offset"
+ * are retained for compatibility with earlier versions of SBML Level 2,
+ * but their use is strongly discouraged.
+ * 
  */
 LIBSBML_EXTERN
 double
@@ -1096,14 +1099,17 @@ Unit_isCandela (const Unit_t *u)
  * Predicate for testing whether the given Unit_t structure represents a
  * unit of the kind @c Celsius.
  *
- * @note The predefined unit @c Celsius was removed from the list of
- * predefined units in SBML Level 2 Version 3 at the same time that
- * the "offset" attribute was removed from Unit definitions.
- *
  * @param u the Unit_t structure to query
  * 
  * @return nonzero (for true) if the "kind" attribute of the given
  * Unit_t structure is set to @c "Celsius", zero (0) otherwise.
+ *
+ * @warning The predefined unit @c Celsius was removed from the list of
+ * predefined units in SBML Level 2 Version 3 at the same time that the
+ * "offset" attribute was removed from Unit definitions.  LibSBML functions
+ * such as this one related to @c Celsius are retained for compatibility
+ * with earlier versions of SBML Level 2, but their use is strongly
+ * discouraged.
  */
 LIBSBML_EXTERN
 int
@@ -1682,16 +1688,18 @@ Unit_setMultiplier (Unit_t *u, double value)
 
 /**
  * Sets the "offset" attribute value of the given Unit_t structure @p u.
- *
- * @note The "offset" attribute is only available in SBML Level 2 Version
- * 1.  This attribute is not present in SBML Level 2 Version 2 or above.
- * When producing SBML models using these later specifications, Modelers
- * and software need to account for units with offsets explicitly.  The
- * %SBML specification document offers a number of suggestions for how
- * to achieve this.
- *
+ * 
  * @param u the Unit_t structure whose value is to be set
  * @param value the integer to which the attribute "offset" should be set
+ *
+ * @warning The "offset" attribute is only available in SBML Level 2
+ * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
+ * above.  When producing SBML models using these later specifications,
+ * Modelers and software need to account for units with offsets explicitly.
+ * The %SBML specification document offers a number of suggestions for how
+ * to achieve this.  LibSBML functions such as this one related to "offset"
+ * are retained for compatibility with earlier versions of SBML Level 2,
+ * but their use is strongly discouraged.
  */
 LIBSBML_EXTERN
 void
