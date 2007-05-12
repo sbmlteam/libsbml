@@ -48,11 +48,11 @@ using namespace std;
 /**
  * Creates a new Trigger, optionally with its formula set.
  */
-Trigger::Trigger (   const string& formula ) :
-   SBase ( -1)
- , mFormula       ( formula        )
- , mMath          ( 0              )
+Trigger::Trigger (   const ASTNode* math ) :
+   SBase		  (  -1 )
+ , mMath      ( 0              )
 {
+  if (math) mMath = math->deepCopy();
 }
 
 
@@ -70,7 +70,6 @@ Trigger::~Trigger ()
  */
 Trigger::Trigger (const Trigger& rhs) :
    SBase          ( rhs                 )
- , mFormula       ( rhs.mFormula        )
  , mMath          ( 0                   )
 {
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
@@ -83,7 +82,6 @@ Trigger::Trigger (const Trigger& rhs) :
 Trigger& Trigger::operator=(const Trigger& rhs)
 {
   this->SBase::operator =(rhs);
-  mFormula  = rhs.mFormula;
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
   return *this;
 }
@@ -110,46 +108,12 @@ Trigger::clone () const
 
 
 /**
- * @return the formula of this Trigger.
- */
-const string&
-Trigger::getFormula () const
-{
-  if (mFormula.empty() == true && mMath != 0)
-  {
-    char* s  = SBML_formulaToString(mMath);
-    mFormula = s;
-
-    free(s);
-  }
-
-  return mFormula;
-}
-
-
-/**
  * @return the math of this Trigger.
  */
 const ASTNode*
 Trigger::getMath () const
 {
-  if (mMath == 0 && mFormula.empty() == false)
-  {
-    mMath = SBML_parseFormula( mFormula.c_str() );
-  }
-
   return mMath;
-}
-
-
-/**
- * @return true if the formula (or equivalently the math) of this
- * Trigger has been set, false otherwise.
- */
-bool
-Trigger::isSetFormula () const
-{
-  return (mFormula.empty() == false) || (mMath != 0);
 }
 
 
@@ -160,24 +124,9 @@ Trigger::isSetFormula () const
 bool
 Trigger::isSetMath () const
 {
-  return isSetFormula();
+  return (mMath != 0);
 }
 
-
-/**
- * Sets the formula of this Trigger to a copy of formula.
- */
-void
-Trigger::setFormula (const string& formula)
-{
-  mFormula = formula;
-
-  if (mMath)
-  {
-    delete mMath;
-    mMath = 0;
-  }
-}
 
 
 /**
@@ -192,7 +141,6 @@ Trigger::setMath (const ASTNode* math)
   delete mMath;
   mMath = (math != 0) ? math->deepCopy() : 0;
 
-  mFormula.erase();
 }
 
 
@@ -405,20 +353,24 @@ Trigger_create (void)
 
 
 /**
- * Creates a new Trigger with the given formula and 
- * returns a pointer to it.  This convenience function
- * is functionally equivalent to:
+ * Creates a new Trigger_t structure with the given math.
  *
+ * This is functionally equivalent to
+ * @code
  *   Trigger_t *t = Trigger_create();
- *   Trigger_setFormula(t, formula);
+ *   Trigger_setMath(math);
+ * @endcode.
+ *
+ * @param math an ASTNode_t structure representing the mathematical 
+ * formula for the trigger expressions.
+ *
+ * @return the newly constructed Trigger_t structure.
  */
 LIBSBML_EXTERN
 Trigger_t *
-Trigger_createWith ( const char *formula)
+Trigger_createWithMath (const ASTNode_t *math)
 {
-  string f  = formula        ? formula        : "";
-
-  return new(nothrow) Trigger(f);
+  return new(nothrow) Trigger(math);
 }
 
 
@@ -445,17 +397,6 @@ Trigger_clone (const Trigger_t *t)
 
 
 /**
- * @return the formula of this Trigger.
- */
-LIBSBML_EXTERN
-const char *
-Trigger_getFormula (const Trigger_t *t)
-{
-  return t->isSetFormula() ? t->getFormula().c_str() : NULL;
-}
-
-
-/**
  * @return the math of this Trigger.
  */
 LIBSBML_EXTERN
@@ -463,18 +404,6 @@ const ASTNode_t *
 Trigger_getMath (const Trigger_t *t)
 {
   return t->getMath();
-}
-
-
-/**
- * @return true (non-zero) if the formula (or equivalently the math) of
- * this Trigger has been set, false (0) otherwise.
- */
-LIBSBML_EXTERN
-int
-Trigger_isSetFormula (const Trigger_t *t)
-{
-  return static_cast<int>( t->isSetFormula() );
 }
 
 
@@ -487,17 +416,6 @@ int
 Trigger_isSetMath (const Trigger_t *t)
 {
   return static_cast<int>( t->isSetMath() );
-}
-
-
-/**
- * Sets the formula of this Trigger to a copy of formula.
- */
-LIBSBML_EXTERN
-void
-Trigger_setFormula (Trigger_t *t, const char *formula)
-{
-  t->setFormula(formula ? formula : "");
 }
 
 

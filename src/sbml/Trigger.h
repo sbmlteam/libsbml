@@ -75,12 +75,12 @@ class LIBSBML_EXTERN Trigger : public SBase
 public:
 
   /**
-   * Creates a new Trigger, optionally with a given formula. 
+   * Creates a new Trigger, optionally with the given math. 
    *
-   * @param formula a string representing the mathematical formula for
+   * @param math an ASTNode representing the mathematical formula for
    * the trigger expression.
    */
-  Trigger (const std::string& formula = "");
+  Trigger (const ASTNode* math = NULL);
 
 
   /**
@@ -120,15 +120,6 @@ public:
 
 
   /**
-   * Get the mathematical formula for the trigger and return it as
-   * as a string.
-   * 
-   * @return a string representing the formula of this Trigger.
-   */
-  const std::string& getFormula () const;
-
-
-  /**
    * Get the mathematical formula for the trigger and return it
    * as an AST.
    * 
@@ -138,38 +129,13 @@ public:
 
 
   /**
-   * Predicate to test whether the formula for this trigger has been set.
+   * Predicate to test whether the math for this trigger has been set.
    *
-   * This is identical to the method isSetMath().  It is provided
-   * in order to mirror the parallel between getFormula() and getMath().
-   *
-   * @return @c true if the formula (meaning the @c math subelement) of
-   * this Trigger has been set, @c false otherwise.
-   */
-  bool isSetFormula () const;
-
-
-  /**
-   * Predicate to test whether the formula for this trigger has been set.
-   *
-   * This is identical to the method isSetFormula().  It is provided
-   * in order to mirror the parallel between getFormula() and getMath().
    * 
    * @return @c true if the formula (meaning the @c math subelement) of
    * this Trigger has been set, @c false otherwise.
    */
   bool isSetMath () const;
-
-
-  /**
-   * Sets the trigger expression of this Trigger instance to the given string
-   * @p formula.
-   *
-   * The given @p formula string is copied.
-   *
-   * @param formula the mathematical expression to use.
-   */
-  void setFormula (const std::string& formula);
 
 
   /**
@@ -262,8 +228,7 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  mutable std::string  mFormula;
-  mutable ASTNode*     mMath;
+  ASTNode*     mMath;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -289,7 +254,7 @@ Trigger_create (void);
 
 LIBSBML_EXTERN
 Trigger_t *
-Trigger_createWith (const char *formula);
+Trigger_createWithMath ( const ASTNode_t *math);
 
 
 LIBSBML_EXTERN
@@ -303,28 +268,13 @@ Trigger_clone (const Trigger_t *t);
 
 
 LIBSBML_EXTERN
-const char *
-Trigger_getFormula (const Trigger_t *t);
-
-
-LIBSBML_EXTERN
 const ASTNode_t *
 Trigger_getMath (const Trigger_t *t);
 
 
 LIBSBML_EXTERN
 int
-Trigger_isSetFormula (const Trigger_t *t);
-
-
-LIBSBML_EXTERN
-int
 Trigger_isSetMath (const Trigger_t *t);
-
-
-LIBSBML_EXTERN
-void
-Trigger_setFormula (Trigger_t *t, const char *formula);
 
 
 LIBSBML_EXTERN
