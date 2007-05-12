@@ -239,10 +239,18 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-  /** @endcond doxygen-libsbml-internal */
 
 
 protected:
+
+  /**
+   * Subclasses should override this method to read (and store) XHTML,
+   * MathML, etc. directly from the XMLInputStream.
+   *
+   * @return @c true if the subclass read from the stream, @c false otherwise.
+   */
+  virtual bool readOtherXML (XMLInputStream& stream);
+
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
@@ -275,6 +283,7 @@ protected:
 
   friend class SBase;
   friend class SBMLReader;
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
