@@ -181,20 +181,20 @@ DIV.ah {
 }
 
 TD.md {
-  background-color: #e9e9f0;
+  background-color: #e5e9e7;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-size: 14px;
 }
 
 TD.mdname1 {
-  background-color: #e9e9f0;
+  background-color: #e5e9e7;
   font-weight: bold;
   font-size: 14px;
   color: #602020;
 }
 
 TD.mdname {
-  background-color: #e9e9f0;
+  background-color: #e5e9e7;
   font-weight: bold;
   font-size: 14px;
   color: #602020;
@@ -266,11 +266,11 @@ SPAN.stringliteral { color: #002080 }
 SPAN.charliteral   { color: #008080 }
 
 .mdTable {
-  border-top: 2px solid gray;
+  border-top: 2px solid #666666;
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
-  background-color: #e9e9f0;
+  background-color: #e5e9e7;
   width: 95%;
 }
 
