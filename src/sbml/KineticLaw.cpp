@@ -1,6 +1,6 @@
 /**
  * @file    KineticLaw.cpp
- * @brief   SBML KineticLaw
+ * @brief   Implementation of KineticLaw.
  * @author  Ben Bornstein
  *
  * $Id$

@@ -1,6 +1,6 @@
 /**
  * @file    SpeciesType.h
- * @brief   SBML SpeciesType
+ * @brief   Definitions of SpeciesType and ListOfSpeciesType.
  * @author  Ben Bornstein
  *
  * $Id$

@@ -1,6 +1,7 @@
 /**
  * @file    Rule.h
- * @brief   Rule, ListOfRules, AlgebraicRule, AssignmentRule and RateRule.
+ * @brief   Definitions of Rule, ListOfRules, AlgebraicRule, AssignmentRule
+ *          and RateRule.
  * @author  Ben Bornstein
  *
  * $Id$

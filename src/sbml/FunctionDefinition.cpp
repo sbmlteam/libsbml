@@ -1,6 +1,6 @@
 /**
  * @file    FunctionDefinition.cpp
- * @brief   Definition of FunctionDefinition and ListOfFunctionDefinitions.
+ * @brief   Implementation of FunctionDefinition and ListOfFunctionDefinitions.
  * @author  Ben Bornstein
  *
  * $Id$

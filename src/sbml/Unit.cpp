@@ -1,6 +1,6 @@
 /**
  * @file    Unit.cpp
- * @brief   SBML Unit
+ * @brief   Implementations of Unit and ListOfUnits.
  * @author  Ben Bornstein
  *
  * $Id$

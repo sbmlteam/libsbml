@@ -1,6 +1,6 @@
 /**
  * @file    Parameter.h
- * @brief   Definitions of Parameter and ListOfParamters.
+ * @brief   Definitions of Parameter and ListOfParameters.
  * @author  Ben Bornstein
  *
  * $Id$

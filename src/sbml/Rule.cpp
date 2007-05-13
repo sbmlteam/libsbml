@@ -1,6 +1,7 @@
 /**
  * @file    Rule.cpp
- * @brief   Rule, ListOfRules, AlgebraicRule, AssignmentRule and RateRule.
+ * @brief   Implementations of Rule, ListOfRules, AlgebraicRule, AssignmentRule
+ *          and RateRule.
  * @author  Ben Bornstein
  *
  * $Id$

@@ -1,6 +1,6 @@
 /**
  * @file    Model.cpp
- * @brief   Definition of Model.
+ * @brief   Implementation of Model.
  * @author  Ben Bornstein
  *
  * $Id$

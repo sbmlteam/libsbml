@@ -1,6 +1,6 @@
 /**
  * @file    Trigger.h
- * @brief   The libSBML class of object implementing %SBML's Trigger.
+ * @brief   Definition of Trigger
  * @author  Sarah Keating
  *
  * $Id$

@@ -1,6 +1,6 @@
 /**
  * @file    UnitKind.h
- * @brief   %SBML's UnitKind enumeration
+ * @brief   Definition of %SBML's UnitKind enumeration
  * @author  Ben Bornstein
  *
  * $Id$

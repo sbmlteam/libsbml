@@ -1,6 +1,6 @@
 /**
  * @file    Constraint.cpp
- * @brief   SBML Constraint
+ * @brief   Implementations of Constraint and ListOfConstraints.
  * @author  Ben Bornstein
  *
  * $Id$

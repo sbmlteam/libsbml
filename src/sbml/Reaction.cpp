@@ -1,6 +1,6 @@
 /**
  * @file    Reaction.cpp
- * @brief   SBML Reaction
+ * @brief   Implementations of Reaction and ListOfReactions.
  * @author  Ben Bornstein
  *
  * $Id$

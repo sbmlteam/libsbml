@@ -1,6 +1,6 @@
 /**
  * @file    Event.cpp
- * @brief   The libSBML class of object implementing %SBML's Event.
+ * @brief   Implementations of Event and ListOfEvents.
  * @author  Ben Bornstein
  *
  * $Id$

@@ -1,6 +1,6 @@
 /**
  * @file    EventAssignment.h
- * @brief   The libSBML class of object implementing %SBML's EventAssignment.
+ * @brief   Definition of EventAssignment.
  * @author  Ben Bornstein
  *
  * $Id$

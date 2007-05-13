@@ -1,6 +1,6 @@
 /**
  * @file    Compartment.cpp
- * @brief   SBML Compartment
+ * @brief   Implementations of Compartment and ListOfCompartments.
  * @author  Ben Bornstein
  *
  * $Id$

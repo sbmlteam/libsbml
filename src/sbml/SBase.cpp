@@ -1,6 +1,6 @@
 /**
  * @file    SBase.cpp
- * @brief   Base object of all SBML objects
+ * @brief   Implementation of SBase, the base object of all SBML objects.
  * @author  Ben Bornstein
  *
  * $Id$

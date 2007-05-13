@@ -1,6 +1,6 @@
 /**
  * @file    Trigger.cpp
- * @brief   SBML Trigger
+ * @brief   Implementation of Trigger.
  * @author  Sarah Keating
  *
  * $Id$

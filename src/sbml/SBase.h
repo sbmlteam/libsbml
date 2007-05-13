@@ -1,6 +1,6 @@
 /**
  * @file    SBase.h
- * @brief   Base object of all SBML objects
+ * @brief   Definition of SBase, the base object of all SBML objects
  * @author  Ben Bornstein
  *
  * $Id$

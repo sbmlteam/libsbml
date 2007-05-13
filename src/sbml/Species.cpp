@@ -1,6 +1,6 @@
 /**
  * @file    Species.cpp
- * @brief   Definitions of Species and ListOfSpecies.
+ * @brief   Implementations of Species and ListOfSpecies.
  * @author  Ben Bornstein
  *
  * $Id$

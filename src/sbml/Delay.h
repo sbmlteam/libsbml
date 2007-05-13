@@ -1,6 +1,6 @@
 /**
  * @file    Delay.h
- * @brief   The libSBML class of object implementing %SBML's Delay.
+ * @brief   Definition of Delay.
  * @author  Sarah Keating
  *
  * $Id$

@@ -1,6 +1,6 @@
 /**
  * @file    EventAssignment.cpp
- * @brief   SBML EventAssignment
+ * @brief   Implementation of EventAssignment.
  * @author  Ben Bornstein
  *
  * $Id$

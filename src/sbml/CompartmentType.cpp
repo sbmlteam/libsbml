@@ -1,6 +1,6 @@
 /**
  * @file    CompartmentType.cpp
- * @brief   Definitions of CompartmentType and ListOfCompartmentTypes.
+ * @brief   Implementation of CompartmentType and ListOfCompartmentTypes.
  * @author  Ben Bornstein
  *
  * $Id$

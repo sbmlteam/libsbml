@@ -1,6 +1,6 @@
 /**
  * @file    Event.h
- * @brief   The libSBML class of object implementing %SBML's Event.
+ * @brief   Definitions of Event and ListOfEvents.
  * @author  Ben Bornstein
  *
  * $Id$

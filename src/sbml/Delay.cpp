@@ -1,6 +1,6 @@
 /**
  * @file    Delay.cpp
- * @brief   SBML Delay
+ * @brief   Implementation of Delay.
  * @author  Sarah Keating
  *
  * $Id$

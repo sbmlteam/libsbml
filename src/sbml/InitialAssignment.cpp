@@ -1,6 +1,6 @@
 /**
  * @file    InitialAssignment.cpp
- * @brief   Definitions of InitialAssignment and ListOfInitialAssignments
+ * @brief   Implementation of InitialAssignment and ListOfInitialAssignments.
  * @author  Ben Bornstein
  *
  * $Id$

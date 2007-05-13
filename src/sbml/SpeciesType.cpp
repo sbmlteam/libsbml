@@ -1,6 +1,6 @@
 /**
  * @file    SpeciesType.cpp
- * @brief   Definitions of SpeciesType and ListOfSpeciesTypes.
+ * @brief   Implementation of SpeciesType and ListOfSpeciesTypes.
  * @author  Ben Bornstein
  *
  * $Id$

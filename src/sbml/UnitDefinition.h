@@ -1,6 +1,6 @@
 /**
  * @file    UnitDefinition.h
- * @brief   Implementation of %SBML's UnitDefinition.
+ * @brief   Definitions of UnitDefinition and ListOfUnitDefinitions.
  * @author  Ben Bornstein
  *
  * $Id$

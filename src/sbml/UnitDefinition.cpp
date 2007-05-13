@@ -1,6 +1,6 @@
 /**
  * @file    UnitDefinition.cpp
- * @brief   Implementation of %SBML's UnitDefinition.
+ * @brief   Implementations of %SBML's UnitDefinition and ListOfUnitDefinitions.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -20,6 +20,7 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
+
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
