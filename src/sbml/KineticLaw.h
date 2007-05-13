@@ -132,51 +132,78 @@ class LIBSBML_EXTERN KineticLaw : public SBase
 public:
 
   /**
-   * Creates a new KineticLaw, optionally with its formula, timeUnits
-   * and/or substanceUnits set.
+   * Creates a new KineticLaw object, optionally with values for the "formula",
+   * "timeUnits" and/or "substanceUnits" attributes.
    *
-   * @param formula string representing the kinetic law.
-   * @param timeUnits string representing the units of time for this KineticLaw.
-   * @param substanceUnits string representing the units of substance for this KineticLaw.
-   * 
+   * This will copy the strings handed in @p timeUnits and @p
+   * substanceUnits.  This method is functionally equivalent to the following:
+   * @code
+   *   KineticLaw k = new KineticLaw();
+   *   k.setFormula(formula);
+   *   k.setTimeUnits(timeUnits);
+   *   k.setSubstanceUnits(substanceUnits);
+   * @endcode
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @param formula a mathematical expression in text-string form
+   * representing the rate of the reaction.
+   *
+   * @param timeUnits the identifier of the time units
+   *
+   * @param substanceUnits the identifier of the substance units
+   *
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   KineticLaw (   const std::string& formula        = ""
                , const std::string& timeUnits      = ""
                , const std::string& substanceUnits = "" );
 
   /**
-   * Creates a new KineticLaw, optionally with its math, timeUnits
-   * and/or substanceUnits set.
+   * Creates a new KineticLaw object, optionally with values for the "math"
+   * subelement and the "timeUnits" and/or "substanceUnits" attributes.
    *
-   * @param math ASTNode representing the kinetic law.
-   * @param timeUnits string representing the units of time for this KineticLaw.
-   * @param substanceUnits string representing the units of substance for this KineticLaw.
-   * 
+   * This will copy the strings handed in @p timeUnits and @p
+   * substanceUnits.  This method is functionally equivalent to the following:
+   * @code
+   *   KineticLaw k = new KineticLaw();
+   *   k.setMath(math);
+   *   k.setTimeUnits(timeUnits);
+   *   k.setSubstanceUnits(substanceUnits);
+   * @endcode
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @param formula an ASTNode representing the rate of the reaction.
+   *
+   * @param timeUnits the identifier of the time units
+   *
+   * @param substanceUnits the identifier of the substance units
+   *
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
-  KineticLaw (   ASTNode*      math
+  KineticLaw (   ASTNode* math
                , const std::string& timeUnits      = ""
                , const std::string& substanceUnits = "" );
+
 
   /**
    * Destroys this KineticLaw.
    */
   virtual ~KineticLaw ();
 
+
   /**
    * Copy constructor; creates a copy of this KineticLaw.
    */
   KineticLaw (const KineticLaw& orig);
 
+
   /**
-   * Assignment operator
+   * Assignment operator for KineticLaw.
    */
   KineticLaw& operator=(const KineticLaw& rhs);
+
 
   /**
    * Accepts the given SBMLVisitor for this instance of KineticLaw.
@@ -187,8 +214,9 @@ public:
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
-   * Creates and returns a deep copy of this KineticLaw.
+   * Creates and returns a deep copy of this KineticLaw object.
    *
    * @return a (deep) copy of this KineticLaw.
    */
@@ -196,53 +224,78 @@ public:
 
 
   /**
-   * Get the mathematical formula for the kineticlaw and return it as
-   * as a string.
+   * Returns the mathematical formula for this KineticLaw object and return
+   * it as as a text string.
+   *
+   * This is fundamentally equivalent to getMath().  This variant is
+   * provided principally for compatibility compatibility with SBML Level
+   * 1, which represented mathematical formulas in text-string form.
    * 
    * @return a string representing the formula of this Kineticlaw.
+   *
+   * @see getMath().
    */
   const std::string& getFormula () const;
 
+
   /**
-   * Get the mathematical formula for the kineticlaw and return it
-   * as an AST.
+   * Returns the mathematical formula for this KineticLaw object and return
+   * it as as an ASTNode tree.
+   *
+   * This is fundamentally equivalent to getFormula().  The latter is
+   * provided principally for compatibility compatibility with SBML Level
+   * 1, which represented mathematical formulas in text-string form.
    * 
-   * @return the math of this Kineticlaw.
+   * @return the ASTNode representation of the mathematical formula.
+   *
+   * @see getFormula().
    */
   const ASTNode* getMath () const;
 
+
   /**
-   * Return the timeUnits of this KineticLaw.
+   * Returns the value of the "timeUnits" attribute of this KineticLaw
+   * object.
    *
-   * @return the timeUnits of this KineticLaw.
+   * @return the "timeUnits" attribute value
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   const std::string& getTimeUnits () const;
 
+
   /**
-   * Return the substanceUnits of this KineticLaw.
+   * Returns the value of the "substanceUnits" attribute of this KineticLaw
+   * object.
    *
-   * @return the substanceUnits of this KineticLaw.
+   * @return the "substanceUnits" attribute value
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   const std::string& getSubstanceUnits () const;
 
+
   /**
-   * Predicate to test whether the formula for this kineticlaw has been set.
+   * Predicate returning @c true or @c false depending on whether this
+   * SpeciesReference's "formula" attribute has been set
    *
-   * This is identical to the method isSetMath().  It is provided
-   * in order to mirror the parallel between getFormula() and getMath().
+   * This is functionally identical to the method isSetMath().  It is
+   * provided in order to mirror the parallel between getFormula() and
+   * getMath().
    *
    * @return @c true if the formula (meaning the @c math subelement) of
    * this Kineticlaw has been set, @c false otherwise.
-   */  bool isSetFormula () const;
+   */  
+  bool isSetFormula () const;
+
 
   /**
-   * Predicate to test whether the math for this kineticlaw has been set.
+   * Predicate returning @c true or @c false depending on whether this
+   * SpeciesReference's "math" subelement has been set
    *
    * This is identical to the method isSetFormula().  It is provided
    * in order to mirror the parallel between getFormula() and getMath().
@@ -252,126 +305,192 @@ public:
    */
   bool isSetMath () const;
 
+
  /**
-   * Predicate to test whether the timeUnits for this kineticlaw has been set.
+   * Predicate returning @c true or @c false depending on whether this
+   * SpeciesReference's "timeUnits" attribute has been set
    *
-   * @return @c true if the timeUnits of this KineticLaw has been set, @c false
-   * otherwise.
+   * @return @c true if the "timeUnits" attribute of this KineticLaw object
+   * has been set, @c false otherwise.
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   bool isSetTimeUnits () const;
 
-  /**
-   * Predicate to test whether the substanceUnits for this kineticlaw has been set.
+
+ /**
+   * Predicate returning @c true or @c false depending on whether this
+   * SpeciesReference's "substanceUnits" attribute has been set
    *
-   * @return @c true if the substanceUnits of this KineticLaw has been set, @c false
-   * otherwise.
+   * @return @c true if the "substanceUnits" attribute of this KineticLaw object
+   * has been set, @c false otherwise.
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   bool isSetSubstanceUnits () const;
 
+
   /**
-   * Sets the mathematical expression of this Kineticlaw instance to the given string
-   * @p formula.
+   * Sets the mathematical expression of this Kineticlaw instance to the
+   * given @p formula.
    *
-   * The given @p formula string is copied.
+   * The given @p formula string is copied.  Internally, libSBML stores the
+   * mathematical expression as an ASTNode.  The text-string variant is
+   * provided principally for compatibility compatibility with SBML Level
+   * 1, which represented mathematical formulas in text-string form.
    *
-   * @param formula the mathematical expression to use.
+   * @param formula the mathematical expression to use, represented in
+   * text-string form.
    */
   void setFormula (const std::string& formula);
 
+
   /**
-   * Sets the mathematical expression of this Kineticlaw instance to a copy of the given
-   * ASTNode.
+   * Sets the mathematical expression of this Kineticlaw instance to a copy
+   * of the given ASTNode.
+   *
+   * This is fundamentally identical to setFormula().  The latter is
+   * provided principally for compatibility compatibility with SBML Level
+   * 1, which represented mathematical formulas in text-string form.
    *
    * @param math an ASTNode representing a formula tree.
    */
   void setMath (const ASTNode* math);
 
+
   /**
-   * Sets the timeUnits of this KineticLaw to a copy of sid.
+   * Sets the "timeUnits" attribute of this KineticLaw object.
    *
-   * @param sid string representing the time units.
+   * The units identifier in @p sid is copied.
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @param sid the identifier of the units to use.
+   *
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   void setTimeUnits (const std::string& sid);
 
+
   /**
-   * Sets the substanceUnits of this KineticLaw to a copy of sid.
+   * Sets the "substanceUnits" attribute of this KineticLaw object.
    *
-   * @param sid string representing the time units.
+   * The units identifier in @p sid is copied.
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @param sid the identifier of the units to use.
+   *
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   void setSubstanceUnits (const std::string& sid);
 
+
   /**
-   * Unsets the timeUnits of this KineticLaw.
+   * Unsets the "timeUnits" attribugte of this KineticLaw object.
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   void unsetTimeUnits ();
 
+
   /**
-   * Unsets the substanceUnits of this KineticLaw.
+   * Unsets the "substanceUnits" attribute of this KineticLaw object.
    *
-   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
-   * been removed.
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
    */
   void unsetSubstanceUnits ();
 
+
   /**
-   * Adds a copy of the given Parameter to this KineticLaw.
+   * Adds a copy of the given Parameter object to the list of local
+   * parameters in this KineticLaw.
+   *
+   * @param p the Parameter to add
    */
   void addParameter (const Parameter* p);
 
+
   /**
-   * Creates a new Parameter, adds it to this KineticLaw's list of
-   * parameters and returns it.
+   * Creates a new Parameter object, adds it to this KineticLaw's list of
+   * local parameters, and returns the Parameter object created.
+   *
+   * @return a new Parameter object instance
    */
   Parameter* createParameter ();
 
+
   /**
+   * Returns the list of local parameters in this KineticLaw object.
+   * 
    * @return the list of Parameters for this KineticLaw.
    */
   const ListOfParameters* getListOfParameters () const;
 
+
   /**
+   * Returns the list of local parameters in this KineticLaw object.
+   * 
    * @return the list of Parameters for this KineticLaw.
    */
   ListOfParameters* getListOfParameters ();
 
+
   /**
+   * Returns the nth Parameter object in the list of local parameters in
+   * this KineticLaw instance.
+   *
+   * @param n the index of the Parameter object sought
+   * 
    * @return the nth Parameter of this KineticLaw.
    */
   const Parameter* getParameter (unsigned int n) const;
 
+
   /**
+   * Returns the nth Parameter object in the list of local parameters in
+   * this KineticLaw instance.
+   *
+   * @param n the index of the Parameter object sought
+   * 
    * @return the nth Parameter of this KineticLaw.
    */
   Parameter* getParameter (unsigned int n);
 
+
   /**
-   * @return the Parameter in this kineticLaw with the given id or NULL if
-   * no such Parameter exists.
+   * Returns a local parameter based on its identifier.
+   *
+   * @param sid the identifier of the Parameter being sought.
+   * 
+   * @return the Parameter object in this KineticLaw instace having the
+   * given "id", or NULL if no such Parameter exists.
    */
   const Parameter* getParameter (const std::string& sid) const;
 
+
   /**
-   * @return the Parameter in this kineticLaw with the given id or NULL if
-   * no such Parameter exists.
+   * Returns a local parameter based on its identifier.
+   *
+   * @param sid the identifier of the Parameter being sought.
+   * 
+   * @return the Parameter object in this KineticLaw instace having the
+   * given "id", or NULL if no such Parameter exists.
    */
   Parameter* getParameter (const std::string& sid);
 
+
   /**
+   * Returns the number of local parameters in this KineticLaw instance.
+   * 
    * @return the number of Parameters in this KineticLaw.
    */
   unsigned int getNumParameters () const;
@@ -379,20 +498,27 @@ public:
 
   /**
    * Sets the parent SBMLDocument of this SBML object.
+   *
+   * @param d the SBMLDocument to use.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "kineticLaw".
+   * Returns the XML element name of this object, which for Species, is
+   * always @c "kineticLaw".
+   * 
+   * @return the name of this element, i.e., @c "kineticLaw".
    */
   virtual const std::string& getElementName () const;
 
@@ -425,6 +551,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
+
   /**
    * Subclasses should override this method to read (and store) XHTML,
    * MathML, etc. directly from the XMLInputStream.
@@ -433,12 +560,14 @@ protected:
    */
   virtual bool readOtherXML (XMLInputStream& stream);
 
+
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes);
+
 
   /**
    * Subclasses should override this method to write their XML attributes
