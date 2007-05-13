@@ -68,15 +68,15 @@ Event::~Event ()
 /**
  * Copy constructor. Creates a copy of this Event.
  */
-Event::Event (const Event& rhs) :
-   SBase            ( rhs                   )
- , mTrigger         ( 0                     )
- , mDelay           ( 0                     )
- , mTimeUnits       ( rhs.mTimeUnits        )
- , mEventAssignments( rhs.mEventAssignments )
+Event::Event (const Event& orig) :
+   SBase            ( orig                   )
+ , mTrigger         ( 0                      )
+ , mDelay           ( 0                      )
+ , mTimeUnits       ( orig.mTimeUnits        )
+ , mEventAssignments( orig.mEventAssignments )
 {
-  if (rhs.mTrigger) mTrigger = new Trigger(*rhs.getTrigger());
-  if (rhs.mDelay) mDelay = new Delay(*rhs.getDelay());
+  if (orig.mTrigger) mTrigger = new Trigger(*orig.getTrigger());
+  if (orig.mDelay) mDelay = new Delay(*orig.getDelay());
 }
  
 
@@ -151,6 +151,12 @@ Event::getDelay () const
 
 /**
  * @return the timeUnits of this Event
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 const string&
 Event::getTimeUnits () const
@@ -182,6 +188,12 @@ Event::isSetDelay () const
 /**
  * @return true if the timeUnits of this Event has been set, false
  * otherwise.
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 bool
 Event::isSetTimeUnits () const
@@ -218,6 +230,12 @@ Event::setDelay (const Delay* delay)
 
 /**
  * Sets the timeUnits of this Event to a copy of sid.
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 void
 Event::setTimeUnits (const string& sid)
@@ -239,6 +257,12 @@ Event::unsetDelay ()
 
 /**
  * Unsets the timeUnits of this Event.
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 void
 Event::unsetTimeUnits ()
@@ -767,6 +791,12 @@ Event_getDelay (const Event_t *e)
  * @param e the Event_t structure whose "timeUnits" value is sought
  * 
  * @return the timeUnits of this Event
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 LIBSBML_EXTERN
 const char *
@@ -852,6 +882,12 @@ Event_isSetDelay (const Event_t *e)
  * 
  * @return @c non-zero (true) if a value for the "timeUnits" attribute has
  * been assigned in the given Event_t structure, zero (false) otherwise.
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 LIBSBML_EXTERN
 int
@@ -925,6 +961,12 @@ Event_setDelay (Event_t *e, const Delay_t *delay)
  * @param e the Event_t structure to set
  * @param sid the identifier of the units to use as the value of the
  * "timeUnits" attribute
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 LIBSBML_EXTERN
 void
@@ -977,6 +1019,12 @@ Event_unsetDelay (Event_t *e)
  * Unsets the "timeUnits" attribute of this Event.
  *
  * @param e the Event_t structure to unset
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+ * included the additional attribute called "timeUnits", but it was
+ * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+ * for compatibility with previous versions of SBML Level 2, but its use
+ * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 LIBSBML_EXTERN
 void

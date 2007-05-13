@@ -41,11 +41,22 @@
  * Please consult the descriptions of Trigger, Delay and EventAssignment
  * for more information.
  *
- * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included an
- * additional attribute called "timeUnits", which allowed the time units
- * of the Delay to be set explicitly.  SBML Level 2 Version 3 removed this
- * attribute for numerous reasons.  LibSBML supports this field for
- * compatibility with previous versions of SBML Level 2.
+ * @note In the SBML Level 2 specifications prior to Version 3, the
+ * definitions of the delay and trigger constructs on Event were unclear.
+ * In particular, it was not obvious whether they were meant to be separate
+ * objects and whether those objects were derived from SBase.  The SBML
+ * Level 2 Version 3 specification cleans up this area and makes it clear
+ * that Delay and Trigger are in fact separate object classes derived from
+ * SBase.  This affects the libSBML API in a small but
+ * backward-incompatible way: namely, the libSBML interface is now oriented
+ * around the use of Delay and Trigger objects derived from SBase.  This
+ * affects methods such as getTrigger() and getDelay().
+ *
+ * @warning Definitions of Event in SBML Level 2 Versions 1 and 2 included an
+ * additional attribute called "timeUnits", which allowed the time units of
+ * the Delay to be set explicitly.  SBML Level 2 Version 3 removed this
+ * attribute.  LibSBML supports this field for compatibility with previous
+ * versions of SBML Level 2.
  *
  * 
  * @class ListOfEvents
@@ -126,13 +137,13 @@ public:
   /**
    * Copy constructor; creates a copy of this Event.
    */
-  Event (const Event& rhs);
+  Event (const Event& orig);
 
 
   /**
    * Assignment operator
    */
-  Event& operator=(const Event& orig);
+  Event& operator=(const Event& rhs);
 
 
   /**
@@ -159,6 +170,13 @@ public:
    * Get the trigger definition of this Event.
    * 
    * @return the Trigger object of this Event.
+   *
+   * @note The value returned by this method changed in libSBML 3.0 to
+   * be aligned with the definitions of Event, Trigger and Delay in SBML
+   * Level 2 Version 3.  Previous versions of this method return an ASTNode
+   * tree for the mathematical expression of the trigger; the libSBML 3.0
+   * version follows the definition of Event and Trigger in SBML Level 2
+   * Version 3 and returns a separate Trigger object.
    */
   const Trigger* getTrigger () const;
 
@@ -168,6 +186,13 @@ public:
    * 
    * @return the delay of this Event if one is defined, or @c NULL if none
    * is defined.
+   *
+   * @note The value returned by this method changed in libSBML 3.0 to
+   * be aligned with the definitions of Event, Trigger and Delay in SBML
+   * Level 2 Version 3.  Previous versions of this method return an ASTNode
+   * tree for the mathematical expression of the delay; the libSBML 3.0
+   * version follows the definition of Event and Delay in SBML Level 2
+   * Version 3 and returns a separate Delay object.
    */
   const Delay* getDelay () const;
 
@@ -177,12 +202,11 @@ public:
    * 
    * @return the value of the attribute "timeUnits" as a string.
    *
-   * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
-   * the additional attribute called "timeUnits", but it was removed in
-   * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
-   * attribute for compatibility with previous versions of SBML Level 2,
-   * but its use is discouraged since models in Level 2 Version 3 cannot
-   * contain it.
+   * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+   * included the additional attribute called "timeUnits", but it was
+   * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+   * for compatibility with previous versions of SBML Level 2, but its use
+   * is discouraged since models in Level 2 Version 3 cannot contain it.
    */
   const std::string& getTimeUnits () const;
 
@@ -212,12 +236,11 @@ public:
    * @return @c true if the "timeUnits" attribute of this Event has been
    * set, @c false otherwise.
    *
-   * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
-   * the additional attribute called "timeUnits, but it was removed in
-   * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
-   * attribute for compatibility with previous versions of SBML Level 2,
-   * but its use is discouraged since models in Level 2 Version 3 cannot
-   * contain it.
+   * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+   * included the additional attribute called "timeUnits", but it was
+   * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+   * for compatibility with previous versions of SBML Level 2, but its use
+   * is discouraged since models in Level 2 Version 3 cannot contain it.
    */
   bool isSetTimeUnits () const;
 
@@ -226,6 +249,13 @@ public:
    * Sets the trigger of this Event to a copy of the given Trigger.
    *
    * @param trigger the Trigger object instance to use.
+   *
+   * @note The value returned by this method changed in libSBML 3.0 to
+   * be aligned with the definitions of Event, Trigger and Delay in SBML
+   * Level 2 Version 3.  Previous versions of this method accepted an
+   * ASTNode argument; the libSBML 3.0 version follows the definition of
+   * Event and Trigger in SBML Level 2 Version 3 and accepts a separate
+   * Trigger object as argument.
    */
   void setTrigger (const Trigger* trigger);
 
@@ -234,6 +264,13 @@ public:
    * Sets the delay of this Event to a copy of the given Delay.
    *
    * @param delay the Delay object instance to use
+   *
+   * @note The value returned by this method changed in libSBML 3.0 to
+   * be aligned with the definitions of Event, Trigger and Delay in SBML
+   * Level 2 Version 3.  Previous versions of this method accepted an
+   * ASTNode argument; the libSBML 3.0 version follows the definition of
+   * Event and Delay in SBML Level 2 Version 3 and accepts a separate Delay
+   * object as argument.
    */
   void setDelay (const Delay* delay);
 
@@ -243,12 +280,11 @@ public:
    *
    * @param sid the identifier of the time units to use.
    *
-   * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
-   * the additional attribute called "timeUnits, but it was removed in
-   * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
-   * attribute for compatibility with previous versions of SBML Level 2,
-   * but its use is discouraged since models in Level 2 Version 3 cannot
-   * contain it.
+   * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+   * included the additional attribute called "timeUnits", but it was
+   * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+   * for compatibility with previous versions of SBML Level 2, but its use
+   * is discouraged since models in Level 2 Version 3 cannot contain it.
    */
   void setTimeUnits (const std::string& sid);
 
@@ -262,12 +298,11 @@ public:
   /**
    * Unsets the "timeUnits" attribute of this Event.
    *
-   * @note Definitions of Event in SBML Level 2 Versions 1 and 2 included
-   * the additional attribute called "timeUnits, but it was removed in
-   * SBML Level 2 Version 3 for numerous reasons.  LibSBML supports this
-   * attribute for compatibility with previous versions of SBML Level 2,
-   * but its use is discouraged since models in Level 2 Version 3 cannot
-   * contain it.
+   * @warning Definitions of Event in SBML Level 2 Versions 1 and 2
+   * included the additional attribute called "timeUnits", but it was
+   * removed in SBML Level 2 Version 3.  LibSBML supports this attribute
+   * for compatibility with previous versions of SBML Level 2, but its use
+   * is discouraged since models in Level 2 Version 3 cannot contain it.
    */
   void unsetTimeUnits ();
 
