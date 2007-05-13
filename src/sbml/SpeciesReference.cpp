@@ -1,6 +1,7 @@
 /**
  * @file    SpeciesReference.cpp
- * @brief   SBML SpeciesReference
+ * @brief   Implementation of SimpleSpeciesReference, SpeciesReference,
+ *          ModifierSpeciesReference, and ListOfSpeciesReferences. 
  * @author  Ben Bornstein
  *
  * $Id$
@@ -20,6 +21,7 @@
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
+
 
 #include <sbml/xml/XMLNode.h>
 #include <sbml/xml/XMLAttributes.h>
@@ -453,54 +455,52 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
   bool          read = false;
   const string& name = stream.peek().getName();
 
-
   if (name == "stoichiometryMath")
   {
-    const XMLToken elem = stream.next();
+    const XMLToken wrapperElement = stream.next();
     stream.skipText();
-   
-    /* check for MathML namespace 
-     * this may be explicitly declared here
-     * or implicitly declared on the whole document
-     */
     const XMLToken element = stream.peek();
-    unsigned int match = 0;
-    unsigned int math = 0;
 
-    if (element.getName() == "math")
+    bool found = false;
+
+    /* The first element must always be 'math'. */
+
+    if (element.getName() != "math")
     {
-      math = 1;
+      found = true;
     }
 
-    int n;
-    if (math == 1 && element.getNamespaces().getLength() != 0)
+    /* Check this declares the MathML namespace.  This may be explicitly
+     * declared here or implicitly declared on the whole document
+     */
+
+    if (!found && element.getNamespaces().getLength() != 0)
     {
-      for (n = 0; n < element.getNamespaces().getLength(); n++)
+      for (int n = 0; n < element.getNamespaces().getLength(); n++)
       {
-        if (!strcmp(element.getNamespaces().getURI(n).c_str(), "http://www.w3.org/1998/Math/MathML"))
+        if (!strcmp(element.getNamespaces().getURI(n).c_str(),
+		    "http://www.w3.org/1998/Math/MathML"))
         {
-          match = 1;
+	  found = true;
           break;
         }
       }
     }
-    if (math == 1 && match == 0)
+    if (!found && mSBML->getNamespaces() != 0)
     {
-      if( mSBML->getNamespaces() != NULL)
       /* check for implicit declaration */
+      for (int n = 0; n < mSBML->getNamespaces()->getLength(); n++)
       {
-        for (n = 0; n < mSBML->getNamespaces()->getLength(); n++)
-        {
-          if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(), 
-                                                     "http://www.w3.org/1998/Math/MathML"))
-          {
-            match = 1;
-            break;
-          }
-        }
+	if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
+		    "http://www.w3.org/1998/Math/MathML"))
+	{
+	  found = true;
+	  break;
+	}
       }
     }
-    if (math == 0 || match == 0)
+
+    if (! found)
     {
       static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
     }
@@ -509,7 +509,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     mStoichiometryMath = readMathML(stream);
     read               = true;
 
-    stream.skipPastEnd(elem);
+    stream.skipPastEnd(wrapperElement);
 
     if (mStoichiometryMath && mStoichiometryMath->isRational())
     {
@@ -964,9 +964,21 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
 
 
 
+/** @cond doxygen-c-only */
+
+
 
 /**
- * Creates a new SpeciesReference and returns a pointer to it.
+ * Creates a new, empty SpeciesReference_t structure and returns a pointer
+ * to it.
+ *
+ * Note that the "species" attribute on SpeciesReference and
+ * ModifierSpeciesReference is required to have a value in SBML.  Although
+ * the attribute is optional in this constructor, callers should provide a
+ * value or use SpeciesReference_setSpecies() shortly after creating the
+ * structure.
+ *
+ * @return the SpeciesReference_t structure created.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
@@ -977,7 +989,16 @@ SpeciesReference_create (void)
 
 
 /**
- * Creates a new ModifierSpeciesReference and returns a pointer to it.
+ * Creates a new, empty ModifierSpeciesReference_t structure and returns a
+ * pointer to it.
+ *
+ * Note that the "species" attribute on ModifierSpeciesReference and
+ * ModifierModifierSpeciesReference is required to have a value in SBML.
+ * Although the attribute is optional in this constructor, callers should
+ * provide a value or use ModifierSpeciesReference_setModifierSpecies()
+ * shortly after creating the structure.
+ *
+ * @return the ModifierSpeciesReference_t structure created.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
@@ -988,8 +1009,29 @@ SpeciesReference_createModifier (void)
 
 
 /**
- * Creates a new SpeciesReference with the given species, stoichiometry and
- * denominator and returns a pointer to it.
+ * Creates a new, empty SpeciesReference_t structure with values for the
+ * "species", "stoichiometry" and "denominator" attributes.
+ *
+ * The "denominator" attribute is only actually written out in the case of
+ * an SBML Level 1 model.  In SBML Level 2, rational-number stoichiometries
+ * are written as MathML elements in the "stoichiometryMath" subelement.
+ * However, as a convenience to users, libSBML allows the creation and
+ * manipulation of rational-number stoichiometries by supplying the
+ * numerator and denominator directly rather than having to manually create
+ * an ASTNode structure.  LibSBML will write out the appropriate constructs
+ * (either a combination of "stoichiometry" and "denominator" in the case
+ * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
+ * Level 2).
+ *
+ * @param species the identifier of a Species_t structure defined in the
+ * enclosing Model_t structure
+ *
+ * @param stoichiometry a floating-point number for the stoichiometry, or
+ * in the case of SBML Level 1, for the numerator of the stoichiometry
+ *
+ * @param denominator the denominator of a rational-numbered stoichiometry.
+ *
+ * @return the SpeciesReference_t structure created.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
@@ -1003,7 +1045,9 @@ SpeciesReference_createWith ( const char *species,
 
 
 /**
- * Frees the given SpeciesReference.
+ * Frees the given SpeciesReference_t structure.
+ *
+ * @param sr The SpeciesReference_t structure.
  */
 LIBSBML_EXTERN
 void
@@ -1014,7 +1058,12 @@ SpeciesReference_free (SpeciesReference_t *sr)
 
 
 /**
- * @return a (deep) copy of this SpeciesReference
+ * Creates and returns a deep copy of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return a (deep) copy of this SpeciesReference_t.
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
@@ -1025,13 +1074,16 @@ SpeciesReference_clone (const SpeciesReference_t *sr)
 
 
 /**
- * Initializes the fields of this SpeciesReference to their defaults:
+ * Initializes the attributes of the given SpeciesReference_t structure to
+ * their defaults:
  *
- *   - stoichiometry = 1
- *   - denominator   = 1
+ * @li stoichiometry is set to @c 1
+ * @li denominator is set to @c 1
  *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
+ * This function has no effect if the SpeciesReference_t structure is a
+ * modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
  */
 LIBSBML_EXTERN
 void
@@ -1043,8 +1095,13 @@ SpeciesReference_initDefaults (SpeciesReference_t *sr)
 
 
 /**
- * @return true (non-zero) if the SpeciesReference is a
- * ModiferSpeciesReference, false otherwise.
+ * Predicate returning @c true or @c false depending on whether the
+ * given SpeciesReference_t structure is a modifier.
+ * 
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return nonzero if this SpeciesReference_t represents a modifier
+ * species, zero (0)if it is a plain SpeciesReference.
  */
 LIBSBML_EXTERN
 int
@@ -1054,9 +1111,13 @@ SpeciesReference_isModifier (const SpeciesReference_t *sr)
 }
 
 
-
 /**
- * @return the id of this SpeciesReference.
+ * Get the value of the "id" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return the identifier of the SpeciesReference_t instance.
  */
 LIBSBML_EXTERN
 const char *
@@ -1067,7 +1128,12 @@ SpeciesReference_getId (const SpeciesReference_t *sr)
 
 
 /**
- * @return the name of this SpeciesReference.
+ * Get the value of the "name" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return the name of the SpeciesReference_t instance.
  */
 LIBSBML_EXTERN
 const char *
@@ -1078,7 +1144,12 @@ SpeciesReference_getName (const SpeciesReference_t *sr)
 
 
 /**
- * @return the species of this SpeciesReference.
+ * Get the value of the "species" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return the "species" attribute value
  */
 LIBSBML_EXTERN
 const char *
@@ -1089,10 +1160,15 @@ SpeciesReference_getSpecies (const SpeciesReference_t *sr)
 
 
 /**
- * @return the stoichiometry of this SpeciesReference.
+ * Get the value of the "stoichiometry" attribute of the given
+ * SpeciesReference_t structure.
  *
- * This function returns zero if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
+ * This function returns zero if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return the "stoichiometry" attribute value
  */
 LIBSBML_EXTERN
 double
@@ -1104,10 +1180,15 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr)
 
 
 /**
- * @return the stoichiometryMath of this SpeciesReference.
+ * Get the content of the "stoichiometryMath" subelement of the given
+ * SpeciesReference_t structure.
  *
- * This function returns NULL if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
+ * This function returns NULL if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return the stoichiometryMath of this SpeciesReference.
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -1119,10 +1200,26 @@ SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr)
 
 
 /**
- * @return the denominator of this SpeciesReference.
+ * Get the value of the "denominator" attribute, for the case of a
+ * rational-numbered stoichiometry or a model in SBML Level 1.
  *
- * This function returns 0 if the SpeciesReference is a Modifer (see
+ * The "denominator" attribute is only actually written out in the case of
+ * an SBML Level 1 model.  In SBML Level 2, rational-number stoichiometries
+ * are written as MathML elements in the "stoichiometryMath" subelement.
+ * However, as a convenience to users, libSBML allows the creation and
+ * manipulation of rational-number stoichiometries by supplying the
+ * numerator and denominator directly rather than having to manually create
+ * an ASTNode structure.  LibSBML will write out the appropriate constructs
+ * (either a combination of "stoichiometry" and "denominator" in the case
+ * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
+ * Level 2).
+ *
+ * This function returns 0 if the SpeciesReference_t structure is a Modifer (see
  * SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return the denominator of this SpeciesReference.
  */
 LIBSBML_EXTERN
 int
@@ -1134,8 +1231,14 @@ SpeciesReference_getDenominator (const SpeciesReference_t *sr)
 
 
 /**
- * @return true (non-zero) if the id for this SpeciesReference has been
- * set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "id" attribute of the given SpeciesReference_t structure is
+ * set.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return nonzero if the "id" attribute of given SpeciesReference_t
+ * structure has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1146,8 +1249,14 @@ SpeciesReference_isSetId (const SpeciesReference_t *sr)
 
 
 /**
- * @return true (non-zero) if the name for this SpeciesReference has been
- * set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "name" attribute of the given SpeciesReference_t
+ * structure is set.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return nonzero if the "name" attribute of given SpeciesReference_t
+ * structure has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1158,8 +1267,14 @@ SpeciesReference_isSetName (const SpeciesReference_t *sr)
 
 
 /**
- * @return true (non-zero) if the species for this SpeciesReference
- * has been set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "species" attribute of the given SpeciesReference_t
+ * structure is set.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return nonzero if the "species" attribute of given SpeciesReference_t
+ * structure has been set, zero (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1170,11 +1285,17 @@ SpeciesReference_isSetSpecies (const SpeciesReference_t *sr)
 
 
 /**
- * @return true (non-zero) if the stoichiometryMath of this
- * SpeciesReference has been set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "stoichiometryMath" subelement of the given
+ * SpeciesReference_t structure is non-empty.
  *
- * This function returns false if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
+ * This function returns false if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ * 
+ * @return nonzero if the "stoichiometryMath" subelement has content, zero
+ * (0) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -1190,7 +1311,15 @@ SpeciesReference_isSetStoichiometryMath (const SpeciesReference_t *sr)
 
 
 /**
- * Sets the id of this SpeciesReference to a copy of sid.
+ * Sets the value of the "id" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * The string in @p sid will be copied.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @param sid The identifier string that will be copied and assigned as the
+ * "id" attribute value.
  */
 LIBSBML_EXTERN
 void
@@ -1201,7 +1330,15 @@ SpeciesReference_setId (SpeciesReference_t *sr, const char *sid)
 
 
 /**
- * Sets the name of this SpeciesReference to a copy of name.
+ * Sets the value of the "name" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * The string in @p sid will be copied.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @param sid The identifier string that will be copied and assigned as the
+ * "name" attribute value.
  */
 LIBSBML_EXTERN
 void
@@ -1212,7 +1349,15 @@ SpeciesReference_setName (SpeciesReference_t *sr, const char *name)
 
 
 /**
- * Sets the species of this SpeciesReference to a copy of sid.
+ * Sets the value of the "species" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * The string in @p sid will be copied.
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @param sid The identifier string that will be copied and assigned as the
+ * "species" attribute value.
  */
 LIBSBML_EXTERN
 void
@@ -1223,10 +1368,15 @@ SpeciesReference_setSpecies (SpeciesReference_t *sr, const char *sid)
 
 
 /**
- * Sets the stoichiometry of this SpeciesReference to value.
+ * Sets the value of the "stoichiometry" attribute of the given
+ * SpeciesReference_t structure.
  *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
+ * This function has no effect if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @param value The value to assign to the "stoichiometry" attribute.
  */
 LIBSBML_EXTERN
 void
@@ -1238,11 +1388,16 @@ SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value)
 
 
 /**
- * Sets the stoichiometryMath of this SpeciesReference to a copy of the
- * given ASTNode.
+ * Sets the content of the "stoichiometryMath" subelement of the given
+ * SpeciesReference_t structure.
  *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
+ * This function has no effect if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @param math An ASTNode expression tree to use as the content of the
+ * "stoichiometryMath" subelement.
  */
 LIBSBML_EXTERN
 void
@@ -1255,10 +1410,26 @@ SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
 
 
 /**
- * Sets the denominator of this SpeciesReference to value.
+ * Sets the value of the "denominator" attribute of the given
+ * SpeciesReference_t structure.
  *
- * This function has no effect if the SpeciesReference is a Modifer (see
- * SpeciesReference_isModifier()).
+ * The "denominator" attribute is only actually written out in the case of
+ * an SBML Level 1 model.  In SBML Level 2, rational-number stoichiometries
+ * are written as MathML elements in the "stoichiometryMath" subelement.
+ * However, as a convenience to users, libSBML allows the creation and
+ * manipulation of rational-number stoichiometries by supplying the
+ * numerator and denominator directly rather than having to manually create
+ * an ASTNode structure.  LibSBML will write out the appropriate constructs
+ * (either a combination of "stoichiometry" and "denominator" in the case
+ * of SBML Level 1, or a "stoichiometryMath" subelement in the case of SBML
+ * Level 2).
+ *
+ * This function has no effect if the SpeciesReference_t structure is a
+ * Modifer (see SpeciesReference_isModifier()).
+ *
+ * @param sr The SpeciesReference_t structure to use.
+ *
+ * @param value The value to assign to the "denominator" attribute.
  */
 LIBSBML_EXTERN
 void
@@ -1271,7 +1442,10 @@ SpeciesReference_setDenominator (SpeciesReference_t *sr, int value)
 
 
 /**
- * Unsets the id of this Species.
+ * Unsets the value of the "id" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
  */
 LIBSBML_EXTERN
 void
@@ -1282,7 +1456,10 @@ SpeciesReference_unsetId (SpeciesReference_t *sr)
 
 
 /**
- * Unsets the name of this Species.
+ * Unsets the value of the "name" attribute of the given SpeciesReference_t
+ * structure.
+ *
+ * @param sr The SpeciesReference_t structure to use.
  */
 LIBSBML_EXTERN
 void
@@ -1290,3 +1467,7 @@ SpeciesReference_unsetName (SpeciesReference_t *sr)
 {
   sr->unsetName();
 }
+
+
+
+/** @endcond doxygen-c-only */
