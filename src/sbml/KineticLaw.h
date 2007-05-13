@@ -1,6 +1,6 @@
 /**
  * @file    KineticLaw.h
- * @brief   SBML KineticLaw
+ * @brief   Definition of KineticLaw
  * @author  Ben Bornstein
  *
  * $Id$
@@ -19,7 +19,91 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ *
+ * @class KineticLaw
+ * @brief LibSBML implementation of %SBML's KineticLaw construct.
+ *
+ * An object of class KineticLaw is used to describe the rate at which the
+ * process defined by a given Reaction takes place.  KineticLaw has
+ * subelements called "math" (for MathML content) and "listOfParameters"
+ * (of class ListOfParameters), in addition to the attributes and
+ * subelements it inherits from \SBase.
+ *
+ * KineticLaw's "math" subelement for holding a MathML formula defines the
+ * rate of the reaction.  The formula may refer to other entities in a
+ * model (Compartment, Species, Parameter, FunctionDefinition, Reaction),
+ * but the only Species identifiers that can be used in this formula are
+ * those declared in the lists of reactants, products and modifiers in the
+ * Reaction structure.  Parameter identifiers may be taken from either the
+ * KineticLaw's list of local parameters (discussed below) or the
+ * parameters defined globally on the Model instance.
+ *
+ * KineticLaw's "listOfParameters" subelement can contain a list of one or
+ * more Parameter objects defining new parameters whose identifiers can be
+ * used in the "math" formula of that KineticLaw instance.  The Parameter
+ * objects so defined are only visible within the KineticLaw; they cannot
+ * be accessed outside.  Moreover, if a Parameter has the same identifier
+ * as a global Parameter object defined in the enclosing Model, the
+ * definition inside the KineticLaw takes precedence (i.e., it shadows the
+ * global definition).
+ *
+ * The type of structure used to define a parameter inside KineticLaw is
+ * the same Parameter structure used to define global parameters.  This
+ * simplifies the SBML language and reduces the number of unique types of
+ * data objects.  However, there is a difference between local and global
+ * parameters: in the case of parameters defined locally to a KineticLaw,
+ * there is no means by which the parameter values can be changed.
+ * Consequently, such parameters' values are always constant, and the
+ * "constant" attribute in their definitions must always have a value of @c
+ * true (either explicitly or left to its default value).  See the
+ * definition of Parameter for more information about the "constant"
+ * attribute.
+ *
+ * @note Before SBML Level 2 Version 2, the SBML specification included two
+ * additional attributes on KineticLaw called "substanceUnits" and
+ * "timeUnits".  They were removed beginning with SBML Level 2 Version 2
+ * because further research determined they introduced many problems.  The
+ * most significant problem was that their use could easily lead to the
+ * creation of valid models whose reactions nevertheless could not be
+ * integrated into a system of equations without outside knowledge for
+ * converting the quantities used.  Examination of real-life models
+ * revealed that a common reason for using "substanceUnits" on KineticLaw
+ * was to set the units of all reactions to the same set of substance
+ * units, something that is better achieved by using UnitDefinition to
+ * redefine @c "substance" for the whole Model.
+ *
+ * @section kineticlaw-units Units of rate expressions in KineticLaw
+ *
+ * It is important to make clear that a so-called kinetic law in SBML is
+ * @em not identical to a traditional rate law.  The reason is that SBML
+ * must support multicompartment models, and the units normally used in
+ * traditional rate laws as well as some conventional single-compartment
+ * modeling packages are problematic when used for defining reactions
+ * between multiple compartments.  When modeling species as continuous
+ * amounts (e.g., concentrations), the rate laws used are traditionally
+ * expressed in terms of <em>amount of substance concentration per
+ * time</em>, embodying a tacit assumption that reactants and products are
+ * all located in a single, constant volume.  Attempting to describe
+ * reactions between multiple volumes using
+ * <em>concentration</em>/<em>time</em> (which is to say,
+ * <em>substance</em>/<em>volume</em>/<em>time</em>) quickly leads to
+ * difficulties, as explained in the SBML Level 2 Version 2 and 3
+ * specifications.
+ *
+ * The need to support multicompartment models requires that the reaction
+ * rates in SBML to be expressed in terms of
+ * <em>substance</em>/<em>time</em>, rather than the more typical
+ * <em>substance</em>/<em>size</em>/<em>time</em>.  As a result, modelers
+ * and software tools in general cannot insert textbook rate laws
+ * unmodified as the rate expression in the "math" subelement of a
+ * KineticLaw.  The unusual term "kinetic law" was chosen to alert users to
+ * this difference.
+ *
+ * Please consult the SBML specification document for more information
+ * about the definition reaction rates in SBML.
+ */
+
 
 #ifndef KineticLaw_h
 #define KineticLaw_h

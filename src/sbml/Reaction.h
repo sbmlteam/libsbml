@@ -1,6 +1,6 @@
 /**
  * @file    Reaction.h
- * @brief   SBML Reaction
+ * @brief   Definitions of Reaction and ListOfReactions.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -19,7 +19,141 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ * 
+ * @class Reaction
+ * @brief LibSBML implementation of %SBML's Reaction construct.
+ *
+ * A @em reaction represents any transformation, transport or binding
+ * process, typically a chemical reaction, that can change the quantity of
+ * one or more species.  In %SBML, a reaction is defined primarily in terms
+ * of the participating reactants and products (and their corresponding
+ * stoichiometries), along with optional modifier species, an optional rate
+ * at which the reaction takes place, and optional parameters.  These
+ * various parts of a reaction are recorded in the Reaction object and its
+ * supporting object classes: KineticLaw, SpeciesReference,
+ * ModifierSpeciesReference, ListOfSpeciesReferences,
+ * ListOfModifierSpeciesReferences, and StoichiometryMath.  It also uses
+ * Parameter and ListOfParameters.
+ * 
+ * As with other major object in %SBML, Reaction has a mandatory attribute,
+ * "id", used to give the compartment type an identifier.  The identifier
+ * must be a text string conforming to the identifer syntax permitted in
+ * %SBML.  The reaction "id" identifier can be used in mathematical
+ * formulas elsewhere in an %SBML model to represent the rate of that
+ * reaction; this usage is explained below.  Reaction also has an optional
+ * "name" attribute, of type @c string.  The "id" and "name" must be used
+ * according to the guidelines described in the %SBML specification (e.g.,
+ * Section 3.3 in the Level 2 Version 3 specification).
+ *
+ * The species participating as reactants, products, and/or modifiers in a
+ * reaction are declared using lists of SpeciesReference and/or
+ * ModifierSpeciesReference instances stored in subelements
+ * "listOfReactants", "listOfProducts" and "listOfModifiers".  Certain
+ * restrictions are placed on the appearance of species in reaction
+ * definitions:
+ *
+ * @li The ability of a species to appear as a reactant or product of any
+ * reaction in a model is governed by certain flags in that species'
+ * definition; see the definition of Species for more information.
+ *
+ * @li Any species appearing in the mathematical formula of the subelement
+ * "kineticLaw" (described below) of a Reaction must be declared in at
+ * least one of that Reaction's lists of reactants, products, and/or
+ * modifiers.  Put another way, it is an error for a reaction's kinetic law
+ * formula to refer to species that have not been declared for that
+ * reaction.
+ *
+ * @li A reaction definition can contain an empty list of reactants
+ * <em>or</em> an empty list of products, but it must have at least one
+ * reactant or product; in other words, a reaction without any reactant or
+ * product species is not permitted.  (This restriction does not apply to
+ * modifier species, which remain optional in all cases.)
+ *
+ * A reaction can contain up to one KineticLaw object in a subelement named
+ * "kineticLaw".  It defines the speed at which the process defined by the
+ * reaction takes place.  The description of KineticLaw provides more
+ * details about its use.  Note that although the inclusion of a KineticLaw
+ * object in an instance of a Reaction component is optional, there is no
+ * useful default that can be substituted in place of a missing rate
+ * expression in a reaction.  Moreover, a reaction's rate cannot be defined
+ * in any other way in %SBML&mdash;InitialAssignment, AssignmentRule,
+ * RateRule, AlgebraicRule, Event, and other constructs in %SBML cannot be
+ * used to set the reaction rate separately.  Nevertheless, for some
+ * modeling applications, reactions without any defined rate can be
+ * perfectly acceptable.
+ *
+ * Reaction also has an optional boolean attribute named "reversible" for
+ * indicating whether the reaction is reversible.  The default is @c true.
+ * To say that a reaction is @em reversible is to say it can proceed in
+ * either the forward or the reverse direction.  Although the reversibility
+ * of a reaction can sometimes be deduced by inspecting its rate
+ * expression, this is not always the case, especially for complicated
+ * expressions.  Moreover, the need in %SBML to allow rate expressions
+ * (i.e., KineticLaw) to be optional leads to the need for a separate flag
+ * indicating reversibility.  Note that labeling a reaction as irreversible
+ * is an assertion that the reaction always proceeds in the given forward
+ * direction.  (Why else would it be flagged as irreversible?)  This
+ * implies the rate expression in the KineticLaw always has a non-negative
+ * value during simulations.  Software tools could provide a means of
+ * optionally testing that this condition holds.  The presence of
+ * reversibility information in two places (i.e., the rate expression and
+ * the "reversible" attribute on Reaction) leaves open the possibility that
+ * a model could contain contradictory information, but the creation of
+ * such a model would be an error on the part of the software generating
+ * it.
+ *
+ * Finally, Reaction has another optional boolean attribute called "fast".
+ * It is used to indicate that a reaction occurs on a vastly faster time
+ * scale than others in a system; the %SBML specification provides more
+ * detail about the conditions under which a reaction can be considered to
+ * be fast in this sense.  The attribute's default value is @c false.
+ * Previous definitions of %SBML indicated that software tools could ignore
+ * this attribute if they did not implement support for the corresponding
+ * concept; however, further research in %SBML has revealed that this is
+ * incorrect and "fast" <em>cannot be ignored</em> if it is set to @c true.
+ * %SBML Level 2 Versions 2 and 3 therefore stipulate that if a model has
+ * any reactions with "fast" set to @c true, a software tool must be able
+ * to respect the attribute or else indicate to the user that it does not
+ * have the capacity to do so.  Analysis software cannot ignore the value
+ * of the "fast" attribute because doing so may lead to different results
+ * as compared to a software system that <em>does</em> make use of "fast".
+ *
+ * Readers are urged to read the SBML specification for more details about
+ * the proper use of Reaction.
+ * 
+ * 
+ * @class ListOfReactions.
+ * @brief Container class for lists of Reaction objects in a Model.
+ * 
+ * The various ListOf___ classes in %SBML are merely containers used for
+ * organizing the main components of an %SBML model.  All are derived from
+ * the abstract class SBase, and inherit the various attributes and
+ * subelements of SBase, such as "metaid" as and "annotation".  The
+ * ListOf___ classes do not add any attributes of their own.
+ *
+ * The relationship between the lists and the rest of an %SBML model is
+ * illustrated by the following (for %SBML Level 2 Version 3):
+ *
+ * @image html listof-illustration.jpg "ListOf___ elements in an SBML Model"
+ * @image latex listof-illustration.jpg "ListOf___ elements in an SBML Model"
+ *
+ * Readers may wonder about the motivations for using the ListOf___
+ * containers.  A simpler approach in XML might be to place the components
+ * all directly at the top level of the model definition.  We chose instead
+ * to group them within XML elements named after ListOf<em>Classname</em>,
+ * in part because we believe this helps organize the components and makes
+ * visual reading of models in XML easier.  More importantly, the fact that
+ * the container classes are derived from SBase means that software tools
+ * can add information about the lists themselves into each list
+ * container's "annotation".
+ *
+ * @see ListOfFunctionDefinitions, ListOfUnitDefinitions,
+ * ListOfCompartmentTypes, ListOfSpeciesTypes, ListOfCompartments,
+ * ListOfSpecies, ListOfParameters, ListOfInitialAssignments, ListOfRules,
+ * ListOfConstraints, ListOfReactions, and ListOfEvents.
+ */
+
 
 #ifndef Reaction_h
 #define Reaction_h
