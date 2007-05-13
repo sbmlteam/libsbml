@@ -1,6 +1,7 @@
 /**
  * @file    SpeciesReference.h
- * @brief   SBML SpeciesReference
+ * @brief   Definitions of SimpleSpeciesReference, SpeciesReference,
+ *          ModifierSpeciesReference, and ListOfSpeciesReferences. 
  * @author  Ben Bornstein
  *
  * $Id$
@@ -19,7 +20,205 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ *
+ * @class SimpleSpeciesReference
+ * @brief LibSBML implementation of %SBML's SimpleSpeciesReference construct.
+ *
+ * As mentioned in the description of Reaction, every species that enters
+ * into a given reaction must appear in that reaction's lists of reactants,
+ * products and/or modifiers.  In an SBML model, all species that may
+ * participate in any reaction are listed in the "listOfSpecies" element of
+ * the top-level Model object.  Lists of products, reactants and modifiers
+ * in Reaction objects do not introduce new species, but rather, they refer
+ * back to those listed in the model's top-level "listOfSpecies".  For
+ * reactants and products, the connection is made using SpeciesReference
+ * objects; for modifiers, it is made using ModifierSpeciesReference
+ * objects.  SimpleSpeciesReference is an abstract type that serves as the
+ * parent class of both SpeciesReference and ModifierSpeciesReference.  It
+ * is used simply to hold the attributes and elements that are common to
+ * the latter two structures.
+ *
+ * The SimpleSpeciesReference structure has a mandatory attribute,
+ * "species", which must be a text string conforming to the identifer
+ * syntax permitted in %SBML.  This attribute is inherited by the
+ * SpeciesReference and ModifierSpeciesReference subclasses derived from
+ * SimpleSpeciesReference.  The value of the "species" attribute must be
+ * the identifier of a species defined in the enclosing Model.  The species
+ * is thereby declared as participating in the reaction being defined.  The
+ * precise role of that species as a reactant, product, or modifier in the
+ * reaction is determined by the subclass of SimpleSpeciesReference (i.e.,
+ * either SpeciesReference or ModifierSpeciesReference) in which the
+ * identifier appears.
+ * 
+ * SimpleSpeciesReference also contains an optional attribute, "id",
+ * allowing instances to be referenced from other structures.  No SBML
+ * structures currently do this; however, such structures are anticipated
+ * in future SBML Levels.
+ *
+ * 
+ * <!---------------------------------------------------------------------- -->
+ *
+ * @class SpeciesReference
+ * @brief LibSBML implementation of %SBML's SpeciesReference construct.
+ *
+ * The Reaction structure provides a way to express which species act as
+ * reactants and which species act as products in a reaction.  In a given
+ * reaction, references to those species acting as reactants and/or
+ * products are made using instances of SpeciesReference structures in a
+ * Reaction object's lists of reactants and products.
+ *
+ * The mandatory "species" attribute of SpeciesReference must have as its
+ * value the identifier of an existing species defined in the enclosing
+ * Model.  The species is thereby designated as a reactant or product in
+ * the reaction.  Which one it is (i.e., reactant or product) is indicated
+ * by whether the SpeciesReference appears in the Reaction's "reactant" or
+ * "product" lists.
+ * 
+ * Product and reactant stoichiometries can be specified using
+ * <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+ * SpeciesReference object.  The "stoichiometry" attribute is of type
+ * double and should contain values greater than zero (0).  The
+ * "stoichiometryMath" element is implemented as an element containing a
+ * MathML expression.  These two are mutually exclusive; only one of
+ * "stoichiometry" or "stoichiometryMath" should be defined in a given
+ * SpeciesReference instance.  When neither the attribute nor the element
+ * is present, the value of "stoichiometry" in the SpeciesReference
+ * instance defaults to @c 1.
+ *
+ * For maximum interoperability, the "stoichiometry" attribute should be
+ * used in preference to "stoichiometryMath" when a species' stoichiometry
+ * is a simple scalar number (integer or decimal).  When the stoichiometry
+ * is a rational number, or when it is a more complicated formula,
+ * "stoichiometryMath" must be used.  The MathML expression in
+ * "stoichiometryMath" may also refer to identifiers of entities in a model
+ * (except reaction identifiers).  However, the only species identifiers
+ * that can be used in "stoichiometryMath" are those referenced in the
+ * Reaction list of reactants, products and modifiers.
+ *
+ * The following is a simple example of a species reference for species @c
+ * X0, with stoichiometry @c 2, in a list of reactants within a reaction
+ * having the identifier @c J1:
+ * @code
+ * <model>
+ *     ...
+ *     <listOfReactions>
+ *         <reaction id="J1">
+ *             <listOfReactants>
+ *                 <speciesReference species="X0" stoichiometry="2">
+ *             </listOfReactants>
+ *             ...
+ *         </reaction>
+ *         ...
+ *     </listOfReactions>
+ *     ...
+ * </model>
+ * @endcode
+ *
+ * The following is a more complex example of a species reference for
+ * species X0, with a stoichiometry formula consisting of the parameter
+ * @c x:
+ * @code
+ * <model>
+ *     ...
+ *     <listOfReactions>
+ *         <reaction id="J1">
+ *             <listOfReactants>
+ *                 <speciesReference species="X0">
+ *                     <stoichiometryMath>
+ *                         <math xmlns="http://www.w3.org/1998/Math/MathML">
+ *                             <ci>x</ci>
+ *                         </math>
+ *                     </stoichiometryMath>
+ *                 </speciesReference>
+ *             </listOfReactants>
+ *             ...
+ *         </reaction>
+ *         ...
+ *     </listOfReactions>
+ *     ...
+ * </model>
+ * @endcode
+ *
+ * A species can occur more than once in the lists of reactants and
+ * products of a given Reaction instance.  The effective stoichiometry for
+ * a species in a reaction is the sum of the stoichiometry values given on
+ * the SpeciesReference object in the list of products minus the sum of
+ * stoichiometry values given on the SpeciesReference objects in the list
+ * of reactants.  A positive value indicates the species is effectively a
+ * product and a negative value indicates the species is effectively a
+ * reactant.  SBML places no restrictions on the effective stoichiometry of
+ * a species in a reaction; for example, it can be zero.  In the following
+ * SBML fragment, the two reactions have the same effective stoichiometry
+ * for all their species:
+ * @code
+ * <reaction id="x">
+ *     <listOfReactants>
+ *         <speciesReference species="a"/>
+ *         <speciesReference species="a"/>
+ *         <speciesReference species="b"/>
+ *     </listOfReactants>
+ *     <listOfProducts>
+ *         <speciesReference species="c"/>
+ *         <speciesReference species="b"/>
+ *     </listProducts>
+ * </reaction>
+ * <reaction id="y">
+ *     <listOfReactants>
+ *         <speciesReference species="a" stoichiometry="2"/>
+ *     </listOfReactants>
+ *     <listOfProducts>
+ *         <speciesReference species="c"/>
+ *     </listProducts>
+ * </reaction>
+ * @endcode
+ *
+ *
+ * <!---------------------------------------------------------------------- -->
+ *
+ * @class ModifierSpeciesReference
+ * @brief LibSBML implementation of %SBML's ModifierSpeciesReference construct.
+ *
+ * Sometimes a species appears in the kinetic rate formula of a reaction
+ * but is itself neither created nor destroyed in that reaction (for
+ * example, because it acts as a catalyst or inhibitor).  In SBML, all such
+ * species are simply called @em modifiers without regard to the detailed
+ * role of those species in the model.  The Reaction structure provides a
+ * way to express which species act as modifiers in a given reaction.  This
+ * is the purpose of the list of modifiers available in Reaction.  The list
+ * contains instances of ModifierSpeciesReference structures.
+ *
+ * The ModifierSpeciesReference structure inherits the mandatory attribute
+ * "species" and optional attributes "id" and "name" from the parent class
+ * SimpleSpeciesReference.  See the description of SimpleSpeciesReference
+ * for more information about these.
+ *
+ * The value of the "species" attribute must be the identifier of a species
+ * defined in the enclosing Model; this species is designated as a modifier
+ * for the current reaction.  A reaction may have any number of modifiers.
+ * It is permissible for a modifier species to appear simultaneously in the
+ * list of reactants and products of the same reaction where it is
+ * designated as a modifier, as well as to appear in the list of reactants,
+ * products and modifiers of other reactions in the model.
+ *
+ * 
+ * <!---------------------------------------------------------------------- -->
+ *
+ * @class ListOfSpeciesReferences
+ * @brief LibSBML implementation of %SBML's ListOfSpeciesReferences construct.
+ *
+ * The ListOfSpeciesReferences class is used to store lists of reactants
+ * and products in a Reaction object.
+
+ * As with the various other ListOf___ classes in %SBML, the
+ * ListOfSpeciesReferences is merely a container used for organizing
+ * instances of other objects, in this case SpeciesReference objects.
+ * ListOfSpeciesReferences is derived from the abstract class SBase, and
+ * inherit the various attributes and subelements of SBase, such as
+ * "metaid" as and "annotation".  The ListOf___ classes do not add any
+ * attributes of their own.
+ */
+
 
 #ifndef SpeciesReference_h
 #define SpeciesReference_h
@@ -47,10 +246,18 @@ class LIBSBML_EXTERN SimpleSpeciesReference : public SBase
 public:
 
   /**
-   * Creates a new SimpleSpeciesReference, optionally with its species
+   * Creates a new SimpleSpeciesReference, optionally with its "species"
    * attribute set.
+   *
+   * The "species" attribute on SpeciesReference and
+   * ModifierSpeciesReference is required to have a value in SBML.
+   * Although the attribute is optional in this constructor, callers should
+   * provide a value or use setSpecies() shortly after creating the object.
+   *
+   * @param species the identifier of the species to be referenced
    */
   SimpleSpeciesReference (const std::string& species = "");
+
 
   /**
    * Destroys this SimpleSpeciesReference.
@@ -59,44 +266,63 @@ public:
 
 
   /**
-  * Copy constructor. Creates a copy of this SimpleSpeciesReference.
+  * Copy constructor; creates a copy of this SimpleSpeciesReference.
   */
   SimpleSpeciesReference(const SimpleSpeciesReference& orig);
 
 
   /**
-   * Assignment operator.
+   * Assignment operator. 
    */
   SimpleSpeciesReference& operator=(const SimpleSpeciesReference& orig);
+
 
   /**
    * Accepts the given SBMLVisitor.
    *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the Reaction's next
-   * SimpleSpeciesReference (if available).
+   * @param v the SBMLVisitor instance to be used.
+   *
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
-   * @return the species for this SimpleSpeciesReference.
+   * Get the value of the "species" attribute.
+   * 
+   * @return the value of the attribute "species" for this
+   * SimpleSpeciesReference.
    */
   const std::string& getSpecies () const;
 
+
   /**
-   * @return true if the species for this SimpleSpeciesReference has been
-   * set, false otherwise.
+   * Predicate returning @c true or @c false depending on whether this
+   * SimpleSpeciesReference's "species" attribute has been set.
+   * 
+   * @return @c true if the "species" attribute of this
+   * SimpleSpeciesReference has been set, @c false otherwise.
    */
   bool isSetSpecies () const;
 
+
   /**
-   * Sets the species of this SimpleSpeciesReference to a copy of sid.
+   * Sets the "species" attribute of this SimpleSpeciesReference.
+   *
+   * The identifier string passed in @p sid is copied.
+   *
+   * @param sid the identifier of a species defined in the enclosing
+   * Model's ListOfSpecies.
    */
   void setSpecies (const std::string& sid);
 
+
   /**
-   * @return true if this SpeciesReference is a ModiferSpeciesReference,
-   * false otherwise.
+   * Predicate returning @c true or @c false depending on whether this
+   * is a ModifierSpeciesReference.
+   * 
+   * @return @c true if this SimpleSpeciesReference's subclass is
+   * ModiferSpeciesReference, @c false if it is a plain SpeciesReference.
    */
   bool isModifier () const;
 
@@ -130,12 +356,31 @@ class LIBSBML_EXTERN SpeciesReference : public SimpleSpeciesReference
 public:
 
   /**
-   * Creates a new SpeciesReference, optionally with its species,
-   * stoichiometry, and denominator attributes set.
+   * Creates a new SpeciesReference, optionally setting its "species",
+   * "stoichiometry" and "denominator" attribute values.
+   *
+   * The "denominator" attribute is only actually written out in the case
+   * of an SBML Level 1 model.  In SBML Level 2, rational-number
+   * stoichiometries are written as MathML elements in the
+   * "stoichiometryMath" subelement.  However, as a convenience to users,
+   * libSBML allows the creation and manipulation of rational-number
+   * stoichiometries by supplying the numerator and denominator directly
+   * rather than having to manually create an ASTNode structure.  LibSBML
+   * will write out the appropriate constructs (either a combination of
+   * "stoichiometry" and "denominator" in the case of SBML Level 1, or a
+   * "stoichiometryMath" subelement in the case of SBML Level 2).
+   *
+   * @note The "species" attribute on SpeciesReference is required to have
+   * a value in SBML.  Although the attribute is optional in this
+   * constructor, callers should provide a value or use setSpecies()
+   * shortly after creating the object.
+   *
+   * @param species the identifier of the species to be referenced
    */
   SpeciesReference (   const std::string& species       = ""
                      , double             stoichiometry = 1.0
                      , int                denominator   = 1   );
+
 
   /**
    * Destroys this SpeciesReference.
@@ -144,93 +389,253 @@ public:
 
 
   /**
-   * Copy constructor. Creates a copy of this SpeciesReference.
+   * Copy constructor; creates a copy of this SpeciesReference.
    */
   SpeciesReference (const SpeciesReference& orig);
+
 
    /**
    * Assignment operator
    */
   SpeciesReference& operator=(const SpeciesReference& rhs);
 
- /**
+
+  /**
    * Accepts the given SBMLVisitor.
    *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the Reaction's next
-   * SpeciesReference (if available).
+   * @param v the SBMLVisitor instance to be used.
+   *
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
+   * Creates and returns a deep copy of this SpeciesReference instance.
+   *
    * @return a (deep) copy of this SpeciesReference.
    */
   virtual SBase* clone () const;
 
+
   /**
-   * Initializes the fields of this SpeciesReference to their defaults:
+   * Initializes the attributes of this SpeciesReference to their defaults.
    *
-   *   - stoichiometry = 1
-   *   - denominator   = 1
+   * @li stoichiometry is set to @c 1
+   * @li denominator is set to @c 1
+   *
+   * @see getDenominator(), setDenominator(), getStoichiometry(),
+   * setStoichiometry(), getStoichiometryMath(), setStoichiometryMath().
    */
   void initDefaults ();
 
+
   /**
-   * @return the stoichiometry of this SpeciesReference.
+   * Get the value of the "stoichiometry" attribute.
+   *
+   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * SpeciesReference object.  The former is to be used when a
+   * stoichiometry is simply a scalar number, while the latter is for
+   * occasions when it needs to be a rational number or it needs to
+   * reference other mathematical expressions.  The "stoichiometry"
+   * attribute is of type double and should contain values greater than
+   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * element containing a MathML expression.  These two are mutually
+   * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
+   * be defined in a given SpeciesReference instance.  When neither the
+   * attribute nor the element is present, the value of "stoichiometry" in
+   * the SpeciesReference instance defaults to @c 1.  For maximum
+   * interoperability between different software tools, the "stoichiometry"
+   * attribute should be * used in preference to "stoichiometryMath" when a
+   * species' stoichiometry * is a simple scalar number (integer or
+   * decimal).
+   * 
+   * @return the value of the (scalar) "stoichiometry" attribute of this
+   * SpeciesReference.
+   *
+   * @see getStoichiometryMath()
    */
   double getStoichiometry () const;
 
+
   /**
-   * @return the stoichiometryMath of this SpeciesReference.
+   * Get the content of the "stoichiometryMath" subelement as an ASTNode
+   * tree.
+   *
+   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * SpeciesReference object.  The former is to be used when a
+   * stoichiometry is simply a scalar number, while the latter is for
+   * occasions when it needs to be a rational number or it needs to
+   * reference other mathematical expressions.  The "stoichiometry"
+   * attribute is of type double and should contain values greater than
+   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * element containing a MathML expression.  These two are mutually
+   * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
+   * be defined in a given SpeciesReference instance.  When neither the
+   * attribute nor the element is present, the value of "stoichiometry" in
+   * the SpeciesReference instance defaults to @c 1.  For maximum
+   * interoperability between different software tools, the "stoichiometry"
+   * attribute should be used in preference to "stoichiometryMath" when a
+   * species' stoichiometry is a simple scalar number (integer or
+   * decimal).
+   * 
+   * @return the content of the "stoichiometryMath" subelement of this
+   * SpeciesReference.
    */
   const ASTNode* getStoichiometryMath () const;
 
+
   /**
-   * @return the denominator of this SpeciesReference.
+   * Get the value of the "denominator" attribute, for the case of a
+   * rational-numbered stoichiometry or a model in SBML Level 1.
+   *
+   * The "denominator" attribute is only actually written out in the case
+   * of an SBML Level 1 model.  In SBML Level 2, rational-number
+   * stoichiometries are written as MathML elements in the
+   * "stoichiometryMath" subelement.  However, as a convenience to users,
+   * libSBML allows the creation and manipulation of rational-number
+   * stoichiometries by supplying the numerator and denominator directly
+   * rather than having to manually create an ASTNode structure.  LibSBML
+   * will write out the appropriate constructs (either a combination of
+   * "stoichiometry" and "denominator" in the case of SBML Level 1, or a
+   * "stoichiometryMath" subelement in the case of SBML Level 2).
+   * 
+   * @return the value of the "denominator" attribute of this
+   * SpeciesReference.
    */
   int getDenominator () const;
 
 
   /**
-   * @return true if the stoichiometryMath of this SpeciesReference has
-   * been set, false otherwise.
+   * Predicate returning @c true or @c false depending on whether this
+   * SpeciesReference's "stoichiometryMath" subelement has been set
+   * 
+   * @return @c true if the "stoichiometryMath" subelement of this
+   * SpeciesReference has been set, @c false otherwise.
    */
   bool isSetStoichiometryMath () const;
 
 
   /**
-   * Sets the stoichiometry of this SpeciesReference to value.
+   * Sets the value of the "stoichiometry" attribute of this
+   * SpeciesReference.
+   *
+   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * SpeciesReference object.  The former is to be used when a
+   * stoichiometry is simply a scalar number, while the latter is for
+   * occasions when it needs to be a rational number or it needs to
+   * reference other mathematical expressions.  The "stoichiometry"
+   * attribute is of type double and should contain values greater than
+   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * element containing a MathML expression.  These two are mutually
+   * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
+   * be defined in a given SpeciesReference instance.  When neither the
+   * attribute nor the element is present, the value of "stoichiometry" in
+   * the SpeciesReference instance defaults to @c 1.  For maximum
+   * interoperability between different software tools, the "stoichiometry"
+   * attribute should be used in preference to "stoichiometryMath" when a
+   * species' stoichiometry is a simple scalar number (integer or
+   * decimal).
+   * 
+   * @param value the new value of the "stoichiometry" attribute
    */
   void setStoichiometry (double value);
 
+
   /**
-   * Sets the stoichiometryMath of this SpeciesReference to a copy of the
-   * given ASTNode.
+   * Sets the "stoichiometryMath" subelement of this SpeciesReference.
+   *
+   * The ASTNode tree in @p math is copied.
+   *
+   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * SpeciesReference object.  The former is to be used when a
+   * stoichiometry is simply a scalar number, while the latter is for
+   * occasions when it needs to be a rational number or it needs to
+   * reference other mathematical expressions.  The "stoichiometry"
+   * attribute is of type double and should contain values greater than
+   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * element containing a MathML expression.  These two are mutually
+   * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
+   * be defined in a given SpeciesReference instance.  When neither the
+   * attribute nor the element is present, the value of "stoichiometry" in
+   * the SpeciesReference instance defaults to @c 1.  For maximum
+   * interoperability between different software tools, the "stoichiometry"
+   * attribute should be used in preference to "stoichiometryMath" when a
+   * species' stoichiometry is a simple scalar number (integer or
+   * decimal).
+   * 
+   * @param math the ASTNode expression tree that is to be copied as the
+   * content of the "stoichiometryMath" subelement.
    */
   void setStoichiometryMath (const ASTNode* math);
 
+
   /**
-   * Sets the stoichiometryMath of this SpeciesReference to the given
-   * formula string.
+   * Sets the "stoichiometryMath" subelement of this SpeciesReference to
+   * the expression given by an expression in text-string form.
+   *
+   * In SBML Level 2, Product and reactant stoichiometries can be specified
+   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
+   * SpeciesReference object.  The former is to be used when a
+   * stoichiometry is simply a scalar number, while the latter is for
+   * occasions when it needs to be a rational number or it needs to
+   * reference other mathematical expressions.  The "stoichiometry"
+   * attribute is of type double and should contain values greater than
+   * zero (0).  The "stoichiometryMath" element is implemented as an
+   * element containing a MathML expression.  These two are mutually
+   * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
+   * be defined in a given SpeciesReference instance.  When neither the
+   * attribute nor the element is present, the value of "stoichiometry" in
+   * the SpeciesReference instance defaults to @c 1.  For maximum
+   * interoperability between different software tools, the "stoichiometry"
+   * attribute should be used in preference to "stoichiometryMath" when a
+   * species' stoichiometry is a simple scalar number (integer or
+   * decimal).
+   * 
+   * @param formula a mathematical formula expressed in text-string form
    */
   void setStoichiometryMath (const std::string& formula);
 
+
   /**
-   * Sets the denominator of this SpeciesReference to value.
+   * Set the value of the "denominator" attribute, for the case of a
+   * rational-numbered stoichiometry or a model in SBML Level 1.
+   *
+   * The "denominator" attribute is only actually written out in the case
+   * of an SBML Level 1 model.  In SBML Level 2, rational-number
+   * stoichiometries are written as MathML elements in the
+   * "stoichiometryMath" subelement.  However, as a convenience to users,
+   * libSBML allows the creation and manipulation of rational-number
+   * stoichiometries by supplying the numerator and denominator directly
+   * rather than having to manually create an ASTNode structure.  LibSBML
+   * will write out the appropriate constructs (either a combination of
+   * "stoichiometry" and "denominator" in the case of SBML Level 1, or a
+   * "stoichiometryMath" subelement in the case of SBML Level 2).
+   *
+   * @param value the scalar value 
    */
   void setDenominator (int value);
 
+
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "speciesReference".
-   
+   * Returns the XML element name of this object, which for Species, is
+   * always @c "speciesReference".
+   * 
+   * @return the name of this element, i.e., @c "speciesReference".
    */
   virtual const std::string& getElementName () const;
 
@@ -287,10 +692,18 @@ class LIBSBML_EXTERN ModifierSpeciesReference : public SimpleSpeciesReference
 public:
 
   /**
-   * Creates a new ModifierSpeciesReference, optionally with its species
+   * Creates a new ModiferSpeciesReference, optionally with its "species"
    * attribute set.
+   *
+   * The "species" attribute on SpeciesReference and
+   * ModifierSpeciesReference is required to have a value in SBML.
+   * Although the attribute is optional in this constructor, callers should
+   * provide a value or use setSpecies() shortly after creating the object.
+   *
+   * @param species the identifier of the species to be referenced
    */
   ModifierSpeciesReference (const std::string& species = "");
+
 
   /**
    * Destroys this ModifierSpeciesReference.
@@ -301,29 +714,37 @@ public:
   /**
    * Accepts the given SBMLVisitor.
    *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the Reaction's next
-   * ModifierSpeciesReference (if available).
+   * @param v the SBMLVisitor instance to be used.
+   *
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
+   * Creates and returns a deep copy of this ModifierSpeciesReference
+   * instance.
+   *
    * @return a (deep) copy of this ModifierSpeciesReference.
    */
   virtual SBase* clone () const;
 
 
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "modifierSpeciesReference".
-   
+   * Returns the XML element name of this object, which for Species, is
+   * always @c "modifierSpeciesReference".
+   * 
+   * @return the name of this element, i.e., @c "modifierSpeciesReference".
    */
   virtual const std::string& getElementName () const;
 
@@ -364,14 +785,19 @@ class LIBSBML_EXTERN ListOfSpeciesReferences : public ListOf
 public:
 
   /**
-   * Creates a new ListOfSpeciesReferences.
+   * Creates a new, empty ListOfSpeciesReferences.
    */
   ListOfSpeciesReferences ();
+ 
 
   /**
-   * @return a (deep) copy of this ListOfUnits.
+   * Creates and returns a deep copy of this ListOfSpeciesReferences
+   * instance.
+   *
+   * @return a (deep) copy of this ListOfSpeciesReferences.
    */
   virtual SBase* clone () const;
+
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -384,13 +810,24 @@ public:
 
 
   /**
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., SpeciesReference objects, if the list is non-empty).
+   * 
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
+   *
+   * @see getElementName()
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
+
   /**
- * @return the name of this element ie "listOfReactants" or "listOfProducts" etc.
+   * Returns the XML element name of this object.
+   *
+   * For ListOfSpeciesReferences, the XML element name is @c
+   * "listOfSpeciesReferences".
+   * 
+   * @return the name of this element, i.e., @c "listOfSpeciesReferences".
    */
   virtual const std::string& getElementName () const;
 
@@ -398,8 +835,11 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
+   * Get the ordinal position of this element in the containing object
+   * (which in this case is the Model object).
+   *
    * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
+   * siblings, or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
 
@@ -411,10 +851,12 @@ protected:
 
   enum SpeciesType { Unknown, Reactant, Product, Modifier };
 
+
   /**
    * Sets type of this ListOfSpeciesReferences.
    */
   void setType (SpeciesType type);
+
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
