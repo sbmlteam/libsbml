@@ -27,6 +27,7 @@
 
 #include <sbml/common/extern.h>
 #include <sbml/common/sbmlfwd.h>
+#include <sbml/SBMLTypeCodes.h>
 
 
 #ifdef __cplusplus
@@ -34,7 +35,6 @@
 
 #include <vector>
 
-#include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBase.h>
 
 
@@ -174,6 +174,9 @@ protected:
 };
 
 
+#endif  /* __cplusplus */
+
+
 #ifndef SWIG
 
 
@@ -211,13 +214,13 @@ ListOf_clone (const ListOf_t *lo);
  */
 LIBSBML_EXTERN
 void
-ListOf_append (ListOf_t *lo, const SBase *item);
+ListOf_append (ListOf_t *lo, const SBase_t *item);
 
 /**
  * Returns the nth item in this ListOf items.
  */
 LIBSBML_EXTERN
-SBase *
+SBase_t *
 ListOf_get (ListOf_t *lo, unsigned int n);
 
 /**
@@ -225,7 +228,7 @@ ListOf_get (ListOf_t *lo, unsigned int n);
  * item exists.
  */
 LIBSBML_EXTERN
-SBase *
+SBase_t *
 ListOf_getById (ListOf_t *lo, const char *sid);
 
 /**
@@ -234,7 +237,7 @@ ListOf_getById (ListOf_t *lo, const char *sid);
  * it.
  */
 LIBSBML_EXTERN
-SBase *
+SBase_t *
 ListOf_remove (ListOf_t *lo, unsigned int n);
 
 /**
@@ -243,7 +246,7 @@ ListOf_remove (ListOf_t *lo, unsigned int n);
  * deleting it.
  */
 LIBSBML_EXTERN
-SBase *
+SBase_t *
 ListOf_removeById (ListOf_t *lo, const char *sid);
 
 /**
@@ -268,5 +271,4 @@ END_C_DECLS
 #endif  /* !SWIG */
 
 
-#endif  /* __cplusplus */
 #endif  /* ListOf_h */
