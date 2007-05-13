@@ -312,10 +312,7 @@ public:
    *
    * @param v the SBMLVisitor instance to be used.
    *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether the Visitor would like to visit the next Species in the
-   * list of speciess within which this Species is embedded (i.e.,
-   * the ListOfSpeciess in the parent Model).
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
@@ -766,12 +763,14 @@ protected:
    */
   virtual bool readOtherXML (XMLInputStream& stream);
 
+
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes);
+
 
   /**
    * Subclasses should override this method to write their XML attributes
@@ -815,6 +814,7 @@ public:
    */
   virtual SBase* clone () const;
 
+
   /**
    * Returns the libSBML type code for this %SBML object.
    * 
@@ -823,6 +823,7 @@ public:
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
+
 
   /**
    * Returns the libSBML type code for the objects contained in this ListOf
