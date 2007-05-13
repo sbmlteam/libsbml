@@ -92,13 +92,13 @@ public:
   /**
    * Copy constructor; creates a copy of this Trigger.
    */
-  Trigger (const Trigger& rhs);
+  Trigger (const Trigger& orig);
 
 
   /**
    * Assignment operator
    */
-  Trigger& operator=(const Trigger& orig);
+  Trigger& operator=(const Trigger& rhs);
 
 
   /**

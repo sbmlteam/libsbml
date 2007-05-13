@@ -177,13 +177,13 @@ public:
   /**
    * Copy constructor; creates a copy of this FunctionDefinition.
    */
-  FunctionDefinition (const FunctionDefinition& rhs);
+  FunctionDefinition (const FunctionDefinition& orig);
 
 
   /**
    * Assignment operator for FunctionDefinition.
    */
-  FunctionDefinition& operator=(const FunctionDefinition& orig);
+  FunctionDefinition& operator=(const FunctionDefinition& rhs);
 
 
   /**

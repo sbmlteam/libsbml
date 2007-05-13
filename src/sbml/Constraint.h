@@ -63,11 +63,14 @@
  * document describes one approach to reading the "message" subelement
  * content.
  *
+ * Constraint was introduced in SBML Level 2 Version 2.  It is not
+ * available in earlier versions of Level 2 nor in any version of Level 1.
+ *
  * @section constraint-semantics Semantics of Constraints
  * 
  * In the context of a simulation, a Constraint has effect at all times
  * <em>t \f$\geq\f$ 0</em>.  Each Constraint's "math" subelement is first
- * evaluated after any \InitialAssignment definitions in a model at <em>t =
+ * evaluated after any InitialAssignment definitions in a model at <em>t =
  * 0</em> and can conceivably trigger at that point.  (In other words, a
  * simulation could fail a constraint immediately.)
  *

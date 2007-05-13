@@ -59,12 +59,12 @@ public:
   /**
    * Copy constructor. Creates a copy of this ListOf items.
    */
-  ListOf (const ListOf& rhs);
+  ListOf (const ListOf& orig);
 
    /**
    * Assignment operator
    */
-  ListOf& operator=(const ListOf& orig);
+  ListOf& operator=(const ListOf& rhs);
 
  /**
    * Accepts the given SBMLVisitor.

@@ -97,15 +97,15 @@ SBMLDocument::~SBMLDocument ()
 /**
  * Creates a copy of this SBMLDocument.
  */
-SBMLDocument::SBMLDocument (const SBMLDocument& rhs) :
-   SBase    ( rhs          )
- , mLevel   ( rhs.mLevel   )
- , mVersion ( rhs.mVersion )
- , mModel   ( 0            )
+SBMLDocument::SBMLDocument (const SBMLDocument& orig) :
+   SBase    ( orig          )
+ , mLevel   ( orig.mLevel   )
+ , mVersion ( orig.mVersion )
+ , mModel   ( 0             )
 {
   mSBML = this;
 
-  if (rhs.mModel) mModel = static_cast<Model*>( rhs.mModel->clone() );
+  if (orig.mModel) mModel = static_cast<Model*>( orig.mModel->clone() );
 }
 
 

@@ -46,8 +46,7 @@ using namespace std;
 
 
 /**
- * Creates a new Delay, optionally with its formula, timeUnits and/or
- * substanceUnits set.
+ * Creates a new Delay, optionally with the given "math".
  */
 Delay::Delay (   const ASTNode* math ) :
    SBase		  (  -1 )
@@ -69,11 +68,11 @@ Delay::~Delay ()
 /**
  * Copy constructor. Creates a copy of this Delay.
  */
-Delay::Delay (const Delay& rhs) :
-   SBase          ( rhs                 )
+Delay::Delay (const Delay& orig) :
+   SBase          ( orig                 )
  , mMath          ( 0                   )
 {
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if (orig.mMath) mMath = orig.mMath->deepCopy();
 }
 
 

@@ -69,9 +69,9 @@ SimpleSpeciesReference::~SimpleSpeciesReference ()
 /**
  * Copy constructor. Creates a copy of this SimpleSpeciesReference.
  */
-SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& rhs) :
-          SBase     (rhs)
-        , mSpecies  (rhs.mSpecies)
+SimpleSpeciesReference::SimpleSpeciesReference(const SimpleSpeciesReference& orig) :
+  SBase     (orig)
+, mSpecies  (orig.mSpecies)
 {
 }
 
@@ -255,15 +255,15 @@ SpeciesReference::~SpeciesReference ()
 /**
  * Copy constructor. Creates a copy of this SpeciesReference.
  */
-SpeciesReference::SpeciesReference (const SpeciesReference& rhs) :
-   SimpleSpeciesReference( rhs                )
- , mStoichiometry        ( rhs.mStoichiometry )
- , mDenominator          ( rhs.mDenominator   )
- , mStoichiometryMath    ( 0                  )
+SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
+   SimpleSpeciesReference( orig                )
+ , mStoichiometry        ( orig.mStoichiometry )
+ , mDenominator          ( orig.mDenominator   )
+ , mStoichiometryMath    ( 0                   )
 {
-  if (rhs.mStoichiometryMath)
+  if (orig.mStoichiometryMath)
   {
-    mStoichiometryMath = rhs.mStoichiometryMath->deepCopy();
+    mStoichiometryMath = orig.mStoichiometryMath->deepCopy();
   }
 }
 

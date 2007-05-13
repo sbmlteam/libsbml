@@ -74,34 +74,33 @@ Model::~Model ()
 /**
  * Copy constructor.
  */
-Model::Model(const Model& rhs) :
-       SBase   ( rhs )
-     , mFunctionDefinitions (rhs.mFunctionDefinitions)
-     , mUnitDefinitions     (rhs.mUnitDefinitions)
-     , mCompartmentTypes    (rhs.mCompartmentTypes)
-     , mSpeciesTypes        (rhs.mSpeciesTypes)
-     , mCompartments        (rhs.mCompartments)
-     , mSpecies             (rhs.mSpecies)
-     , mParameters          (rhs.mParameters)
-     , mInitialAssignments  (rhs.mInitialAssignments)
-     , mRules               (rhs.mRules)
-     , mConstraints         (rhs.mConstraints)
-     , mReactions           (rhs.mReactions)
-     , mEvents              (rhs.mEvents)
-     , mFormulaUnitsData    (rhs.mFormulaUnitsData)
+Model::Model(const Model& orig) :
+       SBase   ( orig )
+     , mFunctionDefinitions (orig.mFunctionDefinitions)
+     , mUnitDefinitions     (orig.mUnitDefinitions)
+     , mCompartmentTypes    (orig.mCompartmentTypes)
+     , mSpeciesTypes        (orig.mSpeciesTypes)
+     , mCompartments        (orig.mCompartments)
+     , mSpecies             (orig.mSpecies)
+     , mParameters          (orig.mParameters)
+     , mInitialAssignments  (orig.mInitialAssignments)
+     , mRules               (orig.mRules)
+     , mConstraints         (orig.mConstraints)
+     , mReactions           (orig.mReactions)
+     , mEvents              (orig.mEvents)
+     , mFormulaUnitsData    (orig.mFormulaUnitsData)
 #ifdef USE_LAYOUT
-     , mLayouts             (rhs.mLayouts)
+     , mLayouts             (orig.mLayouts)
 #endif
 {
-    if(rhs.mHistory)
-    {
-      this->mHistory=rhs.mHistory->clone();
-    }
-    else
-    {
-      this->mHistory = 0;
-    }
-
+  if (orig.mHistory)
+  {
+    this->mHistory = orig.mHistory->clone();
+  }
+  else
+  {
+    this->mHistory = 0;
+  }
 }
 
 
@@ -110,33 +109,33 @@ Model::Model(const Model& rhs) :
  */
 Model& Model::operator=(const Model& rhs)
 {
-  this->SBase::operator =(rhs);
-    mFunctionDefinitions =rhs.mFunctionDefinitions;
-    mUnitDefinitions     =rhs.mUnitDefinitions;
-    mCompartmentTypes    = rhs.mCompartmentTypes;
-    mSpeciesTypes        =rhs.mSpeciesTypes;
-    mCompartments        =rhs.mCompartments;
-    mSpecies             =rhs.mSpecies;
-    mParameters          =rhs.mParameters;
-    mInitialAssignments  =rhs.mInitialAssignments;
-    mRules               =rhs.mRules;
-    mConstraints         =rhs.mConstraints;
-    mReactions           =rhs.mReactions;
-    mEvents              =rhs.mEvents;
+  this->SBase::operator = (rhs);
+  mFunctionDefinitions  = rhs.mFunctionDefinitions;
+  mUnitDefinitions      = rhs.mUnitDefinitions;
+  mCompartmentTypes     = rhs.mCompartmentTypes;
+  mSpeciesTypes         = rhs.mSpeciesTypes;
+  mCompartments         = rhs.mCompartments;
+  mSpecies              = rhs.mSpecies;
+  mParameters           = rhs.mParameters;
+  mInitialAssignments   = rhs.mInitialAssignments;
+  mRules                = rhs.mRules;
+  mConstraints          = rhs.mConstraints;
+  mReactions            = rhs.mReactions;
+  mEvents               = rhs.mEvents;
 #ifdef USE_LAYOUT
-    mLayouts             =rhs.mLayouts;
+  mLayouts              = rhs.mLayouts;
 #endif
   //  /* TO DO NEED TO DEAL WITH CLONING THIS */
   //mFormulaUnitsData = new ListFormulaUnitsData();
-    mFormulaUnitsData     = rhs.mFormulaUnitsData;
-    if(rhs.mHistory)
-    {
-      this->mHistory=rhs.mHistory->clone();
-    }
-    else
-    {
-      this->mHistory = 0;
-    }
+  mFormulaUnitsData     = rhs.mFormulaUnitsData;
+  if (rhs.mHistory)
+  {
+    this->mHistory = rhs.mHistory->clone();
+  }
+  else
+  {
+    this->mHistory = 0;
+  }
 
   return *this;
 }
@@ -3528,7 +3527,6 @@ Model_getNumEvents (const Model_t *m)
 }
 
 
-
 #ifdef USE_LAYOUT  
 
 
@@ -3591,3 +3589,6 @@ Model_createLayout (Model_t *m)
 
 
 #endif  /* USE_LAYOUT */
+
+
+/** @endcond doxygen-c-only */

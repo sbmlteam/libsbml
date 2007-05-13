@@ -146,12 +146,12 @@ public:
   /**
    * Copy constructor. Creates a copy of this SpeciesReference.
    */
-  SpeciesReference (const SpeciesReference& rhs);
+  SpeciesReference (const SpeciesReference& orig);
 
    /**
    * Assignment operator
    */
-  SpeciesReference& operator=(const SpeciesReference& orig);
+  SpeciesReference& operator=(const SpeciesReference& rhs);
 
  /**
    * Accepts the given SBMLVisitor.
@@ -327,7 +327,9 @@ public:
    */
   virtual const std::string& getElementName () const;
 
+
 #ifdef USE_LAYOUT
+
   /** @cond doxygen-libsbml-internal */
 
   /**
@@ -337,7 +339,10 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  /** @endcond doxygen-libsbml-internal */
+
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -347,9 +352,9 @@ protected:
    */
   bool readOtherXML (XMLInputStream& stream);
 
-#endif // USE_LAYOUT
-
   /** @endcond doxygen-libsbml-internal */
+
+#endif // USE_LAYOUT
 };
 
 

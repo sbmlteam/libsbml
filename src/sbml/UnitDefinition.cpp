@@ -60,9 +60,9 @@ UnitDefinition::~UnitDefinition ()
 /**
  * Copy constructor. Creates a copy of this UnitDefinition.
  */
-UnitDefinition::UnitDefinition(const UnitDefinition& rhs) :
-          SBase     (rhs)
-        , mUnits    (rhs.mUnits)
+UnitDefinition::UnitDefinition(const UnitDefinition& orig) :
+          SBase     (orig)
+        , mUnits    (orig.mUnits)
 {
 }
 

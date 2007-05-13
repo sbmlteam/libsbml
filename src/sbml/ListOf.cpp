@@ -72,10 +72,10 @@ struct Clone : public unary_function<SBase*, SBase*>
 /**
  * Copy constructor. Creates a copy of this ListOf items.
  */
-ListOf::ListOf (const ListOf& rhs) : SBase(rhs)
+ListOf::ListOf (const ListOf& orig) : SBase(orig)
 {
-  mItems.resize( rhs.size() );
-  transform( rhs.mItems.begin(), rhs.mItems.end(), mItems.begin(), Clone() );
+  mItems.resize( orig.size() );
+  transform( orig.mItems.begin(), orig.mItems.end(), mItems.begin(), Clone() );
 }
 
 

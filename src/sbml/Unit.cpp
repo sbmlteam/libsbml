@@ -85,13 +85,13 @@ Unit::~Unit ()
 /**
  * Copy constructor. Creates a copy of this Unit.
  */
-Unit::Unit(const Unit& rhs) :
-    SBase      ( rhs)
-  , mKind      ( rhs.mKind       )
-  , mExponent  ( rhs.mExponent   )
-  , mScale     ( rhs.mScale      )
-  , mMultiplier( rhs.mMultiplier )
-  , mOffset    ( rhs.mOffset     )
+Unit::Unit(const Unit& orig) :
+    SBase      ( orig             )
+  , mKind      ( orig.mKind       )
+  , mExponent  ( orig.mExponent   )
+  , mScale     ( orig.mScale      )
+  , mMultiplier( orig.mMultiplier )
+  , mOffset    ( orig.mOffset     )
 {
 }
 
@@ -102,11 +102,11 @@ Unit::Unit(const Unit& rhs) :
 Unit& Unit::operator=(const Unit& rhs)
 {
   this->SBase::operator =(rhs);
- mKind      = rhs.mKind       ;
- mExponent  = rhs.mExponent   ;
- mScale     = rhs.mScale      ;
- mMultiplier= rhs.mMultiplier ;
- mOffset    = rhs.mOffset     ;
+  mKind       = rhs.mKind       ;
+  mExponent   = rhs.mExponent   ;
+  mScale      = rhs.mScale      ;
+  mMultiplier = rhs.mMultiplier ;
+  mOffset     = rhs.mOffset     ;
   return *this;
 }
 

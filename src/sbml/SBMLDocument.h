@@ -188,7 +188,7 @@ public:
    *   N Error(s):
    *     line: (id) message
    */
-  void printErrors (std::ostream& stream) const;
+  void printErrors (std::ostream& stream = std::cerr) const;
 
 
   /**

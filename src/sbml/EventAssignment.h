@@ -191,13 +191,13 @@ public:
   /**
    * Copy constructor; creates a copy of this EventAssignment.
    */
-  EventAssignment (const EventAssignment& rhs);
+  EventAssignment (const EventAssignment& orig);
 
 
   /**
    * Assignment operator.
    */
-  EventAssignment& operator=(const EventAssignment& orig);
+  EventAssignment& operator=(const EventAssignment& rhs);
 
 
   /**

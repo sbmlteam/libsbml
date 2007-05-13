@@ -50,6 +50,9 @@
  * guidelines described in the %SBML specification (e.g., Section 3.3 in
  * the Level 2 Version 3 specification).
  *
+ * SpeciesType was introduced in SBML Level 2 Version 2.  It is not
+ * available in earlier versions of Level 2 nor in any version of Level 1.
+ *
  * <!---------------------------------------------------------------------- -->
  *
  * @class ListOfSpeciesTypes.

@@ -82,11 +82,11 @@ FunctionDefinition::~FunctionDefinition ()
 /**
  * Copy constructor. Creates a copy of this FunctionDefinition.
  */
-FunctionDefinition::FunctionDefinition (const FunctionDefinition& rhs) :
-   SBase( rhs )
- , mMath( 0   )
+FunctionDefinition::FunctionDefinition (const FunctionDefinition& orig) :
+   SBase( orig )
+ , mMath( 0    )
 {
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if (orig.mMath) mMath = orig.mMath->deepCopy();
 }
 
 

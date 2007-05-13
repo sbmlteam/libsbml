@@ -56,7 +56,7 @@ public:
    * @param substanceUnits string representing the units of substance for this KineticLaw.
    * 
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   KineticLaw (   const std::string& formula        = ""
@@ -72,7 +72,7 @@ public:
    * @param substanceUnits string representing the units of substance for this KineticLaw.
    * 
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   KineticLaw (   ASTNode*      math
@@ -87,12 +87,12 @@ public:
   /**
    * Copy constructor; creates a copy of this KineticLaw.
    */
-  KineticLaw (const KineticLaw& rhs);
+  KineticLaw (const KineticLaw& orig);
 
   /**
    * Assignment operator
    */
-  KineticLaw& operator=(const KineticLaw& orig);
+  KineticLaw& operator=(const KineticLaw& rhs);
 
   /**
    * Accepts the given SBMLVisitor for this instance of KineticLaw.
@@ -132,7 +132,7 @@ public:
    *
    * @return the timeUnits of this KineticLaw.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   const std::string& getTimeUnits () const;
@@ -142,7 +142,7 @@ public:
    *
    * @return the substanceUnits of this KineticLaw.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   const std::string& getSubstanceUnits () const;
@@ -174,7 +174,7 @@ public:
    * @return @c true if the timeUnits of this KineticLaw has been set, @c false
    * otherwise.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   bool isSetTimeUnits () const;
@@ -185,7 +185,7 @@ public:
    * @return @c true if the substanceUnits of this KineticLaw has been set, @c false
    * otherwise.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   bool isSetSubstanceUnits () const;
@@ -213,7 +213,7 @@ public:
    *
    * @param sid string representing the time units.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   void setTimeUnits (const std::string& sid);
@@ -223,7 +223,7 @@ public:
    *
    * @param sid string representing the time units.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   void setSubstanceUnits (const std::string& sid);
@@ -231,7 +231,7 @@ public:
   /**
    * Unsets the timeUnits of this KineticLaw.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   void unsetTimeUnits ();
@@ -239,7 +239,7 @@ public:
   /**
    * Unsets the substanceUnits of this KineticLaw.
    *
-   * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+   * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
    * been removed.
    */
   void unsetSubstanceUnits ();

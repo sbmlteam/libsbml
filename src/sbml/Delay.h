@@ -147,13 +147,13 @@ public:
   /**
    * Copy constructor; creates a copy of this Delay.
    */
-  Delay (const Delay& rhs);
+  Delay (const Delay& orig);
 
 
   /**
    * Assignment operator
    */
-  Delay& operator=(const Delay& orig);
+  Delay& operator=(const Delay& rhs);
 
 
   /**

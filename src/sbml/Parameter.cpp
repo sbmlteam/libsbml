@@ -84,12 +84,12 @@ Parameter::~Parameter ()
 /**
  * Copy constructor. Creates a copy of this Parameter.
  */
-Parameter::Parameter(const Parameter& rhs) :
-        SBase      ( rhs     )
-      , mValue     ( rhs.mValue    )
-      , mUnits     ( rhs.mUnits    )
-      , mConstant  ( rhs.mConstant )
-      , mIsSetValue( rhs.mIsSetValue)
+Parameter::Parameter(const Parameter& orig) :
+        SBase      ( orig             )
+      , mValue     ( orig.mValue      )
+      , mUnits     ( orig.mUnits      )
+      , mConstant  ( orig.mConstant   )
+      , mIsSetValue( orig.mIsSetValue )
 {
 }
 
@@ -100,10 +100,10 @@ Parameter::Parameter(const Parameter& rhs) :
 Parameter& Parameter::operator=(const Parameter& rhs)
 {
   this->SBase::operator =(rhs);
-     mValue     = rhs.mValue    ;
-     mUnits     = rhs.mUnits    ;
-     mConstant  = rhs.mConstant ;
-     mIsSetValue= rhs.mIsSetValue;
+     mValue      = rhs.mValue    ;
+     mUnits      = rhs.mUnits    ;
+     mConstant   = rhs.mConstant ;
+     mIsSetValue = rhs.mIsSetValue;
   return *this;
 }
 

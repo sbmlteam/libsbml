@@ -64,15 +64,15 @@ Compartment::~Compartment ()
 /**
  * Copy constructor. Creates a copy of this compartment.
  */
-Compartment::Compartment(const Compartment& rhs) :
-   SBase             ( rhs )
- , mCompartmentType  ( rhs.mCompartmentType)
- , mSpatialDimensions( rhs.mSpatialDimensions  )
- , mSize             ( rhs.mSize      )
- , mUnits            ( rhs.mUnits )
- , mOutside          ( rhs.mOutside )
- , mConstant         ( rhs.mConstant     )
- , mIsSetSize        ( rhs.mIsSetSize    )
+Compartment::Compartment(const Compartment& orig) :
+   SBase             ( orig )
+ , mCompartmentType  ( orig.mCompartmentType)
+ , mSpatialDimensions( orig.mSpatialDimensions  )
+ , mSize             ( orig.mSize      )
+ , mUnits            ( orig.mUnits )
+ , mOutside          ( orig.mOutside )
+ , mConstant         ( orig.mConstant     )
+ , mIsSetSize        ( orig.mIsSetSize    )
 {
 }
 
@@ -1107,6 +1107,9 @@ Compartment_isSetOutside (const Compartment_t *c)
 /**
  * Sets the identifier of the given Compartment_t structure.
  *
+ * This function copies the string given in @p sid.  If the string is
+ * NULL, this function performs unsetId() instead.
+ *
  * @param c the Compartment_t structure.
  * @oaram sid the identifier to which the structures "id" attribute should
  * be set.
@@ -1122,23 +1125,28 @@ Compartment_setId (Compartment_t *c, const char *sid)
 /**
  * Sets the name of the given Compartment_t structure.
  *
- * This function copies the string given in @p string.
+ * This function copies the string given in @p string.  If the string is
+ * NULL, this function performs unsetName() instead.
  *
  * @param c the Compartment_t structure
+ *
  * @oaram string the identifier to which the structures "id" attribute
  * should be set.
  */
 LIBSBML_EXTERN
 void
-Compartment_setName (Compartment_t *c, const char *string)
+Compartment_setName (Compartment_t *c, const char *name)
 {
-  (string == NULL) ? c->unsetName() : c->setName(string);
+  (name == NULL) ? c->unsetName() : c->setName(name);
 }
 
 
 /**
  * Sets the "compartmentType" attribute of the given Compartment_t
  * structure.
+ *
+ * This function copies the string given in @p string.  If the string is
+ * NULL, this function performs unsetName() instead.
  *
  * @param c the Compartment_t structure
  * @param sid, the identifier of a CompartmentType object defined
@@ -1200,6 +1208,7 @@ Compartment_setSize (Compartment_t *c, double value)
  * compatibility between SBML Level 1 and Level 2.
  *
  * @param c the Compartment_t structure
+ * 
  * @param value a @c double representing the volume of the given
  * Compartment_t structure in whatever units are in effect
  */
@@ -1215,7 +1224,9 @@ Compartment_setVolume (Compartment_t *c, double value)
  * Sets the "units" attribute of the given Compartment_t structure.
  *
  * @param c the Compartment_t structure
- * @param sid the identifier of the defined units to use.
+ * 
+ * @param sid the identifier of the defined units to use.  The string will
+ * be copied.
  */
 LIBSBML_EXTERN
 void
@@ -1229,7 +1240,9 @@ Compartment_setUnits (Compartment_t *c, const char *sid)
  * Sets the "outside" attribute of the given Compartment_t structure.
  *
  * @param c the Compartment_t structure
- * @param sid the identifier of a compartment that encloses this one.
+ * 
+ * @param sid the identifier of a compartment that encloses this one.  The
+ * string will be copied.
  */
 LIBSBML_EXTERN
 void

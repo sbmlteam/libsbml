@@ -68,11 +68,11 @@ EventAssignment::~EventAssignment ()
 /**
  * Copy constructor. Creates a copy of this EventAssignment.
  */
-EventAssignment::EventAssignment (const EventAssignment& rhs) :
-   SBase   ( rhs )
- , mMath   ( 0   )
+EventAssignment::EventAssignment (const EventAssignment& orig) :
+   SBase   ( orig )
+ , mMath   ( 0    )
 {
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if (orig.mMath) mMath = orig.mMath->deepCopy();
 }
 
 

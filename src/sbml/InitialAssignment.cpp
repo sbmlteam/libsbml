@@ -66,7 +66,7 @@ InitialAssignment::~InitialAssignment ()
  */
 InitialAssignment::InitialAssignment (const InitialAssignment& orig) :
    SBase   ( orig )
- , mMath   ( 0   )
+ , mMath   ( 0    )
 {
   if (orig.mMath) mMath = orig.mMath->deepCopy();
 }
@@ -583,3 +583,5 @@ InitialAssignment_setMath (InitialAssignment_t *ia, const ASTNode_t *math)
 }
 
 
+
+/** @endcond doxygen-c-only */

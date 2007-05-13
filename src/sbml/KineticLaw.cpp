@@ -89,15 +89,15 @@ KineticLaw::~KineticLaw ()
 /**
  * Copy constructor. Creates a copy of this KineticLaw.
  */
-KineticLaw::KineticLaw (const KineticLaw& rhs) :
-   SBase          ( rhs                 )
- , mFormula       ( rhs.mFormula        )
- , mMath          ( 0                   )
- , mParameters    ( rhs.mParameters     )
- , mTimeUnits     ( rhs.mTimeUnits      )
- , mSubstanceUnits( rhs.mSubstanceUnits )
+KineticLaw::KineticLaw (const KineticLaw& orig) :
+   SBase          ( orig                 )
+ , mFormula       ( orig.mFormula        )
+ , mMath          ( 0                    )
+ , mParameters    ( orig.mParameters     )
+ , mTimeUnits     ( orig.mTimeUnits      )
+ , mSubstanceUnits( orig.mSubstanceUnits )
 {
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if (orig.mMath) mMath = orig.mMath->deepCopy();
 }
 
 
@@ -107,10 +107,10 @@ KineticLaw::KineticLaw (const KineticLaw& rhs) :
 KineticLaw& KineticLaw::operator=(const KineticLaw& rhs)
 {
   this->SBase::operator =(rhs);
-  mFormula       = rhs.mFormula        ;
-  mTimeUnits     = rhs.mTimeUnits      ;
-  mSubstanceUnits= rhs.mSubstanceUnits ;
-  mParameters    = rhs.mParameters     ;
+  mFormula        = rhs.mFormula        ;
+  mTimeUnits      = rhs.mTimeUnits      ;
+  mSubstanceUnits = rhs.mSubstanceUnits ;
+  mParameters     = rhs.mParameters     ;
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
   return *this;
 }
@@ -693,7 +693,7 @@ KineticLaw_create (void)
  * @return pointer to newly created KineticLaw structure.
  * 
  *
- * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+ * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
  * been removed.
  */
 LIBSBML_EXTERN
@@ -719,14 +719,14 @@ KineticLaw_createWith ( const char *formula,
  *   KineticLaw_setTimeUnits(kl, timeUnits);@n
  *   ...;
  *
- * @param formula string representing the kinetic law.
+ * @param math ASTNode structure representing the mathematical expression
  * @param timeUnits string representing the units of time for this KineticLaw.
  * @param substanceUnits string representing the units of substance for this KineticLaw.
  *
  * @return pointer to newly created KineticLaw structure.
  * 
  *
- * @note starting from #SBML Level 2 Version 2 timeUnits and substanceUnits have
+ * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
  * been removed.
  */
 LIBSBML_EXTERN

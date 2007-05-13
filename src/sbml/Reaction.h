@@ -62,12 +62,12 @@ public:
   /**
    * Copy constructor. Creates a copy of this Reaction.
    */
-  Reaction (const Reaction& rhs);
+  Reaction (const Reaction& orig);
 
   /**
    * Assignment operator
    */
-  Reaction& operator=(const Reaction& orig);
+  Reaction& operator=(const Reaction& rhs);
 
   /**
    * Accepts the given SBMLVisitor.

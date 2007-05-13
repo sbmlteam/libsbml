@@ -1,6 +1,6 @@
 /**
  * @file    Rule.cpp
- * @brief   SBML Rule
+ * @brief   Rule, ListOfRules, AlgebraicRule, AssignmentRule and RateRule.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -86,15 +86,15 @@ Rule::~Rule ()
 /**
  * Copy constructor. Creates a copy of this Rule.
  */
-Rule::Rule (const Rule& rhs) :
-   SBase   ( rhs          )
- , mFormula( rhs.mFormula )
+Rule::Rule (const Rule& orig) :
+   SBase   ( orig          )
+ , mFormula( orig.mFormula )
  , mMath   ( 0            )
- , mUnits  ( rhs.mUnits   )
- , mType   ( rhs.mType    )
- , mL1Type ( rhs.mL1Type  )
+ , mUnits  ( orig.mUnits   )
+ , mType   ( orig.mType    )
+ , mL1Type ( orig.mL1Type  )
 {
-  if (rhs.mMath) mMath = rhs.mMath->deepCopy();
+  if (orig.mMath) mMath = orig.mMath->deepCopy();
 }
 
 
@@ -104,10 +104,10 @@ Rule::Rule (const Rule& rhs) :
 Rule& Rule::operator=(const Rule& rhs)
 {
   this->SBase::operator =(rhs);
-mFormula= rhs.mFormula ;
-mUnits  = rhs.mUnits   ;
-mType   = rhs.mType    ;
-mL1Type = rhs.mL1Type  ;
+  mFormula = rhs.mFormula ;
+  mUnits   = rhs.mUnits   ;
+  mType    = rhs.mType    ;
+  mL1Type  = rhs.mL1Type  ;
   if (rhs.mMath) mMath = rhs.mMath->deepCopy();
   return *this;
 }
@@ -994,6 +994,7 @@ ListOfRules::createObject (XMLInputStream& stream)
 }
 
 
+/** @cond doxygen-c-only */
 
 
 /**
@@ -1430,3 +1431,7 @@ Rule_getL1TypeCode (const Rule_t *r)
 {
   return r->getL1TypeCode();
 }
+
+
+/** @endcond doxygen-c-only */
+

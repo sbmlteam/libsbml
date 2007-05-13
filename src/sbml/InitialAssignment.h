@@ -49,7 +49,7 @@
  * The main differences are: (a) an InitialAssignment can set the value of
  * a constant whereas an AssignmentRule cannot, and (b) unlike
  * AssignmentRule, an InitialAssignment definition only applies up to and
- * including the beginning of simulation time, \ie <em>t \f$\leq\f$ 0</em>,
+ * including the beginning of simulation time, i.e., <em>t \f$\leq\f$ 0</em>,
  * while an AssignmentRule applies at all times.
  *
  * InitialAssignment has a required attribute, "symbol", whose value must
@@ -75,6 +75,9 @@
  * is, the units are the units of the species, compartment, or parameter,
  * as appropriate for the kind of object identified by the value of
  * "symbol".)
+ *
+ * InitialAssignment was introduced in SBML Level 2 Version 2.  It is not
+ * available in earlier versions of Level 2 nor in any version of Level 1.
  *
  * @section initassign-semantics Semantics of Initial Assignments
  * 
@@ -299,7 +302,7 @@ public:
   /**
    * Sets the "symbol" attribute value of this InitialAssignment.
    *
-   * @param sid, the identifier of a Species, Compartment or Parameter
+   * @param sid the identifier of a Species, Compartment or Parameter
    * object defined elsewhere in this Model.
    */
   void setSymbol (const std::string& sid);

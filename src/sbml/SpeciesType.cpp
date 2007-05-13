@@ -480,3 +480,7 @@ SpeciesType_unsetName (SpeciesType_t *st)
 {
   st->unsetName();
 }
+
+
+
+/** @endcond doxygen-c-only */

@@ -311,7 +311,7 @@ public:
 
   /**
    * Get the compartment type of this Compartment, as indicated by the
-   * Compartment object's "compartmentType" attribute.
+   * Compartment object's "compartmentType" attribute value.
    * 
    * @return the value of the "compartmentType" attribute of this
    * Compartment as a string.
@@ -464,7 +464,7 @@ public:
   /**
    * Sets the "compartmentType" attribute of this Compartment.
    *
-   * @param sid, the identifier of a CompartmentType object defined
+   * @param sid the identifier of a CompartmentType object defined
    * elsewhere in this Model.
    */
   void setCompartmentType (const std::string& sid);
@@ -636,6 +636,8 @@ class LIBSBML_EXTERN ListOfCompartments : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfCompartments instance.
+   *
    * @return a (deep) copy of this ListOfCompartments.
    */
   virtual SBase* clone () const;
@@ -649,15 +651,24 @@ public:
    */
   virtual SBMLTypeCode_t getTypeCode () const { return SBML_LIST_OF; };
 
-
   /**
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Compartment objects, if the list is non-empty).
+   * 
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
+   *
+   * @see getElementName()
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "listOfCompartments".
+   * Returns the XML element name of this object.
+   *
+   * For ListOfCompartments, the XML element name is @c "listOfCompartments".
+   * 
+   * @return the name of this element, i.e., @c "listOfCompartments".
    */
   virtual const std::string& getElementName () const;
 
@@ -665,8 +676,16 @@ public:
   /** @cond doxygen-libsbml-internal */
 
   /**
+   * Get the ordinal position of this element in the containing object
+   * (which in this case is the Model object).
+   *
+   * The ordering of elements in the XML form of %SBML is generally fixed
+   * for most components in %SBML.  So, for example, the ListOfCompartments
+   * in a model is (in %SBML Level 2 Version 3) the second ListOf___.
+   * (However, it differs for different Levels and Versions of SBML.)
+   *
    * @return the ordinal position of the element with respect to its
-   * siblings or -1 (default) to indicate the position is not significant.
+   * siblings, or @c -1 (default) to indicate the position is not significant.
    */
   virtual int getElementPosition () const;
 

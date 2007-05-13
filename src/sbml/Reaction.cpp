@@ -105,19 +105,19 @@ Reaction::~Reaction ()
 /**
  * Copy constructor. Creates a copy of this Reaction.
  */
-Reaction::Reaction (const Reaction& rhs) :
-    SBase      ( rhs             )
-  , mReactants ( rhs.mReactants  )
-  , mProducts  ( rhs.mProducts   )
-  , mModifiers ( rhs.mModifiers  )
-  , mKineticLaw( 0               )
-  , mReversible( rhs.mReversible )
-  , mFast      ( rhs.mFast       )
-  , mIsSetFast ( rhs.mIsSetFast  )
+Reaction::Reaction (const Reaction& orig) :
+    SBase      ( orig             )
+  , mReactants ( orig.mReactants  )
+  , mProducts  ( orig.mProducts   )
+  , mModifiers ( orig.mModifiers  )
+  , mKineticLaw( 0                )
+  , mReversible( orig.mReversible )
+  , mFast      ( orig.mFast       )
+  , mIsSetFast ( orig.mIsSetFast  )
 {
-  if (rhs.mKineticLaw)
+  if (orig.mKineticLaw)
   {
-    mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
+    mKineticLaw = static_cast<KineticLaw*>( orig.mKineticLaw->clone() );
   }
 }
 
@@ -128,12 +128,12 @@ Reaction::Reaction (const Reaction& rhs) :
 Reaction& Reaction::operator=(const Reaction& rhs)
 {
   this->SBase::operator =(rhs);
- mReversible= rhs.mReversible ;
- mFast      = rhs.mFast       ;
- mIsSetFast = rhs.mIsSetFast  ;
- mReactants = rhs.mReactants  ;
- mProducts  = rhs.mProducts   ;
- mModifiers = rhs.mModifiers  ;
+ mReversible = rhs.mReversible ;
+ mFast       = rhs.mFast       ;
+ mIsSetFast  = rhs.mIsSetFast  ;
+ mReactants  = rhs.mReactants  ;
+ mProducts   = rhs.mProducts   ;
+ mModifiers  = rhs.mModifiers  ;
   if (rhs.mKineticLaw)
   {
     mKineticLaw = static_cast<KineticLaw*>( rhs.mKineticLaw->clone() );
