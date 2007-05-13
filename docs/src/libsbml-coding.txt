@@ -195,7 +195,15 @@ to refer to related classes or methods.
 <td class="indexvalue">
 Formats the following paragraph with the heading "Note:".  Useful to call
 out something special about a class, function, file or other entity, such
-as a behavior that users should be warned about.
+as a behavior that should be brought to the attention of users or a note
+about API changes compared to previous versions of the software or SBML.
+</td><td></td></tr>
+
+<tr><td class="indexkey">\@warning</td>
+<td class="indexvalue">
+Formats the following paragraph with the heading "Warning:".  This is a
+stronger statement than \@note, and is useful to call attention to
+backward-incompatible changes or potentially error-provoking situations.
 </td><td></td></tr>
 
 <tr><td class="indexkey">\@bug</td>
@@ -203,12 +211,6 @@ as a behavior that users should be warned about.
 Formats the following paragraph with the heading "Bugs:".  Useful to
 indicate that something is known to be a problem in some part of the code. 
 </td><td></td></tr>
-
-<tr><td class="indexkey">\@since</td>
-<td class="indexvalue">
-Indicates that something was introduced at a certain time or in a certain
-version of the code or %SBML.
-</Td><td></td></tr>
 
 </table>
 
