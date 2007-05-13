@@ -1673,19 +1673,21 @@ START_TEST (test_WriteSBML_KineticLaw_ListOfParameters_notes_L2v1)
 END_TEST
 */
 
+/*
 START_TEST (test_WriteSBML_Event)
 {
-  //const char* expected = wrapXML("<event id=\"e\"/>");
+  const char* expected = wrapXML("<event id=\"e\"/>");
 
 
-  //Event e;
-  //e.setId("e");
-  //
-  //e.write(*XOS);
+  Event e;
+  e.setId("e");
+  
+  e.write(*XOS);
 
-  //fail_unless( equals(expected) );
+  fail_unless( equals(expected) );
 }
 END_TEST
+*/
 
 
 START_TEST (test_WriteSBML_Event_trigger)
