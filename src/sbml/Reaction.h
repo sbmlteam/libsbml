@@ -105,13 +105,14 @@
  *
  * Finally, Reaction has another optional boolean attribute called "fast".
  * It is used to indicate that a reaction occurs on a vastly faster time
- * scale than others in a system; the %SBML specification provides more
- * detail about the conditions under which a reaction can be considered to
- * be fast in this sense.  The attribute's default value is @c false.
- * Previous definitions of %SBML indicated that software tools could ignore
+ * scale than others in a system.  Readers are directed to the %SBML Level
+ * 2 Version 3 specification, which provides more detail about the
+ * conditions under which a reaction can be considered to be fast in this
+ * sense.  The attribute's default value is @c false.  SBML Level 1 and
+ * Level 2 Version 1 incorrectly claimed that software tools could ignore
  * this attribute if they did not implement support for the corresponding
  * concept; however, further research in %SBML has revealed that this is
- * incorrect and "fast" <em>cannot be ignored</em> if it is set to @c true.
+ * not true, and "fast" <em>cannot be ignored</em> if it is set to @c true.
  * %SBML Level 2 Versions 2 and 3 therefore stipulate that if a model has
  * any reactions with "fast" set to @c true, a software tool must be able
  * to respect the attribute or else indicate to the user that it does not
@@ -180,12 +181,19 @@ class LIBSBML_EXTERN Reaction : public SBase
 public:
 
   /**
-   * Creates a new Reaction, optionally with its id, KineticLaw, and
-   * reversible attributes set.
+   * Creates a new Reaction, optionally with the given identifier,
+   * KineticLaw object and value of the "reversible" attribute.
+   *
+   * @param sid an identifier string for the Reaction
+   *
+   * @param kl a KineticLaw object
+   *
+   * @param reversible a boolean value for the "reversible" flag
    */
   Reaction (  const std::string&  sid        = ""
             , const KineticLaw*   kl         = 0
             , bool                reversible = true );
+
 
   /**
    * Destroys this Reaction.
@@ -194,259 +202,508 @@ public:
 
 
   /**
-   * Copy constructor. Creates a copy of this Reaction.
+   * Copy constructor; creates a copy of this Reaction.
    */
   Reaction (const Reaction& orig);
 
+
   /**
-   * Assignment operator
+   * Assignment operator for Reaction.
    */
   Reaction& operator=(const Reaction& rhs);
 
+
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor for this instance of Reaction.
    *
-   * @return the result of calling <code>v.visit()</code>, which indicates
-   * whether or not the Visitor would like to visit the Model's next
-   * Reaction (if available).
+   * @param v the SBMLVisitor instance to be used.
+   *
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
+   * Creates and returns a deep copy of this Reaction.
+   * 
    * @return a (deep) copy of this Reaction.
    */
   virtual SBase* clone () const;
 
+
   /**
-   * Initializes the fields of this Reaction to their defaults:
+   * Initializes certain attributes of this Reaction object to default
+   * values.
    *
-   *   - reversible = true
-   *   - fast       = false  (L1 only)
+   * @li Sets the "reversible" attribute to @c true
+   * @li (SBML Level 1 only) Sets the "fast" attribute to @c false
+   *
+   * @warning The "fast" attribute must be used with care.  SBML
+   * definitions before SBML Level 2 Version 2 incorrectly indicated that
+   * software tools could ignore this attribute if they did not implement
+   * support for the corresponding concept; however, further research in
+   * %SBML has revealed that this is not true, and "fast" <em>cannot be
+   * ignored</em> if it is set to @c true.  %SBML Level 2 Versions 2 and 3
+   * therefore stipulate that if a model has any reactions with "fast" set
+   * to @c true, a software tool must be able to respect the attribute or
+   * else indicate to the user that it does not have the capacity to do so.
+   * Readers are directed to the %SBML Level 2 Version 3 specification,
+   * which provides more detail about the conditions under which a reaction
+   * can be considered to be fast in this sense.
    */
   void initDefaults ();
 
 
   /**
-   * @return the KineticLaw of this Reaction.
+   * Returns the KineticLaw object contained in this Reaction.
+   * 
+   * @return the KineticLaw instance.
    */
   const KineticLaw* getKineticLaw () const;
 
+
   /**
-   * @return the KineticLaw of this Reaction.
+   * Returns the KineticLaw object contained in this Reaction.
+   * 
+   * @return the KineticLaw instance.
    */
   KineticLaw* getKineticLaw ();
 
+
   /**
-   * @return the reversible status of this Reaction.
+   * Returns the value of the "reversible" attribute on the Reaction as a
+   * boolean value.
+   * 
+   * @return the reversibility status of this Reaction.
    */
   bool getReversible () const;
 
+
   /**
-   * @return the fast status of this Reaction.
+   * Returns the value of the "fast" attribute of this Reaction.
+   * 
+   * @return the "fast" status of this Reaction.
+   *
+   * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
+   * indicated that software tools could ignore this attribute if they did
+   * not implement support for the corresponding concept; however, further
+   * research in %SBML has revealed that this is not true, and "fast"
+   * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
+   * Versions 2 and 3 therefore stipulate that if a model has any reactions
+   * with "fast" set to @c true, a software tool must be able to respect
+   * the attribute or else indicate to the user that it does not have the
+   * capacity to do so.  Readers are directed to the %SBML Level 2 Version
+   * 3 specification, which provides more detail about the conditions under
+   * which a reaction can be considered to be fast in this sense.
    */
   bool getFast () const;
 
+
   /**
-   * @return true if the KineticLaw of this Reaction has been set, false
+   * Predicate returning @c true or @c false depending on whether this
+   * Reaction contains a kinetic law object.
+   * 
+   * @return @c true if a KineticLaw is present in this Reaction,, @c false
    * otherwise.
    */
   bool isSetKineticLaw () const;
 
+
   /**
-   * @return true if the fast status of this Reaction has been set, false
-   * otherwise.
+   * Predicate returning @c true or @c false depending on the value of
+   * the "fast" attribute on this Reaction.
+   * 
+   * @return @c true if the "fast" attribute is true, @c false otherwise.
    *
-   * In L1, fast is optional with a default of false, which means it is
-   * effectively always set.  In L2, however, fast is optional with no
-   * default value, so it may or may not be set to a specific value.
+   * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
+   * indicated that software tools could ignore this attribute if they did
+   * not implement support for the corresponding concept; however, further
+   * research in %SBML has revealed that this is not true, and "fast"
+   * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
+   * Versions 2 and 3 therefore stipulate that if a model has any reactions
+   * with "fast" set to @c true, a software tool must be able to respect
+   * the attribute or else indicate to the user that it does not have the
+   * capacity to do so.  Readers are directed to the %SBML Level 2 Version
+   * 3 specification, which provides more detail about the conditions under
+   * which a reaction can be considered to be fast in this sense.  Note
+   * also that in SBML Level 1, "fast" is defined as optional with a
+   * default of @c false, which means it is effectively always set.
    */
   bool isSetFast () const;
 
+
   /**
-   * Sets the KineticLaw of this Reaction to a copy of the given
-   * KineticLaw.
+   * Sets the "kineticLaw" subelement of this Reaction to a copy of the
+   * given KineticLaw object.
+   *
+   * @param kl the KineticLaw object to use.
    */
   void setKineticLaw (const KineticLaw* kl);
 
+
   /**
-   * Sets the reversible status of this Reaction to value.
+   * Sets the value of the "reversible" attribute of this Reaction.
+   *
+   * @param value the value of the "reversible" attribute.
    */
   void setReversible (bool value);
 
+
   /**
-   * Sets the fast status of this Reaction to value.
+   * Sets the value of the "fast" attribute of this Reaction.
+   *
+   * @param value the value of the "fast" attribute.
+   * 
+   * @warning SBML definitions before SBML Level 2 Version 2 incorrectly
+   * indicated that software tools could ignore this attribute if they did
+   * not implement support for the corresponding concept; however, further
+   * research in %SBML has revealed that this is not true, and "fast"
+   * <em>cannot be ignored</em> if it is set to @c true.  %SBML Level 2
+   * Versions 2 and 3 therefore stipulate that if a model has any reactions
+   * with "fast" set to @c true, a software tool must be able to respect
+   * the attribute or else indicate to the user that it does not have the
+   * capacity to do so.  Readers are directed to the %SBML Level 2 Version
+   * 3 specification, which provides more detail about the conditions under
+   * which a reaction can be considered to be fast in this sense.
    */
   void setFast (bool value);
 
+
   /**
-   * Unsets the KineticLaw of this Reaction.
+   * Unsets the "kineticLaw" subelement of this Reaction.
    */
   void unsetKineticLaw ();
 
+
   /**
-   * Unsets the fast status of this Reaction.
+   * Unsets the value of the "fast" attribute of this Reaction.
    *
-   * In L1, fast is optional with a default of false, which means it is
-   * effectively always set.  In L2, however, fast is optional with no
-   * default value, so it may or may not be set to a specific value.
+   * @warning In SBML Level 1, "fast" is optional with a default of @c
+   * false, which means it is effectively always set (and reset to @c false
+   * if this method is called).  Further, SBML definitions before SBML
+   * Level 2 Version 2 incorrectly indicated that software tools could
+   * ignore this attribute if they did not implement support for the
+   * corresponding concept; however, further research in %SBML has revealed
+   * that this is not true, and "fast" <em>cannot be ignored</em> if it is
+   * set to @c true.  %SBML Level 2 Versions 2 and 3 therefore stipulate
+   * that if a model has any reactions with "fast" set to @c true, a
+   * software tool must be able to respect the attribute or else indicate
+   * to the user that it does not have the capacity to do so.  Readers are
+   * directed to the %SBML Level 2 Version 3 specification, which provides
+   * more detail about the conditions under which a reaction can be
+   * considered to be fast in this sense.
    */
   void unsetFast ();
 
+
   /**
-   * Adds a copy of the given reactant (SpeciesReference) to this Reaction.
+   * Adds a given SpeciesReference object as a reactant in this Reaction.
+   *
+   * The SpeciesReference instance in @p sr is copied.
+   *
+   * @param sr a SpeciesReference object referring to a Species in the
+   * enclosing Model
    */
   void addReactant (const SpeciesReference* sr);
 
+
   /**
-   * Adds a copy of the given product (SpeciesReference) to this Reaction.
+   * Adds a given SpeciesReference object as a product in this Reaction.
+   *
+   * The SpeciesReference instance in @p sr is copied.
+   *
+   * @param sr a SpeciesReference object referring to a Species in the
+   * enclosing Model
    */
   void addProduct (const SpeciesReference* sr);
 
+
   /**
-   * Adds a copy of the given modifier (ModifierSpeciesReference) to this
+   * Adds a given ModifierSpeciesReference object as a product in this
    * Reaction.
+   *
+   * The ModifierSpeciesReference instance in @p msr is copied.
+   *
+   * @param msr a ModifierSpeciesReference object referring to a Species in
+   * the enclosing Model
    */
   void addModifier (const ModifierSpeciesReference* msr);
 
 
   /**
    * Creates a new SpeciesReference, adds it to this Reaction's list of
-   * reactants and returns it.
+   * reactants, and returns it.
+   *
+   * @return a new SpeciesReference object.
    */
   SpeciesReference* createReactant ();
 
+
   /**
    * Creates a new SpeciesReference, adds it to this Reaction's list of
-   * products and returns it.
+   * products, and returns it.
+   *
+   * @return a new SpeciesReference object.
    */
   SpeciesReference* createProduct ();
+
 
   /**
    * Creates a new ModifierSpeciesReference, adds it to this Reaction's
    * list of modifiers and returns it.
+   *
+   * @return a new ModifierSpeciesReference object.
    */
   ModifierSpeciesReference* createModifier ();
 
+
   /**
-   * Creates a new KineticLaw for this Reaction and returns it.  If this
-   * Reaction had a previous KineticLaw, it will be destroyed.
+   * Creates a new KineticLaw object, installs it as this Reaction's
+   * "kineticLaw" subelement, and returns it.
+   *
+   * If this Reaction had a previous KineticLaw, it will be destroyed.
+   *
+   * @return the new KineticLaw object
    */
   KineticLaw* createKineticLaw ();
 
+
   /**
-   * @return the list of Reactants for this Reaction.
+   * Returns the list of reactants in this Reaction object.
+   * 
+   * @return the ListOfSpeciesReferences containing the references to the
+   * species acting as reactants in this reaction
    */
   const ListOfSpeciesReferences* getListOfReactants () const;
 
+
   /**
-   * @return the list of Reactants for this Reaction.
+   * Returns the list of reactants in this Reaction object.
+   * 
+   * @return the ListOfSpeciesReferences containing the references to the
+   * species acting as reactants in this reaction
    */
   ListOfSpeciesReferences* getListOfReactants ();
 
+
   /**
-   * @return the list of Products for this Reaction.
+   * Returns the list of products in this Reaction object.
+   * 
+   * @return the ListOfSpeciesReferences containing the references to the
+   * species acting as products in this reaction
    */
   const ListOfSpeciesReferences* getListOfProducts () const;
 
+
   /**
-   * @return the list of Products for this Reaction.
+   * Returns the list of products in this Reaction object.
+   * 
+   * @return the ListOfSpeciesReferences containing the references to the
+   * species acting as products in this reaction
    */
   ListOfSpeciesReferences* getListOfProducts ();
 
+
   /**
-   * @return the list of Modifiers for this Reaction.
+   * Returns the list of modifiers in this Reaction object.
+   * 
+   * @return the ListOfSpeciesReferences containing the references to the
+   * species acting as modifiers in this reaction
    */
   const ListOfSpeciesReferences* getListOfModifiers () const;
 
+
   /**
-   * @return the list of Modifiers for this Reaction.
+   * Returns the list of modifiers in this Reaction object.
+   * 
+   * @return the ListOfSpeciesReferences containing the references to the
+   * species acting as modifiers in this reaction
    */
   ListOfSpeciesReferences* getListOfModifiers ();
 
 
   /**
-   * @return the nth reactant (SpeciesReference) of this Reaction.
+   * Returns the nth reactant species in the list of reactants in this
+   * Reaction.
+   *
+   * Callers should first call getNumReactants() to find out how many
+   * reactants there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the reactant sought.
+   * 
+   * @return the nth reactant (as a SpeciesReference object) of this
+   * Reaction.
    */
   const SpeciesReference* getReactant (unsigned int n) const;
 
+
   /**
-   * @return the nth reactant (SpeciesReference) of this Reaction.
+   * Returns the nth reactant species in the list of reactants in this
+   * Reaction.
+   *
+   * Callers should first call getNumReactants() to find out how many
+   * reactants there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the reactant sought.
+   * 
+   * @return the nth reactant (as a SpeciesReference object) of this
+   * Reaction.
    */
   SpeciesReference* getReactant (unsigned int n);
 
+
   /**
-   * @return the reactant (SpeciesReference) in this Reaction with the
-   * given species or NULL if no such reactant exists.
+   * Returns the reactant species having a specific identifier in this
+   * Reaction.
+   *
+   * @param species the identifier of the reactant Species
+   *
+   * @return a SpeciesReference object, or NULL if no species with the
+   * given identifier @p species appears as a reactant in this Reaction.
    */
   const SpeciesReference* getReactant (const std::string& species) const;
 
+
   /**
-   * @return the reactant (SpeciesReference) in this Reaction with the
-   * given species or NULL if no such reactant exists.
+   * Returns the reactant species having a specific identifier in this
+   * Reaction.
+   *
+   * @param species the identifier of the reactant Species
+   *
+   * @return a SpeciesReference object, or NULL if no species with the
+   * given identifier @p species appears as a reactant in this Reaction.
    */
   SpeciesReference* getReactant (const std::string& species);
 
 
   /**
-   * @return the nth product (SpeciesReference) of this Reaction.
+   * Returns the nth product species in the list of products in this Reaction.
+   *
+   * Callers should first call getNumProducts() to find out how many
+   * products there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the product sought.
+   * 
+   * @return the nth product (as a SpeciesReference object) of this
+   * Reaction.
    */
   const SpeciesReference* getProduct (unsigned int n) const;
 
+
   /**
-   * @return the nth product (SpeciesReference) of this Reaction.
+   * Returns the nth product species in the list of products in this
+   * Reaction.
+   *
+   * Callers should first call getNumProducts() to find out how many
+   * products there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the product sought.
+   * 
+   * @return the nth product (as a SpeciesReference object) of this
+   * Reaction.
    */
   SpeciesReference* getProduct (unsigned int n);
 
+
   /**
-   * @return the product (SpeciesReference) in this Reaction with the given
-   * species or NULL if no such product exists.
+   * Returns the product species having a specific identifier in this
+   * Reaction.
+   *
+   * @param species the identifier of the product Species
+   *
+   * @return a SpeciesReference object, or NULL if no species with the
+   * given identifier @p species appears as a product in this Reaction.
    */
   const SpeciesReference* getProduct (const std::string& species) const;
 
+
   /**
-   * @return the product (SpeciesReference) in this Reaction with the given
-   * species or NULL if no such product exists.
+   * Returns the product species having a specific identifier in this
+   * Reaction.
+   *
+   * @param species the identifier of the product Species
+   *
+   * @return a SpeciesReference object, or NULL if no species with the
+   * given identifier @p species appears as a product in this Reaction.
    */
   SpeciesReference* getProduct (const std::string& species);
 
 
   /**
-   * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
+   * Returns the nth modifier species in the list of modifiers of this Reaction.
+   *
+   * Callers should first call getNumModifiers() to find out how many
+   * modifiers there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the modifier species sought
+   * 
+   * @return the nth modifier (as a ModifierSpeciesReference object) of
+   * this Reaction.
    */
   const ModifierSpeciesReference* getModifier (unsigned int n) const;
 
+
   /**
-   * @return the nth modifier (ModifierSpeciesReference) of this Reaction.
+   * Returns the nth modifier species in the list of modifiers of this Reaction.
+   *
+   * Callers should first call getNumModifiers() to find out how many
+   * modifiers there are, to avoid using an invalid index number.
+   *
+   * @param n the index of the modifier species sought
+   * 
+   * @return the nth modifier (as a ModifierSpeciesReference object) of
+   * this Reaction.
    */
   ModifierSpeciesReference* getModifier (unsigned int n);
 
+
   /**
-   * @return the modifier (ModifierSpeciesReference) in this Reaction with
-   * the given species or NULL if no such modifier exists.
+   * Returns the modifier species having a specific identifier in this
+   * Reaction.
+   *
+   * @param species the identifier of the modifier Species
+   *
+   * @return a ModifierSpeciesReference object, or NULL if no species with
+   * the given identifier @p species appears as a modifier in this
+   * Reaction.
    */
   const ModifierSpeciesReference*
   getModifier (const std::string& species) const;
 
+
   /**
-   * @return the modifier (ModifierSpeciesReference) in this Reaction with
-   * the given species or NULL if no such modifier exists.
+   * Returns the modifier species having a specific identifier in this
+   * Reaction.
+   *
+   * @param species the identifier of the modifier Species
+   *
+   * @return a ModifierSpeciesReference object, or NULL if no species with
+   * the given identifier @p species appears as a modifier in this
+   * Reaction.
    */
   ModifierSpeciesReference* getModifier (const std::string& species);
 
 
   /**
-   * @return the number of reactants (SpeciesReferences) in this Reaction.
+   * Returns the number of reactant species in this Reaction.
+   * 
+   * @return the number of reactants in this Reaction.
    */
   unsigned int getNumReactants () const;
 
+
   /**
-   * @return the number of products (SpeciesReferences) in this Reaction.
+   * Returns the number of product species in this Reaction.
+   * 
+   * @return the number of products in this Reaction.
    */
   unsigned int getNumProducts () const;
 
+
   /**
-   * @return the number of modifiers (ModifierSpeciesReferences) in this
-   * Reaction.
+   * Returns the number of modifier species in this Reaction.
+   * 
+   * @return the number of modifiers in this Reaction.
    */
   unsigned int getNumModifiers () const;
 
@@ -458,15 +715,20 @@ public:
 
 
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "reaction".
+   * Returns the XML element name of this object, which for Reaction, is
+   * always @c "reaction".
+   * 
+   * @return the name of this element, i.e., @c "reaction".
    */
   virtual const std::string& getElementName () const;
 
@@ -494,11 +756,13 @@ protected:
    */
   virtual bool readOtherXML (XMLInputStream& stream);
 
+
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
 
   /**
    * Subclasses should override this method to read values from the given
@@ -506,6 +770,7 @@ protected:
    * parents implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes);
+
 
   /**
    * Subclasses should override this method to write their XML attributes
@@ -535,9 +800,12 @@ class LIBSBML_EXTERN ListOfReactions : public ListOf
 public:
 
   /**
+   * Creates and returns a deep copy of this ListOfReactions instance.
+   *
    * @return a (deep) copy of this ListOfReactions.
    */
   virtual SBase* clone () const;
+
 
   /**
    * Returns the libSBML type code for this %SBML object.
@@ -550,15 +818,15 @@ public:
 
 
   /**
+   * Returns the libSBML type code for the objects contained in this ListOf
+   * (i.e., Reaction objects, if the list is non-empty).
+   * 
    * @return the SBMLTypeCode_t of SBML objects contained in this ListOf or
    * SBML_UNKNOWN (default).
+   *
+   * @see getElementName()
    */
   virtual SBMLTypeCode_t getItemTypeCode () const;
-
-  /**
- * @return the name of this element ie "listOfReactions".
-   */
-  virtual const std::string& getElementName () const;
 
 
   /** @cond doxygen-libsbml-internal */
@@ -573,12 +841,15 @@ public:
 
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
+
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
