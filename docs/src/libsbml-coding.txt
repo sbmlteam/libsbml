@@ -119,95 +119,95 @@ of their definitions and use can be found online at the <a
 href="http://www.doxygen.org">Doxygen</a> website.
 
 <table border="0">
-<tr><td class="indexkey" style="background-color: #cccccc;">Command</td>
-    <td class="indexkey" style="background-color: #cccccc;">Meaning</td><td></td></tr>
+<tr><td class="simpletableleft" style="background-color: #cccccc;">Command</td>
+    <td class="simpletableleft" style="background-color: #cccccc;">Meaning</td><td></td></tr>
 
-<tr><td class="indexkey">\@file</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@file</td>
+<td class="simpletableright">
 Defines the name of the current file.</td><td></td></tr>
 
-<tr><td class="indexkey">\@brief</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@brief</td>
+<td class="simpletableright">
 Provides a one-sentence description of the entity being described (a file,
 a class, etc.).</td><td></td></tr>
 
-<tr><td class="indexkey">\@author</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@author</td>
+<td class="simpletableright">
 Names the author of the entity being described (a file, a class, etc.).
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@c</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@c</td>
+<td class="simpletableright">
 Puts the following word in typewriter ("code") font.  To style more than one
 word, use <code>&lt;code&gt;the words&lt;/code&gt;</code>.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@em</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@em</td>
+<td class="simpletableright">
 Puts the following word in italic font, for emphasis.  To put multiple words
 in italics, use <code>&lt;em&gt;the words&lt;/em&gt;</code>.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@n</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@n</td>
+<td class="simpletableright">
 Forces a newline, like HTML's <code>&lt;br&gt;</code>.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@p</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@p</td>
+<td class="simpletableright">
 Puts the following word in typewriter ("code") font.  This form is preferred
 when the word is a parameter to a method or function.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@li</td>
-<td class="indexvalue">
-Starts (or continue) a bullet list.  You can insert the first @c \@li in
+<tr><td class="simpletableleft">\@li</td>
+<td class="simpletableright">
+Starts (or continues) a bullet list.  You can insert the first @c \@li in
 a comment, and the item will continue until a paragraph break or the
 next @c \@li command.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@class</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@class</td>
+<td class="simpletableright">
 Declares that the following documentation block refers to the named class.
 Useful only when the block does not immediately precede the class
 definition (e.g., when it's at the beginning of the file). 
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@param</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@param</td>
+<td class="simpletableright">
 Declares a parameter to a method or function.  The first word following
 @c \@param will be the name of the parameter, and the rest of the text (up to
 a period or blank) will be used as the description.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@return</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@return</td>
+<td class="simpletableright">
 Declares the return value from a method or function.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@see</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@see</td>
+<td class="simpletableright">
 Formats a reference to another entity in the documentation.  Commonly used
 to refer to related classes or methods.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@note</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@note</td>
+<td class="simpletableright">
 Formats the following paragraph with the heading "Note:".  Useful to call
 out something special about a class, function, file or other entity, such
 as a behavior that should be brought to the attention of users or a note
 about API changes compared to previous versions of the software or SBML.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@warning</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@warning</td>
+<td class="simpletableright">
 Formats the following paragraph with the heading "Warning:".  This is a
 stronger statement than \@note, and is useful to call attention to
 backward-incompatible changes or potentially error-provoking situations.
 </td><td></td></tr>
 
-<tr><td class="indexkey">\@bug</td>
-<td class="indexvalue">
+<tr><td class="simpletableleft">\@bug</td>
+<td class="simpletableright">
 Formats the following paragraph with the heading "Bugs:".  Useful to
 indicate that something is known to be a problem in some part of the code. 
 </td><td></td></tr>
