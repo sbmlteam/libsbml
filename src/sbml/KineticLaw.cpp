@@ -663,10 +663,22 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
 }
 
 
+
+/** @cond doxygen-c-only */
+
+
+
 /**
- * Creates a new KineticLaw and returns a pointer to it.
+ * Creates a new, empty KineticLaw_t structure and returns a pointer to it.
  *
- * @return pointer to newly created KineticLaw structure.
+ * Note that in SBML Level 2, if a KineticLaw_t structure is present in a
+ * Reaction_t object, the KineticLaw_t structure must contain a non-empty
+ * "math" subelement.  Although this method allows the creation of empty
+ * KineticLaw_t structures, callers should make sure to assign a
+ * mathematical expression for the rate using (for example)
+ * KineticLaw_setMath().
+ *
+ * @return pointer to newly created KineticLaw_t structure.
  */
 LIBSBML_EXTERN
 KineticLaw_t *
@@ -677,24 +689,35 @@ KineticLaw_create (void)
 
 
 /**
- * Creates a new KineticLaw with the given formula, timeUnits and
- * substanceUnits and returns a pointer to it.  This convenience function
- * is functionally equivalent to:
+ * Creates a new KineticLaw_t structure with the given formula and values
+ * for attributes "timeUnits" and "substanceUnits", and returns a pointer
+ * to it.
  *
- *   KineticLaw_t *kl = KineticLaw_create();@n
- *   KineticLaw_setFormula(kl, formula);@n
- *   KineticLaw_setTimeUnits(kl, timeUnits);@n
- *   ...;
+ * See the description of Reaction for important information about the
+ * interpretation of reaction rate expressions, and on particular about the
+ * units of the expressions.
  *
- * @param formula string representing the kinetic law.
- * @param timeUnits string representing the units of time for this KineticLaw.
- * @param substanceUnits string representing the units of substance for this KineticLaw.
+ * This convenience function is functionally equivalent to:
+ * @code
+ *   KineticLaw_t *kl = KineticLaw_create();
+ *   KineticLaw_setFormula(kl, formula);
+ *   KineticLaw_setTimeUnits(kl, timeUnits);
+ *   KineticLaw_setSubstanceUnits(kl, substanceUnits);
+ * @endcode
  *
- * @return pointer to newly created KineticLaw structure.
+ * @param formula a mathematical expression in text-string form
+ * representing the rate of the reaction.
  * 
+ * @param timeUnits the identifier of the units of time for this
+ * KineticLaw_t structure.
+ * 
+ * @param substanceUnits the identifier of the units of substance for this
+ * KineticLaw_t structure.
  *
- * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
- * been removed.
+ * @return pointer to newly created KineticLaw_t structure.
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.
  */
 LIBSBML_EXTERN
 KineticLaw_t *
@@ -709,31 +732,43 @@ KineticLaw_createWith ( const char *formula,
   return new(nothrow) KineticLaw(f, tu, su);
 }
 
+
 /**
- * Creates a new KineticLaw with the given math, timeUnits and
- * substanceUnits and returns a pointer to it.  This convenience function
- * is functionally equivalent to:
+ * Creates a new KineticLaw_t structure with the given mathematical
+ * expression and values for attributes "timeUnits" and "substanceUnits",
+ * and returns a pointer to it.
  *
- *   KineticLaw_t *kl = KineticLaw_create();@n
- *   KineticLaw_setMath(kl, math);@n
- *   KineticLaw_setTimeUnits(kl, timeUnits);@n
- *   ...;
+ * See the description of Reaction for important information about the
+ * interpretation of reaction rate expressions, and on particular about the
+ * units of the expressions.
  *
- * @param math ASTNode structure representing the mathematical expression
- * @param timeUnits string representing the units of time for this KineticLaw.
- * @param substanceUnits string representing the units of substance for this KineticLaw.
+ * This convenience function is functionally equivalent to:
+ * @code
+ *   KineticLaw_t *kl = KineticLaw_create();
+ *   KineticLaw_setMath(kl, math);
+ *   KineticLaw_setTimeUnits(kl, timeUnits);
+ *   KineticLaw_setSubstanceUnits(kl, substanceUnits);
+ * @endcode
  *
- * @return pointer to newly created KineticLaw structure.
+ * @param math an ASTNode structure representing a mathematical expression
+ * for the rate of the reaction.
  * 
+ * @param timeUnits the identifier of the units of time for this
+ * KineticLaw_t structure.
+ * 
+ * @param substanceUnits the identifier of the units of substance for this
+ * KineticLaw_t structure.
  *
- * @note starting from %SBML Level 2 Version 2 timeUnits and substanceUnits have
- * been removed.
+ * @return pointer to newly created KineticLaw_t structure.
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.
  */
 LIBSBML_EXTERN
 KineticLaw_t *
 KineticLaw_createWithMathAndUnits ( ASTNode_t *math,
-                            const char *timeUnits,
-                            const char *substanceUnits )
+				    const char *timeUnits,
+				    const char *substanceUnits )
 {
   string tu = timeUnits      ? timeUnits      : "";
   string su = substanceUnits ? substanceUnits : "";
@@ -741,27 +776,38 @@ KineticLaw_createWithMathAndUnits ( ASTNode_t *math,
   return new(nothrow) KineticLaw(math, tu, su);
 }
 
+
 /**
- * Creates a new KineticLaw with the given math and returns a pointer 
- * to it.  This convenience function is functionally equivalent to:
+ * Creates a new KineticLaw_t structure with the given mathematical
+ * expression and returns a pointer to it.
  *
- *   KineticLaw_t *kl = KineticLaw_create();@n
- *   KineticLaw_setMath(kl, math);@n
+ * See the description of Reaction for important information about the
+ * interpretation of reaction rate expressions, and on particular about the
+ * units of the expressions.
  *
- * @param math ASTNode_t structure representing the kinetic law.
+ * This convenience function is functionally equivalent to:
+ * @code
+ *   KineticLaw_t *kl = KineticLaw_create();
+ *   KineticLaw_setMath(kl, math);
+ * @endcode
  *
- * @return pointer to newly created KineticLaw structure.
+ * @param math an ASTNode structure representing a mathematical expression
+ * for the rate of the reaction.
+ *
+ * @return pointer to newly created KineticLaw_t structure.
  */
 LIBSBML_EXTERN
 KineticLaw_t *
-KineticLaw_createWithMath ( ASTNode_t *math)
+KineticLaw_createWithMath (ASTNode_t *math)
 {
   return new(nothrow) KineticLaw(math);
 }
 
 
 /**
- * Frees the given KineticLaw.
+ * Frees the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure
  */
 LIBSBML_EXTERN
 void
@@ -772,7 +818,11 @@ KineticLaw_free (KineticLaw_t *kl)
 
 
 /**
- * @return a (deep) copy of this KineticLaw.
+ * Returns a deep copy of the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return a (deep) copy of this KineticLaw_t structure.
  */
 LIBSBML_EXTERN
 SBase_t *
@@ -783,7 +833,18 @@ KineticLaw_clone (const KineticLaw_t *kl)
 
 
 /**
- * @return the formula of this KineticLaw.
+ * Gets the mathematical expression of this KineticLaw_t structure as a
+ * formula in text-string form.
+ *
+ * This is fundamentally equivalent to KineticLaw_getMath().  It is
+ * provided principally for compatibility with SBML Level 1, which
+ * represented mathematical formulas in text-string form.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return the formula of this KineticLaw_t structure.
+ *
+ * @see KineticLaw_getMath().
  */
 LIBSBML_EXTERN
 const char *
@@ -794,7 +855,18 @@ KineticLaw_getFormula (const KineticLaw_t *kl)
 
 
 /**
- * @return the math of this KineticLaw.
+ * Gets the mathematical expression of this KineticLaw_t structure as an
+ * ASTNode_t structure.
+ *
+ * This is fundamentally equivalent to KineticLaw_getFormula().  The latter
+ * is provided principally for compatibility with SBML Level 1, which
+ * represented mathematical formulas in text-string form.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return the formula in the form of an ASTNode_t structure
+ *
+ * @see KineticLaw_getFormula().
  */
 LIBSBML_EXTERN
 const ASTNode_t *
@@ -805,7 +877,16 @@ KineticLaw_getMath (const KineticLaw_t *kl)
 
 
 /**
- * @return the timeUnits of this KineticLaw.
+ * Gets the value of the "timeUnits" attribute of the given
+ * KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return the "timeUnits" attribute value
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
 const char *
@@ -816,7 +897,16 @@ KineticLaw_getTimeUnits (const KineticLaw_t *kl)
 
 
 /**
- * @return the substanceUnits of this KineticLaw.
+ * Gets the value of the "substanceUnits" attribute of the given
+ * KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return the "substanceUnits" attribute value
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
 const char *
@@ -827,8 +917,19 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
 
 
 /**
- * @return true (non-zero) if the formula (or equivalently the math) of
- * this KineticLaw has been set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "formula" attribute of the given KineticLaw_t structure is
+ * set.
+ *
+ * This is fundamentally equivalent to KineticLaw_isSetMath().  It is
+ * provided principally for compatibility with SBML Level 1, which
+ * represented mathematical formulas in text-string form.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return nonzero (meaning true) if the formula (or equivalently the
+ * "math" subelement) of the given KineticLaw_t structure has been set,
+ * zero (meaning false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -839,8 +940,18 @@ KineticLaw_isSetFormula (const KineticLaw_t *kl)
 
 
 /**
- * @return true (non-zero) if the math (or equivalently the formula) of
- * this KineticLaw has been set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "math" subelement of the given KineticLaw_t structure is
+ * set.
+ *
+ * This is fundamentally equivalent to KineticLaw_isSetFormula().  The
+ * latter provided principally for compatibility with SBML Level 1, which
+ * represented mathematical formulas in text-string form.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return nonzero (meaning true) if the "math" subelement of the given
+ * KineticLaw_t structure has been set, zero (meaning false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -851,8 +962,18 @@ KineticLaw_isSetMath (const KineticLaw_t *kl)
 
 
 /**
- * @return true (non-zero) if the timeUnits of this KineticLaw has been
- * set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "timeUnits" attribute of the given KineticLaw_t structure is
+ * set.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return nonzero (meaning true) if the "timeUnits" attribute of the given
+ * KineticLaw_t structure has been set, zero (meaning false) otherwise.
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
 int
@@ -863,8 +984,18 @@ KineticLaw_isSetTimeUnits (const KineticLaw_t *kl)
 
 
 /**
- * @return true (non-zero) if the substanceUnits of this KineticLaw has
- * been set, false (0) otherwise.
+ * Predicate returning nonzero (for true) or zero (for false) depending on
+ * whether the "timeUnits" attribute of the given KineticLaw_t structure is
+ * set.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return nonzero (meaning true) if the "timeUnits" attribute of the given
+ * KineticLaw_t structure has been set, zero (meaning false) otherwise.
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
 int
@@ -875,7 +1006,15 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
 
 
 /**
- * Sets the formula of this KineticLaw to a copy of formula.
+ * Sets the formula of the given KineticLaw_t structure.
+ *
+ * This is fundamentally equivalent to KineticLaw_setMath().  It is
+ * provided principally for compatibility with SBML Level 1, which
+ * represented mathematical formulas in text-string form.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param formula the mathematical expression, in text-string form.
  */
 LIBSBML_EXTERN
 void
@@ -886,7 +1025,15 @@ KineticLaw_setFormula (KineticLaw_t *kl, const char *formula)
 
 
 /**
- * Sets the math of this KineticLaw to a copy of the given ASTNode.
+ * Sets the formula of the given KineticLaw_t structure.
+ *
+ * This is fundamentally equivalent to KineticLaw_setFormula().  The latter
+ * provided principally for compatibility with SBML Level 1, which
+ * represented mathematical formulas in text-string form.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param math an ASTNode_t structure representing the mathematical formula
  */
 LIBSBML_EXTERN
 void
@@ -897,7 +1044,17 @@ KineticLaw_setMath (KineticLaw_t *kl, const ASTNode_t *math)
 
 
 /**
- * Sets the timeUnits of this KineticLaw to a copy of sid.
+ * Sets the "timeUnits" attribute of the given KineticLaw_t structure.
+ *
+ * The identifier string @p sid is copied.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param sid the identifier of the units
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
 void
@@ -908,7 +1065,17 @@ KineticLaw_setTimeUnits (KineticLaw_t *kl, const char *sid)
 
 
 /**
- * Sets the substanceUnits of this KineticLaw to a copy of sid.
+ * Sets the "substanceUnits" attribute of the given KineticLaw_t structure.
+ *
+ * The identifier string @p sid is copied.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param sid the identifier of the units
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
  */
 LIBSBML_EXTERN
 void
@@ -919,7 +1086,14 @@ KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
 
 
 /**
- * Unsets the timeUnits of this KineticLaw.
+ * Unsets the "timeUnits" attribute of the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
+ */
  */
 LIBSBML_EXTERN
 void
@@ -930,7 +1104,14 @@ KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
 
 
 /**
- * Unsets the substanceUnits of this KineticLaw.
+ * Unsets the "substanceUnits" attribute of the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+ * attributes were removed.  For compatibility with new versions of SBML,
+ * users are cautioned to avoid these attributes.
+ */
  */
 LIBSBML_EXTERN
 void
@@ -941,7 +1122,12 @@ KineticLaw_unsetSubstanceUnits (KineticLaw_t *kl)
 
 
 /**
- * Adds a copy of the given Parameter to this KineticLaw.
+ * Adds a copy of the given Parameter_t structure to the list of local
+ * parameters in the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param p a pointer to a Parameter_t structure
  */
 LIBSBML_EXTERN
 void
@@ -952,8 +1138,13 @@ KineticLaw_addParameter (KineticLaw_t *kl, const Parameter_t *p)
 
 
 /**
- * Creates a new Parameter, adds it to this KineticLaw's list of
- * parameters and returns it.
+ * Creates a new Parameter_t structure, adds it to the given KineticLaw_t
+ * structures's list of local parameters, and returns a pointer to the
+ * Parameter_t created.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @return a pointer to a Parameter_t structure
  */
 LIBSBML_EXTERN
 Parameter_t *
@@ -964,7 +1155,12 @@ KineticLaw_createParameter (KineticLaw_t *kl)
 
 
 /**
- * @return the list of Parameters for this KineticLaw.
+ * Get the list of local parameters defined for the given KineticLaw_t
+ * structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return a list of Parameters
  */
 LIBSBML_EXTERN
 ListOf_t *
@@ -975,7 +1171,19 @@ KineticLaw_getListOfParameters (KineticLaw_t *kl)
 
 
 /**
- * @return the nth Parameter of this KineticLaw.
+ * Get the nth parameter in the list of local parameters in the
+ * given KineticLaw_t structure.
+ *
+ * Callers should first find out how many parameters are in the list by
+ * calling KineticLaw_getNumParameters().
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param n the index of the Parameter_t structure sought
+ * 
+ * @return a pointer to the Parameter_t structure
+ *
+ * @see KineticLaw_getNumParameters().
  */
 LIBSBML_EXTERN
 Parameter_t *
@@ -986,8 +1194,15 @@ KineticLaw_getParameter (KineticLaw_t *kl, unsigned int n)
 
 
 /**
- * @return the Parameter in this KineticLaw with the given id or NULL if no
- * such Parameter exists.
+ * Get a parameter with identifier "id" out of the list of local
+ * parameters defined for the given KineticLaw_t structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param sid the identifier of the Parameter_t structure sought
+ * 
+ * @return the Parameter_t structure with the given id, or NULL if no such
+ * Parameter_t exists in the given KineticLaw_t structure.
  */
 LIBSBML_EXTERN
 Parameter_t *
@@ -998,7 +1213,13 @@ KineticLaw_getParameterById (KineticLaw_t *kl, const char *sid)
 
 
 /**
- * @return the number of Parameters in this KineticLaw.
+ * Get the number of local parameters defined in the given KineticLaw_t
+ * structure.
+ *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return the number of Parameter_t structures in the given KineticLaw_t
+ * structure.
  */
 LIBSBML_EXTERN
 unsigned int
@@ -1006,3 +1227,8 @@ KineticLaw_getNumParameters (const KineticLaw_t *kl)
 {
   return kl->getNumParameters();
 }
+
+
+
+/** @endcond doxygen-c-only */
+
