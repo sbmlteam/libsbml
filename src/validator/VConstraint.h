@@ -1,5 +1,5 @@
 /**
- * @file    Constraint.h
+ * @file    VConstraint.h
  * @brief   Base class for all SBML Validator Constraints
  * @author  Ben Bornstein
  * 
