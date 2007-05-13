@@ -2,7 +2,8 @@
 
 @author Ben Bornstein and Sarah Keating, <em>with contributions from
 Michael Hucka, Ralph Gauges, Stefan Hoops, Christoph Flamm, Rainer Machne,
-Martin Ginkel, Ben Kovitz, and many others in the %SBML community</em>.
+Martin Ginkel, Ben Kovitz, Akiya Joukaru, and many others in the %SBML
+community</em>.
 
 @n
 This manual describes the application programming interface (API) of
