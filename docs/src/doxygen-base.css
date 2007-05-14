@@ -375,7 +375,7 @@ TD.simpletableleft {
   background-color: #eeeeff; 
   vertical-align: middle;
   font-weight: bold; 
-  font-size: normal;
+  font-size: 14px;
   padding-right  : 10px; 
   padding-top    : 3px; 
   padding-left   : 10px; 
@@ -390,7 +390,7 @@ TD.simpletableright {
   background-color: #eeeeff; 
   vertical-align: middle;
   font-style: italic; 
-  font-size: 12px;
+  font-size: 14px;
   padding-right  : 10px; 
   padding-top    : 3px; 
   padding-left   : 10px; 
