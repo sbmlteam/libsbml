@@ -1,4 +1,4 @@
-/** @page libsbml-communications Bug reports, mailing lists, and related topics
+/** @page libsbml-communications Bug Reports, Mailing Lists, and Related Topics
 
 @section bugs Reporting bugs and other problems
 
