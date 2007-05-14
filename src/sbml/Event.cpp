@@ -376,7 +376,7 @@ Event::setSBMLDocument (SBMLDocument* d)
 {
   mSBML = d;
   mEventAssignments.setSBMLDocument(d);
-  mTrigger->setSBMLDocument(d);
+  if (mTrigger) mTrigger->setSBMLDocument(d);
   if (mDelay) mDelay->setSBMLDocument(d);
 }
 
