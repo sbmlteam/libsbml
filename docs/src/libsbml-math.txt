@@ -1,4 +1,4 @@
-/** @page libsbml-math Mathematical Expressions and their Manipulation in libSBML
+/** @page libsbml-math Mathematical Expressions and their Manipulation
 
 This section describes libSBML's facilities for working with SBML
 representations of mathematical expressions.
