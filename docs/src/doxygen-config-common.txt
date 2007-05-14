@@ -350,6 +350,9 @@ INPUT =                      \
   libsbml-installation.txt   \
   libsbml-communications.txt \
   libsbml-coding.txt         \
+  libsbml-math.txt           \
+  libsbml-issues.txt         \
+  libsbml-reading-files.txt  \
   ../../LICENSE.txt          \
   ../../src/common           \
   ../../src/annotation       \
@@ -364,8 +367,6 @@ INPUT =                      \
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
 EXCLUDE =                            \
-  ../../src/math/FormulaTokenizer.c  \
-  ../../src/math/FormulaTokenizer.h  \
   ../../src/xml/XercesHandler.h      \
   ../../src/xml/XercesHandler.cpp    \
   ../../src/xml/ExpatHandler.h       \
@@ -433,7 +434,7 @@ EXCLUDE_SYMLINKS       = NO
 # directories that contain example code fragments that are included (see 
 # the \include command).
 
-EXAMPLE_PATH           = 
+EXAMPLE_PATH           = examples
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the 
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
