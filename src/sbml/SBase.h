@@ -307,10 +307,7 @@ public:
   virtual const std::string& getElementName () const = 0;
 
 
-  //TO DO Move these to Model
-  ModelHistory* getModelHistory() const;
-  ModelHistory* getModelHistory();
-  
+ 
   /**
    * @return the partial SBML that describes this SBML object.
    */
