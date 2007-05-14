@@ -1,0 +1,20 @@
+/** @page libsbml-issues Known Issues and Pitfalls
+
+This section documents known problems, limitations, and possible pitfalls
+in using libSBML.
+
+
+@section issues-conformance Conformance to SBML
+
+As of version 3.0.0, libSBML supports all of SBML Level 1 Versions 1 and 2,
+and SBML Level 2 Versions 1, 2, and 3, with the exception of the following
+still-unsupported aspects:
+
+@li Support for MathML's <code>semantics</code> elements
+@li Support for MathML's <code>annotation</code> elements
+@li Support for MathML's <code>annotation-xml</code> elements
+
+
+
+*/
+

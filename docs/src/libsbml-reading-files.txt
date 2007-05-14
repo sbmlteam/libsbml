@@ -1,0 +1,174 @@
+/** @page libsbml-reading-files Reading and Writing SBML Content
+
+This section summarizes how to read and write SBML content using the
+facilities provided by libSBML.
+
+@section rf-started Getting Started: The 1-Minute Introduction
+
+LibSBML uses the class SBMLDocument as a top-level container for storing
+SBML content and data associated with it (such as warnings and error
+messages).  Here is a simple example to start this discussion:
+@verbatim
+#include <iostream>
+#include <sbml/SBMLTypes.h>
+
+using namespace std;
+
+int
+main (int argc, char* argv[])
+{
+  SBMLDocument* document = readSBML(argv[1]);
+
+  unsigned int errors = document->getNumErrors();
+
+  cout << endl;
+  cout << "  filename: " << argv[1] << endl;
+  cout << "  error(s): " << errors  << endl;
+  cout << endl;
+
+  if (errors > 0) document->printErrors(cerr);
+
+  return errors;
+}
+@endverbatim
+The code above illustrates probably the simplest possible use of libSBML:
+reading a model and printing any errors encountered.  The code begins with
+the inclusion of a single SBML header file, SBMLTypes.h, which serves to
+include most of the other useful libSBML individual header files.  Next, in
+the body of the main function, the line 
+@verbatim
+SBMLDocument* document = readSBML(argv[1]);
+@endverbatim
+reads in a file and returns a pointer to an SBMLDocument object.  A
+subsequent call to the SBMLDocument::getNumErrors() method returns the
+number of errors encountered (if any), and the call to
+SBMLDocument::printErrors() prints them to the C++ standard error output
+stream.
+
+
+@section rf-reading Reading SBML
+
+SBML may be read from a file or an in-memory character string into an
+SBMLDocument.  LibSBML defines two basic, global functions for reading
+SBML:
+
+@li <code>SBMLDocument* readSBML(const char* filename)</code>.  This
+function takes a file name, attempts to read an SBML document from the
+file, and returns a pointer to an SBMLDocument object if successful.
+
+@li <code>SBMLDocument* readSBMLFromString(const char* xml)</code>.  This
+function takes a string, attempts to read an SBML document from the string,
+and returns a pointer to an SBMLDocument object if successful.
+
+The model may be either in SBML Level 1 or SBML Level 2 format.  LibSBML
+implements an unified object model for SBML that encompasses both Level 1
+and Level 2, so applications generally do not need to worry about
+differences in syntax between these definitions of SBML when reading and
+writing models.  (However, applications still need to be concerned about
+the @em constructs used and how they are interpreted, since there are
+substantial differences between SBML Level 1 and Level 2!)
+
+
+@section rf-sbmldocument The SBMLDocument Container
+
+As might be deduced from the examples so far, an SBMLDocument object in
+libSBML represents a whole SBML model and its associated data.
+SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
+SBML Level 2 specification, but it does not have a direct correspondence in
+SBML Level 1.  (But, it is created by libSBML no macodeer whether the model
+is Level 1 or Level 2.)
+
+SBMLDocument is derived from SBase, so that it contains the usual SBase
+acodeributes (in SBML Level 2 Version 3) of "metaid" and "sboTerm", as well
+as the subelements "notes" and "annotation".  It also contains the
+acodeributes "level" and "version" indicating the Level and Version of the
+SBML read.  SBase (and thus its subclasses such as SBMLDocument) provides
+methods for querying this information:
+
+@li <code>unsigned int SBMLDocument::getLevel()</code> returns the SBML
+Level of the model.
+
+@li <code>unsigned int SBMLDocument::getVersion()</code> returns the SBML
+Version within the Level of the model.
+
+Of course, the whole point of reading an SBML file or data stream is to get
+at the SBML model it contains.  The following method allows access to the
+Model object within an SBML document:
+
+@li <code>Model* SBMLDocument::getModel()</code> returns a Model object
+for the SBML model contained in the SBMLDocument.
+
+SBMLDocument also acts to log any problems encountered while reading the
+model from the file or data stream.  Whether the problems are warnings or
+errors, they are reported through a single common interface involving the
+object class XMLError.  The example earlier on this page already showed
+some of the methods available for accessing errors and warnings; here is a
+slightly more complete list:
+
+@li <code>unsigned int SBMLDocument::getNumErrors()</code> returns a count
+of the diagnostic messages logged during while attempting to read an SBML
+model using either readSBML(const char *filename) or readFromString(const
+char *xml).
+
+@li <code>const XMLError* SBMLDocument::getError(unsigned int n) const</code>
+returns a specific error indexed by the integer @c n.  The XMLError object
+class provides methods for assessing the severity of the problem
+encountered and for finding out the line and column number of where the
+problem occurred in the SBML input.
+
+@li <code>SBMLDocument::printErrors(std::ostream& stream)</code> prints all
+of the diagnostics to the given output stream.
+
+Finally, another set of SBMLDocument methods worth mentioning in the
+context of reading SBML are those for running consistency-checking and
+validation rules on the SBML content.  These methods assess whether the
+SBML is legal according to basic rules listed in the SBML Level 2 Version 2
+and Version 3 specification documents.  Note that they are mostly
+structural checks, in the sense that they can indicate whether the SBML is
+properly constructed; they cannot tell if a model is nonsense.  (But at
+least they can assess whether it's syntactically correct nonsense!).
+
+@li <code>unsigned int SBMLDocument::checkConsistency()</code> performs a
+set of structural and mathematical checks on the SBML content and reports
+the number of failed checks (errors) encountered.  Use the
+SBMLDocument::getNumErrors() and SBMLDocument::getError(unsigned int)
+interfaces to examine the individual errors.
+
+@li <code>unsigned int SBMLDocument::checkL1Compatibility()</code> peforms
+a set of semantic consistency checks on the document to establish whether
+it can be converted to SBML Level 1, and returns the number of failures.
+
+@li <code>unsigned int SBMLDocument::checkL2v1Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level 2 Version 1, and returns the
+number of failures.
+
+@li <code>unsigned int SBMLDocument::checkL2v2Compatibility()</code>
+peforms a set of semantic consistency checks on the document to establish
+whether it can be converted to SBML Level 2 Version 2, and returns the
+number of failures.
+
+At the time of this writing, the most recent release of SBML is Level 2
+Version 3, which is why the compatibility checks above only refer to Level
+2 Version 2 at the most.
+
+
+@section rf-writing Writing SBML
+
+Writing SBML is, in the end, a very simple matter in libSBML.  The library
+provides the following two global functions for this purposes:
+
+@li <code>int writeSBML(const SBMLDocument* d, const char* filename)</code>
+writes the given SBML document to the named file and returns either @c 1 on
+success or @c 0 on failure.  Reasons for failure can be, for example, that
+the named file could not be opened for writing.
+
+@li <code>char * writeSBMLToString(const SBMLDocument *d)</code> writes the
+given SBML document to a character string and returns a pointer to it, or
+returns @c 0 if a failure occurred.  The string is owned by the caller and
+should be freed (using the standard C function <code>free()</code>)
+after it is no longer needed.
+
+
+
+*/

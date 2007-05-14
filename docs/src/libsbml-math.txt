@@ -1,0 +1,384 @@
+/** @page libsbml-math Mathematical Expressions and their Manipulation in libSBML
+
+This section describes libSBML's facilities for working with SBML
+representations of mathematical expressions.
+
+@section math-overview Basic Concepts
+
+LibSBML uses <a
+href="http://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax
+Trees</a> (ASTs) to provide a canonical, in-memory representation for all
+mathematical formulas regardless of their original format (i.e., C-like
+infix strings or MathML).  In libSBML, an AST is a collection of one or
+more objects of class ASTNode.  An AST @em node in libSBML is a recursive
+structure containing a pointer to the node's value (which might be, for
+example, a number or a symbol) and a list of children nodes.  Each ASTNode
+node may have none, one, two, or more child depending on its type.  The
+following diagram illustrates an example of how the mathematical expression
+"1 + 2" is represented as an AST with one @em plus node having two @em
+integer children nodes for the numbers 1 and 2.  The figure also shows the
+corresponding MathML representation:
+
+@image html astnode-illustration.jpg "Example AST representation of a mathematical representation."
+@image latex astnode-illustration.jpg "Example AST representation of a mathematical representation."
+
+The following are noteworthy about the AST representation in libSBML:
+
+@li A numerical value represented in MathML as a real number with an
+exponent is preserved as such in the AST node representation, even if
+the number could be stored in a @c double data type.  This is done
+so that when an %SBML model is read in and then written out again, the
+amount of change introduced by libSBML to the SBML during the round-trip
+activity is minimized.
+ 
+@li Rational numbers are represented in an AST node using separate
+numerator and denominator values.  These can be retrieved using the
+methods ASTNode::getNumerator() and ASTNode::getDenominator().
+
+@li The children of an ASTNode are other ASTNode objects.  The list of
+children is empty for nodes that are leaf elements, such as numbers.
+For nodes that are actually roots of expression subtrees, the list of
+children points to the parsed objects that make up the rest of the
+expression.
+
+For many applications, the details of ASTs are irrelevant because the
+applications can use the text-string based translation functions such as
+SBML_formulaToString() and readMathMLFromString().  If you find the
+complexity of using the AST representation of expressions too high for your
+purposes, perhaps the string-based functions will be more suitable.
+
+Finally, it is worth noting that the AST and MathML handling code in
+libSBML remains written in C, not C++, as all of libSBML was originally
+written in C.  Readers may occasionally wonder why some aspects are more
+C-like than following a C++ style, and that's the reason.
+
+
+@section math-convert Converting between ASTs and Text Strings
+
+SBML Level 2 represents mathematical expressions using MathML, but most
+applications do not use MathML directly.  Instead, applications generally
+either interact with mathematics in text-string form, or else they use the
+API for working with Abstract Syntax Trees (described below).  LibSBML
+provides support for both approaches.  The libSBML formula parser has been
+carefully engineered so that transformations from MathML to infix string
+notation <em>and back</em> is possible with a minimum of disruption to the
+structure of the mathematical expression.
+
+The example below shows a simple program that, when run, takes a MathML
+string compiled into the program, converts it to an AST, converts
+<em>that</em> to an infix representation of the formula, compares it to the
+expected form of that formula, and finally translates that formula back to
+MathML and displays it.  The output displayed on the terminal should have
+the same structure as the MathML it started with.  The program is a simple
+example of using the various MathML and AST reading and writing methods,
+and shows that libSBML preserves the ordering and structure of the
+mathematical expressions.
+
+@verbatim
+#include <iostream>
+#include <sbml/SBMLTypes.h>
+
+int
+main (int argc, char *argv[])
+{
+  const char* expected = "1 + f(x)";
+
+  const char* s = "<?xml version='1.0' encoding='UTF-8'?>"
+    "<math xmlns='http://www.w3.org/1998/Math/MathML'>"
+    "  <apply> <plus/> <cn> 1 </cn>"
+    "                  <apply> <ci> f </ci> <ci> x </ci> </apply>"
+    "  </apply>"
+    "</math>";
+
+  ASTNode* ast    = readMathMLFromString(s);
+  char*    result = SBML_formulaToString(ast);
+
+  if ( strcmp(result, expected) == 0 )
+    cout << "Got expected result" << endl;
+  else
+    cout << "Mismatch after readMathMLFromString()" << endl;
+
+  ASTNode* new_mathml = SBML_parseFormula(result);
+  char*    new_s      = writeMathMLToString(new_mathml);
+
+  cout << "Result of writing AST:" << endl << new_s << endl;
+
+  return 0;
+}
+@endverbatim
+
+The text-string form of mathematical formulas produced by
+SBML_formulaToString() and read by SBML_parseFormula() are in SBML Level
+1's formula string syntax, a simple C-inspired infix notation defined in
+the SBML Level~1 specification.  It can therefore be handed to a program
+that understands SBML Level~1 mathematical expressions, or used as part of
+a translation system.  The libSBML distribution comes with an example
+program in the @c "examples" subdirectory called @c translateMath that
+implements an interactive command-line demonstration of translating infix
+formulas into MathML and vice-versa.  In summary, the functions available
+are the following:
+
+@li <code>char* SBML_formulaToString(const ASTNode* tree)</code> reads an
+AST, converts it to a text string in SBML Level 1 formula syntax, and
+returns it.  The caller owns the character string returned and should free
+it after it is no longer needed.
+
+@li <code>ASTNode* SBML_parseFormula(const char* formula)</code> reads a
+text-string containing a mathematical expression in SBML Level 1 syntax and
+returns an AST corresponding to the expression.
+
+
+@section math-diffs Differences between SBML Level 1 Formulas and MathML
+
+The text-string based mathematical formula syntax of SBML Level~1 is @em
+mostly compatible with the representation of formulas in MathML as used in
+SBML Level 2.  A few differences exist in the names of predefined functions
+such as @c arccos.  The following table summarizes the differences between
+the names of functions and operators in SBML Level 1 and the MathML
+equivalents in SBML Level 2.
+
+<center>
+<table cellspacing="1" border="0">
+ <tr style="background: lightgray"><td width="150px">SBML Level 1</td>
+     <td width="280px">MathML equivalents in SBML Level 2</td></tr>
+ <tr><td><code>acos</code></td><td><code>arccos</code></td></tr>
+ <tr><td><code>asin</code></td><td><code>arcsin</code></td></tr>
+ <tr><td><code>atan</code></td><td><code>arctan</code></td></tr>
+ <tr><td><code>ceil</code></td><td><code>ceiling</code></td></tr>
+ <tr><td><code>log</code></td><td><code>ln</code></td></tr>
+ <tr><td><code>log10(x)</code></td><td><code>log(10, x)</code></td></tr>
+ <tr><td><code>pow(x, y)</code></td><td><code>power(x, y)</code></td></tr>
+ <tr><td><code>sqr(x)</code></td><td><code>power(x, 2)</code></td></tr>
+ <tr><td><code>sqrt(x)</code></td><td><code>root(2, x)</code></td></tr>
+</table>
+</center>
+
+
+@section math-ast Methods for working with libSBML's Abstract Syntax Trees
+
+To begin, every ASTNode in a libSBML AST has an associated type, a value
+taken from the enumeration ASTNodeType_t.  The list of possible types is
+quite long, because it covers all the mathematical functions that are
+permitted in SBML.  The values are shown in the following table; their
+names hopefully evoke the the construct that they represent:
+
+<center>
+<table cellspacing="1" border="0">
+ <tr><td><code></code></td><td><code></code></td><td><code></code></td></tr>
+ <tr><td><code>AST_UNKNOWN</code></td><td><code>AST_FUNCTION_ARCCOTH</code></td><td><code>AST_FUNCTION_POWER</code></td></tr>
+ <tr><td><code>AST_PLUS</code></td><td><code>AST_FUNCTION_ARCCSC</code></td><td><code>AST_FUNCTION_ROOT</code></td></tr>
+ <tr><td><code>AST_MINUS</code></td><td><code>AST_FUNCTION_ARCCSCH</code></td><td><code>AST_FUNCTION_SEC</code></td></tr>
+ <tr><td><code>AST_TIMES</code></td><td><code>AST_FUNCTION_ARCSEC</code></td><td><code>AST_FUNCTION_SECH</code></td></tr>
+ <tr><td><code>AST_DIVIDE</code></td><td><code>AST_FUNCTION_ARCSECH</code></td><td><code>AST_FUNCTION_SIN</code></td></tr>
+ <tr><td><code>AST_POWER</code></td><td><code>AST_FUNCTION_ARCSIN</code></td><td><code>AST_FUNCTION_SINH</code></td></tr>
+ <tr><td><code>AST_INTEGER</code></td><td><code>AST_FUNCTION_ARCSINH</code></td><td><code>AST_FUNCTION_TAN</code></td></tr>
+ <tr><td><code>AST_REAL</code></td><td><code>AST_FUNCTION_ARCTAN</code></td><td><code>AST_FUNCTION_TANH</code></td></tr>
+ <tr><td><code>AST_REAL_E</code></td><td><code>AST_FUNCTION_ARCTANH</code></td><td><code>AST_LOGICAL_AND</code></td></tr>
+ <tr><td><code>AST_RATIONAL</code></td><td><code>AST_FUNCTION_CEILING</code></td><td><code>AST_LOGICAL_NOT</code></td></tr>
+ <tr><td><code>AST_NAME</code></td><td><code>AST_FUNCTION_COS</code></td><td><code>AST_LOGICAL_OR</code></td></tr>
+ <tr><td><code>AST_NAME_TIME</code></td><td><code>AST_FUNCTION_COSH</code></td><td><code>AST_LOGICAL_XOR</code></td></tr>
+ <tr><td><code>AST_CONSTANT_E</code></td><td><code>AST_FUNCTION_COT</code></td><td><code>AST_RELATIONAL_EQ</code></td></tr>
+ <tr><td><code>AST_CONSTANT_FALSE</code></td><td><code>AST_FUNCTION_COTH</code></td><td><code>AST_RELATIONAL_GEQ</code></td></tr>
+ <tr><td><code>AST_CONSTANT_PI</code></td><td><code>AST_FUNCTION_CSC</code></td><td><code>AST_RELATIONAL_GT</code></td></tr>
+ <tr><td><code>AST_CONSTANT_TRUE</code></td><td><code>AST_FUNCTION_CSCH</code></td><td><code>AST_RELATIONAL_LEQ</code></td></tr>
+ <tr><td><code>AST_LAMBDA</code></td><td><code>AST_FUNCTION_EXP</code></td><td><code>AST_RELATIONAL_LT</code></td></tr>
+ <tr><td><code>AST_FUNCTION</code></td><td><code>AST_FUNCTION_FACTORIAL</code></td><td><code>AST_RELATIONAL_NEQ</code></td></tr>
+ <tr><td><code>AST_FUNCTION_ABS</code></td><td><code>AST_FUNCTION_FLOOR</code></td><td><code></code></td></tr>
+ <tr><td><code>AST_FUNCTION_ARCCOS</code></td><td><code>AST_FUNCTION_LN</code></td></tr>
+ <tr><td><code>AST_FUNCTION_ARCCOSH</code></td><td><code>AST_FUNCTION_LOG</code></td></tr>
+ <tr><td><code>AST_FUNCTION_ARCCOT</code></td><td><code>AST_FUNCTION_PIECEWISE</code></td></tr>
+</table>
+</center>
+
+There area a number of methods for interrogating the type of an ASTNode and
+for testing whether a node belongs to a general category of constructs.
+The methods are the following:
+
+@li <code>ASTNodeType_t ASTNode::getType() const</code> returns the type of
+this AST node.
+
+@li <code>bool ASTNode::isConstant() const</code> returns @c true if this
+AST node is a MathML constant (@c true, @c false, @c pi, @c exponentiale),
+@c false otherwise.
+
+@li <code>bool ASTNode::isBoolean() const</code> returns @c true if this
+AST node returns a boolean value (by being either a logical operator, a
+relational operator, or the constant @c true or @c false).
+
+@li <code>bool ASTNode::isFunction() const</code> returns @c true if this
+AST node is a function (i.e., a MathML defined function such as @c exp or
+else a function defined by a FunctionDefinition in the Model).
+
+@li <code>bool ASTNode::isInfinity() const</code> returns @c true if this
+AST node is the special IEEE 754 value infinity.
+
+@li <code>bool ASTNode::isInteger() const</code> returns @c true if this
+AST node is holding an integer value.
+
+@li <code>bool ASTNode::isNumber() const</code>  returns @c true if this
+AST node is holding any number.
+
+@li <code>bool ASTNode::isLambda() const</code>  returns @c true if this
+AST node is a MathML @c lambda construct.
+
+@li <code>bool ASTNode::isLog10() const</code>  returns @c true if this
+AST node represents the @c log10 function, specifically, that its type is
+AST_FUNCTION_LOG and it has two children, the first of which is an integer
+equal to 10.
+
+@li <code>bool ASTNode::isLogical() const</code>  returns @c true if this
+AST node is a logical operator (@c and, @c or, @c not, @c xor).
+
+@li <code>bool ASTNode::isName() const</code>  returns @c true if this
+AST node is a user-defined name or (in SBML Level 2) one of the two special
+@c csymbol constructs "delay" or "time".
+
+@li <code>bool ASTNode::isNaN() const</code>  returns @c true if this
+AST node has the special IEEE 754 value "not a number" (NaN).
+
+@li <code>bool ASTNode::isNegInfinity() const</code>  returns @c true if this
+AST node has the special IEEE 754 value of negative infinity.
+
+@li <code>bool ASTNode::isOperator() const</code>  returns @c true if this
+AST node is an operator (e.g., @c +, @c -, etc.)
+
+@li <code>bool ASTNode::isPiecewise() const</code>  returns @c true if this
+AST node is the MathML @c piecewise function.
+
+@li <code>bool ASTNode::isRational() const</code>  returns @c true if this
+AST node is a rational number having a numerator and a denominator.
+
+@li <code>bool ASTNode::isReal() const</code>  returns @c true if this
+AST node is a real number (specifically, AST_REAL_E or AST_RATIONAL).
+
+@li <code>bool ASTNode::isRelational() const</code>  returns @c true if this
+AST node is a relational operator.
+
+@li <code>bool ASTNode::isSqrt() const</code>  returns @c true if this
+AST node is the square-root operator
+
+@li <code>bool ASTNode::isUMinus() const</code>  returns @c true if this
+AST node is a unary minus.
+
+@li <code>bool ASTNode::isUnknown() const</code>  returns @c true if this
+AST node's type is unknown.
+
+
+Programs manipulating AST node structures should check the type of a given
+node before calling methods that return a value from the node.  The
+following meethods are available for returning values from nodes:
+
+@li <code>long ASTNode_getInteger(const ASTNode *node)</code> 
+
+@li <code>char ASTNode_getCharacter(const ASTNode *node)</code> 
+
+@li <code>const char* ASTNode_getName(const ASTNode *node)</code> 
+
+@li <code>long ASTNode_getNumerator(const ASTNode *node)</code> 
+
+@li <code>long ASTNode_getDenominator(const ASTNode *node)</code> 
+
+@li <code>double ASTNode_getReal(const ASTNode *node)</code> 
+
+@li <code>double ASTNode_getMantissa(const ASTNode *node)</code> 
+
+@li <code>long ASTNode_getExponent(const ASTNode *node)</code> 
+
+Finally (and rather predictably), libSBML provides methods for setting the
+values of AST nodes.
+
+@li <code>void ASTNode::setCharacter(char value)</code> sets the value of
+this ASTNode to the given character.  If character is one of @c +, @c -, @c
+*, @c / or @c ^, the node type will be to the appropriate operator type.
+For all other characters, the node type will be set to AST_UNKNOWN.
+
+@li <code>void ASTNode::setName(const char *name)</code> sets the value of
+this AST node to the given name.  The node type will be set (to AST_NAME)
+<em>only if</em> the AST node was previously an operator
+(<code>isOperator(node) != 0</code>) or number (<code>isNumber(node) !=
+0</code>).  This allows names to be set for AST_FUNCTIONs and the like.
+
+@li <code>void ASTNode::setValue(int value)</code> sets the value of the
+node to the given integer.  Equivalent to the next method.
+
+@li <code>void ASTNode::setValue(long value)</code> sets the value of the
+node to the given integer.
+
+@li <code>void ASTNode::setValue(long numerator, long denominator)</code>
+sets the value of this ASTNode to the given rational in two parts: the
+numerator and denominator.  The node type is set to AST_RATIONAL.
+
+@li <code>void ASTNode::setValue(double value)</code> sets the value of
+this ASTNode to the given real (double) and sets the node type to AST_REAL.
+
+@li <code>void ASTNode::setValue(double mantissa, long exponent)</code>
+sets the value of this ASTNode to the given real (double) in two parts: the
+mantissa and the exponent.  The node type is set to AST_REAL_E.
+
+
+The following are some miscellaneous methods for manipulating ASTs:
+
+@li <code>ASTNode* ASTNode::ASTNode(ASTNodeType_t type)</code> creates a new
+ASTNode object and returns a pointer to it.  The returned node will have
+the given type, or a type of AST_UNKNOWN if no type is explicitly given.
+
+@li <code>unsigned int ASTNode::getNumChildren()</code> returns the number
+of children of this AST node or 0 is this node has no children.
+
+@li <code>void ASTNode::addChild(ASTNode* child)</code> adds the given node
+as a child of this AST node.  Child nodes are added in left-to-right order.
+
+@li <code>void ASTNode::prependChild(ASTNode* child)</code> adds the given
+node as a child of this AST node.  This method adds child nodes in
+right-to-left order.
+
+@li <code>ASTNode* ASTNode::getChild (unsigned int n)</code> returns the nth
+child of this AST node or NULL if this node has no nth child (<code>n &gt;
+(ASTNode::getNumChildren() - 1)</code>).
+
+@li <code>ASTNode* ASTNode::getLeftChild()</code> returns the left child of
+this AST node.  This is equivalent to <code>ASTNode::getChild(0)</code>;
+
+@li <code>ASTNode*  ASTNode::getRightChild()</code>
+returns the right child of this AST node or NULL if this node has no right
+child.
+
+@li <code>void ASTNode::swapChildren(ASTNode *that)</code> swaps the
+children of this ASTNode with the children of @c that ASTNode.
+
+@li <code>void ASTNode::setType(ASTNodeType_t type)</code>
+sets the type of this ASTNode to the given ASTNodeType_t enumeration value.
+
+
+
+@section math-reading Reading and Writing Mathematical Expressions into ASTs
+
+As mentioned above, applications often can avoid working with raw MathML by
+using either libSBML's text-string interface or the AST API.  However, when
+needed, reading MathML content directly and creating ASTs is easily done in
+libSBML using two methods designed for this purpose:
+
+@li <code>ASTNode* readMathML(XMLInputStream& stream)</code> reads raw
+MathML content from the given stream and constructs an AST from it, then
+returns the root ASTNode of the resulting expression tree.
+
+@li <code>ASTNode* readMathMLFromString(const char* xml)</code> reads raw
+MathML from a text string, constructs an AST from it, then returns the root
+ASTNode of the resulting expression tree.
+
+Similarly, writing out Abstract Syntax Tree structures is easily done using
+the following methods:
+
+@li <code>void writeMathML(const ASTNode* node, XMLOutputStream& stream)</code>
+writes an AST to the given output stream.
+
+@li <code>char* writeMathMLToString(const ASTNode* node)</code> writes an
+AST to a string.  The caller owns the character string returned and should free
+it after it is no longer needed.
+
+
+
+
+
+
+*/
