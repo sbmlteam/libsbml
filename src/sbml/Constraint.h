@@ -254,7 +254,7 @@ public:
   /**
    * Sets the mathematical expression of this Constraint.
    *
-   * The ASTNode tree passed in @p math is copied.
+   * The Abstract Syntax Tree passed in @p math is copied.
    *
    * @param math an ASTNode expression to be assigned as the "math"
    * subelement of this Constraint

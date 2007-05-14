@@ -176,7 +176,7 @@ public:
    * @param variable the identifier of a Species, Compartment or Parameter
    * object.
    *
-   * @param math an ASTNode tree defining the mathematical formula used
+   * @param math an AST defining the mathematical formula used
    * as the expression for the event assignment's effect.
    */
   EventAssignment (const std::string& variable = "", const ASTNode* math = NULL);
@@ -234,7 +234,7 @@ public:
    * Get the mathematical expression in this EventAssignment's "math"
    * subelement.
    * 
-   * @return an ASTNode tree representing the mathematical formula in this
+   * @return an AST representing the mathematical formula in this
    * EventAssignment.
    */
   const ASTNode* getMath () const;

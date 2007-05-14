@@ -311,9 +311,9 @@ public:
   /**
    * Sets the "math" subelement of this InitialAssignment.
    *
-   * The ASTNode tree passed in @p math is copied.
+   * The AST passed in @p math is copied.
    *
-   * @param math an ASTNode tree containing the mathematical expression to
+   * @param math an AST containing the mathematical expression to
    * be used as the formula for this InitialAssignment.
    */
   void setMath (const ASTNode* math);

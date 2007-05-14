@@ -163,7 +163,7 @@ public:
    * @param id a string, the identifier of this FunctionDefinition instance
    *
    * @param math the formula of the function definition expressed as an
-   * ASTNode tree
+   * AST.
    */
   FunctionDefinition (const std::string& id, const ASTNode* math);
 
@@ -228,9 +228,9 @@ public:
   /**
    * Sets the "math" subelement of this FunctionDefinition.
    *
-   * The ASTNode tree passed in @p math is copied.
+   * The Abstract Syntax Tree passed in @p math is copied.
    *
-   * @param math an ASTNode tree containing the mathematical expression to
+   * @param math an AST containing the mathematical expression to
    * be used as the formula for this FunctionDefinition.
    */
   void setMath (const ASTNode* math);
@@ -268,8 +268,8 @@ public:
    * Get the mathematical expression that is the body of this
    * FunctionDefinition object.
    * 
-   * @return the body of this FunctionDefinition as an ASTNode tree, or
-   * NULL if no body is defined.
+   * @return the body of this FunctionDefinition as an Abstract Syntax
+   * Tree, or NULL if no body is defined.
    */
   const ASTNode* getBody () const;
 
@@ -278,8 +278,8 @@ public:
    * Get the mathematical expression that is the body of this
    * FunctionDefinition object.
    * 
-   * @return the body of this FunctionDefinition as an ASTNode tree, or
-   * NULL if no body is defined.
+   * @return the body of this FunctionDefinition as an Abstract Syntax
+   * Tree, or NULL if no body is defined.
    */
   ASTNode* getBody ();
 

@@ -65,5 +65,6 @@
 
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/MathML.h>
 
 #endif  /* SBMLTypes_h */

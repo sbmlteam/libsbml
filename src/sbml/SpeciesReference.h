@@ -548,7 +548,7 @@ public:
   /**
    * Sets the "stoichiometryMath" subelement of this SpeciesReference.
    *
-   * The ASTNode tree in @p math is copied.
+   * The Abstract Syntax Tree in @p math is copied.
    *
    * In SBML Level 2, Product and reactant stoichiometries can be specified
    * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
@@ -632,8 +632,8 @@ public:
 
 
   /**
-   * Returns the XML element name of this object, which for Species, is
-   * always @c "speciesReference".
+   * Returns the XML element name of this object, which for
+   * SpeciesReference, is always @c "speciesReference".
    * 
    * @return the name of this element, i.e., @c "speciesReference".
    */

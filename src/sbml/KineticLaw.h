@@ -240,7 +240,7 @@ public:
 
   /**
    * Returns the mathematical formula for this KineticLaw object and return
-   * it as as an ASTNode tree.
+   * it as as an AST.
    *
    * This is fundamentally equivalent to getFormula().  The latter is
    * provided principally for compatibility compatibility with SBML Level

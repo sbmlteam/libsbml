@@ -1094,7 +1094,6 @@ KineticLaw_setSubstanceUnits (KineticLaw_t *kl, const char *sid)
  * attributes were removed.  For compatibility with new versions of SBML,
  * users are cautioned to avoid these attributes.
  */
- */
 LIBSBML_EXTERN
 void
 KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
@@ -1111,7 +1110,6 @@ KineticLaw_unsetTimeUnits (KineticLaw_t *kl)
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,
  * users are cautioned to avoid these attributes.
- */
  */
 LIBSBML_EXTERN
 void
