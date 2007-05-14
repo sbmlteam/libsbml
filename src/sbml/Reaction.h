@@ -829,6 +829,15 @@ public:
   virtual SBMLTypeCode_t getItemTypeCode () const;
 
 
+  /**
+   * Returns the XML element name of this object, which for
+   * ListOfReactions, is always @c "listOfReactions".
+   * 
+   * @return the name of this element, i.e., @c "listOfReactions".
+   */
+  virtual const std::string& getElementName () const;
+
+
   /** @cond doxygen-libsbml-internal */
 
   /**
