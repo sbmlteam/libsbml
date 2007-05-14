@@ -181,6 +181,7 @@ main (void)
   srunner_add_suite( runner, create_suite_InitialAssignment       () );
   srunner_add_suite( runner, create_suite_KineticLaw               () );
   srunner_add_suite( runner, create_suite_ListOf                   () );
+  srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_Parameter                () );
   srunner_add_suite( runner, create_suite_RateRule                 () );
   srunner_add_suite( runner, create_suite_Rule                 () );

@@ -177,13 +177,6 @@ Model::clone () const
   return new Model(*this);
 }
 
-void 
-Model::setModelHistory(ModelHistory * history)
-{
-  mHistory = history;
-}
-
-
 ModelHistory* 
 Model::getModelHistory() const
 {
@@ -194,6 +187,29 @@ ModelHistory*
 Model::getModelHistory()
 {
   return mHistory;
+}
+
+bool
+Model::isSetModelHistory()
+{
+  return (mHistory != 0);
+}
+
+void
+Model::setModelHistory(ModelHistory * history)
+{
+  if (mHistory == history) return;
+
+  delete mHistory;
+  mHistory = (history != 0) ? static_cast<ModelHistory*>( history->clone() ) : 0;
+}
+
+
+void 
+Model::unsetModelHistory()
+{
+  delete mHistory;
+  mHistory = 0;
 }
 
 
@@ -2175,6 +2191,62 @@ void
 Model_unsetName (Model_t *m)
 {
   m->unsetName();
+}
+
+
+/**
+ * Returns the ModelHistory of the given Model_t structure.
+ *
+ * @return the ModelHistory of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ */
+LIBSBML_EXTERN
+ModelHistory_t * 
+Model_getModelHistory(Model_t *m)
+{
+  return m->getModelHistory();
+}
+
+/**
+ * Predicate for testing whether the ModelHistory of a given Model_t structure has
+ * been assigned.
+ * 
+ * @param m the Model_t structure
+ * 
+ * @return nonzero if the ModelHistory of this Model_t structure has
+ * been set, zero (0) otherwise.
+ */LIBSBML_EXTERN
+int 
+Model_isSetModelHistory(Model_t *m)
+{
+  return static_cast<int>( m->isSetModelHistory() );
+}
+
+
+/**
+ * Set the ModelHistory of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ * @param history the ModelHistory_t structure
+ */
+LIBSBML_EXTERN
+void 
+Model_setModelHistory(Model_t *m, ModelHistory_t *history)
+{
+  m->setModelHistory(history);
+}
+
+/**
+ * Unsets the ModelHistory of the given Model_t structure.
+ * 
+ * @param m the Model_t structure
+ */
+LIBSBML_EXTERN
+void 
+Model_unsetModelHistory(Model_t *m)
+{
+  m->unsetModelHistory();
 }
 
 

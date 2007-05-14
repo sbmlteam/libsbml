@@ -251,7 +251,7 @@ START_TEST (test_Event_full)
   Event_addEventAssignment(e, ea);
 
   fail_unless( Event_getNumEventAssignments(e) ==  1 );
-  //fail_unless( Event_getEventAssignment(e, 0)  == ea );
+  fail_unless( Event_getEventAssignment(e, 0)  != ea );
 
   EventAssignment_free(ea);
   Trigger_free(trigger);

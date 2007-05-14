@@ -175,11 +175,25 @@ public:
   ModelHistory* getModelHistory();
 
   /**
+   * Predicate returning @c true or @c false depending on whether this
+   * Model's ModelHistory has been set.
+   * 
+   * @return @c true if the ModelHistory of this Model
+   * has been set, @c false otherwise.
+   */
+  bool isSetModelHistory();
+
+  /**
    * Sets the ModelHistory of this Model.
    * 
    * @param history ModelHistory of this Model.
    */
   void setModelHistory(ModelHistory * history);
+
+  /**
+   * Unsets the ModelHistory of this Model.
+   */
+  void unsetModelHistory();
 
   /**
    * Adds a copy of the given FunctionDefinition object to this Model.
@@ -1520,6 +1534,24 @@ Model_unsetId (Model_t *m);
 LIBSBML_EXTERN
 void
 Model_unsetName (Model_t *m);
+
+LIBSBML_EXTERN
+ModelHistory_t * 
+Model_getModelHistory(Model_t *m);
+
+LIBSBML_EXTERN
+int 
+Model_isSetModelHistory(Model_t *m);
+
+
+LIBSBML_EXTERN
+void 
+Model_setModelHistory(Model_t *m, ModelHistory_t *history);
+
+LIBSBML_EXTERN
+void 
+Model_unsetModelHistory(Model_t *m);
+
 
 
 LIBSBML_EXTERN

@@ -72,7 +72,8 @@ test_sources =				\
   TestAlgebraicRule.c       \
   TestRateRule.c             \
   TestDelay.c				\
-  TestTrigger.c
+  TestTrigger.c				\
+  TestModel.c
 
 
 extra_CPPFLAGS = -I.. -I../..
