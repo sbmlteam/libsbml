@@ -871,19 +871,24 @@ SBase::writeElements (XMLOutputStream& stream) const
 {
   if ( mNotes      ) stream << *mNotes;
 
-  /**
+  /*
    * in order to only save information once RDF annotations are stripped
    * from the saved annotation and then must be replaced
+   *
+   * NOTE: CVTerms on a model have already been dealt with
    */
 
-  XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
-  if (!mAnnotation)
+  if (this->getTypeCode() != SBML_MODEL)
   {
-    if (cvTerms)  const_cast <SBase *> (this)->setAnnotation(cvTerms);
-  }
-  else
-  {
-    if (cvTerms)  const_cast <SBase *> (this)->appendAnnotation(cvTerms);
+    XMLNode * cvTerms = RDFAnnotationParser::parseCVTerms(this);
+    if (!mAnnotation)
+    {
+      if (cvTerms)  const_cast <SBase *> (this)->setAnnotation(cvTerms);
+    }
+    else
+    {
+      if (cvTerms)  const_cast <SBase *> (this)->appendAnnotation(cvTerms);
+    }
   }
 
   if ( mAnnotation ) stream << *mAnnotation;

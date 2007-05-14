@@ -75,9 +75,23 @@ static void parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
  */
 static ModelHistory* parseRDFAnnotation(const XMLNode * annotation);
 
-
+/**
+ * deletes the RDFAnnotation and returns annotation with any other present
+ */
 static XMLNode *
 deleteRDFAnnotation(const XMLNode * annotation);
+
+static XMLNode * 
+createRDFAnnotation();
+
+static XMLNode * 
+createAnnotation();
+ 
+static XMLNode * 
+createRDFDescription(const SBase *object);
+
+static XMLNode * 
+createCVTerms(const SBase *object);
 
 /**
  * takes a List of CVTerms

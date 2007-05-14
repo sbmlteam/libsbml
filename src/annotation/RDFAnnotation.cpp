@@ -66,11 +66,11 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTer
       const string &name1 = annotation->getChild(n).getName();
       if (name1 == "RDF")
       {
-	if (annotation->getChild(n).getNumChildren() > 0)
-	{
-	  RDFTop = &(annotation->getChild(n).getChild(0));
-	  break;
-	}
+	      if (annotation->getChild(n).getNumChildren() > 0)
+	      {
+	        RDFTop = &(annotation->getChild(n).getChild(0));
+	        break;
+	      }
       }
       n++;
     }
@@ -100,14 +100,22 @@ XMLNode *
 RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
 {
   const string&  name = annotation->getName();
+  unsigned int children = annotation->getNumChildren();
   unsigned int n = 0;
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
   XMLNode * newAnnotation = new XMLNode(ann_token);
 
-  // need to find each annotation and remove it if it is an RDF
-  if (name == "annotation" && annotation->getNumChildren() > 0)
+  if (name != "annotation")
   {
-    while (n < annotation->getNumChildren())
+    return NULL;
+  }
+  
+  if (children > 1)
+  {
+    newAnnotation = new XMLNode(ann_token);
+  
+    // need to find each annotation and remove it if it is an RDF
+    while (n < children)
     {
       const string &name1 = annotation->getChild(n).getName();
       if (name1 != "RDF")
@@ -117,12 +125,18 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
       n++;
     }
   }
-
-  if (newAnnotation->getNumChildren() == 0)
+  else
   {
-    delete newAnnotation;
-    ann_token.setEnd();
-    XMLNode * newAnnotation = new XMLNode(ann_token);
+    if (children == 1 && annotation->getChild(0).getName() != "RDF")
+    {
+      newAnnotation = new XMLNode(ann_token);
+      newAnnotation->addChild(annotation->getChild(0));
+    }
+    else
+    {
+      ann_token.setEnd();
+      newAnnotation = new XMLNode(ann_token);
+    }
   }
 
   return newAnnotation;
@@ -222,6 +236,51 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
   return history;
 
 }
+XMLNode * 
+RDFAnnotationParser::createAnnotation()
+{
+  XMLAttributes blank_att = XMLAttributes();
+  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), blank_att);
+  return new XMLNode(ann_token);
+}
+
+XMLNode * 
+RDFAnnotationParser::createRDFAnnotation()
+{
+  /* create Namespaces - these go on the RDF element */
+  XMLNamespaces xmlns = XMLNamespaces();
+  xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
+  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
+  xmlns.add("http://purl.org/dc/terms/", "dcterms");
+  xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
+  xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
+  xmlns.add("http://biomodels.net/model-qualifiers/", "bqmodel");
+
+  XMLTriple RDF_triple = XMLTriple("RDF", 
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdf");
+  
+  XMLAttributes blank_att = XMLAttributes();
+ 
+  XMLToken RDF_token = XMLToken(RDF_triple, blank_att, xmlns);
+
+  return new XMLNode(RDF_token);
+}
+
+XMLNode * 
+RDFAnnotationParser::createRDFDescription(const SBase *object)
+{
+  XMLTriple descrip_triple = XMLTriple("Description", 
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdf");
+
+  XMLAttributes desc_att = XMLAttributes();
+  desc_att.add("rdf:about", "#" + object->getMetaId());
+ 
+  XMLToken descrip_token = XMLToken(descrip_triple, desc_att);
+
+  return new XMLNode(descrip_token);
+}
 
 
 /**
@@ -237,14 +296,23 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
     return NULL;
   }
 
-  /* create Namespaces - these go on the RDF element */
-  XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
-  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
-  xmlns.add("http://purl.org/dc/terms/", "dcterms");
-  xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
-  xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
-  xmlns.add("http://biomodels.net/model-qualifiers/", "bqmodel");
+
+  XMLNode *CVTerms = createCVTerms(object);
+
+  XMLNode * RDF = createRDFAnnotation();
+  RDF->addChild(*CVTerms);
+
+  XMLNode *ann = createAnnotation();
+  ann->addChild(*RDF);
+
+  return ann;
+}
+
+
+XMLNode * 
+RDFAnnotationParser::createCVTerms(const SBase * object)
+{
+
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
@@ -252,34 +320,20 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
   XMLTriple bag_triple = XMLTriple("Bag", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdf");
-  XMLTriple descrip_triple = XMLTriple("Description", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
-  XMLTriple RDF_triple = XMLTriple("RDF", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
   XMLTriple *type_triple;
   
   /* attributes */
   XMLAttributes blank_att = XMLAttributes();
-  XMLAttributes desc_att = XMLAttributes();
-  desc_att.add("rdf:about", "#" + object->getMetaId());
  
   /* tokens */
-  XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), blank_att);
-  XMLToken RDF_token = XMLToken(RDF_triple, blank_att, xmlns);
-  XMLToken descrip_token = XMLToken(descrip_triple, desc_att);
   XMLToken bag_token = XMLToken(bag_triple, blank_att);
   XMLToken li_token;
   XMLToken * type_token;
 
   /* nodes */
-  XMLNode * ann = new XMLNode(ann_token);
   XMLNode  li;
   XMLNode  * type;
   XMLNode  * bag;    
-  XMLNode descrip = XMLNode(descrip_token);
-  XMLNode RDF = XMLNode(RDF_token);
 
   std::string prefix;
   std::string name;
@@ -287,6 +341,8 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
 
   XMLAttributes *resources;
   XMLAttributes *att;
+
+  XMLNode *description = createRDFDescription(object);
 
   /* loop through the cv terms and add */
   /* want to add these in blocks of same qualifier */
@@ -369,13 +425,10 @@ RDFAnnotationParser::parseCVTerms(const SBase * object)
     }
 
     type->addChild(*(bag));
-    descrip.addChild(*(type));
+    description->addChild(*(type));
   }
 
-  RDF.addChild(descrip);
-  ann->addChild(RDF);
-
-  return ann;
+  return description;
 }
 
 
@@ -397,25 +450,13 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
     return NULL;
   }
 
-  /* create Namespaces - these go on the RDF element */
-  XMLNamespaces xmlns = XMLNamespaces();
-  xmlns.add("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf");
-  xmlns.add("http://purl.org/dc/elements/1.1/", "dc");
-  xmlns.add("http://purl.org/dc/terms/", "dcterms");
-  xmlns.add("http://www.w3.org/2001/vcard-rdf/3.0#", "vCard");
-  xmlns.add("http://biomodels.net/biology-qualifiers/", "bqbiol");
-  xmlns.add("http://biomodels.net/model-qualifiers/", "bqmodel");
+  XMLNode *description = createRDFDescription(model);
+
   /* create the basic triples */
   XMLTriple li_triple = XMLTriple("li", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdf");
   XMLTriple bag_triple = XMLTriple("Bag", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
-  XMLTriple descrip_triple = XMLTriple("Description", 
-    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdf");
-  XMLTriple RDF_triple = XMLTriple("RDF", 
     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdf");
   XMLTriple creator_triple = XMLTriple("creator",
@@ -453,17 +494,10 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   
   /* attributes */
   XMLAttributes blank_att = XMLAttributes();
-  XMLAttributes desc_att = XMLAttributes();
-  desc_att.add("rdf:about", "#" + model->getMetaId());
   XMLAttributes parseType_att = XMLAttributes();
   parseType_att.add("rdf:parseType", "Resource");
  
   /* tokens */
-  XMLToken ann_token      = XMLToken(XMLTriple("annotation", "", ""), 
-                                                            blank_att);
-
-  XMLToken RDF_token      = XMLToken(RDF_triple,      blank_att, xmlns);
-  XMLToken descrip_token  = XMLToken(descrip_triple,  desc_att);
   XMLToken bag_token      = XMLToken(bag_triple,      blank_att);
   XMLToken li_token       = XMLToken(li_triple,       parseType_att);
   XMLToken creator_token  = XMLToken(creator_triple,  parseType_att);
@@ -480,9 +514,6 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   XMLToken empty_token    = XMLToken("");
 
   /* nodes */
-  XMLNode * ann = new XMLNode(ann_token);
-  XMLNode RDF     = XMLNode(RDF_token);
-  XMLNode descrip = XMLNode(descrip_token);
   XMLNode * bag;//     = XMLNode(bag_token);
   XMLNode * li;//      = XMLNode(li_token);
   XMLNode * N;//       = XMLNode(N_token);
@@ -533,28 +564,41 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
     bag->addChild(*li);
     creator = new XMLNode(creator_token);
     creator->addChild(*bag);
-    descrip.addChild(*creator);
+    description->addChild(*creator);
   }
-
+  
+  /* created date */
   empty = new XMLNode(empty_token);
   empty->append(history->getCreatedDate()->getDateAsString());
   W3CDTF1.addChild(*(empty));
+  created.addChild(W3CDTF1);
+  description->addChild(created);
+
+  /* modified date */
   empty = new XMLNode(empty_token);
   empty->append(history->getModifiedDate()->getDateAsString());
   W3CDTF2.addChild(*(empty));
-
-  created.addChild(W3CDTF1);
   modified.addChild(W3CDTF2);
-  descrip.addChild(created);
-  descrip.addChild(modified);
+  description->addChild(modified);
 
   // add CVTerms here
 
-  RDF.addChild(descrip);
-  ann->addChild(RDF);
+  XMLNode *CVTerms = createCVTerms(model);
+  if (CVTerms)
+  {
+    for (unsigned int i = 0; i < CVTerms->getNumChildren(); i++)
+    {
+      description->addChild(CVTerms->getChild(i));
+    }
+  }
 
+
+  XMLNode * RDF = createRDFAnnotation();
+  RDF->addChild(*description);
+
+  XMLNode *ann = createAnnotation();
+  ann->addChild(*RDF);
 
 
   return ann;
 }
-
