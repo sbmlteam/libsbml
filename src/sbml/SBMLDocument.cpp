@@ -1,6 +1,7 @@
 /**
  * @file    SBMLDocument.cpp
- * @brief   Top-level container for all things SBML
+ * @brief   Implementation of the top-level container for an SBML Model and
+ *          associated data. 
  * @author  Ben Bornstein
  *
  * $Id$
@@ -665,11 +666,17 @@ SBMLDocument::writeElements (XMLOutputStream& stream) const
 
 
 
+/** @cond doxygen-c-only */
+
+
 
 /**
- * Creates a new SBMLDocument and returns a pointer to it.
+ * Creates a new, empty SBMLDocument_t structure.
  *
- * The SBML level defaults to 2 and version defaults to 1.
+ * The SBML Level and Version attributes default to the most recent SBML
+ * specification (at the time this libSBML was released).
+ *
+ * @return the SBMLDocument_t structure created
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -680,7 +687,17 @@ SBMLDocument_create ()
 
 
 /**
- * Creates a new SBMLDocument with the given level and version.
+ * Creates a new, empty SBMLDocument_t structure with given values for the
+ * SBML Level and Version.
+ *
+ * If not specified, the SBML Level and Version attributes default to the
+ * most recent SBML specification (at the time this libSBML was
+ * released).
+ *
+ * @param level an integer for the SBML Level
+ * @param version an integer for the Version within the SBML Level
+ *
+ * @return the SBMLDocument_t structure created
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -691,7 +708,9 @@ SBMLDocument_createWith (unsigned int level, unsigned int version)
 
 
 /**
- * Frees the given SBMLDocument.
+ * Frees the given SBMLDocument_t structure.
+ *
+ * @param d the SBMLDocument_t structure
  */
 LIBSBML_EXTERN
 void
@@ -702,7 +721,11 @@ SBMLDocument_free (SBMLDocument_t *d)
 
 
 /**
- * @return a (deep) copy of this SBMLDocument.
+ * Creates and returns a deep copy of the given SBMLDocument_t structure
+ *
+ * @param d the SBMLDocument_t structure
+ * 
+ * @return a (deep) copy of the SBMLDocument_t structure
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
@@ -713,7 +736,11 @@ SBMLDocument_clone (const SBMLDocument_t *d)
 
 
 /**
- * @return the level of this SBMLDocument.
+ * Returns the SBML Level of the given SBMLDocument_t structure.
+ *
+ * @param d the SBMLDocument_t structure
+ * 
+ * @return the SBML Level number
  */
 LIBSBML_EXTERN
 unsigned int
@@ -724,7 +751,12 @@ SBMLDocument_getLevel (const SBMLDocument_t *d)
 
 
 /**
- * @return the version of this SBMLDocument.
+ * Returns the Version within the SBML Level of the given SBMLDocument_t
+ * structure.
+ *
+ * @param d the SBMLDocument_t structure
+ * 
+ * @return the version number
  */
 LIBSBML_EXTERN
 unsigned int
@@ -735,7 +767,11 @@ SBMLDocument_getVersion (const SBMLDocument_t *d)
 
 
 /**
- * @return the Model associated with this SBMLDocument.
+ * Returns the Model object stored in this SBMLDocument_t structure.
+ *
+ * @param d the SBMLDocument_t structure
+ * 
+ * @return the Model contained in this SBMLDocument_t structure.
  */
 LIBSBML_EXTERN
 Model_t *
@@ -746,18 +782,43 @@ SBMLDocument_getModel (SBMLDocument_t *d)
 
 
 /**
- * Sets the level and version of this SBMLDocument.  Valid
- * combinations are currently:
+ * Sets the SBML Level and Version of this SBMLDocument, attempting to
+ * convert the model as needed.
+ *
+ * This method is used to convert models between Levels and Versions of
+ * SBML.  Generally, models can be converted upward without difficulty
+ * (e.g., from SBML Level 1 to Level 2, or from an earlier version of
+ * Level 2 to the latest version of Level 2).  Sometimes models can be
+ * translated downward as well, if they do not use constructs specific to
+ * more advanced Levels of SBML.
+ *
+ * @note Calling this method will not @em necessarily lead to successful
+ * conversion.  If the conversion fails, it will be logged in the error
+ * list associated with this SBMLDocument_t structure.  Callers should
+ * consult getNumErrors() to find out if the conversion succeeded without
+ * problems.  For conversions from Level 2 to Level 1, callers can also
+ * check the Level of the model after calling this method to find out
+ * whether it is Level 1.  (If the conversion to Level 1 failed, the Level
+ * of this model will be left unchanged.)
+ *
+ * Callers can also check compatibility directly using the methods
+ * checkL1Compatibility(), checkL2v1Compatibility(), and 
+ * checkL2v2Compatibility().
+ * 
+ * The valid combinations as of this release of libSBML are the
+ * following: 
  *
  *   - Level 1 Version 1
  *   - Level 1 Version 2
  *   - Level 2 Version 1
  *   - Level 2 Version 2
+ *   - Level 2 Version 3
  *
- * @note Some models cannot be converted from their existing
- * level and version to other particular combinations.
- * This function checks whether the required conversion 
- * is possible.
+ * @param d the SBMLDocument_t structure
+ *
+ * @param level the desired SBML Level
+ *
+ * @param version the desired Version within the SBML Level
  */
 LIBSBML_EXTERN
 void
@@ -770,7 +831,12 @@ SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
 
 
 /**
- * Sets the Model for this SBMLDocument to a copy of the given Model.
+ * Sets the model contained in the given SBMLDocument_t structure to a copy
+ * of the given Model_t structure.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @param m the new Model_t structure to use.
  */
 LIBSBML_EXTERN
 void
@@ -781,7 +847,12 @@ SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m)
 
 
 /**
- * Creates a new Model inside this SBMLDocument and returns it.
+ * Creates a new Model_t structure inside the given SBMLDocument_t
+ * structure and returns a pointer to it.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the Model_t structure created
  */
 LIBSBML_EXTERN
 Model_t *
@@ -792,8 +863,13 @@ SBMLDocument_createModel (SBMLDocument_t *d)
 
 
 /**
- * Performs a set of semantic consistency checks on the document.  Query
- * the results by calling getNumErrors() and getError().
+ * Performs a set of consistency and validation checks on the given SBML
+ * document.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @param d the SBMLDocument_t structure
  *
  * @return the number of failed checks (errors) encountered.
  */
@@ -806,9 +882,14 @@ SBMLDocument_checkConsistency (SBMLDocument_t *d)
 
 
 /**
- * Performs a set of semantic consistency checks on the document to
- * establish whether it is compatible with L1 and can be converted.
- * Query the results by calling getNumErrors() and getError().
+ * Performs a set of consistency checks on the document to establish
+ * whether it is compatible with SBML Level 1 and can be converted to
+ * Level 1.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @param d the SBMLDocument_t structure
  *
  * @return the number of failed checks (errors) encountered.
  */
@@ -821,9 +902,14 @@ SBMLDocument_checkL1Compatibility (SBMLDocument_t *d)
 
 
 /**
- * Performs a set of semantic consistency checks on the document to
- * establish whether it is compatible with L2v1 and can be converted.
- * Query the results by calling getNumErrors() and getError().
+ * Performs a set of consistency checks on the document to establish
+ * whether it is compatible with SBML Level 2 Version 1 and can be
+ * converted to Level 2 Version 1.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @param d the SBMLDocument_t structure
  *
  * @return the number of failed checks (errors) encountered.
  */
@@ -837,9 +923,14 @@ SBMLDocument_checkL2v1Compatibility (SBMLDocument_t *d)
 
 
 /**
- * Performs a set of semantic consistency checks on the document to
- * establish whether it is compatible with L2v2 and can be converted.
- * Query the results by calling getNumErrors() and getError().
+ * Performs a set of consistency checks on the document to establish
+ * whether it is compatible with SBML Level 2 Version 2 and can be
+ * converted to Level 2 Version 2.
+ *
+ * Callers should query the results of the consistency check by calling
+ * getError().
+ *
+ * @param d the SBMLDocument_t structure
  *
  * @return the number of failed checks (errors) encountered.
  */
@@ -853,8 +944,25 @@ SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d)
 
 
 /**
- * @return the nth error encountered during the parse of this
- * SBMLDocument or NULL if n > getNumErrors() - 1.
+ * Returns the nth error or warning encountered during parsing,
+ * consistency checking, or attempted translation of this model.
+ *
+ * Callers can use method XMLError_getSeverity() on the result to assess
+ * the severity of the problem.  The severity levels range from
+ * informationl messages to fatal errors.
+ *
+ * @return the error or warning indexed by integer @p n, or return NULL
+ * if n > (SBMLDocument_getNumErrors() - 1).
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @param n the index of the error sought.
+ *
+ * @see SBMLDocument_getNumErrors(), SBMLDocument_setLevelAndVersion(),
+ * SBMLDocument_checkConsistency(), SBMLDocument_checkL1Compatibility(),
+ * SBMLDocument_checkL2v1Compatibility()
+ * SBMLDocument_checkL2v2Compatibility(), SBMLReader_readSBML(),
+ * SBMLReader_readSBMLFromString().
  */
 LIBSBML_EXTERN
 const XMLError_t *
@@ -865,8 +973,18 @@ SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 
 
 /**
- * @return the number of errors encountered during the parse of this
- * SBMLDocument.
+ * Returns the number of errors or warnings encountered during parsing,
+ * consistency checking, or attempted translation of this model.
+ *
+ * @param d the SBMLDocument_t structure
+ *
+ * @return the number of errors or warnings encountered
+ *
+ * @see SBMLDocument_setLevelAndVersion(), SBMLDocument_checkConsistency(),
+ * SBMLDocument_checkL1Compatibility(),
+ * SBMLDocument_checkL2v1Compatibility()
+ * SBMLDocument_checkL2v2Compatibility(), SBMLReader_readSBML(),
+ * SBMLReader_readSBMLFromString().
  */
 LIBSBML_EXTERN
 unsigned int
@@ -877,13 +995,21 @@ SBMLDocument_getNumErrors (const SBMLDocument_t *d)
 
 
 /**
- * Prints all errors encountered during the parse of this SBMLDocument to
- * the given stream.  If no errors have occurred, i.e.
- * SBMLDocument_getNumErrors(d) == 0, no output will be sent to stream. The
- * format of the output is:
+ * Prints to the given output stream all the errors or warnings
+ * encountered during parsing, consistency checking, or attempted
+ * translation of this model.
+ *
+ * If no errors have occurred, i.e., SBMLDocument_getNumErrors() == 0, no
+ * output will be sent to the stream.
+ *
+ * The format of the output is:
  *
  *   N error(s):
- *     line: (id) message
+ *     line NNN: (id) message
+ *
+ * @param d the SBMLDocument_t structure
+ * 
+ * @param stream the output stream where the messages should be printed
  */
 LIBSBML_EXTERN
 void
@@ -903,3 +1029,7 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
     }
   }
 }
+
+
+
+/** @endcond doxygen-c-only */

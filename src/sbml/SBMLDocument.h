@@ -1,6 +1,6 @@
 /**
  * @file    SBMLDocument.h
- * @brief   Top-level container for all things SBML
+ * @brief   Top-level container for an SBML Model and associated data.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -19,7 +19,54 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ *
+ * @class SBMLDocument
+ * @brief SBML Model container and interface for global operations.
+ *
+ * LibSBML uses the class SBMLDocument as a top-level container for storing
+ * SBML content and data associated with it (such as warnings and error
+ * messages).  The two primary means of reading an SBML model, @link
+ * readSBML(const char *filename) readSBML() @endlink and @link
+ * readSBMLFromString(const char *xml) readSBMLFromString() @endlink, both
+ * return a pointer to an SBMLDocument object.  From there, callers can
+ * inquire about any errors encountered (e.g., using
+ * SBMLDocument::getNumErrors()), access the Model object, and perform
+ * other actions such as consistency-checking and model translation.
+ * SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
+ * SBML Level 2 specification, but it does not have a direct correspondence
+ * in SBML Level 1.  (But, it is created by libSBML no matter whether the
+ * model is Level 1 or Level 2.)
+ *
+ * SBMLDocument is derived from SBase, so that it contains the usual SBase
+ * attributes (in SBML Level 2 Version 3) of "metaid" and "sboTerm", as
+ * well as the subelements "notes" and "annotation".  It also contains the
+ * attributes "level" and "version" indicating the Level and Version of the
+ * SBML read.  These can be accessed using the SBase methods for that
+ * purpose.
+ *
+ * Upon reading a model, SBMLDocument logs any problems encountered while
+ * reading the model from the file or data stream.  Whether the problems
+ * are warnings or errors, they are reported through a single common
+ * interface involving the object class XMLError.  The methods
+ * SBMLDocument::getNumErrors(), SBMLDocument::getError() and
+ * SBMLDocument::printErrors() allow callers to interact with the warnings
+ * or errors found.
+ *
+ * SBMLDocument also includes methods for running consistency-checking and
+ * validation rules on the SBML content.  These methods assess whether the
+ * SBML is legal according to basic rules listed in the SBML Level 2
+ * Version 2 and Version 3 specification documents.  The primary interface
+ * is SBMLDocument::checkConsistency().  Additional useful methods are
+ * SBMLDocument::checkL1Compatibility(),
+ * SBMLDocument::checkL2v1Compatibility(), and
+ * SBMLDocument::checkL2v2Compatibility(), which allow callers to check the
+ * downward compatibility of a model with other Levels/Versions of SBML.
+ * At the time of this writing, the most recent release of SBML is Level 2
+ * Version 3, which is why the compatibility-checking methods above only
+ * refer to Level 2 Version 2.
+ */
+
 
 #ifndef SBMLDocument_h
 #define SBMLDocument_h
@@ -48,24 +95,38 @@ class LIBSBML_EXTERN SBMLDocument: public SBase
 public:
 
   /**
-   * @return the most recent SBML specification level (at the time this
-   * libSBML was released).
+   * Returns the most recent SBML specification Level (at the time this
+   * version of libSBML was released).
+   *
+   * @return an integer indicating the most recent SBML specification level
    */
   static unsigned int getDefaultLevel ();
 
+
   /**
-   * @return the most recent SBML specification version (at the time this
-   * libSBML was released).
+   * Returns the latest version of the SBML specification within the most
+   * recent Level (at the time this version of libSBML was released).
+   *
+   * @return an integer indicating the most recent SBML version
+   *
+   * @see getDefaultLevel()
    */
   static unsigned int getDefaultVersion ();
 
 
   /**
-   * Creates a new SBMLDocument.  If not specified, the SBML level and
-   * version attributes default to the most recent SBML specification (at
-   * the time this libSBML was released).
+   * Creates a new SBMLDocument, optionally with given values for the SBML
+   * Level and Version.
+   *
+   * If not specified, the SBML Level and Version attributes default to the
+   * most recent SBML specification (at the time this libSBML was
+   * released).
+   *
+   * @param level an integer for the SBML Level
+   * @param version an integer for the Version within the SBML Level
    */
   SBMLDocument (unsigned int level = 0, unsigned int version = 0);
+
 
   /**
    * Destroys this SBMLDocument.
@@ -74,74 +135,121 @@ public:
 
 
   /**
-   * Creates a copy of this SBMLDocument.
+   * Copy constructor; creates a copy of this SBMLDocument.
    */
   SBMLDocument (const SBMLDocument& rhs);
 
+
   /**
-   * Accepts the given SBMLVisitor.
+   * Accepts the given SBMLVisitor for this instance of SBMLDocument.
+   *
+   * @param v the SBMLVisitor instance to be used.
+   *
+   * @return the result of calling <code>v.visit()</code>.
    */
   virtual bool accept (SBMLVisitor& v) const;
 
+
   /**
+   * Creates and returns a deep copy of this SBMLDocument.
+   * 
    * @return a (deep) copy of this SBMLDocument.
    */
   virtual SBase* clone () const;
 
 
   /**
+   * Returns the Model object stored in this SBMLDocument.
+   * 
    * @return the Model contained in this SBMLDocument.
    */
   const Model* getModel () const;
 
+
   /**
+   * Returns the Model object stored in this SBMLDocument.
+   * 
    * @return the Model contained in this SBMLDocument.
    */
   Model* getModel ();
 
 
   /**
-   * Sets the level and version of this SBMLDocument.  Valid
-   * combinations are currently:
+   * Sets the SBML Level and Version of this SBMLDocument, attempting to
+   * convert the model as needed.
+   *
+   * This method is used to convert models between Levels and Versions of
+   * SBML.  Generally, models can be converted upward without difficulty
+   * (e.g., from SBML Level 1 to Level 2, or from an earlier version of
+   * Level 2 to the latest version of Level 2).  Sometimes models can be
+   * translated downward as well, if they do not use constructs specific to
+   * more advanced Levels of SBML.
+   *
+   * @note Calling this method will not @em necessarily lead to successful
+   * conversion.  If the conversion fails, it will be logged in the error
+   * list associated with this SBMLDocument.  Callers should consult
+   * getNumErrors() to find out if the conversion succeeded without
+   * problems.  For conversions from Level 2 to Level 1, callers can also
+   * check the Level of the model after calling this method to find out
+   * whether it is Level 1.  (If the conversion to Level 1 failed, the
+   * Level of this model will be left unchanged.)
+   *
+   * Callers can also check compatibility directly using the methods
+   * checkL1Compatibility(), checkL2v1Compatibility(), and 
+   * checkL2v2Compatibility().
+   * 
+   * The valid combinations as of this release of libSBML are the
+   * following: 
    *
    *   - Level 1 Version 1
    *   - Level 1 Version 2
    *   - Level 2 Version 1
    *   - Level 2 Version 2
    *   - Level 2 Version 3
-   *
-   * @note Some models cannot be converted from their existing
-   * level and version to other particular combinations.
-   * This function checks whether the required conversion 
-   * is possible.
+   *  
+   *  @param level the desired SBML Level
+   *  
+   *  @param version the desired Version within the SBML Level
    */
   void setLevelAndVersion (unsigned int level, unsigned int version);
 
+
   /**
    * Sets the Model for this SBMLDocument to a copy of the given Model.
+   *
+   * @param m the new Model to use. 
    */
   void setModel (const Model* m);
 
 
   /**
-   * Creates a new Model (optionally with its id attribute set) inside this
-   * SBMLDocument and returns it.
+   * Creates a new Model (optionally with its "id" attribute set) inside
+   * this SBMLDocument, and returns a pointer to it.
+   *
+   * @param sid the identifier of the new Model to create.
    */
   Model* createModel (const std::string& sid = "");
 
 
   /**
-   * Performs a set of semantic consistency checks on the document.  Query
-   * the results by calling getNumErrors() and getError().
+   * Performs a set of consistency and validation checks on this SBML
+   * document.
+   *
+   * Callers should query the results of the consistency check by calling
+   * getError().
    *
    * @return the number of failed checks (errors) encountered.
    */
   unsigned int checkConsistency ();
 
+
   /**
-   * Performs a set of semantic consistency checks on the document to
-   * establish whether it is compatible with L1 and can be converted.
-   * Query the results by calling getNumErrors() and getError().
+   * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level 1 and can be converted to
+   * Level 1.
+   *
+   * Callers should query the results of the consistency check by calling
+   * getError().
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -149,9 +257,12 @@ public:
 
 
   /**
-   * Performs a set of semantic consistency checks on the document to
-   * establish whether it is compatible with L2v1 and can be converted.
-   * Query the results by calling getNumErrors() and getError().
+   * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level 2 Version 1 and can be
+   * converted to Level 2 Version 1.
+   *
+   * Callers should query the results of the consistency check by calling
+   * getError().
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -159,9 +270,12 @@ public:
 
 
   /**
-   * Performs a set of semantic consistency checks on the document to
-   * establish whether it is compatible with L2v2 and can be converted.
-   * Query the results by calling getNumErrors() and getError().
+   * Performs a set of consistency checks on the document to establish
+   * whether it is compatible with SBML Level 2 Version 2 and can be
+   * converted to Level 2 Version 2.
+   *
+   * Callers should query the results of the consistency check by calling
+   * getError().
    *
    * @return the number of failed checks (errors) encountered.
    */
@@ -169,56 +283,99 @@ public:
 
 
   /**
-   * @return the nth error encountered during the parse of this
-   * SBMLDocument or NULL if n > getNumErrors() - 1.
+   * Returns the nth error or warning encountered during parsing,
+   * consistency checking, or attempted translation of this model.
+   *
+   * Callers can use method XMLError::getSeverity() on the result to assess
+   * the severity of the problem.  The severity levels range from
+   * informationl messages to fatal errors.
+   *
+   * @return the error or warning indexed by integer @p n, or return NULL
+   * if n > (getNumErrors() - 1).
+   *
+   * @param n the integer index of the error sought.
+   *
+   * @see getNumErrors(), setLevelAndVersion(), checkConsistency(),
+   * checkL1Compatibility(), checkL2v1Compatibility()
+   * checkL2v2Compatibility(), SBMLReader::readSBML(),
+   * SBMLReader::readSBMLFromString().
    */
   const XMLError* getError (unsigned int n) const;
 
+
   /**
-   * @return the number of errors encountered during the parse of this
-   * SBMLDocument.
+   * Returns the number of errors or warnings encountered during parsing,
+   * consistency checking, or attempted translation of this model.
+   *
+   * @return the number of errors or warnings encountered
+   *
+   * @see setLevelAndVersion(), checkConsistency(), checkL1Compatibility(),
+   * checkL2v1Compatibility() checkL2v2Compatibility(),
+   * SBMLReader::readSBML(), SBMLReader::readSBMLFromString().
    */
   unsigned int getNumErrors () const;
 
+
   /**
-   * Prints all errors encountered during the parse of this SBMLDocument to
-   * the given stream.  If no errors have occurred, i.e.  getNumErrors() ==
-   * 0, no output will be sent to stream. The format of the output is:
+   * Prints to the given output stream all the errors or warnings
+   * encountered during parsing, consistency checking, or attempted
+   * translation of this model.
    *
-   *   N Error(s):
-   *     line: (id) message
+   * If no errors have occurred, i.e., getNumErrors() == 0, no output will
+   * be sent to the stream. 
+   *
+   * The format of the output is:
+   *
+   *   N error(s):
+   *     line NNN: (id) message
    */
   void printErrors (std::ostream& stream = std::cerr) const;
 
 
   /**
-   * Sets the parent SBMLDocument of this SBML object.
+   * No-op; it is provided for consistency with the method available on
+   * other libSBML object classes but has no effect on SBMLDocument.
    */
   virtual void setSBMLDocument (SBMLDocument* d);
 
 
   /**
-   * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
-   * (default).
+   * Returns the libSBML type code for this %SBML object.
+   * 
+   * @return the SBMLTypeCode_t of this object or SBML_UNKNOWN (default).
    *
    * @see getElementName()
    */
   virtual SBMLTypeCode_t getTypeCode () const;
 
+
   /**
-   * @return the name of this element ie "sbml".
+   * Returns the XML element name of this object, which for SBMLDocument,
+   * is always @c "sbml".
+   * 
+   * @return the name of this element, i.e., @c "sbml".
    */
   virtual const std::string& getElementName () const;
 
 
   /**
-   * @return the SBMLErrorLog used to log errors during while reading and
-   * validating SBML.
+   * Returns the list of errors or warnings logged during parsing, 
+   * consistency checking, or attempted translation of this model.
+   * 
+   * @return the SBMLErrorLog used for this SBMLDocument
+   *
+   * @see setLevelAndVersion(), checkConsistency(), checkL1Compatibility(),
+   * checkL2v1Compatibility() checkL2v2Compatibility(),
+   * SBMLReader::readSBML(), SBMLReader::readSBMLFromString().
    */
   SBMLErrorLog* getErrorLog ();
 
+
   /**
-   * @return the Namespaces associated with this SBML object
+   * Returns a list of XML Namespaces associated with the XML content
+   * of this SBML document.
+   * 
+   * @return the XML Namespaces associated with this SBML object
    */
   virtual XMLNamespaces* getNamespaces() const;
 
@@ -239,9 +396,10 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
-
+  /** @endcond doxygen-libsbml-internal */
 
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -258,6 +416,7 @@ protected:
    */
   virtual SBase* createObject (XMLInputStream& stream);
 
+
   /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
@@ -265,6 +424,7 @@ protected:
    */
   virtual
   void readAttributes (const XMLAttributes& attributes);
+
 
   /**
    * Subclasses should override this method to write their XML attributes
@@ -292,173 +452,97 @@ protected:
 
 #ifndef SWIG
 
-
 BEGIN_C_DECLS
-
 
 #include <stdio.h>
 
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
 
-/**
- * Creates a new SBMLDocument and returns a pointer to it.
- *
- * The SBML level defaults to 2 and version defaults to 1.
- */
+
 LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_create (void);
 
-/**
- * Creates a new SBMLDocument with the given level and version.
- */
+
 LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_createWith (unsigned int level, unsigned int version);
 
-/**
- * Frees the given SBMLDocument.
- */
+
 LIBSBML_EXTERN
 void
 SBMLDocument_free (SBMLDocument_t *d);
 
-/**
- * @return a (deep) copy of this SBMLDocument.
- */
+
 LIBSBML_EXTERN
 SBMLDocument_t *
 SBMLDocument_clone (const SBMLDocument_t *d);
 
 
-/**
- * @return the level of this SBMLDocument.
- */
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getLevel (const SBMLDocument_t *d);
 
-/**
- * @return the version of this SBMLDocument.
- */
+
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getVersion (const SBMLDocument_t *d);
 
-/**
- * @return the Model associated with this SBMLDocument.
- */
+
 LIBSBML_EXTERN
 Model_t *
 SBMLDocument_getModel (SBMLDocument_t *d);
 
 
-/**
- * Sets the level and version of this SBMLDocument.  Valid
- * combinations are currently:
- *
- *   - Level 1 Version 1
- *   - Level 1 Version 2
- *   - Level 2 Version 1
- *   - Level 2 Version 2
- * @note Some models cannot be converted from their existing
- * level and version to other particular combinations.
- * This function checks whether the required conversion 
- * is possible.
- */
 LIBSBML_EXTERN
 void
 SBMLDocument_setLevelAndVersion (  SBMLDocument_t *d
                                  , unsigned int    level
                                  , unsigned int    version );
 
-/**
- * Sets the Model for this SBMLDocument to a copy of the given Model.
- */
+
 LIBSBML_EXTERN
 void
 SBMLDocument_setModel (SBMLDocument_t *d, const Model_t *m);
 
 
-/**
- * Creates a new Model inside this SBMLDocument and returns it.
- */
 LIBSBML_EXTERN
 Model_t *
 SBMLDocument_createModel (SBMLDocument_t *d);
 
 
-/**
- * Performs a set of semantic consistency checks on the document.  Query
- * the results by calling getNumErrors() and getError().
- *
- * @return the number of failed checks (errors) encountered.
- */
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_checkConsistency (SBMLDocument_t *d);
 
 
-/**
- * Performs a set of semantic consistency checks on the document to
- * establish whether it is compatible with L1 and can be converted.
- * Query the results by calling getNumErrors() and getError().
- *
- * @return the number of failed checks (errors) encountered.
- */
- LIBSBML_EXTERN
- unsigned int 
- SBMLDocument_checkL1Compatibility (SBMLDocument_t *d);
+LIBSBML_EXTERN
+unsigned int 
+SBMLDocument_checkL1Compatibility (SBMLDocument_t *d);
 
 
-/**
- * Performs a set of semantic consistency checks on the document to
- * establish whether it is compatible with L2v1 and can be converted.
- * Query the results by calling getNumErrors() and getError().
- *
- * @return the number of failed checks (errors) encountered.
- */
 LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v1Compatibility (SBMLDocument_t *d);
 
 
-/**
- * Performs a set of semantic consistency checks on the document to
- * establish whether it is compatible with L2v2 and can be converted.
- * Query the results by calling getNumErrors() and getError().
- *
- * @return the number of failed checks (errors) encountered.
- */
 LIBSBML_EXTERN
 unsigned int 
 SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d);
 
 
-/**
- * @return the nth error encountered during the parse of this
- * SBMLDocument or NULL if n > getNumErrors() - 1.
- */
 LIBSBML_EXTERN
 const XMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
 
-/**
- * @return the number of errors encountered during the parse of this
- * SBMLDocument.
- */
+
 LIBSBML_EXTERN
 unsigned int
 SBMLDocument_getNumErrors (const SBMLDocument_t *d);
 
-/**
- * Prints all errors encountered during the parse of this SBMLDocument to
- * the given stream.  If no errors have occurred, i.e.
- * SBMLDocument_getNumErrors(d) == 0, no output will be sent to stream. The
- * format of the output is:
- *
- *   N Error(s):
- *     line: (id) message
- */
+
 LIBSBML_EXTERN
 void
 SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream);
