@@ -85,9 +85,9 @@ START_TEST (test_FunctionDefinition_create)
 {
   fail_unless( SBase_getTypeCode((SBase_t *) FD) == SBML_FUNCTION_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) FD) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) FD) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) FD) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) FD) == NULL );
-*/
+
   fail_unless( FunctionDefinition_getId  (FD) == NULL );
   fail_unless( FunctionDefinition_getName(FD) == NULL );
   fail_unless( FunctionDefinition_getMath(FD) == NULL );
@@ -105,9 +105,9 @@ START_TEST (test_FunctionDefinition_createWith)
 
   fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_FUNCTION_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
-*/
+
   fail_unless( FunctionDefinition_getName(fd) == NULL );
 
   math1 = FunctionDefinition_getMath(fd);

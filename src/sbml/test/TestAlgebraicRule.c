@@ -86,9 +86,9 @@ START_TEST (test_AlgebraicRule_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) AR) == SBML_ALGEBRAIC_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) AR) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) AR) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) AR) == NULL );
-*/
+
   fail_unless( Rule_getFormula((Rule_t *) AR) == NULL );
   fail_unless( Rule_getMath   ((Rule_t *) AR) == NULL );
 }

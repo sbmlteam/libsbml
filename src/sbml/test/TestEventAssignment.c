@@ -85,9 +85,9 @@ START_TEST (test_EventAssignment_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) EA) == SBML_EVENT_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) EA) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) EA) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) EA) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) EA) == NULL );
-*/
+
   fail_unless( EventAssignment_getVariable(EA) == NULL );
   fail_unless( EventAssignment_getMath    (EA) == NULL );
 }
@@ -101,9 +101,9 @@ START_TEST (test_EventAssignment_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ea) == SBML_EVENT_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) ea) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) ea) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ea) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) ea) == NULL );
-*/
+
   fail_unless( EventAssignment_getMath(ea) != math );
   fail_unless( EventAssignment_isSetMath(ea) );
 

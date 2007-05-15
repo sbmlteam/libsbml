@@ -73,7 +73,8 @@ test_sources =				\
   TestRateRule.c             \
   TestDelay.c				\
   TestTrigger.c				\
-  TestModel.c
+  TestModel.c				\
+  TestSBase.cpp
 
 
 extra_CPPFLAGS = -I.. -I../..

@@ -88,9 +88,9 @@ START_TEST (test_Event_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) E) == SBML_EVENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) E) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) E) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) E) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) E) == NULL );
-*/
+
   fail_unless( Event_getId        (E) == NULL );
   fail_unless( Event_getName      (E) == NULL );
   fail_unless( Event_getTrigger   (E) == NULL );
@@ -109,9 +109,9 @@ START_TEST (test_Event_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) e) == SBML_EVENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) e) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) e) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) e) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) e) == NULL );
-*/
+
   fail_unless( Event_getName      (e) == NULL );
   fail_unless( Event_getDelay     (e) == NULL );
   fail_unless( Event_getTimeUnits (e) == NULL );

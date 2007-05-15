@@ -87,9 +87,9 @@ START_TEST (test_KineticLaw_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) KL) == SBML_KINETIC_LAW );
   fail_unless( SBase_getMetaId    ((SBase_t *) KL) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) KL) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) KL) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) KL) == NULL );
-*/
+
   fail_unless( KineticLaw_getFormula       (KL) == NULL );
   fail_unless( KineticLaw_getMath          (KL) == NULL );
   fail_unless( KineticLaw_getTimeUnits     (KL) == NULL );
@@ -115,9 +115,9 @@ START_TEST (test_KineticLaw_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) kl) == SBML_KINETIC_LAW );
   fail_unless( SBase_getMetaId    ((SBase_t *) kl) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) kl) == NULL );
-*/
+
   math = KineticLaw_getMath(kl);
   fail_unless( math != NULL );
 
@@ -153,9 +153,9 @@ START_TEST (test_KineticLaw_createWithMathAndUnits)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) kl) == SBML_KINETIC_LAW );
   fail_unless( SBase_getMetaId    ((SBase_t *) kl) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) kl) == NULL );
-*/
+
   math = KineticLaw_getMath(kl);
   fail_unless( math != NULL );
 
@@ -191,9 +191,9 @@ START_TEST (test_KineticLaw_createWithMath)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) kl) == SBML_KINETIC_LAW );
   fail_unless( SBase_getMetaId    ((SBase_t *) kl) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) kl) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) kl) == NULL );
-*/
+
   math = KineticLaw_getMath(kl);
   fail_unless( math != NULL );
 

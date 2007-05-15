@@ -83,9 +83,9 @@ START_TEST (test_Compartment_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) C) == SBML_COMPARTMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) C) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) C) == NULL );
-*/
+
   fail_unless( Compartment_getId     (C) == NULL );
   fail_unless( Compartment_getName   (C) == NULL );
   fail_unless( Compartment_getUnits  (C) == NULL );
@@ -138,9 +138,9 @@ START_TEST (test_Compartment_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_COMPARTMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) c) == NULL );
-*/
+
   fail_unless( Compartment_getName(c)              == NULL );
   fail_unless( Compartment_getSpatialDimensions(c) == 3    );
 

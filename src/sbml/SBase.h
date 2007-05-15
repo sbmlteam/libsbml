@@ -1127,6 +1127,16 @@ SBase_getColumn (const SBase_t *sb);
 
 
 LIBSBML_EXTERN
+XMLNode_t *
+SBase_getNotes (SBase_t *sb);
+
+
+LIBSBML_EXTERN
+XMLNode_t *
+SBase_getAnnotation (SBase_t *sb);
+
+
+LIBSBML_EXTERN
 int
 SBase_isSetMetaId (const SBase_t *sb);
 
@@ -1174,6 +1184,16 @@ SBase_setName (SBase_t *sb, const char *name);
 LIBSBML_EXTERN
 void
 SBase_setSBOTerm (SBase_t *sb, int value);
+
+
+LIBSBML_EXTERN
+void
+SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
+
+
+LIBSBML_EXTERN
+void
+SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation);
 
 
 LIBSBML_EXTERN

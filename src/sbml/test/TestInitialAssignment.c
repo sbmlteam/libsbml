@@ -85,9 +85,9 @@ START_TEST (test_InitialAssignment_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) IA) == SBML_INITIAL_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) IA) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) IA) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) IA) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) IA) == NULL );
-*/
+
   fail_unless( InitialAssignment_getSymbol(IA) == NULL );
   fail_unless( InitialAssignment_getMath    (IA) == NULL );
 }
@@ -100,9 +100,9 @@ START_TEST (test_InitialAssignment_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ia) == SBML_INITIAL_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) ia) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) ia) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ia) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) ia) == NULL );
-*/
+
   fail_unless( !InitialAssignment_isSetMath(ia) );
 
   fail_unless( !strcmp(InitialAssignment_getSymbol(ia), "k") );

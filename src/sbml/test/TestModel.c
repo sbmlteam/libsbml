@@ -81,9 +81,9 @@ START_TEST (test_Model_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) M) == SBML_MODEL );
   fail_unless( SBase_getMetaId    ((SBase_t *) M) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) M) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) M) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) M) == NULL );
-*/
+
   fail_unless( Model_getId  (M) == NULL );
   fail_unless( Model_getName(M) == NULL );
 
@@ -113,9 +113,9 @@ START_TEST (test_Model_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) m) == SBML_MODEL );  
   fail_unless( SBase_getMetaId    ((SBase_t *) m) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) m) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) m) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) m) == NULL );
-*/
+
   fail_unless( Model_getName(m) == NULL );
 
   fail_unless( !strcmp(Model_getId(m), "repressilator") );

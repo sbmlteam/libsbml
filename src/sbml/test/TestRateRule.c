@@ -83,8 +83,8 @@ START_TEST (test_RateRule_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) RR) == SBML_RATE_RULE );
   fail_unless( SBase_getMetaId    ((SBase_t *) RR) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) RR) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) RR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) RR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) RR) == NULL );
 
   fail_unless( Rule_getFormula     ((Rule_t *) RR) == NULL );
   fail_unless( Rule_getMath        ((Rule_t *) RR) == NULL );

@@ -84,9 +84,9 @@ START_TEST (test_Trigger_create)
 {
   fail_unless( SBase_getTypeCode((SBase_t *) D) == SBML_TRIGGER );
   fail_unless( SBase_getMetaId    ((SBase_t *) D) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) D) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) D) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) D) == NULL );
-*/
+
   fail_unless( Trigger_getMath(D) == NULL );
 }
 END_TEST
@@ -102,9 +102,9 @@ START_TEST (test_Trigger_createWithMath)
 
   fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_TRIGGER );
   fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
-*/
+
 
   math1 = Trigger_getMath(fd);
   fail_unless( math1 != NULL );

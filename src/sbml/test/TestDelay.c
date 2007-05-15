@@ -84,9 +84,9 @@ START_TEST (test_Delay_create)
 {
   fail_unless( SBase_getTypeCode((SBase_t *) D) == SBML_DELAY );
   fail_unless( SBase_getMetaId    ((SBase_t *) D) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) D) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) D) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) D) == NULL );
-*/
+
   fail_unless( Delay_getMath(D) == NULL );
 }
 END_TEST
@@ -102,9 +102,9 @@ START_TEST (test_Delay_createWithMath)
 
   fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_DELAY );
   fail_unless( SBase_getMetaId    ((SBase_t *) fd) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) fd) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) fd) == NULL );
-*/
+
 
   math1 = Delay_getMath(fd);
   fail_unless( math1 != NULL );

@@ -186,6 +186,7 @@ main (void)
   srunner_add_suite( runner, create_suite_RateRule                 () );
   srunner_add_suite( runner, create_suite_Rule                 () );
   srunner_add_suite( runner, create_suite_Reaction                 () );
+  srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_Species                  () );
   srunner_add_suite( runner, create_suite_SpeciesReference         () );
   srunner_add_suite( runner, create_suite_SpeciesType                  () );

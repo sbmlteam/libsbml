@@ -81,9 +81,9 @@ START_TEST (test_Reaction_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) R) == SBML_REACTION );
   fail_unless( SBase_getMetaId    ((SBase_t *) R) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) R) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) R) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) R) == NULL );
-*/
+
   fail_unless( Reaction_getId        (R) == NULL );
   fail_unless( Reaction_getName      (R) == NULL );
   fail_unless( Reaction_getKineticLaw(R) == NULL );
@@ -109,9 +109,9 @@ START_TEST (test_Reaction_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_REACTION );
   fail_unless( SBase_getMetaId    ((SBase_t *) r) == NULL );
- /* fail_unless( SBase_getNotes     ((SBase_t *) r) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) r) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) r) == NULL );
-*/
+
   fail_unless( Reaction_getName(r) == NULL );
 
   fail_unless( !strcmp(Reaction_getId(r), "r1") );

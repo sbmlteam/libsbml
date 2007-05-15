@@ -84,9 +84,9 @@ START_TEST (test_Constraint_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) C) == SBML_CONSTRAINT );
   fail_unless( SBase_getMetaId    ((SBase_t *) C) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) C) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) C) == NULL );
-*/
+
   fail_unless( !Constraint_isSetMessage(C) );
   fail_unless( !Constraint_isSetMath    (C) );
 }

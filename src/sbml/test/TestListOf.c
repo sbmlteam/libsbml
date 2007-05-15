@@ -63,9 +63,9 @@ START_TEST (test_ListOf_create)
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) lo) == SBML_LIST_OF );
-/* fail_unless( SBase_getNotes     ((SBase_t *) lo) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) lo) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) lo) == NULL );
-*/  fail_unless( SBase_getMetaId    ((SBase_t *) lo) == NULL );
+  fail_unless( SBase_getMetaId    ((SBase_t *) lo) == NULL );
 
   fail_unless( ListOf_size(lo) == 0 );
 

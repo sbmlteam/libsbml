@@ -53,6 +53,7 @@
 #include "common/extern.h"
 
 #include "SBase.h"
+#include "Model.h"
 
 #include <check.h>
 
@@ -66,54 +67,21 @@ BEGIN_C_DECLS
 void
 SBaseTest_setup (void)
 {
-  S = new(std::nothrow) SBase;
+  S = new(std::nothrow) Model;
 
   if (S == NULL)
   {
     fail("'new(std::nothrow) SBase;' returned a NULL pointer.");
   }
 
-  /**
-   * SBase_init() requires an SBMLTypeCode_t as its second argument.  Which
-   * one doesn't really matter for the purposes of these tests, so one was
-   * picked at random.
-   
-  SBase_init(S, SBML_MODEL);
-  */
 }
 
 
 void
 SBaseTest_teardown (void)
 {
-  /* no longer in libSBML
-  SBase_clear(S);
-  */
   delete S;
 }
-
-
-START_TEST (test_SBase_init)
-{
-  fail_unless(SBase_getTypeCode  (S) == SBML_MODEL, NULL);
-  fail_unless(SBase_getLine      (S) == 0   , NULL);
-  fail_unless(SBase_getColumn    (S) == 0   , NULL);
-  fail_unless(SBase_getMetaId    (S) == NULL, NULL);
-  fail_unless(SBase_getNotes     (S) == NULL, NULL);
-  fail_unless(SBase_getAnnotation(S) == NULL, NULL);
-
-  fail_unless( !SBase_isSetMetaId    (S), NULL );
-  fail_unless( !SBase_isSetNotes     (S), NULL );
-  fail_unless( !SBase_isSetAnnotation(S), NULL );
-}
-END_TEST
-
-
-START_TEST (test_SBase_clear_NULL)
-{
-  SBase_clear(NULL);
-}
-END_TEST
 
 
 START_TEST (test_SBase_setMetaId)
@@ -148,60 +116,93 @@ END_TEST
 
 START_TEST (test_SBase_setNotes)
 {
-  char *notes = "This is a test note.";
+  XMLToken_t *token;
+  XMLNode_t *node;
+
+  token = XMLToken_createWithText("This is a test note");
+  node = XMLNode_createFromToken(token);
 
 
-  SBase_setNotes(S, notes);
+  SBase_setNotes(S, node);
 
-  fail_unless( !strcmp(SBase_getNotes(S), notes), NULL );
-  fail_unless( SBase_isSetNotes(S)      , NULL );
+  fail_unless(SBase_isSetNotes(S) == 1);
 
-  if (SBase_getNotes(S) == notes)
+  if (SBase_getNotes(S) == node)
   {
-    fail("SBase_setNotes(...) did not make a copy of string.");
+    fail("SBase_setNotes(...) did not make a copy of node.");
   }
+  XMLNode_t *t1 = SBase_getNotes(S);
 
-  /* Reflexive case (pathological) */
+  fail_unless(XMLNode_getNumChildren(t1) == 0);
+  fail_unless(!strcmp(XMLNode_getCharacters(t1), "This is a test note"));
+
+
+  /* Reflexive case (pathological)  */
   SBase_setNotes(S, SBase_getNotes(S));
-  fail_unless( !strcmp(SBase_getNotes(S), notes), NULL );
+  t1 = SBase_getNotes(S);
+  fail_unless(XMLNode_getNumChildren(t1) == 0);
+  const char * chars = XMLNode_getCharacters(t1);
+  fail_unless(!strcmp(chars, "This is a test note"));
 
   SBase_setNotes(S, NULL);
-  fail_unless( !SBase_isSetNotes(S), NULL );
+  fail_unless(SBase_isSetNotes(S) == 0 );
 
   if (SBase_getNotes(S) != NULL)
   {
     fail("SBase_setNotes(S, NULL) did not clear string.");
   }
+
+  SBase_setNotes(S, node);
+
+  fail_unless(SBase_isSetNotes(S) == 1);
+
+  XMLNode_free(node);
 }
 END_TEST
 
 
 START_TEST (test_SBase_setAnnotation)
 {
-  char *annotation = "This is a test annotation.";
+  XMLToken_t *token;
+  XMLNode_t *node;
+
+  token = XMLToken_createWithText("This is a test note");
+  node = XMLNode_createFromToken(token);
 
 
-  SBase_setAnnotation(S, annotation);
+  SBase_setAnnotation(S, node);
 
-  fail_unless( !strcmp(SBase_getAnnotation(S), annotation), NULL );
-  fail_unless( SBase_isSetAnnotation(S), NULL );
+  fail_unless(SBase_isSetAnnotation(S) == 1);
 
-  if (SBase_getAnnotation(S) == annotation)
+  XMLNode_t *t1 = SBase_getAnnotation(S);
+
+  fail_unless(XMLNode_getNumChildren(t1) == 0);
+  fail_unless(!strcmp(XMLNode_getCharacters(t1), "This is a test note"));
+
+  if (SBase_getAnnotation(S) == node)
   {
-    fail("SBase_setAnnotation(...) did not make a copy of string.");
+    fail("SBase_setAnnotation(...) did not make a copy of node.");
   }
 
   /* Reflexive case (pathological) */
   SBase_setAnnotation(S, SBase_getAnnotation(S));
-  fail_unless( !strcmp(SBase_getAnnotation(S), annotation), NULL );
+  fail_unless(!strcmp(XMLNode_getCharacters(SBase_getAnnotation(S)), "This is a test note"));
 
   SBase_setAnnotation(S, NULL);
-  fail_unless( !SBase_isSetAnnotation(S), NULL );
+  fail_unless(SBase_isSetAnnotation(S) == 0 );
 
   if (SBase_getAnnotation(S) != NULL)
   {
     fail("SBase_setAnnotation(S, NULL) did not clear string.");
   }
+
+  SBase_setAnnotation(S, node);
+
+  fail_unless(SBase_isSetAnnotation(S) == 1);
+
+  SBase_unsetAnnotation(S);
+
+  fail_unless(SBase_isSetAnnotation(S) == 0);
 }
 END_TEST
 
@@ -215,8 +216,6 @@ create_suite_SBase (void)
 
   tcase_add_checked_fixture(tcase, SBaseTest_setup, SBaseTest_teardown);
 
-  tcase_add_test(tcase, test_SBase_init          );
-  tcase_add_test(tcase, test_SBase_clear_NULL    );
   tcase_add_test(tcase, test_SBase_setMetaId     );
   tcase_add_test(tcase, test_SBase_setNotes      );
   tcase_add_test(tcase, test_SBase_setAnnotation );

@@ -84,8 +84,8 @@ START_TEST (test_UnitDefinition_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) UD) == SBML_UNIT_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) UD) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) UD) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) UD) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) UD) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) UD) == NULL );
 
   fail_unless( UnitDefinition_getId  (UD) == NULL );
   fail_unless( UnitDefinition_getName(UD) == NULL );
@@ -105,8 +105,8 @@ START_TEST (test_UnitDefinition_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
 
   fail_unless( UnitDefinition_getName(ud) == NULL );
 
@@ -127,8 +127,8 @@ START_TEST (test_UnitDefinition_createWithName)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );
   fail_unless( SBase_getMetaId    ((SBase_t *) ud) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) ud) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) ud) == NULL );
 
   fail_unless( UnitDefinition_getId(ud) == NULL );
 

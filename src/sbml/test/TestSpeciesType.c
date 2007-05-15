@@ -83,9 +83,9 @@ START_TEST (test_SpeciesType_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) CT) == SBML_SPECIES_TYPE );
   fail_unless( SBase_getMetaId    ((SBase_t *) CT) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) CT) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) CT) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) CT) == NULL );
-*/
+
   fail_unless( SpeciesType_getId     (CT) == NULL );
   fail_unless( SpeciesType_getName   (CT) == NULL );
 
@@ -102,9 +102,9 @@ START_TEST (test_SpeciesType_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) c) == SBML_SPECIES_TYPE );
   fail_unless( SBase_getMetaId    ((SBase_t *) c) == NULL );
-/*  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) c) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) c) == NULL );
-*/
+
   fail_unless( SpeciesType_getName(c)              == NULL );
 
   fail_unless( !strcmp( SpeciesType_getId     (c), "A"     ) );

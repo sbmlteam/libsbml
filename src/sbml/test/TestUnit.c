@@ -104,8 +104,8 @@ START_TEST (test_Unit_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) u) == SBML_UNIT );
   fail_unless( SBase_getMetaId    ((SBase_t *) u) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) u) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) u) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) u) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) u) == NULL );
 
   fail_unless( Unit_getKind      (u) == UNIT_KIND_SECOND );
   fail_unless( Unit_getExponent  (u) == -2   );

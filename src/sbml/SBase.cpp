@@ -465,7 +465,10 @@ SBase::setName (const string& name)
 void 
 SBase::setAnnotation (XMLNode* annotation)
 {
-  mAnnotation = annotation;
+  if (mAnnotation == annotation) return;
+
+  delete mAnnotation;
+  mAnnotation = (annotation != 0) ? static_cast<XMLNode*>( annotation->clone() ) : 0;
 }
 
 
@@ -516,7 +519,10 @@ SBase::appendAnnotation (XMLNode* annotation)
 void 
 SBase::setNotes(XMLNode* notes)
 {
-  mNotes = notes;
+  if (mNotes == notes) return;
+ 
+  delete mNotes;
+  mNotes = (notes != 0) ? static_cast<XMLNode*>( notes->clone() ) : 0;
 }
 
 
@@ -621,6 +627,7 @@ void
 SBase::unsetNotes ()
 {
   delete mNotes;
+  mNotes = 0;
 }
 
 /**
@@ -630,6 +637,7 @@ void
 SBase::unsetAnnotation ()
 {
   delete mAnnotation;
+  mAnnotation = 0;
 }
 
 
@@ -3053,6 +3061,36 @@ SBase_getVersion (const SBase_t *sb)
 
 
 /**
+ * Returns the notes from given SBML object.
+ *
+ * @param sb the given SBML object.
+ *
+ * @return the XMLNode_t structure representing the notes from this object.
+ */
+LIBSBML_EXTERN
+XMLNode_t *
+SBase_getNotes (SBase_t *sb)
+{
+  return sb->getNotes();
+}
+
+
+/**
+ * Returns the annotation from given SBML object.
+ *
+ * @param sb the given SBML object.
+ *
+ * @return the XMLNode_t structure representing the annotation from this object.
+ */
+LIBSBML_EXTERN
+XMLNode_t *
+SBase_getAnnotation (SBase_t *sb)
+{
+  return sb->getAnnotation();
+}
+
+
+/**
  * Predicate returning nonzero true or false depending on whether the given
  * structure's "metaid" attribute has been set.
  *
@@ -3250,6 +3288,33 @@ void
 SBase_setSBOTerm (SBase_t *sb, int value)
 {
   sb->setSBOTerm(value);
+}
+
+/**
+ * Sets the notes for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param notes the XMLNode_t structure respresenting the notes.
+ */
+LIBSBML_EXTERN
+void
+SBase_setNotes (SBase_t *sb, XMLNode_t *notes)
+{
+  sb->setNotes(notes);
+}
+
+
+/**
+ * Sets the annotation for the given SBML object.
+ *
+ * @param sb the given SBML object.
+ * @param annotation the XMLNode_t structure respresenting the annotation.
+ */
+LIBSBML_EXTERN
+void
+SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation)
+{
+  sb->setAnnotation(annotation);
 }
 
 

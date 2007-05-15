@@ -83,8 +83,8 @@ START_TEST (test_Species_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) S) == SBML_SPECIES );
   fail_unless( SBase_getMetaId    ((SBase_t *) S) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) S) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) S) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) S) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) S) == NULL );
 
   fail_unless( Species_getId                   (S) == NULL );
   fail_unless( Species_getName                 (S) == NULL );
@@ -118,8 +118,8 @@ START_TEST (test_Species_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) s) == SBML_SPECIES );
   fail_unless( SBase_getMetaId    ((SBase_t *) s) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) s) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) s) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) s) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) s) == NULL );
 
   fail_unless( !strcmp(Species_getName            (s), "Calcium"  ) );
   fail_unless( Species_getSpatialSizeUnits     (s) == NULL );

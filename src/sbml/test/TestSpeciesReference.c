@@ -86,8 +86,8 @@ START_TEST (test_SpeciesReference_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) SR) == SBML_SPECIES_REFERENCE );
   fail_unless( SBase_getMetaId    ((SBase_t *) SR) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) SR) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) SR) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) SR) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) SR) == NULL );
 
   fail_unless( SpeciesReference_getSpecies          (SR) == NULL );
   fail_unless( SpeciesReference_getStoichiometry    (SR) == 1    );
@@ -107,8 +107,8 @@ START_TEST (test_SpeciesReference_createWith)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_SPECIES_REFERENCE );
   fail_unless( SBase_getMetaId    ((SBase_t *) sr) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "s3") );
 
@@ -129,8 +129,8 @@ START_TEST (test_SpeciesReference_createModifier)
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_MODIFIER_SPECIES_REFERENCE );
   fail_unless( SBase_getMetaId    ((SBase_t *) sr) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) sr) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) sr) == NULL );
 
   fail_unless( SpeciesReference_isModifier(sr));
   SpeciesReference_free(sr);
