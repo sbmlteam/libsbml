@@ -75,13 +75,13 @@ As might be deduced from the examples so far, an SBMLDocument object in
 libSBML represents a whole SBML model and its associated data.
 SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
 SBML Level 2 specification, but it does not have a direct correspondence in
-SBML Level 1.  (But, it is created by libSBML no macodeer whether the model
+SBML Level 1.  (But, it is created by libSBML no matter whether the model
 is Level 1 or Level 2.)
 
 SBMLDocument is derived from SBase, so that it contains the usual SBase
-acodeributes (in SBML Level 2 Version 3) of "metaid" and "sboTerm", as well
+attributes (in SBML Level 2 Version 3) of "metaid" and "sboTerm", as well
 as the subelements "notes" and "annotation".  It also contains the
-acodeributes "level" and "version" indicating the Level and Version of the
+attributes "level" and "version" indicating the Level and Version of the
 SBML read.  SBase (and thus its subclasses such as SBMLDocument) provides
 methods for querying this information:
 
