@@ -141,9 +141,9 @@
 
 %include "std_string.i"
 
-%import  common/extern.h
-%import  common/sbmlfwd.h
-%import  xml/XMLExtern.h
+%import  sbml/common/extern.h
+%import  sbml/common/sbmlfwd.h
+%import  sbml/xml/XMLExtern.h
 
 %include sbml/SBMLReader.h
 %include sbml/SBMLWriter.h
@@ -174,33 +174,33 @@
 %include sbml/SBO.h
 %include sbml/StoichiometryMath.h
 
-%include math/MathML.h
-%include math/ASTNode.h
-%include math/FormulaParser.h
+%include sbml/math/MathML.h
+%include sbml/math/ASTNode.h
+%include sbml/math/FormulaParser.h
 
-%include xml/XMLAttributes.h
-%include xml/XMLNamespaces.h
-%include xml/XMLToken.h
-%include xml/XMLNode.h
-%include xml/XMLTriple.h
-%include xml/XMLInputStream.h
-%include xml/XMLOutputStream.h
-%include xml/XMLError.h
-%include xml/XMLErrorLog.h
-%include xml/XMLHandler.h
-%include xml/XMLParser.h
-%include xml/XMLTokenizer.h
+%include sbml/xml/XMLAttributes.h
+%include sbml/xml/XMLNamespaces.h
+%include sbml/xml/XMLToken.h
+%include sbml/xml/XMLNode.h
+%include sbml/xml/XMLTriple.h
+%include sbml/xml/XMLInputStream.h
+%include sbml/xml/XMLOutputStream.h
+%include sbml/xml/XMLError.h
+%include sbml/xml/XMLErrorLog.h
+%include sbml/xml/XMLHandler.h
+%include sbml/xml/XMLParser.h
+%include sbml/xml/XMLTokenizer.h
 
 %include sbml/SBMLErrorLog.h
 
-%include units/FormulaUnitsData.h
-%include units/UnitFormulaFormatter.h
-%include units/Utils_Unit.h
-%include units/Utils_UnitDefinition.h
+%include sbml/units/FormulaUnitsData.h
+%include sbml/units/UnitFormulaFormatter.h
+%include sbml/units/Utils_Unit.h
+%include sbml/units/Utils_UnitDefinition.h
 
-%include annotation/CVTerm.h
-%include annotation/ModelHistory.h
-%include annotation/RDFAnnotation.h
+%include sbml/annotation/CVTerm.h
+%include sbml/annotation/ModelHistory.h
+%include sbml/annotation/RDFAnnotation.h
 
 #ifdef USE_LAYOUT
 %include ../swig/layout.i
