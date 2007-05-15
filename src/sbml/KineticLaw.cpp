@@ -65,7 +65,7 @@ KineticLaw::KineticLaw (   const string& formula
  * Creates a new KineticLaw, optionally with its math, timeUnits and/or
  * substanceUnits set.
  */
-KineticLaw::KineticLaw (   ASTNode* math
+KineticLaw::KineticLaw (   const ASTNode* math
                          , const string& timeUnits
                          , const string& substanceUnits ) :
    SBase          ( -1             )

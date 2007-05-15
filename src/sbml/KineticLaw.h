@@ -182,7 +182,7 @@ public:
    * attributes were removed.  For compatibility with new versions of SBML,
    * users are cautioned to avoid these attributes.
    */
-  KineticLaw (   ASTNode* math
+  KineticLaw (   const ASTNode* math
                , const std::string& timeUnits      = ""
                , const std::string& substanceUnits = "" );
 
