@@ -209,16 +209,17 @@ START_TEST (test_SpeciesReference_setStoichiometryMath)
 {
   ASTNode_t *math = SBML_parseFormula("k3 / k2");
 
-  const ASTNode_t * math1;
+  StoichiometryMath_t *stoich = StoichiometryMath_createWithMath(math);
+  const StoichiometryMath_t * math1;
   char * formula;
 
 
-  SpeciesReference_setStoichiometryMath(SR, math);
+  SpeciesReference_setStoichiometryMath(SR, stoich);
 
   math1 = SpeciesReference_getStoichiometryMath(SR);
   fail_unless( math1 != NULL );
 
-  formula = SBML_formulaToString(math1);
+  formula = SBML_formulaToString(StoichiometryMath_getMath(math1));
   fail_unless( formula != NULL );
   fail_unless( !strcmp(formula, "k3 / k2") );
 

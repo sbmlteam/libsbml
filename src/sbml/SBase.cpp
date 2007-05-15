@@ -831,6 +831,10 @@ SBase::read (XMLInputStream& stream)
 
         object->mSBML = mSBML;
         object->read(stream);
+        if (object->getTypeCode() == SBML_SPECIES_REFERENCE)
+        {
+          static_cast <SpeciesReference *> (object)->sortMath();
+        }
         if (stream.isGood())
         {
           checkListOfPopulated(object);

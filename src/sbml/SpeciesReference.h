@@ -234,9 +234,10 @@
 #include <string>
 
 #include <sbml/SBase.h>
+#include <sbml/StoichiometryMath.h>
 #include <sbml/ListOf.h>
 
-
+class StoichiometryMath;
 class ASTNode;
 class SBMLVisitor;
 
@@ -484,7 +485,7 @@ public:
    * @return the content of the "stoichiometryMath" subelement of this
    * SpeciesReference.
    */
-  const ASTNode* getStoichiometryMath () const;
+  const StoichiometryMath* getStoichiometryMath () const;
 
 
   /**
@@ -571,34 +572,8 @@ public:
    * @param math the ASTNode expression tree that is to be copied as the
    * content of the "stoichiometryMath" subelement.
    */
-  void setStoichiometryMath (const ASTNode* math);
+  void setStoichiometryMath (const StoichiometryMath* math);
 
-
-  /**
-   * Sets the "stoichiometryMath" subelement of this SpeciesReference to
-   * the expression given by an expression in text-string form.
-   *
-   * In SBML Level 2, Product and reactant stoichiometries can be specified
-   * using <em>either</em> "stoichiometry" or "stoichiometryMath" in a
-   * SpeciesReference object.  The former is to be used when a
-   * stoichiometry is simply a scalar number, while the latter is for
-   * occasions when it needs to be a rational number or it needs to
-   * reference other mathematical expressions.  The "stoichiometry"
-   * attribute is of type double and should contain values greater than
-   * zero (0).  The "stoichiometryMath" element is implemented as an
-   * element containing a MathML expression.  These two are mutually
-   * exclusive; only one of "stoichiometry" or "stoichiometryMath" should
-   * be defined in a given SpeciesReference instance.  When neither the
-   * attribute nor the element is present, the value of "stoichiometry" in
-   * the SpeciesReference instance defaults to @c 1.  For maximum
-   * interoperability between different software tools, the "stoichiometry"
-   * attribute should be used in preference to "stoichiometryMath" when a
-   * species' stoichiometry is a simple scalar number (integer or
-   * decimal).
-   * 
-   * @param formula a mathematical formula expressed in text-string form
-   */
-  void setStoichiometryMath (const std::string& formula);
 
 
   /**
@@ -649,11 +624,22 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  /*
+   * This functional checks whether a math expression equates to 
+   * a rational and produces values for stoichiometry and denominator
+   */
+  void sortMath();
   /** @endcond doxygen-libsbml-internal */
 
 
 protected:
   /** @cond doxygen-libsbml-internal */
+
+  /**
+   * @return the SBML object corresponding to next XMLToken in the
+   * XMLInputStream or NULL if the token was not recognized.
+   */
+  virtual SBase* createObject (XMLInputStream& stream);
 
   /**
    * Subclasses should override this method to read (and store) XHTML,
@@ -680,7 +666,7 @@ protected:
 
   double    mStoichiometry;
   int       mDenominator;
-  ASTNode*  mStoichiometryMath;
+  StoichiometryMath*  mStoichiometryMath;
 
   /** @endcond doxygen-libsbml-internal */
 };
@@ -945,7 +931,7 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr);
 
 
 LIBSBML_EXTERN
-const ASTNode_t *
+const StoichiometryMath_t *
 SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr);
 
 
@@ -997,7 +983,7 @@ SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value);
 LIBSBML_EXTERN
 void
 SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
-                                       , const ASTNode_t    *math );
+                                       , const StoichiometryMath_t    *math );
 
 
 LIBSBML_EXTERN

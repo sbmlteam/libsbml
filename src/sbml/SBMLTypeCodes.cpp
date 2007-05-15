@@ -57,6 +57,7 @@ const char* SBML_TYPE_CODE_STRINGS[] =
   , "ParameterRule"
   , "Trigger"
   , "Delay"
+  , "StoichiometryMath"
 
 #ifdef USE_LAYOUT
   , "BoundingBox"
@@ -86,7 +87,7 @@ LIBSBML_EXTERN
 const char *
 SBMLTypeCode_toString (SBMLTypeCode_t tc)
 {
-  SBMLTypeCode_t max = SBML_DELAY;
+  SBMLTypeCode_t max = SBML_STOICHIOMETRY_MATH;
 
 #ifdef USE_LAYOUT
   max = SBML_LAYOUT_TEXTGLYPH;

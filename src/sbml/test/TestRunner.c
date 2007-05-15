@@ -105,6 +105,7 @@ Suite *create_suite_Species                  (void);
 Suite *create_suite_SpeciesConcentrationRule (void);
 Suite *create_suite_SpeciesReference         (void);
 Suite *create_suite_SpeciesType              (void);
+Suite *create_suite_StoichiometryMath        (void);
 Suite *create_suite_Trigger                  (void);
 Suite *create_suite_Unit                     (void);
 Suite *create_suite_UnitDefinition           (void);
@@ -190,6 +191,7 @@ main (void)
   srunner_add_suite( runner, create_suite_Species                  () );
   srunner_add_suite( runner, create_suite_SpeciesReference         () );
   srunner_add_suite( runner, create_suite_SpeciesType                  () );
+  srunner_add_suite( runner, create_suite_StoichiometryMath                  () );
   srunner_add_suite( runner, create_suite_Trigger                    () );
   srunner_add_suite( runner, create_suite_Unit                     () );
   srunner_add_suite( runner, create_suite_UnitDefinition           () );

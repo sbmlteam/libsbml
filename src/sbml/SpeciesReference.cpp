@@ -265,7 +265,7 @@ SpeciesReference::SpeciesReference (const SpeciesReference& orig) :
 {
   if (orig.mStoichiometryMath)
   {
-    mStoichiometryMath = orig.mStoichiometryMath->deepCopy();
+    mStoichiometryMath = new StoichiometryMath(*orig.getStoichiometryMath());
   }
 }
 
@@ -281,7 +281,7 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
   mDenominator = rhs.mDenominator   ;
   if (rhs.mStoichiometryMath)
   {
-    mStoichiometryMath = rhs.mStoichiometryMath->deepCopy();
+    mStoichiometryMath = new StoichiometryMath(*rhs.getStoichiometryMath());
   }
   return *this;
 }
@@ -297,7 +297,11 @@ SpeciesReference& SpeciesReference::operator=(const SpeciesReference& rhs)
 bool
 SpeciesReference::accept (SBMLVisitor& v) const
 {
-  return v.visit(*this);
+  bool result = v.visit(*this);
+  
+  if (mStoichiometryMath) mStoichiometryMath->accept(v);
+  
+  return result;
 }
 
 
@@ -338,7 +342,7 @@ SpeciesReference::getStoichiometry () const
 /**
  * @return the stoichiometryMath of this SpeciesReference.
  */
-const ASTNode*
+const StoichiometryMath*
 SpeciesReference::getStoichiometryMath () const
 {
   return mStoichiometryMath;
@@ -381,28 +385,13 @@ SpeciesReference::setStoichiometry (double value)
  * given ASTNode.
  */
 void
-SpeciesReference::setStoichiometryMath (const ASTNode* math)
+SpeciesReference::setStoichiometryMath (const StoichiometryMath* math)
 {
   if (mStoichiometryMath == math) return;
 
 
   delete mStoichiometryMath;
-  mStoichiometryMath = (math != 0) ? math->deepCopy() : 0;
-}
-
-
-/**
- * Sets the stoichiometryMath of this SpeciesReference to the given
- * formula string.
- */
-void
-SpeciesReference::setStoichiometryMath (const string& formula)
-{
-  if ( !formula.empty() )
-  {
-    delete mStoichiometryMath; 
-    mStoichiometryMath = SBML_parseFormula( formula.c_str() );
-  }
+  mStoichiometryMath = (math != 0) ? static_cast<StoichiometryMath*>(math->clone()) : 0;
 }
 
 
@@ -442,6 +431,40 @@ SpeciesReference::getElementName () const
   return (getLevel() == 1 && getVersion() == 1) ? specie : species;
 }
 
+void
+SpeciesReference::sortMath()
+{
+  if (mStoichiometryMath && mStoichiometryMath->getMath()->isRational())
+  {
+    mStoichiometry = mStoichiometryMath->getMath()->getNumerator();
+    mDenominator   = mStoichiometryMath->getMath()->getDenominator();
+
+    delete mStoichiometryMath;
+    mStoichiometryMath = 0;
+  }
+}
+/**
+ * @return the SBML object corresponding to next XMLToken in the
+ * XMLInputStream or NULL if the token was not recognized.
+ */
+SBase*
+SpeciesReference::createObject (XMLInputStream& stream)
+{
+  const string& name = stream.peek().getName();
+  
+  if (name == "stoichiometryMath")
+  {
+    delete mStoichiometryMath;
+
+    mStoichiometryMath = new StoichiometryMath();
+    return mStoichiometryMath;
+  }
+  else
+  {
+    return 0;
+  }
+}
+
 
 /**
  * Subclasses should override this method to read (and store) XHTML,
@@ -455,72 +478,73 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
   bool          read = false;
   const string& name = stream.peek().getName();
 
-  if (name == "stoichiometryMath")
-  {
-    const XMLToken wrapperElement = stream.next();
-    stream.skipText();
-    const XMLToken element = stream.peek();
+ // if (name == "stoichiometryMath")
+ // {
+ //   const XMLToken wrapperElement = stream.next();
+ //   stream.skipText();
+ //   const XMLToken element = stream.peek();
 
-    bool found = false;
+ //   bool found = false;
 
-    /* The first element must always be 'math'. */
+ //   /* The first element must always be 'math'. */
 
-    if (element.getName() != "math")
-    {
-      found = true;
-    }
+ //   if (element.getName() != "math")
+ //   {
+ //     found = true;
+ //   }
 
-    /* Check this declares the MathML namespace.  This may be explicitly
-     * declared here or implicitly declared on the whole document
-     */
+ //   /* Check this declares the MathML namespace.  This may be explicitly
+ //    * declared here or implicitly declared on the whole document
+ //    */
 
-    if (!found && element.getNamespaces().getLength() != 0)
-    {
-      for (int n = 0; n < element.getNamespaces().getLength(); n++)
-      {
-        if (!strcmp(element.getNamespaces().getURI(n).c_str(),
-		    "http://www.w3.org/1998/Math/MathML"))
-        {
-	  found = true;
-          break;
-        }
-      }
-    }
-    if (!found && mSBML->getNamespaces() != 0)
-    {
-      /* check for implicit declaration */
-      for (int n = 0; n < mSBML->getNamespaces()->getLength(); n++)
-      {
-	if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
-		    "http://www.w3.org/1998/Math/MathML"))
-	{
-	  found = true;
-	  break;
-	}
-      }
-    }
+ //   if (!found && element.getNamespaces().getLength() != 0)
+ //   {
+ //     for (int n = 0; n < element.getNamespaces().getLength(); n++)
+ //     {
+ //       if (!strcmp(element.getNamespaces().getURI(n).c_str(),
+	//	    "http://www.w3.org/1998/Math/MathML"))
+ //       {
+	//  found = true;
+ //         break;
+ //       }
+ //     }
+ //   }
+ //   if (!found && mSBML->getNamespaces() != 0)
+ //   {
+ //     /* check for implicit declaration */
+ //     for (int n = 0; n < mSBML->getNamespaces()->getLength(); n++)
+ //     {
+	//if (!strcmp(mSBML->getNamespaces()->getURI(n).c_str(),
+	//	    "http://www.w3.org/1998/Math/MathML"))
+	//{
+	//  found = true;
+	//  break;
+	//}
+ //     }
+ //   }
 
-    if (! found)
-    {
-      static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
-    }
+ //   if (! found)
+ //   {
+ //     static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10201);
+ //   }
 
-    delete mStoichiometryMath;
-    mStoichiometryMath = readMathML(stream);
-    read               = true;
+ //   delete mStoichiometryMath;
+ //   mStoichiometryMath = readMathML(stream);
+ //   read               = true;
 
-    stream.skipPastEnd(wrapperElement);
+ //   stream.skipPastEnd(wrapperElement);
 
-    if (mStoichiometryMath && mStoichiometryMath->isRational())
-    {
-      mStoichiometry = mStoichiometryMath->getNumerator();
-      mDenominator   = mStoichiometryMath->getDenominator();
+ //   if (mStoichiometryMath && mStoichiometryMath->isRational())
+ //   {
+ //     mStoichiometry = mStoichiometryMath->getNumerator();
+ //     mDenominator   = mStoichiometryMath->getDenominator();
 
-      delete mStoichiometryMath;
-      mStoichiometryMath = 0;
-    }
-  }
-  else if (name == "annotation")
+ //     delete mStoichiometryMath;
+ //     mStoichiometryMath = 0;
+ //   }
+ // }
+  //else 
+  if (name == "annotation")
   {
     /* if annotation already exists then it is an error 
      */
@@ -637,21 +661,19 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
   {
     if (mStoichiometryMath || mDenominator != 1)
     {
-      stream.startElement("stoichiometryMath");
-
       if (mStoichiometryMath) 
       {
-        writeMathML(mStoichiometryMath, stream);
+        mStoichiometryMath->write(stream);
       }
       else
       {
         ASTNode node;
         node.setValue(static_cast<long>(mStoichiometry), mDenominator);
 
+        stream.startElement("stoichiometryMath");
         writeMathML(&node, stream);
+        stream.endElement("stoichiometryMath");
       }
-
-      stream.endElement("stoichiometryMath");
 #ifdef USE_LAYOUT
     if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
     {
@@ -1191,7 +1213,7 @@ SpeciesReference_getStoichiometry (const SpeciesReference_t *sr)
  * @return the stoichiometryMath of this SpeciesReference.
  */
 LIBSBML_EXTERN
-const ASTNode_t *
+const StoichiometryMath_t *
 SpeciesReference_getStoichiometryMath (const SpeciesReference_t *sr)
 {
   if (sr->isModifier()) return NULL;
@@ -1402,7 +1424,7 @@ SpeciesReference_setStoichiometry (SpeciesReference_t *sr, double value)
 LIBSBML_EXTERN
 void
 SpeciesReference_setStoichiometryMath (  SpeciesReference_t *sr
-                                       , const ASTNode_t    *math )
+                                       , const StoichiometryMath_t    *math )
 {
   if (sr->isModifier()) return;
   static_cast<SpeciesReference*>(sr)->setStoichiometryMath(math);

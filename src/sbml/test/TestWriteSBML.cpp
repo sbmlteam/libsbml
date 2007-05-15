@@ -1436,7 +1436,10 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_3)
 
 
   SpeciesReference sr("s");
-  sr.setStoichiometryMath("1/d");
+  ASTNode *math = SBML_parseFormula("1/d");
+  StoichiometryMath *stoich = new StoichiometryMath();
+  stoich->setMath(math);
+  sr.setStoichiometryMath(stoich);
 
   sr.setSBMLDocument(D);
   sr.write(*XOS);

@@ -74,7 +74,8 @@ test_sources =				\
   TestDelay.c				\
   TestTrigger.c				\
   TestModel.c				\
-  TestSBase.cpp
+  TestSBase.cpp				\
+  TestStoichiometryMath.c
 
 
 extra_CPPFLAGS = -I.. -I../..
