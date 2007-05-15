@@ -85,6 +85,28 @@ START_TEST (test_XMLNode_createFromToken)
 }
 END_TEST
 
+START_TEST (test_XMLNode_getters)
+{
+  XMLToken_t *token;
+  XMLNode_t *node;
+
+  token = XMLToken_createWithText("This is a test");
+  node = XMLNode_createFromToken(token);
+
+  fail_unless(node != NULL);
+  fail_unless(XMLNode_getNumChildren(node) == 0);
+
+  fail_unless(strcmp(XMLNode_getCharacters(node), "This is a test") == 0);
+  fail_unless (XMLNode_getChild(node, 1) != NULL);
+
+  XMLToken_free(token);
+  XMLNode_free(node);
+
+
+
+}
+END_TEST
+
 Suite *
 create_suite_XMLNode (void)
 {
@@ -93,6 +115,7 @@ create_suite_XMLNode (void)
 
   tcase_add_test( tcase, test_XMLNode_create  );
   tcase_add_test( tcase, test_XMLNode_createFromToken  );
+  tcase_add_test( tcase, test_XMLNode_getters  );
   suite_add_tcase(suite, tcase);
 
   return suite;

@@ -367,5 +367,21 @@ XMLNode_getNumChildren (const XMLNode_t *node)
   return node->getNumChildren();
 }
 
+/**
+ * Returns the text of this element.
+ *
+ * @param token XMLToken_t structure to be queried.
+ *
+ * @return the characters of this XML text.
+ */
+LIBLAX_EXTERN
+const char *
+XMLNode_getCharacters (const XMLNode_t *node)
+{
+  return node->getCharacters().empty() ? NULL : node->getCharacters().c_str();
+}
+
+
+
 
 /** @endcond doxygen-c-only */

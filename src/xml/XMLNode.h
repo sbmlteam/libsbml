@@ -220,6 +220,11 @@ LIBLAX_EXTERN
 unsigned int
 XMLNode_getNumChildren (const XMLNode_t *node);
 
+LIBLAX_EXTERN
+const char *
+XMLNode_getCharacters (const XMLNode_t *node);
+
+
 
 
 END_C_DECLS
