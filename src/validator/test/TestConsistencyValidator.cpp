@@ -28,6 +28,10 @@
 #include "TestValidator.h"
 
 #include "ConsistencyValidator.h"
+#include "MathMLConsistencyValidator.h"
+#include "IdentifierConsistencyValidator.h"
+#include "SBOConsistencyValidator.h"
+#include "UnitConsistencyValidator.h"
 #include "L1CompatibilityValidator.h"
 #include "L2v1CompatibilityValidator.h"
 #include "L2v2CompatibilityValidator.h"
@@ -47,6 +51,70 @@ bool
 runMainTest (const TestFile& file)
 {
   ConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runIdTest (const TestFile& file)
+{
+  IdentifierConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runMathMLTest (const TestFile& file)
+{
+  MathMLConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runSBOTest (const TestFile& file)
+{
+  SBOConsistencyValidator validator;
+  TestValidator        tester(validator);
+
+
+  validator.init();
+
+  return tester.test(file);
+}
+
+/**
+ * @return true if the Validator behaved as expected when validating
+ * TestFile, false otherwise.
+ */
+bool
+runUnitTest (const TestFile& file)
+{
+  UnitConsistencyValidator validator;
   TestValidator        tester(validator);
 
 
@@ -159,8 +227,29 @@ main (int argc, char* argv[])
   failed += runTests( "Testing Bad XML Constraints (0000 - 10000)",
 		      "test-data", 0, 99, runTestBadXML);
 
-  failed += runTests( "Testing Consistency Constraints (10000 - 30000)",
-		      "test-data", 10000, 29999, runMainTest);
+  failed += runTests( "Testing General XML Consistency Constraints (10000 - 10199)",
+		      "test-data", 10000, 10199, runMainTest);
+
+  failed += runTests( "Testing General MathML Consistency Constraints (10200 - 10299)",
+		      "test-data", 10200, 10299, runMathMLTest);
+
+  failed += runTests( "Testing Id Consistency Constraints (10300 - 10399)",
+		      "test-data", 10300, 10399, runIdTest);
+
+  failed += runTests( "Testing General Annotation Consistency Constraints (10400 - 10499)",
+		      "test-data", 10400, 10499, runMainTest);
+
+  failed += runTests( "Testing Unit Consistency Constraints (10500 - 10699)",
+		      "test-data", 10500, 10699, runUnitTest);
+
+  failed += runTests( "Testing SBO Consistency Constraints (10700 - 10799)",
+		      "test-data", 10700, 10799, runSBOTest);
+
+  failed += runTests( "Testing General Annotation Consistency Constraints (10800 - 19999)",
+		      "test-data", 10800, 19999, runMainTest);
+
+  failed += runTests( "Testing Model Consistency Constraints (20000 - 29999)",
+		      "test-data", 20000, 29999, runMainTest);
 
   failed += runTests( "Testing L1 Compatibility Constraints (90000 - 91999)",
 		      "test-data-l2-l1-conversion", 90000, 91999, runL1Test);

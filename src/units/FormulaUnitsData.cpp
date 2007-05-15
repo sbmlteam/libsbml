@@ -304,7 +304,7 @@ Model::createListFormulaUnitsData()
         fud->setId(sr->getSpecies());
         fud->setTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath());
+        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());
@@ -322,7 +322,7 @@ Model::createListFormulaUnitsData()
         fud->setId(sr->getId());
         fud->setTypecode(SBML_SPECIES_REFERENCE);
         unitFormatter->resetFlags();
-        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath());
+        ud = unitFormatter->getUnitDefinition(sr->getStoichiometryMath()->getMath());
         fud->setUnitDefinition(ud);
         fud->setContainsParametersWithUndeclaredUnits(unitFormatter->getUndeclaredUnits());
         fud->setCanIgnoreUndeclaredUnits(unitFormatter->getCanIgnoreUndeclaredUnits());

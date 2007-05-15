@@ -124,8 +124,8 @@ START_CONSTRAINT (91008, SpeciesReference, sr)
 
   pre( sr.isSetStoichiometryMath() );
 
-  inv_or( sr.getStoichiometryMath()->isInteger()  );
-  inv_or( sr.getStoichiometryMath()->isRational() );
+  inv_or( sr.getStoichiometryMath()->getMath()->isInteger()  );
+  inv_or( sr.getStoichiometryMath()->getMath()->isRational() );
 }
 END_CONSTRAINT
 

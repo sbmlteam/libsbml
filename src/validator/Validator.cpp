@@ -677,10 +677,15 @@ Validator::validate (const SBMLDocument& d)
 
   if (m != NULL)
   {
-    /* create list of formula units for validation */
-    if (!m->isWrittenFormulaUnitsData())
-      m->createListFormulaUnitsData();
 
+    if (getCategory() == "http://sbml.org/validator/consistency/units")
+    {
+        /* create list of formula units for validation */
+      if (!m->isWrittenFormulaUnitsData())
+      {
+        m->createListFormulaUnitsData();
+      }
+    }
     ValidatingVisitor vv(*this, *m);
     d.accept(vv);
   }

@@ -74,6 +74,10 @@ thisdir   = src/validator
 
 headers = \
   ConsistencyValidator.h     \
+  IdentifierConsistencyValidator.h     \
+  MathMLConsistencyValidator.h     \
+  UnitConsistencyValidator.h     \
+  SBOConsistencyValidator.h     \
   VConstraint.h               \
   ConstraintMacros.h         \
   L1CompatibilityValidator.h \
@@ -85,6 +89,10 @@ header_inst_prefix = validator
 
 sources = \
   ConsistencyValidator.cpp     \
+  IdentifierConsistencyValidator.cpp     \
+  MathMLConsistencyValidator.cpp     \
+  UnitConsistencyValidator.cpp     \
+  SBOConsistencyValidator.cpp     \
   VConstraint.cpp               \
   L1CompatibilityValidator.cpp \
   L2v1CompatibilityValidator.cpp \

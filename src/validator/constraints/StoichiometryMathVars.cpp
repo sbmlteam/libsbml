@@ -80,7 +80,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
 
     if (sr->isSetStoichiometryMath())
     {
-      List* variables = sr->getStoichiometryMath()
+      List* variables = sr->getStoichiometryMath()->getMath()
         ->getListOfNodes( ASTNode_isName );
       for (ns = 0; ns < variables->getSize(); ns++)
       {
@@ -98,7 +98,7 @@ StoichiometryMathVars::check_ (const Model& m, const Reaction& r)
 
     if (sr->isSetStoichiometryMath())
     {
-      List* variables = sr->getStoichiometryMath()
+      List* variables = sr->getStoichiometryMath()->getMath()
         ->getListOfNodes( ASTNode_isName );
       for (ns = 0; ns < variables->getSize(); ns++)
       {

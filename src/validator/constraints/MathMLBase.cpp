@@ -121,7 +121,7 @@ MathMLBase::check_ (const Model& m, const Model& object)
       if (m.getReaction(n)->getProduct(sr)->isSetStoichiometryMath())
       {
         checkMath(m, 
-          *m.getReaction(n)->getProduct(sr)->getStoichiometryMath(), 
+          *m.getReaction(n)->getProduct(sr)->getStoichiometryMath()->getMath(), 
           *m.getReaction(n)->getProduct(sr));
       }
     }
@@ -130,7 +130,7 @@ MathMLBase::check_ (const Model& m, const Model& object)
       if (m.getReaction(n)->getReactant(sr)->isSetStoichiometryMath())
       {
         checkMath(m, 
-          *m.getReaction(n)->getReactant(sr)->getStoichiometryMath(), 
+          *m.getReaction(n)->getReactant(sr)->getStoichiometryMath()->getMath(), 
           *m.getReaction(n)->getReactant(sr));
       }
     }

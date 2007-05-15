@@ -83,6 +83,7 @@ sources =                                     \
   FunctionDefinitionVars.cpp                  \
   FunctionReferredToExists.cpp                \
   IdBase.cpp                                  \
+  IdentifierConsistencyConstraints.cpp        \
   IdList.cpp                                  \
   KineticLawVars.cpp                          \
   L1CompatibilityConstraints.cpp              \
@@ -92,12 +93,14 @@ sources =                                     \
   LocalParameterMathCheck.cpp                 \
   LogicalArgsMathCheck.cpp                    \
   MathMLBase.cpp                              \
+  MathMLConsistencyConstraints.cpp            \
   NumberArgsMathCheck.cpp                     \
   NumericArgsMathCheck.cpp                    \
   NumericReturnMathCheck.cpp                  \
   OverDeterminedCheck.cpp                     \
   PieceBooleanMathCheck.cpp                   \
   PiecewiseValueMathCheck.cpp                 \
+  SBOConsistencyConstraints.cpp               \
   SpeciesReactionOrRule.cpp                   \
   StoichiometryMathVars.cpp                   \
   UniqueIdBase.cpp                            \
@@ -111,6 +114,7 @@ sources =                                     \
   UniqueVarsInEventsAndRules.cpp              \
   UniqueVarsInInitialAssignmentsAndRules.cpp  \
   UniqueVarsInRules.cpp                       \
+  UnitConsistencyConstraints.cpp              \
   UnitsBase.cpp
 
 header_inst_prefix = validator/constraints

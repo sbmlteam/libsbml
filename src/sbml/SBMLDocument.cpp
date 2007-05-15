@@ -31,6 +31,10 @@
 #include <sbml/xml/XMLError.h>
 
 #include <sbml/validator/ConsistencyValidator.h>
+#include <sbml/validator/IdentifierConsistencyValidator.h>
+#include <sbml/validator/MathMLConsistencyValidator.h>
+#include <sbml/validator/SBOConsistencyValidator.h>
+#include <sbml/validator/UnitConsistencyValidator.h>
 #include <sbml/validator/L1CompatibilityValidator.h>
 #include <sbml/validator/L2v1CompatibilityValidator.h>
 #include <sbml/validator/L2v2CompatibilityValidator.h>
@@ -264,20 +268,56 @@ SBMLDocument::checkConsistency ()
 {
   unsigned int nerrors = 0;
 
+  /* calls each validator in turn - stopping when errors are encountered */
+  IdentifierConsistencyValidator id_validator;
   ConsistencyValidator validator;
-  validator.init();
+  SBOConsistencyValidator sbo_validator;
+  MathMLConsistencyValidator math_validator;
+  UnitConsistencyValidator unit_validator;
 
-
-  /* this check has become part of readSBML */
-  //if (getModel() == 0)
-  //{
-  //  getErrorLog()->logError(20201, 0);
-  //  nerrors = 1;
-  //}
-  //else
+  id_validator.init();
+  nerrors += id_validator.validate(*this);
+  if (nerrors) 
   {
-    nerrors += validator.validate(*this);
-    if (nerrors) mErrorLog.add( validator.getMessages() );
+    mErrorLog.add( id_validator.getMessages() );
+    return nerrors;
+  }
+  
+  validator.init();
+  nerrors += validator.validate(*this);
+  if (nerrors) 
+  {
+    mErrorLog.add( validator.getMessages() );
+    return nerrors;
+  }
+
+  sbo_validator.init();
+  nerrors += sbo_validator.validate(*this);
+  if (nerrors) 
+  {
+    mErrorLog.add( sbo_validator.getMessages() );
+    return nerrors;
+  }
+
+  math_validator.init();
+  nerrors += math_validator.validate(*this);
+  if (nerrors) 
+  {
+    mErrorLog.add( math_validator.getMessages() );
+    return nerrors;
+  }
+
+  ///* create list of formula units for validation */
+  //if (!getModel()->isWrittenFormulaUnitsData())
+  //{
+  //  getModel()->createListFormulaUnitsData();
+  //}
+  unit_validator.init();
+  nerrors += unit_validator.validate(*this);
+  if (nerrors) 
+  {
+    mErrorLog.add( unit_validator.getMessages() );
+    return nerrors;
   }
 
   return nerrors;
