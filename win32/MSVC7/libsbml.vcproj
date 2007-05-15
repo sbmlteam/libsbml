@@ -226,6 +226,12 @@
 				RelativePath="..\..\src\validator\constraints\IdBase.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\IdentifierConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\IdentifierConsistencyValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\IdList.cpp">
 			</File>
 			<File
@@ -275,6 +281,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\MathMLBase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\MathMLConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\MathMLConsistencyValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\util\memory.c">
@@ -343,6 +355,12 @@
 				RelativePath="..\..\src\sbml\SBO.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\constraints\SBOConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\SBOConsistencyValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Species.cpp">
 			</File>
 			<File
@@ -356,6 +374,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\Stack.c">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\StoichiometryMath.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\StoichiometryMathVars.cpp">
@@ -401,6 +422,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Unit.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\constraints\UnitConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\UnitConsistencyValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\UnitDefinition.cpp">
@@ -566,6 +593,9 @@
 				RelativePath="..\..\src\validator\constraints\IdBase.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\IdentifierConsistencyValidator.h">
+			</File>
+			<File
 				RelativePath="..\..\src\validator\constraints\IdList.h">
 			</File>
 			<File
@@ -612,6 +642,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\MathMLBase.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\MathMLConsistencyValidator.h">
 			</File>
 			<File
 				RelativePath="..\..\src\util\memory.h">
@@ -680,6 +713,9 @@
 				RelativePath="..\..\src\sbml\SBO.h">
 			</File>
 			<File
+				RelativePath="..\..\src\validator\SBOConsistencyValidator.h">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\Species.h">
 			</File>
 			<File
@@ -693,6 +729,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\util\Stack.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\StoichiometryMath.h">
 			</File>
 			<File
 				RelativePath="..\..\src\validator\constraints\StoichiometryMathVars.h">
@@ -738,6 +777,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\Unit.h">
+			</File>
+			<File
+				RelativePath="..\..\src\validator\UnitConsistencyValidator.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\UnitDefinition.h">
