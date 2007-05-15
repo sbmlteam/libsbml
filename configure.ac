@@ -1,5 +1,5 @@
 dnl
-dnl Filename    : Makefile.ac
+dnl Filename    : configure.ac
 dnl Description : Run this file through autoconf to produce `configure'
 dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
 dnl Created     : 2003-02-13
@@ -162,7 +162,7 @@ AC_PATH_PROG([AUTOCONF],[autoconf],[autoconf])
 AC_PATH_PROG([ACLOCAL],[aclocal],[aclocal])
 AC_PATH_PROG([AR],[ar],[ar])
 
-CONFIG_PROG_SWIG(1.3.24)
+CONFIG_PROG_SWIG(1.3.31)
 CONFIG_PROG_PYTHON
 CONFIG_PROG_PERL
 CONFIG_PROG_JAVA(1.4.0)
@@ -321,6 +321,9 @@ dnl ---------------------------------------------------------------------------
 dnl Inform users of settings
 dnl ---------------------------------------------------------------------------
 
+dnl Gather up the values of the flags into one set of variables for easier
+dnl printing below.
+
 if test $with_expat != no; then
   xml_library="Expat"
   xml_cppflags=$EXPAT_CPPFLAGS
@@ -338,42 +341,74 @@ else
   xml_libs=$XERCES_LIBS
 fi
 
+
+dnl Simple helper function used below.
+
+print_flag()
+{
+  if test -n "$2" -a "$2" != "no"; then
+    i=`expr 13 - ${#1}`
+    whitespace="             "
+    echo "  Using $1 with path ${whitespace:0:i}= $3"
+  fi
+}
+
+ 
 echo ""
-echo "Configure reports host OS as being $host_os."
-echo "Using the following settings for ${PACKAGE_TARNAME} v${PACKAGE_VERSION}:"
-echo "------------------------------------------------"
-echo "  host type              = $HOST_TYPE"
-echo "  install dir            = $prefix"
-echo "  XML library            = $xml_library"
-echo "  CPPFLAGS for XML       = $xml_cppflags"
-echo "  LDFLAGS for XML        = $xml_ldflags"
-echo "  LIBS for XML           = $xml_libs"
-echo "  CC                     = $CC"
-echo "  CXX                    = $CXX"
-echo "  CFLAGS                 = $CFLAGS"
-echo "  CXXFLAGS               = $CXXFLAGS"
-echo "  CPPFLAGS               = $CPPFLAGS"
-echo "  LDFLAGS                = $LDFLAGS"
-echo "  LIBS                   = $LIBS"
-echo "  enable memory tracing? = $enable_tracing"
-echo "  use libcheck?          = $with_libcheck"
-echo "  use SWIG?              = $with_swig"
-echo "  use Python?            = $with_python"
-echo "  use Perl?              = $with_perl"
-echo "  use Java?              = $with_java"
-echo "  use Matlab?            = $with_matlab"
-echo "  use Lisp               = $with_lisp"
+echo "------------------------------------------------------------"
+echo "${PACKAGE_NAME} version ${PACKAGE_VERSION}"
+echo ""
+echo "Configured on host \"`hostname`\""
+echo "  host type                     = $HOST_TYPE"
+echo "  host vendor                   = $host_vendor"
+echo "  host operating system         = $host_os"
+echo "  host CPU architecture         = $host_cpu"
+echo ""
+echo "Build flags:"
+echo "  CC                            = $CC"
+echo "  CXX                           = $CXX"
+echo "  CFLAGS                        = $CFLAGS"
+echo "  CXXFLAGS                      = $CXXFLAGS"
+echo "  CPPFLAGS                      = $CPPFLAGS"
+echo "  LDFLAGS                       = $LDFLAGS"
+echo "  LIBS                          = $LIBS"
+echo ""
+echo "XML parser library configuration:"
+echo "  XML library                   = $xml_library"
+echo "  CPPFLAGS for XML              = $xml_cppflags"
+echo "  LDFLAGS for XML               = $xml_ldflags"
+echo "  LIBS for XML                  = $xml_libs"
+echo ""
+echo "Other ${PACKAGE_NAME} configuration settings:"
+echo "  install dir (\$prefix)         = $prefix"
 
-if test -n "$EXT_ASDF"; then
-  echo "  use Asdf             at $ASDF"
-fi
-
-if test -n "$EXT_UFFI"; then
-  echo "  use UFFI             at $UFFI"
-fi
+print_flag "libcheck"  	$with_libcheck	$with_check
+print_flag "SWIG"   	$with_swig	$SWIG
+print_flag "Java"   	$with_java	$JAVA
+print_flag "Python" 	$with_python	$PYTHON
+print_flag "Perl"   	$with_perl	$PERL
+print_flag "MATLAB"   	$with_matlab	$MATLAB
+print_flag "Lisp"   	$with_lisp	$lisp
+print_flag "Asdf"   	$EXT_ASDF	$ASDF
+print_flag "UFFI"   	$EXT_UFFI	$UFFI
 
 if test "$enable_layout" != "no" ; then
-echo "  use Layout Extension   = yes  (experimental)"
+  echo "  use Layout Extension        = yes  (experimental)"
 fi
 
+echo ""
+echo "Other potentially important settings:"
+if test "$HOST_TYPE" = "darwin"; then
+  echo "  value of \$DYLD_LIBRARY_PATH   = $DYLD_LIBRARY_PATH"
+else
+  echo "  value of \$LD_LIBRARY_PATH     = $LD_LIBRARY_PATH"
+fi
+if test -n "$with_java" -a "$with_java" != "no"; then
+  echo "  value of \$CLASSPATH for Java  = $CLASSPATH"  
+fi
+
+dnl Temporarily unavailable anyway, so skip this for now:
+dnl echo "  enable memory tracing? = $enable_tracing"
+
+echo "------------------------------------------------------------"
 echo ""
