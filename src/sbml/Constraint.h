@@ -163,7 +163,7 @@ public:
    *
    * @param math ASTNode representing the math of the Constraint.
    */
-  Constraint (ASTNode* math = NULL);
+  Constraint (const ASTNode* math = NULL);
 
 
   /**

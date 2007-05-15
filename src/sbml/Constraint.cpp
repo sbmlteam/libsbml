@@ -46,7 +46,7 @@ using namespace std;
  * Creates a new Constraint
  * set.
  */
-Constraint::Constraint (ASTNode* math) :
+Constraint::Constraint (const ASTNode* math) :
    SBase   ( -1 )
  , mMath   (  0 )
  , mMessage(  0 )
