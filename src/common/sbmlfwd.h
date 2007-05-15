@@ -177,6 +177,12 @@ typedef CLASS_OR_STRUCT Trigger                   Trigger_t;
 typedef CLASS_OR_STRUCT Delay                     Delay_t;
 
 /**
+ * @var typedef class StoichiometryMath StoichiometryMath_t
+ * @copydoc StoichiometryMath
+ */
+typedef CLASS_OR_STRUCT StoichiometryMath          StoichiometryMath_t;
+
+/**
  * @var typedef class SBMLReader SBMLReader_t
  * @copydoc SBMLReader
  */
