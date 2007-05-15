@@ -1439,6 +1439,8 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 }
+
+
 /**
   * Checks if a character is part of the Unicode Letter set.
   * @return true if the character is a part of the set, false otherwise.
@@ -2799,6 +2801,7 @@ SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
   return combiningChar; 
 }
 
+
 /**
   * Checks if a character is part of the Unicode Extender set.
   * @return true if the character is a part of the set, false otherwise.
@@ -2900,11 +2903,6 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
   return extender; 
 }
 
-  
-
-
-
-
 
 /**
  * Stores the location (line and column) and any XML namespaces (for
@@ -2923,8 +2921,18 @@ SBase::setSBaseFields (const XMLToken& element)
 }
 
 
+
+/** @cond doxygen-c-only */
+
+
+
 /**
- * @return the metaid of this SBML object.
+ * Returns the value of the "metaid" attribute of the given SBase_t
+ * structure.
+ *
+ * @param sb the SBase_t structure
+ * 
+ * @return the value of the "metaid" attribute of @p sb
  */
 LIBSBML_EXTERN
 const char *
@@ -2935,7 +2943,12 @@ SBase_getMetaId (const SBase_t *sb)
 
 
 /**
- * @return the id of this SBML object.
+ * Returns the value of the "id" attribute of the given SBase_t
+ * structure.
+ *
+ * @param sb the SBase_t structure
+ * 
+ * @return the value of the "id" attribute of @p sb
  */
 LIBSBML_EXTERN
 const char *
@@ -2946,7 +2959,12 @@ SBase_getId (const SBase_t *sb)
 
 
 /**
- * @return the name of this SBML object.
+ * Returns the value of the "name" attribute of the given SBase_t
+ * structure.
+ *
+ * @param sb the SBase_t structure
+ * 
+ * @return the value of the "name" attribute of @p sb
  */
 LIBSBML_EXTERN
 const char *
@@ -2957,6 +2975,11 @@ SBase_getName (const SBase_t *sb)
 
 
 /**
+ * Returns the parent SBMLDocument_t structure of the given SBase_t
+ * structure.
+ *
+ * @param sb the SBase_t structure
+ * 
  * @return the parent SBMLDocument of this SBML object.
  */
 LIBSBML_EXTERN
@@ -2968,7 +2991,24 @@ SBase_getSBMLDocument (const SBase_t *sb)
 
 
 /**
- * @return the sboTerm of this SBML object.
+ * Returns the integer portion of the value of the "sboTerm" attribute of
+ * the given SBase_t structure.
+ *
+ * In SBML Level 2 Versions 2 and 3, the data type of the attribute is a
+ * string of the form SBO:NNNNNNN, where NNNNNNN is a seven digit integer
+ * number; libSBML simplifies the representation by only storing the
+ * NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm" attribute on
+ * SBase_t has data type @c int, and SBO identifiers are stored simply as
+ * integers.  SBO terms are a type of optional annotation, and each
+ * different class of SBML object derived from SBase_t imposes its own
+ * requirements about the values permitted for "sboTerm".  Please consult
+ * the SBML Level 2 Version 3 specification for more information about
+ * the use of SBO and the "sboTerm" attribute.
+ *
+ * @param sb the SBase_t structure
+ * 
+ * @return the value of the "sboTerm" attribute as an integer, or @c -1
+ * if the value is not set.
  */
 LIBSBML_EXTERN
 int
@@ -2979,7 +3019,13 @@ SBase_getSBOTerm (const SBase_t *sb)
 
 
 /**
- * @return the SBML level of this SBML object.
+ * Returns the SBML Level of the overall SBML document.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return the SBML level of the given object.
+ * 
+ * @see getVersion()
  */
 LIBSBML_EXTERN
 unsigned int
@@ -2990,7 +3036,13 @@ SBase_getLevel (const SBase_t *sb)
 
 
 /**
- * @return the SBML version of this SBML object.
+ * Returns the Version within the SBML Level of the overall SBML document.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return the SBML version of the given object.
+ *
+ * @see getLevel()
  */
 LIBSBML_EXTERN
 unsigned int
@@ -3001,7 +3053,13 @@ SBase_getVersion (const SBase_t *sb)
 
 
 /**
- * @return 1 if the metaid of this SBML object has been set, 0 otherwise.
+ * Predicate returning nonzero true or false depending on whether the given
+ * structure's "metaid" attribute has been set.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return nonzero (for true) if the "metaid" attribute of this SBML object
+ * has been set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -3012,7 +3070,13 @@ SBase_isSetMetaId (const SBase_t *sb)
 
 
 /**
- * @return 1 if the id of this SBML object has been set, 0 otherwise.
+ * Predicate returning nonzero true or false depending on whether the given
+ * structure's "id" attribute has been set.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return nonzero (for true) if the "id" attribute of this SBML object
+ * has been set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -3023,7 +3087,13 @@ SBase_isSetId (const SBase_t *sb)
 
 
 /**
- * @return 1 if the name of this SBML object has been set, 0 otherwise.
+ * Predicate returning nonzero true or false depending on whether the given
+ * structure's "name" attribute has been set.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return nonzero (for true) if the "name" attribute of this SBML object
+ * has been set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -3034,7 +3104,13 @@ SBase_isSetName (const SBase_t *sb)
 
 
 /**
- * @return 1 if the notes of this SBML object has been set, 0 otherwise.
+ * Predicate returning nonzero true or false depending on whether the given
+ * structure's "notes" subelement has been set.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return nonzero (for true) if the "notes" subelement of this SBML object
+ * has been set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -3045,8 +3121,13 @@ SBase_isSetNotes (const SBase_t *sb)
 
 
 /**
- * @return 1 if the annotation of this SBML object has been set, 0
- * otherwise.
+ * Predicate returning nonzero true or false depending on whether the given
+ * structure's "annotation" subelement has been set.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return nonzero (for true) if the "annotation" subelement of this SBML object
+ * has been set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -3057,8 +3138,13 @@ SBase_isSetAnnotation (const SBase_t *sb)
 
 
 /**
- * @return 1 if the sboTerm of this SBML object has been set, 0
- * otherwise.
+ * Predicate returning nonzero true or false depending on whether the given
+ * structure's "sboTerm" attribute has been set.
+ *
+ * @param sb the SBase_t structure to query
+ * 
+ * @return nonzero (for true) if the "sboTerm" attribute of this SBML object
+ * has been set, zero (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -3069,7 +3155,21 @@ SBase_isSetSBOTerm (const SBase_t *sb)
 
 
 /**
- * Sets the metaid field of the given SBML object to a copy of metaid.
+ * Sets the value of the "metaid" attribute of the given object.
+ *
+ * The string @p metaid is copied.  The value of @p metaid must be an
+ * identifier conforming to the syntax defined by the XML 1.0 data type
+ * ID.  Among other things, this type requires that a value is unique
+ * among all the values of type XML ID in an SBMLDocument.  Although SBML
+ * only uses XML ID for the "metaid" attribute, callers should be careful
+ * if they use XML ID's in XML portions of a model that are not defined
+ * by SBML, such as in the application-specific content of the
+ * "annotation" subelement.
+ *
+ * @param sb the SBase_t structure
+ *
+ * @param metaid the identifier string to use as the value of the
+ * "metaid" attribute
  */
 LIBSBML_EXTERN
 void
@@ -3080,7 +3180,27 @@ SBase_setMetaId (SBase_t *sb, const char *metaid)
 
 
 /**
- * Sets the id field of the given SBML object to a copy of sid.
+ * Sets the value of the "id" attribute of this SBML object.
+ *
+ * The string @p sid is copied.  Note that SBML has strict requirements
+ * for the syntax of identifiers.  The following is summary of the
+ * definition of the SBML identifier type @c SId (here expressed in an
+ * extended form of BNF notation):
+ * @code
+ *   letter ::= 'a'..'z','A'..'Z'
+ *   digit  ::= '0'..'9'
+ *   idChar ::= letter | digit | '_'
+ *   SId    ::= ( letter | '_' ) idChar*
+ * @endcode
+ * The equality of SBML identifiers is determined by an exact character
+ * sequence match; i.e., comparisons must be performed in a
+ * case-sensitive manner.  In addition, there are a few conditions for
+ * the uniqueness of identifiers in an SBML model.  Please consult the
+ * SBML specifications for the exact formulations.
+ *
+ * @param sb the SBase_t structure
+ *
+ * @param sid the string to use as the identifier of this object
  */
 LIBSBML_EXTERN
 void
@@ -3091,7 +3211,13 @@ SBase_setId (SBase_t *sb, const char *sid)
 
 
 /**
- * Sets the name field of the given SBML object to a copy of name.
+ * Sets the value of the "name" attribute of this SBML object.
+ *
+ * The string in @p name is copied.
+ *
+ * @param sb the SBase_t structure
+ *
+ * @param name the new name for the object
  */
 LIBSBML_EXTERN
 void
@@ -3102,7 +3228,22 @@ SBase_setName (SBase_t *sb, const char *name)
 
 
 /**
- * Sets the sboterm field of the given SBML object to value.
+ * Sets the value of the "sboTerm" attribute.
+ *
+ * In SBML Level 2 Versions 2 and 3, the data type of the SBML "sboTerm"
+ * attribute is a string of the form SBO:NNNNNNN, where NNNNNNN is a seven
+ * digit integer number; libSBML simplifies the representation by only
+ * storing the NNNNNNN integer portion.  Thus, in libSBML, the "sboTerm"
+ * attribute on SBase_t has data type @c int, and SBO identifiers are
+ * stored simply as integers.  SBO terms are a type of optional annotation,
+ * and each different class of SBML object derived from SBase_t imposes its
+ * own requirements about the values permitted for "sboTerm".  Please
+ * consult the SBML Level 2 Version 3 specification for more information
+ * about the use of SBO and the "sboTerm" attribute.
+ *
+ * @param sb the SBase_t structure
+ *
+ * @param value the NNNNNNN integer portion of the SBO identifier
  */
 LIBSBML_EXTERN
 void
@@ -3113,7 +3254,9 @@ SBase_setSBOTerm (SBase_t *sb, int value)
 
 
 /**
- * Unsets the metaid of this SBML object.
+ * Unsets the "metaid" attribute of the given object.
+ *
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 void
@@ -3124,7 +3267,9 @@ SBase_unsetMetaId (SBase_t *sb)
 
 
 /**
- * Unsets the id of this SBML object.
+ * Unsets the "id" attribute of the given object.
+ *
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 void
@@ -3135,7 +3280,9 @@ SBase_unsetId (SBase_t *sb)
 
 
 /**
- * Unsets the name of this SBML object.
+ * Unsets the "name" attribute of the given object.
+ *
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 void
@@ -3146,7 +3293,9 @@ SBase_unsetName (SBase_t *sb)
 
 
 /**
- * Unsets the notes of this SBML object.
+ * Unsets the "notes" subelement of the given object.
+ *
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 void
@@ -3157,7 +3306,9 @@ SBase_unsetNotes (SBase_t *sb)
 
 
 /**
- * Unsets the annotation of this SBML object.
+ * Unsets the "annotation" subelement of the given object.
+ *
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 void
@@ -3168,7 +3319,9 @@ SBase_unsetAnnotation (SBase_t *sb)
 
 
 /**
- * Unsets the annotation of this SBML object.
+ * Unsets the "sboTerm" attribute of the given object.
+ *
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 void
@@ -3179,7 +3332,11 @@ SBase_unsetSBOTerm (SBase_t *sb)
 
 
 /**
- * @return the parent Model of this SBML object.
+ * Returns the Model_t structure in which the given instance is located.
+ *
+ * @param sb the SBase_t structure
+ * 
+ * @return the parent Model_t strucdture of the given object.
  */
 LIBSBML_EXTERN
 const Model_t *
@@ -3190,8 +3347,20 @@ SBase_getModel (const SBase_t *sb)
 
 
 /**
+ * Returns the libSBML type code for the given structure.
+ *
+ * This method MAY return the typecode of this SBML object or it MAY
+ * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
+ * implement this method to return a typecode.  This method is meant
+ * primarily for the LibSBML C interface where class and subclass
+ * information is not readily available.
+ *
+ * @param sb the SBase_t structure
+ *
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
+ *
+ * @see getElementName()
  */
 LIBSBML_EXTERN
 SBMLTypeCode_t
@@ -3202,7 +3371,13 @@ SBase_getTypeCode (const SBase_t *sb)
 
 
 /**
- * @return the XML element name of this SBML object.
+ * Returns the XML element name of the given structure.
+ *
+ * This is overridden by subclasses to return a string appropriate to the
+ * SBML component.  For example, Model defines it as returning "model",
+ * CompartmentType defines it as returning "compartmentType", etc.
+ *
+ * @param sb the SBase_t structure
  */
 LIBSBML_EXTERN
 const char *
@@ -3213,7 +3388,14 @@ SBase_getElementName (const SBase_t *sb)
 
 
 /**
- * @return the line number of this SBML object.
+ * Returns the line number on which the given object first appears in the
+ * XML representation of the SBML document.
+ *
+ * @param sb the SBase_t structure
+ * 
+ * @return the line number of the given structure
+ *
+ * @see getColumn().
  */
 LIBSBML_EXTERN
 unsigned int
@@ -3224,7 +3406,14 @@ SBase_getLine (const SBase_t *sb)
 
 
 /**
+ * Returns the column number on which the given object first appears in the
+ * XML representation of the SBML document.
+ *
+ * @param sb the SBase_t structure
+ * 
  * @return the column number of this SBML object.
+ * 
+ * @see getLine().
  */
 LIBSBML_EXTERN
 unsigned int
@@ -3232,3 +3421,7 @@ SBase_getColumn (const SBase_t *sb)
 {
   return sb->getColumn();
 }
+
+
+
+/** @endcond doxygen-c-only */
