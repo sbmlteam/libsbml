@@ -154,7 +154,7 @@ else
 endif
 
 LibSBML.pod: LibSBML_wrap.cxx LibSBML.i ../swig/libsbml.i
-	../swig/swigdoc.py perl -I../.. ../swig/libsbml.i LibSBML.pod
+	../swig/swigdoc.py perl -I../../../include ../swig/libsbml.i LibSBML.pod
 
 
 # -----------------------------------------------------------------------------

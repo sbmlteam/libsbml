@@ -220,8 +220,10 @@ endif # USE_SWIG
 
 swigfiles:
 ifdef USE_SWIG
-	../swig/swigdoc.py python -I../.. ../swig/libsbml.i pydoc.i
-	$(SWIG) $(SWIGFLAGS) -I../.. -c++ -python -o libsbml_wrap.cpp libsbml.i
+	../swig/swigdoc.py python -I../../../include ../swig/libsbml.i pydoc.i
+	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) \
+	        $(sort $(default_includes) $(INCLUDES)) \
+		-c++ -python -package -o libsbml_wrap.cpp libsbml.i
 	perl -pi -e "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
 		libsbml.py
 else
