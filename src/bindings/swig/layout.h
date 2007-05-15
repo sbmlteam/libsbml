@@ -43,19 +43,21 @@
  */
 
 
-#include "sbml/layout/SpeciesReferenceRole.h"
-#include "sbml/layout/BoundingBox.h"
-#include "sbml/layout/CompartmentGlyph.h"
-#include "sbml/layout/CubicBezier.h"
-#include "sbml/layout/Curve.h"
-#include "sbml/layout/Dimensions.h"
-#include "sbml/layout/GraphicalObject.h"
-#include "sbml/layout/Layout.h"
-#include "sbml/layout/LineSegment.h"
-#include "sbml/layout/Point.h"
-#include "sbml/layout/ReactionGlyph.h"
-#include "sbml/layout/SpeciesGlyph.h"
-#include "sbml/layout/SpeciesReferenceGlyph.h"
-#include "sbml/layout/TextGlyph.h"
+#include <sbml/layout/SpeciesReferenceRole.h>
+#include <sbml/layout/BoundingBox.h>
+#include <sbml/layout/CompartmentGlyph.h>
+#include <sbml/layout/CubicBezier.h>
+#include <sbml/layout/Curve.h>
+#include <sbml/layout/Dimensions.h>
+#include <sbml/layout/GraphicalObject.h>
+#include <sbml/layout/Layout.h>
+#include <sbml/layout/LineSegment.h>
+#include <sbml/layout/Point.h>
+#include <sbml/layout/ReactionGlyph.h>
+#include <sbml/layout/SpeciesGlyph.h>
+#include <sbml/layout/SpeciesReferenceGlyph.h>
+#include <sbml/layout/TextGlyph.h>
+
+#include <sbml/annotation/LayoutAnnotation.h>
 
 

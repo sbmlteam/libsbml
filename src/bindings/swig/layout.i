@@ -60,6 +60,10 @@
 %ignore Layout::getListOfAdditionalGraphicalObjects   () const;
 %ignore ReactionGlyph::getListOfSpeciesReferenceGlyphs() const;
 
+%newobject parseLayouts;
+%newobject parseLayoutId;
+%newobject deleteLayoutIdAnnotation;
+%newobject deleteLayoutAnnotation;
 
 %include sbml/layout/SpeciesReferenceRole.h
 %include sbml/layout/Point.h
@@ -75,3 +79,5 @@
 %include sbml/layout/SpeciesGlyph.h
 %include sbml/layout/TextGlyph.h
 %include sbml/layout/Layout.h
+
+%include annotation/LayoutAnnotation.h

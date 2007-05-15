@@ -31,12 +31,10 @@
 #include "../swig/layout.h"
 #endif /* USE_LAYOUT */
 #include "local.cpp"
-
 %}
 
 
 %include local.i
-
 
 /**
  * Unfortunately, SWIG makes no distinction between const and non-const
@@ -54,7 +52,6 @@
  */
 %ignore *::accept;
 
-
 %ignore ASTNode(Token_t*);
 %ignore ASTNode::getListOfNodes;
 %ignore ASTNode::fillListOfNodes;
@@ -62,16 +59,39 @@
 %ignore ASTNode::setValue(int);
 %ignore ASTNode::swapChildren(ASTNode*);
 
+/**
+ * Ignore operator= and operator<< on all SBML objects.
+ */
+%ignore *::operator=;
+%ignore *::operator<<;
 
 /**
- * SWIG doesn't wrap FILE* or std::ostream very well so ignore these
- * methods.
+ * Ignore certain internal implementation methods on all objects.
  */
-%ignore SBMLDocument::printWarnings;
-%ignore SBMLDocument::printErrors;
-%ignore SBMLDocument::printFatals;
-%ignore SBMLWriter  ::write(const SBMLDocument&  , std::ostream&);
-%ignore MathMLWriter::write(const MathMLDocument&, std::ostream&);
+%ignore *::writeElements;
+%ignore *::getElementPosition;
+
+/**
+ * Ignore methods whose pointer argument serves as both input and output
+ */
+%ignore XMLAttributes::readInto;
+
+/**
+ * Ignore methods which receive or return List*.
+ */
+%ignore ModelHistory::getCreator;
+%ignore SBase::getCVTerms;
+%ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
+
+/**
+ * Ignore methods which receive std::list.
+ */
+%ignore XMLErrorLog::add(const std::list<XMLError>& errors);
+
+/**
+ * Ignore 'static ParentMap mParent;' in SBO.h
+ */
+%ignore mParent;
 
 /**
  * The following methods will create new objects.  To prevent memory
@@ -80,25 +100,30 @@
 
 %typemap(newfree) char * "free($1);";
 
-%newobject SBase::clone;
+%newobject *::clone;
 %newobject SBase::toSBML;
-
 %newobject SBMLReader::readSBMLFromString;
 %newobject SBMLReader::readSBML;
 %newobject readSBML(const char *);
 %newobject readSBMLFromString(const char *);
-
 %newobject SBMLWriter::writeToString;
 %newobject writeSBMLToString;
-
 %newobject readMathMLFromString;
 %newobject writeMathMLToString;
-
 %newobject SBML_formulaToString;
 %newobject SBML_parseFormula;
-
 %newobject ASTNode::deepCopy;
-
+%newobject ListOf::remove;
+%newobject RDFAnnotationParser::parseRDFAnnotation(XMLNode *);
+%newobject RDFAnnotationParser::deleteRDFAnnotation;
+%newobject RDFAnnotationParser::parseCVTerms;
+%newobject RDFAnnotationParser::parseModelHistory;
+%newobject RDFAnnotationParser::createRDFAnnotation;
+%newobject RDFAnnotationParser::createAnnotation;
+%newobject RDFAnnotationParser::createRDFDescription;
+%newobject RDFAnnotationParser::createCVTerms;
+%newobject convertUnitToSI;
+%newobject convertToSI;
 
 /**
  * In the wrapped languages, these methods will appear as:
@@ -118,50 +143,41 @@
 
 %import  common/extern.h
 %import  common/sbmlfwd.h
+%import  xml/XMLExtern.h
 
 %include sbml/SBMLReader.h
 %include sbml/SBMLWriter.h
-
 %include sbml/SBMLTypeCodes.h
-
 %include sbml/SBase.h
 %include sbml/ListOf.h
-
 %include sbml/Model.h
 %include sbml/SBMLDocument.h
-
 %include sbml/FunctionDefinition.h
-
 %include sbml/UnitKind.h
 %include sbml/Unit.h
 %include sbml/UnitDefinition.h
-
 %include sbml/CompartmentType.h
 %include sbml/SpeciesType.h
-
 %include sbml/Compartment.h
 %include sbml/Species.h
 %include sbml/Parameter.h
-
 %include sbml/InitialAssignment.h
-
 %include sbml/Rule.h
-
 %include sbml/Constraint.h
-
 %include sbml/Reaction.h
 %include sbml/KineticLaw.h
 %include sbml/SpeciesReference.h
-
 %include sbml/Event.h
 %include sbml/EventAssignment.h
+%include sbml/Trigger.h
+%include sbml/Delay.h
+%include sbml/SBO.h
+%include sbml/StoichiometryMath.h
 
 %include math/MathML.h
-
 %include math/ASTNode.h
 %include math/FormulaParser.h
 
-%include xml/XMLExtern.h
 %include xml/XMLAttributes.h
 %include xml/XMLNamespaces.h
 %include xml/XMLToken.h
@@ -170,22 +186,25 @@
 %include xml/XMLInputStream.h
 %include xml/XMLOutputStream.h
 %include xml/XMLError.h
+%include xml/XMLErrorLog.h
+%include xml/XMLHandler.h
+%include xml/XMLParser.h
+%include xml/XMLTokenizer.h
 
+%include sbml/SBMLErrorLog.h
+
+%include units/FormulaUnitsData.h
+%include units/UnitFormulaFormatter.h
+%include units/Utils_Unit.h
+%include units/Utils_UnitDefinition.h
+
+%include annotation/CVTerm.h
+%include annotation/ModelHistory.h
+%include annotation/RDFAnnotation.h
 
 #ifdef USE_LAYOUT
 %include ../swig/layout.i
 #endif /* USE_LAYOUT */
-
-
-/**
- * This Java specific typemap applies only to SBML_formulaToString()
- * and overrides the default call to getCPtrAndDisown() (see
- * bindings/java/local.i).  Unfortunately, due to the nature of SWIG
- * typemaps, this is the only place to put it.
- */
-#ifdef SWIGJAVA
-%typemap(javain) ASTNode * "ASTNode.getCPtr($javainput)";
-#endif
 
 /**
  * @return the given formula AST as an SBML L1 string formula.  The caller
@@ -194,3 +213,4 @@
 LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode_t *tree);
+

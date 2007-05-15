@@ -24,15 +24,13 @@
 
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLWriter.h>
-
-
 #include <sbml/UnitKind.h>
-
 #include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBase.h>
 #include <sbml/ListOf.h>
 #include <sbml/Model.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLErrorLog.h>
 #include <sbml/FunctionDefinition.h>
 #include <sbml/Unit.h>
 #include <sbml/UnitDefinition.h>
@@ -49,6 +47,14 @@
 #include <sbml/SpeciesReference.h>
 #include <sbml/Event.h>
 #include <sbml/EventAssignment.h>
+#include <sbml/Trigger.h>
+#include <sbml/Delay.h>
+#include <sbml/CompartmentType.h>
+#include <sbml/Constraint.h>
+#include <sbml/InitialAssignment.h>
+#include <sbml/SpeciesType.h>
+#include <sbml/SBO.h>
+#include <sbml/StoichiometryMath.h>
 
 #include <sbml/math/ASTNode.h>
 #include <sbml/math/MathML.h>
@@ -63,3 +69,16 @@
 #include <sbml/xml/XMLInputStream.h>
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLErrorLog.h>
+#include <sbml/xml/XMLParser.h>
+#include <sbml/xml/XMLHandler.h>
+#include <sbml/xml/XMLTokenizer.h>
+
+#include <sbml/units/FormulaUnitsData.h>
+#include <sbml/units/UnitFormulaFormatter.h>
+#include <sbml/units/Utils_Unit.h>
+#include <sbml/units/Utils_UnitDefinition.h>
+
+#include <sbml/annotation/CVTerm.h>
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/RDFAnnotation.h>
