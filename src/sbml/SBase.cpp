@@ -463,7 +463,7 @@ SBase::setName (const string& name)
  * Sets the annotation of this SBML object to a copy of annotation.
  */
 void 
-SBase::setAnnotation (XMLNode* annotation)
+SBase::setAnnotation (const XMLNode* annotation)
 {
   if (mAnnotation == annotation) return;
 
@@ -478,7 +478,7 @@ SBase::setAnnotation (XMLNode* annotation)
  * adding additional information.
  */
 void 
-SBase::appendAnnotation (XMLNode* annotation)
+SBase::appendAnnotation (const XMLNode* annotation)
 {
   const string&  name = annotation->getName();
 
@@ -517,7 +517,7 @@ SBase::appendAnnotation (XMLNode* annotation)
  * Sets the notes of this SBML object to a copy of notes.
  */
 void 
-SBase::setNotes(XMLNode* notes)
+SBase::setNotes(const XMLNode* notes)
 {
   if (mNotes == notes) return;
  
@@ -532,7 +532,7 @@ SBase::setNotes(XMLNode* notes)
  * adding additional information.
  */
 void 
-SBase::appendNotes(XMLNode* notes)
+SBase::appendNotes(const XMLNode* notes)
 {
   const string&  name = notes->getName();
 

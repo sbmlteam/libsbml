@@ -645,7 +645,7 @@ public:
    *
    * @see appendAnnotation().
    */
-  void setAnnotation (XMLNode* annotation);
+  void setAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -661,7 +661,7 @@ public:
    *
    * @see setAnnotation().
    */
-  void appendAnnotation (XMLNode* annotation);
+  void appendAnnotation (const XMLNode* annotation);
 
 
   /**
@@ -675,7 +675,7 @@ public:
    *
    * @see appendNotes()
    */
-  void setNotes(XMLNode* notes);
+  void setNotes(const XMLNode* notes);
 
 
   /**
@@ -689,7 +689,7 @@ public:
    *
    * @see setNotes()
    */
-  void appendNotes(XMLNode* notes);
+  void appendNotes(const XMLNode* notes);
 
 
   /**
