@@ -1,12 +1,12 @@
 
                             l i b S B M L
 
-                           Example Programs
+		     Example programs and models
 
-                            Ben Bornstein
+	     Ben Bornstein, Sarah Keating, Michael Hucka
 	   with contributions from (in alphabetical order)
-	    Christoph Flamm, Ralph Gauges, Michael Hucka,
-		 Rainer Machne and Nicolas Rodriguez
+	    Christoph Flamm, Ralph Gauges, Akiya Joukaru,
+		 Rainer Machne, and Nicolas Rodriguez
 
 			    The SBML Team
 			 http://www.sbml.org/
@@ -35,21 +35,18 @@ language subdirectory:
   % make
 
 Next, you may wish to try running the example programs on some SBML
-files.  There are a number of sample models used for testing the rest
-of libSBML in src/sbml/test/test-data.  So for example, you could do
-try the following:
+files.  There are a number of sample models provided for this purpose
+in the "sample-models" subdirectory here.  So for example, you could
+do try the following (if you were in the "c++" subdirectory):
 
-  % printSBML     ../../src/sbml/test/test-data/l2v1-branch.xml
-  % readSBML      ../../src/sbml/test/test-data/l2v1-delay.xml
-  % convertSBML   ../../src/sbml/test/test-data/l1v1-rules.xml l2v1-rules.xml
-  % validateSBML  ../../src/sbml/test/test-data/l2v1-branch.xml
-  % validateSBML  ../../src/sbml/test/test-data/l1v1-branch.xml
-  % validateSBML  ../../src/sbml/test/test-data/l1v1-branch-schema-error.xml
+  % printSBML     ../sample-models/from-spec/level-2/algebraicrules.xml
+  % readSBML      ../sample-models/from-spec/level-2/dimerization.xml
+  % convertSBML   ../sample-models/from-spec/level-2/enzymekinetics.xml
+  % validateSBML  ../sample-models/from-spec/level-2/twodimensional.xml
+  % validateSBML  ../sample-models/from-spec/level-2/overdetermined.xml
 
 More models may be obtained from a number of other sources, including
 the BioModels Database (http://www.ebi.ac.uk/biomodels/).
-
-
 
 
 
