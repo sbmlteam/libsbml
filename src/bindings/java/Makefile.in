@@ -147,7 +147,7 @@ distfiles = $(sources) $(extra_sources) $(check_sources) Makefile.in $(java_file
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = $(class_files) $(check_sources:.java=.class)
+extra_clean = $(class_files) $(check_sources:.java=.class) $(java_files) libsbml_wrap.cpp javadoc.i
 
 extra_distclean = java-files
 
@@ -207,7 +207,7 @@ $(outpath):
 $(class_files): $(outpath)/%.class: $(outpath)/%.java
 	$(JAVAC) -d $(outdir) $(outpath)/*.java
 
-dummy_create_class_files: libsbml_wrap.cpp java-files
+dummy_create_class_files: libsbml_wrap.cpp java-files $(class_files)
 
 libsbml_wrap.cpp: $(swig_sources) $(main_sources)
 	$(MAKE) swigfiles
