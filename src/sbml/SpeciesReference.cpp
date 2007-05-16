@@ -657,6 +657,7 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
 void
 SpeciesReference::writeElements (XMLOutputStream& stream) const
 {
+  SBase::writeElements(stream);
   if (getLevel() == 2)
   {
     if (mStoichiometryMath || mDenominator != 1)
