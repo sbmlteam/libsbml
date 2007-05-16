@@ -225,4 +225,21 @@ XMLTriple_getURI (const XMLTriple_t *triple)
   return triple->getURI().empty() ? NULL : triple->getURI().c_str();
 }
 
+
+/**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLTriple is empty.
+ * 
+ * @param triple XMLTriple_t structure to be queried.
+ *
+ * @return @c non-zero (true) if this XMLTriple is empty, @c zero (false) otherwise.
+ */
+LIBLAX_EXTERN
+int
+XMLTriple_isEmpty (const XMLTriple_t *triple)
+{
+  return static_cast<int> (triple->isEmpty());
+}
+
+
 /** @endcond doxygen-c-only */

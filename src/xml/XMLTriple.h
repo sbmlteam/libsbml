@@ -176,6 +176,10 @@ LIBLAX_EXTERN
 const char *
 XMLTriple_getURI (const XMLTriple_t *triple);
 
+LIBLAX_EXTERN
+int
+XMLTriple_isEmpty(const XMLTriple_t *triple);
+
 
 
 END_C_DECLS

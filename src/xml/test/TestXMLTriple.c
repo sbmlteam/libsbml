@@ -30,12 +30,14 @@ START_TEST (test_XMLTriple_create)
 {
   XMLTriple_t *t = XMLTriple_create();
   fail_unless(t != NULL);
+  fail_unless(XMLTriple_isEmpty(t) != 0);
   XMLTriple_free(t);
 
   t = XMLTriple_createWith("attr", "uri", "prefix");
   fail_unless( strcmp(XMLTriple_getName(t), "attr") == 0 );
   fail_unless( strcmp(XMLTriple_getURI(t), "uri") == 0 );
   fail_unless( strcmp(XMLTriple_getPrefix(t), "prefix") == 0 );
+  fail_unless(XMLTriple_isEmpty(t) == 0);
   XMLTriple_free(t);
 }
 END_TEST
