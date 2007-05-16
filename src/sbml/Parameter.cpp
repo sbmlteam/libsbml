@@ -531,6 +531,23 @@ Parameter_create (void)
 
 
 /**
+ * Creates a new Parameter_t structure with the given identifier and returns a
+ * pointer to it.
+ *
+ * @param sid a string, the identifier to assign to this Parameter_t structure
+ * @param name a string, the name to give this Parameter_t structure
+ *
+ * @return the Parameter_t structure created
+ */
+LIBSBML_EXTERN
+Parameter_t *
+Parameter_createWith (const char *sid, const char * name)
+{
+  return new(nothrow) Parameter(sid ? sid : "", name ? name : "");
+}
+
+
+/**
  * Creates a new Parameter_t structure with the given @p id and @p name
  * attribute values.
  *
@@ -557,7 +574,7 @@ Parameter_create (void)
  */
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_createWith (const char *id, double value, const char *units)
+Parameter_createWithValueAndUnits (const char *id, double value, const char *units)
 {
   return
     new(nothrow) Parameter(id ? id : "", value, units ? units : "");

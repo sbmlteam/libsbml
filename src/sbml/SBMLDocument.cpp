@@ -785,7 +785,7 @@ SBMLDocument_create ()
  */
 LIBSBML_EXTERN
 SBMLDocument_t *
-SBMLDocument_createWith (unsigned int level, unsigned int version)
+SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version)
 {
   return new(nothrow) SBMLDocument(level, version);
 }

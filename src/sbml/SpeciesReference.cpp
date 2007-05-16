@@ -1070,7 +1070,7 @@ SpeciesReference_createModifier (void)
  */
 LIBSBML_EXTERN
 SpeciesReference_t *
-SpeciesReference_createWith ( const char *species,
+SpeciesReference_createWithSpeciesAndStoichiometry ( const char *species,
                               double      stoichiometry,
                               int         denominator )
 {

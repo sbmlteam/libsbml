@@ -976,6 +976,23 @@ Reaction_create ()
 
 
 /**
+ * Creates a new Reaction_t structure with the given identifier and returns a
+ * pointer to it.
+ *
+ * @param sid a string, the identifier to assign to this Reaction_t structure
+ * @param name a string, the name to give this Reaction_t structure
+ *
+ * @return the Reaction_t structure created
+ */
+LIBSBML_EXTERN
+Reaction_t *
+Reaction_createWith (const char *sid, const char * name)
+{
+  return new(nothrow) Reaction(sid ? sid : "", name ? name : "");
+}
+
+
+/**
  * Creates a new Reaction with the given id, KineticLaw, reversible and
  * fast and returns a pointer to it.  This convenience function is
  * functionally equivalent to:
@@ -985,7 +1002,7 @@ Reaction_create ()
  */
 LIBSBML_EXTERN
 Reaction_t *
-Reaction_createWith ( const char   *sid,
+Reaction_createWithKineticLaw ( const char   *sid,
                       KineticLaw_t *kl,
                       int          reversible,
                       int          fast )

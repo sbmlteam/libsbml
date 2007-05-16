@@ -646,15 +646,7 @@ KineticLaw_create (void);
 
 LIBSBML_EXTERN
 KineticLaw_t *
-KineticLaw_createWith ( const char *formula,
-                        const char *timeUnits,
-                        const char *substanceUnits );
-
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithMathAndUnits ( ASTNode_t *math,
-                            const char *timeUnits,
-                            const char *substanceUnits );
+KineticLaw_createWithFormula ( const char *formula );
 
 LIBSBML_EXTERN
 KineticLaw_t *

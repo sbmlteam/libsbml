@@ -689,8 +689,7 @@ KineticLaw_create (void)
 
 
 /**
- * Creates a new KineticLaw_t structure with the given formula and values
- * for attributes "timeUnits" and "substanceUnits", and returns a pointer
+ * Creates a new KineticLaw_t structure with the given formula and returns a pointer
  * to it.
  *
  * See the description of Reaction for important information about the
@@ -701,8 +700,6 @@ KineticLaw_create (void)
  * @code
  *   KineticLaw_t *kl = KineticLaw_create();
  *   KineticLaw_setFormula(kl, formula);
- *   KineticLaw_setTimeUnits(kl, timeUnits);
- *   KineticLaw_setSubstanceUnits(kl, substanceUnits);
  * @endcode
  *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
@@ -713,7 +710,7 @@ KineticLaw_create (void)
  * either MathML or the text-string syntax.  The libSBML methods that
  * accept text-string formulas directly (such as this constructor) are
  * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  See KineticLaw_createWithMathAndUnits for a
+ * to use the AST mechanisms.  See KineticLaw_createWithMath for a
  * version that takes an ASTNode_t structure.
  *
  * @param formula a mathematical expression in text-string form
@@ -733,59 +730,11 @@ KineticLaw_create (void)
  */
 LIBSBML_EXTERN
 KineticLaw_t *
-KineticLaw_createWith ( const char *formula,
-                        const char *timeUnits,
-                        const char *substanceUnits )
+KineticLaw_createWithFormula ( const char *formula)
 {
   string f  = formula        ? formula        : "";
-  string tu = timeUnits      ? timeUnits      : "";
-  string su = substanceUnits ? substanceUnits : "";
 
-  return new(nothrow) KineticLaw(f, tu, su);
-}
-
-
-/**
- * Creates a new KineticLaw_t structure with the given mathematical
- * expression and values for attributes "timeUnits" and "substanceUnits",
- * and returns a pointer to it.
- *
- * See the description of Reaction for important information about the
- * interpretation of reaction rate expressions, and on particular about the
- * units of the expressions.
- *
- * This convenience function is functionally equivalent to:
- * @code
- *   KineticLaw_t *kl = KineticLaw_create();
- *   KineticLaw_setMath(kl, math);
- *   KineticLaw_setTimeUnits(kl, timeUnits);
- *   KineticLaw_setSubstanceUnits(kl, substanceUnits);
- * @endcode
- *
- * @param math an ASTNode structure representing a mathematical expression
- * for the rate of the reaction.
- * 
- * @param timeUnits the identifier of the units of time for this
- * KineticLaw_t structure.
- * 
- * @param substanceUnits the identifier of the units of substance for this
- * KineticLaw_t structure.
- *
- * @return pointer to newly created KineticLaw_t structure.
- *
- * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
- * attributes were removed.
- */
-LIBSBML_EXTERN
-KineticLaw_t *
-KineticLaw_createWithMathAndUnits ( ASTNode_t *math,
-				    const char *timeUnits,
-				    const char *substanceUnits )
-{
-  string tu = timeUnits      ? timeUnits      : "";
-  string su = substanceUnits ? substanceUnits : "";
-
-  return new(nothrow) KineticLaw(math, tu, su);
+  return new(nothrow) KineticLaw(f);
 }
 
 
@@ -859,7 +808,7 @@ KineticLaw_clone (const KineticLaw_t *kl)
  * either MathML or the text-string syntax.  The libSBML methods that
  * accept text-string formulas directly (such as this constructor) are
  * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  See KineticLaw_createWithMathAndUnits for a
+ * to use the AST mechanisms.  See KineticLaw_createWithMath for a
  * version that takes an ASTNode_t structure.
  *
  * @param kl the KineticLaw_t structure.
@@ -954,7 +903,7 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
  * either MathML or the text-string syntax.  The libSBML methods that
  * accept text-string formulas directly (such as this constructor) are
  * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  See KineticLaw_createWithMathAndUnits for a
+ * to use the AST mechanisms.  See KineticLaw_createWithMath for a
  * version that takes an ASTNode_t structure.
  *
  * @param kl the KineticLaw_t structure.
@@ -1051,7 +1000,7 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
  * either MathML or the text-string syntax.  The libSBML methods that
  * accept text-string formulas directly (such as this constructor) are
  * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  See KineticLaw_createWithMathAndUnits for a
+ * to use the AST mechanisms.  See KineticLaw_createWithMath for a
  * version that takes an ASTNode_t structure.
  *
  * @param kl the KineticLaw_t structure.

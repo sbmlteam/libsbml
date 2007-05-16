@@ -243,7 +243,7 @@ START_TEST (test_Event_full)
   Trigger_t         *trigger = Trigger_createWithMath(math1);
   ASTNode_t         *math    = SBML_parseFormula("0");
   Event_t           *e       = Event_createWith("e1", "");
-  EventAssignment_t *ea      = EventAssignment_createWith("k", math);
+  EventAssignment_t *ea      = EventAssignment_createWithVarAndMath("k", math);
 
   //Event_setTrigger(e, trigger);
 

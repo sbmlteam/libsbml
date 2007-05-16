@@ -122,7 +122,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_createWithName)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWithName("mmol liter^-1 sec^-1");
+  UnitDefinition_t *ud = UnitDefinition_createWith("", "mmol liter^-1 sec^-1");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );

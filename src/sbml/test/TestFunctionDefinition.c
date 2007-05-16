@@ -98,7 +98,7 @@ END_TEST
 START_TEST (test_FunctionDefinition_createWith)
 {
   ASTNode_t            *math = SBML_parseFormula("lambda(x, x^3)");
-  FunctionDefinition_t *fd   = FunctionDefinition_createWith("pow3", math);
+  FunctionDefinition_t *fd   = FunctionDefinition_createWithIdAndMath("pow3", math);
 
   const ASTNode_t * math1;
   char * formula;

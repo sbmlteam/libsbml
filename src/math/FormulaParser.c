@@ -298,7 +298,7 @@ SBML_parseFormula (const char *formula)
 
   ASTNode_t *node = NULL;
 
-  FormulaTokenizer_t *tokenizer = FormulaTokenizer_create(formula);
+  FormulaTokenizer_t *tokenizer = FormulaTokenizer_createFromFormula(formula);
   Token_t            *token     = FormulaTokenizer_nextToken(tokenizer);
   Stack_t            *stack     = Stack_create(20);
 

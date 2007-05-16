@@ -33,7 +33,7 @@
 
 START_TEST (test_Date_create)
 {
-  Date_t * date = Date_createWith(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+  Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
 
   fail_unless(date != NULL);
   fail_unless(Date_getYear(date) == 2005);
@@ -74,7 +74,7 @@ END_TEST
 
 START_TEST (test_Date_setters)
 {
-  Date_t * date = Date_createWith(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+  Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   fail_unless(date != NULL);
 
   Date_setYear(date, 2012);
@@ -243,7 +243,7 @@ START_TEST (test_ModelHistory_setCreatedDate)
 
   fail_unless(history != NULL);
 
-  Date_t * date = Date_createWith(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+  Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   
   ModelHistory_setCreatedDate(history, date);
 
@@ -272,7 +272,7 @@ START_TEST (test_ModelHistory_setModifiedDate)
 
   fail_unless(history != NULL);
 
-  Date_t * date = Date_createWith(2005, 12, 30, 12, 15, 45, 1, 2, 0);
+  Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   
   ModelHistory_setModifiedDate(history, date);
 //  Date_free(date);

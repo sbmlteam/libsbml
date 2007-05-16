@@ -96,7 +96,7 @@ END_TEST
 
 START_TEST (test_InitialAssignment_createWith)
 {
-  InitialAssignment_t *ia   = InitialAssignment_createWith("k");
+  InitialAssignment_t *ia   = InitialAssignment_createWithSymbol("k");
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ia) == SBML_INITIAL_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) ia) == NULL );

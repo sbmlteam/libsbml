@@ -526,7 +526,11 @@ Parameter_create (void);
 
 LIBSBML_EXTERN
 Parameter_t *
-Parameter_createWith (const char *sid, double value, const char *units);
+Parameter_createWith (const char *sid, const char *name);
+
+LIBSBML_EXTERN
+Parameter_t *
+Parameter_createWithValueAndUnits (const char *sid, double value, const char *units);
 
 
 LIBSBML_EXTERN

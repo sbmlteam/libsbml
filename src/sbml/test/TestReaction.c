@@ -104,7 +104,7 @@ END_TEST
 START_TEST (test_Reaction_createWith)
 {
   KineticLaw_t *kl = KineticLaw_create();
-  Reaction_t   *r  = Reaction_createWith("r1", kl, 0, 1);
+  Reaction_t   *r  = Reaction_createWithKineticLaw("r1", kl, 0, 1);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_REACTION );
@@ -272,8 +272,8 @@ END_TEST
 //this is not right
 START_TEST (test_Reaction_getReactantById)
 {
-  SpeciesReference_t *sr1 = SpeciesReference_createWith("R1", 1, 1);
-  SpeciesReference_t *sr2 = SpeciesReference_createWith("R2", 1, 1);
+  SpeciesReference_t *sr1 = SpeciesReference_createWithSpeciesAndStoichiometry("R1", 1, 1);
+  SpeciesReference_t *sr2 = SpeciesReference_createWithSpeciesAndStoichiometry("R2", 1, 1);
 
 
   Reaction_addReactant(R, sr1);
@@ -323,8 +323,8 @@ END_TEST
 
 START_TEST (test_Reaction_getProductById)
 {
-  SpeciesReference_t *sr1 = SpeciesReference_createWith("P1", 1, 1);
-  SpeciesReference_t *sr2 = SpeciesReference_createWith("P2", 1, 1);
+  SpeciesReference_t *sr1 = SpeciesReference_createWithSpeciesAndStoichiometry("P1", 1, 1);
+  SpeciesReference_t *sr2 = SpeciesReference_createWithSpeciesAndStoichiometry("P2", 1, 1);
 
 
   Reaction_addProduct(R, sr1);

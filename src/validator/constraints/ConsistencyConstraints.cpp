@@ -1480,7 +1480,7 @@ START_CONSTRAINT (1611, KineticLaw, kl)
 
   pre (kl.isSetFormula() == 1);
 
-  FormulaTokenizer_t * ft = FormulaTokenizer_create (kl.getFormula().c_str());
+  FormulaTokenizer_t * ft = FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
   Token_t * t = FormulaTokenizer_nextToken (ft);
 
   const Compartment * c;

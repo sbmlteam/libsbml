@@ -58,7 +58,7 @@
 
 START_TEST (test_SBMLConvert_convertToL2_SBMLDocument)
 {
-  SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
   Model_t        *m = SBMLDocument_createModel(d);
 
 
@@ -231,8 +231,8 @@ END_TEST
 START_TEST (test_SBMLConvert_addModifiersToReaction)
 {
   Model_t      *m  = Model_create();
-  KineticLaw_t *kl = KineticLaw_createWith("k1*S1*S2*S3*S4*S5", NULL, NULL);
-  Reaction_t   *r  = Reaction_createWith("R", kl, 1, 0);
+  KineticLaw_t *kl = KineticLaw_createWithFormula("k1*S1*S2*S3*S4*S5");
+  Reaction_t   *r  = Reaction_createWithKineticLaw("R", kl, 1, 0);
 
   SimpleSpeciesReference_t *ssr1;
   SimpleSpeciesReference_t *ssr2;
@@ -244,9 +244,9 @@ START_TEST (test_SBMLConvert_addModifiersToReaction)
   Model_addSpecies( m, Species_createWith("S4", "cell", 1.0, "amount", 0, 0) );
   Model_addSpecies( m, Species_createWith("S5", "cell", 0.0, "amount", 0, 0) );
 
-  Reaction_addReactant( r, SpeciesReference_createWith("S1", 1, 1) );
-  Reaction_addReactant( r, SpeciesReference_createWith("S2", 1, 1) );
-  Reaction_addProduct ( r, SpeciesReference_createWith("S5", 1, 1) );
+  Reaction_addReactant( r, SpeciesReference_createWithSpeciesAndStoichiometry("S1", 1, 1) );
+  Reaction_addReactant( r, SpeciesReference_createWithSpeciesAndStoichiometry("S2", 1, 1) );
+  Reaction_addProduct ( r, SpeciesReference_createWithSpeciesAndStoichiometry("S5", 1, 1) );
 
   Model_addReaction(m, r);
 
@@ -368,7 +368,7 @@ END_TEST
 
 START_TEST (test_SBMLConvert_convertToL1_SBMLDocument)
 {
-  SBMLDocument_t *d = SBMLDocument_createWith(2, 1);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
   Model_t        *m = SBMLDocument_createModel(d);
 
 
@@ -384,7 +384,7 @@ END_TEST
 
 START_TEST (test_SBMLConvert_convertToL1_Species_Amount)
 {
-  SBMLDocument_t *d   = SBMLDocument_createWith(2, 1);
+  SBMLDocument_t *d   = SBMLDocument_createWithLevelAndVersion(2, 1);
   Model_t        *m   = SBMLDocument_createModel(d);
   const char     *sid = "C";
   Compartment_t  *c   = Compartment_create();
@@ -409,7 +409,7 @@ END_TEST
 
 START_TEST (test_SBMLConvert_convertToL1_Species_Concentration)
 {
-  SBMLDocument_t *d = SBMLDocument_createWith(2, 1);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(2, 1);
   Model_t        *m = SBMLDocument_createModel(d);
   const char   *sid = "C";
   Compartment_t  *c = Compartment_create();

@@ -97,7 +97,7 @@ END_TEST
 START_TEST (test_EventAssignment_createWith)
 {
   ASTNode_t         *math = SBML_parseFormula("0");
-  EventAssignment_t *ea   = EventAssignment_createWith("k", math);
+  EventAssignment_t *ea   = EventAssignment_createWithVarAndMath("k", math);
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ea) == SBML_EVENT_ASSIGNMENT );
   fail_unless( SBase_getMetaId    ((SBase_t *) ea) == NULL );

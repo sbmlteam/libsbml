@@ -533,7 +533,7 @@ FunctionDefinition_create (void)
  */
 LIBSBML_EXTERN
 FunctionDefinition_t *
-FunctionDefinition_createWith (const char *sid, ASTNode_t *math)
+FunctionDefinition_createWithIdAndMath (const char *sid, ASTNode_t *math)
 {
   return new(nothrow) FunctionDefinition(sid ? sid : "", math);
 }

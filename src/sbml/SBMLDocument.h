@@ -473,7 +473,7 @@ SBMLDocument_create (void);
 
 LIBSBML_EXTERN
 SBMLDocument_t *
-SBMLDocument_createWith (unsigned int level, unsigned int version);
+SBMLDocument_createWithLevelAndVersion (unsigned int level, unsigned int version);
 
 
 LIBSBML_EXTERN

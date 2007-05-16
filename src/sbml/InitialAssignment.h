@@ -481,7 +481,7 @@ InitialAssignment_create (void);
 
 LIBSBML_EXTERN
 InitialAssignment_t *
-InitialAssignment_createWith (const char *symbol);
+InitialAssignment_createWithSymbol (const char *symbol);
 
 
 LIBSBML_EXTERN

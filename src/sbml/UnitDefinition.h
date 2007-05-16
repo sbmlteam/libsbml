@@ -654,12 +654,7 @@ UnitDefinition_create (void);
 
 LIBSBML_EXTERN
 UnitDefinition_t *
-UnitDefinition_createWith (const char *sid);
-
-
-LIBSBML_EXTERN
-UnitDefinition_t *
-UnitDefinition_createWithName (const char *name);
+UnitDefinition_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN

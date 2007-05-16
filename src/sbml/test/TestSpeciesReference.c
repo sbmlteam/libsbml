@@ -102,7 +102,7 @@ END_TEST
 
 START_TEST (test_SpeciesReference_createWith)
 {
-  SpeciesReference_t *sr = SpeciesReference_createWith("s3", 4, 2);
+  SpeciesReference_t *sr = SpeciesReference_createWithSpeciesAndStoichiometry("s3", 4, 2);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) sr) == SBML_SPECIES_REFERENCE );

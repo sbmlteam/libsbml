@@ -113,7 +113,7 @@ typedef struct
  */
 LIBSBML_EXTERN
 FormulaTokenizer_t *
-FormulaTokenizer_create (const char *formula);
+FormulaTokenizer_createFromFormula (const char *formula);
 
 /**
  * Frees the given FormulaTokenizer.

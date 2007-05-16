@@ -100,7 +100,7 @@ END_TEST
 
 START_TEST (test_Parameter_createWith)
 {
-  Parameter_t *p = Parameter_createWith("delay", 6.2, "second");
+  Parameter_t *p = Parameter_createWithValueAndUnits("delay", 6.2, "second");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) p) == SBML_PARAMETER );

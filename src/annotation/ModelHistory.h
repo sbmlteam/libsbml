@@ -514,7 +514,7 @@ BEGIN_C_DECLS
 
 LIBSBML_EXTERN
 Date_t *
-Date_createWith(unsigned int year, unsigned int month, 
+Date_createFromValues(unsigned int year, unsigned int month, 
     unsigned int day, unsigned int hour, 
     unsigned int minute, unsigned int second,
     unsigned int sign, unsigned int hoursOffset,

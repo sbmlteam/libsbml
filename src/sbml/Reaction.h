@@ -879,10 +879,14 @@ LIBSBML_EXTERN
 Reaction_t *
 Reaction_create (void);
 
+LIBSBML_EXTERN
+Reaction_t *
+Reaction_createWith (const char *sid, const char *name);
+
 
 LIBSBML_EXTERN
 Reaction_t *
-Reaction_createWith ( const char   *sid,
+Reaction_createWithKineticLaw ( const char   *sid,
                       KineticLaw_t *kl,
                       int          reversible,
                       int          fast );

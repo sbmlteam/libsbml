@@ -99,7 +99,7 @@ END_TEST
 
 START_TEST (test_Unit_createWith)
 {
-  Unit_t *u = Unit_createWith(UNIT_KIND_SECOND, -2, 1);
+  Unit_t *u = Unit_createWithKindExponentScale(UNIT_KIND_SECOND, -2, 1);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) u) == SBML_UNIT );

@@ -81,7 +81,7 @@ END_TEST
 
 START_TEST (test_SBMLDocument_createWith)
 {
-  SBMLDocument_t *d = SBMLDocument_createWith(1, 2);
+  SBMLDocument_t *d = SBMLDocument_createWithLevelAndVersion(1, 2);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) d) == SBML_DOCUMENT );

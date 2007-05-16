@@ -844,7 +844,12 @@ Unit_create (void);
 
 LIBSBML_EXTERN
 Unit_t *
-Unit_createWith (UnitKind_t kind, int exponent, int scale);
+Unit_createWithKindExponentScale (UnitKind_t kind, int exponent, int scale);
+
+
+LIBSBML_EXTERN
+Unit_t *
+Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int scale, double multiplier);
 
 
 LIBSBML_EXTERN

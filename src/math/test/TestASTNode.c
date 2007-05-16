@@ -87,7 +87,7 @@ END_TEST
 START_TEST (test_ASTNode_createFromToken)
 {
   const char         *formula = "foo 2 4.0 .272e1 +-*/^@";
-  FormulaTokenizer_t *ft      = FormulaTokenizer_create(formula);
+  FormulaTokenizer_t *ft      = FormulaTokenizer_createFromFormula(formula);
 
   Token_t   *t;
   ASTNode_t *n;

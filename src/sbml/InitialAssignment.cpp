@@ -449,7 +449,7 @@ InitialAssignment_create ()
  */
 LIBSBML_EXTERN
 InitialAssignment_t *
-InitialAssignment_createWith (const char *symbol)
+InitialAssignment_createWithSymbol (const char *symbol)
 {
   return new(nothrow) InitialAssignment(symbol ? symbol : "");
 }

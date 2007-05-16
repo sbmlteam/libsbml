@@ -919,9 +919,40 @@ Unit_create (void)
  */
 LIBSBML_EXTERN
 Unit_t *
-Unit_createWith (UnitKind_t kind, int exponent, int scale)
+Unit_createWithKindExponentScale (UnitKind_t kind, int exponent, int scale)
 {
   return new(nothrow) Unit(kind, exponent, scale);
+}
+
+
+/**
+ * Creates a new Unit with the given @p kind, @p exponent, @p scale and
+ * @p multiplier values and returns a pointer to it.  This convenience function is
+ * functionally equivalent to:
+ * @code
+ *   Unit_t *u = Unit_create();
+ *   Unit_setKind(kind);
+ *   Unit_setExponent(exponent);
+ *   Unit_setScale(scale);
+ *   Unit_setMultiplier(multiplier);
+ * @endcode
+ *
+ * @param kind a value from the UnitKind_t enumeration naming the base
+ * unit serving as the basis of this particular unit definition
+ * 
+ * @param exponent an integer, the "exponent" attribute of the unit
+ * definition 
+ * 
+ * @param scale an integer, the "scale" attribute of the unit definition
+ * @param multiplier an integer, the "multiplier" attribute of the unit
+ *
+ * @return a pointer to the new Unit_t structure.
+ */
+LIBSBML_EXTERN
+Unit_t *
+Unit_createWithKindExponentScaleMultiplier (UnitKind_t kind, int exponent, int scale, double multiplier)
+{
+  return new(nothrow) Unit(kind, exponent, scale, multiplier);
 }
 
 

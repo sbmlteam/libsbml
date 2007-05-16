@@ -59,7 +59,7 @@
 START_TEST (test_FormulaTokenizer_create)
 {
   const char         *formula = "1 + two * 3";
-  FormulaTokenizer_t *ft      = FormulaTokenizer_create(formula);
+  FormulaTokenizer_t *ft      = FormulaTokenizer_createFromFormula(formula);
 
 
   fail_unless( !strcmp(ft->formula, formula) );
@@ -116,7 +116,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_empty)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create("");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula("");
   Token_t            *t;
 
 
@@ -146,7 +146,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_whitespace)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create(" \t \n ");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula(" \t \n ");
   Token_t            *t;
 
 
@@ -163,7 +163,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_operators)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create("+-*/^(),");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula("+-*/^(),");
   Token_t            *t;
 
 
@@ -219,7 +219,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_names)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create("foobar Foo2Bar _Foo_Bar");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula("foobar Foo2Bar _Foo_Bar");
   Token_t            *t;
 
 
@@ -249,7 +249,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_numbers)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create("123 3.14 .007 6.7 5.");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula("123 3.14 .007 6.7 5.");
   Token_t            *t;
 
 
@@ -289,7 +289,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_numbers_nan_inf)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create("NaN Inf");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula("NaN Inf");
   Token_t            *t;
 
 
@@ -315,7 +315,7 @@ END_TEST
 START_TEST (test_FormulaTokenizer_numbers_exp)
 {
   const char         *formula = "12.3e1 .314E1 7e-3 .067e2 5E0 2e+12 3e 4";
-  FormulaTokenizer_t *ft      = FormulaTokenizer_create(formula);
+  FormulaTokenizer_t *ft      = FormulaTokenizer_createFromFormula(formula);
   Token_t            *t;
 
 
@@ -382,7 +382,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_numbers_locale)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create("2.72");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula("2.72");
   Token_t            *t;
 
 
@@ -406,7 +406,7 @@ END_TEST
 
 START_TEST (test_FormulaTokenizer_unknown)
 {
-  FormulaTokenizer_t *ft = FormulaTokenizer_create("bbornstein@acm.org");
+  FormulaTokenizer_t *ft = FormulaTokenizer_createFromFormula("bbornstein@acm.org");
   Token_t            *t;
 
 

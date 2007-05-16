@@ -1078,7 +1078,7 @@ START_TEST (test_KineticLaw_getParameterById)
 
   Reaction_setId( r1, "reaction_1" );
 
-  KineticLaw_t *kl = KineticLaw_createWith("k1 * X0", "seconds", "ug");
+  KineticLaw_t *kl = KineticLaw_createWithFormula("k1 * X0");
   
   Parameter_t *k3 = Parameter_create();
   Parameter_t *k4 = Parameter_create();

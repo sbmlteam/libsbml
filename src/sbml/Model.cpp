@@ -2039,14 +2039,15 @@ Model_create ()
  * pointer to it.
  *
  * @param sid a string, the identifier to assign to this Model_t structure
+ * @param name a string, the name to give this Model_t structure
  *
  * @return the Model_t structure created
  */
 LIBSBML_EXTERN
 Model_t *
-Model_createWith (const char *sid)
+Model_createWith (const char *sid, const char * name)
 {
-  return new(nothrow) Model(sid ? sid : "");
+  return new(nothrow) Model(sid ? sid : "", name ? name : "");
 }
 
 

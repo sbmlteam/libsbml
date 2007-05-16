@@ -435,7 +435,7 @@ EventAssignment_create (void);
 
 LIBSBML_EXTERN
 EventAssignment_t *
-EventAssignment_createWith (const char *variable, ASTNode_t *math);
+EventAssignment_createWithVarAndMath (const char *variable, ASTNode_t *math);
 
 
 LIBSBML_EXTERN

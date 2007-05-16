@@ -1483,7 +1483,7 @@ Model_create (void);
 
 LIBSBML_EXTERN
 Model_t *
-Model_createWith (const char *sid);
+Model_createWith (const char *sid, const char *name);
 
 
 LIBSBML_EXTERN
