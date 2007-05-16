@@ -1035,6 +1035,16 @@ Rule_createRate ()
  * Creates a new AlgebraicRule with the given formula 
  * and returns a pointer to it.
  *
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.  
+ *
  * @return pointer to the newly created Algebraic Rule_t structure.
  */
 LIBSBML_EXTERN
@@ -1048,6 +1058,16 @@ Rule_createAlgebraicWithFormula (const char *formula)
 /**
  * Creates a new AssignmentRule with the given formula 
  * and returns a pointer to it.
+ *
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.  
  *
  * @param variable string representing the variable to be assigned by
  * the Rule_t structure.
@@ -1067,6 +1087,16 @@ Rule_createAssignmentWithVariableAndFormula (const char * variable,
 /**
  * Creates a new RateRule with the given formula 
  * and returns a pointer to it.
+ *
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.  
  *
  * @param variable string representing the variable to be assigned by
  * the Rule_t structure.
@@ -1158,6 +1188,16 @@ Rule_clone (const Rule_t *r)
 
 
 /**
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.  
+ *
  * @return the formula for this Rule.
  */
 LIBSBML_EXTERN
@@ -1214,6 +1254,16 @@ Rule_getUnits (const Rule_t *r)
 
 
 /**
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.
+ *
  * @return true (non-zero) if the formula (or equivalently the math) for
  * this Rule has been set, false (0) otherwise.
  */
@@ -1263,6 +1313,16 @@ Rule_isSetUnits (const Rule_t *r)
 
 /**
  * Sets the formula of this Rule to a copy of string.
+ *
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this one) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.
  */
 LIBSBML_EXTERN
 void

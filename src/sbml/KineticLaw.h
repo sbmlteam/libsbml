@@ -132,10 +132,10 @@ class LIBSBML_EXTERN KineticLaw : public SBase
 public:
 
   /**
-   * Creates a new KineticLaw object, optionally with values for the "formula",
+   * Creates a new KineticLaw object, optionally with values for its "formula",
    * "timeUnits" and/or "substanceUnits" attributes.
    *
-   * This will copy the strings handed in @p timeUnits and @p
+   * This will copy the strings handed in @p formula, @p timeUnits and @p
    * substanceUnits.  This method is functionally equivalent to the following:
    * @code
    *   KineticLaw k = new KineticLaw();
@@ -144,16 +144,27 @@ public:
    *   k.setSubstanceUnits(substanceUnits);
    * @endcode
    *
+   * @note SBML Level 1 uses a text-string format for mathematical
+   * formulas.  SBML Level 2 uses MathML, an XML format for representing
+   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
+   * API for working with mathematical expressions; this API is more
+   * powerful than working with formulas directly in text form, and ASTs
+   * can be translated into either MathML or the text-string syntax.  The
+   * libSBML methods that accept text-string formulas directly (such as
+   * this constructor) are provided for SBML Level 1 compatibility, but
+   * developers are encouraged to use the AST mechanisms.  See the other
+   * KineticLaw constructor for a version that takes an ASTNode.
+   *
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
+   * 
    * @param formula a mathematical expression in text-string form
    * representing the rate of the reaction.
    *
    * @param timeUnits the identifier of the time units
    *
    * @param substanceUnits the identifier of the substance units
-   *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
    */
   KineticLaw (   const std::string& formula        = ""
                , const std::string& timeUnits      = ""
@@ -172,15 +183,15 @@ public:
    *   k.setSubstanceUnits(substanceUnits);
    * @endcode
    *
+   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
+   * attributes were removed.  For compatibility with new versions of SBML,
+   * users are cautioned to avoid these attributes.
+   *
    * @param formula an ASTNode representing the rate of the reaction.
    *
    * @param timeUnits the identifier of the time units
    *
    * @param substanceUnits the identifier of the substance units
-   *
-   * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
-   * attributes were removed.  For compatibility with new versions of SBML,
-   * users are cautioned to avoid these attributes.
    */
   KineticLaw (   const ASTNode* math
                , const std::string& timeUnits      = ""
@@ -229,7 +240,17 @@ public:
    *
    * This is fundamentally equivalent to getMath().  This variant is
    * provided principally for compatibility compatibility with SBML Level
-   * 1, which represented mathematical formulas in text-string form.
+   * 1.
+   *
+   * @note SBML Level 1 uses a text-string format for mathematical
+   * formulas.  SBML Level 2 uses MathML, an XML format for representing
+   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
+   * API for working with mathematical expressions; this API is more
+   * powerful than working with formulas directly in text form, and ASTs
+   * can be translated into either MathML or the text-string syntax.  The
+   * libSBML methods that accept text-string formulas directly (such as
+   * this constructor) are provided for SBML Level 1 compatibility, but
+   * developers are encouraged to use the AST mechanisms.
    * 
    * @return a string representing the formula of this Kineticlaw.
    *
@@ -287,6 +308,16 @@ public:
    * provided in order to mirror the parallel between getFormula() and
    * getMath().
    *
+   * @note SBML Level 1 uses a text-string format for mathematical
+   * formulas.  SBML Level 2 uses MathML, an XML format for representing
+   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
+   * API for working with mathematical expressions; this API is more
+   * powerful than working with formulas directly in text form, and ASTs
+   * can be translated into either MathML or the text-string syntax.  The
+   * libSBML methods that accept text-string formulas directly (such as
+   * this constructor) are provided for SBML Level 1 compatibility, but
+   * developers are encouraged to use the AST mechanisms.
+   *
    * @return @c true if the formula (meaning the @c math subelement) of
    * this Kineticlaw has been set, @c false otherwise.
    */  
@@ -339,9 +370,17 @@ public:
    * given @p formula.
    *
    * The given @p formula string is copied.  Internally, libSBML stores the
-   * mathematical expression as an ASTNode.  The text-string variant is
-   * provided principally for compatibility compatibility with SBML Level
-   * 1, which represented mathematical formulas in text-string form.
+   * mathematical expression as an ASTNode.
+   *
+   * @note SBML Level 1 uses a text-string format for mathematical
+   * formulas.  SBML Level 2 uses MathML, an XML format for representing
+   * mathematical expressions.  LibSBML provides an Abstract Syntax Tree
+   * API for working with mathematical expressions; this API is more
+   * powerful than working with formulas directly in text form, and ASTs
+   * can be translated into either MathML or the text-string syntax.  The
+   * libSBML methods that accept text-string formulas directly (such as
+   * this constructor) are provided for SBML Level 1 compatibility, but
+   * developers are encouraged to use the AST mechanisms.
    *
    * @param formula the mathematical expression to use, represented in
    * text-string form.
