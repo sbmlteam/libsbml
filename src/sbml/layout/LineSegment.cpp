@@ -255,7 +255,7 @@ LineSegment::getId () const
  * Returns false if the id has been set and 
  * true otherwise.
  */
-int
+bool
 LineSegment::isSetId() const
 {
     return !this->mId.empty();

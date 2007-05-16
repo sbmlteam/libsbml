@@ -137,7 +137,7 @@ public:
    * true otherwise.
    */
   
-  int
+  bool
   isSetId() const;
 
   /**
