@@ -9,3 +9,5 @@ libsbml_wrap.cpp
 javadoc.i
 TAGS
 CTAGS
+test_write.xml
+test_copy1.xml
