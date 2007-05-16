@@ -406,6 +406,18 @@ SpeciesReference::setDenominator (int value)
 
 
 /**
+ * Unsets the "stoichiometryMath" subelement of this SpeciesReference.
+ */
+void 
+SpeciesReference::unsetStoichiometryMath ()
+{
+  delete mStoichiometryMath;
+  mStoichiometryMath = 0;
+}
+
+
+
+/**
  * @return the SBMLTypeCode_t of this SBML object or SBML_UNKNOWN
  * (default).
  *
