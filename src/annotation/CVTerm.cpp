@@ -128,6 +128,51 @@ CVTerm::~CVTerm()
   delete mResources;
 }
 
+/**
+ * Copy constructor; creates a copy of a CVTerm.
+ * 
+ * @param orig the CVTerm instance to copy.
+ */
+CVTerm::CVTerm(const CVTerm& orig):
+          mQualifier       (orig.mQualifier)
+        , mModelQualifier  (orig.mModelQualifier)
+        , mBiolQualifier   (orig.mBiolQualifier)
+{
+  //if (orig.mResources.isEmpty())
+  //  mResources = new XMLAttributes();
+  //else
+  //  mResources = new XMLAttributes(orig.getResources());
+  mResources=new XMLAttributes(*orig.mResources);
+}
+
+/**
+ * Assignment operator for CVTerm.
+ */
+CVTerm& 
+CVTerm::operator=(const CVTerm& rhs)
+{
+  mQualifier       = rhs.mQualifier;
+  mModelQualifier  = rhs.mModelQualifier;
+  mBiolQualifier   = rhs.mBiolQualifier;
+
+  mResources=new XMLAttributes(*rhs.mResources);
+  return *this;
+}
+
+
+
+
+
+/**
+  * clones the CVTerm
+  */  
+CVTerm* CVTerm::clone() const
+{
+    CVTerm* term=new CVTerm(*this);
+    term->mResources=new XMLAttributes(*this->mResources);
+    return term;
+}
+
 
 /**
  * set the qualifier type
@@ -213,6 +258,14 @@ CVTerm::getResources()
   return mResources;
 }
 
+/**
+ * gets the resources
+ */
+const XMLAttributes * 
+CVTerm::getResources() const
+{
+  return mResources;
+}
 
 
 /**
@@ -225,15 +278,7 @@ CVTerm::addResource(std::string resource)
 }
 
 
-/**
-  * clones the CVTerm
-  */  
-CVTerm* CVTerm::clone() const
-{
-    CVTerm* term=new CVTerm(*this);
-    term->mResources=new XMLAttributes(*this->mResources);
-    return term;
-}
+
 
 
 /** @cond doxygen-c-only */

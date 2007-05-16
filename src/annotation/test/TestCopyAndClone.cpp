@@ -23,6 +23,7 @@
 
 
 #include "ModelHistory.h"
+#include "CVTerm.h"
 
 #include <check.h>
 
@@ -251,6 +252,72 @@ START_TEST ( test_ModelHistory_clone )
 END_TEST
 
 
+START_TEST ( test_CVTerm_copyConstructor )
+{
+
+  CVTerm * CVTerm1 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm1->addResource("http://www.geneontology.org/#GO:0005892");
+    
+  fail_unless(CVTerm1->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+  CVTerm* CVTerm2=new CVTerm(*CVTerm1);
+
+  fail_unless(CVTerm2->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+  delete CVTerm2;
+  delete CVTerm1;
+}
+END_TEST
+
+START_TEST ( test_CVTerm_assignmentOperator )
+{
+  CVTerm * CVTerm1 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm1->addResource("http://www.geneontology.org/#GO:0005892");
+    
+  fail_unless(CVTerm1->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+
+  CVTerm* CVTerm2=new CVTerm();
+  (*CVTerm2) = *CVTerm1;
+
+  fail_unless(CVTerm2->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+  delete CVTerm2;
+  delete CVTerm1;
+}
+END_TEST
+
+
+START_TEST ( test_CVTerm_clone )
+{
+  CVTerm * CVTerm1 = new CVTerm(BIOLOGICAL_QUALIFIER);
+  CVTerm1->addResource("http://www.geneontology.org/#GO:0005892");
+    
+  fail_unless(CVTerm1->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm1->getResources()->getLength() == 1);
+  fail_unless(CVTerm1->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+
+  CVTerm* CVTerm2 = static_cast<CVTerm*>(CVTerm1->clone());
+
+  fail_unless(CVTerm2->getQualifierType() == BIOLOGICAL_QUALIFIER);
+  fail_unless(CVTerm2->getResources()->getLength() == 1);
+  fail_unless(CVTerm2->getResources()->getValue(0) == "http://www.geneontology.org/#GO:0005892");
+
+  delete CVTerm2;
+  delete CVTerm1;
+}
+END_TEST
+
+
 Suite *
 create_suite_CopyAndClone (void)
 {
@@ -266,6 +333,9 @@ create_suite_CopyAndClone (void)
   tcase_add_test( tcase, test_ModelHistory_copyConstructor );
   tcase_add_test( tcase, test_ModelHistory_assignmentOperator );
   tcase_add_test( tcase, test_ModelHistory_clone );
+  tcase_add_test( tcase, test_CVTerm_copyConstructor );
+  tcase_add_test( tcase, test_CVTerm_assignmentOperator );
+  tcase_add_test( tcase, test_CVTerm_clone );
   suite_add_tcase(suite, tcase);
 
   return suite;

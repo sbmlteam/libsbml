@@ -110,6 +110,20 @@ public:
   ~CVTerm();
 
   /**
+   * Copy constructor; creates a copy of a CVTerm.
+   * 
+   * @param orig the CVTerm instance to copy.
+   */
+  CVTerm(const CVTerm& orig);
+
+
+  /**
+   * Assignment operator for CVTerm.
+   */
+  CVTerm& operator=(const CVTerm& rhs);
+
+
+  /**
    * Creates and returns a deep copy of this CVTerm.
    * 
    * @return a (deep) copy of this CVTerm.
@@ -143,6 +157,13 @@ public:
    * @return the XMLAttributes that store the resources of this %CVTerm.
    */
   XMLAttributes * getResources(); 
+  
+  /**
+   * Returns the resources for this %CVTerm.
+   * 
+   * @return the XMLAttributes that store the resources of this %CVTerm.
+   */
+  const XMLAttributes * getResources() const; 
   
   /**
    * Sets the "QualifierType_t" of this %CVTerm.
