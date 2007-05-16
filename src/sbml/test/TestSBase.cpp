@@ -54,6 +54,7 @@
 
 #include "SBase.h"
 #include "Model.h"
+#include "../annotation/CVTerm.h"
 
 #include <check.h>
 
@@ -206,6 +207,24 @@ START_TEST (test_SBase_setAnnotation)
 }
 END_TEST
 
+START_TEST(test_SBase_CVTerms)
+{
+  CVTerm_t * cv = CVTerm_createWithQualifierType(BIOLOGICAL_QUALIFIER);
+  
+  fail_unless(SBase_getNumCVTerms(S) == 0);
+  fail_unless(SBase_getCVTerms(S) == NULL);
+
+  SBase_addCVTerm(S, cv);
+  fail_unless(SBase_getNumCVTerms(S) == 1);
+  fail_unless(SBase_getCVTerms(S) != NULL);
+
+  fail_unless(SBase_getCVTerm(S, 0) != cv);
+
+  CVTerm_free(cv);
+
+
+}
+END_TEST
 
 Suite *
 create_suite_SBase (void)
@@ -219,6 +238,7 @@ create_suite_SBase (void)
   tcase_add_test(tcase, test_SBase_setMetaId     );
   tcase_add_test(tcase, test_SBase_setNotes      );
   tcase_add_test(tcase, test_SBase_setAnnotation );
+  tcase_add_test(tcase, test_SBase_CVTerms );
 
   suite_add_tcase(suite, tcase);
 

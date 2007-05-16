@@ -669,7 +669,7 @@ SBase::addCVTerm(CVTerm * term)
   if (mCVTerms == NULL)
   {
     mCVTerms = new List();
-    mCVTerms->add((void *) term);
+    mCVTerms->add((void *) term->clone());
   }
   else
   {
@@ -712,7 +712,7 @@ SBase::addCVTerm(CVTerm * term)
     if (added == 0)
     {
       /* no matching terms already in list */
-      mCVTerms->add((void *) term);
+      mCVTerms->add((void *) term->clone());
     }
 
   }
@@ -737,6 +737,41 @@ SBase::getCVTerms() const
 {
   return mCVTerms;
 }
+
+/**
+ * Returns the number of CVTerm objects in the annotations of this SBML
+ * object.
+ * 
+ * @return the number of CVTerms for this SBML object.
+ */
+unsigned int 
+SBase::getNumCVTerms()
+{
+  if (mCVTerms)
+  {
+    return mCVTerms->getSize();
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+
+/**
+ * Returns the nth CVTerm in the list of CVTerms of this SBML
+ * object.
+ * 
+ * @param n unsigned int the index of the CVTerm to retrieve
+ *
+ * @return the nth CVTerm in the list of CVTerms for this SBML object.
+ */
+CVTerm* 
+SBase::getCVTerm(unsigned int n)
+{
+  return static_cast <CVTerm*> (mCVTerms->get(n));
+}
+
 
 /**
  * @return the parent Model of this SBML object.
@@ -2943,6 +2978,68 @@ SBase::setSBaseFields (const XMLToken& element)
 
 
 /** @cond doxygen-c-only */
+
+/**
+ * Adds a copy of the given CVTerm to this SBML object.
+ *
+ * @param sb the object to add the CVTerm to
+ * @param term the CVTerm_t to assign
+ */
+LIBSBML_EXTERN
+void 
+SBase_addCVTerm(SBase_t *sb, CVTerm_t *term)
+{
+  sb->addCVTerm(term);
+}
+
+
+/**
+ * Returns a list of CVTerm objects in the annotations of this SBML
+ * object.
+ *
+ * @param sb the object to getCVTerms from
+ * 
+ * @return the list of CVTerms for this SBML object.
+ */
+LIBSBML_EXTERN
+List_t* 
+SBase_getCVTerms(SBase_t *sb)
+{
+  return sb->getCVTerms();
+}
+
+
+/**
+ * Returns the number of CVTerm objects in the annotations of this SBML
+ * object.
+ *
+ * @param sb the object to getCVTerms from
+ * 
+ * @return the number of CVTerms for this SBML object.
+ */
+LIBSBML_EXTERN
+unsigned int 
+SBase_getNumCVTerms(SBase_t *sb)
+{
+  return sb->getNumCVTerms();
+}
+
+/**
+ * Returns the nth CVTerm in the list of CVTerms of this SBML
+ * object.
+ *
+ * @param sb the object to getCVTerms from
+ * @param n unsigned int the index of the CVTerm to retrieve
+ *
+ * @return the nth CVTerm in the list of CVTerms for this SBML object.
+ */
+LIBSBML_EXTERN
+CVTerm_t* 
+SBase_getCVTerm(SBase_t *sb, unsigned int n)
+{
+  return static_cast <CVTerm_t *> (sb->getCVTerm(n));
+}
+
 
 
 

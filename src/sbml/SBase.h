@@ -782,6 +782,26 @@ public:
 
 
   /**
+   * Returns the number of CVTerm objects in the annotations of this SBML
+   * object.
+   * 
+   * @return the number of CVTerms for this SBML object.
+   */
+  unsigned int getNumCVTerms();
+
+
+  /**
+   * Returns the nth CVTerm in the list of CVTerms of this SBML
+   * object.
+   * 
+   * @param n unsigned int the index of the CVTerm to retrieve
+   *
+   * @return the nth CVTerm in the list of CVTerms for this SBML object.
+   */
+  CVTerm* getCVTerm(unsigned int n);
+
+
+  /**
    * Returns the Model object in which the current object is located.
    * 
    * @return the parent Model of this SBML object.
@@ -1224,6 +1244,26 @@ SBase_unsetAnnotation (SBase_t *sb);
 LIBSBML_EXTERN
 void
 SBase_unsetSBOTerm (SBase_t *sb);
+
+
+LIBSBML_EXTERN
+void 
+SBase_addCVTerm(SBase_t *sb, CVTerm_t *term);
+
+
+LIBSBML_EXTERN
+List_t* 
+SBase_getCVTerms(SBase_t *sb);
+
+
+LIBSBML_EXTERN
+unsigned int 
+SBase_getNumCVTerms(SBase_t *sb);
+
+
+LIBSBML_EXTERN
+CVTerm_t* 
+SBase_getCVTerm(SBase_t *sb, unsigned int n);
 
 
 LIBSBML_EXTERN
