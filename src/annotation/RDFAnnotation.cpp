@@ -531,6 +531,7 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   /* now add the data from the ModelHistory */
   ModelCreator *c;
   XMLNode * creator;// = new XMLNode(creator_token);
+  bag = new XMLNode(bag_token);
   for (unsigned int n = 0; n < history->getCreator()->getSize(); n++)
   {
     empty = new XMLNode(empty_token);
@@ -560,12 +561,11 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
     li->addChild(*N);
     li->addChild(*Email);
     li->addChild(*Org);
-    bag = new XMLNode(bag_token);
     bag->addChild(*li);
-    creator = new XMLNode(creator_token);
-    creator->addChild(*bag);
-    description->addChild(*creator);
   }
+  creator = new XMLNode(creator_token);
+  creator->addChild(*bag);
+  description->addChild(*creator);
   
   /* created date */
   empty = new XMLNode(empty_token);
