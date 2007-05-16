@@ -1422,10 +1422,16 @@ Model::getNumSpecies () const
  * to true.
  */
 unsigned int
-Model::getNumSpeciesWithBoundaryCondition () const // FIXME
+Model::getNumSpeciesWithBoundaryCondition () const 
 {
-  return 0;
-  //return species.countIf( (ListItemPredicate) Species_getBoundaryCondition );
+  unsigned int count = 0;
+
+  for(unsigned int i = 0; i < mSpecies.size(); i++)
+  {
+    if (getSpecies(i)->getBoundaryCondition())
+      count++;
+  }
+  return count;
 }
 
 
