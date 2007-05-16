@@ -433,6 +433,11 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
+  /*
+   * Predicate returning true if the errors encountered are not ignorable.
+   */
+  bool conversion_errors(unsigned int errors);
+
 
   int mLevel;
   int mVersion;

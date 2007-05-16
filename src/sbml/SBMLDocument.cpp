@@ -50,6 +50,47 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+/*
+ * Function to check whether an error reported by a compatability validation
+ * prior to conversion between levels/versions can be ignored.
+ * Some conversions will lose information but the model will still be valid
+ * when converted.
+ */
+static unsigned int ignorable[] = {
+  92003,
+  92004,
+  92005,
+  92006,
+  93001,
+  91003,
+  91005,
+  91006
+};
+
+/*
+ * Predicate returning true if the errors encountered are not ignorable.
+ */
+bool
+SBMLDocument::conversion_errors(unsigned int errors)
+{
+  for (unsigned int i = 0; i < errors; i++)
+  {
+    bool failure = true;
+
+    for (unsigned int n = 0; i < sizeof(ignorable)/sizeof(ignorable[0]); n++)
+    {
+      if (getError(i)->getId() == ignorable[n])
+      {
+	      failure = false;
+	       break;
+      }
+    }
+
+    if (failure) return failure;
+  }
+
+  return false;
+}
 
 /**
  * @return the most recent SBML specification level (at the time this
@@ -184,9 +225,12 @@ SBMLDocument::setLevelAndVersion (unsigned int level, unsigned int version)
     }
     else if (mLevel == 2)
     {
-      if (level == 1 && checkL1Compatibility() == 0)
+      if (level == 1)
       {
-        mModel->convertToL1();
+        if (!conversion_errors(checkL1Compatibility()))
+        {
+          mModel->convertToL1();
+        }
       }
       /* check for conversion between L2 versions */
       else if (mVersion > 1 && version == 1)
