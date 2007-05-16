@@ -80,4 +80,4 @@
 %include sbml/layout/TextGlyph.h
 %include sbml/layout/Layout.h
 
-%include annotation/LayoutAnnotation.h
+%include sbml/annotation/LayoutAnnotation.h
