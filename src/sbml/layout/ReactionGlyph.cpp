@@ -135,10 +135,6 @@ ReactionGlyph::ReactionGlyph(const XMLNode& node)
                 this->mCurve.getCVTerms()->add(static_cast<CVTerm*>(pTmpCurve->getCVTerms()->get(i))->clone());
               }
             }
-            if(pTmpCurve->getModelHistory()!=NULL)
-            {
-              this->mCurve.setModelHistory(pTmpCurve->getModelHistory()->clone());
-            }
             delete pTmpCurve;
         }
         else if(childName=="listOfSpeciesReferenceGlyphs")

@@ -92,10 +92,6 @@ BoundingBox::BoundingBox(const BoundingBox& orig):SBase()
         this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
       }
     }
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
-    }
 }
 
 
@@ -131,12 +127,6 @@ BoundingBox& BoundingBox::operator=(const BoundingBox& orig)
       {
         this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
       }
-    }
-    delete this->mHistory;
-    this->mHistory=NULL;
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
     }
     return *this;
 }

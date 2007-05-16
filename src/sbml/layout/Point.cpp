@@ -93,10 +93,6 @@ Point::Point(const Point& orig):SBase()
         this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
       }
     }
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
-    }
 }
 
 Point& Point::operator=(const Point& orig)
@@ -136,12 +132,6 @@ Point& Point::operator=(const Point& orig)
       {
         this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
       }
-    }
-    delete this->mHistory;
-    this->mHistory=NULL;
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
     }
     return *this;
 }

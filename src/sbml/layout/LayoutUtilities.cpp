@@ -78,10 +78,6 @@ void copySBaseAttributes(const SBase& source,SBase& target)
     {
       target.setNotes(new XMLNode(*const_cast<SBase&>(source).getNotes()));
     }
-    if(source.getModelHistory()!=NULL)
-    {
-      target.setModelHistory(source.getModelHistory()->clone());
-    }
     List* pCVTerms=target.getCVTerms();
     // first delete all the old CVTerms
     if(pCVTerms)

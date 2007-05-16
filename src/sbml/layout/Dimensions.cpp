@@ -99,10 +99,6 @@ Dimensions::Dimensions(const Dimensions& orig):SBase()
         this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
       }
     }
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
-    }
 }
 
 Dimensions& Dimensions::operator=(const Dimensions& orig)
@@ -134,12 +130,6 @@ Dimensions& Dimensions::operator=(const Dimensions& orig)
       {
         this->mCVTerms->add(static_cast<CVTerm*>(orig.mCVTerms->get(i))->clone());
       }
-    }
-    delete this->mHistory;
-    this->mHistory=NULL;
-    if(orig.mHistory)
-    {
-      this->mHistory=orig.mHistory->clone();
     }
     return *this;
 }
