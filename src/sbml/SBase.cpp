@@ -484,6 +484,14 @@ SBase::appendAnnotation (const XMLNode* annotation)
 
   if (mAnnotation != 0)
   {
+    /* if mAnnotation is just <annotation/> need to tell
+     * it to no longer be an end
+     */
+    if (mAnnotation->isEnd())
+    {
+      mAnnotation->unsetEnd();
+    }
+
     /* check for annotation tags and remove */
 
     if (name == "annotation")

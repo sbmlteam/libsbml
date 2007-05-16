@@ -372,6 +372,16 @@ XMLToken::setEnd ()
 
 
 /**
+ * Declares this XML start/end element is no longer an end element.
+ */
+void
+XMLToken::unsetEnd ()
+{
+  mIsEnd = false;
+}
+
+
+/**
  * Declares this XMLToken is an end-of-file (input) marker.
  */
 void

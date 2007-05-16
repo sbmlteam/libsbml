@@ -390,6 +390,35 @@ START_TEST (test_RDFAnnotation_recreate)
 }
 END_TEST
 
+START_TEST (test_RDFAnnotation_recreateFromEmpty)
+{
+  Compartment* c = m->getCompartment(3);
+
+  const char * expected =
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    "<compartment id=\"C\">\n"
+    "  <annotation>\n"
+		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"      <rdf:Description rdf:about=\"#\">\n"
+		"        <bqbiol:is>\n"
+		"          <rdf:Bag>\n"
+		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0007274\"/>\n"
+		"          </rdf:Bag>\n"
+		"        </bqbiol:is>\n"
+		"      </rdf:Description>\n"
+		"    </rdf:RDF>\n"
+    "  </annotation>\n"
+    "</compartment>";
+
+
+  c->write(*XOS);
+
+  fail_unless( equals(expected) );
+
+}
+END_TEST
+
+
 START_TEST (test_RDFAnnotation_deleteWithOutOther)
 {
   Compartment* c = m->getCompartment(2);
@@ -458,6 +487,7 @@ create_suite_RDFAnnotation (void)
   tcase_add_test(tcase, test_RDFAnnotation_delete );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOther );
   tcase_add_test(tcase, test_RDFAnnotation_recreate );
+  tcase_add_test(tcase, test_RDFAnnotation_recreateFromEmpty );
   tcase_add_test(tcase, test_RDFAnnotation_deleteWithOutOther );
   tcase_add_test(tcase, test_RDFAnnotation_recreateWithOutOther );
   suite_add_tcase(suite, tcase);

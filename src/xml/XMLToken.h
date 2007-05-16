@@ -282,6 +282,10 @@ public:
 
 
   /**
+   * Declares this XML start/end element is no longer an end element.
+   */
+  void unsetEnd ();
+  /**
    * Writes this XMLToken to stream.
    *
    * @param stream XMLOutputStream, stream to which this XMLToken
