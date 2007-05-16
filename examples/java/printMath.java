@@ -26,7 +26,6 @@ import org.sbml.libsbml.Reaction;
 import org.sbml.libsbml.Rule;
 import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.SBMLReader;
-import org.sbml.libsbml.OstreamWrapper;
 import org.sbml.libsbml.libsbml;
  
 
@@ -41,7 +40,6 @@ public class printMath
     }
 
     String filename       = args[0];
-    OstreamWrapper stderr = new OstreamWrapper(OstreamWrapper.CERR);
     SBMLReader reader     = new SBMLReader();
     SBMLDocument document;
     Model        model;
@@ -51,7 +49,7 @@ public class printMath
 
     if (document.getNumErrors() > 0)
     {
-      document.printErrors(stderr);
+      document.printErrors();
       println("Printing skipped.  Please correct the above problems first.");
       System.exit(1);
     }
@@ -76,15 +74,11 @@ public class printMath
  
   static void printFunctionDefinition (int n, FunctionDefinition fd)
   {
-    ASTNode math;
-    String  formula;
-
-
     if (fd.isSetMath())
     {
       print("FunctionDefinition " + n + ", " + fd.getId() + "(");
 
-      math = fd.getMath();
+      ASTNode math = fd.getMath();
 
       /* Print function arguments. */
       if (math.getNumChildren() > 1)
@@ -106,9 +100,8 @@ public class printMath
       }
       else
       {
-        math    = math.getChild(math.getNumChildren() - 1);
-        formula = libsbml.formulaToString(math);
-        println(formula);
+        math = math.getChild(math.getNumChildren() - 1);
+        println(libsbml.formulaToString(math));
       }
     }
   }
@@ -116,30 +109,28 @@ public class printMath
 
   static void printRuleMath (int n, Rule r)
   {
-    String formula;
-
-
     if (r.isSetMath())
     {
-      formula = libsbml.formulaToString(r.getMath());
-      println("Rule " + n + ", formula: " + formula);
+      String formula = libsbml.formulaToString(r.getMath());
+      String var     = r.getVariable();
+
+      if (r.getVariable().length() > 0)
+	  println("Rule " + n + ", formula: " + var + " = " + formula);
+      else
+	  println("Rule " + n + ", formula: " + formula + " = 0");
     }
   }
     
     
   static void printReactionMath (int n, Reaction r)
   {
-    String     formula;
-    KineticLaw kl;
-
-
     if (r.isSetKineticLaw())
     {
-      kl = r.getKineticLaw();
+      KineticLaw kl = r.getKineticLaw();
             
       if ( kl.isSetMath() )
       {
-        formula = libsbml.formulaToString( kl.getMath() );
+        String formula = libsbml.formulaToString( kl.getMath() );
         println("Reaction " + n + ", formula: " + formula);
       }
     }
@@ -243,27 +234,26 @@ public class printMath
       // For extra safety, check that the jar file is in the classpath.
       Class.forName("org.sbml.libsbml.libsbml");
     }
-    catch (SecurityException e)
-    {
-      System.err.println("\nCould not load the libSBML library files due to a"+
-			 " security exception.\n");
-    }
     catch (UnsatisfiedLinkError e)
     {
-      System.err.println("\nError: could not link with the libSBML library."+
+      System.err.println("Error: could not link with the libSBML library."+
 			 "  It is likely\nyour " + varname +
 			 " environment variable does not include\nthe"+
-			 " directory containing the libsbml.dylib library"+
-			 " file.\n");
+			 " directory containing the libsbml library file.");
       System.exit(1);
     }
     catch (ClassNotFoundException e)
     {
-      System.err.println("\nError: unable to load the file libsbmlj.jar."+
-			 "  It is likely\nyour " + varname +
-			 " environment variable does not include\nthe "+
-			 " directory containing the libsbmlj.jar file.\n");
+      System.err.println("Error: unable to load the file libsbmlj.jar."+
+			 "  It is likely\nyour " + varname + " environment"+
+			 " variable or CLASSPATH variable\ndoes not include"+
+			 " the directory containing the libsbmlj.jar file.");
       System.exit(1);
+    }
+    catch (SecurityException e)
+    {
+      System.err.println("Could not load the libSBML library files due to a"+
+			 " security exception.");
     }
   }
 }
