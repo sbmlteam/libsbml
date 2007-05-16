@@ -289,6 +289,49 @@ XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child)
   node->addChild(*child);
 }
 
+/**
+ * Returns the attributes of this element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the XMLAttributes_t of this XML element.
+ */
+LIBLAX_EXTERN
+const XMLAttributes_t *
+XMLNode_getAttributes (const XMLNode_t *node)
+{
+  return &(node->getAttributes());
+}
+
+
+/**
+ * Returns the text of this element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the characters of this XML text.
+ */
+LIBLAX_EXTERN
+const char *
+XMLNode_getCharacters (const XMLNode_t *node)
+{
+  return node->getCharacters().empty() ? NULL : node->getCharacters().c_str();
+}
+
+/**
+ * Returns the XML namespace declarations for this XML element.
+ *
+ * @param node XMLNode_t structure to be queried.
+ *
+ * @return the XML namespace declarations for this XML element.
+ */
+LIBLAX_EXTERN
+const XMLNamespaces_t *
+XMLNode_getNamespaces (const XMLNode_t *node)
+{
+  return &(node->getNamespaces());
+}
+
 
 /**
  * Returns the (unqualified) name of this XML element.
@@ -367,19 +410,6 @@ XMLNode_getNumChildren (const XMLNode_t *node)
   return node->getNumChildren();
 }
 
-/**
- * Returns the text of this element.
- *
- * @param token XMLToken_t structure to be queried.
- *
- * @return the characters of this XML text.
- */
-LIBLAX_EXTERN
-const char *
-XMLNode_getCharacters (const XMLNode_t *node)
-{
-  return node->getCharacters().empty() ? NULL : node->getCharacters().c_str();
-}
 
 
 

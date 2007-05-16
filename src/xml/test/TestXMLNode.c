@@ -89,6 +89,12 @@ START_TEST (test_XMLNode_getters)
 {
   XMLToken_t *token;
   XMLNode_t *node;
+  XMLTriple_t *triple;
+  XMLAttributes_t *attr;
+  XMLNamespaces_t *NS;
+
+  NS = XMLNamespaces_create();
+  XMLNamespaces_add(NS, "http://test1.org/", "test1");
 
   token = XMLToken_createWithText("This is a test");
   node = XMLNode_createFromToken(token);
@@ -99,6 +105,28 @@ START_TEST (test_XMLNode_getters)
   fail_unless(strcmp(XMLNode_getCharacters(node), "This is a test") == 0);
   fail_unless (XMLNode_getChild(node, 1) != NULL);
 
+  attr = XMLAttributes_create();
+  fail_unless(attr != NULL);
+  XMLAttributes_add(attr, "attr2", "value");
+  
+  triple = XMLTriple_createWith("attr", "uri", "prefix");
+  token = XMLToken_createWithTripleAttr(triple, attr);  
+
+  fail_unless(token != NULL);
+  node = XMLNode_createFromToken(token);
+
+  const XMLAttributes_t *returnattr = XMLNode_getAttributes(node);
+  fail_unless(strcmp(XMLAttributes_getName(returnattr, 0), "attr2") == 0);
+  fail_unless(strcmp(XMLAttributes_getValue(returnattr, 0), "value") == 0);
+
+  token = XMLToken_createWithTripleAttrNS(triple, attr, NS); 
+  node = XMLNode_createFromToken(token);
+
+  const XMLNamespaces_t *returnNS = XMLNode_getNamespaces(node);
+  fail_unless( XMLNamespaces_getLength(returnNS) == 1 );
+  fail_unless( XMLNamespaces_isEmpty(returnNS) == 0 );
+  
+  XMLTriple_free(triple);
   XMLToken_free(token);
   XMLNode_free(node);
 

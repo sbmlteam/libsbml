@@ -195,6 +195,19 @@ LIBLAX_EXTERN
 void
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 
+LIBLAX_EXTERN
+const XMLAttributes_t *
+XMLNode_getAttributes (const XMLNode_t *node);
+
+
+LIBLAX_EXTERN
+const char *
+XMLNode_getCharacters (const XMLNode_t *node);
+
+LIBLAX_EXTERN
+const XMLNamespaces_t *
+XMLNode_getNamespaces (const XMLNode_t *node);
+
 
 LIBLAX_EXTERN
 const char *
@@ -220,9 +233,6 @@ LIBLAX_EXTERN
 unsigned int
 XMLNode_getNumChildren (const XMLNode_t *node);
 
-LIBLAX_EXTERN
-const char *
-XMLNode_getCharacters (const XMLNode_t *node);
 
 
 
