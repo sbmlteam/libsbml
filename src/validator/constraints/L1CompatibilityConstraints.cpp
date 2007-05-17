@@ -63,8 +63,8 @@ END_CONSTRAINT
 START_CONSTRAINT (91003, Model, x)
 {
   msg =
-    "Conversion of a model with Constraints to Level 1 is not yet "
-    "supported.";
+    "Conversion of a model with Constraints to Level 1 may result "
+    "in loss of information.";
 
   inv( m.getNumConstraints() == 0 );
 }

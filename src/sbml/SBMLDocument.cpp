@@ -57,6 +57,7 @@ using namespace std;
  * when converted.
  */
 static unsigned int ignorable[] = {
+  92001,
   92003,
   92004,
   92005,

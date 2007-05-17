@@ -43,8 +43,8 @@ using namespace std;
 START_CONSTRAINT (92001, Model, x)
 {
   msg =
-    "Conversion of a model with Constraints to Level 2 Version 1 is not yet "
-    "supported.";
+    "Conversion of a model with Constraints to Level 2 Version 1 may result "
+    "in loss of information.";
 
   inv( m.getNumConstraints() == 0 );
 }

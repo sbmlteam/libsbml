@@ -29,6 +29,7 @@ using namespace std;
  * structure of a model.
  */
 static unsigned int ignorable[] = {
+  92001,
   92003,
   92004,
   92005,
