@@ -78,8 +78,9 @@ GetSpeciesRef (const ListOf& items, const string& species)
  * Creates a new Reaction, optionally with its id, KineticLaw, and
  * reversible attributes set.
  */
-Reaction::Reaction (const string& id, const KineticLaw* kl, bool reversible) :
-    SBase      ( id , "", -1        )
+Reaction::Reaction (const string& id, const string& name, 
+                    const KineticLaw* kl, bool reversible) :
+    SBase      ( id , name, -1        )
   , mKineticLaw( 0          )
   , mReversible( reversible )
   , mFast      ( false      )
@@ -1003,12 +1004,13 @@ Reaction_createWith (const char *sid, const char * name)
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWithKineticLaw ( const char   *sid,
+                               const char *name,
                       KineticLaw_t *kl,
                       int          reversible,
                       int          fast )
 {
   KineticLaw* k = static_cast<KineticLaw*>(kl);
-  Reaction*   r = new(nothrow) Reaction(sid ? sid : "", k, reversible);
+  Reaction*   r = new(nothrow) Reaction(sid ? sid : "", name ? name : "", k, reversible);
 
 
   r->setFast(fast);

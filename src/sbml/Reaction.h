@@ -186,11 +186,14 @@ public:
    *
    * @param sid an identifier string for the Reaction
    *
+   * @param name a name string for the Reaction
+   *
    * @param kl a KineticLaw object
    *
    * @param reversible a boolean value for the "reversible" flag
    */
   Reaction (  const std::string&  sid        = ""
+            , const std::string& name        = ""
             , const KineticLaw*   kl         = 0
             , bool                reversible = true );
 
@@ -887,6 +890,7 @@ Reaction_createWith (const char *sid, const char *name);
 LIBSBML_EXTERN
 Reaction_t *
 Reaction_createWithKineticLaw ( const char   *sid,
+                      const char   *name,
                       KineticLaw_t *kl,
                       int          reversible,
                       int          fast );
