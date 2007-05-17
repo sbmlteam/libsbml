@@ -42,7 +42,7 @@ END_TEST
 START_TEST (test_XMLErrorLog_add)
 {
   XMLErrorLog_t *log = XMLErrorLog_create();
-  XMLError_t *error = XMLError_create();
+  const XMLError_t *error = XMLError_create();
 
   XMLErrorLog_add(log, error);
 

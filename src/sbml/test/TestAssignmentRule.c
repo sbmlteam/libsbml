@@ -51,6 +51,7 @@
 
 #include "common/common.h"
 #include "math/FormulaParser.h"
+#include "math/FormulaFormatter.h"
 
 #include "SBase.h"
 #include "Rule.h"
@@ -162,7 +163,6 @@ END_TEST
 START_TEST (test_AssignmentRule_createWithMath)
 {
   ASTNode_t       *math = SBML_parseFormula("1 + 1");
-  char *formula;
 
   Rule_t *ar = Rule_createAssignmentWithVariableAndMath("s", math);
 
@@ -174,7 +174,6 @@ START_TEST (test_AssignmentRule_createWithMath)
   fail_unless( Rule_getMath((Rule_t *) ar) != math );
 
   Rule_free(ar);
-  safe_free(formula);
 }
 END_TEST
 

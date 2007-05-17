@@ -191,7 +191,6 @@ START_TEST (test_RDFAnnotation_parseModelHistory)
   fail_unless(!strcmp(XMLNode_getURI(Family), "http://www.w3.org/2001/vcard-rdf/3.0#"));
   fail_unless(XMLNode_getNumChildren(Family) == 1);
 
-  const XMLNode_t *LN = XMLNode_getChild(Family, 0);
 
   const XMLNode_t *Given = XMLNode_getChild(N, 1);
   fail_unless(!strcmp(XMLNode_getName(Given), "Given"));

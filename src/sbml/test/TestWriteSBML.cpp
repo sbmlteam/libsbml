@@ -1167,7 +1167,7 @@ START_TEST (test_WriteSBML_Reaction)
   );
 
 
-  Reaction r("r", NULL, false);
+  Reaction r("", "r", NULL, false);
   r.setFast(true);
 
   r.setSBMLDocument(D);
@@ -1243,7 +1243,7 @@ START_TEST (test_WriteSBML_Reaction_L2v1)
   );
 
 
-  Reaction r("r", NULL, false);
+  Reaction r("r", "", NULL, false);
 
   r.setSBMLDocument(D);
   r.write(*XOS);

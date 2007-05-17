@@ -23,6 +23,7 @@
 #include "common/common.h"
 #include "CVTerm.h"
 #include "../../xml/XMLNode.h"
+#include "../../xml/XMLTriple.h"
 
 #include <check.h>
 

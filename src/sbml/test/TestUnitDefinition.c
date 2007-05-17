@@ -100,7 +100,7 @@ END_TEST
 
 START_TEST (test_UnitDefinition_createWith)
 {
-  UnitDefinition_t *ud = UnitDefinition_createWith("mmls");
+  UnitDefinition_t *ud = UnitDefinition_createWith("mmls", "");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) ud) == SBML_UNIT_DEFINITION );

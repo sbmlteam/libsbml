@@ -51,6 +51,7 @@
 
 #include "common/common.h"
 #include "math/FormulaParser.h"
+#include "math/FormulaFormatter.h"
 
 #include "SBase.h"
 #include "Delay.h"
@@ -97,7 +98,7 @@ START_TEST (test_Delay_createWithMath)
   ASTNode_t            *math = SBML_parseFormula("x^3");
   Delay_t *fd   = Delay_createWithMath(math);
 
-  ASTNode_t * math1;
+  const ASTNode_t * math1;
   char * formula;
 
   fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_DELAY );
@@ -132,7 +133,7 @@ START_TEST (test_Delay_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("lambda(x, x^3)");
 
-  ASTNode_t * math1;
+  const ASTNode_t * math1;
   char * formula;
 
   Delay_setMath(D, math);

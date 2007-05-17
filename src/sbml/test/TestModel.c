@@ -108,7 +108,7 @@ END_TEST
 
 START_TEST (test_Model_createWith)
 {
-  Model_t *m = Model_createWith("repressilator");
+  Model_t *m = Model_createWith("repressilator", "");
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) m) == SBML_MODEL );  
@@ -221,7 +221,6 @@ START_TEST(test_Model_setgetModelHistory)
 
   fail_unless(Model_isSetModelHistory(M) == 1);
 
-  ModelHistory_t *h1 = Model_getModelHistory(M);
   ModelCreator_t *newMC = List_get(ModelHistory_getCreator(history), 0);
 
   fail_unless(newMC != NULL);

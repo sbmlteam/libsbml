@@ -104,7 +104,7 @@ END_TEST
 START_TEST (test_Reaction_createWith)
 {
   KineticLaw_t *kl = KineticLaw_create();
-  Reaction_t   *r  = Reaction_createWithKineticLaw("r1", kl, 0, 1);
+  Reaction_t   *r  = Reaction_createWithKineticLaw("r1", "", kl, 0, 1);
 
 
   fail_unless( SBase_getTypeCode  ((SBase_t *) r) == SBML_REACTION );

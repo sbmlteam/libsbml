@@ -39,7 +39,6 @@
 
 extern char *TestDataDirectory;
 
-static UnitFormulaFormatter *uff;
 static Model *m;
 static SBMLDocument* d;
 

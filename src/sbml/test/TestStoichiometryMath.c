@@ -51,6 +51,7 @@
 
 #include "common/common.h"
 #include "math/FormulaParser.h"
+#include "math/FormulaFormatter.h"
 
 #include "SBase.h"
 #include "StoichiometryMath.h"
@@ -97,7 +98,7 @@ START_TEST (test_StoichiometryMath_createWithMath)
   ASTNode_t            *math = SBML_parseFormula("x^3");
   StoichiometryMath_t *fd   = StoichiometryMath_createWithMath(math);
 
-  ASTNode_t * math1;
+  const ASTNode_t * math1;
   char * formula;
 
   fail_unless( SBase_getTypeCode((SBase_t *) fd) == SBML_STOICHIOMETRY_MATH );
@@ -132,7 +133,7 @@ START_TEST (test_StoichiometryMath_setMath)
 {
   ASTNode_t *math = SBML_parseFormula("lambda(x, x^3)");
 
-  ASTNode_t * math1;
+  const ASTNode_t * math1;
   char * formula;
 
   StoichiometryMath_setMath(D, math);
