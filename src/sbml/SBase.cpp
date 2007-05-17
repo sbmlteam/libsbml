@@ -1309,8 +1309,6 @@ SBase::checkIdSyntax()
 void
 SBase::checkAnnotation()
 {
-  const string&  name = mAnnotation->getName();
-
   unsigned int nNodes = 0;
   unsigned int match = 0;
   int n = 0;
