@@ -107,7 +107,16 @@ class CHeader:
 
       if stripped.startswith('class ') and not stripped.endswith(';'):
         inClass   = True
-        classname = line[6:].split(':')[0].strip()
+        rep = re.compile('class *.*_EXTERN *')
+        m   = rep.search(stripped)
+        if m != None:
+          margin = m.end() - m.start()
+          classname = line[margin:].split(':')[0].strip()
+        else:
+          rep = re.compile('class *')
+          m   = rep.search(stripped)
+          margin = m.end() - m.start()
+          classname = line[margin:].split(':')[0].strip()
         self.classes.append( CClass(classname) )
         continue
 
@@ -117,18 +126,29 @@ class CHeader:
 
       if inDocs or stripped == '/**':
         docstring += line
-        inDocs     = (stripped != '*/')
+        if stripped == '*/':
+          inDocs = False
+          inFunc = True	
+          continue
+        else:
+          inDocs = True
         continue
 
       if stripped == 'LIBSBML_EXTERN':
         inFunc = True
         continue
 
+      if stripped == 'LIBLAX_EXTERN':
+        inFunc = True
+        continue
+
       if inFunc:
+        if stripped.startswith('#'):
+          inFunc = False
+          continue
         lines += line
 
-      if inFunc and stripped.endswith(';'):
-
+      if inFunc and stripped.endswith(');'):
         stop = lines.rfind('(')
         name = lines[:stop].split()[-1]
         func = CFunction(docstring, name)
@@ -254,7 +274,7 @@ def writeDocstring (ostream, language, docstring, methodname, classname=None):
   """
   if language == 'java':
     pre  = '%javamethodmodifiers'
-    post = 'public'
+    post = '  public'
   elif language == 'perl':
     pre  = '=item'
     post = ''
