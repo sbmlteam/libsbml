@@ -28,6 +28,9 @@
 %feature("autodoc", "1");
 %include "pydoc.i"
 
+%include "std_iostream.i"
+%include "std_sstream.i"
+
 
 /**
  * Convert an SBase object to a string.
@@ -163,20 +166,49 @@
  * owned by that ListOf.
  */
 
+%define TAKEOVER_OWNERSHIP(METHOD_NAME,ARG_INDEX)
+%feature("pythonprepend")
+METHOD_NAME
+%{
+        if args[ARG_INDEX] is not None: args[ARG_INDEX].thisown = 0
+%}
+%enddef
+
 
 // ----------------------------------------------------------------------
 // ListOf
 // ----------------------------------------------------------------------
 
+TAKEOVER_OWNERSHIP(ListOf::appendAndOwn(SBase*),1)
 
-%feature("shadow")
-ListOf::appendAndOwn(SBase*)
-%{
-  def appendAndOwn(*args):
-    if args[1] is not None: args[1].thisown = 0
-    return _libsbml.ListOf_append(*args)
-%}
+// ----------------------------------------------------------------------
+// ASTNode
+// ----------------------------------------------------------------------
 
+TAKEOVER_OWNERSHIP(ASTNode::addChild(ASTNode*),1)
+TAKEOVER_OWNERSHIP(ASTNode::prependChild(ASTNode*),1)
+
+// ----------------------------------------------------------------------
+// RDFAnnotationParser
+// ----------------------------------------------------------------------
+
+TAKEOVER_OWNERSHIP(FormulaUnitsData::setUnitDefinition(UnitDefinition*),1)
+TAKEOVER_OWNERSHIP(FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition *),1)
+TAKEOVER_OWNERSHIP(FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition *),1)
+
+/**
+ * The features directives below override the default SWIG generated
+ * python code for methods which return new SBase* object.  
+ * The idea is to tell SWIG to give the ownership of new SBase* object
+ * to caller.
+ * Generally, %newobject directive is used for such ownership management.
+ * Regarding to SBase*, however, the above "%typemap(out) SBase*" directive 
+ * overrides the native SWIG_NewPointerObj() function (used in libsbml_wrap.cpp)
+ * and reset ownership flag (SWIG_POINTER_OWN is set by %newobject) to 0. 
+ */
+// ----------------------------------------------------------------------
+// ListOf
+// ----------------------------------------------------------------------
 
 %feature("shadow")
 ListOf::remove(unsigned int)
@@ -197,31 +229,18 @@ ListOf::remove(const std::string&)
     return result
 %}
 
-
-
 // ----------------------------------------------------------------------
-// ASTNode
+// SBase* *::clone()
 // ----------------------------------------------------------------------
 
-
 %feature("shadow")
-ASTNode::addChild(ASTNode*)
+SBase::clone() const
 %{
-  def addChild(*args):
-    if args[1] is not None: args[1].thisown = 0
-    return _libsbml.ASTNode_addChild(*args)
+      def clone(*args):
+        result = _libsbml.SBase_clone(*args)
+        if result is not None: result.thisown = 1
+        return result
 %}
-
-
-%feature("shadow")
-ASTNode::prependChild(ASTNode*)
-%{
-  def prependChild(*args):
-    if args[1] is not None: args[1].thisown = 0
-    return _libsbml.ASTNode_prependChild(*args)
-%}
-
-
 
 // ----------------------------------------------------------------------
 // SBMLReader
@@ -262,8 +281,8 @@ SBMLReader::readSBML(const std::string&)
       reader = libsbml.SBMLReader()
       d      = reader.readSBML(filename)
 
-      if d.getNumFatals() > 0:
-        pm = d.getFatal(0)
+      if d.getNumErrors() > 0:
+        pm = d.getError(0)
         if pm.getId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ..
         if pm.getId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
     """
@@ -295,16 +314,14 @@ def readSBML(*args):
 
     d = readSBML(filename)
 
-    if d.getNumFatals() > 0:
-      pm = d.getFatal(0)
+    if d.getNumErrors() > 0:
+      pm = d.getError(0)
       if pm.getId() == libsbml.SBML_READ_ERROR_FILE_NOT_FOUND: ...
       if pm.getId() == libsbml.SBML_READ_ERROR_NOT_SBML: ...
   """
   reader = SBMLReader()
   return reader.readSBML(args[0])
 %}
-
-
 
 // ----------------------------------------------------------------------
 // Layout Extension

@@ -32,7 +32,7 @@ GetDowncastSwigType (SBase* sb)
 {
   if (sb == 0) return SWIGTYPE_p_SBase;
 
-
+  std::string name;
   switch (sb->getTypeCode())
   {
     case SBML_COMPARTMENT:
@@ -63,6 +63,90 @@ GetDowncastSwigType (SBase* sb)
       return SWIGTYPE_p_KineticLaw;
 
     case SBML_LIST_OF:
+      name = sb->getElementName();
+      if(name == "listOf"){
+        return SWIGTYPE_p_ListOf;
+      }
+      else if(name == "listOfCompartments"){
+        return SWIGTYPE_p_ListOfCompartments;
+      }
+      else if(name == "listOfCompartmentTypes"){
+        return SWIGTYPE_p_ListOfCompartmentTypes;
+      }
+      else if(name == "listOfConstraints"){
+        return SWIGTYPE_p_ListOfConstraints;
+      }
+      else if(name == "listOfEvents"){
+        return SWIGTYPE_p_ListOfEvents;
+      }
+      else if(name == "listOfEventAssignments"){
+        return SWIGTYPE_p_ListOfEventAssignments;
+      }
+      else if(name == "listOfFunctionDefinitions"){
+        return SWIGTYPE_p_ListOfFunctionDefinitions;
+      }
+      else if(name == "listOfInitialAssignments"){
+        return SWIGTYPE_p_ListOfInitialAssignments;
+      }
+      else if(name == "listOfParameters"){
+        return SWIGTYPE_p_ListOfParameters;
+      }
+      else if(name == "listOfReactions"){
+        return SWIGTYPE_p_ListOfReactions;
+      }
+      else if(name == "listOfRules"){
+        return SWIGTYPE_p_ListOfRules;
+      }
+      else if(name == "listOfSpecies"){
+        return SWIGTYPE_p_ListOfSpecies;
+      }
+      else if(name == "listOfUnknowns"){
+        return SWIGTYPE_p_ListOfSpeciesReferences;
+      }
+      else if(name == "listOfReactants"){
+        return SWIGTYPE_p_ListOfSpeciesReferences;
+      }
+      else if(name == "listOfProducts"){
+        return SWIGTYPE_p_ListOfSpeciesReferences;
+      }
+      else if(name == "listOfModifiers"){
+        return SWIGTYPE_p_ListOfSpeciesReferences;
+      }
+      else if(name == "listOfSpeciesTypes"){
+        return SWIGTYPE_p_ListOfSpeciesTypes;
+      }
+      else if(name == "listOfUnits"){
+        return SWIGTYPE_p_ListOfUnits;
+      }
+      else if(name == "listOfUnitDefinitions"){
+        return SWIGTYPE_p_ListOfUnitDefinitions;
+      }
+#ifdef USE_LAYOUT
+      else if(name == "listOfCompartmentGlyphs"){
+        return SWIGTYPE_p_ListOfCompartmentGlyphs;
+      }
+      else if(name == "listOfAdditionalGraphicalObjects"){
+        return SWIGTYPE_p_ListOfGraphicalObjects;
+      }
+      else if(name == "listOfLayouts"){
+        return SWIGTYPE_p_ListOfLayouts;
+      }
+      else if(name == "listOfCurveSegments"){
+        return SWIGTYPE_p_ListOfLineSegments;
+      }
+      else if(name == "listOfSpeciesGlyphs"){
+        return SWIGTYPE_p_ListOfSpeciesGlyphs;
+      }
+      else if(name == "listOfSpeciesReferenceGlyphs"){
+        return SWIGTYPE_p_ListOfSpeciesReferenceGlyphs;
+      }
+      else if(name == "listOfReactionGlyphs"){
+        return SWIGTYPE_p_ListOfReactionGlyphs;
+      }
+      else if(name == "listOfTextGlyphs"){
+        return SWIGTYPE_p_ListOfTextGlyphs;
+      }
+#endif // USE_LAYOUT
       return SWIGTYPE_p_ListOf;
 
     case SBML_MODEL:
@@ -100,6 +184,21 @@ GetDowncastSwigType (SBase* sb)
 
     case SBML_RATE_RULE:
       return SWIGTYPE_p_RateRule;
+
+    case SBML_DELAY:
+      return SWIGTYPE_p_Delay;
+
+    case SBML_TRIGGER:
+      return SWIGTYPE_p_Trigger;
+
+    case SBML_FORMULA_UNITS_DATA:
+      return SWIGTYPE_p_FormulaUnitsData;
+
+    case SBML_LIST_FORMULA_UNITS_DATA:
+      return SWIGTYPE_p_ListFormulaUnitsData;
+
+    case SBML_STOICHIOMETRY_MATH:
+     return SWIGTYPE_p_StoichiometryMath;
       
 #ifdef USE_LAYOUT
     case SBML_LAYOUT_BOUNDINGBOX:

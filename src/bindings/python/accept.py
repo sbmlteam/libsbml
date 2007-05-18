@@ -129,7 +129,7 @@ def testSpecies():
    assert species.getInitialConcentration() == 0.0
 
    species.unsetInitialConcentration()
-   print species.getInitialConcentration()
+   #print species.getInitialConcentration()
 
    str(species)
 
@@ -159,7 +159,7 @@ def testReaction():
    assert kineticLaw
    assert kineticLaw.getFormula() == "1 + 1"
 
-   reaction = libsbml.Reaction("R", None, False)
+   reaction = libsbml.Reaction("R", "R", None, False)
    reaction.setKineticLaw(kineticLaw)
    #FIXME
    #assert kineticLaw == reaction.getKineticLaw()
@@ -227,7 +227,7 @@ def testUnitDefinition():
    ud = libsbml.UnitDefinition()
    assert ud
 
-   unit = libsbml.Unit(libsbml.UNIT_KIND_KILOGRAM, 1, 1000, 1, 0)
+   unit = libsbml.Unit(libsbml.UNIT_KIND_KILOGRAM, 1, 1000, 1)
    assert unit.thisown
    ud.addUnit(unit);
 
@@ -239,7 +239,8 @@ def testSpeciesReference():
    assert speciesReference
 
    formula = libsbml.parseFormula("2 + 2")
-   speciesReference.setStoichiometryMath(formula)
+   smath   = libsbml.StoichiometryMath(formula)
+   speciesReference.setStoichiometryMath(smath)
 
    str(speciesReference)
 
@@ -248,25 +249,24 @@ def testEvent():
    event = libsbml.Event()
    assert event
 
-   event = libsbml.Event("eventId0", "trigger", "delay")
+   event = libsbml.Event("eventId0", "trigger")
    assert event
-
-   trigger1 = libsbml.parseFormula("1")
-   event = libsbml.Event("eventId1", trigger1)
-
-   trigger2 = libsbml.parseFormula("2")
-   delay = libsbml.parseFormula("3")
-   event = libsbml.Event("eventId2", trigger2, delay)
 
    # setTrigger()
 
    formula = libsbml.parseFormula("3 + 3")
-   event.setTrigger(formula)
+   trigger = libsbml.Trigger()
+   assert trigger
+   trigger.setMath(formula)
+   event.setTrigger(trigger)
 
    # setDelay()
 
    formula = libsbml.parseFormula("4 + 4")
-   event.setDelay(formula)
+   delay = libsbml.Delay()
+   assert delay
+   delay.setMath(formula)
+   event.setDelay(delay)
 
    # addEventAssignment()
 
@@ -280,9 +280,6 @@ def testEvent():
 
 
 def testEventAssignment():
-   eventAssignment = libsbml.EventAssignment()
-   eventAssignment = libsbml.EventAssignment("var1", "formula0")
-
    formula1 = libsbml.parseFormula("9 + 9")
    assert formula1.thisown == 1
 
@@ -324,7 +321,7 @@ def testRules():
       assert formula.thisown == 1
 
       rule.setMath(formula)
-      assert formula.thisown == 0
+      assert formula.thisown == 1
 
       str(rule)
 
@@ -373,7 +370,7 @@ def testModel():
    unitDefinition = libsbml.UnitDefinition()
    assert unitDefinition
 
-   unit = libsbml.Unit(libsbml.UNIT_KIND_KILOGRAM, 1, 1000, 1, 0)
+   unit = libsbml.Unit(libsbml.UNIT_KIND_KILOGRAM, 1, 1000, 1)
    unitDefinition.addUnit(unit);
 
    model.addUnitDefinition(unitDefinition)
@@ -411,7 +408,10 @@ def testModel():
 
    event = libsbml.Event()
    assert event
-   event.setTrigger(libsbml.parseFormula("3 + 3"))
+   trigger = libsbml.Trigger()
+   assert trigger
+   trigger.setMath(libsbml.parseFormula("3 + 3"))
+   event.setTrigger(trigger)
 
    model.addEvent(event)
 
@@ -487,7 +487,7 @@ def testSBMLReader():
    str(reader)
    str(doc)
 
-   filename = "../../sbml/test/test-data/l1v1-branch.xml"
+   filename = "../../sbml/test/test-data/l2v1-branch.xml"
    doc      = reader.readSBML(filename)
    assert doc.getNumErrors() == 0
    assert doc.getModel()
@@ -536,7 +536,7 @@ def testListOfAsIterator():
    alsoLast2Reactions = listOf[-2:]
    assert len(alsoLast2Reactions) == 2
    assert alsoLast2Reactions[0].getId() == "R3"
-   assert alsoLast2Reactions[1].getId() == "R4" 
+   assert alsoLast2Reactions[1].getId() == "R4"
 
    item  = "\<libsbml\.ReactionPtr\; proxy of C\+\+ Reaction instance at "
    item += "_[0-9a-f]+_p_Reaction\>";
@@ -546,6 +546,67 @@ def testListOfAsIterator():
    #expect = re.compile("\[" + items + "\]")
    #assert expect.match(repr(listOf))
 
+def testXMLOutputStream():
+   filename = "../../sbml/test/test-data/l2v1-branch.xml"
+   doc      = libsbml.readSBML(filename)
+   str1     = libsbml.writeSBMLToString(doc)
+
+   oss = libsbml.ostringstream()
+   xos = libsbml.XMLOutputStream(oss)
+   doc.write(xos)
+   libsbml.endl(oss)
+   str2 = oss.str()
+
+   assert str1 == str2
+
+def testClone():
+   checkClone(libsbml.Compartment(),"Compartment")
+   checkClone(libsbml.CompartmentType(),"CompartmentType")
+   checkClone(libsbml.Constraint(),"Constraint")
+   checkClone(libsbml.Delay(),"Delay")
+   checkClone(libsbml.Event(),"Event")
+   checkClone(libsbml.EventAssignment(),"EventAssignment")
+   checkClone(libsbml.FormulaUnitsData(),"FormulaUnitsData")
+   checkClone(libsbml.FunctionDefinition(),"FunctionDefinition")
+   checkClone(libsbml.InitialAssignment(),"InitialAssignment")
+   checkClone(libsbml.KineticLaw(),"KineticLaw")
+   checkClone(libsbml.ListFormulaUnitsData(),"ListFormulaUnitsData")
+   checkClone(libsbml.ListOf(),"ListOf")
+   checkClone(libsbml.ListOfCompartmentTypes(),"ListOfCompartmentTypes")
+   checkClone(libsbml.ListOfCompartments(),"ListOfCompartments")
+   checkClone(libsbml.ListOfConstraints(),"ListOfConstraints")
+   checkClone(libsbml.ListOfEventAssignments(),"ListOfEventAssignments")
+   checkClone(libsbml.ListOfEvents(),"ListOfEvents")
+   checkClone(libsbml.ListOfFunctionDefinitions(),"ListOfFunctionDefinitions")
+   checkClone(libsbml.ListOfInitialAssignments(),"ListOfInitialAssignments")
+   checkClone(libsbml.ListOfParameters(),"ListOfParameters")
+   checkClone(libsbml.ListOfReactions(),"ListOfReactions")
+   checkClone(libsbml.ListOfRules(),"ListOfRules")
+   checkClone(libsbml.ListOfSpecies(),"ListOfSpecies")
+   checkClone(libsbml.ListOfSpeciesReferences(),"ListOfSpeciesReferences")
+   checkClone(libsbml.ListOfSpeciesTypes(),"ListOfSpeciesTypes")
+   checkClone(libsbml.ListOfUnitDefinitions(),"ListOfUnitDefinitions")
+   checkClone(libsbml.ListOfUnits(),"ListOfUnits")
+   checkClone(libsbml.ModifierSpeciesReference(),"ModifierSpeciesReference")
+   checkClone(libsbml.Model(),"Model")
+   checkClone(libsbml.Parameter(),"Parameter")
+   checkClone(libsbml.AlgebraicRule(),"AlgebraicRule")
+   checkClone(libsbml.AssignmentRule(),"AssignmentRule")
+   checkClone(libsbml.RateRule(),"RateRule")
+   checkClone(libsbml.Reaction(),"Reaction")
+   checkClone(libsbml.SBMLDocument(),"SBMLDocument")
+   checkClone(libsbml.Species(),"Species")
+   checkClone(libsbml.SpeciesReference(),"SpeciesReference")
+   checkClone(libsbml.SpeciesType(),"SpeciesType")
+   checkClone(libsbml.StoichiometryMath(),"StoichiometryMath")
+   checkClone(libsbml.Trigger(),"Trigger")
+   checkClone(libsbml.Unit(),"Unit")
+   checkClone(libsbml.UnitDefinition(),"UnitDefinition")
+
+def checkClone(obj,name):
+   clone = obj.clone()
+   assert clone.__class__.__name__ == name
+   assert clone.thisown == 1
 
 class TestRunner:
 
