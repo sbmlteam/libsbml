@@ -120,8 +120,7 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_ModelHistory  () );
   srunner_add_suite( runner, create_suite_CopyAndClone  () );
   srunner_add_suite( runner, create_suite_RDFAnnotation () );
-  //srunner_add_suite( runner, create_suite_RDFAnnotation2() );
-  //srunner_add_suite( runner, create_suite_FormulaUnitsData() );
+  srunner_add_suite( runner, create_suite_RDFAnnotation2() );
 
   if (argc > 1 && !strcmp(argv[1], "-nofork"))
   {

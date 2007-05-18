@@ -478,7 +478,7 @@ public:
   /**
   * return the List of creators
   */
-  List * getCreator();
+  List * getListCreators();
 
   /**
   * return created date
@@ -489,6 +489,29 @@ public:
   * return modified date
   */
   Date * getModifiedDate();
+
+  /**
+   * @return number in List of Creator
+   */
+  unsigned int getNumCreators();
+
+  /**
+   * @return nth Creator
+   */
+  ModelCreator* getCreator(unsigned int n);
+
+  /**
+   * @return true if the created Date has been set, false
+   * otherwise.
+   */
+  bool isSetCreatedDate();
+
+  /**
+   * @return true if the modified Date has been set, false
+   * otherwise.
+   */
+  bool isSetModifiedDate();
+
 
 
 protected:
@@ -699,13 +722,25 @@ void ModelHistory_setModifiedDate(ModelHistory_t * history,
                                   Date_t * date);
 
 LIBSBML_EXTERN
-List_t * ModelHistory_getCreator(ModelHistory_t * history);
+List_t * ModelHistory_getListCreators(ModelHistory_t * history);
 
 LIBSBML_EXTERN
 Date_t * ModelHistory_getCreatedDate(ModelHistory_t * history);
 
 LIBSBML_EXTERN
 Date_t * ModelHistory_getModifiedDate(ModelHistory_t * history);
+
+LIBSBML_EXTERN
+unsigned int ModelHistory_getNumCreators(ModelHistory_t * history);
+
+LIBSBML_EXTERN
+ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * history, unsigned int n);
+
+LIBSBML_EXTERN
+int ModelHistory_isSetCreatedDate(ModelHistory_t * history);
+
+LIBSBML_EXTERN
+int ModelHistory_isSetModifiedDate(ModelHistory_t * history);
 
 
 END_C_DECLS

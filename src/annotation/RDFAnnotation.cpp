@@ -516,11 +516,11 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   /* nodes */
   XMLNode * bag;//     = XMLNode(bag_token);
   XMLNode * li;//      = XMLNode(li_token);
-  XMLNode * N;//       = XMLNode(N_token);
+  XMLNode * N = 0;//       = XMLNode(N_token);
   XMLNode * Family;//  = XMLNode(Family_token);
   XMLNode * Given;//   = XMLNode(Given_token);
-  XMLNode * Email;//   = XMLNode(Email_token);
-  XMLNode * Org ;//    = XMLNode(Org_token);
+  XMLNode * Email = 0;//   = XMLNode(Email_token);
+  XMLNode * Org = 0 ;//    = XMLNode(Org_token);
   XMLNode * Orgname;// = XMLNode(Orgname_token);
   XMLNode created = XMLNode(created_token);
   XMLNode modified= XMLNode(modified_token);
@@ -532,35 +532,51 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   ModelCreator *c;
   XMLNode * creator;// = new XMLNode(creator_token);
   bag = new XMLNode(bag_token);
-  for (unsigned int n = 0; n < history->getCreator()->getSize(); n++)
+  for (unsigned int n = 0; n < history->getNumCreators(); n++)
   {
     empty = new XMLNode(empty_token);
-    c = (ModelCreator * )(history->getCreator()->get(n));
-    empty = new XMLNode(empty_token);
-    empty->append(c->getFamilyName());
-    Family = new XMLNode(Family_token);
-    Family->addChild(*(empty));
-    empty = new XMLNode(empty_token);
-    empty->append(c->getGivenName());
-    Given = new XMLNode(Given_token);
-    Given->addChild(*(empty));
-    N = new XMLNode(N_token);
-    N->addChild(*(Family));
-    N->addChild(*(Given));
-    empty = new XMLNode(empty_token);
-    empty->append(c->getEmail());
-    Email = new XMLNode(Email_token);
-    Email->addChild(*(empty));
-    empty = new XMLNode(empty_token);
-    empty->append(c->getOrganisation());
-    Orgname = new XMLNode(Orgname_token);
-    Org = new XMLNode(Org_token);
-    Orgname->addChild(*(empty));
-    Org->addChild(*(Orgname));
+    c = (ModelCreator * )(history->getCreator(n));
+    if (c->isSetFamilyName())
+    {
+      empty = new XMLNode(empty_token);
+      empty->append(c->getFamilyName());
+      Family = new XMLNode(Family_token);
+      Family->addChild(*(empty));
+      N = new XMLNode(N_token);
+      N->addChild(*(Family));
+    }
+    if (c->isSetGivenName())
+    {
+      empty = new XMLNode(empty_token);
+      empty->append(c->getGivenName());
+      Given = new XMLNode(Given_token);
+      Given->addChild(*(empty));
+      if (!N)
+      {
+        N = new XMLNode(N_token);
+      }
+      N->addChild(*(Given));
+    }
+    if (c->isSetEmail())
+    {
+      empty = new XMLNode(empty_token);
+      empty->append(c->getEmail());
+      Email = new XMLNode(Email_token);
+      Email->addChild(*(empty));
+    }
+    if (c->isSetOrganisation())
+    {
+      empty = new XMLNode(empty_token);
+      empty->append(c->getOrganisation());
+      Orgname = new XMLNode(Orgname_token);
+      Org = new XMLNode(Org_token);
+      Orgname->addChild(*(empty));
+      Org->addChild(*(Orgname));
+    }
     li = new XMLNode(li_token);
-    li->addChild(*N);
-    li->addChild(*Email);
-    li->addChild(*Org);
+    if (N) li->addChild(*N);
+    if (Email) li->addChild(*Email);
+    if (Org) li->addChild(*Org);
     bag->addChild(*li);
   }
   creator = new XMLNode(creator_token);
@@ -568,18 +584,24 @@ RDFAnnotationParser::parseModelHistory(const Model *model)
   description->addChild(*creator);
   
   /* created date */
-  empty = new XMLNode(empty_token);
-  empty->append(history->getCreatedDate()->getDateAsString());
-  W3CDTF1.addChild(*(empty));
-  created.addChild(W3CDTF1);
-  description->addChild(created);
+  if (history->isSetCreatedDate())
+  {
+    empty = new XMLNode(empty_token);
+    empty->append(history->getCreatedDate()->getDateAsString());
+    W3CDTF1.addChild(*(empty));
+    created.addChild(W3CDTF1);
+    description->addChild(created);
+  }
 
   /* modified date */
-  empty = new XMLNode(empty_token);
-  empty->append(history->getModifiedDate()->getDateAsString());
-  W3CDTF2.addChild(*(empty));
-  modified.addChild(W3CDTF2);
-  description->addChild(modified);
+  if (history->isSetModifiedDate())
+  {
+    empty = new XMLNode(empty_token);
+    empty->append(history->getModifiedDate()->getDateAsString());
+    W3CDTF2.addChild(*(empty));
+    modified.addChild(W3CDTF2);
+    description->addChild(modified);
+  }
 
   // add CVTerms here
 

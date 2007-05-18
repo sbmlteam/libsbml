@@ -101,7 +101,7 @@ START_TEST (test_RDFAnnotation_getModelHistory)
 
   fail_unless(history != NULL);
 
-  ModelCreator * mc = (ModelCreator * )(history->getCreator()->get(0));
+  ModelCreator * mc = (ModelCreator * )(history->getCreator(0));
 
   fail_unless(!strcmp(ModelCreator_getFamilyName(mc), "Le Novere"));
   fail_unless(!strcmp(ModelCreator_getGivenName(mc), "Nicolas"));

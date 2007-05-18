@@ -769,7 +769,7 @@ ModelHistory::setModifiedDate(Date* date)
  * return the List of creators
  */
 List *
-ModelHistory::getCreator()
+ModelHistory::getListCreators()
 {
   return mCreators;
 }
@@ -793,6 +793,44 @@ ModelHistory::getModifiedDate()
 {
   return mModified;
 }
+
+/**
+  * @return number in List of Creator
+  */
+unsigned int 
+ModelHistory::getNumCreators()
+{
+  return mCreators->getSize();
+}
+
+/**
+  * @return nth Creator
+  */
+ModelCreator* 
+ModelHistory::getCreator(unsigned int n)
+{
+  return (ModelCreator *) (mCreators->get(n));
+}
+/**
+  * @return true if the created Date has been set, false
+  * otherwise.
+  */
+bool 
+ModelHistory::isSetCreatedDate()
+{
+  return mCreated != 0;
+}
+
+/**
+  * @return true if the modified Date has been set, false
+  * otherwise.
+  */
+bool 
+ModelHistory::isSetModifiedDate()
+{
+  return mModified != 0;
+}
+
 
 
 /**
@@ -1284,9 +1322,9 @@ void ModelHistory_setModifiedDate(ModelHistory_t * history,
 * return the List of creators
 */
 LIBSBML_EXTERN
-List_t * ModelHistory_getCreator(ModelHistory_t * history)
+List_t * ModelHistory_getListCreators(ModelHistory_t * history)
 {
-  return history->getCreator();
+  return history->getListCreators();
 }
 
 
@@ -1311,6 +1349,29 @@ Date_t * ModelHistory_getModifiedDate(ModelHistory_t * history)
 
 
 
+LIBSBML_EXTERN
+unsigned int ModelHistory_getNumCreators(ModelHistory_t * history)
+{
+  return history->getNumCreators();
+}
+
+LIBSBML_EXTERN
+ModelCreator_t* ModelHistory_getCreator(ModelHistory_t * history, unsigned int n)
+{
+  return history->getCreator(n);
+}
+
+LIBSBML_EXTERN
+int ModelHistory_isSetCreatedDate(ModelHistory_t * history)
+{
+  return static_cast<int> (history->isSetCreatedDate());
+}
+
+LIBSBML_EXTERN
+int ModelHistory_isSetModifiedDate(ModelHistory_t * history)
+{
+  return static_cast<int> (history->isSetModifiedDate());
+}
 
 
 

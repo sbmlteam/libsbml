@@ -167,14 +167,14 @@ START_TEST ( test_ModelHistory_copyConstructor )
   fail_unless(mh->getCreatedDate()->getMonth() == 12);
   fail_unless(mh->getCreatedDate()->getSecond() == 45);
 
-  fail_unless(static_cast <ModelCreator*>(mh->getCreator()->get(0))->getFamilyName() == "Keating");
+  fail_unless(static_cast <ModelCreator*>(mh->getListCreators()->get(0))->getFamilyName() == "Keating");
 
   ModelHistory* mh2=new ModelHistory(*mh);
 
   fail_unless(mh2->getCreatedDate()->getMonth() == 12);
   fail_unless(mh2->getCreatedDate()->getSecond() == 45);
 
-  fail_unless(static_cast <ModelCreator*>(mh2->getCreator()->get(0))->getFamilyName() == "Keating");
+  fail_unless(static_cast <ModelCreator*>(mh2->getListCreators()->get(0))->getFamilyName() == "Keating");
 
   delete mh2;
   delete mh;
@@ -200,7 +200,7 @@ START_TEST ( test_ModelHistory_assignmentOperator )
   fail_unless(mh->getCreatedDate()->getMonth() == 12);
   fail_unless(mh->getCreatedDate()->getSecond() == 45);
 
-  fail_unless(static_cast <ModelCreator*>(mh->getCreator()->get(0))->getFamilyName() == "Keating");
+  fail_unless(static_cast <ModelCreator*>(mh->getListCreators()->get(0))->getFamilyName() == "Keating");
 
   ModelHistory* mh2=new ModelHistory();
   (*mh2) = *mh;
@@ -208,7 +208,7 @@ START_TEST ( test_ModelHistory_assignmentOperator )
   fail_unless(mh2->getCreatedDate()->getMonth() == 12);
   fail_unless(mh2->getCreatedDate()->getSecond() == 45);
 
-  fail_unless(static_cast <ModelCreator*>(mh2->getCreator()->get(0))->getFamilyName() == "Keating");
+  fail_unless(static_cast <ModelCreator*>(mh2->getListCreators()->get(0))->getFamilyName() == "Keating");
 
   delete mh2;
   delete mh;
@@ -236,14 +236,14 @@ START_TEST ( test_ModelHistory_clone )
   fail_unless(mh->getCreatedDate()->getMonth() == 12);
   fail_unless(mh->getCreatedDate()->getSecond() == 45);
 
-  fail_unless(static_cast <ModelCreator*>(mh->getCreator()->get(0))->getFamilyName() == "Keating");
+  fail_unless(static_cast <ModelCreator*>(mh->getListCreators()->get(0))->getFamilyName() == "Keating");
 
   ModelHistory* mh2 = static_cast<ModelHistory*>(mh->clone());
 
   fail_unless(mh2->getCreatedDate()->getMonth() == 12);
   fail_unless(mh2->getCreatedDate()->getSecond() == 45);
 
-  fail_unless(static_cast <ModelCreator*>(mh2->getCreator()->get(0))->getFamilyName() == "Keating");
+  fail_unless(static_cast <ModelCreator*>(mh2->getListCreators()->get(0))->getFamilyName() == "Keating");
 
   delete mh2;
   delete mh;

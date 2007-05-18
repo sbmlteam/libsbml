@@ -197,7 +197,7 @@ START_TEST (test_ModelHistory_create)
   ModelHistory_t * history = ModelHistory_create();
 
   fail_unless(history != NULL);
-  fail_unless(ModelHistory_getCreator(history) != NULL);
+  fail_unless(ModelHistory_getListCreators(history) != NULL);
   fail_unless(ModelHistory_getCreatedDate(history) == NULL);
   fail_unless(ModelHistory_getModifiedDate(history) == NULL);
 
@@ -209,6 +209,9 @@ START_TEST (test_ModelHistory_addCreator)
 {
   ModelCreator_t * newMC;
   ModelHistory_t * history = ModelHistory_create();
+
+  fail_unless(ModelHistory_getNumCreators(history) == 0);
+
   fail_unless(history != NULL);
 
   ModelCreator_t * mc = ModelCreator_create();
@@ -221,9 +224,10 @@ START_TEST (test_ModelHistory_addCreator)
 
   ModelHistory_addCreator(history, mc);
 
+  fail_unless(ModelHistory_getNumCreators(history) == 1);
   ModelCreator_free(mc);
 
-  newMC = List_get(ModelHistory_getCreator(history), 0);
+  newMC = List_get(ModelHistory_getListCreators(history), 0);
   fail_unless(newMC != NULL);
 
   fail_unless(!strcmp(ModelCreator_getFamilyName(newMC), "Keating"));
@@ -243,9 +247,12 @@ START_TEST (test_ModelHistory_setCreatedDate)
 
   fail_unless(history != NULL);
 
+  fail_unless(ModelHistory_isSetCreatedDate(history) == 0);
+
   Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   
   ModelHistory_setCreatedDate(history, date);
+  fail_unless(ModelHistory_isSetCreatedDate(history) == 1);
 
   Date_free(date);
 
@@ -271,11 +278,13 @@ START_TEST (test_ModelHistory_setModifiedDate)
   ModelHistory_t * history = ModelHistory_create();
 
   fail_unless(history != NULL);
+  fail_unless(ModelHistory_isSetModifiedDate(history) == 0);
 
   Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   
   ModelHistory_setModifiedDate(history, date);
 //  Date_free(date);
+  fail_unless(ModelHistory_isSetModifiedDate(history) == 1);
 
   Date_t * newdate = ModelHistory_getModifiedDate(history);
   fail_unless(Date_getYear(newdate) == 2005);

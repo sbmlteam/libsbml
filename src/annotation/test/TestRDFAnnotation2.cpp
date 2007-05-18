@@ -97,14 +97,14 @@ START_TEST (test_RDFAnnotation2_getModelHistory)
 
   fail_unless(history != NULL);
 
-  ModelCreator * mc = (ModelCreator * )(history->getCreator()->get(0));
+  ModelCreator * mc = (ModelCreator * )(history->getListCreators()->get(0));
 
   fail_unless(!strcmp(ModelCreator_getFamilyName(mc), "Hucka"));
   fail_unless(!strcmp(ModelCreator_getGivenName(mc), "Mike"));
   fail_unless(!strcmp(ModelCreator_getEmail(mc), "mhucka@caltech.edu"));
   fail_unless(!strcmp(ModelCreator_getOrganisation(mc), "BNMC"));
 
-  ModelCreator * mc1 = (ModelCreator * )(history->getCreator()->get(1));
+  ModelCreator * mc1 = (ModelCreator * )(history->getListCreators()->get(1));
 
   fail_unless(!strcmp(ModelCreator_getFamilyName(mc1), "Keating"));
   fail_unless(!strcmp(ModelCreator_getGivenName(mc1), "Sarah"));
@@ -161,29 +161,27 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
 
   const char * expected =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-    "<model  metaid=\"_000001\">\n"
-    "  <annotation>\n"
-		"    <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
-		"      <rdf:Description rdf:about=\"#\">\n"
-		"        <dc:creator rdf:parseType=\"Resource\">\n"
-		"          <rdf:Bag>\n"
-		"            <rdf:li rdf:parseType=\"Resource\">\n"
-		"              <vCard:N rdf:parseType=\"Resource\">\n"
-		"                <vCard:Family>Keating</vCard:Family>\n"
-		"                <vCard:Given>Sarah</vCard:Given>\n"
-		"              </vCard:N>\n"
-		"            </rdf:li>\n"
-		"          </rdf:Bag>\n"
-		"        </dc:creator>\n"
-		"        <bqbiol:isVersionOf>\n"
-		"          <rdf:Bag>\n"
-		"            <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n"
-		"          </rdf:Bag>\n"
-		"        </bqbiol:isVersionOf>\n"
-		"      </rdf:Description>\n"
-		"    </rdf:RDF>\n"
-    "  </annotation>\n"
-    "</model>";
+    "<annotation>\n"
+		"  <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:dcterms=\"http://purl.org/dc/terms/\" xmlns:vCard=\"http://www.w3.org/2001/vcard-rdf/3.0#\" xmlns:bqbiol=\"http://biomodels.net/biology-qualifiers/\" xmlns:bqmodel=\"http://biomodels.net/model-qualifiers/\">\n"
+		"    <rdf:Description rdf:about=\"#_000001\">\n"
+		"      <dc:creator rdf:parseType=\"Resource\">\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:parseType=\"Resource\">\n"
+		"            <vCard:N rdf:parseType=\"Resource\">\n"
+		"              <vCard:Family>Keating</vCard:Family>\n"
+		"              <vCard:Given>Sarah</vCard:Given>\n"
+		"            </vCard:N>\n"
+		"          </rdf:li>\n"
+		"        </rdf:Bag>\n"
+		"      </dc:creator>\n"
+		"      <bqbiol:isVersionOf>\n"
+		"        <rdf:Bag>\n"
+		"          <rdf:li rdf:resource=\"http://www.geneontology.org/#GO:0005892\"/>\n"
+		"        </rdf:Bag>\n"
+		"      </bqbiol:isVersionOf>\n"
+		"    </rdf:Description>\n"
+		"  </rdf:RDF>\n"
+    "</annotation>";
 
   Ann->write(*XOS2);
 
