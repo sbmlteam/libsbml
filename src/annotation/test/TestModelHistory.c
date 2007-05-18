@@ -283,7 +283,7 @@ START_TEST (test_ModelHistory_setModifiedDate)
   Date_t * date = Date_createFromValues(2005, 12, 30, 12, 15, 45, 1, 2, 0);
   
   ModelHistory_setModifiedDate(history, date);
-//  Date_free(date);
+  Date_free(date);
   fail_unless(ModelHistory_isSetModifiedDate(history) == 1);
 
   Date_t * newdate = ModelHistory_getModifiedDate(history);

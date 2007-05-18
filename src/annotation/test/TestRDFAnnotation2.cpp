@@ -185,7 +185,6 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
 
   Ann->write(*XOS2);
 
-  // taken out since this fails due to set/unset causing seg fault
   fail_unless( equals(expected) );
 }
 END_TEST
