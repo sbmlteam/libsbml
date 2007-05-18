@@ -162,7 +162,7 @@ public:
    *
    * @return the date as a string.
    */
-  std::string getDateAsString() { return mDate; }
+  const std::string& getDateAsString() { return mDate; }
 
   /**
    * Sets the value of the year checking appropriateness.
