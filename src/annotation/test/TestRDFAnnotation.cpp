@@ -37,12 +37,11 @@
 
 #include <check.h>
 
-static char*         S;
 
 ostringstream*   OSS;
 XMLOutputStream* XOS;
-static Model *m;
-static SBMLDocument* d;
+Model *m;
+SBMLDocument* d;
 
 extern char *TestDataDirectory;
 
@@ -50,31 +49,26 @@ extern char *TestDataDirectory;
  * tests the results from rdf annotations
  */
 CK_CPPSTART
-static 
+
 
 void
 RDFAnnotation_setup (void)
 {
-  d = new SBMLDocument();
-  S = 0;
   OSS = new ostringstream;
   XOS = new XMLOutputStream(*OSS);
  
   char *filename = safe_strcat(TestDataDirectory, "annotation.xml");
 
+  // The following will return a pointer to a new SBMLDocument.
   d = readSBML(filename);
   m = d->getModel();
-
-
 }
 
 
 void
 RDFAnnotation_teardown (void)
 {
-//  delete d;
-  free(S);
-
+  delete d;
   delete OSS;
   delete XOS;
 }
@@ -98,8 +92,11 @@ equals (const char* expected)
   return equals1(expected, OSS->str().c_str());
 }
 
+
 START_TEST (test_RDFAnnotation_getModelHistory)
 {
+  fail_if(m == 0);
+
   ModelHistory * history = m->getModelHistory();
 
   fail_unless(history != NULL);
@@ -134,8 +131,6 @@ START_TEST (test_RDFAnnotation_getModelHistory)
   fail_unless(Date_getHoursOffset(date) == 0);
   fail_unless(Date_getMinutesOffset(date) == 0);
   fail_unless(!strcmp(Date_getDateAsString(date), "2006-05-30T10:46:02Z"));
-
-  delete history;
 }
 END_TEST
 

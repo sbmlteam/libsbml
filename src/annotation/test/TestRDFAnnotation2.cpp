@@ -37,12 +37,11 @@
 
 #include <check.h>
 
-static char*         S;
 
 ostringstream*   OSS2;
 XMLOutputStream* XOS2;
-static Model *m2;
-static SBMLDocument* d2;
+Model *m2;
+SBMLDocument* d2;
 
 extern char *TestDataDirectory;
 
@@ -50,31 +49,25 @@ extern char *TestDataDirectory;
  * tests the results from rdf annotations
  */
 CK_CPPSTART
-static 
 
 void
 RDFAnnotation2_setup (void)
 {
-  d2 = new SBMLDocument();
-  S = 0;
   OSS2 = new ostringstream;
   XOS2 = new XMLOutputStream(*OSS2);
  
   char *filename = safe_strcat(TestDataDirectory, "annotation2.xml");
 
+  // The following will return a pointer to a new SBMLDocument.
   d2 = readSBML(filename);
   m2 = d2->getModel();
-
-
 }
 
 
 void
 RDFAnnotation2_teardown (void)
 {
-//  delete d;
-  free(S);
-
+  delete d2;
   delete OSS2;
   delete XOS2;
 }
@@ -141,8 +134,6 @@ START_TEST (test_RDFAnnotation2_getModelHistory)
   fail_unless(Date_getHoursOffset(date) == 0);
   fail_unless(Date_getMinutesOffset(date) == 0);
   fail_unless(!strcmp(Date_getDateAsString(date), "2006-05-30T10:46:02Z"));
-
-  delete history;
 }
 END_TEST
 
@@ -156,9 +147,9 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
   c->setGivenName("Sarah");
 
   h->addCreator(c);
-//  m2->unsetModelHistory();
+  m2->unsetModelHistory();
 
-  // m2->setModelHistory(h);
+  m2->setModelHistory(h);
 
   CVTerm *cv = new CVTerm();
   cv->setQualifierType(BIOLOGICAL_QUALIFIER);
@@ -197,7 +188,7 @@ START_TEST (test_RDFAnnotation2_modelWithHistoryAndCVTerms)
   Ann->write(*XOS2);
 
   // taken out since this fails due to set/unset causing seg fault
-//  fail_unless( equals(expected) );
+  fail_unless( equals(expected) );
 }
 END_TEST
 
