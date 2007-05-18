@@ -127,8 +127,10 @@ public class Test
     try{
       SBMLReader   r = new SBMLReader();
       SBMLDocument d = r.readSBML("../../sbml/test/test-data/" + filename_src);
-      XMLOutputStream xos = new XMLOutputStream(new OStream());
+      OStream   cout = new OStream();
+      XMLOutputStream xos = new XMLOutputStream(cout);
       d.write(xos);
+      cout.endl();
     }
     catch(Exception e){
       //e.printStackTrace();
@@ -147,11 +149,14 @@ public class Test
       SBMLWriter   w = new SBMLWriter();
       SBMLDocument d = r.readSBML("../../sbml/test/test-data/" + filename_src);
       String       s1,s2;
+      OFStream     ofs;
       XMLOutputStream xos;
 
       s1  = w.writeToString(d);
-      xos = new XMLOutputStream(new OFStream(filename_dst,is_append));
+      ofs = new OFStream(filename_dst,is_append);
+      xos = new XMLOutputStream(ofs);
       d.write(xos);
+      ofs.endl();
 
       d = libsbml.readSBML(filename_dst);
       Assert(d.getNumErrors() == 0);
@@ -176,18 +181,19 @@ public class Test
       SBMLDocument d = r.readSBML("../../sbml/test/test-data/" + filename_src);
       String       s1,s2;
       XMLOutputStream xos;
-      OStringStream oss;
+      OStringStream   oss;
 
       s1  = w.writeToString(d);
       oss = new OStringStream();
       xos = new XMLOutputStream(oss);
       d.write(xos);
+      oss.endl();
       s2 = oss.str();
 
-     //System.out.println("writeToString :\n" + s1.trim());
-     //System.out.println("OStringStream :\n" + s2.trim());
+     //System.out.println("writeToString :\n" + s1);
+     //System.out.println("OStringStream :\n" + s2);
 
-      Assert(s1.trim().equals(s2.trim()));
+      Assert(s1.equals(s2));
     }
     catch(Exception e){
         //e.printStackTrace();
@@ -250,6 +256,7 @@ public class Test
     lo.append( new ListOfReactions()          );
     lo.append( new ListOfRules()              );
     lo.append( new ListOfSpecies()            );
+    lo.append( new ListOfSpeciesReferences()  );
     lo.append( new ListOfSpeciesTypes()       );
     lo.append( new ListOfUnits()              );
     lo.append( new ListOfUnitDefinitions()    );
@@ -297,6 +304,7 @@ public class Test
     Assert( lo.get(i++) instanceof ListOfReactions          );
     Assert( lo.get(i++) instanceof ListOfRules              );
     Assert( lo.get(i++) instanceof ListOfSpecies            );
+    Assert( lo.get(i++) instanceof ListOfSpeciesReferences  );
     Assert( lo.get(i++) instanceof ListOfSpeciesTypes       );
     Assert( lo.get(i++) instanceof ListOfUnits              );
     Assert( lo.get(i++) instanceof ListOfUnitDefinitions    );

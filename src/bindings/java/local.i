@@ -160,6 +160,18 @@
         else if(name.equals("listOfSpecies")){
           return new ListOfSpecies(cPtr, owner);
         }
+        else if(name.equals("listOfUnknowns")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
+        else if(name.equals("listOfReactants")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
+        else if(name.equals("listOfProducts")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
+        else if(name.equals("listOfModifiers")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
         else if(name.equals("listOfSpeciesTypes")){
           return new ListOfSpeciesTypes(cPtr, owner);
         }
@@ -308,6 +320,18 @@
         else if(name.equals("listOfSpecies")){
           return new ListOfSpecies(cPtr, owner);
         }
+        else if(name.equals("listOfUnknowns")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
+        else if(name.equals("listOfReactants")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
+        else if(name.equals("listOfProducts")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
+        else if(name.equals("listOfModifiers")){
+          return new ListOfSpeciesReferences(cPtr, owner);
+        }
         else if(name.equals("listOfSpeciesTypes")){
           return new ListOfSpeciesTypes(cPtr, owner);
         }
@@ -316,6 +340,30 @@
         }
         else if(name.equals("listOfUnitDefinitions")){
           return new ListOfUnitDefinitions(cPtr, owner);
+        }
+        else if(name.equals("listOfCompartmentGlyphs")){
+          return new ListOfCompartmentGlyphs(cPtr, owner);
+        }
+        else if(name.equals("listOfAdditionalGraphicalObjects")){
+          return new ListOfGraphicalObjects(cPtr, owner);
+        }
+        else if(name.equals("listOfLayouts")){
+          return new ListOfLayouts(cPtr, owner);
+        }
+        else if(name.equals("listOfCurveSegments")){
+          return new ListOfLineSegments(cPtr, owner);
+        }
+        else if(name.equals("listOfSpeciesGlyphs")){
+          return new ListOfSpeciesGlyphs(cPtr, owner);
+        }
+        else if(name.equals("listOfSpeciesReferenceGlyphs")){
+          return new ListOfSpeciesReferenceGlyphs(cPtr, owner);
+        }
+        else if(name.equals("listOfReactionGlyphs")){
+          return new ListOfReactionGlyphs(cPtr, owner);
+        }
+        else if(name.equals("listOfTextGlyphs")){
+          return new ListOfTextGlyphs(cPtr, owner);
         }
         return new ListOf(cPtr, owner);
 
@@ -647,6 +695,7 @@ import java.io.File;
  *    OStringStream oss = new OStringStream();
  *    XMLOutputStream xos = new XMLOutputStream(oss);
  *    ...
+ *    oss.endl();
  *    String s = oss.str();
  *
  */
@@ -694,6 +743,11 @@ import java.io.File;
     virtual std::ostream* get_ostream ()  
     { 
       return Stream;
+    }
+
+    void endl ()
+    {
+      std::endl(*Stream);
     }
   
   };
