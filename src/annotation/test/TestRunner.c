@@ -102,29 +102,34 @@ setTestDataDirectory (void)
   if (srcdir != NULL)
   {
     strcpy(TestDataDirectory, srcdir);
+    strcat(TestDataDirectory, "/");
   }
 
-  strcat(TestDataDirectory, "/test-data/");
+  strcat(TestDataDirectory, "test-data/");
 }
+
+
 int
-main (void) 
+main (int argc, char* argv[]) 
 { 
   int num_failed;
-setTestDataDirectory();
-
+  setTestDataDirectory();
 
   SRunner *runner = srunner_create( create_suite_CVTerms() );
 
   srunner_add_suite( runner, create_suite_ModelHistory  () );
   srunner_add_suite( runner, create_suite_CopyAndClone  () );
   srunner_add_suite( runner, create_suite_RDFAnnotation () );
-  srunner_add_suite( runner, create_suite_RDFAnnotation2() );
+  //srunner_add_suite( runner, create_suite_RDFAnnotation2() );
   //srunner_add_suite( runner, create_suite_FormulaUnitsData() );
-  
+
+  if (argc > 1 && !strcmp(argv[1], "-nofork"))
+  {
+    srunner_set_fork_status( runner, CK_NOFORK );
+  }
 
   srunner_run_all(runner, CK_NORMAL);
   num_failed = srunner_ntests_failed(runner);
-
 
   srunner_free(runner);
 
