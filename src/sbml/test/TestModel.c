@@ -221,7 +221,7 @@ START_TEST(test_Model_setgetModelHistory)
 
   fail_unless(Model_isSetModelHistory(M) == 1);
 
-  ModelCreator_t *newMC = List_get(ModelHistory_getCreator(history), 0);
+  ModelCreator_t *newMC = ModelHistory_getCreator(history, 0);
 
   fail_unless(newMC != NULL);
 
