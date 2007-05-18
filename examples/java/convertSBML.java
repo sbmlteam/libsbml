@@ -13,7 +13,6 @@
 
 import org.sbml.libsbml.SBMLDocument;
 import org.sbml.libsbml.SBMLReader;
-import org.sbml.libsbml.OstreamWrapper;
 import org.sbml.libsbml.libsbml;
  
 
@@ -31,7 +30,6 @@ public class convertSBML
 
     String inputFile      = args[0];
     String outputFile     = args[1];
-    OstreamWrapper stderr = new OstreamWrapper(OstreamWrapper.CERR);
     SBMLReader reader     = new SBMLReader();
     SBMLDocument document;
 
@@ -39,7 +37,7 @@ public class convertSBML
 
     if (document.getNumErrors() > 0)
     {
-      document.printErrors(stderr);
+      document.printErrors(libsbml.cerr);
       println("Conversion skipped.  Please correct the above problems first.");
       System.exit(1);
     }
@@ -57,7 +55,7 @@ public class convertSBML
       if (document.getNumErrors() > 0)
       {
         println("Conversion Error(s):");
-        document.printErrors(stderr);
+        document.printErrors(libsbml.cerr);
         println("Conversion skipped.  Either libSBML does not (yet) have\n" +
                 "the ability to convert this model, or (automatic) conversion"+
                 "\nis not possible.\n");
