@@ -2065,7 +2065,7 @@ ASTNode_setRealWithExponent (ASTNode_t *node, double mantissa, long exponent)
 
 
 /**
- * Sets the type of this ASTNode to the given ASTNodeType.
+ * Sets the type of this ASTNode to the given ASTNodeType_t.
  */
 LIBSBML_EXTERN
 void
