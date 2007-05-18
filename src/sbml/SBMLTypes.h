@@ -60,6 +60,10 @@
 #include <sbml/Event.h>
 #include <sbml/EventAssignment.h>
 
+#include <sbml/Delay.h>
+#include <sbml/StoichiometryMath.h>
+#include <sbml/Trigger.h>
+
 #include <sbml/SBMLReader.h>
 #include <sbml/SBMLWriter.h>
 
