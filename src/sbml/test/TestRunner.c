@@ -150,9 +150,10 @@ setTestDataDirectory (void)
   if (srcdir != NULL)
   {
     strcpy(TestDataDirectory, srcdir);
+    strcat(TestDataDirectory, "/");
   }
 
-  strcat(TestDataDirectory, "/test-data/");
+  strcat(TestDataDirectory, "test-data/");
 }
 
 
