@@ -32,7 +32,7 @@ public class Test
   static int NumNG   = 0;
   static int NumPass = 0;
 
-  static String[] listValidSBML = {      
+  static String[] listValidSBML = { 
     "l1v1-branch.xml",
     "l1v1-branch-schema-error.xml",
     "l1v1-branch.xml",
@@ -102,7 +102,7 @@ public class Test
       Assert(d.getNumErrors() == 0);
       if (d.getNumErrors() > 0) {
         System.out.println(listValidSBML[i] + " is judged as invalid");
-        d.printErrors(new OStream());
+        d.printErrors(libsbml.cerr);
       }
     }
   }
@@ -127,13 +127,12 @@ public class Test
     try{
       SBMLReader   r = new SBMLReader();
       SBMLDocument d = r.readSBML("../../sbml/test/test-data/" + filename_src);
-      OStream   cout = new OStream();
-      XMLOutputStream xos = new XMLOutputStream(cout);
+      XMLOutputStream xos = new XMLOutputStream(libsbml.cout);
       d.write(xos);
-      cout.endl();
+      libsbml.cout.endl();
     }
     catch(Exception e){
-      //e.printStackTrace();
+      e.printStackTrace();
     }
   }
 
@@ -164,7 +163,7 @@ public class Test
       Assert(s1.equals(s2));
     }
     catch(Exception e){
-      //e.printStackTrace();
+      e.printStackTrace();
     }
   }
 
@@ -196,7 +195,7 @@ public class Test
       Assert(s1.equals(s2));
     }
     catch(Exception e){
-        //e.printStackTrace();
+        e.printStackTrace();
     }
   }
 

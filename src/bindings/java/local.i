@@ -660,10 +660,17 @@ import java.io.File;
 /**
  * Wraps std::ostream by implementing three simple wrapper classes.
  *
- * 1) OStream wraps std::cout (default), std::cerr, and std::clog.
- *    (i.e., wraps std::ostream objects)
+ * 1) OStream wraps std::cout, std::cerr, and std::clog.
+ *    The following public final static variables are provied in
+ *    libsbml class like in C++.
+ *
+ *    1. public final static OStream cout;
+ *    2. public final static OStream cerr;
+ *    3. public final static OStream clog;
+ *
  * 2) OFStream (derived class of OStream) wraps std::ofstream 
  *    with ios_base::cout (default) or ios_base::app flag. 
+ *
  * 3) OStringStream (derived class of OStream) wraps std::ostringstream.
  *
  * These wrapper classes provide only the minimum functions.
@@ -672,18 +679,21 @@ import java.io.File;
  *
  * 1. wraps std::cout
  *
- *    OStream os = new OStream();
- *    XMLOutputStream xos = new XMLOutputStream(os);
+ *    XMLOutputStream xos = new XMLOutputStream(libsbml.cout);
  *
  * 2. wraps std::cerr
  *
- *    OStream os = new OStream(OStream.CERR);
- *    XMLOutputStream xos = new XMLOutputStream(os);
+ *    SBMLDocument d = libsbml.readSBML("foo.xml");
+ *    if ( d.getNumErrors() > 0) {
+ *       d.printErrors(libsbml.cerr);
+ *    }
  *
  * 3. wraps std::ofstream (write to file "foo.xml")
  *
- *    OFStream ofs = new OFStream("foo.xml");
- *    XMLOutputStream xos = new XMLOutputStream(ofs);
+ *    OFStream   ofs = new OFStream("foo.xml");
+ *    SBMLDocument d = libsbml.readSBML("foo.xml");
+ *    SBMLWriter   w = new SBMLWriter();
+ *    w.write(d,ofs);
  *
  * 4. wraps std::ofstream (write to file "foo.xml" with append mode)
  *
@@ -692,7 +702,7 @@ import java.io.File;
  *
  * 5. wraps std::ostringstream 
  *
- *    OStringStream oss = new OStringStream();
+ *    OStringStream   oss = new OStringStream();
  *    XMLOutputStream xos = new XMLOutputStream(oss);
  *    ...
  *    oss.endl();
@@ -705,20 +715,21 @@ import java.io.File;
 
 %inline 
 %{
+
   class LIBLAX_EXTERN OStream 
   {
   protected:
     std::ostream* Stream;
 
   public:
-    enum C_Type {COUT,CERR,CLOG};
+    enum StdOSType {COUT,CERR,CLOG};
 
     /**
      * Creates a new OStream object with one of standard output stream objects.
      */
-    OStream (int c_type = COUT) 
+    OStream (StdOSType sot = COUT) 
     {
-      switch (c_type) {
+      switch (sot) {
         case COUT:
           Stream = &std::cout;
           break;
@@ -842,6 +853,18 @@ import java.io.File;
     }
   
   };
-  
 %}
   
+%pragma(java) modulecode =
+%{
+  public final static OStream cout;
+  public final static OStream cerr;
+  public final static OStream clog;
+
+  static {
+    cout = new OStream(OStream.COUT); 
+    cerr = new OStream(OStream.CERR); 
+    clog = new OStream(OStream.CLOG); 
+  }
+%}
+
