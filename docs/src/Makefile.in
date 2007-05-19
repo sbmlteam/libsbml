@@ -1,52 +1,24 @@
 ## @configure_input@
 ##
-## File name   : Makefile.in
-## Description : Makefile for libSBML documentation
-## Author(s)   : Michael Hucka <mhucka@caltech.edu>
-## Organization: CDS, Caltech
-## Language    : Make
-## Created     : 2000-10-17
-## Revision    : Makefile,v 1.1.1.1 2002/12/05 23:59:38 mhucka Exp
+## @file    Makefile
+## @brief   Create the API reference manuals and other documentation.
+## @author  Michael Hucka (Caltech)
 ##
-## Copyright 2003-2004 California Institute of Technology and
-## Japan Science and Technology Corporation.
+## $Id$
+## $Source$
 ##
+## This file is part of libSBML.  Please visit http://sbml.org for more
+## information about SBML, and the latest version of libSBML.
+##
+## Copyright 2005-2007 California Institute of Technology.
+## Copyright 2002-2005 California Institute of Technology and
+##                     Japan Science and Technology Corporation.
+## 
 ## This library is free software; you can redistribute it and/or modify it
-## under the terms of the GNU Lesser General Public License as published
-## by the Free Software Foundation; either version 2.1 of the License, or
-## any later version.
-##
-## This library is distributed in the hope that it will be useful, but
-## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
-## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
-## documentation provided hereunder is on an "as is" basis, and the
-## California Institute of Technology and Japan Science and Technology
-## Corporation have no obligations to provide maintenance, support,
-## updates, enhancements or modifications.  In no event shall the
-## California Institute of Technology or the Japan Science and Technology
-## Corporation be liable to any party for direct, indirect, special,
-## incidental or consequential damages, including lost profits, arising
-## out of the use of this software and its documentation, even if the
-## California Institute of Technology and/or Japan Science and Technology
-## Corporation have been advised of the possibility of such damage.  See
-## the GNU Lesser General Public License for more details.
-##
-## You should have received a copy of the GNU Lesser General Public License
-## along with this library; if not, write to the Free Software Foundation,
-## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-##
-## The original code contained here was initially developed by:
-##
-##     Michael Hucka and Ben Bornstein
-##     SBML Team
-##     Control and Dynamical Systems, MC 107-81
-##     California Institute of Technology
-##     Pasadena, CA, 91125, USA
-##
-##     http://www.sbml.org
-##     mailto:sbml-team@caltech.edu
-##
-## Contributor(s):
+## under the terms of the GNU Lesser General Public License as published by
+## the Free Software Foundation.  A copy of the license agreement is provided
+## in the file named "LICENSE.txt" included with this software distribution
+## and also available online as http://sbml.org/software/libsbml/license.html
 ##
 
 
@@ -67,125 +39,82 @@ include @top_srcdir@/config/makefile-common-vars.mk
 srcdir  = @srcdir@
 thisdir = docs/src
 
-# By default, we only generate PDF and HTML format documentation.  We no
-# longer try to create .dvi files because some people's installations of
-# tex/latex apparently only have a pdflatex and not a regular latex.
+# We currently only generate documentation in HTML format.
 
 # In order to be able to create distributions with ready-to-read docs, we
-# have a separate directory for formatted docs.  This creates a different
-# situation than the case of other make rules in libsbml, because here the
-# results of the build are copied into a different directory.  
+# have a separate directory for formatted docs.
 
-formatted              = ../formatted
+formatted     = ../formatted
 
-preformatted_files     = java.txt python.txt
-generated_manual_files = libsbml-manual libsbml-manual.pdf
-generated_apiref_files = libsbml-api-ref.pdf
-all_generated_files    = $(generated_manual_files) $(generated_apiref_files) 
-all_doc_files          = $(all_generated_files) $(preformatted_files)
+cpp-manual    = $(formatted)/cpp-api
+c-manual      = $(formatted)/c-api
+java-manual   = $(formatted)/java-api
+python-manual = $(formatted)/python-api
+perl-manual   = $(formatted)/perl-api
 
-docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
+# The C++ and C manuals are always made, but additional manuals depend on
+# the options with which libSBML was configured.
+
+docs = $(cpp-manual) $(c-manual)
+
+ifdef USE_JAVA
+  docs += $(java-manual)
+endif
+ifdef USE_PYTHON
+  docs += $(python-manual)
+endif
+ifdef USE_PERL
+  docs += $(perl-manual)
+endif
 
 # The variable `extra_clean' is used in `makefile-common-actions.mk'
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but the following are all generated files and directories.
 
-tex_clean = aux bbl blg log out toc
-
-extra_clean = \
-	$(docs) \
-	$(api-tex-files) \
-	$(addprefix libsbml-manual.,$(tex_clean)) \
-	$(addprefix libsbml-api-ref.,$(tex_clean))
+extra_clean = $(docs)
 
 extra_distclean = \
-	$(all_generated_files) \
-	libsbml-manual.ps \
-	$(formatted)/libsbml-manual.ps \
-	libsbml-api-ref.ps \
-	$(formatted)/libsbml-api-ref.ps \
 	doxygen-config-c.txt \
-	doxygen-config-cpp.txt \
-	sbmlmanual.perl \
-	libsbmlextras.perl \
-	tmp.html \
-	api/.timestamp
+	doxygen-config-cpp.txt
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
 
-distfiles =                                \
-        doxygen-base.css                   \
-        doxygen-config-c.txt.in            \
-        doxygen-config-common.txt          \
-        doxygen-config-cpp.txt.in          \
-        doxygen-footer.html                \
-        doxygen-tabs.css                   \
-        doxygen-tree.css                   \
-        Makefile.in                        \
-        createAPISection.py                \
-        createAPISections.sh               \
-        java.txt                           \
-        python.txt                         \
-        graphics/sbase-species.eps         \
-        graphics/sbase-species.pdf         \
-        graphics/sbase-species.vthought    \
-        graphics/sbase.eps                 \
-        graphics/sbase.pdf                 \
-        graphics/sbase.vtt                 \
-        graphics/sbml-logo-long-124x56.gif \
-        graphics/species.eps               \
-        graphics/species.pdf               \
-        graphics/species.vtt               \
-        graphics/top-level.eps             \
-        graphics/top-level.pdf             \
-        graphics/top-level.vtt             \
-        graphics/unitdefinition.eps        \
-        graphics/unitdefinition.pdf        \
-        graphics/unitdefinition.vtt        \
-        libsbml-api-ref.html.tmpl          \
-        libsbml-api-ref.tex                \
-        libsbml-api-ref.c                  \
-        libsbml-manual.tex                 \
-        libsbml-manual.css                 \
-        libsbml.bib                        \
-        tex/alltt.sty                      \
-        tex/booktabs/booktabs.dtx          \
-        tex/booktabs/booktabs.readme       \
-        tex/booktabs/booktabs.sty          \
-        tex/caption.sty                    \
-        tex/fancyheadings.sty              \
-        tex/fancyvrb.sty                   \
-        tex/html.sty                       \
-        tex/libsbmlextras.perl             \
-        tex/libsbmlextras.sty.in           \
-        tex/listings/listings-1.3.dtx      \
-        tex/listings/listings-1.3.ins      \
-        tex/listings/listings-1.3.pdf      \
-        tex/listings/listings.sty          \
-        tex/listings/listings.cfg          \
-        tex/listings/lstdoc.sty            \
-        tex/listings/lstdrvrs-1.3.dtx      \
-        tex/listings/lstdrvrs.ins          \
-        tex/listings/lstlang1.sty          \
-        tex/listings/lstlang2.sty          \
-        tex/listings/lstlang3.sty          \
-        tex/listings/lstmisc.sty           \
-        tex/listings/lstpatch.sty          \
-        tex/listings/README                \
-        tex/listings/README.SBML           \
-        tex/logos/sbml-logo-340x54.jpg     \
-        tex/logos/sbml-logo-300x48.jpg     \
-        tex/logos/sbml-logo-compat.eps     \
-        tex/logos/sbml-logo.eps            \
-        tex/logos/sbml-logo.jpg            \
-        tex/logos/sbml-logo.pdf            \
-        tex/logos/sbml-logo.tif            \
-        tex/sbmlmanual.cls                 \
-        tex/sbmlmanual.perl                \
-        tex/sbmlmanual.README              \
-        tex/varioref.sty                   \
-	tex/wrapfig.sty
+distfiles =                                    \
+        doxygen-base.css                       \
+        doxygen-config-c.txt.in                \
+        doxygen-config-common.txt              \
+        doxygen-config-cpp.txt.in              \
+        doxygen-footer.html                    \
+        doxygen-tabs.css                       \
+        doxygen-tree.css                       \
+        javadoc-footer.html                    \
+        javadoc-overview.html                  \
+        Makefile.in                            \
+        graphics/astnode-illustration.jpg      \
+        graphics/built-in-units.jpg            \
+        graphics/compartment-size.jpg          \
+        graphics/listof-illustration.jpg       \
+        graphics/sbase-species.eps             \
+        graphics/sbase-species.pdf             \
+        graphics/sbase-species.vthought        \
+        graphics/sbase.eps                     \
+        graphics/sbase.pdf                     \
+        graphics/sbase.vtt                     \
+        graphics/sbml-logo-long-124x56.gif     \
+        graphics/species-boundarycondition.jpg \
+        graphics/species-hasonlysubstance.jpg  \
+        graphics/species.eps                   \
+        graphics/species.pdf                   \
+        graphics/species.vtt                   \
+        graphics/string-functions.jpg          \
+        graphics/string-syntax.jpg             \
+        graphics/top-level.eps                 \
+        graphics/top-level.pdf                 \
+        graphics/top-level.vtt                 \
+        graphics/unitdefinition.eps            \
+        graphics/unitdefinition.pdf            \
+        graphics/unitdefinition.vtt
 
 
 # -----------------------------------------------------------------------------
@@ -198,13 +127,13 @@ distfiles =                                \
 
 all docs: Makefile $(docs)
 
-dvi: $(formatted)/libsbml-manual.dvi $(formatted)/libsbml-api-ref.dvi
+dvi: 
 
-pdf: $(formatted)/libsbml-manual.pdf $(formatted)/libsbml-api-ref.pdf
+pdf: 
 
-ps: $(formatted)/libsbml-manual.ps $(formatted)/libsbml-api-ref.ps
+ps: 
 
-html: $(formatted)/libsbml-manual
+html: $(docs)
 
 info:
 	@echo "We're sorry, but the info format is not supported."
@@ -222,94 +151,30 @@ endif
 
 
 # -----------------------------------------------------------------------------
-# libsbml-manual
+# API reference manuals.
 # -----------------------------------------------------------------------------
 
-manual_html_dir = libsbml-manual
+#
+# Rules for remaking the C++ and C manuals.  These require configuring
+# libSBML with --with-doxygen *and* a sufficiently recent version of doxygen.
+# The version check is done by configure.
+# 
 
-epsfiles        = $(wildcard graphics/*.eps)
-pdffiles        = $(epsfiles:.eps=.pdf)
+doxygen-cpp-config-files = doxygen-config-cpp.txt.in doxygen-config-common.txt
+doxygen-c-config-files   = doxygen-config-c.txt.in doxygen-config-common.txt   
 
-latex-env := TEXINPUTS=".:tex//:../tex//:${TEXINPUTS}::" 
-
-# Check that these files are up-to-date w.r.t. libsbml's version number.
-# This helps catch the situation where a person does a CVS update and
-# the version number changes, but the person doesn't remember to do a
-# reconfigure.
-
-tex/libsbmlextras.sty: $(TOP_SRCDIR)/VERSION.txt $(TOP_SRCDIR)/FUNDING.txt
-	cd $(TOP_BUILDDIR) && \
-	    $(SHELL) ./config.status $(thisdir)/tex/libsbmlextras.sty
-
-# Yes, run pdflatex 4 times after running bibtex here.
-
-manual $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
-	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
-	$(latex-env) pdflatex libsbml-manual
-	$(latex-env) bibtex libsbml-manual
-	$(latex-env) pdflatex libsbml-manual
-	$(latex-env) pdflatex libsbml-manual
-	$(latex-env) pdflatex libsbml-manual
-	cp -f libsbml-manual.pdf $(formatted)
-
-$(formatted)/libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
-	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
-	$(latex-env) latex libsbml-manual
-	$(latex-env) bibtex libsbml-manual
-	$(latex-env) latex libsbml-manual
-	$(latex-env) latex libsbml-manual
-	$(latex-env) latex libsbml-manual
-	cp -f libsbml-manual.dvi $(formatted)
-
-$(formatted)/libsbml-manual.ps libsbml-manual.ps: $(formatted)/libsbml-manual.dvi
-	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
-	cp -f libsbml-manual.ps $(formatted)
-
-# latex2html wants a .aux file
-
-$(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libsbml-manual.pdf
-	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
-	@test -L ./libsbmlextras.perl || ln -s tex/libsbmlextras.perl
-	$(latex-env) latex2html -white -split +0 -show_section_numbers \
-		   -image_type gif -no_navigation -local_icons -discard \
-		   -antialias -t "libSBML $(PACKAGE_VERSION) Developer's Manual" \
-		   -mkdir -dir $(manual_html_dir) libsbml-manual
-	rm $(manual_html_dir)/index.html
-	cp -f libsbml-manual.css $(manual_html_dir)
-	cp tex/logos/sbml-logo-300x48.jpg $(manual_html_dir)
-	cd $(manual_html_dir) && ln -sf libsbml-manual.html index.html
-	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
-		$(manual_html_dir)/libsbml-manual.html
-	cp -rf libsbml-manual $(formatted)
-
-#		   -init_file libsbml-manual.init \
-#	ln -s libsbml-manual.html $(manual_html_dir)/index.html
-#	ln -sf $(manual_html_dir)/libsbml-manual.html
-#	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
-#		$(manual_html_dir)/libsbml-manual.html
-
-
-# -----------------------------------------------------------------------------
-# API references
-# -----------------------------------------------------------------------------
-
-doxygen-config-c.txt: doxygen-config-c.txt.in doxygen-config-common.txt \
-  $(TOP_SRCDIR)/VERSION.txt
-	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/doxygen-config-c.txt
-
-doxygen-config-cpp.txt: doxygen-config-cpp.txt.in doxygen-config-common.txt \
-  $(TOP_SRCDIR)/VERSION.txt
+doxygen-config-cpp.txt:  $(doxygen-cpp-config-files) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/doxygen-config-cpp.txt
 
-api-manuals: libsbml-cpp-api libsbml-c-api
-
-.PHONY: $(api-manuals)
+doxygen-config-c.txt:  $(doxygen-c-config-files) $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/doxygen-config-c.txt
 
 
 ifneq "$(USE_DOXYGEN)" ""
 
 define run_doxygen
   $(DOXYGEN) $(1)
+  mkdir -p $(2)
   cp -rf doxygen-tabs.css $(2)/tabs.css
   cp graphics/sbml-logo-long-124x56.gif $(2)
   head -n 9 $(2)/tree.html > tmp.html
@@ -318,37 +183,54 @@ define run_doxygen
   mv -f tmp.html $(2)/tree.html
 endef
 
-libsbml-cpp-api $(formatted)/libsbml-cpp-api: \
-  doxygen-config-common.txt doxygen-config-cpp.txt \
-  $(wildcard ../../src/*/*.[cpp,h])
-	$(call run_doxygen,doxygen-config-cpp.txt,libsbml-cpp-api)
+cpp-manual $(cpp-manual): $(doxygen-cpp-config-files) $(wildcard ../../src/*/*.[cpp,h])
+	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual))
 
-libsbml-c-api $(formatted)/libsbml-c-api: \
-  doxygen-config-common.txt doxygen-config-c.txt \
-  $(wildcard ../../src/*/*.[cpp,h])
-	$(call run_doxygen,doxygen-config-c.txt,libsbml-c-api)
-
+c-manual $(c-manual): $(doxygen-c-config-files) $(wildcard ../../src/*/*.[cpp,h,c])
+	$(call run_doxygen,doxygen-config-c.txt,$(c-manual))
 
 else
 # Doxygen isn't configured suitably.
 
-libsbml-c-api libsbml-cpp-api:;
+cpp-manual c-manual $(cpp-manual) $(c-manual):;
 	@echo "Cannot make API reference manuals because 'doxygen' was not"
 	@echo "found or its version is too old.  Please reconfigure with a"
-	@echo "suitable value of the flag --with-doxygen."
-	exit 1
+	@echo "suitable value for the configuration flag --with-doxygen."
 endif
 
-
-# -----------------------------------------------------------------------------
-# Preformatted files.
-# -----------------------------------------------------------------------------
+#
+# Rules for making the Java manual.
+#
+# This runs javadoc on the .java files in src/bindings/java/java-files/.
+# The Java bindings need to have been created first, which should be the
+# case for the copy of libSBML that's shipped anyway even if the end users
+# does not configure --with-java.  Creating the Java bindings should have
+# run src/bindings/swig/swigdoc.py as a by-product.  Our swigdoc.py program
+# has the task of inserting back into the .java files the documentation
+# comments that are currently left out by swig itself.
+# 
 
-$(formatted)/java.txt: java.txt
-	cp -f java.txt $(formatted)
+java-dir            = ../../src/bindings/java/java-files
 
-$(formatted)/python.txt: python.txt
-	cp -f python.txt $(formatted)
+javadoc-doctitle    = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Java API Reference"
+javadoc-header      = "<B>@PACKAGE_NAME@<BR>@PACKAGE_VERSION@<B>"
+javadoc-footer      = "`cat javadoc-footer.html`"
+javadoc-windowtitle = "LibSBML Java API"
+
+java-manual $(java-manual):
+	javadoc -use -public -version -author -sourcetab 4 \
+	    -header $(javadoc-header) \
+	    -bottom $(javadoc-footer) \
+	    -windowtitle $(javadoc-windowtitle) \
+	    -doctitle $(javadoc-doctitle) \
+	    -stylesheetfile doxygen-base.css \
+	    -overview javadoc-overview.html \
+	    -d $(java-manual) \
+	    -tag note:a:"Note:" -tag warning:a:"Warning:" \
+	    -sourcepath $(java-dir) org.sbml.libsbml
+	cp graphics/sbml-logo-long-124x56.gif $(java-manual)
+	cp graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/
+	cp graphics/*.jpg $(java-manual)/org/sbml/libsbml/
 
 
 # -----------------------------------------------------------------------------
@@ -423,6 +305,15 @@ include @top_srcdir@/config/makefile-common-actions.mk
 
 # No longer used:
 
+#preformatted_files     = java.txt python.txt
+#generated_manual_files = libsbml-manual libsbml-manual.pdf
+#generated_apiref_files = libsbml-api-ref.pdf
+#all_generated_files    = $(generated_manual_files) $(generated_apiref_files) 
+#all_doc_files          = $(all_generated_files) $(preformatted_files)
+
+#docs                   = $(foreach d,$(all_doc_files),$(formatted)/$d)
+
+
 #api-tex-files := $(wildcard api/*.tex)
 
 #api/.timestamp:
@@ -463,3 +354,69 @@ include @top_srcdir@/config/makefile-common-actions.mk
 #	cp libsbml-api-ref.html.tmpl libsbml-api-ref.html
 #	cp -rf libsbml-api-ref $(formatted)
 
+## -----------------------------------------------------------------------------
+## libsbml-manual
+## -----------------------------------------------------------------------------
+
+#manual_html_dir = libsbml-manual
+
+#epsfiles        = $(wildcard graphics/*.eps)
+#pdffiles        = $(epsfiles:.eps=.pdf)
+
+#latex-env := TEXINPUTS=".:tex//:../tex//:${TEXINPUTS}::" 
+
+## Check that these files are up-to-date w.r.t. libsbml's version number.
+## This helps catch the situation where a person does a CVS update and
+## the version number changes, but the person doesn't remember to do a
+## reconfigure.
+
+#tex/libsbmlextras.sty: $(TOP_SRCDIR)/VERSION.txt $(TOP_SRCDIR)/FUNDING.txt
+#	cd $(TOP_BUILDDIR) && \
+#	    $(SHELL) ./config.status $(thisdir)/tex/libsbmlextras.sty
+
+## Yes, run pdflatex 4 times after running bibtex here.
+
+#manual $(formatted)/libsbml-manual.pdf libsbml-manual.pdf: libsbml-manual.tex $(pdffiles)
+#	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
+#	$(latex-env) pdflatex libsbml-manual
+#	$(latex-env) bibtex libsbml-manual
+#	$(latex-env) pdflatex libsbml-manual
+#	$(latex-env) pdflatex libsbml-manual
+#	$(latex-env) pdflatex libsbml-manual
+#	cp -f libsbml-manual.pdf $(formatted)
+
+#$(formatted)/libsbml-manual.dvi: libsbml-manual.tex $(epsfiles)
+#	-@/bin/rm -f libsbml-manual.toc libsbml-manual.aux
+#	$(latex-env) latex libsbml-manual
+#	$(latex-env) bibtex libsbml-manual
+#	$(latex-env) latex libsbml-manual
+#	$(latex-env) latex libsbml-manual
+#	$(latex-env) latex libsbml-manual
+#	cp -f libsbml-manual.dvi $(formatted)
+
+#$(formatted)/libsbml-manual.ps libsbml-manual.ps: $(formatted)/libsbml-manual.dvi
+#	$(latex-env) dvips -o libsbml-manual.ps libsbml-manual
+#	cp -f libsbml-manual.ps $(formatted)
+
+## latex2html wants a .aux file
+
+#$(formatted)/libsbml-manual libsbml-manual: libsbml-manual.tex $(formatted)/libsbml-manual.pdf
+#	@test -L ./sbmlmanual.perl || ln -s tex/sbmlmanual.perl
+#	@test -L ./libsbmlextras.perl || ln -s tex/libsbmlextras.perl
+#	$(latex-env) latex2html -white -split +0 -show_section_numbers \
+#		   -image_type gif -no_navigation -local_icons -discard \
+#		   -antialias -t "libSBML $(PACKAGE_VERSION) Developer's Manual" \
+#		   -mkdir -dir $(manual_html_dir) libsbml-manual
+#	rm $(manual_html_dir)/index.html
+#	cp -f libsbml-manual.css $(manual_html_dir)
+#	cp tex/logos/sbml-logo-300x48.jpg $(manual_html_dir)
+#	cd $(manual_html_dir) && ln -sf libsbml-manual.html index.html
+#	perl -pi -e "s/<TITLE>Contents<\/TITLE>/<TITLE>libSBML Developer's Manual<\/TITLE>/" \
+#		$(manual_html_dir)/libsbml-manual.html
+#	cp -rf libsbml-manual $(formatted)
+
+##		   -init_file libsbml-manual.init \
+##	ln -s libsbml-manual.html $(manual_html_dir)/index.html
+##	ln -sf $(manual_html_dir)/libsbml-manual.html
+##	perl -pi -e "s|</HEAD>|</HEAD>\n<BASE HREF=\"libsbml-manual/\">|" \
+##		$(manual_html_dir)/libsbml-manual.html
