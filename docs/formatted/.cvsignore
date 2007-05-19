@@ -1,17 +1,3 @@
-Makefile
-.deps
-libsbml-api-ref.pdf
-libsbml-api-ref.dvi
-libsbml-api-ref.ps
-libsbml-manual.pdf
-libsbml-manual.dvi
-libsbml-manual.ps
-libsbml-manual
-libsbml-api-ref
-java.txt
-python.txt
-TAGS
-CTAGS
 cpp-api
 c-api
 java-api
