@@ -31,7 +31,7 @@ PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ C++ Public API"
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
 # put in front of it. If left blank `html' will be used as the default path.
 
-HTML_OUTPUT            = libsbml-cpp-api
+HTML_OUTPUT            = ../formatted/cpp-api
 
 # If you use STL classes (i.e. std::string, std::vector, etc.) but do not
 # want to include (a tag file for) the STL sources as input, then you should
@@ -41,7 +41,7 @@ HTML_OUTPUT            = libsbml-cpp-api
 # inheritance and collaboration diagrams that involve STL classes more
 # complete and accurate.
 
-# BUILTIN_STL_SUPPORT    = YES
+BUILTIN_STL_SUPPORT    = YES
 
 # The MULTILINE_CPP_IS_BRIEF tag can be set to YES to make Doxygen 
 # treat a multi-line C++ special comment block (i.e. a block of //! or /// 
