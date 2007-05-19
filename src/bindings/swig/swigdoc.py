@@ -1,58 +1,28 @@
 #!/usr/bin/env python
-
 #
-# \file   swigdoc.py
-# \brief  Creates SWIG docstrings for the Java and Python langauge modules.
-# \author Ben Bornstein
+# @file   swigdoc.py
+# @brief  Creates documentation for Java, Python, and Perl.
+# @author Ben Bornstein
+# @author Christoph Flamm
+# @author Akiya Joukaru
+# @author Michael Hucka
 #
 # $Id$
 # $Source$
 #
-
+# This file is part of libSBML.  Please visit http://sbml.org for more
+# information about SBML, and the latest version of libSBML.
 #
-# Copyright 2005 California Institute of Technology and
-# Japan Science and Technology Corporation.
-#
+# Copyright 2005-2007 California Institute of Technology.
+# Copyright 2002-2005 California Institute of Technology and
+#                     Japan Science and Technology Corporation.
+# 
 # This library is free software; you can redistribute it and/or modify it
-# under the terms of the GNU Lesser General Public License as published
-# by the Free Software Foundation; either version 2.1 of the License, or
-# any later version.
+# under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation.  A copy of the license agreement is provided
+# in the file named "LICENSE.txt" included with this software distribution
+# and also available online as http://sbml.org/software/libsbml/license.html
 #
-# This library is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
-# MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
-# documentation provided hereunder is on an "as is" basis, and the
-# California Institute of Technology and Japan Science and Technology
-# Corporation have no obligations to provide maintenance, support,
-# updates, enhancements or modifications.  In no event shall the
-# California Institute of Technology or the Japan Science and Technology
-# Corporation be liable to any party for direct, indirect, special,
-# incidental or consequential damages, including lost profits, arising
-# out of the use of this software and its documentation, even if the
-# California Institute of Technology and/or Japan Science and Technology
-# Corporation have been advised of the possibility of such damage.  See
-# the GNU Lesser General Public License for more details.
-#
-# You should have received a copy of the GNU Lesser General Public License
-# along with this library; if not, write to the Free Software Foundation,
-# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-#
-# The original code contained here was initially developed by:
-#
-#     Ben Bornstein
-#     
-#     The SBML Team
-#     Control and Dynamical Systems, MC 107-81
-#     California Institute of Technology
-#     Pasadena, CA, 91125, USA
-#
-#     http://sbml.org
-#     mailto:sbml-team@caltech.edu
-#
-# Contributor(s):
-#   Christoph Flamm - Code to generate Perl docs
-#
-
 
 import sys, string, os.path, re
 
@@ -73,6 +43,7 @@ class CHeader:
     """
     self.classes   = [ ]
     self.functions = [ ]
+    self.classDocs = [ ]
 
     if stream is not None:
       self.read(stream)
@@ -83,13 +54,14 @@ class CHeader:
 
     Reads a C/C++ header file from the given stream.
     """
-    inClass = False
-    inDocs  = False
-    inFunc  = False
-    inSkip  = False
+    inClass     = False
+    inClassDocs = False
+    inDocs      = False
+    inFunc      = False
+    inSkip      = False
 
-    docstring = ''
-    lines     = ''
+    docstring   = ''
+    lines       = ''
 
     for line in stream.xreadlines():
       stripped = line.strip()
@@ -97,6 +69,39 @@ class CHeader:
       if stripped      == '#ifndef SWIG': inSkip = True
       if stripped[0:6] == '#endif'      : inSkip = False
       if inSkip: continue
+
+      # Watch for class description, usually at top of file.
+
+      if (not inClassDocs) and stripped.startswith('* @class'):
+        inClassDocs = True
+        classname = stripped[8:].strip()
+        if classname.endswith('.'):
+          classname = classname[:-1]
+        docstring = ''
+        continue
+
+      if inClassDocs:
+        if stripped.startswith('* @brief'):
+          docstring += ' * ' + stripped[9:].strip() + '\n'
+          continue
+        elif not stripped.endswith('*/') and not stripped.startswith('* @class'):
+          docstring += line
+          continue
+        else:
+          docstring = '/**\n' + docstring + ' */'
+          doc = CClassDoc(docstring, classname)
+          self.classDocs.append(doc)
+
+        # There may be more class docs in the same comment.
+        if stripped.startswith('* @class'):
+          classname = stripped[8:].strip()
+        else:
+          inClassDocs = False
+
+        docstring = ''
+        continue
+
+      # Watch for class definition and methods.
 
       if stripped == '':
         docstring = ''
@@ -107,16 +112,9 @@ class CHeader:
 
       if stripped.startswith('class ') and not stripped.endswith(';'):
         inClass   = True
-        rep = re.compile('class *.*_EXTERN *')
-        m   = rep.search(stripped)
-        if m != None:
-          margin = m.end() - m.start()
-          classname = line[margin:].split(':')[0].strip()
-        else:
-          rep = re.compile('class *')
-          m   = rep.search(stripped)
-          margin = m.end() - m.start()
-          classname = line[margin:].split(':')[0].strip()
+        classname = line[6:].split(':')[0].strip()
+        if classname[:6] == 'LIBSBM' or classname[:6] == 'LIBLAX':
+          classname = classname.split(' ')[1].strip()
         self.classes.append( CClass(classname) )
         continue
 
@@ -124,39 +122,39 @@ class CHeader:
         inClass = False
         continue
 
-      if inDocs or stripped == '/**':
-        docstring += line
-        if stripped == '*/':
-          inDocs = False
-          inFunc = True	
-          continue
-        else:
-          inDocs = True
-        continue
-
-      if stripped == 'LIBSBML_EXTERN':
-        inFunc = True
-        continue
-
-      if stripped == 'LIBLAX_EXTERN':
-        inFunc = True
-        continue
-
-      if inFunc:
-        if stripped.startswith('#'):
-          inFunc = False
-          continue
-        lines += line
-
-      if inFunc and stripped.endswith(');'):
-        stop = lines.rfind('(')
-        name = lines[:stop].split()[-1]
-        func = CFunction(docstring, name)
-
+      if stripped == '/**':
+        inDocs = True
         if inClass:
-          self.classes[-1].methods.append(func)
-        else:
-          self.functions.append(func)
+          inFunc = True
+      else:
+        if inClass and not inFunc:
+          continue
+
+      if inDocs:
+        docstring += line
+        inDocs     = (stripped != '*/')
+        continue
+
+      if inClass:
+        lines += stripped + ' '         # Space avoids jamming code together.
+
+      if inFunc and (stripped.endswith(';') or stripped.endswith(')')):
+        # It might be an enum.  Skip it.
+        if not stripped.startswith('enum'):
+          stop = lines.rfind('(')
+          name = lines[:stop].split()[-1]
+          args = lines[stop:lines.rfind(')')+1]
+
+          # Swig doesn't seem to mind C++ argument lists, even though they
+          # have "const", "&", etc.  So I'm leaving the arg list unmodified.
+          func = CFunction(docstring, name, args)
+
+          if inClass:
+            self.classes[-1].methods.append(func)
+          else:
+            self.functions.append(func)
+
+          inFunc = False
 
 
 
@@ -184,13 +182,40 @@ class CFunction:
 
     - docstring
     - name
+    - args
+  """
+
+  def __init__ (self, docstring, name, args):
+    """CFunction(docstring, name, args) -> CFunction
+
+    Creates a new CFunction with the given docstring, name and args.
+    """
+    self.docstring = docstring
+    self.name      = name
+    if not args.strip() == '()':
+      self.args = args
+    else:
+      self.args = ''
+
+
+
+class CClassDoc:
+  """Encapsulates documentation for a class.  Currently, it has the
+  following public attributes:
+
+    - docstring
+    - name
   """
 
   def __init__ (self, docstring, name):
-    """CFunction(docstring, name) -> CFunction
+    """CClassDoc(docstring, name) -> CClassDoc
 
-    Creates a new CFunction with the given docstring and name.
+    Creates a new CClassDoc with the given docstring and name.
     """
+
+    # Take out excess leading blank lines.
+    docstring = re.sub('/\*\*(\s+\*)+', r'/** \n *', docstring)
+
     self.docstring = docstring
     self.name      = name
 
@@ -226,13 +251,113 @@ def processHeader (filename, ostream, language):
   header  = CHeader(istream)
   istream.close()
 
+  for c in header.classDocs:
+    writeClassDocstring(ostream, language, c.docstring, c.name)
+
   for c in header.classes:
     for m in c.methods:
       if not m.name.startswith('~'):
-        writeDocstring(ostream, language, m.docstring, m.name, c.name)
+        writeDocstring(ostream, language, m.docstring, m.name, c.name, m.args)
 
   for f in header.functions:
-    writeDocstring(ostream, language, f.docstring, f.name)
+    writeDocstring(ostream, language, f.docstring, f.name, None, f.args)
+
+
+def translateCode (match):
+  text = match.group()
+  text = text.replace('<p>', '')
+  text = text.replace('<', '&lt;')
+  text = text.replace('>', '&gt;')
+  text = re.sub('@code[ \t]*', r'<div class=\'fragment\'><pre>', text)
+
+  p = re.compile('\s*\*\s+@endcode', re.MULTILINE)
+  text = p.sub(r'</pre></div>', text)
+
+  return text
+
+
+def translateVerbatim (match):
+  text = match.group()
+  if re.search('@verbatim', text) != None:
+    tagName = 'verbatim'
+  else:
+    tagName = 'code'
+  text = text.replace('<p>', '')
+  text = text.replace('<', '&lt;')
+
+  regexp = '@' + tagName + '[ \t]*'
+  text = re.sub(regexp, r'<div class=\'fragment\'><pre>', text)
+
+  regexp = '(\s*\*\s*)*@end' + tagName
+  p = re.compile(regexp, re.MULTILINE)
+  text = p.sub(r'</pre></div>', text)
+
+  return text
+
+
+def sanitizeForJava (docstring):
+  """sanitizeForJava (docstring) -> docstring
+
+  Performs some mimimal javadoc-specific sanitizations on the
+  C++/Doxygen docstring.
+  """
+
+  # Replace blank lines between paragraphs with <p>:
+
+  p = re.compile('^(\s+)\*\s*$', re.MULTILINE)
+  docstring = p.sub(r'\1* <p>', docstring)
+
+  # There's no verbatim or @code/@endcode equivalent, so we have to convert
+  # it to raw HTML and transform the content too.  This requires helpers.
+
+  p = re.compile('@verbatim.+?@endverbatim', re.DOTALL)
+  docstring = p.sub(translateVerbatim, docstring)
+  p = re.compile('@code.+?@endcode', re.DOTALL)
+  docstring = p.sub(translateVerbatim, docstring)
+
+  # Javadoc doesn't have a @section or @subsection commands.
+
+  p = re.compile('@section\s+[^\s]+\s+(.*)$', re.MULTILINE)
+  docstring = p.sub(r'<h2>\1</h2>', docstring)
+  p = re.compile('@subsection\s+[^\s]+\s+(.*)$', re.MULTILINE)
+  docstring = p.sub(r'<h3>\1</h3>', docstring)
+
+  # Javadoc doesn't have an @image command.  We translate @image html
+  # but ditch @image latex.
+
+  p = re.compile('@image\s+html+\s+([^\s]+).*$', re.MULTILINE)
+  docstring = p.sub(r'<center><img src=\"\1\"></center><br>', docstring)
+  p = re.compile('@image\s+latex+\s+([^\s]+).*$', re.MULTILINE)
+  docstring = p.sub(r'', docstring)
+
+  # Javadoc doesn't have the %foo quoting mechanism, either.
+
+  docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
+
+  # Doxygen doesn't understand HTML character codes like &ge;, so we use
+  # doxygen's Latex facility, but of course, javadoc doesn't understand the
+  # latex markup.  This is getting old.
+
+  docstring = re.sub(r'\\f\$\\geq\\f\$', '&#8805;', docstring)
+  docstring = re.sub(r'\\f\$\\leq\\f\$', '&#8804;', docstring)
+  docstring = re.sub(r'\\f\$\\times\\f\$', '&#215;', docstring)
+
+  # Miscellaneous other javadoc adaption.
+  # The following are done in pairs because I couldn't come up with a
+  # better way to catch the case where @c and @em end up alone at the end
+  # of a line and the thing to be formatted starts on the next one after
+  # the comment '*' character on the beginning of the line.
+
+  docstring = re.sub('@c *([^ ,.:;()/*\n\t]+)', r'<code>\1</code>', docstring)
+  docstring = re.sub('@c(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
+  docstring = re.sub('@p +([^ ,.:;()/*\n\t]+)', r'<code>\1</code>', docstring)
+  docstring = re.sub('@p(\n[ \t]*\*[ \t]+)([^ ,.:;()/*\n\t]+)', r'\1<code>\2</code>', docstring)
+  docstring = re.sub('@em *([^ ,.:;()/*\n\t]+)', r'<em>\1</em>', docstring)
+  docstring = re.sub('@em(\n[ \t]*\*[ \t]*)([^ ,.:;()/*\n\t]+)', r'\1<em>\2</em>', docstring)
+
+  docstring = docstring.replace('@li', '<li>')
+
+  return docstring
 
 
 
@@ -264,7 +389,7 @@ def sanitizeForPerl (docstring):
 
 
 
-def writeDocstring (ostream, language, docstring, methodname, classname=None):
+def writeDocstring (ostream, language, docstring, methodname, classname, args=None):
   """writeDocstring (ostream, language='java'|'python'|'perl', docstring,
   methodname, classname='')
 
@@ -274,7 +399,7 @@ def writeDocstring (ostream, language, docstring, methodname, classname=None):
   """
   if language == 'java':
     pre  = '%javamethodmodifiers'
-    post = '  public'
+    post = ' public'
   elif language == 'perl':
     pre  = '=item'
     post = ''
@@ -284,7 +409,9 @@ def writeDocstring (ostream, language, docstring, methodname, classname=None):
 
   docstring = docstring.replace('"', "'")
 
-  if language == 'python':
+  if language == 'java':
+    docstring = sanitizeForJava(docstring)
+  elif language == 'python':
     docstring = sanitizeForPython(docstring)
   elif language == 'perl':
     docstring = sanitizeForPerl(docstring)  
@@ -295,13 +422,24 @@ def writeDocstring (ostream, language, docstring, methodname, classname=None):
     output += classname + '::'
 
   if language == 'perl':
-   output += '%s\n\n%s%s\n\n'    % (methodname, docstring, post)
+    output += '%s\n\n%s%s\n\n'   % (methodname, docstring, post)
   else:
-    output += '%s "\n%s%s";\n\n' % (methodname, docstring, post)
+    output += '%s%s "\n%s%s";\n\n' % (methodname, args, docstring, post)
 
   ostream.write(output)
   ostream.flush()
 
+
+def writeClassDocstring (ostream, language, docstring, classname):
+  if language == 'java':
+    pre  = '%typemap(javaimports)'
+    docstring = docstring.replace('"', "'")
+    docstring = sanitizeForJava(docstring)
+
+    output = pre + ' ' + classname + ' "\n' + docstring + '"\n\n'
+
+    ostream.write(output)
+    ostream.flush()
 
 
 def main (args):
