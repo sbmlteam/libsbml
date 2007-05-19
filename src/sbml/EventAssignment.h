@@ -166,18 +166,18 @@ public:
    * Creates a new EventAssignment, optionally with its "variable"
    * attribute and math subelement set.
    *
+   * @param variable the identifier of a Species, Compartment or Parameter
+   * object.
+   *
+   * @param math an AST defining the mathematical formula used
+   * as the expression for the event assignment's effect.
+   *
    * @note Although the value of the "variable" attribute is optional in
    * this constructor, it is worth emphasizing that valid EventAssignment
    * definitions must have a value for this attribute.  If no variable is
    * provided at the time of creation, the value is left as the empty
    * string.  Callers are cautioned to set the value using setVariable()
    * soon after invoking this constructor.
-   *
-   * @param variable the identifier of a Species, Compartment or Parameter
-   * object.
-   *
-   * @param math an AST defining the mathematical formula used
-   * as the expression for the event assignment's effect.
    */
   EventAssignment (const std::string& variable = "", const ASTNode* math = NULL);
 

@@ -137,7 +137,6 @@ public:
    * following:
    * @code
    *   Unit u = new Unit();
-   *
    *   u.setKind(kind);
    *   u.setExponent(exponent);
    *   u.setScale(scale);
@@ -335,15 +334,15 @@ public:
   /**
    * Predicate for testing whether this Unit is of the kind @c Celsius
    *
+   * @return @c true if the kind of this Unit is @c Celsius, @c false
+   * otherwise. 
+   *
    * @warning The predefined unit @c Celsius was removed from the list of
    * predefined units in SBML Level 2 Version 3 at the same time that the
    * "offset" attribute was removed from Unit definitions.  LibSBML methods
    * such as this one related to @c Celsius are retained for compatibility
    * with earlier versions of SBML Level 2, but their use is strongly
    * discouraged.
-   *
-   * @return @c true if the kind of this Unit is @c Celsius, @c false
-   * otherwise. 
    */
   bool isCelsius () const;
 
@@ -658,6 +657,9 @@ public:
   /**
    * Sets the "offset" attribute value of this Unit.
    *
+   * @param value the float-point value to which the attribute "offset"
+   * should set
+   *
    * @warning The "offset" attribute is only available in SBML Level 2
    * Version 1.  This attribute is not present in SBML Level 2 Version 2 or
    * above.  When producing SBML models using these later specifications,
@@ -666,9 +668,6 @@ public:
    * suggestions for how to achieve this.  LibSBML methods such as this one
    * related to "offset" are retained for compatibility with earlier
    * versions of SBML Level 2, but their use is strongly discouraged.
-   *
-   * @param value the float-point value to which the attribute "offset"
-   * should set
    */
   void setOffset (double value);
 

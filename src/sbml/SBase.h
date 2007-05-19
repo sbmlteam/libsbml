@@ -170,7 +170,7 @@
  * following possibilities:
  *
  * @li A complete XHTML document (minus the XML and DOCTYPE declarations,
- * of course), that is, XHTML content beginning with the \token{html} tag.
+ * of course), that is, XHTML content beginning with the @c html tag.
  * @verbatim
 <notes>
   <html xmlns="http://www.w3.org/1999/xhtml">

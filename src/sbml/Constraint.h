@@ -55,13 +55,14 @@
  * described in in the SBML Level 2 specification.  For example, "message"
  * must not contain an XML declaration or a DOCTYPE declaration, and the
  * permitted content can only take one of the following general forms: (1)
- * a complete XHTML document beginning with the element @c &lt;html> and
- * ending with @c &lt;/xhtml>; (2) the body portion of a document beginning
- * with the element @c &lt;body> and ending with @c &lt;/body>; or (3)
- * XHTML content that is permitted within a @c &lt;body> ...  @c &lt;/body>
- * elements.  The appendix of the SBML Level 2 Version 3 specification
- * document describes one approach to reading the "message" subelement
- * content.
+ * a complete XHTML document beginning with the element
+ * <code>&lt;html></code> and ending with <code>&lt;/xhtml></code>; (2) the
+ * body portion of a document beginning with the element
+ * <code>&lt;body></code> and ending with <code>&lt;/body></code>; or (3)
+ * XHTML content that is permitted within a <code>&lt;body></code> ...
+ * <code>&lt;/body></code> elements.  The appendix of the SBML Level 2
+ * Version 3 specification document describes one approach to reading the
+ * "message" subelement content.
  *
  * Constraint was introduced in SBML Level 2 Version 2.  It is not
  * available in earlier versions of Level 2 nor in any version of Level 1.

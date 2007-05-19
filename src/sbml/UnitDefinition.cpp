@@ -584,14 +584,14 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 /**
  * Creates a new, empty UnitDefinition_t structure.
  *
+ * @return the new UnitDefinition_t structure
+ *
  * @note It is worth emphasizing that the attribute "id" value of a
  * UnitDefinition_t is a required attribute.  UnitDefinition_create() does
  * not assign a valid "id" to the constructed unit; instead, it leaves it
  * as the empty string.  Callers are cautioned to set the newly-constructed
  * UnitDefinition_t's "id" using UnitDefinition_setId() soon after calling
  * this function.
- *
- * @return the new UnitDefinition_t structure
  */
 LIBSBML_EXTERN
 UnitDefinition_t *

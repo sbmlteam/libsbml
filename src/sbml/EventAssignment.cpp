@@ -432,14 +432,14 @@ ListOfEventAssignments::createObject (XMLInputStream& stream)
 /**
  * Creates a new, empty EventAssignment_t structure and returns a pointer
  * to it.
+ * 
+ * @return the freshly-created EventAssignment_t structure
  *
  * @note It is worth emphasizing that valid EventAssignment definitions
  * must have a value for the "variable".  If no variable is provided at the
  * time of an EventAssignment_t's creation, the value is left as the empty
  * string.  Callers are cautioned to set the value using
  * EventAssignment_setVariable() soon after invoking this constructor.
- * 
- * @return the freshly-created EventAssignment_t structure
  */
 LIBSBML_EXTERN
 EventAssignment_t *

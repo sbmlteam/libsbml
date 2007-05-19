@@ -69,20 +69,20 @@
  * therefore do not need the full function-definition machinery typically
  * associated with programming languages.
  * 
- * @note It is important to note that FunctionDefinition does not have a
- * separate attribute for defining the units of the value returned by the
- * function.  The units associated with the function's return value, when
- * the function is called from within MathML expressions elsewhere in SBML,
- * are simply the overall units of the expression in FunctionDefinition's
- * "math" subelement when applied to the arguments supplied in the call to
- * the function.  Ascertaining these units requires performing dimensional
- * analysis on the expression.  (Readers may wonder why there is no
- * attribute.  The reason is that having a separate attribute for declaring
- * the units would not only be redundant, but also lead to the potential
- * for having conflicting information.  In the case of a conflict between
- * the declared units and those of the value actually returned by the
- * function, the only logical resolution rule would be to assume that the
- * correct units are those of the expression anyway.)
+ * @note Another important point to note is FunctionDefinition does not
+ * have a separate attribute for defining the units of the value returned
+ * by the function.  The units associated with the function's return value,
+ * when the function is called from within MathML expressions elsewhere in
+ * SBML, are simply the overall units of the expression in
+ * FunctionDefinition's "math" subelement when applied to the arguments
+ * supplied in the call to the function.  Ascertaining these units requires
+ * performing dimensional analysis on the expression.  (Readers may wonder
+ * why there is no attribute.  The reason is that having a separate
+ * attribute for declaring the units would not only be redundant, but also
+ * lead to the potential for having conflicting information.  In the case
+ * of a conflict between the declared units and those of the value actually
+ * returned by the function, the only logical resolution rule would be to
+ * assume that the correct units are those of the expression anyway.)
  * 
  * <!---------------------------------------------------------------------- -->
  *

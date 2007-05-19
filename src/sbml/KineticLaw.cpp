@@ -702,17 +702,6 @@ KineticLaw_create (void)
  *   KineticLaw_setFormula(kl, formula);
  * @endcode
  *
- * @note SBML Level 1 uses a text-string format for mathematical formulas.
- * SBML Level 2 uses MathML, an XML format for representing mathematical
- * expressions.  LibSBML provides an Abstract Syntax Tree API for working
- * with mathematical expressions; this API is more powerful than working
- * with formulas directly in text form, and ASTs can be translated into
- * either MathML or the text-string syntax.  The libSBML methods that
- * accept text-string formulas directly (such as this constructor) are
- * provided for SBML Level 1 compatibility, but developers are encouraged
- * to use the AST mechanisms.  See KineticLaw_createWithMath for a
- * version that takes an ASTNode_t structure.
- *
  * @param formula a mathematical expression in text-string form
  * representing the rate of the reaction.
  * 
@@ -723,6 +712,17 @@ KineticLaw_create (void)
  * KineticLaw_t structure.
  *
  * @return pointer to newly created KineticLaw_t structure.
+ *
+ * @note SBML Level 1 uses a text-string format for mathematical formulas.
+ * SBML Level 2 uses MathML, an XML format for representing mathematical
+ * expressions.  LibSBML provides an Abstract Syntax Tree API for working
+ * with mathematical expressions; this API is more powerful than working
+ * with formulas directly in text form, and ASTs can be translated into
+ * either MathML or the text-string syntax.  The libSBML methods that
+ * accept text-string formulas directly (such as this constructor) are
+ * provided for SBML Level 1 compatibility, but developers are encouraged
+ * to use the AST mechanisms.  See KineticLaw_createWithMath for a
+ * version that takes an ASTNode_t structure.
  *
  * @warning In SBML Level 2 Version 2, the "timeUnits" and "substanceUnits"
  * attributes were removed.  For compatibility with new versions of SBML,
@@ -800,6 +800,12 @@ KineticLaw_clone (const KineticLaw_t *kl)
  * This is fundamentally equivalent to KineticLaw_getMath().  It is
  * provided principally for compatibility with SBML Level 1.
  *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return the formula of this KineticLaw_t structure.
+ *
+ * @see KineticLaw_getMath().
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -810,12 +816,6 @@ KineticLaw_clone (const KineticLaw_t *kl)
  * provided for SBML Level 1 compatibility, but developers are encouraged
  * to use the AST mechanisms.  See KineticLaw_createWithMath for a
  * version that takes an ASTNode_t structure.
- *
- * @param kl the KineticLaw_t structure.
- * 
- * @return the formula of this KineticLaw_t structure.
- *
- * @see KineticLaw_getMath().
  */
 LIBSBML_EXTERN
 const char *
@@ -895,6 +895,12 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
  * This is fundamentally equivalent to KineticLaw_isSetMath().  It is
  * provided principally for compatibility with SBML Level 1.
  *
+ * @param kl the KineticLaw_t structure.
+ * 
+ * @return nonzero (meaning true) if the formula (or equivalently the
+ * "math" subelement) of the given KineticLaw_t structure has been set,
+ * zero (meaning false) otherwise.
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -905,12 +911,6 @@ KineticLaw_getSubstanceUnits (const KineticLaw_t *kl)
  * provided for SBML Level 1 compatibility, but developers are encouraged
  * to use the AST mechanisms.  See KineticLaw_createWithMath for a
  * version that takes an ASTNode_t structure.
- *
- * @param kl the KineticLaw_t structure.
- * 
- * @return nonzero (meaning true) if the formula (or equivalently the
- * "math" subelement) of the given KineticLaw_t structure has been set,
- * zero (meaning false) otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -992,6 +992,10 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
  * This is fundamentally equivalent to KineticLaw_setMath().  It is
  * provided principally for compatibility with SBML Level 1.
  *
+ * @param kl the KineticLaw_t structure.
+ *
+ * @param formula the mathematical expression, in text-string form.
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -1002,10 +1006,6 @@ KineticLaw_isSetSubstanceUnits (const KineticLaw_t *kl)
  * provided for SBML Level 1 compatibility, but developers are encouraged
  * to use the AST mechanisms.  See KineticLaw_createWithMath for a
  * version that takes an ASTNode_t structure.
- *
- * @param kl the KineticLaw_t structure.
- *
- * @param formula the mathematical expression, in text-string form.
  */
 LIBSBML_EXTERN
 void

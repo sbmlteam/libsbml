@@ -371,12 +371,12 @@ public:
    * "stoichiometry" and "denominator" in the case of SBML Level 1, or a
    * "stoichiometryMath" subelement in the case of SBML Level 2).
    *
+   * @param species the identifier of the species to be referenced
+   *
    * @note The "species" attribute on SpeciesReference is required to have
    * a value in SBML.  Although the attribute is optional in this
    * constructor, callers should provide a value or use setSpecies()
    * shortly after creating the object.
-   *
-   * @param species the identifier of the species to be referenced
    */
   SpeciesReference (   const std::string& species       = ""
                      , double             stoichiometry = 1.0

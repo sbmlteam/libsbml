@@ -154,11 +154,12 @@ public:
 
 
   /**
-   * Creates and returns a deep copy of this Model.
+   * Creates and returns a deep copy of this Model object.
    * 
    * @return a (deep) copy of this Model.
    */
   virtual SBase* clone () const;
+
 
   /**
    * Returns the ModelHistory of this Model.
@@ -167,12 +168,14 @@ public:
    */
   ModelHistory* getModelHistory() const;
 
+
   /**
    * Returns the ModelHistory of this Model.
    * 
    * @return ModelHistory of this Model.
    */
   ModelHistory* getModelHistory();
+
 
   /**
    * Predicate returning @c true or @c false depending on whether this
@@ -183,6 +186,7 @@ public:
    */
   bool isSetModelHistory();
 
+
   /**
    * Sets the ModelHistory of this Model.
    * 
@@ -190,10 +194,12 @@ public:
    */
   void setModelHistory(ModelHistory * history);
 
+
   /**
    * Unsets the ModelHistory of this Model.
    */
   void unsetModelHistory();
+
 
   /**
    * Adds a copy of the given FunctionDefinition object to this Model.
@@ -1459,7 +1465,6 @@ protected:
 #endif  /* USE_LAYOUT */
 
   /** @endcond doxygen-libsbml-internal */
-
 };
 
 

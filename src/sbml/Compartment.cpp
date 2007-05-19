@@ -1049,18 +1049,18 @@ Compartment_isSetSize (const Compartment_t *c)
  * processing to take into account the difference in default values between
  * SBML Levels 1 and 2.
  *
- * @note In SBML Level 1, a compartment's volume has a default value (@c
- * 1.0) and therefore this method will always return @c true.  In Level
- * 2, a compartment's size (the equivalent of SBML Level 1's "volume") is
- * optional and has no default value, and therefore may or may not be
- * set.
- *
  * @param c the Compartment_t structure
  * 
  * @return @c true if the "volume" attribute ("size" in L2) of the given
  * Compartment_t structure @p c has been set, @c false otherwise.
  *
  * @see Compartment_isSetSize(), Compartment_setVolume()
+ *
+ * @note In SBML Level 1, a compartment's volume has a default value (@c
+ * 1.0) and therefore this method will always return @c true.  In Level
+ * 2, a compartment's size (the equivalent of SBML Level 1's "volume") is
+ * optional and has no default value, and therefore may or may not be
+ * set.
  */
 LIBSBML_EXTERN
 int

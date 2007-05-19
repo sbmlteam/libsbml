@@ -131,23 +131,6 @@
  * not (say) @em concentration/@em time, volume or other factors in
  * principle are not needed for species located in zero-dimensional
  * compartments.
- * 
- * @note The "size" attribute on a compartment must be defined as optional;
- * however, <em>it is extremely good practice to specify values for
- * compartment sizes</em> when such values are available.  There are two
- * major technical reasons for this.  First, models ideally should be
- * instantiable in a variety of simulation frameworks.  A commonly-used one
- * is the discrete stochastic framework, in which species are represented
- * as item counts (e.g., molecule counts).  If species' initial quantities
- * are given in terms of concentrations or densities, it is impossible to
- * convert the values to item counts without knowing compartment sizes.
- * Second, and more importantly, if a model contains multiple compartments
- * whose sizes are not all identical to each other, it is impossible to
- * quantify the reaction rate expressions without knowing the compartment
- * volumes.  The reason for the latter is that reaction rates in SBML are
- * defined in terms of substance/time, and when species quantities are
- * given in terms of concentrations or densities, the compartment sizes
- * become factors in the reaction rate expressions.
  *
  * Compartment has another optional attribute named "constant".  This takes
  * a boolean value indicating whether the compartment's size stays constant
@@ -180,6 +163,23 @@
  * inside itself.  In the absence of a value for "outside", compartment
  * definitions in SBML Level 2 do not have any implied spatial
  * relationships between each other.
+ * 
+ * @note The "size" attribute on Compartment is defined as optional;
+ * however, <em>it is extremely good practice to specify values for
+ * compartment sizes</em> when such values are available.  There are two
+ * major technical reasons for this.  First, models ideally should be
+ * instantiable in a variety of simulation frameworks.  A commonly-used one
+ * is the discrete stochastic framework, in which species are represented
+ * as item counts (e.g., molecule counts).  If species' initial quantities
+ * are given in terms of concentrations or densities, it is impossible to
+ * convert the values to item counts without knowing compartment sizes.
+ * Second, and more importantly, if a model contains multiple compartments
+ * whose sizes are not all identical to each other, it is impossible to
+ * quantify the reaction rate expressions without knowing the compartment
+ * volumes.  The reason for the latter is that reaction rates in SBML are
+ * defined in terms of substance/time, and when species quantities are
+ * given in terms of concentrations or densities, the compartment sizes
+ * become factors in the reaction rate expressions.
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 
@@ -426,17 +426,17 @@ public:
    * should not be used in the context of SBML Level 1 models because this
    * method (isSetVolume()) performs extra processing to take into account
    * the difference in default values between SBML Levels 1 and 2.
+   * 
+   * @return @c true if the "volume" attribute ("size" in L2) of this
+   * Compartment has been set, @c false otherwise.
+   *
+   * @see isSetSize(), setVolume()
    *
    * @note In SBML Level 1, a compartment's volume has a default value (@c
    * 1.0) and therefore this method will always return @c true.  In Level
    * 2, a compartment's size (the equivalent of SBML Level 1's "volume") is
    * optional and has no default value, and therefore may or may not be
    * set.
-   * 
-   * @return @c true if the "volume" attribute ("size" in L2) of this
-   * Compartment has been set, @c false otherwise.
-   *
-   * @see isSetSize(), setVolume()
    */
   bool isSetVolume () const;
 

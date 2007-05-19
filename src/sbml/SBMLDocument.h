@@ -185,6 +185,23 @@ public:
    * translated downward as well, if they do not use constructs specific to
    * more advanced Levels of SBML.
    *
+   * Callers can also check compatibility directly using the methods
+   * checkL1Compatibility(), checkL2v1Compatibility(), and 
+   * checkL2v2Compatibility().
+   * 
+   * The valid combinations as of this release of libSBML are the
+   * following: 
+   *
+   * @li Level 1 Version 1
+   * @li Level 1 Version 2
+   * @li Level 2 Version 1
+   * @li Level 2 Version 2
+   * @li Level 2 Version 3
+   *  
+   * @param level the desired SBML Level
+   *  
+   * @param version the desired Version within the SBML Level
+   *
    * @note Calling this method will not @em necessarily lead to successful
    * conversion.  If the conversion fails, it will be logged in the error
    * list associated with this SBMLDocument.  Callers should consult
@@ -193,23 +210,6 @@ public:
    * check the Level of the model after calling this method to find out
    * whether it is Level 1.  (If the conversion to Level 1 failed, the
    * Level of this model will be left unchanged.)
-   *
-   * Callers can also check compatibility directly using the methods
-   * checkL1Compatibility(), checkL2v1Compatibility(), and 
-   * checkL2v2Compatibility().
-   * 
-   * The valid combinations as of this release of libSBML are the
-   * following: 
-   *
-   *   - Level 1 Version 1
-   *   - Level 1 Version 2
-   *   - Level 2 Version 1
-   *   - Level 2 Version 2
-   *   - Level 2 Version 3
-   *  
-   *  @param level the desired SBML Level
-   *  
-   *  @param version the desired Version within the SBML Level
    */
   void setLevelAndVersion (unsigned int level, unsigned int version);
 

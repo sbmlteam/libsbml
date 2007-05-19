@@ -72,6 +72,11 @@
  * suspect, this situation is not strictly an error.  A value of @c false
  * for "constant" only indicates that a parameter @em can change value, not
  * that it @em must.
+ *
+ * @n As with all other major %SBML components, Parameter is derived from
+ * SBase, and the methods defined on SBase are available on Parameter.
+ *
+ * @see ListOfParameters, KineticLaw.
  * 
  * @note The use of the term @em parameter in %SBML sometimes leads to
  * confusion among readers who have a particular notion of what something
@@ -92,12 +97,9 @@
  * thus tools can present to their users whatever terms their designers
  * feel best matches their target audience.
  *
- * @n As with all other major %SBML components, Parameter is derived from
- * SBase, and the methods defined on SBase are available on Parameter.
- *
- * @see ListOfParameters, KineticLaw.
- *
- *
+ * <!-- leave this next break as-is to work around some doxygen bug -->
+ */ 
+/**
  * @class ListOfParameters.
  * @brief Container class for lists of Parameter objects in a Model.
  * 
@@ -249,13 +251,13 @@ public:
    * @return the value of the "value" attribute of this Parameter, as a
    * number of type @c double.
    *
+   * @see Parameter::isSetValue()
+   *
    * @note <b>It is crucial</b> that callers not blindly call
    * Parameter::getValue() without first checking with
    * Parameter::isSetValue() to determine whether a value has been set.
    * Otherwise, the value return by Parameter::getValue() may not actually
    * represent a value assigned to the parameter.
-   *
-   * @see Parameter::isSetValue()
    */
   double getValue () const;
 
@@ -301,16 +303,16 @@ public:
    * Level 1 Version 2 and beyond, the value is optional and as such, the
    * "value" attribute may or may not be set.
    *
+   * @return @c true if the value of this Parameter has been set,
+   * @c false otherwise.
+   *
+   * @see Parameter::getValue()
+   *
    * @note <b>It is crucial</b> that callers not blindly call
    * Parameter::getValue() without first checking with
    * Parameter::isSetValue() to determine whether a value has been set.
    * Otherwise, the value return by Parameter::getValue() may not actually
    * represent a value assigned to the parameter.
-   *
-   * @return @c true if the value of this Parameter has been set,
-   * @c false otherwise.
-   *
-   * @see Parameter::getValue()
    */
   bool isSetValue () const;
 

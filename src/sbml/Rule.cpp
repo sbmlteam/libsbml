@@ -1035,6 +1035,8 @@ Rule_createRate ()
  * Creates a new AlgebraicRule with the given formula 
  * and returns a pointer to it.
  *
+ * @return pointer to the newly created Algebraic Rule_t structure.
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -1044,8 +1046,6 @@ Rule_createRate ()
  * accept text-string formulas directly (such as this one) are
  * provided for SBML Level 1 compatibility, but developers are encouraged
  * to use the AST mechanisms.  
- *
- * @return pointer to the newly created Algebraic Rule_t structure.
  */
 LIBSBML_EXTERN
 Rule_t *
@@ -1059,6 +1059,12 @@ Rule_createAlgebraicWithFormula (const char *formula)
  * Creates a new AssignmentRule with the given formula 
  * and returns a pointer to it.
  *
+ * @param variable string representing the variable to be assigned by
+ * the Rule_t structure.
+ * @param formula string representing the formula of the Rule_t structure.
+ *
+ * @return pointer to the newly created Assignment Rule_t structure.
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -1068,12 +1074,6 @@ Rule_createAlgebraicWithFormula (const char *formula)
  * accept text-string formulas directly (such as this one) are
  * provided for SBML Level 1 compatibility, but developers are encouraged
  * to use the AST mechanisms.  
- *
- * @param variable string representing the variable to be assigned by
- * the Rule_t structure.
- * @param formula string representing the formula of the Rule_t structure.
- *
- * @return pointer to the newly created Assignment Rule_t structure.
  */
 LIBSBML_EXTERN
 Rule_t *
@@ -1088,6 +1088,12 @@ Rule_createAssignmentWithVariableAndFormula (const char * variable,
  * Creates a new RateRule with the given formula 
  * and returns a pointer to it.
  *
+ * @param variable string representing the variable to be assigned by
+ * the Rule_t structure.
+ * @param formula string representing the formula of the Rule_t structure.
+ *
+ * @return pointer to the newly created Rate Rule_t structure.
+ *
  * @note SBML Level 1 uses a text-string format for mathematical formulas.
  * SBML Level 2 uses MathML, an XML format for representing mathematical
  * expressions.  LibSBML provides an Abstract Syntax Tree API for working
@@ -1097,12 +1103,6 @@ Rule_createAssignmentWithVariableAndFormula (const char * variable,
  * accept text-string formulas directly (such as this one) are
  * provided for SBML Level 1 compatibility, but developers are encouraged
  * to use the AST mechanisms.  
- *
- * @param variable string representing the variable to be assigned by
- * the Rule_t structure.
- * @param formula string representing the formula of the Rule_t structure.
- *
- * @return pointer to the newly created Rate Rule_t structure.
  */
 LIBSBML_EXTERN
 Rule_t *

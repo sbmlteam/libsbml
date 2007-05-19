@@ -46,7 +46,7 @@
  * @section delay-units The units of the mathematical expression in a Delay
  *
  * The units of the numerical value computed by the Delay's "math"
- * expression must be units of time.  Note <em>that units are not
+ * expression must be units of time.  Note that <em>units are not
  * predefined or assumed</em> for the contents of "math" in a Delay object;
  * rather, they must be defined explicitly for each instance of a Delay
  * object in a model.  This is an important point to bear in mind when pure

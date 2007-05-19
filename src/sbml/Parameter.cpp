@@ -742,16 +742,15 @@ Parameter_isSetName (const Parameter_t *p)
 /**
  * Predicate returning @c true or @c false depending on whether the given
  * Parameter_t structure's value has been set.
- *
- * @note In SBML Level 1 Version 1, a Parameter value is required and
- * therefore <em>should always be set</em>.  In Level 1 Version 2 and
- * later, the value is optional, and as such, may or may not be set.
  * 
  * @param p the Parameter_t structure to query
  * 
  * @return @c non-zero (true) if the "value" attribute of the given
  * Parameter_t structure has been set, zero (false) otherwise.
  *
+ * @note In SBML Level 1 Version 1, a Parameter value is required and
+ * therefore <em>should always be set</em>.  In Level 1 Version 2 and
+ * later, the value is optional, and as such, may or may not be set.
  */
 LIBSBML_EXTERN
 int

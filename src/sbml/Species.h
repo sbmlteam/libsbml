@@ -35,13 +35,6 @@
  * "boundaryCondition", "charge" and "constant".  These various parts are
  * described next.
  * 
- * @warning In versions of SBML Level~2 before Version 3, the class Species
- * included an attribute called "spatialSizeUnits", which allowed
- * explicitly setting the units of size for initial concentration.  LibSBML
- * retains this attribute for compatibility with older definitions of Level
- * 2, but its use is strongly discouraged because it is incompatible with
- * Level 2 Version 3.
- * 
  * As with other major structures in %SBML, Species has a mandatory
  * attribute, "id", used to give the species type an identifier in the
  * model.  The identifier must be a text string conforming to the identifer
@@ -213,6 +206,13 @@
  * appear as a reactant or product, or as the target of any
  * AssignmentRule, RateRule or EventAssignment structure in the model.
  *
+ * 
+ * @warning In versions of SBML Level~2 before Version 3, the class Species
+ * included an attribute called "spatialSizeUnits", which allowed
+ * explicitly setting the units of size for initial concentration.  LibSBML
+ * retains this attribute for compatibility with older definitions of Level
+ * 2, but its use is strongly discouraged because it is incompatible with
+ * Level 2 Version 3.
  *
  * <!-- leave this next break as-is to work around some doxygen bug -->
  */ 

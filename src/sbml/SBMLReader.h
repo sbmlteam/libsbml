@@ -48,16 +48,38 @@ public:
    */
   SBMLReader ();
 
+
   /**
-   * Destorys this SBMLReader.
+   * Destroys this SBMLReader.
    */
   virtual ~SBMLReader ();
 
 
   /**
-   * Reads an SBML document from the given file.  If filename does not
-   * exist or is not an SBML file, a fatal error will be logged.
-   * Errors can be identified by their unique ids, e.g.:
+   * Reads an SBML document from a file.
+   *
+   * If the file named @p filename does not exist or its content is not
+   * valid SBML, one or more errors will be logged with the SBMLDocument
+   * object returned.  Callers can use the methods on SBMLDocument such as
+   * SBMLDocument::getNumErrors() and SBMLDocument::getError() to get the
+   * errors, and the XMLError methods such as XMLError::getId() and
+   * XMLError::getSeverity(), to assess the severity of the problem.  The
+   * severity levels range from informationl messages to fatal errors.
+   *
+   * If the file could not be read, the error will appear first.  Callers
+   * can check for this situation using code such as the following:
+   * @code
+   *   SBMLReader* reader = new SBMLReader();
+   *   SBMLDocument* document = reader.readSBML(filename);
+   *
+   *   if (document->getNumErrors() > 0)
+   *   {
+   *     
+   *
+   * 
+
+  Errors can be
+   * identified by their unique ids, e.g.:
    *
    * <code>
    *   SBMLDocument* d = reader.readSBML(filename);
@@ -72,6 +94,7 @@ public:
    * @return a pointer to the SBMLDocument read.
    */
   SBMLDocument* readSBML (const std::string& filename);
+
 
   /**
    * Reads an SBML document from the given XML string.
@@ -91,15 +114,15 @@ public:
   SBMLDocument* readSBMLFromString (const std::string& xml);
 
 
-
 protected:
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Used by readSBML() and readSBMLFromString().
    */
   SBMLDocument* readInternal (const char* content, bool isFile = true);
 
-
+  /** @endcond doxygen-libsbml-internal */
 };
 
 
