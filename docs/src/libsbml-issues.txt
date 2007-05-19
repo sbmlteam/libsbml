@@ -15,6 +15,32 @@ still-unsupported aspects:
 @li Support for MathML's <code>annotation-xml</code> elements
 
 
+@section issues-pi Name collisions in mathematical expressions
+
+In the C-like, text-based, formula expression syntax supported by libSBML
+and used in SBML Level 1, four constants are reserved words: @c true, @c
+false, @c exponentiale and @c pi.  Most of them will not easily lead to a
+name collision, but unfortunately, the character sequence @c pi @em is also
+sometimes used as a species identifier by biological modelers (e.g., to use
+"Pi" to represent a phosphate ion).  If the string "pi" or "Pi" appears in
+a text string passed to a libSBML method that interprets formulas, it will
+be interpreted as the mathematical constant \f$\pi\f$ (pi).  For example,
+the expression <em>2 * Pi</em> will yield
+@verbatim
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+  <apply>
+    <times/>
+    <cn type="integer"> 2 </cn>
+    <pi/>
+  </apply>
+</math>
+@endverbatim
+This problem exists for all four of the constants mentioned above, but is
+most commonly encountered in the context of "pi".  Currently, the only ways
+to avoid this problem are either to avoid using the strings "pi" and "Pi"
+in this context, or to avoid using the text-string expressions altogether
+and instead use ASTs.  All libSBML methods that accept text-string
+mathematical formulas have variants that accept ASTs instead.
 
 */
 
