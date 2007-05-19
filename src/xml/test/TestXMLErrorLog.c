@@ -59,7 +59,6 @@ START_TEST (test_XMLErrorLog_add)
 
 
   XMLError_free(e1);
-  XMLError_free(error);
   XMLErrorLog_free(log);
 }
 END_TEST
