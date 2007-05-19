@@ -43,7 +43,7 @@ using namespace std;
  * Creates a new CompartmentType, optionally with its id and name
  * attributes set.
  */
-CompartmentType::CompartmentType (const string& id, const string& name) :
+CompartmentType::CompartmentType (const std::string& id, const std::string& name) :
   SBase(id, name)
 {
 }
@@ -123,6 +123,7 @@ CompartmentType::getElementName () const
   return name;
 }
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -170,8 +171,10 @@ CompartmentType::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -201,8 +204,10 @@ CompartmentType::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && version == 3) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -231,7 +236,7 @@ CompartmentType::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && version == 3) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 
@@ -267,6 +272,7 @@ ListOfCompartmentTypes::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -276,8 +282,10 @@ ListOfCompartmentTypes::getElementPosition () const
 {
   return 3;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -297,6 +305,7 @@ ListOfCompartmentTypes::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

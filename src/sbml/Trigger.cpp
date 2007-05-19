@@ -178,6 +178,7 @@ Trigger::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -187,8 +188,10 @@ Trigger::getElementPosition () const
 {
   return 0;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -280,8 +283,10 @@ Trigger::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -301,8 +306,10 @@ Trigger::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -322,8 +329,10 @@ Trigger::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -336,10 +345,11 @@ Trigger::writeElements (XMLOutputStream& stream) const
 
   if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 
-
+/** @cond doxygen-c-only */
 
 /**
  * Creates a new Trigger and returns a pointer to it.
@@ -428,3 +438,6 @@ Trigger_setMath (Trigger_t *t, const ASTNode_t *math)
 {
   t->setMath(math);
 }
+
+
+/** @endcond doxygen-c-only */

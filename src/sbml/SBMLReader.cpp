@@ -67,7 +67,7 @@ SBMLReader::~SBMLReader ()
  * @return a pointer to the SBMLDocument read.
  */
 SBMLDocument*
-SBMLReader::readSBML (const string& filename)
+SBMLReader::readSBML (const std::string& filename)
 {
   return readInternal(filename.c_str(), true);
 }
@@ -89,12 +89,13 @@ SBMLReader::readSBML (const string& filename)
  * @return a pointer to the SBMLDocument read.
  */
 SBMLDocument*
-SBMLReader::readSBMLFromString (const string& xml)
+SBMLReader::readSBMLFromString (const std::string& xml)
 {
   return readInternal(xml.c_str(), false);
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Used by readSBML() and readSBMLFromString().
  */
@@ -135,6 +136,10 @@ SBMLReader::readInternal (const char* content, bool isFile)
   }
   return d;
 }
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-c-only */
 
 
 /**
@@ -270,3 +275,6 @@ readSBMLFromString (const char *xml)
   SBMLReader sr;
   return sr.readSBMLFromString(xml);
 }
+
+
+/** @endcond doxygen-c-only */

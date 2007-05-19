@@ -119,10 +119,11 @@ static const char * XHTML_ELEMENTS[] =
 };
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Only subclasses may create SBase objects.
  */
-SBase::SBase (const string& id, const string& name, int sbo) :
+SBase::SBase (const std::string& id, const std::string& name, int sbo) :
    mId        ( id   )
  , mName      ( name )
  , mNotes     ( 0 )
@@ -135,7 +136,10 @@ SBase::SBase (const string& id, const string& name, int sbo) :
  , mCVTerms   ( 0 )
 {
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Creates a new SBase object with the given sboTerm.
  * Only subclasses may create SBase objects.
@@ -153,7 +157,10 @@ SBase::SBase (int sbo) :
  , mCVTerms   ( 0 )
 {
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Copy constructor. Creates a copy of this SBase object.
  */
@@ -194,6 +201,7 @@ SBase::SBase(const SBase& orig)
       this->mCVTerms = 0;
     }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -432,7 +440,7 @@ SBase::isSetSBOTerm () const
  * Sets the metaid field of the given SBML object to a copy of metaid.
  */
 void
-SBase::setMetaId (const string& metaid)
+SBase::setMetaId (const std::string& metaid)
 {
   mMetaId = metaid;
 }
@@ -442,7 +450,7 @@ SBase::setMetaId (const string& metaid)
  * Sets the id of this SBML object to a copy of sid.
  */
 void
-SBase::setId (const string& sid)
+SBase::setId (const std::string& sid)
 {
   mId = sid;
 }
@@ -452,7 +460,7 @@ SBase::setId (const string& sid)
  * Sets the name of this SBML object to a copy of name.
  */
 void
-SBase::setName (const string& name)
+SBase::setName (const std::string& name)
 {
   if (getLevel() == 1) mId = name;
   else mName = name;
@@ -822,6 +830,7 @@ SBase::getTypeCode () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the partial SBML that describes this SBML object.
  */
@@ -835,8 +844,10 @@ SBase::toSBML ()
 
   return safe_strdup( os.str().c_str() );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Reads (initializes) this SBML object by reading from XMLInputStream.
  */
@@ -899,8 +910,10 @@ SBase::read (XMLInputStream& stream)
     
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Writes (serializes) this SBML object by writing it to XMLOutputStream.
  */
@@ -914,8 +927,10 @@ SBase::write (XMLOutputStream& stream) const
 
   stream.endElement( getElementName() );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -948,10 +963,10 @@ SBase::writeElements (XMLOutputStream& stream) const
 
   if ( mAnnotation ) stream << *mAnnotation;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
-
-
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to create, store, and then
  * return an SBML object corresponding to the next XMLToken in the
@@ -965,8 +980,10 @@ SBase::createObject (XMLInputStream&)
 {
   return 0;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -978,8 +995,10 @@ SBase::readOtherXML (XMLInputStream&)
 {
   return false;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -989,8 +1008,10 @@ SBase::getElementPosition () const
 {
   return -1;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBMLErrorLog used to log errors during while reading and
  * validating SBML.
@@ -1000,8 +1021,10 @@ SBase::getErrorLog ()
 {
   return (mSBML != 0) ? mSBML->getErrorLog() : 0;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1019,8 +1042,10 @@ SBase::readAttributes (const XMLAttributes& attributes)
     checkMetaIdSyntax();
 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -1036,8 +1061,10 @@ SBase::writeAttributes (XMLOutputStream& stream) const
     stream.writeAttribute("metaid", mMetaId);
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Checks that SBML element has been read in the proper order.  If object
  * is not in the expected position, an error is logged.
@@ -1068,8 +1095,10 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
     mSBML->getErrorLog()->logError(error);
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks that an SBML ListOf element has been populated.  
   * If a listOf element has been declared with no elements, 
@@ -1124,8 +1153,10 @@ SBase::checkListOfPopulated(SBase* object)
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks the syntax of a metaid attribute.
   * The syntax of a metaid is XML 1.0 type ID. The literal representation of 
@@ -1226,8 +1257,10 @@ SBase::checkMetaIdSyntax()
   if (!okay)   
     mSBML->getErrorLog()->logError(10309);
 }
+/** @endcond doxygen-libsbml-internal */
 
   
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks the syntax of the id attribute.
   * The syntax of an id is of type SId which is defined as:
@@ -1300,8 +1333,10 @@ SBase::checkIdSyntax()
   if (!okay)   
     mSBML->getErrorLog()->logError(10310);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks the annotation does not declare an sbml namespace.
   * If the annotation declares an sbml namespace an error is logged.
@@ -1338,8 +1373,10 @@ SBase::checkAnnotation()
     nNodes++;
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Checks that the XHTML is valid.
  * If the xhtml does not conform to the specification of valid xhtml within
@@ -1492,8 +1529,10 @@ SBase::checkXHTML(const XMLNode * xhtml)
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks if a character is part of the Unicode Letter set.
   * @return true if the character is a part of the set, false otherwise.
@@ -2227,8 +2266,10 @@ case 3:
       
   return letter; 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks if a character is part of the Unicode Digit set.
   * @return true if the character is a part of the set, false otherwise.
@@ -2367,8 +2408,10 @@ SBase::isUnicodeDigit(std::string::iterator it, unsigned int numBytes)
       
   return digit; 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks if a character is part of the Unicode CombiningChar set.
   * @return true if the character is a part of the set, false otherwise.
@@ -2853,8 +2896,10 @@ SBase::isCombiningChar(std::string::iterator it, unsigned int numBytes)
       
   return combiningChar; 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
   * Checks if a character is part of the Unicode Extender set.
   * @return true if the character is a part of the set, false otherwise.
@@ -2955,8 +3000,10 @@ SBase::isExtender(std::string::iterator it, unsigned int numBytes)
       
   return extender; 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Stores the location (line and column) and any XML namespaces (for
  * roundtripping) declared on this SBML (XML) element.
@@ -2972,6 +3019,7 @@ SBase::setSBaseFields (const XMLToken& element)
     mNamespaces = new XMLNamespaces( element.getNamespaces() );
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 

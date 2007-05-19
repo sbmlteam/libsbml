@@ -68,19 +68,6 @@ public:
    *
    * If the file could not be read, the error will appear first.  Callers
    * can check for this situation using code such as the following:
-   * @code
-   *   SBMLReader* reader = new SBMLReader();
-   *   SBMLDocument* document = reader.readSBML(filename);
-   *
-   *   if (document->getNumErrors() > 0)
-   *   {
-   *     
-   *
-   * 
-
-  Errors can be
-   * identified by their unique ids, e.g.:
-   *
    * <code>
    *   SBMLDocument* d = reader.readSBML(filename);
    *

@@ -174,7 +174,7 @@ struct IdEq : public unary_function<SBase*, bool>
  * item exists.
  */
 const SBase*
-ListOf::get (const string& sid) const
+ListOf::get (const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
 
@@ -188,7 +188,7 @@ ListOf::get (const string& sid) const
  * item exists.
  */
 SBase*
-ListOf::get (const string& sid)
+ListOf::get (const std::string& sid)
 {
   return const_cast<SBase*>( static_cast<const ListOf&>(*this).get(sid) );
 }
@@ -310,6 +310,7 @@ struct Write : public unary_function<SBase*, void>
 };
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -321,8 +322,10 @@ ListOf::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
   for_each( mItems.begin(), mItems.end(), Write(stream) );
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-c-only */
 
 
 /**
@@ -443,3 +446,7 @@ ListOf_getItemTypeCode (const ListOf_t *lo)
 {
   return lo->getItemTypeCode();
 }
+
+
+
+/** @endcond doxygen-c-only */

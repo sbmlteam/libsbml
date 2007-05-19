@@ -47,7 +47,7 @@ using namespace std;
 /**
  * Creates a new Event, optionally with its id and name attributes set. 
  */
-Event::Event (const string& id, const string& name) :
+Event::Event (const std::string& id, const std::string& name) :
    SBase    ( id, name   )
  , mTrigger ( 0          )
  , mDelay   ( 0          )
@@ -238,7 +238,7 @@ Event::setDelay (const Delay* delay)
  * is discouraged since models in Level 2 Version 3 cannot contain it.
  */
 void
-Event::setTimeUnits (const string& sid)
+Event::setTimeUnits (const std::string& sid)
 {
   mTimeUnits = sid;
 }
@@ -340,7 +340,7 @@ Event::getEventAssignment (unsigned int n)
  * EventAssignment exits.
  */
 const EventAssignment*
-Event::getEventAssignment (const string& variable) const
+Event::getEventAssignment (const std::string& variable) const
 {
   return
     static_cast<const EventAssignment*>( mEventAssignments.get(variable) );
@@ -352,7 +352,7 @@ Event::getEventAssignment (const string& variable) const
  * EventAssignment exits.
  */
 EventAssignment*
-Event::getEventAssignment (const string& variable)
+Event::getEventAssignment (const std::string& variable)
 {
   return static_cast<EventAssignment*>( mEventAssignments.get(variable) );
 }
@@ -405,6 +405,7 @@ Event::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -444,8 +445,10 @@ Event::createObject (XMLInputStream& stream)
     return 0;
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -494,8 +497,10 @@ Event::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -533,8 +538,10 @@ Event::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -574,8 +581,10 @@ Event::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -595,8 +604,7 @@ Event::writeElements (XMLOutputStream& stream) const
 
   if ( getNumEventAssignments() > 0 ) mEventAssignments.write(stream);
 }
-
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -631,6 +639,7 @@ ListOfEvents::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -640,8 +649,10 @@ ListOfEvents::getElementPosition () const
 {
   return 12;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -661,6 +672,8 @@ ListOfEvents::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 
 /** @cond doxygen-c-only */

@@ -86,7 +86,7 @@ XMLNamespaces::clone () const
  * declarations.
  */
 void
-XMLNamespaces::add (const string& uri, const string& prefix)
+XMLNamespaces::add (const std::string& uri, const std::string& prefix)
 {
   if ( prefix.empty() ) removeDefault();
   mNamespaces.push_back( make_pair(prefix, uri) );
@@ -109,7 +109,7 @@ XMLNamespaces::clear ()
  * @return the index of the given declaration, or -1 if not present.
  */
 int
-XMLNamespaces::getIndex (const string uri) const
+XMLNamespaces::getIndex (const std::string uri) const
 {
   for (int index = 0; index < getLength(); ++index)
   {
@@ -147,7 +147,7 @@ XMLNamespaces::getPrefix (int index) const
  * URI does not exist, an empty string will be returned.
  */
 string
-XMLNamespaces::getPrefix (const string& uri) const
+XMLNamespaces::getPrefix (const std::string& uri) const
 {
   return getPrefix( getIndex(uri) );
 }
@@ -171,7 +171,7 @@ XMLNamespaces::getURI (int index) const
  * If prefix does not exist, an empty string will be returned.
  */
 string
-XMLNamespaces::getURI (const string& prefix) const
+XMLNamespaces::getURI (const std::string& prefix) const
 {
   for (int index = 0; index < getLength(); ++index)
   {

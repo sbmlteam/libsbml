@@ -178,6 +178,7 @@ StoichiometryMath::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -187,8 +188,10 @@ StoichiometryMath::getElementPosition () const
 {
   return 0;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -280,8 +283,10 @@ StoichiometryMath::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -292,8 +297,10 @@ StoichiometryMath::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -304,8 +311,10 @@ StoichiometryMath::writeAttributes (XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -318,7 +327,7 @@ StoichiometryMath::writeElements (XMLOutputStream& stream) const
 
   if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 

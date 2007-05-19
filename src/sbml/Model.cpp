@@ -48,7 +48,7 @@ using namespace std;
 /**
  * Creates a new Model, optionally with its id and name attributes set.
  */
-Model::Model (const string& id, const string& name) :
+Model::Model (const std::string& id, const std::string& name) :
    SBase   ( id, name, -1 )
  , mHistory (0)
 {
@@ -897,7 +897,7 @@ Model::getFunctionDefinition (unsigned int n)
  * if no such FunctionDefinition exists.
  */
 const FunctionDefinition*
-Model::getFunctionDefinition (const string& sid) const
+Model::getFunctionDefinition (const std::string& sid) const
 {
   return static_cast<const FunctionDefinition*>(mFunctionDefinitions.get(sid));
 }
@@ -908,7 +908,7 @@ Model::getFunctionDefinition (const string& sid) const
  * if no such FunctionDefinition exists.
  */
 FunctionDefinition*
-Model::getFunctionDefinition (const string& sid)
+Model::getFunctionDefinition (const std::string& sid)
 {
   return static_cast<FunctionDefinition*>( mFunctionDefinitions.get(sid) );
 }
@@ -939,7 +939,7 @@ Model::getUnitDefinition (unsigned int n)
  * such UnitDefinition exists.
  */
 const UnitDefinition*
-Model::getUnitDefinition (const string& sid) const
+Model::getUnitDefinition (const std::string& sid) const
 {
   return static_cast<const UnitDefinition*>( mUnitDefinitions.get(sid) );
 }
@@ -950,7 +950,7 @@ Model::getUnitDefinition (const string& sid) const
  * such UnitDefinition exists.
  */
 UnitDefinition*
-Model::getUnitDefinition (const string& sid)
+Model::getUnitDefinition (const std::string& sid)
 {
   return static_cast<UnitDefinition*>( mUnitDefinitions.get(sid) );
 }
@@ -981,7 +981,7 @@ Model::getCompartmentType (unsigned int n)
  * no such CompartmentType exists.
  */
 const CompartmentType*
-Model::getCompartmentType (const string& sid) const
+Model::getCompartmentType (const std::string& sid) const
 {
   return static_cast<const CompartmentType*>( mCompartmentTypes.get(sid) );
 }
@@ -992,7 +992,7 @@ Model::getCompartmentType (const string& sid) const
  * no such CompartmentType exists.
  */
 CompartmentType*
-Model::getCompartmentType (const string& sid)
+Model::getCompartmentType (const std::string& sid)
 {
   return static_cast<CompartmentType*>( mCompartmentTypes.get(sid) );
 }
@@ -1023,7 +1023,7 @@ Model::getSpeciesType (unsigned int n)
  * no such SpeciesType exists.
  */
 const SpeciesType*
-Model::getSpeciesType (const string& sid) const
+Model::getSpeciesType (const std::string& sid) const
 {
   return static_cast<const SpeciesType*>( mSpeciesTypes.get(sid) );
 }
@@ -1034,7 +1034,7 @@ Model::getSpeciesType (const string& sid) const
  * no such SpeciesType exists.
  */
 SpeciesType*
-Model::getSpeciesType (const string& sid)
+Model::getSpeciesType (const std::string& sid)
 {
   return static_cast<SpeciesType*>( mSpeciesTypes.get(sid) );
 }
@@ -1065,7 +1065,7 @@ Model::getCompartment (unsigned int n)
  * such Compartment exists.
  */
 const Compartment*
-Model::getCompartment (const string& sid) const
+Model::getCompartment (const std::string& sid) const
 {
   return static_cast<const Compartment*>( mCompartments.get(sid) );
 }
@@ -1076,7 +1076,7 @@ Model::getCompartment (const string& sid) const
  * such Compartment exists.
  */
 Compartment*
-Model::getCompartment (const string& sid)
+Model::getCompartment (const std::string& sid)
 {
   return static_cast<Compartment*>( mCompartments.get(sid) );
 }
@@ -1107,7 +1107,7 @@ Model::getSpecies (unsigned int n)
  * Species exists.
  */
 const Species*
-Model::getSpecies (const string& sid) const
+Model::getSpecies (const std::string& sid) const
 {
   return static_cast<const Species*>( mSpecies.get(sid) );
 }
@@ -1118,7 +1118,7 @@ Model::getSpecies (const string& sid) const
  * Species exists.
  */
 Species*
-Model::getSpecies (const string& sid)
+Model::getSpecies (const std::string& sid)
 {
   return static_cast<Species*>( mSpecies.get(sid) );
 }
@@ -1149,7 +1149,7 @@ Model::getParameter (unsigned int n)
  * Parameter exists.
  */
 const Parameter*
-Model::getParameter (const string& sid) const
+Model::getParameter (const std::string& sid) const
 {
   return static_cast<const Parameter*>( mParameters.get(sid) );
 }
@@ -1160,7 +1160,7 @@ Model::getParameter (const string& sid) const
  * Parameter exists.
  */
 Parameter*
-Model::getParameter (const string& sid)
+Model::getParameter (const std::string& sid)
 {
   return static_cast<Parameter*>( mParameters.get(sid) );
 }
@@ -1191,7 +1191,7 @@ Model::getInitialAssignment (unsigned int n)
  * NULL if no such InitialAssignment exists.
  */
 const InitialAssignment*
-Model::getInitialAssignment (const string& symbol) const
+Model::getInitialAssignment (const std::string& symbol) const
 {
   return static_cast<const InitialAssignment*>
   (
@@ -1205,7 +1205,7 @@ Model::getInitialAssignment (const string& symbol) const
  * NULL if no such InitialAssignment exists.
  */
 InitialAssignment*
-Model::getInitialAssignment (const string& symbol)
+Model::getInitialAssignment (const std::string& symbol)
 {
   return static_cast<InitialAssignment*>( mInitialAssignments.get(symbol) );
 }
@@ -1236,7 +1236,7 @@ Model::getRule (unsigned int n)
  * such Rule exists.
  */
 const Rule*
-Model::getRule (const string& variable) const
+Model::getRule (const std::string& variable) const
 {
   return static_cast<const Rule*>( mRules.get(variable) );
 }
@@ -1247,7 +1247,7 @@ Model::getRule (const string& variable) const
  * such Rule exists.
  */
 Rule*
-Model::getRule (const string& variable)
+Model::getRule (const std::string& variable)
 {
   return static_cast<Rule*>( mRules.get(variable) );
 }
@@ -1298,7 +1298,7 @@ Model::getReaction (unsigned int n)
  * Reaction exists.
  */
 const Reaction*
-Model::getReaction (const string& sid) const
+Model::getReaction (const std::string& sid) const
 {
   return static_cast<const Reaction*>( mReactions.get(sid) );
 }
@@ -1309,7 +1309,7 @@ Model::getReaction (const string& sid) const
  * Reaction exists.
  */
 Reaction*
-Model::getReaction (const string& sid)
+Model::getReaction (const std::string& sid)
 {
   return static_cast<Reaction*>( mReactions.get(sid) );
 }
@@ -1340,7 +1340,7 @@ Model::getEvent (unsigned int n)
  * Event exists.
  */
 const Event*
-Model::getEvent (const string& sid) const
+Model::getEvent (const std::string& sid) const
 {
   return static_cast<const Event*>( mEvents.get(sid) );
 }
@@ -1351,7 +1351,7 @@ Model::getEvent (const string& sid) const
  * Event exists.
  */
 Event*
-Model::getEvent (const string& sid)
+Model::getEvent (const std::string& sid)
 {
   return static_cast<Event*>( mEvents.get(sid) );
 }
@@ -1592,6 +1592,8 @@ Model::getElementName () const
   return name;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -1646,7 +1648,10 @@ Model::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -1782,8 +1787,10 @@ Model::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -1817,8 +1824,10 @@ Model::readAttributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -1850,8 +1859,10 @@ Model::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -1932,8 +1943,10 @@ Model::writeElements (XMLOutputStream& stream) const
     mEvents.write(stream);
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -1943,6 +1956,8 @@ Model::getElementPosition () const
 {
   return 2;
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 
 #ifdef USE_LAYOUT

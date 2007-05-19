@@ -183,7 +183,7 @@ public:
    *   k.setSubstanceUnits(substanceUnits);
    * @endcode
    *
-   * @param formula an ASTNode representing the rate of the reaction.
+   * @param math an ASTNode representing the rate of the reaction.
    *
    * @param timeUnits the identifier of the time units
    *

@@ -49,9 +49,9 @@ using namespace std;
  * Creates a new KineticLaw, optionally with its formula, timeUnits and/or
  * substanceUnits set.
  */
-KineticLaw::KineticLaw (   const string& formula
-                         , const string& timeUnits
-                         , const string& substanceUnits ) :
+KineticLaw::KineticLaw (   const std::string& formula
+                         , const std::string& timeUnits
+                         , const std::string& substanceUnits ) :
    SBase          ( -1             )
  , mFormula       ( formula        )
  , mMath          ( 0              )
@@ -66,8 +66,8 @@ KineticLaw::KineticLaw (   const string& formula
  * substanceUnits set.
  */
 KineticLaw::KineticLaw (   const ASTNode* math
-                         , const string& timeUnits
-                         , const string& substanceUnits ) :
+                         , const std::string& timeUnits
+                         , const std::string& substanceUnits ) :
    SBase          ( -1             )
  , mMath          ( 0              )
  , mTimeUnits     ( timeUnits      )
@@ -241,7 +241,7 @@ KineticLaw::isSetSubstanceUnits () const
  * Sets the formula of this KineticLaw to a copy of formula.
  */
 void
-KineticLaw::setFormula (const string& formula)
+KineticLaw::setFormula (const std::string& formula)
 {
   mFormula = formula;
 
@@ -273,7 +273,7 @@ KineticLaw::setMath (const ASTNode* math)
  * Sets the timeUnits of this KineticLaw to a copy of sid.
  */
 void
-KineticLaw::setTimeUnits (const string& sid)
+KineticLaw::setTimeUnits (const std::string& sid)
 {
   mTimeUnits = sid;
 }
@@ -283,7 +283,7 @@ KineticLaw::setTimeUnits (const string& sid)
  * Sets the substanceUnits of this KineticLaw to a copy of sid.
  */
 void
-KineticLaw::setSubstanceUnits (const string& sid)
+KineticLaw::setSubstanceUnits (const std::string& sid)
 {
   mSubstanceUnits = sid;
 }
@@ -378,7 +378,7 @@ KineticLaw::getParameter (unsigned int n)
  * no such Parameter exists.
  */
 const Parameter*
-KineticLaw::getParameter (const string& sid) const
+KineticLaw::getParameter (const std::string& sid) const
 {
   return static_cast<const Parameter*>( mParameters.get(sid) );
 }
@@ -389,7 +389,7 @@ KineticLaw::getParameter (const string& sid) const
  * no such Parameter exists.
  */
 Parameter*
-KineticLaw::getParameter (const string& sid)
+KineticLaw::getParameter (const std::string& sid)
 {
   return static_cast<Parameter*>( mParameters.get(sid) );
 }
@@ -440,6 +440,7 @@ KineticLaw::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -449,8 +450,10 @@ KineticLaw::getElementPosition () const
 {
   return 4;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -464,8 +467,10 @@ KineticLaw::writeElements (XMLOutputStream& stream) const
   if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
   if ( getNumParameters() > 0 ) mParameters.write(stream);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -486,8 +491,10 @@ KineticLaw::createObject (XMLInputStream& stream)
   
   return 0;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -581,8 +588,10 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -620,8 +629,10 @@ KineticLaw::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -661,7 +672,7 @@ KineticLaw::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

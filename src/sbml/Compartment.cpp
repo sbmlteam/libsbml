@@ -43,7 +43,7 @@ using namespace std;
 /**
  * Creates a new Compartment, optionally with its id attribute set.
  */
-Compartment::Compartment (const string& id, const string& name) :
+Compartment::Compartment (const std::string& id, const std::string& name) :
    SBase             ( id, name )
  , mSpatialDimensions( 3        )
  , mSize             ( 1.0      )
@@ -271,7 +271,7 @@ Compartment::isSetOutside () const
  * Sets the compartmentType field of this Compartment to a copy of sid.
  */
 void
-Compartment::setCompartmentType (const string& sid)
+Compartment::setCompartmentType (const std::string& sid)
 {
   mCompartmentType = sid;
 }
@@ -426,6 +426,8 @@ Compartment::getElementName () const
   return name;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -472,8 +474,10 @@ Compartment::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -546,8 +550,10 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && version == 3) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -628,6 +634,7 @@ Compartment::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && version == 3) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -662,6 +669,7 @@ ListOfCompartments::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -671,8 +679,10 @@ ListOfCompartments::getElementPosition () const
 {
   return 5;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -692,7 +702,7 @@ ListOfCompartments::createObject (XMLInputStream& stream)
 
   return object;
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

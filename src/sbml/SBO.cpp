@@ -44,7 +44,7 @@ using namespace std;
  * digit string preceded by SBO:), false otherwise.
  */
 bool
-SBO::checkTerm (const string& sboTerm)
+SBO::checkTerm (const std::string& sboTerm)
 {
   string::size_type size = sboTerm.size();
   bool              okay = (size == 11);
@@ -121,7 +121,7 @@ SBO::writeTerm (XMLOutputStream& stream, int sboTerm)
  * returned.
  */
 int
-SBO::stringToInt (const string& sboTerm)
+SBO::stringToInt (const std::string& sboTerm)
 {
   int result = -1;
 

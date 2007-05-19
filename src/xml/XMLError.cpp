@@ -40,9 +40,9 @@ using namespace std;
  * category, and a severity level associated with it.
  */
 XMLError::XMLError (  unsigned int   id
-                    , const string&  message
+                    , const std::string&  message
                     , Severity       severity
-                    , const string&  category
+                    , const std::string&  category
                     , unsigned int   line
                     , unsigned int   column ) :
    mId      ( id       )

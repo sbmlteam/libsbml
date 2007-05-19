@@ -105,7 +105,7 @@ XMLToken::XMLToken (  const XMLTriple&    triple
 /**
  * Creates a text XMLToken.
  */
-XMLToken::XMLToken (  const string&       chars
+XMLToken::XMLToken (  const std::string&  chars
                     , const unsigned int  line
                     , const unsigned int  column ) :
    mChars     ( chars  )
@@ -206,7 +206,7 @@ XMLToken::clone () const
  * Appends characters to this XML text content.
  */
 void
-XMLToken::append (const string& chars)
+XMLToken::append (const std::string& chars)
 {
   mChars.append(chars);
 }

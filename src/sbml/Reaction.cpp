@@ -67,7 +67,7 @@ GetSpeciesRef (ListOf& items, const string& species)
  * Simply calls non-const version above.
  */
 static const SBase*
-GetSpeciesRef (const ListOf& items, const string& species)
+GetSpeciesRef (const ListOf& items, const std::string& species)
 {
   return GetSpeciesRef(const_cast<ListOf&>(items), species);
 }
@@ -78,7 +78,7 @@ GetSpeciesRef (const ListOf& items, const string& species)
  * Creates a new Reaction, optionally with its id, KineticLaw, and
  * reversible attributes set.
  */
-Reaction::Reaction (const string& id, const string& name, 
+Reaction::Reaction (const std::string& id, const std::string& name, 
                     const KineticLaw* kl, bool reversible) :
     SBase      ( id , name, -1        )
   , mKineticLaw( 0          )
@@ -505,7 +505,7 @@ Reaction::getReactant (unsigned int n)
  * species or NULL if no such reactant exists.
  */
 const SpeciesReference*
-Reaction::getReactant (const string& species) const
+Reaction::getReactant (const std::string& species) const
 {
   return
     static_cast<const SpeciesReference*>( GetSpeciesRef(mReactants, species) );
@@ -517,7 +517,7 @@ Reaction::getReactant (const string& species) const
  * species or NULL if no such reactant exists.
  */
 SpeciesReference*
-Reaction::getReactant (const string& species)
+Reaction::getReactant (const std::string& species)
 {
   return static_cast<SpeciesReference*>( GetSpeciesRef(mReactants, species) );
 }
@@ -548,7 +548,7 @@ Reaction::getProduct (unsigned int n)
  * species or NULL if no such product exists.
  */
 const SpeciesReference*
-Reaction::getProduct (const string& species) const
+Reaction::getProduct (const std::string& species) const
 {
   return
     static_cast<const SpeciesReference*>( GetSpeciesRef(mProducts, species) );
@@ -560,7 +560,7 @@ Reaction::getProduct (const string& species) const
  * species or NULL if no such product exists.
  */
 SpeciesReference*
-Reaction::getProduct (const string& species)
+Reaction::getProduct (const std::string& species)
 {
   return static_cast<SpeciesReference*>( GetSpeciesRef(mProducts, species) );
 }
@@ -591,7 +591,7 @@ Reaction::getModifier (unsigned int n)
  * the given species or NULL if no such modifier exists.
  */
 const ModifierSpeciesReference*
-Reaction::getModifier (const string& species) const
+Reaction::getModifier (const std::string& species) const
 {
   return static_cast<const ModifierSpeciesReference*>
   (
@@ -605,7 +605,7 @@ Reaction::getModifier (const string& species) const
  * the given species or NULL if no such modifier exists.
  */
 ModifierSpeciesReference*
-Reaction::getModifier (const string& species)
+Reaction::getModifier (const std::string& species)
 {
   return static_cast<ModifierSpeciesReference*>
   (
@@ -684,6 +684,8 @@ Reaction::getElementName () const
   return name;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -731,7 +733,10 @@ Reaction::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -781,8 +786,10 @@ Reaction::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -827,8 +834,10 @@ Reaction::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -875,8 +884,10 @@ Reaction::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -896,8 +907,7 @@ Reaction::writeElements (XMLOutputStream& stream) const
 
   if (mKineticLaw) mKineticLaw->write(stream);
 }
-
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -932,6 +942,7 @@ ListOfReactions::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -941,8 +952,10 @@ ListOfReactions::getElementPosition () const
 {
   return 11;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -961,7 +974,7 @@ ListOfReactions::createObject (XMLInputStream& stream)
 
   return object;
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 

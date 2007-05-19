@@ -323,8 +323,8 @@ public:
    * getChild(0);
    */
   LIBSBML_EXTERN
-  ASTNode*
-  getLeftChild () const;
+  ASTNode* 
+    getLeftChild () const;
 
   /**
    * @return the right child of this ASTNode or NULL if this node has no

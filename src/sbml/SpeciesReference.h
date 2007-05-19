@@ -373,6 +373,11 @@ public:
    *
    * @param species the identifier of the species to be referenced
    *
+   * @param stoichiometry the (simple) stoichoiometry
+   *
+   * @param denominator the denominator, in the case where the stoichoiometry
+   * is a rational number
+   *
    * @note The "species" attribute on SpeciesReference is required to have
    * a value in SBML.  Although the attribute is optional in this
    * constructor, callers should provide a value or use setSpecies()

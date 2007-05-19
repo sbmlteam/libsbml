@@ -94,7 +94,7 @@ XMLErrorLog::add (const XMLError& error)
  * XMLErrorLog.
  */
 void
-XMLErrorLog::add (const list<XMLError>& errors)
+XMLErrorLog::add (const std::list<XMLError>& errors)
 {
   list<XMLError>::const_iterator end = errors.end();
   list<XMLError>::const_iterator iter;
@@ -110,7 +110,7 @@ XMLErrorLog::add (const list<XMLError>& errors)
  * @param  type  The datatype of the attribute value.
  */
 void
-XMLErrorLog::attributeTypeError (  const string&         name
+XMLErrorLog::attributeTypeError (  const std::string&    name
                                  , XMLErrorLog::DataType type )
 {
   ostringstream message;
@@ -155,7 +155,7 @@ XMLErrorLog::attributeTypeError (  const string&         name
  * @param  name  Name of the attribute
  */
 void
-XMLErrorLog::attributeRequired (const string& name)
+XMLErrorLog::attributeRequired (const std::string& name)
 {
   ostringstream message;
 
@@ -192,7 +192,7 @@ XMLErrorLog::getNumErrors () const
  * attributeRequired() errors (optional).
  */
 void
-XMLErrorLog::setElement (const string& name)
+XMLErrorLog::setElement (const std::string& name)
 {
   mElement = name;
 }

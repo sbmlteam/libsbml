@@ -65,7 +65,7 @@ SBMLWriter::~SBMLWriter ()
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
  */
 void
-SBMLWriter::setProgramName (const string& name)
+SBMLWriter::setProgramName (const std::string& name)
 {
   mProgramName = name;
 }
@@ -81,7 +81,7 @@ SBMLWriter::setProgramName (const string& name)
  *   on yyyy-MM-dd HH:mm with libsbml version <libsbml version>. -->
  */
 void
-SBMLWriter::setProgramVersion (const string& version)
+SBMLWriter::setProgramVersion (const std::string& version)
 {
   mProgramVersion = version;
 }
@@ -94,7 +94,7 @@ SBMLWriter::setProgramVersion (const string& version)
  * for writing.
  */
 bool
-SBMLWriter::write (const SBMLDocument* d, const string& filename)
+SBMLWriter::write (const SBMLDocument* d, const std::string& filename)
 {
   ofstream stream( filename.c_str() );
   return write(d, stream);
@@ -108,7 +108,7 @@ SBMLWriter::write (const SBMLDocument* d, const string& filename)
  * components fail (rare).
  */
 bool
-SBMLWriter::write (const SBMLDocument* d, ostream& stream)
+SBMLWriter::write (const SBMLDocument* d, std::ostream& stream)
 {
   bool result = false;
 

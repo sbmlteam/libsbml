@@ -221,6 +221,7 @@ Constraint::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -324,8 +325,10 @@ Constraint::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -345,8 +348,10 @@ Constraint::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -366,8 +371,10 @@ Constraint::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -378,8 +385,7 @@ Constraint::writeElements (XMLOutputStream& stream) const
 {
   if (mMath) writeMathML(mMath, stream);
 }
-
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -414,6 +420,7 @@ ListOfConstraints::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -423,8 +430,10 @@ ListOfConstraints::getElementPosition () const
 {
   return 10;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -444,6 +453,7 @@ ListOfConstraints::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 

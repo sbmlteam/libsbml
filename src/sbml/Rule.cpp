@@ -47,10 +47,11 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Only subclasses may create Rules.
  */
-Rule::Rule (SBMLTypeCode_t type, const string& variable, const string& formula)
+Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const std::string& formula)
  :
    SBase   ( variable , "", -1)
  , mFormula( formula  )
@@ -59,12 +60,14 @@ Rule::Rule (SBMLTypeCode_t type, const string& variable, const string& formula)
  , mL1Type ( SBML_UNKNOWN )
 {
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Only subclasses may create Rules.
  */
-Rule::Rule (SBMLTypeCode_t type, const string& variable, const ASTNode* math)
+Rule::Rule (SBMLTypeCode_t type, const std::string& variable, const ASTNode* math)
  :
    SBase   ( variable  , "", -1       )
  , mMath   ( 0                )
@@ -73,6 +76,7 @@ Rule::Rule (SBMLTypeCode_t type, const string& variable, const ASTNode* math)
 {
   if (math) mMath = math->deepCopy();
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -239,7 +243,7 @@ Rule::isSetUnits () const
  * Sets the formula of this Rule to a copy of string.
  */
 void
-Rule::setFormula (const string& formula)
+Rule::setFormula (const std::string& formula)
 {
   mFormula = formula;
 
@@ -271,7 +275,7 @@ Rule::setMath (const ASTNode* math)
  * Sets the variable of this Rule to a copy of sid.
  */
 void
-Rule::setVariable (const string& sid)
+Rule::setVariable (const std::string& sid)
 {
   setId(sid);
 }
@@ -282,7 +286,7 @@ Rule::setVariable (const string& sid)
  * only).
  */
 void
-Rule::setUnits (const string& sname)
+Rule::setUnits (const std::string& sname)
 {
   mUnits = sname;
 }
@@ -483,6 +487,7 @@ Rule::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -493,8 +498,10 @@ Rule::writeElements (XMLOutputStream& stream) const
 {
   if ( getLevel() == 2 && isSetMath() ) writeMathML(getMath(), stream);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -590,8 +597,10 @@ Rule::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -667,8 +676,10 @@ Rule::readAttributes (const XMLAttributes& attributes)
       mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -741,8 +752,10 @@ Rule::writeAttributes (XMLOutputStream& stream) const
 //    if ((version == 2 || version == 3)) SBO::writeTerm(stream, mSBOTerm);
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Sets the SBML Level 1 typecode for this Rule.
  */
@@ -751,14 +764,14 @@ Rule::setL1TypeCode (SBMLTypeCode_t type)
 {
   mL1Type = type;
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 
 /**
  * Creates a new AlgebraicRule and optionally sets its formula.
  */
-AlgebraicRule::AlgebraicRule (const string& formula) :
+AlgebraicRule::AlgebraicRule (const std::string& formula) :
   Rule(SBML_ALGEBRAIC_RULE, "", formula)
 {
 }
@@ -800,7 +813,7 @@ AlgebraicRule::accept (SBMLVisitor& v) const
  * Creates a new AssignmentRule and optionally sets its variable and
  * formula.
  */
-AssignmentRule::AssignmentRule (const string& variable, const string& formula)
+AssignmentRule::AssignmentRule (const std::string& variable, const std::string& formula)
   : Rule(SBML_ASSIGNMENT_RULE, variable, formula)
 {
 }
@@ -810,7 +823,7 @@ AssignmentRule::AssignmentRule (const string& variable, const string& formula)
  * Creates a new AssignmentRule and optionally sets its variable and
  * math.
  */
-AssignmentRule::AssignmentRule (const string& variable, const ASTNode* math)
+AssignmentRule::AssignmentRule (const std::string& variable, const ASTNode* math)
   : Rule(SBML_ASSIGNMENT_RULE, variable, math)
 {
 }
@@ -843,7 +856,7 @@ AssignmentRule::accept (SBMLVisitor& v) const
 /**
  * Creates a new RateRule and optionally sets its variable and formula.
  */
-RateRule::RateRule (const string& variable, const string& formula) :
+RateRule::RateRule (const std::string& variable, const std::string& formula) :
   Rule(SBML_RATE_RULE, variable, formula)
 {
 }
@@ -852,7 +865,7 @@ RateRule::RateRule (const string& variable, const string& formula) :
 /**
  * Creates a new RateRule and optionally sets its variable and math.
  */
-RateRule::RateRule (const string& variable, const ASTNode* math) :
+RateRule::RateRule (const std::string& variable, const ASTNode* math) :
   Rule(SBML_RATE_RULE, variable, math)
 {
 }
@@ -914,6 +927,7 @@ ListOfRules::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -923,8 +937,10 @@ ListOfRules::getElementPosition () const
 {
   return 9;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -993,6 +1009,7 @@ ListOfRules::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

@@ -43,7 +43,7 @@ using namespace std;
  * Creates a new SpeciesType, optionally with its id and name
  * attributes set.
  */
-SpeciesType::SpeciesType (const string& id, const string& name) :
+SpeciesType::SpeciesType (const std::string& id, const std::string& name) :
   SBase(id, name)
 {
 }
@@ -123,6 +123,7 @@ SpeciesType::getElementName () const
   return name;
 }
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -170,7 +171,10 @@ SpeciesType::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -200,8 +204,10 @@ SpeciesType::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && version == 3) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -231,8 +237,7 @@ SpeciesType::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && version == 3) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -267,6 +272,7 @@ ListOfSpeciesTypes::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -276,8 +282,10 @@ ListOfSpeciesTypes::getElementPosition () const
 {
   return 4;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -297,6 +305,7 @@ ListOfSpeciesTypes::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 

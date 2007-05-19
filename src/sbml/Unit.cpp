@@ -60,7 +60,7 @@ Unit::Unit (   UnitKind_t  kind
  * Creates a new Unit, optionally with its kind (via string), exponent,
  * scale and multiplier attributes set.
  */
-Unit::Unit (   const string&  kind
+Unit::Unit (   const std::string&  kind
              , int            exponent 
              , int            scale
              , double         multiplier ) :
@@ -624,7 +624,7 @@ Unit::getElementName () const
  * ('substance', 'volume', 'area', 'length' or 'time'), false otherwise.
  */
 bool
-Unit::isBuiltIn (const string& name)
+Unit::isBuiltIn (const std::string& name)
 {
   return
     name == "substance" ||
@@ -639,12 +639,13 @@ Unit::isBuiltIn (const string& name)
  * @return true if name is a valid UnitKind.
  */
 bool
-Unit::isUnitKind (const string& name)
+Unit::isUnitKind (const std::string& name)
 {
   return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -692,8 +693,10 @@ Unit::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -751,8 +754,10 @@ Unit::readAttributes (const XMLAttributes& attributes)
   if (this->getLevel() == 2 && this->getVersion() == 3) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -807,8 +812,7 @@ Unit::writeAttributes (XMLOutputStream& stream) const
   if (this->getLevel() == 2 && this->getVersion() == 3) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -843,6 +847,7 @@ ListOfUnits::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its
  * siblings or -1 (default) to indicate the position is not significant.
@@ -852,8 +857,10 @@ ListOfUnits::getElementPosition () const
 {
   return 1;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -873,6 +880,7 @@ ListOfUnits::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

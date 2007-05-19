@@ -461,7 +461,7 @@ Model::getFormulaUnitsData (unsigned int n)
  * FormulaUnitsData exists.
  */
 const FormulaUnitsData*
-Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode) const
+Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode) const
 {
   const FormulaUnitsData * fud;
 
@@ -485,7 +485,7 @@ Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode) const
  * or NULL if no such FormulaUnitsData exists.
  */
 FormulaUnitsData*
-Model::getFormulaUnitsData (const string& sid, SBMLTypeCode_t typecode)
+Model::getFormulaUnitsData (const std::string& sid, SBMLTypeCode_t typecode)
 {
   FormulaUnitsData * fud;
 

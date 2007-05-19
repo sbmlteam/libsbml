@@ -41,7 +41,7 @@ class XMLParser;
  */
 XMLInputStream::XMLInputStream (  const char*   content
                                 , bool          isFile
-                                , const string  library 
+                                , const std::string  library 
 		                , XMLErrorLog*  errorLog ) :
 
 

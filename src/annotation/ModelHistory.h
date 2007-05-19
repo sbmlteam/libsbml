@@ -239,7 +239,7 @@ public:
    * YYYY-MM-DDThh:mm:ssTZD (eg 1997-07-16T19:20:30+01:00)
    * where TZD is the time zone designator.
    */
-  void setDateAsString (std::string);
+  void setDateAsString (std::string date);
 
 protected:
 
@@ -377,29 +377,29 @@ public:
    *  
    * @param familyName a string representing the familyName of the ModelCreator. 
    */
-  void setFamilyName(std::string);
+  void setFamilyName(std::string familyName);
 
   /**
    * Sets the given name
    *  
    * @param givenName a string representing the givenName of the ModelCreator. 
    */
-  void setGivenName(std::string);
+  void setGivenName(std::string givenName);
 
   /**
    * Sets the email
    *  
    * @param email a string representing the email of the ModelCreator. 
    */
-  void setEmail(std::string);
+  void setEmail(std::string email);
 
   /**
    * Sets the organisation
    *  
-   * @param organisation a string representing the organisation of the 
+   * @param organization a string representing the organisation of the 
    * ModelCreator. 
    */
-  void setOrganisation(std::string);
+  void setOrganisation(std::string organization);
 
   /**
    * Unsets the familyName of this ModelCreator.

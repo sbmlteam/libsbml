@@ -53,7 +53,7 @@ using namespace std;
  * Creates a new SimpleSpeciesReference, optionally with its species
  * attribute set.
  */
-SimpleSpeciesReference::SimpleSpeciesReference (const string& species) :
+SimpleSpeciesReference::SimpleSpeciesReference (const std::string& species) :
    SBase (-1)
  , mSpecies( species )
 {
@@ -128,7 +128,7 @@ SimpleSpeciesReference::isSetSpecies () const
  * Sets the species of this SimpleSpeciesReference to a copy of sid.
  */
 void
-SimpleSpeciesReference::setSpecies (const string& sid)
+SimpleSpeciesReference::setSpecies (const std::string& sid)
 {
   mSpecies = sid;
 }
@@ -145,6 +145,7 @@ SimpleSpeciesReference::isModifier () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -185,8 +186,10 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   const string s = (level == 1 && version == 1) ? "specie" : "species";
   attributes.readInto(s , mSpecies);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -226,7 +229,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
   const string s = (level == 1 && version == 1) ? "specie" : "species";
   stream.writeAttribute(s , mSpecies);
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 
@@ -234,7 +237,7 @@ SimpleSpeciesReference::writeAttributes (XMLOutputStream& stream) const
  * Creates a new SpeciesReference, optionally with its species,
  * stoichiometry, and denominator attributes set.
  */
-SpeciesReference::SpeciesReference (  const string& species
+SpeciesReference::SpeciesReference (  const std::string& species
                                     , double        stoichiometry
                                     , int           denominator ) :
    SimpleSpeciesReference( species       )
@@ -443,6 +446,8 @@ SpeciesReference::getElementName () const
   return (getLevel() == 1 && getVersion() == 1) ? specie : species;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 void
 SpeciesReference::sortMath()
 {
@@ -455,6 +460,10 @@ SpeciesReference::sortMath()
     mStoichiometryMath = 0;
   }
 }
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -476,8 +485,10 @@ SpeciesReference::createObject (XMLInputStream& stream)
     return 0;
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -600,8 +611,10 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -623,8 +636,10 @@ SpeciesReference::readAttributes (const XMLAttributes& attributes)
   //
   if (getLevel() == 1) attributes.readInto("denominator", mDenominator);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -659,8 +674,10 @@ SpeciesReference::writeAttributes (XMLOutputStream& stream) const
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -708,15 +725,14 @@ SpeciesReference::writeElements (XMLOutputStream& stream) const
     }
   }
 }
-
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
  * Creates a new ModifierSpeciesReference, optionally with its species
  * attribute set.
  */
-ModifierSpeciesReference::ModifierSpeciesReference (const string& species) :
+ModifierSpeciesReference::ModifierSpeciesReference (const std::string& species) :
   SimpleSpeciesReference(species)
 {
 }
@@ -922,6 +938,7 @@ ListOfSpeciesReferences::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -941,8 +958,10 @@ ListOfSpeciesReferences::getElementPosition () const
 
   return position;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Sets type of this ListOfSpeciesReferences.
  */
@@ -951,8 +970,10 @@ ListOfSpeciesReferences::setType (SpeciesType type)
 {
   mType = type;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -996,7 +1017,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
 
   return object;
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

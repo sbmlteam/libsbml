@@ -1,6 +1,6 @@
 /**
  * @file    libsbml-config.h
- * @brief   Decides whether to #include Unix or Windows configuration variables.
+ * @brief   Decides whether to \#include Unix or Windows configuration variables.
  * @author  Ben Bornstein
  *
  * $Id$

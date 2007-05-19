@@ -44,7 +44,7 @@ using namespace std;
  * Creates a new UnitDefinition, optionally with its id and name
  * attributes set.
  */
-UnitDefinition::UnitDefinition (const string& sid, const string& name) :
+UnitDefinition::UnitDefinition (const std::string& sid, const std::string& name) :
   SBase(sid, name)
 {
 }
@@ -364,6 +364,7 @@ UnitDefinition::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -411,8 +412,10 @@ UnitDefinition::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -432,8 +435,10 @@ UnitDefinition::createObject (XMLInputStream& stream)
   
   return 0;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -464,8 +469,10 @@ UnitDefinition::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && version == 3) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
  
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -497,8 +504,10 @@ UnitDefinition::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && version == 3) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -510,8 +519,7 @@ UnitDefinition::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
   if ( getNumUnits() > 0 ) mUnits.write(stream);
 }
-
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -546,6 +554,7 @@ ListOfUnitDefinitions::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -555,8 +564,10 @@ ListOfUnitDefinitions::getElementPosition () const
 {
   return 2;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -576,6 +587,7 @@ ListOfUnitDefinitions::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

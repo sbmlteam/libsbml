@@ -107,7 +107,10 @@ XMLAttributes::clone () const
  * exists in this attribute set, its value will be replaced.
  */
 void
-XMLAttributes::add (const string& name, const string& value, const string& namespaceURI, const string& prefix)
+XMLAttributes::add (const std::string& name,
+		    const std::string& value,
+		    const std::string& namespaceURI,
+		    const std::string& prefix)
 {
   int index = getIndex(name);
 
@@ -132,7 +135,7 @@ XMLAttributes::add (const string& name, const string& value, const string& names
  * be overwritten - this is for annotations
  */
 void
-XMLAttributes::addResource (const string& name, const string& value)
+XMLAttributes::addResource (const std::string& name, const std::string& value)
 {
   mNames .push_back( XMLTriple(name, "", "") );
   mValues.push_back( value );
@@ -145,7 +148,7 @@ XMLAttributes::addResource (const string& name, const string& value)
  * @return the index of the given attribute, or -1 if not present.
  */
 int
-XMLAttributes::getIndex (const string name) const
+XMLAttributes::getIndex (const std::string name) const
 {
   for (int index = 0; index < getLength(); ++index)
   {
@@ -222,7 +225,7 @@ XMLAttributes::getValue (int index) const
  * getIndex() > 0 to test for attribute existence.
  */
 string
-XMLAttributes::getValue (const string name) const
+XMLAttributes::getValue (const std::string name) const
 {
   return getValue( getIndex(name) );
 }
@@ -252,7 +255,7 @@ XMLAttributes::isEmpty () const
  * @returns true if the attribute was read into value, false otherwise.
  */
 bool
-XMLAttributes::readInto (  const string&   name
+XMLAttributes::readInto (  const std::string&   name
                          , bool&           value
                          , XMLErrorLog*    log
                          , bool            required ) const
@@ -307,7 +310,7 @@ XMLAttributes::readInto (  const string&   name
  * @returns true if the attribute was read into value, false otherwise.
  */
 bool
-XMLAttributes::readInto (  const string&   name
+XMLAttributes::readInto (  const std::string&   name
                          , double&         value
                          , XMLErrorLog*    log
                          , bool            required ) const
@@ -386,7 +389,7 @@ XMLAttributes::readInto (  const string&   name
  * @returns true if the attribute was read into value, false otherwise.
  */
 bool
-XMLAttributes::readInto (  const string&   name
+XMLAttributes::readInto (  const std::string&   name
                          , long&           value
                          , XMLErrorLog*    log
                          , bool            required ) const
@@ -495,10 +498,10 @@ XMLAttributes::readInto (  const std::string&  name
  * @returns true if the attribute was read into value, false otherwise.
  */
 bool
-XMLAttributes::readInto (  const string&   name
-                         , string&         value
-                         , XMLErrorLog*    log
-                         , bool            required ) const
+XMLAttributes::readInto (  const std::string& name
+			 , std::string&       value
+                         , XMLErrorLog*       log
+                         , bool               required ) const
 {
   bool assigned = false;
   int  index    = getIndex(name);

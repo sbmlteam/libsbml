@@ -41,9 +41,9 @@ XMLTriple::XMLTriple ()
 /**
  * Creates a new XMLTriple.
  */
-XMLTriple::XMLTriple (  const string&  name
-                      , const string&  uri
-                      , const string&  prefix ) :
+XMLTriple::XMLTriple (  const std::string&  name
+                      , const std::string&  uri
+                      , const std::string&  prefix ) :
    mName  ( name   )
  , mURI   ( uri    )
  , mPrefix( prefix )
@@ -59,7 +59,7 @@ XMLTriple::XMLTriple (  const string&  name
  *   uri sepchar name
  *   uri sepchar name sepchar prefix
  */
-XMLTriple::XMLTriple (const string& triplet, const char sepchar)
+XMLTriple::XMLTriple (const std::string& triplet, const char sepchar)
 { 
   string::size_type start = 0;
   string::size_type pos   = triplet.find(sepchar, start);

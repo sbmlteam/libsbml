@@ -28,10 +28,8 @@
 #include "FormulaTokenizer.h"
 
 
-/**
- * Converts the given Token (which must be of type TT_NAME) to a TT_REAL
- * NaN or Inf as appropriate.
- */
+/* Forward references */
+
 void Token_convertNaNInf (Token_t *t);
 
 

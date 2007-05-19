@@ -68,6 +68,8 @@ static unsigned int ignorable[] = {
   91006
 };
 
+
+/** @cond doxygen-libsbml-internal */
 /*
  * Predicate returning true if the errors encountered are not ignorable.
  */
@@ -92,6 +94,7 @@ SBMLDocument::conversion_errors(unsigned int errors)
 
   return false;
 }
+/** @endcond doxygen-libsbml-internal */
 
 /**
  * @return the most recent SBML specification level (at the time this
@@ -291,7 +294,7 @@ SBMLDocument::setModel (const Model* m)
  * SBMLDocument and returns it.
  */
 Model*
-SBMLDocument::createModel (const string& sid)
+SBMLDocument::createModel (const std::string& sid)
 {
   if (mModel) delete mModel;
   mModel = new Model(sid);
@@ -466,7 +469,7 @@ SBMLDocument::getNumErrors () const
  *     line N: (id) message
  */
 void
-SBMLDocument::printErrors (ostream& stream) const
+SBMLDocument::printErrors (std::ostream& stream) const
 {
   unsigned int numErrors = getNumErrors();
 
@@ -514,6 +517,8 @@ SBMLDocument::getElementName () const
   return name;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -560,8 +565,10 @@ SBMLDocument::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -571,8 +578,10 @@ SBMLDocument::getElementPosition () const
 {
   return 1;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -594,6 +603,7 @@ SBMLDocument::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -617,6 +627,7 @@ SBMLDocument::getErrorLog ()
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -710,8 +721,10 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
 
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -735,8 +748,10 @@ SBMLDocument::writeAttributes (XMLOutputStream& stream) const
   //
   stream.writeAttribute("version", mVersion);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -748,6 +763,7 @@ SBMLDocument::writeElements (XMLOutputStream& stream) const
   SBase::writeElements(stream);
   if (mModel) mModel->write(stream);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 

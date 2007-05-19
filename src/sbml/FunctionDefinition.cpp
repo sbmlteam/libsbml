@@ -49,8 +49,8 @@ using namespace std;
  * Creates a new FunctionDefinition, optionally with its id and math (via
  * an infix formula string) attributes set.
  */
-FunctionDefinition::FunctionDefinition (  const string& id
-                                        , const string& formula ) :
+FunctionDefinition::FunctionDefinition (  const std::string& id
+                                        , const std::string& formula ) :
     SBase( id, "", -1 )
   , mMath( SBML_parseFormula( formula.c_str() ) )
 {
@@ -61,7 +61,7 @@ FunctionDefinition::FunctionDefinition (  const string& id
  * Creates a new FunctionDefinition, optionally with its id and math
  * attributes set.
  */
-FunctionDefinition::FunctionDefinition (  const string&  id
+FunctionDefinition::FunctionDefinition (  const std::string&  id
                                         , const ASTNode* math ) :
    SBase( id )
  , mMath( 0  )
@@ -173,7 +173,7 @@ FunctionDefinition::getArgument (unsigned int n) const
  * the given name or NULL if no such argument exists.
  */
 const ASTNode*
-FunctionDefinition::getArgument (const string& name) const
+FunctionDefinition::getArgument (const std::string& name) const
 {
   const char*    cname = name.c_str();
   const ASTNode* found = 0;
@@ -252,6 +252,7 @@ FunctionDefinition::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -344,8 +345,10 @@ FunctionDefinition::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -377,8 +380,10 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -409,8 +414,10 @@ FunctionDefinition::writeAttributes (XMLOutputStream& stream) const
     SBO::writeTerm(stream, mSBOTerm);
 
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -421,7 +428,7 @@ FunctionDefinition::writeElements (XMLOutputStream& stream) const
 {
   if (mMath) writeMathML(mMath, stream);
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -456,6 +463,7 @@ ListOfFunctionDefinitions::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -465,8 +473,10 @@ ListOfFunctionDefinitions::getElementPosition () const
 {
   return 1;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -486,6 +496,7 @@ ListOfFunctionDefinitions::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

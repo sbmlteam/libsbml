@@ -34,9 +34,9 @@ using namespace std;
 /**
  * Creates a new XMLOutputStream that wraps stream.
  */
-XMLOutputStream::XMLOutputStream (  ostream&       stream
-                                  , const string&  encoding
-                                  , bool           writeXMLDecl ) :
+XMLOutputStream::XMLOutputStream (  std::ostream&       stream
+                                  , const std::string&  encoding
+                                  , bool                writeXMLDecl ) :
    mStream  ( stream   )
  , mEncoding( encoding )
  , mInStart ( false    )
@@ -124,7 +124,7 @@ XMLOutputStream::setAutoIndent (bool indent)
  * Writes the given XML start element name to this XMLOutputStream.
  */
 void
-XMLOutputStream::startElement (const string& name)
+XMLOutputStream::startElement (const std::string& name)
 {
   if (mInStart)
   {
@@ -167,7 +167,7 @@ XMLOutputStream::startElement (const XMLTriple& triple)
  * Writes the given XML start and end element name to this XMLOutputStream.
  */
 void
-XMLOutputStream::startEndElement (const string& name)
+XMLOutputStream::startEndElement (const std::string& name)
 {
   if (mInStart)
   {
@@ -212,7 +212,7 @@ XMLOutputStream::startEndElement (const XMLTriple& triple)
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
-XMLOutputStream::writeAttribute (const string& name, const string& value)
+XMLOutputStream::writeAttribute (const std::string& name, const std::string& value)
 {
   if ( value.empty() ) return;
 
@@ -228,7 +228,7 @@ XMLOutputStream::writeAttribute (const string& name, const string& value)
  * XMLOutputStream.
  */
 void
-XMLOutputStream::writeAttribute (const XMLTriple& triple, const string& value)
+XMLOutputStream::writeAttribute (const XMLTriple& triple, const std::string& value)
 {
   mStream << ' ';
 
@@ -242,7 +242,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const string& value)
  * XMLOutputStream.
  */
 void
-XMLOutputStream::writeAttribute (const string& name, const bool& value)
+XMLOutputStream::writeAttribute (const std::string& name, const bool& value)
 {
   mStream << ' ';
 
@@ -269,7 +269,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const bool& value)
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
-XMLOutputStream::writeAttribute (const string& name, const double& value)
+XMLOutputStream::writeAttribute (const std::string& name, const double& value)
 {
   mStream << ' ';
 
@@ -295,7 +295,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const double& value)
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
-XMLOutputStream::writeAttribute (const string& name, const long& value)
+XMLOutputStream::writeAttribute (const std::string& name, const long& value)
 {
   mStream << ' ';
 
@@ -321,7 +321,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const long& value)
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
-XMLOutputStream::writeAttribute (const string& name, const int& value)
+XMLOutputStream::writeAttribute (const std::string& name, const int& value)
 {
   mStream << ' ';
 
@@ -348,7 +348,7 @@ XMLOutputStream::writeAttribute (const XMLTriple& triple, const int& value)
  * Writes the given attribute, name="value" to this XMLOutputStream.
  */
 void
-XMLOutputStream::writeAttribute (const string& name, const unsigned int& value)
+XMLOutputStream::writeAttribute (const std::string& name, const unsigned int& value)
 {
   mStream << ' ';
 
@@ -410,7 +410,7 @@ XMLOutputStream::writeIndent (bool isEnd)
  * Outputs the given characters to the underlying stream.
  */
 void
-XMLOutputStream::writeChars (const string& chars)
+XMLOutputStream::writeChars (const std::string& chars)
 {
   for (string::const_iterator c = chars.begin(); c != chars.end(); ++c)
   {
@@ -423,7 +423,7 @@ XMLOutputStream::writeChars (const string& chars)
  * Outputs name.
  */
 void
-XMLOutputStream::writeName (const string& name)
+XMLOutputStream::writeName (const std::string& name)
 {
   writeChars(name);
 }
@@ -449,7 +449,7 @@ XMLOutputStream::writeName (const XMLTriple& triple)
  * Outputs value in quotes.
  */
 void
-XMLOutputStream::writeValue (const string& value)
+XMLOutputStream::writeValue (const std::string& value)
 {
   mStream << '=' << '"';
   writeChars(value);
@@ -547,7 +547,7 @@ XMLOutputStream::writeXMLDecl ()
  * Outputs the given characters to the underlying stream.
  */
 XMLOutputStream&
-XMLOutputStream::operator<< (const string& chars)
+XMLOutputStream::operator<< (const std::string& chars)
 {
   if (mInStart)
   {

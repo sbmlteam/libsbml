@@ -46,7 +46,7 @@ using namespace std;
  * Creates a new Parameter, optionally with its id and name attributes
  * set.
  */
-Parameter::Parameter (const string& id, const string& name) :
+Parameter::Parameter (const std::string& id, const std::string& name) :
     SBase      ( id, name, -1 )
   , mValue     ( 0.0      )
   , mConstant  ( true     )
@@ -59,9 +59,9 @@ Parameter::Parameter (const string& id, const string& name) :
  * Creates a new Parameter, with its id and value attributes set and
  * optionally its units and constant attributes.
  */
-Parameter::Parameter (   const string&  id
+Parameter::Parameter (   const std::string&  id
                        , double         value
-                       , const string&  units
+                       , const std::string&  units
                        , bool           constant ) :
     SBase      ( id  ,"", -1     )
   , mValue     ( value    )
@@ -215,7 +215,7 @@ Parameter::setValue (double value)
  * Sets the units of this Parameter to a copy of sid.
  */
 void
-Parameter::setUnits (const string& units)
+Parameter::setUnits (const std::string& units)
 {
   mUnits = units;
 }
@@ -279,6 +279,8 @@ Parameter::getElementName () const
   return name;
 }
 
+
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -328,8 +330,10 @@ Parameter::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -381,8 +385,10 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -439,6 +445,7 @@ Parameter::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -473,6 +480,7 @@ ListOfParameters::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -482,8 +490,10 @@ ListOfParameters::getElementPosition () const
 {
   return 7;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -505,6 +515,7 @@ ListOfParameters::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

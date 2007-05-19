@@ -43,7 +43,7 @@ using namespace std;
 /**
  * Creates a new Species, optionally with its id and name attributes set.
  */
-Species::Species (const string& id, const string& name) :
+Species::Species (const std::string& id, const std::string& name) :
     SBase                     ( id, name )
   , mInitialAmount            ( 0.0   )
   , mInitialConcentration     ( 0.0   )
@@ -366,7 +366,7 @@ Species::isSetCharge () const
  * Sets the speciesType field of this Species to a copy of sid.
  */
 void
-Species::setSpeciesType (const string& sid)
+Species::setSpeciesType (const std::string& sid)
 {
   mSpeciesType = sid;
 }
@@ -376,7 +376,7 @@ Species::setSpeciesType (const string& sid)
  * Sets the compartment of this Species to a copy of sid.
  */
 void
-Species::setCompartment (const string& sid)
+Species::setCompartment (const std::string& sid)
 {
   mCompartment = sid;
 }
@@ -414,7 +414,7 @@ Species::setInitialConcentration (double value)
  * Sets the substanceUnits of this Species to a copy of sid.
  */
 void
-Species::setSubstanceUnits (const string& sid)
+Species::setSubstanceUnits (const std::string& sid)
 {
   mSubstanceUnits = sid;
 }
@@ -424,7 +424,7 @@ Species::setSubstanceUnits (const string& sid)
  * Sets the spatialSizeUnits of this Species to a copy of sid.
  */
 void
-Species::setSpatialSizeUnits (const string& sid)
+Species::setSpatialSizeUnits (const std::string& sid)
 {
   mSpatialSizeUnits = sid;
 }
@@ -434,7 +434,7 @@ Species::setSpatialSizeUnits (const string& sid)
  * Sets the units of this Species to a copy of sname (L1 only).
  */
 void
-Species::setUnits (const string& sname)
+Species::setUnits (const std::string& sname)
 {
   setSubstanceUnits(sname);
 }
@@ -580,6 +580,7 @@ Species::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -627,8 +628,10 @@ Species::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -731,8 +734,10 @@ Species::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && version == 3) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -881,6 +886,8 @@ Species::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && version == 3) 
     SBO::writeTerm(stream, mSBOTerm);
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 
 /**
@@ -915,6 +922,7 @@ ListOfSpecies::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -924,8 +932,10 @@ ListOfSpecies::getElementPosition () const
 {
   return 6;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -945,7 +955,7 @@ ListOfSpecies::createObject (XMLInputStream& stream)
 
   return object;
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-c-only */

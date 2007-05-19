@@ -46,7 +46,7 @@ using namespace std;
  * Creates a new InitialAssignment, optionally with its symbol attribute
  * set.
  */
-InitialAssignment::InitialAssignment (const string& symbol) :
+InitialAssignment::InitialAssignment (const std::string& symbol) :
    SBase   ( symbol, "", -1 )
  , mMath   ( 0      )
 {
@@ -153,7 +153,7 @@ InitialAssignment::isSetMath () const
  * Sets the symbol of this InitialAssignment to a copy of sid.
  */
 void
-InitialAssignment::setSymbol (const string& sid)
+InitialAssignment::setSymbol (const std::string& sid)
 {
   setId(sid);
 }
@@ -198,6 +198,7 @@ InitialAssignment::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write out their contained
  * SBML objects as XML elements.  Be sure to call your parents
@@ -208,8 +209,10 @@ InitialAssignment::writeElements (XMLOutputStream& stream) const
 {
   if (mMath) writeMathML(mMath, stream);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read (and store) XHTML,
  * MathML, etc. directly from the XMLInputStream.
@@ -302,8 +305,10 @@ InitialAssignment::readOtherXML (XMLInputStream& stream)
 
   return read;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
@@ -329,8 +334,10 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   if (level == 2 && (version == 2 || version == 3)) 
     mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Subclasses should override this method to write their XML attributes
  * to the XMLOutputStream.  Be sure to call your parents implementation
@@ -355,7 +362,7 @@ InitialAssignment::writeAttributes (XMLOutputStream& stream) const
   if (level == 2 && (version == 2 || version == 3)) 
     SBO::writeTerm(stream, mSBOTerm);
 }
-
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
@@ -390,6 +397,7 @@ ListOfInitialAssignments::getElementName () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the ordinal position of the element with respect to its siblings
  * or -1 (default) to indicate the position is not significant.
@@ -399,8 +407,10 @@ ListOfInitialAssignments::getElementPosition () const
 {
   return 8;
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
@@ -420,6 +430,8 @@ ListOfInitialAssignments::createObject (XMLInputStream& stream)
 
   return object;
 }
+/** @endcond doxygen-libsbml-internal */
+
 
 
 /** @cond doxygen-c-only */
