@@ -48,6 +48,7 @@ using namespace std;
 #define SBML_HEADER_L1v2  "<sbml level='1' version='2'> <model name='m'>\n"
 #define SBML_HEADER_L2v1  "<sbml level='2' version='1'> <model name='m'>\n"
 #define SBML_HEADER_L2v2  "<sbml level='2' version='2'> <model name='m'>\n"
+#define SBML_HEADER_L2v3  "<sbml level='2' version='3'> <model name='m'>\n"
 #define SBML_FOOTER       "</model> </sbml>"
 
 /**
@@ -58,6 +59,7 @@ using namespace std;
 #define wrapSBML_L1v2(s)  XML_HEADER SBML_HEADER_L1v2 s SBML_FOOTER
 #define wrapSBML_L2v1(s)  XML_HEADER SBML_HEADER_L2v1 s SBML_FOOTER
 #define wrapSBML_L2v2(s)  XML_HEADER SBML_HEADER_L2v2 s SBML_FOOTER
+#define wrapSBML_L2v3(s)  XML_HEADER SBML_HEADER_L2v3 s SBML_FOOTER
 
 
 static SBMLDocument_t *D;
@@ -1034,8 +1036,8 @@ START_TEST (test_ReadSBML_SpeciesReference_defaults)
   sr = Reaction_getReactant(r, 0);
 
   fail_unless( !strcmp(SpeciesReference_getSpecies(sr), "X0") );
-  //fail_unless( SpeciesReference_getStoichiometry(sr) == 1 );
-  //fail_unless( SpeciesReference_getDenominator  (sr) == 1 );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 1 );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 1 );
 }
 END_TEST
 
@@ -1091,42 +1093,42 @@ END_TEST
 
 START_TEST (test_ReadSBML_SpeciesReference_StoichiometryMath_2)
 {
-  //Reaction_t*         r;
-  //SpeciesReference_t* sr;
+  Reaction_t*         r;
+  SpeciesReference_t* sr;
 
-  //const char* s = wrapSBML_L2v1
-  //(
-  //  "<listOfReactions>"
-  //  "  <reaction name='r1'>"
-  //  "    <listOfReactants>"
-  //  "      <speciesReference species='X0'>"
-  //  "        <stoichiometryMath>"
-  //  "          <math> <cn type='rational'> 3 <sep/> 2 </cn> </math>"
-  //  "        </stoichiometryMath>"
-  //  "      </speciesReference>"
-  //  "    </listOfReactants>"
-  //  "  </reaction>"
-  //  "</listOfReactions>"
-  //);
+  const char* s = wrapSBML_L2v1
+  (
+    "<listOfReactions>"
+    "  <reaction name='r1'>"
+    "    <listOfReactants>"
+    "      <speciesReference species='X0'>"
+    "        <stoichiometryMath>"
+    "          <math> <cn type='rational'> 3 <sep/> 2 </cn> </math>"
+    "        </stoichiometryMath>"
+    "      </speciesReference>"
+    "    </listOfReactants>"
+    "  </reaction>"
+    "</listOfReactions>"
+  );
 
 
-  //D = readSBMLFromString(s);
-  //M = SBMLDocument_getModel(D);
+  D = readSBMLFromString(s);
+  M = SBMLDocument_getModel(D);
 
-  //fail_unless( Model_getNumReactions(M) == 1 );
+  fail_unless( Model_getNumReactions(M) == 1 );
 
-  //r = Model_getReaction(M, 0);
-  //fail_unless( r != NULL );
+  r = Model_getReaction(M, 0);
+  fail_unless( r != NULL );
 
-  //fail_unless( Reaction_getNumReactants(r) == 1 );
+  fail_unless( Reaction_getNumReactants(r) == 1 );
 
-  //sr = Reaction_getReactant(r, 0);
-  //fail_unless( sr != NULL );
+  sr = Reaction_getReactant(r, 0);
+  fail_unless( sr != NULL );
 
-  //fail_unless( !SpeciesReference_isSetStoichiometryMath(sr) );
+  fail_unless( !SpeciesReference_isSetStoichiometryMath(sr) );
 
-  //fail_unless( SpeciesReference_getStoichiometry(sr) == 3 );
-  //fail_unless( SpeciesReference_getDenominator  (sr) == 2 );
+  fail_unless( SpeciesReference_getStoichiometry(sr) == 3 );
+  fail_unless( SpeciesReference_getDenominator  (sr) == 2 );
 }
 END_TEST
 
@@ -2047,14 +2049,15 @@ START_TEST (test_ReadSBML_metaid_ListOf)
 }
 END_TEST
 
-/*
+
 START_TEST (test_ReadSBML_notes)
 {
   Reaction_t*   r;
   KineticLaw_t* kl;
 
-  const char* s = wrapSBML
+  const char* s = wrapSBML_L2v3
   (
+  "<listOfReactions>"
     "<reaction name='J1'>"
     "  <kineticLaw formula='k1*X0'>"
     "    <notes>This is a test note.</notes>"
@@ -2063,6 +2066,7 @@ START_TEST (test_ReadSBML_notes)
     "    </listOfParameters>"
     "  </kineticLaw>"
     "</reaction>"
+    "</listOfReactions>"
   );
 
 
@@ -2073,41 +2077,13 @@ START_TEST (test_ReadSBML_notes)
   kl = Reaction_getKineticLaw(r);
 
   fail_unless( SBase_getNotes(kl) != NULL );
-  fail_unless( !strcmp(SBase_getNotes(kl), "This is a test note.") );
+
+  const char * notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(kl), 0));
+  fail_unless( strcmp(notes, "This is a test note.") == 0 );
 }
 END_TEST
 
-
-START_TEST (test_ReadSBML_notes_after)
-{
-  Reaction_t*   r;
-  KineticLaw_t* kl;
-
-  const char* s = wrapSBML
-  (
-    "<reaction name='J1'>"
-    "  <kineticLaw formula='k1*X0'>"
-    "    <listOfParameters>"
-    "      <parameter name='k1' value='0'/>"
-    "    </listOfParameters>"
-    "    <notes>This note is <b>after</b> everything else.</notes>"
-    "  </kineticLaw>"
-    "</reaction>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  r  = Model_getReaction(M, 0);
-
-  kl = Reaction_getKineticLaw(r);
-
-  fail_unless( SBase_getNotes(kl) != NULL );
-  fail_unless( !strcmp(SBase_getNotes(kl),
-                       "This note is <b>after</b> everything else.") );
-}
-END_TEST
+/*
 
 
 START_TEST (test_ReadSBML_notes_xmlns)
@@ -2887,6 +2863,7 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_metaid_Event    );
   tcase_add_test( tcase, test_ReadSBML_metaid_ListOf   );
 
+  tcase_add_test( tcase, test_ReadSBML_notes                         );
   /*
   tcase_add_test( tcase, test_ReadSBML_notes                         );
   tcase_add_test( tcase, test_ReadSBML_notes_after                   );
