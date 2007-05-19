@@ -67,12 +67,12 @@
  * There are two important restrictions about the use of unit definition
  * "id" values:
  *
- * - The "id" of a UnitDefinition must @em not contain a value from the
+ * @li The "id" of a UnitDefinition must @em not contain a value from the
  *   list of reserved base unit names (i.e., the strings @c gram, @c liter,
  *   etc.; see the definition of Unit for the complete list).  This
  *   constraint simply prevents the redefinition of the base units.
  *
- * - There is a set of predefined identifiers for the built-in default
+ * @li There is a set of predefined identifiers for the built-in default
  *   units in SBML; these identifiers are @c substance, @c volume, @c area,
  *   @c length, and @c time.  Using one of these values for the attribute
  *   "id" of a UnitDefinition has the effect of redefining the model-wide
@@ -81,9 +81,9 @@
  *   @image html built-in-units.jpg "SBML's built-in units"
  *   @image latex built-in-units.jpg "SBML's built-in units"
  *   Two limitations are imposed on redefining the built-in units:
- *    - The UnitDefinition of a redefined built-in unit can only
+ *   (1) The UnitDefinition of a redefined built-in unit can only
  *      contain a single Unit object within it.
- *    - The value of the "kind" attribute in 
+ *   (2) The value of the "kind" attribute in 
  *      a Unit instance must be drawn from one of the values
  *      in the second column of the table above.
  *
@@ -137,7 +137,7 @@
  * The following guidelines suggest methods for handling units that do
  * require the use of zero offsets for their definitions:
  *
- * - <em>Handling Celsius</em>.  A model in which certain quantities are
+ * @li <em>Handling Celsius</em>.  A model in which certain quantities are
  *   temperatures measured in degrees Celsius can be converted
  *   straightforwardly to a model in which those temperatures are in
  *   kelvin.  A software tool could do this by performing a straightforward
@@ -153,7 +153,7 @@
  *   in Celsius in the tools' interfaces, and making substitutions
  *   automatically when writing out the SBML.
  *
- * - <em>Other units requiring offsets</em>.  One approach to handling
+ * @li <em>Other units requiring offsets</em>.  One approach to handling
  *   other kinds of units is to use a FunctionDefinition to define a function
  *   encapsulating the necessary mathematical relationship, then
  *   substituting a call to this function wherever the original quantity
@@ -178,13 +178,13 @@
  * </functionDefinition>
  *   @endcode
  *     
- * - An alternative approach not requiring the use of function definitions
+ * @li An alternative approach not requiring the use of function definitions
  *   is to use an AssignmentRule for each variable in Fahrenheit units.
  *   The AssignmentRule could compute the conversion from Fahrenheit to
  *   (say) kelvin, assign its value to a variable (in Kelvin units), and
  *   then that variable could be used elsewhere in the model.
  *
- * - Still another approach is to rewrite the mathematical formulas of a
+ * @li Still another approach is to rewrite the mathematical formulas of a
  *   model to directly incorporate the conversion formula wherever the
  *   original quantity appeared.
  *
@@ -280,10 +280,10 @@ public:
    * Finally, note that SBML imposes two limitations on redefining the
    * built-in units listed above:
    * 
-   * - The UnitDefinition of a redefined built-in unit can only
+   * @li The UnitDefinition of a redefined built-in unit can only
    *   contain a single Unit object within it.
    * 
-   * - The value of the "kind" attribute in a Unit instance must be drawn
+   * @li The value of the "kind" attribute in a Unit instance must be drawn
    *   from one of the values in the second column of the table above.
    *
    * @param id the identifier to assign to the new unit definition.
