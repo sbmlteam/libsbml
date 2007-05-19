@@ -137,13 +137,6 @@ TAB_SIZE               = 4
 
 ALIASES                =
 
-# Set the OPTIMIZE_OUTPUT_JAVA tag to YES if your project consists of Java sources 
-# only. Doxygen will then generate output that is more tailored for Java. 
-# For instance, namespaces will be presented as packages, qualified scopes 
-# will look different, etc.
-
-OPTIMIZE_OUTPUT_JAVA   = NO
-
 # Set the SUBGROUPING tag to YES (the default) to allow class member groups of 
 # the same type (for instance a group of public functions) to be put as a 
 # subgroup of that type (e.g. under the Public Functions section). Set it to 
@@ -404,6 +397,12 @@ EXCLUDE =                            \
   ../../src/xml/XMLTokenizer.cpp     \
   ../../src/xml/XMLTokenizer.h
 
+# The RECURSIVE tag can be used to turn specify whether or not subdirectories 
+# should be searched for input files as well. Possible values are YES and NO. 
+# If left blank NO is used.
+
+RECURSIVE              = NO
+
 # If the value of the INPUT tag contains directories, you can use the 
 # EXCLUDE_PATTERNS tag to specify one or more wildcard patterns to exclude 
 # certain files from those directories.
@@ -417,13 +416,7 @@ EXCLUDE_PATTERNS       = */test/*
 # *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh
 # *.hxx *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc
 
-FILE_PATTERNS          = *.c *.cpp *.hpp *.h
-
-# The RECURSIVE tag can be used to turn specify whether or not subdirectories 
-# should be searched for input files as well. Possible values are YES and NO. 
-# If left blank NO is used.
-
-RECURSIVE              = NO
+FILE_PATTERNS          = *.c *.cpp *.hpp *.h *.java
 
 # The EXCLUDE_SYMLINKS tag can be used select whether or not files or directories 
 # that are symbolic links (a Unix filesystem feature) are excluded from the input.
