@@ -13,15 +13,11 @@ LibSBML  -- interface to the libSBML library
   my $document = $rd->readSBML($file);
   
   # check for reading errors here
-  my $errors   = $document->getNumWarnings()
-                 + $document->getNumErrors()
-                 + $document->getNumFatals();
+  my $errors   = $document->getNumErrors();
 
   # print errors to stderr if any
   if ($errors > 0) {
-    $document->LibSBML::printWarnings();
-    $document->LibSBML::printErrors();
-    $document->LibSBML::printFatals();
+    $document->printErrors();
     die "Errors while reading $file";
   }
 

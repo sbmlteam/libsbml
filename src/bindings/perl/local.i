@@ -39,7 +39,6 @@
  * Contributor(s):
  */
 
-
 /**
  * Convert SBase and Rule objects into the most specific type possible.
  */
@@ -52,226 +51,37 @@
 /**
  * typemap to handle functions which take a FILE*
  */
-%typemap(perl5,in) FILE * {
+%typemap(in) FILE * {
   if (SvOK($input)) /* check for undef */
         $1 = PerlIO_findFILE(IoIFP(sv_2io($input)));
   else  $1 = NULL;
 }
 
 /**
- * Unfortunately SWIG Version 1.3.21 supports %feature only for python and
- * java therefore we need to patch LibSBML.pm by ourself
- * (do not remove the following empty line)
+ * The features directives below override the default SWIG generated
+ * code for certain methods.  The idea is to tell SWIG to disown the
+ * passed-in object.  The containing object will takeover ownership
+ * and delete the object as appropriate.  This avoids a deadly
+ * double-delete which can result in a segmentation fault.  For
+ * example, each SBase that is appended to a ListOf is subsequently
+ * owned by that ListOf.
  */
 
-%feature("shadow") SpeciesReference::setStoichiometryMath
+// ----------------------------------------------------------------------
+// ListOf
+// ----------------------------------------------------------------------
+
+%feature("shadow") ListOf::appendAndOwn(SBase*)
 %{
-  sub setStoichiometryMath {
+  sub appendAndOwn {
     $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::SpeciesReference_setStoichiometryMath(@_);
+    return LibSBMLc::ListOf_appendAndOwn(@_);
   }
 %}
 
-%feature("shadow") ListOf::append(SBase*)
-%{
-  sub append {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::ListOf_append(@_);
-  }
-%}
-
-%feature("shadow") ListOf::prepend(SBase*)
-%{
-  sub prepend {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::ListOf_prepend(@_);
-  }
-%}
-
-%feature("shadow") ListOf::remove(unsigned int)
-%{
-  sub remove {
-    my $obj = LibSBMLc::ListOf_remove(@_);
-    $obj->DISOWN() if defined $obj;
-    return $obj;
-  }
-%}
-
-%feature("shadow") SBMLDocument::setModel(Model*)
-%{
-  sub setModel {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::SBMLDocument_setModel(@_);
-  }
-%}
-
-%feature("shadow") FunctionDefinition::setMath(ASTNode*)
-%{
-  sub setMath {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::FunctionDefinition_setMath(@_);
-  }
-%}
-
-%feature("shadow") Event::setTrigger(ASTNode*)
-%{
-  sub setTrigger {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Event_setTrigger(@_);
-  }
-%}
-
-%feature("shadow") Event::setDelay(ASTNode*)
-%{
-  sub setDelay {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Event_setDelay(@_);
-  }
-%}
-
-%feature("shadow") Event::addEventAssignment(EventAssignment&)
-%{
-  sub addEventAssignment {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Event_addEventAssignment(@_);
-  }
-%}
-
-%feature("shadow") EventAssignment::setMath(ASTNode*)
-%{
-  sub setMath {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::EventAssignment_setMath(@_);
-  }
-%}
-
-%feature("shadow") Rule::setMath(ASTNode*)
-%{
-  sub setMath {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Rule_setMath(@_);
-  }
-%}
-
-%feature("shadow") UnitDefinition::addUnit(Unit&)
-%{
-  sub addUnit {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::UnitDefinition_addUnit(@_);
-  }
-%}
-
-%feature("shadow") Model::addRule(Rule&)
-%{
-  sub addRule {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addRule(@_);
-  }
-%}
-
-%feature("shadow") Model::addFunctionDefinition(FunctionDefinition&)
-%{
-  sub addFunctionDefinition {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addFunctionDefinition(@_);
-  }
-%}
-
-%feature("shadow") Model::addUnitDefinition(UnitDefinition&)
-%{
-  sub addUnitDefinition {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addUnitDefinition(@_);
-  }
-%}
-
-%feature("shadow") Model::addCompartment(Compartment&)
-%{
-  sub addCompartment {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addCompartment(@_);
-  }
-%}
-
-%feature("shadow") Model::addSpecies(Species&)
-%{
-  sub addSpecies {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addSpecies(@_);
-  }
-%}
-
-%feature("shadow") Model::addParameter(Parameter&)
-%{
-  sub addParameter {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addParameter(@_);
-  }
-%}
-
-%feature("shadow") Model::addReaction(Reaction&)
-%{
-  sub addReaction {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addReaction(@_);
-  }
-%}
-
-%feature("shadow") Model::addEvent(Event&)
-%{
-  sub addEvent {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Model_addEvent(@_);
-  }
-%}
-
-%feature("shadow") KineticLaw::setMath(ASTNode*)
-%{
-  sub setMath {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::KineticLaw_setMath(@_);
-  }
-%}
-
-%feature("shadow") KineticLaw::addParameter(Parameter&)
-%{
-  sub addParameter {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::KineticLaw_addParameter(@_);
-  }
-%}
-
-%feature("shadow") Reaction::setKineticLaw(KineticLaw& kl)
-%{
-  sub setKineticLaw {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Reaction_setKineticLaw(@_);
-  }
-%}
-
-%feature("shadow") Reaction::addReactant(SpeciesReference& sr)
-%{
-  sub addReactant {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Reaction_addReactant(@_);
-  }
-%}
-
-%feature("shadow") Reaction::addProduct(SpeciesReference& sr)
-%{
-  sub addProduct {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Reaction_addProduct(@_);
-  }
-%}
-
-%feature("shadow") Reaction::addModifier(ModifierSpeciesReference& sr)
-%{
-  sub addModifier {
-    $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::Reaction_addModifier(@_);
-  }
-%}
+// ----------------------------------------------------------------------
+// ASTNode
+// ----------------------------------------------------------------------
 
 %feature("shadow") ASTNode::addChild(ASTNode*)
 %{
@@ -289,121 +99,117 @@
   }
 %}
 
-%feature("shadow") MathMLDocument::setMath(ASTNode*)
+// ----------------------------------------------------------------------
+// RDFAnnotationParser
+// ----------------------------------------------------------------------
+
+%feature("shadow") FormulaUnitsData::setUnitDefinition(UnitDefinition*)
 %{
-  sub setMath {
+  sub setUnitDefinition {
     $_[1]->DISOWN() if defined $_[1];
-    return LibSBMLc::MathMLDocument_setMath(@_);
+    return LibSBMLc::FormulaUnitsData_setUnitDefinition(@_);
   }
 %}
 
-%feature("shadow") AssignmentRule::AssignmentRule
+%feature("shadow") FormulaUnitsData::setPerTimeUnitDefinition(UnitDefinition*)
 %{
-  sub new {
-    my $pkg = shift;
-    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
-    my $self = LibSBMLc::new_AssignmentRule(@_);
-    bless $self, $pkg if defined($self);
+  sub setPerTimeUnitDefinition {
+    $_[1]->DISOWN() if defined $_[1];
+    return LibSBMLc::FormulaUnitsData_setPerTimeUnitDefinition(@_);
   }
 %}
 
-%feature("shadow") RateRule::RateRule
+%feature("shadow") FormulaUnitsData::setEventTimeUnitDefinition(UnitDefinition*)
 %{
-  sub new {
-    my $pkg = shift;
-    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
-    my $self = LibSBMLc::new_RateRule(@_);
-    bless $self, $pkg if defined($self);
+  sub setEventTimeUnitDefinition {
+    $_[1]->DISOWN() if defined $_[1];
+    return LibSBMLc::FormulaUnitsData_setEventTimeUnitDefinition(@_);
   }
 %}
 
-%feature("shadow") FunctionDefinition::FunctionDefinition
+/**
+ * The features directives below override the default SWIG generated
+ * perl code for methods which return new SBase* object.
+ * The idea is to tell SWIG to give the ownership of new SBase* object
+ * to caller.
+ * Generally, %newobject directive is used for such ownership management.
+ * Regarding to SBase*, however, the above "%typemap(out) SBase*" directive
+ * overrides the native SWIG_NewPointerObj() function (used in LibSBML_wrap.cxx)
+ * and reset ownership flag (SWIG_OWNER is set by %newobject) to 0.
+ */
+
+// ----------------------------------------------------------------------
+// ListOf
+// ----------------------------------------------------------------------
+
+%feature("shadow") ListOf::remove(unsigned int)
 %{
-  sub new {
-    my $pkg = shift;
-    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
-    my $self = LibSBMLc::new_FunctionDefinition(@_);
-    bless $self, $pkg if defined($self);
+  sub remove {
+    my $result = LibSBMLc::ListOf_remove(@_);
+    $result->ACQUIRE() if (defined $result);
+    return $result;
   }
 %}
 
-%feature("shadow") AlgebraicRule::AlgebraicRule
+%feature("shadow") ListOf::remove(const std::string&)
 %{
-  sub new {
-    my $pkg = shift;
-    $_[0]->DISOWN() if defined $_[0] && ref($_[0]) eq 'LibSBML::ASTNode';
-    my $self = LibSBMLc::new_AlgebraicRule(@_);
-    bless $self, $pkg if defined($self);
+  sub remove {
+    my $result = LibSBMLc::ListOf_remove(@_);
+    $result->ACQUIRE() if (defined $result);
+    return $result;
   }
 %}
 
-%feature("shadow") EventAssignment::EventAssignment
+
+// ----------------------------------------------------------------------
+// SBase* *::clone()
+// ----------------------------------------------------------------------
+
+%feature("shadow")
+SBase::clone() const
 %{
-  sub new {
-    my $pkg = shift;
-    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
-    my $self = LibSBMLc::new_EventAssignment(@_);
-    bless $self, $pkg if defined($self);
+  sub clone {
+    my $result = LibSBMLc::SBase_clone(@_);
+    $result->ACQUIRE() if (defined $result);
+    return $result;
   }
 %}
 
-%feature("shadow") Event::Event
+
+/**
+ * Wraps standard output streams
+ */
+
 %{
-  sub new {
-    my $pkg = shift;
-    $_[1]->DISOWN() if defined $_[1] && ref($_[1]) eq 'LibSBML::ASTNode';
-    my $self = LibSBMLc::new_Event(@_);
-    bless $self, $pkg if defined($self);
-  }
+#include <iostream>
 %}
 
-%inline %{
-  void printFatals (SBMLDocument_t *d, FILE *stream)
+%rename(COUT) cout;
+%rename(CERR) cerr;
+%rename(CLOG) clog;
+
+namespace std
+{
+%immutable;
+extern std::ostream cout;
+extern std::ostream cerr;
+extern std::ostream clog;
+%mutable;
+}
+
+%inline
+%{
+  std::ostream& endl (std::ostream& os) 
   {
-    unsigned int n, size;
-    if (stream == NULL) stream = stderr;
-    if ((size = SBMLDocument_getNumFatals(d)) > 0)
-    {
-      fprintf(stream, "%d Fatal(s):\n", size);
-      for (n = 0; n < size; n++)
-      {
-        fprintf(stream, "  ");
-        ParseMessage_print(SBMLDocument_getFatal(d, n), stream);
-      }
-    }
+    return std::endl(os);
   }
 %}
 
-%inline %{
-  void printErrors (SBMLDocument_t *d, FILE *stream)
-  {
-    unsigned int n, size;
-    if (stream == NULL) stream = stderr;
-    if ((size = SBMLDocument_getNumErrors(d)) > 0)
-    {
-      fprintf(stream, "%d Error(s):\n", size);
-      for (n = 0; n < size; n++)
-      {
-        fprintf(stream, "  ");
-        ParseMessage_print(SBMLDocument_getError(d, n), stream);
-      }
-    }
-  }
-%}
+/**
+ * Renames functions whose name is Perl keyword
+ *
+ */
 
-%inline %{
-  void printWarnings (SBMLDocument_t *d, FILE *stream)
-  {
-    unsigned int n, size;
-    if (stream == NULL) stream = stderr;
-    if ((size = SBMLDocument_getNumWarnings(d)) > 0)
-    {
-      fprintf(stream, "%d Warning(s):\n", size);
-      for (n = 0; n < size; n++)
-      {
-        fprintf(stream, "  ");
-        ParseMessage_print(SBMLDocument_getWarning(d, n), stream);
-      }
-    }
-  }
-%}
+%rename(nextToken) XMLInputStream::next;
+%rename(nextToken) XMLTokenizer::next;
+
