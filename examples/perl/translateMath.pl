@@ -67,9 +67,7 @@ while (1) {
 #---
 sub translateInfix {
   my $expr = shift;
-  my $d    = new LibSBML::MathMLDocument();
-  $d->setMath(LibSBML::parseFormula($expr));
-  $d->writeMathMLToString();
+  LibSBML::writeMathMLToString(LibSBML::parseFormula($expr));
 }
 
 #---
@@ -77,7 +75,7 @@ sub translateMathML {
   my $xml = shift;
   $xml = "<?xml version='1.0' encoding='ascii'?>\n" . $xml
       unless $xml =~ m/^<\?/;
-  LibSBML::formulaToString(LibSBML::readMathMLFromString($xml)->getMath());
+  LibSBML::formulaToString(LibSBML::readMathMLFromString($xml));
 }
 
 #---

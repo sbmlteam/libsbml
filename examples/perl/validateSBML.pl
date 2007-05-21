@@ -61,7 +61,7 @@ my $rd        = new LibSBML::SBMLReader();
 my $d         = $rd->readSBML($filename);
 my $t1        = new Benchmark;
 (my $ellapsed = timestr(timediff($t1, $t0), 'nop')) =~ s/\A([\d\.]+)/$1/;
-my $errors    = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
+my $errors    = $d->getNumErrors();
 $errors      += $d->checkConsistency();
 my $size      = -s $filename;
 
@@ -76,9 +76,7 @@ my $ar = defined($m) ? $m->getRule(0) : undef;
 printf( " expr = '%s'", $ar->getFormula()) if defined $ar;
 
 if ($errors > 0) {
-  $d->LibSBML::printWarnings(\*STDOUT);
-  $d->LibSBML::printErrors(\*STDOUT);
-  $d->LibSBML::printFatals(\*STDOUT);
+  $d->printErrors();
 }
 
 printf("\n");

@@ -3,7 +3,7 @@
 
 ##
 ## \file    convertSBML.pl
-## \brief   Converts SBML L1 documents (any version) to L2v1
+## \brief   Converts SBML L1 documents (any version) to L2v3
 ## \author  TBI {xtof,raim}@tbi.univie.ac.at
 ##
 ## $Id$
@@ -59,27 +59,28 @@ unless (@ARGV == 2) {
 my ($inFileName, $outFileName) = (shift(),shift());
 my $rd        = new LibSBML::SBMLReader();
 my $d         = $rd->readSBML($inFileName);
-my $errors    = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
+my $errors    = $d->getNumErrors();
 
 if ($errors > 0) {
   printf( "Read Error(s):\n" );
   
-  $d->LibSBML::printWarnings(\*STDOUT);
-  $d->LibSBML::printErrors(\*STDOUT);
-  $d->LibSBML::printFatals(\*STDOUT);
+  $d->printErrors();
   
   printf("Conversion skipped.  Correct the above and re-run.\n");
 }
 else {
-  $d->setLevel($d->getLevel() == 2 ? 1 : 2);
-  
-  $errors    = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
+  if ( $d->getLevel() == 2 ) {
+    $d->setLevelAndVersion(1, 2)
+  }
+  else {
+    $d->setLevelAndVersion(2, 3)
+  }
+
+  $errors    =  $d->getNumErrors();
   if ($errors > 0) {
     printf( "Conversion Error(s):\n" );
     
-    $d->LibSBML::printWarnings(\*STDOUT);
-    $d->LibSBML::printErrors(\*STDOUT);
-    $d->LibSBML::printFatals(\*STDOUT);
+    $d->printErrors();
 
     printf("Conversion skipped.  Either libSBML does not (yet) have ");
     printf("ability to convert this model or (automatic) conversion ");

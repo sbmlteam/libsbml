@@ -61,7 +61,7 @@ my $rd        = new LibSBML::SBMLReader();
 my $d         = $rd->readSBML($filename);
 my $t1        = new Benchmark;
 (my $ellapsed = timestr(timediff($t1, $t0), 'nop')) =~ s/\A([\d\.]+)/$1/;
-my $errors    = $d->getNumWarnings() + $d->getNumErrors() + $d->getNumFatals();
+my $errors    = $d->getNumErrors();
 my $size      = -s $filename;
 
 printf( "\n" );
@@ -71,9 +71,7 @@ printf( "  read time (%s): %lu\n", $tu, $ellapsed*1000);
 printf( "        error(s): %u\n" , $errors            );
 
 if ($errors > 0) {
-  $d->LibSBML::printWarnings(\*STDOUT);
-  $d->LibSBML::printErrors(\*STDOUT);
-  $d->LibSBML::printFatals(\*STDOUT);
+  $d->printErrors();
 }
 
 printf("\n");

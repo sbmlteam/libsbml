@@ -129,7 +129,7 @@ $LibSBML::AST_PLUS             => sub { evalAST($_[0]->getChild(0))
 $LibSBML::AST_MINUS            => sub { return -evalAST($_[0]->getChild(0))
 					      if $_[0]->getNumChildren() == 1;
 					  return evalAST($_[0]->getChild(0))
-					      + evalAST($_[0]->getChild(1));
+					      - evalAST($_[0]->getChild(1));
 					},
 $LibSBML::AST_TIMES            => sub { evalAST($_[0]->getChild(0))
 					      * evalAST($_[0]->getChild(1));

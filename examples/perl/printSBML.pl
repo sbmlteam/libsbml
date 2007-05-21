@@ -56,9 +56,7 @@ my $filename = shift()
 my $rd = new LibSBML::SBMLReader();
 my $d = $rd->readSBML($filename);
 
-$d->LibSBML::printWarnings(\*STDOUT);
-$d->LibSBML::printErrors(\*STDOUT);
-$d->LibSBML::printFatals(\*STDOUT);
+$d->printErrors();
 
 my $m = $d->getModel() || exit (2);
 
