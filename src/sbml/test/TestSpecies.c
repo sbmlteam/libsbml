@@ -127,12 +127,6 @@ START_TEST (test_Species_createWith)
   fail_unless( Species_getConstant             (s) == 0 );
 
   fail_unless( !strcmp(Species_getId            (s), "Ca"  ) );
-  //fail_unless( !strcmp(Species_getCompartment   (s), "cell") );
-  //fail_unless( !strcmp(Species_getSubstanceUnits(s), "mole") );
-
-  //fail_unless( Species_getInitialAmount    (s) == 5.7  );
-  //fail_unless( Species_getBoundaryCondition(s) == 1    );
-  //fail_unless( Species_getCharge           (s) == 1    );
 
   fail_unless(   Species_isSetId                   (s) );
   fail_unless(   Species_isSetName                 (s) );

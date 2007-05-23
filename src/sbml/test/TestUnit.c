@@ -83,14 +83,13 @@ START_TEST (test_Unit_create)
 {
   fail_unless( SBase_getTypeCode  ((SBase_t *) U) == SBML_UNIT );
   fail_unless( SBase_getMetaId    ((SBase_t *) U) == NULL );
-  //fail_unless( SBase_getNotes     ((SBase_t *) U) == NULL );
-  //fail_unless( SBase_getAnnotation((SBase_t *) U) == NULL );
+  fail_unless( SBase_getNotes     ((SBase_t *) U) == NULL );
+  fail_unless( SBase_getAnnotation((SBase_t *) U) == NULL );
 
   fail_unless( Unit_getKind      (U) == UNIT_KIND_INVALID );
   fail_unless( Unit_getExponent  (U) == 1   );
   fail_unless( Unit_getScale     (U) == 0   );
   fail_unless( Unit_getMultiplier(U) == 1.0 );
-  //fail_unless( Unit_getOffset    (U) == 0.0 );
 
   fail_unless( !Unit_isSetKind(U) );
 }
@@ -111,7 +110,7 @@ START_TEST (test_Unit_createWith)
   fail_unless( Unit_getExponent  (u) == -2   );
   fail_unless( Unit_getScale     (u) ==  1   );
   fail_unless( Unit_getMultiplier(u) ==  1.0 );
-  //fail_unless( Unit_getOffset    (u) ==  0.0 );
+  fail_unless( Unit_getOffset    (u) ==  0.0 );
 
   fail_unless( Unit_isSetKind(u) );
 
@@ -140,8 +139,8 @@ START_TEST (test_Unit_isXXX)
   Unit_setKind(U, UNIT_KIND_CANDELA);
   fail_unless( Unit_isCandela(U) );
 
-  //Unit_setKind(U, UNIT_KIND_CELSIUS);
-  //fail_unless( Unit_isCelsius(U) );
+  Unit_setKind(U, UNIT_KIND_CELSIUS);
+  fail_unless( Unit_isCelsius(U) );
 
   Unit_setKind(U, UNIT_KIND_COULOMB);
   fail_unless( Unit_isCoulomb(U) );
