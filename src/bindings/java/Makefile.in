@@ -94,6 +94,7 @@ libraries      = $(jarfile) $(jnifile)
 # rules in `makefile-common-actions.mk' included at the end.
 
 extra_CPPFLAGS = $(JAVA_CPPFLAGS) -I../swig
+SWIGFLAGS     += $(JAVA_CPPFLAGS) -I../swig
 
 extra_LDFLAGS  = $(JAVA_LDFLAGS)
 
@@ -112,9 +113,9 @@ ifdef USE_XERCES
 endif
 
 ifdef USE_LIBXML
-  extra_CPPFLAGS += @XERCES_CPPFLAGS@
-  extra_LDFLAGS  += @XERCES_LDFLAGS@
-  extra_LIBS     += @XERCES_LIBS@
+  extra_CPPFLAGS += @LIBXML_CPPFLAGS@
+  extra_LDFLAGS  += @LIBXML_LDFLAGS@
+  extra_LIBS     += @LIBXML_LIBS@
 endif
 
 ifdef USE_LAYOUT
@@ -147,7 +148,7 @@ distfiles = $(sources) $(extra_sources) $(check_sources) Makefile.in $(java_file
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = $(class_files) $(check_sources:.java=.class) $(java_files) libsbml_wrap.cpp javadoc.i
+extra_clean = $(class_files) $(check_sources:.java=.class) 
 
 extra_distclean = java-files
 
@@ -216,7 +217,7 @@ swigfiles:
 ifdef USE_SWIG
 	test -d $(outpath) || mkdir -p $(outpath)
 	../swig/swigdoc.py java -I../../../include ../swig/libsbml.i javadoc.i
-	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) \
+	$(SWIG) $(SWIGFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -java -package $(java_package) \
 	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
