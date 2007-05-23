@@ -31,7 +31,8 @@ UnitFormulaFormatter::UnitFormulaFormatter(const Model *m)
 {
   model = (Model *) (m->clone());
   undeclaredUnits = 0;
-  canIgnoreUndeclaredUnits = 0;
+  /* temporary HACK while I figure this out */
+  canIgnoreUndeclaredUnits = 2;
   mInKineticlaw = 0;
   mReactionNo = -1;
 }
@@ -525,6 +526,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
   unsigned int n = 0;
  
   /* save any existing value of undeclaredUnits/canIgnoreUndeclaredUnits */
+  unsigned int originalIgnore = canIgnoreUndeclaredUnits;
   unsigned int originalUndeclaredValue = undeclaredUnits;
   unsigned int currentIgnore = canIgnoreUndeclaredUnits;
   unsigned int currentUndeclared = undeclaredUnits;
@@ -564,7 +566,13 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
 
   /* restore original value of undeclaredUnits */
   undeclaredUnits = currentUndeclared;
-  canIgnoreUndeclaredUnits = currentIgnore;
+  /* temporary HACK while I figure this out */
+  if (originalIgnore == 2)
+  {
+    canIgnoreUndeclaredUnits = currentIgnore;
+  }
+  
+
 
   return ud;
 }
@@ -1070,6 +1078,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
   {
     ud   = new UnitDefinition();
     undeclaredUnits = 1;
+    /* temporary HACK while I figure this out */
     canIgnoreUndeclaredUnits = 0;
   }
   else
@@ -1248,7 +1257,8 @@ unsigned int
 UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
 {
   undeclaredUnits = 0;
-  canIgnoreUndeclaredUnits = 0;
+  /* temporary HACK while I figure this out */
+  canIgnoreUndeclaredUnits = 2;
 
   /* This was assigned but never used -- why?  2007-02-12 <mhucka@caltech.edu> */
   /* This function will change the undeclaredUnits flag
@@ -1265,7 +1275,11 @@ UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
 unsigned int 
 UnitFormulaFormatter::getCanIgnoreUndeclaredUnits()
 {
-  return canIgnoreUndeclaredUnits;
+  /* temporary HACK while I figure this out */
+  if (canIgnoreUndeclaredUnits == 2)
+    return 0;
+  else
+    return canIgnoreUndeclaredUnits;
 }
 
 
@@ -1286,7 +1300,8 @@ void
 UnitFormulaFormatter::resetFlags()
 {
   undeclaredUnits = 0;
-  canIgnoreUndeclaredUnits = 0;
+  /* temporary HACK while I figure this out */
+  canIgnoreUndeclaredUnits = 2;
 }
 
 
