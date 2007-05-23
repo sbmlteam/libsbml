@@ -161,12 +161,12 @@ START_TEST (test_EventAssignment_setMath)
 
   EventAssignment_setMath(EA, math);
 
-  //math1 = EventAssignment_getMath(EA);
-  //fail_unless( math1 != NULL );
+  math1 = EventAssignment_getMath(EA);
+  fail_unless( math1 != NULL );
 
-  //formula = SBML_formulaToString(math1);
-  //fail_unless( formula != NULL );
-  //fail_unless( !strcmp(formula, "2 * k") );
+  formula = SBML_formulaToString(math1);
+  fail_unless( formula != NULL );
+  fail_unless( !strcmp(formula, "2 * k") );
 
   fail_unless( EventAssignment_getMath(EA) != math);
   fail_unless( EventAssignment_isSetMath(EA) );
