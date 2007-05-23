@@ -203,7 +203,6 @@ Delay::readOtherXML (XMLInputStream& stream)
   bool          read = false;
   const string& name = stream.peek().getName();
 
-
   if (name == "math")
   {
     /* check for MathML namespace 
@@ -247,37 +246,6 @@ Delay::readOtherXML (XMLInputStream& stream)
     delete mMath;
     mMath = readMathML(stream);
     read  = true;
-  }
-  else if (name == "annotation")
-  {
-    /* if annotation already exists then it is an error 
-     */
-    if (mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-    delete mAnnotation;
-    mAnnotation = new XMLNode(stream);
-    checkAnnotation();
-    mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    read = true;
-  }
-  else if (name == "notes")
-  {
-    /* if notes already exists then it is an error 
-     * if annotation already exists then ordering is wrong
-     */
-    if (mNotes || mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-
-    delete mNotes;
-    mNotes = new XMLNode(stream);
-    checkXHTML(mNotes);
-    read = true;
   }
 
   return read;

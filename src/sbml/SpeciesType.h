@@ -186,19 +186,6 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Method for reading elements whose values are XML content (which, for
-   * SpeciesType, can be either the XHTML content of the "notes" subelement
-   * or the XML content of the "annotation" subelement).
-   *
-   * @param stream the XMLInputStream to use.
-   *
-   * @return @c true if the subclass successfully read from the stream, @c
-   * false otherwise.
-   */
-  virtual bool readOtherXML (XMLInputStream& stream);
-
-
-  /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.

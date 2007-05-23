@@ -895,19 +895,18 @@ SBase::read (XMLInputStream& stream)
         }
 
       }
-      else if ( !readOtherXML(stream) )
+      else if ( !( readOtherXML(stream)
+		   || readAnnotation(stream)
+		   || readNotes(stream) ))
       {
         mSBML->getErrorLog()->unrecognizedElement(next);
         stream.skipPastEnd( stream.next() );
       }
     }
-
     else
     {
       stream.skipPastEnd( stream.next() );
     }
-
-    
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -993,6 +992,70 @@ SBase::createObject (XMLInputStream&)
 bool
 SBase::readOtherXML (XMLInputStream&)
 {
+  return false;
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * @return true if read an <annotation> element from the stream
+ */
+bool
+SBase::readAnnotation (XMLInputStream& stream)
+{
+  const string& name = stream.peek().getName();
+
+  if (name == "annotation")
+  {
+    // If an annotation already exists, log it as an error and replace
+    // the content of the existing annotation with the new one.
+
+    if (mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
+    delete mAnnotation;
+    mAnnotation = new XMLNode(stream);
+    checkAnnotation();
+    mCVTerms = new List();
+    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
+    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    return true;
+  }
+
+  return false;
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/**
+ * @return true if read a <notes> element from the stream
+ */
+bool
+SBase::readNotes (XMLInputStream& stream)
+{
+  const string& name = stream.peek().getName();
+
+  if (name == "notes")
+  {
+    // If a notes element already exists, then it is an error.
+    // If an annotation element already exists, then the ordering is wrong.
+    // In either case, replace existing content with the new notes read.
+
+    if (mNotes || mAnnotation)
+    {
+      mSBML->getErrorLog()->logError(10103);
+    }
+
+    delete mNotes;
+    mNotes = new XMLNode(stream);
+    checkXHTML(mNotes);
+    return true;
+  }
+
   return false;
 }
 /** @endcond doxygen-libsbml-internal */

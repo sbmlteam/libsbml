@@ -1094,6 +1094,18 @@ private:
    */
   void setSBaseFields (const XMLToken& element);
 
+
+  /**
+   * @return true if read an <annotation> element from the stream
+   */
+  bool readAnnotation (XMLInputStream& stream);
+
+
+  /**
+   * @return true if read a <notes> element from the stream
+   */
+  bool readNotes (XMLInputStream& stream);
+
   /** @endcond doxygen-libsbml-internal */
 };
 

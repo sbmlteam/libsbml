@@ -123,56 +123,6 @@ SpeciesType::getElementName () const
   return name;
 }
 
-/** @cond doxygen-libsbml-internal */
-/**
- * Subclasses should override this method to read (and store) XHTML,
- * MathML, etc. directly from the XMLInputStream.
- *
- * @return true if the subclass read from the stream, false otherwise.
- */
-bool
-SpeciesType::readOtherXML (XMLInputStream& stream)
-{
-  bool          read = false;
-  const string& name = stream.peek().getName();
-
-
-  if (name == "annotation")
-  {
-    /* if annotation already exists then it is an error 
-     */
-    if (mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-    delete mAnnotation;
-    mAnnotation = new XMLNode(stream);
-    checkAnnotation();
-    mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    read = true;
-  }
-  else if (name == "notes")
-  {
-    /* if notes already exists then it is an error 
-     * if annotation already exists then ordering is wrong
-     */
-    if (mNotes || mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-
-    delete mNotes;
-    mNotes = new XMLNode(stream);
-    checkXHTML(mNotes);
-    read = true;
-  }
-
-  return read;
-}
-/** @endcond doxygen-libsbml-internal */
-
 
 /** @cond doxygen-libsbml-internal */
 /**

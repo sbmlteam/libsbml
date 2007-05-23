@@ -729,19 +729,12 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Subclasses should override this method to read (and store) XHTML,
-   * MathML, etc. directly from the XMLInputStream.
-   *
-   * @return @c true if the subclass read from the stream, @c false otherwise.
-   */
-  virtual bool readOtherXML (XMLInputStream& stream);
-
-  /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.
    */
   virtual void readAttributes (const XMLAttributes& attributes);
+
 
   /**
    * Subclasses should override this method to write their XML attributes

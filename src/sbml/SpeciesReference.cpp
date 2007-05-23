@@ -567,6 +567,10 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
  //   }
  // }
   //else 
+
+  // This has to do additional work for reading annotations, so the code
+  // here is copied and expanded from SBase::readNotes().
+
   if (name == "annotation")
   {
     /* if annotation already exists then it is an error 
@@ -591,21 +595,6 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
       mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
     }
 #endif // USE_LAYOUT
-    read = true;
-  }
-  else if (name == "notes")
-  {
-    /* if notes already exists then it is an error 
-     * if annotation already exists then ordering is wrong
-     */
-    if (mNotes || mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-
-    delete mNotes;
-    mNotes = new XMLNode(stream);
-    checkXHTML(mNotes);
     read = true;
   }
 
@@ -808,6 +797,10 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
 {
   bool          read = false;
   const string& name = stream.peek().getName();
+
+  // This has to do additional work for reading annotations, so the code
+  // here is copied and expanded from SBase::readNotes().
+
   if (name == "annotation")
   {
     /* if annotation already exists then it is an error 
@@ -829,21 +822,6 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
       mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
     }
     read=true;
-  }
-  else if (name == "notes")
-  {
-    /* if notes already exists then it is an error 
-     * if annotation already exists then ordering is wrong
-     */
-    if (mNotes || mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-
-    delete mNotes;
-    mNotes = new XMLNode(stream);
-    checkXHTML(mNotes);
-    read = true;
   }
 
   return read;

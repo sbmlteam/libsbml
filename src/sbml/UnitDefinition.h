@@ -522,15 +522,6 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
   /**
-   * Subclasses should override this method to read (and store) XHTML,
-   * MathML, etc. directly from the XMLInputStream.
-   *
-   * @return true if the subclass read from the stream, false otherwise.
-   */
-  virtual bool readOtherXML (XMLInputStream& stream);
-
-
-  /**
    * @return the SBML object corresponding to next XMLToken in the
    * XMLInputStream or NULL if the token was not recognized.
    */

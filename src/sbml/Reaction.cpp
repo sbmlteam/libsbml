@@ -687,57 +687,6 @@ Reaction::getElementName () const
 
 /** @cond doxygen-libsbml-internal */
 /**
- * Subclasses should override this method to read (and store) XHTML,
- * MathML, etc. directly from the XMLInputStream.
- *
- * @return true if the subclass read from the stream, false otherwise.
- */
-bool
-Reaction::readOtherXML (XMLInputStream& stream)
-{
-  bool          read = false;
-  const string& name = stream.peek().getName();
-
-
-  if (name == "annotation")
-  {
-    /* if annotation already exists then it is an error 
-     */
-    if (mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-    delete mAnnotation;
-    mAnnotation = new XMLNode(stream);
-    checkAnnotation();
-    mCVTerms = new List();
-    RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
-    read = true;
-  }
-  else if (name == "notes")
-  {
-    /* if notes already exists then it is an error 
-     * if annotation already exists then ordering is wrong
-     */
-    if (mNotes || mAnnotation)
-    {
-      mSBML->getErrorLog()->logError(10103);
-    }
-
-    delete mNotes;
-    mNotes = new XMLNode(stream);
-    checkXHTML(mNotes);
-    read = true;
-  }
-
-  return read;
-}
-/** @endcond doxygen-libsbml-internal */
-
-
-/** @cond doxygen-libsbml-internal */
-/**
  * @return the SBML object corresponding to next XMLToken in the
  * XMLInputStream or NULL if the token was not recognized.
  */
