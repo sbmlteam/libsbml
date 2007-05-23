@@ -117,9 +117,9 @@ ifdef USE_XERCES
 endif
 
 ifdef USE_LIBXML
-  extra_CPPFLAGS += @XERCES_CPPFLAGS@
-  extra_LDFLAGS  += @XERCES_LDFLAGS@
-  extra_LIBS     += @XERCES_LIBS@
+  extra_CPPFLAGS += @LIBXML_CPPFLAGS@
+  extra_LDFLAGS  += @LIBXML_LDFLAGS@
+  extra_LIBS     += @LIBXML_LIBS@
 endif
 
 # For Linux/Unix LD_LIBRARY_PATH *may* need to contain one or more library
@@ -221,7 +221,7 @@ endif # USE_SWIG
 swigfiles:
 ifdef USE_SWIG
 	../swig/swigdoc.py python -I../../../include ../swig/libsbml.i pydoc.i
-	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) \
+	$(SWIG) $(SWIGFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -python -o libsbml_wrap.cpp libsbml.i
 	perl -pi -e "s|import _libsbml|from __future__ import generators\nimport _libsbml|" \
