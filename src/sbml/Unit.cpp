@@ -634,14 +634,57 @@ Unit::isBuiltIn (const std::string& name)
     name == "time";
 }
 
+bool
+Unit::isUnitKind(const std::string &name, unsigned int level, unsigned int version)
+{
+  if (level == 1)
+  {
+    return isL1UnitKind(name);
+  }
+  else if (version == 1)
+  {
+    return isL2V1UnitKind(name);
+  }
+  else
+  {
+    return isL2UnitKind(name);
+  }
+}
+
 
 /**
  * @return true if name is a valid UnitKind.
  */
 bool
-Unit::isUnitKind (const std::string& name)
+Unit::isL1UnitKind (const std::string& name)
 {
   return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
+}
+
+
+/**
+ * @return true if name is a valid UnitKind.
+ */
+bool
+Unit::isL2V1UnitKind (const std::string& name)
+{
+  if (name == "meter" || name == "liter")
+    return false;
+  else
+    return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
+}
+
+
+/**
+ * @return true if name is a valid UnitKind.
+ */
+bool
+Unit::isL2UnitKind (const std::string& name)
+{
+  if (name == "meter" || name == "liter" || name == "Celsius")
+    return false;
+  else
+    return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
 }
 
 

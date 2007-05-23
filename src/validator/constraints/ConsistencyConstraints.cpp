@@ -202,9 +202,8 @@ START_CONSTRAINT (20401, UnitDefinition, ud)
     "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
     "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
     "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
-    
-
-  inv( Unit::isUnitKind( ud.getId() ) == false );
+   
+  inv( Unit::isUnitKind( ud.getId() , ud.getLevel(), ud.getVersion() ) == false );
 }
 END_CONSTRAINT
 
@@ -416,7 +415,8 @@ START_CONSTRAINT (20410, UnitDefinition, ud)
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
   {
-    inv(Unit::isUnitKind(UnitKind_toString(ud.getUnit(n)->getKind())));
+    inv( Unit::isUnitKind( UnitKind_toString(ud.getUnit(n)->getKind()), 
+      ud.getLevel(), ud.getVersion()));
   }
 }
 END_CONSTRAINT
@@ -986,7 +986,7 @@ START_CONSTRAINT (20701, Parameter, p)
 
   const string& units = p.getUnits();
 
-  inv_or( Unit::isUnitKind(units)    );
+  inv_or( Unit::isUnitKind(units, p.getLevel(), p.getVersion())    );
   inv_or( Unit::isBuiltIn(units)     );
   inv_or( m.getUnitDefinition(units) );
 }

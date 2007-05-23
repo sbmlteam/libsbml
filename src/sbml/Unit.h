@@ -710,10 +710,19 @@ public:
    * base unit in SBML (such as @c "gram" or @c "mole")
    *
    * @param name a string to be tested
+   * @param level an unsigned int representing the level of SBML
+   * @param version an unsigned int representing the version of SBML
    * 
    * @return @c true if name is a valid UnitKind, @c false otherwise
+   *
+   * @note the enumeration of allowed units changes between Levels 1 and 2 and
+   * again between Level 2 Versions 1 and 2.
    */
-  static bool isUnitKind (const std::string& name);
+  static bool isUnitKind (const std::string& name, unsigned int level,
+                                                    unsigned int version);
+
+
+
 
 
 protected:
@@ -741,6 +750,36 @@ protected:
    */
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
+  /**
+   * Predicate to test whether a given string is the name of a valid
+   * base unit in SBML Level 1(such as @c "gram" or @c "mole")
+   *
+   * @param name a string to be tested
+   * 
+   * @return @c true if name is a valid UnitKind, @c false otherwise
+   */
+  static bool isL1UnitKind (const std::string& name);
+
+
+  /**
+   * Predicate to test whether a given string is the name of a valid
+   * base unit in SBML Level 2 Version 1(such as @c "gram" or @c "mole")
+   *
+   * @param name a string to be tested
+   * 
+   * @return @c true if name is a valid UnitKind, @c false otherwise
+   */
+  static bool isL2V1UnitKind (const std::string& name);
+
+  /**
+   * Predicate to test whether a given string is the name of a valid
+   * base unit in SBML Level 2 Version 2 or 3 (such as @c "gram" or @c "mole")
+   *
+   * @param name a string to be tested
+   * 
+   * @return @c true if name is a valid UnitKind, @c false otherwise
+   */
+  static bool isL2UnitKind (const std::string& name);
 
   UnitKind_t  mKind;
   int         mExponent;
