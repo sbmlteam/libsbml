@@ -7,3 +7,4 @@ TestRunner
 .libs
 TAGS
 CTAGS
+.gdb_history
