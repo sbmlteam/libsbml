@@ -248,10 +248,17 @@ END_TEST
 
 START_TEST (test_UnitKind_isValidUnitKindString)
 {
-  fail_unless( !UnitKind_isValidUnitKindString("fun-foam-unit for kids!"),
+  fail_unless( !UnitKind_isValidUnitKindString("fun-foam-unit for kids!", 1, 1),
                NULL );
 
-  fail_unless( UnitKind_isValidUnitKindString("litre"), NULL );
+  fail_unless( UnitKind_isValidUnitKindString("litre", 2, 2), NULL );
+  fail_unless( !UnitKind_isValidUnitKindString("liter", 2, 2), NULL );
+  fail_unless( UnitKind_isValidUnitKindString("liter", 1, 2), NULL );
+  fail_unless( !UnitKind_isValidUnitKindString("meter", 2, 3), NULL );
+  fail_unless( UnitKind_isValidUnitKindString("metre", 2, 1), NULL );
+  fail_unless( UnitKind_isValidUnitKindString("meter", 1, 2), NULL );
+  fail_unless( UnitKind_isValidUnitKindString("Celsius", 2, 1), NULL );
+  fail_unless( !UnitKind_isValidUnitKindString("Celsius", 2, 2), NULL );
 }
 END_TEST
 
