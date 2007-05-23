@@ -643,7 +643,7 @@ Event_setName (Event_t *e, const char *name);
 
 LIBSBML_EXTERN
 void
-Event_setTrigger (Event_t *e, Trigger_t *trigger);
+Event_setTrigger (Event_t *e, const Trigger_t *trigger);
 
 
 LIBSBML_EXTERN
