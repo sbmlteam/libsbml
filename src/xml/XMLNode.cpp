@@ -194,6 +194,11 @@ XMLNode::write (XMLOutputStream& stream) const
     for (unsigned int c = 0; c < children; ++c) stream << getChild(c);
     stream.endElement( mTriple );
   }
+  else if ( isStart() && !isEnd() ) 
+  {
+    stream.endElement( mTriple );
+  }
+
 }
 
 
