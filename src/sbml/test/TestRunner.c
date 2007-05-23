@@ -184,10 +184,11 @@ main (void)
   srunner_add_suite( runner, create_suite_KineticLaw               () );
   srunner_add_suite( runner, create_suite_ListOf                   () );
   srunner_add_suite( runner, create_suite_Model                    () );
+  srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
   srunner_add_suite( runner, create_suite_Parameter                () );
   srunner_add_suite( runner, create_suite_RateRule                 () );
-  srunner_add_suite( runner, create_suite_Rule                 () );
   srunner_add_suite( runner, create_suite_Reaction                 () );
+  srunner_add_suite( runner, create_suite_Rule                 () );
   srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_Species                  () );
   srunner_add_suite( runner, create_suite_SpeciesReference         () );

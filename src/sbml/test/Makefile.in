@@ -75,7 +75,8 @@ test_sources =				\
   TestTrigger.c				\
   TestModel.c				\
   TestSBase.cpp				\
-  TestStoichiometryMath.c
+  TestStoichiometryMath.c	\
+  TestModifierSpeciesReference.c 
 
 
 extra_CPPFLAGS = -I.. -I../..

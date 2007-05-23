@@ -53,22 +53,22 @@
 #include "math/FormulaParser.h"
 
 #include "SBase.h"
-#include "ModifierSpeciesReference.h"
+#include "SpeciesReference.h"
 
 #include <check.h>
 
 
-static ModifierSpeciesReference_t *MSR;
+static SpeciesReference_t *MSR;
 
 
 void
 ModifierSpeciesReferenceTest_setup (void)
 {
-  MSR = ModifierSpeciesReference_create();
+  MSR = SpeciesReference_createModifier();
 
   if (MSR == NULL)
   {
-    fail( "ModifierSpeciesReference_create() returned a NULL pointer." );
+    fail( "SpeciesReference_createModifier() returned a NULL pointer." );
   }
 }
 
@@ -76,7 +76,7 @@ ModifierSpeciesReferenceTest_setup (void)
 void
 ModifierSpeciesReferenceTest_teardown (void)
 {
-  ModifierSpeciesReference_free(MSR);
+  SpeciesReference_free(MSR);
 }
 
 
@@ -89,38 +89,18 @@ START_TEST (test_ModifierSpeciesReference_create)
   fail_unless( SBase_getNotes     ((SBase_t *) MSR) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) MSR) == NULL );
 
-  fail_unless( ModifierSpeciesReference_getSpecies(MSR) == NULL );
+  fail_unless( SpeciesReference_getSpecies(MSR) == NULL );
 
-  fail_unless( !ModifierSpeciesReference_isSetSpecies(MSR) );
-}
-END_TEST
+  fail_unless( !SpeciesReference_isSetSpecies(MSR) );
 
-
-START_TEST (test_ModifierSpeciesReference_createWith)
-{
-  ModifierSpeciesReference_t *msr;
-
-
-  msr = ModifierSpeciesReference_createWith("s5");
-
-  fail_unless(SBase_getTypeCode((SBase_t *) msr) ==
-              SBML_MODIFIER_SPECIES_REFERENCE);
-
-  fail_unless( SBase_getMetaId    ((SBase_t *) msr) == NULL );
-  fail_unless( SBase_getNotes     ((SBase_t *) msr) == NULL );
-  fail_unless( SBase_getAnnotation((SBase_t *) msr) == NULL );
-
-  fail_unless( !strcmp(ModifierSpeciesReference_getSpecies(msr), "s5") );
-  fail_unless( ModifierSpeciesReference_isSetSpecies(msr) );
-
-  ModifierSpeciesReference_free(msr);
+  fail_unless( SpeciesReference_isModifier(MSR) );
 }
 END_TEST
 
 
 START_TEST (test_ModifierSpeciesReference_free_NULL)
 {
-  ModifierSpeciesReference_free(NULL);
+  SpeciesReference_free(NULL);
 }
 END_TEST
 
@@ -132,29 +112,29 @@ START_TEST (test_ModifierSpeciesReference_setSpecies)
 
 
 
-  ModifierSpeciesReference_setSpecies(MSR, species);
+  SpeciesReference_setSpecies(MSR, species);
 
-  s = ModifierSpeciesReference_getSpecies(MSR);
+  s = SpeciesReference_getSpecies(MSR);
   fail_unless( !strcmp(s, species) );
-  fail_unless(ModifierSpeciesReference_isSetSpecies(MSR));
+  fail_unless(SpeciesReference_isSetSpecies(MSR));
 
-  if (ModifierSpeciesReference_getSpecies(MSR) == species)
+  if (SpeciesReference_getSpecies(MSR) == species)
   {
     fail( "ModifierSpeciesReference_setSpecies(...) "
           "did not make a copy of string." );
   }
 
   /* Reflexive case (pathological) */
-  s = ModifierSpeciesReference_getSpecies(MSR);
-  ModifierSpeciesReference_setSpecies(MSR, s);
+  s = SpeciesReference_getSpecies(MSR);
+  SpeciesReference_setSpecies(MSR, s);
 
-  s = ModifierSpeciesReference_getSpecies(MSR);
+  s = SpeciesReference_getSpecies(MSR);
   fail_unless( !strcmp(s, species) );
 
-  ModifierSpeciesReference_setSpecies(MSR, NULL);
-  fail_unless(!ModifierSpeciesReference_isSetSpecies(MSR));
+  SpeciesReference_setSpecies(MSR, NULL);
+  fail_unless(!SpeciesReference_isSetSpecies(MSR));
 
-  if (ModifierSpeciesReference_getSpecies(MSR) != NULL)
+  if (SpeciesReference_getSpecies(MSR) != NULL)
   {
     fail( "ModifierSpeciesReference_setSpecies(MSR, NULL) "
           "did not clear string." );
@@ -175,7 +155,6 @@ create_suite_ModifierSpeciesReference (void)
                              ModifierSpeciesReferenceTest_teardown );
 
   tcase_add_test( tcase, test_ModifierSpeciesReference_create     );
-  tcase_add_test( tcase, test_ModifierSpeciesReference_createWith );
   tcase_add_test( tcase, test_ModifierSpeciesReference_free_NULL  );
   tcase_add_test( tcase, test_ModifierSpeciesReference_setSpecies );
 
