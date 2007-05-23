@@ -1021,6 +1021,21 @@ Unit_free (Unit_t *u)
 
 
 /**
+ * Creates a deep copy of the given Unit_t structure
+ * 
+ * @param u the Unit_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Unit_t structure.
+ */
+LIBSBML_EXTERN
+Unit_t *
+Unit_clone (const Unit_t* u)
+{
+  return static_cast<Unit*>( u->clone() );
+}
+
+
+/**
  * Initializes the attributes of this Unit (except for "kind") to their
  * defaults values.
  *

@@ -564,6 +564,21 @@ FunctionDefinition_free (FunctionDefinition_t *fd)
 
 
 /**
+ * Creates a deep copy of the given FunctionDefinition_t structure
+ * 
+ * @param fd the FunctionDefinition_t structure to be copied
+ * 
+ * @return a (deep) copy of the given FunctionDefinition_t structure.
+ */
+LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_clone (const FunctionDefinition_t* fd)
+{
+  return static_cast<FunctionDefinition*>( fd->clone() );
+}
+
+
+/**
  * Get the identifier of the given FunctionDefinition_t structure.
  *
  * @param fd the FunctionDefinition_t structure

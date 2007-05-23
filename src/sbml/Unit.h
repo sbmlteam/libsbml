@@ -896,6 +896,11 @@ Unit_free (Unit_t *u);
 
 
 LIBSBML_EXTERN
+Unit_t *
+Unit_clone (const Unit_t* c);
+
+
+LIBSBML_EXTERN
 void
 Unit_initDefaults (Unit_t *u);
 

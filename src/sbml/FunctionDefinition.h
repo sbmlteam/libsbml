@@ -464,6 +464,11 @@ FunctionDefinition_free (FunctionDefinition_t *fd);
 
 
 LIBSBML_EXTERN
+FunctionDefinition_t *
+FunctionDefinition_clone (const FunctionDefinition_t* c);
+
+
+LIBSBML_EXTERN
 const char *
 FunctionDefinition_getId (const FunctionDefinition_t *fd);
 
