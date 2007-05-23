@@ -175,6 +175,7 @@ main (void)
   
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentType          () );
+  srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
   srunner_add_suite( runner, create_suite_Constraint                    () );
   srunner_add_suite( runner, create_suite_Delay                    () );
   srunner_add_suite( runner, create_suite_Event                    () );
@@ -186,12 +187,14 @@ main (void)
   srunner_add_suite( runner, create_suite_Model                    () );
   srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
   srunner_add_suite( runner, create_suite_Parameter                () );
+  srunner_add_suite( runner, create_suite_ParameterRule            () );
   srunner_add_suite( runner, create_suite_RateRule                 () );
   srunner_add_suite( runner, create_suite_Reaction                 () );
   srunner_add_suite( runner, create_suite_Rule                 () );
   srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_Species                  () );
   srunner_add_suite( runner, create_suite_SpeciesReference         () );
+  srunner_add_suite( runner, create_suite_SpeciesConcentrationRule () );
   srunner_add_suite( runner, create_suite_SpeciesType                  () );
   srunner_add_suite( runner, create_suite_StoichiometryMath                  () );
   srunner_add_suite( runner, create_suite_Trigger                    () );
@@ -199,21 +202,14 @@ main (void)
   srunner_add_suite( runner, create_suite_UnitDefinition           () );
   srunner_add_suite( runner, create_suite_UnitKind                 () );
   srunner_add_suite( runner, create_suite_CopyAndClone                    () );
-/*  srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
-  srunner_add_suite( runner, create_suite_Model                    () );
-  srunner_add_suite( runner, create_suite_ModifierSpeciesReference () );
-  srunner_add_suite( runner, create_suite_ParameterRule            () );
-  srunner_add_suite( runner, create_suite_RateRule                 () );
-  srunner_add_suite( runner, create_suite_Rule                     () );
+/*  
   srunner_add_suite( runner, create_suite_RuleType                 () );
-  srunner_add_suite( runner, create_suite_SBase                    () );
   srunner_add_suite( runner, create_suite_SBMLConvert              () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
 
   srunner_add_suite( runner, create_suite_SBMLReader               () );
   srunner_add_suite( runner, create_suite_SBMLWriter               () );
   srunner_add_suite( runner, create_suite_SimpleSpeciesReference   () );
-  srunner_add_suite( runner, create_suite_SpeciesConcentrationRule () );
 
   srunner_add_suite( runner, create_suite_TestReadFromFile1() );
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );

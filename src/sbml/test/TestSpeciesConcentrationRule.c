@@ -53,19 +53,17 @@
 
 #include "SBase.h"
 #include "Rule.h"
-#include "AssignmentRule.h"
-#include "SpeciesConcentrationRule.h"
 
 #include <check.h>
 
-
-static SpeciesConcentrationRule_t *SCR;
+static Rule_t *SCR;
 
 
 void
 SpeciesConcentrationRuleTest_setup (void)
 {
-  SCR = SpeciesConcentrationRule_create();
+  SCR = Rule_createAssignment();
+  Rule_setL1TypeCode(SCR, SBML_SPECIES_CONCENTRATION_RULE);
 
   if (SCR == NULL)
   {
@@ -77,60 +75,60 @@ SpeciesConcentrationRuleTest_setup (void)
 void
 SpeciesConcentrationRuleTest_teardown (void)
 {
-  SpeciesConcentrationRule_free(SCR);
+  Rule_free(SCR);
 }
 
 
 START_TEST (test_SpeciesConcentrationRule_create)
 {
   fail_unless( SBase_getTypeCode((SBase_t *) SCR) ==
+               SBML_ASSIGNMENT_RULE );
+  fail_unless( Rule_getL1TypeCode((Rule_t *) SCR) ==
                SBML_SPECIES_CONCENTRATION_RULE );
 
   fail_unless( SBase_getNotes     ((SBase_t *) SCR) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) SCR) == NULL );
 
   fail_unless( Rule_getFormula((Rule_t *) SCR) == NULL );
+  fail_unless( Rule_getType((Rule_t *) SCR) ==  RULE_TYPE_SCALAR );
 
-  fail_unless( AssignmentRule_getType((AssignmentRule_t *) SCR) ==
-               RULE_TYPE_SCALAR );
-
-  fail_unless( SpeciesConcentrationRule_getSpecies(SCR) == NULL );
-
-  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR) );
+  fail_unless( Rule_getVariable(SCR) == NULL );
+  fail_unless( !Rule_isSetVariable(SCR) );
 }
 END_TEST
 
 
 START_TEST (test_SpeciesConcentrationRule_createWith)
 {
-  SpeciesConcentrationRule_t *scr;
+  Rule_t *scr;
 
 
-  scr = SpeciesConcentrationRule_createWith("t - s2", RULE_TYPE_RATE, "s1");
-
+  scr = Rule_createRateWithVariableAndFormula("c", "v + 1");
+  Rule_setL1TypeCode(scr, SBML_SPECIES_CONCENTRATION_RULE);
 
   fail_unless( SBase_getTypeCode((SBase_t *) scr) ==
+               SBML_RATE_RULE );
+  fail_unless( Rule_getL1TypeCode((Rule_t *) scr) ==
                SBML_SPECIES_CONCENTRATION_RULE );
 
   fail_unless( SBase_getNotes     ((SBase_t *) scr) == NULL );
   fail_unless( SBase_getAnnotation((SBase_t *) scr) == NULL );
 
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) scr), "t - s2") );
-  fail_unless( !strcmp(SpeciesConcentrationRule_getSpecies(scr), "s1") );
+  fail_unless( !strcmp(Rule_getFormula( scr), "v + 1") );
+  fail_unless( !strcmp(Rule_getVariable(scr), "c") );
 
-  fail_unless( AssignmentRule_getType((AssignmentRule_t *) scr) ==
-               RULE_TYPE_RATE );
+  fail_unless( Rule_getType( scr) ==  RULE_TYPE_RATE );
 
-  fail_unless( SpeciesConcentrationRule_isSetSpecies(scr) );
+  fail_unless( Rule_isSetVariable(scr) );
 
-  SpeciesConcentrationRule_free(scr);
+  Rule_free(scr);
 }
 END_TEST
 
 
 START_TEST (test_SpeciesConcentrationRule_free_NULL)
 {
-  SpeciesConcentrationRule_free(NULL);
+  Rule_free(NULL);
 }
 END_TEST
 
@@ -141,28 +139,28 @@ START_TEST (test_SpeciesConcentrationRule_setSpecies)
   const char *s;
 
 
-  SpeciesConcentrationRule_setSpecies(SCR, species);
+  Rule_setVariable(SCR, species);
 
-  s = SpeciesConcentrationRule_getSpecies(SCR);
-  fail_unless( !strcmp(s, species) );
+  fail_unless( !strcmp(Rule_getVariable(SCR), species),
+               NULL );
+  fail_unless( Rule_isSetVariable(SCR) );
 
-  fail_unless( SpeciesConcentrationRule_isSetSpecies(SCR) );
-
-  if (SpeciesConcentrationRule_getSpecies(SCR) == species)
+  if (Rule_getVariable(SCR) == species)
   {
     fail( "SpeciesConcentrationRule_setSpecies(...)"
           " did not make a copy of string." );
   }
 
   /* Reflexive case (pathological) */
-  s = SpeciesConcentrationRule_getSpecies(SCR);
-  SpeciesConcentrationRule_setSpecies(SCR, s);
-  fail_unless(!strcmp(s, species));
+  s = Rule_getVariable(SCR);
+  Rule_setVariable(SCR, s);
+  fail_unless( !strcmp(Rule_getVariable(SCR), species),
+               NULL );
 
-  SpeciesConcentrationRule_setSpecies(SCR, NULL);
-  fail_unless( !SpeciesConcentrationRule_isSetSpecies(SCR) );
+  Rule_setVariable(SCR, NULL);
+  fail_unless( !Rule_isSetVariable(SCR) );
 
-  if (SpeciesConcentrationRule_getSpecies(SCR) != NULL)
+  if (Rule_getVariable(SCR) != NULL)
   {
     fail( "SpeciesConcentrationRule_setSpecies(SCR, NULL)"
           " did not clear string." );

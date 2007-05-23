@@ -1510,6 +1510,14 @@ Rule_getL1TypeCode (const Rule_t *r)
   return r->getL1TypeCode();
 }
 
+LIBSBML_EXTERN
+void
+Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type)
+{
+  r->setL1TypeCode(L1Type);
+}
+
+
 
 /** @endcond doxygen-c-only */
 

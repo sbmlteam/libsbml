@@ -708,6 +708,10 @@ public:
    */
   virtual void writeElements (XMLOutputStream& stream) const;
 
+  /**
+   * Sets the SBML Level 1 typecode for this Rule.
+   */
+  void setL1TypeCode (SBMLTypeCode_t type);
   /** @endcond doxygen-libsbml-internal */
 
 
@@ -754,10 +758,6 @@ protected:
   virtual void writeAttributes (XMLOutputStream& stream) const;
 
 
-  /**
-   * Sets the SBML Level 1 typecode for this Rule.
-   */
-  void setL1TypeCode (SBMLTypeCode_t type);
 
 
   mutable std::string  mFormula;
@@ -1009,8 +1009,8 @@ Rule_createAlgebraicWithFormula (const char *formula);
 
 LIBSBML_EXTERN
 Rule_t *
-Rule_createAssignmentWithVariableAndFormula (const char *formula,
-                                             const char * variable);
+Rule_createAssignmentWithVariableAndFormula (const char *variable,
+                                             const char *formula);
 
 
 LIBSBML_EXTERN
@@ -1160,6 +1160,10 @@ LIBSBML_EXTERN
 SBMLTypeCode_t
 Rule_getL1TypeCode (const Rule_t *r);
 
+
+LIBSBML_EXTERN
+void
+Rule_setL1TypeCode (Rule_t *r, SBMLTypeCode_t L1Type);
 
 END_C_DECLS
 

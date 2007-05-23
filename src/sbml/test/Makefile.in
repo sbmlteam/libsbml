@@ -76,7 +76,10 @@ test_sources =				\
   TestModel.c				\
   TestSBase.cpp				\
   TestStoichiometryMath.c	\
-  TestModifierSpeciesReference.c 
+  TestModifierSpeciesReference.c \
+  TestCompartmentVolumeRule.c  \
+  TestParameterRule.c       \
+  TestSpeciesConcentrationRule.c
 
 
 extra_CPPFLAGS = -I.. -I../..
