@@ -628,6 +628,11 @@ void
 Date_free(Date_t *);
 
 LIBSBML_EXTERN
+Date_t *
+Date_t_clone (const Date_t* c);
+
+
+LIBSBML_EXTERN
 ModelCreator_t *
 ModelCreator_create();
 
@@ -638,6 +643,11 @@ ModelCreator_createFromNode(const XMLNode_t * node);
 LIBSBML_EXTERN
 void
 ModelCreator_free(ModelCreator_t *);
+
+LIBSBML_EXTERN
+ModelCreator_t *
+ModelCreator_clone (const ModelCreator_t* c);
+
 
 LIBSBML_EXTERN
 const char * 
@@ -708,6 +718,11 @@ ModelHistory_t * ModelHistory_create ();
 
 LIBSBML_EXTERN
  void ModelHistory_free(ModelHistory_t *);
+
+LIBSBML_EXTERN
+ModelHistory_t *
+ModelHistory_clone (const Compartment_t* c);
+
 
 LIBSBML_EXTERN
 void ModelHistory_addCreator(ModelHistory_t * history, 

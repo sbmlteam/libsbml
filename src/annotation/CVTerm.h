@@ -242,6 +242,11 @@ LIBSBML_EXTERN
 void
 CVTerm_free(CVTerm_t *);
 
+LIBSBML_EXTERN
+CVTerm_t *
+CVTerm_clone (const CVTerm_t* c);
+
+
 /**
  * gets the Qualifier type
  */

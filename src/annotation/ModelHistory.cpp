@@ -893,6 +893,21 @@ Date_free(Date_t * date)
 
 
 /**
+ * Creates a deep copy of the given Date_t structure
+ * 
+ * @param p the Date_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Date_t structure.
+ */
+LIBSBML_EXTERN
+Date_t *
+Date_clone (const Date_t* c)
+{
+  return static_cast<Date*>( c->clone() );
+}
+
+
+/**
  * returns the date as a string
  */
 LIBSBML_EXTERN
@@ -1122,6 +1137,21 @@ ModelCreator_free(ModelCreator_t * mc)
 }
 
 /**
+ * Creates a deep copy of the given ModelCreator_t structure
+ * 
+ * @param p the ModelCreator_t structure to be copied
+ * 
+ * @return a (deep) copy of the given Compartment_t structure.
+ */
+LIBSBML_EXTERN
+ModelCreator_t *
+ModelCreator_clone (const ModelCreator_t* c)
+{
+  return static_cast<ModelCreator*>( c->clone() );
+}
+
+
+/**
   * ModelCreator_gets the family name
   */
 LIBSBML_EXTERN
@@ -1282,6 +1312,21 @@ void
 ModelHistory_free(ModelHistory_t * history)
 {
   delete static_cast<ModelHistory*>(history);
+}
+
+
+/**
+ * Creates a deep copy of the given ModelHistory_t structure
+ * 
+ * @param mh the ModelHistory_t structure to be copied
+ * 
+ * @return a (deep) copy of the given ModelHistory_t structure.
+ */
+LIBSBML_EXTERN
+ModelHistory_t *
+ModelHistory_t_clone (const ModelHistory_t* mh)
+{
+  return static_cast<ModelHistory*>( mh->clone() );
 }
 
 

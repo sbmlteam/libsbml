@@ -338,6 +338,21 @@ CVTerm_free(CVTerm_t * term)
 }
 
 /**
+ * Creates a deep copy of the given CVTerm_t structure
+ * 
+ * @param p the CVTerm_t structure to be copied
+ * 
+ * @return a (deep) copy of the given CVTerm_t structure.
+ */
+LIBSBML_EXTERN
+CVTerm_t *
+CVTerm_clone (const CVTerm_t* c)
+{
+  return static_cast<CVTerm*>( c->clone() );
+}
+
+
+/**
  * Takes a CVTerm_t structure and returns the QualifierType.
  *
  * @param term the CVTerm_t structure whose QualifierType is sought
