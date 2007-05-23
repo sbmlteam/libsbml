@@ -79,6 +79,7 @@ public class Test
     testValidationInvalidSBML();
     testValidationValidSBML();
     testCreateSBML();
+    testCloneObject();
 
     System.gc();
 
@@ -214,6 +215,60 @@ public class Test
     Assert( m.getRule(2) instanceof AlgebraicRule );
   }
     
+  static void testCloneObject()
+  {
+    System.out.println(">>>>> testCloneObject <<<<<");
+
+    checkCloneObject( new FunctionDefinition()       );
+    checkCloneObject( new UnitDefinition()           );
+    checkCloneObject( new CompartmentType()          );
+    checkCloneObject( new SpeciesType()              );
+    checkCloneObject( new Compartment()              );
+    checkCloneObject( new Species()                  );
+    checkCloneObject( new Parameter()                );
+    checkCloneObject( new InitialAssignment()        );
+    checkCloneObject( new AssignmentRule()           );
+    checkCloneObject( new AlgebraicRule()            );
+    checkCloneObject( new RateRule()                 );
+    checkCloneObject( new Constraint()               );
+    checkCloneObject( new Reaction()                 );
+    checkCloneObject( new SpeciesReference()         );
+    checkCloneObject( new ModifierSpeciesReference() );
+    checkCloneObject( new Event()                    );
+    checkCloneObject( new EventAssignment()          );
+    checkCloneObject( new Unit()                     );
+    checkCloneObject( new UnitDefinition()           );
+    checkCloneObject( new FormulaUnitsData()         );
+    checkCloneObject( new Trigger()                  );
+    checkCloneObject( new Delay()                    );
+    checkCloneObject( new ListOf()                   );
+    checkCloneObject( new ListOfCompartments()       );
+    checkCloneObject( new ListOfCompartmentTypes()   );
+    checkCloneObject( new ListOfConstraints()        );
+    checkCloneObject( new ListOfEvents()             );
+    checkCloneObject( new ListOfEventAssignments()   );
+    checkCloneObject( new ListOfFunctionDefinitions());
+    checkCloneObject( new ListOfInitialAssignments() );
+    checkCloneObject( new ListOfParameters()         );
+    checkCloneObject( new ListOfReactions()          );
+    checkCloneObject( new ListOfRules()              );
+    checkCloneObject( new ListOfSpecies()            );
+    checkCloneObject( new ListOfSpeciesReferences()  );
+    checkCloneObject( new ListOfSpeciesTypes()       );
+    checkCloneObject( new ListOfUnits()              );
+    checkCloneObject( new ListOfUnitDefinitions()    );
+    checkCloneObject( new ListFormulaUnitsData()     );
+    checkCloneObject( new StoichiometryMath()        );
+  }
+
+  static void checkCloneObject(SBase sb) 
+  {
+    SBase clone = sb.cloneObject();
+    String en1  = sb.getElementName();
+    String en2  = clone.getElementName();
+    //System.out.println("org " + en1 + " clone " + en2);
+    Assert( en1.equals(en2) );
+  }
 
   static void testImplicitDowncastSBase()
   {

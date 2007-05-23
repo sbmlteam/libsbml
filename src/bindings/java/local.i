@@ -32,7 +32,7 @@
 %}
 
 
-%ignore *::clone;
+%rename(cloneObject) *::clone;
 
 /**
  * Turns off object destruction.  For testing purposes only.
