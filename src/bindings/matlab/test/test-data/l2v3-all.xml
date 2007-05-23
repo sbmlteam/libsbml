@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3"
+      xmlns:math="http://www.w3.org/1998/Math/MathML">
+    <model sboTerm="SBO:0000004">
+        <listOfCompartmentTypes>
+            <compartmentType id="mitochondria" sboTerm="SBO:0000008"/>
+        </listOfCompartmentTypes>
+        <listOfSpeciesTypes>
+            <speciesType id="Glucose"/> 
+        </listOfSpeciesTypes>        
+        <listOfCompartments>
+            <compartment id="cell" size="0.013" compartmentType="mitochondria" outside="m"/>
+            <compartment id="m" size="0.013" compartmentType="mitochondria"/>
+        </listOfCompartments>
+        <listOfSpecies>
+            <species id="X0" compartment="cell" speciesType="Glucose"/>
+        </listOfSpecies>
+        <listOfInitialAssignments>
+            <initialAssignment symbol="X0" sboTerm="SBO:0000002">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply>
+                        <times/>
+                        <ci> y </ci>
+                        <cn> 2 </cn>
+                    </apply>
+                </math>
+            </initialAssignment>
+         </listOfInitialAssignments>        
+        <listOfConstraints>
+            <constraint>
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <apply>
+                        <lt/>
+                        <cn> 1 </cn>
+                        <ci> cell </ci>
+                    </apply>
+                </math>
+                <message>
+                    <p xmlns="http://www.w3.org/1999/xhtml">
+                    Species S1 is out of range 
+                    </p>
+                </message>
+            </constraint>
+        </listOfConstraints>        
+        <listOfReactions>
+            <reaction id="in" sboTerm="SBO:0000005">
+                <listOfReactants>
+                    <speciesReference species="X0" id="me" name="sarah"/>
+                </listOfReactants>
+            </reaction>
+        </listOfReactions>
+    </model>
+</sbml>
