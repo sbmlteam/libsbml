@@ -132,6 +132,8 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
 
   if (mLevel   == 0)  mLevel   = getDefaultLevel  ();
   if (mVersion == 0)  mVersion = getDefaultVersion();
+
+  setLevelAndVersion(mLevel,mVersion);
 }
 
 
