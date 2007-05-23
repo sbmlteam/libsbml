@@ -803,7 +803,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
     /* units can be a predefined unit kind
     * a unit definition id or a builtin unit
     */
-    if (UnitKind_isValidUnitKindString(units))
+    if (UnitKind_isValidUnitKindString(units, compartment->getLevel(), compartment->getVersion()))
     {
       unit = new Unit(units);
       ud   = new UnitDefinition();
@@ -918,7 +918,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     /* units can be a predefined unit kind
     * a unit definition id or a builtin unit
     */
-    if (UnitKind_isValidUnitKindString(units))
+    if (UnitKind_isValidUnitKindString(units, species->getLevel(), species->getVersion()))
     {
       unit = new Unit(units);
       subsUD   = new UnitDefinition();
@@ -986,7 +986,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   }
   else
   {
-    if (UnitKind_isValidUnitKindString(spatialUnits))
+    if (UnitKind_isValidUnitKindString(spatialUnits, species->getLevel(), 
+                                                     species->getVersion()))
     {
       unit = new Unit(spatialUnits);
       sizeUD   = new UnitDefinition();
@@ -1087,7 +1088,7 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
     * a unit definition id or a builtin unit
     */
 
-    if (UnitKind_isValidUnitKindString(units))
+    if (UnitKind_isValidUnitKindString(units, parameter->getLevel(), parameter->getVersion()))
     {
       unit = new Unit(units);
       ud   = new UnitDefinition();
@@ -1195,7 +1196,7 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
     * a unit definition id or a builtin unit
     */
 
-    if (UnitKind_isValidUnitKindString(units))
+    if (UnitKind_isValidUnitKindString(units, event->getLevel(), event->getVersion()))
     {
       unit = new Unit(units);
       ud   = new UnitDefinition();

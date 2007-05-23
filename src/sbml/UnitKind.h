@@ -135,7 +135,7 @@ UnitKind_toString (UnitKind_t uk);
 
 LIBSBML_EXTERN
 int
-UnitKind_isValidUnitKindString (const char *string);
+UnitKind_isValidUnitKindString (const char *string, unsigned int level, unsigned int version);
 
 
 END_C_DECLS
