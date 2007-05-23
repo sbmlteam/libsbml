@@ -579,6 +579,21 @@ XMLAttributes_free (XMLAttributes_t *xa)
 
 
 /**
+ * Creates a deep copy of the given XMLAttributes_t structure
+ * 
+ * @param att the XMLAttributes_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLAttributes_t structure.
+ */
+LIBLAX_EXTERN
+XMLAttributes_t *
+XMLAttributes_clone (const XMLAttributes_t* att)
+{
+  return static_cast<XMLAttributes*>( att->clone() );
+}
+
+
+/**
  * Adds a name/value pair to this XMLAttributes_t structure.
  *
  * @param xa the XMLAttributes_t structure 

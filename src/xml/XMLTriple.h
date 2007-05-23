@@ -163,6 +163,11 @@ XMLTriple_free (XMLTriple_t *triple);
 
 
 LIBLAX_EXTERN
+XMLTriple_t *
+XMLTriple_clone (const XMLTriple_t* c);
+
+
+LIBLAX_EXTERN
 const char *
 XMLTriple_getName (const XMLTriple_t *triple);
 

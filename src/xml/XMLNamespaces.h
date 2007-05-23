@@ -239,6 +239,11 @@ XMLNamespaces_free (XMLNamespaces_t *ns);
 
 
 LIBLAX_EXTERN
+XMLNamespaces_t *
+XMLNamespaces_clone (const XMLNamespaces_t* c);
+
+
+LIBLAX_EXTERN
 void
 XMLNamespaces_add (XMLNamespaces_t *ns, 
 		   const char *uri, const char *prefix);

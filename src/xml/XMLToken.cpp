@@ -551,6 +551,21 @@ XMLToken_free (XMLToken_t *token)
 
 
 /**
+ * Creates a deep copy of the given XMLToken_t structure
+ * 
+ * @param t the XMLToken_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLToken_t structure.
+ */
+LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_clone (const XMLToken_t* t)
+{
+  return static_cast<XMLToken*>( t->clone() );
+}
+
+
+/**
  * Appends characters to this XML text content.
  *
  * @param token XMLToken_t structure to be appended to.

@@ -271,6 +271,21 @@ XMLNamespaces_free (XMLNamespaces_t *ns)
 
 
 /**
+ * Creates a deep copy of the given XMLNamespaces_t structure
+ * 
+ * @param ns the XMLNamespaces_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLNamespaces_t structure.
+ */
+LIBLAX_EXTERN
+XMLNamespaces_t *
+XMLNamespaces_clone (const XMLNamespaces_t* ns)
+{
+  return static_cast<XMLNamespaces*>( ns->clone() );
+}
+
+
+/**
  * Appends an XML namespace prefix/URI pair to this XMLNamespaces_t 
  * structure.
  *

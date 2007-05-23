@@ -382,6 +382,11 @@ XMLToken_free (XMLToken_t *token);
 
 
 LIBLAX_EXTERN
+XMLToken_t *
+XMLToken_clone (const XMLToken_t* c);
+
+
+LIBLAX_EXTERN
 void
 XMLToken_append (XMLToken_t *token, const char *text);
 

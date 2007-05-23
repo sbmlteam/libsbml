@@ -192,6 +192,11 @@ XMLNode_free (XMLNode_t *node);
 
 
 LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_clone (const XMLNode_t* c);
+
+
+LIBLAX_EXTERN
 void
 XMLNode_addChild (XMLNode_t *node, const XMLNode_t *child);
 

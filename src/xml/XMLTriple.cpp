@@ -182,6 +182,21 @@ XMLTriple_free (XMLTriple_t *triple)
 
 
 /**
+ * Creates a deep copy of the given XMLTriple_t structure
+ * 
+ * @param t the XMLTriple_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLTriple_t structure.
+ */
+LIBLAX_EXTERN
+XMLTriple_t *
+XMLTriple_clone (const XMLTriple_t* t)
+{
+  return static_cast<XMLTriple*>( t->clone() );
+}
+
+
+/**
  * Returns the name from this XMLTriple_t structure.
  *
  * @param triple XMLTriple_t structure to be queried.

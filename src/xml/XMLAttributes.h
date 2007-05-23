@@ -417,6 +417,11 @@ XMLAttributes_free (XMLAttributes_t *xa);
 
 
 LIBLAX_EXTERN
+XMLAttributes_t *
+XMLAttributes_clone (const XMLAttributes_t* c);
+
+
+LIBLAX_EXTERN
 void
 XMLAttributes_add (XMLAttributes_t *xa, const char *name, const char *value);
 

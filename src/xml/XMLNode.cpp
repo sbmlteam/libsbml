@@ -262,6 +262,20 @@ XMLNode_createFromStream (XMLInputStream_t *stream)
 
 #endif
 
+/**
+ * Creates a deep copy of the given XMLNode_t structure
+ * 
+ * @param n the XMLNode_t structure to be copied
+ * 
+ * @return a (deep) copy of the given XMLNode_t structure.
+ */
+LIBLAX_EXTERN
+XMLNode_t *
+XMLNode_clone (const XMLNode_t* n)
+{
+  return static_cast<XMLNode*>( n->clone() );
+}
+
 
 /**
  * Destroys this XMLNode_t structure.
