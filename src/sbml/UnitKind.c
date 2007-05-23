@@ -148,7 +148,20 @@ UnitKind_toString (UnitKind_t uk)
  */
 LIBSBML_EXTERN
 int
-UnitKind_isValidUnitKindString (const char *string)
+UnitKind_isValidUnitKindString (const char *string, unsigned int level, unsigned int version)
 {
-  return UnitKind_forName(string) != UNIT_KIND_INVALID;
+  UnitKind_t uk = UnitKind_forName(string);
+  if (level == 1)
+  {
+    return uk != UNIT_KIND_INVALID;
+  }
+  else
+  {
+    if (uk == UNIT_KIND_METER || uk == UNIT_KIND_LITER)
+      return 0;
+    else if (version > 1 && uk == UNIT_KIND_CELSIUS)
+      return 0;
+    else
+      return uk != UNIT_KIND_INVALID;
+  }
 }
