@@ -58,6 +58,18 @@
 }
 
 /**
+ * By default, returned boolean false (C++) is converted to "" (Perl) in 
+ * SWIG 1.3.31.
+ * The following typemap converts returned boolean value to 0 (false) or 
+ * 1 (true) like C/C++ for compatibility.
+ */
+%typemap(out) bool
+{
+   ST(argvi) = sv_newmortal();
+   sv_setiv(ST(argvi++), (IV) $1);
+}
+
+/**
  * The features directives below override the default SWIG generated
  * code for certain methods.  The idea is to tell SWIG to disown the
  * passed-in object.  The containing object will takeover ownership
