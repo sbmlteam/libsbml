@@ -80,6 +80,7 @@
  * Ignore methods which receive or return List*.
  */
 %ignore ModelHistory::getCreator;
+%ignore ModelHistory::getListCreators;
 %ignore SBase::getCVTerms;
 %ignore RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation, List * CVTerms);
 
@@ -92,6 +93,15 @@
  * Ignore 'static ParentMap mParent;' in SBO.h
  */
 %ignore mParent;
+
+/**
+ * Both "const std::string& SBase::getMetaId() const" and
+ * "std:string& SBase::getMetaId()" are defined in SBase.cpp.
+ * By default, SWIG doesn't convert non-const std:string& to and from
+ * target language string.
+ * So we ignore the non-const version.
+ */
+%ignore SBase::getMetaId();
 
 /**
  * The following methods will create new objects.  To prevent memory
