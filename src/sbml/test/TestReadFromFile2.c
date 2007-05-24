@@ -267,7 +267,7 @@ START_TEST (test_read_l1v1_units)
   fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   kl = Reaction_getKineticLaw(r);
-  fail_unless(!strcmp(KineticLaw_getFormula(kl), "(vm * s1)/(km + s1)"), NULL);
+  fail_unless(!strcmp(KineticLaw_getFormula(kl), "cell * (vm * s1)/(km + s1)"), NULL);
 
 
   /**
@@ -297,7 +297,7 @@ START_TEST (test_read_l1v1_units)
   fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   kl = Reaction_getKineticLaw(r);
-  fail_unless(!strcmp(KineticLaw_getFormula(kl), "(vm * s2)/(km + s2)"), NULL);
+  fail_unless(!strcmp(KineticLaw_getFormula(kl), "cell * (vm * s2)/(km + s2)"), NULL);
 
 
   /**
@@ -327,7 +327,7 @@ START_TEST (test_read_l1v1_units)
   fail_unless( SpeciesReference_getDenominator  (sr) == 1, NULL );
 
   kl = Reaction_getKineticLaw(r);
-  fail_unless(!strcmp(KineticLaw_getFormula(kl), "(vm * s1)/(km + s1)"), NULL);
+  fail_unless(!strcmp(KineticLaw_getFormula(kl), "cell * (vm * s1)/(km + s1)"), NULL);
 
   SBMLDocument_free(d);
 }

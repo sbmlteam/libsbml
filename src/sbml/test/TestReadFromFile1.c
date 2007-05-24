@@ -70,25 +70,6 @@ START_TEST (test_read_l1v1_branch)
   Species_t          *s;
   SpeciesReference_t *sr;
 
-  char notes1[] = 
-    "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-    "        <p>Simple branch system.</p>\n"
-    "        <p>The reaction looks like this:</p>\n"
-    "        <p>reaction-1:   X0 -> S1; k1*X0;</p>\n"
-    "        <p>reaction-2:   S1 -> X1; k2*S1;</p>\n"
-    "        <p>reaction-3:   S1 -> X2; k3*S1;</p>\n"
-    "      </body>";
-
-  /* Xerces-C 2.4.0 escapes the '>' with '&gt;'. */
-  char notes2[] = 
-    "<body xmlns=\"http://www.w3.org/1999/xhtml\">\n"
-    "        <p>Simple branch system.</p>\n"
-    "        <p>The reaction looks like this:</p>\n"
-    "        <p>reaction-1:   X0 -&gt; S1; k1*X0;</p>\n"
-    "        <p>reaction-2:   S1 -&gt; X1; k2*S1;</p>\n"
-    "        <p>reaction-3:   S1 -&gt; X2; k3*S1;</p>\n"
-    "      </body>";
-
   char *filename = safe_strcat(TestDataDirectory, "l1v1-branch.xml");
 
 
@@ -115,8 +96,6 @@ START_TEST (test_read_l1v1_branch)
   m = SBMLDocument_getModel(d);
 
   fail_unless( !strcmp( Model_getName(m) , "Branch"), NULL );
-  fail_unless( !strcmp( SBase_getNotes((SBase_t *) m), notes1) ||
-               !strcmp( SBase_getNotes((SBase_t *) m), notes2), NULL );
 
 
   /**

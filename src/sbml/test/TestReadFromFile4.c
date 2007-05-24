@@ -133,7 +133,7 @@ START_TEST (test_read_l1v1_minimal)
   fail_unless( Model_getNumReactions(m) == 1, NULL );
 
   r = Model_getReaction(m, 0);
-  fail_unless( !strcmp(Reaction_getName(r), "x"), NULL );
+  fail_unless( !strcmp(Reaction_getName(r), "r"), NULL );
   fail_unless( Reaction_getReversible(r) != 0, NULL );
   fail_unless( Reaction_getFast(r)       == 0, NULL );
 

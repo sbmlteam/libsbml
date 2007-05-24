@@ -308,7 +308,7 @@ START_TEST (test_read_l2v1_assignment)
 
   kl = r->getKineticLaw();
   fail_unless( kl                     != NULL     , NULL );
-  fail_unless( kl->getFormula()       == "k2 * S2", NULL );
+  fail_unless( kl->getFormula()       == "k2 * T", NULL );
   fail_unless( kl->getNumParameters() == 1        , NULL );
 
   p = kl->getParameter(0);

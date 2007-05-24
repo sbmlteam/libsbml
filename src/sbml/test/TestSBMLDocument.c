@@ -68,11 +68,9 @@ START_TEST (test_SBMLDocument_create)
   fail_unless( SBase_getAnnotation((SBase_t *) d) == NULL );
 
   fail_unless( SBMLDocument_getLevel  (d) == 2);
-  fail_unless( SBMLDocument_getVersion(d) == 1);
+  fail_unless( SBMLDocument_getVersion(d) == 3);
 
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
   fail_unless( SBMLDocument_getNumErrors  (d) == 0 );
-  fail_unless( SBMLDocument_getNumFatals  (d) == 0 );
 
   SBMLDocument_free(d);
 }
@@ -91,9 +89,7 @@ START_TEST (test_SBMLDocument_createWith)
   fail_unless( SBMLDocument_getLevel  (d) == 1);
   fail_unless( SBMLDocument_getVersion(d) == 2);
 
-  fail_unless( SBMLDocument_getNumWarnings(d) == 0 );
   fail_unless( SBMLDocument_getNumErrors  (d) == 0 );
-  fail_unless( SBMLDocument_getNumFatals  (d) == 0 );
 
   SBMLDocument_free(d);
 }
@@ -117,14 +113,14 @@ START_TEST (test_SBMLDocument_setModel)
   fail_unless(SBMLDocument_getModel(d) == NULL);
 
   SBMLDocument_setModel(d, m1);
-  fail_unless(SBMLDocument_getModel(d) == m1);
+  fail_unless(SBMLDocument_getModel(d) != m1);
 
   /* Reflexive case (pathological) */
   SBMLDocument_setModel(d, SBMLDocument_getModel(d));
-  fail_unless(SBMLDocument_getModel(d) == m1);
+  fail_unless(SBMLDocument_getModel(d) != m1);
 
   SBMLDocument_setModel(d, m2);
-  fail_unless(SBMLDocument_getModel(d) == m2);
+  fail_unless(SBMLDocument_getModel(d) != m2);
 
   SBMLDocument_free(d);
   /* m1 is freed by SBMLDocument_setModel(d, m2); */

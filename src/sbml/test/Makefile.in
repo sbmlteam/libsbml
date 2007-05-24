@@ -79,7 +79,14 @@ test_sources =				\
   TestModifierSpeciesReference.c \
   TestCompartmentVolumeRule.c  \
   TestParameterRule.c       \
-  TestSpeciesConcentrationRule.c
+  TestSpeciesConcentrationRule.c \
+  TestSBMLConvert.c         \
+  TestSBMLDocument.c		\
+  TestReadFromFile1.c		\
+  TestReadFromFile2.c		\
+  TestReadFromFile3.c		\
+  TestReadFromFile4.c		\
+  TestReadFromFile5.cpp
 
 
 extra_CPPFLAGS = -I.. -I../..

@@ -168,7 +168,6 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_WriteSBML() );
 
   srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
-  
   srunner_add_suite( runner, create_suite_AssignmentRule  () );
   
   
@@ -202,21 +201,14 @@ main (int argc, char* argv[])
   srunner_add_suite( runner, create_suite_UnitDefinition           () );
   srunner_add_suite( runner, create_suite_UnitKind                 () );
   srunner_add_suite( runner, create_suite_CopyAndClone                    () );
-/*  
-  srunner_add_suite( runner, create_suite_RuleType                 () );
   srunner_add_suite( runner, create_suite_SBMLConvert              () );
   srunner_add_suite( runner, create_suite_SBMLDocument             () );
-
-  srunner_add_suite( runner, create_suite_SBMLReader               () );
-  srunner_add_suite( runner, create_suite_SBMLWriter               () );
-  srunner_add_suite( runner, create_suite_SimpleSpeciesReference   () );
-
   srunner_add_suite( runner, create_suite_TestReadFromFile1() );
   srunner_add_suite( runner, create_suite_TestReadFromFile2() );
   srunner_add_suite( runner, create_suite_TestReadFromFile3() );
   srunner_add_suite( runner, create_suite_TestReadFromFile4() );
   srunner_add_suite( runner, create_suite_TestReadFromFile5() );
-  */
+
 
   setTestDataDirectory();
 
