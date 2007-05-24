@@ -407,7 +407,8 @@ SBase::isSetId () const
 bool
 SBase::isSetName () const
 {
-  return (mName.empty() == false);
+  return (getLevel() == 1) ? (mId.empty() == false) : 
+                            (mName.empty() == false);
 }
 
 
