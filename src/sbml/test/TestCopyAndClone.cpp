@@ -720,21 +720,20 @@ START_TEST ( test_Model_copyConstructor )
     Parameter *p = new Parameter("alex");
     o1->addParameter(p);
     delete p;
-//TO DO..
-//    FormulaUnitsData *fud = new FormulaUnitsData();
-//    o1->addFormulaUnitsData(fud);
-//    delete fud;
+    FormulaUnitsData *fud = new FormulaUnitsData();
+    o1->addFormulaUnitsData(fud);
+    delete fud;
     
     fail_unless(o1->getId() == "c");
     fail_unless(o1->getNumParameters() == 1);
-    //fail_unless(o1->getNumFormulaUnitsData() == 1);
+    fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
     Model* o2=new Model(*o1);
 
     fail_unless(o2->getId() == "c");
     fail_unless(o1->getNumParameters() == 1);
-    //fail_unless(o1->getNumFormulaUnitsData() == 1);
+    fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
     delete o2;
@@ -751,13 +750,13 @@ START_TEST ( test_Model_assignmentOperator )
     o1->addParameter(p);
     delete p;
 
-    //FormulaUnitsData *fud = new FormulaUnitsData();
-    //o1->addFormulaUnitsData(fud);
-    //delete fud;
+    FormulaUnitsData *fud = new FormulaUnitsData();
+    o1->addFormulaUnitsData(fud);
+    delete fud;
     
     fail_unless(o1->getId() == "c");
     fail_unless(o1->getNumParameters() == 1);
-    //fail_unless(o1->getNumFormulaUnitsData() == 1);
+    fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
     Model* o2=new Model();
@@ -765,7 +764,7 @@ START_TEST ( test_Model_assignmentOperator )
 
     fail_unless(o2->getId() == "c");
     fail_unless(o1->getNumParameters() == 1);
-    //fail_unless(o1->getNumFormulaUnitsData() == 1);
+    fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
     delete o2;
@@ -783,20 +782,20 @@ START_TEST ( test_Model_clone )
     o1->addParameter(p);
     delete p;
 
-    //FormulaUnitsData *fud = new FormulaUnitsData();
-    //o1->addFormulaUnitsData(fud);
-    //delete fud;
+    FormulaUnitsData *fud = new FormulaUnitsData();
+    o1->addFormulaUnitsData(fud);
+    delete fud;
     
     fail_unless(o1->getId() == "c");
     fail_unless(o1->getNumParameters() == 1);
-    //fail_unless(o1->getNumFormulaUnitsData() == 1);
+    fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
     Model* o2=static_cast<Model*>(o1->clone());
 
     fail_unless(o2->getId() == "c");
     fail_unless(o1->getNumParameters() == 1);
-    //fail_unless(o1->getNumFormulaUnitsData() == 1);
+    fail_unless(o1->getNumFormulaUnitsData() == 1);
     fail_unless(o1->getParameter(0)->getId() == "alex");
 
     delete o2;

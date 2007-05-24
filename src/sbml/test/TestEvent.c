@@ -197,12 +197,62 @@ END_TEST
 
 START_TEST (test_Event_setTrigger)
 {
+  ASTNode_t         *math1   = SBML_parseFormula("0");
+  const Trigger_t   *trigger = Trigger_createWithMath(math1);
+
+
+  Event_setTrigger(E, trigger);
+
+  fail_unless( Event_getTrigger(E) != NULL );
+  fail_unless( Event_isSetTrigger(E) );
+
+  if (Event_getTrigger(E) == trigger)
+  {
+    fail("Event_setTrigger(...) did not make a copy of trigger.");
+  }
+
+  ///* Reflexive case (pathological) */
+  Event_setTrigger(E, (Trigger_t *) Event_getTrigger(E));
+  fail_unless( Event_getTrigger(E) != trigger );
+
+  Event_setTrigger(E, NULL);
+  fail_unless( !Event_isSetTrigger(E) );
+
+  if (Event_getTrigger(E) != NULL)
+  {
+    fail("Event_setTrigger(E, NULL) did not clear trigger.");
+  }
 }
 END_TEST
 
 
 START_TEST (test_Event_setDelay)
 {
+  ASTNode_t         *math1   = SBML_parseFormula("0");
+  const Delay_t   *Delay = Delay_createWithMath(math1);
+
+
+  Event_setDelay(E, Delay);
+
+  fail_unless( Event_getDelay(E) != NULL );
+  fail_unless( Event_isSetDelay(E) );
+
+  if (Event_getDelay(E) == Delay)
+  {
+    fail("Event_setDelay(...) did not make a copy of Delay.");
+  }
+
+  /* Reflexive case (pathological) */
+  Event_setDelay(E, Event_getDelay(E));
+  fail_unless( Event_getDelay(E) != Delay );
+
+  Event_setDelay(E, NULL);
+  fail_unless( !Event_isSetDelay(E) );
+
+  if (Event_getDelay(E) != NULL)
+  {
+    fail("Event_setDelay(E, NULL) did not clear Delay.");
+  }
 }
 END_TEST
 
@@ -239,13 +289,12 @@ END_TEST
 
 START_TEST (test_Event_full)
 {
-  ASTNode_t         *math1    = SBML_parseFormula("0");
-  Trigger_t         *trigger = Trigger_createWithMath(math1);
+  ASTNode_t         *math1   = SBML_parseFormula("0");
+  const Trigger_t   *trigger = Trigger_createWithMath(math1);
   ASTNode_t         *math    = SBML_parseFormula("0");
   Event_t           *e       = Event_createWith("e1", "");
   EventAssignment_t *ea      = EventAssignment_createWithVarAndMath("k", math);
-
-  //Event_setTrigger(e, trigger);
+  Event_setTrigger(e, trigger);
 
   Event_setName(e, "Set k2 to zero when P1 <= t");
   Event_addEventAssignment(e, ea);
@@ -253,8 +302,6 @@ START_TEST (test_Event_full)
   fail_unless( Event_getNumEventAssignments(e) ==  1 );
   fail_unless( Event_getEventAssignment(e, 0)  != ea );
 
-  EventAssignment_free(ea);
-  Trigger_free(trigger);
   ASTNode_free(math);
   Event_free(e);
 }
