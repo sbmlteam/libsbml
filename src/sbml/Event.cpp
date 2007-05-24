@@ -208,6 +208,8 @@ Event::isSetTimeUnits () const
 void
 Event::setTrigger (const Trigger* trigger)
 {
+  if(mTrigger == trigger) return;
+
   delete mTrigger;
   mTrigger = (trigger != 0) ? static_cast<Trigger*>( trigger->clone() ) : 0;
 
@@ -221,6 +223,8 @@ Event::setTrigger (const Trigger* trigger)
 void
 Event::setDelay (const Delay* delay)
 {
+  if(mDelay == delay) return;
+
   delete mDelay;
   mDelay = (delay != 0) ? static_cast<Delay*>( delay->clone() ) : 0;
 
