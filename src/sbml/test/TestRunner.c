@@ -158,7 +158,7 @@ setTestDataDirectory (void)
 
 
 int
-main (void) 
+main (int argc, char* argv[]) 
 { 
   int num_failed;
 
@@ -222,6 +222,11 @@ main (void)
 
 #ifdef TRACE_MEMORY
   srunner_set_fork_status(runner, CK_NOFORK);
+#else
+  if (argc > 1 && !strcmp(argv[1], "-nofork"))
+  {
+    srunner_set_fork_status( runner, CK_NOFORK );
+  }
 #endif
 
   srunner_run_all(runner, CK_NORMAL);
