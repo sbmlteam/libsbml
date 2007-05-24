@@ -184,7 +184,11 @@ SBase::SBase(const SBase& orig)
     this->mSBOTerm    = orig.mSBOTerm;
     this->mLine       = orig.mLine;
     this->mColumn     = orig.mColumn;
-    this->mNamespaces = orig.mNamespaces;
+
+    if(orig.mNamespaces)
+      this->mNamespaces = new XMLNamespaces(*const_cast<SBase&>(orig).mNamespaces);
+    else
+      this->mNamespaces = 0;
 
     if(orig.mCVTerms)
     {
