@@ -119,13 +119,13 @@ all: Makefile
 tmp           = $(test_sources:.cpp=.$(OBJEXT)) $(test_sources:.c=.$(OBJEXT))
 localobjfiles = $(filter %.$(OBJEXT),$(tmp))
 
-otherdirs     = ..  ../../util ../../xml 
+otherdirs     = ..  ../../util ../../xml
 otherobjfiles = $(wildcard $(addsuffix /*.$(OBJEXT),$(otherdirs)))
 
 # We don't need (and don't want) all of ../../sbml/*, but we do need
 # SBMLErrorLog:
 
-otherobjfiles += ../../sbml/SBMLErrorLog.$(OBJEXT)
+otherobjfiles += ../../sbml/SBMLErrorLog.$(OBJEXT) ../../sbml/SBMLError.$(OBJEXT)
 
 # Put all the files together:
 

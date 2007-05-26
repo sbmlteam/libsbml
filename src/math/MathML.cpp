@@ -23,8 +23,8 @@
 
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLInputStream.h>
-#include <sbml/xml/XMLErrorLog.h>
 
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
 
 #include <sbml/util/util.h>
@@ -311,15 +311,11 @@ reduceBinary (ASTNode& node)
 
 /**
  * Sets the type of an ASTNode based on the given MathML <ci> element.
+ * Errors will be logged in the stream's SBMLErrorLog object.
  */
 static void
 setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 {
-  string msg = "In SBML Level 2 Versions 1 and Version 2, the only values "
-    "permitted for definitionURL on a csymbol are "
-    "\"http://www.sbml.org/sbml/symbols/time\" and "
-    "\"http://www.sbml.org/sbml/symbols/delay\".(References: L2V2 Section 3.5.5.).";
-
   if (element.getName() == "csymbol")
   {
     string url;
@@ -329,9 +325,9 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
     else if ( url == URL_TIME  ) node.setType(AST_NAME_TIME);
     else 
     {
-      stream.getErrorLog()->add(XMLError(10205, msg));
+      static_cast <SBMLErrorLog*>
+	(stream.getErrorLog())->logError(SBMLError::BadCsymbolDefinitionURLValue);
     }
-
   }
 
   const string name = trim( stream.next().getCharacters() );
@@ -341,6 +337,7 @@ setTypeCI (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
 /**
  * Sets the type of an ASTNode based on the given MathML &lt;cn> element.
+ * Errors will be logged in the stream's SBMLErrorLog object.
  */
 static void
 setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
@@ -396,7 +393,8 @@ setTypeCN (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
   }
   else
   {
-    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10207);
+    static_cast <SBMLErrorLog*>
+      (stream.getErrorLog())->logError(SBMLError::DisallowedMathTypeAttributeValue);
   }
 }
 
@@ -453,6 +451,7 @@ setType (ASTNode& node, const XMLToken& element, XMLInputStream& stream)
 
 /**
  * Essentially an s-expression parser.
+ * Errors will be logged in the stream's SBMLErrorLog object.
  */
 static void
 readMathML (ASTNode& node, XMLInputStream& stream)
@@ -469,7 +468,8 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   if (!found)
   {
-    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10202);
+    static_cast <SBMLErrorLog*>
+      (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLSymbol);
   }
 
   string encoding;
@@ -482,17 +482,20 @@ readMathML (ASTNode& node, XMLInputStream& stream)
 
   if ( !type.empty() && name != "cn")
   {
-    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10206);
+    static_cast <SBMLErrorLog*>
+      (stream.getErrorLog())->logError(SBMLError::DisallowedMathTypeAttributeUse);
   }
 
   if ( !encoding.empty() && name != "csymbol")
   {
-    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10203);
+    static_cast <SBMLErrorLog*>
+      (stream.getErrorLog())->logError(SBMLError::DisallowedMathMLEncodingUse);
   }
 
   if ( !url.empty() && name != "csymbol")
   {
-    static_cast <SBMLErrorLog*> (stream.getErrorLog())->logError(10204);
+    static_cast <SBMLErrorLog*>
+      (stream.getErrorLog())->logError(SBMLError::DisallowedDefinitionURLUse);
   }
 
 
@@ -1068,7 +1071,7 @@ readMathMLFromString (const char *xml)
   if (xml == 0) return 0;
 
   XMLInputStream stream(xml, false);
-  XMLErrorLog    log;
+  SBMLErrorLog   log;
 
   stream.setErrorLog(&log);
 
