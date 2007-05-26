@@ -955,12 +955,22 @@ protected:
 
 
   /**
+   * Convenience method for easily logging problems from within method
+   * implementations.
+   *
+   * This is essentially a short form of getErrorLog()->logError(...)
+   */
+  void logError (  unsigned int       id
+		 , const std::string& details = "" );
+
+
+ 
+  /**
    * Subclasses should override this method to read values from the given
    * XMLAttributes set into their specific fields.  Be sure to call your
    * parents implementation of this method as well.
    */
-  virtual
-  void readAttributes (const XMLAttributes& attributes);
+  virtual void readAttributes (const XMLAttributes& attributes);
 
 
   /**

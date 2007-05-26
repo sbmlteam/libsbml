@@ -29,6 +29,7 @@
 #include <sbml/common/common.h>
 #include <sbml/xml/XMLOutputStream.h>
 
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBMLWriter.h>
 

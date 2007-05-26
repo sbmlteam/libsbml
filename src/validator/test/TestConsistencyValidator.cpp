@@ -225,7 +225,7 @@ main (int argc, char* argv[])
   unsigned int failed = 0;
 
   failed += runTests( "Testing Bad XML Constraints (0000 - 10000)",
-		      "test-data", 0, 99, runTestBadXML);
+		      "test-data", 0, 9999, runTestBadXML);
 
   failed += runTests( "Testing General XML Consistency Constraints (10000 - 10199)",
 		      "test-data", 10000, 10199, runMainTest);

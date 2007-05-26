@@ -42,6 +42,7 @@
 #include <sbml/Model.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
 
 /** @cond doxygen-ignored */
@@ -133,7 +134,8 @@ SBMLDocument::SBMLDocument (unsigned int level, unsigned int version) :
   if (mLevel   == 0)  mLevel   = getDefaultLevel  ();
   if (mVersion == 0)  mVersion = getDefaultVersion();
 
-  setLevelAndVersion(mLevel,mVersion);
+  // This needs to be fixed some other way.
+  //  setLevelAndVersion(mLevel,mVersion);
 }
 
 
@@ -444,7 +446,7 @@ SBMLDocument::checkL2v2Compatibility ()
  * @return the nth error encountered during the parse of this
  * SBMLDocument or NULL if n > getNumErrors() - 1.
  */
-const XMLError*
+const SBMLError*
 SBMLDocument::getError (unsigned int n) const
 {
   return mErrorLog.getError(n);
@@ -607,7 +609,7 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
   unsigned int match = 0;
   if (mNamespaces == NULL)
   {
-    getErrorLog()->logError(20101);
+    logError(SBMLError::InvalidNamespaceOnSBML);
   }
   else 
   {
@@ -618,11 +620,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 1)
         {
-          getErrorLog()->logError(20102);
+          logError(SBMLError::MissingOrInconsistentLevel);
         }
         if (mVersion != 1 && mVersion != 2)
         {
-          getErrorLog()->logError(20103);
+          logError(SBMLError::MissingOrInconsistentVersion);
         }
        break;
       }
@@ -631,11 +633,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 2)
         {
-          getErrorLog()->logError(20102);
+          logError(SBMLError::MissingOrInconsistentLevel);
         }
         if (mVersion != 1)
         {
-          getErrorLog()->logError(20103);
+          logError(SBMLError::MissingOrInconsistentVersion);
         }
         break;
       }
@@ -644,11 +646,11 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 2)
         {
-          getErrorLog()->logError(20102);
+          logError(SBMLError::MissingOrInconsistentLevel);
         }
         if (mVersion != 2)
         {
-          getErrorLog()->logError(20103);
+          logError(SBMLError::MissingOrInconsistentVersion);
         }
         break;
       }
@@ -657,18 +659,18 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
         match = 1;
         if (mLevel != 2)
         {
-          getErrorLog()->logError(20102);
+          logError(SBMLError::MissingOrInconsistentLevel);
         }
         if (mVersion != 3)
         {
-          getErrorLog()->logError(20103);
+          logError(SBMLError::MissingOrInconsistentVersion);
         }
         break;
       }
     }
     if (match == 0)
     {
-      getErrorLog()->logError(20101);
+      logError(SBMLError::InvalidNamespaceOnSBML);
     }
 
   }
@@ -1018,7 +1020,7 @@ SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d)
  * SBMLReader_readSBMLFromString().
  */
 LIBSBML_EXTERN
-const XMLError_t *
+const SBMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n)
 {
   return d->getError(n);

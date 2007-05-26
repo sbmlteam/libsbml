@@ -36,6 +36,7 @@
 #include <sbml/SBO.h>
 #include <sbml/SBMLTypeCodes.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 #include <sbml/Rule.h>
@@ -514,7 +515,6 @@ Rule::readOtherXML (XMLInputStream& stream)
   bool          read = false;
   const string& name = stream.peek().getName();
 
-
   if (name == "math")
   {
     delete mMath;
@@ -555,7 +555,7 @@ Rule::readOtherXML (XMLInputStream& stream)
     }
     if (match == 0)
     {
-      mSBML->getErrorLog()->logError(10201);
+      logError(SBMLError::InvalidMathElement);
     }
 
     mMath = readMathML(stream);

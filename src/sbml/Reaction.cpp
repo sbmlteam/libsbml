@@ -31,6 +31,7 @@
 #include <sbml/SpeciesReference.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
 #include <sbml/Model.h>
 #include <sbml/Reaction.h>
 
@@ -701,7 +702,7 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mReactants.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mReactants;
   }
@@ -709,7 +710,7 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mProducts.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mProducts;
   }
@@ -717,7 +718,7 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mModifiers.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mModifiers;
   }
@@ -725,7 +726,7 @@ Reaction::createObject (XMLInputStream& stream)
   {
     if (mKineticLaw)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     delete mKineticLaw;
 

@@ -109,6 +109,9 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -123,9 +126,9 @@ START_CONSTRAINT (10511, AssignmentRule, ar)
   */
 
   /* check that the formula is okay ie has no parameters with undeclared units */
-  pre (formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
-    || (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1 &&
-        formulaUnits->getCanIgnoreUndeclaredUnits() == 1));
+  pre ( formulaUnits->getContainsParametersWithUndeclaredUnits() == 0
+	|| (formulaUnits->getContainsParametersWithUndeclaredUnits() == 1
+	    && formulaUnits->getCanIgnoreUndeclaredUnits() == 1) );
 
   inv (areEquivalent(formulaUnits->getUnitDefinition(), 
                           variableUnits->getUnitDefinition()) == 1);
@@ -150,6 +153,9 @@ START_CONSTRAINT (10512, AssignmentRule, ar)
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
+
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
 
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
@@ -194,6 +200,9 @@ START_CONSTRAINT (10513, AssignmentRule, ar)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_ASSIGNMENT_RULE);
 
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -237,6 +246,9 @@ START_CONSTRAINT (10521, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                                     m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
 
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -279,6 +291,9 @@ START_CONSTRAINT (10522, InitialAssignment, ia)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = 
                                     m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
+
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
 
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
@@ -325,6 +340,9 @@ START_CONSTRAINT (10523, InitialAssignment, ia)
   const FormulaUnitsData * formulaUnits = 
                                     m.getFormulaUnitsData(variable, SBML_INITIAL_ASSIGNMENT);
   
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -370,6 +388,9 @@ START_CONSTRAINT (10531, RateRule, rr)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -412,6 +433,9 @@ START_CONSTRAINT (10532, RateRule, rr)
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
+
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
 
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
@@ -458,6 +482,9 @@ START_CONSTRAINT (10533, RateRule, rr)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_RATE_RULE);
 
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -496,6 +523,9 @@ START_CONSTRAINT (10541, KineticLaw, kl)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData("subs_per_time", 
                                                                               SBML_UNKNOWN);
 
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -531,6 +561,8 @@ START_CONSTRAINT (10551, Event, e)
   pre ( e.isSetDelay() == 1 );
 
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(e.getId(), SBML_EVENT);
+
+  pre ( formulaUnits != 0 );
 
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
@@ -574,6 +606,9 @@ START_CONSTRAINT (10561, EventAssignment, ea)
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_COMPARTMENT);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
 
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
+
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
    * so shouldnt fail the constraint
@@ -615,6 +650,9 @@ START_CONSTRAINT (10562, EventAssignment, ea)
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_SPECIES);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
 
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units
@@ -658,6 +696,9 @@ START_CONSTRAINT (10563, EventAssignment, ea)
 
   const FormulaUnitsData * variableUnits = m.getFormulaUnitsData(variable, SBML_PARAMETER);
   const FormulaUnitsData * formulaUnits = m.getFormulaUnitsData(variable, SBML_EVENT_ASSIGNMENT);
+
+  pre ( formulaUnits != 0 );
+  pre ( variableUnits != 0); 
 
   /* if the formula is dimensionless then we assume that the user
    * intends it to have default units

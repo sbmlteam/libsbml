@@ -2,6 +2,7 @@
  * @file    SBMLErrorLog.h
  * @brief   Stores errors (and messages) encountered during an SBML parse
  * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
@@ -26,10 +27,10 @@
 
 
 #include <sbml/common/extern.h>
+#include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLError.h>
 #include <sbml/xml/XMLErrorLog.h>
-
-
-class XMLToken;
+#include <sbml/SBMLError.h>
 
 
 class LIBSBML_EXTERN SBMLErrorLog : public XMLErrorLog
@@ -41,6 +42,7 @@ public:
    */
   SBMLErrorLog ();
 
+
   /**
    * Destroys this SBMLErrorLog.
    */
@@ -48,14 +50,46 @@ public:
 
 
   /**
-   * Logs an error message for the given SBML error code.
+   * Convenience function that combines creating an SBMLError object and
+   * adding it to the log.
    */
-  void logError (unsigned int error);
+  void logError
+  (
+      const unsigned int id              = 0
+    , const std::string& details         = ""
+    , const unsigned int line            = 0
+    , const unsigned int column          = 0
+    , const SBMLError::SBMLSeverity severity = SBMLError::Error
+    , const SBMLError::SBMLCategory category = SBMLError::SBML
+  );
+
 
   /**
-   * Logs an error message indicating the XML element is unrecognized.
+   * Adds the given SBMLError to the log.
+   *
+   * @param error SBMLError, the error to be logged.
    */
-  void unrecognizedElement (const XMLToken& element);
+  void add (const SBMLError& error);
+
+
+  /**
+   * Logs (copies) the SBMLErrors in the given SBMLError list to this
+   * SBMLErrorLog.
+   *
+   * @param errors list, a list of SBMLError to be added to the log.
+   */
+  void add (const std::list<SBMLError>& errors);
+
+
+  /**
+   * Returns the nth SBMLError in this log.
+   *
+   * @param n unsigned int number of the error to retrieve.
+   *
+   * @return the nth SBMLError in this log.
+   */
+  const SBMLError* getError (unsigned int n) const;
+
 };
 
 

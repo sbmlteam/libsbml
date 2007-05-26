@@ -81,6 +81,7 @@
 
 #include <iosfwd>
 
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/SBase.h>
 
@@ -300,7 +301,7 @@ public:
    * checkL2v2Compatibility(), SBMLReader::readSBML(),
    * SBMLReader::readSBMLFromString().
    */
-  const XMLError* getError (unsigned int n) const;
+  const SBMLError* getError (unsigned int n) const;
 
 
   /**
@@ -530,7 +531,7 @@ SBMLDocument_checkL2v2Compatibility (SBMLDocument_t *d);
 
 
 LIBSBML_EXTERN
-const XMLError_t *
+const SBMLError_t *
 SBMLDocument_getError (SBMLDocument_t *d, unsigned int n);
 
 

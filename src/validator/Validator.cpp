@@ -24,6 +24,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <typeinfo>
 
 #include <sbml/SBMLTypes.h>
 #include <sbml/SBMLVisitor.h>
@@ -32,6 +33,7 @@
 
 #include <sbml/validator/VConstraint.h>
 #include <sbml/validator/Validator.h>
+#include <sbml/validator/UnitConsistencyValidator.h>
 
 /** @cond doxygen-ignored */
 
@@ -588,8 +590,9 @@ protected:
 // ----------------------------------------------------------------------
 
 
-Validator::Validator (const std::string& category) : mCategory(category)
+Validator::Validator (const SBMLError::SBMLCategory category)
 {
+  mCategory = category;
   mConstraints = new ValidatorConstraints();
 }
 
@@ -633,7 +636,7 @@ Validator::clearMessages ()
  *   http://sbml.org/validator/consistency/units
  *   http://sbml.org/validator/compatibility/L1
  */
-const std::string
+const SBMLError::SBMLCategory
 Validator::getCategory () const
 {
   return mCategory;
@@ -643,7 +646,7 @@ Validator::getCategory () const
 /**
  * @return a list of messages logged during validation.
  */
-const std::list<XMLError>&
+const std::list<SBMLError>&
 Validator::getMessages () const
 {
   return mMessages;
@@ -654,7 +657,7 @@ Validator::getMessages () const
  * Adds the given message to this list of Validators messages.
  */
 void
-Validator::logMessage (const XMLError& msg)
+Validator::logMessage (const SBMLError& msg)
 {
   mMessages.push_back(msg);
 }
@@ -669,18 +672,13 @@ Validator::logMessage (const XMLError& msg)
 unsigned int
 Validator::validate (const SBMLDocument& d)
 {
-  /** @cond doxygen-ignored */
-  using namespace std;
-  /** @endcond doxgen-ignored */
-
   Model* m = const_cast<SBMLDocument&>(d).getModel();
 
   if (m != NULL)
   {
-
-    if (getCategory() == "http://sbml.org/validator/consistency/units")
+    if (this->getCategory() == SBMLError::SBMLConsistencyUnits)
     {
-        /* create list of formula units for validation */
+      /* create list of formula units for validation */
       if (!m->isWrittenFormulaUnitsData())
       {
         m->createListFormulaUnitsData();

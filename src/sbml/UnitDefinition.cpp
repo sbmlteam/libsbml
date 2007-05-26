@@ -29,6 +29,7 @@
 
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Unit.h>
 #include <sbml/UnitDefinition.h>
@@ -377,7 +378,8 @@ UnitDefinition::createObject (XMLInputStream& stream)
   {
     if (mUnits.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	       "Multiple listOfUnits elemenets not permitted");
     }
     return &mUnits;
   }

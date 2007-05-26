@@ -34,6 +34,7 @@
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
 #include <sbml/Model.h>
 #include <sbml/Parameter.h>
 #include <sbml/Delay.h>
@@ -241,7 +242,7 @@ Delay::readOtherXML (XMLInputStream& stream)
     }
     if (match == 0)
     {
-      mSBML->getErrorLog()->logError(10201);
+      logError(SBMLError::InvalidMathElement);
     }
     delete mMath;
     mMath = readMathML(stream);

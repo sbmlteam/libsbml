@@ -85,24 +85,24 @@ TestValidator::~TestValidator ()
 
 
 /**
- * Function Object: Return true if the given XMLError has the given
+ * Function Object: Return true if the given SBMLError has the given
  * id, false otherwise.
  */
-struct HasId : public unary_function<XMLError, bool>
+struct HasId : public unary_function<SBMLError, bool>
 {
   unsigned int id;
 
   HasId (unsigned int id) : id(id) { }
-  bool operator() (const XMLError& msg) { return msg.getId() == id; }
+  bool operator() (const SBMLError& msg) { return msg.getId() == id; }
 };
 
 
 /**
- * Function Object: Takes a XMLError and returns its integer id.
+ * Function Object: Takes a SBMLError and returns its integer id.
  */
-struct ToId : public unary_function<XMLError, unsigned int>
+struct ToId : public unary_function<SBMLError, unsigned int>
 {
-  unsigned int operator() (const XMLError& msg) { return msg.getId(); }
+  unsigned int operator() (const SBMLError& msg) { return msg.getId(); }
 };
 
 
@@ -121,8 +121,8 @@ TestValidator::test (const TestFile& file)
 
   unsigned int actual   = mValidator.validate( file.getFullname() );
 
-  list<XMLError>::const_iterator begin = mValidator.getMessages().begin();
-  list<XMLError>::const_iterator end   = mValidator.getMessages().end();
+  list<SBMLError>::const_iterator begin = mValidator.getMessages().begin();
+  list<SBMLError>::const_iterator end   = mValidator.getMessages().end();
 
 
   if (expected != actual)
@@ -158,7 +158,7 @@ TestValidator::test (const TestFile& file)
 
   if ( error || isVerbose(id) )
   {
-    copy(begin, end, ostream_iterator<XMLError>(cout, "\n"));
+    copy(begin, end, ostream_iterator<SBMLError>(cout, "\n"));
   }
 
   mValidator.clearMessages();

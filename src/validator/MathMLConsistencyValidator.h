@@ -37,7 +37,7 @@ class MathMLConsistencyValidator: public Validator
 public:
 
   MathMLConsistencyValidator () :
-    Validator("http://sbml.org/validator/consistency/mathml") { }
+    Validator( SBMLError::SBMLConsistencyMathML ) { }
 
   virtual ~MathMLConsistencyValidator () { }
 

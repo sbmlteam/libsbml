@@ -21,9 +21,15 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
+#include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLErrorLog.h>
 #include <sbml/xml/XMLInputStream.h>
 
+#include <sbml/SBMLErrorLog.h>
+#include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
+#include <sbml/Model.h>
 #include <sbml/SBMLReader.h>
 
 /** @cond doxygen-ignored */
@@ -106,7 +112,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
 
   if (isFile && content && (util_file_exists(content) == false))
   {
-    d->getErrorLog()->logError(00001);
+    d->getErrorLog()->logError(XMLError::FileUnreadable);
   }
   else
   {
@@ -121,16 +127,16 @@ SBMLReader::readInternal (const char* content, bool isFile)
     {
       if (stream.getEncoding() == "")
       {
-	      d->getErrorLog()->logError(00002);
+	d->getErrorLog()->logError(XMLError::MissingXMLDecl);
       }
       else if (stream.getEncoding() != "UTF-8")
       {
-	      d->getErrorLog()->logError(10101);
+	d->getErrorLog()->logError(SBMLError::NotUTF8);
       }
 
       if (d->getModel() == 0)
       {
-	      d->getErrorLog()->logError(20201);
+	d->getErrorLog()->logError(SBMLError::MissingModel);
       }
     }
   }

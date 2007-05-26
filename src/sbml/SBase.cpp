@@ -35,6 +35,8 @@
 #include <sbml/annotation/RDFAnnotation.h>
 
 #include <sbml/KineticLaw.h>
+#include <sbml/SBMLError.h>
+#include <sbml/SBMLErrorLog.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 #include <sbml/ListOf.h>
@@ -908,7 +910,8 @@ SBase::read (XMLInputStream& stream)
 		   || readAnnotation(stream)
 		   || readNotes(stream) ))
       {
-        mSBML->getErrorLog()->unrecognizedElement(next);
+	logError( SBMLError::UnrecognizedElement,  
+		  "Unrecognized element '" + next.getName() + "'");
         stream.skipPastEnd( stream.next() );
       }
     }
@@ -1022,7 +1025,8 @@ SBase::readAnnotation (XMLInputStream& stream)
 
     if (mAnnotation)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	     "Multiple annotation elements not permitted on the same element");
     }
 
     delete mAnnotation;
@@ -1054,9 +1058,15 @@ SBase::readNotes (XMLInputStream& stream)
     // If an annotation element already exists, then the ordering is wrong.
     // In either case, replace existing content with the new notes read.
 
-    if (mNotes || mAnnotation)
+    if (mNotes)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	       "Multiple notes elements not permitted on the same element");
+    }
+    else if (mAnnotation)
+    {
+      logError(SBMLError::NotSchemaConformant,
+	       "Incorrect ordering of annotation and notes elements");
     }
 
     delete mNotes;
@@ -1098,6 +1108,22 @@ SBase::getErrorLog ()
 
 /** @cond doxygen-libsbml-internal */
 /**
+ * Convenience method for easily logging problems from within method
+ * implementations.
+ *
+ * This is essentially a short form of getErrorLog()->logError(...)
+ */
+void
+SBase::logError (  unsigned int       id
+		 , const std::string& details )
+{
+  if ( SBase::getErrorLog() ) getErrorLog()->logError(id, details);
+}
+/** @endcond doxygen-libsbml-internal */
+
+
+/** @cond doxygen-libsbml-internal */
+/**
  * Subclasses should override this method to read values from the given
  * XMLAttributes set into their specific fields.  Be sure to call your
  * parents implementation of this method as well.
@@ -1105,6 +1131,7 @@ SBase::getErrorLog ()
 void
 SBase::readAttributes (const XMLAttributes& attributes)
 {
+  const_cast<XMLAttributes&>(attributes).setErrorLog(getErrorLog());
   attributes.readInto("metaid", mMetaId);
   /*
    * at present Xerces on Windows does not correctly read multibyte characters
@@ -1148,7 +1175,7 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 
   if (actual != -1 && actual < expected)
   {
-    unsigned int error = 20202;
+    SBMLError::SBMLCode error = SBMLError::IncorrectOrderInModel;
 
     if (object->getTypeCode() == SBML_LIST_OF)
     {
@@ -1156,15 +1183,15 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 
       if (tc == SBML_SPECIES_REFERENCE || tc == SBML_MODIFIER_SPECIES_REFERENCE)
       {
-        error = 21102;
+	error = SBMLError::IncorrectOrderInReaction;
       }
     }
     else if (object->getTypeCode() == SBML_TRIGGER)
     {
-      error = 21205;
+      error = SBMLError::IncorrectOrderInEvent;
     }
 
-    mSBML->getErrorLog()->logError(error);
+    logError(error);
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -1179,33 +1206,39 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
 void 
 SBase::checkListOfPopulated(SBase* object)
 {
-  unsigned int error = 20203;
-
   if (object->getTypeCode() == SBML_LIST_OF)
   {
-    SBMLTypeCode_t tc = static_cast<ListOf*>(object)->getItemTypeCode();
-    
-    /* check that list has at least one element */
+    // Check that the list has at least one element.
     if (static_cast <ListOf*> (object)->size() == 0)
     {
-      if (tc == SBML_UNIT)
+      SBMLTypeCode_t tc = static_cast<ListOf*>(object)->getItemTypeCode();
+      SBMLError::SBMLCode error = SBMLError::EmptyListElement;
+
+      // By default, the error will be the EmptyListElement error, unless
+      // we have a special case for which SBML has a separate error code.
+      switch (tc)
       {
-        error = 20409;
-      }
-      else if (tc == SBML_SPECIES_REFERENCE || tc == SBML_MODIFIER_SPECIES_REFERENCE)
-      {
-        error = 21103;
-      }
-      else if (tc == SBML_PARAMETER)
-      {
-        /* if the listOfParameters is inside a KineticLaw
-        */
+      case SBML_UNIT:
+	error = SBMLError::EmptyListOfUnits;
+	break;
+
+      case SBML_SPECIES_REFERENCE:
+      case SBML_MODIFIER_SPECIES_REFERENCE:
+	error = SBMLError::EmptyListInReaction;
+	break;
+
+      case SBML_PARAMETER:
+        // If listOfParameters is inside a KineticLaw, we have a separate code.
         if (this->getTypeCode() == SBML_KINETIC_LAW)
         {
-          error = 21123;
+	  error = SBMLError::EmptyListInKineticLaw;
         }
+	break;
+
+      default:;
       }
-      mSBML->getErrorLog()->logError(error);
+
+      logError(error);
     }
   }
   else if (object->getTypeCode() == SBML_KINETIC_LAW)
@@ -1220,8 +1253,7 @@ SBase::checkListOfPopulated(SBase* object)
         static_cast <KineticLaw *> (object)->isSetSBOTerm()        == 0  &&
         static_cast <KineticLaw *> (object)->getNumParameters()    == 0)
     {
-        error = 21103;
-        mSBML->getErrorLog()->logError(error);
+      logError(SBMLError::EmptyListInReaction);
     }
   }
 }
@@ -1325,9 +1357,7 @@ SBase::checkMetaIdSyntax()
 
   }
 
-
-  if (!okay)   
-    mSBML->getErrorLog()->logError(10309);
+  if (!okay) logError(SBMLError::InvalidMetaidSyntax);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1384,7 +1414,8 @@ SBase::checkIdSyntax()
     else
     {
       // This is a schema validation error: no id on an object that needs it.
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	       "Missing 'id' on an element that requires an identifier");
       return;
     }
   }
@@ -1402,8 +1433,7 @@ SBase::checkIdSyntax()
     n++;
   }
 
-  if (!okay)   
-    mSBML->getErrorLog()->logError(10310);
+  if (!okay) logError(SBMLError::InvalidIdSyntax);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1439,7 +1469,7 @@ SBase::checkAnnotation()
     }
     if (match > 0)
     {
-      mSBML->getErrorLog()->logError(10403);
+      logError(SBMLError::SBMLNamespaceInAnnotation);
       break;
     }
     nNodes++;
@@ -1463,40 +1493,40 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
   if (name == "notes")
   {
-    errorNS   = 10801;
-    errorXML  = 10802;
-    errorDOC  = 10803;
-    errorELEM = 10804;
+    errorNS   = SBMLError::NotesNotInXHTMLNamespace;
+    errorXML  = SBMLError::NotesContainsXMLDecl;
+    errorDOC  = SBMLError::NotesContainsDOCTYPE;
+    errorELEM = SBMLError::InvalidNotesContent;
   }
   else if (name == "message")
   {
-    errorNS   = 21003;
-    errorXML  = 21004;
-    errorDOC  = 21005;
-    errorELEM = 21006;
+    errorNS   = SBMLError::ConstraintNotInXHTMLNamespace;
+    errorXML  = SBMLError::ConstraintContainsXMLDecl;
+    errorDOC  = SBMLError::ConstraintContainsDOCTYPE;
+    errorELEM = SBMLError::InvalidConstraintContent;
   }
-  else
+  else					// We shouldn't ever get to this point.
   {
-    mSBML->getErrorLog()->logError(00005);
+    logError(SBMLError::UnknownError);
     return;
   }
 
   /*
    * errors relating to a misplaced XML or DOCTYPE declaration 
-   * will also cause a parser error
-   * since parsing will terminate at this error if it has occurred
-   * it will bein the XML currently being checked and so a more
+   * will also cause a parser error.
+   * since parsing will terminate at this error, then if it has occurred
+   * it will be in the XML currently being checked and so a more
    * informative message can be added
    */
-  for (i = 0; i < mSBML->getErrorLog()->getNumErrors(); i++)
+  for (i = 0; i < getErrorLog()->getNumErrors(); i++)
   {
-    if (mSBML->getErrorLog()->getError(i)->getId() == 17)
+    if (getErrorLog()->getError(i)->getId() == XMLError::BadProcessingInstruction)
     {
-      mSBML->getErrorLog()->logError(errorXML);
+      logError(errorXML);
     }
-    if (mSBML->getErrorLog()->getError(i)->getId() == 4)
+    if (getErrorLog()->getError(i)->getId() == XMLError::NotWellFormed)
     {
-      mSBML->getErrorLog()->logError(errorDOC);
+      logError(errorDOC);
     }
   }
 
@@ -1541,7 +1571,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
       if (!found)
       {
-        mSBML->getErrorLog()->logError(errorELEM);
+        logError(errorELEM);
       }
       else
       {
@@ -1558,7 +1588,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
         }
         if (!match)
         {
-          mSBML->getErrorLog()->logError(errorELEM);
+          logError(errorELEM);
         }
       }
     }
@@ -1580,7 +1610,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
 
     if (top_name != "html" && top_name != "body" && !found)
     {
-      mSBML->getErrorLog()->logError(errorELEM);
+      logError(errorELEM);
     }
     else
     {
@@ -1596,7 +1626,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
       }
       if (!implicitNSdecl && !match)
       {
-        mSBML->getErrorLog()->logError(errorNS);
+        logError(errorNS);
       }
     }
   }

@@ -33,6 +33,7 @@
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
 #include <sbml/Model.h>
 #include <sbml/EventAssignment.h>
 #include <sbml/Event.h>
@@ -422,7 +423,8 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mEventAssignments.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	       "Multiple 'listOfEventAssignments' elements not permitted.");
     }
     return &mEventAssignments;
   }
@@ -437,7 +439,8 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mDelay)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	       "Only one delay element is permitted in an event definition");
     }
     delete mDelay;
 

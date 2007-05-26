@@ -32,7 +32,7 @@
 #include <list>
 #include <string>
 
-#include <sbml/xml/XMLError.h>
+#include <sbml/SBMLError.h>
 
 
 class VConstraint;
@@ -44,7 +44,8 @@ class Validator
 {
 public:
 
-  Validator (const std::string& category = "");
+  Validator ( SBMLError::SBMLCategory category = SBMLError::SBML );
+
   virtual ~Validator ();
 
   /**
@@ -78,17 +79,17 @@ public:
    *   http://sbml.org/validator/consistency/units
    *   http://sbml.org/validator/compatibility/L1
    */
-  const std::string getCategory () const;
+  const SBMLError::SBMLCategory getCategory () const;
 
   /**
    * @return a list of messages logged during validation.
    */
-  const std::list<XMLError>& getMessages () const;
+  const std::list<SBMLError>& getMessages () const;
 
   /**
    * Adds the given message to this list of Validators messages.
    */
-  void logMessage (const XMLError& msg);
+  void logMessage (const SBMLError& msg);
 
   /**
    * Validates the given SBMLDocument.  Error messages logged during
@@ -110,9 +111,9 @@ public:
 protected:
 
 
-  ValidatorConstraints*  mConstraints;
-  std::list<XMLError>    mMessages;
-  std::string            mCategory;
+  ValidatorConstraints*   mConstraints;
+  std::list<SBMLError>    mMessages;
+  SBMLError::SBMLCategory mCategory;
 
 
   friend class ValidatingVisitor;

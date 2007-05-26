@@ -28,6 +28,7 @@
 
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 #include <sbml/SpeciesType.h>

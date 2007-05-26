@@ -37,7 +37,7 @@ class L2v2CompatibilityValidator: public Validator
 public:
 
   L2v2CompatibilityValidator () :
-    Validator("http://sbml.org/validator/compatibility/L2v2") { }
+    Validator( SBMLError::SBMLL2v2Compatibility ) { }
 
   virtual ~L2v2CompatibilityValidator () { }
 

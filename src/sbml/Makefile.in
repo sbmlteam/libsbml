@@ -61,13 +61,14 @@ headers =              \
   Reaction.h           \
   Rule.h               \
   SBMLDocument.h       \
+  SBMLError.h          \
   SBMLErrorLog.h       \
   SBMLReader.h         \
   SBMLTypeCodes.h      \
   SBMLTypes.h          \
   SBMLVisitor.h        \
   SBMLWriter.h         \
-  SBO.h				   \
+  SBO.h		       \
   SBase.h              \
   Species.h            \
   SpeciesReference.h   \
@@ -95,6 +96,7 @@ sources =                \
   Rule.cpp               \
   SBMLConvert.cpp        \
   SBMLDocument.cpp       \
+  SBMLError.cpp          \
   SBMLErrorLog.cpp       \
   SBMLReader.cpp         \
   SBMLTypeCodes.cpp      \

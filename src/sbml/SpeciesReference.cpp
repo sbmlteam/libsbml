@@ -38,6 +38,7 @@
 
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLDocument.h>
 #include <sbml/Model.h>
 #include <sbml/SpeciesReference.h>
@@ -577,7 +578,9 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	     "Multiple annotation elements not permitted on the same element");
+
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
@@ -807,7 +810,8 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	     "Multiple annotation elements not permitted on the same element");
     }
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
@@ -975,7 +979,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
        * which is confusion if user has merely reversed modifierSpeciesReference
        * and speciesReference */
       object = new SpeciesReference();
-      mSBML->getErrorLog()->logError(21104);
+      logError(SBMLError::InvalidReactantsProductsList);
     }
   }
   else if (mType == Modifier)
@@ -987,7 +991,7 @@ ListOfSpeciesReferences::createObject (XMLInputStream& stream)
     else
     {
       object = new ModifierSpeciesReference();
-      mSBML->getErrorLog()->logError(21105);
+      logError(SBMLError::InvalidModifiersList);
     }
   }
 

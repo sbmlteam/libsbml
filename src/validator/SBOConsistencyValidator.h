@@ -37,7 +37,7 @@ class SBOConsistencyValidator: public Validator
 public:
 
   SBOConsistencyValidator () :
-    Validator("http://sbml.org/validator/consistency/SBO") { }
+    Validator( SBMLError::SBMLConsistencySBO ) { }
 
   virtual ~SBOConsistencyValidator () { }
 

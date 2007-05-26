@@ -37,7 +37,7 @@ class IdentifierConsistencyValidator: public Validator
 public:
 
   IdentifierConsistencyValidator () :
-    Validator("http://sbml.org/validator/consistency/identifier") { }
+    Validator( SBMLError::SBMLConsistencyIdentifier ) { }
 
   virtual ~IdentifierConsistencyValidator () { }
 

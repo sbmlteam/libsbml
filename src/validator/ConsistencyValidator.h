@@ -30,14 +30,14 @@
 
 
 #include <sbml/validator/Validator.h>
+#include <sbml/SBMLError.h>
 
 
 class ConsistencyValidator: public Validator
 {
 public:
 
-  ConsistencyValidator () :
-    Validator("http://sbml.org/validator/consistency") { }
+  ConsistencyValidator () : Validator( SBMLError::SBMLConsistency ) { }
 
   virtual ~ConsistencyValidator () { }
 

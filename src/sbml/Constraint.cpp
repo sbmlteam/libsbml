@@ -32,6 +32,7 @@
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
 #include <sbml/Model.h>
 #include <sbml/Constraint.h>
 
@@ -236,7 +237,9 @@ Constraint::readOtherXML (XMLInputStream& stream)
 
   if (name == "math")
   {
-    if (mMessage) mSBML->getErrorLog()->logError(21002);
+    // If there's a <message>, it's supposed to show up first
+
+    if (mMessage) logError(SBMLError::IncorrectOrderInConstraint);
 
     /* check for MathML namespace 
      * this may be explicitly declared here
@@ -274,7 +277,7 @@ Constraint::readOtherXML (XMLInputStream& stream)
     }
     if (match == 0)
     {
-      mSBML->getErrorLog()->logError(10201);
+      logError(SBMLError::InvalidMathElement);
     }
 
     delete mMath;

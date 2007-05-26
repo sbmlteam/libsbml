@@ -28,6 +28,7 @@
 #include <sbml/xml/XMLOutputStream.h>
 #include <sbml/xml/XMLErrorLog.h>
 
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
 
 #include <sbml/SBO.h>
@@ -84,10 +85,6 @@ SBO::checkTerm (int sboTerm)
 int
 SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
 {
-  const string msg10308 = "The value of a sboTerm attribute must have the data "
-    "type SBOTerm, which is a string consisting of the characters 'S', 'B', "
-    "'O', ':' followed by exactly seven digits. (References: L2V2 Section 3.1.8.)";
-
   int index = attributes.getIndex("sboTerm");
   if (index == -1)
   {
@@ -95,7 +92,7 @@ SBO::readTerm (const XMLAttributes& attributes, SBMLErrorLog* log)
   }
   else if (!checkTerm(attributes.getValue(index)))
   {
-    log->add(XMLError(10308, msg10308));
+    log->logError(SBMLError::InvalidSBOTermSyntax);
     return -1;
   }
   else

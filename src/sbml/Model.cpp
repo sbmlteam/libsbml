@@ -31,6 +31,7 @@
 #include <sbml/SBMLDocument.h>
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
+#include <sbml/SBMLError.h>
 #include <sbml/KineticLaw.h>
 #include <sbml/Model.h>
 
@@ -1615,7 +1616,8 @@ Model::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	       "Multiple annotation elements not permitted");
     }
 
     delete mAnnotation;
@@ -1653,7 +1655,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mFunctionDefinitions.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mFunctionDefinitions;
   }
@@ -1662,7 +1664,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mUnitDefinitions.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mUnitDefinitions;
   }
@@ -1671,7 +1673,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mCompartmentTypes.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mCompartmentTypes;
   }
@@ -1680,7 +1682,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mSpeciesTypes.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mSpeciesTypes;
   }
@@ -1689,7 +1691,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mCompartments.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mCompartments;
   }
@@ -1698,7 +1700,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mSpecies.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mSpecies;
   }
@@ -1707,7 +1709,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mParameters.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mParameters;
   }
@@ -1716,7 +1718,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mInitialAssignments.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mInitialAssignments;
   }
@@ -1725,7 +1727,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mRules.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mRules;
   }
@@ -1734,7 +1736,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mConstraints.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mConstraints;
   }
@@ -1743,7 +1745,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mReactions.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mReactions;
   }
@@ -1752,7 +1754,7 @@ Model::createObject (XMLInputStream& stream)
   {
     if (mEvents.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant);
     }
     object = &mEvents;
   }
@@ -1763,7 +1765,7 @@ Model::createObject (XMLInputStream& stream)
     {
       if (mSpecies.size() != 0)
       {
-        mSBML->getErrorLog()->logError(10103);
+        logError(SBMLError::NotSchemaConformant);
       }
       object = &mSpecies;
     }

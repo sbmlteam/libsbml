@@ -34,6 +34,7 @@
 #include <sbml/SBO.h>
 #include <sbml/SBMLVisitor.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
 #include <sbml/Model.h>
 #include <sbml/Parameter.h>
 #include <sbml/KineticLaw.h>
@@ -484,7 +485,8 @@ KineticLaw::createObject (XMLInputStream& stream)
   {
     if (mParameters.size() != 0)
     {
-      mSBML->getErrorLog()->logError(10103);
+      logError(SBMLError::NotSchemaConformant,
+	       "Multiple 'listOfParameters' elements not permitted");
     }
     return &mParameters;
   }
@@ -509,7 +511,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
 
   if (name == "math")
   {
-    if (getNumParameters() > 0) mSBML->getErrorLog()->logError(21122);
+    if (getNumParameters() > 0) logError(SBMLError::IncorrectOrderInKineticLaw);
 
     /* check for MathML namespace 
      * this may be explicitly declared here
@@ -547,7 +549,7 @@ KineticLaw::readOtherXML (XMLInputStream& stream)
     }
     if (match == 0)
     {
-      mSBML->getErrorLog()->logError(10201);
+      logError(SBMLError::InvalidMathElement);
     }
     delete mMath;
     mMath = readMathML(stream);
