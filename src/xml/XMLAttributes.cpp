@@ -56,7 +56,7 @@ trim (const string& s)
 /**
  * Creates a new empty XMLAttributes set.
  */
-XMLAttributes::XMLAttributes ()
+XMLAttributes::XMLAttributes () : mLog( 0 )
 {
 }
 
@@ -75,6 +75,8 @@ XMLAttributes::XMLAttributes(const XMLAttributes& orig)
 {
   this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
   this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
+  this->mElementName = orig.mElementName;
+  this->mLog = orig.mLog;
 }
 
 
@@ -86,6 +88,8 @@ XMLAttributes::operator=(const XMLAttributes& orig)
 {
   this->mNames.assign( orig.mNames.begin(), orig.mNames.end() ); 
   this->mValues.assign( orig.mValues.begin(), orig.mValues.end() ); 
+  this->mElementName = orig.mElementName;
+  this->mLog = orig.mLog;
   return *this;
 }
 
@@ -103,8 +107,9 @@ XMLAttributes::clone () const
 
 
 /**
- * Adds a name/value pair to this XMLAttributes set.  If name with the same namespace URI already
- * exists in this attribute set, its value will be replaced.
+ * Adds a name/value pair to this XMLAttributes set.  If name with the same
+ * namespace URI already exists in this attribute set, its value will be
+ * replaced.
  */
 void
 XMLAttributes::add (const std::string& name,
@@ -114,9 +119,11 @@ XMLAttributes::add (const std::string& name,
 {
   int index = getIndex(name);
 
-  // since in the old version of the method the XMLTriple was initialized with empty strings
-  // for the prefix and the uri, I assume that only attributes that are not from the default namespace 
-  // should have a set prefix and uri. 
+  // since in the old version of the method the XMLTriple was initialized
+  // with empty strings for the prefix and the uri, I assume that only
+  // attributes that are not from the default namespace should have a set
+  // prefix and uri.
+
   if (index == -1 || getURI(index)!=namespaceURI )
   {
     mNames .push_back( XMLTriple(name, namespaceURI, prefix) );
@@ -148,7 +155,7 @@ XMLAttributes::addResource (const std::string& name, const std::string& value)
  * @return the index of the given attribute, or -1 if not present.
  */
 int
-XMLAttributes::getIndex (const std::string name) const
+XMLAttributes::getIndex (const std::string& name) const
 {
   for (int index = 0; index < getLength(); ++index)
   {
@@ -243,7 +250,7 @@ XMLAttributes::isEmpty () const
 
 /**
  * Reads the value for the attribute name into value.  If name was not
- * found or value could be interpreted as a boolean, value is not modified.
+ * found or value could not be interpreted as a boolean, value is not modified.
  *
  * According to the W3C XML Schema, valid boolean values are: "true",
  * "false", "1", and "0" (case-insensitive).  For more information, see:
@@ -256,15 +263,15 @@ XMLAttributes::isEmpty () const
  */
 bool
 XMLAttributes::readInto (  const std::string&   name
-                         , bool&           value
-                         , XMLErrorLog*    log
-                         , bool            required ) const
+                         , bool&                value
+                         , XMLErrorLog*         log
+                         , bool                 required ) const
 {
   bool assigned = false;
   bool missing  = true;
   int  index    = getIndex(name);
 
-  if (index != -1)
+  if ( index != -1 )
   {
     const string& trimmed = trim( getValue(index) );
     if ( !trimmed.empty() )
@@ -284,10 +291,12 @@ XMLAttributes::readInto (  const std::string&   name
     }
   }
 
-  if (log && !assigned)
+  if ( !log ) log = mLog;
+
+  if ( log && !assigned )
   {
-         if (!missing) log->attributeTypeError(name, XMLErrorLog::Boolean);
-    else if (required) log->attributeRequired (name);
+    if ( !missing ) attributeTypeError(name, Boolean, log);
+    else if ( required ) attributeRequiredError (name, log);
   }
 
   return assigned;
@@ -296,7 +305,7 @@ XMLAttributes::readInto (  const std::string&   name
 
 /**
  * Reads the value for the attribute name into value.  If name was not
- * found or value could be interpreted as a double, value is not
+ * found or value could not be interpreted as a double, value is not
  * modified.
  *
  * According to the W3C XML Schema, valid doubles are the same as valid
@@ -319,7 +328,7 @@ XMLAttributes::readInto (  const std::string&   name
   bool missing  = true;
   int  index    = getIndex(name);
 
-  if (index != -1)
+  if ( index != -1 )
   {
     const string& trimmed = trim( getValue(index) );
     if ( !trimmed.empty() )
@@ -364,10 +373,12 @@ XMLAttributes::readInto (  const std::string&   name
     }
   }
 
-  if (log && !assigned)
+  if ( !log ) log = mLog;
+
+  if ( log && !assigned )
   {
-         if (!missing) log->attributeTypeError(name, XMLErrorLog::Double);
-    else if (required) log->attributeRequired (name);
+    if ( !missing ) attributeTypeError(name, Double, log);
+    else if ( required ) attributeRequiredError (name, log);
   }
 
   return assigned;
@@ -376,7 +387,7 @@ XMLAttributes::readInto (  const std::string&   name
 
 /**
  * Reads the value for the attribute name into value.  If name was not
- * found or value could be interpreted as an long, value is not modified.
+ * found or value could not be interpreted as an long, value is not modified.
  *
  * According to the W3C XML Schema valid integers include zero, *all*
  * positive and *all* negative whole numbers.  For practical purposes, we
@@ -398,7 +409,7 @@ XMLAttributes::readInto (  const std::string&   name
   bool missing  = true;
   int  index    = getIndex(name);
 
-  if (index != -1)
+  if ( index != -1 )
   {
     const string& trimmed = trim( getValue(index) );
     if ( !trimmed.empty() )
@@ -419,10 +430,12 @@ XMLAttributes::readInto (  const std::string&   name
     }
   }
 
-  if (log && !assigned)
+  if ( !log ) log = mLog;
+
+  if ( log && !assigned )
   {
-         if (!missing) log->attributeTypeError(name, XMLErrorLog::Integer);
-    else if (required) log->attributeRequired (name);
+    if ( !missing ) attributeTypeError(name, Integer, log);
+    else if ( required ) attributeRequiredError (name, log);
   }
 
   return assigned;
@@ -431,7 +444,7 @@ XMLAttributes::readInto (  const std::string&   name
 
 /**
  * Reads the value for the attribute name into value.  If name was not
- * found or value could be interpreted as an int, value is not modified.
+ * found or value could not be interpreted as an int, value is not modified.
  *
  * According to the W3C XML Schema valid integers include zero, *all*
  * positive and *all* negative whole numbers.  For practical purposes, we
@@ -507,13 +520,15 @@ XMLAttributes::readInto (  const std::string& name
   int  index    = getIndex(name);
 
 
-  if (index != -1)
+  if ( index != -1 )
   {
     value    = getValue(index);
     assigned = true;
   }
 
-  if (log && !assigned && required) log->attributeRequired(name);
+  if ( !log ) log = mLog;
+
+  if ( log && !assigned && required ) attributeRequiredError(name, log);
 
   return assigned;
 }
@@ -540,6 +555,87 @@ XMLAttributes::write (XMLOutputStream& stream) const
 
 
 /**
+ * Logs an attribute format error.
+ *
+ * @param  name  Name of the attribute
+ * @param  type  The datatype of the attribute value.
+ */
+void
+XMLAttributes::attributeTypeError (  const std::string& name
+				   , DataType           type
+				   , XMLErrorLog*       log ) const
+{
+  ostringstream message;
+
+  if ( !log ) log = mLog;
+  if ( !log ) return;
+
+  message << "The ";
+  if ( !mElementName.empty() ) message << mElementName << ' ';
+  message << name;
+
+  switch ( type )
+  {
+    case XMLAttributes::Boolean:
+      message <<
+        " attribute must have a value of either \"true\" or \"false\""
+        " (all lowercase).  The numbers \"1\" (true) and \"0\" (false) are"
+        " also allowed, but not preferred.  For more information, see:"
+        " http://www.w3.org/TR/xmlschema-2/#boolean.";
+      break;
+
+    case XMLAttributes::Double:
+      message <<
+        " attribute must be a double (decimal number).  To represent"
+        " infinity use \"INF\", negative infinity use \"-INF\", and"
+        " not-a-number use \"NaN\".  For more information, see:"
+        " http://www.w3.org/TR/xmlschema-2/#double.";
+      break;
+
+    case XMLAttributes::Integer:
+      message <<
+        " attribute must be an integer (whole number).  For more"
+        " information, see: http://www.w3.org/TR/xmlschema-2/#integer.";
+      break;
+  }
+
+  log->add( XMLError(XMLError::AttributeTypeMismatch, message.str()) );
+}
+
+
+/**
+ * Logs an error indicating a required attribute was missing.
+ *
+ * @param  name  Name of the attribute
+ */
+void
+XMLAttributes::attributeRequiredError (const std::string&  name,
+				       XMLErrorLog*        log) const
+{
+  ostringstream message;
+
+  if ( !log ) log = mLog;
+  if ( !log ) return;
+
+  message << "The ";
+  if ( !mElementName.empty() ) message << mElementName << ' ';
+  message << name << " attribute is required.";
+
+  log->add( XMLError(XMLError::MissingRequiredAttribute, message.str()) );
+}
+
+
+/**
+ * Sets the XMLErrorLog this parser will use to log errors.
+ */
+void
+XMLAttributes::setErrorLog (XMLErrorLog* log)
+{
+  mLog = log;
+}
+
+
+/**
  * Inserts this XMLAttributes set into stream.
  */
 LIBLAX_EXTERN
@@ -549,6 +645,7 @@ operator<< (XMLOutputStream& stream, const XMLAttributes& attributes)
   attributes.write(stream);
   return stream;
 }
+
 
 
 /** @cond doxygen-c-only */
@@ -579,7 +676,7 @@ XMLAttributes_free (XMLAttributes_t *xa)
 
 
 /**
- * Creates a deep copy of the given XMLAttributes_t structure
+ * Creates a deep copy of the given XMLAttributes_t structure.
  * 
  * @param att the XMLAttributes_t structure to be copied
  * 
@@ -1006,5 +1103,8 @@ XMLAttributes_readIntoString (XMLAttributes_t *xa,
   // for now
    return 0;
 }
+
+
+
 
 /** @endcond doxygen-c-only */

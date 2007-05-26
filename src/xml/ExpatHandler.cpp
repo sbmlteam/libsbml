@@ -54,11 +54,13 @@ XML (void* userData, const XML_Char* version, const XML_Char* encoding, int)
   static_cast<ExpatHandler*>(userData)->XML(version, encoding);
 }
 
+
 static void
 startElement (void* userData, const XML_Char* name, const XML_Char** attrs)
 {
   static_cast<ExpatHandler*>(userData)->startElement(name, attrs);
 }
+
 
 static void
 startNamespace (void* userData, const XML_Char* prefix, const XML_Char* uri)
@@ -66,17 +68,20 @@ startNamespace (void* userData, const XML_Char* prefix, const XML_Char* uri)
   static_cast<ExpatHandler*>(userData)->startNamespace(prefix, uri);
 }
 
+
 static void
 endElement (void* userData, const XML_Char* name)
 {
   static_cast<ExpatHandler*>(userData)->endElement(name);
 }
 
+
 static void
 characters (void* userData, const XML_Char* chars, int length)
 {
   static_cast<ExpatHandler*>(userData)->characters(chars, length);
 }
+
 
 static int
 unknownEncodingHandler(void* encodingHandlerData,
@@ -85,6 +90,7 @@ unknownEncodingHandler(void* encodingHandlerData,
 {
   return XML_STATUS_ERROR;
 }
+
 
 /**
  * Creates a new ExpatHandler.  Expat events will be redirected to the
@@ -145,10 +151,10 @@ ExpatHandler::XML (const XML_Char* version, const XML_Char* encoding)
 void
 ExpatHandler::startElement (const XML_Char* name, const XML_Char** attrs)
 {
-  const XMLTriple        triple    ( name  );
-  const ExpatAttributes  attributes( attrs );
-  const XMLToken         element   ( triple, attributes, mNamespaces,
-                                     getLine(), getColumn() );
+  const XMLTriple       triple    ( name  );
+  const ExpatAttributes attributes( attrs, name );
+  const XMLToken        element   ( triple, attributes, mNamespaces,
+			            getLine(), getColumn() );
 
   mHandler.startElement(element);
   mNamespaces.clear();

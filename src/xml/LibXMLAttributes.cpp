@@ -36,8 +36,9 @@ using namespace std;
 /**
  * Creates a new XMLAttributes set from the given "raw" LibXML attributes.
  */
-LibXMLAttributes::LibXMLAttributes (  const xmlChar**     attributes
-                                    , const unsigned int& size )
+LibXMLAttributes::LibXMLAttributes (  const xmlChar** attributes
+				    , const xmlChar*  elementName
+                                    , const unsigned  int& size )
 {
   mNames .reserve(size);
   mValues.reserve(size);
@@ -57,6 +58,8 @@ LibXMLAttributes::LibXMLAttributes (  const xmlChar**     attributes
     mNames .push_back( XMLTriple(name, uri, prefix) );
     mValues.push_back( value );
   }
+
+  mElementName = LibXMLTranscode(elementName);
 }
 
 

@@ -116,15 +116,6 @@ public:
   virtual void parseReset ();
 
 
-  /**
-   * Log or otherwise report the error from the parser indicated by the
-   * given integer code.
-   */
-  virtual void reportError (  const int code
-			    , const unsigned int lineNumber
-			    , const unsigned int columnNumber);
-
-
 protected:
 
   /**
@@ -137,6 +128,18 @@ protected:
   LibXMLHandler   mHandler;
   char*           mBuffer;
   XMLBuffer*      mSource;
+
+
+private:
+
+  /**
+   * Log or otherwise report the given error.
+   */
+  void reportError (  const XMLError::Code code
+		    , const std::string& extraMsg     = ""
+		    , const unsigned int lineNumber   = 0
+		    , const unsigned int columnNumber = 0 );
+
 };
 
 /** @endcond doxygen-libsbml-internal */

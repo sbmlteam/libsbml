@@ -37,7 +37,9 @@ using namespace std;
  * The Expat attribute names are assumed to be in namespace triplet form
  * separated by sepchar.
  */
-ExpatAttributes::ExpatAttributes (const XML_Char** attrs, const XML_Char sep)
+ExpatAttributes::ExpatAttributes (const XML_Char** attrs,
+				  const XML_Char* elementName,
+				  const XML_Char sep)
 {
   unsigned int size = 0;
   while (attrs[2 * size]) ++size;
@@ -50,6 +52,8 @@ ExpatAttributes::ExpatAttributes (const XML_Char** attrs, const XML_Char sep)
     mNames .push_back( XMLTriple( attrs[2 * n], sep ) );
     mValues.push_back( string   ( attrs[2 * n + 1]  ) );
   }
+
+  mElementName = elementName;
 }
 
 

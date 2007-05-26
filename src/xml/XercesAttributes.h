@@ -42,7 +42,8 @@ public:
    * Creates a new XMLAttributes set that wraps the given "raw" Xerces-C++
    * Attributes set.
    */
-  XercesAttributes (const xercesc::Attributes& attrs);
+  XercesAttributes (const xercesc::Attributes& attrs,
+		    const std::string elementName);
 
 
   /**

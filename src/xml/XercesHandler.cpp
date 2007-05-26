@@ -101,7 +101,7 @@ XercesHandler::startElement (  const XMLCh* const  uri
   const string prefix = getPrefix( XercesTranscode(qname) );
 
   const XMLTriple         triple    ( name, nsuri, prefix );
-  const XercesAttributes  attributes( attrs );
+  const XercesAttributes  attributes( attrs, name );
   const XercesNamespaces  namespaces( attrs );
   const XMLToken          element   ( triple, attributes, namespaces,
                                       getLine(), getColumn() );

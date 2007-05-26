@@ -42,6 +42,93 @@ using namespace std;
 
 static const int BUFFER_SIZE = 8192;
 
+/*
+ * Expat's error messages are conveniently defined as a consecutive
+ * sequence starting from 0.  This makes a translation table easy to
+ * create.  The indexes into this table are the Expat codes, and the
+ * values are our own error codes.
+ */
+static enum XMLError::Code expatErrorTable[] = {
+  XMLError::UnknownError,             // XML_ERROR_NONE
+  XMLError::OutOfMemory,              // XML_ERROR_NO_MEMORY
+  XMLError::NotWellFormed,            // XML_ERROR_SYNTAX
+  XMLError::NotWellFormed,            // XML_ERROR_NO_ELEMENTS
+  XMLError::NotWellFormed,            // XML_ERROR_INVALID_TOKEN
+  XMLError::UnclosedToken,            // XML_ERROR_UNCLOSED_TOKEN
+  XMLError::InvalidChar,              // XML_ERROR_PARTIAL_CHAR
+  XMLError::TagMismatch,              // XML_ERROR_TAG_MISMATCH
+  XMLError::DuplicateAttribute,       // XML_ERROR_DUPLICATE_ATTRIBUTE
+  XMLError::BadDOCTYPE,               // XML_ERROR_JUNK_AFTER_DOC_ELEMENT
+  XMLError::UnknownError,             // XML_ERROR_PARAM_ENTITY_REF
+  XMLError::UndefinedEntity,          // XML_ERROR_UNDEFINED_ENTITY
+  XMLError::UndefinedEntity,          // XML_ERROR_RECURSIVE_ENTITY_REF
+  XMLError::UndefinedEntity,          // XML_ERROR_ASYNC_ENTITY
+  XMLError::InvalidChar,              // XML_ERROR_BAD_CHAR_REF
+  XMLError::InvalidChar,              // XML_ERROR_BINARY_ENTITY_REF
+  XMLError::UndefinedEntity,          // XML_ERROR_ATTRIBUTE_EXTERNAL_ENTITY_REF
+  XMLError::BadXMLDeclLocation,       // XML_ERROR_MISPLACED_XML_PI
+  XMLError::BadXMLDecl,               // XML_ERROR_UNKNOWN_ENCODING
+  XMLError::BadXMLDecl,               // XML_ERROR_INCORRECT_ENCODING
+  XMLError::NotWellFormed,            // XML_ERROR_UNCLOSED_CDATA_SECTION
+  XMLError::InvalidConstruct,         // XML_ERROR_EXTERNAL_ENTITY_HANDLING
+  XMLError::BadXMLDecl,               // XML_ERROR_NOT_STANDALONE
+  XMLError::UnknownError,             // XML_ERROR_UNEXPECTED_STATE
+  XMLError::UnknownError,             // XML_ERROR_ENTITY_DECLARED_IN_PE
+  XMLError::InvalidConstruct,         // XML_ERROR_FEATURE_REQUIRES_XML_DTD
+  XMLError::InvalidConstruct,         // XML_ERROR_CANT_CHANGE_FEATURE_ONCE_PARSING
+  XMLError::BadPrefix,                // XML_ERROR_UNBOUND_PREFIX
+  XMLError::BadPrefixValue,           // XML_ERROR_UNDECLARING_PREFIX
+  XMLError::NotWellFormed,            // XML_ERROR_INCOMPLETE_PE
+  XMLError::BadXMLDecl,               // XML_ERROR_XML_DECL
+  XMLError::UnknownError,             // XML_ERROR_TEXT_DECL
+  XMLError::UnknownError,             // XML_ERROR_PUBLICID
+  XMLError::UnknownError,             // XML_ERROR_SUSPENDED
+  XMLError::UnknownError,             // XML_ERROR_NOT_SUSPENDED
+  XMLError::UnknownError,             // XML_ERROR_ABORTED
+  XMLError::UnknownError,             // XML_ERROR_FINISHED
+  XMLError::UnknownError              // XML_ERROR_SUSPEND_PE
+};
+
+
+const enum XMLError::Code
+translateError(const int expatCode)
+{
+  int numTableEntries = sizeof(expatErrorTable)/sizeof(expatErrorTable[0]);
+
+  if (expatCode > 0 && expatCode < numTableEntries)
+    return expatErrorTable[expatCode];
+  else
+    return XMLError::UnknownError;
+}
+
+
+/*
+ * Note that the given error code is an XMLError code, not a code
+ * number returned by the underlying parser.  Codes returned by the
+ * parser must be translated first.
+ *
+ * @see translateError().
+ */
+void
+ExpatParser::reportError (const XMLError::Code code,
+			  const string& extraMsg,
+			  const unsigned int line,
+			  const unsigned int column)
+{
+  if (mErrorLog)
+    mErrorLog->add(XMLError( code, extraMsg, line, column) );
+  else
+  {
+    // We have no error log, but we shouldn't gloss over this error.  Use
+    // the measure of last resort.
+
+    cerr << XMLError::getStandardMessage(code)
+	 << " at line and column numbers " << line << ":" << column << ":\n"
+	 << extraMsg << endl;
+  }
+}
+
+
 /**
  * Creates a new ExpatParser given an XMLHandler object.
  *
@@ -160,21 +247,26 @@ ExpatParser::parseFirst (const char* content, bool isFile)
 
     if (mSource->error())
     {
-      cerr << "error: Could not open filename '" << content << "' for reading."
-           << endl;
+      reportError(XMLError::FileUnreadable, content, getLine(), getColumn());
+      return false;
     }
   }
   else
   {
     mSource = new XMLMemoryBuffer(content, strlen(content));
+
+    if (mSource == 0) reportError( XMLError::OutOfMemory, "", 0, 0 );
   }
 
-  if ( !error() )
+  if ( !mSource->error() )
   {
     mHandler.startDocument();
+    return true;
   }
-
-  return true;
+  else
+  {
+    return false;
+  }
 }
 
 
@@ -191,20 +283,35 @@ ExpatParser::parseNext ()
 
   mBuffer = XML_GetBuffer(mParser, BUFFER_SIZE);
 
-  int bytes = mSource->copyTo(mBuffer, BUFFER_SIZE);
-  int done  = (bytes == 0);
-
-  if ( mSource->error() )
+  if ( mBuffer == 0 )
   {
-    cerr << "error: Could not read from source buffer." << endl;
+    // See if Expat logged an error.  There are only two things that
+    // XML_GetErrorCode will report: parser state errors and "out of memory".
+    // So we check for the first and default to the out-of-memory case.
+
+    switch ( XML_GetErrorCode(mParser) )
+    {
+    case XML_ERROR_SUSPENDED:
+    case XML_ERROR_FINISHED:
+      reportError(XMLError::InternalParserError);
+      break;
+
+    default:
+      reportError(XMLError::OutOfMemory);
+      break;
+    }
+
     return false;
   }
+
+  int bytes = mSource->copyTo(mBuffer, BUFFER_SIZE);
+  int done  = (bytes == 0);
 
   // Attempt to parse the content, checking for the Expat return status.
 
   if ( XML_ParseBuffer(mParser, bytes, done) == XML_STATUS_ERROR )
   {
-    reportError(XML_GetErrorCode(mParser),
+    reportError(translateError(XML_GetErrorCode(mParser)), "",
 		XML_GetCurrentLineNumber(mParser),
 		XML_GetCurrentColumnNumber(mParser));
     return false;
@@ -230,109 +337,5 @@ ExpatParser::parseReset ()
   mSource = 0;
 }
 
-
-/*
- * Expat's error messages are conveniently defined as a consecutive
- * sequence starting from 0.  This makes a translation table easy to
- * create.  The indexes into this table are the Expat codes, and the
- * values are our own error codes.
- */
-static enum XMLParser::errorCodes expatErrorTable[] = {
-  XMLParser::NoError,                       // XML_ERROR_NONE
-  XMLParser::ErrorOutOfMemory,              // XML_ERROR_NO_MEMORY
-  XMLParser::ErrorNotWellFormed,            // XML_ERROR_SYNTAX
-  XMLParser::ErrorNotWellFormed,            // XML_ERROR_NO_ELEMENTS
-  XMLParser::ErrorNotWellFormed,            // XML_ERROR_INVALID_TOKEN
-  XMLParser::ErrorUnclosedToken,            // XML_ERROR_UNCLOSED_TOKEN
-  XMLParser::ErrorInvalidChar,              // XML_ERROR_PARTIAL_CHAR
-  XMLParser::ErrorTagMismatch,              // XML_ERROR_TAG_MISMATCH
-  XMLParser::ErrorDupAttribute,             // XML_ERROR_DUPLICATE_ATTRIBUTE
-  XMLParser::ErrorBadDOCTYPE,               // XML_ERROR_JUNK_AFTER_DOC_ELEMENT
-  XMLParser::UnknownError,                  // XML_ERROR_PARAM_ENTITY_REF
-  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_UNDEFINED_ENTITY
-  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_RECURSIVE_ENTITY_REF
-  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_ASYNC_ENTITY
-  XMLParser::ErrorInvalidChar,              // XML_ERROR_BAD_CHAR_REF
-  XMLParser::ErrorInvalidChar,              // XML_ERROR_BINARY_ENTITY_REF
-  XMLParser::ErrorUndefinedEntity,          // XML_ERROR_ATTRIBUTE_EXTERNAL_ENTITY_REF
-  XMLParser::ErrorBadProcessingInstruction, // XML_ERROR_MISPLACED_XML_PI
-  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_UNKNOWN_ENCODING
-  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_INCORRECT_ENCODING
-  XMLParser::ErrorNotWellFormed,            // XML_ERROR_UNCLOSED_CDATA_SECTION
-  XMLParser::ErrorInvalidConstruct,         // XML_ERROR_EXTERNAL_ENTITY_HANDLING
-  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_NOT_STANDALONE
-  XMLParser::UnknownError,                  // XML_ERROR_UNEXPECTED_STATE
-  XMLParser::UnknownError,                  // XML_ERROR_ENTITY_DECLARED_IN_PE
-  XMLParser::ErrorInvalidConstruct,         // XML_ERROR_FEATURE_REQUIRES_XML_DTD
-  XMLParser::ErrorInvalidConstruct,         // XML_ERROR_CANT_CHANGE_FEATURE_ONCE_PARSING
-  XMLParser::ErrorBadPrefixDefinition,      // XML_ERROR_UNBOUND_PREFIX
-  XMLParser::ErrorBadPrefixValue,           // XML_ERROR_UNDECLARING_PREFIX
-  XMLParser::ErrorBadProcessingInstruction, // XML_ERROR_INCOMPLETE_PE
-  XMLParser::ErrorBadXMLDecl,               // XML_ERROR_XML_DECL
-  XMLParser::UnknownError,                  // XML_ERROR_TEXT_DECL
-  XMLParser::UnknownError,                  // XML_ERROR_PUBLICID
-  XMLParser::UnknownError,                  // XML_ERROR_SUSPENDED
-  XMLParser::UnknownError,                  // XML_ERROR_NOT_SUSPENDED
-  XMLParser::UnknownError,                  // XML_ERROR_ABORTED
-  XMLParser::UnknownError,                  // XML_ERROR_FINISHED
-  XMLParser::UnknownError                   // XML_ERROR_SUSPEND_PE
-};
-
-
-void
-ExpatParser::reportError (const int expatCode,
-			  const unsigned int lineNumber,
-			  const unsigned int columnNumber)
-{
-  int numTableEntries = sizeof(expatErrorTable)/sizeof(expatErrorTable[0]);
-
-  if (expatCode > 0 && expatCode < numTableEntries)
-  {
-    enum XMLParser::errorCodes code = expatErrorTable[expatCode];
-
-    if (mErrorLog)
-    {
-      getErrorLog()->add(XMLError(code,
-				  XMLParser::getErrorMessage(code),
-				  XMLError::Error,
-				  "", 
-				  lineNumber,
-				  columnNumber));
-    }
-    else
-    {
-      // We have no error log, but we can't gloss over this error.  Use the
-      // measure of last resort.
-
-      cerr << "XML parsing error at line and column numbers " 
-	   << lineNumber << ":" << columnNumber << ":\n"
-	   << XMLParser::getErrorMessage(code)
-	   << endl;
-    }
-  }
-  else
-  {
-    // The given code doesn't correspond to any known Expat error code.
-    // This must mean something is wrong with our code.
-
-    if (mErrorLog)
-    {
-      getErrorLog()->add(
-          XMLError(XMLParser::UnknownError,
-		   XMLParser::getErrorMessage(XMLParser::UnknownError),
-		   XMLError::Error,
-		   "",
-		   lineNumber,
-		   columnNumber));
-    }
-    else
-    {
-      cerr << "Internal error while parsing XML at line and column numbers "
-	   << lineNumber << ":" << columnNumber << ":\n"
-	   << XMLParser::getErrorMessage(XMLParser::UnknownError)
-	   << endl;
-    }
-  }
-}
 
 /** @endcond doxygen-libsbml-internal */

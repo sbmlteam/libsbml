@@ -42,23 +42,16 @@ END_TEST
 START_TEST (test_XMLErrorLog_add)
 {
   XMLErrorLog_t *log = XMLErrorLog_create();
-  const XMLError_t *error = XMLError_create();
+  XMLError_t* error = XMLError_create();
 
-  XMLErrorLog_add(log, error);
+  XMLErrorLog_add( log, error );
 
-  fail_unless(log != NULL);
-  fail_unless(XMLErrorLog_getNumErrors(log) == 1);
+  fail_unless( log != NULL );
+  fail_unless( XMLErrorLog_getNumErrors(log) == 1 );
 
-  XMLError_t *e1 = XMLErrorLog_getError(log,0);
+  fail_unless( XMLErrorLog_getError(log, 0) != NULL );
+  fail_unless( XMLErrorLog_getError(log, 2) == NULL );
 
-  fail_unless (e1 != NULL);
-
-  e1 = XMLErrorLog_getError(log,2);
-
-  fail_unless (e1 == NULL);
-
-
-  XMLError_free(e1);
   XMLErrorLog_free(log);
 }
 END_TEST

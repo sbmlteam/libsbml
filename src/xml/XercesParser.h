@@ -31,6 +31,7 @@
 
 #include <sbml/xml/XMLParser.h>
 #include <sbml/xml/XercesHandler.h>
+#include <sbml/xml/XMLError.h>
 
 
 /** @cond doxygen-libsbml-internal */
@@ -54,18 +55,6 @@ public:
    * Destroys this XercesParser.
    */
   virtual ~XercesParser ();
-
-
-  /**
-   * @return the current column position of the parser.
-   */
-  virtual unsigned int getColumn () const;
-
-
-  /**
-   * @return the current line position of the parser.
-   */
-  virtual unsigned int getLine () const;
 
 
   /**
@@ -116,12 +105,15 @@ public:
 
 
   /**
-   * Log or otherwise report the error from the parser indicated by the
-   * given integer code.
+   * @return the current column position of the parser.
    */
-  virtual void reportError (  const int code
-			    , const unsigned int lineNumber
-			    , const unsigned int columnNumber);
+  virtual unsigned int getColumn () const;
+
+
+  /**
+   * @return the current line position of the parser.
+   */
+  virtual unsigned int getLine () const;
 
 
 protected:
@@ -141,13 +133,24 @@ protected:
   /**
    * Creates a Xerces-C++ InputSource appropriate to the given XML content.
    */
-  static xercesc::InputSource* createSource (const char* content, bool isFile);
+  xercesc::InputSource* createSource (const char* content, bool isFile);
 
 
   xercesc::SAX2XMLReader*  mReader;
   xercesc::InputSource*    mSource;
   xercesc::XMLPScanToken   mToken;
   XercesHandler            mHandler;
+
+
+private:
+
+  /**
+   * Log or otherwise report the given error.
+   */
+  void reportError (  const XMLError::Code code
+		    , const std::string& extraMsg     = ""
+		    , const unsigned int lineNumber   = 0
+		    , const unsigned int columnNumber = 0 );
 
 };
 

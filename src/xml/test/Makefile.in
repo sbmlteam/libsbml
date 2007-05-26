@@ -45,14 +45,15 @@ thisdir   = src/xml/test
 # rules in `makefile-common-actions.mk' included at the end.
 
 test_sources =          \
+  TestCopyAndClone.cpp  \
   TestXMLAttributes.cpp \
+  TestXMLError.cpp      \
+  TestXMLErrorC.c       \
+  TestXMLErrorLog.c     \
   TestXMLNamespaces.c   \
-  TestXMLTriple.c   \
-  TestXMLToken.c   \
-  TestXMLNode.c   \
-  TestCopyAndClone.cpp \
-  TestXMLError.c       \
-  TestXMLErrorLog.c    \
+  TestXMLNode.c         \
+  TestXMLToken.c        \
+  TestXMLTriple.c       \
   TestRunner.c
 
 test_headers =

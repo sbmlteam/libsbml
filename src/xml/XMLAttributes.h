@@ -118,7 +118,7 @@ public:
    *
    * @return the index of the given attribute, or -1 if not present.
    */
-  int getIndex (const std::string name) const;
+  int getIndex (const std::string& name) const;
 
 
   /**
@@ -368,6 +368,15 @@ public:
   void write (XMLOutputStream& stream) const;
 
 
+  /**
+   * (Optional) Sets the log used when logging attributeTypeError() and
+   * attributeRequired() errors.
+   *
+   * @param name string, the name of the element.
+   */
+  void setErrorLog (XMLErrorLog* log);
+
+
 #ifndef SWIG
 
   /**
@@ -389,13 +398,45 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
+  /**
+   * Used by attributeTypeError().
+   */ 
+  enum DataType { Boolean = 0, Double = 1, Integer = 2 };
+
+
+  /**
+   * Logs an attribute datatype error.
+   *
+   * @param name  name of the attribute
+   * @param type  the datatype of the attribute value.
+   * @param log   the XMLErrorLog where the error should be logged
+   */
+  void attributeTypeError (  const std::string& name
+			   , DataType           type
+			   , XMLErrorLog*       log ) const;
+
+
+  /**
+   * Logs an error indicating a required attribute was missing.
+   * Used internally.
+   * 
+   * @param name  name of the attribute
+   * @param log   the XMLErrorLog where the error should be logged
+   */
+  void attributeRequiredError ( const std::string& name, XMLErrorLog* log ) const;
+
+
   std::vector<XMLTriple>    mNames;
   std::vector<std::string>  mValues;
+
+  std::string               mElementName;
+  XMLErrorLog*              mLog;
 
   /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
+
 
 
 #ifndef SWIG

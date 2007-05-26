@@ -30,6 +30,7 @@
 #include <expat.h>
 
 #include <sbml/xml/XMLParser.h>
+#include <sbml/xml/XMLError.h>
 #include <sbml/xml/ExpatHandler.h>
 
 
@@ -54,18 +55,6 @@ public:
    * Destroys this ExpatParser.
    */
   virtual ~ExpatParser ();
-
-
-  /**
-   * @return the current column position of the parser.
-   */
-  virtual unsigned int getColumn () const;
-
-
-  /**
-   * @return the current line position of the parser.
-   */
-  virtual unsigned int getLine () const;
 
 
   /**
@@ -116,12 +105,15 @@ public:
 
 
   /**
-   * Log or otherwise report the error from the parser indicated by the
-   * given integer code.
+   * @return the current column position of the parser.
    */
-  virtual void reportError (  const int code
-			    , const unsigned int lineNumber
-			    , const unsigned int columnNumber);
+  virtual unsigned int getColumn () const;
+
+
+  /**
+   * @return the current line position of the parser.
+   */
+  virtual unsigned int getLine () const;
 
 
 protected:
@@ -136,6 +128,18 @@ protected:
   ExpatHandler  mHandler;
   void*         mBuffer;
   XMLBuffer*    mSource;
+
+
+private:
+
+  /**
+   * Log or otherwise report the given error.
+   */
+  void reportError (  const XMLError::Code code
+		    , const std::string& extraMsg     = ""
+		    , const unsigned int lineNumber   = 0
+		    , const unsigned int columnNumber = 0 );
+
 };
 
 

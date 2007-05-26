@@ -63,25 +63,6 @@ public:
 
 
   /**
-   * @return the current column position of the parser.
-   */
-  virtual unsigned int getColumn () const = 0;
-
-
-  /**
-   * @return the current line position of the parser.
-   */
-  virtual unsigned int getLine () const = 0;
-
-
-  /**
-   * @return an XMLErrorLog which can be used to log XML parse errors and
-   * other validation errors (and messages).
-   */
-  XMLErrorLog* getErrorLog ();
-
-
-  /**
    * Parses XML content in one fell swoop.
    *
    * If isFile is true (default), content is treated as a filename from
@@ -129,39 +110,22 @@ public:
 
 
   /**
-   * Canonical error codes returned for low-level XML parser errors.
-   * This is an abstraction of errors from the multiple parsers (Xerces,
-   * Expat, libxml2) supported by libSBML.
+   * @return the current column position of the parser.
    */
-  enum errorCodes
-  {
-      NoError                       = 0
-    , ErrorNoXMLDecl                = 1
-    , ErrorBadXMLDecl               = 2
-    , ErrorInvalidChar              = 3
-    , ErrorNotWellFormed            = 4
-    , ErrorUnclosedToken            = 5
-    , ErrorInvalidConstruct         = 6
-    , ErrorTagMismatch              = 7
-    , ErrorDupAttribute             = 8
-    , ErrorBadDOCTYPE               = 9
-    , ErrorUndefinedEntity          = 11
-    , ErrorBadProcessingInstruction = 17
-    , ErrorBadPrefixDefinition      = 27
-    , ErrorBadPrefixValue           = 28
-    , ErrorOutOfMemory              = 9998
-    // Make sure this is the last and highest-numbered item:
-    , UnknownError                  = 9999
-  };
+  virtual unsigned int getColumn () const = 0;
 
 
   /**
-   * Log or otherwise report the error from the parser indicated by the
-   * given integer code.
+   * @return the current line position of the parser.
    */
-  virtual void reportError (  const int code
-			    , const unsigned int lineNumber
-			    , const unsigned int columnNumber) = 0;
+  virtual unsigned int getLine () const = 0;
+
+
+  /**
+   * @return an XMLErrorLog which can be used to log XML parse errors and
+   * other validation errors (and messages).
+   */
+  XMLErrorLog* getErrorLog ();
 
 
   /**
@@ -183,15 +147,7 @@ protected:
   XMLParser ();
 
 
-  /**
-   * Returns a string message given an error code taken from the
-   * 'errorCodes' enumeration.
-   */
-  const char *getErrorMessage (enum errorCodes code);
-
-
   XMLErrorLog* mErrorLog;
-  bool         mOwnLog;
 
   /** @endcond doxygen-libsbml-internal */
 };

@@ -44,12 +44,6 @@ class LIBLAX_EXTERN XMLErrorLog
 public:
 
   /**
-   * Used by attributeTypeError().
-   */ 
-  enum DataType { Boolean = 0, Double = 1, Integer = 2 };
-
-
-  /**
    * Creates a new empty XMLErrorLog.
    */
   XMLErrorLog ();
@@ -79,23 +73,6 @@ public:
 
 
   /**
-   * Logs an attribute datatype error.
-   *
-   * @param  name  Name of the attribute
-   * @param  type  The datatype of the attribute value.
-   */
-  void attributeTypeError (const std::string& name, DataType type);
-
-
-  /**
-   * Logs an error indicating a required attribute was missing.
-   *
-   * @param  name  Name of the attribute
-   */
-  void attributeRequired (const std::string& name);
-
-
-  /**
    * Returns the nth XMLError in this log.
    *
    * @param n unsigned int number of the error to retrieve.
@@ -114,22 +91,15 @@ public:
 
 
   /**
-   * Sets the element name to use when logging attributeTypeError() and
-   * attributeRequired() errors (optional).
-   *
-   * @param name string, the name of the element.
-   */
-  void setElement (const std::string& name);
-
-
-  /**
-   * Sets the XMLParser for this XMLErrorLog.
+   * Sets the XMLParser associated with this XMLErrorLog.
    *
    * The XMLParser will be used to obtain the current line and column
-   * number as XMLErrors are logged (if they have a line and column number
-   * of zero).
+   * number for XMLError objects that lack line and column numbers when
+   * they are logged.  This method is used by libSBML's internal XML
+   * parsing code and probably has no useful reason to be called from
+   * application programs.
    *
-   * @param p XMLParser, the parser to set.
+   * @param p XMLParser, the parser to use
    */
   void setParser (const XMLParser* p);
 
@@ -138,16 +108,12 @@ protected:
   /** @cond doxygen-libsbml-internal */
 
   std::vector<XMLError>  mErrors;
-  std::string            mElement;
   const XMLParser*       mParser;
 
   /** @endcond doxygen-libsbml-internal */
 };
 
 #endif  /* __cplusplus */
-
-
-typedef enum { Boolean = 0, Double = 1, Integer = 2 } XMLErrorLog_DataType;
 
 
 #ifndef SWIG
@@ -175,18 +141,6 @@ XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error);
 
 
 LIBLAX_EXTERN
-void
-XMLErrorLog_attributeTypeError (XMLErrorLog_t *log,
-				const char *name, 
-				XMLErrorLog_DataType type);
-
-
-LIBLAX_EXTERN
-void
-XMLErrorLog_attributeRequired (XMLErrorLog_t *log, const char *name);
-
-
-LIBLAX_EXTERN
 const XMLError_t *
 XMLErrorLog_getError (const XMLErrorLog_t *log, unsigned int n);
 
@@ -195,10 +149,6 @@ LIBLAX_EXTERN
 unsigned int
 XMLErrorLog_getNumErrors (const XMLErrorLog_t *log);
 
-
-LIBLAX_EXTERN
-void
-XMLErrorLog_setElement (XMLErrorLog_t *log, const char *name);
 
 
 END_C_DECLS

@@ -9,8 +9,11 @@
 
 #include <limits>
 
+#include <iostream>
 #include <check.h>
 #include <XMLAttributes.h>
+#include <string>
+
 
 /** @cond doxygen-ignored */
 

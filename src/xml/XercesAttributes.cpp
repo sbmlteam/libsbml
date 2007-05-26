@@ -38,7 +38,8 @@ using namespace xercesc;
  * Creates a new XMLAttributes set that wraps the given "raw" Xerces-C++
  * Attributes set.
  */
-XercesAttributes::XercesAttributes (const Attributes& attrs)
+XercesAttributes::XercesAttributes (const Attributes& attrs,
+				    const string elementName)
 {
   unsigned int size = attrs.getLength();
 
@@ -64,6 +65,8 @@ XercesAttributes::XercesAttributes (const Attributes& attrs)
       mValues.push_back( value );
     }
   }
+
+  mElementName = elementName;
 }
 
 

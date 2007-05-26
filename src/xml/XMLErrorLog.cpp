@@ -62,7 +62,7 @@ XMLErrorLog::add (const XMLError& error)
   if (error.getLine() == 0 && error.getColumn() == 0)
   {
     unsigned int line, column;
-    if(mParser!=NULL)
+    if (mParser != NULL)
     {
       try
       {
@@ -80,6 +80,11 @@ XMLErrorLog::add (const XMLError& error)
       line = 1;
       column = 1;
     }
+
+    // Can't modify 'error' directly because it's const, and the const
+    // declaration is needed to allow add() to be called in certain
+    // contexts.  The following cheats the const, in effect, by getting
+    // back the object after it's been added to the mErrors vector.
 
     XMLError& e = mErrors.back();
 
@@ -104,70 +109,6 @@ XMLErrorLog::add (const std::list<XMLError>& errors)
 
 
 /**
- * Logs an attribute format error.
- *
- * @param  name  Name of the attribute
- * @param  type  The datatype of the attribute value.
- */
-void
-XMLErrorLog::attributeTypeError (  const std::string&    name
-                                 , XMLErrorLog::DataType type )
-{
-  ostringstream message;
-
-  message << "The ";
-
-  if ( !mElement.empty() ) message << mElement << ' ';
-  message << name;
-
-  switch (type)
-  {
-    case Boolean:
-      message <<
-        " attribute must have a value of either \"true\" or \"false\""
-        " (all lowercase).  The numbers \"1\" (true) and \"0\" (false) are"
-        " also allowed, but not preferred.  For more information, see:"
-        " http://www.w3.org/TR/xmlschema-2/#boolean.";
-      break;
-
-    case Double:
-      message <<
-        " attribute must be a double (decimal number).  To represent"
-        " infinity use \"INF\", negative infinity use \"-INF\", and"
-        " not-a-number use \"NaN\".  For more information, see:"
-        " http://www.w3.org/TR/xmlschema-2/#double.";
-      break;
-
-    case Integer:
-      message <<
-        " attribute must be an integer (whole number).  For more"
-        " information, see: http://www.w3.org/TR/xmlschema-2/#integer.";
-      break;
-  }
-
-  add( XMLError(100, message.str()) );
-}
-
-
-/**
- * Logs an error indicating a required attribute was missing.
- *
- * @param  name  Name of the attribute
- */
-void
-XMLErrorLog::attributeRequired (const std::string& name)
-{
-  ostringstream message;
-
-  if ( !mElement.empty() ) message << mElement << ' ';
-
-  message << name << " attribute is required.";
-
-  add( XMLError(101, message.str()) );
-}
-
-
-/**
  * @return the nth XMLError in this log.
  */
 const XMLError*
@@ -184,17 +125,6 @@ unsigned int
 XMLErrorLog::getNumErrors () const
 {
   return mErrors.size();
-}
-
-
-/**
- * Sets the element name to use when logging attributeTypeError() and
- * attributeRequired() errors (optional).
- */
-void
-XMLErrorLog::setElement (const std::string& name)
-{
-  mElement = name;
 }
 
 
@@ -256,37 +186,6 @@ XMLErrorLog_add (XMLErrorLog_t *log, const XMLError_t *error)
 
 
 /**
- * Logs an attribute datatype error.
- *
- * @param log XMLErrorLog_t, the error log to be added to.
- * @param  name  Name of the attribute
- * @param  type  The datatype of the attribute value.
- */
-LIBLAX_EXTERN
-void
-XMLErrorLog_attributeTypeError (XMLErrorLog_t *log,
-				const char *name, 
-				XMLErrorLog_DataType type)
-{
-  log->attributeTypeError(name, static_cast<XMLErrorLog::DataType>(type));
-}
-
-
-/**
- * Logs an error indicating a required attribute was missing.
- *
- * @param log XMLErrorLog_t, the error log to be added to.
- * @param  name  Name of the attribute
- */
-LIBLAX_EXTERN
-void
-XMLErrorLog_attributeRequired (XMLErrorLog_t *log, const char *name)
-{
-  log->attributeRequired(name);
-}
-
-
-/**
  * Returns the nth XMLError_t in this log.
  *
  * @param log XMLErrorLog_t, the error log to be queried.
@@ -316,20 +215,6 @@ XMLErrorLog_getNumErrors (const XMLErrorLog_t *log)
   return log->getNumErrors();
 }
 
-
-/**
- * Sets the element name to use when logging attributeTypeError() and
- * attributeRequired() errors (optional).
- *
- * @param log XMLErrorLog_t, the error log whose element name is to be set.
- * @param name string, the name of the element.
- */
-LIBLAX_EXTERN
-void
-XMLErrorLog_setElement (XMLErrorLog_t *log, const char *name)
-{
-  log->setElement(name);
-}
 
 
 /** @endcond doxygen-c-only */

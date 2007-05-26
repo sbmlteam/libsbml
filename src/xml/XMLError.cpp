@@ -34,24 +34,253 @@ using namespace std;
 /** @endcond doxygen-ignored */
 
 
-/**
- * Creates a new XMLError to report that something occurred at the given
- * line and column.  Each XMLError also has an identification number, a
- * category, and a severity level associated with it.
- */
-XMLError::XMLError (  unsigned int   id
-                    , const std::string&  message
-                    , Severity       severity
-                    , const std::string&  category
-                    , unsigned int   line
-                    , unsigned int   column ) :
-   mId      ( id       )
- , mMessage ( message  )
- , mSeverity( severity )
- , mCategory( category )
- , mLine    ( line     )
- , mColumn  ( column   )
+static const xmlErrorTableEntry errorTable[] =
 {
+  // 0
+  { XMLError::UnknownError, XMLError::Internal, XMLError::Fatal,
+    "Unrecognized error encountered internally" },
+
+
+  // System diagnostics:
+
+  // 0001
+  { XMLError::OutOfMemory, XMLError::System, XMLError::Fatal,
+    "Out of memory" },
+
+  // 0002
+  { XMLError::FileUnreadable, XMLError::System, XMLError::Error,
+    "File unreadable" },
+
+  // 0003
+  { XMLError::FileUnwritable, XMLError::System, XMLError::Error,
+    "File unwritable" },
+
+  // 0004
+  { XMLError::FileOperationError, XMLError::System, XMLError::Error,
+    "Error encountered while attempting file operation" },
+
+  // 0005
+  { XMLError::NetworkAccessError, XMLError::System, XMLError::Error,
+    "Network access error" },
+
+
+  // Internal diagnostics:
+
+  // 0101
+  { XMLError::InternalParserError, XMLError::Internal, XMLError::Fatal,
+    "Internal XML parser state error" },
+
+  // 0102
+  { XMLError::UnrecognizedParserCode, XMLError::Internal, XMLError::Fatal,
+    "XML parser returned an unrecognized error code" },
+
+  // 0102
+  { XMLError::TranscoderError, XMLError::Internal, XMLError::Fatal,
+    "Character transcoder error" },
+
+
+  // Diagnostics about XML content:
+
+  // 1001
+  { XMLError::MissingXMLDecl, XMLError::XML, XMLError::Error,
+    "Missing XML declaration at beginning of XML input" },
+
+  // 1002
+  { XMLError::MissingXMLEncoding, XMLError::XML, XMLError::Error,
+    "Missing encoding attribute in XML declaration" },
+
+  // 1003
+  { XMLError::BadXMLDecl, XMLError::XML, XMLError::Error,
+    "Invalid, malformed or unrecognized XML declaration" },
+
+  // 1004
+  { XMLError::BadDOCTYPE, XMLError::XML, XMLError::Error,
+    "Invalid, malformed or unrecognized XML DOCTYPE declaration" },
+
+  // 1005
+  { XMLError::InvalidChar, XMLError::XML, XMLError::Error,
+    "Invalid character in XML content" },
+
+  // 1006
+  { XMLError::NotWellFormed, XMLError::XML, XMLError::Error,
+    "Badly formed XML" },
+
+  // 1007
+  { XMLError::UnclosedToken, XMLError::XML, XMLError::Error,
+    "Unclosed token" },
+
+  // 1008
+  { XMLError::InvalidConstruct, XMLError::XML, XMLError::Error,
+    "XML construct is invalid or not permitted" },
+
+  // 1009
+  { XMLError::TagMismatch, XMLError::XML, XMLError::Error,
+    "Element tag mismatch or missing tag" },
+
+  // 1010
+  { XMLError::DuplicateAttribute, XMLError::XML, XMLError::Error,
+    "Duplicate attribute" },
+
+  // 1011
+  { XMLError::UndefinedEntity, XMLError::XML, XMLError::Error,
+    "Undefined XML entity" },
+
+  // 1012
+  { XMLError::BadProcessingInstruction, XMLError::XML, XMLError::Error,
+    "Invalid, malformed or unrecognized XML processing instruction" },
+
+  // 1013
+  { XMLError::BadPrefix, XMLError::XML, XMLError::Error,
+    "Invalid XML Namespace prefix" },
+
+  // 1014
+  { XMLError::BadPrefixValue, XMLError::XML, XMLError::Error,
+    "Invalid XML prefix value" },
+
+  // 1015
+  { XMLError::MissingRequiredAttribute, XMLError::XML, XMLError::Error,
+    "Required attribute is missing" },
+
+  // 1016
+  { XMLError::AttributeTypeMismatch, XMLError::XML, XMLError::Error,
+    "Data type mismatch for attribute value" },
+
+  // 1017
+  { XMLError::BadUTF8Content, XMLError::XML, XMLError::Error,
+    "Invalid UTF8 content" },
+
+  // 1018
+  { XMLError::MissingAttributeValue, XMLError::XML, XMLError::Error,
+    "Missing or improperly formed attribute value" },
+
+  // 1019
+  { XMLError::BadAttributeValue, XMLError::XML, XMLError::Error,
+    "Invalid or unrecognizable attribute value" },
+
+  // 1020
+  { XMLError::BadAttribute, XMLError::XML, XMLError::Error,
+    "Invalid, unrecognized or malformed attribute" },
+
+  // 1021
+  { XMLError::UnrecognizedElement, XMLError::XML, XMLError::Error,
+    "Element either not recognized or not permitted" },
+
+  // 1022
+  { XMLError::BadXMLComment, XMLError::XML, XMLError::Error,
+    "Badly formed XML comment" },
+
+  // 1023
+  { XMLError::BadXMLDeclLocation, XMLError::XML, XMLError::Error,
+    "XML declaration not permitted in this location" },
+
+  // 1024
+  { XMLError::UnexpectedEOF, XMLError::XML, XMLError::Error,
+    "Reached end of input unexpectedly" },
+
+  // 1025
+  { XMLError::BadXMLIDValue, XMLError::XML, XMLError::Error,
+    "Value is invalid for XML ID, or has already been used" },
+
+  // 1026
+  { XMLError::BadXMLIDRef, XMLError::XML, XMLError::Error,
+    "XML ID value was never declared" },
+
+  // 1027
+  { XMLError::UninterpretableContent, XMLError::XML, XMLError::Error,
+    "Unable to interpret content" },
+
+  // 1028
+  { XMLError::BadDocumentStructure, XMLError::XML, XMLError::Error,
+    "Bad XML document structure" },
+
+  // 1029
+  { XMLError::InvalidAfterContent, XMLError::XML, XMLError::Error,
+    "Encountered invalid content after expected content" },
+
+  // 1031
+  { XMLError::ExpectedQuotedString, XMLError::XML, XMLError::Error,
+    "Expected to find a quoted string" },
+
+  // 1032
+  { XMLError::EmptyValueNotPermitted, XMLError::XML, XMLError::Error,
+    "An empty value is not permitted in this context" },
+
+  // 1033
+  { XMLError::BadNumber, XMLError::XML, XMLError::Error,
+    "Invalid or unrecognized number" },
+
+  // 1034
+  { XMLError::BadColon, XMLError::XML, XMLError::Error,
+    "Colon characters are invalid in this context" },
+
+  // 1035
+  { XMLError::MissingElements, XMLError::XML, XMLError::Error,
+    "One or more expected elements are missing" },
+
+  // 1036
+  { XMLError::EmptyXML, XMLError::XML, XMLError::Error,
+    "Main XML content is empty" },
+
+};
+
+
+/*
+ * XMLErrorLog will check if line & column = 0 and attempt to fill in
+ * the line and column by consulting the parser.  This constructor
+ * purposefully doesn't do that.
+ */
+XMLError::XMLError (  const int id
+                    , const std::string& details
+                    , const unsigned int line
+		    , const unsigned int column
+                    , const unsigned int severity
+                    , const unsigned int category ) :
+    mId    ( id     )
+  , mLine  ( line   )
+  , mColumn( column )
+{
+  // Check if the given id is one we have in our table of error codes.  If
+  // it is, fill in the fields of the error object with the appropriate
+  // content.  If it's not in the table, take the content as-is.
+
+  if ( id >= 0 && id < XMLError::ErrorCodesUpperBound )
+  {
+    unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
+
+    for ( unsigned int i = 0; i < tableSize; i++ )
+    {
+      if ( errorTable[i].code == id )
+      {
+	mMessage  = errorTable[i].message;
+
+	if ( !details.empty() )
+	{
+	  mMessage.append(": ");
+	  mMessage.append(details);
+	}
+
+	mSeverity = errorTable[i].severity;
+	mCategory = errorTable[i].category;
+	return;
+      }
+    }
+
+    // The id is in the range of error numbers that are supposed to be in
+    // the XML layer, but it's NOT in our table.  This is an internal error.
+    // Unfortunately, we don't have an error log or anywhere to report it
+    // except the measure of last resort: the standard error output.
+    
+    cerr << "Internal error: unknown error code '" << id
+	 << "' encountered while processing error" << endl;
+  }
+
+  // It's not an error code in the XML layer, so assume the caller has
+  // filled in all the relevant additional data.  (If they didn't, the
+  // following merely assigns the defaults.)
+
+  mMessage  = details;
+  mSeverity = severity;
+  mCategory = category;
 }
 
 
@@ -66,7 +295,7 @@ XMLError::~XMLError ()
 /**
  * @return the id of this XMLError.
  */
-unsigned int
+const int
 XMLError::getId () const
 {
   return mId;
@@ -108,7 +337,7 @@ XMLError::getColumn () const
  * correspond to those defined in the XML specification (with the addition
  * of Info for informational messages).
  */
-XMLError::Severity
+unsigned int
 XMLError::getSeverity () const
 {
   return mSeverity;
@@ -122,7 +351,7 @@ XMLError::getSeverity () const
  * id conflicts by uniquely identifying an XMLError by both id and
  * category.
  */
-const string&
+unsigned int
 XMLError::getCategory () const
 {
   return mCategory;
@@ -171,6 +400,46 @@ XMLError::isFatal () const
 
 
 /**
+ * Predicate returning @c true or @c false depending on whether 
+ * this XMLError resulted from the operating system.
+ *
+ * @return @c true or @c false
+ */
+bool
+XMLError::isSystem () const
+{
+  return (mCategory == System);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether this
+ * XMLError resulted from a problem at the raw XML level (e.g., an XML
+ * syntax error).
+ *
+ * @return @c true or @c false
+ */
+bool
+XMLError::isXML () const
+{
+  return (mCategory == XML);
+}
+
+
+/**
+ * Predicate returning @c true or @c false depending on whether this
+ * XMLError resulted from an internal program error.
+ *
+ * @return @c true or @c false
+ */
+bool
+XMLError::isInternal () const
+{
+  return (mCategory == Internal);
+}
+
+
+/**
  * Sets the line number where this XMLError occurred.
  */
 void
@@ -187,6 +456,29 @@ void
 XMLError::setColumn (unsigned int column)
 {
   mColumn = column;
+}
+
+
+/**
+ * Given an XMLError::Code, return a copy of the error text.
+ * 
+ * @return the message text 
+ */
+const string
+XMLError::getStandardMessage (const XMLError::Code code)
+{
+  string msg;
+
+  if ( code >= 0 && code < XMLError::ErrorCodesUpperBound )
+  {
+    unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
+
+    for ( unsigned int i = 0; i < tableSize; i++ )
+      if ( errorTable[i].code == code )
+	msg.append(errorTable[i].message);
+  }
+  
+  return msg;
 }
 
 
@@ -221,7 +513,10 @@ XMLError_create (void)
 
 /**
  * Creates a new XMLError with the identification number
- * and message set.
+ * and detailed message set.
+ *
+ * If the identifier is < 10000, it must be one of the predefined XML layer
+ * error codes.
  *
  * @param id an unsigned int, the identification number of the error.
  * @param message a string, the error message.
@@ -297,7 +592,7 @@ XMLError_free(XMLError_t* error)
  * @return the id of this XMLError.
  */
 LIBLAX_EXTERN
-unsigned int
+int
 XMLError_getId (const XMLError_t *error)
 {
   return error->getId();
@@ -367,10 +662,10 @@ XMLError_getColumn (const XMLError_t *error)
  * @return the severity of this XMLError.
  */
 LIBLAX_EXTERN
-XMLError_Severity
+unsigned int
 XMLError_getSeverity (const XMLError_t *error)
 {
-  return static_cast<XMLError_Severity>( error->getSeverity() );
+  return error->getSeverity();
 }
 
 
@@ -386,13 +681,10 @@ XMLError_getSeverity (const XMLError_t *error)
  * @return the category of this XMLError.
  */
 LIBLAX_EXTERN
-const char *
+unsigned int
 XMLError_getCategory (const XMLError_t *error)
 {
-  const std::string c = error->getCategory();
-
-
-  return c.empty() ? 0 : c.c_str();
+  return error->getCategory();
 }
 
 

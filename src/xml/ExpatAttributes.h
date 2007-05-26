@@ -42,7 +42,9 @@ public:
    * The Expat attribute names are assumed to be in namespace triplet form
    * separated by sepchar.
    */
-  ExpatAttributes (const XML_Char** attrs, const XML_Char sepchar = ' ');
+  ExpatAttributes (const XML_Char** attrs,
+		   const XML_Char* elementName,
+		   const XML_Char sepchar = ' ');
 
 
   /**

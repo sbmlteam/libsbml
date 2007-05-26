@@ -41,7 +41,9 @@ public:
   /**
    * Creates a new XMLAttributes set from the given "raw" LibXML attributes.
    */
-  LibXMLAttributes (const xmlChar** attributes, const unsigned int& size);
+  LibXMLAttributes (  const xmlChar** attributes
+		    , const xmlChar*  elementName
+		    , const unsigned int& size);
 
 
   /**

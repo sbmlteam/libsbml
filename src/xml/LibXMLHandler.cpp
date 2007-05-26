@@ -64,7 +64,8 @@ x_start_element (  void*           user_data
                  , int             num_defaulted
                  , const xmlChar** attributes )
 {
-  const LibXMLAttributes attrs(attributes, num_attributes + num_defaulted);
+  const LibXMLAttributes attrs(attributes, localname,
+			       num_attributes + num_defaulted);
   const LibXMLNamespaces xmlns(namespaces, num_namespaces);
 
   static_cast<LibXMLHandler*>(user_data)->
@@ -78,6 +79,7 @@ x_end_document (void* user_data)
   static_cast<LibXMLHandler*>(user_data)->endDocument();
 }
 
+
 static void
 x_end_element (  void*           user_data
                , const xmlChar*  localname
@@ -87,17 +89,20 @@ x_end_element (  void*           user_data
   static_cast<LibXMLHandler*>(user_data)->endElement(localname, prefix, uri);
 }
 
+
 static void
 x_characters (void* user_data, const xmlChar* chars, int length)
 {
   static_cast<LibXMLHandler*>(user_data)->characters(chars, length);
 }
 
+
 static xmlEntityPtr
 x_get_entity (void* user_data, const xmlChar* name)
 {
   return xmlGetPredefinedEntity(name);
 }
+
 
 static void
 x_set_locator (void* user_data, xmlSAXLocator* locator)
