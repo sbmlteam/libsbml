@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 276 };
+BEGIN { plan tests => 237 };
 
 use LibSBML;
 use strict;
@@ -15,8 +15,8 @@ my $Rl = 0; # counter for Rules
 my $m = new LibSBML::Model('repressilator', '');
 ok($m->getTypeCode() == $LibSBML::SBML_MODEL);
 ok($m->getMetaId(), '');
-ok($m->getNotes(), '');
-ok($m->getAnnotation(), '');
+ok($m->getNotes(), undef);
+ok($m->getAnnotation(), undef);
 ok($m->isSetId(), 1);
 ok($m->getId(), 'repressilator');
 ok($m->isSetName(), 0);
@@ -31,8 +31,8 @@ ok($m->getNumReactions(), 0);
 $m = new LibSBML::Model('', 'The Repressilator Model');
 ok($m->getTypeCode() == $LibSBML::SBML_MODEL);
 ok($m->getMetaId(), '');
-ok($m->getNotes(), '');
-ok($m->getAnnotation(), '');
+ok($m->getNotes(), undef);
+ok($m->getAnnotation(), undef);
 ok($m->isSetId(), 0);
 ok($m->getId(), '');
 ok($m->isSetName(), 1);
@@ -47,8 +47,8 @@ ok($m->getNumReactions(), 0);
 $m = new LibSBML::Model();
 ok($m->getTypeCode() == $LibSBML::SBML_MODEL);
 ok($m->getMetaId(), '');
-ok($m->getNotes(), '');
-ok($m->getAnnotation(), '');
+ok($m->getNotes(), undef);
+ok($m->getAnnotation(), undef);
 ok($m->isSetId(), 0);
 ok($m->getId(), '');
 ok($m->isSetName(), 0);
@@ -98,7 +98,6 @@ ok($m->getFunctionDefinition(0)->getTypeCode()
 ok($m->getFunctionDefinition(1)->getTypeCode()
    == $LibSBML::SBML_FUNCTION_DEFINITION);
 ok($m->getFunctionDefinition(2),  undef);
-ok($m->getFunctionDefinition(-2), undef);
 
 # add/get FunctionDefinitionById
 $m->addFunctionDefinition(new LibSBML::FunctionDefinition('sin'));
@@ -126,7 +125,6 @@ ok($m->getUnitDefinition(1)->getName(), 'mmls');
 ok($m->getUnitDefinition(2)->getTypeCode() == $LibSBML::SBML_UNIT_DEFINITION);
 ok($m->getUnitDefinition(2)->getName(), 'volume');
 ok($m->getUnitDefinition(3),  undef);
-ok($m->getUnitDefinition(-3), undef);
 
 # get UnitDefinitionById
 ok($m->getUnitDefinition('volume')->getName(),
@@ -174,7 +172,6 @@ ok($m->getCompartment(2)->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
 ok($m->getCompartment(2)->getId(),   'B');
 ok($m->getCompartment(2)->getName(), 'A');
 ok($m->getCompartment(3), undef);
-ok($m->getCompartment(-3), undef);
 
 # get CompartmentById
 ok($m->getCompartment('A')->getName(), $m->getCompartment(2)->getId());
@@ -204,7 +201,6 @@ ok($m->getSpecies(2)->getTypeCode() == $LibSBML::SBML_SPECIES);
 ok($m->getSpecies(2)->getId(), 'Glucose_6_P');
 ok($m->getSpecies(2)->getName(), 'Glucose');
 ok($m->getSpecies(3),  undef);
-ok($m->getSpecies(-3), undef);
 
 # get SpeciesById
 ok($m->getSpecies('Glucose')->getName(), $m->getSpecies(2)->getId());
@@ -259,7 +255,6 @@ ok($m->getParameter(2)->getTypeCode() == $LibSBML::SBML_PARAMETER);
 ok($m->getParameter(2)->getId(), 'Km2');
 ok($m->getParameter(2)->getName(), 'Km1');
 ok($m->getParameter(3),  undef);
-ok($m->getParameter(-3), undef);
 
 # get ParameterById
 ok($m->getParameter('Km1')->getName(), $m->getParameter(2)->getId());
@@ -282,7 +277,6 @@ ok($m->getRule($Rl-1)->getTypeCode()
 ok($m->getRule($Rl-2)->getTypeCode()
    == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($m->getRule($Rl),  undef);
-ok($m->getRule(-$Rl), undef);
 
 # create RateRule
 my $rr = $m->createRateRule(); $Rl++;
@@ -298,7 +292,6 @@ ok($m->getRule($Rl-1)->getTypeCode()
 ok($m->getRule($Rl-2)->getTypeCode()
    == $LibSBML::SBML_RATE_RULE);
 ok($m->getRule($Rl),  undef);
-ok($m->getRule(-$Rl), undef);
 
 # create AlgebraicRule
 $ar = $m->createAlgebraicRule(); $Rl++;
@@ -314,63 +307,6 @@ ok($m->getRule($Rl-1)->getTypeCode()
 ok($m->getRule($Rl-2)->getTypeCode()
    == $LibSBML::SBML_ALGEBRAIC_RULE);
 ok($m->getRule($Rl),  undef);
-ok($m->getRule(-$Rl), undef);
-
-# create CompartmentVolumeRule
-my $var = $m->createCompartmentVolumeRule(); $Rl++;
-$var->setFormula('0.10 * t');
-ok($var->getTypeCode() == $LibSBML::SBML_COMPARTMENT_VOLUME_RULE);
-ok($m->getNumRules(), $Rl);
-ok($m->getRule($Rl-1)->getTypeCode()
-   == $LibSBML::SBML_COMPARTMENT_VOLUME_RULE);
-ok($m->getRule($Rl-1)->getFormula(), '0.10 * t');
-
-# add/get CompartmentVolumeRule
-$m->addRule(new LibSBML::CompartmentVolumeRule); $Rl++;
-ok($m->getNumRules(), $Rl);
-ok($m->getRule($Rl-1)->getTypeCode()
-   == $LibSBML::SBML_COMPARTMENT_VOLUME_RULE);
-ok($m->getRule($Rl-2)->getTypeCode()
-   == $LibSBML::SBML_COMPARTMENT_VOLUME_RULE);
-ok($m->getRule($Rl),  undef);
-ok($m->getRule(-$Rl), undef);
-
-# create ParameterRule
-my $pr = $m->createParameterRule(); $Rl++;
-$pr->setFormula('k3/k2');
-ok($pr->getTypeCode() == $LibSBML::SBML_PARAMETER_RULE);
-ok($m->getNumRules(), $Rl);
-ok($m->getRule($Rl-1)->getTypeCode() == $LibSBML::SBML_PARAMETER_RULE);
-ok($m->getRule($Rl-1)->getFormula(), 'k3/k2');
-
-# add/get ParameterRule
-$m->addRule(new LibSBML::ParameterRule); $Rl++;
-ok($m->getNumRules(), $Rl);
-ok($m->getRule($Rl-1)->getTypeCode()
-   == $LibSBML::SBML_PARAMETER_RULE);
-ok($m->getRule($Rl-2)->getTypeCode()
-   == $LibSBML::SBML_PARAMETER_RULE);
-ok($m->getRule($Rl),  undef);
-ok($m->getRule(-$Rl), undef);
-
-# create SpeciesConcentrationRule
-my $scr = $m->createSpeciesConcentrationRule(); $Rl++;
-$scr->setFormula('k * t/(1 + k)');
-ok($scr->getTypeCode() == $LibSBML::SBML_SPECIES_CONCENTRATION_RULE);
-ok($m->getNumRules(), $Rl);
-ok($m->getRule($Rl-1)->getTypeCode()
-   == $LibSBML::SBML_SPECIES_CONCENTRATION_RULE);
-ok($m->getRule($Rl-1)->getFormula(),'k * t/(1 + k)');
-
-# add/get SpeciesConcentrationRule
-$m->addRule(new LibSBML::SpeciesConcentrationRule); $Rl++;
-ok($m->getNumRules(), $Rl);
-ok($m->getRule($Rl-1)->getTypeCode()
-   == $LibSBML::SBML_SPECIES_CONCENTRATION_RULE);
-ok($m->getRule($Rl-2)->getTypeCode()
-   == $LibSBML::SBML_SPECIES_CONCENTRATION_RULE);
-ok($m->getRule($Rl),  undef);
-ok($m->getRule(-$Rl), undef);
 
 # create Reaction
 my $r = $m->createReaction(); $Rk++;
@@ -395,7 +331,6 @@ ok($m->getReaction($Rk-2)->getTypeCode()
 ok($m->getReaction($Rk-2)->getId(), 'reaction_1');
 ok($m->getReaction($Rk-2)->getName(), 'reaction_2');
 ok($m->getReaction($Rk),  undef);
-ok($m->getReaction(-$Rk), undef);
 
 # get ReactionById
 ok($m->getReaction('reaction_1')->getName(), $m->getReaction(2)->getId());
@@ -463,12 +398,6 @@ ok($r->getKineticLaw(), undef);
 $r = $m->getReaction($Rk-1);
 ok($r->getKineticLaw()->getTypeCode() == $LibSBML::SBML_KINETIC_LAW);
 
-# create KineticLaw alreadyExists
-$r = $m->createReaction(); $Rk++;
-$kl = $m->createKineticLaw();
-ok($m->createKineticLaw(), undef);
-ok($r->getKineticLaw()->getTypeCode() == $LibSBML::SBML_KINETIC_LAW);
-
 # create KineticLaw noReaction
 $mNO = new LibSBML::Model();
 ok($mNO->getTypeCode() == $LibSBML::SBML_MODEL);
@@ -522,7 +451,6 @@ ok($m->getEvent(2)->getTypeCode() == $LibSBML::SBML_EVENT);
 ok($m->getEvent(2)->getId(), 'event_2');
 ok($m->getEvent(2)->getName(), 'event_1');
 ok($m->getEvent(3),  undef);
-ok($m->getEvent(-3), undef);
 
 # get EventById
 ok($m->getEvent('event_1')->getName(), $m->getEvent(2)->getId());

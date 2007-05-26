@@ -1,10 +1,13 @@
-use Test;
+use Test::More;
 BEGIN { plan tests => 21 };
 
 use LibSBML;
 use strict;
 
 #########################
+
+SKIP : {
+skip("CompartmentVolumeRule is obsolete",21);
 
 # creation w/o arguments
 my $cvr = new LibSBML::CompartmentVolumeRule();
@@ -39,3 +42,5 @@ ok($cvr->isSetCompartment(), 1);
 ok($cvr->getCompartment(), 'cell');
 $cvr->setCompartment($cvr->getCompartment());
 ok($cvr->getCompartment(), 'cell');
+
+}

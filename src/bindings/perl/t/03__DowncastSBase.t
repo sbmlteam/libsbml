@@ -7,7 +7,7 @@
 
 use Test;
 
-BEGIN { plan tests => 13 };
+BEGIN { plan tests => 408 };
 
 use LibSBML;
 use strict;
@@ -18,32 +18,112 @@ use Data::Dumper;
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
-# construct a ListOf object
+my @SBaseClassList = (
+  "FunctionDefinition",
+  "UnitDefinition",
+  "CompartmentType",
+  "SpeciesType",
+  "Compartment",
+  "Species",
+  "Parameter",
+  "InitialAssignment",
+  "AssignmentRule",
+  "AlgebraicRule",
+  "RateRule",
+  "Constraint",
+  "Reaction",
+  "SpeciesReference",
+  "ModifierSpeciesReference",
+  "Event",
+  "EventAssignment",
+  "Unit",
+  "UnitDefinition",
+  "FormulaUnitsData",
+  "Trigger",
+  "Delay",
+  "ListOf",
+  "ListOfCompartments",
+  "ListOfCompartmentTypes",
+  "ListOfConstraints",
+  "ListOfEvents",
+  "ListOfEventAssignments",
+  "ListOfFunctionDefinitions",
+  "ListOfInitialAssignments",
+  "ListOfParameters",
+  "ListOfReactions",
+  "ListOfRules",
+  "ListOfSpecies",
+  "ListOfSpeciesReferences",
+  "ListOfSpeciesTypes",
+  "ListOfUnits",
+  "ListOfUnitDefinitions",
+  "ListFormulaUnitsData",
+  "StoichiometryMath",
+);
+
+my @MiscClassList = (
+   "XMLToken",
+   "XMLNode",
+   "XMLTriple",
+   "CVTerm",
+   "Date",
+   "ModelCreator",
+   "XMLAttributes",
+   "XMLNamespaces",
+);
+
+#########################
+
 my $lo = new LibSBML::ListOf;
-ok(ref $lo, 'LibSBML::ListOf');
-ok($lo->getNumItems, 0);
 
-# construct three other objects
-my $pa = new LibSBML::Parameter;
-ok(ref $pa, 'LibSBML::Parameter');
-my $cm = new LibSBML::Compartment;
-ok(ref $cm, 'LibSBML::Compartment');
-my $sp = new LibSBML::Species;
-ok(ref $sp, 'LibSBML::Species');
-$sp->setId('xtof');
-ok($sp->getId, 'xtof');
+foreach my $class ( map { "LibSBML::" . $_ } @SBaseClassList )
+{
+   my $obj = new $class;
+   ok(&isOwned($obj), 1);
+   ok(ref $obj, $class);
+   my $clone = &checkClone($obj,ref($obj));
 
-# append objects to ListOf object
-$lo->append($sp);
-ok($lo->getNumItems, 1);
-$lo->append($cm);
-ok($lo->getNumItems, 2);
-$lo->append($pa);
-ok($lo->getNumItems, 3);
+   $lo->append($clone);
+   ok(ref $lo->get(0), $class);
+   ok(&isOwned($lo->get(0)), undef);
+   ok(&isOwned($lo->remove(0)), 1);
+}
 
-# check if objects have the right type
-my $x = $lo->get(0);
-ok(ref $x, 'LibSBML::Species');
-ok($x->getId, 'xtof');
-ok(ref $lo->get(1), 'LibSBML::Compartment');
-ok(ref $lo->get(2), 'LibSBML::Parameter');
+foreach my $class ( map { "LibSBML::" . $_ } @MiscClassList )
+{
+   my $obj = new $class;
+   ok(&isOwned($obj), 1);
+   ok(ref $obj, $class);
+   my $clone = &checkClone($obj,ref($obj));
+}
+
+#########################
+
+sub checkClone {
+   my($obj,$class) = @_;
+
+   ok(&isOwned($obj), 1);
+   ok(ref($obj), $class);
+
+   my $clone = $obj->clone();
+
+   ok(&isOwned($clone), 1);
+   ok(ref($clone), $class);
+
+   $clone;
+}
+
+#
+# ownership check code for SBase derived classes.
+#
+
+no strict 'refs';
+
+sub isOwned {
+  my $self = shift;
+
+  my $ptr   = tied(%$self);
+  my $class = ref($self);
+
+  return ${"${class}::OWNER"}{$ptr};
+}

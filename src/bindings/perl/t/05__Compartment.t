@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 58 };
+BEGIN { plan tests => 48 };
 
 use LibSBML;
 
@@ -9,8 +9,8 @@ use LibSBML;
 my $c = new LibSBML::Compartment();
 ok($c->getTypeCode() == $LibSBML::SBML_COMPARTMENT);
 ok($c->getMetaId(), '');
-ok($c->getNotes(), '');
-ok($c->getAnnotation(), '');
+ok($c->getNotes(), undef);
+ok($c->getAnnotation(), undef);
 
 ok($c->getSpatialDimensions() == 3);
 ok($c->getVolume() == 1);
@@ -19,7 +19,7 @@ ok($c->getConstant() == 1);
 ok($c->isSetId() == 0);
 ok($c->isSetName() == 0);
 ok($c->isSetSize() == 0);
-ok($c->isSetVolume() == 1);
+ok($c->isSetVolume() == 0);
 ok($c->isSetUnits() == 0);
 ok($c->isSetOutside() == 0);
 
@@ -133,17 +133,3 @@ ok($c->isSetId() == 1);
 ok($c->isSetName() == 0);
 ok($c->getId() eq $before);
 
-$c->moveIdToName();
-ok($c->isSetId() == 0);
-ok($c->isSetName() == 1);
-ok($c->getId() ne $before);
-ok($c->getName() eq $before);
-$c->setName($after);
-ok($c->isSetName() == 1);
-ok($c->getName() eq $after);
-
-$c->moveNameToId();
-ok($c->isSetId() == 1);
-ok($c->isSetName() == 0);
-ok($c->getId() eq $after);
-ok($c->getName() ne $after);

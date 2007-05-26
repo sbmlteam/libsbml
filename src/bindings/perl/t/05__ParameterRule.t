@@ -1,4 +1,4 @@
-use Test;
+use Test::More;
 BEGIN { plan tests => 37 };
 
 use LibSBML;
@@ -9,6 +9,9 @@ use strict;
 my $formula = 'X^n/(1+X^n)';
 my $name    = 'cell';
 my $unit    = 'cells';
+
+SKIP : {
+skip("ParameterRule is obsolete",37);
 
 # creation with formula
 my $pr = new LibSBML::ParameterRule('Y',
@@ -68,5 +71,6 @@ ok($pr->getUnits(), $name);
 $pr->unsetUnits();
 ok($pr->isSetUnits(), 0);
 ok($pr->getUnits(), '');
+}
 
 __END__

@@ -7,7 +7,7 @@
 
 use Test;
 
-BEGIN { plan tests => 5 };
+BEGIN { plan tests => 11 };
 
 use LibSBML;
 use strict;
@@ -21,11 +21,21 @@ my $m = new LibSBML::Model;
 ok(ref $m, 'LibSBML::Model');
 ok($m->getNumRules(), 0);
 
-my $ar = new LibSBML::AssignmentRule('x', '1 + 1', $LibSBML::RULE_TYPE_SCALAR);
-ok(ref $ar, 'LibSBML::AssignmentRule'); 
-
-$m->addRule($ar);
+my $r1 = new LibSBML::AssignmentRule('x', LibSBML::parseFormula('1 + 1'));
+ok(ref $r1, 'LibSBML::AssignmentRule'); 
+$m->addRule($r1);
 ok($m->getNumRules(), 1);
 
-my $x = $m->getRule(0);
-ok(ref $x, 'LibSBML::AssignmentRule'); 
+my $r2 = new LibSBML::RateRule('x', '1 + 1');
+ok(ref $r2, 'LibSBML::RateRule'); 
+$m->addRule($r2);
+ok($m->getNumRules(), 2);
+
+my $r3 = new LibSBML::AlgebraicRule('1 + 1');
+ok(ref $r3, 'LibSBML::AlgebraicRule'); 
+$m->addRule($r3);
+ok($m->getNumRules(), 3);
+
+ok(ref $m->getRule(0), 'LibSBML::AssignmentRule'); 
+ok(ref $m->getRule(1), 'LibSBML::RateRule'); 
+ok(ref $m->getRule(2), 'LibSBML::AlgebraicRule'); 

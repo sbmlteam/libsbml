@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 79 };
+BEGIN { plan tests => 69 };
 
 use LibSBML;
 use strict;
@@ -18,8 +18,8 @@ $m = '';
 my $kl = new LibSBML::KineticLaw($formula, $tu, $su);
 ok($kl->getTypeCode() == $LibSBML::SBML_KINETIC_LAW);
 ok($kl->getMetaId(), '');
-ok($kl->getNotes(), '');
-ok($kl->getAnnotation(), '');
+ok($kl->getNotes(), undef);
+ok($kl->getAnnotation(), undef);
 ok($kl->isSetFormula(), 1);
 ok($kl->getFormula(), $formula);
 ok($kl->isSetTimeUnits(), 1);
@@ -35,8 +35,8 @@ ok($kl->getNumParameters(), 0);
 $kl = new LibSBML::KineticLaw();
 ok($kl->getTypeCode() == $LibSBML::SBML_KINETIC_LAW);
 ok($kl->getMetaId(), '');
-ok($kl->getNotes(), '');
-ok($kl->getAnnotation(), '');
+ok($kl->getNotes(), undef);
+ok($kl->getAnnotation(), undef);
 ok($kl->isSetFormula(), 0);
 ok($kl->getFormula(), '');
 ok($kl->isSetTimeUnits(), 0);
@@ -60,13 +60,7 @@ ok($kl->isSetFormula(), 0);
 ok($kl->getFormula(), '');
 
 # set/get formula from AST
-$kl->setFormulaFromMath();
-ok($kl->isSetMath(), 0);
-ok($kl->isSetFormula(), 0);
 $kl->setMath(LibSBML::parseFormula($formula));
-ok($kl->isSetMath(), 1);
-ok($kl->isSetFormula(), 1);
-$kl->setFormulaFromMath();
 ok($kl->isSetMath(), 1);
 ok($kl->isSetFormula(), 1);
 ($f = LibSBML::formulaToString($kl->getMath())) =~ s/\s+//g;
@@ -87,15 +81,7 @@ ok($kl->isSetMath(), 0);
 ok($kl->getMath(), undef);
 
 # set/get math from formula
-ok($kl->isSetMath(), 0);
-ok($kl->isSetFormula(), 0);
-$kl->setMathFromFormula();
-ok($kl->isSetMath(), 0);
-ok($kl->isSetFormula(), 0);
 $kl->setFormula($math);
-ok($kl->isSetMath(), 1);
-ok($kl->isSetFormula(), 1);
-$kl->setMathFromFormula();
 ok($kl->isSetMath(), 1);
 ok($kl->isSetFormula(), 1);
 ($m = LibSBML::formulaToString($kl->getMath())) =~ s/\s+//g;

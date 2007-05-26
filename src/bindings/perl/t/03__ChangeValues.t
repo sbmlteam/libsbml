@@ -15,7 +15,7 @@ use LibSBML;
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
-my $d = new LibSBML::SBMLDocument(2,1);
+my $d = new LibSBML::SBMLDocument(2,3);
 my $m = $d->createModel();
 $m->setId('xtof');
 my $s = $m->createSpecies();
@@ -24,22 +24,18 @@ my $ref = join '', <DATA>;
 my $doc = $d->writeSBMLToString();
 ok($doc, $ref);
 
-#my $m1 = $d->getModel();
 $m->setId('flummi');
 $s = $m->getSpecies('rainer');
 $s->setId('schmutzer');
-#$d->setModel($oldm);
 my $doc2 = $d->writeSBMLToString();
-#print STDERR "\n$doc\n\n";
-#print STDERR "\n$doc2\n";
 ok($doc2 ne $ref);
 
 __DATA__
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
   <model id="xtof">
     <listOfSpecies>
-      <species id="rainer" compartment=""/>
+      <species id="rainer"/>
     </listOfSpecies>
   </model>
 </sbml>

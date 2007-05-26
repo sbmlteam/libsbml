@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 444 };
+BEGIN { plan tests => 432 };
 
 use File::Spec;
 use LibSBML;
@@ -20,20 +20,18 @@ $rd = new LibSBML::SBMLReader;
 foreach (@files) {
   $level = $1, $version = $2 if m/\Al(\d)v(\d)-/;
   my $file = File::Spec->catfile($testDataDir, $_);
-
+  
   # per file we have:
-  # 74 tests for read from file
-  # 74 tests for read from string
-  # which gives in total for all files 444 tests
+  # 72 tests for read from file
+  # 72 tests for read from string
+  # which gives in total for all files 432 tests
   foreach my $d ($rd->readSBML($file),
 		 $rd->readSBMLFromString(slurp_file($file))) {
 
 #
     ok($d->getLevel(), $level);
     ok($d->getVersion(), $version);
-    ok($d->getNumFatals(), 0);
     ok($d->getNumErrors(), 0);
-    ok($d->getNumWarnings(), 0);
     ok($d->checkConsistency(), 0);
 
 #

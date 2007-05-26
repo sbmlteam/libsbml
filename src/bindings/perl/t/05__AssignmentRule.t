@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 21 };
+BEGIN { plan tests => 18 };
 
 use LibSBML;
 use strict;
@@ -11,9 +11,7 @@ $formula = 'X^n/(1+X^n)';
 $f = '';
 
 # creation with formula
-my $r = new LibSBML::AssignmentRule('Y',
-				    $formula,
-				    $LibSBML::RULE_TYPE_SCALAR);
+my $r = new LibSBML::AssignmentRule('Y', $formula);
 ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 1);
 ok($r->isSetMath(), 1);
@@ -22,9 +20,7 @@ ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
 ok($f, $formula);
 
 # creation with AST
-$r = new LibSBML::AssignmentRule('Y',
-				 LibSBML::parseFormula($formula),
-				 $LibSBML::RULE_TYPE_SCALAR);
+$r = new LibSBML::AssignmentRule('Y', LibSBML::parseFormula($formula));
 ok($r->getTypeCode() == $LibSBML::SBML_ASSIGNMENT_RULE);
 ok($r->isSetVariable(), 1);
 ok($r->isSetMath(), 1);
@@ -39,14 +35,6 @@ ok($r->isSetVariable(), 0);
 ok($r->isSetMath(), 0);
 ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
 
-# change rule type
-$r->setType($LibSBML::RULE_TYPE_RATE);
-ok($r->getType(), $LibSBML::RULE_TYPE_RATE);
-$r->setType($LibSBML::RULE_TYPE_INVALID);
-ok($r->getType(), $LibSBML::RULE_TYPE_INVALID);
-$r->initDefaults();
-ok($r->getType(), $LibSBML::RULE_TYPE_SCALAR);
-
 # set/get variable
 $r->setVariable('Y');
 ok($r->isSetVariable(), 1);
@@ -58,7 +46,7 @@ $r->setMath(LibSBML::parseFormula($formula));
 ok($f, $formula);
 
 # creat a document and a model
-my $d = new LibSBML::SBMLDocument(2,1);
+my $d = new LibSBML::SBMLDocument(2,3);
 my $m = $d->createModel();
 $m->setId('assignment_rule');
 
@@ -80,11 +68,11 @@ ok($doc, $ref);
 
 __DATA__
 <?xml version="1.0" encoding="UTF-8"?>
-<sbml xmlns="http://www.sbml.org/sbml/level2" level="2" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level2/version3" level="2" version="3">
   <model id="assignment_rule">
     <listOfSpecies>
-      <species id="X" compartment=""/>
-      <species id="Y" compartment=""/>
+      <species id="X"/>
+      <species id="Y"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="n"/>
