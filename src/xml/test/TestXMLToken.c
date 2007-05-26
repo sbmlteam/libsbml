@@ -74,10 +74,32 @@ START_TEST (test_XMLToken_fields)
   fail_unless(XMLToken_isStart(token) == 0);
   fail_unless(XMLToken_isText(token) == 0);
   fail_unless(XMLToken_isEOF(token) == 0);
+
+  fail_unless(strcmp(XMLToken_getName(token), "attr") == 0);
+  fail_unless(strcmp(XMLToken_getURI(token), "uri") == 0);
+  fail_unless(strcmp(XMLToken_getPrefix(token), "prefix") == 0);
   XMLToken_free(token);
   XMLTriple_free(triple);
 }
 END_TEST
+
+START_TEST (test_XMLToken_chars)
+{
+  XMLToken_t *token;
+
+  token = XMLToken_createWithText("This is text");
+  fail_unless(XMLToken_isElement(token) == 0);
+  fail_unless(XMLToken_isEnd(token) == 0);
+  fail_unless(XMLToken_isStart(token) == 0);
+  fail_unless(XMLToken_isText(token) == 1);
+  fail_unless(XMLToken_isEOF(token) == 0);
+
+  fail_unless(strcmp(XMLToken_getCharacters(token), "This is text") == 0);
+
+  XMLToken_free(token);
+}
+END_TEST
+
 
 Suite *
 create_suite_XMLToken (void)
@@ -87,6 +109,7 @@ create_suite_XMLToken (void)
 
   tcase_add_test( tcase, test_XMLToken_create  );
   tcase_add_test( tcase, test_XMLToken_fields  );
+  tcase_add_test( tcase, test_XMLToken_chars  );
   suite_add_tcase(suite, tcase);
 
   return suite;

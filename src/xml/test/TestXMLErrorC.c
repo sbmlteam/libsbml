@@ -31,6 +31,10 @@ START_TEST (test_XMLError_create_C)
 {
   XMLError_t *error = XMLError_create();
   fail_unless(error != NULL);
+  fail_unless(XMLError_isInfo(error) == 0);
+  fail_unless(XMLError_isWarning(error) == 0);
+  fail_unless(XMLError_isError(error) == 1);
+  fail_unless(XMLError_isFatal(error) == 0);
   XMLError_free(error);
 
   error = XMLError_createWithIdAndMessage(12345, "My message");
@@ -39,7 +43,6 @@ START_TEST (test_XMLError_create_C)
   XMLError_free(error);
 }
 END_TEST
-
 
 Suite *
 create_suite_XMLError_C (void)

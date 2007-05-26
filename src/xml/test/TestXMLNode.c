@@ -115,6 +115,10 @@ START_TEST (test_XMLNode_getters)
   fail_unless(token != NULL);
   node = XMLNode_createFromToken(token);
 
+  fail_unless(strcmp(XMLNode_getName(node), "attr") == 0);
+  fail_unless(strcmp(XMLNode_getURI(node), "uri") == 0);
+  fail_unless(strcmp(XMLNode_getPrefix(node), "prefix") == 0);
+
   const XMLAttributes_t *returnattr = XMLNode_getAttributes(node);
   fail_unless(strcmp(XMLAttributes_getName(returnattr, 0), "attr2") == 0);
   fail_unless(strcmp(XMLAttributes_getValue(returnattr, 0), "value") == 0);
