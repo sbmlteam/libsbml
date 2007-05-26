@@ -265,7 +265,6 @@ START_TEST (test_RDFAnnotation_parseCVTerms)
   const XMLNode_t * is = XMLNode_getChild(desc, 0);
   fail_unless(!strcmp(XMLNode_getName(is), "is"));
   fail_unless(!strcmp(XMLNode_getPrefix(is), "bqbiol"));
- // fail_unless(!strcmp(XMLNode_getURI(is), "http://biomodels.net/biology-qualifiers/"));
   fail_unless(XMLNode_getNumChildren(is) == 1);
 
   const XMLNode_t * Bag = XMLNode_getChild(is, 0);
