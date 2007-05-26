@@ -255,6 +255,12 @@ typedef CLASS_OR_STRUCT XMLNamespaces		  XMLNamespaces_t;
 typedef CLASS_OR_STRUCT XMLToken                  XMLToken_t;
 
 /**
+ * @var typedef class XMLInputStream XMLInputStream_t
+ * @copydoc XMLInputStream
+ */
+typedef CLASS_OR_STRUCT XMLInputStream                  XMLInputStream_t;
+
+/**
  * @var typedef class XMLTriple XMLTriple_t
  * @copydoc XMLTriple
  */
