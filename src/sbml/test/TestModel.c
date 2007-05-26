@@ -378,10 +378,10 @@ START_TEST (test_Model_createParameter)
 }
 END_TEST
 
-/*
+
 START_TEST (test_Model_createAssignmentRule)
 {
-  AssignmentRule_t *ar = Model_createAssignmentRule(M);
+  Rule_t *ar = Model_createAssignmentRule(M);
 
 
   fail_unless( ar != NULL );
@@ -393,7 +393,7 @@ END_TEST
 
 START_TEST (test_Model_createRateRule)
 {
-  RateRule_t *rr = Model_createRateRule(M);
+  Rule_t *rr = Model_createRateRule(M);
 
 
   fail_unless( rr != NULL );
@@ -405,7 +405,7 @@ END_TEST
 
 START_TEST (test_Model_createAlgebraicRule)
 {
-  AlgebraicRule_t *ar = Model_createAlgebraicRule(M);
+  Rule_t *ar = Model_createAlgebraicRule(M);
 
 
   fail_unless( ar != NULL );
@@ -413,43 +413,6 @@ START_TEST (test_Model_createAlgebraicRule)
   fail_unless( Model_getRule(M, 0)  == (Rule_t *) ar );
 }
 END_TEST
-
-
-START_TEST (test_Model_createCompartmentVolumeRule)
-{
-  CompartmentVolumeRule_t *cvr = Model_createCompartmentVolumeRule(M);
-
-
-  fail_unless( cvr != NULL );
-  fail_unless( Model_getNumRules(M) == 1 );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) cvr );
-}
-END_TEST
-
-
-START_TEST (test_Model_createParameterRule)
-{
-  ParameterRule_t *pr = Model_createParameterRule(M);
-
-
-  fail_unless( pr != NULL );
-  fail_unless( Model_getNumRules(M) == 1 );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) pr );
-}
-END_TEST
-
-
-START_TEST (test_Model_createSpeciesConcentrationRule)
-{
-  SpeciesConcentrationRule_t *scr = Model_createSpeciesConcentrationRule(M);
-
-
-  fail_unless( scr != NULL );
-  fail_unless( Model_getNumRules(M) == 1 );
-  fail_unless( Model_getRule(M, 0)  == (Rule_t *) scr );
-}
-END_TEST
-*/
 
 START_TEST (test_Model_createReaction)
 {
@@ -522,11 +485,11 @@ START_TEST (test_Model_createProduct_noReaction)
 }
 END_TEST
 
-/*
+
 START_TEST (test_Model_createModifier)
 {
   Reaction_t                 *r;
-  ModifierSpeciesReference_t *msr;
+  SpeciesReference_t *msr;
 
 
   Model_createReaction(M);
@@ -551,7 +514,7 @@ START_TEST (test_Model_createModifier_noReaction)
   fail_unless( Model_createModifier(M)  == NULL );
 }
 END_TEST
-*/
+
 
 START_TEST (test_Model_createKineticLaw)
 {
@@ -650,34 +613,34 @@ END_TEST
 
 START_TEST (test_Model_createEvent)
 {
-  //Event_t *e = Model_createEvent(M);
+  Event_t *e = Model_createEvent(M);
 
 
-  //fail_unless( e != NULL );
-  //fail_unless( Model_getNumEvents(M) == 1 );
-  //fail_unless( Model_getEvent(M, 0)  == e );
+  fail_unless( e != NULL );
+  fail_unless( Model_getNumEvents(M) == 1 );
+  fail_unless( Model_getEvent(M, 0)  == e );
 }
 END_TEST
 
 
 START_TEST (test_Model_createEventAssignment)
 {
-  //Event_t           *e;
-  //EventAssignment_t *ea;
+  Event_t           *e;
+  EventAssignment_t *ea;
 
 
-  //Model_createEvent(M);
-  //Model_createEvent(M);
+  Model_createEvent(M);
+  Model_createEvent(M);
 
-  //ea = Model_createEventAssignment(M);
+  ea = Model_createEventAssignment(M);
 
-  //fail_unless( ea != NULL );
-  //fail_unless( Model_getNumEvents(M) == 2 );
+  fail_unless( ea != NULL );
+  fail_unless( Model_getNumEvents(M) == 2 );
 
-  //e = Model_getEvent(M, 1);
+  e = Model_getEvent(M, 1);
 
-  //fail_unless( Event_getNumEventAssignments(e) == 1  );
-  //fail_unless( Event_getEventAssignment(e, 0)  == ea );
+  fail_unless( Event_getNumEventAssignments(e) == 1  );
+  fail_unless( Event_getEventAssignment(e, 0)  == ea );
 }
 END_TEST
 
@@ -779,18 +742,18 @@ END_TEST
 
 START_TEST (test_Model_add_get_Event)
 {
-  //Event_t *e1 = Event_create();
-  //Event_t *e2 = Event_create();
+  Event_t *e1 = Event_create();
+  Event_t *e2 = Event_create();
 
 
-  //Model_addEvent(M, e1);
-  //Model_addEvent(M, e2);
+  Model_addEvent(M, e1);
+  Model_addEvent(M, e2);
 
-  //fail_unless( Model_getNumEvents(M) == 2    );
-  //fail_unless( Model_getEvent(M, 0)  == e1   );
-  //fail_unless( Model_getEvent(M, 1)  == e2   );
-  //fail_unless( Model_getEvent(M, 2)  == NULL );
-  //fail_unless( Model_getEvent(M, -2) == NULL );
+  fail_unless( Model_getNumEvents(M) == 2    );
+  fail_unless( Model_getEvent(M, 0)  != e1   );
+  fail_unless( Model_getEvent(M, 1)  != e2   );
+  fail_unless( Model_getEvent(M, 2)  == NULL );
+  fail_unless( Model_getEvent(M, -2) == NULL );
 }
 END_TEST
 
@@ -983,39 +946,39 @@ START_TEST (test_Model_getParameterById)
 }
 END_TEST
 
-/*
+
 START_TEST (test_Model_getRules)
 {
-  AlgebraicRule_t            *ar  = AlgebraicRule_create();
-  SpeciesConcentrationRule_t *scr = SpeciesConcentrationRule_create();
-  CompartmentVolumeRule_t    *cvr = CompartmentVolumeRule_create();
-  ParameterRule_t            *pr  = ParameterRule_create();
+  Rule_t *ar  = Rule_createAlgebraic();
+  Rule_t *scr = Rule_createAssignment();
+  Rule_t *cvr = Rule_createAssignment();
+  Rule_t *pr  = Rule_createAssignment();
 
 
-  Rule_setFormula( (Rule_t *) ar , "x + 1"         );
-  Rule_setFormula( (Rule_t *) scr, "k * t/(1 + k)" );
-  Rule_setFormula( (Rule_t *) cvr, "0.10 * t"      );
-  Rule_setFormula( (Rule_t *) pr , "k3/k2"         );
+  Rule_setFormula(  ar , "x + 1"         );
+  Rule_setFormula(  scr, "k * t/(1 + k)" );
+  Rule_setFormula(  cvr, "0.10 * t"      );
+  Rule_setFormula(  pr , "k3/k2"         );
 
-  Model_addRule( M, (Rule_t *) ar  );
-  Model_addRule( M, (Rule_t *) scr );
-  Model_addRule( M, (Rule_t *) cvr );
-  Model_addRule( M, (Rule_t *) pr  );
+  Model_addRule( M,  ar  );
+  Model_addRule( M,  scr );
+  Model_addRule( M,  cvr );
+  Model_addRule( M,  pr  );
 
   fail_unless( Model_getNumRules(M) == 4 );
 
-  ar  = (AlgebraicRule_t *)            Model_getRule(M, 0);
-  scr = (SpeciesConcentrationRule_t *) Model_getRule(M, 1);
-  cvr = (CompartmentVolumeRule_t *)    Model_getRule(M, 2);
-  pr  = (ParameterRule_t *)            Model_getRule(M, 3);
+  ar  = Model_getRule(M, 0);
+  scr = Model_getRule(M, 1);
+  cvr = Model_getRule(M, 2);
+  pr  = Model_getRule(M, 3);
 
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) ar) , "x + 1"        ) );
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) scr), "k * t/(1 + k)") );
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) cvr), "0.10 * t"     ) );
-  fail_unless( !strcmp(Rule_getFormula((Rule_t *) pr) , "k3/k2"        ) );
+  fail_unless( !strcmp(Rule_getFormula( ar) , "x + 1"        ) );
+  fail_unless( !strcmp(Rule_getFormula( scr), "k * t/(1 + k)") );
+  fail_unless( !strcmp(Rule_getFormula( cvr), "0.10 * t"     ) );
+  fail_unless( !strcmp(Rule_getFormula( pr) , "k3/k2"        ) );
 }
 END_TEST
-*/
+
 
 START_TEST (test_Model_getReaction)
 {
@@ -1106,20 +1069,20 @@ END_TEST
 
 START_TEST (test_Model_getEventById)
 {
-  //Event_t *e1 = Event_create();
-  //Event_t *e2 = Event_create();
+  Event_t *e1 = Event_create();
+  Event_t *e2 = Event_create();
 
-  //Event_setId( e1, "e1" );
-  //Event_setId( e2, "e2" );
+  Event_setId( e1, "e1" );
+  Event_setId( e2, "e2" );
 
-  //Model_addEvent(M, e1);
-  //Model_addEvent(M, e2);
+  Model_addEvent(M, e1);
+  Model_addEvent(M, e2);
 
-  //fail_unless( Model_getNumEvents(M) == 2 );
+  fail_unless( Model_getNumEvents(M) == 2 );
 
-  //fail_unless( Model_getEventById(M, "e1" ) == e1   );
-  //fail_unless( Model_getEventById(M, "e2" ) == e2   );
-  //fail_unless( Model_getEventById(M, "e3" ) == NULL );
+  fail_unless( Model_getEventById(M, "e1" ) != e1   );
+  fail_unless( Model_getEventById(M, "e2" ) != e2   );
+  fail_unless( Model_getEventById(M, "e3" ) == NULL );
 }
 END_TEST
 
@@ -1135,23 +1098,23 @@ START_TEST (test_Model_getNumSpeciesWithBoundaryCondition)
   Species_setBoundaryCondition(s3, 1);
 
 
-  //fail_unless( Model_getNumSpecies(M) == 0 );
-  //fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 0 );
+  fail_unless( Model_getNumSpecies(M) == 0 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 0 );
 
-  //Model_addSpecies(M, s1);
+  Model_addSpecies(M, s1);
 
-  //fail_unless( Model_getNumSpecies(M) == 1 );
-  //fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1 );
+  fail_unless( Model_getNumSpecies(M) == 1 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1 );
 
-  //Model_addSpecies(M, s2);
+  Model_addSpecies(M, s2);
 
-  //fail_unless( Model_getNumSpecies(M) == 2 );
-  //fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1 );
+  fail_unless( Model_getNumSpecies(M) == 2 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 1 );
 
-  //Model_addSpecies(M, s3);
+  Model_addSpecies(M, s3);
 
-  //fail_unless( Model_getNumSpecies(M) == 3 );
-  //fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 2 );
+  fail_unless( Model_getNumSpecies(M) == 3 );
+  fail_unless( Model_getNumSpeciesWithBoundaryCondition(M) == 2 );
 }
 END_TEST
 
@@ -1187,19 +1150,16 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_createInitialAssignment                      );
   tcase_add_test( t, test_Model_createSpecies                          );
   tcase_add_test( t, test_Model_createParameter                        );
- // tcase_add_test( t, test_Model_createAssignmentRule                   );
- // tcase_add_test( t, test_Model_createRateRule                         );
- // tcase_add_test( t, test_Model_createAlgebraicRule                    );
- // tcase_add_test( t, test_Model_createCompartmentVolumeRule            );
- // tcase_add_test( t, test_Model_createParameterRule                    );
- // tcase_add_test( t, test_Model_createSpeciesConcentrationRule         );
+  tcase_add_test( t, test_Model_createAssignmentRule                   );
+  tcase_add_test( t, test_Model_createRateRule                         );
+  tcase_add_test( t, test_Model_createAlgebraicRule                    );
   tcase_add_test( t, test_Model_createReaction                         );
   tcase_add_test( t, test_Model_createReactant                         );
   tcase_add_test( t, test_Model_createReactant_noReaction              );
   tcase_add_test( t, test_Model_createProduct                          );
   tcase_add_test( t, test_Model_createProduct_noReaction               );
- // tcase_add_test( t, test_Model_createModifier                         );
- // tcase_add_test( t, test_Model_createModifier_noReaction              );
+  tcase_add_test( t, test_Model_createModifier                         );
+  tcase_add_test( t, test_Model_createModifier_noReaction              );
   tcase_add_test( t, test_Model_createKineticLaw                       );
   tcase_add_test( t, test_Model_createKineticLaw_alreadyExists         );
   tcase_add_test( t, test_Model_createKineticLaw_noReaction            );
@@ -1234,7 +1194,7 @@ create_suite_Model (void)
   tcase_add_test( t, test_Model_getSpeciesById            );
   tcase_add_test( t, test_Model_getParameter              );
   tcase_add_test( t, test_Model_getParameterById          );
-//  tcase_add_test( t, test_Model_getRules                  );
+  tcase_add_test( t, test_Model_getRules                  );
   tcase_add_test( t, test_Model_getReaction               );
   tcase_add_test( t, test_Model_getReactionById           );
   tcase_add_test( t, test_Model_getEventById              );

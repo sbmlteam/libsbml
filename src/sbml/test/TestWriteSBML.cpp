@@ -475,41 +475,6 @@ START_TEST (test_WriteSBML_Compartment_unsetVolume)
 }
 END_TEST
 
-/*
-START_TEST (test_WriteSBML_Compartment_annotation)
-{
-  D->setLevelAndVersion(1, 2);
-
-  const char* expected = wrapXML
-  (
-    "<compartment name=\"A\" volume=\"2.1\" outside=\"B\">\n"
-    "  <annotation xmlns:mysim=\"http://www.mysim.org/ns\">\n"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\"/>\n"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>\n"
-    "</annotation>\n"
-    "</compartment>"
-  );
-
-  const char* a =
-    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">\n"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\"/>\n"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>\n"
-    "</annotation>";
-
-
-  Compartment c("A");
-
-  c.setVolume(2.1);
-  c.setOutside("B");
-  c.setAnnotation(a);
-
-  c.setSBMLDocument(D);
-  c.write(*XOS);
-
-  fail_unless( equals(expected) );
-}
-END_TEST
-*/
 
 START_TEST (test_WriteSBML_Compartment_L2v1)
 {
@@ -1448,71 +1413,6 @@ START_TEST (test_WriteSBML_SpeciesReference_L2v1_3)
 }
 END_TEST
 
-/*
-START_TEST (test_WriteSBML_ModifierSpeciesReference_notes)
-{
-  D->setLevelAndVersion(2, 1);
-
-  const char* expected = wrapXML
-  (
-    "<reaction id=\"r\">\n"
-    "  <listOfModifiers>\n"
-    "    <modifierSpeciesReference species=\"s\">\n"
-    "      <notes>\n"
-    "        This is a note.\n"
-    "      </notes>\n"
-    "    </modifierSpeciesReference>\n"
-    "  </listOfModifiers>\n"
-    "</reaction>"
-  );
-
-
-  Reaction r("r");
-  r.createModifier()->setSpecies("s");
-  r.getModifier(0)->setNotes("This is a note.");
-
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
-}
-END_TEST
-
-
-START_TEST (test_WriteSBML_ModifierSpeciesReference_annotation)
-{
-  D->setLevelAndVersion(2, 1);
-
-  const char* expected = wrapXML
-  (
-    "<reaction id=\"r\">\n"
-    "  <listOfModifiers>\n"
-    "    <modifierSpeciesReference species=\"s\">\n"
-    "      <annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
-    "        <ls:this-is-a-test/>\n"
-    "      </annotation>\n"
-    "    </modifierSpeciesReference>\n"
-    "  </listOfModifiers>\n"
-    "</reaction>"
-  );
-
-  const char* a =
-    "<annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
-    "        <ls:this-is-a-test/>\n"
-    "      </annotation>";
-
-
-  Reaction r("r");
-  r.createModifier()->setSpecies("s");
-  r.getModifier(0)->setAnnotation(a);
-
-  r.setSBMLDocument(D);
-  r.write(*XOS);
-
-  fail_unless( equals(expected) );
-}
-END_TEST
-*/
 
 START_TEST (test_WriteSBML_KineticLaw)
 {
@@ -1551,32 +1451,6 @@ START_TEST (test_WriteSBML_KineticLaw_skipOptional)
 }
 END_TEST
 
-/*
-START_TEST (test_WriteSBML_KineticLaw_notes)
-{
-  D->setLevelAndVersion(1, 2);
-
-  const char* expected = wrapXML
-  (
-    "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
-    "substanceUnits=\"item\">\n"
-    "  <notes>\n"
-    "    This is a note.\n"
-    "  </notes>\n"
-    "</kineticLaw>"
-  );
-
-
-  KineticLaw kl("nk * e", "second", "item");
-  kl.setNotes("This is a note.");
-
-  kl.setSBMLDocument(D);
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
-}
-END_TEST
-*/
 
 START_TEST (test_WriteSBML_KineticLaw_ListOfParameters)
 {
@@ -1605,78 +1479,7 @@ START_TEST (test_WriteSBML_KineticLaw_ListOfParameters)
 }
 END_TEST
 
-/*
-START_TEST (test_WriteSBML_KineticLaw_ListOfParameters_notes_L1v2)
-{
-  D->setLevelAndVersion(1, 2);
 
-  const char* expected = wrapXML
-  (
-    "<kineticLaw formula=\"nk * e\" timeUnits=\"second\" "
-    "substanceUnits=\"item\">\n"
-    "  <listOfParameters>\n"
-    "    <parameter name=\"n\" value=\"1.2\"/>\n"
-    "  </listOfParameters>\n"
-    "</kineticLaw>\n"
-  );
-
-  KineticLaw kl("nk * e", "second", "item");
-  kl.setSBMLDocument(D);
-
-  Parameter p("n", 1.2);
-  kl.addParameter( &p );
-
-  kl.getListOfParameters()->setMetaId("lop");
-  kl.getListOfParameters()->setNotes("This is a note.");
-
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
-
-}
-END_TEST
-*/
-/*
-START_TEST (test_WriteSBML_KineticLaw_ListOfParameters_notes_L2v1)
-{
-  D->setLevelAndVersion(2, 1);
-
-  const char* expected = wrapXML
-  (
-    "<kineticLaw timeUnits=\"second\" substanceUnits=\"item\">\n"
-    "  <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-    "    <apply>\n"
-    "      <times/>\n"
-    "      <ci> nk </ci>\n"
-    "      <ci> e </ci>\n"
-    "    </apply>\n"
-    "  </math>\n"
-    "  <listOfParameters metaid=\"lop\">\n"
-    "    <notes>\n"
-    "      This is a note.\n"
-    "    </notes>\n"
-    "    <parameter id=\"n\" value=\"1.2\"/>\n"
-    "  </listOfParameters>\n"
-    "</kineticLaw>\n"
-  );
-
-  KineticLaw kl("nk * e", "second", "item");
-  kl.setSBMLDocument(D);
-
-  Parameter p("n", 1.2);
-  kl.addParameter( &p );
-
-  kl.getListOfParameters()->setMetaId("lop");
-  kl.getListOfParameters()->setNotes("This is a note.");
-
-  kl.write(*XOS);
-
-  fail_unless( equals(expected) );
-}
-END_TEST
-*/
-
-/*
 START_TEST (test_WriteSBML_Event)
 {
   const char* expected = wrapXML("<event id=\"e\"/>");
@@ -1690,7 +1493,7 @@ START_TEST (test_WriteSBML_Event)
   fail_unless( equals(expected) );
 }
 END_TEST
-*/
+
 
 
 START_TEST (test_WriteSBML_Event_trigger)
@@ -1722,7 +1525,7 @@ START_TEST (test_WriteSBML_Event_trigger)
 }
 END_TEST
 
-/*
+
 START_TEST (test_WriteSBML_Event_delay)
 {
   const char* expected = wrapXML
@@ -1737,49 +1540,51 @@ START_TEST (test_WriteSBML_Event_delay)
   );
 
   Event e("e");
-  Delay d("5");
+  ASTNode *node = SBML_parseFormula("5");
+  Delay d(node);
   e.setDelay(&d);
-  e.setTimeUnits("second");
 
   e.write(*XOS);
 
   fail_unless( equals(expected) );
 }
 END_TEST
-*/
+
 
 START_TEST (test_WriteSBML_Event_both)
 {
-  //const char* expected = wrapXML
-  //(
-  //  "<event id=\"e\">\n"
-  //  "  <trigger>\n"
-  //  "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-  //  "      <apply>\n"
-  //  "        <leq/>\n"
-  //  "        <ci> P1 </ci>\n"
-  //  "        <ci> t </ci>\n"
-  //  "      </apply>\n"
-  //  "    </math>\n"
-  //  "  </trigger>\n"
-  //  "  <delay>\n"
-  //  "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
-  //  "      <cn type=\"integer\"> 5 </cn>\n"
-  //  "    </math>\n"
-  //  "  </delay>\n"
-  //  "</event>"
-  //);
+  const char* expected = wrapXML
+  (
+    "<event id=\"e\">\n"
+    "  <trigger>\n"
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "      <apply>\n"
+    "        <leq/>\n"
+    "        <ci> P1 </ci>\n"
+    "        <ci> t </ci>\n"
+    "      </apply>\n"
+    "    </math>\n"
+    "  </trigger>\n"
+    "  <delay>\n"
+    "    <math xmlns=\"http://www.w3.org/1998/Math/MathML\">\n"
+    "      <cn type=\"integer\"> 5 </cn>\n"
+    "    </math>\n"
+    "  </delay>\n"
+    "</event>"
+  );
 
-  //Event e("e");
-  //Trigger t("leq(P1, t)");
-  //Delay d("5");
-  //e.setDelay(&d);
-  //e.setTrigger(&t);
-  //e.setTimeUnits("second");
+  Event e("e");
+  ASTNode *node1 = SBML_parseFormula("leq(P1,t)");
+  Trigger t(node1);
+  ASTNode *node = SBML_parseFormula("5");
+  Delay d(node);
+  e.setDelay(&d);
+  e.setTrigger(&t);
+  e.setTimeUnits("second");
 
-  //e.write(*XOS);
+  e.write(*XOS);
 
-  //fail_unless( equals(expected) );
+  fail_unless( equals(expected) );
 }
 END_TEST
 
@@ -1865,25 +1670,6 @@ START_TEST (test_WriteSBML_NegINF)
 }
 END_TEST
 
-/*
-START_TEST (test_WriteSBML_xmlns)
-{
-  const char* expected = wrapXML
-  (
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
-    "xmlns:jd=\"http://www.sbml.org/2001/ns/jdesigner\" "
-    "level=\"2\" version=\"1\"/>\n"
-  );
-
-
-  SBMLDocument d(2, 1);
-
-  d.getNamespaces().add("jd", "http://www.sbml.org/2001/ns/jdesigner");
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-*/
 
 START_TEST (test_WriteSBML_locale)
 {
@@ -1902,104 +1688,6 @@ START_TEST (test_WriteSBML_locale)
 }
 END_TEST
 
-
-//
-// A <rateRule> with a <notes> and/or <annotation> is not formatted with a
-// closing angle bracket, e.g.:
-//
-//   <rateRule variable="x"  <notes>
-//      This is a note.
-//     </notes>
-//   </rateRule>
-//
-// Reported by Konstantin Kozlov <kozlov@spbcas.ru>
-//
-/*
-START_TEST (test_WriteSBML_nonempty_RateRule_bug)
-{
-  const char* expected = wrapXML
-  (
-    "<rateRule variable=\"x\">\n"
-    "  <notes>\n"
-    "    This is a note.\n"
-    "  </notes>\n"
-    "</rateRule>"
-  );
-
-
-  RateRule r("x");
-  r.setNotes("This is a note.");
-
-
-  *formatter << SBMLFormatter::Level2 << SBMLFormatter::Version1;
-  *formatter << r;
-
-  fail_unless( !strcmp((char *) target->getRawBuffer(), s), NULL );
-}
-END_TEST
-*/
-
-//
-// An annotation on the top-level <sbml> element is not written-out for L2
-// documents.
-//
-// Reported by Damon Hachmeister <damon.hachmeister@mathworks.com>.
-//
-/*
-START_TEST (test_WriteSBML_SBMLDocument_no_annotation_bug_L2)
-{
-  const char* expected = wrapXML
-  (
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" "
-    "level=\"2\" version=\"1\">\n"
-    "  <annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
-    "  <ls:this-is-a-test/>\n"
-    "</annotation>\n"
-    "</sbml>"
-  );
-
-  const char* a =
-    "<annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
-    "  <ls:this-is-a-test/>\n"
-    "</annotation>";
-
-
-  SBMLDocument d(2, 1);
-
-  d.setAnnotation(a);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-*/
-
-//
-// Annotations are not allowed on the top-level <sbml> element in L1.  I
-// wanted to make sure I didn't introduce a bug when I fixed the one above.
-//
-/*
-START_TEST (test_WriteSBML_SBMLDocument_no_annotation_bug_L1)
-{
-  const char* expected = wrapXML
-  (
-    "<sbml xmlns=\"http://www.sbml.org/sbml/level1\" "
-    "level=\"1\" version=\"2\"/>\n"
-  );
-
-  const char* a =
-    "<annotation xmlns:ls=\"http://www.sbml.org/2001/ns/libsbml\">\n"
-    "  <ls:this-is-a-test/>\n"
-    "</annotation>";
-
-
-  SBMLDocument d(1, 2);
-
-  d.setAnnotation(a);
-
-  fail_unless( equals(expected, S) );
-}
-END_TEST
-*/
 
 
 Suite *
@@ -2041,7 +1729,6 @@ create_suite_WriteSBML ()
   // Compartment
   tcase_add_test( tcase, test_WriteSBML_Compartment                );
   tcase_add_test( tcase, test_WriteSBML_Compartment_unsetVolume    );
-  //tcase_add_test( tcase, test_WriteSBML_Compartment_annotation     );
   tcase_add_test( tcase, test_WriteSBML_Compartment_L2v1           );
   tcase_add_test( tcase, test_WriteSBML_Compartment_L2v1_constant  );
   tcase_add_test( tcase, test_WriteSBML_Compartment_L2v1_unsetSize );
@@ -2098,24 +1785,16 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_SpeciesReference_L2v1_2   );
   tcase_add_test( tcase, test_WriteSBML_SpeciesReference_L2v1_3   );
 
-  // ModifierSpeciesReference
-  //tcase_add_test( tcase, test_WriteSBML_ModifierSpeciesReference_notes );
-  //tcase_add_test( tcase, test_WriteSBML_ModifierSpeciesReference_annotation);
 
   // KineticLaw
   tcase_add_test( tcase, test_WriteSBML_KineticLaw                  );
   tcase_add_test( tcase, test_WriteSBML_KineticLaw_skipOptional     );
-  //tcase_add_test( tcase, test_WriteSBML_KineticLaw_notes            );
   tcase_add_test( tcase, test_WriteSBML_KineticLaw_ListOfParameters );
-  //tcase_add_test( tcase,
-  //                test_WriteSBML_KineticLaw_ListOfParameters_notes_L1v2 );
-  //tcase_add_test( tcase,
-  //                test_WriteSBML_KineticLaw_ListOfParameters_notes_L2v1 );
 
   // Event
- // tcase_add_test( tcase, test_WriteSBML_Event         );
+  tcase_add_test( tcase, test_WriteSBML_Event         );
   tcase_add_test( tcase, test_WriteSBML_Event_trigger );
- // tcase_add_test( tcase, test_WriteSBML_Event_delay   );
+  tcase_add_test( tcase, test_WriteSBML_Event_delay   );
   tcase_add_test( tcase, test_WriteSBML_Event_both    );
   tcase_add_test( tcase, test_WriteSBML_Event_full    );
 
@@ -2123,15 +1802,8 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_NaN     );
   tcase_add_test( tcase, test_WriteSBML_INF     );
   tcase_add_test( tcase, test_WriteSBML_NegINF  );
-  //tcase_add_test( tcase, test_WriteSBML_xmlns );
   tcase_add_test( tcase, test_WriteSBML_locale  );
 
-  // Bug
-  /*
-  tcase_add_test( tcase, test_WriteSBML_nonempty_RateRule_bug             );
-  tcase_add_test( tcase, test_WriteSBML_SBMLDocument_no_annotation_bug_L2 );
-  tcase_add_test( tcase, test_WriteSBML_SBMLDocument_no_annotation_bug_L1 );
-  */
   suite_add_tcase(suite, tcase);
 
   return suite;

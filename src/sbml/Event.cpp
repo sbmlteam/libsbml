@@ -550,7 +550,10 @@ Event::writeElements (XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
-  mTrigger->write(stream);
+  if (mTrigger)
+  {
+    mTrigger->write(stream);
+  }
 
   if (mDelay)
   {
