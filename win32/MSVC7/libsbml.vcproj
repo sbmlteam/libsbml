@@ -337,6 +337,9 @@
 				RelativePath="..\..\src\sbml\SBMLDocument.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\sbml\SBMLError.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\sbml\SBMLErrorLog.cpp">
 			</File>
 			<File
@@ -690,6 +693,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLDocument.h">
+			</File>
+			<File
+				RelativePath="..\..\src\sbml\SBMLError.h">
 			</File>
 			<File
 				RelativePath="..\..\src\sbml\SBMLErrorLog.h">
