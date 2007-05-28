@@ -30,6 +30,7 @@
 #include <sbml/ListOf.h>
 #include <sbml/Model.h>
 #include <sbml/SBMLDocument.h>
+#include <sbml/SBMLError.h>
 #include <sbml/SBMLErrorLog.h>
 #include <sbml/FunctionDefinition.h>
 #include <sbml/Unit.h>
@@ -75,7 +76,6 @@
 #include <sbml/xml/XMLTokenizer.h>
 
 #include <sbml/units/FormulaUnitsData.h>
-#include <sbml/units/UnitFormulaFormatter.h>
 #include <sbml/units/Utils_Unit.h>
 #include <sbml/units/Utils_UnitDefinition.h>
 

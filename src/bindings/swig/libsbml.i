@@ -202,9 +202,9 @@
 %include sbml/xml/XMLTokenizer.h
 
 %include sbml/SBMLErrorLog.h
+%include sbml/SBMLError.h
 
 %include sbml/units/FormulaUnitsData.h
-%include sbml/units/UnitFormulaFormatter.h
 %include sbml/units/Utils_Unit.h
 %include sbml/units/Utils_UnitDefinition.h
 
