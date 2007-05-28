@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 37 };
+BEGIN { plan tests => 36 };
 
 use File::Spec;
 use LibSBML;
@@ -26,7 +26,7 @@ $pm = $d->getError($errors);
 ok(!defined($pm));
 $pm = $d->getError($errors-1);
 ok(defined($pm));
-ok($pm->getId(), 1);
+ok($pm->getId(), 2);
 
 # non-sbml file: xsd file
 $file = File::Spec->catfile($testDataDir, 'sbml-l1v1.xsd');
@@ -45,7 +45,6 @@ ok($errors > 0);
 $pm = $d->getError($errors-1);
 ok(defined($pm));
 ok($pm->getId(),20201);
-ok($pm->getMessage(), 'An SBML document must contain a <model> definition. (References: L2V1 and L2V2 Section 4.1).');
 ok($pm->getLine(), 3);
 ok($pm->getColumn(), 1);
 
