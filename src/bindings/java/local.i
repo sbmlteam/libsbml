@@ -32,7 +32,24 @@
 %}
 
 
+/**
+ * Renames *::clone() to *::cloneObject().
+ * In JDK 1.4.2, libsbml's *::clone() methods can't override 
+ * "Object Java.lang.Object.clone()" because JDK 1.4.2 doesn't
+ * allow override with different return type. 
+ */
+
 %rename(cloneObject) *::clone;
+
+/**
+ * Ignores XMLToken::clone() in order to use XMLNode::clone().
+ * (XMLNode is a derived class of XMLToken)
+ * In JDK 1.4.2, "XMLNode XMLNode::clone()" can't override 
+ * "XMLToken XMLToken::clone()" because JDK 1.4.2 doesn't
+ * allow override with different return type.
+ */
+
+%javamethodmodifiers       XMLToken::clone "private"
 
 /**
  * Turns off object destruction.  For testing purposes only.
@@ -76,6 +93,23 @@
 %javaconstvalue("'*'") AST_TIMES;
 %javaconstvalue("'/'") AST_DIVIDE;
 %javaconstvalue("'^'") AST_POWER;
+
+/*
+ * SWIG can't wrap a enum value such as 'XMLError::Info'.
+ * The following java code is added to wrap 'enum SBMLSeverity' 
+ * in SBMLError class.
+ */
+
+%ignore SBMLError::SBMLSeverity;
+%typemap("javacode") SBMLError
+%{
+  // SBMLSeverity
+  public final static int Info    = XMLError.Info;  
+  public final static int Warning = XMLError.Warning;  
+  public final static int Error   = XMLError.Error;  
+  public final static int Fatal   = XMLError.Fatal;  
+%}
+
 
 #ifndef USE_LAYOUT
 
