@@ -687,6 +687,29 @@ SBMLDocument::readAttributes (const XMLAttributes& attributes)
 void
 SBMLDocument::writeAttributes (XMLOutputStream& stream) const
 {
+  if (mNamespaces == 0)
+  {
+     XMLNamespaces xmlns;
+
+     if (mLevel == 1)
+     {
+        xmlns.add("http://www.sbml.org/sbml/level1");
+     }
+     else if (mLevel == 2 && mVersion == 1)
+     {
+       xmlns.add("http://www.sbml.org/sbml/level2");
+     }
+     else if (mLevel == 2 && mVersion == 2)
+     {
+       xmlns.add("http://www.sbml.org/sbml/level2/version2");
+     }
+     else if (mLevel == 2 && mVersion == 3)
+     {
+       xmlns.add("http://www.sbml.org/sbml/level2/version3");
+     }
+     stream << xmlns;
+  }  
+
   SBase::writeAttributes(stream);
 
   //
