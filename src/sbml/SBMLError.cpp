@@ -329,7 +329,7 @@ SBMLError::SBMLError (  const unsigned int            id
   mColumn = column;
 
   if ( id > XMLError::ErrorCodesUpperBound
-       && id < SBMLError::ErrorCodesUpperBound )
+       && id < SBMLError::SBMLCodesUpperBound )
   {
     unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
 
