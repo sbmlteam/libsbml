@@ -33,8 +33,8 @@ START_TEST (test_XMLError_create_C)
   fail_unless(error != NULL);
   fail_unless(XMLError_isInfo(error) == 0);
   fail_unless(XMLError_isWarning(error) == 0);
-  fail_unless(XMLError_isError(error) == 1);
-  fail_unless(XMLError_isFatal(error) == 0);
+  fail_unless(XMLError_isError(error) == 0);
+  fail_unless(XMLError_isFatal(error) == 1);
   XMLError_free(error);
 
   error = XMLError_createWithIdAndMessage(12345, "My message");

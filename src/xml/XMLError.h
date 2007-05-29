@@ -178,7 +178,7 @@ public:
    *
    * XMLError objects have identification numbers to indicate the nature of
    * the exception.  These numbers are drawn from the enumeration
-   * XMLError::Code.  The argument @p id to this constructor @em can be
+   * XMLError::Code.  The argument @p errorId to this constructor @em can be
    * (but does not have to be) a value from this enumeration.  If it is a
    * value from XMLError::Code, the XMLError class assumes it the error is
    * a low-level system or XML layer error and prepends a predefined error
@@ -187,7 +187,7 @@ public:
    * these fields are filled-in as well from the enumerations
    * XMLError::Severity and XMLError::Category, respectively
    *
-   * If the error identifier @p id is a number greater than 9999, the
+   * If the error identifier @p errorId is a number greater than 9999, the
    * XMLError class assumes the error was generated from another part of
    * the software and does not do additional filling in of values beyond
    * the default in the constructor itself.  This allows XMLError to serve
@@ -202,19 +202,19 @@ public:
    * values passed in @p severity and @p category override the defaults
    * assigned based on the error code.  If the error identifier is a code
    * number from XMLError::Code, callers do not need to fill in @p severity
-   * and @p category.  Conversely, if @p id is not a value from
+   * and @p category.  Conversely, if @p errorId is not a value from
    * XMLError::Code, callers can use other values (not just those from
    * XMLError::Severity and XMLError::Category, but their own special
    * values) for @p severity and @p category.
    *
-   * @param id an unsigned int, the identification number of the error.
+   * @param errorId an unsigned int, the identification number of the error.
    * 
    * @param line an unsigned int, the line number at which the error occured.
    * 
    * @param column an unsigned int, the column number at which the error occured.
    * 
    * @param message a string, the error message.  If the error code in @p
-   * id is one that is recognized by XMLError, the given message is appended
+   * errorId is one that is recognized by XMLError, the given message is appended
    * to a predefined message associated with the given code.  If the error
    * code is not recognized, the message is stored as-is as the text of the
    * error.
@@ -226,7 +226,7 @@ public:
    */
   XMLError
   (
-      const int id                = 0
+      const int errorId           = 0
     , const std::string& details  = ""
     , const unsigned int line     = 0
     , const unsigned int column   = 0
@@ -246,7 +246,7 @@ public:
    *
    * @return the id of this XMLError.
    */
-  const int getId () const;
+  const unsigned int getId () const;
 
 
   /**
@@ -415,7 +415,7 @@ public:
 protected:
   /** @cond doxygen-libsbml-internal */
 
-  unsigned int mId;
+  unsigned int mErrorId;
 
   std::string  mMessage;
 
@@ -471,7 +471,7 @@ XMLError_create (void);
 
 LIBLAX_EXTERN
 XMLError_t*
-XMLError_createWithIdAndMessage (unsigned int id, const char * message);
+XMLError_createWithIdAndMessage (unsigned int errorId, const char * message);
 
 //LIBLAX_EXTERN
 //XMLError_t*
@@ -484,7 +484,7 @@ XMLError_free(XMLError_t* error);
 
 
 LIBLAX_EXTERN
-int
+unsigned int
 XMLError_getId (const XMLError_t *error);
 
 

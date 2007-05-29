@@ -229,13 +229,13 @@ static const xmlErrorTableEntry errorTable[] =
  * the line and column by consulting the parser.  This constructor
  * purposefully doesn't do that.
  */
-XMLError::XMLError (  const int id
+XMLError::XMLError (  const int errorId
                     , const std::string& details
                     , const unsigned int line
-		    , const unsigned int column
+		                , const unsigned int column
                     , const unsigned int severity
                     , const unsigned int category ) :
-    mId    ( id     )
+    mErrorId    ( errorId     )
   , mLine  ( line   )
   , mColumn( column )
 {
@@ -243,25 +243,25 @@ XMLError::XMLError (  const int id
   // it is, fill in the fields of the error object with the appropriate
   // content.  If it's not in the table, take the content as-is.
 
-  if ( id >= 0 && id < XMLError::ErrorCodesUpperBound )
+  if ( errorId >= 0 && errorId < XMLError::ErrorCodesUpperBound )
   {
     unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
 
     for ( unsigned int i = 0; i < tableSize; i++ )
     {
-      if ( errorTable[i].code == id )
+      if ( errorTable[i].code == errorId )
       {
-	mMessage  = errorTable[i].message;
+	      mMessage  = errorTable[i].message;
 
-	if ( !details.empty() )
-	{
-	  mMessage.append(": ");
-	  mMessage.append(details);
-	}
+	      if ( !details.empty() )
+	      {
+	        mMessage.append(": ");
+	        mMessage.append(details);
+	      }
 
-	mSeverity = errorTable[i].severity;
-	mCategory = errorTable[i].category;
-	return;
+	      mSeverity = errorTable[i].severity;
+	      mCategory = errorTable[i].category;
+	      return;
       }
     }
 
@@ -270,8 +270,8 @@ XMLError::XMLError (  const int id
     // Unfortunately, we don't have an error log or anywhere to report it
     // except the measure of last resort: the standard error output.
     
-    cerr << "Internal error: unknown error code '" << id
-	 << "' encountered while processing error" << endl;
+    cerr << "Internal error: unknown error code '" << errorId
+	        << "' encountered while processing error" << endl;
   }
 
   // It's not an error code in the XML layer, so assume the caller has
@@ -295,10 +295,10 @@ XMLError::~XMLError ()
 /**
  * @return the id of this XMLError.
  */
-const int
+const unsigned int
 XMLError::getId () const
 {
-  return mId;
+  return mErrorId;
 }
 
 
@@ -491,7 +491,7 @@ XMLError::getStandardMessage (const XMLError::Code code)
 ostream& operator<< (ostream& s, const XMLError& error)
 {
   s << "line " << error.mLine << ": ("
-    << setfill('0') << setw(5) << error.mId
+    << setfill('0') << setw(5) << error.mErrorId
     << ") " << error.mMessage << endl;
   return s;
 }
@@ -518,15 +518,15 @@ XMLError_create (void)
  * If the identifier is < 10000, it must be one of the predefined XML layer
  * error codes.
  *
- * @param id an unsigned int, the identification number of the error.
+ * @param errorId an unsigned int, the identification number of the error.
  * @param message a string, the error message.
  *
  */
 LIBLAX_EXTERN
 XMLError_t*
-XMLError_createWithIdAndMessage (unsigned int id, const char * message)
+XMLError_createWithIdAndMessage (unsigned int errorId, const char * message)
 {
-  return new(nothrow) XMLError(id, message);
+  return new(nothrow) XMLError(errorId, message);
 }
 
 /**
@@ -534,7 +534,7 @@ XMLError_createWithIdAndMessage (unsigned int id, const char * message)
  * line and column.  Each XMLError also has an identification number, a
  * category, and a severity level associated with it.
  *
- * @param id an unsigned int, the identification number of the error.
+ * @param errorId an unsigned int, the identification number of the error.
  * @param message a string, the error message.
  * @param severity XMLError_Severity, severity of the error.
  * @param category a string, the category to which the error belongs.
@@ -546,7 +546,7 @@ XMLError_createWithIdAndMessage (unsigned int id, const char * message)
 
 //LIBLAX_EXTERN
 //XMLError_t*
-//XMLError_createWithAll (unsigned int id, const char * message, XMLError_Severity severity,
+//XMLError_createWithAll (unsigned int errorId, const char * message, XMLError_Severity severity,
 //                        const char * category, unsigned int line, unsigned int column)
 //{
 //  XMLError::Severity s;
@@ -568,7 +568,7 @@ XMLError_createWithIdAndMessage (unsigned int id, const char * message)
 //    s = XMLError::Severity::Error;
 //    break;
 //  }
-//  return new(nothrow) XMLError(id, message, s, category, line, column);
+//  return new(nothrow) XMLError(errorId, message, s, category, line, column);
 //}
 
 
@@ -592,7 +592,7 @@ XMLError_free(XMLError_t* error)
  * @return the id of this XMLError.
  */
 LIBLAX_EXTERN
-int
+unsigned int
 XMLError_getId (const XMLError_t *error)
 {
   return error->getId();
