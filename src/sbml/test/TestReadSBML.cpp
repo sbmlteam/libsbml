@@ -2083,18 +2083,15 @@ START_TEST (test_ReadSBML_notes)
 }
 END_TEST
 
-/*
+
 
 
 START_TEST (test_ReadSBML_notes_xmlns)
 {
-  const char* n =
-    "<body xmlns=\"http://www.w3.org/1999/xhtml\"> Some text... </body>";
-
-  const char* s = wrapSBML
+  const char* s = wrapSBML_L2v3
   (
     "<notes>"
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some text... </body>"
+    "  <body xmlns=\"http://www.w3.org/1999/xhtml\">Some text.</body>"
     "</notes>"
   );
 
@@ -2102,76 +2099,21 @@ START_TEST (test_ReadSBML_notes_xmlns)
   D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp(SBase_getNotes(M), n) );
-}
-END_TEST
+  fail_unless( SBase_getNotes(M) != NULL );
 
+  const XMLNamespaces_t * ns = XMLNode_getNamespaces(XMLNode_getChild(SBase_getNotes(M), 0));
 
-START_TEST (test_ReadSBML_notes_entity_reference)
-{
-  const char* n =
-#ifdef USE_EXPAT
-    "<body xmlns=\"http://www.w3.org/1999/xhtml\"> Some\xc2\xa0text... "
-    "</body>";
-#else
-    "<body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... "
-    "</body>";
-#endif
+  fail_unless(XMLNamespaces_getLength(ns) == 1);
+  fail_unless(!strcmp(XMLNamespaces_getURI(ns, 0), "http://www.w3.org/1999/xhtml"));
 
-  const char* s = wrapSBML
-  (
-    "<notes>"
-    "  <body xmlns=\"http://www.w3.org/1999/xhtml\"> Some&#xA0;text... </body>"
-    "</notes>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( !strcmp(SBase_getNotes(M), n) );
-}
-END_TEST
-
-
-START_TEST (test_ReadSBML_notes_nested)
-{
-  Reaction_t*   r;
-  KineticLaw_t* kl;
-
-  const char* n = "This is a test <notes>nested</notes> note.";
-
-  const char* s = wrapSBML
-  (
-    "<reaction name='J1'>"
-    "  <kineticLaw formula='k1*X0'>"
-    "    <notes>This is a test <notes>nested</notes> note.</notes>"
-    "    <listOfParameters>"
-    "      <parameter name='k1' value='0'/>"
-    "    </listOfParameters>"
-    "  </kineticLaw>"
-    "</reaction>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  r  = Model_getReaction(M, 0);
-
-  kl = Reaction_getKineticLaw(r);
-
-  fail_unless( !strcmp(SBase_getNotes(kl), n) );
-  fail_unless( SBMLDocument_getNumWarnings(D) == 1 );
+  const char * notes = XMLNode_getCharacters(XMLNode_getChild(XMLNode_getChild(SBase_getNotes(M), 0), 0));
+  fail_unless( strcmp(notes, "Some text.") == 0 );
 }
 END_TEST
 
 
 START_TEST (test_ReadSBML_notes_sbml)
 {
-  const char* n =
-    "Notes are not allowed as part of the SBML element.";
-
   const char* s = wrapXML
   (
     "<sbml level='1' version='1'>"
@@ -2181,31 +2123,35 @@ START_TEST (test_ReadSBML_notes_sbml)
 
 
   D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp(SBase_getNotes(D), n) );
-  fail_unless( SBMLDocument_getNumErrors(D) == 1 );
+  fail_unless( SBase_getNotes(D) != NULL );
+
+  const char * notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(D), 0));
+  fail_unless( strcmp(notes, "Notes are not allowed as part of the SBML element.") == 0 );
+
+  fail_unless( SBMLDocument_getNumErrors(D) > 0 );
 }
 END_TEST
 
 
 START_TEST (test_ReadSBML_notes_sbml_L2)
 {
-  const char* n =
-    "Notes *are* allowed as part of the SBML element in L2.";
-
   const char* s = wrapXML
   (
-    "<sbml level='2' version='1'>"
-    "  <notes>Notes *are* allowed as part of the SBML element in L2.</notes>"
-    "</sbml>"
+  "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\"> "
+  "  <notes>"
+  "    <html xmlns=\"http://www.w3.org/1999/xhtml\">"
+  "		 </html>"
+  "	  </notes>"
+  "	  <model>"
+  "   </model>"
+  " </sbml>"
   );
 
 
   D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
+  fail_unless( SBase_getNotes(D) != NULL );
 
-  fail_unless( !strcmp(SBase_getNotes(D), n) );
   fail_unless( SBMLDocument_getNumErrors(D) == 0 );
 }
 END_TEST
@@ -2215,39 +2161,22 @@ START_TEST (test_ReadSBML_notes_ListOf)
 {
   SBase_t*  sb;
 
-  const char* s = wrapSBML2
+  const char* s = wrapSBML_L2v1
   (
     "<listOfFunctionDefinitions>"
-    "  <notes> My Functions </notes>"
+    "  <notes>My Functions</notes>"
+    "  <functionDefinition/>"
     "</listOfFunctionDefinitions>"
 
     "<listOfUnitDefinitions>"
-    "  <notes> My Units </notes>"
+    "  <notes>My Units</notes>"
+    "  <unitDefinition/>"
     "</listOfUnitDefinitions>"
 
     "<listOfCompartments>"
-    "  <notes> My Compartments </notes>"
+    "  <notes>My Compartments</notes>"
+    "  <compartment/>"
     "</listOfCompartments>"
-
-    "<listOfSpecies>"
-    "  <notes> My Species </notes>"
-    "</listOfSpecies>"
-
-    "<listOfParameters>"
-    "  <notes> My Parameters </notes>"
-    "</listOfParameters>"
-
-    "<listOfRules>"
-    "  <notes> My Rules </notes>"
-    "</listOfRules>"
-
-    "<listOfReactions>"
-    "  <notes> My Reactions </notes>"
-    "</listOfReactions>"
-
-    "<listOfEvents>"
-    "  <notes> My Events </notes>"
-    "</listOfEvents>"
   );
 
 
@@ -2259,180 +2188,31 @@ START_TEST (test_ReadSBML_notes_ListOf)
   sb = (SBase_t *) Model_getListOfFunctionDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Functions") );
+  const char * notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
+  fail_unless( strcmp(notes, "My Functions") == 0 );
 
 
   sb = (SBase_t *) Model_getListOfUnitDefinitions(M);
 
   fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Units") );
+  notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
+  fail_unless( strcmp(notes, "My Units") == 0 );
 
 
   sb = (SBase_t *) Model_getListOfCompartments(M);
 
   fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Compartments") );
+  notes = XMLNode_getCharacters(XMLNode_getChild(SBase_getNotes(sb), 0));
+  fail_unless( strcmp(notes, "My Compartments") == 0 );
 
 
-  sb = (SBase_t *) Model_getListOfSpecies(M);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Species") );
-
-
-  sb = (SBase_t *) Model_getListOfParameters(M);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Parameters") );
-
-
-  sb = (SBase_t *) Model_getListOfRules(M);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Rules") );
-
-
-  sb = (SBase_t *) Model_getListOfReactions(M);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Reactions") );
-
-
-  sb = (SBase_t *) Model_getListOfEvents(M);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Events") );
-
-}
-END_TEST
-
-
-START_TEST (test_ReadSBML_notes_ListOf_Units)
-{
-  UnitDefinition_t* ud;
-  SBase_t*          sb;
-
-  const char* s = wrapSBML2
-  (
-    "<unitDefinition>"
-    "  <listOfUnits>"
-    "    <notes> My Units </notes>"
-    "  </listOfUnits>"
-    "</unitDefinition>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( M != NULL );
-
-  ud = Model_getUnitDefinition(M, 0);
-  sb = (SBase_t *) UnitDefinition_getListOfUnits(ud);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Units") );
-}
-END_TEST
-
-
-START_TEST (test_ReadSBML_notes_ListOf_Reactions)
-{
-  Reaction_t*   r;
-  KineticLaw_t* kl;
-  SBase_t*      sb;
-
-  const char* s = wrapSBML2
-  (
-    "<reaction>"
-    "  <listOfReactants>"
-    "    <notes> My Reactants </notes>"
-    "  </listOfReactants>"
-    "  <listOfProducts>"
-    "    <notes> My Products </notes>"
-    "  </listOfProducts>"
-    "  <listOfModifiers>"
-    "    <notes> My Modifiers </notes>"
-    "  </listOfModifiers>"
-    "  <kineticLaw>"
-    "    <listOfParameters>"
-    "    <notes> My Parameters </notes>"
-    "    </listOfParameters>"
-    "  </kineticLaw>"
-    "</reaction>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( M != NULL );
-
-  r = Model_getReaction(M, 0);
-
-  sb = (SBase_t *) Reaction_getListOfReactants(r);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Reactants") );
-
-
-  sb = (SBase_t *) Reaction_getListOfProducts(r);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Products") );
-
-  sb = (SBase_t *) Reaction_getListOfModifiers(r);
-
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Modifiers") );
-
-  kl = Reaction_getKineticLaw(r);
-  sb = (SBase_t *) KineticLaw_getListOfParameters(kl);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Parameters") );
-}
-END_TEST
-
-
-START_TEST (test_ReadSBML_notes_ListOf_EventAssignments)
-{
-  Event_t*  e;
-  SBase_t*  sb;
-
-  const char* s = wrapSBML2
-  (
-    "<event>"
-    "  <listOfEventAssignments>"
-    "  <notes> My Assignments </notes>"
-    "  </listOfEventAssignments>"
-    "</event>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( M != NULL );
-
-  e  = Model_getEvent(M, 0);
-  sb = (SBase_t *) Event_getListOfEventAssignments(e);
-
-  fail_unless( SBase_isSetNotes(sb) );
-  fail_unless( !strcmp(SBase_getNotes(sb), "My Assignments") );
 }
 END_TEST
 
 
 START_TEST (test_ReadSBML_annotation)
 {
-  const char* a =
-    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
-    "  </mysim:nodecolors>"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotation>";
-
-  const char* s = wrapSBML
+  const char* s = wrapSBML_L2v3
   (
     "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
     "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
@@ -2446,121 +2226,16 @@ START_TEST (test_ReadSBML_annotation)
   M = SBMLDocument_getModel(D);
 
   fail_unless( SBase_getAnnotation(M) != NULL );
-  fail_unless( !strcmp(SBase_getAnnotation(M), a) );
-}
-END_TEST
+  XMLNode_t * ann = SBase_getAnnotation(M);
 
+  fail_unless(XMLNode_getNumChildren(ann) == 2);
 
-START_TEST (test_ReadSBML_annotations)
-{
-  const char* a =
-    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
-    "  </mysim:nodecolors>"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotation>";
-
-  const char* s = wrapSBML
-  (
-    "<annotations xmlns:mysim=\"http://www.mysim.org/ns\">"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
-    "  </mysim:nodecolors>"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotations>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( SBase_getAnnotation(M) != NULL );
-  fail_unless( !strcmp(SBase_getAnnotation(M), a) );
-}
-END_TEST
-
-
-START_TEST (test_ReadSBML_annotation_after)
-{
-  Reaction_t*   r;
-  KineticLaw_t* kl;
-
-  const char* a =
-    "<annotation xmlns:vc=\"http://www.sbml.org/2001/ns/vcell\">"
-    "      <vc:modifiers vc:name=\"k1\"></vc:modifiers>"
-    "    </annotation>";
-
-  const char* s = wrapSBML
-  (
-    "<reaction name='J1'>"
-    "  <kineticLaw formula='k1*X0'>"
-    "    <listOfParameters>"
-    "      <parameter name='k1' value='0'/>"
-    "    </listOfParameters>"
-    "    <annotation xmlns:vc=\"http://www.sbml.org/2001/ns/vcell\">"
-    "      <vc:modifiers vc:name=\"k1\"/>"
-    "    </annotation>"
-    "  </kineticLaw>"
-    "</reaction>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  r  = Model_getReaction(M, 0);
-  kl = Reaction_getKineticLaw(r);
-
-  fail_unless( !strcmp(SBase_getAnnotation(kl), a) );
-}
-END_TEST
-
-
-START_TEST (test_ReadSBML_annotation_nested)
-{
-  const char* a =
-    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
-    "  </mysim:nodecolors>"
-    "  <annotation type=\"bogus\">"
-    "    Why would you want to nest annotations?"
-    "  </annotation>"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotation>";
-
-  const char* s = wrapSBML
-  (
-    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
-    "  </mysim:nodecolors>"
-    "  <annotation type=\"bogus\">"
-    "    Why would you want to nest annotations?"
-    "  </annotation>"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotation>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( !strcmp(SBase_getAnnotation(M), a) );
 }
 END_TEST
 
 
 START_TEST (test_ReadSBML_annotation_sbml)
 {
-  const char* a =
-    "<annotation xmlns:jd=\"http://www.sys-bio.org/sbml\">"
-    "    <jd:header>"
-    "      <VersionHeader SBMLVersion=\"1.0\"></VersionHeader>"
-    "    </jd:header>"
-    "    <jd:display>"
-    "      <SBMLGraphicsHeader BackGroundColor=\"15728639\">"
-    "</SBMLGraphicsHeader>"
-    "    </jd:display>"
-    "  </annotation>";
-
   const char* s = wrapXML
   (
     "<sbml level=\"1\" version=\"1\">"
@@ -2578,76 +2253,32 @@ START_TEST (test_ReadSBML_annotation_sbml)
 
   D = readSBMLFromString(s);
 
-  fail_unless( !strcmp(SBase_getAnnotation(D), a) );
-  fail_unless( SBMLDocument_getNumErrors(D) == 1 );
+  fail_unless( SBMLDocument_getNumErrors(D) > 0 );
 }
 END_TEST
 
 
 START_TEST (test_ReadSBML_annotation_sbml_L2)
 {
-  const char* a =
-    "<annotation xmlns:jd=\"http://www.sys-bio.org/sbml\">"
-    "    <jd:header>"
-    "      <VersionHeader SBMLVersion=\"1.0\"></VersionHeader>"
-    "    </jd:header>"
-    "    <jd:display>"
-    "      <SBMLGraphicsHeader BackGroundColor=\"15728639\">"
-    "</SBMLGraphicsHeader>"
-    "    </jd:display>"
-    "  </annotation>";
-
   const char* s = wrapXML
   (
-    "<sbml level=\"2\" version=\"1\">"
-    "  <annotation xmlns:jd = \"http://www.sys-bio.org/sbml\">"
-    "    <jd:header>"
-    "      <VersionHeader SBMLVersion = \"1.0\"/>"
-    "    </jd:header>"
-    "    <jd:display>"
-    "      <SBMLGraphicsHeader BackGroundColor = \"15728639\"/>"
-    "    </jd:display>"
-    "  </annotation>"
-    "</sbml>"
+  "<sbml xmlns=\"http://www.sbml.org/sbml/level2\" level=\"2\" version=\"1\"> "
+  "  <annotation>"
+  "    <rdf xmlns=\"http://www.w3.org/1999/anything\">"
+  "		 </rdf>"
+  "	  </annotation>"
+  "	  <model>"
+  "   </model>"
+  " </sbml>"
   );
 
 
   D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
 
-  fail_unless( !strcmp(SBase_getAnnotation(D), a) );
   fail_unless( SBMLDocument_getNumErrors(D) == 0 );
 }
 END_TEST
-
-
-START_TEST (test_ReadSBML_annotation_trim_ws)
-{
-  const char* a =
-    "<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
-    "  </mysim:nodecolors>"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotation>";
-
-  const char* s = wrapSBML
-  (
-    "\n \n<annotation xmlns:mysim=\"http://www.mysim.org/ns\">"
-    "  <mysim:nodecolors mysim:bgcolor=\"green\" mysim:fgcolor=\"white\">"
-    "  </mysim:nodecolors>"
-    "  <mysim:timestamp>2000-12-18 18:31 PST</mysim:timestamp>"
-    "</annotation>    "
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( SBase_getAnnotation(M) != NULL );
-  fail_unless( !strcmp(SBase_getAnnotation(M), a) );
-}
-END_TEST
-
 
 
 START_TEST (test_ReadSBML_line_col_numbers)
@@ -2662,15 +2293,16 @@ START_TEST (test_ReadSBML_line_col_numbers)
     "  </model>\n"
     "</sbml>\n";
 
+/*
             1         2         3         4         5         6 
    123456789012345678901234567890123456789012345678901234567890 
-
+*/
   D = readSBMLFromString(s);
   M = SBMLDocument_getModel(D);
 
   fail_unless( M != NULL );
 
-  
+  /**
    * Xerces-C++ and Expat report line and column numbers differently.
    *
    * Expat reports the line and column numbers at the start of a token
@@ -2682,15 +2314,19 @@ START_TEST (test_ReadSBML_line_col_numbers)
    *   XMLReader.setFeature( XMLUni::fgXercesCalculateSrcOfs, true );
    *
    * but it has no effect.  Perhaps I misunderstood its meaning. :(
-   
+   */
 
   sb = (SBase_t *) M;
 
-#if USE_EXPAT
+#ifdef USE_EXPAT 
   fail_unless ( SBase_getLine  (sb) == 3 );
   fail_unless ( SBase_getColumn(sb) == 2 );
-#else if USE_LIBXML
-#else
+#endif
+#ifdef USE_LIBXML
+  fail_unless ( SBase_getLine  (sb) == 3 );
+  fail_unless ( SBase_getColumn(sb) == 2 );
+#endif
+#ifdef USE_XERCES
   fail_unless ( SBase_getLine  (sb) ==  3 );
   fail_unless ( SBase_getColumn(sb) == 27 );
 #endif
@@ -2698,10 +2334,15 @@ START_TEST (test_ReadSBML_line_col_numbers)
 
   sb = (SBase_t *) Model_getListOfReactions(M);
 
-#if USE_EXPAT
+#ifdef USE_EXPAT 
   fail_unless ( SBase_getLine  (sb) == 4 );
   fail_unless ( SBase_getColumn(sb) == 4 );
-#else
+#endif
+#ifdef USE_LIBXML
+  fail_unless ( SBase_getLine  (sb) == 4 );
+  fail_unless ( SBase_getColumn(sb) == 4 );
+#endif
+#ifdef USE_XERCES
   fail_unless ( SBase_getLine  (sb) ==  4 );
   fail_unless ( SBase_getColumn(sb) == 22 );
 #endif
@@ -2709,83 +2350,20 @@ START_TEST (test_ReadSBML_line_col_numbers)
 
   sb = (SBase_t *) Model_getReaction(M, 0);
 
-#if USE_EXPAT
-  fail_unless ( SBase_getLine  (sb) ==  4 );
+#ifdef USE_EXPAT 
+  fail_unless ( SBase_getLine  (sb) == 4 );
   fail_unless ( SBase_getColumn(sb) == 22 );
-#else
+#endif
+#ifdef USE_LIBXML
+  fail_unless ( SBase_getLine  (sb) == 4 );
+  fail_unless ( SBase_getColumn(sb) == 22 );
+#endif
+#ifdef USE_XERCES
   fail_unless ( SBase_getLine  (sb) ==  4 );
   fail_unless ( SBase_getColumn(sb) == 34 );
 #endif
 }
 END_TEST
-
-
-
- * This test ensures the SBMLHandler does not invoke the MathML parser if
- * it encounters a <math> element inside <notes> or <annotation> elements.
- *
-
-START_TEST (test_ReadSBML_math_in_notes_bug)
-{
-  AssignmentRule_t* ar;
-
-  const char *n =
-    "<math> <apply> <ci> fn </ci> </apply> </math>";
-
-  const char *s = wrapSBML2
-  (
-    "<assignmentRule variable='x'>"
-    "  <notes>"
-    "    <math> <apply> <ci> fn </ci> </apply> </math>"
-    "  </notes>"
-    "</assignmentRule>"
-  );
-
-
-  D = readSBMLFromString(s);
-  M = SBMLDocument_getModel(D);
-
-  fail_unless( Model_getNumRules(M) == 1 );
-
-  ar = (AssignmentRule_t *) Model_getRule(M, 0);
-  fail_unless( ar != NULL );
-
-  fail_unless( !Rule_isSetMath ((Rule_t  *) ar) );
-  fail_unless( SBase_isSetNotes((SBase_t *) ar) );
-
-  fail_unless( !strcmp(SBase_getNotes((SBase_t *) ar), n) );
-}
-END_TEST
-
-
-
-START_TEST (test_ReadSBML_SBML_xmlns)
-{
-  const char* s = wrapXML
-  (
-    "<sbml level='2' version='1' xmlns:jd='http://www.sbml.org/ns/jdesigner'/>"
-  );
-
-  XMLNamespaceList  nl;
-  SBMLReader        reader;
-  SBMLDocument     *d = reader.readSBMLFromString(s);
-
-
-  fail_unless( d->getLevel()   == 2 );
-  fail_unless( d->getVersion() == 1 );
-
-
-  fail_unless( d->hasNamespaces() == true );
-
-  nl = d->getNamespaces();
-
-  fail_unless( nl.getPrefix(0) == "jd" );
-  fail_unless( nl.getURI(0)    == "http://www.sbml.org/ns/jdesigner" );
-
-  delete d;
-}
-END_TEST
-*/
 
 
 Suite *
@@ -2864,34 +2442,17 @@ create_suite_ReadSBML (void)
   tcase_add_test( tcase, test_ReadSBML_metaid_ListOf   );
 
   tcase_add_test( tcase, test_ReadSBML_notes                         );
-  /*
-  tcase_add_test( tcase, test_ReadSBML_notes                         );
-  tcase_add_test( tcase, test_ReadSBML_notes_after                   );
   tcase_add_test( tcase, test_ReadSBML_notes_xmlns                   );
-  tcase_add_test( tcase, test_ReadSBML_notes_entity_reference        );
-  tcase_add_test( tcase, test_ReadSBML_notes_nested                  );
   tcase_add_test( tcase, test_ReadSBML_notes_sbml                    );
   tcase_add_test( tcase, test_ReadSBML_notes_sbml_L2                 );
   tcase_add_test( tcase, test_ReadSBML_notes_ListOf                  );
-  tcase_add_test( tcase, test_ReadSBML_notes_ListOf_Units            );
-  tcase_add_test( tcase, test_ReadSBML_notes_ListOf_Reactions        );
-  tcase_add_test( tcase, test_ReadSBML_notes_ListOf_EventAssignments );
 
   tcase_add_test( tcase, test_ReadSBML_annotation         );
-  tcase_add_test( tcase, test_ReadSBML_annotations        );
-  tcase_add_test( tcase, test_ReadSBML_annotation_after   );
-  tcase_add_test( tcase, test_ReadSBML_annotation_nested  );
   tcase_add_test( tcase, test_ReadSBML_annotation_sbml    );
   tcase_add_test( tcase, test_ReadSBML_annotation_sbml_L2 );
-  tcase_add_test( tcase, test_ReadSBML_annotation_trim_ws );
   
-
   tcase_add_test( tcase, test_ReadSBML_line_col_numbers );
-  */
-
-  // tcase_add_test( tcase, test_ReadSBML_math_in_notes_bug );
-  // tcase_add_test( tcase, test_ReadSBML_SBML_xmlns        );
-
+  
   suite_add_tcase(suite, tcase);
 
   return suite;

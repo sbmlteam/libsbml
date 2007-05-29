@@ -164,14 +164,9 @@ main (int argc, char* argv[])
 
 
   SRunner *runner = srunner_create( create_suite_ReadSBML() );
-
   srunner_add_suite( runner, create_suite_WriteSBML() );
-
   srunner_add_suite( runner, create_suite_AlgebraicRule() ); 
   srunner_add_suite( runner, create_suite_AssignmentRule  () );
-  
-  
-  
   srunner_add_suite( runner, create_suite_Compartment              () );
   srunner_add_suite( runner, create_suite_CompartmentType          () );
   srunner_add_suite( runner, create_suite_CompartmentVolumeRule    () );
