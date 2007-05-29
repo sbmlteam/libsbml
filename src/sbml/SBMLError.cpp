@@ -204,6 +204,11 @@ static const sbmlErrorTableEntry errorTable[] =
     "XML Namespace declared for the 'sbml' element. (References: L2V2 "
     "Section 4.1.)" },
 
+  // 20141
+  { SBMLError::AnnotationNotesNotAllowedLevel1, SBMLError::SBML, SBMLError::Error,
+    "The 'sbml' container element cannot contain notes or annotations in an "
+    "SBML Level 1 document. (References: )" },
+
   // 20201
   { SBMLError::MissingModel, SBMLError::SBML, SBMLError::Error,
     "An SBML document must contain a <model> definition. (References: L2V1 "
@@ -337,27 +342,27 @@ SBMLError::SBMLError (  const unsigned int            id
     {
       if ( errorTable[i].code == id )
       {
-	ostringstream newMsg;
+	      ostringstream newMsg;
 
-	if ( !details.empty() ) newMsg << details << "." << endl;
+	      if ( !details.empty() ) newMsg << details << "." << endl;
 
-	newMsg << "This fails to satisfy SBML validation rule number "
+	      newMsg << "This fails to satisfy SBML validation rule number "
 	       << id << ":" << errorTable[i].message << endl;
 
-	mMessage  = newMsg.str();
-	mSeverity = errorTable[i].severity;
-	mCategory = errorTable[i].category;
-	return;
+	      mMessage  = newMsg.str();
+	      mSeverity = errorTable[i].severity;
+	      mCategory = errorTable[i].category;
+	      return;
       }
     }
 
     // The id is in the range of error numbers that are supposed to be in
-    // the XML layer, but it's NOT in our table.  This is an internal error.
+    // the SBML layer, but it's NOT in our table. This is an internal error.
     // Unfortunately, we don't have an error log or anywhere to report it
     // except the measure of last resort: the standard error output.
     
     cerr << "Internal error: unknown error code '" << id
-	 << "' encountered while processing error" << endl;
+	        << "' encountered while processing error" << endl;
   }
 
   // It's not an error code in the XML layer, so assume the caller has

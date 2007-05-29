@@ -63,6 +63,7 @@ public:
   , InvalidNamespaceOnSBML           = 20101
   , MissingOrInconsistentLevel       = 20102
   , MissingOrInconsistentVersion     = 20103
+  , AnnotationNotesNotAllowedLevel1  = 20141
   , MissingModel                     = 20201
   , IncorrectOrderInModel            = 20202
   , EmptyListElement                 = 20203

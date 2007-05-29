@@ -1020,6 +1020,14 @@ SBase::readAnnotation (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    // If this is a level 1 document then annotations are not allowed on
+    // the sbml container
+    if (getLevel() == 1 && getTypeCode() == SBML_DOCUMENT)
+    {
+      logError(SBMLError::AnnotationNotesNotAllowedLevel1);
+    }
+
+
     // If an annotation already exists, log it as an error and replace
     // the content of the existing annotation with the new one.
 
@@ -1054,6 +1062,13 @@ SBase::readNotes (XMLInputStream& stream)
 
   if (name == "notes")
   {
+    // If this is a level 1 document then notes are not allowed on
+    // the sbml container
+    if (getLevel() == 1 && getTypeCode() == SBML_DOCUMENT)
+    {
+      logError(SBMLError::AnnotationNotesNotAllowedLevel1);
+    }
+
     // If a notes element already exists, then it is an error.
     // If an annotation element already exists, then the ordering is wrong.
     // In either case, replace existing content with the new notes read.
