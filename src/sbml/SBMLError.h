@@ -109,12 +109,13 @@ public:
 
   SBMLError
   (
-     const unsigned int                  id = 0
+     const unsigned int             errorId = 0
    , const std::string&             details = ""
    , const unsigned int                line = 0
    , const unsigned int              column = 0
    , const SBMLError::SBMLSeverity severity = SBMLError::Error
    , const SBMLError::SBMLCategory category = SBMLError::SBML
+   , const unsigned int       fromValidator = 0
   );
 
 };

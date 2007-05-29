@@ -318,36 +318,48 @@ static const sbmlErrorTableEntry errorTable[] =
 
 
 
-SBMLError::SBMLError (  const unsigned int            id
+SBMLError::SBMLError (  const unsigned int            errorId
                       , const std::string&            details
                       , const unsigned int            line
-  		      , const unsigned int            column
-		      , const SBMLError::SBMLSeverity severity
-                      , const SBMLError::SBMLCategory category )
+  		                , const unsigned int            column
+		                  , const SBMLError::SBMLSeverity severity
+                      , const SBMLError::SBMLCategory category 
+                      , const unsigned int            fromValidator)
 {
   // Check if the given id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
   // content.  If it's not in the table, take the content as-is.
 
-  mId     = id;
+  mErrorId     = errorId;
   mLine   = line;
   mColumn = column;
 
-  if ( id > XMLError::ErrorCodesUpperBound
-       && id < SBMLError::SBMLCodesUpperBound )
+  if ( errorId > XMLError::ErrorCodesUpperBound
+       && errorId < SBMLError::SBMLCodesUpperBound )
   {
+    // BUT the numbers in the table overlap with numbers from the consistency
+    // validators so its not necessarily an error if the number is not
+    // in the table
+    if (fromValidator == 1)
+    {
+      mMessage  = details;
+      mSeverity = severity;
+      mCategory = category;
+      return;
+    }
+
     unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
 
     for ( unsigned int i = 0; i < tableSize; i++ )
     {
-      if ( errorTable[i].code == id )
+      if ( errorTable[i].code == errorId )
       {
 	      ostringstream newMsg;
 
 	      if ( !details.empty() ) newMsg << details << "." << endl;
 
 	      newMsg << "This fails to satisfy SBML validation rule number "
-	       << id << ":" << errorTable[i].message << endl;
+	          << errorId << ":" << errorTable[i].message << endl;
 
 	      mMessage  = newMsg.str();
 	      mSeverity = errorTable[i].severity;
@@ -361,7 +373,7 @@ SBMLError::SBMLError (  const unsigned int            id
     // Unfortunately, we don't have an error log or anywhere to report it
     // except the measure of last resort: the standard error output.
     
-    cerr << "Internal error: unknown error code '" << id
+    cerr << "Internal error: unknown error code '" << errorId
 	        << "' encountered while processing error" << endl;
   }
 
