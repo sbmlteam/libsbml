@@ -52,6 +52,17 @@
 %javamethodmodifiers       XMLToken::clone "private"
 
 /**
+ * Ignores XMLErrorLog::getError(unsigned int) in order to use
+ * SBMLErrorLog::getError(unsigned int).
+ * (XMLErrorLog is a derived class of SBMLErrorLog)
+ * In JDK 1.4.2, "SBMLError* SBMLErrorLog::getError(unsigned int)"
+ * can't override "XMLError* XMLErrorLog::getError(unsigned int)"
+ * due to the above mentioned reason.
+ */
+
+%javamethodmodifiers       XMLErrorLog::getError "private"
+
+/**
  * Turns off object destruction.  For testing purposes only.
  *
  * FIXME: Disable for the final 3.0 release.
