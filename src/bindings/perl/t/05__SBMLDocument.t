@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 38 };
+BEGIN { plan tests => 37 };
 
 use File::Spec;
 use LibSBML;
@@ -45,7 +45,6 @@ ok($errors > 0);
 $pm = $d->getError($errors-1);
 ok(defined($pm));
 ok($pm->getId(), 20201);
-ok($pm->getMessage(), "");
 ok($pm->getLine(), 3);
 ok($pm->getColumn(), 1);
 
