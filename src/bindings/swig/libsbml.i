@@ -95,6 +95,11 @@
 %ignore mParent;
 
 /**
+ * Ignore 'struct xmlErrorTableEntry' in XMLError.h.
+ */
+%ignore xmlErrorTableEntry;
+
+/**
  * Both "const std::string& SBase::getMetaId() const" and
  * "std:string& SBase::getMetaId()" are defined in SBase.cpp.
  * By default, SWIG doesn't convert non-const std:string& to and from
