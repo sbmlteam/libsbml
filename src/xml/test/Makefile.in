@@ -50,6 +50,7 @@ test_sources =          \
   TestXMLError.cpp      \
   TestXMLErrorC.c       \
   TestXMLErrorLog.c     \
+  TestXMLInputStream.c  \
   TestXMLNamespaces.c   \
   TestXMLNode.c         \
   TestXMLToken.c        \

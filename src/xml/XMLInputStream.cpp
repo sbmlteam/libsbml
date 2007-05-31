@@ -211,7 +211,6 @@ XMLInputStream::toString ()
 }
 
 
-#if 0
 
 /** @cond doxygen-c-only */
 
@@ -296,10 +295,10 @@ XMLInputStream_isGood (XMLInputStream_t *stream)
  * 
  **/
 LIBLAX_EXTERN
-XMLToken_t
+XMLToken_t *
 XMLInputStream_next (XMLInputStream_t *stream)
 {
-  return stream->next();
+  return new (nothrow) XMLToken(stream->next());
 }
 
 
@@ -349,4 +348,3 @@ XMLInputStream_setErrorLog (XMLInputStream_t *stream, XMLErrorLog_t *log)
 
 /** @endcond doxygen-c-only */
 
-#endif

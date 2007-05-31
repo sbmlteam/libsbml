@@ -163,7 +163,6 @@ protected:
 #endif  /* __cplusplus */
 
 
-#if 0
 
 #ifndef SWIG
 
@@ -210,7 +209,7 @@ XMLInputStream_isGood (XMLInputStream_t *stream);
 
 
 LIBLAX_EXTERN
-XMLToken_t
+XMLToken_t *
 XMLInputStream_next (XMLInputStream_t *stream);
 
 
@@ -240,6 +239,5 @@ END_C_DECLS
 
 #endif  /* !SWIG */
 
-#endif
 
 #endif  /* XMLInputStream_h */
