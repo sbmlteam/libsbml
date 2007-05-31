@@ -163,8 +163,31 @@ struct ValidatorConstraints
   ConstraintSet<CompartmentType>          mCompartmentType;
   ConstraintSet<SpeciesType>              mSpeciesType;
 
+  map<VConstraint*,bool> ptrMap;
+
+  ~ValidatorConstraints ();
   void add (VConstraint* c);
 };
+
+/**
+ * Deletes constraints (TConstraint(T>*) which are stored in lists 
+ * (ConstraintSet<T>) of this struct. 
+ * Since the same pointer values could be stored in different lists 
+ * (e.g., TConstraint<SimpleSpeciesReference>* is stored in both 
+ * ConstraintSet<SimpleSpeciesReference> and 
+ * ConstraintSet<ModifierSimpleSpeciesReference>), a pointer map is used for 
+ * avoiding segmentation fault caused by deleting the same pointer twice.
+ */
+ValidatorConstraints::~ValidatorConstraints ()
+{
+  map<VConstraint*,bool>::iterator it = ptrMap.begin();
+
+  while(it != ptrMap.end())
+  {
+     if(it->second) delete it->first; 
+     ++it;
+  }
+}
 
 
 /**
@@ -173,6 +196,8 @@ struct ValidatorConstraints
 void
 ValidatorConstraints::add (VConstraint* c)
 {
+  ptrMap.insert(pair<VConstraint*,bool>(c,true));
+
   if (dynamic_cast< TConstraint<SBMLDocument>* >(c))
   {
     mSBMLDocument.add( static_cast< TConstraint<SBMLDocument>* >(c) );
