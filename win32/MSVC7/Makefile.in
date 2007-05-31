@@ -66,19 +66,24 @@ thisdir = win32/MSVC7
 # This makefile only serves a role for `make dist'.
 
 distfiles = \
-  convertSBML.vcproj   \
-  libsbml.vcproj       \
-  libsbml_expat.vcproj \
-  printMath.vcproj     \
-  printSBML.vcproj     \
-  readSBML.vcproj      \
-  sbmlj.vcproj         \
-  translateMath.vcproj \
-  validateSBML.vcproj  \
-  printUnits.vcproj    \
-  libsbml.sln          \
-  libsbml_expat.sln    \
-Makefile.in
+  addCVTerms.vcproj	     \
+  addModelHistory.vcproj \
+  convertSBML.vcproj     \
+  drawMath.vcproj        \
+  echoSBML.vcproj        \
+  libsbml.vcproj         \
+  libsbml_expat.vcproj   \
+  libsbml_xml.vcproj     \
+  printMath.vcproj       \
+  printSBML.vcproj       \
+  printUnits.vcproj      \
+  readSBML.vcproj        \
+  translateMath.vcproj   \
+  validateSBML.vcproj    \
+  libsbml.sln            \
+  libsbml_expat.sln      \
+  libsbml_xml.sln        \
+  Makefile.in
 
 
 # -----------------------------------------------------------------------------
