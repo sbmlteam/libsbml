@@ -723,7 +723,7 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
 {
   UnitDefinition * ud = NULL;
   const UnitDefinition * tempUD;
-  Unit * unit;
+  Unit * unit = NULL;
   unsigned int n, p;
 
   const char * units = compartment->getUnits().c_str();
@@ -901,7 +901,7 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
   const UnitDefinition * tempUd;
   UnitDefinition *subsUD = NULL;
   UnitDefinition *sizeUD = NULL;
-  Unit * unit;
+  Unit * unit = NULL;
   const Compartment * c;
   unsigned int n, p;
 
@@ -1107,7 +1107,7 @@ UnitDefinition *
 UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter)
 {
   UnitDefinition * ud = NULL;
-  Unit * unit;
+  Unit * unit = NULL;
   unsigned int n, p;
 
   const char * units = parameter->getUnits().c_str();
