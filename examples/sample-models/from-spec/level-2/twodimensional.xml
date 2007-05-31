@@ -184,7 +184,7 @@
                     </apply>
                     </math>
                     <listOfParameters>
-                        <parameter id="Vmax" value="-4000" units="per_second"/>
+                        <parameter id="Vmax" value="4000" units="per_second"/>
                         <parameter id="kP" value="0.25" units="subs_per_vol"/>
                         <parameter id="Ca_Rest" value="0.1" units="subs_per_vol"/>
                     </listOfParameters>
