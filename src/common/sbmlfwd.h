@@ -261,6 +261,12 @@ typedef CLASS_OR_STRUCT XMLToken                  XMLToken_t;
 typedef CLASS_OR_STRUCT XMLInputStream                  XMLInputStream_t;
 
 /**
+ * @var typedef class XMLOutputStream XMLOutputStream_t
+ * @copydoc XMLOutputStream
+ */
+typedef CLASS_OR_STRUCT XMLOutputStream                  XMLOutputStream_t;
+
+/**
  * @var typedef class XMLTriple XMLTriple_t
  * @copydoc XMLTriple
  */
