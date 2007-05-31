@@ -229,6 +229,10 @@ PowerUnitsCheck::checkUnitsFromPower (const Model& m,
   }
 
   checkUnits(m, *node.getLeftChild(), sb);
+
+  delete unitFormat;
+  delete tempUD;
+  delete tempUD1
 }
 
 
@@ -303,6 +307,11 @@ PowerUnitsCheck::checkForPowersBeingDivided (const Model& m, const ASTNode& node
           }
         }
 
+        delete unitFormat;
+        delete tempUD;
+        delete tempUD1
+        delete tempUD2
+        delete tempUD3
     }
     else
     {

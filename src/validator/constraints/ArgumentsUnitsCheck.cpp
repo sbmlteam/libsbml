@@ -199,6 +199,11 @@ ArgumentsUnitsCheck::checkUnitsFromDelay (const Model& m,
     }
   }
 
+  delete time;
+  delete tempUD;
+  delete unit;
+  delete unitFormat;
+
   checkUnits(m, *node.getLeftChild(), sb);
 }
 /**
@@ -231,6 +236,9 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
     logInconsistentPiecewise(node, sb);
   }
 
+  delete tempUD;
+  delete tempUD1;
+
   tempUD = unitFormat->getUnitDefinition(node.getChild(1));
 
   if (!areEquivalent(tempUD, dim)) 
@@ -242,6 +250,11 @@ ArgumentsUnitsCheck::checkUnitsFromPiecewise (const Model& m,
   {
     checkUnits(m, *node.getChild(n), sb);
   }
+
+  delete tempUD;
+  delete dim;
+  delete unit;
+  delete unitFormat;
 
 }
 /**
@@ -267,6 +280,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
   while (unitFormat->hasUndeclaredUnits(node.getChild(i)) && 
     i < node.getNumChildren()-1)
   {
+    delete ud; 
     i++;
     ud = unitFormat->getUnitDefinition(node.getChild(i));
   }
@@ -286,12 +300,15 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
         logInconsistentSameUnits(node, sb);
       }
     }
+    delete tempUD;
   }
 
   for (n = 0; n < node.getNumChildren(); n++)
   {
     checkUnits(m, *node.getChild(n), sb);
   }
+
+  delete unitFormat;
 }
 
 /**
@@ -319,6 +336,11 @@ ArgumentsUnitsCheck::checkDimensionlessArgs (const Model& m,
   {
     logInconsistentDimensionless(node, sb);
   }
+
+  delete tempUD;
+  delete dim;
+  delete unit;
+  delete unitFormat;
 
 }
 

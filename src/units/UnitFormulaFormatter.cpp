@@ -227,6 +227,7 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
   Unit * unit;
   const ASTNode * fdMath;
   ASTNode *newMath;
+  bool needDelete = false;
 
   if(node->getType() == AST_FUNCTION)
   {
@@ -259,22 +260,24 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
         else
         {
           newMath = new ASTNode(fdMath->getType());
+          needDelete = true;
           nodeCount = 0;
           for (i = 0; i < fdMath->getNumChildren(); i++)
           {
             if (fdMath->getChild(i)->isName())
             {
-              newMath->addChild(node->getChild(nodeCount));
+              newMath->addChild(node->getChild(nodeCount)->deepCopy());
               nodeCount++;
             }
             else
             {
-              newMath->addChild(fdMath->getChild(i));
+              newMath->addChild(fdMath->getChild(i)->deepCopy());
             }
           }
         }
       }
       ud = getUnitDefinition(newMath);
+      if(needDelete) delete newMath;
     }
     else
     {
@@ -290,6 +293,8 @@ UnitFormulaFormatter::getUnitDefinitionFromFunction(const ASTNode * node)
     ud   = new UnitDefinition();
     
     ud->addUnit(unit);
+
+    delete unit;
   }
   
   return ud;
@@ -316,6 +321,7 @@ UnitFormulaFormatter::getUnitDefinitionFromTimes(const ASTNode * node)
     {
       ud->addUnit(tempUD->getUnit(i));
     }
+    delete tempUD;
   }
 
   return ud;
@@ -343,6 +349,7 @@ UnitFormulaFormatter::getUnitDefinitionFromDivide(const ASTNode * node)
     unit->setExponent(-1 * unit->getExponent());
     ud->addUnit(unit);
   }
+  delete tempUD;
 
   return ud;
 }
@@ -421,6 +428,8 @@ UnitFormulaFormatter::getUnitDefinitionFromPower(const ASTNode * node,
     ud->addUnit(unit);
   }
 
+  delete tempUD;
+
   return ud;
 }
 
@@ -479,6 +488,8 @@ UnitFormulaFormatter::getUnitDefinitionFromRoot(const ASTNode * node)
     ud->addUnit(unit);
   }
 
+  delete tempUD;
+
   return ud;
 }
 
@@ -510,6 +521,8 @@ UnitFormulaFormatter::getUnitDefinitionFromDimensionlessReturnFunction(const AST
   ud   = new UnitDefinition();
     
   ud->addUnit(unit);
+
+  delete unit;
 
   return ud;
 }
@@ -601,6 +614,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
     ud   = new UnitDefinition();
     
     ud->addUnit(unit);
+    delete unit;
   }
   else if (node->getType() == AST_CONSTANT_PI)
   {
@@ -608,6 +622,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
     ud   = new UnitDefinition();
     
     ud->addUnit(unit);
+    delete unit;
   }
   else if (node->isName())
   {
@@ -617,6 +632,7 @@ UnitFormulaFormatter::getUnitDefinitionFromOther(const ASTNode * node)
       ud   = new UnitDefinition();
       
       ud->addUnit(unit);
+      delete unit;
     }
     /* must be the name of a compartment, species or parameter */
     else
@@ -797,6 +813,8 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         }
         break;
     }
+
+    delete unit;
   }
   else
   {
@@ -809,6 +827,8 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
       ud   = new UnitDefinition();
       
       ud->addUnit(unit);
+
+      delete unit;
     }
     else 
     {
@@ -827,6 +847,8 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             ud->addUnit(unit);
+
+            delete unit;
           }
         }
       }
@@ -855,6 +877,8 @@ UnitFormulaFormatter::getUnitDefinitionFromCompartment(const Compartment * compa
         unit = new Unit("metre");
         ud->addUnit(unit);
       }
+
+      delete unit;
     }
   }
 
@@ -912,6 +936,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       subsUD->addUnit(unit);
 
     }
+
+    delete unit;
   }
   else
   {
@@ -924,6 +950,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       subsUD   = new UnitDefinition();
       
       subsUD->addUnit(unit);
+
+      delete unit;
     }
     else 
     {
@@ -942,6 +970,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             subsUD->addUnit(unit);
+
+            delete unit;
           }
         }
       }
@@ -959,6 +989,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       {
         unit = new Unit("mole");
         subsUD->addUnit(unit);
+
+        delete unit;
       }
     }
   }
@@ -993,6 +1025,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
       sizeUD   = new UnitDefinition();
       
       sizeUD->addUnit(unit);
+
+      delete unit;
     }
     else 
     {
@@ -1011,6 +1045,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             sizeUD->addUnit(unit);
+
+            delete unit;
           }
         }
       }
@@ -1039,6 +1075,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
         unit = new Unit("metre");
         sizeUD->addUnit(unit);
       }
+
+      delete unit;
     }
   }
 
@@ -1094,6 +1132,8 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
       ud   = new UnitDefinition();
       
       ud->addUnit(unit);
+
+      delete unit;
     }
     else 
     {
@@ -1112,6 +1152,8 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             ud->addUnit(unit);
+
+            delete unit;
           }
         }
       }
@@ -1150,6 +1192,8 @@ UnitFormulaFormatter::getUnitDefinitionFromParameter(const Parameter * parameter
         unit = new Unit("second");
         ud->addUnit(unit);
       }
+
+      delete unit;
     }
 
   }
@@ -1188,6 +1232,8 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
       ud   = new UnitDefinition();
       
       ud->addUnit(unit);
+
+      delete unit;
     }
   }
   else
@@ -1202,6 +1248,8 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
       ud   = new UnitDefinition();
       
       ud->addUnit(unit);
+
+      delete unit;
     }
     else 
     {
@@ -1220,6 +1268,8 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
             unit->setOffset(model->getUnitDefinition(n)->getUnit(p)->getOffset());
 
             ud->addUnit(unit);
+
+            delete unit;
           }
         }
       }
@@ -1237,6 +1287,8 @@ UnitFormulaFormatter::getUnitDefinitionFromEventTime(const Event * event)
       {
         unit = new Unit("second");
         ud->addUnit(unit);
+
+        delete unit;
       }
     }
 

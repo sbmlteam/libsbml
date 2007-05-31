@@ -229,6 +229,8 @@ UnitsBase::checkFunction (const Model& m,
     }
     /* check the math of the new function */
     checkUnits(m, *fdMath, sb);
+
+    delete fdMath;
   }
 }
 

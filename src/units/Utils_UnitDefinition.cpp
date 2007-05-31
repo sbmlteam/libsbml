@@ -117,6 +117,7 @@ convertToSI(UnitDefinition * ud)
     {
       newUd->addUnit(tempUd->getUnit(p));
     }
+    delete tempUd;
   }
 
   simplifyUnitDefinition(newUd);
@@ -141,6 +142,7 @@ convertToSI(const UnitDefinition * ud)
     {
       newUd->addUnit(tempUd->getUnit(p));
     }
+    delete tempUd;
   }
 
   simplifyUnitDefinition(newUd);
@@ -282,6 +284,9 @@ areIdentical(const UnitDefinition * ud1, const UnitDefinition * ud2)
     }
   }
 
+  delete ud1Temp;
+  delete ud2Temp;
+
   return identical;
 }
 
@@ -323,6 +328,9 @@ areEquivalent(const UnitDefinition * ud1, const UnitDefinition * ud2)
     }
   }
 
+  delete ud1Temp;
+  delete ud2Temp;
+
   return equivalent;
 }
 
@@ -362,6 +370,9 @@ areEquivalent(const UnitDefinition * ud1, UnitDefinition * ud2)
       equivalent = 1;
     }
   }
+
+  delete ud1Temp;
+  delete ud2Temp;
 
   return equivalent;
 }

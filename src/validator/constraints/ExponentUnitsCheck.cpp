@@ -160,6 +160,9 @@ ExponentUnitsCheck::checkUnitsFromRoot (const Model& m,
   }
 
   checkUnits(m, *node.getLeftChild(), sb);
+
+  delete unitFormat;
+  delete tempUD;
 }
 
 

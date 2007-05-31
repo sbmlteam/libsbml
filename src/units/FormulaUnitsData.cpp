@@ -94,6 +94,7 @@ Model::createListFormulaUnitsData()
   {
     u = new Unit("mole", 1);
     ud->addUnit(u);
+    delete u;
   }
 
   if (getUnitDefinition("time"))
@@ -103,12 +104,14 @@ Model::createListFormulaUnitsData()
       u = (Unit *) (getUnitDefinition("time")->getUnit(n))->clone();
       u->setExponent(u->getExponent() * -1);
       ud->addUnit(u);
+      delete u;
     }
   }
   else
   {
     u = new Unit("second", -1);
     ud->addUnit(u);
+    delete u;
   }
   fud->setUnitDefinition(ud);
 //  addFormulaUnitsData(fud);
@@ -130,6 +133,7 @@ Model::createListFormulaUnitsData()
       ud->addUnit(fud->getUnitDefinition()->getUnit(j));
     u = new Unit("second", -1);
     ud->addUnit(u);
+    delete u;
     fud->setPerTimeUnitDefinition(ud);
 
 //    addFormulaUnitsData(fud);
@@ -160,6 +164,7 @@ Model::createListFormulaUnitsData()
         ud->addUnit(fud->getUnitDefinition()->getUnit(j));
       u = new Unit("second", -1);
       ud->addUnit(u);
+      delete u;
       fud->setPerTimeUnitDefinition(ud);
     }
 
@@ -189,6 +194,7 @@ Model::createListFormulaUnitsData()
       u = new Unit("second", -1);
       ud->addUnit(u);
       simplifyUnitDefinition(ud);
+      delete u;
     }
     fud->setPerTimeUnitDefinition(ud);
 
@@ -394,7 +400,7 @@ Model::createListFormulaUnitsData()
     }
   }
 
-
+  delete unitFormatter;
 
 }
 

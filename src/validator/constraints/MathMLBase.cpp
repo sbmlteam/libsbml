@@ -267,6 +267,8 @@ MathMLBase::checkFunction (const Model& m,
     }
     /* check the math of the new function */
     checkMath(m, *fdMath, sb);
+
+    delete fdMath;
   }
 }
 
@@ -390,6 +392,7 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
   unsigned int i, nodeCount;
   const ASTNode * fdMath;
   ASTNode *newMath;
+  bool needDelete = false;
 
   /* check this function definition exists */
   if (m.getFunctionDefinition(node->getName()))
@@ -409,22 +412,26 @@ MathMLBase::checkNumericFunction (const Model& m, const ASTNode* node)
         * from the original function
         */
       newMath = new ASTNode(fdMath->getType());
+      needDelete = true;
       nodeCount = 0;
       for (i = 0; i < fdMath->getNumChildren(); i++)
       {
         if (fdMath->getChild(i)->isName())
         {
-          newMath->addChild(node->getChild(nodeCount));
+          newMath->addChild(node->getChild(nodeCount)->deepCopy());
           nodeCount++;
         }
         else
         {
-          newMath->addChild(fdMath->getChild(i));
+          newMath->addChild(fdMath->getChild(i)->deepCopy());
         }
       }
     }
     
-    return returnsNumeric(m, newMath);
+    bool isNumeric = returnsNumeric(m, newMath);
+    if(needDelete) delete newMath;
+   
+    return isNumeric;
   }
   else
   {
