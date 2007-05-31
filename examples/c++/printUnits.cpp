@@ -15,7 +15,7 @@
 #include <iostream>
 #include <sbml/SBMLTypes.h>
 
-#include <sbml/Unitdefinition.h>
+#include <sbml/UnitDefinition.h>
 #include <sbml/units/UnitFormulaFormatter.h>
 #include <sbml/units/FormulaUnitsData.h>
 
