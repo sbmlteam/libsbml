@@ -186,17 +186,20 @@ Species::getCompartment () const
 double
 Species::getInitialAmount () const
 {
+  double initialAmount = mInitialAmount;
+  
   // need to cover case where user has changed level 
   // and expects an initial amount where there was none
-  if ( isSetInitialConcentration() )
+  if ( getLevel() == 1 && isSetInitialConcentration() )
   {
-    return mInitialConcentration * 
-        (getModel()->getCompartment(getCompartment()))->getSize();
+    const Compartment *c = getModel()->getCompartment(getCompartment());
+    if (c)
+    {
+      initialAmount = mInitialConcentration * c->getSize();
+    }
   }
-  else
-  {
-    return mInitialAmount;
-  }
+
+  return initialAmount;
 }
 
 
@@ -206,17 +209,7 @@ Species::getInitialAmount () const
 double
 Species::getInitialConcentration () const
 {
-  // need to cover case where user has changed level 
-  // and expects an initial concentration where there was none
-  if ( isSetInitialAmount() )
-  {
-    return mInitialAmount / 
-        (getModel()->getCompartment(getCompartment()))->getSize();
-  }
-  else
-  {
-    return mInitialConcentration;
-  }
+  return mInitialConcentration;
 }
 
 
