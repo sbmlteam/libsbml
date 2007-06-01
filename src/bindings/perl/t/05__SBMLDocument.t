@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 37 };
+BEGIN { plan tests => 36 };
 
 use File::Spec;
 use LibSBML;
@@ -46,7 +46,6 @@ $pm = $d->getError($errors-1);
 ok(defined($pm));
 ok($pm->getId(), 20201);
 ok($pm->getLine(), 3);
-ok($pm->getColumn(), 1);
 
 # proper sbml file l1v1 from file
 $file = File::Spec->catfile($testDataDir,'l1v1-branch.xml');
