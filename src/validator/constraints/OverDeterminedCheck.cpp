@@ -472,10 +472,12 @@ OverDeterminedCheck::findMatching()
     /* extend layering structure */
     while (layer.size() > 0 && unmatch.size() == 0)
     {
+      graph::iterator iter;
+
       newLayer.clear();
 
       temp.clear();
-      for (graph::iterator iter = mVarNeighInPrev.begin(); 
+      for (iter = mVarNeighInPrev.begin(); 
                         iter != mVarNeighInPrev.end(); iter++)
       {
         temp.append((*iter).first); 
@@ -493,7 +495,7 @@ OverDeterminedCheck::findMatching()
 
       layer.clear();
       temp.clear();
-      for (graph::iterator iter = newLayer.begin(); 
+      for (iter = newLayer.begin(); 
                         iter != newLayer.end(); iter++)
       {
         mVarNeighInPrev[(*iter).first] = (*iter).second;
@@ -557,15 +559,17 @@ OverDeterminedCheck::Recurse(std::string v)
   IdList L;
   IdList pu;
 
+  graph::iterator iter;
+
   tempVarNeigh.clear();
-  for (graph::iterator iter = mVarNeighInPrev.begin(); 
+  for (iter = mVarNeighInPrev.begin(); 
                     iter != mVarNeighInPrev.end(); iter++)
   {
     tempVarNeigh.append((*iter).first);
   }
 
   tempEqnNeigh.clear();
-  for (graph::iterator iter = mEqnNeighInPrev.begin(); 
+  for (iter = mEqnNeighInPrev.begin(); 
                     iter != mEqnNeighInPrev.end(); iter++)
   {
     tempEqnNeigh.append((*iter).first);

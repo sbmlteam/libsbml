@@ -124,8 +124,10 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
 
   while(mVariables.size() != 0)
   {
+    IdList::const_iterator the_iterator;
+
     // create temporary list
-    for (IdList::const_iterator the_iterator = mVariables.begin();
+    for (the_iterator = mVariables.begin();
       the_iterator != mVariables.end(); the_iterator++)
     {
       mTempList.append(*the_iterator);
@@ -133,7 +135,7 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
     mVariables.clear();
 
     // loop thru list and find other reactions/assignments
-    for (IdList::const_iterator the_iterator = mTempList.begin();
+    for (the_iterator = mTempList.begin();
       the_iterator != mTempList.end(); the_iterator++)
     {
       if (m.getInitialAssignment(*the_iterator))
@@ -233,7 +235,7 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
     }
 
     // create list of checked items
-    for (IdList::const_iterator the_iterator = mTempList.begin();
+    for (the_iterator = mTempList.begin();
       the_iterator != mTempList.end(); the_iterator++)
     {
       mCheckedList.append(*the_iterator);
@@ -274,8 +276,10 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
 
   while(mVariables.size() != 0)
   {
+    IdList::const_iterator the_iterator;
+
     // create temporary list
-    for (IdList::const_iterator the_iterator = mVariables.begin();
+    for (the_iterator = mVariables.begin();
       the_iterator != mVariables.end(); the_iterator++)
     {
       mTempList.append(*the_iterator);
@@ -283,7 +287,7 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
     mVariables.clear();
 
     // loop thru list and find other reactions/assignments
-    for (IdList::const_iterator the_iterator = mTempList.begin();
+    for (the_iterator = mTempList.begin();
       the_iterator != mTempList.end(); the_iterator++)
     {
       if (m.getInitialAssignment(*the_iterator))
@@ -383,7 +387,7 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
     }
 
     // create list of checked items
-    for (IdList::const_iterator the_iterator = mTempList.begin();
+    for (the_iterator = mTempList.begin();
       the_iterator != mTempList.end(); the_iterator++)
     {
       mCheckedList.append(*the_iterator);
@@ -422,8 +426,10 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
 
   while(mVariables.size() != 0)
   {
+    IdList::const_iterator the_iterator;
+
     // create temporary list
-    for (IdList::const_iterator the_iterator = mVariables.begin();
+    for (the_iterator = mVariables.begin();
       the_iterator != mVariables.end(); the_iterator++)
     {
       mTempList.append(*the_iterator);
@@ -431,7 +437,7 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
     mVariables.clear();
 
     // loop thru list and find other reactions/assignments
-    for (IdList::const_iterator the_iterator = mTempList.begin();
+    for (the_iterator = mTempList.begin();
       the_iterator != mTempList.end(); the_iterator++)
     {
       if (m.getInitialAssignment(*the_iterator))
@@ -534,7 +540,7 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
     }
 
     // create list of checked items
-    for (IdList::const_iterator the_iterator = mTempList.begin();
+    for (the_iterator = mTempList.begin();
       the_iterator != mTempList.end(); the_iterator++)
     {
       mCheckedList.append(*the_iterator);
