@@ -25,8 +25,9 @@
 #define LIBSBML_EXTERN_H
 
 
-#if (WIN32 && ! defined CYGWIN && ! defined LIBSBML_STATIC )
+#if ( WIN32 && ! defined CYGWIN )
 
+#if ( ! defined LIBSBML_STATIC )
 /**
  * The following ifdef block is the standard way of creating macros which
  * make exporting from a DLL simpler. All files within this DLL are
@@ -43,6 +44,10 @@
 #else
 #  define LIBSBML_EXTERN __declspec(dllimport)
 #endif
+
+#else
+#  define LIBSBML_EXTERN
+#endif  /* LIBSBML_STATIC */
 
 /**
  * Disable MSVC++ warning C4800: 'const int' : forcing value to bool 'true'
