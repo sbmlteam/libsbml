@@ -18,12 +18,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <sbml/util/util.h>
-#include <sbml/util/StringBuffer.h>
-
-#include <sbml/math/FormulaFormatter.h>
-#include <sbml/math/FormulaParser.h>
-#include <sbml/math/MathML.h>
+#include <sbml/SBMLTypes.h>
 
 
 #define BUFFER_SIZE 1024
