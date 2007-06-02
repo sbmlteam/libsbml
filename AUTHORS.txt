@@ -4,7 +4,7 @@
 
 	   with contributions from (in alphabetical order)
       Christoph Flamm, Mike Hucka, Ralph Gauges, Martin Ginkel,
-       Stefan Hoops, Akiya Joukaru, Ben Kovitz, Rainer Machne,
+       Stefan Hoops, Akiya Jouraku, Ben Kovitz, Rainer Machne,
 		  and others in the SBML community.
 
          For more information about SBML or libSBML, contact:

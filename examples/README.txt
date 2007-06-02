@@ -5,7 +5,7 @@
 
 	     Ben Bornstein, Sarah Keating, Michael Hucka
 	   with contributions from (in alphabetical order)
-	    Christoph Flamm, Ralph Gauges, Akiya Joukaru,
+	    Christoph Flamm, Ralph Gauges, Akiya Jouraku,
 		 Rainer Machne, and Nicolas Rodriguez
 
 			    The SBML Team

@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 #
 # @file   swigdoc.py
 # @brief  Creates documentation for Java, Python, and Perl.
 # @author Ben Bornstein
 # @author Christoph Flamm
-# @author Akiya Joukaru
+# @author Akiya Jouraku
 # @author Michael Hucka
 #
 # $Id$

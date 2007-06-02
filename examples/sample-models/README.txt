@@ -1,7 +1,7 @@
 
 		     Sample models in SBML format
 
-      Michael Hucka, Sarah Keating, Akiya Joukaru, Ben Bornstein
+      Michael Hucka, Sarah Keating, Akiya Jouraku, Ben Bornstein
 
 			    The SBML Team
 			 http://www.sbml.org/
