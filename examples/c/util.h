@@ -26,9 +26,10 @@ getFileSize (const char *filename);
 
 /**
  * Removes whitespace from both ends of the given string.  The string
- * is modified in-place.
+ * is modified in-place.  This function returns a pointer to the (same)
+ * string buffer.
  */
-void
+char *
 trim_whitespace (char *s);
 
 /**

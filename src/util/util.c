@@ -33,6 +33,9 @@
 #include "util.h"
 
 
+/** @cond doxygen-ignored */
+
+
 /**
  * Identical to snprintf except printing always occurs according to the
  * "C" locale.  This function does not affect the locale of the calling
@@ -109,7 +112,6 @@ c_locale_strtod (const char *nptr, char **endptr)
  * to it.  If the filename could not be opened, prints an error message and
  * exits.
  */
-LIBSBML_EXTERN
 FILE *
 safe_fopen (const char *filename, const char *mode)
 {
@@ -135,7 +137,6 @@ safe_fopen (const char *filename, const char *mode)
  *
  * NOTE: This strcat behaves differently than standard library strcat().
  */
-LIBSBML_EXTERN
 char *
 safe_strcat (const char *str1, const char *str2)
 {
@@ -156,7 +157,6 @@ safe_strcat (const char *str1, const char *str2)
  * Memory for the string is obtained with safe_malloc() and can be freed
  * with safe_free().
  */
-LIBSBML_EXTERN
 char *
 safe_strdup (const char* s)
 {
@@ -176,7 +176,6 @@ safe_strdup (const char* s)
  * @return an integer less than, equal to, or greater than zero if s1 is
  * found, respectively, to be less than, to match, or be greater than s2.
  */
-LIBSBML_EXTERN
 int
 strcmp_insensitive (const char *s1, const char *s2)
 {
@@ -194,7 +193,6 @@ strcmp_insensitive (const char *s1, const char *s2)
 /**
  * Easier-to-read and NULL-friendly string comparison.
  */
-LIBSBML_EXTERN
 unsigned int
 streq (const char *s, const char *t)
 {
@@ -217,7 +215,6 @@ streq (const char *s, const char *t)
  * @return the index of s in strings, if s was found, or stop + 1
  * otherwise.
  */
-LIBSBML_EXTERN
 int
 util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
 {
@@ -255,7 +252,6 @@ util_bsearchStringsI (const char **strings, const char *s, int lo, int hi)
 /**
  * @returns true (non-zero) if filename exists, false (zero) otherwise.
  */
-LIBSBML_EXTERN
 int
 util_file_exists (const char *filename)
 {
@@ -276,7 +272,6 @@ util_file_exists (const char *filename)
  *
  * Whitespace is determined by isspace().
  */
-LIBSBML_EXTERN
 char *
 util_trim (const char *s)
 {
@@ -350,7 +345,6 @@ util_trim (const char *s)
  *
  * Whitespace is determined by isspace().
  */
-LIBSBML_EXTERN
 char *
 util_trim_in_place (char *s)
 {
@@ -391,6 +385,9 @@ util_trim_in_place (char *s)
 
   return s;
 }
+
+
+/** @endcond doxygen-ignored */
 
 
 /**
