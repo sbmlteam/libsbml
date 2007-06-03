@@ -35,7 +35,7 @@ public class printMath
   {        
     if (args.length != 1)
     {
-      println("Usage: java printMath <filename>");
+      println("Usage: java printMath filename");
       System.exit(1);
     }
 

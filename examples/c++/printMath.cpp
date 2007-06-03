@@ -195,7 +195,7 @@ main (int argc, char* argv[])
 {
   if (argc != 2)
   {
-    cout << endl << "Usage: printMath <filename>" << endl << endl;
+    cout << endl << "Usage: printMath filename" << endl << endl;
     return 1;
   }
 

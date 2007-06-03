@@ -26,7 +26,7 @@ public class printSBML
   {
     if (args.length != 1)
     {
-      println("Usage: java printSBML <filename>");
+      println("Usage: java printSBML filename");
       System.exit(1);
     }
 

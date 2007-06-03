@@ -28,7 +28,7 @@ main (int argc, char *argv[])
 {
   if (argc != 2)
   {
-    cout << endl << "Usage: printUnits <filename>" << endl << endl;
+    cout << endl << "Usage: printUnits filename" << endl << endl;
     return 1;
   }
 

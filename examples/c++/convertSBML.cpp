@@ -74,7 +74,7 @@ main (int argc, char *argv[])
 {
   if (argc != 3)
   {
-    cout << "Usage: convertSBML <input-filename> <output-filename>" << endl
+    cout << "Usage: convertSBML input-filename output-filename" << endl
 	 << "This program will attempt to convert a model either to" << endl
 	 << "SBML Level " << LATEST_SBML_LEVEL
 	 << " Version " << LATEST_SBML_VERSION

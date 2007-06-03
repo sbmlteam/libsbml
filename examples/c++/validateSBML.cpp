@@ -26,7 +26,7 @@ main (int argc, char* argv[])
 {
   if (argc != 2)
   {
-    cout << endl << "Usage: validateSBML <filename>" << endl << endl;
+    cout << endl << "Usage: validateSBML filename" << endl << endl;
     return 1;
   }
 

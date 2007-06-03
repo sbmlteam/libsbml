@@ -25,7 +25,7 @@ main (int argc, char* argv[])
 {
   if (argc != 2)
   {
-    cout << endl << "Usage: printSBML <filename>" << endl << endl;
+    cout << endl << "Usage: printSBML filename" << endl << endl;
     return 1;
   }
 

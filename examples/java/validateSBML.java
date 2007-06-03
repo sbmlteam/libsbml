@@ -26,7 +26,7 @@ public class validateSBML
   {
     if (args.length != 1)
     {
-      System.out.println("Usage: java validateSBML <filename>");
+      System.out.println("Usage: java validateSBML filename");
       System.exit(1);
     }
 

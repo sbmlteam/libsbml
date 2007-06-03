@@ -25,7 +25,7 @@ public class readSBML
   {
     if (args.length != 1)
     {
-      System.out.println("Usage: java readSBML <filename>");
+      System.out.println("Usage: java readSBML filename");
       System.exit(1);
     }
 

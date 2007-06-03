@@ -22,7 +22,7 @@ main (int argc, char* argv[])
 {
   if (argc != 3)
   {
-    cout << endl << "Usage: echoSBML <input-filename> <output-filename>"
+    cout << endl << "Usage: echoSBML input-filename output-filename"
          << endl << endl;
     return 2;
   }
