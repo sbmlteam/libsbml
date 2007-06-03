@@ -3,7 +3,8 @@
 
                         Java Example Programs
 
-                          Nicolas Rodriguez
+		  Nicolas Rodriguez, Ben Bornstein,
+		     Michael Hucka, Akiya Jouraku
 
 
 
@@ -11,11 +12,14 @@
 0. Building
 -----------
 
-The Makefile in this directory is kept simple for illustrative
-purposes.  For this reason, it is not machine generated (Automake).
+A file called "Makefile" should have been generated automatically when
+you ran the 'configure' program for libSBML.  If it is not present,
+you must re-run 'configure' and give it the --with-java flag on the
+command line.  Please see the file ../../README.txt or the libSBML
+manual for more information.
 
-At the Unix command prompt, type:
-
+With a Makefile in the directory, you can compile the Java examples by
+executing the following command in a Unix command shell:
 
   % make
 
@@ -24,7 +28,8 @@ NOTE:
 
 The evaluateMath.java example uses the following functions which were
 not introduced until JDK 1.5: Math.cosh(), Math.log10(), Math.sinh(),
-and Math.tanh().
+and Math.tanh().  You will therefore need at least version 1.5 of Java
+to compile that example.
 
 
 ----------
@@ -32,40 +37,24 @@ and Math.tanh().
 ----------
 
 To run the example programs, you must have libsbmlj.jar in your Java
-CLASSPATH and:
+CLASSPATH *and* you must also have set up your object library search
+path to find the libSBML libray file.  The exact method to use depends
+on the particular operating system you are running:
 
      (On Linux)      libsbmlj.so     in your  LD_LIBRARY_PATH
      (On Mac OS X)   libsbml.jnilib  in your  DYLD_LIBRARY_PATH
      (On Windows)    sbmlj.dll       in your  PATH
 
 To run the examples on some SBML files, a number of files are readily
-available in ../../src/sbml/test/test-data/.  For example:
+available in ../sample-models/.  For example:
 
+  % java printSBML     ../sample-models/from-spec/level-2/enzymekinetics.xml
+  % java readSBML      ../sample-models/from-spec/level-2/units.xml
 
-  % java printSBML     ../../src/sbml/test/test-data/l1v1-branch.xml
-  % java readSBML      ../../src/sbml/test/test-data/l2v1-delay.xml
-
-  % java convertSBML   ../../src/sbml/test/test-data/l1v1-rules.xml
-                       l2v1-rules.xml
-
-  % java validateSBML  ../../src/sbml/test/test-data/l2v1-branch.xml
-  % java validateSBML  ../../src/sbml/test/test-data/test-data/l1v1-branch.xml
-  % java validateSBML  ../../src/sbml/test/test-data/l1v1-branch-schema-error.xml
-
-
-NOTE:
-
-For validateSBML, the three XML Schema files (sbml-l1v1.xsd,
-sbml-l1v2.xsd and sbml-l2v1.xsd) are hard-coded with their basenames
-only.  If Schema filenames are not absolute paths (as in this case)
-the Xerces Schema validation engine only looks for them in the same
-directory as the XML file being read.  This is why validateSBML works
-above, but will not work if you try it on other SBML files without the
-Schema filename in the same directory.
 
 
 -------------------------------------------
-File author: B. Bornstein
+File authors: B. Bornstein, Mike Hucka
 Last Modified: $Date$
 Last Modified By: $Author$
 $Source$
