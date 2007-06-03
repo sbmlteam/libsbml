@@ -81,7 +81,7 @@ SBMLDocument::conversion_errors(unsigned int errors)
   {
     bool failure = true;
 
-    for (unsigned int n = 0; i < sizeof(ignorable)/sizeof(ignorable[0]); n++)
+    for (unsigned int n = 0; n < sizeof(ignorable)/sizeof(ignorable[0]); n++)
     {
       if (getError(i)->getId() == ignorable[n])
       {
