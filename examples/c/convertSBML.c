@@ -1,26 +1,15 @@
 /**
- * \file    convertSBML.c
- * \brief   Converts SBML L1 documents (any version) to L2v1
- * \author  Ben Bornstein
+ * @file    convertSBML.c
+ * @brief   Converts SBML documents between levels
+ * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
-
 
 #include <stdio.h>
 #include <sbml/SBMLTypes.h>
@@ -29,47 +18,65 @@
 int
 main (int argc, char *argv[])
 {
+  unsigned int    latestLevel   = SBMLDocument_getDefaultLevel();
+  unsigned int    latestVersion = SBMLDocument_getDefaultVersion();
   unsigned int    errors;
   SBMLDocument_t *d;
 
 
   if (argc != 3)
   {
-    printf("\n  usage: convertSBML <input-filename> <output-filename>\n");
-    printf("  Converts an SBML L1 file to L2 or vice-versa.\n\n");
-    return 2;
+    printf("Usage: convertSBML input-filename output-filename\n");
+    printf("This program will attempt to convert a model either to\n");
+    printf("SBML Level %d Version %d (if the model is not already) or, if",
+	   latestLevel, latestVersion);
+    printf("the model is already expressed in Level %d Version %d, this\n",
+	   latestLevel, latestVersion);
+    printf("program will attempt to convert the model to Level 1 Version 2.\n");
+    return 1;
   }
-
 
   d      = readSBML(argv[1]);
   errors = SBMLDocument_getNumErrors(d);
 
   if (errors > 0)
   {
-    printf("Read Error(s):\n");
+    printf("Encountered the following SBML error(s):\n");
     SBMLDocument_printErrors(d, stdout);
-
-    printf("Conversion skipped.  Correct the above and re-run.\n");
+    printf("Conversion skipped.  Please correct the problems above first.\n");
+    return errors;
   }
   else
   {
-    unsigned int level   = SBMLDocument_getLevel(d) == 2 ? 1 : 2;
-    unsigned int version = 2;
-    SBMLDocument_setLevelAndVersion(d, level, version);
+    unsigned int olevel   = SBMLDocument_getLevel(d);
+    unsigned int oversion = SBMLDocument_getVersion(d);
+
+    if (olevel < latestLevel || oversion < latestVersion)
+    {
+      printf("Attempting to convert model to SBML Level %d Version %d.\n",
+             latestLevel, latestVersion);
+      SBMLDocument_setLevelAndVersion(d, latestLevel, latestVersion);
+    }
+    else
+    {
+      printf("Attempting to convert model to SBML Level 1 Version 2.\n");
+      SBMLDocument_setLevelAndVersion(d, 1, 2);
+    }
 
     errors = SBMLDocument_getNumErrors(d);
 
     if (errors > 0)
     {
-      printf("Conversion Error(s):\n");
+      printf("Unable to perform conversion due to the following:\n");
       SBMLDocument_printErrors(d, stdout);
 
-      printf("Conversion skipped.  Either libSBML does not (yet) have ");
-      printf("ability to convert this model or (automatic) conversion ");
-      printf("is not possible.");
+      printf("Conversion skipped.  Either libSBML does not (yet) have\n");
+      printf("ability to convert this model, or (automatic) conversion\n");
+      printf("is not possible in this case.\n");
     }
     else
     { 	    
+      printf("Conversion completed.\n");
       writeSBML(d, argv[2]);
     }
   }

@@ -1,26 +1,14 @@
 /**
- * \file    printMath.c
- * \brief   Prints Rule, Reaction, and Event formulas in a given SBML Document
- * \author  Ben Bornstein
+ * @file    printMath.c
+ * @brief   Prints Rule, Reaction, and Event formulas in a given SBML Document
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
-
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -134,14 +122,18 @@ printEventMath (unsigned int n, Event_t *e)
 
   if ( Event_isSetDelay(e) )
   {
-    formula = SBML_formulaToString( Event_getDelay(e) );
+    const Delay_t *delay = Event_getDelay(e);
+
+    formula = SBML_formulaToString( Delay_getMath(delay) );
     printf("Event %d delay: %s\n", n, formula);
     free(formula);
   }
 
   if ( Event_isSetTrigger(e) )
   {
-    formula = SBML_formulaToString( Event_getTrigger(e) );
+    const Trigger_t *trigger = Event_getTrigger(e);
+
+    formula = SBML_formulaToString( Trigger_getMath(trigger) );
     printf("Event %d trigger: %s\n", n, formula);
     free(formula);
   }
@@ -196,7 +188,7 @@ main (int argc, char *argv[])
 
   if (argc != 2)
   {
-    printf("\n  usage: printMath <filename>\n\n");
+    printf("Usage: printMath filename\n");
     return 1;
   }
 
