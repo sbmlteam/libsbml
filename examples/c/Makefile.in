@@ -108,7 +108,7 @@ printSBML: printSBML.c util.c
 readSBML: readSBML.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
-translateMath: translateMath.c
+translateMath: translateMath.c util.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 validateSBML: validateSBML.c util.c
