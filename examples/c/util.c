@@ -74,18 +74,19 @@ getFileSize (const char *filename)
 
 /**
  * Removes whitespace from both ends of the given string.  The string
- * is modified in-place.
+ * is modified in-place.  This function returns a pointer to the (same)
+ * string buffer.
  *
  * This was originally in libSBML's util/util.c, but moved here to
  * make this set of example programs more self-contained.
  */
-void
+char *
 trim_whitespace (char *s)
 {
   char *end;
   int   len;
 
-  if (s == NULL) return;
+  if (s == NULL) return NULL;
 
   len = strlen(s);
   end = s + len - 1;
@@ -115,6 +116,8 @@ trim_whitespace (char *s)
   }
 
   s[len] = '\0';
+
+  return s;
 }
 
 
