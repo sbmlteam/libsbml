@@ -48,7 +48,7 @@ static const char* PREAMBLE =
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 /**

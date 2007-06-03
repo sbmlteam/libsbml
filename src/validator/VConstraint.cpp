@@ -28,7 +28,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 VConstraint::VConstraint (unsigned int id, Validator& v) :

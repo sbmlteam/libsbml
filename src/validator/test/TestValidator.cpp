@@ -70,7 +70,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 TestValidator::TestValidator (Validator& v) : mValidator(v), mVerboseAll(false)

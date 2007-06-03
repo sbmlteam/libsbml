@@ -36,7 +36,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";

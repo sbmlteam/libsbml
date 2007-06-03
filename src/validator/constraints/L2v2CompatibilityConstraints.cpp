@@ -36,7 +36,7 @@
 
 using namespace std;
 
-/** @endcond doxgen-ignored */
+/** @endcond doxygen-ignored */
 
 
 START_CONSTRAINT (93001, UnitDefinition, ud)
