@@ -71,10 +71,8 @@ main()
     printf( "Enter an infix formula (empty line to quit):\n\n" );
     printf( "> " );
 
-    if ( strlen(line = get_line( stdin )) == 0 ) break;
+    if ( strlen(line = trim_whitespace(get_line( stdin ))) == 0 ) break;
 
-    trim_whitespace(line);
-    
     n = SBML_parseFormula(line);
     
     start  = getCurrentMillis();   
