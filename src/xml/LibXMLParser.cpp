@@ -111,7 +111,7 @@ static struct libxmlErrors {
   { XML_ERR_GT_REQUIRED,	       XMLError::NotWellFormed},
   { XML_ERR_LTSLASH_REQUIRED,	       XMLError::NotWellFormed},
   { XML_ERR_EQUAL_REQUIRED,	       XMLError::NotWellFormed},
-  { XML_ERR_TAG_NAME_MISMATCH,	       XMLError::BadPrefix},
+  { XML_ERR_TAG_NAME_MISMATCH,	       XMLError::TagMismatch},
   { XML_ERR_TAG_NOT_FINISHED,	       XMLError::NotWellFormed},
   { XML_ERR_STANDALONE_VALUE,	       XMLError::NotWellFormed},
   { XML_ERR_ENCODING_NAME,	       XMLError::BadXMLDecl},
@@ -361,6 +361,12 @@ LibXMLParser::parseNext ()
   if ( xmlParseChunk(mParser, mBuffer, bytes, done) )
   {
     xmlErrorPtr libxmlError = xmlGetLastError();
+
+    // I tried reporting the message from libXML that's available in
+    // libxmlError->message, but the thing is bogus: it will say things
+    // like "such and such error model line 0" which is wrong and
+    // confusing.  So even though we lose some details by dropping the
+    // libXML message, I think it's less confusing for the user.
 
     reportError(translateError(libxmlError->code), "",
 		libxmlError->line, libxmlError->int2);
