@@ -20,20 +20,23 @@ public class convertSBML
 {
   public static void main (String[] args)
   {
+    long latestLevel   = SBMLDocument.getDefaultLevel();
+    long latestVersion = SBMLDocument.getDefaultVersion();
+
     if (args.length != 2)
     {
-      println("Usage: convertSBML <input-filename> <output-filename>\n" +
-              "Converts an SBML Level 1 model to Level 2 Version 3,\n" +
-	      "and converts a Level 2 model to Level 1 Version 2");
+      println("Usage: convertSBML input-filename output-filename\n" +
+	      "This program will attempt to convert an SBML model either to\n" +
+	      "Level " + latestLevel + " " + "Version " + latestVersion + " " +
+	      "(if the model is not already), or if the\n" +
+	      "model is already at that Level and Version, this program\n" +
+	      "will attempt to convert it to SBML Level 1 Version 2.");
       System.exit(1);
     }
 
     String inputFile      = args[0];
     String outputFile     = args[1];
-    SBMLReader reader     = new SBMLReader();
-    SBMLDocument document;
-
-    document = reader.readSBML(inputFile);
+    SBMLDocument document = libsbml.readSBML(inputFile);
 
     if (document.getNumErrors() > 0)
     {
@@ -41,33 +44,38 @@ public class convertSBML
       println("Conversion skipped.  Please correct the above problems first.");
       System.exit(1);
     }
+
+    /**
+     * If the given model is not already L2v3, assume that the user wants
+     * to convert it to the latest release of SBML (which is L2v3
+     * currently).  If the model is already L2v3, assume that the user
+     * wants to attempt to convert it down to Level 1 (specifically L1v2).
+     */
+
+    if (document.getLevel() < latestLevel ||
+        document.getVersion() < latestVersion)
+    {
+      document.setLevelAndVersion(latestLevel, latestVersion);
+    }
     else
     {
-      if (document.getLevel() == 2)
-      {
-	document.setLevelAndVersion(1, 2);
-      }
-      else
-      {
-	document.setLevelAndVersion(2, 3);
-      }
+      document.setLevelAndVersion(1, 2);
+    }
       
-      if (document.getNumErrors() > 0)
-      {
-        println("Conversion Error(s):");
-        document.printErrors(libsbml.cerr);
-        println("Conversion skipped.  Either libSBML does not (yet) have\n" +
-                "the ability to convert this model, or (automatic) conversion"+
-                "\nis not possible.\n");
-	System.exit(1);
-      }
-      else
-      {
-        libsbml.writeSBML(document, outputFile);
-      }
+    if (document.getNumErrors() > 0)
+    {
+      println("Conversion Error(s):");
+      document.printErrors(libsbml.cerr);
+      println("Conversion skipped.  Either libSBML does not (yet) have\n" +
+              "the ability to convert this model, or (automatic) conversion"+
+              "\nis not possible.\n");
+      System.exit(1);
+    }
+    else
+    {
+      libsbml.writeSBML(document, outputFile);
     }
   }
-
 
   static void println (String msg)
   {
