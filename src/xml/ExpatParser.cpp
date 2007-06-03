@@ -77,7 +77,7 @@ static enum XMLError::Code expatErrorTable[] = {
   XMLError::InvalidConstruct,         // XML_ERROR_FEATURE_REQUIRES_XML_DTD
   XMLError::InvalidConstruct,         // XML_ERROR_CANT_CHANGE_FEATURE_ONCE_PARSING
   XMLError::BadPrefix,                // XML_ERROR_UNBOUND_PREFIX
-  XMLError::BadPrefixValue,           // XML_ERROR_UNDECLARING_PREFIX
+  XMLError::BadPrefix,                // XML_ERROR_UNDECLARING_PREFIX
   XMLError::NotWellFormed,            // XML_ERROR_INCOMPLETE_PE
   XMLError::BadXMLDecl,               // XML_ERROR_XML_DECL
   XMLError::UnknownError,             // XML_ERROR_TEXT_DECL
