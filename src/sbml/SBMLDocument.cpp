@@ -97,9 +97,16 @@ SBMLDocument::conversion_errors(unsigned int errors)
 }
 /** @endcond doxygen-libsbml-internal */
 
+
 /**
- * @return the most recent SBML specification level (at the time this
- * libSBML was released).
+ * Get the most recent Level of SBML supported by this release of
+ * libSBML.
+ *
+ * This is the "default" level in the sense that libSBML will create
+ * models of this SBML Level unless told otherwise.
+ * 
+ * @return the number representing the most recent SBML specification level
+ * (at the time this libSBML was released).
  */
 unsigned int
 SBMLDocument::getDefaultLevel ()
@@ -109,8 +116,14 @@ SBMLDocument::getDefaultLevel ()
 
 
 /**
- * @return the most recent SBML specification version (at the time this
- * libSBML was released).
+ * Get the most recent Version with the most recent Level of SBML supported
+ * by this release of libSBML.
+ *
+ * This is the "default" version in the sense that libSBML will create
+ * models of this SBML Level and Version unless told otherwise.
+ * 
+ * @return the number representing the most recent SBML specification
+ * version (at the time this libSBML was released).
  */
 unsigned int
 SBMLDocument::getDefaultVersion ()
@@ -1106,6 +1119,28 @@ SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream)
       XMLError_print(d->getError(n), stream);
     }
   }
+}
+
+
+/**
+ * @return the most recent SBML specification level (at the time this
+ * libSBML was released).
+ */
+unsigned int
+SBMLDocument_getDefaultLevel ()
+{
+  return SBMLDocument::getDefaultLevel();
+}
+
+
+/**
+ * @return the most recent SBML specification version (at the time this
+ * libSBML was released).
+ */
+unsigned int
+SBMLDocument_getDefaultVersion ()
+{
+  return SBMLDocument::getDefaultVersion();
 }
 
 

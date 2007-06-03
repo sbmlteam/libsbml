@@ -545,6 +545,16 @@ void
 SBMLDocument_printErrors (SBMLDocument_t *d, FILE *stream);
 
 
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_getDefaultLevel (void);
+
+
+LIBSBML_EXTERN
+unsigned int
+SBMLDocument_getDefaultVersion (void);
+
+
 END_C_DECLS
 
 
