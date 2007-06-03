@@ -55,6 +55,7 @@ libraries         = $(jarfile) $(jnifile)
 # rules in `makefile-common-actions.mk' included at the end.
 
 extra_CPPFLAGS    = $(JAVA_CPPFLAGS) -I../swig
+SWIGFLAGS        += $(JAVA_CPPFLAGS) -I../swig
 
 extra_LDFLAGS     = $(JAVA_LDFLAGS) -L../..
 
@@ -200,8 +201,7 @@ endif
 libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources)
 ifdef USE_SWIG
 	test -d $(outpath) || mkdir -p $(outpath)
-	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) \
-	        $(sort $(default_includes) $(INCLUDES)) \
+	$(SWIG) $(SWIGFLAGS) $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -java -package $(java_package) \
 	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
 else
