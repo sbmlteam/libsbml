@@ -738,7 +738,7 @@ import java.io.File;
  *    OFStream   ofs = new OFStream("foo.xml");
  *    SBMLDocument d = libsbml.readSBML("foo.xml");
  *    SBMLWriter   w = new SBMLWriter();
- *    w.write(d,ofs);
+ *    w.writeSBML(d,ofs);
  *
  * 4. wraps std::ofstream (write to file "foo.xml" with append mode)
  *
