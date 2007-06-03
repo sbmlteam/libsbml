@@ -1,24 +1,14 @@
 /**
- * \file    util.c
- * \brief   Supporting functions for example code
- * \author  Ben Bornstein
+ * @file    util.c
+ * @brief   Supporting functions for example code
+ * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
 
 
@@ -33,3 +23,18 @@ getCurrentMillis (void);
  */
 unsigned long
 getFileSize (const char *filename);
+
+/**
+ * Removes whitespace from both ends of the given string.  The string
+ * is modified in-place.
+ */
+void
+trim_whitespace (char *s);
+
+/**
+ * The function get_line reads a line from a file (in this case "stdin" and
+ * returns it as a string.  It is taken from the utilities library of the
+ * VIENNA RNA PACKAGE ( http://www.tbi.univie.ac.at/~ivo/RNA/ )
+ */
+char*
+get_line (FILE *fp);
