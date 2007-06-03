@@ -1,99 +1,80 @@
 /**
- * \file    translateMath.c
- * \brief   Translates infix formulas into MathML and vice-versa
- * \author  Ben Bornstein
+ * @file    translateMath.c
+ * @brief   Translates infix formulas into MathML and vice-versa
+ * @author  Ben Bornstein
+ * @author  Michael Hucka
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
-
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <sbml/util/util.h>
-#include <sbml/util/StringBuffer.h>
-
 #include <sbml/math/FormulaFormatter.h>
 #include <sbml/math/FormulaParser.h>
 #include <sbml/math/MathML.h>
 
-
-#define BUFFER_SIZE 1024
+#include "util.h"
 
 
 char *translateInfix  (const char *formula);
 char *translateMathML (const char *xml);
 
-
 int
 main (int argc, char *argv[])
 {
-  char           line[BUFFER_SIZE];
-  char           *trimmed;
-  char           *result;
-  char           *str;
-  unsigned int   len;
-  StringBuffer_t *sb = StringBuffer_create(1024);
+  char         *line;
+  char         *result;
+  char         *buffer  = calloc( 1, sizeof(char) );
+  int           reading = 1;
+  unsigned long len;
 
 
   printf( "\n" );
   printf( "This program translates infix formulas into MathML and\n" );
-  printf( "vice-versa.  Enter or return on an empty line triggers\n" );
-  printf( "translation. Ctrl-C quits\n" );
+  printf( "vice-versa.  An 'enter' or a 'return' on an empty line\n" );
+  printf( "triggers translation. Ctrl-C quits\n" );
   printf( "\n" );
 
-  while (1)
+  while (reading)
   {
-    printf( "Enter infix formula or MathML expression (Ctrl-C to quit):\n" );
+    printf( "Enter an infix formula or MathML expression (Ctrl-C to quit):\n" );
     printf( "\n" );
     printf( "> " );
 
-    fgets(line, BUFFER_SIZE, stdin);
-
-    while (line != NULL)
+    do
     {
-      trimmed = util_trim(line);
-      len     = strlen(trimmed);
+      line = trim_whitespace(get_line(stdin));
+      len  = strlen(line);
 
       if (len > 0)
       {
-        StringBuffer_append    (sb, trimmed);
-        StringBuffer_appendChar(sb, '\n');
+        buffer = (char *) realloc( buffer, 1 + strlen(buffer) + len );
+
+        strncat(buffer, line, len);
+        strncat(buffer, "\n", 1);
       }
       else
       {
-        str    = StringBuffer_getBuffer(sb);
-        result = (str[0] == '<') ? translateMathML(str) : translateInfix(str);
+        result = (buffer[0] == '<') ?
+          translateMathML(buffer) : translateInfix(buffer);
 
         printf("Result:\n\n%s\n\n\n", result);
 
         free(result);
-        StringBuffer_reset(sb);
-        break;
+        reading = 0;
       }
-
-      free(trimmed);
-      fgets(line, BUFFER_SIZE, stdin);
     }
+    while (len > 0);
   }
 
-  StringBuffer_free(sb);
+  free(line);
+  free(buffer);
   return 0;
 }
 
@@ -129,25 +110,26 @@ translateMathML (const char *xml)
 {
   char           *result;
   ASTNode_t      *math;
-  StringBuffer_t *sb;
-
 
   /**
    * Prepend an XML header if not already present.
    */
   if (xml[0] == '<' && xml[1] != '?')
   {
-    sb = StringBuffer_create(1024);
+    char *header  = "<?xml version='1.0' encoding='UTF-8'?>\n";
+    char *content = calloc( strlen(xml) + strlen(header) + 1, sizeof(char) );
 
-    StringBuffer_append(sb, "<?xml version='1.0' encoding='ascii'?>\n");
-    StringBuffer_append(sb, xml);
+    strncat(content, header, strlen(header));
+    strncat(content, xml, strlen(xml));
 
-    xml = StringBuffer_getBuffer(sb);
-
-    free(sb);
+    math = readMathMLFromString(content);
+    free(content);
+  }
+  else
+  {
+    math = readMathMLFromString(xml);
   }
 
-  math   = readMathMLFromString(xml);
   result = SBML_formulaToString(math);
 
   ASTNode_free(math);
