@@ -82,7 +82,7 @@ public:
    * @return true on success and false if the filename could not be opened
    * for writing.
    */
-  bool write (const SBMLDocument* d, const std::string& filename);
+  bool writeSBML (const SBMLDocument* d, const std::string& filename);
 
   /**
    * Writes the given SBML document to the output stream.
@@ -90,7 +90,7 @@ public:
    * @return true on success and false if one of the underlying parser
    * components fail (rare).
    */
-  bool write (const SBMLDocument* d, std::ostream& stream);
+  bool writeSBML (const SBMLDocument* d, std::ostream& stream);
 
   /**
    * Writes the given SBML document to an in-memory string and returns a

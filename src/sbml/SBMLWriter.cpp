@@ -95,10 +95,10 @@ SBMLWriter::setProgramVersion (const std::string& version)
  * for writing.
  */
 bool
-SBMLWriter::write (const SBMLDocument* d, const std::string& filename)
+SBMLWriter::writeSBML (const SBMLDocument* d, const std::string& filename)
 {
   ofstream stream( filename.c_str() );
-  return write(d, stream);
+  return writeSBML(d, stream);
 }
 
 
@@ -109,7 +109,7 @@ SBMLWriter::write (const SBMLDocument* d, const std::string& filename)
  * components fail (rare).
  */
 bool
-SBMLWriter::write (const SBMLDocument* d, std::ostream& stream)
+SBMLWriter::writeSBML (const SBMLDocument* d, std::ostream& stream)
 {
   bool result = false;
 
@@ -143,7 +143,7 @@ char*
 SBMLWriter::writeToString (const SBMLDocument* d)
 {
   ostringstream stream;
-  write(d, stream);
+  writeSBML(d, stream);
 
   return safe_strdup( stream.str().c_str() );
 }
@@ -219,7 +219,7 @@ SBMLWriter_writeSBML ( SBMLWriter_t         *sw,
                        const SBMLDocument_t *d,
                        const char           *filename )
 {
-  return static_cast<int>( sw->write(d, filename) );
+  return static_cast<int>( sw->writeSBML(d, filename) );
 }
 
 
@@ -253,7 +253,7 @@ int
 writeSBML (const SBMLDocument_t *d, const char *filename)
 {
   SBMLWriter sw;
-  return static_cast<int>( sw.write(d, filename) );
+  return static_cast<int>( sw.writeSBML(d, filename) );
 }
 
 
