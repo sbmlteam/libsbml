@@ -1,26 +1,14 @@
 /**
- * \file    validateSBML.c
- * \brief   Validates an SBML file against the appropriate schema
- * \author  Ben Bornstein
+ * @file    validateSBML.c
+ * @brief   Validates an SBML file against the appropriate schema
+ * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
  */
-
 
 #include <stdio.h>
 
@@ -37,23 +25,18 @@ main (int argc, char *argv[])
   unsigned int  errors = 0;
 
   SBMLDocument_t *d;
-  SBMLReader_t   *sr;
 
 
   if (argc != 2)
   {
-    printf("\n usage: validateSBML <filename>\n\n");
+    printf("Usage: validateSBML filename\n");
     return 2;
   }
-
-
-  sr = SBMLReader_create();
-  SBMLReader_setSchemaValidation(sr, 1);
 
   filename = argv[1];
 
   start = getCurrentMillis();
-  d     = SBMLReader_readSBML(sr, filename);
+  d     = readSBML(filename);
   stop  = getCurrentMillis();
 
   errors  = SBMLDocument_getNumErrors(d);
