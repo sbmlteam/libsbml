@@ -1,52 +1,16 @@
 ## @configure_input@
 ##
-## \file    Makefile.in
-## \brief   Makefile template for libsbml Python bindings
-## \author  Mike Hucka
+## @file    Makefile.in
+## @brief   Makefile template for libsbml Python bindings
+## @author  Mike Hucka
+## @author  Ben Kovitz
+## @author  Akiya Jouraku
 ##
 ## $Id$
 ## $Source$
-
-## Copyright 2004 California Institute of Technology and
-## Japan Science and Technology Corporation.
 ##
-## This library is free software; you can redistribute it and/or modify it
-## under the terms of the GNU Lesser General Public License as published
-## by the Free Software Foundation; either version 2.1 of the License, or
-## any later version.
-##
-## This library is distributed in the hope that it will be useful, but
-## WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
-## MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
-## documentation provided hereunder is on an "as is" basis, and the
-## California Institute of Technology and Japan Science and Technology
-## Corporation have no obligations to provide maintenance, support,
-## updates, enhancements or modifications.  In no event shall the
-## California Institute of Technology or the Japan Science and Technology
-## Corporation be liable to any party for direct, indirect, special,
-## incidental or consequential damages, including lost profits, arising
-## out of the use of this software and its documentation, even if the
-## California Institute of Technology and/or Japan Science and Technology
-## Corporation have been advised of the possibility of such damage.  See
-## the GNU Lesser General Public License for more details.
-##
-## You should have received a copy of the GNU Lesser General Public License
-## along with this library; if not, write to the Free Software Foundation,
-## Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
-##
-## The original code contained here was initially developed by:
-##
-##     Ben Bornstein and Ben Kovitz
-##     SBML Team
-##     Control and Dynamical Systems, MC 107-81
-##     California Institute of Technology
-##     Pasadena, CA, 91125, USA
-##
-##     http://www.sbml.org
-##     mailto:sbml-team@caltech.edu
-##
-## Contributor(s):
-##   Michael Hucka <mhucka@caltech.edu> Wrote this Makefile.in.
+## This file is part of libSBML.  Please visit http://sbml.org for more
+## information about SBML, and the latest version of libSBML.
 ##
 
 
@@ -64,41 +28,37 @@ include @top_srcdir@/config/makefile-common-vars.mk
 # `subdir' must be set manually to the relative dir under srcdir.  Don't 
 # set `subdir' to an absolute path, or some make actions will fail.
 
-srcdir  = @srcdir@
-thisdir = src/bindings/java
+srcdir            = @srcdir@
+thisdir           = src/bindings/java
 
-# `sources' are used by the default rules to determine what needs to be
-# compiled.  `added_sources' are other source files local to this directory
-# that need to be distributed but not compiled.
+sources           = \
+                     libsbml_wrap.cpp \
+                     javadoc.i
 
-sources = \
-          libsbml_wrap.cpp
+extra_sources     = \
+                     libsbml.i \
+                     local.cpp \
+                     local.i
 
-extra_sources = \
-	  libsbml.i \
-	  local.cpp \
-	  local.i
+check_sources     = Test.java
 
-check_sources  = Test.java
-
-java_package   = org.sbml.$(PACKAGE)
-jarfile        = libsbmlj.jar
-jnifile        = libsbmlj.$(JNIEXT)
+java_package      = org.sbml.$(PACKAGE)
+jarfile           = libsbmlj.jar
+jnifile           = libsbmlj.$(JNIEXT)
 
 # There are two libraries to build: the shared JNI library, and the Jar file.
 
-libraries      = $(jarfile) $(jnifile)
+libraries         = $(jarfile) $(jnifile)
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-extra_CPPFLAGS = $(JAVA_CPPFLAGS) -I../swig
-SWIGFLAGS     += $(JAVA_CPPFLAGS) -I../swig
+extra_CPPFLAGS    = $(JAVA_CPPFLAGS) -I../swig
 
-extra_LDFLAGS  = $(JAVA_LDFLAGS)
+extra_LDFLAGS     = $(JAVA_LDFLAGS) -L../..
 
-extra_LIBS     = -L../.. -lsbml $(JAVA_LIBS)
+extra_LIBS        = -lsbml $(JAVA_LIBS)
 
 ifdef USE_EXPAT
   extra_CPPFLAGS += @EXPAT_CPPFLAGS@ 
@@ -113,13 +73,13 @@ ifdef USE_XERCES
 endif
 
 ifdef USE_LIBXML
-  extra_CPPFLAGS += @LIBXML_CPPFLAGS@
-  extra_LDFLAGS  += @LIBXML_LDFLAGS@
-  extra_LIBS     += @LIBXML_LIBS@
+  extra_CPPFLAGS += @XERCES_CPPFLAGS@
+  extra_LDFLAGS  += @XERCES_LDFLAGS@
+  extra_LIBS     += @XERCES_LIBS@
 endif
 
 ifdef USE_LAYOUT
-  SWIGFLAGS += -DUSE_LAYOUT
+  SWIGFLAGS      += -DUSE_LAYOUT
   extra_CPPFLAGS += -DUSE_LAYOUT
 endif # USE_LAYOUT  
 
@@ -162,12 +122,14 @@ class_files = $(java_files:.java=.class)
 # (both libsbml_wrap.cpp and the java files) but not the compiled class
 # files.
 
-distfiles = $(sources) $(extra_sources) $(check_sources) Makefile.in $(java_files)
+distfiles   = $(sources) $(extra_sources) $(check_sources) \
+  Makefile.in $(java_files)
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
 
-extra_clean = $(class_files) $(check_sources:.java=.class) 
+extra_clean = $(class_files) $(check_sources:.java=.class) test_copy1.xml \
+  test_write.xml
 
 extra_distclean = java-files
 
@@ -184,8 +146,15 @@ extra_distclean = java-files
 
 # The default action is to remake everything.
 
+ifdef USE_JAVA
 all: Makefile $(libraries)
-
+else
+all:
+	@echo
+	@echo "Reconfigure libSBML using --with-java to enable Java support.";
+	@echo
+	@exit 1
+endif
 
 # The rest here is for developers and maintainers.  Recipients of the
 # library distributions shouldn't have to run SWIG because we provide the
@@ -197,8 +166,8 @@ swig_sources =      \
   ../swig/libsbml.i
 
 main_sources = \
-  $(addprefix ../../../include/,\
-    $(shell grep '%include sbml' ../swig/libsbml.i | cut -f2 -d' '))
+  $(shell grep '%include sbml' ../swig/libsbml.i | cut -f2 -d' ' \
+    | cut -f2- -d'/' | sed -se '/\//s/^/..\/..\//;/\//!s/^/..\/..\/sbml\//')
 
 # MacOS X is different.  We need to compile the .jnilib files using -bundle.
 
@@ -214,37 +183,37 @@ endif
 # to wildcard the files, but that in itself is impossible until they're
 # generated by running SWIG.  Ugh.
 
-$(jarfile): libsbml_wrap.cpp $(class_files)
-ifeq "$(java_files)" ""
-	$(MAKE) dummy_create_class_files
-endif
+$(jarfile): $(outpath)/libsbml.class
 	$(CD) $(outdir) && \
 	   $(JAR) -cvf ../$(jarfile) $(pkg_path)/*.class
+	$(MAKE) -$(MAKEFLAGS) $(jnifile)
 
-$(outpath):
-	$(shell [ -d $(outpath) ] || mkdir -p $(outpath))
-
-$(class_files): $(outpath)/%.class: $(outpath)/%.java
+$(outpath)/libsbml.class: libsbml_wrap.cpp
+ifeq "$(java_files)" ""
+	$(MAKE) -$(MAKEFLAGS) recreate_java_files
+endif
 	$(JAVAC) -d $(outdir) $(outpath)/*.java
 
-dummy_create_class_files: libsbml_wrap.cpp java-files $(class_files)
+# libsbml_wrap.cpp is a stand-in for the .java files.  Its creation results
+# in the creation of the .java files too -- both are made by running swig.
 
-libsbml_wrap.cpp: $(swig_sources) $(main_sources)
-	$(MAKE) swigfiles
-
-swigfiles:
+libsbml_wrap.cpp $(outpath): javadoc.i $(swig_sources) $(main_sources)
 ifdef USE_SWIG
 	test -d $(outpath) || mkdir -p $(outpath)
-	../swig/swigdoc.py java -I../../../include ../swig/libsbml.i javadoc.i
-	$(SWIG) $(SWIGFLAGS) \
+	$(SWIG) $(SWIGFLAGS) $(extra_CPPFLAGS) \
 	        $(sort $(default_includes) $(INCLUDES)) \
 		-c++ -java -package $(java_package) \
 	        -outdir $(outpath) -o libsbml_wrap.cpp libsbml.i
 else
-	echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
+	@echo
+	@echo "Reconfigure --with-swig in order to rebuild libsbml_wrap.cpp"
 	@echo "and the files in the java-files directory."
-	exit 1
+	@echo
+	@exit 1
 endif
+
+javadoc.i: $(main_sources) $(swig_sources) ../swig/swigdoc.py
+	../swig/swigdoc.py java -I../../../include ../swig/libsbml.i javadoc.i
 
 # If USE_SWIG is *not* in effect, things get tricky.  If the last run was
 # made with --enable-layout and this one isn't, or vice-versa, the swig
@@ -253,27 +222,27 @@ endif
 # we do this grungy trick of looking at the file to see what's inside.
 
 ifdef USE_LAYOUT
-java-files:
+recreate_java_files:;
 	@if test -z "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
-	  echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
-	  echo "Reconfigure --with-swig --enable-layout to correct this."; \
-	  exit 1; \
+	  @echo \
+	  @echo "The existing libsbml_wrap.cpp file lacks the layout code."; \
+	  @echo "Reconfigure --with-swig --enable-layout to correct this."; \
+	  @echo \
+	  @exit 1; \
 	else \
-	  $(MAKE) libsbml_wrap.cpp java-files; \
+	  $(MAKE) -$(MAKEFLAGS) $(outpath); \
 	fi
 
 else # not USE_LAYOUT
-java-files:
+recreate_java_files:;
 	@if test -n "`grep getListOfLayouts libsbml_wrap.cpp`"; then \
-	  $(MAKE) clean-swigfiles; \
-	  $(MAKE) swigfiles; \
-	else \
-	  $(MAKE) libsbml_wrap.cpp java-files; \
+	  $(MAKE) -$(MAKEFLAGS) clean-swigfiles; \
 	fi
+	$(MAKE) -$(MAKEFLAGS) $(outpath)
 endif # USE_LAYOUT
 
 clean-swigfiles:
-	rm -rf java-files
+	rm -rf $(outdir)
 
 
 # -----------------------------------------------------------------------------
@@ -348,7 +317,7 @@ installcheck:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: libsbml_wrap.cpp java-files dist-normal
+dist: libsbml_wrap.cpp $(outdir) dist-normal
 
 distcheck: distcheck-normal
 
