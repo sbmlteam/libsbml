@@ -1,10 +1,10 @@
 
                             l i b S B M L
 
-		   Ben Bornstein and Sarah Keating
+                   Ben Bornstein and Sarah Keating
                        with contributions from
-         Mike Hucka, Ben Kovitz, Stefan Hoops, Ralph Gauges,
-            Martin Ginkel, Christoph Flamm, Rainer Machne,
+         Mike Hucka, Akiya Jouraku, Ben Kovitz, Stefan Hoops, 
+     Ralph Gauges, Martin Ginkel, Christoph Flamm, Rainer Machne,
                 and many others in the SBML community.
 
          For more information about SBML or libSBML, contact:
@@ -15,10 +15,10 @@
 
 
        Please join the libsbml-discuss mailing list by visiting
-	    http://www.sbml.org/forums/index.php?t=pre_reg
+            http://www.sbml.org/forums/index.php?t=pre_reg
 
        Please report problems with libSBML using the tracker at
-	    http://sbml.org/software/libsbml/issue-tracker
+            http://sbml.org/software/libsbml/issue-tracker
 
    ,----------------------------------------------------------------.
   | Table of contents                                               |
@@ -65,7 +65,8 @@ configure command.  You can combine options as you need.
 Depending on your system, you may need to tell the configure program
 where to find some of these extra components by adding a directory
 path after the option.  For example, if you wish to use a copy of Java
-whose components are in /usr/local (with files in /usr/local/lib), use
+whose components are in /usr/local (with files in /usr/local/bin and
+/usr/local/lib), use
 
   ./configure --with-expat --with-python --with-java=/usr/local
 
