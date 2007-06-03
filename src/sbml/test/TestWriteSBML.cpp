@@ -113,6 +113,22 @@ equals (const char* expected)
 CK_CPPSTART
 
 
+START_TEST (test_WriteSBML_error)
+{
+  SBMLDocument *d = new SBMLDocument();
+  SBMLWriter   *w = new SBMLWriter();
+
+  fail_unless( ! w->writeSBML(d, "/tmp/impossible/path/should/fail") );
+  fail_unless( d->getNumErrors() == 1 );
+  fail_unless( d->getError(0)->getId() == XMLError::FileUnwritable );
+
+  delete d;
+  delete w;
+}
+END_TEST
+
+
+
 START_TEST (test_WriteSBML_SBMLDocument_L1v1)
 {
   D->setLevelAndVersion(1, 1);
@@ -1699,6 +1715,9 @@ create_suite_WriteSBML ()
 
   tcase_add_checked_fixture(tcase, WriteSBML_setup, WriteSBML_teardown);
  
+  // Basic writing capability
+  tcase_add_test( tcase, test_WriteSBML_error );  
+
   // SBMLDocument
   tcase_add_test( tcase, test_WriteSBML_SBMLDocument_L1v1 );
   tcase_add_test( tcase, test_WriteSBML_SBMLDocument_L1v2 );
