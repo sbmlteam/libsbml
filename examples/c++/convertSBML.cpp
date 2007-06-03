@@ -1,6 +1,6 @@
 /**
  * @file    convertSBML.cpp
- * @brief   Converts SBML L1 documents (any version) to L2v1
+ * @brief   Converts SBML documents between levels
  * @author  Michael Hucka
  * @author  Sarah Keating
  * @author  Ben Bornstein
@@ -18,9 +18,6 @@
 
 using namespace std;
 
-
-#define LATEST_SBML_LEVEL   2
-#define LATEST_SBML_VERSION 3
 
 /*
  * 'ignorable' is a list of libSBML error codes that can be ignored for the
@@ -72,15 +69,18 @@ conversion_errors(SBMLDocument* document, unsigned int errors)
 int
 main (int argc, char *argv[])
 {
+  const unsigned int latestLevel   = SBMLDocument::getDefaultLevel();
+  const unsigned int latestVersion = SBMLDocument::getDefaultVersion();
+
+
   if (argc != 3)
   {
     cout << "Usage: convertSBML input-filename output-filename" << endl
 	 << "This program will attempt to convert a model either to" << endl
-	 << "SBML Level " << LATEST_SBML_LEVEL
-	 << " Version " << LATEST_SBML_VERSION
+	 << "SBML Level " << latestLevel << " Version " << latestVersion
 	 << " (if the model is not already) or, if" << endl
-	 << "the model is already expressed in Level " << LATEST_SBML_LEVEL
-	 << " Version " << LATEST_SBML_VERSION << ", this" << endl
+	 << "the model is already expressed in Level " << latestLevel
+	 << " Version " << latestVersion << ", this" << endl
 	 << "program will attempt to convert the model to Level 1 Version 2."
 	 << endl;
     return 1;
@@ -111,12 +111,12 @@ main (int argc, char *argv[])
   unsigned int olevel   = document->getLevel();
   unsigned int oversion = document->getVersion();
 
-  if (olevel < LATEST_SBML_LEVEL || oversion < LATEST_SBML_VERSION)
+  if (olevel < latestLevel || oversion < latestVersion)
   {
     cout << "Attempting to convert Level " << olevel << " Version " << oversion
-	 << " model to Level " << LATEST_SBML_LEVEL
-	 << " Version " << LATEST_SBML_VERSION << "."  << endl;
-    document->setLevelAndVersion(LATEST_SBML_LEVEL, LATEST_SBML_VERSION);
+	 << " model to Level " << latestLevel
+	 << " Version " << latestVersion << "."  << endl;
+    document->setLevelAndVersion(latestLevel, latestVersion);
   }
   else
   {
