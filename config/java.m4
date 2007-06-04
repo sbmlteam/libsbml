@@ -145,9 +145,15 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     case $host in
     *darwin*) 
 	JNIEXT="jnilib"
+	JNIBASENAME="libsbmlj"
+	;;
+    *cygwin*)
+	JNIEXT="dll"
+	JNIBASENAME="sbmlj"
 	;;
     *)
 	JNIEXT="so"
+	JNIBASENAME="libsbmlj"
 	;;
     esac
 
@@ -162,6 +168,7 @@ AC_DEFUN([CONFIG_PROG_JAVA],
     AC_SUBST(JAVA_LDFLAGS)
     AC_SUBST(JAVA_LIBS)
     AC_SUBST(JNIEXT)
+    AC_SUBST(JNIBASENAME)
 
   fi
 

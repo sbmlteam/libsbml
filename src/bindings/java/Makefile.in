@@ -44,7 +44,7 @@ check_sources     = Test.java
 
 java_package      = org.sbml.$(PACKAGE)
 jarfile           = libsbmlj.jar
-jnifile           = libsbmlj.$(JNIEXT)
+jnifile           = $(JNIBASENAME).$(JNIEXT)
 
 # There are two libraries to build: the shared JNI library, and the Jar file.
 
