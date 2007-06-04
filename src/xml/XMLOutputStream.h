@@ -24,6 +24,7 @@
 #ifndef XMLOutputStream_h
 #define XMLOutputStream_h
 
+#include <sbml/common/sbmlfwd.h>
 #ifdef __cplusplus
 
 #include <iostream>
@@ -311,5 +312,40 @@ protected:
 };
 
 #endif  /* __cplusplus */
+
+#if 0
+
+#ifndef SWIG
+
+BEGIN_C_DECLS
+
+/*-----------------------------------------------------------------------------
+ * See the .cpp file for the documentation of the following functions.
+ *---------------------------------------------------------------------------*/
+
+
+LIBLAX_EXTERN
+XMLOutputStream_t *
+XMLOutputStream_create (const char* encoding, int writeXMLDecl);
+//std::ostream&       stream
+//                   , const std::string&  encoding     = "UTF-8"
+//                   , bool                writeXMLDecl = true );
+//
+LIBLAX_EXTERN
+void
+XMLOutputStream_free (XMLOutputStream_t *stream);
+
+LIBLAX_EXTERN
+void
+XMLOutputStream_write (XMLOutputStream_t *stream, const char* chars);
+
+LIBLAX_EXTERN
+void
+XMLOutputStream_write (XMLOutputStream_t *stream, const double& value);
+
+END_C_DECLS
+
+#endif  /* !SWIG */
+#endif
 
 #endif  /* XMLOutputStream_h */
