@@ -142,6 +142,7 @@ XMLInputStream::peek ()
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Runs mParser until mTokenizer is ready to deliver at least one XMLToken
  * or a fatal error occurs.
@@ -163,6 +164,7 @@ XMLInputStream::queueToken ()
     mIsError = true;
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

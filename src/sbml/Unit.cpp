@@ -653,6 +653,7 @@ Unit::isUnitKind(const std::string &name, unsigned int level, unsigned int versi
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return true if name is a valid UnitKind.
  */
@@ -661,8 +662,10 @@ Unit::isL1UnitKind (const std::string& name)
 {
   return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return true if name is a valid UnitKind.
  */
@@ -674,8 +677,10 @@ Unit::isL2V1UnitKind (const std::string& name)
   else
     return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * @return true if name is a valid UnitKind.
  */
@@ -687,6 +692,7 @@ Unit::isL2UnitKind (const std::string& name)
   else
     return (UnitKind_forName( name.c_str() ) != UNIT_KIND_INVALID);
 }
+/** @endcond doxygen-libsbml-internal */
 
 
 /** @cond doxygen-libsbml-internal */

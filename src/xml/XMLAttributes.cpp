@@ -554,6 +554,8 @@ XMLAttributes::write (XMLOutputStream& stream) const
 }
 
 
+/** @cond doxygen-libsbml-internal */
+
 /**
  * Logs an attribute format error.
  *
@@ -623,6 +625,8 @@ XMLAttributes::attributeRequiredError (const std::string&  name,
 
   log->add( XMLError(XMLError::MissingRequiredAttribute, message.str()) );
 }
+
+/** @endcond doxygen-libsbml-internal */
 
 
 /**

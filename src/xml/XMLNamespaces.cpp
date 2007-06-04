@@ -192,6 +192,7 @@ XMLNamespaces::isEmpty () const
 }
 
 
+/** @cond doxygen-libsbml-internal */
 /**
  * Removes the default XML namespace.
  */
@@ -209,7 +210,9 @@ XMLNamespaces::removeDefault ()
     }
   }
 }
+/** @endcond doxygen-libsbml-internal */
 
+#ifndef SWIG
 
 /**
  * Writes the XML namespace declarations to stream.
@@ -242,6 +245,8 @@ operator<< (XMLOutputStream& stream, const XMLNamespaces& namespaces)
   namespaces.write(stream);
   return stream;
 }
+
+#endif  /* !SWIG */
 
 
 /** @cond doxygen-c-only */
