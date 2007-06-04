@@ -895,7 +895,7 @@ Date_free(Date_t * date)
 /**
  * Creates a deep copy of the given Date_t structure
  * 
- * @param p the Date_t structure to be copied
+ * @param c the Date_t structure to be copied
  * 
  * @return a (deep) copy of the given Date_t structure.
  */
@@ -1139,7 +1139,7 @@ ModelCreator_free(ModelCreator_t * mc)
 /**
  * Creates a deep copy of the given ModelCreator_t structure
  * 
- * @param p the ModelCreator_t structure to be copied
+ * @param c the ModelCreator_t structure to be copied
  * 
  * @return a (deep) copy of the given Compartment_t structure.
  */
