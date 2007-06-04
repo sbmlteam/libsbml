@@ -22,7 +22,7 @@
  *------------------------------------------------------------------------- -->
  * 
  * @class SBase
- * @brief SBase is the base class for all SBML objects
+ * @brief LibSBML implementation of SBase, the base class of all SBML objects.
  *
  * Most components in SBML are derived from a single abstract base type,
  * SBase.  In addition to serving as the parent class for most other
