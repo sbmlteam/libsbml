@@ -53,27 +53,28 @@ of different comments.  Here is an example of what should be @em avoided:
  */
 @endverbatim
 The text above doesn't end sentences with periods, doesn't begin sentences
-with capitals, doesn't form complete sentences, etc.  When doxygen is used
+with capitals, doesn't form complete sentences, etc.  When Doxygen is used
 to generate HTML documentation from this, it turns into one long run-on
 paragraph, and it's unreadable.
 
 @li Please write sentences with @em two (2) spaces after the terminating
 period, not one.  First, this makes the resulting text easier to read
 compared to when sentence-ending periods are followed by only one space.
-Second, text editing programs such as Emacs have special code to recognize
-sentences based on this pattern, and they make proficient users of those
-editors much happier because they can use sentence-oriented commands.
+Second, text editing programs such as Emacs have special features to
+recognize sentences based on this pattern, and they make proficient users
+of those editors much happier because they can use sentence-oriented
+editing commands.
 
 @li Watch out that Doxygen automatically turns entity names it recognizes
 in text into links to the definition of that entity.  This is usually what
 you want to have happen; for example, when describing the Model class, you
 may mention classes such as Species and Compartment, and those should be
 turned into convenient links to their definitions in the API documentation.
-However, sometimes you don't want that to happen, and in particular in
-libSBML, the case where it often happens undesirably involves the name
-%SBML.  To prevent Doxygen from linking a word, put a percentage sign (\%)
-in front of it, as in @c \%%SBML.  Doxygen will remove the percentage sign
-and leave the rest of the word unlinked.
+However, sometimes you don't want that to happen.  To prevent Doxygen from
+linking a word, put a percentage sign (\%) in front of it, as in @c
+\%%Model.  Doxygen will remove the percentage sign and leave the rest of
+the word unlinked, resulting in the plain word %Model appearing in the
+finished document.
 
 @li We are using a feature of Doxygen that makes it use the first sentence
 of a documentation comment as the "brief" description of the entity being
@@ -88,11 +89,9 @@ certain contexts by Doxygen.  The following is an example:
  * third sentence is also part of the detailed description.
  */
 @endverbatim
-This basically means that you will want to make the first sentence of a
-comment block be a summary of the thing that's being commented.  To
-emphasize and remind people that this is going to happen when the API
-documentation is generated, it is better to format the text in the
-as in the following example:
+Consequently, to emphasize this and remind people that this is going to
+happen when the API documentation is generated, it is better to format the
+text in the as in the following example:
 @verbatim
 /**
  * This is the brief description.
@@ -108,6 +107,20 @@ different software tools.  Sometimes it's too difficult to avoid a long
 line, and then it's okay, but generally it's possible to reformat code in
 such away as to keep things to 79 characters.
 
+@li Sometimes code is meant to be part of the internal implementation and
+not advertised to users of the library.  To make Doxygen ignore blocks of
+code, wrap the code with the comment
+@verbatim
+/** @cond doxygen-libsbml-internal */
+@endverbatim
+at the beginning and 
+@verbatim
+/** @endcond doxygen-libsbml-internal */
+@endverbatim
+at the end of the block.  (Explanation: this sets up a conditional that
+will only be "seen" by Doxygen if the symbol "doxygen-libsbml-internal" is
+defined.  Since it's never defined in the Doxygen configuration, it will
+the block will be ignored.)
 
 
 @section coding-doxygen-summary Summary of commonly-used Doxygen commands in libSBML
@@ -139,7 +152,11 @@ Names the author of the entity being described (a file, a class, etc.).
 <tr><td class="simpletableleft">\@c</td>
 <td class="simpletableright">
 Puts the following word in typewriter ("code") font.  To style more than one
-word, use <code>&lt;code&gt;the words&lt;/code&gt;</code>.
+word, use <code>&lt;code&gt;the words&lt;/code&gt;</code>.  If you need to
+put something that contains HTML tags in typewriter font, use the
+<code>&lt;code&gt;the words&lt;/code&gt;</code> form, and use the HTML
+character codes <code>\&lt;</code> and<code>\&gt;</code> to embed the
+openening '@c &lt;' and '@c &gt;' characters inside <code>the words</code>.
 </td><td></td></tr>
 
 <tr><td class="simpletableleft">\@em</td>
@@ -163,7 +180,9 @@ when the word is a parameter to a method or function.
 <td class="simpletableright">
 Starts (or continues) a bullet list.  You can insert the first @c \@li in
 a comment, and the item will continue until a paragraph break or the
-next @c \@li command.
+next @c \@li command.  (Note: even though Doxygen will also recognize
+hyphens at the beginning of a line as starting a  list item, avoid using 
+that approach in favor of the @c \@li command.
 </td><td></td></tr>
 
 <tr><td class="simpletableleft">\@class</td>
@@ -197,6 +216,8 @@ Formats the following paragraph with the heading "Note:".  Useful to call
 out something special about a class, function, file or other entity, such
 as a behavior that should be brought to the attention of users or a note
 about API changes compared to previous versions of the software or SBML.
+As a convention, please put @c \@note blocks at the end of a documentation
+block, for uniformity in the API documentation.
 </td><td></td></tr>
 
 <tr><td class="simpletableleft">\@warning</td>
@@ -204,12 +225,16 @@ about API changes compared to previous versions of the software or SBML.
 Formats the following paragraph with the heading "Warning:".  This is a
 stronger statement than \@note, and is useful to call attention to
 backward-incompatible changes or potentially error-provoking situations.
+As a convention, please put @c \@warning blocks at the end of a documentation
+block, for uniformity in the API documentation.
 </td><td></td></tr>
 
 <tr><td class="simpletableleft">\@bug</td>
 <td class="simpletableright">
 Formats the following paragraph with the heading "Bugs:".  Useful to
 indicate that something is known to be a problem in some part of the code. 
+As a convention, please put @c \@bug blocks at the end of a documentation
+block, for uniformity in the API documentation.
 </td><td></td></tr>
 
 </table>
@@ -462,7 +487,14 @@ CompartmentType_t *
 CompartmentType_createWith (const char *sid, const char *name);
 @endverbatim
 
+@section coding-misc-doxygen Miscellaneous Doxygen notes
 
+@li The doxygen command @c \@internal is (according to the doxygen
+documentation) supposed to let you flag things as internal implementation
+code, such that it is not put in the finished documentation.  This would be
+great if we could use it, but I (MH) have been unable to make this work.
+(Yes, there is a configuration flag, and yes, I've tried setting it both
+ways.)
 
 
 
