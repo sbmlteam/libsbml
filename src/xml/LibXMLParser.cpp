@@ -136,7 +136,7 @@ static struct libxmlErrors {
   { XML_ERR_NOT_STANDALONE,	       XMLError::NotWellFormed},
   { XML_ERR_NOTATION_PROCESSING,       XMLError::NotWellFormed},
   { XML_WAR_NS_COLUMN,		       XMLError::NotWellFormed},
-  { XML_NS_ERR_XML_NAMESPACE,	       XMLError::BadPrefix},
+  { XML_NS_ERR_XML_NAMESPACE,	       XMLError::BadPrefixValue},
   { XML_NS_ERR_UNDEFINED_NAMESPACE,    XMLError::BadPrefix},
   { XML_NS_ERR_QNAME,		       XMLError::BadPrefix},
   { XML_NS_ERR_ATTRIBUTE_REDEFINED,    XMLError::NotWellFormed},
