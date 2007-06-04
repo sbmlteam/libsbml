@@ -1,25 +1,25 @@
 /**
  * @file    MathML.cpp
- * @brief   MathML I/O
+ * @brief   Utilities for reading and writing MathML to/from text strings.
  * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #include <sbml/xml/XMLToken.h>
 #include <sbml/xml/XMLInputStream.h>
@@ -38,6 +38,8 @@ using namespace std;
 
 /** @endcond doxygen-ignored */
 
+
+/** @cond doxygen-libsbml-internal */
 
 static const char* URL_TIME  = "http://www.sbml.org/sbml/symbols/time";
 static const char* URL_DELAY = "http://www.sbml.org/sbml/symbols/delay";
@@ -1023,12 +1025,6 @@ writeNode (const ASTNode& node, XMLOutputStream& stream)
 }
 
 
-
-/* ---------------------------------------------------------------------- */
-/*                           Public Functions                             */
-/* ---------------------------------------------------------------------- */
-
-
 /**
  * Reads the MathML from the given XMLInputStream, constructs a corresponding
  * abstract syntax tree and returns a pointer to the root of the tree.
@@ -1061,25 +1057,6 @@ readMathML (XMLInputStream& stream)
 
 
 /**
- * Reads the MathML from the given XML string, constructs a corresponding
- * abstract syntax tree and returns a pointer to the root of the tree.
- */
-LIBSBML_EXTERN
-ASTNode_t *
-readMathMLFromString (const char *xml)
-{
-  if (xml == 0) return 0;
-
-  XMLInputStream stream(xml, false);
-  SBMLErrorLog   log;
-
-  stream.setErrorLog(&log);
-
-  return readMathML(stream);
-}
-
-
-/**
  * Writes the given ASTNode (and its children) to the XMLOutputStream as
  * MathML.
  */
@@ -1098,10 +1075,51 @@ writeMathML (const ASTNode* node, XMLOutputStream& stream)
 }
 
 
+/** @endcond doxygen-libsbml-internal */
+
+/* ---------------------------------------------------------------------- */
+/*                           Public Functions                             */
+/* ---------------------------------------------------------------------- */
+
+
 /**
- * Writes the given ASTNode (and its children) to the XMLOutputStream as
- * MathML.  The string is owned by the caller and should be freed
- * (with free()) when no longer needed.
+ * Reads MathML from a text string containing XML and returns the
+ * corresponding AST representation of the mathematical formula.
+ *
+ * Note that the content should be a complete self-contained MathML
+ * formula, enclosed by
+ * <code>&lt;math xmlns="http://www.w3.org/1998/Math/MathML"></code>
+ * and <code>&lt;/math></code> tags.
+ *
+ * @param xml the MathML to be converted, stored in a character string.
+ *
+ * @return an ASTnode (the root of the AST representing the mathematical
+ * formula in the given XML string).
+ */
+LIBSBML_EXTERN
+ASTNode_t *
+readMathMLFromString (const char *xml)
+{
+  if (xml == 0) return 0;
+
+  XMLInputStream stream(xml, false);
+  SBMLErrorLog   log;
+
+  stream.setErrorLog(&log);
+
+  return readMathML(stream);
+}
+
+
+/**
+ * Writes the given ASTNode (and its children) as MathML to a string, and
+ * returns the string.
+ *
+ * @param node the AST to be converted to MathML
+ *
+ * @return the XML representation of the given mathematical expression.
+ * The string is owned by the caller and should be freed (with
+ * <code>free()</code>) when it is no longer needed.
  */
 LIBSBML_EXTERN
 char *

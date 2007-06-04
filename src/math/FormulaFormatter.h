@@ -1,26 +1,25 @@
 /**
  * @file    FormulaFormatter.h
- * @brief   Formats an AST formula tree as an SBML formula string
+ * @brief   Formats an AST formula tree as an SBML formula string.
  * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2003 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #ifndef FormulaFormatter_h
 #define FormulaFormatter_h
@@ -36,13 +35,21 @@ BEGIN_C_DECLS
 
 
 /**
- * @return the given formula AST as an SBML L1 string formula.  The caller
- * owns the returned string and is responsible for freeing it.
+ * Converts an AST to a string representation of a formula using a syntax
+ * basically derived from SBML Level 1.
+ *
+ * @param tree the AST to be converted.
+ * 
+ * @return the formula from the given AST as an SBML Level 1 text-string
+ * mathematical formula.  The caller owns the returned string and is
+ * responsible for freeing it when it is no longer needed.
  */
 LIBSBML_EXTERN
 char *
 SBML_formulaToString (const ASTNode_t *tree);
 
+
+/** @cond doxygen-libsbml-internal */
 
 #ifndef SWIG
 
@@ -162,8 +169,10 @@ FormulaFormatter_visitOther ( const ASTNode_t *parent,
                               StringBuffer_t  *sb );
 
 
+#endif  /* !SWIG */
+
 END_C_DECLS
 
+/** @endcond doxygen-libsbml-internal */
 
-#endif  /* !SWIG */
 #endif  /* FormulaFormatter_h */
