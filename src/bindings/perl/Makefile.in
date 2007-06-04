@@ -135,16 +135,12 @@ ifndef USE_PERL
 	exit 1
 else
 	$(PERL) Makefile.PL $(if $(LIB),LIB=$(LIB),)
-# For MacOS X, the following perl commands add missing -lstdc++ option to
-# EXTRALIBS and LDLOADLIBS in Makefile-perl.
-# In MacOS X, -lstdc++ option is ignored by ExtUtil::MakeMaker if libstdc++.dylib
-# doesn't exist in search path (even if /usr/lib/libstdc++.6.dylib exists).
-# It seems that gcc knows -lstdc++ option is corresponding to libstdc++.6.dylib,
-# but ExtUtil::MakeMaker doesn't (So, MakeMaker tries to find libstdc++.dylib).
-ifeq "$(HOST_TYPE)" "darwin"
+# The following perl commands add missing -lstdc++ option to EXTRALIBS and
+# LDLOADLIBS in Makefile-perl.
+# ExtUtil::Makemaker may ignore -lstdc++ option in some environments (e.g. MacOSX, cygwin)
+# even if corresponding standard c++ library exists.
 	perl -pi -e 's|(^EXTRALIBS.*)|\1 -lstdc++|  if (/^EXTRALIBS/  and !/\-lstdc\+\+/)'  Makefile-perl
 	perl -pi -e 's|(^LDLOADLIBS.*)|\1 -lstdc++| if (/^LDLOADLIBS/ and !/\-lstdc\+\+/);' Makefile-perl
-endif
 endif
 
 Makefile.PL: Makefile.PL.in $(TOP_SRCDIR)/configure \
