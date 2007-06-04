@@ -19,6 +19,7 @@ Pass: (3400) When a delay is specified within an event the units
 			<parameter id="p" value="1" units="minutes" constant="false"/>
 			<parameter id="p1" value="1" units="minutes" constant="false"/>
 			<parameter id="p2" constant="false"/>
+			<parameter id="p3" value="1" units="dimensionless"/>
 		</listOfParameters>
 		<listOfEvents>
 			<event timeUnits="minutes">
@@ -26,7 +27,7 @@ Pass: (3400) When a delay is specified within an event the units
 					<math xmlns="http://www.w3.org/1998/Math/MathML">
 						<apply>
 							<lt/>
-							<ci> p </ci>
+							<ci> p3 </ci>
 							<cn> 0.1 </cn>
 						</apply>
 					</math>
