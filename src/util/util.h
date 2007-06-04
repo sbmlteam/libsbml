@@ -5,26 +5,24 @@
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
- */
-
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *----------------------------------------------------------------------- -->*/
 
 #ifndef util_h
 #define util_h
-
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -32,10 +30,12 @@
 #include <sbml/common/extern.h>
 
 
+/** @cond doxygen-libsbml-internal */
+
+
 /**
  * Easier-to-read and NULL-friendly string comparison.
  */
-LIBSBML_EXTERN
 unsigned int
 streq (const char *s, const char *t);
 
@@ -73,7 +73,6 @@ c_locale_strtod (const char *nptr, char **endptr);
  * to it.  If the filename could not be opened, prints an error message and
  * exits.
  */
-LIBSBML_EXTERN
 FILE *
 safe_fopen (const char *filename, const char *mode);
 
@@ -84,7 +83,6 @@ safe_fopen (const char *filename, const char *mode);
  *
  * NOTE: This strcat behaves differently than standard library strcat().
  */
-LIBSBML_EXTERN
 char *
 safe_strcat (const char *str1, const char *str2);
 
@@ -93,7 +91,6 @@ safe_strcat (const char *str1, const char *str2);
  * Memory for the string is obtained with safe_malloc() and can be freed
  * with safe_free().
  */
-LIBSBML_EXTERN
 char *
 safe_strdup (const char* s);
 
@@ -103,7 +100,6 @@ safe_strdup (const char* s);
  * @return an integer less than, equal to, or greater than zero if s1 is
  * found, respectively, to be less than, to match, or be greater than s2.
  */
-LIBSBML_EXTERN
 int
 strcmp_insensitive (const char *s1, const char *s2);
 
@@ -117,14 +113,12 @@ strcmp_insensitive (const char *s1, const char *s2);
  * @return the index of s in strings, if s was found, or stop + 1
  * otherwise.
  */
-LIBSBML_EXTERN
 int
 util_bsearchStringsI (const char **strings, const char *s, int lo, int hi);
 
 /**
  * @returns true (non-zero) if filename exists, false (zero) otherwise.
  */
-LIBSBML_EXTERN
 int
 util_file_exists (const char *filename);
 
@@ -136,7 +130,6 @@ util_file_exists (const char *filename);
  *
  * Whitespace is determined by isspace().
  */
-LIBSBML_EXTERN
 char *
 util_trim (const char *s);
 
@@ -149,9 +142,12 @@ util_trim (const char *s);
  *
  * Whitespace is determined by isspace().
  */
-LIBSBML_EXTERN
 char *
 util_trim_in_place (char *s);
+
+
+/** @endcond doxygen-libsbml-internal */
+
 
 /**
  * @return a (quiet) NaN.
@@ -198,6 +194,8 @@ int
 util_isNegZero (double d);
 
 
+/** @cond doxygen-libsbml-internal */
+
 /**
  * Function prototypes to supress gcc compiler warnings about implicit
  * declaration of isnan and finite which occur despite the inclusion of
@@ -223,6 +221,8 @@ util_isNegZero (double d);
 
 #endif
 
+
+/** @endcond doxygen-libsbml-internal */
 
 END_C_DECLS
 

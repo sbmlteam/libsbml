@@ -1,26 +1,29 @@
 /**
  * @file    util.c
- * @brief   Utility functions
+ * @brief   Utility functions. 
  * @author  Ben Bornstein
  *
  * $Id$
  * $Source$
- */
-/* Copyright 2002 California Institute of Technology and Japan Science and
- * Technology Corporation.
  *
+ *<!---------------------------------------------------------------------------
+ * This file is part of libSBML.  Please visit http://sbml.org for more
+ * information about SBML, and the latest version of libSBML.
+ *
+ * Copyright 2005-2007 California Institute of Technology.
+ * Copyright 2002-2005 California Institute of Technology and
+ *                     Japan Science and Technology Corporation.
+ * 
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation.  A copy of the license agreement is
- * provided in the file named "LICENSE.txt" included with this software
- * distribution.  It is also available online at
- * http://sbml.org/software/libsbml/license.html
+ * the Free Software Foundation.  A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution and
+ * also available online as http://sbml.org/software/libsbml/license.html
+ *------------------------------------------------------------------------- -->
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, write to the Free Software Foundation,
- * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ * Ths file implements a small number of utility functions that may be
+ * useful inside and outside of libSBML.
  */
-
 
 #include <ctype.h>
 #include <locale.h>
@@ -33,7 +36,7 @@
 #include "util.h"
 
 
-/** @cond doxygen-ignored */
+/** @cond doxygen-libsbml-internal */
 
 
 /**
@@ -387,10 +390,12 @@ util_trim_in_place (char *s)
 }
 
 
-/** @endcond doxygen-ignored */
+/** @endcond doxygen-libsbml-internal */
 
 
 /**
+ * Returns a representation of @c NaN.
+ * 
  * @return a (quiet) NaN.
  */
 LIBSBML_EXTERN
@@ -399,13 +404,14 @@ util_NaN (void)
 {
   double z = 0.0;
 
-
-  /** MSVC++ will produce a compile error if 0.0 is used instead of z. **/
+  // MSVC++ will produce a compile error if 0.0 is used instead of z.
   return 0.0 / z;
 }
 
 
 /**
+ * Returns a representation of the IEEE-754 "Negative Infinity" value.
+ * 
  * @return IEEE-754 Negative Infinity.
  */
 LIBSBML_EXTERN
@@ -414,13 +420,14 @@ util_NegInf (void)
 {
   double z = 0.0;
 
-
-  /** MSVC++ will produce a compile error if 0.0 is used instead of z. **/
+  // MSVC++ will produce a compile error if 0.0 is used instead of z.
   return -1.0 / z;
 }
 
 
 /**
+ * Returns a representation of the IEEE-754 "Positive Infinity" value.
+ * 
  * @return IEEE-754 Positive Infinity
  */
 LIBSBML_EXTERN
@@ -429,13 +436,14 @@ util_PosInf (void)
 {
   double z = 0.0;
 
-
-  /** MSVC++ will produce a compile error if 0.0 is used instead of z. **/
+  // MSVC++ will produce a compile error if 0.0 is used instead of z.
   return 1.0 / z;
 }
 
 
 /**
+ * Returns a representation of the IEEE-754 "Negative Zero" value.
+ * 
  * @return IEEE-754 Negative Zero.
  */
 LIBSBML_EXTERN
@@ -447,8 +455,12 @@ util_NegZero (void)
 
 
 /**
- * @return -1 if d represents negative infinity, 1 if d represents positive
- * infinity and 0 otherwise.
+ * Function for testing whether a given value represents negative infinity.
+ *
+ * @param d the floating-point value to test
+ * 
+ * @return @c -1 (for false) if @p d represents negative infinity, @c 1 if
+ * @p d represents positive infinity, and @c 0 otherwise.
  */
 LIBSBML_EXTERN
 int
@@ -469,8 +481,12 @@ util_isInf (double d)
 
 
 /**
- * @return true (non-zero) if d is an IEEE-754 negative zero, false (zero)
- * otherwise.
+ * Function for testing whether a given value represents negative zero.
+ *
+ * @param d the floating-point value to test
+ * 
+ * @return nonzero (for true) if @p d is an IEEE-754 negative zero, zero
+ * (for false) otherwise.
  */
 LIBSBML_EXTERN
 int
