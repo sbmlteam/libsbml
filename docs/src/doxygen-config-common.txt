@@ -164,7 +164,7 @@ EXTRACT_PRIVATE        = NO
 # If the EXTRACT_STATIC tag is set to YES all static members of a file 
 # will be included in the documentation.
 
-EXTRACT_STATIC         = NO
+EXTRACT_STATIC         = YES
 
 # If the EXTRACT_LOCAL_CLASSES tag is set to YES classes (and structs) 
 # defined locally in source files will be included in the documentation. 
@@ -199,7 +199,7 @@ HIDE_FRIEND_COMPOUNDS  = NO
 # If set to NO (the default) these blocks will be appended to the 
 # function's detailed documentation block.
 
-HIDE_IN_BODY_DOCS      = NO
+HIDE_IN_BODY_DOCS      = YES
 
 # The INTERNAL_DOCS tag determines if documentation 
 # that is typed after a \internal command is included. If the tag is set 
@@ -335,8 +335,6 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces.
 
-# In the following list, ../../src/util is deliberately omitted.
-
 INPUT =                      \
   libsbml-mainpage.txt       \
   libsbml-features.txt       \
@@ -352,6 +350,7 @@ INPUT =                      \
   ../../src/math             \
   ../../src/sbml             \
   ../../src/units            \
+  ../../src/util             \
   ../../src/validator        \
   ../../src/xml
 
@@ -360,6 +359,12 @@ INPUT =                      \
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
 EXCLUDE =                            \
+  ../../src/util/memory.c            \
+  ../../src/util/memory.h            \
+  ../../src/util/Stack.c             \
+  ../../src/util/Stack.h             \
+  ../../src/util/StringBuffer.c      \
+  ../../src/util/StringBuffer.h      \
   ../../src/xml/XercesHandler.h      \
   ../../src/xml/XercesHandler.cpp    \
   ../../src/xml/ExpatHandler.h       \
