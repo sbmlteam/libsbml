@@ -393,7 +393,8 @@ SBO::isPhysicalParticipant  (unsigned int sboTerm)
 void 
 SBO::populateSBOTree()
 {
-  mParent.insert( make_pair(  1,  64) );
+  // generated from SBO on June 4th 2007
+mParent.insert( make_pair(  1,  64) );
   mParent.insert( make_pair(  3, 235) );
   mParent.insert( make_pair(  5,  64) );
   mParent.insert( make_pair(  6,   2) );
@@ -413,20 +414,25 @@ SBO::populateSBOTree()
   mParent.insert( make_pair( 20,  19) );
   mParent.insert( make_pair( 21,  19) );
   mParent.insert( make_pair( 22,  16) );
+  mParent.insert( make_pair( 22, 153) );
   mParent.insert( make_pair( 23,  17) );
+  mParent.insert( make_pair( 23, 153) );
   mParent.insert( make_pair( 24,  18) );
+  mParent.insert( make_pair( 24, 153) );
   mParent.insert( make_pair( 25,  35) );
   mParent.insert( make_pair( 26, 1000) );
   mParent.insert( make_pair( 27, 193) );
   mParent.insert( make_pair( 28, 150) );
-  mParent.insert( make_pair( 28, 269) );
   mParent.insert( make_pair( 28, 326) );
   mParent.insert( make_pair( 29,  28) );
   mParent.insert( make_pair( 30,  28) );
   mParent.insert( make_pair( 31,  28) );
   mParent.insert( make_pair( 32,  16) );
+  mParent.insert( make_pair( 32, 156) );
   mParent.insert( make_pair( 33,  17) );
+  mParent.insert( make_pair( 33, 156) );
   mParent.insert( make_pair( 34,  18) );
+  mParent.insert( make_pair( 34, 156) );
   mParent.insert( make_pair( 35,  22) );
   mParent.insert( make_pair( 35, 154) );
   mParent.insert( make_pair( 36,  23) );
@@ -434,11 +440,8 @@ SBO::populateSBOTree()
   mParent.insert( make_pair( 37,  24) );
   mParent.insert( make_pair( 37, 154) );
   mParent.insert( make_pair( 38,  32) );
-  mParent.insert( make_pair( 38, 156) );
   mParent.insert( make_pair( 39,  33) );
-  mParent.insert( make_pair( 39, 156) );
   mParent.insert( make_pair( 40,  34) );
-  mParent.insert( make_pair( 40, 156) );
   mParent.insert( make_pair( 41,  12) );
   mParent.insert( make_pair( 42,  12) );
   mParent.insert( make_pair( 43,  41) );
@@ -576,11 +579,13 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(157, 188) );
   mParent.insert( make_pair(158, 256) );
   mParent.insert( make_pair(159,   9) );
+  mParent.insert( make_pair(160, 153) );
   mParent.insert( make_pair(160, 154) );
   mParent.insert( make_pair(160, 159) );
   mParent.insert( make_pair(161, 156) );
   mParent.insert( make_pair(161, 159) );
   mParent.insert( make_pair(162,  46) );
+  mParent.insert( make_pair(162, 153) );
   mParent.insert( make_pair(163,  41) );
   mParent.insert( make_pair(164, 1000) );
   mParent.insert( make_pair(165, 1000) );
@@ -750,7 +755,9 @@ SBO::populateSBOTree()
   mParent.insert( make_pair(323,  27) );
   mParent.insert( make_pair(324, 186) );
   mParent.insert( make_pair(325, 186) );
-  mParent.insert( make_pair(326, 268) );
+  mParent.insert( make_pair(326, 269) );
+  mParent.insert( make_pair(327, 247) );
+  mParent.insert( make_pair(328, 247) );
 
 }
 
