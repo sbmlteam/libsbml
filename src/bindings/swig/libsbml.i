@@ -72,6 +72,12 @@
 %ignore *::getElementPosition;
 
 /**
+ * Ignore internal implementation methods in MathML.h
+ */
+%ignore readMathML;
+%ignore writeMathML;
+
+/**
  * Ignore methods whose pointer argument serves as both input and output
  */
 %ignore XMLAttributes::readInto;
@@ -88,6 +94,7 @@
  * Ignore methods which receive std::list.
  */
 %ignore XMLErrorLog::add(const std::list<XMLError>& errors);
+%ignore SBMLErrorLog::add(const std::list<SBMLError>& errors);
 
 /**
  * Ignore 'static ParentMap mParent;' in SBO.h
@@ -137,8 +144,6 @@
 %newobject RDFAnnotationParser::createAnnotation;
 %newobject RDFAnnotationParser::createRDFDescription;
 %newobject RDFAnnotationParser::createCVTerms;
-%newobject convertUnitToSI;
-%newobject convertToSI;
 
 /**
  * In the wrapped languages, these methods will appear as:
@@ -210,8 +215,6 @@
 %include sbml/SBMLError.h
 
 %include sbml/units/FormulaUnitsData.h
-%include sbml/units/Utils_Unit.h
-%include sbml/units/Utils_UnitDefinition.h
 
 %include sbml/annotation/CVTerm.h
 %include sbml/annotation/ModelHistory.h
