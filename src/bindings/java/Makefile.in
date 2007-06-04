@@ -251,10 +251,14 @@ clean-swigfiles:
 
 check_classes = $(check_sources:.java=.class)
 
-classpath = $(jarfile):$(TOP_BUILDDIR)/src:.
+ifeq "$(HOST_TYPE)" "cygwin"
+  classpath = $(shell cygpath -wp $(jarfile):$(TOP_BUILDDIR)/src:.)
+else
+  classpath = $(jarfile):$(TOP_BUILDDIR)/src:.
+endif
 
 $(check_classes): Makefile $(libraries) $(check_sources)
-	$(JAVAC) -g -classpath $(classpath) $(check_sources)
+	$(JAVAC) -g -classpath "$(classpath)" $(check_sources)
 
 ifdef USE_LIBCHECK
   check: $(check_classes)
@@ -262,7 +266,7 @@ ifdef USE_LIBCHECK
 	@echo
 	@echo Running Tests in $(thisdir)
 	@echo -----------------------------------------------------------------
-	$(call libsbmlrun,$(JAVA) -classpath $(classpath) Test)
+	$(call libsbmlrun,$(JAVA) -classpath "$(classpath)" Test)
 	@echo -----------------------------------------------------------------
 	@echo
 else
