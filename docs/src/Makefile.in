@@ -71,11 +71,13 @@ endif
 # for `make dist'.  Normally you wouldn't want to remove documentation
 # files, but the following are all generated files and directories.
 
-extra_clean = $(docs)
+# We don't want to remove the formatted docs during a regular make clean,
+# only a distclean.
 
-extra_distclean = \
-	doxygen-config-c.txt \
-	doxygen-config-cpp.txt
+extra_distclean =            \
+        $(docs)              \
+        doxygen-config-c.txt \
+        doxygen-config-cpp.txt
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
@@ -114,7 +116,15 @@ distfiles =                                    \
         graphics/top-level.vtt                 \
         graphics/unitdefinition.eps            \
         graphics/unitdefinition.pdf            \
-        graphics/unitdefinition.vtt
+        graphics/unitdefinition.vtt            \
+        libsbml-coding.txt                     \
+        libsbml-communications.txt             \
+        libsbml-features.txt                   \
+        libsbml-installation.txt               \
+        libsbml-issues.txt                     \
+        libsbml-mainpage.txt                   \
+        libsbml-math.txt                       \
+        libsbml-reading-files.txt
 
 
 # -----------------------------------------------------------------------------
