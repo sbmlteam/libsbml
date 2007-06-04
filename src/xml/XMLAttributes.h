@@ -372,7 +372,7 @@ public:
    * (Optional) Sets the log used when logging attributeTypeError() and
    * attributeRequired() errors.
    *
-   * @param name string, the name of the element.
+   * @param log the log to use
    */
   void setErrorLog (XMLErrorLog* log);
 
