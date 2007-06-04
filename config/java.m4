@@ -284,6 +284,7 @@ AC_DEFUN([AC_JAVA_INCLUDE_DIRS],[
     linux*)   _java_inc_subdirs="linux genunix";;
     osf*)     _java_inc_subdirs="alpha";;
     solaris*) _java_inc_subdirs="solaris";;
+    *cygwin*) _java_inc_subdirs="win32";;
     *)        _java_inc_subdirs="genunix";;
   esac
   
