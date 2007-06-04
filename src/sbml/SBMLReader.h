@@ -19,7 +19,27 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution
  * and also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ *
+ * @class SBMLReader
+ * @brief SBML reader class, for reading SBML from files and text strings.
+ *
+ * The SBMLReader class provides the main interface for reading SBML
+ * content from files and strings.  The methods for reading SBML all return
+ * an SBMLDocument object representing the results.
+ *
+ * In the case of failures (such as if the SBML contains errors or a file
+ * cannot be read), the errors will be recorded with the SBMLErrorLog object
+ * kept in the SBMLDocument returned by SBMLReader.  Callers should check
+ * for errors and warnings using the methods for this purpose provided on
+ * SBMLDocument.
+ *
+ * For convenience as well as easy access from other languages besides C++,
+ * this file also defines two global functions, readSBML() and
+ * readSBMLFromString().  They are equivalent to creating an SBMLReader
+ * object and then calling the SBMLReader::readSBML() or
+ * SBMLReader::readSBMLFromString() methods, respectively.
+ */
 
 #ifndef SBMLReader_h
 #define SBMLReader_h
@@ -62,23 +82,38 @@ public:
    * valid SBML, one or more errors will be logged with the SBMLDocument
    * object returned.  Callers can use the methods on SBMLDocument such as
    * SBMLDocument::getNumErrors() and SBMLDocument::getError() to get the
-   * errors, and the XMLError methods such as XMLError::getId() and
-   * XMLError::getSeverity(), to assess the severity of the problem.  The
-   * severity levels range from informationl messages to fatal errors.
+   * errors.  The object returned by SBMLDocument::getError() is an
+   * SBMLError object, and it has methods to get the identifier, category,
+   * and severity level of the problem.  The severity levels range from
+   * informationl messages to fatal errors.
    *
    * If the file could not be read, the error will appear first.  Callers
    * can check for this situation using code such as the following:
-   * <code>
-   *   SBMLDocument* d = reader.readSBML(filename);
+   * @code
+   * SBMLReader* reader = new SBMLReader();
+   * SBMLDocument* doc  = reader.readSBML(filename);
    *
-   *   if (d->getNumErrors() > 0)\n
-   *   {\n
-   *     if (d->getError(0)->getId() == SBML_READ_ERROR_FILE_NOT_FOUND)\n
-   *     if (d->getError(0)->getId() == SBML_READ_ERROR_NOT_SBML)\n
-   *   }\n
-   * </code>
+   * if (doc->getNumErrors() > 0)
+   * {
+   *   if (doc->getError(0)->getId() == XMLError::FileUnreadable)
+   *   {
+   *     // Handle case of unreadable file.
+   *   } 
+   *   else if (doc->getError(0)->getId() == XMLError::FileOperationError)
+   *   {
+   *     // Handle case of other file error.
+   *   }
+   *   else
+   *   {
+   *     // Handle other cases -- see error codes in XMLError::Code
+   *     // for other possible cases to check.
+   *   }
+   * }
+   * @endcode
    *
-   * @return a pointer to the SBMLDocument read.
+   * @param filename the name or full pathname of the file to be read
+   *
+   * @return a pointer to the SBMLDocument created from the SBML content.
    */
   SBMLDocument* readSBML (const std::string& filename);
 
@@ -86,17 +121,17 @@ public:
   /**
    * Reads an SBML document from the given XML string.
    *
-   * If the string does not begin with XML declaration:
+   * If the string does not begin with the XML declaration
+   * <code>&lt;?xml version='1.0' encoding='UTF-8'?></code>
+   * then such a string will be prepended to the given input.
    *
-   *   <?xml version='1.0' encoding='UTF-8'?>
+   * This method will log a fatal error if the content given in the
+   * parameter @p xml is not SBML.  See the method documentation for
+   * SBMLReader::readSBML() for example error checking code.
    *
-   * it will be prepended.
+   * @param xml a string containing a full SBML model
    *
-   * This method will log a fatal error if the XML string is not SBML.  See
-   * the method documentation for readSBML(filename) for example error
-   * checking code.
-   *
-   * @return a pointer to the SBMLDocument read.
+   * @return a pointer to the SBMLDocument created from the SBML content.
    */
   SBMLDocument* readSBMLFromString (const std::string& xml);
 
