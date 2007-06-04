@@ -365,6 +365,8 @@ EXCLUDE =                            \
   ../../src/util/Stack.h             \
   ../../src/util/StringBuffer.c      \
   ../../src/util/StringBuffer.h      \
+  ../../src/math/FormulaTokenizer.c  \
+  ../../src/math/FormulaTokenizer.h  \
   ../../src/xml/XercesHandler.h      \
   ../../src/xml/XercesHandler.cpp    \
   ../../src/xml/ExpatHandler.h       \
