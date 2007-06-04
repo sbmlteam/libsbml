@@ -1405,6 +1405,8 @@ START_CONSTRAINT (1604, KineticLaw, kl)
     "(L2v1 Section 4.9.7).";
 
 
+  /* not in L2V3 */
+  pre( kl.getVersion() != 3);
   pre( kl.isSetSubstanceUnits() );
 
   const string&         units = kl.getSubstanceUnits();
@@ -1412,17 +1414,14 @@ START_CONSTRAINT (1604, KineticLaw, kl)
 
   /* dimensionless is allowable in L2V2 */
   if (  kl.getLevel() == 2 
-    &&  (kl.getVersion() == 2 || kl.getVersion() == 3))
+    &&  kl.getVersion() == 2)
   {
- /*   removed in l2v2 - need to think about
- 
     inv_or( units == "substance" );
     inv_or( units == "item"  );
     inv_or( units == "mole"      );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfSubstance() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
- */
   }
   else
   {
@@ -1443,6 +1442,8 @@ START_CONSTRAINT (1605, KineticLaw, kl)
     "(L2v1 Section 4.9.7).";
 
 
+  /* not in L2V3 */
+  pre( kl.getVersion() != 3);
   pre( kl.isSetTimeUnits() );
 
   const string&         units = kl.getTimeUnits();
@@ -1450,16 +1451,13 @@ START_CONSTRAINT (1605, KineticLaw, kl)
 
   /* dimensionless is allowable in L2V2 */
   if (  kl.getLevel() == 2 
-    &&  (kl.getVersion() == 2 || kl.getVersion() == 3))
+    &&  kl.getVersion() == 2)
   {
- /*   removed in l2v2 - need to think about
- 
     inv_or( units == "time" );
     inv_or( units == "second"  );
     inv_or( units == "dimensionless"  );
     inv_or( defn  != NULL && defn->isVariantOfTime() );
     inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-*/
   }
   else
   {
