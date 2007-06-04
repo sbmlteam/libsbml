@@ -209,15 +209,15 @@ public:
    *
    * @param errorId an unsigned int, the identification number of the error.
    * 
+   * @param details a string containing additional details about the error.
+   * If the error code in @p errorId is one that is recognized by XMLError,
+   * the given message is @em appended to a predefined message associated
+   * with the given code.  If the error code is not recognized, the message
+   * is stored as-is as the text of the error.
+   * 
    * @param line an unsigned int, the line number at which the error occured.
    * 
    * @param column an unsigned int, the column number at which the error occured.
-   * 
-   * @param message a string, the error message.  If the error code in @p
-   * errorId is one that is recognized by XMLError, the given message is appended
-   * to a predefined message associated with the given code.  If the error
-   * code is not recognized, the message is stored as-is as the text of the
-   * error.
    * 
    * @param severity an integer indicating severity of the error.
    * 
@@ -391,7 +391,7 @@ public:
    * @param code the error code whose message is sought; it must be a
    * predefined value from XMLError::Code
    */
-  static const std::string getStandardMessage (const XMLError::Code code);
+  static const std::string getStandardMessage (const int code);
 
 
 #ifndef SWIG

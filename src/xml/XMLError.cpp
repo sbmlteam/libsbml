@@ -131,11 +131,11 @@ static const xmlErrorTableEntry errorTable[] =
 
   // 1013
   { XMLError::BadPrefix, XMLError::XML, XMLError::Error,
-    "Invalid XML Namespace prefix" },
+    "Invalid or undefined XML Namespace prefix" },
 
   // 1014
   { XMLError::BadPrefixValue, XMLError::XML, XMLError::Error,
-    "Invalid XML prefix value" },
+    "Invalid XML Namespace prefix value" },
 
   // 1015
   { XMLError::MissingRequiredAttribute, XMLError::XML, XMLError::Error,
@@ -232,12 +232,12 @@ static const xmlErrorTableEntry errorTable[] =
 XMLError::XMLError (  const int errorId
                     , const std::string& details
                     , const unsigned int line
-		                , const unsigned int column
+                    , const unsigned int column
                     , const unsigned int severity
                     , const unsigned int category ) :
-    mErrorId    ( errorId     )
-  , mLine  ( line   )
-  , mColumn( column )
+    mErrorId( errorId )
+  , mLine   ( line    )
+  , mColumn ( column  )
 {
   // Check if the given id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
@@ -251,17 +251,17 @@ XMLError::XMLError (  const int errorId
     {
       if ( errorTable[i].code == errorId )
       {
-	      mMessage  = errorTable[i].message;
+        mMessage  = errorTable[i].message;
 
-	      if ( !details.empty() )
-	      {
-	        mMessage.append(": ");
-	        mMessage.append(details);
-	      }
+        if ( !details.empty() )
+        {
+          mMessage.append(": ");
+          mMessage.append(details);
+        }
 
-	      mSeverity = errorTable[i].severity;
-	      mCategory = errorTable[i].category;
-	      return;
+        mSeverity = errorTable[i].severity;
+        mCategory = errorTable[i].category;
+        return;
       }
     }
 
@@ -271,7 +271,7 @@ XMLError::XMLError (  const int errorId
     // except the measure of last resort: the standard error output.
     
     cerr << "Internal error: unknown error code '" << errorId
-	        << "' encountered while processing error" << endl;
+         << "' encountered while processing error" << endl;
   }
 
   // It's not an error code in the XML layer, so assume the caller has
@@ -465,7 +465,7 @@ XMLError::setColumn (unsigned int column)
  * @return the message text 
  */
 const string
-XMLError::getStandardMessage (const XMLError::Code code)
+XMLError::getStandardMessage (const int code)
 {
   string msg;
 
@@ -475,7 +475,7 @@ XMLError::getStandardMessage (const XMLError::Code code)
 
     for ( unsigned int i = 0; i < tableSize; i++ )
       if ( errorTable[i].code == code )
-	msg.append(errorTable[i].message);
+        msg.append(errorTable[i].message);
   }
   
   return msg;
