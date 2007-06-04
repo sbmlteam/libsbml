@@ -97,7 +97,13 @@ ArgumentsUnitsCheck::checkUnits (const Model& m, const ASTNode& node, const SBas
     case AST_FUNCTION_ABS:
     case AST_FUNCTION_CEILING:
     case AST_FUNCTION_FLOOR:
-   
+    case AST_RELATIONAL_EQ:
+    case AST_RELATIONAL_GEQ:
+    case AST_RELATIONAL_GT:
+    case AST_RELATIONAL_LEQ:
+    case AST_RELATIONAL_LT:
+    case AST_RELATIONAL_NEQ:
+  
       checkSameUnitsAsArgs(m, node, sb);
       break;
 
