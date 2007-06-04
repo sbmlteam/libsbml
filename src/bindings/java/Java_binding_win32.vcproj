@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="Java_binding_win32"
 	ProjectGUID="{5AA48709-30C4-433C-B29B-EE09F618A1C3}"
+	RootNamespace="Java_binding_win32"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -23,9 +24,11 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(JAVA_INCLUDE),$(JAVA_INCLUDE)\win32"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;LIBLAX_EXPORTS;USE_XERCES"
+				ExceptionHandling="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderFile=".\Debug/Java_binding_win32.pch"
 				AssemblerListingLocation=".\Debug/"
@@ -39,13 +42,13 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib xerces-c_2D.lib"
-				OutputFile="sbmljD.dll"
+				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2D.lib"
+				OutputFile="./libs/sbmljD.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/sbmljD.pdb"
-				ImportLibrary=".\Debug/sbmljD.lib"
+				ImportLibrary=".\libs/sbmljD.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -57,9 +60,7 @@
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="java"
-				CommandLine="echo on
-%JAVA_BIN%\javac *.java
+				CommandLine="
 "/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
@@ -93,8 +94,9 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(JAVA_INCLUDE),$(JAVA_INCLUDE)\win32"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS"
-				StringPooling="TRUE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBSBML_EXPORTS;USE_XERCES;LIBLAX_EXPORTS"
+				StringPooling="FALSE"
+				ExceptionHandling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
@@ -154,7 +156,16 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\validator\constraints\ArgumentsUnitsCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\AssignmentCycles.cpp">
+			</File>
+			<File
 				RelativePath="..\..\math\ASTNode.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\CiElementMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\Compartment.cpp">
@@ -175,19 +186,13 @@
 				RelativePath="..\..\sbml\Constraint.cpp">
 			</File>
 			<File
-				RelativePath="..\..\validator\Constraint.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
+				RelativePath="..\..\annotation\CVTerm.cpp">
+			</File>
+			<File
+				RelativePath="..\..\sbml\Delay.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\EqualityArgsMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\Event.cpp">
@@ -205,7 +210,10 @@
 				RelativePath="..\..\math\FormulaTokenizer.c">
 			</File>
 			<File
-				RelativePath="..\..\validator\constraints\FormulaUnitsCheck.cpp">
+				RelativePath="..\..\units\FormulaUnitsData.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\FunctionApplyMathCheck.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\FunctionDefinition.cpp">
@@ -214,7 +222,16 @@
 				RelativePath="..\..\validator\constraints\FunctionDefinitionVars.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\FunctionReferredToExists.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\IdBase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\IdentifierConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\IdentifierConsistencyValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\IdList.cpp">
@@ -226,13 +243,31 @@
 				RelativePath="..\..\sbml\KineticLaw.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\KineticLawVars.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\L1CompatibilityConstraints.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\L1CompatibilityValidator.cpp">
 			</File>
 			<File
-				RelativePath=".\libsbml_wrap.cxx">
+				RelativePath="..\..\validator\constraints\L2v1CompatibilityConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\L2v1CompatibilityValidator.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\L2v2CompatibilityConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\L2v2CompatibilityValidator.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\LambdaMathCheck.cpp">
+			</File>
+			<File
+				RelativePath=".\libsbml_wrap.cpp">
 			</File>
 			<File
 				RelativePath="..\..\util\List.cpp">
@@ -241,7 +276,22 @@
 				RelativePath="..\..\sbml\ListOf.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\LocalParameterMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\LogicalArgsMathCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\math\MathML.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\MathMLBase.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\MathMLConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\MathMLConsistencyValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\util\memory.c">
@@ -250,7 +300,31 @@
 				RelativePath="..\..\sbml\Model.cpp">
 			</File>
 			<File
+				RelativePath="..\..\annotation\ModelHistory.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\NumberArgsMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\NumericArgsMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\NumericReturnMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\OverDeterminedCheck.cpp">
+			</File>
+			<File
 				RelativePath="..\..\sbml\Parameter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\PieceBooleanMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\PiecewiseValueMathCheck.cpp">
+			</File>
+			<File
+				RelativePath="..\..\annotation\RDFAnnotation.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\Reaction.cpp">
@@ -262,13 +336,13 @@
 				RelativePath="..\..\sbml\SBase.cpp">
 			</File>
 			<File
-				RelativePath="..\..\sbml\SBML.cpp">
-			</File>
-			<File
 				RelativePath="..\..\sbml\SBMLConvert.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLDocument.cpp">
+			</File>
+			<File
+				RelativePath="..\..\sbml\SBMLError.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SBMLErrorLog.cpp">
@@ -286,7 +360,19 @@
 				RelativePath="..\..\sbml\SBMLWriter.cpp">
 			</File>
 			<File
+				RelativePath="..\..\sbml\SBO.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\SBOConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\SBOConsistencyValidator.cpp">
+			</File>
+			<File
 				RelativePath="..\..\sbml\Species.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\SpeciesReactionOrRule.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\SpeciesReference.cpp">
@@ -298,7 +384,16 @@
 				RelativePath="..\..\util\Stack.c">
 			</File>
 			<File
+				RelativePath="..\..\sbml\StoichiometryMath.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\StoichiometryMathVars.cpp">
+			</File>
+			<File
 				RelativePath="..\..\util\StringBuffer.c">
+			</File>
+			<File
+				RelativePath="..\..\sbml\Trigger.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\UniqueIdBase.cpp">
@@ -313,13 +408,34 @@
 				RelativePath="..\..\validator\constraints\UniqueIdsInModel.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\UniqueMetaId.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueSpeciesTypesInCompartment.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueSymbolsInInitialAssignments.cpp">
+			</File>
+			<File
 				RelativePath="..\..\validator\constraints\UniqueVarsInEventAssignments.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueVarsInEventsAndRules.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UniqueVarsInInitialAssignmentsAndRules.cpp">
 			</File>
 			<File
 				RelativePath="..\..\validator\constraints\UniqueVarsInRules.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\Unit.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\constraints\UnitConsistencyConstraints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\UnitConsistencyValidator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\sbml\UnitDefinition.cpp">
@@ -334,6 +450,9 @@
 				RelativePath="..\..\units\UnitKindList.cpp">
 			</File>
 			<File
+				RelativePath="..\..\validator\constraints\UnitsBase.cpp">
+			</File>
+			<File
 				RelativePath="..\..\util\util.c">
 			</File>
 			<File
@@ -344,6 +463,66 @@
 			</File>
 			<File
 				RelativePath="..\..\validator\Validator.cpp">
+			</File>
+			<File
+				RelativePath="..\..\validator\VConstraint.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XercesAttributes.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XercesHandler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XercesNamespaces.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XercesParser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLAttributes.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLBuffer.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLError.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLErrorLog.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLFileBuffer.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLHandler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLInputStream.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLMemoryBuffer.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLNamespaces.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLNode.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLOutputStream.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLParser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLToken.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLTokenizer.cpp">
+			</File>
+			<File
+				RelativePath="..\..\xml\XMLTriple.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -360,21 +539,15 @@
 				Name="Debug|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="C:\swig\swig-1.3.24\swig.exe -c++ -java -package libsbml -outdir &quot;$(OutDir)&quot; &quot;$(InputPath)&quot;
-"
-					Outputs="$(InputName)_wrap.cxx"/>
+					CommandLine=""
+					Outputs=""/>
 			</FileConfiguration>
 			<FileConfiguration
 				Name="Release|Win32">
 				<Tool
 					Name="VCCustomBuildTool"
-					CommandLine="echo In order to function correctly, please ensure the following environment variables are correctly set:
-echo JAVA_INCLUDE: %JAVA_INCLUDE%
-echo JAVA_LIB: %JAVA_LIB%
-echo on
-C:\swig-1.3.24\swig -c++ -I..\..\..\src -java -package libsbml -outdir &quot;C:/libsbml/src/bindings/java/classes/org/sbml/libsbml&quot; &quot;$(InputPath)&quot;
-"
-					Outputs="$(InputName)_wrap.cxx"/>
+					CommandLine=""
+					Outputs=""/>
 			</FileConfiguration>
 		</File>
 		<File
