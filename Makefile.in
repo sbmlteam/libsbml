@@ -71,64 +71,84 @@ thisdir = .
 # Variables `examples' and `xml-schemas' are local variables reused below.
 # SK removed xml-schema files
 
-examples = \
-  examples/README.txt              \
-  examples/c/Makefile.in           \
-  examples/c/convertSBML.c         \
-  examples/c/drawMath.c            \
-  examples/c/evaluateMath.c        \
-  examples/c/printMath.c           \
-  examples/c/printSBML.c           \
-  examples/c/readSBML.c            \
-  examples/c/translateMath.c       \
-  examples/c/util.c                \
-  examples/c/util.h                \
-  examples/c/validateSBML.c        \
-  examples/c++/Makefile.in         \
-  examples/c++/convertSBML.cpp     \
-  examples/c++/printSBML.cpp       \
-  examples/c++/readSBML.cpp        \
-  examples/c++/translateMath.cpp   \
-  examples/c++/util.c              \
-  examples/c++/util.h              \
-  examples/c++/validateSBML.cpp    \
-  examples/java/Makefile.in        \
-  examples/java/README.txt         \
-  examples/java/convertSBML.java   \
-  examples/java/evaluateMath.java  \
-  examples/java/libSBMLHelper.java \
-  examples/java/printMath.java     \
-  examples/java/printSBML.java     \
-  examples/java/readSBML.java      \
-  examples/java/translateMath.java \
-  examples/java/validateSBML.java  \
-  examples/layout/Makefile.in      \
-  examples/layout/example1.cpp     \
-  examples/layout/example2.cpp     \
-  examples/layout/example3.cpp     \
-  examples/layout/example1.java    \
-  examples/layout/example1.py      \
-  examples/layout/layout2svg.xsl   \
-  examples/perl/convertSBML.pl     \
-  examples/perl/evaluateMath.pl    \
-  examples/perl/printMath.pl       \
-  examples/perl/printSBML.pl       \
-  examples/perl/readSBML.pl        \
-  examples/perl/translateMath.pl   \
-  examples/perl/validateSBML.pl
+examples =                                                       \
+  examples/README.txt                                            \
+  examples/c/Makefile.in                                         \
+  examples/c/FormulaGraphvizFormatter.h                          \
+  examples/c/convertSBML.c                                       \
+  examples/c/drawMath.c                                          \
+  examples/c/echoSBML.c                                          \
+  examples/c/evaluateMath.c                                      \
+  examples/c/printMath.c                                         \
+  examples/c/printSBML.c                                         \
+  examples/c/readSBML.c                                          \
+  examples/c/translateMath.c                                     \
+  examples/c/util.c                                              \
+  examples/c/util.h                                              \
+  examples/c/validateSBML.c                                      \
+  examples/c++/Makefile.in                                       \
+  examples/c++/addCVTerms.cpp                                    \
+  examples/c++/addModelHistory.cpp                               \
+  examples/c++/convertSBML.cpp                                   \
+  examples/c++/echoSBML.cpp                                      \
+  examples/c++/printMath.cpp                                     \
+  examples/c++/printSBML.cpp                                     \
+  examples/c++/readSBML.cpp                                      \
+  examples/c++/translateMath.cpp                                 \
+  examples/c++/util.c                                            \
+  examples/c++/util.h                                            \
+  examples/c++/validateSBML.cpp                                  \
+  examples/java/Makefile.in                                      \
+  examples/java/README.txt                                       \
+  examples/java/convertSBML.java                                 \
+  examples/java/evaluateMath.java                                \
+  examples/java/printMath.java                                   \
+  examples/java/printSBML.java                                   \
+  examples/java/readSBML.java                                    \
+  examples/java/translateMath.java                               \
+  examples/java/validateSBML.java                                \
+  examples/layout/Makefile.in                                    \
+  examples/layout/example1.cpp                                   \
+  examples/layout/example2.cpp                                   \
+  examples/layout/example3.cpp                                   \
+  examples/layout/example1.java                                  \
+  examples/layout/example1.py                                    \
+  examples/layout/layout2svg.xsl                                 \
+  examples/perl/convertSBML.pl                                   \
+  examples/perl/evaluateMath.pl                                  \
+  examples/perl/printMath.pl                                     \
+  examples/perl/printSBML.pl                                     \
+  examples/perl/readSBML.pl                                      \
+  examples/perl/translateMath.pl                                 \
+  examples/perl/validateSBML.pl                                  \
+  examples/sample-models/README.txt                              \
+  examples/sample-models/from-spec/level-2/README.txt            \
+  examples/sample-models/from-spec/level-2/algebraicrules.xml    \
+  examples/sample-models/from-spec/level-2/assignmentrules.xml   \
+  examples/sample-models/from-spec/level-2/boundarycondition.xml \
+  examples/sample-models/from-spec/level-2/delay.xml             \
+  examples/sample-models/from-spec/level-2/dimerization.xml      \
+  examples/sample-models/from-spec/level-2/enzymekinetics.xml    \
+  examples/sample-models/from-spec/level-2/events.xml            \
+  examples/sample-models/from-spec/level-2/functiondef.xml       \
+  examples/sample-models/from-spec/level-2/multicomp.xml         \
+  examples/sample-models/from-spec/level-2/overdetermined.xml    \
+  examples/sample-models/from-spec/level-2/twodimensional.xml    \
+  examples/sample-models/from-spec/level-2/units.xml
 
 
 # The files listed in `docs' are copied to the documentation directory
 # during a `make install'.
 
-docs = \
-  AUTHORS.txt                                          \
-  COPYING.html                                         \
-  COPYING.txt                                          \
-  NEWS.txt                                             \
-  README.txt                                           \
-  VERSION.txt                                          \
-  FUNDING.txt                                          \
+docs =         \
+  AUTHORS.txt  \
+  COPYING.html \
+  COPYING.txt  \
+  FUNDING.txt  \
+  LICENSE.txt  \
+  NEWS.txt     \
+  README.txt   \
+  VERSION.txt  \
   $(examples)                                          
 
 # Variables `subdirs', `headers', `sources', `libraries', `extra_CPPFLAGS',
@@ -144,37 +164,39 @@ subdirs = src docs win32
 # latter are the object of `make dist' and the files that are collected
 # are under the control of the makefiles in the subdirectories.
 
-distfiles = \
-        AUTHORS.txt                                          \
-        COPYING.html                                         \
-        COPYING.txt                                          \
-        FUNDING.txt                                          \
-        LICENSE.txt                                          \
-        Makefile.in                                          \
-        NEWS.txt                                             \
-        README.txt                                           \
-        VERSION.txt                                          \
-        aclocal.m4                                           \
-        config/config.guess                                  \
-        config/config.sub                                    \
-        config/expat.m4                                      \
-        config/install-sh                                    \
-        config/java.m4                                       \
-        config/libcheck.m4                                   \
-        config/lisp.m4                                       \
-        config/makefile-common-actions.mk                    \
-        config/makefile-common-vars.mk.in                    \
-        config/matlab.m4                                     \
-        config/missing                                       \
-        config/mkinstalldirs                                 \
-        config/perl.m4                                       \
-        config/python.m4                                     \
-        config/runldpath.m4                                  \
-        config/swig.m4                                       \
-        config/xercesc.m4                                    \
-        configure                                            \
-        configure.ac                                         \
-	$(examples)                                          
+distfiles =                         \
+  AUTHORS.txt                       \
+  COPYING.html                      \
+  COPYING.txt                       \
+  FUNDING.txt                       \
+  LICENSE.txt                       \
+  Makefile.in                       \
+  NEWS.txt                          \
+  README.txt                        \
+  VERSION.txt                       \
+  aclocal.m4                        \
+  config/config.guess               \
+  config/config.sub                 \
+  config/doxygen.m4                 \
+  config/expat.m4                   \
+  config/install-sh                 \
+  config/java.m4                    \
+  config/libcheck.m4                \
+  config/libxml.m4                  \
+  config/lisp.m4                    \
+  config/makefile-common-actions.mk \
+  config/makefile-common-vars.mk.in \
+  config/matlab.m4                  \
+  config/missing                    \
+  config/mkinstalldirs              \
+  config/perl.m4                    \
+  config/python.m4                  \
+  config/runldpath.m4               \
+  config/swig.m4                    \
+  config/xercesc.m4                 \
+  configure                         \
+  configure.ac                      \
+  $(examples)                              
 
 # The files listed in `extra_distclean' are items created by configure or
 # make, and that are removed by the default rules for `make distclean' in
