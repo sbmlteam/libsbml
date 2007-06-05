@@ -355,7 +355,9 @@ dist dist-zip: config-check dist-all
 # libsbml with certain flags, so that certain auto-generated files are
 # present when `make dist' runs and looks for them.
 
-check_vars_list = USE_SWIG USE_JAVA USE_LISP USE_PYTHON USE_PERL
+# 2007-06-05 Temporarily disabling the Lisp bindings.
+# check_vars_list = USE_SWIG USE_JAVA USE_LISP USE_PYTHON USE_PERL
+check_vars_list = USE_SWIG USE_JAVA USE_PYTHON USE_PERL
 num_vars        = $(words $(check_vars_list))
 num_vars_set    = $(words $(foreach var,$(check_vars_list),$($(var))))
 
