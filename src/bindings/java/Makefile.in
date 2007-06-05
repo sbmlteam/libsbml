@@ -124,7 +124,7 @@ class_files = $(java_files:.java=.class)
 # files.
 
 distfiles   = $(sources) $(extra_sources) $(check_sources) \
-  Makefile.in $(java_files)
+  Makefile.in $(java_files) Java_binding_win32.dsp Java_binding_win32.vcproj
 
 # `extra_clean' and `extra_distclean' determine the files and directories
 # removed during "make clean" and "make distclean".
