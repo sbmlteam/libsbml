@@ -183,8 +183,8 @@ doxygen-config-c.txt:  $(doxygen-c-config-files) $(TOP_SRCDIR)/VERSION.txt
 ifneq "$(USE_DOXYGEN)" ""
 
 define run_doxygen
-  $(DOXYGEN) $(1)
   mkdir -p $(2)
+  $(DOXYGEN) $(1)
   cp -rf doxygen-tabs.css $(2)/tabs.css
   cp graphics/sbml-logo-long-124x56.gif $(2)
   head -n 9 $(2)/tree.html > tmp.html
