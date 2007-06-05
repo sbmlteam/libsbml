@@ -264,12 +264,13 @@ AC_CONFIG_FILES([src/bindings/matlab/test/Makefile])
 
 AC_CONFIG_FILES([src/bindings/java/Makefile])
 
-AC_CONFIG_FILES([src/bindings/lisp/Makefile])
+# 2007-06-05 Temporarily disabling Lisp bindings
+# AC_CONFIG_FILES([src/bindings/lisp/Makefile])
 dnl logical pathnames for build
-AC_CONFIG_FILES([src/bindings/lisp/libsbml-config.lisp])
-AC_CONFIG_FILES([src/bindings/lisp/build.lisp])
+# AC_CONFIG_FILES([src/bindings/lisp/libsbml-config.lisp])
+# AC_CONFIG_FILES([src/bindings/lisp/build.lisp])
 dnl logical pathnames for installed version
-AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
+# AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
 
 AC_CONFIG_FILES([src/annotation/Makefile])
 AC_CONFIG_FILES([src/annotation/test/Makefile])
@@ -300,7 +301,6 @@ AC_CONFIG_FILES([docs/Makefile])
 AC_CONFIG_FILES([docs/src/doxygen-config-c.txt])
 AC_CONFIG_FILES([docs/src/doxygen-config-cpp.txt])
 AC_CONFIG_FILES([docs/src/Makefile])
-AC_CONFIG_FILES([docs/src/tex/libsbmlextras.sty])
 
 AC_CONFIG_FILES([win32/Makefile])
 AC_CONFIG_FILES([win32/MSVC6/Makefile])
