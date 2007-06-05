@@ -52,6 +52,9 @@ test_sources =           \
   TestRDFAnnotation2.cpp \
   TestRunner.c
 
+test_data_files = \
+  $(wildcard test-data/*.xml)
+
 extra_CPPFLAGS = -I.. -I../..
 
 ifdef USE_LIBCHECK
@@ -95,7 +98,7 @@ extra_LDFLAGS  := $(sort $(extra_LDFLAGS))
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(test_sources) Makefile.in
+distfiles = $(test_sources) $(test_data_files) Makefile.in
 
 
 # -----------------------------------------------------------------------------
