@@ -1,14 +1,15 @@
            libsbml NEWS -- History of user-visible changes
 
  
- === Version 3.0.0 (when released) ===
+ === Version 3.0.0 Prerelease ===
 
 * New Features relative to 3.0.0 beta_2:
 
-  - Java bindings are once again available, thanks to work by Akiya
-    Joukarou.  The following is a partial list of API changes relative
-    to previous versions of the Java bindings.  Almost all are due to
-    changes in the core of libSBML itself introduced in version 3.0.0.
+  - Java, Perl and Python bindings are once again available, thanks to
+    work by Akiya Joukarou.  The following is a partial list of API
+    changes relative to previous versions of the Java bindings.
+    Almost all are due to changes in the core of libSBML itself
+    introduced in version 3.0.0.
 
     + The classes OstreamWrapper and OfstreamWrapper.
 
@@ -49,6 +50,12 @@
         void Event::setTrigger(ASTNode*)          /* libsbml 3.0.0 */
         void Event::setTrigger(const Trigger*)    /* libsbml 2.3.4 */
     
+
+  - There is new API documentation for C++, C and Java.  The
+    documentation is much more complete than before, and is generated
+    from code comments, so it reflects more accurately the actual
+    code.  The API manuals are located in docs/formatted under
+    subdirectories for the individual languages.
 
 
 See the sections below for other changes relative to earlier versions
