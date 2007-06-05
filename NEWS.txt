@@ -6,10 +6,13 @@
 * New Features relative to 3.0.0 beta_2:
 
   - Java, Perl and Python bindings are once again available, thanks to
-    work by Akiya Joukarou.  The following is a partial list of API
-    changes relative to previous versions of the Java bindings.
-    Almost all are due to changes in the core of libSBML itself
-    introduced in version 3.0.0.
+    work by Akiya Jouraku.  
+    
+  - Matlab binding is available without support for Notes and Annotations.
+    
+  - The following is a partial list of API changes relative to previous 
+    versions of the Java bindings. Almost all are due to changes in the 
+    core of libSBML itself introduced in version 3.0.0.
 
     + The classes OstreamWrapper and OfstreamWrapper.
 
