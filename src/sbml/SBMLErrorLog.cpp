@@ -1,6 +1,6 @@
 /**
  * @file    SBMLErrorLog.cpp
- * @brief   Stores errors (and messages) encountered during an SBML parse
+ * @brief   Stores errors (and messages) encountered while processing SBML.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -56,14 +56,14 @@ SBMLErrorLog::~SBMLErrorLog ()
  * for a list of system and XML-level error codes.
  */
 void
-SBMLErrorLog::logError ( const unsigned int  id 
-		       , const std::string&  details
+SBMLErrorLog::logError ( const unsigned int  errorId 
+                       , const std::string&  details
                        , const unsigned int  line
-		       , const unsigned int  column
-		       , SBMLError::SBMLSeverity severity
+                       , const unsigned int  column
+                       , SBMLError::SBMLSeverity severity
                        , SBMLError::SBMLCategory category )
 {
-  add( SBMLError( id, details, line, column, severity, category ));
+  add( SBMLError( errorId, details, line, column, severity, category ));
 }
 
 
