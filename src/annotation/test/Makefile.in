@@ -44,13 +44,13 @@ thisdir   = src/annotation/test
 # `extra_CXXFLAGS', `extra_LDFLAGS' and `distfiles' are used by the default
 # rules in `makefile-common-actions.mk' included at the end.
 
-test_sources =          \
-  TestCVTerms.cpp       \
-  TestRunner.c          \
-  TestModelHistory.c    \
-  TestRDFAnnotation.cpp \
+test_sources =           \
+  TestCVTerms.c          \
+  TestCopyAndClone.cpp   \
+  TestModelHistory.c     \
+  TestRDFAnnotation.cpp  \
   TestRDFAnnotation2.cpp \
-  TestCopyAndClone.cpp
+  TestRunner.c
 
 extra_CPPFLAGS = -I.. -I../..
 
