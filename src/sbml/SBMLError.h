@@ -74,9 +74,14 @@ class LIBSBML_EXTERN SBMLError : public XMLError
 public:
 
   /**
-   * Codes for all SBML-level errors and warnings.  These are distinguished
-   * from the XML layer (LIBLAX) error codes by being numbered > 10000, while
-   * the XML layer's codes are < 9999.
+   * Codes for all SBML-level errors and warnings.
+   *
+   * These are distinguished from the XML layer (LIBLAX) error codes by
+   * being numbered > 10000, while the XML layer's codes are < 9999.
+   * Calling programs may wish to check whether a given SBMLError object's
+   * error identifier is actually from SBMLCode or XMLError::Code.  This
+   * distinction corresponds to whether a given error represents a
+   * low-level XML problem or an SBML problem.
    */
   enum SBMLCode
   {
@@ -238,6 +243,11 @@ public:
 
   /**
    * Category codes for SBMLError diagnostics.
+   *
+   * Note that these are distinct from XMLError's category codes.  User
+   * programs receiving an SBMLError object can use this distinction to
+   * check whether the error represents a low-level XML problem or an
+   * SBML problem.
    *
    * @see SBMLError
    */
