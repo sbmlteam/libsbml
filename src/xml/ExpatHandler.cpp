@@ -26,9 +26,13 @@
 #include <sbml/xml/XMLHandler.h>
 #include <sbml/xml/XMLTriple.h>
 #include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLErrorLog.h>
 
 #include <sbml/xml/ExpatAttributes.h>
 #include <sbml/xml/ExpatHandler.h>
+
+#include <sbml/util/util.h>
 
 /** @cond doxygen-ignored */
 
@@ -47,7 +51,10 @@ using namespace std;
  */
 
 static void
-XML (void* userData, const XML_Char* version, const XML_Char* encoding, int)
+XMLDeclHandler (void* userData,
+                const XML_Char* version,
+                const XML_Char* encoding,
+                int)
 {
   if (version == 0) return;
   if (encoding == 0) return;
@@ -100,12 +107,13 @@ ExpatHandler::ExpatHandler (XML_Parser parser, XMLHandler& handler) :
    mParser ( parser  )
  , mHandler( handler )
 {
-  XML_SetXmlDeclHandler      ( mParser, ::XML                        );
+  XML_SetXmlDeclHandler      ( mParser, ::XMLDeclHandler             );
   XML_SetElementHandler      ( mParser, ::startElement, ::endElement );
   XML_SetCharacterDataHandler( mParser, ::characters                 );
   XML_SetNamespaceDeclHandler( mParser, ::startNamespace, 0          );
   XML_SetUserData            ( mParser, static_cast<void*>(this)     );
   XML_SetReturnNSTriplet     ( mParser, 1                            );
+  mHandlerError = 0;
 }
 
 
@@ -170,7 +178,24 @@ ExpatHandler::startElement (const XML_Char* name, const XML_Char** attrs)
 void
 ExpatHandler::startNamespace (const XML_Char* prefix, const XML_Char* uri)
 {
-  mNamespaces.add(uri ? uri : "", prefix ? prefix : "");
+  // Expat doesn't flag the use of the prefix 'xml' as an error, but
+  // according to the XML Namespaces 1.0 (2nd ed, Aug 2006) specification,
+  // "The prefix xml is by definition bound to the namespace name
+  // http://www.w3.org/XML/1998/namespace. It MAY, but need not, be
+  // declared, and MUST NOT be bound to any other namespace name."
+  // I guess we have to catch this ourselves, then?
+
+  if (streq(prefix, "xml")
+      && !streq(uri, "http://www.w3.org/XML/1998/namespace"))
+  {
+    mHandlerError = new XMLError(XMLError::BadPrefixValue,
+                                 "The prefix 'xml' is reserved in XML",
+                                 getLine(), getColumn());
+  }
+  else
+  {
+    mNamespaces.add(uri ? uri : "", prefix ? prefix : "");
+  }
 }
 
 
@@ -231,5 +256,7 @@ ExpatHandler::getLine () const
 {
   return static_cast<unsigned int>( XML_GetCurrentLineNumber(mParser) );
 }
+
+
 
 /** @endcond doxygen-libsbml-internal */

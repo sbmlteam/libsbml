@@ -316,6 +316,11 @@ ExpatParser::parseNext ()
 		XML_GetCurrentColumnNumber(mParser));
     return false;
   }
+  else if ( mHandler.error() )
+  {
+    if (mErrorLog) mErrorLog->add(static_cast<XMLError&>(*mHandler.error()));
+    return false;
+  }
 
   if ( !error() && done )
   {

@@ -30,6 +30,7 @@
 
 #include <expat.h>
 #include <sbml/xml/XMLNamespaces.h>
+#include <sbml/xml/XMLError.h>
 
 
 /** @cond doxygen-libsbml-internal */
@@ -120,11 +121,20 @@ public:
   unsigned int getLine () const;
 
 
+  /**
+   * Returns true or false depending on whether the handler
+   * caught an error in-between our (liblax) code and Expat.
+   */
+  XMLError* error() { return mHandlerError; };
+
+
 protected:
 
   XML_Parser    mParser;
   XMLHandler&   mHandler;
   XMLNamespaces mNamespaces;
+
+  XMLError*     mHandlerError;
 };
 
 
