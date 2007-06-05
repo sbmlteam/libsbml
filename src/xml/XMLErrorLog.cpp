@@ -1,6 +1,6 @@
 /**
  * @file    XMLErrorLog.cpp
- * @brief   Stores errors (and messages) encountered during an XML parse
+ * @brief   Stores errors (and messages) encountered while processing XML.
  * @author  Ben Bornstein
  *
  * $Id$

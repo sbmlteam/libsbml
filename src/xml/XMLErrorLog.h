@@ -1,6 +1,6 @@
 /**
  * @file    XMLErrorLog.h
- * @brief   Stores errors (and messages) encountered during an XML parse
+ * @brief   Stores errors (and messages) encountered while processing XML.
  * @author  Ben Bornstein
  *
  * $Id$
@@ -19,7 +19,24 @@
  * the Free Software Foundation.  A copy of the license agreement is provided
  * in the file named "LICENSE.txt" included with this software distribution and
  * also available online as http://sbml.org/software/libsbml/license.html
- *----------------------------------------------------------------------- -->*/
+ *------------------------------------------------------------------------- -->
+ *
+ * @class XMLErrorLog
+ * @brief Log of errors and other events encountered while processing XML.
+ *
+ * XMLErrorLog is simply a list.  The XML layer of libSBML maintains an
+ * error log associated with a given XML document or data stream.  When an
+ * operation results in an error, or when there is something wrong with the
+ * XML content, the problem is reported as an XMLError object stored in the
+ * XMLErrorLog list.  Problems range from low-level issues (such as the
+ * inability to open a file) to XML syntax errors (such as mismatched tags
+ * or other problems).
+ *
+ * In normal circumstances, user-level programs will obtain an SBMLErrorLog
+ * rather than an actual XMLErrorLog.  The former is subclassed from
+ * XMLErrorLog and simply wraps commands for working with SBMLError objects
+ * rather than the low-level XMLError objects.
+ */
 
 #ifndef XMLErrorLog_h
 #define XMLErrorLog_h
@@ -42,6 +59,26 @@ class XMLParser;
 class LIBLAX_EXTERN XMLErrorLog
 {
 public:
+
+  /**
+   * Returns the number of errors that have been logged.
+   *
+   * @return the number of errors that have been logged.
+   */
+  unsigned int getNumErrors () const;
+
+
+  /**
+   * Returns the nth XMLError in this log.
+   *
+   * @param n unsigned int number of the error to retrieve.
+   *
+   * @return the nth XMLError in this log.
+   */
+  const XMLError* getError (unsigned int n) const;
+
+
+  /** @cond doxygen-libsbml-internal */
 
   /**
    * Creates a new empty XMLErrorLog.
@@ -73,24 +110,6 @@ public:
 
 
   /**
-   * Returns the nth XMLError in this log.
-   *
-   * @param n unsigned int number of the error to retrieve.
-   *
-   * @return the nth XMLError in this log.
-   */
-  const XMLError* getError (unsigned int n) const;
-
-
-  /**
-   * Returns the number of errors that have been logged.
-   *
-   * @return the number of errors that have been logged.
-   */
-  unsigned int getNumErrors () const;
-
-
-  /**
    * Sets the XMLParser associated with this XMLErrorLog.
    *
    * The XMLParser will be used to obtain the current line and column
@@ -102,6 +121,8 @@ public:
    * @param p XMLParser, the parser to use
    */
   void setParser (const XMLParser* p);
+
+  /** @endcond doxygen-libsbml-internal */
 
 
 protected:
