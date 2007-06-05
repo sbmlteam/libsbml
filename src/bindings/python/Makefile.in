@@ -131,19 +131,20 @@ endif
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = \
-	    Makefile.in \
-	    Python_binding_Win32.dsp \
-	    README.txt \
-	    accept.py \
-	    layout_local.i \
-	    libsbml.i \
-	    libsbml.py \
-	    libsbml_wrap.cpp \
-	    local.cpp \
-	    local.i \
-	    setup.cfg \
-	    setup.py.in
+distfiles =                             \
+            Makefile.in                 \
+            Python_binding_Win32.dsp    \
+            Python_binding_Win32.vcproj \
+            README.txt                  \
+            accept.py                   \
+            layout_local.i              \
+            libsbml.i                   \
+            libsbml.py                  \
+            libsbml_wrap.cpp            \
+            local.cpp                   \
+            local.i                     \
+            setup.cfg                   \
+            setup.py.in                 \
 
 extra_clean     = build
 extra_distclean = libsbml.pyc setup.py
