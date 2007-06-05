@@ -128,18 +128,45 @@ headers =               \
   UniqueMetaId.h        \
   UnitsBase.h
 
+other_headers = \
+  ArgumentsUnitsCheck.h                    \
+  AssignmentCycles.h                       \
+  CiElementMathCheck.h                     \
+  CompartmentOutsideCycles.h               \
+  EqualityArgsMathCheck.h                  \
+  ExponentUnitsCheck.h                     \
+  FunctionApplyMathCheck.h                 \
+  FunctionDefinitionVars.h                 \
+  FunctionReferredToExists.h               \
+  KineticLawVars.h                         \
+  LambdaMathCheck.h                        \
+  LocalParameterMathCheck.h                \
+  LogicalArgsMathCheck.h                   \
+  Makefile                                 \
+  Makefile.in                              \
+  NumberArgsMathCheck.h                    \
+  NumericArgsMathCheck.h                   \
+  NumericReturnMathCheck.h                 \
+  PieceBooleanMathCheck.h                  \
+  PiecewiseValueMathCheck.h                \
+  PowerUnitsCheck.h                        \
+  SpeciesReactionOrRule.h                  \
+  StoichiometryMathVars.h                  \
+  UniqueIdsForUnitDefinitions.h            \
+  UniqueIdsInKineticLaw.h                  \
+  UniqueIdsInModel.h                       \
+  UniqueSpeciesTypesInCompartment.h        \
+  UniqueSymbolsInInitialAssignments.h      \
+  UniqueVarsInEventAssignments.h           \
+  UniqueVarsInEventsAndRules.h             \
+  UniqueVarsInInitialAssignmentsAndRules.h \
+  UniqueVarsInRules.h
+
 # `distfiles' determines the files and directories included in a distribution.
 # `distfiles_exclude' is used to filter out specific items, so that even if
 # they appear in `distfiles', they will not be copied in the distribution.
 
-distfiles = $(sources) $(headers) Makefile.in \
-  CompartmentOutsideCycles.h     \
-  UniqueIdsForUnitDefinitions.h  \
-  UniqueIdsInKineticLaw.h        \
-  UniqueIdsInModel.h             \
-  UniqueVarsInEventAssignments.h \
-  UniqueVarsInRules.h
-
+distfiles = $(sources) $(headers) $(other_headers) Makefile.in
 
 
 # -----------------------------------------------------------------------------
