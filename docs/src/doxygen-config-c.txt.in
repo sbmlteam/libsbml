@@ -18,19 +18,19 @@
 # The PROJECT_NAME tag is a single word (or a sequence of words surrounded 
 # by quotes) that should identify the project.
 
-PROJECT_NAME           = @PACKAGE_NAME@&nbsp;C&nbsp;API
+PROJECT_NAME           = "@PACKAGE_NAME@ C Public API"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. 
 # This could be handy for archiving the generated documentation or 
 # if some version control system is used.
 
-PROJECT_NUMBER         = @PACKAGE_NAME@&nbsp;@PACKAGE_VERSION@&nbsp;C&nbsp;API
+PROJECT_NUMBER         = "@PACKAGE_NAME@ @PACKAGE_VERSION@ C Public API"
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. 
 # If a relative path is entered the value of OUTPUT_DIRECTORY will be 
 # put in front of it. If left blank `html' will be used as the default path.
 
-HTML_OUTPUT            = libsbml-c-api
+HTML_OUTPUT            = ../formatted/c-api
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C sources 
 # only. Doxygen will then generate output that is more tailored for C. 
