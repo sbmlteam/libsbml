@@ -297,7 +297,8 @@ installcheck:
 # Creating distribution (for libSBML maintainers only)
 # -----------------------------------------------------------------------------
 
-dist: dist-normal $(docs)
+#dist: dist-normal $(docs) # 2007-06-05 going to distribute docs separately.
+dist: dist-normal
 
 distcheck:
 
