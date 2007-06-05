@@ -111,7 +111,11 @@ using namespace std;
 
 START_CONSTRAINT (20204, Model, x)
 {
-  msg = SBMLError::getStandardMessage(SBMLError::NeedCompartmentIfHaveSpecies);
+  msg =
+    "If a model defines any <species>, then the model must also define at "
+    "least one <compartment>. This is an implication of the fact that the "
+    "'compartment' attribute on <species> is not optional. (References: L2V1 "
+    "Section 4.5; Section 4.8.3.)";
 
   pre( m.getNumSpecies()      > 0 );
   inv( m.getNumCompartments() > 0 );
