@@ -8378,14 +8378,11 @@ _ACEOF
           ac_config_files="$ac_config_files src/bindings/java/Makefile"
 
 
-          ac_config_files="$ac_config_files src/bindings/lisp/Makefile"
-
-          ac_config_files="$ac_config_files src/bindings/lisp/libsbml-config.lisp"
-
-          ac_config_files="$ac_config_files src/bindings/lisp/build.lisp"
-
-          ac_config_files="$ac_config_files src/bindings/lisp/libsbml-config-run.lisp"
-
+# 2007-06-05 Temporarily disabling Lisp bindings
+# AC_CONFIG_FILES([src/bindings/lisp/Makefile])
+# AC_CONFIG_FILES([src/bindings/lisp/libsbml-config.lisp])
+# AC_CONFIG_FILES([src/bindings/lisp/build.lisp])
+# AC_CONFIG_FILES([src/bindings/lisp/libsbml-config-run.lisp])
 
           ac_config_files="$ac_config_files src/annotation/Makefile"
 
@@ -8436,8 +8433,6 @@ _ACEOF
           ac_config_files="$ac_config_files docs/src/doxygen-config-cpp.txt"
 
           ac_config_files="$ac_config_files docs/src/Makefile"
-
-          ac_config_files="$ac_config_files docs/src/tex/libsbmlextras.sty"
 
 
           ac_config_files="$ac_config_files win32/Makefile"
@@ -8996,10 +8991,6 @@ do
   "src/bindings/matlab/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/matlab/Makefile" ;;
   "src/bindings/matlab/test/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/matlab/test/Makefile" ;;
   "src/bindings/java/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/java/Makefile" ;;
-  "src/bindings/lisp/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/Makefile" ;;
-  "src/bindings/lisp/libsbml-config.lisp" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/libsbml-config.lisp" ;;
-  "src/bindings/lisp/build.lisp" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/build.lisp" ;;
-  "src/bindings/lisp/libsbml-config-run.lisp" ) CONFIG_FILES="$CONFIG_FILES src/bindings/lisp/libsbml-config-run.lisp" ;;
   "src/annotation/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/annotation/Makefile" ;;
   "src/annotation/test/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/annotation/test/Makefile" ;;
   "src/math/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/math/Makefile" ;;
@@ -9021,7 +9012,6 @@ do
   "docs/src/doxygen-config-c.txt" ) CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-c.txt" ;;
   "docs/src/doxygen-config-cpp.txt" ) CONFIG_FILES="$CONFIG_FILES docs/src/doxygen-config-cpp.txt" ;;
   "docs/src/Makefile" ) CONFIG_FILES="$CONFIG_FILES docs/src/Makefile" ;;
-  "docs/src/tex/libsbmlextras.sty" ) CONFIG_FILES="$CONFIG_FILES docs/src/tex/libsbmlextras.sty" ;;
   "win32/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/Makefile" ;;
   "win32/MSVC6/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/MSVC6/Makefile" ;;
   "win32/MSVC7/Makefile" ) CONFIG_FILES="$CONFIG_FILES win32/MSVC7/Makefile" ;;
