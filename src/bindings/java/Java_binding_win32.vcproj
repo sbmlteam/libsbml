@@ -112,7 +112,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib xerces-c_2.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib ../../../win32/bin/xerces-c_2.lib"
 				OutputFile="./libs/sbmlj.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
