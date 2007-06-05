@@ -77,7 +77,7 @@ thisdir = docs
 
 subdirs = src
 
-distfiles = formatted Makefile.in
+distfiles = $(wildcard formatted/*-api) Makefile.in
 
 
 # -----------------------------------------------------------------------------
