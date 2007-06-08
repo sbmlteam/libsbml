@@ -311,6 +311,28 @@ START_TEST (test_WriteSBML_Unit)
 END_TEST
 
 
+START_TEST (test_WriteSBML_Unit_l2v3)
+{
+  D->setLevelAndVersion(2, 3);
+
+  const char* expected = wrapXML
+  (
+    "<unit kind=\"kilogram\" exponent=\"2\" scale=\"-3\"/>"
+  );
+
+
+
+  Unit u("kilogram", 2, -3);
+  u.setOffset(32);
+
+  u.setSBMLDocument(D);
+  u.write(*XOS);
+
+  fail_unless( equals(expected) );
+}
+END_TEST
+
+
 START_TEST (test_WriteSBML_Unit_defaults)
 {
   D->setLevelAndVersion(1, 2);
@@ -1738,6 +1760,7 @@ create_suite_WriteSBML ()
   tcase_add_test( tcase, test_WriteSBML_Unit          );
   tcase_add_test( tcase, test_WriteSBML_Unit_defaults );
   tcase_add_test( tcase, test_WriteSBML_Unit_L2v1     );
+  tcase_add_test( tcase, test_WriteSBML_Unit_l2v3     );
 
   // UnitDefinition
   tcase_add_test( tcase, test_WriteSBML_UnitDefinition           );

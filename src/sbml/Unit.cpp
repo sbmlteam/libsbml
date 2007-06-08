@@ -796,7 +796,7 @@ Unit::writeAttributes (XMLOutputStream& stream) const
     //
     // offset  { use="optional" default="0" }  (L2v1, L2v2)
     //
-    if (mOffset != 0) stream.writeAttribute("offset", mOffset);
+    if (version == 1 && mOffset != 0) stream.writeAttribute("offset", mOffset);
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v3)
