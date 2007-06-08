@@ -20,10 +20,10 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#include "common/common.h"
-#include "XMLInputStream.h"
-#include "XMLToken.h"
-#include "XMLErrorLog.h"
+#include <sbml/common/common.h>
+#include <sbml/xml/XMLInputStream.h>
+#include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLErrorLog.h>
 
 #include <check.h>
 /**

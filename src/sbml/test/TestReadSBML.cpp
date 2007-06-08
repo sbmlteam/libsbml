@@ -24,13 +24,13 @@
 
 #include <iostream>
 
-#include "common/common.h"
+#include <sbml/common/common.h>
 
-#include "math/ASTNode.h"
-#include "math/FormulaFormatter.h"
+#include <sbml/math/ASTNode.h>
+#include <sbml/math/FormulaFormatter.h>
 
-#include "SBMLTypes.h"
-#include "SBMLReader.h"
+#include <sbml/SBMLTypes.h>
+#include <sbml/SBMLReader.h>
 
 #include <check.h>
 

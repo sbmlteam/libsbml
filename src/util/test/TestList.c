@@ -51,8 +51,8 @@
 
 #include <check.h>
 
-#include "common/common.h"
-#include "List.h"
+#include <sbml/common/common.h>
+#include <sbml/util/List.h>
 
 
 static List_t *L;

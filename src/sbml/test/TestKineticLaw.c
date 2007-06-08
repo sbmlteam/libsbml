@@ -49,14 +49,14 @@
  */
 
 
-#include "common/common.h"
+#include <sbml/common/common.h>
 
-#include "math/FormulaFormatter.h"
-#include "math/FormulaParser.h"
+#include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
 
-#include "SBase.h"
-#include "Parameter.h"
-#include "KineticLaw.h"
+#include <sbml/SBase.h>
+#include <sbml/Parameter.h>
+#include <sbml/KineticLaw.h>
 
 #include <check.h>
 

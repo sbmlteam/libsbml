@@ -49,16 +49,16 @@
  */
 
 
-#include "sbml/common/common.h"
-#include "sbml/common/extern.h"
+#include <sbml/common/common.h>
+#include <sbml/common/extern.h>
 
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLTypes.h"
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLTypes.h>
 
-#include "sbml/SBMLDocument.h"
-#include "sbml/Model.h"
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
 
-#include "../UnitFormulaFormatter.h"
+#include <sbml/units/UnitFormulaFormatter.h>
 
 #include <check.h>
 

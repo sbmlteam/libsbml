@@ -24,7 +24,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
-#include "memory.h"
+#include <sbml/util/memory.h>
 
 
 /**

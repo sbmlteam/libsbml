@@ -20,10 +20,10 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#include "common/common.h"
-#include "XMLTriple.h"
-#include "XMLToken.h"
-#include "XMLNode.h"
+#include <sbml/common/common.h>
+#include <sbml/xml/XMLTriple.h>
+#include <sbml/xml/XMLToken.h>
+#include <sbml/xml/XMLNode.h>
 
 #include <check.h>
 

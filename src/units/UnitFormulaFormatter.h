@@ -43,7 +43,7 @@
 
 #include <sbml/math/ASTNode.h>
 
-#include "Utils_UnitDefinition.h"
+#include <sbml/units/Utils_UnitDefinition.h>
 
 #ifdef __cplusplus
 

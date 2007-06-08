@@ -22,18 +22,18 @@
  */
 
 
-#include "sbml/common/common.h"
-#include "sbml/common/extern.h"
+#include <sbml/common/common.h>
+#include <sbml/common/extern.h>
 
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLTypes.h"
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLTypes.h>
 
-#include "sbml/SBMLDocument.h"
-#include "sbml/Model.h"
-#include "sbml/SBMLTypeCodes.h"
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/SBMLTypeCodes.h>
 
-#include "../UnitFormulaFormatter.h"
-#include "../FormulaUnitsData.h"
+#include <sbml/units/UnitFormulaFormatter.h>
+#include <sbml/units/FormulaUnitsData.h>
 
 #include <check.h>
 

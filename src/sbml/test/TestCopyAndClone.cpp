@@ -22,30 +22,30 @@
  */
 
 
-#include "common/common.h"
+#include <sbml/common/common.h>
 
-#include "SBase.h"
-#include "Compartment.h"
-#include "CompartmentType.h"
-#include "Constraint.h"
-#include "Delay.h"
-#include "Event.h"
-#include "EventAssignment.h"
-#include "FunctionDefinition.h"
-#include "InitialAssignment.h"
-#include "KineticLaw.h"
-#include "ListOf.h"
-#include "Model.h"
-#include "Parameter.h"
-#include "Reaction.h"
-#include "Species.h"
-#include "SpeciesReference.h"
-#include "SpeciesType.h"
-#include "Unit.h"
-#include "UnitDefinition.h"
-#include "units/FormulaUnitsData.h"
+#include <sbml/SBase.h>
+#include <sbml/Compartment.h>
+#include <sbml/CompartmentType.h>
+#include <sbml/Constraint.h>
+#include <sbml/Delay.h>
+#include <sbml/Event.h>
+#include <sbml/EventAssignment.h>
+#include <sbml/FunctionDefinition.h>
+#include <sbml/InitialAssignment.h>
+#include <sbml/KineticLaw.h>
+#include <sbml/ListOf.h>
+#include <sbml/Model.h>
+#include <sbml/Parameter.h>
+#include <sbml/Reaction.h>
+#include <sbml/Species.h>
+#include <sbml/SpeciesReference.h>
+#include <sbml/SpeciesType.h>
+#include <sbml/Unit.h>
+#include <sbml/UnitDefinition.h>
+#include <sbml/units/FormulaUnitsData.h>
 
-#include "math/ASTNode.h"
+#include <sbml/math/ASTNode.h>
 
 #include <check.h>
 

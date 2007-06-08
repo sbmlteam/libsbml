@@ -58,11 +58,11 @@
 #include <functional>
 #include <iterator>
 
-#include "sbml/SBMLDocument.h"
-#include "sbml/SBMLReader.h"
+#include <sbml/SBMLDocument.h>
+#include <sbml/SBMLReader.h>
+#include <sbml/validator/Validator.h>
 
 #include "TestFile.h"
-#include "Validator.h"
 
 #include "TestValidator.h"
 

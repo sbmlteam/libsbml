@@ -52,8 +52,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "common/extern.h"
-#include "util/memory.h"
+#include <sbml/common/extern.h>
+#include <sbml/util/memory.h>
 
 #include <check.h>
 

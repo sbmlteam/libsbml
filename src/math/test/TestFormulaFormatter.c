@@ -51,10 +51,10 @@
 
 #include <check.h>
 
-#include "common/common.h"
+#include <sbml/common/common.h>
 
-#include "FormulaFormatter.h"
-#include "FormulaParser.h"
+#include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/FormulaParser.h>
 
 
 START_TEST (test_FormulaFormatter_isFunction)

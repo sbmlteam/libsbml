@@ -25,7 +25,7 @@
 #include <check.h>
 #include <stdlib.h>
 
-#include "common/extern.h"
+#include <sbml/common/extern.h>
 
 
 /**

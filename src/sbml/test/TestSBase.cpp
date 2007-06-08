@@ -49,12 +49,12 @@
  */
 
 
-#include "common/common.h"
-#include "common/extern.h"
+#include <sbml/common/common.h>
+#include <sbml/common/extern.h>
 
-#include "SBase.h"
-#include "Model.h"
-#include "../annotation/CVTerm.h"
+#include <sbml/SBase.h>
+#include <sbml/Model.h>
+#include <sbml/annotation/CVTerm.h>
 
 #include <check.h>
 

@@ -52,8 +52,8 @@
 #include <check.h>
 #include <stdlib.h>
 
-#include "common/extern.h"
-#include "memory.h"
+#include <sbml/common/extern.h>
+#include <sbml/util/memory.h>
 
 
 /**

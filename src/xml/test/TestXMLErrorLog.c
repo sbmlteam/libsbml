@@ -20,9 +20,9 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#include "common/common.h"
-#include "XMLError.h"
-#include "XMLErrorLog.h"
+#include <sbml/common/common.h>
+#include <sbml/xml/XMLError.h>
+#include <sbml/xml/XMLErrorLog.h>
 
 #include <check.h>
 

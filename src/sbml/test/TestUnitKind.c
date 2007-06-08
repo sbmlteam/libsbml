@@ -49,8 +49,8 @@
  */
 
 
-#include "common/common.h"
-#include "UnitKind.h"
+#include <sbml/common/common.h>
+#include <sbml/UnitKind.h>
 
 #include <check.h>
 

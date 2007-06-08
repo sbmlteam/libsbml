@@ -22,7 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
-#include "FormulaFormatter.h"
+#include <sbml/math/FormulaFormatter.h>
 
 
 #ifdef _MSC_VER

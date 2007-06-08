@@ -25,11 +25,11 @@
 #include <iostream>
 #include <sstream>
 
-#include "xml/XMLOutputStream.h"
-#include "util/util.h"
+#include <sbml/xml/XMLOutputStream.h>
+#include <sbml/util/util.h>
 
-#include "SBMLTypes.h"
-#include "SBMLWriter.h"
+#include <sbml/SBMLTypes.h>
+#include <sbml/SBMLWriter.h>
 
 #include <check.h>
 

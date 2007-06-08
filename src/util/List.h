@@ -281,7 +281,7 @@ BEGIN_C_DECLS
  * See the .cpp file for the documentation of the following functions.
  *---------------------------------------------------------------------------*/
 
-#include "../common/sbmlfwd.h"
+#include <sbml/common/sbmlfwd.h>
 
 
 LIBSBML_EXTERN

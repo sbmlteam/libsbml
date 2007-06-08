@@ -26,9 +26,9 @@
 
 #include <check.h>
 
-#include "FormulaParser.h"
-#include "ASTNode.h"
-#include "MathML.h"
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/ASTNode.h>
+#include <sbml/math/MathML.h>
 
 /** @cond doxygen-ignored */
 

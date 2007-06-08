@@ -17,7 +17,7 @@
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF
  * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  The software and
- * documentation provided hereunder is on an "as is" basis, and the
+ * documentation provided hereunder is on an <as is< basis, and the
  * California Institute of Technology and Japan Science and Technology
  * Corporation have no obligations to provide maintenance, support,
  * updates, enhancements or modifications.  In no event shall the
@@ -49,13 +49,13 @@
  */
 
 
-#include "sbml/common/common.h"
+#include <sbml/common/common.h>
 
-#include "sbml/Unit.h"
-#include "sbml/UnitDefinition.h"
-#include "sbml/math/ASTNode.h"
+#include <sbml/Unit.h>
+#include <sbml/UnitDefinition.h>
+#include <sbml/math/ASTNode.h>
 
-#include "../Utils_Unit.h"
+#include <sbml/units/Utils_Unit.h>
 
 #include <check.h>
 

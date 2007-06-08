@@ -51,8 +51,8 @@
 
 #include <check.h>
 
-#include "common/common.h"
-#include "Stack.h"
+#include <sbml/common/common.h>
+#include <sbml/util/Stack.h>
 
 
 static Stack_t *S;

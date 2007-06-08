@@ -49,11 +49,11 @@
  */
 
 
-#include "common/common.h"
+#include <sbml/common/common.h>
 
-#include "SBase.h"
-#include "Model.h"
-#include "SBMLDocument.h"
+#include <sbml/SBase.h>
+#include <sbml/Model.h>
+#include <sbml/SBMLDocument.h>
 
 #include <check.h>
 

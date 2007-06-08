@@ -49,14 +49,14 @@
  */
 
 
-#include "common/common.h"
-#include "math/FormulaParser.h"
+#include <sbml/common/common.h>
+#include <sbml/math/FormulaParser.h>
 
-#include "SBase.h"
-#include "Event.h"
-#include "EventAssignment.h"
-#include "Trigger.h"
-#include "Delay.h"
+#include <sbml/SBase.h>
+#include <sbml/Event.h>
+#include <sbml/EventAssignment.h>
+#include <sbml/Trigger.h>
+#include <sbml/Delay.h>
 
 #include <check.h>
 

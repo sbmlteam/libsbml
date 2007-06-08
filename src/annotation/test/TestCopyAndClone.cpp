@@ -22,8 +22,8 @@
  */
 
 
-#include "ModelHistory.h"
-#include "CVTerm.h"
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/annotation/CVTerm.h>
 
 #include <check.h>
 

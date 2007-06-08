@@ -21,8 +21,8 @@
  * and also available online as http://sbml.org/software/libsbml/license.html
  *----------------------------------------------------------------------- -->*/
 
-#include "common/common.h"
-#include "XMLError.h"
+#include <sbml/common/common.h>
+#include <sbml/xml/XMLError.h>
 
 #include <check.h>
 

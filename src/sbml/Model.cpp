@@ -36,7 +36,7 @@
 #include <sbml/Model.h>
 
 #ifdef USE_LAYOUT
-#include "sbml/annotation/LayoutAnnotation.h"
+#include <sbml/annotation/LayoutAnnotation.h>
 #endif // USE_LAYOUT
 
 /** @cond doxygen-ignored */

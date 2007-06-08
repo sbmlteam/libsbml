@@ -27,14 +27,14 @@
 #include "TestFile.h"
 #include "TestValidator.h"
 
-#include "ConsistencyValidator.h"
-#include "MathMLConsistencyValidator.h"
-#include "IdentifierConsistencyValidator.h"
-#include "SBOConsistencyValidator.h"
-#include "UnitConsistencyValidator.h"
-#include "L1CompatibilityValidator.h"
-#include "L2v1CompatibilityValidator.h"
-#include "L2v2CompatibilityValidator.h"
+#include <sbml/validator/ConsistencyValidator.h>
+#include <sbml/validator/MathMLConsistencyValidator.h>
+#include <sbml/validator/IdentifierConsistencyValidator.h>
+#include <sbml/validator/SBOConsistencyValidator.h>
+#include <sbml/validator/UnitConsistencyValidator.h>
+#include <sbml/validator/L1CompatibilityValidator.h>
+#include <sbml/validator/L2v1CompatibilityValidator.h>
+#include <sbml/validator/L2v2CompatibilityValidator.h>
 
 /** @cond doxygen-ignored */
 

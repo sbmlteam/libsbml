@@ -38,7 +38,7 @@
 
 #include <sbml/math/FormulaFormatter.h>
 
-#include "UnitFormulaFormatter.h"
+#include <sbml/units/UnitFormulaFormatter.h>
 
 class SBMLVisitor;
 

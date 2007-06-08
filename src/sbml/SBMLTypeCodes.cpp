@@ -22,7 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
-#include "SBMLTypeCodes.h"
+#include <sbml/SBMLTypeCodes.h>
 
 
 static

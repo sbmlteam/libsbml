@@ -26,7 +26,7 @@
 #include <ctype.h>
 #include <sbml/common/common.h>
 
-#include "FormulaTokenizer.h"
+#include <sbml/math/FormulaTokenizer.h>
 
 
 /* Forward references */

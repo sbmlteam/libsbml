@@ -49,12 +49,12 @@
  */
 
 
-#include "common/common.h"
-#include "math/FormulaParser.h"
-#include "math/FormulaFormatter.h"
+#include <sbml/common/common.h>
+#include <sbml/math/FormulaParser.h>
+#include <sbml/math/FormulaFormatter.h>
 
-#include "SBase.h"
-#include "FunctionDefinition.h"
+#include <sbml/SBase.h>
+#include <sbml/FunctionDefinition.h>
 
 #include <check.h>
 

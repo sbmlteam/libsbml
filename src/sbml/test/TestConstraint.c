@@ -49,11 +49,11 @@
  */
 
 
-#include "common/common.h"
-#include "math/FormulaParser.h"
+#include <sbml/common/common.h>
+#include <sbml/math/FormulaParser.h>
 
-#include "SBase.h"
-#include "Constraint.h"
+#include <sbml/SBase.h>
+#include <sbml/Constraint.h>
 
 #include <check.h>
 

@@ -49,8 +49,8 @@
  */
 
 
-#include "common/common.h"
-#include "SBMLTypes.h"
+#include <sbml/common/common.h>
+#include <sbml/SBMLTypes.h>
 
 #include <check.h>
 

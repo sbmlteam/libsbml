@@ -25,11 +25,11 @@
 #include <iostream>
 #include <check.h>
 
-#include "util/util.h"
+#include <sbml/util/util.h>
 
-#include "FormulaFormatter.h"
-#include "ASTNode.h"
-#include "MathML.h"
+#include <sbml/math/FormulaFormatter.h>
+#include <sbml/math/ASTNode.h>
+#include <sbml/math/MathML.h>
 
 
 /**

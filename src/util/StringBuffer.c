@@ -24,7 +24,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
-#include "StringBuffer.h"
+#include <sbml/util/StringBuffer.h>
 
 
 /**

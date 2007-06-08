@@ -49,10 +49,10 @@
  */
 
 
-#include "common/common.h"
+#include <sbml/common/common.h>
 
-#include "SBase.h"
-#include "SpeciesType.h"
+#include <sbml/SBase.h>
+#include <sbml/SpeciesType.h>
 
 #include <check.h>
 

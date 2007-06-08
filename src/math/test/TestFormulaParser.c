@@ -51,8 +51,8 @@
 
 #include <check.h>
 
-#include "common/common.h"
-#include "FormulaParser.h"
+#include <sbml/common/common.h>
+#include <sbml/math/FormulaParser.h>
 
 
 /**

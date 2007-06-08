@@ -51,11 +51,11 @@
 
 #include <check.h>
 
-#include "common/common.h"
-#include "util/List.h"
+#include <sbml/common/common.h>
+#include <sbml/util/List.h>
 
-#include "ASTNode.h"
-#include "FormulaParser.h"
+#include <sbml/math/ASTNode.h>
+#include <sbml/math/FormulaParser.h>
 
 
 START_TEST (test_ASTNode_create)

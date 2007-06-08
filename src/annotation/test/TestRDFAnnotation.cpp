@@ -22,18 +22,18 @@
  */
 
 
-#include "sbml/common/common.h"
-#include "sbml/common/extern.h"
+#include <sbml/common/common.h>
+#include <sbml/common/extern.h>
 
-#include "sbml/SBMLReader.h"
-#include "sbml/SBMLTypes.h"
+#include <sbml/SBMLReader.h>
+#include <sbml/SBMLTypes.h>
 
-#include "sbml/SBMLDocument.h"
-#include "sbml/Model.h"
-#include "sbml/SBMLTypeCodes.h"
+#include <sbml/SBMLDocument.h>
+#include <sbml/Model.h>
+#include <sbml/SBMLTypeCodes.h>
 
-#include "RDFAnnotation.h"
-#include "ModelHistory.h"
+#include <sbml/annotation/RDFAnnotation.h>
+#include <sbml/annotation/ModelHistory.h>
 
 #include <check.h>
 

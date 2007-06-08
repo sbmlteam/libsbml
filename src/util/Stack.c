@@ -25,7 +25,7 @@
 
 
 #include <sbml/common/common.h>
-#include "Stack.h"
+#include <sbml/util/Stack.h>
 
 
 #ifdef DEBUG

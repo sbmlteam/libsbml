@@ -23,8 +23,8 @@
 
 #include <sbml/common/common.h>
 
-#include "FormulaTokenizer.h"
-#include "FormulaParser.h"
+#include <sbml/math/FormulaTokenizer.h>
+#include <sbml/math/FormulaParser.h>
 
 
 /** @cond doxygen-libsbml-internal */

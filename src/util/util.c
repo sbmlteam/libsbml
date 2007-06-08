@@ -32,8 +32,8 @@
 
 #include <sbml/common/common.h>
 
-#include "List.h"
-#include "util.h"
+#include <sbml/util/List.h>
+#include <sbml/util/util.h>
 
 
 /** @cond doxygen-libsbml-internal */

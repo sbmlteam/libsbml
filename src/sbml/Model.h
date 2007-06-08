@@ -107,7 +107,7 @@ class SBMLVisitor;
 class FormulaUnitsData;
 
 #ifdef USE_LAYOUT
-#include "sbml/layout/Layout.h"
+#include <sbml/layout/Layout.h>
 #endif  /* USE_LAYOUT */
 
 

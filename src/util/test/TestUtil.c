@@ -53,7 +53,7 @@
 #include <locale.h>
 #include <sys/errno.h>
 
-#include "common/common.h"
+#include <sbml/common/common.h>
 
 
 START_TEST (test_c_locale_snprintf)

@@ -20,11 +20,11 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#include "common/common.h"
-#include "sbml/common/extern.h"
-#include "util/List.h"
-#include "ModelHistory.h"
-#include "../../xml/XMLNode.h"
+#include <sbml/common/common.h>
+#include <sbml/common/extern.h>
+#include <sbml/util/List.h>
+#include <sbml/annotation/ModelHistory.h>
+#include <sbml/xml/XMLNode.h>
 
 
 #include <check.h>

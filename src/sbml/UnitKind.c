@@ -22,7 +22,7 @@
  *----------------------------------------------------------------------- -->*/
 
 #include <sbml/common/common.h>
-#include "UnitKind.h"
+#include <sbml/UnitKind.h>
 
 
 const char* UNIT_KIND_STRINGS[] =

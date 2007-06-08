@@ -52,8 +52,8 @@
 #include <check.h>
 #include <locale.h>
 
-#include "common/common.h"
-#include "StringBuffer.h"
+#include <sbml/common/common.h>
+#include <sbml/util/StringBuffer.h>
 
 
 static StringBuffer_t *SB;

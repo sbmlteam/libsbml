@@ -34,8 +34,8 @@
 #include <sbml/ListOf.h>
 #include <sbml/util/util.h>
 
-#include "UnitKindList.h"
-#include "Utils_Unit.h"
+#include <sbml/units/UnitKindList.h>
+#include <sbml/units/Utils_Unit.h>
 
 #ifdef __cplusplus
 

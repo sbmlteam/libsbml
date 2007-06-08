@@ -52,8 +52,8 @@
 #include <check.h>
 #include <locale.h>
 
-#include "common/common.h"
-#include "FormulaTokenizer.h"
+#include <sbml/common/common.h>
+#include <sbml/math/FormulaTokenizer.h>
 
 
 START_TEST (test_FormulaTokenizer_create)

@@ -20,8 +20,8 @@
  * Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  */
 
-#include "common/common.h"
-#include "XMLNamespaces.h"
+#include <sbml/common/common.h>
+#include <sbml/xml/XMLNamespaces.h>
 
 #include <check.h>
 
