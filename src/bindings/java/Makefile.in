@@ -84,23 +84,18 @@ ifdef USE_LAYOUT
   extra_CPPFLAGS += -DUSE_LAYOUT
 endif # USE_LAYOUT  
 
-# A crash happens when the JNI library is compiled by GCC 4 with -O2
-# or higher optimization. In order to avoid this problem, -O1 is added
-# to CXXFLAGS when GCC 4 is used and -O2 or higher optimization is set to 
-# CXXFLAGS.
-# (When multiple -O options given to gcc, only the last one is effective.)
+# -fno-strict-aliasing option is added to CXXFLAGS when using GCC.
+# As written in the SWIG Manual (section 20.2.4), SWIG generated code could cause
+# crash problems when compiled by GCC with -fstrict-aliasing option (automatically 
+# enabled when using -O2 or higher optimization in GCC 3 or later) and the option 
+# should be disabled by adding -fno-strict-aliasing option.
 #
-# GCC 4 for MacOS X (included in Xcode) seems to be free from this crash
-# problem. However, in case of the unexpected crash caused by GCC 4 with -O2,
-# the above fix is also applied for MacOS X.
+# Currently, we know that Java binding library causes crash when it is compiled by
+# GCC 4 with -O2 or higher optimization, and the problem can be avoided by adding
+# -fno-strict-aliasing option.
 
-is_gcc4 = $(findstring (GCC) 4,$(shell $(CXX) --version))
-ifeq ((GCC) 4,$(is_gcc4))
-  ifeq (-O, $(findstring -O,${CXXFLAGS}))
-    ifneq (-O0,$(findstring -O0,${CXXFLAGS}))
-      CXXFLAGS += -O1
-    endif
-  endif
+ifeq (GCC,$(findstring GCC,$(shell $(CXX) --version)))
+      CXXFLAGS += -fno-strict-aliasing
 endif
 
 # For Linux/Unix LD_LIBRARY_PATH *may* need to contain one or more library
