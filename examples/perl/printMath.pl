@@ -127,11 +127,13 @@ sub printEventMath {
 
   printf
       "Event %d delay: %s\n",
-      $n, LibSBML::formulaToString($e->getDelay()) if $e->isSetDelay();
+      $n, LibSBML::formulaToString($e->getDelay()->getMath())
+      if $e->isSetDelay();
 
   printf
       "Event %d trigger: %s\n",
-      $n, LibSBML::formulaToString($e->getTrigger()) if $e->isSetTrigger();  
+      $n, LibSBML::formulaToString($e->getTrigger()->getMath())
+      if $e->isSetTrigger();  
 
   printEventAssignmentMath($_+1, $e->getEventAssignment($_))
       for 0 .. $e->getNumEventAssignments()-1;
