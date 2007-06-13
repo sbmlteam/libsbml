@@ -371,7 +371,14 @@ Unit::isKilogram () const
 bool
 Unit::isLitre () const
 {
-  return (mKind == UNIT_KIND_LITRE || mKind == UNIT_KIND_LITER);
+  if (getLevel() == 1)
+  {
+    return (mKind == UNIT_KIND_LITRE || mKind == UNIT_KIND_LITER);
+  }
+  else
+  {
+    return (mKind == UNIT_KIND_LITRE);
+  }
 }
 
 
@@ -402,7 +409,14 @@ Unit::isLux () const
 bool
 Unit::isMetre () const
 {
-  return (mKind == UNIT_KIND_METRE || mKind == UNIT_KIND_METER);
+  if (getLevel() == 1)
+  {
+    return (mKind == UNIT_KIND_METRE || mKind == UNIT_KIND_METER);
+  }
+  else
+  {
+    return (mKind == UNIT_KIND_METRE);
+  }
 }
 
 

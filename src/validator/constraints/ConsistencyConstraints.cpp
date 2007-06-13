@@ -640,6 +640,7 @@ START_CONSTRAINT (20509, Compartment, c)
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
+    inv_or( units == "liter" && c.getLevel() == 1 );
     inv_or( defn  != NULL && defn->isVariantOfVolume() );
   }
 }
@@ -843,6 +844,7 @@ START_CONSTRAINT (20607, Species, s)
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
+    inv_or( units == "liter" && s.getLevel() == 1  );
     inv_or( defn  != NULL && defn->isVariantOfVolume() );
   }
 }
