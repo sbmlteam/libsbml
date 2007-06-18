@@ -79,6 +79,10 @@ sources = libsbml.py libsbml_wrap.cpp
 ifeq "$(HOST_TYPE)" "darwin"
   # MacOS X note: this MUST remain .so even though we use .dylib for libsbml.
   libraries = _libsbml.so
+  # environment variable MACOSX_DEPLOYMENT_TARGET must be set to 10.3 or later
+  # to use -undefined dynamic_lookup.
+  macosx_version=$(shell sw_vers -productVersion | cut -d"." -f1,2)
+  export MACOSX_DEPLOYMENT_TARGET=${macosx_version}
 else
   libraries = _libsbml.$(SHAREDLIBEXT)
 endif
