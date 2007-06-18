@@ -91,14 +91,27 @@ AC_DEFUN([CONFIG_PROG_PYTHON],
 	dnl it's either the Fink version or something else, and don't use
 	dnl -framework.
 
-	if test `expr "${PYTHON_PREFIX}" ':' '.*/System/Library/Frameworks/.*'` -ne 0; then
-	  dnl MacOSX-installed version of Python (we hope).
+	macosx_version=`sw_vers -productVersion | cut -d"." -f1,2` 
+	if test ${macosx_version} '>' 10.2; then
+	  dnl According to configure.in of Python source code, -undefined dynamic_lookup
+	  dnl should be used for 10.3 or later. Actually, the option is needed to avoid 
+	  dnl undefined symbols error when building a Python binding library with non-system-installed
+	  dnl Python on 10.3 or later.
+	  dnl Also, according to the man page of ld, environment variable MACOSX_DEPLOYMENT_TARGET 
+	  dnl must be set to 10.3 or higher to use -undefined dynamic_lookup.
+	  dnl Currently, the environment variables is set in src/binding/python/Makefile.in.
    	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -framework Python"
+	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -undefined dynamic_lookup"
 	else
-	  dnl Fink-installed version of Python, or something else.
-   	  PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
-	  PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
+	  if test `expr "${PYTHON_PREFIX}" ':' '.*/System/Library/Frameworks/.*'` -ne 0; then
+	    dnl MacOSX-installed version of Python (we hope).
+   	    PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
+	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -F/System/Library/Frameworks -framework Python"
+	  else
+	    dnl Fink-installed version of Python, or something else.
+   	    PYTHON_CPPFLAGS="-I${PYTHON_PREFIX}/include/${PYTHON_NAME}"
+	    PYTHON_LDFLAGS="-L${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload -bundle_loader ${PYTHON}"
+	  fi
 	fi
         CONFIG_ADD_LDPATH(${PYTHON_PREFIX}/lib/${PYTHON_NAME}/lib-dynload)
 	;;
