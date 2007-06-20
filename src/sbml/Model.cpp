@@ -1612,6 +1612,7 @@ Model::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
     if (mAnnotation)
@@ -1623,13 +1624,24 @@ Model::readOtherXML (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
+    if (mCVTerms)
+    {
+      unsigned int size = mCVTerms->getSize();
+      while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+      delete mCVTerms;
+    }
     mCVTerms = new List();
+    delete mHistory;
     mHistory = RDFAnnotationParser::parseRDFAnnotation(mAnnotation);
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    delete mAnnotation;
+    mAnnotation = new_annotation;
 #ifdef USE_LAYOUT
     parseLayoutAnnotation(mAnnotation,mLayouts);
-    mAnnotation=deleteLayoutAnnotation(mAnnotation);
+    new_annotation=deleteLayoutAnnotation(mAnnotation);
+    delete mAnnotation;
+    mAnnotation = new_annotation;
 #endif // USE_LAYOUT
 	
     read = true;

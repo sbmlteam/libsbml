@@ -218,7 +218,12 @@ SBase::~SBase ()
   if (mNotes)       delete mNotes;
   if (mAnnotation)  delete mAnnotation;
   if (mNamespaces)  delete mNamespaces;
-  if (mCVTerms)     delete mCVTerms;
+  if (mCVTerms)
+  {  
+    unsigned int size = mCVTerms->getSize();
+    while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+    delete mCVTerms;
+  }
 }
 
 /**
@@ -1020,6 +1025,7 @@ SBase::readAnnotation (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    XMLNode* new_annotation = NULL;
     // If this is a level 1 document then annotations are not allowed on
     // the sbml container
     if (getLevel() == 1 && getTypeCode() == SBML_DOCUMENT)
@@ -1040,9 +1046,18 @@ SBase::readAnnotation (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
+    if(mCVTerms)
+    {
+      unsigned int size = mCVTerms->getSize();
+      while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+      delete mCVTerms; 
+    }
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    delete mAnnotation;
+    mAnnotation = new_annotation;
+
     return true;
   }
 

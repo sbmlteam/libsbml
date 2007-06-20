@@ -574,6 +574,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
     if (mAnnotation)
@@ -585,9 +586,17 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
+    if (mCVTerms)
+    {
+      unsigned int size = mCVTerms->getSize();
+      while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+      delete mCVTerms;
+    }
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    delete mAnnotation;
+    mAnnotation = new_annotation;
 #ifdef USE_LAYOUT
     // only parse the id annotation if it is Level 1 or Level 2 Version 1
     // everything after Level 2 Version 1 has ids.
@@ -595,7 +604,9 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
     {
       parseSpeciesReferenceAnnotation(mAnnotation,*this);
       checkAnnotation();
-      mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
+      new_annotation=deleteLayoutIdAnnotation(mAnnotation);
+      delete mAnnotation;
+      mAnnotation = new_annotation;
     }
 #endif // USE_LAYOUT
     read = true;
@@ -806,6 +817,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
 
   if (name == "annotation")
   {
+    XMLNode* new_annotation = NULL;
     /* if annotation already exists then it is an error 
      */
     if (mAnnotation)
@@ -816,14 +828,24 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
     delete mAnnotation;
     mAnnotation = new XMLNode(stream);
     checkAnnotation();
+    if (mCVTerms)
+    {
+      unsigned int size = mCVTerms->getSize();
+      while (size--) delete static_cast<CVTerm*>( mCVTerms->remove(0) );
+      delete mCVTerms;
+    }
     mCVTerms = new List();
     RDFAnnotationParser::parseRDFAnnotation(mAnnotation, mCVTerms);
-    mAnnotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    new_annotation = RDFAnnotationParser::deleteRDFAnnotation(mAnnotation);
+    delete mAnnotation;
+    mAnnotation = new_annotation;
     
     if(this->getLevel()==1 || (this->getLevel()==2 && this->getVersion()==1))
     {
       parseSpeciesReferenceAnnotation(mAnnotation,*this);
-      mAnnotation=deleteLayoutIdAnnotation(mAnnotation);
+      new_annotation=deleteLayoutIdAnnotation(mAnnotation);
+      delete mAnnotation;
+      mAnnotation = new_annotation;
     }
     read=true;
   }
