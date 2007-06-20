@@ -192,8 +192,11 @@ SBase::clone() const
  * Wraps standard output streams
  */
 
+%include "std_string.i"
+
 %{
 #include <iostream>
+#include <sstream>
 %}
 
 %rename(COUT) cout;
@@ -209,12 +212,135 @@ extern std::ostream clog;
 %mutable;
 }
 
+/**
+ * Wraps std::ostream by implementing two simple wrapper classes.
+ *
+ * 1) OStream wraps std::cout, std::cerr, and std::clog.
+ *    The following public final static variables are provied in
+ *    libsbml class like in C++.
+ *
+ *    1. public final static OStream cout;
+ *    2. public final static OStream cerr;
+ *    3. public final static OStream clog;
+ *
+ * 2) OStringStream (derived class of OStream) wraps std::ostringstream.
+ *
+ * These wrapper classes provide only the minimum functions.
+ *
+ * (sample code) -----------------------------------------------------
+ *
+ * 1. wraps std::cout
+ *
+ *    my $xos = new LibSBML::XMLOutputStream($LibSBML::COUT);
+ *
+ * 2. wraps std::cerr
+ *
+ *    my $rd = new LibSBML::SBMLReader
+ *    my $d = $rd->readSBML("foo.xml");
+ *    if ( $d->getNumErrors() > 0) {
+ *       $d->printErrors($LibSBML::CERR);
+ *    }
+ * 3. wraps std::ostringstream 
+ *
+ *    my $oss = new LibSBML::OStringStream();
+ *    my $xos = new XMLOutputStream($oss->get_ostream());
+ *    my $p   = new LibSBML::Parameter("p", 3.31);
+ *    $p->write($xos);
+ *    $oss->endl();
+ *    print $oss->str();
+ *
+ */
+
 %inline
 %{
   std::ostream& endl (std::ostream& os) 
   {
     return std::endl(os);
   }
+%}
+
+%inline
+%{
+  class LIBLAX_EXTERN OStream
+  {
+  protected:
+    std::ostream* Stream;
+
+  public:
+    enum StdOSType {COUT,CERR,CLOG};
+
+    /**
+     * Creates a new OStream object with one of standard output stream objects.
+     */
+    OStream (StdOSType sot = COUT) 
+    {
+      switch (sot) {
+        case COUT:
+          Stream = &std::cout;
+          break;
+        case CERR:
+          Stream = &std::cerr;
+          break;
+        case CLOG:
+          Stream = &std::clog;
+          break;
+        default:
+          Stream = &std::cout;
+      }
+    }
+
+    virtual ~OStream () 
+    {
+    }
+  
+    /**
+     * Returns stream object.
+     */
+    virtual std::ostream* get_ostream ()  
+    { 
+      return Stream;
+    }
+
+    void endl ()
+    {
+      std::endl(*Stream);
+    }
+  };
+  
+  class LIBLAX_EXTERN OStringStream : public OStream 
+  {
+  public:
+    /**
+     * Creates a new OStringStream object
+     */
+    OStringStream () 
+    {
+      Stream = new std::ostringstream();
+    }
+  
+    /**
+     * Returns the copy of the string object currently assosiated 
+     * with the stream buffer.
+     */
+    std::string str () 
+    {
+      return static_cast<std::ostringstream*>(Stream)->str();
+    }
+  
+    /**
+     * Sets string s to the string object currently assosiated with 
+     * the stream buffer.
+     */
+    void str (const std::string& s)
+    {
+      static_cast<std::ostringstream*>(Stream)->str(s.c_str());
+    }
+  
+    virtual ~OStringStream () 
+    {
+      delete Stream;
+    }
+  };
 %}
 
 /**
