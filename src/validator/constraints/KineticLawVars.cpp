@@ -89,6 +89,7 @@ KineticLawVars::check_ (const Model& m, const Reaction& r)
       if (m.getSpecies(name) && !mSpecies.contains(name) )
         logUndefined(r, name);
     }
+    delete names;
   }
 }
 

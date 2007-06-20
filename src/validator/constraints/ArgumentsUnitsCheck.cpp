@@ -315,6 +315,7 @@ ArgumentsUnitsCheck::checkSameUnitsAsArgs (const Model& m,
   }
 
   delete unitFormat;
+  delete ud;
 }
 
 /**
