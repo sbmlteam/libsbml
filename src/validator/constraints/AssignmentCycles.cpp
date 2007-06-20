@@ -121,6 +121,7 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
     }
   }
 
+  delete variables;
 
   while(mVariables.size() != 0)
   {
@@ -167,6 +168,7 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
                   mVariables.append(name);
               }
             }
+            delete variables;
           }
         }
       }
@@ -200,6 +202,7 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
                   mVariables.append(name);
               }
             }
+            delete variables;
           }
         }
       }
@@ -230,6 +233,7 @@ AssignmentCycles::checkInitialAssignment(const Model& m, const InitialAssignment
                 mVariables.append(name);
             }
           }
+          delete variables;
         }
       }
     }
@@ -272,6 +276,7 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
         mVariables.append(name);
     }
   }
+  delete variables;
 
 
   while(mVariables.size() != 0)
@@ -316,6 +321,7 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
                 mVariables.append(name);
             }
           }
+          delete variables;
         }
       }
       else if (m.getReaction(*the_iterator))
@@ -351,6 +357,7 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
                     mVariables.append(name);
                 }
               }
+              delete variables;
             }
           }
         }
@@ -382,6 +389,7 @@ AssignmentCycles::checkReaction(const Model& m, const Reaction& object)
                 mVariables.append(name);
             }
           }
+          delete variables;
         }
       }
     }
@@ -422,6 +430,7 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
         mVariables.append(name);
     }
   }
+  delete variables;
 
 
   while(mVariables.size() != 0)
@@ -466,6 +475,7 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
                 mVariables.append(name);
             }
           }
+          delete variables;
         }
       }
       else if (m.getReaction(*the_iterator))
@@ -501,6 +511,7 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
                     mVariables.append(name);
                 }
               }
+              delete variables;
             }
           }
         }
@@ -534,6 +545,7 @@ AssignmentCycles::checkRule(const Model& m, const Rule& object)
                   mVariables.append(name);
               }
             }
+            delete variables;
           }
         }
       }
