@@ -103,7 +103,7 @@ RDFAnnotationParser::deleteRDFAnnotation(const XMLNode * annotation)
   unsigned int children = annotation->getNumChildren();
   unsigned int n = 0;
   XMLToken ann_token = XMLToken(XMLTriple("annotation", "", ""), XMLAttributes());
-  XMLNode * newAnnotation = new XMLNode(ann_token);
+  XMLNode * newAnnotation = NULL;
 
   if (name != "annotation")
   {
@@ -202,6 +202,7 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
           {
 	          creator = new ModelCreator(creatorNode->getChild(c));
 	          history->addCreator(creator);
+                  delete creator;
           }
 	      }
 	      else if (prefix == "dcterms")
@@ -217,12 +218,14 @@ RDFAnnotationParser::parseRDFAnnotation(const XMLNode * annotation)
 		            created = new Date(RDFTop->getChild(n).getChild(0).
 				              getChild(0).getCharacters());
 		            history->setCreatedDate(created);
+                            delete created;
 	            }
 	            else if (name2 == "modified")
 	            {
 		            modified = new Date(RDFTop->getChild(n).getChild(0).
 				                getChild(0).getCharacters());
 		            history->setModifiedDate(modified);
+                            delete modified;
 	            }
 	          }
 	        }
