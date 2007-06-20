@@ -150,17 +150,32 @@ public:
   /**
   * sets the UnitDefinition relating to the FormulaUnitsData object
   */
-  void setUnitDefinition(UnitDefinition * ud) { mUnitDefinition = ud; };
+  void setUnitDefinition(UnitDefinition * ud) 
+  { 
+    if(ud == mUnitDefinition) return;
+    delete mUnitDefinition; 
+    mUnitDefinition = ud; 
+  };
 
   /**
   * sets the PerTimeUnitDefinition relating to the FormulaUnitsData object
   */
-  void setPerTimeUnitDefinition(UnitDefinition * ud) { mPerTimeUnitDefinition = ud; };
+  void setPerTimeUnitDefinition(UnitDefinition * ud) 
+  { 
+    if(ud == mPerTimeUnitDefinition) return;
+    delete mPerTimeUnitDefinition;
+    mPerTimeUnitDefinition = ud; 
+  };
 
   /**
   * sets the EventTimeUnitDefinition relating to the FormulaUnitsData object
   */
-  void setEventTimeUnitDefinition(UnitDefinition * ud) { mEventTimeUnitDefinition = ud; };
+  void setEventTimeUnitDefinition(UnitDefinition * ud) 
+  { 
+    if(ud == mEventTimeUnitDefinition) return;
+    delete mEventTimeUnitDefinition;
+    mEventTimeUnitDefinition = ud; 
+  };
 
   /**
    * Returns the libSBML type code for this %SBML object.

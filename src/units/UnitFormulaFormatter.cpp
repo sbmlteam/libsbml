@@ -558,6 +558,7 @@ UnitFormulaFormatter::getUnitDefinitionFromArgUnitsReturnFunction(const ASTNode 
     currentUndeclared = 1;
 
     i++;
+    delete ud;
     ud = getUnitDefinition(node->getChild(i));
   }
 
@@ -1099,6 +1100,8 @@ UnitFormulaFormatter::getUnitDefinitionFromSpecies(const Species * species)
     ud = new UnitDefinition();
   }
 
+  delete sizeUD;
+
   return ud;
 }
 
@@ -1320,7 +1323,7 @@ UnitFormulaFormatter::hasUndeclaredUnits(const ASTNode * node)
      if it encounters a parameter with undeclared units
      it doesnt need to be assigned
      */
-  getUnitDefinition(node);
+  delete getUnitDefinition(node);
   
   return undeclaredUnits;
 }
