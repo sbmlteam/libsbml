@@ -105,6 +105,7 @@ static struct xercesError {
   { XMLErrs::XMLDeclMustBeLowerCase, 	   XMLError::BadXMLDecl},
   { XMLErrs::XMLException_Fatal,           XMLError::UnrecognizedParserCode},
   { XMLErrs::XMLVersionRequired, 	   XMLError::BadXMLDecl},
+  { XMLErrs::ExpectedCommentOrCDATA, XMLError::NotWellFormed},
 
   // The next one should always be last.  It's used only as a marker.
   { XMLErrs::F_HighBounds,                 XMLError::UnknownError},
