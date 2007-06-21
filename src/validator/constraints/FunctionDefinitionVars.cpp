@@ -60,6 +60,7 @@ FunctionDefinitionVars::~FunctionDefinitionVars ()
 void
 FunctionDefinitionVars::check_ (const Model& m, const FunctionDefinition& fd)
 {
+  if ( fd.getLevel() == 1         ) return;
   if ( !fd.isSetMath()            ) return;
   if ( !fd.getBody()              ) return;
   if (  fd.getNumArguments() == 0 ) return;

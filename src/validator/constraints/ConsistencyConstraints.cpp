@@ -117,6 +117,9 @@ START_CONSTRAINT (20204, Model, x)
     "'compartment' attribute on <species> is not optional. (References: L2V1 "
     "Section 4.5; Section 4.8.3.)";
 
+  // not valid in level 1
+  pre( m.getLevel() == 2);
+
   pre( m.getNumSpecies()      > 0 );
   inv( m.getNumCompartments() > 0 );
 }
@@ -129,9 +132,10 @@ START_CONSTRAINT (20301, FunctionDefinition, fd)
 {
   msg =
     "The top-level element within 'math' in a <functionDefinition> must be "
-    "'lambda'. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2.)";
+    "one and only one 'lambda'. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2.)";
 
   pre( fd.isSetMath()           );
+  //NEEDS TO ALTER IN CASE OF SEMANTICS
   inv( fd.getMath()->isLambda() );
 }
 END_CONSTRAINT
@@ -148,9 +152,12 @@ START_CONSTRAINT (20303, FunctionDefinition, fd)
     "functions are not permitted to be recursive. (References: L2V2 Section "
     "4.3.2.)";
 
+  //only applies to level 2
+  pre( fd.getLevel() == 2        );
   pre( fd.isSetMath()            );
   pre( fd.getBody() != NULL      );
   pre( fd.getNumArguments() != 0 );
+  //NEEDS TO ALTER IN CASE OF SEMANTICS
   
   const string  id = fd.getId();
 
@@ -176,9 +183,12 @@ START_CONSTRAINT (20305, FunctionDefinition, fd)
     "The value type returned by a <functionDefinition>'s 'lambda' must be "
     "either boolean or numeric. (References: L2V2 Section 3.5.8.)";
 
+  //only applies to level 2
+  pre( fd.getLevel() == 2        );
   pre( fd.isSetMath()           );
   pre( fd.getBody() != NULL      );
 
+  //NEEDS TO ALTER IN CASE OF SEMANTICS
   inv_or( fd.getBody()->isBoolean() );
   inv_or( fd.getBody()->isNumber()  );
   inv_or( fd.getBody()->isFunction());
@@ -1249,6 +1259,134 @@ START_CONSTRAINT (21126, KineticLaw, kl)
 END_CONSTRAINT
 
 
+START_CONSTRAINT (21127, KineticLaw, kl)
+{
+  msg =
+    "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
+    "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
+    "(L2v1 Section 4.9.7).";
+
+
+  /* not in L2V3 */
+  pre( kl.getVersion() != 3);
+  pre( kl.isSetSubstanceUnits() );
+
+  const string&         units = kl.getSubstanceUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  /* dimensionless is allowable in L2V2 */
+  if (  kl.getLevel() == 2 
+    &&  kl.getVersion() == 2)
+  {
+    inv_or( units == "substance" );
+    inv_or( units == "item"  );
+    inv_or( units == "mole"      );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "substance" );
+    inv_or( units == "item"      );
+    inv_or( units == "mole"      );
+    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
+  }
+}
+END_CONSTRAINT
+
+
+START_CONSTRAINT (21128, KineticLaw, kl)
+{
+  msg =
+    "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
+    "UnitDefnition that defines a variant of 'second' with exponent='1' "
+    "(L2v1 Section 4.9.7).";
+
+
+  /* not in L2V3 */
+  pre( kl.getVersion() != 3);
+  pre( kl.isSetTimeUnits() );
+
+  const string&         units = kl.getTimeUnits();
+  const UnitDefinition* defn  = m.getUnitDefinition(units);
+
+  /* dimensionless is allowable in L2V2 */
+  if (  kl.getLevel() == 2 
+    &&  kl.getVersion() == 2)
+  {
+    inv_or( units == "time" );
+    inv_or( units == "second"  );
+    inv_or( units == "dimensionless"  );
+    inv_or( defn  != NULL && defn->isVariantOfTime() );
+    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
+  }
+  else
+  {
+    inv_or( units == "time"   );
+    inv_or( units == "second" );
+    inv_or( defn  != NULL && defn->isVariantOfTime() );
+  }
+}
+END_CONSTRAINT
+
+START_CONSTRAINT (21129, KineticLaw, kl)
+{
+  msg =
+    "In a Level 1 model only predefined functions are permitted "
+     "within the KineticLaw formula. (L1V2 Appendix C)";
+
+  pre (m.getLevel() == 1);
+
+  pre (kl.isSetFormula() == 1);
+
+  FormulaTokenizer_t * ft = FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
+  Token_t * t = FormulaTokenizer_nextToken (ft);
+
+  const Compartment * c;
+  const Species * s;
+  const Parameter * p, * p1;
+
+  /* loop through each token of the formula
+   * if it has type TT_NAME then it is either the id of some component
+   * of the model or the name of a function in which case 
+   * need to check whether it is defined
+   */
+  while (t->type != TT_END)
+  {
+    if (t->type == TT_NAME)
+    {
+      c = m.getCompartment(t->value.name);
+      s = m.getSpecies    (t->value.name);
+      p = m.getParameter  (t->value.name);
+      p1 = kl.getParameter(t->value.name);
+
+      if (!c && !s && !p && !p1)
+      {
+        inv_or (strcmp(t->value.name, "abs") == 0);
+        inv_or (strcmp(t->value.name, "acos") == 0);
+        inv_or (strcmp(t->value.name, "asin") == 0);
+        inv_or (strcmp(t->value.name, "atan") == 0);
+        inv_or (strcmp(t->value.name, "ceil") == 0);
+        inv_or (strcmp(t->value.name, "cos") == 0);
+        inv_or (strcmp(t->value.name, "exp") == 0);
+        inv_or (strcmp(t->value.name, "floor") == 0);
+        inv_or (strcmp(t->value.name, "log") == 0);
+        inv_or (strcmp(t->value.name, "log10") == 0);
+        inv_or (strcmp(t->value.name, "pow") == 0);
+        inv_or (strcmp(t->value.name, "sqr") == 0);
+        inv_or (strcmp(t->value.name, "sqrt") == 0);
+        inv_or (strcmp(t->value.name, "sin") == 0);
+        inv_or (strcmp(t->value.name, "tan") == 0);
+      }
+    }
+
+    t = FormulaTokenizer_nextToken(ft);
+  }
+}
+END_CONSTRAINT
+
+
 // StoichiometryMath validation
 
 EXTERN_CONSTRAINT(21131, StoichiometryMathVars)
@@ -1392,138 +1530,5 @@ START_CONSTRAINT (21212, EventAssignment, ea)
 }
 END_CONSTRAINT
 
-
-
-
-
-
-
-// NEED TO SORT OUT NUMBERS
-START_CONSTRAINT (1604, KineticLaw, kl)
-{
-  msg =
-    "A KineticLaw's substanceUnits must be 'substance', 'item', 'mole', or "
-    "the id of a UnitDefinition that defines a variant of 'item' or 'mole' "
-    "(L2v1 Section 4.9.7).";
-
-
-  /* not in L2V3 */
-  pre( kl.getVersion() != 3);
-  pre( kl.isSetSubstanceUnits() );
-
-  const string&         units = kl.getSubstanceUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  /* dimensionless is allowable in L2V2 */
-  if (  kl.getLevel() == 2 
-    &&  kl.getVersion() == 2)
-  {
-    inv_or( units == "substance" );
-    inv_or( units == "item"  );
-    inv_or( units == "mole"      );
-    inv_or( units == "dimensionless"  );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-  }
-  else
-  {
-    inv_or( units == "substance" );
-    inv_or( units == "item"      );
-    inv_or( units == "mole"      );
-    inv_or( defn  != NULL && defn->isVariantOfSubstance() );
-  }
-}
-END_CONSTRAINT
-
-
-START_CONSTRAINT (1605, KineticLaw, kl)
-{
-  msg =
-    "A KineticLaw's timeUnits must be 'time', 'second', or the id of a "
-    "UnitDefnition that defines a variant of 'second' with exponent='1' "
-    "(L2v1 Section 4.9.7).";
-
-
-  /* not in L2V3 */
-  pre( kl.getVersion() != 3);
-  pre( kl.isSetTimeUnits() );
-
-  const string&         units = kl.getTimeUnits();
-  const UnitDefinition* defn  = m.getUnitDefinition(units);
-
-  /* dimensionless is allowable in L2V2 */
-  if (  kl.getLevel() == 2 
-    &&  kl.getVersion() == 2)
-  {
-    inv_or( units == "time" );
-    inv_or( units == "second"  );
-    inv_or( units == "dimensionless"  );
-    inv_or( defn  != NULL && defn->isVariantOfTime() );
-    inv_or( defn  != NULL && defn->isVariantOfDimensionless() );
-  }
-  else
-  {
-    inv_or( units == "time"   );
-    inv_or( units == "second" );
-    inv_or( defn  != NULL && defn->isVariantOfTime() );
-  }
-}
-END_CONSTRAINT
-
-START_CONSTRAINT (1611, KineticLaw, kl)
-{
-  msg =
-    "In a Level 1 model only predefined functions are permitted "
-     "within the KineticLaw formula. (L1V2 Appendix C)";
-
-  pre (m.getLevel() == 1);
-
-  pre (kl.isSetFormula() == 1);
-
-  FormulaTokenizer_t * ft = FormulaTokenizer_createFromFormula (kl.getFormula().c_str());
-  Token_t * t = FormulaTokenizer_nextToken (ft);
-
-  const Compartment * c;
-  const Species * s;
-  const Parameter * p, * p1;
-
-  /* loop through each token of the formula
-   * if it has type TT_NAME then it is either the id of some component
-   * of the model or the name of a function in which case 
-   * need to check whether it is defined
-   */
-  while (t->type != TT_END)
-  {
-    if (t->type == TT_NAME)
-    {
-      c = m.getCompartment(t->value.name);
-      s = m.getSpecies    (t->value.name);
-      p = m.getParameter  (t->value.name);
-      p1 = kl.getParameter(t->value.name);
-
-      if (!c && !s && !p && !p1)
-      {
-        inv_or (strcmp(t->value.name, "abs") == 0);
-        inv_or (strcmp(t->value.name, "acos") == 0);
-        inv_or (strcmp(t->value.name, "asin") == 0);
-        inv_or (strcmp(t->value.name, "atan") == 0);
-        inv_or (strcmp(t->value.name, "ceil") == 0);
-        inv_or (strcmp(t->value.name, "cos") == 0);
-        inv_or (strcmp(t->value.name, "exp") == 0);
-        inv_or (strcmp(t->value.name, "floor") == 0);
-        inv_or (strcmp(t->value.name, "log") == 0);
-        inv_or (strcmp(t->value.name, "log10") == 0);
-        inv_or (strcmp(t->value.name, "pow") == 0);
-        inv_or (strcmp(t->value.name, "sqr") == 0);
-        inv_or (strcmp(t->value.name, "sqrt") == 0);
-        inv_or (strcmp(t->value.name, "sin") == 0);
-        inv_or (strcmp(t->value.name, "tan") == 0);
-      }
-    }
-
-    t = FormulaTokenizer_nextToken(ft);
-  }
-}
-END_CONSTRAINT
 
 
