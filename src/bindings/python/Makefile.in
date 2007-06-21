@@ -299,8 +299,16 @@ tags: etags ctags
 # Installation.
 # -----------------------------------------------------------------------------
 
+# In order to avoid MACOSX_DEPLOYMENT_TARGET mismatch error on Mac OS X,
+# environment variable MACOSX_DEPLOYMENT_TARGET is set to '' at install-time.
+# Python distutils sets proper value to MACOSX_DEPLOYMENT_TARGET if the environment 
+# variable is set to ''.  
 install: setup.py create-build-dir
+ifeq "$(HOST_TYPE)" "darwin"
+	env MACOSX_DEPLOYMENT_TARGET='' $(PYTHON) setup.py install --skip-build --prefix=$(prefix)
+else
 	$(PYTHON) setup.py install --skip-build --prefix=$(prefix)
+endif
 
 installcheck:
 
