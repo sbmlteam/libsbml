@@ -517,6 +517,15 @@ Rule::readOtherXML (XMLInputStream& stream)
 
   if (name == "math")
   {
+    // if this is level 1 there shouldnt be any math!!!
+    if (getLevel() == 1) 
+    {
+      logError(SBMLError::NotSchemaConformant,
+              "SBML Level 1 does not support MathML");
+      delete mMath;
+      return false;
+    }
+
     delete mMath;
 
     /* check for MathML namespace 

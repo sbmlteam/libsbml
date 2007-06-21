@@ -237,6 +237,15 @@ Constraint::readOtherXML (XMLInputStream& stream)
 
   if (name == "math")
   {
+    // if this is level 1 there shouldnt be any math!!!
+    if (getLevel() == 1) 
+    {
+      logError(SBMLError::NotSchemaConformant,
+              "SBML Level 1 does not support MathML");
+      delete mMath;
+      return false;
+    }
+
     // If there's a <message>, it's supposed to show up first
 
     if (mMessage) logError(SBMLError::IncorrectOrderInConstraint);

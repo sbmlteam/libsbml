@@ -915,9 +915,9 @@ SBase::read (XMLInputStream& stream)
 		   || readAnnotation(stream)
 		   || readNotes(stream) ))
       {
-	logError( SBMLError::UnrecognizedElement,  
-		  "Unrecognized element '" + next.getName() + "'");
-        stream.skipPastEnd( stream.next() );
+	      logError( SBMLError::UnrecognizedElement,  
+		        "Unrecognized element '" + next.getName() + "'");
+              stream.skipPastEnd( stream.next() );
       }
     }
     else
@@ -1550,7 +1550,7 @@ SBase::checkXHTML(const XMLNode * xhtml)
    */
   for (i = 0; i < getErrorLog()->getNumErrors(); i++)
   {
-    if (getErrorLog()->getError(i)->getId() == XMLError::BadProcessingInstruction)
+    if (getErrorLog()->getError(i)->getId() == XMLError::BadXMLDeclLocation)
     {
       logError(errorXML);
     }
