@@ -125,6 +125,7 @@ TestValidator::test (const TestFile& file)
   list<SBMLError>::const_iterator end   = mValidator.getMessages().end();
 
 
+
   if (expected != actual)
   {
     error = true;
@@ -137,23 +138,44 @@ TestValidator::test (const TestFile& file)
 
 
   unsigned int same = count_if(begin, end, HasId(id));
+  vector<unsigned int> ids;
 
   if (expected != same && actual != same)
   {
-    error = true;
-
-    vector<unsigned int> ids;
-    transform(begin, end, back_inserter(ids), ToId());
-
-    if (ids.size() != 1 || ids.at(0) != others)
+    // need to consider case where the test case has
+    // an additional fail
+    if (expected - same != 1)
     {
-      cout << endl;
-      cout << "Error: " << file.getFilename() << endl;
-      cout << "  - Constraints:  Expected: " << id << "  Actual: ";
-      cout << endl;
-      copy(ids.begin(), ids.end(), ostream_iterator<unsigned int>(cout, " "));
-      cout << endl;
+      error = true;
     }
+    else
+    {
+      transform(begin, end, back_inserter(ids), ToId());
+
+      unsigned int match = 0;
+      for (unsigned int i = 0; i < ids.size(); i++)
+      {
+        if (ids.at(i) == others)
+        {
+          match = 1;
+        }
+      }
+
+      if (match == 0)
+      {
+        error = true;
+      }
+    }
+  }
+
+  if (error)
+  {      
+    cout << endl;
+    cout << "Error: " << file.getFilename() << endl;
+    cout << "  - Constraints:  Expected: " << id << "  Actual: ";
+    cout << endl;
+    copy(ids.begin(), ids.end(), ostream_iterator<unsigned int>(cout, " "));
+    cout << endl;
   }
 
   if ( error || isVerbose(id) )

@@ -101,7 +101,8 @@ public:
    */
   static std::set<TestFile> getFilesIn ( const std::string& directory,
                                          unsigned int begin = 0,
-                                         unsigned int end   = 0 );
+                                         unsigned int end   = 0, 
+                                         unsigned int library = 0);
 
   /**
    * Sort (and test equality) by filename.

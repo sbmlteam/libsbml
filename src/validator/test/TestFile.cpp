@@ -125,7 +125,11 @@ TestFile::getSequenceId () const
 unsigned int
 TestFile::getNumFailures () const
 {
-  return atol( mFilename.substr(11, 2).c_str() );
+  unsigned num = atol( mFilename.substr(11, 2).c_str() );
+  if (mFilename.length() > 20)
+    return num+1;
+  else
+    return num;
 }
 
 unsigned int
@@ -146,7 +150,8 @@ TestFile::getAdditionalFailId () const
 bool
 TestFile::isValid (const string& filename)
 {
-  return filename.length() == 20 && filename.substr(16, 4) == ".xml";
+  return ((filename.length() == 20 && filename.substr(16, 4) == ".xml")
+    || (filename.length() == 26 && filename.substr(22, 4) == ".xml"));
 }
 
 
@@ -160,12 +165,12 @@ TestFile::isValid (const string& filename)
 set<TestFile>
 TestFile::getFilesIn ( const string& directory,
                        unsigned int  begin,
-                       unsigned int  end )
+                       unsigned int  end,
+                       unsigned int  library)
 {
   DIR*           dir;
   struct dirent* entry;
   set<TestFile>  result;
-
 
   dir = opendir( directory.c_str() );
 
@@ -184,10 +189,31 @@ TestFile::getFilesIn ( const string& directory,
     {
       TestFile     file(directory, filename);
       unsigned int id = file.getConstraintId();
+      // leave out the following tests dependent on parser
+      if (library == 0)
+      {
+        // xerces bug in reading multibyte chars
+        if (id == 10309) continue;
+      }
+      else if (library == 1)
+      {
+        // expat quits when it hits an xml error whereas xerces
+        // continues and reports an error on the element
+        // where the bad xml occurred- so dont test these with expat
+        if (id == 1009 && file.getAdditionalFailId() != 0)
+          continue;
+        else if (id == 1011 && file.getAdditionalFailId() != 0)
+          continue;
+        else if (id == 10802)
+          continue;
+        else if (id == 10803)
+          continue;
+      }
 
-      if (id == 10309) continue;
-      else if (id == 7) continue;
-      else if (id == 28) continue;
+#if defined USE_EXPAT
+      cout << "expat\n";
+      //if (id == 10802 || id == 10803) continue;
+#endif
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {
