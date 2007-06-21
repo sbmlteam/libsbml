@@ -199,42 +199,90 @@ END_CONSTRAINT
 
 // Unit and UnitDefinition validation
 
-// NOTE: This constraint also applies to L1 Models (replacing name with id).
 START_CONSTRAINT (20401, UnitDefinition, ud)
 {
-  msg =
-    "The value of the 'id' attribute in a <unitDefinition> must not be of"
-    " type UnitSId and not be identical "
-    "to any unit predefined in SBML. That is, the identifier must not be the "
-    "same as any of the following predefined units: 'ampere' 'gram' "
-    "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
-    "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
-    "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
-    "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
-    "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
+  if (ud.getLevel() == 1)
+  {
+    msg =
+      "The value of the 'name' attribute in a <unitDefinition> must not be of"
+      " type UnitSId and not be identical "
+      "to any unit predefined in SBML. That is, the identifier must not be the "
+      "same as any of the following predefined units: 'ampere' 'Celsius' "
+      "'gram' "
+      "'katal' 'metre' 'meter' 'second' 'watt' 'becquerel' 'gray' 'kelvin' "
+      "'mole' "
+      "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
+      "'coulomb' 'hertz' 'litre' 'liter' 'ohm' 'steradian' 'dimensionless' "
+      "'item' "
+      "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
+      "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
+  }
+  else
+  {
+    if (ud.getVersion() == 1)
+    {
+      msg =
+        "The value of the 'id' attribute in a <unitDefinition> must not be of"
+        " type UnitSId and not be identical "
+        "to any unit predefined in SBML. That is, the identifier must not be "
+        "the same as any of the following predefined units: 'ampere' 'Celsius' "
+        "'gram' "
+        "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
+        "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
+        "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
+        "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
+    }
+    else
+    {
+      msg =
+        "The value of the 'id' attribute in a <unitDefinition> must not be of"
+        " type UnitSId and not be identical "
+        "to any unit predefined in SBML. That is, the identifier must not be "
+        "the same as any of the following predefined units: 'ampere' 'gram' "
+        "'katal' 'metre' 'second' 'watt' 'becquerel' 'gray' 'kelvin' 'mole' "
+        "'siemens' 'weber' 'candela' 'henry' 'kilogram' 'newton' 'sievert' "
+        "'coulomb' 'hertz' 'litre' 'ohm' 'steradian' 'dimensionless' 'item' "
+        "'lumen' 'pascal' 'tesla' 'farad' 'joule' 'lux' 'radian' 'volt'. "
+        "(References: L2V1 erratum 14; L2V2 Section 4.4.2.)";
+    }
+  }
    
   inv( Unit::isUnitKind( ud.getId() , ud.getLevel(), ud.getVersion() ) == false );
 }
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20402, UnitDefinition, ud)
 {
-  msg =
-    "Redefinitions of the built-in unit 'substance' must be based on the "
-    "units 'mole', 'item', 'gram', 'kilogram', or 'dimensionless'. More "
-    "formally, a <unitDefinition> for 'substance' must simplify to a single "
-    "<unit> whose 'kind' attribute has a value of 'mole', 'item', 'gram', "
-    "'kilogram', or 'dimensionless', and whose 'exponent' attribute has a value "
-    "of '1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
-
   pre( ud.getId() == "substance" );
+
+  if (ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3))
+  {
+    msg =
+      "Redefinitions of the built-in unit 'substance' must be based on the "
+      "units 'mole', 'item', 'gram', 'kilogram', or 'dimensionless'. More "
+      "formally, a <unitDefinition> for 'substance' must simplify to a single "
+      "<unit> whose 'kind' attribute has a value of 'mole', 'item', 'gram', "
+      "'kilogram', or 'dimensionless', and whose 'exponent' attribute has a "
+      "value of '1'. (References: L2V1 Section 4.4.3)";
+  }
+  else
+  {
+    msg =
+      "Redefinitions of the built-in unit 'substance' must be based on the "
+      "units 'mole' or 'item'. More "
+      "formally, a <unitDefinition> for 'substance' must simplify to a single "
+      "<unit> whose 'kind' attribute has a value of 'mole' or 'item', and whose "
+      "'exponent' attribute has a value "
+      "of '1'. (References: L2V1 Section 4.4.3)";
+  }
+
 
   inv( ud.getNumUnits() == 1                              );
   inv( ud.getUnit(0)->getExponent() == 1                  );
 
-    /* dimensionless/gram/kilogram are allowable in L2V2 */
+    /* dimensionless/gram/kilogram are allowable in L2V2 and L2V3*/
   if (  ud.getLevel() == 2 
     &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
   {
@@ -253,19 +301,33 @@ START_CONSTRAINT (20402, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20403, UnitDefinition, ud)
 {
-  msg =
-    "Redefinitions of the built-in unit 'length' must be based on the unit "
-    "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
-    "'length' must simplify to a single <unit> in which either (a) the "
-    "'kind' attribute has a value of 'metre' and the 'exponent' attribute has a "
-    "value of '1', or (b) the 'kind' attribute has a value of 'dimensionless' "
-    "with any 'exponent' value. (References: L2V1 Section 4.4.3; L2V2 "
-    "Section 4.4.3.)";
-
+  pre( ud.getLevel() == 2);
   pre( ud.getId() == "length" );
+
+  if (ud.getVersion() == 1)
+  {
+    msg =
+      "Redefinitions of the built-in unit 'length' must be based on the unit "
+      "'metre'. More formally, a <unitDefinition> for "
+      "'length' must simplify to a single <unit> in which  the "
+      "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
+      "has a value of '1'. (References: L2V1 Section 4.4.3.)";
+  }
+  else
+  {
+    msg =
+      "Redefinitions of the built-in unit 'length' must be based on the unit "
+      "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
+      "'length' must simplify to a single <unit> in which either (a) the "
+      "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
+      "has a value of '1', or (b) the 'kind' attribute has a value of "
+      "'dimensionless' "
+      "with any 'exponent' value. (References: L2V2 "
+      "Section 4.4.3.)";
+  }
+
 
   inv( ud.getNumUnits() == 1             );
 
@@ -285,18 +347,32 @@ START_CONSTRAINT (20403, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20404, UnitDefinition, ud)
 {
-  msg =
-    "Redefinitions of the built-in unit 'area' must be based on squared "
-    "'metre's or 'dimensionless'. More formally, a <unitDefinition> for "
-    "'area' must simplify to a single <unit> in which either (a) the 'kind' "
-    "attribute has a value of 'metre' and the 'exponent' attribute has a value of "
-    "'2', or (b) the 'kind' attribute has a value of 'dimensionless' with any "
-    "'exponent' value. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
-
+  pre( ud.getLevel() == 2);
   pre( ud.getId() == "area" );
+
+  if (ud.getVersion() == 1)
+  {
+    msg =
+      "Redefinitions of the built-in unit 'area' must be based on squared "
+      "'metre's. More formally, a <unitDefinition> for "
+      "'area' must simplify to a single <unit> in which  the 'kind' "
+      "attribute has a value of 'metre' and the 'exponent' attribute has a "
+      "value of "
+      "'2'. (References: L2V1 Section 4.4.3)";
+  }
+  else
+  {
+    msg =
+      "Redefinitions of the built-in unit 'area' must be based on squared "
+      "'metre's or 'dimensionless'. More formally, a <unitDefinition> for "
+      "'area' must simplify to a single <unit> in which either (a) the 'kind' "
+      "attribute has a value of 'metre' and the 'exponent' attribute has a "
+      "value of "
+      "'2', or (b) the 'kind' attribute has a value of 'dimensionless' with any "
+      "'exponent' value. (References: L2V2 Section 4.4.3.)";
+  }
 
   inv( ud.getNumUnits() == 1             );
 
@@ -316,18 +392,31 @@ START_CONSTRAINT (20404, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20405, UnitDefinition, ud)
 {
-  msg =
-    "Redefinitions of the built-in unit 'time' must be based on 'second'. "
-    "More formally, a <unitDefinition> for 'time' must simplify to a single "
-    "<unit> in which either (a) the 'kind' attribute has a value of 'second' and "
-    "the 'exponent' attribute has a value of '1', or (b) the 'kind' attribute has a "
-    "value of 'dimensionless' with any 'exponent' value. (References: L2V1 "
-    "Section 4.4.3; L2V2 Section 4.4.3.)";
-
   pre( ud.getId() == "time" );
+
+  if (ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3))
+  {
+    msg =
+      "Redefinitions of the built-in unit 'time' must be based on 'second'. "
+      "More formally, a <unitDefinition> for 'time' must simplify to a single "
+      "<unit> in which either (a) the 'kind' attribute has a value of 'second' "
+      "and the 'exponent' attribute has a value of '1', or (b) the 'kind' "
+      "attribute has a "
+      "value of 'dimensionless' with any 'exponent' value. (References: L2V1 "
+      "Section 4.4.3; L2V2 Section 4.4.3.)";
+  }
+  else
+  {
+    msg =
+      "Redefinitions of the built-in unit 'time' must be based on 'second'. "
+      "More formally, a <unitDefinition> for 'time' must simplify to a single "
+      "<unit> in which the 'kind' attribute has a value of 'second' and "
+      "the 'exponent' attribute has a value of '1'. (References: L2V1 "
+      "Section 4.4.3; L2V2 Section 4.4.3.)";
+  }
+
 
   inv( ud.getNumUnits() == 1             );
 
@@ -347,65 +436,96 @@ START_CONSTRAINT (20405, UnitDefinition, ud)
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20406, UnitDefinition, ud)
 {
-  msg =
-    "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
-    "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
-    "'volume' must simplify to a single <unit> in which the 'kind' attribute "
-    "value is either 'litre', 'metre', or 'dimensionless'. Additional "
-    "constraints apply if the kind is 'litre' or 'metre'. (References: L2V1 "
-    "Section 4.4.3; L2V2 Section 4.4.3.)";
-
   pre( ud.getId() == "volume" );
+
+  if (ud.getLevel() == 2)
+  {
+    if (ud.getVersion() == 2 || ud.getVersion() == 3)
+    {
+      msg =
+        "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
+        "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
+        "'volume' must simplify to a single <unit> in which the 'kind' "
+        "attribute "
+        "value is either 'litre', 'metre', or 'dimensionless'. Additional "
+        "constraints apply if the kind is 'litre' or 'metre'. (References: L2V1 "
+        "Section 4.4.3; L2V2 Section 4.4.3.)";
+    }
+    else
+    {
+      msg =
+        "Redefinitions of the built-in unit 'volume' must be based on 'litre', "
+        "or 'metre'. More formally, a <unitDefinition> for "
+        "'volume' must simplify to a single <unit> in which the 'kind' "
+        "attribute "
+        "value is either 'litre' or 'metre'. Additional "
+        "constraints apply if the kind is 'litre' or 'metre'. (References: L2V1 "
+        "Section 4.4.3)";
+    }
+  }
+  else
+  {
+    msg =
+      "Redefinitions of the built-in unit 'volume' must be based on 'litre'. "
+      "More formally, a <unitDefinition> for "
+      "'volume' must simplify to a single <unit> in which the 'kind' attribute "
+      "value is 'litre'. ";
+  }
 
   inv( ud.getNumUnits() == 1 );
   
   /* dimensionless is allowable in L2V2 */
-  if (  ud.getLevel() == 2 
-    &&  (ud.getVersion() == 2 || ud.getVersion() == 3))
+  if (  ud.getLevel() == 2 )
   {
-    inv( ud.getUnit(0)->isLitre() 
-      || ud.getUnit(0)->isMetre() 
-      || ud.getUnit(0)->isDimensionless() );
+    if (ud.getVersion() == 2 || ud.getVersion() == 3)
+    {
+      inv( ud.getUnit(0)->isLitre() 
+        || ud.getUnit(0)->isMetre() 
+        || ud.getUnit(0)->isDimensionless() );
+    }
+    else
+    {
+      inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+    }
   }
   else
   {
-    inv( ud.getUnit(0)->isLitre() || ud.getUnit(0)->isMetre() );
+    inv (ud.getUnit(0)->isLitre());
   }
 }
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20407, UnitDefinition, ud)
 {
+  pre( ud.getId()       == "volume" );
+  pre( ud.getNumUnits() == 1        );
+  pre( ud.getUnit(0)->isLitre()     );
+
   msg =
     "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
     "'kind' attribute value is 'litre', then its 'exponent' attribute value must be "
     "'1'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
-
-  pre( ud.getId()       == "volume" );
-  pre( ud.getNumUnits() == 1        );
-  pre( ud.getUnit(0)->isLitre()     );
 
   inv( ud.getUnit(0)->getExponent() == 1 );
 }
 END_CONSTRAINT
 
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20408, UnitDefinition, ud)
 {
+  pre( ud.getLevel() == 2);
+
+  pre( ud.getId()       == "volume" );
+  pre( ud.getNumUnits() == 1        );
+  pre( ud.getUnit(0)->isMetre()     );
   msg =
     "If a <unitDefinition> for 'volume' simplifies to a <unit> in which the "
     "'kind' attribute value is 'metre', then its 'exponent' attribute value must be "
     "'3'. (References: L2V1 Section 4.4.3; L2V2 Section 4.4.3.)";
 
-  pre( ud.getId()       == "volume" );
-  pre( ud.getNumUnits() == 1        );
-  pre( ud.getUnit(0)->isMetre()     );
 
   inv( ud.getUnit(0)->getExponent() == 3 );
 }
@@ -434,12 +554,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20411, UnitDefinition, ud)
 {
+  pre( ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3) );
+
   msg =
     "The 'offset' attribute on <unit> previously available in SBML Level 2 "
     "Version 1, has been removed as of SBML Level 2 Version 2. (References: "
     "L2V2 Section 4.4.)";
 
-  pre( ud.getLevel() == 2 && (ud.getVersion() == 2 || ud.getVersion() == 3) );
 
   for (unsigned int n = 0; n < ud.getNumUnits(); ++n)
   {
@@ -451,12 +572,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20412, Unit, u)
 {
+  pre( u.getLevel() == 2 && (u.getVersion() == 2 || u.getVersion() == 3) );
+
   msg =
     "The predefined unit 'Celsius', previously available in SBML Level 1 and "
     "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
     "(References: L2V2 Section 4.4.)";
 
-  pre( u.getLevel() == 2 && (u.getVersion() == 2 || u.getVersion() == 3) );
   inv( u.isCelsius() == false );
 }
 END_CONSTRAINT
@@ -464,12 +586,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20412, Parameter, p)
 {
+  pre( p.getLevel() == 2 && (p.getVersion() == 2 || p.getVersion() == 3) );
+
   msg =
     "The predefined unit 'Celsius', previously available in SBML Level 1 and "
     "Level 2 Version 1, has been removed as of SBML Level 2 Version 2. "
     "(References: L2V2 Section 4.4.)";
 
-  pre( p.getLevel() == 2 && (p.getVersion() == 2 || p.getVersion() == 3) && p.isSetUnits()    );
   inv( UnitKind_forName( p.getUnits().c_str() ) != UNIT_KIND_CELSIUS );
 }
 END_CONSTRAINT
