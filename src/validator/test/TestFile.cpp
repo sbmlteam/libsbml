@@ -208,7 +208,11 @@ TestFile::getFilesIn ( const string& directory,
           continue;
         else if (id == 10803)
           continue;
-      }
+        else if (id == 21004)
+          continue;
+        else if (id == 21005)
+          continue;
+     }
 
 #if defined USE_EXPAT
       cout << "expat\n";
