@@ -65,14 +65,10 @@ public class example1
 
         // create the document
 
-        SBMLDocument document=new SBMLDocument();
+        SBMLDocument document=new SBMLDocument(2,1);
         // create the Model
 
-        Model model=new Model();
-        model.setId("TestModel");
-        document.setModel(model);
-        document.setLevel(2);
-        document.setVersion(1);
+        Model model=document.createModel("TestModel");
 
 
         // create the Compartment

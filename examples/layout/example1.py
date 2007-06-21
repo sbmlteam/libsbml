@@ -53,21 +53,15 @@ from libsbml import *
 
 # create the document
 
-document=SBMLDocument()
+document=SBMLDocument(2,1)
 # create the Model
 
-model=Model()
-model.setId("TestModel")
-document.setModel(model)
-document.setLevel(2)
-document.setVersion(1)
-
+model=document.createModel("TestModel")
 
 # create the Compartment
 
 compartment=model.createCompartment()
 compartment.setId("Compartment_1")
-
 # create the Species
 
 species1=model.createSpecies()
