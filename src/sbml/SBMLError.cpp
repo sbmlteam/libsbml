@@ -27,6 +27,7 @@
 
 #include <sbml/xml/XMLError.h>
 #include <sbml/SBMLError.h>
+#include <sbml/SBMLErrorTable.h>
 
 
 /** @cond doxygen-ignored */
@@ -41,88 +42,13 @@ typedef struct {
   SBMLError::SBMLCategory category;
   SBMLError::SBMLSeverity severity;
   const char*             message;
-} sbmlErrorTableEntry;
+} sbmlErrorTableEntry_old;
 
-
-static const sbmlErrorTableEntry errorTable[] =
+static const sbmlErrorTableEntry_old errorTable_old[] =
 {
   // 0
   { SBMLError::UnknownError, SBMLError::SBML, SBMLError::Fatal,
     "Unrecognized error encountered" },
-
-  // 10101
-  { SBMLError::NotUTF8, SBMLError::SBML, SBMLError::Error,
-    "An SBML XML file must use UTF-8 as the character encoding. More "
-    "precisely, the 'encoding' attribute of the XML declaration at the "
-    "beginning of the XML data stream cannot have a value other than "
-    "'UTF-8'. An example valid declaration is "
-    "'<?xml version=\"1.0\" encoding=\"UTF-8\"?>'. (References: L2V2 Section "
-    "4.1.)" },
-
-  // 10102
-  { SBMLError::UnrecognizedElement, SBMLError::SBML, SBMLError::Error,
-    "An SBML XML document must not contain undefined elements or attributes "
-    "in the SBML namespace. Documents containing unknown elements or "
-    "attributes placed in the SBML namespace do not conform to the SBML "
-    "Level 2 specification. (References: L2V2 Section 4.1.)" },
-
-  // 10103
-  { SBMLError::NotSchemaConformant, SBMLError::SBML, SBMLError::Error,
-    "An SBML XML document must conform to the XML Schema for the corresponding "
-    "SBML Level, Version and Revision. The XML Schema for SBML defines the "
-    "basic SBML object structure, the data types used by those objects, and the "
-    "order in which the objects may appear in an SBML document. (References: "
-    "L2V2 Section 4.1.)" },
-
-  // 10201
-  { SBMLError::InvalidMathElement, SBMLError::SBML, SBMLError::Error,
-    "All MathML content in SBML must appear within a 'math' element, and the "
-    "'math' element must be either explicitly or implicitly in the XML "
-    "namespace 'http://www.w3.org/1998/Math/MathML'. (References: L2V2 "
-    "Section 3.5.)" },
-
-  // 10202
-  { SBMLError::DisallowedMathMLSymbol, SBMLError::SBML, SBMLError::Error,
-    "The only permitted MathML 2.0 elements in SBML Level 2 are "
-    "the following: cn, ci, csymbol, sep, apply, piecewise, piece, otherwise, "
-    "eq, neq, gt, lt, geq, leq, plus, minus, times, divide, power, root, abs, "
-    "exp, ln, log, floor, ceiling, factorial, and, or, xor, not, degree, bvar, "
-    "logbase, sin, cos, tan, sec, csc, cot, sinh, cosh, tanh, sech, csch, "
-    "coth, arcsin, arccos, arctan, arcsec, arccsc, arccot, arcsinh, arccosh, "
-    "arctanh, arcsech, arccsch, arccoth, true, false, notanumber, pi, "
-    "infinity, exponentiale, semantics, annotation, and annotation-xml. "
-    "(References: L2V2 Section 3.5.1.)" },
-
-  // 10203
-  { SBMLError::DisallowedMathMLEncodingUse, SBMLError::SBML, SBMLError::Error,
-    "In the SBML subset of MathML 2.0, the MathML attribute "
-    "encoding is only permitted on csymbol. No other MathML elements may "
-    "have a encoding attribute. (References: L2V2 Section 3.5.1.)." },
-
-  // 10204
-  { SBMLError::DisallowedDefinitionURLUse, SBMLError::SBML, SBMLError::Error,
-    "In the SBML subset of MathML 2.0, the MathML attribute "
-    "definitionURL is only permitted on csymbol. No other MathML elements "
-    "may have a definitionURL attribute. (References: L2V2 Section 3.5.1.)." },
-
-  // 10205
-  { SBMLError::BadCsymbolDefinitionURLValue, SBMLError::SBML, SBMLError::Error,
-    "In SBML Level 2 Versions 1 and Version 2, the only values permitted for "
-    "definitionURL on a csymbol are \"http://www.sbml.org/sbml/symbols/time\" "
-    "and \"http://www.sbml.org/sbml/symbols/delay\".(References: L2V2 "
-    "Section 3.5.5.)." },
-
-  // 10206
-  { SBMLError::DisallowedMathTypeAttributeUse, SBMLError::SBML, SBMLError::Error,
-    "In the SBML subset of MathML 2.0, the MathML attribute "
-    "type is only permitted on the cn construct. No other MathML elements "
-    "may have a type attribute. (References: L2V2 Section 3.5.1.)." },
-
-  // 10207
-  { SBMLError::DisallowedMathTypeAttributeValue, SBMLError::SBML, SBMLError::Error,
-    "The only permitted values for the 'type' attribute on MathML 'cn' "
-    "elements are 'e-notation', 'real', 'integer', and 'rational'. "
-    "(References: L2V2 Section 3.5.2.)"},
 
   // 10308
   { SBMLError::InvalidSBOTermSyntax, SBMLError::SBML, SBMLError::Error,
@@ -183,57 +109,9 @@ static const sbmlErrorTableEntry errorTable[] =
     "(3) XHTML content that is permitted within a <body> ... </body> elements. "
     "(References: L2V2 Section 3.3.2; L2V3 Section 3.2.3.)" },
 
-  // 20101
-  { SBMLError::InvalidNamespaceOnSBML, SBMLError::SBML, SBMLError::Error,
-    "The 'sbml' container element must declare the XML Namespace for SBML, "
-    "and this declaration must be consistent with the values of the 'level' "
-    "and 'version' attributes on the 'sbml' element. (References: L2V2 "
-    "Section 4.1.)" },
 
-  // 20102
-  { SBMLError::MissingOrInconsistentLevel, SBMLError::SBML, SBMLError::Error,
-    "The 'sbml' container element must declare the SBML Level using the "
-    "attribute 'level', and this declaration must be consistent with the XML "
-    "Namespace declared for the 'sbml' element. (References: L2V2 Section "
-    "4.1.)" },
 
-  // 20103
-  { SBMLError::MissingOrInconsistentVersion, SBMLError::SBML, SBMLError::Error,
-    "The 'sbml' container element must declare the SBML Version using the "
-    "attribute 'version', and this declaration must be consistent with the "
-    "XML Namespace declared for the 'sbml' element. (References: L2V2 "
-    "Section 4.1.)" },
 
-  // 20141
-  { SBMLError::AnnotationNotesNotAllowedLevel1, SBMLError::SBML, SBMLError::Error,
-    "The 'sbml' container element cannot contain notes or annotations in an "
-    "SBML Level 1 document. (References: )" },
-
-  // 20201
-  { SBMLError::MissingModel, SBMLError::SBML, SBMLError::Error,
-    "An SBML document must contain a <model> definition. (References: L2V1 "
-    "and L2V2 Section 4.1)." },
-
-  // 20202
-  { SBMLError::IncorrectOrderInModel, SBMLError::SBML, SBMLError::Error,
-    "The order of subelements within Model must be the following (where any "
-    "one may be optional, but the ordering must be maintained): "
-    "listOfFunctionDefinitions, listOfUnitDefinitions, listOfCompartmentTypes, "
-    "listOfSpeciesTypes, listOfCompartments, listOfSpecies, listOfParameters, "
-    "listOfInitialAssignments, listOfRules, listOfConstraints, listOfReactions "
-    "and listOfEvents. (References: L2V2 Section 4.2.)" },
-
-  // 20203
-  { SBMLError::EmptyListElement, SBMLError::SBML, SBMLError::Error,
-    "The 'listOf___' containers in a <model> are optional, but if present, "
-    "the lists cannot be empty. Specifically, if any of the following are "
-    "present in a <model>, they must not be empty: "
-    "'listOfFunctionDefinitions', 'listOfUnitDefinitions', "
-    "'listOfCompartmentTypes', 'listOfSpeciesTypes', 'listOfCompartments',  "
-    "'listOfSpecies', 'listOfParameters', 'listOfInitialAssignments', "
-    "'listOfRules', 'listOfConstraints', 'listOfReactions' and "
-    "'listOfEvents'. (References: This is a requirement stemming from the "
-    "XML Schema used for SBML.)" },
 
   // 20409
   { SBMLError::EmptyListOfUnits, SBMLError::SBML, SBMLError::Error,
@@ -324,7 +202,9 @@ SBMLError::SBMLError (  const unsigned int            errorId
   		                , const unsigned int            column
 		                  , const SBMLError::SBMLSeverity severity
                       , const SBMLError::SBMLCategory category 
-                      , const unsigned int            fromValidator)
+                      , const unsigned int            level
+                      , const unsigned int            version ):
+    XMLError(errorId, details, line, column, severity, category)
 {
   // Check if the given id is one we have in our table of error codes.  If
   // it is, fill in the fields of the error object with the appropriate
@@ -334,39 +214,93 @@ SBMLError::SBMLError (  const unsigned int            errorId
   mLine   = line;
   mColumn = column;
 
-  if ( errorId > XMLError::ErrorCodesUpperBound
+  if ( errorId >= 0 && errorId < XMLError::ErrorCodesUpperBound )
+  {
+    // then error was caught during the XML read
+    return;
+  }
+  else if ( errorId > XMLError::ErrorCodesUpperBound
        && errorId < SBMLError::SBMLCodesUpperBound )
   {
-    // BUT the numbers in the table overlap with numbers from the consistency
-    // validators so its not necessarily an error if the number is not
-    // in the table
-    if (fromValidator == 1)
-    {
-      mMessage  = details;
-      mSeverity = severity;
-      mCategory = category;
-      return;
-    }
-
     unsigned int tableSize = sizeof(errorTable)/sizeof(errorTable[0]);    
 
     for ( unsigned int i = 0; i < tableSize; i++ )
     {
       if ( errorTable[i].code == errorId )
       {
+        switch (level)
+        {
+        case 1:
+          switch (version)
+          {
+          case 1:
+            mSeverity = errorTable[i].l1v1_severity;
+            break;
+          case 2:
+            mSeverity = errorTable[i].l1v2_severity;
+          default:
+            break;
+          }
+          break;
+        case 2:
+        default:
+          switch (version)
+          {
+          case 1:
+            mSeverity = errorTable[i].l2v1_severity;
+            break;
+          case 2:
+            mSeverity = errorTable[i].l2v2_severity;
+            break;
+          case 3:
+          default:
+            mSeverity = errorTable[i].l2v3_severity;
+            break;
+          }
+          break;
+        }
+
+
 	      ostringstream newMsg;
+        if (mSeverity == SBMLError::SchemaError)
+        {
+          mErrorId = 10103;
+          mSeverity = SBMLError::Error;
 
-	      if ( !details.empty() ) newMsg << details << "." << endl;
-
-	      newMsg << "This fails to satisfy SBML validation rule number "
-	          << errorId << ":" << errorTable[i].message << endl;
-
-	      mMessage  = newMsg.str();
-	      mSeverity = errorTable[i].severity;
+	        newMsg << "This fails to satisfy SBML validation rule number 10103: " 
+            << errorTable[0].message << endl;
+        }
+        else if (mSeverity == SBMLError::GeneralWarning)
+        {
+          newMsg << "General warning: Although SBML Level " << level 
+            << " Version " << version
+            << " does not explicitly define this as an error, more recent "
+            << "versions of SBML do. " << endl;
+        }
+        else
+        {
+	        newMsg << "This fails to satisfy SBML validation rule number " <<
+            errorTable[i].code << ": " << errorTable[i].message << endl;
+        }
+        if (!details.empty())
+        {
+          newMsg << details << "." << endl;
+        }
+      
+        mMessage  = newMsg.str();
 	      mCategory = errorTable[i].category;
 	      return;
       }
     }
+      
+    //if (fromValidator == 1)
+    //{
+      mMessage  = details;
+      mSeverity = severity;
+      mCategory = category;
+      return;
+    //}
+
 
     // The id is in the range of error numbers that are supposed to be in
     // the SBML layer, but it's NOT in our table. This is an internal error.

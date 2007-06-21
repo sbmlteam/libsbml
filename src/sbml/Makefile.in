@@ -63,6 +63,7 @@ headers =              \
   SBMLDocument.h       \
   SBMLError.h          \
   SBMLErrorLog.h       \
+  SBMLErrorTable.h	   \
   SBMLReader.h         \
   SBMLTypeCodes.h      \
   SBMLTypes.h          \

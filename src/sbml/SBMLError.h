@@ -142,7 +142,7 @@ public:
   , InvalidParameterSBOTerm          = 10703 /*!< SBML L2v3 validation rule #10703 */
   , InvalidInitAssignSBOTerm         = 10704 /*!< SBML L2v3 validation rule #10704 */
   , InvalidRuleSBOTerm               = 10705 /*!< SBML L2v3 validation rule #10705 */
-  , InvalidconstraintSBOTerm         = 10706 /*!< SBML L2v3 validation rule #10706 */
+  , InvalidConstraintSBOTerm         = 10706 /*!< SBML L2v3 validation rule #10706 */
   , InvalidReactionSBOTerm           = 10707 /*!< SBML L2v3 validation rule #10707 */
   , InvalidSpeciesReferenceSBOTerm   = 10708 /*!< SBML L2v3 validation rule #10708 */
   , InvalidKineticLawSBOTerm         = 10709 /*!< SBML L2v3 validation rule #10709 */
@@ -161,7 +161,7 @@ public:
   , InvalidNamespaceOnSBML           = 20101 /*!< SBML L2v3 validation rule #20101 */
   , MissingOrInconsistentLevel       = 20102 /*!< SBML L2v3 validation rule #20102 */
   , MissingOrInconsistentVersion     = 20103 /*!< SBML L2v3 validation rule #20103 */
-  , AnnotationNotesNotAllowedLevel1  = 20141 /*!< SBML L2v3 validation rule #20141 */
+  , AnnotationNotesNotAllowedLevel1  = 20104 /*!< SBML L2v3 validation rule #20141 */
   , MissingModel                     = 20201 /*!< SBML L2v3 validation rule #20201 */
   , IncorrectOrderInModel            = 20202 /*!< SBML L2v3 validation rule #20202 */
   , EmptyListElement                 = 20203 /*!< SBML L2v3 validation rule #20203 */
@@ -171,6 +171,7 @@ public:
   , RecursiveFunctionDefinition      = 20303 /*!< SBML L2v3 validation rule #20303 */
   , InvalidCiInLambda                = 20304 /*!< SBML L2v3 validation rule #20304 */
   , InvalidFunctionDefReturnType     = 20305 /*!< SBML L2v3 validation rule #20305 */
+  , ArgsPassedAsVariables            = 20306
   , InvalidUnitDefId                 = 20401 /*!< SBML L2v3 validation rule #20401 */
   , InvalidSubstanceRedefinition     = 20402 /*!< SBML L2v3 validation rule #20402 */
   , InvalidLengthRedefinition        = 20403 /*!< SBML L2v3 validation rule #20403 */
@@ -181,6 +182,8 @@ public:
   , VolumeMetreDefExponentNot3       = 20408 /*!< SBML L2v3 validation rule #20408 */
   , EmptyListOfUnits                 = 20409 /*!< SBML L2v3 validation rule #20409 */
   , InvalidUnitKind                  = 20410 /*!< SBML L2v3 validation rule #20410 */
+  , OffsetNoLongerValid              = 20411 /*!< SBML L2v3 validation rule #20411 */
+  , CelsiusNoLongerValid             = 20412 /*!< SBML L2v3 validation rule #20412 */
   , ZeroDimensionalCompartmentSize   = 20501 /*!< SBML L2v3 validation rule #20501 */
   , ZeroDimensionalCompartmentUnits  = 20502 /*!< SBML L2v3 validation rule #20502 */
   , ZeroDimensionalCompartmentConst  = 20503 /*!< SBML L2v3 validation rule #20503 */
@@ -192,7 +195,12 @@ public:
   , Invalid3DCompartmentUnits        = 20509 /*!< SBML L2v3 validation rule #20509 */
   , InvalidCompartmentTypeRef        = 20510 /*!< SBML L2v3 validation rule #20510 */
   , InvalidSpeciesCompartmentRef     = 20601 /*!< SBML L2v3 validation rule #20601 */
+  , HasOnlySubsNoSpatialUnits        = 20602
+  , NoSpatialUnitsInZeroD            = 20603
   , NoConcentrationInZeroD           = 20604 /*!< SBML L2v3 validation rule #20604 */
+  , SpatialUnitsInOneD               = 20605
+  , SpatialUnitsInTwoD               = 20606
+  , SpatialUnitsInThreeD             = 20607
   , InvalidSpeciesSusbstanceUnits    = 20608 /*!< SBML L2v3 validation rule #20608 */
   , BothAmountAndConcentrationSet    = 20609 /*!< SBML L2v3 validation rule #20609 */
   , NonBoundarySpeciesAssignedAndUsed= 20610 /*!< SBML L2v3 validation rule #20610 */
@@ -209,6 +217,7 @@ public:
   , InvalidRateRuleVariable          = 20902 /*!< SBML L2v3 validation rule #20902 */
   , AssignmentToConstantEntity       = 20903 /*!< SBML L2v3 validation rule #20903 */
   , RateRuleForConstantEntity        = 20904 /*!< SBML L2v3 validation rule #20904 */
+  , RepeatedRule10304                = 20905
   , CircularRuleDependency           = 20906 /*!< SBML L2v3 validation rule #20906 */
   , ConstraintMathNotBoolean         = 21001 /*!< SBML L2v3 validation rule #21001 */
   , IncorrectOrderInConstraint       = 21002 /*!< SBML L2v3 validation rule #21002 */
@@ -222,20 +231,28 @@ public:
   , InvalidReactantsProductsList     = 21104 /*!< SBML L2v3 validation rule #21104 */
   , InvalidModifiersList             = 21105 /*!< SBML L2v3 validation rule #21105 */
   , InvalidSpeciesReference          = 21111 /*!< SBML L2v3 validation rule #21111 */
+  , RepeatedRule20611                = 21112
   , BothStoichiometryAndMath         = 21113 /*!< SBML L2v3 validation rule #21113 */
   , UndeclaredSpeciesRef             = 21121 /*!< SBML L2v3 validation rule #21121 */
   , IncorrectOrderInKineticLaw       = 21122 /*!< SBML L2v3 validation rule #21122 */
   , EmptyListInKineticLaw            = 21123 /*!< SBML L2v3 validation rule #21123 */
   , NonConstantLocalParameter        = 21124 /*!< SBML L2v3 validation rule #21124 */
+  , SubsUnitsNoLongerValid           = 21125
+  , TimeUnitsNoLongerValid           = 21126
+  , SubsUnitsAllowedInKL             = 21127
+  , TimeUnitsAllowedInKL             = 21128
+  , FormulaInLevel1KL                = 21129
   , UndeclaredSpeciesInStoichMath    = 21131 /*!< SBML L2v3 validation rule #21131 */
   , MissingTriggerInEvent            = 21201 /*!< SBML L2v3 validation rule #21201 */
   , TriggerMathNotBoolean            = 21202 /*!< SBML L2v3 validation rule #21202 */
   , MissingEventAssignment           = 21203 /*!< SBML L2v3 validation rule #21203 */
+  , TimeUnitsEvent                   = 21204
   , IncorrectOrderInEvent            = 21205 /*!< SBML L2v3 validation rule #21205 */
   , TimeUnitsRemoved                 = 21206 /*!< SBML L2v3 validation rule #21206 */
   , InvalidEventAssignmentVariable   = 21211 /*!< SBML L2v3 validation rule #21211 */
   , EventAssignmentForConstantEntity = 21212 /*!< SBML L2v3 validation rule #21212 */
 
+  , GeneralWarningNotSpecified       = 29999
     // Bounds
   , SBMLCodesUpperBound              = 99999 /*!< 99999 */
   };
@@ -292,6 +309,10 @@ public:
 				 * out-of-memory condition, and the
 				 * software should terminate
 				 * immediately. */
+
+  , NotApplicable 
+  , SchemaError
+  , GeneralWarning
   };
 
 
@@ -355,7 +376,8 @@ public:
    , const unsigned int column        = 0
    , const SBMLSeverity severity      = Error
    , const SBMLCategory category      = SBML
-   , const unsigned int fromValidator = 0
+   , const unsigned int level         = 2
+   , const unsigned int version       = 3
   );
 
 };
