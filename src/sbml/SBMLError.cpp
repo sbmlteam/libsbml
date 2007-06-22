@@ -268,7 +268,8 @@ SBMLError::SBMLError (  const unsigned int            errorId
           mSeverity = SBMLError::Error;
 
 	        newMsg << "This fails to satisfy SBML validation rule number 10103: " 
-            << errorTable[0].message << endl;
+            << errorTable[3].message << endl;
+          newMsg << errorTable[i].message << endl;
         }
         else if (mSeverity == SBMLError::GeneralWarning)
         {

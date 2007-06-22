@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Pass: (1205) A 'volume' UnitDefinition may have only a single Unit of
-kind 'litre' or 'metre'.
+Pass: (1204) An 'area' UnitDefinition may only have a single Unit of
+kind 'metre' and the Unit's exponent must be '2'.
 -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
 	<model>
 		<listOfUnitDefinitions>
-			<unitDefinition name="volume">
+			<unitDefinition name="area">
 				<listOfUnits>
-					<unit kind="liter" exponent="1"/>
+					<unit kind="metre" exponent="2"/>
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>

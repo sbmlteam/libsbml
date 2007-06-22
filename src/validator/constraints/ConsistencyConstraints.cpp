@@ -130,13 +130,30 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20301, FunctionDefinition, fd)
 {
-  msg =
-    "The top-level element within 'math' in a <functionDefinition> must be "
-    "one and only one 'lambda'. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2.)";
+  pre( fd.getLevel() == 2 );
+  pre( fd.isSetMath()     );
 
-  pre( fd.isSetMath()           );
-  //NEEDS TO ALTER IN CASE OF SEMANTICS
-  inv( fd.getMath()->isLambda() );
+  if (fd.getVersion() == 3)
+  {
+    msg =
+      "The top-level element within 'math' in a <functionDefinition> must be "
+      "one and only one 'lambda' or a 'semantics' element containing one "
+      "and only one 'lambda' element. (References: L2V3 Section 4.3.2.)";
+  }
+  else
+  {
+    msg =
+      "The top-level element within 'math' in a <functionDefinition> must be "
+      "one and only one 'lambda'. (References: L2V1 Section 4.3.2; L2V2 Section 4.3.2.)";
+  }
+
+  if (fd.getVersion() == 3)
+  {
+  }
+  else
+  {
+    inv( fd.getMath()->isLambda() );
+  }
 }
 END_CONSTRAINT
 
@@ -303,29 +320,38 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20403, UnitDefinition, ud)
 {
-  pre( ud.getLevel() == 2);
   pre( ud.getId() == "length" );
 
-  if (ud.getVersion() == 1)
+  if (ud.getLevel() == 1)
   {
+    msg =
+      "In later versions of SBML 'length' was added to the built-in units "
+      "with restrictions on the unitDefinition. Care would need be taken "
+      "if this model were to be converted to a later level and version.";
+  }
+  else
+  {
+    if (ud.getVersion() == 1)
+    {
     msg =
       "Redefinitions of the built-in unit 'length' must be based on the unit "
       "'metre'. More formally, a <unitDefinition> for "
       "'length' must simplify to a single <unit> in which  the "
       "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
       "has a value of '1'. (References: L2V1 Section 4.4.3.)";
-  }
-  else
-  {
-    msg =
-      "Redefinitions of the built-in unit 'length' must be based on the unit "
-      "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
-      "'length' must simplify to a single <unit> in which either (a) the "
-      "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
-      "has a value of '1', or (b) the 'kind' attribute has a value of "
-      "'dimensionless' "
-      "with any 'exponent' value. (References: L2V2 "
-      "Section 4.4.3.)";
+    }
+    else
+    {
+      msg =
+        "Redefinitions of the built-in unit 'length' must be based on the unit "
+        "'metre' or 'dimensionless'. More formally, a <unitDefinition> for "
+        "'length' must simplify to a single <unit> in which either (a) the "
+        "'kind' attribute has a value of 'metre' and the 'exponent' attribute "
+        "has a value of '1', or (b) the 'kind' attribute has a value of "
+        "'dimensionless' "
+        "with any 'exponent' value. (References: L2V2 "
+        "Section 4.4.3.)";
+    }
   }
 
 
@@ -349,29 +375,38 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20404, UnitDefinition, ud)
 {
-  pre( ud.getLevel() == 2);
   pre( ud.getId() == "area" );
 
-  if (ud.getVersion() == 1)
+  if (ud.getLevel() == 1)
   {
     msg =
-      "Redefinitions of the built-in unit 'area' must be based on squared "
-      "'metre's. More formally, a <unitDefinition> for "
-      "'area' must simplify to a single <unit> in which  the 'kind' "
-      "attribute has a value of 'metre' and the 'exponent' attribute has a "
-      "value of "
-      "'2'. (References: L2V1 Section 4.4.3)";
+      "In later versions of SBML 'length' was added to the built-in units "
+      "with restrictions on the unitDefinition. Care would need be taken "
+      "if this model were to be converted to a later level and version.";
   }
   else
   {
-    msg =
-      "Redefinitions of the built-in unit 'area' must be based on squared "
-      "'metre's or 'dimensionless'. More formally, a <unitDefinition> for "
-      "'area' must simplify to a single <unit> in which either (a) the 'kind' "
-      "attribute has a value of 'metre' and the 'exponent' attribute has a "
-      "value of "
-      "'2', or (b) the 'kind' attribute has a value of 'dimensionless' with any "
-      "'exponent' value. (References: L2V2 Section 4.4.3.)";
+    if (ud.getVersion() == 1)
+    {
+      msg =
+        "Redefinitions of the built-in unit 'area' must be based on squared "
+        "'metre's. More formally, a <unitDefinition> for "
+        "'area' must simplify to a single <unit> in which  the 'kind' "
+        "attribute has a value of 'metre' and the 'exponent' attribute has a "
+        "value of "
+        "'2'. (References: L2V1 Section 4.4.3)";
+    }
+    else
+    {
+      msg =
+        "Redefinitions of the built-in unit 'area' must be based on squared "
+        "'metre's or 'dimensionless'. More formally, a <unitDefinition> for "
+        "'area' must simplify to a single <unit> in which either (a) the 'kind' "
+        "attribute has a value of 'metre' and the 'exponent' attribute has a "
+        "value of "
+        "'2', or (b) the 'kind' attribute has a value of 'dimensionless' with any "
+        "'exponent' value. (References: L2V2 Section 4.4.3.)";
+    }
   }
 
   inv( ud.getNumUnits() == 1             );

@@ -8,7 +8,8 @@ kind 'litre' or 'metre'.
 		<listOfUnitDefinitions>
 			<unitDefinition name="volume">
 				<listOfUnits>
-					<unit kind="liter" exponent="1"/>
+					<unit kind="litre" exponent="1"/>
+					<unit kind="kilogram"/>
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>

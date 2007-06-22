@@ -8,6 +8,7 @@ Pass: (1207) A 'volume' UnitDefinition with a single Unit of kind
 		<listOfUnitDefinitions>
 			<unitDefinition id="myUnit">
 				<listOfUnits>
+					<unit kind="metre" exponent="3"/>
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>

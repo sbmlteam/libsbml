@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Pass: (1205) A 'volume' UnitDefinition may have only a single Unit of
-kind 'litre' or 'metre'.
--->
+<!-- ok -->
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
 	<model>
 		<listOfUnitDefinitions>
-			<unitDefinition name="volume">
+			<unitDefinition name="length">
 				<listOfUnits>
-					<unit kind="liter" exponent="1"/>
+					<unit kind="meter" scale="-3" exponent="1"/>
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>

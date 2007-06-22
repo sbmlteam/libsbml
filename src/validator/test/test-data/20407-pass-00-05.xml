@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Pass: (1205) A 'volume' UnitDefinition may have only a single Unit of
-kind 'litre' or 'metre'.
+Pass: (1206) A 'volume' UnitDefinition with a single Unit of kind 'litre'
+must have an exponent of '1'.
 -->
-<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
+<sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
 		<listOfUnitDefinitions>
 			<unitDefinition name="volume">
 				<listOfUnits>
-					<unit kind="liter" exponent="1"/>
+					<unit kind="litre" exponent="1"/>
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>

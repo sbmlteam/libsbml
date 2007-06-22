@@ -1153,8 +1153,8 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     SBMLError::InvalidLengthRedefinition,
     SBMLError::SBMLConsistency,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
@@ -1165,8 +1165,8 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     SBMLError::InvalidAreaRedefinition,
     SBMLError::SBMLConsistency,
-    SBMLError::NotApplicable,
-    SBMLError::NotApplicable,
+    SBMLError::GeneralWarning,
+    SBMLError::GeneralWarning,
     SBMLError::Error,
     SBMLError::Error,
     SBMLError::Error,
