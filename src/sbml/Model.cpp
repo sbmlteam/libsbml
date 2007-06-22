@@ -1662,9 +1662,17 @@ Model::createObject (XMLInputStream& stream)
 {
   const string& name   = stream.peek().getName();
   SBase*        object = 0;
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
 
+  /* dont create objects for wrong levels/versions */
   if (name == "listOfFunctionDefinitions")
   {
+    if (level == 1)
+    {
+      return NULL;
+    }
+
     if (mFunctionDefinitions.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant);
@@ -1683,6 +1691,10 @@ Model::createObject (XMLInputStream& stream)
 
   else if ( name == "listOfCompartmentTypes"   ) 
   {
+    if (level == 1  || (level == 2 && version == 1))
+    {
+      return NULL;
+    }
     if (mCompartmentTypes.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant);
@@ -1692,6 +1704,10 @@ Model::createObject (XMLInputStream& stream)
 
   else if ( name == "listOfSpeciesTypes"       ) 
   {
+    if (level == 1  || (level == 2 && version == 1))
+    {
+      return NULL;
+    }
     if (mSpeciesTypes.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant);
@@ -1728,6 +1744,10 @@ Model::createObject (XMLInputStream& stream)
 
   else if ( name == "listOfInitialAssignments" ) 
   {
+    if (level == 1  || (level == 2 && version == 1))
+    {
+      return NULL;
+    }
     if (mInitialAssignments.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant);
@@ -1746,6 +1766,10 @@ Model::createObject (XMLInputStream& stream)
 
   else if ( name == "listOfConstraints"        ) 
   {
+    if (level == 1  || (level == 2 && version == 1))
+    {
+      return NULL;
+    }
     if (mConstraints.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant);
@@ -1764,6 +1788,10 @@ Model::createObject (XMLInputStream& stream)
 
   else if ( name == "listOfEvents"             ) 
   {
+    if (level == 1)
+    {
+      return NULL;
+    }
     if (mEvents.size() != 0)
     {
       logError(SBMLError::NotSchemaConformant);
@@ -1771,7 +1799,7 @@ Model::createObject (XMLInputStream& stream)
     object = &mEvents;
   }
 
-  else if ( getLevel() == 1 && getVersion() == 1 )
+  else if ( level == 1 && version == 1 )
   {
     if (name == "listOfSpecie") 
     {
