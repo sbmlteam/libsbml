@@ -85,6 +85,9 @@ test_sources =                   \
   utility.cpp                    \
   TestRunner.c
 
+test_headers =                   \
+  utility.h
+
 extra_CPPFLAGS = -I.. -I../../..
 
 ifdef USE_LIBCHECK
@@ -130,7 +133,7 @@ extra_LDFLAGS  := $(sort $(extra_LDFLAGS))
 
 test_data_files = $(wildcard test-data/*.xml) $(wildcard test-data/*.xsd)
 
-distfiles = $(test_sources) $(test_data_files) Makefile.in
+distfiles = $(test_sources) $(test_headers) $(test_data_files) Makefile.in
 
 
 # -----------------------------------------------------------------------------
