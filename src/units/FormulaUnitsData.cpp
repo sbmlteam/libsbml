@@ -545,18 +545,43 @@ FormulaUnitsData::FormulaUnitsData()
 
 FormulaUnitsData::FormulaUnitsData(const FormulaUnitsData& rhs)
 {
-  mContainsParametersWithUndeclaredUnits = rhs.mContainsParametersWithUndeclaredUnits;
+  mContainsParametersWithUndeclaredUnits = 
+                                     rhs.mContainsParametersWithUndeclaredUnits;
   mCanIgnoreUndeclaredUnits = rhs.mCanIgnoreUndeclaredUnits;
-  mUnitDefinition = static_cast <UnitDefinition*> (rhs.mUnitDefinition->clone());
-  mPerTimeUnitDefinition = static_cast <UnitDefinition*> (rhs.mPerTimeUnitDefinition->clone());
-  mEventTimeUnitDefinition = static_cast <UnitDefinition*> (rhs.mEventTimeUnitDefinition->clone());
+  if (rhs.mUnitDefinition) 
+  {
+    mUnitDefinition = static_cast <UnitDefinition*> 
+                                                 (rhs.mUnitDefinition->clone());
+  }
+  else
+  {
+    mUnitDefinition = NULL;
+  }
+  if (rhs.mPerTimeUnitDefinition)
+  {
+    mPerTimeUnitDefinition = static_cast <UnitDefinition*> 
+                                          (rhs.mPerTimeUnitDefinition->clone());
+  }
+  else
+  {
+    mPerTimeUnitDefinition = NULL;
+  }
+  if (rhs.mEventTimeUnitDefinition)
+  {
+    mEventTimeUnitDefinition = static_cast <UnitDefinition*> 
+                                        (rhs.mEventTimeUnitDefinition->clone());
+  }
+  else
+  {
+    mEventTimeUnitDefinition = NULL;
+  }
 }
 
 FormulaUnitsData::~FormulaUnitsData()
 {
-  delete mUnitDefinition;
-  delete mPerTimeUnitDefinition;
-  delete mEventTimeUnitDefinition;
+  if (mUnitDefinition)          delete mUnitDefinition;
+  if (mPerTimeUnitDefinition)   delete mPerTimeUnitDefinition;
+  if (mEventTimeUnitDefinition) delete mEventTimeUnitDefinition;
 }
 
 /**
