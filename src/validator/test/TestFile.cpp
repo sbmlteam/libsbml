@@ -192,12 +192,12 @@ TestFile::getFilesIn ( const string& directory,
       // leave out the following tests dependent on parser
       if (library == 0)
       {
-        // xerces bug in reading multibyte chars
+       // xerces bug in reading multibyte chars
         if (id == 10309) continue;
       }
-      else if (library == 1)
+      else 
       {
-        // expat quits when it hits an xml error whereas xerces
+       // expat/libXML quits when it hits an xml error whereas xerces
         // continues and reports an error on the element
         // where the bad xml occurred- so dont test these with expat
         if (id == 1009 && file.getAdditionalFailId() != 0)
@@ -212,12 +212,7 @@ TestFile::getFilesIn ( const string& directory,
           continue;
         else if (id == 21005)
           continue;
-     }
-
-#if defined USE_EXPAT
-      cout << "expat\n";
-      //if (id == 10802 || id == 10803) continue;
-#endif
+      }
 
       if ((begin == 0 && end == 0) || (id >= begin && id <= end))
       {
