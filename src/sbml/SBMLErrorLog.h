@@ -115,6 +115,8 @@ public:
   void logError
   (
       const unsigned int errorId         = 0
+    , const unsigned int level           = 2
+    , const unsigned int version         = 3
     , const std::string& details         = ""
     , const unsigned int line            = 0
     , const unsigned int column          = 0

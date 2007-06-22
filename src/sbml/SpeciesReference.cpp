@@ -579,7 +579,7 @@ SpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	     "Multiple annotation elements not permitted on the same element");
 
     }
@@ -822,7 +822,7 @@ ModifierSpeciesReference::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	     "Multiple annotation elements not permitted on the same element");
     }
     delete mAnnotation;

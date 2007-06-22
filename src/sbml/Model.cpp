@@ -1617,7 +1617,7 @@ Model::readOtherXML (XMLInputStream& stream)
      */
     if (mAnnotation)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	       "Multiple annotation elements not permitted");
     }
 

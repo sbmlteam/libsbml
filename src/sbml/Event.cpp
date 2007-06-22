@@ -423,7 +423,7 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mEventAssignments.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	       "Multiple 'listOfEventAssignments' elements not permitted.");
     }
     return &mEventAssignments;
@@ -439,7 +439,7 @@ Event::createObject (XMLInputStream& stream)
   {
     if (mDelay)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	       "Only one delay element is permitted in an event definition");
     }
     delete mDelay;

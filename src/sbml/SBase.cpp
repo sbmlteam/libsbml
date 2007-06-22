@@ -915,7 +915,7 @@ SBase::read (XMLInputStream& stream)
 		   || readAnnotation(stream)
 		   || readNotes(stream) ))
       {
-	      logError( SBMLError::UnrecognizedElement,  
+	      logError( SBMLError::UnrecognizedElement, getLevel(), getVersion(),  
 		        "Unrecognized element '" + next.getName() + "'");
               stream.skipPastEnd( stream.next() );
       }
@@ -1039,7 +1039,7 @@ SBase::readAnnotation (XMLInputStream& stream)
 
     if (mAnnotation)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	     "Multiple annotation elements not permitted on the same element");
     }
 
@@ -1090,12 +1090,12 @@ SBase::readNotes (XMLInputStream& stream)
 
     if (mNotes)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	       "Multiple notes elements not permitted on the same element");
     }
     else if (mAnnotation)
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	       "Incorrect ordering of annotation and notes elements");
     }
 
@@ -1145,9 +1145,12 @@ SBase::getErrorLog ()
  */
 void
 SBase::logError (  unsigned int       id
+     , const unsigned int level
+     , const unsigned int version
 		 , const std::string& details )
 {
-  if ( SBase::getErrorLog() ) getErrorLog()->logError(id, details);
+  if ( SBase::getErrorLog() ) 
+    getErrorLog()->logError(id, getLevel(), getVersion(), details);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1221,7 +1224,7 @@ SBase::checkOrderAndLogError (SBase* object, int expected)
       error = SBMLError::IncorrectOrderInEvent;
     }
 
-    logError(error);
+    logError(error, getLevel(), getVersion());
   }
 }
 /** @endcond doxygen-libsbml-internal */
@@ -1268,7 +1271,7 @@ SBase::checkListOfPopulated(SBase* object)
       default:;
       }
 
-      logError(error);
+      logError(error, getLevel(), getVersion());
     }
   }
   else if (object->getTypeCode() == SBML_KINETIC_LAW)
@@ -1283,7 +1286,7 @@ SBase::checkListOfPopulated(SBase* object)
         static_cast <KineticLaw *> (object)->isSetSBOTerm()        == 0  &&
         static_cast <KineticLaw *> (object)->getNumParameters()    == 0)
     {
-      logError(SBMLError::EmptyListInReaction);
+      logError(SBMLError::EmptyListInReaction, getLevel(), getVersion());
     }
   }
 }
@@ -1387,7 +1390,7 @@ SBase::checkMetaIdSyntax()
 
   }
 
-  if (!okay) logError(SBMLError::InvalidMetaidSyntax);
+  if (!okay) logError(SBMLError::InvalidMetaidSyntax, getLevel(), getVersion());
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -1444,7 +1447,7 @@ SBase::checkIdSyntax()
     else
     {
       // This is a schema validation error: no id on an object that needs it.
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
 	       "Missing 'id' on an element that requires an identifier");
       return;
     }

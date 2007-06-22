@@ -378,8 +378,8 @@ UnitDefinition::createObject (XMLInputStream& stream)
   {
     if (mUnits.size() != 0)
     {
-      logError(SBMLError::NotSchemaConformant,
-	       "Multiple listOfUnits elemenets not permitted");
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+	       "Multiple listOfUnits elements not permitted");
     }
     return &mUnits;
   }

@@ -961,6 +961,8 @@ protected:
    * This is essentially a short form of getErrorLog()->logError(...)
    */
   void logError (  unsigned int       id
+     , const unsigned int level         = 2
+     , const unsigned int version       = 3
 		 , const std::string& details = "" );
 
 

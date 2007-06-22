@@ -1230,7 +1230,8 @@ static const sbmlErrorTableEntry errorTable[] =
     SBMLError::SchemaError,
     SBMLError::Error,
     SBMLError::Error,
-    ""
+    "The 'listOfUnits' container in a <unitDefinition> cannot be empty. "
+    "(References: L2V2 Section 4.4.)" 
   },
 
   //20410

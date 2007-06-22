@@ -210,7 +210,7 @@ Trigger::readOtherXML (XMLInputStream& stream)
     // if this is level 1 there shouldnt be any math!!!
     if (getLevel() == 1) 
     {
-      logError(SBMLError::NotSchemaConformant,
+      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
               "SBML Level 1 does not support MathML");
       delete mMath;
       return false;

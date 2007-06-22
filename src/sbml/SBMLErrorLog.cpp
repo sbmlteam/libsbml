@@ -57,13 +57,16 @@ SBMLErrorLog::~SBMLErrorLog ()
  */
 void
 SBMLErrorLog::logError ( const unsigned int  errorId 
+                       , const unsigned int level
+                       , const unsigned int version
                        , const std::string&  details
                        , const unsigned int  line
                        , const unsigned int  column
                        , SBMLError::SBMLSeverity severity
                        , SBMLError::SBMLCategory category )
 {
-  add( SBMLError( errorId, details, line, column, severity, category ));
+  add( SBMLError( errorId, level, version, details, line, column, 
+                                                         severity, category ));
 }
 
 

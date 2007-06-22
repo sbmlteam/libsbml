@@ -197,13 +197,13 @@ static const sbmlErrorTableEntry_old errorTable_old[] =
 
 
 SBMLError::SBMLError (  const unsigned int            errorId
+                      , const unsigned int            level
+                      , const unsigned int            version 
                       , const std::string&            details
                       , const unsigned int            line
   		                , const unsigned int            column
 		                  , const SBMLError::SBMLSeverity severity
-                      , const SBMLError::SBMLCategory category 
-                      , const unsigned int            level
-                      , const unsigned int            version ):
+                      , const SBMLError::SBMLCategory category ):
     XMLError(errorId, details, line, column, severity, category)
 {
   // Check if the given id is one we have in our table of error codes.  If
