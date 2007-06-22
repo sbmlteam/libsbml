@@ -1,20 +1,20 @@
 dnl
-dnl Filename    : libcheck.m4
-dnl Description : Autoconf macro to check for existence of Check library
-dnl Author(s)   : SBML Team <sbml-team@caltech.edu>
-dnl Organization: California Institute of Technology
+dnl @file    libcheck.m4
+dnl @brief   Autoconf macro to check for existence of Check library
+dnl @author  Mike hucka
+dnl
 dnl $Id$
 dnl $Source$
-dnl
+dnl 
 dnl Portions of this file originally came from the check 0.9.5
 dnl distribution.  I (Mike Hucka) made some modifications because we
 dnl previously had written our own libcheck.m4 and I wanted to
 dnl preserve some of the features of that one, such as the messages
 dnl it printed and the extra steps it too on MacOS X.
 
-dnl AM_PATH_CHECK([MINIMUM-VERSION, [ACTION-IF-FOUND [, ACTION-IF-NOT-FOUND]]])
-dnl Test for check, and define LIBCHECK_CPPFLAGS and LIBCHECK_LDFLAGS
-dnl Minimum version can be provided.
+dnl Invoke as CONFIG_LIB_CHECK or CONFIG_LIB_CHECK(MIN-VERSION).
+dnl Checks if --with-check[=PREFIX] is specified.
+dnl Default minimum version is 0.9.2 because that's the minimum LibSBML needs.
 
 AC_DEFUN([CONFIG_LIB_LIBCHECK],
 [
@@ -25,9 +25,6 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
     [with_libcheck=no])
 
   if test $with_libcheck != no; then
-
-    min_check_version=ifelse([$1], ,0.9.2,$1)
-    AC_MSG_CHECKING(for check - version >= $min_check_version)
 
     AC_LANG_PUSH(C)
 
@@ -49,10 +46,12 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
 
       case $host in
       *darwin*) 
-        libcheck_root="/sw"
-        CONFIG_ADD_LDPATH($libcheck_root/lib)
-        LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
-        LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+        if test -e "/sw"; then
+          libcheck_root="/sw"
+          CONFIG_ADD_LDPATH($libcheck_root/lib)
+          LIBCHECK_CPPFLAGS="-I$libcheck_root/include"
+          LIBCHECK_LDFLAGS="-L$libcheck_root/lib"
+        fi
         ;;
       esac    
 
@@ -84,6 +83,9 @@ AC_DEFUN([CONFIG_LIB_LIBCHECK],
     if test $libcheck_found = no; then
       AC_MSG_ERROR([Could not find the libcheck library.])
     fi
+
+    min_check_version=ifelse([$1], ,0.9.2,$1)
+    AC_MSG_CHECKING(for Check version >= $min_check_version)
 
     rm -f conf.check-test
     AC_RUN_IFELSE([AC_LANG_SOURCE([
@@ -141,7 +143,7 @@ int main ()
 
   return 1;
 }
-])], , no_check=yes)
+])], AC_MSG_RESULT(yes), no_check=yes)
 
     CFLAGS="$tmp_CFLAGS"
     LDFLAGS="$tmp_LDFLAGS"
