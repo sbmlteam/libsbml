@@ -637,12 +637,14 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20501, Compartment, c)
 {
+  pre( c.getLevel() == 2);
+  pre( c.getSpatialDimensions() == 0 );
+  
   msg =
     "The size of a <compartment> must not be set if the compartment's "
     "'spatialDimensions' attribute has value '0'. (References: L2V1 Section "
     "4.5.3; L2V2 Section 4.7.5.)";
 
-  pre( c.getSpatialDimensions() == 0 );
   inv( c.isSetSize() == false );
 }
 END_CONSTRAINT
@@ -650,13 +652,15 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20502, Compartment, c)
 {
+  pre( c.getLevel() == 2);
+  pre( c.getSpatialDimensions() == 0 );
+
   msg =
     "If a <compartment> definition has a 'spatialDimensions' value of '0', "
     "then its 'units' attribute must not be set. If the compartment has no "
     "dimensions, then no units can be associated with a non-existent size. "
     "(References: L2V1 Section 4.5.4; Section 4.7.5.)";
 
-  pre( c.getSpatialDimensions() == 0 );
   
   inv( c.isSetUnits() == false       );
 }
@@ -665,13 +669,15 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20503, Compartment, c)
 {
+  pre( c.getLevel() == 2);
+  pre( c.getSpatialDimensions() == 0 );
+
   msg =
     "If a <compartment> definition has a 'spatialDimensions' value of '0', "
     "then its 'constant' attribute value must either default to or be set to "
     "'true'. If the compartment has no dimensions, then its size can never "
     "change. (References: L2V1 Section 4.5.5; L2V2 Section 4.7.6.)";
 
-  pre( c.getSpatialDimensions() == 0 );
   inv( c.getConstant() == true       );
 }
 END_CONSTRAINT
