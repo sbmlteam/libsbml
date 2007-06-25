@@ -722,22 +722,34 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20507, Compartment, c)
 {
-  msg =
-    "The value of the 'units' attribute on a <compartment> having "
-    "'spatialDimensions' of '1' must be either 'length', 'metre', "
-    "'dimensionless', or the identifier of a <unitDefinition> based on "
-    "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'. "
-    "(References: L2V1 Section 4.5.4; L2V2 Section 4.7.5.)";
-
+  pre (c.getLevel() == 2);
   pre( c.getSpatialDimensions() == 1 );
   pre( c.isSetUnits()                );
+
+  if (c.getVersion() == 1)
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '1' must be either 'length' or 'metre', "
+      "or the identifier of a <unitDefinition> based on "
+      "either 'metre' (with 'exponent' equal to '1'). "
+      "(References: L2V2 Section 4.7.5.)";
+  }
+  else
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '1' must be either 'length', 'metre', "
+      "'dimensionless', or the identifier of a <unitDefinition> based on "
+      "either 'metre' (with 'exponent' equal to '1') or 'dimensionless'. "
+      "(References: L2V2 Section 4.7.5.)";
+  }
 
   const string&         units = c.getUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (  c.getLevel() == 2 
-    &&  (c.getVersion() == 2 || c.getVersion() == 3))
+  if (c.getVersion() == 2 || c.getVersion() == 3)
   {
     inv_or( units == "length" );
     inv_or( units == "metre"  );
@@ -757,22 +769,34 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20508, Compartment, c)
 {
-  msg =
-    "The value of the 'units' attribute on a <compartment> having "
-    "'spatialDimensions' of '2' must be either 'area', 'dimensionless', or "
-    "the identifier of a <unitDefinition> based on either 'metre' (with "
-    "'exponent' equal to '2') or 'dimensionless'. (References: L2V1 Section "
-    "4.5.4; L2V2 Section 4.7.5.)";
-
+  pre (c.getLevel() == 2);
   pre( c.getSpatialDimensions() == 2 );
   pre( c.isSetUnits()                );
+
+  if (c.getVersion() == 1)
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '2' must be either 'area' or "
+      "the identifier of a <unitDefinition> based on 'metre' (with "
+      "'exponent' equal to '2'). (References: L2V1 Section "
+      "4.5.4.)";
+  }
+  else
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '2' must be either 'area', 'dimensionless', or "
+      "the identifier of a <unitDefinition> based on either 'metre' (with "
+      "'exponent' equal to '2') or 'dimensionless'. (References: L2V1 Section "
+      "4.5.4; L2V2 Section 4.7.5.)";
+  }
 
   const string&         units = c.getUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (  c.getLevel() == 2 
-    &&  (c.getVersion() == 2 || c.getVersion() == 3))
+  if ( c.getVersion() == 2 || c.getVersion() == 3)
   {
     inv_or( units == "area" );
     inv_or( units == "dimensionless"  );
@@ -790,15 +814,28 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20509, Compartment, c)
 {
-  msg =
-    "The value of the 'units' attribute on a <compartment> having "
-    "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
-    "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
-    "'exponent' equal to '3'), or 'dimensionless'. (References: L2V1 Section "
-    "4.5.4; L2V2 Section 4.7.5.)";
-
   pre( c.getSpatialDimensions() == 3 );
   pre( c.isSetUnits()                );
+
+  if (  c.getLevel() == 2 
+    &&  (c.getVersion() == 2 || c.getVersion() == 3))
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
+      "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
+      "'exponent' equal to '3'), or 'dimensionless'. (References: L2V1 Section "
+      "4.5.4; L2V2 Section 4.7.5.)";
+  }
+  else
+  {
+    msg =
+      "The value of the 'units' attribute on a <compartment> having "
+      "'spatialDimensions' of '3' must be either 'volume', 'litre', or the "
+      "identifier of a <unitDefinition> based on either 'litre', 'metre' (with "
+      "'exponent' equal to '3'). (References: L2V1 Section "
+      "4.5.4.)";
+  }
 
   const string&         units = c.getUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
@@ -826,14 +863,15 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20510, Compartment, c)
 {
+  pre( c.getLevel() == 2 && (c.getVersion() == 2 || c.getVersion() == 3) );
+  pre( c.isSetCompartmentType());
+
   msg =
     "CompartmentType '" + c.getCompartmentType() + "' is undefined. "
     "If the 'compartmentType' attribute is given a value in a <compartment> "
     "definition, it must contain the identifier of an existing "
     "<compartmentType>. (References: L2V2 Section 4.7.2.)";
 
-  pre( c.getLevel() == 2 && (c.getVersion() == 2 || c.getVersion() == 3) );
-  pre( c.isSetCompartmentType());
 
   inv( m.getCompartmentType( c.getCompartmentType() ) != NULL );
 }
