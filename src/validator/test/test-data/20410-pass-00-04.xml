@@ -8,7 +8,7 @@ of unit.
 		<listOfUnitDefinitions>
 			<unitDefinition id="gg">
 				<listOfUnits>
-					<unit kind="liter"/>
+					<unit kind="metre"/>
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>
