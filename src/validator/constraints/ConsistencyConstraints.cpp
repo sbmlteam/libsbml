@@ -686,12 +686,13 @@ END_CONSTRAINT
 // NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20504, Compartment, c)
 {
+  pre( c.isSetOutside() );
+
   msg =
     "The 'outside' attribute value of a <compartment> must be the identifier of "
     "another <compartment> defined in the model. (References: L2V1 Section "
     "4.5.6; Section 4.7.7.)";
 
-  pre( c.isSetOutside() );
   inv( m.getCompartment( c.getOutside() ) != NULL );
 }
 END_CONSTRAINT
@@ -703,6 +704,9 @@ EXTERN_CONSTRAINT(20505, CompartmentOutsideCycles)
 
 START_CONSTRAINT (20506, Compartment, c)
 {
+  pre (c.getLevel() == 2);
+  pre( c.isSetOutside() && c.getSpatialDimensions() == 0 );
+
   msg =
     "The 'outside' attribute value of a <compartment> cannot be a compartment "
     "whose 'spatialDimensions' value is '0', unless both compartments have "
@@ -710,7 +714,6 @@ START_CONSTRAINT (20506, Compartment, c)
     "cannot enclose compartments that have anything other than zero "
     "dimensions themselves. (References: L2V2 Section 4.7.7.)";
 
-  pre( c.isSetOutside() && c.getSpatialDimensions() == 0 );
 
   inv( m.getCompartment( c.getOutside() )->getSpatialDimensions() == 0 );
 }
