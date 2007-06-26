@@ -6,7 +6,7 @@ of unit.
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
 		<listOfUnitDefinitions>
-			<unitDefinition id="mmls"/>
+			<unitDefinition name="mmls"/>
 		</listOfUnitDefinitions>
 	</model>
 </sbml>

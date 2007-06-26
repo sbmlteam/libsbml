@@ -11,13 +11,13 @@ listOfEvents. (References: L2V2 Section 4.2.)
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="1">
 	<model>
 		<listOfSpecies>
-			<species name="s" compartment="c"/>
+			<species name="s" compartment="c" initialAmount="2"/>
 		</listOfSpecies>
 		<listOfCompartments>
 			<compartment name="c"/>
 		</listOfCompartments>
 		<listOfParameters>
-			<parameter name="p"/>
+			<parameter name="p" value="3"/>
 		</listOfParameters>
 	</model>
 </sbml>

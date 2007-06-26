@@ -6,7 +6,7 @@ of kind 'mole' or 'item' and the Unit's exponent must be '1'.
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
 		<listOfUnitDefinitions>
-			<unitDefinition id="substance">
+			<unitDefinition name="substance">
 				<listOfUnits>
 					<unit kind="mole" exponent="1"/>
 				</listOfUnits>

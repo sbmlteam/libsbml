@@ -9,7 +9,7 @@ Pass: (1209) The offset field in Unit is deprecated as of SBML Level 2 Version 2
 		<listOfUnitDefinitions>
 			<unitDefinition name="time">
 				<listOfUnits>
-					<unit kind="second" exponent="1" offset="32.0"/>
+					<unit kind="second" exponent="1"/>
 				</listOfUnits>
 			</unitDefinition>
 		</listOfUnitDefinitions>

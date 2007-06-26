@@ -5,7 +5,7 @@
 			<compartment name="c"/>
 		</listOfCompartments>
 		<listOfSpecies>
-			<species name="s" compartment="c"/>
+			<species name="s" compartment="c" initialAmount="2"/>
 		</listOfSpecies>
 		<listOfParameters>
 			<parameter name="p"/>

@@ -14,7 +14,7 @@ SBML Level 1 and Level 2 Version 1, has been removed as of SBML Level
 			</unitDefinition>
 		</listOfUnitDefinitions>
 		<listOfParameters>
-			<parameter name="p" units="celsius"/>
+			<parameter name="p" units="celsius" value = "1"/>
 		</listOfParameters>
 	</model>
 </sbml>
