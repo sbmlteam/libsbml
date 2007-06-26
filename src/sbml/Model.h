@@ -59,14 +59,6 @@
  * An example is that defining a species requires defining a compartment,
  * and defining a reaction requires defining a species.  The dependencies
  * are explained in more detail in the SBML specifications.
- * 
- * FunctionDefinition has two optional attributes.  One attribute is "id",
- * to give the function a unique identifier by which other parts of an SBML
- * model definition can refer to it.  A FunctionDefinition instance can
- * also have an optional "name" attribute of type @c string.  Identifiers
- * and names must be used according to the guidelines described in the
- * %SBML specification (e.g., Section 3.3 in the Level 2 Version 3
- * specification).
  */
 
 #ifndef Model_h
