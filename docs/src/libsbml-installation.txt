@@ -13,7 +13,6 @@
 - @ref other-options
   - @ref other-lang
   - @ref unit-testing
-  - @ref mem-tracing
 - @ref windows
 </tr></td>
 </table>
@@ -304,40 +303,6 @@ the library to function properly.  All tests should pass with no failures
 or errors.  If for some reason this is not the case on your system, please
 submit a bug report using the mechanisms described in \ref
 libsbml-communications.
-
-
-@subsubsection mem-tracing Memory Tracing
-
-In addition to the unit tests, a custom memory tracing facility is
-available.  It is disabled by default and must be enabled explicitly at
-build time, either as an argument to configure:
-
-@verbatim
-  ./configure --enable-memory-tracing
-@endverbatim
-
-or, in your own projects, by defining the C preprocessor symbol
-@c TRACE_MEMORY:
-
-@verbatim
-  #define TRACE_MEMORY
-@endverbatim
-
-With memory tracing turned on, every piece of memory in both the
-library and all test suites is tracked.  At the end of the test run,
-statistics are printed on total memory allocations, deallocations and
-leaks.  The memory statistics for the test suites should report zero
-leaks.  If for some reason this is not the case, please submit a
-report using the facilities \ref libsbml-communications.
-
-For performance reasons, memory tracing should be disabled in production
-environments.  It is disabled by default in libSBML, but if enabled it,
-you can reconfigure and disable it as follows:
-
-@verbatim
-  ./configure --disable-memory-tracing
-@endverbatim
-
 
 
 @subsection windows Configuring and Building for Windows
