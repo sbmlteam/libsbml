@@ -165,23 +165,13 @@ Feature Highlights:
       for efficiency (this is Xerces-C++ native format); however,
       strings are transcoded to the local code page for SBML structures.
 
-  - Well tested: over 760 unit tests, over 3400 individual assertions.
+  - Well tested: over 1280 unit tests, over 5500 individual assertions.
 
       The entire library was written using the test-first approach
       popularized by Kent Beck and eXtreme Programming, where it's one
-      of the 12 principles.
-
-      Five test cases are responsible for reading entire SBML files
-      (three are examples from the Level 1 document) into memory and
-      verifying every field of the resulting structures.
-
-  - Memory tests: over 7500 allocations and frees, 0 leaks.
-
-      For use by developers, a custom memory trace facility tracks all
-      memory allocated and freed in both the library and all test
-      suites.  This facility must be enabled at build time with
-      ./configure --enable-memory-tracing.  For performance reasons
-      memory tracing should be turned off in production environments.
+      of the 12 principles.  Extensive unit tests are provided and
+      can be invoked by linking with the Check library (an option
+      provided in the 'configure' program).
 
 
 ---------------------------------------------------------------
@@ -362,34 +352,6 @@ required for the library to function properly.  All tests should pass
 with no failures or errors.  If for some reason this is not the case
 on your system, please submit a bug report using the facilities at
 http://sbml.org/software/libsbml/.
-
-
-3.3.3 Memory Tracing
-....................
-
-In addition to the unit tests, a custom memory tracing facility is
-available.  It is disabled by default and must be enabled explicitly
-at build time, either as an argument to configure:
-
-  ./configure --enable-memory-tracing
-
-or, in your own projects, by defining the C preprocessor symbol
-TRACE_MEMORY:
-
-  #define TRACE_MEMORY
-
-With memory tracing turned on, every piece of memory in both the
-library and all test suites is tracked.  At the end of the test run,
-statistics are printed on total memory allocations, deallocations and
-leaks.  The memory statistics for the test suites should report zero
-leaks.  If for some reason this is not the case, please submit a
-report using the facilities at http://sbml.org/software/libsbml/.
-
-For performance reasons, memory tracing should be disabled in production
-environments.  It is disabled by default in libSBML, but if enabled it,
-you can reconfigure and disable it as follows:
-
-  ./configure --disable-memory-tracing
 
 
 --------------------------------------
