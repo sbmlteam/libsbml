@@ -879,16 +879,16 @@ END_CONSTRAINT
 
 // Species validation
 
-// NOTE: This constraint also applies to L1 Models.
 START_CONSTRAINT (20601, Species, s)
 {
+  pre( s.isSetCompartment() );
+
   msg =
     "Compartment '" + s.getCompartment() + "' is undefined. "
     "The value of 'compartment' in a <species> definition must be the "
     "identifier of an existing <compartment> defined in the model. "
     "(References: L2V1 Section 4.6.2; Section 4.8.3.)";
 
-  pre( s.isSetCompartment() );
   inv( m.getCompartment( s.getCompartment() ) != NULL );
 }
 END_CONSTRAINT
@@ -896,15 +896,14 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20602, Species, s)
 {
+  pre ( s.getLevel() == 2 && s.getVersion() != 3);
+  pre( s.getHasOnlySubstanceUnits() == true );
+
   msg =
     "If a <species> definition sets 'hasOnlySubstanceUnits' to 'true', then "
     "it must not have a value for 'spatialSizeUnits'. (References: L2V1 "
     "Section 4.6.4; L2V2 Section 4.8.5.)";
 
-  // does not apply to L2V3 models
-  pre (s.getVersion() != 3);
-
-  pre( s.getHasOnlySubstanceUnits() == true );
   inv( !s.isSetSpatialSizeUnits()           );
 }
 END_CONSTRAINT
@@ -912,18 +911,16 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20603, Species, s)
 {
+  pre ( s.getLevel() == 2 && s.getVersion() != 3);
+
+  const Compartment* c = m.getCompartment( s.getCompartment() );
+  pre( c != NULL && c->getSpatialDimensions() == 0 );
+
   msg =
     "A <species> definition must not set 'spatialSizeUnits' if the "
     "<compartment> in which it is located has a 'spatialDimensions' value of "
     "'0'. (References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)";
 
-
-  const Compartment* c = m.getCompartment( s.getCompartment() );
-
-  // does not apply to L2V3 models
-  pre (s.getVersion() != 3);
-
-  pre( c != NULL && c->getSpatialDimensions() == 0 );
   inv( !s.isSetSpatialSizeUnits()                  );
 }
 END_CONSTRAINT
@@ -931,6 +928,12 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20604, Species, s)
 {
+  pre ( s.getLevel() == 2);
+
+  const Compartment* c = m.getCompartment( s.getCompartment() );
+
+  pre( c != NULL && c->getSpatialDimensions() == 0 );
+
   msg =
     "If a <species> located in a <compartment> whose 'spatialDimensions' is "
     "set to '0', then that <species> definition cannot set "
@@ -938,9 +941,6 @@ START_CONSTRAINT (20604, Species, s)
     "4.8.4.)";
 
 
-  const Compartment* c = m.getCompartment( s.getCompartment() );
-
-  pre( c != NULL && c->getSpatialDimensions() == 0 );
   inv( !s.isSetInitialConcentration()              );
 }
 END_CONSTRAINT
@@ -948,6 +948,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20605, Species, s)
 {
+  pre (s.getLevel() == 2 && s.getVersion() != 3);
+
+  const Compartment* c = m.getCompartment( s.getCompartment() );
+
+  pre( c != NULL && c->getSpatialDimensions() == 1 );
+  pre( s.isSetSpatialSizeUnits() );
+
   msg =
     "If a <species> is located in a <compartment> whose 'spatialDimensions' "
     "has value '1', then that <species> definition can only set "
@@ -957,19 +964,13 @@ START_CONSTRAINT (20605, Species, s)
     "4.6.4; L2V2 Section 4.8.5.)";
 
 
-  // does not apply to L2V3 models
-  pre (s.getVersion() != 3);
 
-  const Compartment* c = m.getCompartment( s.getCompartment() );
-
-  pre( c != NULL && c->getSpatialDimensions() == 1 );
-  pre( s.isSetSpatialSizeUnits() );
 
   const string&         units = s.getSpatialSizeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
+  if (s.getVersion() == 2)
   {
     inv_or( units == "length" );
     inv_or( units == "metre"  );
@@ -989,6 +990,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20606, Species, s)
 {
+  pre (s.getLevel() == 2 && s.getVersion() != 3);
+  
+  const Compartment* c = m.getCompartment( s.getCompartment() );
+
+  pre( c != NULL && c->getSpatialDimensions() == 2 );
+  pre( s.isSetSpatialSizeUnits() );
+
   msg =
     "If a <species> is located in a <compartment> whose 'spatialDimensions' "
     "has value '2', then that <species> definition can only set "
@@ -997,19 +1005,12 @@ START_CONSTRAINT (20606, Species, s)
     "'exponent' value of '2') or 'dimensionless'. (References: L2V1 Section "
     "4.6.4; L2V2 Section 4.8.5.)";
 
-  // does not apply to L2V3 models
-  pre (s.getVersion() != 3);
-
-  const Compartment* c = m.getCompartment( s.getCompartment() );
-
-  pre( c != NULL && c->getSpatialDimensions() == 2 );
-  pre( s.isSetSpatialSizeUnits() );
 
   const string&         units = s.getSpatialSizeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
+  if (s.getVersion() == 2)
   {
     inv_or( units == "area" );
     inv_or( units == "dimensionless"  );
@@ -1027,6 +1028,13 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20607, Species, s)
 {
+  pre (s.getLevel() == 2 && s.getVersion() != 3);
+
+  const Compartment* c = m.getCompartment( s.getCompartment() );
+
+  pre( c != NULL && c->getSpatialDimensions() == 3 );
+  pre( s.isSetSpatialSizeUnits() );
+
   msg =
     "If a <species> is located in a <compartment> whose 'spatialDimensions' "
     "has value '3', then that <species> definition can only set "
@@ -1035,19 +1043,11 @@ START_CONSTRAINT (20607, Species, s)
     "'metre' (with an 'exponent' value of '3') or 'dimensionless'. "
     "(References: L2V1 Section 4.6.4; L2V2 Section 4.8.5.)";
 
-  // does not apply to L2V3 models
-  pre (s.getVersion() != 3);
-
-  const Compartment* c = m.getCompartment( s.getCompartment() );
-
-  pre( c != NULL && c->getSpatialDimensions() == 3 );
-  pre( s.isSetSpatialSizeUnits() );
-
   const string&         units = s.getSpatialSizeUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
 
   /* dimensionless is allowable in L2V2 */
-  if (s.getLevel() == 2 &&  (s.getVersion() == 2 || s.getVersion() == 3))
+  if (s.getVersion() == 2)
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
@@ -1059,7 +1059,6 @@ START_CONSTRAINT (20607, Species, s)
   {
     inv_or( units == "volume" );
     inv_or( units == "litre"  );
-    inv_or( units == "liter" && s.getLevel() == 1  );
     inv_or( defn  != NULL && defn->isVariantOfVolume() );
   }
 }
@@ -1068,17 +1067,40 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20608, Species, s)
 {
-  msg =
-    "The value of a <species>'s 'substanceUnits' attribute can only be one of "
-    "the following: 'substance', 'mole', 'item', 'gram', 'kilogram', "
-    "'dimensionless', or the identifier of a <unitDefinition> derived from "
-    "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1'), "
-    "'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' of "
-    "'1'), or 'dimensionless'. (References: L2V1 Section 4.6.4; L2V2 Section "
-    "4.8.5.)";
-
-
   pre( s.isSetSubstanceUnits() );
+
+  if (s.getLevel() == 1)
+  {
+    msg =
+      "The value of a <species>'s 'units' attribute can only be one "
+      "of the following: 'substance', "
+      "or the identifier of a <unitDefinition> derived from "
+      "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
+      "of '1'). (References: L2V1 Section 4.6.4.)";
+  }
+  else
+  {
+    if (s.getVersion() == 1)
+    {
+      msg =
+        "The value of a <species>'s 'substanceUnits' attribute can only be one "
+        "of the following: 'substance', 'mole' or 'item' "
+        "or the identifier of a <unitDefinition> derived from "
+        "'mole' (with an 'exponent' of '1') or 'item' (with an 'exponent' "
+        "of '1'). (References: L2V1 Section 4.6.4.)";
+    }
+    else
+    {
+      msg =
+        "The value of a <species>'s 'substanceUnits' attribute can only be one "
+        "of the following: 'substance', 'mole', 'item', 'gram', 'kilogram', "
+        "'dimensionless', or the identifier of a <unitDefinition> derived from "
+        "'mole' (with an 'exponent' of '1'), 'item' (with an 'exponent' of '1')"
+        ", 'gram' (with an 'exponent' of '1'), 'kilogram' (with an 'exponent' "
+        "of '1'), or 'dimensionless'. (References: L2V1 Section 4.6.4; "
+        "L2V2 Section 4.8.5.)";
+    }
+  }
 
   const string&         units = s.getSubstanceUnits();
   const UnitDefinition* defn  = m.getUnitDefinition(units);
@@ -1109,12 +1131,14 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20609, Species, s)
 {
+  pre ( s.getLevel() == 2);
+  pre(  s.isSetInitialAmount()        );
+  
   msg =
     "A <species> cannot set values for both 'initialConcentration' and "
     "'initialAmount' because they are mutually exclusive. (References: L2V1 "
     "Section 4.6.3; L2V2 Section 4.8.4.)";
 
-  pre(  s.isSetInitialAmount()        );
   inv( !s.isSetInitialConcentration() );
 }
 END_CONSTRAINT
