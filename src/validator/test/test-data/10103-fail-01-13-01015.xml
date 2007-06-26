@@ -6,7 +6,7 @@ Compartment (L2v1 Section 4.5).
 <sbml xmlns="http://www.sbml.org/sbml/level1" level="1" version="2">
 	<model>
 		<listOfSpecies>
-			<species name="s"/>
+			<species name="s" initialAmount="2"/>
 		</listOfSpecies>
 	</model>
 </sbml>
