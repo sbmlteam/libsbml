@@ -77,16 +77,18 @@ dnl ---------------------------------------------------------------------------
 dnl Command-line options
 dnl ---------------------------------------------------------------------------
 
-AC_ARG_ENABLE([memory-tracing],
-  AC_HELP_STRING([--enable-memory-tracing],
-                 [Enable memory tracing (default: disabled)]),
-    [enable_tracing=$withval],
-    [enable_tracing=no])
+dnl [2007-06-25] This is not currently functioning and may never be again.
 
-if test "$enable_tracing" != no; then
-  AC_DEFINE([TRACE_MEMORY], 1,
-            [Define to 1 to enable primitive memory tracing.])
-fi
+dnl AC_ARG_ENABLE([memory-tracing],
+dnl   AC_HELP_STRING([--enable-memory-tracing],
+dnl                  [Enable memory tracing (default: disabled)]),
+dnl     [enable_tracing=$withval],
+dnl     [enable_tracing=no])
+
+dnl if test "$enable_tracing" != no; then
+dnl   AC_DEFINE([TRACE_MEMORY], 1,
+dnl             [Define to 1 to enable primitive memory tracing.])
+dnl fi
 
 
 AC_ARG_ENABLE([layout],
