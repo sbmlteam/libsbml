@@ -664,6 +664,8 @@ Rule::readAttributes (const XMLAttributes& attributes)
 void
 Rule::writeAttributes (XMLOutputStream& stream) const
 {
+  SBase::writeAttributes(stream);
+
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
