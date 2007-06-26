@@ -607,13 +607,62 @@ Species::readAttributes (const XMLAttributes& attributes)
 
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("compartment");
+  expectedAttributes.push_back("initialAmount");
+  expectedAttributes.push_back("boundaryCondition");
+  expectedAttributes.push_back("charge");
+  if (level == 1)
+  {
+    expectedAttributes.push_back("units");
+  }
+  else
+  {
+    expectedAttributes.push_back("metaid");
+    expectedAttributes.push_back("id");
+    expectedAttributes.push_back("initialConcentration");
+    expectedAttributes.push_back("substanceUnits");
+    expectedAttributes.push_back("hasOnlySubstanceUnits");
+    expectedAttributes.push_back("constant");
+
+    if (version != 1)
+    {
+      expectedAttributes.push_back("speciesType");
+    }
+
+    if (version != 3)
+    {
+      expectedAttributes.push_back("spatialSizeUnits");
+    }
+
+    if (version == 3)
+    {
+      expectedAttributes.push_back("sboTerm");
+    }
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of Species");
+    }
+  }
+
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   const string id = (level == 1) ? "name" : "id";
-  attributes.readInto(id, mId);
+  attributes.readInto(id, mId, getErrorLog(), true);
   SBase::checkIdSyntax();
 
   //
@@ -633,13 +682,21 @@ Species::readAttributes (const XMLAttributes& attributes)
   // compartment: SName  { use="required" }  (L1v1, L2v1)
   // compartment: SId    { use="required" }  (L2v1, L2v2)
   //
-  attributes.readInto("compartment", mCompartment);
+  attributes.readInto("compartment", mCompartment, getErrorLog(), true);
 
   //
   // initialAmount: double  { use="required" }  (L1v1, L1v2)
   // initialAmount: double  { use="optional" }  (L2v1, L2v2)
   //
-  mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
+  if (level == 1)
+  {
+    mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount,
+                                                  getErrorLog(), true);
+  }
+  else
+  {
+    mIsSetInitialAmount = attributes.readInto("initialAmount", mInitialAmount);
+  }
 
   //
   // initialConcentration: double  { use="optional" }  (L2v1, L2v2)

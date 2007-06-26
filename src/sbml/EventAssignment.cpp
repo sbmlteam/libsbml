@@ -303,10 +303,36 @@ EventAssignment::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  if (level == 2)
+  {
+    expectedAttributes.push_back("metaid");
+    expectedAttributes.push_back("variable");
+
+    if (version != 1)
+    {
+      expectedAttributes.push_back("sboTerm");
+    }
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of EventAssignment");
+    }
+  }
+
   //
   // variable: SId  { use="required" }  (L2v1, L2v2)
   //
-  attributes.readInto("variable", mId);
+  attributes.readInto("variable", mId, getErrorLog(), true);
   SBase::checkIdSyntax();
 
 

@@ -274,6 +274,35 @@ void
 StoichiometryMath::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
+  const unsigned int level = getLevel();
+  const unsigned int version = getVersion();
+
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("metaid");
+  if (level == 2 && version == 3)
+  {
+    expectedAttributes.push_back("sboTerm");
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of StoichiometryMath");
+    }
+  }
+
+  //
+  // sboTerm: SBOTerm { use="optional" }  (L2v2)
+  //
+  if (level == 2 && version == 3) 
+    mSBOTerm = SBO::readTerm(attributes, this->getErrorLog());
 }
 /** @endcond doxygen-libsbml-internal */
 

@@ -604,6 +604,25 @@ void
 SBMLDocument::readAttributes (const XMLAttributes& attributes)
 {
   SBase::readAttributes(attributes);
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("level");
+  expectedAttributes.push_back("version");
+  expectedAttributes.push_back("metaid");
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, getDefaultLevel(),
+        getDefaultVersion(), "Attribute " + name + " is not part of SBMLDocument");
+    }
+  }
+
 
   //
   // level: positiveInteger  { use="required" fixed="1" }  (L1v1)

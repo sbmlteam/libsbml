@@ -442,26 +442,69 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("units");
+  expectedAttributes.push_back("outside");
+
+  if (level == 1)
+  {
+    expectedAttributes.push_back("volume");
+  }
+  else
+  {
+    expectedAttributes.push_back("metaid");
+    expectedAttributes.push_back("id");
+    expectedAttributes.push_back("size");
+    expectedAttributes.push_back("spatialDimensions");
+    expectedAttributes.push_back("constant");
+
+    if (version != 1)
+    {
+      expectedAttributes.push_back("compartmentType");
+    }
+
+    if (version == 3)
+    {
+      expectedAttributes.push_back("sboTerm");
+    }
+  }
+
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of Compartment");
+    }
+  }
 
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   const string id = (level == 1) ? "name" : "id";
-  attributes.readInto(id, mId);
+  attributes.readInto(id, mId, getErrorLog(), true);
   SBase::checkIdSyntax();
 
   //
   // name: string  { use="optional" }  (L2v1, L2v2)
   //
-  if (level == 2) attributes.readInto("name", mName);
+  if (level == 2) attributes.readInto("name", mName, getErrorLog(), false);
 
   //
   // compartmentType: SId  { use="optional" }  (L2v2)
   //
   if (level == 2 && (version == 2 || version == 3))
   {
-    attributes.readInto("compartmentType", mCompartmentType);
+    attributes.readInto("compartmentType", mCompartmentType, 
+                                                      getErrorLog(), false);
   }
 
   //
@@ -470,7 +513,8 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   //
   if (level == 2)
   {
-    attributes.readInto("spatialDimensions", mSpatialDimensions);
+    attributes.readInto("spatialDimensions", mSpatialDimensions, 
+                                                      getErrorLog(), false);
   }
 
   //
@@ -478,22 +522,23 @@ Compartment::readAttributes (const XMLAttributes& attributes)
   // size    { use="optional" }              (L2v1, L2v2)
   //
   const string size = (level == 1) ? "volume" : "size";
-  mIsSetSize = attributes.readInto(size, mSize);
+  mIsSetSize = attributes.readInto(size, mSize, getErrorLog(), false);
 
   //
   // units  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
   //
-  attributes.readInto("units", mUnits);
+  attributes.readInto("units", mUnits, getErrorLog(), false);
 
   //
   // outside  { use="optional" }  (L1v1, L1v2, L2v1, L2v2)
   //
-  attributes.readInto("outside", mOutside);
+  attributes.readInto("outside", mOutside, getErrorLog(), false);
 
   //
   // constant  { use="optional" default="true" }  (L2v1, L2v2)
   //
-  if (level == 2) attributes.readInto("constant", mConstant);
+  if (level == 2) 
+    attributes.readInto("constant", mConstant, getErrorLog(), false);
 
   //
   // sboTerm: SBOTerm { use="optional" }  (L2v2)

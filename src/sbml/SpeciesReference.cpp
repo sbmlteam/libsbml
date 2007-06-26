@@ -160,13 +160,48 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  const string s = (level == 1 && version == 1) ? "specie" : "species";
+  expectedAttributes.push_back(s);
+  expectedAttributes.push_back("stoichiometry");
+
+  if (level == 1)
+  {
+    expectedAttributes.push_back("denominator");
+  }
+  else
+  {
+    expectedAttributes.push_back("metaid");
+  }
+
+  if (level == 2 && version > 1)
+  {
+    expectedAttributes.push_back("id");
+    expectedAttributes.push_back("name");
+    expectedAttributes.push_back("sboTerm");
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of SpeciesReference");
+    }
+  }
+
 
   if (level == 2 && (version == 2 || version == 3))
   {
     //
     // id: SId  { use="optional" }  (L2v2)
     //
-    attributes.readInto("id" , mId);
+    attributes.readInto("id" , mId, getErrorLog());
     SBase::checkIdSyntax();
 
     //
@@ -184,8 +219,8 @@ SimpleSpeciesReference::readAttributes (const XMLAttributes& attributes)
   // specie : SName   { use="required" }  (L1v1)
   // species: SName   { use="required" }  (L1v2, L2v1, L2v2)
   //
-  const string s = (level == 1 && version == 1) ? "specie" : "species";
-  attributes.readInto(s , mSpecies);
+  //const string s = (level == 1 && version == 1) ? "specie" : "species";
+  attributes.readInto(s , mSpecies, getErrorLog(), true);
 }
 /** @endcond doxygen-libsbml-internal */
 
@@ -627,6 +662,10 @@ void
 SpeciesReference::readAttributes (const XMLAttributes& attributes)
 {
   SimpleSpeciesReference::readAttributes(attributes);
+
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
 
   //
   // stoichiometry: integer  { use="optional" default="1" }  (L1v1, L1v2)

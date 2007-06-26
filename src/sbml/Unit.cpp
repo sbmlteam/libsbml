@@ -723,11 +723,46 @@ Unit::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("kind");
+  expectedAttributes.push_back("exponent");
+  expectedAttributes.push_back("scale");
+
+  if (level == 2)
+  {
+    expectedAttributes.push_back("metaid");
+    expectedAttributes.push_back("multiplier");
+
+    if (version == 1)
+    {
+      expectedAttributes.push_back("offset");
+    }
+
+    if (version == 3)
+    {
+      expectedAttributes.push_back("sboTerm");
+    }
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of Unit");
+    }
+  }
+
   //
   // kind: UnitKind  (L1v1, L1v2, L2v1, L2v2)
   //
   string kind;
-  if ( attributes.readInto("kind", kind) )
+  if ( attributes.readInto("kind", kind, getErrorLog(), true) )
   {
     mKind = UnitKind_forName( kind.c_str() );
   }
@@ -735,24 +770,24 @@ Unit::readAttributes (const XMLAttributes& attributes)
   //
   // exponent  { use="optional" default="1" }  (L1v1, L1v2, L2v1, L2v2)
   //
-  attributes.readInto("exponent", mExponent);
+  attributes.readInto("exponent", mExponent, getErrorLog());
 
   //
   // scale  { use="optional" default="0" }  (L1v1, L1v2, L2v1, L2v2)
   //
-  attributes.readInto("scale", mScale);
+  attributes.readInto("scale", mScale, getErrorLog());
 
   if (level == 2)
   {
     //
     // multiplier  { use="optional" default="1" }  (L2v1, L2v2)
     //
-    attributes.readInto("multiplier", mMultiplier);
+    attributes.readInto("multiplier", mMultiplier, getErrorLog());
 
     //
     // offset  { use="optional" default="0" }  (L2v1)
     //
-    attributes.readInto("offset", mOffset);
+    attributes.readInto("offset", mOffset, getErrorLog());
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)

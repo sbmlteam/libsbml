@@ -1165,6 +1165,10 @@ void
 SBase::readAttributes (const XMLAttributes& attributes)
 {
   const_cast<XMLAttributes&>(attributes).setErrorLog(getErrorLog());
+  const unsigned int level   = getLevel  ();
+  const unsigned int version = getVersion();
+
+
   attributes.readInto("metaid", mMetaId);
   /*
    * at present Xerces on Windows does not correctly read multibyte characters
@@ -1434,23 +1438,23 @@ SBase::checkIdSyntax()
   if (size == 0)
   {
     // Identifiers are not required on the following objects, so it's ok
-    // if they're zero-length.
+ //   // if they're zero-length.
 
-    if (getTypeCode() == SBML_MODEL
-	|| getTypeCode() == SBML_ALGEBRAIC_RULE
-	|| getTypeCode() == SBML_EVENT
-	|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
-	|| getTypeCode() == SBML_SPECIES_REFERENCE)
-    {
+ //   if (getTypeCode() == SBML_MODEL
+	//|| getTypeCode() == SBML_ALGEBRAIC_RULE
+	//|| getTypeCode() == SBML_EVENT
+	//|| getTypeCode() == SBML_MODIFIER_SPECIES_REFERENCE
+	//|| getTypeCode() == SBML_SPECIES_REFERENCE)
+ //   {
       return;
-    }
-    else
-    {
-      // This is a schema validation error: no id on an object that needs it.
-      logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
-	       "Missing 'id' on an element that requires an identifier");
-      return;
-    }
+ //   }
+ //   else
+ //   {
+ //     // This is a schema validation error: no id on an object that needs it.
+ //     logError(SBMLError::NotSchemaConformant, getLevel(), getVersion(),
+	//       "Missing 'id' on an element that requires an identifier");
+ //     return;
+ //   }
   }
 
   unsigned int n = 0;

@@ -300,10 +300,33 @@ InitialAssignment::readAttributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  if (level == 2 && version > 1)
+  {
+    expectedAttributes.push_back("metaid");
+    expectedAttributes.push_back("symbol");
+
+    expectedAttributes.push_back("sboTerm");
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of InitialAssignment");
+    }
+  }
+
   //
   // symbol: SId  { use="required" }  (L2v2)
   //
-  attributes.readInto("symbol", mId);
+  attributes.readInto("symbol", mId, getErrorLog(), true);
   SBase::checkIdSyntax();
 
   //

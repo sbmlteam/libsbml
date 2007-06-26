@@ -340,10 +340,37 @@ FunctionDefinition::readAttributes (const XMLAttributes& attributes)
   const unsigned int level = getLevel();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  if (level == 2)
+  {
+    expectedAttributes.push_back("metaid");
+    expectedAttributes.push_back("name");
+    expectedAttributes.push_back("id");
+
+    if (version != 1)
+    {
+      expectedAttributes.push_back("sboTerm");
+    }
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of FunctionDefinition");
+    }
+  }
+
   //
   // id: SId  { use="required" }  (L2v1, L2v2)
   //
-  attributes.readInto("id", mId);
+  attributes.readInto("id", mId, getErrorLog(), true);
   SBase::checkIdSyntax();
 
   //

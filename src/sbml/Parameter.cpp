@@ -297,12 +297,43 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  expectedAttributes.push_back("name");
+  expectedAttributes.push_back("units");
+  expectedAttributes.push_back("value");
+
+  if (level == 2)
+  {
+    expectedAttributes.push_back("metaid");
+    expectedAttributes.push_back("id");
+    expectedAttributes.push_back("constant");
+
+    if (version != 1)
+    {
+      expectedAttributes.push_back("sboTerm");
+    }
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of Parameter");
+    }
+  }
+
   //
   // name: SName   { use="required" }  (L1v1, L1v2)
   //   id: SId     { use="required" }  (L2v1, L2v2)
   //
   const string id = (level == 1) ? "name" : "id";
-  attributes.readInto(id, mId);
+  attributes.readInto(id, mId, getErrorLog(), true);
   SBase::checkIdSyntax();
 
   //
@@ -314,7 +345,14 @@ Parameter::readAttributes (const XMLAttributes& attributes)
   // value: double  { use="required" }  (L1v2)
   // value: double  { use="optional" }  (L1v2, L2v1, L2v2)
   //
-  mIsSetValue = attributes.readInto("value", mValue);
+  if (level == 1 && version == 1)
+  {
+    mIsSetValue = attributes.readInto("value", mValue, getErrorLog(), true);
+  }
+  else
+  {
+    mIsSetValue = attributes.readInto("value", mValue);
+  }
 
   //
   // units: SName  { use="optional" }  (L1v1, L1v2)

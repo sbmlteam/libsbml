@@ -590,13 +590,46 @@ Rule::readAttributes (const XMLAttributes& attributes)
   const unsigned int level   = getLevel  ();
   const unsigned int version = getVersion();
 
+  std::vector<std::string> expectedAttributes;
+  expectedAttributes.clear();
+  if (level == 1)
+  {
+    expectedAttributes.push_back("formula");
+    const string s = (level == 1 && version == 1) ? "specie" : "species";
+    expectedAttributes.push_back(s);
+    expectedAttributes.push_back("compartment");
+    expectedAttributes.push_back("name");
+    expectedAttributes.push_back("units");
+  }
+  else
+  {
+    expectedAttributes.push_back("variable");
+    expectedAttributes.push_back("metaid");
+    if (version != 1)
+    {
+      expectedAttributes.push_back("sboTerm");
+    }
+  }
+
+  // check that all attributes are expected
+  for (int i = 0; i < attributes.getLength(); i++)
+  {
+    std::vector<std::string>::const_iterator end = expectedAttributes.end();
+    std::vector<std::string>::const_iterator begin = expectedAttributes.begin();
+    std::string name = attributes.getName(i);
+    if (std::find(begin, end, name) == end)
+    {
+      getErrorLog()->logError(SBMLError::NotSchemaConformant, level, version,
+        "Attribute " + name + " is not part of Rule");
+    }
+  }
 
   if (level == 1)
   {
     //
     // formula: string  { use="required" }  (L1v1, L1v2)
     //
-    attributes.readInto("formula", mFormula);
+    attributes.readInto("formula", mFormula, getErrorLog(), true);
 
     //
     // type { use="optional" default="scalar" }  (L1v1, L1v2)
@@ -611,7 +644,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
       // species: SName   { use="required" }  (L1v2)
       //
       const string s = (level == 1 && version == 1) ? "specie" : "species";
-      attributes.readInto(s , mId);
+      attributes.readInto(s, mId, getErrorLog(), true);
       SBase::checkIdSyntax();
     }
     else if ( isCompartmentVolume() )
@@ -619,7 +652,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
       //
       // compartment: SName  { use="required" }  (L1v1, L1v2)
       //
-      attributes.readInto("compartment", mId);
+      attributes.readInto("compartment", mId, getErrorLog(), true);
       SBase::checkIdSyntax();
     }
     else if ( isParameter() )
@@ -627,7 +660,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
       //
       // name: SName  { use="required" } (L1v1, L1v2)
       //
-      attributes.readInto("name", mId);
+      attributes.readInto("name", mId, getErrorLog(), true);
       SBase::checkIdSyntax();
 
       //
@@ -639,11 +672,14 @@ Rule::readAttributes (const XMLAttributes& attributes)
   }
   else if (level == 2)
   {
-    //
-    // variable: SId  { use="required" }  (L2v1, L2v2)
-    //
-    attributes.readInto("variable", mId);
-    SBase::checkIdSyntax();
+    if (isAssignment() || isRate())
+    {
+      //
+      // variable: SId  { use="required" }  (L2v1, L2v2)
+      //
+      attributes.readInto("variable", mId, getErrorLog(), true);
+      SBase::checkIdSyntax();
+    }
 
     //
     // sboTerm: SBOTerm { use="optional" }  (L2v2)
