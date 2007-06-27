@@ -44,7 +44,7 @@ TD.footer {
 H1 {
   text-align: center;
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   padding-top: 10px;
 }
 
@@ -56,7 +56,13 @@ H2 {
 H3 {
   font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
   font-style: italic;
-  font-size: 14px;
+  font-size: 16px;
+}
+
+H4 {
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-style: italic;
+  font-size: 13px;
 }
 
 CAPTION {
@@ -399,4 +405,8 @@ TD.simpletableright {
   margin-right   : 0px; 
   margin-top     : 2px; 
   margin-bottom  : 2px  
+}
+
+.NavBarFont1 { 
+  font-size: 14px;
 }
