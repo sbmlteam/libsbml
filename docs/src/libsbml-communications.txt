@@ -1,40 +1,5 @@
 /** @page libsbml-communications Bug Reports, Mailing Lists, and Related Topics
 
-@section bugs Reporting bugs and other problems
-
-We invite you to report bugs and other problems using the issue tracker for
-libSBML on SourceForge.  The following URL will take you there directly: <a
-href="http://sbml.org/software/libsbml/issue-tracker">http://sbml.org/software/libsbml/issue-tracker</a>.
-
-You can also report problems on the libsbml-discuss mailing list (see next
-section).  This may even have advantages, such as that other people may
-also have experienced the issue and offer a workaround more quickly than
-the libSBML developers can respond.
-
-
-@section libsbml-discuss The libsbml-discuss mailing list 
-
-If you use libSBML, we highly recommend that you subscribe or monitor the
-<a href="http://www.sbml.org/forums">libsbml-discuss</a> mailing list.
-Being a member of libsbml-discuss will enable you to keep in touch with the
-latest developments in libSBML as well as to ask questions and share your
-experiences with fellow developers and users of libSBML.  The mailing list
-is vigilantly moderated by humans to prevent spam and off-topic postings.
-
-A web-based interface is available at http://sbml.org/forums/ for those who
-prefer to interact with the list via a web interface.
-
-The libsbml-discuss archives are also available at http://sbml.org/forums/.
-
-
-@section cvs The CVS notification mailing list
-
-If you are obtaining your libSBML files directly from the CVS repository on
-SourceForge, you may wish to subscribe to the mailing list
-sbml-cvs-libsbml, to be apprised of changes to the CVS repository as soon
-as they are committed.  You can join the list by visiting the URL <a
-href="https://lists.sourceforge.net/lists/listinfo/sbml-cvs-libsbml">https://lists.sourceforge.net/lists/listinfo/sbml-cvs-libsbml</a>.
-
-
+@htmlinclude libsbml-communications.html
 
 */
