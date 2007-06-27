@@ -82,9 +82,12 @@ AC_DEFUN([CONFIG_PROG_DOXYGEN],
 
       AC_MSG_CHECKING(if doxygen version >= $DOXYGEN_REQUEST_VERSION )
 
-      if test $doxygen_major_ver -ge $doxygen_major_req &&
-         test $doxygen_minor_ver -ge $doxygen_minor_req &&
-         test $doxygen_micro_ver -ge $doxygen_micro_req
+      if test $doxygen_major_ver -gt $doxygen_major_req \
+         || (test $doxygen_major_ver -eq $doxygen_major_req && \
+             test $doxygen_minor_ver -gt $doxygen_minor_req) \
+         || (test $doxygen_major_ver -eq $doxygen_major_req && \
+             test $doxygen_minor_ver -eq $doxygen_minor_req && \
+             test $doxygen_micro_ver -ge $doxygen_micro_req)
       then
         AC_MSG_RESULT([yes (found $doxygen_version)])
         AC_DEFINE([USE_DOXYGEN], 1, [Define to 1 to use DOXYGEN])

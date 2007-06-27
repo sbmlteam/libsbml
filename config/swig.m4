@@ -58,10 +58,10 @@ dnl swig package is this version number or higher.
 dnl
 dnl In configure.in, use as:
 dnl
-dnl		AC_PKG_SWIG(1.3.17)
-dnl		AC_PROG_LN_S
-dnl		AC_PROG_CXX
-dnl		AC_PROG_LIBTOOL
+dnl             AC_PKG_SWIG(1.3.17)
+dnl             AC_PROG_LN_S
+dnl             AC_PROG_CXX
+dnl             AC_PROG_LIBTOOL
 dnl
 dnl Acknowledgements:
 dnl
@@ -76,8 +76,8 @@ AC_DEFUN([CONFIG_PROG_SWIG],
   AC_ARG_WITH(swig,
               AC_HELP_STRING([--with-swig=PREFIX],
                              [Regenerate SWIG wrappers [[default=no]]]),
-	      [with_swig=$withval],
-	      [with_swig=no])
+              [with_swig=$withval],
+              [with_swig=no])
 
   if test $with_swig != no;
   then
@@ -90,8 +90,8 @@ AC_DEFUN([CONFIG_PROG_SWIG],
         case "$a" in
             x) break;;
             [0-9]*.[0-9]*.[0-9]*) SWIG_REQUEST_VERSION="$a";;
-    	c++) SWIGFLAGS="$SWIGFLAGS -c++";;
-    	raw) SWIGFLAGS="$SWIGFLAGS -c";;
+        c++) SWIGFLAGS="$SWIGFLAGS -c++";;
+        raw) SWIGFLAGS="$SWIGFLAGS -c";;
         esac
     done
 
@@ -110,46 +110,49 @@ AC_DEFUN([CONFIG_PROG_SWIG],
 
     if test -n "$SWIG";
     then
-    	SWIGLIB=`$SWIG -swiglib`
+        SWIGLIB=`$SWIG -swiglib`
 
-	AC_SUBST(SWIG)
-	AC_SUBST(SWIGLIB)
-	AC_SUBST(SWIGFLAGS)
+        AC_SUBST(SWIG)
+        AC_SUBST(SWIGLIB)
+        AC_SUBST(SWIGFLAGS)
 
-	AC_MSG_CHECKING(swig version)
+        AC_MSG_CHECKING(swig version)
 
-	changequote(<<, >>)
-	swig_version=`$SWIG -version 2>&1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
-	swig_major_ver=`expr $swig_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
-	swig_minor_ver=`expr $swig_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
-	swig_micro_ver=`expr $swig_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
-	changequote([, ])
+        changequote(<<, >>)
+        swig_version=`$SWIG -version 2>&1 | sed 's/.* \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p; d'`
+        swig_major_ver=`expr $swig_version : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
+        swig_minor_ver=`expr $swig_version : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
+        swig_micro_ver=`expr $swig_version : '[0-9]*\.[0-9]*\.\([0-9]*\)' '|' 0`
+        changequote([, ])
 
-	AC_MSG_RESULT($swig_version)
+        AC_MSG_RESULT($swig_version)
 
-	SWIGVERNUM=`printf "%02d%02d%02d" $swig_major_ver $swig_minor_ver $swig_micro_ver`
-	# SWIGVERNUM=`echo $SWIG_REQUEST_VERSION | awk '{ split($[1],a,"\."); print [a[1]*1000000+a[2]*1000+a[3]] }' 2>/dev/null`
+        SWIGVERNUM=`printf "%02d%02d%02d" $swig_major_ver $swig_minor_ver $swig_micro_ver`
+        # SWIGVERNUM=`echo $SWIG_REQUEST_VERSION | awk '{ split($[1],a,"\."); print [a[1]*1000000+a[2]*1000+a[3]] }' 2>/dev/null`
 
-	if test -n "$SWIG_REQUEST_VERSION";
-	then
-		AC_MSG_CHECKING(requested swig version ($SWIG_REQUEST_VERSION))
+        if test -n "$SWIG_REQUEST_VERSION";
+        then
+          AC_MSG_CHECKING(requested swig version ($SWIG_REQUEST_VERSION))
 
-		changequote(<<, >>)
-		swig_major_req=`expr $SWIG_REQUEST_VERSION : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
-		swig_minor_req=`expr $SWIG_REQUEST_VERSION : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
-		swig_micro_req=`expr $SWIG_REQUEST_VERSION : '[0-9]*\.[0-9]*\.\([0-9]*\)'`
-		changequote([, ])
+          changequote(<<, >>)
+          swig_major_req=`expr $SWIG_REQUEST_VERSION : '\([0-9]*\)\.[0-9]*\.[0-9]*'`
+          swig_minor_req=`expr $SWIG_REQUEST_VERSION : '[0-9]*\.\([0-9]*\)\.[0-9]*'`
+          swig_micro_req=`expr $SWIG_REQUEST_VERSION : '[0-9]*\.[0-9]*\.\([0-9]*\)'`
+          changequote([, ])
 
-		if test $swig_major_ver -ge $swig_major_req &&
-		   test $swig_minor_ver -ge $swig_minor_req &&
-		   test $swig_micro_ver -ge $swig_micro_req
-		then
-			AC_MSG_RESULT(yes)
-		else
-			AC_MSG_RESULT(no)
-			AC_MSG_ERROR(installed version of swig is too old!)
-		fi
-	fi
+          if test $swig_major_ver -gt $swig_major_req \
+             || (test $swig_major_ver -eq $swig_major_req && \
+                 test $swig_minor_ver -gt $swig_minor_req) \
+             || (test $swig_major_ver -eq $swig_major_req && \
+                 test $swig_minor_ver -eq $swig_minor_req && \
+                 test $swig_micro_ver -ge $swig_micro_req)
+          then
+            AC_MSG_RESULT(yes)
+          else
+            AC_MSG_RESULT(no)
+            AC_MSG_ERROR(installed version of swig is too old!)
+          fi
+        fi
 
       AC_DEFINE([USE_SWIG], 1, [Define to 1 to use SWIG])
       AC_SUBST(USE_SWIG, 1)
