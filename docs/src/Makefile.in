@@ -224,8 +224,13 @@ java-dir            = ../../src/bindings/java/java-files
 
 javadoc-doctitle    = "@PACKAGE_NAME@ @PACKAGE_VERSION@ Java API Reference"
 javadoc-header      = "<B>@PACKAGE_NAME@<BR>@PACKAGE_VERSION@<B>"
-javadoc-footer      = "`cat javadoc-footer.html`"
+javadoc-footer      = "`cat libsbml-java-footer.html`"
 javadoc-windowtitle = "LibSBML Java API"
+
+define merge_html
+  cat libsbml-java-top.html $(1) libsbml-java-bottom.html libsbml-java-footer.html \
+  | sed -e 's/%%title%%/$(3)/g;s/%%version%%/@PACKAGE_VERSION@/g' > $(2)
+endef
 
 java-manual $(java-manual):
 	javadoc -use -public -version -author -sourcetab 4 \
@@ -234,13 +239,19 @@ java-manual $(java-manual):
 	    -windowtitle $(javadoc-windowtitle) \
 	    -doctitle $(javadoc-doctitle) \
 	    -stylesheetfile doxygen-base.css \
-	    -overview javadoc-overview.html \
+	    -overview libsbml-java-overview.html \
 	    -d $(java-manual) \
 	    -tag note:a:"Note:" -tag warning:a:"Warning:" \
 	    -sourcepath $(java-dir) org.sbml.libsbml
-	cp graphics/sbml-logo-long-124x56.gif $(java-manual)
-	cp graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/
-	cp graphics/*.jpg $(java-manual)/org/sbml/libsbml/
+	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)
+	cp -f graphics/sbml-logo-long-124x56.gif $(java-manual)/org/sbml/libsbml/
+	cp -f graphics/*.jpg $(java-manual)/org/sbml/libsbml/
+	$(call merge_html,libsbml-installation.html,$(java-manual)/libsbml-installation.html,Installation)
+	$(call merge_html,libsbml-features.html,$(java-manual)/libsbml-features.html,Java API Features)
+	$(call merge_html,libsbml-issues.html,$(java-manual)/libsbml-issues.html,Known Issues and Pitfalls)
+	$(call merge_html,libsbml-communications.html,$(java-manual)/libsbml-communications.html,Bug Reports and Other Communications)
+	$(call merge_html,libsbml-java-reading.html,$(java-manual)/libsbml-java-reading.html,Reading and Writing SBML Content)
+	$(call merge_html,../../LICENSE.html,$(java-manual)/libsbml-license.html,License)
 
 
 # -----------------------------------------------------------------------------
