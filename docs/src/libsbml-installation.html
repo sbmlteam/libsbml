@@ -1,0 +1,604 @@
+<center>
+<table border="0">
+<tr><td style="font-size: small;">
+<a href="#quick">Quick start instructions</a>
+<ul>
+<li style="font-size: small;"><a href="#quick-unix">Linux, MacOS X, and Solaris</a></li>
+<li style="font-size: small;"><a href="#quick-windows">Windows</a></li>
+</ul>
+</td></tr>
+
+<tr><td style="font-size: small;">
+<a href="#detailed">Detailed instructions for configuring and installing LibSBML</a>
+<ul>
+<li style="font-size: small;"><a href="#basic-config">Configuring for Linux, MacOS X, and Solaris</a></li>
+<li style="font-size: small;"><a href="#other-lang">Configuring interfaces to Java, Lisp, Perl, Python and MATLAB</a></li>
+<li style="font-size: small;"><a href="#compiling">Compiling and installing LibSBML</a></li>
+<li style="font-size: small;"><a href="#accessing">Accessing libSBML</a></li>
+<ul>
+<li style="font-size: small;"><a href="#accessing-java">Acessing libSBML from Java</a></li>
+<li style="font-size: small;"><a href="#accessing-python">Acessing libSBML from Python</a></li>
+<li style="font-size: small;"><a href="#accessing-perl">Acessing libSBML from Perl</a></li>
+<li style="font-size: small;"><a href="#accessing-lisp">Acessing libSBML from Common Lisp</a></li>
+<li style="font-size: small;"><a href="#accessing-matlab">Acessing libSBML from MATLAB</a></li>
+</ul>
+<li style="font-size: small;"><a href="#other-options">Additional options for configuring LibSBML</a></li>
+<ul>
+<li style="font-size: small;"><a href="#swig">Configuring for SWIG</a></li>
+<li style="font-size: small;"><a href="#unit-testing">Configuring for unit testing</a></li>
+<li style="font-size: small;"><a href="#docs">Configuring for generating documentation</a></li>
+</ul>
+<li style="font-size: small;"><a href="#windows">Configuring and building for Windows</li>
+</ul>
+</tr></td>
+</table>
+</center>
+
+
+<h2><a class="anchor" name="quick">Quick start instructions</a></h2>
+
+<p> If you are using the Xerces XML library, beware there is a known
+bug in Xerces 2.6.0 that cannot be worked around at this time and
+causes errors in software using it.  Xerces versions 2.2 - 2.5 and
+2.7.0 are known to work properly.  We recommend Xerces 2.7.
+
+
+<h3><a class="anchor" name="quick-unix">Linux, MacOS&nbsp;X, and Solaris</a></h3>
+
+<p> At a shell (terminal) command prompt, untar the distribution, cd
+into the directory thereby created (e.g., <code>libsbml-2.4</code>),
+and first type:
+
+<div class="fragment"><pre class="fragment">
+  ./configure
+</pre></div>
+
+<p> If you do not have the Xerces-C++ XML library on your system, the
+configure step will fail.  In that case, you can try using the Expat
+or libxml libraries instead.  For Expat, use
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-expat
+</pre></div>
+
+<p>
+and for libxml, use
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-libxml
+</pre></div>
+
+<p> By default, libSBML only builds the C and C++ API library.  If you
+want to configure libSBML to build the Java, Python, Perl, Lisp and/or
+MATLAB API libraries as well, add the flags <code>--with-java</code>,
+<code>--with-python</code>, <code>--with-perl</code>,
+<code>--with-lisp</code> and/or <code>--with-matlab</code> to the
+configure command.  You can combine options.
+
+<p> Depending on your system, you may need to tell the configure
+program where to find some of these extra components by adding a
+directory path after the option.  For example, if you wish to use a
+copy of Java whose components are in <code>/usr/local</code> (with
+files in <code>/usr/local/lib</code>), use
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-expat --with-python --with-java=/usr/local
+</pre></div>
+
+<p> Once you've successfully configured libSBML, run the following two
+commands to build and install it:
+
+<div class="fragment"><pre class="fragment">
+  make
+  make install
+</pre></div>
+
+<p> To compile C or C++ programs that use libSBML with GCC, use a
+command such as the following, where <code>-lsbml</code> tells the
+compiler to link with the installed libSBML library:
+
+<div class="fragment"><pre class="fragment">
+  gcc -o myapp.c myapp.c -lsbml
+</pre></div>
+
+<p> If the compiler cannot find the library, refer to the <a
+href="#accessing">section on accessing libSBML</a> below for
+information about <code>ldconfig</code>, <code>LD_LIBRARY_PATH</code>,
+and related matters.
+
+<p> Documentation for libSBML is available as a separate download from
+the same locations as the libSBML distribution (namely, the SBML
+project on <a
+href="http://sourceforge.net/project/showfiles.php?group_id=71971">SourceForge</a>
+and the <a href="http://sbml.org/software/libsbml">SBML.org
+website</a>).  You may also regenerate it from the source code
+distribution; see the section on <a href="#docs">Generating
+documentation</a> below.
+
+
+
+<h3><a class="anchor" name="quick-windows">Windows</a></h3>
+
+<p> Download and run the self-extracting windows installer for
+libSBML.  There are debug (<code>libsbmld</code>) and release
+(<code>libsbml</code>) versions of libSBML, with <code>.dll</code> and
+<code>.lib</code> files for both versions in the
+<code>win32/bin</code> subdirectory of the libSBML distribution.
+Header files are located in the subdirectory
+<code>win32/include/sbml</code>.
+
+<p> Users of Visual C++ should make their Visual C++ projects link
+with the files <code>libsbml.lib</code> or <code>libsbmld.lib</code>
+and generate code for the Multithreaded DLL or Debug Multithreaded DLL
+version of the VC++ runtime, respectively.
+
+
+<h2><a class="anchor" name="detailed">Detailed instructions for configuring and installing LibSBML</a></h2>
+
+<p> LibSBML requires a separate XML library for low-level XML
+tokenizing and Unicode support.  As of libSBML 3.0, it supports the
+Xerces-C++, Expat, and libXML XML libraries on Linux, Windows,
+MacOS&nbsp;X and Solaris.  Many Linux systems provide one or more of
+these libraries either as part of their standard distribution or as an
+optional RPM, Debian, Mandrake or other package.  For more
+information, see <a
+href="http://xml.apache.org/xerces-c/">http://xml.apache.org/xerces-c/</a>
+for Xerces, <a href="http://expat.sf.net">http://expat.sf.net</a> for
+Expat, and <a href="http://xmlsoft.org">http://xmlsoft.org</a> for
+libxml2.
+
+
+<h3><a class="anchor" name="basic-config">Configuring for Linux, MacOS&nbsp;X, and Solaris</a></h3>
+
+<p> If you have obtained the libSBML source code distribution, then at
+your Linux, MacOS&nbsp;X or Solaris command prompt, unpack the
+distribution, cd into the directory created (e.g.,
+<code>libsbml-2.4.0</code>), and type the following command in a terminal
+shell window to configure libSBML for your system:
+
+<div class="fragment"><pre class="fragment">
+  ./configure
+</pre></div>
+
+<p> To specify Expat or libxml2 explicitly rather than the libSBML
+default of Xerces, use a command such as the following instead:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-expat
+</pre></div>
+or 
+<div class="fragment"><pre class="fragment">
+  ./configure --with-libxml
+</pre></div>
+
+<p> If your Expat, Xerces or libxml2 is installed in a non-standard
+location on your computer system (e.g., a private home directory),
+<code>configure</code> may not be able to find it by itself.  In this
+case, <code>configure</code> needs to be told explicitly where to find
+the libraries.  Use the following forms:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-expat="DIR"
+</pre></div>
+or
+<div class="fragment"><pre class="fragment">
+  ./configure --with-xerces="DIR"
+</pre></div>
+or
+<div class="fragment"><pre class="fragment">
+  ./configure --with-libxml="DIR"
+</pre></div>
+
+<p> where DIR is the parent directory of where the
+<code>include</code> and <code>lib</code> directories of Xerces, Expat
+or libxml2 (whichever one you are trying to use) is located.  For
+example, on MacOS&nbsp;X, if you used <a
+href="http://finkproject.org">Fink</a> to install Expat in Fink's
+default software tree, you would configure libSBML using the following
+command:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-xerces="/sw"
+</pre></div>
+
+<p> During the installation phase (i.e., when running <code>make
+install</code>, discussed below), the default libSBML installation
+commands will copy header files to <code>
+/usr/local/include/sbml</code>, the (shared and static) library files
+to <code>/usr/local/lib</code>, and documentation files in various
+formats to <code>/usr/local/share/doc/libsbml-VERSION</code>, by
+default.  To specify a different installation location, use the <code>
+--prefix</code> argument to configure.  For example,
+
+<div class="fragment"><pre class="fragment">
+  ./configure --prefix="/my/favorite/path"
+</pre></div>
+
+<p> Of course, you can combine the flags to configure, giving both
+<code>--prefix</code> and <code>--with-expat</code> or
+<code>--with-xerces</code> or <code>--with-libxml</code> to set both
+options.
+
+
+<h3><a class="anchor" name="other-lang">Configuring interfaces to Java, Lisp, Perl, Python and MATLAB</a></h3>
+
+<p> LibSBML's core is written in C and C++, but libSBML comes with
+APIs for other languages as well.  To enable the library extensions
+for Java, Python, Lisp and MATLAB, you need to supply additional
+options to <code>configure</code>.  These options are
+<code>--with-java</code>, <code>--with-perl</code>,
+<code>--with-python</code>, <code>--with-lisp</code>, and
+<code>--with-matlab</code>.  As with other configure options, these
+take an optional prefix argument; for example,
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-java="DIR"
+</pre></div>
+
+<p>
+If you want to build multiple language bindings for libSBML, combine
+multiple flags together as in the following example:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-java --with-python
+</pre></div>
+
+<p> The libSBML distribution ships with certain interface files provided,
+so that you do not need to have the software necessary to recreate them.
+However, if you obtained the libSBML distribution from CVS or want to
+recreate the files deliberately, you may need to configure libSBML to use
+SWIG to regenerate the libSBML language interfaces.  Please see the section
+below on using <a href="#SWIG">SWIG</a>.
+
+<p> Finally, note that these additional language bindings are
+implemented via foreign function interfaces in the respective
+languages; in all cases, the basic C/C++ libSBML library still must be
+compiled and installed.  The language binding files are not standalone
+implementations.  For instance, the Java language API files consist of
+a file named <code>libsbmlj.jar</code> and a native object library
+file named <code>libsbmlj.jnilib</code>; <em>both</em> of these must
+be installed and shipped with applications <em>along with</em> the
+basic libSBML library file.
+
+
+<h3><a class="anchor" name="compiling">Compiling and installing LibSBML</a></h3>
+
+<p>
+Once configured, building should be very easy.  Simply execute the
+following commands at your Linux, MacOS&nbsp;X or Solaris command prompt:
+
+<div class="fragment"><pre class="fragment">
+  make
+  make install
+</pre></div>
+
+<p> Note that you will probably have to perform the make install
+command as the user 'root' on your system if you used the default
+installation directory ( <code>/usr/local</code>) or you set <code>
+--prefix</code> to a system directory that only root is permitted to
+write into.
+
+<p> Depending on your operating system, the basic libSBML object
+library file installed by the commands above will be a file named
+<code>libsbml.so</code>, <code>libsbml.dll</code>, or
+<code>libsbml.dylib</code>, and on Unix-like systems (e.g., Linux,
+MacOS&nbsp;X), a static library file as well (<code>libsbml.a</code>).
+If you have compiled additional language extensions with libSBML,
+these files will also be installed in the same directory.  For
+example, as discussed above, the Java language API files consist of a
+file named <code>libsbmlj.jar</code> and a native object library file
+named <code>libsbmlj.jnilib</code>; these will be installed in the
+same directory as the core libSBML library file.
+
+<p> If all went as it should, libSBML should end up compiled and
+installed on your system, in either the default location
+(<code>/usr/local/</code>) or in the location you indicated during the
+configuration step as explained above.
+
+<p> Once the libSBML files are installed, you will need to do one more
+configuration step to make it accessible from other software at run
+time.  This step is described in the next section.
+
+
+<h3><a class="anchor" name="accessing">Accessing libSBML</a></h3>
+
+<p> Once libSBML is moved to the desired installation directory, you
+and your users' software environments may need to be configured to
+find the libSBML library files.  On most platforms, you will need to
+either run the system program <code>ldconfig</code> as user 'root'
+(consult the man page for ldconfig if this is unfamiliar), or else set
+the environment variable <code>LD_LIBRARY_PATH</code> in your terminal
+shell window.  (On MacOS&nbsp;X, the variable is named
+<code>DYLD_LIBRARY_PATH</code>.)  The path added to the
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
+variable must be the directory used as the value of the
+<code>--prefix=</code><em>DIR</em> option used during the
+<code>configure</code> step <a href="#basic-config">discussed
+above</a>.
+
+<p> If your run-time environment and the run-time environment for your
+software applications do not know to look in the installation
+directory for libSBML, attempting to link other programs with the
+libSBML library will fail with errors about being unable to find it.
+
+<p> Most of the language APIs have additional requirements for
+connecting applications to libSBML.  These are described below on a
+case-by-case basis.
+
+
+<h4><a class="anchor" name="accessing-java">Acessing libSBML from Java</a></h4>
+
+<p> In addition to the instructions for configuring the
+<code>LD_LIBRARY_PATH</code> or <code>DYLD_LIBRARY_PATH</code>
+variables <a href="#accessing">described above</a>, Java applications
+need to have their class search paths include the libSBML
+<code>.jar</code> file.  The exact recipe depends on the operating
+system in use.
+
+<ul>
+<li style="margin-bottom: 1em"><em>On Linux, MacOS X and similar Unix-like systems</em>:
+
+You must either (1) set your <code>CLASSPATH</code> environment
+variable to include the <code>.jar</code> file, or (2) the file must
+be listed in the <code>-classpath</code> option passed to the Java
+interpreter when it is started.  As an example of the former approach,
+if you had configured libSBML to install itself into
+<code>/usr/local</code>, the <code>libsbmlj.jar</code> file will end
+up as <code>/usr/local/lib/libsbml.jar</code> and your environment
+variable would at minimum need to be set as follows:
+
+<div class="fragment"><pre class="fragment">
+  CLASSPATH=.:/usr/local/lib/libsbmlj.jar
+</pre></div>
+</li>
+
+<li style="margin-bottom: 1em"><em>On Windows systems</em>:
+
+The instructions are essentially the same as for the case of Linux and
+similar systems, but the name of the <code>.jar</code> file is
+different on Windows systems.  The class path must include
+<code>sbmlj.jar</code>.  For example, if you had installed libSBML
+into <code>C:\libsbml</code> on your system, you might set your
+environment variable as follows:
+
+<div class="fragment"><pre class="fragment">
+  CLASSPATH=.;C:\libsbml\sbmlj.jar
+</pre></div>
+
+Note: to set an environmental variable in Windows, use the
+<em>System</em> option in the Control Panel.
+
+</li>
+</ul>
+
+<h4><a class="anchor" name="accessing-python">Acessing libSBML from Python</a></h4>
+
+<h4><a class="anchor" name="accessing-perl">Acessing libSBML from Perl</a></h4>
+
+<h4><a class="anchor" name="accessing-lisp">Acessing libSBML from Common Lisp</a></h4>
+
+<h4><a class="anchor" name="accessing-matlab">Acessing libSBML from MATLAB</a></h4>
+
+
+
+<h3><a class="anchor" name="other-options">Additional options for configuring LibSBML</a></h3>
+
+<p> In addition to the <code>--prefix</code> and other options already
+described, the libSBML configuration command supports the options
+described below.
+
+
+<h4><a class="anchor" name="swig">Configuring SWIG</a></h4>
+
+<p> <strong>Important</strong>: At this time, libSBML is known to work
+<em>only</em> with the latest stable version of SWIG (1.3.31); earlier
+versions are known not to work.
+
+<p> SWIG is the <em>Simplified Wrapper and Interface Generator</em>
+and in libSBML it is used to create the bindings for Java, Python, and
+other programming languages.  More information about SWIG is available
+from <a href="http://www.swig.org">http://www.swig.org</a>.  To
+configure libSBML to use SWIG, use the <code>--with-swig</code> option
+to <code>configure</code>.  If your copy of SWIG is installed in a
+location where <code>configure</code> cannot find it on its own, you
+can specify it as an optional argument to the <code>--with-swig</code>
+option as in the following example:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-swig="DIR"
+</pre></div>
+
+<p> As with Expat and Xerces, the directory <code>/sw</code> is what
+you would specify if you were running on MacOS&nbsp;X and you used <a
+href="http://finkproject.org">Fink</a> to install SWIG, Python, etc.
+
+
+<h4><a class="anchor" name="unit-testing">Configuring unit testing</a></h4>
+
+<p> libSBML provides built-in facilities for testing itself.  To run
+the unit tests, a second library is required, <code>libcheck</code>
+(version 0.9.2 or higher).  Check is a very lightweight C unit test
+framework based on the xUnit framework popularized by Kent Beck and <a
+href="http://en.wikipedia.org/wiki/Extreme_Programming">eXtreme
+Programming</a>.  Check is quite small and once installed, it consists
+of only two files: <code>libcheck.a</code> and <code>check.h</code>.
+To download Check, visit <a
+href="http://check.sf.net/">http://check.sf.net/</a>.
+
+<p> (Note: Debian users can find Check as a standard add-on package
+(<code>.deb</code>).  As of 11 Feb. 2007, MacOS&nbsp;X users
+<em>cannot</em> use <a href="http://finkproject.org">Fink</a>'s
+version of check because it is an old version, 0.8.x.  LibSBML needs
+version 0.9.x.)
+
+<p> To enable the unit testing facilities in libSBML, add the
+<code>--with-check</code> flag to the configure command:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-check
+</pre></div>
+
+<p>
+Following this, you must build libSBML and then you can run the tests:
+
+<div class="fragment"><pre class="fragment">
+  make
+  make check
+</pre></div>
+
+<p> The make check step is optional and will build and run an
+extensive suite of unit tests to verify all facets of the library.
+These tests are meant primarily for developers of libSBML and running
+them is not required for the library to function properly.  All tests
+should pass with no failures or errors.  If for some reason this is
+not the case on your system, please submit a bug report using the
+mechanisms described in the section titled "Bug Reports, Mailing
+Lists, and Related Topics" elsewhere in this manual.
+
+
+<h4><a class="anchor" name="docs">Configuring for generating documentation</a></h4>
+
+<p> LibSBML comes with extensive documentation, and the document you
+are currently reading is part of it.  Because the documentation is
+large and regenerating it requires the use of software tools that not
+all users may have, the authors of libSBML supply a separate
+downloadable archive containing only the documentation.  The
+documentation archive file has a name of the form
+<code>libsbml-<em>VERSION</em>-docs.zip</code>, where
+<code><em>VERSION</em></code> is the version of libSBML.  After you
+download it, you can simply unzip the file in the same location as
+your libSBML source directory (or alternatively, in any other location
+that suits you).  We recommend downloading the ready-made
+documentation archive as the easiest way to get the libSBML
+documentation.
+
+<p> The same documentation files should also be available online at <a
+href="http://sbml.org/software/libsbml/">http://sbml.org/software/libsbml/</a>,
+although this online copy normally corresponds to the last stable
+release of libSBML and may not be up-to-date with the latest version
+of libSBML in CVS.
+
+<p> If you wish to generate the documentation yourself, you will need
+the following software tools in addition to a Unix-like environment
+(or Cygwin under Windows):
+<ul>
+
+<li style="margin-bottom: 1em"><em>For the C and C++ API
+documentation</em>: You will need <a
+href="http://doxygen.org">Doxygen</a> version 1.4.9 and a reasonably
+complete installation of <a
+href="http://ctan.org/what_is_tex.html">LaTeX</a>.  You will also need
+to configure libSBML to use Doxygen by supplying the option
+<code>--with-doxygen</code> to the <code>configure</code> program.
+<em>Warning</em>: this option is unlike the other configuration
+options, in that if the optional pathname argument is supplied, the
+pathname must be the <em>path to the Doxygen executable</em> itself,
+not the path to the directory where Doxygen is located.  In other
+words, in using the optional argument, you should end up with
+something such as the following,
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-doxygen=/sw/bin/doxygen 
+</pre></div>
+
+rather than (for example) <tt>--with-doxygen=/sw/bin</tt>.  If you are
+on a MacOS&nbsp;X system and you installed the binary Mac distribution
+of Doxygen (in the form of a <code>.dmg</code> image), you will have
+to point <code>configure</code> to the doxygen executable inside the
+package for Doxygen:
+
+<div class="fragment"><pre class="fragment">
+  ./configure --with-doxygen=/Applications/Doxygen.app/Contents/Resources/doxygen
+</pre></div>
+</li>
+
+</li> <li style="margin-bottom: 1em"><em>For the Java API
+documentation</em>: You will need <a
+href="http://java.sun.com/j2se/javadoc/">Javadoc</a> version 1.5 (also
+known as version 5.0, confusingly enough), which should have come
+supplied with your installation of Java 1.5 or later.  No additional
+configuration of libSBML is needed beyond supplying the
+<code>--with-java</code> option to <code>configure</code>.
+</li>
+
+<li style="margin-bottom: 1em"><em>For the Python API
+documentation</em>: You will need <code>pydoc</code>, which should
+have come supplied with your installation of Python.  No additional
+configuration of libSBML is needed beyond supplying the
+<code>--with-python</code> option to <code>configure</code>.  
+</li>
+</ul>
+
+<p> Once libSBML is configured as above, you can generate the
+documentation files by running <code>make docs</code> from the top
+level of the libSBML source directory to regenerate all the
+documentation files.  Alternatively, you can moving to the
+<code>docs/src</code> subdirectory and execute
+
+<div class="fragment"><pre class="fragment">
+  make java-manual
+</pre></div>
+to recreate just the Java documentation, or 
+<div class="fragment"><pre class="fragment">
+  make cpp-manual
+</pre></div>
+to recreate just the C++ documentation, or 
+<div class="fragment"><pre class="fragment">
+  make c-manual
+</pre></div>
+to recreate just the C documentation, or
+<div class="fragment"><pre class="fragment">
+  make python-manual
+</pre></div>
+to recreate just the Python documentation.
+
+
+
+<h3><a class="anchor" name="windows">Configuring and building for Windows</a></h3>
+
+<p> The Windows distributions of libSBML come in the form of both
+precompiled binaries (with a self-extracting installer), and source
+code.  The precompiled binaries come ready-to-use and only need to be
+installed.  The source distribution is a <code>.zip</code> file
+containing the libSBML code that must be extracted in a directory on
+your system, compiled and installed.
+
+<p> As mentioned above, libSBML requires that the Xerces-C, Expat or
+libxml XML parsing libraries be available on your computer prior to
+attempting to compile libSBML.  The DLL for Xerces, Expat or libxml
+must be placed in the <code>win32/bin</code> subdirectory of the
+libSBML directory.
+
+To build libsbml on Windows:
+<ol>
+
+<li style="margin-bottom: 1em"> You need to create the include directory structure.
+In <code>&lt;libsbml&gt;/win32</code> run the <code>createInclude</code> batch file.
+</li>
+
+<li style="margin-bottom: 1em">
+ In Visual Studio 7, open <code>&lt;libsbml&gt;/win32/MSVC7/libsbml.sln</code>.
+   In Visual Studio 6, open <code>&lt;libsbml&gt;/win32/MSVC6/libsbml.dsw</code>.
+</li>
+
+<li style="margin-bottom: 1em">
+ Select Tools->Options, and select Projects/Directories (VS7) or
+   click the Directories tab (VS6).
+   The screen for indicating which directories contain project-relevant
+   files appears.
+</li>
+
+<li style="margin-bottom: 1em">
+ At "Show Directories For:", select "Include Files".  Add the
+   following if it's not already shown: <code><em>libsbml</em>/src</code>
+</li>
+
+<li style="margin-bottom: 1em">
+ At "Show Directories For:", select "Library Files".  Add the
+   following if it's not already shown: <code><em>libsbml</em>/win32/bin</code>
+</li>
+
+<li style="margin-bottom: 1em">
+ Select Build->Rebuild All from the Visual Studio main menu.
+</li>
+</ol>

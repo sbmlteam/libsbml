@@ -1,0 +1,46 @@
+This section documents known problems, limitations, and possible pitfalls
+in using libSBML.
+
+<h2>Conformance to SBML</h2>
+
+<p>
+As of version 3.0.0, libSBML supports all of SBML Level 1 Versions 1 and 2,
+and SBML Level 2 Versions 1, 2, and 3, with the exception of the following
+still-unsupported aspects:
+<ul>
+<li>Support for MathML's <code>semantics</code> elements</li>
+<li>Support for MathML's <code>annotation</code> elements</li>
+<li>Support for MathML's <code>annotation-xml</code> elements</li>
+</ul>
+
+
+<h2>Name collisions in mathematical expressions</h2>
+
+<p>
+In the C-like, text-based, formula expression syntax supported by libSBML
+and used in SBML Level 1, four constants are reserved words:
+<code>true</code>, <code>false</code>, <code>exponentiale</code> and
+<code>pi</code>.  Most of them will not easily lead to a name collision,
+but unfortunately, the character sequence <code>pi</code> <em>is</em> also
+sometimes used as a species identifier by biological modelers (e.g., to use
+"Pi" to represent a phosphate ion).  If the string "<code>pi</code>" or
+"<code>Pi</code>" appears in a text string passed to a libSBML method that
+interprets formulas, it will be interpreted as the mathematical constant
+&#960; (pi).  For example, the expression <em>2 * Pi</em> will yield
+
+<div class="fragment"><pre class="fragment">
+&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;
+  &lt;apply&gt;
+    &lt;times/&gt;
+    &lt;cn type="integer"&gt; 2 &lt;/cn&gt;
+    &lt;pi/&gt;
+  &lt;/apply&gt;
+&lt;/math&gt;
+</pre></div>
+<p>
+This problem exists for all four of the constants mentioned above, but is
+most commonly encountered in the context of "pi".  Currently, the only ways
+to avoid this problem are either to avoid using the strings "pi" and "Pi"
+in this context, or to avoid using the text-string expressions altogether
+and instead use ASTs.  All libSBML methods that accept text-string
+mathematical formulas have variants that accept ASTs instead.
