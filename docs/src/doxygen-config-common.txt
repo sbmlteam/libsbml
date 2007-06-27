@@ -344,7 +344,7 @@ INPUT =                      \
   libsbml-math.txt           \
   libsbml-issues.txt         \
   libsbml-reading-files.txt  \
-  ../../LICENSE.txt          \
+  libsbml-license.txt        \
   ../../src/common           \
   ../../src/annotation       \
   ../../src/math             \
@@ -434,7 +434,7 @@ EXCLUDE_SYMLINKS       = NO
 # directories that contain example code fragments that are included (see 
 # the \include command).
 
-EXAMPLE_PATH           = examples
+EXAMPLE_PATH           = examples . ../..
 
 # If the value of the EXAMPLE_PATH tag contains directories, you can use the 
 # EXAMPLE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
