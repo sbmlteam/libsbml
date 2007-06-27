@@ -108,7 +108,7 @@ main (int argc, char *argv[])
 The text-string form of mathematical formulas produced by
 SBML_formulaToString() and read by SBML_parseFormula() are simple
 C-inspired infix notation taken from SBML Level 1.  It is summarized in the
-next section below.  A formula in this text-string form therefore cana be
+next section below.  A formula in this text-string form therefore can be
 handed to a program that understands SBML Level~1 mathematical expressions,
 or used as part of a translation system.  The libSBML distribution comes
 with an example program in the @c "examples" subdirectory called @c
