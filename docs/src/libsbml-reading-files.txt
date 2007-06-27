@@ -60,13 +60,14 @@ file, and returns a pointer to an SBMLDocument object if successful.
 function takes a string, attempts to read an SBML document from the string,
 and returns a pointer to an SBMLDocument object if successful.
 
-The model may be either in SBML Level 1 or SBML Level 2 format.  LibSBML
-implements an unified object model for SBML that encompasses both Level 1
-and Level 2, so applications generally do not need to worry about
-differences in syntax between these definitions of SBML when reading and
-writing models.  (However, applications still need to be concerned about
-the @em constructs used and how they are interpreted, since there are
-substantial differences between SBML Level 1 and Level 2!)
+The model may be either in SBML Level&nbsp;1 or SBML Level&nbsp;2 format.
+LibSBML implements an unified object model for SBML that encompasses both
+Level&nbsp;1 and Level&nbsp;2, so applications generally do not need to
+worry about differences in syntax between these definitions of SBML when
+reading and writing models.  (However, applications still need to be
+concerned about the @em constructs used and how they are interpreted, since
+there are substantial differences between SBML Level&nbsp;1 and
+Level&nbsp;2!)
 
 
 @section rf-sbmldocument The SBMLDocument Container
@@ -74,13 +75,13 @@ substantial differences between SBML Level 1 and Level 2!)
 As might be deduced from the examples so far, an SBMLDocument object in
 libSBML represents a whole SBML model and its associated data.
 SBMLDocument corresponds roughly to the class <i>Sbml</i> defined in the
-SBML Level 2 specification, but it does not have a direct correspondence in
-SBML Level 1.  (But, it is created by libSBML no matter whether the model
-is Level 1 or Level 2.)
+SBML Level&nbsp;2 specification, but it does not have a direct
+correspondence in SBML Level&nbsp;1.  (But, it is created by libSBML no
+matter whether the model is Level&nbsp;1 or Level&nbsp;2.)
 
 SBMLDocument is derived from SBase, so that it contains the usual SBase
-attributes (in SBML Level 2 Version 3) of "metaid" and "sboTerm", as well
-as the subelements "notes" and "annotation".  It also contains the
+attributes (in SBML Level&nbsp;2 Version&nbsp;3) of "metaid" and "sboTerm",
+as well as the subelements "notes" and "annotation".  It also contains the
 attributes "level" and "version" indicating the Level and Version of the
 SBML read.  SBase (and thus its subclasses such as SBMLDocument) provides
 methods for querying this information:
@@ -101,7 +102,7 @@ for the SBML model contained in the SBMLDocument.
 SBMLDocument also acts to log any problems encountered while reading the
 model from the file or data stream.  Whether the problems are warnings or
 errors, they are reported through a single common interface involving the
-object class XMLError.  The example earlier on this page already showed
+object class SBMLError.  The example earlier on this page already showed
 some of the methods available for accessing errors and warnings; here is a
 slightly more complete list:
 
@@ -110,8 +111,8 @@ of the diagnostic messages logged during while attempting to read an SBML
 model using either readSBML(const char *filename) or readFromString(const
 char *xml).
 
-@li <code>const XMLError* SBMLDocument::getError(unsigned int n) const</code>
-returns a specific error indexed by the integer @c n.  The XMLError object
+@li <code>const SBMLError* SBMLDocument::getError(unsigned int n) const</code>
+returns a specific error indexed by the integer @c n.  The SBMLError object
 class provides methods for assessing the severity of the problem
 encountered and for finding out the line and column number of where the
 problem occurred in the SBML input.
@@ -122,11 +123,12 @@ of the diagnostics to the given output stream.
 Finally, another set of SBMLDocument methods worth mentioning in the
 context of reading SBML are those for running consistency-checking and
 validation rules on the SBML content.  These methods assess whether the
-SBML is legal according to basic rules listed in the SBML Level 2 Version 2
-and Version 3 specification documents.  Note that they are mostly
-structural checks, in the sense that they can indicate whether the SBML is
-properly constructed; they cannot tell if a model is nonsense.  (But at
-least they can assess whether it's syntactically correct nonsense!).
+SBML is legal according to basic rules listed in the SBML Level&nbsp;2
+Version&nbsp;2 and Version&nbsp;3 specification documents.  Note that they are
+mostly structural checks, in the sense that they can indicate whether the
+SBML is properly constructed; they cannot tell if a model is nonsense.
+(But at least they can assess whether it's syntactically correct
+nonsense!).
 
 @li <code>unsigned int SBMLDocument::checkConsistency()</code> performs a
 set of structural and mathematical checks on the SBML content and reports
@@ -136,21 +138,22 @@ interfaces to examine the individual errors.
 
 @li <code>unsigned int SBMLDocument::checkL1Compatibility()</code> peforms
 a set of semantic consistency checks on the document to establish whether
-it can be converted to SBML Level 1, and returns the number of failures.
+it can be converted to SBML Level&nbsp;1, and returns the number of failures.
+If all the checks succeed, it returns 0.
 
 @li <code>unsigned int SBMLDocument::checkL2v1Compatibility()</code>
 peforms a set of semantic consistency checks on the document to establish
-whether it can be converted to SBML Level 2 Version 1, and returns the
-number of failures.
+whether it can be converted to SBML Level&nbsp;2 Version 1, and returns the
+number of failures.  If all the checks succeed, it returns 0.
 
 @li <code>unsigned int SBMLDocument::checkL2v2Compatibility()</code>
 peforms a set of semantic consistency checks on the document to establish
-whether it can be converted to SBML Level 2 Version 2, and returns the
-number of failures.
+whether it can be converted to SBML Level&nbsp;2 Version&nbsp;2, and
+returns the number of failures.  If all the checks succeed, it returns 0.
 
-At the time of this writing, the most recent release of SBML is Level 2
-Version 3, which is why the compatibility checks above only refer to Level
-2 Version 2 at the most.
+At the time of this writing, the most recent release of SBML is
+Level&nbsp;2 Version&nbsp;3, which is why the compatibility checks above
+only refer to Level&nbsp;2 Version&nbsp;2 at the most.
 
 
 @section rf-writing Writing SBML
