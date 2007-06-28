@@ -3,17 +3,27 @@
 The following is a collection of guidelines for libSBML authors and other
 interested persons to follow when writing libSBML code and documenting it.
 
+<center>
+<table border="0">
+<tr><td style="font-size: small;">
 @ref coding-general @n
 @ref coding-doxygen-summary @n
 @ref coding-doc-h @n
 @ref coding-doc-cpp @n
+</td></tr>
+</table>
+</center>
 
-LibSBML's application programming interface (API) is documented using the
-open-source software tool <a href="http://www.doxygen.org">Doxygen</a>,
-written by Dimitri van Heesch.  These guidelines are oriented towards
-explaining how to organize code comments such that Doxygen can produce good
-output, yet simultaneously make the comments in the code be readable on
-their own.
+
+LibSBML's application programming interface (API) is documented using a
+combination of tools: for C++, C and Python, we use the open-source
+software tool <a href="http://www.doxygen.org">Doxygen</a>, written by
+Dimitri van Heesch, and for the Java API, we use Javadoc.  In addition to
+these main tools, we use several scripts to massage the output of SWIG to
+produce better documentation.  The guidelines presented in this section are
+oriented towards explaining how to organize code comments such that Doxygen
+can produce good output, yet simultaneously make the comments in the code
+be readable on their own.
 
 
 @section coding-general General guidelines
