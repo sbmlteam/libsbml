@@ -410,3 +410,35 @@ TD.simpletableright {
 .NavBarFont1 { 
   font-size: 14px;
 }
+
+.signatureTable { 
+  font-size: 14px;
+  border: 0px none;
+  border-collapse: collapse;
+}
+
+TD.signatureIntro { 
+  font-size: 14px;  
+  margin-left: 0px;
+  margin-right: 20px;
+  padding-top: 0.5ex;
+  padding-left: 0px;
+  border: 0px none;
+  border-collapse: collapse;
+}
+
+TD.signatureBlock { 
+  font-family: Helvetica, Arial, Geneva, Sans, sans-serif;
+  font-size: 14px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border: 1px dotted #aaaaaa;
+  border-collapse: collapse;
+}
+
+PRE.signature { 
+  font-size: 14px;
+  font-weight:  bold;
+}
