@@ -74,10 +74,11 @@ endif
 # We don't want to remove the formatted docs during a regular make clean,
 # only a distclean.
 
-extra_distclean =            \
-        $(docs)              \
-        doxygen-config-c.txt \
-        doxygen-config-cpp.txt
+extra_distclean =              \
+        $(docs)                \
+        doxygen-config-c.txt   \
+        doxygen-config-cpp.txt \
+        doxygen-config-python.txt
 
 # The `make dist' rules for this directory are more complicated than usual.
 # There are additional separate rules below.
@@ -87,6 +88,7 @@ distfiles =                                    \
         doxygen-config-c.txt.in                \
         doxygen-config-common.txt              \
         doxygen-config-cpp.txt.in              \
+        doxygen-config-python.txt.in           \
         doxygen-footer.html                    \
         doxygen-tabs.css                       \
         doxygen-tree.css                       \
@@ -165,22 +167,36 @@ endif
 # -----------------------------------------------------------------------------
 
 #
-# Rules for remaking the C++ and C manuals.  These require configuring
-# libSBML with --with-doxygen *and* a sufficiently recent version of doxygen.
-# The version check is done by configure.
-# 
+# Rules for remaking the C++, C and Python manuals.
+#
+# These require configuring libSBML with --with-doxygen *and* a
+# sufficiently recent version of doxygen.  The version check is done by
+# configure.
+#
 
 doxygen-cpp-config-files = doxygen-config-cpp.txt.in doxygen-config-common.txt
-doxygen-c-config-files   = doxygen-config-c.txt.in doxygen-config-common.txt   
+doxygen-c-config-files   = doxygen-config-c.txt.in doxygen-config-common.txt
+doxygen-py-config-files  = doxygen-config-python.txt.in doxygen-config-common.txt
 
 doxygen-config-cpp.txt:  $(doxygen-cpp-config-files) $(TOP_SRCDIR)/VERSION.txt
-	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/doxygen-config-cpp.txt
+	cd $(TOP_BUILDDIR) && \
+	  $(SHELL) ./config.status $(thisdir)/doxygen-config-cpp.txt
 
 doxygen-config-c.txt:  $(doxygen-c-config-files) $(TOP_SRCDIR)/VERSION.txt
-	cd $(TOP_BUILDDIR) && $(SHELL) ./config.status $(thisdir)/doxygen-config-c.txt
+	cd $(TOP_BUILDDIR) && \
+	  $(SHELL) ./config.status $(thisdir)/doxygen-config-c.txt
+
+doxygen-config-python.txt:  $(doxygen-py-config-files) $(TOP_SRCDIR)/VERSION.txt
+	cd $(TOP_BUILDDIR) && \
+	  $(SHELL) ./config.status $(thisdir)/doxygen-config-python.txt
 
 
 ifneq "$(USE_DOXYGEN)" ""
+
+# Helper function for running doxygen and doing some kludgy hacking of the
+# output.  This will surely break in other versions of doxygen, but the
+# necessity comes from the fact that doxygen 1.4.5 does not provide any
+# control over the appearance of the left-hand side tree listing.
 
 define run_doxygen
   mkdir -p $(2)
@@ -193,17 +209,28 @@ define run_doxygen
   mv -f tmp.html $(2)/tree.html
 endef
 
-cpp-manual $(cpp-manual): $(doxygen-cpp-config-files) $(wildcard ../../src/*/*.[cpp,h])
+cpp-manual $(cpp-manual): \
+  $(doxygen-cpp-config-files) \
+  $(wildcard ../../src/*/*.[cpp,h])
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual))
 
-c-manual $(c-manual): $(doxygen-c-config-files) $(wildcard ../../src/*/*.[cpp,h,c])
+c-manual $(c-manual): \
+  $(doxygen-c-config-files) \
+  $(wildcard ../../src/*/*.[cpp,h,c])
 	$(call run_doxygen,doxygen-config-c.txt,$(c-manual))
 
-else
-# Doxygen isn't configured suitably.
+ifdef USE_PYTHON
+python-manual $(python-manual): \
+  $(doxygen-python-config-files) \
+  ../../src/bindings/python/libsbml.py
+	$(call run_doxygen,doxygen-config-python.txt,$(python-manual))
+endif
 
-cpp-manual c-manual $(cpp-manual) $(c-manual):;
-	@echo "Cannot make API reference manuals because 'doxygen' was not"
+else
+# Complain that doxygen isn't configured suitably.
+
+cpp-manual c-manual python-manual $(cpp-manual) $(c-manual) $(python-manual):;
+	@echo "Cannot make this manual because 'doxygen' cannot be"
 	@echo "found or its version is too old.  Please reconfigure with a"
 	@echo "suitable value for the configuration flag --with-doxygen."
 endif
@@ -211,13 +238,14 @@ endif
 #
 # Rules for making the Java manual.
 #
-# This runs javadoc on the .java files in src/bindings/java/java-files/.
-# The Java bindings need to have been created first, which should be the
-# case for the copy of libSBML that's shipped anyway even if the end users
-# does not configure --with-java.  Creating the Java bindings should have
-# run src/bindings/swig/swigdoc.py as a by-product.  Our swigdoc.py program
-# has the task of inserting back into the .java files the documentation
-# comments that are currently left out by swig itself.
+# This runs Javadoc on the .java files in src/bindings/java/java-files/ and
+# doesn't need doxygen at all.  The Java bindings need to have been created
+# first, which should be the case for the copy of libSBML that's shipped
+# anyway even if the end users does not configure --with-java.  Creating
+# the Java bindings should have run src/bindings/swig/swigdoc.py as a
+# by-product.  Our swigdoc.py program has the task of inserting back into
+# the .java files the documentation comments that are currently left out by
+# swig itself.
 # 
 
 java-dir            = ../../src/bindings/java/java-files
