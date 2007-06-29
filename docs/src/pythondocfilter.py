@@ -7,7 +7,7 @@
 # $Id$
 # $Source$
 #
-# Usage: swigdoc.py < libsbml.py > libsbml-for-doxygen.py
+# Usage: pythondocfilter.py libsbml.py > output.py
 #
 # This filter reads the standard input (on which it expects the libsbml.py
 # file produced by <libsbml>/src/bindings/swig/swigdoc.py), cooks the
