@@ -438,7 +438,18 @@ TD.signatureBlock {
   border-collapse: collapse;
 }
 
+signatureTitle { 
+}
+
 PRE.signature { 
   font-size: 14px;
   font-weight:  bold;
+  margin-left: 5ex;
+}
+
+.signatureArrow { 
+  padding: 0;
+  margin: 0;
+  border: 0;
+  vertical-align: baseline;
 }
