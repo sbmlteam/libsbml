@@ -92,13 +92,12 @@ distfiles =                                    \
         doxygen-footer.html                    \
         doxygen-tabs.css                       \
         doxygen-tree.css                       \
-        javadoc-footer.html                    \
-        javadoc-overview.html                  \
         Makefile.in                            \
         graphics/astnode-illustration.jpg      \
         graphics/built-in-units.jpg            \
         graphics/compartment-size.jpg          \
         graphics/listof-illustration.jpg       \
+        graphics/right-arrow.gif               \
         graphics/sbase-species.eps             \
         graphics/sbase-species.pdf             \
         graphics/sbase-species.vthought        \
@@ -120,13 +119,25 @@ distfiles =                                    \
         graphics/unitdefinition.pdf            \
         graphics/unitdefinition.vtt            \
         libsbml-coding.txt                     \
+        libsbml-communications.html            \
         libsbml-communications.txt             \
+        libsbml-features.html                  \
         libsbml-features.txt                   \
+        libsbml-installation.html              \
         libsbml-installation.txt               \
+        libsbml-issues.html                    \
         libsbml-issues.txt                     \
+        libsbml-java-bottom.html               \
+        libsbml-java-footer.html               \
+        libsbml-java-overview.html             \
+        libsbml-java-reading.html              \
+        libsbml-java-top.html                  \
+        libsbml-license.txt                    \
         libsbml-mainpage.txt                   \
         libsbml-math.txt                       \
-        libsbml-reading-files.txt
+        libsbml-python-mainpage.txt            \
+        libsbml-reading-files.txt              \
+	pythondocfilter.py
 
 
 # -----------------------------------------------------------------------------
