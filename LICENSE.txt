@@ -1,12 +1,11 @@
-/** @page license Licensing and Distribution Terms for libSBML
-@n
+	   Licensing and Distribution Terms for libSBML
 
-Copyright 2005-2007 California Institute of Technology. @n
-Copyright 2002-2005 California Institute of Technology and Japan Science
-and Technology Agency.
+Copyright 2005-2007 California Institute of Technology.
+Copyright 2002-2005 California Institute of Technology and 
+Japan Science and Technology Agency.
 
-This software is free; you can redistribute it and/or modify it
-under the terms of the GNU Lesser General Public License as
+LibSBML is free software; you can redistribute it and/or modify 
+it under the terms of the GNU Lesser General Public License as
 published by the Free Software Foundation; either version 2.1 of
 the License, or any later version.
 
@@ -34,5 +33,3 @@ http://sbml.org/software/libsbml/license.html for your
 convenience.  You may also write to obtain a copy from the Free
 Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 MA 02111-1307 USA.
-
-*/
