@@ -174,19 +174,19 @@ endif
 # configure.
 #
 
-doxygen-cpp-config-files = doxygen-config-cpp.txt.in doxygen-config-common.txt
-doxygen-c-config-files   = doxygen-config-c.txt.in doxygen-config-common.txt
-doxygen-py-config-files  = doxygen-config-python.txt.in doxygen-config-common.txt
+doxygen-cpp-conf = doxygen-config-cpp.txt.in doxygen-config-common.txt
+doxygen-c-conf   = doxygen-config-c.txt.in doxygen-config-common.txt
+doxygen-py-conf  = doxygen-config-python.txt.in doxygen-config-common.txt
 
-doxygen-config-cpp.txt:  $(doxygen-cpp-config-files) $(TOP_SRCDIR)/VERSION.txt
+doxygen-config-cpp.txt:  $(doxygen-cpp-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
 	  $(SHELL) ./config.status $(thisdir)/doxygen-config-cpp.txt
 
-doxygen-config-c.txt:  $(doxygen-c-config-files) $(TOP_SRCDIR)/VERSION.txt
+doxygen-config-c.txt:  $(doxygen-c-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
 	  $(SHELL) ./config.status $(thisdir)/doxygen-config-c.txt
 
-doxygen-config-python.txt:  $(doxygen-py-config-files) $(TOP_SRCDIR)/VERSION.txt
+doxygen-config-python.txt:  $(doxygen-py-conf) $(TOP_SRCDIR)/VERSION.txt
 	cd $(TOP_BUILDDIR) && \
 	  $(SHELL) ./config.status $(thisdir)/doxygen-config-python.txt
 
@@ -203,26 +203,25 @@ define run_doxygen
   $(DOXYGEN) $(1)
   cp -rf doxygen-tabs.css $(2)/tabs.css
   cp graphics/sbml-logo-long-124x56.gif $(2)
+  cp graphics/right-arrow.gif $(2)
   head -n 9 $(2)/tree.html > tmp.html
   cat doxygen-tree.css >> tmp.html
   tail -n +15 $(2)/tree.html >> tmp.html
   mv -f tmp.html $(2)/tree.html
 endef
 
-cpp-manual $(cpp-manual): \
-  $(doxygen-cpp-config-files) \
-  $(wildcard ../../src/*/*.[cpp,h])
+core-sources = $(wildcard ../../src/*/*.[cpp,h])
+
+cpp-manual $(cpp-manual): doxygen-config-cpp-txt $(core-sources)
 	$(call run_doxygen,doxygen-config-cpp.txt,$(cpp-manual))
 
-c-manual $(c-manual): \
-  $(doxygen-c-config-files) \
-  $(wildcard ../../src/*/*.[cpp,h,c])
+c-manual $(c-manual): doxygen-config-c.txt $(core-sources)
 	$(call run_doxygen,doxygen-config-c.txt,$(c-manual))
 
 ifdef USE_PYTHON
-python-manual $(python-manual): \
-  $(doxygen-python-config-files) \
-  ../../src/bindings/python/libsbml.py
+python-sources = ../../src/bindings/python/libsbml.py
+
+python-manual $(python-manual): doxygen-config-python.txt $(python-sources)
 	$(call run_doxygen,doxygen-config-python.txt,$(python-manual))
 endif
 
