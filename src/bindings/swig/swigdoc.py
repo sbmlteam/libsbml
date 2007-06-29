@@ -10,6 +10,7 @@
 # $Id$
 # $Source$
 #
+#<!---------------------------------------------------------------------------
 # This file is part of libSBML.  Please visit http://sbml.org for more
 # information about SBML, and the latest version of libSBML.
 #
@@ -22,7 +23,7 @@
 # the Free Software Foundation.  A copy of the license agreement is provided
 # in the file named "LICENSE.txt" included with this software distribution
 # and also available online as http://sbml.org/software/libsbml/license.html
-#
+#----------------------------------------------------------------------- -->*/
 
 import sys, string, os.path, re
 
@@ -263,18 +264,6 @@ def processHeader (filename, ostream, language):
     writeDocstring(ostream, language, f.docstring, f.name, None, f.args)
 
 
-def translateCode (match):
-  text = match.group()
-  text = text.replace('<p>', '')
-  text = text.replace('<', '&lt;')
-  text = text.replace('>', '&gt;')
-  text = re.sub('@code[ \t]*', r'<div class=\'fragment\'><pre>', text)
-
-  p = re.compile('\s*\*\s+@endcode', re.MULTILINE)
-  text = p.sub(r'</pre></div>', text)
-
-  return text
-
 
 def translateVerbatim (match):
   text = match.group()
@@ -284,9 +273,10 @@ def translateVerbatim (match):
     tagName = 'code'
   text = text.replace('<p>', '')
   text = text.replace('<', '&lt;')
+  text = text.replace('>', '&gt;')
 
   regexp = '@' + tagName + '[ \t]*'
-  text = re.sub(regexp, r'<div class=\'fragment\'><pre>', text)
+  text = re.sub(regexp, r"<div class='fragment'><pre>", text)
 
   regexp = '(\s*\*\s*)*@end' + tagName
   p = re.compile(regexp, re.MULTILINE)
@@ -295,20 +285,29 @@ def translateVerbatim (match):
   return text
 
 
-def sanitizeForJava (docstring):
-  """sanitizeForJava (docstring) -> docstring
 
-  Performs some mimimal javadoc-specific sanitizations on the
-  C++/Doxygen docstring.
+def sanitizeForHTML (docstring):
+  """sanitizeForHTML (docstring, boolean) -> docstring
+
+  Performs some mimimal HTML transformations on the C++/Doxygen docstring.
   """
 
-  # Replace blank lines between paragraphs with <p>:
+  # Replace blank lines between paragraphs with <p>.  There are two main
+  # cases: comments blocks whose lines always begin with an asterix (e.g.,
+  # C/C++), and comment blocks where they don't (e.g., Python).  The third
+  # substitution below does the same thing for blank lines, except for the
+  # very end of the doc string.
 
   p = re.compile('^(\s+)\*\s*$', re.MULTILINE)
   docstring = p.sub(r'\1* <p>', docstring)
+  p = re.compile('^((?!\s+\Z)\s+)$', re.MULTILINE)
+  docstring = p.sub(r'\1<p>', docstring)
+  p = re.compile('^(?!\Z)$', re.MULTILINE)
+  docstring = p.sub(r'<p>', docstring)
 
   # There's no verbatim or @code/@endcode equivalent, so we have to convert
   # it to raw HTML and transform the content too.  This requires helpers.
+  # The following treats both @verbatim and @code the same way.
 
   p = re.compile('@verbatim.+?@endverbatim', re.DOTALL)
   docstring = p.sub(translateVerbatim, docstring)
@@ -321,12 +320,14 @@ def sanitizeForJava (docstring):
   docstring = p.sub(r'<h2>\1</h2>', docstring)
   p = re.compile('@subsection\s+[^\s]+\s+(.*)$', re.MULTILINE)
   docstring = p.sub(r'<h3>\1</h3>', docstring)
+  p = re.compile('@subsubsection\s+[^\s]+\s+(.*)$', re.MULTILINE)
+  docstring = p.sub(r'<h4>\1</h4>', docstring)
 
   # Javadoc doesn't have an @image command.  We translate @image html
   # but ditch @image latex.
 
   p = re.compile('@image\s+html+\s+([^\s]+).*$', re.MULTILINE)
-  docstring = p.sub(r'<center><img src=\"\1\"></center><br>', docstring)
+  docstring = p.sub(r"<center><img src='\1'></center><br>", docstring)
   p = re.compile('@image\s+latex+\s+([^\s]+).*$', re.MULTILINE)
   docstring = p.sub(r'', docstring)
 
@@ -334,9 +335,10 @@ def sanitizeForJava (docstring):
 
   docstring = re.sub('(\s)%(\w)', r'\1\2', docstring)
 
-  # Doxygen doesn't understand HTML character codes like &ge;, so we use
-  # doxygen's Latex facility, but of course, javadoc doesn't understand the
-  # latex markup.  This is getting old.
+  # Doxygen doesn't understand HTML character codes like &ge;, so we've
+  # been using doxygen's Latex facility to get special mathematical
+  # characters into the documentation, but as luck would have it, Javadoc
+  # doesn't understand the Latex markup.  All of this is getting old.
 
   docstring = re.sub(r'\\f\$\\geq\\f\$', '&#8805;', docstring)
   docstring = re.sub(r'\\f\$\\leq\\f\$', '&#8804;', docstring)
@@ -357,6 +359,24 @@ def sanitizeForJava (docstring):
 
   docstring = docstring.replace('@li', '<li>')
 
+  docstring = re.sub(r'\s*\Z', '\n', docstring)
+
+  return docstring
+
+
+def sanitizeForJava (docstring):
+  """sanitizeForJava (docstring) -> docstring
+
+  Performs some mimimal javadoc-specific sanitizations on the
+  C++/Doxygen docstring.
+  """
+
+  docstring = sanitizeForHTML(docstring)
+
+  # Need to escape the quotation marks:
+  docstring = docstring.replace('"', "'")
+  docstring = docstring.replace(r"'", r"\'")
+
   return docstring
 
 
@@ -367,8 +387,15 @@ def sanitizeForPython (docstring):
   Performs some mimimal Python specific sanitizations on the
   C++/Doxygen docstring.
   """
-  docstring = docstring.replace('/**', '').replace('*/', '').replace('*', '')
-  docstring = docstring.replace('@return', 'Returns')
+
+  docstring = docstring.replace('/**', '').replace('*/', '')
+  p = re.compile('^(\s*)\*[ \t]*', re.MULTILINE)
+  docstring = p.sub(r'', docstring)
+
+  # Need to escape the quotation marks:
+  docstring = docstring.replace('"', "'")
+  docstring = docstring.replace(r"'", r"\'")
+
   return docstring
 
 
@@ -379,6 +406,7 @@ def sanitizeForPerl (docstring):
   Performs some mimimal Perl specific sanitizations on the
   C++/Doxygen docstring.
   """
+
   docstring = docstring.replace('/**', '').replace('*/', '').replace('*', '')
   docstring = docstring.replace('@return', 'Returns')
   docstring = docstring.replace(' < ', ' E<lt> ').replace(' > ', ' E<gt> ')
@@ -397,6 +425,7 @@ def writeDocstring (ostream, language, docstring, methodname, classname, args=No
   given class method (or function) with a docstring appropriate for
   the given language.
   """
+
   if language == 'java':
     pre  = '%javamethodmodifiers'
     post = ' public'
@@ -406,8 +435,6 @@ def writeDocstring (ostream, language, docstring, methodname, classname, args=No
   else:
     pre  = '%feature("docstring")'
     post = ''
-
-  docstring = docstring.replace('"', "'")
 
   if language == 'java':
     docstring = sanitizeForJava(docstring)
@@ -423,6 +450,8 @@ def writeDocstring (ostream, language, docstring, methodname, classname, args=No
 
   if language == 'perl':
     output += '%s\n\n%s%s\n\n'   % (methodname, docstring, post)
+  elif language == 'python':
+    output += '%s "\n%s%s";\n\n' % (methodname, docstring, post)
   else:
     output += '%s%s "\n%s%s";\n\n' % (methodname, args, docstring, post)
 
@@ -430,16 +459,20 @@ def writeDocstring (ostream, language, docstring, methodname, classname, args=No
   ostream.flush()
 
 
+
 def writeClassDocstring (ostream, language, docstring, classname):
   if language == 'java':
     pre  = '%typemap(javaimports)'
-    docstring = docstring.replace('"', "'")
     docstring = sanitizeForJava(docstring)
+  elif language == 'python':
+    pre  = '%feature("docstring")'
+    docstring = sanitizeForPython(docstring)
 
-    output = pre + ' ' + classname + ' "\n' + docstring + '"\n\n'
+  output = pre + ' ' + classname + ' "\n' + docstring + '"\n\n'
 
-    ostream.write(output)
-    ostream.flush()
+  ostream.write(output)
+  ostream.flush()
+
 
 
 def main (args):
@@ -450,6 +483,7 @@ def main (args):
   libsbml.i             is the master libsbml SWIG interface file.
   docstrings.i          is the file to output the SWIG docstrings.
   """
+
   if len(args) != 5:
     print main.__doc__
     sys.exit(1)
