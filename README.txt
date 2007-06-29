@@ -76,10 +76,6 @@ commands to build and install it:
   make
   make install
 
-Optionally, to install the documentation files, also do
-
-  make install-docs
-
 To compile C or C++ programs that use libSBML with GCC, use a command
 such as the following, where -lsbml tells the compiler to link with
 the installed libSBML library:
@@ -130,10 +126,9 @@ Feature Highlights:
   - Complete user manual
 
       Documentation is available in the "docs" subdirectory in both
-      pre-formatted and source form.  Pre-formatted documents are
-      available in PDF, TeX DVI, and HTML formats.  Full
-      documentation, including copies of the API references, are also
-      available online from http://sbml.org/software/libsbml/.
+      pre-formatted and source form.  Full documentation, including
+      copies of the API references, are also available online from
+      http://sbml.org/software/libsbml/.
 
   - Small memory footprint and fast runtime
 
@@ -250,10 +245,6 @@ Note that you will probably have to perform the make install command
 as the user 'root' on your system if you used the default installation
 directory (/usr/local) or you set --prefix to a system directory that
 only root is permitted to write into.
-
-Optionally, to install local copies of the documentation, execute
-
-  make docs
 
 Finally, on most platforms, you will also need to either run the
 system program 'ldconfig' as user 'root' (consult the man page for
