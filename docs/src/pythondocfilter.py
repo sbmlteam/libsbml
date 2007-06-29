@@ -127,15 +127,18 @@ def main (args):
     print main.__doc__
     sys.exit(1)
 
-  # If the file name doesn't end in .py, skip it:
-  if not re.search('.py$', args[1]):
-    sys.exit(0)
-
   istream    = open(args[1], 'r')
   contents   = istream.read()
   istream.close()
 
-  sys.stdout.write(filterForDoxygen(contents))
+  # Only process the content if it's Python.
+
+  if re.search('.py$', args[1]):
+    sys.stdout.write(filterForDoxygen(contents))
+  else:
+    sys.stdout.write(contents)
+
+  sys.exit(0)
 
 
 if __name__ == '__main__':
