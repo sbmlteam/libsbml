@@ -1682,9 +1682,9 @@ static const sbmlErrorTableEntry errorTable[] =
   {
     SBMLError::CircularRuleDependency,
     SBMLError::SBMLConsistency,
-    SBMLError::GeneralWarning,
-    SBMLError::Error,
-    SBMLError::Error,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
+    SBMLError::NotApplicable,
     SBMLError::Error,
     SBMLError::Error,
     ""

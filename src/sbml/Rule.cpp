@@ -600,6 +600,7 @@ Rule::readAttributes (const XMLAttributes& attributes)
     expectedAttributes.push_back("compartment");
     expectedAttributes.push_back("name");
     expectedAttributes.push_back("units");
+    expectedAttributes.push_back("type");
   }
   else
   {

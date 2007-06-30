@@ -1263,13 +1263,45 @@ EXTERN_CONSTRAINT(20803, UniqueVarsInInitialAssignmentsAndRules)
 
 START_CONSTRAINT (20901, AssignmentRule, r)
 {
-  msg =
-    "The value of an <assignmentRule>'s 'variable' must be the identifier of "
-    "an existing <compartment>, <species>, or globally-defined <parameter>. "
-    "(References: L2V1 Section 4.8.2; L2V2 Section 4.11.3.)";
-
-
+  if (r.getLevel() == 1)
+  {
+    pre ( r.isScalar() );
+  }
   pre( r.isSetVariable() );
+
+  if (r.getLevel() == 2)
+  {
+    msg =
+      "The value of an <assignmentRule>'s 'variable' must be the identifier of "
+      "an existing <compartment>, <species>, or globally-defined <parameter>. "
+      "(References: L2V1 Section 4.8.2; L2V2 Section 4.11.3.)";
+  }
+  else
+  {
+    if (r.isCompartmentVolume())
+    {
+      msg =
+        "The value of a <compartmentVolumeRule>'s 'compartment' must be the "
+        "identifier of an existing <compartment>. "
+        "(References: L1V2 Section 4.6.3.)";
+    }
+    else if (r.isSpeciesConcentration())
+    {
+      msg =
+        "The value of a <speciesConcentrationRule>'s 'species' must be the "
+        "identifier of an existing <species>. "
+        "(References: L1V2 Section 4.6.2.)";
+    }
+    else
+    {
+      msg =
+        "The value of a <parameterRule>'s 'name' must be the "
+        "identifier of an existing <parameter>. "
+        "(References: L1V2 Section 4.6.4.)";
+    }
+  }
+
+
 
   const string& id = r.getVariable();
 
@@ -1282,13 +1314,45 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20902, RateRule, r)
 {
-  msg =
-    "The value of a <rateRule>'s 'variable' must be the identifier of an "
-    "existing <compartment>, <species>, or globally-defined <parameter>. "
-    "(References: L2V1 Section 4.8.3; L2V2 Section 4.11.4.)";
-
-
+  if (r.getLevel() == 1)
+  {
+    pre ( r.isRate() );
+  }
   pre( r.isSetVariable() );
+
+  if (r.getLevel() == 2)
+  {
+    msg =
+      "The value of a <rateRule>'s 'variable' must be the identifier of an "
+      "existing <compartment>, <species>, or globally-defined <parameter>. "
+      "(References: L2V1 Section 4.8.3; L2V2 Section 4.11.4.)";
+  }
+  else
+  {
+    if (r.isCompartmentVolume())
+    {
+      msg =
+        "The value of a <compartmentVolumeRule>'s 'compartment' must be the "
+        "identifier of an existing <compartment>. "
+        "(References: L1V2 Section 4.6.3.)";
+    }
+    else if (r.isSpeciesConcentration())
+    {
+      msg =
+        "The value of a <speciesConcentrationRule>'s 'species' must be the "
+        "identifier of an existing <species>. "
+        "(References: L1V2 Section 4.6.2.)";
+    }
+    else
+    {
+      msg =
+        "The value of a <parameterRule>'s 'name' must be the "
+        "identifier of an existing <parameter>. "
+        "(References: L1V2 Section 4.6.4.)";
+    }
+  }
+
+
 
   const string& id = r.getVariable();
 
@@ -1301,6 +1365,9 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20903, AssignmentRule, r)
 {
+  pre( r.getLevel() == 2);
+  pre( r.isSetVariable() );
+
   msg =
     "Any <compartment>, <species> or <parameter> whose identifier is the "
     "value of a 'variable' attribute in an <assignmentRule>, must have a value "
@@ -1308,8 +1375,6 @@ START_CONSTRAINT (20903, AssignmentRule, r)
     "Section 4.11.3.)";
 
 
-  pre( r.isSetVariable() );
-  pre( r.getLevel() == 2);
 
   const string& id = r.getVariable();
 
@@ -1328,14 +1393,15 @@ END_CONSTRAINT
 
 START_CONSTRAINT (20904, RateRule, r)
 {
+  pre( r.getLevel() == 2);
+  pre( r.isSetVariable() );
+
   msg =
     "Any <compartment>, <species> or <parameter> whose identifier is the "
     "value of a 'variable' attribute in an <rateRule>, must have a value of "
     "'false' for 'constant'. (References: L2V1 Section 4.8.4; L2V2 Section "
     "4.11.4.)";
 
-
-  pre( r.isSetVariable() );
 
   const string& id = r.getVariable();
 
